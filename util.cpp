@@ -480,22 +480,6 @@ bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width, in
    // Create QImage
    jpeg_start_decompress(&cinfo);
 
-   //QImage img;
-
-#ifdef QT_HAVE_MAX_IMAGE_SIZE  // An extension made by SUSE to Qt :-(((
-   // If we have an image larger than maxImageSize() the call to img->create()
-   // will fail.
-   static QSize max_size = QImage::maxImageSize();
-   if (max_size.width() < (int) cinfo.output_width) {
-     max_size.setWidth(cinfo.output_width);
-     QImage::setMaxImageSize(max_size);
-   }
-   if (max_size.height() < (int) cinfo.output_height) {
-     max_size.setHeight(cinfo.output_height);
-     QImage::setMaxImageSize(max_size);
-   }
-#endif
-
    switch(cinfo.output_components) {
    case 3:
    case 4:

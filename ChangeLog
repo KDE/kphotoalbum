@@ -1,5 +1,9 @@
 2005-01-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* On Robert's request, removed the patch from 2004-12-08 to work
+	around SUSE's max image size - due to Robert, it obviously didn't
+	work.
+
 	* Read EXIF info out of .thm files (patch from Robert L Krawitz <rlk@alum.mit.edu>)
 
 2004-12-30  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

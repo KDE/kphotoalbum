@@ -171,3 +171,5 @@ bool DrawHandler::hasDrawings() const
     return _drawings.size() != 0;
 }
 
+
+#include "drawhandler.moc"

@@ -292,7 +292,7 @@ void ImageConfig::slotOK()
                 info->startDate().setYear( _startDate->date().year() );
             }
             if ( _time->time().isValid() ) {
-                if ( _addTime->isHidden() ) {
+                if ( !_time->isHidden() ) {
                     info->startDate().setHour( _time->time().hour());
                     info->startDate().setMinute( _time->time().minute());
                     info->startDate().setSecond( _time->time().second());

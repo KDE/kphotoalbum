@@ -32,9 +32,11 @@
 #include <qcheckbox.h>
 #include <kinputdialog.h>
 #include <qwhatsthis.h>
+#include <kglobal.h>
+#include <kiconloader.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
-    :KDialogBase( Tabbed, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
+    :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createOptionGroupsPage();
@@ -43,7 +45,9 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
 
 void OptionsDialog::createGeneralPage()
 {
-    QWidget* top = addPage( i18n("General" ) );
+    QWidget* top = addPage( i18n("General" ), i18n("General" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ),
+                                                             KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
     // Thumbnail size
@@ -172,7 +176,9 @@ void OptionGroupItem::setLabel( const QString& label )
 
 void OptionsDialog::createOptionGroupsPage()
 {
-    QWidget* top = addPage( i18n("Option Groups") );
+    QWidget* top = addPage( i18n("Option Groups"), i18n("Option Groups"),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_choose" ),
+                                                             KIcon::Desktop, 32 ) );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
@@ -406,7 +412,9 @@ void OptionsDialog::createGroupConfig()
 {
     Options* opt = Options::instance();
 
-    QWidget* top = addPage( i18n("Member Groups" ) );
+    QWidget* top = addPage( i18n("Member Groups" ), i18n("Member Groups" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ),
+                                                             KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
     // Category

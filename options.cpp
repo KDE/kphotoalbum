@@ -507,7 +507,7 @@ QImage Options::optionImage( const QString& optionGroup, QString member, int siz
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
         if ( Options::instance()->memberMap().isGroup( optionGroup, member ) )
-            img = KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, size );
+            img = KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, size );
         else
             img = iconForOptionGroup( optionGroup, size );
     }

@@ -1,3 +1,7 @@
+2004-01-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Made the KimDaBa properties dialog look better.
+
 2004-01-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: Changed QActions to KActions in the viewer to avoid mem

@@ -477,17 +477,9 @@ void ImageConfig::viewerDestroyed()
 void ImageConfig::slotOptions()
 {
     QPopupMenu menu;
-    _noFilters.append( &menu );
-    QPopupMenu* dock = dockHideShowMenu();
-    _noFilters.append( dock );
-
-    menu.insertItem( i18n("Show/Hide windows"), dock );
+    menu.insertItem( i18n("Show/Hide windows"),  dockHideShowMenu());
     menu.insertItem( i18n("Save current window setup"), this, SLOT( slotSaveWindowSetup() ) );
     menu.exec( QCursor::pos() );
-
-    _noFilters.remove( &menu );
-    _noFilters.remove( dock );
-
 }
 
 int ImageConfig::exec()
@@ -550,25 +542,19 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
          event->type() != QEvent::MouseButtonRelease &&
          event->type() != QEvent::MouseButtonDblClick &&
          event->type() != QEvent::KeyPress &&
-         event->type() != QEvent::KeyRelease )
+         event->type() != QEvent::KeyRelease &&
+         event->type() != QEvent::ContextMenu )
         return false;
 
-    for( QValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
-        // The dock might be torn of but be ion a combined dock with another dock
-        if ( w->topLevelWidget() == (*it)->topLevelWidget() )
-            return false;
+    // Initially I used an allow list, but combo boxes pop up menu's did for example not work then.
+    if ( w->topLevelWidget()->className() == QCString( "MainView" ) || w->topLevelWidget()->className() == QCString( "Viewer" )) {
+        if ( isMinimized() )
+            showNormal();
+        raise();
+        return true;
     }
 
-    for( QValueList<QWidget*>::Iterator it = _noFilters.begin(); it != _noFilters.end(); ++it ) {
-        if ( (*it)->isTopLevel() &&  w->topLevelWidget() == *it )
-            return false;
-    }
-
-    // That was a mouse or key event to one of the other windows block it, so it looks like the config window is modal
-    if ( isMinimized() )
-        showNormal();
-    raise();
-    return true;
+    return false;
 }
 
 

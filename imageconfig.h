@@ -64,7 +64,6 @@ private:
     int _accept;
     QValueList<KDockWidget*> _dockWidgets;
     QValueList<KDockWidget*> _tornOfWindows;
-    QValueList<QWidget*> _noFilters;
 
     // Widgets
     KLineEdit* _imageLabel;

@@ -10,6 +10,8 @@ BUGS To be handled soonish
 - searching for jan 02 2003 in the demo should yield img015, but no images
   are found.
 
+- Config window layout should be saved when a new tab as been created.
+
 =======================
 BUGS of less importance
 =======================

@@ -5,7 +5,6 @@ BUGS To be handled soonish
 - drawing on an image doesn't mark it as dirty
 - drops from outside in thumnail view should simply be ignore or even
   warned about
-- searching with text from description field doesn't work
 - add more descriptions to the demo.
 - escape quotes and back quotes in descriptions when generating HTML
 - it seems like its not possible to generate HTML twice with different

@@ -109,8 +109,8 @@ bool ImageSearchInfo::match( ImageInfo* info )
     ok &= ( _label.isEmpty() || info->label().find(_label) != -1 );
 
     // -------------------------------------------------- Text
-    QString txt = _description;
-    QStringList list = QStringList::split(QRegExp(QString::fromLatin1("\\s")), txt );
+    QString txt = info->description();
+    QStringList list = QStringList::split(QRegExp(QString::fromLatin1("\\s")), _description );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         ok &= ( txt.find(*it) != -1 );
     }

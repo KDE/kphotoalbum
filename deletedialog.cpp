@@ -66,3 +66,5 @@ void DeleteDialog::deleteImages()
 
     accept();
 }
+
+#include "deletedialog.moc"

@@ -53,7 +53,10 @@ EXTRA_DIST = $(pkg_DATA)
 appsdatadir=$(kde_datadir)/kimdaba
 appsdata_DATA=tips
 
-xdg_apps_DATA = kimdaba.desktop
+xdg_apps_DATA = kimdaba.desktop kimdaba-import.desktop
+
+mimetypeapplicationdatadir = $(kde_mimedir)/application
+mimetypeapplicationdata_DATA = x-vnd.kde.kimdaba-import.desktop
 
 messages: rc.cpp
 	$(PREPARETIPS) > tips.cc

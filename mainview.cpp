@@ -137,7 +137,7 @@ MainView::MainView( QWidget* parent, const char* name )
 void MainView::delayedInit()
 {
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    if ( args->isSet( "c" ) ) {
+    if ( args->isSet( "import" ) ) {
         // I need to do this in delayed init to get the import window on top of the normal window
         Import::imageImport( args->getOption( "import" ) );
     }

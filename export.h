@@ -21,13 +21,16 @@
 
 #include <imageinfo.h>
 #include "imageclient.h"
+#include <kdialogbase.h>
+class QSpinBox;
+class QCheckBox;
 class KZip;
 class QProgressDialog;
 
 class Export :public ImageClient {
 
 public:
-    static void imageExport( const ImageInfoList& list );
+    static void imageExport( const ImageInfoList& list);
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
 
 protected:
@@ -36,13 +39,29 @@ protected:
     void copyImages( const ImageInfoList& list );
 
 private:
-    Export(  const ImageInfoList& list );
+    Export(  const ImageInfoList& list, bool compress, int maxSize );
     int _filesRemaining;
     int _steps;
     QProgressDialog* _progressDialog;
     bool _ok;
     KZip* _zip;
     QMap<QString,QString> _map;
+    int _maxSize;
+    QString _subdir;
+    bool _loopEntered;
+};
+
+class ExportConfig :public KDialogBase {
+    Q_OBJECT
+
+public:
+    ExportConfig();
+    QCheckBox* _compress;
+    QCheckBox* _enforeMaxSize;
+    QSpinBox* _maxSize;
+
+protected slots:
+    void slotHelp();
 };
 
 

@@ -24,7 +24,13 @@
 #include <klocale.h>
 #include <klibloader.h>
 #include <ktexteditor/editinterface.h>
+
+// Bug in Qt 3.1.0 needs these undefined
+#undef QT_NO_CAST_ASCII
+#undef QT_CAST_NO_ASCII
 #include <kparts/componentfactory.h>
+#define QT_NO_CAST_ASCII
+#define QT_CAST_NO_ASCII
 
 Editor::Editor( QWidget* parent, const char* name )
     :QWidget( parent, name )

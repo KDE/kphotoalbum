@@ -30,7 +30,7 @@ ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const
     QWidget* sizeBox = new QWidget( this );
     QHBoxLayout* lay = new QHBoxLayout( sizeBox, 0, 6 );
 
-    QLabel* label = new QLabel( i18n("Size"), sizeBox );
+    QLabel* label = new QLabel( i18n("Size:"), sizeBox );
     lay->addWidget( label );
 
     _width = new QSpinBox( 100, 5000, 50, sizeBox );

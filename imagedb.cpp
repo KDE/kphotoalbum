@@ -225,7 +225,7 @@ void ImageDB::loadExtraFiles()
     QProgressDialog  dialog( i18n("<qt><p><b>Loading information from images</b></p>"
                                   "<p>Depending on the number of images, this may take some time.<br/>"
                                   "However, there is only a delay when new images are found.</p></qt>"),
-                             i18n("Cancel"), _pendingLoad.count() );
+                             i18n("&Cancel"), _pendingLoad.count() );
     int count = 0;
     for( QStringList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
         if ( count % 10 == 0 ) {

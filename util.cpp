@@ -226,7 +226,7 @@ QString Util::setupDemo()
     if ( ! fi.exists() ) {
         bool ok = QDir().mkdir( dir );
         if ( !ok ) {
-            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo").arg( dir ), i18n("Error running demo") );
+            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo").arg( dir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
@@ -246,7 +246,7 @@ QString Util::setupDemo()
     if ( ! QFileInfo( configFile ).exists() ) {
         QFile out( configFile );
         if ( !out.open( IO_WriteOnly ) ) {
-            KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( configFile ), i18n("Error running demo") );
+            KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
         QTextStream( &out ) << str;
@@ -260,7 +260,7 @@ QString Util::setupDemo()
         if ( ! QFileInfo( destFile ).exists() ) {
             ok = copy( *it, destFile );
             if ( !ok ) {
-                KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
+                KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error Running Demo") );
                 exit(-1);
             }
         }
@@ -273,7 +273,7 @@ QString Util::setupDemo()
     if ( ! fi.exists() ) {
         bool ok = QDir().mkdir( dir  );
         if ( !ok ) {
-            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo").arg( dir ), i18n("Error running demo") );
+            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo").arg( dir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
@@ -285,7 +285,7 @@ QString Util::setupDemo()
         if ( ! QFileInfo( destFile ).exists() ) {
             ok = copy( *it, destFile );
             if ( !ok ) {
-                KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
+                KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error Running Demo") );
                 exit(-1);
             }
         }

@@ -174,12 +174,12 @@ void MainView::delayedInit()
 bool MainView::slotExit()
 {
     if ( Util::runningDemo() ) {
-        QString txt = i18n("<qt><p><b>Delete your temporary demo database</b></p>"
+        QString txt = i18n("<qt><p><b>Delete Your Temporary Demo Database</b></p>"
                            "<p>I hope you enjoyed the KimDaBa demo. The demo database was copied to "
                            "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
                            "on the other hand, if you want to come back and try the demo again, you "
                            "might want to keep it around with the changes you made through this session.</p></qt>" );
-        int ret = KMessageBox::questionYesNoCancel( this, txt, i18n("Delete demo database"),
+        int ret = KMessageBox::questionYesNoCancel( this, txt, i18n("Delete Demo Database"),
                                                     KStdGuiItem::yes(), KStdGuiItem::no(),
                                                     QString::fromLatin1("deleteDemoDatabase") );
         if ( ret == KMessageBox::Cancel )
@@ -631,9 +631,9 @@ void MainView::setupMenuBar()
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     _deleteSelected = new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
-    _configOneAtATime = new KAction( i18n( "Configure images &one at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+    _configOneAtATime = new KAction( i18n( "Configure Images &One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
-    _configAllSimultaniously = new KAction( i18n( "Configure &all images simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+    _configAllSimultaniously = new KAction( i18n( "Configure &All Images Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
 
     // The Images menu
@@ -647,7 +647,7 @@ void MainView::setupMenuBar()
     _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), 0, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );
 
-    _sortByDateAndTime = new KAction( i18n("Sort Selected by Date and Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
+    _sortByDateAndTime = new KAction( i18n("Sort Selected by Date && Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
 
@@ -655,27 +655,27 @@ void MainView::setupMenuBar()
                          actionCollection(), "lockToDefaultScope" );
     _unlock = new KAction( i18n("Unlock"), 0, this, SLOT( unlockFromDefaultScope() ),
                            actionCollection(), "unlockFromDefaultScope" );
-    new KAction( i18n("Change Password"), 0, this, SLOT( changePassword() ),
+    new KAction( i18n("Change Password..."), 0, this, SLOT( changePassword() ),
                  actionCollection(), "changeScopePasswd" );
 
     _setDefaultPos = new KAction( i18n("Mark Current View as Lock"), 0, this, SLOT( setDefaultScopePositive() ),
                                   actionCollection(), "setDefaultScopePositive" );
-    _setDefaultNeg = new KAction( i18n("Mark Everything but the Current View as Lock"), 0, this, SLOT( setDefaultScopeNegative() ),
+    _setDefaultNeg = new KAction( i18n("Mark Everything but Current View as Lock"), 0, this, SLOT( setDefaultScopeNegative() ),
                                   actionCollection(), "setDefaultScopeNegative" );
 
     // Maintenance
-    new KAction( i18n("Display Images not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
+    new KAction( i18n("Display Images Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
-    new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
-    new KAction( i18n("Read EXIF info from files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
-    new KAction( i18n("Remove all thumbnails..."), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
-    new KAction( i18n("Build thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
+    new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
+    new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
+    new KAction( i18n("Remove All Thumbnails..."), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
+    new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
 
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
     KStdAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
-    new KAction( i18n("Enable all messages"), 0, this, SLOT( slotReenableMessages() ), actionCollection(), "readdAllMessages" );
+    new KAction( i18n("Enable All Messages"), 0, this, SLOT( slotReenableMessages() ), actionCollection(), "readdAllMessages" );
 
     _viewMenu = new KActionMenu( i18n("Configure View"), QString::fromLatin1( "view_choose" ),
                                          actionCollection(), "configureView" );
@@ -874,7 +874,7 @@ void MainView::load()
     }
     else {
         if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error running demo") );
+            KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
 
@@ -1017,7 +1017,7 @@ void MainView::lockToDefaultScope()
                                                       "your last party.</p>"
                                                       "<p>In other words, anyone with access to the index.xml file can easily circumvent "
                                                       "this password.</b></p>"),
-                                                i18n("Password protection"),
+                                                i18n("Password Protection"),
                                                 KStdGuiItem::cont(),
                                                 QString::fromLatin1( "lockPassWordIsNotEncruption" ) );
     if ( i == KMessageBox::Cancel )
@@ -1038,7 +1038,7 @@ void MainView::unlockFromDefaultScope()
         OK = (Options::instance()->password() == QString(passwd));
 
         if ( !OK )
-            KMessageBox::sorry( this, i18n("Invalid Password") );
+            KMessageBox::sorry( this, i18n("Invalid password.") );
     }
     setLocked( false );
 }
@@ -1074,7 +1074,7 @@ void MainView::changePassword()
         OK = (Options::instance()->password() == QString(passwd));
 
         if ( !OK )
-            KMessageBox::sorry( this, i18n("Invalid Password") );
+            KMessageBox::sorry( this, i18n("Invalid password.") );
     }
 
     int code = KPasswordDialog::getNewPassword( passwd, i18n("Type in New Password"));

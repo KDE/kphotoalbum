@@ -464,7 +464,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
                                                   "<p>However, KimDaBa was unable to read date information from %1. This may "
                                                   "either be because the file did not contain any EXIF information, or "
                                                   "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                          i18n("Unable to Read Date from EXIF Information"),
+                                          i18n("Unable to Read Date From EXIF Information"),
                                           QString::fromLatin1("UnableToReadEXIFInformation") );
             }
 

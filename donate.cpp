@@ -25,7 +25,7 @@
 #include <kstandarddirs.h>
 
 Donate::Donate( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Donate money"), Close | User1, Close, parent, name )
+    :KDialogBase( Plain, i18n("Donate Money"), Close | User1, Close, parent, name )
 {
     QWidget* top = plainPage();
     QHBoxLayout* layout = new QHBoxLayout( top, 10 );

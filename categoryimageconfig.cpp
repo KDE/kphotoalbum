@@ -35,14 +35,14 @@ CategoryImageConfig::CategoryImageConfig()
     QGridLayout* lay2 = new QGridLayout( lay1, 2, 2 );
 
     // Group
-    QLabel* label = new QLabel( i18n("Group" ), top );
+    QLabel* label = new QLabel( i18n("Group:" ), top );
     lay2->addWidget( label, 0, 0 );
     _group = new QComboBox( top );
     lay2->addWidget( _group, 0, 1 );
     connect( _group, SIGNAL( activated( int ) ), this, SLOT( groupChanged() ) );
 
     // Member
-    label = new QLabel( i18n( "Member" ), top );
+    label = new QLabel( i18n( "Member:" ), top );
     lay2->addWidget( label, 1, 0 );
     _member = new QComboBox( top );
     lay2->addWidget( _member, 1, 1 );
@@ -50,7 +50,7 @@ CategoryImageConfig::CategoryImageConfig()
 
     // Current Value
     QGridLayout* lay3 = new QGridLayout( lay1, 2, 2 );
-    label = new QLabel( i18n("Current Image:"), top );
+    label = new QLabel( i18n("Current image:"), top );
     lay3->addWidget( label, 0, 0 );
 
     _current = new QLabel( top );
@@ -58,7 +58,7 @@ CategoryImageConfig::CategoryImageConfig()
     lay3->addWidget( _current, 0, 1 );
 
     // New Value
-    _imageLabel = new QLabel( i18n( "New Image:"), top );
+    _imageLabel = new QLabel( i18n( "New image:"), top );
     lay3->addWidget( _imageLabel, 1, 0 );
 
     _imageLabel = new QLabel( top );

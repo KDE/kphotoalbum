@@ -128,7 +128,7 @@ void HTMLExportDialog::createContentPage()
     _description = new QTextEdit( contentPage );
     lay2->addWidget( _description, 1, 1 );
 
-    _generateKimFile = new QCheckBox( i18n("Create .kim export file"), contentPage );
+    _generateKimFile = new QCheckBox( i18n("Create .kim Export File"), contentPage );
     _generateKimFile->setChecked( true );
     lay1->addWidget( _generateKimFile );
 
@@ -244,7 +244,7 @@ void HTMLExportDialog::createDestinationPage()
     lay2->addWidget( _baseURL, 1, 1 );
 
     // Destination URL
-    label = new QLabel( i18n("Url for final destination: " ), destinationPage );
+    label = new QLabel( i18n("URL for final destination:" ), destinationPage );
     lay2->addWidget( label, 2, 0 );
     _destURL = new KLineEdit( destinationPage );
     _destURL->setText( Options::instance()->HTMLDestURL() );

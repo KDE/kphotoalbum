@@ -85,12 +85,12 @@ QPopupMenu* Editor::replacementMenu( const QString& word  )
     _currentWord = word;
 
     KPopupMenu* menu = new KPopupMenu( this );
-    menu->insertTitle( i18n("Replacements:") );
+    menu->insertTitle( i18n("Replacements") );
     QStringList list = _replacements[word];
 
     int index = 0;
     if ( list.count() == 0 )
-        menu->insertItem( i18n( "No suggestions" ) );
+        menu->insertItem( i18n( "No Suggestions" ) );
     else {
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it, ++index )
             menu->insertItem( *it, index );

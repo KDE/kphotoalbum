@@ -67,7 +67,7 @@ void OptionsDialog::createGeneralPage()
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
     // Thrust time stamps
-    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates"), top );
+    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), top );
     _trustTimeStamps = new KComboBox( top );
     _trustTimeStamps->insertStringList( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
     QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
@@ -83,7 +83,7 @@ void OptionsDialog::createGeneralPage()
     lay1->addWidget( _useEXIFComments );
 
     // Auto save
-    QLabel* label = new QLabel( i18n("Auto save every"), top );
+    QLabel* label = new QLabel( i18n("Auto save every:"), top );
     _autosave = new QSpinBox( 1, 120, 1, top );
     _autosave->setSuffix( i18n( "min." ) );
     QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
@@ -92,7 +92,7 @@ void OptionsDialog::createGeneralPage()
     lay6->addStretch( 1 );
 
     // Album Category
-    QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums" ), top, "albumCategoryLabel" );
+    QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), top, "albumCategoryLabel" );
     _albumCategory = new QComboBox( top, "_albumCategory" );
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
@@ -153,7 +153,7 @@ void OptionsDialog::createThumbNailPage()
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
     // Thumbnail size
-    QLabel* label = new QLabel( i18n("Thumbnail size"), top );
+    QLabel* label = new QLabel( i18n("Thumbnail size:"), top );
     _thumbnailSize = new QSpinBox( 16, 512, 8, top );
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
     lay2->addWidget( label );
@@ -161,7 +161,7 @@ void OptionsDialog::createThumbNailPage()
     lay2->addStretch(1);
 
     // Preview size
-    QLabel* previewSizeLabel = new QLabel( i18n("Preview Image Size" ), top, "previewSizeLabel" );
+    QLabel* previewSizeLabel = new QLabel( i18n("Preview image size:" ), top, "previewSizeLabel" );
     _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
     _previewSize->setSpecialValueText( i18n("No Image Preview") );
     lay2 = new QHBoxLayout( lay1, 6 );
@@ -170,7 +170,7 @@ void OptionsDialog::createThumbNailPage()
     lay2->addStretch( 1 );
 
     // Max images to show per page
-    QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page"), top );
+    QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page:"), top );
     _maxImages = new QSpinBox( 10, 10000, 1, top ) ;
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
     lay4->addWidget( maxImagesLabel );
@@ -182,7 +182,7 @@ void OptionsDialog::createThumbNailPage()
     lay1->addWidget( _displayLabels );
 
     // Background Color
-    QLabel* backgroundColorLabel = new QLabel( i18n( "Background color " ), top, "backgroundColorLabel" );
+    QLabel* backgroundColorLabel = new QLabel( i18n( "Background color:" ), top, "backgroundColorLabel" );
     _backgroundColor = new KColorButton( black, top, "_backgroundColor" );
     QHBoxLayout* lay5 = new QHBoxLayout( lay1, 6 );
     lay5->addWidget( backgroundColorLabel );
@@ -283,7 +283,7 @@ void OptionsDialog::createOptionGroupsPage()
     lay3->addStretch(1);
 
     // Prefered View
-    _preferredViewLabel = new QLabel( i18n("Preferred View:"), top );
+    _preferredViewLabel = new QLabel( i18n("Preferred view:"), top );
     lay3->addWidget( _preferredViewLabel );
 
     _preferredView = new QComboBox( top );
@@ -520,7 +520,7 @@ void OptionsDialog::createGroupConfig()
 
     // Category
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
-    QLabel* label = new QLabel( i18n( "Category" ), top );
+    QLabel* label = new QLabel( i18n( "Category:" ), top );
     lay2->addWidget( label );
     _category = new QComboBox( top );
     lay2->addWidget( _category );
@@ -546,10 +546,10 @@ void OptionsDialog::createGroupConfig()
     QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
     lay6->addStretch(1);
 
-    _rename = new QPushButton( i18n( "Rename Group"), top );
-    lay6->addWidget( _rename );
-    QPushButton* add = new QPushButton( i18n("Add Group" ), top );
+    QPushButton* add = new QPushButton( i18n("Add Group..." ), top );
     lay6->addWidget( add );
+    _rename = new QPushButton( i18n( "Rename Group..."), top );
+    lay6->addWidget( _rename );
     _del = new QPushButton( i18n("Delete Group" ), top );
     lay6->addWidget( _del );
 
@@ -617,7 +617,7 @@ void OptionsDialog::slotGroupSelected( QListBoxItem* item )
 void OptionsDialog::slotAddGroup()
 {
     bool ok;
-    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group Name"), QString::null, &ok );
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), QString::null, &ok );
     if ( ok ) {
         saveOldGroup();
         QListBoxItem* item = new QListBoxText( _groups, text );
@@ -635,7 +635,7 @@ void OptionsDialog::slotRenameGroup()
     bool ok;
     QListBoxItem* item = _groups->item( _groups->currentItem() );
     QString currentValue = item->text();
-    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group Name"), currentValue, &ok );
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), currentValue, &ok );
     if ( ok ) {
         saveOldGroup();
         _memberMap.renameGroup( _currentCategory, currentValue, text );
@@ -726,22 +726,22 @@ void OptionsDialog::createViewerPage()
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
-    _slideShowSetup = new ViewerSizeConfig( i18n( "Running slide show from thumbnail view" ), top, "_slideShowSetup" );
+    _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), top, "_slideShowSetup" );
     lay1->addWidget( _slideShowSetup );
 
-    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing images from thumbnail view" ), top, "_viewImageSetup" );
+    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images From Thumbnail View" ), top, "_viewImageSetup" );
     lay1->addWidget( _viewImageSetup );
 
     QGridLayout* glay = new QGridLayout( lay1, 2, 2, 6 );
 
-    QLabel* label = new QLabel( i18n("Slideshow interval" ), top );
+    QLabel* label = new QLabel( i18n("Slideshow interval:" ), top );
     glay->addWidget( label, 0, 0 );
 
     _slideShowInterval = new QSpinBox( 1, INT_MAX, 1, top );
     glay->addWidget( _slideShowInterval, 0, 1 );
     _slideShowInterval->setSuffix( i18n( " sec" ) );
 
-    label = new QLabel( i18n("Image cache"), top );
+    label = new QLabel( i18n("Image cache:"), top );
     glay->addWidget( label, 1, 0 );
 
     _cacheSize = new QSpinBox( 0, 2000, 10, top, "_cacheSize" );

@@ -632,14 +632,14 @@ void Options::setOptionImage( const QString& optionGroup, QString member, const 
     if ( !fi.exists() ) {
         bool ok = QDir().mkdir( dir );
         if ( !ok ) {
-            QMessageBox::warning( 0, i18n("Unable to create directory"), i18n("Unable to create directory %1").arg( dir ), QMessageBox::Ok, 0 );
+            QMessageBox::warning( 0, i18n("Unable to Create Directory"), i18n("Unable to create directory %1").arg( dir ), QMessageBox::Ok, 0 );
             return;
         }
     }
     QString fileName = fileForCategoryImage( optionGroup, member );
     ok = image.save( fileName, "JPEG" );
     if ( !ok ) {
-        QMessageBox::warning( 0, i18n("Error saving image"), i18n("Error when saving image %1").arg(fileName), QMessageBox::Ok, 0 );
+        QMessageBox::warning( 0, i18n("Error Saving Image"), i18n("Error when saving image %1").arg(fileName), QMessageBox::Ok, 0 );
         return;
     }
 }

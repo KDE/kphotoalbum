@@ -46,7 +46,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     lay2->addWidget( textLabel2 );
     textLabel2->setText( i18n( "<h1>Welcome to KimDaba</h1>"
                                "<p>If you are interested in trying out KimDaBa with a prebuild set of images, "
-                               "then simply choose the <b>Load demo</b> "
+                               "then simply choose the <b>Load Demo</b> "
                                "button. You may get to this demo at a later time from the <b>Help</b> menu.</p>"
                                "<p>Alternatively you may start making you own database of images, simply by pressing the "
                                "<b>Create my own database</b> button") );
@@ -54,10 +54,10 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
     lay3->addStretch( 1 );
 
-    QPushButton* loadDemo = new QPushButton( i18n("Load demo"), this, "loadDemo" );
+    QPushButton* loadDemo = new QPushButton( i18n("Load Demo"), this, "loadDemo" );
     lay3->addWidget( loadDemo );
 
-    QPushButton* createSetup = new QPushButton( i18n("Create my own database"), this );
+    QPushButton* createSetup = new QPushButton( i18n("Create My Own Database"), this );
     lay3->addWidget( createSetup );
 
     connect( loadDemo, SIGNAL( clicked() ), this, SLOT( slotLoadDemo() ) );
@@ -107,7 +107,7 @@ FileDialog::FileDialog( QWidget* parent, const char* name ) :QDialog( parent, na
 
     QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
     lay3->addStretch( 1 );
-    button = new QPushButton( i18n("OK"), this );
+    button = new QPushButton( i18n("&OK"), this );
     button->setDefault(true);
     lay3->addWidget( button );
 

@@ -72,7 +72,7 @@ void DeleteDialog::deleteImages()
                 bool ok = QFile( (*it)->fileName() ).remove();
                 if ( !ok ) {
                     KMessageBox::error( this, i18n("Unable to delete file %1").arg((*it)->fileName()),
-                                        i18n("Error deleting files") );
+                                        i18n("Error Deleting Files") );
                 }
             }
         }

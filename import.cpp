@@ -53,7 +53,7 @@ class KPushButton;
 
 void Import::imageImport()
 {
-    KURL url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
+    KURL url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KimDaBa Export Files" ), 0 );
     if ( url.isEmpty() )
         return;
     imageImport( url );
@@ -115,7 +115,7 @@ bool Import::init( const QString& fileName )
     _finishedPressed = false;
     _zip = new KZip( fileName );
     if ( !_zip->open( IO_ReadOnly ) ) {
-        KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( fileName ), i18n("Error importing data") );
+        KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( fileName ), i18n("Error Importing Data") );
         _zip =0;
         return false;
     }
@@ -182,7 +182,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( !node.isElement() || ! (node.toElement().tagName().lower() == QString::fromLatin1( "image" ) ) ) {
-            KMessageBox::error( this, i18n("Unknown element while reading %1, expected Image").arg( fileName ) );
+            KMessageBox::error( this, i18n("Unknown element while reading %1, expected image.").arg( fileName ) );
             return false;
         }
         QDomElement elm = node.toElement();
@@ -267,7 +267,7 @@ void Import::createImagesPage()
         _imagesSelect.append( ir );
     }
 
-    addPage( top, i18n("Select which Images to Import") );
+    addPage( top, i18n("Select Which Images to Import") );
 }
 
 ImageRow::ImageRow( ImageInfo* info, Import* import, QWidget* parent )
@@ -348,7 +348,7 @@ void Import::createDestination()
     _destinationEdit->setText( Options::instance()->imageDirectory());
     connect( but, SIGNAL( clicked() ), this, SLOT( slotEditDestination() ) );
     connect( _destinationEdit, SIGNAL( textChanged( const QString& ) ), this, SLOT( updateNextButtonState() ) );
-    addPage( top, i18n("Destination of images" ) );
+    addPage( top, i18n("Destination of Images" ) );
 }
 
 void  Import::slotEditDestination()
@@ -394,7 +394,7 @@ void Import::createOptionPages()
 
     _optionGroupMatcher = new ImportMatcher( QString::null, QString::null, options, Options::instance()->optionGroups(),
                                              false, this, "import matcher" );
-    addPage( _optionGroupMatcher, i18n("Match option groups") );
+    addPage( _optionGroupMatcher, i18n("Match Option Groups") );
 
     _dummy = new QWidget( this );
     addPage( _dummy, QString::null );
@@ -490,7 +490,7 @@ void Import::copyFromExternal()
 {
     _pendingCopies = selectedImages();
     _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("Cancel"), _pendingCopies.count(), 0, "_progress", true );
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), _pendingCopies.count(), 0, "_progress", true );
     _progress->setProgress( 0 );
     _progress->show();
     connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
@@ -610,12 +610,12 @@ QPixmap Import::loadThumbnail( QString fileName )
 {
     const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
     if ( !thumbnails ) {
-        KMessageBox::error( this, i18n("export file did not contain a Thumbnails subdirectory, this indicates that the file is broken") );
+        KMessageBox::error( this, i18n("Export file did not contain a Thumbnails subdirectory, this indicates that the file is broken.") );
         return QPixmap();
     }
 
     if ( !thumbnails->isDirectory() ) {
-        KMessageBox::error( this, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken") );
+        KMessageBox::error( this, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken.") );
         return QPixmap();
     }
 

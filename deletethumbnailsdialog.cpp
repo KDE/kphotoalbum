@@ -26,7 +26,7 @@
 #include <qdir.h>
 
 DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Delete thumbnails" ), Cancel | User1, Cancel, parent, name )
+    :KDialogBase( Plain, i18n("Delete Thumbnails" ), Cancel | User1, Cancel, parent, name )
 {
     QWidget* top = plainPage();
     QVBoxLayout* layout = new QVBoxLayout( top, 10 );

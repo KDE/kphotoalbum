@@ -58,7 +58,7 @@ FolderAction* DateFolder::action( bool /* ctrlDown */ )
 }
 
 DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
-    :KDialogBase( KDialogBase::Plain, i18n("Date search"), KDialogBase::Ok | KDialogBase::Cancel, KDialogBase::Ok, parent, name ), _toChanged( false )
+    :KDialogBase( KDialogBase::Plain, i18n("Date Search"), KDialogBase::Ok | KDialogBase::Cancel, KDialogBase::Ok, parent, name ), _toChanged( false )
 {
     QWidget* top = plainPage();
     QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );

@@ -48,7 +48,7 @@ void Export::imageExport( const ImageInfoList& list )
         maxSize = config._maxSize->value();
 
     // Ask for zip file name
-    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
+    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa Export Files" ), 0 );
     if ( zipFile.isNull() )
         return;
 
@@ -70,7 +70,7 @@ ExportConfig::ExportConfig()
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
     // Include images
-    QVButtonGroup* grp = new QVButtonGroup( i18n("How to handle images"), top );
+    QVButtonGroup* grp = new QVButtonGroup( i18n("How to Handle Images"), top );
     lay1->addWidget( grp );
     _include = new QRadioButton( i18n("Include in .kim file"), grp );
     _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
@@ -78,7 +78,7 @@ ExportConfig::ExportConfig()
     _manually->setChecked( true );
 
     // Compress
-    _compress = new QCheckBox( i18n("Compress Export File"), top );
+    _compress = new QCheckBox( i18n("Compress export file"), top );
     lay1->addWidget( _compress );
 
     // Enforece max size
@@ -153,7 +153,7 @@ Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress
         total *= 2;  // number of images *  copy images
 
     _steps = 0;
-    _progressDialog = new QProgressDialog( QString::null, i18n("Cancel"), total, 0, "progress dialog", true );
+    _progressDialog = new QProgressDialog( QString::null, i18n("&Cancel"), total, 0, "progress dialog", true );
     _progressDialog->setProgress( 0 );
     _progressDialog->show();
 
@@ -330,7 +330,7 @@ void Export::showUsageDialog()
               "This will make your web server tell konqueror that it is a KimDaBa fill when clicking on the link, "
               "otherwise the web server will just tell konqueror that it is a plain text file.</p></qt>" );
 
-    KMessageBox::information( 0, txt, i18n("How to use the export file"), QString::fromLatin1("export_how_to_use_the_export_file") );
+    KMessageBox::information( 0, txt, i18n("How to Use the Export File"), QString::fromLatin1("export_how_to_use_the_export_file") );
 }
 
 

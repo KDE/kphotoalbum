@@ -106,7 +106,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     lay7->addStretch(1);
     _time->hide();
 
-    _addTime= new QPushButton(i18n("Add Time Info.."),top);
+    _addTime= new QPushButton(i18n("Add Time Info..."),top);
     lay7->addWidget( _addTime );
     lay7->addStretch(1);
     _addTime->hide();
@@ -186,21 +186,21 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- The buttons.
     QHBoxLayout* lay1 = new QHBoxLayout( layout, 6 );
 
-    _revertBut = new QPushButton( i18n("Revert this image"), this );
+    _revertBut = new QPushButton( i18n("Revert This Image"), this );
     lay1->addWidget( _revertBut );
 
-    QPushButton* clearBut = new QPushButton( i18n("Clear form"), this );
+    QPushButton* clearBut = new QPushButton( i18n("Clear Form"), this );
     lay1->addWidget( clearBut );
 
-    QPushButton* optionsBut = new QPushButton( i18n("Options..." ), this );
+    QPushButton* optionsBut = new QPushButton( i18n("Options" ), this );
     lay1->addWidget( optionsBut );
 
     lay1->addStretch(1);
 
-    _okBut = new QPushButton( i18n("OK"), this );
+    _okBut = new QPushButton( i18n("&OK"), this );
     lay1->addWidget( _okBut );
 
-    QPushButton* cancelBut = new QPushButton( i18n("Cancel"), this );
+    QPushButton* cancelBut = new QPushButton( i18n("&Cancel"), this );
     lay1->addWidget( cancelBut );
 
     connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
@@ -529,8 +529,8 @@ void ImageConfig::viewerDestroyed()
 void ImageConfig::slotOptions()
 {
     QPopupMenu menu( this, "context popup menu");
-    menu.insertItem( i18n("Show/Hide windows"),  _dockWindow->dockHideShowMenu());
-    menu.insertItem( i18n("Save current window setup"), this, SLOT( slotSaveWindowSetup() ) );
+    menu.insertItem( i18n("Show/Hide Windows"),  _dockWindow->dockHideShowMenu());
+    menu.insertItem( i18n("Save Current Window Setup"), this, SLOT( slotSaveWindowSetup() ) );
     menu.exec( QCursor::pos() );
 }
 

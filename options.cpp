@@ -34,7 +34,6 @@ Options::Options()
     _thumbSize = top.attribute( "thumbSize", QString::number(_thumbSize) ).toInt();
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
-    _markNew = top.attribute( "markNew",  "1" ).toInt();
     _imageDirectory = top.attribute( "imageDirectory" );
 
     _infoBoxPosition = (Position) top.attribute( "infoBoxPosition", "0" ).toInt();
@@ -90,7 +89,6 @@ void Options::save()
     top.setAttribute( "thumbSize", _thumbSize );
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
-    top.setAttribute( "markNew", _markNew );
     top.setAttribute( "imageDirectory", _imageDirectory );
 
 
@@ -228,14 +226,3 @@ void Options::setShowKeyWords( bool b )
 {
     _showKeyWords = b;
 }
-
-bool Options::markNew() const
-{
-    return _markNew;
-}
-
-void Options::setMarkNew( bool b )
-{
-    _markNew = b;
-}
-

@@ -28,9 +28,6 @@ public:
     QString imageDirectory() const;
     void setImageDirecotry( const QString& directory );
 
-    bool markNew() const;
-    void setMarkNew( bool );
-
     // Options for the Viewer
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     bool showInfoBox() const;

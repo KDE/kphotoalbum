@@ -86,10 +86,7 @@ void ImageConfig::slotOK()
     if ( _setup == SINGLE )  {
         save();
         for ( uint i = 0; i < _editList.count(); ++i )  {
-            bool thisChange = (*(_origList.at(i)) != _editList[i]);
-            change |= thisChange;
-            if ( thisChange )
-                _editList[i].removeOption( "Keywords", "new" );
+            change |= (*(_origList.at(i)) != _editList[i]);
             *(_origList.at(i)) = _editList[i];
         }
     }
@@ -100,31 +97,30 @@ void ImageConfig::slotOK()
         }
 
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
-            bool thisChange = false;
             ImageInfo* info = *it;
             if ( dayStart->value() != 0 ||  monthStart->currentText() != "---" || yearStart->value() != 0 )  {
                 info->startDate().setDay( dayStart->value() );
                 info->startDate().setMonth( monthStart->currentItem() );
                 info->startDate().setYear( yearStart->value() );
-                thisChange = true;
+                change = true;
             }
 
             if ( dayEnd->value() != 0 || monthEnd->currentText() != "---" || yearEnd->value() != 0 )  {
                 info->endDate().setDay( dayEnd->value() );
                 info->endDate().setMonth( monthEnd->currentItem() );
                 info->endDate().setYear( yearEnd->value() );
-                thisChange = true;
+                change = true;
             }
 
             if ( quality->currentText() != "---" ) {
                 info->setQuality( quality->currentItem() );
-                thisChange = true;
+                change = true;
             }
 
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
-                    thisChange = true;
+                    change = true;
                     if ( (*it)->merge() )
                         info->addOption( (*it)->label(),  (*it)->selection() );
                     else
@@ -133,17 +129,13 @@ void ImageConfig::slotOK()
             }
 
             if ( !label->text().isEmpty() ) {
-                thisChange = true;
+                change = true;
                 info->setLabel( label->text() );
             }
 
             if ( !description->text().isEmpty() ) {
-                thisChange = true;
-                info->setDescription( description->text() );
-            }
-            if ( thisChange ) {
-                info->removeOption( "Keywords", "new" );
                 change = true;
+                info->setDescription( description->text() );
             }
         }
     }

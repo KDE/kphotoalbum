@@ -8,6 +8,7 @@
 class ImageInfo;
 class QLabel;
 class QPopupMenu;
+class QAction;
 
 class Viewer :public QDialog,  public ImageClient
 {
@@ -45,6 +46,9 @@ protected slots:
 private:
     Viewer( QWidget* parent, const char* name = 0 );
     static Viewer* _instance;
+
+    QAction* _nextAction;
+    QAction* _prevAction;
 
     QLabel* _label;
     ImageInfoList _list;

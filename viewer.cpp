@@ -35,13 +35,13 @@ Viewer::Viewer( QWidget* parent, const char* name )
 
     QAction* action;
 
-    action = new QAction( "Show Next", QIconSet(), "Show Next", Key_PageDown, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( showNext() ) );
-    action->addTo( _popup );
+    _nextAction = new QAction( "Show Next", QIconSet(), "Show Next", Key_PageDown, this );
+    connect( _nextAction,  SIGNAL( activated() ), this, SLOT( showNext() ) );
+    _nextAction->addTo( _popup );
 
-    action = new QAction( "Show Previous",  QIconSet(), "Show Previous", Key_PageUp, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( showPrev() ) );
-    action->addTo( _popup );
+    _prevAction = new QAction( "Show Previous",  QIconSet(), "Show Previous", Key_PageUp, this );
+    connect( _prevAction,  SIGNAL( activated() ), this, SLOT( showPrev() ) );
+    _prevAction->addTo( _popup );
 
     _popup->insertSeparator();
 
@@ -159,6 +159,8 @@ void Viewer::load()
     _label->setText( "Loading..." );
 
     ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), w,  h, false );
+    _nextAction->setEnabled( _current +1 < (int) _list.count() );
+    _prevAction->setEnabled( _current > 0 );
 }
 
 void Viewer::setDisplayedPixmap()

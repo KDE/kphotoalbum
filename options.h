@@ -33,7 +33,6 @@ public:
     void setAutoSave( int min );
     int autoSave() const;
 
-    QStringList dataDirs() const;
     void save();
 
     QString imageDirectory() const;

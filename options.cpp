@@ -75,11 +75,6 @@ bool Options::cacheThumbNails() const
     return _cacheThumbNails;
 }
 
-QStringList Options::dataDirs() const
-{
-    return QStringList() << "/home/blackie/Images/take1";
-}
-
 void Options::save()
 {
     QFile file( _confFile );

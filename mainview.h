@@ -45,7 +45,8 @@ protected slots:
     void slotSave();
     void slotDeleteSelected();
     void slotSearch();
-    void slotViewSelected();
+    void slotViewSelected( bool reuse = true );
+    void slotViewSelectedNewWindow();
     void slotChanges();
     void slotLimitToSelected();
     void slotExportToHTML();

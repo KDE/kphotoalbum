@@ -209,26 +209,27 @@ ImageInfoList MainView::selected()
     return list;
 }
 
-void MainView::slotViewSelected()
+void MainView::slotViewSelectedNewWindow()
 {
-    qDebug("view Selected");
+    slotViewSelected( false );
+}
 
+void MainView::slotViewSelected( bool reuse )
+{
     ImageInfoList list = selected();
     ImageInfoList list2;
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         if ( (*it)->imageOnDisk() )
             list2.append( *it );
     }
-
     if ( list.count() == 0 )
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     else if ( list2.count() == 0 )
         QMessageBox::warning( this, i18n("No Images to Display"),
                               i18n("None of the seleceted images were available on disk.") );
     else {
-        // PENDING(blackie) Lots of code in common with thumbnailview.cpp
         Viewer* viewer;
-        if ( Util::ctrlKeyDown() && Viewer::latest() ) {
+        if ( reuse && Viewer::latest() ) {
             viewer = Viewer::latest();
             topLevelWidget()->raise();
             setActiveWindow();
@@ -309,8 +310,10 @@ void MainView::setupMenuBar()
                  actionCollection(), "allProp" );
 
     // The Images menu
-    new KAction( i18n("View Selected"), CTRL+Key_I, this, SLOT( slotViewSelected() ),
+    new KAction( i18n("View Selected"), Key_I, this, SLOT( slotViewSelected() ),
                  actionCollection(), "viewImages" );
+    new KAction( i18n("View Selected (In new window)"), CTRL+Key_I, this, SLOT( slotViewSelectedNewWindow() ),
+                 actionCollection(), "viewImagesNewWindow" );
     new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                  actionCollection(), "limitToMarked" );
 

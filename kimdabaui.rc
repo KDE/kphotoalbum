@@ -16,6 +16,7 @@
     <Menu name="Images" >
       <text>&amp;Images</text>
       <Action name="viewImages" />
+      <Action name="viewImagesNewWindow" />
       <Action name="limitToMarked" />
     </Menu>
    <Menu name="help">

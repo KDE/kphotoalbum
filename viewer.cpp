@@ -54,6 +54,7 @@ Viewer* Viewer::latest()
 Viewer::Viewer( QWidget* parent, const char* name )
     :QDialog( parent,  name ), _showingFullScreen( false )
 {
+    setWFlags( WDestructiveClose );
     _latest = this;
 
     QVBoxLayout* layout = new QVBoxLayout( this );
@@ -290,11 +291,6 @@ void Viewer::showLast()
      load();
 }
 
-void Viewer::closeEvent( QCloseEvent* )
-{
-    close();
-}
-
 void Viewer::save()
 {
     currentInfo()->setDrawList( _display->drawHandler()->drawList() );
@@ -313,11 +309,11 @@ void Viewer::stopDraw()
     _toolbar->hide();
 }
 
-void Viewer::close()
+bool Viewer::close( bool alsoDelete)
 {
     save();
-    hide();
     _slideShowTimer->stop();
+    return QDialog::close( alsoDelete );
 }
 
 ImageInfo* Viewer::currentInfo()

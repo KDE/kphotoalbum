@@ -42,9 +42,11 @@ public:
     void load( const ImageInfoList& list, int index = 0 );
     void infoBoxMove();
 
+public slots:
+    virtual bool close(bool alsoDelete );
+
 protected:
     virtual void contextMenuEvent ( QContextMenuEvent * e );
-    virtual void closeEvent( QCloseEvent* e );
     virtual void resizeEvent( QResizeEvent* );
     void moveInfoBox();
     void createToolBar();
@@ -52,7 +54,6 @@ protected:
     void load();
     void updateInfoBox();
     void setupContextMenu();
-    virtual void close();
     ImageInfo* currentInfo();
 
 protected slots:

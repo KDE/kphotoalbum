@@ -55,10 +55,8 @@ void ThumbNailView::showImage( QIconViewItem* item )
         else {
             ImageInfoList list;
             list.append( info );
-            // PENDING(blackie) Lots of code in common with mainwindow.cpp
             Viewer* viewer;
-            if ( Util::ctrlKeyDown() && Viewer::latest() ) {
-                qDebug("Reusing");
+            if ( !Util::ctrlKeyDown() && Viewer::latest() ) {
                 viewer = Viewer::latest();
                 viewer->setActiveWindow();
                 viewer->raise();

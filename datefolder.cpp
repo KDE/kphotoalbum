@@ -173,7 +173,9 @@ void DateSearchDialog::highlightPossibleDates( KDatePicker* picker)
 
     int nbDays = date.getDate().daysInMonth() ;
     bool picturesByDays[ 31 ];
-    for (int i = 0 ; i < 31 ; i++ ) { picturesByDays[i] = false; }
+    for (int i = 0 ; i < 31 ; i++ ) {
+        picturesByDays[i] = false;
+    }
 
     date.setDay( 1 );
     context.setStartDate( date );
@@ -181,9 +183,8 @@ void DateSearchDialog::highlightPossibleDates( KDatePicker* picker)
     context.setEndDate( date );
     ImageInfoList list = ImageDB::instance()->images( context, TRUE );
 
-    ImageInfo* image;
-    for( image = list.first(); image ; image=list.next() )
-    {
+    // Iterate through the list of images in the current context that is within the current month.
+    for( ImageInfo* image = list.first(); image ; image=list.next() ) {
         if ( image->startDate().isFuzzyData() || ( !image->endDate().isNull() && image->endDate().isFuzzyData() ) )
             continue;
         QDate start = image->startDate().getDate();
@@ -206,14 +207,13 @@ void DateSearchDialog::highlightPossibleDates( KDatePicker* picker)
 
         for (int i = a ; i <= b ; i++ )
             picturesByDays[ i-1 ] = true;
-
     }
-    for( int i = 0 ; i < nbDays ; i++ )
-    {
+
+    // Now highlight the images
+    for( int i = 0 ; i < nbDays ; i++ ) {
         if (picturesByDays[ i ] == false)
             continue;
         date.setDay( i+1 );
-        // TODO: pick the best parameter possible for this function
         dateTable->setCustomDatePainting( date.getDate(), QColor( "red" ) );
     }
 }

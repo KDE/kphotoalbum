@@ -7,6 +7,8 @@
 ** place of a destructor.
 *****************************************************************************/
 
+#include <kfiledialog.h>
+
 void OptionsDialog::show()
 {
     Options* opt = Options::instance();
@@ -40,7 +42,7 @@ void OptionsDialog::slotApply()
 
 void OptionsDialog::slotBrowseForDirecory()
 {
-    QString dir = QFileDialog::getExistingDirectory( imageDirectory->text(), this );
+    QString dir = KFileDialog::getExistingDirectory( imageDirectory->text(), this );
     if ( ! dir.isNull() )
         imageDirectory->setText( dir );
 }

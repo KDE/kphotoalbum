@@ -10,7 +10,7 @@
 #include <qeventloop.h>
 #include "imagemanager.h"
 #include <qcheckbox.h>
-#include <qfiledialog.h>
+#include <kfiledialog.h>
 #include <qpushbutton.h>
 #include <qmessagebox.h>
 #include "options.h"
@@ -401,7 +401,7 @@ void HTMLExportDialog::slotOk()
 
 void HTMLExportDialog::selectDir()
 {
-    QString dir = QFileDialog::getExistingDirectory( _baseDir->text(), this );
+    QString dir = KFileDialog::getExistingDirectory( _baseDir->text(), this );
     if ( !dir.isNull() )
         _baseDir->setText( dir );
 }

@@ -21,6 +21,7 @@ public slots:
     void slotSelect();
     void setPixmap( const QPixmap& pixmap );
     void cut();
+    void toggleShowDrawings( bool );
 
 protected:
     virtual void mousePressEvent( QMouseEvent* event );

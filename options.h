@@ -31,6 +31,7 @@ public:
     // Options for the Viewer
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     bool showInfoBox() const;
+    bool showDrawings() const;
     bool showDescription() const;
     bool showDate() const;
     bool showLocation() const;
@@ -38,6 +39,7 @@ public:
     bool showKeyWords() const;
 
     void setShowInfoBox(bool b);
+    void setShowDrawings(bool b);
     void setShowDescription(bool b);
     void setShowDate(bool b);
     void setShowLocation(bool b);
@@ -60,7 +62,7 @@ private:
     QString _imageDirectory;
 
     Position _infoBoxPosition;
-    bool _showInfoBox, _showDescription, _showDate, _showNames, _showLocation, _showKeyWords;
+    bool _showInfoBox, _showDrawings, _showDescription, _showDate, _showNames, _showLocation, _showKeyWords;
 
 };
 

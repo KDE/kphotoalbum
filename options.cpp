@@ -38,6 +38,7 @@ Options::Options()
 
     _infoBoxPosition = (Position) top.attribute( "infoBoxPosition", "0" ).toInt();
     _showInfoBox = top.attribute( "showInfoBox", "1" ).toInt();
+    _showDrawings = top.attribute( "showDrawings", "1" ).toInt();
     _showDescription = top.attribute( "showDescription", "1" ).toInt();
     _showDate = top.attribute( "showDate", "1" ).toInt();
     _showNames = top.attribute( "showNames", "0" ).toInt();
@@ -94,6 +95,7 @@ void Options::save()
 
     top.setAttribute( "infoBoxPosition", (int) _infoBoxPosition );
     top.setAttribute( "showInfoBox", _showInfoBox );
+    top.setAttribute( "showDrawings", _showDrawings );
     top.setAttribute( "showDescription", _showDescription );
     top.setAttribute( "showDate", _showDate );
     top.setAttribute( "showNames", _showNames );
@@ -157,6 +159,11 @@ bool Options::showInfoBox() const
     return _showInfoBox;
 }
 
+bool Options::showDrawings() const
+{
+    return _showDrawings;
+}
+
 bool Options::showDescription() const
 {
     return _showDescription;
@@ -180,6 +187,11 @@ bool Options::showNames() const
 void Options::setShowInfoBox(bool b)
 {
     _showInfoBox = b;
+}
+
+void Options::setShowDrawings(bool b)
+{
+    _showDrawings = b;
 }
 
 void Options::setShowDescription(bool b)

@@ -5,6 +5,7 @@
 #include "circledraw.h"
 #include <qpainter.h>
 #include <qpicture.h>
+#include "options.h"
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
     :QLabel( parent, name ), _tool( None ), _activeTool( 0 )
@@ -102,23 +103,28 @@ void DisplayArea::setPixmap( const QPixmap& pixmap )
 void DisplayArea::drawAll()
 {
     _curPixmap = _origPixmap;
+    if ( _curPixmap.isNull() )
+        return;
+
     QPainter painter( &_curPixmap );
-    for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
-        painter.save();
-        setupPainter( painter );
-        (*it)->draw( painter, 0 );
-        painter.restore();
-        if ( _tool == Select ) {
-            PointList list = (*it)->anchorPoints();
-            for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-                QPoint point = *it2;
-                painter.save();
-                if ( *it == _activeTool )
-                    painter.setBrush( Qt::red );
-                else
-                    painter.setBrush( Qt::blue );
-                painter.drawRect( point.x()-4, point.y()-4, 8, 8 );
-                painter.restore();
+    if ( Options::instance()->showDrawings() || _tool != None ) {
+        for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
+            painter.save();
+            setupPainter( painter );
+            (*it)->draw( painter, 0 );
+            painter.restore();
+            if ( _tool == Select ) {
+                PointList list = (*it)->anchorPoints();
+                for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+                    QPoint point = *it2;
+                    painter.save();
+                    if ( *it == _activeTool )
+                        painter.setBrush( Qt::red );
+                    else
+                        painter.setBrush( Qt::blue );
+                    painter.drawRect( point.x()-4, point.y()-4, 8, 8 );
+                    painter.restore();
+                }
             }
         }
     }
@@ -179,6 +185,13 @@ void DisplayArea::stopDrawings()
     _activeTool = 0;
     _tool = None;
     drawAll();
+}
+
+void DisplayArea::toggleShowDrawings( bool b )
+{
+    Options::instance()->setShowDrawings( b );
+    drawAll();
+    Options::instance()->save();
 }
 
 

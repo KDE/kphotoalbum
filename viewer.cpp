@@ -120,6 +120,11 @@ void Viewer::setupContextMenu()
     action->addTo( _popup );
     action->setOn( Options::instance()->showInfoBox() );
 
+    action = new QAction( "Show Drawing", QIconSet(), "Show Drawing", CTRL+Key_I, this, "showDrawing", true );
+    connect( action, SIGNAL( toggled( bool ) ), _label, SLOT( toggleShowDrawings( bool ) ) );
+    action->addTo( _popup );
+    action->setOn( Options::instance()->showDrawings() );
+
     action = new QAction( "Show Description", QIconSet(), "Show Description", Key_D, this, "showDescription", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
     action->addTo( _popup );

@@ -469,4 +469,9 @@ void MemberMap::load( const QDomElement& top )
     }
 }
 
+bool MemberMap::isGroup( const QString& optionGroup, const QString& memberGroup )
+{
+    return !members( optionGroup, memberGroup ).isEmpty();
+}
+
 #include "options.moc"

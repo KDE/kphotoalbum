@@ -34,9 +34,11 @@ public:
     QDomElement save( QDomDocument doc );
     bool isEmpty() const;
     void load( const QDomElement& );
+    bool isGroup( const QString& optionGroup, const QString& memberGroup );
 
 private:
     QMap<QString, QMap<QString,QStringList> > _members;
+    friend class GroupCounter;
 };
 
 

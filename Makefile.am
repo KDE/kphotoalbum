@@ -28,7 +28,7 @@ kimdaba_SOURCES = main.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	undoredolist.cpp optionsdialog.cpp infobox.cpp welcomedialog.cpp \
 	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp \
-	kshell.cpp datefolder.cpp
+	kshell.cpp datefolder.cpp groupCounter.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD = $(LIB_KIO) -lktexteditor -ljpeg

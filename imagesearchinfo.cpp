@@ -142,7 +142,7 @@ bool ImageSearchInfo::stringMatch( const QString& key, ImageInfo* info )
                 str = regexp.cap(1);
             }
             str = str.stripWhiteSpace();
-            bool found = info->hasOption( key,  str );
+            bool found = hasOption( info, key, str );
             andTrue &= ( negate ? !found : found );
         }
         orTrue |= andTrue;
@@ -207,5 +207,16 @@ QString ImageSearchInfo::toString() const
         }
     }
     return res;
+}
+
+bool ImageSearchInfo::hasOption( ImageInfo* info, const QString& key, const QString& str )
+{
+    QStringList list = Options::instance()->memberMap().members( key, str );
+    bool match = info->hasOption( key,  str );
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        match |= info->hasOption( key, *it );
+
+    }
+    return match;
 }
 

@@ -47,6 +47,7 @@ public:
 
 protected:
     bool stringMatch( const QString& key, ImageInfo* info );
+    bool hasOption( ImageInfo* info, const QString& key, const QString& str );
 
 private:
     ImageDate _startDate;

@@ -26,6 +26,7 @@
 #include <klocale.h>
 #include <kimageio.h>
 #include "util.h"
+#include "groupCounter.h"
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -200,10 +201,13 @@ bool ImageDB::isClipboardEmpty()
 QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString &group )
 {
     QMap<QString, int> map;
+    GroupCounter counter( group );
+
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         bool match = const_cast<ImageSearchInfo&>(info).match( *it ); // PENDING(blackie) remove cast
         if ( match ) {
             QStringList list = (*it)->optionValue(group);
+            counter.count( list );
             for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
                 map[*it]++;
             }
@@ -211,6 +215,12 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
                 map[i18n( "**NONE**" )]++;
         }
     }
+
+    QMap<QString,int> groups = counter.result();
+    for( QMapIterator<QString,int> it= groups.begin(); it != groups.end(); ++it ) {
+        map[it.key()] = it.data();
+    }
+
     return map;
 }
 

@@ -24,6 +24,8 @@
 #include "imagedb.h"
 #include "searchfolder.h"
 #include "datefolder.h"
+#include <kglobal.h>
+#include <kiconloader.h>
 ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup( optionGroup ), _value( value )
@@ -42,7 +44,11 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
     else {
         setText( 0, value );
     }
-    setPixmap( 0, Options::instance()->iconForOptionGroup( optionGroup ) );
+
+    if ( Options::instance()->memberMap().isGroup( optionGroup, value ) )
+        setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, 22 ) );
+    else
+        setPixmap( 0, Options::instance()->iconForOptionGroup( optionGroup ) );
 
     setCount( count );
     if ( count == 1 )

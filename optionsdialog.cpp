@@ -390,6 +390,7 @@ void OptionsDialog::slotCategoryChanged( const QString& name )
 
     _members->clear();
     QStringList list = Options::instance()->optionValue(name);
+    list += _memberMap.groups( name );
     list.sort();
     _members->insertStringList( list );
     _groups->setSelected( 0, true );

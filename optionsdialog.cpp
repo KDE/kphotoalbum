@@ -33,7 +33,7 @@
 #include <kinputdialog.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
-    :KDialogBase( Tabbed, i18n( "Options" ), Ok | Cancel, Ok, parent, name )
+    :KDialogBase( Tabbed, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createOptionGroupsPage();
@@ -380,13 +380,18 @@ void OptionsDialog::createGroupConfig()
 
 }
 
+/**
+   When the user selects a new optionGroup from the combo box then this method is called
+   Its purpose is too fill the groups and members listboxes.
+*/
 void OptionsDialog::slotCategoryChanged( const QString& name )
 {
     saveOldGroup();
 
     _groups->clear();
     _currentCategory = name;
-    _groups->insertStringList( _memberMap.groups( name ) );
+    QStringList groupList = _memberMap.groups( name );
+    _groups->insertStringList( groupList );
 
     _members->clear();
     QStringList list = Options::instance()->optionValue(name);
@@ -395,7 +400,8 @@ void OptionsDialog::slotCategoryChanged( const QString& name )
     _members->insertStringList( list );
     _groups->setSelected( 0, true );
 
-    selectMembers( _groups->text(0) );
+    if ( !groupList.isEmpty() )
+        selectMembers( _groups->text(0) );
 }
 
 void OptionsDialog::slotGroupSelected( QListBoxItem* item )
@@ -445,6 +451,9 @@ void OptionsDialog::slotDelGroup()
 
 void OptionsDialog::saveOldGroup()
 {
+    if ( _currentCategory.isNull() || _currentGroup.isNull() )
+        return;
+
     QStringList list;
     for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
         if ( item->isSelected() )

@@ -34,13 +34,6 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                              i18n("Image Count"),
                              this );
 
-    new Survey::RadioButtonQuestion( QString::fromLatin1("UsingRanges"),
-                                     i18n("Images Ranges"),
-                                     i18n("KimDaBa has the possibility to specify ranges for images. "
-                                          "E.g. 1990-1992 or Jan 2003. "
-                                          "This is usefull for images that has been scanned in."),
-                                     i18n("Are you using image ranges ?"), list , this );
-
     new Survey::RadioButtonQuestion( QString::fromLatin1("StartUpTime"),
                                      i18n("Start Up Time"),
                                      i18n("It is always possible to get KimDaBa to start faster, but doing so "
@@ -49,13 +42,21 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                           "spent on implementing other features in KimDaBa."),
                                      i18n("Would you prefer that time was spent on making KimDaBa faster?"), list, this );
 
+    QStringList categories;
+    categories << i18n("Persons") << i18n("Locations") << i18n("Keywords");
+    new Survey::AlternativeQuestion( QString::fromLatin1( "CategoriesUsed" ),
+                                     i18n("Categories Used"),
+                                     QString::null,
+                                     i18n("Which categories are you using"),
+                                     categories, 5, Survey::AlternativeQuestion::CheckBox, this );
+
     QStringList imageAppList;
     imageAppList << QString::fromLatin1( "Digikam" ) << QString::fromLatin1( "Gvenview" );
 
     new Survey::AlternativeQuestion( QString::fromLatin1( "OtherApps" ),
-                                     QString::fromLatin1( "Other Image Applications" ),
+                                     i18n( "Other Image Applications" ),
                                      QString::null,
-                                     i18n("Which other image applications are you using?"), imageAppList, 4,
+                                     i18n("Which other image applications are you using?"), imageAppList, 5,
                                      Survey::AlternativeQuestion::CheckBox, this );
 
     new Survey::TextQuestion( QString::fromLatin1( "Comment" ),

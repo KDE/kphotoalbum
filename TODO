@@ -11,7 +11,10 @@ BUGS To be handled soonish
   differently than third construction order. Here is the next plan:
   iterate through all the children of the dialog, and setup tab order as
   they are physically located on screen. 
-
+- rotating an image in the viewer is not written to the database.
+-I do not like the way dates are entered. I prefer the way (korganizer and  
+ kaddressbook) do it: to write them in one single text field and to offer a 
+ calender as well.
 =======================
 BUGS of less importance
 =======================
@@ -20,7 +23,8 @@ BUGS of less importance
   should update
 - Locking to dates doesn't seem to work, and once it works, the information
   should also be written to the XML file in ImageSearchInfo::toXML and ImageSearchInfo::load.
-
+-It is possible to select the same filter option multiple times. This value 
+ will then be displayed multiple times in the status bar
 
 ==============================
 Features for a soonish version
@@ -33,6 +37,8 @@ Features for a soonish version
   2. This would be very cool when the user as multiple monitors.
 - Loseless image rotation (which actually affects the files)
 - Make a plugin structure for KimDaBa.
+- Add a message box with information about how the imageconfig window
+works. (with a do-not-show-again checkbox)
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
@@ -73,3 +79,17 @@ Features still to be considered (aka not likely to go in next release)
 - the search dialog does currently support &,|, and ! 
   (example Anne Helene & !Jesper )
   add support for parenthesis (example Spiff & ( Anne Helene | Jesper ) )
+- A feature where you can set how much time the Info Box will be present on an 
+  image during a Slide Show. The time could be proportional to the delay 
+  between slides. For example:
+  Delay between slides: 10s
+  Info Box present during: 50% of the time  
+  So, after five seconds the Info will Box vanish.
+- A menu point for removeing all Thumbs (for storing the pictures on CD)
+- A menu point for removeing all Thumbs (for storing the pictures on CD)
+- Viewer: Sort the order of Person names "Alice" before "Bob"
+-Viewer: I would like to add a kind of passport picture to some persons/
+ locations they could be displayed as mouseover effects on their name. I made 
+ something like this on a webpage: www.kellerkinder.de.gg (it is in german, 
+ but just klick on one thumbnail, and afterwards put the mouse over the names 
+ after "Bildquelle" or "Zu sehen" below the picture)

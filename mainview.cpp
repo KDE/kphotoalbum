@@ -347,26 +347,31 @@ void MainView::slotDeleteSelected()
 }
 
 
-void MainView::slotReadInfoSelected()
-{
-    ImageInfoList listOnDisk = getSelectedOnDisk();
-
-    if ( listOnDisk.count() == 0 ) {
-        KMessageBox::sorry( this, i18n("None of the selected images were available on the disk.") );
-    } else {
-        if ( ! _readInfoDialog )
-            _readInfoDialog = new ReadInfoDialog( this );
-        if ( _readInfoDialog->exec( listOnDisk ) == QDialog::Accepted )
-            setDirty( true );
-    }
-}
-
-
 void MainView::slotReadInfo()
 {
+    ImageInfoList list = getSelectedOnDisk();
+    QStringList files;
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        files.append( (*it)->fileName() );
+    }
+
+    int i = KMessageBox::warningContinueCancelList( this,
+                i18n( "<qt><p>Be aware that reading EXIF info from files may "
+                      "<b>overwrite</b> data you have previously entered "
+                      "manually using the image configuration dialog.</p>"
+                      "<p>Be sure you have in the current view <b>only</b> "
+                      "the files for which you really want to reread the "
+                      "EXIF info. There are <b>%1 files</b> affected, their filenames "
+                      "can be seen below.</p></qt>").arg(files.count()), files,
+                                                    i18n("Read EXIF info from files..."),
+                KStdGuiItem::cont(),
+                QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
+    if ( i == KMessageBox::Cancel )
+        return;
+
     if ( ! _readInfoDialog )
         _readInfoDialog = new ReadInfoDialog( this );
-    if ( _readInfoDialog->exec( ImageDB::instance()->images() ) == QDialog::Accepted )
+    if ( _readInfoDialog->exec( list ) == QDialog::Accepted )
         setDirty( true );
 }
 
@@ -636,7 +641,6 @@ void MainView::setupMenuBar()
                                        actionCollection(), "runRandomizedSlideShow" );
 
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date and Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
-    _readInfoSelected = new KAction( i18n("Read EXIF info from selected files..."), 0, this, SLOT( slotReadInfoSelected() ), actionCollection(), "readInfoSelected" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
 
@@ -656,8 +660,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Display Images not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
-    new KAction( i18n("Read time info from files..."), 0, ImageDB::instance(), SLOT( slotTimeInfo() ), actionCollection(), "readTime" );
-    new KAction( i18n("Read EXIF info from all files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
+    new KAction( i18n("Read EXIF info from files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
     new KAction( i18n("Remove all thumbnails..."), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
     new KAction( i18n("Build thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
 
@@ -1149,7 +1152,6 @@ void MainView::updateStates( bool thumbNailView )
     _paste->setEnabled( thumbNailView );
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
-    _readInfoSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
 }
 

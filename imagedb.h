@@ -53,7 +53,6 @@ public slots:
     void slotRescan();
     void slotRecalcCheckSums();
     void slotReread(ImageInfoList rereadList, int mode);
-    void slotTimeInfo();
 
 signals:
     void matchCountChange( int, int, int );

@@ -31,10 +31,11 @@
 #include "drawlist.h"
 #include <qimage.h>
 
-#define EXIFMODE_TIME          1
-#define EXIFMODE_DATE          2
-#define EXIFMODE_ORIENTATION   4
-#define EXIFMODE_DESCRIPTION   8
+#define EXIFMODE_TIME          0x01
+#define EXIFMODE_DATE          0x02
+#define EXIFMODE_ORIENTATION   0x04
+#define EXIFMODE_DESCRIPTION   0x08
+#define EXIFMODE_FORCE         0x10
 #define EXIFMODE_INIT ( EXIFMODE_TIME | EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION )
 
 class ImageInfo {

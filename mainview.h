@@ -61,7 +61,6 @@ protected slots:
     void slotConfigureImagesOneAtATime();
     void slotSave();
     void slotDeleteSelected();
-    void slotReadInfoSelected();
     void slotReadInfo();
     void slotSearch();
     void slotView( bool reuse = false, bool slideShow = false, bool random = false );
@@ -147,7 +146,6 @@ private:
     KAction* _configAllSimultaniously;
     KAction* _view;
     KAction* _sortByDateAndTime;
-    KAction* _readInfoSelected;
     KAction* _viewInNewWindow;
     KActionMenu* _viewMenu;
     KRadioAction* _smallListView;

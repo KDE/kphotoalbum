@@ -33,9 +33,6 @@ ReadInfoDialog::ReadInfoDialog( QWidget* parent, const char* name )
     _description = new QCheckBox( i18n( "Read EXIF description" ), top );
     lay1->addWidget( _description );
 
-    _init = new QCheckBox( i18n( "Read all (time, date, orientation and description)" ), top );
-    lay1->addWidget( _init );
-
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( readInfo() ) );
 }
 
@@ -43,7 +40,6 @@ int ReadInfoDialog::exec( const ImageInfoList& list )
 {
     _label->setText( i18n("<qt><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></qt>").arg( list.count() ) );
 
-    _init->setChecked( false );
     _time->setChecked( true );
     _date->setChecked( true );
     _orientation->setChecked( false );
@@ -55,20 +51,17 @@ int ReadInfoDialog::exec( const ImageInfoList& list )
 
 void ReadInfoDialog::readInfo()
 {
-    int mode = 0;
+    int mode = EXIFMODE_FORCE;
 
-    if ( _init->isChecked() )
-            mode |= EXIFMODE_INIT;
-    else {
-            if ( _time->isChecked() )
-                    mode |= EXIFMODE_TIME;
-            if ( _date->isChecked() )
-                    mode |= EXIFMODE_DATE;
-            if ( _orientation->isChecked() )
-                    mode |= EXIFMODE_ORIENTATION;
-            if ( _description->isChecked() )
-                    mode |= EXIFMODE_DESCRIPTION;
-    }
+    if ( _time->isChecked() )
+            mode |= EXIFMODE_TIME;
+    if ( _date->isChecked() )
+            mode |= EXIFMODE_DATE;
+    if ( _orientation->isChecked() )
+            mode |= EXIFMODE_ORIENTATION;
+    if ( _description->isChecked() )
+            mode |= EXIFMODE_DESCRIPTION;
+
     ImageDB::instance()->slotReread(_list, mode);
     accept();
 }

@@ -418,7 +418,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
 
     //Time
     if ( mode & EXIFMODE_TIME ) {
-        if ( Options::instance()->trustTimeStamps() ) {
+        if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
             if (exif.contains( QString::fromLatin1( "CreationTime" ) ) ){
                 QTime time = exif[QString::fromLatin1( "CreationTime" )].toTime();
                 if (time.isValid())
@@ -433,12 +433,13 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
 
     // Date
     if ( mode & EXIFMODE_DATE ) {
-        if ( Options::instance()->trustTimeStamps() ) {
+        if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
             bool dateFound = false;
             if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
                 QDate date = exif[QString::fromLatin1( "CreationDate" )].toDate();
                 if ( date.isValid() ) {
                     _startDate.setDate( date );
+                    _endDate = ImageDate();
                     dateFound = true;
                 }
             }
@@ -460,6 +461,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
             if ( !dateFound )  {
                 QDate date = fi.lastModified().date();
                 _startDate.setDate( date );
+                _endDate = ImageDate();
             }
         }
     }

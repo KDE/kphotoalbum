@@ -54,7 +54,6 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     // This is really only needed for upgrading from KimDaBa version 1.0 so at a later point this
     // code might simply be deleted.
     ImageInfoList missingSums, missingTimes;
-    QStringList files;
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
@@ -92,27 +91,15 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     }
 
     if ( missingTimes.count() != 0 ) {
-        for ( ImageInfoListIterator it(missingTimes); *it; ++it) {
-            files.append((*it)->fileName());
-        }
-    }
-
-    if ( missingTimes.count() != 0 ) {
-        int ret = KMessageBox::questionYesNoList(0,i18n("<qt><p>KimDaBa now also shows the time of images."
-                                                        "As a means of migration for existing KimDaBa users "
-                                                        "all the time stamps cano now be read from your existing images; "
-                                                        "if you do not want this to be done now "
-                                                        "select \"Do not read now\" and then later use "
-                                                        "\"Maintenance->Read out time info\".</p>"
-                                                        "<p>The files affected are:</p></qt>"),
-                                                 files,QString::null,i18n("Read them now"),
-                                                 i18n("Do not read now"),QString::fromLatin1("showTimeWarningStartup"));
-
-        if ( ret ==KMessageBox::Yes)  {
-
-            slotReread( missingTimes, EXIFMODE_TIME );
-            *dirty = true;
-        }
+        KMessageBox::information(0,i18n("<qt><p>KimDaBa now also shows the time of images."
+                                        "As a means of migration for existing KimDaBa users "
+                                        "all the time stamps can now be read from your existing images; "
+                                        "if you want to do this, use \"Tools->Maintenance->Read EXIF info from files...\" "
+                                        "and check \"Read time\". "
+                                        "<p>Be aware that this may overwrite the time info you have previously entered. "
+                                        "Be sure you have in the current view only the files for which you really want to read time.</p></qt>"),
+                                 QString::null,
+                                 QString::fromLatin1("showTimeWarningStartup"));
     }
 
     // Read the block list
@@ -512,40 +499,6 @@ void ImageDB::slotRescan()
     Browser::instance()->home();
 
     emit totalChanged( _images.count() );
-}
-
-void ImageDB::slotTimeInfo()
-{
-    QStringList files;
-    ImageInfoList missingTimes, mainList;
-
-    mainList = images();
-
-    ImageInfoListIterator it(mainList);
-    // read out again if there is a valid time info and save invalids in missingTimes
-    // we do that because a user could have edited time info since we read out missingTimes the first time
-    // and we don't want to override the users edited time
-
-    for ( ImageInfoListIterator it(mainList); *it; ++it )  {
-        //test for valid Timestamps here
-        if ( !(*it)->startDate().hasValidTime() )
-            missingTimes.append( (*it) );
-    }
-
-    if ( missingTimes.count() ) {
-        for( ImageInfoListIterator it(missingTimes); *it;++it){
-            files.append((*it)->fileName());
-        }
-    }
-    else
-        files.append(i18n("There are no images without time info"));
-
-    int ret = KMessageBox::questionYesNoList(0,i18n("These files will be affected:"),
-                                             files,QString::null,i18n("Read it now"),i18n("Do not read it"));
-    if ( ret == KMessageBox::No )
-        return;
-
-    slotReread(missingTimes, EXIFMODE_TIME);
 }
 
 

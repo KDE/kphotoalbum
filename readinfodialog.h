@@ -22,7 +22,6 @@ private:
     QCheckBox* _date;
     QCheckBox* _orientation;
     QCheckBox* _description;
-    QCheckBox* _init;
 };
 
 

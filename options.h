@@ -54,18 +54,23 @@ public:
     QImage optionImage( const QString& optionGroup, const QString& member, int size ) const;
 
     // -------------------------------------------------- Option Groups
+    enum ViewSize { Small, Large };
+    enum ViewType { ListView, IconView };
+
     struct OptionGroupInfo
     {
         OptionGroupInfo() {}
-        OptionGroupInfo( const QString& text, const QString& icon, bool show = true )
-            : _text(text), _icon(icon), _show(show) {}
+        OptionGroupInfo( const QString& text, const QString& icon, ViewSize size, ViewType type, bool show = true )
+            : _text(text), _icon(icon), _show(show), _size( size ), _type( type ) {}
         QString _text;
         QString _icon;
         bool _show;
+        ViewSize _size;
+        ViewType _type;
     };
 
     QStringList optionGroups() const;
-    void addOptionGroup( const QString& name, const QString& label, const QString& icon );
+    void addOptionGroup( const QString& name, const QString& label, const QString& icon, ViewSize size, ViewType type );
     void deleteOptionGroup( const QString& name );
     void renameOptionGroup( const QString& oldName, const QString& newName );
 
@@ -74,6 +79,11 @@ public:
     QPixmap iconForOptionGroup( const QString& name, int size = 22 ) const;
     QString iconNameForOptionGroup( const QString& name ) const;
     void setIconForOptionGroup( const QString& name, const QString& icon );
+
+    void setViewSize( const QString& optionGroup, ViewSize size );
+    void setViewType( const QString& optionGroup, ViewType type );
+    ViewSize viewSize( const QString& optionGroup ) const;
+    ViewType viewType( const QString& optionGroup ) const;
 
     // -------------------------------------------------- Member Groups
     const MemberMap& memberMap();
@@ -133,13 +143,6 @@ public:
     void setPassword( const QString& passwd );
     QString password() const;
 
-    enum ViewSize { Small, Large };
-    enum ViewType { ListView, IconView };
-    void setViewSize( ViewSize size );
-    void setViewType( ViewType type );
-    ViewSize viewSize() const;
-    ViewType viewType() const;
-
 signals:
     void optionGroupsChanged();
     void changed();
@@ -169,9 +172,6 @@ private:
     ImageSearchInfo _currentScope;
     bool _locked, _exclude;
     QString _passwd;
-
-    ViewSize _viewSize;
-    ViewType _viewType;
 };
 
 #endif /* OPTIONS_H */

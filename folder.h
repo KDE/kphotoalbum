@@ -54,10 +54,12 @@ public:
     FolderAction( const ImageSearchInfo& info, Browser* browser );
     virtual ~FolderAction() {}
     virtual void action( BrowserItemFactory* factory ) = 0;
-    virtual bool showsImages() = 0;
+    virtual bool showsImages() const = 0;
+    virtual bool contentView() const = 0;
     QString path() const;
     virtual bool allowSort() const;
     virtual QString title() const;
+    virtual QString optionGroup() const;
 
 protected:
     friend class Browser;

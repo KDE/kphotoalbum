@@ -56,6 +56,7 @@
 #include <kiconloader.h>
 #include <kpassdlg.h>
 #include <kkeydialog.h>
+#include <kpopupmenu.h>
 
 MainView* MainView::_instance = 0;
 
@@ -419,37 +420,33 @@ void MainView::setupMenuBar()
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
 
-    KActionMenu* menu = new KActionMenu( i18n("Configure View"),
+    _viewMenu = new KActionMenu( i18n("Configure View"),
                                          KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_choose" ), KIcon::Toolbar ),
                                          actionCollection(), "configureView" );
-    menu->setDelayed( false );
-    KRadioAction* smallListView = new KRadioAction( i18n("Small List View"), KShortcut(), _browser, SLOT( slotSmallListView() ), menu );
-    menu->insert( smallListView );
-    smallListView->setExclusiveGroup( "configureview" );
+    _viewMenu->setDelayed( false );
+    connect( _browser, SIGNAL( showsContentView( bool ) ), _viewMenu, SLOT( setEnabled( bool ) ) );
+    _smallListView = new KRadioAction( i18n("Small List View"), KShortcut(), _browser, SLOT( slotSmallListView() ),
+                                                    _viewMenu );
+    _viewMenu->insert( _smallListView );
+    _smallListView->setExclusiveGroup( "configureview" );
 
-    KRadioAction* largeListView = new KRadioAction( i18n("Large List View"), KShortcut(), _browser, SLOT( slotLargeListView() ), menu );
-    menu->insert( largeListView );
-    largeListView->setExclusiveGroup( "configureview" );
+    _largeListView = new KRadioAction( i18n("Large List View"), KShortcut(), _browser, SLOT( slotLargeListView() ),
+                                                    _viewMenu );
+    _viewMenu->insert( _largeListView );
+    _largeListView->setExclusiveGroup( "configureview" );
 
-    KRadioAction* smallIconView = new KRadioAction( i18n("Small Icon View"), KShortcut(), _browser, SLOT( slotSmallIconView() ), menu );
-    menu->insert( smallIconView );
-    smallIconView->setExclusiveGroup( "configureview" );
+    _smallIconView = new KRadioAction( i18n("Small Icon View"), KShortcut(), _browser, SLOT( slotSmallIconView() ),
+                                                    _viewMenu );
+    _viewMenu->insert( _smallIconView );
+    _smallIconView->setExclusiveGroup( "configureview" );
 
-    KRadioAction* largeIconView = new KRadioAction( i18n("Large Icon View"), KShortcut(), _browser, SLOT( slotLargeIconView() ), menu );
-    menu->insert( largeIconView );
-    largeIconView->setExclusiveGroup( "configureview" );
+    _largeIconView = new KRadioAction( i18n("Large Icon View"), KShortcut(), _browser, SLOT( slotLargeIconView() ),
+                                                    _viewMenu );
+    _viewMenu->insert( _largeIconView );
+    _largeIconView->setExclusiveGroup( "configureview" );
 
-    Options::ViewSize size = Options::instance()->viewSize();
-    Options::ViewType type = Options::instance()->viewType();
-    if ( size == Options::Small && type == Options::ListView )
-        smallListView->setChecked( true );
-    else if ( size == Options::Large && type == Options::ListView )
-        largeListView->setChecked( true );
-    else if ( size == Options::Small && type == Options::IconView )
-        smallIconView->setChecked( true );
-    else if ( size == Options::Large && type == Options::IconView )
-        largeIconView->setChecked( true );
-
+    connect( _browser, SIGNAL( currentSizeAndTypeChanged( Options::ViewSize, Options::ViewType ) ),
+             this, SLOT( slotUpdateViewMenu( Options::ViewSize, Options::ViewType ) ) );
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     new KAction( i18n("Show Tooltips on Images"), CTRL+Key_T, _thumbNailView, SLOT( showToolTipsOnImages() ),
@@ -820,6 +817,18 @@ void MainView::reloadThumbNail()
 {
     _thumbNailView->reload();
     slotThumbNailSelectionChanged();
+}
+
+void MainView::slotUpdateViewMenu( Options::ViewSize size, Options::ViewType type )
+{
+    if ( size == Options::Small && type == Options::ListView )
+        _smallListView->setChecked( true );
+    else if ( size == Options::Large && type == Options::ListView )
+        _largeListView->setChecked( true );
+    else if ( size == Options::Small && type == Options::IconView )
+        _smallIconView->setChecked( true );
+    else if ( size == Options::Large && type == Options::IconView )
+        _largeIconView->setChecked( true );
 }
 
 #include "mainview.moc"

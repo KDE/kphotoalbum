@@ -36,8 +36,10 @@ class TypeFolderAction :public FolderAction {
 public:
     TypeFolderAction( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent  );
     virtual void action( BrowserItemFactory* factory );
-    virtual bool showsImages() { return false; }
+    virtual bool showsImages() const { return false; }
+    virtual bool contentView() const { return true; }
     virtual QString title() const;
+    virtual QString optionGroup() const;
 
 private:
     QString _optionGroup;

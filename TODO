@@ -1,58 +1,53 @@
-- sort this TODO file.
-- options groups appears in the browser even if they don't have any members
-  for a given search.
+==========================
+BUGS To be handled soonish
+==========================
 - pan does work very well in the viewer
 - drawing on an image doesn't mark it as dirty
-- spell check in the editor
 - drops from outside in thumnail view should simply be ignore or even
   warned about
+- searching with text from description field doesn't work
+
+- add more descriptions to the demo.
+
+- Make actions in the viewer into KActions so their key bindings can be configured.
+
+- escape quotes and back quotes in descriptions when generating HTML
+- it seems like its not possible to generate HTML twice with different
+  images, without restarting the program
+- context menu for thumbnail view shows up in browser.
+- when renaming an item in the listselect, then category image should also
+  be renamed, and when deleting an item.
+
+=======================
+BUGS of less importance
+=======================
 - dropping in empty space in thumbnails doesn't work.
 - In the group editor (options->group), ensure that no cycles are created.
 - when images are deleted, the total count at the bottom of the mainwindow,
-should update
-- undo/redo
-- read date and rotation out of the JPEG file info
-- made it possible to select individual persons on images, and associate
+  should update
+
+==============================
+Features for a soonish version
+==============================
+- read date and rotation out of the JPEG file info (AKA EXIF info)
+- make it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when exporting
   to HTML
-- export/import of selection - thus make it possible to share part of
-  KimDaBa databases
 - show slideshow in several Viewers, that is show image 1 in viewer 1, and
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.
-- Display path/filename in status bar when hovering over an image
-- Button for rescan directory tree and generate thumbnails. 
-- when specifying options for several images at a time, present items that
-  are on all images.
-- Path could be a criteria in image search.
 - add md5 sum to the DB that is used to re-find images if the DB is reordered.
-- add kio: kimdaba://places/house
 
-- Once a while I have identically looking pictures but a) in different path 
-  or b) with different pixel dimensions. It would be nice if the tooltips 
-  (Ctrl-T) could optionally show: path, filename, file size (kB), width and 
-  height in pixels. 
-  If I cannot get information about at least the filename, the label cannot be 
-  used for other information.
+- Loseless image rotation (which actually affects the files)
 
-- I really would like to do something with pictures found with image search. 
-  E.g., I want to send them by email, but before I have to reduce them in size. 
-  Therefore, most helpful would be (with decreasing importance):
-  - copy to directory
-  - move to directory (incl. thumbnails and updating the database)
-  - create ascii list of path/filenames (this would allow making batch
-
-- A Simple Export like HTML Export,
-  but just to save the selected Images in a specific
-  Size (+ Filetype) or just Original (even this would be great) to a directory 
-  (great for sending as email, burning cd from an event)
-  (Thus without index.html and thumbnails)
-
-- view images in RMB.
-
-- Refresh Button to redisplay Index 
-  (after setting the rotation of some images)
-
+======================================================================
+Features still to be considered (aka not likely to go in next release)
+======================================================================
+- undo/redo
+- spell check in the editor
+- export/import of selection - thus make it possible to share part of
+  KimDaBa databases
+- Button for rescan directory tree and generate thumbnails. 
 - For removing properties:
   I think a good solution would be:
 
@@ -65,19 +60,20 @@ should update
 
   This is the behaviour of many programs with possibilities to select many 
   items and change some properties (mostly checkboxes)
-
-- Loseless image rotation (which actually affects the files)
-
-- Bug: searching with text from description field doesn't work
-
-- add more descriptions to the demo.
-
-- Make actions in the viewer into KActions so their key bindings can be configured.
-
+- when specifying options for several images at a time, present items that
+  are on all images.
+- Path could be a criteria in image search.
+- add kio: kimdaba://places/house
+- I really would like to do something with pictures found with image search. 
+  E.g., I want to send them by email, but before I have to reduce them in size. 
+  Therefore, most helpful would be (with decreasing importance):
+  - copy to directory
+  - move to directory (incl. thumbnails and updating the database)
+  - create ascii list of path/filenames (this would allow making batch
+- A Simple Export like HTML Export,
+  but just to save the selected Images in a specific
+  Size (+ Filetype) or just Original (even this would be great) to a directory 
+  (great for sending as email, burning cd from an event)
+  (Thus without index.html and thumbnails)
 - polish the offline mode, so it might be able to ask for you mounting say
   a cd with the images needed.
-
-- BUG: escape quotes and back quotes in descriptions when generating HTML
-- BUG: it seems like its not possible to generate HTML twice with different
-  images, without restarting the program
-- BUG: context menu for thumbnail view shows up in browser.

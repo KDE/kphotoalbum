@@ -56,6 +56,7 @@ void TypeFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
 
+
     QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
     for( QMapIterator<QString,int> it= map.begin(); it != map.end(); ++it ) {
         if ( it.key() != i18n( "**NONE**" ) ) {
@@ -72,6 +73,11 @@ void TypeFolderAction::action( BrowserItemFactory* factory )
 QString TypeFolderAction::title() const
 {
     return Options::instance()->textForOptionGroup( _optionGroup );
+}
+
+QString TypeFolderAction::optionGroup() const
+{
+    return _optionGroup;
 }
 
 

@@ -43,7 +43,7 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
 
 QPixmap ContentFolder::pixmap()
 {
-    if ( Options::instance()->viewSize() == Options::Small ) {
+    if ( Options::instance()->viewSize( _optionGroup ) == Options::Small ) {
         if ( Options::instance()->memberMap().isGroup( _optionGroup, _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, 22 );
         else {

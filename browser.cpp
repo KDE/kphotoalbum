@@ -101,6 +101,7 @@ void Browser::select( FolderAction* action )
     ShowBusyCursor dummy;
     if ( action ) {
         addItem( action );
+        setupFactory();
         action->action( _currentFactory );
     }
 }
@@ -155,6 +156,15 @@ void Browser::emitSignals()
         emit showingOverview();
     emit pathChanged( a->path() );
     _listView->setColumnText( 0, a->title() );
+    emit showsContentView( a->contentView() );
+
+    if ( a->contentView() && _list.size() > 0 ) {
+        QString grp = a->optionGroup();
+        Q_ASSERT( !grp.isNull() );
+        Options::ViewSize size = Options::instance()->viewSize( grp );
+        Options::ViewType type = Options::instance()->viewType( grp );
+        emit currentSizeAndTypeChanged( size, type );
+    }
 }
 
 void Browser::home()
@@ -212,29 +222,34 @@ ImageSearchInfo Browser::current()
 
 void Browser::slotSmallListView()
 {
-    Options::instance()->setViewType( Options::ListView );
-    Options::instance()->setViewSize( Options::Small );
-    reload();
+    setSizeAndType( Options::ListView,Options::Small );
 }
 
 void Browser::slotLargeListView()
 {
-    Options::instance()->setViewType( Options::ListView );
-    Options::instance()->setViewSize( Options::Large );
-    reload();
+    setSizeAndType( Options::ListView,Options::Large );
 }
 
 void Browser::slotSmallIconView()
 {
-    Options::instance()->setViewType( Options::IconView );
-    Options::instance()->setViewSize( Options::Small );
-    reload();
+    setSizeAndType( Options::IconView,Options::Small );
 }
 
 void Browser::slotLargeIconView()
 {
-    Options::instance()->setViewType( Options::IconView );
-    Options::instance()->setViewSize( Options::Large );
+    setSizeAndType( Options::IconView,Options::Large );
+}
+
+void Browser::setSizeAndType( Options::ViewType type, Options::ViewSize size )
+{
+    Q_ASSERT( _list.size() > 0 );
+
+    FolderAction* a = _list[_current-1];
+    QString grp = a->optionGroup();
+    Q_ASSERT( !grp.isNull() );
+
+    Options::instance()->setViewType( grp, type );
+    Options::instance()->setViewSize( grp, size );
     reload();
 }
 
@@ -246,7 +261,17 @@ void Browser::clear()
 
 void Browser::setupFactory()
 {
-    if ( Options::instance()->viewType() == Options::ListView ) {
+    Options::ViewType type = Options::ListView;
+    if ( _list.size() == 0 )
+        return;
+
+    FolderAction* a = _list[_current-1];
+    QString optionGroup = a->optionGroup();
+
+    if ( !optionGroup.isNull() )
+        type = Options::instance()->viewType( optionGroup );
+
+    if ( type == Options::ListView ) {
         _currentFactory = _listViewFactory;
         _stack->raiseWidget( _listView );
     }
@@ -259,10 +284,7 @@ void Browser::setupFactory()
 
 void Browser::setFocus()
 {
-    if ( Options::instance()->viewType() == Options::ListView )
-        _listView->setFocus();
-    else
-        _iconView->setFocus();
+    _stack->visibleWidget()->setFocus();
 }
 
 #include "browser.moc"

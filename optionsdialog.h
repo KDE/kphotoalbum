@@ -45,6 +45,7 @@ protected slots:
     void slotMyOK();
     void edit( QListBoxItem* );
     void slotLabelChanged( const QString& );
+    void slotPreferredViewChanged( int );
     void slotIconChanged( QString );
     void slotNewItem();
     void slotDeleteCurrent();
@@ -77,6 +78,8 @@ private:
     QListBox* _optionGroups;
     QLineEdit* _text;
     KIconButton* _icon;
+    QLabel* _preferredViewLabel;
+    QComboBox* _preferredView;
     KPushButton* _delItem;
     OptionGroupItem* _current;
     QValueList<OptionGroupItem*> _deleted;

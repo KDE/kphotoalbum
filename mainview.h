@@ -28,10 +28,13 @@ class KTipDialog;
 class DeleteDialog;
 class QLabel;
 class HTMLExportDialog;
+class KActionMenu;
+class KRadioAction;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
 #include "thumbnailview.h"
+#include "options.h"
 
 class MainView :public KMainWindow
 {
@@ -70,6 +73,7 @@ protected slots:
     void slotSetFileName( const QString& );
     void slotThumbNailSelectionChanged();
     void reloadThumbNail();
+    void slotUpdateViewMenu( Options::ViewSize, Options::ViewType );
 
 protected:
     void configureImages( bool oneAtATime );
@@ -110,6 +114,11 @@ private:
     KAction* _configAllSimultaniously;
     KAction* _viewSelected;
     KAction* _viewSelectedInNewWindow;
+    KActionMenu* _viewMenu;
+    KRadioAction* _smallListView;
+    KRadioAction* _largeListView;
+    KRadioAction* _smallIconView;
+    KRadioAction* _largeIconView;
 };
 
 

@@ -80,9 +80,13 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
                 if ( optionGroupInfo ) {
                     QString text= elmOption.attribute( QString::fromLatin1("text"), name );
                     QString icon= elmOption.attribute( QString::fromLatin1("icon") );
+                    Options::ViewSize size =
+                        (Options::ViewSize) elmOption.attribute( QString::fromLatin1("size"), QString::fromLatin1( "0" ) ).toInt();
+                    Options::ViewType type =
+                        (Options::ViewType) elmOption.attribute( QString::fromLatin1("type"), QString::fromLatin1( "0" ) ).toInt();
                     bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                             QString::fromLatin1( "1" ) ).toInt();
-                    (*optionGroupInfo)[name] = Options::OptionGroupInfo( text, icon, show );
+                    (*optionGroupInfo)[name] = Options::OptionGroupInfo( text, icon, size, type, show );
                 }
 
                 // Read values

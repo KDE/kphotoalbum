@@ -63,8 +63,6 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
     _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
-    _viewType = (ViewType) config.attribute( QString::fromLatin1( "viewType" ), QString::fromLatin1( "0" ) ).toInt();
-    _viewSize = (ViewSize) config.attribute( QString::fromLatin1( "viewSize" ), QString::fromLatin1( "0" ) ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -118,8 +116,6 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("locked"), _locked );
     config.setAttribute( QString::fromLatin1("exclude"), _exclude );
     config.setAttribute( QString::fromLatin1("passwd"), _passwd );
-    config.setAttribute( QString::fromLatin1( "viewSize" ), _viewSize );
-    config.setAttribute( QString::fromLatin1( "viewType" ), _viewType );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -335,10 +331,10 @@ int Options::maxImages() const
    \param label Text label as seen in the GUI
    \param icon to be shown in the browser
 */
-void Options::addOptionGroup( const QString& name, const QString& label, const QString& icon )
+void Options::addOptionGroup( const QString& name, const QString& label, const QString& icon, ViewSize size, ViewType type )
 {
     emit changed();
-    _optionGroups[name] = OptionGroupInfo(label,icon);
+    _optionGroups[name] = OptionGroupInfo(label, icon, size, type );
     emit optionGroupsChanged();
 }
 
@@ -514,24 +510,24 @@ QImage Options::optionImage( const QString& optionGroup, const QString& member, 
     return img.smoothScale( size, size, QImage::ScaleMin );
 }
 
-void Options::setViewSize( ViewSize size )
+void Options::setViewSize( const QString& optionGroup, ViewSize size )
 {
-    _viewSize = size;
+    _optionGroups[optionGroup]._size = size;
 }
 
-void Options::setViewType( ViewType type )
+void Options::setViewType( const QString& optionGroup, ViewType type )
 {
-    _viewType = type;
+    _optionGroups[optionGroup]._type = type;
 }
 
-Options::ViewSize Options::viewSize() const
+Options::ViewSize Options::viewSize( const QString& optionGroup ) const
 {
-    return _viewSize;
+    return _optionGroups[optionGroup]._size;
 }
 
-Options::ViewType Options::viewType() const
+Options::ViewType Options::viewType( const QString& optionGroup ) const
 {
-    return _viewType;
+    return _optionGroups[optionGroup]._type;
 }
 
 #include "options.moc"

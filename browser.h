@@ -20,6 +20,7 @@
 #define BROWSER_H
 #include <qlistview.h>
 #include <qiconview.h>
+#include "options.h"
 class FolderAction;
 class ImageSearchInfo;
 class QListViewItem;
@@ -56,7 +57,8 @@ signals:
     void canGoForward( bool );
     void showingOverview();
     void pathChanged( const QString& );
-
+    void showsContentView( bool );
+    void currentSizeAndTypeChanged( Options::ViewSize, Options::ViewType );
 
 protected slots:
     void init();
@@ -68,6 +70,7 @@ protected:
     void addItem( FolderAction* );
     void emitSignals();
     void setupFactory();
+    void setSizeAndType( Options::ViewType type, Options::ViewSize size );
 
 private:
     static Browser* _instance;

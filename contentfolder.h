@@ -40,7 +40,8 @@ public:
     ContentFolderAction( const QString& optionGroup, const QString& value,
                          const ImageSearchInfo& info, Browser* parent );
     virtual void action( BrowserItemFactory* factory );
-    virtual bool showsImages() { return false; }
+    virtual bool showsImages() const { return false; }
+    virtual bool contentView() const { return false; }
     virtual bool allowSort() const;
     virtual QString title() const;
 

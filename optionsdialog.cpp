@@ -104,18 +104,20 @@ class OptionGroupItem :public QListBoxText
 {
 public:
     OptionGroupItem( const QString& optionGroup, const QString& text, const QString& icon,
-                     QListBox* parent );
+                     Options::ViewSize size, Options::ViewType type, QListBox* parent );
     void setLabel( const QString& label );
 
     QString _optionGroupOrig, _textOrig, _iconOrig;
     QString _text, _icon;
+    Options::ViewSize _size, _sizeOrig;
+    Options::ViewType _type, _typeOrig;
 };
 
 OptionGroupItem::OptionGroupItem( const QString& optionGroup, const QString& text, const QString& icon,
-                                  QListBox* parent )
+                                  Options::ViewSize size, Options::ViewType type, QListBox* parent )
     :QListBoxText( parent, text ),
      _optionGroupOrig( optionGroup ), _textOrig( text ), _iconOrig( icon ),
-     _text( text ), _icon( icon )
+     _text( text ), _icon( icon ), _size( size ), _sizeOrig( size ), _type( type ), _typeOrig( type )
 {
 }
 
@@ -161,6 +163,17 @@ void OptionsDialog::createOptionGroupsPage()
     connect( _icon, SIGNAL( iconChanged( QString ) ), this, SLOT( slotIconChanged( QString ) ) );
     lay3->addStretch(1);
 
+    // Prefered View
+    _preferredViewLabel = new QLabel( i18n("Preferred View:"), top );
+    lay3->addWidget( _preferredViewLabel );
+
+    _preferredView = new QComboBox( top );
+    lay3->addWidget( _preferredView );
+    QStringList list;
+    list << i18n("Small List View") << i18n("Large List View") << i18n("Small Icon View") << i18n("Large Icon View");
+    _preferredView->insertStringList( list );
+    connect( _preferredView, SIGNAL( activated( int ) ), this, SLOT( slotPreferredViewChanged( int ) ) );
+
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
     KPushButton* newItem = new KPushButton( i18n("New"), top );
     connect( newItem, SIGNAL( clicked() ), this, SLOT( slotNewItem() ) );
@@ -194,7 +207,7 @@ void OptionsDialog::show()
     QStringList grps = opt->optionGroups();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         new OptionGroupItem( *it, opt->textForOptionGroup( *it ), opt->iconNameForOptionGroup( *it ),
-                             _optionGroups );
+                             opt->viewSize( *it ), opt->viewType( *it ), _optionGroups );
     }
     enableDisable( false );
     KDialogBase::show();
@@ -230,7 +243,7 @@ void OptionsDialog::slotMyOK()
         OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
         if ( item->_optionGroupOrig.isNull() ) {
             // New Item
-            opt->addOptionGroup( item->_text, item->_text, item->_icon );
+            opt->addOptionGroup( item->_text, item->_text, item->_icon, item->_size, item->_type );
         }
         else {
             if ( item->_text != item->_textOrig ) {
@@ -239,6 +252,12 @@ void OptionsDialog::slotMyOK()
             }
             if ( item->_icon != item->_iconOrig ) {
                 opt->setIconForOptionGroup( item->_optionGroupOrig, item->_icon );
+            }
+            if ( item->_size != item->_sizeOrig ) {
+                opt->setViewSize( item->_optionGroupOrig, item->_size );
+            }
+            if ( item->_type != item->_typeOrig ) {
+                opt->setViewType( item->_optionGroupOrig, item->_type );
             }
         }
     }
@@ -260,6 +279,7 @@ void OptionsDialog::edit( QListBoxItem* i )
     _current = item;
     _text->setText( item->_text );
     _icon->setIcon( item->_icon );
+    _preferredView->setCurrentItem( (int) item->_size + 2 * (int) item->_type );
     enableDisable( true );
 }
 
@@ -269,6 +289,23 @@ void OptionsDialog::slotLabelChanged( const QString& label)
         _current->setLabel( label );
 }
 
+void OptionsDialog::slotPreferredViewChanged( int i )
+{
+    if ( _current ) {
+        if ( i < 2 )
+            _current->_type = Options::ListView;
+        else
+            _current->_type = Options::IconView;
+
+        if ( i % 2 == 1 )
+            _current->_size = Options::Large;
+        else
+            _current->_size = Options::Small;
+    }
+}
+
+
+
 void OptionsDialog::slotIconChanged( QString icon )
 {
     if( _current )
@@ -277,7 +314,7 @@ void OptionsDialog::slotIconChanged( QString icon )
 
 void OptionsDialog::slotNewItem()
 {
-    _current = new OptionGroupItem( QString::null, QString::null, QString::null, _optionGroups );
+    _current = new OptionGroupItem( QString::null, QString::null, QString::null, Options::Small, Options::ListView, _optionGroups );
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
     enableDisable( true );
@@ -310,6 +347,8 @@ void OptionsDialog::enableDisable( bool b )
     _delItem->setEnabled( b );
     _text->setEnabled( b );
     _icon->setEnabled( b );
+    _preferredViewLabel->setEnabled( b );
+    _preferredView->setEnabled( b );
 }
 
 

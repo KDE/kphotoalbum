@@ -20,6 +20,7 @@
 #include <qregexp.h>
 #include "options.h"
 #include <klocale.h>
+#include "util.h"
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
@@ -159,6 +160,7 @@ QString ImageSearchInfo::option( const QString& name ) const
 void ImageSearchInfo::setOption( const QString& name, const QString& value )
 {
     _options[name] = value;
+    _isNull = false;
 }
 
 void ImageSearchInfo::addAnd( const QString& group, const QString& value )
@@ -170,16 +172,19 @@ void ImageSearchInfo::addAnd( const QString& group, const QString& value )
         val = value;
 
     setOption( group, val );
+    _isNull = false;
 }
 
 void ImageSearchInfo::setStartDate( const ImageDate& date )
 {
     _startDate = date;
+    _isNull = false;
 }
 
 void ImageSearchInfo::setEndDate( const ImageDate& date )
 {
     _endDate = date;
+    _isNull = false;
 }
 
 QString ImageSearchInfo::toString() const
@@ -218,5 +223,68 @@ bool ImageSearchInfo::hasOption( ImageInfo* info, const QString& key, const QStr
 
     }
     return match;
+}
+
+void ImageSearchInfo::debug()
+{
+    for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+        qDebug( "%s: %s", it.key().latin1(), it.data().latin1() );
+    }
+}
+
+QDomElement ImageSearchInfo::toXML( QDomDocument doc )
+{
+    QDomElement res = doc.createElement( QString::fromLatin1( "SearchInfo" ) );
+    // PENDING(blackie) HANDLE Dates
+    res.setAttribute( QString::fromLatin1("label"), _label );
+    res.setAttribute( QString::fromLatin1("description"), _description );
+
+    QDomElement options = doc.createElement( QString::fromLatin1( "Options" ) );
+    res.appendChild( options );
+    for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+        QDomElement option = doc.createElement( QString::fromLatin1("Option") );
+        option.setAttribute( QString::fromLatin1("optionGroup"), it.key() );
+        option.setAttribute( QString::fromLatin1( "value" ), it.data() );
+        options.appendChild( option );
+    }
+    return res;
+}
+
+void ImageSearchInfo::load( QDomElement top )
+{
+    _isNull = false;
+    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
+        if ( node.isElement() && node.toElement().tagName() == QString::fromLatin1( "SearchInfo" ) ) {
+            QDomElement elm = node.toElement();
+            // PENDING(blackie) HANDLE Dates
+            _label = elm.attribute( QString::fromLatin1( "label" ) );
+            _description = elm.attribute( QString::fromLatin1( "description" ) );
+            QDomNode childNode = elm.firstChild();
+            if ( !childNode.isNull() && childNode.isElement() && childNode.toElement().tagName() == QString::fromLatin1( "Options" ) ) {
+                QDomElement options = childNode.toElement();
+                for ( QDomNode optionNode = options.firstChild(); !optionNode.isNull(); optionNode = optionNode.nextSibling() ) {
+                    if ( !optionNode.isElement() )
+                        continue;
+
+                    QDomElement option = optionNode.toElement();
+                    QString optionGroup = option.attribute( QString::fromLatin1( "optionGroup" ) );
+                    QString value = option.attribute( QString::fromLatin1( "value" ) );
+                    if ( !optionGroup.isEmpty() )
+                        _options.insert( optionGroup, value );
+                }
+                return;
+            }
+        }
+    }
+}
+
+ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
+{
+    _startDate = other._startDate;
+    _endDate = other._endDate;
+    _options = other._options;
+    _label = other._label;
+    _description = other._description;
+    _isNull = other._isNull;
 }
 

@@ -33,6 +33,7 @@ public:
     static Browser* theBrowser();
     void load( const QString& optionGroup, const QString& value );
     bool allowSort();
+    ImageSearchInfo current();
 
 public slots:
     void back();

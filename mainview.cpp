@@ -54,6 +54,7 @@
 #include <stdlib.h>
 #include <qpopupmenu.h>
 #include <kiconloader.h>
+#include <kpassdlg.h>
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 ), _dirtyIndicator(0)
@@ -76,10 +77,18 @@ MainView::MainView( QWidget* parent, const char* name )
     setCentralWidget( _stack );
     _stack->raiseWidget( _browser );
 
+    _optionsDialog = 0;
+    setupMenuBar();
+
     // Setting up status bar
-    _dirtyIndicator = new QLabel( statusBar() );
-    statusBar()->addWidget( _dirtyIndicator, 0, true );
+    QHBox* indicators = new QHBox( statusBar() );
+    _dirtyIndicator = new QLabel( indicators );
     setDirty( _dirty ); // Might already have been made dirty by load above
+
+    _lockedIndicator = new QLabel( indicators );
+    setLocked( Options::instance()->isLocked() );
+
+    statusBar()->addWidget( indicators, 0, true );
 
     ImageCounter* partial = new ImageCounter( statusBar() );
     statusBar()->addWidget( partial, 0, true );
@@ -87,9 +96,7 @@ MainView::MainView( QWidget* parent, const char* name )
     ImageCounter* total = new ImageCounter( statusBar() );
     statusBar()->addWidget( total, 0, true );
 
-    _optionsDialog = 0;
-    setupMenuBar();
-
+    // Misc
     _autoSaveTimer = new QTimer( this );
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
@@ -345,6 +352,18 @@ void MainView::setupMenuBar()
     new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                  actionCollection(), "limitToMarked" );
 
+    _lock = new KAction( i18n("Lock to Default Scope"), 0, this, SLOT( lockToDefaultScope() ),
+                         actionCollection(), "lockToDefaultScope" );
+    _unlock = new KAction( i18n("Unlock"), 0, this, SLOT( unlockFromDefaultScope() ),
+                           actionCollection(), "unlockFromDefaultScope" );
+    new KAction( i18n("Change Password"), 0, this, SLOT( changePassword() ),
+                 actionCollection(), "changeScopePasswd" );
+
+    _setDefaultPos = new KAction( i18n("Mark Current View as Lock"), 0, this, SLOT( setDefaultScopePositive() ),
+                                  actionCollection(), "setDefaultScopePositive" );
+    _setDefaultNeg = new KAction( i18n("Mark Everything but the Current View as Lock"), 0, this, SLOT( setDefaultScopeNegative() ),
+                                  actionCollection(), "setDefaultScopeNegative" );
+
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     new KAction( i18n("Show Tooltips on Images"), CTRL+Key_T, _thumbNailView, SLOT( showToolTipsOnImages() ),
@@ -587,6 +606,89 @@ void MainView::setDirty( bool dirty )
     }
 
     _dirty = dirty;
+}
+
+void MainView::setDefaultScopePositive()
+{
+    Options::instance()->setCurrentScope( _browser->current(), false );
+}
+
+void MainView::setDefaultScopeNegative()
+{
+    Options::instance()->setCurrentScope( _browser->current(), true );
+}
+
+void MainView::lockToDefaultScope()
+{
+    int i = KMessageBox::warningContinueCancel( this,
+                                                i18n( "<qt><p>The pass word protection is only a mean of allowing your little sister "
+                                                      "to look in your images, without getting to those embarrassing images from "
+                                                      "your last party.</p>"
+                                                      "<p>In other words, anyone with access to the index.xml file can easily circumvent "
+                                                      "this password!</b></p>"),
+                                                i18n("pass word protection"),
+                                                KStdGuiItem::cont(),
+                                                QString::fromLatin1( "lockPassWordIsNotEncruption" ) );
+    if ( i == KMessageBox::Cancel )
+        return;
+
+    setLocked( true );
+
+}
+
+void MainView::unlockFromDefaultScope()
+{
+    QCString passwd;
+    bool OK = ( Options::instance()->password().isEmpty() );
+    while ( !OK ) {
+        int code = KPasswordDialog::getPassword( passwd, i18n("Type in Password to unlock"));
+        if ( code == QDialog::Rejected )
+            return;
+        OK = (Options::instance()->password() == passwd);
+
+        if ( !OK )
+            KMessageBox::sorry( this, i18n("Invalid Password") );
+    }
+    setLocked( false );
+}
+
+void MainView::setLocked( bool locked )
+{
+    static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "key" ) ) );
+    _lockedIndicator->setFixedWidth( lockedPix->width() );
+
+    if ( locked )
+        _lockedIndicator->setPixmap( *lockedPix );
+    else
+        _lockedIndicator->setPixmap( QPixmap() );
+
+    Options::instance()->setLocked( locked );
+
+    _lock->setEnabled( !locked );
+    _unlock->setEnabled( locked );
+    _setDefaultPos->setEnabled( !locked );
+    _setDefaultNeg->setEnabled( !locked );
+    _browser->reload();
+}
+
+void MainView::changePassword()
+{
+    QCString passwd;
+    bool OK = ( Options::instance()->password().isEmpty() );
+
+    while ( !OK ) {
+        int code = KPasswordDialog::getPassword( passwd, i18n("Type in old Password"));
+        if ( code == QDialog::Rejected )
+            return;
+        OK = (Options::instance()->password() == passwd);
+
+        if ( !OK )
+            KMessageBox::sorry( this, i18n("Invalid Password") );
+    }
+
+    int code = KPasswordDialog::getNewPassword( passwd, i18n("Type in New Password"));
+    if ( code == QDialog::Accepted )
+        Options::instance()->setPassword( passwd );
 }
 
 #include "mainview.moc"

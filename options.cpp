@@ -59,6 +59,9 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _showDrawings = config.attribute( QString::fromLatin1("showDrawings"), QString::fromLatin1("1") ).toInt();
     _showDescription = config.attribute( QString::fromLatin1("showDescription"), QString::fromLatin1("1") ).toInt();
     _showDate = config.attribute( QString::fromLatin1("showDate"), QString::fromLatin1("1") ).toInt();
+    _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
+    _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
+    _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
 
 
     // Viewer size
@@ -73,6 +76,8 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     Util::readOptions( options, &_options, &_optionGroups );
     _configDock = configWindowSetup;
     _members.load( memberGroups );
+    _currentScope.load( config );
+
 }
 
 void Options::setThumbSize( int w )
@@ -109,6 +114,9 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("showDrawings"), _showDrawings );
     config.setAttribute( QString::fromLatin1("showDescription"), _showDescription );
     config.setAttribute( QString::fromLatin1("showDate"), _showDate );
+    config.setAttribute( QString::fromLatin1("locked"), _locked );
+    config.setAttribute( QString::fromLatin1("exclude"), _exclude );
+    config.setAttribute( QString::fromLatin1("passwd"), _passwd );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -127,6 +135,9 @@ void Options::save( QDomElement top )
     // Member Groups
     if ( ! _members.isEmpty() )
         top.appendChild( _members.save( doc ) );
+
+    if ( !_currentScope.isNull() )
+        config.appendChild( _currentScope.toXML( doc ) );
 }
 
 void Options::setOption( const QString& key, const QStringList& value )
@@ -424,6 +435,43 @@ void Options::setMemberMap( const MemberMap& members )
     // PENDING(blackie) One day, implement MemberMap::operator!=
     emit changed();
     _members = members;
+}
+
+void Options::setCurrentScope( const ImageSearchInfo& info, bool exclude )
+{
+    _currentScope = info;
+    _exclude = exclude;
+}
+
+ImageSearchInfo Options::currentScope() const
+{
+    return _currentScope;
+}
+
+void Options::setLocked( bool lock )
+{
+    _locked = lock;
+    emit locked( lock, _exclude );
+}
+
+bool Options::isLocked() const
+{
+    return _locked;
+}
+
+bool Options::lockExcludes() const
+{
+    return _exclude;
+}
+
+void Options::setPassword( const QString& passwd )
+{
+    _passwd = passwd;
+}
+
+QString Options::password() const
+{
+    return _passwd;
 }
 
 #include "options.moc"

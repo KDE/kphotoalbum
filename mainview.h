@@ -59,6 +59,11 @@ protected slots:
     void showTipOfDay();
     void pathChanged( const QString& );
     void runDemo();
+    void lockToDefaultScope();
+    void setDefaultScopePositive();
+    void setDefaultScopeNegative();
+    void unlockFromDefaultScope();
+    void changePassword();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -72,6 +77,7 @@ protected:
     void save( const QString& fileName );
     virtual void contextMenuEvent( QContextMenuEvent* e );
     void setDirty( bool b );
+    void setLocked( bool b );
 
 private:
     ThumbNailView* _thumbNailView;
@@ -85,6 +91,11 @@ private:
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
     QLabel* _dirtyIndicator;
+    QLabel* _lockedIndicator;
+    KAction* _lock;
+    KAction* _unlock;
+    KAction* _setDefaultPos;
+    KAction* _setDefaultNeg;
 };
 
 

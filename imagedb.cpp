@@ -83,7 +83,7 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* ne
              this, SLOT( deleteOption( const QString&, const QString& ) ) );
     connect( Options::instance(), SIGNAL( renamedOption( const QString&, const QString&, const QString& ) ),
              this, SLOT( renameOption( const QString&, const QString&, const QString& ) ) );
-
+    connect( Options::instance(), SIGNAL( locked( bool, bool ) ), this, SLOT( lockDB( bool, bool ) ) );
 }
 
 int ImageDB::totalCount() const
@@ -108,7 +108,8 @@ int ImageDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int
 {
     int count = 0;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = const_cast<ImageSearchInfo&>(info).match( *it ); // PENDING(blackie) remove cast
+        bool match = !(*it)->isLocked() && const_cast<ImageSearchInfo&>(info).match( *it ); // PENDING(blackie) remove cast
+
         if ( match )
             ++count;
         match &= ( from != -1 && to != -1 && from <= count && count < to ) ||
@@ -214,7 +215,7 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
     GroupCounter counter( group );
 
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = const_cast<ImageSearchInfo&>(info).match( *it ); // PENDING(blackie) remove cast
+        bool match = !(*it)->isLocked() && const_cast<ImageSearchInfo&>(info).match( *it ); // PENDING(blackie) remove cast
         if ( match ) {
             QStringList list = (*it)->optionValue(group);
             counter.count( list );
@@ -282,6 +283,21 @@ void ImageDB::deleteOption( const QString& optionGroup, const QString& option )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->removeOption( optionGroup, option );
+    }
+}
+
+void ImageDB::lockDB( bool lock, bool exclude  )
+{
+    ImageSearchInfo info = Options::instance()->currentScope();
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        if ( lock ) {
+            bool match = info.match( *it );
+            if ( !exclude )
+                match = !match;
+            (*it)->setLocked( match );
+        }
+        else
+            (*it)->setLocked( false );
     }
 }
 

@@ -57,6 +57,7 @@ public:
     virtual QString title() const;
 
 protected:
+    friend class Browser;
     Browser* _browser;
     ImageSearchInfo _info;
 };

@@ -1,5 +1,9 @@
 2003-10-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added new feature, which allows you to specify a default search
+	option, that applies to all searches. That way you can exclude all
+	private images, when looking at images with say, your parents.
+
 	* BUGFIX: If a user added a new group, but never added any items
 	to the group, then the group would not be available later for
 	adding new items, but it was still available for selecting in

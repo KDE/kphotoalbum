@@ -169,4 +169,9 @@ bool Browser::allowSort()
 }
 
 
+ImageSearchInfo Browser::current()
+{
+    return _list[_current-1]->_info;
+}
+
 #include "browser.moc"

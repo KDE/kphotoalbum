@@ -58,6 +58,7 @@ protected:
 protected slots:
     void renameOption( const QString& optionGroup, const QString& oldName, const QString& newName );
     void deleteOption( const QString& optionGroup, const QString& option );
+    void lockDB( bool lock, bool exclude );
 
 private:
     ImageDB( const QDomElement& images, const QDomElement& blockList, bool* newImages );

@@ -21,12 +21,14 @@
 #include "imagesearchinfo.h"
 #include "imagedate.h"
 #include "imageinfo.h"
+#include <qdom.h>
 
 class ImageSearchInfo {
 public:
     ImageSearchInfo();
     ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                      const QString& label, const QString& description );
+    ImageSearchInfo( const ImageSearchInfo& other );
 
     void setStartDate( const ImageDate& );
     void setEndDate( const ImageDate& );
@@ -45,6 +47,10 @@ public:
     void addAnd( const QString& group, const QString& value );
     QString toString() const;
 
+    QDomElement toXML( QDomDocument );
+    void load( QDomElement );
+
+    void debug();
 protected:
     bool stringMatch( const QString& key, ImageInfo* info );
     bool hasOption( ImageInfo* info, const QString& key, const QString& str );

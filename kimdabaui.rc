@@ -18,6 +18,15 @@
       <Action name="viewImages" />
       <Action name="viewImagesNewWindow" />
       <Action name="limitToMarked" />
+      <Menu name="privacy">
+        <text>Privacy</text>
+        <Action name="lockToDefaultScope"/>
+        <Action name="unlockFromDefaultScope"/>
+        <Action name="changeScopePasswd" />
+        <separator/>
+        <Action name="setDefaultScopePositive" />
+        <Action name="setDefaultScopeNegative" />
+      </Menu>
     </Menu>
    <Menu name="help">
      <Action name="showToolTipOnImages"/>

@@ -12,6 +12,8 @@ Features/Bug for next version
   warned about
 - dropping in empty space in thumbnails doesn't work.
 - In the group editor (options->group), ensure that no cycles are created.
+- when images are deleted, the total count at the bottom of the mainwindow,
+should update
 
 Features for later versions
 ---------------------------

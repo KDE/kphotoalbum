@@ -260,4 +260,21 @@ void ImageInfo::renameOptionGroup( const QString& oldName, const QString& newNam
     _options.erase(oldName);
 }
 
+void ImageInfo::setLocked( bool locked )
+{
+    _locked = locked;
+}
+
+bool ImageInfo::isLocked() const
+{
+    return _locked;
+}
+
+void ImageInfo::debug()
+{
+    for( QMapIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
+        qDebug( "%s: %s", it.key().latin1(), it.data().join( QString::fromLatin1( ", " ) ).latin1() );
+    }
+}
+
 #include "infobox.moc"

@@ -24,6 +24,7 @@
 #include <qobject.h>
 #include <qdom.h>
 #include "membermap.h"
+#include "imagesearchinfo.h"
 class ImageConfig;
 
 class Options :public QObject {
@@ -119,11 +120,22 @@ public:
     void saveConfigWindowLayout( ImageConfig* );
     void loadConfigWindowLayout( ImageConfig* );
 
+    void setCurrentScope( const ImageSearchInfo&, bool exclude );
+    ImageSearchInfo currentScope() const;
+
+    void setLocked( bool );
+    bool isLocked() const;
+    bool lockExcludes() const;
+
+    void setPassword( const QString& passwd );
+    QString password() const;
+
 signals:
     void optionGroupsChanged();
     void changed();
     void renamedOption( const QString& optionGroup, const QString& oldName, const QString& newName );
     void deletedOption( const QString& optionGroup, const QString& name );
+    void locked( bool lock, bool exclude );
 
 
 private:
@@ -145,6 +157,9 @@ private:
     QSize _viewerSize;
 
     MemberMap _members;
+    ImageSearchInfo _currentScope;
+    bool _locked, _exclude;
+    QString _passwd;
 };
 
 #endif /* OPTIONS_H */

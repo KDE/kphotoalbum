@@ -72,6 +72,12 @@ public:
 
     bool imageOnDisk() const { return _imageOnDisk; }
 
+    void setLocked( bool );
+    bool isLocked() const;
+
+    // Debugging
+    void debug();
+
 private:
     // This string is accessed on several threads, so we need to make it a deep copy!
     // PENDING(blackie) Is the above comment true?
@@ -84,6 +90,9 @@ private:
     bool _visible;
     DrawList _drawList;
     bool _imageOnDisk; // true if the image is available on disk
+
+    // Cache information
+    bool _locked;
 };
 
 typedef QPtrList<ImageInfo> ImageInfoList;

@@ -85,4 +85,9 @@ void PluginInterface::delImage( const KURL& url )
     }
 }
 
+void PluginInterface::slotSelectionChanged( bool b )
+{
+    emit selectionChanged( b );
+}
+
 #include "plugininterface.moc"

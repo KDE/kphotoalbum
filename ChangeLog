@@ -1,3 +1,11 @@
+2004-06-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* demo directory are now copied rather than symlinked. With
+	symlink, the installed demo files will also be modified when
+	images are modified in the demo, which is not desired.
+
+	* Added KIPI support.
+
 2004-05-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: When you press cancel during the export process you still get the info

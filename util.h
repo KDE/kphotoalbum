@@ -35,6 +35,8 @@ public:
     static void checkForBackupFile( const QString& fileName );
     static bool ctrlKeyDown();
     static bool copy( const QString& from, const QString& to );
+    static bool runningDemo();
+    static void deleteDemo();
     static QString setupDemo();
     static QString readInstalledFile( const QString& fileName );
     static void removeThumbNail( const QString& imageFile );

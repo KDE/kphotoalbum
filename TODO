@@ -12,19 +12,13 @@ BUGS To be handled soonish
   differently than their construction order. Here is the next plan:
   iterate through all the children of the dialog, and setup tab order as
   they are physically located on screen. 
-- rework member group config page to use kdlistboxpair instead.
-- rather than symlinking the demo files, copy them over, and on exit ask if
-they should be deleted. (This will ensure that say greyscaling doesn't stay
-in effect)
 
 =======================
 BUGS of less importance
 =======================
 - In the group editor (options->group), ensure that no cycles are created.
-- Locking to dates doesn't seem to work, and once it works, the information
-  should also be written to the XML file in ImageSearchInfo::toXML and ImageSearchInfo::load.
--It is possible to select the same filter option multiple times. This value 
- will then be displayed multiple times in the status bar
+- It is possible to select the same filter option multiple times. This value 
+  will then be displayed multiple times in the status bar
 
 ==============================
 Features for a soonish version
@@ -33,10 +27,6 @@ Features for a soonish version
 - make it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when generating
   HTML
-- show slideshow in several Viewers, that is show image 1 in viewer 1, and
-  image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
-  2. This would be very cool when the user as multiple monitors.
-- Make a plugin structure for KimDaBa. (Will be in KimDaBa version 1.2)
 - make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
 - For removing properties:
   I think a good solution would be:
@@ -58,11 +48,12 @@ Features for a soonish version
   next image. (That way you can easily go through hundreds of images putting
   the keyword "print", and later search for keyword print for sending images
   to printer)
-  This could of course be extended so you could send keywords with
+  This could of course be extended so you could set keywords with
   different key bindings (which should be configurable):
   (c) - image is from Copenhagen
   (l) - image is from Las Vegas.
   I doubt that extension will be very useful tho.
+- rework member group config page to use kdlistboxpair instead.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
@@ -74,17 +65,6 @@ Features still to be considered (aka not likely to go in next release)
   are on all images.
 - Path could be a criteria in image search.
 - add kio: kimdaba://places/house
-- I really would like to do something with pictures found with image search. 
-  E.g., I want to send them by email, but before I have to reduce them in size. 
-  Therefore, most helpful would be (with decreasing importance):
-  - copy to directory
-  - move to directory (incl. thumbnails and updating the database)
-  - create ascii list of path/filenames (this would allow making batch
-- A Simple Export like HTML Export,
-  but just to save the selected Images in a specific
-  Size (+ Filetype) or just Original (even this would be great) to a directory 
-  (great for sending as email, burning cd from an event)
-  (Thus without index.html and thumbnails)
 - polish the offline mode, so it might be able to ask for you mounting say
   a cd with the images needed.
 - the search dialog does currently support &,|, and ! 

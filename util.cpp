@@ -1,4 +1,4 @@
-/*
+                                    /*
  *  Copyright (c) 2003-2004 Jesper K. Pedersen <blackie@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
@@ -31,6 +31,9 @@
 #include <qregexp.h>
 #include <kfilemetainfo.h>
 #include <kfilemetainfo.h>
+#include <kcmdlineargs.h>
+#include <kio/netaccess.h>
+#include "mainview.h"
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
                          QMap<QString,Options::OptionGroupInfo>* optionGroupInfo )
@@ -220,22 +223,24 @@ QString Util::setupDemo()
     str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
 
     QString configFile = dir + QString::fromLatin1( "/index.xml" );
-    QFile out( configFile );
-    if ( !out.open( IO_WriteOnly ) ) {
-        KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( configFile ), i18n("Error running demo") );
-        exit(-1);
+    if ( ! QFileInfo( configFile ).exists() ) {
+        QFile out( configFile );
+        if ( !out.open( IO_WriteOnly ) ) {
+            KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( configFile ), i18n("Error running demo") );
+            exit(-1);
+        }
+        QTextStream( &out ) << str;
+        out.close();
     }
-    QTextStream( &out ) << str;
-    out.close();
 
     // Images
     QStringList files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kimdaba/demo/*.jpg" ) );
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
         QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
         if ( ! QFileInfo( destFile ).exists() ) {
-            ok = ( symlink( (*it).latin1(), destFile.latin1() ) == 0 );
+            ok = copy( *it, destFile );
             if ( !ok ) {
-                KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
+                KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
                 exit(-1);
             }
         }
@@ -258,7 +263,7 @@ QString Util::setupDemo()
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
         QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
         if ( ! QFileInfo( destFile ).exists() ) {
-            ok = ( symlink( (*it).latin1(), destFile.latin1() ) == 0 );
+            ok = copy( *it, destFile );
             if ( !ok ) {
                 KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
                 exit(-1);
@@ -436,4 +441,18 @@ QString Util::stripSlash( const QString& fileName )
         return fileName.left( fileName.length()-1);
     else
         return fileName;
+}
+
+bool Util::runningDemo()
+{
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    return args->isSet( "demo" );
+}
+
+void Util::deleteDemo()
+{
+    QString dir = QString::fromLatin1( "/tmp/kimdaba-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
+    KURL url;
+    url.setPath( dir );
+    (void) KIO::NetAccess::del( dir, MainView::theMainView() );
 }

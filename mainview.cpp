@@ -135,12 +135,12 @@ MainView::MainView( QWidget* parent, const char* name )
     statusBar()->message(i18n("Welcome to KimDaBa"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
-
-    loadPlugins();
 }
 
 void MainView::delayedInit()
 {
+    loadPlugins(); // The plugins may ask for the current album, which needs the browser fully initialized.
+
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "import" ) ) {
         // I need to do this in delayed init to get the import window on top of the normal window
@@ -155,20 +155,39 @@ void MainView::delayedInit()
 
 bool MainView::slotExit()
 {
-    if ( _dirty || !ImageDB::instance()->isClipboardEmpty() ) {
-        int ret = QMessageBox::warning( this, i18n("Save Changes?"),
-                                        i18n("Do you want to save the changes?"),
-                                        QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
-        if ( ret == QMessageBox::Cancel )
+    if ( Util::runningDemo() ) {
+        QString txt = i18n("<qt><p><b>Delete your temporary demo database</b></p>"
+                           "<p>I hope you enjoyed the KimDaBa demo. The demo database was copied to "
+                           "/tmp, should it be deleted now. If you do not delete it, it will waste disk space. "
+                           "On the other hand, if you want to come back and try the demo again, you "
+                           "might want to keep it arround we the changes you made through this session.</p></qt>" );
+        int ret = KMessageBox::questionYesNoCancel( this, txt, i18n("Delete demo database"),
+                                                    KStdGuiItem::yes(), KStdGuiItem::no(),
+                                                    QString::fromLatin1("deleteDemoDatabase") );
+        if ( ret == KMessageBox::Cancel )
             return false;
-        if ( ret == QMessageBox::Yes ) {
+        else if ( ret == KMessageBox::Yes ) {
+            Util::deleteDemo();
+            goto doQuit;
+        }
+        else
+            ; // pass through to the check for dirtyness.
+    }
+
+    if ( _dirty || !ImageDB::instance()->isClipboardEmpty() ) {
+        int ret = KMessageBox::warningYesNoCancel( this, i18n("Do you want to save the changes?"),
+                                                   i18n("Save Changes?") );
+        if ( ret == KMessageBox::Cancel )
+            return false;
+        if ( ret == KMessageBox::Yes ) {
             slotSave();
         }
-        if ( ret == QMessageBox::No ) {
+        if ( ret == KMessageBox::No ) {
             QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
         }
     }
 
+ doQuit:
     qApp->quit();
     return true;
 }
@@ -1165,15 +1184,15 @@ void MainView::slotReenableMessages()
 void MainView::loadPlugins()
 {
     // Sets up the plugin interface, and load the plugins
-    PluginInterface* interface = new PluginInterface( this, "demo interface" );
-    connect( interface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
+    _pluginInterface = new PluginInterface( this, "demo interface" );
+    connect( _pluginInterface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
 
     QStringList ignores;
     ignores << QString::fromLatin1( "CommentsEditor" )
             << QString::fromLatin1( "HelloWorld" )
             << QString::fromLatin1( "SlideShow" );
 
-    _pluginLoader = new KIPI::PluginLoader( ignores, interface );
+    _pluginLoader = new KIPI::PluginLoader( ignores, _pluginInterface );
 
     QPtrList<KAction> fileActions;
     QPtrList<KAction> imageActions;
@@ -1210,6 +1229,9 @@ void MainView::loadPlugins()
     plugActionList( QString::fromLatin1("file_actions"), fileActions );
     plugActionList( QString::fromLatin1("image_actions"), imageActions );
     plugActionList( QString::fromLatin1("tool_actions"), toolsActions );
+
+    // Setup signals
+    connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
 }
 
 void MainView::slotImagesChanged( const KURL::List& urls )
@@ -1228,6 +1250,11 @@ ImageSearchInfo MainView::currentContext()
 QString MainView::currentBrowseCategory() const
 {
     return _browser->currentCategory();
+}
+
+void MainView::slotSelectionChanged()
+{
+    _pluginInterface->slotSelectionChanged( selected().count() != 0);
 }
 
 #include "mainview.moc"

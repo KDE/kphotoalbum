@@ -22,8 +22,8 @@ public:
     virtual void refreshImages( const KURL::List& urls );
     virtual int features() const;
 
-protected:
-    QString askForCategory();
+public slots:
+    void slotSelectionChanged( bool );
 
 signals:
     void imagesChanged( const KURL::List& );

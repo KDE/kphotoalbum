@@ -30,6 +30,7 @@ class QLabel;
 class HTMLExportDialog;
 class KActionMenu;
 class KRadioAction;
+class PluginInterface;
 namespace KIPI
 {
     class PluginLoader;
@@ -100,6 +101,7 @@ protected slots:
     void delayedInit();
     void slotReenableMessages();
     void slotImagesChanged( const KURL::List& );
+    void slotSelectionChanged();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -157,6 +159,7 @@ private:
     KAction* _selectAll;
     KAction* _runSlideShow;
     KAction* _runRandomSlideShow;
+    PluginInterface* _pluginInterface;
     KIPI::PluginLoader* _pluginLoader;
 };
 

@@ -212,8 +212,14 @@ void ImageDB::loadExtraFiles()
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+
+#if QT_VERSION < 0x030104
+            if ( dialog.wasCancelled() )
+                return;
+#else
             if ( dialog.wasCanceled() )
                 return;
+#endif
         }
         loadExtraFile( *it );
     }
@@ -389,8 +395,14 @@ bool  ImageDB::calculateMD5sums( ImageInfoList& list )
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+
+#if QT_VERSION < 0x030104
+            if ( dialog.wasCancelled() )
+                return dirty;
+#else
             if ( dialog.wasCanceled() )
                 return dirty;
+#endif
         }
         QString md5 = MD5Sum( (*it)->fileName() );
         QString orig = (*it)->MD5Sum();

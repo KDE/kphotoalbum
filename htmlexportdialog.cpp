@@ -251,9 +251,15 @@ bool HTMLExportDialog::generate()
 
     // Now generate the thumbnail images
     for( ImageInfoListIterator it( _list ); *it; ++it ) {
-        if ( _progress->wasCancelled() ) {
+
+#if QT_VERSION < 0x030104
+        if ( _progress->wasCancelled() )
             return false;
-        }
+#else
+        if ( _progress->wasCanceled() )
+            return false;
+#endif
+
         createImage( *it, _thumbSize->value() );
     }
 
@@ -318,9 +324,14 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
     int cols = _numOfCols->value();
     QDomElement row;
     for( ImageInfoListIterator it( _list ); *it; ++it ) {
-        if ( _progress->wasCancelled() ) {
+
+#if QT_VERSION < 0x030104
+        if ( _progress->wasCancelled() )
             return false;
-        }
+#else
+        if ( _progress->wasCanceled() )
+            return false;
+#endif
 
         if ( count % cols == 0 ) {
             row = doc.createElement( QString::fromLatin1( "tr" ) );
@@ -373,8 +384,13 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), resolutions );
 
+#if QT_VERSION < 0x030104
     if ( _progress->wasCancelled() )
         return false;
+#else
+    if ( _progress->wasCanceled() )
+        return false;
+#endif
 
     // -------------------------------------------------- write to file
     QString fileName = _tempDir + QString::fromLatin1("/index-%1.html" )
@@ -422,9 +438,6 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     else
         link = QString::fromLatin1( "next" );
     content.replace( QString::fromLatin1( "**NEXT**" ), link );
-
-    if ( _progress->wasCancelled() )
-        return false;
 
     if ( nextInfo )
         link = namePage( width, height, nextInfo->fileName( false ) );

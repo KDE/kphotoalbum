@@ -189,31 +189,31 @@ void Viewer::setupContextMenu()
     // -------------------------------------------------- Wall paper
     QPopupMenu *wallpaperPopup = new QPopupMenu( _popup );
 
-    action = new QAction( QIconSet(), i18n("Centered"), 0, wallpaperPopup );
+    action = new QAction( i18n("Centered"), QIconSet(), i18n("Centered"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperC() ) );
     action->addTo( wallpaperPopup );
 
-    action = new QAction( QIconSet(),  i18n("Tiled"), 0, wallpaperPopup );
+    action = new QAction( i18n("Tiled"), QIconSet(),  i18n("Tiled"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperT() ) );
     action->addTo( wallpaperPopup );
 
-    action = new QAction( QIconSet(),  i18n("Center Tiled"), 0, wallpaperPopup );
+    action = new QAction( i18n("Center Tiled"), QIconSet(),  i18n("Center Tiled"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCT() ) );
     action->addTo( wallpaperPopup );
 
-    action = new QAction( QIconSet(),  i18n("Centered Maxpect"), 0, wallpaperPopup );
+    action = new QAction( i18n("Centered Maxpect"), QIconSet(),  i18n("Centered Maxpect"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCM() ) );
     action->addTo( wallpaperPopup );
 
-    action = new QAction( QIconSet(),  i18n("Tiled Maxpect"), 0, wallpaperPopup );
+    action = new QAction( i18n("Tiled Maxpect"), QIconSet(),  i18n("Tiled Maxpect"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperTM() ) );
     action->addTo( wallpaperPopup );
 
-    action = new QAction( QIconSet(),  i18n("Scaled"), 0, wallpaperPopup );
+    action = new QAction( i18n("Scaled"), QIconSet(),  i18n("Scaled"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperS() ) );
     action->addTo( wallpaperPopup );
 
-    action = new QAction( QIconSet(),  i18n("Centered Auto Fit"), 0, wallpaperPopup );
+    action = new QAction( i18n("Centered Auto Fit"), QIconSet(),  i18n("Centered Auto Fit"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCAF() ) );
     action->addTo( wallpaperPopup );
 

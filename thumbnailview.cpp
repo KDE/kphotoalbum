@@ -132,6 +132,8 @@ void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool
 
 void ThumbNailView::contentsDropEvent( QDropEvent* e )
 {
+    _currentHighlighted = 0;
+
     QIconViewItem* item = findItem( e->pos() );
     if ( item )
         QIconView::contentsDropEvent( e );

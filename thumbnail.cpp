@@ -16,6 +16,7 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
+
 #include "thumbnail.h"
 #include <qpixmap.h>
 #include <qimage.h>
@@ -29,6 +30,23 @@
 #include <qcursor.h>
 #include <qmessagebox.h>
 #include <klocale.h>
+
+class DeleteHelper :public QObject
+{
+public:
+    DeleteHelper( ThumbNail* tn )
+        : QObject( 0 ), _tn(tn)
+        {
+            deleteLater();
+        }
+    ~DeleteHelper()
+        {
+            delete _tn;
+        }
+private:
+    ThumbNail* _tn;
+};
+
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
     :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent )
@@ -153,7 +171,10 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
     for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
         ThumbNail* item = *it;
         ThumbNail* tn = new ThumbNail( item->_imageInfo, last, _parent);
-        delete item;
+
+        // Originally I just invoked "delete item" here, but valgrind told me that Qt would reference the item later.
+        // this I had to rewrite it like this, so the item isn't delete before next time in the event loop.
+        new DeleteHelper(item);
         last = tn;
     }
 }

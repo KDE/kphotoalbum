@@ -1,3 +1,7 @@
+2003-12-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: KimDaBa used to crash on moving images around.
+
 2003-12-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* New Feature: Its now possible to drag(copy) images from kimdaba

@@ -76,7 +76,6 @@ protected slots:
     void slotThumbNailSelectionChanged();
     void reloadThumbNail();
     void slotUpdateViewMenu( Options::ViewSize, Options::ViewType );
-    void showTip();
     void slotShowNotOnDisk();
     void markDirty();
     void donateMoney();
@@ -88,6 +87,7 @@ protected slots:
     void slotNewToolbarConfig();
     void slotImport();
     void slotExport();
+    void delayedInit();
 
 protected:
     void configureImages( bool oneAtATime );

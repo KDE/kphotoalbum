@@ -45,7 +45,7 @@ class Import :public KWizard {
     Q_OBJECT
 
 public:
-    static void imageImport();
+    static void imageImport( QString file );
 
 protected:
     friend class ImageRow;

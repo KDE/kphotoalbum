@@ -43,9 +43,11 @@
 #include "viewer.h"
 class KPushButton;
 
-void Import::imageImport()
+void Import::imageImport( QString file )
 {
-    QString file = KFileDialog::getOpenFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
+    if ( file.isNull() )
+        file = KFileDialog::getOpenFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
+
     if ( file.isNull() )
         return;
 

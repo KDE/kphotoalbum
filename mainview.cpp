@@ -131,14 +131,22 @@ MainView::MainView( QWidget* parent, const char* name )
     total->setTotal( ImageDB::instance()->totalCount() );
     statusBar()->message(i18n("Welcome to KimDaBa"), 5000 );
 
-    // I need to postpone this otherwise the tip dialog will not get focus on start up
-    QTimer::singleShot( 0, this, SLOT( showTip() ) );
+    QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
 }
 
-void MainView::showTip()
+void MainView::delayedInit()
 {
-    KTipDialog::showTip( this );
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    if ( args->isSet( "c" ) ) {
+        // I need to do this in delayed init to get the import window on top of the normal window
+        Import::imageImport( args->getOption( "import" ) );
+    }
+    else {
+        // I need to postpone this otherwise the tip dialog will not get focus on start up
+        KTipDialog::showTip( this );
+    }
 }
+
 
 bool MainView::slotExit()
 {
@@ -1119,7 +1127,7 @@ void MainView::slotNewToolbarConfig()
 
 void MainView::slotImport()
 {
-    Import::imageImport();
+    Import::imageImport( QString::null);
 }
 
 void MainView::slotExport()

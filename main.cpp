@@ -29,6 +29,7 @@ static const KCmdLineOptions options[] =
 {
 	{ "c ", I18N_NOOP("Config file"), 0 },
     { "demo", I18N_NOOP( "Starts KimDaBa with a prebuilt set of demo images" ), 0 },
+    { "import ", I18N_NOOP( "Import file" ), 0 },
 	{ 0, 0, 0}
 };
 

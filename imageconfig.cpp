@@ -208,6 +208,8 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     QAccel* accel = new QAccel( this, "accel for ImageConfig" );
     accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
     accel->connectItem( accel->insertItem( Key_PageUp ), this, SLOT( slotPrev() ) );
+    connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
+    connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
 
     _optionList.setAutoDelete( true );
     Options::instance()->loadConfigWindowLayout( this );

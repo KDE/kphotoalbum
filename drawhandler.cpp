@@ -118,13 +118,19 @@ void DrawHandler::drawAll( QPainter& painter )
             if ( _tool == Select ) {
                 PointList list = (*it)->anchorPoints();
                 for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-                    QPoint point = *it2;
                     painter.save();
                     if ( *it == _activeTool )
                         painter.setBrush( Qt::red );
                     else
                         painter.setBrush( Qt::blue );
-                    painter.drawRect( point.x()-4, point.y()-4, 8, 8 );
+
+                    // This part is tricky. The painter is transformed, but nevertheless the
+                    // transformation I wsant a 8x8 rect on screen.
+                    QPoint point = *it2;
+                    point = painter.xForm( point );
+                    QRect rect( point.x()-4, point.y()-4, 8, 8 );
+                    rect = painter.xFormDev( rect );
+                    painter.drawRect( rect );
                     painter.restore();
                 }
             }
@@ -134,15 +140,21 @@ void DrawHandler::drawAll( QPainter& painter )
 
 Draw* DrawHandler::findShape( const QPoint& pos)
 {
+    QPainter* painter = _display->painter();
     for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
         PointList list = (*it)->anchorPoints();
         for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QPoint point = *it2;
+            point = painter->xForm( point );
             QRect rect( point.x()-4, point.y()-4, 8, 8 );
-            if ( rect.contains( pos ) )
+            rect = painter->xFormDev( rect );
+            if ( rect.contains( pos ) ) {
+                delete painter;
                 return *it;
+            }
         }
     }
+    delete painter;
     return 0;
 }
 

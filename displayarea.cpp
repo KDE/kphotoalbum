@@ -46,7 +46,8 @@ DisplayArea::DisplayArea( QWidget* parent, const char* name )
 
 void DisplayArea::mousePressEvent( QMouseEvent* event )
 {
-    bool block = _currentHandler->mousePressEvent( event );
+    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
+    bool block = _currentHandler->mousePressEvent( &e  );
     if ( !block )
         QWidget::mousePressEvent( event );
     update();
@@ -54,7 +55,8 @@ void DisplayArea::mousePressEvent( QMouseEvent* event )
 
 void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 {
-    bool block = _currentHandler->mouseMoveEvent( event );
+    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
+    bool block = _currentHandler->mouseMoveEvent( &e );
     if ( !block )
         QWidget::mousePressEvent( event );
     update();
@@ -62,9 +64,11 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 
 void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
-    bool block = _currentHandler->mouseReleaseEvent( event );
+    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
+    bool block = _currentHandler->mouseReleaseEvent( &e );
     if ( !block )
         QWidget::mousePressEvent( event );
+    drawAll();
     update();
 }
 
@@ -73,7 +77,7 @@ void DisplayArea::drawAll()
     if ( _loadedPixmap.isNull() )
         return;
 
-    _drawingPixmap = scalePixmap(_loadedPixmap, width(), height() );
+    _drawingPixmap = _loadedPixmap;
     if ( Options::instance()->showDrawings() )
          _drawHanler->drawAll( _drawingPixmap );
     _viewPixmap = _drawingPixmap;
@@ -107,6 +111,8 @@ void DisplayArea::setImage( ImageInfo* info )
 void DisplayArea::pixmapLoaded( const QString&, int, int, int, const QImage& image )
 {
     _loadedPixmap = image;
+    _zStart = QPoint(0,0);
+    _zEnd = QPoint( image.width(), image.height() );
     drawAll();
     update();
 }
@@ -130,7 +136,12 @@ QPainter* DisplayArea::painter()
 
 void DisplayArea::paintEvent( QPaintEvent* )
 {
-    bitBlt( this, 0,0, &_viewPixmap );
+    QPixmap tmp( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ) );
+    bitBlt( &tmp, QPoint(0,0), &_viewPixmap, QRect( _zStart, _zEnd ) );
+
+    QPainter p(this);
+    p.setWindow( QRect( QPoint(0,0), _zEnd-_zStart) );
+    p.drawPixmap( 0,0, tmp );
 }
 
 QPixmap DisplayArea::scalePixmap( QPixmap pix, int width, int height )
@@ -156,6 +167,20 @@ QPixmap DisplayArea::scalePixmap( QPixmap pix, int width, int height )
     p.setWorldMatrix( matrix );
     p.drawPixmap( ox, oy, pix );
     return res;
+}
+
+
+void DisplayArea::zoom( const QPoint& p1, const QPoint& p2 )
+{
+    _zStart = p1;
+    _zEnd = p2;
+}
+
+QPoint DisplayArea::mapPos( const QPoint& p )
+{
+    int x = (int) (_zStart.x() + (_zEnd.x()-_zStart.x())*((double)p.x()/ width()));
+    int y = (int) (_zStart.y() + (_zEnd.y()-_zStart.y())*((double)p.y()/ height()));
+    return QPoint( x, y );
 }
 
 #include "displayarea.moc"

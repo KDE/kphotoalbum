@@ -50,7 +50,6 @@ bool DrawHandler::mouseReleaseEvent( QMouseEvent* )
     }
     else if ( _activeTool ) {
         _drawings.append( _activeTool );
-        emit redraw();
         return true;
     }
     else

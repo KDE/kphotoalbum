@@ -54,9 +54,13 @@ protected:
     virtual void paintEvent( QPaintEvent* event );
     void pixmapLoaded( const QString&, int, int, int, const QImage& image );
     QPixmap scalePixmap( QPixmap pix, int width, int height );
+    QPoint mapPos( const QPoint& );
 
     friend class DrawHandler;
+    friend class ViewHandler;
     QPainter* painter();
+    void zoom( const QPoint& p1, const QPoint& p2 );
+
 
 private:
     QPixmap _loadedPixmap;
@@ -67,6 +71,9 @@ private:
     ViewHandler* _viewHandler;
     DrawHandler* _drawHanler;
     DisplayAreaHandler* _currentHandler;
+
+    QPoint _zStart; // Stands for zoom start
+    QPoint _zEnd;
 };
 
 

@@ -2,8 +2,9 @@
 #define DISPLAYAREAHANDLER_H
 class DisplayArea;
 class QMouseEvent;
+#include <qnamespace.h>
 
-class DisplayAreaHandler
+class DisplayAreaHandler :public Qt
 {
 public:
     DisplayAreaHandler( DisplayArea* display ) : _display( display ) {}

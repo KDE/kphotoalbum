@@ -15,7 +15,7 @@ class DrawHandler :public QObject, public DisplayAreaHandler {
 
 public:
     DrawHandler( DisplayArea* display );
-    virtual bool mousePressEvent ( QMouseEvent* e );
+    virtual bool mousePressEvent ( QMouseEvent* e  );
     virtual bool mouseReleaseEvent ( QMouseEvent* e );
     virtual bool mouseMoveEvent ( QMouseEvent* e );
     DrawList drawList() const;

@@ -34,14 +34,14 @@ ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
         setText( 1, i18n( "1 image" ) );
     else
         setText( 1, i18n( "%1 images" ).arg( count ) );
-    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "image" ), KIcon::Desktop, 22 ) );
+    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 ) );
 }
 
 ImageFolder::ImageFolder( const ImageSearchInfo& info, int from, int to, Browser* parent )
     :Folder( info,parent), _from( from ), _to( to )
 {
     setText( 0, i18n( "View Images (%1-%2)").arg(from).arg(to) );
-    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "image" ), KIcon::Desktop, 22 ) );
+    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 ) );
     int count = to - from +1;
     setCount( count );
     if ( count == 1 )

@@ -455,8 +455,13 @@ void Viewer::toggleFullScreen()
 {
     if ( !_showingFullScreen ) {
 
+#if 0 // This do not work with not too recent version of CVS, and for sure not with older KDEs
         KWin::WindowInfo info( winId(), 0, 0 );
         _oldGeometry = info.frameGeometry();
+#else
+        KWin::Info info = KWin::info( winId() );
+        _oldGeometry = info.frameGeometry;
+#endif
 
         QRect r = QApplication::desktop()->screenGeometry( QApplication::desktop()->screenNumber( this ) );
 

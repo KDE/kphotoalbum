@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KimDaBa
+Exec=kimdaba
+GenericName=K Image Database
+Terminal=0
+Type=Application
+X-KDE-StartupNotify=true
+Icon=kimdaba
+Categories=Qt;KDE;Graphics

@@ -45,3 +45,5 @@ EXTRA_DIST = $(pkg_DATA)
 
 appsdatadir=$(kde_datadir)/kimdaba
 appsdata_DATA=tips
+
+xdg_apps_DATA = kimdaba.desktop

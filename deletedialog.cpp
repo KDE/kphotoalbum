@@ -28,7 +28,7 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-void DeleteDialog::exec( const ImageInfoList& list )
+int DeleteDialog::exec( const ImageInfoList& list )
 {
     _label->setText( i18n("<qt><b><center><font size=\"+3\">Delete Images<br>%1 selected</font></center></b></qt>").arg( list.count() ) );
 
@@ -42,7 +42,7 @@ void DeleteDialog::exec( const ImageInfoList& list )
     _block->setChecked( false );
     _list = list;
 
-    KDialogBase::exec();
+    return KDialogBase::exec();
 }
 
 void DeleteDialog::deleteImages()
@@ -61,7 +61,8 @@ void DeleteDialog::deleteImages()
 
     if ( _block->isChecked() )
         ImageDB::instance()->blockList( _list );
-    else
+
+    if ( _deleteFromDisk->isChecked() )
         ImageDB::instance()->deleteList( _list );
 
     accept();

@@ -11,7 +11,7 @@ class DeleteDialog :public KDialogBase {
 
 public:
     DeleteDialog( QWidget* parent, const char* name = 0 );
-    void exec( const ImageInfoList& );
+    int exec( const ImageInfoList& );
 
 protected slots:
     void deleteImages();

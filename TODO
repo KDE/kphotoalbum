@@ -1,0 +1,27 @@
+Features/Bug for next version
+-----------------------------
+- pan does work very well in the viewer
+- drawing on an image doesn't mark it as dirty
+- write a stub for KimDaBa handbook
+- special options: private, print, html, (handled|sorted|described)
+- spell check in the editor
+- the image browser sometimes starts up showing that the is 0 images in the
+  db, without that being true.
+- thumbnail overview, press Ctrl-f (find), and press escape.
+- go out of full screen if an item from the info box is selected.
+- image viewer should start up being completely on screen
+
+Features for later versions
+---------------------------
+- write KimDaBa handbook
+- undo/redo
+- drag an image out of KimDaBa to say the background
+- read date and rotation out of the JPEG file info
+- made it possible to select individual persons on images, and associate
+  their names with that region - then generate an image map when exporting
+  to HTML
+- upload html to servers using say fish://
+- export/import of selection - thus make it possible to share part of
+  KimDaBa databases
+- customize key bindings
+ 

@@ -94,7 +94,7 @@ bool ImageSearchInfo::match( ImageInfo* info )
     bool b2 =( actualStart <= _endDate && _endDate <= actualEnd );
     bool b3 = ( _startDate <= actualStart && actualEnd <= _endDate );
 
-    ok &= ( b1 || b2 || b3 );
+    ok &= ( ( b1 || b2 || b3 ) && !actualStart.isNull() );
 
 
     // -------------------------------------------------- Options

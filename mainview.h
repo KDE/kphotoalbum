@@ -71,6 +71,7 @@ protected:
     void createImageConfig();
     void load();
     void save( const QString& fileName );
+    virtual void contextMenuEvent( QContextMenuEvent* e );
 
 private:
     ThumbNailView* _thumbNailView;

@@ -230,7 +230,10 @@ bool ImageInfo::operator==( const ImageInfo& other )
     if ( !changed ) {
         QStringList keys = Options::instance()->optionGroups();
         for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
-            changed |= _options[*it] != other._options[*it];
+            _options[*it].sort();
+            QStringList otherList = other._options[*it];
+            otherList.sort();
+            changed |= _options[*it] != otherList;
         }
     }
     return !changed;

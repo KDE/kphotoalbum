@@ -52,6 +52,7 @@
 #include <kcmdlineargs.h>
 #include <qregexp.h>
 #include <stdlib.h>
+#include <qpopupmenu.h>
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 )
@@ -217,7 +218,8 @@ void MainView::slotDeleteSelected()
 {
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
-    _deleteDialog->exec( selected() );
+    if ( _deleteDialog->exec( selected() ) == QDialog::Accepted )
+        _dirty = true;
     _thumbNailView->reload();
 }
 
@@ -529,6 +531,7 @@ void MainView::load()
     QDomElement options;
     QDomElement configWindowSetup;
     QDomElement images;
+    QDomElement blockList;
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -542,6 +545,8 @@ void MainView::load()
                 configWindowSetup = elm;
             else if ( tag == QString::fromLatin1("images") )
                 images = elm;
+            else if ( tag == QString::fromLatin1( "blocklist" ) )
+                blockList = elm;
             else {
                 KMessageBox::error( this, i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
             }
@@ -560,9 +565,25 @@ void MainView::load()
     file.close();
 
     Options::setup( config, options, configWindowSetup, QFileInfo( configFile ).dirPath( true ) );
-    ImageDB::setup( images );
+    ImageDB::setup( images, blockList );
 }
 
+void MainView::contextMenuEvent( QContextMenuEvent* )
+{
+    QPopupMenu menu;
+    int id1 = menu.insertItem( i18n( "Set properties one image at a time" ),
+                               this, SLOT( slotConfigureImagesOneAtATime() ) );
+    int id2 = menu.insertItem( i18n( "Set properties for all selected images" ),
+                               this, SLOT( slotConfigureAllImages() ) );
+
+    ImageInfoList sel = selected();
+    if ( sel.count() <= 1 )
+        menu.setItemEnabled( id2, false );
+    if ( sel.count() == 0 )
+        menu.setItemEnabled( id1, false );
+
+    menu.exec( QCursor::pos() );
+}
 
 
 #include "mainview.moc"

@@ -27,6 +27,7 @@
 #include "imagedb.h"
 #include <qapplication.h>
 #include "util.h"
+#include <qpopupmenu.h>
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :KIconView( parent,  name ), _currentHighlighted( 0 )
@@ -35,9 +36,8 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
 
-    connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
-    connect( this,  SIGNAL( executed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
-
+    connect( this, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
+    connect( this, SIGNAL( executed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
     setSelectionMode( Extended );
     _iconViewToolTip = new IconViewToolTip( this );
 }
@@ -210,5 +210,6 @@ void ThumbNailView::showToolTipsOnImages()
 {
     _iconViewToolTip->showToolTips();
 }
+
 
 #include "thumbnailview.moc"

@@ -29,7 +29,7 @@
 
 ImageDB* ImageDB::_instance = 0;
 
-ImageDB::ImageDB( const QDomElement& top )
+ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList )
 {
     QString directory = Options::instance()->imageDirectory();
     if ( directory.isEmpty() )
@@ -59,6 +59,19 @@ ImageDB::ImageDB( const QDomElement& top )
                                               just its existsance, must be != 0x0 though.*/ );
             load( fileName, elm );
         }
+    }
+
+    // Read the block list
+    for ( QDomNode node = blockList.firstChild(); !node.isNull(); node = node.nextSibling() )  {
+        QDomElement elm;
+        if ( node.isElement() )
+            elm = node.toElement();
+        else
+            continue;
+
+        QString fileName = elm.attribute( QString::fromLatin1( "file" ) );
+        if ( !fileName.isEmpty() )
+            _blockList << fileName;
     }
 
     loadExtraFiles( loadedFiles, directory );
@@ -104,9 +117,9 @@ ImageDB* ImageDB::instance()
     return _instance;
 }
 
-void ImageDB::setup( const QDomElement& top )
+void ImageDB::setup( const QDomElement& top, const QDomElement& blockList )
 {
-    _instance = new ImageDB( top );
+    _instance = new ImageDB( top, blockList );
 }
 
 void ImageDB::load( const QString& fileName, QDomElement elm )
@@ -138,8 +151,10 @@ void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory 
              KImageIO::canRead(KImageIO::type(fi.extension())) ) {
             QString baseName = file.mid( imageDir.length()+1 );
 
-            ImageInfo* info = new ImageInfo( baseName  );
-            images().append(info);
+            if ( ! _blockList.contains( baseName ) ) {
+                ImageInfo* info = new ImageInfo( baseName  );
+                images().append(info);
+            }
         }
         else if ( fi.isDir() )  {
             loadExtraFiles( loadedFiles, file );
@@ -156,12 +171,25 @@ void ImageDB::save( QDomElement top )
         list.append( *it );
     }
 
-    QDomElement images = top.ownerDocument().createElement( QString::fromLatin1( "images" ) );
+    QDomDocument doc = top.ownerDocument();
+    QDomElement images = doc.createElement( QString::fromLatin1( "images" ) );
     top.appendChild( images );
 
     for( ImageInfoListIterator it( list ); *it; ++it ) {
-        images.appendChild( (*it)->save( top.ownerDocument() ) );
+        images.appendChild( (*it)->save( doc ) );
     }
+
+    QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
+    bool any=false;
+    for( QStringList::Iterator it = _blockList.begin(); it != _blockList.end(); ++it ) {
+        any=true;
+        QDomElement elm = doc.createElement( QString::fromLatin1( "block" ) );
+        elm.setAttribute( QString::fromLatin1( "file" ), *it );
+        blockList.appendChild( elm );
+    }
+
+    if (any)
+        top.appendChild( blockList );
 }
 
 bool ImageDB::isClipboardEmpty()
@@ -210,19 +238,17 @@ void ImageDB::renameOptionGroup( const QString& oldName, const QString newName )
 
 void ImageDB::blockList( const ImageInfoList& list )
 {
-    qDebug("NYI");
+    for( ImageInfoListIterator it( list ); *it; ++it) {
+        _blockList << (*it)->fileName( true );
+        _images.removeRef( *it );
+    }
 }
 
 void ImageDB::deleteList( const ImageInfoList& list )
 {
-    for( ImageInfoListIterator it( list ); *it; ) {
-        ImageInfo* info = *it;
-        ++it;
-        _images.removeRef( info );
-        delete info;
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        _images.removeRef( *it );
     }
-    qDebug("%d", _images.count() );
-
 }
 
 #include "imagedb.moc"

@@ -227,11 +227,11 @@ void OptionsDialog::createThumbNailPage()
                "thumbnails in the thumbnail view</qt>");
     QWhatsThis::add( _displayLabels, txt );
 
-    txt = i18n("<qt><p>If you select this option, then the thumbnail view will be shown, when the amount of images you've browsed to "
-               "gets below the amount of images that can be shown in a single view. The alternative is to continue showing the "
-               "browser till you press <i>Show Images</i>.<p>"
-               "<p>With this option on, you can chose to see the browser by pressing ctrl+mouse button.<br>"
-               "With this option off, you can chose to see the images by pressing ctrl+mouse button.</p></qt>");
+    txt = i18n("<qt><p>If you select this option, then the thumbnail view will be shown, when the number of images you have browsed to "
+               "gets below the number of images that can be shown in a single view. The alternative is to continue showing the "
+               "browser until you press <i>Show Images</i>.<p>"
+               "<p>With this option on, you can choose to see the browser by pressing ctrl+mouse button.<br>"
+               "With this option off, you can choose to see the images by pressing ctrl+mouse button.</p></qt>");
     QWhatsThis::add( _autoShowThumbnailView, txt );
 }
 

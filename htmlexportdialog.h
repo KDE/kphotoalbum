@@ -23,8 +23,7 @@ class KLineEdit;
 class QSpinBox;
 class QCheckBox;
 class QProgressDialog;
-class QSlider;
-class MyCheckBox;
+class ImageSizeCheckBox;
 class QTextEdit;
 #include "imageinfo.h"
 #include "imageclient.h"
@@ -58,9 +57,13 @@ protected:
     QString nameImage( const QString& fileName, int size );
     bool writeToFile( const QString& fileName, const QString& str );
     bool linkIndexFile();
-    QValueList<MyCheckBox*> activeResolutions();
+    QValueList<ImageSizeCheckBox*> activeResolutions();
     void populateThemesCombo();
     void getThemeInfo( QString* baseDir, QString* name, QString* author );
+    void createContentPage();
+    void createLayoutPage();
+    void createDestinationPage();
+
 
 private:
     KLineEdit* _title;
@@ -68,12 +71,12 @@ private:
     KLineEdit* _baseURL;
     KLineEdit* _outputDir;
     QSpinBox* _thumbSize;
-    QSlider* _numOfCols;
     QComboBox *_themeBox;
     QMap<int,QString> _themes;
-    QValueList<MyCheckBox*> _cbs;
-    QValueList<MyCheckBox*> _preferredSizes;
+    QValueList<ImageSizeCheckBox*> _cbs;
+    QValueList<ImageSizeCheckBox*> _preferredSizes;
     QTextEdit* _description;
+    QSpinBox* _numOfCols;
 
     ImageInfoList _list;
     int _waitCounter;
@@ -83,6 +86,7 @@ private:
     QString _tempDir;
     QMap< QPair<QString,int>, QString> _pageNames;
     QMap< QPair<QString,int>, QString> _imageNames;
+    QMap< QString, QCheckBox* > _whatToIncludeMap;
 };
 
 

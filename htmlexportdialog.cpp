@@ -52,17 +52,20 @@
 #include <kdebug.h>
 #include <qdir.h>
 #include <ksimpleconfig.h>
+#include <qvgroupbox.h>
+#include <kglobal.h>
+#include <kiconloader.h>
 
-class MyCheckBox :public QCheckBox {
+class ImageSizeCheckBox :public QCheckBox {
 
 public:
-    MyCheckBox( int width, int height, QWidget* parent )
+    ImageSizeCheckBox( int width, int height, QWidget* parent )
         :QCheckBox( QString::fromLatin1("%1x%2").arg(width).arg(height), parent ),
          _width( width ), _height( height )
         {
         }
 
-    MyCheckBox( const QString& text, QWidget* parent )
+    ImageSizeCheckBox( const QString& text, QWidget* parent )
         :QCheckBox( text, parent ), _width( -1 ), _height( -1 )
         {
         }
@@ -93,117 +96,150 @@ private:
     int _height;
 };
 
-
 HTMLExportDialog::HTMLExportDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("HTML Export"), Ok|Cancel, Ok, parent, name )
+    :KDialogBase( IconList, i18n("HTML Export"), Ok|Cancel, Ok, parent, name )
 {
     enableButtonOK( false );
-    QWidget* generalPage = plainPage();
-    QVBoxLayout* lay1 = new QVBoxLayout( generalPage, 6 );
+    createContentPage();
+    createLayoutPage();
+    createDestinationPage();
+}
+
+void HTMLExportDialog::createContentPage()
+{
+    QWidget* contentPage = addPage( i18n("Content" ), i18n("Content" ),
+                                    KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "edit" ),
+                                                                     KIcon::Desktop, 32 ));
+    QVBoxLayout* lay1 = new QVBoxLayout( contentPage, 6 );
     QGridLayout* lay2 = new QGridLayout( lay1, 2 );
 
-    QLabel* label = new QLabel( i18n("Page title:"), generalPage );
+    QLabel* label = new QLabel( i18n("Page title:"), contentPage );
     lay2->addWidget( label, 0, 0 );
-    _title = new KLineEdit( generalPage );
+    _title = new KLineEdit( contentPage );
     lay2->addWidget( _title, 0, 1 );
 
     // Description
-    label = new QLabel( i18n("Description:"), generalPage );
+    label = new QLabel( i18n("Description:"), contentPage );
+    label->setAlignment( Qt::AlignTop );
     lay2->addWidget( label, 1, 0 );
-    _description = new QTextEdit( generalPage );
+    _description = new QTextEdit( contentPage );
     lay2->addWidget( _description, 1, 1 );
 
+    // What to include
+    QVGroupBox* whatToInclude = new QVGroupBox( i18n( "What to Include" ), contentPage );
+    lay1->addWidget( whatToInclude );
+    QWidget* w = new QWidget( whatToInclude );
+    QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
+    lay3->setAutoAdd( true );
+
+    QStringList optionGroups = Options::instance()->optionGroups();
+    for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
+        QCheckBox* cb = new QCheckBox( *it, w );
+        _whatToIncludeMap.insert( *it, cb );
+    }
+    QCheckBox* cb = new QCheckBox( i18n("Description"), w );
+    _whatToIncludeMap.insert( QString::fromLatin1("**DESCRIPTION**"), cb );
+}
+
+void HTMLExportDialog::createLayoutPage()
+{
+    QWidget* layoutPage = addPage( i18n("Layout" ), i18n("Layout" ),
+                                   KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "matrix" ),
+                                                                    KIcon::Desktop, 32 ));
+    QVBoxLayout* lay1 = new QVBoxLayout( layoutPage, 6 );
+    QGridLayout* lay2 = new QGridLayout( lay1, 2, 2, 6 );
+
     // Thumbnail size
-    label = new QLabel( i18n("Thumbnail size:"), generalPage );
-    lay2->addWidget( label, 2, 0 );
+    QLabel* label = new QLabel( i18n("Thumbnail size:"), layoutPage );
+    lay2->addWidget( label, 0, 0 );
 
     QHBoxLayout* lay3 = new QHBoxLayout( 0 );
-    lay2->addLayout( lay3, 2, 1 );
+    lay2->addLayout( lay3, 0, 1 );
 
-    _thumbSize = new QSpinBox( 16, 256, 1, generalPage );
+    _thumbSize = new QSpinBox( 16, 256, 1, layoutPage );
     _thumbSize->setValue( 128 );
     lay3->addWidget( _thumbSize );
     lay3->addStretch(1);
 
     // Number of columns
-    label = new QLabel( i18n("Number of columns:"), generalPage );
-    lay2->addWidget( label, 3, 0 );
+    label = new QLabel( i18n("Number of columns:"), layoutPage );
+    lay2->addWidget( label, 1, 0 );
 
-    QHBoxLayout* lay4 = new QHBoxLayout( (QWidget*)0, 0, 6 );
-    lay2->addLayout( lay4, 3, 1 );
-
-    QSpinBox* number = new QSpinBox( 1, 10, 1, generalPage );
-    lay4->addWidget( number );
-
-    _numOfCols = new QSlider( 1, 10, 1, 5, Horizontal, generalPage );
-    _numOfCols->setTickmarks( QSlider::Below );
+    QHBoxLayout* lay4 = new QHBoxLayout( 0 );
+    lay2->addLayout( lay4, 1, 1 );
+    _numOfCols = new QSpinBox( 1, 10, 1, layoutPage );
+    _numOfCols->setValue( 5 );
     lay4->addWidget( _numOfCols );
+    lay4->addStretch( 1 );
 
-    connect( _numOfCols, SIGNAL( valueChanged( int ) ), number, SLOT( setValue(int) ) );
-    connect( number, SIGNAL( valueChanged( int ) ), _numOfCols, SLOT( setValue(int) ) );
-    number->setValue( _numOfCols->value() );
+    // Theme box
+    label = new QLabel( i18n("Theme:"), layoutPage );
+    lay1->addWidget( label );
+    _themeBox = new QComboBox( layoutPage, "theme_combobox" );
+    lay1->addWidget( _themeBox );
+    populateThemesCombo();
 
-    // Seperator
-    QFrame* sep = new QFrame( generalPage );
-    sep->setFrameStyle( QFrame::HLine | QFrame::Sunken );
-    lay2->addMultiCellWidget( sep, 4, 4, 0, 1 );
+    lay1->addStretch(1);
+}
+
+void HTMLExportDialog::createDestinationPage()
+{
+    QWidget* destinationPage = addPage( i18n("Destination" ), i18n("Destination" ),
+                                        KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
+                                                                         KIcon::Desktop, 32 ));
+    QVBoxLayout* lay1 = new QVBoxLayout( destinationPage, 6 );
+    QGridLayout* lay2 = new QGridLayout( lay1, 2 );
 
     // Base Directory
-    label = new QLabel( i18n("Base directory:"), generalPage );
+    QLabel* label = new QLabel( i18n("Base directory:"), destinationPage );
     lay2->addWidget( label, 5, 0 );
 
-    QHBoxLayout* lay5 = new QHBoxLayout( (QWidget*)0, 0, 6 );
-    lay2->addLayout( lay5, 5, 1 );
+    QHBoxLayout* lay3 = new QHBoxLayout( (QWidget*)0, 0, 6 );
+    lay2->addLayout( lay3, 5, 1 );
 
-    _baseDir = new KLineEdit( generalPage );
-    lay5->addWidget( _baseDir );
+    _baseDir = new KLineEdit( destinationPage );
+    lay3->addWidget( _baseDir );
 
-    QPushButton* but = new QPushButton( QString::fromLatin1( ".." ), generalPage );
-    lay5->addWidget( but );
+    QPushButton* but = new QPushButton( QString::fromLatin1( ".." ), destinationPage );
+    lay3->addWidget( but );
     but->setFixedWidth( 25 );
 
     connect( but, SIGNAL( clicked() ), this, SLOT( selectDir() ) );
     _baseDir->setText( Options::instance()->HTMLBaseDir() );
 
     // Base URL
-    label = new QLabel( i18n("Base URL:"), generalPage );
+    label = new QLabel( i18n("Base URL:"), destinationPage );
     lay2->addWidget( label, 6, 0 );
 
-    _baseURL = new KLineEdit( generalPage );
+    _baseURL = new KLineEdit( destinationPage );
     _baseURL->setText( Options::instance()->HTMLBaseURL() );
     lay2->addWidget( _baseURL, 6, 1 );
 
     // Output Directory
-    label = new QLabel( i18n("Output directory:"), generalPage );
+    label = new QLabel( i18n("Output directory:"), destinationPage );
     lay2->addWidget( label, 7, 0 );
-    _outputDir = new KLineEdit( generalPage );
+    _outputDir = new KLineEdit( destinationPage );
     lay2->addWidget( _outputDir, 7, 1 );
 
-    // Theme box
-    label = new QLabel( i18n("Theme:"), generalPage );
-    lay2->addWidget( label, 8, 0 );
-    _themeBox = new QComboBox( generalPage, "theme_combobox" );
-    lay2->addWidget( _themeBox, 8, 1 );
-    populateThemesCombo();
 
     // Image sizes
-    QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), generalPage );
+    QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), destinationPage );
     lay1->addWidget( sizes );
     QWidget* content = new QWidget( sizes );
-    QGridLayout* lay6 = new QGridLayout( content, 2, 4 );
-    lay6->setAutoAdd( true );
-    MyCheckBox* size320  = new MyCheckBox( 320, 200, content );
-    MyCheckBox* size640  = new MyCheckBox( 640, 480, content );
-    MyCheckBox* size800  = new MyCheckBox( 800, 600, content );
-    MyCheckBox* size1024 = new MyCheckBox( 1024, 768, content );
-    MyCheckBox* size1280 = new MyCheckBox( 1280, 1024, content );
-    MyCheckBox* size1600 = new MyCheckBox( 1600, 1200, content );
-    MyCheckBox* sizeOrig = new MyCheckBox( i18n("Full size"), content );
+    QGridLayout* lay4 = new QGridLayout( content, 2, 4 );
+    lay4->setAutoAdd( true );
+    ImageSizeCheckBox* size320  = new ImageSizeCheckBox( 320, 200, content );
+    ImageSizeCheckBox* size640  = new ImageSizeCheckBox( 640, 480, content );
+    ImageSizeCheckBox* size800  = new ImageSizeCheckBox( 800, 600, content );
+    ImageSizeCheckBox* size1024 = new ImageSizeCheckBox( 1024, 768, content );
+    ImageSizeCheckBox* size1280 = new ImageSizeCheckBox( 1280, 1024, content );
+    ImageSizeCheckBox* size1600 = new ImageSizeCheckBox( 1600, 1200, content );
+    ImageSizeCheckBox* sizeOrig = new ImageSizeCheckBox( i18n("Full size"), content );
 
     _cbs << size320 << size640 << size800 << size1024 << size1280 << size1600 << sizeOrig;
     _preferredSizes << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
-    resize( 500, sizeHint().height() );
+    lay1->addStretch( 1 );
 }
 
 bool HTMLExportDialog::generate()
@@ -229,7 +265,7 @@ bool HTMLExportDialog::generate()
     hide();
 
     // Itertate over each of the image sizes needed.
-    for( QValueList<MyCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
+    for( QValueList<ImageSizeCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
         if ( (*sizeIt)->isChecked() ) {
             bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
             if ( !ok )
@@ -280,7 +316,9 @@ bool HTMLExportDialog::generate()
         kdDebug() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir ) << endl;
 
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-        if( *it == QString::fromLatin1("kimdaba.theme") ) continue;
+        if( *it == QString::fromLatin1("kimdaba.theme") ||
+            *it == QString::fromLatin1("mainpage.html") ||
+            *it == QString::fromLatin1("imagepage.html")) continue;
         QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
         QString to = _tempDir+QString::fromLatin1("/") + *it;
         ok = Util::copy( from, to );
@@ -308,7 +346,10 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
-    content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
+    if ( _whatToIncludeMap[QString::fromLatin1( "**DESCRIPTION**" )]->isChecked() )
+        content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
+    else
+        content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1("") );
     content.replace( QString::fromLatin1( "**TITLE**" ), _title->text() );
 
     QDomDocument doc;
@@ -360,16 +401,16 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     // -------------------------------------------------- Resolutions
     QString resolutions;
-    QValueList<MyCheckBox*> actRes = activeResolutions();
+    QValueList<ImageSizeCheckBox*> actRes = activeResolutions();
     if ( actRes.count() > 1 ) {
         resolutions += QString::fromLatin1( "Resolutions: " );
-        for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
+        for( QValueList<ImageSizeCheckBox*>::Iterator sizeIt = actRes.begin();
              sizeIt != actRes.end(); ++sizeIt ) {
 
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();
             QString page = QString::fromLatin1( "index-%1.html" )
-                           .arg( MyCheckBox::text( w, h, true ) );
+                           .arg( ImageSizeCheckBox::text( w, h, true ) );
             QString text = (*sizeIt)->text(false);
 
             resolutions += QString::fromLatin1( " " );
@@ -394,7 +435,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     // -------------------------------------------------- write to file
     QString fileName = _tempDir + QString::fromLatin1("/index-%1.html" )
-                       .arg(MyCheckBox::text(width,height,true));
+                       .arg(ImageSizeCheckBox::text(width,height,true));
     bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
@@ -429,7 +470,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
 
 
     // index link
-    link = QString::fromLatin1( "<a href=\"index-%1.html\">index</a>" ).arg(MyCheckBox::text(width,height,true));
+    link = QString::fromLatin1( "<a href=\"index-%1.html\">index</a>" ).arg(ImageSizeCheckBox::text(width,height,true));
     content.replace( QString::fromLatin1( "**INDEX**" ), link );
 
     // Next Link
@@ -442,16 +483,16 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     if ( nextInfo )
         link = namePage( width, height, nextInfo->fileName() );
     else
-        link = QString::fromLatin1( "index-%1.html" ).arg(MyCheckBox::text(width,height,true));
+        link = QString::fromLatin1( "index-%1.html" ).arg(ImageSizeCheckBox::text(width,height,true));
 
     content.replace( QString::fromLatin1( "**NEXTPAGE**" ), link );
 
 
     // -------------------------------------------------- Resolutions
     QString resolutions;
-    QValueList<MyCheckBox*> actRes = activeResolutions();
+    QValueList<ImageSizeCheckBox*> actRes = activeResolutions();
     if ( actRes.count() > 1 ) {
-        for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
+        for( QValueList<ImageSizeCheckBox*>::Iterator sizeIt = actRes.begin();
              sizeIt != actRes.end(); ++sizeIt ) {
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();
@@ -472,7 +513,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
 
     QStringList optionGroups = Options::instance()->optionGroups();
     for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
-        if ( info->optionValue( *it ).count() != 0 ) {
+        if ( info->optionValue( *it ).count() != 0 && _whatToIncludeMap[*it]->isChecked() ) {
             QString val = info->optionValue( *it ).join( QString::fromLatin1(", ") );
             description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( *it ).arg( val );
         }
@@ -646,7 +687,7 @@ bool HTMLExportDialog::checkVars()
 int HTMLExportDialog::calculateSteps()
 {
     int count = 0;
-    for( QValueList<MyCheckBox*>::Iterator it2 = _cbs.begin(); it2 != _cbs.end(); ++it2 ) {
+    for( QValueList<ImageSizeCheckBox*>::Iterator it2 = _cbs.begin(); it2 != _cbs.end(); ++it2 ) {
         if ( (*it2)->isChecked() )
             count++;
     }
@@ -669,7 +710,7 @@ QString HTMLExportDialog::namePage( int width, int height, const QString& fileNa
         name = QString::fromLatin1( "%1%2-%3.html" )
                .arg( baseName )
                .arg( (i == 0) ? QString::fromLatin1("") : QString::number(i) )
-               .arg(MyCheckBox::text(width,height,true));
+               .arg(ImageSizeCheckBox::text(width,height,true));
         ++i;
         conflict = _pageNames.values().contains( name );
     }
@@ -706,7 +747,7 @@ QString HTMLExportDialog::nameImage( const QString& fileName, int size )
 
 bool HTMLExportDialog::linkIndexFile()
 {
-    for( QValueList<MyCheckBox*>::Iterator it = _preferredSizes.begin();
+    for( QValueList<ImageSizeCheckBox*>::Iterator it = _preferredSizes.begin();
          it != _preferredSizes.end(); ++it ) {
         if ( (*it)->isChecked() ) {
             QString fromFile = QString::fromLatin1("index-%1.html" )
@@ -726,10 +767,10 @@ bool HTMLExportDialog::linkIndexFile()
 }
 
 
-QValueList<MyCheckBox*> HTMLExportDialog::activeResolutions()
+QValueList<ImageSizeCheckBox*> HTMLExportDialog::activeResolutions()
 {
-    QValueList<MyCheckBox*> res;
-    for( QValueList<MyCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
+    QValueList<ImageSizeCheckBox*> res;
+    for( QValueList<ImageSizeCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
         if ( (*sizeIt)->isChecked() ) {
             res << *sizeIt;
         }

@@ -1,5 +1,9 @@
 2004-01-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Split up the dialog for HTML generation, plus made it possible
+	to specify which of the option groups (Persons/Location/...) plus
+	description - to generate.
+
 	* The image configuration dialog may now be closed by pressing Ctrl+return
 
 	* Added a number of tooltips

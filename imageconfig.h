@@ -49,7 +49,6 @@ signals:
     void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
 protected slots:
-    void displayImage();
     void slotRevert();
     void slotPrev();
     void slotNext();

@@ -455,20 +455,6 @@ void ImageConfig::setup()
 }
 
 
-void ImageConfig::displayImage()
-{
-    if ( !_viewer ) {
-        _viewer = new Viewer( this );
-        connect( _viewer, SIGNAL( destroyed() ), this, SLOT( viewerDestroyed() ) );
-        _viewer->resize( 400, 300 );
-    }
-
-    _viewer->show();
-    _viewer->load( _origList, _current );
-    topLevelWidget()->raise();
-    setActiveWindow();
-}
-
 void ImageConfig::slotClear()
 {
     loadInfo( ImageSearchInfo() );

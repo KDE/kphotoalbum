@@ -10,6 +10,7 @@
   <!ENTITY setting-properties SYSTEM "setting-properties.docbook">
   <!ENTITY browsing SYSTEM "browsing.docbook">
   <!ENTITY thumbnail-view SYSTEM "thumbnail-view.docbook">
+  <!ENTITY viewer SYSTEM "viewer.docbook">
 ]>
 
 <book lang="&language;">
@@ -59,7 +60,7 @@ KimDaBa with a number of images, and let you browse around.</para></listitem>
   &setting-properties;
   &browsing;
   &thumbnail-view;
-
+  &viewer;
 
 
 

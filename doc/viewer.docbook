@@ -1,0 +1,120 @@
+<chapter id="chp-viewer">
+  <title>The Viewer</title>
+  <para>The reason for you to put all your images into KimDaba, and
+spending hours after hours describing them, is of course that you at some
+point want to look at them. For that purpose kimdaba has an image view,
+which you can get to from the browser, as described in <xref
+      linkend="chp-thumbnail-view"/>.</para>
+  
+  <para>The viewer can be seen in <xref linkend="fig-viewer"/>. The viewer
+does of course show you the image, but in addition to that it also shows
+you the information you specified for each image, including, who is on the
+ images, where and when it was takes etc.
+</para>
+  
+  <figure id="fig-viewer">
+    <title>The Viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>In case the box is located on top of part of the images you actually
+want to see, you can simply grab it with the mouse, and move it elsewhere
+on the image. It is also possible to configure what should be shown in the
+info box, and of course whether it should be shown at all. All these
+options are available by right clicking your mouse on the viewer. The
+context menu can be seen in <xref linkend="fig-viewer-contextmenu"/>
+below.</para>
+  
+  <figure id="fig-viewer-contextmenu">
+    <title>The viewer's context menu</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>Some of the words in the info box is underlines. If you click the
+mouse on one of these words the browser (see <xref linkend="chp-browsing"/>
+will go into scope of that item. Thus if you click on <literal>Anne
+Helene</literal> the browser will show you all images of Anne Helene, just
+as it would have done if you selected <literal>Persons</literal> from the
+root of the browser, and next selected <literal>Anne
+Helene</literal>.</para>
+  
+  <para>In case you have loaded several images into the viewer, you go can
+forth and back using <literal>Page Up</literal> and <literal>Page
+Down</literal> on you keyboard. You can go to the first and last images
+using <literal>home</literal> and <literal>end</literal>. These functions
+are of course also available from the context menu.</para>
+  
+  <para>If several images was loaded into the viewer, you can ask it to run
+them as a slide show, which means that KimDaBa loads a new image every few
+second. How often it loads a new image is configure by pressing the control
+key and respective plus (for longer delay between each image) or minus
+(shorter delay between each image). Starting and stopping the slide show is
+done simply by pressing the key <literal>s</literal>.</para>
+  
+  <para>A very useful feature of the KimDaBa viewer is it ability to go into
+full screen mode. In this mode, the viewer is using the complete screen
+space, simply press the return key to make it go into and out of full screen
+mode.</para>
+  
+  <para>Using the viewer, you may zoom in and out of your image, simply by
+dragging out a rectangle with the mouse. Pressing the minus key will zoom
+out again. Pressing the plus key will zoom in at the center of the image. <xref
+      linkend="fig-marking-zoom-rectangle"/> below shows how a zoom
+rectangle is marked, and <xref linkend="fig-zoomed-view"/> shows the result of
+the zoom.
+</para>
+  
+  <figure id="fig-marking-zoom-rectangle">
+    <title>Zooming in the viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <figure id="fig-zoomed-view">
+    <title>Zooming in the viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+    
+  <para>Choosing the rotate operations from the context menu, you may
+rotate the image, but next time you start the viewer with that image, it
+will show up in its original orientation. To change the rotation
+permanently, you must changed it by setting image properties (see <xref
+      linkend="chp-typingIn"/>). You can set properties for
+the current image, simply by choosing <literal>Edit Image Properties</literal> in the
+context menu.
+</para>
+  
+
+  <sect1>
+    <title>Drawing on Images</title>
+    <para></para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -782,6 +782,9 @@
                     <property name="text">
                         <string>Clear Form</string>
                     </property>
+                    <property name="autoDefault">
+                        <bool>false</bool>
+                    </property>
                 </widget>
                 <spacer>
                     <property name="name">

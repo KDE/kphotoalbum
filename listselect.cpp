@@ -39,6 +39,13 @@ void CompletableLineEdit::setMode( ListSelect::Mode mode ) {
 // Better hoope this monster works....
 void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 {
+    if ( ev->key() == Key_Return )  {
+        QLineEdit::keyPressEvent( ev );
+        return;
+    }
+    qDebug("%x", ev->key());
+
+
     if ( !ev->text().isEmpty() && ev->text()[0].isPrint() )  {
         bool special = ( ev->text() == "&" || ev->text() == "|" || ev->text() == "!" /* || ev->text() == "(" */ );
         if ( _mode == ListSelect::INPUT && special )  {
@@ -60,7 +67,6 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
             int start = txt.findRev( QRegExp("[!&|]"), cursorPosition() -2 ) +1;
             QString input = txt.mid( start, cursorPosition()-start-1 );
             input = input.stripWhiteSpace();
-            qDebug(">%s<", input.latin1());
 
             QListBoxItem* item = _listbox->findItem( input );
             if ( item )
@@ -143,6 +149,7 @@ void ListSelect::slotReturn()
             return;
 
         QListBoxItem* item = _listBox->findItem( txt,  ExactMatch );
+
         if ( !item ) {
             item = new QListBoxText( _listBox, txt );
         }

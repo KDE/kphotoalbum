@@ -1,5 +1,13 @@
 2003-10-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: If a user added a new group, but never added any items
+	to the group, then the group would not be available later for
+	adding new items, but it was still available for selecting in
+	configuration listbox and for searching.
+
+	* BUGFIX: When a group was renamed or delete, the old name would still be
+	available in the configuration listbox.
+
 	* Added status bar icon for dirtyness.
 
 	* BUGDIX: In the image config, selecting an item from the listbox

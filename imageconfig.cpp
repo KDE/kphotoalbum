@@ -386,6 +386,7 @@ void ImageConfig::writeToInfo()
 
 void ImageConfig::configure( ImageInfoList list, bool oneAtATime )
 {
+    setup();
     _origList = list;
     _editList.clear();
     for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
@@ -420,7 +421,6 @@ void ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         _nextBut->setEnabled( false );
     }
 
-    setup();
     exec();
 }
 
@@ -451,6 +451,12 @@ ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
 
 void ImageConfig::setup()
 {
+    // Repopulate the listboxes in case data has changed
+    // An group might for example have been renamed.
+    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        (*it)->populate();
+    }
+
     ListSelect::Mode mode;
     if ( _setup == SEARCH )  {
         _okBut->setText( i18n("&Search") );

@@ -435,6 +435,8 @@ void OptionsDialog::slotAddGroup()
         _groups->setCurrentItem( item );
         selectMembers( text );
         Options::instance()->addOption( _currentCategory, text );
+        _memberMap.setMembers(_currentCategory, text, QStringList() );
+        slotCategoryChanged( _currentCategory, false );
     }
 }
 
@@ -447,6 +449,7 @@ void OptionsDialog::slotRenameGroup()
     if ( ok ) {
         saveOldGroup();
         _memberMap.renameGroup( _currentCategory, currentValue, text );
+        Options::instance()->renameOption( _currentCategory, currentValue, text );
         slotCategoryChanged( _currentCategory, false );
     }
 }
@@ -459,10 +462,15 @@ void OptionsDialog::slotDelGroup()
     if ( res == KMessageBox::No )
         return;
 
+    saveOldGroup();
+
     QListBoxItem* item = _groups->findItem( _currentGroup );
     delete item;
+
     _memberMap.deleteGroup( _currentCategory, _currentGroup );
+    Options::instance()->removeOption( _currentCategory, _currentGroup );
     _currentGroup = _groups->text(0);
+    slotCategoryChanged( _currentCategory, false );
     selectMembers( _currentGroup );
 }
 

@@ -1,3 +1,9 @@
+2004-03-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* rewrote the handling of dates in the image property dialog, so
+	the GUI is must easier to work with - this must have been the
+	oldest wish on my which list ;-)
+
 2004-03-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added Images->sort to sort images in thumbnail view. Thanks to

@@ -124,7 +124,7 @@
   <member group-name="Pets" option-group="Persons" member="Spiff" />
  </member-groups>
  <images>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="252228ba88fa9fc6ecac30bcca99141e" minuteFrom="0" file="img001.jpg" label="img001" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="252228ba88fa9fc6ecac30bcca99141e" minuteFrom="0" file="img001.jpg" label="img001" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="Anne Helene's 30 years birthday" />
@@ -137,7 +137,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="5d8af651aa3491765bbe8a08a475cc3e" minuteFrom="0" file="img002.jpg" label="img002" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="Its not obvious, but the main focus of this picture is Donna, whos nose you can see in the middle of the picture." >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="5d8af651aa3491765bbe8a08a475cc3e" minuteFrom="0" file="img002.jpg" label="img002" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="Its not obvious, but the main focus of this picture is Donna, whos nose you can see in the middle of the picture." >
    <options>
     <option name="Keywords" >
      <value value="Anne Helene's 30 years birthday" />
@@ -156,7 +156,7 @@
     <Line _lastPos.x="361" _lastPos.y="308" _startPos.x="41" _startPos.y="573" />
    </drawings>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="b8915701a21c6fa71c1c9c560664a371" minuteFrom="0" file="img003.jpg" label="img003" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="I'm in no way &lt;em>a shark&lt;/em> at pool, but I enjoy a game once in a while. I've been a board member of a pool club for almost 2 years, which unfortunately means that I'm more often in boardmeetings than at the pool tables." >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="b8915701a21c6fa71c1c9c560664a371" minuteFrom="0" file="img003.jpg" label="img003" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="I'm in no way &lt;em>a shark&lt;/em> at pool, but I enjoy a game once in a while. I've been a board member of a pool club for almost 2 years, which unfortunately means that I'm more often in boardmeetings than at the pool tables." >
    <options>
     <option name="Keywords" >
      <value value="Anne Helene's 30 years birthday" />
@@ -169,7 +169,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="8d2d351e523dd0e5c54db76d321b5be6" minuteFrom="0" file="img004.jpg" label="img004" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="8d2d351e523dd0e5c54db76d321b5be6" minuteFrom="0" file="img004.jpg" label="img004" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="Anne Helene's 30 years birthday" />
@@ -182,14 +182,14 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="3354ef8dc72be960d8add460998f28a0" minuteFrom="0" file="img005.jpg" label="img005" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="3354ef8dc72be960d8add460998f28a0" minuteFrom="0" file="img005.jpg" label="img005" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Locations" >
      <value value="Chicago" />
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="be19fc1a4af1e4a31fff66c7c58a11dd" minuteFrom="0" file="img006.jpg" label="img006" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="be19fc1a4af1e4a31fff66c7c58a11dd" minuteFrom="0" file="img006.jpg" label="img006" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Locations" >
      <value value="Chicago" />
@@ -199,7 +199,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="40e6335090bb9a4ab316eb969369cd62" minuteFrom="0" file="img007.jpg" label="img007" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="40e6335090bb9a4ab316eb969369cd62" minuteFrom="0" file="img007.jpg" label="img007" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="silo falls over" />
@@ -209,7 +209,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="897a960470fc2557cabe9b7371274ec9" minuteFrom="0" file="img008.jpg" label="img008" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="897a960470fc2557cabe9b7371274ec9" minuteFrom="0" file="img008.jpg" label="img008" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="silo falls over" />
@@ -219,7 +219,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="ec8fe2b7d784813379042e83e0f7aaa6" minuteFrom="0" file="img009.jpg" label="img009" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="ec8fe2b7d784813379042e83e0f7aaa6" minuteFrom="0" file="img009.jpg" label="img009" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="silo falls over" />
@@ -229,7 +229,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="b9b3da4f9a225e5bff296f8075828eff" minuteFrom="0" file="img010.jpg" label="img010" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="b9b3da4f9a225e5bff296f8075828eff" minuteFrom="0" file="img010.jpg" label="img010" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="holiday" />
@@ -239,7 +239,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="92f54b52ba44869e620d713f1b0420a3" minuteFrom="0" file="img011.jpg" label="img011" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="Anne Helene and I had a lot of fun playing with the automatic timer on our digital camera." >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="92f54b52ba44869e620d713f1b0420a3" minuteFrom="0" file="img011.jpg" label="img011" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="Anne Helene and I had a lot of fun playing with the automatic timer on our digital camera." >
    <options>
     <option name="Keywords" >
      <value value="holiday" />
@@ -253,7 +253,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="aca7182ae0ae819e48ba7221afb4559c" minuteFrom="0" file="img012.jpg" label="img012" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="aca7182ae0ae819e48ba7221afb4559c" minuteFrom="0" file="img012.jpg" label="img012" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="holiday" />
@@ -266,7 +266,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="ca5d49e569a7061544fbb439b1522e06" minuteFrom="0" file="img013.jpg" label="img013" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="1" dayFrom="2" hourFrom="0" yearTo="0" monthTo="0" md5sum="ca5d49e569a7061544fbb439b1522e06" minuteFrom="0" file="img013.jpg" label="img013" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="holiday" />
@@ -280,7 +280,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="7b3f9984fb669bd57c807370ea5746d9" minuteFrom="0" file="img014.jpg" label="img014" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="1" dayFrom="2" hourFrom="0" yearTo="0" monthTo="0" md5sum="7b3f9984fb669bd57c807370ea5746d9" minuteFrom="0" file="img014.jpg" label="img014" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="holiday" />
@@ -290,7 +290,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="0890cc6feef62fb62b417aaf403d390d" minuteFrom="0" file="img015.jpg" label="img015" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="1" dayFrom="2" hourFrom="0" yearTo="0" monthTo="0" md5sum="0890cc6feef62fb62b417aaf403d390d" minuteFrom="0" file="img015.jpg" label="img015" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="holiday" />
@@ -303,7 +303,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="0" dayFrom="0" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="570cb78b687b85f1e840b276868832aa" minuteFrom="0" file="img016.jpg" label="img016" angle="0" dayTo="0" secondFrom="0" yearFrom="1985" description="" >
+  <image monthFrom="0" dayFrom="0" hourFrom="0" yearTo="0" monthTo="0" md5sum="570cb78b687b85f1e840b276868832aa" minuteFrom="0" file="img016.jpg" label="img016" angle="0" dayTo="0" secondFrom="0" yearFrom="1985" description="" >
    <options>
     <option name="Persons" >
      <value value="Jesper" />
@@ -354,14 +354,14 @@
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="5ccc31e822e0638740c8296c2b9637dc" minuteFrom="0" file="img022.jpg" label="img022" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="5ccc31e822e0638740c8296c2b9637dc" minuteFrom="0" file="img022.jpg" label="img022" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Persons" >
      <value value="Donna" />
     </option>
    </options>
   </image>
-  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="-1" monthTo="-1" md5sum="bdc4b7ed37734d14c909162f101e78e3" minuteFrom="0" file="img023.jpg" label="img023" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
+  <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="bdc4b7ed37734d14c909162f101e78e3" minuteFrom="0" file="img023.jpg" label="img023" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >
    <options>
     <option name="Keywords" >
      <value value="holiday" />
@@ -375,7 +375,7 @@
     </option>
    </options>
   </image>
-  <image monthFrom="9" dayFrom="2" hourFrom="10" yearTo="0" monthTo="0" md5sum="2bddc648abe5cb9cac8d299d68015081" minuteFrom="25" file="img024.jpg" label="img024" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="Just in case you haven't figure out what this is - its sugar ;-)" >
+  <image monthFrom="12" dayFrom="24" hourFrom="10" yearTo="0" monthTo="0" md5sum="2bddc648abe5cb9cac8d299d68015081" minuteFrom="25" file="img024.jpg" label="img024" angle="0" dayTo="0" secondFrom="0" yearFrom="2002" description="Just in case you haven't figure out what this is - its sugar ;-)" >
    <options>
     <option name="Keywords" >
      <value value="holiday" />

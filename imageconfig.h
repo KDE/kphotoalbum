@@ -34,6 +34,8 @@ class Viewer;
 class QPushButton;
 class KLineEdit;
 class KDockWidget;
+class KDatePicker;
+class KDateEdit;
 
 class ImageConfig :public QDialog {
     Q_OBJECT
@@ -96,12 +98,9 @@ private:
     // Widgets
     KDockMainWindow* _dockWindow;
     KLineEdit* _imageLabel;
-    QSpinBox* _dayStart;
-    QSpinBox* _dayEnd;
-    QSpinBox* _yearStart;
-    QSpinBox* _yearEnd;
-    QComboBox* _monthStart;
-    QComboBox* _monthEnd;
+    KDateEdit* _startDate;
+    KDateEdit* _endDate;
+
     ImagePreview* _preview;
     QPushButton* _revertBut;
     QPushButton* _okBut;

@@ -20,6 +20,7 @@
 #include <qstringlist.h>
 #include <klocale.h>
 #include "options.h"
+#include <qregexp.h>
 
 ImageDate::ImageDate( int day, int month, int year )
 {
@@ -121,7 +122,7 @@ bool ImageDate::isNull() const
     return ( _year <= 0 && _month <= 0 && _day <= 0);
 }
 
-QString ImageDate::toString()
+QString ImageDate::toString( bool withTime ) const
 {
     QString result;
 
@@ -143,7 +144,7 @@ QString ImageDate::toString()
     if ( _year != 0 )
         result += QString::number( _year );
 
-    if ( _hour>=0 && _minute>=0 && _second>=0 && Options::instance()->showTime() &&
+    if ( withTime && _hour>=0 && _minute>=0 && _second>=0 && Options::instance()->showTime() &&
          ( _hour != 0 || _minute != 0 || _second != 0 ) ) {
         if (_hour<=9)
             result += QString::fromLatin1(" 0%1:").arg(_hour);
@@ -205,4 +206,78 @@ QTime ImageDate::getTime()
 bool ImageDate::hasValidTime() const
 {
     return QTime::isValid( _hour, _minute, _second );
+}
+
+QDate ImageDate::getDate()
+{
+    QDate date = QDate::currentDate();
+    int day = 1;
+    int month = 1;
+    int year = 1970;
+    if ( _day > 0 )
+        day = _day;
+    if ( _month > 0 )
+        _month = _month;
+    if ( _year > 0 )
+        year = _year;
+    return QDate( year, month, day );
+}
+
+void ImageDate::setDate( const QString& date )
+{
+    _year = 0;
+    _month = 0;
+    _day = 0;
+
+    QRegExp regexp( formatRegexp(), false );
+
+    if ( regexp.exactMatch( date ) ) {
+        QString day = regexp.cap(2);
+        QString month = regexp.cap(5).lower();
+        QString year= regexp.cap(7);
+
+        if ( day.length() != 0 )
+            _day = day.toInt();
+
+        if ( year.length() != 0 ) {
+            _year = year.toInt();
+            if ( _year < 50 )
+                _year += 2000;
+            if ( _year < 100 )
+                _year += 1900;
+        }
+        if ( month.length() != 0 ) {
+            if ( month == QString::fromLatin1( "jan" ) )
+                _month = 1;
+            else if ( month == QString::fromLatin1( "feb" ) )
+                _month = 2;
+            else if ( month == QString::fromLatin1( "mar" ) )
+                _month = 3;
+            else if ( month == QString::fromLatin1( "apr" ) )
+                _month = 4;
+            else if ( month == QString::fromLatin1( "may" ) )
+                _month = 5;
+            else if ( month == QString::fromLatin1( "jun" ) )
+                _month = 6;
+            else if ( month == QString::fromLatin1( "jul" ) )
+                _month = 7;
+            else if ( month == QString::fromLatin1( "aug" ) )
+                _month = 8;
+            else if ( month == QString::fromLatin1( "sep" ) )
+                _month = 9;
+            else if ( month == QString::fromLatin1( "oct" ) )
+                _month = 10;
+            else if ( month == QString::fromLatin1( "nov" ) )
+                _month = 11;
+            else if ( month == QString::fromLatin1( "dec" ) )
+                _month = 12;
+            else
+                _month = month.toInt();
+        }
+    }
+}
+
+QString ImageDate::formatRegexp()
+{
+    return QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((jan|feb|mar|apr|may|jun|jul|aug|sep|nov|dec|\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
 }

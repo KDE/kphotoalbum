@@ -26,28 +26,40 @@ public:
     ImageDate();
     ImageDate( int day, int month, int year );
     ImageDate( const QDate& );
+
     int year() const;
     int month() const;
     int day() const;
+
     int hour() const;
     int minute() const;
     int second() const;
+
     void setDate( const QDate& );
     void setTime( const QTime& );
+
     QTime getTime();
+    QDate getDate();
+    void setDate( const QString& date );
+
     void setYear( int );
     void setMonth( int );
     void setDay( int );
+
     void setHour( int );
     void setMinute( int );
     void setSecond( int );
+
     bool operator<=( const ImageDate& other ) const;
+    bool isValid() const { return !isNull(); }
     bool isNull() const;
-    QString toString();
+    QString toString( bool withTime = true ) const;
     operator QString() { return toString(); }
     bool operator==( const ImageDate& other );
     bool operator!=( const ImageDate& other );
     bool hasValidTime() const;
+
+    static QString formatRegexp();
 
 private:
     int _year, _month, _day, _hour, _minute, _second;

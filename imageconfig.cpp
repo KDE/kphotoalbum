@@ -48,6 +48,7 @@
 #include <kiconloader.h>
 #include "showbusycursor.h"
 #include <ktimewidget.h>
+#include "kdateedit.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -75,58 +76,21 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _imageLabel = new KLineEdit( top );
     lay3->addWidget( _imageLabel );
 
+
     // Date
     QHBoxLayout* lay4 = new QHBoxLayout( lay2, 6 );
 
-    label = new QLabel( i18n("From: "), top );
+    label = new QLabel( i18n("Date: "), top );
     lay4->addWidget( label );
 
-    _dayStart = new QSpinBox( 0, 31, 1, top );
-    _dayStart->setSpecialValueText( QString::fromLatin1( "---" ) );
-    lay4->addWidget( _dayStart );
+    _startDate = new KDateEdit( top, "date config" );
+    lay4->addWidget( _startDate, 1 );
 
     label = new QLabel( QString::fromLatin1( "-" ), top );
     lay4->addWidget( label );
 
-    _monthStart = new QComboBox( top );
-    _monthStart->insertStringList( QStringList() << QString::fromLatin1( "---" )
-                                   << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
-                                   << i18n( "May" ) << i18n( "Jun" ) << i18n( "Jul" ) << i18n( "Aug" )
-                                   << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
-    lay4->addWidget( _monthStart );
-
-    label = new QLabel( QString::fromLatin1( "-" ), top );
-    lay4->addWidget( label );
-
-    _yearStart = new QSpinBox( 0, 9999, 1, top );
-    _yearStart->setSpecialValueText( QString::fromLatin1( "---" ) );
-    lay4->addWidget( _yearStart );
-
-    lay4->addStretch(1);
-
-    label = new QLabel( i18n("To: "), top );
-    lay4->addWidget( label );
-
-    _dayEnd = new QSpinBox( 0, 31, 1, top );
-    _dayEnd->setSpecialValueText( QString::fromLatin1( "---" ) );
-    lay4->addWidget( _dayEnd );
-
-    label = new QLabel( QString::fromLatin1( "-" ), top );
-    lay4->addWidget( label );
-
-    _monthEnd = new QComboBox( top );
-    _monthEnd->insertStringList( QStringList() << QString::fromLatin1( "---" )
-                                 << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
-                                 << i18n( "May" ) << i18n( "Jun" ) << i18n( "Jul" ) << i18n( "Aug" )
-                                 << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
-    lay4->addWidget( _monthEnd );
-
-    label = new QLabel( QString::fromLatin1( "-" ), top );
-    lay4->addWidget( label );
-
-    _yearEnd = new QSpinBox( 0, 9999, 1, top );
-    _yearEnd->setSpecialValueText( QString::fromLatin1( "---" ) );
-    lay4->addWidget( _yearEnd );
+    _endDate = new KDateEdit( top, "date config" );
+    lay4->addWidget( _endDate, 1 );
 
     // Time
     QHBoxLayout* lay7 = new QHBoxLayout( lay2, 6 );
@@ -256,6 +220,8 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     // If I don't explicit show _dockWindow here, then no windows will show up.
     _dockWindow->show();
+
+    resize( 800, 600 );
 }
 
 
@@ -308,10 +274,10 @@ void ImageConfig::slotOK()
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             ImageInfo* info = *it;
             info->rotate( _preview->angle() );
-            if ( _dayStart->value() != 0 ||  _monthStart->currentText() != QString::fromLatin1("---") || _yearStart->value() != 0 ) {
-                info->startDate().setDay( _dayStart->value() );
-                info->startDate().setMonth( _monthStart->currentItem() );
-                info->startDate().setYear( _yearStart->value() );
+            if ( !_startDate->date().isNull() ) {
+                info->startDate().setDay( _startDate->date().day() );
+                info->startDate().setMonth( _startDate->date().month() );
+                info->startDate().setYear( _startDate->date().year() );
             }
             if ( _time->time().isValid() ) {
                 if ( _addTime->isHidden() ) {
@@ -321,10 +287,10 @@ void ImageConfig::slotOK()
                 }
             }
 
-            if ( _dayEnd->value() != 0 || _monthEnd->currentText() != QString::fromLatin1("---") || _yearEnd->value() != 0 )  {
-                info->endDate().setDay( _dayEnd->value() );
-                info->endDate().setMonth( _monthEnd->currentItem() );
-                info->endDate().setYear( _yearEnd->value() );
+            if ( !_endDate->date().isNull() )  {
+                info->endDate().setDay( _endDate->date().day() );
+                info->endDate().setMonth( _endDate->date().month() );
+                info->endDate().setYear( _endDate->date().year() );
             }
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -352,9 +318,7 @@ void ImageConfig::slotOK()
 void ImageConfig::load()
 {
     ImageInfo& info = _editList[ _current ];
-    _yearStart->setValue( info.startDate().year() );
-    _monthStart->setCurrentItem( info.startDate().month() );
-    _dayStart->setValue( info.startDate().day() );
+    _startDate->setDate( info.startDate() );
 
     if( info.startDate().hasValidTime() ) {
         _time->show();
@@ -365,10 +329,8 @@ void ImageConfig::load()
         _time->hide();
         _addTime->show();
     }
-    _yearEnd->setValue( info.endDate().year() );
-    _monthEnd->setCurrentItem( info.endDate().month() );
-    _dayEnd->setValue( info.endDate().day() );
 
+    _endDate->setDate( info.endDate() );
     _imageLabel->setText( info.label() );
     _description->setText( info.description() );
 
@@ -393,18 +355,18 @@ void ImageConfig::writeToInfo()
 
     ImageInfo& info = _editList[ _current ];
 
-    info.startDate().setYear( _yearStart->value() );
-    info.startDate().setMonth( _monthStart->currentItem() );
-    info.startDate().setDay( _dayStart->value() );
+    info.startDate().setYear( _startDate->date().year() );
+    info.startDate().setMonth( _startDate->date().month() );
+    info.startDate().setDay( _startDate->date().day() );
 
     if( _time->time().isValid() ) {
         if(!_time->isHidden())
             info.startDate().setTime( _time->time());
     }
 
-    info.endDate().setYear( _yearEnd->value() );
-    info.endDate().setMonth( _monthEnd->currentItem() );
-    info.endDate().setDay( _dayEnd->value() );
+    info.endDate().setYear( _endDate->date().year() );
+    info.endDate().setMonth( _endDate->date().month() );
+    info.endDate().setDay( _endDate->date().day() );
 
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->text() );
@@ -435,13 +397,8 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         slotNext();
     }
     else {
-        _dayStart->setValue( 0 );
-        _monthStart->setCurrentText( QString::fromLatin1("---") );
-        _yearStart->setValue( 0 );
-
-        _dayEnd->setValue( 0 );
-        _monthEnd->setCurrentText( QString::fromLatin1("---") );
-        _yearEnd->setValue( 0 );
+        _startDate->setDate( ImageDate() );
+        _endDate->setDate( ImageDate() );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->setSelection( QStringList() );
@@ -468,10 +425,7 @@ ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
     setup();
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
-        _oldSearch = ImageSearchInfo( ImageDate( _dayStart->value(), _monthStart->currentItem(),
-                                                 _yearStart->value()),
-                                      ImageDate( _dayEnd->value(), _monthEnd->currentItem(),
-                                                 _yearEnd->value() ),
+        _oldSearch = ImageSearchInfo( _startDate->date(), _endDate->date(),
                                       _imageLabel->text(), _description->text() );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -531,13 +485,8 @@ void ImageConfig::slotClear()
 
 void ImageConfig::loadInfo( const ImageSearchInfo& info )
 {
-    _yearStart->setValue( info.startDate().year() );
-    _monthStart->setCurrentItem( info.startDate().month() );
-    _dayStart->setValue( info.startDate().day() );
-
-    _yearEnd->setValue( info.endDate().year() );
-    _monthEnd->setCurrentItem( info.endDate().month() );
-    _dayEnd->setValue( info.endDate().day() );
+    _startDate->setDate( info.startDate() );
+    _endDate->setDate( info.endDate() );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setText( info.option( (*it)->optionGroup() ) );
@@ -695,8 +644,8 @@ bool ImageConfig::hasChanges()
     }
 
     else if ( _setup == MULTIPLE ) {
-        changed |= ( _dayStart->value() != 0 ||  _monthStart->currentText() != QString::fromLatin1("---") || _yearStart->value() != 0 );
-        changed |= ( _dayEnd->value() != 0 || _monthEnd->currentText() != QString::fromLatin1("---") || _yearEnd->value() != 0 );
+        changed |= ( !_startDate->date().isNull() );
+        changed |= ( !_endDate->date().isNull() );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             changed |= ( (*it)->selection().count() != 0 );

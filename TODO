@@ -8,9 +8,6 @@ BUGS To be handled soonish
   differently than their construction order. Here is the next plan:
   iterate through all the children of the dialog, and setup tab order as
   they are physically located on screen. 
--I do not like the way dates are entered. I prefer the way (korganizer and  
- kaddressbook) do it: to write them in one single text field and to offer a 
- calender as well.
 - ensure file permissions is set correct for HTML pages.
 - ensure HTML pages has a UTF8 tag otherwise danish characters will not get
 properly through

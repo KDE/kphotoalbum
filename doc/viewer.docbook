@@ -109,7 +109,64 @@ rotate the image. You can set properties for
 the current image, simply by choosing <literal>Edit Image Properties</literal> in the
 context menu.
 </para>
+
+
+
+
   
+<sect1 id="tokens">
+<title>Setting Tokens from the Viewer</title>
+<para>When viewing the images you may find that a given image contains a person
+whose name you forgot to set on the images. At this time you may cancel
+your viewing, and rush to the image config dialog to specify the
+person. Often, however, you may wish to just tag the image and continue on
+viewing images.</para>
+
+<para>An alternative situation is this: You want to sent a number of images
+to a printer to get them developed on paper. To see which you want to get
+developed, you start the viewer on the images, and now you want to tag the
+images as good or bad while you see each image.</para>
+
+<para>For the above two examples the viewer offers you to set tokens on the
+images when viewing them. Tokens are named from A to Z, and you set a token
+simply by pressing the letter of the token. In <xref
+linkend="fig-images-with-tokens"/> you may see an image where the token A,
+B and C are set.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title>An Image with Tokens</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para>Once you've set tokens on your images, the tokens will be available for
+regular browsing in the browser, as can be seen in <xref
+linkend="fig-tokens-in-browser"/>. So when you've marked images that
+needs to be edited, printed, or whatever, simply browse to the images, and
+set image properties on all images at a time (as described in <xref
+linkend="sect-specifying-properties-for-all-images-simultaneously"/>), use
+a plugin to copy the selected images to a cd, or whatever you need to do.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title>Tokens seen in the Browser</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+</sect1>
+
+
+
+
 
   <sect1 id="drawing-on-images">
     <title>Drawing on Images</title>

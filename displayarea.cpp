@@ -90,7 +90,9 @@ DisplayArea::DisplayArea( QWidget* parent, const char* name )
 void DisplayArea::mousePressEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
-    bool block = _currentHandler->mousePressEvent( &e  );
+    double ratio;
+    (void) offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), &ratio );
+    bool block = _currentHandler->mousePressEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mousePressEvent( event );
     update();
@@ -99,7 +101,9 @@ void DisplayArea::mousePressEvent( QMouseEvent* event )
 void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
-    bool block = _currentHandler->mouseMoveEvent( &e );
+    double ratio;
+    (void) offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), &ratio );
+    bool block = _currentHandler->mouseMoveEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mousePressEvent( event );
     update();
@@ -108,7 +112,9 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
-    bool block = _currentHandler->mouseReleaseEvent( &e );
+    double ratio;
+    (void) offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), &ratio );
+    bool block = _currentHandler->mouseReleaseEvent( &e, event->pos(), ratio );
     if ( !block ) {
         QWidget::mouseReleaseEvent( event );
     }

@@ -37,6 +37,7 @@ public:
     virtual QString text() const = 0;
     virtual int count() { return _count; }
     virtual int compare( Folder* other, int col, bool asc ) const;
+    virtual QString countLabel() const = 0;
 
     friend class TypeFolder;
     friend class ImageFolder;

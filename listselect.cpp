@@ -31,6 +31,7 @@
 #include <kinputdialog.h>
 #include <qapplication.h>
 #include "imagedb.h"
+#include <kio/job.h>
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -350,11 +351,17 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()).arg(newStr).arg(item->text()),
                                                i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
-                Options::instance()->renameOption( optionGroup(), item->text(), newStr );
+                QString oldStr = item->text();
+                Options::instance()->renameOption( optionGroup(), oldStr, newStr );
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
                 _listBox->setSelected( newItem, sel );
+
+                // rename the category image too
+                QString oldFile = Options::instance()->fileForCategoryImage( optionGroup(), oldStr );
+                QString newFile = Options::instance()->fileForCategoryImage( optionGroup(), newStr );
+                KIO::move( oldFile, newFile );
             }
         }
     }

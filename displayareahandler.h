@@ -8,9 +8,9 @@ class DisplayAreaHandler :public QObject
 {
 public:
     DisplayAreaHandler( DisplayArea* display ) : QObject( display, "display handler" ), _display( display ) {}
-    virtual bool mousePressEvent ( QMouseEvent* e ) = 0;
-    virtual bool mouseReleaseEvent ( QMouseEvent* e ) = 0;
-    virtual bool mouseMoveEvent ( QMouseEvent* e ) = 0;
+    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
+    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
+    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
 
 protected:
     DisplayArea* _display;

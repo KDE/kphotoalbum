@@ -94,3 +94,8 @@ ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, int from, int
 {
 }
 
+QString ImageFolder::countLabel() const
+{
+    return i18n("1 image", "%n images", _count );
+}
+

@@ -28,6 +28,7 @@ public:
     virtual QPixmap pixmap();
     virtual QString text() const;
     int compare( Folder* other, int col, bool asc ) const;
+    virtual QString countLabel() const;
 
 private:
     QString _optionGroup;

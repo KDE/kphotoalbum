@@ -37,9 +37,7 @@ BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
 {
     setPixmap( 0, folder->pixmap() );
     setText( 0, folder->text() );
-    int count = folder->count();
-    if ( count != -1 )
-        setText( 1, i18n( "1 image", "%n images", count) );
+    setText( 1, folder->countLabel() );
 }
 
 int BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const

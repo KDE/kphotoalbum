@@ -4,35 +4,39 @@
 #include "displayarea.h"
 #include <qapplication.h>
 #include <qcursor.h>
+
 ViewHandler::ViewHandler( DisplayArea* display )
     :DisplayAreaHandler( display )
 {
 
 }
 
-bool ViewHandler::mousePressEvent( QMouseEvent*e  )
+bool ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTranslatedPos, double /*scaleFactor*/ )
 {
     _pan = false;
     _scale = false;
 
-    if ( ! (e->button() & Qt::LeftButton ) )
-        return false;
-
-    if ( e->state() & Qt::ControlButton ) {
-        // panning
-        _pan = true;
-        _last = e->pos();
-        qApp->setOverrideCursor( SizeAllCursor  );
-    }
-    else {
+    if ( (e->button() & Qt::LeftButton ) ) {
         // scaling
         _scale = true;
         _start = e->pos();
+        return true;
     }
-    return true;
+
+    else if ( e->button() & Qt::MidButton ) {
+        // panning
+        _pan = true;
+        _last = unTranslatedPos;
+        qApp->setOverrideCursor( SizeAllCursor  );
+        _errorX = 0;
+        _errorY = 0;
+        return true;
+    }
+    else
+        return true;
 }
 
-bool ViewHandler::mouseMoveEvent( QMouseEvent* e )
+bool ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )
 {
     if ( _scale ) {
         QPainter* p = _display->painter();
@@ -42,15 +46,25 @@ bool ViewHandler::mouseMoveEvent( QMouseEvent* e )
         return true;
     }
     else if ( _pan ) {
-        _display->pan(  _last - e->pos() );
-        _last = e->pos();
+        // This code need to be taking the error into account, consider this situation:
+        // The user moves the mouse very slowly, only 1 pixel at a time, scale factor is 3
+        // Then translated delta would be 1/3 which every time would be
+        // rounded down to 0, and the panning would never move any pixels.
+        double deltaX = _errorX + (_last.x() - unTranslatedPos.x())/scaleFactor;
+        double deltaY = _errorY + (_last.y() - unTranslatedPos.y())/scaleFactor;
+        QPoint deltaPoint = QPoint( (int) deltaX, (int) deltaY );
+        _errorX = deltaX - ((double) ((int) deltaX ) );
+        _errorY = deltaY - ((double) ((int) deltaY) );
+
+        _display->pan( deltaPoint );
+        _last = unTranslatedPos;
         return true;
     }
     else
         return false;
 }
 
-bool ViewHandler::mouseReleaseEvent( QMouseEvent* e )
+bool ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _scale && (e->pos()-_start).manhattanLength() > 1 ) {
         _display->zoom( _start, e->pos() );

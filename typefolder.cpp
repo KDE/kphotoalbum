@@ -80,5 +80,10 @@ QString TypeFolderAction::optionGroup() const
     return _optionGroup;
 }
 
+QString TypeFolder::countLabel() const
+{
+    return i18n("1 category", "%n categories", _count);
+}
+
 
 

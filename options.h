@@ -53,6 +53,7 @@ public:
     QStringList optionValue( const QString& optionGroup ) const;
     void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
+    QString fileForCategoryImage(  const QString& optionGroup, QString member ) const;
     void setOptionImage( const QString& optionGroup, QString, const QImage& image );
     QImage optionImage( const QString& optionGroup,  QString, int size ) const;
 

@@ -57,7 +57,7 @@ QPixmap ContentFolder::pixmap()
 QString ContentFolder::text() const
 {
     if ( _value == ImageDB::NONE() ) {
-        return i18n( "None" );
+        return i18n( "No %1" ).arg( Options::instance()->textForOptionGroup( _optionGroup )  );
     }
     else {
         return _value;
@@ -134,4 +134,9 @@ bool ContentFolderAction::allowSort() const
 QString ContentFolderAction::title() const
 {
     return i18n("Category");
+}
+
+QString ContentFolder::countLabel() const
+{
+    return i18n("1 image", "%n images", _count);
 }

@@ -87,4 +87,9 @@ void DateSearchDialog::toDateChanged()
     _toChanged = true;
 }
 
+QString DateFolder::countLabel() const
+{
+    return QString::null;
+}
+
 #include "datefolder.moc"

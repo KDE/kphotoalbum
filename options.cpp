@@ -489,6 +489,15 @@ QString Options::password() const
     return _passwd;
 }
 
+QString Options::fileForCategoryImage( const QString& optionGroup, QString member ) const
+{
+    QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
+    member.replace( ' ', '_' );
+    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
+    return fileName;
+}
+
+
 void Options::setOptionImage( const QString& optionGroup, QString member, const QImage& image )
 {
     QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
@@ -501,8 +510,7 @@ void Options::setOptionImage( const QString& optionGroup, QString member, const 
             return;
         }
     }
-    member.replace( ' ', '_' );
-    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
+    QString fileName = fileForCategoryImage( optionGroup, member );
     ok = image.save( fileName, "JPEG" );
     if ( !ok ) {
         QMessageBox::warning( 0, i18n("Error saving image"), i18n("Error when saving image %1").arg(fileName), QMessageBox::Ok, 0 );
@@ -512,9 +520,7 @@ void Options::setOptionImage( const QString& optionGroup, QString member, const 
 
 QImage Options::optionImage( const QString& optionGroup, QString member, int size ) const
 {
-    QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
-    member.replace( ' ', '_' );
-    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
+    QString fileName = fileForCategoryImage( optionGroup, member );
     QImage img;
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {

@@ -1,33 +1,17 @@
 ==========================
 BUGS To be handled soonish
 ==========================
-- pan doesn't work very well in the viewer
 - drawing on an image doesn't mark it as dirty
-- when renaming an item in the listselect, then category image should also
-  be renamed.
 - Adding a new ListSelect will not show it up initially.
 - Fix tab order in ImageConfig. I've tried fixing this several times, but
   this is not easy to get right, due to the windows may be located
-  differently than third construction order. Here is the next plan:
+  differently than their construction order. Here is the next plan:
   iterate through all the children of the dialog, and setup tab order as
   they are physically located on screen. 
-- rotating an image in the viewer is not written to the database.
 -I do not like the way dates are entered. I prefer the way (korganizer and  
  kaddressbook) do it: to write them in one single text field and to offer a 
  calender as well.
-- the viewer should allow you to close it by hitting q.
-- The first one deals with the options dialog. Here I've defined a new category 
-  (for example animals). When I then go to the member groups configuration, the 
-  new categories are missing. They need a program restart to appear.
-- the viewer should be closable with Ctrl+w and <esc>, in addition to q
-- In the category overview of the browser, replace "images with
-  "categories", so it says: 
-  Category           Count.
-  Keywords           4 categories
-  Locations          1 categories
-  Persons            6 categories
-  and consider excluding the None category from the counts.
-- replace None with "No Persons", "No Keywords" etc.
+
 =======================
 BUGS of less importance
 =======================

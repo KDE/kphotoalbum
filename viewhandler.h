@@ -25,12 +25,13 @@ class ViewHandler :public DisplayAreaHandler {
 
 public:
     ViewHandler( DisplayArea* display );
-    virtual bool mousePressEvent ( QMouseEvent* e );
-    virtual bool mouseReleaseEvent ( QMouseEvent* e );
-    virtual bool mouseMoveEvent ( QMouseEvent* e );
+    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
 private:
     bool _scale, _pan;
     QPoint _start, _last;
+    double _errorX, _errorY;
 };
 
 

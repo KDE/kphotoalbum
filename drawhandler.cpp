@@ -12,7 +12,7 @@ DrawHandler::DrawHandler( DisplayArea* display )
 
 }
 
-bool DrawHandler::mousePressEvent( QMouseEvent* event )
+bool DrawHandler::mousePressEvent( QMouseEvent* event, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _tool == None )
         return false;
@@ -31,7 +31,7 @@ bool DrawHandler::mousePressEvent( QMouseEvent* event )
     return true;
 }
 
-bool DrawHandler::mouseMoveEvent( QMouseEvent* event )
+bool DrawHandler::mouseMoveEvent( QMouseEvent* event, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
    if ( _activeTool && _tool != Select && _tool != None) {
         QPainter* painter = _display->painter();
@@ -44,7 +44,7 @@ bool DrawHandler::mouseMoveEvent( QMouseEvent* event )
         return false;
 }
 
-bool DrawHandler::mouseReleaseEvent( QMouseEvent* )
+bool DrawHandler::mouseReleaseEvent( QMouseEvent*, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _tool == Select || _tool == None ) {
         return false;

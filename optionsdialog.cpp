@@ -41,6 +41,7 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     createGeneralPage();
     createOptionGroupsPage();
     createGroupConfig();
+    connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
 }
 
 void OptionsDialog::createGeneralPage()
@@ -478,8 +479,6 @@ void OptionsDialog::createGroupConfig()
     connect( _del, SIGNAL( clicked() ), this, SLOT( slotDelGroup() ) );
 
     _members->setSelectionMode( QListBox::Multi );
-    _category->insertStringList( opt->optionGroups() );
-    slotCategoryChanged( _category->currentText() );
 }
 
 /**
@@ -620,5 +619,12 @@ void OptionsDialog::setButtonStates()
     _del->setEnabled( b );
 }
 
+
+void OptionsDialog::slotPageChange()
+{
+    _category->clear();
+    _category->insertStringList( Options::instance()->optionGroups() );
+    slotCategoryChanged( _category->currentText() );
+}
 
 #include "optionsdialog.moc"

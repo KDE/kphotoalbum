@@ -1,3 +1,21 @@
+2004-03-07  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: When renaming an item in the listselect, then category
+	image is now also renamed.
+
+	* BUGFIX: In the settings dialog, member group tab, ensure that
+	the category list is updated when entering the page.
+
+	* replaced "None" with "No Persons", "No Keywords" etc.
+
+	* the count text in the browser is now "categories" rather than
+	"images" when displaying categories like "persons", "locations" etc.
+
+	* BUGFIX: Finally made panning work. Its now bound to the middle
+	mouse button, which is more compatible to a wide range of
+	application, rather than Ctrl+left button as was the case
+	previously.
+
 2004-03-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: previous fix to member groups was broken.

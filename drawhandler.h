@@ -16,9 +16,9 @@ class DrawHandler :public DisplayAreaHandler {
 
 public:
     DrawHandler( DisplayArea* display );
-    virtual bool mousePressEvent ( QMouseEvent* e  );
-    virtual bool mouseReleaseEvent ( QMouseEvent* e );
-    virtual bool mouseMoveEvent ( QMouseEvent* e );
+    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
     DrawList drawList() const;
     void setDrawList( const DrawList& );
     bool hasDrawings() const;

@@ -54,6 +54,7 @@ protected slots:
     void slotAddGroup();
     void slotDelGroup();
     void slotRenameGroup();
+    void slotPageChange();
 
 protected:
     void createGeneralPage();

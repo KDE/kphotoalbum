@@ -40,3 +40,8 @@ FolderAction* SearchFolder::action( bool )
 
     return new ContentFolderAction( QString::null, QString::null, info, _browser );
 }
+
+QString SearchFolder::countLabel() const
+{
+    return QString::null;
+}

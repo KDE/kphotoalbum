@@ -82,4 +82,3 @@ QString FolderAction::optionGroup() const
 {
     return QString::null;
 }
-

@@ -567,7 +567,8 @@ void MainView::load()
     file.close();
 
     Options::setup( config, options, configWindowSetup, memberGroups, QFileInfo( configFile ).dirPath( true ) );
-    ImageDB::setup( images, blockList );
+    bool newImages = ImageDB::setup( images, blockList );
+    _dirty |= newImages;
 }
 
 void MainView::contextMenuEvent( QContextMenuEvent* )

@@ -30,7 +30,7 @@
 
 ImageDB* ImageDB::_instance = 0;
 
-ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList )
+ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* newImages )
 {
     QString directory = Options::instance()->imageDirectory();
     if ( directory.isEmpty() )
@@ -75,7 +75,9 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList )
             _blockList << fileName;
     }
 
+    uint count = _images.count();
     loadExtraFiles( loadedFiles, directory );
+    *newImages = ( count != _images.count() );
 }
 
 int ImageDB::totalCount() const
@@ -118,16 +120,18 @@ ImageDB* ImageDB::instance()
     return _instance;
 }
 
-void ImageDB::setup( const QDomElement& top, const QDomElement& blockList )
+bool ImageDB::setup( const QDomElement& top, const QDomElement& blockList )
 {
-    _instance = new ImageDB( top, blockList );
+    bool newImages;
+    _instance = new ImageDB( top, blockList, &newImages );
+    return newImages;
 }
 
 void ImageDB::load( const QString& fileName, QDomElement elm )
 {
     ImageInfo* info = new ImageInfo( fileName, elm );
     info->setVisible( false );
-    images().append(info);
+    _images.append(info);
 }
 
 void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory )
@@ -154,7 +158,7 @@ void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory 
 
             if ( ! _blockList.contains( baseName ) ) {
                 ImageInfo* info = new ImageInfo( baseName  );
-                images().append(info);
+                _images.append(info);
             }
         }
         else if ( fi.isDir() )  {

@@ -27,7 +27,7 @@ class ImageDB :public QObject {
 
 public:
     static ImageDB* instance();
-    static void setup( const QDomElement& images, const QDomElement& blockList);
+    static bool setup( const QDomElement& images, const QDomElement& blockList);
 
     int totalCount() const;
     void search( const ImageSearchInfo& info, int from = -1, int to = -1 );
@@ -56,7 +56,7 @@ protected:
     int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
 
 private:
-    ImageDB( const QDomElement& images, const QDomElement& blockList );
+    ImageDB( const QDomElement& images, const QDomElement& blockList, bool* newImages );
     static ImageDB* _instance;
 
     ImageInfoList _images;

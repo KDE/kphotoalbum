@@ -9,7 +9,8 @@ class Draw
 public:
     Draw() {};
     void startDraw( QMouseEvent* );
-    virtual void draw( QMouseEvent*, QPainter& );
+    virtual void draw( QPainter&, QMouseEvent* );
+
 protected:
     QPoint _startPos;
     QPoint _lastPos;

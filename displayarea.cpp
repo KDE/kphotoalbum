@@ -4,6 +4,7 @@
 #include "rectdraw.h"
 #include "circledraw.h"
 #include <qpainter.h>
+#include <qpicture.h>
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
     :QLabel( parent, name ), _tool( None ), _activeTool( 0 )
@@ -40,10 +41,9 @@ void DisplayArea::mousePressEvent( QMouseEvent* event )
 void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 {
     if ( _activeTool ) {
-        QPixmap pix = _pixmap;
+        QPixmap pix = _curPixmap;
         QPainter painter( &pix );
-        painter.setPen( 3 );
-        _activeTool->draw( event, painter );
+        _activeTool->draw( painter, event );
         QLabel::setPixmap( pix );
     }
     else
@@ -53,7 +53,12 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
     if ( _activeTool ) {
-        //_activeTool->draw( event );
+        QPixmap pix = _curPixmap;
+        QPainter painter( &pix );
+        _activeTool->draw( painter, event );
+        _curPixmap = pix;
+        QLabel::setPixmap( pix );
+        _drawings.append( _activeTool );
     }
     else
         QLabel::mouseReleaseEvent( event );
@@ -75,12 +80,17 @@ Draw* DisplayArea::createTool()
 
 void DisplayArea::setPixmap( const QPixmap& pixmap )
 {
-    _pixmap = pixmap;
-    QLabel::setPixmap( pixmap );
+    _origPixmap = pixmap;
+    drawAll();
+    QLabel::setPixmap( _curPixmap );
 }
 
-QPixmap DisplayArea::pix()
+void DisplayArea::drawAll()
 {
-    return _pixmap;
+    _curPixmap = _origPixmap;
+    QPainter p( &_origPixmap );
+    for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
+        (*it)->draw( p, 0 );
+    }
 }
 

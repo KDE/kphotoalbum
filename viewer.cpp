@@ -32,6 +32,8 @@ Viewer::Viewer( QWidget* parent, const char* name )
 {
     _label = new DisplayArea( this );
     setCentralWidget( _label );
+    setPaletteBackgroundColor( black );
+    _label->setFixedSize( _width, _height );
 
     KIconLoader loader;
     _toolbar = new KToolBar( this );
@@ -148,19 +150,13 @@ void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QPixmap& pix
     // Erase
     QPainter p( _label );
     p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
-    resize( w, h );
-    _label->resize( w, h );
+    w = QMIN( w, pixmap.width() );
+    h = QMIN( h, pixmap.height() );
+    _label->setFixedSize( w, h );
+    _label->updateGeometry();
 
-    _label->setPixmap( pixmap );
+    _pixmap = pixmap;
     setDisplayedPixmap();
-}
-
-void Viewer::show()
-{
-    resize( 800, 600 );
-    _width = 800;
-    _height = 600;
-    KMainWindow::show();
 }
 
 void Viewer::load()
@@ -197,7 +193,7 @@ void Viewer::load()
 
 void Viewer::setDisplayedPixmap()
 {
-    QPixmap pixmap = _label->pix();
+    QPixmap pixmap = _pixmap;
     if ( pixmap.isNull() )
         return;
 
@@ -290,7 +286,7 @@ void Viewer::setDisplayedPixmap()
 void Viewer::mousePressEvent( QMouseEvent* e )
 {
     if ( e->button() == LeftButton )  {
-        _moving = Options::instance()->showInfoBox() && _textRect.contains( e->pos() );
+        _moving = Options::instance()->showInfoBox() && _textRect.contains( _label->mapFromParent( e->pos() ) );
         _startPos = Options::instance()->infoBoxPosition();
         if ( _moving )
             _label->setCursor( PointingHandCursor );
@@ -307,10 +303,10 @@ void Viewer::mouseMoveEvent( QMouseEvent* e )
 
     Options::Position oldPos = Options::instance()->infoBoxPosition();
     Options::Position pos = oldPos;
-    int x = e->pos().x();
-    int y = e->pos().y();
-    int w = width();
-    int h = height();
+    int x = _label->mapFromParent( e->pos() ).x();
+    int y = _label->mapFromParent( e->pos() ).y();
+    int w = _label->width();
+    int h = _label->height();
 
     if ( x < w/3 )  {
         if ( y < h/3  )
@@ -384,6 +380,7 @@ void Viewer::zoomOut()
 {
     _width = _width*3/4;
     _height = _height*3/4;
+    _label->setMinimumSize(0,0);
     resize( _width, _height );
     load();
 }

@@ -6,7 +6,7 @@ class LineDraw :public Draw
 {
 public:
     LineDraw();
-    void draw( QMouseEvent*, QPainter& );
+    void draw( QPainter&, QMouseEvent* );
 };
 
 #endif /* LINEDRAW_H */

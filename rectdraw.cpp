@@ -4,6 +4,6 @@ RectDraw::RectDraw()
 
 }
 
-void RectDraw::draw( QMouseEvent*, QPainter& )
+void RectDraw::draw( QPainter&, QMouseEvent* )
 {
 }

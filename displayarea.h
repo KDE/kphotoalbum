@@ -2,13 +2,13 @@
 #define DISPLAYAREA_H
 #include <qlabel.h>
 #include <qpixmap.h>
+#include <qptrlist.h>
 class Draw;
 
 class DisplayArea :public QLabel {
 Q_OBJECT
 public:
     DisplayArea( QWidget* parent, const char* name = 0 );
-    QPixmap pix();
 
 public slots:
     void slotLine();
@@ -21,12 +21,15 @@ protected:
     virtual void mouseMoveEvent( QMouseEvent* event );
     virtual void mouseReleaseEvent( QMouseEvent* event );
     Draw* createTool();
+    void drawAll();
 
 private:
     enum Tool {Line, Rectangle, Circle, None};
     Tool _tool;
     Draw* _activeTool;
-    QPixmap _pixmap;
+    QValueList<Draw*> _drawings;
+    QPixmap _origPixmap;
+    QPixmap _curPixmap;
 };
 
 

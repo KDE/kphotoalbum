@@ -21,7 +21,6 @@ public:
     ~Viewer();
     void load( const ImageInfoList& list, int index = 0 );
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QPixmap& );
-    virtual void show();
 
 protected:
     virtual void mousePressEvent( QMouseEvent* e );
@@ -69,6 +68,7 @@ private:
     QPopupMenu* _popup;
     int _width, _height;
     Options::Position _startPos;
+    QPixmap _pixmap;
 
     KToolBar* _toolbar;
     KAction* _line;

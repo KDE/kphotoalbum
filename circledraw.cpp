@@ -4,7 +4,7 @@ CircleDraw::CircleDraw()
 
 }
 
-void CircleDraw::draw( QMouseEvent*, QPainter& )
+void CircleDraw::draw( QPainter&, QMouseEvent* )
 {
 
 }

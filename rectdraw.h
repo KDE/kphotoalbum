@@ -6,7 +6,7 @@ class RectDraw :public Draw
 {
 public:
     RectDraw();
-    void draw( QMouseEvent*, QPainter& );
+    void draw( QPainter&, QMouseEvent* );
 };
 
 #endif /* RECTDRAW_H */

@@ -6,7 +6,8 @@ void Draw::startDraw( QMouseEvent* event )
     _lastPos = QPoint();
 }
 
-void Draw::draw( QMouseEvent* event, QPainter& )
+void Draw::draw( QPainter&, QMouseEvent* event )
 {
-    _lastPos = event->pos();
+    if ( event )
+        _lastPos = event->pos();
 }

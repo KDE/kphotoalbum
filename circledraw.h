@@ -6,7 +6,7 @@ class CircleDraw :public Draw
 {
 public:
     CircleDraw();
-    void draw( QMouseEvent*, QPainter& );
+    void draw( QPainter&, QMouseEvent* );
 };
 
 #endif /* CIRCLEDRAW_H */

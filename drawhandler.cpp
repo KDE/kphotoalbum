@@ -26,6 +26,7 @@ bool DrawHandler::mousePressEvent( QMouseEvent* event )
     else {
         _activeTool = createTool();
         _activeTool->startDraw( event );
+        emit active();
     }
     return true;
 }

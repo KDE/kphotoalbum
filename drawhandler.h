@@ -35,6 +35,7 @@ public slots:
 
 signals:
     void redraw();
+    void active();
 
 protected:
     Draw* createTool();

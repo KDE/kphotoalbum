@@ -90,6 +90,10 @@ DisplayArea::DisplayArea( QWidget* parent, const char* name )
     _currentHandler = _viewHandler;
 
     connect( _drawHanler, SIGNAL( redraw() ), this, SLOT( drawAll() ) );
+
+    // This is to ensure that people do see the drawing when they draw,
+    // otherwise the drawing would disappear as soon as mouse was released.
+    connect( _drawHanler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
 }
 
 void DisplayArea::mousePressEvent( QMouseEvent* event )
@@ -115,7 +119,7 @@ void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     bool block = _currentHandler->mouseReleaseEvent( &e );
     if ( !block )
-        QWidget::mousePressEvent( event );
+        QWidget::mouseReleaseEvent( event );
     drawAll();
 }
 
@@ -132,7 +136,7 @@ void DisplayArea::drawAll()
         _drawHanler->drawAll( painter );
     }
     _viewPixmap = _drawingPixmap;
-    update();
+    repaint();
 }
 
 void DisplayArea::startDrawing()
@@ -390,6 +394,11 @@ void DisplayArea::cropAndScale()
 
     _croppedAndScaledImg = _croppedAndScaledImg.scale( width(), height(), QImage::ScaleMin );
     drawAll();
+}
+
+void DisplayArea::doShowDrawings()
+{
+    Options::instance()->setShowDrawings( true );
 }
 
 #include "displayarea.moc"

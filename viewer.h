@@ -30,6 +30,7 @@ class QLabel;
 class QPopupMenu;
 class QAction;
 class DisplayArea;
+class SpeedDisplay;
 
 class Viewer :public QDialog
 {
@@ -70,6 +71,10 @@ protected slots:
     void stopDraw();
     void toggleShowOption( const QString& optionGroup, bool b ) ;
     void toggleFullScreen();
+    void slotStartStopSlideShow();
+    void slotSlideShowNext();
+    void slotSlideShowFaster();
+    void slotSlideShowSlower();
 
 private:
     static Viewer* _latest;
@@ -78,6 +83,9 @@ private:
     QAction* _lastAction;
     QAction* _nextAction;
     QAction* _prevAction;
+    QAction* _startStopSlideShow;
+    QAction* _slideShowRunFaster;
+    QAction* _slideShowRunSlower;
 
     DisplayArea* _display;
     ImageInfoList _list;
@@ -99,6 +107,10 @@ private:
 
     bool _showingFullScreen;
     QRect _oldGeometry;
+
+    QTimer* _slideShowTimer;
+    int _slideShowPause;
+    SpeedDisplay* _speedDisplay;
 };
 
 #endif /* VIEWER_H */

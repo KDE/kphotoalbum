@@ -48,6 +48,7 @@ public slots:
 
 protected slots:
     void drawAll();
+    void doShowDrawings();
 
 protected:
     virtual void mousePressEvent( QMouseEvent* event );

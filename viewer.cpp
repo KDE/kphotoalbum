@@ -42,6 +42,7 @@
 #include "drawhandler.h"
 #include <kwin.h>
 #include <kglobalsettings.h>
+#include "speeddisplay.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -71,6 +72,11 @@ Viewer::Viewer( QWidget* parent, const char* name )
     _infoBox->setShown( Options::instance()->showInfoBox() );
 
     setupContextMenu();
+
+    _slideShowTimer = new QTimer( this );
+    _slideShowPause = 5000;
+    connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNext() ) );
+    _speedDisplay = new SpeedDisplay( this );
 }
 
 
@@ -94,6 +100,20 @@ void Viewer::setupContextMenu()
     _prevAction = new QAction( i18n("Show Previous"),  QIconSet(), i18n("Show Previous"), Key_PageUp, this );
     connect( _prevAction,  SIGNAL( activated() ), this, SLOT( showPrev() ) );
     _prevAction->addTo( _popup );
+
+    _popup->insertSeparator();
+
+    _startStopSlideShow = new QAction( i18n("Run Slideshow"), QIconSet(), i18n("Run Slideshow"), Key_S, this );
+    connect( _startStopSlideShow, SIGNAL( activated() ), this, SLOT( slotStartStopSlideShow() ) );
+    _startStopSlideShow->addTo( _popup );
+
+    _slideShowRunFaster = new QAction( i18n("Run Fast"), QIconSet(), i18n("Run Fast"), CTRL + Key_Minus, this );
+    connect( _slideShowRunFaster, SIGNAL( activated() ), this, SLOT( slotSlideShowFaster() ) );
+    _slideShowRunFaster->addTo( _popup );
+
+    _slideShowRunSlower = new QAction( i18n("Run Slower"), QIconSet(), i18n("Run Slower"), CTRL+Key_Plus, this );
+    connect( _slideShowRunSlower, SIGNAL( activated() ), this, SLOT( slotSlideShowSlower() ) );
+    _slideShowRunSlower->addTo( _popup );
 
     _popup->insertSeparator();
 
@@ -170,6 +190,11 @@ void Viewer::load( const ImageInfoList& list, int index )
     _list = list;
     _current = index;
     load();
+
+    bool on = ( list.count() > 1 );
+    _startStopSlideShow->setEnabled(on);
+    _slideShowRunFaster->setEnabled(on);
+    _slideShowRunSlower->setEnabled(on);
 }
 
 void Viewer::load()
@@ -291,6 +316,7 @@ void Viewer::close()
 {
     save();
     hide();
+    _slideShowTimer->stop();
 }
 
 ImageInfo* Viewer::currentInfo()
@@ -448,6 +474,46 @@ void Viewer::toggleFullScreen()
         setGeometry( _oldGeometry );
     }
     _showingFullScreen = !_showingFullScreen;
+}
+
+void Viewer::slotStartStopSlideShow()
+{
+    if (_slideShowTimer->isActive() ) {
+        _slideShowTimer->stop();
+        _speedDisplay->end();
+    }
+    else {
+        _slideShowTimer->start( _slideShowPause );
+        _speedDisplay->start();
+    }
+}
+
+void Viewer::slotSlideShowNext()
+{
+    save();
+    if ( _current +1 < (int) _list.count() )
+        _current++;
+    else
+        _current = 0;
+    load();
+}
+
+void Viewer::slotSlideShowFaster()
+{
+    _slideShowPause -= 500;
+    if ( _slideShowPause < 500 )
+        _slideShowPause = 500;
+    _speedDisplay->display( _slideShowPause );
+    if (_slideShowTimer->isActive() )
+        _slideShowTimer->changeInterval( _slideShowPause );
+}
+
+void Viewer::slotSlideShowSlower()
+{
+    _slideShowPause += 500;
+    _speedDisplay->display( _slideShowPause );
+    if (_slideShowTimer->isActive() )
+        _slideShowTimer->changeInterval( _slideShowPause );
 }
 
 #include "viewer.moc"

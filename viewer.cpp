@@ -675,6 +675,8 @@ void Viewer::show( bool slideShow )
 
     if ( fullScreen )
         setShowFullScreen( true );
+    else
+        resize( size );
 
     QWidget::show();
     if ( slideShow )

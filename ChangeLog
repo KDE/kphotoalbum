@@ -1,5 +1,7 @@
 2004-07-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: search dialog does now contain imported image attributes.
+
 	* Fixed code for going into full screen (This forces the min
 	version to be KDE 3.2, though)
 

@@ -575,6 +575,7 @@ void Import::updateDB()
 
                 if ( info->hasOption( otherGrp, otherOption ) ) {
                     newInfo->addOption( myGrp, myOption );
+                    Options::instance()->addOption( myGrp, myOption );
                 }
 
             }

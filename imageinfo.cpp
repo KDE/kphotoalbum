@@ -82,7 +82,10 @@ void ImageInfo::setOption( const QString& key, const QStringList& value )
 
 void ImageInfo::addOption( const QString& key, const QStringList& value )
 {
-    _options[key] += value;
+    for( QStringList::ConstIterator it = value.begin(); it != value.end(); ++it ) {
+        if (! _options[key].contains( *it ) )
+            _options[key] += *it;
+    }
 }
 
 bool ImageInfo::hasOption( const QString& key, const QString& value )

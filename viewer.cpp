@@ -131,7 +131,7 @@ void Viewer::setupContextMenu()
     _popup->insertSeparator();
 
     action = new QAction( "Close",  QIconSet(), "Close", Key_Q, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
+    connect( action,  SIGNAL( activated() ), this, SLOT( hide() ) );
     action->addTo( _popup );
 }
 

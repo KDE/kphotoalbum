@@ -1,3 +1,10 @@
+2004-05-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: export to HTML page and import resulted in rotated
+	images getting even more rotated
+
+	* BUGFIX: importing into a subdirectory did not always work.
+
 2004-05-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: KimDaBa crashed in the following situation:

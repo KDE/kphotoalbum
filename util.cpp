@@ -399,18 +399,32 @@ Util::UniqNameMap Util::createUniqNameMap( const ImageInfoList& images, bool rel
         QString base = QFileInfo( fullName ).baseName();
         QString ext = QFileInfo( fullName ).extension();
         QString file = base + QString::fromLatin1( "." ) +  ext;
+        if ( !destDir.isNull() )
+            file = QString::fromLatin1("%1/%2").arg(destDir).arg(file);
 
-        if ( inverseMap.contains( file ) || ( !destDir.isNull() && QFileInfo( destDir+ QString::fromLatin1("/") + file ).exists() ) ) {
+        if ( inverseMap.contains( file ) || ( !destDir.isNull() && QFileInfo( file ).exists() ) ) {
             int i = 1;
             bool clash;
             do {
                 file = QString::fromLatin1( "%1-%2.%3" ).arg( base ).arg( ++i ).arg( ext );
+                if ( !destDir.isNull() )
+                    file = QString::fromLatin1("%1/%2").arg(destDir).arg(file);
+
                 clash = inverseMap.contains( file ) ||
-                        ( !destDir.isNull() && QFileInfo( destDir+ QString::fromLatin1("/") + file ).exists() );
+                        ( !destDir.isNull() && QFileInfo( file ).exists() );
             } while ( clash );
         }
 
-        map.insert( fullName, file );
+        QString relFile = file;
+        if ( relative ) {
+            Q_ASSERT( file.startsWith( Options::instance()->imageDirectory() ) );
+            relFile = file.mid( Options::instance()->imageDirectory().length() );
+            if ( relFile.startsWith( QString::fromLatin1( "/" ) ) )
+                relFile = relFile.mid(1);
+        }
+
+        map.insert( fullName, relFile );
+        qDebug("%s->%s", fullName.latin1(), relFile.latin1() );
         inverseMap.insert( file, fullName );
     }
 

@@ -165,7 +165,7 @@ bool MainView::slotExit()
             slotSave();
         }
         if ( ret == QMessageBox::No ) {
-            QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
+            QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
         }
     }
 
@@ -276,9 +276,9 @@ void MainView::createImageConfig()
 void MainView::slotSave()
 {
     statusBar()->message(i18n("Saving..."), 5000 );
-    save( Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml") );
+    save( Options::instance()->imageDirectory() + QString::fromLatin1("index.xml") );
     setDirty( false );
-    QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
+    QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
 
@@ -688,7 +688,7 @@ void MainView::slotAutoSave()
 {
     if ( _autoSaveDirty ) {
         statusBar()->message(i18n("Auto saving...."));
-        save( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
+        save( Options::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
         _autoSaveDirty = false;
     }

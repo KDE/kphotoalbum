@@ -43,8 +43,8 @@ ImageInfo::ImageInfo() :_null( true )
 ImageInfo::ImageInfo( const QString& fileName )
     : _fileName( fileName ), _visible( true ), _imageOnDisk( true ), _null( false ), _locked( false )
 {
-    QString fullPath = Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName;
-    QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
+    QString fullPath = Options::instance()->imageDirectory()+ fileName;
+    QFileInfo fi( Options::instance()->imageDirectory() + fileName );
     _label = fi.baseName();
     _angle = 0;
 
@@ -55,7 +55,7 @@ ImageInfo::ImageInfo( const QString& fileName )
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     : _fileName( fileName ), _visible( true ), _null( false ), _locked( false )
 {
-    QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
+    QFileInfo fi( Options::instance()->imageDirectory()+ fileName );
     _imageOnDisk = fi.exists();
     _label = elm.attribute( QString::fromLatin1("label"),  _label );
     _description = elm.attribute( QString::fromLatin1("description") );
@@ -154,7 +154,7 @@ QString ImageInfo::fileName( bool relative ) const
     if (relative)
         return _fileName;
     else
-        return  Options::instance()->imageDirectory() + QString::fromLatin1("/") + _fileName;
+        return  Options::instance()->imageDirectory() + _fileName;
 }
 
 void ImageInfo::setFileName( const QString& relativeFileName )

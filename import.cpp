@@ -457,7 +457,7 @@ bool Import::copyFilesFromZipFile()
         QByteArray data = loadImage( fileName );
         if ( data.isNull() )
             return false;
-        QString newName = _destinationEdit->text() + QString::fromLatin1( "/" ) + _nameMap[fileName];
+        QString newName = Options::instance()->imageDirectory() + _nameMap[fileName];
 
         QString relativeName = newName.mid( Options::instance()->imageDirectory().length() );
         if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
@@ -493,7 +493,7 @@ void Import::copyNextFromExternal()
     KURL src = _kimFile;
     src.setFileName( fileName );
     KURL dest;
-    dest.setPath( _destinationEdit->text() + QString::fromLatin1( "/" ) + _nameMap[fileName] );
+    dest.setPath( Options::instance()->imageDirectory() + _nameMap[fileName] );
     _job = KIO::file_copy( src, dest, -1, false, false, false );
     connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
 }

@@ -254,7 +254,10 @@ Options::TimeStampTrust Options::tTimeStamps() const
 
 QString Options::imageDirectory() const
 {
-    return _imageDirectory;
+    if ( !_imageDirectory.endsWith( QString::fromLatin1( "/" ) ) )
+        return _imageDirectory + QString::fromLatin1( "/" );
+    else
+        return _imageDirectory;
 }
 
 bool Options::showInfoBox() const
@@ -557,7 +560,7 @@ QString Options::password() const
 
 QString Options::fileForCategoryImage( const QString& optionGroup, QString member ) const
 {
-    QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
+    QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
     member.replace( ' ', '_' );
     QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
     return fileName;
@@ -566,7 +569,7 @@ QString Options::fileForCategoryImage( const QString& optionGroup, QString membe
 
 void Options::setOptionImage( const QString& optionGroup, QString member, const QImage& image )
 {
-    QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
+    QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
     QFileInfo fi( dir );
     bool ok;
     if ( !fi.exists() ) {

@@ -202,6 +202,7 @@ QCString Export::createIndexXML( const ImageInfoList& list )
         QString mappedFile = _nameMap[file];
         QDomElement elm = (*it)->save( doc );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
+        elm.setAttribute( QString::fromLatin1( "angle" ), 0 ); // We have rotated the image while copying it
         top.appendChild( elm );
     }
     return doc.toCString();
@@ -251,8 +252,7 @@ void Export::copyImages( const ImageInfoList& list )
         }
         else {
             _filesRemaining++;
-            // Notice the angle must be 0, as we want to put the image unrotated into the file.
-            ImageManager::instance()->load( (*it)->fileName(), this, 0, _maxSize, _maxSize, false, true );
+            ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), _maxSize, _maxSize, false, true );
         }
 
         // Test if the cancel button was pressed.

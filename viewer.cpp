@@ -117,7 +117,7 @@ void Viewer::setupContextMenu()
     connect( _startStopSlideShow, SIGNAL( activated() ), this, SLOT( slotStartStopSlideShow() ) );
     _startStopSlideShow->addTo( _popup );
 
-    _slideShowRunFaster = new QAction( i18n("Run Fast"), QIconSet(), i18n("Run Fast"), CTRL + Key_Plus, this );
+    _slideShowRunFaster = new QAction( i18n("Run Faster"), QIconSet(), i18n("Run Faster"), CTRL + Key_Plus, this );
     connect( _slideShowRunFaster, SIGNAL( activated() ), this, SLOT( slotSlideShowFaster() ) );
     _slideShowRunFaster->addTo( _popup );
 

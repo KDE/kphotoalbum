@@ -592,8 +592,8 @@ void MainView::load()
             KMessageBox::information( 0, i18n( "<qt><p>KimDaBa was unable to load a default setup, which indicates an installation error</p>"
                                                "<p>If you have installed KimDaBa yourself, then you must remember to set the environment variable "
                                                "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                               "<p>If you for example ran configure with <tt>-prefix=/usr/local/kde</tt>, then you must use the following "
-                                               "environment variable setup (this example is for Bash and compatible sheels):</p>"
+                                               "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
+                                               "environment variable setup (this example is for Bash and compatible shells):</p>"
                                                "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
                                                "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
                                                "environment variable</p></qt>"), i18n("No default setup file found") );

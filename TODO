@@ -11,6 +11,7 @@ BUGS To be handled soonish
   be renamed, and when deleting an item.
 - Adding a new ListSelect will not show it up initially.
 - Add a README file to the tar balls.
+- Fix tab order in ImageConfig, plus make Ctrl+Enter press OK
 
 =======================
 BUGS of less importance
@@ -34,6 +35,7 @@ Features for a soonish version
 - Loseless image rotation (which actually affects the files)
 - add a kpart call for editing images.
 - when going into full screen mode, move mouse to (width()-1,height()-1)
+- Button for rescan directory tree and generate thumbnails. 
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
@@ -42,7 +44,6 @@ Features still to be considered (aka not likely to go in next release)
 - spell check in the editor
 - export/import of selection - thus make it possible to share part of
   KimDaBa databases
-- Button for rescan directory tree and generate thumbnails. 
 - For removing properties:
   I think a good solution would be:
 

@@ -77,6 +77,9 @@ void ThumbNail::pixmapLoaded( const QString&, const QSize& /*size*/, const QSize
     if ( !image.isNull() )
         _pixmap.convertFromImage( image );
 
+    if ( _pixmap.width() > 100 || _pixmap.height() > 100 )
+        makeRoundEdge( _pixmap );
+
     if ( !_imageInfo->imageOnDisk() ) {
         QPainter p( &_pixmap );
         p.setBrush( white );
@@ -197,6 +200,28 @@ void ThumbNail::paintItem( QPainter * p, const QColorGroup & cg )
 
     cgCopy.setColor( QColorGroup::Text, col );
     QIconViewItem::paintItem( p, cgCopy );
+}
+
+void ThumbNail::makeRoundEdge( QPixmap& pixmap )
+{
+    int w = pixmap.width();
+    int h = pixmap.height();
+
+    int n = 10;
+    QRegion region( n, 0, w-2*n, h );
+    region += QRegion( 0, n, w, h-2*n );
+    region += QRegion( 0,0, 2*n, 2*n, QRegion::Ellipse );
+    region += QRegion( 0,h-2*n, 2*n, 2*n, QRegion::Ellipse );
+    region += QRegion( w-2*n,0, 2*n, 2*n, QRegion::Ellipse );
+    region += QRegion( w-2*n,h-2*n, 2*n, 2*n, QRegion::Ellipse );
+
+    QBitmap mask( pixmap.size(), true );
+    QPainter p( &mask );
+    p.setClipRegion( region );
+    p.setPen( color1 );
+    p.setBrush( color1 );
+    p.drawRect( pixmap.rect() );
+    pixmap.setMask( mask );
 }
 
 

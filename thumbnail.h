@@ -44,6 +44,7 @@ protected:
     bool atRightSizeOfItem();
     virtual void calcRect( const QString& text = QString::null );
     virtual void paintItem ( QPainter * p, const QColorGroup & cg );
+    void makeRoundEdge( QPixmap& pixmap );
 
 private:
     ImageInfo* _imageInfo;

@@ -1,3 +1,10 @@
+2004-12-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Thumbnail pixmaps are now having round corner if the size is
+	larger than 100 pixels. I think it looks good with round corners
+	for large images, but odd for smaller images. Tell me what you
+	think!
+
 2004-12-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Offer to make hard link from the export dialog (patch from  

@@ -33,7 +33,7 @@ class ViewHandler_viewHandler;
 class DrawHandler;
 class DisplayAreaHandler;
 class ViewHandler;
-class LoadInfo;
+class ImageRequest;
 
 struct ViewPreloadInfo
 {

@@ -49,7 +49,7 @@ ImageLoader::ImageLoader( QWaitCondition* sleeper )
 void ImageLoader::run()
 {
     while ( true ) {
-        LoadInfo li = ImageManager::instance()->next();
+        ImageRequest li = ImageManager::instance()->next();
 
         if ( !li.isNull() ) {
             bool ok = false;

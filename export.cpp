@@ -233,7 +233,9 @@ void Export::generateThumbnails( const ImageInfoList& list )
     _subdir = QString::fromLatin1( "Thumbnails/" );
     _filesRemaining = list.count(); // Used to break the event loop.
     for( ImageInfoListIterator it( list ); *it; ++it ) {
-        ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), 128, 128, false, true );
+        ImageRequest request( (*it)->fileName(), QSize( 128, 128 ), (*it)->angle(), this );
+        request.setPriority();
+        ImageManager::instance()->load( request );
     }
     if ( _filesRemaining > 0 ) {
         _loopEntered = true;
@@ -271,7 +273,9 @@ void Export::copyImages( const ImageInfoList& list )
         }
         else {
             _filesRemaining++;
-            ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), _maxSize, _maxSize, false, true );
+            ImageRequest request( (*it)->fileName(), QSize( _maxSize, _maxSize ), (*it)->angle(), this );
+            request.setPriority();
+            ImageManager::instance()->load( request );
         }
 
         // Test if the cancel button was pressed.

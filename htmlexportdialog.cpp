@@ -595,7 +595,9 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
 
 QString HTMLExportDialog::createImage( ImageInfo* info, int size )
 {
-    ImageManager::instance()->load( info->fileName(),  this, info->angle(), size, size, false, true );
+    ImageRequest request( info->fileName(), QSize( size, size ), info->angle(),  this );
+    request.setPriority();
+    ImageManager::instance()->load( request );
     return nameImage( info->fileName(), size );
 }
 

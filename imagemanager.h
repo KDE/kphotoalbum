@@ -28,56 +28,18 @@
 #include <qstring.h>
 #include <qpixmap.h>
 #include <qcache.h>
+#include "imagerequest.h"
 
 class ImageClient;
 
-class LoadInfo {
-public:
-    LoadInfo();
-    LoadInfo( const QString& fileName, int width,  int heigth, int angle,
-              bool priority, ImageClient* client);
-
-    bool isNull() const;
-    QString fileName() const;
-    int width() const;
-    int height() const;
-    int angle() const;
-
-    void setCache( bool );
-    bool cache() const;
-    ImageClient* client();
-
-    QSize fullSize() const;
-    void setFullSize( const QSize& );
-    void setLoadedOK( bool ok );
-    bool loadedOK() const;
-
-    bool priority() const;
-
-    bool operator<( const LoadInfo& other ) const;
-    bool operator==( const LoadInfo& other ) const;
-
-private:
-    bool _null;
-    QDeepCopy<QString> _fileName;
-    int _width;
-    int _height;
-    bool _cache;
-    ImageClient* _client;
-    int _angle;
-    QSize _fullSize;
-    bool _priority;
-    bool _loadedOK;
-};
-
 class ImageEvent :public QCustomEvent {
 public:
-    ImageEvent( LoadInfo info, const QImage& image );
-    LoadInfo loadInfo();
+    ImageEvent( ImageRequest info, const QImage& image );
+    ImageRequest loadInfo();
     QImage image();
 
 private:
-    LoadInfo _info;
+    ImageRequest _info;
     QDeepCopy<QImage> _image;
 };
 
@@ -88,9 +50,12 @@ class ImageManager :public QObject {
 public:
     enum StopAction { StopAll, StopOnlyNonPriorityLoads };
 
+#ifdef TEMPORARILY_REMOVED
     void load( const QString& fileName, ImageClient* client, int angle, int width, int height,
                bool cache, bool priority );
-    LoadInfo next();
+#endif
+    void load( const ImageRequest& request );
+    ImageRequest next();
     static ImageManager* instance();
     void stop( ImageClient*, StopAction action = StopAll );
 
@@ -102,11 +67,11 @@ private:
     void init();
     static ImageManager* _instance;
 
-    QValueList<LoadInfo> _loadList;
+    QValueList<ImageRequest> _loadList;
     QWaitCondition* _sleepers;
     QMutex* _lock;
-    QMap<LoadInfo, ImageClient*> _clientMap;
-    LoadInfo _currentLoading;
+    QMap<ImageRequest, ImageClient*> _clientMap;
+    ImageRequest _currentLoading;
 };
 
 #endif /* IMAGEMANAGER_H */

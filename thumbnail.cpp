@@ -248,7 +248,9 @@ QPixmap* ThumbNail::pixmap() const
     }
 
     int size = Options::instance()->thumbSize();
-    ImageManager::instance()->load( _imageInfo->fileName(),  const_cast<ThumbNail*>( this ), _imageInfo->angle(), size, size, true, false );
+    ImageRequest request( _imageInfo->fileName(), QSize( size, size ), _imageInfo->angle(), const_cast<ThumbNail*>( this ) );
+    request.setCache();
+    ImageManager::instance()->load( request );
     return emptyPixmap();
 }
 

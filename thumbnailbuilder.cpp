@@ -42,7 +42,10 @@ void ThumbnailBuilder::generateNext()
     setProgress( _index );
     int size = Options::instance()->thumbSize();
     _infoMap.insert( info->fileName(), info );
-    ImageManager::instance()->load( info->fileName(),  this, info->angle(), size, size, true, true );
+    ImageRequest request( info->fileName(),  QSize(size, size ), info->angle(), this );
+    request.setCache();
+    request.setPriority();
+    ImageManager::instance()->load( request );
 }
 
 void ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& fullSize, int, const QImage&, bool /*loadedOK*/ )

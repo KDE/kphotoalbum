@@ -21,7 +21,7 @@
 #include <qthread.h>
 class ImageManager;
 class QWaitCondition;
-class LoadInfo;
+class ImageRequest;
 
 class ImageLoader :public QThread {
 public:

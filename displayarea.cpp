@@ -230,6 +230,31 @@ QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWid
 void DisplayArea::zoom( QPoint p1, QPoint p2 )
 {
     normalize( p1, p2 );
+
+    double ratio;
+    QPoint off = offset( (p2-p1).x(), (p2-p1).y(), width(), height(), &ratio );
+    off = off / ratio;
+
+    if ( p1.x() - off.x() > 0 )
+        p1.setX( p1.x() - off.x() );
+    else
+        p1.setX(0);
+
+    if ( p2.x() + off.x() < _loadedPixmap.width() )
+        p2.setX( p2.x()+off.x() );
+    else
+        p2.setX( _loadedPixmap.width() );
+
+    if ( p1.y() - off.y() > 0 )
+        p1.setY( p1.y() - off.y() );
+    else
+        p1.setY(0);
+
+    if ( p2.y() + off.y() < _loadedPixmap.height() )
+        p2.setY( p2.y()+off.y() );
+    else
+        p2.setY( _loadedPixmap.height() );
+
     _zStart = p1;
     _zEnd = p2;
 }
@@ -287,6 +312,14 @@ void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
     int maxy = QMAX( p1.y(), p2.y() );
     p1 = QPoint( minx, miny );
     p2 = QPoint( maxx, maxy );
+}
+
+void DisplayArea::pan( const QPoint& p )
+{
+    // PENDING(blackie) Do boundary checks.
+    _zStart += p;
+    _zEnd += p;
+    drawAll();
 }
 
 #include "displayarea.moc"

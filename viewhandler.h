@@ -12,7 +12,7 @@ public:
     virtual bool mouseMoveEvent ( QMouseEvent* e );
 private:
     bool _scale, _pan;
-    QPoint _start;
+    QPoint _start, _last;
 };
 
 

@@ -65,6 +65,7 @@ protected:
     QPainter* painter();
     void zoom( QPoint p1, QPoint p2 );
     void normalize( QPoint& p1, QPoint& p2 );
+    void pan( const QPoint& );
 
 
 private:

@@ -35,8 +35,13 @@ public:
 public slots:
     void slotReturn();
 
+signals:
+    void deleteOption( const QString& optionGroup, const QString& which);
+    void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
+
 protected slots:
     void itemSelected( QListBoxItem* );
+    void showContextMenu( QListBoxItem*, const QPoint& );
 
 private:
     QLabel* _label;

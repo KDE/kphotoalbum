@@ -32,6 +32,10 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     Options* opt = Options::instance();
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->insertStringList( opt->optionValue( (*it)->label() ) );
+        connect( *it, SIGNAL( deleteOption( const QString&, const QString& ) ),
+                 this, SIGNAL( deleteOption( const QString&, const QString& ) ) );
+        connect( *it, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
+                 this, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ) );
     }
 
     // Update tab order.

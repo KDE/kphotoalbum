@@ -112,6 +112,16 @@ QStringList ImageInfo::optionValue( const QString& key ) const
     return _options[key];
 }
 
+void ImageInfo::renameOption( const QString& key, const QString& oldValue, const QString& newValue )
+{
+    QStringList& list = _options[key];
+    QStringList::Iterator it = list.find( oldValue );
+    if ( it != list.end() ) {
+        list.remove( it );
+        list.append( newValue );
+    }
+}
+
 QString ImageInfo::fileName( bool relative )
 {
     if (relative)
@@ -139,8 +149,9 @@ QDomElement ImageInfo::save( QDomDocument& doc )
 
     if ( _options.count() != 0 ) {
         QDomElement top = doc.createElement( QString::fromLatin1("Options") );
-        Util::writeOptions( doc, top, _options );
-        elm.appendChild( top );
+        bool any = Util::writeOptions( doc, top, _options );
+        if ( any )
+            elm.appendChild( top );
     }
 
     _drawList.save( doc, elm );

@@ -43,6 +43,7 @@ public:
     void removeOption( const QString& key, const QString& value );
     bool hasOption( const QString& key,  const QString& value );
     QStringList optionValue( const QString& key ) const;
+    void renameOption( const QString& key, const QString& oldValue, const QString& newValue );
 
     QDomElement save( QDomDocument& doc );
     bool operator!=( const ImageInfo& other );

@@ -105,7 +105,7 @@ void Options::save()
     top.setAttribute( "showLocation", _showLocation );
     top.setAttribute( "showKeyWords", _showKeyWords );
 
-    Util::writeOptions( doc, top, _options );
+    (void) Util::writeOptions( doc, top, _options );
 
     QTextStream stream( &file );
     stream << doc.toString().utf8();
@@ -115,6 +115,11 @@ void Options::save()
 void Options::setOption( const QString& key, const QStringList& value )
 {
     _options[key] = value;
+}
+
+void Options::removeOption( const QString& key, const QString& value )
+{
+    _options[key].remove( value );
 }
 
 void Options::addOption( const QString& key, const QString& value )
@@ -251,3 +256,4 @@ void Options::setHTMLBaseDir( const QString& dir )
 {
     _htmlBaseDir = dir;
 }
+

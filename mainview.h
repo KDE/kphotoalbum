@@ -29,6 +29,8 @@ protected slots:
     void slotShowAllThumbNails();
     void slotLimitToSelected();
     void slotExportToHTML();
+    void slotDeleteOption( const QString& optionGroup, const QString& which );
+    void slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
 protected:
     void configureImages( bool oneAtATime );

@@ -7,6 +7,10 @@
 #include <qvalidator.h>
 #include "options.h"
 #include "imageinfo.h"
+#include <qpopupmenu.h>
+#include <klocale.h>
+#include <klineeditdlg.h>
+#include <kmessagebox.h>
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -124,6 +128,8 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
     _listBox = new QListBox( this );
     _listBox->setSelectionMode( QListBox::Multi );
     connect( _listBox, SIGNAL( clicked( QListBoxItem*  ) ),  this,  SLOT( itemSelected( QListBoxItem* ) ) );
+    connect( _listBox, SIGNAL( contextMenuRequested( QListBoxItem*, const QPoint& ) ),
+             this, SLOT(showContextMenu( QListBoxItem*, const QPoint& ) ) );
     layout->addWidget( _listBox );
 
     _merge = new QCheckBox( "Merge",  this );
@@ -303,5 +309,53 @@ void ListSelect::itemSelected( QListBoxItem* item )
 }
 
 
+
+void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
+{
+    QPopupMenu menu( this );
+    QLabel* title = new QLabel( QString::fromLatin1("<qt><b>%1</b></qt>").arg(item->text()), &menu );
+    title->setAlignment( Qt::AlignCenter );
+    menu.insertItem( title );
+    menu.insertSeparator();
+
+    menu.insertItem( i18n("Delete"), 1 );
+    menu.insertItem( i18n("Rename"), 2 );
+    int which = menu.exec( pos );
+    if ( which == 1 ) {
+        int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
+                                                          "Deleting the item will remove any information about "
+                                                          "about it from any image containing the item!</qt>")
+                                               .arg(item->text()),
+                                               i18n("Really delete %1").arg(item->text()) );
+        if ( code == KMessageBox::Yes ) {
+            emit deleteOption( label(), item->text() );
+            delete item;
+        }
+    }
+    else if ( which == 2 ) {
+        bool ok;
+        QString newStr = KLineEditDlg::getText( i18n("Rename %1").arg( item->text() ), item->text(), &ok, this );
+        if ( ok && newStr != item->text() ) {
+            int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to rename \"%1\" to \"%2\"?<br>"
+                                                              "Doing so will rename \"%3\" "
+                                                              "on any image containing it.</qt>")
+                                               .arg(item->text()).arg(newStr).arg(item->text()),
+                                               i18n("Really rename %1").arg(item->text()) );
+            if ( code == KMessageBox::Yes ) {
+                emit renameOption( label(), item->text(), newStr );
+                bool sel = item->isSelected();
+                delete item;
+                QListBoxText* newItem = new QListBoxText( _listBox, newStr );
+
+                // PENDING(blackie) Currently this does not work, since
+                // pressing the right mouse button on the item selects
+                // it. I concider this a bug in Qt. If TT doesn't change
+                // that behavior before KPAlbum is released, then do
+                // something about it.
+                _listBox->setSelected( newItem, sel );
+            }
+        }
+    }
+}
 
 #include "listselect.moc"

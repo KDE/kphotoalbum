@@ -1,18 +1,24 @@
 #include "util.h"
 
-void Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options )
+bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options )
 {
+    bool anyAtAll = false;
     for( QMapIterator<QString,QStringList> it= options.begin(); it != options.end(); ++it ) {
         QDomElement opt = doc.createElement( "option" );
         opt.setAttribute( "name",  it.key() );
-        elm.appendChild( opt );
         QStringList list = it.data();
+        bool any = false;
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( "value" );
             val.setAttribute( "value", *it2 );
             opt.appendChild( val );
+            any = true;
+            anyAtAll = true;
         }
+        if ( any )
+            elm.appendChild( opt );
     }
+    return anyAtAll;
 }
 
 

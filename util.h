@@ -7,7 +7,7 @@
 
 class Util {
 public:
-    static void writeOptions( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& options );
+    static bool writeOptions( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& options );
     static void readOptions( QDomElement elm, QMap<QString, QStringList>* options );
 };
 

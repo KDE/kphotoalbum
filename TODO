@@ -23,3 +23,4 @@ should update
   are on all images.
 - Path could be a criteria in image search.
 - add md5 sum to the DB that is used to re-find images if the DB is reordered.
+- add kio: kimdaba://places/house

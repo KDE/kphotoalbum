@@ -96,8 +96,6 @@ public:
     void setLocked( bool );
     bool isLocked() const;
 
-    QImage load( int width = -1, int height = -1 ) const;
-
     bool isNull() const { return _null; }
     QSize size() const;
     void setSize( const QSize& size );
@@ -110,10 +108,6 @@ public:
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;
     bool isJPEG( const QString& fileName ) const;
-
-    friend class ImageRow;
-    void setImage( const QImage& image ) { _importImage = image; }
-    QImage _importImage;
 
 private:
     friend class MyImageInfo;

@@ -44,7 +44,6 @@ public:
     Import* _import;
 protected slots:
     void showImage();
-    void showImage( QImage img );
 };
 
 class Import :public KWizard {

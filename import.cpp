@@ -50,6 +50,7 @@
 #include <kapplication.h>
 #include "categorycollection.h"
 #include "imageinfo.h"
+#include "miniviewer.h"
 
 class KPushButton;
 
@@ -294,7 +295,7 @@ void ImageRow::showImage()
 
             if( KIO::NetAccess::download( src, tmpFile, MainView::theMainView() ) ) {
                 QImage img( tmpFile );
-                showImage( img );
+                MiniViewer::show( img, _info );
                 KIO::NetAccess::removeTempFile( tmpFile );
                 break;
             }
@@ -302,31 +303,9 @@ void ImageRow::showImage()
     }
     else {
         QImage img = QImage( _import->loadImage( _info->fileName(true) ) );
-        showImage( img );
+        MiniViewer::show( img, _info );
     }
 }
-
-void ImageRow::showImage( QImage img )
-{
-    if ( _info->angle() != 0 ) {
-        QWMatrix matrix;
-        matrix.rotate( _info->angle() );
-        img = img.xForm( matrix );
-    }
-
-    Viewer* viewer = Viewer::latest();
-    if ( !viewer )
-        viewer = new Viewer( 0 );
-
-    _info->setImage( img );
-    ImageInfoList list;
-    list.append( _info );
-    viewer->load( list );
-    viewer->show( false );
-}
-
-
-
 
 void Import::createDestination()
 {

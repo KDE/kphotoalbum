@@ -30,7 +30,7 @@ kimdaba_SOURCES = \
 	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
     datebar.cpp dateviewhandler.cpp imagedaterangecollection.cpp imagedaterange.cpp \
 	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp datebarmousehandler.cpp \
-	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp
+	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp miniviewer.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS) $(top_builddir)/kimdaba/survey/libsurvey.la

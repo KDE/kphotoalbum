@@ -319,41 +319,6 @@ bool ImageInfo::isLocked() const
     return _locked;
 }
 
-QImage ImageInfo::load( int width, int height ) const
-{
-    QImage image;
-    if ( !_importImage.isNull() )
-        image = _importImage;
-    else  {
-        QString thumbFile(Util::getThumbnailFile(fileName(), width, height, _angle));
-        QString standardThumbFile(Util::getThumbnailFile
-                 (fileName(), Options::instance()->thumbSize(), Options::instance()->thumbSize(), _angle));
-
-        if ( QFile(thumbFile).isReadable() )
-            image.load(thumbFile);
-        else if ( Options::instance()->thumbSize() <= QMAX(width, height) && QFile(standardThumbFile).isReadable() )
-            image.load(standardThumbFile);
-        else if ( Util::isJPEG( fileName() ) ) {
-            QSize dummy;
-            Util::loadJPEG( &image, fileName(), &dummy, width, height );
-        }
-        else
-            image.load( fileName() );
-    }
-
-    if ( width != -1 && height != -1 )
-        image = image.smoothScale( width, height, QImage::ScaleMin );
-
-    if ( _angle != 0 ) {
-        QWMatrix matrix;
-        matrix.rotate( _angle );
-        image = image.xForm( matrix );
-    }
-
-    return image;
-
-}
-
 void ImageInfo::readExif(const QString& fullPath, int mode)
 {
     QFileInfo fi( fullPath );

@@ -42,3 +42,6 @@ rc_DATA = kimdabaui.rc
 pkg_DATA = infobox.js
 pkgdir = $(kde_datadir)/kimdaba/
 EXTRA_DIST = $(pkg_DATA)
+
+appsdatadir=$(kde_datadir)/kimdaba
+appsdata_DATA=tips

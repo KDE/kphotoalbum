@@ -24,6 +24,7 @@ class QWidgetStack;
 class ImageCounter;
 class QTimer;
 class Browser;
+class KTipDialog;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -55,6 +56,7 @@ protected slots:
     void load();
     void showBrowser();
     void slotOptionGroupChanged();
+    void showTipOfDay();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -74,6 +76,7 @@ private:
     QWidget* _welcome;
     QTimer* _autoSaveTimer;
     Browser* _browser;
+    KTipDialog* _tipDialog;
 };
 
 

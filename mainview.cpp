@@ -44,6 +44,8 @@
 #include "browser.h"
 #include "imagedb.h"
 #include "util.h"
+#include <kapplication.h>
+#include <ktip.h>
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false )
@@ -91,6 +93,8 @@ MainView::MainView( QWidget* parent, const char* name )
     // PENDING(blackie) ImageDB should emit a signal when total changes.
     total->setTotal( ImageDB::instance()->totalCount() );
     statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
+
+    KTipDialog::showTip( this );
 }
 
 bool MainView::slotExit()
@@ -307,6 +311,7 @@ void MainView::setupMenuBar()
                  actionCollection(), "limitToMarked" );
 
     // The help menu
+    KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     new KAction( i18n("Show Tooltips on Images"), CTRL+Key_T, _thumbNailView, SLOT( showToolTipsOnImages() ),
                  actionCollection(), "showToolTipOnImages" );
 
@@ -392,6 +397,11 @@ void MainView::slotOptionGroupChanged()
     Q_ASSERT( !_imageConfigure || !_imageConfigure->isShown() );
     delete _imageConfigure;
     _imageConfigure = 0;
+}
+
+void MainView::showTipOfDay()
+{
+    KTipDialog::showTip( this, QString::null, true );
 }
 
 #include "mainview.moc"

@@ -125,8 +125,8 @@ void OptionsDialog::createGeneralPage()
     QWhatsThis::add( _useEXIFComments, txt );
 
     txt = i18n("<qt><p>KimDaBa shares plugins with other imaging applications, some of which have the concept of albums. "
-               "KimDaBa do not have this concept; nevertheless, for certain plugins to function, KimDaBa informs "
-               "to the plugin system that it does.</p>"
+               "KimDaBa do not have this concept; nevertheless, for certain plugins to function, KimDaBa behaves "
+               "to the plugin system as if it did.</p>"
                "<p>KimDaBa does this by defining the current album to be the current view - that is, all the images the "
                "browser offers to display.</p>"
                "<p>In addition to the current album, KimDaBa must also be able to give a list of all albums; "

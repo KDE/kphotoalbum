@@ -1084,9 +1084,9 @@ void MainView::slotConfigureKeyBindings()
 
     KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        KIPI::Plugin* plugin = (*it)->plugin;
+        KIPI::Plugin* plugin = (*it)->plugin();
         if ( plugin )
-            dialog->insert( plugin->actionCollection(), (*it)->comment );
+            dialog->insert( plugin->actionCollection(), (*it)->comment() );
     }
 
     dialog->configure();
@@ -1263,8 +1263,8 @@ void MainView::plug()
 
     KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        KIPI::Plugin* plugin = (*it)->plugin;
-        if ( !plugin || !(*it)->shouldLoad )
+        KIPI::Plugin* plugin = (*it)->plugin();
+        if ( !plugin || !(*it)->shouldLoad() )
             continue;
 
         plugin->setup( this );

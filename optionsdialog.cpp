@@ -67,25 +67,41 @@ void OptionsDialog::createGeneralPage()
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
+    QVGroupBox* box = new QVGroupBox( i18n( "New Images" ), top );
+    lay1->addWidget( box );
+
     // Thrust time stamps
-    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), top );
-    _trustTimeStamps = new KComboBox( top );
+    QWidget* container = new QWidget( box );
+    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), container );
+    _trustTimeStamps = new KComboBox( container );
     _trustTimeStamps->insertStringList( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
-    QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
-    lay3->addWidget( timeStampLabel );
-    lay3->addWidget( _trustTimeStamps );
-    lay3->addStretch( 1 );
+    QHBoxLayout* hlay = new QHBoxLayout( container, 0, 6 );
+    hlay->addWidget( timeStampLabel );
+    hlay->addWidget( _trustTimeStamps );
+    hlay->addStretch( 1 );
 
     // Do EXIF rotate
-    _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), top );
-    lay1->addWidget( _useEXIFRotate );
+    _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), box );
 
-    _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), top );
-    lay1->addWidget( _useEXIFComments );
+    _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
 
     // Search for images on startup
-    _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images on startup"), top );
-    lay1->addWidget( _searchForImagesOnStartup );
+    _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images on startup"), box );
+
+    // Datebar size
+    container = new QWidget( top );
+    lay1->addWidget( container );
+    hlay = new QHBoxLayout( container, 0, 6 );
+    QLabel* datebarSize = new QLabel( i18n("Size of histogram boxes in datebar"), container );
+    hlay->addWidget( datebarSize );
+    _barWidth = new QSpinBox( 15, 100, 1, container );
+    hlay->addWidget( _barWidth );
+    QLabel* cross = new QLabel( QString::fromLatin1( " x " ), container );
+    hlay->addWidget( cross );
+    _barHeight = new QSpinBox( 15, 100, 1, container );
+    hlay->addWidget( _barHeight );
+    hlay->addStretch( 1 );
+
 
     // Auto save
     QLabel* label = new QLabel( i18n("Auto save every:"), top );
@@ -346,6 +362,8 @@ void OptionsDialog::show()
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
     _autosave->setValue( opt->autoSave() );
+    _barWidth->setValue( opt->histogramSize().width() );
+    _barHeight->setValue( opt->histogramSize().height() );
 
     Category* cat = CategoryCollection::instance()->categoryForName( opt->albumCategory() );
     if ( !cat )
@@ -393,6 +411,7 @@ void OptionsDialog::slotMyOK()
     QString name = CategoryCollection::instance()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )
         name = CategoryCollection::instance()->categoryNames()[0];
+    opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
     opt->setDisplayLabels( _displayLabels->isChecked() );

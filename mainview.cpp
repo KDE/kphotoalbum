@@ -123,6 +123,7 @@ MainView::MainView( QWidget* parent, const char* name )
     _thumbNailView = new ThumbNailView( _stack, "_thumbNailView" );
     connect( _dateBar, SIGNAL( dateSelected( const ImageDateRange&, bool ) ), _thumbNailView, SLOT( gotoDate( const ImageDateRange&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
+    connect( Options::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
 
     connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
 

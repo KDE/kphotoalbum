@@ -89,14 +89,17 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
                                                          QString::fromLatin1( "1" ) ).toInt();
     _autoShowThumbnailView = (bool) config.attribute( QString::fromLatin1( "autoShowThumbnailView" ),
                                                       QString::fromLatin1( "0" ) ).toInt();
+    int width = config.attribute( QString::fromLatin1( "histogramWidth" ), QString::fromLatin1( "15" ) ).toInt();
+    int height = config.attribute( QString::fromLatin1( "histogramHeigth" ), QString::fromLatin1( "30" ) ).toInt();
+    _histogramSize = QSize( QMAX( 15, width ), QMAX( 15, height ) );
 
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
     QRect rect = desktop->screenGeometry( desktop->primaryScreen() );
-    int width = config.attribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()),
+    width = config.attribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()),
                                   QString::fromLatin1( "600" ) ).toInt();
-    int height = config.attribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()),
+    height = config.attribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()),
                                    QString::fromLatin1( "450" ) ).toInt();
     _viewerSize = QSize( width, height );
 
@@ -182,6 +185,8 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "viewerCacheSize" ), _viewerCacheSize );
     config.setAttribute( QString::fromLatin1( "searchForImagesOnStartup" ), _searchForImagesOnStartup );
     config.setAttribute( QString::fromLatin1( "autoShowThumbnailView" ), _autoShowThumbnailView );
+    config.setAttribute( QString::fromLatin1( "histogramWidth" ), _histogramSize.width() );
+    config.setAttribute( QString::fromLatin1( "histogramHeigth" ), _histogramSize.height() );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -820,6 +825,21 @@ void Options::createSpecialCategories()
         CategoryCollection::instance()->addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
+}
+
+QSize Options::histogramSize() const
+{
+    return _histogramSize;
+}
+
+void Options::setHistogramSize( const QSize& size )
+{
+    if ( _histogramSize != size ) {
+        emit changed();
+        emit histogramSizeChanged( size );
+    }
+
+    _histogramSize = size;
 }
 
 #include "options.moc"

@@ -171,6 +171,9 @@ public:
     bool autoShowThumbnailView() const;
     void setAutoShowThumbnailView( bool b );
 
+    QSize histogramSize() const;
+    void setHistogramSize( const QSize& size );
+
 protected:
     void createSpecialCategories();
 
@@ -180,6 +183,7 @@ signals:
     void deletedOption( const QString& category, const QString& name );
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Options::ViewSortType );
+    void histogramSizeChanged( const QSize& );
 
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
@@ -191,6 +195,7 @@ private:
     bool _useEXIFComments;
     int _autoSave, _maxImages;
     bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps, _ensureImageWindowsOnScreen;
+    QSize _histogramSize;
 
     friend class CategoryCollection;
     QMap<QString, QStringList> _options;

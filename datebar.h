@@ -44,7 +44,7 @@ public slots:
     void scroll( int units );
     void zoomIn();
     void zoomOut();
-    void setBarWidth( int width );
+    void setHistogramBarSize( const QSize& size );
     void setIncludeFuzzyCounts( bool );
     void setShowResolutionIndicator( bool );
 
@@ -84,6 +84,7 @@ protected:
     ImageDateRange currentDateRange() const;
     void showStatusBarTip( const QPoint& pos );
     ImageDateRange rangeAt( const QPoint& );
+    void placeAndSizeButtons();
 
 protected slots:
     void autoScroll();
@@ -112,6 +113,7 @@ private:
     bool _movingBar;
     int _movementOffset;
     int _barWidth;
+    int _barHeight;
     bool _includeFuzzyCounts;
     QPopupMenu* _contextMenu;
     bool _showResolutionIndicator;

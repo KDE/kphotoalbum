@@ -32,8 +32,9 @@
 #include <kiconloader.h>
 #include <math.h>
 #include <klocale.h>
+#include "options.h"
+#include <qapplication.h>
 
-const int histogramBarHeight = 30;
 const int borderAboveHistogram = 4;
 const int borderArroundWidget = 0;
 const int buttonWidth = 22;
@@ -41,31 +42,30 @@ const int arrowLength = 20;
 
 DateBar::DateBar( QWidget* parent, const char* name )
     :QWidget( parent, name ), _currentHandler( &_yearViewHandler ), _tp(YearView),_currentDate( QDateTime::currentDateTime() ),
-     _barWidth( 15 ), _includeFuzzyCounts( true ), _contextMenu(0), _showResolutionIndicator( true )
+     _includeFuzzyCounts( true ), _contextMenu(0), _showResolutionIndicator( true )
 {
     setBackgroundMode( NoBackground );
     setMouseTracking( true );
 
+    _barWidth = Options::instance()->histogramSize().width();
+    _barHeight = Options::instance()->histogramSize().height();
     _rightArrow = new QToolButton( RightArrow, this );
-    _rightArrow->setFixedSize( QSize( buttonWidth, histogramBarHeight ) );
     connect( _rightArrow, SIGNAL( clicked() ), this, SLOT( scrollRight() ) );
 
     _leftArrow = new QToolButton( LeftArrow, this );
-    _leftArrow->setFixedSize( QSize( buttonWidth, histogramBarHeight ) );
     connect( _leftArrow, SIGNAL( clicked() ), this, SLOT( scrollLeft() ) );
 
     _zoomIn = new QToolButton( this );
     _zoomIn->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag+" ), KIcon::Toolbar, 16 ) );
-    _zoomIn->setFixedSize( buttonWidth, histogramBarHeight );
     connect( _zoomIn, SIGNAL( clicked() ), this, SLOT( zoomIn() ) );
     connect( this, SIGNAL(canZoomIn(bool)), _zoomIn, SLOT( setEnabled( bool ) ) );
 
     _zoomOut = new QToolButton( this );
     _zoomOut->setIconSet(  KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag-" ), KIcon::Toolbar, 16 ) );
-    _zoomOut->setFixedSize( buttonWidth, histogramBarHeight );
     connect( _zoomOut, SIGNAL( clicked() ), this, SLOT( zoomOut() ) );
     connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT( setEnabled( bool ) ) );
 
+    placeAndSizeButtons();
     _autoScrollTimer = new QTimer( this );
     connect( _autoScrollTimer, SIGNAL( timeout() ), this, SLOT( autoScroll() ) );
 }
@@ -73,14 +73,15 @@ DateBar::DateBar( QWidget* parent, const char* name )
 QSize DateBar::sizeHint() const
 {
     int height = QMAX( dateAreaGeometry().bottom() + borderArroundWidget,
-                       2*histogramBarHeight+ 2* borderArroundWidget + 7 );
+                       _barHeight+ buttonWidth + 2* borderArroundWidget + 7 );
+    qDebug("%d", height );
     return QSize( 800, height );
 }
 
 QSize DateBar::minimumSizeHint() const
 {
      int height = QMAX( dateAreaGeometry().bottom() + borderArroundWidget,
-                       2*histogramBarHeight+ 2* borderArroundWidget + 7 );
+                        _barHeight + buttonWidth + 2* borderArroundWidget + 7 );
      return QSize( 200, height );
 }
 
@@ -129,16 +130,7 @@ void DateBar::redraw()
 
 void DateBar::resizeEvent( QResizeEvent* event )
 {
-    _rightArrow->move( event->size().width() - _rightArrow->width() - borderArroundWidget, borderAboveHistogram );
-    _leftArrow->move( _rightArrow->pos().x() - _leftArrow->width() -2 , borderAboveHistogram );
-
-    int x = _leftArrow->pos().x();
-    int y = _rightArrow->geometry().bottom() + 3;
-    _zoomOut->move( x, y );
-
-    x = _rightArrow->pos().x();
-    _zoomIn->move(x, y );
-
+    placeAndSizeButtons();
     _buffer.resize( event->size() );
     _currentUnit = numberOfUnits()/2;
     redraw();
@@ -291,7 +283,7 @@ void DateBar::drawFocusRectagle( QPainter& p)
     p.save();
     int x = rect.left() + _currentUnit*_barWidth;
     QRect inner( QPoint(x-1, borderAboveHistogram),
-                 QPoint( x + _barWidth, borderAboveHistogram + histogramBarHeight - 1 ) );
+                 QPoint( x + _barWidth, borderAboveHistogram + _barHeight - 1 ) );
 
     p.setPen( QPen( palette().active().dark(), 1 ) );
 
@@ -393,7 +385,7 @@ QRect DateBar::barAreaGeometry() const
     QRect barArea;
     barArea.setTopLeft( QPoint( borderArroundWidget, borderAboveHistogram ) );
     barArea.setRight( width() - borderArroundWidget - 2 * buttonWidth - 2*3 ); // 2 pixels between button and bar + 1 pixel as the pen is one pixel
-    barArea.setHeight( histogramBarHeight );
+    barArea.setHeight( _barHeight );
     return barArea;
 }
 
@@ -402,10 +394,15 @@ int DateBar::numberOfUnits() const
     return barAreaGeometry().width() / _barWidth -1 ;
 }
 
-void DateBar::setBarWidth( int width )
+void DateBar::setHistogramBarSize( const QSize& size )
 {
-    _barWidth = width;
+    _barWidth = size.width();
+    _barHeight = size.height();
     _currentUnit = numberOfUnits()/2;
+    Q_ASSERT( parentWidget() );
+    updateGeometry();
+    Q_ASSERT( parentWidget() );
+    placeAndSizeButtons();
     redraw();
 }
 
@@ -635,5 +632,23 @@ void DateBar::showStatusBarTip( const QPoint& pos )
     if ( lastTip != res )
         emit toolTipInfo( res );
     lastTip = res;
+}
+
+void DateBar::placeAndSizeButtons()
+{
+    _zoomIn->setFixedSize( buttonWidth, buttonWidth );
+    _zoomOut->setFixedSize( buttonWidth, buttonWidth );
+    _rightArrow->setFixedSize( QSize( buttonWidth, _barHeight ) );
+    _leftArrow->setFixedSize( QSize( buttonWidth, _barHeight ) );
+
+    _rightArrow->move( size().width() - _rightArrow->width() - borderArroundWidget, borderAboveHistogram );
+    _leftArrow->move( _rightArrow->pos().x() - _leftArrow->width() -2 , borderAboveHistogram );
+
+    int x = _leftArrow->pos().x();
+    int y = _rightArrow->geometry().bottom() + 3;
+    _zoomOut->move( x, y );
+
+    x = _rightArrow->pos().x();
+    _zoomIn->move(x, y );
 }
 

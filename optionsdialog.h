@@ -89,6 +89,8 @@ private:
     KColorButton* _backgroundColor;
     QCheckBox* _searchForImagesOnStartup;
     QCheckBox* _autoShowThumbnailView;
+    QSpinBox* _barWidth;
+    QSpinBox* _barHeight;
 
     // Categories page
     QListBox* _categories;

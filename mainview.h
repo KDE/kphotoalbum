@@ -30,6 +30,11 @@ class QLabel;
 class HTMLExportDialog;
 class KActionMenu;
 class KRadioAction;
+namespace KIPI
+{
+    class PluginLoader;
+}
+
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -152,6 +157,7 @@ private:
     KAction* _selectAll;
     KAction* _runSlideShow;
     KAction* _runRandomSlideShow;
+    KIPI::PluginLoader* _pluginLoader;
 };
 
 

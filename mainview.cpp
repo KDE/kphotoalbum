@@ -1,4 +1,3 @@
-
 /*
  *  Copyright (c) 2003-2004 Jesper K. Pedersen <blackie@kde.org>
  *
@@ -1017,8 +1016,15 @@ void MainView::slotConfigureKeyBindings()
     KKeyDialog* dialog = new KKeyDialog();
     dialog->insert( actionCollection(), i18n( "General" ) );
     dialog->insert( viewer->actions(), i18n("Viewer") );
+
+    KIPI::PluginLoader::List list = _pluginLoader->pluginList();
+    for( QPtrListIterator<KIPI::Plugin> it( list ); *it; ++it ) {
+        KIPI::Plugin* plugin = *it;
+        dialog->insert( plugin->actionCollection(), QString::fromLatin1(plugin->name()) );
+    }
+
     dialog->configure();
-    dialog->commitChanges();
+
     delete dialog;
     delete viewer;
 }
@@ -1167,16 +1173,17 @@ void MainView::loadPlugins()
             << QString::fromLatin1( "HelloWorld" )
             << QString::fromLatin1( "SlideShow" );
 
-    KIPI::PluginLoader* loader = new KIPI::PluginLoader( ignores, interface );
-    loader->loadPlugins();
+    _pluginLoader = new KIPI::PluginLoader( ignores, interface );
+    _pluginLoader->loadPlugins();
 
     QPtrList<KAction> fileActions;
     QPtrList<KAction> imageActions;
     QPtrList<KAction> toolsActions;
 
-    KIPI::PluginLoader::List list = loader->pluginList();
+    KIPI::PluginLoader::List list = _pluginLoader->pluginList();
     for( QPtrListIterator<KIPI::Plugin> it( list ); *it; ++it ) {
         KIPI::Plugin* plugin = *it;
+        plugin->setup( this );
         QPtrList<KAction>* popup = 0;
         if ( plugin->category() == KIPI::IMAGESPLUGIN )
             popup = &imageActions;
@@ -1197,6 +1204,7 @@ void MainView::loadPlugins()
             // PENDING(blackie) need id!
             qDebug("No menu found for a plugin" ); // , plugin->id().latin1());
         }
+        plugin->actionCollection()->readShortcutSettings();
     }
 
     // For this to work I need to pass false as second arg for createGUI

@@ -19,6 +19,8 @@
 #include <kstandarddirs.h>
 #include "infopage.h"
 #include "htmlexportdialog.h"
+#include <kstatusbar.h>
+#include "imagecounter.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _dirty( false )
@@ -30,6 +32,9 @@ MainView::MainView( QWidget* parent, const char* name )
     _stack->addWidget( _thumbNailView );
     setCentralWidget( _stack );
     _stack->raiseWidget( _welcome );
+
+    _counter = new ImageCounter( statusBar() );
+    statusBar()->addWidget( _counter, 0, true );
 
     _optionsDialog = 0;
     setupMenuBar();
@@ -52,6 +57,8 @@ MainView::MainView( QWidget* parent, const char* name )
         load();
     else
         wellcome();
+    _counter->setTotal( _images.count() );
+    statusBar()->message("Wellcome to KPAlbum", 5000 );
 }
 
 bool MainView::slotExit()
@@ -112,19 +119,25 @@ void MainView::slotSearch()
         _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
     }
     int ok = _imageConfigure->search();
+    int count = 0;
     if ( ok == QDialog::Accepted )  {
         ShowBusyCursor dummy;
         for( ImageInfoListIterator it( _images ); *it; ++it ) {
-            (*it)->setVisible( _imageConfigure->match( *it ) );
+            bool match = _imageConfigure->match( *it );
+            (*it)->setVisible( match );
+            if ( match )
+                ++count;
         }
         _thumbNailView->reload();
     }
     _stack->raiseWidget( _thumbNailView );
+   _counter->setPartial(count);
 }
 
 void MainView::slotSave()
 {
     ShowBusyCursor dummy;
+    statusBar()->message("Saving...", 5000 );
 
     QMap<QString, QDomDocument> docs;
     ImageInfoList list = _images;
@@ -164,6 +177,8 @@ void MainView::slotSave()
         }
     }
     _dirty = false;
+    statusBar()->message("Saving...Done", 5000 );
+
 }
 
 void MainView::slotDeleteSelected()
@@ -306,11 +321,14 @@ void MainView::closeEvent( QCloseEvent* e )
 void MainView::slotShowAllThumbNails()
 {
     ShowBusyCursor dummy;
+    statusBar()->message("Showing all Thumbnails", 5000 );
+
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->setVisible( true );
     }
     _thumbNailView->reload();
     _stack->raiseWidget( _thumbNailView );
+
 }
 
 void MainView::slotLimitToSelected()

@@ -3,6 +3,7 @@
 class OptionsDialog;
 class ImageConfig;
 class QWidgetStack;
+class ImageCounter;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -49,6 +50,7 @@ private:
     bool _dirty;
     QWidgetStack* _stack;
     QWidget* _welcome;
+    ImageCounter* _counter;
 };
 
 

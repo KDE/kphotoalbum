@@ -63,6 +63,7 @@
 #include <kstdaction.h>
 #include "deletethumbnailsdialog.h"
 #include "thumbnailbuilder.h"
+#include <kedittoolbar.h>
 
 MainView* MainView::_instance = 0;
 
@@ -587,6 +588,7 @@ void MainView::setupMenuBar()
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
+    KStdAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
 
     _viewMenu = new KActionMenu( i18n("Configure View"),
                                          KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_choose" ), KIcon::Toolbar ),
@@ -1091,6 +1093,22 @@ MainView* MainView::theMainView()
 {
     Q_ASSERT( _instance );
     return _instance;
+}
+
+void MainView::slotConfigureToolbars()
+{
+    saveMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
+    KEditToolbar dlg(actionCollection());
+    connect(&dlg, SIGNAL( newToolbarConfig() ),
+                  SLOT( slotNewToolbarConfig() ));
+    dlg.exec();
+
+}
+
+void MainView::slotNewToolbarConfig()
+{
+    createGUI();
+    applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
 }
 
 #include "mainview.moc"

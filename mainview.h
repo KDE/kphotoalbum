@@ -84,6 +84,8 @@ protected slots:
     void slotBuildThumbnails();
     void slotRunSlideShow();
     void slotRunRandomizedSlideShow();
+    void slotConfigureToolbars();
+    void slotNewToolbarConfig();
 
 protected:
     void configureImages( bool oneAtATime );

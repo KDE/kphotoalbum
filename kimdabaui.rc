@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="10">
+<kpartgui name="kimdaba" version="11">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -50,6 +50,11 @@
 
   <ToolBar name="mainToolBar">
     <text>Main Toolbar</text>
+    <Action name="file_save"/>
+    <Action name="edit_cut"/>
+    <Action name="edit_paste"/>
+    <Action name="edit_find"/>
+    <Action name="go_home"/>
     <Action name="go_back"/>
     <Action name="go_forward"/>
     <Action name="runSlideShow"/>
@@ -57,11 +62,4 @@
   </ToolBar>
 
 
-<Menu name="viewer-popup">
-  <Action name="viewer-home"/>
-  <Action name="viewer-edn"/>
-  <Action name="viewer-next"/>
-  <Action name="viewer-prev"/>
-  <Separator/>
-</Menu>
 </kpartgui>

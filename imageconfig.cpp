@@ -361,6 +361,9 @@ void ImageConfig::load()
 
     if ( _viewer )
         _viewer->load( _origList, _current );
+
+    if ( _setup == SINGLE )
+        setCaption( i18n("KimDaBa Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
 }
 
 void ImageConfig::writeToInfo()

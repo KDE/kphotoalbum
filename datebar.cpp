@@ -467,7 +467,7 @@ void DateBar::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_contextMenu ) {
         _contextMenu = new QPopupMenu( this );
-        QAction* action = new QAction( i18n("Show Image Ranged"), 0, this );
+        QAction* action = new QAction( i18n("Show Image Ranges"), 0, this );
         action->setToggleAction( true );
         action->addTo( _contextMenu );
         action->setOn( _includeFuzzyCounts );

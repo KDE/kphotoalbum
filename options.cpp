@@ -71,6 +71,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _viewSortType = (ViewSortType) config.attribute( QString::fromLatin1( "viewSortType" ) ).toInt();
     _launchViewerFullScreen = (bool) config.attribute( QString::fromLatin1( "launchViewerFullScreen" ) ).toInt();
     _launchSlideShowFullScreen = (bool) config.attribute( QString::fromLatin1( "launchSlideShowFullScreen" ) ).toInt();
+    _displayLabels = (bool) config.attribute( QString::fromLatin1( "displayLabels" ), QString::fromLatin1( "1" ) ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -141,6 +142,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "slideShowInterval" ), _slideShowInterval );
     config.setAttribute( QString::fromLatin1( "launchViewerFullScreen" ), _launchViewerFullScreen );
     config.setAttribute( QString::fromLatin1( "launchSlideShowFullScreen" ), _launchSlideShowFullScreen );
+    config.setAttribute( QString::fromLatin1( "displayLabels" ), _displayLabels );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -716,6 +718,16 @@ void Options::setLaunchSlideShowFullScreen( bool b )
 bool Options::launchSlideShowFullScreen() const
 {
     return _launchSlideShowFullScreen;
+}
+
+void Options::setDisplayLabels( bool b )
+{
+    _displayLabels = b;
+}
+
+bool Options::displayLabels() const
+{
+    return _displayLabels;
 }
 
 #include "options.moc"

@@ -63,6 +63,7 @@ protected slots:
 
 protected:
     void createGeneralPage();
+    void createThumbNailPage();
     void createOptionGroupsPage();
     void createGroupConfig();
     void enableDisable( bool );
@@ -83,6 +84,7 @@ private:
     QCheckBox* _useEXIFComments;
     QSpinBox* _previewSize;
     QComboBox* _albumCategory;
+    QCheckBox* _displayLabels;
 
     // Option Groups page
     QListBox* _optionGroups;

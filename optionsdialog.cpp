@@ -45,6 +45,7 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
+    createThumbNailPage();
     createOptionGroupsPage();
     createGroupConfig();
     createViewerPage();
@@ -59,23 +60,6 @@ void OptionsDialog::createGeneralPage()
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ),
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
-
-    // Thumbnail size
-    QLabel* label = new QLabel( i18n("Thumbnail size"), top );
-    _thumbnailSize = new QSpinBox( 16, 512, 8, top );
-    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
-    lay2->addWidget( label );
-    lay2->addWidget( _thumbnailSize );
-    lay2->addStretch(1);
-
-    // Preview size
-    QLabel* previewSizeLabel = new QLabel( i18n("Preview Image Size" ), top, "previewSizeLabel" );
-    _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
-    _previewSize->setSpecialValueText( i18n("No Image Preview") );
-    lay2 = new QHBoxLayout( lay1, 6 );
-    lay2->addWidget( previewSizeLabel );
-    lay2->addWidget( _previewSize );
-    lay2->addStretch( 1 );
 
     // Thrust time stamps
     QLabel* timeStampLabel = new QLabel( i18n("Trust image dates"), top );
@@ -93,16 +77,8 @@ void OptionsDialog::createGeneralPage()
     _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), top );
     lay1->addWidget( _useEXIFComments );
 
-    // Max images to show per page
-    QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page"), top );
-    _maxImages = new QSpinBox( 10, 10000, 1, top ) ;
-    QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
-    lay4->addWidget( maxImagesLabel );
-    lay4->addWidget( _maxImages );
-    lay4->addStretch(1);
-
     // Auto save
-    label = new QLabel( i18n("Auto save every"), top );
+    QLabel* label = new QLabel( i18n("Auto save every"), top );
     _autosave = new QSpinBox( 1, 120, 1, top );
     _autosave->setSuffix( i18n( "min." ) );
     QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
@@ -118,17 +94,12 @@ void OptionsDialog::createGeneralPage()
     lay7->addWidget( _albumCategory );
     _albumCategory->insertStringList( Options::instance()->optionGroups() );
 
-    lay1->addStretch(1);
+
+    lay1->addStretch( 1 );
 
 
     // Whats This
     QString txt;
-
-    txt = i18n( "<qt><p>If you select <tt>Help|Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
-                "displaying information about the thumbnails. This window includes a small preview image. "
-                "This option configures the image size</p></qt>" );
-    QWhatsThis::add( previewSizeLabel, txt );
-    QWhatsThis::add( _previewSize, txt );
 
     txt = i18n( "<qt><p>KimDaBa will try to read the image date from EXIF information in the image. "
                 "If that fails it will try to get the date from the file's time stamp.</p>"
@@ -140,17 +111,6 @@ void OptionsDialog::createGeneralPage()
                 "the scanner or the camera, from session to session.</p></qt>" );
     QWhatsThis::add( timeStampLabel, txt );
     QWhatsThis::add( _trustTimeStamps, txt );
-
-    txt = i18n( "<qt><p>A 128x128 pixel thumbnail will take up approximately 64KB of memory from your X server. "
-                "This may not sound like much but try changing the number of images to be displayed to 3000. "
-                "You will see that your X server requires approximately 200Mb of memory, just to show the KimDaBa "
-                "thumbnail overview.</p>"
-                "<p>Besides, showing 3000 thumbnails will take time to display, and be of little use. "
-                "The conclusion therefore is to keep this value to a reasonable limit that fits your needs, and "
-                "the amount of installed memory in your system.</p></qt>" );
-
-    QWhatsThis::add( maxImagesLabel, txt );
-    QWhatsThis::add( _maxImages, txt );
 
     txt = i18n( "<qt><p>JPEG images may contain information about rotation. "
                 "If you have a reason for not using this information to get a default rotation of "
@@ -179,6 +139,70 @@ void OptionsDialog::createGeneralPage()
     QWhatsThis::add( albumCategoryLabel, txt );
     QWhatsThis::add( _albumCategory, txt );
 }
+
+void OptionsDialog::createThumbNailPage()
+{
+    QWidget* top = addPage( i18n("Thumbnail View" ), i18n("Thumbnail View" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_icon" ),
+                                                             KIcon::Desktop, 32 ) );
+    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+
+    // Thumbnail size
+    QLabel* label = new QLabel( i18n("Thumbnail size"), top );
+    _thumbnailSize = new QSpinBox( 16, 512, 8, top );
+    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    lay2->addWidget( label );
+    lay2->addWidget( _thumbnailSize );
+    lay2->addStretch(1);
+
+    // Preview size
+    QLabel* previewSizeLabel = new QLabel( i18n("Preview Image Size" ), top, "previewSizeLabel" );
+    _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
+    _previewSize->setSpecialValueText( i18n("No Image Preview") );
+    lay2 = new QHBoxLayout( lay1, 6 );
+    lay2->addWidget( previewSizeLabel );
+    lay2->addWidget( _previewSize );
+    lay2->addStretch( 1 );
+
+    // Max images to show per page
+    QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page"), top );
+    _maxImages = new QSpinBox( 10, 10000, 1, top ) ;
+    QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
+    lay4->addWidget( maxImagesLabel );
+    lay4->addWidget( _maxImages );
+    lay4->addStretch(1);
+
+    // Display Labels
+    _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
+    lay1->addWidget( _displayLabels );
+
+    lay1->addStretch(1);
+
+    // Whats This
+    QString txt;
+
+    txt = i18n( "<qt><p>If you select <tt>Help|Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
+                "displaying information about the thumbnails. This window includes a small preview image. "
+                "This option configures the image size</p></qt>" );
+    QWhatsThis::add( previewSizeLabel, txt );
+    QWhatsThis::add( _previewSize, txt );
+
+    txt = i18n( "<qt><p>A 128x128 pixel thumbnail will take up approximately 64KB of memory from your X server. "
+                "This may not sound like much but try changing the number of images to be displayed to 3000. "
+                "You will see that your X server requires approximately 200Mb of memory, just to show the KimDaBa "
+                "thumbnail overview.</p>"
+                "<p>Besides, showing 3000 thumbnails will take time to display, and be of little use. "
+                "The conclusion therefore is to keep this value to a reasonable limit that fits your needs, and "
+                "the amount of installed memory in your system.</p></qt>" );
+
+    QWhatsThis::add( maxImagesLabel, txt );
+    QWhatsThis::add( _maxImages, txt );
+
+    txt = i18n("<qt>Checking this option will show the base name for the file under "
+               "thumbnails in the thumbnail view</qt>");
+    QWhatsThis::add( _displayLabels, txt );
+}
+
 
 class OptionGroupItem :public QListBoxText
 {
@@ -216,7 +240,7 @@ void OptionGroupItem::setLabel( const QString& label )
 void OptionsDialog::createOptionGroupsPage()
 {
     QWidget* top = addPage( i18n("Option Groups"), i18n("Option Groups"),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_choose" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "identity" ),
                                                              KIcon::Desktop, 32 ) );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
@@ -284,6 +308,7 @@ void OptionsDialog::show()
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _autosave->setValue( opt->autoSave() );
     _albumCategory->setCurrentText( opt->albumCategory() );
+    _displayLabels->setChecked( opt->displayLabels() );
     _maxImages->setValue( opt->maxImages() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
@@ -317,6 +342,7 @@ void OptionsDialog::slotMyOK()
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setAutoSave( _autosave->value() );
     opt->setAlbumCategory( _albumCategory->currentText() );
+    opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setMaxImages( _maxImages->value() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );

@@ -42,6 +42,7 @@ protected:
     virtual void dragMove();
     virtual void dropped ( QDropEvent * e, const QValueList<QIconDragItem> & lst );
     bool atRightSizeOfItem();
+    virtual void calcRect( const QString& text = QString::null );
 
 
 private:

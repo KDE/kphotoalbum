@@ -53,7 +53,6 @@ void ThumbNail::init()
     painter.fillRect( 0, 0,  size, size,  white );
     painter.drawRect( 0, 0, size, size );
     setPixmap( _pixmap );
-    setText( _imageInfo->label() );
     ImageManager::instance()->load( _imageInfo->fileName(),  this, _imageInfo->angle(), size, size, true, false );
     setDropEnabled( true );
 }
@@ -164,6 +163,18 @@ bool ThumbNail::atRightSizeOfItem()
     QPoint myPos = pos();
     int xDiff = (cursorPos-myPos).x();
     return ( xDiff > width()/2 );
+}
+
+void ThumbNail::calcRect( const QString& text )
+{
+    QIconViewItem::calcRect( text );
+    if ( !Options::instance()->displayLabels() ) {
+        setTextRect( QRect(0,0,0,0) );
+        setText( QString::null );
+    }
+    else
+        setText( _imageInfo->label() );
+
 }
 
 

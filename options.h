@@ -172,6 +172,9 @@ public:
     void setSlideShowInterval( int );
     int slideShowInterval() const;
 
+    void setDisplayLabels( bool );
+    bool displayLabels() const;
+
 signals:
     void optionGroupsChanged();
     void changed();
@@ -209,6 +212,7 @@ private:
     QString _passwd;
     ViewSortType _viewSortType;
     QString _albumCategory;
+    bool _displayLabels;
 };
 
 #endif /* OPTIONS_H */

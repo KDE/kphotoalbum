@@ -7,7 +7,7 @@
 #include <qpicture.h>
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
-    :QLabel( parent, name ), _tool( None ), _activeTool( 0 ), _showAnchors( false )
+    :QLabel( parent, name ), _tool( None ), _activeTool( 0 )
 {
     setAlignment( AlignCenter );
     setBackgroundMode( NoBackground );
@@ -16,28 +16,19 @@ DisplayArea::DisplayArea( QWidget* parent, const char* name )
 void DisplayArea::slotLine()
 {
     _tool = Line;
-    if ( _showAnchors ) {
-        _showAnchors = false;
-        drawAll();
-    }
+    drawAll();
 }
 
 void DisplayArea::slotRectangle()
 {
     _tool = Rectangle;
-    if ( _showAnchors ) {
-        _showAnchors = false;
-        drawAll();
-    }
+    drawAll();
 }
 
 void DisplayArea::slotCircle()
 {
     _tool = Circle;
-    if ( _showAnchors ) {
-        _showAnchors = false;
-        drawAll();
-    }
+    drawAll();
 }
 
 void DisplayArea::mousePressEvent( QMouseEvent* event )
@@ -47,6 +38,8 @@ void DisplayArea::mousePressEvent( QMouseEvent* event )
     else if ( _tool == Select )  {
         _activeTool = findShape( event->pos() );
         drawAll();
+        if ( !_activeTool )
+            QLabel::mousePressEvent( event );
     }
     else {
         _activeTool = createTool();
@@ -56,7 +49,7 @@ void DisplayArea::mousePressEvent( QMouseEvent* event )
 
 void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( _activeTool ) {
+    if ( _activeTool && _tool != Select && _tool != None) {
         QPixmap pix = _curPixmap;
         QPainter painter( &pix );
         setupPainter( painter );
@@ -69,7 +62,8 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 
 void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
-    if ( _tool == Select )  {
+    if ( _tool == Select || _tool == None ) {
+        QLabel::mouseReleaseEvent( event );
     }
     else if ( _activeTool ) {
         QPixmap pix = _curPixmap;
@@ -114,7 +108,7 @@ void DisplayArea::drawAll()
         setupPainter( painter );
         (*it)->draw( painter, 0 );
         painter.restore();
-        if ( _showAnchors ) {
+        if ( _tool == Select ) {
             PointList list = (*it)->anchorPoints();
             for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
                 QPoint point = *it2;
@@ -133,7 +127,6 @@ void DisplayArea::drawAll()
 
 void DisplayArea::slotSelect()
 {
-    _showAnchors = true;
     _tool = Select;
     _activeTool = 0;
     drawAll();
@@ -175,7 +168,16 @@ DrawList DisplayArea::drawList() const
 
 void DisplayArea::setDrawList( const DrawList& list )
 {
+    _drawings.setWidget( 0 );
     _drawings = list;
+    _drawings.setWidget( this );
+    drawAll();
+}
+
+void DisplayArea::stopDrawings()
+{
+    _activeTool = 0;
+    _tool = None;
     drawAll();
 }
 

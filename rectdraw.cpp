@@ -1,6 +1,6 @@
 #include "rectdraw.h"
 #include <qpainter.h>
-RectDraw::RectDraw( QWidget* widget ) :Draw( widget )
+RectDraw::RectDraw(QWidget* widget ) :Draw( widget)
 {
 
 }
@@ -21,10 +21,23 @@ PointList RectDraw::anchorPoints()
 
 Draw* RectDraw::clone()
 {
-    RectDraw* res = new RectDraw( _widget );
+    RectDraw* res = new RectDraw();
     *res = *this;
     return res;
 
+}
+
+QDomElement RectDraw::save( QDomDocument doc )
+{
+    QDomElement res = doc.createElement( QString::fromLatin1( "Rectangle" ) );
+    saveDrawAttr( &res );
+    return res;
+}
+
+RectDraw::RectDraw( QDomElement elm )
+    : Draw()
+{
+    readDrawAttr( elm );
 }
 
 

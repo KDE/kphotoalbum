@@ -49,7 +49,21 @@ ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QD
 
     _quality = elm.attribute( "quality", "0" ).toInt();
     _angle = elm.attribute( "angle", "0" ).toInt();
-    Util::readOptions( elm, &_options );
+    for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
+        if ( child.isElement() ) {
+            QDomElement childElm = child.toElement();
+            if ( childElm.tagName() == QString::fromLatin1( "Options" ) ) {
+                Util::readOptions( childElm, &_options );
+            }
+            else if ( childElm.tagName() == QString::fromLatin1( "Drawings" ) ) {
+                _drawList.load( childElm );
+            }
+            else {
+                qWarning("Ups unknown tag '%s'", childElm.tagName().latin1() );
+                // PENDING(blackie) Do it the KDE way.
+            }
+        }
+    }
 }
 
 
@@ -133,7 +147,14 @@ QDomElement ImageInfo::save( QDomDocument& doc )
 
     elm.setAttribute( "quality",  _quality );
     elm.setAttribute( "angle",  _angle );
-    Util::writeOptions( doc, elm, _options );
+
+    if ( _options.count() != 0 ) {
+        QDomElement top = doc.createElement( QString::fromLatin1("Options") );
+        Util::writeOptions( doc, top, _options );
+        elm.appendChild( top );
+    }
+
+    _drawList.save( doc, elm );
     return elm;
 }
 

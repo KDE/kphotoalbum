@@ -47,7 +47,20 @@ PointList LineDraw::anchorPoints()
 
 Draw* LineDraw::clone()
 {
-    LineDraw* res = new LineDraw( _widget );
+    LineDraw* res = new LineDraw();
     *res = *this;
     return res;
+}
+
+QDomElement LineDraw::save( QDomDocument doc )
+{
+    QDomElement res = doc.createElement( QString::fromLatin1( "Line" ) );
+    saveDrawAttr( &res );
+    return res;
+}
+
+LineDraw::LineDraw( QDomElement elm )
+    : Draw()
+{
+    readDrawAttr( elm );
 }

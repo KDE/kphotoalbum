@@ -5,10 +5,12 @@
 class LineDraw :public Draw
 {
 public:
-    LineDraw( QWidget* widget );
+    LineDraw( QWidget* widget = 0 );
+    LineDraw( QDomElement elm );
     void draw( QPainter&, QMouseEvent* );
     virtual PointList anchorPoints();
     virtual Draw* clone();
+    virtual QDomElement save( QDomDocument doc );
 };
 
 #endif /* LINEDRAW_H */

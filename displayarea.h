@@ -12,6 +12,7 @@ public:
     DisplayArea( QWidget* parent, const char* name = 0 );
     DrawList drawList() const;
     void setDrawList( const DrawList& );
+    void stopDrawings();
 
 public slots:
     void slotLine();
@@ -37,7 +38,6 @@ private:
     DrawList _drawings;
     QPixmap _origPixmap;
     QPixmap _curPixmap;
-    bool _showAnchors;
 };
 
 

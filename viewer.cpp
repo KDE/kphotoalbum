@@ -496,11 +496,13 @@ void Viewer::save()
 
 void Viewer::startDraw()
 {
+    _label->slotSelect();
     _toolbar->show();
 }
 
 void Viewer::stopDraw()
 {
+    _label->stopDrawings();
     _toolbar->hide();
 }
 

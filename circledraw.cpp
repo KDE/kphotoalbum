@@ -23,8 +23,21 @@ PointList CircleDraw::anchorPoints()
 
 Draw* CircleDraw::clone()
 {
-    CircleDraw* res = new CircleDraw( _widget );
+    CircleDraw* res = new CircleDraw();
     *res = *this;
     return res;
 
+}
+
+QDomElement CircleDraw::save( QDomDocument doc )
+{
+    QDomElement res = doc.createElement( QString::fromLatin1( "Circle" ) );
+    saveDrawAttr( &res );
+    return res;
+}
+
+CircleDraw::CircleDraw( QDomElement elm )
+    :Draw()
+{
+    readDrawAttr( elm );
 }

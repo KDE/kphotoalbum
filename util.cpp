@@ -19,6 +19,7 @@ void Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
 
 void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
 {
+    Q_ASSERT( elm.tagName() == QString::fromLatin1( "Options" ) );
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
         if ( nodeOption.isElement() )  {
             QDomElement elmOption = nodeOption.toElement();

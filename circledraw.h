@@ -5,10 +5,12 @@
 class CircleDraw :public Draw
 {
 public:
-    CircleDraw( QWidget* widget );
+    CircleDraw( QWidget* widget = 0 );
+    CircleDraw( QDomElement elm );
     void draw( QPainter&, QMouseEvent* );
     virtual PointList anchorPoints();
     virtual Draw* clone();
+    virtual QDomElement save( QDomDocument doc );
 };
 
 #endif /* CIRCLEDRAW_H */

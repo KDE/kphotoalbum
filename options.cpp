@@ -27,7 +27,7 @@ Options::Options()
     if ( file.open( IO_ReadOnly ) )
         doc.setContent( &file );
     else
-        doc.setContent( QString("<Images>") );
+        doc.setContent( QString("<Options>") );
 
     QDomElement top = doc.documentElement();
 

@@ -162,7 +162,8 @@ void MainView::slotSearch()
 {
     createImageConfig();
     ImageSearchInfo searchInfo = _imageConfigure->search();
-    _browser->addSearch( searchInfo );
+    if ( !searchInfo.isNull() )
+        _browser->addSearch( searchInfo );
 }
 
 void MainView::createImageConfig()

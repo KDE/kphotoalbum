@@ -5,14 +5,11 @@ Features/Bug for next version
 - write a stub for KimDaBa handbook
 - special options: private, print, html, (handled|sorted|described)
 - spell check in the editor
-- the image browser sometimes starts up showing that the is 0 images in the
-  db, without that being true.
-- thumbnail overview, press Ctrl-f (find), and press escape.
 - go out of full screen if an item from the info box is selected.
 - if the slideshow is running very fast, then keyevents gets utterly much
   behind making it almost impossible to stop the slideshow.
 - drops from outside in thumnail view should simply be ignore or even
-warned about
+  warned about
 - dropping in empty space in thumbnails doesn't work.
 - In the group editor (options->group), ensure that no cycles are created.
 

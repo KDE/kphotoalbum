@@ -1,0 +1,5 @@
+2003-10-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Pressing Cancel in the find dialog, does no longer
+	change the content of the browser window.
+

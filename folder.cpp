@@ -54,14 +54,8 @@ int Folder::compare( Folder* other, int col, bool asc ) const
             return 0;
     }
 
-    else if ( col == 0 ) {
-        if (text() < o->text() )
-            return -1;
-        else if ( text() > o->text() )
-            return 1;
-        else
-            return 0;
-    }
+    else if ( col == 0 )
+        return text().compare( o->text() );
 
     else if ( col == 1 ) {
         if ( _count < o->_count )

@@ -9,6 +9,7 @@
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :QIconView( parent,  name ), _currentHighlighted( 0 )
 {
+    _imageList=0L;
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
 
@@ -42,6 +43,8 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::load( ImageInfoList* list )
 {
+    if ( !list )
+        return;
     clear();
     for( QPtrListIterator<ImageInfo> it( *list ); *it; ++it ) {
         if ( (*it)->visible() )

@@ -46,6 +46,12 @@ Features for a soonish version
   recompute the checksum).  This would help identify images
   requiring backup.
 - Adding blinking icons to the splash screen.
+- Choose a default category image, as Jean-Michel suggest (for category
+  image of Anne Helene):
+  Pick the first picture with ONLY Anne Helene (it´s likely to be more
+  specific to recognize Anne Helene)
+  If it doesn´t work, pick the first picture with Ann Helen
+  If it doesn´t work, the default KDE icon, just like today.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

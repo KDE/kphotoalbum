@@ -59,8 +59,6 @@ protected slots:
     void showPrev();
     void showFirst();
     void showLast();
-    void zoomIn();
-    void zoomOut();
     void rotate90();
     void rotate180();
     void rotate270();
@@ -71,6 +69,7 @@ protected slots:
     void startDraw();
     void stopDraw();
     void toggleShowOption( const QString& optionGroup, bool b ) ;
+    void toggleFullScreen();
 
 private:
     static Viewer* _latest;
@@ -97,6 +96,9 @@ private:
 
     InfoBox* _infoBox;
     QImage _currentImage;
+
+    bool _showingFullScreen;
+    QRect _oldGeometry;
 };
 
 #endif /* VIEWER_H */

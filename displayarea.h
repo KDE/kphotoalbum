@@ -42,6 +42,8 @@ public:
 
 public slots:
     void toggleShowDrawings( bool );
+    void zoomIn();
+    void zoomOut();
 
 protected slots:
     void drawAll();
@@ -61,7 +63,8 @@ protected:
     friend class DrawHandler;
     friend class ViewHandler;
     QPainter* painter();
-    void zoom( const QPoint& p1, const QPoint& p2 );
+    void zoom( QPoint p1, QPoint p2 );
+    void normalize( QPoint& p1, QPoint& p2 );
 
 
 private:

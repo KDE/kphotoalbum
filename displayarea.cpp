@@ -227,8 +227,9 @@ QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWid
 
 
 
-void DisplayArea::zoom( const QPoint& p1, const QPoint& p2 )
+void DisplayArea::zoom( QPoint p1, QPoint p2 )
 {
+    normalize( p1, p2 );
     _zStart = p1;
     _zEnd = p2;
 }
@@ -251,6 +252,41 @@ void DisplayArea::xformPainter( QPainter* p )
     double s = (width()-2*off.x())/QABS( (double)_zEnd.x()-_zStart.x());
     p->scale( s, s );
     p->translate( -_zStart.x(), -_zStart.y() );
+}
+
+void DisplayArea::zoomIn()
+{
+    QPoint size = (_zEnd-_zStart);
+    _zStart += size*(0.5/2);
+    _zEnd -= size*(0.5/2);
+    drawAll();
+}
+
+void DisplayArea::zoomOut()
+{
+    QPoint size = (_zEnd-_zStart);
+    _zStart -= size*(1.0/2);
+    if ( _zStart.x() < 0 )
+        _zStart.setX(0);
+    if ( _zStart.y() < 0 )
+        _zStart.setY(0);
+
+    _zEnd += size*(1.0/2);
+    if ( _zEnd.x() > _loadedPixmap.width() )
+        _zEnd.setX( _loadedPixmap.width() );
+    if ( _zEnd.y() > _loadedPixmap.height() )
+        _zEnd.setY( _loadedPixmap.height() );
+    drawAll();
+}
+
+void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
+{
+    int minx = QMIN( p1.x(), p2.x() );
+    int miny = QMIN( p1.y(), p2.y() );
+    int maxx = QMAX( p1.x(), p2.x() );
+    int maxy = QMAX( p1.y(), p2.y() );
+    p1 = QPoint( minx, miny );
+    p2 = QPoint( maxx, maxy );
 }
 
 #include "displayarea.moc"

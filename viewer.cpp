@@ -40,6 +40,8 @@
 #include "showoptionaction.h"
 #include <qtimer.h>
 #include "drawhandler.h"
+#include <kwin.h>
+#include <kglobalsettings.h>
 
 Viewer* Viewer::_latest = 0;
 
@@ -49,7 +51,7 @@ Viewer* Viewer::latest()
 }
 
 Viewer::Viewer( QWidget* parent, const char* name )
-    :QDialog( parent,  name )
+    :QDialog( parent,  name ), _showingFullScreen( false )
 {
     _latest = this;
 
@@ -96,11 +98,15 @@ void Viewer::setupContextMenu()
     _popup->insertSeparator();
 
     action = new QAction( i18n("Zoom In"),  QIconSet(), i18n("Zoom In"), Key_Plus, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( zoomIn() ) );
+    connect( action,  SIGNAL( activated() ), _display, SLOT( zoomIn() ) );
     action->addTo( _popup );
 
     action = new QAction( i18n("Zoom Out"),  QIconSet(), i18n("Zoom Out"), Key_Minus, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( zoomOut() ) );
+    connect( action,  SIGNAL( activated() ), _display, SLOT( zoomOut() ) );
+    action->addTo( _popup );
+
+    action = new QAction( i18n("Toggle Full Screen"),  QIconSet(), i18n("Toggle Full Screen"), Key_Space, this );
+    connect( action,  SIGNAL( activated() ), this, SLOT( toggleFullScreen() ) );
     action->addTo( _popup );
 
     _popup->insertSeparator();
@@ -200,16 +206,6 @@ void Viewer::showPrev()
         _current--;
         load();
     }
-}
-
-void Viewer::zoomIn()
-{
-    qDebug("NYI!");
-}
-
-void Viewer::zoomOut()
-{
-    qDebug("NYI!");
 }
 
 void Viewer::rotate90()
@@ -427,6 +423,31 @@ void Viewer::createToolBar()
 
     KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
     close->plug( _toolbar );
+}
+
+void Viewer::toggleFullScreen()
+{
+    if ( !_showingFullScreen ) {
+
+        KWin::Info info = KWin::info( winId() );
+        _oldGeometry = info.frameGeometry;
+
+        QRect r = KGlobalSettings::desktopGeometry(this);
+
+        setFixedSize( r.size() );
+
+        KWin::setType( winId(), NET::Override );
+        KWin::setState( winId(), NET::StaysOnTop );
+
+        setGeometry( r );
+    }
+    else {
+        setMinimumSize(0,0);
+        KWin::setType( winId(), NET::Normal );
+        KWin::clearState( winId(), NET::StaysOnTop );
+        setGeometry( _oldGeometry );
+    }
+    _showingFullScreen = !_showingFullScreen;
 }
 
 #include "viewer.moc"

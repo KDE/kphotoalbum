@@ -74,5 +74,5 @@ void Viewer::keyPressEvent( QKeyEvent* e )
 void Viewer::load()
 {
     _label->setText( "Loading..." );
-    ImageManager::instance()->load( _info.fileName(), this, _info.angle(), _label->width(),  _label->height(), false );
+    ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), _label->width(),  _label->height(), false );
 }

@@ -32,6 +32,7 @@ Options::Options()
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _use4To3Ratio = top.attribute( "use4To3Ratio",  QString::number( _use4To3Ratio ) ).toInt();
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
+    _imageDirectory = top.attribute( "imageDirectory" );
 
     Util::readOptions( top, &_options );
 }
@@ -87,6 +88,7 @@ void Options::save()
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "use4To3Ratio", _use4To3Ratio );
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
+    top.setAttribute( "imageDirectory", _imageDirectory );
 
     Util::writeOptions( doc, top, _options );
 
@@ -118,6 +120,16 @@ void Options::setTrustTimeStamps( bool b)
 bool Options::trustTimeStamps() const
 {
     return _trustTimeStamps;
+}
+
+QString Options::imageDirectory() const
+{
+    return _imageDirectory;
+}
+
+void Options::setImageDirecotry( const QString& directory )
+{
+    _imageDirectory = directory;
 }
 
 

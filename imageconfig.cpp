@@ -130,8 +130,8 @@ void ImageConfig::load()
 
     nextBut->setEnabled( _current != (int)_origList.count()-1 );
     prevBut->setEnabled( _current != 0 );
-    if ( _preloadImageMap.contains( info.fileName() ) )
-         preview->setPixmap( _preloadImageMap[ info.fileName() ] );
+    if ( _preloadImageMap.contains( info.fileName( false ) ) )
+         preview->setPixmap( _preloadImageMap[ info.fileName( false ) ] );
     else
         preview->setText( "<qt>Loading<br>preview</qt>" );
     preview->setInfo( &info );
@@ -163,7 +163,7 @@ void ImageConfig::save()
 
 void ImageConfig::pixmapLoaded( const QString& fileName, int, int, int, const QPixmap& pixmap )
 {
-    if ( fileName == _origList.at( _current )->fileName() )
+    if ( fileName == _origList.at( _current )->fileName( false ) )
         preview->setPixmap( pixmap );
     _preloadImageMap[ fileName ] = pixmap;
 }
@@ -184,7 +184,7 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         quality->setCurrentText( "High" );
         _preloadImageMap.clear();
         for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
-            ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), 256, 256, false );
+            ImageManager::instance()->load( (*it)->fileName( false ), this, (*it)->angle(), 256, 256, false );
         }
         _current = -1;
         slotNext();

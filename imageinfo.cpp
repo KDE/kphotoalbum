@@ -10,11 +10,25 @@ ImageInfo::ImageInfo()
 {
 }
 
-ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
-    : _fileName( fileName )
+ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName )
+    : _indexDirectory( indexDirectory ), _fileName( fileName )
 {
-    QFileInfo fi( fileName );
-    _label = elm.attribute( "label",  fi.baseName() );
+    if ( _indexDirectory.endsWith( "/" ) )
+         _indexDirectory = _indexDirectory.mid( 0, _indexDirectory.length()-1 );
+
+    QFileInfo fi( indexDirectory+ "/" + fileName );
+    _label = fi.baseName();
+    _quality = _angle = 0;
+}
+
+ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QDomElement elm )
+    : _indexDirectory( indexDirectory ), _fileName( fileName )
+{
+    if ( _indexDirectory.endsWith( "/" ) )
+         _indexDirectory = _indexDirectory.mid( 0, _indexDirectory.length()-1 );
+
+    QFileInfo fi( indexDirectory+ "/" + fileName );
+    _label = elm.attribute( "label",  _label );
     _description = elm.attribute( "description" );
 
     int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0;
@@ -37,6 +51,8 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _angle = elm.attribute( "angle", "0" ).toInt();
     Util::readOptions( elm, &_options );
 }
+
+
 
 void ImageInfo::setLabel( const QString& desc )
 {
@@ -89,15 +105,18 @@ int ImageInfo::quality() const
     return _quality;
 }
 
-QString ImageInfo::fileName()
+QString ImageInfo::fileName( bool relative )
 {
-    return _fileName;
+    if (relative)
+        return _fileName;
+    else
+        return _indexDirectory + "/" + _fileName;
 }
 
 QDomElement ImageInfo::save( QDomDocument& doc )
 {
     QDomElement elm = doc.createElement( "Image" );
-    elm.setAttribute( "file",  QFileInfo( _fileName ).fileName() );
+    elm.setAttribute( "file",  fileName( true ) );
     elm.setAttribute( "label",  _label );
     elm.setAttribute( "description", _description );
 
@@ -210,3 +229,7 @@ bool ImageDate::isNull() const
     return ( _year == 0 && _month == 0 && _day == 0 );
 }
 
+QString ImageInfo::indexDirectory() const
+{
+    return _indexDirectory;
+}

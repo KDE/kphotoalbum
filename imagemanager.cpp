@@ -148,7 +148,9 @@ bool LoadInfo::operator==( const LoadInfo& other ) const
     // Compare all atributes but the pixmap.
     LoadInfo& t = const_cast<LoadInfo&>( *this );
     LoadInfo& o = const_cast<LoadInfo&>( other );
-    return ( t._null == o._null && t._fileName == o._fileName && t._width == o._width && t._height == o._height && t._angle == o._angle );
+    return ( t._null == o._null && t._fileName == o._fileName &&
+             t._width == o._width && t._height == o._height &&
+             t._angle == o._angle );
 }
 
 

@@ -26,6 +26,9 @@ public:
     QStringList dataDirs() const;
     void save();
 
+    QString imageDirectory() const;
+    void setImageDirecotry( const QString& directory );
+
 private:
     Options();
     ~Options() {};
@@ -34,6 +37,7 @@ private:
     int _thumbSize,  _imageCacheSize;
     bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps;
     QMap<QString, QStringList> _options;
+    QString _imageDirectory;
 };
 
 #endif /* OPTIONS_H */

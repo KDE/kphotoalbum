@@ -14,6 +14,7 @@ void OptionsDialog::show()
     thumbnailSize->setValue( opt->thumbSize() );
     cacheThumbNails->setChecked( opt->cacheThumbNails() );
     trustTimeStamps->setChecked( opt->trustTimeStamps() );
+    imageDirectory->setText( opt->imageDirectory() );
 
     QDialog::show();
 }
@@ -26,12 +27,19 @@ void OptionsDialog::slotApply()
     opt->setThumbSize( thumbnailSize->value() );
     opt->setCacheThumbNails( cacheThumbNails->isChecked() );
     opt->setTrustTimeStamps( trustTimeStamps->isChecked() );
+    bool pathChanged = opt->imageDirectory() != imageDirectory->text();
+    opt->setImageDirecotry( imageDirectory->text() );
     opt->save();
-    emit changed();
+    if ( pathChanged )
+	emit imagePathChanged();
+    else
+	emit changed();
 }
 
 
 void OptionsDialog::slotBrowseForDirecory()
 {
-
+    QString dir = QFileDialog::getExistingDirectory( imageDirectory->text(), this );
+    if ( ! dir.isNull() )
+        imageDirectory->setText( dir );
 }

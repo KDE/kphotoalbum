@@ -33,9 +33,11 @@ class ImageInfo {
 
 public:
     ImageInfo();
-    ImageInfo( const QString& fileName, QDomElement elm );
+    ImageInfo( const QString& indexDirectory, const QString& fileName );
+    ImageInfo( const QString& indexDirectory, const QString& fileName, QDomElement elm );
 
-    QString fileName();
+    QString fileName( bool relative );
+    QString indexDirectory() const;
 
     void setLabel( const QString& );
     QString label() const;
@@ -63,7 +65,7 @@ public:
 
 private:
      // This string is accessed on several threads, so we need to make it a deep copy!
-    QString _fileName;
+    QString _indexDirectory, _fileName;
     QString _label;
     QString _description;
     ImageDate _startDate, _endDate;

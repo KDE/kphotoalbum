@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>348</width>
-            <height>195</height>
+            <width>347</width>
+            <height>196</height>
         </rect>
     </property>
     <property name="caption">
@@ -22,6 +22,12 @@
         <widget class="QGroupBox">
             <property name="name">
                 <cstring>groupBox1</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>GroupBoxPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
             </property>
             <property name="title">
                 <string>Images</string>
@@ -48,7 +54,7 @@
                         </widget>
                         <widget class="QSpinBox">
                             <property name="name">
-                                <cstring>thumbnailSize_2</cstring>
+                                <cstring>thumbnailSize</cstring>
                             </property>
                             <property name="sizePolicy">
                                 <sizepolicy>
@@ -117,7 +123,7 @@
                 </widget>
                 <widget class="QLineEdit">
                     <property name="name">
-                        <cstring>imageDirecory</cstring>
+                        <cstring>imageDirectory</cstring>
                     </property>
                 </widget>
                 <widget class="QPushButton">
@@ -223,10 +229,12 @@
 </connections>
 <includes>
     <include location="local" impldecl="in declaration">options.h</include>
+    <include location="global" impldecl="in implementation">qfiledialog.h</include>
     <include location="local" impldecl="in implementation">optionsdialog.ui.h</include>
 </includes>
 <signals>
     <signal>changed();</signal>
+    <signal>imagePathChanged()</signal>
 </signals>
 <slots>
     <slot access="protected" specifier="non virtual">slotApply()</slot>

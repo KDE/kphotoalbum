@@ -4,6 +4,7 @@ class OptionsDialog;
 class ImageConfig;
 #include "imageinfo.h"
 #include "mainviewui.h"
+#include <qdict.h>
 
 class MainView :public MainViewUI
 {
@@ -20,9 +21,12 @@ protected slots:
     void save();
     void slotDeleteSelected();
     void slotSearch();
+    void load();
 
 protected:
     void configureImages( bool oneAtATime );
+    void loadExtraFiles( const QDict<void>& loadedFiles, const QString& indexDirectory, QString directory );
+    void load( const QString& indexDirectory,  const QString& filename, QDomElement elm );
 
 private:
     OptionsDialog* _optionsDialog;

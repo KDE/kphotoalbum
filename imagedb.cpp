@@ -132,7 +132,7 @@ int ImageDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int
 {
     int count = 0;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && const_cast<ImageSearchInfo&>(info).match( *it ); // PENDING(blackie) remove cast
+        bool match = !(*it)->isLocked() && info.match( *it );
 
         if ( match )
             ++count;

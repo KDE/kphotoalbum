@@ -50,3 +50,5 @@ void Donate::slotDonate()
     KRun::runURL(KURL(QString::fromLatin1("https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa")),
                  QString::fromLatin1( "text/html" ) );
 }
+
+#include "donate.moc"

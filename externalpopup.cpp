@@ -61,3 +61,5 @@ ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
 {
     connect( this, SIGNAL( activated( int ) ), this, SLOT( slotExecuteService( int ) ) );
 }
+
+#include "externalpopup.moc"

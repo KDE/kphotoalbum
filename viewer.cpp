@@ -96,7 +96,7 @@ Viewer::Viewer( QWidget* parent, const char* name )
 
     _popup->insertSeparator();
 
-    action = new QAction( "Close",  QIconSet(), "Close", 0, this );
+    action = new QAction( "Close",  QIconSet(), "Close", Key_Q, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
     action->addTo( _popup );
 }
@@ -151,10 +151,6 @@ void Viewer::load()
         w = (int) (w*((double)rect.height()/h));
         h = rect.height();
     }
-
-    // Erase
-    QPainter p( _label );
-    p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
 
     _label->setText( "Loading..." );
 

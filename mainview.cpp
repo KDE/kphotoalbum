@@ -221,9 +221,13 @@ ImageInfoList MainView::selected()
 void MainView::slotViewSelected()
 {
     ImageInfoList list = selected();
-    Viewer* viewer = Viewer::instance();
-    viewer->load( list );
-    viewer->show();
+    if ( list.count() == 0 )
+        QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
+    else {
+        Viewer* viewer = Viewer::instance();
+        viewer->load( list );
+        viewer->show();
+    }
 }
 
 void MainView::wellcome()

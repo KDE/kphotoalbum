@@ -197,7 +197,7 @@ void ThumbNail::calcRect( const QString& )
 
     setTextRect( textRect );
     setItemRect( QRect( x(), y(), w, h+textRect.height() ) );
-    setPixmapRect( QRect( (size-w)/2, 0, w, h ) );
+    setPixmapRect( QRect( 0, 0, w, h ) );
 }
 
 void ThumbNail::paintItem( QPainter * p, const QColorGroup & cg )

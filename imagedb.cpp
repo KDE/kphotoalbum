@@ -665,7 +665,6 @@ void ImageDB::checkIfAllImagesHasSizeAttributes()
         return;
 
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        qDebug("%s, %d", (*it)->fileName().latin1(), (*it)->size().width());
         if ( (*it)->size().width() == -1 || (*it)->size().height() == -1 ) {
             KMessageBox::information( MainView::theMainView(),
                                       i18n("<qt><p>Not all the images in the database has information about image sizes, this is needed to "

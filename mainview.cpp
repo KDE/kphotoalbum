@@ -1263,23 +1263,19 @@ void MainView::plug()
 
         KActionPtrList actions = plugin->actions();
         for( KActionPtrList::Iterator it = actions.begin(); it != actions.end(); ++it ) {
-            QPtrList<KAction>* popup = 0;
             KIPI::Category category = plugin->category( *it );
             if (  category == KIPI::IMAGESPLUGIN ||  category == KIPI::COLLECTIONSPLUGIN )
-                popup = &imageActions;
+                imageActions.append( *it );
 
             else if ( category == KIPI::EXPORTPLUGIN || category == KIPI::IMPORTPLUGIN )
-                popup = &fileActions;
+                fileActions.append( *it );
 
             else if ( category == KIPI::TOOLSPLUGIN )
-                popup = &toolsActions;
+                toolsActions.append( *it );
 
             else if ( category == KIPI::BATCHPLUGIN )
-                popup = &batchActions;
+                batchActions.append( *it );
 
-            if ( popup ) {
-                popup->append( *it );
-            }
             else {
                 kdDebug() << "Unknow category\n";
             }

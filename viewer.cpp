@@ -60,6 +60,10 @@ Viewer::Viewer( QWidget* parent, const char* name )
     _delete = KStdAction::cut( _label, SLOT( cut() ), actionCollection(), "cutAction" );
     _delete->plug( _toolbar );
 
+    KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actionCollection(),  "stopDraw" );
+    close->plug( _toolbar );
+
+    _toolbar->hide();
     setupContextMenu();
 }
 
@@ -142,6 +146,10 @@ void Viewer::setupContextMenu()
     action->setOn( Options::instance()->showKeyWords() );
 
     _popup->insertSeparator();
+
+    action = new QAction( "Draw On Image",  QIconSet(),  "Draw on Image",  0, this );
+    connect( action,  SIGNAL( activated() ),  this, SLOT( startDraw() ) );
+    action->addTo( _popup );
 
     action = new QAction( "Close",  QIconSet(), "Close", Key_Q, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( hide() ) );
@@ -479,6 +487,16 @@ void Viewer::showLast()
 void Viewer::closeEvent( QCloseEvent* )
 {
     hide();
+}
+
+void Viewer::startDraw()
+{
+    _toolbar->show();
+}
+
+void Viewer::stopDraw()
+{
+    _toolbar->hide();
 }
 
 #include "viewer.moc"

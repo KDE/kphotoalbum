@@ -51,6 +51,8 @@ protected slots:
     void toggleShowNames( bool );
     void toggleShowLocation( bool );
     void toggleShowKeyWords( bool );
+    void startDraw();
+    void stopDraw();
 
 private:
     Viewer( QWidget* parent, const char* name = 0 );

@@ -21,9 +21,9 @@ public:
     void setDay( int );
     bool operator<=( ImageDate& other );
     bool isNull() const;
-    operator QString()  {
-        return QString("%1/%2-%3").arg(_day).arg(_month).arg(_year);
-    }
+    QString toString();
+    operator QString() { return toString(); }
+
 private:
     int _year, _month, _day;
 };

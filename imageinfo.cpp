@@ -233,3 +233,31 @@ QString ImageInfo::indexDirectory() const
 {
     return _indexDirectory;
 }
+
+QString ImageDate::toString()
+{
+    QString result;
+
+    QStringList month;
+    month << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun" << "Jul" << "Aug"
+          << "Sep" << "Oct" << "Nov" << "Dec";
+
+    if ( _day != 0 && _month != 0 )
+        result = QString("%1. %2").arg(_day).arg(month[_month-1]);
+    else if ( _day != 0 && _month == 0 )
+        result = QString("%1/???").arg(_day);
+    else if ( _day == 0 && _month != 0 )  {
+        result = month[_month-1];
+    }
+
+    if ( !result.isEmpty() && _year != 0 )
+        result += " ";
+
+    if ( _year != 0 )
+        result += QString::number( _year );
+
+    return result;
+}
+
+
+

@@ -25,6 +25,7 @@ void ImageManager::init()
 void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache )
 {
     QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
+
     QPixmap* pixmap = QPixmapCache::find( key );
     if ( pixmap )  {
         if ( client )

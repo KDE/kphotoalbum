@@ -34,6 +34,11 @@ protected slots:
     void rotate90();
     void rotate180();
     void rotate270();
+    void toggleShowInfoBox( bool );
+    void toggleShowDescription( bool );
+    void toggleShowDate( bool );
+    void toggleShowNames( bool );
+    void toggleShowLocation( bool );
 
 private:
     Viewer( QWidget* parent, const char* name = 0 );
@@ -51,6 +56,7 @@ private:
     QRect _textRect;
 
     QPopupMenu* _popup;
+    bool _showInfoBox, _showDescription, _showDate, _showNames, _showLocation;
 };
 
 #endif /* VIEWER_H */

@@ -22,7 +22,8 @@ Viewer* Viewer::instance()
 }
 
 Viewer::Viewer( QWidget* parent, const char* name )
-    :QDialog( parent,  name ),  _pos( BottomRight )
+    :QDialog( parent,  name ),  _pos( BottomRight ), _showInfoBox(true), _showDescription(true),
+     _showDate(true), _showNames(false), _showLocation(false)
 {
     QVBoxLayout* layout = new QVBoxLayout( this );
     layout->setResizeMode( QLayout::FreeResize );
@@ -49,7 +50,7 @@ Viewer::Viewer( QWidget* parent, const char* name )
     connect( action,  SIGNAL( activated() ), this, SLOT( zoomIn() ) );
     action->addTo( _popup );
 
-    action = new QAction( "    Zoom out",  QIconSet(), "Zoom out", Key_Minus, this );
+    action = new QAction( "Zoom out",  QIconSet(), "Zoom out", Key_Minus, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( zoomOut() ) );
     action->addTo( _popup );
 
@@ -69,10 +70,36 @@ Viewer::Viewer( QWidget* parent, const char* name )
 
     _popup->insertSeparator();
 
+    action = new QAction( "Show Info Box", QIconSet(), "Show Info Box", Key_I, this, "showInfoBox", true );
+    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
+    action->addTo( _popup );
+    action->setOn( _showInfoBox );
+
+    action = new QAction( "Show Description", QIconSet(), "Show Description", Key_D, this, "showDescription", true );
+    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
+    action->addTo( _popup );
+    action->setOn( _showDescription );
+
+    action = new QAction( "Show Time", QIconSet(), "Show Time", Key_T, this, "showTime", true );
+    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
+    action->addTo( _popup );
+    action->setOn( _showDate );
+
+    action = new QAction( "Show Names", QIconSet(), "Show Names", Key_N, this, "showNames", true );
+    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowNames( bool ) ) );
+    action->addTo( _popup );
+    action->setOn( _showNames );
+
+    action = new QAction( "Show Location", QIconSet(), "Show Location", Key_L, this, "showLocation", true );
+    connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowLocation( bool ) ) );
+    action->addTo( _popup );
+    action->setOn( _showLocation );
+
+    _popup->insertSeparator();
+
     action = new QAction( "Close",  QIconSet(), "Close", 0, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
     action->addTo( _popup );
-
 }
 
 void Viewer::load( const ImageInfoList& list, int index )
@@ -104,51 +131,94 @@ void Viewer::load()
 void Viewer::setDisplayedPixmap()
 {
     QPixmap pixmap = _pixmap;
-    QPainter p( &pixmap );
-    QSimpleRichText txt( _info.description(), qApp->font() );
+    if ( pixmap.isNull() )
+        return;
 
-    if ( _pos == Top || _pos == Bottom )  {
-        txt.setWidth( _label->width() - 20 ); // 2x5 pixels for inside border + 2x5 outside border.
+    if ( _showInfoBox )  {
+        QPainter p( &pixmap );
+
+        QString text = "" ;
+        if ( _showDate )  {
+            text += "<b>Date:</b> ";
+            if ( _info.startDate().isNull() )
+                text += "Unknown";
+            else if ( _info.endDate().isNull() )
+                text += _info.startDate();
+            else
+                text += _info.startDate() + " to " + _info.endDate();
+            text += "<br>";
+        }
+
+        // PENDING(blackie) The key is used both as a key and a label, which is a problem here.
+        if ( _showLocation )  {
+            QString location = _info.optionValue( "Locations" ).join( ", " );
+            if ( location )
+                text += "<b>Location:</b> " + location + "<br>";
+        }
+
+        if ( _showNames ) {
+            QString persons = _info.optionValue( "Persons" ).join( ", " );
+            if ( persons )
+                text += "<b>Persons:</b> " + persons + "<br>";
+        }
+
+        if ( _showDescription && !_info.description().isEmpty())  {
+            if ( !text.isEmpty() )
+                text += "<b>Description:</b> ";
+
+            text += _info.description();
+        }
+
+        if ( !text.isEmpty() )  {
+            text = "<qt>" + text + "</qt>";
+
+            QSimpleRichText txt( text, qApp->font() );
+
+            if ( _pos == Top || _pos == Bottom )  {
+                txt.setWidth( _label->width() - 20 ); // 2x5 pixels for inside border + 2x5 outside border.
+            }
+            else {
+                int width = 25;
+                do {
+                    width += 25;
+                    txt.setWidth( width );
+                }  while ( txt.height() > width + 25 );
+            }
+
+            // -------------------------------------------------- Position rectangle
+            QRect rect;
+            rect.setWidth( txt.widthUsed() + 10 ); // 5 pixels border in all directions
+            rect.setHeight( txt.height() + 10 );
+
+            // x-coordinate
+            if ( _pos == TopRight || _pos == BottomRight || _pos == Right )
+                rect.moveRight( _label->width() - 5 );
+            else if ( _pos == TopLeft || _pos == BottomLeft || _pos == Left )
+                rect.moveLeft( 5 );
+            else
+                rect.moveLeft( (_label->width() - txt.widthUsed())/2+5 );
+
+            // Y-coordinate
+            if ( _pos == TopLeft || _pos == TopRight || _pos == Top )
+                rect.moveTop( 5 );
+            else if ( _pos == BottomLeft || _pos == BottomRight || _pos == Bottom )
+                rect.moveBottom( _label->height() - 5 );
+            else
+                rect.moveTop( (_label->height()-txt.height())/2 + 5 );
+
+            p.fillRect( rect, white );
+            txt.draw( &p,  rect.left()+5, rect.top()+5,  QRect(),  _label->colorGroup());
+            _textRect = rect;
+        }
     }
-    else {
-        int width = 50;
-        do {
-            width += 50;
-            txt.setWidth( width );
-        }  while ( txt.height() > width + 50 );
-    }
 
-    // -------------------------------------------------- Position rectangle
-    QRect rect;
-    rect.setWidth( txt.widthUsed() + 10 ); // 5 pixels border in all directions
-    rect.setHeight( txt.height() + 10 );
-
-    // x-coordinate
-    if ( _pos == TopRight || _pos == BottomRight || _pos == Right )
-        rect.moveRight( _label->width() - 5 );
-    else if ( _pos == TopLeft || _pos == BottomLeft || _pos == Left )
-        rect.moveLeft( 5 );
-    else
-        rect.moveLeft( (_label->width() - txt.widthUsed())/2+5 );
-
-    // Y-coordinate
-    if ( _pos == TopLeft || _pos == TopRight || _pos == Top )
-        rect.moveTop( 5 );
-    else if ( _pos == BottomLeft || _pos == BottomRight || _pos == Bottom )
-        rect.moveBottom( _label->height() - 5 );
-    else
-        rect.moveTop( (_label->height()-txt.height())/2 + 5 );
-
-    p.fillRect( rect, white );
-    txt.draw( &p,  rect.left()+5, rect.top()+5,  QRect(),  _label->colorGroup());
     _label->setPixmap( pixmap );
-    _textRect = rect;
 }
 
 void Viewer::mousePressEvent( QMouseEvent* e )
 {
     if ( e->button() == LeftButton )  {
-        _moving = _textRect.contains( e->pos() );
+        _moving = _showInfoBox && _textRect.contains( e->pos() );
         if ( _moving )
             _label->setCursor( PointingHandCursor );
     }
@@ -159,6 +229,9 @@ void Viewer::mousePressEvent( QMouseEvent* e )
 
 void Viewer::mouseMoveEvent( QMouseEvent* e )
 {
+    if ( !_moving )
+        return;
+
     Position oldPos = _pos;
     int x = e->pos().x();
     int y = e->pos().y();
@@ -194,7 +267,7 @@ void Viewer::mouseMoveEvent( QMouseEvent* e )
 
 void Viewer::mouseReleaseEvent( QMouseEvent* e )
 {
-    setCursor( ArrowCursor  );
+    _label->setCursor( ArrowCursor  );
     QDialog::mouseReleaseEvent( e );
 }
 
@@ -248,3 +321,35 @@ void Viewer::rotate270()
     _info.rotate( 270 );
     load();
 }
+
+void Viewer::toggleShowInfoBox( bool b )
+{
+    _showInfoBox = b;
+    setDisplayedPixmap();
+}
+
+void Viewer::toggleShowDescription( bool b )
+{
+    _showDescription = b;
+    setDisplayedPixmap();
+}
+
+void Viewer::toggleShowDate( bool b )
+{
+    _showDate = b;
+    setDisplayedPixmap();
+}
+
+void Viewer::toggleShowNames( bool b )
+{
+    _showNames = b;
+    setDisplayedPixmap();
+}
+
+void Viewer::toggleShowLocation( bool b )
+{
+    _showLocation = b;
+    setDisplayedPixmap();
+}
+
+

@@ -393,6 +393,9 @@ void Options::setup( const QDomElement& config, const QDomElement& options, cons
 
 void Options::setViewerSize( int width, int height )
 {
+    if ( QSize(width, height) != _viewerSize )
+        emit changed();
+
     _viewerSize = QSize(width, height );
 }
 
@@ -409,6 +412,8 @@ const MemberMap& Options::memberMap()
 
 void Options::setMemberMap( const MemberMap& members )
 {
+    // PENDING(blackie) One day, implement MemberMap::operator!=
+    emit changed();
     _members = members;
 }
 

@@ -211,7 +211,7 @@ QString ImageSearchInfo::toString() const
 
 bool ImageSearchInfo::hasOption( ImageInfo* info, const QString& key, const QString& str )
 {
-    QStringList list = Options::instance()->memberMap().members( key, str );
+    QStringList list = Options::instance()->memberMap().members( key, str, true );
     bool match = info->hasOption( key,  str );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         match |= info->hasOption( key, *it );

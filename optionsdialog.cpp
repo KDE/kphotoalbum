@@ -396,8 +396,14 @@ void OptionsDialog::slotCategoryChanged( const QString& name )
     _members->clear();
     QStringList list = Options::instance()->optionValue(name);
     list += _memberMap.groups( name );
-    list.sort();
-    _members->insertStringList( list );
+    QStringList uniq;
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        if ( !uniq.contains(*it) )
+            uniq << *it;
+    }
+
+    uniq.sort();
+    _members->insertStringList( uniq );
     _groups->setSelected( 0, true );
 
     if ( !groupList.isEmpty() )
@@ -420,6 +426,7 @@ void OptionsDialog::slotAddGroup()
         QListBoxItem* item = new QListBoxText( _groups, text );
         _groups->setCurrentItem( item );
         selectMembers( text );
+        Options::instance()->addOption( _currentCategory, text );
     }
 }
 
@@ -466,7 +473,7 @@ void OptionsDialog::saveOldGroup()
 void OptionsDialog::selectMembers( const QString& group )
 {
     _currentGroup = group;
-    QStringList list = _memberMap.members(_currentCategory,group);
+    QStringList list = _memberMap.members(_currentCategory,group, false );
     for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
         _members->setSelected( item, list.contains( item->text() ) );
     }

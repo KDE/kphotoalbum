@@ -131,7 +131,7 @@ void Viewer::setupContextMenu()
     connect( action,  SIGNAL( activated() ), _display, SLOT( zoomOut() ) );
     action->addTo( _popup );
 
-    action = new QAction( i18n("Toggle Full Screen"),  QIconSet(), i18n("Toggle Full Screen"), Key_Space, this );
+    action = new QAction( i18n("Toggle Full Screen"),  QIconSet(), i18n("Toggle Full Screen"), Key_Return, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( toggleFullScreen() ) );
     action->addTo( _popup );
 

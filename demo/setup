@@ -9,20 +9,21 @@
    <value value="Anne Helene's 30 years birthday" />
   </option>
   <option icon="network" name="Locations" show="1" text="Locations" >
-   <value value="mallorca" />
-   <value value="grand canyon" />
-   <value value="pool club" />
-   <value value="usa" />
-   <value value="chicago" />
-   <value value="rhodos" />
-   <value value="denmark" />
-   <value value="esbjerg" />
+   <value value="Santa Clara" />
+   <value value="Mallorca" />
+   <value value="Grand Canyon" />
+   <value value="Pool Club" />
+   <value value="USA" />
+   <value value="Chicago" />
+   <value value="Rhodos" />
+   <value value="Denmark" />
+   <value value="Esbjerg" />
   </option>
   <option icon="personal" name="Persons" show="1" text="Persons" >
-   <value value="spiff" />
-   <value value="anne helene" />
-   <value value="jesper" />
-   <value value="donna" />
+   <value value="Spiff" />
+   <value value="Anne Helene" />
+   <value value="Jesper" />
+   <value value="Donna" />
   </option>
  </options>
  <configWindowSetup>

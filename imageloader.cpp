@@ -52,6 +52,17 @@ void ImageLoader::run()
         LoadInfo li = ImageManager::instance()->next();
 
         if ( !li.isNull() ) {
+#ifdef QT_HAVE_MAX_IMAGE_SIZE // An extension made by SUSE to Qt :-(((
+         static QSize max_size = QImage::maxImageSize();
+         if (max_size.width() < (int) li.width()) {
+           max_size.setWidth(li.width());
+           QImage::setMaxImageSize(max_size);
+         }
+         if (max_size.height() < (int) li.height()) {
+           max_size.setHeight(li.height());
+           QImage::setMaxImageSize(max_size);
+         }
+#endif
             QImage img;
             bool imageLoaded = false;
 

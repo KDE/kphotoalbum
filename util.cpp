@@ -475,14 +475,30 @@ bool Util::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int 
 
    //QImage img;
 
+#ifdef QT_HAVE_MAX_IMAGE_SIZE  // An extension made by SUSE to Qt :-(((
+   // If we have an image larger than maxImageSize() the call to img->create()
+   // will fail.
+   static QSize max_size = QImage::maxImageSize();
+   if (max_size.width() < (int) cinfo.output_width) {
+     max_size.setWidth(cinfo.output_width);
+     QImage::setMaxImageSize(max_size);
+   }
+   if (max_size.height() < (int) cinfo.output_height) {
+     max_size.setHeight(cinfo.output_height);
+     QImage::setMaxImageSize(max_size);
+   }
+#endif
+
    switch(cinfo.output_components) {
    case 3:
    case 4:
-      img->create( cinfo.output_width, cinfo.output_height, 32 );
+      if (!img->create( cinfo.output_width, cinfo.output_height, 32 ))
+       return false;
       break;
    case 1: // B&W image
-      img->create( cinfo.output_width, cinfo.output_height,
-                     8, 256 );
+      if (!img->create( cinfo.output_width, cinfo.output_height,
+                       8, 256 ))
+       return false;
       for (int i=0; i<256; i++)
             img->setColor(i, qRgb(i,i,i));
       break;

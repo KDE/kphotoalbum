@@ -154,6 +154,13 @@ void ThumbNailView::setHighlighted( ThumbNail* item )
     _currentHighlighted = item;
 }
 
+void ThumbNailView::setDragLeft( ThumbNail* item )
+{
+    if ( _currentHighlighted == item )
+        _currentHighlighted = 0;
+}
+
+
 void ThumbNailView::slotCut()
 {
     ImageInfoList& images = ImageDB::instance()->images();

@@ -102,6 +102,7 @@ void ThumbNail::dragMove()
 void ThumbNail::dragLeft()
 {
     setPixmap( _pixmap );
+    _parent->setDragLeft( this );
 }
 
 bool ThumbNail::acceptDrop( const QMimeSource * /*mime*/ ) const

@@ -51,6 +51,7 @@ protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );
     virtual void contentsDropEvent( QDropEvent* e );
     void setHighlighted( ThumbNail* item );
+    void setDragLeft(  ThumbNail* item );
     QPtrList<ThumbNail> selected() const;
     void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
     QDragObject* dragObject();

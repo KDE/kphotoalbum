@@ -1,3 +1,22 @@
+=================
+TODO UTTERLY SOON
+=================
+- When you press cancel during the export process you still get the info
+someone else could import your export. 
+- Here is what I've done: I selected some pictures with an angle of 0.0, and 
+some with an angle of 90.0.
+In the html output all pictures looked what I expected them to.
+In the generated xxx.kim file the pictures still got the 0.0 and 90.0 angles 
+information.
+So what happens is this: When I imported the xxx.kim file to a test kimdaba 
+setup, the pictures with an 0.0 angle where ok. The other ones where turned 
+an other 90.0 angle...
+- After an import the index.xml file should be marked modified
+- Import is only working when I import into the directory with an existing 
+thumbnails directory. I tried to import into a new subdirectory: Kimdaba 
+didn't create the thumbnails directory.
+
+
 ==========================
 BUGS To be handled soonish
 ==========================
@@ -9,7 +28,7 @@ BUGS To be handled soonish
   iterate through all the children of the dialog, and setup tab order as
   they are physically located on screen. 
 - rework member group config page to use kdlistboxpair instead.
-- when editing many images at a time, the time is deleted.
+
 
 =======================
 BUGS of less importance

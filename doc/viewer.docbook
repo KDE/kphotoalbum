@@ -102,7 +102,7 @@ context menu.
 </para>
   
 
-  <sect1>
+  <sect1 id="drawing-on-images">
     <title>Drawing on Images</title>
     <para>Sometimes it might not be obvious what you want to show with a
 given image, for that purpose KimDaBa allows you to draw on the

@@ -80,7 +80,7 @@ matching your current scope.</para>
 
 
 
-  <sect1>
+  <sect1 id="sect-adding-preview-images-to-the-browser">
   <title>Adding Preview Images to the Browser</title>
   <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
 that each person has the same icon in front of his name. KimDaBa is actual
@@ -137,7 +137,7 @@ the image, and that way crop what part should be shown.</para>
 
 
   
-  <sect1>
+  <sect1 id="sect-general-image-searches">
     <title>General image searches</title>
     <para>If you chose the <literal>Search</literal> item in the
 browser, you will get to a dialog with great resemblance to the dialog you

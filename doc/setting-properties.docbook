@@ -28,7 +28,7 @@ amount of images per pages can be configured in the Options dialog (see
     </mediaobject>
   </figure>
   
-  <sect1>
+  <sect1 id="sect-specifying-properties-for-images">
     <title>Specifying properties for images</title>
     <para>The key feature of KimDaBa is that you can specify properties
 for images. This includes who is on a given image, where is it taken,
@@ -88,7 +88,7 @@ they will also be shown when you later view the images.</para>
     
     
     
-    <sect2>
+    <sect2 id="sect-specifying-options">
       <title>Specifying options</title>
       <para>In <xref linkend="fig-image-config-window"/> there are three
 list boxes combined with a line edits for specifying persons, locations and
@@ -115,7 +115,7 @@ you have type in their name the first time.</para>
     </sect2>
     
     
-    <sect2>
+    <sect2 id="sect-specifying-properties-for-one-image-at-a-time">
       <title>Specifying properties for one image at a time</title>
       <para>When you specify properties for one image at a time, you may
 still of course select a number of images, and say, <emphasis>I want to
@@ -124,7 +124,7 @@ find a next and previous button under the image in the topmost rightmost
 corner. </para>
     </sect2>
     
-    <sect2>
+    <sect2 id="sect-specifying-properties-for-all-images-simultaneously">
       <title>Specifying properties for all images simultaneously</title>
       <para>If you have several images with, say the same person, then it
 might be more convenient to select those images, and specify that this
@@ -142,7 +142,7 @@ check box, then the option will be set unconditionally.</para>
     </sect2>
   </sect1>
   
-  <sect1>
+  <sect1 id="sect-changing-layout-of-the-property-window">
     <title>Changing layout of the property window</title>
     <para>It is possible to move the items of the property window
 around, simply from the bar at the top of the frames, and move them arroud

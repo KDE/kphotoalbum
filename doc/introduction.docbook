@@ -42,7 +42,7 @@ images of that friend.</para></listitem>
   
   
   <!-- ====================================================================== -->
-  <sect1>
+  <sect1 id="sect-overview-of-manual">
     <title>Overview of the manual</title>
     <para>In this manual I will take you through the steps of (1) specifying
 information about your images, (2) browsing and viewing images and (3)
@@ -51,7 +51,7 @@ advanced topics and customization.</para>
   
   
   <!-- ====================================================================== -->
-  <sect1>
+  <sect1 id="sec-organization-of-images-and-KimDaBa-files">
     <title>Organization of images and KimDaBa files</title>
     <para>KimDaBa uses all the images of a directory and all subdirectories
 below it, first time you start KimDaBa, you will be ask for the location of

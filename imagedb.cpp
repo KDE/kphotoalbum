@@ -32,6 +32,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include "browser.h"
+#include <qdict.h>
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -314,6 +315,7 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
 {
     QMap<QString, int> map;
     GroupCounter counter( group );
+    QDict<void> alreadyMatched = findAlreadyMatched( info, group );
 
     ImageSearchInfo noMatchInfo = info;
     QString currentMatchTxt = noMatchInfo.option( group );
@@ -322,13 +324,19 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
     else
         noMatchInfo.setOption( group, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(ImageDB::NONE()) );
 
+    // Iterate through the whole database of images.
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it );
-        if ( match ) {
+        if ( match ) { // If the given image is currently matched.
+
+            // Now iterate through all the option groups the current image
+            // contains, and increase them in the map mapping from option
+            // group to count for this group.
             QStringList list = (*it)->optionValue(group);
             counter.count( list );
             for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-                map[*it2]++;
+                if ( !alreadyMatched[*it2] ) // We do not want to match "Jesper & Jesper"
+                    map[*it2]++;
             }
 
             // Find those with no other matches
@@ -593,6 +601,23 @@ ImageInfo* ImageDB::find( const QString& fileName ) const
         return _fileMap[ fileName ];
     else
         return 0;
+}
+
+QDict<void> ImageDB::findAlreadyMatched( const ImageSearchInfo& info, const QString &group )
+{
+    QDict<void> map;
+    QString str = info.option( group );
+    if ( str.contains( QString::fromLatin1( "|" ) ) ) {
+        return map;
+    }
+
+    QStringList list = QStringList::split( QString::fromLatin1( "&" ), str );
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        QString nm = (*it).stripWhiteSpace();
+        if (! nm.contains( QString::fromLatin1( "!" ) ) )
+            map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
+    }
+    return map;
 }
 
 #include "imagedb.moc"

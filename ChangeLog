@@ -1,3 +1,8 @@
+2004-08-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Do not show items already matched when browsing. Thus do not
+	show Jesper, if he is already matches in the current browsing scope.
+
 2004-08-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* The viewer now preloads images, which makes it feel a LOT more

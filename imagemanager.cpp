@@ -84,7 +84,6 @@ void ImageManager::customEvent( QCustomEvent* ev )
         QString key = QString("%1-%2x%3").arg( li.fileName() ).arg( li.width() ).arg( li.height() );
         QPixmap pixmap( li.image() );
         if ( li.cache() )  {
-            qDebug("Cacheing %s %dx%d",  li.fileName().latin1(), li.width(), li.height());
             QPixmapCache::insert( key,  pixmap );
         }
         if ( _clientMap.contains( li ) )  {
@@ -150,7 +149,7 @@ bool LoadInfo::operator<( const LoadInfo& other ) const
     LoadInfo& o = const_cast<LoadInfo&>( other );
     LoadInfo& t = const_cast<LoadInfo&>( *this );
 
-    if ( t._fileName != o._fileName )
+    if ( (QString) t._fileName != (QString)o._fileName )
         return t._fileName < o._fileName;
     else if ( t._width != o._width )
         return t._width < o._width;

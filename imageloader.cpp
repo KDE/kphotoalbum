@@ -90,6 +90,8 @@ bool ImageLoader::isJPEG( const LoadInfo& li )
 
 bool ImageLoader::loadJPEG(QImage* image, const LoadInfo& li )
 {
+    return false;
+
     FILE* inputFile=fopen(li.fileName().data(), "rb");
     if(!inputFile) return false;
 
@@ -148,9 +150,9 @@ bool ImageLoader::loadJPEG(QImage* image, const LoadInfo& li )
         }
     }
 
-    int newMax = QMAX(cinfo.output_width, cinfo.output_height);
-    int newx = size*cinfo.output_width / newMax;
-    int newy = size*cinfo.output_height / newMax;
+    //int newMax = QMAX(cinfo.output_width, cinfo.output_height);
+    //int newx = size*cinfo.output_width / newMax;
+    //int newy = size*cinfo.output_height / newMax;
 
     //image=image.smoothScale( newx, newy);
 

@@ -25,8 +25,11 @@ public:
     void setOption( const QString& key,  const QStringList& value );
     QStringList optionValue( const QString& key ) const;
 
-    void setTrustFileTimeStamps( bool );
-    bool trustFileTimeStamps() const;
+    void setTrustTimeStamps( bool );
+    bool trustTimeStamps() const;
+
+    void setTrustDateStamps( bool );
+    bool trustDateStamps() const;
 
     QStringList dataDirs() const;
     void save();
@@ -37,7 +40,7 @@ private:
     static Options* _instance;
 
     int _thumbWidth, _thumbHeight,  _imageCacheSize,  _numThreads;
-    bool _cacheThumbNails,  _use4To3Ratio, _trustFileTimeStanmps;
+    bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps, _trustDateStamps;
     QMap<QString, QStringList> _options;
 };
 

@@ -17,12 +17,15 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _description = elm.attribute( "description" );
 
     int year = -1, month = -1,  day = -1,  hour = -1,  minute = -1;
-    if ( Options::instance()->trustFileTimeStamps() )  {
+
+    if ( Options::instance()->trustDateStamps() )  {
         QDate date = fi.created().date();
-        QTime time = fi.created().time();
         year = date.year();
         month = date.month();
         day = date.day();
+    }
+    if ( Options::instance()->trustTimeStamps() )  {
+        QTime time = fi.created().time();
         hour = time.hour();
         minute = time.minute();
     }

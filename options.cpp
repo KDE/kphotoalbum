@@ -32,7 +32,8 @@ Options::Options()
     _numThreads = top.attribute( "numThreads",  QString::number( _numThreads ) ).toInt();
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _use4To3Ratio = top.attribute( "use4To3Ratio",  QString::number( _use4To3Ratio ) ).toInt();
-    _trustFileTimeStanmps = top.attribute( "trustTimeFileStamps",  "1" ).toInt();
+    _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
+    _trustDateStamps = top.attribute( "trustDateStamps",  "1" ).toInt();
 }
 
 void Options::setThumbWidth( int w )
@@ -110,7 +111,8 @@ void Options::save()
     top.setAttribute( "numThreads", _numThreads );
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "use4To3Ratio", _use4To3Ratio );
-    top.setAttribute( "trustTimeFileStamps", _trustFileTimeStanmps );
+    top.setAttribute( "trustTimeStamps", _trustTimeStamps );
+    top.setAttribute( "trustDateStamps", _trustDateStamps );
 
     QTextStream stream( &file );
     stream << doc.toString();
@@ -127,14 +129,24 @@ QStringList Options::optionValue( const QString& key ) const
     return _options[key];
 }
 
-void Options::setTrustFileTimeStamps( bool b)
+void Options::setTrustTimeStamps( bool b)
 {
-    _trustFileTimeStanmps = b;
+    _trustTimeStamps = b;
 }
 
-bool Options::trustFileTimeStamps() const
+bool Options::trustTimeStamps() const
 {
-    return _trustFileTimeStanmps;
+    return _trustTimeStamps;
+}
+
+void Options::setTrustDateStamps( bool b)
+{
+    _trustDateStamps = b;
+}
+
+bool Options::trustDateStamps() const
+{
+    return _trustDateStamps;
 }
 
 

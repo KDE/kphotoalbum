@@ -1,5 +1,4 @@
 #include "mainview.h"
-#include <imageconfigdialog.h>
 #include <optionsdialog.h>
 #include <qapplication.h>
 #include "thumbnailview.h"

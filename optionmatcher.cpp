@@ -7,8 +7,10 @@ OptionValueMatcher::OptionValueMatcher( const QString& optionGroup, const QStrin
 
 bool OptionValueMatcher::eval( ImageInfo* info )
 {
-    if ( info->hasOption( _optionGroup, _option ) )
+    info->setMatched( _optionGroup, _option );
+    if ( info->hasOption( _optionGroup, _option ) ) {
         return true;
+    }
 
     QStringList list = Options::instance()->memberMap().members( _optionGroup, _option, true );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
@@ -28,7 +30,7 @@ OptionEmptyMatcher::OptionEmptyMatcher( const QString& optionGroup )
 
 bool OptionEmptyMatcher::eval( ImageInfo* info )
 {
-    return (info->optionValue( _optionGroup ).count() == 0);
+    return info->allMatched( _optionGroup );
 }
 
 

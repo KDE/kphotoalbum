@@ -2,9 +2,6 @@ TODO next
 =========
 - Add a message box with information about how the imageconfig window
 works. (with a do-not-show-again checkbox)
-- make it possible to find images with only a given set of persons on.
-  The following syntax might do it: "A & B & None", would be the same as A
-  & B and no one else.
 - remember windows sizes so they can be restored on start up
 - make it possible to disable the labels from the thumbnail views
 

@@ -1,5 +1,8 @@
 2004-04-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Its now possible to find images where only a set of items are on
+	(e.g. only me, and no one else)
+
 	* BUGFIX: When generating HTML, only generate image on disk
 
 	* Added a dialog with a description on how to enable webservers to

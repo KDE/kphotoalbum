@@ -89,6 +89,11 @@ public:
 
     bool isNull() const { return _null; }
 
+    // Used during searches
+    void clearMatched() const;
+    void setMatched( const QString& optionGroup, const QString& value ) const;
+    bool allMatched( const QString& optionGroup );
+
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;
     bool isJPEG( const QString& fileName ) const;
@@ -112,6 +117,9 @@ private:
 
     // Cache information
     bool _locked;
+
+    // Used during searching to make it possible to search for Jesper & None
+    mutable QMap<QString,QStringList> _matched;
 };
 
 typedef QPtrList<ImageInfo> ImageInfoList;

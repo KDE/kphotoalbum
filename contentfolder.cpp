@@ -31,13 +31,7 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup( optionGroup ), _value( value )
 {
-    if ( value == ImageDB::NONE() ) {
-        _info.setOption( _optionGroup, ImageDB::NONE() );
-    }
-    else if ( !_optionGroup.isNull() ) {
-        // It will be null for the initial element ceated from the browser.
-        _info.addAnd( _optionGroup, _value );
-    }
+    _info.addAnd( _optionGroup, _value );
     setCount( count );
 }
 
@@ -57,7 +51,10 @@ QPixmap ContentFolder::pixmap()
 QString ContentFolder::text() const
 {
     if ( _value == ImageDB::NONE() ) {
-        return i18n( "No %1" ).arg( Options::instance()->textForOptionGroup( _optionGroup )  );
+        if ( _info.option(_optionGroup) == ImageDB::NONE() )
+            return i18n( "No %1" ).arg( Options::instance()->textForOptionGroup( _optionGroup )  );
+        else
+            return i18n( "No other %1" ).arg( Options::instance()->textForOptionGroup( _optionGroup )  );
     }
     else {
         return _value;

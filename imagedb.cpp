@@ -326,16 +326,30 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
     QMap<QString, int> map;
     GroupCounter counter( group );
 
+    ImageSearchInfo noMatchInfo = info;
+    QString currentMatchTxt = noMatchInfo.option( group );
+    if ( currentMatchTxt.isEmpty() )
+        noMatchInfo.setOption( group, ImageDB::NONE() );
+    else
+        noMatchInfo.setOption( group, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(ImageDB::NONE()) );
+
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it );
         if ( match ) {
             QStringList list = (*it)->optionValue(group);
             counter.count( list );
-            for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-                map[*it]++;
+            for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+                map[*it2]++;
             }
+
+            // Find those with no other matches
+            if ( noMatchInfo.match( *it ) )
+                map[ImageDB::NONE()]++;
+
+#ifdef TEMPORARILY_REMOVED
             if ( list.count() == 0 )
                 map[ImageDB::NONE()]++;
+#endif
         }
     }
 

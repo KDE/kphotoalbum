@@ -108,6 +108,7 @@ bool ImageSearchInfo::match( ImageInfo* info ) const
 
 
     // -------------------------------------------------- Options
+    info->clearMatched();
     if ( _optionMatcher )
         ok &= _optionMatcher->eval( info );
 
@@ -174,6 +175,9 @@ QString ImageSearchInfo::toString() const
                 res += QString::fromLatin1( " / " );
 
             QString txt = it.data();
+            if ( txt == ImageDB::NONE() )
+                txt = i18n( "As in No persons, no locations etc.", "No %1" ).arg( it.key() );
+
             if ( txt.contains( QString::fromLatin1("|") ) )
                 txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " %1 " ).arg( i18n("and") ) );
 
@@ -182,6 +186,7 @@ QString ImageSearchInfo::toString() const
 
             txt.replace( QString::fromLatin1( "|" ), QString::fromLatin1( " %1 " ).arg( i18n("or") ) );
             txt.replace( QString::fromLatin1( "!" ), QString::fromLatin1( " %1 " ).arg( i18n("not") ) );
+            txt.replace( ImageDB::NONE(), i18n( "As in no other persons, or no other locations", "No other %1" ).arg( it.key() ) );
             txt.simplifyWhiteSpace();
             res += txt;
         }
@@ -266,11 +271,6 @@ void ImageSearchInfo::compile() const
         QString optionGroup = it.key();
         QString matchText = it.data();
 
-        if ( matchText == ImageDB::NONE() ) {
-            matcher->addElement( new OptionEmptyMatcher( optionGroup ) );
-            continue;
-        }
-
         QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
         OptionOrMatcher* orMatcher = new OptionOrMatcher;
 
@@ -287,7 +287,11 @@ void ImageSearchInfo::compile() const
                     str = regexp.cap(1);
                 }
                 str = str.stripWhiteSpace();
-                OptionMatcher* valueMatcher = new OptionValueMatcher( optionGroup, str );
+                OptionMatcher* valueMatcher;
+                if ( str == ImageDB::NONE() )
+                    valueMatcher = new OptionEmptyMatcher( optionGroup );
+                else
+                    valueMatcher = new OptionValueMatcher( optionGroup, str );
                 if ( negate )
                     valueMatcher = new OptionNotMatcher( valueMatcher );
                 andMatcher->addElement( valueMatcher );

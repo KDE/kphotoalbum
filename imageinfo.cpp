@@ -489,4 +489,30 @@ QStringList ImageInfo::availableOptionGroups() const
     return _options.keys();
 }
 
+void ImageInfo::clearMatched() const
+{
+    _matched.clear();
+}
+
+void ImageInfo::setMatched( const QString& optionGroup, const QString& value ) const
+{
+    _matched[optionGroup].append( value );
+    const MemberMap& map = Options::instance()->memberMap();
+    QStringList members = map.members( optionGroup, value, true );
+    _matched[optionGroup] += members;
+}
+
+// Returns whether all tokens for the given image are matches by the search
+// example: returns true if all people on an image is in the search, i.e.
+// it is only true if there are no persons on the image that are not explicit searched for.
+bool ImageInfo::allMatched( const QString& optionGroup )
+{
+    QStringList list = optionValue( optionGroup );
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        if ( !_matched[optionGroup].contains( *it ) )
+            return false;
+    }
+    return true;
+}
+
 #include "infobox.moc"

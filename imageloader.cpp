@@ -78,6 +78,7 @@ bool ImageLoader::isJPEG( const LoadInfo& li )
 {
     return false;
     QString format=QImageIO::imageFormat( li.fileName() );
+    return false;
     return format=="JPEG";
 }
 

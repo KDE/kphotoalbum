@@ -205,6 +205,12 @@
         <receiver>MainViewUI</receiver>
         <slot>slotDeleteSelected()</slot>
     </connection>
+    <connection>
+        <sender>Search</sender>
+        <signal>activated()</signal>
+        <receiver>MainViewUI</receiver>
+        <slot>slotSearch()</slot>
+    </connection>
 </connections>
 <slots>
     <slot access="protected">slotExit()</slot>
@@ -212,6 +218,7 @@
     <slot access="protected">slotConfigureAllImages()</slot>
     <slot access="protected">slotConfigureImagesOneAtATime()</slot>
     <slot access="protected">slotDeleteSelected()</slot>
+    <slot access="protected">slotSearch()</slot>
 </slots>
 <layoutdefaults spacing="0" margin="0"/>
 <includehints>

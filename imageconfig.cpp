@@ -151,13 +151,6 @@ int ImageConfig::exec( ImageInfoList list, bool oneAtATime )
     _list = list;
     _oneAtATime = oneAtATime;
 
-    quality->clear();
-    QStringList qualityItems;
-    qualityItems << "Low" << "Medium" << "High";
-    if ( !oneAtATime )
-        qualityItems << "---";
-    quality->insertStringList( qualityItems );
-
     if ( oneAtATime )  {
         quality->setCurrentText( "High" );
         revert->setText( "Revert edits for this image" );

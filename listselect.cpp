@@ -7,6 +7,45 @@
 #include <qvalidator.h>
 #include "options.h"
 
+class CompletableLineEdit :public QLineEdit {
+public:
+    CompletableLineEdit( QWidget* parent,  const char* name = 0 );
+    void setListBox( QListBox* );
+protected:
+    virtual void keyPressEvent( QKeyEvent* ev );
+
+private:
+    QListBox* _listbox;
+};
+
+CompletableLineEdit::CompletableLineEdit( QWidget* parent, const char* name )
+    :QLineEdit( parent, name )
+{
+}
+
+void CompletableLineEdit::setListBox( QListBox* listbox )
+{
+    _listbox = listbox;
+}
+
+void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
+{
+    if ( !ev->text().isEmpty() && ev->text()[0].isPrint() )  {
+        QLineEdit::keyPressEvent( ev );
+
+        QString input = text();
+        QListBoxItem* item = _listbox->findItem( input );
+        if ( item )  {
+            _listbox->setCurrentItem( item );
+            _listbox->ensureCurrentVisible();
+            setText( item->text() );
+            setSelection( input.length(), item->text().length() - input.length() );
+        }
+    }
+    else
+        QLineEdit::keyPressEvent( ev );
+}
+
 ListSelect::ListSelect( QWidget* parent, const char* name )
     : QWidget( parent,  name )
 {
@@ -16,7 +55,7 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
-    _lineEdit = new QLineEdit( this );
+    _lineEdit = new CompletableLineEdit( this );
     layout->addWidget( _lineEdit );
 
     _listBox = new QListBox( this );
@@ -26,8 +65,8 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
     _merge = new QCheckBox( "Merge",  this );
     layout->addWidget( _merge );
 
+    _lineEdit->setListBox( _listBox );
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
-    connect( _lineEdit, SIGNAL( textChanged( const QString& ) ),  this, SLOT( completeLineEdit( const QString& ) ) );
 }
 
 void ListSelect::setLabel( const QString& label )
@@ -96,15 +135,4 @@ void ListSelect::setShowMergeCheckbox( bool b )
 bool ListSelect::merge() const
 {
     return _merge->isChecked();
-}
-
-void ListSelect::completeLineEdit( const QString& input)
-{
-    QListBoxItem* item = _listBox->findItem( input );
-    if ( item )  {
-        _listBox->setCurrentItem( item );
-        _listBox->ensureCurrentVisible();
-        _lineEdit->setText( item->text() );
-        _lineEdit->setSelection( input.length(), item->text().length() - input.length() );
-    }
 }

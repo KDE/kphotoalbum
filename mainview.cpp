@@ -153,3 +153,7 @@ void MainView::slotDeleteSelected()
 {
     qDebug("NYI!");
 }
+
+
+
+

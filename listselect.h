@@ -2,10 +2,10 @@
 #define LISTSELECT_H
 
 #include <qwidget.h>
-class QLineEdit;
 class QListBox;
 class QLabel;
 class QCheckBox;
+class CompletableLineEdit;
 
 class ListSelect :public QWidget {
     Q_OBJECT
@@ -22,12 +22,11 @@ public:
 
 protected slots:
     void slotReturn();
-    void completeLineEdit( const QString& );
 
 private:
     QLabel* _label;
     QString _textLabel;
-    QLineEdit* _lineEdit;
+    CompletableLineEdit* _lineEdit;
     QListBox* _listBox;
     QCheckBox* _merge;
 };

@@ -385,6 +385,11 @@
                                                     <widget class="QComboBox">
                                                         <item>
                                                             <property name="text">
+                                                                <string>---</string>
+                                                            </property>
+                                                        </item>
+                                                        <item>
+                                                            <property name="text">
                                                                 <string>High</string>
                                                             </property>
                                                         </item>

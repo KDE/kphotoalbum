@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="19">
+<kpartgui name="kimdaba" version="20">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -29,8 +29,8 @@
         <Action name="unlockFromDefaultScope"/>
         <Action name="changeScopePasswd" />
         <separator/>
-        <Action name="setDefaultScopePositive" />
         <Action name="setDefaultScopeNegative" />
+        <Action name="setDefaultScopePositive" />
       </Menu>
     </Menu>
     <Menu name="maintenance">

@@ -658,9 +658,9 @@ void MainView::setupMenuBar()
     new KAction( i18n("Change Password..."), 0, this, SLOT( changePassword() ),
                  actionCollection(), "changeScopePasswd" );
 
-    _setDefaultPos = new KAction( i18n("Mark Current View as Lock"), 0, this, SLOT( setDefaultScopePositive() ),
+    _setDefaultPos = new KAction( i18n("Lock Away All Other Images"), 0, this, SLOT( setDefaultScopePositive() ),
                                   actionCollection(), "setDefaultScopePositive" );
-    _setDefaultNeg = new KAction( i18n("Mark Everything but Current View as Lock"), 0, this, SLOT( setDefaultScopeNegative() ),
+    _setDefaultNeg = new KAction( i18n("Lock Away Current Set of Images"), 0, this, SLOT( setDefaultScopeNegative() ),
                                   actionCollection(), "setDefaultScopeNegative" );
 
     // Maintenance

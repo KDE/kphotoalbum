@@ -1,5 +1,8 @@
 2004-11-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Renamed the menu bar descriptions for locking, so it hopefully
+	is easier to understand.
+
 	* update progress dialog for loading info from images after each
 	image, rather than after every ten images. This matters if the
 	images are say 80Mb large.

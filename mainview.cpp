@@ -820,13 +820,19 @@ void MainView::load()
         configFile = Util::setupDemo();
     else {
         KSimpleConfig config( QString::fromLatin1("kimdaba") );
+        bool showWelcome = false;
         if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
             configFile = config.readEntry( QString::fromLatin1("configfile") );
             if ( !QFileInfo( configFile ).exists() )
-                configFile = welcome();
+                showWelcome = true;
         }
         else
+            showWelcome = true;
+
+        if ( showWelcome ) {
+            MySplashScreen::instance()->hide();
             configFile = welcome();
+        }
     }
 
     Util::checkForBackupFile( configFile );

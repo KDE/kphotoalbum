@@ -728,6 +728,7 @@ void ImageConfig::slotDeleteImage()
     _origList.removeRef( info );
     _editList.remove( _editList.at( _current ) );
     _thumbnailShouldReload = true;
+    emit changed();
     if ( _origList.count() == 0 ) {
         slotOK();
         return;

@@ -67,6 +67,9 @@ protected slots:
     void unlockFromDefaultScope();
     void changePassword();
     void slotConfigureKeyBindings();
+    void slotSetFileName( const QString& );
+    void slotThumbNailSelectionChanged();
+    void reloadThumbNail();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -81,6 +84,7 @@ protected:
     virtual void contextMenuEvent( QContextMenuEvent* e );
     void setDirty( bool b );
     void setLocked( bool b );
+    void configImages( const ImageInfoList& list, bool oneAtATime );
 
 private:
     static MainView* _instance;
@@ -102,6 +106,10 @@ private:
     KAction* _setDefaultPos;
     KAction* _setDefaultNeg;
     HTMLExportDialog* _htmlDialog;
+    KAction* _configOneAtATime;
+    KAction* _configAllSimultaniously;
+    KAction* _viewSelected;
+    KAction* _viewSelectedInNewWindow;
 };
 
 

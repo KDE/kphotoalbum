@@ -377,7 +377,7 @@ void ImageConfig::writeToInfo()
 }
 
 
-void ImageConfig::configure( ImageInfoList list, bool oneAtATime )
+int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
 {
     if ( oneAtATime )
         _setup = SINGLE;
@@ -417,7 +417,9 @@ void ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         _nextBut->setEnabled( false );
     }
 
-    exec();
+    _rotated = false;
+
+    return exec();
 }
 
 ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
@@ -680,6 +682,7 @@ void ImageConfig::rotateRight()
 
 void ImageConfig::rotate( int angle )
 {
+    _rotated = true;
     if ( _setup == MULTIPLE ) {
         // In slotOK the preview will be queried for its angle.
     }
@@ -688,6 +691,11 @@ void ImageConfig::rotate( int angle )
         info.rotate(angle);
     }
     _preview->rotate( angle );
+}
+
+bool ImageConfig::rotated() const
+{
+    return _rotated;
 }
 
 #include "imageconfig.moc"

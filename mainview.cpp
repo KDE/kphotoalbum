@@ -75,6 +75,8 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     _thumbNailView = new ThumbNailView( _stack );
 
+    connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
+
     _stack->addWidget( _browser );
     _stack->addWidget( _thumbNailView );
     setCentralWidget( _stack );
@@ -109,6 +111,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
     connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
+    connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
     // PENDING(blackie) ImageDB should emit a signal when total changes.
     total->setTotal( ImageDB::instance()->totalCount() );
@@ -141,7 +144,7 @@ void MainView::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
-        connect( _optionsDialog, SIGNAL( changed() ), _thumbNailView, SLOT( reload() ) );
+        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbNail() ) );
     }
     _optionsDialog->exec();
     startAutoSaveTimer(); // In case auto save period has changed, we better restart the timer.
@@ -174,8 +177,48 @@ void MainView::configureImages( bool oneAtATime )
 
 void MainView::configureImages( const ImageInfoList& list, bool oneAtATime )
 {
-    _instance->createImageConfig();
-    _instance->_imageConfigure->configure( list,  oneAtATime );
+    _instance->configImages( list, oneAtATime );
+}
+
+
+void MainView::configImages( const ImageInfoList& list, bool oneAtATime )
+{
+    createImageConfig();
+    int x = _thumbNailView->contentsX();
+    int y = _thumbNailView->contentsY() + Options::instance()->thumbSize()/2;
+    int w = _thumbNailView->contentsWidth();
+    int h =_thumbNailView->contentsHeight() - Options::instance()->thumbSize()/2;
+    QString firstName;
+    QString lastName;
+    QIconViewItem* item = _thumbNailView->findFirstVisibleItem( QRect(x,y,w,h) );
+    if ( item ) {
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        firstName = tn->fileName();
+    }
+    item = _thumbNailView->findLastVisibleItem( QRect(x,y,w,h) );
+    if ( item ) {
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        lastName = tn->fileName();
+    }
+
+    int ret = _imageConfigure->configure( list,  oneAtATime );
+    if ( ret == QDialog::Accepted && _imageConfigure->rotated() ) {
+        reloadThumbNail();
+
+        QIconViewItem* firstItem = 0;
+        QIconViewItem* lastItem = 0;
+        for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
+            ThumbNail* tn = static_cast<ThumbNail*>( item );
+            if ( tn->fileName() == firstName )
+                firstItem = item;
+            if ( tn->fileName() == lastName )
+                lastItem = item;
+        }
+        if ( lastItem )
+            _thumbNailView->ensureItemVisible( lastItem );
+        if ( firstItem )
+            _thumbNailView->ensureItemVisible( firstItem );
+    }
 }
 
 
@@ -238,7 +281,7 @@ void MainView::slotDeleteSelected()
         _deleteDialog = new DeleteDialog( this );
     if ( _deleteDialog->exec( selected() ) == QDialog::Accepted )
         setDirty( true );
-    _thumbNailView->reload();
+    reloadThumbNail();
 }
 
 
@@ -287,6 +330,7 @@ void MainView::slotViewSelected( bool reuse )
             viewer->show();
         }
         viewer->load( list2 );
+        viewer->raise();
     }
 }
 
@@ -320,7 +364,7 @@ void MainView::slotLimitToSelected()
         Q_ASSERT( tn );
         tn->imageInfo()->setVisible( item->isSelected() );
     }
-    _thumbNailView->reload();
+    reloadThumbNail();
 }
 
 void MainView::setupMenuBar()
@@ -346,16 +390,16 @@ void MainView::setupMenuBar()
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
                  actionCollection(), "deleteSelected" );
-    new KAction( i18n( "&One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
-                 actionCollection(), "oneProp" );
-    new KAction( i18n( "&All Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
-                 actionCollection(), "allProp" );
+    _configOneAtATime = new KAction( i18n( "&One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+                                     actionCollection(), "oneProp" );
+    _configAllSimultaniously = new KAction( i18n( "&All Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+                                            actionCollection(), "allProp" );
 
     // The Images menu
-    new KAction( i18n("View Selected"), Key_I, this, SLOT( slotViewSelected() ),
-                 actionCollection(), "viewImages" );
-    new KAction( i18n("View Selected (In new window)"), CTRL+Key_I, this, SLOT( slotViewSelectedNewWindow() ),
-                 actionCollection(), "viewImagesNewWindow" );
+    _viewSelected = new KAction( i18n("View Selected"), Key_I, this, SLOT( slotViewSelected() ),
+                                 actionCollection(), "viewImages" );
+    _viewSelectedInNewWindow = new KAction( i18n("View Selected (In new window)"), CTRL+Key_I, this, SLOT( slotViewSelectedNewWindow() ),
+                                           actionCollection(), "viewImagesNewWindow" );
     new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                  actionCollection(), "limitToMarked" );
 
@@ -420,7 +464,7 @@ void MainView::slotAutoSave()
 
 void MainView::showThumbNails()
 {
-    _thumbNailView->reload();
+    reloadThumbNail();
     _stack->raiseWidget( _thumbNailView );
 }
 
@@ -596,16 +640,13 @@ void MainView::load()
 void MainView::contextMenuEvent( QContextMenuEvent* )
 {
     QPopupMenu menu;
-    int id1 = menu.insertItem( i18n( "Set properties one image at a time" ),
-                               this, SLOT( slotConfigureImagesOneAtATime() ) );
-    int id2 = menu.insertItem( i18n( "Set properties for all selected images" ),
-                               this, SLOT( slotConfigureAllImages() ) );
+    _configOneAtATime->plug( &menu );
+    _configAllSimultaniously->plug( &menu );
 
-    ImageInfoList sel = selected();
-    if ( sel.count() <= 1 )
-        menu.setItemEnabled( id2, false );
-    if ( sel.count() == 0 )
-        menu.setItemEnabled( id1, false );
+    menu.insertSeparator();
+
+    _viewSelected->plug( &menu );
+    _viewSelectedInNewWindow->plug( &menu );
 
     menu.exec( QCursor::pos() );
 }
@@ -714,6 +755,38 @@ void MainView::changePassword()
 void MainView::slotConfigureKeyBindings()
 {
     KKeyDialog::configure( actionCollection() );
+}
+
+void MainView::slotSetFileName( const QString& fileName )
+{
+    statusBar()->message( fileName, 4000 );
+}
+
+void MainView::slotThumbNailSelectionChanged()
+{
+    bool oneSelected = false;
+    bool manySelected = false;
+    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
+        if ( item->isSelected() ) {
+            if ( ! oneSelected )
+                oneSelected = true;
+            else {
+                manySelected = true;
+                break;
+            }
+        }
+    }
+
+    _configAllSimultaniously->setEnabled( manySelected );
+    _configOneAtATime->setEnabled( oneSelected );
+    _viewSelected->setEnabled( oneSelected );
+    _viewSelectedInNewWindow->setEnabled( oneSelected );
+}
+
+void MainView::reloadThumbNail()
+{
+    _thumbNailView->reload();
+    slotThumbNailSelectionChanged();
 }
 
 #include "mainview.moc"

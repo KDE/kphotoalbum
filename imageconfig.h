@@ -38,10 +38,11 @@ class ImageConfig :public QDialog {
     Q_OBJECT
 public:
     ImageConfig( QWidget* parent, const char* name = 0 );
-    void configure( ImageInfoList list,  bool oneAtATime );
+    int configure( ImageInfoList list,  bool oneAtATime );
     ImageSearchInfo search( ImageSearchInfo* search = 0 );
     void writeDockConfig( QDomElement& doc );
     void readDockConfig( QDomElement& doc );
+    bool rotated() const;
 
 signals:
     void changed();
@@ -88,6 +89,7 @@ private:
     int _accept;
     QValueList<KDockWidget*> _dockWidgets;
     QValueList<KDockWidget*> _tornOfWindows;
+    bool _rotated;
 
     // Widgets
     KDockMainWindow* _dockWindow;

@@ -39,10 +39,13 @@ public slots:
 
 signals:
     void changed();
+    void fileNameChanged( const QString& );
 
 protected slots:
     void showImage( QIconViewItem* );
     virtual void startDrag();
+    void slotOnItem( QIconViewItem* );
+    void slotOnViewPort();
 
 protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );

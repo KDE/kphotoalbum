@@ -42,6 +42,8 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( executed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
     setSelectionMode( Extended );
     _iconViewToolTip = new IconViewToolTip( this );
+    connect( this, SIGNAL( onItem( QIconViewItem* ) ), this, SLOT( slotOnItem( QIconViewItem* ) ) );
+    connect( this, SIGNAL( onViewport() ), this, SLOT( slotOnViewPort() ) );
 }
 
 
@@ -228,6 +230,19 @@ QDragObject* ThumbNailView::dragObject()
 
     else
         return 0;
+}
+
+void ThumbNailView::slotOnItem( QIconViewItem* item )
+{
+    if ( item ) {
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        emit fileNameChanged( tn->fileName() );
+    }
+}
+
+void ThumbNailView::slotOnViewPort()
+{
+    emit fileNameChanged( QString::fromLatin1("") );
 }
 
 #include "thumbnailview.moc"

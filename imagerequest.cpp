@@ -21,6 +21,7 @@ bool ImageRequest::isNull() const
 
 QString ImageRequest::fileName() const
 {
+    QMutexLocker dummy( &_lock );
     return const_cast<ImageRequest*>(this)->_fileName;
 }
 
@@ -36,6 +37,7 @@ int ImageRequest::height() const
 
 bool ImageRequest::operator<( const ImageRequest& other ) const
 {
+    QMutexLocker dummy( &_lock );
     ImageRequest& o = const_cast<ImageRequest&>( other );
     ImageRequest& t = const_cast<ImageRequest&>( *this );
 
@@ -51,6 +53,7 @@ bool ImageRequest::operator<( const ImageRequest& other ) const
 
 bool ImageRequest::operator==( const ImageRequest& other ) const
 {
+    QMutexLocker dummy( &_lock );
     // Compare all atributes but the pixmap.
     ImageRequest& t = const_cast<ImageRequest&>( *this );
     ImageRequest& o = const_cast<ImageRequest&>( other );
@@ -109,4 +112,3 @@ bool ImageRequest::stillNeeded() const
 {
     return true;
 }
-

@@ -67,7 +67,7 @@ private:
     QValueList<ImageRequest*> _loadList;
     QWaitCondition _sleepers;
     QMutex _lock;
-    QMap<ImageRequest*, ImageClient*> _clientMap;
+    QValueList<ImageRequest*> _clientList;
     ImageRequest* _currentLoading;
 };
 

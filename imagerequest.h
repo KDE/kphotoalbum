@@ -4,6 +4,7 @@
 #include "imageclient.h"
 #include <qdeepcopy.h>
 #include <qsize.h>
+#include <qmutex.h>
 
 class ImageRequest {
 public:
@@ -45,6 +46,7 @@ private:
     QSize _fullSize;
     bool _priority;
     bool _loadedOK;
+    mutable QMutex _lock;
 };
 
 

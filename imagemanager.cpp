@@ -22,6 +22,7 @@
 #include "imageclient.h"
 #include <qdatetime.h>
 #include <qmutex.h>
+#include <qapplication.h>
 
 ImageManager* ImageManager::_instance = 0;
 
@@ -70,7 +71,7 @@ void ImageManager::load( ImageRequest* request )
         _loadList.append( request );
 
     if ( request->client() )
-        _clientMap.insert( request, request->client() ); // PENDING(blackie) why do I need a map, couldn't I just go directly to the request?
+        _clientList.append( request );
     _sleepers.wakeOne();
 }
 
@@ -81,12 +82,15 @@ ImageRequest* ImageManager::next()
     while ( _loadList.count() != 0 ) {
         request = _loadList.first();
         _loadList.pop_front();
+        // qApp->lock(); // stillNeeded are likely to do a GUI operation - this is on a thread, lock qApp!
         if ( !request->stillNeeded() ) {
+            _clientList.remove( request );
             delete request;
             request = 0;
         }
         else
             break;
+        // qApp->unlock();
     }
     _currentLoading = request;
     return request;
@@ -104,12 +108,12 @@ void ImageManager::customEvent( QCustomEvent* ev )
         ImageRequest* request = iev->loadInfo();
         QImage image = iev->image();
 
-        if ( _clientMap.contains( request ) )  {
-            // If it is not in the map, then it has been deleted since the request.
-            ImageClient* client = _clientMap[request];
+        if ( _clientList.contains( request ) )  {
+            // If it is not in the map, then it has been canceled (though ::stop) since the request.
+            ImageClient* client = request->client();
 
             client->pixmapLoaded( request->fileName(), QSize(request->width(), request->height()), request->fullSize(), request->angle(), image, request->loadedOK() );
-            _clientMap.remove(request);
+            _clientList.remove(request);
             delete request;
         }
     }
@@ -138,12 +142,11 @@ ImageManager* ImageManager::instance()
 void ImageManager::stop( ImageClient* client, StopAction action )
 {
     // remove from active map
-    for( QMapIterator<ImageRequest*,ImageClient*> it= _clientMap.begin(); it != _clientMap.end(); ) {
-        ImageRequest* request = it.key();
-        ImageClient* data = it.data();
+    for( QValueList<ImageRequest*>::Iterator it = _clientList.begin(); it != _clientList.end(); ) {
+        ImageRequest* request = *it;
         ++it; // We need to increase it before removing the element.
-        if ( data == client && ( action == StopAll || !request->priority() ) )
-            _clientMap.remove( request );
+        if ( client == request->client() && ( action == StopAll || !request->priority() ) )
+            _clientList.remove( request );
     }
 
     // remove from pending map.

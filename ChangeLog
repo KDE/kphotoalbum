@@ -1,5 +1,9 @@
 2005-01-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Made it possible to check if an image in the image loader was
+	needed just prior to loading it - this speeds up page down in the
+	thumbnail view
+
 	* Made the settings dialog non modal, and added an apply button.
 
 	* Finally the new thumbnail view seems to work.

@@ -1,3 +1,7 @@
+2004-03-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added Maintenance->remove all thumbnails and Maintenance->build thumbnails
+
 2004-03-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: now we are doing boundary check when panning, so you

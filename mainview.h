@@ -78,6 +78,8 @@ protected slots:
     void slotShowNotOnDisk();
     void markDirty();
     void donateMoney();
+    void slotRemoveAllThumbnails();
+    void slotBuildThumbnails();
 
 protected:
     void configureImages( bool oneAtATime );

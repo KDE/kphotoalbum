@@ -61,6 +61,8 @@
 #include "externalpopup.h"
 #include <donate.h>
 #include <kstdaction.h>
+#include "deletethumbnailsdialog.h"
+#include "thumbnailbuilder.h"
 
 MainView* MainView::_instance = 0;
 
@@ -446,6 +448,9 @@ void MainView::setupMenuBar()
     new KAction( i18n("Display Images not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
+    new KAction( i18n("Remove all thumbnails..."), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
+    new KAction( i18n("Build thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
+
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
@@ -482,7 +487,7 @@ void MainView::setupMenuBar()
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
     connect( taction, SIGNAL( toggled( bool ) ), _thumbNailView, SLOT( showToolTipsOnImages( bool ) ) );
     new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
-    new KAction( i18n("Donate Money"), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
+    new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     createGUI( QString::fromLatin1( "kimdabaui.rc" ) );
@@ -915,6 +920,18 @@ void MainView::updateStates( bool thumbNailView )
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
+}
+
+void MainView::slotRemoveAllThumbnails()
+{
+    QStringList files;
+    DeleteThumbnailsDialog dialog( this );
+    dialog.exec();
+}
+
+void MainView::slotBuildThumbnails()
+{
+    new ThumbnailBuilder( this ); // It will delete itself
 }
 
 #include "mainview.moc"

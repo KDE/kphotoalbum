@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="4">
+<kpartgui name="kimdaba" version="5">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -32,6 +32,9 @@
       <Action name="findUnavailableImages"/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
+      <Separator/>
+      <Action name="removeAllThumbs"/>
+      <Action name="buildThumbs"/>
    </Menu>
    <Menu name="help">
      <Action name="showToolTipOnImages"/>

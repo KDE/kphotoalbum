@@ -363,3 +363,4 @@ QMap<QString,QVariant> Util::getEXIF( const QString& fileName )
     }
     return map;
 }
+

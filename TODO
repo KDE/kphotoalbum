@@ -46,16 +46,12 @@ Features for a soonish version
 - Add a message box with information about how the imageconfig window
 works. (with a do-not-show-again checkbox)
 - make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
-- add Maintenance/remove all thumbnails and Maintenance/regenerate all thumbnails.
 - make it possible to find images with only a given set of persons on.
   The following syntax might do it: "A & B & None", would be the same as A
   & B and no one else.
 
 - In search mode, radio buttons labeled "Or" and "And" should be available
   to tell how the items in the listbox should be combined.
-- Allow sorting for each listbox in the image configure dialog.
-  one icon should show a calender for sorting by date, one should show a
-  letter for sorting alphabetically
 - remember windows sizes so they can be restored on start up
 - make it possible to disable the labels from the thumbnail views
 
@@ -98,14 +94,6 @@ Features still to be considered (aka not likely to go in next release)
 - the search dialog does currently support &,|, and ! 
   (example Anne Helene & !Jesper )
   add support for parenthesis (example Spiff & ( Anne Helene | Jesper ) )
-- A feature where you can set how much time the Info Box will be present on an 
-  image during a Slide Show. The time could be proportional to the delay 
-  between slides. For example:
-  Delay between slides: 10s
-  Info Box present during: 50% of the time  
-  So, after five seconds the Info will Box vanish.
-- A menu point for removeing all Thumbs (for storing the pictures on CD)
-- A menu point for removeing all Thumbs (for storing the pictures on CD)
 - Viewer: Sort the order of Person names "Alice" before "Bob"
 -Viewer: I would like to add a kind of passport picture to some persons/
  locations they could be displayed as mouseover effects on their name. I made 

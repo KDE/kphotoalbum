@@ -35,10 +35,11 @@ kimdaba_SOURCES = main.cpp \
 	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp \
 	datefolder.cpp groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp thumbnailbuilder.cpp \
-	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp
+	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
+	myimageinfo.cpp myimagecollection.cpp plugininterface.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -lktexteditor -ljpeg
+kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -lktexteditor -ljpeg -lkipi
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS)

@@ -44,6 +44,8 @@ public:
     MainView( QWidget* parent,  const char* name = 0 );
     static void configureImages( const ImageInfoList& list, bool oneAtATime );
     static MainView* theMainView();
+    ImageInfoList selected();
+    ImageInfoList currentView();
 
 protected slots:
     bool slotExit();
@@ -92,8 +94,6 @@ protected slots:
 
 protected:
     void configureImages( bool oneAtATime );
-    ImageInfoList selected();
-    ImageInfoList currentView();
     QString welcome();
     virtual void closeEvent( QCloseEvent* e );
     void setupMenuBar();
@@ -107,6 +107,7 @@ protected:
     void configImages( const ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
     ImageInfoList getSelectedOnDisk();
+    void loadPlugins();
 
 private:
     static MainView* _instance;

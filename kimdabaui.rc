@@ -1,10 +1,12 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="14">
+<kpartgui name="kimdaba" version="17">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
       <Action name="import"/>
       <Action name="export"/>
+      <ActionList name="file_actions"/>
+      <Separator/>
     </Menu>
     <Menu name="edit" >
       <Action name="deleteSelected" />
@@ -32,6 +34,12 @@
         <Action name="setDefaultScopePositive" />
         <Action name="setDefaultScopeNegative" />
       </Menu>
+      <separator/>
+      <Menu name="tools">
+        <text>&amp;Tools</text>
+        <ActionList name="tool_actions"/>
+      </Menu>
+      <ActionList name="image_actions"/>  
     </Menu>
    <Menu name="maintenance">
       <text>&amp;Maintenance</text>

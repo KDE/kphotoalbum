@@ -67,6 +67,9 @@
 #include <kedittoolbar.h>
 #include "export.h"
 #include "import.h"
+#include "plugininterface.h"
+#include <libkipi/pluginloader.h>
+#include <libkipi/plugin.h>
 
 MainView* MainView::_instance = 0;
 
@@ -132,6 +135,8 @@ MainView::MainView( QWidget* parent, const char* name )
     statusBar()->message(i18n("Welcome to KimDaBa"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
+
+    loadPlugins();
 }
 
 void MainView::delayedInit()
@@ -640,7 +645,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-    createGUI( QString::fromLatin1( "kimdabaui.rc" ) );
+    createGUI( QString::fromLatin1( "kimdabaui.rc" ), false );
 }
 
 void MainView::slotExportToHTML()
@@ -1149,6 +1154,47 @@ void MainView::slotReenableMessages()
     if ( ret == KMessageBox::Yes )
         KMessageBox::enableAllMessages();
 
+}
+
+void MainView::loadPlugins()
+{
+    // Sets up the plugin interface, and load the plugins
+    PluginInterface* interface = new PluginInterface( this, "demo interface" );
+    KIPI::PluginLoader* loader = new KIPI::PluginLoader( interface );
+    loader->loadPlugins();
+
+    QPtrList<KAction> fileActions;
+    QPtrList<KAction> imageActions;
+    QPtrList<KAction> toolsActions;
+
+    KIPI::PluginLoader::List list = loader->pluginList();
+    for( QPtrListIterator<KIPI::Plugin> it( list ); *it; ++it ) {
+        KIPI::Plugin* plugin = *it;
+        QPtrList<KAction>* popup = 0;
+        if ( plugin->category() == KIPI::IMAGESPLUGIN )
+            popup = &imageActions;
+
+        else if ( plugin->category() == KIPI::EXPORTPLUGIN  || plugin->category() == KIPI::IMPORTPLUGIN )
+            popup = &fileActions;
+
+        else if ( plugin->category() == KIPI::TOOLSPLUGIN )
+            popup = &toolsActions;
+
+        if ( popup ) {
+            KActionCollection *actions = plugin->actionCollection();
+            for (unsigned int i=0; i < actions->count(); i++) {
+                popup->append( actions->action(i) );
+            }
+        }
+        else {
+            qDebug("No menu found for %s", plugin->id().latin1());
+        }
+    }
+
+    // For this to work I need to pass false as second arg for createGUI
+    plugActionList( QString::fromLatin1("file_actions"), fileActions );
+    plugActionList( QString::fromLatin1("image_actions"), imageActions );
+    plugActionList( QString::fromLatin1("tool_actions"), toolsActions );
 }
 
 #include "mainview.moc"

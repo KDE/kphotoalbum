@@ -1,0 +1,12 @@
+if test x$have_kipi = xno; then
+    echo ""
+    echo ""
+    echo "------------------------------------------"
+    echo "           W A R N I N G                  "
+    echo "------------------------------------------"
+    echo ""
+	echo "You are missing the KIPI plugin interface from kdeextragear-libs-1"
+    echo "Compilation of KimDaBa has therefore been disabled."
+    echo ""
+    echo ""
+fi

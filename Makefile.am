@@ -25,7 +25,7 @@ kpalbum_SOURCES = main.cpp \
 	editor.cpp \
 	showbusycursor.cpp \
 	displayarea.cpp \
-	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp
+	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp
 
 kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH) -lktexteditor
 kpalbum_LDADD = $(LIB_KIO) $(LIBJPEG)

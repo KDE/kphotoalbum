@@ -8,6 +8,7 @@ public:
     RectDraw( QWidget* widet );
     void draw( QPainter&, QMouseEvent* );
     virtual PointList anchorPoints();
+    virtual Draw* clone();
 };
 
 #endif /* RECTDRAW_H */

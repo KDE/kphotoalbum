@@ -8,6 +8,7 @@ public:
     CircleDraw( QWidget* widget );
     void draw( QPainter&, QMouseEvent* );
     virtual PointList anchorPoints();
+    virtual Draw* clone();
 };
 
 #endif /* CIRCLEDRAW_H */

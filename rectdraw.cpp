@@ -18,3 +18,13 @@ PointList RectDraw::anchorPoints()
         << g2w(QPoint( _lastPos.x(), _startPos.y() ));
     return res;
 }
+
+Draw* RectDraw::clone()
+{
+    RectDraw* res = new RectDraw( _widget );
+    *res = *this;
+    return res;
+
+}
+
+

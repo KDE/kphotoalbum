@@ -34,6 +34,8 @@ protected:
     void saveOptions();
     void setDisplayedPixmap();
     void setupContextMenu();
+    virtual void close();
+    ImageInfo* currentInfo();
 
 protected slots:
     void showNext();
@@ -51,6 +53,7 @@ protected slots:
     void toggleShowNames( bool );
     void toggleShowLocation( bool );
     void toggleShowKeyWords( bool );
+    void save();
     void startDraw();
     void stopDraw();
 
@@ -66,7 +69,6 @@ private:
     DisplayArea* _label;
     ImageInfoList _list;
     int _current;
-    ImageInfo _info;
     bool _moving;
     QRect _textRect;
     QPopupMenu* _popup;

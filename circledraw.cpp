@@ -20,3 +20,11 @@ PointList CircleDraw::anchorPoints()
         << QPoint( g2w(_lastPos).x(), center.y() );
     return res;
 }
+
+Draw* CircleDraw::clone()
+{
+    CircleDraw* res = new CircleDraw( _widget );
+    *res = *this;
+    return res;
+
+}

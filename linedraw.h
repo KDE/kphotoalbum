@@ -8,6 +8,7 @@ public:
     LineDraw( QWidget* widget );
     void draw( QPainter&, QMouseEvent* );
     virtual PointList anchorPoints();
+    virtual Draw* clone();
 };
 
 #endif /* LINEDRAW_H */

@@ -168,3 +168,17 @@ void DisplayArea::setupPainter( QPainter& painter )
     painter.setPen( QPen( Qt::black, 3 ) );
 }
 
+DrawList DisplayArea::drawList() const
+{
+    return _drawings;
+}
+
+void DisplayArea::setDrawList( const DrawList& list )
+{
+    _drawings = list;
+    drawAll();
+}
+
+
+
+

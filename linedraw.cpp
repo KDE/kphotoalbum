@@ -44,3 +44,10 @@ PointList LineDraw::anchorPoints()
     res << g2w(_startPos) << g2w(_lastPos) << g2w(_startPos) + g2w((_lastPos - _startPos) / 2);
     return res;
 }
+
+Draw* LineDraw::clone()
+{
+    LineDraw* res = new LineDraw( _widget );
+    *res = *this;
+    return res;
+}

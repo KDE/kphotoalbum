@@ -152,7 +152,7 @@ void Viewer::setupContextMenu()
     action->addTo( _popup );
 
     action = new QAction( "Close",  QIconSet(), "Close", Key_Q, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( hide() ) );
+    connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
     action->addTo( _popup );
 }
 
@@ -160,7 +160,6 @@ void Viewer::load( const ImageInfoList& list, int index )
 {
     _list = list;
     _current = index;
-    _info = *( _list.at( _current ) );
     load();
 }
 
@@ -176,6 +175,8 @@ void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QPixmap& pix
 
     _pixmap = pixmap;
     setDisplayedPixmap();
+    _label->setDrawList( currentInfo()->drawList() );
+    qDebug("Loading!");
 }
 
 void Viewer::load()
@@ -183,7 +184,7 @@ void Viewer::load()
     QRect rect = QApplication::desktop()->screenGeometry( this );
     int w, h;
 
-    if ( _info.angle() == 0 || _info.angle() == 180 )  {
+    if ( currentInfo()->angle() == 0 || currentInfo()->angle() == 180 )  {
         w = _width;
         h = _height;
     }
@@ -203,7 +204,7 @@ void Viewer::load()
 
     _label->setText( "Loading..." );
 
-    ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), w,  h, false, true );
+    ImageManager::instance()->load( currentInfo()->fileName( false ), this, currentInfo()->angle(), w,  h, false, true );
     _nextAction->setEnabled( _current +1 < (int) _list.count() );
     _prevAction->setEnabled( _current > 0 );
     _firstAction->setEnabled( _current > 0 );
@@ -222,35 +223,35 @@ void Viewer::setDisplayedPixmap()
         QString text = "" ;
         if ( Options::instance()->showDate() )  {
             text += "<b>Date:</b> ";
-            if ( _info.startDate().isNull() )
+            if ( currentInfo()->startDate().isNull() )
                 text += "Unknown";
-            else if ( _info.endDate().isNull() )
-                text += _info.startDate();
+            else if ( currentInfo()->endDate().isNull() )
+                text += currentInfo()->startDate();
             else
-                text += _info.startDate() + " to " + _info.endDate();
+                text += currentInfo()->startDate() + " to " + currentInfo()->endDate();
             text += "<br>";
         }
 
         // PENDING(blackie) The key is used both as a key and a label, which is a problem here.
         if ( Options::instance()->showLocation() )  {
-            QString location = _info.optionValue( "Locations" ).join( ", " );
+            QString location = currentInfo()->optionValue( "Locations" ).join( ", " );
             if ( location )
                 text += "<b>Location:</b> " + location + "<br>";
         }
 
         if ( Options::instance()->showNames() ) {
-            QString persons = _info.optionValue( "Persons" ).join( ", " );
+            QString persons = currentInfo()->optionValue( "Persons" ).join( ", " );
             if ( persons )
                 text += "<b>Persons:</b> " + persons + "<br>";
         }
 
-        if ( Options::instance()->showDescription() && !_info.description().isEmpty())  {
+        if ( Options::instance()->showDescription() && !currentInfo()->description().isEmpty())  {
             if ( !text.isEmpty() )
-                text += "<b>Description:</b> " +  _info.description() + "<br>";
+                text += "<b>Description:</b> " +  currentInfo()->description() + "<br>";
         }
 
         if ( Options::instance()->showKeyWords() )  {
-            QString keyWords = _info.optionValue( "Keywords" ).join( ", " );
+            QString keyWords = currentInfo()->optionValue( "Keywords" ).join( ", " );
             if ( keyWords )
                 text += "<b>Key Words:</b> " + keyWords + "<br>";
         }
@@ -371,18 +372,18 @@ void Viewer::contextMenuEvent( QContextMenuEvent * e )
 
 void Viewer::showNext()
 {
+    save();
     if ( _current +1 < (int) _list.count() )  {
         _current++;
-        _info = *( _list.at( _current ) );
         load();
     }
 }
 
 void Viewer::showPrev()
 {
+    save();
     if ( _current > 0  )  {
         _current--;
-        _info = *( _list.at( _current ) );
         load();
     }
 }
@@ -406,19 +407,19 @@ void Viewer::zoomOut()
 
 void Viewer::rotate90()
 {
-    _info.rotate( 90 );
+    currentInfo()->rotate( 90 );
     load();
 }
 
 void Viewer::rotate180()
 {
-    _info.rotate( 180 );
+    currentInfo()->rotate( 180 );
     load();
 }
 
 void Viewer::rotate270()
 {
-    _info.rotate( 270 );
+    currentInfo()->rotate( 270 );
     load();
 }
 
@@ -472,21 +473,27 @@ Viewer::~Viewer()
 
 void Viewer::showFirst()
 {
+    save();
     _current = 0;
-    _info = *( _list.at( _current ) );
     load();
 }
 
 void Viewer::showLast()
 {
+    save();
      _current = _list.count() -1;
-     _info = *( _list.at( _current ) );
      load();
 }
 
 void Viewer::closeEvent( QCloseEvent* )
 {
-    hide();
+    close();
+}
+
+void Viewer::save()
+{
+    currentInfo()->setDrawList( _label->drawList() );
+    qDebug("Saving");
 }
 
 void Viewer::startDraw()
@@ -497,6 +504,17 @@ void Viewer::startDraw()
 void Viewer::stopDraw()
 {
     _toolbar->hide();
+}
+
+void Viewer::close()
+{
+    save();
+    hide();
+}
+
+ImageInfo* Viewer::currentInfo()
+{
+    return _list.at( _current );
 }
 
 #include "viewer.moc"

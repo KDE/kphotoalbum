@@ -18,7 +18,7 @@ public:
     virtual PointList anchorPoints() = 0;
     QPoint w2g( const QPoint& ); // widget2generic
     QPoint g2w( const QPoint& );
-
+    virtual Draw* clone() = 0;
 
 protected:
     QPoint _startPos;

@@ -10,6 +10,7 @@
 #include <qobject.h>
 #include <qdeepcopy.h>
 #include "imagedate.h"
+#include "drawlist.h"
 
 class ImageInfo {
 
@@ -50,6 +51,9 @@ public:
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );
 
+    DrawList drawList() const;
+    void setDrawList( const DrawList& );
+
 private:
      // This string is accessed on several threads, so we need to make it a deep copy!
     QString _indexDirectory, _fileName;
@@ -60,6 +64,7 @@ private:
     QMap<QString, QStringList> _options;
     int _angle;
     bool _visible;
+    DrawList _drawList;
 };
 
 typedef QPtrList<ImageInfo> ImageInfoList;

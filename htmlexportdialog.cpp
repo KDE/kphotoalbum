@@ -389,6 +389,8 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
         QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
         img.setAttribute( QString::fromLatin1( "src" ),
                           nameImage( (*it)->fileName(), _thumbSize->value() ) );
+        img.setAttribute( QString::fromLatin1( "alt" ),
+                          nameImage( (*it)->fileName(), _thumbSize->value() ) );
         href.appendChild( img );
         ++count;
     }
@@ -542,8 +544,8 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
         return false;
     }
 
-    QTextStream stream( &file );
-    stream << str;
+    QCString cstr = str.utf8();
+    file.writeBlock( cstr.data(), cstr.size() - 1);
     file.close();
     return true;
 }

@@ -268,7 +268,7 @@ void Survey::SurveyDialog::saveConfig( const QCString& xml )
     }
 }
 
-void Survey::SurveyDialog::setReveiver( const QString& emailAddress )
+void Survey::SurveyDialog::setReceiver( const QString& emailAddress )
 {
     d->emailAddress = emailAddress;
 }

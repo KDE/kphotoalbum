@@ -33,7 +33,7 @@ namespace Survey {
         ~SurveyDialog();
         void setFrontPage( QWidget* page );
         void setBackPage( QWidget* page );
-        void setReveiver( const QString& emailAddress );
+        void setReceiver( const QString& emailAddress );
         void setSurveyVersion( int major, int minor );
         void exec();
         void possibleExecSurvey( int minInvocations = 50, int remindCount = 10 );

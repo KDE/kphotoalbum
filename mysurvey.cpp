@@ -8,6 +8,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     :Survey::SurveyDialog( parent, name )
 {
     setSurveyVersion( 1, 0 );
+    setReceiver( QString::fromLatin1( "blackie@kde.org" ) );
 
     QStringList list;
     list << i18n("Yes") << i18n("No");

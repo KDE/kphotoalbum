@@ -544,6 +544,8 @@ void MainView::closeEvent( QCloseEvent* e )
     // If I made it here, then the user canceled
     if ( !quit )
         e->ignore();
+    else
+        e->accept();
 }
 
 
@@ -608,7 +610,7 @@ void MainView::setupMenuBar()
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
     _jumpToContext = new KAction( i18n("Jump to Context"), 0, this, SLOT( slotJumpToContext() ), actionCollection(), "jumpToContext" );
-
+    _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Small ) );
 
     _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
                          actionCollection(), "lockToDefaultScope" );
@@ -724,9 +726,6 @@ void MainView::slotAutoSave()
 
 void MainView::showThumbNails()
 {
-    if ( _stack->visibleWidget() == _thumbNailView )
-        return;
-
     reloadThumbNail();
     _stack->raiseWidget( _thumbNailView );
     _thumbNailView->setFocus();

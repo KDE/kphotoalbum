@@ -22,12 +22,21 @@
 #include "browser.h"
 #include <qfontmetrics.h>
 #include <qapplication.h>
+#include <qtoolbutton.h>
+#include <kglobal.h>
+#include <kiconloader.h>
+#include "mainview.h"
 InfoBox::InfoBox( Viewer* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
     setMidLineWidth(0);
+
+    _jumpToContext = new QToolButton( this );
+    _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 16 ) );
+    _jumpToContext->setFixedSize( 16, 16 );
+    connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
 }
 
 void InfoBox::setSource( const QString& which )
@@ -37,12 +46,7 @@ void InfoBox::setSource( const QString& which )
     QString category = p.first;
     QString value = p.second;
     Browser::instance()->load( category, value );
-
-    QDesktopWidget* desktop = qApp->desktop();
-    if ( desktop->screenNumber( Browser::instance() ) == desktop->screenNumber( _viewer ) &&
-         _viewer->showingFullScreen() ) {
-        _viewer->setShowFullScreen( false );
-    }
+    showBrowser();
 }
 
 void InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap )
@@ -54,7 +58,7 @@ void InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QStrin
 
 void InfoBox::setSize()
 {
-        int width = 200;
+    int width = 200;
     int height = 0, h2;
 
     do {
@@ -79,6 +83,7 @@ void InfoBox::setSize()
     else
         width+=10;
 
+    width+=16; // space for the jump to context icon
     resize( width +4*frameWidth(), height +4*frameWidth());
 
     // Force the scrollbar off. This is to ensuer that we don't get in the situation where an image might have fited,
@@ -87,6 +92,12 @@ void InfoBox::setSize()
     setHScrollBarMode( AlwaysOff );
     setVScrollBarMode( Auto );
     setHScrollBarMode( Auto );
+
+    int offset = 0;
+    if ( verticalScrollBar()->isShown() )
+        offset = verticalScrollBar()->width();
+    _jumpToContext->move( width +3*frameWidth() - 16 - offset, frameWidth() );
+
 }
 
 void InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
@@ -97,6 +108,23 @@ void InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
     }
     else
         QTextBrowser::contentsMouseMoveEvent( e );
+}
+
+void InfoBox::jumpToContext()
+{
+    Browser::instance()->addImageView( _viewer->currentInfo() );
+    showBrowser();
+}
+
+void InfoBox::showBrowser()
+{
+    QDesktopWidget* desktop = qApp->desktop();
+    if ( desktop->screenNumber( Browser::instance() ) == desktop->screenNumber( _viewer ) ) {
+        if (_viewer->showingFullScreen() )
+            _viewer->setShowFullScreen( false );
+        MainView::theMainView()->raise();
+    }
+
 }
 
 

@@ -66,6 +66,7 @@ protected:
     void updateInfoBox();
     void setupContextMenu();
     ImageInfo* currentInfo();
+    friend class InfoBox;
 
 protected slots:
     void showNext();

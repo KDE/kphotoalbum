@@ -17,13 +17,12 @@ different in the image property page.
 BUGS of less importance
 =======================
 - In the group editor (options->group), ensure that no cycles are created.
+- When going back in the thumbnail view, the view is positioned at the top,
+  rather than at its last current position.
 
 ==============================
 Features for a soonish version
 ==============================
-- make it possible to select individual persons on images, and associate
-  their names with that region - then generate an image map when generating
-  HTML
 - make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
 - For removing properties:
   I think a good solution would be:
@@ -57,6 +56,21 @@ caption
 - when using the back button, the window should position it correctly rather than at
 the top of the view. Thus if I in a persons view select Pete, then when
 going back to that persons view, Pete should be visible.
+-  When no selection is active, pgup/pgdn in the viewer work as if all
+pictures were selected.
+- When no selection is active, pgup/pgdn in the viewer work as if all
+  pictures were selected.
+- The "current image"/cursor are kept synchronized between the
+  thumbnails navigator, the viewer, and the keyword editor (C-1). In
+  particular, when hitting C-I while several images are selected,
+  display first the image on which the cursor currently is.
+- Use clickable breadcrumbs as commonly used on the web, where each
+  level in the hierarchy is a clickable link, allowing the user to
+  easily go back multiple levels with one click.  On the web they often
+  appear something like this:
+  Shopping >> Men's Clothing >> Outdoor gear
+- In the viewer it should be possible to click on the date, and get it to
+limit to that date.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

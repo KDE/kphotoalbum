@@ -19,6 +19,7 @@
 #ifndef INFOBOX_H
 #define INFOBOX_H
 #include <qtextbrowser.h>
+class QToolButton;
 class Viewer;
 
 class InfoBox :public QTextBrowser {
@@ -30,12 +31,17 @@ public:
     virtual void setSource( const QString& which );
     void setSize();
 
+protected slots:
+    void jumpToContext();
+
 protected:
     virtual void contentsMouseMoveEvent( QMouseEvent* );
+    void showBrowser();
 
 private:
     QMap<int, QPair<QString,QString> > _linkMap;
     Viewer* _viewer;
+    QToolButton* _jumpToContext;
 };
 
 

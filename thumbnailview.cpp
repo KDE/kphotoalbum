@@ -104,10 +104,19 @@ void ThumbNailView::reload()
     if ( list.isEmpty() )
         return;
 
+    ThumbNail* first = 0;
     for( ImageInfoListIterator it( list ); *it; ++it ) {
-        if ( (*it)->visible() )
-            new ThumbNail( *it,  this );
+        if ( (*it)->visible() ) {
+            ThumbNail* tn = new ThumbNail( *it,  this );
+            if ( !first )
+                first = tn;
+        }
     }
+    if ( first ) {
+        first->setSelected( true );
+        setCurrentItem( first );
+    }
+
     emitDateChange();
 }
 
@@ -311,6 +320,7 @@ void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
     if ( candidate ) {
         setContentsPos( candidate->x()+4, candidate->y()+4 );
         setCurrentItem( candidate );
+        candidate->setSelected( true );
     }
     _blockMoveSignals = block;
 }
@@ -326,6 +336,7 @@ void ThumbNailView::makeCurrent( ImageInfo* info )
         ThumbNail* tn = static_cast<ThumbNail*>( item );
         if ( tn->imageInfo() == info ) {
             setCurrentItem( tn );
+            tn->setSelected( true );
             ensureItemVisible( tn );
         }
     }

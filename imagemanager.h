@@ -30,6 +30,7 @@
 #include <qcache.h>
 #include "imagerequest.h"
 #include <qmutex.h>
+#include <qptrdict.h>
 
 class ImageClient;
 
@@ -67,7 +68,7 @@ private:
     QValueList<ImageRequest*> _loadList;
     QWaitCondition _sleepers;
     QMutex _lock;
-    QValueList<ImageRequest*> _clientList;
+    QPtrDict<void> _clientList;
     ImageRequest* _currentLoading;
 };
 

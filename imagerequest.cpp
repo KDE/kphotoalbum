@@ -21,8 +21,9 @@ bool ImageRequest::isNull() const
 
 QString ImageRequest::fileName() const
 {
-    QMutexLocker dummy( &_lock );
-    return const_cast<ImageRequest*>(this)->_fileName;
+    // We need a lock here to avoid a race condition in Operator T() of QDeepCopy
+    QMutexLocker dummy( &_fileNameLock );
+    return _fileName;
 }
 
 int ImageRequest::width() const
@@ -37,29 +38,22 @@ int ImageRequest::height() const
 
 bool ImageRequest::operator<( const ImageRequest& other ) const
 {
-    QMutexLocker dummy( &_lock );
-    ImageRequest& o = const_cast<ImageRequest&>( other );
-    ImageRequest& t = const_cast<ImageRequest&>( *this );
-
-    if ( (QString&) t._fileName != (QString&)o._fileName )
-        return t._fileName < o._fileName;
-    else if ( t._width != o._width )
-        return t._width < o._width;
-    else if ( t._height < o._height )
-        return t._height < o._height;
+    if (  fileName() != other.fileName() )
+        return fileName() < other.fileName();
+    else if ( _width != other._width )
+        return _width < other._width;
+    else if ( _height < other._height )
+        return _height < other._height;
     else
-        return t._angle < o._angle;
+        return _angle < other._angle;
 }
 
 bool ImageRequest::operator==( const ImageRequest& other ) const
 {
-    QMutexLocker dummy( &_lock );
     // Compare all atributes but the pixmap.
-    ImageRequest& t = const_cast<ImageRequest&>( *this );
-    ImageRequest& o = const_cast<ImageRequest&>( other );
-    return ( t._null == o._null && t._fileName == o._fileName &&
-             t._width == o._width && t._height == o._height &&
-             t._angle == o._angle );
+    return ( _null == other._null && fileName() == other.fileName() &&
+             _width == other._width && _height == other._height &&
+             _angle == other._angle );
 }
 
 

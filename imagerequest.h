@@ -37,7 +37,9 @@ public:
 
 private:
     bool _null;
-    QDeepCopy<QString> _fileName;
+    mutable QDeepCopy<QString> _fileName;
+    mutable QMutex _fileNameLock;
+
     int _width;
     int _height;
     bool _cache;
@@ -46,7 +48,6 @@ private:
     QSize _fullSize;
     bool _priority;
     bool _loadedOK;
-    mutable QMutex _lock;
 };
 
 

@@ -40,6 +40,7 @@ ImageManager* ImageManager::_instance = 0;
 */
 ImageManager::ImageManager() :_currentLoading(0)
 {
+    _clientList.resize( 9973 /* a large prime */ );
 }
 
 // We need this as a separate method as the _instance variable will otherwise not be initialized
@@ -60,18 +61,21 @@ void ImageManager::load( ImageRequest* request )
 
     // Delete other request for the same file from the same client
     for( QValueList<ImageRequest*>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
-        if ( (*it)->fileName() == request->fileName() && (*it)->client() == request->client() && (*it)->width() == request->width() && (*it)->height() == request->height())
-            it = _loadList.remove(it) ;
+        if ( (*it)->fileName() == request->fileName() && (*it)->client() == request->client() && (*it)->width() == request->width() && (*it)->height() == request->height()) {
+            return; // This image is already in the queue
+        }
         else
             ++it;
     }
+
     if ( request->priority() )
         _loadList.prepend( request );
     else
         _loadList.append( request );
 
     if ( request->client() )
-        _clientList.append( request );
+        _clientList.insert( request, (void*)0x01 /*something different from 0x0 */ );
+
     _sleepers.wakeOne();
 }
 
@@ -98,6 +102,7 @@ ImageRequest* ImageManager::next()
 
 void ImageManager::customEvent( QCustomEvent* ev )
 {
+    QMutexLocker dummy(&_lock );
     if ( ev->type() == 1001 )  {
         ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );
         if ( !iev )  {
@@ -108,12 +113,14 @@ void ImageManager::customEvent( QCustomEvent* ev )
         ImageRequest* request = iev->loadInfo();
         QImage image = iev->image();
 
-        if ( _clientList.contains( request ) )  {
+        if ( _clientList.find( request ) != 0 )  {
             // If it is not in the map, then it has been canceled (though ::stop) since the request.
             ImageClient* client = request->client();
 
             client->pixmapLoaded( request->fileName(), QSize(request->width(), request->height()), request->fullSize(), request->angle(), image, request->loadedOK() );
             _clientList.remove(request);
+            if ( _currentLoading == request )
+                _currentLoading = 0;
             delete request;
         }
     }
@@ -142,8 +149,8 @@ ImageManager* ImageManager::instance()
 void ImageManager::stop( ImageClient* client, StopAction action )
 {
     // remove from active map
-    for( QValueList<ImageRequest*>::Iterator it = _clientList.begin(); it != _clientList.end(); ) {
-        ImageRequest* request = *it;
+    for( QPtrDictIterator<void> it(_clientList); it.current(); ) {
+        ImageRequest* request = static_cast<ImageRequest*>(it.currentKey());
         ++it; // We need to increase it before removing the element.
         if ( client == request->client() && ( action == StopAll || !request->priority() ) )
             _clientList.remove( request );

@@ -14,7 +14,8 @@ class Viewer :public QDialog,  public ImageClient
 {
     Q_OBJECT
 public:
-    static Viewer* instance();
+    static Viewer* instance( QWidget* parent = 0 );
+    ~Viewer();
     void load( const ImageInfoList& list, int index = 0 );
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QPixmap& );
     virtual void show();

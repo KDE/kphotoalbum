@@ -14,10 +14,10 @@
 
 Viewer* Viewer::_instance = 0;
 
-Viewer* Viewer::instance()
+Viewer* Viewer::instance( QWidget* parent )
 {
     if ( !_instance )
-        _instance = new Viewer( 0, "viewer" );
+        _instance = new Viewer( parent , "viewer" );
     return _instance;
 }
 
@@ -419,5 +419,10 @@ void Viewer::toggleShowKeyWords( bool b )
     Options::instance()->save();
 }
 
+
+Viewer::~Viewer()
+{
+    _instance = 0;
+}
 
 #include "viewer.moc"

@@ -20,6 +20,8 @@
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
 {
+    // PENDING(blackie) Once this is rewritten to KDialogBase, do delayed initialization,
+    // we need to create this instance at startup, see comment in mainview.cpp constructor.
     persons->setLabel( "Persons" );
     keywords->setLabel( "Keywords" );
     locations->setLabel( "Locations" );

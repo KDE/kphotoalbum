@@ -18,7 +18,17 @@ MainView::MainView( QWidget* parent, const char* name )
     :MainViewUI( parent,  name ), _dirty( false )
 {
     _optionsDialog = 0;
-    _imageConfigure = 0;
+
+    // For modality to work, we need to create these here.
+    // Otherwise we would have this problem:
+    // The image config is brough up, from there we start the viewer
+    // The viewer was, however, already created, so all that is happening is a show
+    // The viewer is now not a child of the image config, and is therefore inaccessible
+    // given that the image config is modal.
+    _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
+    connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    (void) Viewer::instance( _imageConfigure );
+
     if ( Options::configFileExists() )
         load();
     else
@@ -68,11 +78,6 @@ void MainView::slotConfigureImagesOneAtATime()
 
 void MainView::configureImages( bool oneAtATime )
 {
-    if ( ! _imageConfigure ) {
-        _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
-        connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-    }
-
     ImageInfoList list = selected();
     if ( list.count() == 0 )  {
         QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );

@@ -812,11 +812,6 @@ void ImageConfig::setupFocus()
             (*orderedIt)->setFocus(); // Give focus to the first widget
 
         prev = *orderedIt;
-#if 0 // Debug code useful to see the chain.
-        int x = prev->mapToGlobal(QPoint(0,0)).x();
-        int y = prev->mapToGlobal(QPoint(0,0)).y();
-        qDebug("%s, %s %d: %d,%d", prev->name(), prev->className(), prev->isVisible(), x, y );
-#endif
     }
     delete list;
 }

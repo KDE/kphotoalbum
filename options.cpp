@@ -769,18 +769,22 @@ void Options::setAutoShowThumbnailView( bool b )
 
 void Options::createSpecialCategories()
 {
-    Q_ASSERT( CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Folder" ) ) == 0 );
-    _options.insert( QString::fromLatin1("Folder"), QStringList() );
-    Category* folderCat = new Category( QString::fromLatin1("Folder"), QString::fromLatin1("folder"), Category::Small, Category::ListView, false );
+    Category* folderCat = CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Folder" ) );
+    if( folderCat == 0 ) {
+        _options.insert( QString::fromLatin1("Folder"), QStringList() );
+        folderCat = new Category( QString::fromLatin1("Folder"), QString::fromLatin1("folder"), Category::Small, Category::ListView, false );
+        CategoryCollection::instance()->addCategory( folderCat );
+    }
     folderCat->setSpecialCategory( true );
-    CategoryCollection::instance()->addCategory( folderCat );
 
-    Q_ASSERT( CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Tokens" ) ) == 0 );
 
-    _options.insert( QString::fromLatin1("Tokens"), QStringList() );
-    Category* tokenCat = new Category( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"), Category::Small, Category::ListView, true );
+    Category* tokenCat = CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Tokens" ) );
+    if ( !tokenCat ) {
+        _options.insert( QString::fromLatin1("Tokens"), QStringList() );
+        tokenCat = new Category( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"), Category::Small, Category::ListView, true );
+        CategoryCollection::instance()->addCategory( tokenCat );
+    }
     tokenCat->setSpecialCategory( true );
-    CategoryCollection::instance()->addCategory( tokenCat );
 }
 
 #include "options.moc"

@@ -39,7 +39,6 @@ TokenEditor::TokenEditor( QWidget* parent, const char* name )
 void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
-    qDebug("%s", tokens.join( QString::fromLatin1( ", " ) ).latin1() );
 
     for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( false );

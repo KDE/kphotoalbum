@@ -56,9 +56,6 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
     bool anyAtAll = false;
     QStringList grps = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        if ( CategoryCollection::instance()->categoryForName(*it)->isSpecialCategory() )
-            continue; // Don't save special categories
-
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         QString name = *it;
         opt.setAttribute( QString::fromLatin1("name"),  name );
@@ -70,7 +67,13 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
             opt.setAttribute( QString::fromLatin1( "viewtype" ), categories->categoryForName(name)->viewType() );
         }
 
-        QStringList list = options[name];
+        // we don t save the values for the option "Folder" since it is automatically set
+        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
+        QStringList list;
+        if ( name== QString::fromLatin1("Folder") )
+            list = QStringList();
+        else
+            list = options[name];
         bool any = false;
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );

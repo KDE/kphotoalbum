@@ -116,13 +116,13 @@
   </geometry>
  </configWindowSetup>
  <member-groups>
-  <member group-name="Denmark" option-group="Locations" member="Esbjerg" />
-  <member group-name="Denmark" option-group="Locations" member="Pool Club" />
-  <member group-name="USA" option-group="Locations" member="Chicago" />
-  <member group-name="USA" option-group="Locations" member="Grand Canyon" />
-  <member group-name="USA" option-group="Locations" member="Santa Clara" />
-  <member group-name="Pets" option-group="Persons" member="Donna" />
-  <member group-name="Pets" option-group="Persons" member="Spiff" />
+  <member group-name="Denmark" category="Locations" member="Esbjerg" />
+  <member group-name="Denmark" category="Locations" member="Pool Club" />
+  <member group-name="USA" category="Locations" member="Chicago" />
+  <member group-name="USA" category="Locations" member="Grand Canyon" />
+  <member group-name="USA" category="Locations" member="Santa Clara" />
+  <member group-name="Pets" category="Persons" member="Donna" />
+  <member group-name="Pets" category="Persons" member="Spiff" />
  </member-groups>
  <images>
   <image monthFrom="8" dayFrom="31" hourFrom="0" yearTo="0" monthTo="0" md5sum="252228ba88fa9fc6ecac30bcca99141e" minuteFrom="0" file="img001.jpg" label="img001" angle="0" dayTo="0" secondFrom="0" yearFrom="2003" description="" >

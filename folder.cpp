@@ -20,8 +20,6 @@
 #include <klocale.h>
 #include "options.h"
 #include "imagedb.h"
-#include "undoredoobject.h"
-
 
 int Folder::_idCount = 0;
 

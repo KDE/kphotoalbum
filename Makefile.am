@@ -21,7 +21,7 @@ kimdaba_SOURCES = \
 	htmlexportdialog.cpp imagecounter.cpp iconviewtooltip.cpp \
 	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
-	undoredolist.cpp optionsdialog.cpp infobox.cpp welcomedialog.cpp \
+	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
 	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp \
 	datefolder.cpp groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp thumbnailbuilder.cpp \

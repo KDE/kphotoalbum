@@ -255,6 +255,7 @@ void Viewer::load()
 {
     _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     _display->setImage( currentInfo() );
+    setCaption( QString::fromLatin1( "KimDaBa - %1" ).arg( currentInfo()->fileName() ) );
     updateInfoBox();
 
     _nextAction->setEnabled( _current +1 < (int) _list.count() );

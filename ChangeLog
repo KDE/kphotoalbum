@@ -1,5 +1,7 @@
 2004-06-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added the filename to the caption of the viewer.
+
 	* Thanks to Marco Caldarelli <caldarel@yahoo.it> for a patch to
 	reread EXIF info, available from a dialog in the menu.
 

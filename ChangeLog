@@ -1,5 +1,9 @@
 2004-01-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* The thumbnail overview and the image viewer now has a menu item
+	for invoking an external program on the images. The list includes
+	all programs claiming they can handle image/jpeg from KTrader.
+
 	* Implemented Maintenance/Display Images not on Disk
 
 	* Implemented Maintenance/Recalculate Checksum (Useful if images

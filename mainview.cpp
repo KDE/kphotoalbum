@@ -58,6 +58,7 @@
 #include <kkeydialog.h>
 #include <kpopupmenu.h>
 #include <kdebug.h>
+#include "externalpopup.h"
 
 MainView* MainView::_instance = 0;
 
@@ -704,6 +705,17 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
 
         _viewSelected->plug( &menu );
         _viewSelectedInNewWindow->plug( &menu );
+
+        ExternalPopup* externalCommands = new ExternalPopup( &menu );
+        ImageInfo* info = 0;
+        QIconViewItem* item = _thumbNailView->findItem( _thumbNailView->mapFromGlobal( QCursor::pos() ) );
+        if ( item )
+            info = static_cast<ThumbNail*>(item)->imageInfo();
+
+        externalCommands->populate( info, selected() );
+        int id = menu.insertItem( i18n( "Invoke External Program" ), externalCommands );
+        if ( info == 0 && selected().count() == 0 )
+            menu.setItemEnabled( id, false );
 
         menu.exec( QCursor::pos() );
     }

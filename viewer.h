@@ -32,6 +32,7 @@ class QAction;
 class DisplayArea;
 class SpeedDisplay;
 class CategoryImageConfig;
+class ExternalPopup;
 
 class Viewer :public QDialog
 {
@@ -90,6 +91,8 @@ protected slots:
     void slotSetWallpaperTM();
     void slotSetWallpaperS();
     void slotSetWallpaperCAF();
+    void populateExternalPopup();
+
 
 private:
     static Viewer* _latest;
@@ -107,6 +110,7 @@ private:
     int _current;
     QRect _textRect;
     QPopupMenu* _popup;
+    ExternalPopup* _externalPopup;
     int _width, _height;
     QPixmap _pixmap;
 

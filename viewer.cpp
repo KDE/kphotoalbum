@@ -48,8 +48,8 @@
 #include "mainview.h"
 #include <qdatetime.h>
 #include "categoryimageconfig.h"
-
 #include <dcopref.h>
+#include "externalpopup.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -186,6 +186,7 @@ void Viewer::setupContextMenu()
 
     _popup->insertSeparator();
 
+    // -------------------------------------------------- Wall paper
     QPopupMenu *wallpaperPopup = new QPopupMenu( _popup );
 
     action = new QAction( QIconSet(), i18n("Centered"), 0, wallpaperPopup );
@@ -217,6 +218,11 @@ void Viewer::setupContextMenu()
     action->addTo( wallpaperPopup );
 
     _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), wallpaperPopup );
+
+    // -------------------------------------------------- Invoke external program
+    _externalPopup = new ExternalPopup( _popup );
+    _popup->insertItem( QIconSet(), i18n("Invoke External Program"), _externalPopup );
+    connect( _externalPopup, SIGNAL( aboutToShow() ), this, SLOT( populateExternalPopup() ) );
 
 
     action = new QAction( i18n("Draw on Image"),  QIconSet(),  i18n("Draw on Image"),  0, this );
@@ -654,6 +660,12 @@ void Viewer::makeCategoryImage()
 void Viewer::updateCategoryConfig()
 {
     CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail() );
+}
+
+
+void Viewer::populateExternalPopup()
+{
+    _externalPopup->populate( currentInfo(), _list );
 }
 
 #include "viewer.moc"

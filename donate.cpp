@@ -32,8 +32,13 @@ Donate::Donate( QWidget* parent, const char* name )
                        "a week of from work to focus on optimizations, EXIF handling, and "
                        "making KimDaBa independent of file reorganizations, this work resulted version 1.1)</ul></p>"
 
-                       "Money may be donated by clicking on the Donate button below, which will take you "
-                       "to paypal. Any donation is highly appreciated.</p></qt>");
+                       "<p>Money may be donated by clicking on the Donate button below, which will take you "
+                       "to paypal.</p>"
+
+                       "<p>Alternatively you may transfer money to:<br/>Jesper Pedersen<br/>Danske Bank, Denmark<br/>"
+                       "SWIFT code is DABADKKK<br/>reg no: 3203<br/>account no: 35934019283203<br>"
+                       "(Please email blackie@kde.org a notification)</p>"
+                       "<p>Any donation is highly appreciated.</p></qt>");
     QLabel* label = new QLabel( txt, top );
     layout->addWidget( label );
     setButtonText( User1, i18n("Donate") );

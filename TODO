@@ -78,4 +78,6 @@ should update
   a cd with the images needed.
 
 - BUG: escape quotes and back quotes in descriptions when generating HTML
+- BUG: it seems like its not possible to generate HTML twice with different
+  images, without restarting the program
 - BUG: context menu for thumbnail view shows up in browser.

@@ -85,6 +85,11 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::reload()
 {
+    // I'm not if this is needed, it would require that we were in a
+    // drag'n'drop action, and the sudantly got the reload before we got
+    // the drop event or leave event.
+    _currentHighlighted = 0;
+
     clear();
     _iconViewToolTip->clear();
     ImageInfoList& list = ImageDB::instance()->images();

@@ -38,6 +38,8 @@ extern "C" {
 #include "categorycollection.h"
 #include "fileinfo.h"
 
+bool ImageInfo::_anyImageWithEmptySize = false;
+
 ImageInfo::ImageInfo() :_null( true )
 {
 }
@@ -79,6 +81,9 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
 
     _angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
     _md5sum = elm.attribute( QString::fromLatin1( "md5sum" ) );
+
+    _anyImageWithEmptySize |= !elm.hasAttribute( QString::fromLatin1( "width" ) );
+
     int w = elm.attribute( QString::fromLatin1( "width" ), QString::fromLatin1( "-1" ) ).toInt();
     int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
     _size = QSize( w,h );

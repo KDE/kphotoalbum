@@ -136,6 +136,10 @@ private:
 
     // Used during searching to make it possible to search for Jesper & None
     mutable QMap<QString,QStringList> _matched;
+
+public:
+    // used for checking if any images are without image attribute from the database.
+    static bool _anyImageWithEmptySize;
 };
 
 #endif /* IMAGEINFO_H */

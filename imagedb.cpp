@@ -664,18 +664,15 @@ void ImageDB::checkIfAllImagesHasSizeAttributes()
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) ) )
         return;
 
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        if ( (*it)->size().width() == -1 || (*it)->size().height() == -1 ) {
-            KMessageBox::information( MainView::theMainView(),
-				      i18n("<qt><p>Not all the images in the database have information about image sizes; this is needed to "
-                                           "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
-                                           "choose <tt>Remove All Thumbnails</tt>, and after that choose <tt>Build Thumbnails</tt>.</p>"
-                                           "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
-                                           "there is no urgency in doing it.</p></qt>"),
-                                      i18n("Not All Images Have Size Information"),
-                                      QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) );
-            break;
-        }
+    if ( ImageInfo::_anyImageWithEmptySize ) {
+        KMessageBox::information( MainView::theMainView(),
+                                  i18n("<qt><p>Not all the images in the database have information about image sizes; this is needed to "
+                                       "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
+                                       "choose <tt>Remove All Thumbnails</tt>, and after that choose <tt>Build Thumbnails</tt>.</p>"
+                                       "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
+                                       "there is no urgency in doing it.</p></qt>"),
+                                  i18n("Not All Images Have Size Information"),
+                                  QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) );
     }
 }
 

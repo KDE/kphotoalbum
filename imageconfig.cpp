@@ -13,6 +13,7 @@
 #include <qtabwidget.h>
 #include "viewer.h"
 #include <qaccel.h>
+#include <kstandarddirs.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
@@ -267,7 +268,7 @@ void ImageConfig::setup()
         mode = ListSelect::SEARCH;
         setCaption( "Image Search" );
         loadInfo( _oldSearch );
-        preview->setPixmap( QPixmap::fromMimeSource( "search.jpg" ) );
+        preview->setPixmap( locate("data", QString::fromLatin1("kpalbum/pics/search.jpg") ) );
         nextBut->setEnabled( false );
         prevBut->setEnabled( false );
     }
@@ -277,8 +278,10 @@ void ImageConfig::setup()
         revertBut->show();
         mode = ListSelect::INPUT;
         setCaption( "Image Configuration" );
-        if ( _setup == MULTIPLE )
-            preview->setPixmap( QPixmap::fromMimeSource( "multiconfig.jpg" ) );
+        if ( _setup == MULTIPLE ) {
+            preview->setPixmap( locate("data", QString::fromLatin1("kpalbum/pics/multiconfig.jpg") ) );
+        }
+
 
     }
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {

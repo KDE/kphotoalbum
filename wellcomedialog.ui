@@ -29,7 +29,7 @@
                 </property>
                 <widget class="QLabel">
                     <property name="name">
-                        <cstring>textLabel1</cstring>
+                        <cstring>image</cstring>
                     </property>
                     <property name="minimumSize">
                         <size>
@@ -45,9 +45,6 @@
                     </property>
                     <property name="text">
                         <string></string>
-                    </property>
-                    <property name="pixmap">
-                        <pixmap>splash.png</pixmap>
                     </property>
                 </widget>
                 <widget class="QLabel">
@@ -112,6 +109,13 @@
         <slot>accept()</slot>
     </connection>
 </connections>
+<includes>
+    <include location="global" impldecl="in implementation">kstandarddirs.h</include>
+    <include location="local" impldecl="in implementation">wellcomedialog.ui.h</include>
+</includes>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
 <pixmapinproject/>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

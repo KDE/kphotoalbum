@@ -6,36 +6,19 @@
 #include <klocale.h>
 #include <klibloader.h>
 #include <ktexteditor/editinterface.h>
+#include <kparts/componentfactory.h>
 
 Editor::Editor( QWidget* parent, const char* name )
     :QWidget( parent, name )
 {
     _layout = new QVBoxLayout( this );
-/*    _edit = new QTextEdit( this );
-    layout->addWidget( _edit );*/
     loadPart();
 }
 
 bool Editor::loadPart()
 {
-    KTrader::OfferList offers = KTrader::self()->query( "KTextEditor/Document" );
-    if( offers.count() < 1 ) {
-        KMessageBox::error(this,i18n("KPAlbum cannot start a text editor component.\n"
-                                     "Please check your KDE installation."));
-        _doc=0;
-        _view=0;
-        return false;
-    }
-    KService::Ptr service = *offers.begin();
-    KLibFactory *factory = KLibLoader::self()->factory( service->library().latin1() );
-    if( !factory ) {
-        KMessageBox::error(this,i18n("KPAlbum cannot start a text editor component.\n"
-                                     "Please check your KDE installation."));
-        _doc=0;
-        _view=0;
-        return false;
-    }
-    _doc = static_cast<KTextEditor::Document *>( factory->create( this, 0, "KTextEditor::Document" ) );
+    // Don't ask, this is pure magic ;-)
+    _doc = KParts::ComponentFactory::createPartInstanceFromQuery< KTextEditor::Document >( "KTextEditor/Document", QString::null, this, 0, this, 0 );
 
     if( !_doc ) {
         KMessageBox::error(this,i18n("KPAlbum cannot start a text editor component.\n"

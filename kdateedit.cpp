@@ -1,20 +1,18 @@
-/* Copyright (C) 2003-2004 Jesper K. Pedersen <blackie@kde.org>
-
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
-*/
+/**
+ * A date editing widget that consists of an editable combo box.
+ * The combo box contains the date in text form, and clicking the combo
+ * box arrow will display a 'popup' style date picker.
+ *
+ * This widget also supports advanced features like allowing the user
+ * to type in the day name to get the date. The following keywords
+ * are supported (in the native language): tomorrow, yesturday, today,
+ * monday, tuesday, wednesday, thursday, friday, saturday, sunday.
+ *
+ * @author Cornelius Schumacher <schumacher@kde.org>
+ * @author Mike Pilone <mpilone@slac.com>
+ * @author David Jarvie <software@astrojar.org.uk>
+ * @author Jesper Pedersen <blackie@kde.org>
+ */
 
 #include <qevent.h>
 #include <qlineedit.h>

@@ -1,12 +1,13 @@
 if compile_LIBKIMDABA_COMPAT
-COMPAT_DIR = compat
-COMPAT_LIBS = compat/libkimdabacompat.la
-COMPAT_INCLUDE = -I$(srcdir)/compat
+  COMPAT_DIR = compat
+  COMPAT_LIBS = compat/libkimdabacompat.la
+  COMPAT_INCLUDE = -I$(srcdir)/compat
+else
+  AM_CPPFLAGS = -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
 endif
 
 SUBDIRS = images icons demo $(COMPAT_DIR)
 INCLUDES = $(all_includes) $(COMPAT_INCLUDE)
-AM_CPPFLAGS = -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = main.cpp \

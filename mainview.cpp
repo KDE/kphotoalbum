@@ -653,7 +653,7 @@ void MainView::unlockFromDefaultScope()
         int code = KPasswordDialog::getPassword( passwd, i18n("Type in Password to unlock"));
         if ( code == QDialog::Rejected )
             return;
-        OK = (Options::instance()->password() == passwd);
+        OK = (Options::instance()->password() == QString(passwd));
 
         if ( !OK )
             KMessageBox::sorry( this, i18n("Invalid Password") );
@@ -689,7 +689,7 @@ void MainView::changePassword()
         int code = KPasswordDialog::getPassword( passwd, i18n("Type in old Password"));
         if ( code == QDialog::Rejected )
             return;
-        OK = (Options::instance()->password() == passwd);
+        OK = (Options::instance()->password() == QString(passwd));
 
         if ( !OK )
             KMessageBox::sorry( this, i18n("Invalid Password") );

@@ -16,13 +16,6 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
-#include <kdeversion.h>
-#if !KDE_IS_VERSION(3,1,3)
-  // Bug in Qt 3.1.0 needs these undefined
-  #undef QT_NO_CAST_ASCII
-  #undef QT_CAST_NO_ASCII
-#endif
-
 #include "editor.h"
 #include <qlayout.h>
 #include <qtextedit.h>
@@ -86,8 +79,3 @@ void Editor::setText( const QString& txt )
     Q_ASSERT( edit );
     edit->setText( txt );
 }
-
-#if !KDE_IS_VERSION(3,1,3)
-  #define QT_NO_CAST_ASCII
-  #define QT_CAST_NO_ASCII
-#endif

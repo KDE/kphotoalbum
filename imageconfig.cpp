@@ -16,13 +16,6 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
-#include <kdeversion.h>
-#if !KDE_IS_VERSION(3,1,3)
-  // Bug in Qt 3.1.0 needs these undefined
-  #undef QT_NO_CAST_ASCII
-  #undef QT_CAST_NO_ASCII
-#endif
-
 #include "imageconfig.h"
 #include "listselect.h"
 #include <qspinbox.h>
@@ -695,8 +688,3 @@ void ImageConfig::rotate( int angle )
 }
 
 #include "imageconfig.moc"
-
-#if !KDE_IS_VERSION(3,1,3)
-  #define QT_NO_CAST_ASCII
-  #define QT_CAST_NO_ASCII
-#endif

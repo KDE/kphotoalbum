@@ -28,7 +28,7 @@ AC_TRY_COMPILE([
 CXXFLAGS="$kcompat_save_CXXFLAGS"
 LIBS="$kcompat_safe_LIBS"
 
-AM_CONDITIONAL(compile_LIBKIMDABA_COMPAT, test -n "kimdaba_need_compat")
+AM_CONDITIONAL(compile_LIBKIMDABA_COMPAT, test -n "$kimdaba_need_compat")
 
 AC_LANG_RESTORE
 # -- End KDE 3.1 check ----------------------------------------------

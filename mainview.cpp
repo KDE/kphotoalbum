@@ -267,7 +267,7 @@ void MainView::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
-        connect( _optionsDialog, SIGNAL( apply() ), this, SLOT( reloadThumbNail() ) );
+        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbNail() ) );
     }
     _optionsDialog->show();
 }

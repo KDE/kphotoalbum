@@ -485,7 +485,7 @@ void OptionsDialog::slotMyOK()
 #ifdef HASKIPI
     _pluginConfig->apply();
 #endif
-    emit apply();
+    emit changed();
 }
 
 

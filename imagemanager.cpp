@@ -135,7 +135,8 @@ void ImageManager::customEvent( QCustomEvent* ev )
             delete request;
         }
         _lock.unlock();
-        client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK );
+        if ( client )
+            client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK );
     }
 }
 

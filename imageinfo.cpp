@@ -71,6 +71,8 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _endDate.setDay( elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt() );
 
     _angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
+    _md5sum = elm.attribute( QString::fromLatin1( "md5sum" ) );
+
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
@@ -152,6 +154,15 @@ QString ImageInfo::fileName( bool relative ) const
         return Options::instance()->imageDirectory() + QString::fromLatin1("/") + _fileName;
 }
 
+void ImageInfo::setFileName( const QString& relativeFileName )
+{
+    _fileName = relativeFileName;
+    QFileInfo fi( fileName() );
+    _imageOnDisk = fi.exists();
+
+}
+
+
 QDomElement ImageInfo::save( QDomDocument doc )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
@@ -168,6 +179,7 @@ QDomElement ImageInfo::save( QDomDocument doc )
     elm.setAttribute( QString::fromLatin1("dayTo"),  _endDate.day() );
 
     elm.setAttribute( QString::fromLatin1("angle"),  _angle );
+    elm.setAttribute( QString::fromLatin1( "md5sum" ), _md5sum );
 
     if ( _options.count() != 0 ) {
         QDomElement top = doc.createElement( QString::fromLatin1("options") );
@@ -289,10 +301,10 @@ void ImageInfo::debug()
 QImage ImageInfo::load( int width, int height ) const
 {
     QImage image;
-    if ( isJPEG( fileName(false) ) )
-        loadJPEG( &image, fileName(false) );
+    if ( isJPEG( fileName() ) )
+        loadJPEG( &image, fileName() );
     else
-        image.load( fileName(false) );
+        image.load( fileName() );
 
     if ( _angle != 0 ) {
         QWMatrix matrix;

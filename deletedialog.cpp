@@ -50,9 +50,9 @@ void DeleteDialog::deleteImages()
     if ( _deleteFromDisk->isChecked() ) {
         for( ImageInfoListIterator it( _list ); *it; ++it ) {
             if ( (*it)->imageOnDisk() ) {
-                bool ok = QFile( (*it)->fileName( false ) ).remove();
+                bool ok = QFile( (*it)->fileName() ).remove();
                 if ( !ok ) {
-                    KMessageBox::error( this, i18n("Unable to delete file %1").arg((*it)->fileName( false )),
+                    KMessageBox::error( this, i18n("Unable to delete file %1").arg((*it)->fileName()),
                                         i18n("Error deleting files") );
                 }
             }

@@ -71,7 +71,7 @@ void ThumbNail::init()
     painter.drawRect( 0, 0, size, size );
     setPixmap( _pixmap );
     setText( _imageInfo->label() );
-    ImageManager::instance()->load( _imageInfo->fileName( false ),  this, _imageInfo->angle(), size, size, true, false );
+    ImageManager::instance()->load( _imageInfo->fileName(),  this, _imageInfo->angle(), size, size, true, false );
     setDropEnabled( true );
 }
 
@@ -80,7 +80,7 @@ void ThumbNail::init()
 
 QString ThumbNail::fileName() const
 {
-    return _imageInfo->fileName( false );
+    return _imageInfo->fileName();
 }
 
 ImageInfo* ThumbNail::imageInfo()

@@ -39,7 +39,8 @@ public:
     void setVisible( bool b );
     bool visible() const;
 
-    QString fileName( bool relative ) const;
+    QString fileName( bool relative = false ) const;
+    void setFileName( const QString& relativeFileName );
 
     void setLabel( const QString& );
     QString label() const;
@@ -71,6 +72,8 @@ public:
     void setDrawList( const DrawList& );
 
     bool imageOnDisk() const { return _imageOnDisk; }
+    QString MD5Sum() const { return _md5sum; }
+    void setMD5Sum( const QString& sum ) { _md5sum = sum; }
 
     void setLocked( bool );
     bool isLocked() const;
@@ -96,6 +99,7 @@ private:
     bool _visible;
     DrawList _drawList;
     bool _imageOnDisk; // true if the image is available on disk
+    QString _md5sum;
 
     // Cache information
     bool _locked;

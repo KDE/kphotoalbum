@@ -52,8 +52,11 @@ signals:
 
 protected:
     void loadExtraFiles( const QDict<void>& loadedFiles, QString directory );
-    void load( const QString& filename, QDomElement elm );
+    void loadExtraFile( const QString& name );
+    ImageInfo* load( const QString& filename, QDomElement elm );
     int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
+    void calculateMissingMD5sums( QValueList<ImageInfo*>& list );
+    QString MD5Sum( const QString& fileName );
 
 protected slots:
     void renameOption( const QString& optionGroup, const QString& oldName, const QString& newName );
@@ -67,6 +70,7 @@ private:
     ImageInfoList _images;
     QStringList _blockList;
     ImageInfoList _clipboard;
+    QMap<QString, QString> _md5Map;
 };
 
 

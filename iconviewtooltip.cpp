@@ -156,11 +156,11 @@ void IconViewToolTip::clear()
 
 bool IconViewToolTip::loadImage( const ImageInfo& info )
 {
-    _currentFileName = info.fileName( false );
-    if ( !_loadedImages.contains( info.fileName( false ) ) ) {
-        ImageManager::instance()->load( info.fileName( false ),  this, info.angle(), 256, 256, true, true );
-        QMimeSourceFactory::defaultFactory()->setImage( info.fileName(false), QImage() );
-        _loadedImages.append( info.fileName(false) );
+    _currentFileName = info.fileName();
+    if ( !_loadedImages.contains( info.fileName() ) ) {
+        ImageManager::instance()->load( info.fileName(),  this, info.angle(), 256, 256, true, true );
+        QMimeSourceFactory::defaultFactory()->setImage( info.fileName(), QImage() );
+        _loadedImages.append( info.fileName() );
         return false;
     }
     return true;

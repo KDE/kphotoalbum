@@ -52,7 +52,6 @@ void ThumbNail::init()
     painter.drawRect( 0, 0, size, size );
     setPixmap( _pixmap );
     setText( _imageInfo->label() );
-    // PENDING(blackie) Consider whether this can be replaced with KIO::PreviewJob
     ImageManager::instance()->load( _imageInfo->fileName( false ),  this, _imageInfo->angle(), size, size, true, false );
     setDropEnabled( true );
 }

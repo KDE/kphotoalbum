@@ -25,6 +25,18 @@
 
 ImageManager* ImageManager::_instance = 0;
 
+/**
+   This class is responsible for loading icons in a separate thread.
+   I tried replacing this with KIO:PreviewJob, but it had a fwe drawbacks:
+   1) It stored images in one centeral directory - many would consider this
+      a feature, but I consider it a drawback, as it makes it impossible to
+      just bring your thumbnails when bringing your database, but not having
+      the capasity on say your laptop to bring all your images.
+   2) It failed to load a number of images, that this ImageManager load
+      just fine.
+   3) Most important, it did not allow loading only thumbnails when the
+      image themself weren't available.
+*/
 ImageManager::ImageManager()
 {
 }

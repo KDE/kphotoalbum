@@ -17,6 +17,7 @@
 */
 
 #ifdef HASKIPI
+#include "imageinfo.h"
 #include "categoryimagecollection.h"
 #include <klocale.h>
 #include "imagedb.h"

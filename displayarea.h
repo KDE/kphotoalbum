@@ -14,6 +14,7 @@ public slots:
     void slotLine();
     void slotRectangle();
     void slotCircle();
+    void slotSelect();
     void setPixmap( const QPixmap& pixmap );
 
 protected:
@@ -30,6 +31,7 @@ private:
     QValueList<Draw*> _drawings;
     QPixmap _origPixmap;
     QPixmap _curPixmap;
+    bool _showAnchors;
 };
 
 

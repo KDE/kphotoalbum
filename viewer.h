@@ -72,6 +72,7 @@ private:
     QPixmap _pixmap;
 
     KToolBar* _toolbar;
+    KAction* _select;
     KAction* _line;
     KAction* _rect;
     KAction* _circle;

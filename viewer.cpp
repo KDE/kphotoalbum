@@ -37,6 +37,10 @@ Viewer::Viewer( QWidget* parent, const char* name )
 
     KIconLoader loader;
     _toolbar = new KToolBar( this );
+    _select = new KAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+                         0, _label, SLOT( slotSelect() ),actionCollection(), "_select");
+    _select->plug( _toolbar );
+
     _line = new KAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
                          0, _label, SLOT( slotLine() ),actionCollection(), "_line");
     _line->plug( _toolbar );
@@ -465,7 +469,7 @@ void Viewer::showLast()
      load();
 }
 
-void Viewer::closeEvent( QCloseEvent* e )
+void Viewer::closeEvent( QCloseEvent* )
 {
     hide();
 }

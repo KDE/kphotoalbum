@@ -7,6 +7,7 @@ class RectDraw :public Draw
 public:
     RectDraw();
     void draw( QPainter&, QMouseEvent* );
+    virtual PointList anchorPoints();
 };
 
 #endif /* RECTDRAW_H */

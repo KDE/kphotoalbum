@@ -7,6 +7,7 @@ class LineDraw :public Draw
 public:
     LineDraw();
     void draw( QPainter&, QMouseEvent* );
+    virtual PointList anchorPoints();
 };
 
 #endif /* LINEDRAW_H */

@@ -7,6 +7,7 @@ class CircleDraw :public Draw
 public:
     CircleDraw();
     void draw( QPainter&, QMouseEvent* );
+    virtual PointList anchorPoints();
 };
 
 #endif /* CIRCLEDRAW_H */

@@ -37,3 +37,10 @@ void LineDraw::draw( QPainter& painter, QMouseEvent* event )
 
     painter.restore();
 }
+
+PointList LineDraw::anchorPoints()
+{
+    PointList res;
+    res << _startPos << _lastPos << _startPos + (_lastPos - _startPos) / 2;
+    return res;
+}

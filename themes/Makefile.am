@@ -1,1 +1,1 @@
-SUBDIRS=blue
+SUBDIRS=blue rounded

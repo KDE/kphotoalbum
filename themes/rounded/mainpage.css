@@ -1,0 +1,12 @@
+BODY { background: #C5918B; text-align:center; } 
+img { border: 1px solid black; } 
+h1.title { text-align: center; color: black; }
+.controlinfo .selected { text-decoration: none; font-weight:bold; }
+.controlinfo { color: black; border: 1px solid black; background-color:white; width: 90%; }
+.controlinfo a:link,.navbar a:link { color: black; text-decoration: underline; }
+.controlinfo a:visited,.navbar a:visited { color: black; text-decoration: underline; } 
+.controlinfo a:hover,.navbar a:hover { color: #C5918B; }
+.thumbnail-table { text-align: center; vertical-align: middle; width: 100%; }
+td.thumbnail-col { text-align:center; height:150px; width:150px; }
+tr.thumbnail-row { vertical-align: middle; }
+.maintable { width: 90%; text-align: center; }

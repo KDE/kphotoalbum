@@ -747,15 +747,15 @@ int HTMLExportDialog::calculateSteps()
 QString HTMLExportDialog::namePage( int width, int height, const QString& fileName )
 {
     QString name = _nameMap[fileName];
-    QString base = QFileInfo( name ).baseName();
+    QString base = QFileInfo( name ).baseName(true);
     return QString::fromLatin1( "%1-%2.html" ).arg( base ).arg( ImageSizeCheckBox::text(width,height,true) );
 }
 
 QString HTMLExportDialog::nameImage( const QString& fileName, int size )
 {
     QString name = _nameMap[fileName];
-    QString base = QFileInfo( name ).baseName();
-    QString ext = QFileInfo( name ).extension();
+    QString base = QFileInfo( name ).baseName(true);
+    QString ext = QFileInfo( name ).extension(false);
     if ( size == _maxImageSize )
         return name;
     else

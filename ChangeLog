@@ -1,5 +1,8 @@
 2004-12-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* HTML generation didn't work if the file names contained dot's
+	like 2004-12-17-18.34.59.jpg
+
 	* Added support for Canon CRW "digital negative" - thanks to
 	Steffen Hansen <hansen@kde.org>.
 

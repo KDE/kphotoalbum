@@ -35,12 +35,10 @@ public:
     virtual void show();
 
 signals:
-    void imagePathChanged();
     void changed();
 
 protected slots:
     void slotMyOK();
-    void slotBrowseForDirecory();
     void edit( QListBoxItem* );
     void slotLabelChanged( const QString& );
     void slotIconChanged( QString );
@@ -57,7 +55,6 @@ private:
     // General page
     QSpinBox* _thumbnailSize;
     KComboBox* _trustTimeStamps;
-    QLineEdit* _imageDirectory;
     QSpinBox* _autosave;
     QSpinBox* _maxImages;
 

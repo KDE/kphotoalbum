@@ -32,10 +32,10 @@ public:
     static void readOptions( QDomElement elm, QMap<QString, QStringList>* options,
                              QMap<QString,Options::OptionGroupInfo>* optionGroupInfo );
     static QString createInfoText( ImageInfo* info, QMap<int, QPair<QString,QString> >* );
-    static void checkForBackupFile( const QString& realName, const QString& backupName );
+    static void checkForBackupFile( const QString& fileName );
     static bool ctrlKeyDown();
     static bool copy( const QString& from, const QString& to );
-    static bool setupDemo();
+    static QString setupDemo();
 
 };
 

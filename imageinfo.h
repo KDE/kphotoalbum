@@ -63,7 +63,7 @@ public:
     void renameOption( const QString& key, const QString& oldValue, const QString& newValue );
     void renameOptionGroup( const QString& oldName, const QString& newName );
 
-    QDomElement save( QDomDocument& doc );
+    QDomElement save( QDomDocument doc );
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );
 

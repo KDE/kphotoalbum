@@ -30,12 +30,7 @@ class Options :public QObject {
 
 public:
     static Options* instance();
-    ~Options();
-
-    static bool configFileExists();
-    static void setConfFile( const QString& file );
-    QString configFile() const;
-    QString autoSaveFile() const;
+    static void setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory );
 
     void setThumbSize( int );
     int thumbSize() const;
@@ -102,11 +97,9 @@ public:
     void setAutoSave( int min );
     int autoSave() const;
 
-    void save( const QString& fileName );
-    bool isDirty() const { return _dirty; }
+    void save( QDomElement top );
 
     QString imageDirectory() const;
-    void setImageDirecotry( const QString& directory );
 
     QString HTMLBaseDir() const;
     void setHTMLBaseDir( const QString& dir );
@@ -119,11 +112,12 @@ public:
 
 signals:
     void optionGroupsChanged();
+    void changed();
 
 private:
-    Options();
+    Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory  );
+    ~Options();
     static Options* _instance;
-    static QString _confFile;
 
     int _thumbSize,  _imageCacheSize;
     TimeStampTrust _tTimeStamps;
@@ -135,7 +129,6 @@ private:
 
     Position _infoBoxPosition;
     bool _showInfoBox, _showDrawings, _showDescription, _showDate;
-    bool _dirty;
     QDomElement _configDock;
 };
 

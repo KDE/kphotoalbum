@@ -1,5 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<images>
+<KimDaBa>
+<config showDrawings="1" htmlBaseURL="file:///home/blackie/public_html" thumbSize="128" showInfoBox="1" trustTimeStamps="0" infoBoxPosition="6" showDate="1" imageDirectory="/packages/kde-src/kdeextragear-2/kimdaba/demo" autoSave="5" version="1" showDescription="1" maxImages="100" htmlBaseDir="/home/blackie/public_html" />
+ <options>
+  <option icon="password" name="Keywords" show="1" text="Keywords" >
+   <value value="beers" />
+   <value value="holiday" />
+   <value value="new wave" />
+   <value value="silo falls over" />
+   <value value="Anne Helene's 30 years birthday" />
+  </option>
+  <option icon="network" name="Locations" show="1" text="Locations" >
+   <value value="Santa Clara" />
+   <value value="Mallorca" />
+   <value value="Grand Canyon" />
+   <value value="Pool Club" />
+   <value value="USA" />
+   <value value="Chicago" />
+   <value value="Rhodos" />
+   <value value="Denmark" />
+   <value value="Esbjerg" />
+  </option>
+  <option icon="personal" name="Persons" show="1" text="Persons" >
+   <value value="Spiff" />
+   <value value="Anne Helene" />
+   <value value="Jesper" />
+   <value value="Donna" />
+  </option>
+ </options>
+ <configWindowSetup>
+  <dock>
+   <name>Label and Dates</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Image Preview</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Description</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Locations</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Persons</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <splitGroup>
+   <firstName>Label and Dates</firstName>
+   <secondName>Description</secondName>
+   <orientation>0</orientation>
+   <separatorPos>31</separatorPos>
+   <name>Label and Dates,Description</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Label and Dates,Description</firstName>
+   <secondName>Image Preview</secondName>
+   <orientation>1</orientation>
+   <separatorPos>70</separatorPos>
+   <name>Label and Dates,Description,Image Preview</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Locations</firstName>
+   <secondName>Keywords</secondName>
+   <orientation>1</orientation>
+   <separatorPos>50</separatorPos>
+   <name>Locations,Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Persons</firstName>
+   <secondName>Locations,Keywords</secondName>
+   <orientation>1</orientation>
+   <separatorPos>34</separatorPos>
+   <name>Persons,Locations,Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Label and Dates,Description,Image Preview</firstName>
+   <secondName>Persons,Locations,Keywords</secondName>
+   <orientation>0</orientation>
+   <separatorPos>0</separatorPos>
+   <name>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <centralWidget>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</centralWidget>
+  <mainDockWidget>Label and Dates</mainDockWidget>
+  <geometry>
+   <x>6</x>
+   <y>6</y>
+   <width>930</width>
+   <height>492</height>
+  </geometry>
+ </configWindowSetup>
+
+ <images>
  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img001.jpg" label="img001" angle="0" dayTo="0" yearFrom="2003" description="" >
   <options>
    <option name="Keywords" >
@@ -273,3 +387,4 @@
   </options>
  </image>
 </images>
+</KimDaBa>

@@ -27,6 +27,8 @@ class ImageDB :public QObject {
 
 public:
     static ImageDB* instance();
+    static void setup( const QDomElement& );
+
     int totalCount() const;
     void search( const ImageSearchInfo& info, int from = -1, int to = -1 );
     int count( const ImageSearchInfo& info );
@@ -42,8 +44,7 @@ public:
     void deleteList( const ImageInfoList& list );
 
 public slots:
-    void load();
-    void save( const QString& fileName );
+    void save( QDomElement top );
 
 signals:
     void matchCountChange( int, int, int );
@@ -52,11 +53,10 @@ signals:
 protected:
     void loadExtraFiles( const QDict<void>& loadedFiles, QString directory );
     void load( const QString& filename, QDomElement elm );
-    void checkForBackupFile();
     int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
 
 private:
-    ImageDB();
+    ImageDB( const QDomElement& );
     static ImageDB* _instance;
 
     ImageInfoList _images;

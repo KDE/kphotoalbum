@@ -143,7 +143,7 @@ QString ImageInfo::fileName( bool relative )
         return Options::instance()->imageDirectory() + QString::fromLatin1("/") + _fileName;
 }
 
-QDomElement ImageInfo::save( QDomDocument& doc )
+QDomElement ImageInfo::save( QDomDocument doc )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
     elm.setAttribute( QString::fromLatin1("file"),  fileName( true ) );

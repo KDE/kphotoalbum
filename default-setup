@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<kimdaba showDrawings="1" htmlBaseURL="file:///home/blackie/public_html" thumbSize="64" showInfoBox="1" trustTimeStamps="0" infoBoxPosition="0" showDate="1" imageDirectory="" autoSave="5" version="1" showDescription="1" maxImages="100" htmlBaseDir="/home/blackie/public_html" >
+<Kimdaba>
+<config showDrawings="1" htmlBaseURL="file:///home/blackie/public_html" thumbSize="64" showInfoBox="1" trustTimeStamps="0" infoBoxPosition="0" showDate="1" imageDirectory="" autoSave="5" version="1" showDescription="1" maxImages="100" htmlBaseDir="/home/blackie/public_html" />
  <options>
   <option icon="password" name="Keywords" show="1" text="Keywords" />
   <option icon="network" name="Locations" show="1" text="Locations" />
@@ -90,4 +91,5 @@
    <height>492</height>
   </geometry>
  </configWindowSetup>
-</kimdaba>
+<images/>
+</kimDaBa>

@@ -29,8 +29,39 @@
 
 ImageDB* ImageDB::_instance = 0;
 
-ImageDB::ImageDB()
+ImageDB::ImageDB( const QDomElement& top )
 {
+    QString directory = Options::instance()->imageDirectory();
+    if ( directory.isEmpty() )
+        return;
+    if ( directory.endsWith( QString::fromLatin1("/") ) )
+        directory = directory.mid( 0, directory.length()-1 );
+
+
+    // Load the information from the XML file.
+    QDict<void> loadedFiles( 6301 /* a large prime */ );
+
+    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() )  {
+        QDomElement elm;
+        if ( node.isElement() )
+            elm = node.toElement();
+        else
+            continue;
+
+        QString fileName = elm.attribute( QString::fromLatin1("file") );
+        if ( fileName.isNull() )
+            qWarning( "Element did not contain a file attribute" );
+        else if ( loadedFiles.find( fileName ) != 0 )
+            qWarning( "XML file contained image %s, more than ones - only first one will be loaded", fileName.latin1());
+        else {
+            loadedFiles.insert( directory + QString::fromLatin1("/") + fileName,
+                                (void*)0x1 /* void pointer to nothing I never need the value,
+                                              just its existsance, must be != 0x0 though.*/ );
+            load( fileName, elm );
+        }
+    }
+
+    loadExtraFiles( loadedFiles, directory );
 }
 
 int ImageDB::totalCount() const
@@ -69,65 +100,20 @@ int ImageDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int
 ImageDB* ImageDB::instance()
 {
     if ( _instance == 0 )
-        _instance = new ImageDB();
+        qFatal("ImageDB::instance must not be called before ImageDB::setup");
     return _instance;
 }
 
-void ImageDB::load()
+void ImageDB::setup( const QDomElement& top )
 {
-    checkForBackupFile();
-
-    _images.clear();
-
-    QString directory = Options::instance()->imageDirectory();
-    if ( directory.isEmpty() )
-        return;
-    if ( directory.endsWith( QString::fromLatin1("/") ) )
-        directory = directory.mid( 0, directory.length()-1 );
-
-
-    // Load the information from the XML file.
-    QDict<void> loadedFiles( 6301 /* a large prime */ );
-
-    QString xmlFile = directory + QString::fromLatin1("/index.xml");
-    if ( QFileInfo( xmlFile ).exists() )  {
-        QFile file( xmlFile );
-        if ( ! file.open( IO_ReadOnly ) )  {
-            qWarning( "Couldn't read file %s",  xmlFile.latin1() );
-        }
-        else {
-            QDomDocument doc;
-            doc.setContent( &file );
-            for ( QDomNode node = doc.documentElement().firstChild(); !node.isNull(); node = node.nextSibling() )  {
-                QDomElement elm;
-                if ( node.isElement() )
-                    elm = node.toElement();
-                else
-                    continue;
-
-                QString fileName = elm.attribute( QString::fromLatin1("file") );
-                if ( fileName.isNull() )
-                    qWarning( "Element did not contain a file attribute" );
-                else if ( loadedFiles.find( fileName ) != 0 )
-                    qWarning( "XML file contained image %s, more than ones - only first one will be loaded", fileName.latin1());
-                else {
-                    loadedFiles.insert( directory + QString::fromLatin1("/") + fileName,
-                                        (void*)0x1 /* void pointer to nothing I never need the value,
-                                                      just its existsance, must be != 0x0 though.*/ );
-                    load( fileName, elm );
-                }
-            }
-        }
-    }
-
-    loadExtraFiles( loadedFiles, directory );
+    _instance = new ImageDB( top );
 }
 
 void ImageDB::load( const QString& fileName, QDomElement elm )
 {
     ImageInfo* info = new ImageInfo( fileName, elm );
     info->setVisible( false );
-    ImageDB::instance()->images().append(info);
+    images().append(info);
 }
 
 void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory )
@@ -153,7 +139,7 @@ void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory 
             QString baseName = file.mid( imageDir.length()+1 );
 
             ImageInfo* info = new ImageInfo( baseName  );
-            ImageDB::instance()->images().append(info);
+            images().append(info);
         }
         else if ( fi.isDir() )  {
             loadExtraFiles( loadedFiles, file );
@@ -161,17 +147,8 @@ void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory 
     }
 }
 
-void ImageDB::checkForBackupFile()
+void ImageDB::save( QDomElement top )
 {
-    QString backupNm = Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml");
-    QString indexNm = Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml");
-    Util::checkForBackupFile( indexNm, backupNm );
-}
-
-void ImageDB::save( const QString& fileName )
-{
-    ShowBusyCursor dummy;
-
     ImageInfoList list = _images;
 
     // Copy files from clipboard to end of overview, so we don't loose them
@@ -179,27 +156,11 @@ void ImageDB::save( const QString& fileName )
         list.append( *it );
     }
 
-    // Open the output file
-    QDomDocument doc;
-
-    // PENDING(blackie) The user should be able to specify the coding himself.
-    doc.appendChild( doc. createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement elm = doc.createElement( QString::fromLatin1("images") );
-    doc.appendChild( elm );
+    QDomElement images = top.ownerDocument().createElement( QString::fromLatin1( "images" ) );
+    top.appendChild( images );
 
     for( ImageInfoListIterator it( list ); *it; ++it ) {
-        elm.appendChild( (*it)->save( doc ) );
-    }
-
-    QFile out( fileName );
-
-    if ( !out.open( IO_WriteOnly ) )  {
-        qWarning( "Could not open file '%s'", fileName.latin1() );
-    }
-    else {
-        QTextStream stream( &out );
-        stream << doc.toString().utf8();
-        out.close();
+        images.appendChild( (*it)->save( top.ownerDocument() ) );
     }
 }
 

@@ -67,17 +67,6 @@ void OptionsDialog::createGeneralPage()
     lay4->addWidget( _maxImages );
     lay4->addStretch(1);
 
-    // Image Directory
-    label = new QLabel( i18n( "Image directory"), top );
-    _imageDirectory = new QLineEdit( top );
-    KPushButton* but = new KPushButton( QString::fromLatin1( "..." ), top );
-    but->setMaximumWidth( 20 );
-    QHBoxLayout* lay5 = new QHBoxLayout( lay1, 6 );
-    lay5->addWidget( label );
-    lay5->addWidget( _imageDirectory );
-    lay5->addWidget( but );
-    connect( but, SIGNAL( clicked() ), this, SLOT( slotBrowseForDirecory() ) );
-
     // Auto save
     label = new QLabel( i18n("Auto save every: "), top );
     _autosave = new QSpinBox( 1, 120, 1, top );
@@ -173,7 +162,6 @@ void OptionsDialog::show()
     // General page
     _thumbnailSize->setValue( opt->thumbSize() );
     _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
-    _imageDirectory->setText( opt->imageDirectory() );
     _autosave->setValue( opt->autoSave() );
     _maxImages->setValue( opt->maxImages() );
 
@@ -198,8 +186,6 @@ void OptionsDialog::slotMyOK()
     // General
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setTTimeStamps( (Options::TimeStampTrust) _trustTimeStamps->currentItem() );
-    bool pathChanged = opt->imageDirectory() != _imageDirectory->text();
-    opt->setImageDirecotry( _imageDirectory->text() );
     opt->setAutoSave( _autosave->value() );
     opt->setMaxImages( _maxImages->value() );
 
@@ -234,19 +220,9 @@ void OptionsDialog::slotMyOK()
 
 
     // misc stuff
-    if ( pathChanged )
-        emit imagePathChanged();
-    else
-        emit changed();
+    emit changed();
 }
 
-
-void OptionsDialog::slotBrowseForDirecory()
-{
-    QString dir = KFileDialog::getExistingDirectory( _imageDirectory->text(), this );
-    if ( ! dir.isNull() )
-        _imageDirectory->setText( dir );
-}
 
 void OptionsDialog::edit( QListBoxItem* i )
 {

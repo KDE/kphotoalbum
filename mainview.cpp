@@ -48,22 +48,27 @@
 #include <ktip.h>
 #include <kprocess.h>
 #include "deletedialog.h"
+#include <ksimpleconfig.h>
+#include <kcmdlineargs.h>
+#include <qregexp.h>
+#include <stdlib.h>
 
-MainView::MainView( bool demo, QWidget* parent, const char* name )
+MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 )
 {
-    bool showWelcome = !Options::configFileExists();
+    load();
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Options, and where the main thread crates an instance, we better get it created now.
-    (void) Options::instance();
-
+    connect( Options::instance(), SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 
     _stack = new QWidgetStack( this );
     _browser = new Browser( _stack );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     _thumbNailView = new ThumbNailView( _stack );
+    _thumbNailView->load( &ImageDB::instance()->images() );
+
     _stack->addWidget( _browser );
     _stack->addWidget( _thumbNailView );
     setCentralWidget( _stack );
@@ -89,13 +94,6 @@ MainView::MainView( bool demo, QWidget* parent, const char* name )
     connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
 
-    if ( demo )
-        loadDemo();
-    else if ( showWelcome )
-        welcome();
-    else
-        load();
-
     // PENDING(blackie) ImageDB should emit a signal when total changes.
     total->setTotal( ImageDB::instance()->totalCount() );
     statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
@@ -105,7 +103,7 @@ MainView::MainView( bool demo, QWidget* parent, const char* name )
 
 bool MainView::slotExit()
 {
-    if ( _dirty || Options::instance()->isDirty() || !ImageDB::instance()->isClipboardEmpty() ) {
+    if ( _dirty || !ImageDB::instance()->isClipboardEmpty() ) {
         int ret = QMessageBox::warning( this, i18n("Save Changes?"),
                                         i18n("Do you want to save the changes?"),
                                         QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
@@ -116,7 +114,6 @@ bool MainView::slotExit()
         }
         if ( ret == QMessageBox::No ) {
             QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
-            QDir().remove( Options::instance()->autoSaveFile() );
         }
     }
 
@@ -129,7 +126,6 @@ void MainView::slotOptions()
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
         connect( _optionsDialog, SIGNAL( changed() ), _thumbNailView, SLOT( reload() ) );
-        connect( _optionsDialog, SIGNAL( imagePathChanged() ), this, SLOT( load() ) );
     }
     _optionsDialog->exec();
     startAutoSaveTimer(); // In case auto save period has changed, we better restart the timer.
@@ -185,12 +181,35 @@ void MainView::createImageConfig()
 void MainView::slotSave()
 {
     statusBar()->message(i18n("Saving..."), 5000 );
-    ImageDB::instance()->save( Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml") );
-    Options::instance()->save( Options::instance()->configFile() );
+    save( Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml") );
     _dirty = false;
     QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
-    QDir().remove( Options::instance()->autoSaveFile() );
     statusBar()->message(i18n("Saving... Done"), 5000 );
+}
+
+void MainView::save( const QString& fileName )
+{
+    ShowBusyCursor dummy;
+
+    QDomDocument doc;
+
+    // PENDING(blackie) The user should be able to specify the coding himself.
+    doc.appendChild( doc. createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
+    QDomElement elm = doc.createElement( QString::fromLatin1("KimDaBa") );
+    doc.appendChild( elm );
+
+    Options::instance()->save( elm );
+    ImageDB::instance()->save( elm );
+
+    QFile out( fileName );
+
+    if ( !out.open( IO_WriteOnly ) )
+        KMessageBox::sorry( this, i18n( "Could not open file '%1'" ).arg( fileName ) );
+    else {
+        QTextStream stream( &out );
+        stream << doc.toString().utf8();
+        out.close();
+    }
 }
 
 
@@ -252,27 +271,12 @@ void MainView::slotViewSelected( bool reuse )
     }
 }
 
-void MainView::welcome()
+QString MainView::welcome()
 {
-    WelComeDialog* dialog = new WelComeDialog( this );
-    int ret = dialog->exec();
-    delete dialog;
-    if ( ret == QDialog::Accepted )
-        slotOptions();
-    else
-        loadDemo();
+    WelComeDialog dialog( this );
+    dialog.exec();
+    return dialog.configFileName();
 }
-
-void MainView::loadDemo()
-{
-    if ( !Util::setupDemo() )
-        qApp->quit();
-
-    delete Options::instance(); // We need it to reload.
-    load();
-    _browser->reload();
-}
-
 
 void MainView::slotChanges()
 {
@@ -391,13 +395,9 @@ void MainView::startAutoSaveTimer()
 
 void MainView::slotAutoSave()
 {
-    if ( _dirty || Options::instance()->isDirty() ) {
+    if ( _dirty ) {
         statusBar()->message(i18n("Auto saving...."));
-        if ( _dirty )
-            ImageDB::instance()->save( Options::instance()->imageDirectory() +
-                                       QString::fromLatin1("/.#index.xml") );
-        if ( Options::instance()->isDirty() )
-            Options::instance()->save( Options::instance()->autoSaveFile() );
+        save( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
     }
 }
@@ -407,13 +407,6 @@ void MainView::showThumbNails()
 {
     _thumbNailView->reload();
     _stack->raiseWidget( _thumbNailView );
-}
-
-void MainView::load()
-{
-    ShowBusyCursor dummy;
-    ImageDB::instance()->load();
-    _thumbNailView->load( &ImageDB::instance()->images() );
 }
 
 void MainView::showBrowser()
@@ -458,5 +451,118 @@ void MainView::runDemo()
     *process << "kimdaba" << "-demo";
     process->start();
 }
+
+void MainView::load()
+{
+
+    // Let first try to find a config file.
+    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+    QString configFile = QString::null;
+
+    if ( args->isSet( "c" ) )
+        configFile = args->getOption( "c" );
+    else if ( args->isSet( "demo" ) )
+        configFile = Util::setupDemo();
+    else {
+        KSimpleConfig config( QString::fromLatin1("kimdaba") );
+        if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
+            configFile = config.readEntry( QString::fromLatin1("configfile") );
+            if ( !QFileInfo( configFile ).exists() )
+                configFile = welcome();
+        }
+        else
+            configFile = welcome();
+    }
+
+    Util::checkForBackupFile( configFile );
+
+
+    QDomDocument doc;
+    QFile file( configFile );
+    if ( !file.exists() ) {
+        // Load a default setup
+        QFile file( locate( "data", QString::fromLatin1( "kimdaba/default-setup" ) ) );
+        if ( !file.open( IO_ReadOnly ) ) {
+            KMessageBox::information( 0, i18n( "KimDaBa was unable to load a default setup, which indicates an installation error" ), i18n("No default setup file found") );
+        }
+        else {
+            QTextStream stream( &file );
+            QString str = stream.read();
+            str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
+            str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
+            str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
+            str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
+            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
+            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
+            doc.setContent( str );
+        }
+    }
+    else {
+        if ( !file.open( IO_ReadOnly ) ) {
+            KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error running demo") );
+            exit(-1);
+        }
+
+        QString errMsg;
+        int errLine;
+        int errCol;
+
+        if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
+            KMessageBox::error( this, i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
+            exit(-1);
+        }
+    }
+
+    // Now read the content of the file.
+    QDomElement top = doc.documentElement();
+    if ( top.isNull() ) {
+        KMessageBox::error( this, i18n("Error in file %1: No elements found").arg( configFile ) );
+        exit(-1);
+    }
+
+    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) {
+        KMessageBox::error( this, i18n("Error in file %1: expected 'KimDaBa' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
+        exit(-1);
+    }
+
+    QDomElement config;
+    QDomElement options;
+    QDomElement configWindowSetup;
+    QDomElement images;
+
+    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
+        if ( node.isElement() ) {
+            QDomElement elm = node.toElement();
+            QString tag = elm.tagName().lower();
+            if ( tag == QString::fromLatin1( "config" ) )
+                config = elm;
+            else if ( tag == QString::fromLatin1( "options" ) )
+                options = elm;
+            else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
+                configWindowSetup = elm;
+            else if ( tag == QString::fromLatin1("images") )
+                images = elm;
+            else {
+                KMessageBox::error( this, i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
+            }
+        }
+    }
+
+    if ( config.isNull() )
+        KMessageBox::sorry( this, i18n("Didn't find 'Config' tag in configuration file %1").arg( configFile ) );
+    if ( options.isNull() )
+        KMessageBox::sorry( this, i18n("Didn't find 'Options' tag in configuration file %1").arg( configFile ) );
+    if ( configWindowSetup.isNull() )
+        KMessageBox::sorry( this, i18n("Didn't find 'ConfigWindowSetup' tag in configuration file %1").arg( configFile ) );
+    if ( images.isNull() )
+        KMessageBox::sorry( this, i18n("Didn't find 'Images' tag in configuration file %1").arg( configFile ) );
+
+    file.close();
+
+    Options::setup( config, options, configWindowSetup, QFileInfo( configFile ).dirPath( true ) );
+    ImageDB::setup( images );
+}
+
+
 
 #include "mainview.moc"

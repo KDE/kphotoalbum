@@ -42,13 +42,9 @@ int main( int argc, char** argv ) {
 
     KApplication app;
 
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-    if ( args->isSet( "c" ) )
-        Options::setConfFile( args->getOption( "c" ) );
-
     KImageIO::registerFormats();
+    MainView* view = new MainView( 0, "view" );
 
-    MainView* view = new MainView( args->isSet( "demo" ), 0,  "view" );
     qApp->setMainWidget( view );
     view->resize(800, 600);
     view->show();

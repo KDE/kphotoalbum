@@ -19,7 +19,6 @@ kimdaba_SOURCES = main.cpp \
 	imagepreview.cpp \
 	imagedate.cpp \
 	imagesearchinfo.cpp \
-	welcomedialog.ui \
 	editor.cpp \
 	showbusycursor.cpp \
 	displayarea.cpp \
@@ -27,7 +26,7 @@ kimdaba_SOURCES = main.cpp \
 	htmlexportdialog.cpp imagecounter.cpp iconviewtooltip.cpp \
 	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
-	undoredolist.cpp optionsdialog.cpp infobox.cpp \
+	undoredolist.cpp optionsdialog.cpp infobox.cpp welcomedialog.cpp \
 	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)

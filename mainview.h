@@ -36,7 +36,7 @@ class MainView :public KMainWindow
     Q_OBJECT
 
 public:
-    MainView( bool demo, QWidget* parent,  const char* name = 0 );
+    MainView( QWidget* parent,  const char* name = 0 );
 
 protected slots:
     bool slotExit();
@@ -55,22 +55,22 @@ protected slots:
     void slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
     void slotAutoSave();
     void showThumbNails();
-    void load();
     void showBrowser();
     void slotOptionGroupChanged();
     void showTipOfDay();
     void pathChanged( const QString& );
     void runDemo();
-    void loadDemo();
 
 protected:
     void configureImages( bool oneAtATime );
     ImageInfoList selected();
-    void welcome();
+    QString welcome();
     virtual void closeEvent( QCloseEvent* e );
     void setupMenuBar();
     void startAutoSaveTimer();
     void createImageConfig();
+    void load();
+    void save( const QString& fileName );
 
 private:
     ThumbNailView* _thumbNailView;

@@ -159,21 +159,22 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
     return text;
 }
 
-void Util::checkForBackupFile( const QString& realName, const QString& backupName )
+void Util::checkForBackupFile( const QString& fileName )
 {
+    QString backupName = QFileInfo( fileName ).dirPath( true ) + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
     QFileInfo backUpFile( backupName);
-    QFileInfo indexFile( realName );
+    QFileInfo indexFile( fileName );
     if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
         return;
 
     int code = KMessageBox::questionYesNo( 0, i18n("Backup file '%1' exists and is newer than '%2'. "
                                                       "Should I use the backup file?")
-                                           .arg(backupName).arg(realName),
+                                           .arg(backupName).arg(fileName),
                                            i18n("Found Backup File") );
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );
         if ( in.open( IO_ReadOnly ) ) {
-            QFile out( realName );
+            QFile out( fileName );
             if (out.open( IO_WriteOnly ) ) {
                 char data[1024];
                 int len;
@@ -189,7 +190,7 @@ bool Util::ctrlKeyDown()
     return KApplication::keyboardModifiers() & KApplication::ControlModifier;
 }
 
-bool Util::setupDemo()
+QString Util::setupDemo()
 {
     QString dir = QString::fromLatin1( "/tmp/kimdaba-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
     QFileInfo fi(dir);
@@ -197,7 +198,7 @@ bool Util::setupDemo()
         bool ok = QDir().mkdir( dir );
         if ( !ok ) {
             KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo").arg( dir ), i18n("Error running demo") );
-            return false;
+            exit(-1);
         }
     }
 
@@ -205,35 +206,23 @@ bool Util::setupDemo()
 
     // index.xml
     QString srcFile = locate( "data", QString::fromLatin1( "kimdaba/demo/index.xml" ) );
-    QString destFile = dir + QString::fromLatin1( "/index.xml" );
-    if ( ! QFileInfo( destFile ).exists() ) {
-        ok = copy( srcFile, destFile );
-        if ( !ok ) {
-            KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'").arg( srcFile ).arg( destFile ), i18n("Error running demo") );
-            return false;
-        }
-    }
-
-
-    // setup
-    srcFile = locate( "data", QString::fromLatin1( "kimdaba/demo/setup" ) );
-    destFile = dir + QString::fromLatin1( "/setup" );
+    QString configFile = dir + QString::fromLatin1( "/index.xml" );
 
     QFile in( srcFile );
     ok = in.open( IO_ReadOnly );
     if ( !ok ) {
         KMessageBox::error( 0, i18n("Unable to open '%1' for reading").arg( srcFile ), i18n("Error running demo") );
-        return false;
+        exit(-1);
     }
     QString str = QTextStream( &in ).read();
     in.close();
     str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("imageDirectory=\"%1\"").arg(dir) );
     str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
     str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-    QFile out( destFile );
+    QFile out( configFile );
     if ( !out.open( IO_WriteOnly ) ) {
-        KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( destFile ), i18n("Error running demo") );
-        return false;
+        KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( configFile ), i18n("Error running demo") );
+        exit(-1);
     }
     QTextStream( &out ) << str;
     out.close();
@@ -241,18 +230,17 @@ bool Util::setupDemo()
     // Images
     QStringList files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kimdaba/demo/*.jpg" ) );
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-        destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
+        QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
         if ( ! QFileInfo( destFile ).exists() ) {
             ok = ( symlink( (*it).latin1(), destFile.latin1() ) == 0 );
             if ( !ok ) {
                 KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
-                return false;
+                exit(-1);
             }
         }
 
     }
-    Options::setConfFile( dir + QString::fromLatin1( "/setup" ) );
-    return true;
+    return configFile;
 }
 
 bool Util::copy( const QString& from, const QString& to )

@@ -32,6 +32,22 @@ fish.</p>
 
 <tip category="KimDaBa">
 <html>
+<p>When you bring new images to your collection, you might not have time
+right away to categorize them (i.e specify Persons, Locations
+etc.). Therefore, you might later want to find those images which has not
+yet been categorized. Here is what I do:</p> 
+<p>I use the <tt>keyword</tt> <tt>OK</tt>, which I set on images, once I've
+categorized them. (i.e. just like you may have a keyword for <tt>Summer
+Party</tt> or <tt>Interrail trip 1990</tt>, you now have a keyword
+<tt>OK</tt>). To find uncategorized images, I choose the
+<tt>Search</tt> item from the browser, and in the keywords line edit, I
+type <tt>!OK</tt>. This will find all images which do <b>not</b> have the
+<tt>OK</tt> item.
+</html>
+</tip>
+
+<tip category="KimDaBa">
+<html>
 <p>You can reorder images on your hard disk after having loaded them into
 KimDaBa - KimDaBa will still remember them, as it calculates checksums for
 the images.</p>
@@ -57,6 +73,16 @@ reg no: 3203
 account no: 35934019283203
 </pre>
 </p>
+</html>
+</tip>
+
+<tip category="KimDaBa">
+<html>
+<p>In the image-properties, keywords, persons and locations (as well as 
+any additional properties you define) are sorted so that the most 
+recently used are at the top, making it convenient to tag several 
+similar images.</p>
+<p align="right">-- Tip contributed by Eivind Kjorstad</p>
 </html>
 </tip>
 

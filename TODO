@@ -8,14 +8,12 @@
 - In the group editor (options->group), ensure that no cycles are created.
 - when images are deleted, the total count at the bottom of the mainwindow,
 should update
-- Edit->Options should likely be Settings->Configure Kimdaba instead.
 - undo/redo
 - drag an image out of KimDaBa to say the background
 - read date and rotation out of the JPEG file info
 - made it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when exporting
   to HTML
-- upload html to servers using say fish://
 - export/import of selection - thus make it possible to share part of
   KimDaBa databases
 - customize key bindings

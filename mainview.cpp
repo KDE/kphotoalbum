@@ -341,8 +341,6 @@ void MainView::setupMenuBar()
     // The Edit menu
     KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
     KStdAction::paste( _thumbNailView, SLOT( slotPaste() ), actionCollection() );
-    new KAction( i18n( "Options" ), CTRL+Key_O, this, SLOT( slotOptions() ),
-                 actionCollection(), "options" );
     KStdAction::selectAll( _thumbNailView, SLOT( slotSelectAll() ), actionCollection() );
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
@@ -371,6 +369,9 @@ void MainView::setupMenuBar()
                                   actionCollection(), "setDefaultScopePositive" );
     _setDefaultNeg = new KAction( i18n("Mark Everything but the Current View as Lock"), 0, this, SLOT( setDefaultScopeNegative() ),
                                   actionCollection(), "setDefaultScopeNegative" );
+
+    // Settings
+    KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
 
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );

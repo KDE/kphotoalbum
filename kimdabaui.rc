@@ -5,7 +5,6 @@
       <Action name="exportHTML"/>
     </Menu>
     <Menu name="edit" >
-      <Action name="options" />
       <Action name="deleteSelected" />
       <Menu name="properties">
         <text>P&amp;roperties</text>

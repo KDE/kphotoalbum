@@ -24,6 +24,7 @@ protected slots:
     void load();
     void slotViewSelected();
     void slotChanges();
+    void slotShowAllThumbNails();
 
 protected:
     void configureImages( bool oneAtATime );

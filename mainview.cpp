@@ -11,6 +11,8 @@
 #include <qdict.h>
 #include "viewer.h"
 #include <wellcomedialog.h>
+#include <qcursor.h>
+#include "showbusycursor.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :MainViewUI( parent,  name ), _dirty( false )
@@ -86,6 +88,7 @@ void MainView::slotSearch()
     }
     int ok = _imageConfigure->search();
     if ( ok == QDialog::Accepted )  {
+        ShowBusyCursor dummy;
         for( ImageInfoListIterator it( _images ); *it; ++it ) {
             (*it)->setVisible( _imageConfigure->match( *it ) );
         }
@@ -95,6 +98,7 @@ void MainView::slotSearch()
 
 void MainView::slotSave()
 {
+    ShowBusyCursor dummy;
     Options::instance()->save();
 
     QMap<QString, QDomDocument> docs;
@@ -144,6 +148,7 @@ void MainView::slotDeleteSelected()
 
 void MainView::load()
 {
+    ShowBusyCursor dummy;
     _images.clear();
 
     QString directory = Options::instance()->imageDirectory();
@@ -259,7 +264,6 @@ void MainView::wellcome()
 
 void MainView::slotChanges()
 {
-    qDebug("DIRTY!");
     _dirty = true;
 }
 
@@ -272,5 +276,14 @@ void MainView::closeEvent( QCloseEvent* e )
         e->ignore();
 }
 
+
+void MainView::slotShowAllThumbNails()
+{
+    ShowBusyCursor dummy;
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        (*it)->setVisible( true );
+    }
+    thumbNailView->reload();
+}
 
 #include "mainview.moc"

@@ -46,6 +46,7 @@
     <item text="Images" name="PopupMenu_3">
         <action name="Find"/>
         <action name="ViewSelected"/>
+        <action name="ViewAllImages"/>
     </item>
 </menubar>
 <toolbars>
@@ -222,6 +223,14 @@
             <string>Ctrl+S</string>
         </property>
     </action>
+    <action>
+        <property name="name">
+            <cstring>ViewAllImages</cstring>
+        </property>
+        <property name="text">
+            <string>&amp;Display All Thumb Nails</string>
+        </property>
+    </action>
 </actions>
 <images>
     <image name="image0">
@@ -295,6 +304,12 @@
         <receiver>MainViewUI</receiver>
         <slot>slotSave()</slot>
     </connection>
+    <connection>
+        <sender>ViewAllImages</sender>
+        <signal>activated()</signal>
+        <receiver>MainViewUI</receiver>
+        <slot>slotShowAllThumbNails()</slot>
+    </connection>
 </connections>
 <slots>
     <slot access="protected" returnType="bool">slotExit()</slot>
@@ -306,6 +321,7 @@
     <slot access="protected">slotViewSelected()</slot>
     <slot access="protected">slotReorder()</slot>
     <slot access="protected">slotSave()</slot>
+    <slot>slotShowAllThumbNails()</slot>
 </slots>
 <layoutdefaults spacing="0" margin="0"/>
 <includehints>

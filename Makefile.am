@@ -22,7 +22,8 @@ kpalbum_SOURCES = main.cpp \
 	optionsdialog.ui \
 	imageconfigui.ui \
 	wellcomedialog.ui \
-	editor.cpp
+	editor.cpp \
+	showbusycursor.cpp
 
 kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH) -lktexteditor
 kpalbum_LDADD = $(LIB_KIO) $(LIBJPEG)

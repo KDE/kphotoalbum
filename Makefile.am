@@ -38,7 +38,7 @@ METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS)
 
 rcdir = $(kde_datadir)/kimdaba
-rc_DATA = kimdabaui.rc
+rc_DATA = kimdabaui.rc default-setup
 
 pkg_DATA = infobox.js
 pkgdir = $(kde_datadir)/kimdaba/

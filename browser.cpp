@@ -143,8 +143,10 @@ void Browser::load( const QString& optionGroup, const QString& value )
     FolderAction* a;
     if (  Util::ctrlKeyDown() && ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
         a = new ImageFolderAction( info, -1, -1, this );
-    else
-        a = new ContentFolderAction( optionGroup, value, ImageSearchInfo(), this );
+    else {
+        a = new ContentFolderAction( optionGroup, value, info, this );
+    }
+
     addItem( a );
     a->action();
     topLevelWidget()->raise();

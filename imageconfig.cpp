@@ -42,51 +42,20 @@
 #include <qcursor.h>
 #include <qapplication.h>
 #include <qeventloop.h>
+#include <qdialog.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
-    : KDockMainWindow( parent, name ), _viewer(0)
+    : QDialog( parent, name ), _viewer(0)
 {
-    // -------------------------------------------------- The buttons.
-    KDockWidget* buttonDock = createDockWidget( i18n("Buttons"), QPixmap(), this );
-    _dockWidgets.append( buttonDock );
-    buttonDock->setEnableDocking(KDockWidget::DockNone);
-
-    QWidget* buttons = new QWidget( buttonDock );
-    QHBoxLayout* lay1 = new QHBoxLayout( buttons, 6 );
-
-    buttonDock->setWidget( buttons );
-    setView( buttonDock);
-    setMainDockWidget( buttonDock);
-
-    _revertBut = new QPushButton( i18n("Revert this image"), buttons );
-    lay1->addWidget( _revertBut );
-
-    QPushButton* clearBut = new QPushButton( i18n("Clear form"), buttons );
-    lay1->addWidget( clearBut );
-
-    QPushButton* optionsBut = new QPushButton( i18n("Options..." ), buttons );
-    lay1->addWidget( optionsBut );
-
-    lay1->addStretch(1);
-
-    _okBut = new QPushButton( i18n("OK"), buttons );
-    lay1->addWidget( _okBut );
-
-    QPushButton* cancelBut = new QPushButton( i18n("Cancel"), buttons );
-    lay1->addWidget( cancelBut );
-
-    connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
-    connect( _okBut, SIGNAL( clicked() ), this, SLOT( slotOK() ) );
-    connect( cancelBut, SIGNAL( clicked() ), this, SLOT( slotCancel() ) );
-    connect( clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
-    connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
-
-    buttonDock->setForcedFixedHeight( buttons->sizeHint().height() );
+    QVBoxLayout* layout = new QVBoxLayout( this, 6 );
+    _dockWindow = new KDockMainWindow( 0 );
+    _dockWindow->reparent( this, false, QPoint( 0,0 ) );
+    layout->addWidget( _dockWindow );
 
     // -------------------------------------------------- Label and Date
     // If I make the dateDock a child of 'this', then things seems to break.
     // The datedock isn't shown at all
-    KDockWidget* dateDock = createDockWidget( i18n("Label and Dates"), QPixmap(), 0 );
+    KDockWidget* dateDock = _dockWindow->createDockWidget( i18n("Label and Dates"), QPixmap(), 0 );
     _dockWidgets.append( dateDock );
     QWidget* top = new QWidget( dateDock );
     QVBoxLayout* lay2 = new QVBoxLayout( top, 6 );
@@ -152,13 +121,11 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _yearEnd->setSpecialValueText( QString::fromLatin1( "---" ) );
     lay4->addWidget( _yearEnd );
 
-    dateDock->manualDock( buttonDock, KDockWidget::DockTop );
-    // PENDING(blackie) Ask author of KDock* why the line below does not work.
-    // dateDock->setForcedFixedHeight( top->sizeHint().height() );
+    _dockWindow->setView( dateDock );
 
     // -------------------------------------------------- Image preview
     KDockWidget* previewDock
-        = createDockWidget( i18n("Image Preview"),
+        = _dockWindow->createDockWidget( i18n("Image Preview"),
                             locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ));
     _dockWidgets.append( previewDock );
     QWidget* top2 = new QWidget( previewDock );
@@ -185,7 +152,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
 
     // -------------------------------------------------- The editor
-    KDockWidget* descriptionDock = createDockWidget( i18n("Description"), QPixmap() );
+    KDockWidget* descriptionDock = _dockWindow->createDockWidget( i18n("Description"), QPixmap() );
     _dockWidgets.append(descriptionDock);
     _description = new Editor( descriptionDock );
     descriptionDock->setWidget( _description );
@@ -193,7 +160,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
 
     // -------------------------------------------------- Option groups
-    KDockWidget* last = buttonDock;
+    KDockWidget* last = dateDock;
     KDockWidget::DockPosition pos = KDockWidget::DockTop;
 
     Options* opt = Options::instance();
@@ -206,6 +173,37 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     }
 
 
+    // -------------------------------------------------- The buttons.
+    QHBoxLayout* lay1 = new QHBoxLayout( layout, 6 );
+
+    //buttonDock->setWidget( buttons );
+    //_dockWindow->setView( buttonDock);
+    //_dockWindow->setMainDockWidget( buttonDock);
+
+    _revertBut = new QPushButton( i18n("Revert this image"), this );
+    lay1->addWidget( _revertBut );
+
+    QPushButton* clearBut = new QPushButton( i18n("Clear form"), this );
+    lay1->addWidget( clearBut );
+
+    QPushButton* optionsBut = new QPushButton( i18n("Options..." ), this );
+    lay1->addWidget( optionsBut );
+
+    lay1->addStretch(1);
+
+    _okBut = new QPushButton( i18n("OK"), this );
+    lay1->addWidget( _okBut );
+
+    QPushButton* cancelBut = new QPushButton( i18n("Cancel"), this );
+    lay1->addWidget( cancelBut );
+
+    connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
+    connect( _okBut, SIGNAL( clicked() ), this, SLOT( slotOK() ) );
+    connect( cancelBut, SIGNAL( clicked() ), this, SLOT( slotCancel() ) );
+    connect( clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
+    connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
+
+
     // Connect PageUp/PageDown to prev/next
     QAccel* accel = new QAccel( this, "accel for ImageConfig" );
     accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
@@ -213,6 +211,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     _optionList.setAutoDelete( true );
     Options::instance()->loadConfigWindowLayout( this );
+
+    // If I don't explicit show _dockWindow here, then no windows will show up.
+    _dockWindow->show();
 }
 
 
@@ -498,7 +499,7 @@ void ImageConfig::viewerDestroyed()
 void ImageConfig::slotOptions()
 {
     QPopupMenu menu;
-    menu.insertItem( i18n("Show/Hide windows"),  dockHideShowMenu());
+    menu.insertItem( i18n("Show/Hide windows"),  _dockWindow->dockHideShowMenu());
     menu.insertItem( i18n("Save current window setup"), this, SLOT( slotSaveWindowSetup() ) );
     menu.exec( QCursor::pos() );
 }
@@ -581,7 +582,7 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 
 KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 {
-    KDockWidget* dockWidget = createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
+    KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
                                                 0L, optionGroup );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
@@ -593,6 +594,16 @@ KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 
     dockWidget->setWidget( sel );
     return dockWidget;
+}
+
+void ImageConfig::writeDockConfig( QDomElement& doc )
+{
+    _dockWindow->writeDockConfig( doc );
+}
+
+void ImageConfig::readDockConfig( QDomElement& doc )
+{
+    _dockWindow->readDockConfig( doc );
 }
 
 #include "imageconfig.moc"

@@ -46,7 +46,6 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
 void ContentFolderAction::action()
 {
     _browser->clear();
-
     QStringList grps = Options::instance()->optionGroups();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {

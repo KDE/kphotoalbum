@@ -32,6 +32,7 @@
 #include <kglobal.h>
 #include "imagedb.h"
 #include "imageconfig.h"
+#include <qtextstream.h>
 
 Options* Options::_instance = 0;
 QString Options::_confFile = QString::null;
@@ -57,14 +58,18 @@ Options::Options()
     if ( file.open( IO_ReadOnly ) )
         doc.setContent( &file );
     else {
-        QString str =
-            QString::fromLatin1( "<kimdaba>"
-                                 "  <option name=\"Persons\" text=\"%1\" icon=\"personsIcon\"/>"
-                                 "  <option name=\"Locations\" text=\"%2\" icon=\"locationsIcon\"/>"
-                                 "  <option name=\"Keywords\" text=\"%3\" icon=\"keywordIcon\"/>"
-                                 "</kimdaba>")
-            .arg( i18n( "Persons" ) ).arg(i18n( "Locations" )).arg( i18n( "Keywords" ) );
-        doc.setContent( str );
+        QFile file( locate( "data", QString::fromLatin1( "kimdaba/default-setup" ) ) );
+        if ( !file.open( IO_ReadOnly ) ) {
+            KMessageBox::information( 0, i18n( "KimDaBa was unable to load a default setup, which indicates an installation error" ), i18n("No default setup file found") );
+        }
+        else {
+            QTextStream stream( &file );
+            QString str = stream.read();
+            str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
+            str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
+            str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
+            doc.setContent( str );
+        }
     }
 
     QDomElement top = doc.documentElement();

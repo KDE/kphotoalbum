@@ -26,6 +26,7 @@
 #include <qspinbox.h>
 #include "imagepreview.h"
 #include "editor.h"
+#include <qdialog.h>
 
 class QSplitter;
 class Viewer;
@@ -33,12 +34,14 @@ class QPushButton;
 class KLineEdit;
 class KDockWidget;
 
-class ImageConfig :public KDockMainWindow {
+class ImageConfig :public QDialog {
     Q_OBJECT
 public:
     ImageConfig( QWidget* parent, const char* name = 0 );
     void configure( ImageInfoList list,  bool oneAtATime );
     ImageSearchInfo search( ImageSearchInfo* search = 0 );
+    void writeDockConfig( QDomElement& doc );
+    void readDockConfig( QDomElement& doc );
 
 signals:
     void changed();
@@ -84,6 +87,7 @@ private:
     QValueList<KDockWidget*> _tornOfWindows;
 
     // Widgets
+    KDockMainWindow* _dockWindow;
     KLineEdit* _imageLabel;
     QSpinBox* _dayStart;
     QSpinBox* _dayEnd;

@@ -44,7 +44,7 @@
         <action name="DeleteSelected"/>
     </item>
     <item text="Images" name="PopupMenu_3">
-        <action name="Search"/>
+        <action name="Find"/>
         <action name="ViewSelected"/>
     </item>
 </menubar>
@@ -97,13 +97,13 @@
     </action>
     <action>
         <property name="name">
-            <cstring>Search</cstring>
+            <cstring>Find</cstring>
         </property>
         <property name="text">
-            <string>&amp;Search</string>
+            <string>&amp;Find</string>
         </property>
         <property name="accel">
-            <string>Ctrl+S</string>
+            <string>Ctrl+F</string>
         </property>
     </action>
     <action>
@@ -218,6 +218,9 @@
         <property name="text">
             <string>&amp;Save</string>
         </property>
+        <property name="accel">
+            <string>Ctrl+S</string>
+        </property>
     </action>
 </actions>
 <images>
@@ -257,7 +260,7 @@
         <slot>slotDeleteSelected()</slot>
     </connection>
     <connection>
-        <sender>Search</sender>
+        <sender>Find</sender>
         <signal>activated()</signal>
         <receiver>MainViewUI</receiver>
         <slot>slotSearch()</slot>

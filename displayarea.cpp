@@ -322,7 +322,7 @@ void DisplayArea::cropAndScale()
     else
         _croppedAndScaledImg = _loadedImage;
 
-    _croppedAndScaledImg = _croppedAndScaledImg.scale( width(), height(), QImage::ScaleMin );
+    _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
 
     drawAll();
 }

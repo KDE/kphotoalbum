@@ -341,9 +341,9 @@ void Viewer::toggleShowTime( bool b )
     updateInfoBox();
 }
 
-void Viewer::toggleShowOption( const QString& optionGroup, bool b )
+void Viewer::toggleShowOption( const QString& category, bool b )
 {
-    Options::instance()->setShowOption( optionGroup, b );
+    Options::instance()->setShowOption( category, b );
     updateInfoBox();
 }
 

@@ -34,9 +34,9 @@ class ListSelect :public QWidget {
     Q_OBJECT
 
 public:
-    ListSelect( const QString& optionGroup, QWidget* parent,  const char* name = 0 );
+    ListSelect( const QString& category, QWidget* parent,  const char* name = 0 );
     void setOptionGroup( const QString& group );
-    QString optionGroup() const;
+    QString category() const;
     QString text() const;
     void setText( const QString& );
     void setSelection( const QStringList& list );
@@ -64,7 +64,7 @@ protected:
 
 private:
     QLabel* _label;
-    QString _optionGroup;
+    QString _category;
     CompletableLineEdit* _lineEdit;
     QListBox* _listBox;
     QCheckBox* _merge;

@@ -60,20 +60,20 @@ public:
     ViewSortType viewSortType() const;
 
     // -------------------------------------------------- Options
-    void setOption( const QString& optionGroup,  const QStringList& value );
-    void addOption( const QString& optionGroup,  const QString& value );
-    void removeOption( const QString& optionGroup, const QString& value );
-    QStringList optionValue( const QString& optionGroup ) const;
-    QStringList optionValueInclGroups( const QString& optionGroup ) const;
-    void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
+    void setOption( const QString& category,  const QStringList& value );
+    void addOption( const QString& category,  const QString& value );
+    void removeOption( const QString& category, const QString& value );
+    QStringList optionValue( const QString& category ) const;
+    QStringList optionValueInclGroups( const QString& category ) const;
+    void renameOption( const QString& category, const QString& oldValue, const QString& newValue );
 
-    QString fileForCategoryImage(  const QString& optionGroup, QString member ) const;
-    void setOptionImage( const QString& optionGroup, QString, const QImage& image );
-    QImage optionImage( const QString& optionGroup,  QString, int size ) const;
+    QString fileForCategoryImage(  const QString& category, QString member ) const;
+    void setOptionImage( const QString& category, QString, const QImage& image );
+    QImage optionImage( const QString& category,  QString, int size ) const;
 
-    // -------------------------------------------------- Option Groups
+    // -------------------------------------------------- Categories
     QString albumCategory() const;
-    void setAlbumCategory(  const QString& optionGroup );
+    void setAlbumCategory(  const QString& category );
 
     // -------------------------------------------------- Member Groups
     const MemberMap& memberMap();
@@ -93,7 +93,7 @@ public:
     void setShowDescription(bool b);
     void setShowDate(bool b);
     void setShowTime(bool b);
-    void setShowOption( const QString& optionGroup, bool b );
+    void setShowOption( const QString& category, bool b );
 
     Position infoBoxPosition() const;
     void setInfoBoxPosition( Position pos );
@@ -168,8 +168,8 @@ public:
 
 signals:
     void changed();
-    void renamedOption( const QString& optionGroup, const QString& oldName, const QString& newName );
-    void deletedOption( const QString& optionGroup, const QString& name );
+    void renamedOption( const QString& category, const QString& oldName, const QString& newName );
+    void deletedOption( const QString& category, const QString& name );
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Options::ViewSortType );
 

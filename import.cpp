@@ -393,9 +393,9 @@ void Import::createOptionPages()
         }
     }
 
-    _optionGroupMatcher = new ImportMatcher( QString::null, QString::null, options, CategoryCollection::instance()->categoryNames(),
+    _categoryMatcher = new ImportMatcher( QString::null, QString::null, options, CategoryCollection::instance()->categoryNames(),
                                              false, this, "import matcher" );
-    addPage( _optionGroupMatcher, i18n("Match Option Groups") );
+    addPage( _categoryMatcher, i18n("Match Categories") );
 
     _dummy = new QWidget( this );
     addPage( _dummy, QString::null );
@@ -437,14 +437,14 @@ void Import::next()
                 return;
         }
     }
-    if ( !_hasFilled && currentPage() == _optionGroupMatcher ) {
+    if ( !_hasFilled && currentPage() == _categoryMatcher ) {
         _hasFilled = true;
-        _optionGroupMatcher->setEnabled( false );
+        _categoryMatcher->setEnabled( false );
         delete _dummy;
 
         ImportMatcher* matcher = 0;
-        for( QValueList<OptionMatch*>::Iterator it = _optionGroupMatcher->_matchers.begin();
-             it != _optionGroupMatcher->_matchers.end();
+        for( QValueList<OptionMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
+             it != _categoryMatcher->_matchers.end();
              ++it )
         {
             OptionMatch* match = *it;
@@ -456,7 +456,7 @@ void Import::next()
         if ( matcher )
             setFinishEnabled( matcher, true );
         else
-            setFinishEnabled( _optionGroupMatcher, true );
+            setFinishEnabled( _categoryMatcher, true );
     }
 
     QWizard::next();
@@ -583,7 +583,7 @@ void Import::updateDB()
         newInfo->setMD5Sum( info->MD5Sum() );
         ImageDB::instance()->addImage( newInfo );
 
-        // Run though the optionGroups
+        // Run though the categories
         for( QValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {
             QString otherGrp = (*grpIt)->_otherOptionGroup;
             QString myGrp = (*grpIt)->_myOptionGroup;

@@ -34,36 +34,36 @@ void MemberMap::init()
 }
 
 /**
-   returns the groups directly available from optionGroup (non closure that is)
+   returns the groups directly available from category (non closure that is)
 */
-QStringList MemberMap::groups( const QString& optionGroup ) const
+QStringList MemberMap::groups( const QString& category ) const
 {
-    return QStringList( _members[ optionGroup ].keys() );
+    return QStringList( _members[ category ].keys() );
 }
 
-void MemberMap::deleteGroup( const QString& optionGroup, const QString& name )
+void MemberMap::deleteGroup( const QString& category, const QString& name )
 {
-    _members[optionGroup].remove(name);
+    _members[category].remove(name);
     _dirty = true;
 }
 
 /**
    return all the members of memberGroup
 */
-QStringList MemberMap::members( const QString& optionGroup, const QString& memberGroup, bool closure ) const
+QStringList MemberMap::members( const QString& category, const QString& memberGroup, bool closure ) const
 {
     if ( closure ) {
         if ( _dirty )
             const_cast<MemberMap*>(this)->calculate();
-        return _closureMembers[optionGroup][memberGroup];
+        return _closureMembers[category][memberGroup];
     }
     else
-        return _members[optionGroup][memberGroup];
+        return _members[category][memberGroup];
 }
 
-void MemberMap::setMembers( const QString& optionGroup, const QString& memberGroup, const QStringList& members )
+void MemberMap::setMembers( const QString& category, const QString& memberGroup, const QStringList& members )
 {
-    _members[optionGroup][memberGroup] = members;
+    _members[category][memberGroup] = members;
     _dirty = true;
 }
 
@@ -96,34 +96,34 @@ void MemberMap::load( const QDomElement& top )
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
             QDomElement elm = node.toElement();
-            QString optionGroup = elm.attribute( QString::fromLatin1( "option-group" ) );
+            QString category = elm.attribute( QString::fromLatin1( "option-group" ) );
             QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
             QString member = elm.attribute( QString::fromLatin1( "member" ) );
-            _members[optionGroup][group].append( member );
+            _members[category][group].append( member );
         }
     }
     _dirty = true;
 }
 
 /**
-   returns true if item is a group for optionGroup.
+   returns true if item is a group for category.
 */
-bool MemberMap::isGroup( const QString& optionGroup, const QString& item ) const
+bool MemberMap::isGroup( const QString& category, const QString& item ) const
 {
-    return _members[optionGroup].find(item) != _members[optionGroup].end();
+    return _members[category].find(item) != _members[category].end();
 }
 
 
 /**
-   return a map from groupName to list of items for optionGroup
+   return a map from groupName to list of items for category
    example: { USA |-> [Chicago, Grand Canyon, Santa Clara], Denmark |-> [Esbjerg, Odense] }
 */
-QMap<QString,QStringList> MemberMap::groupMap( const QString& optionGroup )
+QMap<QString,QStringList> MemberMap::groupMap( const QString& category )
 {
     if ( _dirty )
         calculate();
 
-    return _closureMembers[optionGroup];
+    return _closureMembers[category];
 }
 
 /**
@@ -132,17 +132,17 @@ QMap<QString,QStringList> MemberMap::groupMap( const QString& optionGroup )
    Califonia consists of members San Fransisco and Los Angeless.
    This function then maps USA to include Califonia, San Fransisco and Los Angeless.
 */
-QStringList MemberMap::calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& optionGroup, const QString& group )
+QStringList MemberMap::calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group )
 {
     resultSoFar[group] = QStringList(); // Prevent against cykles.
-    QStringList members = _members[optionGroup][group];
+    QStringList members = _members[category][group];
     QStringList result = members;
     for( QStringList::Iterator it = members.begin(); it != members.end(); ++it ) {
         if ( resultSoFar.contains( *it ) ) {
             result += resultSoFar[*it];
         }
-        else if ( isGroup(optionGroup, *it ) ) {
-            result += calculateClosure( resultSoFar, optionGroup, *it );
+        else if ( isGroup(category, *it ) ) {
+            result += calculateClosure( resultSoFar, category, *it );
         }
     }
 
@@ -164,26 +164,26 @@ void MemberMap::calculate()
 {
     _closureMembers.clear();
     // run through all option groups
-    for( QMapIterator< QString,QMap<QString,QStringList> > optionGroupIt= _members.begin(); optionGroupIt != _members.end(); ++optionGroupIt ) {
-        QString optionGroup = optionGroupIt.key();
-        QMap<QString, QStringList> groupMap = optionGroupIt.data();
+    for( QMapIterator< QString,QMap<QString,QStringList> > categoryIt= _members.begin(); categoryIt != _members.end(); ++categoryIt ) {
+        QString category = categoryIt.key();
+        QMap<QString, QStringList> groupMap = categoryIt.data();
 
         // Run through each of the groups for the given option group
         for( QMapIterator<QString,QStringList> groupIt= groupMap.begin(); groupIt != groupMap.end(); ++groupIt ) {
             QString group = groupIt.key();
-            if ( _closureMembers[optionGroup].find( group ) == _closureMembers[optionGroup].end() ) {
-                (void) calculateClosure( _closureMembers[optionGroup], optionGroup, group );
+            if ( _closureMembers[category].find( group ) == _closureMembers[category].end() ) {
+                (void) calculateClosure( _closureMembers[category], category, group );
             }
         }
     }
     _dirty = false;
 }
 
-void MemberMap::renameGroup( const QString& optionGroup, const QString& oldName, const QString& newName )
+void MemberMap::renameGroup( const QString& category, const QString& oldName, const QString& newName )
 {
     _dirty = true;
-    QMap<QString, QStringList>& groupMap = _members[optionGroup];
-    groupMap.insert(newName,_members[optionGroup][oldName] );
+    QMap<QString, QStringList>& groupMap = _members[category];
+    groupMap.insert(newName,_members[category][oldName] );
     groupMap.remove( oldName );
     for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         QStringList& list = it.data();
@@ -192,7 +192,7 @@ void MemberMap::renameGroup( const QString& optionGroup, const QString& oldName,
             list.append( newName );
         }
     }
-    Options::instance()->renameOption( optionGroup, oldName, newName );
+    Options::instance()->renameOption( category, oldName, newName );
 }
 
 MemberMap::MemberMap( const MemberMap& other )
@@ -200,20 +200,20 @@ MemberMap::MemberMap( const MemberMap& other )
 {
 }
 
-void MemberMap::deleteOption( const QString& optionGroup, const QString& name)
+void MemberMap::deleteOption( const QString& category, const QString& name)
 {
     _dirty = true;
-    QMap<QString, QStringList>& groupMap = _members[optionGroup];
+    QMap<QString, QStringList>& groupMap = _members[category];
     for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         QStringList& list = it.data();
         list.remove( name );
     }
 }
 
-void MemberMap::renameOption( const QString& optionGroup, const QString& oldName, const QString& newName )
+void MemberMap::renameOption( const QString& category, const QString& oldName, const QString& newName )
 {
     _dirty = true;
-    QMap<QString, QStringList>& groupMap = _members[optionGroup];
+    QMap<QString, QStringList>& groupMap = _members[category];
     for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         QStringList& list = it.data();
         if (list.contains( oldName ) ) {

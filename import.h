@@ -98,7 +98,7 @@ private:
     KLineEdit* _destinationEdit;
     QWidget* _destinationPage;
     QWidget* _dummy;
-    ImportMatcher* _optionGroupMatcher;
+    ImportMatcher* _categoryMatcher;
     QValueList<ImportMatcher*> _matchers;
     KZip* _zip;
     const KArchiveDirectory* _dir;

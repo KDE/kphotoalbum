@@ -71,8 +71,8 @@ protected:
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
 
 protected slots:
-    void renameOption( const QString& optionGroup, const QString& oldName, const QString& newName );
-    void deleteOption( const QString& optionGroup, const QString& option );
+    void renameOption( const QString& category, const QString& oldName, const QString& newName );
+    void deleteOption( const QString& category, const QString& option );
     void lockDB( bool lock, bool exclude );
 
 private:

@@ -392,17 +392,17 @@ void ImageDB::deleteList( const ImageInfoList& list )
     emit totalChanged( _images.count() );
 }
 
-void ImageDB::renameOption( const QString& optionGroup, const QString& oldName, const QString& newName )
+void ImageDB::renameOption( const QString& category, const QString& oldName, const QString& newName )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        (*it)->renameOption( optionGroup, oldName, newName );
+        (*it)->renameOption( category, oldName, newName );
     }
 }
 
-void ImageDB::deleteOption( const QString& optionGroup, const QString& option )
+void ImageDB::deleteOption( const QString& category, const QString& option )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        (*it)->removeOption( optionGroup, option );
+        (*it)->removeOption( category, option );
     }
 }
 

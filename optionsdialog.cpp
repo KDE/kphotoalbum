@@ -240,20 +240,20 @@ void OptionsDialog::createThumbNailPage()
 class OptionGroupItem :public QListBoxText
 {
 public:
-    OptionGroupItem( const QString& optionGroup, const QString& text, const QString& icon,
+    OptionGroupItem( const QString& category, const QString& text, const QString& icon,
                      Category::ViewSize size, Category::ViewType type, QListBox* parent );
     void setLabel( const QString& label );
 
-    QString _optionGroupOrig, _textOrig, _iconOrig;
+    QString _categoryOrig, _textOrig, _iconOrig;
     QString _text, _icon;
     Category::ViewSize _size, _sizeOrig;
     Category::ViewType _type, _typeOrig;
 };
 
-OptionGroupItem::OptionGroupItem( const QString& optionGroup, const QString& text, const QString& icon,
+OptionGroupItem::OptionGroupItem( const QString& category, const QString& text, const QString& icon,
                                   Category::ViewSize size, Category::ViewType type, QListBox* parent )
     :QListBoxText( parent, text ),
-     _optionGroupOrig( optionGroup ), _textOrig( text ), _iconOrig( icon ),
+     _categoryOrig( category ), _textOrig( text ), _iconOrig( icon ),
      _text( text ), _icon( icon ), _size( size ), _sizeOrig( size ), _type( type ), _typeOrig( type )
 {
 }
@@ -272,16 +272,16 @@ void OptionGroupItem::setLabel( const QString& label )
 
 void OptionsDialog::createOptionGroupsPage()
 {
-    QWidget* top = addPage( i18n("Option Groups"), i18n("Option Groups"),
+    QWidget* top = addPage( i18n("Categories"), i18n("Categories"),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "identity" ),
                                                              KIcon::Desktop, 32 ) );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
 
-    _optionGroups = new QListBox( top );
-    connect( _optionGroups, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( edit( QListBoxItem* ) ) );
-    lay2->addWidget( _optionGroups );
+    _categories = new QListBox( top );
+    connect( _categories, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( edit( QListBoxItem* ) ) );
+    lay2->addWidget( _categories );
 
     QVBoxLayout* lay3 = new QVBoxLayout( lay2, 6 );
     QLabel* label = new QLabel( i18n( "Label:" ), top );
@@ -354,7 +354,7 @@ void OptionsDialog::show()
     _autoShowThumbnailView->setChecked( opt->autoShowThumbnailView() );
 
     // Config Groups page
-    _optionGroups->clear();
+    _categories->clear();
     QStringList grps = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         if( *it == QString::fromLatin1( "Folder") ) {
@@ -364,7 +364,7 @@ void OptionsDialog::show()
                              CategoryCollection::instance()->categoryForName( *it )->iconName(),
                              CategoryCollection::instance()->categoryForName( *it )->viewSize(),
                              CategoryCollection::instance()->categoryForName( *it )->viewType(),
-                             _optionGroups );
+                             _categories );
     }
     enableDisable( false );
     KDialogBase::show();
@@ -398,37 +398,37 @@ void OptionsDialog::slotMyOK()
     opt->setAutoShowThumbnailView( _autoShowThumbnailView->isChecked() );
 
     // ----------------------------------------------------------------------
-    // Option Groups
+    // Categories
 
     // Delete items
     for( QValueList<OptionGroupItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
-        if ( !(*it)->_optionGroupOrig.isNull() ) {
+        if ( !(*it)->_categoryOrig.isNull() ) {
             // the Options instance knows about the item.
-            CategoryCollection::instance()->removeCategory( (*it)->_optionGroupOrig );
+            CategoryCollection::instance()->removeCategory( (*it)->_categoryOrig );
         }
     }
 
     // Created or Modified items
-    for ( QListBoxItem* i = _optionGroups->firstItem(); i; i = i->next() ) {
+    for ( QListBoxItem* i = _categories->firstItem(); i; i = i->next() ) {
         OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
-        if ( item->_optionGroupOrig.isNull() ) {
+        if ( item->_categoryOrig.isNull() ) {
             // New Item
             Category* category = new Category( item->_text, item->_icon, item->_size, item->_type );
             CategoryCollection::instance()->addCategory( category );
         }
         else {
             if ( item->_text != item->_textOrig ) {
-                CategoryCollection::instance()->rename(  item->_optionGroupOrig, item->_text );
-                item->_optionGroupOrig =item->_text;
+                CategoryCollection::instance()->rename(  item->_categoryOrig, item->_text );
+                item->_categoryOrig =item->_text;
             }
             if ( item->_icon != item->_iconOrig ) {
-                CategoryCollection::instance()->categoryForName( item->_optionGroupOrig )->setIconName( item->_icon );
+                CategoryCollection::instance()->categoryForName( item->_categoryOrig )->setIconName( item->_icon );
             }
             if ( item->_size != item->_sizeOrig ) {
-                CategoryCollection::instance()->categoryForName( item->_optionGroupOrig )->setViewSize( item->_size );
+                CategoryCollection::instance()->categoryForName( item->_categoryOrig )->setViewSize( item->_size );
             }
             if ( item->_type != item->_typeOrig ) {
-                CategoryCollection::instance()->categoryForName( item->_optionGroupOrig )->setViewType( item->_type );
+                CategoryCollection::instance()->categoryForName( item->_categoryOrig )->setViewType( item->_type );
             }
         }
     }
@@ -488,17 +488,17 @@ void OptionsDialog::slotIconChanged( QString icon )
 
 void OptionsDialog::slotNewItem()
 {
-    _current = new OptionGroupItem( QString::null, QString::null, QString::null, Category::Small, Category::ListView, _optionGroups );
+    _current = new OptionGroupItem( QString::null, QString::null, QString::null, Category::Small, Category::ListView, _categories );
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
     enableDisable( true );
-    _optionGroups->setSelected( _current, true );
+    _categories->setSelected( _current, true );
     _text->setFocus();
 }
 
 void OptionsDialog::slotDeleteCurrent()
 {
-    int count = ImageDB::instance()->countItemsOfOptionGroup( _current->_optionGroupOrig );
+    int count = ImageDB::instance()->countItemsOfOptionGroup( _current->_categoryOrig );
     int answer = KMessageBox::Yes;
     if ( count != 0 )
         KMessageBox::questionYesNo( this,
@@ -509,7 +509,7 @@ void OptionsDialog::slotDeleteCurrent()
         return;
 
     _deleted.append( _current );
-    _optionGroups->takeItem( _current );
+    _categories->takeItem( _current );
     _current = 0;
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
@@ -593,7 +593,7 @@ void OptionsDialog::createGroupConfig()
 }
 
 /**
-   When the user selects a new optionGroup from the combo box then this method is called
+   When the user selects a new category from the combo box then this method is called
    Its purpose is too fill the groups and members listboxes.
 */
 void OptionsDialog::slotCategoryChanged( const QString& name )

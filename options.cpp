@@ -233,11 +233,11 @@ void Options::removeOption( const QString& key, const QString& value )
     emit deletedOption( key, value );
 }
 
-void Options::renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue )
+void Options::renameOption( const QString& category, const QString& oldValue, const QString& newValue )
 {
-    _options[optionGroup].remove( oldValue );
-    addOption( optionGroup, newValue );
-    emit renamedOption( optionGroup, oldValue, newValue );
+    _options[category].remove( oldValue );
+    addOption( category, newValue );
+    emit renamedOption( category, oldValue, newValue );
 }
 
 void Options::addOption( const QString& key, const QString& value )
@@ -254,18 +254,18 @@ QStringList Options::optionValue( const QString& key ) const
     return _options[key];
 }
 
-QStringList Options::optionValueInclGroups( const QString& optionGroup ) const
+QStringList Options::optionValueInclGroups( const QString& category ) const
 {
     // values including member groups
 
-    QStringList items = optionValue( optionGroup );
+    QStringList items = optionValue( category );
     QStringList itemsAndGroups = QStringList::QStringList();
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         itemsAndGroups << *it ;
     };
     // add the groups to the listbox too, but only if the group is not there already, which will be the case
     // if it has ever been selected once.
-    QStringList groups = _members.groups( optionGroup );
+    QStringList groups = _members.groups( category );
     for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
         if ( ! items.contains(  *it ) )
             itemsAndGroups << *it ;
@@ -386,15 +386,15 @@ void Options::setInfoBoxPosition( Position pos )
 /**
    Returns whether the given option groups is shown in the viewer.
 */
-bool Options::showOption( const QString& optionGroup ) const
+bool Options::showOption( const QString& category ) const
 {
-    return CategoryCollection::instance()->categoryForName(optionGroup)->doShow();
+    return CategoryCollection::instance()->categoryForName(category)->doShow();
 }
 
-void Options::setShowOption( const QString& optionGroup, bool b )
+void Options::setShowOption( const QString& category, bool b )
 {
-    if ( CategoryCollection::instance()->categoryForName(optionGroup)->doShow() != b ) emit changed();
-    CategoryCollection::instance()->categoryForName(optionGroup)->setDoShow( b );
+    if ( CategoryCollection::instance()->categoryForName(category)->doShow() != b ) emit changed();
+    CategoryCollection::instance()->categoryForName(category)->setDoShow( b );
 }
 
 QString Options::HTMLBaseDir() const
@@ -551,16 +551,16 @@ QString Options::password() const
     return _passwd;
 }
 
-QString Options::fileForCategoryImage( const QString& optionGroup, QString member ) const
+QString Options::fileForCategoryImage( const QString& category, QString member ) const
 {
     QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
     member.replace( ' ', '_' );
-    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
+    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( category ).arg( member );
     return fileName;
 }
 
 
-void Options::setOptionImage( const QString& optionGroup, QString member, const QImage& image )
+void Options::setOptionImage( const QString& category, QString member, const QImage& image )
 {
     QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
     QFileInfo fi( dir );
@@ -572,7 +572,7 @@ void Options::setOptionImage( const QString& optionGroup, QString member, const 
             return;
         }
     }
-    QString fileName = fileForCategoryImage( optionGroup, member );
+    QString fileName = fileForCategoryImage( category, member );
     ok = image.save( fileName, "JPEG" );
     if ( !ok ) {
         QMessageBox::warning( 0, i18n("Error Saving Image"), i18n("Error when saving image %1").arg(fileName), QMessageBox::Ok, 0 );
@@ -580,16 +580,16 @@ void Options::setOptionImage( const QString& optionGroup, QString member, const 
     }
 }
 
-QImage Options::optionImage( const QString& optionGroup, QString member, int size ) const
+QImage Options::optionImage( const QString& category, QString member, int size ) const
 {
-    QString fileName = fileForCategoryImage( optionGroup, member );
+    QString fileName = fileForCategoryImage( category, member );
     QImage img;
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
-        if ( Options::instance()->memberMap().isGroup( optionGroup, member ) )
+        if ( Options::instance()->memberMap().isGroup( category, member ) )
             img = KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, size );
         else
-            img = CategoryCollection::instance()->categoryForName( optionGroup )->icon( size );
+            img = CategoryCollection::instance()->categoryForName( category )->icon( size );
     }
     return img.smoothScale( size, size, QImage::ScaleMin );
 }
@@ -664,10 +664,10 @@ QString Options::albumCategory() const
     return _albumCategory;
 }
 
-void Options::setAlbumCategory( const QString& optionGroup )
+void Options::setAlbumCategory( const QString& category )
 {
-    if (_albumCategory != optionGroup ) {
-        _albumCategory = optionGroup;
+    if (_albumCategory != category ) {
+        _albumCategory = category;
         emit changed();
     }
 }

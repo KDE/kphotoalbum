@@ -20,17 +20,17 @@
 #include "options.h"
 #include <klocale.h>
 
-ShowOptionAction::ShowOptionAction( const QString& optionGroup, QObject* parent, const char* name )
-    :KToggleAction( parent, name ), _optionGroup( optionGroup )
+ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent, const char* name )
+    :KToggleAction( parent, name ), _category( category )
 {
-    setText( i18n( "Show %1" ).arg( optionGroup ) );
+    setText( i18n( "Show %1" ).arg( category ) );
     connect( this, SIGNAL( toggled(bool) ), this, SLOT( slotToggled( bool ) ) );
-    setChecked( Options::instance()->showOption( optionGroup ) );
+    setChecked( Options::instance()->showOption( category ) );
 }
 
 void ShowOptionAction::slotToggled( bool b )
 {
-    emit toggled( _optionGroup, b );
+    emit toggled( _category, b );
 }
 
 #include "showoptionaction.moc"

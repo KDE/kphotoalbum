@@ -313,9 +313,9 @@ void ImageConfig::slotOK()
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
                     if ( (*it)->merge() )
-                        info->addOption( (*it)->optionGroup(),  (*it)->selection() );
+                        info->addOption( (*it)->category(),  (*it)->selection() );
                     else
-                        info->setOption( (*it)->optionGroup(),  (*it)->selection() );
+                        info->setOption( (*it)->category(),  (*it)->selection() );
                 }
             }
 
@@ -352,7 +352,7 @@ void ImageConfig::load()
     _description->setText( info.description() );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setSelection( info.optionValue( (*it)->optionGroup() ) );
+        (*it)->setSelection( info.optionValue( (*it)->category() ) );
     }
 
     _nextBut->setEnabled( _current != (int)_origList.count()-1 );
@@ -391,7 +391,7 @@ void ImageConfig::writeToInfo()
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->text() );
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        info.setOption( (*it)->optionGroup(), (*it)->selection() );
+        info.setOption( (*it)->category(), (*it)->selection() );
     }
 }
 
@@ -454,7 +454,7 @@ ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
                                       _imageLabel->text(), _description->text() );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-            _oldSearch.setOption( (*it)->optionGroup(), (*it)->text() );
+            _oldSearch.setOption( (*it)->category(), (*it)->text() );
         }
 
         return _oldSearch;
@@ -514,7 +514,7 @@ void ImageConfig::loadInfo( const ImageSearchInfo& info )
     _endDate->setDate( info.endDate() );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setText( info.option( (*it)->optionGroup() ) );
+        (*it)->setText( info.option( (*it)->category() ) );
     }
 
     _imageLabel->setText( info.label() );
@@ -605,12 +605,12 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 }
 
 
-KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
+KDockWidget* ImageConfig::createListSel( const QString& category )
 {
-    KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, CategoryCollection::instance()->categoryForName( optionGroup)->icon(),
-                                                             this, CategoryCollection::instance()->categoryForName( optionGroup )->text() );
+    KDockWidget* dockWidget = _dockWindow->createDockWidget( category, CategoryCollection::instance()->categoryForName( category)->icon(),
+                                                             this, CategoryCollection::instance()->categoryForName( category )->text() );
     _dockWidgets.append( dockWidget );
-    ListSelect* sel = new ListSelect( optionGroup, dockWidget );
+    ListSelect* sel = new ListSelect( category, dockWidget );
     _optionList.append( sel );
     connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
              this, SLOT( slotDeleteOption( const QString&, const QString& ) ) );
@@ -632,17 +632,17 @@ void ImageConfig::readDockConfig( QDomElement& doc )
     _dockWindow->readDockConfig( doc );
 }
 
-void ImageConfig::slotDeleteOption( const QString& optionGroup, const QString& which)
+void ImageConfig::slotDeleteOption( const QString& category, const QString& which)
 {
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
-        (*it).removeOption( optionGroup, which );
+        (*it).removeOption( category, which );
     }
 }
 
-void ImageConfig::slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue )
+void ImageConfig::slotRenameOption( const QString& category, const QString& oldValue, const QString& newValue )
 {
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
-        (*it).renameOption( optionGroup, oldValue, newValue );
+        (*it).renameOption( category, oldValue, newValue );
     }
 }
 

@@ -37,7 +37,7 @@ public:
     ~Browser();
     void addSearch( ImageSearchInfo& info );
     static Browser* instance();
-    void load( const QString& optionGroup, const QString& value );
+    void load( const QString& category, const QString& value );
     bool allowSort();
     ImageSearchInfo currentContext();
     void clear();

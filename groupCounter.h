@@ -24,7 +24,7 @@
 class GroupCounter
 {
 public:
-    GroupCounter( const QString& optionGroup );
+    GroupCounter( const QString& category );
     void count(const QStringList& );
     QMap<QString,int> result();
 

@@ -35,12 +35,12 @@ public:
 class OptionValueMatcher :public OptionMatcher
 {
 public:
-    OptionValueMatcher( const QString& optionGroup, const QString& option );
+    OptionValueMatcher( const QString& category, const QString& option );
     virtual bool eval( ImageInfo* );
     virtual OptionMatcher* optimize();
 
 private:
-    QString _optionGroup;
+    QString _category;
     QString _option;
 };
 
@@ -48,12 +48,12 @@ private:
 class OptionEmptyMatcher :public OptionMatcher
 {
 public:
-    OptionEmptyMatcher( const QString& optionGroup );
+    OptionEmptyMatcher( const QString& category );
     virtual bool eval( ImageInfo* info );
     virtual OptionMatcher* optimize();
 
 private:
-    QString _optionGroup;
+    QString _category;
 };
 
 class OptionContainerMatcher :public OptionMatcher

@@ -90,8 +90,8 @@ private:
     QCheckBox* _searchForImagesOnStartup;
     QCheckBox* _autoShowThumbnailView;
 
-    // Option Groups page
-    QListBox* _optionGroups;
+    // Categories page
+    QListBox* _categories;
     QLineEdit* _text;
     KIconButton* _icon;
     QLabel* _preferredViewLabel;

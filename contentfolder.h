@@ -22,7 +22,7 @@
 
 class ContentFolder :public Folder {
 public:
-    ContentFolder( const QString& optionGroup, const QString& value, int count,
+    ContentFolder( const QString& category, const QString& value, int count,
                    const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
@@ -31,14 +31,14 @@ public:
     virtual QString countLabel() const;
 
 private:
-    QString _optionGroup;
+    QString _category;
     QString _value;
 };
 
 class ContentFolderAction :public FolderAction {
 
 public:
-    ContentFolderAction( const QString& optionGroup, const QString& value,
+    ContentFolderAction( const QString& category, const QString& value,
                          const ImageSearchInfo& info, Browser* parent );
     virtual void action( BrowserItemFactory* factory );
     virtual bool showsImages() const { return false; }
@@ -47,7 +47,7 @@ public:
     virtual QString title() const;
 
 private:
-    QString _optionGroup;
+    QString _category;
     QString _value;
 };
 

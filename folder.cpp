@@ -78,7 +78,7 @@ QString FolderAction::title() const
     return QString::fromLatin1( "" );
 }
 
-QString FolderAction::optionGroup() const
+QString FolderAction::category() const
 {
     return QString::null;
 }

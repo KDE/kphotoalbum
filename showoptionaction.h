@@ -24,16 +24,16 @@ class ShowOptionAction :public KToggleAction {
     Q_OBJECT
 
 public:
-    ShowOptionAction( const QString& optionGroup, QObject* parent, const char* name = 0 );
+    ShowOptionAction( const QString& category, QObject* parent, const char* name = 0 );
 
 protected slots:
     void slotToggled( bool b );
 
 signals:
-    void toggled( const QString& optionGroup, bool b );
+    void toggled( const QString& category, bool b );
 
 private:
-    QString _optionGroup;
+    QString _category;
 };
 
 

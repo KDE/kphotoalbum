@@ -98,8 +98,8 @@ public:
 
     // Used during searches
     void clearMatched() const;
-    void setMatched( const QString& optionGroup, const QString& value ) const;
-    bool allMatched( const QString& optionGroup );
+    void setMatched( const QString& category, const QString& value ) const;
+    bool allMatched( const QString& category );
 
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;

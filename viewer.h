@@ -82,7 +82,7 @@ protected slots:
     void save();
     void startDraw();
     void stopDraw();
-    void toggleShowOption( const QString& optionGroup, bool b ) ;
+    void toggleShowOption( const QString& category, bool b ) ;
     void toggleFullScreen();
     void slotStartStopSlideShow();
     void slotSlideShowNext();

@@ -172,7 +172,7 @@ void Browser::emitSignals()
     emit showsContentView( a->contentView() );
 
     if ( a->contentView() && _list.size() > 0 ) {
-        QString grp = a->optionGroup();
+        QString grp = a->category();
         Q_ASSERT( !grp.isNull() );
         Category::ViewSize size = CategoryCollection::instance()->categoryForName( grp )->viewSize();
         Category::ViewType type = CategoryCollection::instance()->categoryForName( grp )->viewType();
@@ -205,10 +205,10 @@ Browser* Browser::instance()
     return _instance;
 }
 
-void Browser::load( const QString& optionGroup, const QString& value )
+void Browser::load( const QString& category, const QString& value )
 {
     ImageSearchInfo info;
-    info.addAnd( optionGroup, value );
+    info.addAnd( category, value );
     FolderAction* a;
 
     bool loadImages = ( Util::ctrlKeyDown() && !Options::instance()->autoShowThumbnailView() ) ||
@@ -218,7 +218,7 @@ void Browser::load( const QString& optionGroup, const QString& value )
     if ( loadImages )
         a = new ImageFolderAction( info, -1, -1, this );
     else
-        a = new ContentFolderAction( optionGroup, value, info, this );
+        a = new ContentFolderAction( category, value, info, this );
 
     addItem( a );
     a->action( _currentFactory );
@@ -261,7 +261,7 @@ void Browser::setSizeAndType( Category::ViewType type, Category::ViewSize size )
     Q_ASSERT( _list.size() > 0 );
 
     FolderAction* a = _list[_current-1];
-    QString grp = a->optionGroup();
+    QString grp = a->category();
     Q_ASSERT( !grp.isNull() );
 
     CategoryCollection::instance()->categoryForName( grp )->setViewType( type );
@@ -282,10 +282,10 @@ void Browser::setupFactory()
         return;
 
     FolderAction* a = _list[_current-1];
-    QString optionGroup = a->optionGroup();
+    QString category = a->category();
 
-    if ( !optionGroup.isNull() )
-        type = CategoryCollection::instance()->categoryForName( optionGroup )->viewType();
+    if ( !category.isNull() )
+        type = CategoryCollection::instance()->categoryForName( category )->viewType();
 
     if ( type == Category::ListView ) {
         _currentFactory = _listViewFactory;
@@ -306,7 +306,7 @@ void Browser::setFocus()
 QString Browser::currentCategory() const
 {
     FolderAction* a = _list[_current-1];
-    return a->optionGroup();
+    return a->category();
 }
 
 void Browser::slotLimitToMatch( const QString& str )

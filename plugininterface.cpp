@@ -48,14 +48,14 @@ QValueList<KIPI::ImageCollection> PluginInterface::allAlbums()
 {
     QValueList<KIPI::ImageCollection> result;
     ImageSearchInfo context = MainView::theMainView()->currentContext();
-    QString optionGroup = MainView::theMainView()->currentBrowseCategory();
-    if ( optionGroup.isNull() )
-        optionGroup = Options::instance()->albumCategory();
+    QString category = MainView::theMainView()->currentBrowseCategory();
+    if ( category.isNull() )
+        category = Options::instance()->albumCategory();
 
-    QMap<QString,int> categories = ImageDB::instance()->classify( context, optionGroup );
+    QMap<QString,int> categories = ImageDB::instance()->classify( context, category );
 
     for( QMapIterator<QString,int> it = categories.begin(); it != categories.end(); ++it ) {
-        CategoryImageCollection* col = new CategoryImageCollection( context, optionGroup, it.key() );
+        CategoryImageCollection* col = new CategoryImageCollection( context, category, it.key() );
         result.append( KIPI::ImageCollection( col ) );
     }
 

@@ -216,7 +216,7 @@ QDomElement ImageSearchInfo::toXML( QDomDocument doc )
     res.appendChild( options );
     for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
         QDomElement option = doc.createElement( QString::fromLatin1("Option") );
-        option.setAttribute( QString::fromLatin1("optionGroup"), it.key() );
+        option.setAttribute( QString::fromLatin1("category"), it.key() );
         option.setAttribute( QString::fromLatin1( "value" ), it.data() );
         options.appendChild( option );
     }
@@ -239,10 +239,12 @@ void ImageSearchInfo::load( QDomElement top )
                         continue;
 
                     QDomElement option = optionNode.toElement();
-                    QString optionGroup = option.attribute( QString::fromLatin1( "optionGroup" ) );
+                    QString category = option.attribute( QString::fromLatin1( "category" ) );
+                    if ( category.isNull() )
+                        category = option.attribute( QString::fromLatin1( "optionGroup" ) ); // Compatible with KimDaBa 2.0
                     QString value = option.attribute( QString::fromLatin1( "value" ) );
-                    if ( !optionGroup.isEmpty() )
-                        _options.insert( optionGroup, value );
+                    if ( !category.isEmpty() )
+                        _options.insert( category, value );
                 }
                 return;
             }
@@ -268,7 +270,7 @@ void ImageSearchInfo::compile() const
     OptionAndMatcher* matcher = new OptionAndMatcher;
 
     for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
-        QString optionGroup = it.key();
+        QString category = it.key();
         QString matchText = it.data();
 
         QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
@@ -289,9 +291,9 @@ void ImageSearchInfo::compile() const
                 str = str.stripWhiteSpace();
                 OptionMatcher* valueMatcher;
                 if ( str == ImageDB::NONE() )
-                    valueMatcher = new OptionEmptyMatcher( optionGroup );
+                    valueMatcher = new OptionEmptyMatcher( category );
                 else
-                    valueMatcher = new OptionValueMatcher( optionGroup, str );
+                    valueMatcher = new OptionValueMatcher( category, str );
                 if ( negate )
                     valueMatcher = new OptionNotMatcher( valueMatcher );
                 andMatcher->addElement( valueMatcher );

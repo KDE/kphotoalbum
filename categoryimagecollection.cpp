@@ -20,9 +20,9 @@
 #include "categoryimagecollection.h"
 #include <klocale.h>
 #include "imagedb.h"
-CategoryImageCollection::CategoryImageCollection( const ImageSearchInfo& context, const QString& optionGroup,
+CategoryImageCollection::CategoryImageCollection( const ImageSearchInfo& context, const QString& category,
                                                   const QString& value )
-    : MyImageCollection( CategoryImageCollection::SubClass ), _context( context ), _optionGroup( optionGroup ),
+    : MyImageCollection( CategoryImageCollection::SubClass ), _context( context ), _category( category ),
       _value( value )
 {
 }
@@ -30,7 +30,7 @@ CategoryImageCollection::CategoryImageCollection( const ImageSearchInfo& context
 QString CategoryImageCollection::name()
 {
     if ( _value == QString::fromLatin1( "**NONE**" ) )
-        return i18n( "Example: No Persons", "No %1" ).arg( _optionGroup );
+        return i18n( "Example: No Persons", "No %1" ).arg( _category );
     else
         return _value;
 }
@@ -38,7 +38,7 @@ QString CategoryImageCollection::name()
 KURL::List CategoryImageCollection::images()
 {
     ImageSearchInfo context( _context );
-    context.addAnd( _optionGroup, _value );
+    context.addAnd( _category, _value );
     ImageInfoList list = ImageDB::instance()->images( context, true );
     return imageListToUrlList( list );
 }

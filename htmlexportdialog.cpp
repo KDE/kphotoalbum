@@ -140,8 +140,8 @@ void HTMLExportDialog::createContentPage()
     QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
     lay3->setAutoAdd( true );
 
-    QStringList optionGroups = CategoryCollection::instance()->categoryNames();
-    for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
+    QStringList categories = CategoryCollection::instance()->categoryNames();
+    for( QStringList::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         QCheckBox* cb = new QCheckBox( CategoryCollection::instance()->categoryForName( *it )->text(), w );
         _whatToIncludeMap.insert( *it, cb );
     }
@@ -542,8 +542,8 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     // -------------------------------------------------- Description
     QString description;
 
-    QStringList optionGroups = CategoryCollection::instance()->categoryNames();
-    for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
+    QStringList categories = CategoryCollection::instance()->categoryNames();
+    for( QStringList::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( info->optionValue( *it ).count() != 0 && _whatToIncludeMap[*it]->isChecked() ) {
             QString val = info->optionValue( *it ).join( QString::fromLatin1(", ") );
             description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( *it ).arg( val );

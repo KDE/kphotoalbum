@@ -24,10 +24,10 @@
 #include "browseritemfactory.h"
 #include "categorycollection.h"
 
-TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent )
-    :Folder( info, parent ), _optionGroup ( optionGroup )
+TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo& info, Browser* parent )
+    :Folder( info, parent ), _category ( category )
 {
-    QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
+    QMap<QString, int> map = ImageDB::instance()->classify( _info, _category );
     int count = map.size();
     setCount( count );
     if ( count <= 1 )
@@ -36,22 +36,22 @@ TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info,
 
 QPixmap TypeFolder::pixmap()
 {
-    return CategoryCollection::instance()->categoryForName( _optionGroup )->icon();
+    return CategoryCollection::instance()->categoryForName( _category )->icon();
 }
 
 QString TypeFolder::text() const
 {
-    return CategoryCollection::instance()->categoryForName( _optionGroup )->text();
+    return CategoryCollection::instance()->categoryForName( _category )->text();
 }
 
 FolderAction* TypeFolder::action( bool /* ctrlDown */ )
 {
-    return new TypeFolderAction( _optionGroup, _info, _browser );
+    return new TypeFolderAction( _category, _info, _browser );
 }
 
-TypeFolderAction::TypeFolderAction( const QString& optionGroup, const ImageSearchInfo& info,
+TypeFolderAction::TypeFolderAction( const QString& category, const ImageSearchInfo& info,
                                     Browser* browser )
-    :FolderAction( info, browser ), _optionGroup( optionGroup )
+    :FolderAction( info, browser ), _category( category )
 {
 }
 
@@ -60,27 +60,27 @@ void TypeFolderAction::action( BrowserItemFactory* factory )
     _browser->clear();
 
 
-    QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
+    QMap<QString, int> map = ImageDB::instance()->classify( _info, _category );
     for( QMapIterator<QString,int> it= map.begin(); it != map.end(); ++it ) {
         if ( it.key() != ImageDB::NONE() ) {
-            factory->createItem( new ContentFolder( _optionGroup, it.key(), it.data(), _info, _browser ) );
+            factory->createItem( new ContentFolder( _category, it.key(), it.data(), _info, _browser ) );
         }
     }
 
     // Add the none option to the end
     int i = map[ImageDB::NONE()];
     if ( i != 0 )
-        factory->createItem( new ContentFolder( _optionGroup, ImageDB::NONE(), i, _info, _browser ) );
+        factory->createItem( new ContentFolder( _category, ImageDB::NONE(), i, _info, _browser ) );
 }
 
 QString TypeFolderAction::title() const
 {
-    return CategoryCollection::instance()->categoryForName( _optionGroup )->text();
+    return CategoryCollection::instance()->categoryForName( _category )->text();
 }
 
-QString TypeFolderAction::optionGroup() const
+QString TypeFolderAction::category() const
 {
-    return _optionGroup;
+    return _category;
 }
 
 QString TypeFolder::countLabel() const

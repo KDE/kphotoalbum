@@ -34,9 +34,9 @@ void InfoBox::setSource( const QString& which )
 {
     int index = which.toInt();
     QPair<QString,QString> p = _linkMap[index];
-    QString optionGroup = p.first;
+    QString category = p.first;
     QString value = p.second;
-    Browser::instance()->load( optionGroup, value );
+    Browser::instance()->load( category, value );
 
     QDesktopWidget* desktop = qApp->desktop();
     if ( desktop->screenNumber( Browser::instance() ) == desktop->screenNumber( _viewer ) &&

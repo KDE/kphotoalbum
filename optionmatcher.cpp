@@ -18,21 +18,21 @@
 
 #include "optionmatcher.h"
 #include "options.h"
-OptionValueMatcher::OptionValueMatcher( const QString& optionGroup, const QString& option )
-    :_optionGroup( optionGroup ), _option( option )
+OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& option )
+    :_category( category ), _option( option )
 {
 }
 
 bool OptionValueMatcher::eval( ImageInfo* info )
 {
-    info->setMatched( _optionGroup, _option );
-    if ( info->hasOption( _optionGroup, _option ) ) {
+    info->setMatched( _category, _option );
+    if ( info->hasOption( _category, _option ) ) {
         return true;
     }
 
-    QStringList list = Options::instance()->memberMap().members( _optionGroup, _option, true );
+    QStringList list = Options::instance()->memberMap().members( _category, _option, true );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        if ( info->hasOption( _optionGroup, *it ) )
+        if ( info->hasOption( _category, *it ) )
             return true;
     }
 
@@ -41,14 +41,14 @@ bool OptionValueMatcher::eval( ImageInfo* info )
 
 
 
-OptionEmptyMatcher::OptionEmptyMatcher( const QString& optionGroup )
-    :_optionGroup( optionGroup )
+OptionEmptyMatcher::OptionEmptyMatcher( const QString& category )
+    :_category( category )
 {
 }
 
 bool OptionEmptyMatcher::eval( ImageInfo* info )
 {
-    return info->allMatched( _optionGroup );
+    return info->allMatched( _category );
 }
 
 

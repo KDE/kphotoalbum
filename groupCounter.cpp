@@ -28,18 +28,18 @@
 //                    Sanata Clara |-> [ USA, California ],
 //                    Los Angeless |-> [ California ] }
 
-GroupCounter::GroupCounter( const QString& optionGroup )
+GroupCounter::GroupCounter( const QString& category )
 {
     MemberMap map = Options::instance()->memberMap();
-    QMap<QString,QStringList> groupToMemberMap = map.groupMap(optionGroup);
+    QMap<QString,QStringList> groupToMemberMap = map.groupMap(category);
     _memberToGroup.resize( 2729 /* A large prime */ );
     _groupCount.resize( 2729 /* A large prime */ );
     _memberToGroup.setAutoDelete( true );
     _groupCount.setAutoDelete( true );
 
     // Initialize _memberToGroup map.
-    QStringList items = Options::instance()->optionValue( optionGroup );
-    items += map.groups( optionGroup );
+    QStringList items = Options::instance()->optionValue( category );
+    items += map.groups( category );
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         _memberToGroup.insert( *it, new QStringList );
     }

@@ -22,27 +22,27 @@
 
 class TypeFolder :public Folder {
 public:
-    TypeFolder( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent );
+    TypeFolder( const QString& category, const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
     virtual QString countLabel() const;
 private:
-    QString _optionGroup;
+    QString _category;
 };
 
 class TypeFolderAction :public FolderAction {
 
 public:
-    TypeFolderAction( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent  );
+    TypeFolderAction( const QString& category, const ImageSearchInfo& info, Browser* parent  );
     virtual void action( BrowserItemFactory* factory );
     virtual bool showsImages() const { return false; }
     virtual bool contentView() const { return true; }
     virtual QString title() const;
-    virtual QString optionGroup() const;
+    virtual QString category() const;
 
 private:
-    QString _optionGroup;
+    QString _category;
 };
 
 

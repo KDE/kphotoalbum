@@ -26,12 +26,12 @@
 class CategoryImageCollection :public MyImageCollection {
 
 public:
-    CategoryImageCollection( const ImageSearchInfo& context, const QString& optionGroup, const QString& value );
+    CategoryImageCollection( const ImageSearchInfo& context, const QString& category, const QString& value );
     virtual QString name();
     virtual KURL::List images();
 private:
     ImageSearchInfo _context;
-    const QString _optionGroup;
+    const QString _category;
     const QString _value;
 };
 #endif // KIPI

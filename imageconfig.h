@@ -79,7 +79,7 @@ protected:
     void showTornOfWindows();
     void hideTornOfWindows();
     virtual bool eventFilter( QObject*, QEvent* );
-    KDockWidget* createListSel( const QString& optionGroup );
+    KDockWidget* createListSel( const QString& category );
     bool hasChanges();
     void showHelpDialog( SetupType );
     virtual void resizeEvent( QResizeEvent* );

@@ -153,16 +153,16 @@ QListBoxItem* CompletableLineEdit::findItemInListBox( const QString& text )
 }
 
 
-ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char* name )
-    : QWidget( parent,  name ), _optionGroup( optionGroup )
+ListSelect::ListSelect( const QString& category, QWidget* parent, const char* name )
+    : QWidget( parent,  name ), _category( category )
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
 
-    _label = new QLabel( CategoryCollection::instance()->categoryForName( optionGroup )->text(), this );
+    _label = new QLabel( CategoryCollection::instance()->categoryForName( category )->text(), this );
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
-    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(optionGroup).latin1() );
+    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(category).latin1() );
     layout->addWidget( _lineEdit );
 
     _listBox = new QListBox( this );
@@ -212,9 +212,9 @@ ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char*
              this, SLOT( setViewSortType( Options::ViewSortType ) ) );
 }
 
-void ListSelect::setOptionGroup( const QString& optionGroup )
+void ListSelect::setOptionGroup( const QString& category )
 {
-    _optionGroup = optionGroup;
+    _category = category;
 }
 
 void ListSelect::slotReturn()
@@ -230,7 +230,7 @@ void ListSelect::slotReturn()
             item = new QListBoxText( _listBox, txt );
         }
         Options* options = Options::instance();
-        options->addOption( _optionGroup, txt);
+        options->addOption( _category, txt);
 
         // move item to front
         _listBox->takeItem( item );
@@ -255,9 +255,9 @@ void ListSelect::slotReturn()
     }
 }
 
-QString ListSelect::optionGroup() const
+QString ListSelect::category() const
 {
-    return _optionGroup;
+    return _category;
 }
 
 void ListSelect::setSelection( const QStringList& list )
@@ -269,7 +269,7 @@ void ListSelect::setSelection( const QStringList& list )
         if ( !item )  {
             _listBox->insertItem( *it );
             item = _listBox->findItem( *it,  ExactMatch );
-            Options::instance()->addOption( _optionGroup, *it);
+            Options::instance()->addOption( _category, *it);
         }
         _listBox->setSelected( item,  true );
     }
@@ -418,7 +418,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()),
                                                i18n("Really Delete %1?").arg(item->text()) );
         if ( code == KMessageBox::Yes ) {
-            Options::instance()->removeOption(optionGroup(), item->text() );
+            Options::instance()->removeOption(category(), item->text() );
             delete item;
         }
     }
@@ -435,15 +435,15 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text();
-                Options::instance()->renameOption( optionGroup(), oldStr, newStr );
+                Options::instance()->renameOption( category(), oldStr, newStr );
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
                 _listBox->setSelected( newItem, sel );
 
                 // rename the category image too
-                QString oldFile = Options::instance()->fileForCategoryImage( optionGroup(), oldStr );
-                QString newFile = Options::instance()->fileForCategoryImage( optionGroup(), newStr );
+                QString oldFile = Options::instance()->fileForCategoryImage( category(), oldStr );
+                QString newFile = Options::instance()->fileForCategoryImage( category(), newStr );
                 KIO::move( KURL(oldFile), KURL(newFile) );
             }
         }
@@ -459,9 +459,9 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 
 void ListSelect::populate()
 {
-    _label->setText( CategoryCollection::instance()->categoryForName( _optionGroup )->text() );
+    _label->setText( CategoryCollection::instance()->categoryForName( _category )->text() );
     _listBox->clear();
-    QStringList items = Options::instance()->optionValueInclGroups( _optionGroup );
+    QStringList items = Options::instance()->optionValueInclGroups( _category );
     _listBox->insertStringList( items );
 }
 

@@ -28,34 +28,34 @@
 #include <kiconloader.h>
 #include "browseritemfactory.h"
 #include "categorycollection.h"
-ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, int count,
+ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
-    :Folder( info, parent ), _optionGroup( optionGroup ), _value( value )
+    :Folder( info, parent ), _category( category ), _value( value )
 {
-    _info.addAnd( _optionGroup, _value );
+    _info.addAnd( _category, _value );
     setCount( count );
 }
 
 QPixmap ContentFolder::pixmap()
 {
-    if ( CategoryCollection::instance()->categoryForName( _optionGroup )->viewSize() == Category::Small ) {
-        if ( Options::instance()->memberMap().isGroup( _optionGroup, _value ) )
+    if ( CategoryCollection::instance()->categoryForName( _category )->viewSize() == Category::Small ) {
+        if ( Options::instance()->memberMap().isGroup( _category, _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
-            return CategoryCollection::instance()->categoryForName( _optionGroup )->icon();
+            return CategoryCollection::instance()->categoryForName( _category )->icon();
         }
     }
     else
-        return Options::instance()->optionImage( _optionGroup, _value, 64 );
+        return Options::instance()->optionImage( _category, _value, 64 );
 }
 
 QString ContentFolder::text() const
 {
     if ( _value == ImageDB::NONE() ) {
-        if ( _info.option(_optionGroup) == ImageDB::NONE() )
-            return i18n( "No %1" ).arg( CategoryCollection::instance()->categoryForName( _optionGroup )->text() );
+        if ( _info.option(_category) == ImageDB::NONE() )
+            return i18n( "No %1" ).arg( CategoryCollection::instance()->categoryForName( _category )->text() );
         else
-            return i18n( "No other %1" ).arg( CategoryCollection::instance()->categoryForName( _optionGroup )->text() );
+            return i18n( "No other %1" ).arg( CategoryCollection::instance()->categoryForName( _category )->text() );
     }
     else {
         return _value;
@@ -100,18 +100,18 @@ FolderAction* ContentFolder::action( bool ctrlDown )
 
     if ( loadImages ) {
         ImageSearchInfo info = _info;
-        info.addAnd( _optionGroup, _value );
+        info.addAnd( _category, _value );
         if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
         if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
             return new ImageFolderAction( info, -1, -1, _browser );
     }
 
-    return new ContentFolderAction( _optionGroup, _value, _info, _browser );
+    return new ContentFolderAction( _category, _value, _info, _browser );
 }
 
-ContentFolderAction::ContentFolderAction( const QString& optionGroup, const QString& value,
+ContentFolderAction::ContentFolderAction( const QString& category, const QString& value,
                                           const ImageSearchInfo& info, Browser* browser )
-    :FolderAction( info, browser ), _optionGroup( optionGroup ), _value( value )
+    :FolderAction( info, browser ), _category( category ), _value( value )
 {
 }
 

@@ -103,7 +103,7 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
             Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
             QString name = elmOption.attribute( QString::fromLatin1("name") );
             if ( !name.isNull() )  {
-                // Read Option Group info
+                // Read Category info
                 if ( categories ) {
                     QString icon= elmOption.attribute( QString::fromLatin1("icon") );
                     Category::ViewSize size =
@@ -156,12 +156,12 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
     QStringList grps = CategoryCollection::instance()->categoryNames();
     int link = 0;
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        QString optionGroup = *it;
-        if ( Options::instance()->showOption( optionGroup ) ) {
-            QStringList items = info->optionValue( optionGroup );
+        QString category = *it;
+        if ( Options::instance()->showOption( category ) ) {
+            QStringList items = info->optionValue( category );
             if (items.count() != 0 ) {
                 text += QString::fromLatin1( "<b>%1: </b> " )
-                        .arg( CategoryCollection::instance()->categoryForName( optionGroup )->text() );
+                        .arg( CategoryCollection::instance()->categoryForName( category )->text() );
                 bool first = true;
                 for( QStringList::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;
@@ -172,7 +172,7 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
 
                     if ( linkMap ) {
                         ++link;
-                        (*linkMap)[link] = QPair<QString,QString>( optionGroup, item );
+                        (*linkMap)[link] = QPair<QString,QString>( category, item );
                         text += QString::fromLatin1( "<a href=\"%1\">%2</a>")
                                 .arg( link ).arg( item );
                     }

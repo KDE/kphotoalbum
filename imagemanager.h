@@ -14,7 +14,8 @@ class ImageClient;
 class LoadInfo {
 public:
     LoadInfo();
-    LoadInfo( const QString& fileName, int width,  int heigth, int angle, bool compress,  ImageClient* client);
+    LoadInfo( const QString& fileName, int width,  int heigth, int angle,
+              bool compress,  ImageClient* client);
 
     bool isNull() const;
     QString fileName() const;
@@ -58,7 +59,8 @@ class ImageManager :public QObject {
     Q_OBJECT
 
 public:
-    void load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache, bool priority, bool compress );
+    void load( const QString& fileName, ImageClient* client, int angle, int width, int height,
+               bool cache, bool priority, bool compress );
     LoadInfo next();
     static ImageManager* instance();
     void stop( ImageClient* );

@@ -11,7 +11,8 @@ ImageManager::ImageManager()
 {
 }
 
-// We need this as a separate method as the _instance variable will otherwise not be initialized corrected before the thread starts.
+// We need this as a separate method as the _instance variable will otherwise not be initialized
+// corrected before the thread starts.
 void ImageManager::init()
 {
     _sleepers = new QWaitCondition(); // Is it necessary to load this using new?
@@ -22,7 +23,8 @@ void ImageManager::init()
     _imageLoader->start();
 }
 
-void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache, bool priority, bool compress )
+void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height,
+                         bool cache, bool priority, bool compress )
 {
     QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
 
@@ -55,8 +57,10 @@ LoadInfo::LoadInfo() : _null( true ),  _cache( true ),  _client( 0 )
 {
 }
 
-LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, bool compress, ImageClient* client )
-    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),  _cache( true ),  _client( client ),  _angle( angle ),
+LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, bool compress,
+                    ImageClient* client )
+    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),
+      _cache( true ),  _client( client ),  _angle( angle ),
       _compress( compress )
 {
 }

@@ -242,7 +242,8 @@ void Export::copyImages( const ImageInfoList& list )
         }
         else {
             _filesRemaining++;
-            ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), _maxSize, _maxSize, false, true );
+            // Notice the angle must be 0, as we want to put the image unrotated into the file.
+            ImageManager::instance()->load( (*it)->fileName(), this, 0, _maxSize, _maxSize, false, true );
         }
 
         // Test if the cancel button was pressed.

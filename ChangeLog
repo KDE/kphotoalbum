@@ -1,5 +1,7 @@
 2004-04-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: images was rotated too must during export
+
 	* now its possible to export images, and leave the .kim file next
 	to the image set rather than putting them into the .kim file. 
 

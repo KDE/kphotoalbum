@@ -46,10 +46,12 @@ public:
 public slots:
     void save( QDomElement top );
     void slotRescan();
+    void slotRecalcCheckSums();
 
 signals:
     void matchCountChange( int, int, int );
     void searchCompleted();
+    void dirty();
 
 protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
@@ -57,7 +59,7 @@ protected:
     void loadExtraFile( const QString& name );
     ImageInfo* load( const QString& filename, QDomElement elm );
     int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
-    void calculateMissingMD5sums( QValueList<ImageInfo*>& list );
+    bool calculateMD5sums( ImageInfoList& list );
     QString MD5Sum( const QString& fileName );
 
 protected slots:

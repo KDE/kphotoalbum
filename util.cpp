@@ -312,3 +312,17 @@ QString Util::readInstalledFile( const QString& fileName )
 
     return content;
 }
+
+void Util::removeThumbNail( const QString& imageFile )
+{
+    QFileInfo fi( imageFile );
+    QString path = fi.dirPath(true);
+
+    QDir dir( QString::fromLatin1( "%1/ThumbNails" ).arg( path ) );
+    QStringList matches = dir.entryList( QString::fromLatin1( "*-%1" ).arg( fi.fileName() ) );
+    for( QStringList::Iterator it = matches.begin(); it != matches.end(); ++it ) {
+        QString thumbnail = QString::fromLatin1( "%1/ThumbNails/%2" ).arg(path).arg(*it);
+        QDir().remove( thumbnail );
+    }
+
+}

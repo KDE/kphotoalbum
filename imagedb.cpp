@@ -53,7 +53,7 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     // and show the user a progress bar while doing so.
     // This is really only needed for upgrading from KimDaBa version 1.0 so at a later point this
     // code might simply be deleted.
-    QValueList<ImageInfo*> missingSums;
+    ImageInfoList missingSums;
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
@@ -81,7 +81,7 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
 
     // calculate md5sums - this should only happen the first time the user starts kimdaba after md5sum has been introducted.
     if ( missingSums.count() != 0 )  {
-        calculateMissingMD5sums( missingSums );
+        calculateMD5sums( missingSums );
         *dirty = true;
     }
 
@@ -376,25 +376,33 @@ void ImageDB::lockDB( bool lock, bool exclude  )
     }
 }
 
-void ImageDB::calculateMissingMD5sums( QValueList<ImageInfo*>& list )
+bool  ImageDB::calculateMD5sums( ImageInfoList& list )
 {
-    QProgressDialog dialog( i18n("<qt><p><b>Calculating md5sum of you images</b></p>"
-                                 "<p>This should really only happen the first time you start KimDaBa "
-                          "after upgrading to version 1.1</p></qt>"), i18n("Cancel"), list.count() );
+    QProgressDialog dialog( i18n("<qt><p><b>Calculating check sum of you images<b></p>"
+                                "<p>By storing check sum for each image KimDaBa is capable of finding images "
+                                 "even when you have moved them on disk</p></qt>"), i18n("Cancel"), list.count() );
 
     int count = 0;
+    bool dirty = false;
 
-    for( QValueList<ImageInfo*>::Iterator it = list.begin(); it != list.end(); ++it, ++count ) {
+    for( ImageInfoListIterator it( list ); *it; ++it, ++count ) {
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
             if ( dialog.wasCanceled() )
-                return;
+                return dirty;
         }
         QString md5 = MD5Sum( (*it)->fileName() );
+        QString orig = (*it)->MD5Sum();
         (*it)->setMD5Sum( md5 );
-        _md5Map.insert( md5, (*it)->fileName() );
+        if  ( orig != md5 ) {
+            dirty = true;
+            Util::removeThumbNail( (*it)->fileName() );
+        }
+
+        _md5Map.insert( md5, (*it)->fileName(true) );
     }
+    return dirty;
 }
 
 QString ImageDB::MD5Sum( const QString& fileName )
@@ -428,6 +436,18 @@ void ImageDB::slotRescan()
     _pendingLoad.clear();
     searchForNewFiles( loadedFiles, Options::instance()->imageDirectory() );
     loadExtraFiles();
+
+    // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
+    // we rather just go to home.
+    Browser::theBrowser()->home();
+}
+
+void ImageDB::slotRecalcCheckSums()
+{
+    _md5Map.clear();
+    bool d = calculateMD5sums( _images );
+    if ( d )
+        emit dirty();
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.

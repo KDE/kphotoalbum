@@ -37,6 +37,7 @@ public:
     static bool copy( const QString& from, const QString& to );
     static QString setupDemo();
     static QString readInstalledFile( const QString& fileName );
+    static void removeThumbNail( const QString& imageFile );
 };
 
 

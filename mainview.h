@@ -76,7 +76,7 @@ protected slots:
     void slotUpdateViewMenu( Options::ViewSize, Options::ViewType );
     void showTip();
     void slotShowNotOnDisk();
-    void slotRecalcCheckSums();
+    void markDirty();
 
 protected:
     void configureImages( bool oneAtATime );

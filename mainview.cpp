@@ -116,7 +116,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
-    connect( ImageDB::instance(), SIGNAL( rescanCompleted() ), this, SLOT( reloadThumbNail() ) );
+    connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
 
     // PENDING(blackie) ImageDB should emit a signal when total changes.
     total->setTotal( ImageDB::instance()->totalCount() );
@@ -441,7 +441,7 @@ void MainView::setupMenuBar()
 
     // Maintenance
     new KAction( i18n("Display Images not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
-    new KAction( i18n("Recalculate Check Sum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
+    new KAction( i18n("Recalculate Check Sum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
@@ -709,6 +709,10 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
     }
 }
 
+void MainView::markDirty()
+{
+    setDirty( true );
+}
 
 void MainView::setDirty( bool dirty )
 {
@@ -865,9 +869,5 @@ void MainView::slotShowNotOnDisk()
     kdDebug() << "NYI!";
 }
 
-void MainView::slotRecalcCheckSums()
-{
-    kdDebug() << "NYI!";
-}
 
 #include "mainview.moc"

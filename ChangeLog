@@ -1,6 +1,9 @@
 2004-01-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* Implemented Maintenance/rescan
+	* Implemented Maintenance/Recalculate Checksum (Useful if images
+	has been change for example using gimp)
+
+	* Implemented Maintenance/Rescan for new Images
 
 	* Only do auto save if there has been changes since the last auto save.
 

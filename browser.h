@@ -35,7 +35,7 @@ public:
     Browser( QWidget* parent, const char* name = 0 );
     ~Browser();
     void addSearch( ImageSearchInfo& info );
-    static Browser* theBrowser();
+    static Browser* instance();
     void load( const QString& optionGroup, const QString& value );
     bool allowSort();
     ImageSearchInfo current();

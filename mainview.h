@@ -52,8 +52,8 @@ protected slots:
     void slotSave();
     void slotDeleteSelected();
     void slotSearch();
-    void slotViewSelected( bool reuse = true );
-    void slotViewSelectedNewWindow();
+    void slotView( bool reuse = true );
+    void slotViewNewWindow();
     void slotChanges();
     void slotLimitToSelected();
     void slotExportToHTML();
@@ -119,8 +119,8 @@ private:
     HTMLExportDialog* _htmlDialog;
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;
-    KAction* _viewSelected;
-    KAction* _viewSelectedInNewWindow;
+    KAction* _view;
+    KAction* _viewInNewWindow;
     KActionMenu* _viewMenu;
     KRadioAction* _smallListView;
     KRadioAction* _largeListView;

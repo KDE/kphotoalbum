@@ -324,14 +324,17 @@ ImageInfoList MainView::currentView()
 
 
 
-void MainView::slotViewSelectedNewWindow()
+void MainView::slotViewNewWindow()
 {
-    slotViewSelected( false );
+    slotView( false );
 }
 
-void MainView::slotViewSelected( bool reuse )
+void MainView::slotView( bool reuse )
 {
     ImageInfoList list = selected();
+    if ( list.count() == 0 )
+        list = ImageDB::instance()->currentContext();
+
     ImageInfoList list2;
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         if ( (*it)->imageOnDisk() )
@@ -420,9 +423,9 @@ void MainView::setupMenuBar()
                                             actionCollection(), "allProp" );
 
     // The Images menu
-    _viewSelected = new KAction( i18n("View Selected"), Key_I, this, SLOT( slotViewSelected() ),
+    _view = new KAction( i18n("View"), Key_I, this, SLOT( slotView() ),
                                  actionCollection(), "viewImages" );
-    _viewSelectedInNewWindow = new KAction( i18n("View Selected (In new window)"), CTRL+Key_I, this, SLOT( slotViewSelectedNewWindow() ),
+    _viewInNewWindow = new KAction( i18n("View (In new window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
@@ -489,7 +492,22 @@ void MainView::slotExportToHTML()
 {
     ImageInfoList list = selected();
     if ( list.count() == 0 )  {
-        list = currentView();
+        list = ImageDB::instance()->currentContext();
+
+        if ( list.count() != _thumbNailView->count() &&
+            _stack->visibleWidget() == _thumbNailView ) {
+            int code = KMessageBox::warningContinueCancel( this,
+                                                           i18n("<qt>You are about to generate an HTML page for %1 images, "
+                                                                "which are all the images in your current context. "
+                                                                "If you only want to generate HTML for the set of images you "
+                                                                "are currently looking at, then choose select all from the "
+                                                                "edit menu and choose generate.</qt>")
+                                                           .arg( list.count() ),
+                                                           QString::null, KStdGuiItem::cont(),
+                                                           QString::fromLatin1( "generateMoreImagesThatCurrentView" ) );
+            if ( code == KMessageBox::Cancel )
+                return;
+        }
     }
 
     if ( ! _htmlDialog )
@@ -705,8 +723,8 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
 
         menu.insertSeparator();
 
-        _viewSelected->plug( &menu );
-        _viewSelectedInNewWindow->plug( &menu );
+        _view->plug( &menu );
+        _viewInNewWindow->plug( &menu );
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         ImageInfo* info = 0;
@@ -856,8 +874,6 @@ void MainView::slotThumbNailSelectionChanged()
 
     _configAllSimultaniously->setEnabled( manySelected );
     _configOneAtATime->setEnabled( oneSelected );
-    _viewSelected->setEnabled( oneSelected );
-    _viewSelectedInNewWindow->setEnabled( oneSelected );
 }
 
 void MainView::reloadThumbNail()
@@ -894,13 +910,10 @@ void MainView::donateMoney()
 
 void MainView::updateStates( bool thumbNailView )
 {
-    _generateHtml->setEnabled( thumbNailView );
     _cut->setEnabled( thumbNailView );
     _paste->setEnabled( thumbNailView );
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
-    _viewSelected->setEnabled( thumbNailView );
-    _viewSelectedInNewWindow->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
 }
 

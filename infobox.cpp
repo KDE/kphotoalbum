@@ -36,10 +36,10 @@ void InfoBox::setSource( const QString& which )
     QPair<QString,QString> p = _linkMap[index];
     QString optionGroup = p.first;
     QString value = p.second;
-    Browser::theBrowser()->load( optionGroup, value );
+    Browser::instance()->load( optionGroup, value );
 
     QDesktopWidget* desktop = qApp->desktop();
-    if ( desktop->screenNumber( Browser::theBrowser() ) == desktop->screenNumber( _viewer ) &&
+    if ( desktop->screenNumber( Browser::instance() ) == desktop->screenNumber( _viewer ) &&
          _viewer->showingFullScreen() ) {
         _viewer->setShowFullScreen( false );
     }

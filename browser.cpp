@@ -196,7 +196,7 @@ void Browser::reload()
     }
 }
 
-Browser* Browser::theBrowser()
+Browser* Browser::instance()
 {
     Q_ASSERT( _instance );
     return _instance;
@@ -224,7 +224,7 @@ bool Browser::allowSort()
     return _list[_current-1]->allowSort();
 }
 
-
+// PENDING(blackie) rename to currentContext
 ImageSearchInfo Browser::current()
 {
     return _list[_current-1]->_info;

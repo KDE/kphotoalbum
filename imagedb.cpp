@@ -453,7 +453,7 @@ void ImageDB::slotRescan()
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
-    Browser::theBrowser()->home();
+    Browser::instance()->home();
 
     emit totalChanged( _images.count() );
 }
@@ -467,7 +467,7 @@ void ImageDB::slotRecalcCheckSums()
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
-    Browser::theBrowser()->home();
+    Browser::instance()->home();
 
     emit totalChanged( _images.count() );
 }
@@ -483,6 +483,25 @@ void ImageDB::showUnavailableImages()
 QString ImageDB::NONE()
 {
     return i18n("**NONE**");
+}
+
+/**
+   Returns a list of current context.
+   Imagin you have 5000 images, and you search for say Las Vegas, and 1000 images matches that search,
+   then you would in the browser see 10 "folders" each with 100 images.
+   currentContext() does not only give you whatever seubset of 100 images,
+   but does instead give you a list of all 1000 images.
+*/
+ImageInfoList ImageDB::currentContext() const
+{
+    ImageSearchInfo currentContext = Browser::instance()->current();
+    ImageInfoList images;
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        bool match = !(*it)->isLocked() && currentContext.match( *it );
+        if ( match )
+            images.append(*it);
+    }
+    return images;
 }
 
 #include "imagedb.moc"

@@ -43,6 +43,7 @@ public:
     void blockList( const ImageInfoList& list );
     void deleteList( const ImageInfoList& list );
     void showUnavailableImages();
+    ImageInfoList currentContext() const;
 
 public slots:
     void save( QDomElement top );

@@ -20,8 +20,6 @@ properly through
 - When you want to regenerate the HTML page, you get a dialog with a
   "No/Yes" question. KDE always has "Yes/No" (I think this is in case where
   you override an existing directory)
-- change "view selected" to "view" and view all images in the view if no is
-  selected.
 
 =======================
 BUGS of less importance

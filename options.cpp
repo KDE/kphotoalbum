@@ -482,6 +482,7 @@ void Options::setCurrentScope( const ImageSearchInfo& info, bool exclude )
     _exclude = exclude;
 }
 
+// PENDING(blackie) rename to currentLock
 ImageSearchInfo Options::currentScope() const
 {
     return _currentScope;

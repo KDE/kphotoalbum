@@ -35,7 +35,7 @@ static const KCmdLineOptions options[] =
 };
 
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaBa"), "snapshot 21-06-04",
+    KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaBa"), "snapshot 18-07-04",
                           I18N_NOOP("KDE Image Database"), KAboutData::License_GPL,
                           0, 0, "http://ktown.kde.org/kimdaba");
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );

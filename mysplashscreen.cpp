@@ -15,6 +15,7 @@ MySplashScreen::MySplashScreen()
     QPainter painter( pix );
     QFont fnt = font();
     fnt.setPixelSize( 24 );
+    fnt.setItalic( true );
     painter.setFont( fnt );
     QPen pen( white );
     painter.setPen( pen );

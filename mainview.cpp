@@ -1259,7 +1259,7 @@ void MainView::plug()
 
         plugin->setup( this );
         QPtrList<KAction>* popup = 0;
-        if ( plugin->category() == KIPI::IMAGESPLUGIN )
+        if ( plugin->category() == KIPI::IMAGESPLUGIN ||  plugin->category() == KIPI::COLLECTIONSPLUGIN )
             popup = &imageActions;
 
         else if ( plugin->category() == KIPI::EXPORTPLUGIN  || plugin->category() == KIPI::IMPORTPLUGIN )

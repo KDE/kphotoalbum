@@ -585,7 +585,7 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
         return false;
     }
 
-    QCString cstr = str.utf8();
+    QCString cstr = translateToHTML(str).utf8();
     file.writeBlock( cstr.data(), cstr.size() - 1);
     file.close();
     return true;
@@ -850,6 +850,19 @@ QString HTMLExportDialog::kimFileName( bool relative )
         return QString::fromLatin1( "%2.kim" ).arg( _outputDir->text() );
     else
         return QString::fromLatin1( "%1/%2.kim" ).arg( _tempDir ).arg( _outputDir->text() );
+}
+
+QString HTMLExportDialog::translateToHTML( const QString& str )
+{
+    QString res;
+    for ( uint i = 0 ; i < str.length() ; ++i ) {
+        if ( str[i].unicode() < 128 )
+            res.append( str[i] );
+        else {
+            res.append( QString().sprintf("&#%u;", (unsigned int)str[i].unicode() ) );
+        }
+    }
+    return res;
 }
 
 #include "htmlexportdialog.moc"

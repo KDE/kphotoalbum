@@ -65,6 +65,7 @@ protected:
     void createLayoutPage();
     void createDestinationPage();
     QString kimFileName( bool relative );
+    QString translateToHTML( const QString& );
 
 private:
     KLineEdit* _title;

@@ -67,8 +67,7 @@ protected:
     void normalize( QPoint& p1, QPoint& p2 );
     void pan( const QPoint& );
     bool loadJPEG(QImage* image, const QString& fileName );
-
-
+    bool isJPEG( const QString& fileName );
 
 private:
     QImage _loadedImage;

@@ -41,26 +41,26 @@ extern "C" {
    viewer. This involves controlling zooming and drawing on the images.
 
    This class is quite complicated as it had to both be fast and memory
-   efficient. This had the following consequence:
-   1) Images must be handled as pixmap all the time, that is no
-      transformation to QImage is allowed, as the transformation would
-      result in the image being copied from the XServer to the kimdaba
-      process.
-   2) Images should be scaled down to the size of the widget as soon as
-      possible. Images are easily 2300x1700 pixels (4 mega pixel), while
-      they often only are displayed on a 800x600 display. (Handling
-      transformations using the later saves a factor 8 in memory)
-   3) Initially QPainter::setWindow was used for zooming the images, but
+   efficient. The following are dead end tried:
+   1) Initially QPainter::setWindow was used for zooming the images, but
       this had the effect that if you zoom to 100x100 from a 2300x1700
       image on a 800x600 display, then Qt would internally create a pixmap
       with the size (2300/100)*800, (1700/100)*600, which takes up 1.4Gb of
       memory!
+   2) I tried doing all scaling and cropping using QPixmap's as that would
+      allow me to keep all transformations on the X Server site (making
+      resizing fast - or I beleived so). Unfortunately it showed up that
+      this was much slower than doing it using QImage, and the result was
+      thus that the looking at a series of images was slow.
 
    The process is as follows:
-   - The image loaded from disk is converted and stored in
-     _loadedPixmap. This pixmap is as large as the image on disk.
-   - Then _loadedPixmap is converted to _drawingPixmap. (This pixmap is the
-     size of the display). Completed drawings are drawn into _loadedPixmap
+   - The image loaded from disk is rotated and stored in _loadedImage. This
+     image is as large as the image on disk.
+   - Then _loadedImage is cropped and scaled to _croppedAndScaledImg. This
+     image is the size of the display. Resizing the window thus needs to
+     start from this step.
+   - Then _croppedAndScaledImg is converted to _drawingPixmap. Completed
+     drawings are drawn into _loadedPixmap
    - When the user draws a new shape, then for each mouse movement
      _loadedPixmap is copied to _viewPixmap, in which the drawing are made.
    - Finally in paintEvent _viewPixmap is bitBlt'ed to the screen.
@@ -124,12 +124,7 @@ void DisplayArea::drawAll()
     if ( _croppedAndScaledImg.isNull() )
         return;
 
-    QPixmap tmp = _croppedAndScaledImg;
-    _drawingPixmap.resize( width(), height() );
-    _drawingPixmap.fill( black );
-    int x = ( width() - tmp.width() ) / 2;
-    int y = ( height() - tmp.height() ) / 2;
-    bitBlt( &_drawingPixmap, x, y, &tmp );
+    _drawingPixmap = _croppedAndScaledImg;
 
     if ( Options::instance()->showDrawings() && _drawHanler->hasDrawings() ) {
         QPainter painter( &_drawingPixmap );
@@ -161,8 +156,17 @@ void DisplayArea::toggleShowDrawings( bool b )
 void DisplayArea::setImage( ImageInfo* info )
 {
     _info = info;
-    // PENDING(blackie) Test if the image is JPG at all
-    loadJPEG( &_loadedImage, info->fileName(false) );
+    if ( isJPEG( info->fileName(false) ) )
+        loadJPEG( &_loadedImage, info->fileName(false) );
+    else
+        _loadedImage.load( info->fileName(false) );
+
+    if ( info->angle() != 0 ) {
+        QWMatrix matrix;
+        matrix.rotate( info->angle() );
+        _loadedImage = _loadedImage.xForm( matrix );
+    }
+
     _zStart = QPoint(0,0);
     _zEnd = QPoint( _loadedImage.width(), _loadedImage.height() );
     cropAndScale();
@@ -188,7 +192,14 @@ QPainter* DisplayArea::painter()
 
 void DisplayArea::paintEvent( QPaintEvent* )
 {
-    bitBlt( this, 0, 0, &_viewPixmap );
+    int x = ( width() - _viewPixmap.width() ) / 2;
+    int y = ( height() - _viewPixmap.height() ) / 2;
+    bitBlt( this, x, y, &_viewPixmap );
+    QPainter p( this );
+    p.fillRect( 0,0, width(), y, black ); // top
+    p.fillRect( 0,height()-y, width(), height()-y, black ); // bottom
+    p.fillRect( 0,0, x, height(), black ); // left
+    p.fillRect( width()-x, 0, width()-x, height(), black ); // right
 }
 
 QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
@@ -245,18 +256,17 @@ void DisplayArea::zoom( QPoint p1, QPoint p2 )
 QPoint DisplayArea::mapPos( QPoint p )
 {
     QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
-
     p -= off;
     int x = (int) (_zStart.x() + (_zEnd.x()-_zStart.x())*((double)p.x()/ (width()-2*off.x())));
     int y = (int) (_zStart.y() + (_zEnd.y()-_zStart.y())*((double)p.y()/ (height()-2*off.y())));
+
     return QPoint( x, y );
+
 }
 
 void DisplayArea::xformPainter( QPainter* p )
 {
     QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
-
-    p->translate( off.x(), off.y() );
     double s = (width()-2*off.x())/QABS( (double)_zEnd.x()-_zStart.x());
     p->scale( s, s );
     p->translate( -_zStart.x(), -_zStart.y() );
@@ -319,19 +329,6 @@ bool DisplayArea::loadJPEG(QImage* image, const QString& fileName )
     jpeg_stdio_src(&cinfo, inputFile);
     jpeg_read_header(&cinfo, TRUE);
 
-#if 0
-    int size = li.width();
-    int imgSize = QMAX(cinfo.image_width, cinfo.image_height);
-
-    int scale=1;
-    while(size*scale*2<=imgSize) {
-        scale*=2;
-    }
-    if(scale>8) scale=8;
-
-    cinfo.scale_num=1;
-    cinfo.scale_denom=scale;
-#endif
     // Create QImage
     jpeg_start_decompress(&cinfo);
 
@@ -368,21 +365,24 @@ bool DisplayArea::loadJPEG(QImage* image, const QString& fileName )
         }
     }
 
-    //int newMax = QMAX(cinfo.output_width, cinfo.output_height);
-    //int newx = size*cinfo.output_width / newMax;
-    //int newy = size*cinfo.output_height / newMax;
-
-    //image=image.smoothScale( newx, newy);
-
     jpeg_destroy_decompress(&cinfo);
     fclose(inputFile);
 
     return true;
 }
 
+bool DisplayArea::isJPEG( const QString& fileName )
+{
+    QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
+    return format == QString::fromLocal8Bit( "JPEG" );
+}
+
 
 void DisplayArea::cropAndScale()
 {
+    if ( _loadedImage.isNull() )
+        return;
+
     if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) )
         _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
     else

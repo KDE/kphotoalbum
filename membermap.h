@@ -41,6 +41,10 @@ public:
     QMap<QString,QStringList> groupMap( const QString& category );
     void renameGroup( const QString& category, const QString& oldName, const QString& newName );
 
+    void addGroup( const QString& category, const QString& group );
+    void addMemberToGroup( const QString& category, const QString& group, const QString& item );
+    void removeMemberFromGroup( const QString& category, const QString& group, const QString& item );
+
 protected:
     void calculate();
     QStringList calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group );

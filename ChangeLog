@@ -1,5 +1,8 @@
 2005-03-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added member group config to context menu of list select (which
+	is the list boxes of the image property pages)
+
 	* Added a jump-to-context  button to the viewer, plus ensure
 	keyboard focus would be better shown in the thumbnail view.
 

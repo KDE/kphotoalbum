@@ -37,7 +37,6 @@ Features for a soonish version
   This is the behaviour of many programs with possibilities to select many 
   items and change some properties (mostly checkboxes)
 - make it possible to specify dates in other formats in the image config dialog
-- rework member group config page to use kdlistboxpair instead.
 - improve the spelling support, so the user get the benefit of the config dialog.
 - Find all images with changed checksums (rather than merely
   recompute the checksum).  This would help identify images

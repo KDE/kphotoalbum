@@ -237,4 +237,28 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
 
 
 
+void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
+{
+    Q_ASSERT( _members.contains(category) );
+    Q_ASSERT( _members[category].contains(group) );
+    _members[category][group].append( item );
+    _dirty = true;
+}
+
+void MemberMap::removeMemberFromGroup( const QString& category, const QString& group, const QString& item )
+{
+    Q_ASSERT( _members.contains(category) );
+    Q_ASSERT( _members[category].contains( group ) );
+    _members[category][group].remove( item );
+    _dirty = true;
+}
+
+void MemberMap::addGroup( const QString& category, const QString& group )
+{
+    Q_ASSERT( _members.contains(category) );
+    if ( ! _members[category].contains( group ) ) {
+        _members[category].insert( group, QStringList() );
+    }
+}
+
 #include "membermap.moc"

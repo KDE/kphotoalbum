@@ -10,8 +10,8 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     setSurveyVersion( 1, 0 );
     setReceiver( QString::fromLatin1( "blackie@kde.org" ) );
 
-    QStringList list;
-    list << i18n("Yes") << i18n("No");
+    QStringList yesNoList;
+    yesNoList << i18n("Yes") << i18n("No");
 
     QString txt
         = i18n("<qt><p>This is the KimDaBa survey, its intention is to make KimDaBa fit the need of <i>you</i> - my valued user.</p>"
@@ -41,7 +41,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                           "would e.g. mean that KimDaBa's backend should be changed from an XML file "
                                           "to a database. Doing so would take time, time that otherwise could be "
                                           "spent on implementing other features in KimDaBa."),
-                                     i18n("Would you prefer that time was spent on making KimDaBa faster?"), list, this );
+                                     i18n("Would you prefer that time was spent on making KimDaBa faster?"), yesNoList, this );
 
     QStringList categories;
     categories << i18n("Persons") << i18n("Locations") << i18n("Keywords");
@@ -51,8 +51,14 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                      i18n("Which categories are you using"),
                                      categories, 5, Survey::AlternativeQuestion::CheckBox, this );
 
+    new Survey::RadioButtonQuestion( QString::fromLatin1( "MemberGroups" ), i18n("Member Groups"),
+                                     i18n("One of the main features of KimDaBa is that it is possible to create member groups. "
+                                          "Using this feature, you can specify that Las Vegas is in Nevada, which is in USA, "
+                                          "which is on earth and so on. Whenever you then look for images from Nevada, USA, or the earth, "
+                                          "you will also see the images from Las Vegas."),
+                                     i18n("Are you using Member Groups?"), yesNoList, this );
     QStringList imageAppList;
-    imageAppList << QString::fromLatin1( "Digikam" ) << QString::fromLatin1( "Gvenview" );
+    imageAppList << QString::fromLatin1( "Digikam" ) << QString::fromLatin1( "Gvenview" ) << QString::fromLatin1( "kuickshow" );
 
     new Survey::AlternativeQuestion( QString::fromLatin1( "OtherApps" ),
                                      i18n( "Other Image Applications" ),
@@ -70,7 +76,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     txt = i18n("<qt><p>Thank you very much for your time, I hope you will continue using KimDaBa for many years to come, "
                "and that future versions will fit your purpose even better than it does today.</p>"
                "Finally, allow me to ask you to consider giving a donation. My own digital camera is starting to get old "
-               "so I hope that all of you would show you appreciation of my work, by helping me buy a new one, that will "
+               "so I hope that all of you would show your appreciation of my work, by helping me buy a new one, that will "
                "ensure that I enjoy taking pictures - and sorting them for many years to come. "
                "See the Help->Donation menu on how to make a donation.</p>"
                "<p align=\"right\">Once again thanks for filling out this survey - Jesper</p></qt>");

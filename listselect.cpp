@@ -35,6 +35,8 @@
 #include <kiconloader.h>
 #include <qbuttongroup.h>
 #include "categorycollection.h"
+#include "membermap.h"
+#include <qinputdialog.h>
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -395,25 +397,62 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     QLabel* label = new QLabel( QString::fromLatin1("<qt><b>%1</b></qt>").arg(title), &menu );
     label->setAlignment( Qt::AlignCenter );
     menu.insertItem( label );
-    menu.insertSeparator();
-
-
-	menu.insertItem( i18n("Delete"), 1 );
-	menu.insertItem( i18n("Rename"), 2 );
-	menu.insertSeparator();
-    if ( !item ) {
-        menu.setItemEnabled( 1, false );
-        menu.setItemEnabled( 2, false );
-    }
+    menu.insertItem( i18n("Delete"), 1 );
+    menu.insertItem( i18n("Rename"), 2 );
 
     QLabel* sortTitle = new QLabel( i18n("<qt><b>Sorting</b></qt>"), &menu );
     sortTitle->setAlignment( Qt::AlignCenter );
     menu.insertItem( sortTitle );
-    menu.insertSeparator();
     menu.insertItem( i18n("Usage"), 3 );
     menu.insertItem( i18n("Alphabetical"), 4 );
     menu.setItemChecked(3, Options::instance()->viewSortType() == Options::SortLastUse);
     menu.setItemChecked(4, Options::instance()->viewSortType() == Options::SortAlpha);
+
+    label = new QLabel( i18n("<qt><b>Member Group</b></qt>"), &menu );
+    label->setAlignment( Qt::AlignCenter );
+    menu.insertItem( label );
+
+    MemberMap map = Options::instance()->memberMap();
+
+    // Add/Remove member group
+    QPopupMenu* add = new QPopupMenu( &menu );
+    menu.insertItem( i18n( "Add to group" ), add, 5 );
+    QStringList grps = map.groups( _category );
+
+    QPopupMenu* del = new QPopupMenu( &menu );
+    menu.insertItem( i18n( "Remove from group" ), del, 6 );
+
+    QMap<int, QString> addMap;
+    QMap<int, QString> delMap;
+    int index = 10;
+
+    bool anyInAdd = false;
+    bool anyInRemove = false;
+    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        if ( !map.members( _category, *it, true ).contains( item->text() ) ) {
+            add->insertItem( *it, ++index );
+            anyInAdd = true;
+            addMap.insert( index, *it );
+        }
+        else {
+            del->insertItem( *it, ++index );
+            anyInRemove = true;
+            delMap.insert( index, *it );
+        }
+    }
+
+    if ( anyInAdd )
+        add->insertSeparator();
+    add->insertItem( i18n("New group..." ), 7 );
+    if ( !anyInRemove )
+        menu.setItemEnabled( 6, false );
+
+    if ( !item ) {
+        menu.setItemEnabled( 1, false );
+        menu.setItemEnabled( 2, false );
+        menu.setItemEnabled( 5, false );
+        menu.setItemEnabled( 6, false );
+    }
 
     int which = menu.exec( pos );
     if ( which == 1 ) {
@@ -458,6 +497,24 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     }
     else if ( which == 4 ) {
         Options::instance()->setViewSortType( Options::SortAlpha );
+    }
+    else if ( which == 7 ) {
+        QString group = QInputDialog::getText( i18n("Member group name"), i18n("Member group name") );
+        if ( group.isNull() )
+            return;
+        map.addGroup( _category, group );
+        map.addMemberToGroup( _category, group, item->text() );
+        Options::instance()->setMemberMap( map );
+    }
+    else {
+        if ( addMap.contains( which ) ) {
+            map.addMemberToGroup( _category, addMap[which], item->text() );
+            Options::instance()->setMemberMap( map );
+        }
+        else if ( delMap.contains( which ) ) {
+            map.removeMemberFromGroup( _category, delMap[which], item->text() );
+            Options::instance()->setMemberMap( map );
+        }
     }
 }
 

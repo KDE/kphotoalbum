@@ -169,17 +169,17 @@ void Viewer::load( const ImageInfoList& list, int index )
     load();
 }
 
-void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QPixmap& pixmap )
+void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QImage& image )
 {
     // Erase
     QPainter p( _label );
     p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
-    w = QMIN( w, pixmap.width() );
-    h = QMIN( h, pixmap.height() );
+    w = QMIN( w, image.width() );
+    h = QMIN( h, image.height() );
     _label->setFixedSize( w, h );
     _label->updateGeometry();
 
-    _pixmap = pixmap;
+    _pixmap.convertFromImage( image );
     setDisplayedPixmap();
     _label->setDrawList( currentInfo()->drawList() );
 }

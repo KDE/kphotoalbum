@@ -39,10 +39,7 @@ void ImageLoader::run()
                 }
             }
 
-            if (!isJPEG(li) || !loadJPEG(&img, li)) {
-                img.load( li.fileName() );
-            }
-
+            img.load( li.fileName() );
 
             if ( li.angle() != 0 )  {
                 QWMatrix matrix;
@@ -72,87 +69,4 @@ void ImageLoader::run()
         else
             _sleeper->wait();
     }
-}
-
-
-bool ImageLoader::isJPEG( const LoadInfo& li )
-{
-    return false;
-    QString format=QImageIO::imageFormat( li.fileName() );
-    return false;
-    return format=="JPEG";
-}
-
-// Fudged Fast JPEG decoding code from GWENVIEW (picked out out digikam)
-
-bool ImageLoader::loadJPEG(QImage* image, const LoadInfo& li )
-{
-    FILE* inputFile=fopen(li.fileName().data(), "rb");
-    if(!inputFile) return false;
-
-    struct jpeg_decompress_struct cinfo;
-    struct jpeg_error_mgr jerr;
-    cinfo.err = jpeg_std_error(&jerr);
-    jpeg_create_decompress(&cinfo);
-    jpeg_stdio_src(&cinfo, inputFile);
-    jpeg_read_header(&cinfo, TRUE);
-
-    int size = li.width();
-    int imgSize = QMAX(cinfo.image_width, cinfo.image_height);
-
-    int scale=1;
-    while(size*scale*2<=imgSize) {
-        scale*=2;
-    }
-    if(scale>8) scale=8;
-
-    cinfo.scale_num=1;
-    cinfo.scale_denom=scale;
-
-    // Create QImage
-    jpeg_start_decompress(&cinfo);
-
-    switch(cinfo.output_components) {
-    case 3:
-    case 4:
-        image->create( cinfo.output_width, cinfo.output_height, 32 );
-        break;
-    case 1: // B&W image
-        image->create( cinfo.output_width, cinfo.output_height, 8, 256 );
-        for (int i=0; i<256; i++)
-            image->setColor(i, qRgb(i,i,i));
-        break;
-    default:
-        return false;
-    }
-
-    uchar** lines = image->jumpTable();
-    while (cinfo.output_scanline < cinfo.output_height)
-        jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline,
-                            cinfo.output_height);
-    jpeg_finish_decompress(&cinfo);
-
-    // Expand 24->32 bpp
-    if ( cinfo.output_components == 3 ) {
-        for (uint j=0; j<cinfo.output_height; j++) {
-            uchar *in = image->scanLine(j) + cinfo.output_width*3;
-            QRgb *out = (QRgb*)( image->scanLine(j) );
-
-            for (uint i=cinfo.output_width; i--; ) {
-                in-=3;
-                out[i] = qRgb(in[0], in[1], in[2]);
-            }
-        }
-    }
-
-    //int newMax = QMAX(cinfo.output_width, cinfo.output_height);
-    //int newx = size*cinfo.output_width / newMax;
-    //int newy = size*cinfo.output_height / newMax;
-
-    //image=image.smoothScale( newx, newy);
-
-    jpeg_destroy_decompress(&cinfo);
-    fclose(inputFile);
-
-    return true;
 }

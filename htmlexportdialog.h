@@ -25,7 +25,7 @@ protected slots:
 protected:
     QString createImage( ImageInfo* info, int size );
     QString imageName( const QString& fileName, int size );
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QPixmap& );
+    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
     bool generate();
     QString outputDir( bool showErr );
 

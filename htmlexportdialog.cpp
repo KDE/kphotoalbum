@@ -70,7 +70,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     QSpinBox* number = new QSpinBox( 1, 10, 1, generalPage );
     lay4->addWidget( number );
 
-    _numOfCols = new QSlider( 1, 10, 1, 3, Horizontal, generalPage );
+    _numOfCols = new QSlider( 1, 10, 1, 5, Horizontal, generalPage );
     _numOfCols->setTickmarks( QSlider::Below );
     lay4->addWidget( _numOfCols );
 
@@ -335,7 +335,7 @@ QString HTMLExportDialog::createImage( ImageInfo* info, int size )
     return name;
 }
 
-void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int height, int /*angle*/, const QPixmap& pix )
+void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int height, int /*angle*/, const QImage& image )
 {
     _waitCounter--;
 
@@ -351,7 +351,7 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int hei
             file += QString::fromLatin1( "-" ) + QString::number( size );
         file += QString::fromLatin1( ".jpg" );
 
-        bool success = pix.save( file, "JPEG" );
+        bool success = image.save( file, "JPEG" );
         if ( !success ) {
             QMessageBox::warning( this, i18n("Unable to write image"), i18n("Unable to write image '%1'").arg(file), QMessageBox::Ok, 0 );
         }

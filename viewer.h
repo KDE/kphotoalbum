@@ -21,7 +21,7 @@ public:
     static Viewer* instance( QWidget* parent = 0 );
     ~Viewer();
     void load( const ImageInfoList& list, int index = 0 );
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QPixmap& );
+    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
 
 protected:
     virtual void mousePressEvent( QMouseEvent* e );

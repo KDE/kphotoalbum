@@ -1,7 +1,6 @@
 #include "imagemanager.h"
 #include "imageloader.h"
 #include "options.h"
-#include <qpixmapcache.h>
 #include "imageclient.h"
 #include <qdatetime.h>
 
@@ -26,24 +25,17 @@ void ImageManager::load( const QString& fileName, ImageClient* client, int angle
 {
     QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
 
-    QPixmap* pixmap = QPixmapCache::find( key );
-    if ( pixmap )  {
-        if ( client )
-            client->pixmapLoaded( fileName, width, height, angle, *pixmap );
-    }
-    else {
-        _lock->lock();
-        LoadInfo li( fileName, width, height, angle, compress, client );
-        li.setCache( cache );
-        if ( priority )
-            _loadList.prepend( li );
-        else
-            _loadList.append( li );
-        _lock->unlock();
-        if ( client )
-            _clientMap.insert( li, client );
-        _sleepers->wakeOne();
-    }
+    _lock->lock();
+    LoadInfo li( fileName, width, height, angle, compress, client );
+    li.setCache( cache );
+    if ( priority )
+        _loadList.prepend( li );
+    else
+        _loadList.append( li );
+    _lock->unlock();
+    if ( client )
+        _clientMap.insert( li, client );
+    _sleepers->wakeOne();
 }
 
 LoadInfo ImageManager::next()
@@ -81,15 +73,11 @@ void ImageManager::customEvent( QCustomEvent* ev )
         QString key = QString("%1-%2x%3-%4").arg( li.fileName() ).arg( li.width() ).arg( li.height() ).arg( li.angle() );
 
         QImage image = iev->image();
-        QPixmap pixmap( image );
-        if ( li.cache() )  {
-            QPixmapCache::insert( key,  pixmap );
-        }
         if ( _clientMap.contains( li ) )  {
             // If it is not in the map, then it has been deleted since the request.
             ImageClient* client = _clientMap[li];
 
-            client->pixmapLoaded( li.fileName(), li.width(), li.height(), li.angle(), pixmap );
+            client->pixmapLoaded( li.fileName(), li.width(), li.height(), li.angle(), image );
             _clientMap.remove(li);
         }
     }

@@ -10,7 +10,7 @@ class ImageConfig :public ImageConfigUI, public ImageClient {
     Q_OBJECT
 public:
     ImageConfig( QWidget* parent, const char* name = 0 );
-    virtual void pixmapLoaded( const QString&, int, int, int, const QPixmap& );
+    virtual void pixmapLoaded( const QString&, int, int, int, const QImage& );
     int configure( ImageInfoList list,  bool oneAtATime );
     int search();
     bool match( ImageInfo* info );

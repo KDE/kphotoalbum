@@ -10,8 +10,6 @@ public:
     ImageLoader( QWaitCondition* sleeper );
 protected:
     virtual void run();
-    bool isJPEG( const LoadInfo& li );
-    bool loadJPEG(QImage* image, const LoadInfo& li );
 
 private:
     QWaitCondition* _sleeper;

@@ -9,7 +9,7 @@ class ImagePreview :public QLabel, public ImageClient {
 public:
     ImagePreview( QWidget* parent, const char* name = 0);
     void setInfo( ImageInfo* info );
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QPixmap& );
+    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
 
 signals:
     void doubleClicked();

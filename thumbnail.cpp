@@ -51,10 +51,10 @@ ImageInfo* ThumbNail::imageInfo()
     return _imageInfo;
 }
 
-void ThumbNail::pixmapLoaded( const QString&, int, int, int, const QPixmap& pixmap )
+void ThumbNail::pixmapLoaded( const QString&, int, int, int, const QImage& image  )
 {
-    _pixmap = pixmap;
-    setPixmap( pixmap );
+    _pixmap.convertFromImage( image );
+    setPixmap( _pixmap );
 }
 void ThumbNail::dragMove()
 {

@@ -188,12 +188,13 @@ void ImageConfig::save()
     }
 }
 
-void ImageConfig::pixmapLoaded( const QString& fileName, int, int, int, const QPixmap& pixmap )
+void ImageConfig::pixmapLoaded( const QString& fileName, int, int, int, const QImage& image )
 {
-    if ( fileName == _origList.at( _current )->fileName( false ) )
+    if ( fileName == _origList.at( _current )->fileName( false ) ) {
+        QPixmap pixmap;
+        pixmap.convertFromImage( image );
         preview->setPixmap( pixmap );
-    // PENDING(blackie) We can't just have a QMap as this fills up memory.
-//    _preloadImageMap[ fileName ] = pixmap;
+    }
 }
 
 int ImageConfig::configure( ImageInfoList list, bool oneAtATime )

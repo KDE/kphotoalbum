@@ -42,8 +42,10 @@ void ImagePreview::reload()
     ImageManager::instance()->load( _info->fileName( false ), this, _info->angle(), 256, 256, false, true, false );
 }
 
-void ImagePreview::pixmapLoaded( const QString&, int, int, int, const QPixmap& pix )
+void ImagePreview::pixmapLoaded( const QString&, int, int, int, const QImage& image )
 {
+    QPixmap pix;
+    pix.convertFromImage( image );
     setPixmap( pix );
 }
 

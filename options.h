@@ -156,6 +156,9 @@ public:
     QString HTMLBaseURL() const;
     void setHTMLBaseURL( const QString& dir );
 
+    QString HTMLDestURL() const;
+    void setHTMLDestURL( const QString& dir );
+
     void saveConfigWindowLayout( ImageConfig* );
     void loadConfigWindowLayout( ImageConfig* );
 
@@ -198,7 +201,7 @@ private:
     bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps, _ensureImageWindowsOnScreen;
     QMap<QString, QStringList> _options;
     QMap<QString,OptionGroupInfo> _optionGroups;
-    QString _imageDirectory, _htmlBaseDir, _htmlBaseURL;
+    QString _imageDirectory, _htmlBaseDir, _htmlBaseURL, _htmlDestURL;
 
     Position _infoBoxPosition;
     bool _showInfoBox, _showDrawings, _showDescription, _showDate, _showTime;

@@ -602,8 +602,8 @@ void MainView::setupMenuBar()
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
     _generateHtml = new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
 
-    new KAction( i18n( "Import..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
-    new KAction( i18n( "Export..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
+    new KAction( i18n( "Import from .kim file..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
+    new KAction( i18n( "Export to .kim file..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
 
 
     // Go menu
@@ -1243,12 +1243,14 @@ void MainView::loadPlugins()
 
 void MainView::plug()
 {
-    unplugActionList( QString::fromLatin1("file_actions") );
+    unplugActionList( QString::fromLatin1("import_actions") );
+    unplugActionList( QString::fromLatin1("export_actions") );
     unplugActionList( QString::fromLatin1("image_actions") );
     unplugActionList( QString::fromLatin1("tool_actions") );
     unplugActionList( QString::fromLatin1("batch_actions") );
 
-    QPtrList<KAction> fileActions;
+    QPtrList<KAction> importActions;
+    QPtrList<KAction> exportActions;
     QPtrList<KAction> imageActions;
     QPtrList<KAction> toolsActions;
     QPtrList<KAction> batchActions;
@@ -1267,8 +1269,11 @@ void MainView::plug()
             if (  category == KIPI::IMAGESPLUGIN ||  category == KIPI::COLLECTIONSPLUGIN )
                 imageActions.append( *it );
 
-            else if ( category == KIPI::EXPORTPLUGIN || category == KIPI::IMPORTPLUGIN )
-                fileActions.append( *it );
+            else if ( category == KIPI::IMPORTPLUGIN )
+                importActions.append( *it );
+
+            else if ( category == KIPI::EXPORTPLUGIN )
+                exportActions.append( *it );
 
             else if ( category == KIPI::TOOLSPLUGIN )
                 toolsActions.append( *it );
@@ -1284,7 +1289,8 @@ void MainView::plug()
     }
 
     // For this to work I need to pass false as second arg for createGUI
-    plugActionList( QString::fromLatin1("file_actions"), fileActions );
+    plugActionList( QString::fromLatin1("import_actions"), importActions );
+    plugActionList( QString::fromLatin1("export_actions"), exportActions );
     plugActionList( QString::fromLatin1("image_actions"), imageActions );
     plugActionList( QString::fromLatin1("tool_actions"), toolsActions );
     plugActionList( QString::fromLatin1("batch_actions"), batchActions );

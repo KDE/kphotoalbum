@@ -1,12 +1,10 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="18">
+<kpartgui name="kimdaba" version="19">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
       <Action name="import"/>
       <Action name="export"/>
-      <ActionList name="file_actions"/>
-      <Separator/>
     </Menu>
     <Menu name="edit" >
       <Action name="deleteSelected" />
@@ -34,26 +32,39 @@
         <Action name="setDefaultScopePositive" />
         <Action name="setDefaultScopeNegative" />
       </Menu>
-      <separator/>
-      <ActionList name="image_actions"/>  
     </Menu>
-    <Menu name="tools">
-      <text>&amp;Tools</text>
-      <Menu name="maintenance">
-        <text>&amp;Maintenance</text>
-        <Action name="findUnavailableImages"/>
-        <Action name="rebuildMD5s"/>
-        <Action name="rescan"/>
-        <Action name="readInfo" />
-        <Separator/>
-        <Action name="removeAllThumbs"/>
-        <Action name="buildThumbs"/>
+    <Menu name="maintenance">
+      <text>&amp;Maintenance</text>
+      <Action name="findUnavailableImages"/>
+      <Action name="rebuildMD5s"/>
+      <Action name="rescan"/>
+      <Action name="readInfo" />
+      <Separator/>
+      <Action name="removeAllThumbs"/>
+      <Action name="buildThumbs"/>
+    </Menu>
+    <Menu name="plugins">
+      <text>Plugins</text>
+      <Menu name="exportplugin">       
+        <text>Export</text>
+        <ActionList name="export_actions"/>
       </Menu>
-      <Menu name="batch">
-        <text>Batch</text>
+      <Menu name="importplugin">       
+        <text>Import</text>
+        <ActionList name="import_actions"/>
+      </Menu>
+      <Menu name="imagesplugins">
+      <text>Images</text>
+         <ActionList name="image_actions"/>  
+      </Menu>
+      <Menu name="batch_plugins">
+        <text>Batch Plugins</text>
         <ActionList name="batch_actions"/>
       </Menu>
-      <ActionList name="tool_actions"/>
+      <Menu name="tool_plugins">
+        <text>Tools</text>
+        <ActionList name="tool_actions"/>
+      </Menu>
    </Menu>
    <Menu name="settings">
      <Action name="readdAllMessages"/>

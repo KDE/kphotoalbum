@@ -176,6 +176,9 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
 
     _externalSource = ( source == QString::fromLatin1( "external" ) );
 
+    // Read base url
+    _baseUrl = top.attribute( QString::fromLatin1( "baseurl" ) );
+
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( !node.isElement() || ! (node.toElement().tagName().lower() == QString::fromLatin1( "image" ) ) ) {
             KMessageBox::error( this, i18n("Unknown element while reading %1, expected Image").arg( fileName ) );
@@ -277,13 +280,22 @@ ImageRow::ImageRow( ImageInfo* info, Import* import, QWidget* parent )
 void ImageRow::showImage()
 {
     if ( _import->_externalSource ) {
-        KURL src = _import->_kimFile;
-        src.setFileName( _info->fileName( true ) );
-        QString tmpFile;
-        if( KIO::NetAccess::download( src, tmpFile, MainView::theMainView() ) ) {
-            QImage img( tmpFile );
-            showImage( img );
-            KIO::NetAccess::removeTempFile( tmpFile );
+        KURL src1 =_import->_kimFile;
+        KURL src2 = _import->_baseUrl + QString::fromLatin1( "/" );
+        for ( int i = 0; i < 2; ++i ) {
+            // First try next to the .kim file, then the external URL
+            KURL src = src1;
+            if ( i == 1 )
+                src = src2;
+            src.setFileName( _info->fileName( true ) );
+            QString tmpFile;
+
+            if( KIO::NetAccess::download( src, tmpFile, MainView::theMainView() ) ) {
+                QImage img( tmpFile );
+                showImage( img );
+                KIO::NetAccess::removeTempFile( tmpFile );
+                break;
+            }
         }
     }
     else {
@@ -490,12 +502,22 @@ void Import::copyNextFromExternal()
     ImageInfo* info = _pendingCopies.at(0);
     _pendingCopies.remove((uint)0);
     QString fileName = info->fileName( true );
-    KURL src = _kimFile;
-    src.setFileName( fileName );
-    KURL dest;
-    dest.setPath( Options::instance()->imageDirectory() + _nameMap[fileName] );
-    _job = KIO::file_copy( src, dest, -1, false, false, false );
-    connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
+    KURL src1 = _kimFile;
+    KURL src2 = _baseUrl + QString::fromLatin1( "/" );
+    for ( int i = 0; i < 2; ++i ) {
+        KURL src = src1;
+        if ( i == 1 )
+            src = src2;
+
+        src.setFileName( fileName );
+        if ( KIO::NetAccess::exists( src, true, MainView::theMainView() ) ) {
+            KURL dest;
+            dest.setPath( Options::instance()->imageDirectory() + _nameMap[fileName] );
+            _job = KIO::file_copy( src, dest, -1, false, false, false );
+            connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
+            break;
+        }
+    }
 }
 
 

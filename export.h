@@ -36,11 +36,12 @@ class Export :public ImageClient {
 public:
     static void imageExport( const ImageInfoList& list);
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
-    Export(  const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation, bool& ok );
+    Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize,
+            ImageFileLocation, const QString& baseUrl, bool& ok );
     static void showUsageDialog();
 
 protected:
-    QCString createIndexXML( const ImageInfoList& );
+    QCString createIndexXML( const ImageInfoList&, const QString& baseUrl );
     void generateThumbnails( const ImageInfoList& list );
     void copyImages( const ImageInfoList& list );
 
@@ -74,9 +75,6 @@ private:
     QRadioButton* _include;
     QRadioButton* _manually;
     QRadioButton* _auto;
-
-protected slots:
-    void slotHelp();
 };
 
 

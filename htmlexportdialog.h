@@ -70,6 +70,7 @@ private:
     KLineEdit* _title;
     KLineEdit* _baseDir;
     KLineEdit* _baseURL;
+    KLineEdit* _destURL;
     KLineEdit* _outputDir;
     QSpinBox* _thumbSize;
     QComboBox *_themeBox;

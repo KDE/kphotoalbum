@@ -99,12 +99,13 @@ private:
 };
 
 HTMLExportDialog::HTMLExportDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n("HTML Export"), Ok|Cancel, Ok, parent, name )
+    :KDialogBase( IconList, i18n("HTML Export"), Ok|Cancel|Help, Ok, parent, name )
 {
     enableButtonOK( false );
     createContentPage();
     createLayoutPage();
     createDestinationPage();
+    setHelp( QString::fromLatin1( "chp-generating-html" ) );
 }
 
 void HTMLExportDialog::createContentPage()
@@ -219,10 +220,10 @@ void HTMLExportDialog::createDestinationPage()
 
     // Base Directory
     QLabel* label = new QLabel( i18n("Base directory:"), destinationPage );
-    lay2->addWidget( label, 5, 0 );
+    lay2->addWidget( label, 0, 0 );
 
     QHBoxLayout* lay3 = new QHBoxLayout( (QWidget*)0, 0, 6 );
-    lay2->addLayout( lay3, 5, 1 );
+    lay2->addLayout( lay3, 0, 1 );
 
     _baseDir = new KLineEdit( destinationPage );
     lay3->addWidget( _baseDir );
@@ -236,17 +237,24 @@ void HTMLExportDialog::createDestinationPage()
 
     // Base URL
     label = new QLabel( i18n("Base URL:"), destinationPage );
-    lay2->addWidget( label, 6, 0 );
+    lay2->addWidget( label, 1, 0 );
 
     _baseURL = new KLineEdit( destinationPage );
     _baseURL->setText( Options::instance()->HTMLBaseURL() );
-    lay2->addWidget( _baseURL, 6, 1 );
+    lay2->addWidget( _baseURL, 1, 1 );
+
+    // Destination URL
+    label = new QLabel( i18n("Url for final destination: " ), destinationPage );
+    lay2->addWidget( label, 2, 0 );
+    _destURL = new KLineEdit( destinationPage );
+    _destURL->setText( Options::instance()->HTMLDestURL() );
+    lay2->addWidget( _destURL, 2, 1 );
 
     // Output Directory
     label = new QLabel( i18n("Output directory:"), destinationPage );
-    lay2->addWidget( label, 7, 0 );
+    lay2->addWidget( label, 3, 0 );
     _outputDir = new KLineEdit( destinationPage );
-    lay2->addWidget( _outputDir, 7, 1 );
+    lay2->addWidget( _outputDir, 3, 1 );
 
     lay1->addStretch( 1 );
 }
@@ -264,7 +272,11 @@ bool HTMLExportDialog::generate()
     // Generate .kim file
     if ( _generateKimFile->isChecked() ) {
         bool ok;
-        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy, ok );
+        QString destURL = _destURL->text();
+        if ( destURL.isEmpty() )
+            destURL = _baseURL->text();
+
+        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy, destURL, ok );
         delete exp; // It will not return before done - we still need a class to connect slots etc.
         if ( !ok )
             return false;
@@ -614,6 +626,7 @@ void HTMLExportDialog::slotOk()
     if ( ok ) {
         Options::instance()->setHTMLBaseDir( _baseDir->text() );
         Options::instance()->setHTMLBaseURL( _baseURL->text() );
+        Options::instance()->setHTMLDestURL( _destURL->text() );
         accept();
     }
     delete _progress;

@@ -1,3 +1,18 @@
+2004-07-24  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Moved all plugins to one menu rather than scattered out over all
+	the menus. The former seems like the best idea for easy finding a
+	functionality, while the later seems to be best, to ensure that
+	users know which functionality is KimDaBa core features, and which
+	are plugins, with plugins perhaps being less integrated than
+	build-in features.
+
+2004-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* import/export is improved so during import of external images,
+	KimDaBa will first search for the images next to the .kim file,
+	and then at the URL the images originally was uploaded to.
+
 2004-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Made it possible to hide the labels in the thumbnail view

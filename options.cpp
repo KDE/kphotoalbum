@@ -58,6 +58,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _ensureImageWindowsOnScreen = (bool) config.attribute( QString::fromLatin1( "ensureImageWindowsOnScreen" ), QString::fromLatin1( "1" ) ).toInt();
     _htmlBaseDir = config.attribute( QString::fromLatin1("htmlBaseDir"), QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
     _htmlBaseURL = config.attribute( QString::fromLatin1("htmlBaseURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
+    _htmlDestURL = config.attribute( QString::fromLatin1("htmlDestURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
     _infoBoxPosition = (Position) config.attribute( QString::fromLatin1("infoBoxPosition"), QString::fromLatin1("0") ).toInt();
     _showInfoBox = config.attribute( QString::fromLatin1("showInfoBox"), QString::fromLatin1("1") ).toInt();
     _showDrawings = config.attribute( QString::fromLatin1("showDrawings"), QString::fromLatin1("1") ).toInt();
@@ -129,6 +130,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("imageDirectory"), _imageDirectory );
     config.setAttribute( QString::fromLatin1("htmlBaseDir"), _htmlBaseDir );
     config.setAttribute( QString::fromLatin1("htmlBaseURL"), _htmlBaseURL );
+    config.setAttribute( QString::fromLatin1("htmlDestURL"), _htmlDestURL );
 
     config.setAttribute( QString::fromLatin1("infoBoxPosition"), (int) _infoBoxPosition );
     config.setAttribute( QString::fromLatin1("showInfoBox"), _showInfoBox );
@@ -367,10 +369,21 @@ QString Options::HTMLBaseURL() const
     return _htmlBaseURL;
 }
 
-void Options::setHTMLBaseURL( const QString& dir )
+void Options::setHTMLBaseURL( const QString& url )
 {
-    if ( _htmlBaseURL != dir ) emit changed();
-    _htmlBaseURL = dir;
+    if ( _htmlBaseURL != url ) emit changed();
+    _htmlBaseURL = url;
+}
+
+QString Options::HTMLDestURL() const
+{
+    return _htmlDestURL;
+}
+
+void Options::setHTMLDestURL( const QString& url )
+{
+    if ( _htmlDestURL != url ) emit changed();
+    _htmlDestURL = url;
 }
 
 void Options::setAutoSave( int min )

@@ -112,6 +112,7 @@ private:
     QProgressDialog* _progress;
     KIO::FileCopyJob* _job;
     bool _hasFilled;
+    QString _baseUrl;
 };
 
 

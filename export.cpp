@@ -54,7 +54,8 @@ void Export::imageExport( const ImageInfoList& list )
         return;
 
     bool ok;
-    Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(), ok );
+    Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(),
+                              QString::fromLatin1( "" ), ok );
     delete exp; // It will not return before done - we still need a class to connect slots etc.
 
     if ( ok )
@@ -74,12 +75,12 @@ ExportConfig::ExportConfig()
     lay1->addWidget( _compress );
 
     // Enforece max size
-    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    QHBoxLayout* hlay = new QHBoxLayout( lay1, 6 );
     _enforeMaxSize = new QCheckBox( i18n( "Limit maximum dimension of images to: " ), top, "_enforeMaxSize" );
-    lay2->addWidget( _enforeMaxSize );
+    hlay->addWidget( _enforeMaxSize );
 
     _maxSize = new QSpinBox( 100, 4000, 50, top, "_maxSize" );
-    lay2->addWidget( _maxSize );
+    hlay->addWidget( _maxSize );
     _maxSize->setValue( 800 );
 
     connect( _enforeMaxSize, SIGNAL( toggled( bool ) ), _maxSize, SLOT( setEnabled( bool ) ) );
@@ -92,8 +93,6 @@ ExportConfig::ExportConfig()
     _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
     _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
     _manually->setChecked( true );
-
-    connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 
     QString txt = i18n( "<qt><p>If your images are stored in a non-compressed file format then you may check this; "
                         "otherwise, this just wastes time during import and export operations.</p>"
@@ -121,6 +120,8 @@ ExportConfig::ExportConfig()
     QWhatsThis::add( _include, txt );
     QWhatsThis::add( _manually, txt );
     QWhatsThis::add( _auto, txt );
+
+    setHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
 
 ImageFileLocation ExportConfig::imageFileLocation() const
@@ -133,13 +134,9 @@ ImageFileLocation ExportConfig::imageFileLocation() const
         return AutoCopy;
 }
 
-void ExportConfig::slotHelp()
-{
-    QWhatsThis::enterWhatsThisMode();
-}
 
-
-Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location, bool& ok )
+Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
+                const QString& baseUrl, bool& ok )
     : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
     ok = true;
@@ -177,7 +174,7 @@ Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress
 
     if ( _ok ) {
         // Create the index.xml file
-        QCString indexml = createIndexXML( list );
+        QCString indexml = createIndexXML( list, baseUrl );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.size()-1,
@@ -187,7 +184,7 @@ Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress
     }
 }
 
-QCString Export::createIndexXML( const ImageInfoList& list )
+QCString Export::createIndexXML( const ImageInfoList& list, const QString& baseUrl )
 {
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
@@ -195,6 +192,8 @@ QCString Export::createIndexXML( const ImageInfoList& list )
     QDomElement top = doc.createElement( QString::fromLatin1( "KimDaBa-export" ) );
     top.setAttribute( QString::fromLatin1( "location" ),
                       _location == Inline ? QString::fromLatin1( "inline" ) : QString::fromLatin1( "external" ) );
+    if ( !baseUrl.isEmpty() )
+        top.setAttribute( QString::fromLatin1( "baseurl" ), baseUrl );
     doc.appendChild( top );
 
 

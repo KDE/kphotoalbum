@@ -1185,9 +1185,9 @@ void MainView::loadPlugins()
             popup = &toolsActions;
 
         if ( popup ) {
-            KActionCollection *actions = plugin->actionCollection();
-            for (unsigned int i=0; i < actions->count(); i++) {
-                popup->append( actions->action(i) );
+            KActionPtrList actions = plugin->actions();
+            for( KActionPtrList::Iterator it = actions.begin(); it != actions.end(); ++it ) {
+                popup->append( *it );
             }
         }
         else {

@@ -360,7 +360,7 @@ int Options::maxImages() const
 }
 
 /**
-   adds a new option group.
+   Adds a new option group.
    \param name Name as used in the XML file, and a used as keys for Options::setOption.
    \param label Text label as seen in the GUI
    \param icon to be shown in the browser
@@ -368,7 +368,6 @@ int Options::maxImages() const
 void Options::addOptionGroup( const QString& name, const QString& label, const QString& icon )
 {
     _dirty = true;
-    // PENDING(blackie) I need an order on the items, don't I? (Maybe not when using docked windows)
     _optionGroups[name] = OptionGroupInfo(label,icon);
     emit optionGroupsChanged();
 }

@@ -55,7 +55,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- Label and Date
     // If I make the dateDock a child of 'this', then things seems to break.
     // The datedock isn't shown at all
-    KDockWidget* dateDock = _dockWindow->createDockWidget( i18n("Label and Dates"), QPixmap(), 0 );
+    KDockWidget* dateDock = _dockWindow->createDockWidget( i18n("Label and Dates"), QPixmap(), this );
     _dockWidgets.append( dateDock );
     QWidget* top = new QWidget( dateDock );
     QVBoxLayout* lay2 = new QVBoxLayout( top, 6 );
@@ -126,7 +126,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- Image preview
     KDockWidget* previewDock
         = _dockWindow->createDockWidget( i18n("Image Preview"),
-                            locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ));
+                            locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ), this);
     _dockWidgets.append( previewDock );
     QWidget* top2 = new QWidget( previewDock );
     QVBoxLayout* lay5 = new QVBoxLayout( top2, 6 );
@@ -152,7 +152,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
 
     // -------------------------------------------------- The editor
-    KDockWidget* descriptionDock = _dockWindow->createDockWidget( i18n("Description"), QPixmap() );
+    KDockWidget* descriptionDock = _dockWindow->createDockWidget( i18n("Description"), QPixmap(), this );
     _dockWidgets.append(descriptionDock);
     _description = new Editor( descriptionDock );
     descriptionDock->setWidget( _description );
@@ -591,7 +591,7 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 {
     KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
-                                                             0L, optionGroup );
+                                                             this, optionGroup );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
     _optionList.append( sel );
@@ -599,6 +599,10 @@ KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
              this, SIGNAL( deleteOption( const QString&, const QString& ) ) );
     connect( sel, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
              this, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ) );
+    connect( sel, SIGNAL( deleteOption( const QString&, const QString& ) ),
+             this, SLOT( slotDeleteOption( const QString&, const QString& ) ) );
+    connect( sel, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
+             this, SLOT( slotRenameOption( const QString& , const QString& , const QString&  ) ) );
 
     dockWidget->setWidget( sel );
     return dockWidget;
@@ -612,6 +616,20 @@ void ImageConfig::writeDockConfig( QDomElement& doc )
 void ImageConfig::readDockConfig( QDomElement& doc )
 {
     _dockWindow->readDockConfig( doc );
+}
+
+void ImageConfig::slotDeleteOption( const QString& optionGroup, const QString& which)
+{
+    for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+        (*it).removeOption( optionGroup, which );
+    }
+}
+
+void ImageConfig::slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue )
+{
+    for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+        (*it).renameOption( optionGroup, oldValue, newValue );
+    }
 }
 
 #include "imageconfig.moc"

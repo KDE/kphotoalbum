@@ -59,6 +59,8 @@ protected slots:
     void viewerDestroyed();
     void slotOptions();
     void slotSaveWindowSetup();
+    void slotDeleteOption( const QString&, const QString& );
+    void slotRenameOption( const QString& , const QString& , const QString&  );
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };

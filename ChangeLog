@@ -1,5 +1,7 @@
 2004-12-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Categories in Member Group config is now internationalized.
+
 	* Categories in virtual album configuration (General tab in
 	Settings) are now internationalized.
 

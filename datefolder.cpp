@@ -80,7 +80,6 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
     connect( copy, SIGNAL( clicked() ), this, SLOT( slotCopy() ) );
 
     QVBoxLayout* lay3 = new QVBoxLayout( lay1, 6 );
-    // PENDING(blackie) When done with message freze, join the two strings below
     label = new QLabel( i18n("To:"), top );
     increaseFont( label, 2 );
 

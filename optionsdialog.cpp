@@ -603,9 +603,9 @@ void OptionsDialog::createGroupConfig()
    When the user selects a new category from the combo box then this method is called
    Its purpose is too fill the groups and members listboxes.
 */
-void OptionsDialog::slotCategoryChanged( const QString& name )
+void OptionsDialog::slotCategoryChanged( const QString& text )
 {
-    slotCategoryChanged( name, true );
+    slotCategoryChanged( CategoryCollection::instance()->nameForText(text), true );
 }
 
 void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
@@ -744,7 +744,7 @@ void OptionsDialog::slotPageChange()
     QValueList<Category*> categories = CategoryCollection::instance()->categories();
     for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( !(*it)->isSpecialCategory() )
-            _category->insertItem( (*it)->name() ); // Shouldn't it be ->text() here?
+            _category->insertItem( (*it)->text() );
     }
 
     slotCategoryChanged( _category->currentText() );

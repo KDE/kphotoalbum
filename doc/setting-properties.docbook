@@ -159,8 +159,8 @@ dates. If you later want to include that frame in your layout, then choose
 the <literal>Options...</literal> button, and from there the
 <literal>Show/Hide windows</literal> item. This can be see in <xref
         linkend="fig-redisplay-frames"/>.</para>
-  </sect1>
   
+
   <figure id="fig-redisplay-frames">
     <title>Showing previously hidden windows.</title>
     <mediaobject>
@@ -170,6 +170,8 @@ the <literal>Options...</literal> button, and from there the
     </mediaobject>
   </figure>
   
+  </sect1>
+
   </chapter>
 
 

@@ -1,4 +1,9 @@
-SUBDIRS = images icons demo
+if compile_LIBKIMDABA_COMPAT
+COMPAT_DIR = compat
+COMPAT_LIBS = compat/libkimdabacompat.la
+endif
+
+SUBDIRS = images icons demo $(COMPAT_DIR)
 INCLUDES = $(all_includes)
 AM_CPPFLAGS = -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
 
@@ -28,10 +33,10 @@ kimdaba_SOURCES = main.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	undoredolist.cpp optionsdialog.cpp infobox.cpp welcomedialog.cpp \
 	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp \
-	kshell.cpp datefolder.cpp groupCounter.cpp membermap.cpp
+	datefolder.cpp groupCounter.cpp membermap.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) -lktexteditor -ljpeg
+kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -lktexteditor -ljpeg
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS)

@@ -1,0 +1,35 @@
+# -- Check for KDE 3.1 and enable the compat dir --------------------
+AC_LANG_SAVE
+AC_LANG_CPLUSPLUS
+
+AC_MSG_CHECKING([for kdelibs newer than 3.2.x])
+
+kcompat_save_CXXFLAGS="$CXXFLAGS"
+kcompat_safe_LIBS="$LIBS"
+LIBS="$LIBS $X_EXTRA_LIBS"
+if test "$GXX" = "yes"; then
+CXXFLAGS="$CXXFLAGS $all_includes"
+fi
+
+AC_TRY_COMPILE([
+#include <kdeversion.h>
+#if !( KDE_IS_VERSION( 3, 1, 90 ) )
+#error Need to enable libkimdaba/compat/
+#endif
+],
+[
+],
+	AC_MSG_RESULT(yes)
+,
+	KIMDABA_COMPAT_INCLUDES='-I$(top_srcdir)/kimdaba/compat'
+	KIMDABA_INCLUDES=$KIMDABA_INCLUDES' $(KIMDABA_COMPAT_INCLUDES)'
+	LIB_KIMDABACOMPAT='$(top_builddir)/kimdaba/compat/libkimdaba.la'
+	AC_MSG_RESULT(no)
+)
+CXXFLAGS="$kcompat_save_CXXFLAGS"
+LIBS="$kcompat_safe_LIBS"
+
+AM_CONDITIONAL(compile_LIBKIMDABA_COMPAT, test -n "$LIB_KIMDABACOMPAT")
+
+AC_LANG_RESTORE
+# -- End KDE 3.1 check ----------------------------------------------

@@ -35,6 +35,14 @@ Viewer::Viewer( QWidget* parent, const char* name )
 
     QAction* action;
 
+    _firstAction = new QAction( "First", QIconSet(), "First", Key_Home, this );
+    connect( _firstAction,  SIGNAL( activated() ), this, SLOT( showFirst() ) );
+    _firstAction->addTo( _popup );
+
+    _lastAction = new QAction( "Last", QIconSet(), "Last", Key_End, this );
+    connect( _lastAction,  SIGNAL( activated() ), this, SLOT( showLast() ) );
+    _lastAction->addTo( _popup );
+
     _nextAction = new QAction( "Show Next", QIconSet(), "Show Next", Key_PageDown, this );
     connect( _nextAction,  SIGNAL( activated() ), this, SLOT( showNext() ) );
     _nextAction->addTo( _popup );
@@ -162,6 +170,8 @@ void Viewer::load()
     ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), w,  h, false, true );
     _nextAction->setEnabled( _current +1 < (int) _list.count() );
     _prevAction->setEnabled( _current > 0 );
+    _firstAction->setEnabled( _current > 0 );
+    _lastAction->setEnabled( _current +1 < (int) _list.count() );
 }
 
 void Viewer::setDisplayedPixmap()
@@ -423,6 +433,20 @@ void Viewer::toggleShowKeyWords( bool b )
 Viewer::~Viewer()
 {
     _instance = 0;
+}
+
+void Viewer::showFirst()
+{
+    _current = 0;
+    _info = *( _list.at( _current ) );
+    load();
+}
+
+void Viewer::showLast()
+{
+     _current = _list.count() -1;
+     _info = *( _list.at( _current ) );
+     load();
 }
 
 #include "viewer.moc"

@@ -33,6 +33,8 @@ protected:
 protected slots:
     void showNext();
     void showPrev();
+    void showFirst();
+    void showLast();
     void zoomIn();
     void zoomOut();
     void rotate90();
@@ -49,6 +51,8 @@ private:
     Viewer( QWidget* parent, const char* name = 0 );
     static Viewer* _instance;
 
+    QAction* _firstAction;
+    QAction* _lastAction;
     QAction* _nextAction;
     QAction* _prevAction;
 

@@ -6,6 +6,13 @@
 #include <qsize.h>
 #include <qmutex.h>
 
+// WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+//
+// This class is shared among the image loader thead and the GUI tread, if
+// you don't know the implication of this stay out of this class!
+//
+// WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+
 class ImageRequest {
 public:
     virtual ~ImageRequest() {}

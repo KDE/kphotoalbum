@@ -143,6 +143,10 @@ void ImageManager::customEvent( QCustomEvent* ev )
 ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
     : QCustomEvent( 1001 ), _request( request ),  _image( image )
 {
+    // We would like to use QDeepCopy, but that results in multiple
+    // individual instances on the GUI thread, which is kind of real bad
+    // when  the image is like 40Mb large.
+    _image.detach();
 }
 
 ImageRequest* ImageEvent::loadInfo()

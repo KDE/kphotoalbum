@@ -42,7 +42,7 @@ public:
 
 private:
     ImageRequest* _request;
-    QDeepCopy<QImage> _image;
+    QImage _image;
 };
 
 // This class needs to inherit QObject to be capable of receiving events.

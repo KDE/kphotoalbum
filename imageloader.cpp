@@ -8,6 +8,7 @@
 #include <qdir.h>
 
 extern "C" {
+#define XMD_H // prevent INT32 clash from jpeglib
 #include <jpeglib.h>
 #include <stdio.h>
 }

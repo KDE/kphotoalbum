@@ -62,6 +62,7 @@ Export::Export( const ImageInfoList& list ) : _ok( true )
         return;
 
     _zip = new KZip( zipFile );
+    _zip->setCompression( KZip::NoCompression );
     if ( ! _zip->open( IO_WriteOnly ) ) {
         KMessageBox::error( 0, i18n("Error creating zip file") );
         return;

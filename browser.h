@@ -21,6 +21,7 @@
 #include <qlistview.h>
 #include <qiconview.h>
 #include "options.h"
+class BrowserIconViewItemFactory;
 class FolderAction;
 class ImageSearchInfo;
 class QListViewItem;
@@ -53,6 +54,7 @@ public slots:
     void slotLargeListView();
     void slotSmallIconView();
     void slotLargeIconView();
+    void slotLimitToMatch( const QString& );
 
 signals:
     void canGoBack( bool );
@@ -61,12 +63,14 @@ signals:
     void pathChanged( const QString& );
     void showsContentView( bool );
     void currentSizeAndTypeChanged( Options::ViewSize, Options::ViewType );
+    void viewChanged();
 
 protected slots:
     void init();
     void select( QListViewItem* item );
     void select( QIconViewItem* item );
     void select( FolderAction* action );
+    void resetIconViewSearch();
 
 protected:
     void addItem( FolderAction* );
@@ -79,7 +83,7 @@ private:
     QValueList<FolderAction*> _list;
     int _current;
     BrowserItemFactory* _listViewFactory;
-    BrowserItemFactory* _iconViewFactory;
+    BrowserIconViewItemFactory* _iconViewFactory;
     BrowserItemFactory* _currentFactory;
     QWidgetStack* _stack;
     QIconView* _iconView;

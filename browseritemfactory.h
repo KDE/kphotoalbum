@@ -48,6 +48,7 @@ class BrowserItemFactory
 {
 public:
     BrowserItemFactory() {}
+    virtual ~BrowserItemFactory() {}
     virtual void createItem( Folder* ) = 0;
 };
 
@@ -57,8 +58,11 @@ class BrowserIconViewItemFactory :public BrowserItemFactory
 public:
     BrowserIconViewItemFactory( QIconView* view );
     virtual void createItem( Folder* );
+    void setMatchText( const QString& text );
+
 private:
     QIconView* _view;
+    QString _matchText;
 };
 
 

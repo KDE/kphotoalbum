@@ -1,3 +1,7 @@
+2004-11-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added a search line.
+
 2004-11-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: Markup in the editor (like highlight for spelling errors) got

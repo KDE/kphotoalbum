@@ -77,6 +77,7 @@
 #include <qobjectlist.h>
 #include <qmenubar.h>
 #include <kmenubar.h>
+#include <searchbar.h>
 
 MainView* MainView::_instance = 0;
 
@@ -109,6 +110,12 @@ MainView::MainView( QWidget* parent, const char* name )
 
     _optionsDialog = 0;
     setupMenuBar();
+
+    // Set up the search tool bar
+    SearchBar* bar = new SearchBar( this );
+    connect( bar, SIGNAL( textChanged( const QString& ) ), _browser, SLOT( slotLimitToMatch( const QString& ) ) );
+    connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
+    connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setEnabled( bool ) ) );
 
     // Setting up status bar
     QHBox* indicators = new QHBox( statusBar() );

@@ -64,6 +64,7 @@ Browser::Browser( QWidget* parent, const char* name )
     connect( _iconView, SIGNAL( clicked( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
     connect( _iconView, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( reload() ) );
+    connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
     // I got to wait till the event loops runs, so I'm sure that the image database has been loaded.
     QTimer::singleShot( 0, this, SLOT( init() ) );
@@ -111,6 +112,7 @@ void Browser::select( FolderAction* action )
         setupFactory();
         action->action( _currentFactory );
     }
+    emit viewChanged();
 }
 
 void Browser::forward()
@@ -300,6 +302,28 @@ QString Browser::currentCategory() const
 {
     FolderAction* a = _list[_current-1];
     return a->optionGroup();
+}
+
+void Browser::slotLimitToMatch( const QString& str )
+{
+    if ( _currentFactory == _iconViewFactory ) {
+        // This is a cruel hack to get things working till Qt 4 gets
+        // out. I'm sure Qt 4 has the same setVisible feature for icon
+        // views as it now has for list view.
+        _iconViewFactory->setMatchText( str );
+        FolderAction* a = _list[_current-1];
+        a->action( _currentFactory );
+    }
+    else {
+        for ( QListViewItem* item = _listView->firstChild(); item; item = item->nextSibling() ) {
+            item->setVisible( item->text(0).lower().contains( str.lower() ) );
+        }
+    }
+}
+
+void Browser::resetIconViewSearch()
+{
+    _iconViewFactory->setMatchText( QString::null );
 }
 
 #include "browser.moc"

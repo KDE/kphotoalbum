@@ -26,7 +26,8 @@ BrowserIconViewItemFactory::BrowserIconViewItemFactory( QIconView* view )
 
 void BrowserIconViewItemFactory::createItem( Folder* folder )
 {
-    new BrowserIconItem( _view, folder );
+    if ( folder->text().lower().contains( _matchText.lower() ) )
+        new BrowserIconItem( _view, folder );
 }
 
 BrowserListViewItemFactory::BrowserListViewItemFactory( QListView* view )
@@ -71,5 +72,10 @@ BrowserIconItem::~BrowserIconItem()
 BrowserListItem::~BrowserListItem()
 {
     delete _folder;
+}
+
+void BrowserIconViewItemFactory::setMatchText( const QString& text )
+{
+    _matchText = text;
 }
 

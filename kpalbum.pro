@@ -47,9 +47,11 @@ FORMS	= mainviewui.ui \
 	optionsdialog.ui \
 	imageconfigui.ui \
 	wellcomedialog.ui
-IMAGES	= images/splash.png
+IMAGES	= images/splash.png \
+	images/multiconfig.jpg \
+	images/search.jpg
 TEMPLATE	=app
+CONFIG	+= thread
 INCLUDEPATH	+= .
 LIBS	+= -ljpeg
 LANGUAGE	= C++
-CONFIG += thread

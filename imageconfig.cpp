@@ -132,8 +132,6 @@ void ImageConfig::load()
     prevBut->setEnabled( _current != 0 );
     if ( _preloadImageMap.contains( info.fileName( false ) ) )
          preview->setPixmap( _preloadImageMap[ info.fileName( false ) ] );
-    else
-        preview->setText( "<qt>Loading<br>preview</qt>" );
     preview->setInfo( &info );
 
     Viewer* viewer = Viewer::instance();
@@ -190,7 +188,6 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         slotNext();
     }
     else {
-        preview->setText( "<qt>Multiple images being<br>configured at a time!</qt>" );
         dayStart->setValue( 0 );
         monthStart->setCurrentText( "---" );
         yearStart->setValue( 0 );
@@ -235,32 +232,31 @@ void ImageConfig::setup()
 {
     ListSelect::Mode mode;
     if ( _setup == SEARCH )  {
-        previewFrame->hide();
         okBut->setText( "Search" );
         revertBut->hide();
         mode = ListSelect::SEARCH;
-        qualityTo->resize( 100, 100);
-
-        qualityToLabel->show();
-        qualityTo->show();
-        qualityTo->updateGeometry();
         setCaption( "Image Search" );
         loadInfo( _oldSearch );
+        preview->setPixmap( QPixmap::fromMimeSource( "search.jpg" ) );
+        nextBut->setEnabled( false );
+        prevBut->setEnabled( false );
     }
     else {
-        previewFrame->show();
         okBut->setText( "OK" );
         revertBut->setEnabled( _setup == SINGLE );
         revertBut->show();
         mode = ListSelect::INPUT;
-        qualityToLabel->hide();
-        qualityTo->hide();
         setCaption( "Image Configuration" );
+        if ( _setup == MULTIPLE )
+            preview->setPixmap( QPixmap::fromMimeSource( "multiconfig.jpg" ) );
+
     }
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setMode( mode );
         (*it)->setShowMergeCheckbox( _setup == MULTIPLE );
     }
+    qualityToLabel->setEnabled( _setup == SEARCH );
+    qualityTo->setEnabled( _setup == SEARCH );
 }
 
 bool ImageConfig::match( ImageInfo* info )

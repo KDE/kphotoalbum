@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>901</width>
+            <width>807</width>
             <height>535</height>
         </rect>
     </property>
@@ -44,7 +44,7 @@
                             </property>
                             <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>layout16</cstring>
+                                    <cstring>layout12</cstring>
                                 </property>
                                 <hbox>
                                     <property name="name">
@@ -248,6 +248,12 @@
                                                                 <verstretch>0</verstretch>
                                                             </sizepolicy>
                                                         </property>
+                                                        <property name="minimumSize">
+                                                            <size>
+                                                                <width>70</width>
+                                                                <height>0</height>
+                                                            </size>
+                                                        </property>
                                                     </widget>
                                                     <widget class="QLabel" row="1" column="2">
                                                         <property name="name">
@@ -342,76 +348,95 @@
                                                                 <verstretch>0</verstretch>
                                                             </sizepolicy>
                                                         </property>
+                                                        <property name="minimumSize">
+                                                            <size>
+                                                                <width>70</width>
+                                                                <height>0</height>
+                                                            </size>
+                                                        </property>
                                                     </widget>
                                                 </grid>
                                             </widget>
                                         </hbox>
                                     </widget>
-                                    <widget class="QLabel">
+                                    <widget class="QGroupBox">
                                         <property name="name">
-                                            <cstring>textLabel2_2</cstring>
+                                            <cstring>groupBox2</cstring>
                                         </property>
-                                        <property name="text">
-                                            <string>Quality:</string>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>5</hsizetype>
+                                                <vsizetype>4</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
                                         </property>
-                                    </widget>
-                                    <widget class="QComboBox">
-                                        <item>
-                                            <property name="text">
-                                                <string>---</string>
-                                            </property>
-                                        </item>
-                                        <item>
-                                            <property name="text">
-                                                <string>High</string>
-                                            </property>
-                                        </item>
-                                        <item>
-                                            <property name="text">
-                                                <string>Medium</string>
-                                            </property>
-                                        </item>
-                                        <item>
-                                            <property name="text">
-                                                <string>Low</string>
-                                            </property>
-                                        </item>
-                                        <property name="name">
-                                            <cstring>quality</cstring>
+                                        <property name="title">
+                                            <string>Quality</string>
                                         </property>
-                                    </widget>
-                                    <widget class="QLabel">
-                                        <property name="name">
-                                            <cstring>qualityToLabel</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>to</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QComboBox">
-                                        <item>
-                                            <property name="text">
-                                                <string>---</string>
+                                        <hbox>
+                                            <property name="name">
+                                                <cstring>unnamed</cstring>
                                             </property>
-                                        </item>
-                                        <item>
-                                            <property name="text">
-                                                <string>High</string>
-                                            </property>
-                                        </item>
-                                        <item>
-                                            <property name="text">
-                                                <string>Medium</string>
-                                            </property>
-                                        </item>
-                                        <item>
-                                            <property name="text">
-                                                <string>Low</string>
-                                            </property>
-                                        </item>
-                                        <property name="name">
-                                            <cstring>qualityTo</cstring>
-                                        </property>
+                                            <widget class="QComboBox">
+                                                <item>
+                                                    <property name="text">
+                                                        <string>---</string>
+                                                    </property>
+                                                </item>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>High</string>
+                                                    </property>
+                                                </item>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>Medium</string>
+                                                    </property>
+                                                </item>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>Low</string>
+                                                    </property>
+                                                </item>
+                                                <property name="name">
+                                                    <cstring>quality</cstring>
+                                                </property>
+                                            </widget>
+                                            <widget class="QLabel">
+                                                <property name="name">
+                                                    <cstring>qualityToLabel</cstring>
+                                                </property>
+                                                <property name="text">
+                                                    <string>to</string>
+                                                </property>
+                                            </widget>
+                                            <widget class="QComboBox">
+                                                <item>
+                                                    <property name="text">
+                                                        <string>---</string>
+                                                    </property>
+                                                </item>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>High</string>
+                                                    </property>
+                                                </item>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>Medium</string>
+                                                    </property>
+                                                </item>
+                                                <item>
+                                                    <property name="text">
+                                                        <string>Low</string>
+                                                    </property>
+                                                </item>
+                                                <property name="name">
+                                                    <cstring>qualityTo</cstring>
+                                                </property>
+                                            </widget>
+                                        </hbox>
                                     </widget>
                                     <spacer>
                                         <property name="name">
@@ -425,8 +450,8 @@
                                         </property>
                                         <property name="sizeHint">
                                             <size>
-                                                <width>31</width>
-                                                <height>31</height>
+                                                <width>0</width>
+                                                <height>20</height>
                                             </size>
                                         </property>
                                     </spacer>

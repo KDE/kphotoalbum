@@ -71,9 +71,9 @@ is a simple XML file, so you can easily back it up using what ever tools
 you prefer, including normal backup utilities, copying the file to a
 floppy disk, or keeping revisions using CVS.</para>
     
-    <para>KimDaBa will remember where you told it your images was
+    <para>KimDaBa will remember where you told it your images were
 located, and reuse that in future use of KimDaBa. Should you ever want to
-load another database into KimDaBa (i.e. another directory three of
+load another database into KimDaBa (i.e. another directory tree of
 images), then you may start it with the  <option>-c</option> option. For
 example: <literal>kimdaba -c ~/MyMovies/index.xml</literal></para>
   </sect1>

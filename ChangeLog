@@ -1,5 +1,10 @@
 2003-10-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added status bar icon for dirtyness.
+
+	* BUGDIX: In the image config, selecting an item from the listbox
+	did not mark the image dirty.
+
 	* BUGFIX: Pressing Cancel in the find dialog, does no longer
 	change the content of the browser window.
 

@@ -1,4 +1,11 @@
 <tip category="KimDaBa">
+<html><p>Sorry, KimDaBa do not yet have a handbook. I therefore strongly
+suggest that you take 5 minutes to look at <a
+href="http://www.blackie.dk/kimdaba/">The Kimdaba Home Page</a>
+</p></html>
+</tip>
+
+<tip category="KimDaBa">
 <html><p>Its possible to create new option groups in, that is alternatives
 to <b>Person</b>, <b>Location</b>, and <b>Keywords</b> in the image
 property page. Simply go to the <tt>Options</tt> dialog to add your own, or

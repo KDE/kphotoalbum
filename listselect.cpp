@@ -29,7 +29,6 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
-#include "imagedb.h"
 
 class CompletableLineEdit :public QLineEdit {
 public:

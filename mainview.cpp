@@ -53,9 +53,10 @@
 #include <qregexp.h>
 #include <stdlib.h>
 #include <qpopupmenu.h>
+#include <kiconloader.h>
 
 MainView::MainView( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 )
+    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 ), _dirtyIndicator(0)
 {
     load();
 
@@ -76,6 +77,10 @@ MainView::MainView( QWidget* parent, const char* name )
     _stack->raiseWidget( _browser );
 
     // Setting up status bar
+    _dirtyIndicator = new QLabel( statusBar() );
+    statusBar()->addWidget( _dirtyIndicator, 0, true );
+    setDirty( _dirty ); // Might already have been made dirty by load above
+
     ImageCounter* partial = new ImageCounter( statusBar() );
     statusBar()->addWidget( partial, 0, true );
 
@@ -180,7 +185,7 @@ void MainView::slotSave()
 {
     statusBar()->message(i18n("Saving..."), 5000 );
     save( Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml") );
-    _dirty = false;
+    setDirty( false );
     QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
@@ -216,7 +221,7 @@ void MainView::slotDeleteSelected()
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
     if ( _deleteDialog->exec( selected() ) == QDialog::Accepted )
-        _dirty = true;
+        setDirty( true );
     _thumbNailView->reload();
 }
 
@@ -278,7 +283,7 @@ QString MainView::welcome()
 
 void MainView::slotChanges()
 {
-    _dirty = true;
+    setDirty( true );
 }
 
 void MainView::closeEvent( QCloseEvent* e )
@@ -545,7 +550,8 @@ void MainView::load()
 
     Options::setup( config, options, configWindowSetup, memberGroups, QFileInfo( configFile ).dirPath( true ) );
     bool newImages = ImageDB::setup( images, blockList );
-    _dirty |= newImages;
+    if ( newImages )
+        setDirty( true );
 }
 
 void MainView::contextMenuEvent( QContextMenuEvent* )
@@ -565,5 +571,22 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
     menu.exec( QCursor::pos() );
 }
 
+
+void MainView::setDirty( bool dirty )
+{
+    static QPixmap* dirtyPix = new QPixmap( SmallIcon( QString::fromLatin1( "3floppy_unmount" ) ) );
+    _dirtyIndicator->setFixedWidth( dirtyPix->width() );
+
+    if ( _dirtyIndicator ) {
+        // Might not yet have been created.
+
+        if ( dirty )
+            _dirtyIndicator->setPixmap( *dirtyPix );
+        else
+            _dirtyIndicator->setPixmap( QPixmap() );
+    }
+
+    _dirty = dirty;
+}
 
 #include "mainview.moc"

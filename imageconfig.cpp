@@ -280,6 +280,11 @@ void ImageConfig::slotNext()
 
 void ImageConfig::slotOK()
 {
+    // I need to emit the changes first, as the case for _setup == SINGLE, saves to the _origList,
+    // and we can thus not check for changes anymore
+    if ( hasChanges() )
+        emit changed();
+
     if ( _setup == SINGLE )  {
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
@@ -324,8 +329,6 @@ void ImageConfig::slotOK()
             }
         }
     }
-    if ( hasChanges() )
-        emit changed();
     _accept = QDialog::Accepted;
     qApp->eventLoop()->exitLoop();
 }

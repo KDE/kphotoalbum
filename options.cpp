@@ -152,9 +152,10 @@ void Options::renameOption( const QString& optionGroup, const QString& oldValue,
 
 void Options::addOption( const QString& key, const QString& value )
 {
-    emit changed();
     if ( _options[key].contains( value ) )
         _options[key].remove( value );
+    else
+        emit changed();
     _options[key].prepend( value );
 }
 

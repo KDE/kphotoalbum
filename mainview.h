@@ -26,6 +26,7 @@ class QTimer;
 class Browser;
 class KTipDialog;
 class DeleteDialog;
+class QLabel;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -70,6 +71,7 @@ protected:
     void load();
     void save( const QString& fileName );
     virtual void contextMenuEvent( QContextMenuEvent* e );
+    void setDirty( bool b );
 
 private:
     ThumbNailView* _thumbNailView;
@@ -82,6 +84,7 @@ private:
     Browser* _browser;
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
+    QLabel* _dirtyIndicator;
 };
 
 

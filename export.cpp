@@ -39,7 +39,8 @@
 void Export::imageExport( const ImageInfoList& list )
 {
     ExportConfig config;
-    config.exec();
+    if ( config.exec() == QDialog::Rejected )
+        return;
 
     int maxSize = -1;
     if ( config._enforeMaxSize->isChecked() )

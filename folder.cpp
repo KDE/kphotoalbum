@@ -55,10 +55,12 @@ int Folder::compare( Folder* other, int col, bool asc ) const
     }
 
     else if ( col == 0 ) {
-        if ( text() == o->text() )
+        if (text() < o->text() )
+            return -1;
+        else if ( text() > o->text() )
+            return 1;
+        else
             return 0;
-        bool b =  (text() < o->text() );
-        return asc ? b : !b;
     }
 
     else if ( col == 1 ) {

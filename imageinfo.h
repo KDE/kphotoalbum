@@ -133,8 +133,5 @@ private:
     mutable QMap<QString,QStringList> _matched;
 };
 
-typedef QPtrList<ImageInfo> ImageInfoList;
-typedef QPtrListIterator<ImageInfo> ImageInfoListIterator;
-
 #endif /* IMAGEINFO_H */
 

@@ -19,6 +19,7 @@
 #ifdef HASKIPI
 #include "myimageinfo.h"
 #include "imagedb.h"
+#include "imageinfo.h"
 MyImageInfo::MyImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {

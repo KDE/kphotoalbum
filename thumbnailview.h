@@ -19,7 +19,9 @@
 #ifndef THUMBNAILVIEW_H
 #define THUMBNAILVIEW_H
 #include <kiconview.h>
-#include "imageinfo.h"
+class QDateTime;
+class ImageInfo;
+class ImageInfoList;
 class ImageDateRange;
 class ImageManager;
 class IconViewToolTip;

@@ -32,6 +32,7 @@
 #include <kmessagebox.h>
 #include <qpainter.h>
 #include "imagedaterange.h"
+#include "imageinfo.h"
 
 ThumbNailView* ThumbNailView::_instance = 0;
 

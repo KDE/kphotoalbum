@@ -38,6 +38,7 @@
 #include "categorycollection.h"
 #include <qdatetime.h>
 #include <qnamespace.h>
+#include "imageinfo.h"
 
 Options* Options::_instance = 0;
 

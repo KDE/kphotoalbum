@@ -84,6 +84,7 @@
 #include "datebar.h"
 #include "imagedaterangecollection.h"
 #include "invaliddatefinder.h"
+#include "imageinfo.h"
 
 MainView* MainView::_instance = 0;
 
@@ -182,6 +183,7 @@ MainView::MainView( QWidget* parent, const char* name )
     statusBar()->message(i18n("Welcome to KimDaBa"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
+    slotThumbNailSelectionChanged();
 }
 
 void MainView::delayedInit()
@@ -505,111 +507,10 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 
 void MainView::slotSortByDateAndTime()
 {
-    ImageInfoList sorted;
-    typedef QMap<uint,ImageInfo> SortMap;
-    SortMap map;
-    bool hasShownMessage = false;
-
     ImageInfoList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
-
-    ImageInfoList list;
-    list = selected(); //I don't use currentContext because the user could easily sort whole db without wanting it
-                       // (remember the option is called "Sort Selected" -> if there are no selecetd -> warning
-
-    if ( list.count() == 0 )
-       QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
-
-    else {
-        // Do sorting here
-        ImageInfoListIterator it_selected( listOnDisk );
-        ImageInfoList& images = ImageDB::instance()->images();
-        ImageInfoListIterator it_all( images );
-
-        int index = images.find(it_selected.toFirst()); //gets the index of the first selected image
-        it_all.toFirst();
-        it_all+=index; //sets it_all to same image as it_selected
-
-        //calculate for every picture the time in seconds from 1970 and put it into map
-        //since the time in seconds is the key, and the ImageInfo is the data we get
-        //it sorted by the map automatically
-        for( it_selected.toFirst(); *it_selected; ++it_selected, ++it_all ){
-
-            ImageDate imagedate= (*it_selected)->startDate();
-            QDateTime datetime;
-
-
-            if ((*it_selected)->MD5Sum() != (*it_all)->MD5Sum() && hasShownMessage==false){
-
-                if(KMessageBox::warningYesNo(0,i18n("<qt>You are about to sort a set of images with others in between"
-                                                    "<br>This might result in an unexpected sort order</br>"
-                                                    "<p>Are you sure you want to continue?</p></qt>"), QString::null, KStdGuiItem::yes(), KStdGuiItem::no(), QString::null, KMessageBox::Dangerous)==KMessageBox::No)
-                    return;
-
-                hasShownMessage = true;
-            }
-
-
-            int year = 1752; int month = 1; int day = 1;
-            if ( imagedate.year() != 0 )
-                year = imagedate.year();
-
-            if ( imagedate.month() != 0 )
-                month = imagedate.month();
-
-            if ( imagedate.day() != 0 )
-                day = imagedate.day();
-
-            datetime.setDate( QDate(year,month,day) );
-
-            if(imagedate.hasValidTime())
-                datetime.setTime(imagedate.getTime());
-            else
-                datetime.setTime(QTime(0,0,0));
-
-
-            uint timeseconds = datetime.toTime_t();
-
-            while(map.contains(timeseconds))//if two or more pictures has the same time
-                timeseconds += 1;
-
-            ImageInfo *test = *it_selected;
-            map[timeseconds]= *test;
-        }
-
-
-        SortMap::Iterator iterator;
-        //"copy" the new order in the sorted list
-        for(iterator=map.begin(); iterator!=map.end(); ++iterator){
-
-            for (ImageInfoListIterator it2( listOnDisk );*it2; ++it2){
-
-                if( iterator.data().MD5Sum() == (*it2)->MD5Sum() ) {
-                    sorted.append( *it2 );
-                    break;
-                }
-            }
-        }
-
-
-        //remove every item of sorted from the images_list(the main list)
-        //because we add all the images from sorted afterwards
-        //(we would have them doubled if we wouldn't remove them)
-        for( ImageInfoListIterator it3( sorted );*it3; ++it3 ) {
-            if (!(images.removeRef((*it3)))){
-                KMessageBox::error(0,i18n("MD5Sum failure; try recalcing your MD5Sums."));
-                return;
-            }
-        }
-
-        //insert sorted block of images in place of block of unsorted images
-        // index represents the place of the first selected unsorted image
-        for( ImageInfoListIterator it4( sorted );*it4; ++it4,index++){
-            images.insert(index,(*it4));
-        }
-
-        _thumbNailView->reload();
-        markDirty();
-    }
+    ImageDB::instance()->images().sortAndMergeBackIn( listOnDisk );
+    _thumbNailView->reload();
+    markDirty();
 }
 
 

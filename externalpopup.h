@@ -19,7 +19,8 @@
 #ifndef EXTERNALPOPUP_H
 #define EXTERNALPOPUP_H
 #include <qpopupmenu.h>
-#include "imageinfo.h"
+#include "imageinfolist.h"
+class ImageInfo;
 
 class ExternalPopup :public QPopupMenu {
     Q_OBJECT

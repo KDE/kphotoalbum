@@ -29,7 +29,7 @@ kimdaba_SOURCES = \
 	mysplashscreen.cpp readinfodialog.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \
 	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
     datebar.cpp dateviewhandler.cpp imagedaterangecollection.cpp imagedaterange.cpp \
-	invaliddatefinder.cpp fileinfo.cpp
+	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)

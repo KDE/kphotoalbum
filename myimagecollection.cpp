@@ -22,6 +22,8 @@
 #include "imagedb.h"
 #include "options.h"
 #include <qfileinfo.h>
+#include "imageinfolist.h"
+#include "imageinfo.h"
 
 MyImageCollection::MyImageCollection( Type tp )
     : _tp( tp )

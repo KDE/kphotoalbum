@@ -20,7 +20,6 @@
 #define IMPORT_H
 
 #include <kwizard.h>
-#include "imageinfo.h"
 #include <kurl.h>
 #include <kio/job.h>
 #include "util.h"

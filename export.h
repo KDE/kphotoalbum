@@ -19,7 +19,6 @@
 #ifndef IMPORTEXPORT_H
 #define IMPORTEXPORT_H
 
-#include <imageinfo.h>
 #include "imageclient.h"
 #include <kdialogbase.h>
 #include "util.h"

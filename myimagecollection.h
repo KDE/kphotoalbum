@@ -21,7 +21,7 @@
 
 #ifdef HASKIPI
 #include <libkipi/imagecollectionshared.h>
-#include "imageinfo.h"
+#include "imageinfolist.h"
 
 class MyImageCollection :public KIPI::ImageCollectionShared
 {

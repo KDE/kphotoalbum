@@ -33,6 +33,7 @@
 #include "browser.h"
 #include <qdict.h>
 #include "mainview.h"
+#include "imageinfo.h"
 
 ImageDB* ImageDB::_instance = 0;
 

@@ -21,7 +21,7 @@
 #include "imageclient.h"
 #include <qprogressdialog.h>
 #include <qimage.h>
-#include "imageinfo.h"
+#include "imageinfolist.h"
 
 class ThumbnailBuilder :public QProgressDialog, public ImageClient {
     Q_OBJECT

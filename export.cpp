@@ -36,6 +36,7 @@
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
 #include <kimageio.h>
+#include "imageinfo.h"
 
 void Export::imageExport( const ImageInfoList& list )
 {

@@ -25,6 +25,7 @@
 #include "imagedb.h"
 #include <kmessagebox.h>
 #include <kglobal.h>
+#include "imageinfo.h"
 
 SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )

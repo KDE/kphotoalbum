@@ -54,6 +54,7 @@
 #include <kapplication.h>
 #include <qobjectlist.h>
 #include "categorycollection.h"
+#include "imageinfo.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)

@@ -18,8 +18,8 @@
 
 #ifndef READINFODIALOG_H
 #define READINFODIALOG_H
-#include "imageinfo.h"
 #include <kdialogbase.h>
+#include "imageinfolist.h"
 class QLabel;
 class QCheckBox;
 class QRadioButton;

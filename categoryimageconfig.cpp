@@ -24,6 +24,7 @@
 #include "options.h"
 #include "membermap.h"
 #include "categorycollection.h"
+#include "imageinfo.h"
 
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 

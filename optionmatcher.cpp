@@ -18,6 +18,7 @@
 
 #include "optionmatcher.h"
 #include "options.h"
+#include "imageinfo.h"
 OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& option )
     :_category( category ), _option( option )
 {

@@ -18,7 +18,6 @@
 
 #ifndef IMAGECONFIG_H
 #define IMAGECONFIG_H
-#include "imageinfo.h"
 #include "imageclient.h"
 #include "listselect.h"
 #include "imagesearchinfo.h"
@@ -27,7 +26,9 @@
 #include "editor.h"
 #include <qdialog.h>
 #include <ktimewidget.h>
+#include "imageinfolist.h"
 
+class ImageInfo;
 class QSplitter;
 class Viewer;
 class QPushButton;

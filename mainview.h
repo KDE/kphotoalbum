@@ -35,7 +35,7 @@ class KActionMenu;
 class KRadioAction;
 class PluginInterface;
 
-#include "imageinfo.h"
+#include "imageinfolist.h"
 #include <qdict.h>
 #include <kmainwindow.h>
 #include "thumbnailview.h"

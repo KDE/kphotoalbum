@@ -41,7 +41,6 @@ int main( int argc, char** argv ) {
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
 
     aboutData.addCredit( "Will Stephenson", "Developing an Icon for KimDaBa", "will@stevello.free-online.co.uk" );
-    aboutData.addCredit( "Jozef Riha","Testing early versions of KimDaBa.", "zefo@seznam.cz" );
     aboutData.addCredit( "Teemu Rytilahti",
                          "Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
                          "(.) Theme support for HTML generation", "teemu.rytilahti@kde-fi.org" );

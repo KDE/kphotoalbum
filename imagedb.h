@@ -18,9 +18,12 @@
 
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
-#include "imageinfo.h"
 #include "imagesearchinfo.h"
 #include <qdict.h>
+#include "imageinfolist.h"
+#include <qobject.h>
+#include <qstringlist.h>
+class ImageInfo;
 
 class ImageDB :public QObject {
     Q_OBJECT

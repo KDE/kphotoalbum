@@ -23,6 +23,7 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include "options.h"
+#include "imageinfolist.h"
 class CategoryCollection;
 class ImageInfo;
 

@@ -25,8 +25,8 @@
 #include "imageclient.h"
 #include <qimage.h>
 #include <qcache.h>
-#include "imageinfo.h"
 #include <qptrvector.h>
+#include "imageinfolist.h"
 class Draw;
 class ImageInfo;
 class ViewHandler_viewHandler;

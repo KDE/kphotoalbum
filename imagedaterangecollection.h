@@ -21,7 +21,7 @@
 #include "imagedaterange.h"
 #include <qvaluelist.h>
 #include <qmap.h>
-#include "imageinfo.h"
+#include "imageinfolist.h"
 
 class ImageCount
 {

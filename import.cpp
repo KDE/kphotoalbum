@@ -49,6 +49,7 @@
 #include "mainview.h"
 #include <kapplication.h>
 #include "categorycollection.h"
+#include "imageinfo.h"
 
 class KPushButton;
 

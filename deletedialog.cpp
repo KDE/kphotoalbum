@@ -27,6 +27,7 @@
 #include <kmessagebox.h>
 #include "imagedb.h"
 #include "util.h"
+#include "imageinfo.h"
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Images"), Cancel|User1, User1, parent, name,

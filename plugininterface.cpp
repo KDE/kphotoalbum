@@ -25,6 +25,7 @@
 #include "mainview.h"
 #include "categoryimagecollection.h"
 #include <klocale.h>
+#include "imageinfo.h"
 
 PluginInterface::PluginInterface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )

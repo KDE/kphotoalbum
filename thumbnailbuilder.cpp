@@ -22,6 +22,7 @@
 #include <klocale.h>
 #include "options.h"
 #include <qimage.h>
+#include "imageinfo.h"
 
 ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
     :QProgressDialog( parent, name )

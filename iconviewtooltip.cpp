@@ -27,6 +27,7 @@
 #include <qapplication.h>
 #include <qdesktopwidget.h>
 #include "imagemanager.h"
+#include "imageinfo.h"
 
 /**
    This class takes care of showing tooltips for the individual items in the iconview.

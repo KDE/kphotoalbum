@@ -1,5 +1,8 @@
 2005-01-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Reimplemented sort images as it could lead to image loss, plus
+	was not guaranteed to preserve sort order for images with same key.
+
 	* On Robert's request, removed the patch from 2004-12-08 to work
 	around SUSE's max image size - due to Robert, it obviously didn't
 	work.

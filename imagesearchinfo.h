@@ -20,8 +20,9 @@
 #define IMAGESEARCHINFO_H
 #include "imagesearchinfo.h"
 #include "imagedate.h"
-#include "imageinfo.h"
 #include <qdom.h>
+#include <qmap.h>
+class ImageInfo;
 class OptionMatcher;
 
 class ImageSearchInfo {

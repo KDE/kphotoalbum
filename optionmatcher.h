@@ -19,7 +19,7 @@
 #ifndef OPTIONMATCHER_H
 #define OPTIONMATCHER_H
 #include <qvaluelist.h>
-#include "imageinfo.h"
+class ImageInfo;
 
 /**
    Base class for components in the state machine for image matching.

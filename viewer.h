@@ -19,13 +19,13 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-#include "imageinfo.h"
 #include "options.h"
 #include <kaction.h>
 #include "infobox.h"
 #include <qdialog.h>
 #include <qimage.h>
 #include <kxmlguiclient.h>
+#include "imageinfolist.h"
 
 class ImageInfo;
 class QLabel;

@@ -58,6 +58,7 @@
 #include "export.h"
 #include "mainview.h"
 #include "categorycollection.h"
+#include "imageinfo.h"
 
 class ImageSizeCheckBox :public QCheckBox {
 

@@ -18,8 +18,8 @@
 
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
-#include "imageinfo.h"
 #include <kdialogbase.h>
+#include "imageinfolist.h"
 class QLabel;
 class QCheckBox;
 class QRadioButton;

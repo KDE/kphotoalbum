@@ -24,6 +24,7 @@
 #include <kdebug.h>
 #include "optionmatcher.h"
 #include "imagedb.h"
+#include "imageinfo.h"
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )

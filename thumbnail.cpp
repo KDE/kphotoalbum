@@ -33,6 +33,7 @@
 #include <kmessagebox.h>
 #include <math.h>
 #include <qpixmapcache.h>
+#include "imageinfolist.h"
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
     :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent )

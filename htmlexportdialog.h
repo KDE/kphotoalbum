@@ -25,7 +25,6 @@ class QCheckBox;
 class QProgressDialog;
 class ImageSizeCheckBox;
 class QTextEdit;
-#include "imageinfo.h"
 #include "imageclient.h"
 #include <qvaluelist.h>
 #include <qcombobox.h>

@@ -22,10 +22,14 @@
 #include <imageinfo.h>
 #include "imageclient.h"
 #include <kdialogbase.h>
+#include "util.h"
+class QRadioButton;
 class QSpinBox;
 class QCheckBox;
 class KZip;
 class QProgressDialog;
+
+enum ImageFileLocation { Inline, ManualCopy, AutoCopy };
 
 class Export :public ImageClient {
 
@@ -39,16 +43,19 @@ protected:
     void copyImages( const ImageInfoList& list );
 
 private:
-    Export(  const ImageInfoList& list, bool compress, int maxSize );
+    Export(  const ImageInfoList& list, bool compress, int maxSize, ImageFileLocation );
     int _filesRemaining;
     int _steps;
     QProgressDialog* _progressDialog;
     bool _ok;
     KZip* _zip;
-    QMap<QString,QString> _map;
     int _maxSize;
     QString _subdir;
     bool _loopEntered;
+    ImageFileLocation _location;
+    Util::UniqNameMap _nameMap;
+    bool _copyingFiles;
+    QString _destdir;
 };
 
 class ExportConfig :public KDialogBase {
@@ -59,6 +66,13 @@ public:
     QCheckBox* _compress;
     QCheckBox* _enforeMaxSize;
     QSpinBox* _maxSize;
+
+    ImageFileLocation imageFileLocation() const;
+
+private:
+    QRadioButton* _include;
+    QRadioButton* _manually;
+    QRadioButton* _auto;
 
 protected slots:
     void slotHelp();

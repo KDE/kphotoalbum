@@ -44,6 +44,9 @@
 #include <ktempfile.h>
 #include <kurl.h>
 #include <kio/job.h>
+#include <qprogressdialog.h>
+#include <kio/netaccess.h>
+#include "mainview.h"
 
 class KPushButton;
 
@@ -73,8 +76,9 @@ void Import::imageImport( const KURL& url )
 }
 
 Import::Import( const KURL& url, QWidget* parent, const char* name )
-    :KWizard( parent, name, false, WDestructiveClose ), _zip( 0 )
+    :KWizard( parent, name, false ), _zip( 0 )
 {
+    _kimFile = url;
     _tmp = new KTempFile( QString::null, QString::fromLatin1( ".kim" ) );
     QString path = _tmp->name();
     _tmp->setAutoDelete( true );
@@ -82,10 +86,10 @@ Import::Import( const KURL& url, QWidget* parent, const char* name )
     KURL dest;
     dest.setPath( path );
     KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, true );
-    connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( jobCompleted( KIO::Job* ) ) );
+    connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
 }
 
-void Import::jobCompleted( KIO::Job* job )
+void Import::downloadKimJobCompleted( KIO::Job* job )
 {
     if ( !job->error() ) {
         resize( 800, 600 );
@@ -99,13 +103,15 @@ void Import::jobCompleted( KIO::Job* job )
 }
 
 Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* name )
-    :KWizard( parent, name, false, WDestructiveClose ), _zipFile( fileName ), _tmp(0)
+    :KWizard( parent, name, false ), _zipFile( fileName ), _tmp(0)
 {
+    _kimFile.setPath( fileName );
     *ok = init( fileName );
 }
 
 bool Import::init( const QString& fileName )
 {
+    _finishedPressed = false;
     _zip = new KZip( fileName );
     if ( !_zip->open( IO_ReadOnly ) ) {
         KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( fileName ), i18n("Error importing data") );
@@ -128,9 +134,11 @@ bool Import::init( const QString& fileName )
     QByteArray data = file->data();
 
     bool ok = readFile( data, fileName );
-    if ( ok )
-        setupPages();
-    return ok;
+    if ( !ok )
+        return false;
+
+    setupPages();
+    return true;
 }
 
 Import::~Import()
@@ -157,6 +165,16 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
                             .arg( fileName ).arg( top.tagName() ) );
         return false;
     }
+
+    // Read source
+    QString source = top.attribute( QString::fromLatin1( "location" ) ).lower();
+    if ( source != QString::fromLatin1( "inline" ) && source != QString::fromLatin1( "external" ) ) {
+        KMessageBox::error( this, i18n("<qt>XML file did not specify the source of the images, "
+                                       "this is a strong indication that the file is corrupted</qt>" ) );
+        return false;
+    }
+
+    _externalSource = ( source == QString::fromLatin1( "external" ) );
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( !node.isElement() || ! (node.toElement().tagName().lower() == QString::fromLatin1( "image" ) ) ) {
@@ -258,7 +276,24 @@ ImageRow::ImageRow( ImageInfo* info, Import* import, QWidget* parent )
 
 void ImageRow::showImage()
 {
-    QImage img = QImage( _import->loadImage( _info->fileName(true) ) );
+    if ( _import->_externalSource ) {
+        KURL src = _import->_kimFile;
+        src.setFileName( _info->fileName( true ) );
+        QString tmpFile;
+        if( KIO::NetAccess::download( src, tmpFile, MainView::theMainView() ) ) {
+            QImage img( tmpFile );
+            showImage( img );
+            KIO::NetAccess::removeTempFile( tmpFile );
+        }
+    }
+    else {
+        QImage img = QImage( _import->loadImage( _info->fileName(true) ) );
+        showImage( img );
+    }
+}
+
+void ImageRow::showImage( QImage img )
+{
     if ( _info->angle() != 0 ) {
         QWMatrix matrix;
         matrix.rotate( _info->angle() );
@@ -415,54 +450,106 @@ void Import::next()
     QWizard::next();
 }
 
-QMap<QString,QString> Import::copyFilesFromZipFile()
+bool Import::copyFilesFromZipFile()
 {
-    QMap< QString, QString> map;
-
-    int index = 0;
     ImageInfoList images = selectedImages();
     for( ImageInfoListIterator it( images ); *it; ++it ) {
         QString fileName = (*it)->fileName( true );
         QByteArray data = loadImage( fileName );
-        bool exists = true;
-        QString newName;
-        while ( exists ) {
-            QString path = _destinationEdit->text();
-            newName = QString::fromLatin1( "%1/image%2.%3" ).arg(path).arg( Util::pad(6,++index) )
-                      .arg( QFileInfo( fileName ).extension() );
-            exists = QFileInfo( newName ).exists();
-        }
+        QString newName = _destinationEdit->text() + QString::fromLatin1( "/" ) + _nameMap[fileName];
 
         QString relativeName = newName.mid( Options::instance()->imageDirectory().length() );
         if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
             relativeName= relativeName.mid(1);
 
-        map.insert( fileName, relativeName );
-
         QFile out( newName );
         if ( !out.open( IO_WriteOnly ) ) {
             KMessageBox::error( this, i18n("Error when writing image %s").arg( newName ) );
-            return QMap<QString,QString>();
+            return false;
         }
         out.writeBlock( data, data.size() );
         out.close();
     }
+    return true;
+}
 
-    return map;
+void Import::copyFromExternal()
+{
+    _pendingCopies = selectedImages();
+    _totalCopied = 0;
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("Cancel"), _pendingCopies.count(), 0, "_progress", true );
+    _progress->setProgress( 0 );
+    _progress->show();
+    connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
+    copyNextFromExternal();
+}
+
+void Import::copyNextFromExternal()
+{
+    ImageInfo* info = _pendingCopies.at(0);
+    _pendingCopies.remove((uint)0);
+    QString fileName = info->fileName( true );
+    KURL src = _kimFile;
+    src.setFileName( fileName );
+    KURL dest;
+    dest.setPath( _destinationEdit->text() + QString::fromLatin1( "/" ) + _nameMap[fileName] );
+    _job = KIO::file_copy( src, dest, -1, false, false, false );
+    connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
+}
+
+
+void Import::aCopyJobCompleted( KIO::Job* job )
+{
+    if ( job->error() ) {
+        job->showErrorDialog( 0 );
+        deleteLater();
+        delete _progress;
+    }
+    else if ( _pendingCopies.count() == 0 ) {
+        updateDB();
+        deleteLater();
+        delete _progress;
+    }
+    else if ( _progress->wasCanceled() ) {
+        deleteLater();
+        delete _progress;
+    }
+    else {
+        _progress->setProgress( ++_totalCopied );
+        copyNextFromExternal();
+    }
+}
+
+void Import::stopCopyingImages()
+{
+    _job->kill( true );
 }
 
 void Import::slotFinish()
 {
-    QMap<QString,QString> map = copyFilesFromZipFile();
-    if ( map.size() == 0 )
-        return;
+    _finishedPressed = true;
+    _nameMap = Util::createUniqNameMap( selectedImages(), true, _destinationEdit->text() );
+    bool ok;
+    if ( _externalSource ) {
+        hide();
+        copyFromExternal();
+    }
+    else {
+        ok = copyFilesFromZipFile();
+        if ( ok )
+            updateDB();
+        deleteLater();
+    }
+}
 
+void Import::updateDB()
+{
     // Run though all images
     ImageInfoList images = selectedImages();
     for( ImageInfoListIterator it( images ); *it; ++it ) {
         ImageInfo* info = *it;
 
-        ImageInfo* newInfo = new ImageInfo( map[info->fileName(true)] );
+        ImageInfo* newInfo = new ImageInfo( _nameMap[info->fileName(true)] );
         newInfo->setLabel( info->label() );
         newInfo->setDescription( info->description() );
         newInfo->setStartDate( info->startDate() );
@@ -574,4 +661,13 @@ ImageInfoList Import::selectedImages()
     }
     return res;
 }
+
+void Import::closeEvent( QCloseEvent* e )
+{
+    // If the user presses the finish button, then we have to postpone the delete operations, as we have pending copies.
+    if ( !_finishedPressed )
+        deleteLater();
+    KWizard::closeEvent( e );
+}
+
 

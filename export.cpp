@@ -33,6 +33,8 @@
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qwhatsthis.h>
+#include <qvbuttongroup.h>
+#include <qradiobutton.h>
 
 void Export::imageExport( const ImageInfoList& list )
 {
@@ -43,9 +45,10 @@ void Export::imageExport( const ImageInfoList& list )
     if ( config._enforeMaxSize->isChecked() )
         maxSize = config._maxSize->value();
 
-    new Export( list, config._compress->isChecked(), maxSize );
+    new Export( list, config._compress->isChecked(), maxSize, config.imageFileLocation() );
 }
 
+// PENDING(blackie) add warning if images are to be copied into a non empty directory.
 ExportConfig::ExportConfig()
     : KDialogBase( KDialogBase::Plain, i18n("Export Configuration"), KDialogBase::Ok | KDialogBase::Cancel | KDialogBase::Help,
                    KDialogBase::Ok, 0, "export config" )
@@ -53,9 +56,11 @@ ExportConfig::ExportConfig()
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
+    // Compress
     _compress = new QCheckBox( i18n("Compress Export File"), top );
     lay1->addWidget( _compress );
 
+    // Enforece max size
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
     _enforeMaxSize = new QCheckBox( i18n( "Limit maximum dimension of images to: " ), top, "_enforeMaxSize" );
     lay2->addWidget( _enforeMaxSize );
@@ -66,6 +71,14 @@ ExportConfig::ExportConfig()
 
     connect( _enforeMaxSize, SIGNAL( toggled( bool ) ), _maxSize, SLOT( setEnabled( bool ) ) );
     _maxSize->setEnabled( false );
+
+    // Include images
+    QVButtonGroup* grp = new QVButtonGroup( i18n("How to handle images"), top );
+    lay1->addWidget( grp );
+    _include = new QRadioButton( i18n("Include in .kim file"), grp );
+    _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
+    _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
+    _manually->setChecked( true );
 
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 
@@ -78,8 +91,33 @@ ExportConfig::ExportConfig()
     txt = i18n( "<qt><p>With this option you may limit the maximum dimension (widh or hight) of your images. "
                 "Doing so will make the resulting export file smaller, but will of course also make the quality "
                 "worse if someone wants to see the images in a larger dimension.</p></qt>" );
+
     QWhatsThis::add( _enforeMaxSize, txt );
     QWhatsThis::add( _maxSize, txt );
+
+    txt = i18n( "<qt><p>When exporting images, there are two things the person importing images needs:<br>"
+                "1) meta information (who is on the images etc)<br>"
+                "2) the images themself.<p>"
+
+                "<p>The images themself can either be placed next to the .kim file, or copied into the .kim file. "
+                "Copying the images into the .kim file might be the right solution if you want to mail the images to someone "
+                "who likely wants all images. On the other hand, if you put the images on the web, and a lot of people will "
+                "see them, but likely only download a few of them, then you would rather place the images next to the .kim "
+                "file to avoid that every one download all the images (which is the case when they are in one big file.)</p></qt>" );
+    QWhatsThis::add( grp, txt );
+    QWhatsThis::add( _include, txt );
+    QWhatsThis::add( _manually, txt );
+    QWhatsThis::add( _auto, txt );
+}
+
+ImageFileLocation ExportConfig::imageFileLocation() const
+{
+    if ( _include->isChecked() )
+        return Inline;
+    else if ( _manually->isChecked() )
+        return ManualCopy;
+    else
+        return AutoCopy;
 }
 
 void ExportConfig::slotHelp()
@@ -88,13 +126,15 @@ void ExportConfig::slotHelp()
 }
 
 
-Export::Export( const ImageInfoList& list, bool compress, int maxSize ) : _ok( true ), _maxSize( maxSize )
+Export::Export( const ImageInfoList& list, bool compress, int maxSize, ImageFileLocation location )
+    : _ok( true ), _maxSize( maxSize ), _location( location )
 {
     // Ask for zip file name, and create it.
     QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
     if ( zipFile.isNull() )
         return;
 
+    _destdir = QFileInfo( zipFile ).dirPath();
     _zip = new KZip( zipFile );
     _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
     if ( ! _zip->open( IO_WriteOnly ) ) {
@@ -103,16 +143,27 @@ Export::Export( const ImageInfoList& list, bool compress, int maxSize ) : _ok( t
     }
 
     // Create progress dialog
-    int total = 2 * list.count(); // number of images * ( createh thumbnails + copy image )
+    int total = list.count(); // number of images *  create the thumbnails
+    if ( location != ManualCopy )
+        total *= 2;  // number of images *  copy images
+
     _steps = 0;
     _progressDialog = new QProgressDialog( QString::null, i18n("Cancel"), total, 0, "progress dialog", true );
     _progressDialog->setProgress( 0 );
     _progressDialog->show();
 
+    _nameMap = Util::createUniqNameMap( list, false, QString::null );
+
     // Copy image files and generate thumbnails
-    copyImages( list );
-    if ( _ok )
+    if ( location != ManualCopy ) {
+        _copyingFiles = true;
+        copyImages( list );
+    }
+
+    if ( _ok ) {
+        _copyingFiles = false;
         generateThumbnails( list );
+    }
 
     if ( _ok ) {
         // Create the index.xml file
@@ -132,12 +183,14 @@ QCString Export::createIndexXML( const ImageInfoList& list )
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
 
     QDomElement top = doc.createElement( QString::fromLatin1( "KimDaBa-export" ) );
+    top.setAttribute( QString::fromLatin1( "location" ),
+                      _location == Inline ? QString::fromLatin1( "inline" ) : QString::fromLatin1( "external" ) );
     doc.appendChild( top );
 
 
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         QString file = (*it)->fileName();
-        QString mappedFile = _map[file];
+        QString mappedFile = _nameMap[file];
         QDomElement elm = (*it)->save( doc );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         top.appendChild( elm );
@@ -164,23 +217,26 @@ void Export::generateThumbnails( const ImageInfoList& list )
 
 void Export::copyImages( const ImageInfoList& list )
 {
+    Q_ASSERT( _location != ManualCopy );
+
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Images/" );
 
     _progressDialog->setLabelText( i18n("Copying image files") );
 
-    int index = 0;
     _filesRemaining = 0;
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         QString file =  (*it)->fileName();
-        QString zippedName = QString::fromLatin1( "image%1.%2" ).arg( Util::pad(6,++index) ).arg( QFileInfo( file).extension() );
-        _map.insert( file, zippedName );
+        QString zippedName = _nameMap[file];
 
         if ( _maxSize == -1 ) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
-            _zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
+            if ( _location == Inline )
+                _zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
+            else if ( _location == AutoCopy )
+                Util::copy( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
             _steps++;
             _progressDialog->setProgress( _steps );
         }
@@ -211,13 +267,24 @@ void Export::copyImages( const ImageInfoList& list )
 void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*/, int /*angle*/, const QImage& image )
 {
     // Add the file to the zip archive
-    QString zipFileName = _subdir + QFileInfo( _map[fileName] ).baseName() + QString::fromLatin1(".jpg");
+    QString zipFileName = _subdir + QFileInfo( _nameMap[fileName] ).baseName() + QString::fromLatin1(".jpg");
     QByteArray data;
     QBuffer buffer( data );
     buffer.open( IO_WriteOnly );
     image.save( &buffer, "JPEG" );
 
-    _zip->writeFile( zipFileName, QString::null, QString::null, data.size(), data );
+    if ( _location == Inline || !_copyingFiles )
+        _zip->writeFile( zipFileName, QString::null, QString::null, data.size(), data );
+    else {
+        QString file = _destdir + QString::fromLatin1( "/" ) + _nameMap[fileName];
+        QFile out( file );
+        if ( !out.open( IO_WriteOnly ) ) {
+            KMessageBox::error( 0, i18n("Error writing file %1").arg( file ) );
+            return;
+        }
+        out.writeBlock( data, data.size() );
+        out.close();
+    }
 
     qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
@@ -241,5 +308,6 @@ void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*
     if ( _filesRemaining == 0 )
         qApp->eventLoop()->exitLoop();
 }
+
 
 

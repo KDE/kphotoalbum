@@ -383,14 +383,36 @@ ImageInfoList Util::shuffle( ImageInfoList list )
     return result;
 }
 
-QString Util::pad( int size, long val )
+/**
+   Create a maping from original name with path to uniq name without:
+   cd1/def.jpg      -> def.jpg
+   cd1/abc/file.jpg -> file.jpg
+   cd3/file.jpg     -> file-2.jpg
+*/
+Util::UniqNameMap Util::createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destDir  )
 {
-    double base10 = 10;
-    QString res = QString::number( val );
-    for ( int i = 1; i < size; ++i ) {
-        if ( val < base10 )
-            res = QString::fromLatin1( "0" ) + res;
-        base10 *= 10;
+    QMap<QString, QString> map;
+    QMap<QString, QString> inverseMap;
+
+    for( ImageInfoListIterator it( images ); *it; ++it ) {
+        QString fullName = (*it)->fileName( relative );
+        QString base = QFileInfo( fullName ).baseName();
+        QString ext = QFileInfo( fullName ).extension();
+        QString file = base + QString::fromLatin1( "." ) +  ext;
+
+        if ( inverseMap.contains( file ) || ( !destDir.isNull() && QFileInfo( destDir+ QString::fromLatin1("/") + file ).exists() ) ) {
+            int i = 1;
+            bool clash;
+            do {
+                file = QString::fromLatin1( "%1-%2.%3" ).arg( base ).arg( ++i ).arg( ext );
+                clash = inverseMap.contains( file ) ||
+                        ( !destDir.isNull() && QFileInfo( destDir+ QString::fromLatin1("/") + file ).exists() );
+            } while ( clash );
+        }
+
+        map.insert( fullName, file );
+        inverseMap.insert( file, fullName );
     }
-    return res;
+
+    return map;
 }

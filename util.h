@@ -41,7 +41,9 @@ public:
     static QString readFile( const QString& fileName );
     static QMap<QString,QVariant> getEXIF( const QString& fileName );
     static ImageInfoList shuffle( ImageInfoList list );
-    static QString pad( int size, long val );
+
+    typedef QMap<QString, QString> UniqNameMap;
+    static UniqNameMap createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destdir );
 };
 
 

@@ -10,11 +10,12 @@ FileInfo FileInfo::read( const QString& fileName )
     fi._fullPath = fileName;
     QString tempFileName( fileName );
     if ( Util::isCRW( fileName ) ) {
+      QString dirName = QFileInfo( fileName ).dirPath();
       QString baseName = QFileInfo( fileName ).baseName();
-      tempFileName = baseName + QString::fromLatin1( ".thm" );
+      tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
       QFileInfo tempFile (tempFileName);
       if ( !tempFile.exists() )
-       tempFileName = baseName + QString::fromLatin1( ".THM" );
+          tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
     }
 
     KFileMetaInfo metainfo( tempFileName );

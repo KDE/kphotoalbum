@@ -40,6 +40,7 @@ Features for a soonish version
 - add md5 sum to the DB that is used to re-find images if the DB is reordered.
 
 - Loseless image rotation (which actually affects the files)
+- add a kpart call for editing images.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -21,7 +21,9 @@ kpalbum_SOURCES = main.cpp \
 	mainviewui.ui \
 	optionsdialog.ui \
 	imageconfigui.ui \
-	wellcomedialog.ui
-kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+	wellcomedialog.ui \
+	editor.cpp
+
+kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH) -lktexteditor
 kpalbum_LDADD = $(LIB_KIO) $(LIBJPEG)
 METASOURCES = AUTO

@@ -14,6 +14,8 @@
 #include "viewer.h"
 #include <qaccel.h>
 #include <kstandarddirs.h>
+#include "editor.h"
+
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )

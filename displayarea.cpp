@@ -215,10 +215,15 @@ void DisplayArea::setImage( ImageInfo* info, bool forward )
 
 void DisplayArea::resizeEvent( QResizeEvent* )
 {
-    if ( _info )
-        cropAndScale();
+    ImageManager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
-    ImageManager::instance()->stop( this );
+    if ( _info ) {
+        cropAndScale();
+        if ( _cachedView ) {
+            ImageManager::instance()->load( _info->fileName(), this, _info->angle(), -1, -1, false, true );
+        }
+    }
+    updatePreload();
 }
 
 DrawHandler* DisplayArea::drawHandler()

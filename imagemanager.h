@@ -35,7 +35,7 @@ class LoadInfo {
 public:
     LoadInfo();
     LoadInfo( const QString& fileName, int width,  int heigth, int angle,
-              ImageClient* client);
+              bool priority, ImageClient* client);
 
     bool isNull() const;
     QString fileName() const;
@@ -50,6 +50,8 @@ public:
     QSize fullSize() const;
     void setFullSize( const QSize& );
 
+    bool priority() const;
+
     bool operator<( const LoadInfo& other ) const;
     bool operator==( const LoadInfo& other ) const;
 
@@ -62,6 +64,7 @@ private:
     ImageClient* _client;
     int _angle;
     QSize _fullSize;
+    bool _priority;
 };
 
 class ImageEvent :public QCustomEvent {
@@ -80,11 +83,13 @@ class ImageManager :public QObject {
     Q_OBJECT
 
 public:
+    enum StopAction { StopAll, StopOnlyNonPriorityLoads };
+
     void load( const QString& fileName, ImageClient* client, int angle, int width, int height,
                bool cache, bool priority );
     LoadInfo next();
     static ImageManager* instance();
-    void stop( ImageClient* );
+    void stop( ImageClient*, StopAction action = StopAll );
 
 protected:
     virtual void customEvent( QCustomEvent* ev );
@@ -99,6 +104,7 @@ private:
     QWaitCondition* _sleepers;
     QMutex* _lock;
     QMap<LoadInfo, ImageClient*> _clientMap;
+    LoadInfo _currentLoading;
 };
 
 #endif /* IMAGEMANAGER_H */

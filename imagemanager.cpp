@@ -56,9 +56,14 @@ void ImageManager::init()
 void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height,
                          bool cache, bool priority )
 {
+    if ( _currentLoading.fileName() == fileName && _currentLoading.client() == client &&
+         _currentLoading.width() == width && _currentLoading.height() == height ) {
+        return; // We are currently loading it, calm down and wait please ;-)
+    }
+
     QString key = QString::fromLatin1("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
     _lock->lock();
-    LoadInfo li( fileName, width, height, angle, client );
+    LoadInfo li( fileName, width, height, angle, priority, client );
     li.setCache( cache );
 
     // Delete other request for the same file from the same client
@@ -87,6 +92,7 @@ LoadInfo ImageManager::next()
         _loadList.pop_front();
     }
     _lock->unlock();
+    _currentLoading = info;
     return info;
 }
 
@@ -94,9 +100,9 @@ LoadInfo::LoadInfo() : _null( true ),  _cache( true ),  _client( 0 )
 {
 }
 
-LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, ImageClient* client )
+LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, bool priority, ImageClient* client )
     : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),
-      _cache( true ),  _client( client ),  _angle( angle )
+      _cache( true ),  _client( client ),  _angle( angle ), _priority( priority )
 {
 }
 
@@ -201,14 +207,14 @@ bool LoadInfo::cache() const
     return _cache;
 }
 
-void ImageManager::stop( ImageClient* client )
+void ImageManager::stop( ImageClient* client, StopAction action )
 {
     // remove from active map
     for( QMapIterator<LoadInfo,ImageClient*> it= _clientMap.begin(); it != _clientMap.end(); ) {
         LoadInfo key = it.key();
         ImageClient* data = it.data();
         ++it; // We need to increase it before removing the element.
-        if ( data == client )
+        if ( data == client && ( action == StopAll || !key.priority() ) )
             _clientMap.remove( key );
     }
 
@@ -217,7 +223,7 @@ void ImageManager::stop( ImageClient* client )
     for( QValueList<LoadInfo>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
         LoadInfo li = *it;
         ++it;
-        if ( li.client() == client )
+        if ( li.client() == client && ( action == StopAll || !li.priority() ) )
             _loadList.remove( li );
     }
     _lock->unlock();
@@ -246,6 +252,11 @@ QSize LoadInfo::fullSize() const
 void LoadInfo::setFullSize( const QSize& size )
 {
     _fullSize = size;
+}
+
+bool LoadInfo::priority() const
+{
+    return _priority;
 }
 
 #include "imagemanager.moc"

@@ -19,6 +19,7 @@
 #ifndef MYIMAGECOLLECTION_H
 #define MYIMAGECOLLECTION_H
 
+#ifdef HASKIPI
 #include <libkipi/imagecollectionshared.h>
 #include "imageinfo.h"
 
@@ -42,6 +43,7 @@ protected:
 private:
     Type _tp;
 };
+#endif // KIPI
 
 #endif /* MYIMAGECOLLECTION_H */
 

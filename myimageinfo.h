@@ -19,6 +19,7 @@
 #ifndef MYIMAGEINFO_H
 #define MYIMAGEINFO_H
 
+#ifdef HASKIPI
 #include <libkipi/imageinfoshared.h>
 #include "imageinfo.h"
 
@@ -48,6 +49,8 @@ public:
 private:
     ImageInfo* _info;
 };
+
+#endif // NOKIP
 
 #endif /* MYIMAGEINFO_H */
 

@@ -16,6 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#ifdef HASKIPI
 #include "categoryimagecollection.h"
 #include <klocale.h>
 #include "imagedb.h"
@@ -41,3 +42,4 @@ KURL::List CategoryImageCollection::images()
     ImageInfoList list = ImageDB::instance()->images( context, true );
     return imageListToUrlList( list );
 }
+#endif // KIPI

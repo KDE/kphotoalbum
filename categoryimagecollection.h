@@ -19,6 +19,7 @@
 #ifndef CATEGORYIMAGECOLLECTION_H
 #define CATEGORYIMAGECOLLECTION_H
 
+#ifdef HASKIPI
 #include "myimagecollection.h"
 #include "imagesearchinfo.h"
 
@@ -33,6 +34,7 @@ private:
     const QString _optionGroup;
     const QString _value;
 };
+#endif // KIPI
 
 
 #endif /* CATEGORYIMAGECOLLECTION_H */

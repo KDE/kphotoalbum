@@ -16,6 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#ifdef HASKIPI
 #include "plugininterface.h"
 #include <libkipi/imagecollection.h>
 #include "myimagecollection.h"
@@ -113,3 +114,4 @@ void PluginInterface::slotSelectionChanged( bool b )
 }
 
 #include "plugininterface.moc"
+#endif // KIPI

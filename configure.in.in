@@ -40,12 +40,15 @@ if test -z "$kimdaba_need_compat"; then
 fi
 AC_SUBST(KIMDABA_CXXFLAGS)
 
-#### KIPI must be installed
-AC_MSG_CHECKING(if KIPI is installed)
+# -------------------------------------------------- KIPI Check
 KDE_CHECK_HEADER(libkipi/interface.h,  have_kipi=yes,  have_kipi=no)
 
 if test "$have_kipi" = "no"; then
-  AC_MSG_WARN([Can't find KIPI (KDE Image Plugin Interface)
-Please install kdeextrager-libs-1 to get the most out of KimDaBa]);
-   DO_NOT_COMPILE="$DO_NOT_COMPILE kimdaba"
+  AC_MSG_WARN([Can't find KIPI (KDE Image Plugin Interface), compiling without]);  
+else
+   KIMDABA_KIPI_CXXFLAGS="-DHASKIPI"
 fi
+AC_SUBST(KIMDABA_KIPI_CXXFLAGS)
+
+AM_CONDITIONAL(HAVE_KIPI, test "$have_kipi" = "yes")
+

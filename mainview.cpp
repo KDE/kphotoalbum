@@ -66,12 +66,17 @@
 #include <kedittoolbar.h>
 #include "export.h"
 #include "import.h"
-#include "plugininterface.h"
-#include <libkipi/pluginloader.h>
-#include <libkipi/plugin.h>
+#ifdef HASKIPI
+#  include "plugininterface.h"
+#  include <libkipi/pluginloader.h>
+#  include <libkipi/plugin.h>
+#endif
 #include "readinfodialog.h"
 #include "imageloader.h"
 #include "mysplashscreen.h"
+#include <qobjectlist.h>
+#include <qmenubar.h>
+#include <kmenubar.h>
 
 MainView* MainView::_instance = 0;
 
@@ -144,9 +149,11 @@ MainView::MainView( QWidget* parent, const char* name )
 
 void MainView::delayedInit()
 {
+#ifdef HASKIPI
     MySplashScreen* splash = MySplashScreen::instance();
     if ( splash )
         splash->message( i18n("Loading Plugins") );
+#endif
 
     loadPlugins(); // The plugins may ask for the current album, which needs the browser fully initialized.
     show();
@@ -1082,12 +1089,14 @@ void MainView::slotConfigureKeyBindings()
     dialog->insert( actionCollection(), i18n( "General" ) );
     dialog->insert( viewer->actions(), i18n("Viewer") );
 
+#ifdef HASKIPI
     KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
         KIPI::Plugin* plugin = (*it)->plugin();
         if ( plugin )
             dialog->insert( plugin->actionCollection(), (*it)->comment() );
     }
+#endif
 
     dialog->configure();
 
@@ -1229,6 +1238,7 @@ void MainView::slotReenableMessages()
 
 void MainView::loadPlugins()
 {
+#ifdef HASKIPI
     // Sets up the plugin interface, and load the plugins
     _pluginInterface = new PluginInterface( this, "demo interface" );
     connect( _pluginInterface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
@@ -1244,10 +1254,20 @@ void MainView::loadPlugins()
 
     // Setup signals
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
+#else
+    QObjectList *l = queryList( "QPopupMenu", "plugins" );
+    QObject *obj;
+    for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {
+        ++it;
+        delete obj;
+    }
+    delete l; // delete the list, not the objects
+#endif
 }
 
 void MainView::plug()
 {
+#ifdef HASKIPI
     unplugActionList( QString::fromLatin1("import_actions") );
     unplugActionList( QString::fromLatin1("export_actions") );
     unplugActionList( QString::fromLatin1("image_actions") );
@@ -1299,6 +1319,7 @@ void MainView::plug()
     plugActionList( QString::fromLatin1("image_actions"), imageActions );
     plugActionList( QString::fromLatin1("tool_actions"), toolsActions );
     plugActionList( QString::fromLatin1("batch_actions"), batchActions );
+#endif
 }
 
 
@@ -1322,7 +1343,9 @@ QString MainView::currentBrowseCategory() const
 
 void MainView::slotSelectionChanged()
 {
+#ifdef HASKIPI
     _pluginInterface->slotSelectionChanged( selected().count() != 0);
+#endif
 }
 
 void MainView::resizeEvent( QResizeEvent* e )

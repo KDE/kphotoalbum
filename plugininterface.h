@@ -19,6 +19,7 @@
 #ifndef KIMDABA_PLUGININTERFACE_H
 #define KIMDABA_PLUGININTERFACE_H
 
+#ifdef HASKIPI
 #include <libkipi/interface.h>
 #include <qvaluelist.h>
 #include <libkipi/imagecollection.h>
@@ -46,6 +47,7 @@ public slots:
 signals:
     void imagesChanged( const KURL::List& );
 };
+#endif
 
 #endif /* PLUGININTERFACE_H */
 

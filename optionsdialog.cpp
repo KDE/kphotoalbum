@@ -38,7 +38,9 @@
 #include <qhbox.h>
 #include "viewersizeconfig.h"
 #include <limits.h>
-#include <libkipi/pluginloader.h>
+#ifdef HASKIPI
+#  include <libkipi/pluginloader.h>
+#endif
 #include <kdebug.h>
 #include <kcolorbutton.h>
 
@@ -50,7 +52,9 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     createOptionGroupsPage();
     createGroupConfig();
     createViewerPage();
+#ifdef HASKIPI
     createPluginPage();
+#endif
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }
@@ -405,7 +409,9 @@ void OptionsDialog::slotMyOK()
     opt->setMemberMap( _memberMap );
 
     // misc stuff
+#ifdef HASKIPI
     _pluginConfig->apply();
+#endif
     emit changed();
 }
 
@@ -746,12 +752,14 @@ void OptionsDialog::createViewerPage()
 
 void OptionsDialog::createPluginPage()
 {
+#ifdef HASKIPI
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
     _pluginConfig = KIPI::PluginLoader::instance()->configWidget( top );
     lay1->addWidget( _pluginConfig );
+#endif
 }
 
 #include "optionsdialog.moc"

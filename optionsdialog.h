@@ -114,8 +114,10 @@ private:
     QSpinBox* _slideShowInterval;
     QSpinBox* _cacheSize;
 
+#ifdef HASKIPI
     // Plugin config
     KIPI::ConfigWidget* _pluginConfig;
+#endif
 };
 
 

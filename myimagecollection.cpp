@@ -16,6 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#ifdef HASKIPI
 #include "myimagecollection.h"
 #include "mainview.h"
 #include "imagedb.h"
@@ -114,3 +115,5 @@ KURL MyImageCollection::uploadRoot()
     url.setPath( Options::instance()->imageDirectory() );
     return url;
 }
+
+#endif // KIPI

@@ -16,6 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#ifdef HASKIPI
 #include "myimageinfo.h"
 #include "imagedb.h"
 MyImageInfo::MyImageInfo( KIPI::Interface* interface, const KURL& url )
@@ -138,3 +139,4 @@ void MyImageInfo::cloneData( ImageInfoShared* other )
     }
 }
 
+#endif // KIPI

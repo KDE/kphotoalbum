@@ -39,7 +39,9 @@ class PluginInterface;
 #include "thumbnailview.h"
 #include "options.h"
 #include <kurl.h>
-#include <libkipi/pluginloader.h>
+#ifdef HASKIPI
+#  include <libkipi/pluginloader.h>
+#endif
 
 class MainView :public KMainWindow
 {
@@ -162,7 +164,9 @@ private:
     KAction* _runSlideShow;
     KAction* _runRandomSlideShow;
     PluginInterface* _pluginInterface;
+#ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
+#endif
 };
 
 

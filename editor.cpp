@@ -17,7 +17,7 @@
  **/
 
 #include <kdeversion.h>
-#if !KDE_IS_VERSION(3,1,2)
+#if !KDE_IS_VERSION(3,1,3)
   // Bug in Qt 3.1.0 needs these undefined
   #undef QT_NO_CAST_ASCII
   #undef QT_CAST_NO_ASCII
@@ -74,7 +74,7 @@ void Editor::setText( const QString& txt )
     edit->setText( txt );
 }
 
-#if !KDE_IS_VERSION(3,1,2)
+#if !KDE_IS_VERSION(3,1,3)
   #define QT_NO_CAST_ASCII
   #define QT_CAST_NO_ASCII
 #endif

@@ -1,5 +1,7 @@
 2004-01-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Move cursor to the lower right corner when viewer goes into fullscreen mode
+
 	* BUGFIX: Generate HTML with nothing selected now export all
 	images from thumbnail view.
 

@@ -185,44 +185,44 @@ void Viewer::setupContextMenu()
     }
 
     _popup->insertSeparator();
-    
+
     QPopupMenu *wallpaperPopup = new QPopupMenu( _popup );
-    
+
     action = new QAction( QIconSet(), i18n("Centered"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperC() ) );
     action->addTo( wallpaperPopup );
-    
+
     action = new QAction( QIconSet(),  i18n("Tiled"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperT() ) );
     action->addTo( wallpaperPopup );
-    
+
     action = new QAction( QIconSet(),  i18n("Center Tiled"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCT() ) );
     action->addTo( wallpaperPopup );
-    
+
     action = new QAction( QIconSet(),  i18n("Centered Maxpect"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCM() ) );
     action->addTo( wallpaperPopup );
-    
+
     action = new QAction( QIconSet(),  i18n("Tiled Maxpect"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperTM() ) );
     action->addTo( wallpaperPopup );
-    
+
     action = new QAction( QIconSet(),  i18n("Scaled"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperS() ) );
     action->addTo( wallpaperPopup );
-    
+
     action = new QAction( QIconSet(),  i18n("Centered Auto Fit"), 0, wallpaperPopup );
     connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCAF() ) );
     action->addTo( wallpaperPopup );
-    
+
     _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), wallpaperPopup );
-    
-    
+
+
     action = new QAction( i18n("Draw on Image"),  QIconSet(),  i18n("Draw on Image"),  0, this );
     connect( action,  SIGNAL( activated() ),  this, SLOT( startDraw() ) );
     action->addTo( _popup );
-    
+
     action = new QAction( i18n("Edit Image Properties"),  QIconSet(),  i18n("Edit Image Properties"),  CTRL+Key_1, this );
     connect( action,  SIGNAL( activated() ),  this, SLOT( editImage() ) );
     action->addTo( _popup );
@@ -362,37 +362,37 @@ void Viewer::stopDraw()
 
 void Viewer::slotSetWallpaperC()
 {
-    setAsWallpaper(1);   
+    setAsWallpaper(1);
 }
 
 void Viewer::slotSetWallpaperT()
 {
-    setAsWallpaper(2);   
+    setAsWallpaper(2);
 }
 
 void Viewer::slotSetWallpaperCT()
 {
-    setAsWallpaper(3);   
+    setAsWallpaper(3);
 }
 
 void Viewer::slotSetWallpaperCM()
 {
-    setAsWallpaper(4);   
+    setAsWallpaper(4);
 }
 
 void Viewer::slotSetWallpaperTM()
 {
-    setAsWallpaper(5);   
+    setAsWallpaper(5);
 }
 
 void Viewer::slotSetWallpaperS()
 {
-    setAsWallpaper(6);   
+    setAsWallpaper(6);
 }
 
 void Viewer::slotSetWallpaperCAF()
 {
-    setAsWallpaper(7);   
+    setAsWallpaper(7);
 }
 
 void Viewer::setAsWallpaper(int mode)
@@ -634,6 +634,7 @@ void Viewer::setShowFullScreen( bool on )
         KWin::setState( winId(), NET::StaysOnTop );
 
         setGeometry( r );
+        QCursor::setPos( width()-1, height()-1 );
     }
     else {
         setMinimumSize(0,0);

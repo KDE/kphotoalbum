@@ -1,7 +1,7 @@
 ==========================
 BUGS To be handled soonish
 ==========================
-- pan does work very well in the viewer
+- pan doesn't work very well in the viewer
 - drawing on an image doesn't mark it as dirty
 - add more descriptions to the demo.
 - escape quotes and back quotes in descriptions when generating HTML

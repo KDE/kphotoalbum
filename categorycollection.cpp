@@ -81,3 +81,5 @@ QString CategoryCollection::nameForText( const QString& text )
     return QString::null;
 }
 
+
+#include "categorycollection.moc"

@@ -87,3 +87,5 @@ void TokenEditor::slotOk()
     }
     KDialogBase::slotOk();
 }
+
+#include "tokeneditor.moc"

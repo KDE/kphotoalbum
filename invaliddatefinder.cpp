@@ -112,3 +112,5 @@ void InvalidDateFinder::slotOk()
 
     KDialogBase::slotOk();
 }
+
+#include "invaliddatefinder.moc"

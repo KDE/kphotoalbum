@@ -39,3 +39,5 @@ void SearchBar::reset()
 {
     _edit->clear();
 }
+
+#include "searchbar.moc"

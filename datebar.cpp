@@ -705,3 +705,5 @@ void DateBar::focusOutEvent( QFocusEvent* )
     redraw();
 }
 
+
+#include "datebar.moc"

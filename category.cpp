@@ -96,3 +96,5 @@ bool Category::isSpecialCategory() const
 {
     return _isSpecial;
 }
+
+#include "category.moc"

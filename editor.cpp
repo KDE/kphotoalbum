@@ -193,3 +193,5 @@ void Editor::keyPressEvent( QKeyEvent* event )
     else
         QTextEdit::keyPressEvent( event );
 }
+
+#include "editor.moc"

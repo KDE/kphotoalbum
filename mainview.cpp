@@ -603,11 +603,11 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
 void MainView::setDirty( bool dirty )
 {
     static QPixmap* dirtyPix = new QPixmap( SmallIcon( QString::fromLatin1( "3floppy_unmount" ) ) );
-    _dirtyIndicator->setFixedWidth( dirtyPix->width() );
 
     if ( _dirtyIndicator ) {
         // Might not yet have been created.
 
+        _dirtyIndicator->setFixedWidth( dirtyPix->width() );
         if ( dirty )
             _dirtyIndicator->setPixmap( *dirtyPix );
         else

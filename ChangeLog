@@ -1,5 +1,9 @@
 2003-10-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: KimDaBa crashed when it found new images at start up.
+
+	* Started writing a handbook for KimDaBa.
+
 	* BUGFIX: if the slideshow was running very fast, then keyevents got utterly much
 	  behind making it almost impossible to stop the slideshow.
 

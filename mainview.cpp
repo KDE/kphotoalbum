@@ -428,22 +428,22 @@ void MainView::setupMenuBar()
     _smallListView = new KRadioAction( i18n("Small List View"), KShortcut(), _browser, SLOT( slotSmallListView() ),
                                                     _viewMenu );
     _viewMenu->insert( _smallListView );
-    _smallListView->setExclusiveGroup( "configureview" );
+    _smallListView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
     _largeListView = new KRadioAction( i18n("Large List View"), KShortcut(), _browser, SLOT( slotLargeListView() ),
                                                     _viewMenu );
     _viewMenu->insert( _largeListView );
-    _largeListView->setExclusiveGroup( "configureview" );
+    _largeListView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
     _smallIconView = new KRadioAction( i18n("Small Icon View"), KShortcut(), _browser, SLOT( slotSmallIconView() ),
                                                     _viewMenu );
     _viewMenu->insert( _smallIconView );
-    _smallIconView->setExclusiveGroup( "configureview" );
+    _smallIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
     _largeIconView = new KRadioAction( i18n("Large Icon View"), KShortcut(), _browser, SLOT( slotLargeIconView() ),
                                                     _viewMenu );
     _viewMenu->insert( _largeIconView );
-    _largeIconView->setExclusiveGroup( "configureview" );
+    _largeIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
     connect( _browser, SIGNAL( currentSizeAndTypeChanged( Options::ViewSize, Options::ViewType ) ),
              this, SLOT( slotUpdateViewMenu( Options::ViewSize, Options::ViewType ) ) );

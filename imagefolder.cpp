@@ -41,7 +41,7 @@ ImageFolder::ImageFolder( const ImageSearchInfo& info, int from, int to, Browser
     :Folder( info,parent), _from( from ), _to( to )
 {
     setText( 0, i18n( "View Images (%1-%2)").arg(from).arg(to) );
-    setPixmap( 0, locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ) );
+    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "image" ), KIcon::Desktop, 22 ) );
     int count = to - from +1;
     setCount( count );
     if ( count == 1 )

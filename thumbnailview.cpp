@@ -225,7 +225,7 @@ QDragObject* ThumbNailView::dragObject()
         for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
             l.append( (*it)->fileName() );
         }
-        return new KURLDrag( l, this );
+        return new KURLDrag( l, this, "drag" );
     }
 
     else

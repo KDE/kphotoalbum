@@ -16,6 +16,7 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
+#include "kdeversion.h"
 #include "htmlexportdialog.h"
 #include <klocale.h>
 #include <qlayout.h>
@@ -189,7 +190,11 @@ bool HTMLExportDialog::generate()
 
     // ensure base dir exists
     KIO::UDSEntry result;
+#if KDE_IS_VERSION( 3,1,90 )
     bool ok = KIO::NetAccess::stat( baseDir, result, this );
+#else
+    bool ok = KIO::NetAccess::stat( baseDir, result );
+#endif
     if ( !ok ) {
         KMessageBox::error( this, i18n("<qt>Error while reading information about %1. "
                                        "This is most likely because the directory does not exist.</qt>").arg( baseDir ) );
@@ -204,7 +209,12 @@ bool HTMLExportDialog::generate()
 
 
     // test if destination directory exists.
-    if ( KIO::NetAccess::exists( outputDir, false, this ) ) {
+#if KDE_IS_VERSION( 3, 1, 90 )
+    bool exists = KIO::NetAccess::exists( outputDir, false, this );
+#else
+    bool exists = KIO::NetAccess::exists( outputDir );
+#endif
+    if ( exists ) {
         int answer = QMessageBox::warning( this, i18n("Directory Exists"), i18n("<qt>Output directory %1 already exists. "
                                                                                 "Usually you should specify a new directory. "
                                                                                 "Continue?</qt>").arg( outputDir ),

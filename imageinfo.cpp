@@ -10,13 +10,10 @@ ImageInfo::ImageInfo()
 {
 }
 
-ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName )
-    : _indexDirectory( indexDirectory ), _fileName( fileName ), _visible( true )
+ImageInfo::ImageInfo( const QString& fileName )
+    : _fileName( fileName ), _visible( true )
 {
-    if ( _indexDirectory.endsWith( "/" ) )
-         _indexDirectory = _indexDirectory.mid( 0, _indexDirectory.length()-1 );
-
-    QFileInfo fi( indexDirectory+ "/" + fileName );
+    QFileInfo fi( Options::instance()->imageDirectory()+ "/" + fileName );
     _label = fi.baseName();
     _angle = 0;
 
@@ -28,13 +25,10 @@ ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName )
     }
 }
 
-ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QDomElement elm )
-    : _indexDirectory( indexDirectory ), _fileName( fileName ), _visible( true )
+ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
+    : _fileName( fileName ), _visible( true )
 {
-    if ( _indexDirectory.endsWith( "/" ) )
-         _indexDirectory = _indexDirectory.mid( 0, _indexDirectory.length()-1 );
-
-    QFileInfo fi( indexDirectory+ "/" + fileName );
+    QFileInfo fi( Options::instance()->imageDirectory()+ "/" + fileName );
     _label = elm.attribute( "label",  _label );
     _description = elm.attribute( "description" );
 
@@ -127,7 +121,7 @@ QString ImageInfo::fileName( bool relative )
     if (relative)
         return _fileName;
     else
-        return _indexDirectory + "/" + _fileName;
+        return Options::instance()->imageDirectory() + "/" + _fileName;
 }
 
 QDomElement ImageInfo::save( QDomDocument& doc )
@@ -189,11 +183,6 @@ ImageDate& ImageInfo::endDate()
     return _endDate;
 }
 
-QString ImageInfo::indexDirectory() const
-{
-    return _indexDirectory;
-}
-
 void ImageInfo::setVisible( bool b )
 {
     _visible = b;
@@ -213,8 +202,7 @@ bool ImageInfo::operator!=( const ImageInfo& other )
 bool ImageInfo::operator==( const ImageInfo& other )
 {
     bool changed =
-        ( _indexDirectory != other._indexDirectory ||
-          _fileName != other._fileName ||
+        ( _fileName != other._fileName ||
           _label != other._label ||
           _description != other._description ||
           _startDate != other._startDate ||

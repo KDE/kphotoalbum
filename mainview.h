@@ -37,13 +37,14 @@ protected slots:
 
 protected:
     void configureImages( bool oneAtATime );
-    void loadExtraFiles( const QDict<void>& loadedFiles, const QString& indexDirectory, QString directory );
-    void load( const QString& indexDirectory,  const QString& filename, QDomElement elm );
+    void loadExtraFiles( const QDict<void>& loadedFiles, QString directory );
+    void load( const QString& filename, QDomElement elm );
     ImageInfoList selected();
     void wellcome();
     virtual void closeEvent( QCloseEvent* e );
     void setupMenuBar();
     void startAutoSaveTimer();
+    void save( const QString& fileName );
 
 private:
     ThumbNailView* _thumbNailView;

@@ -142,11 +142,21 @@ void MainView::slotSearch()
 
 void MainView::slotSave()
 {
-    ShowBusyCursor dummy;
     statusBar()->message("Saving...", 5000 );
+    save( Options::instance()->imageDirectory() + "/index.xml" );
+    _dirty = false;
+    QDir().remove( Options::instance()->imageDirectory() + "/.#index.xml" );
 
-    QMap<QString, QDomDocument> docs;
+    statusBar()->message("Saving...Done", 5000 );
+}
+
+void MainView::save( const QString& fileName )
+{
+    ShowBusyCursor dummy;
+
     ImageInfoList list = _images;
+
+    // Copy files from clipboard to end of overview, so we don't loose them
     if ( !_thumbNailView->isClipboardEmpty() ) {
         ImageInfoList clip= _thumbNailView->clipboard();
         for( ImageInfoListIterator it(clip); *it; ++it ) {
@@ -154,37 +164,28 @@ void MainView::slotSave()
         }
     }
 
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        QString indexDirectory = (*it)->indexDirectory();
+    // Open the output file
+    QDomDocument doc;
 
-        QString outputFile = indexDirectory + "/index.xml";
-        if ( !docs.contains( outputFile ) )  {
-            QDomDocument tmp;
-            docs[outputFile] = tmp;
-            // PENDING(blackie) The user should be able to specify the coding himself.
-            tmp.appendChild( tmp. createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
-            tmp.appendChild( tmp.createElement( "Images" ) );
-        }
-        QDomDocument doc = docs[outputFile];
-        QDomElement elm = doc.documentElement();
+    // PENDING(blackie) The user should be able to specify the coding himself.
+    doc.appendChild( doc. createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+    QDomElement elm = doc.createElement( "Images" );
+    doc.appendChild( elm );
+
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
         elm.appendChild( (*it)->save( doc ) );
     }
 
-    for( QMapIterator<QString,QDomDocument> it= docs.begin(); it != docs.end(); ++it ) {
-        QFile out( it.key() );
+    QFile out( fileName );
 
-        if ( !out.open( IO_WriteOnly ) )  {
-            qWarning( "Could not open file '%s'", it.key().latin1() );
-        }
-        else {
-            QTextStream stream( &out );
-            stream << it.data().toString().utf8();
-            out.close();
-        }
+    if ( !out.open( IO_WriteOnly ) )  {
+        qWarning( "Could not open file '%s'", fileName.latin1() );
     }
-    _dirty = false;
-    statusBar()->message("Saving...Done", 5000 );
-
+    else {
+        QTextStream stream( &out );
+        stream << doc.toString().utf8();
+        out.close();
+    }
 }
 
 void MainView::slotDeleteSelected()
@@ -233,27 +234,30 @@ void MainView::load()
                 else {
                     loadedFiles.insert( directory + "/" + fileName, (void*)0x1 /* void pointer to nothing I never need the value,
                                                                                   just its existsance, must be != 0x0 though.*/ );
-                    load( directory, fileName, elm );
+                    load( fileName, elm );
                 }
             }
         }
     }
 
-    loadExtraFiles( loadedFiles, directory, directory );
+    loadExtraFiles( loadedFiles, directory );
     _thumbNailView->load( &_images );
 }
 
-void MainView::load( const QString& indexDirectory,  const QString& fileName, QDomElement elm )
+void MainView::load( const QString& fileName, QDomElement elm )
 {
-    ImageInfo* info = new ImageInfo( indexDirectory, fileName, elm );
+    ImageInfo* info = new ImageInfo( fileName, elm );
     info->setVisible( false );
     _images.append(info);
 }
 
-void MainView::loadExtraFiles( const QDict<void>& loadedFiles, const QString& indexDirectory, QString directory )
+void MainView::loadExtraFiles( const QDict<void>& loadedFiles, QString directory )
 {
     if ( directory.endsWith( "/" ) )
         directory = directory.mid( 0, directory.length()-1 );
+    QString imageDir = Options::instance()->imageDirectory();
+    if ( imageDir.endsWith( "/" ) )
+        imageDir = imageDir.mid( 0, imageDir.length()-1 );
     QDir dir( directory );
     QStringList dirList = dir.entryList();
     for( QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it ) {
@@ -265,13 +269,13 @@ void MainView::loadExtraFiles( const QDict<void>& loadedFiles, const QString& in
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
              ( (*it).endsWith( ".jpg" ) || (*it).endsWith( ".jpeg" ) || (*it).endsWith( ".png" ) ||
                  (*it).endsWith( ".tiff" ) || (*it).endsWith( ".gif" ) ) )  {
-            QString baseName = file.mid( indexDirectory.length()+1 );
+            QString baseName = file.mid( imageDir.length()+1 );
 
-            ImageInfo* info = new ImageInfo( indexDirectory, baseName  );
+            ImageInfo* info = new ImageInfo( baseName  );
             _images.append(info);
         }
         else if ( fi.isDir() )  {
-            loadExtraFiles( loadedFiles,  indexDirectory, file );
+            loadExtraFiles( loadedFiles, file );
         }
     }
 }
@@ -425,9 +429,9 @@ void MainView::startAutoSaveTimer()
 void MainView::slotAutoSave()
 {
     if ( _dirty ) {
-        statusBar->message("Auto saving....");
-
-        statusBar->message("Auto saving....Done", 5000);
+        statusBar()->message("Auto saving....");
+        save ( Options::instance()->imageDirectory() + "/.#index.xml" );
+        statusBar()->message("Auto saving....Done", 5000);
     }
 }
 

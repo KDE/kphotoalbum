@@ -672,3 +672,5 @@ void Import::closeEvent( QCloseEvent* e )
 }
 
 
+
+#include "import.moc"

@@ -48,3 +48,5 @@ QSize ViewerSizeConfig::size()
     else
         return QSize( _width->value(), _height->value() );
 }
+
+#include "viewersizeconfig.moc"

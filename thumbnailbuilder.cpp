@@ -34,3 +34,5 @@ void ThumbnailBuilder::pixmapLoaded( const QString&, int, int, int, const QImage
     else
         generateNext();
 }
+
+#include "thumbnailbuilder.moc"

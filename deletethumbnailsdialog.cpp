@@ -57,3 +57,5 @@ void DeleteThumbnailsDialog::findThumbnails( const QString& directory )
         }
     }
 }
+
+#include "deletethumbnailsdialog.moc"

@@ -103,3 +103,5 @@ OptionMatch::OptionMatch( bool allowNew, const QString& option, QStringList opti
         _checkbox->setPaletteForegroundColor( Qt::red );
     }
 }
+
+#include "importmatcher.moc"

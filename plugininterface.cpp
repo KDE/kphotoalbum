@@ -38,3 +38,5 @@ void PluginInterface::refreshImages( const KURL::List& urls )
 {
     emit imagesChanged( urls );
 }
+
+#include "plugininterface.moc"

@@ -338,3 +338,5 @@ void Export::showUsageDialog()
 
 
 
+
+#include "export.moc"

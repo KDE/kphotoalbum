@@ -32,6 +32,136 @@ the images will be loaded into the existing viewer (if no viewer exists, one wil
 choosing "<guimenu>Images</guimenu>|<guimenuitem>View Selected (in new
 window)</guimenuitem>" ), the images will be loaded into a new viewer.</para>
 
+
+<sect1 id="sect-deleting-images">
+  <title>Deleting Images</title>
+  <para>From the thumbnail views it is also possible to delete images. To
+  do so select the images you want to delete and press the delete key or
+  select <guimenu>Edit</guimenu>|<guimenuitem>Delete Selected</guimenuitem>
+  from the menu bar. Doing so KimDaBa will show you the dialog in <xref
+  linkend="fig-delete-images"/></para>
+
+<figure id="fig-delete-images">
+<title>Deleting Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para>There are two ways of deleting an image in KimDaBa, namely either
+delete it from the disk, which means that it will be permanently gone, or
+tell KimDaBa not to include it. In the later situation, KimDaBa will never
+again show the image, but it will keep it on disk. This is useful if
+there for example is <emphasis>thumbnail images</emphasis> stored among
+your images. This thumbnail image would contain an overview of all the
+other images, and would thus be useless in KimDaBa, but for other
+application, say a web browser, it might be needed.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title>Offline Mode</title>
+<para>There is a constant battle going on between data growing, and hard
+disks getting bigger. If you have a large number of images, you might find
+yourself in the middle of that battle, not having enough hard disk space to
+store all your images. In that situation you might choose to put some of
+the images on cd's. An alternative scenario might be that you are going on a
+business trip, and want to bring your images with you, but do not have the
+20Gb disk space requires for that purpose.</para>
+
+<para>KimDaBa offers a solution to that problem, namely that it allows you
+to use it, without having the images available on disk. You do of course
+need to have them available at some point in time for KimDaBa to realize
+that there are new images for it to index. <xref
+linkend="fig-offline-mode"/> shows KimDaBa when it is not capable of
+finding all needed images on the disk.</para>
+
+<figure id="fig-offline-mode">
+<title>KimDaBa in Offline Mode</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>Images which has the corner cut of (that is image 1-9) are not
+available on disk. Thumb nails are, however, available for images 5-9,
+therefore KimDaBa can show you the thumbnails for these images. You can,
+however, still not display these images in the viewer.</para>
+
+<para>As you can see, this feature requires you to copy files in and out of
+your directories, KimDaBa do currently not have any support for asking you to
+insert the cd you labeled blah blah. Thus please forget about this feature
+if you are the kind of person who do not like messing with files etc, and
+instead simply ensure to buy hard disks that is large enough to always
+store all your images.</para>
+
+<para>For the rest of you, here comes the setup that I - the author of
+KimDaBa - uses myself, merely as inspiration.</para>
+
+<para>I store all images in subdirectories called cd1, cd2, etc. (Where each
+toplevel directory correspond to a cd with the images, for backup
+purposes). When I go abroad and bring my laptop, I copy the images I want
+to the laptop, and for the remaining I create the directory structure which
+exists under each top level directory (e.g. cd1/holiday2003,
+cd1/birthday-party etc). In these directory structures I copy in all the
+<literal>ThumbNails</literal> directories, and for the actual images, I
+create symlinks to the cd drive. That way I can simply mount a given cd to
+view its images, and at any time I can see the thumbnails for any
+image.</para>
+
+<para>The cd a given image is store on is specified as a keyword for the
+image, that way I can easily figure out which cd to mount.</para>
+
+<para>Currently I have
+to restart KimDaBa to get it to recognize that the availability of images
+has changed. If you use this feature, please let me know at
+blackie@kde.org, and I'll consider polishing it a bit more.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title>Privacy</title>
+<para>Some time ago my girlfriend and I brought my laptop with us on a visit to my parents in
+law, to show them the images from our most recent holiday. KimDaBa turned
+out to be a great success, and it didn't last long before my girlfriends
+little sister seized the laptop and started browsing around on her
+own. Unfortunately it didn't take her long either to get to some, let say
+unfortunate, images of me from my youth, and they all had quite a bit of
+laugh on me. That episode inspired me to add a new feature to KimDaBa,
+namely privacy locking.</para>
+
+<para>In the <guimenu>Images</guimenu> menu you will find a sub menu call
+<guimenuitem>privacy</guimenuitem>. To get some privacy browse - while you
+are on your own - to the images that you want to keep private, and
+select <guimenuitem>Mark Current View As Lock</guimenuitem> from the
+privacy sub menu. Alternatively you may browse to the images you want to
+limit your little sister to see, and select <guimenuitem>Mark Everything
+but the Current View as Lock</guimenuitem>.</para>
+
+<para>Now you have specified what to hide away, and once you hand over your
+laptop to your little sister, simply choose <guimenuitem>Lock
+Images</guimenuitem>, and your sister will not be able to see the locked
+images. When done you may unlock them again using
+<guimenuitem>Unlock</guimenuitem>.</para>
+
+<para>It is possible to specify a password that must be entered to unlock the
+database. In the <guimenuitem>privacy</guimenuitem> menu, simply select
+<guimenuitem>Change Password</guimenuitem> to set a password.</para>
+
+<para>Don't get fooled to believe that this will help you hide away images
+for good. First the images are still on the disk, second, anyone with
+access to the <literal>index.xml</literal> file that KimDaBa uses can read
+the password in clear text and optionally delete it. This feature is only
+meant as a protection against someone sitting with KimDaBa unintentionally
+getting to your private images.</para>
+
+</sect1>
 </chapter>
 
 

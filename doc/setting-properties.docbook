@@ -14,9 +14,9 @@ you an overview of all your images.</para>
   
   <para>In case you have more than 100 images, KimDaBa will sort your
 images into groups each of 100 images. This is simply to avoid that your
-machine runs out of RAM which trying to show you all your images. The
-amount of images per pages can be configured in the
-<literal>Options</literal> dialog.</para>
+machine runs out of RAM while trying to show you all your images. The
+amount of images per pages can be configured in the Options dialog (see 
+<xref linkend="sec-options-general"/>)</para>
   
   <figure id="fig-empty-browser-window">
     <title>Starting KimDaBa with your own images</title>
@@ -34,7 +34,8 @@ amount of images per pages can be configured in the
 for images. This includes who is on a given image, where is it taken,
 etc. You can do this either an image at a time, or you can set 
 properties for a number of images simultaneously (For example, all these
-images contain the person Jesper, and is taken in Copenhagen.)</para>
+images contain the person <emphasis>Jesper</emphasis>, and is taken in
+<emphasis>Copenhagen</emphasis>.)</para>
 
     <para>To set properties for images, select the images in question,
 and go to <guimenu>Edit</guimenu>|<guisubmenu>Properties</guisubmenu>, here
@@ -144,7 +145,7 @@ check box, then the option will be set unconditionally.</para>
   <sect1>
     <title>Changing layout of the property window</title>
     <para>It is possible to move the items of the property window
-around, simply fram the bar at the top of the frames, and move them arroud
+around, simply from the bar at the top of the frames, and move them arroud
 - you can even make a frame into a top level window on its own.</para>
     
     <para>Once you have found a layout that matches your screen layout,

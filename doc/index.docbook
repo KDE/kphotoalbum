@@ -11,6 +11,7 @@
   <!ENTITY browsing SYSTEM "browsing.docbook">
   <!ENTITY thumbnail-view SYSTEM "thumbnail-view.docbook">
   <!ENTITY viewer SYSTEM "viewer.docbook">
+  <!ENTITY options SYSTEM "options.docbook">
 ]>
 
 <book lang="&language;">
@@ -53,7 +54,12 @@
 this is your first time you start it), or go to <guimenu>Help</guimenu>
 menu and select <guimenuitem>Run KimDaBa demo</guimenuitem>. That will load
 KimDaBa with a number of images, and let you browse around.</para></listitem>
-        </itemizedlist></para></abstract>
+        </itemizedlist></para>
+
+   <para>If you prefer to print out this document, then you may find it as
+on long HTML document at <ulink
+url="http://www.blackie.dk/kimdaba/">KimDaBa's Homepage</ulink></para>
+</abstract>
   </bookinfo>
   
   &introduction;
@@ -61,27 +67,8 @@ KimDaBa with a number of images, and let you browse around.</para></listitem>
   &browsing;
   &thumbnail-view;
   &viewer;
+  &options;
 
-
-
-
-  <chapter id="chp-options">
-    <title>Configuring KimDaBa</title>
-    <para></para>
-  </chapter>
-
-  <!-- ====================================================================== -->
-  <!--             Misc                                               -->
-  <!-- ====================================================================== -->
-  <chapter id="chp-misc">
-    <title>Misc</title>
-    <para></para>
-
-    <sect1 id="sec-specifying-option-groups">
-      <title>Customizing option groups </title>
-      <para></para>
-    </sect1>
-  </chapter>
 
   <!-- ====================================================================== -->
   <!--                                 FAQ                                    -->

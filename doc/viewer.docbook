@@ -3,7 +3,7 @@
   <para>The reason for you to put all your images into KimDaba, and
 spending hours after hours describing them, is of course that you at some
 point want to look at them. For that purpose kimdaba has an image view,
-which you can get to from the browser, as described in <xref
+which you can get to from the thumbnail overview, as described in <xref
       linkend="chp-thumbnail-view"/>.</para>
   
   <para>The viewer can be seen in <xref linkend="fig-viewer"/>. The viewer
@@ -39,24 +39,24 @@ below.</para>
   </figure>
   
   <para>Some of the words in the info box is underlines. If you click the
-mouse on one of these words the browser (see <xref linkend="chp-browsing"/>
+mouse on one of these words the browser (see <xref linkend="chp-browsing"/>)
 will go into scope of that item. Thus if you click on <literal>Anne
 Helene</literal> the browser will show you all images of Anne Helene, just
 as it would have done if you selected <literal>Persons</literal> from the
 root of the browser, and next selected <literal>Anne
 Helene</literal>.</para>
   
-  <para>In case you have loaded several images into the viewer, you go can
+  <para>In case you have loaded several images into the viewer, you can go
 forth and back using <literal>Page Up</literal> and <literal>Page
-Down</literal> on you keyboard. You can go to the first and last images
+Down</literal>. You can go to the first and last images
 using <literal>home</literal> and <literal>end</literal>. These functions
 are of course also available from the context menu.</para>
   
   <para>If several images was loaded into the viewer, you can ask it to run
 them as a slide show, which means that KimDaBa loads a new image every few
 second. How often it loads a new image is configure by pressing the control
-key and respective plus (for longer delay between each image) or minus
-(shorter delay between each image). Starting and stopping the slide show is
+key and respective plus (for go faster) or minus
+(go slower). Starting and stopping the slide show is
 done simply by pressing the key <literal>s</literal>.</para>
   
   <para>A very useful feature of the KimDaBa viewer is it ability to go into
@@ -104,7 +104,27 @@ context menu.
 
   <sect1>
     <title>Drawing on Images</title>
-    <para></para>
+    <para>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose KimDaBa allows you to draw on the
+images. Currently the drawing operations are pretty limited, but future
+version of KimDaBa is expected to have a larger set available.</para>
+
+<para>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring KimDaBa in to drawing mode, select <literal>Draw on
+Image</literal> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para> 
+
+<figure id="fig-draw-on-image">
+<title>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
   </sect1>
 </chapter>
 

@@ -47,3 +47,5 @@ void ImagePreview::pixmapLoaded( const QString&, int, int, int, const QPixmap& p
     setPixmap( pix );
 }
 
+
+#include "imagepreview.moc"

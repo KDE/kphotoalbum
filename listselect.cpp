@@ -302,3 +302,5 @@ void ListSelect::itemSelected( QListBoxItem* item )
 }
 
 
+
+#include "listselect.moc"

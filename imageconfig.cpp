@@ -400,3 +400,5 @@ void ImageConfig::loadInfo( const ImageSearchInfo& info )
     label->setText( info.label() );
     description->setText( info.description() );
 }
+
+#include "imageconfig.moc"

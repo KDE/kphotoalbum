@@ -261,3 +261,5 @@ void MainView::closeEvent( QCloseEvent* e )
     e->ignore();
 }
 
+
+#include "mainview.moc"

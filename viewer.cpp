@@ -401,3 +401,5 @@ void Viewer::toggleShowLocation( bool b )
     Options::instance()->save();
 }
 
+
+#include "viewer.moc"

@@ -208,3 +208,5 @@ int LoadInfo::angle() const
 }
 
 
+
+#include "imagemanager.moc"

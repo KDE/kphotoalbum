@@ -165,3 +165,5 @@ QPtrList<ThumbNail> ThumbNailView::selected() const
 //{
 //    e->ignore();
 //}
+
+#include "thumbnailview.moc"

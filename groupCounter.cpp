@@ -68,7 +68,8 @@ QMap<QString,int> GroupCounter::result()
     QMap<QString,int> res;
 
     for( QDictIterator<int> it(_groupCount); *it; ++it ) {
-        res.insert( it.currentKey(), *(*it) );
+        if ( *(*it) != 0 )
+            res.insert( it.currentKey(), *(*it) );
     }
     return res;
 }

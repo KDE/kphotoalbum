@@ -1,3 +1,8 @@
+2003-12-30  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Member groups are not shown in the browser, in case the
+	member group do not contain any items.
+
 2003-12-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Update thumnail view when an image has been rotated.
@@ -38,7 +43,7 @@
 	* New Feature: It is now possible to using fish:// or ftp:// when
 	exporting to HTML
 
-	* BUGFIX: Don't show HTML export dialog in case not item was selected.
+	* BUGFIX: Don't show HTML export dialog in case no item was selected.
 
 ---------------------------------- version 1.0 released --------------------
 2003-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

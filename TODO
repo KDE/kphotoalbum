@@ -9,9 +9,6 @@ BUGS To be handled soonish
 - Adding a new ListSelect will not show it up initially.
 - renaming a category should not result in the listselect being placed
 different in the image property page.
-- searching for jan 02 2003 in the demo should yield img015, but no images
-  are found.
-
 - Config window layout should be saved when a new tab as been created.
 - the tips of the day screen only shows up randomly.
 
@@ -54,13 +51,11 @@ Features for a soonish version
   If it doesn´t work, the default KDE icon, just like today.
 - Make it possible to use the thumbnail standard
   (http://jens.triq.net/thumbnail-spec/) 
-- The image display window should really show the zoom-factor in the caption
+- The image display window should show the zoom-factor in the caption
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
 ======================================================================
-- In search mode, radio buttons labeled "Or" and "And" should be available
-  to tell how the items in the listbox should be combined.
 - when specifying options for several images at a time, present items that
   are on all images.
 - add kio: kimdaba://places/house
@@ -69,7 +64,7 @@ Features still to be considered (aka not likely to go in next release)
 - make it possible to specify a pattern for directories to ignore, say .thumbs
 - Viewer: make it optional if images should be sized up (that is don't scale
 a 32x32 image to 1024x768)
-- Export preserves folder layout.  This would be very helpful for
+a- Export preserves folder layout.  This would be very helpful for
   exporting a set of images for purpose of mirroring them, or for
   backing them up to DVD's in a form that I could easily use to
   restore them later.  The scenario would be that I would select all

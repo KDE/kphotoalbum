@@ -43,10 +43,11 @@ public:
     QSize viewerSize() const;
 
     // -------------------------------------------------- Options
-    void setOption( const QString& key,  const QStringList& value );
-    void addOption( const QString& key,  const QString& value );
-    void removeOption( const QString& key, const QString& value );
-    QStringList optionValue( const QString& key ) const;
+    void setOption( const QString& optionGroup,  const QStringList& value );
+    void addOption( const QString& optionGroup,  const QString& value );
+    void removeOption( const QString& optionGroup, const QString& value );
+    QStringList optionValue( const QString& optionGroup ) const;
+    void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
     // -------------------------------------------------- Option Groups
     struct OptionGroupInfo
@@ -121,6 +122,9 @@ public:
 signals:
     void optionGroupsChanged();
     void changed();
+    void renamedOption( const QString& optionGroup, const QString& oldName, const QString& newName );
+    void deletedOption( const QString& optionGroup, const QString& name );
+
 
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );

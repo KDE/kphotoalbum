@@ -45,17 +45,13 @@ public:
     enum Mode {INPUT, SEARCH};
     void setMode( Mode );
 
-    void updateGroupInfo();
+    void populate();
 
     QWidget* firstTabWidget() const;
     QWidget* lastTabWidget() const;
 
 public slots:
     void slotReturn();
-
-signals:
-    void deleteOption( const QString& optionGroup, const QString& which);
-    void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
 protected slots:
     void itemSelected( QListBoxItem* );

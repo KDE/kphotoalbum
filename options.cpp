@@ -140,6 +140,14 @@ void Options::removeOption( const QString& key, const QString& value )
 {
     emit changed();
     _options[key].remove( value );
+    emit deletedOption( key, value );
+}
+
+void Options::renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue )
+{
+    _options[optionGroup].remove( oldValue );
+    addOption( optionGroup, newValue );
+    emit renamedOption( optionGroup, oldValue, newValue );
 }
 
 void Options::addOption( const QString& key, const QString& value )

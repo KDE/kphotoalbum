@@ -14,9 +14,6 @@ Features/Bug for next version
 - drops from outside in thumnail view should simply be ignore or even
 warned about
 - dropping in empty space in thumbnails doesn't work.
-
-- rename of group in group setup (options->groups) should result in the
-item being renamed in the MemberMap (Do I mean in Options::_options here?)
 - In the group editor (options->group), ensure that no cycles are created.
 
 Features for later versions

@@ -386,7 +386,15 @@ void OptionsDialog::createGroupConfig()
 */
 void OptionsDialog::slotCategoryChanged( const QString& name )
 {
-    saveOldGroup();
+    slotCategoryChanged( name, true );
+}
+
+void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
+{
+    if ( saveGroups ) {
+        // We do not want to save groups when renaming categories
+        saveOldGroup();
+    }
 
     _groups->clear();
     _currentCategory = name;
@@ -437,7 +445,9 @@ void OptionsDialog::slotRenameGroup()
     QString currentValue = item->text();
     QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group Name"), currentValue, &ok );
     if ( ok ) {
-        // PENDING(blackie) IMPLEMENT
+        saveOldGroup();
+        _memberMap.renameGroup( _currentCategory, currentValue, text );
+        slotCategoryChanged( _currentCategory, false );
     }
 }
 
@@ -479,5 +489,11 @@ void OptionsDialog::selectMembers( const QString& group )
     }
 }
 
+
+int OptionsDialog::exec()
+{
+    slotCategoryChanged( _currentCategory, false );
+    return KDialogBase::exec();
+}
 
 #include "optionsdialog.moc"

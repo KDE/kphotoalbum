@@ -173,10 +173,6 @@ void MainView::createImageConfig()
 
     _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
     connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-    connect( _imageConfigure, SIGNAL( deleteOption( const QString&, const QString& ) ),
-             this, SLOT( slotDeleteOption( const QString&, const QString& ) ) );
-    connect( _imageConfigure, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
-             this, SLOT( slotRenameOption( const QString& , const QString& , const QString&  ) ) );
 }
 
 void MainView::slotSave()
@@ -363,26 +359,6 @@ void MainView::slotExportToHTML()
 
     HTMLExportDialog dialog( list, this, "htmlExportDialog" );
     dialog.exec();
-}
-
-void MainView::slotDeleteOption( const QString& optionGroup, const QString& which )
-{
-    for( ImageInfoListIterator it( ImageDB::instance()->images() ); *it; ++it ) {
-        (*it)->removeOption( optionGroup, which );
-    }
-    Options::instance()->removeOption( optionGroup, which );
-    _dirty=true;
-}
-
-
-void MainView::slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue )
-{
-    for( ImageInfoListIterator it( ImageDB::instance()->images() ); *it; ++it ) {
-        (*it)->renameOption( optionGroup, oldValue, newValue );
-    }
-    Options::instance()->removeOption( optionGroup, oldValue );
-    Options::instance()->addOption( optionGroup, newValue );
-    _dirty = true;
 }
 
 void MainView::startAutoSaveTimer()

@@ -29,6 +29,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
+#include "imagedb.h"
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -173,7 +174,7 @@ ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char*
     _lineEdit->setListBox( _listBox );
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
 
-    _listBox->insertStringList( Options::instance()->optionValue( optionGroup ) );
+    populate();
 }
 
 void ListSelect::setOptionGroup( const QString& optionGroup )
@@ -342,7 +343,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()),
                                                i18n("Really Delete %1?").arg(item->text()) );
         if ( code == KMessageBox::Yes ) {
-            emit deleteOption( optionGroup(), item->text() );
+            Options::instance()->removeOption(optionGroup(), item->text() );
             delete item;
         }
     }
@@ -356,7 +357,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()).arg(newStr).arg(item->text()),
                                                i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
-                emit renameOption( optionGroup(), item->text(), newStr );
+                Options::instance()->renameOption( optionGroup(), item->text(), newStr );
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
@@ -373,11 +374,20 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 }
 
 
-void ListSelect::updateGroupInfo()
+void ListSelect::populate()
 {
     _label->setText( Options::instance()->textForOptionGroup( _optionGroup ) );
     _listBox->clear();
-    _listBox->insertStringList( Options::instance()->optionValue( _optionGroup ) );
+    QStringList items = Options::instance()->optionValue( _optionGroup );
+    _listBox->insertStringList( items );
+
+    // add the groups to the listbox too, but only if the group is not there already, which will be the case
+    // if it has ever been selected once.
+    QStringList groups = Options::instance()->memberMap().groups( _optionGroup );
+    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
+        if ( ! items.contains(  *it ) )
+            _listBox->insertItem( *it );
+    }
 }
 
 

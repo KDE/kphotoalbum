@@ -23,7 +23,10 @@ GroupCounter::GroupCounter( const QString& optionGroup )
         QString group = it.key();
 
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            *_memberToGroup[*it2]->append( group );
+            QStringList* item = _memberToGroup[*it2];
+            Q_ASSERT( item );
+            if ( item ) // better safe than sorry
+                *item->append( group );
         }
         int* intPtr = new int;
         *intPtr = 0;

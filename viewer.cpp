@@ -16,6 +16,7 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
+#include <kdeversion.h>
 #include "viewer.h"
 #include <qlayout.h>
 #include <qlabel.h>
@@ -455,7 +456,7 @@ void Viewer::toggleFullScreen()
 {
     if ( !_showingFullScreen ) {
 
-#if 0 // This do not work with not too recent version of CVS, and for sure not with older KDEs
+#if KDE_IS_VERSION( 3,1,90 )
         KWin::WindowInfo info( winId(), 0, 0 );
         _oldGeometry = info.frameGeometry();
 #else

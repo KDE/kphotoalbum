@@ -78,6 +78,12 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* ne
     uint count = _images.count();
     loadExtraFiles( loadedFiles, directory );
     *newImages = ( count != _images.count() );
+
+    connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
+             this, SLOT( deleteOption( const QString&, const QString& ) ) );
+    connect( Options::instance(), SIGNAL( renamedOption( const QString&, const QString&, const QString& ) ),
+             this, SLOT( renameOption( const QString&, const QString&, const QString& ) ) );
+
 }
 
 int ImageDB::totalCount() const
@@ -262,6 +268,20 @@ void ImageDB::deleteList( const ImageInfoList& list )
 {
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         _images.removeRef( *it );
+    }
+}
+
+void ImageDB::renameOption( const QString& optionGroup, const QString& oldName, const QString& newName )
+{
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        (*it)->renameOption( optionGroup, oldName, newName );
+    }
+}
+
+void ImageDB::deleteOption( const QString& optionGroup, const QString& option )
+{
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        (*it)->removeOption( optionGroup, option );
     }
 }
 

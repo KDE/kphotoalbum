@@ -55,6 +55,10 @@ protected:
     void load( const QString& filename, QDomElement elm );
     int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
 
+protected slots:
+    void renameOption( const QString& optionGroup, const QString& oldName, const QString& newName );
+    void deleteOption( const QString& optionGroup, const QString& option );
+
 private:
     ImageDB( const QDomElement& images, const QDomElement& blockList, bool* newImages );
     static ImageDB* _instance;

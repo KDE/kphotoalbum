@@ -36,6 +36,7 @@ class OptionsDialog :public KDialogBase {
 public:
     OptionsDialog( QWidget* parent, const char* name = 0 );
     virtual void show();
+    int exec();
 
 signals:
     void changed();
@@ -60,6 +61,7 @@ protected:
     void enableDisable( bool );
     void saveOldGroup();
     void selectMembers( const QString& );
+    void slotCategoryChanged( const QString&, bool saveGroups );
 
 
 private:

@@ -1,4 +1,19 @@
 #include "membermap.h"
+#include "options.h"
+#include <qtimer.h>
+
+MemberMap::MemberMap() :QObject(0), _dirty( true )
+{
+    QTimer::singleShot( 0, this, SLOT( init() ) );
+}
+
+void MemberMap::init()
+{
+    connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
+             this, SLOT( deleteOption( const QString&, const QString& ) ) );
+    connect( Options::instance(), SIGNAL( renamedOption( const QString&, const QString&, const QString& ) ),
+             this, SLOT( renameOption( const QString&, const QString&, const QString& ) ) );
+}
 
 /**
    returns the groups directly available from optionGroup (non closure that is)
@@ -144,3 +159,59 @@ void MemberMap::calculate()
     }
     _dirty = false;
 }
+
+void MemberMap::renameGroup( const QString& optionGroup, const QString& oldName, const QString& newName )
+{
+    _dirty = true;
+    QMap<QString, QStringList>& groupMap = _members[optionGroup];
+    groupMap.insert(newName,_members[optionGroup][oldName] );
+    groupMap.remove( oldName );
+    for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
+        QStringList& list = it.data();
+        if ( list.contains( oldName ) ) {
+            list.remove( oldName );
+            list.append( newName );
+        }
+    }
+    Options::instance()->renameOption( optionGroup, oldName, newName );
+}
+
+MemberMap::MemberMap( const MemberMap& other )
+    : QObject( 0 ), _members( other._members ), _dirty( true )
+{
+}
+
+void MemberMap::deleteOption( const QString& optionGroup, const QString& name)
+{
+    _dirty = true;
+    QMap<QString, QStringList>& groupMap = _members[optionGroup];
+    for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
+        QStringList& list = it.data();
+        list.remove( name );
+    }
+}
+
+void MemberMap::renameOption( const QString& optionGroup, const QString& oldName, const QString& newName )
+{
+    _dirty = true;
+    QMap<QString, QStringList>& groupMap = _members[optionGroup];
+    for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
+        QStringList& list = it.data();
+        if (list.contains( oldName ) ) {
+            list.remove( oldName );
+            list.append( newName );
+        }
+    }
+}
+
+
+MemberMap& MemberMap::operator=( const MemberMap& other )
+{
+    if ( this != &other ) {
+        _members = other._members;
+        _dirty = true;
+    }
+    return *this;
+}
+
+

@@ -593,13 +593,9 @@ KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
     _optionList.append( sel );
-    connect( sel, SIGNAL( deleteOption( const QString&, const QString& ) ),
-             this, SIGNAL( deleteOption( const QString&, const QString& ) ) );
-    connect( sel, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
-             this, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ) );
-    connect( sel, SIGNAL( deleteOption( const QString&, const QString& ) ),
+    connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
              this, SLOT( slotDeleteOption( const QString&, const QString& ) ) );
-    connect( sel, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
+    connect( Options::instance(), SIGNAL( renamedOption( const QString& , const QString& , const QString&  ) ),
              this, SLOT( slotRenameOption( const QString& , const QString& , const QString&  ) ) );
 
     dockWidget->setWidget( sel );

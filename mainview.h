@@ -51,8 +51,6 @@ protected slots:
     void slotChanges();
     void slotLimitToSelected();
     void slotExportToHTML();
-    void slotDeleteOption( const QString& optionGroup, const QString& which );
-    void slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
     void slotAutoSave();
     void showThumbNails();
     void showBrowser();

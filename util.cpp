@@ -353,6 +353,9 @@ QString Util::getThumbnailDir( const QString& imageFile ) {
 
 QString Util::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
     QFileInfo info( imageFile );
+    while (angle < 0)
+      angle += 360;
+    angle %= 360;
     return info.dirPath() + QString::fromLatin1("/ThumbNails")+
            QString::fromLatin1("/%1x%2-%3-%4")
                                 .arg(width)

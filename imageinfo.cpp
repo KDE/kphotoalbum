@@ -422,7 +422,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
             else if ( orientation == 3 || orientation == 4 )
                 _angle = 180;
             else if ( orientation == 5 || orientation == 8 )
-                _angle = -90;
+                _angle = 270;
             else if ( orientation == 6 || orientation == 7 )
                 _angle = 90;
         }

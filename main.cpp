@@ -36,7 +36,8 @@ static const KCmdLineOptions options[] =
 
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaBa"), "snapshot 21-06-04",
-                          I18N_NOOP("KDE Image Database"), KAboutData::License_GPL );
+                          I18N_NOOP("KDE Image Database"), KAboutData::License_GPL,
+                          0, 0, "http://ktown.kde.org/kimdaba");
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
 
     aboutData.addCredit( "Will Stephenson", "Developing an Icon for KimDaBa", "will@stevello.free-online.co.uk" );
@@ -48,7 +49,6 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( "Thomas Schwarzgruber", "Patch to sort images in the thumbnail view, plus reading time info out of EXIF images for existing images", "possebaer@gmx.at" );
     aboutData.addCredit( "Marcel Wiesweg", "Patch which speed up loading of thumbnails plus preview in image property dialog.", "marcel.wiesweg@gmx.de" );
     aboutData.addCredit( "Marco Caldarelli", "Patch for making it possible to reread EXIF info using a nice dialog.", "caldarel@yahoo.it" );
-    aboutData.setHomepage( "http://ktown.kde.org/kimdaba" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

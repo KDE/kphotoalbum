@@ -885,7 +885,8 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         ImageInfo* info = 0;
-        QIconViewItem* item = _thumbNailView->findItem( _thumbNailView->mapFromGlobal( QCursor::pos() ) );
+        QIconViewItem* item =
+            _thumbNailView->findItem( _thumbNailView->viewportToContents( _thumbNailView->mapFromGlobal( QCursor::pos() ) ) );
         if ( item )
             info = static_cast<ThumbNail*>(item)->imageInfo();
 

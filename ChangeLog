@@ -1,5 +1,8 @@
 2004-04-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: The wrong image was invoked in the external viewer if
+	the thumbnail view was scrolled.
+
 	* BUGFIX: If description was not generated then other option
 	groups was not printed in HTML exports.
 

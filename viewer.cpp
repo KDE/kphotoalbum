@@ -455,8 +455,8 @@ void Viewer::toggleFullScreen()
 {
     if ( !_showingFullScreen ) {
 
-        KWin::Info info = KWin::info( winId() ); // use windowinfo instead.
-        _oldGeometry = info.frameGeometry;
+        KWin::WindowInfo info( winId(), 0, 0 );
+        _oldGeometry = info.frameGeometry();
 
         QRect r = QApplication::desktop()->screenGeometry( QApplication::desktop()->screenNumber( this ) );
 

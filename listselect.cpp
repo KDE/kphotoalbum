@@ -27,8 +27,8 @@
 #include "imageinfo.h"
 #include <qpopupmenu.h>
 #include <klocale.h>
-#include <klineeditdlg.h>
 #include <kmessagebox.h>
+#include <kinputdialog.h>
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -348,7 +348,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     }
     else if ( which == 2 ) {
         bool ok;
-        QString newStr = KLineEditDlg::getText( i18n("Rename %1").arg( item->text() ), item->text(), &ok, this );
+        QString newStr = KInputDialog::getText( i18n("Rename Item"), i18n("Rename %1").arg( item->text() ), item->text(), &ok, this );
         if ( ok && newStr != item->text() ) {
             int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to rename \"%1\" to \"%2\"?<br>"
                                                               "Doing so will rename \"%3\" "

@@ -23,26 +23,8 @@
 #include <qpixmap.h>
 #include <qobject.h>
 #include <qdom.h>
+#include "membermap.h"
 class ImageConfig;
-
-class MemberMap {
-public:
-    QStringList groups( const QString& optionGroup );
-    void deleteGroup( const QString& optionGroup, const QString& name );
-    QStringList members( const QString& optionGroup, const QString& memberGroup );
-    void setMembers( const QString& optionGroup, const QString& memberGroup, const QStringList& members );
-    QDomElement save( QDomDocument doc );
-    bool isEmpty() const;
-    void load( const QDomElement& );
-    bool isGroup( const QString& optionGroup, const QString& memberGroup );
-    QMap<QString,QStringList> groupMap( const QString& optionGroup );
-
-private:
-    QStringList groupClosure( QMap<QString,QStringList>& resultSoFar, const QString& optionGroup, const QString& group );
-    QStringList memberClosure( const QString& optionGroup, const QString& memberGroup, QStringList& seen );
-    QMap<QString, QMap<QString,QStringList> > _members;
-};
-
 
 class Options :public QObject {
     Q_OBJECT
@@ -89,7 +71,7 @@ public:
     void setIconForOptionGroup( const QString& name, const QString& icon );
 
     // -------------------------------------------------- Member Groups
-    MemberMap memberMap();
+    const MemberMap& memberMap();
     void setMemberMap( const MemberMap& );
 
     // -------------------------------------------------- Options for the Viewer

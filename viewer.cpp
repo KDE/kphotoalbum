@@ -466,32 +466,7 @@ void Viewer::createToolBar()
 
 void Viewer::toggleFullScreen()
 {
-    if ( !_showingFullScreen ) {
-
-#if KDE_IS_VERSION( 3,1,90 )
-        KWin::WindowInfo info( winId(), 0, 0 );
-        _oldGeometry = info.frameGeometry();
-#else
-        KWin::Info info = KWin::info( winId() );
-        _oldGeometry = info.frameGeometry;
-#endif
-
-        QRect r = QApplication::desktop()->screenGeometry( QApplication::desktop()->screenNumber( this ) );
-
-        setFixedSize( r.size() );
-
-        KWin::setType( winId(), NET::Override );
-        KWin::setState( winId(), NET::StaysOnTop );
-
-        setGeometry( r );
-    }
-    else {
-        setMinimumSize(0,0);
-        KWin::setType( winId(), NET::Normal );
-        KWin::clearState( winId(), NET::StaysOnTop );
-        setGeometry( _oldGeometry );
-    }
-    _showingFullScreen = !_showingFullScreen;
+    setShowFullScreen( !_showingFullScreen );
 }
 
 void Viewer::slotStartStopSlideShow()
@@ -549,6 +524,41 @@ void Viewer::editImage()
     ImageInfoList list;
     list.append( currentInfo() );
     MainView::configureImages( list, true );
+}
+
+bool Viewer::showingFullScreen() const
+{
+    return _showingFullScreen;
+}
+
+void Viewer::setShowFullScreen( bool on )
+{
+    if ( on ) {
+
+#if KDE_IS_VERSION( 3,1,90 )
+        KWin::WindowInfo info( winId(), 0, 0 );
+        _oldGeometry = info.frameGeometry();
+#else
+        KWin::Info info = KWin::info( winId() );
+        _oldGeometry = info.frameGeometry;
+#endif
+
+        QRect r = QApplication::desktop()->screenGeometry( QApplication::desktop()->screenNumber( this ) );
+
+        setFixedSize( r.size() );
+
+        KWin::setType( winId(), NET::Override );
+        KWin::setState( winId(), NET::StaysOnTop );
+
+        setGeometry( r );
+    }
+    else {
+        setMinimumSize(0,0);
+        KWin::setType( winId(), NET::Normal );
+        KWin::clearState( winId(), NET::StaysOnTop );
+        setGeometry( _oldGeometry );
+    }
+    _showingFullScreen = on;
 }
 
 #include "viewer.moc"

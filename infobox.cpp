@@ -21,6 +21,7 @@
 #include "viewer.h"
 #include "browser.h"
 #include <qfontmetrics.h>
+#include <qapplication.h>
 InfoBox::InfoBox( Viewer* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )
 {
@@ -36,6 +37,12 @@ void InfoBox::setSource( const QString& which )
     QString optionGroup = p.first;
     QString value = p.second;
     Browser::theBrowser()->load( optionGroup, value );
+
+    QDesktopWidget* desktop = qApp->desktop();
+    if ( desktop->screenNumber( Browser::theBrowser() ) == desktop->screenNumber( _viewer ) &&
+         _viewer->showingFullScreen() ) {
+        _viewer->setShowFullScreen( false );
+    }
 }
 
 void InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap )

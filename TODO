@@ -1,7 +1,6 @@
 - pan does work very well in the viewer
 - drawing on an image doesn't mark it as dirty
 - spell check in the editor
-- go out of full screen if an item from the info box is selected.
 - drops from outside in thumnail view should simply be ignore or even
   warned about
 - dropping in empty space in thumbnails doesn't work.

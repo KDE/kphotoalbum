@@ -41,6 +41,8 @@ public:
     static Viewer* latest();
     void load( const ImageInfoList& list, int index = 0 );
     void infoBoxMove();
+    bool showingFullScreen() const;
+    void setShowFullScreen( bool on );
 
 public slots:
     virtual bool close(bool alsoDelete );

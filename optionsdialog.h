@@ -26,6 +26,7 @@ class QListBox;
 class KIconButton;
 class KPushButton;
 class OptionGroupItem;
+class QCheckBox;
 
 class OptionsDialog :public KDialogBase {
     Q_OBJECT
@@ -57,6 +58,8 @@ private:
     KComboBox* _trustTimeStamps;
     QSpinBox* _autosave;
     QSpinBox* _maxImages;
+    QSpinBox* _width;
+    QSpinBox* _height;
 
     // Option Groups page
     QListBox* _optionGroups;

@@ -66,7 +66,6 @@ void ThumbNailView::showImage( QIconViewItem* item )
                 // but that had the effect that it would always be on top of it.
                 viewer = new Viewer( 0 );
                 viewer->show();
-                viewer->resize(700,500); // PENDING(blackie) Change this please.
             }
             viewer->load( list );
         }

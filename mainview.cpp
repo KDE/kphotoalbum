@@ -267,7 +267,6 @@ void MainView::slotViewSelected( bool reuse )
             // but that had the effect that it would always be on top of it.
             viewer = new Viewer( 0 );
             viewer->show();
-            viewer->resize( 700, 500 ); // PENDING(blackie) change this please
         }
         viewer->load( list2 );
     }

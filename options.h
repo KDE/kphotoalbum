@@ -38,6 +38,9 @@ public:
     void setMaxImages( int );
     int maxImages() const;
 
+    void setViewerSize( int width, int height );
+    QSize viewerSize() const;
+
     // -------------------------------------------------- Options
     void setOption( const QString& key,  const QStringList& value );
     void addOption( const QString& key,  const QString& value );
@@ -121,7 +124,7 @@ private:
     int _thumbSize,  _imageCacheSize;
     TimeStampTrust _tTimeStamps;
     int _autoSave, _maxImages;
-    bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps;
+    bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps, _ensureImageWindowsOnScreen;
     QMap<QString, QStringList> _options;
     QMap<QString,OptionGroupInfo> _optionGroups;
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL;
@@ -129,6 +132,8 @@ private:
     Position _infoBoxPosition;
     bool _showInfoBox, _showDrawings, _showDescription, _showDate;
     QDomElement _configDock;
+
+    QSize _viewerSize;
 };
 
 #endif /* OPTIONS_H */

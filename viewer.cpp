@@ -43,6 +43,7 @@
 #include <kwin.h>
 #include <kglobalsettings.h>
 #include "speeddisplay.h"
+#include <qdesktopwidget.h>
 
 Viewer* Viewer::_latest = 0;
 
@@ -54,6 +55,7 @@ Viewer* Viewer::latest()
 Viewer::Viewer( QWidget* parent, const char* name )
     :QDialog( parent,  name ), _showingFullScreen( false )
 {
+    resize( Options::instance()->viewerSize() );
     setWFlags( WDestructiveClose );
     _latest = this;
 

@@ -10,6 +10,9 @@ Features/Bug for next version
 - thumbnail overview, press Ctrl-f (find), and press escape.
 - go out of full screen if an item from the info box is selected.
 - image viewer should start up being completely on screen
+- if the slideshow is running very fast, then keyevents gets utterly much
+  behind making it almost impossible to stop the slideshow.
+- new images found should make the db dirty.
 
 Features for later versions
 ---------------------------

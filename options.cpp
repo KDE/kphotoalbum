@@ -51,6 +51,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _tTimeStamps = (TimeStampTrust) config.attribute( QString::fromLatin1("trustTimeStamps"),  QString::fromLatin1("0") ).toInt();
     _autoSave = config.attribute( QString::fromLatin1("autoSave"), QString::number( 5 ) ).toInt();
     _maxImages = config.attribute( QString::fromLatin1("maxImages"), QString::number( 100 ) ).toInt();
+    _ensureImageWindowsOnScreen = (bool) config.attribute( QString::fromLatin1( "ensureImageWindowsOnScreen" ), QString::fromLatin1( "1" ) ).toInt();
     _htmlBaseDir = config.attribute( QString::fromLatin1("htmlBaseDir"), QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
     _htmlBaseURL = config.attribute( QString::fromLatin1("htmlBaseURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
     _infoBoxPosition = (Position) config.attribute( QString::fromLatin1("infoBoxPosition"), QString::fromLatin1("0") ).toInt();
@@ -61,6 +62,15 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
 
     Util::readOptions( options, &_options, &_optionGroups );
     _configDock = configWindowSetup;
+
+    // Viewer size
+    QDesktopWidget* desktop = qApp->desktop();
+    QRect rect = desktop->screenGeometry( desktop->primaryScreen() );
+    int width = config.attribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()),
+                                  QString::fromLatin1( "600" ) ).toInt();
+    int height = config.attribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()),
+                                   QString::fromLatin1( "450" ) ).toInt();
+    _viewerSize = QSize( width, height );
 }
 
 void Options::setThumbSize( int w )
@@ -87,6 +97,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("trustTimeStamps"), _tTimeStamps );
     config.setAttribute( QString::fromLatin1("autoSave"), _autoSave );
     config.setAttribute( QString::fromLatin1("maxImages" ), _maxImages );
+    config.setAttribute( QString::fromLatin1( "ensureImageWindowsOnScreen" ), _ensureImageWindowsOnScreen );
     config.setAttribute( QString::fromLatin1("imageDirectory"), _imageDirectory );
     config.setAttribute( QString::fromLatin1("htmlBaseDir"), _htmlBaseDir );
     config.setAttribute( QString::fromLatin1("htmlBaseURL"), _htmlBaseURL );
@@ -101,6 +112,12 @@ void Options::save( QDomElement top )
     QDomElement options = doc.createElement( QString::fromLatin1("options") );
     top.appendChild( options );
     (void) Util::writeOptions( doc, options, _options, &_optionGroups );
+
+    // Viewer size
+    QDesktopWidget* desktop = qApp->desktop();
+    QRect rect = desktop->screenGeometry( desktop->primaryScreen() );
+    config.setAttribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()), _viewerSize.width() );
+    config.setAttribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()), _viewerSize.height() );
 
     // Save window layout for config window
     top.appendChild( _configDock );
@@ -366,6 +383,16 @@ void Options::loadConfigWindowLayout( ImageConfig* config )
 void Options::setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory )
 {
     _instance = new Options( config, options, configWindowSetup, imageDirectory );
+}
+
+void Options::setViewerSize( int width, int height )
+{
+    _viewerSize = QSize(width, height );
+}
+
+QSize Options::viewerSize() const
+{
+    return _viewerSize;
 }
 
 #include "options.moc"

@@ -29,6 +29,7 @@
 #include <qlistbox.h>
 #include <kmessagebox.h>
 #include "imagedb.h"
+#include <qcheckbox.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( Tabbed, i18n( "Options" ), Ok | Cancel, Ok, parent, name )
@@ -75,6 +76,23 @@ void OptionsDialog::createGeneralPage()
     lay6->addWidget( label );
     lay6->addWidget( _autosave );
     lay6->addStretch( 1 );
+
+    // Viewer Size
+    QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
+    label = new QLabel( i18n("Viewer Size: "), top );
+    lay7->addWidget( label );
+
+    _width = new QSpinBox( 100, 5000, 50, top );
+    lay7->addWidget( _width );
+
+    label = new QLabel( QString::fromLatin1("x"), top );
+    lay7->addWidget( label );
+
+    _height = new QSpinBox( 100, 5000, 50, top );
+    lay7->addWidget( _height );
+
+    lay7->addStretch(1);
+
 
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }
@@ -164,6 +182,8 @@ void OptionsDialog::show()
     _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     _autosave->setValue( opt->autoSave() );
     _maxImages->setValue( opt->maxImages() );
+    _width->setValue( opt->viewerSize().width() );
+    _height->setValue( opt->viewerSize().height() );
 
     // Config Groups page
     _optionGroups->clear();
@@ -188,6 +208,7 @@ void OptionsDialog::slotMyOK()
     opt->setTTimeStamps( (Options::TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setAutoSave( _autosave->value() );
     opt->setMaxImages( _maxImages->value() );
+    opt->setViewerSize( _width->value(), _height->value() );
 
     // ----------------------------------------------------------------------
     // Option Groups

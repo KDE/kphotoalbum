@@ -58,8 +58,8 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         QString content = text();
         int cursorPos = cursorPosition();
 
-        // Space, &,|, or ! should result in the current item being inserted
-        if ( _mode == ListSelect::SEARCH && (special || ev->text() == " " ) )  {
+        // &,|, or ! should result in the current item being inserted
+        if ( _mode == ListSelect::SEARCH && special )  {
             QString txt = text().left(cursorPos) + ev->text() + text().mid( cursorPos );
             setText( txt );
             setCursorPosition( cursorPos + ev->text().length() );
@@ -68,7 +68,6 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
             // Select the item in the listbox - not perfect but acceptable for now.
             int start = txt.findRev( QRegExp("[!&|]"), cursorPosition() -2 ) +1;
             QString input = txt.mid( start, cursorPosition()-start-1 );
-            input = input.stripWhiteSpace();
 
             QListBoxItem* item = _listbox->findItem( input );
             if ( item )
@@ -86,7 +85,7 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         QString input = text();
         if ( _mode == ListSelect::SEARCH )  {
             input = input.left( cursorPosition() );
-            start = input.findRev( QRegExp("[!&| ]") ) +1;
+            start = input.findRev( QRegExp("[!&|]") ) +1;
             input = input.mid( start );
         }
 

@@ -428,3 +428,5 @@ void HTMLExportDialog::slotCancelGenerate()
     ImageManager::instance()->stop( this );
     _waitCounter = 0;
 }
+
+#include "htmlexportdialog.moc"

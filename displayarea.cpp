@@ -197,3 +197,5 @@ void DisplayArea::toggleShowDrawings( bool b )
 
 
 
+
+#include "displayarea.moc"

@@ -28,62 +28,167 @@
 #include <kparts/componentfactory.h>
 #include <qevent.h>
 #include <qapplication.h>
+#include <qtextedit.h>
+#include <ksyntaxhighlighter.h>
+#include <qpopupmenu.h>
+#include <qregexp.h>
+#include <kpopupmenu.h>
+#include <ksconfig.h>
+#include <qlabel.h>
+#include <qcombobox.h>
+#include <qfocusdata.h>
 
 Editor::Editor( QWidget* parent, const char* name )
-    :QWidget( parent, name )
+    :QTextEdit( parent, name )
 {
-    _layout = new QVBoxLayout( this );
-    loadPart();
+    _config = new KSpellConfig( this );
+    _config->hide();
+    _highlighter = 0;
+    createHighlighter();
 }
 
-bool Editor::loadPart()
+void Editor::addSuggestion(const QString& text, const QStringList& lst, unsigned int)
 {
-    // Don't ask, this is pure magic ;-)
-    int errCode;
-    _doc = KParts::ComponentFactory::createPartInstanceFromQuery< KTextEditor::Document >( QString::fromLatin1("KTextEditor/Document"), QString::null, this, 0, this, 0,
-                                                                                           QStringList(), &errCode );
+    _replacements[text] = lst;
+}
 
-    if( !_doc ) {
-        QString err;
-        switch ( errCode ) {
-        case KParts::ComponentFactory::ErrNoServiceFound: err = QString::fromLatin1( "NoServiceFound" ); break;
-        case KParts::ComponentFactory::ErrServiceProvidesNoLibrary: err = QString::fromLatin1( "ServiceProvidesNoLibrary" ); break;
-        case KParts::ComponentFactory::ErrNoLibrary: err = QString::fromLatin1( "NoLibrary" ); break;
-        case KParts::ComponentFactory::ErrNoFactory: err = QString::fromLatin1( "NoFactory" ); break;
-        case KParts::ComponentFactory::ErrNoComponent: err = QString::fromLatin1( "NoComponent" ); break;
-        default: err= QString::fromLatin1( "Unknown" );
-        }
+QPopupMenu * Editor::createPopupMenu( const QPoint & pos )
+{
+    QPopupMenu* menu = QTextEdit::createPopupMenu( pos );
+    connect( menu, SIGNAL( activated( int ) ), this, SLOT( itemSelected( int ) ) );
 
-        KMessageBox::error(this,i18n("KimDaba cannot start a text editor component.\n"
-                                     "Please check your KDE installation\n"
-                                     "Error was: %1").arg( err ));
-        _doc=0;
-        _view=0;
-        return false;
+    menu->insertSeparator();
+    menu->setCheckable( true );
+
+    QStringList titles, dicts;
+    fetchDicts( &titles, &dicts );
+    int index = 0;
+    for( QStringList::Iterator it = titles.begin(); it != titles.end(); ++it, ++index ) {
+        menu->insertItem( *it, 1000 + index );
+        menu->setItemChecked( 1000 + index, _config->dictionary() == dicts[index] );
     }
 
-    _view = _doc->createView( this, 0 );
-    _layout->addWidget(static_cast<QWidget *>(_view));
+    return menu;
+}
+
+QString Editor::wordAtPos( const QPoint& pos )
+{
+    int para, firstSpace, lastSpace;
+    if ( !wordBoundaryAtPos( pos, &para, &firstSpace, &lastSpace ) )
+        return QString::null;
+
+    return text(para).mid( firstSpace, lastSpace - firstSpace );
+}
+
+QPopupMenu* Editor::replacementMenu( const QString& word  )
+{
+    _currentWord = word;
+
+    KPopupMenu* menu = new KPopupMenu( this );
+    menu->insertTitle( i18n("Replacements:") );
+    QStringList list = _replacements[word];
+
+    int index = 0;
+    if ( list.count() == 0 )
+        menu->insertItem( i18n( "No suggestions" ) );
+    else {
+        for( QStringList::Iterator it = list.begin(); it != list.end(); ++it, ++index )
+            menu->insertItem( *it, index );
+    }
+    return menu;
+}
+
+void Editor::contentsContextMenuEvent( QContextMenuEvent *e )
+{
+    QPoint pos = viewportToContents(e->pos());
+    QString word = wordAtPos( pos );
+    if ( word.isEmpty() || !_replacements.contains( word ) ) {
+        QTextEdit::contentsContextMenuEvent( e );
+        return;
+    }
+
+    QPopupMenu* menu = replacementMenu( word );
+    int id = menu->exec( e->globalPos() );
+    if ( id == -1 || (int) _replacements[_currentWord].count() == 0 )
+        return;
+
+    QString replacement = _replacements[_currentWord][id];
+    if ( replacement.isEmpty() )
+        return;
+
+    replaceWord( pos, replacement );
+}
+
+void Editor::replaceWord( const QPoint& pos, const QString& replacement )
+{
+    int para, firstSpace, lastSpace;
+    if ( !wordBoundaryAtPos( pos, &para, &firstSpace, &lastSpace ) )
+        return;
+
+    setSelection( para, firstSpace, para, lastSpace );
+    insert( replacement );
+}
+
+bool Editor::wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* end )
+{
+    int charPos;
+    *para = 1;
+
+    //Get the character at the position of the click
+    charPos = charAt( viewportToContents(pos), para );
+    QString paraText = text( *para );
+
+    if( paraText.at(charPos).isSpace() )
+        return false;
+
+    //Get word right clicked on
+    const QRegExp wordBoundary( QString::fromLatin1("[\\s\\W]") );
+    *start = paraText.findRev( wordBoundary, charPos ) + 1;
+    *end = paraText.find( wordBoundary, charPos );
+    if( *end == -1 )
+        *end = paraText.length();
 
     return true;
 }
 
-QString Editor::text() const
+void Editor::itemSelected( int id )
 {
-    KTextEditor::EditInterface* edit = editInterface( _doc );
-    Q_ASSERT( edit );
-    return edit->text();
+    if ( id < 1000 )
+        return;
+
+    QStringList titles, dicts;
+    fetchDicts( &titles, &dicts );
+
+    QString dict = dicts[id-1000];
+    _config->setDictionary( dict );
+    createHighlighter();
 }
 
-void Editor::setText( const QString& txt )
+void Editor::fetchDicts( QStringList* titles, QStringList* dicts )
 {
-    KTextEditor::EditInterface* edit = editInterface( _doc );
-    Q_ASSERT( edit );
-    edit->setText( txt );
+    QComboBox* combo = new QComboBox( (QWidget*) 0 );
+    _config->fillDicts( combo, dicts );
+    for ( int i = 0; i < combo->count(); ++i ) {
+        titles->append( combo->text( i ) );
+    }
+    delete combo;
 }
 
-Editor::~Editor()
+void Editor::createHighlighter()
 {
-    // This is needed to ensure that I don't get a crash on exit.
-    delete _doc;
+    delete _highlighter;
+    _highlighter = new KDictSpellingHighlighter( this, true, true, red, false, black, black, black, black, _config );
+
+    connect( _highlighter, SIGNAL(newSuggestions(const QString&, const QStringList&, unsigned int)),
+             this, SLOT(addSuggestion(const QString&, const QStringList&, unsigned int)) );
+}
+
+void Editor::keyPressEvent( QKeyEvent* event )
+{
+    if ( event->key() == Key_Tab ) {
+        // disable tab key in text edit, and instead give focus on like normal.
+        QWidget::keyPressEvent( event );
+    }
+    else
+        QTextEdit::keyPressEvent( event );
 }

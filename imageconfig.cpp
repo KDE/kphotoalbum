@@ -75,16 +75,16 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     // Image Label
     QHBoxLayout* lay3 = new QHBoxLayout( lay2, 6 );
-    QLabel* label = new QLabel( i18n("Label: " ), top );
+    QLabel* label = new QLabel( i18n("Label: " ), top, "label" );
     lay3->addWidget( label );
-    _imageLabel = new KLineEdit( top );
+    _imageLabel = new KLineEdit( top, "line edit for label" );
     lay3->addWidget( _imageLabel );
 
 
     // Date
     QHBoxLayout* lay4 = new QHBoxLayout( lay2, 6 );
 
-    label = new QLabel( i18n("Date: "), top );
+    label = new QLabel( i18n("Date: "), top, "date label" );
     lay4->addWidget( label );
 
     _startDate = new KDateEdit( top, "date config" );
@@ -780,7 +780,7 @@ void ImageConfig::setupFocus()
     // Iterate through all widgets in our dialog.
     for ( QObjectListIt inputIt( *list ); *inputIt; ++inputIt ) {
         QWidget* current = static_cast<QWidget*>( *inputIt );
-        if ( !current->isShown() || current->focusPolicy() == NoFocus )
+        if ( !current->isVisible() || current->focusPolicy() == NoFocus || current->inherits("QPushButton") )
             continue;
         int cx = current->mapToGlobal( QPoint(0,0) ).x();
         int cy = current->mapToGlobal( QPoint(0,0) ).y();
@@ -808,7 +808,15 @@ void ImageConfig::setupFocus()
     for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
         if ( prev )
             setTabOrder( prev, *orderedIt );
+        else
+            (*orderedIt)->setFocus(); // Give focus to the first widget
+
         prev = *orderedIt;
+#if 0 // Debug code useful to see the chain.
+        int x = prev->mapToGlobal(QPoint(0,0)).x();
+        int y = prev->mapToGlobal(QPoint(0,0)).y();
+        qDebug("%s, %s %d: %d,%d", prev->name(), prev->className(), prev->isVisible(), x, y );
+#endif
     }
     delete list;
 }

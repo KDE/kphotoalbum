@@ -20,28 +20,40 @@
 #define EDITOR_H
 #include <qstring.h>
 #include <qwidget.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
-class QTextEdit;
-class QVBoxLayout;
+#include <qtextedit.h>
 
-class Editor :public QWidget
+class KDictSpellingHighlighter;
+class KSpellConfig;
+class QPoint;
+class QPopupMenu;
+
+class Editor :public QTextEdit
 {
+    Q_OBJECT
+
 public:
     Editor( QWidget* parent, const char* name = 0 );
-    ~Editor();
-
-    QString text() const;
-    void setText( const QString& );
 
 protected:
-    bool loadPart();
+    virtual QPopupMenu* createPopupMenu( const QPoint & pos );
+    QString wordAtPos( const QPoint& pos );
+    QPopupMenu* replacementMenu( const QString& word );
+    virtual void contentsContextMenuEvent( QContextMenuEvent *e );
+    void replaceWord( const QPoint& pos, const QString& replacement );
+    bool wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* end );
+    void fetchDicts( QStringList* titles, QStringList* dicts );
+    void createHighlighter();
+    virtual void keyPressEvent( QKeyEvent* );
+
+protected slots:
+    void addSuggestion(const QString&, const QStringList&, unsigned int);
+    void itemSelected( int );
 
 private:
-    QVBoxLayout* _layout;
-    QTextEdit* _edit;
-    KTextEditor::Document* _doc;
-    KTextEditor::View* _view;
+    QMap<QString,QStringList> _replacements;
+    QString _currentWord;
+    KSpellConfig* _config;
+    KDictSpellingHighlighter* _highlighter;
 };
 
 #endif /* EDITOR_H */

@@ -35,7 +35,6 @@ Features for a soonish version
 
   This is the behaviour of many programs with possibilities to select many 
   items and change some properties (mostly checkboxes)
-- spell check in the editor
 - make it possible to specify dates in other formats in the image config dialog
 - Add a way to mark images using a single key stroke, something like:
   select a bunch of images, start the viewer in the viewer SPACE set some
@@ -51,7 +50,7 @@ Features for a soonish version
 - rework member group config page to use kdlistboxpair instead.
 - In the category editor, only populate the combo boxes with the
 persons/locations/... that are on the current image.
-
+- improve the spelling support, so the user get the benefit of the config dialog.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

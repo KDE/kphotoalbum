@@ -23,12 +23,16 @@ public:
     void setDescription( const QString& );
     QString description() const;
 
-    void setDateFrom( int year,  int month,  int day );
+    void setYearFrom( int year );
+    void setMonthFrom( int month );
+    void setDayFrom( int day );
     int yearFrom() const;
     int monthFrom() const;
     int dayFrom() const;
 
-    void setDateTo( int year,  int month,  int day );
+    void setYearTo( int year );
+    void setMonthTo( int month );
+    void setDayTo( int day );
     int yearTo() const;
     int monthTo() const;
     int dayTo() const;
@@ -37,9 +41,9 @@ public:
     int quality() const;
 
     void setOption( const QString& key,  const QStringList& value );
+    void addOption( const QString& key,  const QStringList& value );
     QStringList optionValue( const QString& key ) const;
 
-    QPixmap pixmap( int width,  int height );
     QDomElement save( QDomDocument& doc );
 
 private:
@@ -53,6 +57,7 @@ private:
 };
 
 typedef QPtrList<ImageInfo> ImageInfoList;
+typedef QPtrListIterator<ImageInfo> ImageInfoListIterator;
 
 #endif /* IMAGEINFO_H */
 

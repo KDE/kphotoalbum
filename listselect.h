@@ -5,6 +5,7 @@
 class QLineEdit;
 class QListBox;
 class QLabel;
+class QCheckBox;
 
 class ListSelect :public QWidget {
     Q_OBJECT
@@ -16,6 +17,8 @@ public:
     void insertStringList( const QStringList& list );
     void setSelection( const QStringList& list );
     QStringList selection();
+    void setShowMergeCheckbox( bool b );
+    bool merge() const;
 
 protected slots:
     void slotReturn();
@@ -25,6 +28,7 @@ private:
     QString _textLabel;
     QLineEdit* _lineEdit;
     QListBox* _listBox;
+    QCheckBox* _merge;
 };
 
 #endif /* LISTSELECT_H */

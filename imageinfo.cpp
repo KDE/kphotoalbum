@@ -74,10 +74,15 @@ QString ImageInfo::description() const
     return _description;
 }
 
-void ImageInfo::setDateFrom( int year, int month, int day )
-{
+void ImageInfo::setYearFrom( int year ) {
     _yearFrom = year;
+}
+
+void ImageInfo::setMonthFrom( int month ) {
     _monthFrom = month;
+}
+
+void ImageInfo::setDayFrom( int day ) {
     _dayFrom = day;
 }
 
@@ -96,10 +101,15 @@ int ImageInfo::dayFrom() const
     return _dayFrom;
 }
 
-void ImageInfo::setDateTo( int year, int month, int day )
-{
+void ImageInfo::setYearTo( int year ) {
     _yearTo = year;
+}
+
+void ImageInfo::setMonthTo( int month ) {
     _monthTo = month;
+}
+
+void ImageInfo::setDayTo( int day ) {
     _dayTo = day;
 }
 
@@ -123,6 +133,11 @@ void ImageInfo::setOption( const QString& key, const QStringList& value )
     _options[key] = value;
 }
 
+void ImageInfo::addOption( const QString& key, const QStringList& value )
+{
+    _options[key] += value;
+}
+
 QStringList ImageInfo::optionValue( const QString& key ) const
 {
     return _options[key];
@@ -141,15 +156,6 @@ int ImageInfo::quality() const
 QString ImageInfo::fileName()
 {
     return _fileName;
-}
-
-QPixmap ImageInfo::pixmap( int width, int height )
-{
-    QImage img( _fileName );
-    QPixmap pix;
-    img = img.smoothScale( width,  height, QImage::ScaleMin );
-    pix.convertFromImage( img );
-    return pix;
 }
 
 QDomElement ImageInfo::save( QDomDocument& doc )

@@ -3,6 +3,7 @@
 #include "imageinfo.h"
 #include "imageconfigui.h"
 #include "imageclient.h"
+#include "listselect.h"
 
 class ImageConfig :public ImageConfigUI, public ImageClient {
 public:
@@ -22,6 +23,9 @@ private:
     ImageInfoList _list;
     int _current;
     QMap<QString, QPixmap> _preloadImageMap;
+    bool _oneAtATime;
+
+    QPtrList< ListSelect > _optionList;
 };
 
 #endif /* IMAGECONFIG_H */

@@ -4,6 +4,7 @@
 #include <qlistbox.h>
 #include <qlabel.h>
 #include "metainfo.h"
+#include <qcheckbox.h>
 
 ListSelect::ListSelect( QWidget* parent, const char* name )
     : QWidget( parent,  name )
@@ -20,6 +21,9 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
     _listBox = new QListBox( this );
     _listBox->setSelectionMode( QListBox::Multi );
     layout->addWidget( _listBox );
+
+    _merge = new QCheckBox( "Merge",  this );
+    layout->addWidget( _merge );
 
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
 }
@@ -79,4 +83,14 @@ QStringList ListSelect::selection()
             list.append( item->text() );
     }
     return list;
+}
+
+void ListSelect::setShowMergeCheckbox( bool b )
+{
+    _merge->setEnabled( b );
+}
+
+bool ListSelect::merge() const
+{
+    return _merge->isChecked();
 }

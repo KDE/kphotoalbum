@@ -2,6 +2,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include "imageinfo.h"
+#include "imagemanager.h"
 
 Viewer::Viewer( QWidget* parent, const char* name )
     :QDialog( parent,  name ), _info(0)
@@ -14,7 +15,7 @@ Viewer::Viewer( QWidget* parent, const char* name )
 void Viewer::load( ImageInfo* info )
 {
     _info = info;
-    _label->setPixmap( info->pixmap( _label->width(),  _label->height() ) );
+    ImageManager::instance()->load( info->fileName(), this, _label->width(),  _label->height(), false );
 }
 
 void Viewer::resizeEvent( QResizeEvent* e )
@@ -22,4 +23,9 @@ void Viewer::resizeEvent( QResizeEvent* e )
     QDialog::resizeEvent( e );
     if ( _info )
         load( _info );
+}
+
+void Viewer::pixmapLoaded( const QString&, int, int, const QPixmap& pixmap )
+{
+    _label->setPixmap( pixmap );
 }

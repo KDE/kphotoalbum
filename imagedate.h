@@ -26,6 +26,7 @@ public:
     ImageDate();
     ImageDate( int day, int month, int year );
     ImageDate( const QDate& );
+    ImageDate( const QDateTime& );
 
     int year() const;
     int month() const;
@@ -42,6 +43,8 @@ public:
     QDate getDate();
     void setDate( const QString& date );
     bool isFuzzyData();
+    QDateTime min() const;
+    QDateTime max() const;
 
     void setYear( int );
     void setMonth( int );
@@ -51,19 +54,25 @@ public:
     void setMinute( int );
     void setSecond( int );
 
+    bool operator<( const ImageDate& other ) const;
     bool operator<=( const ImageDate& other ) const;
     bool isValid() const { return !isNull(); }
     bool isNull() const;
     QString toString( bool withTime = true ) const;
     operator QString() { return toString(); }
-    bool operator==( const ImageDate& other );
+    bool operator==( const ImageDate& other ) const;
     bool operator!=( const ImageDate& other );
     bool hasValidTime() const;
 
     static QString formatRegexp();
 
+protected:
+    void calcMinMax() const;
+
 private:
     int _year, _month, _day, _hour, _minute, _second;
+    mutable QDateTime _min, _max;
+    mutable bool _dirty;
 };
 
 #endif /* IMAGEDATE_H */

@@ -80,6 +80,9 @@
 #include <searchbar.h>
 #include "tokeneditor.h"
 #include "categorycollection.h"
+#include <qlayout.h>
+#include "datebar.h"
+#include "imagedaterangecollection.h"
 
 MainView* MainView::_instance = 0;
 
@@ -97,17 +100,31 @@ MainView::MainView( QWidget* parent, const char* name )
     // Options, and where the main thread crates an instance, we better get it created now.
     connect( Options::instance(), SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 
-    _stack = new QWidgetStack( this, "_stack" );
+    QWidget* top = new QWidget( this, "top" );
+    QVBoxLayout* lay = new QVBoxLayout( top, 6 );
+    setCentralWidget( top );
+
+    _stack = new QWidgetStack( top, "_stack" );
+    lay->addWidget( _stack, 1 );
+
+    _dateBar = new DateBar( top, "datebar" );
+    lay->addWidget( _dateBar );
+
+    QFrame* line = new QFrame( top );
+    line->setFrameStyle( QFrame::HLine | QFrame::Plain );
+    line->setLineWidth(1);
+    lay->addWidget( line );
+
     _browser = new Browser( _stack, "browser" );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
+    connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar() ) );
     _thumbNailView = new ThumbNailView( _stack, "_thumbNailView" );
 
     connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
 
     _stack->addWidget( _browser );
     _stack->addWidget( _thumbNailView );
-    setCentralWidget( _stack );
     _stack->raiseWidget( _browser );
 
     _optionsDialog = 0;
@@ -1377,6 +1394,11 @@ void MainView::slotRemoveTokens()
     if ( !_tokenEditor )
         _tokenEditor = new TokenEditor( this, "token editor" );
     _tokenEditor->show();
+}
+
+void MainView::updateDateBar()
+{
+    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
 }
 
 #include "mainview.moc"

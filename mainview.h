@@ -18,6 +18,7 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
+class DateBar;
 class TokenEditor;
 class OptionsDialog;
 class ImageConfig;
@@ -107,6 +108,7 @@ protected slots:
     void slotSelectionChanged();
     void plug();
     void slotRemoveTokens();
+    void updateDateBar();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -171,6 +173,7 @@ private:
     KIPI::PluginLoader* _pluginLoader;
 #endif
     TokenEditor* _tokenEditor;
+    DateBar* _dateBar;
 };
 
 

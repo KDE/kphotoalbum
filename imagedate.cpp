@@ -27,11 +27,27 @@ ImageDate::ImageDate( int day, int month, int year )
     _day = day;
     _month = month;
     _year = year;
+    _hour = -1;
+    _minute = -1;
+    _second = -1;
+    _dirty = true;
 }
 
 ImageDate::ImageDate( const QDate& date )
 {
     setDate( date );
+    _hour = -1;
+    _minute = -1;
+    _second = -1;
+    _dirty = true;
+}
+
+ImageDate::ImageDate( const QDateTime& date)
+{
+    setDate( date.date() );
+    setTime( date.time() );
+    Q_ASSERT( date.time().isValid() );
+    _dirty = true;
 }
 
 int ImageDate::year() const
@@ -67,31 +83,39 @@ int ImageDate::second() const
 void ImageDate::setYear( int year )
 {
     _year = year;
+    _dirty = true;
 }
 
 void ImageDate::setMonth( int month )
 {
     _month = month;
+    _dirty = true;
 }
 
 void ImageDate::setDay( int day )
 {
     _day = day;
+    _dirty = true;
 }
 
 void ImageDate::setHour( int hour )
 {
+    Q_ASSERT( hour >= -1 && hour <= 24 );
     _hour = hour;
+    _dirty = true;
 }
 
 void ImageDate::setMinute( int minute )
 {
+    Q_ASSERT( minute >= -1 && minute <= 59 );
     _minute = minute;
+    _dirty = true;
 }
 
 void ImageDate::setSecond( int second )
 {
     _second = second;
+    _dirty = true;
 }
 
 
@@ -164,7 +188,7 @@ QString ImageDate::toString( bool withTime ) const
     return result;
 }
 
-bool ImageDate::operator==( const ImageDate& other )
+bool ImageDate::operator==( const ImageDate& other ) const
 {
     return
         ( _year == other._year &&
@@ -192,11 +216,12 @@ void ImageDate::setTime( const QTime& time )
     _hour = time.hour();
     _minute = time.minute();
     _second = time.second();
-
+    _dirty = true;
 }
 
 QTime ImageDate::getTime()
 {
+    // PENDING(blackie) Do I need this anymore? Replace with min() or max()
     if ( _hour == -1 || _minute == -1 || _second == -1 )
         return QTime();
     else
@@ -210,6 +235,7 @@ bool ImageDate::hasValidTime() const
 
 QDate ImageDate::getDate()
 {
+    // PENDING(blackie) Do I need this anymore? Replace with min() or max()
     int day = 1;
     int month = 1;
     int year = 1970;
@@ -274,6 +300,7 @@ void ImageDate::setDate( const QString& date )
                 _month = month.toInt();
         }
     }
+    _dirty = true;
 }
 
 QString ImageDate::formatRegexp()
@@ -285,3 +312,47 @@ bool ImageDate::isFuzzyData()
 {
     return _year == 0 || _month == 0 || _day == 0;
 }
+
+QDateTime ImageDate::min() const
+{
+    if ( _dirty )
+        calcMinMax();
+
+    return _min;
+}
+
+QDateTime ImageDate::max() const
+{
+    if ( _dirty )
+        calcMinMax();
+
+    return _max;
+}
+
+void ImageDate::calcMinMax() const
+{
+    Q_ASSERT( _hour >= -1 && _hour <= 24 );
+
+    _min = QDateTime( QDate( _year, _month == 0 ? 1 : _month, _day == 0 ? 1 : _day ),
+                      QTime( _hour == -1 ? 0 : _hour, _minute == -1 ? 0 : _minute, _second == -1 ? 0 : _second ) );
+
+
+    int year = ( _year == 0 ? 3000 : _year );
+    int month = (_month == 0 ? 12 : _month );
+    int day;
+
+    if ( _day == 0 )
+        day = QDate( year, month, 1 ).daysInMonth();
+    else
+        day = _day;
+
+    _max = QDateTime( QDate( year, month, day ),
+                      QTime( _hour == -1 ? 23 : _hour, _minute == -1 ? 59 : _minute, _second == -1 ? 59 : _second ) );
+    _dirty = false;
+}
+
+bool ImageDate::operator<( const ImageDate& other ) const
+{
+    return min() < other.min();
+}
+

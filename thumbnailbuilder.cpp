@@ -42,9 +42,9 @@ void ThumbnailBuilder::generateNext()
     setProgress( _index );
     int size = Options::instance()->thumbSize();
     _infoMap.insert( info->fileName(), info );
-    ImageRequest request( info->fileName(),  QSize(size, size ), info->angle(), this );
-    request.setCache();
-    request.setPriority();
+    ImageRequest* request = new ImageRequest( info->fileName(),  QSize(size, size ), info->angle(), this );
+    request->setCache();
+    request->setPriority();
     ImageManager::instance()->load( request );
 }
 

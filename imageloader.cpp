@@ -49,15 +49,15 @@ ImageLoader::ImageLoader( QWaitCondition* sleeper )
 void ImageLoader::run()
 {
     while ( true ) {
-        ImageRequest li = ImageManager::instance()->next();
+        ImageRequest* request = ImageManager::instance()->next();
 
-        if ( !li.isNull() ) {
+        if ( request ) {
             bool ok = false;
             QImage img;
             bool imageLoaded = false;
 
-            QString cacheDir =  Util::getThumbnailDir( li.fileName() );
-            QString cacheFile = Util::getThumbnailFile( li.fileName(), li.width(), li.height(), li.angle() );
+            QString cacheDir =  Util::getThumbnailDir( request->fileName() );
+            QString cacheFile = Util::getThumbnailFile( request->fileName(), request->width(), request->height(), request->angle() );
             // Try to load thumbernail from cache
             if ( QFileInfo( cacheFile ).exists() ) {
                 if ( img.load( cacheFile ) )  {
@@ -66,41 +66,41 @@ void ImageLoader::run()
                 }
             }
 
-            if ( !imageLoaded && QFile( li.fileName() ).exists() ) {
-                if (Util::isJPEG(li.fileName())) {
+            if ( !imageLoaded && QFile( request->fileName() ).exists() ) {
+                if (Util::isJPEG(request->fileName())) {
                     QSize fullSize;
-                    ok = Util::loadJPEG(&img, li.fileName(),  &fullSize, li.width(), li.height());
+                    ok = Util::loadJPEG(&img, request->fileName(),  &fullSize, request->width(), request->height());
                     if (ok == true)
-                        li.setFullSize( fullSize );
-                } else if( Util::isCRW(li.fileName())) {
+                        request->setFullSize( fullSize );
+                } else if( Util::isCRW(request->fileName())) {
                     QSize fullSize;
-                    ok = Util::loadCRW(&img, li.fileName(),  &fullSize, li.width(), li.height());
+                    ok = Util::loadCRW(&img, request->fileName(),  &fullSize, request->width(), request->height());
                     if (ok)
-                        li.setFullSize( fullSize );
+                        request->setFullSize( fullSize );
                 } else {
-                    ok = img.load( li.fileName() );
+                    ok = img.load( request->fileName() );
                     if (ok)
-                        li.setFullSize( img.size() );
+                        request->setFullSize( img.size() );
                 }
 
                 if (ok) {
-                    if ( li.angle() != 0 )  {
+                    if ( request->angle() != 0 )  {
                         QWMatrix matrix;
-                        matrix.rotate( li.angle() );
+                        matrix.rotate( request->angle() );
                         img = img.xForm( matrix );
-                        int angle = (li.angle() + 360)%360;
+                        int angle = (request->angle() + 360)%360;
                         Q_ASSERT( angle >= 0 && angle <= 360 );
                         if ( angle == 90 || angle == 270 )
-                            li.setFullSize( QSize( li.fullSize().height(), li.fullSize().width() ) );
+                            request->setFullSize( QSize( request->fullSize().height(), request->fullSize().width() ) );
 
                     }
 
                     // If we are looking for a scaled version, then scale
-                    if ( li.width() != -1 && li.height() != -1 )
-                        img = img.smoothScale( li.width(), li.height(), QImage::ScaleMin );
+                    if ( request->width() != -1 && request->height() != -1 )
+                        img = img.smoothScale( request->width(), request->height(), QImage::ScaleMin );
 
                     // Save thumbnail to disk
-                    if ( li.cache() ) {
+                    if ( request->cache() ) {
                         if ( ! QDir( cacheDir ).exists() ) {
                             QDir().mkdir( cacheDir, true );
                         }
@@ -111,8 +111,8 @@ void ImageLoader::run()
                 imageLoaded = true;
             }
 
-            li.setLoadedOK( ok );
-            ImageEvent* iew = new ImageEvent( li, img );
+            request->setLoadedOK( ok );
+            ImageEvent* iew = new ImageEvent( request, img );
             QApplication::postEvent( ImageManager::instance(),  iew );
         }
         else

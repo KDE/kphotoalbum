@@ -7,6 +7,7 @@
 
 class ImageRequest {
 public:
+    virtual ~ImageRequest() {}
     ImageRequest();
     ImageRequest( const QString& fileName, const QSize& size, int angle, ImageClient* client);
 
@@ -30,6 +31,8 @@ public:
 
     bool operator<( const ImageRequest& other ) const;
     bool operator==( const ImageRequest& other ) const;
+
+    virtual bool stillNeeded() const;
 
 private:
     bool _null;

@@ -34,6 +34,7 @@
 #include <math.h>
 #include <qpixmapcache.h>
 #include "imageinfolist.h"
+#include "thumbnailrequest.h"
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
     :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent ), _highlightItem( false )
@@ -248,8 +249,8 @@ QPixmap* ThumbNail::pixmap() const
     }
 
     int size = Options::instance()->thumbSize();
-    ImageRequest request( _imageInfo->fileName(), QSize( size, size ), _imageInfo->angle(), const_cast<ThumbNail*>( this ) );
-    request.setCache();
+    ThumbnailRequest* request = new ThumbnailRequest( _imageInfo->fileName(), QSize( size, size ), _imageInfo->angle(), const_cast<ThumbNail*>( this ) );
+    request->setCache();
     ImageManager::instance()->load( request );
     return emptyPixmap();
 }

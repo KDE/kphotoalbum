@@ -205,8 +205,8 @@ void DisplayArea::setImage( ImageInfo* info, bool forward )
         _cachedView = true;
     }
     else {
-        ImageRequest request( info->fileName(), QSize( -1, -1 ), info->angle(), this );
-        request.setPriority();
+        ImageRequest* request = new ImageRequest( info->fileName(), QSize( -1, -1 ), info->angle(), this );
+        request->setPriority();
         ImageManager::instance()->load( request );
         busy();
         _cachedView = false;
@@ -222,8 +222,8 @@ void DisplayArea::resizeEvent( QResizeEvent* )
     if ( _info ) {
         cropAndScale();
         if ( _cachedView ) {
-            ImageRequest request( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
-            request.setPriority();
+            ImageRequest* request = new ImageRequest( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
+            request->setPriority();
             ImageManager::instance()->load( request );
         }
     }
@@ -318,8 +318,8 @@ void DisplayArea::zoom( QPoint p1, QPoint p2 )
     if ( _cachedView ) {
         // This was a cached version, which means not full size, lets load
         // the real size now.
-        ImageRequest request( _info->fileName(), QSize(-1,-1), _info->angle(), this );
-        request.setPriority();
+        ImageRequest* request = new ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
+        request->setPriority();
         ImageManager::instance()->load( request );
         busy();
         _reloadImageInProgress = true;
@@ -506,7 +506,7 @@ void DisplayArea::updatePreload()
             }
         }
         else {
-            ImageRequest request( info->fileName(), QSize(width(), height()), info->angle(), this );
+            ImageRequest* request = new ImageRequest( info->fileName(), QSize(width(), height()), info->angle(), this );
             ImageManager::instance()->load( request );
 
             if ( cacheFull ) {

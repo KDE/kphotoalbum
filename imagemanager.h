@@ -29,17 +29,18 @@
 #include <qpixmap.h>
 #include <qcache.h>
 #include "imagerequest.h"
+#include <qmutex.h>
 
 class ImageClient;
 
 class ImageEvent :public QCustomEvent {
 public:
-    ImageEvent( ImageRequest info, const QImage& image );
-    ImageRequest loadInfo();
+    ImageEvent( ImageRequest* request, const QImage& image );
+    ImageRequest* loadInfo();
     QImage image();
 
 private:
-    ImageRequest _info;
+    ImageRequest* _request;
     QDeepCopy<QImage> _image;
 };
 
@@ -50,12 +51,8 @@ class ImageManager :public QObject {
 public:
     enum StopAction { StopAll, StopOnlyNonPriorityLoads };
 
-#ifdef TEMPORARILY_REMOVED
-    void load( const QString& fileName, ImageClient* client, int angle, int width, int height,
-               bool cache, bool priority );
-#endif
-    void load( const ImageRequest& request );
-    ImageRequest next();
+    void load(  ImageRequest* request );
+    ImageRequest* next();
     static ImageManager* instance();
     void stop( ImageClient*, StopAction action = StopAll );
 
@@ -67,11 +64,11 @@ private:
     void init();
     static ImageManager* _instance;
 
-    QValueList<ImageRequest> _loadList;
-    QWaitCondition* _sleepers;
-    QMutex* _lock;
-    QMap<ImageRequest, ImageClient*> _clientMap;
-    ImageRequest _currentLoading;
+    QValueList<ImageRequest*> _loadList;
+    QWaitCondition _sleepers;
+    QMutex _lock;
+    QMap<ImageRequest*, ImageClient*> _clientMap;
+    ImageRequest* _currentLoading;
 };
 
 #endif /* IMAGEMANAGER_H */

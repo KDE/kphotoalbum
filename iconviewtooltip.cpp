@@ -169,9 +169,9 @@ bool IconViewToolTip::loadImage( const ImageInfo& info )
     int size = Options::instance()->previewSize();
     if ( size != 0 ) {
         if ( !_loadedImages.contains( info.fileName() ) ) {
-            ImageRequest request( info.fileName(), QSize( size, size ), info.angle(), this );
-            request.setCache();
-            request.setPriority();
+            ImageRequest* request = new ImageRequest( info.fileName(), QSize( size, size ), info.angle(), this );
+            request->setCache();
+            request->setPriority();
             ImageManager::instance()->load( request );
             QMimeSourceFactory::defaultFactory()->setImage( info.fileName(), QImage() );
             _loadedImages.append( info.fileName() );

@@ -104,3 +104,9 @@ void ImageRequest::setPriority( bool b )
 {
     _priority = b;
 }
+
+bool ImageRequest::stillNeeded() const
+{
+    return true;
+}
+

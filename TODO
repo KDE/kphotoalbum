@@ -52,6 +52,8 @@ Features for a soonish version
   specific to recognize Anne Helene)
   If it doesn´t work, pick the first picture with Ann Helen
   If it doesn´t work, the default KDE icon, just like today.
+- Make it possible to use the thumbnail standard
+  (http://jens.triq.net/thumbnail-spec/) 
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

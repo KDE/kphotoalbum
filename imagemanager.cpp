@@ -85,6 +85,7 @@ void ImageManager::customEvent( QCustomEvent* ev )
             // If it is not in the map, then it has been deleted since the request.
             ImageClient* client = _clientMap[li];
             client->pixmapLoaded( li.fileName(), li.width(), li.height(), li.angle(), pixmap );
+            _clientMap.remove(li);
         }
     }
 }
@@ -134,7 +135,7 @@ bool LoadInfo::operator<( const LoadInfo& other ) const
     LoadInfo& o = const_cast<LoadInfo&>( other );
     LoadInfo& t = const_cast<LoadInfo&>( *this );
 
-    if ( (QString) t._fileName != (QString)o._fileName )
+    if ( (QString&) t._fileName != (QString&)o._fileName )
         return t._fileName < o._fileName;
     else if ( t._width != o._width )
         return t._width < o._width;

@@ -112,6 +112,10 @@ void Viewer::load( const ImageInfoList& list, int index )
 
 void Viewer::pixmapLoaded( const QString&, int, int, int, const QPixmap& pixmap )
 {
+    // Erase
+    QPainter p( _label );
+    p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
+
     _pixmap = pixmap;
     setDisplayedPixmap();
 }
@@ -124,12 +128,17 @@ void Viewer::show()
 
 void Viewer::load()
 {
+    // Erase
+    QPainter p( _label );
+    p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
+
     _label->setText( "Loading..." );
     ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), _label->width(),  _label->height(), false );
 }
 
 void Viewer::setDisplayedPixmap()
 {
+
     QPixmap pixmap = _pixmap;
     if ( pixmap.isNull() )
         return;

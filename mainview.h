@@ -18,6 +18,7 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
+class TokenEditor;
 class OptionsDialog;
 class ImageConfig;
 class QWidgetStack;
@@ -104,6 +105,7 @@ protected slots:
     void slotImagesChanged( const KURL::List& );
     void slotSelectionChanged();
     void plug();
+    void slotRemoveTokens();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -167,6 +169,7 @@ private:
 #ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
 #endif
+    TokenEditor* _tokenEditor;
 };
 
 

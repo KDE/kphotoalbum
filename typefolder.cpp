@@ -29,6 +29,8 @@ TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info,
     QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
     int count = map.size();
     setCount( count );
+    if ( count <= 1 )
+        setEnabled( false );
 }
 
 QPixmap TypeFolder::pixmap()

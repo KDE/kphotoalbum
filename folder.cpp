@@ -26,7 +26,7 @@
 int Folder::_idCount = 0;
 
 Folder::Folder( const ImageSearchInfo& info, Browser* parent )
-    : _index(_idCount++), _browser( parent ), _info( info )
+    : _index(_idCount++), _browser( parent ), _info( info ), _enabled( true )
 {
 }
 
@@ -81,4 +81,9 @@ QString FolderAction::title() const
 QString FolderAction::optionGroup() const
 {
     return QString::null;
+}
+
+void Folder::setEnabled( bool b )
+{
+    _enabled = b;
 }

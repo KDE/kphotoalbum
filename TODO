@@ -11,6 +11,7 @@ BUGS To be handled soonish
   are found.
 
 - Config window layout should be saved when a new tab as been created.
+- the tips of the day screen only shows up randomly.
 
 =======================
 BUGS of less importance
@@ -49,9 +50,8 @@ Features for a soonish version
   (l) - image is from Las Vegas.
   I doubt that extension will be very useful tho.
 - rework member group config page to use kdlistboxpair instead.
-- In the category editor, only populate the combo boxes with the
-persons/locations/... that are on the current image.
 - improve the spelling support, so the user get the benefit of the config dialog.
+- Adding blinking icons to the splash screen.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -1,3 +1,17 @@
+2004-12-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* In the viewer moved away every default key binding on lettered
+	keys. The changes are:
+	Quit: q -> escape
+	Run Slideshow: s -> ctrl + r (now this is the same as from the thumbnail viewer)
+	Show Infobox: i -> Ctrl + i
+	Show drawings on images: d -> ctrl + d
+
+	* In the viewer it is now possible to press a key to set a token,
+	these tokens can the be used during browsing. This makes it easy
+	to mark all images for say printing, by simply setting a token on
+	each of them, and the later browsing for that token.
+
 2004-11-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Only items from the current image are shown in the image

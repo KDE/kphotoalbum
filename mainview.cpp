@@ -78,13 +78,14 @@
 #include <qmenubar.h>
 #include <kmenubar.h>
 #include <searchbar.h>
+#include "tokeneditor.h"
 
 MainView* MainView::_instance = 0;
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _autoSaveDirty( false ),
      _deleteDialog( 0 ), _readInfoDialog( 0 ), _dirtyIndicator(0),
-     _htmlDialog(0)
+     _htmlDialog(0), _tokenEditor( 0 )
 {
     MySplashScreen::instance()->message( i18n("Loading Database") );
     _instance = this;
@@ -645,6 +646,7 @@ void MainView::setupMenuBar()
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     _deleteSelected = new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
+    KAction* removeTokens = new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
     _configOneAtATime = new KAction( i18n( "Configure Images &One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
     _configAllSimultaniously = new KAction( i18n( "Configure &All Images Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
@@ -1366,6 +1368,13 @@ void MainView::resizeEvent( QResizeEvent* e )
 {
     if ( Options::ready() )
         Options::instance()->setWindowSize( Options::MainWindow, e->size() );
+}
+
+void MainView::slotRemoveTokens()
+{
+    if ( !_tokenEditor )
+        _tokenEditor = new TokenEditor( this, "token editor" );
+    _tokenEditor->show();
 }
 
 #include "mainview.moc"

@@ -38,6 +38,7 @@ public:
     virtual int count() { return _count; }
     virtual int compare( Folder* other, int col, bool asc ) const;
     virtual QString countLabel() const = 0;
+    void setEnabled( bool );
 
     friend class TypeFolder;
     friend class ImageFolder;
@@ -47,6 +48,7 @@ public:
     Browser* _browser;
     ImageSearchInfo _info;
     int _count;
+    bool _enabled;
 };
 
 class FolderAction

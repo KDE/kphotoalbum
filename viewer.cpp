@@ -92,6 +92,8 @@ Viewer::Viewer( const char* name )
     _slideShowPause = Options::instance()->slideShowInterval() * 1000;
     connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNext() ) );
     _speedDisplay = new SpeedDisplay( this );
+
+    setFocusPolicy( StrongFocus );
 }
 
 
@@ -115,7 +117,7 @@ void Viewer::setupContextMenu()
 
     _popup->insertSeparator();
 
-    _startStopSlideShow = new KAction( i18n("Run Slideshow"), Key_S, this, SLOT( slotStartStopSlideShow() ),
+    _startStopSlideShow = new KAction( i18n("Run Slideshow"), CTRL+Key_R, this, SLOT( slotStartStopSlideShow() ),
                                        _actions, "viewer-start-stop-slideshow" );
     _startStopSlideShow->plug( _popup );
 
@@ -155,12 +157,12 @@ void Viewer::setupContextMenu()
 
     _popup->insertSeparator();
 
-    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), Key_I, _actions, "viewer-show-infobox" );
+    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Key_I, _actions, "viewer-show-infobox" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showInfoBox() );
 
-    taction = new KToggleAction( i18n("Show Drawing"), Key_D, _actions, "viewer-show-drawing");
+    taction = new KToggleAction( i18n("Show Drawing"), CTRL+Key_D, _actions, "viewer-show-drawing");
     connect( taction, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showDrawings() );
@@ -237,7 +239,7 @@ void Viewer::setupContextMenu()
                           _actions, "viewer-show-category-editor" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Close"), Key_Q, this, SLOT( close() ), _actions, "viewer-close" );
+    action = new KAction( i18n("Close"), Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
     action->plug( _popup );
     _actions->readShortcutSettings();
 }
@@ -699,6 +701,19 @@ void Viewer::show( bool slideShow )
 KActionCollection* Viewer::actions()
 {
     return _actions;
+}
+
+void Viewer::keyPressEvent( QKeyEvent* event )
+{
+    if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
+        QString token = event->text().upper().left(1);
+        if ( currentInfo()->hasOption( QString::fromLatin1("Tokens"), token ) )
+            currentInfo()->removeOption( QString::fromLatin1("Tokens"), token );
+        else
+            currentInfo()->addOption( QString::fromLatin1("Tokens"), token );
+        updateInfoBox();
+    }
+    QWidget::keyPressEvent( event );
 }
 
 #include "viewer.moc"

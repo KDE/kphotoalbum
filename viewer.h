@@ -56,6 +56,8 @@ public slots:
 protected:
     virtual void contextMenuEvent ( QContextMenuEvent * e );
     virtual void resizeEvent( QResizeEvent* );
+    virtual void keyPressEvent( QKeyEvent* );
+
     void moveInfoBox();
     void createToolBar();
     void setAsWallpaper(int mode);

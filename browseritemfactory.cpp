@@ -37,7 +37,8 @@ BrowserListViewItemFactory::BrowserListViewItemFactory( QListView* view )
 
 void BrowserListViewItemFactory::createItem( Folder* folder )
 {
-    new BrowserListItem( _view, folder );
+    BrowserListItem* item = new BrowserListItem( _view, folder );
+    item->setEnabled( folder->_enabled );
 }
 
 BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )

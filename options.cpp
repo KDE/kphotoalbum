@@ -78,6 +78,9 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _viewerCacheSize = config.attribute( QString::fromLatin1( "viewerCacheSize" ), QString::fromLatin1( "25" )  ).toInt();
     _searchForImagesOnStartup = (bool) config.attribute( QString::fromLatin1( "searchForImagesOnStartup" ),
                                                          QString::fromLatin1( "1" ) ).toInt();
+    _autoShowThumbnailView = (bool) config.attribute( QString::fromLatin1( "autoShowThumbnailView" ),
+                                                      QString::fromLatin1( "0" ) ).toInt();
+
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -176,6 +179,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "thumbNailBackgroundColor" ), _thumbNailBackgroundColor.name() );
     config.setAttribute( QString::fromLatin1( "viewerCacheSize" ), _viewerCacheSize );
     config.setAttribute( QString::fromLatin1( "searchForImagesOnStartup" ), _searchForImagesOnStartup );
+    config.setAttribute( QString::fromLatin1( "autoShowThumbnailView" ), _autoShowThumbnailView );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -842,7 +846,7 @@ void Options::setViewerCacheSize( int size )
     }
 }
 
-bool Options::searchForImagesOnStartup()
+bool Options::searchForImagesOnStartup() const
 {
     return _searchForImagesOnStartup;
 }
@@ -851,6 +855,19 @@ void Options::setSearchForImagesOnStartup(bool b)
 {
     if ( b != _searchForImagesOnStartup ) {
         _searchForImagesOnStartup = b;
+        emit changed();
+    }
+}
+
+bool Options::autoShowThumbnailView() const
+{
+    return _autoShowThumbnailView;
+}
+
+void Options::setAutoShowThumbnailView( bool b )
+{
+    if ( b != _autoShowThumbnailView ) {
+        _autoShowThumbnailView = b;
         emit changed();
     }
 }

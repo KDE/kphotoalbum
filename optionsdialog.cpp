@@ -103,7 +103,6 @@ void OptionsDialog::createGeneralPage()
     lay7->addWidget( _albumCategory );
     _albumCategory->insertStringList( Options::instance()->optionGroups() );
 
-
     lay1->addStretch( 1 );
 
 
@@ -198,6 +197,10 @@ void OptionsDialog::createThumbNailPage()
     lay5->addWidget( _backgroundColor );
     lay5->addStretch( 1 );
 
+    // Auto Show Thumbnail view
+    _autoShowThumbnailView = new QCheckBox( i18n("Show thumbnail view when images matches gets below a single page"), top );
+    lay1->addWidget( _autoShowThumbnailView );
+
     lay1->addStretch(1);
 
     // Whats This
@@ -223,6 +226,13 @@ void OptionsDialog::createThumbNailPage()
     txt = i18n("<qt>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view</qt>");
     QWhatsThis::add( _displayLabels, txt );
+
+    txt = i18n("<qt><p>If you select this option, then the thumbnail view will be shown, when the amount of images you've browsed to "
+               "gets below the amount of images that can be shown in a single view. The alternative is to continue showing the "
+               "browser till you press <i>Show Images</i>.<p>"
+               "<p>With this option on, you can chose to see the browser by pressing ctrl+mouse button.<br>"
+               "With this option off, you can chose to see the images by pressing ctrl+mouse button.</p></qt>");
+    QWhatsThis::add( _autoShowThumbnailView, txt );
 }
 
 
@@ -340,6 +350,7 @@ void OptionsDialog::show()
     _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );
+    _autoShowThumbnailView->setChecked( opt->autoShowThumbnailView() );
 
     // Config Groups page
     _optionGroups->clear();
@@ -380,6 +391,7 @@ void OptionsDialog::slotMyOK()
     opt->setViewerCacheSize( _cacheSize->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
+    opt->setAutoShowThumbnailView( _autoShowThumbnailView->isChecked() );
 
     // ----------------------------------------------------------------------
     // Option Groups

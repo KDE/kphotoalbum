@@ -88,6 +88,7 @@ private:
     QCheckBox* _displayLabels;
     KColorButton* _backgroundColor;
     QCheckBox* _searchForImagesOnStartup;
+    QCheckBox* _autoShowThumbnailView;
 
     // Option Groups page
     QListBox* _optionGroups;

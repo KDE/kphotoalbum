@@ -209,11 +209,15 @@ void Browser::load( const QString& optionGroup, const QString& value )
     ImageSearchInfo info;
     info.addAnd( optionGroup, value );
     FolderAction* a;
-    if (  Util::ctrlKeyDown() && ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
+
+    bool loadImages = ( Util::ctrlKeyDown() && !Options::instance()->autoShowThumbnailView() ) ||
+                      ( !Util::ctrlKeyDown() && Options::instance()->autoShowThumbnailView()
+                        && ImageDB::instance()->count( info ) < Options::instance()->maxImages() );
+
+    if ( loadImages )
         a = new ImageFolderAction( info, -1, -1, this );
-    else {
+    else
         a = new ContentFolderAction( optionGroup, value, info, this );
-    }
 
     addItem( a );
     a->action( _currentFactory );

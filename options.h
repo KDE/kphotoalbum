@@ -189,8 +189,11 @@ public:
     int viewerCacheSize() const;
     void setViewerCacheSize( int size );
 
-    bool searchForImagesOnStartup();
+    bool searchForImagesOnStartup() const;
     void setSearchForImagesOnStartup(bool b);
+
+    bool autoShowThumbnailView() const;
+    void setAutoShowThumbnailView( bool b );
 
 signals:
     void optionGroupsChanged();
@@ -234,6 +237,7 @@ private:
     QMap<WindowType, QSize> _windowSizes;
     int _viewerCacheSize;
     bool _searchForImagesOnStartup;
+    bool _autoShowThumbnailView;
 };
 
 #endif /* OPTIONS_H */

@@ -47,6 +47,8 @@ public:
     static MainView* theMainView();
     ImageInfoList selected();
     ImageInfoList currentView();
+    ImageSearchInfo currentContext();
+    QString currentBrowseCategory() const;
 
 protected slots:
     bool slotExit();

@@ -11,8 +11,8 @@ MyImageCollection::MyImageCollection( Type tp )
 
 QString MyImageCollection::name()
 {
-    qDebug("NYI: MyImageCollection::name()" );
-    return QString::fromLatin1( "a name" ); // PENDING(blackie) implement
+    // This doesn't really make much sence for selection and current album.
+    return QString::null;
 }
 
 QString MyImageCollection::comment()
@@ -26,11 +26,12 @@ KURL::List MyImageCollection::images()
     case CurrentAlbum:
         return imageListToUrlList( ImageDB::instance()->currentContext( false ) );
 
-    case CurrentView:
-        return imageListToUrlList( MainView::theMainView()->currentView() );
-
     case CurrentSelection:
         return imageListToUrlList( MainView::theMainView()->selected() );
+
+    case SubClass:
+        qFatal( "The subclass should implement images()" );
+        return KURL::List();
     }
     return KURL::List();
 }

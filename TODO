@@ -13,7 +13,9 @@ BUGS To be handled soonish
   iterate through all the children of the dialog, and setup tab order as
   they are physically located on screen. 
 - rework member group config page to use kdlistboxpair instead.
-
+- rather than symlinking the demo files, copy them over, and on exit ask if
+they should be deleted. (This will ensure that say greyscaling doesn't stay
+in effect)
 
 =======================
 BUGS of less importance

@@ -7,7 +7,7 @@
 class MyImageCollection :public KIPI::ImageCollectionShared
 {
 public:
-    enum Type { CurrentAlbum, CurrentView, CurrentSelection };
+    enum Type { CurrentAlbum, CurrentSelection, SubClass };
 
     MyImageCollection( Type tp );
     virtual QString name();

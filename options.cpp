@@ -67,6 +67,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
     _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
+    _albumCategory = config.attribute( QString::fromLatin1( "albumCategory" ) );
     _viewSortType = (ViewSortType) config.attribute( QString::fromLatin1( "viewSortType" ) ).toInt();
 
     // Viewer size
@@ -133,6 +134,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("locked"), _locked );
     config.setAttribute( QString::fromLatin1("exclude"), _exclude );
     config.setAttribute( QString::fromLatin1("passwd"), _passwd );
+    config.setAttribute( QString::fromLatin1( "albumCategory" ), _albumCategory );
     config.setAttribute( QString::fromLatin1( "viewSortTye" ), _viewSortType );
     config.setAttribute( QString::fromLatin1( "slideShowInterval" ), _slideShowInterval );
 
@@ -678,6 +680,18 @@ void Options::setSlideShowInterval( int interval )
 int Options::slideShowInterval() const
 {
     return _slideShowInterval;
+}
+
+QString Options::albumCategory() const
+{
+    if ( !optionGroups().contains( _albumCategory ) )
+        const_cast<Options*>(this)->_albumCategory = optionGroups()[0];
+    return _albumCategory;
+}
+
+void Options::setAlbumCategory( const QString& optionGroup )
+{
+    _albumCategory = optionGroup;
 }
 
 #include "options.moc"

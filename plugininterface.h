@@ -14,13 +14,15 @@ class PluginInterface :public KIPI::Interface
 public:
     PluginInterface( QObject *parent, const char *name=0);
     virtual KIPI::ImageCollection currentAlbum();
-    virtual KIPI::ImageCollection currentView();
     virtual KIPI::ImageCollection currentSelection();
     virtual QValueList<KIPI::ImageCollection> allAlbums();
     virtual KIPI::ImageInfo info( const KURL& );
     virtual bool addImage( const KURL& );
     virtual void refreshImages( const KURL::List& urls );
     virtual int features() const;
+
+protected:
+    QString askForCategory();
 
 signals:
     void imagesChanged( const KURL::List& );

@@ -1211,4 +1211,14 @@ void MainView::slotImagesChanged( const KURL::List& urls )
     reloadThumbNail();
 }
 
+ImageSearchInfo MainView::currentContext()
+{
+    return _browser->currentContext();
+}
+
+QString MainView::currentBrowseCategory() const
+{
+    return _browser->currentCategory();
+}
+
 #include "mainview.moc"

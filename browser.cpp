@@ -296,4 +296,10 @@ void Browser::setFocus()
     _stack->visibleWidget()->setFocus();
 }
 
+QString Browser::currentCategory() const
+{
+    FolderAction* a = _list[_current-1];
+    return a->optionGroup();
+}
+
 #include "browser.moc"

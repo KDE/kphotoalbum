@@ -36,7 +36,7 @@ kimdaba_SOURCES = main.cpp \
 	datefolder.cpp groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp thumbnailbuilder.cpp \
 	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
-	myimageinfo.cpp myimagecollection.cpp plugininterface.cpp
+	myimageinfo.cpp myimagecollection.cpp plugininterface.cpp categoryimagecollection.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -lktexteditor -ljpeg -lkipi
@@ -46,10 +46,6 @@ KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS)
 
 rcdir = $(kde_datadir)/kimdaba
 rc_DATA = kimdabaui.rc default-setup
-
-pkg_DATA = infobox.js
-pkgdir = $(kde_datadir)/kimdaba/
-EXTRA_DIST = $(pkg_DATA)
 
 appsdatadir=$(kde_datadir)/kimdaba
 appsdata_DATA=tips

@@ -3,6 +3,8 @@
 #include "myimagecollection.h"
 #include "myimageinfo.h"
 #include "imagedb.h"
+#include "mainview.h"
+#include "categoryimagecollection.h"
 
 PluginInterface::PluginInterface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
@@ -14,11 +16,6 @@ KIPI::ImageCollection PluginInterface::currentAlbum()
     return KIPI::ImageCollection( new MyImageCollection( MyImageCollection::CurrentAlbum ) );
 }
 
-KIPI::ImageCollection PluginInterface::currentView()
-{
-    return KIPI::ImageCollection( new MyImageCollection( MyImageCollection::CurrentView ) );
-}
-
 KIPI::ImageCollection PluginInterface::currentSelection()
 {
     return KIPI::ImageCollection( new MyImageCollection( MyImageCollection::CurrentSelection ) );
@@ -26,8 +23,20 @@ KIPI::ImageCollection PluginInterface::currentSelection()
 
 QValueList<KIPI::ImageCollection> PluginInterface::allAlbums()
 {
-    qDebug("QValueList<ImageCollection> PluginInterface::allAlbums() not implemented!");
-    return QValueList<KIPI::ImageCollection>(); // PENDING(blackie) implement
+    QValueList<KIPI::ImageCollection> result;
+    ImageSearchInfo context = MainView::theMainView()->currentContext();
+    QString optionGroup = MainView::theMainView()->currentBrowseCategory();
+    if ( optionGroup.isNull() )
+        optionGroup = Options::instance()->albumCategory();
+
+    QMap<QString,int> categories = ImageDB::instance()->classify( context, optionGroup );
+
+    for( QMapIterator<QString,int> it = categories.begin(); it != categories.end(); ++it ) {
+        CategoryImageCollection* col = new CategoryImageCollection( context, optionGroup, it.key() );
+        result.append( KIPI::ImageCollection( col ) );
+    }
+
+    return result;
 }
 
 KIPI::ImageInfo PluginInterface::info( const KURL& url )

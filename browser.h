@@ -41,6 +41,7 @@ public:
     ImageSearchInfo currentContext();
     void clear();
     void setFocus();
+    QString currentCategory() const;
 
 public slots:
     void back();

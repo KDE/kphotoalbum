@@ -96,6 +96,9 @@ public:
     ViewSize viewSize( const QString& optionGroup ) const;
     ViewType viewType( const QString& optionGroup ) const;
 
+    QString albumCategory() const;
+    void setAlbumCategory(  const QString& optionGroup );
+
     // -------------------------------------------------- Member Groups
     const MemberMap& memberMap();
     void setMemberMap( const MemberMap& );
@@ -200,6 +203,7 @@ private:
     bool _locked, _exclude;
     QString _passwd;
     ViewSortType _viewSortType;
+    QString _albumCategory;
 };
 
 #endif /* OPTIONS_H */

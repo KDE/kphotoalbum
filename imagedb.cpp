@@ -358,6 +358,18 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
     return map;
 }
 
+ImageInfoList ImageDB::images( const ImageSearchInfo& info, bool onDisk )
+{
+    ImageInfoList res;
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        bool match = !(*it)->isLocked() && info.match( *it );
+        match &= !onDisk || (*it)->imageOnDisk();
+        if ( match )
+            res.append( *it );
+    }
+    return res;
+}
+
 
 
 

@@ -77,6 +77,7 @@ private:
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
     QSpinBox* _previewSize;
+    QComboBox* _albumCategory;
 
     // Option Groups page
     QListBox* _optionGroups;

@@ -63,6 +63,8 @@ public:
     virtual void mousePressEvent( QMouseEvent* event );
     virtual void mouseMoveEvent( QMouseEvent* event );
     virtual void mouseReleaseEvent( QMouseEvent* event );
+    virtual void contextMenuEvent( QContextMenuEvent* );
+    virtual void showEvent( QShowEvent *);
 
 protected:
     void redraw();
@@ -75,7 +77,6 @@ protected:
     QRect tickMarkGeometry() const;
     QRect dateAreaGeometry() const;
     int numberOfUnits() const;
-    virtual void contextMenuEvent( QContextMenuEvent* );
     void drawArrow( QPainter&, const QPoint& start, const QPoint& end );
     void startAutoScroll();
     void endAutoScroll();

@@ -52,3 +52,4 @@ TEMPLATE	=app
 INCLUDEPATH	+= .
 LIBS	+= -ljpeg
 LANGUAGE	= C++
+CONFIG += thread

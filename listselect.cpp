@@ -21,6 +21,7 @@ private:
     ListSelect::Mode _mode;
 };
 
+
 CompletableLineEdit::CompletableLineEdit( QWidget* parent, const char* name )
     :QLineEdit( parent, name )
 {
@@ -35,10 +36,11 @@ void CompletableLineEdit::setMode( ListSelect::Mode mode ) {
     _mode = mode;
 }
 
+// Better hoope this monster works....
 void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 {
     if ( !ev->text().isEmpty() && ev->text()[0].isPrint() )  {
-        bool special = ( ev->text() == "&" || ev->text() == "|" || ev->text() == "!" || ev->text() == "(" );
+        bool special = ( ev->text() == "&" || ev->text() == "|" || ev->text() == "!" /* || ev->text() == "(" */ );
         if ( _mode == ListSelect::INPUT && special )  {
             // Don't insert the special character.
             return;
@@ -47,24 +49,40 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         QString content = text();
         int cursorPos = cursorPosition();
 
+        // Space, &,|, or ! should result in the current item being inserted
         if ( _mode == ListSelect::SEARCH && (special || ev->text() == " " ) )  {
-            setText( text().left(cursorPos) + ev->text() + text().mid( cursorPos ) );
+            QString txt = text().left(cursorPos) + ev->text() + text().mid( cursorPos );
+            setText( txt );
             setCursorPosition( cursorPos + ev->text().length() );
             deselect();
+
+            // Select the item in the listbox - not perfect but acceptable for now.
+            int start = txt.findRev( QRegExp("[!&|]"), cursorPosition() -2 ) +1;
+            QString input = txt.mid( start, cursorPosition()-start-1 );
+            input = input.stripWhiteSpace();
+            qDebug(">%s<", input.latin1());
+
+            QListBoxItem* item = _listbox->findItem( input );
+            if ( item )
+                _listbox->setSelected( item, true );
+
             return;
         }
 
 
         QLineEdit::keyPressEvent( ev );
 
+
+        // Find the text of the current item
         int start = 0;
         QString input = text();
         if ( _mode == ListSelect::SEARCH )  {
             input = input.left( cursorPosition() );
-            start = input.findRev( QRegExp("[!(&| ]") ) +1;
+            start = input.findRev( QRegExp("[!&| ]") ) +1;
             input = input.mid( start );
         }
 
+        // Find the text in the listbox
         QListBoxItem* item = _listbox->findItem( input );
         if ( !item && _mode == ListSelect::SEARCH )  {
             // revert
@@ -101,6 +119,7 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
 
     _listBox = new QListBox( this );
     _listBox->setSelectionMode( QListBox::Multi );
+    connect( _listBox, SIGNAL( clicked( QListBoxItem*  ) ),  this,  SLOT( itemSelected( QListBoxItem* ) ) );
     layout->addWidget( _listBox );
 
     _merge = new QCheckBox( "Merge",  this );
@@ -237,4 +256,43 @@ void ListSelect::setText( const QString& text )
     _lineEdit->setText( text );
     _listBox->clearSelection();
 }
+
+void ListSelect::itemSelected( QListBoxItem* item )
+{
+    if ( _mode == SEARCH )  {
+        QString txt = item->text();
+        QString res;
+        QRegExp regEnd( "\\s*[&|!]\\s*$" );
+        QRegExp regStart( "^\\s*[&|!]\\s*" );
+        if ( item->isSelected() )  {
+            int index = _lineEdit->cursorPosition();
+            QString start = _lineEdit->text().left(index);
+            QString end =  _lineEdit->text().mid(index);
+
+            res = start;
+            if ( !start.isEmpty() && !start.contains( regEnd ) )
+                 res += " & ";
+            res += txt;
+            if ( !end.isEmpty() && !end.contains( regStart ) )
+                res += " & ";
+            res += end;
+        }
+        else {
+            int index = _lineEdit->text().find( txt );
+            if ( index == -1 )
+                return;
+
+            QString start = _lineEdit->text().left(index);
+            QString end =  _lineEdit->text().mid(index + txt.length() );
+            if ( start.contains( regEnd ) )
+                start.replace( regEnd, "" );
+            else
+                end.replace( regStart,  "" );
+
+            res = start + end;
+        }
+        _lineEdit->setText( res );
+    }
+}
+
 

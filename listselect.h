@@ -8,6 +8,7 @@ class QLabel;
 class QCheckBox;
 class CompletableLineEdit;
 class ImageInfo;
+class QListBoxItem;
 
 class ListSelect :public QWidget {
     Q_OBJECT
@@ -33,6 +34,7 @@ public:
 
 protected slots:
     void slotReturn();
+    void itemSelected( QListBoxItem* );
 
 private:
     QLabel* _label;

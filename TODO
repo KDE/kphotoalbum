@@ -52,6 +52,17 @@ Features for a soonish version
   items and change some properties (mostly checkboxes)
 - spell check in the editor
 - make it possible to specify dates in other formats in the image config dialog
+- Add a way to mark images using a single key stroke, something like:
+  select a bunch of images, start the viewer in the viewer SPACE set some
+  options for the image, and go to the next image, while RET just goes to the
+  next image. (That way you can easily go through hundreds of images putting
+  the keyword "print", and later search for keyword print for sending images
+  to printer)
+  This could of course be extended so you could send keywords with
+  different key bindings (which should be configurable):
+  (c) - image is from Copenhagen
+  (l) - image is from Las Vegas.
+  I doubt that extension will be very useful tho.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba">
+<kpartgui name="kimdaba" version="2">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>

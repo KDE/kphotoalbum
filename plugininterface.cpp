@@ -39,4 +39,9 @@ void PluginInterface::refreshImages( const KURL::List& urls )
     emit imagesChanged( urls );
 }
 
+int PluginInterface::features() const
+{
+    return KIPI::ImagesHasComments;
+}
+
 #include "plugininterface.moc"

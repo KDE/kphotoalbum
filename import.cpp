@@ -455,6 +455,8 @@ bool Import::copyFilesFromZipFile()
     for( ImageInfoListIterator it( images ); *it; ++it ) {
         QString fileName = (*it)->fileName( true );
         QByteArray data = loadImage( fileName );
+        if ( data.isNull() )
+            return false;
         QString newName = _destinationEdit->text() + QString::fromLatin1( "/" ) + _nameMap[fileName];
 
         QString relativeName = newName.mid( Options::instance()->imageDirectory().length() );

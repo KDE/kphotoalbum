@@ -338,6 +338,7 @@ bool HTMLExportDialog::generate()
         ok = Util::copy( from, to );
         if ( !ok ) {
             KMessageBox::error( this, i18n("Error copying %1 to %2").arg( from ).arg( to ) );
+            return false;
         }
     }
 

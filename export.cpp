@@ -288,7 +288,7 @@ void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*
         QFile out( file );
         if ( !out.open( IO_WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error writing file %1").arg( file ) );
-            return;
+            _ok = false;
         }
         out.writeBlock( data, data.size() );
         out.close();
@@ -297,9 +297,9 @@ void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*
     qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
 #if QT_VERSION < 0x030104
-    bool canceled = _progressDialog->wasCancelled();
+    bool canceled = (!_ok || _progressDialog->wasCancelled());
 #else
-    bool canceled =  _progressDialog->wasCanceled();
+    bool canceled = (!_ok ||  _progressDialog->wasCanceled());
 #endif
 
     if ( canceled ) {

@@ -297,7 +297,7 @@
     </connection>
 </connections>
 <slots>
-    <slot access="protected">slotExit()</slot>
+    <slot access="protected" returnType="bool">slotExit()</slot>
     <slot access="protected">slotOptions()</slot>
     <slot access="protected">slotConfigureAllImages()</slot>
     <slot access="protected">slotConfigureImagesOneAtATime()</slot>

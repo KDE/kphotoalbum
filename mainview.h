@@ -14,7 +14,7 @@ public:
     MainView( QWidget* parent,  const char* name = 0 );
 
 protected slots:
-    void slotExit();
+    bool slotExit();
     void slotOptions();
     void slotConfigureAllImages();
     void slotConfigureImagesOneAtATime();

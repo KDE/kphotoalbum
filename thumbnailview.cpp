@@ -161,9 +161,14 @@ QPtrList<ThumbNail> ThumbNailView::selected() const
     return list;
 }
 
-//void ThumbNailView::contentsDragEnterEvent( QDragEnterEvent *e )
-//{
-//    e->ignore();
-//}
+bool ThumbNailView::isClipboardEmpty()
+{
+    return ( _cutList.count() == 0 );
+}
+
+ImageInfoList ThumbNailView::clipboard()
+{
+    return _cutList;
+}
 
 #include "thumbnailview.moc"

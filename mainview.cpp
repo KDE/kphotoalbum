@@ -24,17 +24,19 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 }
 
-void MainView::slotExit()
+bool MainView::slotExit()
 {
-    if ( _dirty ) {
+    if ( _dirty || !thumbNailView->isClipboardEmpty() ) {
         int ret = QMessageBox::warning( this, "Save Changes", "Save Changes?", QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
         if ( ret == QMessageBox::Cancel )
-            return;
-        if ( ret == QMessageBox::Yes )
+            return false;
+        if ( ret == QMessageBox::Yes ) {
             slotSave();
+        }
     }
 
     qApp->quit();
+    return true;
 }
 
 void MainView::slotOptions()
@@ -96,7 +98,15 @@ void MainView::slotSave()
     Options::instance()->save();
 
     QMap<QString, QDomDocument> docs;
-    for( QPtrListIterator<ImageInfo> it( _images ); *it; ++it ) {
+    ImageInfoList list = _images;
+    if ( !thumbNailView->isClipboardEmpty() ) {
+        ImageInfoList clip= thumbNailView->clipboard();
+        for( ImageInfoListIterator it(clip); *it; ++it ) {
+            list.append( *it );
+        }
+    }
+
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
         QString indexDirectory = (*it)->indexDirectory();
 
         QString outputFile = indexDirectory + "/index.xml";
@@ -255,10 +265,11 @@ void MainView::slotChanges()
 
 void MainView::closeEvent( QCloseEvent* e )
 {
-    if ( _dirty )
-        slotExit();
+    bool quit = true;
+    quit = slotExit();
     // If I made it here, then the user canceled
-    e->ignore();
+    if ( !quit )
+        e->ignore();
 }
 
 

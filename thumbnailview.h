@@ -11,6 +11,8 @@ class ThumbNailView :public QIconView {
 public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
     void load( ImageInfoList* list );
+    bool isClipboardEmpty();
+    ImageInfoList clipboard();
 
 public slots:
     void reload();
@@ -30,10 +32,6 @@ protected:
     virtual void contentsDropEvent( QDropEvent* e );
     void setHighlighted( ThumbNail* item );
     QPtrList<ThumbNail> selected() const;
-
-//    void contentsDragEnterEvent( QDragEnterEvent *e );
-
-
     void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
 
 private:

@@ -158,6 +158,7 @@ void ListSelect::setSelection( const QStringList& list )
         }
         _listBox->setSelected( item,  true );
     }
+    _lineEdit->clear();
 }
 
 QStringList ListSelect::selection()
@@ -224,5 +225,16 @@ QWidget* ListSelect::firstTabWidget() const
 QWidget* ListSelect::lastTabWidget() const
 {
     return _lineEdit;
+}
+
+QString ListSelect::text() const
+{
+    return _lineEdit->text();
+}
+
+void ListSelect::setText( const QString& text )
+{
+    _lineEdit->setText( text );
+    _listBox->clearSelection();
 }
 

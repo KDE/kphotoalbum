@@ -1,0 +1,117 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>WellComeDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>WellComeDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>617</width>
+            <height>267</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Wellcome</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout1</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>273</width>
+                            <height>204</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>273</width>
+                            <height>204</height>
+                        </size>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="pixmap">
+                        <pixmap>splash.png</pixmap>
+                    </property>
+                </widget>
+                <widget class="QLabel">
+                    <property name="name">
+                        <cstring>textLabel2</cstring>
+                    </property>
+                    <property name="margin">
+                        <number>10</number>
+                    </property>
+                    <property name="text">
+                        <string>&lt;h1&gt;KPAlbum&lt;/h1&gt;
+
+&lt;p&gt;Wellcome to KPAlbum. The first thing you need to do is to specify a directory in which your images is stored. This directory may contain subdirectories with Images.&lt;/p&gt;
+&lt;p&gt;You specify the directory in the options dialog that will show next.&lt;/p&gt;
+</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout2</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>201</width>
+                            <height>31</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>OK</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>WellComeDialog</receiver>
+        <slot>accept()</slot>
+    </connection>
+</connections>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

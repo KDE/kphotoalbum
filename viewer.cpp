@@ -164,7 +164,6 @@ void Viewer::load()
 
 void Viewer::setDisplayedPixmap()
 {
-
     QPixmap pixmap = _pixmap;
     if ( pixmap.isNull() )
         return;

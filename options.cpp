@@ -132,4 +132,10 @@ void Options::setImageDirecotry( const QString& directory )
     _imageDirectory = directory;
 }
 
+bool Options::configFileExists()
+{
+    QFileInfo info( QDir::home().path() + "/.kpalbum" );
+    return info.exists();
+}
+
 

@@ -1,3 +1,6 @@
+#ifndef IMAGEINFO_H
+#define IMAGEINFO_H
+
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qmap.h>
@@ -6,28 +9,7 @@
 #include <qdom.h>
 #include <qobject.h>
 #include <qdeepcopy.h>
-#ifndef IMAGEINFO_H
-#define IMAGEINFO_H
-
-class ImageDate {
-public:
-    ImageDate();
-    ImageDate( int day, int month, int year );
-    int year() const;
-    int month() const;
-    int day() const;
-    void setYear( int );
-    void setMonth( int );
-    void setDay( int );
-    bool operator<=( ImageDate& other );
-    bool isNull() const;
-    QString toString();
-    operator QString() { return toString(); }
-
-private:
-    int _year, _month, _day;
-};
-
+#include "imagedate.h"
 
 class ImageInfo {
 

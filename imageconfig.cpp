@@ -220,7 +220,15 @@ int ImageConfig::search()
 {
     _setup = SEARCH;
     setup();
-    return exec();
+    int ok = exec();
+    if ( ok == QDialog::Accepted )  {
+        _oldSearch = ImageSearchInfo( ImageDate( dayStart->value(), monthStart->currentItem(), yearStart->value()),
+                                      ImageDate( dayEnd->value(), monthEnd->currentItem(), yearEnd->value() ),
+                                      quality->currentItem(), qualityTo->currentItem(),
+                                      persons->text(), locations->text(), keywords->text(), items->text(),
+                                      label->text(), description->text() );
+    }
+    return ok;
 }
 
 void ImageConfig::setup()
@@ -236,6 +244,8 @@ void ImageConfig::setup()
         qualityToLabel->show();
         qualityTo->show();
         qualityTo->updateGeometry();
+        setCaption( "Image Search" );
+        loadInfo( _oldSearch );
     }
     else {
         previewFrame->show();
@@ -245,6 +255,7 @@ void ImageConfig::setup()
         mode = ListSelect::INPUT;
         qualityToLabel->hide();
         qualityTo->hide();
+        setCaption( "Image Configuration" );
     }
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setMode( mode );
@@ -335,4 +346,31 @@ void ImageConfig::displayImage()
     Viewer* viewer = Viewer::instance();
     viewer->show();
     viewer->load( _origList, _current );
+}
+
+void ImageConfig::slotClear()
+{
+    loadInfo( ImageSearchInfo() );
+}
+
+void ImageConfig::loadInfo( const ImageSearchInfo& info )
+{
+    yearStart->setValue( info.startDate().year() );
+    monthStart->setCurrentItem( info.startDate().month() );
+    dayStart->setValue( info.startDate().day() );
+
+    yearEnd->setValue( info.endDate().year() );
+    monthEnd->setCurrentItem( info.endDate().month() );
+    dayEnd->setValue( info.endDate().day() );
+
+    quality->setCurrentItem( info.startQuality() );
+    qualityTo->setCurrentItem( info.endQuality() );
+
+    persons->setText( info.persons() );
+    locations->setText( info.locations() );
+    keywords->setText( info.keywords() );
+    items->setText( info.items() );
+
+    label->setText( info.label() );
+    description->setText( info.description() );
 }

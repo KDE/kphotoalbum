@@ -16,6 +16,8 @@ public:
     ListSelect( QWidget* parent,  const char* name = 0 );
     void setLabel( const QString& label );
     QString label() const;
+    QString text() const;
+    void setText( const QString& );
     void insertStringList( const QStringList& list );
     void setSelection( const QStringList& list );
     QStringList selection();

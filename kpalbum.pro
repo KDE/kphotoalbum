@@ -7,12 +7,13 @@ SOURCES	+= main.cpp \
 	imageinfo.cpp \
 	viewer.cpp \
 	listselect.cpp \
-    mainview.cpp \
-    imageconfig.cpp \
-    imageclient.cpp \
-    util.cpp \
-    imagepreview.cpp
-
+	mainview.cpp \
+	imageconfig.cpp \
+	imageclient.cpp \
+	util.cpp \
+	imagepreview.cpp \
+	imagedate.cpp \
+	imagesearchinfo.cpp
 HEADERS	+= thumbnailview.h \
 	thumbnail.h \
 	imagemanager.h \
@@ -21,15 +22,15 @@ HEADERS	+= thumbnailview.h \
 	imageinfo.h \
 	viewer.h \
 	listselect.h \
-    mainview.h \
-    imageconfig.h \
-    imageclient.h \
-    util.h \
-    imagepreview.h
+	mainview.h \
+	imageconfig.h \
+	imageclient.h \
+	util.h \
+	imagepreview.h \
+	imagedate.h \
+	imagesearchinfo.h
 
-FORMS	= mainviewui.ui \
-	optionsdialog.ui \
-	imageconfigui.ui
+
 
 unix {
   MOC_DIR = .moc
@@ -42,7 +43,12 @@ unix {
   UI_DIR = _ui
 }
 
+FORMS	= mainviewui.ui \
+	optionsdialog.ui \
+	imageconfigui.ui \
+	wellcomedialog.ui
+IMAGES	= images/splash.png
 TEMPLATE	=app
 INCLUDEPATH	+= .
+LIBS	+= -ljpeg
 LANGUAGE	= C++
-LIBS += -ljpeg

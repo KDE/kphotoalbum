@@ -10,13 +10,17 @@
 #include <qmessagebox.h>
 #include <qdict.h>
 #include "viewer.h"
+#include <wellcomedialog.h>
 
 MainView::MainView( QWidget* parent, const char* name )
     :MainViewUI( parent,  name )
 {
     _optionsDialog = 0;
     _imageConfigure = 0;
-    load();
+    if ( Options::configFileExists() )
+        load();
+    else
+        wellcome();
 }
 
 void MainView::slotExit()
@@ -220,4 +224,12 @@ void MainView::slotViewSelected()
     Viewer* viewer = Viewer::instance();
     viewer->load( list );
     viewer->show();
+}
+
+void MainView::wellcome()
+{
+    WellComeDialog* dialog = new WellComeDialog( this );
+    dialog->exec();
+    delete dialog;
+    slotOptions();
 }

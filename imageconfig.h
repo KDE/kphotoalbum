@@ -4,6 +4,7 @@
 #include "imageconfigui.h"
 #include "imageclient.h"
 #include "listselect.h"
+#include "imagesearchinfo.h"
 
 class ImageConfig :public ImageConfigUI, public ImageClient {
     Q_OBJECT
@@ -16,17 +17,18 @@ public:
 
 protected slots:
     void displayImage();
-
-protected:
-    enum SetupType { SINGLE, MULTIPLE, SEARCH };
-
     void slotRevert();
     void slotPrev();
     void slotNext();
     void slotOK();
+    void slotClear();
+
+protected:
+    enum SetupType { SINGLE, MULTIPLE, SEARCH };
     void load();
     void save();
     void setup();
+    void loadInfo( const ImageSearchInfo& );
 
 private:
     ImageInfoList _origList;
@@ -34,8 +36,8 @@ private:
     int _current;
     QMap<QString, QPixmap> _preloadImageMap;
     SetupType _setup;
-
     QPtrList< ListSelect > _optionList;
+    ImageSearchInfo _oldSearch;
 };
 
 #endif /* IMAGECONFIG_H */

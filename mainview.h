@@ -29,6 +29,7 @@ protected:
     void loadExtraFiles( const QDict<void>& loadedFiles, const QString& indexDirectory, QString directory );
     void load( const QString& indexDirectory,  const QString& filename, QDomElement elm );
     ImageInfoList selected();
+    void wellcome();
 
 private:
     OptionsDialog* _optionsDialog;

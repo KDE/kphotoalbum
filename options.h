@@ -6,6 +6,7 @@
 class Options {
 public:
     static Options* instance();
+    static bool configFileExists();
 
     void setUse4To3Ratio( bool );
     bool use4To3Ratio() const;

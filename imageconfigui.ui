@@ -758,7 +758,7 @@
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout15</cstring>
+                <cstring>layout11</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -775,6 +775,14 @@
                         <bool>false</bool>
                     </property>
                 </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>clearBut</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Clear Form</string>
+                    </property>
+                </widget>
                 <spacer>
                     <property name="name">
                         <cstring>spacer12</cstring>
@@ -787,7 +795,7 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>71</width>
+                            <width>440</width>
                             <height>20</height>
                         </size>
                     </property>
@@ -897,6 +905,12 @@
         <receiver>ImageConfigUI</receiver>
         <slot>reject()</slot>
     </connection>
+    <connection>
+        <sender>clearBut</sender>
+        <signal>clicked()</signal>
+        <receiver>ImageConfigUI</receiver>
+        <slot>slotClear()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>dayStart</tabstop>
@@ -921,6 +935,7 @@
     <slot access="protected">slotPrev()</slot>
     <slot access="protected">slotNext()</slot>
     <slot access="protected">slotOK()</slot>
+    <slot access="protected">slotClear()</slot>
 </slots>
 <pixmapinproject/>
 <layoutdefaults spacing="6" margin="11"/>

@@ -51,7 +51,8 @@ signals:
     void searchCompleted();
 
 protected:
-    void loadExtraFiles( const QDict<void>& loadedFiles, QString directory );
+    void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
+    void loadExtraFiles();
     void loadExtraFile( const QString& name );
     ImageInfo* load( const QString& filename, QDomElement elm );
     int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
@@ -71,6 +72,7 @@ private:
     QStringList _blockList;
     ImageInfoList _clipboard;
     QMap<QString, QString> _md5Map;
+    QStringList _pendingLoad;
 };
 
 

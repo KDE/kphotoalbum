@@ -42,6 +42,14 @@ fish.</p>
 
 <tip category="KimDaBa">
 <html>
+<p>You can reorder images on your hard disk after having loaded them into
+KimDaBa - KimDaBa will still remember them, as it calculates check sums for
+the images.</p>
+</html>
+</tip>
+
+<tip category="KimDaBa">
+<html>
 <p>This is the last tip. If you know any additional tips or tricks, then please
 send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a></p>
 </html>

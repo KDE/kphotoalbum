@@ -96,7 +96,8 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* ne
     }
 
     uint count = _images.count();
-    loadExtraFiles( loadedFiles, directory );
+    searchForNewFiles( loadedFiles, directory );
+    loadExtraFiles();
     *newImages |= ( count != _images.count() );
 
     connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
@@ -162,7 +163,7 @@ ImageInfo* ImageDB::load( const QString& fileName, QDomElement elm )
     return info;
 }
 
-void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory )
+void ImageDB::searchForNewFiles( const QDict<void>& loadedFiles, QString directory )
 {
     if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
@@ -187,12 +188,30 @@ void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory 
             QString baseName = file.mid( imageDir.length()+1 );
 
             if ( ! _blockList.contains( baseName ) ) {
-                loadExtraFile( baseName );
+                _pendingLoad.append( baseName );
             }
         }
         else if ( fi.isDir() )  {
-            loadExtraFiles( loadedFiles, file );
+            searchForNewFiles( loadedFiles, file );
         }
+    }
+}
+
+void ImageDB::loadExtraFiles()
+{
+    QProgressDialog  dialog( i18n("<qt><p><b>Loading information from images</b></p>"
+                                  "<p>Depending on the number of images, this may take some time,<br/>"
+                                  "This is, however, only a delay when new images are found.</p></qt>"),
+                             i18n("Cancel"), _pendingLoad.count() );
+    int count = 0;
+    for( QStringList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
+        if ( count % 10 == 0 ) {
+            dialog.setProgress( count ); // ensure to call setProgress(0)
+            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+            if ( dialog.wasCanceled() )
+                return;
+        }
+        loadExtraFile( *it );
     }
 }
 

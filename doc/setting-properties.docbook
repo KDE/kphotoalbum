@@ -176,6 +176,10 @@ the <literal>Options...</literal> button, and from there the
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
 sgml-parent-document: "index.docbook"
 End:
 -->

@@ -1,0 +1,47 @@
+<chapter id="chp-thumbnail-view">
+  <title>Thumbnail viewer</title>
+  <para>Selecting <literal>View Images</literal> in the browser, you get to
+a thumbnail overview of the images currently in scope (or all images if no
+scope have been selected <footnote><para>To avoid that your X server runs out of
+      memory KimDaBa limits the amount of images you look at a time. The
+      limit can be configured in the <literal>Options</literal>
+      dialog.</para></footnote>). An example of this can be seen in <xref
+      linkend="fig-thumbnailview"/> below. The size of the thumbnails can be
+configure in <guimenu>Edit</guimenu>|<guimenuitem>Options</guimenuitem> as
+described in <xref linkend="chp-options"/>.</para>
+
+  <figure id="fig-thumbnailview">
+    <title>Thumnail View</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para>In the thumbnail overview you can reorder your pictures by dragging
+them around with the mouse, or cut and paste them using the keyboard. But most important you
+can start the viewer simply by clicking on an image from there.</para>
+
+  <para>By clicking on an image you load it into the viewer, if no viewer
+window is present, a viewer window will be created.</para>
+
+  <para>If you select a number of images, and presses <literal>i</literal>
+(or chooses "<guimenu>Images</guimenu>|<guimenuitem>View Selected</guimenuitem>"),
+the images will be loaded into the existing viewer (if no viewer exists, one will be created). Finally, pressing <literal>control+i</literal> (or
+choosing "<guimenu>Images</guimenu>|<guimenuitem>View Selected (in new
+window)</guimenuitem>" ), the images will be loaded into a new viewer.</para>
+
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

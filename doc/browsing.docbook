@@ -1,7 +1,6 @@
 <chapter id="chp-browsing">
   <title>Browsing</title>
-  <para>Once you have
-    specified properties for your images, KimDaBa is ready to let you
+  <para>Once you have    specified properties for your images, KimDaBa is ready to let you
     browse through your images, see <xref
       linkend="fig-browser-with-images"/>. If you compare that to <xref
       linkend="fig-empty-browser-window"/> , you will see that there now is
@@ -17,14 +16,14 @@
       </imageobject>
     </mediaobject>
   </figure>
-      
+  
   <para>In the browser window you can see the option groups you typed
 information into when setting properties for the images, these groups are
 <literal>Keywords</literal>, <literal>Locations</literal>, and
 <literal>Persons</literal>. After them there is an item for browsing by
 date, an item for general searches, and finally an item for
 getting to the actual images. Lets describe each item in turn.</para>
-      
+  
   <para>Pressing the mouse on
 <literal>Persons</literal>, the browser window will change, as you can see
 in <xref linkend="fig-browser-for-persons"/>.</para>
@@ -110,6 +109,10 @@ or), and ! (not meaning not).</para>
 <!-- Keep this comment at the end of the file
 Local variables:
 mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
 sgml-parent-document: "index.docbook"
 End:
 -->

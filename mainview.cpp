@@ -1163,7 +1163,6 @@ void MainView::loadPlugins()
     connect( interface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
 
     QStringList ignores;
-    ignores << QString::fromLatin1( "CommentsEditor" );
 
     KIPI::PluginLoader* loader = new KIPI::PluginLoader( ignores, interface );
     loader->loadPlugins();

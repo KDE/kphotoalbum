@@ -104,6 +104,7 @@ protected:
     QImage _importImage;
 
 private:
+    friend class MyImageInfo;
     QString _fileName;
     QString _label;
     QString _description;

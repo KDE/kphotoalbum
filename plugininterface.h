@@ -18,6 +18,7 @@ public:
     virtual QValueList<KIPI::ImageCollection> allAlbums();
     virtual KIPI::ImageInfo info( const KURL& );
     virtual bool addImage( const KURL&, QString& errmsg );
+    virtual void delImage( const KURL& );
     virtual void refreshImages( const KURL::List& urls );
     virtual int features() const;
 

@@ -42,7 +42,7 @@ QValueList<KIPI::ImageCollection> PluginInterface::allAlbums()
 
 KIPI::ImageInfo PluginInterface::info( const KURL& url )
 {
-    return KIPI::ImageInfo( new MyImageInfo( url ) );
+    return KIPI::ImageInfo( new MyImageInfo( this, url ) );
 }
 
 void PluginInterface::refreshImages( const KURL::List& urls )
@@ -53,7 +53,7 @@ void PluginInterface::refreshImages( const KURL::List& urls )
 int PluginInterface::features() const
 {
     return KIPI::ImagesHasComments | KIPI::ImagesHasTime | KIPI::SupportsDateRanges |
-        KIPI::AcceptNewImages;
+        KIPI::AcceptNewImages | KIPI::ImageTitlesWritable;
 }
 
 bool PluginInterface::addImage( const KURL& url, QString& errmsg )
@@ -70,6 +70,16 @@ bool PluginInterface::addImage( const KURL& url, QString& errmsg )
     ImageInfo* info = new ImageInfo( dir );
     ImageDB::instance()->addImage( info );
     return true;
+}
+
+void PluginInterface::delImage( const KURL& url )
+{
+    ImageInfo* info = ImageDB::instance()->find( url.path() );
+    if ( info ) {
+        ImageInfoList list;
+        list.append( info );
+        ImageDB::instance()->deleteList( list );
+    }
 }
 
 #include "plugininterface.moc"

@@ -7,9 +7,9 @@
 class MyImageInfo :public KIPI::ImageInfoShared
 {
 public:
-    MyImageInfo( const KURL& url );
-    virtual QString name();
-    virtual void setName( const QString& );
+    MyImageInfo( KIPI::Interface* interface, const KURL& url );
+    virtual QString title();
+    virtual void setTitle( const QString& );
 
     virtual QString description();
     virtual void setDescription( const QString& );
@@ -24,6 +24,8 @@ public:
     virtual QDateTime time( KIPI::TimeSpec what );
     virtual void setTime( const QDateTime& time, KIPI::TimeSpec spec );
     virtual bool isTimeExact();
+
+    virtual void cloneData( ImageInfoShared* other );
 
 private:
     ImageInfo* _info;

@@ -1,12 +1,12 @@
 #include "myimageinfo.h"
 #include "imagedb.h"
-MyImageInfo::MyImageInfo( const KURL& url )
-    : KIPI::ImageInfoShared( url )
+MyImageInfo::MyImageInfo( KIPI::Interface* interface, const KURL& url )
+    : KIPI::ImageInfoShared( interface, url )
 {
     _info = ImageDB::instance()->find( _url.path() );
 }
 
-QString MyImageInfo::name()
+QString MyImageInfo::title()
 {
     if ( _info )
         return _info->label();
@@ -24,10 +24,16 @@ QString MyImageInfo::description()
 
 QMap<QString,QVariant> MyImageInfo::attributes()
 {
-    return QMap<QString,QVariant>(); // PENDING(blackie) implement
+    QMap<QString,QVariant> res;
+    if ( _info ) {
+        for( QMapIterator<QString,QStringList> it = _info->_options.begin(); it != _info->_options.end(); ++it ) {
+            res.insert( it.key(), QVariant( it.data() ) );
+        }
+    }
+    return res;
 }
 
-void MyImageInfo::setName( const QString& name )
+void MyImageInfo::setTitle( const QString& name )
 {
     if ( _info )
         _info->setLabel( name );
@@ -41,14 +47,17 @@ void MyImageInfo::setDescription( const QString& description )
 
 void MyImageInfo::clearAttributes()
 {
-    // PENDING(blackie) implement
-    qDebug("NYI: MyImageInfo::clearAttributes" );
+    _info->_options.clear();
 }
 
-void MyImageInfo::addAttributes( const QMap<QString,QVariant>& /* map */ )
+void MyImageInfo::addAttributes( const QMap<QString,QVariant>& map )
 {
-    // PENDING(blackie) implement
-    qDebug("NYI: MyImageInfo::addAttributes" );
+    if ( _info ) {
+        for( QMapConstIterator<QString,QVariant> it = map.begin(); it != map.end(); ++it ) {
+            QStringList list = it.data().toStringList();
+            _info->addOption( it.key(), list );
+        }
+    }
 }
 
 int MyImageInfo::angle()
@@ -99,5 +108,15 @@ void MyImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
 
     date.setDate( time.date() );
     date.setTime( time.time() );
+}
+
+void MyImageInfo::cloneData( ImageInfoShared* other )
+{
+    ImageInfoShared::cloneData( other );
+    if ( _info ) {
+        MyImageInfo* inf = static_cast<MyImageInfo*>( other );
+        _info->setStartDate( inf->_info->startDate() );
+        _info->setEndDate( inf->_info->endDate() );
+    }
 }
 

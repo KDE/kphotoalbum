@@ -31,6 +31,7 @@
 #include <qmessagebox.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <math.h>
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
     :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent )
@@ -179,7 +180,23 @@ void ThumbNail::calcRect( const QString& text )
     }
     else
         setText( _imageInfo->label() );
+}
 
+void ThumbNail::paintItem( QPainter * p, const QColorGroup & cg )
+{
+    QColorGroup cgCopy = cg;
+    QColor col = Options::instance()->thumbNailBackgroundColor();
+
+    // Calculate the foreground color.
+    int dist = (int) pow(pow(col.red(),3) + pow(col.blue(),3) + pow(col.green(),3), 1.0/3);
+    int max = (int) pow( 3*pow(255,3), 1.0/3 ); // QPoint( 255, 255, 255 );
+    if ( dist > max/2 )
+        col = black;
+    else
+        col = white;
+
+    cgCopy.setColor( QColorGroup::Text, col );
+    QIconViewItem::paintItem( p, cgCopy );
 }
 
 

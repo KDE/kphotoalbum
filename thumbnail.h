@@ -43,7 +43,7 @@ protected:
     virtual void dropped ( QDropEvent * e, const QValueList<QIconDragItem> & lst );
     bool atRightSizeOfItem();
     virtual void calcRect( const QString& text = QString::null );
-
+    virtual void paintItem ( QPainter * p, const QColorGroup & cg );
 
 private:
     ImageInfo* _imageInfo;

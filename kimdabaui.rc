@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="8">
+<kpartgui name="kimdaba" version="9">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -55,4 +55,12 @@
     <Action name="configureView"/>
   </ToolBar>
 
+
+<Menu name="viewer-popup">
+  <Action name="viewer-home"/>
+  <Action name="viewer-edn"/>
+  <Action name="viewer-next"/>
+  <Action name="viewer-prev"/>
+  <Separator/>
+</Menu>
 </kpartgui>

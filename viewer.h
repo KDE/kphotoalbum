@@ -25,6 +25,8 @@
 #include "infobox.h"
 #include <qdialog.h>
 #include <qimage.h>
+#include <kxmlguiclient.h>
+
 class ImageInfo;
 class QLabel;
 class QPopupMenu;
@@ -46,6 +48,7 @@ public:
     bool showingFullScreen() const;
     void setShowFullScreen( bool on );
     void show( bool slideShow );
+    KActionCollection* actions();
 
 public slots:
     virtual bool close(bool alsoDelete );
@@ -132,6 +135,7 @@ private:
     QTimer* _slideShowTimer;
     int _slideShowPause;
     SpeedDisplay* _speedDisplay;
+    KActionCollection* _actions;
 };
 
 #endif /* VIEWER_H */

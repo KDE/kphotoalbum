@@ -50,6 +50,11 @@
 #include "categoryimageconfig.h"
 #include <dcopref.h>
 #include "externalpopup.h"
+#include <kaccel.h>
+#include <kactioncollection.h>
+#include <kkeydialog.h>
+#include <kapplication.h>
+#include <kglobal.h>
 
 Viewer* Viewer::_latest = 0;
 
@@ -61,7 +66,7 @@ Viewer* Viewer::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::Viewer( const char* name )
-    :QWidget( 0,  name ), _current(0), _showingFullScreen( false )
+    :QWidget( 0,  name ), _current(0), _popup(0), _showingFullScreen( false )
 {
     setWFlags( WDestructiveClose );
     _latest = this;
@@ -94,80 +99,81 @@ Viewer::Viewer( const char* name )
 void Viewer::setupContextMenu()
 {
     _popup = new QPopupMenu( this, "context popup menu" );
+    _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
     KAction* action;
 
-    _firstAction = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), this, "viewer-home" );
+    _firstAction = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
     _firstAction->plug( _popup );
 
-    _lastAction = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), this, "viewer-end" );
+    _lastAction = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), _actions, "viewer-end" );
     _lastAction->plug( _popup );
 
-    _nextAction = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), this, "viewer-next" );
+    _nextAction = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), _actions, "viewer-next" );
     _nextAction->plug( _popup );
 
-    _prevAction = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), this, "viewer-prev" );
+    _prevAction = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), _actions, "viewer-prev" );
     _prevAction->plug( _popup );
 
     _popup->insertSeparator();
 
     _startStopSlideShow = new KAction( i18n("Run Slideshow"), Key_S, this, SLOT( slotStartStopSlideShow() ),
-                                       this, "viewer-start-stop-slideshow" );
+                                       _actions, "viewer-start-stop-slideshow" );
     _startStopSlideShow->plug( _popup );
 
     _slideShowRunFaster = new KAction( i18n("Run Faster"), CTRL + Key_Plus, this, SLOT( slotSlideShowFaster() ),
-                                       this, "viewer-run-faster" );
+                                       _actions, "viewer-run-faster" );
     _slideShowRunFaster->plug( _popup );
 
     _slideShowRunSlower = new KAction( i18n("Run Slower"), CTRL+Key_Minus, this, SLOT( slotSlideShowSlower() ),
-                                       this, "viewer-run-slower" );
+                                       _actions, "viewer-run-slower" );
     _slideShowRunSlower->plug( _popup );
 
     _popup->insertSeparator();
 
-    action = new KAction( i18n("Zoom In"), Key_Plus, _display, SLOT( zoomIn() ), this, "viewer-zoom-in" );
+    action = new KAction( i18n("Zoom In"), Key_Plus, _display, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Zoom Out"), Key_Minus, _display, SLOT( zoomOut() ), this, "viewer-zoom-out" );
+    action = new KAction( i18n("Zoom Out"), Key_Minus, _display, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
     action->plug( _popup );
 
     action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
-                          this, "viewer-toggle-fullscreen" );
+                          _actions, "viewer-toggle-fullscreen" );
     action->plug( _popup );
 
     _popup->insertSeparator();
 
-    action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), this, "viewer-rotate90" );
+    action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), this, "viewer-rotate180" );
+    action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), this, "viewer-rotare270" );
+    action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
     action->plug( _popup );
 
     _popup->insertSeparator();
 
-    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), Key_I, this, "viewer-show-infobox" );
+    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), Key_I, _actions, "viewer-show-infobox" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showInfoBox() );
 
-    taction = new KToggleAction( i18n("Show Drawing"), Key_D, this, "viewer-show-drawing");
+    taction = new KToggleAction( i18n("Show Drawing"), Key_D, _actions, "viewer-show-drawing");
     connect( taction, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showDrawings() );
 
-    taction = new KToggleAction( i18n("Show Description"), 0, this, "viewer-show-description" );
+    taction = new KToggleAction( i18n("Show Description"), 0, _actions, "viewer-show-description" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showDescription() );
 
-    taction = new KToggleAction( i18n("Show Date"), 0, this, "viewer-show-date" );
+    taction = new KToggleAction( i18n("Show Date"), 0, _actions, "viewer-show-date" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showDate() );
 
-    taction = new KToggleAction( i18n("Show Time"), 0, this, "viewer-show-time" );
+    taction = new KToggleAction( i18n("Show Time"), 0, _actions, "viewer-show-time" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowTime( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showTime() );
@@ -222,15 +228,16 @@ void Viewer::setupContextMenu()
     action->plug( _popup );
 
     action = new KAction( i18n("Edit Image Properties"),  CTRL+Key_1, this, SLOT( editImage() ),
-                          this, "viewer-edit-image-properties" );
+                          _actions, "viewer-edit-image-properties" );
     action->plug( _popup );
 
     action = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
-                          this, "viewer-show-category-editor" );
+                          _actions, "viewer-show-category-editor" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Close"), Key_Q, this, SLOT( close() ), this, "viewer-close" );
+    action = new KAction( i18n("Close"), Key_Q, this, SLOT( close() ), _actions, "viewer-close" );
     action->plug( _popup );
+    _actions->readShortcutSettings();
 }
 
 void Viewer::load( const ImageInfoList& list, int index )
@@ -679,7 +686,13 @@ void Viewer::show( bool slideShow )
         setShowFullScreen( true );
 
     QWidget::show();
-    slotStartStopSlideShow();
+    if ( slideShow )
+        slotStartStopSlideShow();
+}
+
+KActionCollection* Viewer::actions()
+{
+    return _actions;
 }
 
 #include "viewer.moc"

@@ -20,6 +20,7 @@ properly through
 - page down should go to next image in the description field of the image
   configure dialog
 - rework member group config page to use kdlistboxpair instead.
+- when editing many images at a time, the time is deleted.
 
 =======================
 BUGS of less importance

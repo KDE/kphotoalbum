@@ -987,7 +987,14 @@ void MainView::changePassword()
 
 void MainView::slotConfigureKeyBindings()
 {
-    KKeyDialog::configure( actionCollection() );
+    Viewer* viewer = new Viewer( "viewer" ); // Do not show, this is only used to get a key configuration
+    KKeyDialog* dialog = new KKeyDialog();
+    dialog->insert( actionCollection(), i18n( "General" ) );
+    dialog->insert( viewer->actions(), i18n("Viewer") );
+    dialog->configure();
+    dialog->commitChanges();
+    delete dialog;
+    delete viewer;
 }
 
 void MainView::slotSetFileName( const QString& fileName )
@@ -1076,6 +1083,12 @@ void MainView::slotRunSlideShow()
 void MainView::slotRunRandomizedSlideShow()
 {
     slotView( true, true, true );
+}
+
+MainView* MainView::theMainView()
+{
+    Q_ASSERT( _instance );
+    return _instance;
 }
 
 #include "mainview.moc"

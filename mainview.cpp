@@ -228,7 +228,7 @@ void MainView::loadExtraFiles( const QDict<void>& loadedFiles, const QString& in
 
             ImageInfo* info = new ImageInfo( indexDirectory, baseName  );
             if (Options::instance()->markNew() )
-                info->addOption( "keyWords", QStringList() << "new" );
+                info->addOption( "Keywords", QStringList() << "new" );
 
             _images.append(info);
         }

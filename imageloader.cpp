@@ -53,6 +53,10 @@ void ImageLoader::run()
             // If we are looking for a scaled version, then scale
             img = img.scale( li.width(), li.height(), QImage::ScaleMin );
 
+            // should we compress the image, this is needed for thumbnail overview of say 2500 images
+            if ( li.compress() )
+                img = img.convertDepth(8);
+
             // Save thumbnail to disk
             if (  Options::instance()->cacheThumbNails() && li.cache() ) {
                 if ( ! QDir( cacheDir ).exists() ) {
@@ -72,6 +76,7 @@ void ImageLoader::run()
 
 bool ImageLoader::isJPEG( const LoadInfo& li )
 {
+    return false;
     QString format=QImageIO::imageFormat( li.fileName() );
     return format=="JPEG";
 }

@@ -209,7 +209,7 @@ void Viewer::load()
 
     _label->setText( "Loading..." );
 
-    ImageManager::instance()->load( currentInfo()->fileName( false ), this, currentInfo()->angle(), w,  h, false, true );
+    ImageManager::instance()->load( currentInfo()->fileName( false ), this, currentInfo()->angle(), w,  h, false, true, false );
     _nextAction->setEnabled( _current +1 < (int) _list.count() );
     _prevAction->setEnabled( _current > 0 );
     _firstAction->setEnabled( _current > 0 );

@@ -39,7 +39,7 @@ void ImagePreview::keyPressEvent( QKeyEvent* ev)
 void ImagePreview::reload()
 {
     setText( "Loading..." );
-    ImageManager::instance()->load( _info->fileName( false ), this, _info->angle(), 256, 256, false, true );
+    ImageManager::instance()->load( _info->fileName( false ), this, _info->angle(), 256, 256, false, true, false );
 }
 
 void ImagePreview::pixmapLoaded( const QString&, int, int, int, const QPixmap& pix )

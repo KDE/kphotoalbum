@@ -22,7 +22,7 @@ void ImageManager::init()
     _imageLoader->start();
 }
 
-void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache, bool priority )
+void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache, bool priority, bool compress )
 {
     QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
 
@@ -33,7 +33,7 @@ void ImageManager::load( const QString& fileName, ImageClient* client, int angle
     }
     else {
         _lock->lock();
-        LoadInfo li( fileName, width, height, angle, client );
+        LoadInfo li( fileName, width, height, angle, compress, client );
         li.setCache( cache );
         if ( priority )
             _loadList.prepend( li );
@@ -62,8 +62,9 @@ LoadInfo::LoadInfo() : _null( true ),  _cache( true ),  _client( 0 )
 {
 }
 
-LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, ImageClient* client )
-    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),  _cache( true ),  _client( client ),  _angle( angle )
+LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, bool compress, ImageClient* client )
+    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),  _cache( true ),  _client( client ),  _angle( angle ),
+      _compress( compress )
 {
 }
 
@@ -208,5 +209,10 @@ int LoadInfo::angle() const
 }
 
 
+
+bool LoadInfo::compress() const
+{
+    return _compress;
+}
 
 #include "imagemanager.moc"

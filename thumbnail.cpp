@@ -33,7 +33,7 @@ void ThumbNail::init()
     painter.drawRect( 0, 0, size-1, size-1 );
     setPixmap( img );
     setText( _imageInfo->label() );
-    ImageManager::instance()->load( _imageInfo->fileName( false ),  this, _imageInfo->angle(), size, size, true, false );
+    ImageManager::instance()->load( _imageInfo->fileName( false ),  this, _imageInfo->angle(), size, size, true, false, true );
     setDropEnabled( true );
 }
 

@@ -35,9 +35,6 @@ public:
     ImageDate& startDate();
     ImageDate& endDate();
 
-    void setQuality( int );
-    int quality() const;
-
     void rotate( int degrees );
     int angle() const;
 

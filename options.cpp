@@ -77,7 +77,7 @@ void Options::save()
 {
     QFile file( _confFile );
     if ( !file.open( IO_WriteOnly ) )  {
-        qWarning( "Could't open file %s", _confFile.latin1() );
+        qWarning( "Could't open file %s for writting", _confFile.latin1() );
         return;
     }
 

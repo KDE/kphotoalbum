@@ -18,7 +18,7 @@ ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName )
 
     QFileInfo fi( indexDirectory+ "/" + fileName );
     _label = fi.baseName();
-    _quality = _angle = 0;
+    _angle = 0;
 }
 
 ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QDomElement elm )
@@ -47,7 +47,6 @@ ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QD
     _endDate.setMonth( elm.attribute( "monthTo", QString::number(monthTo) ).toInt() );
     _endDate.setDay( elm.attribute( "dayTo", QString::number(dayTo) ).toInt() );
 
-    _quality = elm.attribute( "quality", "0" ).toInt();
     _angle = elm.attribute( "angle", "0" ).toInt();
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
@@ -112,16 +111,6 @@ QStringList ImageInfo::optionValue( const QString& key ) const
     return _options[key];
 }
 
-void ImageInfo::setQuality( int quality )
-{
-    _quality = quality;
-}
-
-int ImageInfo::quality() const
-{
-    return _quality;
-}
-
 QString ImageInfo::fileName( bool relative )
 {
     if (relative)
@@ -145,7 +134,6 @@ QDomElement ImageInfo::save( QDomDocument& doc )
     elm.setAttribute( "monthTo",  _endDate.month() );
     elm.setAttribute( "dayTo",  _endDate.day() );
 
-    elm.setAttribute( "quality",  _quality );
     elm.setAttribute( "angle",  _angle );
 
     if ( _options.count() != 0 ) {
@@ -219,7 +207,6 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _description != other._description ||
           _startDate != other._startDate ||
           _endDate != other._endDate ||
-          _quality != other._quality ||
           _angle != other._angle);
     if ( !changed ) {
         QStringList keys = _options.keys();

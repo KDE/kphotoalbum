@@ -25,11 +25,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     persons->setLabel( "Persons" );
     keywords->setLabel( "Keywords" );
     locations->setLabel( "Locations" );
-    items->setLabel( "Items" );
     _optionList.append(persons);
     _optionList.append(keywords);
     _optionList.append(locations);
-    _optionList.append(items);
 
     Options* opt = Options::instance();
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -37,11 +35,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     }
 
     // Update tab order.
-    setTabOrder( qualityTo,  persons->firstTabWidget() );
+    // PENDING(blackie) Is this still OK?
+    setTabOrder( yearEnd,  persons->firstTabWidget() );
     setTabOrder( persons->lastTabWidget(), locations->firstTabWidget() );
-    setTabOrder( locations->lastTabWidget(), options );
-    setTabOrder( keywords->lastTabWidget(),  items->firstTabWidget() );
-    setTabOrder( items->lastTabWidget(),  description );
 
     connect( preview,  SIGNAL( doubleClicked() ),  this,  SLOT( displayImage() ) );
 
@@ -112,12 +108,6 @@ void ImageConfig::slotOK()
                 change = true;
             }
 
-            if ( quality->currentText() != "---" ) {
-                info->setQuality( quality->currentItem() );
-                change = true;
-            }
-
-
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
                     change = true;
@@ -154,7 +144,6 @@ void ImageConfig::load()
     monthEnd->setCurrentItem( info.endDate().month() );
     dayEnd->setValue( info.endDate().day() );
 
-    quality->setCurrentItem( info.quality() );
     label->setText( info.label() );
     description->setText( info.description() );
 
@@ -172,7 +161,7 @@ void ImageConfig::load()
 
     Viewer* viewer = Viewer::instance();
     viewer->load( _origList, _current );
-    ImageManager::instance()->load( info.fileName( false ), this, info.angle(), 256, 256, false, true );
+    ImageManager::instance()->load( info.fileName( false ), this, info.angle(), 256, 256, false, true, false );
 }
 
 void ImageConfig::save()
@@ -191,7 +180,6 @@ void ImageConfig::save()
     info.endDate().setMonth( monthEnd->currentItem() );
     info.endDate().setDay( dayEnd->value() );
 
-    info.setQuality( quality->currentItem() );
     info.setLabel( label->text() );
     info.setDescription( description->text() );
     QStringList list = persons->selection();
@@ -221,7 +209,6 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         _setup = MULTIPLE;
 
     if ( oneAtATime )  {
-        quality->setCurrentText( "High" );
         // PENDING(blackie) We can't just have a QMap as this fills up memory.
         /*_preloadImageMap.clear();
         for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
@@ -238,8 +225,6 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         dayEnd->setValue( 0 );
         monthEnd->setCurrentText( "---" );
         yearEnd->setValue( 0 );
-
-        quality->setCurrentText( "---" );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->setSelection( QStringList() );
@@ -264,8 +249,7 @@ int ImageConfig::search()
     if ( ok == QDialog::Accepted )  {
         _oldSearch = ImageSearchInfo( ImageDate( dayStart->value(), monthStart->currentItem(), yearStart->value()),
                                       ImageDate( dayEnd->value(), monthEnd->currentItem(), yearEnd->value() ),
-                                      quality->currentItem(), qualityTo->currentItem(),
-                                      persons->text(), locations->text(), keywords->text(), items->text(),
+                                      persons->text(), locations->text(), keywords->text(),
                                       label->text(), description->text() );
     }
     return ok;
@@ -300,8 +284,6 @@ void ImageConfig::setup()
         (*it)->setMode( mode );
         (*it)->setShowMergeCheckbox( _setup == MULTIPLE );
     }
-    qualityToLabel->setEnabled( _setup == SEARCH );
-    qualityTo->setEnabled( _setup == SEARCH );
 }
 
 bool ImageConfig::match( ImageInfo* info )
@@ -341,28 +323,6 @@ bool ImageConfig::match( ImageInfo* info )
 
     ok &= ( b1 || b2 || b3 );
 
-
-    // -------------------------------------------------- Quality
-    int v1 = quality->currentItem();
-    int v2 = qualityTo->currentItem();
-    if ( v1 != 0 || v2 != 0 )  {
-        int min, max;
-        if ( v1 == 0 )  {
-            min = v2;
-            max = v2;
-        }
-        else if ( v2 == 0 )  {
-            min = v1;
-            max = v1;
-        }
-        else {
-            min = QMIN( v1, v2 );
-            max = QMAX( v1, v2 );
-        }
-
-        ok &= info->quality() >= min;
-        ok &= info->quality() <= max;
-    }
 
     // -------------------------------------------------- ListSelect
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -404,13 +364,9 @@ void ImageConfig::loadInfo( const ImageSearchInfo& info )
     monthEnd->setCurrentItem( info.endDate().month() );
     dayEnd->setValue( info.endDate().day() );
 
-    quality->setCurrentItem( info.startQuality() );
-    qualityTo->setCurrentItem( info.endQuality() );
-
     persons->setText( info.persons() );
     locations->setText( info.locations() );
     keywords->setText( info.keywords() );
-    items->setText( info.items() );
 
     label->setText( info.label() );
     description->setText( info.description() );

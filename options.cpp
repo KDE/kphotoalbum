@@ -37,7 +37,7 @@ Options::Options()
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
     _imageDirectory = top.attribute( "imageDirectory" );
     _htmlBaseDir = top.attribute( "htmlBaseDir", QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
-
+    _htmlBaseURL = top.attribute( "htmlBaseURL", QString::fromLatin1( "file://" ) + _htmlBaseDir );
     _infoBoxPosition = (Position) top.attribute( "infoBoxPosition", "0" ).toInt();
     _showInfoBox = top.attribute( "showInfoBox", "1" ).toInt();
     _showDrawings = top.attribute( "showDrawings", "1" ).toInt();
@@ -94,7 +94,7 @@ void Options::save()
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
     top.setAttribute( "imageDirectory", _imageDirectory );
     top.setAttribute( "htmlBaseDir", _htmlBaseDir );
-
+    top.setAttribute( "htmlBaseURL", _htmlBaseURL );
 
     top.setAttribute( "infoBoxPosition", (int) _infoBoxPosition );
     top.setAttribute( "showInfoBox", _showInfoBox );
@@ -255,5 +255,15 @@ QString Options::HTMLBaseDir() const
 void Options::setHTMLBaseDir( const QString& dir )
 {
     _htmlBaseDir = dir;
+}
+
+QString Options::HTMLBaseURL() const
+{
+    return _htmlBaseURL;
+}
+
+void Options::setHTMLBaseURL( const QString& dir )
+{
+    _htmlBaseURL = dir;
 }
 

@@ -32,6 +32,7 @@ protected:
 private:
     KLineEdit* _title;
     KLineEdit* _baseDir;
+    KLineEdit* _baseURL;
     KLineEdit* _outputDir;
     QSpinBox* _thumbSize;
     QCheckBox* _generateToolTips;

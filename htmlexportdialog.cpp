@@ -19,6 +19,7 @@
 #include <qlcdnumber.h>
 #include <qhgroupbox.h>
 #include <kstandarddirs.h>
+#include <krun.h>
 
 class MyCheckBox :public QCheckBox {
 
@@ -41,7 +42,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
 {
     QWidget* generalPage = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( generalPage, 6 );
-    QGridLayout* lay2 = new QGridLayout( lay1 );
+    QGridLayout* lay2 = new QGridLayout( lay1, 2 );
 
     QLabel* label = new QLabel( i18n("Page Title"), generalPage );
     lay2->addWidget( label, 0, 0 );
@@ -64,7 +65,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     label = new QLabel( i18n("Number of Columns"), generalPage );
     lay2->addWidget( label, 2, 0 );
 
-    QHBoxLayout* lay4 = new QHBoxLayout( (QWidget*)0, 6 );
+    QHBoxLayout* lay4 = new QHBoxLayout( (QWidget*)0, 0, 6 );
     lay2->addLayout( lay4, 2, 1 );
 
     QSpinBox* number = new QSpinBox( 1, 10, 1, generalPage );
@@ -78,12 +79,22 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     connect( number, SIGNAL( valueChanged( int ) ), _numOfCols, SLOT( setValue(int) ) );
     number->setValue( _numOfCols->value() );
 
+    // Generate Tooltips
+    _generateToolTips = new QCheckBox( i18n( "Generate tool tips" ), generalPage );
+    _generateToolTips->setChecked( true );
+    lay2->addMultiCellWidget( _generateToolTips, 3, 3, 0, 1 );
+
+    // Seperator
+    QFrame* sep = new QFrame( generalPage );
+    sep->setFrameStyle( QFrame::HLine | QFrame::Sunken );
+    lay2->addMultiCellWidget( sep, 4, 4, 0, 1 );
+
     // Base Directory
     label = new QLabel( i18n("Base Directory"), generalPage );
-    lay2->addWidget( label, 3, 0 );
+    lay2->addWidget( label, 5, 0 );
 
-    QHBoxLayout* lay5 = new QHBoxLayout( 0 );
-    lay2->addLayout( lay5, 3, 1 );
+    QHBoxLayout* lay5 = new QHBoxLayout( (QWidget*)0, 0, 6 );
+    lay2->addLayout( lay5, 5, 1 );
 
     _baseDir = new KLineEdit( generalPage );
     lay5->addWidget( _baseDir );
@@ -95,16 +106,19 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     connect( but, SIGNAL( clicked() ), this, SLOT( selectDir() ) );
     _baseDir->setText( Options::instance()->HTMLBaseDir() );
 
+    // Base URL
+    label = new QLabel( i18n("Base URL"), generalPage );
+    lay2->addWidget( label, 6, 0 );
+
+    _baseURL = new KLineEdit( generalPage );
+    _baseURL->setText( Options::instance()->HTMLBaseURL() );
+    lay2->addWidget( _baseURL, 6, 1 );
+
     // Output Directory
     label = new QLabel( i18n("Output Directory"), generalPage );
-    lay2->addWidget( label, 4, 0 );
+    lay2->addWidget( label, 7, 0 );
     _outputDir = new KLineEdit( generalPage );
-    lay2->addWidget( _outputDir, 4, 1 );
-
-    // Generate Tooltips
-    _generateToolTips = new QCheckBox( i18n( "Generate tool tips" ), generalPage );
-    lay1->addWidget( _generateToolTips );
-    _generateToolTips->setChecked( true );
+    lay2->addWidget( _outputDir, 7, 1 );
 
     // Image sizes
     QHGroupBox* sizes = new QHGroupBox( i18n("Image sizes"), generalPage );
@@ -373,8 +387,11 @@ void HTMLExportDialog::slotOk()
     bool ok = generate();
     if ( ok ) {
         Options::instance()->setHTMLBaseDir( _baseDir->text() );
+        Options::instance()->setHTMLBaseURL( _baseURL->text() );
         Options::instance()->save();
         accept();
+        if ( ! _baseURL->text().isEmpty() )
+            new KRun( _baseURL->text() + QString::fromLatin1( "/" ) + _outputDir->text() );
     }
     else {
         _progress->cancel();

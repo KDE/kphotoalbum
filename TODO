@@ -3,7 +3,6 @@ TODO UTTERLY SOON
 =================
 - When you press cancel during the export process you still get the info
 someone else could import your export. 
-- After an import the index.xml file should be marked modified
 
 ==========================
 BUGS To be handled soonish

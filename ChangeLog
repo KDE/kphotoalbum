@@ -1,5 +1,7 @@
 2004-05-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: After an import the index.xml file was not marked modified
+
 	* BUGFIX: export to HTML page and import resulted in rotated
 	images getting even more rotated
 

@@ -424,7 +424,6 @@ Util::UniqNameMap Util::createUniqNameMap( const ImageInfoList& images, bool rel
         }
 
         map.insert( fullName, relFile );
-        qDebug("%s->%s", fullName.latin1(), relFile.latin1() );
         inverseMap.insert( file, fullName );
     }
 

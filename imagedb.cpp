@@ -619,6 +619,7 @@ void ImageDB::addImage( ImageInfo* info )
     _images.append( info );
     _fileMap.insert( info->fileName(), info );
     emit totalChanged( _images.count() );
+    emit dirty();
 }
 
 ImageInfo* ImageDB::find( const QString& fileName ) const

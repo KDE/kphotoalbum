@@ -52,7 +52,7 @@ void ImageManager::load( const QString& fileName, ImageClient* client, int angle
 
     // Delete other request for the same file from the same client
     for( QValueList<LoadInfo>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
-        if ( (*it).fileName() == fileName && (*it).client() == client )
+        if ( (*it).fileName() == fileName && (*it).client() == client && (*it).width() == width && (*it).height() == height)
             it = _loadList.remove(it) ;
         else
             ++it;

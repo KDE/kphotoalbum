@@ -5,7 +5,13 @@
 #include <qdatetime.h>
 #include <kdemacros.h>
 #include "imagedaterange.h"
+#include <kdeversion.h>
 class DateBar;
+
+#if ! KDE_IS_VERSION(3,3,90)
+#undef KDE_EXPORT
+#define KDE_EXPORT
+#endif
 
 namespace DateBarMouseHandler {
 

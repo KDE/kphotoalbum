@@ -9,7 +9,6 @@ BUGS To be handled soonish
 - escape quotes and back quotes in descriptions when generating HTML
 - it seems like its not possible to generate HTML twice with different
   images, without restarting the program
-- context menu for thumbnail view shows up in browser.
 - when renaming an item in the listselect, then category image should also
   be renamed, and when deleting an item.
 - Adding a new ListSelect will not show it up initially.

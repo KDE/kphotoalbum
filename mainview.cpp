@@ -674,16 +674,18 @@ void MainView::load()
 
 void MainView::contextMenuEvent( QContextMenuEvent* )
 {
-    QPopupMenu menu;
-    _configOneAtATime->plug( &menu );
-    _configAllSimultaniously->plug( &menu );
+    if ( _stack->visibleWidget() == _thumbNailView ) {
+        QPopupMenu menu;
+        _configOneAtATime->plug( &menu );
+        _configAllSimultaniously->plug( &menu );
 
-    menu.insertSeparator();
+        menu.insertSeparator();
 
-    _viewSelected->plug( &menu );
-    _viewSelectedInNewWindow->plug( &menu );
+        _viewSelected->plug( &menu );
+        _viewSelectedInNewWindow->plug( &menu );
 
-    menu.exec( QCursor::pos() );
+        menu.exec( QCursor::pos() );
+    }
 }
 
 

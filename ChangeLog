@@ -1,5 +1,8 @@
 2004-01-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: Context menu for thumbnail view used to show up in the
+	browser too.
+
 	* BUGFIX: searches using the textbox didn't work.
 
 	* BUGFIX: ensure that tip of the day has focus when it starts up.

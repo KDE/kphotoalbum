@@ -86,6 +86,9 @@ void OptionsDialog::createGeneralPage()
     _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), top );
     lay1->addWidget( _useEXIFRotate );
 
+    _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), top );
+    lay1->addWidget( _useEXIFComments );
+
     // Max images to show per page
     QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page"), top );
     _maxImages = new QSpinBox( 10, 10000, 1, top ) ;
@@ -144,6 +147,11 @@ void OptionsDialog::createGeneralPage()
                 "your images, uncheck this check box.</p>"
                 "<p>Note: Your digital camera may not write this information into the images at all.</p></qt>" );
     QWhatsThis::add( _useEXIFRotate, txt );
+
+    txt = i18n( "<qt><p>JPEG images may contain a description."
+               "Using this checkbox you specify if you want to use this as a "
+               "default description for your images.</p></qt>" );
+    QWhatsThis::add( _useEXIFComments, txt );
 }
 
 class OptionGroupItem :public QListBoxText
@@ -247,6 +255,7 @@ void OptionsDialog::show()
     _previewSize->setValue( opt->previewSize() );
     _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
+    _useEXIFComments->setChecked( opt->useEXIFComments() );
     _autosave->setValue( opt->autoSave() );
     _maxImages->setValue( opt->maxImages() );
     _viewImageSetup->setSize( opt->viewerSize() );
@@ -276,6 +285,7 @@ void OptionsDialog::slotMyOK()
     opt->setPreviewSize( _previewSize->value() );
     opt->setTTimeStamps( (Options::TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
+    opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setAutoSave( _autosave->value() );
     opt->setMaxImages( _maxImages->value() );
     opt->setViewerSize( _viewImageSetup->size() );

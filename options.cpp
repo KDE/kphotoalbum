@@ -52,6 +52,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _previewSize = config.attribute( QString::fromLatin1( "previewSize" ), QString::fromLatin1( "256" ) ).toInt();
     _tTimeStamps = (TimeStampTrust) config.attribute( QString::fromLatin1("trustTimeStamps"),  QString::fromLatin1("0") ).toInt();
     _useEXIFRotate = (bool) config.attribute( QString::fromLatin1( "useEXIFRotate" ), QString::fromLatin1( "1" ) ).toInt();
+    _useEXIFComments = (bool) config.attribute( QString::fromLatin1( "useEXIFComments" ), QString::fromLatin1( "1" ) ).toInt();
     _autoSave = config.attribute( QString::fromLatin1("autoSave"), QString::number( 5 ) ).toInt();
     _maxImages = config.attribute( QString::fromLatin1("maxImages"), QString::number( 100 ) ).toInt();
     _ensureImageWindowsOnScreen = (bool) config.attribute( QString::fromLatin1( "ensureImageWindowsOnScreen" ), QString::fromLatin1( "1" ) ).toInt();
@@ -115,6 +116,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "previewSize" ), _previewSize );
     config.setAttribute( QString::fromLatin1("trustTimeStamps"), _tTimeStamps );
     config.setAttribute( QString::fromLatin1("useEXIFRotate"), _useEXIFRotate );
+    config.setAttribute( QString::fromLatin1("useEXIFComments"), _useEXIFComments );
     config.setAttribute( QString::fromLatin1("autoSave"), _autoSave );
     config.setAttribute( QString::fromLatin1("maxImages" ), _maxImages );
     config.setAttribute( QString::fromLatin1( "ensureImageWindowsOnScreen" ), _ensureImageWindowsOnScreen );
@@ -626,6 +628,18 @@ void Options::setUseEXIFRotate( bool b )
 bool Options::useEXIFRotate() const
 {
     return _useEXIFRotate;
+}
+
+void Options::setUseEXIFComments( bool b )
+{
+    if ( _useEXIFComments != b )
+        emit changed();
+    _useEXIFComments = b;
+}
+
+bool Options::useEXIFComments() const
+{
+    return _useEXIFComments;
 }
 
 void Options::setPreviewSize( int size )

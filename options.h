@@ -133,6 +133,9 @@ public:
     void setUseEXIFRotate( bool b );
     bool useEXIFRotate() const;
 
+    void setUseEXIFComments( bool b );
+    bool useEXIFComments() const;
+
     void setAutoSave( int min );
     int autoSave() const;
 
@@ -177,6 +180,7 @@ private:
     int _thumbSize,  _previewSize;
     TimeStampTrust _tTimeStamps;
     bool _useEXIFRotate;
+    bool _useEXIFComments;
     int _autoSave, _maxImages;
     bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps, _ensureImageWindowsOnScreen;
     QMap<QString, QStringList> _options;

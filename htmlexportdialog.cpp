@@ -56,6 +56,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "export.h"
+#include "mainview.h"
 
 class ImageSizeCheckBox :public QCheckBox {
 
@@ -576,6 +577,13 @@ QString HTMLExportDialog::createImage( ImageInfo* info, int size )
 
 void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*height*/, int /*angle*/, const QImage& image )
 {
+    // processEvent must be called first in this function, otherwise we get in the following situation:
+    // An image is loaded, this function is called, then before we hit the processEvent another image is loaded,
+    // and this function will be called during the recursive call to processEvent, and so on.
+    // The effect is that the image given as parameters of course do not get deleted (as the function is not yet complete)
+    // and memory raises and raises. 16 Apr. 2004 18:31 -- Jesper K. Pedersen
+    _progress->setProgress( _total - _waitCounter );
+    qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
     _waitCounter--;
 
@@ -590,10 +598,6 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*he
     }
     else
         Q_ASSERT( false );
-
-
-    _progress->setProgress( _total - _waitCounter );
-    qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
     if ( _waitCounter == 0 ) {
         qApp->eventLoop()->exitLoop();
@@ -687,17 +691,21 @@ bool HTMLExportDialog::checkVars()
 
     // test if destination directory exists.
 #if KDE_IS_VERSION( 3, 1, 90 )
-    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, this );
+    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, MainView::theMainView() );
 #else
     bool exists = KIO::NetAccess::exists( KURL(outputDir) );
 #endif
     if ( exists ) {
-        int answer = QMessageBox::warning( this, i18n("Directory Exists"),
-                                           i18n("<qt>Output directory %1 already exists. "
-                                                "Usually you should specify a new directory. "
-                                                "Continue?</qt>").arg( outputDir ),
-                                           QMessageBox::No, QMessageBox::Yes );
-        if ( answer == QMessageBox::No )
+        int answer = KMessageBox::warningYesNo( this,
+                                                i18n("<qt><p>Output directory %1 already exists. "
+                                                     "Usually you should specify a new directory.</p>"
+                                                     "Should I delete %2 first?</qt>").arg( outputDir ).arg( outputDir ),
+                                                i18n("Directory Exists"), KStdGuiItem::yes(), KStdGuiItem::no(),
+                                                QString::fromLatin1("html_export_delete_original_directory") );
+        if ( answer == KMessageBox::Yes ) {
+            KIO::NetAccess::del( outputDir, MainView::theMainView() );
+        }
+        else
             return false;
     }
     return true;

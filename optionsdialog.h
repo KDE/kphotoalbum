@@ -75,6 +75,7 @@ private:
     QSpinBox* _autosave;
     QSpinBox* _maxImages;
     QCheckBox* _useEXIFRotate;
+    QCheckBox* _useEXIFComments;
     QSpinBox* _previewSize;
 
     // Option Groups page

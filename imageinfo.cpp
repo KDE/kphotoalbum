@@ -478,7 +478,7 @@ void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
         }
 
         // Description
-        if ( exif.contains( QString::fromLatin1( "Comment" ) ) ) {
+        if ( Options::instance()->useEXIFComments() && exif.contains( QString::fromLatin1( "Comment" ) ) ) {
             _description = exif[QString::fromLatin1( "Comment" )].toString();
         }
     }

@@ -1,5 +1,11 @@
 2004-04-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: If the destination directory for HTML export exists,
+	offer to remove it. This fixes the problem where it would instead
+	just be put in a subdirectory.
+
+	* Loading descriptions from EXIF information can now be disabled
+
 	* BUGFIX: when exporting the image loader also saved the large
 	images (like 1024x768) to tumbnails dir. Please remove all
 	thumbnails using the maintenance menu item.

@@ -94,8 +94,8 @@ private:
 };
 
 
-HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("HTML Export"), Ok|Cancel, Ok, parent, name ), _list(list)
+HTMLExportDialog::HTMLExportDialog( QWidget* parent, const char* name )
+    :KDialogBase( Plain, i18n("HTML Export"), Ok|Cancel, Ok, parent, name )
 {
     enableButtonOK( false );
     QWidget* generalPage = plainPage();
@@ -755,6 +755,12 @@ void HTMLExportDialog::getThemeInfo( QString* baseDir, QString* name, QString* a
     themeConfig.setGroup( QString::fromLatin1( "theme" ) );
     *name = themeConfig.readEntry( "Name" );
     *author = themeConfig.readEntry( "Author" );
+}
+
+int HTMLExportDialog::exec( const ImageInfoList& list )
+{
+    _list = list;
+    return KDialogBase::exec();
 }
 
 #include "htmlexportdialog.moc"

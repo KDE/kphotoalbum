@@ -5,8 +5,6 @@ BUGS To be handled soonish
 - drawing on an image doesn't mark it as dirty
 - add more descriptions to the demo.
 - escape quotes and back quotes in descriptions when generating HTML
-- it seems like its not possible to generate HTML twice with different
-  images, without restarting the program
 - when renaming an item in the listselect, then category image should also
   be renamed.
 - Adding a new ListSelect will not show it up initially.

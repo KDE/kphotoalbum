@@ -493,8 +493,8 @@ void MainView::slotExportToHTML()
     }
 
     if ( ! _htmlDialog )
-        _htmlDialog = new HTMLExportDialog( list, this, "htmlExportDialog" );
-    _htmlDialog->exec();
+        _htmlDialog = new HTMLExportDialog( this, "htmlExportDialog" );
+    _htmlDialog->exec( list );
 }
 
 void MainView::startAutoSaveTimer()

@@ -1,5 +1,7 @@
 2004-01-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: It was not possible to generate HTML more than once per session.
+
 	* Read date, orientation and description out of EXIF data.
 
 2004-01-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

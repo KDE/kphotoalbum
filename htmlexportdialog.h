@@ -35,7 +35,8 @@ class HTMLExportDialog :public KDialogBase, private ImageClient {
     Q_OBJECT
 
 public:
-    HTMLExportDialog( const ImageInfoList& list, QWidget* parent, const char* name = 0 );
+    HTMLExportDialog( QWidget* parent, const char* name = 0 );
+    int exec( const ImageInfoList& list );
 
 protected slots:
     void slotOk();

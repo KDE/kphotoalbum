@@ -46,7 +46,14 @@ works. (with a do-not-show-again checkbox)
 - make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
 - add Maintenance/remove all thumbnails and Maintenance/regenerate all thumbnails.
 - make it possible to find images with only a given set of persons on.
-  The following syntax might do it: "Jesper & !*" The start would mean all persons.
+  The following syntax might do it: "Jesper & !*" The start would mean all
+  persons.
+- In search mode, radio buttons labeled "Or" and "And" should be available
+  to tell how the items in the listbox should be combined.
+- Allow sorting for each listbox in the image configure dialog.
+  one icon should show a calender for sorting by date, one should show a
+  letter for sorting alphabetically
+- remember windows sizes so they can be restored on start up
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -60,6 +60,7 @@
 #include <kdebug.h>
 #include "externalpopup.h"
 #include <donate.h>
+#include <kstdaction.h>
 
 MainView* MainView::_instance = 0;
 

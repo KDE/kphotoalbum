@@ -99,6 +99,8 @@ public:
     QImage load( int width = -1, int height = -1 ) const;
 
     bool isNull() const { return _null; }
+    QSize size() const;
+    void setSize( const QSize& size );
 
     // Used during searches
     void clearMatched() const;
@@ -127,6 +129,7 @@ private:
     mutable OnDisk _imageOnDisk;
     QString _md5sum;
     bool _null;
+    QSize _size;
 
     // Cache information
     bool _locked;

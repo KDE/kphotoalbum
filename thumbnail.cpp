@@ -51,6 +51,7 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* par
 void ThumbNail::init()
 {
     setDropEnabled( true );
+    setText( _imageInfo->label());
 }
 
 
@@ -71,6 +72,7 @@ void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& /*
     QPixmap* pixmap = new QPixmap( size );
     if ( loadedOK && !image.isNull() )
         pixmap->convertFromImage( image );
+
     else if ( !loadedOK)
         pixmap->fill(Qt::gray);
 
@@ -166,29 +168,38 @@ bool ThumbNail::atRightSizeOfItem() const
     return ( xDiff > width()/2 );
 }
 
-void ThumbNail::calcRect( const QString& text )
+void ThumbNail::calcRect( const QString& )
 {
-    if ( !Options::instance()->displayLabels() )
-        setText( QString::null );
-    else
-        setText( _imageInfo->label() );
-
-    if ( Options::instance()->displayLabels() )
-        QIconViewItem::calcRect( text );
-    else {
-        int size = Options::instance()->thumbSize();
-        QPixmap* pix = pixmap();
-        QRect r( 0,0, size, size );
-        if ( !pix->isNull() ) {
-            int w = pix->width();
-            int h = pix->height();
-            r = QRect( (size-w)/2, 0, w, h );
-        }
-
-        setTextRect( QRect(0,0,0,0) );
-        setItemRect( QRect( x(), y(), size, size ) );
-        setPixmapRect( r );
+    int size = Options::instance()->thumbSize();
+    int w = _imageInfo->size().width();
+    int h = _imageInfo->size().height();
+    if ( w == -1 || h == -1 ) {
+        w = size;
+        h = size;
     }
+    else if ( w > h ) {
+        h = (int) (size * ( h*1.0 / w ));
+        w = size;
+    }
+    else {
+        w = (int) (size * ( w*1.0 / h ));
+        h = size;
+    }
+    h +=  5;// PENDING(blackie) make an option for this value
+
+
+    QRect textRect(0,0,0,0);
+    if ( Options::instance()->displayLabels() ) {
+        QFontMetrics fm( iconView()->font() );
+        textRect = fm.boundingRect( 0,0, w, 1000, WordBreak | BreakAnywhere, text() );
+        textRect.moveTop( h );
+        if ( textRect.width() < w )
+            textRect.moveLeft( ( w-textRect.width()) /2 );
+    }
+
+    setTextRect( textRect );
+    setItemRect( QRect( x(), y(), w, h+textRect.height() ) );
+    setPixmapRect( QRect( (size-w)/2, 0, w, h ) );
 }
 
 void ThumbNail::paintItem( QPainter * p, const QColorGroup & cg )

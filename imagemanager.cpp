@@ -48,7 +48,6 @@ void ImageManager::init()
     _sleepers = new QWaitCondition(); // Is it necessary to load this using new?
     _lock = new QMutex(); // necessary with new?
 
-    // Only use 1 image loader thread as the JPEG loader is not thread safe
     ImageLoader* imageLoader = new ImageLoader( _sleepers );
     imageLoader->start();
 }

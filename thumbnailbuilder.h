@@ -34,6 +34,7 @@ public:
 private:
     ImageInfoList _images;
     uint _index;
+    QMap<QString, ImageInfo*> _infoMap;
 };
 
 

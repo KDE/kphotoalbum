@@ -272,7 +272,7 @@ void ThumbNailView::setupGrid()
 {
     int size = Options::instance()->thumbSize();
     setGridX( size + 2 );
-    setGridY( size + QMIN( 10, size/5) );
+    setGridY(-1);
 }
 
 void ThumbNailView::drawBackground( QPainter * p, const QRect & r )

@@ -41,11 +41,15 @@ void ThumbnailBuilder::generateNext()
     ++_index;
     setProgress( _index );
     int size = Options::instance()->thumbSize();
+    _infoMap.insert( info->fileName(), info );
     ImageManager::instance()->load( info->fileName(),  this, info->angle(), size, size, true, true );
 }
 
-void ThumbnailBuilder::pixmapLoaded( const QString&, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage&, bool /*loadedOK*/ )
+void ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& fullSize, int, const QImage&, bool /*loadedOK*/ )
 {
+    Q_ASSERT( _infoMap.contains( fileName ) );
+    if ( fullSize.width() != -1 )
+        _infoMap[fileName]->setSize( fullSize );
     if ( wasCanceled() )
         delete this;
     else if ( _index == _images.count() )

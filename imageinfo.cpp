@@ -43,7 +43,7 @@ ImageInfo::ImageInfo() :_null( true )
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    :  _visible( true ), _imageOnDisk( YesOnDisk ), _null( false ), _locked( false )
+    :  _visible( true ), _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
 {
     QString fullPath = Options::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Options::instance()->imageDirectory() + fileName );
@@ -79,6 +79,9 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
 
     _angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
     _md5sum = elm.attribute( QString::fromLatin1( "md5sum" ) );
+    int w = elm.attribute( QString::fromLatin1( "width" ), QString::fromLatin1( "-1" ) ).toInt();
+    int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
+    _size = QSize( w,h );
 
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
@@ -192,6 +195,8 @@ QDomElement ImageInfo::save( QDomDocument doc )
 
     elm.setAttribute( QString::fromLatin1("angle"),  _angle );
     elm.setAttribute( QString::fromLatin1( "md5sum" ), _md5sum );
+    elm.setAttribute( QString::fromLatin1( "width" ), _size.width() );
+    elm.setAttribute( QString::fromLatin1( "height" ), _size.height() );
 
     if ( _options.count() != 0 ) {
         QDomElement top = doc.createElement( QString::fromLatin1("options") );
@@ -467,6 +472,16 @@ void ImageInfo::setImageOnDisk( bool b )
 ImageDateRange ImageInfo::dateRange() const
 {
     return ImageDateRange( _startDate, _endDate );
+}
+
+QSize ImageInfo::size() const
+{
+    return _size;
+}
+
+void ImageInfo::setSize( const QSize& size )
+{
+    _size = size;
 }
 
 #include "infobox.moc"

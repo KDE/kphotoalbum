@@ -23,9 +23,18 @@
 ShowBusyCursor::ShowBusyCursor()
 {
     qApp->setOverrideCursor( QCursor( Qt::WaitCursor ) );
+    _active = true;
 }
 
 ShowBusyCursor::~ShowBusyCursor()
 {
-    qApp->restoreOverrideCursor();
+    stop();
+}
+
+void ShowBusyCursor::stop()
+{
+    if ( _active ) {
+        qApp->restoreOverrideCursor();
+        _active=false;
+    }
 }

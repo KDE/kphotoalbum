@@ -53,7 +53,7 @@ void ImageFolderAction::action()
 
     if ( _addExtraToBrowser ) {
         // Add all the following image fractions to the image list, so the user
-        // simply cann use the forward button to see the following images.
+        // simply can use the forward button to see the following images.
         int count = ImageDB::instance()->count( _info );
         int maxPerPage = Options::instance()->maxImages();
 

@@ -24,6 +24,9 @@ class ShowBusyCursor {
 public:
     ShowBusyCursor();
     ~ShowBusyCursor();
+    void stop();
+private:
+    bool _active;
 };
 
 

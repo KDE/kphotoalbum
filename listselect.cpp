@@ -55,7 +55,8 @@ void CompletableLineEdit::setListBox( QListBox* listbox )
     _listbox = listbox;
 }
 
-void CompletableLineEdit::setMode( ListSelect::Mode mode ) {
+void CompletableLineEdit::setMode( ListSelect::Mode mode )
+{
     _mode = mode;
 }
 
@@ -193,12 +194,13 @@ void ListSelect::slotReturn()
         Options* options = Options::instance();
         options->addOption( _optionGroup, txt);
 
-        _listBox->setSelected( item,  true );
-        _lineEdit->clear();
-
         // move item to front
         _listBox->takeItem( item );
         _listBox->insertItem( item, 0 );
+        _listBox->setContentsPos( 0,0 );
+
+        _listBox->setSelected( item,  true );
+        _lineEdit->clear();
     }
 }
 

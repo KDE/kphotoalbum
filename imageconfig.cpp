@@ -203,6 +203,12 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     connect( clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
     connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
 
+    // Disable so no button accept return (which would break with the line edits)
+    _revertBut->setAutoDefault( false );
+    _okBut->setAutoDefault( false );
+    cancelBut->setAutoDefault( false );
+    clearBut->setAutoDefault( false );
+    optionsBut->setAutoDefault( false );
 
     // Connect PageUp/PageDown to prev/next
     QAccel* accel = new QAccel( this, "accel for ImageConfig" );

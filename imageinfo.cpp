@@ -69,6 +69,11 @@ void ImageInfo::addOption( const QString& key, const QStringList& value )
     _options[key] += value;
 }
 
+bool ImageInfo::hasOption( const QString& key, const QString& value )
+{
+    return _options[key].contains(value);
+}
+
 QStringList ImageInfo::optionValue( const QString& key ) const
 {
     return _options[key];
@@ -181,7 +186,7 @@ bool ImageDate::operator<=( ImageDate& other )
 {
     bool ignoreYear =  ( _year == 0 || other._year == 0 );
     bool ignoreMonth = ( _month == 0 || other._month == 0 );
-    bool ignoreDay = (_day == 0 || other._day );
+    bool ignoreDay = (_day == 0 || other._day == 0 );
     bool yearEqual = ( ignoreYear || _year == other._year );
     bool monthEqual = ( ignoreMonth ||  _month == other._month );
 
@@ -203,15 +208,4 @@ bool ImageDate::isNull() const
 {
     return ( _year == 0 && _month == 0 && _day == 0 );
 }
-
-
-
-
-
-
-
-
-
-
-
 

@@ -2,10 +2,12 @@
 #define LISTSELECT_H
 
 #include <qwidget.h>
+#include <qstringlist.h>
 class QListBox;
 class QLabel;
 class QCheckBox;
 class CompletableLineEdit;
+class ImageInfo;
 
 class ListSelect :public QWidget {
     Q_OBJECT
@@ -22,6 +24,7 @@ public:
 
     enum Mode {INPUT, SEARCH};
     void setMode( Mode );
+    bool matches( ImageInfo* info );
 
 protected slots:
     void slotReturn();

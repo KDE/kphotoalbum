@@ -90,6 +90,9 @@
         <property name="text">
             <string>&amp;Search</string>
         </property>
+        <property name="accel">
+            <string>Ctrl+S</string>
+        </property>
     </action>
     <action>
         <property name="name">

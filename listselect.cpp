@@ -6,6 +6,7 @@
 #include <qcheckbox.h>
 #include <qvalidator.h>
 #include "options.h"
+#include "imageinfo.h"
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -183,4 +184,34 @@ void ListSelect::setMode( Mode mode)
 {
     _mode = mode;
     _lineEdit->setMode( mode );
+}
+
+bool ListSelect::matches( ImageInfo* info )
+{
+    // PENDING(blackie) to simple algorithm for matching, could be improved with parentheses.
+    QString matchText = _lineEdit->text();
+    if ( matchText.isEmpty() )
+        return true;
+
+    QStringList orParts = QStringList::split( "|", matchText );
+    bool orTrue = false;
+    for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
+        QStringList andParts = QStringList::split( "&", *itOr );
+        bool andTrue = true;
+        for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
+            QString str = *itAnd;
+            bool negate = false;
+            QRegExp regexp( "^\\s*!\\s*(.*)$" );
+            if ( regexp.exactMatch( str ) )  {
+                negate = true;
+                str = regexp.cap(1);
+            }
+            str = str.stripWhiteSpace();
+            bool found = info->hasOption( _textLabel,  str );
+            andTrue &= ( negate ? !found : found );
+        }
+        orTrue |= andTrue;
+    }
+
+    return orTrue;
 }

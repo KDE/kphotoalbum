@@ -9,6 +9,7 @@
 #include "imagemanager.h"
 #include "options.h"
 #include "imagepreview.h"
+#include <qregexp.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
@@ -273,11 +274,6 @@ bool ImageConfig::match( ImageInfo* info )
     bool b1 =( actualStart <= searchStart && searchStart <= actualEnd );
     bool b2 =( actualStart <= searchEnd && searchEnd <= actualEnd );
     bool b3 = ( searchStart <= actualStart && actualEnd <= searchEnd );
-    bool b4 = actualStart <= searchEnd;
-    bool b5 = searchEnd <= actualEnd;
-
-    qDebug( QString("%1,%2,%3,%4,%5,%6,%7").arg(searchStart).arg(searchEnd).arg(actualStart).arg(actualEnd).arg(b4).arg(b5).arg(b3).latin1());
-
 
     ok &= ( b1 || b2 || b3 );
 
@@ -302,6 +298,21 @@ bool ImageConfig::match( ImageInfo* info )
 
         ok &= info->quality() >= min;
         ok &= info->quality() <= max;
+    }
+
+    // -------------------------------------------------- ListSelect
+    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        ok &= (*it)->matches( info );
+    }
+
+    // -------------------------------------------------- Label
+    ok &= ( label->text().isEmpty() || info->label().find(label->text()) != -1 );
+
+    // -------------------------------------------------- Text
+    QString txt = description->text();
+    QStringList list = QStringList::split(QRegExp("\\s"), txt );
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        ok &= ( txt.find(*it) != -1 );
     }
 
     return ok;

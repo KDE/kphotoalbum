@@ -31,6 +31,7 @@ class QPopupMenu;
 class QAction;
 class DisplayArea;
 class SpeedDisplay;
+class CategoryImageConfig;
 
 class Viewer :public QDialog
 {
@@ -79,6 +80,8 @@ protected slots:
     void slotSlideShowFaster();
     void slotSlideShowSlower();
     void editImage();
+    void makeCategoryImage();
+    void updateCategoryConfig();
 
 private:
     static Viewer* _latest;

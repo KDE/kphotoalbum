@@ -72,6 +72,9 @@ should update
 
 - add more descriptions to the demo.
 
+- Make actions in the viewer into KActions so their key bindings can be configured.
+
 - polish the offline mode, so it might be able to ask for you mounting say
   a cd with the images needed.
+
 - BUG: escape quotes and back quotes in descriptions when generating HTML

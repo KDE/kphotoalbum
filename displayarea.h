@@ -40,6 +40,7 @@ public:
     void stopDrawing();
     void setImage( ImageInfo* info );
     DrawHandler* drawHandler();
+    QImage currentViewAsThumbnail() const;
 
 public slots:
     void toggleShowDrawings( bool );
@@ -49,6 +50,9 @@ public slots:
 protected slots:
     void drawAll();
     void doShowDrawings();
+
+signals:
+    void possibleChange();
 
 protected:
     virtual void mousePressEvent( QMouseEvent* event );

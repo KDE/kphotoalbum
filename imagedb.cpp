@@ -156,7 +156,9 @@ void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory 
         QString file = directory + QString::fromLatin1("/") + *it;
         QFileInfo fi( file );
         if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
-             (*it) == QString::fromLatin1("ThumbNails") || !fi.isReadable() )
+             (*it) == QString::fromLatin1("ThumbNails") ||
+             (*it) == QString::fromLatin1("CategoryImages") ||
+             !fi.isReadable() )
                 continue;
 
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&

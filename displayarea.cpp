@@ -118,8 +118,10 @@ void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     bool block = _currentHandler->mouseReleaseEvent( &e );
-    if ( !block )
+    if ( !block ) {
         QWidget::mouseReleaseEvent( event );
+    }
+    emit possibleChange();
     drawAll();
 }
 
@@ -399,6 +401,11 @@ void DisplayArea::cropAndScale()
 void DisplayArea::doShowDrawings()
 {
     Options::instance()->setShowDrawings( true );
+}
+
+QImage DisplayArea::currentViewAsThumbnail() const
+{
+    return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
 }
 
 #include "displayarea.moc"

@@ -45,10 +45,15 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
         setText( 0, value );
     }
 
-    if ( Options::instance()->memberMap().isGroup( optionGroup, value ) )
-        setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, 22 ) );
+    if ( Options::instance()->viewSize() == Options::Small ) {
+        if ( Options::instance()->memberMap().isGroup( optionGroup, value ) )
+            setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, 22 ) );
+        else {
+            setPixmap( 0, Options::instance()->iconForOptionGroup( optionGroup ) );
+        }
+    }
     else
-        setPixmap( 0, Options::instance()->iconForOptionGroup( optionGroup ) );
+        setPixmap( 0, Options::instance()->optionImage( optionGroup, value, 64 ) );
 
     setCount( count );
     setText( 1, i18n( "1 image", "%n images", count ) );

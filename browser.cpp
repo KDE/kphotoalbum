@@ -174,4 +174,32 @@ ImageSearchInfo Browser::current()
     return _list[_current-1]->_info;
 }
 
+void Browser::slotSmallListView()
+{
+    Options::instance()->setViewType( Options::ListView );
+    Options::instance()->setViewSize( Options::Small );
+    reload();
+}
+
+void Browser::slotLargeListView()
+{
+    Options::instance()->setViewType( Options::ListView );
+    Options::instance()->setViewSize( Options::Large );
+    reload();
+}
+
+void Browser::slotSmallIconView()
+{
+    Options::instance()->setViewType( Options::IconView );
+    Options::instance()->setViewSize( Options::Small );
+    reload();
+}
+
+void Browser::slotLargeIconView()
+{
+    Options::instance()->setViewType( Options::IconView );
+    Options::instance()->setViewSize( Options::Large );
+    reload();
+}
+
 #include "browser.moc"

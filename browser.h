@@ -41,6 +41,10 @@ public slots:
     void go();
     void home();
     void reload();
+    void slotSmallListView();
+    void slotLargeListView();
+    void slotSmallIconView();
+    void slotLargeIconView();
 
 signals:
     void canGoBack( bool );

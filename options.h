@@ -50,6 +50,9 @@ public:
     QStringList optionValue( const QString& optionGroup ) const;
     void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
+    void setOptionImage( const QString& optionGroup, const QString& member, const QImage& image );
+    QImage optionImage( const QString& optionGroup, const QString& member, int size ) const;
+
     // -------------------------------------------------- Option Groups
     struct OptionGroupInfo
     {
@@ -68,7 +71,7 @@ public:
 
     QString textForOptionGroup( const QString& name ) const;
 
-    QPixmap iconForOptionGroup( const QString& name ) const;
+    QPixmap iconForOptionGroup( const QString& name, int size = 22 ) const;
     QString iconNameForOptionGroup( const QString& name ) const;
     void setIconForOptionGroup( const QString& name, const QString& icon );
 
@@ -130,13 +133,19 @@ public:
     void setPassword( const QString& passwd );
     QString password() const;
 
+    enum ViewSize { Small, Large };
+    enum ViewType { ListView, IconView };
+    void setViewSize( ViewSize size );
+    void setViewType( ViewType type );
+    ViewSize viewSize() const;
+    ViewType viewType() const;
+
 signals:
     void optionGroupsChanged();
     void changed();
     void renamedOption( const QString& optionGroup, const QString& oldName, const QString& newName );
     void deletedOption( const QString& optionGroup, const QString& name );
     void locked( bool lock, bool exclude );
-
 
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
@@ -160,6 +169,9 @@ private:
     ImageSearchInfo _currentScope;
     bool _locked, _exclude;
     QString _passwd;
+
+    ViewSize _viewSize;
+    ViewType _viewType;
 };
 
 #endif /* OPTIONS_H */

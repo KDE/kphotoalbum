@@ -34,6 +34,7 @@
 #include "imageconfig.h"
 #include <qtextstream.h>
 #include <qregexp.h>
+#include <qmessagebox.h>
 
 Options* Options::_instance = 0;
 
@@ -62,7 +63,8 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
     _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
-
+    _viewType = (ViewType) config.attribute( QString::fromLatin1( "viewType" ), QString::fromLatin1( "0" ) ).toInt();
+    _viewSize = (ViewSize) config.attribute( QString::fromLatin1( "viewSize" ), QString::fromLatin1( "0" ) ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -77,7 +79,6 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _configDock = configWindowSetup;
     _members.load( memberGroups );
     _currentScope.load( config );
-
 }
 
 void Options::setThumbSize( int w )
@@ -117,6 +118,8 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("locked"), _locked );
     config.setAttribute( QString::fromLatin1("exclude"), _exclude );
     config.setAttribute( QString::fromLatin1("passwd"), _passwd );
+    config.setAttribute( QString::fromLatin1( "viewSize" ), _viewSize );
+    config.setAttribute( QString::fromLatin1( "viewType" ), _viewType );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -349,9 +352,9 @@ QString Options::textForOptionGroup( const QString& name ) const
     return _optionGroups[name]._text;
 }
 
-QPixmap Options::iconForOptionGroup( const QString& name ) const
+QPixmap Options::iconForOptionGroup( const QString& name, int size ) const
 {
-    return KGlobal::iconLoader()->loadIcon( _optionGroups[name]._icon, KIcon::Desktop, 22 );
+    return KGlobal::iconLoader()->loadIcon( _optionGroups[name]._icon, KIcon::Desktop, size );
 }
 
 QString Options::iconNameForOptionGroup( const QString& name ) const
@@ -474,6 +477,61 @@ void Options::setPassword( const QString& passwd )
 QString Options::password() const
 {
     return _passwd;
+}
+
+void Options::setOptionImage( const QString& optionGroup, const QString& member, const QImage& image )
+{
+    QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
+    QFileInfo fi( dir );
+    bool ok;
+    if ( !fi.exists() ) {
+        bool ok = QDir().mkdir( dir );
+        if ( !ok ) {
+            QMessageBox::warning( 0, i18n("Unable to create directory"), i18n("Unable to create directory %1").arg( dir ), QMessageBox::Ok, 0 );
+            return;
+        }
+    }
+    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
+    ok = image.save( fileName, "JPEG" );
+    if ( !ok ) {
+        QMessageBox::warning( 0, i18n("Error saving image"), i18n("Error when saving image %1").arg(fileName), QMessageBox::Ok, 0 );
+        return;
+    }
+}
+
+QImage Options::optionImage( const QString& optionGroup, const QString& member, int size ) const
+{
+    QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
+    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
+    QImage img;
+    bool ok = img.load( fileName, "JPEG" );
+    if ( ! ok ) {
+        if ( Options::instance()->memberMap().isGroup( optionGroup, member ) )
+            img = KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, size );
+        else
+            img = iconForOptionGroup( optionGroup, size );
+    }
+    return img.smoothScale( size, size, QImage::ScaleMin );
+}
+
+void Options::setViewSize( ViewSize size )
+{
+    _viewSize = size;
+}
+
+void Options::setViewType( ViewType type )
+{
+    _viewType = type;
+}
+
+Options::ViewSize Options::viewSize() const
+{
+    return _viewSize;
+}
+
+Options::ViewType Options::viewType() const
+{
+    return _viewType;
 }
 
 #include "options.moc"

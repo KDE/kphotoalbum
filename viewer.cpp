@@ -47,6 +47,7 @@
 #include <qdesktopwidget.h>
 #include "mainview.h"
 #include <qdatetime.h>
+#include "categoryimageconfig.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -65,6 +66,7 @@ Viewer::Viewer( QWidget* parent, const char* name )
     QVBoxLayout* layout = new QVBoxLayout( this );
 
     _display = new DisplayArea( this ); // Must be created before the toolbar.
+    connect( _display, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
     createToolBar();
     _toolbar->hide();
 
@@ -190,6 +192,9 @@ void Viewer::setupContextMenu()
     connect( action,  SIGNAL( activated() ),  this, SLOT( editImage() ) );
     action->addTo( _popup );
 
+    action = new QAction( i18n("Show Category Editor"), QIconSet(), i18n("Show Category Editor"), 0, this );
+    connect( action,  SIGNAL( activated() ),  this, SLOT( makeCategoryImage() ) );
+    action->addTo( _popup );
 
     action = new QAction( i18n("Close"),  QIconSet(), i18n("Close"), Key_Q, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
@@ -218,6 +223,7 @@ void Viewer::load()
     _prevAction->setEnabled( _current > 0 );
     _firstAction->setEnabled( _current > 0 );
     _lastAction->setEnabled( _current +1 < (int) _list.count() );
+    updateCategoryConfig();
 }
 
 void Viewer::contextMenuEvent( QContextMenuEvent * e )
@@ -559,6 +565,17 @@ void Viewer::setShowFullScreen( bool on )
         setGeometry( _oldGeometry );
     }
     _showingFullScreen = on;
+}
+
+void Viewer::makeCategoryImage()
+{
+    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail() );
+    CategoryImageConfig::instance()->show();
+}
+
+void Viewer::updateCategoryConfig()
+{
+    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail() );
 }
 
 #include "viewer.moc"

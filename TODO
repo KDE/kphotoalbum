@@ -4,7 +4,6 @@ BUGS To be handled soonish
 - pan doesn't work very well in the viewer
 - drawing on an image doesn't mark it as dirty
 - add more descriptions to the demo.
-- escape quotes and back quotes in descriptions when generating HTML
 - when renaming an item in the listselect, then category image should also
   be renamed.
 - Adding a new ListSelect will not show it up initially.

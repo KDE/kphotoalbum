@@ -25,6 +25,7 @@ class ImageInfoList;
 class ImageDateRange;
 class ImageManager;
 class IconViewToolTip;
+class ThumbNail;
 
 class ThumbNailView :public KIconView {
     Q_OBJECT

@@ -88,7 +88,11 @@ directory three with your images.</para></answer>
       
       <qandaentry>
         <question><para>Can I move my images around on disk?</para></question>
-        <answer><para>No.</para></answer>
+        <answer><para>Yes, since version 1.1 KimDaBa now stores check sums
+for each image. Before moving images around, you might want to invoke
+<guimenu>Maintenance</guimenu>|<guimenuitem>Recalculate
+Checksum</guimenuitem> - this should, however, only be needed if you have
+modified your images (removed red eyes for example)</para></answer>
       </qandaentry>
       
   </qandaset>

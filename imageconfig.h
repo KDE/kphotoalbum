@@ -54,18 +54,18 @@ protected slots:
     void slotPrev();
     void slotNext();
     void slotOK();
-    void slotCancel();
     void slotClear();
     void viewerDestroyed();
     void slotOptions();
     void slotSaveWindowSetup();
     void slotDeleteOption( const QString&, const QString& );
     void slotRenameOption( const QString& , const QString& , const QString&  );
+    virtual void reject();
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };
     void load();
-    void save();
+    void writeToInfo();
     void setup();
     void loadInfo( const ImageSearchInfo& );
     int exec();
@@ -74,6 +74,7 @@ protected:
     void hideTornOfWindows();
     virtual bool eventFilter( QObject*, QEvent* );
     KDockWidget* createListSel( const QString& optionGroup );
+    bool hasChanges();
 
 private:
     ImageInfoList _origList;

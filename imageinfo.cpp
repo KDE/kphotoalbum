@@ -223,7 +223,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
     bool changed =
         ( _fileName != other._fileName ||
           _label != other._label ||
-          _description != other._description ||
+          ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
           _startDate != other._startDate ||
           _endDate != other._endDate ||
           _angle != other._angle);

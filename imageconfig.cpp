@@ -43,6 +43,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <qdialog.h>
+#include <kmessagebox.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -199,7 +200,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
     connect( _okBut, SIGNAL( clicked() ), this, SLOT( slotOK() ) );
-    connect( cancelBut, SIGNAL( clicked() ), this, SLOT( slotCancel() ) );
+    connect( cancelBut, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
     connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
 
@@ -233,7 +234,7 @@ void ImageConfig::slotRevert()
 
 void ImageConfig::slotPrev()
 {
-    save();
+    writeToInfo();
     if ( _current == 0 )
         return;
 
@@ -244,7 +245,7 @@ void ImageConfig::slotPrev()
 void ImageConfig::slotNext()
 {
     if ( _current != -1 ) {
-        save();
+        writeToInfo();
     }
     if ( _current == (int)_origList.count()-1 )
         return;
@@ -255,15 +256,12 @@ void ImageConfig::slotNext()
 
 void ImageConfig::slotOK()
 {
-    bool change = false;
     if ( _setup == SINGLE )  {
-        save();
+        writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
-            change |= (*(_origList.at(i)) != _editList[i]);
             *(_origList.at(i)) = _editList[i];
         }
     }
-
     else if ( _setup == MULTIPLE ) {
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->slotReturn();
@@ -275,19 +273,16 @@ void ImageConfig::slotOK()
                 info->startDate().setDay( _dayStart->value() );
                 info->startDate().setMonth( _monthStart->currentItem() );
                 info->startDate().setYear( _yearStart->value() );
-                change = true;
             }
 
             if ( _dayEnd->value() != 0 || _monthEnd->currentText() != QString::fromLatin1("---") || _yearEnd->value() != 0 )  {
                 info->endDate().setDay( _dayEnd->value() );
                 info->endDate().setMonth( _monthEnd->currentItem() );
                 info->endDate().setYear( _yearEnd->value() );
-                change = true;
             }
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
-                    change = true;
                     if ( (*it)->merge() )
                         info->addOption( (*it)->optionGroup(),  (*it)->selection() );
                     else
@@ -296,17 +291,15 @@ void ImageConfig::slotOK()
             }
 
             if ( !_imageLabel->text().isEmpty() ) {
-                change = true;
                 info->setLabel( _imageLabel->text() );
             }
 
             if ( !_description->text().isEmpty() ) {
-                change = true;
                 info->setDescription( _description->text() );
             }
         }
     }
-    if ( change )
+    if ( hasChanges() )
         emit changed();
     _accept = QDialog::Accepted;
     qApp->eventLoop()->exitLoop();
@@ -339,7 +332,7 @@ void ImageConfig::load()
         _viewer->load( _origList, _current );
 }
 
-void ImageConfig::save()
+void ImageConfig::writeToInfo()
 {
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->slotReturn();
@@ -526,12 +519,6 @@ int ImageConfig::exec()
     return _accept;
 }
 
-void ImageConfig::slotCancel()
-{
-    _accept = QDialog::Rejected;
-    qApp->eventLoop()->exitLoop();
-}
-
 void ImageConfig::slotSaveWindowSetup()
 {
     Options::instance()->saveConfigWindowLayout( this );
@@ -540,7 +527,7 @@ void ImageConfig::slotSaveWindowSetup()
 void ImageConfig::closeEvent( QCloseEvent* e )
 {
     e->ignore();
-    slotCancel();
+    reject();
 }
 
 void ImageConfig::hideTornOfWindows()
@@ -630,6 +617,43 @@ void ImageConfig::slotRenameOption( const QString& optionGroup, const QString& o
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).renameOption( optionGroup, oldValue, newValue );
     }
+}
+
+void ImageConfig::reject()
+{
+    if ( hasChanges() ) {
+        int code =  KMessageBox::questionYesNo( this, i18n("<qt>Changes made to image info, really cancel?</qt>") );
+        if ( code == KMessageBox::No )
+            return;
+    }
+
+    _accept = QDialog::Rejected;
+    qApp->eventLoop()->exitLoop();
+    QDialog::reject();
+}
+
+bool ImageConfig::hasChanges()
+{
+    bool changed = false;
+    if ( _setup == SINGLE )  {
+        writeToInfo();
+        for ( uint i = 0; i < _editList.count(); ++i )  {
+            changed |= (*(_origList.at(i)) != _editList[i]);
+        }
+    }
+
+    else if ( _setup == MULTIPLE ) {
+        changed |= ( _dayStart->value() != 0 ||  _monthStart->currentText() != QString::fromLatin1("---") || _yearStart->value() != 0 );
+        changed |= ( _dayEnd->value() != 0 || _monthEnd->currentText() != QString::fromLatin1("---") || _yearEnd->value() != 0 );
+
+        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+            changed |= ( (*it)->selection().count() != 0 );
+        }
+
+        changed |= ( !_imageLabel->text().isEmpty() );
+        changed |= ( !_description->text().isEmpty() );
+    }
+    return changed;
 }
 
 #include "imageconfig.moc"

@@ -37,19 +37,19 @@ Viewer::Viewer( QWidget* parent, const char* name )
 
     KIconLoader loader;
     _toolbar = new KToolBar( this );
-    _select = new KAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+    _select = new KAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
                          0, _label, SLOT( slotSelect() ),actionCollection(), "_select");
     _select->plug( _toolbar );
 
-    _line = new KAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+    _line = new KAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
                          0, _label, SLOT( slotLine() ),actionCollection(), "_line");
     _line->plug( _toolbar );
 
-    _rect = new KAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+    _rect = new KAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
                          0, _label, SLOT( slotRectangle() ),actionCollection(), "_rect");
     _rect->plug( _toolbar );
 
-    _circle = new KAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+    _circle = new KAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
                            0, _label, SLOT( slotCircle() ),actionCollection(), "_circle");
     _circle->plug( _toolbar );
 

@@ -19,6 +19,7 @@
 #include "imagedate.h"
 #include <qstringlist.h>
 #include <klocale.h>
+#include "options.h"
 
 ImageDate::ImageDate( int day, int month, int year )
 {
@@ -117,7 +118,7 @@ ImageDate::ImageDate() :_year(0), _month(0), _day(0), _hour(-1), _minute(-1), _s
 
 bool ImageDate::isNull() const
 {
-    return ( _year == 0 && _month == 0 && _day == 0);
+    return ( _year <= 0 && _month <= 0 && _day <= 0);
 }
 
 QString ImageDate::toString()
@@ -128,11 +129,11 @@ QString ImageDate::toString()
     month << i18n("Jan") << i18n("Feb") << i18n("Mar") << i18n("Apr") << i18n("May") << i18n("Jun") << i18n("Jul") << i18n("Aug")
           << i18n("Sep") << i18n("Oct") << i18n("Nov") << i18n("Dec");
 
-    if ( _day != 0 && _month != 0 )
+    if ( _day > 0 && _month > 0 )
         result = QString::fromLatin1("%1. %2").arg(_day).arg(month[_month-1]);
-    else if ( _day != 0 && _month == 0 )
+    else if ( _day > 0 && _month <= 0 )
         result = QString::fromLatin1("%1/???").arg(_day);
-    else if ( _day == 0 && _month != 0 )  {
+    else if ( _day <= 0 && _month > 0 )  {
         result = month[_month-1];
     }
 
@@ -142,7 +143,8 @@ QString ImageDate::toString()
     if ( _year != 0 )
         result += QString::number( _year );
 
-    if ( _hour>=0 && _minute>=0 && _second>=0 ) {
+    if ( _hour>=0 && _minute>=0 && _second>=0 && Options::instance()->showTime() &&
+         ( _hour != 0 || _minute != 0 || _second != 0 ) ) {
         if (_hour<=9)
             result += QString::fromLatin1(" 0%1:").arg(_hour);
         else

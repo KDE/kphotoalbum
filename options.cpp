@@ -62,6 +62,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _showDrawings = config.attribute( QString::fromLatin1("showDrawings"), QString::fromLatin1("1") ).toInt();
     _showDescription = config.attribute( QString::fromLatin1("showDescription"), QString::fromLatin1("1") ).toInt();
     _showDate = config.attribute( QString::fromLatin1("showDate"), QString::fromLatin1("1") ).toInt();
+    _showTime = config.attribute( QString::fromLatin1("showTime"), QString::fromLatin1("1") ).toInt();
     _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
     _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
@@ -118,6 +119,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("showDrawings"), _showDrawings );
     config.setAttribute( QString::fromLatin1("showDescription"), _showDescription );
     config.setAttribute( QString::fromLatin1("showDate"), _showDate );
+    config.setAttribute( QString::fromLatin1("showTime"), _showTime );
     config.setAttribute( QString::fromLatin1("locked"), _locked );
     config.setAttribute( QString::fromLatin1("exclude"), _exclude );
     config.setAttribute( QString::fromLatin1("passwd"), _passwd );
@@ -260,6 +262,11 @@ bool Options::showDate() const
     return _showDate;
 }
 
+bool Options::showTime() const
+{
+    return _showTime;
+}
+
 void Options::setShowInfoBox(bool b)
 {
     if ( _showInfoBox != b ) emit changed();
@@ -282,6 +289,12 @@ void Options::setShowDate(bool b)
 {
     if ( _showDate != b ) emit changed();
     _showDate = b;
+}
+
+void Options::setShowTime(bool b)
+{
+    if ( _showTime != b ) emit changed();
+    _showTime = b;
 }
 
 Options::Position Options::infoBoxPosition() const

@@ -78,9 +78,6 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // Date
     QHBoxLayout* lay4 = new QHBoxLayout( lay2, 6 );
 
-    // Time
-    QHBoxLayout* lay7 = new QHBoxLayout( lay2, 6 );
-
     label = new QLabel( i18n("From: "), top );
     lay4->addWidget( label );
 
@@ -111,7 +108,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     lay4->addWidget( label );
 
     _dayEnd = new QSpinBox( 0, 31, 1, top );
-    _dayStart->setSpecialValueText( QString::fromLatin1( "---" ) );
+    _dayEnd->setSpecialValueText( QString::fromLatin1( "---" ) );
     lay4->addWidget( _dayEnd );
 
     label = new QLabel( QString::fromLatin1( "-" ), top );
@@ -130,6 +127,22 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _yearEnd = new QSpinBox( 0, 9999, 1, top );
     _yearEnd->setSpecialValueText( QString::fromLatin1( "---" ) );
     lay4->addWidget( _yearEnd );
+
+    // Time
+    QHBoxLayout* lay7 = new QHBoxLayout( lay2, 6 );
+    label = new QLabel( i18n("Time: "), top);
+    lay7->addWidget( label );
+
+    _time= new KTimeWidget(top);
+    lay7->addWidget( _time );
+    lay7->addStretch(1);
+    _time->hide();
+
+    _addTime= new QPushButton(i18n("Add Time Info.."),top);
+    lay7->addWidget( _addTime );
+    lay7->addStretch(1);
+    _addTime->hide();
+    connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
 
     _dockWindow->setView( dateDock );
 
@@ -240,20 +253,6 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     _optionList.setAutoDelete( true );
     Options::instance()->loadConfigWindowLayout( this );
-
-    label = new QLabel( i18n("Time: "), top);
-    lay7->addWidget( label );
-
-    _time= new KTimeWidget(top);
-    lay7->addWidget( _time );
-    lay7->addStretch(1);
-    _time->hide();
-
-    _addTime= new QPushButton(i18n("Add Time Info.."),top);
-    lay7->addWidget( _addTime );
-    lay7->addStretch(1);
-    _addTime->hide();
-    connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
 
     // If I don't explicit show _dockWindow here, then no windows will show up.
     _dockWindow->show();

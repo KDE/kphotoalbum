@@ -167,7 +167,12 @@ void Viewer::setupContextMenu()
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showDate() );
-
+   
+    taction = new KToggleAction( i18n("Show Time"), 0, this, "viewer-show-time" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowTime( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Options::instance()->showTime() );
+    
     QStringList grps = Options::instance()->optionGroups();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
@@ -312,6 +317,12 @@ void Viewer::toggleShowDescription( bool b )
 void Viewer::toggleShowDate( bool b )
 {
     Options::instance()->setShowDate( b );
+    updateInfoBox();
+}
+
+void Viewer::toggleShowTime( bool b )
+{
+    Options::instance()->setShowTime( b );
     updateInfoBox();
 }
 

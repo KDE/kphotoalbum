@@ -72,6 +72,7 @@ protected slots:
     void toggleShowInfoBox( bool );
     void toggleShowDescription( bool );
     void toggleShowDate( bool );
+    void toggleShowTime( bool );
     void save();
     void startDraw();
     void stopDraw();

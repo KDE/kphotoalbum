@@ -103,12 +103,14 @@ public:
     bool showDrawings() const;
     bool showDescription() const;
     bool showDate() const;
+    bool showTime() const;
     bool showOption( const QString& ) const;
 
     void setShowInfoBox(bool b);
     void setShowDrawings(bool b);
     void setShowDescription(bool b);
     void setShowDate(bool b);
+    void setShowTime(bool b);
     void setShowOption( const QString& optionGroup, bool b );
 
     Position infoBoxPosition() const;
@@ -176,7 +178,7 @@ private:
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL;
 
     Position _infoBoxPosition;
-    bool _showInfoBox, _showDrawings, _showDescription, _showDate;
+    bool _showInfoBox, _showDrawings, _showDescription, _showDate, _showTime;
     QDomElement _configDock;
 
     QSize _viewerSize;

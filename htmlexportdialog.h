@@ -55,8 +55,6 @@ protected:
     QString namePage( int width, int height, const QString& fileName );
     QString nameThumbNail( ImageInfo* info, int size );
     bool writeToFile( const QString& fileName, const QString& str );
-    QDomElement createHTMLHeader( QDomDocument& doc, const QString& title );
-    QDomElement createLink( QDomDocument& doc, const QString& link, const QString& text );
     bool linkIndexFile();
     QValueList<MyCheckBox*> activeResolutions();
 

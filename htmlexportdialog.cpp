@@ -290,8 +290,9 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
     QDomElement col;
 
     // -------------------------------------------------- Thumbnails
-    QString thumbNails;
-
+    // Initially all of the HTML generation was done using QDom, but it turned out in the end
+    // to be much less code simply concatenating strings. This part, however, is easier using QDom
+    // so we keep it using QDom.
     int count = 0;
     int cols = _numOfCols->value();
     QDomElement row;
@@ -325,32 +326,34 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**THUMBNAIL-TABLE**" ), doc.toString() );
 
-    // -------------------------------------------------- Resolution
-    doc = QDomDocument();
+    // -------------------------------------------------- Resolutions
+    QString resolutions;
     QValueList<MyCheckBox*> actRes = activeResolutions();
-    for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
-         sizeIt != actRes.end(); ++sizeIt ) {
+    if ( actRes.count() > 1 ) {
+        resolutions += QString::fromLatin1( "Resolutions: " );
+        for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
+             sizeIt != actRes.end(); ++sizeIt ) {
 
-        int w = (*sizeIt)->width();
-        int h = (*sizeIt)->height();
-        QString page = QString::fromLatin1( "index-%1.html" )
-                       .arg( MyCheckBox::text( w, h, true ) );
-        QString text = (*sizeIt)->text(false);
+            int w = (*sizeIt)->width();
+            int h = (*sizeIt)->height();
+            QString page = QString::fromLatin1( "index-%1.html" )
+                           .arg( MyCheckBox::text( w, h, true ) );
+            QString text = (*sizeIt)->text(false);
 
-        if ( width == w && height == h ) {
-            doc.appendChild( doc.createTextNode( text ) );
+            resolutions += QString::fromLatin1( " " );
+            if ( width == w && height == h ) {
+                resolutions += text;
+            }
+            else {
+                resolutions += QString::fromLatin1( "<a href=\"%1\">%2</a>" ).arg( page ).arg( text );
+            }
         }
-        else {
-            QDomElement link = createLink( doc, page, text );
-            doc.appendChild( link );
-        }
-        doc.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
     }
+
+    content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), resolutions );
 
     if ( _progress->wasCancelled() )
         return false;
-
-    content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), doc.toString() );
 
     // -------------------------------------------------- write to file
     QString fileName = _tempDir + QString::fromLatin1("/index-%1.html" )
@@ -542,7 +545,7 @@ void HTMLExportDialog::slotCancelGenerate()
 void HTMLExportDialog::showBrowser()
 {
     if ( ! _baseURL->text().isEmpty() )
-        new KRun( _baseURL->text() + QString::fromLatin1( "/" ) + _outputDir->text());
+        new KRun( QString::fromLatin1( "%1/%2/index.html" ).arg( _baseURL->text() ).arg( _outputDir->text() ) );
 }
 
 bool HTMLExportDialog::checkVars()
@@ -641,34 +644,6 @@ QString HTMLExportDialog::nameThumbNail( ImageInfo* info, int size )
     return name;
 }
 
-QDomElement HTMLExportDialog::createHTMLHeader( QDomDocument& doc, const QString& title )
-{
-    QDomElement top = doc.createElement( QString::fromLatin1( "html" ));
-    doc.appendChild( top );
-
-    QDomElement head = doc.createElement( QString::fromLatin1( "head" ) );
-    top.appendChild( head );
-
-    QDomElement titleElm = doc.createElement( QString::fromLatin1( "title" ) );
-    head.appendChild( titleElm );
-    QDomText text = doc.createTextNode( title );
-    titleElm.appendChild( text );
-
-    QDomElement body = doc.createElement( QString::fromLatin1( "body" ) );
-    top.appendChild( body );
-    body.setAttribute( QString::fromLatin1( "bgcolor" ), QString::fromLatin1( "#000000" ) );
-    body.setAttribute( QString::fromLatin1( "text" ), QString::fromLatin1( "#ffffff" ) );
-    return body;
-}
-
-QDomElement HTMLExportDialog::createLink( QDomDocument& doc, const QString& link, const QString& text )
-{
-    QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
-    href.setAttribute( QString::fromLatin1( "href" ), link );
-    QDomText textNode = doc.createTextNode( text );
-    href.appendChild( textNode );
-    return href;
-}
 
 bool HTMLExportDialog::linkIndexFile()
 {

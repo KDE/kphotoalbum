@@ -3,7 +3,7 @@
   <para>KimDaBa shares a plugin system with a number of other image
 applications, among these Digikam and Gwenview. The plugin system is named
 <literal>KIPI</literal>, which is short for KDE Image Plugin
-Interface.</para>
+Interface. See <ulink url="http://extragear.kde.org/apps/kipi.php">KIPI Homepage</ulink></para>
 
 <para>The plugins are available from the menu bar, under the item
 <literal>Plugins</literal>. The plugins will and can not be described in

@@ -21,7 +21,7 @@ bool Editor::loadPart()
     _doc = KParts::ComponentFactory::createPartInstanceFromQuery< KTextEditor::Document >( "KTextEditor/Document", QString::null, this, 0, this, 0 );
 
     if( !_doc ) {
-        KMessageBox::error(this,i18n("KPAlbum cannot start a text editor component.\n"
+        KMessageBox::error(this,i18n("KimDaba cannot start a text editor component.\n"
                                      "Please check your KDE installation."));
         _doc=0;
         _view=0;

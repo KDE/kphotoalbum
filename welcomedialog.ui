@@ -1,19 +1,19 @@
 <!DOCTYPE UI><UI version="3.1" stdsetdef="1">
-<class>WellComeDialog</class>
+<class>WelComeDialog</class>
 <widget class="QDialog">
     <property name="name">
-        <cstring>WellComeDialog</cstring>
+        <cstring>WelComeDialog</cstring>
     </property>
     <property name="geometry">
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>617</width>
-            <height>267</height>
+            <width>800</width>
+            <height>301</height>
         </rect>
     </property>
     <property name="caption">
-        <string>Wellcome</string>
+        <string>Welcome</string>
     </property>
     <vbox>
         <property name="name">
@@ -55,9 +55,9 @@
                         <number>10</number>
                     </property>
                     <property name="text">
-                        <string>&lt;h1&gt;KPAlbum&lt;/h1&gt;
+                        <string>&lt;h1&gt;KimDaba&lt;/h1&gt;
 
-&lt;p&gt;Wellcome to KPAlbum. The first thing you need to do is to specify a directory in which your images is stored. This directory may contain subdirectories with Images.&lt;/p&gt;
+&lt;p&gt;Welcome to KimDaba. The first thing you need to do is to specify a directory in which your images are stored. This directory may contain subdirectories with images.&lt;/p&gt;
 &lt;p&gt;You specify the directory in the options dialog that will show next.&lt;/p&gt;
 </string>
                     </property>
@@ -94,7 +94,7 @@
                         <cstring>pushButton1</cstring>
                     </property>
                     <property name="text">
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
             </hbox>
@@ -105,13 +105,13 @@
     <connection>
         <sender>pushButton1</sender>
         <signal>clicked()</signal>
-        <receiver>WellComeDialog</receiver>
+        <receiver>WelComeDialog</receiver>
         <slot>accept()</slot>
     </connection>
 </connections>
 <includes>
     <include location="global" impldecl="in implementation">kstandarddirs.h</include>
-    <include location="local" impldecl="in implementation">wellcomedialog.ui.h</include>
+    <include location="local" impldecl="in implementation">welcomedialog.ui.h</include>
 </includes>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

@@ -20,7 +20,7 @@ kimdaba_SOURCES = main.cpp \
 	imagesearchinfo.cpp \
 	optionsdialog.ui \
 	imageconfigui.ui \
-	wellcomedialog.ui \
+	welcomedialog.ui \
 	editor.cpp \
 	showbusycursor.cpp \
 	displayarea.cpp \

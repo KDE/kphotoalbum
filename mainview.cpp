@@ -10,7 +10,7 @@
 #include <qmessagebox.h>
 #include <qdict.h>
 #include "viewer.h"
-#include <wellcomedialog.h>
+#include <welcomedialog.h>
 #include <qcursor.h>
 #include "showbusycursor.h"
 #include <klocale.h>
@@ -58,9 +58,9 @@ MainView::MainView( QWidget* parent, const char* name )
     if ( Options::configFileExists() )
         load();
     else
-        wellcome();
+        welcome();
     _counter->setTotal( _images.count() );
-    statusBar()->message("Wellcome to KPAlbum", 5000 );
+    statusBar()->message("Welcome to KimDaba", 5000 );
 
     _autoSaveTimer = new QTimer( this );
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
@@ -316,9 +316,9 @@ void MainView::slotViewSelected()
     }
 }
 
-void MainView::wellcome()
+void MainView::welcome()
 {
-    WellComeDialog* dialog = new WellComeDialog( this );
+    WelComeDialog* dialog = new WelComeDialog( this );
     dialog->exec();
     delete dialog;
     slotOptions();
@@ -368,7 +368,7 @@ void MainView::setupMenuBar()
     // File menu
     KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
-    new KAction( i18n("Export to HTML"), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
+    new KAction( i18n("Export to HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
 
     // The Edit menu
     KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
@@ -389,11 +389,11 @@ void MainView::setupMenuBar()
                  actionCollection(), "viewImages" );
     new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                  actionCollection(), "limitToMarked" );
-    new KAction( i18n("Display All Thumb Nails"), 0, this, SLOT( slotShowAllThumbNails() ),
+    new KAction( i18n("Display All Thumbnails"), 0, this, SLOT( slotShowAllThumbNails() ),
                  actionCollection(), "displayAllThumbs" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-    createGUI( QString::fromLatin1( "kpalbumui.rc" ) );
+    createGUI( QString::fromLatin1( "kimdabaui.rc" ) );
 }
 
 void MainView::slotExportToHTML()
@@ -455,10 +455,10 @@ void MainView::checkForBackupFile()
     if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
         return;
 
-    int code = KMessageBox::questionYesNo( this, i18n("Backup file '%1' exists, and is newer than '%2', "
+    int code = KMessageBox::questionYesNo( this, i18n("Backup file '%1' exists and is newer than '%2'. "
                                                       "Should I use the backup file?")
                                            .arg(backupNm).arg(indexNm),
-                                           i18n("Found backup file") );
+                                           i18n("Found Backup File") );
     if ( code == KMessageBox::Yes ) {
         QFile in( backupNm );
         if ( in.open( IO_ReadOnly ) ) {

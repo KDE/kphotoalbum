@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>343</width>
-            <height>237</height>
+            <width>465</width>
+            <height>288</height>
         </rect>
     </property>
     <property name="caption">
@@ -108,7 +108,7 @@
                                 <cstring>textLabel1_3</cstring>
                             </property>
                             <property name="text">
-                                <string>Trust time stamps on new files</string>
+                                <string>Trust time stamps on new files:</string>
                             </property>
                         </widget>
                         <widget class="QComboBox">
@@ -165,7 +165,7 @@
                         <cstring>textLabel1_2</cstring>
                     </property>
                     <property name="text">
-                        <string>Image directory</string>
+                        <string>Image directory:</string>
                     </property>
                 </widget>
                 <widget class="QLineEdit">
@@ -202,7 +202,7 @@
                         <cstring>textLabel1_4</cstring>
                     </property>
                     <property name="text">
-                        <string>Auto save every</string>
+                        <string>Auto save every:</string>
                     </property>
                 </widget>
                 <widget class="QSpinBox">
@@ -271,7 +271,7 @@
                         <cstring>pushButton1</cstring>
                     </property>
                     <property name="text">
-                        <string>OK</string>
+                        <string>&amp;OK</string>
                     </property>
                 </widget>
                 <widget class="QPushButton">
@@ -279,7 +279,7 @@
                         <cstring>pushButton3</cstring>
                     </property>
                     <property name="text">
-                        <string>Cancel</string>
+                        <string>&amp;Cancel</string>
                     </property>
                 </widget>
             </hbox>

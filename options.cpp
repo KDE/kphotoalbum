@@ -25,7 +25,7 @@ Options::Options()
     : _thumbSize( 64 ), _cacheThumbNails( true ), _hasAskedAboutTimeStamps( false )
 {
     if ( _confFile.isNull() )
-        _confFile = QDir::home().path() + "/.kpalbum";
+        _confFile = QDir::home().path() + "/.kimdaba";
 
     QDomDocument doc;
     QFile file( _confFile );
@@ -149,8 +149,8 @@ bool Options::trustTimeStamps()
     else {
         if (!_hasAskedAboutTimeStamps ) {
             QApplication::setOverrideCursor( Qt::ArrowCursor );
-            int answer = KMessageBox::questionYesNo( 0, i18n("New images was found. Should I trust their time stamps?"),
-                                                     i18n("Trust Time Stamps") );
+            int answer = KMessageBox::questionYesNo( 0, i18n("New images were found. Should I trust their time stamps?"),
+                                                     i18n("Trust Time Stamps?") );
             QApplication::restoreOverrideCursor();
             if ( answer == KMessageBox::Yes )
                 _trustTimeStamps = true;
@@ -184,7 +184,7 @@ void Options::setImageDirecotry( const QString& directory )
 bool Options::configFileExists()
 {
     if ( _confFile.isNull() )
-        _confFile = QDir::home().path() + "/.kpalbum";
+        _confFile = QDir::home().path() + "/.kimdaba";
 
     QFileInfo info( _confFile );
     return info.exists();

@@ -40,7 +40,7 @@ protected:
     void loadExtraFiles( const QDict<void>& loadedFiles, QString directory );
     void load( const QString& filename, QDomElement elm );
     ImageInfoList selected();
-    void wellcome();
+    void welcome();
     virtual void closeEvent( QCloseEvent* e );
     void setupMenuBar();
     void startAutoSaveTimer();

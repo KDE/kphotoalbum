@@ -266,7 +266,7 @@ void ImageConfig::setup()
         mode = ListSelect::SEARCH;
         setCaption( "Image Search" );
         loadInfo( _oldSearch );
-        preview->setPixmap( locate("data", QString::fromLatin1("kpalbum/pics/search.jpg") ) );
+        preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ) );
         preview->setInfo(0);
         nextBut->setEnabled( false );
         prevBut->setEnabled( false );
@@ -278,7 +278,7 @@ void ImageConfig::setup()
         mode = ListSelect::INPUT;
         setCaption( "Image Configuration" );
         if ( _setup == MULTIPLE ) {
-            preview->setPixmap( locate("data", QString::fromLatin1("kpalbum/pics/multiconfig.jpg") ) );
+            preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ) );
             preview->setInfo(0);
         }
 

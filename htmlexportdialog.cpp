@@ -44,13 +44,13 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     QVBoxLayout* lay1 = new QVBoxLayout( generalPage, 6 );
     QGridLayout* lay2 = new QGridLayout( lay1, 2 );
 
-    QLabel* label = new QLabel( i18n("Page Title"), generalPage );
+    QLabel* label = new QLabel( i18n("Page title:"), generalPage );
     lay2->addWidget( label, 0, 0 );
     _title = new KLineEdit( generalPage );
     lay2->addWidget( _title, 0, 1 );
 
     // Thumbnail size
-    label = new QLabel( i18n("Thumbnail size"), generalPage );
+    label = new QLabel( i18n("Thumbnail size:"), generalPage );
     lay2->addWidget( label, 1, 0 );
 
     QHBoxLayout* lay3 = new QHBoxLayout( 0 );
@@ -62,7 +62,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     lay3->addStretch(1);
 
     // Number of columns
-    label = new QLabel( i18n("Number of Columns"), generalPage );
+    label = new QLabel( i18n("Number of columns:"), generalPage );
     lay2->addWidget( label, 2, 0 );
 
     QHBoxLayout* lay4 = new QHBoxLayout( (QWidget*)0, 0, 6 );
@@ -80,7 +80,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     number->setValue( _numOfCols->value() );
 
     // Generate Tooltips
-    _generateToolTips = new QCheckBox( i18n( "Generate tool tips" ), generalPage );
+    _generateToolTips = new QCheckBox( i18n( "Generate tooltips" ), generalPage );
     _generateToolTips->setChecked( true );
     lay2->addMultiCellWidget( _generateToolTips, 3, 3, 0, 1 );
 
@@ -90,7 +90,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     lay2->addMultiCellWidget( sep, 4, 4, 0, 1 );
 
     // Base Directory
-    label = new QLabel( i18n("Base Directory"), generalPage );
+    label = new QLabel( i18n("Base directory:"), generalPage );
     lay2->addWidget( label, 5, 0 );
 
     QHBoxLayout* lay5 = new QHBoxLayout( (QWidget*)0, 0, 6 );
@@ -107,7 +107,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     _baseDir->setText( Options::instance()->HTMLBaseDir() );
 
     // Base URL
-    label = new QLabel( i18n("Base URL"), generalPage );
+    label = new QLabel( i18n("Base URL:"), generalPage );
     lay2->addWidget( label, 6, 0 );
 
     _baseURL = new KLineEdit( generalPage );
@@ -115,13 +115,13 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     lay2->addWidget( _baseURL, 6, 1 );
 
     // Output Directory
-    label = new QLabel( i18n("Output Directory"), generalPage );
+    label = new QLabel( i18n("Output directory:"), generalPage );
     lay2->addWidget( label, 7, 0 );
     _outputDir = new KLineEdit( generalPage );
     lay2->addWidget( _outputDir, 7, 1 );
 
     // Image sizes
-    QHGroupBox* sizes = new QHGroupBox( i18n("Image sizes"), generalPage );
+    QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), generalPage );
     lay1->addWidget( sizes );
     QWidget* content = new QWidget( sizes );
     QGridLayout* lay6 = new QGridLayout( content, 2, 4 );
@@ -132,7 +132,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     MyCheckBox* size1024 = new MyCheckBox( 1024, "1024x768", content );
     MyCheckBox* size1280 = new MyCheckBox( 1280, "1280x1024", content );
     MyCheckBox* size1600 = new MyCheckBox( 1600, "1600x1200", content );
-    MyCheckBox* sizeOrig = new MyCheckBox( -1, "Full Size", content );
+    MyCheckBox* sizeOrig = new MyCheckBox( -1, "Full size", content );
 
     _cbs << size320 << size640 << size800 << size1024 << size1280 << size1600 << sizeOrig;
 
@@ -155,14 +155,14 @@ bool HTMLExportDialog::generate()
         return false;
     }
 
-    _progress = new QProgressDialog( i18n("Generating images for HTML page "), i18n("Cancel"), _total, this );
+    _progress = new QProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), _total, this );
     _progress->setProgress( 0 );
     connect( _progress, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
 
 
     // Gotta be after the creation of _progress.
     if ( count == 0 ) {
-        QMessageBox::critical( this, i18n("No image sizes selected"), i18n("No image sizes were selected. Please select at least one"),
+        QMessageBox::critical( this, i18n("No Image Sizes Selected"), i18n("No image sizes were selected. Please select at least one."),
                                QMessageBox::Ok, 0 );
         return false;
     }
@@ -173,7 +173,7 @@ bool HTMLExportDialog::generate()
         success = directory.mkdir(dir);
     }
     if ( !success ) {
-        QMessageBox::critical( this, i18n("Couldn't create directory"), i18n("Couldn't create directory '%1'").arg(dir),
+        QMessageBox::critical( this, i18n("Couldn't Create Directory"), i18n("Couldn't create directory '%1'.").arg(dir),
                                QMessageBox::Ok, 0 );
         return false;
     }
@@ -182,7 +182,7 @@ bool HTMLExportDialog::generate()
     QString index = dir + QString::fromLatin1("/") + "index.html";
     QFile file(index);
     if ( !file.open(IO_WriteOnly) ) {
-        QMessageBox::critical( this, i18n("Couldn't create file"), i18n("Couldn't create file '%1'").arg(index),
+        QMessageBox::critical( this, i18n("Couldn't Create File"), i18n("Couldn't create file '%1'.").arg(index),
                                QMessageBox::Ok, 0 );
         return false;
     }
@@ -308,11 +308,11 @@ bool HTMLExportDialog::generate()
 
     // Copy infobox.js to the dest dir.
     if ( generateTooltips ) {
-        QString infofile = locate("data",QString::fromLatin1( "kpalbum/infobox.js" ) );
+        QString infofile = locate("data",QString::fromLatin1( "kimdaba/infobox.js" ) );
         QFile f1( infofile );
         if ( !f1.open( IO_ReadOnly ) ) {
-            QMessageBox::warning( this, i18n("Unable to read infobox.js"),
-                                  i18n("Unable to read file %1").arg( infofile ), QMessageBox::Ok, 0 );
+            QMessageBox::warning( this, i18n("Unable to Read infobox.js"),
+                                  i18n("Unable to read file '%1'.").arg( infofile ), QMessageBox::Ok, 0 );
         }
         else {
             QTextStream s(&f1);
@@ -322,8 +322,8 @@ bool HTMLExportDialog::generate()
             QString outfile = dir + QString::fromLatin1("/") + "infobox.js";
             QFile f2( outfile );
             if ( !f2.open( IO_WriteOnly ) ) {
-                QMessageBox::warning( this, i18n("Unable to write infobox.js"),
-                                      i18n("Unable to write file %1").arg( outfile ), QMessageBox::Ok, 0 );
+                QMessageBox::warning( this, i18n("Unable to Write infobox.js"),
+                                      i18n("Unable to write file '%1'.").arg( outfile ), QMessageBox::Ok, 0 );
             }
             else {
                 QTextStream s2( &f2 );
@@ -367,7 +367,7 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int hei
 
         bool success = image.save( file, "JPEG" );
         if ( !success ) {
-            QMessageBox::warning( this, i18n("Unable to write image"), i18n("Unable to write image '%1'").arg(file), QMessageBox::Ok, 0 );
+            QMessageBox::warning( this, i18n("Unable to Write Image"), i18n("Unable to write image '%1'.").arg(file), QMessageBox::Ok, 0 );
         }
     }
     else
@@ -411,16 +411,16 @@ QString HTMLExportDialog::outputDir( bool showErr )
     QDir dir( _baseDir->text() );
     if ( _baseDir->text().isEmpty() || !dir.exists() ) {
         if ( showErr )
-            QMessageBox::critical( this, i18n("Specified Base directory is invalid"),
+            QMessageBox::critical( this, i18n("Specified Base Directory is Invalid"),
                                    i18n("<qt>You did not specify a directory for base, or the specified "
-                                        "directory do not exists</qt>"), QMessageBox::Ok, 0, 0 );
+                                        "directory do not exists.</qt>"), QMessageBox::Ok, 0, 0 );
         return QString::null;
     }
 
     if ( _outputDir->text().isEmpty() ) {
         if ( showErr )
-            QMessageBox::critical( this, i18n("Empty output directory"),
-                                   i18n("<qt>You did not specify a directory for the output</qt>"), QMessageBox::Ok, 0, 0 );
+            QMessageBox::critical( this, i18n("Empty Output Directory"),
+                                   i18n("<qt>You did not specify a directory for the output.</qt>"), QMessageBox::Ok, 0, 0 );
         return QString::null;
     }
 
@@ -431,7 +431,7 @@ QString HTMLExportDialog::outputDir( bool showErr )
         if ( showErr )
             answer = QMessageBox::warning( this, i18n("Directory exists"), i18n("<qt>Output directory specified already exists "
                                                                                 "Normally you should specify a new directory, "
-                                                                                "Contiune?</qt>"),
+                                                                                "Continue?</qt>"),
                                            QMessageBox::No, QMessageBox::Yes );
         if ( answer == QMessageBox::No )
             return QString::null;

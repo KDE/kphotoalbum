@@ -6,6 +6,6 @@
 ** init() function in place of a constructor, and a destroy() function in
 ** place of a destructor.
 *****************************************************************************/
-void WellComeDialog::init() {
-    image->setPixmap( locate("data", QString::fromLatin1("kpalbum/pics/splash.png") ) );
+void WelComeDialog::init() {
+    image->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/splash.png") ) );
 }

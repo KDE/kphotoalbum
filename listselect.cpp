@@ -342,7 +342,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                           "Deleting the item will remove any information about "
                                                           "about it from any image containing the item!</qt>")
                                                .arg(item->text()),
-                                               i18n("Really delete %1").arg(item->text()) );
+                                               i18n("Really Delete %1?").arg(item->text()) );
         if ( code == KMessageBox::Yes ) {
             emit deleteOption( label(), item->text() );
             delete item;
@@ -356,7 +356,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                               "Doing so will rename \"%3\" "
                                                               "on any image containing it.</qt>")
                                                .arg(item->text()).arg(newStr).arg(item->text()),
-                                               i18n("Really rename %1").arg(item->text()) );
+                                               i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
                 emit renameOption( label(), item->text(), newStr );
                 bool sel = item->isSelected();
@@ -366,7 +366,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                 // PENDING(blackie) Currently this does not work, since
                 // pressing the right mouse button on the item selects
                 // it. I concider this a bug in Qt. If TT doesn't change
-                // that behavior before KPAlbum is released, then do
+                // that behavior before KimDaba is released, then do
                 // something about it.
                 _listBox->setSelected( newItem, sel );
             }

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="20">
+<kpartgui name="kimdaba" version="21">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -68,9 +68,9 @@
    </Menu>
    <Menu name="settings">
      <Action name="readdAllMessages"/>
+     <Action name="showToolTipOnImages"/>
    </Menu>
    <Menu name="help">
-     <Action name="showToolTipOnImages"/>
      <Action name="runDemo"/>
      <Action name="donate"/>
    </Menu>

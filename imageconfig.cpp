@@ -95,6 +95,10 @@ void ImageConfig::slotOK()
     }
 
     else if ( _setup == MULTIPLE ) {
+        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+            (*it)->slotReturn();
+        }
+
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             bool thisChange = false;
             ImageInfo* info = *it;
@@ -181,6 +185,10 @@ void ImageConfig::load()
 
 void ImageConfig::save()
 {
+    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        (*it)->slotReturn();
+    }
+
     ImageInfo& info = _editList[ _current ];
 
     info.startDate().setYear( yearStart->value() );

@@ -32,8 +32,10 @@ public:
     QWidget* firstTabWidget() const;
     QWidget* lastTabWidget() const;
 
-protected slots:
+public slots:
     void slotReturn();
+
+protected slots:
     void itemSelected( QListBoxItem* );
 
 private:

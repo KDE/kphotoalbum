@@ -210,9 +210,7 @@ void Viewer::setDisplayedPixmap()
 
         if ( Options::instance()->showDescription() && !_info.description().isEmpty())  {
             if ( !text.isEmpty() )
-                text += "<b>Description:</b> ";
-
-            text += _info.description();
+                text += "<b>Description:</b> " +  _info.description() + "<br>";
         }
 
         if ( Options::instance()->showKeyWords() )  {

@@ -13,7 +13,7 @@ INCLUDES = $(all_includes) $(COMPAT_INCLUDE)
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = \
-	main.cpp  $(KIPI_SRCS) thumbnailview.cpp thumbnail.cpp imagemanager.cpp imageloader.cpp \
+	main.cpp thumbnailview.cpp thumbnail.cpp imagemanager.cpp imageloader.cpp \
 	options.cpp imageinfo.cpp viewer.cpp listselect.cpp mainview.cpp imageconfig.cpp \
 	imageclient.cpp util.cpp imagepreview.cpp imagedate.cpp imagesearchinfo.cpp \
 	editor.cpp showbusycursor.cpp displayarea.cpp \

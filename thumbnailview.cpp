@@ -33,6 +33,7 @@
 #include <qpainter.h>
 #include "imagedaterange.h"
 #include "imageinfo.h"
+#include <qpixmapcache.h>
 
 ThumbNailView* ThumbNailView::_instance = 0;
 
@@ -93,6 +94,7 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::reload()
 {
+    ThumbNail::pixmapCache().clear();
     // I'm not sure if this is needed, it would require that we were in a
     // drag'n'drop action, and the sudantly got the reload before we got
     // the drop event or leave event.

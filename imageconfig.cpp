@@ -664,6 +664,7 @@ bool ImageConfig::hasChanges()
 {
     bool changed = false;
     if ( _setup == SINGLE )  {
+        // PENDING(blackie) how about description and label?
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
             changed |= (*(_origList.at(i)) != _editList[i]);

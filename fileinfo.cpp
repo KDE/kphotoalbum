@@ -2,13 +2,22 @@
 #include <kfilemetainfo.h>
 #include <qdatetime.h>
 #include <qfileinfo.h>
+#include "util.h"
 
 FileInfo FileInfo::read( const QString& fileName )
 {
     FileInfo fi;
     fi._fullPath = fileName;
+    QString tempFileName( fileName );
+    if ( Util::isCRW( fileName ) ) {
+      QString baseName = QFileInfo( fileName ).baseName();
+      tempFileName = baseName + QString::fromLatin1( ".thm" );
+      QFileInfo tempFile (tempFileName);
+      if ( !tempFile.exists() )
+       tempFileName = baseName + QString::fromLatin1( ".THM" );
+    }
 
-    KFileMetaInfo metainfo( fileName );
+    KFileMetaInfo metainfo( tempFileName );
     if ( metainfo.isEmpty() )
         return fi;
 

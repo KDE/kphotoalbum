@@ -19,8 +19,13 @@ MySplashScreen::MySplashScreen()
     painter.setFont( fnt );
     QPen pen( white );
     painter.setPen( pen );
-    painter.drawText( QRect( QPoint(260, 400), QPoint( 630, 470 )), AlignRight | AlignBottom,
-                      i18n( "KimDaBa version %1" ).arg( KGlobal::instance()->aboutData()->version() ) );
+    QString txt;
+    QString version = KGlobal::instance()->aboutData()->version();
+    if ( version.startsWith( QString::fromLatin1("snap") ) )
+        txt = i18n( "KimDaBa %1" ).arg( version );
+    else
+        txt = i18n( "KimDaBa version %1" ).arg( version );
+    painter.drawText( QRect( QPoint(10, 400), QPoint( 630, 470 )), AlignRight | AlignBottom, txt );
 }
 
 MySplashScreen* MySplashScreen::instance()

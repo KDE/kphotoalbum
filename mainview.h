@@ -22,11 +22,13 @@ protected slots:
     void slotDeleteSelected();
     void slotSearch();
     void load();
+    void slotViewSelected();
 
 protected:
     void configureImages( bool oneAtATime );
     void loadExtraFiles( const QDict<void>& loadedFiles, const QString& indexDirectory, QString directory );
     void load( const QString& indexDirectory,  const QString& filename, QDomElement elm );
+    ImageInfoList selected();
 
 private:
     OptionsDialog* _optionsDialog;

@@ -38,30 +38,29 @@ void ImageLoader::run()
                 }
             }
 
-            QImage orig;
-            if (!isJPEG(li) || !loadJPEG(&orig, li)) {
-                orig.load( li.fileName() );
+            if (!isJPEG(li) || !loadJPEG(&img, li)) {
+                img.load( li.fileName() );
             }
 
-
-            // If we are looking for a scaled version, then scale
-            QImage scaled = orig.scale( li.width(), li.height(), QImage::ScaleMin );
 
             if ( li.angle() != 0 )  {
                 QWMatrix matrix;
                 matrix.rotate( li.angle() );
-                scaled = scaled.xForm( matrix );
+                img = img.xForm( matrix );
             }
+
+            // If we are looking for a scaled version, then scale
+            img = img.scale( li.width(), li.height(), QImage::ScaleMin );
 
             // Save thumbnail to disk
             if (  Options::instance()->cacheThumbNails() ) {
                 if ( ! QDir( cacheDir ).exists() ) {
                     QDir().mkdir( cacheDir, true );
                 }
-                scaled.save( cacheFile, "JPEG" );
+                img.save( cacheFile, "JPEG" );
             }
 
-            ImageEvent* iew = new ImageEvent( li, scaled );
+            ImageEvent* iew = new ImageEvent( li, img );
             QApplication::postEvent( ImageManager::instance(),  iew );
         }
         else

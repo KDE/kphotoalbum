@@ -9,6 +9,7 @@
 #include <qtextstream.h>
 #include <qmessagebox.h>
 #include <qdict.h>
+#include "viewer.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :MainViewUI( parent,  name )
@@ -53,14 +54,7 @@ void MainView::configureImages( bool oneAtATime )
         _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
     }
 
-    ImageInfoList list;
-    for ( QIconViewItem* item = thumbNailView->firstItem(); item; item = item->nextItem() ) {
-        if ( item->isSelected() ) {
-            ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
-            Q_ASSERT( tn );
-            list.append( tn->imageInfo() );
-        }
-    }
+    ImageInfoList list = selected();
     if ( list.count() == 0 )  {
         QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
     }
@@ -205,4 +199,25 @@ void MainView::loadExtraFiles( const QDict<void>& loadedFiles, const QString& in
             loadExtraFiles( loadedFiles,  indexDirectory, file );
         }
     }
+}
+
+ImageInfoList MainView::selected()
+{
+    ImageInfoList list;
+    for ( QIconViewItem* item = thumbNailView->firstItem(); item; item = item->nextItem() ) {
+        if ( item->isSelected() ) {
+            ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
+            Q_ASSERT( tn );
+            list.append( tn->imageInfo() );
+        }
+    }
+    return list;
+}
+
+void MainView::slotViewSelected()
+{
+    ImageInfoList list = selected();
+    Viewer* viewer = Viewer::instance();
+    viewer->load( list );
+    viewer->show();
 }

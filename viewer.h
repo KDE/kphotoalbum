@@ -54,9 +54,9 @@ private:
     QPixmap _pixmap;
     bool _moving;
     QRect _textRect;
-
     QPopupMenu* _popup;
     bool _showInfoBox, _showDescription, _showDate, _showNames, _showLocation;
+    int _width, _height;
 };
 
 #endif /* VIEWER_H */

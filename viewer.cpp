@@ -23,7 +23,7 @@ Viewer* Viewer::instance()
 
 Viewer::Viewer( QWidget* parent, const char* name )
     :QDialog( parent,  name ),  _pos( BottomRight ), _showInfoBox(true), _showDescription(true),
-     _showDate(true), _showNames(false), _showLocation(false)
+     _showDate(true), _showNames(false), _showLocation(false),  _width(800), _height(600)
 {
     QVBoxLayout* layout = new QVBoxLayout( this );
     layout->setResizeMode( QLayout::FreeResize );
@@ -110,11 +110,13 @@ void Viewer::load( const ImageInfoList& list, int index )
     load();
 }
 
-void Viewer::pixmapLoaded( const QString&, int, int, int, const QPixmap& pixmap )
+void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QPixmap& pixmap )
 {
     // Erase
     QPainter p( _label );
     p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
+    resize( w, h );
+    _label->resize( w, h );
 
     _pixmap = pixmap;
     setDisplayedPixmap();
@@ -123,17 +125,41 @@ void Viewer::pixmapLoaded( const QString&, int, int, int, const QPixmap& pixmap 
 void Viewer::show()
 {
     resize( 800, 600 );
+    _width = 800;
+    _height = 600;
     QDialog::show();
 }
 
 void Viewer::load()
 {
+    QRect rect = QApplication::desktop()->screenGeometry( this );
+    int w, h;
+
+    if ( _info.angle() == 0 || _info.angle() == 180 )  {
+        w = _width;
+        h = _height;
+    }
+    else {
+        h = _width;
+        w = _height;
+    }
+
+    if ( w > rect.width() )  {
+        h = (int) (h*((double)rect.width()/w));
+        w = rect.width();
+    }
+    if ( h > rect.height() )  {
+        w = (int) (w*((double)rect.height()/h));
+        h = rect.height();
+    }
+
     // Erase
     QPainter p( _label );
     p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
 
     _label->setText( "Loading..." );
-    ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), _label->width(),  _label->height(), false );
+
+    ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), w,  h, false );
 }
 
 void Viewer::setDisplayedPixmap()
@@ -289,6 +315,7 @@ void Viewer::showNext()
 {
     if ( _current +1 < (int) _list.count() )  {
         _current++;
+        _info = *( _list.at( _current ) );
         load();
     }
 }
@@ -297,19 +324,24 @@ void Viewer::showPrev()
 {
     if ( _current > 0  )  {
         _current--;
+        _info = *( _list.at( _current ) );
         load();
     }
 }
 
 void Viewer::zoomIn()
 {
-    resize( width()*4/3,  height()*4/3 );
+    _width = _width*4/3;
+    _height = _height*4/3;
+    resize( _width, _height );
     load();
 }
 
 void Viewer::zoomOut()
 {
-    resize( width()*3/4,  height()*3/4 );
+    _width = _width*3/4;
+    _height = _height*3/4;
+    resize( _width, _height );
     load();
 }
 

@@ -50,7 +50,8 @@ MainView::MainView( QWidget* parent, const char* name )
     QStringList dirList = dir.entryList();
     for( QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it ) {
         if ( (*it) != "." && (*it) != ".." &&
-             ( (*it).endsWith( ".jpg" ) || (*it).endsWith( ".jpegf" ) || (*it).endsWith( ".png" ) || (*it).endsWith( ".tiff" ) || (*it).endsWith( ".gif" ) ) ) {
+             ( (*it).endsWith( ".jpg" ) || (*it).endsWith( ".jpeg" ) || (*it).endsWith( ".png" ) ||
+               (*it).endsWith( ".tiff" ) || (*it).endsWith( ".gif" ) ) ) {
             ImageInfo* info = new ImageInfo( directory + "/" + *it, map[*it] );
             _images.append(info);
             connect( info,  SIGNAL( destroyed( QObject* ) ),  this,  SLOT( imageDeleted( QObject* ) ) );

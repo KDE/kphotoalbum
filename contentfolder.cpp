@@ -31,8 +31,8 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup( optionGroup ), _value( value )
 {
-    if ( value == ImageDB::NONE ) {
-        _info.setOption( _optionGroup, ImageDB::NONE );
+    if ( value == ImageDB::NONE() ) {
+        _info.setOption( _optionGroup, ImageDB::NONE() );
     }
     else if ( !_optionGroup.isNull() ) {
         // It will be null for the initial element ceated from the browser.
@@ -56,7 +56,7 @@ QPixmap ContentFolder::pixmap()
 
 QString ContentFolder::text() const
 {
-    if ( _value == ImageDB::NONE ) {
+    if ( _value == ImageDB::NONE() ) {
         return i18n( "None" );
     }
     else {
@@ -115,10 +115,10 @@ ContentFolderAction::ContentFolderAction( const QString& optionGroup, const QStr
 int ContentFolder::compare( Folder* other, int col, bool asc ) const
 {
     if ( col == 0 ) {
-        if ( _value == ImageDB::NONE )
+        if ( _value == ImageDB::NONE() )
             return ( asc ? -1 : 1);
         ContentFolder* o = static_cast<ContentFolder*>( other );
-        if ( o->_value == ImageDB::NONE )
+        if ( o->_value == ImageDB::NONE() )
             return ( asc ? 1: -1 );
     }
 

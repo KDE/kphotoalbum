@@ -255,7 +255,7 @@ void ListSelect::setMode( Mode mode )
     _mode = mode;
     _lineEdit->setMode( mode );
     if ( mode == SEARCH) {
-        QListBoxItem * none = new QListBoxText( 0, ImageDB::NONE );
+        QListBoxItem * none = new QListBoxText( 0, ImageDB::NONE() );
         _listBox->insertItem( none, 0 );
     }
 }

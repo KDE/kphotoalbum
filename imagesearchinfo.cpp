@@ -266,7 +266,7 @@ void ImageSearchInfo::compile() const
         QString optionGroup = it.key();
         QString matchText = it.data();
 
-        if ( matchText == ImageDB::NONE ) {
+        if ( matchText == ImageDB::NONE() ) {
             matcher->addElement( new OptionEmptyMatcher( optionGroup ) );
             continue;
         }

@@ -59,15 +59,15 @@ void TypeFolderAction::action( BrowserItemFactory* factory )
 
     QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
     for( QMapIterator<QString,int> it= map.begin(); it != map.end(); ++it ) {
-        if ( it.key() != ImageDB::NONE ) {
+        if ( it.key() != ImageDB::NONE() ) {
             factory->createItem( new ContentFolder( _optionGroup, it.key(), it.data(), _info, _browser ) );
         }
     }
 
     // Add the none option to the end
-    int i = map[ImageDB::NONE];
+    int i = map[ImageDB::NONE()];
     if ( i != 0 )
-        factory->createItem( new ContentFolder( _optionGroup, ImageDB::NONE, i, _info, _browser ) );
+        factory->createItem( new ContentFolder( _optionGroup, ImageDB::NONE(), i, _info, _browser ) );
 }
 
 QString TypeFolderAction::title() const

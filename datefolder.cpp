@@ -20,7 +20,7 @@ QPixmap DateFolder::pixmap()
 
 QString DateFolder::text() const
 {
-    return QString::fromLatin1( "Date" );
+    return i18n( "Date" );
 }
 
 

@@ -80,7 +80,7 @@ private:
     QStringList _pendingLoad;
 
 public:
-    static const QString NONE;
+    static QString NONE();
 
 };
 

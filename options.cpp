@@ -16,7 +16,7 @@ Options* Options::instance()
 
 
 Options::Options()
-    : _thumbWidth( 32 ),  _thumbHeight( 32 ),  _numThreads( 1 ),  _cacheThumbNails( true ),  _use4To3Ratio( true )
+    : _thumbSize( 32 ),  _numThreads( 1 ),  _cacheThumbNails( true ),  _use4To3Ratio( true )
 {
     QFile file( QDir::home().path() + "/.kpalbum" );
     if ( !file.open( IO_ReadOnly ) )  {
@@ -28,8 +28,7 @@ Options::Options()
     doc.setContent( &file );
     QDomElement top = doc.documentElement();
 
-    _thumbWidth = top.attribute( "thumbWidth", QString::number(_thumbWidth) ).toInt();
-    _thumbHeight = top.attribute( "thumbHeight",  QString::number( _thumbHeight ) ).toInt();
+    _thumbSize = top.attribute( "thumbSize", QString::number(_thumbSize) ).toInt();
     _numThreads = top.attribute( "numThreads",  QString::number( _numThreads ) ).toInt();
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _use4To3Ratio = top.attribute( "use4To3Ratio",  QString::number( _use4To3Ratio ) ).toInt();
@@ -38,27 +37,14 @@ Options::Options()
     Util::readOptions( top, &_options );
 }
 
-void Options::setThumbWidth( int w )
+void Options::setThumbSize( int w )
 {
-    _thumbWidth = w;
+    _thumbSize = w;
 }
 
-int Options::thumbWidth() const
+int Options::thumbSize() const
 {
-    return _thumbWidth;
-}
-
-void Options::setThumbHeight( int h )
-{
-    _thumbHeight = h;
-}
-
-int Options::thumbHeight() const
-{
-    if ( _use4To3Ratio )
-        return 3*_thumbWidth/4;
-
-    return _thumbHeight;
+    return _thumbSize;
 }
 
 void Options::setNumThreads( int count )
@@ -108,8 +94,7 @@ void Options::save()
     doc.setContent( QString("<Options/>") );
     QDomElement top = doc.documentElement();
 
-    top.setAttribute( "thumbWidth", _thumbWidth );
-    top.setAttribute( "thumbHeight", _thumbHeight );
+    top.setAttribute( "thumbSize", _thumbSize );
     top.setAttribute( "numThreads", _numThreads );
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "use4To3Ratio", _use4To3Ratio );

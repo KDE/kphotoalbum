@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>301</width>
-            <height>216</height>
+            <height>163</height>
         </rect>
     </property>
     <property name="caption">
@@ -53,33 +53,17 @@
                         </size>
                     </property>
                 </spacer>
-                <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
-                    <property name="name">
-                        <cstring>use4to3ratio</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Use 4-to-3 ratio</string>
-                    </property>
-                </widget>
-                <widget class="QLabel" row="2" column="0">
-                    <property name="name">
-                        <cstring>heightLabel</cstring>
-                    </property>
-                    <property name="text">
-                        <string>height:</string>
-                    </property>
-                </widget>
                 <widget class="QLabel" row="1" column="0">
                     <property name="name">
                         <cstring>textLabel1</cstring>
                     </property>
                     <property name="text">
-                        <string>width:</string>
+                        <string>Thumbnail Size:</string>
                     </property>
                 </widget>
                 <widget class="QSpinBox" row="1" column="1">
                     <property name="name">
-                        <cstring>thumbNailWidth</cstring>
+                        <cstring>thumbnailSize</cstring>
                     </property>
                     <property name="sizePolicy">
                         <sizepolicy>
@@ -99,14 +83,6 @@
                     </property>
                     <property name="text">
                         <string>Cache On Disk</string>
-                    </property>
-                </widget>
-                <widget class="QSpinBox" row="2" column="1">
-                    <property name="name">
-                        <cstring>thumbNailHeight</cstring>
-                    </property>
-                    <property name="maxValue">
-                        <number>256</number>
                     </property>
                 </widget>
                 <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="3">
@@ -207,7 +183,6 @@
 </signals>
 <slots>
     <slot access="protected" specifier="non virtual">slotApply()</slot>
-    <slot access="protected" specifier="non virtual">slotUpdate4To3View()</slot>
 </slots>
 <functions>
     <function>show()</function>

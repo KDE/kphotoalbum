@@ -10,11 +10,8 @@ public:
     void setUse4To3Ratio( bool );
     bool use4To3Ratio() const;
 
-    void setThumbWidth( int );
-    int thumbWidth() const;
-
-    void setThumbHeight( int );
-    int thumbHeight() const;
+    void setThumbSize( int );
+    int thumbSize() const;
 
     void setNumThreads( int );
     int numThreads() const;
@@ -37,7 +34,7 @@ private:
     ~Options() {};
     static Options* _instance;
 
-    int _thumbWidth, _thumbHeight,  _imageCacheSize,  _numThreads;
+    int _thumbSize,  _imageCacheSize,  _numThreads;
     bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps;
     QMap<QString, QStringList> _options;
 };

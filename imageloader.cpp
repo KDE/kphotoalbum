@@ -27,16 +27,14 @@ void ImageLoader::run()
         if ( !li.isNull() ) {
 
             QString cacheDir = QFileInfo( li.fileName() ).dirPath() + "/ThumbNails";
-            QString cacheFile = cacheDir + QString("/%1x%2-%3").arg(li.width()).arg(li.height()).arg( QFileInfo( li.fileName() ).baseName() );
-            if ( li.width() != -1 )  {
-                // Try to load thumbernail from cache
-                QImage img;
-                if ( QFileInfo( cacheFile ).exists() ) {
-                    if ( img.load( cacheFile ) )  {
-                        ImageEvent* iew = new ImageEvent( li, img );
-                        QApplication::postEvent( ImageManager::instance(),  iew );
-                        continue; // Done.
-                    }
+            QString cacheFile = cacheDir + QString("/%1x%2-%3-%4").arg(li.width()).arg(li.height()).arg( li.angle()).arg( QFileInfo( li.fileName() ).baseName() );
+            // Try to load thumbernail from cache
+            QImage img;
+            if ( QFileInfo( cacheFile ).exists() ) {
+                if ( img.load( cacheFile ) )  {
+                    ImageEvent* iew = new ImageEvent( li, img );
+                    QApplication::postEvent( ImageManager::instance(),  iew );
+                    continue; // Done.
                 }
             }
 
@@ -47,26 +45,24 @@ void ImageLoader::run()
 
 
             // If we are looking for a scaled version, then scale
-            if ( li.width() != -1 )  {
-                QImage scaled = orig.scale( li.width(), li.height(), QImage::ScaleMin );
+            QImage scaled = orig.scale( li.width(), li.height(), QImage::ScaleMin );
 
-                // Save thumbnail to disk
-                if (  Options::instance()->cacheThumbNails() ) {
-                    if ( ! QDir( cacheDir ).exists() ) {
-                        QDir().mkdir( cacheDir, true );
-                    }
-                    scaled.save( cacheFile, "JPEG" );
-                    }
-
-                if ( li.angle() != 0 )  {
-                    QWMatrix matrix;
-                    matrix.rotate( li.angle() );
-                    scaled = scaled.xForm( matrix );
-                }
-
-                ImageEvent* iew = new ImageEvent( li, scaled );
-                QApplication::postEvent( ImageManager::instance(),  iew );
+            if ( li.angle() != 0 )  {
+                QWMatrix matrix;
+                matrix.rotate( li.angle() );
+                scaled = scaled.xForm( matrix );
             }
+
+            // Save thumbnail to disk
+            if (  Options::instance()->cacheThumbNails() ) {
+                if ( ! QDir( cacheDir ).exists() ) {
+                    QDir().mkdir( cacheDir, true );
+                }
+                scaled.save( cacheFile, "JPEG" );
+            }
+
+            ImageEvent* iew = new ImageEvent( li, scaled );
+            QApplication::postEvent( ImageManager::instance(),  iew );
         }
         else
             _sleeper->wait();

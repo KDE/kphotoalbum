@@ -12,15 +12,14 @@
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent, const char* name )
     :QIconViewItem( parent,  name ),  _imageInfo( imageInfo )
 {
-    int w = Options::instance()->thumbWidth();
-    int h = Options::instance()->thumbHeight();
-    QPixmap img( w, h );
+    int size = Options::instance()->thumbSize();
+    QPixmap img( size, size );
     QPainter painter( &img );
-    painter.fillRect( 0, 0,  w, h,  white );
-    painter.drawRect( 0, 0, w-1, h-1 );
+    painter.fillRect( 0, 0,  size, size,  white );
+    painter.drawRect( 0, 0, size-1, size-1 );
     setPixmap( img );
     setText( imageInfo->label() );
-    ImageManager::instance()->load( _imageInfo->fileName(),  this, _imageInfo->angle(), w,  h );
+    ImageManager::instance()->load( _imageInfo->fileName(),  this, _imageInfo->angle(), size, size );
 }
 
 QString ThumbNail::fileName() const

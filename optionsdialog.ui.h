@@ -11,11 +11,7 @@ void OptionsDialog::show()
 {
     Options* opt = Options::instance();
 
-    use4to3ratio->setChecked( opt->use4To3Ratio() );
-    slotUpdate4To3View();
-
-    thumbNailWidth->setValue( opt->thumbWidth() );
-    thumbNailHeight->setValue( opt->thumbHeight() );
+    thumbnailSize->setValue( opt->thumbSize() );
     cacheThumbNails->setChecked( opt->cacheThumbNails() );
     trustTimeStamps->setChecked( opt->trustTimeStamps() );
 
@@ -27,18 +23,9 @@ void OptionsDialog::show()
 void OptionsDialog::slotApply()
 {
     Options* opt = Options::instance();
-    opt->setThumbWidth( thumbNailWidth->value() );
-    opt->setThumbHeight( thumbNailHeight->value() );
+    opt->setThumbSize( thumbnailSize->value() );
     opt->setCacheThumbNails( cacheThumbNails->isChecked() );
     opt->setTrustTimeStamps( trustTimeStamps->isChecked() );
     opt->save();
     emit changed();
-}
-
-
-void OptionsDialog::slotUpdate4To3View()
-{
-    thumbNailHeight->setEnabled( !use4to3ratio->isChecked() );
-    heightLabel->setEnabled( !use4to3ratio->isChecked() );
-
 }

@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2003-2004 Jesper K. Pedersen <blackie@kde.org>
  *
@@ -55,6 +56,8 @@ void Export::imageExport( const ImageInfoList& list )
     bool ok;
     Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(), ok );
     delete exp; // It will not return before done - we still need a class to connect slots etc.
+
+    showUsageDialog();
 }
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
@@ -315,6 +318,21 @@ void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*
 
     if ( _filesRemaining == 0 )
         qApp->eventLoop()->exitLoop();
+}
+
+void Export::showUsageDialog()
+{
+    QString txt =
+        i18n( "<qt><p>Other KimDaBa users may now load the import file into their database, by choosing <tt>import</tt> in "
+              "the file menu.</p>"
+              "<p>If they find it on a web side, and the web server is correctly configured, all they need to do is simply "
+              "to click it from within konqueror. To enable this, your web server needs to be configured for KimDaBa. You do so by adding "
+              "the following line to <tt>/etc/httpd/mime.types</tt> or similar:"
+              "<pre>application/vnd.kde.kimdaba-import kim</pre>"
+              "This will make your web server tell konqueror that it is a KimDaBa fill when clicking on the link, "
+              "otherwise the web server will just tell konqueror that it is a plain text file.</p></qt>" );
+
+    KMessageBox::information( 0, txt, i18n("How to use the export file"), QString::fromLatin1("export_how_to_use_the_export_file") );
 }
 
 

@@ -1,3 +1,14 @@
+TODO next
+=========
+- Add a message box with information about how the imageconfig window
+works. (with a do-not-show-again checkbox)
+- make it possible to find images with only a given set of persons on.
+  The following syntax might do it: "A & B & None", would be the same as A
+  & B and no one else.
+- remember windows sizes so they can be restored on start up
+- make it possible to disable the labels from the thumbnail views
+
+
 ==========================
 BUGS To be handled soonish
 ==========================
@@ -15,8 +26,6 @@ BUGS To be handled soonish
 BUGS of less importance
 =======================
 - In the group editor (options->group), ensure that no cycles are created.
-- when images are deleted, the total count at the bottom of the mainwindow,
-  should update
 - Locking to dates doesn't seem to work, and once it works, the information
   should also be written to the XML file in ImageSearchInfo::toXML and ImageSearchInfo::load.
 -It is possible to select the same filter option multiple times. This value 
@@ -31,25 +40,8 @@ Features for a soonish version
 - show slideshow in several Viewers, that is show image 1 in viewer 1, and
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.
-- Loseless image rotation (which actually affects the files)
 - Make a plugin structure for KimDaBa. (Will be in KimDaBa version 1.2)
-- Add a message box with information about how the imageconfig window
-works. (with a do-not-show-again checkbox)
 - make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
-- make it possible to find images with only a given set of persons on.
-  The following syntax might do it: "A & B & None", would be the same as A
-  & B and no one else.
-
-- In search mode, radio buttons labeled "Or" and "And" should be available
-  to tell how the items in the listbox should be combined.
-- remember windows sizes so they can be restored on start up
-- make it possible to disable the labels from the thumbnail views
-
-======================================================================
-Features still to be considered (aka not likely to go in next release)
-======================================================================
-- undo/redo
-- spell check in the editor
 - For removing properties:
   I think a good solution would be:
 
@@ -62,6 +54,15 @@ Features still to be considered (aka not likely to go in next release)
 
   This is the behaviour of many programs with possibilities to select many 
   items and change some properties (mostly checkboxes)
+- spell check in the editor
+
+======================================================================
+Features still to be considered (aka not likely to go in next release)
+======================================================================
+- Loseless image rotation (which actually affects the files)
+- In search mode, radio buttons labeled "Or" and "And" should be available
+  to tell how the items in the listbox should be combined.
+- undo/redo
 - when specifying options for several images at a time, present items that
   are on all images.
 - Path could be a criteria in image search.
@@ -82,12 +83,6 @@ Features still to be considered (aka not likely to go in next release)
 - the search dialog does currently support &,|, and ! 
   (example Anne Helene & !Jesper )
   add support for parenthesis (example Spiff & ( Anne Helene | Jesper ) )
-- Viewer: Sort the order of Person names "Alice" before "Bob"
--Viewer: I would like to add a kind of passport picture to some persons/
- locations they could be displayed as mouseover effects on their name. I made 
- something like this on a webpage: www.kellerkinder.de.gg (it is in german, 
- but just klick on one thumbnail, and afterwards put the mouse over the names 
- after "Bildquelle" or "Zu sehen" below the picture)
 - make it possible to specify a pattern for directories to ignore, say .thumbs
 - Viewer: make it optional if images should be sized up (that is don't scale
 a 32x32 image to 1024x768)

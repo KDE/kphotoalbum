@@ -50,8 +50,6 @@ ImageInfo::ImageInfo( const QString& fileName )
 
     // Read EXIF information
     readExif(fullPath, ImageInfo::Init);
-
-
 }
 
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )

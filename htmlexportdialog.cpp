@@ -636,6 +636,9 @@ void HTMLExportDialog::slotCancelGenerate()
 
 void HTMLExportDialog::showBrowser()
 {
+    if ( _generateKimFile->isChecked() )
+        Export::showUsageDialog();
+
     if ( ! _baseURL->text().isEmpty() )
         new KRun( KURL(QString::fromLatin1( "%1/%2/index.html" ).arg( _baseURL->text() ).arg( _outputDir->text()) ) );
 }

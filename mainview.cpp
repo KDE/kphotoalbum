@@ -348,14 +348,14 @@ ImageInfoList MainView::getSelectedOnDisk()
     ImageInfoList listOnDisk;
     ImageInfoList list = selected();
     if ( list.count() == 0 )
-        list = ImageDB::instance()->currentContext();
+        list = ImageDB::instance()->currentContext(  true );
 
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         if ( (*it)->imageOnDisk() )
             listOnDisk.append( *it );
     }
 
-    return list;
+    return listOnDisk;
 }
 
 void MainView::slotView( bool reuse, bool slideShow, bool random )
@@ -644,9 +644,9 @@ void MainView::setupMenuBar()
 
 void MainView::slotExportToHTML()
 {
-    ImageInfoList list = selected();
+    ImageInfoList list = getSelectedOnDisk();
     if ( list.count() == 0 )  {
-        list = ImageDB::instance()->currentContext();
+        list = ImageDB::instance()->currentContext( true );
 
         if ( list.count() != _thumbNailView->count() &&
             _stack->visibleWidget() == _thumbNailView ) {

@@ -37,6 +37,7 @@ public:
     static void imageExport( const ImageInfoList& list);
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
     Export(  const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation, bool& ok );
+    static void showUsageDialog();
 
 protected:
     QCString createIndexXML( const ImageInfoList& );

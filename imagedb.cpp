@@ -589,13 +589,13 @@ QString ImageDB::NONE()
    currentContext() does not only give you whatever seubset of 100 images,
    but does instead give you a list of all 1000 images.
 */
-ImageInfoList ImageDB::currentContext() const
+ImageInfoList ImageDB::currentContext( bool onDisk ) const
 {
     ImageSearchInfo currentContext = Browser::instance()->currentContext();
     ImageInfoList images;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         bool match = !(*it)->isLocked() && currentContext.match( *it );
-        if ( match )
+        if ( match && ( !onDisk || (*it)->imageOnDisk() ) )
             images.append(*it);
     }
     return images;

@@ -51,7 +51,6 @@
 #include <dcopref.h>
 #include "externalpopup.h"
 #include <kaccel.h>
-#include <kactioncollection.h>
 #include <kkeydialog.h>
 #include <kapplication.h>
 #include <kglobal.h>

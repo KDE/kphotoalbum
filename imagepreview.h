@@ -30,6 +30,7 @@ public:
     virtual QSize sizeHint() const;
     void rotate(int angle);
     void setImage( const ImageInfo& info );
+    void setImage( const QString& fileName );
     int angle() const;
 
 protected:
@@ -38,6 +39,7 @@ protected:
 
 private:
     ImageInfo _info;
+    QString _fileName;
 };
 
 

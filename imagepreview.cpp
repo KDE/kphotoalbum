@@ -41,8 +41,10 @@ QSize ImagePreview::sizeHint() const
 
 void ImagePreview::rotate(int angle)
 {
-    _info.rotate( angle );
-    reload();
+    if ( !_info.isNull() ) {
+        _info.rotate( angle );
+        reload();
+    }
 }
 
 void ImagePreview::setImage( const ImageInfo& info )
@@ -53,13 +55,31 @@ void ImagePreview::setImage( const ImageInfo& info )
 
 void ImagePreview::reload()
 {
-    QImage img = _info.load( width(), height() );
-    setPixmap( img );
+    if ( !_info.isNull() ) {
+        QImage img = _info.load( width(), height() );
+        setPixmap( img );
+    }
+    else {
+        QImage img( _fileName );
+        img = ImageLoader::rotateAndScale( img, width(), height(), 0 );
+        setPixmap( img );
+    }
 }
 
 int ImagePreview::angle() const
 {
     return _info.angle();
+}
+
+/**
+   This method should only be used for the non-user images. Currently this includes
+   two images: the search image and the configure several images at a time image.
+*/
+void ImagePreview::setImage( const QString& fileName )
+{
+    _fileName = fileName;
+    _info = ImageInfo();
+    reload();
 }
 
 #include "imagepreview.moc"

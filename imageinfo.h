@@ -81,8 +81,7 @@ public:
 
     QImage load( int width = -1, int height = -1 ) const;
 
-    // Debugging
-    void debug();
+    bool isNull() const { return _null; }
 
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;
@@ -101,6 +100,7 @@ private:
     DrawList _drawList;
     bool _imageOnDisk; // true if the image is available on disk
     QString _md5sum;
+    bool _null;
 
     // Cache information
     bool _locked;

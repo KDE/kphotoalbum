@@ -36,12 +36,12 @@ extern "C" {
 #include <klocale.h>
 
 
-ImageInfo::ImageInfo()
+ImageInfo::ImageInfo() :_null( true )
 {
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    : _fileName( fileName ), _visible( true ), _imageOnDisk( true ), _locked( false )
+    : _fileName( fileName ), _visible( true ), _imageOnDisk( true ), _null( false ), _locked( false )
 {
     QString fullPath = Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName;
     QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
@@ -117,7 +117,7 @@ ImageInfo::ImageInfo( const QString& fileName )
 }
 
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
-    : _fileName( fileName ), _visible( true )
+    : _fileName( fileName ), _visible( true ), _null( false ), _locked( false )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
     _imageOnDisk = fi.exists();
@@ -353,13 +353,6 @@ void ImageInfo::setLocked( bool locked )
 bool ImageInfo::isLocked() const
 {
     return _locked;
-}
-
-void ImageInfo::debug()
-{
-    for( QMapIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
-        kdDebug(50010) << it.key() << ", " << it.data().join( QString::fromLatin1( ", " ) ) << endl;
-    }
 }
 
 QImage ImageInfo::load( int width, int height ) const

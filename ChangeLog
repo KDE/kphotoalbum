@@ -1,5 +1,9 @@
 2004-01-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: don't load the search and multi-config images through
+	the imageinfo clas as this will make KimDaBa ask whether date
+	should be trusted.
+
 	* Added a configuration option for whether EXIF rotation
 	information should be used or not.
 

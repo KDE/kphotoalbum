@@ -5,7 +5,7 @@
 #include "viewer.h"
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
-    :QIconView( parent,  name )
+    :QIconView( parent,  name ), _currentHighlighted( 0 )
 {
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
@@ -93,6 +93,16 @@ void ThumbNailView::contentsDropEvent( QDropEvent* e )
         QIconView::contentsDropEvent( e );
     else
         repaintContents( 0,0, width(), height(), true );
+}
+
+void ThumbNailView::setHighlighted( ThumbNail* item )
+{
+    if ( _currentHighlighted == item )
+        return;
+
+    if ( _currentHighlighted )
+        _currentHighlighted->dragLeft();
+    _currentHighlighted = item;
 }
 
 //void ThumbNailView::contentsDragEnterEvent( QDragEnterEvent *e )

@@ -64,6 +64,7 @@ void ThumbNail::dragMove()
         p.fillRect( 0, 0, 5, pix.height(), red );
 
     setPixmap( pix );
+    _parent->setHighlighted( this );
 }
 
 void ThumbNail::dragLeft()

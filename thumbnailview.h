@@ -26,6 +26,8 @@ protected slots:
 protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );
     virtual void contentsDropEvent( QDropEvent* e );
+    void setHighlighted( ThumbNail* item );
+
 //    void contentsDragEnterEvent( QDragEnterEvent *e );
 
 
@@ -33,6 +35,7 @@ protected:
 
 private:
     ImageInfoList* _imageList;
+    ThumbNail* _currentHighlighted;
 };
 
 #endif /* THUMBNAILVIEW_H */

@@ -102,7 +102,6 @@ ImageRequest* ImageManager::next()
 
 void ImageManager::customEvent( QCustomEvent* ev )
 {
-    QMutexLocker dummy(&_lock );
     if ( ev->type() == 1001 )  {
         ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );
         if ( !iev )  {
@@ -113,16 +112,30 @@ void ImageManager::customEvent( QCustomEvent* ev )
         ImageRequest* request = iev->loadInfo();
         QImage image = iev->image();
 
+        ImageClient* client = 0;
+        QString fileName;
+        QSize size;
+        QSize fullSize;
+        int angle;
+        bool loadedOK;
+
+        _lock.lock();
         if ( _clientList.find( request ) != 0 )  {
             // If it is not in the map, then it has been canceled (though ::stop) since the request.
-            ImageClient* client = request->client();
+            client = request->client();
+            fileName = request->fileName();
+            size = QSize(request->width(), request->height() );
+            fullSize = request->fullSize();
+            angle = request->angle();
+            loadedOK = request->loadedOK();
 
-            client->pixmapLoaded( request->fileName(), QSize(request->width(), request->height()), request->fullSize(), request->angle(), image, request->loadedOK() );
             _clientList.remove(request);
             if ( _currentLoading == request )
                 _currentLoading = 0;
             delete request;
         }
+        _lock.unlock();
+        client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK );
     }
 }
 

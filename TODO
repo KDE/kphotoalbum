@@ -57,6 +57,7 @@ works. (with a do-not-show-again checkbox)
   one icon should show a calender for sorting by date, one should show a
   letter for sorting alphabetically
 - remember windows sizes so they can be restored on start up
+- make it possible to disable the labels from the thumbnail views
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -33,6 +33,7 @@
 #include <kio/job.h>
 #include <qtoolbutton.h>
 #include <kiconloader.h>
+#include <qbuttongroup.h>
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -179,12 +180,20 @@ ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char*
     lay2->addStretch(1);
 
     // Sorting tool button
+    QButtonGroup* grp = new QButtonGroup( this );
+    grp->setExclusive( true );
+    grp->hide();
+
     _alphaSort = new QToolButton( this, "_alphaSort" );
     _alphaSort->setIconSet( SmallIcon( QString::fromLatin1( "text" ) ) );
+    _alphaSort->setToggleButton( true );
+    grp->insert( _alphaSort );
+
     _dateSort = new QToolButton( this, "_dateSort" );
     _dateSort->setIconSet( SmallIcon( QString::fromLatin1( "date" ) ) );
-    _alphaSort->setToggleButton( true );
     _dateSort->setToggleButton( true );
+    grp->insert( _dateSort );
+
     _alphaSort->setOn( Options::ViewSortType() == Options::SortAlpha );
     _dateSort->setOn( Options::ViewSortType() == Options::SortLastUse );
     connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );

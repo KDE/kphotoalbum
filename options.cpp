@@ -42,6 +42,7 @@ Options::Options()
     _showDate = top.attribute( "showDate", "1" ).toInt();
     _showNames = top.attribute( "showNames", "0" ).toInt();
     _showLocation = top.attribute( "showLocation", "0" ).toInt();
+    _showKeyWords = top.attribute( "showKeyWords", "0" ).toInt();
 
     Util::readOptions( top, &_options );
 }
@@ -97,6 +98,7 @@ void Options::save()
     top.setAttribute( "showDate", _showDate );
     top.setAttribute( "showNames", _showNames );
     top.setAttribute( "showLocation", _showLocation );
+    top.setAttribute( "showKeyWords", _showKeyWords );
 
     Util::writeOptions( doc, top, _options );
 
@@ -213,5 +215,15 @@ void Options::setInfoBoxPosition( Position pos )
 void Options::setConfFile( const QString& file )
 {
     _confFile = file;
+}
+
+bool Options::showKeyWords() const
+{
+    return _showKeyWords;
+}
+
+void Options::setShowKeyWords( bool b )
+{
+    _showKeyWords = b;
 }
 

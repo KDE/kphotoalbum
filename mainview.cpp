@@ -48,7 +48,8 @@ void MainView::slotOptions()
         connect( _optionsDialog, SIGNAL( changed() ), thumbNailView, SLOT( reload() ) );
         connect( _optionsDialog, SIGNAL( imagePathChanged() ), this, SLOT( load() ) );
     }
-    _optionsDialog->show();
+    _optionsDialog->exec();
+    Options::instance()->save();
 }
 
 
@@ -78,6 +79,7 @@ void MainView::configureImages( bool oneAtATime )
     }
     else {
         _imageConfigure->configure( list,  oneAtATime );
+        Options::instance()->save();
     }
 }
 
@@ -99,7 +101,6 @@ void MainView::slotSearch()
 void MainView::slotSave()
 {
     ShowBusyCursor dummy;
-    Options::instance()->save();
 
     QMap<QString, QDomDocument> docs;
     ImageInfoList list = _images;

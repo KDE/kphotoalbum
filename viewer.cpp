@@ -87,12 +87,17 @@ Viewer::Viewer( QWidget* parent, const char* name )
     action = new QAction( "Show Names", QIconSet(), "Show Names", Key_N, this, "showNames", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowNames( bool ) ) );
     action->addTo( _popup );
-    action->setOn( Options::instance()->showLocation() );
+    action->setOn( Options::instance()->showNames() );
 
     action = new QAction( "Show Location", QIconSet(), "Show Location", Key_L, this, "showLocation", true );
     connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowLocation( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showLocation() );
+
+    action = new QAction( "Show Keywords", QIconSet(), "Show Keywords", Key_K, this, "showKeywords", true );
+    connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowKeyWords( bool ) ) );
+    action->addTo( _popup );
+    action->setOn( Options::instance()->showKeyWords() );
 
     _popup->insertSeparator();
 
@@ -198,6 +203,12 @@ void Viewer::setDisplayedPixmap()
                 text += "<b>Description:</b> ";
 
             text += _info.description();
+        }
+
+        if ( Options::instance()->showKeyWords() )  {
+            QString keyWords = _info.optionValue( "Keywords" ).join( ", " );
+            if ( keyWords )
+                text += "<b>Key Words:</b> " + keyWords + "<br>";
         }
 
         Options::Position pos = Options::instance()->infoBoxPosition();
@@ -397,6 +408,13 @@ void Viewer::toggleShowNames( bool b )
 void Viewer::toggleShowLocation( bool b )
 {
     Options::instance()->setShowLocation( b );
+    setDisplayedPixmap();
+    Options::instance()->save();
+}
+
+void Viewer::toggleShowKeyWords( bool b )
+{
+    Options::instance()->setShowKeyWords( b );
     setDisplayedPixmap();
     Options::instance()->save();
 }

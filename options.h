@@ -35,12 +35,14 @@ public:
     bool showDate() const;
     bool showLocation() const;
     bool showNames() const;
+    bool showKeyWords() const;
 
     void setShowInfoBox(bool b);
     void setShowDescription(bool b);
     void setShowDate(bool b);
     void setShowLocation(bool b);
     void setShowNames(bool b);
+    void setShowKeyWords( bool b );
 
     Position infoBoxPosition() const;
     void setInfoBoxPosition( Position pos );
@@ -58,7 +60,7 @@ private:
     QString _imageDirectory;
 
     Position _infoBoxPosition;
-    bool _showInfoBox, _showDescription, _showDate, _showNames, _showLocation;
+    bool _showInfoBox, _showDescription, _showDate, _showNames, _showLocation, _showKeyWords;
 
 };
 

@@ -42,6 +42,7 @@ protected slots:
     void toggleShowDate( bool );
     void toggleShowNames( bool );
     void toggleShowLocation( bool );
+    void toggleShowKeyWords( bool );
 
 private:
     Viewer( QWidget* parent, const char* name = 0 );

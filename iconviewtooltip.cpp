@@ -66,9 +66,15 @@ void IconViewToolTip::showToolTips( bool force )
         ThumbNail* tn = static_cast<ThumbNail*>( item );
         if ( loadImage( *tn->imageInfo() ) ) {
             setText( QString::null );
-            setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
-                     .arg(tn->fileName()).
-                     arg(Util::createInfoText( tn->imageInfo(), 0 ) ) );
+            int size = Options::instance()->previewSize();
+            if ( size != 0 ) {
+                setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
+                         .arg(tn->fileName()).
+                         arg(Util::createInfoText( tn->imageInfo(), 0 ) ) );
+            }
+            else {
+                setText( QString::fromLatin1("<qt>%1</qt>").arg( Util::createInfoText( tn->imageInfo(), 0 ) ) );
+            }
         }
 
         _current = item;
@@ -159,11 +165,14 @@ void IconViewToolTip::clear()
 bool IconViewToolTip::loadImage( const ImageInfo& info )
 {
     _currentFileName = info.fileName();
-    if ( !_loadedImages.contains( info.fileName() ) ) {
-        ImageManager::instance()->load( info.fileName(),  this, info.angle(), 256, 256, true, true );
-        QMimeSourceFactory::defaultFactory()->setImage( info.fileName(), QImage() );
-        _loadedImages.append( info.fileName() );
-        return false;
+    int size = Options::instance()->previewSize();
+    if ( size != 0 ) {
+        if ( !_loadedImages.contains( info.fileName() ) ) {
+            ImageManager::instance()->load( info.fileName(),  this, info.angle(), size, size, true, true );
+            QMimeSourceFactory::defaultFactory()->setImage( info.fileName(), QImage() );
+            _loadedImages.append( info.fileName() );
+            return false;
+        }
     }
     return true;
 }

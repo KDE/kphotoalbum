@@ -37,6 +37,9 @@ public:
     void setThumbSize( int );
     int thumbSize() const;
 
+    void setPreviewSize( int );
+    int previewSize() const;
+
     void setMaxImages( int );
     int maxImages() const;
 
@@ -157,7 +160,7 @@ private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
     static Options* _instance;
 
-    int _thumbSize,  _imageCacheSize;
+    int _thumbSize,  _previewSize;
     TimeStampTrust _tTimeStamps;
     bool _useEXIFRotate;
     int _autoSave, _maxImages;

@@ -1,5 +1,7 @@
 2004-01-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Made the image preview size configurable.
+
 	* Ensure enable/disable state of menu bar is correct
 
 2004-01-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

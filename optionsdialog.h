@@ -74,6 +74,7 @@ private:
     QSpinBox* _width;
     QSpinBox* _height;
     QCheckBox* _useEXIFRotate;
+    QSpinBox* _previewSize;
 
     // Option Groups page
     QListBox* _optionGroups;

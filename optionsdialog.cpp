@@ -58,6 +58,15 @@ void OptionsDialog::createGeneralPage()
     lay2->addWidget( _thumbnailSize );
     lay2->addStretch(1);
 
+    // Preview size
+    QLabel* previewSizeLabel = new QLabel( i18n("Preview Image Size" ), top, "previewSizeLabel" );
+    _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
+    _previewSize->setSpecialValueText( i18n("No Image Preview") );
+    lay2 = new QHBoxLayout( lay1, 6 );
+    lay2->addWidget( previewSizeLabel );
+    lay2->addWidget( _previewSize );
+    lay2->addStretch( 1 );
+
     // Thrust time stamps
     QLabel* timeStampLabel = new QLabel( i18n("Trust image dates"), top );
     _trustTimeStamps = new KComboBox( top );
@@ -111,6 +120,12 @@ void OptionsDialog::createGeneralPage()
 
     // Whats This
     QString txt;
+
+    txt = i18n( "<qt><p>If you select <tt>Help|Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
+                "displaying information about the thumbnails. This window includes a small preview image. "
+                "This option configures the image size</p></qt>" );
+    QWhatsThis::add( previewSizeLabel, txt );
+    QWhatsThis::add( _previewSize, txt );
 
     txt = i18n( "<qt><p>KimDaBa will try to read the of the image date out of EXIF information in the image, "
                 "if that fails it will try to get the date from the file time stamp.</p>"
@@ -239,6 +254,7 @@ void OptionsDialog::show()
 
     // General page
     _thumbnailSize->setValue( opt->thumbSize() );
+    _previewSize->setValue( opt->previewSize() );
     _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _autosave->setValue( opt->autoSave() );
@@ -266,6 +282,7 @@ void OptionsDialog::slotMyOK()
 
     // General
     opt->setThumbSize( _thumbnailSize->value() );
+    opt->setPreviewSize( _previewSize->value() );
     opt->setTTimeStamps( (Options::TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setAutoSave( _autosave->value() );

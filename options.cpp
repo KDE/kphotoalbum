@@ -46,9 +46,10 @@ Options* Options::instance()
 }
 
 Options::Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory )
-    : _thumbSize( 64 ), _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
+    : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
-    _thumbSize = config.attribute( QString::fromLatin1("thumbSize"), QString::number(_thumbSize) ).toInt();
+    _thumbSize = config.attribute( QString::fromLatin1("thumbSize"), QString::fromLatin1( "64" ) ).toInt();
+    _previewSize = config.attribute( QString::fromLatin1( "previewSize" ), QString::fromLatin1( "256" ) ).toInt();
     _tTimeStamps = (TimeStampTrust) config.attribute( QString::fromLatin1("trustTimeStamps"),  QString::fromLatin1("0") ).toInt();
     _useEXIFRotate = (bool) config.attribute( QString::fromLatin1( "useEXIFRotate" ), QString::fromLatin1( "1" ) ).toInt();
     _autoSave = config.attribute( QString::fromLatin1("autoSave"), QString::number( 5 ) ).toInt();
@@ -101,6 +102,7 @@ void Options::save( QDomElement top )
 
     config.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "1" ) );
     config.setAttribute( QString::fromLatin1("thumbSize"), _thumbSize );
+    config.setAttribute( QString::fromLatin1( "previewSize" ), _previewSize );
     config.setAttribute( QString::fromLatin1("trustTimeStamps"), _tTimeStamps );
     config.setAttribute( QString::fromLatin1("useEXIFRotate"), _useEXIFRotate );
     config.setAttribute( QString::fromLatin1("autoSave"), _autoSave );
@@ -536,12 +538,26 @@ Options::ViewType Options::viewType( const QString& optionGroup ) const
 
 void Options::setUseEXIFRotate( bool b )
 {
+    if ( _useEXIFRotate != b )
+        emit changed();
     _useEXIFRotate = b;
 }
 
 bool Options::useEXIFRotate() const
 {
     return _useEXIFRotate;
+}
+
+void Options::setPreviewSize( int size )
+{
+    if ( _previewSize != size )
+        emit changed();
+    _previewSize = size;
+}
+
+int Options::previewSize() const
+{
+    return _previewSize;
 }
 
 #include "options.moc"

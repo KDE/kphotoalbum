@@ -37,7 +37,7 @@ ImageInfo::ImageInfo( const QString& fileName )
     _angle = 0;
 
     if ( Options::instance()->trustTimeStamps() )  {
-        QDate date = fi.created().date();
+        QDate date = fi.lastModified().date();
         _startDate.setYear(date.year());
         _startDate.setMonth(date.month());
         _startDate.setDay(date.day());

@@ -7,6 +7,8 @@ BUGS To be handled soonish
 ==========================
 - drawing on an image doesn't mark it as dirty
 - Adding a new ListSelect will not show it up initially.
+- renaming a category should not result in the listselect being placed
+different in the image property page.
 - searching for jan 02 2003 in the demo should yield img015, but no images
   are found.
 
@@ -51,6 +53,9 @@ Features for a soonish version
   I doubt that extension will be very useful tho.
 - rework member group config page to use kdlistboxpair instead.
 - improve the spelling support, so the user get the benefit of the config dialog.
+- Find all images with changed checksums (rather than merely
+  recompute the checksum).  This would help identify images
+  requiring backup.
 - Adding blinking icons to the splash screen.
 
 ======================================================================
@@ -71,3 +76,9 @@ Features still to be considered (aka not likely to go in next release)
 - make it possible to specify a pattern for directories to ignore, say .thumbs
 - Viewer: make it optional if images should be sized up (that is don't scale
 a 32x32 image to 1024x768)
+- Export preserves folder layout.  This would be very helpful for
+  exporting a set of images for purpose of mirroring them, or for
+  backing them up to DVD's in a form that I could easily use to
+  restore them later.  The scenario would be that I would select all
+  images not previously backed up (by means of a keyword) and export
+  them preserving layout, and dump the exported tree to DVD.

@@ -41,14 +41,14 @@ Browser::Browser( QWidget* parent, const char* name )
     Q_ASSERT( !_instance );
     _instance = this;
 
-    _stack = new QWidgetStack( this );
+    _stack = new QWidgetStack( this, "_stack" );
     QHBoxLayout* layout = new QHBoxLayout( this );
     layout->addWidget( _stack );
 
-    _listView = new QListView ( _stack );
+    _listView = new QListView ( _stack, "_listView" );
     _stack->addWidget( _listView );
 
-    _iconView = new QIconView( _stack );
+    _iconView = new QIconView( _stack, "_iconView" );
     _stack->addWidget( _iconView );
 
     _listViewFactory = new BrowserListViewItemFactory( _listView );

@@ -96,11 +96,11 @@ MainView::MainView( QWidget* parent, const char* name )
     // Options, and where the main thread crates an instance, we better get it created now.
     connect( Options::instance(), SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 
-    _stack = new QWidgetStack( this );
-    _browser = new Browser( _stack );
+    _stack = new QWidgetStack( this, "_stack" );
+    _browser = new Browser( _stack, "browser" );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
-    _thumbNailView = new ThumbNailView( _stack );
+    _thumbNailView = new ThumbNailView( _stack, "_thumbNailView" );
 
     connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
 
@@ -119,19 +119,19 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setEnabled( bool ) ) );
 
     // Setting up status bar
-    QHBox* indicators = new QHBox( statusBar() );
-    _dirtyIndicator = new QLabel( indicators );
+    QHBox* indicators = new QHBox( statusBar(), "indicator" );
+    _dirtyIndicator = new QLabel( indicators, "_dirtyIndicator" );
     setDirty( _dirty ); // Might already have been made dirty by load above
 
-    _lockedIndicator = new QLabel( indicators );
+    _lockedIndicator = new QLabel( indicators, "_lockedIndicator" );
     setLocked( Options::instance()->isLocked() );
 
     statusBar()->addWidget( indicators, 0, true );
 
-    ImageCounter* partial = new ImageCounter( statusBar() );
+    ImageCounter* partial = new ImageCounter( statusBar(), "partial image counter" );
     statusBar()->addWidget( partial, 0, true );
 
-    ImageCounter* total = new ImageCounter( statusBar() );
+    ImageCounter* total = new ImageCounter( statusBar(), "total image counter" );
     statusBar()->addWidget( total, 0, true );
 
     // Misc

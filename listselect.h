@@ -20,6 +20,9 @@ public:
     void setShowMergeCheckbox( bool b );
     bool merge() const;
 
+    enum Mode {INPUT, SEARCH};
+    void setMode( Mode );
+
 protected slots:
     void slotReturn();
 
@@ -29,6 +32,7 @@ private:
     CompletableLineEdit* _lineEdit;
     QListBox* _listBox;
     QCheckBox* _merge;
+    Mode _mode;
 };
 
 #endif /* LISTSELECT_H */

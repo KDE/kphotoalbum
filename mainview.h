@@ -18,8 +18,8 @@ protected slots:
     void slotConfigureAllImages();
     void slotConfigureImagesOneAtATime();
     void save();
-    void imageDeleted( QObject* );
     void slotDeleteSelected();
+    void slotSearch();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -28,6 +28,7 @@ private:
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
     ImageInfoList _images;
+    ImageInfoList _curView;
 };
 
 

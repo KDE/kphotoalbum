@@ -11,11 +11,13 @@ class CompletableLineEdit :public QLineEdit {
 public:
     CompletableLineEdit( QWidget* parent,  const char* name = 0 );
     void setListBox( QListBox* );
+    void setMode( ListSelect::Mode mode );
 protected:
     virtual void keyPressEvent( QKeyEvent* ev );
 
 private:
     QListBox* _listbox;
+    ListSelect::Mode _mode;
 };
 
 CompletableLineEdit::CompletableLineEdit( QWidget* parent, const char* name )
@@ -28,20 +30,58 @@ void CompletableLineEdit::setListBox( QListBox* listbox )
     _listbox = listbox;
 }
 
+void CompletableLineEdit::setMode( ListSelect::Mode mode ) {
+    _mode = mode;
+}
+
 void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 {
     if ( !ev->text().isEmpty() && ev->text()[0].isPrint() )  {
+        bool special = ( ev->text() == "&" || ev->text() == "|" || ev->text() == "!" || ev->text() == "(" );
+        if ( _mode == ListSelect::INPUT && special )  {
+            // Don't insert the special character.
+            return;
+        }
+
+        QString content = text();
+        int cursorPos = cursorPosition();
+
+        if ( _mode == ListSelect::SEARCH && (special || ev->text() == " " ) )  {
+            setText( text().left(cursorPos) + ev->text() + text().mid( cursorPos ) );
+            setCursorPosition( cursorPos + ev->text().length() );
+            deselect();
+            return;
+        }
+
+
         QLineEdit::keyPressEvent( ev );
 
+        int start = 0;
         QString input = text();
+        if ( _mode == ListSelect::SEARCH )  {
+            input = input.left( cursorPosition() );
+            start = input.findRev( QRegExp("[!(&| ]") ) +1;
+            input = input.mid( start );
+        }
+
         QListBoxItem* item = _listbox->findItem( input );
+        if ( !item && _mode == ListSelect::SEARCH )  {
+            // revert
+            setText( content );
+            setCursorPosition( cursorPos );
+            item = _listbox->findItem( input );
+        }
+
         if ( item )  {
             _listbox->setCurrentItem( item );
             _listbox->ensureCurrentVisible();
-            setText( item->text() );
-            setSelection( input.length(), item->text().length() - input.length() );
+
+            QString txt = text().left(start) + item->text() + text().mid( cursorPosition() );
+            setText( txt );
+            setSelection( start + input.length(), item->text().length() - input.length() );
         }
     }
+
     else
         QLineEdit::keyPressEvent( ev );
 }
@@ -77,20 +117,22 @@ void ListSelect::setLabel( const QString& label )
 
 void ListSelect::slotReturn()
 {
-    QString txt = _lineEdit->text();
-    if ( txt == "" )
-        return;
+    if ( _mode == INPUT )  {
+        QString txt = _lineEdit->text();
+        if ( txt == "" )
+            return;
 
-    QListBoxItem* item = _listBox->findItem( txt,  ExactMatch );
-    if ( !item ) {
-        item = new QListBoxText( _listBox, txt );
+        QListBoxItem* item = _listBox->findItem( txt,  ExactMatch );
+        if ( !item ) {
+            item = new QListBoxText( _listBox, txt );
+        }
+        Options* options = Options::instance();
+        options->addOption( _textLabel, txt);
+
+        _listBox->setSelected( item,  true );
+        _lineEdit->clear();
+        _listBox->sort();
     }
-    Options* options = Options::instance();
-    options->addOption( _textLabel, txt);
-
-    _listBox->setSelected( item,  true );
-    _lineEdit->clear();
-    _listBox->sort();
 }
 
 void ListSelect::insertStringList( const QStringList& list )
@@ -135,4 +177,10 @@ void ListSelect::setShowMergeCheckbox( bool b )
 bool ListSelect::merge() const
 {
     return _merge->isChecked();
+}
+
+void ListSelect::setMode( Mode mode)
+{
+    _mode = mode;
+    _lineEdit->setMode( mode );
 }

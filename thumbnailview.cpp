@@ -34,6 +34,7 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::load( ImageInfoList* list )
 {
+    clear();
     for( QPtrListIterator<ImageInfo> it( *list ); *it; ++it ) {
         new ThumbNail( *it,  this,  "thumbnail" );
     }

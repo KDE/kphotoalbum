@@ -9,7 +9,7 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
-class ImageInfo :public QObject {
+class ImageInfo {
 
 public:
     ImageInfo();
@@ -51,7 +51,7 @@ public:
 
 private:
      // This string is accessed on several threads, so we need to make it a deep copy!
-    QDeepCopy<QString> _fileName;
+    QString _fileName;
     QString _label;
     QString _description;
     int _yearFrom,  _monthFrom,  _dayFrom,  _yearTo,  _monthTo,  _dayTo;

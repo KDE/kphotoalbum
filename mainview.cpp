@@ -54,7 +54,6 @@ MainView::MainView( QWidget* parent, const char* name )
                (*it).endsWith( ".tiff" ) || (*it).endsWith( ".gif" ) ) ) {
             ImageInfo* info = new ImageInfo( directory + "/" + *it, map[*it] );
             _images.append(info);
-            connect( info,  SIGNAL( destroyed( QObject* ) ),  this,  SLOT( imageDeleted( QObject* ) ) );
         }
     }
     thumbNailView->load( &_images );
@@ -106,8 +105,24 @@ void MainView::configureImages( bool oneAtATime )
         QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
     }
     else {
-        _imageConfigure->exec( list,  oneAtATime );
+        _imageConfigure->configure( list,  oneAtATime );
         save();
+    }
+}
+
+void MainView::slotSearch()
+{
+    if ( ! _imageConfigure ) {
+        _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
+    }
+    int ok = _imageConfigure->search();
+    if ( ok == QDialog::Accepted )  {
+        _curView.clear();
+        for( ImageInfoListIterator it( _images ); *it; ++it ) {
+            if ( _imageConfigure->match( *it ) )
+                 _curView.append( *it );
+        }
+        thumbNailView->load( &_curView );
     }
 }
 
@@ -141,19 +156,8 @@ void MainView::save()
     }
 }
 
-void MainView::imageDeleted( QObject* obj )
-{
-    // It needs to be a reinterpret_cast below as the destruction of 'obj'
-    // already have started, so calling dynamic_cast crashes the program.
-    ImageInfo* image = reinterpret_cast<ImageInfo*>( obj );
-    _images.removeRef( image );
-}
-
 void MainView::slotDeleteSelected()
 {
     qDebug("NYI!");
 }
-
-
-
 

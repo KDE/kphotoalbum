@@ -8,9 +8,11 @@ class ImageInfoList :public QPtrList<ImageInfo>
 public:
     ~ImageInfoList();
     void sortAndMergeBackIn( ImageInfoList& subListToSort );
-
-protected:
     ImageInfoList sort() const;
+    void appendList( ImageInfoList& other );
+    void printItems();
+    bool isSorted();
+    void mergeIn( ImageInfoList list );
 
 private:
     bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );

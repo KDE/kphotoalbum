@@ -75,3 +75,51 @@ ImageInfoList::~ImageInfoList()
 {
 }
 
+void ImageInfoList::appendList( ImageInfoList& list )
+{
+    for ( ImageInfoListIterator it( list ); *it; ++it ) {
+        append( *it );
+    }
+}
+
+void ImageInfoList::printItems()
+{
+    for ( ImageInfoListIterator it( *this ); *it; ++it ) {
+        qDebug("%s", (*it)->fileName().latin1() );
+    }
+}
+
+bool ImageInfoList::isSorted()
+{
+    if ( count() == 0 )
+        return true;
+
+    QDateTime prev = first()->startDate().min();
+    for ( ImageInfoListIterator it( *this ); *it; ++it ) {
+        QDateTime cur = (*it)->startDate().min();
+        if ( prev > cur )
+            return false;
+        prev = cur;
+    }
+    return true;
+}
+
+void ImageInfoList::mergeIn( ImageInfoList other)
+{
+    ImageInfoList tmp;
+
+    for ( ImageInfoListIterator it( *this ); *it; ++it ) {
+        QDateTime thisDate = (*it)->startDate().min();
+        while ( other.count() != 0 ) {
+            QDateTime otherDate = other.first()->startDate().min();
+            if ( otherDate < thisDate )
+                tmp.append( other.take(0) );
+            else
+                break;
+        }
+        tmp.append( *it );
+    }
+    tmp.appendList( other );
+    *this = tmp;
+}
+

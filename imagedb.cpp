@@ -219,17 +219,50 @@ void ImageDB::loadExtraFiles()
                                   "However, there is only a delay when new images are found.</p></qt>"),
                              i18n("&Cancel"), _pendingLoad.count() );
     int count = 0;
+    ImageInfoList newImages;
     for( QStringList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
         dialog.setProgress( count ); // ensure to call setProgress(0)
         qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
         if ( dialog.wasCanceled() )
             return;
-        loadExtraFile( *it );
+        ImageInfo* info = loadExtraFile( *it );
+        if ( info )
+            newImages.append(info);
+    }
+    mergeNewImagesInWithExistingList( newImages );
+}
+
+void ImageDB::mergeNewImagesInWithExistingList( ImageInfoList newImages )
+{
+    qDebug("List of new Images: " );
+    newImages.printItems();
+
+    newImages = newImages.sort();
+    if ( _images.count() == 0 ) {
+        // case 1: The existing imagelist is empty.
+        _images = newImages;
+    }
+    else if ( newImages.first()->startDate().min() > _images.last()->startDate().min() ) {
+        // case 2: The new list is later than the existsing
+        _images.appendList(newImages);
+        qDebug("Case 2");
+        newImages.printItems();
+    }
+    else if ( _images.isSorted() ) {
+        // case 3: The lists overlaps, and the existsing list is sorted
+        qDebug("Case 3");
+        _images.mergeIn( newImages );
+    }
+    else{
+        // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
+        qDebug("Case 4");
+        _images.appendList( newImages );
     }
 }
 
-void ImageDB::loadExtraFile( const QString& relativeName )
+
+ImageInfo* ImageDB::loadExtraFile( const QString& relativeName )
 {
     QString sum = MD5Sum( Options::instance()->imageDirectory() + QString::fromLatin1("/") + relativeName );
     if ( _md5Map.contains( sum ) ) {
@@ -239,6 +272,8 @@ void ImageDB::loadExtraFile( const QString& relativeName )
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
 
+            // Iterate through the db searching for the image with the correct file name
+            // PENDING(blackie) Isn't this what ImageDB::find() is all about?
             for( ImageInfoListIterator it( _images ); *it; ++it ) {
                 if ( (*it)->fileName(true) == fileName ) {
                     // Update the label in case it contained the previos file name
@@ -249,7 +284,7 @@ void ImageDB::loadExtraFile( const QString& relativeName )
                     }
 
                     (*it)->setFileName( relativeName );
-                    return;
+                    return 0;
                 }
             }
         }
@@ -257,8 +292,8 @@ void ImageDB::loadExtraFile( const QString& relativeName )
 
     ImageInfo* info = new ImageInfo( relativeName  );
     info->setMD5Sum(sum);
-    _images.append(info);
     _fileMap.insert( info->fileName(), info );
+    return info;
 }
 
 void ImageDB::save( QDomElement top )

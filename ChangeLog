@@ -1,5 +1,7 @@
 2005-02-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* New images should be inserted sorted.
+
 	* When new images are found, the datebar are now updated.
 
 2005-01-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

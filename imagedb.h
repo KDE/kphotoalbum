@@ -69,7 +69,8 @@ signals:
 protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
-    void loadExtraFile( const QString& name );
+    void mergeNewImagesInWithExistingList( ImageInfoList newImages );
+    ImageInfo* loadExtraFile( const QString& name );
     ImageInfo* load( const QString& filename, QDomElement elm );
     int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
     bool calculateMD5sums( ImageInfoList& list );

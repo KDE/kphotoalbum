@@ -326,7 +326,7 @@ bool HTMLExportDialog::generate()
 
     // Copy files over to destination.
     QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
-    KIO::CopyJob* job = KIO::move( _tempDir, outputDir );
+    KIO::CopyJob* job = KIO::move( KURL(_tempDir), KURL(outputDir) );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
 
     return true;
@@ -617,7 +617,7 @@ void HTMLExportDialog::slotCancelGenerate()
 void HTMLExportDialog::showBrowser()
 {
     if ( ! _baseURL->text().isEmpty() )
-        new KRun( QString::fromLatin1( "%1/%2/index.html" ).arg( _baseURL->text() ).arg( _outputDir->text() ) );
+        new KRun( KURL(QString::fromLatin1( "%1/%2/index.html" ).arg( _baseURL->text() ).arg( _outputDir->text()) ) );
 }
 
 bool HTMLExportDialog::checkVars()
@@ -648,9 +648,9 @@ bool HTMLExportDialog::checkVars()
     // ensure base dir exists
     KIO::UDSEntry result;
 #if KDE_IS_VERSION( 3,1,90 )
-    bool ok = KIO::NetAccess::stat( baseDir, result, this );
+    bool ok = KIO::NetAccess::stat( KURL(baseDir), result, this );
 #else
-    bool ok = KIO::NetAccess::stat( baseDir, result );
+    bool ok = KIO::NetAccess::stat( KURL(baseDir), result );
 #endif
     if ( !ok ) {
         KMessageBox::error( this, i18n("<qt>Error while reading information about %1. "
@@ -659,7 +659,7 @@ bool HTMLExportDialog::checkVars()
         return false;
     }
 
-    KFileItem fileInfo( result, baseDir );
+    KFileItem fileInfo( result, KURL(baseDir) );
     if ( !fileInfo.isDir() ) {
         KMessageBox::error( this, i18n("<qt>%1 does not exist, is not a directory or "
                                        "cannot be written to.</qt>").arg( baseDir ) );
@@ -669,9 +669,9 @@ bool HTMLExportDialog::checkVars()
 
     // test if destination directory exists.
 #if KDE_IS_VERSION( 3, 1, 90 )
-    bool exists = KIO::NetAccess::exists( outputDir, false, this );
+    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, this );
 #else
-    bool exists = KIO::NetAccess::exists( outputDir );
+    bool exists = KIO::NetAccess::exists( KURL(outputDir) );
 #endif
     if ( exists ) {
         int answer = QMessageBox::warning( this, i18n("Directory Exists"),

@@ -443,7 +443,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                 // rename the category image too
                 QString oldFile = Options::instance()->fileForCategoryImage( optionGroup(), oldStr );
                 QString newFile = Options::instance()->fileForCategoryImage( optionGroup(), newStr );
-                KIO::move( oldFile, newFile );
+                KIO::move( KURL(oldFile), KURL(newFile) );
             }
         }
     }

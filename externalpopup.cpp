@@ -46,11 +46,11 @@ void ExternalPopup::slotExecuteService( int id )
     KURL::List lst;
     if ( (uint) indexOf(id) > count() / 2 ) {
         for( ImageInfoListIterator it( _list ); *it; ++it ) {
-            lst.append( QString::fromLatin1("file://%1").arg( (*it)->fileName() ) );
+            lst.append( KURL::fromPathOrURL((*it)->fileName() ) );
         }
     }
     else {
-        lst.append( QString::fromLatin1("file://%1").arg(_currentInfo->fileName()));
+        lst.append( KURL::fromPathOrURL(_currentInfo->fileName()));
     }
 
     KRun::run(*ptr, lst);

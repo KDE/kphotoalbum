@@ -74,7 +74,7 @@ void ImageLoader::run()
                 //  4 Jan. 2004 19:51 -- Jesper K. Pedersen
                 // HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT
                 {
-                    QImage hack = img.scale( 256, 256, QImage::ScaleMin );
+                    QImage hack = img.smoothScale( 256, 256, QImage::ScaleMin );
                     QString cacheFileForHack = cacheDir + QString::fromLatin1("/%1x%2-%3-%4")
                                                .arg(256).arg(256)
                                                .arg( li.angle()).arg( QFileInfo( li.fileName() ).fileName() );
@@ -83,7 +83,7 @@ void ImageLoader::run()
 
                 // If we are looking for a scaled version, then scale
                 if ( li.width() != -1 && li.height() != -1 )
-                    img = img.scale( li.width(), li.height(), QImage::ScaleMin );
+                    img = img.smoothScale( li.width(), li.height(), QImage::ScaleMin );
 
                 // Save thumbnail to disk
                 if ( ! QDir( cacheDir ).exists() ) {
@@ -109,6 +109,6 @@ QImage ImageLoader::rotateAndScale( QImage img, int width, int height, int angle
         matrix.rotate( angle );
         img = img.xForm( matrix );
     }
-    img = img.scale( width, height, QImage::ScaleMin );
+    img = img.smoothScale( width, height, QImage::ScaleMin );
     return img;
 }

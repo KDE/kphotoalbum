@@ -1,3 +1,7 @@
+2004-03-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* use smoothScale rather than scale to get better looking thumbnails.
+
 2004-02-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: Pressing the rename button in member groups made

@@ -19,6 +19,8 @@ BUGS To be handled soonish
 - The first one deals with the options dialog. Here I've defined a new category 
   (for example animals). When I then go to the member groups configuration, the 
   new categories are missing. They need a program restart to appear.
+- the viewer should be closable with Ctrl+w and <esc>, in addition to q
+
 =======================
 BUGS of less importance
 =======================
@@ -109,3 +111,5 @@ Features still to be considered (aka not likely to go in next release)
  but just klick on one thumbnail, and afterwards put the mouse over the names 
  after "Bildquelle" or "Zu sehen" below the picture)
 - make it possible to specify a pattern for directories to ignore, say .thumbs
+- Viewer: make it optional if images should be sized up (that is don't scale
+a 32x32 image to 1024x768)

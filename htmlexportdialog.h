@@ -25,6 +25,7 @@ class QCheckBox;
 class QProgressDialog;
 class QSlider;
 class MyCheckBox;
+class QTextEdit;
 #include "imageinfo.h"
 #include "imageclient.h"
 #include <qvaluelist.h>
@@ -46,6 +47,18 @@ protected:
     QString imageName( const QString& fileName, int size );
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
     bool generate();
+    bool generateIndexPage( int width, int height );
+    bool generateContextPage( int width, int height, ImageInfo* prevInfo,
+                              ImageInfo* info, ImageInfo* nextInfo );
+    bool checkVars();
+    int calculateSteps();
+    QString namePage( int width, int height, const QString& fileName );
+    QString nameThumbNail( ImageInfo* info, int size );
+    bool writeToFile( const QString& fileName, const QString& str );
+    QDomElement createHTMLHeader( QDomDocument& doc, const QString& title );
+    QDomElement createLink( QDomDocument& doc, const QString& link, const QString& text );
+    bool linkIndexFile();
+    QValueList<MyCheckBox*> activeResolutions();
 
 private:
     KLineEdit* _title;
@@ -53,9 +66,10 @@ private:
     KLineEdit* _baseURL;
     KLineEdit* _outputDir;
     QSpinBox* _thumbSize;
-    QCheckBox* _generateToolTips;
     QSlider* _numOfCols;
     QValueList<MyCheckBox*> _cbs;
+    QValueList<MyCheckBox*> _preferredSizes;
+    QTextEdit* _description;
 
     ImageInfoList _list;
     int _waitCounter;

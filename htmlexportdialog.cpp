@@ -45,20 +45,48 @@
 #include <kfileitem.h>
 #include <kio/netaccess.h>
 #include <kio/jobclasses.h>
+#include <qtextedit.h>
+#include <qregexp.h>
+#include <unistd.h>
 
 class MyCheckBox :public QCheckBox {
 
 public:
-    MyCheckBox( int width, const QString& text, QWidget* parent )
-        :QCheckBox( text, parent ), _width( width )
+    MyCheckBox( int width, int height, QWidget* parent )
+        :QCheckBox( QString::fromLatin1("%1x%2").arg(width).arg(height), parent ),
+         _width( width ), _height( height )
         {
         }
+
+    MyCheckBox( const QString& text, QWidget* parent )
+        :QCheckBox( text, parent ), _width( -1 ), _height( -1 )
+        {
+        }
+
     int width() const {
         return _width;
     }
+    int height() const {
+        return _height;
+    }
+    QString text( bool withOutSpaces ) const {
+        return text( _width, _height, withOutSpaces );
+    }
+    static QString text( int width, int height, bool withOutSpaces ) {
+        if ( width == -1 )
+            if ( withOutSpaces )
+                return QString::fromLatin1("fullsize");
+            else
+                return QString::fromLatin1("full size");
+
+        else
+            return QString::fromLatin1("%1x%2").arg(width).arg(height);
+    }
+
 
 private:
     int _width;
+    int _height;
 };
 
 
@@ -74,12 +102,18 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     _title = new KLineEdit( generalPage );
     lay2->addWidget( _title, 0, 1 );
 
+    // Description
+    label = new QLabel( i18n("Description:"), generalPage );
+    lay2->addWidget( label, 1, 0 );
+    _description = new QTextEdit( generalPage );
+    lay2->addWidget( _description, 1, 1 );
+
     // Thumbnail size
     label = new QLabel( i18n("Thumbnail size:"), generalPage );
-    lay2->addWidget( label, 1, 0 );
+    lay2->addWidget( label, 2, 0 );
 
     QHBoxLayout* lay3 = new QHBoxLayout( 0 );
-    lay2->addLayout( lay3, 1, 1 );
+    lay2->addLayout( lay3, 2, 1 );
 
     _thumbSize = new QSpinBox( 16, 256, 1, generalPage );
     _thumbSize->setValue( 128 );
@@ -88,10 +122,10 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
 
     // Number of columns
     label = new QLabel( i18n("Number of columns:"), generalPage );
-    lay2->addWidget( label, 2, 0 );
+    lay2->addWidget( label, 3, 0 );
 
     QHBoxLayout* lay4 = new QHBoxLayout( (QWidget*)0, 0, 6 );
-    lay2->addLayout( lay4, 2, 1 );
+    lay2->addLayout( lay4, 3, 1 );
 
     QSpinBox* number = new QSpinBox( 1, 10, 1, generalPage );
     lay4->addWidget( number );
@@ -103,11 +137,6 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     connect( _numOfCols, SIGNAL( valueChanged( int ) ), number, SLOT( setValue(int) ) );
     connect( number, SIGNAL( valueChanged( int ) ), _numOfCols, SLOT( setValue(int) ) );
     number->setValue( _numOfCols->value() );
-
-    // Generate Tooltips
-    _generateToolTips = new QCheckBox( i18n( "Generate tooltips" ), generalPage );
-    _generateToolTips->setChecked( true );
-    lay2->addMultiCellWidget( _generateToolTips, 3, 3, 0, 1 );
 
     // Seperator
     QFrame* sep = new QFrame( generalPage );
@@ -151,274 +180,354 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     QWidget* content = new QWidget( sizes );
     QGridLayout* lay6 = new QGridLayout( content, 2, 4 );
     lay6->setAutoAdd( true );
-    MyCheckBox* size320  = new MyCheckBox( 320, QString::fromLatin1("320x200"), content );
-    MyCheckBox* size640  = new MyCheckBox( 640, QString::fromLatin1("640x480"), content );
-    MyCheckBox* size800  = new MyCheckBox( 800, QString::fromLatin1("800x600"), content );
-    MyCheckBox* size1024 = new MyCheckBox( 1024, QString::fromLatin1("1024x768"), content );
-    MyCheckBox* size1280 = new MyCheckBox( 1280, QString::fromLatin1("1280x1024"), content );
-    MyCheckBox* size1600 = new MyCheckBox( 1600, QString::fromLatin1("1600x1200"), content );
-    MyCheckBox* sizeOrig = new MyCheckBox( -1, i18n("Full size"), content );
+    MyCheckBox* size320  = new MyCheckBox( 320, 200, content );
+    MyCheckBox* size640  = new MyCheckBox( 640, 480, content );
+    MyCheckBox* size800  = new MyCheckBox( 800, 600, content );
+    MyCheckBox* size1024 = new MyCheckBox( 1024, 768, content );
+    MyCheckBox* size1280 = new MyCheckBox( 1280, 1024, content );
+    MyCheckBox* size1600 = new MyCheckBox( 1600, 1200, content );
+    MyCheckBox* sizeOrig = new MyCheckBox( i18n("Full size"), content );
 
     _cbs << size320 << size640 << size800 << size1024 << size1280 << size1600 << sizeOrig;
+    _preferredSizes << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
     resize( 500, sizeHint().height() );
 }
 
 bool HTMLExportDialog::generate()
 {
-    bool generateTooltips = _generateToolTips->isChecked();
-    QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
-
-
-    // Ensure base dir is specified
-    QString baseDir = _baseDir->text();
-    if ( baseDir.isEmpty() ) {
-        KMessageBox::error( this, i18n("<qt>You did not specify a base directory. "
-                                       "This is the topmost directory for your images. "
-                                       "Under this directory you will find each generated collection "
-                                       "in separate directories.</qt>"), i18n("No Base Directory Specified") );
+    if ( !checkVars() )
         return false;
-    }
 
-    // ensure output directory is specified
-    if ( _outputDir->text().isEmpty() ) {
-        KMessageBox::error( this, i18n("<qt>You did not specify an output directory. "
-                                       "This is a directory containing the actual images. "
-                                       "The directory will be in the base directory specified above.</qt>"), i18n("No Output Directory Specified") );
-        return false;
-    }
-
-    // ensure base dir exists
-    KIO::UDSEntry result;
-#if KDE_IS_VERSION( 3,1,90 )
-    bool ok = KIO::NetAccess::stat( baseDir, result, this );
-#else
-    bool ok = KIO::NetAccess::stat( baseDir, result );
-#endif
-    if ( !ok ) {
-        KMessageBox::error( this, i18n("<qt>Error while reading information about %1. "
-                                       "This is most likely because the directory does not exist.</qt>").arg( baseDir ) );
-        return false;
-    }
-
-    KFileItem fileInfo( result, baseDir );
-    if ( !fileInfo.isDir() ) {
-        KMessageBox::error( this, i18n("<qt>%1 does not exist, is not a directory or cannot be written to.</qt>").arg( baseDir ) );
-        return false;
-    }
-
-
-    // test if destination directory exists.
-#if KDE_IS_VERSION( 3, 1, 90 )
-    bool exists = KIO::NetAccess::exists( outputDir, false, this );
-#else
-    bool exists = KIO::NetAccess::exists( outputDir );
-#endif
-    if ( exists ) {
-        int answer = QMessageBox::warning( this, i18n("Directory Exists"), i18n("<qt>Output directory %1 already exists. "
-                                                                                "Usually you should specify a new directory. "
-                                                                                "Continue?</qt>").arg( outputDir ),
-                                           QMessageBox::No, QMessageBox::Yes );
-        if ( answer == QMessageBox::No )
-            return false;
-    }
-
-
-    int count = 0;
-    for( QValueList<MyCheckBox*>::Iterator it2 = _cbs.begin(); it2 != _cbs.end(); ++it2 ) {
-        if ( (*it2)->isChecked() )
-            count++;
-    }
-
-    _total = _waitCounter = _list.count() * ( 1 + count ); // 1 thumbnail + 1 real image
-    _tempDir = KTempDir().name();
-
+    // prepare the progress dialog
+    _total = _waitCounter = calculateSteps();
     _progress->setTotalSteps( _total );
     _progress->setProgress( 0 );
     connect( _progress, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
 
+    _tempDir = KTempDir().name();
+
 
     // Gotta be after the creation of _progress.
-    if ( count == 0 ) {
+    if ( _total == 0 ) {
         KMessageBox::error( this, i18n("No image sizes were selected. Please select at least one."), i18n("No Image Sizes Selected") );
-        return false;
-    }
-
-    QString index = _tempDir + QString::fromLatin1("/index.html" );
-    QFile file(index);
-    if ( !file.open(IO_WriteOnly) ) {
-        KMessageBox::error( this, i18n("Couldn't create file '%1'.").arg(index), i18n("Couldn't Create File") );
         return false;
     }
 
     hide();
 
-    // Generate HTML
-    QDomDocument doc;
-    QDomElement top = doc.createElement( QString::fromLatin1( "html" ));
-    doc.appendChild( top );
-
-    QDomElement head = doc.createElement( QString::fromLatin1( "head" ) );
-    top.appendChild( head );
-
-    QDomElement title = doc.createElement( QString::fromLatin1( "title" ) );
-    head.appendChild( title );
-    QDomText text = doc.createTextNode( _title->text() );
-    title.appendChild( text );
-
-    if ( generateTooltips ) {
-        QDomElement script = doc.createElement( QString::fromLatin1( "script" ) );
-        script.setAttribute( QString::fromLatin1( "language" ), QString::fromLatin1( "JavaScript" ) );
-        script.setAttribute( QString::fromLatin1( "type" ), QString::fromLatin1( "text/javascript" ) );
-        script.setAttribute( QString::fromLatin1( "src" ), QString::fromLatin1( "infobox.js" ) );
-        head.appendChild( script );
-
-        // Without this the script do not work in konqueror
-        script.appendChild( doc.createTextNode( QString::fromLatin1( "" ) ) );
-
-        QDomElement div = doc.createElement( QString::fromLatin1( "div" ) );
-        div.setAttribute( QString::fromLatin1( "id" ), QString::fromLatin1( "infodiv" ) );
-        div.setAttribute( QString::fromLatin1( "style" ), QString::fromLatin1( "position:absolute; visibility:hidden; z-index:20; top:0px; left:0px;" ) );
-        head.appendChild( div );
-
-        // Without this konqueror do not show anything
-        div.appendChild( doc.createTextNode( QString::fromLatin1( "" ) ) );
+    // Itertate over each of the image sizes needed.
+    for( QValueList<MyCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
+        if ( (*sizeIt)->isChecked() ) {
+            bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
+            if ( !ok )
+                return false;
+            for ( uint index = 0; index < _list.count(); ++index ) {
+                ImageInfo* info = _list.at(index);
+                ImageInfo* prev = 0;
+                ImageInfo* next = 0;
+                if ( index != 0 )
+                    prev = _list.at(index-1);
+                if ( index != _list.count() -1 )
+                    next = _list.at(index+1);
+                ok = generateContextPage( (*sizeIt)->width(), (*sizeIt)->height(), prev, info, next );
+                if (!ok)
+                    return false;
+            }
+        }
     }
 
-    QDomElement body = doc.createElement( QString::fromLatin1( "body" ) );
-    top.appendChild( body );
-
-    title = doc.createElement( QString::fromLatin1( "h1" ) );
-    body.appendChild( title );
-    text = doc.createTextNode( _title->text() );
-    title.appendChild( text );
-
-    QDomElement table = doc.createElement( QString::fromLatin1( "table" ) );
-    body.appendChild( table );
-
-    int i = 0;
-    int cols = _numOfCols->value();
-    QDomElement row;
+    // Now generate the thumbnail images
     for( ImageInfoListIterator it( _list ); *it; ++it ) {
         if ( _progress->wasCancelled() ) {
-            break;
+            return false;
         }
-
-        if ( i % cols == 0 ) {
-            row = doc.createElement( QString::fromLatin1( "tr" ) );
-            table.appendChild( row );
-            i = 0;
-        }
-
-        bool anyTips = !(*it)->description().isEmpty();
-
-        QDomElement col = doc.createElement( QString::fromLatin1( "td" ) );
-        col.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "center" ) );
-        row.appendChild( col );
-
-        QString name = createImage( *it, _thumbSize->value() );
-        QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
-        img.setAttribute( QString::fromLatin1( "src" ), name );
-        col.appendChild( img );
-        if ( generateTooltips && anyTips ) {
-            img.setAttribute( QString::fromLatin1( "onMouseOver" ),
-                            QString::fromLatin1( "tip('%1'); return true;").arg( (*it)->fileName(true) ) );
-            img.setAttribute( QString::fromLatin1( "onMouseOut" ), QString::fromLatin1( "untip(); return true;" ) );
-        }
-
-        col.appendChild( doc.createElement( QString::fromLatin1( "br" ) ) );
-
-        for( QValueList<MyCheckBox*>::Iterator it2 = _cbs.begin(); it2 != _cbs.end(); ++it2 ) {
-            if ( (*it2)->isChecked() ) {
-                name = createImage( *it, (*it2)->width() );
-                QDomElement a = doc.createElement( QString::fromLatin1( "a" ) );
-                a.setAttribute( QString::fromLatin1( "href" ), name );
-
-                col.appendChild( a );
-                a.appendChild( doc.createTextNode( (*it2)->text() ) );
-            }
-        }
-
-
-        if ( generateTooltips && anyTips ) {
-            QDomElement script = doc.createElement( QString::fromLatin1( "script" ) );
-            script.setAttribute( QString::fromLatin1( "language" ), QString::fromLatin1( "JavaScript" ) );
-            script.setAttribute( QString::fromLatin1( "TYPE" ), QString::fromLatin1( "text/javascript" ) );
-            col.appendChild( script );
-
-            QString desc = (*it)->description();
-            desc.replace( '\n', ' ' );
-            QString text = QString::fromLatin1( "maketip('%1','Description','%2');" ).arg( (*it)->fileName(true) )
-                           .arg( desc );
-            QDomText txt = doc.createTextNode( text );
-            script.appendChild( txt );
-        }
-        else {
-            col.appendChild( doc.createElement( QString::fromLatin1( "br" ) ) );
-            col.appendChild( doc.createTextNode( (*it)->description() ) );
-        }
-
-        ++i;
+        createImage( *it, _thumbSize->value() );
     }
 
-    if ( !_progress->wasCancelled() ) {
-        QTextStream stream( &file );
-        stream << doc.toString();
-        file.close();
 
-        if ( _waitCounter > 0 )
-            qApp->eventLoop()->enterLoop();
-    }
+    bool ok = linkIndexFile();
+    if ( !ok )
+        return false;
 
-    // Copy infobox.js to the dest dir.
-    if ( generateTooltips ) {
-        QString infofile = locate("data",QString::fromLatin1( "kimdaba/infobox.js" ) );
-        QFile f1( infofile );
-        if ( !f1.open( IO_ReadOnly ) ) {
-            QMessageBox::warning( this, i18n("Unable to Read infobox.js"),
-                                  i18n("Unable to read file '%1'.").arg( infofile ), QMessageBox::Ok, 0 );
-        }
-        else {
-            QTextStream s(&f1);
-            QString data = s.read();
-            f1.close();
-
-            QString outfile = _tempDir + QString::fromLatin1("/infobox.js" );
-            QFile f2( outfile );
-            if ( !f2.open( IO_WriteOnly ) ) {
-                QMessageBox::warning( this, i18n("Unable to Write infobox.js"),
-                                      i18n("Unable to write file '%1'.").arg( outfile ), QMessageBox::Ok, 0 );
-            }
-            else {
-                QTextStream s2( &f2 );
-                s2 << data;
-                f2.close();
-            }
-        }
-    }
+    if ( _waitCounter > 0 )
+        qApp->eventLoop()->enterLoop();
 
     // Copy files over to destination.
+    QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
     KIO::CopyJob* job = KIO::move( _tempDir, outputDir );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
 
     return true;
 }
 
+bool HTMLExportDialog::generateIndexPage( int width, int height )
+{
+    // -------------------------------------------------- Header information + title + description
+    QDomDocument doc;
+    QDomElement elm;
+    QDomElement body = createHTMLHeader( doc, _title->text() );
+
+    if ( !_title->text().isEmpty() ) {
+        elm = doc.createElement( QString::fromLatin1( "h1" ) );
+        body.appendChild( elm );
+        elm.appendChild( doc.createTextNode( _title->text() ) );
+    }
+
+    // Description of the page, as this must be HTML code from the user we will backpatch it in later.
+    body.appendChild( doc.createTextNode( QString::fromLatin1("###DESCRIPTION###") ) );
+
+    // -------------------------------------------------- Thumbnails
+    QDomElement table = doc.createElement( QString::fromLatin1( "table" ) );
+    table.setAttribute( QString::fromLatin1( "width" ), QString::fromLatin1( "100%" ) );
+    body.appendChild( table );
+
+    int count = 0;
+    int cols = _numOfCols->value();
+    QDomElement row;
+    for( ImageInfoListIterator it( _list ); *it; ++it ) {
+        if ( _progress->wasCancelled() ) {
+            return false;
+        }
+
+        if ( count % cols == 0 ) {
+            row = doc.createElement( QString::fromLatin1( "tr" ) );
+            row.setAttribute( QString::fromLatin1( "valign" ), QString::fromLatin1( "bottom" ) );
+            row.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "center" ) );
+            table.appendChild( row );
+            count = 0;
+        }
+
+        QDomElement col = doc.createElement( QString::fromLatin1( "td" ) );
+        row.appendChild( col );
+
+        QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
+        href.setAttribute( QString::fromLatin1( "href" ),
+                           namePage( width, height, (*it)->fileName(false) ) );
+        col.appendChild( href );
+
+        QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
+        img.setAttribute( QString::fromLatin1( "src" ),
+                          nameThumbNail( *it, _thumbSize->value() ) );
+        href.appendChild( img );
+        ++count;
+    }
+
+    // -------------------------------------------------- Resolution
+    QValueList<MyCheckBox*> actRes = activeResolutions();
+    if ( actRes.count() > 1 ) {
+        body.appendChild( doc.createElement( QString::fromLatin1( "hr" ) ) );
+        body.appendChild( doc.createTextNode( QString::fromLatin1( "Resolutions: " ) ) );
+
+        for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
+             sizeIt != actRes.end(); ++sizeIt ) {
+            int w = (*sizeIt)->width();
+            int h = (*sizeIt)->height();
+            QString page = QString::fromLatin1( "index-%1.html" )
+                           .arg( MyCheckBox::text( w, h, true ) );
+            QString text = (*sizeIt)->text(false);
+
+            if ( width == w && height == h ) {
+                body.appendChild( doc.createTextNode( text ) );
+            }
+            else {
+                QDomElement link = createLink( doc, page, text );
+                body.appendChild( link );
+            }
+            body.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
+        }
+    }
+
+    // -------------------------------------------------- Advertise
+
+    // -------------------------------------------------- Logo
+    QDomElement p = doc.createElement( QString::fromLatin1( "p" ) );
+    p.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "right" ) );
+    body.appendChild( p );
+
+    p.appendChild( doc.createTextNode( QString::fromLatin1( "Created by " ) ) );
+    QDomElement link = createLink( doc, QString::fromLatin1( "http://ktown.kde.org/kimdaba/" ),
+                                   QString::fromLatin1( "KimDaBa" ) );
+    p.appendChild( link );
+
+
+
+    if ( _progress->wasCancelled() )
+        return false;
+
+    // -------------------------------------------------- write to file
+    QString str = doc.toString();
+    str.replace( QString::fromLatin1( "###DESCRIPTION###" ), _description->text() );
+    QString fileName = _tempDir + QString::fromLatin1("/index-%1.html" )
+                       .arg(MyCheckBox::text(width,height,true));
+    bool ok = writeToFile( fileName, str );
+    if ( !ok )
+        return false;
+
+    return true;
+}
+
+bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* prevInfo,
+                                            ImageInfo* info, ImageInfo* nextInfo )
+{
+    QDomDocument doc;
+    QDomElement body = createHTMLHeader( doc, info->label() );
+
+    // Prepare page header
+    QDomElement table = doc.createElement( QString::fromLatin1( "table" ) );
+    body.appendChild( table );
+    QDomElement headerRow = doc.createElement( QString::fromLatin1( "tr" ) );
+    table.appendChild( headerRow );
+
+    // -------------------------------------------------- Links
+    QDomElement links = doc.createElement( QString::fromLatin1( "td" ) );
+    links.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "left" ) );
+    headerRow.appendChild( links );
+
+    // prev Link
+    links.appendChild( doc.createTextNode( QString::fromLatin1( "< " ) ) );
+    if ( prevInfo ) {
+        QDomElement link = createLink( doc, namePage( width, height, prevInfo->fileName( false ) ),
+                                       QString::fromLatin1( "prev" ) );
+        links.appendChild( link );
+    }
+    else
+        links.appendChild( doc.createTextNode( QString::fromLatin1( "prev" ) ) );
+
+    links.appendChild( doc.createTextNode( QString::fromLatin1( " | " ) ) );
+
+    // Index Link
+    QString indexFile = QString::fromLatin1( "index-%1.html" ).arg(MyCheckBox::text(width,height,true));
+    QDomElement indexLink = createLink( doc, indexFile, QString::fromLatin1( "index" ) );
+    links.appendChild( indexLink );
+
+    links.appendChild( doc.createTextNode( QString::fromLatin1( " | " ) ) );
+
+    // Next Link
+    if ( nextInfo ) {
+        QDomElement link = createLink( doc, namePage( width, height, nextInfo->fileName( false ) ),
+                                       QString::fromLatin1( "next" ) );
+        links.appendChild( link );
+    }
+    else
+        links.appendChild( doc.createTextNode( QString::fromLatin1( "next" ) ) );
+
+    links.appendChild( doc.createTextNode( QString::fromLatin1( " >" ) ) );
+
+    if ( _progress->wasCancelled() )
+        return false;
+
+    // -------------------------------------------------- Resolutions
+    QValueList<MyCheckBox*> actRes = activeResolutions();
+    if ( actRes.count() > 1 ) {
+        QDomElement resolutions = doc.createElement( QString::fromLatin1( "td" ) );
+        headerRow.appendChild( resolutions );
+        resolutions.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "right" ) );
+
+        for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
+             sizeIt != actRes.end(); ++sizeIt ) {
+            int w = (*sizeIt)->width();
+            int h = (*sizeIt)->height();
+            QString page = namePage( w, h, info->fileName( false ) );
+            QString text = (*sizeIt)->text(false);
+
+            if ( width == w && height == h ) {
+                resolutions.appendChild( doc.createTextNode( text ) );
+            }
+            else {
+                QDomElement link = createLink( doc, page, text );
+                resolutions.appendChild( link );
+            }
+            resolutions.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
+        }
+    }
+
+
+    // -------------------------------------------------- The image
+    QDomElement imgRow = doc.createElement( QString::fromLatin1( "tr" ) );
+    table.appendChild( imgRow );
+    QDomElement imgCol = doc.createElement( QString::fromLatin1( "td" ) );
+    imgCol.setAttribute( QString::fromLatin1( "colspan" ), QString::fromLatin1( "2" ) );
+    imgRow.appendChild( imgCol );
+
+    QString name = createImage( info, width );
+    QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
+    img.setAttribute( QString::fromLatin1( "src" ), name );
+    imgCol.appendChild( img );
+
+    // -------------------------------------------------- Description
+    table = doc.createElement( QString::fromLatin1( "table" ) );
+    body.appendChild( table );
+
+    QStringList optionGroups = Options::instance()->optionGroups();
+    for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
+        if ( info->optionValue( *it ).count() != 0 ) {
+            QDomElement row = doc.createElement( QString::fromLatin1( "tr" ) );
+            table.appendChild( row );
+
+            QDomElement col = doc.createElement( QString::fromLatin1( "td" ) );
+            row.appendChild( col );
+            col.appendChild( doc.createTextNode( *it+ QString::fromLatin1( ":" ) ) );
+
+            col = doc.createElement( QString::fromLatin1( "td" ) );
+            row.appendChild( col );
+            col.appendChild( doc.createTextNode( info->optionValue( *it ).join( QString::fromLatin1(", ") ) ) );
+        }
+
+    }
+
+    if ( !info->description().isEmpty() ) {
+        QDomElement row = doc.createElement( QString::fromLatin1( "tr" ) );
+        table.appendChild( row );
+
+        QDomElement col = doc.createElement( QString::fromLatin1( "td" ) );
+        row.appendChild( col );
+        col.appendChild( doc.createTextNode( QString::fromLatin1( "Description:" ) ) );
+
+        col = doc.createElement( QString::fromLatin1( "td" ) );
+        row.appendChild( col );
+        col.appendChild( doc.createTextNode( info->description() ) );
+    }
+
+
+
+    // -------------------------------------------------- write to file
+    QString str = doc.toString();
+    QString fileName = _tempDir + namePage( width, height, info->fileName(false) );
+    bool ok = writeToFile( fileName, str );
+    if ( !ok )
+        return false;
+
+    return true;
+}
+
+
+
+bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str )
+{
+    QFile file(fileName);
+    if ( !file.open(IO_WriteOnly) ) {
+        KMessageBox::error( this, i18n("Couldn't create file '%1'.").arg(fileName),
+                            i18n("Couldn't Create File") );
+        return false;
+    }
+
+    QTextStream stream( &file );
+    stream << str;
+    file.close();
+    return true;
+}
+
+
 QString HTMLExportDialog::createImage( ImageInfo* info, int size )
 {
-    QFileInfo finfo(info->fileName(true));
-    QString baseName = finfo.baseName();
-
     ImageManager::instance()->load( info->fileName( false ),  this, info->angle(), size, size, false, true );
-    QString name = baseName;
-    if ( size != -1 )
-        name += QString::fromLatin1( "-" ) + QString::number( size );
-    name += QString::fromLatin1( ".jpg" ) ;
-    return name;
+    return nameThumbNail( info, size );
 }
 
 void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int height, int /*angle*/, const QImage& image )
 {
+
     _waitCounter--;
 
     QString dir = _tempDir;
@@ -482,6 +591,164 @@ void HTMLExportDialog::showBrowser()
 {
     if ( ! _baseURL->text().isEmpty() )
         new KRun( _baseURL->text() + QString::fromLatin1( "/" ) + _outputDir->text());
+}
+
+bool HTMLExportDialog::checkVars()
+{
+    QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
+
+
+    // Ensure base dir is specified
+    QString baseDir = _baseDir->text();
+    if ( baseDir.isEmpty() ) {
+        KMessageBox::error( this, i18n("<qt>You did not specify a base directory. "
+                                       "This is the topmost directory for your images. "
+                                       "Under this directory you will find each generated collection "
+                                       "in separate directories.</qt>"),
+                            i18n("No Base Directory Specified") );
+        return false;
+    }
+
+    // ensure output directory is specified
+    if ( _outputDir->text().isEmpty() ) {
+        KMessageBox::error( this, i18n("<qt>You did not specify an output directory. "
+                                       "This is a directory containing the actual images. "
+                                       "The directory will be in the base directory specified above.</qt>"),
+                            i18n("No Output Directory Specified") );
+        return false;
+    }
+
+    // ensure base dir exists
+    KIO::UDSEntry result;
+#if KDE_IS_VERSION( 3,1,90 )
+    bool ok = KIO::NetAccess::stat( baseDir, result, this );
+#else
+    bool ok = KIO::NetAccess::stat( baseDir, result );
+#endif
+    if ( !ok ) {
+        KMessageBox::error( this, i18n("<qt>Error while reading information about %1. "
+                                       "This is most likely because the directory does not exist.</qt>")
+                            .arg( baseDir ) );
+        return false;
+    }
+
+    KFileItem fileInfo( result, baseDir );
+    if ( !fileInfo.isDir() ) {
+        KMessageBox::error( this, i18n("<qt>%1 does not exist, is not a directory or "
+                                       "cannot be written to.</qt>").arg( baseDir ) );
+        return false;
+    }
+
+
+    // test if destination directory exists.
+#if KDE_IS_VERSION( 3, 1, 90 )
+    bool exists = KIO::NetAccess::exists( outputDir, false, this );
+#else
+    bool exists = KIO::NetAccess::exists( outputDir );
+#endif
+    if ( exists ) {
+        int answer = QMessageBox::warning( this, i18n("Directory Exists"),
+                                           i18n("<qt>Output directory %1 already exists. "
+                                                "Usually you should specify a new directory. "
+                                                "Continue?</qt>").arg( outputDir ),
+                                           QMessageBox::No, QMessageBox::Yes );
+        if ( answer == QMessageBox::No )
+            return false;
+    }
+    return true;
+}
+
+int HTMLExportDialog::calculateSteps()
+{
+    int count = 0;
+    for( QValueList<MyCheckBox*>::Iterator it2 = _cbs.begin(); it2 != _cbs.end(); ++it2 ) {
+        if ( (*it2)->isChecked() )
+            count++;
+    }
+
+    return _list.count() * ( 1 + count ); // 1 thumbnail + 1 real image
+}
+
+QString HTMLExportDialog::namePage( int width, int height, const QString& fileName )
+{
+    // PENDING(blackie) Handle situation where we are generating holiday1/me.jpg and holiday2/me.jpg
+    QFileInfo fi(fileName);
+    QString baseName = fi.baseName();
+    return QString::fromLatin1( "%1-%2.html" ).arg( baseName ).arg(MyCheckBox::text(width,height,true));
+}
+
+QString HTMLExportDialog::nameThumbNail( ImageInfo* info, int size )
+{
+    // PENDING(blackie) Handle name overlap
+    QFileInfo finfo(info->fileName(true));
+    QString baseName = finfo.baseName();
+    QString name = baseName;
+    if ( size != -1 )
+        name += QString::fromLatin1( "-" ) + QString::number( size );
+    name += QString::fromLatin1( ".jpg" ) ;
+    return name;
+}
+
+QDomElement HTMLExportDialog::createHTMLHeader( QDomDocument& doc, const QString& title )
+{
+    QDomElement top = doc.createElement( QString::fromLatin1( "html" ));
+    doc.appendChild( top );
+
+    QDomElement head = doc.createElement( QString::fromLatin1( "head" ) );
+    top.appendChild( head );
+
+    QDomElement titleElm = doc.createElement( QString::fromLatin1( "title" ) );
+    head.appendChild( titleElm );
+    QDomText text = doc.createTextNode( title );
+    titleElm.appendChild( text );
+
+    QDomElement body = doc.createElement( QString::fromLatin1( "body" ) );
+    top.appendChild( body );
+    body.setAttribute( QString::fromLatin1( "bgcolor" ), QString::fromLatin1( "#000000" ) );
+    body.setAttribute( QString::fromLatin1( "text" ), QString::fromLatin1( "#ffffff" ) );
+    return body;
+}
+
+QDomElement HTMLExportDialog::createLink( QDomDocument& doc, const QString& link, const QString& text )
+{
+    QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
+    href.setAttribute( QString::fromLatin1( "href" ), link );
+    QDomText textNode = doc.createTextNode( text );
+    href.appendChild( textNode );
+    return href;
+}
+
+bool HTMLExportDialog::linkIndexFile()
+{
+    for( QValueList<MyCheckBox*>::Iterator it = _preferredSizes.begin();
+         it != _preferredSizes.end(); ++it ) {
+        if ( (*it)->isChecked() ) {
+            QString fromFile = QString::fromLatin1("index-%1.html" )
+                               .arg((*it)->text(true));
+            QString destFile = _tempDir + QString::fromLatin1("/index.html");
+            bool ok = ( symlink( fromFile.latin1(), destFile.latin1() ) == 0 );
+            if ( !ok ) {
+                KMessageBox::error( this, i18n("<qt>Unable to make a symlink from %1 to %2</qt>")
+                                    .arg( fromFile ).arg( destFile ) );
+
+                return false;
+            }
+            return ok;
+        }
+    }
+    return false;
+}
+
+
+QValueList<MyCheckBox*> HTMLExportDialog::activeResolutions()
+{
+    QValueList<MyCheckBox*> res;
+    for( QValueList<MyCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
+        if ( (*sizeIt)->isChecked() ) {
+            res << *sizeIt;
+        }
+    }
+    return res;
 }
 
 #include "htmlexportdialog.moc"

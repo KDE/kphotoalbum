@@ -1,5 +1,8 @@
 2004-04-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Made it possible to re enable message boxes where the user
+	previously checked do-not-show-again
+
 	* Its now possible to find images where only a set of items are on
 	(e.g. only me, and no one else)
 

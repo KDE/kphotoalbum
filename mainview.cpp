@@ -604,6 +604,7 @@ void MainView::setupMenuBar()
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
     KStdAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
+    new KAction( i18n("Enable all messages"), 0, this, SLOT( slotReenableMessages() ), actionCollection(), "readdAllMessages" );
 
     _viewMenu = new KActionMenu( i18n("Configure View"), QString::fromLatin1( "view_choose" ),
                                          actionCollection(), "configureView" );
@@ -1138,6 +1139,15 @@ void MainView::slotExport()
     }
     else
         Export::imageExport( list );
+}
+
+void MainView::slotReenableMessages()
+{
+    int ret = KMessageBox::questionYesNo( this, i18n("<qt><p>Really enable all messageboxes where you previously "
+                                                     "checked the do-not-show-again check box?</p></qt>" ) );
+    if ( ret == KMessageBox::Yes )
+        KMessageBox::enableAllMessages();
+
 }
 
 #include "mainview.moc"

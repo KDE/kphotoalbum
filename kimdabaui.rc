@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="13">
+<kpartgui name="kimdaba" version="14">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -42,6 +42,9 @@
       <Separator/>
       <Action name="removeAllThumbs"/>
       <Action name="buildThumbs"/>
+   </Menu>
+   <Menu name="settings">
+     <Action name="readdAllMessages"/>
    </Menu>
    <Menu name="help">
      <Action name="showToolTipOnImages"/>

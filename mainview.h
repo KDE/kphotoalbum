@@ -88,6 +88,7 @@ protected slots:
     void slotImport();
     void slotExport();
     void delayedInit();
+    void slotReenableMessages();
 
 protected:
     void configureImages( bool oneAtATime );

@@ -44,7 +44,7 @@ Options* Options::instance()
     return _instance;
 }
 
-Options::Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory )
+Options::Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory )
     : _thumbSize( 64 ), _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
     _thumbSize = config.attribute( QString::fromLatin1("thumbSize"), QString::number(_thumbSize) ).toInt();
@@ -60,8 +60,6 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _showDescription = config.attribute( QString::fromLatin1("showDescription"), QString::fromLatin1("1") ).toInt();
     _showDate = config.attribute( QString::fromLatin1("showDate"), QString::fromLatin1("1") ).toInt();
 
-    Util::readOptions( options, &_options, &_optionGroups );
-    _configDock = configWindowSetup;
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -71,6 +69,10 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     int height = config.attribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()),
                                    QString::fromLatin1( "450" ) ).toInt();
     _viewerSize = QSize( width, height );
+
+    Util::readOptions( options, &_options, &_optionGroups );
+    _configDock = configWindowSetup;
+    _members.load( memberGroups );
 }
 
 void Options::setThumbSize( int w )
@@ -108,19 +110,23 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("showDescription"), _showDescription );
     config.setAttribute( QString::fromLatin1("showDate"), _showDate );
 
-    QStringList grps = optionGroups();
-    QDomElement options = doc.createElement( QString::fromLatin1("options") );
-    top.appendChild( options );
-    (void) Util::writeOptions( doc, options, _options, &_optionGroups );
-
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
     QRect rect = desktop->screenGeometry( desktop->primaryScreen() );
     config.setAttribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()), _viewerSize.width() );
     config.setAttribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()), _viewerSize.height() );
 
+    QStringList grps = optionGroups();
+    QDomElement options = doc.createElement( QString::fromLatin1("options") );
+    top.appendChild( options );
+    (void) Util::writeOptions( doc, options, _options, &_optionGroups );
+
     // Save window layout for config window
     top.appendChild( _configDock );
+
+    // Member Groups
+    if ( ! _members.isEmpty() )
+        top.appendChild( _members.save( doc ) );
 }
 
 void Options::setOption( const QString& key, const QStringList& value )
@@ -380,9 +386,9 @@ void Options::loadConfigWindowLayout( ImageConfig* config )
     config->readDockConfig( _configDock );
 }
 
-void Options::setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory )
+void Options::setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory )
 {
-    _instance = new Options( config, options, configWindowSetup, imageDirectory );
+    _instance = new Options( config, options, configWindowSetup, memberGroups, imageDirectory );
 }
 
 void Options::setViewerSize( int width, int height )
@@ -393,6 +399,74 @@ void Options::setViewerSize( int width, int height )
 QSize Options::viewerSize() const
 {
     return _viewerSize;
+}
+
+
+MemberMap Options::memberMap()
+{
+    return _members;
+}
+
+void Options::setMemberMap( const MemberMap& members )
+{
+    _members = members;
+}
+
+QStringList MemberMap::groups( const QString& optionGroup )
+{
+    return QStringList( _members[ optionGroup ].keys() );
+}
+
+void MemberMap::deleteGroup( const QString& optionGroup, const QString& name )
+{
+    _members[optionGroup].remove(name);
+}
+
+QStringList MemberMap::members( const QString& optionGroup, const QString& memberGroup )
+{
+    return _members[optionGroup][memberGroup];
+}
+
+void MemberMap::setMembers( const QString& optionGroup, const QString& memberGroup, const QStringList& members )
+{
+    _members[optionGroup][memberGroup] = members;
+}
+
+QDomElement MemberMap::save( QDomDocument doc )
+{
+    QDomElement top = doc.createElement( QString::fromLatin1( "member-groups" ) );
+    for( QMapIterator< QString,QMap<QString,QStringList> > it1= _members.begin(); it1 != _members.end(); ++it1 ) {
+        QMap<QString,QStringList> map = it1.data();
+        for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
+            QStringList list = it2.data();
+            for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
+                QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
+                top.appendChild( elm );
+                elm.setAttribute( QString::fromLatin1( "option-group" ), it1.key() );
+                elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
+                elm.setAttribute( QString::fromLatin1( "member" ), *it3 );
+            }
+        }
+    }
+    return top;
+}
+
+bool MemberMap::isEmpty() const
+{
+    return _members.empty();
+}
+
+void MemberMap::load( const QDomElement& top )
+{
+    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
+        if ( node.isElement() ) {
+            QDomElement elm = node.toElement();
+            QString optionGroup = elm.attribute( QString::fromLatin1( "option-group" ) );
+            QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
+            QString member = elm.attribute( QString::fromLatin1( "member" ) );
+            _members[optionGroup][group].append( member );
+        }
+    }
 }
 
 #include "options.moc"

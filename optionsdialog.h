@@ -19,6 +19,7 @@
 #ifndef OPTIONSDIALOG_H
 #define OPTIONSDIALOG_H
 #include <kdialogbase.h>
+#include "options.h"
 class QSpinBox;
 class KComboBox;
 class QLineEdit;
@@ -27,6 +28,7 @@ class KIconButton;
 class KPushButton;
 class OptionGroupItem;
 class QCheckBox;
+class QComboBox;
 
 class OptionsDialog :public KDialogBase {
     Q_OBJECT
@@ -45,11 +47,19 @@ protected slots:
     void slotIconChanged( QString );
     void slotNewItem();
     void slotDeleteCurrent();
+    void slotCategoryChanged( const QString& );
+    void slotGroupSelected( QListBoxItem* );
+    void slotAddGroup();
+    void slotDelGroup();
+    void slotRenameGroup();
 
 protected:
     void createGeneralPage();
     void createOptionGroupsPage();
+    void createGroupConfig();
     void enableDisable( bool );
+    void saveOldGroup();
+    void selectMembers( const QString& );
 
 
 private:
@@ -68,6 +78,14 @@ private:
     KPushButton* _delItem;
     OptionGroupItem* _current;
     QValueList<OptionGroupItem*> _deleted;
+
+    // Member Groups page
+    QComboBox* _category;
+    QListBox* _groups;
+    QListBox* _members;
+    MemberMap _memberMap;
+    QString _currentCategory;
+    QString _currentGroup;
 };
 
 

@@ -30,12 +30,14 @@
 #include <kmessagebox.h>
 #include "imagedb.h"
 #include <qcheckbox.h>
+#include <kinputdialog.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( Tabbed, i18n( "Options" ), Ok | Cancel, Ok, parent, name )
 {
     createGeneralPage();
     createOptionGroupsPage();
+    createGroupConfig();
 }
 
 void OptionsDialog::createGeneralPage()
@@ -95,6 +97,7 @@ void OptionsDialog::createGeneralPage()
 
 
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
+    lay1->addStretch(1);
 }
 
 class OptionGroupItem :public QListBoxText
@@ -156,6 +159,7 @@ void OptionsDialog::createOptionGroupsPage()
     _icon->setIconSize(32);
     _icon->setIcon( QString::fromLatin1( "personsIcon" ) );
     connect( _icon, SIGNAL( iconChanged( QString ) ), this, SLOT( slotIconChanged( QString ) ) );
+    lay3->addStretch(1);
 
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
     KPushButton* newItem = new KPushButton( i18n("New"), top );
@@ -239,6 +243,8 @@ void OptionsDialog::slotMyOK()
         }
     }
 
+    saveOldGroup();
+    opt->setMemberMap( _memberMap );
 
     // misc stuff
     emit changed();
@@ -305,5 +311,156 @@ void OptionsDialog::enableDisable( bool b )
     _text->setEnabled( b );
     _icon->setEnabled( b );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+void OptionsDialog::createGroupConfig()
+{
+    Options* opt = Options::instance();
+
+    QWidget* top = addPage( i18n("Member Groups" ) );
+    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+
+    // Category
+    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    QLabel* label = new QLabel( i18n( "Category" ), top );
+    lay2->addWidget( label );
+    _category = new QComboBox( top );
+    lay2->addWidget( _category );
+    lay2->addStretch(1);
+
+    QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
+
+    // Groups
+    QVBoxLayout* lay4 = new QVBoxLayout( lay3, 6 );
+    label = new QLabel( i18n( "Groups:" ), top );
+    lay4->addWidget( label );
+    _groups = new QListBox( top );
+    lay4->addWidget( _groups );
+
+    // Members
+    QVBoxLayout* lay5 = new QVBoxLayout( lay3, 6 );
+    label = new QLabel( i18n( "Members:" ), top );
+    lay5->addWidget( label );
+    _members = new QListBox( top );
+    lay5->addWidget( _members );
+
+    // Buttons
+    QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
+    lay6->addStretch(1);
+
+    QPushButton* rename = new QPushButton( i18n( "Rename Group"), top );
+    lay6->addWidget( rename );
+    QPushButton* add = new QPushButton( i18n("Add Group" ), top );
+    lay6->addWidget( add );
+    QPushButton* del = new QPushButton( i18n("Delete Group" ), top );
+    lay6->addWidget( del );
+
+    // Setup the actions
+    _memberMap = opt->memberMap();
+    connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
+    connect( _groups, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
+    connect( rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
+    connect( add, SIGNAL( clicked() ), this, SLOT( slotAddGroup() ) );
+    connect( del, SIGNAL( clicked() ), this, SLOT( slotDelGroup() ) );
+
+    _members->setSelectionMode( QListBox::Multi );
+    _category->insertStringList( opt->optionGroups() );
+    slotCategoryChanged( _category->currentText() );
+
+}
+
+void OptionsDialog::slotCategoryChanged( const QString& name )
+{
+    saveOldGroup();
+
+    _groups->clear();
+    _currentCategory = name;
+    _groups->insertStringList( _memberMap.groups( name ) );
+
+    _members->clear();
+    QStringList list = Options::instance()->optionValue(name);
+    list.sort();
+    _members->insertStringList( list );
+    _groups->setSelected( 0, true );
+
+    selectMembers( _groups->text(0) );
+}
+
+void OptionsDialog::slotGroupSelected( QListBoxItem* item )
+{
+    saveOldGroup();
+    if ( item )
+        selectMembers( item->text() );
+}
+
+void OptionsDialog::slotAddGroup()
+{
+    bool ok;
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group Name"), QString::null, &ok );
+    if ( ok ) {
+        saveOldGroup();
+        QListBoxItem* item = new QListBoxText( _groups, text );
+        _groups->setCurrentItem( item );
+        selectMembers( text );
+    }
+}
+
+void OptionsDialog::slotRenameGroup()
+{
+    bool ok;
+    QListBoxItem* item = _groups->item( _groups->currentItem() );
+    QString currentValue = item->text();
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group Name"), currentValue, &ok );
+    if ( ok ) {
+        // PENDING(blackie) IMPLEMENT
+    }
+}
+
+void OptionsDialog::slotDelGroup()
+{
+    if ( !_currentGroup )
+        return;
+    int res = KMessageBox::warningYesNo( this, i18n( "Really delete group %1" ).arg( _currentGroup ) );
+    if ( res == KMessageBox::No )
+        return;
+
+    QListBoxItem* item = _groups->findItem( _currentGroup );
+    delete item;
+    _memberMap.deleteGroup( _currentCategory, _currentGroup );
+    _currentGroup = _groups->text(0);
+    selectMembers( _currentGroup );
+}
+
+void OptionsDialog::saveOldGroup()
+{
+    QStringList list;
+    for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+        if ( item->isSelected() )
+            list << item->text();
+    }
+
+    _memberMap.setMembers(_currentCategory, _currentGroup, list);
+}
+
+void OptionsDialog::selectMembers( const QString& group )
+{
+    _currentGroup = group;
+    QStringList list = _memberMap.members(_currentCategory,group);
+    for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+        _members->setSelected( item, list.contains( item->text() ) );
+    }
+}
+
 
 #include "optionsdialog.moc"

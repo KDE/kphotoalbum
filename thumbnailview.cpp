@@ -32,6 +32,9 @@
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :KIconView( parent,  name ), _currentHighlighted( 0 )
 {
+    setSpacing(2);
+
+
     _imageList=0L;
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );

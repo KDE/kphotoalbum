@@ -25,12 +25,27 @@
 #include <qdom.h>
 class ImageConfig;
 
+class MemberMap {
+public:
+    QStringList groups( const QString& optionGroup );
+    void deleteGroup( const QString& optionGroup, const QString& name );
+    QStringList members( const QString& optionGroup, const QString& memberGroup );
+    void setMembers( const QString& optionGroup, const QString& memberGroup, const QStringList& members );
+    QDomElement save( QDomDocument doc );
+    bool isEmpty() const;
+    void load( const QDomElement& );
+
+private:
+    QMap<QString, QMap<QString,QStringList> > _members;
+};
+
+
 class Options :public QObject {
     Q_OBJECT
 
 public:
     static Options* instance();
-    static void setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory );
+    static void setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory );
 
     void setThumbSize( int );
     int thumbSize() const;
@@ -68,6 +83,10 @@ public:
     QPixmap iconForOptionGroup( const QString& name ) const;
     QString iconNameForOptionGroup( const QString& name ) const;
     void setIconForOptionGroup( const QString& name, const QString& icon );
+
+    // -------------------------------------------------- Member Groups
+    MemberMap memberMap();
+    void setMemberMap( const MemberMap& );
 
     // -------------------------------------------------- Options for the Viewer
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
@@ -118,7 +137,7 @@ signals:
     void changed();
 
 private:
-    Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory  );
+    Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
     static Options* _instance;
 
     int _thumbSize,  _imageCacheSize;
@@ -134,6 +153,8 @@ private:
     QDomElement _configDock;
 
     QSize _viewerSize;
+
+    MemberMap _members;
 };
 
 #endif /* OPTIONS_H */

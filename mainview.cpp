@@ -531,6 +531,7 @@ void MainView::load()
     QDomElement configWindowSetup;
     QDomElement images;
     QDomElement blockList;
+    QDomElement memberGroups;
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -546,6 +547,8 @@ void MainView::load()
                 images = elm;
             else if ( tag == QString::fromLatin1( "blocklist" ) )
                 blockList = elm;
+            else if ( tag == QString::fromLatin1( "member-groups" ) )
+                memberGroups = elm;
             else {
                 KMessageBox::error( this, i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
             }
@@ -563,7 +566,7 @@ void MainView::load()
 
     file.close();
 
-    Options::setup( config, options, configWindowSetup, QFileInfo( configFile ).dirPath( true ) );
+    Options::setup( config, options, configWindowSetup, memberGroups, QFileInfo( configFile ).dirPath( true ) );
     ImageDB::setup( images, blockList );
 }
 

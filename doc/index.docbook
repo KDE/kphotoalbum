@@ -13,6 +13,7 @@
   <!ENTITY viewer SYSTEM "viewer.docbook">
   <!ENTITY options SYSTEM "options.docbook">
   <!ENTITY generating-html SYSTEM "generating-html.docbook">
+  <!ENTITY importexport SYSTEM "importexport.docbook">
 ]>
 
 <book lang="&language;">
@@ -69,6 +70,7 @@ url="http://www.blackie.dk/kimdaba/">KimDaBa's Homepage</ulink></para>
   &thumbnail-view;
   &viewer;
   &generating-html;
+  &importexport;
   &options;
 
 

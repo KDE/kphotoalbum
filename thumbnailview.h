@@ -69,6 +69,7 @@ private:
     static ThumbNailView* _instance;
     ThumbNail* _currentHighlighted;
     IconViewToolTip* _iconViewToolTip;
+    bool _blockMoveSignals;
 };
 
 #endif /* THUMBNAILVIEW_H */

@@ -298,8 +298,12 @@ void DateBar::drawFocusRectagle( QPainter& p)
     p.setClipping( true );
     p.setClipRegion( region );
 
-    p.setBrush( red );
-    p.setPen( red );
+    QColor col = red;
+    if ( !hasFocus() )
+        col = yellow;
+
+    p.setBrush( col );
+    p.setPen( col );
     p.drawRect( outer );
 
     // Shadow below
@@ -676,6 +680,17 @@ void DateBar::keyPressEvent( QKeyEvent* event )
         if ( _currentUnit > numberOfUnits() )
             _currentUnit = numberOfUnits();
     }
+    redraw();
+    emit dateSelected( currentDateRange(), includeFuzzyCounts() );
+}
+
+void DateBar::focusInEvent( QFocusEvent* )
+{
+    redraw();
+}
+
+void DateBar::focusOutEvent( QFocusEvent* )
+{
     redraw();
 }
 

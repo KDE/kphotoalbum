@@ -65,6 +65,8 @@ public:
     virtual void mouseReleaseEvent( QMouseEvent* event );
     virtual void contextMenuEvent( QContextMenuEvent* );
     virtual void keyPressEvent( QKeyEvent* event );
+    virtual void focusInEvent( QFocusEvent* );
+    virtual void focusOutEvent( QFocusEvent* );
 
 protected:
     void redraw();

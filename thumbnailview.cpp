@@ -36,7 +36,7 @@
 ThumbNailView* ThumbNailView::_instance = 0;
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
-    :KIconView( parent,  name ), _currentHighlighted( 0 )
+    :KIconView( parent,  name ), _currentHighlighted( 0 ), _blockMoveSignals( false )
 {
     Q_ASSERT( !_instance );
     _instance = this;
@@ -280,6 +280,8 @@ void ThumbNailView::drawBackground( QPainter * p, const QRect & r )
 
 void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
 {
+    bool block = _blockMoveSignals;
+    _blockMoveSignals = true;
     ThumbNail* candidate = 0;
     for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
@@ -295,7 +297,9 @@ void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
     }
     if ( candidate ) {
         setContentsPos( candidate->x()+4, candidate->y()+4 );
+        setCurrentItem( candidate );
     }
+    _blockMoveSignals = block;
 }
 
 ThumbNailView* ThumbNailView::theThumbnailView()
@@ -316,6 +320,9 @@ void ThumbNailView::makeCurrent( ImageInfo* info )
 
 void ThumbNailView::slotContentsMoved()
 {
+    if ( _blockMoveSignals )
+        return;
+
     QIconViewItem* item = findFirstVisibleItem( QRect( contentsX(), contentsY(), width(), height() ) );
     if ( item ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );

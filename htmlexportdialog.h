@@ -59,7 +59,6 @@ protected:
     QDomElement createLink( QDomDocument& doc, const QString& link, const QString& text );
     bool linkIndexFile();
     QValueList<MyCheckBox*> activeResolutions();
-    void createSponsorLink( QDomDocument& doc, QDomElement& body );
 
 private:
     KLineEdit* _title;
@@ -71,7 +70,6 @@ private:
     QValueList<MyCheckBox*> _cbs;
     QValueList<MyCheckBox*> _preferredSizes;
     QTextEdit* _description;
-    QCheckBox* _sponsoringLink;
 
     ImageInfoList _list;
     int _waitCounter;

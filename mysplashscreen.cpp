@@ -7,6 +7,8 @@ MySplashScreen::MySplashScreen( )
     :KSplashScreen( locate("data", QString::fromLatin1("kimdaba/pics/splash-large.png") ) )
 {
     _instance = this;
+    QPixmap* pix = pixmap();
+    resize( pix->size() );
 }
 
 MySplashScreen* MySplashScreen::instance()

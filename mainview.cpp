@@ -292,4 +292,15 @@ void MainView::slotShowAllThumbNails()
     thumbNailView->reload();
 }
 
+void MainView::slotLimitToSelected()
+{
+    ShowBusyCursor dummy;
+    for ( QIconViewItem* item = thumbNailView->firstItem(); item; item = item->nextItem() ) {
+        ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
+        Q_ASSERT( tn );
+        tn->imageInfo()->setVisible( item->isSelected() );
+    }
+    thumbNailView->reload();
+}
+
 #include "mainview.moc"

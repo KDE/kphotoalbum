@@ -11,6 +11,12 @@
 #include <qcursor.h>
 #include <qpopupmenu.h>
 #include <qaction.h>
+#include "displayarea.h"
+#include <qtoolbar.h>
+#include <ktoolbar.h>
+#include <kiconloader.h>
+#include <kaction.h>
+#include <klocale.h>
 
 Viewer* Viewer::_instance = 0;
 
@@ -22,17 +28,32 @@ Viewer* Viewer::instance( QWidget* parent )
 }
 
 Viewer::Viewer( QWidget* parent, const char* name )
-    :QDialog( parent,  name ), _width(800), _height(600)
+    :KMainWindow( parent,  name ), _width(800), _height(600)
 {
-    QVBoxLayout* layout = new QVBoxLayout( this );
-    layout->setResizeMode( QLayout::FreeResize );
-    _label = new QLabel( this );
-    _label->setAlignment( AlignCenter );
-    layout->addWidget( _label );
-    _label->setBackgroundMode( NoBackground );
+    _label = new DisplayArea( this );
+    setCentralWidget( _label );
 
+    KIconLoader loader;
+    _toolbar = new KToolBar( this );
+    _line = new KAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+                         0, _label, SLOT( slotLine() ),actionCollection(), "_line");
+    _line->plug( _toolbar );
+
+    _rect = new KAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+                         0, _label, SLOT( slotRectangle() ),actionCollection(), "_rect");
+    _rect->plug( _toolbar );
+
+    _circle = new KAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("undo"), KIcon::Toolbar),
+                           0, _label, SLOT( slotCircle() ),actionCollection(), "_circle");
+    _circle->plug( _toolbar );
+
+    setupContextMenu();
+}
+
+
+void Viewer::setupContextMenu()
+{
     _popup = new QPopupMenu( this );
-
     QAction* action;
 
     _firstAction = new QAction( "First", QIconSet(), "First", Key_Home, this );
@@ -130,7 +151,7 @@ void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QPixmap& pix
     resize( w, h );
     _label->resize( w, h );
 
-    _pixmap = pixmap;
+    _label->setPixmap( pixmap );
     setDisplayedPixmap();
 }
 
@@ -139,7 +160,7 @@ void Viewer::show()
     resize( 800, 600 );
     _width = 800;
     _height = 600;
-    QDialog::show();
+    KMainWindow::show();
 }
 
 void Viewer::load()
@@ -176,7 +197,7 @@ void Viewer::load()
 
 void Viewer::setDisplayedPixmap()
 {
-    QPixmap pixmap = _pixmap;
+    QPixmap pixmap = _label->pix();
     if ( pixmap.isNull() )
         return;
 
@@ -276,7 +297,7 @@ void Viewer::mousePressEvent( QMouseEvent* e )
     }
     else
         _moving = false;
-    QDialog::mousePressEvent( e );
+    KMainWindow::mousePressEvent( e );
 }
 
 void Viewer::mouseMoveEvent( QMouseEvent* e )
@@ -317,7 +338,7 @@ void Viewer::mouseMoveEvent( QMouseEvent* e )
         Options::instance()->setInfoBoxPosition( pos );
         setDisplayedPixmap();
     }
-    QDialog::mouseMoveEvent( e );
+    KMainWindow::mouseMoveEvent( e );
 }
 
 void Viewer::mouseReleaseEvent( QMouseEvent* e )
@@ -325,7 +346,7 @@ void Viewer::mouseReleaseEvent( QMouseEvent* e )
     _label->setCursor( ArrowCursor  );
     if ( Options::instance()->infoBoxPosition() != _startPos )
         Options::instance()->save();
-    QDialog::mouseReleaseEvent( e );
+    KMainWindow::mouseReleaseEvent( e );
 }
 
 void Viewer::contextMenuEvent( QContextMenuEvent * e )
@@ -446,5 +467,6 @@ void Viewer::showLast()
      _info = *( _list.at( _current ) );
      load();
 }
+
 
 #include "viewer.moc"

@@ -1,16 +1,19 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-#include <qdialog.h>
 #include "imageclient.h"
 #include "imageinfo.h"
 #include "options.h"
+#include <kmainwindow.h>
 class ImageInfo;
 class QLabel;
 class QPopupMenu;
 class QAction;
+class KToolBar;
+class KAction;
+class DisplayArea;
 
-class Viewer :public QDialog,  public ImageClient
+class Viewer :public KMainWindow,  public ImageClient
 {
     Q_OBJECT
 public:
@@ -29,6 +32,7 @@ protected:
     void load();
     void saveOptions();
     void setDisplayedPixmap();
+    void setupContextMenu();
 
 protected slots:
     void showNext();
@@ -56,16 +60,20 @@ private:
     QAction* _nextAction;
     QAction* _prevAction;
 
-    QLabel* _label;
+    DisplayArea* _label;
     ImageInfoList _list;
     int _current;
     ImageInfo _info;
-    QPixmap _pixmap;
     bool _moving;
     QRect _textRect;
     QPopupMenu* _popup;
     int _width, _height;
     Options::Position _startPos;
+
+    KToolBar* _toolbar;
+    KAction* _line;
+    KAction* _rect;
+    KAction* _circle;
 };
 
 #endif /* VIEWER_H */

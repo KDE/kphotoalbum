@@ -703,7 +703,7 @@ bool HTMLExportDialog::checkVars()
                                                 i18n("Directory Exists"), KStdGuiItem::yes(), KStdGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {
-            KIO::NetAccess::del( outputDir, MainView::theMainView() );
+            KIO::NetAccess::del( KURL(outputDir), MainView::theMainView() );
         }
         else
             return false;

@@ -11,6 +11,7 @@
   <!ENTITY browsing SYSTEM "browsing.docbook">
   <!ENTITY thumbnail-view SYSTEM "thumbnail-view.docbook">
   <!ENTITY viewer SYSTEM "viewer.docbook">
+  <!ENTITY datebar SYSTEM "datebar.docbook">
   <!ENTITY options SYSTEM "options.docbook">
   <!ENTITY generating-html SYSTEM "generating-html.docbook">
   <!ENTITY importexport SYSTEM "importexport.docbook">
@@ -70,6 +71,7 @@ url="http://ktown.kde.org/kimdaba/">KimDaBa's Homepage</ulink></para>
   &browsing;
   &thumbnail-view;
   &viewer;
+  &datebar;
   &generating-html;
   &importexport;
   &plugins;

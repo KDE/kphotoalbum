@@ -217,7 +217,7 @@ QDate ImageDate::getDate()
     if ( _day > 0 )
         day = _day;
     if ( _month > 0 )
-        _month = _month;
+        month = _month;
     if ( _year > 0 )
         year = _year;
     return QDate( year, month, day );

@@ -20,6 +20,11 @@ public:
 
     virtual int angle();
     virtual void setAngle( int );
+
+    virtual QDateTime time( KIPI::TimeSpec what );
+    virtual void setTime( const QDateTime& time, KIPI::TimeSpec spec );
+    virtual bool isTimeExact();
+
 private:
     ImageInfo* _info;
 };

@@ -41,7 +41,7 @@ void PluginInterface::refreshImages( const KURL::List& urls )
 
 int PluginInterface::features() const
 {
-    return KIPI::ImagesHasComments;
+    return KIPI::ImagesHasComments | KIPI::ImagesHasTime | KIPI::SupportsDateRanges;
 }
 
 #include "plugininterface.moc"

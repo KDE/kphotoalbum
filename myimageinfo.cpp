@@ -65,3 +65,39 @@ void MyImageInfo::setAngle( int angle )
         _info->setAngle( angle );
 }
 
+QDateTime MyImageInfo::time( KIPI::TimeSpec what )
+{
+    if ( _info ) {
+        if ( what == KIPI::FromInfo ) {
+            return QDateTime(_info->startDate().getDate(), _info->startDate().getTime() );
+        }
+        else
+            return QDateTime(_info->endDate().getDate(), _info->endDate().getTime() );
+    }
+    else
+        return KIPI::ImageInfoShared::time( what );
+}
+
+bool MyImageInfo::isTimeExact()
+{
+    ImageDate date = _info->endDate();
+    if ( date.year() > 0 || date.month() > 0 || date.day() > 0 )
+        return false;
+    date = _info->startDate();
+    if ( date.year() <= 0 || date.month() <= 0 || date.day() <= 0 )
+        return false;
+    return true;
+}
+
+void MyImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
+{
+    if ( !_info )
+        return;
+    ImageDate& date = _info->startDate();
+    if ( spec == KIPI::ToInfo )
+        date = _info->endDate();
+
+    date.setDate( time.date() );
+    date.setTime( time.time() );
+}
+

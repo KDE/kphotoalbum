@@ -49,6 +49,7 @@ Features for a soonish version
   This is the behaviour of many programs with possibilities to select many 
   items and change some properties (mostly checkboxes)
 - spell check in the editor
+- make it possible to specify dates in other formats in the image config dialog
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

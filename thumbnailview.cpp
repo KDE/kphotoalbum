@@ -18,7 +18,7 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     connect( this,  SIGNAL( doubleClicked( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
 
     setSelectionMode( Extended );
-    new IconViewToolTip( this );
+    _iconViewToolTip = new IconViewToolTip( this );
 }
 
 
@@ -175,6 +175,11 @@ bool ThumbNailView::isClipboardEmpty()
 ImageInfoList ThumbNailView::clipboard()
 {
     return _cutList;
+}
+
+void ThumbNailView::showToolTipsOnImages()
+{
+    _iconViewToolTip->showToolTips();
 }
 
 #include "thumbnailview.moc"

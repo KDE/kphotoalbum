@@ -3,6 +3,7 @@
 #include <qiconview.h>
 #include "imageinfo.h"
 class ImageManager;
+class IconViewToolTip;
 
 class ThumbNailView :public QIconView {
     Q_OBJECT
@@ -19,6 +20,7 @@ public slots:
     void slotSelectAll();
     void slotCut();
     void slotPaste();
+    void showToolTipsOnImages();
 
 signals:
     void changed();
@@ -38,6 +40,7 @@ private:
     ImageInfoList* _imageList;
     ThumbNail* _currentHighlighted;
     ImageInfoList _cutList;
+    IconViewToolTip* _iconViewToolTip;
 };
 
 #endif /* THUMBNAILVIEW_H */

@@ -4,6 +4,7 @@
 #include <qlayout.h>
 #include "util.h"
 #include <qtooltip.h>
+#include "options.h"
 
 /**
    This class takes care of showing tooltips for the individual items in the iconview.
@@ -13,11 +14,9 @@
    mouse( and would therefore stand on top of the image), or it flickered.
 */
 IconViewToolTip::IconViewToolTip( QIconView* view, const char* name )
-    : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM), _view( view ), _showing( false ), _current(0)
+    : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ), _showing( false ), _current(0)
 {
     view->viewport()->installEventFilter( this );
-    _timer = new QTimer( this );
-    connect( _timer, SIGNAL( timeout() ), this, SLOT( showToolTip() ) );
 	setAlignment( AlignAuto | AlignTop );
     setFrameStyle( QFrame::Box | QFrame::Plain );
     setLineWidth(1);
@@ -29,26 +28,21 @@ bool IconViewToolTip::eventFilter( QObject*, QEvent* e)
 {
     if ( _showing ) {
         if ( QEvent::MouseButtonPress <= e->type() &&
-             e->type() <= QEvent::MouseButtonDblClick || e->type() == QEvent::Leave ) {
+             e->type() <= QEvent::MouseButtonDblClick || e->type() == QEvent::WindowDeactivate ) {
             _showing = false;
             hide();
         }
         else {
-            showToolTip();
-        }
-    }
-
-    else {
-        if ( e->type() == QEvent::MouseMove ) {
-            _timer->start( 1000, true );
+            showToolTips();
         }
     }
 
     return false;
 }
 
-void IconViewToolTip::showToolTip()
+void IconViewToolTip::showToolTips()
 {
+    _showing = true;
     QIconViewItem* item = itemAtCursor();
     if ( item ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
@@ -58,7 +52,6 @@ void IconViewToolTip::showToolTip()
         move( QCursor::pos() + QPoint( 10, 10 ));
         show();
         resize( sizeHint() );
-        _showing = true;
         _view->setFocus();
     }
 }

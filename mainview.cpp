@@ -23,6 +23,7 @@
 #include "imagecounter.h"
 #include <qtimer.h>
 #include <kmessagebox.h>
+#include "options.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _dirty( false )
@@ -391,6 +392,10 @@ void MainView::setupMenuBar()
                  actionCollection(), "limitToMarked" );
     new KAction( i18n("Display All Thumbnails"), 0, this, SLOT( slotShowAllThumbNails() ),
                  actionCollection(), "displayAllThumbs" );
+
+    // The help menu
+    new KAction( i18n("Show Tooltips on Images"), CTRL+Key_T, _thumbNailView, SLOT( showToolTipsOnImages() ),
+                 actionCollection(), "showToolTipOnImages" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     createGUI( QString::fromLatin1( "kimdabaui.rc" ) );

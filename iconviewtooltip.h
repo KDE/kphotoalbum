@@ -10,16 +10,13 @@ class IconViewToolTip :public QLabel {
 
 public:
     IconViewToolTip( QIconView* view, const char* name = 0 );
+    void showToolTips();
 
 protected:
     virtual bool eventFilter ( QObject*, QEvent* e );
     QIconViewItem* itemAtCursor();
 
-protected slots:
-    void showToolTip();
-
 private:
-    QTimer* _timer;
     QIconView* _view;
     bool _showing;
     QIconViewItem* _current;

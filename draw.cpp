@@ -16,13 +16,13 @@ void Draw::draw( QPainter&, QMouseEvent* event )
 QPoint Draw::w2g( const QPoint& point )
 {
     Q_ASSERT( _widget );
-    return QPoint( point.x() * 10000.0 / _widget->width(),  point.y() * 10000.0 / _widget->height() );
+    return QPoint( (int) point.x() * 10000.0 / _widget->width(),  (int) point.y() * 10000.0 / _widget->height() );
 }
 
 QPoint Draw::g2w( const QPoint& point )
 {
     Q_ASSERT( _widget );
-    return QPoint( point.x() / 10000.0 * _widget->width(),  point.y() / 10000.0 * _widget->height() );
+    return QPoint( (int) point.x() / 10000.0 * _widget->width(), (int) point.y() / 10000.0 * _widget->height() );
 }
 
 void Draw::saveDrawAttr( QDomElement* elm )

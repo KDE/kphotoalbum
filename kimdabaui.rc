@@ -20,6 +20,9 @@
       <Separator/>
       <Action name="displayAllThumbs" />
     </Menu>
+   <Menu name="help">
+     <Action name="showToolTipOnImages"/>
+   </Menu>
   </MenuBar>
 
 </kpartgui>

@@ -179,6 +179,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( ImageDB::instance(), SIGNAL( matchCountChange( int, int, int ) ),
              partial, SLOT( setMatchCount( int, int, int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
+    connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
     connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
     connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
     connect( CategoryCollection::instance(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
@@ -1331,9 +1332,15 @@ void MainView::updateDateBar( const QString& path )
 {
     static QString lastPath = QString::fromLatin1("ThisStringShouldNeverBeSeenSoWeUseItAsInitialContent");
     if ( path != lastPath )
-        _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
+        updateDateBar();
     lastPath = path;
 }
+
+void MainView::updateDateBar()
+{
+    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
+}
+
 
 void MainView::slotShowImagesWithInvalidDate()
 {

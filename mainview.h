@@ -109,6 +109,7 @@ protected slots:
     void plug();
     void slotRemoveTokens();
     void updateDateBar( const QString& );
+    void updateDateBar();
     void slotShowImagesWithInvalidDate();
     void showDateBarTip( const QString& );
     void slotJumpToContext();

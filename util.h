@@ -44,6 +44,8 @@ public:
 
     typedef QMap<QString, QString> UniqNameMap;
     static UniqNameMap createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destdir );
+
+    static QString stripSlash( const QString& fileName );
 };
 
 

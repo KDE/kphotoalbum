@@ -35,6 +35,7 @@
 #include <qwhatsthis.h>
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
+#include <kimageio.h>
 
 void Export::imageExport( const ImageInfoList& list )
 {
@@ -271,11 +272,12 @@ void Export::copyImages( const ImageInfoList& list )
 void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*/, int /*angle*/, const QImage& image )
 {
     // Add the file to the zip archive
-    QString zipFileName = _subdir + QFileInfo( _nameMap[fileName] ).baseName() + QString::fromLatin1(".jpg");
+    QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Util::stripSlash(_subdir)).arg(QFileInfo( _nameMap[fileName] ).baseName())
+                          .arg(QFileInfo( _nameMap[fileName] ).extension() );
     QByteArray data;
     QBuffer buffer( data );
     buffer.open( IO_WriteOnly );
-    image.save( &buffer, "JPEG" );
+    image.save( &buffer, KImageIO::type( zipFileName ).latin1() );
 
     if ( _location == Inline || !_copyingFiles )
         _zip->writeFile( zipFileName, QString::null, QString::null, data.size(), data );

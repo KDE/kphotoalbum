@@ -1,5 +1,8 @@
 2004-04-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: images inline in export files was broken if the
+	extension was different from .jpg
+
 	* Now its possible to ask for a .kim file on the HTML generated pages
 
 	* BUGFIX: pressing cancel in export dialog still continue exporting.

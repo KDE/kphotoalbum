@@ -416,3 +416,11 @@ Util::UniqNameMap Util::createUniqNameMap( const ImageInfoList& images, bool rel
 
     return map;
 }
+
+QString Util::stripSlash( const QString& fileName )
+{
+    if ( fileName.endsWith( QString::fromLatin1( "/" ) ) )
+        return fileName.left( fileName.length()-1);
+    else
+        return fileName;
+}

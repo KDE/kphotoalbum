@@ -16,6 +16,13 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
+#include <kdeversion.h>
+#if !KDE_IS_VERSION(3,1,2)
+  // Bug in Qt 3.1.0 needs these undefined
+  #undef QT_NO_CAST_ASCII
+  #undef QT_CAST_NO_ASCII
+#endif
+
 #include "imageconfig.h"
 #include "listselect.h"
 #include <qspinbox.h>
@@ -581,9 +588,8 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 
 KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 {
-    // I need the fifth argument to get things compiling with KDE 3.1.0, given that I use -DNO_CAST_ASCII
     KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
-                                                             this, optionGroup, QString::fromLatin1("") );
+                                                             this, optionGroup );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
     _optionList.append( sel );
@@ -684,3 +690,8 @@ void ImageConfig::rotate( int angle )
 }
 
 #include "imageconfig.moc"
+
+#if !KDE_IS_VERSION(3,1,2)
+  #define QT_NO_CAST_ASCII
+  #define QT_CAST_NO_ASCII
+#endif

@@ -12,6 +12,7 @@ BUGS To be handled soonish
 - Adding a new ListSelect will not show it up initially.
 - Add a README file to the tar balls.
 - Fix tab order in ImageConfig, plus make Ctrl+Enter press OK
+- go through all the PENDINGS in the code
 
 =======================
 BUGS of less importance

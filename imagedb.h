@@ -45,6 +45,7 @@ public:
 
 public slots:
     void save( QDomElement top );
+    void slotRescan();
 
 signals:
     void matchCountChange( int, int, int );

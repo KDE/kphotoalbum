@@ -72,6 +72,7 @@ public:
     void setDrawList( const DrawList& );
 
     bool imageOnDisk() const { return _imageOnDisk; }
+    void setImageOnDisk( bool b ) {_imageOnDisk = b; }
     QString MD5Sum() const { return _md5sum; }
     void setMD5Sum( const QString& sum ) { _md5sum = sum; }
 

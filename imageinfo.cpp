@@ -38,7 +38,7 @@ ImageInfo::ImageInfo()
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    : _fileName( fileName ), _visible( true ), _imageOnDisk( true )
+    : _fileName( fileName ), _visible( true ), _imageOnDisk( true ), _locked( false )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
     _label = fi.baseName();

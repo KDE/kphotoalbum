@@ -57,6 +57,7 @@
 #include <kpassdlg.h>
 #include <kkeydialog.h>
 #include <kpopupmenu.h>
+#include <kdebug.h>
 
 MainView* MainView::_instance = 0;
 
@@ -114,6 +115,8 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
+
+    connect( ImageDB::instance(), SIGNAL( rescanCompleted() ), this, SLOT( reloadThumbNail() ) );
 
     // PENDING(blackie) ImageDB should emit a signal when total changes.
     total->setTotal( ImageDB::instance()->totalCount() );
@@ -436,6 +439,10 @@ void MainView::setupMenuBar()
     _setDefaultNeg = new KAction( i18n("Mark Everything but the Current View as Lock"), 0, this, SLOT( setDefaultScopeNegative() ),
                                   actionCollection(), "setDefaultScopeNegative" );
 
+    // Maintenance
+    new KAction( i18n("Display Images not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
+    new KAction( i18n("Recalculate Check Sum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
+    new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
@@ -851,6 +858,16 @@ void MainView::slotUpdateViewMenu( Options::ViewSize size, Options::ViewType typ
         _smallIconView->setChecked( true );
     else if ( size == Options::Large && type == Options::IconView )
         _largeIconView->setChecked( true );
+}
+
+void MainView::slotShowNotOnDisk()
+{
+    kdDebug() << "NYI!";
+}
+
+void MainView::slotRecalcCheckSums()
+{
+    kdDebug() << "NYI!";
 }
 
 #include "mainview.moc"

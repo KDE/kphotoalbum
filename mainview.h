@@ -75,6 +75,8 @@ protected slots:
     void reloadThumbNail();
     void slotUpdateViewMenu( Options::ViewSize, Options::ViewType );
     void showTip();
+    void slotShowNotOnDisk();
+    void slotRecalcCheckSums();
 
 protected:
     void configureImages( bool oneAtATime );

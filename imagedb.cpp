@@ -31,12 +31,13 @@
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
+#include "browser.h"
 
 ImageDB* ImageDB::_instance = 0;
 
-ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* newImages )
+ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* dirty )
 {
-    *newImages = false;
+    *dirty = false;
 
     QString directory = Options::instance()->imageDirectory();
     if ( directory.isEmpty() )
@@ -81,7 +82,7 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* ne
     // calculate md5sums - this should only happen the first time the user starts kimdaba after md5sum has been introducted.
     if ( missingSums.count() != 0 )  {
         calculateMissingMD5sums( missingSums );
-        *newImages = true;
+        *dirty = true;
     }
 
     // Read the block list
@@ -97,10 +98,10 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* ne
             _blockList << fileName;
     }
 
-    uint count = _images.count();
     searchForNewFiles( loadedFiles, directory );
     loadExtraFiles();
-    *newImages |= ( count != _images.count() );
+
+    *dirty |= (_pendingLoad.count() != 0);
 
     connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
              this, SLOT( deleteOption( const QString&, const QString& ) ) );
@@ -135,6 +136,7 @@ int ImageDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int
 
         if ( match )
             ++count;
+
         match &= ( from != -1 && to != -1 && from <= count && count <= to ) ||
                  ( from == -1 && to == -1 );
         if ( makeVisible )
@@ -152,9 +154,9 @@ ImageDB* ImageDB::instance()
 
 bool ImageDB::setup( const QDomElement& top, const QDomElement& blockList )
 {
-    bool newImages;
-    _instance = new ImageDB( top, blockList, &newImages );
-    return newImages;
+    bool dirty;
+    _instance = new ImageDB( top, blockList, &dirty );
+    return dirty;
 }
 
 ImageInfo* ImageDB::load( const QString& fileName, QDomElement elm )
@@ -408,6 +410,28 @@ QString ImageDB::MD5Sum( const QString& fileName )
     md5calculator.update( file );
     QString md5 = md5calculator.hexDigest();
     return md5;
+}
+
+void ImageDB::slotRescan()
+{
+    // Load the information from the XML file.
+    QDict<void> loadedFiles( 6301 /* a large prime */ );
+
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        QFileInfo fi( (*it)->fileName() );
+        (*it)->setImageOnDisk( fi.exists() );
+        loadedFiles.insert( (*it)->fileName(),
+                            (void*)0x1 /* void pointer to nothing I never need the value,
+                                          just its existsance, must be != 0x0 though.*/ );
+    }
+
+    _pendingLoad.clear();
+    searchForNewFiles( loadedFiles, Options::instance()->imageDirectory() );
+    loadExtraFiles();
+
+    // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
+    // we rather just go to home.
+    Browser::theBrowser()->home();
 }
 
 #include "imagedb.moc"

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="2">
+<kpartgui name="kimdaba" version="3">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -27,6 +27,12 @@
         <Action name="setDefaultScopeNegative" />
       </Menu>
     </Menu>
+   <Menu name="maintenance">
+      <text>&amp;Maintenance</text>
+      <Action name="findUnavailableImages"/>
+      <Action name="rebuildMD5s"/>
+      <Action name="rescan"/>
+   </Menu>
    <Menu name="help">
      <Action name="showToolTipOnImages"/>
      <Action name="runDemo"/>

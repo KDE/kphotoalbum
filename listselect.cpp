@@ -19,6 +19,7 @@ public:
     void setMode( ListSelect::Mode mode );
 protected:
     virtual void keyPressEvent( QKeyEvent* ev );
+    QListBoxItem* findItemInListBox( const QString& startWith );
 
 private:
     QListBox* _listbox;
@@ -69,7 +70,7 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
             int start = txt.findRev( QRegExp("[!&|]"), cursorPosition() -2 ) +1;
             QString input = txt.mid( start, cursorPosition()-start-1 );
 
-            QListBoxItem* item = _listbox->findItem( input );
+            QListBoxItem* item = findItemInListBox( input );
             if ( item )
                 _listbox->setSelected( item, true );
 
@@ -90,12 +91,12 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         }
 
         // Find the text in the listbox
-        QListBoxItem* item = _listbox->findItem( input );
+        QListBoxItem* item = findItemInListBox( input );
         if ( !item && _mode == ListSelect::SEARCH )  {
             // revert
             setText( content );
             setCursorPosition( cursorPos );
-            item = _listbox->findItem( input );
+            item = findItemInListBox( input );
         }
 
         if ( item )  {
@@ -111,6 +112,19 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     else
         QLineEdit::keyPressEvent( ev );
 }
+
+// QListBox::findItem does not search for the item in the order they appear
+// in the listbox, which is necesary for us here.
+QListBoxItem* CompletableLineEdit::findItemInListBox( const QString& text )
+{
+    for ( QListBoxItem* item = _listbox->firstItem();
+          item; item = item->next() ) {
+        if ( item->text().startsWith( text ) )
+            return item;
+    }
+    return 0;
+}
+
 
 ListSelect::ListSelect( QWidget* parent, const char* name )
     : QWidget( parent,  name )
@@ -359,5 +373,6 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
         }
     }
 }
+
 
 #include "listselect.moc"

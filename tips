@@ -114,6 +114,15 @@ channel named <tt>#kimdaba</tt> at <tt>irc.kde.org</tt></p>
 
 <tip category="KimDaBa">
 <html>
+<p>You may reorder images by dragging and dropping one image onto
+another. If you drop it on the left edge, it will end up in front of
+the other, if you drop it on the rigth edge it will be inserted behind.</p>
+<p align="right">-- Tip contributed by Eivind Kjorstad</p>
+</html>
+</tip>
+
+<tip category="KimDaBa">
+<html>
 <p>This is the last tip. If you know any additional tips or tricks, then please
 send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a></p>
 </html>

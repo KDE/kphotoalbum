@@ -1,0 +1,280 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY kimdaba "<application>KimDaBa</application>">
+  <!ENTITY kappname "&kimdaba;">
+  <!ENTITY package "kdeextragear-2">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> 
+]>
+
+<book lang="&language;">
+
+  <bookinfo>
+    <title>The &kimdaba; Handbook</title>
+
+    <authorgroup>
+      <author>
+        <firstname>Jesper K.</firstname>
+        <surname>Pedersen</surname>
+      </author>
+
+      <!-- TRANS:ROLES_OF_TRANSLATORS -->
+    </authorgroup>
+
+    <copyright>
+      <year>2003</year>
+      <holder>Jesper K. Pedersen</holder>
+
+    </copyright>
+
+    <date>2003-10-05</date>
+    <releaseinfo>1.00</releaseinfo>
+    
+    <keywordset>
+      <keyword>KDE</keyword>
+      <keyword>kdeextragear-2</keyword>
+      <keyword>KimDaBa</keyword>
+      <keyword>Image Database</keyword>
+    </keywordset>
+    <abstract><para>
+  This is the user manual for KimDaBa - The KDE Image Database. If you are
+  not the type who likes reading documentation, but rather just want to try
+  out things, here are a few alternatives:
+  <itemizedlist>
+          <listitem><para>Go to the <ulink url="http://www.blackie.dk/kimdaba/">KimDaBa Homepage</ulink>, and look at
+    the quick overview plus screen dumps.</para></listitem>
+          <listitem><para>Start KimDaBa, and accepts its offer for a demo (If
+this is your first time you start it), or go to <guimenu>Help</guimenu>
+menu and select <guimenuitem>Run KimDaBa demo</guimenuitem>. That will load
+KimDaBa with a number of images, and let you browse around.</para></listitem>
+        </itemizedlist></para></abstract>
+  </bookinfo>
+
+  <!-- ====================================================================== -->
+  <!--                               Introduction                             -->
+  <!-- ====================================================================== -->
+  <chapter id="introduction">
+    <title>Introduction</title>
+    <para>KimDaba stands for K Image Database.</para>
+
+    <para>If you are like me you have hundreds or even thousands of images
+ever since you got your first camera, some taken with a normal camera other
+with a digital camera. Through all the years you believed that until
+eternity you would be able to remember the story behind every single
+picture, you would be able to remember the names of all the persons on your
+images, and you would be able to remember the exact date of every single
+image. I personally realized that this was not possible anymore, and
+especially for my digital images - but also for my paper images - I needed
+a tool to help me describe my images, and to search in the pile of
+images. This is exactly what KimDaba is all about.</para>
+
+
+    <para>KimDaba focuses on three key points: 
+
+<itemizedlist>
+        <listitem><para>It must be easy to describe a number of images at a
+time. It must for example not take more than a few mouse clicks to mark all
+your images from your holiday as being from Italy, 1992. KimDaba offers two
+ways of description images one at a time, which is useful for writing text
+about images, and All Simultaneously, which is useful for selecting a
+number of images, and setting properties like location, persons on images,
+and date of image.</para></listitem>
+
+        <listitem><para>It must be easy to search for images. KimDaba offers to
+describe images with a number of properties. These includes date, persons
+on image, location of image, plus a keyword field the user can use for
+custom keywords like Album 7 or Holiday trip to Italy. With KimDaBa you can
+search for in each of the categories - Find the images with Jesper on
+them.</para></listitem>
+
+        <listitem><para>It must be easy to browse and View the images. When viewing
+images, your focus often changes - one moment you are looking at images
+from your holiday in 1992, and when seeing an image of a friend whom you
+spent that holiday with, you focus suddenly changes, so you want to see all
+images of that friend.</para></listitem>
+      </itemizedlist></para>
+
+
+  <!-- ====================================================================== -->
+    <sect1>
+      <title>Overview of the Manual</title>
+      <para>In this manual I will take you through the steps of (1) specifying
+information about your images, (2) browsing and viewing images and (3)
+advanced topics and customization.</para>
+    </sect1>
+
+
+  <!-- ====================================================================== -->
+    <sect1>
+      <title>Organization of Images and KimDaBa Files</title>
+      <para>KimDaBa uses all the images of a directory and all subdirectories
+below it, first time you start KimDaBa, you will be ask for the location of
+this directory, as can been see in . KimDaBa will not modify any images, so you do not have to
+be afraid of KimDaBa altering your images <footnote><para>The only destructive operation
+KimDaBa will perform towards your images is to delete individual images, if
+you ask it to from <guimenu>Edit</guimenu>|<guimenuitem>Delete
+Selected</guimenuitem></para></footnote>, actually if you do not trust
+KimDaBa, feel free to make all your images write protected - but as I said KimDaBa will not modify your
+images in any way, that is no rotation, no scaling, no changing colors,or
+anything are done to your images on disk, all these operations will be done
+in between reading the image from disk, and showing it on screen.</para>
+
+      <para>KimDaBa will save all its information in the file
+<filename>index.xml</filename> in your topmost image directory. This file
+is a simple XML file, so you can easily back it up using what ever tools
+you prefer, including normal backup utilities, copying the file to a
+floppy disk, or keeping revisions using CVS.</para>
+
+      <para>KimDaBa will remember where you told it your images was
+located, and reuse that in future use of KimDaBa. Should you ever want to
+load another database into KimDaBa (i.e. another directory three of
+images), then you may start it with the  <option>-c</option> option. For
+example: <literal>kimdaba -c ~/MyMovies/index.xml</literal></para>
+    </sect1>
+
+    <!-- ====================================================================== -->
+
+
+  </chapter>
+
+
+
+
+  <!-- ====================================================================== -->
+  <!--             Typing in information about your images                    -->
+  <!-- ====================================================================== -->
+  <chapter id="chp-typingIn">
+    <title>Typing in information about your images</title>
+    <para>In figure <xref linkend="fig-empty-browser-window"/> you can see
+an example of the window that will greed you once you have started KimDaBa
+with your own images.</para>
+    
+    <para>At the top of the screen you will find a menu and toolbar, as you
+know from any KDE application. Below the toolbar you see the browser
+window. Currently this is not containing much information, as you have not
+yet specified any information about your images. In <xref
+        linkend="chp-browsing"/> we will get back to the browser, but for
+now, simply press the <literal>View Images</literal> item, which will show
+you an overview of all your images.</para>
+    
+    <para>In case you have more than 100 images, KimDaBa will sort your
+images into groups each of 100 images. This is simply to avoid that your
+machine runs out of RAM which trying to show you all your images. The
+amount of images per pages can be configured in the
+<literal>Options</literal> dialog.</para>
+
+    <figure id="fig-empty-browser-window">
+      <title>Starting KimDaBa with your own images</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="empty-browser-window.png"
+            format="PNG"/>
+        </imageobject>
+        </mediaobject>
+    </figure>
+
+    <sect1>
+      <title>Specifying Properties for Images</title>
+      <para>The key feature of KimDaBa is that you can specify properties
+for images. This includes who is on a given image, where is it taken,
+etc. You can do this either an image at a time, or you can set 
+properties for a number of images simultaneously (For example, all these
+images contain the person Jesper, and is taken in Copenhagen.)</para>
+
+      <para>To set properties for images, select the images in question,
+and go to <guimenu>Edit</guimenu>|<guisubmenu>Properties</guisubmenu>, here
+you will find two items, namely <guimenuitem>One at a time</guimenuitem>,
+and <guimenuitem>All simultaneously</guimenuitem>. Choosing
+<guimenuitem>One at a time</guimenuitem>, you get to set properties for
+each of the selected images, one at a time, while choosing <guimenuitem>All
+simultaneously</guimenuitem>, you set properties for all selected
+images. These two options are also available from a context menu, that you
+get by right clicking the mouse in the thumbnail overview. An example of
+this can be seen in <xref linkend="fig-edit-properies-menu"/>. </para> 
+
+      <figure id="fig-edit-properies-menu">
+        <title>Context menu for editing properties</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="edit-properies-menu.png"
+              format="PNG"/>
+            </imageobject>
+          </mediaobject>
+      </figure>
+
+      <para>In <xref linkend="fig-image-config-window"/> below you can see
+the window for configuring image properties. In this window you can specify
+the date of the image, the label of the image <footnote><para>The label is
+          initialized to the name of the file. The label is used in the
+          browser, and when the images are exported to HTML
+          pages</para></footnote>, a description for the image, and most important
+different <emphasis>options</emphasis> for the image. In the screen dump, these options are
+<literal>Persons</literal>, <literal>Loctions</literal>, and
+<literal>Keywords.</literal>, but as you will see in <xref
+          linkend="sec-specifying-option-groups"/>, these three predefined
+groups may be changed to your preferences. 
+ </para>
+
+      <figure id="fig-image-config-window">
+        <title>Configuring Image Properties</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata fileref="image-config-window.png"
+              format="PNG"/>
+            </imageobject>
+          </mediaobject>
+      </figure>
+
+      <para>The date, plus the options may be used for searching and
+browsing for images, as we will see in <xref linkend="chp-browsing"/>, and
+they will also be shown when you later view the images.</para>
+
+    </sect1>
+  </chapter>
+  
+  
+  <!-- ====================================================================== -->
+  <!--             Browsing and Viewing Images                                -->
+  <!-- ====================================================================== -->
+  <chapter id="chp-browsing">
+    <title>Browsing and Viewing Images</title>
+    <para></para>
+  </chapter>
+
+  <!-- ====================================================================== -->
+  <!--             Misc                                               -->
+  <!-- ====================================================================== -->
+  <chapter id="chp-misc">
+    <title>Misc</title>
+    <para></para>
+
+    <sect1 id="sec-specifying-option-groups">
+      <title>Customizing Option Groups </title>
+      <para></para>
+    </sect1>
+  </chapter>
+
+  <!-- ====================================================================== -->
+  <!--                                 FAQ                                    -->
+  <!-- ====================================================================== -->
+  <chapter id="faq">
+    <title>Frequently Asked Questions</title>
+
+  <qandaset>
+      <qandaentry>
+        <question><para>Can I organize my images in multiple directories</para></question>
+        <answer><para>As long as all your image directories have a common
+root, then that is fine. In other words, you are allowed to have a
+directory three with your images.</para></answer>
+      </qandaentry>
+      
+      <qandaentry>
+        <question><para>Can I move my images around on disk?</para></question>
+        <answer><para>No.</para></answer>
+      </qandaentry>
+      
+  </qandaset>
+  </chapter>
+
+
+</book>

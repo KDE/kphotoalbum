@@ -288,7 +288,6 @@ void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
         }
     }
     if ( candidate ) {
-        qDebug("%s", candidate->imageInfo()->fileName().latin1());
         setContentsPos( candidate->x()+4, candidate->y()+4 );
     }
 }

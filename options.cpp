@@ -65,6 +65,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
     _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
+    _viewSortType = (ViewSortType) config.attribute( QString::fromLatin1( "viewSortType" ) ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -120,6 +121,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("locked"), _locked );
     config.setAttribute( QString::fromLatin1("exclude"), _exclude );
     config.setAttribute( QString::fromLatin1("passwd"), _passwd );
+    config.setAttribute( QString::fromLatin1( "viewSortTye" ), _viewSortType );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -177,6 +179,28 @@ QStringList Options::optionValue( const QString& key ) const
 {
     return _options[key];
 }
+
+QStringList Options::optionValueInclGroups( const QString& optionGroup ) const
+{
+    // values including member groups
+
+    QStringList items = optionValue( optionGroup );
+    QStringList itemsAndGroups = QStringList::QStringList();
+    for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
+        itemsAndGroups << *it ;
+    };
+    // add the groups to the listbox too, but only if the group is not there already, which will be the case
+    // if it has ever been selected once.
+    QStringList groups = _members.groups( optionGroup );
+    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
+        if ( ! items.contains(  *it ) )
+            itemsAndGroups << *it ;
+    };
+    if ( viewSortType() == SortAlpha )
+        itemsAndGroups.sort();
+    return itemsAndGroups;
+}
+
 
 bool Options::trustTimeStamps()
 {
@@ -574,6 +598,19 @@ void Options::setPreviewSize( int size )
 int Options::previewSize() const
 {
     return _previewSize;
+}
+
+void Options::setViewSortType( ViewSortType tp )
+{
+    if ( _viewSortType != tp ) {
+        _viewSortType = tp;
+        emit viewSortTypeChanged( tp );
+    }
+}
+
+Options::ViewSortType Options::viewSortType() const
+{
+    return _viewSortType;
 }
 
 #include "options.moc"

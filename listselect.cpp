@@ -23,7 +23,6 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qvalidator.h>
-#include "options.h"
 #include "imageinfo.h"
 #include <qpopupmenu.h>
 #include <klocale.h>
@@ -32,6 +31,8 @@
 #include <qapplication.h>
 #include "imagedb.h"
 #include <kio/job.h>
+#include <qtoolbutton.h>
+#include <kiconloader.h>
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -170,14 +171,35 @@ ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char*
     layout->addWidget( _listBox );
     _listBox->installEventFilter( this );
 
+    // Merge CheckBox
+    QHBoxLayout* lay2 = new QHBoxLayout( layout, 6 );
     _merge = new QCheckBox( i18n("Merge"),  this );
     _merge->setChecked( true );
-    layout->addWidget( _merge );
+    lay2->addWidget( _merge );
+    lay2->addStretch(1);
+
+    // Sorting tool button
+    _alphaSort = new QToolButton( this, "_alphaSort" );
+    _alphaSort->setIconSet( SmallIcon( QString::fromLatin1( "text" ) ) );
+    _dateSort = new QToolButton( this, "_dateSort" );
+    _dateSort->setIconSet( SmallIcon( QString::fromLatin1( "date" ) ) );
+    _alphaSort->setToggleButton( true );
+    _dateSort->setToggleButton( true );
+    _alphaSort->setOn( Options::ViewSortType() == Options::SortAlpha );
+    _dateSort->setOn( Options::ViewSortType() == Options::SortLastUse );
+    connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );
+    connect( _alphaSort, SIGNAL( clicked() ), this, SLOT( slotSortAlpha() ) );
+
+    lay2->addWidget( _alphaSort );
+    lay2->addWidget( _dateSort );
 
     _lineEdit->setListBox( _listBox );
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
 
     populate();
+
+    connect( Options::instance(), SIGNAL( viewSortTypeChanged( Options::ViewSortType ) ),
+             this, SLOT( setViewSortType( Options::ViewSortType ) ) );
 }
 
 void ListSelect::setOptionGroup( const QString& optionGroup )
@@ -202,8 +224,21 @@ void ListSelect::slotReturn()
 
         // move item to front
         _listBox->takeItem( item );
-        _listBox->insertItem( item, 0 );
-        _listBox->setContentsPos( 0,0 );
+        if ( Options::instance()->viewSortType() == Options::SortLastUse ) {
+            _listBox->insertItem( item, 0 );
+            _listBox->setContentsPos( 0,0 );
+        }
+        else {
+            QListBoxItem* lbi = 0;
+            for ( lbi = _listBox->firstItem(); lbi && lbi->text().lower() < txt.lower(); lbi = lbi->next() ) {};
+
+            if ( !lbi ) {
+                _listBox->insertItem( item );
+            }
+            else {
+                _listBox->insertItem( item, lbi->prev() );
+            }
+        }
 
         _listBox->setSelected( item,  true );
         _lineEdit->clear();
@@ -261,6 +296,22 @@ void ListSelect::setMode( Mode mode )
     }
 }
 
+
+void ListSelect::setViewSortType( Options::ViewSortType tp )
+{
+    // set sortType and redisplay with new sortType
+    QString text = _lineEdit->text();
+    QStringList list = selection();
+    populate();
+    setSelection( list );
+    _lineEdit->setText( text );
+    setMode( _mode );	// generate the ***NONE*** entry if in search mode
+
+    _alphaSort->setOn( tp == Options::SortAlpha );
+    _dateSort->setOn( tp == Options::SortLastUse );
+}
+
+
 QString ListSelect::text() const
 {
     return _lineEdit->text();
@@ -274,6 +325,11 @@ void ListSelect::setText( const QString& text )
 
 void ListSelect::itemSelected( QListBoxItem* item )
 {
+    if ( !item ) {
+        // click outside any item
+        return;
+    }
+
     if ( _mode == SEARCH )  {
         QString txt = item->text();
         QString res;
@@ -314,19 +370,36 @@ void ListSelect::itemSelected( QListBoxItem* item )
 
 void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 {
-    if ( !item ) {
-        // click outside any item
-        return;
-    }
-
     QPopupMenu menu( this );
-    QLabel* title = new QLabel( QString::fromLatin1("<qt><b>%1</b></qt>").arg(item->text()), &menu );
-    title->setAlignment( Qt::AlignCenter );
-    menu.insertItem( title );
+
+    // click on any item
+    QString title = i18n("No Item Selected");
+    if ( item )
+        title = item->text();
+
+    QLabel* label = new QLabel( QString::fromLatin1("<qt><b>%1</b></qt>").arg(title), &menu );
+    label->setAlignment( Qt::AlignCenter );
+    menu.insertItem( label );
     menu.insertSeparator();
 
-    menu.insertItem( i18n("Delete"), 1 );
-    menu.insertItem( i18n("Rename"), 2 );
+
+	menu.insertItem( i18n("Delete"), 1 );
+	menu.insertItem( i18n("Rename"), 2 );
+	menu.insertSeparator();
+    if ( !item ) {
+        menu.setItemEnabled( 1, false );
+        menu.setItemEnabled( 2, false );
+    }
+
+    QLabel* sortTitle = new QLabel( i18n("<qt><b>Sorting</b></qt>"), &menu );
+    sortTitle->setAlignment( Qt::AlignCenter );
+    menu.insertItem( sortTitle );
+    menu.insertSeparator();
+    menu.insertItem( i18n("Usage"), 3 );
+    menu.insertItem( i18n("Alphabetical"), 4 );
+    menu.setItemChecked(3, Options::instance()->viewSortType() == Options::SortLastUse);
+    menu.setItemChecked(4, Options::instance()->viewSortType() == Options::SortAlpha);
+
     int which = menu.exec( pos );
     if ( which == 1 ) {
         int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
@@ -365,6 +438,12 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
             }
         }
     }
+    else if ( which == 3 ) {
+        Options::instance()->setViewSortType( Options::SortLastUse );
+    }
+    else if ( which == 4 ) {
+        Options::instance()->setViewSortType( Options::SortAlpha );
+    }
 }
 
 
@@ -372,16 +451,8 @@ void ListSelect::populate()
 {
     _label->setText( Options::instance()->textForOptionGroup( _optionGroup ) );
     _listBox->clear();
-    QStringList items = Options::instance()->optionValue( _optionGroup );
+    QStringList items = Options::instance()->optionValueInclGroups( _optionGroup );
     _listBox->insertStringList( items );
-
-    // add the groups to the listbox too, but only if the group is not there already, which will be the case
-    // if it has ever been selected once.
-    QStringList groups = Options::instance()->memberMap().groups( _optionGroup );
-    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
-        if ( ! items.contains(  *it ) )
-            _listBox->insertItem( *it );
-    }
 }
 
 /**
@@ -396,6 +467,16 @@ bool ListSelect::eventFilter( QObject* object, QEvent* event )
          static_cast<QMouseEvent*>(event)->button() == Qt::RightButton )
         return true;
     return QWidget::eventFilter( object, event );
+}
+
+void ListSelect::slotSortDate()
+{
+    Options::instance()->setViewSortType( Options::SortLastUse );
+}
+
+void ListSelect::slotSortAlpha()
+{
+    Options::instance()->setViewSortType( Options::SortAlpha );
 }
 
 #include "listselect.moc"

@@ -46,11 +46,16 @@ public:
     void setViewerSize( int width, int height );
     QSize viewerSize() const;
 
+    enum ViewSortType { SortLastUse, SortAlpha };
+    void setViewSortType( ViewSortType );
+    ViewSortType viewSortType() const;
+
     // -------------------------------------------------- Options
     void setOption( const QString& optionGroup,  const QStringList& value );
     void addOption( const QString& optionGroup,  const QString& value );
     void removeOption( const QString& optionGroup, const QString& value );
     QStringList optionValue( const QString& optionGroup ) const;
+    QStringList optionValueInclGroups( const QString& optionGroup ) const;
     void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
     QString fileForCategoryImage(  const QString& optionGroup, QString member ) const;
@@ -155,6 +160,7 @@ signals:
     void renamedOption( const QString& optionGroup, const QString& oldName, const QString& newName );
     void deletedOption( const QString& optionGroup, const QString& name );
     void locked( bool lock, bool exclude );
+    void viewSortTypeChanged( Options::ViewSortType );
 
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
@@ -179,6 +185,7 @@ private:
     ImageSearchInfo _currentScope;
     bool _locked, _exclude;
     QString _passwd;
+    ViewSortType _viewSortType;
 };
 
 #endif /* OPTIONS_H */

@@ -389,7 +389,9 @@ void Import::createOptionPages()
         ImageInfo* info = *it;
         QStringList opts = info->availableOptionGroups();
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
-            if ( !options.contains( *optsIt ) )
+            if ( !options.contains( *optsIt ) &&
+                 (*optsIt) != QString::fromLatin1( "Folder" ) &&
+                 (*optsIt) != QString::fromLatin1( "Tokens" ) )
                 options.append( *optsIt );
         }
     }
@@ -450,7 +452,7 @@ void Import::next()
         {
             OptionMatch* match = *it;
             if ( match->_checkbox->isChecked() ) {
-                matcher = createOptionPage( match->_combobox->currentText(), match->_checkbox->text() );
+                matcher = createOptionPage( match->_combobox->currentText(), match->_text );
                 _matchers.append( matcher );
             }
         }
@@ -594,7 +596,7 @@ void Import::updateDB()
             for( QValueList<OptionMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
                 if ( !(*optionIt)->_checkbox->isChecked() )
                     continue;
-                QString otherOption = (*optionIt)->_checkbox->text();
+                QString otherOption = (*optionIt)->_text;
                 QString myOption = (*optionIt)->_combobox->currentText();
 
                 if ( info->hasOption( otherGrp, otherOption ) ) {

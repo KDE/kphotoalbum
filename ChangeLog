@@ -1,3 +1,7 @@
+2005-04-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: The import dialog was broken with new versions of Qt.
+
 2005-03-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added member group config to context menu of list select (which

@@ -29,6 +29,7 @@ public:
     OptionMatch( bool allowNew, const QString& optioin, QStringList myOptionList, QWidget* parent, QGridLayout* grid, int row );
     QCheckBox* _checkbox;
     QComboBox* _combobox;
+    QString _text;
 };
 
 

@@ -66,6 +66,7 @@ ImportMatcher::ImportMatcher( const QString& otherOptionGroup, const QString& my
 OptionMatch::OptionMatch( bool allowNew, const QString& option, QStringList options, QWidget* parent, QGridLayout* grid, int row )
 {
     _checkbox = new QCheckBox( option, parent );
+    _text = option; // We can't just use QCheckBox::text() as Qt adds accelerators.
     _checkbox->setChecked( true );
     grid->addWidget( _checkbox, row, 0 );
 

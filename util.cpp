@@ -46,6 +46,8 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
             opt.setAttribute( QString::fromLatin1( "text" ), (*optionGroupInfo)[name]._text );
             opt.setAttribute( QString::fromLatin1( "icon" ), (*optionGroupInfo)[name]._icon );
             opt.setAttribute( QString::fromLatin1( "show" ), (*optionGroupInfo)[name]._show );
+            opt.setAttribute( QString::fromLatin1( "viewsize" ), (*optionGroupInfo)[name]._size );
+            opt.setAttribute( QString::fromLatin1( "viewtype" ), (*optionGroupInfo)[name]._type );
         }
 
         QStringList list = options[name];
@@ -83,9 +85,9 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
                     QString text= elmOption.attribute( QString::fromLatin1("text"), name );
                     QString icon= elmOption.attribute( QString::fromLatin1("icon") );
                     Options::ViewSize size =
-                        (Options::ViewSize) elmOption.attribute( QString::fromLatin1("size"), QString::fromLatin1( "0" ) ).toInt();
+                        (Options::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
                     Options::ViewType type =
-                        (Options::ViewType) elmOption.attribute( QString::fromLatin1("type"), QString::fromLatin1( "0" ) ).toInt();
+                        (Options::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
                     bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                             QString::fromLatin1( "1" ) ).toInt();
                     (*optionGroupInfo)[name] = Options::OptionGroupInfo( text, icon, size, type, show );

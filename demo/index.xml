@@ -6,14 +6,14 @@
   </SearchInfo>
  </config>
  <options>
-  <option icon="password" name="Keywords" show="1" text="Keywords" >
+  <option viewtype="0" viewsize="0" icon="password" name="Keywords" show="1" text="Keywords" >
    <value value="beers" />
    <value value="holiday" />
    <value value="new wave" />
    <value value="silo falls over" />
    <value value="Anne Helene's 30 years birthday" />
   </option>
-  <option icon="network" name="Locations" show="1" text="Locations" >
+  <option viewtype="0" viewsize="0" icon="network" name="Locations" show="1" text="Locations" >
    <value value="Santa Clara" />
    <value value="Mallorca" />
    <value value="Grand Canyon" />
@@ -22,7 +22,7 @@
    <value value="Rhodos" />
    <value value="Esbjerg" />
   </option>
-  <option icon="personal" name="Persons" show="1" text="Persons" >
+  <option viewtype="1" viewsize="1" icon="personal" name="Persons" show="1" text="Persons" >
    <value value="Spiff" />
    <value value="Anne Helene" />
    <value value="Jesper" />

@@ -30,6 +30,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include "showbusycursor.h"
+#include <qtextedit.h>
 
 InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Search for Images with Missing Dates" ), Cancel | Ok, Ok, parent, name )
@@ -42,6 +43,7 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
 
     _dateNotTime = new QRadioButton( i18n( "Search for images with a valid date but invalid time stamp"), grp );
     _missingDate = new QRadioButton( i18n( "Search for images missing date and time" ), grp );
+    _missingYear = new QRadioButton( i18n( "Search for images missing year information" ), grp );
     _partialDate = new QRadioButton( i18n( "Search for images with only partial dates (like 1971 vs. 11/7-1971)"), grp );
     _dateNotTime->setChecked( true );
 }
@@ -49,6 +51,16 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
 void InvalidDateFinder::slotOk()
 {
     ShowBusyCursor dummy;
+
+    // create the info dialog
+    KDialogBase* info = new KDialogBase(  Plain, i18n("Image Info" ), Ok, Ok, 0, "infobox", false );
+    QWidget* top = info->plainPage();
+    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    QTextEdit* edit = new QTextEdit( top );
+    lay1->addWidget( edit );
+    edit->setText( i18n("<h1>Here you may see the image date changes for the displayed images.</h1>") );
+
+    // Now search for the images.
     ImageInfoList list = ImageDB::instance()->images();
     KProgressDialog dialog( 0, "progress dialog", i18n("Reading file properties"),
                             i18n("Reading file properties"), true );
@@ -68,18 +80,35 @@ void InvalidDateFinder::slotOk()
             if ( fi.date() == (*it)->startDate().getDate() )
                 show = ( fi.time() != (*it)->startDate().getTime() );
             if ( show ) {
-                qDebug("%s: %s<->%s", (*it)->fileName().latin1(),
-                       fi.time().toString().latin1(), (*it)->startDate().getTime().toString().latin1());
+                edit->append( QString::fromLatin1("%1:<br>existing = %2 %3<br>new..... = %4 %5" )
+                              .arg((*it)->fileName()).arg((*it)->startDate().getDate().toString()).arg((*it)->startDate().getTime().toString())
+                              .arg(fi.date().toString()).arg( fi.time().toString() ) );
             }
         }
         else if ( _missingDate->isChecked() ) {
-            show = ( date.year() == 0 ); // For things to work, we really need a year.
+            show = ( date.year() == 0  && date.month() == 0 && date.day() == 0);
+        }
+        else if ( _missingYear->isChecked() ) {
+            show = ( date.year() == 0 );
         }
         else if ( _partialDate->isChecked() ) {
-            show = (date.year() == 0 || date.month() == 0 || date.day() == 0);
+            show = (date.year() == 0 || date.month() == 0 || date.day() == 0) && (date.year() != 0 || date.month() != 0 || date.day() != 0 );
         }
 
         (*it)->setVisible( show );
     }
+
+    if ( _dateNotTime->isChecked() ) {
+        info->resize( 800, 600 );
+        edit->setCursorPosition( 0,0 );
+        edit->setReadOnly( true );
+        QFont f = edit->font();
+        f.setFamily( QString::fromLatin1( "fixed" ) );
+        edit->setFont( f );
+        info->show();
+    }
+    else
+        delete info;
+
     KDialogBase::slotOk();
 }

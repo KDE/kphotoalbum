@@ -693,6 +693,8 @@ void MainView::setupMenuBar()
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date && Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
+    _jumpToContext = new KAction( i18n("Jump to Context"), 0, this, SLOT( slotJumpToContext() ), actionCollection(), "jumpToContext" );
+
 
     _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
                          actionCollection(), "lockToDefaultScope" );
@@ -1429,6 +1431,15 @@ void MainView::slotShowImagesWithInvalidDate()
 void MainView::showDateBarTip( const QString& msg )
 {
     statusBar()->message( msg, 3000 );
+}
+
+void MainView::slotJumpToContext()
+{
+    QIconViewItem* item =_thumbNailView->currentItem();
+    if ( item ) {
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        _browser->addImageView( tn->imageInfo() );
+    }
 }
 
 #include "mainview.moc"

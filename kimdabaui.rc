@@ -22,8 +22,10 @@
       <Action name="runSlideShow"/>
       <Action name="runRandomizedSlideShow"/>
       <Separator/>
-      <Action name="sortImages" />
+      <Action name="jumpToContext"/>
       <Action name="limitToMarked" />
+      <Separator/>
+      <Action name="sortImages" />
       <Menu name="privacy">
         <text>Privacy</text>
         <Action name="lockToDefaultScope"/>

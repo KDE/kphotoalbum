@@ -24,6 +24,7 @@
 #include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include "thumbnailview.h"
 
 ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _from(-1), _to(-1)
@@ -82,6 +83,8 @@ void ImageFolderAction::action( BrowserItemFactory* )
         // Only add extra items the first time the action is executed.
         _addExtraToBrowser = false;
     }
+    if ( _context )
+        ThumbNailView::theThumbnailView()->makeCurrent( _context );
 }
 
 FolderAction* ImageFolder::action( bool /* ctrlDown */ )
@@ -90,8 +93,14 @@ FolderAction* ImageFolder::action( bool /* ctrlDown */ )
 }
 
 ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, int from, int to,  Browser* browser )
-    : FolderAction( info, browser ), _from(from), _to(to), _addExtraToBrowser( true )
+    : FolderAction( info, browser ), _from(from), _to(to), _addExtraToBrowser( true ), _context( 0 )
 {
+}
+
+ImageFolderAction::ImageFolderAction( ImageInfo* context, Browser* browser )
+    :FolderAction( ImageSearchInfo(), browser ), _from(-1), _to(-1), _addExtraToBrowser(false), _context( context )
+{
+
 }
 
 QString ImageFolder::countLabel() const

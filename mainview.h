@@ -111,6 +111,7 @@ protected slots:
     void updateDateBar( const QString& );
     void slotShowImagesWithInvalidDate();
     void showDateBarTip( const QString& );
+    void slotJumpToContext();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -151,6 +152,7 @@ private:
     KAction* _unlock;
     KAction* _setDefaultPos;
     KAction* _setDefaultNeg;
+    KAction* _jumpToContext;
     HTMLExportDialog* _htmlDialog;
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;

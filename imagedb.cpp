@@ -628,9 +628,9 @@ void ImageDB::checkIfImagesAreSorted()
 
     if ( wrongOrder ) {
         KMessageBox::information( MainView::theMainView(),
-                                  i18n("<qt><p>Your images are not sorted, which meams that navigating using the date bar "
-                                       "will not work properly (it will not jump to the right images).</p>"
-                                       "<p>In the <b>Maintainance</b> menu, you will find <b>Display Images with Incomplete Dates</b> "
+                                  i18n("<qt><p>Your images are not sorted, which means that navigating using the date bar "
+                                       "will only work suboptimal.</p>"
+                                       "<p>In the <b>Maintenance</b> menu, you will find <b>Display Images with Incomplete Dates</b> "
                                        "which you may use to find the images that are missing date infomation.</p>"
                                        "Next you may select those images that you have reason to believe have correct date "
                                        "in either the EXIF data or on the file, and execute <b>Maintainance->read exif info</b> "

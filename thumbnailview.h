@@ -30,6 +30,8 @@ class ThumbNailView :public KIconView {
 
 public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
+    static ThumbNailView* theThumbnailView();
+    void makeCurrent( ImageInfo* info );
 
 public slots:
     void reload();
@@ -61,6 +63,7 @@ protected:
     virtual void drawBackground ( QPainter * p, const QRect & r );
 
 private:
+    static ThumbNailView* _instance;
     ThumbNail* _currentHighlighted;
     IconViewToolTip* _iconViewToolTip;
 };

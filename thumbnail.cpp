@@ -49,16 +49,6 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* par
 
 void ThumbNail::init()
 {
-#ifdef TEMPORARILY_REMOVED
-    int size = Options::instance()->thumbSize();
-
-    _pixmap.resize( size, size );
-    QPainter painter( &_pixmap );
-    painter.fillRect( 0, 0,  size, size,  white );
-    painter.drawRect( 0, 0, size, size );
-    setPixmap( _pixmap );
-    ImageManager::instance()->load( _imageInfo->fileName(),  this, _imageInfo->angle(), size, size, true, false );
-#endif
     setDropEnabled( true );
 }
 

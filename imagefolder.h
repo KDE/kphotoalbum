@@ -37,6 +37,7 @@ class ImageFolderAction :public FolderAction
 {
 public:
     ImageFolderAction( const ImageSearchInfo& info, int from, int to, Browser* browser );
+    ImageFolderAction( ImageInfo* context, Browser* parent );
     virtual void action( BrowserItemFactory* );
     virtual bool showsImages() const { return true; }
     virtual bool contentView() const { return false; }
@@ -44,6 +45,7 @@ public:
 private:
     int _from, _to;
     bool _addExtraToBrowser;
+    ImageInfo* _context;
 };
 
 #endif /* IMAGEFOLDER_H */

@@ -1,3 +1,18 @@
+2004-12-30  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added the possibility to zoom out from current scope, thus
+	seeing the context of the current image
+
+	* Added Maintenance->Display Images with Incomplete Dates
+	this will help update images with missing or invalid dates.
+
+	* KimDaBa no longer splits images into a bunch of folders, but
+	does instead show them in one big collection, this makes the date
+	bar more powerful, plus allows you to scroll backwards.
+
+	* Added a date bar, that shows statistics about images, plus let
+	you navigate to a given date.
+
 2004-12-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added a AND checkbox to the search page, that allows to
@@ -12,11 +27,6 @@
 
 	* Postpone checking if images is on disk till the information is
 	needed, this speeds up start up with a couple of seconds.
-
-	* I've now started integrating my date bar, which shows statistics
-	about images, and hopefully will allow you to navigates using
-	dates.
-	
 
 2004-12-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 

@@ -36,6 +36,8 @@ public:
     Browser( QWidget* parent, const char* name = 0 );
     ~Browser();
     void addSearch( ImageSearchInfo& info );
+    void addImageView( ImageInfo* context );
+
     static Browser* instance();
     void load( const QString& category, const QString& value );
     bool allowSort();

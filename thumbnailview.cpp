@@ -33,9 +33,14 @@
 #include <qpainter.h>
 #include "imagedaterange.h"
 
+ThumbNailView* ThumbNailView::_instance = 0;
+
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :KIconView( parent,  name ), _currentHighlighted( 0 )
 {
+    Q_ASSERT( !_instance );
+    _instance = this;
+
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
 
@@ -289,6 +294,22 @@ void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
     }
     if ( candidate ) {
         setContentsPos( candidate->x()+4, candidate->y()+4 );
+    }
+}
+
+ThumbNailView* ThumbNailView::theThumbnailView()
+{
+    return _instance;
+}
+
+void ThumbNailView::makeCurrent( ImageInfo* info )
+{
+    for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        if ( tn->imageInfo() == info ) {
+            setCurrentItem( tn );
+            ensureItemVisible( tn );
+        }
     }
 }
 

@@ -22,10 +22,11 @@
 #include <klocale.h>
 #include "util.h"
 #include <kdebug.h>
+#include "optionmatcher.h"
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
-    : _label( label ), _description( description ), _isNull( false )
+    : _label( label ), _description( description ), _isNull( false ), _compiled( false ), _optionMatcher( 0 )
 {
     if ( endDate.isNull() ) {
         _startDate = startDate;
@@ -63,7 +64,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _isNull( true )
+    : _isNull( true ), _compiled( false ), _optionMatcher( 0 )
 {
 }
 
@@ -72,8 +73,11 @@ bool ImageSearchInfo::isNull()
     return _isNull;
 }
 
-bool ImageSearchInfo::match( ImageInfo* info )
+bool ImageSearchInfo::match( ImageInfo* info ) const
 {
+    if ( !_compiled )
+        compile();
+
     bool ok = true;
 
     // Date
@@ -100,10 +104,14 @@ bool ImageSearchInfo::match( ImageInfo* info )
 
 
     // -------------------------------------------------- Options
-    QStringList grps = Options::instance()->optionGroups();
+    ok &= _optionMatcher->eval( info );
+
+#ifdef TEMPORARILY_REMOVED
+ QStringList grps = Options::instance()->optionGroups();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         ok &= stringMatch( *it, info );
     }
+#endif
 
     // -------------------------------------------------- Label
     ok &= ( _label.isEmpty() || info->label().find(_label) != -1 );
@@ -118,6 +126,7 @@ bool ImageSearchInfo::match( ImageInfo* info )
     return ok;
 }
 
+#ifdef TEMPORARILY_REMOVED
 bool ImageSearchInfo::stringMatch( const QString& key, ImageInfo* info )
 {
     // PENDING(blackie) to simple algorithm for matching, could be improved with parentheses.
@@ -152,6 +161,7 @@ bool ImageSearchInfo::stringMatch( const QString& key, ImageInfo* info )
 
     return orTrue;
 }
+#endif
 
 QString ImageSearchInfo::option( const QString& name ) const
 {
@@ -162,6 +172,7 @@ void ImageSearchInfo::setOption( const QString& name, const QString& value )
 {
     _options[name] = value;
     _isNull = false;
+    _compiled = false;
 }
 
 void ImageSearchInfo::addAnd( const QString& group, const QString& value )
@@ -174,6 +185,7 @@ void ImageSearchInfo::addAnd( const QString& group, const QString& value )
 
     setOption( group, val );
     _isNull = false;
+    _compiled = false;
 }
 
 void ImageSearchInfo::setStartDate( const ImageDate& date )
@@ -215,6 +227,7 @@ QString ImageSearchInfo::toString() const
     return res;
 }
 
+#ifdef TEMPORARILY_REMOVED
 bool ImageSearchInfo::hasOption( ImageInfo* info, const QString& key, const QString& str )
 {
     QStringList list = Options::instance()->memberMap().members( key, str, true );
@@ -225,6 +238,7 @@ bool ImageSearchInfo::hasOption( ImageInfo* info, const QString& key, const QStr
     }
     return match;
 }
+#endif
 
 void ImageSearchInfo::debug()
 {
@@ -287,5 +301,51 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _label = other._label;
     _description = other._description;
     _isNull = other._isNull;
+    _compiled = false;
+    _optionMatcher = 0;
+}
+
+void ImageSearchInfo::compile() const
+{
+    delete _optionMatcher;
+    OptionAndMatcher* matcher = new OptionAndMatcher;
+
+    for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
+        QString optionGroup = it.key();
+        QString matchText = it.data();
+
+        if ( matchText == QString::fromLatin1( "**NONE**" ) ) {
+            matcher->addElement( new OptionEmptyMatcher( optionGroup ) );
+            continue;
+        }
+
+        // PENDING(blackie) to simple algorithm for matching, could be improved with parentheses.
+        QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
+        OptionOrMatcher* orMatcher = new OptionOrMatcher;
+
+        for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
+            QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
+
+            OptionAndMatcher* andMatcher = new OptionAndMatcher;
+            for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
+                QString str = *itAnd;
+                bool negate = false;
+                static QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
+                if ( regexp.exactMatch( str ) )  {
+                    negate = true;
+                    str = regexp.cap(1);
+                }
+                str = str.stripWhiteSpace();
+                OptionMatcher* valueMatcher = new OptionValueMatcher( optionGroup, str );
+                if ( negate )
+                    valueMatcher = new OptionNotMatcher( valueMatcher );
+                andMatcher->addElement( valueMatcher );
+            }
+            orMatcher->addElement( andMatcher );
+        }
+        matcher->addElement( orMatcher );
+    }
+    _compiled = true;
+    _optionMatcher = matcher->optimize();
 }
 

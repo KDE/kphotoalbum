@@ -1,3 +1,8 @@
+2004-01-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Heavily optimized browsing functions. Not everything is
+	hopefully lightning fast.
+
 2004-01-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* The thumbnail overview and the image viewer now has a menu item

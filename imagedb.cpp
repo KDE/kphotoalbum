@@ -290,7 +290,7 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
     GroupCounter counter( group );
 
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && const_cast<ImageSearchInfo&>(info).match( *it ); // PENDING(blackie) remove cast
+        bool match = !(*it)->isLocked() && info.match( *it );
         if ( match ) {
             QStringList list = (*it)->optionValue(group);
             counter.count( list );

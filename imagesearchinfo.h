@@ -22,6 +22,7 @@
 #include "imagedate.h"
 #include "imageinfo.h"
 #include <qdom.h>
+class OptionMatcher;
 
 class ImageSearchInfo {
 public:
@@ -42,7 +43,7 @@ public:
     QString description() const;
 
     bool isNull();
-    bool match( ImageInfo* );
+    bool match( ImageInfo* ) const;
 
     void addAnd( const QString& group, const QString& value );
     QString toString() const;
@@ -51,9 +52,13 @@ public:
     void load( QDomElement );
 
     void debug();
+
 protected:
+    void compile() const;
+#ifdef TEMPORARILY_REMOVED
     bool stringMatch( const QString& key, ImageInfo* info );
     bool hasOption( ImageInfo* info, const QString& key, const QString& str );
+#endif
 
 private:
     ImageDate _startDate;
@@ -62,6 +67,8 @@ private:
     QString _label;
     QString _description;
     bool _isNull;
+    mutable bool _compiled;
+    mutable OptionMatcher* _optionMatcher;
 };
 
 

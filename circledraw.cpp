@@ -22,10 +22,10 @@ CircleDraw::CircleDraw( QWidget* widget ) :Draw( widget )
 {
 }
 
-void CircleDraw::draw( QPainter& painter, QMouseEvent* event )
+void CircleDraw::draw( QPainter* painter, QMouseEvent* event )
 {
     Draw::draw( painter, event );
-    painter.drawEllipse( g2w(_startPos).x(), g2w(_startPos).y(), g2w(_lastPos).x()-g2w(_startPos).x(), g2w(_lastPos).y()-g2w(_startPos).y() );
+    painter->drawEllipse( g2w(_startPos).x(), g2w(_startPos).y(), g2w(_lastPos).x()-g2w(_startPos).x(), g2w(_lastPos).y()-g2w(_startPos).y() );
 }
 
 PointList CircleDraw::anchorPoints()

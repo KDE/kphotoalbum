@@ -25,7 +25,7 @@ void Draw::startDraw( QMouseEvent* event )
     _lastPos = QPoint();
 }
 
-void Draw::draw( QPainter&, QMouseEvent* event )
+void Draw::draw( QPainter*, QMouseEvent* event )
 {
     if ( event )
         _lastPos = w2g( event->pos() );

@@ -39,6 +39,7 @@
 #include <qsignalmapper.h>
 #include "showoptionaction.h"
 #include <qtimer.h>
+#include "drawhandler.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -51,42 +52,21 @@ Viewer::Viewer( QWidget* parent, const char* name )
     :QDialog( parent,  name )
 {
     _latest = this;
-    _label = new DisplayArea( this );
-    _label->move( 0,0 );
+
+    QVBoxLayout* layout = new QVBoxLayout( this );
+
+    _display = new DisplayArea( this ); // Must be created before the toolbar.
+    createToolBar();
+    _toolbar->hide();
+
+
+    layout->addWidget( _toolbar );
+    layout->addWidget( _display );
+
+    // This must not be added to the layout, as it is standing on top of
+    // the DisplayArea
     _infoBox = new InfoBox( this );
     _infoBox->setShown( Options::instance()->showInfoBox() );
-#if 0
-    KIconLoader loader;
-    KActionCollection* actions = new KActionCollection( this, "actions" );
-    _toolbar = new KToolBar( this );
-    _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
-                         0, _label, SLOT( slotSelect() ),actions, "_select");
-    _select->plug( _toolbar );
-    _select->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
-
-    _line = new KToggleAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
-                         0, _label, SLOT( slotLine() ),actions, "_line");
-    _line->plug( _toolbar );
-    _line->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
-
-    _rect = new KToggleAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
-                         0, _label, SLOT( slotRectangle() ),actions, "_rect");
-    _rect->plug( _toolbar );
-    _rect->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
-
-    _circle = new KToggleAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
-                           0, _label, SLOT( slotCircle() ),actions, "_circle");
-    _circle->plug( _toolbar );
-    _circle->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
-
-    _delete = KStdAction::cut( _label, SLOT( cut() ), actions, "cutAction" );
-    _delete->plug( _toolbar );
-
-    KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
-    close->plug( _toolbar );
-
-    _toolbar->hide();
-#endif
 
     setupContextMenu();
 }
@@ -145,7 +125,7 @@ void Viewer::setupContextMenu()
     action->setOn( Options::instance()->showInfoBox() );
 
     action = new QAction( i18n("Show Drawing"), QIconSet(), i18n("Show Drawing"), CTRL+Key_I, this, "showDrawing", true );
-    connect( action, SIGNAL( toggled( bool ) ), _label, SLOT( toggleShowDrawings( bool ) ) );
+    connect( action, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDrawings() );
 
@@ -188,9 +168,8 @@ void Viewer::load( const ImageInfoList& list, int index )
 
 void Viewer::load()
 {
-    _label->setDrawList( currentInfo()->drawList() );
-    _label->setText( i18n("Loading...") );
-    _label->setImage( currentInfo() );
+    _display->drawHandler()->setDrawList( currentInfo()->drawList() );
+    _display->setImage( currentInfo() );
     updateInfoBox();
 
     _nextAction->setEnabled( _current +1 < (int) _list.count() );
@@ -225,23 +204,12 @@ void Viewer::showPrev()
 
 void Viewer::zoomIn()
 {
-#if 0
-    _width = _width*4/3;
-    _height = _height*4/3;
-    resize( _width, _height );
-    load();
-#endif
+    qDebug("NYI!");
 }
 
 void Viewer::zoomOut()
 {
-#if 0
-    _width = _width*3/4;
-    _height = _height*3/4;
-    _label->setMinimumSize(0,0);
-    resize( _width, _height );
-    load();
-#endif
+    qDebug("NYI!");
 }
 
 void Viewer::rotate90()
@@ -307,23 +275,20 @@ void Viewer::closeEvent( QCloseEvent* )
 
 void Viewer::save()
 {
-    currentInfo()->setDrawList( _label->drawList() );
+    currentInfo()->setDrawList( _display->drawHandler()->drawList() );
 }
 
 void Viewer::startDraw()
 {
-    _label->slotSelect();
-#if 0
+    _display->startDrawing();
+    _display->drawHandler()->slotSelect();
     _toolbar->show();
-#endif
 }
 
 void Viewer::stopDraw()
 {
-    _label->stopDrawings();
-#if 0
+    _display->stopDrawing();
     _toolbar->hide();
-#endif
 }
 
 void Viewer::close()
@@ -342,10 +307,10 @@ void Viewer::infoBoxMove()
     QPoint p = mapFromGlobal( QCursor::pos() );
     Options::Position oldPos = Options::instance()->infoBoxPosition();
     Options::Position pos = oldPos;
-    int x = _label->mapFromParent( p ).x();
-    int y = _label->mapFromParent( p ).y();
-    int w = _label->width();
-    int h = _label->height();
+    int x = _display->mapFromParent( p ).x();
+    int y = _display->mapFromParent( p ).y();
+    int w = _display->width();
+    int h = _display->height();
 
     if ( x < w/3 )  {
         if ( y < h/3  )
@@ -379,10 +344,10 @@ void Viewer::moveInfoBox()
 {
     Options::Position pos = Options::instance()->infoBoxPosition();
 
-    int lx = _label->pos().x();
-    int ly = _label->pos().y();
-    int lw = _label->width();
-    int lh = _label->height();
+    int lx = _display->pos().x();
+    int ly = _display->pos().y();
+    int lw = _display->width();
+    int lh = _display->height();
 
     int bw = _infoBox->width();
     int bh = _infoBox->height();
@@ -408,10 +373,10 @@ void Viewer::moveInfoBox()
     _infoBox->move(bx,by);
 }
 
-void Viewer::resizeEvent( QResizeEvent* )
+void Viewer::resizeEvent( QResizeEvent* e )
 {
-    _label->resize( size() );
     moveInfoBox();
+    QDialog::resizeEvent( e );
 }
 
 void Viewer::updateInfoBox()
@@ -429,6 +394,39 @@ Viewer::~Viewer()
 {
     if ( _latest == this )
         _latest = 0;
+}
+
+void Viewer::createToolBar()
+{
+    KIconLoader loader;
+    KActionCollection* actions = new KActionCollection( this, "actions" );
+    _toolbar = new KToolBar( this );
+    DrawHandler* handler = _display->drawHandler();
+    _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
+                         0, handler, SLOT( slotSelect() ),actions, "_select");
+    _select->plug( _toolbar );
+    _select->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
+
+    _line = new KToggleAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
+                         0, handler, SLOT( slotLine() ),actions, "_line");
+    _line->plug( _toolbar );
+    _line->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
+
+    _rect = new KToggleAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
+                         0, handler, SLOT( slotRectangle() ),actions, "_rect");
+    _rect->plug( _toolbar );
+    _rect->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
+
+    _circle = new KToggleAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
+                           0, handler, SLOT( slotCircle() ),actions, "_circle");
+    _circle->plug( _toolbar );
+    _circle->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
+
+    _delete = KStdAction::cut( handler, SLOT( cut() ), actions, "cutAction" );
+    _delete->plug( _toolbar );
+
+    KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
+    close->plug( _toolbar );
 }
 
 #include "viewer.moc"

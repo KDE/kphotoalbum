@@ -46,7 +46,7 @@ protected:
     virtual void closeEvent( QCloseEvent* e );
     virtual void resizeEvent( QResizeEvent* );
     void moveInfoBox();
-
+    void createToolBar();
 
     void load();
     void updateInfoBox();
@@ -80,7 +80,7 @@ private:
     QAction* _nextAction;
     QAction* _prevAction;
 
-    DisplayArea* _label;
+    DisplayArea* _display;
     ImageInfoList _list;
     int _current;
     QRect _textRect;
@@ -88,14 +88,12 @@ private:
     int _width, _height;
     QPixmap _pixmap;
 
-#if 0
     KToolBar* _toolbar;
     KToggleAction* _select;
     KToggleAction* _line;
     KToggleAction* _rect;
     KToggleAction* _circle;
     KAction* _delete;
-#endif
 
     InfoBox* _infoBox;
     QImage _currentImage;

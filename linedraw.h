@@ -25,7 +25,7 @@ class LineDraw :public Draw
 public:
     LineDraw( QWidget* widget = 0 );
     LineDraw( QDomElement elm );
-    void draw( QPainter&, QMouseEvent* );
+    void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints();
     virtual Draw* clone();
     virtual QDomElement save( QDomDocument doc );

@@ -27,185 +27,68 @@
 #include "imageinfo.h"
 #include "imagemanager.h"
 #include "imageloader.h"
+#include "viewhandler.h"
+#include "drawhandler.h"
+#include <qwmatrix.h>
+#include <qlabel.h>
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
-    :QLabel( parent, name ), _tool( None ), _activeTool( 0 )
+    :QWidget( parent, name )
 {
-    setAlignment( AlignCenter );
-//    setBackgroundMode( NoBackground );
-    setPaletteBackgroundColor( black );
-}
+    setBackgroundMode( NoBackground );
 
-void DisplayArea::slotLine()
-{
-    _tool = Line;
-    drawAll();
-}
+    _viewHandler = new ViewHandler( this );
+    _drawHanler = new DrawHandler( this );
+    _currentHandler = _viewHandler;
 
-void DisplayArea::slotRectangle()
-{
-    _tool = Rectangle;
-    drawAll();
-}
-
-void DisplayArea::slotCircle()
-{
-    _tool = Circle;
-    drawAll();
+    connect( _drawHanler, SIGNAL( redraw() ), this, SLOT( drawAll() ) );
 }
 
 void DisplayArea::mousePressEvent( QMouseEvent* event )
 {
-    if ( _tool == None )
-        QLabel::mousePressEvent( event );
-    else if ( _tool == Select )  {
-        _activeTool = findShape( event->pos() );
-        drawAll();
-        if ( !_activeTool )
-            QLabel::mousePressEvent( event );
-    }
-    else {
-        _activeTool = createTool();
-        _activeTool->startDraw( event );
-    }
+    bool block = _currentHandler->mousePressEvent( event );
+    if ( !block )
+        QWidget::mousePressEvent( event );
+    update();
 }
 
 void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( _activeTool && _tool != Select && _tool != None) {
-        QPixmap pix = _curPixmap;
-        QPainter painter( &pix );
-        setupPainter( painter );
-        _activeTool->draw( painter, event );
-        QLabel::setPixmap( pix );
-    }
-    else
-        QLabel::mouseMoveEvent( event );
+    bool block = _currentHandler->mouseMoveEvent( event );
+    if ( !block )
+        QWidget::mousePressEvent( event );
+    update();
 }
 
 void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
-    if ( _tool == Select || _tool == None ) {
-        QLabel::mouseReleaseEvent( event );
-    }
-    else if ( _activeTool ) {
-        QPixmap pix = _curPixmap;
-        QPainter painter( &pix );
-        setupPainter( painter );
-        _activeTool->draw( painter, event );
-        _curPixmap = pix;
-        QLabel::setPixmap( pix );
-        _drawings.append( _activeTool );
-    }
-    else
-        QLabel::mouseReleaseEvent( event );
-}
-
-Draw* DisplayArea::createTool()
-{
-    switch ( _tool ) {
-    case Line: return new LineDraw( this );
-    case Rectangle: return new RectDraw( this );
-    case Circle: return new CircleDraw( this );
-    default:
-    {
-        Q_ASSERT( false );
-        return 0;
-    }
-    }
-}
-
-void DisplayArea::setPixmap( const QPixmap& pixmap )
-{
-    _origPixmap = pixmap;
-    drawAll();
-    QLabel::setPixmap( _curPixmap );
+    bool block = _currentHandler->mouseReleaseEvent( event );
+    if ( !block )
+        QWidget::mousePressEvent( event );
+    update();
 }
 
 void DisplayArea::drawAll()
 {
-    _curPixmap = _origPixmap;
-    if ( _curPixmap.isNull() )
+    if ( _loadedPixmap.isNull() )
         return;
 
-    QPainter painter( &_curPixmap );
-    if ( Options::instance()->showDrawings() || _tool != None ) {
-        for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
-            painter.save();
-            setupPainter( painter );
-            (*it)->draw( painter, 0 );
-            painter.restore();
-            if ( _tool == Select ) {
-                PointList list = (*it)->anchorPoints();
-                for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-                    QPoint point = *it2;
-                    painter.save();
-                    if ( *it == _activeTool )
-                        painter.setBrush( Qt::red );
-                    else
-                        painter.setBrush( Qt::blue );
-                    painter.drawRect( point.x()-4, point.y()-4, 8, 8 );
-                    painter.restore();
-                }
-            }
-        }
-    }
-    QLabel::setPixmap( _curPixmap );
+    _drawingPixmap = scalePixmap(_loadedPixmap, width(), height() );
+    if ( Options::instance()->showDrawings() )
+         _drawHanler->drawAll( _drawingPixmap );
+    _viewPixmap = _drawingPixmap;
+    update();
 }
 
-void DisplayArea::slotSelect()
+void DisplayArea::startDrawing()
 {
-    _tool = Select;
-    _activeTool = 0;
-    drawAll();
+    _currentHandler = _drawHanler;
 }
 
-Draw* DisplayArea::findShape( const QPoint& pos)
+void DisplayArea::stopDrawing()
 {
-    for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
-        PointList list = (*it)->anchorPoints();
-        for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            QPoint point = *it2;
-            QRect rect( point.x()-4, point.y()-4, 8, 8 );
-            if ( rect.contains( pos ) )
-                return *it;
-        }
-    }
-    return 0;
-}
-
-void DisplayArea::cut()
-{
-    if ( _activeTool )  {
-        _drawings.remove( _activeTool );
-        delete _activeTool;
-        _activeTool = 0;
-        drawAll();
-    }
-}
-
-void DisplayArea::setupPainter( QPainter& painter )
-{
-    painter.setPen( QPen( Qt::black, 3 ) );
-}
-
-DrawList DisplayArea::drawList() const
-{
-    return _drawings;
-}
-
-void DisplayArea::setDrawList( const DrawList& list )
-{
-    _drawings.setWidget( 0 );
-    _drawings = list;
-    _drawings.setWidget( this );
-    drawAll();
-}
-
-void DisplayArea::stopDrawings()
-{
-    _activeTool = 0;
-    _tool = None;
+    _drawHanler->stopDrawing();
+    _currentHandler = _viewHandler;
     drawAll();
 }
 
@@ -223,23 +106,56 @@ void DisplayArea::setImage( ImageInfo* info )
 
 void DisplayArea::pixmapLoaded( const QString&, int, int, int, const QImage& image )
 {
-    _currentImage= image;
-    QImage img = ImageLoader::rotateAndScale( _currentImage, width(), height(), _info->angle() );
-
-    QPixmap pixmap;
-    pixmap.convertFromImage( img );
-    setPixmap( pixmap );
+    _loadedPixmap = image;
+    drawAll();
+    update();
 }
 
 void DisplayArea::resizeEvent( QResizeEvent* )
 {
-    if ( !_currentImage.isNull() ) {
-        QImage img = ImageLoader::rotateAndScale( _currentImage, width(), height(), _info->angle() );
+    drawAll();
+}
 
-        QPixmap pixmap;
-        pixmap.convertFromImage( img );
-        setPixmap( pixmap );
+DrawHandler* DisplayArea::drawHandler()
+{
+    return _drawHanler;
+}
+
+QPainter* DisplayArea::painter()
+{
+    _viewPixmap = _drawingPixmap;
+    QPainter* p = new QPainter( &_viewPixmap );
+    return p;
+}
+
+void DisplayArea::paintEvent( QPaintEvent* )
+{
+    bitBlt( this, 0,0, &_viewPixmap );
+}
+
+QPixmap DisplayArea::scalePixmap( QPixmap pix, int width, int height )
+{
+    double pixWidth = pix.width();
+    double pixHeight = pix.height();
+    double ratio = width/pixWidth;
+
+    if ( ratio * pixHeight > height ) {
+        ratio = height/pixHeight;
+        Q_ASSERT( ratio*pixWidth <= width );
     }
+
+    QWMatrix matrix;
+    matrix.scale( ratio, ratio );
+
+    int ox = (int) ((width - pixWidth*ratio)/ratio)/2;
+    int oy = (int) ((height - pixHeight*ratio)/ratio)/2;
+
+    QPixmap res( width, height );
+    res.fill( black );
+    QPainter p(&res );
+    p.setWorldMatrix( matrix );
+    p.drawPixmap( ox, oy, pix );
+    return res;
 }
 
 #include "displayarea.moc"

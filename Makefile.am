@@ -28,7 +28,8 @@ kimdaba_SOURCES = main.cpp \
 	htmlexportdialog.cpp imagecounter.cpp iconviewtooltip.cpp \
 	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
-	undoredolist.cpp optionsdialog.cpp infobox.cpp
+	undoredolist.cpp optionsdialog.cpp infobox.cpp \
+	viewhandler.cpp drawhandler.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD = $(LIB_KIO) -lktexteditor

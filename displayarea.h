@@ -26,45 +26,47 @@
 #include <qimage.h>
 class Draw;
 class ImageInfo;
+class ViewHandler_viewHandler;
+class DrawHandler;
+class DisplayAreaHandler;
+class ViewHandler;
 
-class DisplayArea :public QLabel,  public ImageClient {
+class DisplayArea :public QWidget,  public ImageClient {
 Q_OBJECT
 public:
     DisplayArea( QWidget* parent, const char* name = 0 );
-    DrawList drawList() const;
-    void setDrawList( const DrawList& );
-    void stopDrawings();
+    void startDrawing();
+    void stopDrawing();
     void setImage( ImageInfo* info );
+    DrawHandler* drawHandler();
 
 public slots:
-    void slotLine();
-    void slotRectangle();
-    void slotCircle();
-    void slotSelect();
-    void setPixmap( const QPixmap& pixmap );
-    void cut();
     void toggleShowDrawings( bool );
+
+protected slots:
+    void drawAll();
 
 protected:
     virtual void mousePressEvent( QMouseEvent* event );
     virtual void mouseMoveEvent( QMouseEvent* event );
     virtual void mouseReleaseEvent( QMouseEvent* event );
     virtual void resizeEvent( QResizeEvent* event );
-    Draw* createTool();
-    void drawAll();
-    Draw* findShape( const QPoint& );
-    void setupPainter( QPainter& painter );
+    virtual void paintEvent( QPaintEvent* event );
     void pixmapLoaded( const QString&, int, int, int, const QImage& image );
+    QPixmap scalePixmap( QPixmap pix, int width, int height );
+
+    friend class DrawHandler;
+    QPainter* painter();
 
 private:
-    enum Tool { Select, Line, Rectangle, Circle, None};
-    Tool _tool;
-    Draw* _activeTool;
-    DrawList _drawings;
-    QPixmap _origPixmap;
-    QPixmap _curPixmap;
+    QPixmap _loadedPixmap;
+    QPixmap _drawingPixmap;
+    QPixmap _viewPixmap;
     ImageInfo* _info;
-    QImage _currentImage;
+
+    ViewHandler* _viewHandler;
+    DrawHandler* _drawHanler;
+    DisplayAreaHandler* _currentHandler;
 };
 
 

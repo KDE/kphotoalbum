@@ -25,12 +25,12 @@ LineDraw::LineDraw( QWidget* widget ) :Draw( widget )
 
 }
 
-void LineDraw::draw( QPainter& painter, QMouseEvent* event )
+void LineDraw::draw( QPainter* painter, QMouseEvent* event )
 {
     Draw::draw( painter, event );
 
-    painter.save();
-    painter.drawLine( g2w(_startPos), g2w(_lastPos) );
+    painter->save();
+    painter->drawLine( g2w(_startPos), g2w(_lastPos) );
 
     QPoint diff = g2w( QPoint( _lastPos.x() - _startPos.x(), _lastPos.y() - _startPos.y() ) );
     double dx = diff.x();
@@ -44,15 +44,15 @@ void LineDraw::draw( QPainter& painter, QMouseEvent* event )
         // angle is now the angle of the line.
 
         angle = angle + 180 - 15;
-        painter.translate( g2w(_lastPos).x(), g2w(_lastPos).y() );
-        painter.rotate( angle );
-        painter.drawLine( QPoint(0,0), QPoint( 30,0 ) );
+        painter->translate( g2w(_lastPos).x(), g2w(_lastPos).y() );
+        painter->rotate( angle );
+        painter->drawLine( QPoint(0,0), QPoint( 30,0 ) );
 
-        painter.rotate( 30 );
-        painter.drawLine( QPoint(0,0), QPoint( 30,0 ) );
+        painter->rotate( 30 );
+        painter->drawLine( QPoint(0,0), QPoint( 30,0 ) );
     }
 
-    painter.restore();
+    painter->restore();
 }
 
 PointList LineDraw::anchorPoints()

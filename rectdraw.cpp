@@ -23,10 +23,10 @@ RectDraw::RectDraw(QWidget* widget ) :Draw( widget)
 
 }
 
-void RectDraw::draw( QPainter& painter, QMouseEvent* event )
+void RectDraw::draw( QPainter* painter, QMouseEvent* event )
 {
     Draw::draw( painter, event );
-    painter.drawRect( g2w(_startPos).x(), g2w(_startPos).y(), g2w(_lastPos).x()-g2w(_startPos).x(), g2w(_lastPos).y()-g2w(_startPos).y() );
+    painter->drawRect( g2w(_startPos).x(), g2w(_startPos).y(), g2w(_lastPos).x()-g2w(_startPos).x(), g2w(_lastPos).y()-g2w(_startPos).y() );
 }
 
 PointList RectDraw::anchorPoints()

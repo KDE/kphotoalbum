@@ -33,7 +33,7 @@ class Draw
 public:
     Draw( QWidget* widget = 0 ) :_widget( widget ) {}
     void startDraw( QMouseEvent* );
-    virtual void draw( QPainter&, QMouseEvent* );
+    virtual void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints() = 0;
     QPoint w2g( const QPoint& ); // widget2generic
     QPoint g2w( const QPoint& );

@@ -52,6 +52,7 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( onViewport() ), this, SLOT( slotOnViewPort() ) );
     setupGrid();
     connect( Options::instance(), SIGNAL( changed() ), this, SLOT( setupGrid() ) );
+    connect( this, SIGNAL( contentsMoving(int, int) ), this, SLOT( slotContentsMoved() ) );
 }
 
 
@@ -311,6 +312,23 @@ void ThumbNailView::makeCurrent( ImageInfo* info )
             ensureItemVisible( tn );
         }
     }
+}
+
+void ThumbNailView::slotContentsMoved()
+{
+    QIconViewItem* item = findFirstVisibleItem( QRect( contentsX(), contentsY(), width(), height() ) );
+    if ( item ) {
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        QDateTime date = tn->imageInfo()->startDate().min();
+        if ( date.date().year() != 1900 )
+            emit currentDateChanged( date );
+    }
+}
+
+void ThumbNailView::showEvent( QShowEvent* event )
+{
+    QIconView::showEvent( event );
+    slotContentsMoved();
 }
 
 #include "thumbnailview.moc"

@@ -41,7 +41,7 @@ const int buttonWidth = 22;
 const int arrowLength = 20;
 
 DateBar::DateBar( QWidget* parent, const char* name )
-    :QWidget( parent, name ), _currentHandler( &_yearViewHandler ), _tp(YearView),
+    :QWidget( parent, name ), _currentHandler( &_yearViewHandler ), _tp(YearView),_currentDate( QDateTime::currentDateTime() ),
      _includeFuzzyCounts( true ), _contextMenu(0), _showResolutionIndicator( true )
 {
     setBackgroundMode( NoBackground );
@@ -651,9 +651,3 @@ void DateBar::placeAndSizeButtons()
     _zoomIn->move(x, y );
 }
 
-void DateBar::showEvent( QShowEvent *)
-{
-    _currentDate = QDateTime::currentDateTime();
-    _currentUnit = numberOfUnits();
-    redraw();
-}

@@ -44,6 +44,7 @@ public slots:
 signals:
     void changed();
     void fileNameChanged( const QString& );
+    void currentDateChanged( const QDateTime& );
 
 protected slots:
     void showImage( QIconViewItem* );
@@ -51,6 +52,7 @@ protected slots:
     void slotOnItem( QIconViewItem* );
     void slotOnViewPort();
     void setupGrid();
+    void slotContentsMoved();
 
 protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );
@@ -61,6 +63,7 @@ protected:
     void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
     QDragObject* dragObject();
     virtual void drawBackground ( QPainter * p, const QRect & r );
+    virtual void showEvent( QShowEvent* );
 
 private:
     static ThumbNailView* _instance;

@@ -64,7 +64,6 @@ public:
     virtual void mouseMoveEvent( QMouseEvent* event );
     virtual void mouseReleaseEvent( QMouseEvent* event );
     virtual void contextMenuEvent( QContextMenuEvent* );
-    virtual void showEvent( QShowEvent *);
 
 protected:
     void redraw();

@@ -642,7 +642,7 @@ void MainView::setupMenuBar()
 
     _viewInNewWindow = new KAction( i18n("View (In New Window)"), 0, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
-    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("kview"), CTRL+Key_R, this, SLOT( slotRunSlideShow() ),
+    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("video"), CTRL+Key_R, this, SLOT( slotRunSlideShow() ),
                                  actionCollection(), "runSlideShow" );
     _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), 0, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );

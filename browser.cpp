@@ -57,12 +57,15 @@ void Browser::init()
 
 void Browser::select( QListViewItem* item )
 {
-    ShowBusyCursor dummy;
     if ( !item )
         return;
 
     Folder* f = static_cast<Folder*>( item );
     FolderAction* action = f->action( Util::ctrlKeyDown() );
+
+    // This one must not come before here, as the function above might bring up a
+    // dialog (which is the case for search folders).
+    ShowBusyCursor dummy;
     if ( action ) {
         addItem( action );
         action->action();

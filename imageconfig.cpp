@@ -46,10 +46,12 @@
 #include <kmessagebox.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include "showbusycursor.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
 {
+    ShowBusyCursor dummy;
     QVBoxLayout* layout = new QVBoxLayout( this, 6 );
     _dockWindow = new KDockMainWindow( 0 );
     _dockWindow->reparent( this, false, QPoint( 0,0 ) );
@@ -671,7 +673,7 @@ void ImageConfig::rotateRight()
 void ImageConfig::rotate( int angle )
 {
     if ( _setup == MULTIPLE ) {
-        // In slot OK the preview will be queried for its angle.
+        // In slotOK the preview will be queried for its angle.
     }
     else {
         ImageInfo& info = _editList[ _current ];

@@ -9,6 +9,7 @@ class QMouseEvent;
 class QPixmap;
 class QPoint;
 class Draw;
+class QPainter;
 
 class DrawHandler :public QObject, public DisplayAreaHandler {
     Q_OBJECT
@@ -20,7 +21,7 @@ public:
     virtual bool mouseMoveEvent ( QMouseEvent* e );
     DrawList drawList() const;
     void setDrawList( const DrawList& );
-    void drawAll( QPixmap& pixmap );
+    void drawAll( QPainter& );
     void stopDrawing();
 
 public slots:

@@ -46,7 +46,7 @@ bool ViewHandler::mouseMoveEvent( QMouseEvent* e )
 
 bool ViewHandler::mouseReleaseEvent( QMouseEvent* e )
 {
-    if ( _scale ) {
+    if ( _scale && (e->pos()-_start).manhattanLength() > 1 ) {
         _display->zoom( _start, e->pos() );
         return true;
     }

@@ -56,6 +56,7 @@ protected:
     QPixmap scalePixmap( QPixmap pix, int width, int height );
     QPoint mapPos( QPoint );
     QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );
+    void xformPainter( QPainter* );
 
     friend class DrawHandler;
     friend class ViewHandler;

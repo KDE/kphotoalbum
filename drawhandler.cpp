@@ -106,9 +106,8 @@ Draw* DrawHandler::createTool()
     }
 }
 
-void DrawHandler::drawAll( QPixmap& pixmap )
+void DrawHandler::drawAll( QPainter& painter )
 {
-    QPainter painter( &pixmap );
     if ( Options::instance()->showDrawings() || _tool != None ) {
         for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
             painter.save();

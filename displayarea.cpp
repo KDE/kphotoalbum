@@ -17,20 +17,60 @@
  **/
 
 #include "displayarea.h"
-#include "draw.h"
-#include "linedraw.h"
-#include "rectdraw.h"
-#include "circledraw.h"
 #include <qpainter.h>
-#include <qpicture.h>
 #include "options.h"
 #include "imageinfo.h"
 #include "imagemanager.h"
-#include "imageloader.h"
 #include "viewhandler.h"
 #include "drawhandler.h"
 #include <qwmatrix.h>
 #include <qlabel.h>
+
+/**
+   Area displaying the actual image in the viewer.
+
+   The purpose of this class is to display the actual image in the
+   viewer. This involves controlling zooming and drawing on the images.
+
+   This class is quite complicated as it had to both be fast and memory
+   efficient. This had the following consequence:
+   1) Images must be handled as pixmap all the time, that is no
+      transformation to QImage is allowed, as the transformation would
+      result in the image being copied from the XServer to the kimdaba
+      process.
+   2) Images should be scaled down to the size of the widget as soon as
+      possible. Images are easily 2300x1700 pixels (4 mega pixel), while
+      they often only are displayed on a 800x600 display. (Handling
+      transformations using the later saves a factor 8 in memory)
+   3) Initially QPainter::setWindow was used for zooming the images, but
+      this had the effect that if you zoom to 100x100 from a 2300x1700
+      image on a 800x600 display, then Qt would internally create a pixmap
+      with the size (2300/100)*800, (1700/100)*600, which takes up 1.4Gb of
+      memory!
+
+   The process is as follows:
+   - The image loaded from disk is converted and stored in
+     _loadedPixmap. This pixmap is as large as the image on disk.
+   - Then _loadedPixmap is converted to _drawingPixmap. (This pixmap is the
+     size of the display). Completed drawings are drawn into _loadedPixmap
+   - When the user draws a new shape, then for each mouse movement
+     _loadedPixmap is copied to _viewPixmap, in which the drawing are made.
+   - Finally in paintEvent _viewPixmap is bitBlt'ed to the screen.
+
+   The scaling process and the drawing process is both implemented by
+   overriding mouse events. To make the code more readable, the strategy
+   pattern is used to separate the two, and when the widget sees a
+   mousePress, mouseMove or mouseRelease event then it delegates this to
+   either _viewHandler or _drawHanler.
+
+   The code in the handlers should not care about actual zooming, therefore
+   mouse coordinates are translated before they are given to the handlers
+   in mouseMoveEvent etc.
+
+   These handlers draw on _viewPixmap, but to do so, the painters need to
+   be set up with transformation, as the pixmap is no longer the size of
+   the original image, but rather the size of the display.
+*/
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
     :QWidget( parent, name )
@@ -77,9 +117,15 @@ void DisplayArea::drawAll()
     if ( _loadedPixmap.isNull() )
         return;
 
-    _drawingPixmap = _loadedPixmap;
-    if ( Options::instance()->showDrawings() )
-         _drawHanler->drawAll( _drawingPixmap );
+    QPixmap tmp( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ) );
+    bitBlt( &tmp, QPoint(0,0), &_loadedPixmap, QRect( _zStart, _zEnd ) );
+    _drawingPixmap = scalePixmap( tmp, width(), height() );
+
+    if ( Options::instance()->showDrawings() ) {
+        QPainter painter( &_drawingPixmap );
+        xformPainter( &painter );
+        _drawHanler->drawAll( painter );
+    }
     _viewPixmap = _drawingPixmap;
     update();
 }
@@ -105,7 +151,7 @@ void DisplayArea::toggleShowDrawings( bool b )
 void DisplayArea::setImage( ImageInfo* info )
 {
     _info = info;
-    ImageManager::instance()->load( info->fileName( false ), this, 0, -1,  -1, false, true );
+    ImageManager::instance()->load( info->fileName( false ), this, info->angle(), -1,  -1, false, true );
 }
 
 void DisplayArea::pixmapLoaded( const QString&, int, int, int, const QImage& image )
@@ -131,6 +177,7 @@ QPainter* DisplayArea::painter()
 {
     _viewPixmap = _drawingPixmap;
     QPainter* p = new QPainter( &_viewPixmap );
+    xformPainter( p );
     return p;
 }
 
@@ -139,12 +186,8 @@ void DisplayArea::paintEvent( QPaintEvent* )
     if ( _viewPixmap.isNull() )
         return;
 
-    QPixmap tmp( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ) );
-    bitBlt( &tmp, QPoint(0,0), &_viewPixmap, QRect( _zStart, _zEnd ) );
-    tmp = scalePixmap( tmp, width(), height() );
-
     QPainter p(this);
-    p.drawPixmap( 0,0, tmp );
+    p.drawPixmap( 0,0, _viewPixmap );
 }
 
 QPixmap DisplayArea::scalePixmap( QPixmap pix, int width, int height )
@@ -198,6 +241,16 @@ QPoint DisplayArea::mapPos( QPoint p )
     int x = (int) (_zStart.x() + (_zEnd.x()-_zStart.x())*((double)p.x()/ (width()-2*off.x())));
     int y = (int) (_zStart.y() + (_zEnd.y()-_zStart.y())*((double)p.y()/ (height()-2*off.y())));
     return QPoint( x, y );
+}
+
+void DisplayArea::xformPainter( QPainter* p )
+{
+    QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
+
+    p->translate( off.x(), off.y() );
+    double s = (width()-2*off.x())/QABS( (double)_zEnd.x()-_zStart.x());
+    p->scale( s, s );
+    p->translate( -_zStart.x(), -_zStart.y() );
 }
 
 #include "displayarea.moc"

@@ -57,7 +57,8 @@ void Export::imageExport( const ImageInfoList& list )
     Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(), ok );
     delete exp; // It will not return before done - we still need a class to connect slots etc.
 
-    showUsageDialog();
+    if ( ok )
+        showUsageDialog();
 }
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.

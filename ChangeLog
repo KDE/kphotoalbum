@@ -1,5 +1,8 @@
 2004-05-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: When you press cancel during the export process you still get the info
+	someone else could import your export. 
+
 	* BUGFIX: After an import the index.xml file was not marked modified
 
 	* BUGFIX: export to HTML page and import resulted in rotated

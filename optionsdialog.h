@@ -20,6 +20,7 @@
 #define OPTIONSDIALOG_H
 #include <kdialogbase.h>
 #include "options.h"
+class KColorButton;
 class QSpinBox;
 class KComboBox;
 class QLineEdit;
@@ -85,6 +86,7 @@ private:
     QSpinBox* _previewSize;
     QComboBox* _albumCategory;
     QCheckBox* _displayLabels;
+    KColorButton* _backgroundColor;
 
     // Option Groups page
     QListBox* _optionGroups;

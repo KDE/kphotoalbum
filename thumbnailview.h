@@ -46,6 +46,7 @@ protected slots:
     virtual void startDrag();
     void slotOnItem( QIconViewItem* );
     void slotOnViewPort();
+    void setupGrid();
 
 protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );
@@ -55,6 +56,7 @@ protected:
     QPtrList<ThumbNail> selected() const;
     void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
     QDragObject* dragObject();
+    virtual void drawBackground ( QPainter * p, const QRect & r );
 
 private:
     ThumbNail* _currentHighlighted;

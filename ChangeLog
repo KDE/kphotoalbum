@@ -1,7 +1,11 @@
 2004-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Made it possible to hide the labels in the thumbnail view
+
 	* Clean up the options dialog (made new group "thumbnail view")
+
+	* Tried to improve the layout of the thumbnail view. This is the
+	best I can do, unfortunately QIconView is utterly broken.
 
 2004-07-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 

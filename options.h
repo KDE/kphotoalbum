@@ -175,6 +175,9 @@ public:
     void setDisplayLabels( bool );
     bool displayLabels() const;
 
+    void setThumbNailBackgroundColor( const QColor& );
+    QColor thumbNailBackgroundColor() const;
+
 signals:
     void optionGroupsChanged();
     void changed();
@@ -213,6 +216,7 @@ private:
     ViewSortType _viewSortType;
     QString _albumCategory;
     bool _displayLabels;
+    QColor _thumbNailBackgroundColor;
 };
 
 #endif /* OPTIONS_H */

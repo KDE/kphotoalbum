@@ -48,6 +48,7 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* par
 void ThumbNail::init()
 {
     int size = Options::instance()->thumbSize();
+
     _pixmap.resize( size, size );
     QPainter painter( &_pixmap );
     painter.fillRect( 0, 0,  size, size,  white );
@@ -83,8 +84,10 @@ void ThumbNail::pixmapLoaded( const QString&, int, int, int, const QImage& image
         pts.setPoints( 3, 70,-1,  100,-1,  100,30 );
         p.drawConvexPolygon( pts );
     }
+
     setPixmap( _pixmap );
 }
+
 void ThumbNail::dragMove()
 {
     QPixmap pix( _pixmap );
@@ -167,10 +170,12 @@ bool ThumbNail::atRightSizeOfItem()
 
 void ThumbNail::calcRect( const QString& text )
 {
+    int size = Options::instance()->thumbSize();
     QIconViewItem::calcRect( text );
     if ( !Options::instance()->displayLabels() ) {
         setTextRect( QRect(0,0,0,0) );
         setText( QString::null );
+        setItemRect( QRect( rect().x(), rect().y(), size, size ) );
     }
     else
         setText( _imageInfo->label() );

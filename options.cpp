@@ -72,6 +72,8 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _launchViewerFullScreen = (bool) config.attribute( QString::fromLatin1( "launchViewerFullScreen" ) ).toInt();
     _launchSlideShowFullScreen = (bool) config.attribute( QString::fromLatin1( "launchSlideShowFullScreen" ) ).toInt();
     _displayLabels = (bool) config.attribute( QString::fromLatin1( "displayLabels" ), QString::fromLatin1( "1" ) ).toInt();
+    _thumbNailBackgroundColor = QColor( config.attribute( QString::fromLatin1( "thumbNailBackgroundColor" ),
+                                                          QString::fromLatin1( "black" ) ) );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -143,6 +145,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "launchViewerFullScreen" ), _launchViewerFullScreen );
     config.setAttribute( QString::fromLatin1( "launchSlideShowFullScreen" ), _launchSlideShowFullScreen );
     config.setAttribute( QString::fromLatin1( "displayLabels" ), _displayLabels );
+    config.setAttribute( QString::fromLatin1( "thumbNailBackgroundColor" ), _thumbNailBackgroundColor.name() );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -728,6 +731,16 @@ void Options::setDisplayLabels( bool b )
 bool Options::displayLabels() const
 {
     return _displayLabels;
+}
+
+void Options::setThumbNailBackgroundColor( const QColor& col )
+{
+    _thumbNailBackgroundColor = col;
+}
+
+QColor Options::thumbNailBackgroundColor() const
+{
+    return _thumbNailBackgroundColor;
 }
 
 #include "options.moc"

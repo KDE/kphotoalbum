@@ -30,12 +30,11 @@
 #include <qpopupmenu.h>
 #include <kurldrag.h>
 #include <kmessagebox.h>
+#include <qpainter.h>
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :KIconView( parent,  name ), _currentHighlighted( 0 )
 {
-    setSpacing(2);
-
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
 
@@ -45,6 +44,8 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     _iconViewToolTip = new IconViewToolTip( this );
     connect( this, SIGNAL( onItem( QIconViewItem* ) ), this, SLOT( slotOnItem( QIconViewItem* ) ) );
     connect( this, SIGNAL( onViewport() ), this, SLOT( slotOnViewPort() ) );
+    setupGrid();
+    connect( Options::instance(), SIGNAL( changed() ), this, SLOT( setupGrid() ) );
 }
 
 
@@ -251,6 +252,18 @@ void ThumbNailView::slotOnItem( QIconViewItem* item )
 void ThumbNailView::slotOnViewPort()
 {
     emit fileNameChanged( QString::fromLatin1("") );
+}
+
+void ThumbNailView::setupGrid()
+{
+    int size = Options::instance()->thumbSize();
+    setGridX( size + 2 );
+    setGridY( size + QMIN( 10, size/5) );
+}
+
+void ThumbNailView::drawBackground( QPainter * p, const QRect & r )
+{
+    p->fillRect( r, Options::instance()->thumbNailBackgroundColor() );
 }
 
 #include "thumbnailview.moc"

@@ -40,6 +40,7 @@
 #include <limits.h>
 #include <libkipi/pluginloader.h>
 #include <kdebug.h>
+#include <kcolorbutton.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -176,6 +177,14 @@ void OptionsDialog::createThumbNailPage()
     _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
     lay1->addWidget( _displayLabels );
 
+    // Background Color
+    QLabel* backgroundColorLabel = new QLabel( i18n( "Background color " ), top, "backgroundColorLabel" );
+    _backgroundColor = new KColorButton( black, top, "_backgroundColor" );
+    QHBoxLayout* lay5 = new QHBoxLayout( lay1, 6 );
+    lay5->addWidget( backgroundColorLabel );
+    lay5->addWidget( _backgroundColor );
+    lay5->addStretch( 1 );
+
     lay1->addStretch(1);
 
     // Whats This
@@ -309,6 +318,7 @@ void OptionsDialog::show()
     _autosave->setValue( opt->autoSave() );
     _albumCategory->setCurrentText( opt->albumCategory() );
     _displayLabels->setChecked( opt->displayLabels() );
+    _backgroundColor->setColor( opt->thumbNailBackgroundColor() );
     _maxImages->setValue( opt->maxImages() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
@@ -343,6 +353,7 @@ void OptionsDialog::slotMyOK()
     opt->setAutoSave( _autosave->value() );
     opt->setAlbumCategory( _albumCategory->currentText() );
     opt->setDisplayLabels( _displayLabels->isChecked() );
+    opt->setThumbNailBackgroundColor( _backgroundColor->color() );
     opt->setMaxImages( _maxImages->value() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );

@@ -196,7 +196,7 @@ signals:
     void deletedOption( const QString& optionGroup, const QString& name );
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Options::ViewSortType );
-
+    
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
     static Options* _instance;

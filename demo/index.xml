@@ -6,6 +6,7 @@
   </SearchInfo>
  </config>
  <options>
+  <option viewtype="0" viewsize="0" icon="folder" name="Folder" show="0" />
   <option viewtype="0" viewsize="0" icon="password" name="Keywords" show="1" >
    <value value="beers" />
    <value value="holiday" />

@@ -331,6 +331,9 @@ void OptionsDialog::show()
     _optionGroups->clear();
     QStringList grps = opt->optionGroups();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        if( *it == QString::fromLatin1( "Folder") ) {
+            continue; // make it impossible to change the name or the icon of the folder
+        }
         new OptionGroupItem( *it, opt->textForOptionGroup( *it ), opt->iconNameForOptionGroup( *it ),
                              opt->viewSize( *it ), opt->viewType( *it ), _optionGroups );
     }
@@ -697,7 +700,11 @@ void OptionsDialog::setButtonStates()
 void OptionsDialog::slotPageChange()
 {
     _category->clear();
-    _category->insertStringList( Options::instance()->optionGroups() );
+    QStringList l = Options::instance()->optionGroups();
+
+    // We do not want to configure folders in the member groups.
+    l.remove( QString::fromLatin1("Folder") );
+    _category->insertStringList( l );
     slotCategoryChanged( _category->currentText() );
 }
 

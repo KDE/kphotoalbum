@@ -66,7 +66,13 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
             opt.setAttribute( QString::fromLatin1( "viewtype" ), (*optionGroupInfo)[name]._type );
         }
 
-        QStringList list = options[name];
+        // we don t save the values for the option "Folder" since it is automatically set
+        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
+        QStringList list;
+        if ( name== QString::fromLatin1("Folder") )
+            list = QStringList();
+        else
+            list = options[name];
         bool any = false;
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
@@ -585,6 +591,15 @@ QString Util::stripSlash( const QString& fileName )
         return fileName.left( fileName.length()-1);
     else
         return fileName;
+}
+
+QString Util::relativeFolderName( const QString& fileName)
+{
+    int index= fileName.findRev( '/', -1);
+    if (index == -1)
+        return i18n("(base folder)");
+    else
+        return fileName.left( index ) ;
 }
 
 bool Util::runningDemo()

@@ -1,5 +1,8 @@
 2004-09-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added a way to browse directories within the database. Thanks to
+	Jean-Michel FAYARD <jmfayard@gmail.com> for patch.
+
 	* BUGFIX: now that it is possible to set background color of
 	thumbnail view, the foreground color must also be changed, to
 	ensure maximum contrast (and that it is visible at all)

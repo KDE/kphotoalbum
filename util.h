@@ -53,6 +53,7 @@ public:
     static UniqNameMap createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destdir );
 
     static QString stripSlash( const QString& fileName );
+    static QString relativeFolderName( const QString& fileName);
 };
 
 

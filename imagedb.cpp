@@ -492,7 +492,15 @@ void ImageDB::slotRescan()
 
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         QFileInfo fi( (*it)->fileName() );
-        (*it)->setImageOnDisk( fi.exists() );
+        bool fileExists = fi.exists();
+        (*it)->setImageOnDisk( fileExists );
+        if (!fileExists) {
+            // we need to delete here the folder value for the images that get deleted
+            QStringList l = (*it)->optionValue( QString::fromLatin1("Folder") );
+            for( QStringList::Iterator folder = l.begin() ; folder != l.end() ; ++folder ) {
+                (*it)->removeOption( QString::fromLatin1("Folder"), *folder );
+            }
+        }
         loadedFiles.insert( (*it)->fileName(),
                             (void*)0x1 /* void pointer to nothing I never need the value,
                                           just its existsance, must be != 0x0 though.*/ );

@@ -34,29 +34,31 @@ extern "C" {
 #include <qvariant.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-
+#include "imagedb.h"
 
 ImageInfo::ImageInfo() :_null( true )
 {
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    : _fileName( fileName ), _visible( true ), _imageOnDisk( true ), _null( false ), _locked( false )
+    :  _visible( true ), _imageOnDisk( true ), _null( false ), _locked( false )
 {
     QString fullPath = Options::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Options::instance()->imageDirectory() + fileName );
     _label = fi.baseName( true );
     _angle = 0;
 
+    setFileName( fileName);
+
     // Read EXIF information
     readExif(fullPath, EXIFMODE_INIT);
 }
 
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
-    : _fileName( fileName ), _visible( true ), _null( false ), _locked( false )
+    :  _visible( true ), _null( false ), _locked( false )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ fileName );
-    _imageOnDisk = fi.exists();
+    setFileName( fileName );
     _label = elm.attribute( QString::fromLatin1("label"),  _label );
     _description = elm.attribute( QString::fromLatin1("description") );
 
@@ -162,7 +164,13 @@ void ImageInfo::setFileName( const QString& relativeFileName )
     _fileName = relativeFileName;
     QFileInfo fi( fileName() );
     _imageOnDisk = fi.exists();
-
+    if (_imageOnDisk) {
+      QString folderName = Util::relativeFolderName( _fileName );
+       _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
+      Options::instance()->addOption( QString::fromLatin1("Folder"), folderName );
+    } else {
+      _options.insert( QString::fromLatin1( "Folder") , QStringList() );
+    }
 }
 
 

@@ -107,6 +107,17 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     }
 
     Util::readOptions( options, &_options, &_optionGroups );
+
+    // create the Folder Category if needed, the first time people upgrade.
+    // in the search dialog, don t show the folder browser by default (consistant with Kimdaba 1.x behavior)
+    QMapIterator<QString, QStringList> it = _options.find( QString::fromLatin1("Folder") );
+      if ( it == _options.end() ) {
+	// FIXME: it seems to go here always, which means you cannot record the show=1 attribute
+	_options.insert( QString::fromLatin1("Folder"), QStringList() );
+	_optionGroups.insert( QString::fromLatin1("Folder"),
+                               Options::OptionGroupInfo( QString::fromLatin1("folder"), Options::Small, Options::ListView, false )  );
+    }
+
     _configDock = configWindowSetup;
     _members.load( memberGroups );
     _currentLock.load( config );
@@ -458,6 +469,8 @@ QString Options::textForOptionGroup( const QString& name ) const
         return i18n("Locations");
     else if ( name == QString::fromLatin1( "Keywords" ) )
         return i18n("Keywords");
+    else if ( name == QString::fromLatin1( "Folder" ) )
+      return i18n("Folder") ;
     else
         return name;
 }

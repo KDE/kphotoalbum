@@ -124,7 +124,7 @@
             <string>&amp;View Images</string>
         </property>
         <property name="accel">
-            <string>Ctrl+P</string>
+            <string>Ctrl+I</string>
         </property>
     </action>
     <actiongroup>

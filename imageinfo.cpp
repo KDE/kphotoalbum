@@ -97,8 +97,6 @@ ImageInfo::ImageInfo( const QString& fileName )
     // Orientation
     if ( Options::instance()->useEXIFRotate() && exif.contains( QString::fromLatin1( "Orientation" ) ) ) {
         int orientation =  exif[QString::fromLatin1( "Orientation" )].toInt();
-        qDebug("%d", orientation );
-
         if ( orientation == 1 || orientation == 2 )
             _angle = 0;
         else if ( orientation == 3 || orientation == 4 )

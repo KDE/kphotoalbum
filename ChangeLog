@@ -1,5 +1,9 @@
 2004-01-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: when generating HTML, its no longer a problem if several
+	images have the same base name, ie. if you may now generate
+	holiday1/me.jpg andd holiday2/me.jpg at the same time.
+
 	* BUGFIX: When the user presses the right mouse button on one of
 	the list boxes containing options (Persons, Loactions, Keywords
 	etc.) to show the context menu, then the state of the item was

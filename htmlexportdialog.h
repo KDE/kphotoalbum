@@ -55,7 +55,7 @@ protected:
     bool checkVars();
     int calculateSteps();
     QString namePage( int width, int height, const QString& fileName );
-    QString nameThumbNail( ImageInfo* info, int size );
+    QString nameImage( const QString& fileName, int size );
     bool writeToFile( const QString& fileName, const QString& str );
     bool linkIndexFile();
     QValueList<MyCheckBox*> activeResolutions();
@@ -81,6 +81,8 @@ private:
     QProgressDialog* _progress;
     bool _doneLoading;
     QString _tempDir;
+    QMap< QPair<QString,int>, QString> _pageNames;
+    QMap< QPair<QString,int>, QString> _imageNames;
 };
 
 

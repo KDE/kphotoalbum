@@ -351,7 +351,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
         QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
         img.setAttribute( QString::fromLatin1( "src" ),
-                          nameThumbNail( *it, _thumbSize->value() ) );
+                          nameImage( (*it)->fileName(), _thumbSize->value() ) );
         href.appendChild( img );
         ++count;
     }
@@ -422,7 +422,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
 
     // prev link
     if ( prevInfo )
-        link = QString::fromLatin1( "<a href=\"%1\">prev</a>" ).arg( namePage( width, height, prevInfo->fileName( false ) ) );
+        link = QString::fromLatin1( "<a href=\"%1\">prev</a>" ).arg( namePage( width, height, prevInfo->fileName() ) );
     else
         link = QString::fromLatin1( "prev" );
     content.replace( QString::fromLatin1( "**PREV**" ), link );
@@ -434,13 +434,13 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
 
     // Next Link
     if ( nextInfo )
-        link = QString::fromLatin1( "<a href=\"%1\">next</a>" ).arg( namePage( width, height, nextInfo->fileName( false ) ) );
+        link = QString::fromLatin1( "<a href=\"%1\">next</a>" ).arg( namePage( width, height, nextInfo->fileName() ) );
     else
         link = QString::fromLatin1( "next" );
     content.replace( QString::fromLatin1( "**NEXT**" ), link );
 
     if ( nextInfo )
-        link = namePage( width, height, nextInfo->fileName( false ) );
+        link = namePage( width, height, nextInfo->fileName() );
     else
         link = QString::fromLatin1( "index-%1.html" ).arg(MyCheckBox::text(width,height,true));
 
@@ -455,7 +455,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
              sizeIt != actRes.end(); ++sizeIt ) {
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();
-            QString page = namePage( w, h, info->fileName( false ) );
+            QString page = namePage( w, h, info->fileName() );
             QString text = (*sizeIt)->text(false);
             resolutions += QString::fromLatin1( " " );
 
@@ -486,7 +486,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
 
 
     // -------------------------------------------------- write to file
-    QString fileName = _tempDir + namePage( width, height, info->fileName(false) );
+    QString fileName = _tempDir + namePage( width, height, info->fileName() );
     bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
@@ -514,26 +514,18 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
 
 QString HTMLExportDialog::createImage( ImageInfo* info, int size )
 {
-    ImageManager::instance()->load( info->fileName( false ),  this, info->angle(), size, size, false, true );
-    return nameThumbNail( info, size );
+    ImageManager::instance()->load( info->fileName(),  this, info->angle(), size, size, false, true );
+    return nameImage( info->fileName(), size );
 }
 
-void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int height, int /*angle*/, const QImage& image )
+void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*height*/, int /*angle*/, const QImage& image )
 {
 
     _waitCounter--;
 
     QString dir = _tempDir;
     if ( !dir.isNull() ) {
-        QFileInfo finfo(fileName);
-        QString baseName = finfo.baseName();
-        QString ext = finfo.extension();
-        int size = QMAX( width, height );
-
-        QString file = dir + QString::fromLatin1( "/" ) + baseName;
-        if ( size != -1 )
-            file += QString::fromLatin1( "-" ) + QString::number( size );
-        file += QString::fromLatin1( ".jpg" );
+        QString file = dir + QString::fromLatin1( "/" ) + nameImage( fileName, size );
 
         bool success = image.save( file, "JPEG" );
         if ( !success ) {
@@ -664,21 +656,50 @@ int HTMLExportDialog::calculateSteps()
 
 QString HTMLExportDialog::namePage( int width, int height, const QString& fileName )
 {
-    // PENDING(blackie) Handle situation where we are generating holiday1/me.jpg and holiday2/me.jpg
+    QPair<QString,int> key = qMakePair(fileName,width);
+    if ( _pageNames.contains( key ) )
+        return _pageNames[key];
+
     QFileInfo fi(fileName);
     QString baseName = fi.baseName();
-    return QString::fromLatin1( "%1-%2.html" ).arg( baseName ).arg(MyCheckBox::text(width,height,true));
+    bool conflict = true;
+    int i = 0;
+    QString name;
+    while ( conflict ) {
+        name = QString::fromLatin1( "%1%2-%3.html" )
+               .arg( baseName )
+               .arg( (i == 0) ? QString::fromLatin1("") : QString::number(i) )
+               .arg(MyCheckBox::text(width,height,true));
+        ++i;
+        conflict = _pageNames.values().contains( name );
+    }
+    _pageNames.insert( key, name );
+    return name;
 }
 
-QString HTMLExportDialog::nameThumbNail( ImageInfo* info, int size )
+QString HTMLExportDialog::nameImage( const QString& fileName, int size )
 {
-    // PENDING(blackie) Handle name overlap
-    QFileInfo finfo(info->fileName(true));
+    QPair<QString,int> key = qMakePair( fileName, size );
+    if ( _imageNames.contains( key ) )
+        return _imageNames[ key ];
+
+    QFileInfo finfo( fileName );
     QString baseName = finfo.baseName();
-    QString name = baseName;
-    if ( size != -1 )
-        name += QString::fromLatin1( "-" ) + QString::number( size );
-    name += QString::fromLatin1( ".jpg" ) ;
+    bool conflict = true;
+    int i = 0;
+    QString name;
+
+    while ( conflict ){
+        name = QString::fromLatin1( "%1%2" ).arg( baseName ).arg( (i == 0) ? QString::fromLatin1("") : QString::number(i) );
+        if ( size != -1 )
+            name += QString::fromLatin1( "-" ) + QString::number( size );
+        name += QString::fromLatin1( ".jpg" ) ;
+
+        ++i;
+        conflict = _imageNames.values().contains( name );
+    }
+    _imageNames.insert( key, name );
+
     return name;
 }
 
@@ -760,6 +781,8 @@ void HTMLExportDialog::getThemeInfo( QString* baseDir, QString* name, QString* a
 int HTMLExportDialog::exec( const ImageInfoList& list )
 {
     _list = list;
+    _pageNames.clear();
+    _imageNames.clear();
     return KDialogBase::exec();
 }
 

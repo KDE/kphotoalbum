@@ -16,11 +16,15 @@ void ImagePreview::setInfo( ImageInfo* info )
 
 void ImagePreview::mouseDoubleClickEvent( QMouseEvent* )
 {
-    emit doubleClicked();
+    if ( _info )
+        emit doubleClicked();
 }
 
 void ImagePreview::keyPressEvent( QKeyEvent* ev)
 {
+    if ( !_info )
+        return;
+
     if ( ev->key() == Key_9 )  {
         _info->rotate( 90 );
         reload();
@@ -38,6 +42,9 @@ void ImagePreview::keyPressEvent( QKeyEvent* ev)
 
 void ImagePreview::reload()
 {
+    if ( !_info )
+        return;
+
     setText( "Loading..." );
     ImageManager::instance()->load( _info->fileName( false ), this, _info->angle(), 256, 256, false, true, false );
 }

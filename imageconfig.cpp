@@ -158,9 +158,6 @@ void ImageConfig::load()
     nextBut->setEnabled( _current != (int)_origList.count()-1 );
     prevBut->setEnabled( _current != 0 );
 
-    // PENDING(blackie) We can't just have a QMap as this fills up memory.
-/*    if ( _preloadImageMap.contains( info.fileName( false ) ) )
-      preview->setPixmap( _preloadImageMap[ info.fileName( false ) ] );*/
     preview->setInfo( &info );
 
     Viewer* viewer = Viewer::instance();
@@ -270,6 +267,7 @@ void ImageConfig::setup()
         setCaption( "Image Search" );
         loadInfo( _oldSearch );
         preview->setPixmap( locate("data", QString::fromLatin1("kpalbum/pics/search.jpg") ) );
+        preview->setInfo(0);
         nextBut->setEnabled( false );
         prevBut->setEnabled( false );
     }
@@ -281,6 +279,7 @@ void ImageConfig::setup()
         setCaption( "Image Configuration" );
         if ( _setup == MULTIPLE ) {
             preview->setPixmap( locate("data", QString::fromLatin1("kpalbum/pics/multiconfig.jpg") ) );
+            preview->setInfo(0);
         }
 
 

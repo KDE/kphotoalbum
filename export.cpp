@@ -186,7 +186,6 @@ void Export::copyImages( const ImageInfoList& list )
         }
         else {
             _filesRemaining++;
-            qDebug("Asking for %s, files left is %d", (*it)->fileName().latin1(), _filesRemaining );
             ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), _maxSize, _maxSize, false, true );
         }
 
@@ -211,7 +210,6 @@ void Export::copyImages( const ImageInfoList& list )
 
 void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*/, int /*angle*/, const QImage& image )
 {
-    qDebug( "Loaded %s/%s %d/%d", _subdir.latin1(), fileName.latin1(), _steps, _filesRemaining );
     // Add the file to the zip archive
     QString zipFileName = _subdir + QFileInfo( _map[fileName] ).baseName() + QString::fromLatin1(".jpg");
     QByteArray data;

@@ -139,7 +139,7 @@ void MainView::delayedInit()
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "import" ) ) {
         // I need to do this in delayed init to get the import window on top of the normal window
-        Import::imageImport( args->getOption( "import" ) );
+        Import::imageImport( KCmdLineArgs::makeURL( args->getOption("import") ) );
     }
     else {
         // I need to postpone this otherwise the tip dialog will not get focus on start up
@@ -1127,7 +1127,7 @@ void MainView::slotNewToolbarConfig()
 
 void MainView::slotImport()
 {
-    Import::imageImport( QString::null);
+    Import::imageImport();
 }
 
 void MainView::slotExport()

@@ -21,6 +21,10 @@
 
 #include <kwizard.h>
 #include "imageinfo.h"
+#include <kurl.h>
+#include <kio/job.h>
+
+class KTempFile;
 class Import;
 class ImageInfo;
 class QCheckBox;
@@ -45,7 +49,8 @@ class Import :public KWizard {
     Q_OBJECT
 
 public:
-    static void imageImport( QString file );
+    static void imageImport();
+    static void imageImport( const KURL& url );
 
 protected:
     friend class ImageRow;
@@ -70,10 +75,13 @@ protected slots:
     void slotFinish();
     void slotSelectAll();
     void slotSelectNone();
+    void jobCompleted( KIO::Job* );
 
 private:
     Import( const QString& file, bool* ok, QWidget* parent, const char* name = 0 );
+    Import( const KURL& url, QWidget* parent, const char* name = 0 );
     ~Import();
+    bool init( const QString& fileName );
     QString _zipFile;
     ImageInfoList _images;
     KLineEdit* _destinationEdit;
@@ -84,6 +92,7 @@ private:
     KZip* _zip;
     const KArchiveDirectory* _dir;
     QValueList< ImageRow* > _imagesSelect;
+    KTempFile* _tmp;
 };
 
 

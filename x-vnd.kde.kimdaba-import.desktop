@@ -3,5 +3,5 @@ Encoding=UTF-8
 Comment=KimDaBa import
 Icon=kimdaba
 Type=MimeType
-MimeType=application/x-vnd.kde.kimdaba-import
+MimeType=application/vnd.kde.kimdaba-import
 Patterns=*.kim

@@ -41,60 +41,102 @@
 #include <qdir.h>
 #include <kstandarddirs.h>
 #include "viewer.h"
+#include <ktempfile.h>
+#include <kurl.h>
+#include <kio/job.h>
+
 class KPushButton;
 
-void Import::imageImport( QString file )
+void Import::imageImport()
 {
-    if ( file.isNull() )
-        file = KFileDialog::getOpenFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
-
-    if ( file.isNull() )
+    KURL url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
+    if ( url.isEmpty() )
         return;
+    imageImport( url );
+}
 
+void Import::imageImport( const KURL& url )
+{
     bool ok;
-    Import* dialog = new Import( file, &ok, 0, "import_dialog" );
-    dialog->resize( 800, 600 );
-    if ( ok )
-        dialog->show();
-    else
-        delete dialog;
+    if ( !url.isLocalFile() ) {
+        new Import( url, 0, "import_dialog" );
+        // The dialog will start the download, and in the end show itself
+    }
+    else {
+        Import* dialog = new Import( url.path(), &ok, 0, "import_dialog" );
+        dialog->resize( 800, 600 );
+        if ( ok )
+            dialog->show();
+        else
+            delete dialog;
+    }
+}
+
+Import::Import( const KURL& url, QWidget* parent, const char* name )
+    :KWizard( parent, name, false, WDestructiveClose ), _zip( 0 )
+{
+    _tmp = new KTempFile( QString::null, QString::fromLatin1( ".kim" ) );
+    QString path = _tmp->name();
+    _tmp->setAutoDelete( true );
+
+    KURL dest;
+    dest.setPath( path );
+    KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, true );
+    connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( jobCompleted( KIO::Job* ) ) );
+}
+
+void Import::jobCompleted( KIO::Job* job )
+{
+    if ( !job->error() ) {
+        resize( 800, 600 );
+        init( _tmp->name() );
+        show();
+    }
+    else {
+        job->showErrorDialog( 0 );
+        delete this;
+    }
 }
 
 Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* name )
-    :KWizard( parent, name, false, WDestructiveClose ), _zipFile( fileName )
+    :KWizard( parent, name, false, WDestructiveClose ), _zipFile( fileName ), _tmp(0)
+{
+    *ok = init( fileName );
+}
+
+bool Import::init( const QString& fileName )
 {
     _zip = new KZip( fileName );
     if ( !_zip->open( IO_ReadOnly ) ) {
         KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( fileName ), i18n("Error importing data") );
-        *ok = false;
         _zip =0;
-        return;
+        return false;
     }
     _dir = _zip->directory();
     if ( _dir == 0 ) {
         KMessageBox::error( this, i18n( "Error reading directory contest of file %1. The file is likely broken" ).arg( fileName ) );
-        *ok = false;
-        return;
+        return false;
     }
 
     const KArchiveEntry* indexxml = _dir->entry( QString::fromLatin1( "index.xml" ) );
     if ( indexxml == 0 || ! indexxml->isFile() ) {
         KMessageBox::error( this, i18n( "Error reading index.xml file from %1. The file is likely broken" ).arg( fileName ) );
-        *ok = false;
-        return;
+        return false;
     }
 
     const KArchiveFile* file = static_cast<const KArchiveFile*>( indexxml );
     QByteArray data = file->data();
 
-    *ok = readFile( data, fileName );
-    if ( *ok )
+    bool ok = readFile( data, fileName );
+    if ( ok )
         setupPages();
+    return ok;
 }
 
 Import::~Import()
 {
     delete _zip;
+    delete _tmp;
 }
 
 bool Import::readFile( const QByteArray& data, const QString& fileName )
@@ -532,7 +574,4 @@ ImageInfoList Import::selectedImages()
     }
     return res;
 }
-
-
-
 

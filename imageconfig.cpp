@@ -47,6 +47,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "showbusycursor.h"
+#include <ktimewidget.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -76,6 +77,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     // Date
     QHBoxLayout* lay4 = new QHBoxLayout( lay2, 6 );
+
+    // Time
+    QHBoxLayout* lay7 = new QHBoxLayout( lay2, 6 );
 
     label = new QLabel( i18n("From: "), top );
     lay4->addWidget( label );
@@ -115,9 +119,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     _monthEnd = new QComboBox( top );
     _monthEnd->insertStringList( QStringList() << QString::fromLatin1( "---" )
-                                   << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
-                                   << i18n( "May" ) << i18n( "Jun" ) << i18n( "Jul" ) << i18n( "Aug" )
-                                   << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
+                                 << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
+                                 << i18n( "May" ) << i18n( "Jun" ) << i18n( "Jul" ) << i18n( "Aug" )
+                                 << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
     lay4->addWidget( _monthEnd );
 
     label = new QLabel( QString::fromLatin1( "-" ), top );
@@ -237,6 +241,20 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _optionList.setAutoDelete( true );
     Options::instance()->loadConfigWindowLayout( this );
 
+    label = new QLabel( i18n("Time: "), top);
+    lay7->addWidget( label );
+
+    _time= new KTimeWidget(top);
+    lay7->addWidget( _time );
+    lay7->addStretch(1);
+    _time->hide();
+
+    _addTime= new QPushButton(i18n("Add Time Info.."),top);
+    lay7->addWidget( _addTime );
+    lay7->addStretch(1);
+    _addTime->hide();
+    connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
+
     // If I don't explicit show _dockWindow here, then no windows will show up.
     _dockWindow->show();
 }
@@ -291,10 +309,17 @@ void ImageConfig::slotOK()
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             ImageInfo* info = *it;
             info->rotate( _preview->angle() );
-            if ( _dayStart->value() != 0 ||  _monthStart->currentText() != QString::fromLatin1("---") || _yearStart->value() != 0 )  {
+            if ( _dayStart->value() != 0 ||  _monthStart->currentText() != QString::fromLatin1("---") || _yearStart->value() != 0 ) {
                 info->startDate().setDay( _dayStart->value() );
                 info->startDate().setMonth( _monthStart->currentItem() );
                 info->startDate().setYear( _yearStart->value() );
+            }
+            if ( _time->time().isValid() ) {
+                if ( _addTime->isHidden() ) {
+                    info->startDate().setHour( _time->time().hour());
+                    info->startDate().setMinute( _time->time().minute());
+                    info->startDate().setSecond( _time->time().second());
+                }
             }
 
             if ( _dayEnd->value() != 0 || _monthEnd->currentText() != QString::fromLatin1("---") || _yearEnd->value() != 0 )  {
@@ -332,6 +357,15 @@ void ImageConfig::load()
     _monthStart->setCurrentItem( info.startDate().month() );
     _dayStart->setValue( info.startDate().day() );
 
+    if( info.startDate().hasValidTime() ) {
+        _time->show();
+        _addTime->hide();
+        _time->setTime( info.startDate().getTime());
+    }
+    else {
+        _time->hide();
+        _addTime->show();
+    }
     _yearEnd->setValue( info.endDate().year() );
     _monthEnd->setCurrentItem( info.endDate().month() );
     _dayEnd->setValue( info.endDate().day() );
@@ -363,6 +397,11 @@ void ImageConfig::writeToInfo()
     info.startDate().setYear( _yearStart->value() );
     info.startDate().setMonth( _monthStart->currentItem() );
     info.startDate().setDay( _dayStart->value() );
+
+    if( _time->time().isValid() ) {
+        if(!_time->isHidden())
+            info.startDate().setTime( _time->time());
+    }
 
     info.endDate().setYear( _yearEnd->value() );
     info.endDate().setMonth( _monthEnd->currentItem() );
@@ -696,6 +735,12 @@ void ImageConfig::rotate( int angle )
 bool ImageConfig::rotated() const
 {
     return _rotated;
+}
+
+void ImageConfig::slotAddTimeInfo()
+{
+    _addTime->hide();
+    _time->show();
 }
 
 #include "imageconfig.moc"

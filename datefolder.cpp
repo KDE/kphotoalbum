@@ -50,7 +50,7 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
     _from = new KDatePicker( top );
 
     lay2->addWidget( _from );
-
+    
     lay1->addSpacing( 100 );
 
     QVBoxLayout* lay3 = new QVBoxLayout( lay1, 6 );
@@ -59,9 +59,9 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
     lay3->addWidget( label );
     _to = new KDatePicker( top );
     lay3->addWidget( _to );
-
+   
     _from->setDate( QDate( QDate::currentDate().year(), 1, 1 ) );
-    _to->setDate( QDate( QDate::currentDate().year()+1, 1, 1 ) );
+    _to->setDate( QDate( QDate::currentDate().year()+1, 1, 1 ) );    
     connect( _from, SIGNAL( dateChanged( QDate ) ), this, SLOT( fromDateChanged( QDate ) ) );
     connect( _to, SIGNAL( dateChanged( QDate ) ), this, SLOT( toDateChanged() ) );
 }

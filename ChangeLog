@@ -1,5 +1,8 @@
 2004-03-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added Images->sort to sort images in thumbnail view. Thanks to
+	Thomas Schwarzgruber <possebaer@gmx.at>
+
 	* Added Maintenance->remove all thumbnails and Maintenance->build thumbnails
 
 2004-03-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

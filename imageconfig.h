@@ -27,6 +27,7 @@
 #include "imagepreview.h"
 #include "editor.h"
 #include <qdialog.h>
+#include <ktimewidget.h>
 
 class QSplitter;
 class Viewer;
@@ -62,6 +63,7 @@ protected slots:
     void rotateLeft();
     void rotateRight();
     void rotate( int angle );
+    void slotAddTimeInfo();
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };
@@ -108,7 +110,8 @@ private:
     QPushButton* _rotateLeft;
     QPushButton* _rotateRight;
     Editor* _description;
-
+    KTimeWidget* _time;
+    QPushButton* _addTime;
 };
 
 #endif /* IMAGECONFIG_H */

@@ -49,68 +49,8 @@ ImageInfo::ImageInfo( const QString& fileName )
     _angle = 0;
 
     // Read EXIF information
-    QMap<QString,QVariant> exif = Util::getEXIF( fullPath );
-    static bool hasShownWarning = false;
-    if ( exif.count() == 0 && !hasShownWarning ) {
-        hasShownWarning = true;
-        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information.</b></p>"
-                                          "<p>EXIF information is meta information about the image stored in JPEG files. "
-                                          "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
-                                          "<p>However, KimDaBa was unable to read information from %1. This may "
-                                          "either be because the file does not contain any EXIF information, or "
-                                          "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                  i18n("Unable to Read EXIF Information"), QString::fromLatin1("UnableToReadEXIFInformation") );
-    }
+    readExif(fullPath, ImageInfo::Init);
 
-
-    // Date
-    if ( Options::instance()->trustTimeStamps() ) {
-        bool dateFound = false;
-        if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
-            QDate date = exif[QString::fromLatin1( "CreationDate" )].toDate();
-            if ( date.isValid() ) {
-                _startDate.setDate( date );
-                dateFound = true;
-            }
-        }
-        else if ( ( fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
-                    fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
-                    fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
-                    fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) && !hasShownWarning ) {
-            hasShownWarning = true;
-            KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read the date from the EXIF information.</b></p>"
-                                              "<p>EXIF information is meta information about the image stored in JPEG files. "
-                                              "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
-                                              "<p>However, KimDaBa was unable to read date information from %1. This may "
-                                              "either be because the file did not contain any EXIF information, or "
-                                              "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                      i18n("Unable to Read Date from EXIF Information"),
-                                      QString::fromLatin1("UnableToReadEXIFInformation") );
-        }
-
-        if ( !dateFound )  {
-            QDate date = fi.lastModified().date();
-            _startDate.setDate( date );
-        }
-    }
-
-    // Orientation
-    if ( Options::instance()->useEXIFRotate() && exif.contains( QString::fromLatin1( "Orientation" ) ) ) {
-        int orientation =  exif[QString::fromLatin1( "Orientation" )].toInt();
-        if ( orientation == 1 || orientation == 2 )
-            _angle = 0;
-        else if ( orientation == 3 || orientation == 4 )
-            _angle = 180;
-        else if ( orientation == 5 || orientation == 8 )
-            _angle = -90;
-        else if ( orientation == 6 || orientation == 7 )
-            _angle = 90;
-    }
-
-    // Description
-    if ( exif.contains( QString::fromLatin1( "Comment" ) ) ) {
-        _description = exif[QString::fromLatin1( "Comment" )].toString();
-    }
 
 }
 
@@ -122,11 +62,14 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _label = elm.attribute( QString::fromLatin1("label"),  _label );
     _description = elm.attribute( QString::fromLatin1("description") );
 
-    int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0;
+    int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
 
     _startDate.setYear( elm.attribute( QString::fromLatin1("yearFrom"), QString::number( yearFrom) ).toInt() );
     _startDate.setMonth( elm.attribute( QString::fromLatin1("monthFrom"), QString::number(monthFrom) ).toInt() );
     _startDate.setDay( elm.attribute( QString::fromLatin1("dayFrom"), QString::number(dayFrom) ).toInt() );
+    _startDate.setHour( elm.attribute( QString::fromLatin1("hourFrom"), QString::number(hourFrom) ).toInt() );
+    _startDate.setMinute( elm.attribute( QString::fromLatin1("minuteFrom"), QString::number(minuteFrom) ).toInt() );
+    _startDate.setSecond( elm.attribute( QString::fromLatin1("secondFrom"), QString::number(secondFrom) ).toInt() );
 
     _endDate.setYear( elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt() );
     _endDate.setMonth( elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt() );
@@ -213,7 +156,7 @@ QString ImageInfo::fileName( bool relative ) const
     if (relative)
         return _fileName;
     else
-        return Options::instance()->imageDirectory() + QString::fromLatin1("/") + _fileName;
+        return  Options::instance()->imageDirectory() + QString::fromLatin1("/") + _fileName;
 }
 
 void ImageInfo::setFileName( const QString& relativeFileName )
@@ -235,6 +178,9 @@ QDomElement ImageInfo::save( QDomDocument doc )
     elm.setAttribute( QString::fromLatin1("yearFrom"), _startDate.year() );
     elm.setAttribute( QString::fromLatin1("monthFrom"),  _startDate.month() );
     elm.setAttribute( QString::fromLatin1("dayFrom"),  _startDate.day() );
+    elm.setAttribute( QString::fromLatin1("hourFrom"), _startDate.hour() );
+    elm.setAttribute( QString::fromLatin1("minuteFrom"), _startDate.minute() );
+    elm.setAttribute( QString::fromLatin1("secondFrom"), _startDate.second() );
 
     elm.setAttribute( QString::fromLatin1("yearTo"), _endDate.year() );
     elm.setAttribute( QString::fromLatin1("monthTo"),  _endDate.month() );
@@ -435,6 +381,106 @@ bool ImageInfo::isJPEG( const QString& fileName ) const
 {
     QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
     return format == QString::fromLocal8Bit( "JPEG" );
+}
+
+
+void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
+{
+    QFileInfo fi( fullPath );
+    QMap<QString,QVariant> exif = Util::getEXIF( fullPath );
+    static bool hasShownWarning = false;
+    if ( exif.count() == 0 && !hasShownWarning ) {
+        hasShownWarning = true;
+        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information.</b></p>"
+                                          "<p>EXIF information is meta information about the image stored in JPEG files. "
+                                          "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
+                                          "<p>However, KimDaBa was unable to read information from %1. This may "
+                                          "either be because the file does not contain any EXIF information, or "
+                                          "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
+                                  i18n("Unable to Read EXIF Information"), QString::fromLatin1("UnableToReadEXIFInformation") );
+    }
+
+    if( mode == ImageInfo::Time ) {
+        if ( Options::instance()->trustTimeStamps() ) {
+            //Time
+            if (exif.contains( QString::fromLatin1( "CreationTime" ) ) ){
+                QTime time = exif[QString::fromLatin1( "CreationTime" )].toTime();
+                if (time.isValid())
+                    _startDate.setTime( time );
+            }
+            else {
+                QTime time = fi.lastModified().time();
+                _startDate.setTime( time );
+            }
+        }
+    }
+    else if ( mode == ImageInfo::Init ) {
+        // Date
+        if ( Options::instance()->trustTimeStamps() ) {
+            bool dateFound = false;
+            if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
+                QDate date = exif[QString::fromLatin1( "CreationDate" )].toDate();
+                if ( date.isValid() ) {
+                    _startDate.setDate( date );
+                    dateFound = true;
+                }
+            }
+            else if ( ( _fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
+                        _fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
+                        _fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
+                        _fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) && !hasShownWarning ) {
+                hasShownWarning = true;
+                KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read the date from the EXIF information.</b></p>"
+                                                  "<p>EXIF information is meta information about the image stored in JPEG files. "
+                                                  "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
+                                                  "<p>However, KimDaBa was unable to read date information from %1. This may "
+                                                  "either be because the file did not contain any EXIF information, or "
+                                                  "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
+                                          i18n("Unable to Read Date from EXIF Information"),
+                                          QString::fromLatin1("UnableToReadEXIFInformation") );
+            }
+
+            if ( !dateFound )  {
+                QDate date = fi.lastModified().date();
+                _startDate.setDate( date );
+            }
+
+
+            //Time
+            if (exif.contains( QString::fromLatin1( "CreationTime" ) ) ){
+
+                QTime time = exif[QString::fromLatin1( "CreationTime" )].toTime();
+                qDebug ("TIME READ");
+                if (time.isValid())
+                    _startDate.setTime( time );
+
+            }
+            else{
+
+                QTime time = fi.lastModified().time();
+                _startDate.setTime( time );
+
+            }
+
+        }
+        // Orientation
+        if ( Options::instance()->useEXIFRotate() && exif.contains( QString::fromLatin1( "Orientation" ) ) ) {
+            int orientation =  exif[QString::fromLatin1( "Orientation" )].toInt();
+            if ( orientation == 1 || orientation == 2 )
+                _angle = 0;
+            else if ( orientation == 3 || orientation == 4 )
+                _angle = 180;
+            else if ( orientation == 5 || orientation == 8 )
+                _angle = -90;
+            else if ( orientation == 6 || orientation == 7 )
+                _angle = 90;
+        }
+
+        // Description
+        if ( exif.contains( QString::fromLatin1( "Comment" ) ) ) {
+            _description = exif[QString::fromLatin1( "Comment" )].toString();
+        }
+    }
 }
 
 

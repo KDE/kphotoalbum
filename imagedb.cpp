@@ -53,7 +53,8 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     // and show the user a progress bar while doing so.
     // This is really only needed for upgrading from KimDaBa version 1.0 so at a later point this
     // code might simply be deleted.
-    ImageInfoList missingSums;
+    ImageInfoList missingSums, missingTimes;
+    QStringList files;
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
@@ -72,10 +73,15 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
                                 (void*)0x1 /* void pointer to nothing I never need the value,
                                               just its existsance, must be != 0x0 though.*/ );
             ImageInfo* info = load( fileName, elm );
-            if ( info->MD5Sum().isNull() && info->imageOnDisk() )
+            if ( info->MD5Sum().length()<32 && info->imageOnDisk() )
                 missingSums.append( info );
             else
                 _md5Map.insert( info->MD5Sum(), fileName );
+
+            // test for valid Timestamps - this should only happen when people upgrade from an older
+            // version of KimDaBa, which did not include time stamps.
+            if (!info->startDate().hasValidTime())
+                missingTimes.append( info );
         }
     }
 
@@ -83,6 +89,30 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     if ( missingSums.count() != 0 )  {
         calculateMD5sums( missingSums );
         *dirty = true;
+    }
+
+    if ( missingTimes.count() != 0 ) {
+        for ( ImageInfoListIterator it(missingTimes); *it; ++it) {
+            files.append((*it)->fileName());
+        }
+    }
+
+    if ( missingTimes.count() != 0 ) {
+        int ret = KMessageBox::questionYesNoList(0,i18n("<qt><p>KimDaBa now also shows the time of images."
+                                                        "As a mean of migration for existing KimDaBa users, "
+                                                        "we may now read all time stamps from your existing images."
+                                                        "If you do not want us to do to do that now, "
+                                                        "you may simply push \"Don't read\" and later use "
+                                                        "\"Maintenance->Read out time info\".</p>"
+                                                        "<p>The files affected are:</p></qt>"),
+                                                 files,QString::null,i18n("Read it now"),
+                                                 i18n("Don't read it"),QString::fromLatin1("showTimeWarningStartup"));
+
+        if ( ret ==KMessageBox::Yes)  {
+
+            slotReread( missingTimes );
+            *dirty = true;
+        }
     }
 
     // Read the block list
@@ -185,7 +215,7 @@ void ImageDB::searchForNewFiles( const QDict<void>& loadedFiles, QString directo
              (*it) == QString::fromLatin1("ThumbNails") ||
              (*it) == QString::fromLatin1("CategoryImages") ||
              !fi.isReadable() )
-                continue;
+            continue;
 
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
              KImageIO::canRead(KImageIO::type(fi.extension())) ) {
@@ -252,6 +282,7 @@ void ImageDB::loadExtraFile( const QString& relativeName )
     }
 
     ImageInfo* info = new ImageInfo( relativeName  );
+    info->setMD5Sum(sum);
     _images.append(info);
 }
 
@@ -387,7 +418,7 @@ void ImageDB::lockDB( bool lock, bool exclude  )
 bool  ImageDB::calculateMD5sums( ImageInfoList& list )
 {
     QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum of your images<b></p>"
-                                "<p>By storing a checksum for each image KimDaBa is capable of finding images "
+                                 "<p>By storing a checksum for each image KimDaBa is capable of finding images "
                                  "even when you have moved them on the disk.</p></qt>"), i18n("Cancel"), list.count() );
 
     int count = 0;
@@ -457,6 +488,72 @@ void ImageDB::slotRescan()
 
     emit totalChanged( _images.count() );
 }
+
+void ImageDB::slotTimeInfo()
+{
+    QStringList files;
+    ImageInfoList missingTimes, mainList;
+
+    mainList = images();
+
+    ImageInfoListIterator it(mainList);
+    // read out again if there is a valid time info and save invalids in missingTimes
+    // we do that because a user could have edited time info since we read out missingTimes the first time
+    // and we don't want to override the users edited time
+
+    for ( ImageInfoListIterator it(mainList); *it; ++it )  {
+        //test for valid Timestamps here
+        if ( !(*it)->startDate().hasValidTime() )
+            missingTimes.append( (*it) );
+    }
+
+    if ( missingTimes.count() ) {
+        for( ImageInfoListIterator it(missingTimes); *it;++it){
+            files.append((*it)->fileName());
+        }
+    }
+    else
+        files.append(i18n("There are no images without time info"));
+
+    int ret = KMessageBox::questionYesNoList(0,i18n("These files will be affected:"),
+                                             files,QString::null,i18n("Read it now"),i18n("Don't read it"));
+    if ( ret == KMessageBox::No )
+        return;
+
+    slotReread(missingTimes);
+}
+
+
+void ImageDB::slotReread(ImageInfoList rereadList)
+{
+    // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
+    QProgressDialog  dialog( i18n("<qt><p><b>Loading time information from images</b></p>"
+                                  "<p>Depending on the number of images, this may take some time.</p></qt>"),
+                             i18n("Cancel"), rereadList.count() );
+
+    int count=0;
+    for( ImageInfoListIterator it( rereadList ); *it; ++it, ++count ) {
+        if ( count % 10 == 0 ) {
+            dialog.setProgress( count ); // ensure to call setProgress(0)
+            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+
+#if QT_VERSION < 0x030104
+            if ( dialog.wasCancelled() )
+                return;
+#else
+            if ( dialog.wasCanceled() )
+                return;
+#endif
+        }
+
+        QFileInfo fi( (*it)->fileName() );
+
+        if (fi.exists())
+            (*it)->readExif((*it)->fileName(),ImageInfo::Time);
+        emit dirty();
+    }
+}
+
 
 void ImageDB::slotRecalcCheckSums()
 {

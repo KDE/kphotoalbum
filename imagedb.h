@@ -49,6 +49,8 @@ public slots:
     void save( QDomElement top );
     void slotRescan();
     void slotRecalcCheckSums();
+    void slotReread(ImageInfoList rereadList);
+    void slotTimeInfo();
 
 signals:
     void matchCountChange( int, int, int );
@@ -76,7 +78,7 @@ private:
 
     ImageInfoList _images;
     QStringList _blockList;
-    ImageInfoList _clipboard;
+    ImageInfoList _clipboard, _missingTimes;
     QMap<QString, QString> _md5Map;
     QStringList _pendingLoad;
 

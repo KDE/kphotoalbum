@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="5">
+<kpartgui name="kimdaba" version="6">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -16,6 +16,7 @@
       <text>&amp;Images</text>
       <Action name="viewImages" />
       <Action name="viewImagesNewWindow" />
+      <Action name="sortImages" />
       <Action name="limitToMarked" />
       <Menu name="privacy">
         <text>Privacy</text>
@@ -32,6 +33,7 @@
       <Action name="findUnavailableImages"/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
+      <Action name="readTime"/>
       <Separator/>
       <Action name="removeAllThumbs"/>
       <Action name="buildThumbs"/>

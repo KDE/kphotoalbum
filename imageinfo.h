@@ -33,6 +33,8 @@
 class ImageInfo {
 
 public:
+    enum ExifMode { Init, Time };
+
     ImageInfo();
     ImageInfo( const QString& fileName );
     ImageInfo( const QString& fileName, QDomElement elm );
@@ -52,6 +54,8 @@ public:
     void setEndDate( const ImageDate& );
     ImageDate& startDate();
     ImageDate& endDate();
+
+    void readExif(const QString& fullPath, ExifMode mode);
 
     void rotate( int degrees );
     int angle() const;

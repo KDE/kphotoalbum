@@ -54,6 +54,7 @@ protected slots:
     void slotSearch();
     void slotView( bool reuse = true );
     void slotViewNewWindow();
+    void slotSortByDateAndTime();
     void slotChanges();
     void slotLimitToSelected();
     void slotExportToHTML();
@@ -97,6 +98,7 @@ protected:
     void setLocked( bool b );
     void configImages( const ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
+    ImageInfoList getSelectedOnDisk();
 
 private:
     static MainView* _instance;
@@ -122,6 +124,7 @@ private:
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;
     KAction* _view;
+    KAction* _sortByDateAndTime;
     KAction* _viewInNewWindow;
     KActionMenu* _viewMenu;
     KRadioAction* _smallListView;

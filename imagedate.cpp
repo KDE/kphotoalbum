@@ -47,6 +47,21 @@ int ImageDate::day() const
     return _day;
 }
 
+int ImageDate::hour() const
+{
+    return _hour;
+}
+
+int ImageDate::minute() const
+{
+    return _minute;
+}
+
+int ImageDate::second() const
+{
+    return _second;
+}
+
 void ImageDate::setYear( int year )
 {
     _year = year;
@@ -61,6 +76,22 @@ void ImageDate::setDay( int day )
 {
     _day = day;
 }
+
+void ImageDate::setHour( int hour )
+{
+    _hour = hour;
+}
+
+void ImageDate::setMinute( int minute )
+{
+    _minute = minute;
+}
+
+void ImageDate::setSecond( int second )
+{
+    _second = second;
+}
+
 
 bool ImageDate::operator<=( const ImageDate& other ) const
 {
@@ -80,13 +111,13 @@ bool ImageDate::operator<=( const ImageDate& other ) const
         return true;
 }
 
-ImageDate::ImageDate() :_year(0), _month(0), _day(0)
+ImageDate::ImageDate() :_year(0), _month(0), _day(0), _hour(-1), _minute(-1), _second(-1)
 {
 }
 
 bool ImageDate::isNull() const
 {
-    return ( _year == 0 && _month == 0 && _day == 0 );
+    return ( _year == 0 && _month == 0 && _day == 0);
 }
 
 QString ImageDate::toString()
@@ -111,6 +142,22 @@ QString ImageDate::toString()
     if ( _year != 0 )
         result += QString::number( _year );
 
+    if ( _hour>=0 && _minute>=0 && _second>=0 ) {
+        if (_hour<=9)
+            result += QString::fromLatin1(" 0%1:").arg(_hour);
+        else
+            result += QString::fromLatin1(" %1:").arg(_hour);
+
+        if (_minute<=9)
+            result += QString::fromLatin1("0%1:").arg(_minute);
+        else
+            result += QString::fromLatin1("%1:").arg(_minute);
+
+        if (_second<=9)
+            result += QString::fromLatin1("0%1").arg(_second);
+        else
+            result += QString::fromLatin1("%1").arg(_second);
+    }
     return result;
 }
 
@@ -119,7 +166,10 @@ bool ImageDate::operator==( const ImageDate& other )
     return
         ( _year == other._year &&
           _month == other._month &&
-          _day == other._day );
+          _day == other._day &&
+          _hour == other._hour &&
+          _minute == other._minute &&
+          _second == other._second );
 }
 
 bool ImageDate::operator!=( const ImageDate& other )
@@ -134,3 +184,23 @@ void ImageDate::setDate( const QDate& date )
     _year = date.year();
 }
 
+void ImageDate::setTime( const QTime& time )
+{
+    _hour = time.hour();
+    _minute = time.minute();
+    _second = time.second();
+
+}
+
+QTime ImageDate::getTime()
+{
+    if ( _hour == -1 || _minute == -1 || _second == -1 )
+        return QTime();
+    else
+        return QTime(_hour,_minute,_second);
+}
+
+bool ImageDate::hasValidTime() const
+{
+    return QTime::isValid( _hour, _minute, _second );
+}

@@ -331,37 +331,149 @@ void MainView::slotViewNewWindow()
     slotView( false );
 }
 
-void MainView::slotView( bool reuse )
+ImageInfoList MainView::getSelectedOnDisk()
 {
+    ImageInfoList listOnDisk;
     ImageInfoList list = selected();
     if ( list.count() == 0 )
         list = ImageDB::instance()->currentContext();
 
-    ImageInfoList list2;
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         if ( (*it)->imageOnDisk() )
-            list2.append( *it );
+            listOnDisk.append( *it );
     }
-    if ( list.count() == 0 )
-        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
-    else if ( list2.count() == 0 )
+
+    if ( listOnDisk.count() == 0 ) {
         QMessageBox::warning( this, i18n("No Images to Display"),
                               i18n("None of the selected images were available on the disk.") );
+    }
+
+    return list;
+}
+
+void MainView::slotView( bool reuse )
+{
+  ImageInfoList listOnDisk = getSelectedOnDisk();
+
+  if ( listOnDisk.count() != 0 ) {
+
+    Viewer* viewer;
+    if ( reuse && Viewer::latest() ) {
+         viewer = Viewer::latest();
+         topLevelWidget()->raise();
+         setActiveWindow();
+    }
     else {
-        Viewer* viewer;
-        if ( reuse && Viewer::latest() ) {
-            viewer = Viewer::latest();
-            topLevelWidget()->raise();
-            setActiveWindow();
+         viewer = new Viewer( "viewer" );
+         viewer->show();
+    }
+
+    viewer->load( listOnDisk );
+    viewer->raise();
+  }
+}
+
+void MainView::slotSortByDateAndTime()
+{
+    ImageInfoList sorted;
+    typedef QMap<uint,ImageInfo> SortMap;
+    SortMap map;
+    bool hasShownMessage = false;
+
+    ImageInfoList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
+    if ( listOnDisk.count() != 0 ) {
+        // Do sorting here
+        ImageInfoListIterator it_selected( listOnDisk );
+        ImageInfoList& images = ImageDB::instance()->images();
+        ImageInfoListIterator it_all( images );
+
+        int index = images.find(it_selected.toFirst()); //gets the index of the first selected image
+        it_all.toFirst();
+        it_all+=index; //sets it_all to same image as it_selected
+
+        //calculate for every picture the time in seconds from 1970 and put it into map
+        //since the time in seconds is the key, and the ImageInfo is the data we get
+        //it sorted by the map automatically
+        for( it_selected.toFirst(); *it_selected; ++it_selected, ++it_all ){
+
+            ImageDate imagedate= (*it_selected)->startDate();
+            QDateTime datetime;
+
+
+            if ((*it_selected)->MD5Sum() != (*it_all)->MD5Sum() && hasShownMessage==false){
+
+                if(KMessageBox::warningYesNo(0,i18n("<qt>You are about to sort a set of images with others in between"
+                                                    "<br>This might result in an unexpected sort order</br>"
+                                                    "<p>Are you sure you want to continue?</p></qt>"), QString::null, KStdGuiItem::yes(), KStdGuiItem::no(), QString::null, KMessageBox::Dangerous)==KMessageBox::No)
+                    return;
+
+                hasShownMessage = true;
+            }
+
+
+            int year = 1752; int month = 1; int day = 1;
+            if ( imagedate.year() != 0 )
+                year = imagedate.year();
+
+            if ( imagedate.month() != 0 )
+                month = imagedate.month();
+
+            if ( imagedate.day() != 0 )
+                day = imagedate.day();
+
+            datetime.setDate( QDate(year,month,day) );
+
+            if(imagedate.hasValidTime())
+                datetime.setTime(imagedate.getTime());
+            else
+                datetime.setTime(QTime(0,0,0));
+
+
+            uint timeseconds = datetime.toTime_t();
+
+            while(map.contains(timeseconds))//if two or more pictures has the same time
+                timeseconds += 1;
+
+            ImageInfo *test = *it_selected;
+            map[timeseconds]= *test;
         }
-        else {
-            viewer = new Viewer( "viewer" );
-            viewer->show();
+
+
+        SortMap::Iterator iterator;
+        //"copy" the new order in the sorted list
+        for(iterator=map.begin(); iterator!=map.end(); ++iterator){
+
+            for (ImageInfoListIterator it2( listOnDisk );*it2; ++it2){
+
+                if( iterator.data().MD5Sum() == (*it2)->MD5Sum() ) {
+                    sorted.append( *it2 );
+                    break;
+                }
+            }
         }
-        viewer->load( list2 );
-        viewer->raise();
+
+
+        //remove every item of sorted from the images_list(the main list)
+        //because we add all the images from sorted afterwards
+        //(we would have them doubled if we wouldn't remove them)
+        for( ImageInfoListIterator it3( sorted );*it3; ++it3 ) {
+            if (!(images.removeRef((*it3)))){
+                KMessageBox::error(0,i18n("MD5Sum failure! Try recalcing your MD5Sums !"));
+                return;
+            }
+        }
+
+        //insert sorted block of images in place of block of unsorted images
+        // index represents the place of the first selected unsorted image
+        for( ImageInfoListIterator it4( sorted );*it4; ++it4,index++){
+            images.insert(index,(*it4));
+        }
+
+        _thumbNailView->reload();
+        markDirty();
     }
 }
+
 
 QString MainView::welcome()
 {
@@ -427,8 +539,10 @@ void MainView::setupMenuBar()
     // The Images menu
     _view = new KAction( i18n("View"), Key_I, this, SLOT( slotView() ),
                                  actionCollection(), "viewImages" );
+
     _viewInNewWindow = new KAction( i18n("View (In new window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
+    _sortByDateAndTime = new KAction( i18n("Sort Selected by Date and Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
 
@@ -448,6 +562,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Display Images not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
+    new KAction( i18n("Read time info from files..."), 0, ImageDB::instance(), SLOT( slotTimeInfo() ), actionCollection(), "readTime" );
     new KAction( i18n("Remove all thumbnails..."), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
     new KAction( i18n("Build thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
 
@@ -879,6 +994,7 @@ void MainView::slotThumbNailSelectionChanged()
 
     _configAllSimultaniously->setEnabled( manySelected );
     _configOneAtATime->setEnabled( oneSelected );
+    _sortByDateAndTime->setEnabled( manySelected );
 }
 
 void MainView::reloadThumbNail()
@@ -919,6 +1035,7 @@ void MainView::updateStates( bool thumbNailView )
     _paste->setEnabled( thumbNailView );
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
+    _sortByDateAndTime->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
 }
 

@@ -43,6 +43,7 @@ int main( int argc, char** argv ) {
                          "Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
                          "(.) Theme support for HTML generation", "teemu.rytilahti@kde-fi.org" );
     aboutData.addCredit( "Reimar Imhof", "Patch to sort items in option listboxes", "Reimar.Imhof@netCologne.de" );
+    aboutData.addCredit( "Thomas Schwarzgruber", "Patch to sort images in the thumbnail view, plus reading time info out of EXIF images for existing images", "possebaer@gmx.at" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

@@ -1,3 +1,11 @@
+2004-11-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* update progress dialog for loading info from images after each
+	image, rather than after every ten images. This matters if the
+	images are say 80Mb large.
+
+--------------------------- version 2.0 released --------------------------------------
+	
 2004-10-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Items in the edit menu (among these "delete image") was

@@ -228,18 +228,16 @@ void ImageDB::loadExtraFiles()
                              i18n("&Cancel"), _pendingLoad.count() );
     int count = 0;
     for( QStringList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
-        if ( count % 10 == 0 ) {
-            dialog.setProgress( count ); // ensure to call setProgress(0)
-            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+        dialog.setProgress( count ); // ensure to call setProgress(0)
+        qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
 #if QT_VERSION < 0x030104
-            if ( dialog.wasCancelled() )
-                return;
+        if ( dialog.wasCancelled() )
+            return;
 #else
-            if ( dialog.wasCanceled() )
-                return;
+        if ( dialog.wasCanceled() )
+            return;
 #endif
-        }
         loadExtraFile( *it );
     }
 }

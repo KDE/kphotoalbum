@@ -1,5 +1,3 @@
-Features/Bug for next version
------------------------------
 - pan does work very well in the viewer
 - drawing on an image doesn't mark it as dirty
 - spell check in the editor
@@ -10,9 +8,7 @@ Features/Bug for next version
 - In the group editor (options->group), ensure that no cycles are created.
 - when images are deleted, the total count at the bottom of the mainwindow,
 should update
-
-Features for later versions
----------------------------
+- Edit->Options should likely be Settings->Configure Kimdaba instead.
 - undo/redo
 - drag an image out of KimDaBa to say the background
 - read date and rotation out of the JPEG file info

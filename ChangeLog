@@ -1,3 +1,8 @@
+2003-12-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Don't show HTML export dialog in case not item was selected.
+
+---------------------------------- version 1.0 released --------------------
 2003-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: Previously the image loader was asked to load all images

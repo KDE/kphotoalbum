@@ -388,6 +388,7 @@ void MainView::slotExportToHTML()
     ImageInfoList list = selected();
     if ( list.count() == 0 )  {
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item selected.") );
+        return;
     }
 
     HTMLExportDialog dialog( list, this, "htmlExportDialog" );

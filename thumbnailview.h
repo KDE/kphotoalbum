@@ -36,6 +36,7 @@ public slots:
     void slotCut();
     void slotPaste();
     void showToolTipsOnImages( bool );
+    void gotoDate( const QDateTime& );
 
 signals:
     void changed();

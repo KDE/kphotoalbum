@@ -367,6 +367,7 @@ void DateBar::mousePressEvent( QMouseEvent* event )
         _currentDate = _currentHandler->date( _currentUnit );
         _movementOffset = 0;
     }
+    emit dateSelected( _currentDate );
     redraw();
 }
 
@@ -382,6 +383,7 @@ void DateBar::mouseMoveEvent( QMouseEvent* event )
 
     endAutoScroll();
     doScroll( event->pos().x() );
+    emit dateSelected( _currentDate );
 }
 
 QRect DateBar::barAreaGeometry() const

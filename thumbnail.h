@@ -22,6 +22,7 @@
 #include <qlabel.h>
 #include <qiconview.h>
 #include "imageclient.h"
+class QPixmapCache;
 class ThumbNailView;
 class ImageInfo;
 
@@ -44,6 +45,10 @@ protected:
     bool atRightSizeOfItem();
     virtual void calcRect( const QString& text = QString::null );
     virtual void paintItem ( QPainter * p, const QColorGroup & cg );
+    virtual QPixmap* pixmap() const;
+
+    static QPixmapCache& pixmapCache();
+    static QPixmap* emptyPixmap();
 
 private:
     ImageInfo* _imageInfo;

@@ -271,4 +271,15 @@ void ThumbNailView::drawBackground( QPainter * p, const QRect & r )
     p->fillRect( r, Options::instance()->thumbNailBackgroundColor() );
 }
 
+void ThumbNailView::gotoDate( const QDateTime& date )
+{
+    for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        if ( tn->imageInfo()->startDate().min() > date ) {
+            setContentsPos( tn->x()+4, tn->y()+4 );
+            return;
+        }
+    }
+}
+
 #include "thumbnailview.moc"

@@ -32,6 +32,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <math.h>
+#include <qpixmapcache.h>
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
     :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent )
@@ -48,6 +49,7 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* par
 
 void ThumbNail::init()
 {
+#ifdef TEMPORARILY_REMOVED
     int size = Options::instance()->thumbSize();
 
     _pixmap.resize( size, size );
@@ -56,6 +58,7 @@ void ThumbNail::init()
     painter.drawRect( 0, 0, size, size );
     setPixmap( _pixmap );
     ImageManager::instance()->load( _imageInfo->fileName(),  this, _imageInfo->angle(), size, size, true, false );
+#endif
     setDropEnabled( true );
 }
 
@@ -72,14 +75,15 @@ ImageInfo* ThumbNail::imageInfo()
     return _imageInfo;
 }
 
-void ThumbNail::pixmapLoaded( const QString&, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image  )
+void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& /*fullSize*/, int, const QImage& image  )
 {
+    QPixmap* pixmap = new QPixmap( size );
     if ( !image.isNull() )
-        _pixmap.convertFromImage( image );
+        pixmap->convertFromImage( image );
 
 
     if ( !_imageInfo->imageOnDisk() ) {
-        QPainter p( &_pixmap );
+        QPainter p( pixmap );
         p.setBrush( white );
         p.setWindow( 0, 0, 100, 100 );
         QPointArray pts;
@@ -87,7 +91,17 @@ void ThumbNail::pixmapLoaded( const QString&, const QSize& /*size*/, const QSize
         p.drawConvexPolygon( pts );
     }
 
-    setPixmap( _pixmap );
+    pixmapCache().insert( _imageInfo->fileName(), pixmap );
+
+    QRect oR = rect();
+    calcRect();
+    oR = oR.unite( rect() );
+
+	if ( QRect( iconView()->contentsX(), iconView()->contentsY(),
+                iconView()->visibleWidth(), iconView()->visibleHeight() ).
+	     intersects( oR ) )
+	    iconView()->repaintContents( oR.x() - 1, oR.y() - 1,
+                                   oR.width() + 2, oR.height() + 2, FALSE );
 }
 
 void ThumbNail::dragMove()
@@ -198,4 +212,31 @@ void ThumbNail::paintItem( QPainter * p, const QColorGroup & cg )
 
     cgCopy.setColor( QColorGroup::Text, col );
     QIconViewItem::paintItem( p, cgCopy );
+}
+
+QPixmapCache& ThumbNail::pixmapCache()
+{
+    static QPixmapCache cache;
+    cache.setCacheLimit( 4* 1024 );
+    return cache;
+}
+
+QPixmap* ThumbNail::pixmap() const
+{
+    QPixmap* pix = pixmapCache().find( _imageInfo->fileName() );
+    if ( pix )
+        return pix;
+
+    int size = Options::instance()->thumbSize();
+    ImageManager::instance()->load( _imageInfo->fileName(),  const_cast<ThumbNail*>( this ), _imageInfo->angle(), size, size, true, false );
+    return emptyPixmap();
+}
+
+QPixmap* ThumbNail::emptyPixmap()
+{
+    static QPixmap pixmap;
+    if ( pixmap.isNull() ) {
+        pixmap.resize( 0,0 );
+    }
+    return &pixmap;
 }

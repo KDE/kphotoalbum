@@ -53,6 +53,7 @@ public slots:
 signals:
     void canZoomIn( bool );
     void canZoomOut( bool );
+    void dateSelected( const QDateTime& );
 
 public:
     // Overriden methods for internal purpose

@@ -120,6 +120,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
     _thumbNailView = new ThumbNailView( _stack, "_thumbNailView" );
+    connect( _dateBar, SIGNAL( dateSelected( const QDateTime& ) ), _thumbNailView, SLOT( gotoDate( const QDateTime& ) ) );
 
     connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
 
@@ -1410,3 +1411,4 @@ void MainView::updateDateBar( const QString& path )
 }
 
 #include "mainview.moc"
+class QDateTime;

@@ -16,6 +16,14 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
+
+extern "C" {
+#define XMD_H // prevent INT32 clash from jpeglib
+#include <stdlib.h>
+#include <stdio.h>
+#include <jpeglib.h>
+}
+
 #include "displayarea.h"
 #include <qpainter.h>
 #include "options.h"
@@ -109,19 +117,21 @@ void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
     if ( !block )
         QWidget::mousePressEvent( event );
     drawAll();
-    update();
 }
 
 void DisplayArea::drawAll()
 {
-    if ( _loadedPixmap.isNull() )
+    if ( _croppedAndScaledImg.isNull() )
         return;
 
-    QPixmap tmp( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ) );
-    bitBlt( &tmp, QPoint(0,0), &_loadedPixmap, QRect( _zStart, _zEnd ) );
-    _drawingPixmap = scalePixmap( tmp, width(), height() );
+    QPixmap tmp = _croppedAndScaledImg;
+    _drawingPixmap.resize( width(), height() );
+    _drawingPixmap.fill( black );
+    int x = ( width() - tmp.width() ) / 2;
+    int y = ( height() - tmp.height() ) / 2;
+    bitBlt( &_drawingPixmap, x, y, &tmp );
 
-    if ( Options::instance()->showDrawings() ) {
+    if ( Options::instance()->showDrawings() && _drawHanler->hasDrawings() ) {
         QPainter painter( &_drawingPixmap );
         xformPainter( &painter );
         _drawHanler->drawAll( painter );
@@ -151,21 +161,16 @@ void DisplayArea::toggleShowDrawings( bool b )
 void DisplayArea::setImage( ImageInfo* info )
 {
     _info = info;
-    ImageManager::instance()->load( info->fileName( false ), this, info->angle(), -1,  -1, false, true );
-}
-
-void DisplayArea::pixmapLoaded( const QString&, int, int, int, const QImage& image )
-{
-    _loadedPixmap = image;
+    // PENDING(blackie) Test if the image is JPG at all
+    loadJPEG( &_loadedImage, info->fileName(false) );
     _zStart = QPoint(0,0);
-    _zEnd = QPoint( image.width(), image.height() );
-    drawAll();
-    update();
+    _zEnd = QPoint( _loadedImage.width(), _loadedImage.height() );
+    cropAndScale();
 }
 
 void DisplayArea::resizeEvent( QResizeEvent* )
 {
-    drawAll();
+    cropAndScale();
 }
 
 DrawHandler* DisplayArea::drawHandler()
@@ -183,30 +188,7 @@ QPainter* DisplayArea::painter()
 
 void DisplayArea::paintEvent( QPaintEvent* )
 {
-    if ( _viewPixmap.isNull() )
-        return;
-
-    QPainter p(this);
-    p.drawPixmap( 0,0, _viewPixmap );
-}
-
-QPixmap DisplayArea::scalePixmap( QPixmap pix, int width, int height )
-{
-    int pixWidth = pix.width();
-    int pixHeight = pix.height();
-    double ratio;
-    QPoint off = offset(pixWidth, pixHeight, width, height, &ratio );
-    off = off/ratio;
-
-    QWMatrix matrix;
-    matrix.scale( ratio, ratio );
-
-    QPixmap res( width, height );
-    res.fill( black );
-    QPainter p(&res );
-    p.setWorldMatrix( matrix );
-    p.drawPixmap( off, pix );
-    return res;
+    bitBlt( this, 0, 0, &_viewPixmap );
 }
 
 QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
@@ -240,23 +222,24 @@ void DisplayArea::zoom( QPoint p1, QPoint p2 )
     else
         p1.setX(0);
 
-    if ( p2.x() + off.x() < _loadedPixmap.width() )
+    if ( p2.x() + off.x() < _loadedImage.width() )
         p2.setX( p2.x()+off.x() );
     else
-        p2.setX( _loadedPixmap.width() );
+        p2.setX( _loadedImage.width() );
 
     if ( p1.y() - off.y() > 0 )
         p1.setY( p1.y() - off.y() );
     else
         p1.setY(0);
 
-    if ( p2.y() + off.y() < _loadedPixmap.height() )
+    if ( p2.y() + off.y() < _loadedImage.height() )
         p2.setY( p2.y()+off.y() );
     else
-        p2.setY( _loadedPixmap.height() );
+        p2.setY( _loadedImage.height() );
 
     _zStart = p1;
     _zEnd = p2;
+    cropAndScale();
 }
 
 QPoint DisplayArea::mapPos( QPoint p )
@@ -284,7 +267,7 @@ void DisplayArea::zoomIn()
     QPoint size = (_zEnd-_zStart);
     _zStart += size*(0.5/2);
     _zEnd -= size*(0.5/2);
-    drawAll();
+    cropAndScale();
 }
 
 void DisplayArea::zoomOut()
@@ -297,11 +280,11 @@ void DisplayArea::zoomOut()
         _zStart.setY(0);
 
     _zEnd += size*(1.0/2);
-    if ( _zEnd.x() > _loadedPixmap.width() )
-        _zEnd.setX( _loadedPixmap.width() );
-    if ( _zEnd.y() > _loadedPixmap.height() )
-        _zEnd.setY( _loadedPixmap.height() );
-    drawAll();
+    if ( _zEnd.x() > _loadedImage.width() )
+        _zEnd.setX( _loadedImage.width() );
+    if ( _zEnd.y() > _loadedImage.height() )
+        _zEnd.setY( _loadedImage.height() );
+    cropAndScale();
 }
 
 void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
@@ -319,6 +302,93 @@ void DisplayArea::pan( const QPoint& p )
     // PENDING(blackie) Do boundary checks.
     _zStart += p;
     _zEnd += p;
+    cropAndScale();
+}
+
+// Fudged Fast JPEG decoding code from GWENVIEW (picked out out digikam)
+
+bool DisplayArea::loadJPEG(QImage* image, const QString& fileName )
+{
+    FILE* inputFile=fopen( fileName.latin1(), "rb");
+    if(!inputFile) return false;
+
+    struct jpeg_decompress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+    cinfo.err = jpeg_std_error(&jerr);
+    jpeg_create_decompress(&cinfo);
+    jpeg_stdio_src(&cinfo, inputFile);
+    jpeg_read_header(&cinfo, TRUE);
+
+#if 0
+    int size = li.width();
+    int imgSize = QMAX(cinfo.image_width, cinfo.image_height);
+
+    int scale=1;
+    while(size*scale*2<=imgSize) {
+        scale*=2;
+    }
+    if(scale>8) scale=8;
+
+    cinfo.scale_num=1;
+    cinfo.scale_denom=scale;
+#endif
+    // Create QImage
+    jpeg_start_decompress(&cinfo);
+
+    switch(cinfo.output_components) {
+    case 3:
+    case 4:
+        image->create( cinfo.output_width, cinfo.output_height, 32 );
+        break;
+    case 1: // B&W image
+        image->create( cinfo.output_width, cinfo.output_height, 8, 256 );
+        for (int i=0; i<256; i++)
+            image->setColor(i, qRgb(i,i,i));
+        break;
+    default:
+        return false;
+    }
+
+    uchar** lines = image->jumpTable();
+    while (cinfo.output_scanline < cinfo.output_height)
+        jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline,
+                            cinfo.output_height);
+    jpeg_finish_decompress(&cinfo);
+
+    // Expand 24->32 bpp
+    if ( cinfo.output_components == 3 ) {
+        for (uint j=0; j<cinfo.output_height; j++) {
+            uchar *in = image->scanLine(j) + cinfo.output_width*3;
+            QRgb *out = (QRgb*)( image->scanLine(j) );
+
+            for (uint i=cinfo.output_width; i--; ) {
+                in-=3;
+                out[i] = qRgb(in[0], in[1], in[2]);
+            }
+        }
+    }
+
+    //int newMax = QMAX(cinfo.output_width, cinfo.output_height);
+    //int newx = size*cinfo.output_width / newMax;
+    //int newy = size*cinfo.output_height / newMax;
+
+    //image=image.smoothScale( newx, newy);
+
+    jpeg_destroy_decompress(&cinfo);
+    fclose(inputFile);
+
+    return true;
+}
+
+
+void DisplayArea::cropAndScale()
+{
+    if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) )
+        _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
+    else
+        _croppedAndScaledImg = _loadedImage;
+
+    _croppedAndScaledImg = _croppedAndScaledImg.scale( width(), height(), QImage::ScaleMin );
     drawAll();
 }
 

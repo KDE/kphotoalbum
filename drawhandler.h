@@ -21,6 +21,8 @@ public:
     virtual bool mouseMoveEvent ( QMouseEvent* e );
     DrawList drawList() const;
     void setDrawList( const DrawList& );
+    bool hasDrawings() const;
+
     void drawAll( QPainter& );
     void stopDrawing();
 

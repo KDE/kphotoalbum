@@ -32,7 +32,7 @@ kimdaba_SOURCES = main.cpp \
 	viewhandler.cpp drawhandler.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) -lktexteditor
+kimdaba_LDADD = $(LIB_KIO) -lktexteditor -ljpeg
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS)

@@ -166,3 +166,8 @@ void DrawHandler::setupPainter( QPainter* painter )
     painter->setPen( QPen( Qt::black, 3 ) );
 }
 
+bool DrawHandler::hasDrawings() const
+{
+    return _drawings.size() != 0;
+}
+

@@ -30,8 +30,9 @@ class ViewHandler_viewHandler;
 class DrawHandler;
 class DisplayAreaHandler;
 class ViewHandler;
+class LoadInfo;
 
-class DisplayArea :public QWidget,  public ImageClient {
+class DisplayArea :public QWidget {
 Q_OBJECT
 public:
     DisplayArea( QWidget* parent, const char* name = 0 );
@@ -54,11 +55,10 @@ protected:
     virtual void mouseReleaseEvent( QMouseEvent* event );
     virtual void resizeEvent( QResizeEvent* event );
     virtual void paintEvent( QPaintEvent* event );
-    void pixmapLoaded( const QString&, int, int, int, const QImage& image );
-    QPixmap scalePixmap( QPixmap pix, int width, int height );
     QPoint mapPos( QPoint );
     QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );
     void xformPainter( QPainter* );
+    void cropAndScale();
 
     friend class DrawHandler;
     friend class ViewHandler;
@@ -66,10 +66,13 @@ protected:
     void zoom( QPoint p1, QPoint p2 );
     void normalize( QPoint& p1, QPoint& p2 );
     void pan( const QPoint& );
+    bool loadJPEG(QImage* image, const QString& fileName );
+
 
 
 private:
-    QPixmap _loadedPixmap;
+    QImage _loadedImage;
+    QImage _croppedAndScaledImg;
     QPixmap _drawingPixmap;
     QPixmap _viewPixmap;
     ImageInfo* _info;

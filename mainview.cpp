@@ -95,8 +95,10 @@ void MainView::save()
         QString outputFile = indexDirectory + "/index.xml";
         if ( !docs.contains( outputFile ) )  {
             QDomDocument tmp;
-            tmp.setContent( QString("<Images/>") );
             docs[outputFile] = tmp;
+            // PENDING(blackie) The user should be able to specify the coding himself.
+            tmp.appendChild( tmp. createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+            tmp.appendChild( tmp.createElement( "Images" ) );
         }
         QDomDocument doc = docs[outputFile];
         QDomElement elm = doc.documentElement();
@@ -111,7 +113,7 @@ void MainView::save()
         }
         else {
             QTextStream stream( &out );
-            stream << it.data().toString();
+            stream << it.data().toString().utf8();
             out.close();
         }
     }

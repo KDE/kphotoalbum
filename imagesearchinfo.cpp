@@ -19,6 +19,7 @@
 #include "imagesearchinfo.h"
 #include <qregexp.h>
 #include "options.h"
+#include <klocale.h>
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
@@ -124,7 +125,7 @@ bool ImageSearchInfo::stringMatch( const QString& key, ImageInfo* info )
 
     // I can't make up my mind if this is too mucha a hack, so we just have
     // to see how it works.
-    if ( matchText == QString::fromLatin1( "__NONE__" ) )
+    if ( matchText == QString::fromLatin1( "**NONE**" ) )
         return (info->optionValue( key ).count() == 0);
 
     QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
@@ -179,5 +180,32 @@ void ImageSearchInfo::setStartDate( const ImageDate& date )
 void ImageSearchInfo::setEndDate( const ImageDate& date )
 {
     _endDate = date;
+}
+
+QString ImageSearchInfo::toString() const
+{
+    QString res;
+    bool first = true;
+    for( QMapConstIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+        if ( ! it.data().isEmpty() ) {
+            if ( first )
+                first = false;
+            else
+                res += QString::fromLatin1( " / " );
+
+            QString txt = it.data();
+            if ( txt.contains( QString::fromLatin1("|") ) )
+                txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " %1 " ).arg( i18n("and") ) );
+
+            else
+                txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " / " ) );
+
+            txt.replace( QString::fromLatin1( "|" ), QString::fromLatin1( " %1 " ).arg( i18n("or") ) );
+            txt.replace( QString::fromLatin1( "!" ), QString::fromLatin1( " %1 " ).arg( i18n("not") ) );
+            txt.simplifyWhiteSpace();
+            res += txt;
+        }
+    }
+    return res;
 }
 

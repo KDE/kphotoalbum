@@ -223,7 +223,7 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
                 map[*it]++;
             }
             if ( list.count() == 0 )
-                map[QString::fromLatin1( "__NONE__" )]++;
+                map[i18n( "**NONE**" )]++;
         }
     }
     return map;

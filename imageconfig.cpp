@@ -394,9 +394,12 @@ void ImageConfig::configure( ImageInfoList list, bool oneAtATime )
     exec();
 }
 
-ImageSearchInfo ImageConfig::search()
+ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
 {
     _setup = SEARCH;
+    if ( search )
+        _oldSearch = *search;
+
     setup();
     int ok = exec();
     if ( ok == QDialog::Accepted )  {

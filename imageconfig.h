@@ -38,7 +38,7 @@ class ImageConfig :public KDockMainWindow {
 public:
     ImageConfig( QWidget* parent, const char* name = 0 );
     void configure( ImageInfoList list,  bool oneAtATime );
-    ImageSearchInfo search();
+    ImageSearchInfo search( ImageSearchInfo* search = 0 );
 
 signals:
     void changed();

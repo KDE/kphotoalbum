@@ -43,6 +43,7 @@ public:
     bool match( ImageInfo* );
 
     void addAnd( const QString& group, const QString& value );
+    QString toString() const;
 
 protected:
     bool stringMatch( const QString& key, ImageInfo* info );

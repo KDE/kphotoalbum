@@ -68,6 +68,7 @@ private:
     QListBox* _listBox;
     QCheckBox* _merge;
     Mode _mode;
+    QListBoxItem* _none;
 };
 
 #endif /* LISTSELECT_H */

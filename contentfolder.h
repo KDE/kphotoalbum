@@ -24,8 +24,6 @@ class ContentFolder :public Folder {
 public:
     ContentFolder( const QString& optionGroup, const QString& value, int count,
                    const ImageSearchInfo& info, Browser* parent );
-    ContentFolder( const QString& optionGroup, int count,
-                   const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
 
 private:

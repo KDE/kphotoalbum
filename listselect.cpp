@@ -145,7 +145,7 @@ QListBoxItem* CompletableLineEdit::findItemInListBox( const QString& text )
 
 
 ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char* name )
-    : QWidget( parent,  name ), _optionGroup( optionGroup )
+    : QWidget( parent,  name ), _optionGroup( optionGroup ), _none(0)
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
 
@@ -243,10 +243,20 @@ bool ListSelect::merge() const
     return _merge->isChecked();
 }
 
-void ListSelect::setMode( Mode mode)
+void ListSelect::setMode( Mode mode )
 {
     _mode = mode;
     _lineEdit->setMode( mode );
+    if ( mode == SEARCH) {
+        if ( _none == 0 ) {
+            _none = new QListBoxText( 0, i18n("**NONE**") );
+            _listBox->insertItem( _none, 0 );
+        }
+    }
+    else {
+        delete _none;
+        _none = 0;
+    }
 }
 
 QWidget* ListSelect::firstTabWidget() const

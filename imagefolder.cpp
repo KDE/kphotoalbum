@@ -72,6 +72,6 @@ FolderAction* ImageFolder::action( bool /* ctrlDown */ )
 }
 
 ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, int from, int to,  Browser* browser )
-    : FolderAction( QString::null, info, browser ), _from(from), _to(to), _addExtraToBrowser( true )
+    : FolderAction( info, browser ), _from(from), _to(to), _addExtraToBrowser( true )
 {
 }

@@ -20,6 +20,7 @@
 #include "options.h"
 #include "imagedb.h"
 #include "contentfolder.h"
+#include <klocale.h>
 TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup ( optionGroup )
 {
@@ -34,7 +35,7 @@ FolderAction* TypeFolder::action( bool /* ctrlDown */ )
 
 TypeFolderAction::TypeFolderAction( const QString& optionGroup, const ImageSearchInfo& info,
                                     Browser* browser )
-    :FolderAction( browser->path(), info, browser ), _optionGroup( optionGroup )
+    :FolderAction( info, browser ), _optionGroup( optionGroup )
 {
 }
 
@@ -44,14 +45,14 @@ void TypeFolderAction::action()
 
     QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
     for( QMapIterator<QString,int> it= map.begin(); it != map.end(); ++it ) {
-        if ( it.key() != QString::fromLatin1( "__NONE__" ) ) {
+        if ( it.key() != i18n( "**NONE**" ) ) {
             new ContentFolder( _optionGroup, it.key(), it.data(), _info, _browser );
         }
     }
 
     // Add the none option to the end
-    int i = map[QString::fromLatin1("__NONE__")];
+    int i = map[i18n("**NONE**")];
     if ( i != 0 )
-        new ContentFolder( _optionGroup, QString::fromLatin1( "__NONE__" ), i, _info, _browser );
+        new ContentFolder( _optionGroup, i18n( "**NONE**" ), i, _info, _browser );
 }
 

@@ -93,93 +93,84 @@ Viewer::Viewer( QWidget* parent, const char* name )
 void Viewer::setupContextMenu()
 {
     _popup = new QPopupMenu( this );
-    QAction* action;
+    KAction* action;
 
-    _firstAction = new QAction( i18n("First"), QIconSet(), i18n("First"), Key_Home, this );
-    connect( _firstAction,  SIGNAL( activated() ), this, SLOT( showFirst() ) );
-    _firstAction->addTo( _popup );
+    _firstAction = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), this, "viewer-home" );
+    _firstAction->plug( _popup );
 
-    _lastAction = new QAction( i18n("Last"), QIconSet(), i18n("Last"), Key_End, this );
-    connect( _lastAction,  SIGNAL( activated() ), this, SLOT( showLast() ) );
-    _lastAction->addTo( _popup );
+    _lastAction = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), this, "viewer-end" );
+    _lastAction->plug( _popup );
 
-    _nextAction = new QAction( i18n("Show Next"), QIconSet(), i18n("Show Next"), Key_PageDown, this );
-    connect( _nextAction,  SIGNAL( activated() ), this, SLOT( showNext() ) );
-    _nextAction->addTo( _popup );
+    _nextAction = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), this, "viewer-next" );
+    _nextAction->plug( _popup );
 
-    _prevAction = new QAction( i18n("Show Previous"),  QIconSet(), i18n("Show Previous"), Key_PageUp, this );
-    connect( _prevAction,  SIGNAL( activated() ), this, SLOT( showPrev() ) );
-    _prevAction->addTo( _popup );
+    _prevAction = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), this, "viewer-prev" );
+    _prevAction->plug( _popup );
 
     _popup->insertSeparator();
 
-    _startStopSlideShow = new QAction( i18n("Run Slideshow"), QIconSet(), i18n("Run Slideshow"), Key_S, this );
-    connect( _startStopSlideShow, SIGNAL( activated() ), this, SLOT( slotStartStopSlideShow() ) );
-    _startStopSlideShow->addTo( _popup );
+    _startStopSlideShow = new KAction( i18n("Run Slideshow"), Key_S, this, SLOT( slotStartStopSlideShow() ),
+                                       this, "viewer-start-stop-slideshow" );
+    _startStopSlideShow->plug( _popup );
 
-    _slideShowRunFaster = new QAction( i18n("Run Faster"), QIconSet(), i18n("Run Faster"), CTRL + Key_Plus, this );
-    connect( _slideShowRunFaster, SIGNAL( activated() ), this, SLOT( slotSlideShowFaster() ) );
-    _slideShowRunFaster->addTo( _popup );
+    _slideShowRunFaster = new KAction( i18n("Run Faster"), CTRL + Key_Plus, this, SLOT( slotSlideShowFaster() ),
+                                       this, "viewer-run-faster" );
+    _slideShowRunFaster->plug( _popup );
 
-    _slideShowRunSlower = new QAction( i18n("Run Slower"), QIconSet(), i18n("Run Slower"), CTRL+Key_Minus, this );
-    connect( _slideShowRunSlower, SIGNAL( activated() ), this, SLOT( slotSlideShowSlower() ) );
-    _slideShowRunSlower->addTo( _popup );
-
-    _popup->insertSeparator();
-
-    action = new QAction( i18n("Zoom In"),  QIconSet(), i18n("Zoom In"), Key_Plus, this );
-    connect( action,  SIGNAL( activated() ), _display, SLOT( zoomIn() ) );
-    action->addTo( _popup );
-
-    action = new QAction( i18n("Zoom Out"),  QIconSet(), i18n("Zoom Out"), Key_Minus, this );
-    connect( action,  SIGNAL( activated() ), _display, SLOT( zoomOut() ) );
-    action->addTo( _popup );
-
-    action = new QAction( i18n("Toggle Full Screen"),  QIconSet(), i18n("Toggle Full Screen"), Key_Return, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( toggleFullScreen() ) );
-    action->addTo( _popup );
+    _slideShowRunSlower = new KAction( i18n("Run Slower"), CTRL+Key_Minus, this, SLOT( slotSlideShowSlower() ),
+                                       this, "viewer-run-slower" );
+    _slideShowRunSlower->plug( _popup );
 
     _popup->insertSeparator();
 
-    action = new QAction( i18n("Rotate 90 Degrees"),  QIconSet(), i18n("Rotate 90 Degrees"), Key_9, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( rotate90() ) );
-    action->addTo( _popup );
+    action = new KAction( i18n("Zoom In"), Key_Plus, _display, SLOT( zoomIn() ), this, "viewer-zoom-in" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Rotate 180 Degrees"),  QIconSet(), i18n("Rotate 180 Degrees"), Key_8, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( rotate180() ) );
-    action->addTo( _popup );
+    action = new KAction( i18n("Zoom Out"), Key_Minus, _display, SLOT( zoomOut() ), this, "viewer-zoom-out" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Rotate 270 Degrees"),  QIconSet(), i18n("Rotate 270 degrees"), Key_7, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( rotate270() ) );
-    action->addTo( _popup );
+    action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
+                          this, "viewer-toggle-fullscreen" );
+    action->plug( _popup );
 
     _popup->insertSeparator();
 
-    action = new QAction( i18n("Show Info Box"), QIconSet(), i18n("Show Info Box"), Key_I, this, "showInfoBox", true );
-    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
-    action->addTo( _popup );
-    action->setOn( Options::instance()->showInfoBox() );
+    action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), this, "viewer-rotate90" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Show Drawing"), QIconSet(), i18n("Show Drawing"), Key_D, this, "showDrawing", true );
-    connect( action, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
-    action->addTo( _popup );
-    action->setOn( Options::instance()->showDrawings() );
+    action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), this, "viewer-rotate180" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Show Description"), QIconSet(), i18n("Show Description"), 0, this, "showDescription", true );
-    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
-    action->addTo( _popup );
-    action->setOn( Options::instance()->showDescription() );
+    action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), this, "viewer-rotare270" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Show Date"), QIconSet(), i18n("Show Date"), 0, this, "showDate", true );
-    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
-    action->addTo( _popup );
-    action->setOn( Options::instance()->showDate() );
+    _popup->insertSeparator();
+
+    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), Key_I, this, "viewer-show-infobox" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Options::instance()->showInfoBox() );
+
+    taction = new KToggleAction( i18n("Show Drawing"), Key_D, this, "viewer-show-drawing");
+    connect( taction, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Options::instance()->showDrawings() );
+
+    taction = new KToggleAction( i18n("Show Description"), 0, this, "viewer-show-description" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Options::instance()->showDescription() );
+
+    taction = new KToggleAction( i18n("Show Date"), 0, this, "viewer-show-date" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Options::instance()->showDate() );
 
     QStringList grps = Options::instance()->optionGroups();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        action = new ShowOptionAction( *it, this );
-        action->addTo( _popup );
+        ShowOptionAction* action = new ShowOptionAction( *it, this );
+        action->plug( _popup );
         connect( action, SIGNAL( toggled( const QString&, bool ) ),
                  this, SLOT( toggleShowOption( const QString&, bool ) ) );
     }
@@ -189,33 +180,29 @@ void Viewer::setupContextMenu()
     // -------------------------------------------------- Wall paper
     QPopupMenu *wallpaperPopup = new QPopupMenu( _popup );
 
-    action = new QAction( i18n("Centered"), QIconSet(), i18n("Centered"), 0, wallpaperPopup );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperC() ) );
-    action->addTo( wallpaperPopup );
+    action = new KAction( i18n("Centered"), 0, this, SLOT( slotSetWallpaperC() ), wallpaperPopup, "viewer-centered" );
+    action->plug( wallpaperPopup );
 
-    action = new QAction( i18n("Tiled"), QIconSet(),  i18n("Tiled"), 0, wallpaperPopup );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperT() ) );
-    action->addTo( wallpaperPopup );
+    action = new KAction( i18n("Tiled"), 0, this, SLOT( slotSetWallpaperT() ), wallpaperPopup, "viewer-tiled" );
+    action->plug( wallpaperPopup );
 
-    action = new QAction( i18n("Center Tiled"), QIconSet(),  i18n("Center Tiled"), 0, wallpaperPopup );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCT() ) );
-    action->addTo( wallpaperPopup );
+    action = new KAction( i18n("Center Tiled"), 0, this, SLOT( slotSetWallpaperCT() ), wallpaperPopup, "viewer-center-tiled" );
+    action->plug( wallpaperPopup );
 
-    action = new QAction( i18n("Centered Maxpect"), QIconSet(),  i18n("Centered Maxpect"), 0, wallpaperPopup );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCM() ) );
-    action->addTo( wallpaperPopup );
+    action = new KAction( i18n("Centered Maxpect"), 0, this, SLOT( slotSetWallpaperCM() ),
+                          wallpaperPopup, "viewer-centered-maxspect" );
+    action->plug( wallpaperPopup );
 
-    action = new QAction( i18n("Tiled Maxpect"), QIconSet(),  i18n("Tiled Maxpect"), 0, wallpaperPopup );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperTM() ) );
-    action->addTo( wallpaperPopup );
+    action = new KAction( i18n("Tiled Maxpect"), 0, this, SLOT( slotSetWallpaperTM() ),
+                          wallpaperPopup, "viewer-tiled-maxpect" );
+    action->plug( wallpaperPopup );
 
-    action = new QAction( i18n("Scaled"), QIconSet(),  i18n("Scaled"), 0, wallpaperPopup );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperS() ) );
-    action->addTo( wallpaperPopup );
+    action = new KAction( i18n("Scaled"), 0, this, SLOT( slotSetWallpaperS() ), wallpaperPopup, "viewer-scaled" );
+    action->plug( wallpaperPopup );
 
-    action = new QAction( i18n("Centered Auto Fit"), QIconSet(),  i18n("Centered Auto Fit"), 0, wallpaperPopup );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( slotSetWallpaperCAF() ) );
-    action->addTo( wallpaperPopup );
+    action = new KAction( i18n("Centered Auto Fit"), 0, this, SLOT( slotSetWallpaperCAF() ),
+                          wallpaperPopup, "viewer-centered-auto-fit" );
+    action->plug( wallpaperPopup );
 
     _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), wallpaperPopup );
 
@@ -225,21 +212,19 @@ void Viewer::setupContextMenu()
     connect( _externalPopup, SIGNAL( aboutToShow() ), this, SLOT( populateExternalPopup() ) );
 
 
-    action = new QAction( i18n("Draw on Image"),  QIconSet(),  i18n("Draw on Image"),  0, this );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( startDraw() ) );
-    action->addTo( _popup );
+    action = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Edit Image Properties"),  QIconSet(),  i18n("Edit Image Properties"),  CTRL+Key_1, this );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( editImage() ) );
-    action->addTo( _popup );
+    action = new KAction( i18n("Edit Image Properties"),  CTRL+Key_1, this, SLOT( editImage() ),
+                          this, "viewer-edit-image-properties" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Show Category Editor"), QIconSet(), i18n("Show Category Editor"), 0, this );
-    connect( action,  SIGNAL( activated() ),  this, SLOT( makeCategoryImage() ) );
-    action->addTo( _popup );
+    action = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
+                          this, "viewer-show-category-editor" );
+    action->plug( _popup );
 
-    action = new QAction( i18n("Close"),  QIconSet(), i18n("Close"), Key_Q, this );
-    connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
-    action->addTo( _popup );
+    action = new KAction( i18n("Close"), Key_Q, this, SLOT( close() ), this, "viewer-close" );
+    action->plug( _popup );
 }
 
 void Viewer::load( const ImageInfoList& list, int index )

@@ -28,7 +28,7 @@
 class ImageInfo;
 class QLabel;
 class QPopupMenu;
-class QAction;
+class KAction;
 class DisplayArea;
 class SpeedDisplay;
 class CategoryImageConfig;
@@ -97,13 +97,13 @@ protected slots:
 private:
     static Viewer* _latest;
 
-    QAction* _firstAction;
-    QAction* _lastAction;
-    QAction* _nextAction;
-    QAction* _prevAction;
-    QAction* _startStopSlideShow;
-    QAction* _slideShowRunFaster;
-    QAction* _slideShowRunSlower;
+    KAction* _firstAction;
+    KAction* _lastAction;
+    KAction* _nextAction;
+    KAction* _prevAction;
+    KAction* _startStopSlideShow;
+    KAction* _slideShowRunFaster;
+    KAction* _slideShowRunSlower;
 
     DisplayArea* _display;
     ImageInfoList _list;

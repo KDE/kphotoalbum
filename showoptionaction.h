@@ -18,9 +18,9 @@
 
 #ifndef SHOWOPTIONACTION_H
 #define SHOWOPTIONACTION_H
-#include <qaction.h>
+#include <kaction.h>
 
-class ShowOptionAction :public QAction {
+class ShowOptionAction :public KToggleAction {
     Q_OBJECT
 
 public:

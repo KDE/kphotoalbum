@@ -29,6 +29,7 @@
 #include "util.h"
 #include <qpopupmenu.h>
 #include <kurldrag.h>
+#include <kmessagebox.h>
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :KIconView( parent,  name ), _currentHighlighted( 0 )
@@ -139,8 +140,10 @@ void ThumbNailView::contentsDropEvent( QDropEvent* e )
     QIconViewItem* item = findItem( e->pos() );
     if ( item )
         QIconView::contentsDropEvent( e );
-    else
+    else {
         repaintContents( 0,0, width(), height(), true );
+        KMessageBox::information( this, i18n("Please drop onto an image") );
+    }
 }
 
 void ThumbNailView::setHighlighted( ThumbNail* item )

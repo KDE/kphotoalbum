@@ -3,8 +3,6 @@ BUGS To be handled soonish
 ==========================
 - pan does work very well in the viewer
 - drawing on an image doesn't mark it as dirty
-- drops from outside in thumnail view should simply be ignore or even
-  warned about
 - add more descriptions to the demo.
 - escape quotes and back quotes in descriptions when generating HTML
 - it seems like its not possible to generate HTML twice with different
@@ -17,7 +15,6 @@ BUGS To be handled soonish
 =======================
 BUGS of less importance
 =======================
-- dropping in empty space in thumbnails doesn't work.
 - In the group editor (options->group), ensure that no cycles are created.
 - when images are deleted, the total count at the bottom of the mainwindow,
   should update
@@ -27,8 +24,8 @@ Features for a soonish version
 ==============================
 - read date and rotation out of the JPEG file info (AKA EXIF info)
 - make it possible to select individual persons on images, and associate
-  their names with that region - then generate an image map when exporting
-  to HTML
+  their names with that region - then generate an image map when generating
+  HTML
 - show slideshow in several Viewers, that is show image 1 in viewer 1, and
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.
@@ -36,6 +33,7 @@ Features for a soonish version
 
 - Loseless image rotation (which actually affects the files)
 - add a kpart call for editing images.
+- when going into full screen mode, move mouse to (width()-1,height()-1)
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -30,6 +30,7 @@
 #include <qcursor.h>
 #include <qmessagebox.h>
 #include <klocale.h>
+#include <kmessagebox.h>
 
 class DeleteHelper :public QObject
 {
@@ -122,15 +123,14 @@ void ThumbNail::dragLeft()
 
 bool ThumbNail::acceptDrop( const QMimeSource * /*mime*/ ) const
 {
-    return true; // PENDING(blackie) CHANGE THIS!
+    return true; // Actually this is too much, but its no big deal.
 }
 
 void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* lst */ )
 {
     setPixmap( _pixmap );
     if ( e->source() != iconView() ) {
-        // PENDING(blackie) Show a message box
-        qDebug("Nope we don't want drops from outside!");
+        KMessageBox::sorry( 0, i18n("Sorry KimDaBa do not support data being dragged onto it.") );
         return;
     }
 

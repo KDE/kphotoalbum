@@ -102,7 +102,6 @@ private:
     void init();
     static ImageManager* _instance;
 
-    ImageLoader* _imageLoader;
     QValueList<LoadInfo> _loadList;
     QWaitCondition* _sleepers;
     QMutex* _lock;

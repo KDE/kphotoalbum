@@ -49,8 +49,8 @@ void ImageManager::init()
     _lock = new QMutex(); // necessary with new?
 
     // Only use 1 image loader thread as the JPEG loader is not thread safe
-    _imageLoader = new ImageLoader( _sleepers );
-    _imageLoader->start();
+    ImageLoader* imageLoader = new ImageLoader( _sleepers );
+    imageLoader->start();
 }
 
 void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height,

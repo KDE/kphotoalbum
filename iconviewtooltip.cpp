@@ -113,28 +113,30 @@ void IconViewToolTip::placeWindow()
     if ( _heightInverse )
         pos.setY( pos.y() - 30 - height() );
 
+    QRect geom = qApp->desktop()->screenGeometry( QCursor::pos() );
+
     // Now test whether the window moved outside the screen
     if ( _widthInverse ) {
-        if ( pos.x() < 0 ) {
+        if ( pos.x() <  geom.x() ) {
             pos.setX( QCursor::pos().x() + 20 );
             _widthInverse = false;
         }
     }
     else {
-        if ( pos.x() + width() > qApp->desktop()->screenGeometry().width() ) {
+        if ( pos.x() + width() > geom.right() ) {
             pos.setX( QCursor::pos().x() - width() );
             _widthInverse = true;
         }
     }
 
     if ( _heightInverse ) {
-        if ( pos.y() < 0 ) {
+        if ( pos.y() < geom.y()  ) {
             pos.setY( QCursor::pos().y() + 10 );
             _heightInverse = false;
         }
     }
     else {
-        if ( pos.y() + height() > qApp->desktop()->screenGeometry().height() ) {
+        if ( pos.y() + height() > geom.bottom() ) {
             pos.setY( QCursor::pos().y() - 10 - height() );
             _heightInverse = true;
         }

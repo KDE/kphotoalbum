@@ -187,6 +187,12 @@ void ThumbNail::calcRect( const QString& )
         h = size;
     }
 
+    // Protect against very odd sized images (like 400x1)
+    if ( w < 1 )
+        w = 1;
+    if ( h < 1 )
+         h = 1;
+
     QRect textRect(0,0,0,0);
     if ( Options::instance()->displayLabels() ) {
         QFontMetrics fm( iconView()->font() );

@@ -149,11 +149,11 @@ void ImageDB::loadExtraFiles( const QDict<void>& loadedFiles, QString directory 
 
         // PENDING(blackie) Is there a way to ask KDE or Qt for available image extentions?
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
-             ( (*it).endsWith( QString::fromLatin1(".jpg") ) ||
-               (*it).endsWith( QString::fromLatin1(".jpeg") ) ||
-               (*it).endsWith( QString::fromLatin1(".png") ) ||
-               (*it).endsWith( QString::fromLatin1(".tiff") ) ||
-               (*it).endsWith( QString::fromLatin1(".gif") ) ) )  {
+             ( (*it).endsWith( QString::fromLatin1(".jpg", false /*case sensitive*/) ) ||
+               (*it).endsWith( QString::fromLatin1(".jpeg", false /*case sensitive*/) ) ||
+               (*it).endsWith( QString::fromLatin1(".png", false /*case sensitive*/) ) ||
+               (*it).endsWith( QString::fromLatin1(".tiff", false /*case sensitive*/) ) ||
+               (*it).endsWith( QString::fromLatin1(".gif", false /*case sensitive*/) ) ) )  {
             QString baseName = file.mid( imageDir.length()+1 );
 
             ImageInfo* info = new ImageInfo( baseName  );

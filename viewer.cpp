@@ -432,7 +432,7 @@ void Viewer::toggleFullScreen()
         KWin::Info info = KWin::info( winId() );
         _oldGeometry = info.frameGeometry;
 
-        QRect r = KGlobalSettings::desktopGeometry(this);
+        QRect r = QApplication::desktop()->screenGeometry( QApplication::desktop()->screenNumber( this ) );
 
         setFixedSize( r.size() );
 

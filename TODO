@@ -30,3 +30,5 @@ Features for later versions
 - Button for rescan directory tree and generate thumbnails. 
 - when specifying options for several images at a time, present items that
   are on all images.
+- Path could be a criteria in image search.
+- add md5 sum to the DB that is used to re-find images if the DB is reordered.

@@ -68,10 +68,10 @@ QString WelComeDialog::configFileName() const
 FileDialog::FileDialog( QWidget* parent, const char* name ) :QDialog( parent, name, true )
 {
     QVBoxLayout* lay1 = new QVBoxLayout( this, 6 );
-    QLabel* label = new QLabel( i18n("<qt>KimDaBa requires that all your images are stored with a common root directory. "
+    QLabel* label = new QLabel( i18n("<qt><p>KimDaBa requires that all your images are stored with a common root directory. "
                                      "You are allowed to store your images in a directory tree under that directory. "
                                      "KimDaBa will not modify or edit any of your images, so you may simply point KimDaBa to the "
-                                     "directory where you already do have all your images located.<p></qt>" ), this );
+                                     "directory where you already do have all your images located.</p></qt>" ), this );
     lay1->addWidget( label );
 
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );

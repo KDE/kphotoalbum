@@ -344,6 +344,7 @@ void ImageDB::blockList( const ImageInfoList& list )
         _blockList << (*it)->fileName( true );
         _images.removeRef( *it );
     }
+    emit totalChanged( _images.count() );
 }
 
 void ImageDB::deleteList( const ImageInfoList& list )
@@ -351,6 +352,7 @@ void ImageDB::deleteList( const ImageInfoList& list )
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         _images.removeRef( *it );
     }
+    emit totalChanged( _images.count() );
 }
 
 void ImageDB::renameOption( const QString& optionGroup, const QString& oldName, const QString& newName )
@@ -452,6 +454,8 @@ void ImageDB::slotRescan()
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
     Browser::theBrowser()->home();
+
+    emit totalChanged( _images.count() );
 }
 
 void ImageDB::slotRecalcCheckSums()
@@ -464,6 +468,8 @@ void ImageDB::slotRecalcCheckSums()
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
     Browser::theBrowser()->home();
+
+    emit totalChanged( _images.count() );
 }
 
 void ImageDB::showUnavailableImages()

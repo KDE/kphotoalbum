@@ -51,6 +51,7 @@ public slots:
 
 signals:
     void matchCountChange( int, int, int );
+    void totalChanged( int );
     void searchCompleted();
     void dirty();
 

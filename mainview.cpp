@@ -112,6 +112,7 @@ MainView::MainView( QWidget* parent, const char* name )
 
     connect( ImageDB::instance(), SIGNAL( matchCountChange( int, int, int ) ),
              partial, SLOT( setMatchCount( int, int, int ) ) );
+    connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
     connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
     connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
@@ -119,7 +120,6 @@ MainView::MainView( QWidget* parent, const char* name )
 
     connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
 
-    // PENDING(blackie) ImageDB should emit a signal when total changes.
     total->setTotal( ImageDB::instance()->totalCount() );
     statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
 

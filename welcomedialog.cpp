@@ -8,8 +8,8 @@
 #include "util.h"
 #include <klineedit.h>
 #include <ksimpleconfig.h>
-#include <kshell.h>
 #include <kmessagebox.h>
+#include "kshell.h"
 
 WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     : QDialog( parent, name, true )

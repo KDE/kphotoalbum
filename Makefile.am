@@ -27,7 +27,8 @@ kimdaba_SOURCES = main.cpp \
 	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	undoredolist.cpp optionsdialog.cpp infobox.cpp welcomedialog.cpp \
-	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp
+	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp \
+	kshell.cpp # needed for KDE 3.1.1 or older
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD = $(LIB_KIO) -lktexteditor -ljpeg

@@ -116,7 +116,6 @@ signals:
 
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory  );
-    ~Options();
     static Options* _instance;
 
     int _thumbSize,  _imageCacheSize;

@@ -44,11 +44,6 @@ Options* Options::instance()
     return _instance;
 }
 
-Options::~Options()
-{
-}
-
-
 Options::Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QString& imageDirectory )
     : _thumbSize( 64 ), _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {

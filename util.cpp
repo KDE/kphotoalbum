@@ -265,4 +265,3 @@ bool Util::copy( const QString& from, const QString& to )
 	out.close();
     return true;
 }
-

@@ -29,6 +29,7 @@ public:
     int year() const;
     int month() const;
     int day() const;
+    void setDate( const QDate& );
     void setYear( int );
     void setMonth( int );
     void setDay( int );

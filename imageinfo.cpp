@@ -31,6 +31,9 @@ extern "C" {
 #include "util.h"
 #include <kdebug.h>
 #include <qwmatrix.h>
+#include <qvariant.h>
+#include <kmessagebox.h>
+#include <klocale.h>
 
 
 ImageInfo::ImageInfo()
@@ -40,16 +43,75 @@ ImageInfo::ImageInfo()
 ImageInfo::ImageInfo( const QString& fileName )
     : _fileName( fileName ), _visible( true ), _imageOnDisk( true ), _locked( false )
 {
+    QString fullPath = Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName;
     QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
     _label = fi.baseName();
     _angle = 0;
 
-    if ( Options::instance()->trustTimeStamps() )  {
-        QDate date = fi.lastModified().date();
-        _startDate.setYear(date.year());
-        _startDate.setMonth(date.month());
-        _startDate.setDay(date.day());
+    // Read EXIF information
+    QMap<QString,QVariant> exif = Util::getEXIF( fullPath );
+    static bool hasShownWarning = false;
+    if ( exif.count() == 0 && !hasShownWarning ) {
+        hasShownWarning = true;
+        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information</b></p>"
+                                          "<p>EXIF information is meta information stored in JPEG files about the image. "
+                                          "KimDaBa tries to read the date, orientation and description from EXIF</p>"
+                                          "<p>KimDaBa was, however, unable to read information out of %1, which might "
+                                          "either be because the file did not contain any EXIF information, or "
+                                          "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
+                                  i18n("Unable to read EXIF information"), QString::fromLatin1("UnableToReadEXIFInformation") );
     }
+
+
+    // Date
+    bool dateFound = false;
+    if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
+        QDate date = exif[QString::fromLatin1( "CreationDate" )].toDate();
+        if ( date.isValid() ) {
+            _startDate.setDate( date );
+            dateFound = true;
+        }
+    }
+    else if ( ( fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
+                fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
+                fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
+                fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) && !hasShownWarning ) {
+        hasShownWarning = true;
+        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read date out of EXIF information</b></p>"
+                                          "<p>EXIF information is meta information stored in JPEG files about the image. "
+                                          "KimDaBa tries to read the date, orientation and description from EXIF</p>"
+                                          "<p>KimDaBa was, however, unable to read date information out of %1, which might "
+                                          "either be because the file did not contain any EXIF information, or "
+                                          "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
+                                  i18n("Unable to read date out of EXIF information"), QString::fromLatin1("UnableToReadEXIFInformation") );
+    }
+
+    if ( !dateFound  && Options::instance()->trustTimeStamps() )  {
+        QDate date = fi.lastModified().date();
+        _startDate.setDate( date );
+    }
+
+    // Orientation
+    if ( exif.contains( QString::fromLatin1( "Orientation" ) ) ) {
+        int orientation =  exif[QString::fromLatin1( "Orientation" )].toInt();
+        if ( orientation == 1 || orientation == 2 )
+            _angle = 0;
+        else if ( orientation == 3 || orientation == 4 )
+            _angle = 180;
+        else if ( orientation == 5 || orientation == 8 )
+            _angle = -90;
+        else if ( orientation == 6 || orientation == 7 )
+            _angle = 90;
+        if ( orientation != 1 && orientation != 0 ) {
+            qDebug("%s: %d", fileName.latin1(), orientation );
+        }
+    }
+
+    // Description
+    if ( exif.contains( QString::fromLatin1( "Comment" ) ) ) {
+        _description = exif[QString::fromLatin1( "Comment" )].toString();
+    }
+
 }
 
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )

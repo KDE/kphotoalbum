@@ -29,6 +29,8 @@
 #include <kstandarddirs.h>
 #include <stdlib.h>
 #include <qregexp.h>
+#include <kfilemetainfo.h>
+#include <kfilemetainfo.h>
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
                          QMap<QString,Options::OptionGroupInfo>* optionGroupInfo )
@@ -346,4 +348,19 @@ QString Util::readFile( const QString& fileName )
     file.close();
 
     return content;
+}
+
+QMap<QString,QVariant> Util::getEXIF( const QString& fileName )
+{
+    QMap<QString,QVariant> map;
+    KFileMetaInfo metainfo( fileName );
+    if ( metainfo.isEmpty() )
+        return map;
+
+    QStringList keys = metainfo.supportedKeys();
+    for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
+        KFileMetaInfoItem item = metainfo.item( *it );
+        map.insert( *it, item.value() );
+    }
+    return map;
 }

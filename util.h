@@ -39,6 +39,7 @@ public:
     static QString readInstalledFile( const QString& fileName );
     static void removeThumbNail( const QString& imageFile );
     static QString readFile( const QString& fileName );
+    static QMap<QString,QVariant> getEXIF( const QString& fileName );
 };
 
 

@@ -63,9 +63,8 @@ public:
     struct OptionGroupInfo
     {
         OptionGroupInfo() {}
-        OptionGroupInfo( const QString& text, const QString& icon, ViewSize size, ViewType type, bool show = true )
-            : _text(text), _icon(icon), _show(show), _size( size ), _type( type ) {}
-        QString _text;
+        OptionGroupInfo( const QString& icon, ViewSize size, ViewType type, bool show = true )
+            : _icon(icon), _show(show), _size( size ), _type( type ) {}
         QString _icon;
         bool _show;
         ViewSize _size;
@@ -73,7 +72,7 @@ public:
     };
 
     QStringList optionGroups() const;
-    void addOptionGroup( const QString& name, const QString& label, const QString& icon, ViewSize size, ViewType type );
+    void addOptionGroup( const QString& name, const QString& icon, ViewSize size, ViewType type );
     void deleteOptionGroup( const QString& name );
     void renameOptionGroup( const QString& oldName, const QString& newName );
 

@@ -60,7 +60,8 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- Label and Date
     // If I make the dateDock a child of 'this', then things seems to break.
     // The datedock isn't shown at all
-    KDockWidget* dateDock = _dockWindow->createDockWidget( i18n("Label and Dates"), QPixmap(), this );
+    KDockWidget* dateDock = _dockWindow->createDockWidget( QString::fromLatin1("Label and Dates"), QPixmap(), this,
+                                                           i18n("Label and Dates") );
     _dockWidgets.append( dateDock );
     QWidget* top = new QWidget( dateDock );
     QVBoxLayout* lay2 = new QVBoxLayout( top, 6 );
@@ -130,8 +131,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     // -------------------------------------------------- Image preview
     KDockWidget* previewDock
-        = _dockWindow->createDockWidget( i18n("Image Preview"),
-                            locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ), this);
+        = _dockWindow->createDockWidget( QString::fromLatin1("Image Preview"),
+                                         locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ),
+                                         this, i18n("Image Preview") );
     _dockWidgets.append( previewDock );
     QWidget* top2 = new QWidget( previewDock );
     QVBoxLayout* lay5 = new QVBoxLayout( top2, 6 );
@@ -170,7 +172,8 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
 
     // -------------------------------------------------- The editor
-    KDockWidget* descriptionDock = _dockWindow->createDockWidget( i18n("Description"), QPixmap(), this );
+    KDockWidget* descriptionDock = _dockWindow->createDockWidget( QString::fromLatin1("Description"), QPixmap(), this,
+                                                                  i18n("Description") );
     _dockWidgets.append(descriptionDock);
     _description = new Editor( descriptionDock, "_description" );
     descriptionDock->setWidget( _description );
@@ -592,7 +595,7 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 {
     KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
-                                                             this, optionGroup );
+                                                             this, Options::instance()->textForOptionGroup(optionGroup));
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
     _optionList.append( sel );

@@ -43,7 +43,6 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
         opt.setAttribute( QString::fromLatin1("name"),  name );
 
         if ( optionGroupInfo ) {
-            opt.setAttribute( QString::fromLatin1( "text" ), (*optionGroupInfo)[name]._text );
             opt.setAttribute( QString::fromLatin1( "icon" ), (*optionGroupInfo)[name]._icon );
             opt.setAttribute( QString::fromLatin1( "show" ), (*optionGroupInfo)[name]._show );
             opt.setAttribute( QString::fromLatin1( "viewsize" ), (*optionGroupInfo)[name]._size );
@@ -82,7 +81,6 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
             if ( !name.isNull() )  {
                 // Read Option Group info
                 if ( optionGroupInfo ) {
-                    QString text= elmOption.attribute( QString::fromLatin1("text"), name );
                     QString icon= elmOption.attribute( QString::fromLatin1("icon") );
                     Options::ViewSize size =
                         (Options::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
@@ -90,7 +88,7 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
                         (Options::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
                     bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                             QString::fromLatin1( "1" ) ).toInt();
-                    (*optionGroupInfo)[name] = Options::OptionGroupInfo( text, icon, size, type, show );
+                    (*optionGroupInfo)[name] = Options::OptionGroupInfo( icon, size, type, show );
                 }
 
                 // Read values

@@ -305,7 +305,7 @@ void OptionsDialog::slotMyOK()
         OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
         if ( item->_optionGroupOrig.isNull() ) {
             // New Item
-            opt->addOptionGroup( item->_text, item->_text, item->_icon, item->_size, item->_type );
+            opt->addOptionGroup( item->_text, item->_icon, item->_size, item->_type );
         }
         else {
             if ( item->_text != item->_textOrig ) {

@@ -134,7 +134,7 @@ void HTMLExportDialog::createContentPage()
 
     QStringList optionGroups = Options::instance()->optionGroups();
     for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
-        QCheckBox* cb = new QCheckBox( *it, w );
+        QCheckBox* cb = new QCheckBox( Options::instance()->textForOptionGroup(*it), w );
         _whatToIncludeMap.insert( *it, cb );
     }
     QCheckBox* cb = new QCheckBox( i18n("Description"), w );

@@ -335,10 +335,10 @@ int Options::maxImages() const
    \param label Text label as seen in the GUI
    \param icon to be shown in the browser
 */
-void Options::addOptionGroup( const QString& name, const QString& label, const QString& icon, ViewSize size, ViewType type )
+void Options::addOptionGroup( const QString& name, const QString& icon, ViewSize size, ViewType type )
 {
     emit changed();
-    _optionGroups[name] = OptionGroupInfo(label, icon, size, type );
+    _optionGroups[name] = OptionGroupInfo( icon, size, type );
     emit optionGroupsChanged();
 }
 
@@ -347,9 +347,20 @@ QStringList Options::optionGroups() const
     return QStringList( _optionGroups.keys() );
 }
 
+/**
+   If one person from say Denmark sends a database to a person from say germany, then the title of
+   Persons, Locations, and Keywords will still be translated correct, when this function is used.
+*/
 QString Options::textForOptionGroup( const QString& name ) const
 {
-    return _optionGroups[name]._text;
+    if ( name == QString::fromLatin1( "Persons" ) )
+        return i18n("Persons");
+    else if ( name == QString::fromLatin1( "Locations" ) )
+        return i18n("Locations");
+    else if ( name == QString::fromLatin1( "Keywords" ) )
+        return i18n("Keywords");
+    else
+        return name;
 }
 
 QPixmap Options::iconForOptionGroup( const QString& name, int size ) const
@@ -379,7 +390,6 @@ void Options::renameOptionGroup( const QString& oldName, const QString& newName 
 
     _optionGroups[newName] = _optionGroups[oldName];
     _optionGroups.erase( oldName );
-    _optionGroups[newName]._text = newName;
     _options[newName] = _options[oldName];
     _options.erase(oldName);
 

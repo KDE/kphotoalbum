@@ -1,3 +1,6 @@
+- sort this TODO file.
+- options groups appears in the browser even if they don't have any members
+  for a given search.
 - pan does work very well in the viewer
 - drawing on an image doesn't mark it as dirty
 - spell check in the editor
@@ -68,3 +71,6 @@ should update
 - Bug: searching with text from description field doesn't work
 
 - add more descriptions to the demo.
+
+- polish the offline mode, so it might be able to ask for you mounting say
+  a cd with the images needed.

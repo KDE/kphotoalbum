@@ -209,20 +209,15 @@ QString Util::setupDemo()
     bool ok;
 
     // index.xml
-    QString srcFile = locate( "data", QString::fromLatin1( "kimdaba/demo/index.xml" ) );
-    QString configFile = dir + QString::fromLatin1( "/index.xml" );
-
-    QFile in( srcFile );
-    ok = in.open( IO_ReadOnly );
-    if ( !ok ) {
-        KMessageBox::error( 0, i18n("Unable to open '%1' for reading").arg( srcFile ), i18n("Error running demo") );
+    QString str = readInstalledFile( QString::fromLatin1( "demo/index.xml" ) );
+    if ( str.isNull() )
         exit(-1);
-    }
-    QString str = QTextStream( &in ).read();
-    in.close();
+
     str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("imageDirectory=\"%1\"").arg(dir) );
     str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
     str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
+
+    QString configFile = dir + QString::fromLatin1( "/index.xml" );
     QFile out( configFile );
     if ( !out.open( IO_WriteOnly ) ) {
         KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( configFile ), i18n("Error running demo") );
@@ -277,6 +272,7 @@ bool Util::copy( const QString& from, const QString& to )
 {
     QFile in( from );
     QFile out( to );
+
     if ( !in.open(IO_ReadOnly) ) {
         return false;
     }
@@ -294,4 +290,25 @@ bool Util::copy( const QString& from, const QString& to )
 	in.close();
 	out.close();
     return true;
+}
+
+QString Util::readInstalledFile( const QString& fileName )
+{
+    QString inFileName = locate( "data", QString::fromLatin1( "kimdaba/%1" ).arg( fileName ) );
+    if ( inFileName.isEmpty() ) {
+        KMessageBox::error( 0, i18n("<qt>Couldn't find kimdaba/%1 - this is likely an installation error - Did you remember to do a make install, and did you set KDEDIRS, in case you did not install it in the default place.</qt>").arg( fileName ) );
+        return QString::null;
+    }
+
+    QFile file( inFileName );
+    if ( !file.open( IO_ReadOnly ) ) {
+        KMessageBox::error( 0, i18n("Couldn't open file %s").arg( inFileName ) );
+        return QString::null;
+    }
+
+    QTextStream stream( &file );
+    QString content = stream.read();
+    file.close();
+
+    return content;
 }

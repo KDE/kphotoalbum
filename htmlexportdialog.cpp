@@ -48,6 +48,7 @@
 #include <qtextedit.h>
 #include <qregexp.h>
 #include <unistd.h>
+#include "util.h"
 
 class MyCheckBox :public QCheckBox {
 
@@ -253,6 +254,19 @@ bool HTMLExportDialog::generate()
     if ( _waitCounter > 0 )
         qApp->eventLoop()->enterLoop();
 
+    // Copy over the mainpage.css, indepage.css
+    QStringList files = QStringList() << QString::fromLatin1( "mainpage.css" ) << QString::fromLatin1( "imagepage.css" );
+
+    for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
+        QString from = locate( "data", QString::fromLatin1( "kimdaba/html_templates/%1" ).arg( *it ) );
+        QString to = _tempDir+QString::fromLatin1("/") + *it;
+        ok = Util::copy( from, to );
+        if ( !ok ) {
+            KMessageBox::error( this, i18n("Error copying %1 to %2").arg( from ).arg( to ) );
+        }
+    }
+
+
     // Copy files over to destination.
     QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
     KIO::CopyJob* job = KIO::move( _tempDir, outputDir );
@@ -263,25 +277,20 @@ bool HTMLExportDialog::generate()
 
 bool HTMLExportDialog::generateIndexPage( int width, int height )
 {
-    // -------------------------------------------------- Header information + title + description
+    QString content = Util::readInstalledFile( QString::fromLatin1( "html_templates/mainpage.html" ) );
+    if ( content.isNull() )
+        return false;
+
+    content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
+    content.replace( QString::fromLatin1( "**TITLE**" ), _title->text() );
+
     QDomDocument doc;
+
     QDomElement elm;
     QDomElement col;
-    QDomElement body = createHTMLHeader( doc, _title->text() );
-
-    if ( !_title->text().isEmpty() ) {
-        elm = doc.createElement( QString::fromLatin1( "h1" ) );
-        body.appendChild( elm );
-        elm.appendChild( doc.createTextNode( _title->text() ) );
-    }
-
-    // Description of the page, as this must be HTML code from the user we will backpatch it in later.
-    body.appendChild( doc.createTextNode( QString::fromLatin1("###DESCRIPTION###") ) );
 
     // -------------------------------------------------- Thumbnails
-    QDomElement table = doc.createElement( QString::fromLatin1( "table" ) );
-    table.setAttribute( QString::fromLatin1( "width" ), QString::fromLatin1( "100%" ) );
-    body.appendChild( table );
+    QString thumbNails;
 
     int count = 0;
     int cols = _numOfCols->value();
@@ -293,13 +302,13 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
         if ( count % cols == 0 ) {
             row = doc.createElement( QString::fromLatin1( "tr" ) );
-            row.setAttribute( QString::fromLatin1( "valign" ), QString::fromLatin1( "bottom" ) );
-            row.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "center" ) );
-            table.appendChild( row );
+            row.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-row" ) );
+            doc.appendChild( row );
             count = 0;
         }
 
         col = doc.createElement( QString::fromLatin1( "td" ) );
+        col.setAttribute( QString::fromLatin1( "class" ), QString::fromLatin1( "thumbnail-col" ) );
         row.appendChild( col );
 
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
@@ -314,59 +323,39 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
         ++count;
     }
 
-    table = doc.createElement( QString::fromLatin1( "table" ) );
-    table.setAttribute( QString::fromLatin1( "width" ), QString::fromLatin1( "100%" ) );
+    content.replace( QString::fromLatin1( "**THUMBNAIL-TABLE**" ), doc.toString() );
 
-    body.appendChild ( table );
-    row = doc.createElement( QString::fromLatin1( "tr" ) );
-    table.appendChild( row );
     // -------------------------------------------------- Resolution
+    doc = QDomDocument();
     QValueList<MyCheckBox*> actRes = activeResolutions();
-    if ( actRes.count() > 1 ) {
-        col = doc.createElement( QString::fromLatin1( "td" ) );
-        row.appendChild( col );
-        col.appendChild( doc.createTextNode( QString::fromLatin1( "Resolutions: " ) ) );
+    for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
+         sizeIt != actRes.end(); ++sizeIt ) {
 
-        for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
-             sizeIt != actRes.end(); ++sizeIt ) {
-            int w = (*sizeIt)->width();
-            int h = (*sizeIt)->height();
-            QString page = QString::fromLatin1( "index-%1.html" )
-                           .arg( MyCheckBox::text( w, h, true ) );
-            QString text = (*sizeIt)->text(false);
+        int w = (*sizeIt)->width();
+        int h = (*sizeIt)->height();
+        QString page = QString::fromLatin1( "index-%1.html" )
+                       .arg( MyCheckBox::text( w, h, true ) );
+        QString text = (*sizeIt)->text(false);
 
-            if ( width == w && height == h ) {
-                col.appendChild( doc.createTextNode( text ) );
-            }
-            else {
-                QDomElement link = createLink( doc, page, text );
-                col.appendChild( link );
-            }
-            col.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
+        if ( width == w && height == h ) {
+            doc.appendChild( doc.createTextNode( text ) );
         }
+        else {
+            QDomElement link = createLink( doc, page, text );
+            doc.appendChild( link );
+        }
+        doc.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
     }
-
-    // -------------------------------------------------- Logo
-    col = doc.createElement( QString::fromLatin1( "td" ) );
-    col.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "right" ) );
-    row.appendChild( col );
-
-    col.appendChild( doc.createTextNode( QString::fromLatin1( "Created by " ) ) );
-    QDomElement link = createLink( doc, QString::fromLatin1( "http://ktown.kde.org/kimdaba/" ),
-                                   QString::fromLatin1( "KimDaBa" ) );
-    col.appendChild( link );
-
-
 
     if ( _progress->wasCancelled() )
         return false;
 
+    content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), doc.toString() );
+
     // -------------------------------------------------- write to file
-    QString str = doc.toString();
-    str.replace( QString::fromLatin1( "###DESCRIPTION###" ), _description->text() );
     QString fileName = _tempDir + QString::fromLatin1("/index-%1.html" )
                        .arg(MyCheckBox::text(width,height,true));
-    bool ok = writeToFile( fileName, str );
+    bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
 
@@ -376,131 +365,88 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* prevInfo,
                                             ImageInfo* info, ImageInfo* nextInfo )
 {
-    QDomDocument doc;
-    QDomElement body = createHTMLHeader( doc, info->label() );
+    QString content = Util::readInstalledFile( QString::fromLatin1( "html_templates/imagepage.html" ) );
+    if ( content.isNull() )
+        return false;
 
-    // Prepare page header
-    QDomElement table = doc.createElement( QString::fromLatin1( "table" ) );
-    body.appendChild( table );
-    QDomElement headerRow = doc.createElement( QString::fromLatin1( "tr" ) );
-    table.appendChild( headerRow );
+    content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
+    content.replace( QString::fromLatin1( "**IMAGE**" ), createImage( info, width ) );
+
 
     // -------------------------------------------------- Links
-    QDomElement links = doc.createElement( QString::fromLatin1( "td" ) );
-    links.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "left" ) );
-    headerRow.appendChild( links );
+    QString link;
 
-    // prev Link
-    links.appendChild( doc.createTextNode( QString::fromLatin1( "< " ) ) );
-    if ( prevInfo ) {
-        QDomElement link = createLink( doc, namePage( width, height, prevInfo->fileName( false ) ),
-                                       QString::fromLatin1( "prev" ) );
-        links.appendChild( link );
-    }
+    // prev link
+    if ( prevInfo )
+        link = QString::fromLatin1( "<a href=\"%1\">prev</a>" ).arg( namePage( width, height, prevInfo->fileName( false ) ) );
     else
-        links.appendChild( doc.createTextNode( QString::fromLatin1( "prev" ) ) );
+        link = QString::fromLatin1( "prev" );
+    content.replace( QString::fromLatin1( "**PREV**" ), link );
 
-    links.appendChild( doc.createTextNode( QString::fromLatin1( " | " ) ) );
 
-    // Index Link
-    QString indexFile = QString::fromLatin1( "index-%1.html" ).arg(MyCheckBox::text(width,height,true));
-    QDomElement indexLink = createLink( doc, indexFile, QString::fromLatin1( "index" ) );
-    links.appendChild( indexLink );
-
-    links.appendChild( doc.createTextNode( QString::fromLatin1( " | " ) ) );
+    // index link
+    link = QString::fromLatin1( "<a href=\"index-%1.html\">index</a>" ).arg(MyCheckBox::text(width,height,true));
+    content.replace( QString::fromLatin1( "**INDEX**" ), link );
 
     // Next Link
-    if ( nextInfo ) {
-        QDomElement link = createLink( doc, namePage( width, height, nextInfo->fileName( false ) ),
-                                       QString::fromLatin1( "next" ) );
-        links.appendChild( link );
-    }
+    if ( nextInfo )
+        link = QString::fromLatin1( "<a href=\"%1\">next</a>" ).arg( namePage( width, height, nextInfo->fileName( false ) ) );
     else
-        links.appendChild( doc.createTextNode( QString::fromLatin1( "next" ) ) );
-
-    links.appendChild( doc.createTextNode( QString::fromLatin1( " >" ) ) );
+        link = QString::fromLatin1( "next" );
+    content.replace( QString::fromLatin1( "**NEXT**" ), link );
 
     if ( _progress->wasCancelled() )
         return false;
 
+    if ( nextInfo )
+        link = namePage( width, height, nextInfo->fileName( false ) );
+    else
+        link = QString::fromLatin1( "index-%1.html" ).arg(MyCheckBox::text(width,height,true));
+
+    content.replace( QString::fromLatin1( "**NEXTPAGE**" ), link );
+
+
     // -------------------------------------------------- Resolutions
+    QString resolutions;
     QValueList<MyCheckBox*> actRes = activeResolutions();
     if ( actRes.count() > 1 ) {
-        QDomElement resolutions = doc.createElement( QString::fromLatin1( "td" ) );
-        headerRow.appendChild( resolutions );
-        resolutions.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "right" ) );
-
         for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
              sizeIt != actRes.end(); ++sizeIt ) {
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();
             QString page = namePage( w, h, info->fileName( false ) );
             QString text = (*sizeIt)->text(false);
+            resolutions += QString::fromLatin1( " " );
 
-            if ( width == w && height == h ) {
-                resolutions.appendChild( doc.createTextNode( text ) );
-            }
-            else {
-                QDomElement link = createLink( doc, page, text );
-                resolutions.appendChild( link );
-            }
-            resolutions.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
+            if ( width == w && height == h )
+                resolutions += text;
+            else
+                resolutions += QString::fromLatin1( "<a href=\"%1\">%2</a>" ).arg( page ).arg( text );
         }
     }
-
-
-    // -------------------------------------------------- The image
-    QDomElement imgRow = doc.createElement( QString::fromLatin1( "tr" ) );
-    table.appendChild( imgRow );
-    QDomElement imgCol = doc.createElement( QString::fromLatin1( "td" ) );
-    imgCol.setAttribute( QString::fromLatin1( "colspan" ), QString::fromLatin1( "2" ) );
-    imgRow.appendChild( imgCol );
-
-    QString name = createImage( info, width );
-    QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
-    img.setAttribute( QString::fromLatin1( "src" ), name );
-    imgCol.appendChild( img );
+    content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), resolutions );
 
     // -------------------------------------------------- Description
-    table = doc.createElement( QString::fromLatin1( "table" ) );
-    body.appendChild( table );
+    QString description;
 
     QStringList optionGroups = Options::instance()->optionGroups();
     for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
         if ( info->optionValue( *it ).count() != 0 ) {
-            QDomElement row = doc.createElement( QString::fromLatin1( "tr" ) );
-            table.appendChild( row );
-
-            QDomElement col = doc.createElement( QString::fromLatin1( "td" ) );
-            row.appendChild( col );
-            col.appendChild( doc.createTextNode( *it+ QString::fromLatin1( ":" ) ) );
-
-            col = doc.createElement( QString::fromLatin1( "td" ) );
-            row.appendChild( col );
-            col.appendChild( doc.createTextNode( info->optionValue( *it ).join( QString::fromLatin1(", ") ) ) );
+            QString val = info->optionValue( *it ).join( QString::fromLatin1(", ") );
+            description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( *it ).arg( val );
         }
-
     }
 
     if ( !info->description().isEmpty() ) {
-        QDomElement row = doc.createElement( QString::fromLatin1( "tr" ) );
-        table.appendChild( row );
-
-        QDomElement col = doc.createElement( QString::fromLatin1( "td" ) );
-        row.appendChild( col );
-        col.appendChild( doc.createTextNode( QString::fromLatin1( "Description:" ) ) );
-
-        col = doc.createElement( QString::fromLatin1( "td" ) );
-        row.appendChild( col );
-        col.appendChild( doc.createTextNode( info->description() ) );
+        description += QString::fromLatin1( "  <li> <b>Description:</b> %1\n" ).arg( info->description() );
     }
 
+    content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "<ul>\n%1\n</ul>" ).arg( description ) );
 
 
     // -------------------------------------------------- write to file
-    QString str = doc.toString();
     QString fileName = _tempDir + namePage( width, height, info->fileName(false) );
-    bool ok = writeToFile( fileName, str );
+    bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
 

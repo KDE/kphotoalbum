@@ -36,6 +36,7 @@ public:
     static bool ctrlKeyDown();
     static bool copy( const QString& from, const QString& to );
     static QString setupDemo();
+    static QString readInstalledFile( const QString& fileName );
 };
 
 

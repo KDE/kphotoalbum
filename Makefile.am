@@ -4,7 +4,7 @@ if compile_LIBKIMDABA_COMPAT
   COMPAT_INCLUDE = -I$(srcdir)/compat
 endif
 
-SUBDIRS = images icons demo $(COMPAT_DIR)
+SUBDIRS = images icons demo html_templates $(COMPAT_DIR)
 INCLUDES = $(all_includes) $(COMPAT_INCLUDE)
 
 bin_PROGRAMS = kimdaba

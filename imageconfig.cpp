@@ -734,18 +734,18 @@ void ImageConfig::showHelpDialog( SetupType type )
     QString txt;
     if ( type == SEARCH ) {
         doNotShowKey = QString::fromLatin1( "image_config_search_show_help" );
-        txt = i18n( "<qt><p>You have just opened the advanced search dialog, to get the most out of it, "
-                    "I suggest that you read the section in the manual on <a href=\"help:/kimdaba/sect-general-image-searches.html\">"
+        txt = i18n( "<qt><p>You have just opened the advanced search dialog; to get the most out of it, "
+                    "it is suggested that you read the section in the manual on <a href=\"help:/kimdaba/sect-general-image-searches.html\">"
                     "advanced searching</a>.</p>"
-                    "<p>This dialog is also used for typing in information about images, you may find "
+                    "<p>This dialog is also used for typing in information about images; you can find "
                     "extra tips on its usage by reading about "
                     "<a href=\"help:/kimdaba/chp-typingIn.html\">typing in</a>.</p></qt>" );
     }
     else {
         doNotShowKey = QString::fromLatin1( "image_config_typein_show_help" );
-        txt = i18n("<qt><p>You have just opened one of the most important windows in KimDaBa, "
+        txt = i18n("<qt><p>You have just opened one of the most important windows in KimDaBa; "
                    "it contains lots of functionality which has been optimized for fast usage.<p>"
-                   "<p>I strongly recomment that you take 5 minutes to read the "
+                   "<p>It is strongly recommended that you take 5 minutes to read the "
                    "<a href=\"help:/kimdaba/chp-typingIn.html\">documentation for this "
                    "dialog</a></p></qt>" );
     }

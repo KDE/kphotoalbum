@@ -120,13 +120,13 @@ bool Import::init( const QString& fileName )
     }
     _dir = _zip->directory();
     if ( _dir == 0 ) {
-        KMessageBox::error( this, i18n( "Error reading directory contest of file %1. The file is likely broken" ).arg( fileName ) );
+        KMessageBox::error( this, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." ).arg( fileName ) );
         return false;
     }
 
     const KArchiveEntry* indexxml = _dir->entry( QString::fromLatin1( "index.xml" ) );
     if ( indexxml == 0 || ! indexxml->isFile() ) {
-        KMessageBox::error( this, i18n( "Error reading index.xml file from %1. The file is likely broken" ).arg( fileName ) );
+        KMessageBox::error( this, i18n( "Error reading index.xml file from %1; it is likely that the file is broken." ).arg( fileName ) );
         return false;
     }
 
@@ -178,7 +178,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( !node.isElement() || ! (node.toElement().tagName().lower() == QString::fromLatin1( "image" ) ) ) {
-            KMessageBox::error( this, i18n("Unknow element while reading %1, expected Image").arg( fileName ) );
+            KMessageBox::error( this, i18n("Unknown element while reading %1, expected Image").arg( fileName ) );
             return false;
         }
         QDomElement elm = node.toElement();

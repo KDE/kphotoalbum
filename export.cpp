@@ -94,28 +94,28 @@ ExportConfig::ExportConfig()
 
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 
-    QString txt = i18n( "<qt><p>If your images are stored in a non compressed file format, then you may check this, "
-                        "otherwise, this is just a waste of time during import and export operations.</p>"
-                        "<p>In other words, don't check this if your images are stored in jpg, png, gif, but do check this "
+    QString txt = i18n( "<qt><p>If your images are stored in a non-compressed file format then you may check this; "
+                        "otherwise, this just wastes time during import and export operations.</p>"
+                        "<p>In other words, do not check this if your images are stored in jpg, png or gif; but do check this "
                         "if your images are stored in tiff.</p></qt>" );
     QWhatsThis::add( _compress, txt );
 
-    txt = i18n( "<qt><p>With this option you may limit the maximum dimension (widh or hight) of your images. "
+    txt = i18n( "<qt><p>With this option you may limit the maximum dimensions (width and height) of your images. "
                 "Doing so will make the resulting export file smaller, but will of course also make the quality "
-                "worse if someone wants to see the images in a larger dimension.</p></qt>" );
+                "worse if someone wants to see the exported images with larger dimensions.</p></qt>" );
 
     QWhatsThis::add( _enforeMaxSize, txt );
     QWhatsThis::add( _maxSize, txt );
 
     txt = i18n( "<qt><p>When exporting images, there are two things the person importing images needs:<br>"
-                "1) meta information (who is on the images etc)<br>"
-                "2) the images themself.<p>"
+                "1) meta information (who is on the images etc.)<br>"
+                "2) the images themselves.<p>"
 
-                "<p>The images themself can either be placed next to the .kim file, or copied into the .kim file. "
+                "<p>The images themselves can either be placed next to the .kim file, or copied into the .kim file. "
                 "Copying the images into the .kim file might be the right solution if you want to mail the images to someone "
-                "who likely wants all images. On the other hand, if you put the images on the web, and a lot of people will "
-                "see them, but likely only download a few of them, then you would rather place the images next to the .kim "
-                "file to avoid that every one download all the images (which is the case when they are in one big file.)</p></qt>" );
+                "who likely wants all images; on the other hand, if you put the images on the web, and a lot of people will "
+                "see them but likely only download a few of them, then it is better to place the images next to the .kim "
+                "file to avoid everyone having to download all the images (which is the case when they are in one big file.)</p></qt>" );
     QWhatsThis::add( grp, txt );
     QWhatsThis::add( _include, txt );
     QWhatsThis::add( _manually, txt );
@@ -325,7 +325,7 @@ void Export::showUsageDialog()
     QString txt =
         i18n( "<qt><p>Other KimDaBa users may now load the import file into their database, by choosing <tt>import</tt> in "
               "the file menu.</p>"
-              "<p>If they find it on a web side, and the web server is correctly configured, all they need to do is simply "
+              "<p>If they find it on a web site, and the web server is correctly configured, all they need to do is simply "
               "to click it from within konqueror. To enable this, your web server needs to be configured for KimDaBa. You do so by adding "
               "the following line to <tt>/etc/httpd/mime.types</tt> or similar:"
               "<pre>application/vnd.kde.kimdaba-import kim</pre>"

@@ -21,6 +21,7 @@
 #include "options.h"
 #include <klocale.h>
 #include "util.h"
+#include <kdebug.h>
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
@@ -228,7 +229,7 @@ bool ImageSearchInfo::hasOption( ImageInfo* info, const QString& key, const QStr
 void ImageSearchInfo::debug()
 {
     for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
-        qDebug( "%s: %s", it.key().latin1(), it.data().latin1() );
+        kdDebug(50010) << it.key() << ", " << it.data() << endl;
     }
 }
 

@@ -22,6 +22,7 @@
 #include <qdom.h>
 #include "options.h"
 #include "util.h"
+#include <kdebug.h>
 
 
 ImageInfo::ImageInfo()
@@ -273,7 +274,7 @@ bool ImageInfo::isLocked() const
 void ImageInfo::debug()
 {
     for( QMapIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
-        qDebug( "%s: %s", it.key().latin1(), it.data().join( QString::fromLatin1( ", " ) ).latin1() );
+        kdDebug(50010) << it.key() << ", " << it.data().join( QString::fromLatin1( ", " ) ) << endl;
     }
 }
 

@@ -64,31 +64,34 @@ ImageInfo::ImageInfo( const QString& fileName )
 
 
     // Date
-    bool dateFound = false;
-    if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
-        QDate date = exif[QString::fromLatin1( "CreationDate" )].toDate();
-        if ( date.isValid() ) {
-            _startDate.setDate( date );
-            dateFound = true;
+    if ( Options::instance()->trustTimeStamps() ) {
+        bool dateFound = false;
+        if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
+            QDate date = exif[QString::fromLatin1( "CreationDate" )].toDate();
+            if ( date.isValid() ) {
+                _startDate.setDate( date );
+                dateFound = true;
+            }
         }
-    }
-    else if ( ( fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
-                fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
-                fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
-                fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) && !hasShownWarning ) {
-        hasShownWarning = true;
-        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read date out of EXIF information</b></p>"
-                                          "<p>EXIF information is meta information stored in JPEG files about the image. "
-                                          "KimDaBa tries to read the date, orientation and description from EXIF</p>"
-                                          "<p>KimDaBa was, however, unable to read date information out of %1, which might "
-                                          "either be because the file did not contain any EXIF information, or "
-                                          "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                  i18n("Unable to read date out of EXIF information"), QString::fromLatin1("UnableToReadEXIFInformation") );
-    }
+        else if ( ( fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
+                    fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
+                    fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
+                    fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) && !hasShownWarning ) {
+            hasShownWarning = true;
+            KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read date out of EXIF information</b></p>"
+                                              "<p>EXIF information is meta information stored in JPEG files about the image. "
+                                              "KimDaBa tries to read the date, orientation and description from EXIF</p>"
+                                              "<p>KimDaBa was, however, unable to read date information out of %1, which might "
+                                              "either be because the file did not contain any EXIF information, or "
+                                              "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
+                                      i18n("Unable to read date out of EXIF information"),
+                                      QString::fromLatin1("UnableToReadEXIFInformation") );
+        }
 
-    if ( !dateFound  && Options::instance()->trustTimeStamps() )  {
-        QDate date = fi.lastModified().date();
-        _startDate.setDate( date );
+        if ( !dateFound )  {
+            QDate date = fi.lastModified().date();
+            _startDate.setDate( date );
+        }
     }
 
     // Orientation
@@ -102,9 +105,6 @@ ImageInfo::ImageInfo( const QString& fileName )
             _angle = -90;
         else if ( orientation == 6 || orientation == 7 )
             _angle = 90;
-        if ( orientation != 1 && orientation != 0 ) {
-            qDebug("%s: %d", fileName.latin1(), orientation );
-        }
     }
 
     // Description

@@ -322,7 +322,6 @@ void Util::removeThumbNail( const QString& imageFile )
 
     QDir dir( QString::fromLatin1( "%1/ThumbNails" ).arg( path ) );
     QStringList matches = dir.entryList( QString::fromLatin1( "*-%1" ).arg( fi.fileName() ) );
-    qDebug("%s", QString::fromLatin1( "*-%1" ).arg( fi.fileName() ).latin1());
     for( QStringList::Iterator it = matches.begin(); it != matches.end(); ++it ) {
         QString thumbnail = QString::fromLatin1( "%1/ThumbNails/%2" ).arg(path).arg(*it);
         QDir().remove( thumbnail );

@@ -31,6 +31,7 @@
 #include "imagedb.h"
 #include <qcheckbox.h>
 #include <kinputdialog.h>
+#include <qwhatsthis.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( Tabbed, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -54,19 +55,19 @@ void OptionsDialog::createGeneralPage()
     lay2->addStretch(1);
 
     // Thrust time stamps
-    label = new QLabel( i18n("Trust time stamps on new files"), top );
+    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates"), top );
     _trustTimeStamps = new KComboBox( top );
     _trustTimeStamps->insertStringList( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
     QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
-    lay3->addWidget( label );
+    lay3->addWidget( timeStampLabel );
     lay3->addWidget( _trustTimeStamps );
     lay3->addStretch( 1 );
 
     // Max images to show per page
-    label = new QLabel( i18n("Maximum images to show per page"), top );
+    QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page"), top );
     _maxImages = new QSpinBox( 10, 10000, 1, top ) ;
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
-    lay4->addWidget( label );
+    lay4->addWidget( maxImagesLabel );
     lay4->addWidget( _maxImages );
     lay4->addStretch(1);
 
@@ -98,6 +99,32 @@ void OptionsDialog::createGeneralPage()
 
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
     lay1->addStretch(1);
+
+
+    // Whats This
+    QString txt;
+
+    txt = i18n( "<qt><p>KimDaBa will try to read the of the image date out of EXIF information in the image, "
+                "if that fails it will try to get the date from the file time stamp.</p>"
+                "<p>This information will, however, be wrong if the image is scanned in - you want the date the image "
+                "was taken, not the date of the scan.</p>"
+                "<p>If you only scan images, in contrast to sometimes using "
+                "a digital camera, then you should say <b>no</b>. If you never scan, then you should say <b>yes</b>, "
+                "otherwise say <b>ask</b> - that will allow you from session to session to decide whether the images are from "
+                "the scanner or the camera.</p></qt>" );
+    QWhatsThis::add( timeStampLabel, txt );
+    QWhatsThis::add( _trustTimeStamps, txt );
+
+    txt = i18n( "<qt><p>A 128x128 pixel thumbnail will take up approximate 64Kb of memory from in your X server. "
+                "This may not sound like much but please try changing the number of images to show to say 3000, "
+                "and you will see your X server require approximate 200Mb of memory, just to show the KimDaBa "
+                "thumbnail overview.</p>"
+                "<p>Besides showing 3000 thumbnails will take time to display, and be of little use. "
+                "the conclusion therefore is to keep this value to a reasonable limit that fits your needs and "
+                "the amount of installed memory in your system.</p></qt>" );
+
+    QWhatsThis::add( maxImagesLabel, txt );
+    QWhatsThis::add( _maxImages, txt );
 }
 
 class OptionGroupItem :public QListBoxText

@@ -80,6 +80,10 @@ void ImageLoader::run()
                     QSize fullSize;
                     Util::loadJPEG(&img, li.fileName(),  &fullSize, li.width(), li.height());
                     li.setFullSize( fullSize );
+                } else if( Util::isCRW(li.fileName())) {
+                    QSize fullSize;
+                    Util::loadCRW(&img, li.fileName(),  &fullSize, li.width(), li.height());
+                    li.setFullSize( fullSize );				  
                 } else {
                     img.load( li.fileName() );
                     li.setFullSize( img.size() );

@@ -1,5 +1,8 @@
 2004-12-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added support for Canon CRW "digital negative" - thanks to
+	Steffen Hansen <hansen@kde.org>.
+
 	* Postpone checking if images is on disk till the information is
 	needed, this speeds up start up with a couple of seconds.
 

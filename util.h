@@ -40,6 +40,7 @@ public:
     static bool runningDemo();
     static void deleteDemo();
     static QString setupDemo();
+    static bool canReadImage( const QString& fileName );
     static QString readInstalledFile( const QString& fileName );
     static QString getThumbnailDir( const QString& imageFile );
     static QString getThumbnailFile( const QString& imageFile, int width, int height, int angle );
@@ -47,7 +48,10 @@ public:
     static QString readFile( const QString& fileName );
     static QMap<QString,QVariant> getEXIF( const QString& fileName );
     static bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
+    static bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width=-1, int height=-1);
     static bool isJPEG( const QString& fileName );
+    static bool loadCRW(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
+    static bool isCRW( const QString& fileName );
 
     static ImageInfoList shuffle( ImageInfoList list );
 

@@ -24,7 +24,6 @@
 #include <qdir.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <kimageio.h>
 #include "util.h"
 #include "groupCounter.h"
 #include <kmdcodec.h>
@@ -195,7 +194,7 @@ void ImageDB::searchForNewFiles( const QDict<void>& loadedFiles, QString directo
             continue;
 
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
-             KImageIO::canRead(KImageIO::type(fi.extension())) ) {
+             Util::canReadImage(fi.extension()) ) {
             QString baseName = file.mid( imageDir.length()+1 );
 
             if ( ! _blockList.contains( baseName ) ) {

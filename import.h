@@ -111,6 +111,7 @@ private:
     ImageInfoList _pendingCopies;
     QProgressDialog* _progress;
     KIO::FileCopyJob* _job;
+    bool _hasFilled;
 };
 
 

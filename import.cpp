@@ -76,7 +76,7 @@ void Import::imageImport( const KURL& url )
 }
 
 Import::Import( const KURL& url, QWidget* parent, const char* name )
-    :KWizard( parent, name, false ), _zip( 0 )
+    :KWizard( parent, name, false ), _zip( 0 ), _hasFilled( false )
 {
     _kimFile = url;
     _tmp = new KTempFile( QString::null, QString::fromLatin1( ".kim" ) );
@@ -103,7 +103,7 @@ void Import::downloadKimJobCompleted( KIO::Job* job )
 }
 
 Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* name )
-    :KWizard( parent, name, false ), _zipFile( fileName ), _tmp(0)
+    :KWizard( parent, name, false ), _zipFile( fileName ), _tmp(0), _hasFilled( false )
 {
     _kimFile.setPath( fileName );
     *ok = init( fileName );
@@ -409,7 +409,6 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
 
 void Import::next()
 {
-    static bool hasFilled = false;
     if ( currentPage() == _destinationPage ) {
         QString dir = _destinationEdit->text();
         if ( !QFileInfo( dir ).exists() ) {
@@ -425,8 +424,8 @@ void Import::next()
                 return;
         }
     }
-    if ( !hasFilled && currentPage() == _optionGroupMatcher ) {
-        hasFilled = true;
+    if ( !_hasFilled && currentPage() == _optionGroupMatcher ) {
+        _hasFilled = true;
         _optionGroupMatcher->setEnabled( false );
         delete _dummy;
 

@@ -30,10 +30,7 @@ ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
 {
     setText( 0, i18n( "View Images" ) );
     int count = ImageDB::instance()->count( info );
-    if ( count == 1 )
-        setText( 1, i18n( "1 image" ) );
-    else
-        setText( 1, i18n( "%1 images" ).arg( count ) );
+    setText( 1, i18n( "1 image", "%n images", count ) );
     setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 ) );
 }
 
@@ -44,10 +41,7 @@ ImageFolder::ImageFolder( const ImageSearchInfo& info, int from, int to, Browser
     setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 ) );
     int count = to - from +1;
     setCount( count );
-    if ( count == 1 )
-        setText( 1, i18n( "1 image" ) );
-    else
-        setText( 1, i18n( "%1 images" ).arg( count ) );
+    setText( 1, i18n( "1 image", "%n images", count ) );
 }
 
 void ImageFolderAction::action()

@@ -30,7 +30,7 @@ ImageCounter::ImageCounter( QWidget* parent, const char* name )
 void ImageCounter::setMatchCount( int start, int end, int matches )
 {
     if (start == -1 )
-        setText( i18n( "Showing %1 images" ).arg( matches ) );
+        setText( i18n( "Showing 1 image", "Showing %n images", matches ) );
     else
         setText( i18n( "Showing %1-%2 of %3").arg(start).arg(end).arg(matches) );
 }

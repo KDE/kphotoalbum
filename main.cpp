@@ -28,14 +28,14 @@
 static const KCmdLineOptions options[] =
 {
 	{ "c ", I18N_NOOP("Config file"), 0 },
-    { "demo", I18N_NOOP( "Starts KimDaBa with a prebuild set of demo images" ), 0 },
+    { "demo", I18N_NOOP( "Starts KimDaBa with a prebuilt set of demo images" ), 0 },
 	{ 0, 0, 0}
 };
 
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaba"), "0.01",
                           I18N_NOOP("KDE Image Database"), KAboutData::License_GPL );
-    aboutData.addAuthor( "Jesper K. Pedersen", "Development", "blackie@kde.org" );
+    aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

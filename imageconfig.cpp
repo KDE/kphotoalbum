@@ -89,7 +89,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _monthStart = new QComboBox( top );
     _monthStart->insertStringList( QStringList() << QString::fromLatin1( "---" )
                                    << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
-                                   << i18n( "May" ) << i18n( "June" ) << i18n( "July" ) << i18n( "Aug" )
+                                   << i18n( "May" ) << i18n( "Jun" ) << i18n( "Jul" ) << i18n( "Aug" )
                                    << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
     lay4->addWidget( _monthStart );
 
@@ -115,7 +115,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _monthEnd = new QComboBox( top );
     _monthEnd->insertStringList( QStringList() << QString::fromLatin1( "---" )
                                    << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
-                                   << i18n( "May" ) << i18n( "June" ) << i18n( "July" ) << i18n( "Aug" )
+                                   << i18n( "May" ) << i18n( "Jun" ) << i18n( "Jul" ) << i18n( "Aug" )
                                    << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
     lay4->addWidget( _monthEnd );
 

@@ -3,6 +3,8 @@
 #include <qlabel.h>
 #include <qtimer.h>
 
+#include <klocale.h>
+
 SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
     :QDialog( parent, name, false, WStyle_Customize | WStyle_NoBorder | WX11BypassWM| WStyle_StaysOnTop )
 {
@@ -18,13 +20,13 @@ SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
 
 void SpeedDisplay::display( int i )
 {
-    _label->setText( tr("<qt><center><font size=\"+4\">%1&nbsp;s</font></center></qt>").arg( QString::number( i/1000.0, 'f', 1 ) ) );
+    _label->setText( i18n("<qt><center><font size=\"+4\">%1&nbsp;s</font></center></qt>").arg( QString::number( i/1000.0, 'f', 1 ) ) );
     go();
 }
 
 void SpeedDisplay::start()
 {
-    _label->setText( tr("<qt><center><font size=\"+4\">Starting Slideshow</font></center></qt>") );
+    _label->setText( i18n("<qt><center><font size=\"+4\">Starting Slideshow</font></center></qt>") );
     go();
 }
 
@@ -40,7 +42,7 @@ void SpeedDisplay::go()
 
 void SpeedDisplay::end()
 {
-    _label->setText( tr("<qt><center><font size=\"+4\">Ending Slideshow</font></center></qt>") );
+    _label->setText( i18n("<qt><center><font size=\"+4\">Ending Slideshow</font></center></qt>") );
     go();
 }
 

@@ -26,12 +26,12 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
 
     QLabel* textLabel2 = new QLabel( this, "textLabel2" );
     lay2->addWidget( textLabel2 );
-    textLabel2->setText( tr2i18n( "<h1>Welcome to KimDaba</h1>"
-                                  "<p>If you are interested in trying out KimDaBa with a prebuild set of images, "
-                                  "then simply choose the <b>Load demo</b> "
-                                  "button. You may get to this demo at a later time from the <b>Help</b> menu.</p>"
-                                  "<p>Alternatively you may start making you own database of images, simply by pressing the "
-                                  "<b>Create my own database</b> button") );
+    textLabel2->setText( i18n( "<h1>Welcome to KimDaba</h1>"
+                               "<p>If you are interested in trying out KimDaBa with a prebuild set of images, "
+                               "then simply choose the <b>Load demo</b> "
+                               "button. You may get to this demo at a later time from the <b>Help</b> menu.</p>"
+                               "<p>Alternatively you may start making you own database of images, simply by pressing the "
+                               "<b>Create my own database</b> button") );
 
     QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
     lay3->addStretch( 1 );

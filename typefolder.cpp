@@ -30,10 +30,7 @@ TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info,
     int count = map.size();
     setCount( count );
 
-    if ( count == 1 )
-        setText( 1, i18n("1 category") );
-    else
-        setText( 1, i18n("%1 categories").arg( count ) );
+    setText( 1, i18n("1 category", "%n categories", count ) );
     setPixmap( 0, Options::instance()->iconForOptionGroup( _optionGroup ) );
 }
 

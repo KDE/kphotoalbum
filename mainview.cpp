@@ -637,12 +637,12 @@ void MainView::setDefaultScopeNegative()
 void MainView::lockToDefaultScope()
 {
     int i = KMessageBox::warningContinueCancel( this,
-                                                i18n( "<qt><p>The pass word protection is only a mean of allowing your little sister "
+                                                i18n( "<qt><p>The password protection is only a mean of allowing your little sister "
                                                       "to look in your images, without getting to those embarrassing images from "
                                                       "your last party.</p>"
                                                       "<p>In other words, anyone with access to the index.xml file can easily circumvent "
                                                       "this password!</b></p>"),
-                                                i18n("pass word protection"),
+                                                i18n("Password protection"),
                                                 KStdGuiItem::cont(),
                                                 QString::fromLatin1( "lockPassWordIsNotEncruption" ) );
     if ( i == KMessageBox::Cancel )

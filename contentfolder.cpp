@@ -51,10 +51,7 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
         setPixmap( 0, Options::instance()->iconForOptionGroup( optionGroup ) );
 
     setCount( count );
-    if ( count == 1 )
-        setText( 1, i18n( "1 image") );
-    else
-        setText( 1, i18n( "%1 images").arg(count) );
+    setText( 1, i18n( "1 image", "%n images", count ) );
 }
 
 void ContentFolderAction::action()

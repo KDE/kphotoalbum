@@ -53,7 +53,7 @@ void ThumbNailView::showImage( QIconViewItem* item )
         ImageInfo* info = tn->imageInfo();
         if ( !info->imageOnDisk() ) {
             QMessageBox::warning( this, i18n("No Images to Display"),
-                                  i18n("The seleceted image was not available on disk.") );
+                                  i18n("The selected image was not available on disk.") );
         }
         else {
             ImageInfoList list;
@@ -170,7 +170,7 @@ void ThumbNailView::slotPaste()
     }
     else if ( ImageDB::instance()->clipboard().count() == 0 ) {
         QMessageBox::information( this, i18n("Nothing on Clipboard"), i18n("<qt><p>No data on clipboard to paste.</p>"
-                                  "<p>It really doesn't make any sence to the application to have an image represented twice, "
+                                  "<p>It really doesn't make any sense to the application to have an image represented twice, "
                                   "therefore you can only paste an image off the clipboard ones.</p>"),
                                   QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
     }

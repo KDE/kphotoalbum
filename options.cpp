@@ -406,7 +406,9 @@ void Options::loadConfigWindowLayout( ImageConfig* config )
     config->readDockConfig( _configDock );
 }
 
-void Options::setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory )
+void Options::setup( const QDomElement& config, const QDomElement& options,
+                     const QDomElement& configWindowSetup, const QDomElement& memberGroups,
+                     const QString& imageDirectory )
 {
     _instance = new Options( config, options, configWindowSetup, memberGroups, imageDirectory );
 }

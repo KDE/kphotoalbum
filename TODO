@@ -48,6 +48,8 @@ Features for a soonish version
   specific to recognize Anne Helene)
   If it doesn´t work, pick the first picture with Ann Helen
   If it doesn´t work, the default KDE icon, just like today.
+  The problem here is speed. Currently it is not possible to load these images
+  using the image manager, so say 300 images would take approx 1 minute to load.
 - Make it possible to use the thumbnail standard
   (http://jens.triq.net/thumbnail-spec/) 
 - The image display window should show the zoom-factor in the

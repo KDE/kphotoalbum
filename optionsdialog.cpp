@@ -36,7 +36,7 @@
 #include <kiconloader.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null )
+    :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createOptionGroupsPage();
@@ -514,10 +514,13 @@ void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
 
     uniq.sort();
     _members->insertStringList( uniq );
-    _groups->setSelected( 0, true );
 
-    if ( !groupList.isEmpty() )
+    if ( !groupList.isEmpty() ) {
+        _groups->setSelected( 0, true );
         selectMembers( _groups->text(0) );
+    }
+    else
+        _currentGroup = QString::null;
 
     setButtonStates();
 }
@@ -546,9 +549,10 @@ void OptionsDialog::slotAddGroup()
 
 void OptionsDialog::slotRenameGroup()
 {
-    Q_ASSERT( !currentGroup().isNull() );
+    Q_ASSERT( !_currentGroup.isNull() );
     bool ok;
-    QString currentValue = currentGroup();
+    QListBoxItem* item = _groups->item( _groups->currentItem() );
+    QString currentValue = item->text();
     QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group Name"), currentValue, &ok );
     if ( ok ) {
         saveOldGroup();
@@ -560,28 +564,27 @@ void OptionsDialog::slotRenameGroup()
 
 void OptionsDialog::slotDelGroup()
 {
-    Q_ASSERT( !currentGroup().isNull() );
-    int res = KMessageBox::warningYesNo( this, i18n( "Really delete group %1" ).arg( currentGroup() ) );
+    Q_ASSERT( !_currentGroup.isNull() );
+    int res = KMessageBox::warningYesNo( this, i18n( "Really delete group %1" ).arg( _currentGroup ) );
     if ( res == KMessageBox::No )
         return;
 
     saveOldGroup();
 
-    QString current = currentGroup();
-
-    QListBoxItem* item = _groups->findItem( current );
+    QListBoxItem* item = _groups->findItem( _currentGroup );
     delete item;
 
-    _memberMap.deleteGroup( _currentCategory, current );
-    Options::instance()->removeOption( _currentCategory, current );
+    _memberMap.deleteGroup( _currentCategory, _currentGroup );
+    Options::instance()->removeOption( _currentCategory, _currentGroup );
+    _currentGroup = _groups->text(0);
     slotCategoryChanged( _currentCategory, false );
-    selectMembers( currentGroup() );
+    selectMembers( _currentGroup );
     setButtonStates();
 }
 
 void OptionsDialog::saveOldGroup()
 {
-    if ( _currentCategory.isNull() || currentGroup().isNull() )
+    if ( _currentCategory.isNull() || _currentGroup.isNull() )
         return;
 
     QStringList list;
@@ -590,11 +593,12 @@ void OptionsDialog::saveOldGroup()
             list << item->text();
     }
 
-    _memberMap.setMembers(_currentCategory, currentGroup(), list);
+    _memberMap.setMembers(_currentCategory, _currentGroup, list);
 }
 
 void OptionsDialog::selectMembers( const QString& group )
 {
+    _currentGroup = group;
     QStringList list = _memberMap.members(_currentCategory,group, false );
     for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
         _members->setSelected( item, list.contains( item->text() ) );
@@ -611,18 +615,9 @@ int OptionsDialog::exec()
 
 void OptionsDialog::setButtonStates()
 {
-    bool b = !currentGroup().isNull();
+    bool b = !_currentGroup.isNull();
     _rename->setEnabled( b );
     _del->setEnabled( b );
-}
-
-QString OptionsDialog::currentGroup() const
-{
-    QListBoxItem* item =_groups->selectedItem();
-    if ( !item )
-        return QString::null;
-    else
-        return item->text();
 }
 
 

@@ -20,7 +20,14 @@ BUGS To be handled soonish
   (for example animals). When I then go to the member groups configuration, the 
   new categories are missing. They need a program restart to appear.
 - the viewer should be closable with Ctrl+w and <esc>, in addition to q
-
+- In the category overview of the browser, replace "images with
+  "categories", so it says: 
+  Category           Count.
+  Keywords           4 categories
+  Locations          1 categories
+  Persons            6 categories
+  and consider excluding the None category from the counts.
+- replace None with "No Persons", "No Keywords" etc.
 =======================
 BUGS of less importance
 =======================

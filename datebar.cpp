@@ -561,10 +561,16 @@ void DateBar::doScroll( int x )
     // Don't scroll further down than the last image
     // We use oldUnit here, to ensure that we scroll all the way to the end
     // better scroll a bit over than not all the way.
-    if ( (_currentUnit > oldUnit &&
-          _currentHandler->date( oldUnit ) > _dates.upperLimit() ) ||
-         ( _currentUnit < oldUnit &&
-           _currentHandler->date( oldUnit ) < _dates.lowerLimit() ) ) {
+    if ( !_movingBar &&
+         ( (_currentUnit > oldUnit &&
+            _currentHandler->date( oldUnit ) > _dates.upperLimit() ) ||
+           ( _currentUnit < oldUnit &&
+             _currentHandler->date( oldUnit ) < _dates.lowerLimit() ) ) ||
+         _movingBar &&
+         ( (_currentUnit > oldUnit &&
+            _currentHandler->date( 0 ) < _dates.lowerLimit() ) ||
+           ( _currentUnit < oldUnit &&
+             _currentHandler->date( numberOfUnits() ) > _dates.upperLimit() ) )  ) {
         _currentUnit = oldUnit;
         return;
     }

@@ -1439,7 +1439,7 @@ void MainView::slotJumpToContext()
     if ( item ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
         _browser->addImageView( tn->imageInfo() );
-    }
+   }
 }
 
 #include "mainview.moc"

@@ -434,7 +434,10 @@ void DisplayArea::doShowDrawings()
 
 QImage DisplayArea::currentViewAsThumbnail() const
 {
-    return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
+    if ( _croppedAndScaledImg.isNull() )
+        return QImage();
+    else
+        return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
 }
 
 void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img )
@@ -462,6 +465,7 @@ void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, c
         updatePreload();
     }
     unbusy();
+    emit possibleChange();
 }
 
 void DisplayArea::setImageList( const ImageInfoList& list )

@@ -1,2 +1,2 @@
-appicondir = $(kde_datadir)/kpalbum/icons
+appicondir = $(kde_datadir)/kimdaba/icons
 appicon_ICON = AUTO

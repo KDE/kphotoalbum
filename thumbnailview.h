@@ -18,12 +18,12 @@
 
 #ifndef THUMBNAILVIEW_H
 #define THUMBNAILVIEW_H
-#include <qiconview.h>
+#include <kiconview.h>
 #include "imageinfo.h"
 class ImageManager;
 class IconViewToolTip;
 
-class ThumbNailView :public QIconView {
+class ThumbNailView :public KIconView {
     Q_OBJECT
     friend class ThumbNail;
 

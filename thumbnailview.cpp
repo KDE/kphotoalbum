@@ -29,14 +29,14 @@
 #include "util.h"
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
-    :QIconView( parent,  name ), _currentHighlighted( 0 )
+    :KIconView( parent,  name ), _currentHighlighted( 0 )
 {
     _imageList=0L;
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
 
     connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
-    connect( this,  SIGNAL( doubleClicked( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
+    connect( this,  SIGNAL( executed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
 
     setSelectionMode( Extended );
     _iconViewToolTip = new IconViewToolTip( this );

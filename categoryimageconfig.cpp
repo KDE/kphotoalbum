@@ -118,3 +118,5 @@ void CategoryImageConfig::show()
 
     KDialogBase::show();
 }
+
+#include "categoryimageconfig.moc"

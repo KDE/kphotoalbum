@@ -53,3 +53,8 @@ appsdatadir=$(kde_datadir)/kimdaba
 appsdata_DATA=tips
 
 xdg_apps_DATA = kimdaba.desktop
+
+messages: rc.cpp
+	$(PREPARETIPS) > tips.cc
+	$(XGETTEXT) *.cpp *.h *.cc -o $(podir)/kimdaba.pot
+	rm -f tips.cc 

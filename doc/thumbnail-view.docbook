@@ -6,8 +6,9 @@ scope have been selected <footnote><para>To avoid that your X server runs out of
       memory KimDaBa limits the amount of images you look at a time. The
       limit can be configured in the <literal>Options</literal>
       dialog.</para></footnote>). An example of this can be seen in <xref
-      linkend="fig-thumbnailview"/> below. The size of the thumbnails can be
-configure in <guimenu>Edit</guimenu>|<guimenuitem>Options</guimenuitem> as
+      linkend="fig-thumbnailview"/> below. The size and number of the thumbnails can be
+configure in from the <guimenu>Settings</guimenu>|<guimenuitem>Configure
+KimDaBa</guimenuitem> menu as
 described in <xref linkend="chp-options"/>.</para>
 
   <figure id="fig-thumbnailview">
@@ -22,6 +23,9 @@ described in <xref linkend="chp-options"/>.</para>
   <para>In the thumbnail overview you can reorder your pictures by dragging
 them around with the mouse, or cut and paste them using the keyboard. But most important you
 can start the viewer simply by clicking on an image from there.</para>
+
+<para>Dragging an image from the viewer to the background will set
+the image as the background image of your desktop.</para>
 
   <para>By clicking on an image you load it into the viewer, if no viewer
 window is present, a viewer window will be created.</para>

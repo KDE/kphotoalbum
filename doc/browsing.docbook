@@ -72,7 +72,70 @@ thousands.</para>
   <para>When you are done limiting the scope of images, you may select
 the <literal>View Images</literal> icon, to see exactly those images
 matching your current scope.</para>
-  
+
+
+
+
+
+
+
+
+  <sect1>
+  <title>Adding Preview Images to the Browser</title>
+  <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
+that each person has the same icon in front of his name. KimDaBa is actual
+capable of showing a preview image for each individual person <footnote><para>This of
+course also applies to locations, keywords, and other options groups you
+have defined yourself.</para></footnote> as can be seen in  <xref
+linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title>Images for each Individual Person</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para>To show images along with the names, choose the tool
+button to the very right of the toolbar, that will bring up a popup menu,
+where you can chose which view you want to use for the given option
+group. Notice views must be configured for each option group - that way you
+may for example use an icon view with images of persons, but a plain list view for
+keywords (in case you can't come up with good images for your
+keywords).</para>  
+
+
+<para>It is, however, your job to tell it which images to use for each
+individual person. To do so, you must open the viewer (see <xref
+linkend="chp-viewer"/>), and from the context menu choose <guimenuitem>show
+category editor</guimenuitem>, this will bring up the category editor which
+can be seen in <xref linkend="fig-categoryEditor"/>. In the category editor
+you choose the image for the given person. In the viewer its possible to zoom to part of
+the image, and that way crop what part should be shown.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title>Category Editor</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
   
   <sect1>
     <title>General image searches</title>

@@ -12,6 +12,7 @@
   <!ENTITY thumbnail-view SYSTEM "thumbnail-view.docbook">
   <!ENTITY viewer SYSTEM "viewer.docbook">
   <!ENTITY options SYSTEM "options.docbook">
+  <!ENTITY generating-html SYSTEM "generating-html.docbook">
 ]>
 
 <book lang="&language;">
@@ -29,13 +30,13 @@
     </authorgroup>
     
     <copyright>
-      <year>2003</year>
+      <year>2003-2004</year>
       <holder>Jesper K. Pedersen</holder>
       
     </copyright>
     
-    <date>2003-10-05</date>
-    <releaseinfo>1.00</releaseinfo>
+    <date>2004-01-26</date>
+    <releaseinfo>1.1</releaseinfo>
     
     <keywordset>
       <keyword>KDE</keyword>
@@ -67,6 +68,7 @@ url="http://www.blackie.dk/kimdaba/">KimDaBa's Homepage</ulink></para>
   &browsing;
   &thumbnail-view;
   &viewer;
+  &generating-html;
   &options;
 
 

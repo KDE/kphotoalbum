@@ -82,24 +82,8 @@ url="http://ktown.kde.org/kimdaba/">KimDaBa's Homepage</ulink></para>
   <chapter id="faq">
     <title>Frequently asked questions</title>
 
-  <qandaset>
-      <qandaentry>
-        <question><para>Can I organize my images in multiple directories</para></question>
-        <answer><para>As long as all your image directories have a common
-root, then that is fine. In other words, you are allowed to have a
-directory tree with your images.</para></answer>
-      </qandaentry>
-      
-      <qandaentry>
-        <question><para>Can I move my images around on disk?</para></question>
-        <answer><para>Yes, since version 1.1 KimDaBa now stores check sums
-for each image. Before moving images around, you might want to invoke
-<guimenu>Maintenance</guimenu>|<guimenuitem>Recalculate
-Checksum</guimenuitem> - this should, however, only be needed if you have
-modified your images (removed red eyes for example)</para></answer>
-      </qandaentry>
-      
-  </qandaset>
+<para>For a list of frequently asked questions, please see <ulink
+          url="http://wiki.kde.org/tiki-index.php?page=KimDaBa+FAQ">http://wiki.kde.org/tiki-index.php?page=KimDaBa+FAQ</ulink></para>
   </chapter>
 
 

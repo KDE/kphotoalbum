@@ -20,8 +20,15 @@ public:
     void removeOption( const QString& key, const QString& value );
     QStringList optionValue( const QString& key ) const;
 
-    void setTrustTimeStamps( bool );
-    bool trustTimeStamps() const;
+    enum TimeStampTrust {
+        Always = 0,
+        Ask = 1,
+        Never = 2
+    };
+
+    bool trustTimeStamps();
+    void setTTimeStamps( TimeStampTrust );
+    TimeStampTrust tTimeStamps() const;
 
     QStringList dataDirs() const;
     void save();
@@ -64,7 +71,8 @@ private:
     static QString _confFile;
 
     int _thumbSize,  _imageCacheSize;
-    bool _cacheThumbNails, _trustTimeStamps, _markNew;
+    TimeStampTrust _tTimeStamps;
+    bool _cacheThumbNails, _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps;
     QMap<QString, QStringList> _options;
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL;
 

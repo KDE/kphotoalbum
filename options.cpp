@@ -5,6 +5,10 @@
 #include <qdir.h>
 #include "util.h"
 #include <stdlib.h>
+#include <kmessagebox.h>
+#include <klocale.h>
+#include <qapplication.h>
+#include <qcursor.h>
 
 Options* Options::_instance = 0;
 QString Options::_confFile = QString::null;
@@ -18,7 +22,7 @@ Options* Options::instance()
 
 
 Options::Options()
-    : _thumbSize( 64 ), _cacheThumbNails( true )
+    : _thumbSize( 64 ), _cacheThumbNails( true ), _hasAskedAboutTimeStamps( false )
 {
     if ( _confFile.isNull() )
         _confFile = QDir::home().path() + "/.kpalbum";
@@ -34,7 +38,7 @@ Options::Options()
 
     _thumbSize = top.attribute( "thumbSize", QString::number(_thumbSize) ).toInt();
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
-    _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
+    _tTimeStamps = (TimeStampTrust) top.attribute( "trustTimeStamps",  "0" ).toInt();
     _imageDirectory = top.attribute( "imageDirectory" );
     _htmlBaseDir = top.attribute( "htmlBaseDir", QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
     _htmlBaseURL = top.attribute( "htmlBaseURL", QString::fromLatin1( "file://" ) + _htmlBaseDir );
@@ -91,7 +95,7 @@ void Options::save()
 
     top.setAttribute( "thumbSize", _thumbSize );
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
-    top.setAttribute( "trustTimeStamps", _trustTimeStamps );
+    top.setAttribute( "trustTimeStamps", _tTimeStamps );
     top.setAttribute( "imageDirectory", _imageDirectory );
     top.setAttribute( "htmlBaseDir", _htmlBaseDir );
     top.setAttribute( "htmlBaseURL", _htmlBaseURL );
@@ -134,14 +138,35 @@ QStringList Options::optionValue( const QString& key ) const
     return _options[key];
 }
 
-void Options::setTrustTimeStamps( bool b)
+bool Options::trustTimeStamps()
 {
-    _trustTimeStamps = b;
+    if ( _tTimeStamps == Always )
+        return true;
+    else if ( _tTimeStamps == Never )
+        return false;
+    else {
+        if (!_hasAskedAboutTimeStamps ) {
+            QApplication::setOverrideCursor( Qt::ArrowCursor );
+            int answer = KMessageBox::questionYesNo( 0, i18n("New images was found. Should I trust their time stamps?"),
+                                                     i18n("Trust Time Stamps") );
+            QApplication::restoreOverrideCursor();
+            if ( answer == KMessageBox::Yes )
+                _trustTimeStamps = true;
+            else
+                _trustTimeStamps = false;
+            _hasAskedAboutTimeStamps = true;
+        }
+        return _trustTimeStamps;
+    }
+}
+void Options::setTTimeStamps( TimeStampTrust t )
+{
+    _tTimeStamps = t;
 }
 
-bool Options::trustTimeStamps() const
+Options::TimeStampTrust Options::tTimeStamps() const
 {
-    return _trustTimeStamps;
+    return _tTimeStamps;
 }
 
 QString Options::imageDirectory() const

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>OptionsDialog</class>
 <widget class="QDialog">
     <property name="name">
@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>349</width>
-            <height>195</height>
+            <width>404</width>
+            <height>211</height>
         </rect>
     </property>
     <property name="caption">
@@ -49,7 +49,7 @@
                                 <cstring>textLabel1</cstring>
                             </property>
                             <property name="text">
-                                <string>Thumbnail Size:</string>
+                                <string>Thumbnail size:</string>
                             </property>
                         </widget>
                         <widget class="QSpinBox">
@@ -92,16 +92,63 @@
                         <cstring>cacheThumbNails</cstring>
                     </property>
                     <property name="text">
-                        <string>Cache On Disk</string>
+                        <string>Cache on disk</string>
                     </property>
                 </widget>
-                <widget class="QCheckBox">
+                <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>trustTimeStamps</cstring>
+                        <cstring>layout5</cstring>
                     </property>
-                    <property name="text">
-                        <string>Trust Time Stamps</string>
-                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>textLabel1_3</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Trust time stamps on new files</string>
+                            </property>
+                        </widget>
+                        <widget class="QComboBox">
+                            <item>
+                                <property name="text">
+                                    <string>Always</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>Ask</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>Never</string>
+                                </property>
+                            </item>
+                            <property name="name">
+                                <cstring>trustTimeStamps</cstring>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer3</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>16</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </hbox>
                 </widget>
             </vbox>
         </widget>
@@ -118,7 +165,7 @@
                         <cstring>textLabel1_2</cstring>
                     </property>
                     <property name="text">
-                        <string>Image Directory</string>
+                        <string>Image directory</string>
                     </property>
                 </widget>
                 <widget class="QLineEdit">

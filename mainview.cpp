@@ -397,7 +397,7 @@ void MainView::setupMenuBar()
     // File menu
     KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
-    new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
+    _generateHtml = new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
     KAction* a = KStdAction::back( _browser, SLOT( back() ), actionCollection() );
     connect( _browser, SIGNAL( canGoBack( bool ) ), a, SLOT( setEnabled( bool ) ) );
     a->setEnabled( false );
@@ -409,12 +409,12 @@ void MainView::setupMenuBar()
     a = KStdAction::home( _browser, SLOT( home() ), actionCollection() );
 
     // The Edit menu
-    KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
-    KStdAction::paste( _thumbNailView, SLOT( slotPaste() ), actionCollection() );
-    KStdAction::selectAll( _thumbNailView, SLOT( slotSelectAll() ), actionCollection() );
+    _cut = KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
+    _paste = KStdAction::paste( _thumbNailView, SLOT( slotPaste() ), actionCollection() );
+    _selectAll = KStdAction::selectAll( _thumbNailView, SLOT( slotSelectAll() ), actionCollection() );
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
-    new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
-                 actionCollection(), "deleteSelected" );
+    _deleteSelected = new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
+                                   actionCollection(), "deleteSelected" );
     _configOneAtATime = new KAction( i18n( "&One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
     _configAllSimultaniously = new KAction( i18n( "&All Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
@@ -425,8 +425,8 @@ void MainView::setupMenuBar()
                                  actionCollection(), "viewImages" );
     _viewSelectedInNewWindow = new KAction( i18n("View Selected (In new window)"), CTRL+Key_I, this, SLOT( slotViewSelectedNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
-    new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
-                 actionCollection(), "limitToMarked" );
+    _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
+                                  actionCollection(), "limitToMarked" );
 
     _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
                          actionCollection(), "lockToDefaultScope" );
@@ -523,12 +523,14 @@ void MainView::showThumbNails()
     reloadThumbNail();
     _stack->raiseWidget( _thumbNailView );
     _thumbNailView->setFocus();
+    updateStates( true );
 }
 
 void MainView::showBrowser()
 {
     _stack->raiseWidget( _browser );
     _browser->setFocus();
+    updateStates( false );
 }
 
 
@@ -889,6 +891,18 @@ void MainView::donateMoney()
 {
     Donate donate( this, "Donate Money" );
     donate.exec();
+}
+
+void MainView::updateStates( bool thumbNailView )
+{
+    _generateHtml->setEnabled( thumbNailView );
+    _cut->setEnabled( thumbNailView );
+    _paste->setEnabled( thumbNailView );
+    _selectAll->setEnabled( thumbNailView );
+    _deleteSelected->setEnabled( thumbNailView );
+    _viewSelected->setEnabled( thumbNailView );
+    _viewSelectedInNewWindow->setEnabled( thumbNailView );
+    _limitToMarked->setEnabled( thumbNailView );
 }
 
 #include "mainview.moc"

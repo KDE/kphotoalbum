@@ -94,6 +94,7 @@ protected:
     void setDirty( bool b );
     void setLocked( bool b );
     void configImages( const ImageInfoList& list, bool oneAtATime );
+    void updateStates( bool thumbNailView );
 
 private:
     static MainView* _instance;
@@ -125,6 +126,14 @@ private:
     KRadioAction* _largeListView;
     KRadioAction* _smallIconView;
     KRadioAction* _largeIconView;
+    KAction* _generateHtml;
+    KAction* _cut;
+    KAction* _paste;
+    KAction* _deleteSelected;
+    KAction* _limitToMarked;
+    KAction* _selectAll;
+
+
 };
 
 

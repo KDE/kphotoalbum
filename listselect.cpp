@@ -50,7 +50,7 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     }
 
     if ( !ev->text().isEmpty() && ev->text()[0].isPrint() )  {
-        bool special = ( ev->text() == "&" || ev->text() == "|" || ev->text() == "!" /* || ev->text() == "(" */ );
+        bool special = ( ev->text() == QString::fromLatin1("&") || ev->text() == QString::fromLatin1("|") || ev->text() == QString::fromLatin1("!") /* || ev->text() == "(" */ );
         if ( _mode == ListSelect::INPUT && special )  {
             // Don't insert the special character.
             return;
@@ -67,7 +67,7 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
             deselect();
 
             // Select the item in the listbox - not perfect but acceptable for now.
-            int start = txt.findRev( QRegExp("[!&|]"), cursorPosition() -2 ) +1;
+            int start = txt.findRev( QRegExp(QString::fromLatin1("[!&|]")), cursorPosition() -2 ) +1;
             QString input = txt.mid( start, cursorPosition()-start-1 );
 
             QListBoxItem* item = findItemInListBox( input );
@@ -86,7 +86,7 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         QString input = text();
         if ( _mode == ListSelect::SEARCH )  {
             input = input.left( cursorPosition() );
-            start = input.findRev( QRegExp("[!&|]") ) +1;
+            start = input.findRev( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
             input = input.mid( start );
         }
 
@@ -163,7 +163,7 @@ void ListSelect::slotReturn()
 {
     if ( _mode == INPUT )  {
         QString txt = _lineEdit->text();
-        if ( txt == "" )
+        if ( txt.isEmpty() )
             return;
 
         QListBoxItem* item = _listBox->findItem( txt,  ExactMatch );
@@ -242,15 +242,15 @@ bool ListSelect::matches( ImageInfo* info )
     if ( matchText.isEmpty() )
         return true;
 
-    QStringList orParts = QStringList::split( "|", matchText );
+    QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
     bool orTrue = false;
     for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
-        QStringList andParts = QStringList::split( "&", *itOr );
+        QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
         bool andTrue = true;
         for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
             QString str = *itAnd;
             bool negate = false;
-            QRegExp regexp( "^\\s*!\\s*(.*)$" );
+            QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
             if ( regexp.exactMatch( str ) )  {
                 negate = true;
                 str = regexp.cap(1);
@@ -291,8 +291,8 @@ void ListSelect::itemSelected( QListBoxItem* item )
     if ( _mode == SEARCH )  {
         QString txt = item->text();
         QString res;
-        QRegExp regEnd( "\\s*[&|!]\\s*$" );
-        QRegExp regStart( "^\\s*[&|!]\\s*" );
+        QRegExp regEnd( QString::fromLatin1("\\s*[&|!]\\s*$") );
+        QRegExp regStart( QString::fromLatin1("^\\s*[&|!]\\s*") );
         if ( item->isSelected() )  {
             int index = _lineEdit->cursorPosition();
             QString start = _lineEdit->text().left(index);
@@ -300,10 +300,10 @@ void ListSelect::itemSelected( QListBoxItem* item )
 
             res = start;
             if ( !start.isEmpty() && !start.contains( regEnd ) )
-                 res += "&";
+                 res += QString::fromLatin1("&");
             res += txt;
             if ( !end.isEmpty() && !end.contains( regStart ) )
-                res += "&";
+                res += QString::fromLatin1("&");
             res += end;
         }
         else {
@@ -314,9 +314,9 @@ void ListSelect::itemSelected( QListBoxItem* item )
             QString start = _lineEdit->text().left(index);
             QString end =  _lineEdit->text().mid(index + txt.length() );
             if ( start.contains( regEnd ) )
-                start.replace( regEnd, "" );
+                start.replace( regEnd, QString::fromLatin1("") );
             else
-                end.replace( regStart,  "" );
+                end.replace( regStart,  QString::fromLatin1("") );
 
             res = start + end;
         }

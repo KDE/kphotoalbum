@@ -7,13 +7,13 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
 {
     bool anyAtAll = false;
     for( QMapIterator<QString,QStringList> it= options.begin(); it != options.end(); ++it ) {
-        QDomElement opt = doc.createElement( "option" );
-        opt.setAttribute( "name",  it.key() );
+        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
+        opt.setAttribute( QString::fromLatin1("name"),  it.key() );
         QStringList list = it.data();
         bool any = false;
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            QDomElement val = doc.createElement( "value" );
-            val.setAttribute( "value", *it2 );
+            QDomElement val = doc.createElement( QString::fromLatin1("value") );
+            val.setAttribute( QString::fromLatin1("value"), *it2 );
             opt.appendChild( val );
             any = true;
             anyAtAll = true;
@@ -32,14 +32,14 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
         if ( nodeOption.isElement() )  {
             QDomElement elmOption = nodeOption.toElement();
-            Q_ASSERT( elmOption.tagName() == "option" );
-            QString name = elmOption.attribute( "name" );
+            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
+            QString name = elmOption.attribute( QString::fromLatin1("name") );
             if ( !name.isNull() )  {
                 for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull(); nodeValue = nodeValue.nextSibling() ) {
                     if ( nodeValue.isElement() ) {
                         QDomElement elmValue = nodeValue.toElement();
-                        Q_ASSERT( elmValue.tagName() == "value" );
-                        QString value = elmValue.attribute( "value" );
+                        Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
+                        QString value = elmValue.attribute( QString::fromLatin1("value") );
                         if ( !value.isNull() )  {
                             (*options)[name].append( value );
                         }
@@ -52,42 +52,43 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
 
 QString Util::createInfoText( ImageInfo* info )
 {
-    QString text = "" ;
+    QString text;
     if ( Options::instance()->showDate() )  {
-        if ( info->startDate().isNull() )
-            text += "";
+        if ( info->startDate().isNull() ) {
+            // Don't append anything
+        }
         else if ( info->endDate().isNull() )
             text += info->startDate();
         else
-            text += info->startDate() + " to " + info->endDate();
+            text += info->startDate() + i18n(" to ") + info->endDate();
 
         if ( !text.isEmpty() ) {
-            text = i18n("<b>Date:</b> ") + text + "<br>";
+            text = i18n("<b>Date:</b> ") + text + QString::fromLatin1("<br>");
         }
     }
 
     // PENDING(blackie) The key is used both as a key and a label, which is a problem here.
     if ( Options::instance()->showLocation() )  {
-        QString location = info->optionValue( "Locations" ).join( ", " );
+        QString location = info->optionValue( QString::fromLatin1("Locations") ).join( QString::fromLatin1(", ") );
         if ( !location.isEmpty() )
-            text += i18n("<b>Location:</b> ") + location + "<br>";
+            text += i18n("<b>Location:</b> ") + location + QString::fromLatin1("<br>");
     }
 
     if ( Options::instance()->showNames() ) {
-        QString persons = info->optionValue( "Persons" ).join( ", " );
+        QString persons = info->optionValue( QString::fromLatin1("Persons") ).join( QString::fromLatin1(", ") );
         if ( !persons.isEmpty() )
-            text += i18n("<b>Persons:</b> ") + persons + "<br>";
+            text += i18n("<b>Persons:</b> ") + persons + QString::fromLatin1("<br>");
     }
 
     if ( Options::instance()->showDescription() && !info->description().isEmpty())  {
         if ( !text.isEmpty() )
-            text += i18n("<b>Description:</b> ") +  info->description() + "<br>";
+            text += i18n("<b>Description:</b> ") +  info->description() + QString::fromLatin1("<br>");
     }
 
     if ( Options::instance()->showKeyWords() )  {
-        QString keyWords = info->optionValue( "Keywords" ).join( ", " );
+        QString keyWords = info->optionValue( QString::fromLatin1("Keywords") ).join( QString::fromLatin1(", ") );
         if ( !keyWords.isEmpty() )
-            text += i18n("<b>Keywords:</b> ") + keyWords + "<br>";
+            text += i18n("<b>Keywords:</b> ") + keyWords + QString::fromLatin1("<br>");
     }
     return text;
 }

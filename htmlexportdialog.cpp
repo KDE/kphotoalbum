@@ -126,12 +126,12 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     QWidget* content = new QWidget( sizes );
     QGridLayout* lay6 = new QGridLayout( content, 2, 4 );
     lay6->setAutoAdd( true );
-    MyCheckBox* size320  = new MyCheckBox( 320, "320x200", content );
-    MyCheckBox* size640  = new MyCheckBox( 640, "640x480", content );
-    MyCheckBox* size800  = new MyCheckBox( 800, "800x600", content );
-    MyCheckBox* size1024 = new MyCheckBox( 1024, "1024x768", content );
-    MyCheckBox* size1280 = new MyCheckBox( 1280, "1280x1024", content );
-    MyCheckBox* size1600 = new MyCheckBox( 1600, "1600x1200", content );
+    MyCheckBox* size320  = new MyCheckBox( 320, QString::fromLatin1("320x200"), content );
+    MyCheckBox* size640  = new MyCheckBox( 640, QString::fromLatin1("640x480"), content );
+    MyCheckBox* size800  = new MyCheckBox( 800, QString::fromLatin1("800x600"), content );
+    MyCheckBox* size1024 = new MyCheckBox( 1024, QString::fromLatin1("1024x768"), content );
+    MyCheckBox* size1280 = new MyCheckBox( 1280, QString::fromLatin1("1280x1024"), content );
+    MyCheckBox* size1600 = new MyCheckBox( 1600, QString::fromLatin1("1600x1200"), content );
     MyCheckBox* sizeOrig = new MyCheckBox( -1, i18n("Full size"), content );
 
     _cbs << size320 << size640 << size800 << size1024 << size1280 << size1600 << sizeOrig;
@@ -179,7 +179,7 @@ bool HTMLExportDialog::generate()
     }
 
 
-    QString index = dir + QString::fromLatin1("/") + "index.html";
+    QString index = dir + QString::fromLatin1("/index.html" );
     QFile file(index);
     if ( !file.open(IO_WriteOnly) ) {
         QMessageBox::critical( this, i18n("Couldn't Create File"), i18n("Couldn't create file '%1'.").arg(index),
@@ -319,7 +319,7 @@ bool HTMLExportDialog::generate()
             QString data = s.read();
             f1.close();
 
-            QString outfile = dir + QString::fromLatin1("/") + "infobox.js";
+            QString outfile = dir + QString::fromLatin1("/infobox.js" );
             QFile f2( outfile );
             if ( !f2.open( IO_WriteOnly ) ) {
                 QMessageBox::warning( this, i18n("Unable to Write infobox.js"),

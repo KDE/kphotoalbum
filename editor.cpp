@@ -18,7 +18,7 @@ Editor::Editor( QWidget* parent, const char* name )
 bool Editor::loadPart()
 {
     // Don't ask, this is pure magic ;-)
-    _doc = KParts::ComponentFactory::createPartInstanceFromQuery< KTextEditor::Document >( "KTextEditor/Document", QString::null, this, 0, this, 0 );
+    _doc = KParts::ComponentFactory::createPartInstanceFromQuery< KTextEditor::Document >( QString::fromLatin1("KTextEditor/Document"), QString::null, this, 0, this, 0 );
 
     if( !_doc ) {
         KMessageBox::error(this,i18n("KimDaba cannot start a text editor component.\n"

@@ -1,5 +1,6 @@
 SUBDIRS = images icons
 INCLUDES = $(all_includes)
+AM_CPPFLAGS = -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = main.cpp \

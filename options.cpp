@@ -25,32 +25,32 @@ Options::Options()
     : _thumbSize( 64 ), _cacheThumbNails( true ), _hasAskedAboutTimeStamps( false )
 {
     if ( _confFile.isNull() )
-        _confFile = QDir::home().path() + "/.kimdaba";
+        _confFile = QDir::home().path() + QString::fromLatin1("/.kimdaba");
 
     QDomDocument doc;
     QFile file( _confFile );
     if ( file.open( IO_ReadOnly ) )
         doc.setContent( &file );
     else
-        doc.setContent( QString("<Options>") );
+        doc.setContent( QString::fromLatin1("<Options>") );
 
     QDomElement top = doc.documentElement();
 
-    _thumbSize = top.attribute( "thumbSize", QString::number(_thumbSize) ).toInt();
-    _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
-    _tTimeStamps = (TimeStampTrust) top.attribute( "trustTimeStamps",  "0" ).toInt();
-    _autoSave = top.attribute( "autoSave", QString::number( 5 ) ).toInt();
-    _imageDirectory = top.attribute( "imageDirectory" );
-    _htmlBaseDir = top.attribute( "htmlBaseDir", QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
-    _htmlBaseURL = top.attribute( "htmlBaseURL", QString::fromLatin1( "file://" ) + _htmlBaseDir );
-    _infoBoxPosition = (Position) top.attribute( "infoBoxPosition", "0" ).toInt();
-    _showInfoBox = top.attribute( "showInfoBox", "1" ).toInt();
-    _showDrawings = top.attribute( "showDrawings", "1" ).toInt();
-    _showDescription = top.attribute( "showDescription", "1" ).toInt();
-    _showDate = top.attribute( "showDate", "1" ).toInt();
-    _showNames = top.attribute( "showNames", "0" ).toInt();
-    _showLocation = top.attribute( "showLocation", "0" ).toInt();
-    _showKeyWords = top.attribute( "showKeyWords", "0" ).toInt();
+    _thumbSize = top.attribute( QString::fromLatin1("thumbSize"), QString::number(_thumbSize) ).toInt();
+    _cacheThumbNails = top.attribute( QString::fromLatin1("cacheThumbNails"),  QString::number( _cacheThumbNails ) ).toInt();
+    _tTimeStamps = (TimeStampTrust) top.attribute( QString::fromLatin1("trustTimeStamps"),  QString::fromLatin1("0") ).toInt();
+    _autoSave = top.attribute( QString::fromLatin1("autoSave"), QString::number( 5 ) ).toInt();
+    _imageDirectory = top.attribute( QString::fromLatin1("imageDirectory") );
+    _htmlBaseDir = top.attribute( QString::fromLatin1("htmlBaseDir"), QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
+    _htmlBaseURL = top.attribute( QString::fromLatin1("htmlBaseURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
+    _infoBoxPosition = (Position) top.attribute( QString::fromLatin1("infoBoxPosition"), QString::fromLatin1("0") ).toInt();
+    _showInfoBox = top.attribute( QString::fromLatin1("showInfoBox"), QString::fromLatin1("1") ).toInt();
+    _showDrawings = top.attribute( QString::fromLatin1("showDrawings"), QString::fromLatin1("1") ).toInt();
+    _showDescription = top.attribute( QString::fromLatin1("showDescription"), QString::fromLatin1("1") ).toInt();
+    _showDate = top.attribute( QString::fromLatin1("showDate"), QString::fromLatin1("1") ).toInt();
+    _showNames = top.attribute( QString::fromLatin1("showNames"), QString::fromLatin1("0") ).toInt();
+    _showLocation = top.attribute( QString::fromLatin1("showLocation"), QString::fromLatin1("0") ).toInt();
+    _showKeyWords = top.attribute( QString::fromLatin1("showKeyWords"), QString::fromLatin1("0") ).toInt();
 
     Util::readOptions( top, &_options );
 }
@@ -85,26 +85,26 @@ void Options::save()
 
     QDomDocument doc;
     // PENDING(blackie) The user should be able to specify the coding himself.
-    doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
-    doc.appendChild( doc.createElement( "Options" ) );
+    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"" ) ) );
+    doc.appendChild( doc.createElement( QString::fromLatin1("Options") ) );
     QDomElement top = doc.documentElement();
 
-    top.setAttribute( "thumbSize", _thumbSize );
-    top.setAttribute( "cacheThumbNails", _cacheThumbNails );
-    top.setAttribute( "trustTimeStamps", _tTimeStamps );
-    top.setAttribute( "autoSave", _autoSave );
-    top.setAttribute( "imageDirectory", _imageDirectory );
-    top.setAttribute( "htmlBaseDir", _htmlBaseDir );
-    top.setAttribute( "htmlBaseURL", _htmlBaseURL );
+    top.setAttribute( QString::fromLatin1("thumbSize"), _thumbSize );
+    top.setAttribute( QString::fromLatin1("cacheThumbNails"), _cacheThumbNails );
+    top.setAttribute( QString::fromLatin1("trustTimeStamps"), _tTimeStamps );
+    top.setAttribute( QString::fromLatin1("autoSave"), _autoSave );
+    top.setAttribute( QString::fromLatin1("imageDirectory"), _imageDirectory );
+    top.setAttribute( QString::fromLatin1("htmlBaseDir"), _htmlBaseDir );
+    top.setAttribute( QString::fromLatin1("htmlBaseURL"), _htmlBaseURL );
 
-    top.setAttribute( "infoBoxPosition", (int) _infoBoxPosition );
-    top.setAttribute( "showInfoBox", _showInfoBox );
-    top.setAttribute( "showDrawings", _showDrawings );
-    top.setAttribute( "showDescription", _showDescription );
-    top.setAttribute( "showDate", _showDate );
-    top.setAttribute( "showNames", _showNames );
-    top.setAttribute( "showLocation", _showLocation );
-    top.setAttribute( "showKeyWords", _showKeyWords );
+    top.setAttribute( QString::fromLatin1("infoBoxPosition"), (int) _infoBoxPosition );
+    top.setAttribute( QString::fromLatin1("showInfoBox"), _showInfoBox );
+    top.setAttribute( QString::fromLatin1("showDrawings"), _showDrawings );
+    top.setAttribute( QString::fromLatin1("showDescription"), _showDescription );
+    top.setAttribute( QString::fromLatin1("showDate"), _showDate );
+    top.setAttribute( QString::fromLatin1("showNames"), _showNames );
+    top.setAttribute( QString::fromLatin1("showLocation"), _showLocation );
+    top.setAttribute( QString::fromLatin1("showKeyWords"), _showKeyWords );
 
     (void) Util::writeOptions( doc, top, _options );
 
@@ -179,7 +179,7 @@ void Options::setImageDirecotry( const QString& directory )
 bool Options::configFileExists()
 {
     if ( _confFile.isNull() )
-        _confFile = QDir::home().path() + "/.kimdaba";
+        _confFile = QDir::home().path() + QString::fromLatin1("/.kimdaba");
 
     QFileInfo info( _confFile );
     return info.exists();

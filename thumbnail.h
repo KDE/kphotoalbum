@@ -10,8 +10,8 @@ class ImageInfo;
 class ThumbNail :public QIconViewItem, public ImageClient {
 public:
     friend class ThumbNailView;
-    ThumbNail( ImageInfo* imageInfo,  ThumbNailView* parent,  const char* name = 0);
-    ThumbNail( ImageInfo* imageInfo,  ThumbNail* after, ThumbNailView* parent,  const char* name = 0);
+    ThumbNail( ImageInfo* imageInfo,  ThumbNailView* parent );
+    ThumbNail( ImageInfo* imageInfo,  ThumbNail* after, ThumbNailView* parent );
 
     virtual void pixmapLoaded( const QString&, int, int, int, const QImage& );
     QString fileName() const;

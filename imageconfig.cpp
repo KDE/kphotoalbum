@@ -98,14 +98,14 @@ void ImageConfig::slotOK()
 
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             ImageInfo* info = *it;
-            if ( dayStart->value() != 0 ||  monthStart->currentText() != "---" || yearStart->value() != 0 )  {
+            if ( dayStart->value() != 0 ||  monthStart->currentText() != QString::fromLatin1("---") || yearStart->value() != 0 )  {
                 info->startDate().setDay( dayStart->value() );
                 info->startDate().setMonth( monthStart->currentItem() );
                 info->startDate().setYear( yearStart->value() );
                 change = true;
             }
 
-            if ( dayEnd->value() != 0 || monthEnd->currentText() != "---" || yearEnd->value() != 0 )  {
+            if ( dayEnd->value() != 0 || monthEnd->currentText() != QString::fromLatin1("---") || yearEnd->value() != 0 )  {
                 info->endDate().setDay( dayEnd->value() );
                 info->endDate().setMonth( monthEnd->currentItem() );
                 info->endDate().setYear( yearEnd->value() );
@@ -221,19 +221,19 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
     }
     else {
         dayStart->setValue( 0 );
-        monthStart->setCurrentText( "---" );
+        monthStart->setCurrentText( QString::fromLatin1("---") );
         yearStart->setValue( 0 );
 
         dayEnd->setValue( 0 );
-        monthEnd->setCurrentText( "---" );
+        monthEnd->setCurrentText( QString::fromLatin1("---") );
         yearEnd->setValue( 0 );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->setSelection( QStringList() );
         }
 
-        label->setText( "" );
-        description->setText( "" );
+        label->setText( QString::fromLatin1("") );
+        description->setText( QString::fromLatin1("") );
 
         prevBut->setEnabled( false );
         nextBut->setEnabled( false );
@@ -338,7 +338,7 @@ bool ImageConfig::match( ImageInfo* info )
 
     // -------------------------------------------------- Text
     QString txt = description->text();
-    QStringList list = QStringList::split(QRegExp("\\s"), txt );
+    QStringList list = QStringList::split(QRegExp(QString::fromLatin1("\\s")), txt );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         ok &= ( txt.find(*it) != -1 );
     }

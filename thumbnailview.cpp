@@ -49,7 +49,7 @@ void ThumbNailView::load( ImageInfoList* list )
     clear();
     for( QPtrListIterator<ImageInfo> it( *list ); *it; ++it ) {
         if ( (*it)->visible() )
-            new ThumbNail( *it,  this,  "thumbnail" );
+            new ThumbNail( *it,  this );
     }
     _imageList = list;
 }

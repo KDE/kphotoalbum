@@ -75,15 +75,15 @@ QString ImageDate::toString()
           << i18n("Sep") << i18n("Oct") << i18n("Nov") << i18n("Dec");
 
     if ( _day != 0 && _month != 0 )
-        result = QString("%1. %2").arg(_day).arg(month[_month-1]);
+        result = QString::fromLatin1("%1. %2").arg(_day).arg(month[_month-1]);
     else if ( _day != 0 && _month == 0 )
-        result = QString("%1/???").arg(_day);
+        result = QString::fromLatin1("%1/???").arg(_day);
     else if ( _day == 0 && _month != 0 )  {
         result = month[_month-1];
     }
 
     if ( !result.isEmpty() && _year != 0 )
-        result += " ";
+        result += QString::fromLatin1(" ");
 
     if ( _year != 0 )
         result += QString::number( _year );

@@ -12,14 +12,14 @@
 #include <qmessagebox.h>
 #include <klocale.h>
 
-ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent, const char* name )
-    :QIconViewItem( parent,  name ),  _imageInfo( imageInfo ), _parent( parent )
+ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
+    :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent )
 {
     init();
 }
 
-ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* parent, const char* name )
-    :QIconViewItem( parent, after, name ),  _imageInfo( imageInfo ), _parent( parent )
+ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* parent )
+    :QIconViewItem( parent, after ),  _imageInfo( imageInfo ), _parent( parent )
 {
     init();
 }
@@ -135,7 +135,7 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
 
     for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
         ThumbNail* item = *it;
-        ThumbNail* tn = new ThumbNail( item->_imageInfo, last, _parent , "thumbnail" );
+        ThumbNail* tn = new ThumbNail( item->_imageInfo, last, _parent);
         delete item;
         last = tn;
     }

@@ -26,7 +26,7 @@ void ImageManager::init()
 void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height,
                          bool cache, bool priority, bool compress )
 {
-    QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
+    QString key = QString::fromLatin1("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
 
     _lock->lock();
     LoadInfo li( fileName, width, height, angle, compress, client );
@@ -75,7 +75,8 @@ void ImageManager::customEvent( QCustomEvent* ev )
         }
 
         LoadInfo li = iev->loadInfo();
-        QString key = QString("%1-%2x%3-%4").arg( li.fileName() ).arg( li.width() ).arg( li.height() ).arg( li.angle() );
+        QString key = QString::fromLatin1("%1-%2x%3-%4").arg( li.fileName() )
+                      .arg( li.width() ).arg( li.height() ).arg( li.angle() );
 
         QImage image = iev->image();
         if ( _clientMap.contains( li ) )  {

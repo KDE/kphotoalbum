@@ -145,9 +145,9 @@ void MainView::slotSearch()
 void MainView::slotSave()
 {
     statusBar()->message(i18n("Saving..."), 5000 );
-    save( Options::instance()->imageDirectory() + "/index.xml" );
+    save( Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml") );
     _dirty = false;
-    QDir().remove( Options::instance()->imageDirectory() + "/.#index.xml" );
+    QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
 
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
@@ -170,8 +170,8 @@ void MainView::save( const QString& fileName )
     QDomDocument doc;
 
     // PENDING(blackie) The user should be able to specify the coding himself.
-    doc.appendChild( doc. createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
-    QDomElement elm = doc.createElement( "Images" );
+    doc.appendChild( doc. createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
+    QDomElement elm = doc.createElement( QString::fromLatin1("Images") );
     doc.appendChild( elm );
 
     for( ImageInfoListIterator it( list ); *it; ++it ) {
@@ -205,14 +205,14 @@ void MainView::load()
     QString directory = Options::instance()->imageDirectory();
     if ( directory.isEmpty() )
         return;
-    if ( directory.endsWith( "/" ) )
+    if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
 
 
     // Load the information from the XML file.
     QDict<void> loadedFiles( 6301 /* a large prime */ );
 
-    QString xmlFile = directory + "/index.xml";
+    QString xmlFile = directory + QString::fromLatin1("/index.xml");
     if ( QFileInfo( xmlFile ).exists() )  {
         QFile file( xmlFile );
         if ( ! file.open( IO_ReadOnly ) )  {
@@ -228,13 +228,13 @@ void MainView::load()
                 else
                     continue;
 
-                QString fileName = elm.attribute( "file" );
+                QString fileName = elm.attribute( QString::fromLatin1("file") );
                 if ( fileName.isNull() )
                     qWarning( "Element did not contain a file attribute" );
                 else if ( loadedFiles.find( fileName ) != 0 )
                     qWarning( "XML file contained image %s, more than ones - only first one will be loaded", fileName.latin1());
                 else {
-                    loadedFiles.insert( directory + "/" + fileName,
+                    loadedFiles.insert( directory + QString::fromLatin1("/") + fileName,
                                         (void*)0x1 /* void pointer to nothing I never need the value,
                                                       just its existsance, must be != 0x0 though.*/ );
                     load( fileName, elm );
@@ -256,22 +256,22 @@ void MainView::load( const QString& fileName, QDomElement elm )
 
 void MainView::loadExtraFiles( const QDict<void>& loadedFiles, QString directory )
 {
-    if ( directory.endsWith( "/" ) )
+    if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
     QString imageDir = Options::instance()->imageDirectory();
-    if ( imageDir.endsWith( "/" ) )
+    if ( imageDir.endsWith( QString::fromLatin1("/") ) )
         imageDir = imageDir.mid( 0, imageDir.length()-1 );
     QDir dir( directory );
     QStringList dirList = dir.entryList();
     for( QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it ) {
-        QString file = directory + "/" + *it;
+        QString file = directory + QString::fromLatin1("/") + *it;
         QFileInfo fi( file );
-        if ( (*it) == "." || (*it) == ".." || (*it) == "ThumbNails" || !fi.isReadable() )
+        if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") || (*it) == QString::fromLatin1("ThumbNails") || !fi.isReadable() )
                 continue;
 
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
-             ( (*it).endsWith( ".jpg" ) || (*it).endsWith( ".jpeg" ) || (*it).endsWith( ".png" ) ||
-                 (*it).endsWith( ".tiff" ) || (*it).endsWith( ".gif" ) ) )  {
+             ( (*it).endsWith( QString::fromLatin1(".jpg") ) || (*it).endsWith( QString::fromLatin1(".jpeg") ) || (*it).endsWith( QString::fromLatin1(".png") ) ||
+                 (*it).endsWith( QString::fromLatin1(".tiff") ) || (*it).endsWith( QString::fromLatin1(".gif") ) ) )  {
             QString baseName = file.mid( imageDir.length()+1 );
 
             ImageInfo* info = new ImageInfo( baseName  );
@@ -446,15 +446,15 @@ void MainView::slotAutoSave()
 {
     if ( _dirty ) {
         statusBar()->message(i18n("Auto saving...."));
-        save ( Options::instance()->imageDirectory() + "/.#index.xml" );
+        save ( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
     }
 }
 
 void MainView::checkForBackupFile()
 {
-    QString backupNm = Options::instance()->imageDirectory() + "/.#index.xml";
-    QString indexNm = Options::instance()->imageDirectory() + "/index.xml";
+    QString backupNm = Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml");
+    QString indexNm = Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml");
     QFileInfo backUpFile( backupNm);
     QFileInfo indexFile( indexNm );
     if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )

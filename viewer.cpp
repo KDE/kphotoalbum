@@ -42,22 +42,22 @@ Viewer::Viewer( QWidget* parent, const char* name )
     _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
                          0, _label, SLOT( slotSelect() ),actions, "_select");
     _select->plug( _toolbar );
-    _select->setExclusiveGroup( "ViewerTools" );
+    _select->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
     _line = new KToggleAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
                          0, _label, SLOT( slotLine() ),actions, "_line");
     _line->plug( _toolbar );
-    _line->setExclusiveGroup( "ViewerTools" );
+    _line->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
     _rect = new KToggleAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
                          0, _label, SLOT( slotRectangle() ),actions, "_rect");
     _rect->plug( _toolbar );
-    _rect->setExclusiveGroup( "ViewerTools" );
+    _rect->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
     _circle = new KToggleAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
                            0, _label, SLOT( slotCircle() ),actions, "_circle");
     _circle->plug( _toolbar );
-    _circle->setExclusiveGroup( "ViewerTools" );
+    _circle->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
     _delete = KStdAction::cut( _label, SLOT( cut() ), actions, "cutAction" );
     _delete->plug( _toolbar );
@@ -230,7 +230,7 @@ void Viewer::setDisplayedPixmap()
 
         Options::Position pos = Options::instance()->infoBoxPosition();
         if ( !text.isEmpty() )  {
-            text = "<qt>" + text + "</qt>";
+            text = QString::fromLatin1("<qt>") + text + QString::fromLatin1("</qt>");
 
             QSimpleRichText txt( text, qApp->font() );
 

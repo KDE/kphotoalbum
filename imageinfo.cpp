@@ -13,7 +13,7 @@ ImageInfo::ImageInfo()
 ImageInfo::ImageInfo( const QString& fileName )
     : _fileName( fileName ), _visible( true ), _imageOnDisk( true )
 {
-    QFileInfo fi( Options::instance()->imageDirectory()+ "/" + fileName );
+    QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
     _label = fi.baseName();
     _angle = 0;
 
@@ -28,22 +28,22 @@ ImageInfo::ImageInfo( const QString& fileName )
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     : _fileName( fileName ), _visible( true )
 {
-    QFileInfo fi( Options::instance()->imageDirectory()+ "/" + fileName );
+    QFileInfo fi( Options::instance()->imageDirectory()+ QString::fromLatin1("/") + fileName );
     _imageOnDisk = fi.exists();
-    _label = elm.attribute( "label",  _label );
-    _description = elm.attribute( "description" );
+    _label = elm.attribute( QString::fromLatin1("label"),  _label );
+    _description = elm.attribute( QString::fromLatin1("description") );
 
     int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0;
 
-    _startDate.setYear( elm.attribute( "yearFrom", QString::number( yearFrom) ).toInt() );
-    _startDate.setMonth( elm.attribute( "monthFrom", QString::number(monthFrom) ).toInt() );
-    _startDate.setDay( elm.attribute( "dayFrom", QString::number(dayFrom) ).toInt() );
+    _startDate.setYear( elm.attribute( QString::fromLatin1("yearFrom"), QString::number( yearFrom) ).toInt() );
+    _startDate.setMonth( elm.attribute( QString::fromLatin1("monthFrom"), QString::number(monthFrom) ).toInt() );
+    _startDate.setDay( elm.attribute( QString::fromLatin1("dayFrom"), QString::number(dayFrom) ).toInt() );
 
-    _endDate.setYear( elm.attribute( "yearTo", QString::number(yearTo) ).toInt() );
-    _endDate.setMonth( elm.attribute( "monthTo", QString::number(monthTo) ).toInt() );
-    _endDate.setDay( elm.attribute( "dayTo", QString::number(dayTo) ).toInt() );
+    _endDate.setYear( elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt() );
+    _endDate.setMonth( elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt() );
+    _endDate.setDay( elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt() );
 
-    _angle = elm.attribute( "angle", "0" ).toInt();
+    _angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
@@ -122,25 +122,25 @@ QString ImageInfo::fileName( bool relative )
     if (relative)
         return _fileName;
     else
-        return Options::instance()->imageDirectory() + "/" + _fileName;
+        return Options::instance()->imageDirectory() + QString::fromLatin1("/") + _fileName;
 }
 
 QDomElement ImageInfo::save( QDomDocument& doc )
 {
-    QDomElement elm = doc.createElement( "Image" );
-    elm.setAttribute( "file",  fileName( true ) );
-    elm.setAttribute( "label",  _label );
-    elm.setAttribute( "description", _description );
+    QDomElement elm = doc.createElement( QString::fromLatin1("Image") );
+    elm.setAttribute( QString::fromLatin1("file"),  fileName( true ) );
+    elm.setAttribute( QString::fromLatin1("label"),  _label );
+    elm.setAttribute( QString::fromLatin1("description"), _description );
 
-    elm.setAttribute( "yearFrom", _startDate.year() );
-    elm.setAttribute( "monthFrom",  _startDate.month() );
-    elm.setAttribute( "dayFrom",  _startDate.day() );
+    elm.setAttribute( QString::fromLatin1("yearFrom"), _startDate.year() );
+    elm.setAttribute( QString::fromLatin1("monthFrom"),  _startDate.month() );
+    elm.setAttribute( QString::fromLatin1("dayFrom"),  _startDate.day() );
 
-    elm.setAttribute( "yearTo", _endDate.year() );
-    elm.setAttribute( "monthTo",  _endDate.month() );
-    elm.setAttribute( "dayTo",  _endDate.day() );
+    elm.setAttribute( QString::fromLatin1("yearTo"), _endDate.year() );
+    elm.setAttribute( QString::fromLatin1("monthTo"),  _endDate.month() );
+    elm.setAttribute( QString::fromLatin1("dayTo"),  _endDate.day() );
 
-    elm.setAttribute( "angle",  _angle );
+    elm.setAttribute( QString::fromLatin1("angle"),  _angle );
 
     if ( _options.count() != 0 ) {
         QDomElement top = doc.createElement( QString::fromLatin1("Options") );

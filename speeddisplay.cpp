@@ -43,3 +43,5 @@ void SpeedDisplay::end()
     _label->setText( tr("<qt><center><font size=\"+4\">Ending Slideshow</font></center></qt>") );
     go();
 }
+
+#include "speeddisplay.moc"

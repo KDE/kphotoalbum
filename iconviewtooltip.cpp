@@ -179,7 +179,7 @@ bool IconViewToolTip::loadImage( const ImageInfo& info )
 }
 
 void IconViewToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
-                                    const QSize& /*fullSize*/, int /*angle*/, const QImage& image )
+                                    const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool /*loadedOK*/ )
 {
     QMimeSourceFactory::defaultFactory()->setImage( fileName, image );
     if ( fileName == _currentFileName )

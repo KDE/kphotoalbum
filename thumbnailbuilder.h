@@ -29,7 +29,7 @@ class ThumbnailBuilder :public QProgressDialog, public ImageClient {
 public:
     ThumbnailBuilder( QWidget* parent, const char* name = 0 );
     void generateNext();
-    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
 
 private:
     ImageInfoList _images;

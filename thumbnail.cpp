@@ -66,14 +66,16 @@ ImageInfo* ThumbNail::imageInfo()
     return _imageInfo;
 }
 
-void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& /*fullSize*/, int, const QImage& image  )
+void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& /*fullSize*/, int, const QImage& image, bool loadedOK )
 {
     QPixmap* pixmap = new QPixmap( size );
-    if ( !image.isNull() )
+    if ( loadedOK && !image.isNull() )
         pixmap->convertFromImage( image );
+    else if ( !loadedOK)
+        pixmap->fill(Qt::gray);
 
 
-    if ( !_imageInfo->imageOnDisk() ) {
+    if ( !loadedOK || !_imageInfo->imageOnDisk() ) {
         QPainter p( pixmap );
         p.setBrush( white );
         p.setWindow( 0, 0, 100, 100 );

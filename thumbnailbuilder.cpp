@@ -44,7 +44,7 @@ void ThumbnailBuilder::generateNext()
     ImageManager::instance()->load( info->fileName(),  this, info->angle(), size, size, true, true );
 }
 
-void ThumbnailBuilder::pixmapLoaded( const QString&, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& )
+void ThumbnailBuilder::pixmapLoaded( const QString&, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage&, bool /*loadedOK*/ )
 {
     if ( wasCanceled() )
         delete this;

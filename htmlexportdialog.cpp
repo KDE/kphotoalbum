@@ -600,16 +600,16 @@ QString HTMLExportDialog::createImage( ImageInfo* info, int size )
 }
 
 void HTMLExportDialog::pixmapLoaded( const QString& fileName, const QSize& imgSize,
-                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image )
+                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
 {
-    int size = imgSize.width();
     _progress->setProgress( _total - _waitCounter );
 
     _waitCounter--;
 
+    int size = imgSize.width();
     QString file = _tempDir + QString::fromLatin1( "/" ) + nameImage( fileName, size );
 
-    bool success = image.save( file, "JPEG" );
+    bool success = loadedOK && image.save( file, "JPEG" );
     if ( !success ) {
         // We better stop the imageloading. In case this is a full disk, we will just get all images loaded, while this
         // error box is showing, resulting in a bunch of error messages, and memory running out due to all the hanging

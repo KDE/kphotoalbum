@@ -293,8 +293,10 @@ void Export::copyImages( const ImageInfoList& list )
     }
 }
 
-void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image )
+void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
 {
+    if ( !loadedOK )
+        return;
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Util::stripSlash(_subdir)).arg(QFileInfo( _nameMap[fileName] ).baseName())
                           .arg(QFileInfo( _nameMap[fileName] ).extension() );

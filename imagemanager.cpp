@@ -102,7 +102,7 @@ LoadInfo::LoadInfo() : _null( true ),  _cache( true ),  _client( 0 )
 
 LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, bool priority, ImageClient* client )
     : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),
-      _cache( true ),  _client( client ),  _angle( angle ), _priority( priority )
+      _cache( true ),  _client( client ),  _angle( angle ), _priority( priority ), _loadedOK( false )
 {
 }
 
@@ -125,7 +125,7 @@ void ImageManager::customEvent( QCustomEvent* ev )
             // If it is not in the map, then it has been deleted since the request.
             ImageClient* client = _clientMap[li];
 
-            client->pixmapLoaded( li.fileName(), QSize(li.width(), li.height()), li.fullSize(), li.angle(), image );
+            client->pixmapLoaded( li.fileName(), QSize(li.width(), li.height()), li.fullSize(), li.angle(), image, li.loadedOK() );
             _clientMap.remove(li);
         }
     }
@@ -139,6 +139,11 @@ ImageEvent::ImageEvent( LoadInfo info, const QImage& image )
 LoadInfo ImageEvent::loadInfo()
 {
     return _info;
+}
+
+bool LoadInfo::loadedOK() const
+{
+    return _loadedOK;
 }
 
 bool LoadInfo::isNull() const
@@ -252,6 +257,11 @@ QSize LoadInfo::fullSize() const
 void LoadInfo::setFullSize( const QSize& size )
 {
     _fullSize = size;
+}
+
+void LoadInfo::setLoadedOK( bool ok )
+{
+    _loadedOK = ok;
 }
 
 bool LoadInfo::priority() const

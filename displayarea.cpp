@@ -440,9 +440,9 @@ QImage DisplayArea::currentViewAsThumbnail() const
         return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
 }
 
-void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img )
+void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
 {
-    if ( fileName == _info->fileName() ) {
+    if ( loadedOK && fileName == _info->fileName() ) {
         _loadedImage = img;
         _cachedView = !( imgSize == fullSize || imgSize == QSize(-1,-1) );
         if ( !_reloadImageInProgress ) {

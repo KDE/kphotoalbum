@@ -49,6 +49,8 @@ public:
 
     QSize fullSize() const;
     void setFullSize( const QSize& );
+    void setLoadedOK( bool ok );
+    bool loadedOK() const;
 
     bool priority() const;
 
@@ -65,6 +67,7 @@ private:
     int _angle;
     QSize _fullSize;
     bool _priority;
+    bool _loadedOK;
 };
 
 class ImageEvent :public QCustomEvent {

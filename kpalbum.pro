@@ -13,7 +13,9 @@ SOURCES	+= main.cpp \
 	util.cpp \
 	imagepreview.cpp \
 	imagedate.cpp \
-	imagesearchinfo.cpp
+	imagesearchinfo.cpp \
+    reorderdialog.cpp
+
 HEADERS	+= thumbnailview.h \
 	thumbnail.h \
 	imagemanager.h \
@@ -28,7 +30,8 @@ HEADERS	+= thumbnailview.h \
 	util.h \
 	imagepreview.h \
 	imagedate.h \
-	imagesearchinfo.h
+	imagesearchinfo.h \
+    reorderdialog.h
 
 
 
@@ -46,10 +49,12 @@ unix {
 FORMS	= mainviewui.ui \
 	optionsdialog.ui \
 	imageconfigui.ui \
-	wellcomedialog.ui
+	wellcomedialog.ui \
+	reorderdialogui.ui
 IMAGES	= images/splash.png \
 	images/multiconfig.jpg \
-	images/search.jpg
+	images/search.jpg \
+	images/reorder.jpg
 TEMPLATE	=app
 CONFIG	+= thread
 INCLUDEPATH	+= .

@@ -11,6 +11,7 @@
 #include <qdict.h>
 #include "viewer.h"
 #include <wellcomedialog.h>
+#include "reorderdialog.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :MainViewUI( parent,  name )
@@ -236,4 +237,11 @@ void MainView::wellcome()
     dialog->exec();
     delete dialog;
     slotOptions();
+}
+
+void MainView::slotReorder()
+{
+    if ( ! _reorderDialog )
+        _reorderDialog = new ReorderDialog( this );
+    _reorderDialog->show();
 }

@@ -174,10 +174,31 @@ void HTMLExportDialog::createLayoutPage()
 
     // Theme box
     label = new QLabel( i18n("Theme:"), layoutPage );
-    lay1->addWidget( label );
+    lay2->addWidget( label, 2, 0 );
+    lay4 = new QHBoxLayout( 0 );
+    lay2->addLayout( lay4, 2, 1 );
     _themeBox = new QComboBox( layoutPage, "theme_combobox" );
-    lay1->addWidget( _themeBox );
+    lay4->addWidget( _themeBox );
+    lay4->addStretch( 1 );
     populateThemesCombo();
+
+    // Image sizes
+    QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), layoutPage );
+    lay1->addWidget( sizes );
+    QWidget* content = new QWidget( sizes );
+    QGridLayout* lay5 = new QGridLayout( content, 2, 4 );
+    lay5->setAutoAdd( true );
+    ImageSizeCheckBox* size320  = new ImageSizeCheckBox( 320, 200, content );
+    ImageSizeCheckBox* size640  = new ImageSizeCheckBox( 640, 480, content );
+    ImageSizeCheckBox* size800  = new ImageSizeCheckBox( 800, 600, content );
+    ImageSizeCheckBox* size1024 = new ImageSizeCheckBox( 1024, 768, content );
+    ImageSizeCheckBox* size1280 = new ImageSizeCheckBox( 1280, 1024, content );
+    ImageSizeCheckBox* size1600 = new ImageSizeCheckBox( 1600, 1200, content );
+    ImageSizeCheckBox* sizeOrig = new ImageSizeCheckBox( i18n("Full size"), content );
+    size800->setChecked( 1 );
+
+    _cbs << size320 << size640 << size800 << size1024 << size1280 << size1600 << sizeOrig;
+    _preferredSizes << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
     lay1->addStretch(1);
 }
@@ -221,24 +242,6 @@ void HTMLExportDialog::createDestinationPage()
     _outputDir = new KLineEdit( destinationPage );
     lay2->addWidget( _outputDir, 7, 1 );
 
-
-    // Image sizes
-    QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), destinationPage );
-    lay1->addWidget( sizes );
-    QWidget* content = new QWidget( sizes );
-    QGridLayout* lay4 = new QGridLayout( content, 2, 4 );
-    lay4->setAutoAdd( true );
-    ImageSizeCheckBox* size320  = new ImageSizeCheckBox( 320, 200, content );
-    ImageSizeCheckBox* size640  = new ImageSizeCheckBox( 640, 480, content );
-    ImageSizeCheckBox* size800  = new ImageSizeCheckBox( 800, 600, content );
-    ImageSizeCheckBox* size1024 = new ImageSizeCheckBox( 1024, 768, content );
-    ImageSizeCheckBox* size1280 = new ImageSizeCheckBox( 1280, 1024, content );
-    ImageSizeCheckBox* size1600 = new ImageSizeCheckBox( 1600, 1200, content );
-    ImageSizeCheckBox* sizeOrig = new ImageSizeCheckBox( i18n("Full size"), content );
-
-    _cbs << size320 << size640 << size800 << size1024 << size1280 << size1600 << sizeOrig;
-    _preferredSizes << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
-
     lay1->addStretch( 1 );
 }
 
@@ -254,13 +257,6 @@ bool HTMLExportDialog::generate()
     connect( _progress, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
 
     _tempDir = KTempDir().name();
-
-
-    // Gotta be after the creation of _progress.
-    if ( _total == 0 ) {
-        KMessageBox::error( this, i18n("No image sizes were selected. Please select at least one."), i18n("No Image Sizes Selected") );
-        return false;
-    }
 
     hide();
 
@@ -587,6 +583,10 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*he
 
 void HTMLExportDialog::slotOk()
 {
+    if( activeResolutions().count() < 1 ) {
+        KMessageBox::error( 0, i18n( "You must select at least one resolution!" ) );
+        return;
+    }
     // Progress dialog
     _progress = new QProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), 0, this );
 

@@ -40,6 +40,7 @@ public:
     static void removeThumbNail( const QString& imageFile );
     static QString readFile( const QString& fileName );
     static QMap<QString,QVariant> getEXIF( const QString& fileName );
+    static ImageInfoList shuffle( ImageInfoList list );
 };
 
 

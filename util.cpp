@@ -364,3 +364,22 @@ QMap<QString,QVariant> Util::getEXIF( const QString& fileName )
     return map;
 }
 
+ImageInfoList Util::shuffle( ImageInfoList list )
+{
+    static bool init = false;
+    if ( !init ) {
+        QTime midnight( 0, 0, 0 );
+        srand( midnight.secsTo(QTime::currentTime()) );
+        init = true;
+    }
+
+    ImageInfoList result;
+
+    while ( list.count() != 0 ) {
+        int index = (int) ( (double)list.count()* rand()/((double)RAND_MAX) );
+        result.append( list.at(index) );
+        list.remove( list.at(index) );
+    }
+    return result;
+}
+

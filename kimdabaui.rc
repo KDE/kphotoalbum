@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="7">
+<kpartgui name="kimdaba" version="8">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -17,6 +17,8 @@
       <Action name="viewImages" />
       <Action name="viewImagesNewWindow" />
       <Action name="runSlideShow"/>
+      <Action name="runRandomizedSlideShow"/>
+      <Separator/>
       <Action name="sortImages" />
       <Action name="limitToMarked" />
       <Menu name="privacy">

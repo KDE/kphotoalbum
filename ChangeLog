@@ -1,5 +1,7 @@
 2004-04-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* added run randomized slideshow
+
 	* added run slide show to the thumbnail view, thus making it much
 	easier to start a slide show if the images in view.
 

@@ -351,9 +351,12 @@ ImageInfoList MainView::getSelectedOnDisk()
     return list;
 }
 
-void MainView::slotView( bool reuse, bool slideShow )
+void MainView::slotView( bool reuse, bool slideShow, bool random )
 {
     ImageInfoList listOnDisk = getSelectedOnDisk();
+
+    if (random)
+        listOnDisk = Util::shuffle( listOnDisk );
 
     if ( listOnDisk.count() != 0 ) {
 
@@ -548,10 +551,12 @@ void MainView::setupMenuBar()
     _view = new KAction( i18n("View"), Key_I, this, SLOT( slotView() ),
                                  actionCollection(), "viewImages" );
 
-    _viewInNewWindow = new KAction( i18n("View (In new window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
+    _viewInNewWindow = new KAction( i18n("View (In New Window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
-    _runSlideShow = new KAction( i18n("Run Slide show"), Key_S, this, SLOT( slotRunSlideShow() ),
+    _runSlideShow = new KAction( i18n("Run Slide Show"), Key_S, this, SLOT( slotRunSlideShow() ),
                                  actionCollection(), "runSlideShow" );
+    _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), SHIFT+Key_S, this, SLOT( slotRunRandomizedSlideShow() ),
+                                       actionCollection(), "runRandomizedSlideShow" );
 
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date and Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
@@ -852,6 +857,7 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
         _configOneAtATime->plug( &menu );
         _configAllSimultaniously->plug( &menu );
         _runSlideShow->plug( &menu );
+        _runRandomSlideShow->plug( &menu );
 
         menu.insertSeparator();
 
@@ -1064,7 +1070,12 @@ void MainView::slotBuildThumbnails()
 
 void MainView::slotRunSlideShow()
 {
-    slotView( true, true  );
+    slotView( true, true );
+}
+
+void MainView::slotRunRandomizedSlideShow()
+{
+    slotView( true, true, true );
 }
 
 #include "mainview.moc"

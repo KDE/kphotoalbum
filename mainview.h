@@ -52,7 +52,7 @@ protected slots:
     void slotSave();
     void slotDeleteSelected();
     void slotSearch();
-    void slotView( bool reuse = false, bool slideShow = false );
+    void slotView( bool reuse = false, bool slideShow = false, bool random = false );
     void slotViewNewWindow();
     void slotSortByDateAndTime();
     void slotChanges();
@@ -82,6 +82,7 @@ protected slots:
     void slotRemoveAllThumbnails();
     void slotBuildThumbnails();
     void slotRunSlideShow();
+    void slotRunRandomizedSlideShow();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -139,6 +140,7 @@ private:
     KAction* _limitToMarked;
     KAction* _selectAll;
     KAction* _runSlideShow;
+    KAction* _runRandomSlideShow;
 };
 
 

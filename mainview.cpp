@@ -158,9 +158,9 @@ bool MainView::slotExit()
     if ( Util::runningDemo() ) {
         QString txt = i18n("<qt><p><b>Delete your temporary demo database</b></p>"
                            "<p>I hope you enjoyed the KimDaBa demo. The demo database was copied to "
-                           "/tmp, should it be deleted now. If you do not delete it, it will waste disk space. "
-                           "On the other hand, if you want to come back and try the demo again, you "
-                           "might want to keep it arround we the changes you made through this session.</p></qt>" );
+                           "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
+                           "on the other hand, if you want to come back and try the demo again, you "
+                           "might want to keep it around with the changes you made through this session.</p></qt>" );
         int ret = KMessageBox::questionYesNoCancel( this, txt, i18n("Delete demo database"),
                                                     KStdGuiItem::yes(), KStdGuiItem::no(),
                                                     QString::fromLatin1("deleteDemoDatabase") );

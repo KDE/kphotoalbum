@@ -45,7 +45,7 @@ public:
     ImageSearchInfo search( ImageSearchInfo* search = 0 );
     void writeDockConfig( QDomElement& doc );
     void readDockConfig( QDomElement& doc );
-    bool rotated() const;
+    bool thumbnailShouldReload() const;
 
 signals:
     void changed();
@@ -66,6 +66,7 @@ protected slots:
     void rotateRight();
     void rotate( int angle );
     void slotAddTimeInfo();
+    void slotDeleteImage();
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };
@@ -93,7 +94,7 @@ private:
     int _accept;
     QValueList<KDockWidget*> _dockWidgets;
     QValueList<KDockWidget*> _tornOfWindows;
-    bool _rotated;
+    bool _thumbnailShouldReload;
 
     // Widgets
     KDockMainWindow* _dockWindow;
@@ -108,6 +109,7 @@ private:
     QPushButton* _nextBut;
     QPushButton* _rotateLeft;
     QPushButton* _rotateRight;
+    QPushButton* _delBut;
     Editor* _description;
     KTimeWidget* _time;
     QPushButton* _addTime;

@@ -49,6 +49,7 @@
 #include "showbusycursor.h"
 #include <ktimewidget.h>
 #include "kdateedit.h"
+#include "deletedialog.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -146,6 +147,11 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _rotateRight->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
     connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
 
+    lay6->addStretch( 1 );
+    _delBut = new QPushButton( top2 );
+    _delBut->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "editdelete" ), KIcon::Desktop, 22 ) );
+    lay6->addWidget( _delBut );
+    connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
 
     lay6->addStretch(1);
 
@@ -203,6 +209,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // Disable so no button accept return (which would break with the line edits)
     _revertBut->setAutoDefault( false );
     _okBut->setAutoDefault( false );
+    _delBut->setAutoDefault( false );
     cancelBut->setAutoDefault( false );
     clearBut->setAutoDefault( false );
     optionsBut->setAutoDefault( false );
@@ -214,6 +221,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     accel->connectItem( accel->insertItem( CTRL+Key_PageDown ), this, SLOT( slotNext() ) );
     accel->connectItem( accel->insertItem( CTRL+Key_PageUp ), this, SLOT( slotPrev() ) );
     accel->connectItem( accel->insertItem( CTRL+Key_Return ), this, SLOT( slotOK() ) );
+    accel->connectItem( accel->insertItem( CTRL+Key_Delete ), this, SLOT( slotDeleteImage() ) );
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
 
@@ -413,7 +421,7 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         _nextBut->setEnabled( false );
     }
 
-    _rotated = false;
+    _thumbnailShouldReload = false;
 
     return exec();
 }
@@ -671,7 +679,7 @@ void ImageConfig::rotateRight()
 
 void ImageConfig::rotate( int angle )
 {
-    _rotated = true;
+    _thumbnailShouldReload = true;
     if ( _setup == MULTIPLE ) {
         // In slotOK the preview will be queried for its angle.
     }
@@ -682,15 +690,38 @@ void ImageConfig::rotate( int angle )
     _preview->rotate( angle );
 }
 
-bool ImageConfig::rotated() const
+bool ImageConfig::thumbnailShouldReload() const
 {
-    return _rotated;
+    return _thumbnailShouldReload;
 }
 
 void ImageConfig::slotAddTimeInfo()
 {
     _addTime->hide();
     _time->show();
+}
+
+void ImageConfig::slotDeleteImage()
+{
+    DeleteDialog dialog( this );
+    ImageInfo* info = _origList.at( _current );
+    ImageInfoList list;
+    list.append( info );
+    int ret = dialog.exec( list );
+    if ( ret == Rejected )
+        return;
+
+    _origList.removeRef( info );
+    _editList.remove( _editList.at( _current ) );
+    _thumbnailShouldReload = true;
+    if ( _origList.count() == 0 ) {
+        slotOK();
+        return;
+    }
+    if ( _current == (int)_origList.count() ) // we deleted the last image
+        _current--;
+
+    load();
 }
 
 #include "imageconfig.moc"

@@ -229,8 +229,8 @@ void MainView::configImages( const ImageInfoList& list, bool oneAtATime )
         lastName = tn->fileName();
     }
 
-    int ret = _imageConfigure->configure( list,  oneAtATime );
-    if ( ret == QDialog::Accepted && _imageConfigure->rotated() ) {
+    _imageConfigure->configure( list,  oneAtATime );
+    if ( _imageConfigure->thumbnailShouldReload() ) {
         reloadThumbNail();
 
         QIconViewItem* firstItem = 0;

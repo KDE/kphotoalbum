@@ -6,6 +6,7 @@
 #include "util.h"
 
 Options* Options::_instance = 0;
+QString Options::_confFile = QString::null;
 
 Options* Options::instance()
 {
@@ -18,9 +19,11 @@ Options* Options::instance()
 Options::Options()
     : _thumbSize( 64 ), _cacheThumbNails( true ),  _use4To3Ratio( true )
 {
-    QFile file( QDir::home().path() + "/.kpalbum" );
+    if ( _confFile.isNull() )
+        _confFile = QDir::home().path() + "/.kpalbum";
+
+    QFile file( _confFile );
     if ( !file.open( IO_ReadOnly ) )  {
-        qWarning("No ~/.kpalbum found");
         return;
     }
 
@@ -81,9 +84,9 @@ QStringList Options::dataDirs() const
 
 void Options::save()
 {
-    QFile file( QDir::home().path() + "/.kpalbum" );
+    QFile file( _confFile );
     if ( !file.open( IO_WriteOnly ) )  {
-        qWarning( "Could't open file ~/.kpalbum" );
+        qWarning( "Could't open file %s", _confFile.latin1() );
         return;
     }
 
@@ -149,7 +152,10 @@ void Options::setImageDirecotry( const QString& directory )
 
 bool Options::configFileExists()
 {
-    QFileInfo info( QDir::home().path() + "/.kpalbum" );
+    if ( _confFile.isNull() )
+        _confFile = QDir::home().path() + "/.kpalbum";
+
+    QFileInfo info( _confFile );
     return info.exists();
 }
 
@@ -211,5 +217,10 @@ Options::Position Options::infoBoxPosition() const
 void Options::setInfoBoxPosition( Position pos )
 {
     _infoBoxPosition = pos;
+}
+
+void Options::setConfFile( const QString& file )
+{
+    _confFile = file;
 }
 

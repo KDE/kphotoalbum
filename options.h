@@ -7,6 +7,7 @@ class Options {
 public:
     static Options* instance();
     static bool configFileExists();
+    static void setConfFile( const QString& file );
 
     void setUse4To3Ratio( bool );
     bool use4To3Ratio() const;
@@ -52,6 +53,7 @@ private:
     Options();
     ~Options() {};
     static Options* _instance;
+    static QString _confFile;
 
     int _thumbSize,  _imageCacheSize;
     bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps;

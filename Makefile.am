@@ -27,8 +27,8 @@ kpalbum_SOURCES = main.cpp \
 	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp \
 	infopage.cpp htmlexportdialog.cpp imagecounter.cpp iconviewtooltip.cpp
 
-kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH) -lktexteditor
-kpalbum_LDADD = $(LIB_KIO) $(LIBJPEG)
+kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+kpalbum_LDADD = $(LIB_KIO) -lktexteditor
 METASOURCES = AUTO
 
 rcdir = $(kde_datadir)/kpalbum

@@ -68,13 +68,13 @@ QString Util::createInfoText( ImageInfo* info )
     // PENDING(blackie) The key is used both as a key and a label, which is a problem here.
     if ( Options::instance()->showLocation() )  {
         QString location = info->optionValue( "Locations" ).join( ", " );
-        if ( location )
+        if ( !location.isEmpty() )
             text += "<b>Location:</b> " + location + "<br>";
     }
 
     if ( Options::instance()->showNames() ) {
         QString persons = info->optionValue( "Persons" ).join( ", " );
-        if ( persons )
+        if ( !persons.isEmpty() )
             text += "<b>Persons:</b> " + persons + "<br>";
     }
 
@@ -85,7 +85,7 @@ QString Util::createInfoText( ImageInfo* info )
 
     if ( Options::instance()->showKeyWords() )  {
         QString keyWords = info->optionValue( "Keywords" ).join( ", " );
-        if ( keyWords )
+        if ( !keyWords.isEmpty() )
             text += "<b>Key Words:</b> " + keyWords + "<br>";
     }
     return text;

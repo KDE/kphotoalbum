@@ -2,7 +2,6 @@
 #include <qpainter.h>
 #include <qevent.h>
 #include <math.h>
-#include <iostream.h>
 LineDraw::LineDraw( QWidget* widget ) :Draw( widget )
 {
 

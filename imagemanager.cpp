@@ -3,6 +3,7 @@
 #include "options.h"
 #include "imageclient.h"
 #include <qdatetime.h>
+#include <qmutex.h>
 
 ImageManager* ImageManager::_instance = 0;
 

@@ -6,11 +6,7 @@ BUGS To be handled soonish
 - drops from outside in thumnail view should simply be ignore or even
   warned about
 - searching with text from description field doesn't work
-
 - add more descriptions to the demo.
-
-- Make actions in the viewer into KActions so their key bindings can be configured.
-
 - escape quotes and back quotes in descriptions when generating HTML
 - it seems like its not possible to generate HTML twice with different
   images, without restarting the program
@@ -18,10 +14,6 @@ BUGS To be handled soonish
 - when renaming an item in the listselect, then category image should also
   be renamed, and when deleting an item.
 - Adding a new ListSelect will not show it up initially.
-- 'Tip of day' does not have focus when kimdaba is started
-  (click to focus policy).  Please give it the initial
-  focus so dialog can be closed with simple return, with-
-  out the need to first click into it.
 - Add a README file to the tar balls.
 - export to HTML with nothing selected should export all.
 

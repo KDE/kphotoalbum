@@ -118,6 +118,12 @@ MainView::MainView( QWidget* parent, const char* name )
     total->setTotal( ImageDB::instance()->totalCount() );
     statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
 
+    // I need to postpone this otherwise the tip dialog will not get focus on start up
+    QTimer::singleShot( 0, this, SLOT( showTip() ) );
+}
+
+void MainView::showTip()
+{
     KTipDialog::showTip( this );
 }
 

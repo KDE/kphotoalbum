@@ -26,6 +26,22 @@ right clicking on the item in the image property dialog.</p>
 
 <tip category="KimDaBa">
 <html>
+<p>When exporting to HTML you must specify a base directory for
+images. Here you may specify any <a
+href="help:/kioslave/index.html">protocol</a> supported by KDE, like ftp or
+fish.</p>
+<p>Examples:
+<ul>
+  <li> ftp://someserver/my-upload-area/images (upload using FTP)
+  <li> fish://someserver/home/foo/images (upload using ssh)
+  <li> smb://someserver/c/images (upload to windows share)
+</ul>
+</p>
+</html>
+</tip>
+
+<tip category="KimDaBa">
+<html>
 <p>This is the last tip. If you know any additional tips or tricks, then please
 send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a></p>
 </html>

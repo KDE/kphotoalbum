@@ -38,6 +38,12 @@
 #include <qhgroupbox.h>
 #include <kstandarddirs.h>
 #include <krun.h>
+#include <kio/job.h>
+#include <ktempdir.h>
+#include <kmessagebox.h>
+#include <kfileitem.h>
+#include <kio/netaccess.h>
+#include <kio/jobclasses.h>
 
 class MyCheckBox :public QCheckBox {
 
@@ -160,6 +166,53 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
 bool HTMLExportDialog::generate()
 {
     bool generateTooltips = _generateToolTips->isChecked();
+    QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
+
+
+    // Ensure base dir is specified
+    QString baseDir = _baseDir->text();
+    if ( baseDir.isEmpty() ) {
+        KMessageBox::error( this, i18n("<qt>You did not specify a directory for base. "
+                                       "This is the topmost directory for your images. "
+                                       "Under this directory you will find each generated collection "
+                                       "in separate directories</qt>"), i18n("No Base Dir Specified") );
+        return false;
+    }
+
+    // ensure output directory is specified
+    if ( _outputDir->text().isEmpty() ) {
+        KMessageBox::error( this, i18n("<qt>You did not specify a directory for output directory. "
+                                       "This is a directory containing the actual images. "
+                                       "The directory will be in base dir specified above.</qt>"), i18n("No Output Dir Specified") );
+        return false;
+    }
+
+    // ensure base dir exists
+    KIO::UDSEntry result;
+    bool ok = KIO::NetAccess::stat( baseDir, result, this );
+    if ( !ok ) {
+        KMessageBox::error( this, i18n("<qt>Error while reading information about %1. "
+                                       "This is likely because the directory do not exists</qt>").arg( baseDir ) );
+        return false;
+    }
+
+    KFileItem fileInfo( result, baseDir );
+    if ( !fileInfo.isDir() ) {
+        KMessageBox::error( this, i18n("<qt>%1 either do not exists, is not a directory, or it is not possible to write to it.</qt>").arg( baseDir ) );
+        return false;
+    }
+
+
+    // test if destination directory exists.
+    if ( KIO::NetAccess::exists( outputDir, false, this ) ) {
+        int answer = QMessageBox::warning( this, i18n("Directory Exists"), i18n("<qt>Output directory %1 already exists. "
+                                                                                "Normally you should specify a new directory. "
+                                                                                "Continue?</qt>").arg( outputDir ),
+                                           QMessageBox::No, QMessageBox::Yes );
+        if ( answer == QMessageBox::No )
+            return false;
+    }
+
 
     int count = 0;
     for( QValueList<MyCheckBox*>::Iterator it2 = _cbs.begin(); it2 != _cbs.end(); ++it2 ) {
@@ -168,10 +221,7 @@ bool HTMLExportDialog::generate()
     }
 
     _total = _waitCounter = _list.count() * ( 1 + count ); // 1 thumbnail + 1 real image
-    QString dir = outputDir( true );
-    if ( dir.isNull() ) {
-        return false;
-    }
+    _tempDir = KTempDir().name();
 
     _progress->setTotalSteps( _total );
     _progress->setProgress( 0 );
@@ -180,28 +230,14 @@ bool HTMLExportDialog::generate()
 
     // Gotta be after the creation of _progress.
     if ( count == 0 ) {
-        QMessageBox::critical( this, i18n("No Image Sizes Selected"), i18n("No image sizes were selected. Please select at least one."),
-                               QMessageBox::Ok, 0 );
+        KMessageBox::error( this, i18n("No image sizes were selected. Please select at least one."), i18n("No Image Sizes Selected") );
         return false;
     }
 
-    bool success = true;
-    QDir directory(dir);
-    if ( !directory.exists() ) {
-        success = directory.mkdir(dir);
-    }
-    if ( !success ) {
-        QMessageBox::critical( this, i18n("Couldn't Create Directory"), i18n("Couldn't create directory '%1'.").arg(dir),
-                               QMessageBox::Ok, 0 );
-        return false;
-    }
-
-
-    QString index = dir + QString::fromLatin1("/index.html" );
+    QString index = _tempDir + QString::fromLatin1("/index.html" );
     QFile file(index);
     if ( !file.open(IO_WriteOnly) ) {
-        QMessageBox::critical( this, i18n("Couldn't Create File"), i18n("Couldn't create file '%1'.").arg(index),
-                               QMessageBox::Ok, 0 );
+        KMessageBox::error( this, i18n("Couldn't create file '%1'.").arg(index), i18n("Couldn't Create File") );
         return false;
     }
 
@@ -337,7 +373,7 @@ bool HTMLExportDialog::generate()
             QString data = s.read();
             f1.close();
 
-            QString outfile = dir + QString::fromLatin1("/infobox.js" );
+            QString outfile = _tempDir + QString::fromLatin1("/infobox.js" );
             QFile f2( outfile );
             if ( !f2.open( IO_WriteOnly ) ) {
                 QMessageBox::warning( this, i18n("Unable to Write infobox.js"),
@@ -350,6 +386,10 @@ bool HTMLExportDialog::generate()
             }
         }
     }
+
+    // Copy files over to destination.
+    KIO::CopyJob* job = KIO::move( _tempDir, outputDir );
+    connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
 
     return true;
 }
@@ -371,7 +411,7 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int hei
 {
     _waitCounter--;
 
-    QString dir = outputDir( false );
+    QString dir = _tempDir;
     if ( !dir.isNull() ) {
         QFileInfo finfo(fileName);
         QString baseName = finfo.baseName();
@@ -410,8 +450,6 @@ void HTMLExportDialog::slotOk()
         Options::instance()->setHTMLBaseDir( _baseDir->text() );
         Options::instance()->setHTMLBaseURL( _baseURL->text() );
         accept();
-        if ( ! _baseURL->text().isEmpty() )
-            new KRun( _baseURL->text() + QString::fromLatin1( "/" ) + _outputDir->text() );
     }
     delete _progress;
     _progress = 0;
@@ -419,49 +457,21 @@ void HTMLExportDialog::slotOk()
 
 void HTMLExportDialog::selectDir()
 {
-    QString dir = KFileDialog::getExistingDirectory( _baseDir->text(), this );
-    if ( !dir.isNull() )
-        _baseDir->setText( dir );
-}
-
-QString HTMLExportDialog::outputDir( bool showErr )
-{
-    QDir dir( _baseDir->text() );
-    if ( _baseDir->text().isEmpty() || !dir.exists() ) {
-        if ( showErr )
-            QMessageBox::critical( this, i18n("Specified Base Directory is Invalid"),
-                                   i18n("<qt>You did not specify a directory for base, or the specified "
-                                        "directory do not exists.</qt>"), QMessageBox::Ok, 0, 0 );
-        return QString::null;
-    }
-
-    if ( _outputDir->text().isEmpty() ) {
-        if ( showErr )
-            QMessageBox::critical( this, i18n("Empty Output Directory"),
-                                   i18n("<qt>You did not specify a directory for the output.</qt>"), QMessageBox::Ok, 0, 0 );
-        return QString::null;
-    }
-
-    QString str = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
-    QDir dir2( str );
-    if ( dir2.exists() ) {
-        int answer = QMessageBox::Yes;
-        if ( showErr )
-            answer = QMessageBox::warning( this, i18n("Directory Exists"), i18n("<qt>Output directory specified already exists. "
-                                                                                "Normally you should specify a new directory. "
-                                                                                "Continue?</qt>"),
-                                           QMessageBox::No, QMessageBox::Yes );
-        if ( answer == QMessageBox::No )
-            return QString::null;
-    }
-
-    return str;
+    KURL dir = KFileDialog::getExistingURL( _baseDir->text(), this );
+    if ( !dir.url().isNull() )
+        _baseDir->setText( dir.url() );
 }
 
 void HTMLExportDialog::slotCancelGenerate()
 {
     ImageManager::instance()->stop( this );
     _waitCounter = 0;
+}
+
+void HTMLExportDialog::showBrowser()
+{
+    if ( ! _baseURL->text().isEmpty() )
+        new KRun( _baseURL->text() + QString::fromLatin1( "/" ) + _outputDir->text());
 }
 
 #include "htmlexportdialog.moc"

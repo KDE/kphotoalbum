@@ -59,7 +59,7 @@
 MainView* MainView::_instance = 0;
 
 MainView::MainView( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 ), _dirtyIndicator(0)
+    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 ), _dirtyIndicator(0), _htmlDialog(0)
 {
     _instance = this;
     load();
@@ -391,8 +391,9 @@ void MainView::slotExportToHTML()
         return;
     }
 
-    HTMLExportDialog dialog( list, this, "htmlExportDialog" );
-    dialog.exec();
+    if ( ! _htmlDialog )
+        _htmlDialog = new HTMLExportDialog( list, this, "htmlExportDialog" );
+    _htmlDialog->exec();
 }
 
 void MainView::startAutoSaveTimer()

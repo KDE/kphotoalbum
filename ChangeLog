@@ -1,5 +1,8 @@
 2003-12-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* New Feature: It is now possible to using fish:// or ftp:// when
+	exporting to HTML
+
 	* BUGFIX: Don't show HTML export dialog in case not item was selected.
 
 ---------------------------------- version 1.0 released --------------------

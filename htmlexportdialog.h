@@ -39,13 +39,13 @@ protected slots:
     void slotOk();
     void selectDir();
     void slotCancelGenerate();
+    void showBrowser();
 
 protected:
     QString createImage( ImageInfo* info, int size );
     QString imageName( const QString& fileName, int size );
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
     bool generate();
-    QString outputDir( bool showErr );
 
 private:
     KLineEdit* _title;
@@ -62,6 +62,7 @@ private:
     int _total;
     QProgressDialog* _progress;
     bool _doneLoading;
+    QString _tempDir;
 };
 
 

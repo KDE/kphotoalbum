@@ -27,6 +27,7 @@ class Browser;
 class KTipDialog;
 class DeleteDialog;
 class QLabel;
+class HTMLExportDialog;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -99,6 +100,7 @@ private:
     KAction* _unlock;
     KAction* _setDefaultPos;
     KAction* _setDefaultNeg;
+    HTMLExportDialog* _htmlDialog;
 };
 
 

@@ -176,7 +176,6 @@ void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QPixmap& pix
     _pixmap = pixmap;
     setDisplayedPixmap();
     _label->setDrawList( currentInfo()->drawList() );
-    qDebug("Loading!");
 }
 
 void Viewer::load()
@@ -493,7 +492,6 @@ void Viewer::closeEvent( QCloseEvent* )
 void Viewer::save()
 {
     currentInfo()->setDrawList( _label->drawList() );
-    qDebug("Saving");
 }
 
 void Viewer::startDraw()

@@ -1,6 +1,6 @@
 #include "drawlist.h"
 #include "draw.h"
-DrawList::DrawList()
+DrawList::DrawList() : QValueList<Draw*>()
 {
 }
 
@@ -23,12 +23,18 @@ DrawList::~DrawList()
 
 void DrawList::deleteItems()
 {
-    // PENDING(blackie) Why does this code not work?
-/*    for( QValueList<Draw*>::ConstIterator it = begin(); it != end();  ) {
+    for( QValueList<Draw*>::ConstIterator it = begin(); it != end();  ) {
         Draw* item = *it;
         ++it;
         delete item;
     }
-*/
     clear();
+}
+
+DrawList::DrawList( const DrawList& other )
+    : QValueList<Draw*>()
+{
+    for( QValueList<Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
+        append( (*it)->clone() );
+    }
 }

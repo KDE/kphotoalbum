@@ -216,12 +216,10 @@ void ImageInfo::removeOption( const QString& key, const QString& value )
 
 DrawList ImageInfo::drawList() const
 {
-    qDebug("ImageInfo::drawList:%p, %d", this, _drawList.count() );
     return _drawList;
 }
 
 void ImageInfo::setDrawList( const DrawList& list )
 {
-    qDebug("ImageInfo::setDrawList:%p %d", this, list.count() );
     _drawList = list;
 }

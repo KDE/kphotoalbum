@@ -38,7 +38,7 @@ public:
     static Browser* instance();
     void load( const QString& optionGroup, const QString& value );
     bool allowSort();
-    ImageSearchInfo current();
+    ImageSearchInfo currentContext();
     void clear();
     void setFocus();
 

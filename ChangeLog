@@ -1,5 +1,8 @@
 2004-03-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: now we are doing boundary check when panning, so you
+	can't pan outside the image.
+
 	* generating HTML and viewing images will now be the context if no
 	images are selected. Context is the current search or current
 	browse - e.g. all images from say Las Vegas.

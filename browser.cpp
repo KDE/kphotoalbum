@@ -224,8 +224,7 @@ bool Browser::allowSort()
     return _list[_current-1]->allowSort();
 }
 
-// PENDING(blackie) rename to currentContext
-ImageSearchInfo Browser::current()
+ImageSearchInfo Browser::currentContext()
 {
     return _list[_current-1]->_info;
 }

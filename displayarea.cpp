@@ -292,9 +292,21 @@ void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
     p2 = QPoint( maxx, maxy );
 }
 
-void DisplayArea::pan( const QPoint& p )
+void DisplayArea::pan( const QPoint& point )
 {
-    // PENDING(blackie) Do boundary checks.
+    QPoint p = point;
+    if ( p.x() < 0 && _zStart.x() < -p.x() )
+        p.setX( -_zStart.x() );
+
+    if ( p.y() < 0 && _zStart.y() < -p.y() )
+        p.setY( -_zStart.y() );
+
+    if ( p.x() > 0 && p.x() + _zEnd.x() > _loadedImage.width() )
+        p.setX( _loadedImage.width() - _zEnd.x() );
+
+    if ( p.y() > 0 && p.y() + _zEnd.y() > _loadedImage.height() )
+        p.setY( _loadedImage.height() - _zEnd.y() );
+
     _zStart += p;
     _zEnd += p;
     cropAndScale();

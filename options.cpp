@@ -79,7 +79,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     Util::readOptions( options, &_options, &_optionGroups );
     _configDock = configWindowSetup;
     _members.load( memberGroups );
-    _currentScope.load( config );
+    _currentLock.load( config );
 }
 
 void Options::setThumbSize( int w )
@@ -141,8 +141,8 @@ void Options::save( QDomElement top )
     if ( ! _members.isEmpty() )
         top.appendChild( _members.save( doc ) );
 
-    if ( !_currentScope.isNull() )
-        config.appendChild( _currentScope.toXML( doc ) );
+    if ( !_currentLock.isNull() )
+        config.appendChild( _currentLock.toXML( doc ) );
 }
 
 void Options::setOption( const QString& key, const QStringList& value )
@@ -476,16 +476,15 @@ void Options::setMemberMap( const MemberMap& members )
     _members = members;
 }
 
-void Options::setCurrentScope( const ImageSearchInfo& info, bool exclude )
+void Options::setCurrentLock( const ImageSearchInfo& info, bool exclude )
 {
-    _currentScope = info;
+    _currentLock = info;
     _exclude = exclude;
 }
 
-// PENDING(blackie) rename to currentLock
-ImageSearchInfo Options::currentScope() const
+ImageSearchInfo Options::currentLock() const
 {
-    return _currentScope;
+    return _currentLock;
 }
 
 void Options::setLocked( bool lock )

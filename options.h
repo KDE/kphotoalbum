@@ -144,8 +144,8 @@ public:
     void saveConfigWindowLayout( ImageConfig* );
     void loadConfigWindowLayout( ImageConfig* );
 
-    void setCurrentScope( const ImageSearchInfo&, bool exclude );
-    ImageSearchInfo currentScope() const;
+    void setCurrentLock( const ImageSearchInfo&, bool exclude );
+    ImageSearchInfo currentLock() const;
 
     void setLocked( bool );
     bool isLocked() const;
@@ -182,7 +182,7 @@ private:
     QSize _viewerSize;
 
     MemberMap _members;
-    ImageSearchInfo _currentScope;
+    ImageSearchInfo _currentLock;
     bool _locked, _exclude;
     QString _passwd;
     ViewSortType _viewSortType;

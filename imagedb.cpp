@@ -371,7 +371,7 @@ void ImageDB::deleteOption( const QString& optionGroup, const QString& option )
 
 void ImageDB::lockDB( bool lock, bool exclude  )
 {
-    ImageSearchInfo info = Options::instance()->currentScope();
+    ImageSearchInfo info = Options::instance()->currentLock();
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         if ( lock ) {
             bool match = info.match( *it );
@@ -494,7 +494,7 @@ QString ImageDB::NONE()
 */
 ImageInfoList ImageDB::currentContext() const
 {
-    ImageSearchInfo currentContext = Browser::instance()->current();
+    ImageSearchInfo currentContext = Browser::instance()->currentContext();
     ImageInfoList images;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         bool match = !(*it)->isLocked() && currentContext.match( *it );

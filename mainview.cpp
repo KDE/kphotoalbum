@@ -766,12 +766,12 @@ void MainView::setDirty( bool dirty )
 
 void MainView::setDefaultScopePositive()
 {
-    Options::instance()->setCurrentScope( _browser->current(), false );
+    Options::instance()->setCurrentLock( _browser->currentContext(), false );
 }
 
 void MainView::setDefaultScopeNegative()
 {
-    Options::instance()->setCurrentScope( _browser->current(), true );
+    Options::instance()->setCurrentLock( _browser->currentContext(), true );
 }
 
 void MainView::lockToDefaultScope()

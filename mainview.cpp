@@ -827,6 +827,7 @@ void MainView::load()
         }
         else {
             QTextStream stream( &file );
+            stream.setEncoding( QTextStream::UnicodeUTF8 );
             QString str = stream.read();
             str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
             str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );

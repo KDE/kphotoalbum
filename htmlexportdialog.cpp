@@ -172,18 +172,18 @@ bool HTMLExportDialog::generate()
     // Ensure base dir is specified
     QString baseDir = _baseDir->text();
     if ( baseDir.isEmpty() ) {
-        KMessageBox::error( this, i18n("<qt>You did not specify a directory for base. "
+        KMessageBox::error( this, i18n("<qt>You did not specify a base directory. "
                                        "This is the topmost directory for your images. "
                                        "Under this directory you will find each generated collection "
-                                       "in separate directories</qt>"), i18n("No Base Dir Specified") );
+                                       "in separate directories.</qt>"), i18n("No Base Directory Specified") );
         return false;
     }
 
     // ensure output directory is specified
     if ( _outputDir->text().isEmpty() ) {
-        KMessageBox::error( this, i18n("<qt>You did not specify a directory for output directory. "
+        KMessageBox::error( this, i18n("<qt>You did not specify an output directory. "
                                        "This is a directory containing the actual images. "
-                                       "The directory will be in base dir specified above.</qt>"), i18n("No Output Dir Specified") );
+                                       "The directory will be in the base directory specified above.</qt>"), i18n("No Output Directory Specified") );
         return false;
     }
 
@@ -192,13 +192,13 @@ bool HTMLExportDialog::generate()
     bool ok = KIO::NetAccess::stat( baseDir, result, this );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<qt>Error while reading information about %1. "
-                                       "This is likely because the directory do not exists</qt>").arg( baseDir ) );
+                                       "This is most likely because the directory does not exist.</qt>").arg( baseDir ) );
         return false;
     }
 
     KFileItem fileInfo( result, baseDir );
     if ( !fileInfo.isDir() ) {
-        KMessageBox::error( this, i18n("<qt>%1 either do not exists, is not a directory, or it is not possible to write to it.</qt>").arg( baseDir ) );
+        KMessageBox::error( this, i18n("<qt>%1 does not exist, is not a directory or cannot be written to.</qt>").arg( baseDir ) );
         return false;
     }
 
@@ -206,7 +206,7 @@ bool HTMLExportDialog::generate()
     // test if destination directory exists.
     if ( KIO::NetAccess::exists( outputDir, false, this ) ) {
         int answer = QMessageBox::warning( this, i18n("Directory Exists"), i18n("<qt>Output directory %1 already exists. "
-                                                                                "Normally you should specify a new directory. "
+                                                                                "Usually you should specify a new directory. "
                                                                                 "Continue?</qt>").arg( outputDir ),
                                            QMessageBox::No, QMessageBox::Yes );
         if ( answer == QMessageBox::No )

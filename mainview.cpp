@@ -235,3 +235,4 @@ void MainView::wellcome()
     delete dialog;
     slotOptions();
 }
+

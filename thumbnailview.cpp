@@ -3,6 +3,7 @@
 #include "thumbnail.h"
 #include <qpixmap.h>
 #include "viewer.h"
+#include <qmessagebox.h>
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :QIconView( parent,  name ), _currentHighlighted( 0 )
@@ -103,6 +104,61 @@ void ThumbNailView::setHighlighted( ThumbNail* item )
     if ( _currentHighlighted )
         _currentHighlighted->dragLeft();
     _currentHighlighted = item;
+}
+
+void ThumbNailView::slotCut()
+{
+    QPtrList<ThumbNail> list = selected();
+    for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
+        _cutList.append( (*it)->imageInfo() );
+        _imageList->removeRef( (*it)->imageInfo() );
+        delete *it;
+    }
+}
+
+void ThumbNailView::slotPaste()
+{
+    QPtrList<ThumbNail> list = selected();
+    if ( list.count() == 0 ) {
+        QMessageBox::information( this, "Nothing selected", "To paste you have to select an image that the past should go after", QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
+    }
+    else if ( _cutList.count() == 0 ) {
+        QMessageBox::information( this, "Nothing on clipboard", "<qt><p>No data on clipboard to paste.</p>"
+                                  "<p>It really doesn't make any sence to the application to have an image represented twice, "
+                                  "therefore you can only paste an image off the clipboard ones.</p>",
+                                  QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
+    }
+    else {
+        ThumbNail* last = list.last();
+
+        // Update the image list
+        int index = _imageList->findRef( last->imageInfo() ) +1;
+        for( ImageInfoListIterator it( _cutList ); *it; ++it ) {
+            _imageList->insert( index, *it );
+            ++index;
+        }
+
+        // updatet the thumbnail view
+        for( ImageInfoListIterator it( _cutList ); *it; ++it ) {
+            last = new ThumbNail( *it, last, this );
+        }
+
+        _cutList.clear();
+        emit changed();
+    }
+}
+
+QPtrList<ThumbNail> ThumbNailView::selected() const
+{
+    QPtrList<ThumbNail> list;
+    for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
+        if ( item->isSelected() ) {
+            ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
+            Q_ASSERT( tn );
+            list.append( tn );
+        }
+    }
+    return list;
 }
 
 //void ThumbNailView::contentsDragEnterEvent( QDragEnterEvent *e )

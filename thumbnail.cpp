@@ -9,6 +9,7 @@
 #include "imagemanager.h"
 #include <qdatetime.h>
 #include <qcursor.h>
+#include <qmessagebox.h>
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent, const char* name )
     :QIconViewItem( parent,  name ),  _imageInfo( imageInfo ), _parent( parent )
@@ -93,6 +94,12 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
         if ( item->isSelected() ) {
             list.append(tn);
             imageList.append( tn->_imageInfo );
+            // Protect against a drop on yourself.
+            if ( item == this ) {
+                QMessageBox::information( _parent, "Self drop", "You can't drag images to be next to themself.",
+                                          QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
+                return;
+            }
         }
     }
 

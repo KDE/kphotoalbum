@@ -39,6 +39,9 @@
         <action name="Exit"/>
     </item>
     <item text="&amp;Edit" name="PopupMenu_2">
+        <action name="Cut"/>
+        <action name="Paste"/>
+        <separator/>
         <action name="ImageProperties"/>
         <action name="SelectAll"/>
         <action name="DeleteSelected"/>
@@ -62,8 +65,10 @@
             <verstretch>0</verstretch>
         </sizepolicy>
         <pixmap>image0</pixmap>
-        <slot access="public" specifier="">slot()</slot>
         <slot access="public" specifier="">slotSelectAll()</slot>
+        <slot access="public" specifier="">slot()</slot>
+        <slot access="public" specifier="">slotPaste()</slot>
+        <slot access="public" specifier="">slotCut()</slot>
     </customwidget>
 </customwidgets>
 <actions>
@@ -119,7 +124,7 @@
             <string>&amp;View Images</string>
         </property>
         <property name="accel">
-            <string>Ctrl+V</string>
+            <string>Ctrl+P</string>
         </property>
     </action>
     <actiongroup>
@@ -183,6 +188,28 @@
             <string>Delete Selected</string>
         </property>
     </action>
+    <action>
+        <property name="name">
+            <cstring>Cut</cstring>
+        </property>
+        <property name="text">
+            <string>Cut</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+X</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>Paste</cstring>
+        </property>
+        <property name="text">
+            <string>Paste</string>
+        </property>
+        <property name="accel">
+            <string>Ctrl+V</string>
+        </property>
+    </action>
 </actions>
 <images>
     <image name="image0">
@@ -237,6 +264,18 @@
         <signal>activated()</signal>
         <receiver>MainViewUI</receiver>
         <slot>slotConfigureImagesOneAtATime()</slot>
+    </connection>
+    <connection>
+        <sender>Cut</sender>
+        <signal>activated()</signal>
+        <receiver>thumbNailView</receiver>
+        <slot>slotCut()</slot>
+    </connection>
+    <connection>
+        <sender>Paste</sender>
+        <signal>activated()</signal>
+        <receiver>thumbNailView</receiver>
+        <slot>slotPaste()</slot>
     </connection>
 </connections>
 <slots>

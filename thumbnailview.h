@@ -15,6 +15,8 @@ public:
 public slots:
     void reload();
     void slotSelectAll();
+    void slotCut();
+    void slotPaste();
 
 signals:
     void changed();
@@ -27,6 +29,7 @@ protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );
     virtual void contentsDropEvent( QDropEvent* e );
     void setHighlighted( ThumbNail* item );
+    QPtrList<ThumbNail> selected() const;
 
 //    void contentsDragEnterEvent( QDragEnterEvent *e );
 
@@ -36,6 +39,7 @@ protected:
 private:
     ImageInfoList* _imageList;
     ThumbNail* _currentHighlighted;
+    ImageInfoList _cutList;
 };
 
 #endif /* THUMBNAILVIEW_H */

@@ -263,8 +263,11 @@ bool HTMLExportDialog::generate()
 
     // Generate .kim file
     if ( _generateKimFile->isChecked() ) {
-        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy );
+        bool ok;
+        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy, ok );
         delete exp; // It will not return before done - we still need a class to connect slots etc.
+        if ( !ok )
+            return false;
     }
 
     // prepare the progress dialog
@@ -577,13 +580,7 @@ QString HTMLExportDialog::createImage( ImageInfo* info, int size )
 
 void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*height*/, int /*angle*/, const QImage& image )
 {
-    // processEvent must be called first in this function, otherwise we get in the following situation:
-    // An image is loaded, this function is called, then before we hit the processEvent another image is loaded,
-    // and this function will be called during the recursive call to processEvent, and so on.
-    // The effect is that the image given as parameters of course do not get deleted (as the function is not yet complete)
-    // and memory raises and raises. 16 Apr. 2004 18:31 -- Jesper K. Pedersen
     _progress->setProgress( _total - _waitCounter );
-    qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
     _waitCounter--;
 

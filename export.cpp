@@ -52,8 +52,8 @@ void Export::imageExport( const ImageInfoList& list )
     if ( zipFile.isNull() )
         return;
 
-
-    Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation() );
+    bool ok;
+    Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(), ok );
     delete exp; // It will not return before done - we still need a class to connect slots etc.
 }
 
@@ -135,14 +135,16 @@ void ExportConfig::slotHelp()
 }
 
 
-Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location )
-    : _ok( true ), _maxSize( maxSize ), _location( location )
+Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location, bool& ok )
+    : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
+    ok = true;
     _destdir = QFileInfo( zipFile ).dirPath();
     _zip = new KZip( zipFile );
     _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
     if ( ! _zip->open( IO_WriteOnly ) ) {
         KMessageBox::error( 0, i18n("Error creating zip file") );
+        ok = false;
         return;
     }
 

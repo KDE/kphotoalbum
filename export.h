@@ -36,7 +36,7 @@ class Export :public ImageClient {
 public:
     static void imageExport( const ImageInfoList& list);
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
-    Export(  const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation );
+    Export(  const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation, bool& ok );
 
 protected:
     QCString createIndexXML( const ImageInfoList& );
@@ -47,7 +47,7 @@ private:
     int _filesRemaining;
     int _steps;
     QProgressDialog* _progressDialog;
-    bool _ok;
+    bool& _ok;
     KZip* _zip;
     int _maxSize;
     QString _subdir;

@@ -147,8 +147,8 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
                 _drawList.load( childElm );
             }
             else {
-                qWarning("Ups unknown tag '%s'", childElm.tagName().latin1() );
-                // PENDING(blackie) Do it the KDE way.
+                KMessageBox::error( 0, i18n("<qt><p>Unknown tag %1, while reading configuration file</p>"
+                                            "<p>Expected one of Options, Drawings</p></qt>" ).arg( childElm.tagName() ) );
             }
         }
     }

@@ -110,13 +110,6 @@ bool ImageSearchInfo::match( ImageInfo* info ) const
     if ( _optionMatcher )
         ok &= _optionMatcher->eval( info );
 
-#ifdef TEMPORARILY_REMOVED
- QStringList grps = Options::instance()->optionGroups();
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        ok &= stringMatch( *it, info );
-    }
-#endif
-
     // -------------------------------------------------- Label
     ok &= ( _label.isEmpty() || info->label().find(_label) != -1 );
 
@@ -130,42 +123,6 @@ bool ImageSearchInfo::match( ImageInfo* info ) const
     return ok;
 }
 
-#ifdef TEMPORARILY_REMOVED
-bool ImageSearchInfo::stringMatch( const QString& key, ImageInfo* info )
-{
-    // PENDING(blackie) to simple algorithm for matching, could be improved with parentheses.
-    QString matchText = _options[key];
-    if ( matchText.isEmpty() )
-        return true;
-
-    // I can't make up my mind if this is too mucha a hack, so we just have
-    // to see how it works.
-    if ( matchText == QString::fromLatin1( "**NONE**" ) )
-        return (info->optionValue( key ).count() == 0);
-
-    QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
-    bool orTrue = false;
-    for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
-        QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
-        bool andTrue = true;
-        for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
-            QString str = *itAnd;
-            bool negate = false;
-            static QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
-            if ( regexp.exactMatch( str ) )  {
-                negate = true;
-                str = regexp.cap(1);
-            }
-            str = str.stripWhiteSpace();
-            bool found = hasOption( info, key, str );
-            andTrue &= ( negate ? !found : found );
-        }
-        orTrue |= andTrue;
-    }
-
-    return orTrue;
-}
-#endif
 
 QString ImageSearchInfo::option( const QString& name ) const
 {
@@ -231,19 +188,6 @@ QString ImageSearchInfo::toString() const
     return res;
 }
 
-#ifdef TEMPORARILY_REMOVED
-bool ImageSearchInfo::hasOption( ImageInfo* info, const QString& key, const QString& str )
-{
-    QStringList list = Options::instance()->memberMap().members( key, str, true );
-    bool match = info->hasOption( key,  str );
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        match |= info->hasOption( key, *it );
-
-    }
-    return match;
-}
-#endif
-
 void ImageSearchInfo::debug()
 {
     for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
@@ -251,10 +195,14 @@ void ImageSearchInfo::debug()
     }
 }
 
+/**
+   This method saves the current seachinfo to XML.
+   This is used when saving index.xml, where the current lock is saved -- the current lock is represented by a SearchInfo.
+*/
 QDomElement ImageSearchInfo::toXML( QDomDocument doc )
 {
+    // We miss saving dates.
     QDomElement res = doc.createElement( QString::fromLatin1( "SearchInfo" ) );
-    // PENDING(blackie) HANDLE Dates
     res.setAttribute( QString::fromLatin1("label"), _label );
     res.setAttribute( QString::fromLatin1("description"), _description );
 
@@ -275,7 +223,6 @@ void ImageSearchInfo::load( QDomElement top )
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() && node.toElement().tagName() == QString::fromLatin1( "SearchInfo" ) ) {
             QDomElement elm = node.toElement();
-            // PENDING(blackie) HANDLE Dates
             _label = elm.attribute( QString::fromLatin1( "label" ) );
             _description = elm.attribute( QString::fromLatin1( "description" ) );
             QDomNode childNode = elm.firstChild();
@@ -323,7 +270,6 @@ void ImageSearchInfo::compile() const
             continue;
         }
 
-        // PENDING(blackie) to simple algorithm for matching, could be improved with parentheses.
         QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
         OptionOrMatcher* orMatcher = new OptionOrMatcher;
 

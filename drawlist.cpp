@@ -21,6 +21,8 @@
 #include "linedraw.h"
 #include "rectdraw.h"
 #include "circledraw.h"
+#include <kmessagebox.h>
+#include <klocale.h>
 DrawList::DrawList() : QValueList<Draw*>()
 {
 }
@@ -80,8 +82,9 @@ void DrawList::load( QDomElement elm )
             append( new CircleDraw( child ) );
         }
         else {
-            // PENDING(blackie) Do it the KDE way
-            qWarning("Unexpected tag: %s", tag.latin1() );
+            KMessageBox::error( 0, i18n("<qt><p>Unexpected element in configuration file: %1</p>"
+                                        "<p>Expected one of: Line, Rectangle, Circle as sub element to Drawings</p></qt>" )
+                                .arg(tag) );
         }
     }
 }

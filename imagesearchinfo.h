@@ -55,10 +55,6 @@ public:
 
 protected:
     void compile() const;
-#ifdef TEMPORARILY_REMOVED
-    bool stringMatch( const QString& key, ImageInfo* info );
-    bool hasOption( ImageInfo* info, const QString& key, const QString& str );
-#endif
 
 private:
     ImageDate _startDate;

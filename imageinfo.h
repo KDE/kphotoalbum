@@ -88,8 +88,6 @@ protected:
     bool isJPEG( const QString& fileName ) const;
 
 private:
-    // This string is accessed on several threads, so we need to make it a deep copy!
-    // PENDING(blackie) Is the above comment true?
     QString _fileName;
     QString _label;
     QString _description;

@@ -435,7 +435,7 @@ const MemberMap& Options::memberMap()
 
 void Options::setMemberMap( const MemberMap& members )
 {
-    // PENDING(blackie) One day, implement MemberMap::operator!=
+    // In a perfect world, I should check if _members != members, and only emit changed in that case.
     emit changed();
     _members = members;
 }

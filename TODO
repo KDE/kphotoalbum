@@ -8,7 +8,6 @@ BUGS To be handled soonish
   be renamed.
 - Adding a new ListSelect will not show it up initially.
 - Fix tab order in ImageConfig, plus make Ctrl+Enter press OK
-- go through all the PENDINGS in the code
 
 =======================
 BUGS of less importance
@@ -16,6 +15,9 @@ BUGS of less importance
 - In the group editor (options->group), ensure that no cycles are created.
 - when images are deleted, the total count at the bottom of the mainwindow,
   should update
+- Locking to dates doesn't seem to work, and once it works, the information
+  should also be written to the XML file in ImageSearchInfo::toXML and ImageSearchInfo::load.
+
 
 ==============================
 Features for a soonish version
@@ -65,3 +67,6 @@ Features still to be considered (aka not likely to go in next release)
   (Thus without index.html and thumbnails)
 - polish the offline mode, so it might be able to ask for you mounting say
   a cd with the images needed.
+- the search dialog does currently support &,|, and ! 
+  (example Anne Helene & !Jesper )
+  add support for parenthesis (example Spiff & ( Anne Helene | Jesper ) )

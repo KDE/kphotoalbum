@@ -699,7 +699,7 @@ void MainView::load()
 void MainView::contextMenuEvent( QContextMenuEvent* )
 {
     if ( _stack->visibleWidget() == _thumbNailView ) {
-        QPopupMenu menu;
+        QPopupMenu menu( this, "context popup menu");
         _configOneAtATime->plug( &menu );
         _configAllSimultaniously->plug( &menu );
 

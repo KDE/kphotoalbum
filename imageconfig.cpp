@@ -516,7 +516,7 @@ void ImageConfig::viewerDestroyed()
 
 void ImageConfig::slotOptions()
 {
-    QPopupMenu menu;
+    QPopupMenu menu( this, "context popup menu");
     menu.insertItem( i18n("Show/Hide windows"),  _dockWindow->dockHideShowMenu());
     menu.insertItem( i18n("Save current window setup"), this, SLOT( slotSaveWindowSetup() ) );
     menu.exec( QCursor::pos() );

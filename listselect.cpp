@@ -379,7 +379,7 @@ void ListSelect::itemSelected( QListBoxItem* item )
 
 void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 {
-    QPopupMenu menu( this );
+    QPopupMenu menu( this, "context popup menu" );
 
     // click on any item
     QString title = i18n("No Item Selected");

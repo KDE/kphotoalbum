@@ -94,7 +94,7 @@ Viewer::Viewer( const char* name )
 
 void Viewer::setupContextMenu()
 {
-    _popup = new QPopupMenu( this );
+    _popup = new QPopupMenu( this, "context popup menu" );
     KAction* action;
 
     _firstAction = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), this, "viewer-home" );
@@ -180,7 +180,7 @@ void Viewer::setupContextMenu()
     _popup->insertSeparator();
 
     // -------------------------------------------------- Wall paper
-    QPopupMenu *wallpaperPopup = new QPopupMenu( _popup );
+    QPopupMenu *wallpaperPopup = new QPopupMenu( _popup, "context popup menu" );
 
     action = new KAction( i18n("Centered"), 0, this, SLOT( slotSetWallpaperC() ), wallpaperPopup, "viewer-centered" );
     action->plug( wallpaperPopup );

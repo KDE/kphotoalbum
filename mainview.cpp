@@ -61,7 +61,8 @@
 MainView* MainView::_instance = 0;
 
 MainView::MainView( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 ), _dirtyIndicator(0), _htmlDialog(0)
+    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _autoSaveDirty( false ),
+     _deleteDialog( 0 ), _dirtyIndicator(0), _htmlDialog(0)
 {
     _instance = this;
     load();
@@ -493,16 +494,17 @@ void MainView::startAutoSaveTimer()
     int i = Options::instance()->autoSave();
     _autoSaveTimer->stop();
     if ( i != 0 ) {
-        _autoSaveTimer->start( i * 1000 * 60 );
+        _autoSaveTimer->start( i * 1000 * 60  );
     }
 }
 
 void MainView::slotAutoSave()
 {
-    if ( _dirty ) {
+    if ( _autoSaveDirty ) {
         statusBar()->message(i18n("Auto saving...."));
         save( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
+        _autoSaveDirty = false;
     }
 }
 
@@ -716,6 +718,7 @@ void MainView::setDirty( bool dirty )
     }
 
     _dirty = dirty;
+    _autoSaveDirty = dirty;
 }
 
 void MainView::setDefaultScopePositive()

@@ -99,6 +99,7 @@ private:
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
     bool _dirty;
+    bool _autoSaveDirty; // We do not want to continue autosaving the same date
     QWidgetStack* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;

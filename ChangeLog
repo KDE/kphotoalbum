@@ -1,3 +1,7 @@
+2004-01-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Only do auto save if there has been changes since the last auto save.
+
 2004-01-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* MD5 sums are now calculated for each image, so that KimDaBa can

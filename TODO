@@ -8,7 +8,7 @@ BUGS To be handled soonish
 - it seems like its not possible to generate HTML twice with different
   images, without restarting the program
 - when renaming an item in the listselect, then category image should also
-  be renamed, and when deleting an item.
+  be renamed.
 - Adding a new ListSelect will not show it up initially.
 - Add a README file to the tar balls.
 - Fix tab order in ImageConfig, plus make Ctrl+Enter press OK
@@ -23,6 +23,7 @@ BUGS of less importance
 ==============================
 Features for a soonish version
 ==============================
+- Button for rescan directory tree and generate thumbnails. 
 - read date and rotation out of the JPEG file info (AKA EXIF info)
 - make it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when generating
@@ -32,8 +33,6 @@ Features for a soonish version
   2. This would be very cool when the user as multiple monitors.
 - Loseless image rotation (which actually affects the files)
 - add a kpart call for editing images.
-- when going into full screen mode, move mouse to (width()-1,height()-1)
-- Button for rescan directory tree and generate thumbnails. 
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -203,8 +203,8 @@ void MainView::save( const QString& fileName )
     if ( !out.open( IO_WriteOnly ) )
         KMessageBox::sorry( this, i18n( "Could not open file '%1'" ).arg( fileName ) );
     else {
-        QTextStream stream( &out );
-        stream << doc.toString().utf8();
+        QCString s = doc.toCString();
+        out.writeBlock( s.data(), s.size()-1 );
         out.close();
     }
 }

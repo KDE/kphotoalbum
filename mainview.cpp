@@ -361,7 +361,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                  actionCollection(), "limitToMarked" );
 
-    _lock = new KAction( i18n("Lock to Default Scope"), 0, this, SLOT( lockToDefaultScope() ),
+    _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
                          actionCollection(), "lockToDefaultScope" );
     _unlock = new KAction( i18n("Unlock"), 0, this, SLOT( unlockFromDefaultScope() ),
                            actionCollection(), "unlockFromDefaultScope" );

@@ -50,7 +50,7 @@ void ImageLoader::run()
             QString cacheDir = QFileInfo( li.fileName() ).dirPath() + QString::fromLatin1("/ThumbNails");
             QString cacheFile = cacheDir + QString::fromLatin1("/%1x%2-%3-%4")
                                 .arg(li.width()).arg(li.height())
-                                .arg( li.angle()).arg( QFileInfo( li.fileName() ).baseName() );
+                                .arg( li.angle()).arg( QFileInfo( li.fileName() ).fileName() );
             // Try to load thumbernail from cache
             if ( QFileInfo( cacheFile ).exists() ) {
                 if ( img.load( cacheFile ) )  {

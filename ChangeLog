@@ -1,3 +1,17 @@
+2003-11-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: File names did not contain an extension in the ThumbNail
+	directory. This resulted in a name class if two files existed with
+	same base name but different extension.
+
+	* Completed the KimDaBa handbook.
+
+	* BUGFIX: KimDaBa did always show one image less than the index promised.
+
+	* IMPROVEMENT: Exchanged Ctrl+plus and Ctrl+minus in the viewer, so ctrl+plus
+	now means run faster and ctrl+minus means run slower. This seems
+	much more intuitive.
+
 2003-10-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: First search for an image, then set properties, and the

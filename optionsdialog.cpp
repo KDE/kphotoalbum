@@ -46,7 +46,7 @@ void OptionsDialog::createGeneralPage()
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
     // Thumbnail size
-    QLabel* label = new QLabel( i18n("Thumbnail Size"), top );
+    QLabel* label = new QLabel( i18n("Thumbnail size"), top );
     _thumbnailSize = new QSpinBox( 16, 512, 8, top );
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
     lay2->addWidget( label );
@@ -71,7 +71,7 @@ void OptionsDialog::createGeneralPage()
     lay4->addStretch(1);
 
     // Auto save
-    label = new QLabel( i18n("Auto save every: "), top );
+    label = new QLabel( i18n("Auto save every"), top );
     _autosave = new QSpinBox( 1, 120, 1, top );
     _autosave->setSuffix( i18n( "min." ) );
     QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
@@ -81,7 +81,7 @@ void OptionsDialog::createGeneralPage()
 
     // Viewer Size
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
-    label = new QLabel( i18n("Viewer Size: "), top );
+    label = new QLabel( i18n("Viewer size"), top );
     lay7->addWidget( label );
 
     _width = new QSpinBox( 100, 5000, 50, top );

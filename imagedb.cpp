@@ -112,7 +112,7 @@ int ImageDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int
 
         if ( match )
             ++count;
-        match &= ( from != -1 && to != -1 && from <= count && count < to ) ||
+        match &= ( from != -1 && to != -1 && from <= count && count <= to ) ||
                  ( from == -1 && to == -1 );
         if ( makeVisible )
             (*it)->setVisible( match );

@@ -2,7 +2,6 @@ Features/Bug for next version
 -----------------------------
 - pan does work very well in the viewer
 - drawing on an image doesn't mark it as dirty
-- write a stub for KimDaBa handbook
 - spell check in the editor
 - go out of full screen if an item from the info box is selected.
 - drops from outside in thumnail view should simply be ignore or even
@@ -14,7 +13,6 @@ should update
 
 Features for later versions
 ---------------------------
-- write KimDaBa handbook
 - undo/redo
 - drag an image out of KimDaBa to say the background
 - read date and rotation out of the JPEG file info
@@ -28,4 +26,7 @@ Features for later versions
 - show slideshow in several Viewers, that is show image 1 in viewer 1, and
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.
- 
+- Display path/filename in status bar when hovering over an image
+- Button for rescan directory tree and generate thumbnails. 
+- when specifying options for several images at a time, present items that
+  are on all images.

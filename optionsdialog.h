@@ -73,6 +73,7 @@ private:
     QSpinBox* _maxImages;
     QSpinBox* _width;
     QSpinBox* _height;
+    QCheckBox* _useEXIFRotate;
 
     // Option Groups page
     QListBox* _optionGroups;

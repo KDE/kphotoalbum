@@ -20,7 +20,6 @@ BUGS of less importance
 ==============================
 Features for a soonish version
 ==============================
-- Button for rescan directory tree and generate thumbnails. 
 - make it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when generating
   HTML
@@ -28,7 +27,7 @@ Features for a soonish version
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.
 - Loseless image rotation (which actually affects the files)
-- add a kpart call for editing images.
+- Make a plugin structure for KimDaBa.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

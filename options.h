@@ -117,6 +117,9 @@ public:
     void setTTimeStamps( TimeStampTrust );
     TimeStampTrust tTimeStamps() const;
 
+    void setUseEXIFRotate( bool b );
+    bool useEXIFRotate() const;
+
     void setAutoSave( int min );
     int autoSave() const;
 
@@ -156,6 +159,7 @@ private:
 
     int _thumbSize,  _imageCacheSize;
     TimeStampTrust _tTimeStamps;
+    bool _useEXIFRotate;
     int _autoSave, _maxImages;
     bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps, _ensureImageWindowsOnScreen;
     QMap<QString, QStringList> _options;

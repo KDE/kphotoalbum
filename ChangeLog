@@ -1,3 +1,8 @@
+2004-01-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added a configuration option for whether EXIF rotation
+	information should be used or not.
+
 2004-01-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: It was not possible to generate HTML more than once per session.

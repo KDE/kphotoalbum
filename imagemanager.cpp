@@ -33,14 +33,7 @@ void ImageManager::load( const QString& fileName, ImageClient* client, int width
     }
     else {
         _lock->lock();
-        QPixmap pix;
-        if ( width == -1 && height == -1 )  {
-            key = QString("%1-%2x%3").arg( fileName ).arg( -1 ).arg( -1 );
-            QPixmap* pp = QPixmapCache::find( key );
-            if ( pp )
-                pix = *pp;
-        }
-        LoadInfo li( fileName, width, height, pix, client );
+        LoadInfo li( fileName, width, height, client );
         li.setCache( cache );
         _loadList.append( li );
         _lock->unlock();
@@ -66,8 +59,8 @@ LoadInfo::LoadInfo() : _null( true ),  _cache( true ),  _client( 0 )
 {
 }
 
-LoadInfo::LoadInfo( const QString& fileName, int width, int height, QPixmap image, ImageClient* client )
-    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),  _image( image ),  _cache( true ),  _client( client )
+LoadInfo::LoadInfo( const QString& fileName, int width, int height, ImageClient* client )
+    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),  _cache( true ),  _client( client )
 {
 }
 
@@ -82,7 +75,8 @@ void ImageManager::customEvent( QCustomEvent* ev )
 
         LoadInfo li = iev->loadInfo();
         QString key = QString("%1-%2x%3").arg( li.fileName() ).arg( li.width() ).arg( li.height() );
-        QPixmap pixmap( li.image() );
+        QImage image = iev->image();
+        QPixmap pixmap( image );
         if ( li.cache() )  {
             QPixmapCache::insert( key,  pixmap );
         }
@@ -94,8 +88,8 @@ void ImageManager::customEvent( QCustomEvent* ev )
     }
 }
 
-ImageEvent::ImageEvent( LoadInfo info )
-    : QCustomEvent( 1001 ), _info( info )
+ImageEvent::ImageEvent( LoadInfo info, const QImage& image )
+    : QCustomEvent( 1001 ), _info( info ),  _image( image )
 {
 }
 
@@ -122,16 +116,6 @@ int LoadInfo::width() const
 int LoadInfo::height() const
 {
     return _height;
-}
-
-QPixmap LoadInfo::image()
-{
-    return _image;
-}
-
-void LoadInfo::setImage( const QPixmap& image )
-{
-    _image = image;
 }
 
 ImageManager* ImageManager::instance()
@@ -201,6 +185,11 @@ void ImageManager::stop( ImageClient* client )
 ImageClient* LoadInfo::client()
 {
     return _client;
+}
+
+QImage ImageEvent::image()
+{
+    return _image;
 }
 
 

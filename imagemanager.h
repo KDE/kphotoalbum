@@ -14,14 +14,12 @@ class ImageClient;
 class LoadInfo {
 public:
     LoadInfo();
-    LoadInfo( const QString& fileName, int width,  int heigth, QPixmap image, ImageClient* client );
+    LoadInfo( const QString& fileName, int width,  int heigth, ImageClient* client );
 
     bool isNull() const;
     QString fileName() const;
     int width() const;
     int height() const;
-    QPixmap image();
-    void setImage( const QPixmap& image );
     void setCache( bool );
     bool cache() const;
     ImageClient* client();
@@ -34,18 +32,19 @@ private:
     QDeepCopy<QString> _fileName;
     int _width;
     int _height;
-    QDeepCopy<QPixmap> _image;
     bool _cache;
     ImageClient* _client;
 };
 
 class ImageEvent :public QCustomEvent {
 public:
-    ImageEvent( LoadInfo info );
+    ImageEvent( LoadInfo info, const QImage& image );
     LoadInfo loadInfo();
+    QImage image();
 
 private:
     LoadInfo _info;
+    QDeepCopy<QImage> _image;
 };
 
 // This class needs to inherit QObject to be capable of receiving events.

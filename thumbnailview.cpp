@@ -10,7 +10,7 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     setResizeMode( QIconView::Adjust );
 
     connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
-    setSelectionMode( Multi );
+    setSelectionMode( Extended );
     setItemsMovable( false );
 }
 

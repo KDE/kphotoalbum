@@ -31,8 +31,7 @@ void ImageLoader::run()
                 QImage img;
                 if ( QFileInfo( cacheFile ).exists() ) {
                     if ( img.load( cacheFile ) )  {
-                        li.setImage( img );
-                        ImageEvent* iew = new ImageEvent( li );
+                        ImageEvent* iew = new ImageEvent( li, img );
                         QApplication::postEvent( ImageManager::instance(),  iew );
                         continue; // Done.
                     }
@@ -41,18 +40,7 @@ void ImageLoader::run()
 
             QImage orig;
             if (!isJPEG(li) || !loadJPEG(&orig, li)) {
-                // Fetch the original unscaled image using normal Qt image loading
-                if ( !li.image().isNull() )  {
-                    orig = li.image();
-                }
-                else {
-                    if ( orig.load( li.fileName() ) )  {
-                        // hmmmm sending this information will fill the cache very fast
-                        // LoadInfo liOrigImage( li.fileName(),  -1,  -1, orig );
-                        // ImageEvent* iew = new ImageEvent( liOrigImage );
-                        // QApplication::postEvent( ImageManager::instance(),  iew );
-                    }
-                }
+                orig.load( li.fileName() );
             }
 
 
@@ -68,8 +56,7 @@ void ImageLoader::run()
                     scaled.save( cacheFile, "JPEG" );
                 }
 
-                li.setImage( scaled );
-                ImageEvent* iew = new ImageEvent( li );
+                ImageEvent* iew = new ImageEvent( li, scaled );
                 QApplication::postEvent( ImageManager::instance(),  iew );
             }
         }
@@ -90,8 +77,6 @@ bool ImageLoader::isJPEG( const LoadInfo& li )
 
 bool ImageLoader::loadJPEG(QImage* image, const LoadInfo& li )
 {
-    return false;
-
     FILE* inputFile=fopen(li.fileName().data(), "rb");
     if(!inputFile) return false;
 

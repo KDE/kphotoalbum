@@ -8,6 +8,7 @@
 #include <qfile.h>
 #include <kmessagebox.h>
 #include "imagedb.h"
+#include "util.h"
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Images"), Cancel|User1, User1, parent, name,
@@ -19,7 +20,7 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     _label = new QLabel( top );
     lay1->addWidget( _label );
 
-    _deleteFromDisk = new QCheckBox( i18n( "Delete images from disk" ), top );
+    _deleteFromDisk = new QCheckBox( i18n( "Delete images from disk and database" ), top );
     lay1->addWidget( _deleteFromDisk );
 
     _block = new QCheckBox( i18n( "Block from database" ), top );
@@ -37,7 +38,6 @@ int DeleteDialog::exec( const ImageInfoList& list )
         onDisk |= (*it)->imageOnDisk();
     }
 
-    _deleteFromDisk->setEnabled( onDisk );
     _deleteFromDisk->setChecked( true );
     _block->setChecked( false );
     _list = list;
@@ -49,6 +49,7 @@ void DeleteDialog::deleteImages()
 {
     if ( _deleteFromDisk->isChecked() ) {
         for( ImageInfoListIterator it( _list ); *it; ++it ) {
+            Util::removeThumbNail( (*it)->fileName() );
             if ( (*it)->imageOnDisk() ) {
                 bool ok = QFile( (*it)->fileName() ).remove();
                 if ( !ok ) {

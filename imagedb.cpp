@@ -454,4 +454,12 @@ void ImageDB::slotRecalcCheckSums()
     Browser::theBrowser()->home();
 }
 
+void ImageDB::showUnavailableImages()
+{
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        QFileInfo fi( (*it)->fileName() );
+        (*it)->setVisible( !fi.exists() );
+    }
+}
+
 #include "imagedb.moc"

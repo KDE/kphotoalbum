@@ -1,5 +1,7 @@
 2004-01-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Implemented Maintenance/Display Images not on Disk
+
 	* Implemented Maintenance/Recalculate Checksum (Useful if images
 	has been change for example using gimp)
 

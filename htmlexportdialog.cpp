@@ -537,11 +537,11 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
         }
     }
 
-    if ( !info->description().isEmpty() ) {
+    if ( !info->description().isEmpty() && _whatToIncludeMap[QString::fromLatin1( "**DESCRIPTION**" )]->isChecked() ) {
         description += QString::fromLatin1( "  <li> <b>Description:</b> %1\n" ).arg( info->description() );
     }
 
-    if ( _whatToIncludeMap[QString::fromLatin1( "**DESCRIPTION**" )]->isChecked() )
+    if ( !description.isEmpty() )
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "<ul>\n%1\n</ul>" ).arg( description ) );
     else
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "" ) );

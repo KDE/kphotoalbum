@@ -1,3 +1,8 @@
+2004-04-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: If description was not generated then other option
+	groups was not printed in HTML exports.
+
 2004-04-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* When opening the image config dialog, show a message box with
@@ -77,7 +82,7 @@
 2004-03-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* rewrote the handling of dates in the image property dialog, so
-	the GUI is must easier to work with - this must have been the
+	the GUI is much easier to work with - this must have been the
 	oldest wish on my which list ;-)
 
 2004-03-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

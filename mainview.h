@@ -31,10 +31,6 @@ class HTMLExportDialog;
 class KActionMenu;
 class KRadioAction;
 class PluginInterface;
-namespace KIPI
-{
-    class PluginLoader;
-}
 
 #include "imageinfo.h"
 #include <qdict.h>
@@ -42,6 +38,7 @@ namespace KIPI
 #include "thumbnailview.h"
 #include "options.h"
 #include <kurl.h>
+#include <libkipi/pluginloader.h>
 
 class MainView :public KMainWindow
 {
@@ -102,6 +99,7 @@ protected slots:
     void slotReenableMessages();
     void slotImagesChanged( const KURL::List& );
     void slotSelectionChanged();
+    void plug();
 
 protected:
     void configureImages( bool oneAtATime );

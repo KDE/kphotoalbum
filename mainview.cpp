@@ -1036,10 +1036,11 @@ void MainView::slotConfigureKeyBindings()
     dialog->insert( actionCollection(), i18n( "General" ) );
     dialog->insert( viewer->actions(), i18n("Viewer") );
 
-    KIPI::PluginLoader::List list = _pluginLoader->pluginList();
-    for( KIPI::PluginLoader::List::Iterator it = list.begin(); it != list.end(); ++it ) {
-        KIPI::Plugin* plugin = (*it).plugin;
-        dialog->insert( plugin->actionCollection(), (*it).comment );
+    KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
+    for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        KIPI::Plugin* plugin = (*it)->plugin;
+        if ( plugin )
+            dialog->insert( plugin->actionCollection(), (*it)->comment );
     }
 
     dialog->configure();
@@ -1193,14 +1194,29 @@ void MainView::loadPlugins()
             << QString::fromLatin1( "SlideShow" );
 
     _pluginLoader = new KIPI::PluginLoader( ignores, _pluginInterface );
+    connect( _pluginLoader, SIGNAL( replug() ), this, SLOT( plug() ) );
+    _pluginLoader->loadPlugins();
+
+    // Setup signals
+    connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
+}
+
+void MainView::plug()
+{
+    unplugActionList( QString::fromLatin1("file_actions") );
+    unplugActionList( QString::fromLatin1("image_actions") );
+    unplugActionList( QString::fromLatin1("tool_actions") );
 
     QPtrList<KAction> fileActions;
     QPtrList<KAction> imageActions;
     QPtrList<KAction> toolsActions;
 
-    KIPI::PluginLoader::List list = _pluginLoader->pluginList();
-    for( KIPI::PluginLoader::List::Iterator it = list.begin(); it != list.end(); ++it ) {
-        KIPI::Plugin* plugin = (*it).plugin;
+    KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
+    for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        KIPI::Plugin* plugin = (*it)->plugin;
+        if ( !plugin || !(*it)->shouldLoad )
+            continue;
+
         plugin->setup( this );
         QPtrList<KAction>* popup = 0;
         if ( plugin->category() == KIPI::IMAGESPLUGIN )
@@ -1229,10 +1245,8 @@ void MainView::loadPlugins()
     plugActionList( QString::fromLatin1("file_actions"), fileActions );
     plugActionList( QString::fromLatin1("image_actions"), imageActions );
     plugActionList( QString::fromLatin1("tool_actions"), toolsActions );
-
-    // Setup signals
-    connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
 }
+
 
 void MainView::slotImagesChanged( const KURL::List& urls )
 {

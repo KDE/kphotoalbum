@@ -1,3 +1,7 @@
+2004-06-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Its now possible to configure which plugins should be loaded.
+
 2004-06-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* demo directory are now copied rather than symlinked. With

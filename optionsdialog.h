@@ -30,6 +30,10 @@ class OptionGroupItem;
 class QCheckBox;
 class QComboBox;
 class ViewerSizeConfig;
+namespace KIPI
+{
+    class ConfigWidget;
+}
 
 class OptionsDialog :public KDialogBase {
     Q_OBJECT
@@ -67,6 +71,7 @@ protected:
     void slotCategoryChanged( const QString&, bool saveGroups );
     void setButtonStates();
     void createViewerPage();
+    void createPluginPage();
 
 private:
     // General page
@@ -103,6 +108,9 @@ private:
     ViewerSizeConfig* _slideShowSetup;
     ViewerSizeConfig* _viewImageSetup;
     QSpinBox* _slideShowInterval;
+
+    // Plugin config
+    KIPI::ConfigWidget* _pluginConfig;
 };
 
 

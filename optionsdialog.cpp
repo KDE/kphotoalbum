@@ -38,6 +38,8 @@
 #include <qhbox.h>
 #include "viewersizeconfig.h"
 #include <limits.h>
+#include <libkipi/pluginloader.h>
+#include <kdebug.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -46,7 +48,9 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     createOptionGroupsPage();
     createGroupConfig();
     createViewerPage();
+    createPluginPage();
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
+    connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }
 
 void OptionsDialog::createGeneralPage()
@@ -114,7 +118,6 @@ void OptionsDialog::createGeneralPage()
     lay7->addWidget( _albumCategory );
     _albumCategory->insertStringList( Options::instance()->optionGroups() );
 
-    connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
     lay1->addStretch(1);
 
 
@@ -356,6 +359,7 @@ void OptionsDialog::slotMyOK()
     opt->setMemberMap( _memberMap );
 
     // misc stuff
+    _pluginConfig->apply();
     emit changed();
 }
 
@@ -683,5 +687,15 @@ void OptionsDialog::createViewerPage()
     lay2->addStretch( 1 );
 }
 
+
+void OptionsDialog::createPluginPage()
+{
+    QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
+                                                             KIcon::Desktop, 32 ) );
+    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    _pluginConfig = KIPI::PluginLoader::instance()->configWidget( top );
+    lay1->addWidget( _pluginConfig );
+}
 
 #include "optionsdialog.moc"

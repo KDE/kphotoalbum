@@ -13,7 +13,6 @@ public:
     virtual QString name();
     virtual QString comment();
     virtual KURL::List images();
-    virtual KURL root();
 
 protected:
     KURL::List imageListToUrlList( const ImageInfoList& list );

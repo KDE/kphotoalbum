@@ -194,6 +194,7 @@ ImageInfo* ImageDB::load( const QString& fileName, QDomElement elm )
     ImageInfo* info = new ImageInfo( fileName, elm );
     info->setVisible( false );
     _images.append(info);
+    _fileMap.insert( info->fileName(), info );
     return info;
 }
 
@@ -284,6 +285,7 @@ void ImageDB::loadExtraFile( const QString& relativeName )
     ImageInfo* info = new ImageInfo( relativeName  );
     info->setMD5Sum(sum);
     _images.append(info);
+    _fileMap.insert( info->fileName(), info );
 }
 
 void ImageDB::save( QDomElement top )
@@ -345,11 +347,6 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
             // Find those with no other matches
             if ( noMatchInfo.match( *it ) )
                 map[ImageDB::NONE()]++;
-
-#ifdef TEMPORARILY_REMOVED
-            if ( list.count() == 0 )
-                map[ImageDB::NONE()]++;
-#endif
         }
     }
 
@@ -388,6 +385,7 @@ void ImageDB::blockList( const ImageInfoList& list )
     for( ImageInfoListIterator it( list ); *it; ++it) {
         _blockList << (*it)->fileName( true );
         _images.removeRef( *it );
+        _fileMap.remove( (*it)->fileName() );
     }
     emit totalChanged( _images.count() );
 }
@@ -396,6 +394,7 @@ void ImageDB::deleteList( const ImageInfoList& list )
 {
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         _images.removeRef( *it );
+        _fileMap.remove( (*it)->fileName() );
     }
     emit totalChanged( _images.count() );
 }
@@ -618,7 +617,16 @@ ImageInfoList ImageDB::currentContext( bool onDisk ) const
 void ImageDB::addImage( ImageInfo* info )
 {
     _images.append( info );
+    _fileMap.insert( info->fileName(), info );
     emit totalChanged( _images.count() );
+}
+
+ImageInfo* ImageDB::find( const QString& fileName ) const
+{
+    if ( _fileMap.contains( fileName ) )
+        return _fileMap[ fileName ];
+    else
+        return 0;
 }
 
 #include "imagedb.moc"

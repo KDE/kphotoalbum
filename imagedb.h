@@ -45,6 +45,7 @@ public:
     void deleteList( const ImageInfoList& list );
     void showUnavailableImages();
     ImageInfoList currentContext( bool onDisk ) const;
+    ImageInfo* find( const QString& fileName ) const;
 
 public slots:
     void save( QDomElement top );
@@ -81,6 +82,7 @@ private:
     QStringList _blockList;
     ImageInfoList _clipboard, _missingTimes;
     QMap<QString, QString> _md5Map;
+    QMap<QString, ImageInfo* > _fileMap;
     QStringList _pendingLoad;
 
 public:

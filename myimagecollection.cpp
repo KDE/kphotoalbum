@@ -33,12 +33,6 @@ KURL::List MyImageCollection::images()
     return KURL::List();
 }
 
-KURL MyImageCollection::root()
-{
-    // PENDING(blackie) implement
-    return KURL();
-}
-
 KURL::List MyImageCollection::imageListToUrlList( const ImageInfoList& imageList )
 {
     KURL::List urlList;

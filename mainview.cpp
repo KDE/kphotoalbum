@@ -1160,7 +1160,10 @@ void MainView::loadPlugins()
 {
     // Sets up the plugin interface, and load the plugins
     PluginInterface* interface = new PluginInterface( this, "demo interface" );
-    KIPI::PluginLoader* loader = new KIPI::PluginLoader( interface );
+    QStringList ignores;
+    ignores << QString::fromLatin1( "CommentsEditor" );
+
+    KIPI::PluginLoader* loader = new KIPI::PluginLoader( ignores, interface );
     loader->loadPlugins();
 
     QPtrList<KAction> fileActions;
@@ -1187,7 +1190,8 @@ void MainView::loadPlugins()
             }
         }
         else {
-            qDebug("No menu found for %s", plugin->id().latin1());
+            // PENDING(blackie) need id!
+            qDebug("No menu found for a plugin" ); // , plugin->id().latin1());
         }
     }
 

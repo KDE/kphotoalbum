@@ -300,12 +300,13 @@ void ImageDate::setDate( const QString& date )
                 _month = month.toInt();
         }
     }
+
     _dirty = true;
 }
 
 QString ImageDate::formatRegexp()
 {
-    return QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((jan|feb|mar|apr|may|jun|jul|aug|sep|nov|dec|\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
+    return QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
 }
 
 bool ImageDate::isFuzzyData()

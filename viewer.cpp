@@ -405,10 +405,15 @@ void Viewer::updateInfoBox()
 {
     if ( currentInfo() ) {
         QMap<int, QPair<QString,QString> > map;
-        QString text = Util::createInfoText( currentInfo(), &map );
-        text = QString::fromLatin1("<qt>") + text + QString::fromLatin1("</qt>");
-        if ( Options::instance()->showInfoBox() )
+        QString origText = Util::createInfoText( currentInfo(), &map );
+        QString text = QString::fromLatin1("<qt>") + origText + QString::fromLatin1("</qt>");
+        if ( Options::instance()->showInfoBox() && !origText.isNull() ) {
             _infoBox->setInfo( text, map );
+            _infoBox->show();
+        }
+        else
+            _infoBox->hide();
+
         moveInfoBox();
     }
 }

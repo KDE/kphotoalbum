@@ -53,11 +53,19 @@ void InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QStrin
 
 
     // make the box smaller in width till it fits
+    int origWidth = width;
     do {
         width -= 10;
         h2 = heightForWidth( width );
+        if ( width < 0 ) {
+            // something went wrong - samn I hate this code
+            break;
+        }
     } while( height == h2 );
-    width+=10;
+    if ( width < 0 )
+        width = origWidth;
+    else
+        width+=10;
 
     resize( width +4*frameWidth(), height +4*frameWidth());
 

@@ -191,7 +191,7 @@ void MainView::save( const QString& fileName )
     QDomDocument doc;
 
     // PENDING(blackie) The user should be able to specify the coding himself.
-    doc.appendChild( doc. createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
+    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
     QDomElement elm = doc.createElement( QString::fromLatin1("KimDaBa") );
     doc.appendChild( elm );
 

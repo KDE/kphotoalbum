@@ -1,3 +1,13 @@
+2004-04-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* added run slide show to the thumbnail view, thus making it much
+	easier to start a slide show if the images in view.
+
+	* Made slide show timeout configurable
+
+	* Made slide show size configurable, plus made it possible to
+	specify full screen for configuration for configuration of normal view.
+
 2004-03-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* rewrote the handling of dates in the image property dialog, so

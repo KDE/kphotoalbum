@@ -29,6 +29,7 @@ class KPushButton;
 class OptionGroupItem;
 class QCheckBox;
 class QComboBox;
+class ViewerSizeConfig;
 
 class OptionsDialog :public KDialogBase {
     Q_OBJECT
@@ -65,7 +66,7 @@ protected:
     void selectMembers( const QString& );
     void slotCategoryChanged( const QString&, bool saveGroups );
     void setButtonStates();
-
+    void createViewerPage();
 
 private:
     // General page
@@ -73,8 +74,6 @@ private:
     KComboBox* _trustTimeStamps;
     QSpinBox* _autosave;
     QSpinBox* _maxImages;
-    QSpinBox* _width;
-    QSpinBox* _height;
     QCheckBox* _useEXIFRotate;
     QSpinBox* _previewSize;
 
@@ -97,6 +96,11 @@ private:
     QString _currentGroup;
     QPushButton* _rename;
     QPushButton* _del;
+
+    // Viewer page
+    ViewerSizeConfig* _slideShowSetup;
+    ViewerSizeConfig* _viewImageSetup;
+    QSpinBox* _slideShowInterval;
 };
 
 

@@ -34,6 +34,10 @@
 #include <qwhatsthis.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include <qvgroupbox.h>
+#include <qhbox.h>
+#include "viewersizeconfig.h"
+#include <limits.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -41,6 +45,7 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     createGeneralPage();
     createOptionGroupsPage();
     createGroupConfig();
+    createViewerPage();
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
 }
 
@@ -97,22 +102,6 @@ void OptionsDialog::createGeneralPage()
     lay6->addWidget( label );
     lay6->addWidget( _autosave );
     lay6->addStretch( 1 );
-
-    // Viewer Size
-    QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
-    label = new QLabel( i18n("Viewer size"), top );
-    lay7->addWidget( label );
-
-    _width = new QSpinBox( 100, 5000, 50, top );
-    lay7->addWidget( _width );
-
-    label = new QLabel( QString::fromLatin1("x"), top );
-    lay7->addWidget( label );
-
-    _height = new QSpinBox( 100, 5000, 50, top );
-    lay7->addWidget( _height );
-
-    lay7->addStretch(1);
 
 
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
@@ -260,8 +249,9 @@ void OptionsDialog::show()
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _autosave->setValue( opt->autoSave() );
     _maxImages->setValue( opt->maxImages() );
-    _width->setValue( opt->viewerSize().width() );
-    _height->setValue( opt->viewerSize().height() );
+    _viewImageSetup->setSize( opt->viewerSize() );
+    _slideShowSetup->setSize( opt->slideShowSize() );
+    _slideShowInterval->setValue( opt->slideShowInterval() );
 
     // Config Groups page
     _optionGroups->clear();
@@ -288,7 +278,9 @@ void OptionsDialog::slotMyOK()
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setAutoSave( _autosave->value() );
     opt->setMaxImages( _maxImages->value() );
-    opt->setViewerSize( _width->value(), _height->value() );
+    opt->setViewerSize( _viewImageSetup->size() );
+    opt->setSlideShowInterval( _slideShowInterval->value() );
+    opt->setSlideShowSize( _slideShowSetup->size() );
 
     // ----------------------------------------------------------------------
     // Option Groups
@@ -626,5 +618,35 @@ void OptionsDialog::slotPageChange()
     _category->insertStringList( Options::instance()->optionGroups() );
     slotCategoryChanged( _category->currentText() );
 }
+
+
+
+
+
+
+void OptionsDialog::createViewerPage()
+{
+    QWidget* top = addPage( i18n("Viewer" ), i18n("Viewer" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag" ),
+                                                             KIcon::Desktop, 32 ) );
+    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+
+    _slideShowSetup = new ViewerSizeConfig( i18n( "Running slide show from thumbnail view" ), top, "_slideShowSetup" );
+    lay1->addWidget( _slideShowSetup );
+
+    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing images from thumbnail view" ), top, "_viewImageSetup" );
+    lay1->addWidget( _viewImageSetup );
+
+    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+
+    QLabel* label = new QLabel( i18n("slideshow interval" ), top );
+    lay2->addWidget( label );
+
+    _slideShowInterval = new QSpinBox( 1, INT_MAX, 1, top );
+    lay2->addWidget( _slideShowInterval );
+    _slideShowInterval->setSuffix( i18n( " sec" ) );
+    lay2->addStretch( 1 );
+}
+
 
 #include "optionsdialog.moc"

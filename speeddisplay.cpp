@@ -24,9 +24,9 @@ void SpeedDisplay::display( int i )
     go();
 }
 
-void SpeedDisplay::start()
+void SpeedDisplay::start( )
 {
-    _label->setText( i18n("<qt><center><font size=\"+4\">Starting Slideshow</font></center></qt>") );
+    _label->setText( i18n("<qt><center><font size=\"+4\">Starting Slideshow</font></center></qt>"));
     go();
 }
 

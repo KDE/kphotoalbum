@@ -63,7 +63,6 @@ Viewer* Viewer::latest()
 Viewer::Viewer( const char* name )
     :QWidget( 0,  name ), _current(0), _showingFullScreen( false )
 {
-    resize( Options::instance()->viewerSize() );
     setWFlags( WDestructiveClose );
     _latest = this;
 
@@ -86,7 +85,7 @@ Viewer::Viewer( const char* name )
     setupContextMenu();
 
     _slideShowTimer = new QTimer( this );
-    _slideShowPause = 5000;
+    _slideShowPause = Options::instance()->slideShowInterval() * 1000;
     connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNext() ) );
     _speedDisplay = new SpeedDisplay( this );
 }
@@ -167,12 +166,12 @@ void Viewer::setupContextMenu()
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showDate() );
-   
+
     taction = new KToggleAction( i18n("Show Time"), 0, this, "viewer-show-time" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowTime( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showTime() );
-    
+
     QStringList grps = Options::instance()->optionGroups();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
@@ -664,6 +663,23 @@ void Viewer::updateCategoryConfig()
 void Viewer::populateExternalPopup()
 {
     _externalPopup->populate( currentInfo(), _list );
+}
+
+void Viewer::show( bool slideShow )
+{
+    QSize size;
+    if ( slideShow )
+        size = Options::instance()->slideShowSize();
+    else
+        size = Options::instance()->viewerSize();
+
+    if ( size.width() != -1 )
+        resize( size );
+    else
+        setShowFullScreen( true );
+
+    QWidget::show();
+    slotStartStopSlideShow();
 }
 
 #include "viewer.moc"

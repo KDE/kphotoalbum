@@ -77,6 +77,14 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
                                    QString::fromLatin1( "450" ) ).toInt();
     _viewerSize = QSize( width, height );
 
+    // Slideshow size
+    width = config.attribute( QString::fromLatin1( "slideShowWidth_%1" ).arg(rect.width()),
+                                  QString::fromLatin1( "600" ) ).toInt();
+    height = config.attribute( QString::fromLatin1( "slideShowHeight_%1" ).arg( rect.width()),
+                                   QString::fromLatin1( "450" ) ).toInt();
+    _slideShowSize = QSize( width, height );
+    _slideShowInterval = config.attribute( QString::fromLatin1( "slideShowInterval" ), QString::fromLatin1( "5" ) ).toInt();
+
     Util::readOptions( options, &_options, &_optionGroups );
     _configDock = configWindowSetup;
     _members.load( memberGroups );
@@ -124,12 +132,17 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("exclude"), _exclude );
     config.setAttribute( QString::fromLatin1("passwd"), _passwd );
     config.setAttribute( QString::fromLatin1( "viewSortTye" ), _viewSortType );
+    config.setAttribute( QString::fromLatin1( "slideShowInterval" ), _slideShowInterval );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
     QRect rect = desktop->screenGeometry( desktop->primaryScreen() );
     config.setAttribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()), _viewerSize.width() );
     config.setAttribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()), _viewerSize.height() );
+
+    // Slide show size
+    config.setAttribute( QString::fromLatin1( "slideShowWidth_%1" ).arg(rect.width()), _slideShowSize.width() );
+    config.setAttribute( QString::fromLatin1( "slideShowHeight_%1" ).arg( rect.width()), _slideShowSize.height() );
 
     QStringList grps = optionGroups();
     QDomElement options = doc.createElement( QString::fromLatin1("options") );
@@ -463,18 +476,32 @@ void Options::setup( const QDomElement& config, const QDomElement& options,
     _instance = new Options( config, options, configWindowSetup, memberGroups, imageDirectory );
 }
 
-void Options::setViewerSize( int width, int height )
+void Options::setViewerSize( const QSize& size )
 {
-    if ( QSize(width, height) != _viewerSize )
+    if ( size != _viewerSize )
         emit changed();
 
-    _viewerSize = QSize(width, height );
+    _viewerSize = size;
 }
 
 QSize Options::viewerSize() const
 {
     return _viewerSize;
 }
+
+void Options::setSlideShowSize( const QSize& size )
+{
+    if ( size != _slideShowSize )
+        emit changed();
+
+    _slideShowSize = size;
+}
+
+QSize Options::slideShowSize() const
+{
+    return _slideShowSize;
+}
+
 
 
 const MemberMap& Options::memberMap()
@@ -624,6 +651,16 @@ void Options::setViewSortType( ViewSortType tp )
 Options::ViewSortType Options::viewSortType() const
 {
     return _viewSortType;
+}
+
+void Options::setSlideShowInterval( int interval )
+{
+    _slideShowInterval = interval;
+}
+
+int Options::slideShowInterval() const
+{
+    return _slideShowInterval;
 }
 
 #include "options.moc"

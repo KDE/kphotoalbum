@@ -328,7 +328,7 @@ ImageInfoList MainView::currentView()
 
 void MainView::slotViewNewWindow()
 {
-    slotView( false );
+    slotView( false, false );
 }
 
 ImageInfoList MainView::getSelectedOnDisk()
@@ -351,26 +351,26 @@ ImageInfoList MainView::getSelectedOnDisk()
     return list;
 }
 
-void MainView::slotView( bool reuse )
+void MainView::slotView( bool reuse, bool slideShow )
 {
-  ImageInfoList listOnDisk = getSelectedOnDisk();
+    ImageInfoList listOnDisk = getSelectedOnDisk();
 
-  if ( listOnDisk.count() != 0 ) {
+    if ( listOnDisk.count() != 0 ) {
 
-    Viewer* viewer;
-    if ( reuse && Viewer::latest() ) {
-         viewer = Viewer::latest();
-         topLevelWidget()->raise();
-         setActiveWindow();
+        Viewer* viewer;
+        if ( reuse && Viewer::latest() ) {
+            viewer = Viewer::latest();
+            topLevelWidget()->raise();
+            setActiveWindow();
+        }
+        else {
+            viewer = new Viewer( "viewer" );
+        }
+        viewer->show( slideShow );
+
+        viewer->load( listOnDisk );
+        viewer->raise();
     }
-    else {
-         viewer = new Viewer( "viewer" );
-         viewer->show();
-    }
-
-    viewer->load( listOnDisk );
-    viewer->raise();
-  }
 }
 
 void MainView::slotSortByDateAndTime()
@@ -539,9 +539,9 @@ void MainView::setupMenuBar()
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     _deleteSelected = new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
-    _configOneAtATime = new KAction( i18n( "&One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+    _configOneAtATime = new KAction( i18n( "Configure images &one at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
-    _configAllSimultaniously = new KAction( i18n( "&All Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+    _configAllSimultaniously = new KAction( i18n( "Configure &all images simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
 
     // The Images menu
@@ -550,6 +550,9 @@ void MainView::setupMenuBar()
 
     _viewInNewWindow = new KAction( i18n("View (In new window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
+    _runSlideShow = new KAction( i18n("Run Slide show"), Key_S, this, SLOT( slotRunSlideShow() ),
+                                 actionCollection(), "runSlideShow" );
+
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date and Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
@@ -848,6 +851,7 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
         QPopupMenu menu( this, "context popup menu");
         _configOneAtATime->plug( &menu );
         _configAllSimultaniously->plug( &menu );
+        _runSlideShow->plug( &menu );
 
         menu.insertSeparator();
 
@@ -1056,6 +1060,11 @@ void MainView::slotRemoveAllThumbnails()
 void MainView::slotBuildThumbnails()
 {
     new ThumbnailBuilder( this ); // It will delete itself
+}
+
+void MainView::slotRunSlideShow()
+{
+    slotView( true, true  );
 }
 
 #include "mainview.moc"

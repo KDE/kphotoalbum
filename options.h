@@ -43,8 +43,11 @@ public:
     void setMaxImages( int );
     int maxImages() const;
 
-    void setViewerSize( int width, int height );
+    void setViewerSize( const QSize& );
     QSize viewerSize() const;
+
+    void setSlideShowSize( const QSize& );
+    QSize slideShowSize() const;
 
     enum ViewSortType { SortLastUse, SortAlpha };
     void setViewSortType( ViewSortType );
@@ -156,6 +159,9 @@ public:
     void setPassword( const QString& passwd );
     QString password() const;
 
+    void setSlideShowInterval( int );
+    int slideShowInterval() const;
+
 signals:
     void optionGroupsChanged();
     void changed();
@@ -182,6 +188,8 @@ private:
     QDomElement _configDock;
 
     QSize _viewerSize;
+    QSize _slideShowSize;
+    int _slideShowInterval;
 
     MemberMap _members;
     ImageSearchInfo _currentLock;

@@ -45,6 +45,7 @@ public:
     void infoBoxMove();
     bool showingFullScreen() const;
     void setShowFullScreen( bool on );
+    void show( bool slideShow );
 
 public slots:
     virtual bool close(bool alsoDelete );

@@ -68,7 +68,7 @@ void ThumbNailView::showImage( QIconViewItem* item )
             }
             else {
                 viewer = new Viewer( "viewer" );
-                viewer->show();
+                viewer->show( false );
             }
             viewer->load( list );
         }

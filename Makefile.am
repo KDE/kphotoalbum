@@ -19,7 +19,6 @@ kimdaba_SOURCES = main.cpp \
 	imagepreview.cpp \
 	imagedate.cpp \
 	imagesearchinfo.cpp \
-	imageconfigui.ui \
 	welcomedialog.ui \
 	editor.cpp \
 	showbusycursor.cpp \

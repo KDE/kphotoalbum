@@ -45,7 +45,7 @@ ImageInfo::ImageInfo( const QString& fileName )
 {
     QString fullPath = Options::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Options::instance()->imageDirectory() + fileName );
-    _label = fi.baseName();
+    _label = fi.baseName( true );
     _angle = 0;
 
     // Read EXIF information

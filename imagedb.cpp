@@ -257,9 +257,9 @@ void ImageDB::loadExtraFile( const QString& relativeName )
                 if ( (*it)->fileName(true) == fileName ) {
                     // Update the label in case it contained the previos file name
                     fi = QFileInfo ( (*it)->fileName() );
-                    if ( (*it)->label() == fi.baseName() ) {
+                    if ( (*it)->label() == fi.baseName(true) ) {
                         fi = QFileInfo( relativeName );
-                        (*it)->setLabel( fi.baseName() );
+                        (*it)->setLabel( fi.baseName(true) );
                     }
 
                     (*it)->setFileName( relativeName );

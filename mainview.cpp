@@ -267,10 +267,9 @@ void MainView::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
-        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbNail() ) );
+        connect( _optionsDialog, SIGNAL( apply() ), this, SLOT( reloadThumbNail() ) );
     }
-    _optionsDialog->exec();
-    startAutoSaveTimer(); // In case auto save period has changed, we better restart the timer.
+    _optionsDialog->show();
 }
 
 
@@ -531,6 +530,7 @@ QString MainView::welcome()
 void MainView::slotChanges()
 {
     setDirty( true );
+    startAutoSaveTimer(); // In case auto save period has changed, we better restart the timer.
 }
 
 void MainView::closeEvent( QCloseEvent* e )

@@ -1,5 +1,7 @@
 2005-01-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Made the settings dialog non modal, and added an apply button.
+
 	* Finally the new thumbnail view seems to work.
 	* Made it possible to configure if columns should be aligned in
 	thumbnail view

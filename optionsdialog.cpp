@@ -44,9 +44,10 @@
 #include <kdebug.h>
 #include <kcolorbutton.h>
 #include "categorycollection.h"
+#include "showbusycursor.h"
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
+    :KDialogBase( IconList, i18n( "Options" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createThumbNailPage();
@@ -57,6 +58,7 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     createPluginPage();
 #endif
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
+    connect( this, SIGNAL( applyClicked() ), this, SLOT( slotMyOK() ) );
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }
 
@@ -410,6 +412,7 @@ void OptionsDialog::show()
 // KDialogBase has a slotOK which we do not want to override.
 void OptionsDialog::slotMyOK()
 {
+    ShowBusyCursor dummy;
     Options* opt = Options::instance();
 
     // General
@@ -482,7 +485,7 @@ void OptionsDialog::slotMyOK()
 #ifdef HASKIPI
     _pluginConfig->apply();
 #endif
-    emit changed();
+    emit apply();
 }
 
 

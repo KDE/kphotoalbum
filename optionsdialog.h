@@ -45,7 +45,7 @@ public:
     int exec();
 
 signals:
-    void changed();
+    void apply();
 
 protected slots:
     void slotMyOK();

@@ -165,3 +165,4 @@ bool ThumbNail::atRightSizeOfItem()
     return ( xDiff > width()/2 );
 }
 
+

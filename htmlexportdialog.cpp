@@ -585,17 +585,16 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*he
 
     _waitCounter--;
 
-    QString dir = _tempDir;
-    if ( !dir.isNull() ) {
-        QString file = dir + QString::fromLatin1( "/" ) + nameImage( fileName, size );
+    QString file = _tempDir + QString::fromLatin1( "/" ) + nameImage( fileName, size );
 
-        bool success = image.save( file, "JPEG" );
-        if ( !success ) {
-            QMessageBox::warning( this, i18n("Unable to Write Image"), i18n("Unable to write image '%1'.").arg(file), QMessageBox::Ok, 0 );
-        }
+    bool success = image.save( file, "JPEG" );
+    if ( !success ) {
+        // We better stop the imageloading. In case this is a full disk, we will just get all images loaded, while this
+        // error box is showing, resulting in a bunch of error messages, and memory running out due to all the hanging
+        // pixmapLoaded methods.
+        slotCancelGenerate();
+        KMessageBox::error( this, i18n("Unable to write image '%1'.").arg(file) );
     }
-    else
-        Q_ASSERT( false );
 
     if ( _waitCounter == 0 ) {
         qApp->eventLoop()->exitLoop();

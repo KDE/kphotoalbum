@@ -1,9 +1,3 @@
-TODO next
-=========
-- remember windows sizes so they can be restored on start up
-- make it possible to disable the labels from the thumbnail views
-
-
 ==========================
 BUGS To be handled soonish
 ==========================
@@ -29,6 +23,7 @@ BUGS of less importance
 ==============================
 Features for a soonish version
 ==============================
+- make it possible to disable the labels from the thumbnail views
 - make it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when generating
   HTML

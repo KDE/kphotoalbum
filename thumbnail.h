@@ -43,6 +43,7 @@ protected:
     virtual void dropped ( QDropEvent * e, const QValueList<QIconDragItem> & lst );
     bool atRightSizeOfItem();
 
+
 private:
     ImageInfo* _imageInfo;
     QPixmap _pixmap;

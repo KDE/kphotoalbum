@@ -77,6 +77,7 @@ protected:
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
     void checkIfImagesAreSorted();
     bool rangeInclude( ImageInfo* info );
+    void checkIfAllImagesHasSizeAttributes();
 
 protected slots:
     void renameOption( const QString& category, const QString& oldName, const QString& newName );

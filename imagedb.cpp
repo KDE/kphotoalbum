@@ -117,6 +117,7 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     connect( Options::instance(), SIGNAL( locked( bool, bool ) ), this, SLOT( lockDB( bool, bool ) ) );
 
     checkIfImagesAreSorted();
+    checkIfAllImagesHasSizeAttributes();
 }
 
 int ImageDB::totalCount() const
@@ -654,6 +655,29 @@ bool ImageDB::rangeInclude( ImageInfo* info )
         return ( tp == ImageDateRange::ExactMatch || tp == ImageDateRange::RangeMatch );
     else
         return ( tp == ImageDateRange::ExactMatch );
+}
+
+void ImageDB::checkIfAllImagesHasSizeAttributes()
+{
+    QTime time;
+    time.start();
+    if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) ) )
+        return;
+
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        qDebug("%s, %d", (*it)->fileName().latin1(), (*it)->size().width());
+        if ( (*it)->size().width() == -1 || (*it)->size().height() == -1 ) {
+            KMessageBox::information( MainView::theMainView(),
+                                      i18n("<qt><p>Not all the images in the database has information about image sizes, this is needed to "
+                                           "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
+                                           "choose <tt>Remove All Thumbnails</tt>, and after that choose <tt>Build Thumbnails</tt>.</p>"
+                                           "<p>Not doing so will result in extra space arround images in the thumbnail view, that's all, so "
+                                           "there are no urgency in doing it.</p></qt>"),
+                                      i18n("Not all images has size information"),
+                                      QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) );
+            break;
+        }
+    }
 }
 
 #include "imagedb.moc"

@@ -23,6 +23,7 @@ public:
     bool cacheThumbNails() const;
 
     void setOption( const QString& key,  const QStringList& value );
+    void addOption( const QString& key,  const QString& value );
     QStringList optionValue( const QString& key ) const;
 
     void setTrustTimeStamps( bool );

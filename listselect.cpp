@@ -3,8 +3,9 @@
 #include <qlineedit.h>
 #include <qlistbox.h>
 #include <qlabel.h>
-#include "metainfo.h"
 #include <qcheckbox.h>
+#include <qvalidator.h>
+#include "options.h"
 
 ListSelect::ListSelect( QWidget* parent, const char* name )
     : QWidget( parent,  name )
@@ -26,6 +27,7 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
     layout->addWidget( _merge );
 
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
+    connect( _lineEdit, SIGNAL( textChanged( const QString& ) ),  this, SLOT( completeLineEdit( const QString& ) ) );
 }
 
 void ListSelect::setLabel( const QString& label )
@@ -44,11 +46,12 @@ void ListSelect::slotReturn()
     if ( !item ) {
         item = new QListBoxText( _listBox, txt );
     }
-    MetaInfo* minfo = MetaInfo::instance();
-    minfo->addItem( _textLabel, txt);
+    Options* options = Options::instance();
+    options->addOption( _textLabel, txt);
 
     _listBox->setSelected( item,  true );
     _lineEdit->clear();
+    _listBox->sort();
 }
 
 void ListSelect::insertStringList( const QStringList& list )
@@ -93,4 +96,15 @@ void ListSelect::setShowMergeCheckbox( bool b )
 bool ListSelect::merge() const
 {
     return _merge->isChecked();
+}
+
+void ListSelect::completeLineEdit( const QString& input)
+{
+    QListBoxItem* item = _listBox->findItem( input );
+    if ( item )  {
+        _listBox->setCurrentItem( item );
+        _listBox->ensureCurrentVisible();
+        _lineEdit->setText( item->text() );
+        _lineEdit->setSelection( input.length(), item->text().length() - input.length() );
+    }
 }

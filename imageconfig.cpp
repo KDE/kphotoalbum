@@ -1,4 +1,3 @@
-#include "metainfo.h"
 #include "imageconfig.h"
 #include "listselect.h"
 #include <qspinbox.h>
@@ -8,6 +7,7 @@
 #include <qlineedit.h>
 #include <qlabel.h>
 #include "imagemanager.h"
+#include "options.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
@@ -19,9 +19,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _optionList.append(keywords);
     _optionList.append(locations);
 
-    MetaInfo* minfo = MetaInfo::instance();
+    Options* options = Options::instance();
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->insertStringList( minfo->items( (*it)->label() ) );
+        (*it)->insertStringList( options->optionValue( (*it)->label() ) );
     }
 }
 
@@ -86,6 +86,7 @@ void ImageConfig::slotDone()
                 info->setDescription( description->text() );
         }
     }
+    Options::instance()->save();
 }
 
 void ImageConfig::load()

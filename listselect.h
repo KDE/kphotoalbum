@@ -22,6 +22,7 @@ public:
 
 protected slots:
     void slotReturn();
+    void completeLineEdit( const QString& );
 
 private:
     QLabel* _label;

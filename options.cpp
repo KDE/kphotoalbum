@@ -3,6 +3,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qdir.h>
+#include "util.h"
 
 Options* Options::_instance = 0;
 
@@ -33,6 +34,8 @@ Options::Options()
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _use4To3Ratio = top.attribute( "use4To3Ratio",  QString::number( _use4To3Ratio ) ).toInt();
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
+
+    Util::readOptions( top, &_options );
 }
 
 void Options::setThumbWidth( int w )
@@ -112,6 +115,8 @@ void Options::save()
     top.setAttribute( "use4To3Ratio", _use4To3Ratio );
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
 
+    Util::writeOptions( doc, top, _options );
+
     QTextStream stream( &file );
     stream << doc.toString();
     file.close();
@@ -120,6 +125,11 @@ void Options::save()
 void Options::setOption( const QString& key, const QStringList& value )
 {
     _options[key] = value;
+}
+
+void Options::addOption( const QString& key, const QString& value )
+{
+    _options[key] += value;
 }
 
 QStringList Options::optionValue( const QString& key ) const

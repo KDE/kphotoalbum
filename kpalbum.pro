@@ -5,12 +5,12 @@ SOURCES	+= main.cpp \
 	imageloader.cpp \
 	options.cpp \
 	imageinfo.cpp \
-	metainfo.cpp \
 	viewer.cpp \
 	listselect.cpp \
     mainview.cpp \
     imageconfig.cpp \
-    imageclient.cpp
+    imageclient.cpp \
+    util.cpp
 
 HEADERS	+= thumbnailview.h \
 	thumbnail.h \
@@ -18,12 +18,12 @@ HEADERS	+= thumbnailview.h \
 	imageloader.h \
 	options.h \
 	imageinfo.h \
-	metainfo.h \
 	viewer.h \
 	listselect.h \
     mainview.h \
     imageconfig.h \
-    imageclient.h
+    imageclient.h \
+    util.h
 
 FORMS	= mainviewui.ui \
 	optionsdialog.ui \

@@ -3,6 +3,7 @@
 #include <qimage.h>
 #include <qdom.h>
 #include "options.h"
+#include "util.h"
 
 
 ImageInfo::ImageInfo()
@@ -33,25 +34,7 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _dayTo = elm.attribute( "dayTo", QString::number(dayTo) ).toInt();
 
     _quality = elm.attribute( "quality" ).toInt();
-    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
-        if ( nodeOption.isElement() )  {
-            QDomElement elmOption = nodeOption.toElement();
-            Q_ASSERT( elmOption.tagName() == "option" );
-            QString name = elmOption.attribute( "name" );
-            if ( !name.isNull() )  {
-                for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull(); nodeValue = nodeValue.nextSibling() ) {
-                    if ( nodeValue.isElement() ) {
-                        QDomElement elmValue = nodeValue.toElement();
-                        Q_ASSERT( elmValue.tagName() == "value" );
-                        QString value = elmValue.attribute( "value" );
-                        if ( !value.isNull() )  {
-                            _options[name].append( value );
-                        }
-                    }
-                }
-            }
-        }
-    }
+    Util::readOptions( elm, &_options );
 }
 
 void ImageInfo::setLabel( const QString& desc )
@@ -174,17 +157,7 @@ QDomElement ImageInfo::save( QDomDocument& doc )
     elm.setAttribute( "dayTo",  _dayTo );
 
     elm.setAttribute( "quality",  _quality );
-    for( QMapIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
-        QDomElement opt = doc.createElement( "option" );
-        opt.setAttribute( "name",  it.key() );
-        elm.appendChild( opt );
-        QStringList list = it.data();
-        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            QDomElement val = doc.createElement( "value" );
-            val.setAttribute( "value", *it2 );
-            opt.appendChild( val );
-        }
-    }
+    Util::writeOptions( doc, elm, _options );
     return elm;
 }
 

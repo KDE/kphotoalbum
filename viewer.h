@@ -27,6 +27,7 @@ protected:
     virtual void mouseMoveEvent( QMouseEvent* e );
     virtual void mouseReleaseEvent( QMouseEvent* );
     virtual void contextMenuEvent ( QContextMenuEvent * e );
+    virtual void closeEvent( QCloseEvent* e );
 
     void load();
     void saveOptions();

@@ -465,5 +465,9 @@ void Viewer::showLast()
      load();
 }
 
+void Viewer::closeEvent( QCloseEvent* e )
+{
+    hide();
+}
 
 #include "viewer.moc"

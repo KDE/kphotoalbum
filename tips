@@ -1,9 +1,4 @@
 <tip category="KimDaBa">
-<html><p>bla bla
-</p></html>
-</tip>
-
-<tip category="KimDaBa">
 <html><p>Its possible to create new option groups in, that is alternatives
 to <b>Person</b>, <b>Location</b>, and <b>Keywords</b> in the image
 property page. Simply go to the <tt>Options</tt> dialog to add your own, or

@@ -18,7 +18,6 @@ kpalbum_SOURCES = main.cpp \
 	imagepreview.cpp \
 	imagedate.cpp \
 	imagesearchinfo.cpp \
-	mainviewui.ui \
 	optionsdialog.ui \
 	imageconfigui.ui \
 	wellcomedialog.ui \
@@ -30,3 +29,6 @@ kpalbum_SOURCES = main.cpp \
 kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH) -lktexteditor
 kpalbum_LDADD = $(LIB_KIO) $(LIBJPEG)
 METASOURCES = AUTO
+
+rcdir = $(kde_datadir)/kpalbum
+rc_DATA = kpalbumui.rc

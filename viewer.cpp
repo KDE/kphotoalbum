@@ -36,31 +36,32 @@ Viewer::Viewer( QWidget* parent, const char* name )
     _label->setFixedSize( _width, _height );
 
     KIconLoader loader;
+    KActionCollection* actions = new KActionCollection( this, "actions" );
     _toolbar = new KToolBar( this );
     _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
-                         0, _label, SLOT( slotSelect() ),actionCollection(), "_select");
+                         0, _label, SLOT( slotSelect() ),actions, "_select");
     _select->plug( _toolbar );
     _select->setExclusiveGroup( "ViewerTools" );
 
     _line = new KToggleAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
-                         0, _label, SLOT( slotLine() ),actionCollection(), "_line");
+                         0, _label, SLOT( slotLine() ),actions, "_line");
     _line->plug( _toolbar );
     _line->setExclusiveGroup( "ViewerTools" );
 
     _rect = new KToggleAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
-                         0, _label, SLOT( slotRectangle() ),actionCollection(), "_rect");
+                         0, _label, SLOT( slotRectangle() ),actions, "_rect");
     _rect->plug( _toolbar );
     _rect->setExclusiveGroup( "ViewerTools" );
 
     _circle = new KToggleAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
-                           0, _label, SLOT( slotCircle() ),actionCollection(), "_circle");
+                           0, _label, SLOT( slotCircle() ),actions, "_circle");
     _circle->plug( _toolbar );
     _circle->setExclusiveGroup( "ViewerTools" );
 
-    _delete = KStdAction::cut( _label, SLOT( cut() ), actionCollection(), "cutAction" );
+    _delete = KStdAction::cut( _label, SLOT( cut() ), actions, "cutAction" );
     _delete->plug( _toolbar );
 
-    KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actionCollection(),  "stopDraw" );
+    KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
     close->plug( _toolbar );
 
     _toolbar->hide();

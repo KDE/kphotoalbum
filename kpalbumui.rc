@@ -1,0 +1,22 @@
+<!DOCTYPE kpartgui>
+<kpartgui name="kpalbum">
+  <MenuBar>
+    <Menu name="edit" >
+      <Action name="options" />
+      <Action name="deleteSelected" />
+      <Menu name="properties">
+        <text>P&amp;ropeties</text>
+        <Action name="oneProp"/>
+        <Action name="allProp"/>
+      </Menu>
+    </Menu>
+    <Menu name="Images" >
+      <text>&amp;Images</text>
+      <Action name="viewImages" />
+      <Action name="limitToMarked" />
+      <Separator/>
+      <Action name="displayAllThumbs" />
+    </Menu>
+  </MenuBar>
+
+</kpartgui>

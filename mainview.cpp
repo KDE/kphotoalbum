@@ -13,11 +13,15 @@
 #include <wellcomedialog.h>
 #include <qcursor.h>
 #include "showbusycursor.h"
+#include <klocale.h>
 
 MainView::MainView( QWidget* parent, const char* name )
-    :MainViewUI( parent,  name ), _dirty( false )
+    :KMainWindow( parent,  name ), _dirty( false )
 {
+    _thumbNailView = new ThumbNailView( this );
+    setCentralWidget( _thumbNailView );
     _optionsDialog = 0;
+    setupMenuBar();
 
     // For modality to work, we need to create these here.
     // Otherwise we would have this problem:
@@ -33,12 +37,11 @@ MainView::MainView( QWidget* parent, const char* name )
         load();
     else
         wellcome();
-    connect( thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 }
 
 bool MainView::slotExit()
 {
-    if ( _dirty || !thumbNailView->isClipboardEmpty() ) {
+    if ( _dirty || !_thumbNailView->isClipboardEmpty() ) {
         int ret = QMessageBox::warning( this, "Save Changes", "Save Changes?", QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
         if ( ret == QMessageBox::Cancel )
             return false;
@@ -55,7 +58,7 @@ void MainView::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
-        connect( _optionsDialog, SIGNAL( changed() ), thumbNailView, SLOT( reload() ) );
+        connect( _optionsDialog, SIGNAL( changed() ), _thumbNailView, SLOT( reload() ) );
         connect( _optionsDialog, SIGNAL( imagePathChanged() ), this, SLOT( load() ) );
     }
     _optionsDialog->exec();
@@ -99,7 +102,7 @@ void MainView::slotSearch()
         for( ImageInfoListIterator it( _images ); *it; ++it ) {
             (*it)->setVisible( _imageConfigure->match( *it ) );
         }
-        thumbNailView->reload();
+        _thumbNailView->reload();
     }
 }
 
@@ -109,8 +112,8 @@ void MainView::slotSave()
 
     QMap<QString, QDomDocument> docs;
     ImageInfoList list = _images;
-    if ( !thumbNailView->isClipboardEmpty() ) {
-        ImageInfoList clip= thumbNailView->clipboard();
+    if ( !_thumbNailView->isClipboardEmpty() ) {
+        ImageInfoList clip= _thumbNailView->clipboard();
         for( ImageInfoListIterator it(clip); *it; ++it ) {
             list.append( *it );
         }
@@ -200,7 +203,7 @@ void MainView::load()
     }
 
     loadExtraFiles( loadedFiles, directory, directory );
-    thumbNailView->load( &_images );
+    _thumbNailView->load( &_images );
 }
 
 void MainView::load( const QString& indexDirectory,  const QString& fileName, QDomElement elm )
@@ -238,7 +241,7 @@ void MainView::loadExtraFiles( const QDict<void>& loadedFiles, const QString& in
 ImageInfoList MainView::selected()
 {
     ImageInfoList list;
-    for ( QIconViewItem* item = thumbNailView->firstItem(); item; item = item->nextItem() ) {
+    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
         if ( item->isSelected() ) {
             ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
             Q_ASSERT( tn );
@@ -289,18 +292,50 @@ void MainView::slotShowAllThumbNails()
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->setVisible( true );
     }
-    thumbNailView->reload();
+    _thumbNailView->reload();
 }
 
 void MainView::slotLimitToSelected()
 {
     ShowBusyCursor dummy;
-    for ( QIconViewItem* item = thumbNailView->firstItem(); item; item = item->nextItem() ) {
+    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
         ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
         Q_ASSERT( tn );
         tn->imageInfo()->setVisible( item->isSelected() );
     }
-    thumbNailView->reload();
+    _thumbNailView->reload();
+}
+
+void MainView::setupMenuBar()
+{
+    // File menu
+    KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
+    KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
+
+    // The Edit menu
+    KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
+    KStdAction::paste( _thumbNailView, SLOT( slotPaste() ), actionCollection() );
+    new KAction( i18n( "Options" ), CTRL+Key_O, this, SLOT( slotOptions() ),
+                 actionCollection(), "options" );
+    KStdAction::selectAll( _thumbNailView, SLOT( slotSelectAll() ), actionCollection() );
+    KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
+    new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
+                 actionCollection(), "deleteSelected" );
+    new KAction( i18n( "&One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+                 actionCollection(), "oneProp" );
+    new KAction( i18n( "&All Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+                 actionCollection(), "allProp" );
+
+    // The Images menu
+    new KAction( i18n("View Selected"), CTRL+Key_I, this, SLOT( slotViewSelected() ),
+                 actionCollection(), "viewImages" );
+    new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
+                 actionCollection(), "limitToMarked" );
+    new KAction( i18n("Display All Thumb Nails"), 0, this, SLOT( slotShowAllThumbNails() ),
+                 actionCollection(), "displayAllThumbs" );
+
+    connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    createGUI( QString::fromLatin1( "kpalbumui.rc" ) );
 }
 
 #include "mainview.moc"

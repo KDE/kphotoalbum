@@ -5,8 +5,10 @@ class ImageConfig;
 #include "imageinfo.h"
 #include "mainviewui.h"
 #include <qdict.h>
+#include <kmainwindow.h>
+#include "thumbnailview.h"
 
-class MainView :public MainViewUI
+class MainView :public KMainWindow
 {
     Q_OBJECT
 
@@ -34,8 +36,10 @@ protected:
     ImageInfoList selected();
     void wellcome();
     virtual void closeEvent( QCloseEvent* e );
+    void setupMenuBar();
 
 private:
+    ThumbNailView* _thumbNailView;
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
     ImageInfoList _images;

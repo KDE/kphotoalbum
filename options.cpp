@@ -94,6 +94,8 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     int height = config.attribute( QString::fromLatin1( "histogramHeigth" ), QString::fromLatin1( "30" ) ).toInt();
     _histogramSize = QSize( QMAX( 15, width ), QMAX( 15, height ) );
 
+    _alignColumns = config.attribute( QString::fromLatin1( "alignColumns" ), QString::fromLatin1( "1" ) ).toInt();
+    _rowSpacing = config.attribute( QString::fromLatin1( "rowSpacing" ), QString::fromLatin1( "10" ) ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -188,6 +190,8 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "autoShowThumbnailView" ), _autoShowThumbnailView );
     config.setAttribute( QString::fromLatin1( "histogramWidth" ), _histogramSize.width() );
     config.setAttribute( QString::fromLatin1( "histogramHeigth" ), _histogramSize.height() );
+    config.setAttribute( QString::fromLatin1( "alignColumns" ), _alignColumns );
+    config.setAttribute( QString::fromLatin1( "rowSpacing" ), _rowSpacing );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -841,6 +845,32 @@ void Options::setHistogramSize( const QSize& size )
     }
 
     _histogramSize = size;
+}
+
+bool Options::alignColumns() const
+{
+    return _alignColumns;
+}
+
+void Options::setAlignColumns( bool b )
+{
+    if ( _alignColumns != b ) {
+        _alignColumns = b;
+        emit changed();
+    }
+}
+
+int Options::rowSpacing() const
+{
+    return _rowSpacing;
+}
+
+void Options::setRowSpacing( int i )
+{
+    if ( _rowSpacing != i ) {
+        _rowSpacing = i;
+        emit changed();
+    }
 }
 
 #include "options.moc"

@@ -185,8 +185,6 @@ void ThumbNail::calcRect( const QString& )
         w = (int) (size * ( w*1.0 / h ));
         h = size;
     }
-    h +=  5;// PENDING(blackie) make an option for this value
-
 
     QRect textRect(0,0,0,0);
     if ( Options::instance()->displayLabels() ) {

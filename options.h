@@ -174,6 +174,12 @@ public:
     QSize histogramSize() const;
     void setHistogramSize( const QSize& size );
 
+    bool alignColumns() const;
+    void setAlignColumns( bool );
+
+    int rowSpacing() const;
+    void setRowSpacing( int );
+
 protected:
     void createSpecialCategories();
 
@@ -223,6 +229,8 @@ private:
     int _viewerCacheSize;
     bool _searchForImagesOnStartup;
     bool _autoShowThumbnailView;
+    bool _alignColumns;
+    int _rowSpacing;
 };
 
 #endif /* OPTIONS_H */

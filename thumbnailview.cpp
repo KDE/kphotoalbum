@@ -271,8 +271,14 @@ void ThumbNailView::slotOnViewPort()
 void ThumbNailView::setupGrid()
 {
     int size = Options::instance()->thumbSize();
-    setGridX( size + 2 );
+    if ( Options::instance()->alignColumns() )
+        setGridX( size + 2 );
+    else
+        setGridX( -1 );
+
     setGridY(-1);
+    setSpacing( Options::instance()->rowSpacing() );
+
 }
 
 void ThumbNailView::drawBackground( QPainter * p, const QRect & r )

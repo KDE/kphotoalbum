@@ -91,6 +91,8 @@ private:
     QCheckBox* _autoShowThumbnailView;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;
+    QSpinBox* _rowSpacing;
+    QCheckBox* _alignColumns;
 
     // Categories page
     QListBox* _categories;

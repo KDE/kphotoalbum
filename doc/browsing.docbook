@@ -1,0 +1,115 @@
+<chapter id="chp-browsing">
+  <title>Browsing</title>
+  <para>Once you have
+    specified properties for your images, KimDaBa is ready to let you
+    browse through your images, see <xref
+      linkend="fig-browser-with-images"/>. If you compare that to <xref
+      linkend="fig-empty-browser-window"/> , you will see that there now is
+    items available in each of the groups for <literal>Persons</literal>,
+    <literal>Locations</literal>, and <literal>Keywords</literal>.</para>
+  
+  <figure id="fig-browser-with-images">
+    <title>Browser when properties has been specified</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-with-images.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+      
+  <para>In the browser window you can see the option groups you typed
+information into when setting properties for the images, these groups are
+<literal>Keywords</literal>, <literal>Locations</literal>, and
+<literal>Persons</literal>. After them there is an item for browsing by
+date, an item for general searches, and finally an item for
+getting to the actual images. Lets describe each item in turn.</para>
+      
+  <para>Pressing the mouse on
+<literal>Persons</literal>, the browser window will change, as you can see
+in <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title>Browser window when Persons was selected.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>The browser is now populated with the persons you specified for
+    your images <footnote><para>You may notice that the item
+    <literal>Pets</literal> has a special icon. For details about that, see
+    <xref linkend="sec-specifying-option-groups"/>.</para></footnote>,
+    selecting a person will bring you back to the original state for the
+    browser, as we saw in <xref linkend="fig-browser-with-images"/>, this
+    time, however, we are <emphasis>in the scope</emphasis> of the person
+    we selected. That means that we only shows information about images
+    containing that person. See <xref linkend="fig-browser-for-jesper"/>
+    below, which is the result of us selecting the Person <literal>Jesper</literal>, you can see an
+    indication of that in the buttom of the window. Please compare <xref
+      linkend="fig-browser-with-images"/> with <xref
+      linkend="fig-browser-for-jesper"/>, where you will see that the number
+    of available images has gone down from 24 to 10, and the amount of
+    categories for the different groups have also changed.</para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title>Browser limited to the scope of the person <literal>Jesper</literal></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para>If we now continue selecting a new person, then we will get to
+the images containing both persons. Continuing that way you can narrow the
+set of images that you have in mind down to a few images from a set of
+thousands.</para>
+  
+  <para>When you are done limiting the scope of images, you may select
+the <literal>View Images</literal> icon, to see exactly those images
+matching your current scope.</para>
+  
+  
+  <sect1>
+    <title>General image searches</title>
+    <para>If you chose the <literal>Search</literal> item in the
+browser, you will get to a dialog with great resemblance to the dialog you
+used for setting properties of your images. You can see this dialog in <xref
+        linkend="fig-search"/> below.</para>
+    
+    <figure id="fig-search">
+      <title>Search dialog</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>If you type a string in the label or description field, then
+that text will be searched for using substring searches. Likewise you can
+also specify a date to search for, either as part of a date, say 1971, or
+as a complete date. You may also specify date ranges, like 1971-1980.</para>
+    
+    <para>The options item allow a very limited form of writing
+expression, as you can see an example of in the <xref
+        linkend="fig-search"/>. Here we search for images with <literal>Jesper</literal>,
+but without <literal>Anne Helene</literal>.</para>
+    
+    <para>The allowed operations are &amp; (meaning and), | (meaning
+or), and ! (not meaning not).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-parent-document: "index.docbook"
+End:
+-->

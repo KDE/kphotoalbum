@@ -1,0 +1,181 @@
+<chapter id="chp-typingIn">
+  <title>Typing in information about your images</title>
+  <para>In figure <xref linkend="fig-empty-browser-window"/> you can see
+an example of the window that will greed you once you have started KimDaBa
+with your own images.</para>
+  
+  <para>At the top of the screen you will find a menu and toolbar, as you
+know from any KDE application. Below the toolbar you see the browser
+window. Currently this is not containing much information, as you have not
+yet specified any information about your images. In <xref
+      linkend="chp-browsing"/> we will get back to the browser, but for
+now, simply press the <literal>View Images</literal> item, which will show
+you an overview of all your images.</para>
+  
+  <para>In case you have more than 100 images, KimDaBa will sort your
+images into groups each of 100 images. This is simply to avoid that your
+machine runs out of RAM which trying to show you all your images. The
+amount of images per pages can be configured in the
+<literal>Options</literal> dialog.</para>
+  
+  <figure id="fig-empty-browser-window">
+    <title>Starting KimDaBa with your own images</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <sect1>
+    <title>Specifying properties for images</title>
+    <para>The key feature of KimDaBa is that you can specify properties
+for images. This includes who is on a given image, where is it taken,
+etc. You can do this either an image at a time, or you can set 
+properties for a number of images simultaneously (For example, all these
+images contain the person Jesper, and is taken in Copenhagen.)</para>
+
+    <para>To set properties for images, select the images in question,
+and go to <guimenu>Edit</guimenu>|<guisubmenu>Properties</guisubmenu>, here
+you will find two items, namely <guimenuitem>One at a time</guimenuitem>,
+and <guimenuitem>All simultaneously</guimenuitem>. Choosing
+<guimenuitem>One at a time</guimenuitem>, you get to set properties for
+each of the selected images, one at a time, while choosing <guimenuitem>All
+simultaneously</guimenuitem>, you set properties for all selected
+images. These two options are also available from a context menu, that you
+get by right clicking the mouse in the thumbnail overview. An example of
+this can be seen in <xref linkend="fig-edit-properies-menu"/>. </para> 
+    
+    <figure id="fig-edit-properies-menu">
+      <title>Context menu for editing properties</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properies-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>In <xref linkend="fig-image-config-window"/> below you can see
+the window for configuring image properties. In this window you can specify
+the date of the image, the label of the image <footnote><para>The label is
+          initialized to the name of the file. The label is used in the
+          browser, and when the images are exported to HTML
+          pages</para></footnote>, a description for the image, and most important
+different <emphasis>options</emphasis> for the image. In the screen dump, these options are
+<literal>Persons</literal>, <literal>Loctions</literal>, and
+<literal>Keywords</literal>, but as you will see in <xref
+        linkend="sec-specifying-option-groups"/>, these three predefined
+groups may be changed to your preferences. 
+ </para>
+    
+    <figure id="fig-image-config-window">
+      <title>Configuring image properties</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para>The date, plus the options may be used for searching and
+browsing for images, as we will see in <xref linkend="chp-browsing"/>, and
+they will also be shown when you later view the images.</para>
+    
+    
+    
+    
+    <sect2>
+      <title>Specifying options</title>
+      <para>In <xref linkend="fig-image-config-window"/> there are three
+list boxes combined with a line edits for specifying persons, locations and
+keywords. These widget are a very important part of KimDaBa,
+as you will use them over and over again, when specifying information about
+your images.</para>
+      
+      <para> You can specify an option from a list box, simply by
+selecting it (Select say <literal>Donna</literal> to specify that Donna is
+on the given image. Alternatively you may type its name in the line edit.
+When you start typing a name in the line edit, KimDaBa will look into the listbox,
+and search for the first item matching what you've typed so far, and fill
+it out. Thus typing <literal>Do</literal> might be enough to find
+<literal>Donna</literal>. Once you have found the item you search for,
+simply press enter to select this item in the listbox. The item will now be
+moved to the top of the view, so next time you need the given item it is
+even easier to find.</para> 
+      
+      <para>The idea behind moving images to the top when they have been
+selected is, that when going to, say a family party, you will get perhaps
+50 images all with the same 5-10 persons. When typing in information about these
+50 images you will have the 5-10 persons at the top of the listbox as soon as
+you have type in their name the first time.</para>
+    </sect2>
+    
+    
+    <sect2>
+      <title>Specifying properties for one image at a time</title>
+      <para>When you specify properties for one image at a time, you may
+still of course select a number of images, and say, <emphasis>I want to
+specify properties for these images</emphasis>. In this situation, you will
+find a next and previous button under the image in the topmost rightmost
+corner. </para>
+    </sect2>
+    
+    <sect2>
+      <title>Specifying properties for all images simultaneously</title>
+      <para>If you have several images with, say the same person, then it
+might be more convenient to select those images, and specify that this
+person is one all images using the <emphasis>Set properties for all
+selected images</emphasis>.</para>
+      
+      <para>In this situation, you will not see the existing values of
+each of the items. If you specify a date or description, then that value
+will be set unconditionally. For options it is a bit different. In this
+situation you will find that there is a check box under the list box
+labeled <literal>merge</literal>. When this list box is selected, the
+values you specify will be merged with the existing values for the option
+in question. If on the other hand you uncheck the <literal>merge</literal>
+check box, then the option will be set unconditionally.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1>
+    <title>Changing layout of the property window</title>
+    <para>It is possible to move the items of the property window
+around, simply fram the bar at the top of the frames, and move them arroud
+- you can even make a frame into a top level window on its own.</para>
+    
+    <para>Once you have found a layout that matches your screen layout,
+your usage of KimDaBa, etc, simply press the <literal>Options...</literal>
+button, that will display a popup menu from which you can save the current
+window layout.</para>
+    
+    <para>You may also choose to hide away a frame, if for example all
+your digital camera save images in a way, so the date of the image is
+preserved in the file date, then you may not need the frame with file
+dates. If you later want to include that frame in your layout, then choose
+the <literal>Options...</literal> button, and from there the
+<literal>Show/Hide windows</literal> item. This can be see in <xref
+        linkend="fig-redisplay-frames"/>.</para>
+  </sect1>
+  
+  <figure id="fig-redisplay-frames">
+    <title>Showing previously hidden windows.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-parent-document: "index.docbook"
+End:
+-->

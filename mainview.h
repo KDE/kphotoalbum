@@ -108,7 +108,7 @@ protected slots:
     void slotSelectionChanged();
     void plug();
     void slotRemoveTokens();
-    void updateDateBar();
+    void updateDateBar( const QString& );
 
 protected:
     void configureImages( bool oneAtATime );

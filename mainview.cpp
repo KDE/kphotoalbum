@@ -118,7 +118,7 @@ MainView::MainView( QWidget* parent, const char* name )
     _browser = new Browser( _stack, "browser" );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
-    connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar() ) );
+    connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
     _thumbNailView = new ThumbNailView( _stack, "_thumbNailView" );
 
     connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
@@ -1401,9 +1401,12 @@ void MainView::slotRemoveTokens()
     _tokenEditor->show();
 }
 
-void MainView::updateDateBar()
+void MainView::updateDateBar( const QString& path )
 {
-    // _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
+    static QString lastPath = QString::fromLatin1("ThisStringShouldNeverBeSeenSoWeUseItAsInitialContent");
+    if ( path != lastPath )
+        _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
+    lastPath = path;
 }
 
 #include "mainview.moc"

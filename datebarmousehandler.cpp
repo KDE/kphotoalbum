@@ -26,16 +26,6 @@ void DateBarMouseHandler::Handler::endAutoScroll()
     _autoScrollTimer->stop();
 }
 
-
-
-
-
-
-
-
-
-
-
 DateBarMouseHandler::Selection::Selection( DateBar* dateBar )
     :Handler( dateBar )
 {

@@ -3,12 +3,13 @@
 #include <qevent.h>
 #include <qobject.h>
 #include <qdatetime.h>
+#include <kdemacros.h>
 #include "imagedaterange.h"
 class DateBar;
 
 namespace DateBarMouseHandler {
 
-    class Handler :public QObject
+    class KDE_EXPORT Handler : public QObject
     {
         Q_OBJECT
     public:
@@ -31,7 +32,7 @@ namespace DateBarMouseHandler {
 
 
 
-    class FocusItem :public Handler
+    class KDE_EXPORT FocusItem : public Handler
     {
     public:
         FocusItem( DateBar* dateBar );
@@ -41,7 +42,7 @@ namespace DateBarMouseHandler {
 
 
 
-    class DateArea :public Handler
+    class KDE_EXPORT DateArea : public Handler
     {
     public:
         DateArea( DateBar* );
@@ -53,7 +54,7 @@ namespace DateBarMouseHandler {
 
 
 
-    class Selection :public Handler
+    class KDE_EXPORT Selection : public Handler
     {
     public:
         Selection( DateBar* );

@@ -1,3 +1,8 @@
+2004-07-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Fixed utf-8 encoding description in HTML pages (Thanks to
+	Jean-Michel FAYARD <boulot.dodo@laposte.net>)
+
 2004-06-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Put count of images in caption of image config window

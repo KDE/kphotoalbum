@@ -52,6 +52,7 @@
 #include "deletedialog.h"
 #include <kguiitem.h>
 #include <kapplication.h>
+#include <qobjectlist.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -536,6 +537,7 @@ void ImageConfig::slotOptions()
 int ImageConfig::exec()
 {
     show();
+    setupFocus();
     showTornOfWindows();
     qApp->installEventFilter( this );
     qApp->eventLoop()->enterLoop();
@@ -768,6 +770,47 @@ void ImageConfig::showHelpDialog( SetupType type )
 void ImageConfig::resizeEvent( QResizeEvent* e )
 {
     Options::instance()->setWindowSize( Options::ConfigWindow, e->size() );
+}
+
+void ImageConfig::setupFocus()
+{
+    QObjectList* list = queryList( "QWidget" );
+    QValueList<QWidget*> orderedList;
+
+    // Iterate through all widgets in our dialog.
+    for ( QObjectListIt inputIt( *list ); *inputIt; ++inputIt ) {
+        QWidget* current = static_cast<QWidget*>( *inputIt );
+        if ( !current->isShown() || current->focusPolicy() == NoFocus )
+            continue;
+        int cx = current->mapToGlobal( QPoint(0,0) ).x();
+        int cy = current->mapToGlobal( QPoint(0,0) ).y();
+
+        bool inserted = false;
+        // Iterate through the ordered list of widgets, and insert the current one, so it is in the right position in the tab chain.
+        for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+            QWidget* w = *orderedIt;
+            int wx = w->mapToGlobal( QPoint(0,0) ).x();
+            int wy = w->mapToGlobal( QPoint(0,0) ).y();
+
+            if ( wy > cy ||
+                 ( wy == cy && wx >= cx ) ) {
+                orderedList.insert( orderedIt, current );
+                inserted = true;
+                break;
+            }
+        }
+        if (!inserted)
+            orderedList.append( current );
+    }
+
+    // Now setup tab order.
+    QWidget* prev = 0;
+    for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+        if ( prev )
+            setTabOrder( prev, *orderedIt );
+        prev = *orderedIt;
+    }
+    delete list;
 }
 
 #include "imageconfig.moc"

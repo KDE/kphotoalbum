@@ -83,6 +83,7 @@ protected:
     bool hasChanges();
     void showHelpDialog( SetupType );
     virtual void resizeEvent( QResizeEvent* );
+    void setupFocus();
 
 private:
     ImageInfoList _origList;

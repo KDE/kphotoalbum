@@ -7,11 +7,6 @@ BUGS To be handled soonish
 ==========================
 - drawing on an image doesn't mark it as dirty
 - Adding a new ListSelect will not show it up initially.
-- Fix tab order in ImageConfig. I've tried fixing this several times, but
-  this is not easy to get right, due to the windows may be located
-  differently than their construction order. Here is the next plan:
-  iterate through all the children of the dialog, and setup tab order as
-  they are physically located on screen. 
 - searching for jan 02 2003 in the demo should yield img015, but no images
   are found.
 - typing in a date in the line edit of the date browser does not work.

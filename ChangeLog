@@ -1,3 +1,7 @@
+2004-09-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Fixed tab order in the image config dialog.
+
 2004-09-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: remove splash screen before showing welcome dialog

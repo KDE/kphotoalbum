@@ -2,6 +2,7 @@
 #include <libkipi/imagecollection.h>
 #include "myimagecollection.h"
 #include "myimageinfo.h"
+#include "imagedb.h"
 
 PluginInterface::PluginInterface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
@@ -41,7 +42,15 @@ void PluginInterface::refreshImages( const KURL::List& urls )
 
 int PluginInterface::features() const
 {
-    return KIPI::ImagesHasComments | KIPI::ImagesHasTime | KIPI::SupportsDateRanges;
+    return KIPI::ImagesHasComments | KIPI::ImagesHasTime | KIPI::SupportsDateRanges |
+        KIPI::AcceptNewImages;
+}
+
+bool PluginInterface::addImage( const KURL& url )
+{
+    // PENDING(blackie) check whether the URL is within the accpeted path
+    ImageInfo* info = new ImageInfo( url.path() );ImageDB::instance()->addImage( info );
+    return true;
 }
 
 #include "plugininterface.moc"

@@ -97,7 +97,7 @@
 */
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
-    :QWidget( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true)
+    :QWidget( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
 {
     setBackgroundMode( NoBackground );
 

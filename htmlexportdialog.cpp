@@ -173,7 +173,7 @@ bool HTMLExportDialog::generate()
         return false;
     }
 
-    _progress = new QProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), _total, this );
+    _progress->setTotalSteps( _total );
     _progress->setProgress( 0 );
     connect( _progress, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
 
@@ -402,6 +402,9 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int width, int hei
 
 void HTMLExportDialog::slotOk()
 {
+    // Progress dialog
+    _progress = new QProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), 0, this );
+
     bool ok = generate();
     if ( ok ) {
         Options::instance()->setHTMLBaseDir( _baseDir->text() );
@@ -410,10 +413,8 @@ void HTMLExportDialog::slotOk()
         if ( ! _baseURL->text().isEmpty() )
             new KRun( _baseURL->text() + QString::fromLatin1( "/" ) + _outputDir->text() );
     }
-    else {
-        _progress->cancel();
-        _progress->reset();
-    }
+    delete _progress;
+    _progress = 0;
 }
 
 void HTMLExportDialog::selectDir()

@@ -269,26 +269,17 @@ void DisplayArea::xformPainter( QPainter* p )
 void DisplayArea::zoomIn()
 {
     QPoint size = (_zEnd-_zStart);
-    _zStart += size*(0.5/2);
-    _zEnd -= size*(0.5/2);
-    cropAndScale();
+    QPoint p1 = _zStart + size*(0.2/2);
+    QPoint p2 = _zEnd - size*(0.2/2);
+    zoom(p1, p2);
 }
 
 void DisplayArea::zoomOut()
 {
     QPoint size = (_zEnd-_zStart);
-    _zStart -= size*(1.0/2);
-    if ( _zStart.x() < 0 )
-        _zStart.setX(0);
-    if ( _zStart.y() < 0 )
-        _zStart.setY(0);
-
-    _zEnd += size*(1.0/2);
-    if ( _zEnd.x() > _loadedImage.width() )
-        _zEnd.setX( _loadedImage.width() );
-    if ( _zEnd.y() > _loadedImage.height() )
-        _zEnd.setY( _loadedImage.height() );
-    cropAndScale();
+    QPoint p1 = _zStart - size*(0.25/2);
+    QPoint p2 = _zEnd + size*(0.25/2);
+    zoom(p1,p2);
 }
 
 void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
@@ -320,6 +311,7 @@ void DisplayArea::cropAndScale()
         _croppedAndScaledImg = _loadedImage;
 
     _croppedAndScaledImg = _croppedAndScaledImg.scale( width(), height(), QImage::ScaleMin );
+
     drawAll();
 }
 

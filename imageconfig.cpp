@@ -312,7 +312,7 @@ void ImageConfig::slotOK()
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
-                    if ( (*it)->merge() )
+                    if ( (*it)->doMerge() )
                         info->addOption( (*it)->category(),  (*it)->selection() );
                     else
                         info->setOption( (*it)->category(),  (*it)->selection() );
@@ -497,7 +497,7 @@ void ImageConfig::setup()
         _rotateRight->setEnabled( true );
     }
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setShowMergeCheckbox( _setup == MULTIPLE );
+        (*it)->setShowMergeCheckbox( _setup == MULTIPLE || _setup == SEARCH );
         (*it)->setMode( mode );
     }
 }

@@ -827,18 +827,23 @@ void MainView::showTipOfDay()
 void MainView::pathChanged( const QString& path )
 {
     static bool itemVisible = false;
-    if ( path.isEmpty() ) {
+    QString text = path;
+
+    if ( text.length() > 80 )
+        text = text.left(80) + QString::fromLatin1( "..." );
+
+    if ( text.isEmpty() ) {
         if ( itemVisible ) {
             statusBar()->removeItem( 0 );
             itemVisible = false;
         }
     }
     else if ( !itemVisible ) {
-        statusBar()->insertItem( path, 0 );
+        statusBar()->insertItem( text, 0 );
         itemVisible = true;
     }
     else
-        statusBar()->changeItem( path, 0 );
+        statusBar()->changeItem( text, 0 );
 
 }
 

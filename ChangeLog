@@ -1,5 +1,9 @@
 2004-12-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added a AND checkbox to the search page, that allows to
+	graphically choose among and/or searches. (Thanks to Jean-Michel
+	FAYARD <jmfayard@gmail.com>)
+
 	* HTML generation didn't work if the file names contained dot's
 	like 2004-12-17-18.34.59.jpg
 

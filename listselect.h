@@ -41,7 +41,8 @@ public:
     void setSelection( const QStringList& list );
     QStringList selection();
     void setShowMergeCheckbox( bool b );
-    bool merge() const;
+    bool doMerge() const;
+    bool isAND() const;
 
     enum Mode {INPUT, SEARCH};
     void setMode( Mode );
@@ -66,7 +67,7 @@ private:
     QString _category;
     CompletableLineEdit* _lineEdit;
     QListBox* _listBox;
-    QCheckBox* _merge;
+    QCheckBox* _checkBox;
     Mode _mode;
     QListBoxItem* _none;
     QToolButton* _alphaSort;

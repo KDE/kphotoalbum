@@ -175,9 +175,8 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
 
     // Merge CheckBox
     QHBoxLayout* lay2 = new QHBoxLayout( layout, 6 );
-    _merge = new QCheckBox( i18n("Merge"),  this );
-    _merge->setChecked( true );
-    lay2->addWidget( _merge );
+    _checkBox = new QCheckBox( QString(),  this );
+    lay2->addWidget( _checkBox );
     lay2->addStretch(1);
 
     // Sorting tool button
@@ -283,12 +282,17 @@ QStringList ListSelect::selection()
 
 void ListSelect::setShowMergeCheckbox( bool b )
 {
-    _merge->setEnabled( b );
+    _checkBox->setEnabled( b );
 }
 
-bool ListSelect::merge() const
+bool ListSelect::doMerge() const
 {
-    return _merge->isChecked();
+    return _checkBox->isChecked();
+}
+
+bool ListSelect::isAND() const
+{
+    return _checkBox->isChecked();
 }
 
 void ListSelect::setMode( Mode mode )
@@ -298,6 +302,12 @@ void ListSelect::setMode( Mode mode )
     if ( mode == SEARCH) {
         QListBoxItem * none = new QListBoxText( 0, ImageDB::NONE() );
         _listBox->insertItem( none, 0 );
+	_checkBox->setText( i18n("AND") );
+	// OR is a better default choice (the browser can do AND but not OR)
+	_checkBox->setChecked( false );
+    } else {
+	_checkBox->setText( i18n("Merge") );
+	_checkBox->setChecked( true );
     }
 }
 
@@ -346,11 +356,11 @@ void ListSelect::itemSelected( QListBoxItem* item )
             QString end =  _lineEdit->text().mid(index);
 
             res = start;
-            if ( !start.isEmpty() && !start.contains( regEnd ) )
-                 res += QString::fromLatin1("&");
+	    if ( !start.isEmpty() && !start.contains( regEnd ) )
+		res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
             res += txt;
-            if ( !end.isEmpty() && !end.contains( regStart ) )
-                res += QString::fromLatin1("&");
+	    if ( !end.isEmpty() && !end.contains( regStart ) )
+		res += isAND() ? QString::fromLatin1("&") : QString::fromLatin1("|") ;
             res += end;
         }
         else {

@@ -163,7 +163,10 @@ void ListSelect::slotReturn()
 
         _listBox->setSelected( item,  true );
         _lineEdit->clear();
-        _listBox->sort();
+
+        // move item to front
+        _listBox->takeItem( item );
+        _listBox->insertItem( item, 0 );
     }
 }
 

@@ -124,8 +124,9 @@ void Options::removeOption( const QString& key, const QString& value )
 
 void Options::addOption( const QString& key, const QString& value )
 {
-    if ( !_options[key].contains( value ) )
-        _options[key] += value;
+    if ( _options[key].contains( value ) )
+        _options[key].remove( value );
+    _options[key].prepend( value );
 }
 
 QStringList Options::optionValue( const QString& key ) const

@@ -60,7 +60,7 @@ MainView::MainView( QWidget* parent, const char* name )
     else
         welcome();
     _counter->setTotal( _images.count() );
-    statusBar()->message("Welcome to KimDaba", 5000 );
+    statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
 
     _autoSaveTimer = new QTimer( this );
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
@@ -70,7 +70,7 @@ MainView::MainView( QWidget* parent, const char* name )
 bool MainView::slotExit()
 {
     if ( _dirty || !_thumbNailView->isClipboardEmpty() ) {
-        int ret = QMessageBox::warning( this, "Save Changes", "Save Changes?", QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
+        int ret = QMessageBox::warning( this, i18n("Save Changes?"), i18n("Do you wnat to save the changes?"), QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
         if ( ret == QMessageBox::Cancel )
             return false;
         if ( ret == QMessageBox::Yes ) {
@@ -112,7 +112,7 @@ void MainView::configureImages( bool oneAtATime )
 {
     ImageInfoList list = selected();
     if ( list.count() == 0 )  {
-        QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
+        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     }
     else {
         _imageConfigure->configure( list,  oneAtATime );
@@ -143,12 +143,12 @@ void MainView::slotSearch()
 
 void MainView::slotSave()
 {
-    statusBar()->message("Saving...", 5000 );
+    statusBar()->message(i18n("Saving..."), 5000 );
     save( Options::instance()->imageDirectory() + "/index.xml" );
     _dirty = false;
     QDir().remove( Options::instance()->imageDirectory() + "/.#index.xml" );
 
-    statusBar()->message("Saving...Done", 5000 );
+    statusBar()->message(i18n("Saving... Done"), 5000 );
 }
 
 void MainView::save( const QString& fileName )
@@ -229,7 +229,7 @@ void MainView::load()
 
                 QString fileName = elm.attribute( "file" );
                 if ( fileName.isNull() )
-                    qWarning( "Element did not contain a file attirbute" );
+                    qWarning( "Element did not contain a file attribute" );
                 else if ( loadedFiles.find( fileName ) != 0 )
                     qWarning( "XML file contained image %s, more than ones - only first one will be loaded", fileName.latin1());
                 else {
@@ -305,10 +305,10 @@ void MainView::slotViewSelected()
     }
 
     if ( list.count() == 0 )
-        QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
+        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     else if ( list2.count() == 0 )
-        QMessageBox::warning( this, tr("No Images to Display"),
-                              tr("None of the seleceted images were available on disk") );
+        QMessageBox::warning( this, i18n("No Images to Display"),
+                              i18n("None of the seleceted images were available on disk.") );
     else {
         Viewer* viewer = Viewer::instance();
         viewer->load( list2 );
@@ -342,7 +342,7 @@ void MainView::closeEvent( QCloseEvent* e )
 void MainView::slotShowAllThumbNails()
 {
     ShowBusyCursor dummy;
-    statusBar()->message("Showing all Thumbnails", 5000 );
+    statusBar()->message(i18n("Showing all thumbnails"), 5000 );
 
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->setVisible( true );
@@ -400,7 +400,7 @@ void MainView::slotExportToHTML()
 {
     ImageInfoList list = selected();
     if ( list.count() == 0 )  {
-        QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
+        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item selected.") );
     }
 
     HTMLExportDialog dialog( list, this, "htmlExportDialog" );
@@ -440,9 +440,9 @@ void MainView::startAutoSaveTimer()
 void MainView::slotAutoSave()
 {
     if ( _dirty ) {
-        statusBar()->message("Auto saving....");
+        statusBar()->message(i18n("Auto saving...."));
         save ( Options::instance()->imageDirectory() + "/.#index.xml" );
-        statusBar()->message("Auto saving....Done", 5000);
+        statusBar()->message(i18n("Auto saving.... Done"), 5000);
     }
 }
 

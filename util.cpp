@@ -1,6 +1,7 @@
 #include "util.h"
 #include "options.h"
 #include "imageinfo.h"
+#include <klocale.h>
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options )
 {
@@ -61,7 +62,7 @@ QString Util::createInfoText( ImageInfo* info )
             text += info->startDate() + " to " + info->endDate();
 
         if ( !text.isEmpty() ) {
-            text = "<b>Date:</b> " + text + "<br>";
+            text = i18n("<b>Date:</b> ") + text + "<br>";
         }
     }
 
@@ -69,24 +70,24 @@ QString Util::createInfoText( ImageInfo* info )
     if ( Options::instance()->showLocation() )  {
         QString location = info->optionValue( "Locations" ).join( ", " );
         if ( !location.isEmpty() )
-            text += "<b>Location:</b> " + location + "<br>";
+            text += i18n("<b>Location:</b> ") + location + "<br>";
     }
 
     if ( Options::instance()->showNames() ) {
         QString persons = info->optionValue( "Persons" ).join( ", " );
         if ( !persons.isEmpty() )
-            text += "<b>Persons:</b> " + persons + "<br>";
+            text += i18n("<b>Persons:</b> ") + persons + "<br>";
     }
 
     if ( Options::instance()->showDescription() && !info->description().isEmpty())  {
         if ( !text.isEmpty() )
-            text += "<b>Description:</b> " +  info->description() + "<br>";
+            text += i18n("<b>Description:</b> ") +  info->description() + "<br>";
     }
 
     if ( Options::instance()->showKeyWords() )  {
         QString keyWords = info->optionValue( "Keywords" ).join( ", " );
         if ( !keyWords.isEmpty() )
-            text += "<b>Key Words:</b> " + keyWords + "<br>";
+            text += i18n("<b>Keywords:</b> ") + keyWords + "<br>";
     }
     return text;
 }

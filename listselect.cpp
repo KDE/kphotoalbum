@@ -145,7 +145,7 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
              this, SLOT(showContextMenu( QListBoxItem*, const QPoint& ) ) );
     layout->addWidget( _listBox );
 
-    _merge = new QCheckBox( "Merge",  this );
+    _merge = new QCheckBox( i18n("Merge"),  this );
     _merge->setChecked( true );
     layout->addWidget( _merge );
 

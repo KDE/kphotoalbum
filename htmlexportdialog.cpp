@@ -132,7 +132,7 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     MyCheckBox* size1024 = new MyCheckBox( 1024, "1024x768", content );
     MyCheckBox* size1280 = new MyCheckBox( 1280, "1280x1024", content );
     MyCheckBox* size1600 = new MyCheckBox( 1600, "1600x1200", content );
-    MyCheckBox* sizeOrig = new MyCheckBox( -1, "Full size", content );
+    MyCheckBox* sizeOrig = new MyCheckBox( -1, i18n("Full size"), content );
 
     _cbs << size320 << size640 << size800 << size1024 << size1280 << size1600 << sizeOrig;
 
@@ -429,8 +429,8 @@ QString HTMLExportDialog::outputDir( bool showErr )
     if ( dir2.exists() ) {
         int answer = QMessageBox::Yes;
         if ( showErr )
-            answer = QMessageBox::warning( this, i18n("Directory exists"), i18n("<qt>Output directory specified already exists "
-                                                                                "Normally you should specify a new directory, "
+            answer = QMessageBox::warning( this, i18n("Directory Exists"), i18n("<qt>Output directory specified already exists. "
+                                                                                "Normally you should specify a new directory. "
                                                                                 "Continue?</qt>"),
                                            QMessageBox::No, QMessageBox::Yes );
         if ( answer == QMessageBox::No )

@@ -1,6 +1,7 @@
 #include "imagepreview.h"
 #include "viewer.h"
 #include "imagemanager.h"
+#include <klocale.h>
 
 ImagePreview::ImagePreview( QWidget* parent, const char* name )
     : QLabel( parent, name )
@@ -45,7 +46,7 @@ void ImagePreview::reload()
     if ( !_info )
         return;
 
-    setText( "Loading..." );
+    setText( i18n("Loading...") );
     ImageManager::instance()->load( _info->fileName( false ), this, _info->angle(), 256, 256, false, true, false );
 }
 

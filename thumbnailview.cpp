@@ -5,6 +5,7 @@
 #include "viewer.h"
 #include <qmessagebox.h>
 #include "iconviewtooltip.h"
+#include <klocale.h>
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :QIconView( parent,  name ), _currentHighlighted( 0 )
@@ -125,12 +126,12 @@ void ThumbNailView::slotPaste()
 {
     QPtrList<ThumbNail> list = selected();
     if ( list.count() == 0 ) {
-        QMessageBox::information( this, "Nothing selected", "To paste you have to select an image that the past should go after", QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
+        QMessageBox::information( this, i18n("Nothing Selected"), i18n("To paste you have to select an image that the past should go after."), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
     }
     else if ( _cutList.count() == 0 ) {
-        QMessageBox::information( this, "Nothing on clipboard", "<qt><p>No data on clipboard to paste.</p>"
+        QMessageBox::information( this, i18n("Nothing on Clipboard"), i18n("<qt><p>No data on clipboard to paste.</p>"
                                   "<p>It really doesn't make any sence to the application to have an image represented twice, "
-                                  "therefore you can only paste an image off the clipboard ones.</p>",
+                                  "therefore you can only paste an image off the clipboard ones.</p>"),
                                   QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
     }
     else {

@@ -1,4 +1,5 @@
 #include "imagecounter.h"
+#include <klocale.h>
 
 ImageCounter::ImageCounter( QWidget* parent, const char* name )
     :QLabel( parent, name ), _partial(0), _total(0)
@@ -21,5 +22,5 @@ void ImageCounter::setTotal( int c )
 
 void ImageCounter::updateText()
 {
-    setText( QString::fromLatin1( "Showing %1 of %2 images" ).arg( _partial ).arg( _total ) );
+    setText( i18n("Showing %1 of %2 images") .arg( _partial ).arg( _total ) );
 }

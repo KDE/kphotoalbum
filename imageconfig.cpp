@@ -15,16 +15,16 @@
 #include <qaccel.h>
 #include <kstandarddirs.h>
 #include "editor.h"
-
+#include <klocale.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
 {
     // PENDING(blackie) Once this is rewritten to KDialogBase, do delayed initialization,
     // we need to create this instance at startup, see comment in mainview.cpp constructor.
-    persons->setLabel( "Persons" );
-    keywords->setLabel( "Keywords" );
-    locations->setLabel( "Locations" );
+    persons->setLabel( i18n("Persons") );
+    keywords->setLabel( i18n("Keywords") );
+    locations->setLabel( i18n("Locations") );
     _optionList.append(persons);
     _optionList.append(keywords);
     _optionList.append(locations);
@@ -261,10 +261,10 @@ void ImageConfig::setup()
 {
     ListSelect::Mode mode;
     if ( _setup == SEARCH )  {
-        okBut->setText( "Search" );
+        okBut->setText( i18n("&Search") );
         revertBut->hide();
         mode = ListSelect::SEARCH;
-        setCaption( "Image Search" );
+        setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
         preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ) );
         preview->setInfo(0);
@@ -272,11 +272,11 @@ void ImageConfig::setup()
         prevBut->setEnabled( false );
     }
     else {
-        okBut->setText( "OK" );
+        okBut->setText( i18n("&OK") );
         revertBut->setEnabled( _setup == SINGLE );
         revertBut->show();
         mode = ListSelect::INPUT;
-        setCaption( "Image Configuration" );
+        setCaption( i18n("Image Configuration") );
         if ( _setup == MULTIPLE ) {
             preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ) );
             preview->setInfo(0);

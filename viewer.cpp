@@ -75,90 +75,90 @@ void Viewer::setupContextMenu()
     _popup = new QPopupMenu( this );
     QAction* action;
 
-    _firstAction = new QAction( "First", QIconSet(), "First", Key_Home, this );
+    _firstAction = new QAction( i18n("First"), QIconSet(), i18n("First"), Key_Home, this );
     connect( _firstAction,  SIGNAL( activated() ), this, SLOT( showFirst() ) );
     _firstAction->addTo( _popup );
 
-    _lastAction = new QAction( "Last", QIconSet(), "Last", Key_End, this );
+    _lastAction = new QAction( i18n("Last"), QIconSet(), i18n("Last"), Key_End, this );
     connect( _lastAction,  SIGNAL( activated() ), this, SLOT( showLast() ) );
     _lastAction->addTo( _popup );
 
-    _nextAction = new QAction( "Show Next", QIconSet(), "Show Next", Key_PageDown, this );
+    _nextAction = new QAction( i18n("Show Next"), QIconSet(), i18n("Show Next"), Key_PageDown, this );
     connect( _nextAction,  SIGNAL( activated() ), this, SLOT( showNext() ) );
     _nextAction->addTo( _popup );
 
-    _prevAction = new QAction( "Show Previous",  QIconSet(), "Show Previous", Key_PageUp, this );
+    _prevAction = new QAction( i18n("Show Previous"),  QIconSet(), i18n("Show Previous"), Key_PageUp, this );
     connect( _prevAction,  SIGNAL( activated() ), this, SLOT( showPrev() ) );
     _prevAction->addTo( _popup );
 
     _popup->insertSeparator();
 
-    action = new QAction( "Zoom in",  QIconSet(), "Zoom in", Key_Plus, this );
+    action = new QAction( i18n("Zoom In"),  QIconSet(), i18n("Zoom In"), Key_Plus, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( zoomIn() ) );
     action->addTo( _popup );
 
-    action = new QAction( "Zoom out",  QIconSet(), "Zoom out", Key_Minus, this );
+    action = new QAction( i18n("Zoom Out"),  QIconSet(), i18n("Zoom Out"), Key_Minus, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( zoomOut() ) );
     action->addTo( _popup );
 
     _popup->insertSeparator();
 
-    action = new QAction( "Rotate 90 degrees",  QIconSet(), "Rotate 90 degrees", Key_9, this );
+    action = new QAction( i18n("Rotate 90 Degrees"),  QIconSet(), i18n("Rotate 90 Degrees"), Key_9, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( rotate90() ) );
     action->addTo( _popup );
 
-    action = new QAction( "Rotate 180 degrees",  QIconSet(), "Rotate 180 degrees", Key_8, this );
+    action = new QAction( i18n("Rotate 180 Degrees"),  QIconSet(), i18n("Rotate 180 Degrees"), Key_8, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( rotate180() ) );
     action->addTo( _popup );
 
-    action = new QAction( "Rotate 270 degrees",  QIconSet(), "Rotate 270 degrees", Key_7, this );
+    action = new QAction( i18n("Rotate 270 Degrees"),  QIconSet(), i18n("Rotate 270 degrees"), Key_7, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( rotate270() ) );
     action->addTo( _popup );
 
     _popup->insertSeparator();
 
-    action = new QAction( "Show Info Box", QIconSet(), "Show Info Box", Key_I, this, "showInfoBox", true );
+    action = new QAction( i18n("Show Info Box"), QIconSet(), i18n("Show Info Box"), Key_I, this, "showInfoBox", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showInfoBox() );
 
-    action = new QAction( "Show Drawing", QIconSet(), "Show Drawing", CTRL+Key_I, this, "showDrawing", true );
+    action = new QAction( i18n("Show Drawing"), QIconSet(), i18n("Show Drawing"), CTRL+Key_I, this, "showDrawing", true );
     connect( action, SIGNAL( toggled( bool ) ), _label, SLOT( toggleShowDrawings( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDrawings() );
 
-    action = new QAction( "Show Description", QIconSet(), "Show Description", Key_D, this, "showDescription", true );
+    action = new QAction( i18n("Show Description"), QIconSet(), i18n("Show Description"), Key_D, this, "showDescription", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDescription() );
 
-    action = new QAction( "Show Time", QIconSet(), "Show Time", Key_T, this, "showTime", true );
+    action = new QAction( i18n("Show Time"), QIconSet(), i18n("Show Time"), Key_T, this, "showTime", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDate() );
 
-    action = new QAction( "Show Names", QIconSet(), "Show Names", Key_N, this, "showNames", true );
+    action = new QAction( i18n("Show Names"), QIconSet(), i18n("Show Names"), Key_N, this, "showNames", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowNames( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showNames() );
 
-    action = new QAction( "Show Location", QIconSet(), "Show Location", Key_L, this, "showLocation", true );
+    action = new QAction( i18n("Show Location"), QIconSet(), i18n("Show Location"), Key_L, this, "showLocation", true );
     connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowLocation( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showLocation() );
 
-    action = new QAction( "Show Keywords", QIconSet(), "Show Keywords", Key_K, this, "showKeywords", true );
+    action = new QAction( i18n("Show Keywords"), QIconSet(), i18n("Show Keywords"), Key_K, this, "showKeywords", true );
     connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowKeyWords( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showKeyWords() );
 
     _popup->insertSeparator();
 
-    action = new QAction( "Draw On Image",  QIconSet(),  "Draw on Image",  0, this );
+    action = new QAction( i18n("Draw on Image"),  QIconSet(),  i18n("Draw on Image"),  0, this );
     connect( action,  SIGNAL( activated() ),  this, SLOT( startDraw() ) );
     action->addTo( _popup );
 
-    action = new QAction( "Close",  QIconSet(), "Close", Key_Q, this );
+    action = new QAction( i18n("Close"),  QIconSet(), i18n("Close"), Key_Q, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
     action->addTo( _popup );
 }
@@ -208,7 +208,7 @@ void Viewer::load()
         h = rect.height();
     }
 
-    _label->setText( "Loading..." );
+    _label->setText( i18n("Loading...") );
 
     ImageManager::instance()->load( currentInfo()->fileName( false ), this, currentInfo()->angle(), w,  h, false, true, false );
     _nextAction->setEnabled( _current +1 < (int) _list.count() );

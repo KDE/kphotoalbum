@@ -1,5 +1,6 @@
 #include "imagedate.h"
 #include <qstringlist.h>
+#include <klocale.h>
 
 ImageDate::ImageDate( int day, int month, int year )
 {
@@ -70,8 +71,8 @@ QString ImageDate::toString()
     QString result;
 
     QStringList month;
-    month << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun" << "Jul" << "Aug"
-          << "Sep" << "Oct" << "Nov" << "Dec";
+    month << i18n("Jan") << i18n("Feb") << i18n("Mar") << i18n("Apr") << i18n("May") << i18n("Jun") << i18n("Jul") << i18n("Aug")
+          << i18n("Sep") << i18n("Oct") << i18n("Nov") << i18n("Dec");
 
     if ( _day != 0 && _month != 0 )
         result = QString("%1. %2").arg(_day).arg(month[_month-1]);

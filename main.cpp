@@ -49,5 +49,9 @@ int main( int argc, char** argv ) {
     view->resize(800, 600);
     view->show();
 
-    return app.exec();
+    int code = app.exec();
+
+    // I need this to ensure that I don't get a crash on exit from the kate part.
+    delete view;
+    return code;
 }

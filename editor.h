@@ -29,6 +29,8 @@ class Editor :public QWidget
 {
 public:
     Editor( QWidget* parent, const char* name = 0 );
+    ~Editor();
+
     QString text() const;
     void setText( const QString& );
 protected:

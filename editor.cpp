@@ -79,3 +79,9 @@ void Editor::setText( const QString& txt )
     Q_ASSERT( edit );
     edit->setText( txt );
 }
+
+Editor::~Editor()
+{
+    // This is needed to ensure that I don't get a crash on exit.
+    delete _doc;
+}

@@ -305,6 +305,19 @@ ImageInfoList MainView::selected()
     return list;
 }
 
+ImageInfoList MainView::currentView()
+{
+    ImageInfoList list;
+    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
+        ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
+        Q_ASSERT( tn );
+        list.append( tn->imageInfo() );
+    }
+    return list;
+}
+
+
+
 void MainView::slotViewSelectedNewWindow()
 {
     slotViewSelected( false );
@@ -379,7 +392,7 @@ void MainView::setupMenuBar()
     // File menu
     KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
-    new KAction( i18n("Export to HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
+    new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
     KAction* a = KStdAction::back( _browser, SLOT( back() ), actionCollection() );
     connect( _browser, SIGNAL( canGoBack( bool ) ), a, SLOT( setEnabled( bool ) ) );
     a->setEnabled( false );
@@ -467,8 +480,7 @@ void MainView::slotExportToHTML()
 {
     ImageInfoList list = selected();
     if ( list.count() == 0 )  {
-        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item selected.") );
-        return;
+        list = currentView();
     }
 
     if ( ! _htmlDialog )

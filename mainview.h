@@ -79,6 +79,7 @@ protected slots:
 protected:
     void configureImages( bool oneAtATime );
     ImageInfoList selected();
+    ImageInfoList currentView();
     QString welcome();
     virtual void closeEvent( QCloseEvent* e );
     void setupMenuBar();

@@ -13,7 +13,6 @@ BUGS To be handled soonish
   be renamed, and when deleting an item.
 - Adding a new ListSelect will not show it up initially.
 - Add a README file to the tar balls.
-- export to HTML with nothing selected should export all.
 
 =======================
 BUGS of less importance

@@ -38,10 +38,10 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
-    QVButtonGroup* grp = new QVButtonGroup( i18n("Which Iimages to display"), top, "grp" );
+    QVButtonGroup* grp = new QVButtonGroup( i18n("Which Images to Display"), top, "grp" );
     lay1->addWidget( grp );
 
-    _dateNotTime = new QRadioButton( i18n( "Search for images with a valid date but invalid time stamp"), grp );
+    _dateNotTime = new QRadioButton( i18n( "Search for images with a valid date but an invalid time stamp"), grp );
     _missingDate = new QRadioButton( i18n( "Search for images missing date and time" ), grp );
     _missingYear = new QRadioButton( i18n( "Search for images missing year information" ), grp );
     _partialDate = new QRadioButton( i18n( "Search for images with only partial dates (like 1971 vs. 11/7-1971)"), grp );
@@ -63,7 +63,7 @@ void InvalidDateFinder::slotOk()
     // Now search for the images.
     ImageInfoList list = ImageDB::instance()->images();
     KProgressDialog dialog( 0, "progress dialog", i18n("Reading file properties"),
-                            i18n("Reading file properties"), true );
+                            i18n("Reading File Properties"), true );
     dialog.progressBar()->setTotalSteps( list.count() );
     dialog.progressBar()->setProgress(0);
     int progress = 0;

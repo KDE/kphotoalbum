@@ -1,7 +1,7 @@
 <tip category="KimDaBa">
 <html>
-<p>It's possible to create new categories, that is alternatives
-to <b>Person</b>, <b>Location</b> and <b>Keywords</b>, in the image
+<p>It is possible to create new categories - that are alternatives
+to <b>Person</b>, <b>Location</b>, and <b>Keywords</b> - in the image
 property page. Simply go to the <tt>Settings->Configure KimDaBa</tt> dialog to add your own, or
 delete one of the existing ones.</p>
 </html>
@@ -10,7 +10,7 @@ delete one of the existing ones.</p>
 <tip category="KimDaBa">
 <html>
 <p>You may rename or delete a person, location, keyword or similar by
-right clicking on the item in the image property dialog.</p>
+right-clicking on the item in the image property dialog.</p>
 </html>
 </tip>
 

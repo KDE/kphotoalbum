@@ -621,15 +621,15 @@ void ImageDB::checkIfImagesAreSorted()
     if ( wrongOrder ) {
         KMessageBox::information( MainView::theMainView(),
                                   i18n("<qt><p>Your images are not sorted, which means that navigating using the date bar "
-                                       "will only work suboptimal.</p>"
-                                       "<p>In the <b>Maintenance</b> menu, you will find <b>Display Images with Incomplete Dates</b> "
-                                       "which you may use to find the images that are missing date infomation.</p>"
-                                       "Next you may select those images that you have reason to believe have correct date "
-                                       "in either the EXIF data or on the file, and execute <b>Maintainance->read exif info</b> "
+                                       "will only work suboptimally.</p>"
+                                       "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
+                                       "which you can use to find the images that are missing date information.</p>"
+                                       "You can then select the images that you have reason to believe have a correct date "
+                                       "in either their EXIF data or on the file, and execute <b>Maintainance->Read EXIF Info</b> "
                                        "to reread the information.</p>"
-                                       "<p>Finally, when all images have date set, you may execute "
+                                       "<p>Finally, once all images have their dates set, you can execute "
                                        "<b>Images->Sort Selected by Date & Time</b> to sort them in the database.</p></qt>"),
-                                  i18n("Images are not sorted"),
+                                  i18n("Images Are Not Sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }
 }
@@ -667,12 +667,12 @@ void ImageDB::checkIfAllImagesHasSizeAttributes()
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         if ( (*it)->size().width() == -1 || (*it)->size().height() == -1 ) {
             KMessageBox::information( MainView::theMainView(),
-                                      i18n("<qt><p>Not all the images in the database has information about image sizes, this is needed to "
+				      i18n("<qt><p>Not all the images in the database have information about image sizes; this is needed to "
                                            "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
                                            "choose <tt>Remove All Thumbnails</tt>, and after that choose <tt>Build Thumbnails</tt>.</p>"
-                                           "<p>Not doing so will result in extra space arround images in the thumbnail view, that's all, so "
-                                           "there are no urgency in doing it.</p></qt>"),
-                                      i18n("Not all images has size information"),
+                                           "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
+                                           "there is no urgency in doing it.</p></qt>"),
+                                      i18n("Not All Images Have Size Information"),
                                       QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) );
             break;
         }

@@ -1,4 +1,4 @@
-SUBDIRS = images
+SUBDIRS = images icons
 INCLUDES = $(all_includes)
 
 bin_PROGRAMS = kpalbum

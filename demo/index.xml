@@ -213,7 +213,7 @@
    </option>
   </options>
  </image>
- <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img019.jpg" label="img019" angle="0" dayTo="0" yearFrom="1998" description="" >
+ <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img019.jpg" label="img019" angle="0" dayTo="0" yearFrom="1998" description="Spiff is enjoying a box of beers, or rather a beer box ;-)" >
   <options>
    <option name="Keywords" >
     <value value="beers" />

@@ -89,3 +89,10 @@ KURL MyImageCollection::uploadPath()
 {
     return commonRoot();
 }
+
+KURL MyImageCollection::uploadRoot()
+{
+    KURL url;
+    url.setPath( Options::instance()->imageDirectory() );
+    return url;
+}

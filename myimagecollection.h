@@ -15,6 +15,7 @@ public:
     virtual KURL::List images();
     virtual KURL path();
     virtual KURL uploadPath();
+    virtual KURL uploadRoot();
 
 protected:
     KURL::List imageListToUrlList( const ImageInfoList& list );

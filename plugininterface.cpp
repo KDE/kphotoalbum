@@ -5,6 +5,7 @@
 #include "imagedb.h"
 #include "mainview.h"
 #include "categoryimagecollection.h"
+#include <klocale.h>
 
 PluginInterface::PluginInterface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
@@ -55,10 +56,19 @@ int PluginInterface::features() const
         KIPI::AcceptNewImages;
 }
 
-bool PluginInterface::addImage( const KURL& url )
+bool PluginInterface::addImage( const KURL& url, QString& errmsg )
 {
-    // PENDING(blackie) check whether the URL is within the accpeted path
-    ImageInfo* info = new ImageInfo( url.path() );ImageDB::instance()->addImage( info );
+    QString dir = url.path();
+    QString root = Options::instance()->imageDirectory();
+    if ( !dir.startsWith( root ) ) {
+        errmsg = i18n("<qt>Image needs to be placed in a sub directory of the KimDaBa image database, "
+                      "which is rooted at %1. Image path was %2</qt>").arg( root ).arg( dir );
+        return false;
+    }
+
+    dir = dir.mid( root.length() );
+    ImageInfo* info = new ImageInfo( dir );
+    ImageDB::instance()->addImage( info );
     return true;
 }
 

@@ -381,7 +381,15 @@ void MainView::slotSortByDateAndTime()
     bool hasShownMessage = false;
 
     ImageInfoList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
-    if ( listOnDisk.count() != 0 ) {
+
+    ImageInfoList list;
+    list = selected(); //I don't use currentContext because the user could easily sort whole db without wanting it
+                       // (remember the option is called "Sort Selected" -> if there are no selecetd -> warning
+
+    if ( list.count() == 0 )
+       QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
+
+    else {
         // Do sorting here
         ImageInfoListIterator it_selected( listOnDisk );
         ImageInfoList& images = ImageDB::instance()->images();
@@ -1035,7 +1043,6 @@ void MainView::updateStates( bool thumbNailView )
     _paste->setEnabled( thumbNailView );
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
-    _sortByDateAndTime->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
 }
 

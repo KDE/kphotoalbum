@@ -260,6 +260,8 @@ void HTMLExportDialog::createDestinationPage()
     _outputDir = new KLineEdit( destinationPage );
     lay2->addWidget( _outputDir, 3, 1 );
 
+    label = new QLabel( i18n("<b>Hint: Press the help button for descriptions of the fields</b>"), destinationPage );
+    lay1->addWidget( label );
     lay1->addStretch( 1 );
 }
 

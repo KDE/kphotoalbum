@@ -19,11 +19,13 @@
 #ifndef IMAGEDATE_H
 #define IMAGEDATE_H
 #include <qstring.h>
+#include <qdatetime.h>
 
 class ImageDate {
 public:
     ImageDate();
     ImageDate( int day, int month, int year );
+    ImageDate( const QDate& );
     int year() const;
     int month() const;
     int day() const;

@@ -23,6 +23,7 @@
 #include <klocale.h>
 #include "imagedb.h"
 #include "searchfolder.h"
+#include "datefolder.h"
 ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup( optionGroup ), _value( value )
@@ -59,7 +60,8 @@ void ContentFolderAction::action()
         new TypeFolder( *it, _info, _browser );
     }
 
-    //-------------------------------------------------- Search Folder
+    //-------------------------------------------------- Search Folders
+    new DateFolder( _info, _browser );
     new SearchFolder( _info, _browser );
 
     //-------------------------------------------------- Image Folders

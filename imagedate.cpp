@@ -27,6 +27,13 @@ ImageDate::ImageDate( int day, int month, int year )
     _year = year;
 }
 
+ImageDate::ImageDate( const QDate& date )
+{
+    _day = date.day();
+    _month = date.month();
+    _year = date.year();
+}
+
 int ImageDate::year() const
 {
     return _year;
@@ -121,3 +128,4 @@ bool ImageDate::operator!=( const ImageDate& other )
 {
     return !(*this == other );
 }
+

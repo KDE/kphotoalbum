@@ -688,8 +688,11 @@ void Viewer::show( bool slideShow )
         resize( size );
 
     QWidget::show();
-    if ( slideShow )
-        slotStartStopSlideShow();
+    if ( slideShow ) {
+        // The info dialog will show up at the wrong place if we call this function directly
+        // don't ask me why -  4 Sep. 2004 15:13 -- Jesper K. Pedersen
+        QTimer::singleShot(0, this, SLOT(slotStartStopSlideShow()) );
+    }
     _sized = !fullScreen;
 }
 

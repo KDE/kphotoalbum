@@ -272,7 +272,7 @@ void MainView::slotViewSelected( bool reuse )
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     else if ( list2.count() == 0 )
         QMessageBox::warning( this, i18n("No Images to Display"),
-                              i18n("None of the seleceted images were available on disk.") );
+                              i18n("None of the selected images were available on disk.") );
     else {
         Viewer* viewer;
         if ( reuse && Viewer::latest() ) {

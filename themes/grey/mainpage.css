@@ -1,0 +1,10 @@
+BODY { background-color: #333333 !important; color: white; }
+img { border: 1px solid #A2A2A2; }
+table.thumbnail-table,table.image-table { width: 100%; color: white; text-align:center; }
+td.thumbnail-col,td.image { height:150px; text-align: center; vertical-align: middle; border: 1px solid black; background-color:#202020 }
+table.controlinfo,td.navbar { width:100%; background-color: #202020; color:white; border: 1px solid black; }
+.controlinfo a:link,.navbar a:link { color: white; text-decoration: underline; }
+.controlinfo a:visited,.navbar a:visited { color: white; text-decoration: underline; }
+.controlinfo .selected { text-decoration: none; font-weight:bold; }
+h1.title { text-align: center; color: white; }
+td.navbar { background-color:#202020; }

@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (c) 2003-2004 Jesper K. Pedersen <blackie@kde.org>
  *
@@ -64,6 +65,8 @@
 #include "deletethumbnailsdialog.h"
 #include "thumbnailbuilder.h"
 #include <kedittoolbar.h>
+#include "export.h"
+#include "import.h"
 
 MainView* MainView::_instance = 0;
 
@@ -344,17 +347,17 @@ ImageInfoList MainView::getSelectedOnDisk()
             listOnDisk.append( *it );
     }
 
-    if ( listOnDisk.count() == 0 ) {
-        QMessageBox::warning( this, i18n("No Images to Display"),
-                              i18n("None of the selected images were available on the disk.") );
-    }
-
     return list;
 }
 
 void MainView::slotView( bool reuse, bool slideShow, bool random )
 {
     ImageInfoList listOnDisk = getSelectedOnDisk();
+
+    if ( listOnDisk.count() == 0 ) {
+        QMessageBox::warning( this, i18n("No Images to Display"),
+                              i18n("None of the selected images were available on the disk.") );
+    }
 
     if (random)
         listOnDisk = Util::shuffle( listOnDisk );
@@ -526,6 +529,12 @@ void MainView::setupMenuBar()
     KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
     _generateHtml = new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
+
+    new KAction( i18n( "Import..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
+    new KAction( i18n( "Export..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
+
+
+    // Go menu
     KAction* a = KStdAction::back( _browser, SLOT( back() ), actionCollection() );
     connect( _browser, SIGNAL( canGoBack( bool ) ), a, SLOT( setEnabled( bool ) ) );
     a->setEnabled( false );
@@ -554,9 +563,7 @@ void MainView::setupMenuBar()
 
     _viewInNewWindow = new KAction( i18n("View (In New Window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
-    _runSlideShow = new KAction( i18n("Run Slide Show"),
-                                 KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kview" ), KIcon::Toolbar ),
-                                 Key_S, this, SLOT( slotRunSlideShow() ),
+    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("kview"), Key_S, this, SLOT( slotRunSlideShow() ),
                                  actionCollection(), "runSlideShow" );
     _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), SHIFT+Key_S, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );
@@ -590,8 +597,7 @@ void MainView::setupMenuBar()
     KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
     KStdAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
 
-    _viewMenu = new KActionMenu( i18n("Configure View"),
-                                         KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_choose" ), KIcon::Toolbar ),
+    _viewMenu = new KActionMenu( i18n("Configure View"), QString::fromLatin1( "view_choose" ),
                                          actionCollection(), "configureView" );
     _viewMenu->setDelayed( false );
     connect( _browser, SIGNAL( showsContentView( bool ) ), _viewMenu, SLOT( setEnabled( bool ) ) );
@@ -1109,6 +1115,21 @@ void MainView::slotNewToolbarConfig()
 {
     createGUI();
     applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
+}
+
+void MainView::slotImport()
+{
+    Import::imageImport();
+}
+
+void MainView::slotExport()
+{
+    ImageInfoList list = getSelectedOnDisk();
+    if ( list.count() == 0 ) {
+        KMessageBox::sorry( this, i18n("No images to export") );
+    }
+    else
+        Export::imageExport( list );
 }
 
 #include "mainview.moc"

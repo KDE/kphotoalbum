@@ -64,6 +64,7 @@ public:
     void addOption( const QString& key,  const QStringList& value );
     void removeOption( const QString& key, const QString& value );
     bool hasOption( const QString& key,  const QString& value );
+    QStringList availableOptionGroups() const;
     QStringList optionValue( const QString& key ) const;
     void renameOption( const QString& key, const QString& oldValue, const QString& newValue );
     void renameOptionGroup( const QString& oldName, const QString& newName );

@@ -211,6 +211,8 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     QAccel* accel = new QAccel( this, "accel for ImageConfig" );
     accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
     accel->connectItem( accel->insertItem( Key_PageUp ), this, SLOT( slotPrev() ) );
+    accel->connectItem( accel->insertItem( CTRL+Key_PageDown ), this, SLOT( slotNext() ) );
+    accel->connectItem( accel->insertItem( CTRL+Key_PageUp ), this, SLOT( slotPrev() ) );
     accel->connectItem( accel->insertItem( CTRL+Key_Return ), this, SLOT( slotOK() ) );
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );

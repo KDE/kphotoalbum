@@ -383,3 +383,15 @@ ImageInfoList Util::shuffle( ImageInfoList list )
     return result;
 }
 
+QString Util::pad( int size, long val )
+{
+    double base10 = 10;
+    QString res = QString::number( val );
+    for ( int i = 1; i < size; ++i ) {
+        if ( val < base10 )
+            res = QString::fromLatin1( "0" ) + res;
+        base10 *= 10;
+    }
+    return res;
+}
+

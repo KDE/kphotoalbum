@@ -86,6 +86,8 @@ protected slots:
     void slotRunRandomizedSlideShow();
     void slotConfigureToolbars();
     void slotNewToolbarConfig();
+    void slotImport();
+    void slotExport();
 
 protected:
     void configureImages( bool oneAtATime );

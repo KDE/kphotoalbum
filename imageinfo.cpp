@@ -484,4 +484,9 @@ void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
 
 
 
+QStringList ImageInfo::availableOptionGroups() const
+{
+    return _options.keys();
+}
+
 #include "infobox.moc"

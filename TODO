@@ -17,10 +17,9 @@ properly through
 - When you want to regenerate the HTML page, you get a dialog with a
   "No/Yes" question. KDE always has "Yes/No" (I think this is in case where
   you override an existing directory)
-- page down should go to next image in the description field of the image
-  configure dialog
 - rework member group config page to use kdlistboxpair instead.
 - when editing many images at a time, the time is deleted.
+- make it possible not to read description from EXIF images.
 
 =======================
 BUGS of less importance

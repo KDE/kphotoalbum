@@ -26,6 +26,8 @@
 #include <ktexteditor/editinterface.h>
 
 #include <kparts/componentfactory.h>
+#include <qevent.h>
+#include <qapplication.h>
 
 Editor::Editor( QWidget* parent, const char* name )
     :QWidget( parent, name )

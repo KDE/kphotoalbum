@@ -1,8 +1,10 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="11">
+<kpartgui name="kimdaba" version="13">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
+      <Action name="import"/>
+      <Action name="export"/>
     </Menu>
     <Menu name="edit" >
       <Action name="deleteSelected" />
@@ -50,11 +52,6 @@
 
   <ToolBar name="mainToolBar">
     <text>Main Toolbar</text>
-    <Action name="file_save"/>
-    <Action name="edit_cut"/>
-    <Action name="edit_paste"/>
-    <Action name="edit_find"/>
-    <Action name="go_home"/>
     <Action name="go_back"/>
     <Action name="go_forward"/>
     <Action name="runSlideShow"/>

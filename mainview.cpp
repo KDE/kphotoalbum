@@ -637,7 +637,7 @@ void MainView::setDefaultScopeNegative()
 void MainView::lockToDefaultScope()
 {
     int i = KMessageBox::warningContinueCancel( this,
-                                                i18n( "<qt><p>The password protection is only a mean of allowing your little sister "
+                                                i18n( "<qt><p>The password protection is only a means of allowing your little sister "
                                                       "to look in your images, without getting to those embarrassing images from "
                                                       "your last party.</p>"
                                                       "<p>In other words, anyone with access to the index.xml file can easily circumvent "

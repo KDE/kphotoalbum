@@ -475,7 +475,7 @@ QString Options::password() const
     return _passwd;
 }
 
-void Options::setOptionImage( const QString& optionGroup, const QString& member, const QImage& image )
+void Options::setOptionImage( const QString& optionGroup, QString member, const QImage& image )
 {
     QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
     QFileInfo fi( dir );
@@ -487,6 +487,7 @@ void Options::setOptionImage( const QString& optionGroup, const QString& member,
             return;
         }
     }
+    member.replace( ' ', '_' );
     QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
     ok = image.save( fileName, "JPEG" );
     if ( !ok ) {
@@ -495,9 +496,10 @@ void Options::setOptionImage( const QString& optionGroup, const QString& member,
     }
 }
 
-QImage Options::optionImage( const QString& optionGroup, const QString& member, int size ) const
+QImage Options::optionImage( const QString& optionGroup, QString member, int size ) const
 {
     QString dir = imageDirectory() + QString::fromLatin1("/CategoryImages" );
+    member.replace( ' ', '_' );
     QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( optionGroup ).arg( member );
     QImage img;
     bool ok = img.load( fileName, "JPEG" );

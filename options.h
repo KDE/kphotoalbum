@@ -50,8 +50,8 @@ public:
     QStringList optionValue( const QString& optionGroup ) const;
     void renameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
 
-    void setOptionImage( const QString& optionGroup, const QString& member, const QImage& image );
-    QImage optionImage( const QString& optionGroup, const QString& member, int size ) const;
+    void setOptionImage( const QString& optionGroup, QString, const QImage& image );
+    QImage optionImage( const QString& optionGroup,  QString, int size ) const;
 
     // -------------------------------------------------- Option Groups
     enum ViewSize { Small, Large };

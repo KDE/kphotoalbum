@@ -244,6 +244,32 @@ QString Util::setupDemo()
         }
 
     }
+
+    // CategoryImages
+    dir = dir + QString::fromLatin1("/CategoryImages");
+    fi = QFileInfo(dir);
+    if ( ! fi.exists() ) {
+        bool ok = QDir().mkdir( dir  );
+        if ( !ok ) {
+            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo").arg( dir ), i18n("Error running demo") );
+            exit(-1);
+        }
+    }
+
+    // Category images.
+    files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kimdaba/demo/CategoryImages/*.jpg" ) );
+    for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
+        QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
+        if ( ! QFileInfo( destFile ).exists() ) {
+            ok = ( symlink( (*it).latin1(), destFile.latin1() ) == 0 );
+            if ( !ok ) {
+                KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
+                exit(-1);
+            }
+        }
+
+    }
+
     return configFile;
 }
 

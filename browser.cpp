@@ -88,6 +88,7 @@ void Browser::go()
 {
     FolderAction* a = _list[_current-1];
     a->action();
+    setFocus();
     emitSignals();
 }
 

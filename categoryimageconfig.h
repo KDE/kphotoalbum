@@ -12,6 +12,7 @@ class CategoryImageConfig :public KDialogBase {
 public:
     static CategoryImageConfig* instance();
     void setCurrentImage( const QImage& image );
+    void show();
 
 protected slots:
     void groupChanged();

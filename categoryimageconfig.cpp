@@ -9,7 +9,7 @@
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
 CategoryImageConfig::CategoryImageConfig()
-    :KDialogBase( Plain, i18n("Configure Category Image"), User1 | Close, Close, 0, "", false, false, i18n("Set") ),
+    :KDialogBase( Plain, i18n("Configure Category Image"), User1 | Close, User1, 0, "", false, false, i18n("Set") ),
      _image( QImage() )
 {
     QWidget* top = plainPage();
@@ -30,11 +30,6 @@ CategoryImageConfig::CategoryImageConfig()
     lay2->addWidget( _member, 1, 1 );
     connect( _member, SIGNAL( activated( int ) ), this, SLOT( memberChanged() ) );
 
-    QStringList list = Options::instance()->optionGroups();
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        _group->insertItem( Options::instance()->textForOptionGroup( *it ) );
-    }
-
     // Current Value
     QGridLayout* lay3 = new QGridLayout( lay1, 2, 2 );
     label = new QLabel( i18n("Current Image:"), top );
@@ -52,18 +47,22 @@ CategoryImageConfig::CategoryImageConfig()
     _imageLabel->setFixedSize( 128, 128 );
     lay3->addWidget( _imageLabel, 1, 1 );
 
-    groupChanged();
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotSet() ) );
 
 }
 
 void CategoryImageConfig::groupChanged()
 {
+    QString currentText = _member->currentText();
     _member->clear();
     QStringList list = Options::instance()->optionValue( currentGroup() );
     list += Options::instance()->memberMap().groups( currentGroup() );
     list.sort();
     _member->insertStringList( list );
+    int index = list.findIndex( currentText );
+    if ( index != -1 )
+        _member->setCurrentItem( index );
+
     memberChanged();
 }
 
@@ -96,4 +95,26 @@ CategoryImageConfig* CategoryImageConfig::instance()
     if ( !_instance )
         _instance = new CategoryImageConfig();
     return _instance;
+}
+
+void CategoryImageConfig::show()
+{
+    QString current = _group->currentText();
+    _group->clear();
+    QStringList list = Options::instance()->optionGroups();
+    int index = 0;
+    int currentIndex = -1;
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        _group->insertItem( Options::instance()->textForOptionGroup( *it ) );
+        if ( *it == current )
+            currentIndex = index;
+        ++index;
+    }
+
+    if ( currentIndex != -1 )
+        _group->setCurrentItem( currentIndex );
+    groupChanged();
+
+
+    KDialogBase::show();
 }

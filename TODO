@@ -24,3 +24,47 @@ should update
 - Path could be a criteria in image search.
 - add md5 sum to the DB that is used to re-find images if the DB is reordered.
 - add kio: kimdaba://places/house
+
+- Once a while I have identically looking pictures but a) in different path 
+  or b) with different pixel dimensions. It would be nice if the tooltips 
+  (Ctrl-T) could optionally show: path, filename, file size (kB), width and 
+  height in pixels. 
+  If I cannot get information about at least the filename, the label cannot be 
+  used for other information.
+
+- I really would like to do something with pictures found with image search. 
+  E.g., I want to send them by email, but before I have to reduce them in size. 
+  Therefore, most helpful would be (with decreasing importance):
+  - copy to directory
+  - move to directory (incl. thumbnails and updating the database)
+  - create ascii list of path/filenames (this would allow making batch
+
+- A Simple Export like HTML Export,
+  but just to save the selected Images in a specific
+  Size (+ Filetype) or just Original (even this would be great) to a directory 
+  (great for sending as email, burning cd from an event)
+  (Thus without index.html and thumbnails)
+
+- view images in RMB.
+
+- Refresh Button to redisplay Index 
+  (after setting the rotation of some images)
+
+- For removing properties:
+  I think a good solution would be:
+
+  Just delete the property from one or an image list with deselecting it.
+  If there are 3 images selected, and one doesn't have the property,
+  you can mark it grey.
+  with clicking on it, it changes from white (delete from all)
+  then marked (yellow in my kde-theme) - (set all)
+  and again grey (leave as is)
+
+  This is the behaviour of many programs with possibilities to select many 
+  items and change some properties (mostly checkboxes)
+
+- Loseless image rotation (which actually affects the files)
+
+- Bug: searching with text from description field doesn't work
+
+- add more descriptions to the demo.

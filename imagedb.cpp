@@ -36,6 +36,8 @@ ImageDB* ImageDB::_instance = 0;
 
 ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* newImages )
 {
+    *newImages = false;
+
     QString directory = Options::instance()->imageDirectory();
     if ( directory.isEmpty() )
         return;

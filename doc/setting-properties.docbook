@@ -16,7 +16,7 @@ you an overview of all your images.</para>
 images into groups each of 100 images. This is simply to avoid that your
 machine runs out of RAM while trying to show you all your images. The
 amount of images per pages can be configured in the Options dialog (see 
-<xref linkend="sec-options-general"/>)</para>
+<xref linkend="chp-options"/>)</para>
   
   <figure id="fig-empty-browser-window">
     <title>Starting KimDaBa with your own images</title>

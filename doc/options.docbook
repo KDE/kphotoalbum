@@ -5,10 +5,11 @@
 bar will bring up the options dialog. This chapter will tell you about the
 configuration option available there.</para>
 
-<sect1 id="sec-options-general">
-<title>General Options</title>
-<para>In <xref linkend="fig-options-general"/> you can see the
-configuration page for general options, below each item will be explained.</para>
+<para>Below you may see the
+configuration page for general options, options for thumbnail view, and
+options for the viewer. Each options has a very details whats this
+description, so to get help on these items, simply press F1 and press the
+cursor on the option in general.</para>
 
 <figure id="fig-options-general">
 <title>General Options</title>
@@ -19,54 +20,23 @@ configuration page for general options, below each item will be explained.</para
 </mediaobject>
 </figure>
 
+<figure>
+<title>Options for Thumbnail View</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-thumbnailview.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
 
-<para>
-<variablelist>
-<varlistentry>
-<term>Thumbnail size</term>
-<listitem><para>This options specifies the size of the thumbnails in the
-thumbnail overview (see <xref linkend="chp-thumbnail-view"/>). The size is
-the maximum width and height allowed, while maintaining the image ratio.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Trust time stamp on new files</term>
-<listitem><para>When KimDaBa starts up, it will search for images in its
-directory. When finding new images it may choose to set the date for the
-images to the date of the files. This is of course only useful if the
-images comes from a digital camera that stores the files with appropriate
-file date (in contrast to scanning paper images in).</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Maximum images per page</term>
-<listitem><para>If you show thumbnails with size 128, then each thumbnail
-will in memory occupy 128 x 128 x 4byte = 64 Kb. If the thumbnail view was
-to show 2000 images, then you would need 2000 * 64k = 125 Mb, just to show
-the overview. If this math do not scare you, try with 20.000
-images. Besides showing that many images isn't really gonna help you, as
-you will not easily be able to get an overview of say 2000
-images. Therefore you can specify how many images to show per page.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Auto save</term>
-<listitem><para>KimDaBa will auto save as often as you specify here.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term>Viewer size</term>
-<listitem><para>Here you specify the initial size for the viewer (see <xref
-linkend="chp-viewer"/>). When storing this value, KimDaBa will record your
-screen resolution, so that you can have a different value on a laptop with
-a small display, compared to on a desktop system with larger monitor.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</para>
-
-</sect1>
-
+<figure>
+<title>Options for the Viewer</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-viewer.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
 
 
 

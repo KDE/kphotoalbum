@@ -40,6 +40,7 @@
 #include "browser.h"
 #include <qdir.h>
 #include <kstandarddirs.h>
+#include "viewer.h"
 class KPushButton;
 
 void Import::imageImport()
@@ -49,14 +50,16 @@ void Import::imageImport()
         return;
 
     bool ok;
-    Import dialog( file, &ok, 0, "import_dialog" );
-    dialog.resize( 800, 600 );
+    Import* dialog = new Import( file, &ok, 0, "import_dialog" );
+    dialog->resize( 800, 600 );
     if ( ok )
-        dialog.exec();
+        dialog->show();
+    else
+        delete dialog;
 }
 
 Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* name )
-    :KWizard( parent, name ), _zipFile( fileName )
+    :KWizard( parent, name, false, WDestructiveClose ), _zipFile( fileName )
 {
     _zip = new KZip( fileName );
     if ( !_zip->open( IO_ReadOnly ) ) {
@@ -217,9 +220,16 @@ void ImageRow::showImage()
         matrix.rotate( _info->angle() );
         img = img.xForm( matrix );
     }
-    QLabel* label = new QLabel( 0 );
-    label->setPixmap( img );
-    label->show();
+
+    Viewer* viewer = Viewer::latest();
+    if ( !viewer )
+        viewer = new Viewer( 0 );
+
+    _info->setImage( img );
+    ImageInfoList list;
+    list.append( _info );
+    viewer->load( list );
+    viewer->show( false );
 }
 
 
@@ -230,7 +240,6 @@ void Import::createDestination()
     QWidget* top = new QWidget( this );
     _destinationPage = top;
     QVBoxLayout* topLay = new QVBoxLayout( top, 6 );
-    topLay->addStretch( 1 );
     QHBoxLayout* lay = new QHBoxLayout( topLay, 6 );
     topLay->addStretch( 1 );
 
@@ -293,7 +302,7 @@ void Import::createOptionPages()
     }
 
     _optionGroupMatcher = new ImportMatcher( QString::null, QString::null, options, Options::instance()->optionGroups(),
-                                                this, "import matcher" );
+                                             false, this, "import matcher" );
     addPage( _optionGroupMatcher, i18n("Match option groups") );
 
     _dummy = new QWidget( this );
@@ -314,7 +323,7 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
     }
 
     QStringList myOptions = Options::instance()->optionValueInclGroups( myOptionGroup );
-    ImportMatcher* matcher = new ImportMatcher( otherOptionGroup, myOptionGroup, otherOptions, myOptions, this, "import matcher" );
+    ImportMatcher* matcher = new ImportMatcher( otherOptionGroup, myOptionGroup, otherOptions, myOptions, true, this, "import matcher" );
     addPage( matcher, myOptionGroup );
     return matcher;
 }

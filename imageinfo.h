@@ -29,6 +29,7 @@
 #include <qdeepcopy.h>
 #include "imagedate.h"
 #include "drawlist.h"
+#include <qimage.h>
 
 class ImageInfo {
 
@@ -91,6 +92,10 @@ public:
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;
     bool isJPEG( const QString& fileName ) const;
+
+    friend class ImageRow;
+    void setImage( const QImage& image ) { _importImage = image; }
+    QImage _importImage;
 
 private:
     QString _fileName;

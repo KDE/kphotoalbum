@@ -66,7 +66,7 @@ Viewer* Viewer::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::Viewer( const char* name )
-    :QWidget( 0,  name ), _current(0), _popup(0), _showingFullScreen( false )
+    :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false )
 {
     setWFlags( WDestructiveClose );
     _latest = this;

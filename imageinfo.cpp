@@ -302,7 +302,9 @@ bool ImageInfo::isLocked() const
 QImage ImageInfo::load( int width, int height ) const
 {
     QImage image;
-    if ( isJPEG( fileName() ) )
+    if ( !_importImage.isNull() )
+        image = _importImage;
+    else if ( isJPEG( fileName() ) )
         loadJPEG( &image, fileName() );
     else
         image.load( fileName() );

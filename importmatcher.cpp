@@ -28,7 +28,7 @@
 
 ImportMatcher::ImportMatcher( const QString& otherOptionGroup, const QString& myOptionGroup,
                               const QStringList& otherOptionList, const QStringList& myOptionList,
-                              QWidget* parent, const char* name )
+                              bool allowNew, QWidget* parent, const char* name )
     : QScrollView( parent, name ), _otherOptionGroup( otherOptionGroup ), _myOptionGroup( myOptionGroup )
 {
     setResizePolicy( AutoOneFit );
@@ -58,19 +58,20 @@ ImportMatcher::ImportMatcher( const QString& otherOptionGroup, const QString& my
 
     int row = 1;
     for( QStringList::ConstIterator it = otherOptionList.begin(); it != otherOptionList.end(); ++it ) {
-        OptionMatch* match = new OptionMatch( *it, myOptionList, grid, gridLay, row++ );
+        OptionMatch* match = new OptionMatch( allowNew, *it, myOptionList, grid, gridLay, row++ );
         _matchers.append( match );
     }
 }
 
-OptionMatch::OptionMatch( const QString& option, const QStringList& options, QWidget* parent, QGridLayout* grid, int row )
+OptionMatch::OptionMatch( bool allowNew, const QString& option, const QStringList& options, QWidget* parent, QGridLayout* grid, int row )
 {
     _checkbox = new QCheckBox( option, parent );
     _checkbox->setChecked( true );
     grid->addWidget( _checkbox, row, 0 );
 
-    _combobox = new QComboBox( true, parent, "combo box" );
+    _combobox = new QComboBox( allowNew, parent, "combo box" );
     _combobox->insertStringList( options );
+    QObject::connect( _checkbox, SIGNAL( toggled( bool ) ), _combobox, SLOT( setEnabled( bool ) ) );
     grid->addWidget( _combobox, row, 1 );
 
     if ( options.contains( option ) ) {
@@ -92,9 +93,11 @@ OptionMatch::OptionMatch( const QString& option, const QStringList& options, QWi
             _combobox->setCurrentText( match );
         }
         else {
-            _combobox->setCurrentText( option );
+            if ( allowNew )
+                _combobox->setCurrentText( option );
+            else
+                _checkbox->setChecked( false );
         }
         _checkbox->setPaletteForegroundColor( Qt::red );
     }
-    QObject::connect( _checkbox, SIGNAL( toggled( bool ) ), _combobox, SLOT( setEnabled( bool ) ) );
 }

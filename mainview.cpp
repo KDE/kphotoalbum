@@ -1258,28 +1258,29 @@ void MainView::plug()
             continue;
 
         plugin->setup( this );
-        QPtrList<KAction>* popup = 0;
-        if ( plugin->category() == KIPI::IMAGESPLUGIN ||  plugin->category() == KIPI::COLLECTIONSPLUGIN )
-            popup = &imageActions;
 
-        else if ( plugin->category() == KIPI::EXPORTPLUGIN  || plugin->category() == KIPI::IMPORTPLUGIN )
-            popup = &fileActions;
+        KActionPtrList actions = plugin->actions();
+        for( KActionPtrList::Iterator it = actions.begin(); it != actions.end(); ++it ) {
+            QPtrList<KAction>* popup = 0;
+            KIPI::Category category = plugin->category( *it );
+            if (  category == KIPI::IMAGESPLUGIN ||  category == KIPI::COLLECTIONSPLUGIN )
+                popup = &imageActions;
 
-        else if ( plugin->category() == KIPI::TOOLSPLUGIN )
-            popup = &toolsActions;
+            else if ( category == KIPI::EXPORTPLUGIN || category == KIPI::IMPORTPLUGIN )
+                popup = &fileActions;
 
-        else if ( plugin->category() == KIPI::BATCHPLUGIN )
-            popup = &batchActions;
+            else if ( category == KIPI::TOOLSPLUGIN )
+                popup = &toolsActions;
 
-        if ( popup ) {
-            KActionPtrList actions = plugin->actions();
-            for( KActionPtrList::Iterator it = actions.begin(); it != actions.end(); ++it ) {
+            else if ( category == KIPI::BATCHPLUGIN )
+                popup = &batchActions;
+
+            if ( popup ) {
                 popup->append( *it );
             }
-        }
-        else {
-            // PENDING(blackie) need id!
-            qDebug("No menu found for a plugin" ); // , plugin->id().latin1());
+            else {
+                kdDebug() << "Unknow category\n";
+            }
         }
         plugin->actionCollection()->readShortcutSettings();
     }

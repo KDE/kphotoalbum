@@ -74,14 +74,46 @@
 
 
     
-    <sect1 id="chp-importDialog">
-      <title>Import Dialog</title>
-      <para>This section will tell you about the import dialog you get to
-        either my selecting a <literal>.kim</literal> file from a web
-        browser, or by choosing
-        <guimenu>File</guimenu>|<guimenuitem>Import...</guimenuitem>.</para>
+<sect1 id="chp-importDialog">
+  <title>Import Dialog</title>
+<para>When you select a <literal>.kim</literal> file from a web
+    browser, or choose
+"<guimenu>File</guimenu>|<guimenuitem>Import...</guimenuitem>", KimDaBa
+will import the database exported with the functionality described in <xref
+linkend="chp-importExport"/>.</para>
 
-    </sect1>
+<para>The import wizard consist of four steps. First you must specify which
+images you want to import. Next you must specify in which directory to put
+the imported images.</para>
+
+<para>Chances are that you call the persons category
+<emphasis>personen</emphasis> (if you are german), while I in Danish might
+call this category <emphasis>personer</emphasis>. In the third step of the
+import dialog, you must specify which category from the import file to
+import, plus which categories in your database they match.</para>
+
+<para>I might call myself in my databases for <emphasis>me</emphasis>,
+while in your database I'm called Jesper K. Pedersen. Step four let you set
+up matching for each of the imported categories. This can be see in <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title>Matching Persons in the Import Dialog </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>In the screen shot you may see that Donna is the same in both the
+.kim file and in my database - the name is shown in black to indicate a
+perfect match in the database. The other three names was not found in the
+database, though both Jesper and Anne Helene was found matching as
+substring, so these are suggested. Finally in my database I didn't have
+Spiff (or I might have named it quite differently), so KimDaBa simply
+suggest Spiff for the import name.</para>
+
+</sect1>
   </chapter>
 
 

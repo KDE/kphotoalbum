@@ -45,6 +45,7 @@ protected:
     void setupMenuBar();
     void startAutoSaveTimer();
     void save( const QString& fileName );
+    void checkForBackupFile();
 
 private:
     ThumbNailView* _thumbNailView;

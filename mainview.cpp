@@ -22,6 +22,7 @@
 #include <kstatusbar.h>
 #include "imagecounter.h"
 #include <qtimer.h>
+#include <kmessagebox.h>
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _dirty( false )
@@ -195,6 +196,8 @@ void MainView::slotDeleteSelected()
 
 void MainView::load()
 {
+    checkForBackupFile();
+
     ShowBusyCursor dummy;
     _images.clear();
 
@@ -432,6 +435,33 @@ void MainView::slotAutoSave()
         statusBar()->message("Auto saving....");
         save ( Options::instance()->imageDirectory() + "/.#index.xml" );
         statusBar()->message("Auto saving....Done", 5000);
+    }
+}
+
+void MainView::checkForBackupFile()
+{
+    QString backupNm = Options::instance()->imageDirectory() + "/.#index.xml";
+    QString indexNm = Options::instance()->imageDirectory() + "/index.xml";
+    QFileInfo backUpFile( backupNm);
+    QFileInfo indexFile( indexNm );
+    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
+        return;
+
+    int code = KMessageBox::questionYesNo( this, i18n("Backup file '%1' exists, and is newer than '%2', "
+                                                      "Should I use the backup file?")
+                                           .arg(backupNm).arg(indexNm),
+                                           i18n("Found backup file") );
+    if ( code == KMessageBox::Yes ) {
+        QFile in( backupNm );
+        if ( in.open( IO_ReadOnly ) ) {
+            QFile out( indexNm );
+            if (out.open( IO_WriteOnly ) ) {
+                char data[1024];
+                int len;
+                while ( (len = in.readBlock( data, 1024 ) ) )
+                    out.writeBlock( data, len );
+            }
+        }
     }
 }
 

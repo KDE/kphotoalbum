@@ -286,10 +286,10 @@ void ListSelect::itemSelected( QListBoxItem* item )
 
             res = start;
             if ( !start.isEmpty() && !start.contains( regEnd ) )
-                 res += " & ";
+                 res += "&";
             res += txt;
             if ( !end.isEmpty() && !end.contains( regStart ) )
-                res += " & ";
+                res += "&";
             res += end;
         }
         else {

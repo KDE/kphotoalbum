@@ -24,6 +24,7 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kimageio.h>
+#include "mysplashscreen.h"
 
 static const KCmdLineOptions options[] =
 {
@@ -51,12 +52,15 @@ int main( int argc, char** argv ) {
 
     KApplication app;
 
+    MySplashScreen* splash = new MySplashScreen();
+    splash->show();
+
     KImageIO::registerFormats();
     MainView* view = new MainView( 0, "view" );
 
     qApp->setMainWidget( view );
     view->resize(800, 600);
-    view->show();
+    splash->finish( view );
 
     int code = app.exec();
 

@@ -1,3 +1,7 @@
+2004-06-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added a splash screen
+
 2004-06-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Bugfix: The time config was not set correctly for configuring

@@ -70,6 +70,7 @@
 #include <libkipi/pluginloader.h>
 #include <libkipi/plugin.h>
 #include "imageloader.h"
+#include "mysplashscreen.h"
 
 MainView* MainView::_instance = 0;
 
@@ -77,8 +78,10 @@ MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _autoSaveDirty( false ),
      _deleteDialog( 0 ), _dirtyIndicator(0), _htmlDialog(0)
 {
+    MySplashScreen::instance()->message( i18n("Loading Database") );
     _instance = this;
     load();
+    MySplashScreen::instance()->message( i18n("Loading Main Window") );
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Options, and where the main thread crates an instance, we better get it created now.
@@ -139,7 +142,13 @@ MainView::MainView( QWidget* parent, const char* name )
 
 void MainView::delayedInit()
 {
+    MySplashScreen* splash = MySplashScreen::instance();
+    if ( splash )
+        splash->message( i18n("Loading Plugins") );
+
     loadPlugins(); // The plugins may ask for the current album, which needs the browser fully initialized.
+    show();
+
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "import" ) ) {

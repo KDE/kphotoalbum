@@ -14,6 +14,7 @@
   <!ENTITY options SYSTEM "options.docbook">
   <!ENTITY generating-html SYSTEM "generating-html.docbook">
   <!ENTITY importexport SYSTEM "importexport.docbook">
+  <!ENTITY plugins SYSTEM "plugins.docbook">
 ]>
 
 <book lang="&language;">
@@ -36,8 +37,8 @@
       
     </copyright>
     
-    <date>2004-01-26</date>
-    <releaseinfo>1.1</releaseinfo>
+    <date>2004-08-06</date>
+    <releaseinfo>2.0</releaseinfo>
     
     <keywordset>
       <keyword>KDE</keyword>
@@ -71,6 +72,7 @@ url="http://www.blackie.dk/kimdaba/">KimDaBa's Homepage</ulink></para>
   &viewer;
   &generating-html;
   &importexport;
+  &plugins;
   &options;
 
 
@@ -85,7 +87,7 @@ url="http://www.blackie.dk/kimdaba/">KimDaBa's Homepage</ulink></para>
         <question><para>Can I organize my images in multiple directories</para></question>
         <answer><para>As long as all your image directories have a common
 root, then that is fine. In other words, you are allowed to have a
-directory three with your images.</para></answer>
+directory tree with your images.</para></answer>
       </qandaentry>
       
       <qandaentry>

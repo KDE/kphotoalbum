@@ -1,6 +1,87 @@
-<chapter id="chp-exportDialog">
+<chapter id="chp-importExport">
   <title>Import/Exporting</title>
-  <para></para>
+  <para>If you attend a family party, a company meeting, a conference, or
+      any other event where other KimDaBa users may be present, you may
+      wish to share your images with those people. You may of course choose
+      to generate HTML pages for them to browse, but given you already have
+    spent time classifying all images (Who is on the images, where were they
+      taken etc), there are no reason for them to redo all that
+      work.</para>
+
+    <para>KimDaBa allows you to export a set of your images into a
+      <literal>.kim</literal> file, which other people may import into
+      their database, to get your classification for these images.</para>
+
+    <para>Two different kind of <literal>.kim</literal> files exists,
+      inlines or externals, referring to whether the images them self are
+      located in the file or at some other location. Placing the images in
+      the file has the obvious advantage that the file is self contained,
+      while it has the equally obvious disadvantage of the file being
+      rather big.</para>
+
+    <para>There are two places from which you may generate a
+      <literal>.kim</literal> file, namely directly from
+      <guimenu>File</guimenu>|<guimenuitem>Export...</guimenuitem>, or
+      along with HTML pages (see <xref
+        linkend="chp-generating-html"/>). Creating a
+      <literal>.kim</literal> file during HTML export will create an
+      external <literal>.kim</literal> file.</para>
+
+    <para>External <literal>.kim</literal> files will search for images in
+      one of two ways. First it will try to look for the images next to the
+      <literal>.kim</literal> file, and if not found, it will search for them
+      at the URL specified when the <literal>.kim</literal> file was
+      created. Notice the later is only possible for
+      <literal>.kim</literal> files created during HTML export.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title>Export Dialog</title>
+      <para>This section will tell you about the export dialog which you
+        get to from
+        <guimenu>File</guimenu>|<guimenuitem>Export...</guimenuitem>.</para>
+
+      <para>The most important part of this dialog is specifying whether
+        the <literal>.kim</literal> file should be internal or external
+        (see description above). You have the following three
+        options:
+      
+        <itemizedlist>
+          <listitem><para>Include in <literal>.kim</literal> file - this
+              will be an internal file</para></listitem>
+          <listitem><para>Manual copy next to .kim file - Here you must
+              copy the images yourself next to the .kim file</para></listitem>
+          <listitem><para>Automatically copy next to .kim file - here
+              KimDaBa will copy the images for you.</para></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para>Between you and me, <literal>.kim</literal> files are really
+        just zip files. Normally it is not worth bothering compressing the
+        files because images normally are compressed JPEG already, and the
+        xml file itself are really tiny. If you really want to squish out
+        the last few bytes, you may still do so, by checking
+        <literal>Compress Export File</literal></para>
+
+      <para>The final option on the page are <literal>Limit maximum image
+          dimension</literal>. When sending some images to some friends,
+        you may not want to send images in full size, as the
+        <literal>.kim</literal> file might be huge. For this, you may
+        specify that the maximum dimension of images should be say maximum 800
+        pixels in each direction.</para>
+    </sect1>
+
+
+
+
+    
+    <sect1 id="chp-importDialog">
+      <title>Import Dialog</title>
+      <para>This section will tell you about the import dialog you get to
+        either my selecting a <literal>.kim</literal> file from a web
+        browser, or by choosing
+        <guimenu>File</guimenu>|<guimenuitem>Import...</guimenuitem>.</para>
+
+    </sect1>
   </chapter>
 
 

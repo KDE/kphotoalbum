@@ -76,6 +76,8 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _thumbNailBackgroundColor = QColor( config.attribute( QString::fromLatin1( "thumbNailBackgroundColor" ),
                                                           QString::fromLatin1( "black" ) ) );
     _viewerCacheSize = config.attribute( QString::fromLatin1( "viewerCacheSize" ), QString::fromLatin1( "25" )  ).toInt();
+    _searchForImagesOnStartup = (bool) config.attribute( QString::fromLatin1( "searchForImagesOnStartup" ),
+                                                         QString::fromLatin1( "1" ) ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -173,6 +175,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "displayLabels" ), _displayLabels );
     config.setAttribute( QString::fromLatin1( "thumbNailBackgroundColor" ), _thumbNailBackgroundColor.name() );
     config.setAttribute( QString::fromLatin1( "viewerCacheSize" ), _viewerCacheSize );
+    config.setAttribute( QString::fromLatin1( "searchForImagesOnStartup" ), _searchForImagesOnStartup );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -719,6 +722,7 @@ void Options::setViewSortType( ViewSortType tp )
     if ( _viewSortType != tp ) {
         _viewSortType = tp;
         emit viewSortTypeChanged( tp );
+        emit changed();
     }
 }
 
@@ -729,7 +733,10 @@ Options::ViewSortType Options::viewSortType() const
 
 void Options::setSlideShowInterval( int interval )
 {
-    _slideShowInterval = interval;
+    if (_slideShowInterval != interval ) {
+        _slideShowInterval = interval;
+        emit changed();
+    }
 }
 
 int Options::slideShowInterval() const
@@ -746,12 +753,18 @@ QString Options::albumCategory() const
 
 void Options::setAlbumCategory( const QString& optionGroup )
 {
-    _albumCategory = optionGroup;
+    if (_albumCategory != optionGroup ) {
+        _albumCategory = optionGroup;
+        emit changed();
+    }
 }
 
 void Options::setLaunchViewerFullScreen( bool b )
 {
-    _launchViewerFullScreen = b;
+    if (_launchViewerFullScreen != b ) {
+        _launchViewerFullScreen = b;
+        emit changed();
+    }
 }
 
 bool Options::launchViewerFullScreen() const
@@ -761,7 +774,10 @@ bool Options::launchViewerFullScreen() const
 
 void Options::setLaunchSlideShowFullScreen( bool b )
 {
-    _launchSlideShowFullScreen = b;
+    if ( _launchSlideShowFullScreen != b ) {
+        _launchSlideShowFullScreen = b;
+        emit changed();
+    }
 }
 
 bool Options::launchSlideShowFullScreen() const
@@ -771,7 +787,10 @@ bool Options::launchSlideShowFullScreen() const
 
 void Options::setDisplayLabels( bool b )
 {
-    _displayLabels = b;
+    if (_displayLabels != b ) {
+        _displayLabels = b;
+        emit changed();
+    }
 }
 
 bool Options::displayLabels() const
@@ -781,7 +800,10 @@ bool Options::displayLabels() const
 
 void Options::setThumbNailBackgroundColor( const QColor& col )
 {
-    _thumbNailBackgroundColor = col;
+    if ( _thumbNailBackgroundColor != col ) {
+        _thumbNailBackgroundColor = col;
+        emit changed();
+    }
 }
 
 QColor Options::thumbNailBackgroundColor() const
@@ -791,7 +813,10 @@ QColor Options::thumbNailBackgroundColor() const
 
 void Options::setWindowSize( WindowType win, const QSize& size )
 {
-    _windowSizes[win] = size;
+    if ( _windowSizes[win] != size ) {
+        _windowSizes[win] = size;
+        emit changed();
+    }
 }
 
 QSize Options::windowSize( WindowType win ) const
@@ -811,7 +836,23 @@ int Options::viewerCacheSize() const
 
 void Options::setViewerCacheSize( int size )
 {
-    _viewerCacheSize = size;
+    if ( _viewerCacheSize != size ) {
+        _viewerCacheSize = size;
+        emit changed();
+    }
+}
+
+bool Options::searchForImagesOnStartup()
+{
+    return _searchForImagesOnStartup;
+}
+
+void Options::setSearchForImagesOnStartup(bool b)
+{
+    if ( b != _searchForImagesOnStartup ) {
+        _searchForImagesOnStartup = b;
+        emit changed();
+    }
 }
 
 #include "options.moc"

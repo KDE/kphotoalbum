@@ -46,10 +46,6 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
 
-
-    // Load the information from the XML file.
-    QDict<void> loadedFiles( 6301 /* a large prime */ );
-
     // Collect all the ImageInfo's which do not have md5 sum, so we can calculate them in one go,
     // and show the user a progress bar while doing so.
     // This is really only needed for upgrading from KimDaBa version 1.0 so at a later point this
@@ -66,12 +62,7 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
         QString fileName = elm.attribute( QString::fromLatin1("file") );
         if ( fileName.isNull() )
             qWarning( "Element did not contain a file attribute" );
-        else if ( loadedFiles.find( fileName ) != 0 )
-            qWarning( "XML file contained image %s, more than ones - only first one will be loaded", fileName.latin1());
         else {
-            loadedFiles.insert( directory + QString::fromLatin1("/") + fileName,
-                                (void*)0x1 /* void pointer to nothing I never need the value,
-                                              just its existsance, must be != 0x0 though.*/ );
             ImageInfo* info = load( fileName, elm );
             if ( info->MD5Sum().length()<32 && info->imageOnDisk() )
                 missingSums.append( info );
@@ -115,9 +106,6 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
         if ( !fileName.isEmpty() )
             _blockList << fileName;
     }
-
-    searchForNewFiles( loadedFiles, directory );
-    loadExtraFiles();
 
     *dirty |= (_pendingLoad.count() != 0);
 

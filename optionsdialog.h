@@ -87,6 +87,7 @@ private:
     QComboBox* _albumCategory;
     QCheckBox* _displayLabels;
     KColorButton* _backgroundColor;
+    QCheckBox* _searchForImagesOnStartup;
 
     // Option Groups page
     QListBox* _optionGroups;

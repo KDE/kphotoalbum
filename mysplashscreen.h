@@ -26,7 +26,7 @@ class MySplashScreen :public KSplashScreen {
 public:
     MySplashScreen();
     static MySplashScreen* instance();
-    virtual bool close( bool alsoDelete );
+    void done();
 
 private:
     static MySplashScreen* _instance;

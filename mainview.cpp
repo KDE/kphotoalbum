@@ -156,15 +156,22 @@ MainView::MainView( QWidget* parent, const char* name )
 
 void MainView::delayedInit()
 {
-#ifdef HASKIPI
     MySplashScreen* splash = MySplashScreen::instance();
-    if ( splash )
-        splash->message( i18n("Loading Plugins") );
+#ifdef HASKIPI
+    splash->message( i18n("Loading Plugins") );
 #endif
 
     loadPlugins(); // The plugins may ask for the current album, which needs the browser fully initialized.
-    show();
 
+    splash->message( i18n("Searching for New Images") );
+
+    qApp->processEvents();
+
+    if ( Options::instance()->searchForImagesOnStartup() )
+        ImageDB::instance()->slotRescan();
+
+    splash->done();
+    show();
 
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "import" ) ) {

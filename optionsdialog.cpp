@@ -82,6 +82,10 @@ void OptionsDialog::createGeneralPage()
     _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), top );
     lay1->addWidget( _useEXIFComments );
 
+    // Search for images on startup
+    _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images on startup"), top );
+    lay1->addWidget( _searchForImagesOnStartup );
+
     // Auto save
     QLabel* label = new QLabel( i18n("Auto save every:"), top );
     _autosave = new QSpinBox( 1, 120, 1, top );
@@ -127,6 +131,11 @@ void OptionsDialog::createGeneralPage()
                "Using this checkbox you specify if you want to use this as a "
                "default description for your images.</p></qt>" );
     QWhatsThis::add( _useEXIFComments, txt );
+
+    txt = i18n( "<qt><p>KimDaBa is capable of searching for new images itself when started, this does, "
+                "however, take some time, so instead you may wish to manually tell KimDaBa to search for new images "
+                "using <tt>Maintenance->Rescan for new images</tt></qt>");
+    QWhatsThis::add( _searchForImagesOnStartup, txt );
 
     txt = i18n("<qt><p>KimDaBa shares plugins with other imaging applications, some of which have the concept of albums. "
                "KimDaBa do not have this concept; nevertheless, for certain plugins to function, KimDaBa behaves "
@@ -319,6 +328,7 @@ void OptionsDialog::show()
     _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
+    _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
     _autosave->setValue( opt->autoSave() );
     _albumCategory->setCurrentText( opt->albumCategory() );
     _displayLabels->setChecked( opt->displayLabels() );
@@ -358,6 +368,7 @@ void OptionsDialog::slotMyOK()
     opt->setTTimeStamps( (Options::TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
+    opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
     opt->setAutoSave( _autosave->value() );
     opt->setAlbumCategory( _albumCategory->currentText() );
     opt->setDisplayLabels( _displayLabels->isChecked() );

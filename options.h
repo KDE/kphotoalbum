@@ -189,6 +189,9 @@ public:
     int viewerCacheSize() const;
     void setViewerCacheSize( int size );
 
+    bool searchForImagesOnStartup();
+    void setSearchForImagesOnStartup(bool b);
+
 signals:
     void optionGroupsChanged();
     void changed();
@@ -196,7 +199,7 @@ signals:
     void deletedOption( const QString& optionGroup, const QString& name );
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Options::ViewSortType );
-    
+
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
     static Options* _instance;
@@ -230,6 +233,7 @@ private:
     QColor _thumbNailBackgroundColor;
     QMap<WindowType, QSize> _windowSizes;
     int _viewerCacheSize;
+    bool _searchForImagesOnStartup;
 };
 
 #endif /* OPTIONS_H */

@@ -1,5 +1,10 @@
 2004-11-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Made it possible to disable searching for images on start up.
+
+	* BUGFIX: Delayed the hide of the splash screen until the main
+	window was shown.
+
 	* Moved "show Tool Tips" to the Settings menu.
 
 	* Added a search line.

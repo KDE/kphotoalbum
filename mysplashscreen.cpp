@@ -51,10 +51,10 @@ MySplashScreen* MySplashScreen::instance()
     return _instance;
 }
 
-bool MySplashScreen::close( bool /*alsoDelete*/ )
+void MySplashScreen::done()
 {
     _instance = 0;
-    return KSplashScreen::close( true );
+    (void) close( true );
 }
 
 #include "mysplashscreen.moc"

@@ -40,6 +40,8 @@ private:
     QCheckBox* _date;
     QCheckBox* _orientation;
     QCheckBox* _description;
+    QCheckBox* _force_time;
+    QCheckBox* _force_date;
 };
 
 

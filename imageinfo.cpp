@@ -349,6 +349,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     QFileInfo fi( fullPath );
     FileInfo exifInfo = FileInfo::read( fullPath );
     static bool hasShownWarning = false;
+    bool foundInExif = 0;
     if ( exifInfo.isEmpty() && !hasShownWarning ) {
         hasShownWarning = true;
         KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information.</b></p>"
@@ -363,22 +364,24 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     //Time
     if ( mode & EXIFMODE_TIME ) {
         if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
-            QTime time = exifInfo.time();
-            if ( time.isValid() )
-                _startDate.setTime( time );
+            QTime time = exifInfo.time( &foundInExif );
+            if ( time.isValid() ) {
+                if ( foundInExif || (mode & EXIFMODE_FORCE_TIME) )
+                    _startDate.setTime( time );
+            }
         }
     }
 
     // Date
     if ( mode & EXIFMODE_DATE ) {
         if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
-            bool foundDateInfExit;
-            QDate date = exifInfo.date( &foundDateInfExit );
+            QDate date = exifInfo.date( &foundInExif );
             if ( date.isValid() ) {
-                _startDate.setDate( date );
+                if ( foundInExif || (mode & EXIFMODE_FORCE_DATE) )
+                    _startDate.setDate( date );
                 _endDate = ImageDate();
             }
-            if ( !foundDateInfExit && !hasShownWarning &&
+            if ( !foundInExif && !hasShownWarning &&
                  ( _fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
                    _fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
                    _fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
@@ -399,17 +402,19 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     // Orientation
     if ( mode & EXIFMODE_ORIENTATION ) {
         if ( Options::instance()->useEXIFRotate() ) {
-            bool ok;
-            int angle = exifInfo.angle( &ok );
-            if ( ok )
+            int angle = exifInfo.angle( &foundInExif );
+            if ( foundInExif )
                 _angle = angle;
         }
     }
 
     // Description
     if ( mode & EXIFMODE_DESCRIPTION ) {
-        if ( Options::instance()->useEXIFComments() )
-            _description = exifInfo.description();
+        if ( Options::instance()->useEXIFComments() ) {
+            QString desc = exifInfo.description( &foundInExif );
+            if ( foundInExif )
+                _description = exifInfo.description();
+        }
     }
 }
 

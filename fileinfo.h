@@ -28,10 +28,10 @@ class FileInfo
 public:
     static FileInfo read( const QString& fileName );
     bool isEmpty() const;
-    QTime time() const;
+    QTime time( bool* foundTimeInExif = 0 ) const;
     QDate date( bool* foundDateInExif = 0 ) const;
     int angle( bool* found = 0 ) const;
-    QString description() const;
+    QString description( bool* found = 0 ) const;
 
 private:
     QMap<QString,QVariant> _map;

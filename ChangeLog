@@ -1,5 +1,12 @@
 2005-01-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Improves handling of EXIF data, in particular in the "Read EXIF
+	Data" dialog.  It does not overwrite the time, date, orientation,
+	or comment data unless the EXIF data is actually present.  It also
+	adds two new options that do overwrite the time and date
+	information with the file modification date/time if the EXIF data
+	isn't present. Thanks to Robert L Krawitz <rlk@alum.mit.edu>
+
 	* BUGFIX: The date parser was not previous translated, while the
 	date generator was, thus typing in date names did not work in the
 	image config dialog, unless the translated names matched the

@@ -25,7 +25,9 @@ FileInfo FileInfo::read( const QString& fileName )
     QStringList keys = metainfo.supportedKeys();
     for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
         KFileMetaInfoItem item = metainfo.item( *it );
-        fi._map.insert( *it, item.value() );
+        if (item.type() != QVariant::Invalid) {
+            fi._map.insert( *it, item.value() );
+        }
     }
     return fi;
 }
@@ -35,13 +37,21 @@ bool FileInfo::isEmpty() const
     return _map.count() == 0;
 }
 
-QTime FileInfo::time() const
+QTime FileInfo::time( bool* foundTimeInExif ) const
 {
-    QTime res;
-    if ( _map.contains( QString::fromLatin1( "CreationTime" ) ) )
-        return _map[QString::fromLatin1( "CreationTime" )].toTime();
-    else
-        return QFileInfo( _fullPath ).lastModified().time();
+    if ( _map.contains( QString::fromLatin1( "CreationTime" ) ) ) {
+        QTime time = _map[QString::fromLatin1( "CreationTime" )].toTime();
+        if ( time.isValid() ) {
+            if ( foundTimeInExif )
+                *foundTimeInExif = true;
+            return time;
+        }
+    }
+
+    if ( foundTimeInExif )
+        *foundTimeInExif = false;
+
+    return QFileInfo( _fullPath ).lastModified().time();
 }
 
 QDate FileInfo::date( bool* foundDateInExif ) const
@@ -65,7 +75,7 @@ int FileInfo::angle( bool* found ) const
 {
     if ( !_map.contains(QString::fromLatin1( "Orientation" )) ) {
         if ( found )
-            found = false;
+            *found = false;
         return 0;
     }
 
@@ -88,7 +98,11 @@ int FileInfo::angle( bool* found ) const
     }
 }
 
-QString FileInfo::description() const
+QString FileInfo::description( bool* found) const
 {
+    if ( !_map.contains(QString::fromLatin1( "Comment" )) ) {
+        if ( found )
+            found = false;
+    }
     return _map[QString::fromLatin1( "Comment" )].toString();
 }

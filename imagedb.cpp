@@ -512,13 +512,8 @@ void ImageDB::slotReread(ImageInfoList rereadList, int mode)
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
-#if QT_VERSION < 0x030104
-            if ( dialog.wasCancelled() )
-                return;
-#else
             if ( dialog.wasCanceled() )
                 return;
-#endif
         }
 
         QFileInfo fi( (*it)->fileName() );

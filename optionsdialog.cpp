@@ -355,16 +355,11 @@ void OptionsDialog::show()
 
     // Config Groups page
     _categories->clear();
-    QStringList grps = CategoryCollection::instance()->categoryNames();
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        if( *it == QString::fromLatin1( "Folder") ) {
-            continue; // make it impossible to change the name or the icon of the folder
+    QValueList<Category*> categories = CategoryCollection::instance()->categories();
+    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if( !(*it)->isSpecialCategory() ) {
+            new OptionGroupItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(),_categories );
         }
-        new OptionGroupItem( *it, CategoryCollection::instance()->categoryForName( *it )->text(),
-                             CategoryCollection::instance()->categoryForName( *it )->iconName(),
-                             CategoryCollection::instance()->categoryForName( *it )->viewSize(),
-                             CategoryCollection::instance()->categoryForName( *it )->viewType(),
-                             _categories );
     }
     enableDisable( false );
     KDialogBase::show();
@@ -498,7 +493,7 @@ void OptionsDialog::slotNewItem()
 
 void OptionsDialog::slotDeleteCurrent()
 {
-    int count = ImageDB::instance()->countItemsOfOptionGroup( _current->_categoryOrig );
+    int count = ImageDB::instance()->countItemsOfCategory( _current->_categoryOrig );
     int answer = KMessageBox::Yes;
     if ( count != 0 )
         KMessageBox::questionYesNo( this,
@@ -734,11 +729,12 @@ void OptionsDialog::setButtonStates()
 void OptionsDialog::slotPageChange()
 {
     _category->clear();
-    QStringList l = CategoryCollection::instance()->categoryNames();
+    QValueList<Category*> categories = CategoryCollection::instance()->categories();
+    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if ( !(*it)->isSpecialCategory() )
+            _category->insertItem( (*it)->name() ); // Shouldn't it be ->text() here?
+    }
 
-    // We do not want to configure folders in the member groups.
-    l.remove( QString::fromLatin1("Folder") );
-    _category->insertStringList( l );
     slotCategoryChanged( _category->currentText() );
 }
 

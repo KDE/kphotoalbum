@@ -64,7 +64,7 @@ GroupCounter::GroupCounter( const QString& category )
 }
 
 /** optionList is the selected options for one image, members may be Las Vegas, Chicago, and Los Angeles if the
-    option group in question is Locations.
+    category in question is Locations.
     This function then increases _groupCount with 1 for each of the groups the relavant items belongs to
     Las Vegas might increase the _groupCount[Nevada] by one.
     The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is

@@ -37,7 +37,7 @@ public:
     TypeFolderAction( const QString& category, const ImageSearchInfo& info, Browser* parent  );
     virtual void action( BrowserItemFactory* factory );
     virtual bool showsImages() const { return false; }
-    virtual bool contentView() const { return true; }
+    virtual bool contentView() const;
     virtual QString title() const;
     virtual QString category() const;
 

@@ -77,7 +77,7 @@ QDomElement MemberMap::save( QDomDocument doc )
             for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
                 QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                 top.appendChild( elm );
-                elm.setAttribute( QString::fromLatin1( "option-group" ), it1.key() );
+                elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
                 elm.setAttribute( QString::fromLatin1( "member" ), *it3 );
             }
@@ -96,7 +96,9 @@ void MemberMap::load( const QDomElement& top )
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
             QDomElement elm = node.toElement();
-            QString category = elm.attribute( QString::fromLatin1( "option-group" ) );
+            QString category = elm.attribute( QString::fromLatin1( "category" ) );
+            if ( category.isNull() )
+                category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
             QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
             QString member = elm.attribute( QString::fromLatin1( "member" ) );
             _members[category][group].append( member );
@@ -163,12 +165,12 @@ QStringList MemberMap::calculateClosure( QMap<QString,QStringList>& resultSoFar,
 void MemberMap::calculate()
 {
     _closureMembers.clear();
-    // run through all option groups
+    // run through all categories
     for( QMapIterator< QString,QMap<QString,QStringList> > categoryIt= _members.begin(); categoryIt != _members.end(); ++categoryIt ) {
         QString category = categoryIt.key();
         QMap<QString, QStringList> groupMap = categoryIt.data();
 
-        // Run through each of the groups for the given option group
+        // Run through each of the groups for the given categories
         for( QMapIterator<QString,QStringList> groupIt= groupMap.begin(); groupIt != groupMap.end(); ++groupIt ) {
             QString group = groupIt.key();
             if ( _closureMembers[category].find( group ) == _closureMembers[category].end() ) {

@@ -166,6 +166,9 @@ public:
     bool autoShowThumbnailView() const;
     void setAutoShowThumbnailView( bool b );
 
+protected:
+    void createSpecialCategories();
+
 signals:
     void changed();
     void renamedOption( const QString& category, const QString& oldName, const QString& newName );

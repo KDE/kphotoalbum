@@ -37,6 +37,9 @@ public:
     void setDoShow( bool b );
     bool doShow() const;
 
+    void setSpecialCategory( bool b );
+    bool isSpecialCategory() const;
+
 signals:
     void changed();
 
@@ -46,6 +49,8 @@ private:
     bool _show;
     ViewSize _size;
     ViewType _type;
+
+    bool _isSpecial;
 };
 
 #endif /* CATEGORY_H */

@@ -166,11 +166,11 @@ void ImageInfo::setFileName( const QString& relativeFileName )
     QFileInfo fi( fileName() );
     _imageOnDisk = fi.exists();
     if (_imageOnDisk) {
-      QString folderName = Util::relativeFolderName( _fileName );
-       _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
-      Options::instance()->addOption( QString::fromLatin1("Folder"), folderName );
+        QString folderName = Util::relativeFolderName( _fileName );
+        _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
+        Options::instance()->addOption( QString::fromLatin1("Folder"), folderName );
     } else {
-      _options.insert( QString::fromLatin1( "Folder") , QStringList() );
+        _options.insert( QString::fromLatin1( "Folder") , QStringList() );
     }
 }
 

@@ -315,7 +315,7 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
         bool match = !(*it)->isLocked() && info.match( *it );
         if ( match ) { // If the given image is currently matched.
 
-            // Now iterate through all the option groups the current image
+            // Now iterate through all the categories the current image
             // contains, and increase them in the map mapping from option
             // group to count for this group.
             QStringList list = (*it)->optionValue(group);
@@ -356,7 +356,7 @@ ImageInfoList ImageDB::images( const ImageSearchInfo& info, bool onDisk )
 
 
 
-int ImageDB::countItemsOfOptionGroup( const QString& group )
+int ImageDB::countItemsOfCategory( const QString& group )
 {
     int count = 0;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
@@ -482,10 +482,7 @@ void ImageDB::slotRescan()
         (*it)->setImageOnDisk( fileExists );
         if (!fileExists) {
             // we need to delete here the folder value for the images that get deleted
-            QStringList l = (*it)->optionValue( QString::fromLatin1("Folder") );
-            for( QStringList::Iterator folder = l.begin() ; folder != l.end() ; ++folder ) {
-                (*it)->removeOption( QString::fromLatin1("Folder"), *folder );
-            }
+            (*it)->setOption( QString::fromLatin1("Folder"), QStringList() );
         }
         loadedFiles.insert( (*it)->fileName(),
                             (void*)0x1 /* void pointer to nothing I never need the value,

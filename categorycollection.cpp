@@ -63,3 +63,8 @@ void CategoryCollection::rename( const QString& oldName, const QString& newName 
 
 }
 
+const QValueList<Category*>& CategoryCollection::categories() const
+{
+    return _categories;
+}
+

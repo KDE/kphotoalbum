@@ -56,6 +56,9 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
     bool anyAtAll = false;
     QStringList grps = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        if ( CategoryCollection::instance()->categoryForName(*it)->isSpecialCategory() )
+            continue; // Don't save special categories
+
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         QString name = *it;
         opt.setAttribute( QString::fromLatin1("name"),  name );
@@ -67,13 +70,7 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
             opt.setAttribute( QString::fromLatin1( "viewtype" ), categories->categoryForName(name)->viewType() );
         }
 
-        // we don t save the values for the option "Folder" since it is automatically set
-        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
-        QStringList list;
-        if ( name== QString::fromLatin1("Folder") )
-            list = QStringList();
-        else
-            list = options[name];
+        QStringList list = options[name];
         bool any = false;
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
@@ -102,6 +99,9 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
             QDomElement elmOption = nodeOption.toElement();
             Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
             QString name = elmOption.attribute( QString::fromLatin1("name") );
+            if ( name == QString::fromLatin1( "Folder" ) )
+                continue; // KimDaBa 2.0 save this to the file, that was a mistake.
+
             if ( !name.isNull() )  {
                 // Read Category info
                 if ( categories ) {

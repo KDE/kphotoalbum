@@ -170,7 +170,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     descriptionDock->setWidget( _description );
     descriptionDock->manualDock( dateDock, KDockWidget::DockBottom, 0 );
 
-    // -------------------------------------------------- Option groups
+    // -------------------------------------------------- Categrories
     KDockWidget* last = dateDock;
     KDockWidget::DockPosition pos = KDockWidget::DockTop;
 

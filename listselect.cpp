@@ -212,11 +212,6 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
              this, SLOT( setViewSortType( Options::ViewSortType ) ) );
 }
 
-void ListSelect::setOptionGroup( const QString& category )
-{
-    _category = category;
-}
-
 void ListSelect::slotReturn()
 {
     if ( _mode == INPUT )  {

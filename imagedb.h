@@ -32,7 +32,7 @@ public:
     int totalCount() const;
     void search( const ImageSearchInfo& info, int from = -1, int to = -1 );
     int count( const ImageSearchInfo& info );
-    int countItemsOfOptionGroup( const QString& group );
+    int countItemsOfCategory( const QString& group );
     void renameOptionGroup( const QString& oldName, const QString newName );
 
     QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );

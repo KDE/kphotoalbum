@@ -21,6 +21,7 @@ public:
     QStringList categoryNames();
     void removeCategory( const QString& name );
     void rename( const QString& oldName, const QString& newName );
+    const QValueList<Category*>& categories() const;
 
 signals:
     void categoryCollectionChanged();

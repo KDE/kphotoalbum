@@ -113,21 +113,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     }
 
     Util::readOptions( options, &_options, CategoryCollection::instance() );
-
-    // create the Folder Category if needed, the first time people upgrade.
-    // in the search dialog, don t show the folder browser by default (consistant with Kimdaba 1.x behavior)
-    QMapIterator<QString, QStringList> it = _options.find( QString::fromLatin1("Folder") );
-    if ( CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Folder" ) ) == 0 ) {
-        _options.insert( QString::fromLatin1("Folder"), QStringList() );
-        Category* folderCat = new Category( QString::fromLatin1("Folder"), QString::fromLatin1("folder"), Category::Small, Category::ListView, false );
-        CategoryCollection::instance()->addCategory( folderCat );
-    }
-
-    if ( CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Tokens" ) ) == 0 ) {
-        _options.insert( QString::fromLatin1("Tokens"), QStringList() );
-        Category* tokenCat = new Category( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"), Category::Small, Category::ListView, true );
-        CategoryCollection::instance()->addCategory( tokenCat );
-    }
+    createSpecialCategories();
 
     _configDock = configWindowSetup;
     _members.load( memberGroups );
@@ -384,7 +370,7 @@ void Options::setInfoBoxPosition( Position pos )
 }
 
 /**
-   Returns whether the given option groups is shown in the viewer.
+   Returns whether the given category is shown in the viewer.
 */
 bool Options::showOption( const QString& category ) const
 {
@@ -779,6 +765,22 @@ void Options::setAutoShowThumbnailView( bool b )
         _autoShowThumbnailView = b;
         emit changed();
     }
+}
+
+void Options::createSpecialCategories()
+{
+    Q_ASSERT( CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Folder" ) ) == 0 );
+    _options.insert( QString::fromLatin1("Folder"), QStringList() );
+    Category* folderCat = new Category( QString::fromLatin1("Folder"), QString::fromLatin1("folder"), Category::Small, Category::ListView, false );
+    folderCat->setSpecialCategory( true );
+    CategoryCollection::instance()->addCategory( folderCat );
+
+    Q_ASSERT( CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Tokens" ) ) == 0 );
+
+    _options.insert( QString::fromLatin1("Tokens"), QStringList() );
+    Category* tokenCat = new Category( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"), Category::Small, Category::ListView, true );
+    tokenCat->setSpecialCategory( true );
+    CategoryCollection::instance()->addCategory( tokenCat );
 }
 
 #include "options.moc"

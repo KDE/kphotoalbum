@@ -88,5 +88,10 @@ QString TypeFolder::countLabel() const
     return i18n("1 category", "%n categories", _count);
 }
 
+bool TypeFolderAction::contentView() const
+{
+    return ( !CategoryCollection::instance()->categoryForName( _category )->isSpecialCategory() );
+}
+
 
 

@@ -4,7 +4,7 @@
 #include <kiconloader.h>
 
 Category::Category( const QString& name, const QString& icon, ViewSize size, ViewType type, bool show )
-    : QObject( 0, "category" ),_name( name ), _icon( icon ), _show( show ), _size( size ), _type( type )
+    : QObject( 0, "category" ),_name( name ), _icon( icon ), _show( show ), _size( size ), _type( type ), _isSpecial(false)
 {
 }
 
@@ -85,4 +85,14 @@ void Category::setDoShow( bool b )
 bool Category::doShow() const
 {
     return _show;
+}
+
+void Category::setSpecialCategory( bool b )
+{
+    _isSpecial = b;
+}
+
+bool Category::isSpecialCategory() const
+{
+    return _isSpecial;
 }

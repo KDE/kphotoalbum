@@ -1,6 +1,6 @@
 <tip category="KimDaBa">
 <html>
-<p>It's possible to create new option groups, that is alternatives
+<p>It's possible to create new categories, that is alternatives
 to <b>Person</b>, <b>Location</b> and <b>Keywords</b>, in the image
 property page. Simply go to the <tt>Settings->Configure KimDaBa</tt> dialog to add your own, or
 delete one of the existing ones.</p>

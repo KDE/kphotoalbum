@@ -183,13 +183,14 @@ void Viewer::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showTime() );
 
-    QStringList grps = CategoryCollection::instance()->categoryNames();
-
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        ShowOptionAction* action = new ShowOptionAction( *it, this );
-        action->plug( _popup );
-        connect( action, SIGNAL( toggled( const QString&, bool ) ),
-                 this, SLOT( toggleShowOption( const QString&, bool ) ) );
+    QValueList<Category*> categories = CategoryCollection::instance()->categories();
+    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if ( !(*it)->isSpecialCategory() ) {
+            ShowOptionAction* action = new ShowOptionAction( (*it)->name(), this );
+            action->plug( _popup );
+            connect( action, SIGNAL( toggled( const QString&, bool ) ),
+                     this, SLOT( toggleShowOption( const QString&, bool ) ) );
+        }
     }
 
     _popup->insertSeparator();

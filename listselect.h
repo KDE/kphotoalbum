@@ -35,7 +35,6 @@ class ListSelect :public QWidget {
 
 public:
     ListSelect( const QString& category, QWidget* parent,  const char* name = 0 );
-    void setOptionGroup( const QString& group );
     QString category() const;
     QString text() const;
     void setText( const QString& );

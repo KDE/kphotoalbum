@@ -368,7 +368,7 @@
 
 2004-02-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* BUGFIX: option groups was not available for translations.
+	* BUGFIX: categories was not available for translations.
 
 	* BUGFIX: the string **NONE** was not made available for
 	translation everywhere, which resulted in the search dialog did
@@ -400,7 +400,7 @@
 2004-01-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Split up the dialog for HTML generation, plus made it possible
-	to specify which of the option groups (Persons/Location/...) plus
+	to specify which of the category (Persons/Location/...) plus
 	description - to generate.
 
 	* The image configuration dialog may now be closed by pressing Ctrl+return

@@ -1,3 +1,9 @@
+2003-12-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: fixed crash where KimDaBa crashes if you right click outside
+	an item in one of the list boxes with properties (Persons,
+	Locations, ...)
+
 2003-12-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: KimDaBa used to crash on moving images around.

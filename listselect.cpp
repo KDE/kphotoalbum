@@ -320,6 +320,11 @@ void ListSelect::itemSelected( QListBoxItem* item )
 
 void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 {
+    if ( !item ) {
+        // click outside any item
+        return;
+    }
+
     QPopupMenu menu( this );
     QLabel* title = new QLabel( QString::fromLatin1("<qt><b>%1</b></qt>").arg(item->text()), &menu );
     title->setAlignment( Qt::AlignCenter );

@@ -34,7 +34,8 @@ private:
     ImageInfoList _origList;
     QValueList<ImageInfo> _editList;
     int _current;
-    QMap<QString, QPixmap> _preloadImageMap;
+    // PENDING(blackie) We can't just have a QMap as this fills up memory.
+    // QMap<QString, QPixmap> _preloadImageMap;
     SetupType _setup;
     QPtrList< ListSelect > _optionList;
     ImageSearchInfo _oldSearch;

@@ -17,23 +17,22 @@ Options* Options::instance()
 
 
 Options::Options()
-    : _thumbSize( 64 ), _cacheThumbNails( true ),  _use4To3Ratio( true )
+    : _thumbSize( 64 ), _cacheThumbNails( true )
 {
     if ( _confFile.isNull() )
         _confFile = QDir::home().path() + "/.kpalbum";
 
-    QFile file( _confFile );
-    if ( !file.open( IO_ReadOnly ) )  {
-        return;
-    }
-
     QDomDocument doc;
-    doc.setContent( &file );
+    QFile file( _confFile );
+    if ( file.open( IO_ReadOnly ) )
+        doc.setContent( &file );
+    else
+        doc.setContent( QString("<Images>") );
+
     QDomElement top = doc.documentElement();
 
     _thumbSize = top.attribute( "thumbSize", QString::number(_thumbSize) ).toInt();
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
-    _use4To3Ratio = top.attribute( "use4To3Ratio",  QString::number( _use4To3Ratio ) ).toInt();
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
     _imageDirectory = top.attribute( "imageDirectory" );
 
@@ -67,16 +66,6 @@ bool Options::cacheThumbNails() const
     return _cacheThumbNails;
 }
 
-void Options::setUse4To3Ratio( bool b )
-{
-    _use4To3Ratio = b;
-}
-
-bool Options::use4To3Ratio() const
-{
-    return _use4To3Ratio;
-}
-
 QStringList Options::dataDirs() const
 {
     return QStringList() << "/home/blackie/Images/take1";
@@ -91,12 +80,13 @@ void Options::save()
     }
 
     QDomDocument doc;
-    doc.setContent( QString("<Options/>") );
+    // PENDING(blackie) The user should be able to specify the coding himself.
+    doc.appendChild( doc.createProcessingInstruction( "xml", "version=\"1.0\" encoding=\"UTF-8\"" ) );
+    doc.appendChild( doc.createElement( "Options" ) );
     QDomElement top = doc.documentElement();
 
     top.setAttribute( "thumbSize", _thumbSize );
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
-    top.setAttribute( "use4To3Ratio", _use4To3Ratio );
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
     top.setAttribute( "imageDirectory", _imageDirectory );
 
@@ -111,7 +101,7 @@ void Options::save()
     Util::writeOptions( doc, top, _options );
 
     QTextStream stream( &file );
-    stream << doc.toString();
+    stream << doc.toString().utf8();
     file.close();
 }
 
@@ -122,7 +112,8 @@ void Options::setOption( const QString& key, const QStringList& value )
 
 void Options::addOption( const QString& key, const QString& value )
 {
-    _options[key] += value;
+    if ( !_options[key].contains( value ) )
+        _options[key] += value;
 }
 
 QStringList Options::optionValue( const QString& key ) const

@@ -85,3 +85,17 @@ void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& list, bool af
     }
     emit changed();
 }
+
+void ThumbNailView::contentsDropEvent( QDropEvent* e )
+{
+    QIconViewItem* item = findItem( e->pos() );
+    if ( item )
+        QIconView::contentsDropEvent( e );
+    else
+        repaintContents( 0,0, width(), height(), true );
+}
+
+//void ThumbNailView::contentsDragEnterEvent( QDragEnterEvent *e )
+//{
+//    e->ignore();
+//}

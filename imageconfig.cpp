@@ -12,6 +12,7 @@
 #include <qregexp.h>
 #include <qtabwidget.h>
 #include "viewer.h"
+#include <qaccel.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
@@ -38,6 +39,11 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     setTabOrder( items->lastTabWidget(),  description );
 
     connect( preview,  SIGNAL( doubleClicked() ),  this,  SLOT( displayImage() ) );
+
+    // Connect PageUp/PageDown to prev/next
+    QAccel* accel = new QAccel( this, "accel for ImageConfig" );
+    accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
+    accel->connectItem( accel->insertItem( Key_PageUp ), this, SLOT( slotPrev() ) );
 }
 
 
@@ -50,6 +56,9 @@ void ImageConfig::slotRevert()
 void ImageConfig::slotPrev()
 {
     save();
+    if ( _current == 0 )
+        return;
+
     _current--;
     load();
 }
@@ -59,6 +68,9 @@ void ImageConfig::slotNext()
     if ( _current != -1 ) {
         save();
     }
+    if ( _current == (int)_origList.count()-1 )
+        return;
+
     _current++;
     load();
 }
@@ -130,12 +142,15 @@ void ImageConfig::load()
 
     nextBut->setEnabled( _current != (int)_origList.count()-1 );
     prevBut->setEnabled( _current != 0 );
-    if ( _preloadImageMap.contains( info.fileName( false ) ) )
-         preview->setPixmap( _preloadImageMap[ info.fileName( false ) ] );
+
+    // PENDING(blackie) We can't just have a QMap as this fills up memory.
+/*    if ( _preloadImageMap.contains( info.fileName( false ) ) )
+      preview->setPixmap( _preloadImageMap[ info.fileName( false ) ] );*/
     preview->setInfo( &info );
 
     Viewer* viewer = Viewer::instance();
     viewer->load( _origList, _current );
+    ImageManager::instance()->load( info.fileName( false ), this, info.angle(), 256, 256, false, true );
 }
 
 void ImageConfig::save()
@@ -163,7 +178,8 @@ void ImageConfig::pixmapLoaded( const QString& fileName, int, int, int, const QP
 {
     if ( fileName == _origList.at( _current )->fileName( false ) )
         preview->setPixmap( pixmap );
-    _preloadImageMap[ fileName ] = pixmap;
+    // PENDING(blackie) We can't just have a QMap as this fills up memory.
+//    _preloadImageMap[ fileName ] = pixmap;
 }
 
 int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
@@ -180,10 +196,11 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
 
     if ( oneAtATime )  {
         quality->setCurrentText( "High" );
-        _preloadImageMap.clear();
+        // PENDING(blackie) We can't just have a QMap as this fills up memory.
+        /*_preloadImageMap.clear();
         for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
-            ImageManager::instance()->load( (*it)->fileName( false ), this, (*it)->angle(), 256, 256, false, true );
-        }
+             ImageManager::instance()->load( (*it)->fileName( false ), this, (*it)->angle(), 256, 256, false, true );
+             }*/
         _current = -1;
         slotNext();
     }

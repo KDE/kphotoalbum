@@ -43,8 +43,6 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         QLineEdit::keyPressEvent( ev );
         return;
     }
-    qDebug("%x", ev->key());
-
 
     if ( !ev->text().isEmpty() && ev->text()[0].isPrint() )  {
         bool special = ( ev->text() == "&" || ev->text() == "|" || ev->text() == "!" /* || ev->text() == "(" */ );
@@ -181,6 +179,7 @@ void ListSelect::setSelection( const QStringList& list )
         if ( !item )  {
             _listBox->insertItem( *it );
             item = _listBox->findItem( *it,  ExactMatch );
+            Options::instance()->addOption( _textLabel, *it);
         }
         _listBox->setSelected( item,  true );
     }

@@ -9,9 +9,6 @@ public:
     static bool configFileExists();
     static void setConfFile( const QString& file );
 
-    void setUse4To3Ratio( bool );
-    bool use4To3Ratio() const;
-
     void setThumbSize( int );
     int thumbSize() const;
 
@@ -32,7 +29,7 @@ public:
     void setImageDirecotry( const QString& directory );
 
     // Options for the Viewer
-    enum Position { Bottom, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
+    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     bool showInfoBox() const;
     bool showDescription() const;
     bool showDate() const;
@@ -56,7 +53,7 @@ private:
     static QString _confFile;
 
     int _thumbSize,  _imageCacheSize;
-    bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps;
+    bool _cacheThumbNails, _trustTimeStamps;
     QMap<QString, QStringList> _options;
     QString _imageDirectory;
 

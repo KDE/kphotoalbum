@@ -207,7 +207,7 @@ void Viewer::setDisplayedPixmap()
             QSimpleRichText txt( text, qApp->font() );
 
             if ( pos == Options::Top || pos == Options::Bottom )  {
-                txt.setWidth( _label->width() - 20 ); // 2x5 pixels for inside border + 2x5 outside border.
+                txt.setWidth( pixmap.width() - 20 ); // 2x5 pixels for inside border + 2x5 outside border.
             }
             else {
                 int width = 25;
@@ -224,19 +224,19 @@ void Viewer::setDisplayedPixmap()
 
             // x-coordinate
             if ( pos == Options::TopRight || pos == Options::BottomRight || pos == Options::Right )
-                rect.moveRight( _label->width() - 5 );
+                rect.moveRight( pixmap.width() - 5 );
             else if ( pos == Options::TopLeft || pos == Options::BottomLeft || pos == Options::Left )
                 rect.moveLeft( 5 );
             else
-                rect.moveLeft( (_label->width() - txt.widthUsed())/2+5 );
+                rect.moveLeft( (pixmap.width() - txt.widthUsed())/2+5 );
 
             // Y-coordinate
             if ( pos == Options::TopLeft || pos == Options::TopRight || pos == Options::Top )
                 rect.moveTop( 5 );
             else if ( pos == Options::BottomLeft || pos == Options::BottomRight || pos == Options::Bottom )
-                rect.moveBottom( _label->height() - 5 );
+                rect.moveBottom( pixmap.height() - 5 );
             else
-                rect.moveTop( (_label->height()-txt.height())/2 + 5 );
+                rect.moveTop( (pixmap.height()-txt.height())/2 + 5 );
 
             p.fillRect( rect, white );
             txt.draw( &p,  rect.left()+5, rect.top()+5,  QRect(),  _label->colorGroup());

@@ -25,6 +25,10 @@ protected slots:
 
 protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );
+    virtual void contentsDropEvent( QDropEvent* e );
+//    void contentsDragEnterEvent( QDragEnterEvent *e );
+
+
     void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
 
 private:

@@ -243,6 +243,9 @@ void ImageDB::mergeNewImagesInWithExistingList( ImageInfoList newImages )
         // case 1: The existing imagelist is empty.
         _images = newImages;
     }
+    else if ( newImages.count() == 0 ) {
+        // case 2: No images to merge in - that's easy ;-)
+    }
     else if ( newImages.first()->startDate().min() > _images.last()->startDate().min() ) {
         // case 2: The new list is later than the existsing
         _images.appendList(newImages);

@@ -88,7 +88,7 @@ private:
     QCheckBox* _displayLabels;
     KColorButton* _backgroundColor;
     QCheckBox* _searchForImagesOnStartup;
-    QCheckBox* _autoShowThumbnailView;
+    QSpinBox* _autoShowThumbnailView;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;
     QSpinBox* _rowSpacing;

@@ -94,9 +94,8 @@ void ContentFolderAction::action( BrowserItemFactory* factory )
 
 FolderAction* ContentFolder::action( bool ctrlDown )
 {
-    bool loadImages = ( ctrlDown && !Options::instance()->autoShowThumbnailView() ) ||
-                      ( !ctrlDown && Options::instance()->autoShowThumbnailView()
-                        && ImageDB::instance()->count( _info ) < Options::instance()->maxImages() );
+    bool loadImages = ImageDB::instance()->count( _info ) < Options::instance()->autoShowThumbnailView();
+    if ( ctrlDown ) loadImages = !loadImages;
 
     if ( loadImages ) {
         ImageSearchInfo info = _info;

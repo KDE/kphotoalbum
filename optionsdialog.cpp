@@ -226,8 +226,12 @@ void OptionsDialog::createThumbNailPage()
     lay1->addWidget( _displayLabels );
 
     // Auto Show Thumbnail view
-    _autoShowThumbnailView = new QCheckBox( i18n("Show thumbnail view when images matches gets below a single page"), top );
-    lay1->addWidget( _autoShowThumbnailView );
+    QLabel* autoShowLabel = new QLabel( i18n("Automatically show thumbnail view when images matches gets below: "), top );
+    _autoShowThumbnailView = new QSpinBox( 0, 10000, 10, top );
+    _autoShowThumbnailView->setSpecialValueText( i18n("Never") );
+    lay4 = new QHBoxLayout( lay1, 6 );
+    lay4->addWidget( autoShowLabel );
+    lay4->addWidget( _autoShowThumbnailView );
 
     // Align Columns
     _alignColumns = new QCheckBox( i18n( "Align Columns" ), top, "alignColumns" );
@@ -261,12 +265,13 @@ void OptionsDialog::createThumbNailPage()
                "thumbnails in the thumbnail view</qt>");
     QWhatsThis::add( _displayLabels, txt );
 
-    txt = i18n("<qt><p>If you select this option, then the thumbnail view will be shown, when the number of images you have browsed to "
-               "gets below the number of images that can be shown in a single view. The alternative is to continue showing the "
+    txt = i18n("<qt><p>When you are browsing the images, and the count gets below the value specified here, "
+               "the thumbnils will automatically be shown. The alternative is to continue showing the "
                "browser until you press <i>Show Images</i>.<p>"
                "<p>With this option on, you can choose to see the browser by pressing ctrl+mouse button.<br>"
                "With this option off, you can choose to see the images by pressing ctrl+mouse button.</p></qt>");
     QWhatsThis::add( _autoShowThumbnailView, txt );
+    QWhatsThis::add( autoShowLabel, txt );
 }
 
 
@@ -393,7 +398,7 @@ void OptionsDialog::show()
     _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );
-    _autoShowThumbnailView->setChecked( opt->autoShowThumbnailView() );
+    _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
 
     // Config Groups page
     _categories->clear();
@@ -440,7 +445,7 @@ void OptionsDialog::slotMyOK()
     opt->setViewerCacheSize( _cacheSize->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
-    opt->setAutoShowThumbnailView( _autoShowThumbnailView->isChecked() );
+    opt->setAutoShowThumbnailView( _autoShowThumbnailView->value() );
 
     // ----------------------------------------------------------------------
     // Categories

@@ -407,7 +407,7 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
     _origList = list;
     _editList.clear();
 
-    for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
         _editList.append( *(*it) );
     }
 

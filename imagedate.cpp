@@ -377,5 +377,6 @@ QString ImageDate::monthName( int month )
     case 12: return i18n("Dec");
     }
     qWarning("monthName invoked with invalid name");
+    return QString::fromLatin1("");
 }
 

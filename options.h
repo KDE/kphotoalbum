@@ -168,8 +168,8 @@ public:
     bool searchForImagesOnStartup() const;
     void setSearchForImagesOnStartup(bool b);
 
-    bool autoShowThumbnailView() const;
-    void setAutoShowThumbnailView( bool b );
+    int autoShowThumbnailView() const;
+    void setAutoShowThumbnailView( int val );
 
     QSize histogramSize() const;
     void setHistogramSize( const QSize& size );
@@ -228,7 +228,7 @@ private:
     QMap<WindowType, QSize> _windowSizes;
     int _viewerCacheSize;
     bool _searchForImagesOnStartup;
-    bool _autoShowThumbnailView;
+    int _autoShowThumbnailView;
     bool _alignColumns;
     int _rowSpacing;
 };

@@ -88,8 +88,8 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _viewerCacheSize = config.attribute( QString::fromLatin1( "viewerCacheSize" ), QString::fromLatin1( "25" )  ).toInt();
     _searchForImagesOnStartup = (bool) config.attribute( QString::fromLatin1( "searchForImagesOnStartup" ),
                                                          QString::fromLatin1( "1" ) ).toInt();
-    _autoShowThumbnailView = (bool) config.attribute( QString::fromLatin1( "autoShowThumbnailView" ),
-                                                      QString::fromLatin1( "0" ) ).toInt();
+    _autoShowThumbnailView =  config.attribute( QString::fromLatin1( "autoShowThumbnailViewCount" ),
+                                                QString::fromLatin1( "0" ) ).toInt();
     int width = config.attribute( QString::fromLatin1( "histogramWidth" ), QString::fromLatin1( "15" ) ).toInt();
     int height = config.attribute( QString::fromLatin1( "histogramHeigth" ), QString::fromLatin1( "30" ) ).toInt();
     _histogramSize = QSize( QMAX( 15, width ), QMAX( 15, height ) );
@@ -187,7 +187,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "thumbNailBackgroundColor" ), _thumbNailBackgroundColor.name() );
     config.setAttribute( QString::fromLatin1( "viewerCacheSize" ), _viewerCacheSize );
     config.setAttribute( QString::fromLatin1( "searchForImagesOnStartup" ), _searchForImagesOnStartup );
-    config.setAttribute( QString::fromLatin1( "autoShowThumbnailView" ), _autoShowThumbnailView );
+    config.setAttribute( QString::fromLatin1( "autoShowThumbnailViewCount" ), _autoShowThumbnailView );
     config.setAttribute( QString::fromLatin1( "histogramWidth" ), _histogramSize.width() );
     config.setAttribute( QString::fromLatin1( "histogramHeigth" ), _histogramSize.height() );
     config.setAttribute( QString::fromLatin1( "alignColumns" ), _alignColumns );
@@ -799,15 +799,15 @@ void Options::setSearchForImagesOnStartup(bool b)
     }
 }
 
-bool Options::autoShowThumbnailView() const
+int Options::autoShowThumbnailView() const
 {
     return _autoShowThumbnailView;
 }
 
-void Options::setAutoShowThumbnailView( bool b )
+void Options::setAutoShowThumbnailView( int val )
 {
-    if ( b != _autoShowThumbnailView ) {
-        _autoShowThumbnailView = b;
+    if ( val != _autoShowThumbnailView ) {
+        _autoShowThumbnailView = val;
         emit changed();
     }
 }

@@ -220,9 +220,8 @@ void Browser::load( const QString& category, const QString& value )
     info.addAnd( category, value );
     FolderAction* a;
 
-    bool loadImages = ( Util::ctrlKeyDown() && !Options::instance()->autoShowThumbnailView() ) ||
-                      ( !Util::ctrlKeyDown() && Options::instance()->autoShowThumbnailView()
-                        && ImageDB::instance()->count( info ) < Options::instance()->maxImages() );
+    bool loadImages = ImageDB::instance()->count( info ) < Options::instance()->autoShowThumbnailView();
+    if ( Util::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )
         a = new ImageFolderAction( info, -1, -1, this );

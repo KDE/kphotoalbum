@@ -104,7 +104,7 @@ void ThumbNailView::reload()
     if ( list.isEmpty() )
         return;
 
-    for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
         if ( (*it)->visible() )
             new ThumbNail( *it,  this );
     }

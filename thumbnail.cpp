@@ -68,7 +68,7 @@ ImageInfo* ThumbNail::imageInfo()
     return _imageInfo;
 }
 
-void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& /*fullSize*/, int, const QImage& image, bool loadedOK )
+void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage& image, bool loadedOK )
 {
     QPixmap* pixmap = new QPixmap( size );
     if ( loadedOK && !image.isNull() )
@@ -86,6 +86,9 @@ void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& /*
         pts.setPoints( 3, 70,-1,  100,-1,  100,30 );
         p.drawConvexPolygon( pts );
     }
+
+    if ( fullSize.isValid() )
+        _imageInfo->setSize( fullSize );
 
     pixmapCache().insert( _imageInfo->fileName(), pixmap );
     repaintItem();

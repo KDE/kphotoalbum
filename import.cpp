@@ -366,6 +366,8 @@ void Import::next()
         }
         if ( matcher )
             setFinishEnabled( matcher, true );
+        else
+            setFinishEnabled( _optionGroupMatcher, true );
     }
 
     QWizard::next();

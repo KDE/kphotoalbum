@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>791</width>
+            <width>901</width>
             <height>535</height>
         </rect>
     </property>
@@ -44,7 +44,7 @@
                             </property>
                             <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>layout12</cstring>
+                                    <cstring>layout16</cstring>
                                 </property>
                                 <hbox>
                                     <property name="name">
@@ -87,7 +87,7 @@
                                                     </widget>
                                                     <widget class="QSpinBox" row="0" column="1">
                                                         <property name="name">
-                                                            <cstring>dayFrom</cstring>
+                                                            <cstring>dayStart</cstring>
                                                         </property>
                                                         <property name="specialValueText">
                                                             <string>---</string>
@@ -101,16 +101,19 @@
                                                     </widget>
                                                     <widget class="QSpinBox" row="0" column="5">
                                                         <property name="name">
-                                                            <cstring>yearFrom</cstring>
+                                                            <cstring>yearStart</cstring>
                                                         </property>
                                                         <property name="specialValueText">
                                                             <string>---</string>
                                                         </property>
                                                         <property name="maxValue">
-                                                            <number>2010</number>
+                                                            <number>9999</number>
                                                         </property>
                                                         <property name="minValue">
-                                                            <number>1899</number>
+                                                            <number>0</number>
+                                                        </property>
+                                                        <property name="value">
+                                                            <number>0</number>
                                                         </property>
                                                     </widget>
                                                     <widget class="QLabel" row="1" column="0">
@@ -123,7 +126,7 @@
                                                     </widget>
                                                     <widget class="QSpinBox" row="1" column="1">
                                                         <property name="name">
-                                                            <cstring>dayTo</cstring>
+                                                            <cstring>dayEnd</cstring>
                                                         </property>
                                                         <property name="specialValueText">
                                                             <string>---</string>
@@ -137,16 +140,19 @@
                                                     </widget>
                                                     <widget class="QSpinBox" row="1" column="5">
                                                         <property name="name">
-                                                            <cstring>yearTo</cstring>
+                                                            <cstring>yearEnd</cstring>
                                                         </property>
                                                         <property name="specialValueText">
                                                             <string>---</string>
                                                         </property>
                                                         <property name="maxValue">
-                                                            <number>2010</number>
+                                                            <number>9999</number>
                                                         </property>
                                                         <property name="minValue">
-                                                            <number>1899</number>
+                                                            <number>0</number>
+                                                        </property>
+                                                        <property name="value">
+                                                            <number>0</number>
                                                         </property>
                                                     </widget>
                                                     <widget class="QLabel" row="0" column="4">
@@ -232,7 +238,7 @@
                                                             </property>
                                                         </item>
                                                         <property name="name">
-                                                            <cstring>monthFrom</cstring>
+                                                            <cstring>monthStart</cstring>
                                                         </property>
                                                         <property name="sizePolicy">
                                                             <sizepolicy>
@@ -326,7 +332,7 @@
                                                             </property>
                                                         </item>
                                                         <property name="name">
-                                                            <cstring>monthTo</cstring>
+                                                            <cstring>monthEnd</cstring>
                                                         </property>
                                                         <property name="sizePolicy">
                                                             <sizepolicy>
@@ -374,6 +380,39 @@
                                             <cstring>quality</cstring>
                                         </property>
                                     </widget>
+                                    <widget class="QLabel">
+                                        <property name="name">
+                                            <cstring>qualityToLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>to</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QComboBox">
+                                        <item>
+                                            <property name="text">
+                                                <string>---</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>High</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>Medium</string>
+                                            </property>
+                                        </item>
+                                        <item>
+                                            <property name="text">
+                                                <string>Low</string>
+                                            </property>
+                                        </item>
+                                        <property name="name">
+                                            <cstring>qualityTo</cstring>
+                                        </property>
+                                    </widget>
                                     <spacer>
                                         <property name="name">
                                             <cstring>spacer9</cstring>
@@ -386,7 +425,7 @@
                                         </property>
                                         <property name="sizeHint">
                                             <size>
-                                                <width>1</width>
+                                                <width>31</width>
                                                 <height>31</height>
                                             </size>
                                         </property>
@@ -860,14 +899,14 @@
     </connection>
 </connections>
 <tabstops>
-    <tabstop>dayFrom</tabstop>
-    <tabstop>monthFrom</tabstop>
-    <tabstop>yearFrom</tabstop>
-    <tabstop>dayTo</tabstop>
-    <tabstop>yearTo</tabstop>
+    <tabstop>dayStart</tabstop>
+    <tabstop>monthStart</tabstop>
+    <tabstop>yearStart</tabstop>
+    <tabstop>dayEnd</tabstop>
+    <tabstop>yearEnd</tabstop>
     <tabstop>quality</tabstop>
     <tabstop>options</tabstop>
-    <tabstop>monthTo</tabstop>
+    <tabstop>monthEnd</tabstop>
     <tabstop>label</tabstop>
     <tabstop>description</tabstop>
     <tabstop>revertBut</tabstop>

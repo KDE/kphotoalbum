@@ -64,19 +64,19 @@ void ImageConfig::slotOK()
     else if ( _setup == MULTIPLE ) {
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             ImageInfo* info = *it;
-            if ( dayFrom->value() != 0 )
-                info->setDayFrom( dayFrom->value() );
-            if ( monthFrom->currentText() != "---" )
-                info->setMonthFrom( monthFrom->currentItem() );
-            if ( yearFrom->value() != 0 )
-                info->setYearFrom( yearFrom->value() );
+            if ( dayStart->value() != 0 )
+                info->startDate().setDay( dayStart->value() );
+            if ( monthStart->currentText() != "---" )
+                info->startDate().setMonth( monthStart->currentItem() );
+            if ( yearStart->value() != 0 )
+                info->startDate().setYear( yearStart->value() );
 
-            if ( dayTo->value() != 0 )
-                info->setDayTo( dayTo->value() );
-            if ( monthTo->currentText() != "---" )
-                info->setMonthTo( monthTo->currentItem() );
-            if ( yearTo->value() != 0 )
-                info->setYearTo( yearTo->value() );
+            if ( dayEnd->value() != 0 )
+                info->endDate().setDay( dayEnd->value() );
+            if ( monthEnd->currentText() != "---" )
+                info->endDate().setMonth( monthEnd->currentItem() );
+            if ( yearEnd->value() != 0 )
+                info->endDate().setYear( yearEnd->value() );
 
             if ( quality->currentText() != "---" )
                 info->setQuality( quality->currentItem() );
@@ -102,13 +102,13 @@ void ImageConfig::slotOK()
 void ImageConfig::load()
 {
     ImageInfo& info = _editList[ _current ];
-    yearFrom->setValue( info.yearFrom() );
-    monthFrom->setCurrentItem( info.monthFrom() );
-    dayFrom->setValue( info.dayFrom() );
+    yearStart->setValue( info.startDate().year() );
+    monthStart->setCurrentItem( info.startDate().month() );
+    dayStart->setValue( info.startDate().day() );
 
-    yearTo->setValue( info.yearTo() );
-    monthTo->setCurrentItem( info.monthTo() );
-    dayTo->setValue( info.dayTo() );
+    yearEnd->setValue( info.endDate().year() );
+    monthEnd->setCurrentItem( info.endDate().month() );
+    dayEnd->setValue( info.endDate().day() );
 
     quality->setCurrentItem( info.quality() );
     label->setText( info.label() );
@@ -131,13 +131,13 @@ void ImageConfig::save()
 {
     ImageInfo& info = _editList[ _current ];
 
-    info.setYearFrom( yearFrom->value() );
-    info.setMonthFrom( monthFrom->currentItem() );
-    info.setDayFrom( dayFrom->value() );
+    info.startDate().setYear( yearStart->value() );
+    info.startDate().setMonth( monthStart->currentItem() );
+    info.startDate().setDay( dayStart->value() );
 
-    info.setYearTo( yearTo->value() );
-    info.setMonthTo( monthTo->currentItem() );
-    info.setDayTo( dayTo->value() );
+    info.endDate().setYear( yearEnd->value() );
+    info.endDate().setMonth( monthEnd->currentItem() );
+    info.endDate().setDay( dayEnd->value() );
 
     info.setQuality( quality->currentItem() );
     info.setLabel( label->text() );
@@ -178,13 +178,13 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
     }
     else {
         preview->setText( "<qt>Multiple images being<br>configured at a time!</qt>" );
-        dayFrom->setValue( 0 );
-        monthFrom->setCurrentText( "---" );
-        yearFrom->setValue( 0 );
+        dayStart->setValue( 0 );
+        monthStart->setCurrentText( "---" );
+        yearStart->setValue( 0 );
 
-        dayTo->setValue( 0 );
-        monthTo->setCurrentText( "---" );
-        yearTo->setValue( 0 );
+        dayEnd->setValue( 0 );
+        monthEnd->setCurrentText( "---" );
+        yearEnd->setValue( 0 );
 
         quality->setCurrentText( "---" );
 
@@ -218,6 +218,11 @@ void ImageConfig::setup()
         okBut->setText( "Search" );
         revertBut->hide();
         mode = ListSelect::SEARCH;
+        qualityTo->resize( 100, 100);
+
+        qualityToLabel->show();
+        qualityTo->show();
+        qualityTo->updateGeometry();
     }
     else {
         previewFrame->show();
@@ -225,6 +230,8 @@ void ImageConfig::setup()
         revertBut->setEnabled( _setup == SINGLE );
         revertBut->show();
         mode = ListSelect::INPUT;
+        qualityToLabel->hide();
+        qualityTo->hide();
     }
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setMode( mode );
@@ -234,8 +241,68 @@ void ImageConfig::setup()
 
 bool ImageConfig::match( ImageInfo* info )
 {
-    bool ok = ( info->quality() == quality->currentItem() );
+    bool ok = true;
+
+    // Date
+    // the search date matches the actual date if:
+    // actual.start <= search.start <= actuel.end or
+    // actual.start <= search.end <=actuel.end or
+    // search.start <= actual.start and actual.end <= search.end
+    ImageDate searchStart = ImageDate( dayStart->value(),  monthStart->currentItem(), yearStart->value() );
+    ImageDate searchEnd = ImageDate( dayEnd->value(),  monthEnd->currentItem(), yearEnd->value() );
+    ImageDate tmp;
+    if ( !searchEnd.isNull() && searchEnd <= searchStart )  {
+        tmp = searchEnd;
+        searchEnd = searchStart;
+        searchStart = tmp;
+    }
+
+    if ( searchEnd.isNull() )
+        searchEnd = searchStart;
+
+    ImageDate actualStart = info->startDate();
+    ImageDate actualEnd = info->endDate();
+    if ( !actualEnd.isNull() && actualEnd <= actualStart )  {
+        tmp = actualStart;
+        actualStart = actualEnd;
+        actualEnd = tmp;
+    }
+    if ( actualEnd.isNull() )
+        actualEnd = actualStart;
+
+    bool b1 =( actualStart <= searchStart && searchStart <= actualEnd );
+    bool b2 =( actualStart <= searchEnd && searchEnd <= actualEnd );
+    bool b3 = ( searchStart <= actualStart && actualEnd <= searchEnd );
+    bool b4 = actualStart <= searchEnd;
+    bool b5 = searchEnd <= actualEnd;
+
+    qDebug( QString("%1,%2,%3,%4,%5,%6,%7").arg(searchStart).arg(searchEnd).arg(actualStart).arg(actualEnd).arg(b4).arg(b5).arg(b3).latin1());
+
+
+    ok &= ( b1 || b2 || b3 );
+
+
+    // -------------------------------------------------- Quality
+    int v1 = quality->currentItem();
+    int v2 = qualityTo->currentItem();
+    if ( v1 != 0 || v2 != 0 )  {
+        int min, max;
+        if ( v1 == 0 )  {
+            min = v2;
+            max = v2;
+        }
+        else if ( v2 == 0 )  {
+            min = v1;
+            max = v1;
+        }
+        else {
+            min = QMIN( v1, v2 );
+            max = QMAX( v1, v2 );
+        }
+
+        ok &= info->quality() >= min;
+        ok &= info->quality() <= max;
+    }
+
     return ok;
 }
-
-

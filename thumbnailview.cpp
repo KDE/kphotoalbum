@@ -11,7 +11,7 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
 
     connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
     setSelectionMode( Extended );
-    setItemsMovable( false );
+//    setItemsMovable( true );
 }
 
 

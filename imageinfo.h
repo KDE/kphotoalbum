@@ -9,6 +9,26 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
+class ImageDate {
+public:
+    ImageDate();
+    ImageDate( int day, int month, int year );
+    int year() const;
+    int month() const;
+    int day() const;
+    void setYear( int );
+    void setMonth( int );
+    void setDay( int );
+    bool operator<=( ImageDate& other );
+    bool isNull() const;
+    operator QString()  {
+        return QString("%1/%2-%3").arg(_day).arg(_month).arg(_year);
+    }
+private:
+    int _year, _month, _day;
+};
+
+
 class ImageInfo {
 
 public:
@@ -23,19 +43,10 @@ public:
     void setDescription( const QString& );
     QString description() const;
 
-    void setYearFrom( int year );
-    void setMonthFrom( int month );
-    void setDayFrom( int day );
-    int yearFrom() const;
-    int monthFrom() const;
-    int dayFrom() const;
-
-    void setYearTo( int year );
-    void setMonthTo( int month );
-    void setDayTo( int day );
-    int yearTo() const;
-    int monthTo() const;
-    int dayTo() const;
+    void setStartDate( const ImageDate& );
+    void setEndDate( const ImageDate& );
+    ImageDate& startDate();
+    ImageDate& endDate();
 
     void setQuality( int );
     int quality() const;
@@ -54,7 +65,7 @@ private:
     QString _fileName;
     QString _label;
     QString _description;
-    int _yearFrom,  _monthFrom,  _dayFrom,  _yearTo,  _monthTo,  _dayTo;
+    ImageDate _startDate, _endDate;
     int _quality;
     QMap<QString, QStringList> _options;
     int _angle;

@@ -17,7 +17,7 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _label = elm.attribute( "label",  fi.baseName() );
     _description = elm.attribute( "description" );
 
-    int yearFrom = -1, monthFrom = -1,  dayFrom = -1, yearTo = -1, monthTo = -1,  dayTo = -1;
+    int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0;
 
     if ( Options::instance()->trustTimeStamps() )  {
         QDate date = fi.created().date();
@@ -25,13 +25,13 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
         monthFrom = date.month();
         dayFrom = date.day();
     }
-    _yearFrom = elm.attribute( "yearFrom", QString::number(yearFrom) ).toInt();
-    _monthFrom = elm.attribute( "monthFrom", QString::number(monthFrom) ).toInt();
-    _dayFrom = elm.attribute( "dayFrom", QString::number(dayFrom) ).toInt();
+    _startDate.setYear( elm.attribute( "yearFrom", QString::number( yearFrom) ).toInt() );
+    _startDate.setMonth( elm.attribute( "monthFrom", QString::number(monthFrom) ).toInt() );
+    _startDate.setDay( elm.attribute( "dayFrom", QString::number(dayFrom) ).toInt() );
 
-    _yearTo = elm.attribute( "yearTo", QString::number(yearTo) ).toInt();
-    _monthTo = elm.attribute( "monthTo", QString::number(monthTo) ).toInt();
-    _dayTo = elm.attribute( "dayTo", QString::number(dayTo) ).toInt();
+    _endDate.setYear( elm.attribute( "yearTo", QString::number(yearTo) ).toInt() );
+    _endDate.setMonth( elm.attribute( "monthTo", QString::number(monthTo) ).toInt() );
+    _endDate.setDay( elm.attribute( "dayTo", QString::number(dayTo) ).toInt() );
 
     _quality = elm.attribute( "quality", "3" ).toInt();
     _angle = elm.attribute( "angle", "0" ).toInt();
@@ -58,59 +58,6 @@ QString ImageInfo::description() const
     return _description;
 }
 
-void ImageInfo::setYearFrom( int year ) {
-    _yearFrom = year;
-}
-
-void ImageInfo::setMonthFrom( int month ) {
-    _monthFrom = month;
-}
-
-void ImageInfo::setDayFrom( int day ) {
-    _dayFrom = day;
-}
-
-int ImageInfo::yearFrom() const
-{
-    return _yearFrom;
-}
-
-int ImageInfo::monthFrom() const
-{
-    return _monthFrom;
-}
-
-int ImageInfo::dayFrom() const
-{
-    return _dayFrom;
-}
-
-void ImageInfo::setYearTo( int year ) {
-    _yearTo = year;
-}
-
-void ImageInfo::setMonthTo( int month ) {
-    _monthTo = month;
-}
-
-void ImageInfo::setDayTo( int day ) {
-    _dayTo = day;
-}
-
-int ImageInfo::yearTo() const
-{
-    return _yearTo;
-}
-
-int ImageInfo::monthTo() const
-{
-    return _monthTo;
-}
-
-int ImageInfo::dayTo() const
-{
-    return _dayTo;
-}
 
 void ImageInfo::setOption( const QString& key, const QStringList& value )
 {
@@ -149,13 +96,13 @@ QDomElement ImageInfo::save( QDomDocument& doc )
     elm.setAttribute( "label",  _label );
     elm.setAttribute( "description", _description );
 
-    elm.setAttribute( "yearFrom", _yearFrom );
-    elm.setAttribute( "monthFrom",  _monthFrom );
-    elm.setAttribute( "dayFrom",  _dayFrom );
+    elm.setAttribute( "yearFrom", _startDate.year() );
+    elm.setAttribute( "monthFrom",  _startDate.month() );
+    elm.setAttribute( "dayFrom",  _startDate.day() );
 
-    elm.setAttribute( "yearTo", _yearTo );
-    elm.setAttribute( "monthTo",  _monthTo );
-    elm.setAttribute( "dayTo",  _dayTo );
+    elm.setAttribute( "yearTo", _endDate.year() );
+    elm.setAttribute( "monthTo",  _endDate.month() );
+    elm.setAttribute( "dayTo",  _endDate.day() );
 
     elm.setAttribute( "quality",  _quality );
     elm.setAttribute( "angle",  _angle );
@@ -172,6 +119,91 @@ int ImageInfo::angle() const
 {
     return _angle;
 }
+
+void ImageInfo::setStartDate( const ImageDate& date )
+{
+    _startDate = date;
+}
+
+void ImageInfo::setEndDate( const ImageDate& date )
+{
+    _endDate = date;
+}
+
+ImageDate& ImageInfo::startDate()
+{
+    return _startDate;
+}
+
+ImageDate& ImageInfo::endDate()
+{
+    return _endDate;
+}
+
+ImageDate::ImageDate( int day, int month, int year )
+{
+    _day = day;
+    _month = month;
+    _year = year;
+}
+
+int ImageDate::year() const
+{
+    return _year;
+}
+
+int ImageDate::month() const
+{
+    return _month;
+}
+
+int ImageDate::day() const
+{
+    return _day;
+}
+
+void ImageDate::setYear( int year )
+{
+    _year = year;
+}
+
+void ImageDate::setMonth( int month )
+{
+    _month = month;
+}
+
+void ImageDate::setDay( int day )
+{
+    _day = day;
+}
+
+bool ImageDate::operator<=( ImageDate& other )
+{
+    bool ignoreYear =  ( _year == 0 || other._year == 0 );
+    bool ignoreMonth = ( _month == 0 || other._month == 0 );
+    bool ignoreDay = (_day == 0 || other._day );
+    bool yearEqual = ( ignoreYear || _year == other._year );
+    bool monthEqual = ( ignoreMonth ||  _month == other._month );
+
+    if ( !ignoreYear && _year > other._year )
+        return false;
+    else if ( yearEqual && !ignoreMonth && _month > other._month )
+        return false;
+    else if ( yearEqual && monthEqual && !ignoreDay && _day > other._day )
+        return false;
+    else
+        return true;
+}
+
+ImageDate::ImageDate() :_year(0), _month(0), _day(0)
+{
+}
+
+bool ImageDate::isNull() const
+{
+    return ( _year == 0 && _month == 0 && _day == 0 );
+}
+
 
 
 

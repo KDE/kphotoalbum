@@ -602,8 +602,8 @@ void MainView::setupMenuBar()
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
     _generateHtml = new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
 
-    new KAction( i18n( "Import from .kim file..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
-    new KAction( i18n( "Export to .kim file..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
+    new KAction( i18n( "Import..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
+    new KAction( i18n( "Export..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
 
 
     // Go menu

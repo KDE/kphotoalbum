@@ -347,7 +347,7 @@ void ImageConfig::load()
     _nextBut->setEnabled( _current != (int)_origList.count()-1 );
     _prevBut->setEnabled( _current != 0 );
 
-    _preview->setImage( QImage( info.fileName( false ) ), info.angle() );
+    _preview->setImage( info );
 
     if ( _viewer )
         _viewer->load( _origList, _current );
@@ -462,7 +462,7 @@ void ImageConfig::setup()
         mode = ListSelect::SEARCH;
         setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
-        _preview->setImage( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ), 0 );
+        _preview->setImage( ImageInfo( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ) ) );
         _nextBut->setEnabled( false );
         _prevBut->setEnabled( false );
         _rotateLeft->setEnabled( false );
@@ -475,7 +475,7 @@ void ImageConfig::setup()
         mode = ListSelect::INPUT;
         setCaption( i18n("Image Configuration") );
         if ( _setup == MULTIPLE ) {
-            _preview->setImage( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ), 0 );
+            _preview->setImage( ImageInfo( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ) ) );
         }
         _rotateLeft->setEnabled( true );
         _rotateRight->setEnabled( true );

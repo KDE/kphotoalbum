@@ -35,7 +35,7 @@ public slots:
     void slotSelectAll();
     void slotCut();
     void slotPaste();
-    void showToolTipsOnImages();
+    void showToolTipsOnImages( bool );
 
 signals:
     void changed();

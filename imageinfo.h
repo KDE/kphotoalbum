@@ -39,7 +39,7 @@ public:
     void setVisible( bool b );
     bool visible() const;
 
-    QString fileName( bool relative );
+    QString fileName( bool relative ) const;
 
     void setLabel( const QString& );
     QString label() const;
@@ -75,8 +75,14 @@ public:
     void setLocked( bool );
     bool isLocked() const;
 
+    QImage load( int width = -1, int height = -1 ) const;
+
     // Debugging
     void debug();
+
+protected:
+    bool loadJPEG(QImage* image, const QString& fileName ) const;
+    bool isJPEG( const QString& fileName ) const;
 
 private:
     // This string is accessed on several threads, so we need to make it a deep copy!

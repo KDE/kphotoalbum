@@ -22,6 +22,8 @@
 #include <qtimer.h>
 #include <qlabel.h>
 #include <qdialog.h>
+#include <qdict.h>
+class ImageInfo;
 
 class IconViewToolTip :public QLabel {
     Q_OBJECT
@@ -29,15 +31,21 @@ class IconViewToolTip :public QLabel {
 public:
     IconViewToolTip( QIconView* view, const char* name = 0 );
     void showToolTips();
+    virtual void setActive(bool);
+    void clear();
 
 protected:
-    virtual bool eventFilter ( QObject*, QEvent* e );
+    virtual bool eventFilter( QObject*, QEvent* e );
     QIconViewItem* itemAtCursor();
+    void loadImage( const ImageInfo& info );
+    void placeWindow();
 
 private:
     QIconView* _view;
-    bool _showing;
     QIconViewItem* _current;
+    QStringList _loadedImages;
+    bool _widthInverse;
+    bool _heightInverse;
 };
 
 

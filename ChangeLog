@@ -1,3 +1,12 @@
+2004-01-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* The tool tip for the thumbnail view now contains an enlargement
+	of the image. In addition the tool tip needs to be disabled,
+	rather than it automatically hides. The tool tip window will
+	temporarily hide when the mouse is outside the thumbnail view.
+	The placement of the tool tip window is now improved, so it
+	doesn't get partly of screen.
+
 2004-01-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added an item to the context menu in the viewer for setting the

@@ -86,11 +86,11 @@ void ThumbNailView::startDrag()
 void ThumbNailView::reload()
 {
     clear();
+    _iconViewToolTip->clear();
     ImageInfoList& list = ImageDB::instance()->images();
     if ( list.isEmpty() )
         return;
 
-    clear();
     for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
         if ( (*it)->visible() )
             new ThumbNail( *it,  this );
@@ -211,9 +211,9 @@ QPtrList<ThumbNail> ThumbNailView::selected() const
     return list;
 }
 
-void ThumbNailView::showToolTipsOnImages()
+void ThumbNailView::showToolTipsOnImages( bool on )
 {
-    _iconViewToolTip->showToolTips();
+    _iconViewToolTip->setActive( on );
 }
 
 

@@ -41,29 +41,25 @@ QSize ImagePreview::sizeHint() const
 
 void ImagePreview::rotate(int angle)
 {
-    _angle += angle;
+    _info.rotate( angle );
     reload();
 }
 
-void ImagePreview::setImage( const QImage& img, int angle )
+void ImagePreview::setImage( const ImageInfo& info )
 {
-    _img = img;
-    _angle = angle;
+    _info = info;
     reload();
 }
 
 void ImagePreview::reload()
 {
-    QImage img = _img.scale( width(), height(), QImage::ScaleMin );
-    QWMatrix matrix;
-    matrix.rotate( _angle );
-    img = img.xForm( matrix );
+    QImage img = _info.load( width(), height() );
     setPixmap( img );
 }
 
 int ImagePreview::angle() const
 {
-    return _angle;
+    return _info.angle();
 }
 
 #include "imagepreview.moc"

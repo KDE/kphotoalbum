@@ -23,6 +23,9 @@
 #include "util.h"
 #include <qtooltip.h>
 #include "options.h"
+#include <qmime.h>
+#include <qapplication.h>
+#include <qdesktopwidget.h>
 
 /**
    This class takes care of showing tooltips for the individual items in the iconview.
@@ -32,9 +35,9 @@
    mouse( and would therefore stand on top of the image), or it flickered.
 */
 IconViewToolTip::IconViewToolTip( QIconView* view, const char* name )
-    : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ), _showing( false ), _current(0)
+    : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ), _current(0),
+      _widthInverse( false ), _heightInverse( false )
 {
-    view->viewport()->installEventFilter( this );
 	setAlignment( AlignAuto | AlignTop );
     setFrameStyle( QFrame::Box | QFrame::Plain );
     setLineWidth(1);
@@ -42,36 +45,33 @@ IconViewToolTip::IconViewToolTip( QIconView* view, const char* name )
     setPalette( QToolTip::palette() );
 }
 
-bool IconViewToolTip::eventFilter( QObject*, QEvent* e)
+bool IconViewToolTip::eventFilter( QObject* o , QEvent* event )
 {
-    if ( _showing ) {
-        if ( QEvent::MouseButtonPress <= e->type() &&
-             e->type() <= QEvent::MouseButtonDblClick || e->type() == QEvent::WindowDeactivate ) {
-            _showing = false;
-            hide();
-        }
-        else {
-            showToolTips();
-        }
-    }
+    if ( o == _view->viewport() && event->type() == QEvent::Leave )
+        hide();
 
+    else if ( event->type() == QEvent::MouseMove )
+        showToolTips();
     return false;
 }
 
 void IconViewToolTip::showToolTips()
 {
-    _showing = true;
     QIconViewItem* item = itemAtCursor();
-    if ( item ) {
+    if ( item && item != _current ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        setText( QString::fromLatin1("<qt>") + Util::createInfoText( tn->imageInfo(), 0 ) + QString::fromLatin1("</qt") );
+        loadImage( *tn->imageInfo() );
+        setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
+                 .arg(tn->fileName()).
+                 arg(Util::createInfoText( tn->imageInfo(), 0 ) ) );
 
         _current = item;
-        move( QCursor::pos() + QPoint( 10, 10 ));
-        show();
         resize( sizeHint() );
         _view->setFocus();
     }
+
+    placeWindow();
+    show();
 }
 
 
@@ -83,6 +83,77 @@ QIconViewItem* IconViewToolTip::itemAtCursor()
     _view->viewportToContents( pos.x(), pos.y(), x, y );
     QIconViewItem* item = _view->findItem( QPoint(x,y) );
     return item;
+}
+
+void IconViewToolTip::loadImage( const ImageInfo& info )
+{
+    if ( !_loadedImages.contains( info.fileName( false ) ) ) {
+        QImage img = info.load( 256, 256 );
+        QMimeSourceFactory::defaultFactory()->setImage( info.fileName(false), img );
+        _loadedImages.append( info.fileName(false) );
+    }
+}
+
+void IconViewToolTip::setActive( bool b )
+{
+    if ( b ) {
+        showToolTips();
+        _view->viewport()->installEventFilter( this );
+        show();
+    }
+    else {
+        _view->viewport()->removeEventFilter( this );
+        hide();
+    }
+}
+
+void IconViewToolTip::placeWindow()
+{
+    // First try to set the position.
+    QPoint pos = QCursor::pos() + QPoint( 20, 20 );
+    if ( _widthInverse )
+        pos.setX( pos.x() - 30 - width() );
+    if ( _heightInverse )
+        pos.setY( pos.y() - 30 - height() );
+
+    // Now test whether the window moved outside the screen
+    if ( _widthInverse ) {
+        if ( pos.x() < 0 ) {
+            pos.setX( QCursor::pos().x() + 20 );
+            _widthInverse = false;
+        }
+    }
+    else {
+        if ( pos.x() + width() > qApp->desktop()->screenGeometry().width() ) {
+            pos.setX( QCursor::pos().x() - width() );
+            _widthInverse = true;
+        }
+    }
+
+    if ( _heightInverse ) {
+        if ( pos.y() < 0 ) {
+            pos.setY( QCursor::pos().y() + 10 );
+            _heightInverse = false;
+        }
+    }
+    else {
+        if ( pos.y() + height() > qApp->desktop()->screenGeometry().height() ) {
+            pos.setY( QCursor::pos().y() - 10 - height() );
+            _heightInverse = true;
+        }
+    }
+
+    move( pos );
+
+}
+
+void IconViewToolTip::clear()
+{
+    // I can't find any better way to remove the images from the cache.
+    for( QStringList::Iterator it = _loadedImages.begin(); it != _loadedImages.end(); ++it ) {
+        QMimeSourceFactory::defaultFactory()->setImage( *it, QImage() );
+    }
+    _loadedImages.clear();
 }
 
 #include "iconviewtooltip.moc"

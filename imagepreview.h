@@ -29,7 +29,7 @@ public:
     ImagePreview( QWidget* parent, const char* name = 0);
     virtual QSize sizeHint() const;
     void rotate(int angle);
-    void setImage( const QImage& img, int angle );
+    void setImage( const ImageInfo& info );
     int angle() const;
 
 protected:
@@ -37,8 +37,7 @@ protected:
     void reload();
 
 private:
-    QImage _img;
-    int _angle;
+    ImageInfo _info;
 };
 
 

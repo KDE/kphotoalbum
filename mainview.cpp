@@ -449,10 +449,9 @@ void MainView::setupMenuBar()
              this, SLOT( slotUpdateViewMenu( Options::ViewSize, Options::ViewType ) ) );
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
-    new KAction( i18n("Show Tooltips on Images"), CTRL+Key_T, _thumbNailView, SLOT( showToolTipsOnImages() ),
-                 actionCollection(), "showToolTipOnImages" );
-    new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ),
-                 actionCollection(), "runDemo" );
+    KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
+    connect( taction, SIGNAL( toggled( bool ) ), _thumbNailView, SLOT( showToolTipsOnImages( bool ) ) );
+    new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     createGUI( QString::fromLatin1( "kimdabaui.rc" ) );

@@ -16,6 +16,13 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
+extern "C" {
+#define XMD_H // prevent INT32 clash from jpeglib
+#include <stdlib.h>
+#include <stdio.h>
+#include <jpeglib.h>
+}
+
 #include "imageinfo.h"
 #include <qfileinfo.h>
 #include <qimage.h>
@@ -23,6 +30,7 @@
 #include "options.h"
 #include "util.h"
 #include <kdebug.h>
+#include <qwmatrix.h>
 
 
 ImageInfo::ImageInfo()
@@ -136,7 +144,7 @@ void ImageInfo::renameOption( const QString& key, const QString& oldValue, const
     }
 }
 
-QString ImageInfo::fileName( bool relative )
+QString ImageInfo::fileName( bool relative ) const
 {
     if (relative)
         return _fileName;
@@ -277,5 +285,91 @@ void ImageInfo::debug()
         kdDebug(50010) << it.key() << ", " << it.data().join( QString::fromLatin1( ", " ) ) << endl;
     }
 }
+
+QImage ImageInfo::load( int width, int height ) const
+{
+    QImage image;
+    if ( isJPEG( fileName(false) ) )
+        loadJPEG( &image, fileName(false) );
+    else
+        image.load( fileName(false) );
+
+    if ( _angle != 0 ) {
+        QWMatrix matrix;
+        matrix.rotate( _angle );
+        image = image.xForm( matrix );
+    }
+
+    if ( width != -1 && height != -1 )
+        image = image.smoothScale( width, height, QImage::ScaleMin );
+
+    return image;
+
+}
+
+
+// Fudged Fast JPEG decoding code from GWENVIEW (picked out out digikam)
+
+bool ImageInfo::loadJPEG(QImage* image, const QString& fileName ) const
+{
+    FILE* inputFile=fopen( fileName.latin1(), "rb");
+    if(!inputFile) return false;
+
+    struct jpeg_decompress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+    cinfo.err = jpeg_std_error(&jerr);
+    jpeg_create_decompress(&cinfo);
+    jpeg_stdio_src(&cinfo, inputFile);
+    jpeg_read_header(&cinfo, TRUE);
+
+    // Create QImage
+    jpeg_start_decompress(&cinfo);
+
+    switch(cinfo.output_components) {
+    case 3:
+    case 4:
+        image->create( cinfo.output_width, cinfo.output_height, 32 );
+        break;
+    case 1: // B&W image
+        image->create( cinfo.output_width, cinfo.output_height, 8, 256 );
+        for (int i=0; i<256; i++)
+            image->setColor(i, qRgb(i,i,i));
+        break;
+    default:
+        return false;
+    }
+
+    uchar** lines = image->jumpTable();
+    while (cinfo.output_scanline < cinfo.output_height)
+        jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline,
+                            cinfo.output_height);
+    jpeg_finish_decompress(&cinfo);
+
+    // Expand 24->32 bpp
+    if ( cinfo.output_components == 3 ) {
+        for (uint j=0; j<cinfo.output_height; j++) {
+            uchar *in = image->scanLine(j) + cinfo.output_width*3;
+            QRgb *out = (QRgb*)( image->scanLine(j) );
+
+            for (uint i=cinfo.output_width; i--; ) {
+                in-=3;
+                out[i] = qRgb(in[0], in[1], in[2]);
+            }
+        }
+    }
+
+    jpeg_destroy_decompress(&cinfo);
+    fclose(inputFile);
+
+    return true;
+}
+
+bool ImageInfo::isJPEG( const QString& fileName ) const
+{
+    QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
+    return format == QString::fromLocal8Bit( "JPEG" );
+}
+
+
 
 #include "infobox.moc"

@@ -10,9 +10,10 @@
 SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
 {
-    setText( i18n("Search") );
+    setText( 0, i18n("Search") );
+    setText( 1, QString::fromLatin1( "-" ) );
     KIconLoader loader;
-    setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/searchIcon.png") ) );
+    setPixmap( 0, locate("data", QString::fromLatin1("kimdaba/pics/searchIcon.png") ) );
 }
 
 FolderAction* SearchFolder::action( bool )

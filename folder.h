@@ -25,15 +25,24 @@
 
 class FolderAction;
 
-class Folder :public QIconViewItem {
+class Folder :public QListViewItem {
 
 public:
     Folder( const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false ) = 0;
+    void setCount( int count ) { _count = count; }
 
 protected:
+    int compare( QListViewItem* other, int col, bool asc ) const;
+
+    friend class TypeFolder;
+    friend class ImageFolder;
+    int _index;
+    static int _idCount;
+
     Browser* _browser;
     ImageSearchInfo _info;
+    int _count;
 };
 
 class FolderAction
@@ -44,6 +53,8 @@ public:
     virtual void action() = 0;
     virtual bool showsImages() = 0;
     QString path() const;
+    virtual bool allowSort() const;
+    virtual QString title() const;
 
 protected:
     Browser* _browser;

@@ -35,6 +35,7 @@ public:
     ImageFolderAction( const ImageSearchInfo& info, int from, int to, Browser* browser );
     virtual void action();
     virtual bool showsImages() { return true; }
+
 private:
     int _from, _to;
     bool _addExtraToBrowser;

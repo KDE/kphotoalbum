@@ -26,6 +26,9 @@ public:
                    const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
 
+protected:
+    int compare( QListViewItem* other, int col, bool asc ) const;
+
 private:
     QString _optionGroup;
     QString _value;
@@ -38,6 +41,8 @@ public:
                          const ImageSearchInfo& info, Browser* parent );
     virtual void action();
     virtual bool showsImages() { return false; }
+    virtual bool allowSort() const;
+    virtual QString title() const;
 
 private:
     QString _optionGroup;

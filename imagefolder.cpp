@@ -25,15 +25,26 @@
 ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _from(-1), _to(-1)
 {
-    setText( i18n( "View Images" ) );
-    setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ) );
+    setText( 0, i18n( "View Images" ) );
+    int count = ImageDB::instance()->count( info );
+    if ( count == 1 )
+        setText( 1, i18n( "1 image" ) );
+    else
+        setText( 1, i18n( "%1 images" ).arg( count ) );
+    setPixmap( 0, locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ) );
 }
 
 ImageFolder::ImageFolder( const ImageSearchInfo& info, int from, int to, Browser* parent )
-    :Folder(info,parent), _from( from ), _to( to )
+    :Folder( info,parent), _from( from ), _to( to )
 {
-    setText( i18n( "View Images (%1-%2)").arg(from).arg(to) );
-    setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ) );
+    setText( 0, i18n( "View Images (%1-%2)").arg(from).arg(to) );
+    setPixmap( 0, locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ) );
+    int count = to - from +1;
+    setCount( count );
+    if ( count == 1 )
+        setText( 1, i18n( "1 image" ) );
+    else
+        setText( 1, i18n( "%1 images" ).arg( count ) );
 }
 
 void ImageFolderAction::action()
@@ -75,3 +86,4 @@ ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, int from, int
     : FolderAction( info, browser ), _from(from), _to(to), _addExtraToBrowser( true )
 {
 }
+

@@ -35,12 +35,19 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
         _info.addAnd( _optionGroup, _value );
     }
 
-    if ( value == i18n( "**NONE**" ) )
-        setText( i18n( "None (%1)" ).arg(count) );
-    else {
-        setText( QString::fromLatin1( "%1 (%2)" ).arg( value ).arg( count ) );
-        setPixmap( Options::instance()->iconForOptionGroup( optionGroup ) );
+    if ( value == i18n( "**NONE**" ) ) {
+        setText( 0, i18n( "None" ) );
     }
+    else {
+        setText( 0, value );
+    }
+    setPixmap( 0, Options::instance()->iconForOptionGroup( optionGroup ) );
+
+    setCount( count );
+    if ( count == 1 )
+        setText( 1, i18n( "1 image") );
+    else
+        setText( 1, i18n( "%1 images").arg(count) );
 }
 
 void ContentFolderAction::action()
@@ -89,3 +96,26 @@ ContentFolderAction::ContentFolderAction( const QString& optionGroup, const QStr
 {
 }
 
+int ContentFolder::compare( QListViewItem* other, int col, bool asc ) const
+{
+    if ( col == 0 ) {
+        if ( _value == QString::fromLatin1( "**NONE**" ) )
+            return ( asc ? -1 : 1);
+        ContentFolder* o = static_cast<ContentFolder*>( other );
+        if ( o->_value == QString::fromLatin1( "**NONE**" ) )
+            return ( asc ? 1: -1 );
+    }
+
+    return Folder::compare( other, col, asc );
+}
+
+bool ContentFolderAction::allowSort() const
+{
+    return false;
+}
+
+
+QString ContentFolderAction::title() const
+{
+    return i18n("Category");
+}

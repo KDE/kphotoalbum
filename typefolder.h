@@ -34,6 +34,7 @@ public:
     TypeFolderAction( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent  );
     virtual void action();
     virtual bool showsImages() { return false; }
+    virtual QString title() const;
 
 private:
     QString _optionGroup;

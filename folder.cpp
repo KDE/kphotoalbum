@@ -23,8 +23,10 @@
 #include "undoredoobject.h"
 
 
+int Folder::_idCount = 0;
+
 Folder::Folder( const ImageSearchInfo& info, Browser* parent )
-    :QIconViewItem( parent ), _browser( parent ), _info( info )
+    :QListViewItem( parent ), _index(_idCount++), _browser( parent ), _info( info )
 {
 }
 
@@ -39,9 +41,36 @@ QString FolderAction::path() const
     return _info.toString();
 }
 
+int Folder::compare( QListViewItem* other, int col, bool asc ) const
+{
+    Folder* o = static_cast<Folder*>( other );
+    if ( !_browser->allowSort() ) {
+        Folder* o = static_cast<Folder*>( other );
+        if ( _index < o->_index )
+            return (asc ? -1 : 1);
+        else if ( _index > o->_index )
+            return (asc ? 1 : -1);
+        else
+            return 0;
+    }
 
+    else if ( col == 1 ) {
+        if ( _count < o->_count )
+            return -1;
+        else
+            return ( _count != o->_count);
+    }
+    else
+        return QListViewItem::compare( other, col, asc );
+}
 
+bool FolderAction::allowSort() const
+{
+    return true;
+}
 
-
-
+QString FolderAction::title() const
+{
+    return QString::fromLatin1( "" );
+}
 

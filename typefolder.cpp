@@ -21,11 +21,20 @@
 #include "imagedb.h"
 #include "contentfolder.h"
 #include <klocale.h>
+
 TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup ( optionGroup )
 {
-    setText( Options::instance()->textForOptionGroup( optionGroup ) );
-    setPixmap( Options::instance()->iconForOptionGroup( _optionGroup ) );
+    setText( 0, Options::instance()->textForOptionGroup( optionGroup ) );
+    QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
+    int count = map.size();
+    setCount( count );
+
+    if ( count == 1 )
+        setText( 1, i18n("1 category") );
+    else
+        setText( 1, i18n("%1 categories").arg( count ) );
+    setPixmap( 0, Options::instance()->iconForOptionGroup( _optionGroup ) );
 }
 
 FolderAction* TypeFolder::action( bool /* ctrlDown */ )
@@ -54,5 +63,10 @@ void TypeFolderAction::action()
     int i = map[i18n("**NONE**")];
     if ( i != 0 )
         new ContentFolder( _optionGroup, i18n( "**NONE**" ), i, _info, _browser );
+}
+
+QString TypeFolderAction::title() const
+{
+    return Options::instance()->textForOptionGroup( _optionGroup );
 }
 

@@ -17,7 +17,6 @@
  **/
 
 #include "browser.h"
-#include <qiconview.h>
 #include "folder.h"
 #include <klocale.h>
 #include "imagesearchinfo.h"
@@ -27,11 +26,13 @@
 #include <qtimer.h>
 #include "imagedb.h"
 #include "util.h"
+#include <qlistview.h>
+#include "showbusycursor.h"
 
 Browser* Browser::_instance = 0;
 
 Browser::Browser( QWidget* parent, const char* name )
-    :QIconView( parent, name ), _current(0)
+    :QListView( parent, name ), _current(0)
 {
     Q_ASSERT( !_instance );
     _instance = this;
@@ -41,20 +42,22 @@ Browser::Browser( QWidget* parent, const char* name )
 
 void Browser::init()
 {
+    addColumn( i18n("What") );
+    addColumn( i18n("Count") );
+
     FolderAction* action = new ContentFolderAction( QString::null, QString::null, ImageSearchInfo(), this );
     _list.append( action );
     forward();
 
     setSelectionMode( NoSelection );
-    setItemsMovable( false );
-
-    connect( this, SIGNAL( clicked( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
-    connect( this, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
+    connect( this, SIGNAL( clicked( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
+    connect( this, SIGNAL( returnPressed( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( reload() ) );
 }
 
-void Browser::select( QIconViewItem* item )
+void Browser::select( QListViewItem* item )
 {
+    ShowBusyCursor dummy;
     if ( !item )
         return;
 
@@ -114,6 +117,7 @@ void Browser::emitSignals()
     if ( !a->showsImages() )
         emit showingOverview();
     emit pathChanged( a->path() );
+    setColumnText( 0, a->title() );
 }
 
 void Browser::home()
@@ -152,5 +156,11 @@ void Browser::load( const QString& optionGroup, const QString& value )
     topLevelWidget()->raise();
     setActiveWindow();
 }
+
+bool Browser::allowSort()
+{
+    return _list[_current-1]->allowSort();
+}
+
 
 #include "browser.moc"

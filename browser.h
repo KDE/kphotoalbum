@@ -18,11 +18,12 @@
 
 #ifndef BROWSER_H
 #define BROWSER_H
-#include <qiconview.h>
+#include <qlistview.h>
 class FolderAction;
 class ImageSearchInfo;
+class QListViewItem;
 
-class Browser :public QIconView {
+class Browser :public QListView {
     Q_OBJECT
     friend class ImageFolderAction;
 
@@ -31,7 +32,7 @@ public:
     void addSearch( ImageSearchInfo& info );
     static Browser* theBrowser();
     void load( const QString& optionGroup, const QString& value );
-
+    bool allowSort();
 
 public slots:
     void back();
@@ -48,7 +49,7 @@ signals:
 
 protected slots:
     void init();
-    void select( QIconViewItem* item );
+    void select( QListViewItem* item );
     void reload();
 
 protected:

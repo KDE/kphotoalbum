@@ -172,10 +172,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- The editor
     KDockWidget* descriptionDock = _dockWindow->createDockWidget( i18n("Description"), QPixmap(), this );
     _dockWidgets.append(descriptionDock);
-    _description = new Editor( descriptionDock );
+    _description = new Editor( descriptionDock, "_description" );
     descriptionDock->setWidget( _description );
     descriptionDock->manualDock( dateDock, KDockWidget::DockBottom, 0 );
-
 
     // -------------------------------------------------- Option groups
     KDockWidget* last = dateDock;
@@ -193,10 +192,6 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     // -------------------------------------------------- The buttons.
     QHBoxLayout* lay1 = new QHBoxLayout( layout, 6 );
-
-    //buttonDock->setWidget( buttons );
-    //_dockWindow->setView( buttonDock);
-    //_dockWindow->setMainDockWidget( buttonDock);
 
     _revertBut = new QPushButton( i18n("Revert this image"), this );
     lay1->addWidget( _revertBut );
@@ -232,6 +227,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     QAccel* accel = new QAccel( this, "accel for ImageConfig" );
     accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
     accel->connectItem( accel->insertItem( Key_PageUp ), this, SLOT( slotPrev() ) );
+    accel->connectItem( accel->insertItem( CTRL+Key_Return ), this, SLOT( slotOK() ) );
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
 
@@ -606,6 +602,7 @@ KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
              this, SLOT( slotRenameOption( const QString& , const QString& , const QString&  ) ) );
 
     dockWidget->setWidget( sel );
+
     return dockWidget;
 }
 

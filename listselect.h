@@ -47,9 +47,6 @@ public:
 
     void populate();
 
-    QWidget* firstTabWidget() const;
-    QWidget* lastTabWidget() const;
-
 public slots:
     void slotReturn();
 

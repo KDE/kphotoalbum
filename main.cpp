@@ -33,12 +33,12 @@ static const KCmdLineOptions options[] =
 };
 
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaba"), "1.0",
+    KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaBa"), "1.0",
                           I18N_NOOP("KDE Image Database"), KAboutData::License_GPL );
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
-    aboutData.addCredit( "Jozef Riha","Testing early versions of KimDaBa.",
-                         "zefo@seznam.cz" );
 
+    aboutData.addCredit( "Will Stephenson", "Developing an Icon for KimDaBa", "will@stevello.free-online.co.uk" );
+    aboutData.addCredit( "Jozef Riha","Testing early versions of KimDaBa.", "zefo@seznam.cz" );
     aboutData.addCredit( "Teemu Rytilahti",
                          "Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
                          "(.) Theme support for HTML generation", "teemu.rytilahti@kde-fi.org" );

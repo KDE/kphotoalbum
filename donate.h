@@ -16,33 +16,19 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
-#ifndef EDITOR_H
-#define EDITOR_H
-#include <qstring.h>
-#include <qwidget.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
-class QTextEdit;
-class QVBoxLayout;
+#ifndef DONATE_H
+#define DONATE_H
+#include <kdialogbase.h>
 
-class Editor :public QWidget
+class Donate :public KDialogBase
 {
+    Q_OBJECT
 public:
-    Editor( QWidget* parent, const char* name = 0 );
-    ~Editor();
-
-    QString text() const;
-    void setText( const QString& );
-
-protected:
-    bool loadPart();
-
-private:
-    QVBoxLayout* _layout;
-    QTextEdit* _edit;
-    KTextEditor::Document* _doc;
-    KTextEditor::View* _view;
+    Donate( QWidget* parent, const char* name );
+protected slots:
+    void slotDonate();
 };
 
-#endif /* EDITOR_H */
+
+#endif /* DONATE_H */
 

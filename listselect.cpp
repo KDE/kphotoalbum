@@ -156,7 +156,7 @@ ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char*
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
-    _lineEdit = new CompletableLineEdit( this );
+    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(optionGroup).latin1() );
     layout->addWidget( _lineEdit );
 
     _listBox = new QListBox( this );
@@ -256,16 +256,6 @@ void ListSelect::setMode( Mode mode )
         QListBoxItem * none = new QListBoxText( 0, i18n("**NONE**") );
         _listBox->insertItem( none, 0 );
     }
-}
-
-QWidget* ListSelect::firstTabWidget() const
-{
-    return _lineEdit;
-}
-
-QWidget* ListSelect::lastTabWidget() const
-{
-    return _lineEdit;
 }
 
 QString ListSelect::text() const

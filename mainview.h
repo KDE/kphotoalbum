@@ -77,6 +77,7 @@ protected slots:
     void showTip();
     void slotShowNotOnDisk();
     void markDirty();
+    void donateMoney();
 
 protected:
     void configureImages( bool oneAtATime );

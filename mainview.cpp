@@ -59,6 +59,7 @@
 #include <kpopupmenu.h>
 #include <kdebug.h>
 #include "externalpopup.h"
+#include <donate.h>
 
 MainView* MainView::_instance = 0;
 
@@ -121,7 +122,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
 
     total->setTotal( ImageDB::instance()->totalCount() );
-    statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
+    statusBar()->message(i18n("Welcome to KimDaBa"), 5000 );
 
     // I need to postpone this otherwise the tip dialog will not get focus on start up
     QTimer::singleShot( 0, this, SLOT( showTip() ) );
@@ -479,6 +480,7 @@ void MainView::setupMenuBar()
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
     connect( taction, SIGNAL( toggled( bool ) ), _thumbNailView, SLOT( showToolTipsOnImages( bool ) ) );
     new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
+    new KAction( i18n("Donate Money"), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     createGUI( QString::fromLatin1( "kimdabaui.rc" ) );
@@ -882,5 +884,11 @@ void MainView::slotShowNotOnDisk()
     _thumbNailView->reload();
 }
 
+
+void MainView::donateMoney()
+{
+    Donate donate( this, "Donate Money" );
+    donate.exec();
+}
 
 #include "mainview.moc"

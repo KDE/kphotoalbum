@@ -7,7 +7,11 @@ BUGS To be handled soonish
 - when renaming an item in the listselect, then category image should also
   be renamed.
 - Adding a new ListSelect will not show it up initially.
-- Fix tab order in ImageConfig, plus make Ctrl+Enter press OK
+- Fix tab order in ImageConfig. I've tried fixing this several times, but
+  this is not easy to get right, due to the windows may be located
+  differently than third construction order. Here is the next plan:
+  iterate through all the children of the dialog, and setup tab order as
+  they are physically located on screen. 
 
 =======================
 BUGS of less importance

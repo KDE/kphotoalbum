@@ -16,7 +16,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
 
 {
     QVBoxLayout* lay1 = new QVBoxLayout( this, 6);
-    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 10 );
 
     QLabel* image = new QLabel( this, "image" );
     image->setMinimumSize( QSize( 273, 204 ) );

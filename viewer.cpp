@@ -59,7 +59,7 @@ Viewer* Viewer::latest()
 }
 
 Viewer::Viewer( QWidget* parent, const char* name )
-    :QDialog( parent,  name ), _showingFullScreen( false )
+    :QDialog( parent,  name ), _current(0), _showingFullScreen( false )
 {
     resize( Options::instance()->viewerSize() );
     setWFlags( WDestructiveClose );

@@ -1,0 +1,1 @@
+export VALGRIND_OPTS="--num-callers=100 --suppressions=$KIMDABA/kimdaba.sup --error-limit=no"

@@ -1,0 +1,39 @@
+{
+   QPixmap-load-error
+   Memcheck:Param
+   writev(vector[...])
+   fun:vgAllRoadsLeadToRome_writev
+   fun:__writev
+   fun:_X11TransSocketWritev
+   fun:_X11TransWritev
+}
+
+{
+   ICE-error
+   Memcheck:Param
+   write(buf)
+   fun:__GI___libc_write
+   fun:_IceTransSocketWrite
+   fun:_IceTransWrite
+   fun:_IceWrite
+}
+
+{
+   QImage-save-error
+   Memcheck:Param
+   write(buf)
+   fun:__GI___libc_write
+   fun:new_do_write
+   fun:_IO_file_xsputn@@GLIBC_2.1
+   fun:_IO_fwrite_internal
+}
+
+{
+   QImage-save-error-2
+   Memcheck:Param
+   write(buf)
+   fun:__GI___libc_write
+   fun:new_do_write
+   fun:_IO_do_write@@GLIBC_2.1
+   fun:_IO_file_sync@@GLIBC_2.1
+}

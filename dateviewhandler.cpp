@@ -22,6 +22,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kapplication.h>
+#include "util.h"
 
 void DateViewHandler::init( const QDateTime& startDate )
 {
@@ -122,16 +123,16 @@ bool MonthViewHandler::isMajorUnit( int unit )
 
 QString MonthViewHandler::text( int unit )
 {
-    static int lastYear=0;
-    QDateTime d = date(unit);
-    // return KGlobal::locale()->formatDate( d.date(), true );
-
-    if ( d.date().year() != lastYear ) {
-        lastYear = d.date().year();
-        return d.toString( QString::fromLatin1( "d/M-yy" ) );
-    }
-    else
-        return d.toString( QString::fromLatin1( "d/M" ) );
+    static int lastunit=99999;
+    static int printedLast = false;
+    if ( unit < lastunit )
+        printedLast = true;
+    QString str;
+    if ( !printedLast )
+        str=KGlobal::locale()->formatDate( date(unit).date(), true );
+    printedLast = !printedLast;
+    lastunit = unit;
+    return str;
 }
 
 QDateTime MonthViewHandler::date(int unit, QDateTime reference )
@@ -159,14 +160,7 @@ bool WeekViewHandler::isMajorUnit( int unit )
 
 QString WeekViewHandler::text( int unit )
 {
-    static int lastYear = 0;
-    QDateTime d = date(unit);
-    if ( d.date().year() != lastYear ) {
-        lastYear = d.date().year();
-        return d.toString( QString::fromLatin1( "d/M-yy" ) );
-    }
-    else
-        return d.toString( QString::fromLatin1( "d/M" ) );
+    return KGlobal::locale()->formatDate(date(unit).date(), true);
 }
 
 QDateTime WeekViewHandler::date(int unit, QDateTime reference )
@@ -207,7 +201,7 @@ bool DayViewHandler::isMidUnit( int unit )
 QString DayViewHandler::text( int unit )
 {
     if (  date(unit).time().hour() == 0 )
-        return date(unit).toString( QString::fromLatin1( "d/M" ) );
+        return KGlobal::locale()->formatDate(date(unit).date(), true);
     else
         return date(unit).toString( QString::fromLatin1( "h:00" ) );
 }

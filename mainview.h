@@ -66,6 +66,7 @@ protected slots:
     void setDefaultScopeNegative();
     void unlockFromDefaultScope();
     void changePassword();
+    void slotConfigureKeyBindings();
 
 protected:
     void configureImages( bool oneAtATime );

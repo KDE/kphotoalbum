@@ -16,7 +16,6 @@ should update
   to HTML
 - export/import of selection - thus make it possible to share part of
   KimDaBa databases
-- customize key bindings
 - show slideshow in several Viewers, that is show image 1 in viewer 1, and
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.

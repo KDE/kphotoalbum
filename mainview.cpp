@@ -55,6 +55,7 @@
 #include <qpopupmenu.h>
 #include <kiconloader.h>
 #include <kpassdlg.h>
+#include <kkeydialog.h>
 
 MainView* MainView::_instance = 0;
 
@@ -372,6 +373,7 @@ void MainView::setupMenuBar()
 
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
+    KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
 
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
@@ -707,6 +709,11 @@ void MainView::changePassword()
     int code = KPasswordDialog::getNewPassword( passwd, i18n("Type in New Password"));
     if ( code == QDialog::Accepted )
         Options::instance()->setPassword( passwd );
+}
+
+void MainView::slotConfigureKeyBindings()
+{
+    KKeyDialog::configure( actionCollection() );
 }
 
 #include "mainview.moc"

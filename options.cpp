@@ -33,7 +33,6 @@ Options::Options()
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _use4To3Ratio = top.attribute( "use4To3Ratio",  QString::number( _use4To3Ratio ) ).toInt();
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
-    _trustDateStamps = top.attribute( "trustDateStamps",  "1" ).toInt();
 }
 
 void Options::setThumbWidth( int w )
@@ -112,7 +111,6 @@ void Options::save()
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "use4To3Ratio", _use4To3Ratio );
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
-    top.setAttribute( "trustDateStamps", _trustDateStamps );
 
     QTextStream stream( &file );
     stream << doc.toString();
@@ -138,16 +136,5 @@ bool Options::trustTimeStamps() const
 {
     return _trustTimeStamps;
 }
-
-void Options::setTrustDateStamps( bool b)
-{
-    _trustDateStamps = b;
-}
-
-bool Options::trustDateStamps() const
-{
-    return _trustDateStamps;
-}
-
 
 

@@ -12,15 +12,16 @@ class MainView :public MainViewUI
 public:
     MainView( QWidget* parent,  const char* name = 0 );
 
-protected:
+protected slots:
     void slotExit();
     void slotOptions();
     void slotConfigureAllImages();
     void slotConfigureImagesOneAtATime();
     void save();
-
-protected slots:
     void imageDeleted( QObject* );
+
+protected:
+    void configureImages( bool oneAtATime );
 
 private:
     OptionsDialog* _optionsDialog;

@@ -16,24 +16,22 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _label = elm.attribute( "label",  fi.baseName() );
     _description = elm.attribute( "description" );
 
-    int year = -1, month = -1,  day = -1,  hour = -1,  minute = -1;
+    int yearFrom = -1, monthFrom = -1,  dayFrom = -1, yearTo = -1, monthTo = -1,  dayTo = -1;
 
-    if ( Options::instance()->trustDateStamps() )  {
-        QDate date = fi.created().date();
-        year = date.year();
-        month = date.month();
-        day = date.day();
-    }
     if ( Options::instance()->trustTimeStamps() )  {
-        QTime time = fi.created().time();
-        hour = time.hour();
-        minute = time.minute();
+        QDate date = fi.created().date();
+        yearFrom = date.year();
+        monthFrom = date.month();
+        dayFrom = date.day();
     }
-    _year = elm.attribute( "year", QString::number(year) ).toInt();
-    _month = elm.attribute( "month", QString::number(month) ).toInt();
-    _day = elm.attribute( "day", QString::number(day) ).toInt();
-    _hour = elm.attribute( "hour", QString::number(hour) ).toInt();
-    _minute = elm.attribute( "minute", QString::number(minute) ).toInt();
+    _yearFrom = elm.attribute( "yearFrom", QString::number(yearFrom) ).toInt();
+    _monthFrom = elm.attribute( "monthFrom", QString::number(monthFrom) ).toInt();
+    _dayFrom = elm.attribute( "dayFrom", QString::number(dayFrom) ).toInt();
+
+    _yearTo = elm.attribute( "yearTo", QString::number(yearTo) ).toInt();
+    _monthTo = elm.attribute( "monthTo", QString::number(monthTo) ).toInt();
+    _dayTo = elm.attribute( "dayTo", QString::number(dayTo) ).toInt();
+
     _quality = elm.attribute( "quality" ).toInt();
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
         if ( nodeOption.isElement() )  {
@@ -76,42 +74,48 @@ QString ImageInfo::description() const
     return _description;
 }
 
-void ImageInfo::setDate( int year, int month, int day )
+void ImageInfo::setDateFrom( int year, int month, int day )
 {
-    _year = year;
-    _month = month;
-    _day = day;
+    _yearFrom = year;
+    _monthFrom = month;
+    _dayFrom = day;
 }
 
-int ImageInfo::year() const
+int ImageInfo::yearFrom() const
 {
-    return _year;
+    return _yearFrom;
 }
 
-int ImageInfo::month() const
+int ImageInfo::monthFrom() const
 {
-    return _month;
+    return _monthFrom;
 }
 
-int ImageInfo::day() const
+int ImageInfo::dayFrom() const
 {
-    return _day;
+    return _dayFrom;
 }
 
-void ImageInfo::setTime( int hour, int minute )
+void ImageInfo::setDateTo( int year, int month, int day )
 {
-    _hour = hour;
-    _minute = minute;
+    _yearTo = year;
+    _monthTo = month;
+    _dayTo = day;
 }
 
-int ImageInfo::hour() const
+int ImageInfo::yearTo() const
 {
-    return _hour;
+    return _yearTo;
 }
 
-int ImageInfo::minute() const
+int ImageInfo::monthTo() const
 {
-    return _minute;
+    return _monthTo;
+}
+
+int ImageInfo::dayTo() const
+{
+    return _dayTo;
 }
 
 void ImageInfo::setOption( const QString& key, const QStringList& value )
@@ -154,11 +158,15 @@ QDomElement ImageInfo::save( QDomDocument& doc )
     elm.setAttribute( "file",  QFileInfo( _fileName ).fileName() );
     elm.setAttribute( "label",  _label );
     elm.setAttribute( "description", _description );
-    elm.setAttribute( "year", _year );
-    elm.setAttribute( "month",  _month );
-    elm.setAttribute( "day",  _day );
-    elm.setAttribute( "hour",  _hour );
-    elm.setAttribute( "minute",  _minute );
+
+    elm.setAttribute( "yearFrom", _yearFrom );
+    elm.setAttribute( "monthFrom",  _monthFrom );
+    elm.setAttribute( "dayFrom",  _dayFrom );
+
+    elm.setAttribute( "yearTo", _yearTo );
+    elm.setAttribute( "monthTo",  _monthTo );
+    elm.setAttribute( "dayTo",  _dayTo );
+
     elm.setAttribute( "quality",  _quality );
     for( QMapIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
         QDomElement opt = doc.createElement( "option" );

@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>260</width>
-            <height>265</height>
+            <width>301</width>
+            <height>216</height>
         </rect>
     </property>
     <property name="caption">
@@ -22,6 +22,12 @@
         <widget class="QGroupBox">
             <property name="name">
                 <cstring>groupBox1</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>GroupBoxPanel</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
             </property>
             <property name="title">
                 <string>Images</string>
@@ -103,36 +109,15 @@
                         <number>256</number>
                     </property>
                 </widget>
-            </grid>
-        </widget>
-        <widget class="QGroupBox">
-            <property name="name">
-                <cstring>groupBox2</cstring>
-            </property>
-            <property name="title">
-                <string>File Time Stamps</string>
-            </property>
-            <vbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QCheckBox">
+                <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="3">
                     <property name="name">
                         <cstring>trustTimeStamps</cstring>
                     </property>
                     <property name="text">
-                        <string>Trust Time</string>
+                        <string>Trust Time Stamps</string>
                     </property>
                 </widget>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>trustDateStamps</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Trust Date</string>
-                    </property>
-                </widget>
-            </vbox>
+            </grid>
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">

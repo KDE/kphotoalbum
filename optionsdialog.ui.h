@@ -18,7 +18,6 @@ void OptionsDialog::show()
     thumbNailHeight->setValue( opt->thumbHeight() );
     cacheThumbNails->setChecked( opt->cacheThumbNails() );
     trustTimeStamps->setChecked( opt->trustTimeStamps() );
-    trustDateStamps->setChecked( opt->trustDateStamps() );
 
     QDialog::show();
 }
@@ -32,7 +31,6 @@ void OptionsDialog::slotApply()
     opt->setThumbHeight( thumbNailHeight->value() );
     opt->setCacheThumbNails( cacheThumbNails->isChecked() );
     opt->setTrustTimeStamps( trustTimeStamps->isChecked() );
-    opt->setTrustDateStamps( trustDateStamps->isChecked() );
     opt->save();
     emit changed();
 }

@@ -7,8 +7,8 @@
 class ImageConfig :public ImageConfigUI, public ImageClient {
 public:
     ImageConfig( QWidget* parent, const char* name = 0 );
-    void setImageInfo( ImageInfoList list );
     virtual void pixmapLoaded( const QString&, int, int, const QPixmap& );
+    int exec( ImageInfoList list,  bool oneAtATime );
 
 protected:
     void slotRevert();

@@ -50,11 +50,14 @@ void ImageConfig::slotDone()
 void ImageConfig::load()
 {
     ImageInfo* info = _list.at( _current );
-    year->setValue( info->year() );
-    month->setCurrentItem( info->month() );
-    day->setValue( info->day() );
-    hour->setValue( info->hour() );
-    minute->setValue( info->minute() );
+    yearFrom->setValue( info->yearFrom() );
+    monthFrom->setCurrentItem( info->monthFrom() );
+    dayFrom->setValue( info->dayFrom() );
+
+    yearTo->setValue( info->yearTo() );
+    monthTo->setCurrentItem( info->monthTo() );
+    dayTo->setValue( info->dayTo() );
+
     quality->setCurrentItem( info->quality() );
     label->setText( info->label() );
     description->setText( info->description() );
@@ -72,8 +75,8 @@ void ImageConfig::load()
 void ImageConfig::save()
 {
     ImageInfo* info = _list.at( _current );
-    info->setDate( year->value(),  month->currentItem(), day->value() );
-    info->setTime( hour->value(), minute->value() );
+    info->setDateFrom( yearFrom->value(),  monthFrom->currentItem(), dayFrom->value() );
+    info->setDateTo( yearTo->value(),  monthTo->currentItem(), dayTo->value() );
     info->setQuality( quality->currentItem() );
     info->setLabel( label->text() );
     info->setDescription( description->text() );
@@ -82,22 +85,33 @@ void ImageConfig::save()
     info->setOption( keywords->label(),  keywords->selection() );
 }
 
-void ImageConfig::setImageInfo( ImageInfoList list )
-{
-    _list = list;
-    _current = -1;
-    slotNext();
-    _preloadImageMap.clear();
-    for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
-        ImageManager::instance()->load( (*it)->fileName(), this, 256, 256, false );
-    }
-}
-
 void ImageConfig::pixmapLoaded( const QString& fileName, int, int, const QPixmap& pixmap )
 {
     if ( fileName == _list.at( _current )->fileName() )
         preview->setPixmap( pixmap );
     _preloadImageMap[ fileName ] = pixmap;
+}
+
+int ImageConfig::exec( ImageInfoList list, bool oneAtATime )
+{
+    _list = list;
+
+    if ( oneAtATime )  {
+        _preloadImageMap.clear();
+        for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
+            ImageManager::instance()->load( (*it)->fileName(), this, 256, 256, false );
+        }
+        _current = -1;
+        slotNext();
+    }
+    else {
+        preview->setText( "Multiple images being configured at a time!" );
+    }
+
+    prevBut->setEnabled( oneAtATime );
+    nextBut->setEnabled( oneAtATime );
+
+    return QDialog::exec();
 }
 
 

@@ -77,17 +77,25 @@ void MainView::slotOptions()
 
 void MainView::slotConfigureAllImages()
 {
+    configureImages( false );
 }
 
 
 void MainView::slotConfigureImagesOneAtATime()
+{
+    configureImages( true );
+}
+
+
+
+void MainView::configureImages( bool oneAtATime )
 {
     if ( ! _imageConfigure ) {
         _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
     }
 
     ImageInfoList list;
-    for ( QIconViewItem *item = thumbNailView->firstItem(); item; item = item->nextItem() ) {
+    for ( QIconViewItem* item = thumbNailView->firstItem(); item; item = item->nextItem() ) {
         if ( item->isSelected() ) {
             ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
             Q_ASSERT( tn );
@@ -98,8 +106,7 @@ void MainView::slotConfigureImagesOneAtATime()
         QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
     }
     else {
-        _imageConfigure->setImageInfo( list );
-        _imageConfigure->exec();
+        _imageConfigure->exec( list,  oneAtATime );
         save();
     }
 }

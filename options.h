@@ -28,9 +28,6 @@ public:
     void setTrustTimeStamps( bool );
     bool trustTimeStamps() const;
 
-    void setTrustDateStamps( bool );
-    bool trustDateStamps() const;
-
     QStringList dataDirs() const;
     void save();
 
@@ -40,7 +37,7 @@ private:
     static Options* _instance;
 
     int _thumbWidth, _thumbHeight,  _imageCacheSize,  _numThreads;
-    bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps, _trustDateStamps;
+    bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps;
     QMap<QString, QStringList> _options;
 };
 

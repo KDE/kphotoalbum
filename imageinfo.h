@@ -23,14 +23,15 @@ public:
     void setDescription( const QString& );
     QString description() const;
 
-    void setDate( int year,  int month,  int day );
-    int year() const;
-    int month() const;
-    int day() const;
+    void setDateFrom( int year,  int month,  int day );
+    int yearFrom() const;
+    int monthFrom() const;
+    int dayFrom() const;
 
-    void setTime( int hour,  int minute );
-    int hour() const;
-    int minute() const;
+    void setDateTo( int year,  int month,  int day );
+    int yearTo() const;
+    int monthTo() const;
+    int dayTo() const;
 
     void setQuality( int );
     int quality() const;
@@ -46,7 +47,7 @@ private:
     QDeepCopy<QString> _fileName;
     QString _label;
     QString _description;
-    int _year,  _month,  _day, _hour, _minute;
+    int _yearFrom,  _monthFrom,  _dayFrom,  _yearTo,  _monthTo,  _dayTo;
     int _quality;
     QMap<QString, QStringList> _options;
 };

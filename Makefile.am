@@ -1,8 +1,8 @@
 SUBDIRS = images icons
 INCLUDES = $(all_includes)
 
-bin_PROGRAMS = kpalbum
-kpalbum_SOURCES = main.cpp \
+bin_PROGRAMS = kimdaba
+kimdaba_SOURCES = main.cpp \
 	thumbnailview.cpp \
 	thumbnail.cpp \
 	imagemanager.cpp \
@@ -27,13 +27,15 @@ kpalbum_SOURCES = main.cpp \
 	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp \
 	infopage.cpp htmlexportdialog.cpp imagecounter.cpp iconviewtooltip.cpp
 
-kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kpalbum_LDADD = $(LIB_KIO) -lktexteditor
-METASOURCES = AUTO
+kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+kimdaba_LDADD = $(LIB_KIO) -lktexteditor
 
-rcdir = $(kde_datadir)/kpalbum
-rc_DATA = kpalbumui.rc
+METASOURCES = AUTO
+KDE_CXXFLAGS = $(USE_THREADS)
+
+rcdir = $(kde_datadir)/kimdaba
+rc_DATA = kimdabaui.rc
 
 pkg_DATA = infobox.js
-pkgdir = $(kde_datadir)/kpalbum/
+pkgdir = $(kde_datadir)/kimdaba/
 EXTRA_DIST = $(pkg_DATA)

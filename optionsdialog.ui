@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>347</width>
-            <height>196</height>
+            <width>348</width>
+            <height>220</height>
         </rect>
     </property>
     <property name="caption">
@@ -101,6 +101,14 @@
                     </property>
                     <property name="text">
                         <string>Trust Time Stamps</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>markNew</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Mark new images found</string>
                     </property>
                 </widget>
             </vbox>

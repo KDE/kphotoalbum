@@ -28,6 +28,9 @@ public:
     QString imageDirectory() const;
     void setImageDirecotry( const QString& directory );
 
+    bool markNew() const;
+    void setMarkNew( bool );
+
     // Options for the Viewer
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     bool showInfoBox() const;
@@ -55,7 +58,7 @@ private:
     static QString _confFile;
 
     int _thumbSize,  _imageCacheSize;
-    bool _cacheThumbNails, _trustTimeStamps;
+    bool _cacheThumbNails, _trustTimeStamps, _markNew;
     QMap<QString, QStringList> _options;
     QString _imageDirectory;
 

@@ -15,7 +15,7 @@ void OptionsDialog::show()
     cacheThumbNails->setChecked( opt->cacheThumbNails() );
     trustTimeStamps->setChecked( opt->trustTimeStamps() );
     imageDirectory->setText( opt->imageDirectory() );
-
+    markNew->setChecked( opt->markNew() );
     QDialog::show();
 }
 
@@ -27,13 +27,14 @@ void OptionsDialog::slotApply()
     opt->setThumbSize( thumbnailSize->value() );
     opt->setCacheThumbNails( cacheThumbNails->isChecked() );
     opt->setTrustTimeStamps( trustTimeStamps->isChecked() );
+    opt->setMarkNew( markNew->isChecked() );
     bool pathChanged = opt->imageDirectory() != imageDirectory->text();
     opt->setImageDirecotry( imageDirectory->text() );
     opt->save();
     if ( pathChanged )
-	emit imagePathChanged();
+        emit imagePathChanged();
     else
-	emit changed();
+        emit changed();
 }
 
 

@@ -45,6 +45,7 @@ Editor::Editor( QWidget* parent, const char* name )
     _config->hide();
     _highlighter = 0;
     createHighlighter();
+    setTextFormat( PlainText );
 }
 
 void Editor::addSuggestion(const QString& text, const QStringList& lst, unsigned int)

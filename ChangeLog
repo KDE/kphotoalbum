@@ -1,5 +1,8 @@
 2004-11-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: Markup in the editor (like highlight for spelling errors) got
+	saved and thus displayed with the image.
+
 	* Renamed the menu bar descriptions for locking, so it hopefully
 	is easier to understand.
 

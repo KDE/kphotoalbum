@@ -31,6 +31,7 @@
 #include <kurldrag.h>
 #include <kmessagebox.h>
 #include <qpainter.h>
+#include "imagedaterange.h"
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :KIconView( parent,  name ), _currentHighlighted( 0 )
@@ -271,14 +272,24 @@ void ThumbNailView::drawBackground( QPainter * p, const QRect & r )
     p->fillRect( r, Options::instance()->thumbNailBackgroundColor() );
 }
 
-void ThumbNailView::gotoDate( const QDateTime& date )
+void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
 {
+    ThumbNail* candidate = 0;
     for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        if ( tn->imageInfo()->startDate().min() > date ) {
-            setContentsPos( tn->x()+4, tn->y()+4 );
-            return;
+        ImageDateRange::MatchType match = tn->imageInfo()->dateRange().includes( date );
+        if ( match == ImageDateRange::ExactMatch || ( match == ImageDateRange::RangeMatch && includeRanges ) ) {
+            if ( candidate ) {
+                if ( tn->imageInfo()->startDate().min() < candidate->imageInfo()->startDate().min() )
+                    candidate = tn;
+            }
+            else
+                candidate = tn;
         }
+    }
+    if ( candidate ) {
+        qDebug("%s", candidate->imageInfo()->fileName().latin1());
+        setContentsPos( candidate->x()+4, candidate->y()+4 );
     }
 }
 

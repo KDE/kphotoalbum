@@ -24,7 +24,6 @@
 #include <qfontmetrics.h>
 #include "dateviewhandler.h"
 #include <qtoolbutton.h>
-#include <datebartip.h>
 #include <qpopupmenu.h>
 #include <qaction.h>
 #include <qtimer.h>
@@ -32,6 +31,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <math.h>
+#include <klocale.h>
 
 const int histogramBarHeight = 30;
 const int borderAboveHistogram = 4;
@@ -44,6 +44,7 @@ DateBar::DateBar( QWidget* parent, const char* name )
      _barWidth( 15 ), _includeFuzzyCounts( true ), _contextMenu(0), _showResolutionIndicator( true )
 {
     setBackgroundMode( NoBackground );
+    setMouseTracking( true );
 
     _rightArrow = new QToolButton( RightArrow, this );
     _rightArrow->setFixedSize( QSize( buttonWidth, histogramBarHeight ) );
@@ -64,8 +65,6 @@ DateBar::DateBar( QWidget* parent, const char* name )
     _zoomOut->setFixedSize( buttonWidth, histogramBarHeight );
     connect( _zoomOut, SIGNAL( clicked() ), this, SLOT( zoomOut() ) );
     connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT( setEnabled( bool ) ) );
-
-    new DateBarTip( this );
 
     _autoScrollTimer = new QTimer( this );
     connect( _autoScrollTimer, SIGNAL( timeout() ), this, SLOT( autoScroll() ) );
@@ -367,7 +366,8 @@ void DateBar::mousePressEvent( QMouseEvent* event )
         _currentDate = _currentHandler->date( _currentUnit );
         _movementOffset = 0;
     }
-    emit dateSelected( _currentDate );
+    emit dateSelected( currentDateRange(), includeFuzzyCounts() );
+    showStatusBarTip( event->pos() );
     redraw();
 }
 
@@ -378,12 +378,14 @@ void DateBar::mouseReleaseEvent( QMouseEvent* )
 
 void DateBar::mouseMoveEvent( QMouseEvent* event )
 {
+    showStatusBarTip( event->pos() );
+
     if ( (event->state() & LeftButton) == 0 )
         return;
 
     endAutoScroll();
     doScroll( event->pos().x() );
-    emit dateSelected( _currentDate );
+    emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
 
 QRect DateBar::barAreaGeometry() const
@@ -411,21 +413,13 @@ void DateBar::setIncludeFuzzyCounts( bool b )
 {
     _includeFuzzyCounts = b;
     redraw();
+    emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
 
 ImageDateRange DateBar::rangeAt( const QPoint& p )
 {
     int unit = (p.x() - barAreaGeometry().x())/ _barWidth;
     return ImageDateRange( _currentHandler->date( unit ), _currentHandler->date(unit+1) );
-}
-
-QRect DateBar::barRect( const QPoint& p )
-{
-    int unit = (p.x() - barAreaGeometry().x())/ _barWidth;
-    QRect r = barAreaGeometry();
-    r.setLeft( r.left() + unit*_barWidth );
-    r.setRight( r.left() + _barWidth );
-    return r;
 }
 
 bool DateBar::includeFuzzyCounts() const
@@ -437,13 +431,13 @@ void DateBar::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_contextMenu ) {
         _contextMenu = new QPopupMenu( this );
-        QAction* action = new QAction( tr("Show Image Ranged"), 0, this );
+        QAction* action = new QAction( i18n("Show Image Ranged"), 0, this );
         action->setToggleAction( true );
         action->addTo( _contextMenu );
         action->setOn( _includeFuzzyCounts );
         connect( action, SIGNAL( toggled( bool ) ), this, SLOT( setIncludeFuzzyCounts( bool ) ) );
 
-        action = new QAction( tr("Show Resolution Indicator"), 0, this );
+        action = new QAction( i18n("Show Resolution Indicator"), 0, this );
         action->setToggleAction( true );
         action->addTo( _contextMenu );
         action->setOn( _showResolutionIndicator );
@@ -610,5 +604,30 @@ void DateBar::updateArrowState()
 {
     _leftArrow->setEnabled( _dates.lowerLimit() <= _currentHandler->date( 0 ) );
     _rightArrow->setEnabled( _dates.upperLimit() > _currentHandler->date( numberOfUnits() ) );
+}
+
+ImageDateRange DateBar::currentDateRange() const
+{
+    return ImageDateRange( ImageDate( _currentDate ), ImageDate( _currentHandler->date( _currentUnit+1 ) ) );
+}
+
+void DateBar::showStatusBarTip( const QPoint& pos )
+{
+    ImageDateRange range = rangeAt( pos );
+    ImageCount count = _dates.count( range.start(), range.end().max().addSecs(-1) );
+
+    QString cnt;
+    if ( count._rangeMatch != 0 && includeFuzzyCounts())
+        cnt = i18n("%1 exact + %2 ranges = %3 images").arg( count._exact ).arg( count._rangeMatch ).arg( count._exact + count._rangeMatch );
+    else
+        cnt = i18n("%1 images").arg( count._exact );
+
+    QString res = i18n("%1 to %2  %3").arg(range.start().toString()).arg(range.end().toString())
+                  .arg(cnt);
+
+    static QString lastTip = QString::null;
+    if ( lastTip != res )
+        emit toolTipInfo( res );
+    lastTip = res;
 }
 

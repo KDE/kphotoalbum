@@ -69,6 +69,7 @@ protected:
     bool calculateMD5sums( ImageInfoList& list );
     QString MD5Sum( const QString& fileName );
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
+    void checkIfImagesAreSorted();
 
 protected slots:
     void renameOption( const QString& category, const QString& oldName, const QString& newName );

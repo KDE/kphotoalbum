@@ -445,7 +445,10 @@ void Options::setMaxImages( int i )
 
 int Options::maxImages() const
 {
+    return 10000000;
+#ifdef TEMPORARILY_REMOVED
     return _maxImages;
+#endif
 }
 
 

@@ -32,6 +32,7 @@
 #include <qeventloop.h>
 #include "browser.h"
 #include <qdict.h>
+#include "mainview.h"
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -113,6 +114,8 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
     connect( Options::instance(), SIGNAL( renamedOption( const QString&, const QString&, const QString& ) ),
              this, SLOT( renameOption( const QString&, const QString&, const QString& ) ) );
     connect( Options::instance(), SIGNAL( locked( bool, bool ) ), this, SLOT( lockDB( bool, bool ) ) );
+
+    checkIfImagesAreSorted();
 }
 
 int ImageDB::totalCount() const
@@ -608,6 +611,35 @@ QDict<void> ImageDB::findAlreadyMatched( const ImageSearchInfo& info, const QStr
             map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
     }
     return map;
+}
+
+void ImageDB::checkIfImagesAreSorted()
+{
+    if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )
+        return;
+
+    QDateTime last( QDate( 1900, 1, 1 ) );
+    bool wrongOrder = false;
+    for( ImageInfoListIterator it( _images ); !wrongOrder && *it; ++it ) {
+        if ( last > (*it)->startDate().min() )
+            wrongOrder = true;
+        last = (*it)->startDate().min();
+    }
+
+    if ( wrongOrder ) {
+        KMessageBox::information( MainView::theMainView(),
+                                  i18n("<qt><p>Your images are not sorted, which meams that navigating using the date bar "
+                                       "will not work properly (it will not jump to the right images).</p>"
+                                       "<p>In the <b>Maintainance</b> menu, you will find <b>Display Images with Incomplete Dates</b> "
+                                       "which you may use to find the images that are missing date infomation.</p>"
+                                       "Next you may select those images that you have reason to believe have correct date "
+                                       "in either the EXIF data or on the file, and execute <b>Maintainance->read exif info</b> "
+                                       "to reread the information.</p>"
+                                       "<p>Finally, when all images have date set, you may execute "
+                                       "<b>Images->Sort Selected by Date & Time</b> to sort them in the database.</p></qt>"),
+                                  i18n("Images are not sorted"),
+                                  QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
+    }
 }
 
 #include "imagedb.moc"

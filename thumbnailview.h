@@ -20,6 +20,7 @@
 #define THUMBNAILVIEW_H
 #include <kiconview.h>
 #include "imageinfo.h"
+class ImageDateRange;
 class ImageManager;
 class IconViewToolTip;
 
@@ -36,7 +37,7 @@ public slots:
     void slotCut();
     void slotPaste();
     void showToolTipsOnImages( bool );
-    void gotoDate( const QDateTime& );
+    void gotoDate( const ImageDateRange&, bool includeRanges );
 
 signals:
     void changed();

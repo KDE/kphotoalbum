@@ -188,6 +188,8 @@ void OptionsDialog::createThumbNailPage()
     lay4->addWidget( maxImagesLabel );
     lay4->addWidget( _maxImages );
     lay4->addStretch(1);
+    maxImagesLabel->hide();
+    _maxImages->hide();
 
     // Display Labels
     _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );

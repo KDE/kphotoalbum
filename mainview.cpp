@@ -83,6 +83,7 @@
 #include <qlayout.h>
 #include "datebar.h"
 #include "imagedaterangecollection.h"
+#include "invaliddatefinder.h"
 
 MainView* MainView::_instance = 0;
 
@@ -120,7 +121,8 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
     _thumbNailView = new ThumbNailView( _stack, "_thumbNailView" );
-    connect( _dateBar, SIGNAL( dateSelected( const QDateTime& ) ), _thumbNailView, SLOT( gotoDate( const QDateTime& ) ) );
+    connect( _dateBar, SIGNAL( dateSelected( const ImageDateRange&, bool ) ), _thumbNailView, SLOT( gotoDate( const ImageDateRange&, bool ) ) );
+    connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
 
     connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
 
@@ -138,6 +140,12 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setEnabled( bool ) ) );
 
     // Setting up status bar
+    QFont f( statusBar()->font() ); // Avoid flicker in the statusbar when moving over dates from the datebar
+    f.setStyleHint( QFont::TypeWriter );
+    f.setFamily( QString::fromLatin1( "courier" ) );
+    f.setBold( true );
+    statusBar()->setFont( f );
+
     QHBox* indicators = new QHBox( statusBar(), "indicator" );
     _dirtyIndicator = new QLabel( indicators, "_dirtyIndicator" );
     setDirty( _dirty ); // Might already have been made dirty by load above
@@ -700,6 +708,7 @@ void MainView::setupMenuBar()
 
     // Maintenance
     new KAction( i18n("Display Images Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
+    new KAction( i18n("Display Images with Incomplete Dates"), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
@@ -1410,5 +1419,16 @@ void MainView::updateDateBar( const QString& path )
     lastPath = path;
 }
 
+void MainView::slotShowImagesWithInvalidDate()
+{
+    InvalidDateFinder finder( this, "invaliddatefinder" );
+    if ( finder.exec() == QDialog::Accepted )
+        showThumbNails();
+}
+
+void MainView::showDateBarTip( const QString& msg )
+{
+    statusBar()->message( msg, 3000 );
+}
+
 #include "mainview.moc"
-class QDateTime;

@@ -33,8 +33,6 @@ class DateBar :public QWidget {
 public:
     DateBar( QWidget* parent, const char* name = 0 );
     enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView };
-    ImageDateRange rangeAt( const QPoint& );
-    QRect barRect( const QPoint& );
     bool includeFuzzyCounts() const;
 
 public slots:
@@ -53,7 +51,8 @@ public slots:
 signals:
     void canZoomIn( bool );
     void canZoomOut( bool );
-    void dateSelected( const QDateTime& );
+    void dateSelected( const ImageDateRange&, bool includeRanges );
+    void toolTipInfo( const QString& );
 
 public:
     // Overriden methods for internal purpose
@@ -82,6 +81,9 @@ protected:
     void endAutoScroll();
     void doScroll( int x );
     void updateArrowState();
+    ImageDateRange currentDateRange() const;
+    void showStatusBarTip( const QPoint& pos );
+    ImageDateRange rangeAt( const QPoint& );
 
 protected slots:
     void autoScroll();

@@ -19,6 +19,7 @@
 #include "dateviewhandler.h"
 #include <qobject.h>
 #include <math.h>
+#include <klocale.h>
 
 void DateViewHandler::init( const QDateTime& startDate )
 {
@@ -67,7 +68,7 @@ QDateTime DecadeViewHandler::date(int unit, QDateTime reference )
 
 QString DecadeViewHandler::unitText() const
 {
-    return QObject::tr( "1 year" );
+    return i18n( "1 year" );
 }
 
 void YearViewHandler::init( const QDateTime& startDate )
@@ -99,7 +100,7 @@ QDateTime YearViewHandler::date(int unit, QDateTime reference )
 
 QString YearViewHandler::unitText() const
 {
-    return QObject::tr("1 Month");
+    return i18n("1 Month");
 }
 
 
@@ -137,7 +138,7 @@ QDateTime MonthViewHandler::date(int unit, QDateTime reference )
 
 QString MonthViewHandler::unitText() const
 {
-    return QObject::tr("1 week");
+    return i18n("1 week");
 }
 
 
@@ -172,7 +173,7 @@ QDateTime WeekViewHandler::date(int unit, QDateTime reference )
 
 QString WeekViewHandler::unitText() const
 {
-    return QObject::tr("1 day");
+    return i18n("1 day");
 }
 
 
@@ -215,7 +216,7 @@ QDateTime DayViewHandler::date(int unit, QDateTime reference )
 
 QString DayViewHandler::unitText() const
 {
-    return QObject::tr("2 hours");
+    return i18n("2 hours");
 }
 
 
@@ -251,6 +252,6 @@ QDateTime HourViewHandler::date(int unit, QDateTime reference )
 
 QString HourViewHandler::unitText() const
 {
-    return QObject::tr("10 minutes");
+    return i18n("10 minutes");
 }
 

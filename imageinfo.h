@@ -30,6 +30,7 @@
 #include "imagedate.h"
 #include "drawlist.h"
 #include <qimage.h>
+#include "imagedaterange.h"
 
 #define EXIFMODE_TIME          0x01
 #define EXIFMODE_DATE          0x02
@@ -61,6 +62,7 @@ public:
     void setEndDate( const ImageDate& );
     ImageDate& startDate();
     ImageDate& endDate();
+    ImageDateRange dateRange() const;
 
     void readExif(const QString& fullPath, int mode);
 

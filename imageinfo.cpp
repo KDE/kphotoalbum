@@ -36,6 +36,7 @@ extern "C" {
 #include <klocale.h>
 #include "imagedb.h"
 #include "categorycollection.h"
+#include "fileinfo.h"
 
 ImageInfo::ImageInfo() :_null( true )
 {
@@ -346,9 +347,9 @@ QImage ImageInfo::load( int width, int height ) const
 void ImageInfo::readExif(const QString& fullPath, int mode)
 {
     QFileInfo fi( fullPath );
-    QMap<QString,QVariant> exif = Util::getEXIF( fullPath );
+    FileInfo exifInfo = FileInfo::read( fullPath );
     static bool hasShownWarning = false;
-    if ( exif.count() == 0 && !hasShownWarning ) {
+    if ( exifInfo.isEmpty() && !hasShownWarning ) {
         hasShownWarning = true;
         KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information.</b></p>"
                                           "<p>EXIF information is meta information about the image stored in JPEG files. "
@@ -362,35 +363,26 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     //Time
     if ( mode & EXIFMODE_TIME ) {
         if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
-            if (exif.contains( QString::fromLatin1( "CreationTime" ) ) ){
-                QTime time = exif[QString::fromLatin1( "CreationTime" )].toTime();
-                if (time.isValid())
-                    _startDate.setTime( time );
-            }
-            else {
-                QTime time = fi.lastModified().time();
+            QTime time = exifInfo.time();
+            if ( time.isValid() )
                 _startDate.setTime( time );
-            }
         }
     }
 
     // Date
     if ( mode & EXIFMODE_DATE ) {
         if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
-            bool dateFound = false;
-            if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
-                QDate date = exif[QString::fromLatin1( "CreationDate" )].toDate();
-                if ( date.isValid() ) {
-                    _startDate.setDate( date );
-                    _endDate = ImageDate();
-                    dateFound = true;
-                }
+            bool foundDateInfExit;
+            QDate date = exifInfo.date( &foundDateInfExit );
+            if ( date.isValid() ) {
+                _startDate.setDate( date );
+                _endDate = ImageDate();
             }
-            else if ( ( _fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
-                        _fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
-                        _fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
-                        _fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) && !hasShownWarning ) {
-                hasShownWarning = true;
+            if ( !foundDateInfExit && !hasShownWarning &&
+                 ( _fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
+                   _fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
+                   _fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
+                   _fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) ) {
                 KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read the date from the EXIF information.</b></p>"
                                                   "<p>EXIF information is meta information about the image stored in JPEG files. "
                                                   "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
@@ -400,35 +392,23 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
                                           i18n("Unable to Read Date From EXIF Information"),
                                           QString::fromLatin1("UnableToReadEXIFInformation") );
             }
-
-            if ( !dateFound )  {
-                QDate date = fi.lastModified().date();
-                _startDate.setDate( date );
-                _endDate = ImageDate();
-            }
         }
     }
 
     // Orientation
     if ( mode & EXIFMODE_ORIENTATION ) {
-        if ( Options::instance()->useEXIFRotate() && exif.contains( QString::fromLatin1( "Orientation" ) ) ) {
-            int orientation =  exif[QString::fromLatin1( "Orientation" )].toInt();
-            if ( orientation == 1 || orientation == 2 )
-                _angle = 0;
-            else if ( orientation == 3 || orientation == 4 )
-                _angle = 180;
-            else if ( orientation == 5 || orientation == 8 )
-                _angle = 270;
-            else if ( orientation == 6 || orientation == 7 )
-                _angle = 90;
+        if ( Options::instance()->useEXIFRotate() ) {
+            bool ok;
+            int angle = exifInfo.angle( &ok );
+            if ( ok )
+                _angle = angle;
         }
     }
 
     // Description
     if ( mode & EXIFMODE_DESCRIPTION ) {
-        if ( Options::instance()->useEXIFComments() && exif.contains( QString::fromLatin1( "Comment" ) ) ) {
-            _description = exif[QString::fromLatin1( "Comment" )].toString();
-        }
+        if ( Options::instance()->useEXIFComments() )
+            _description = exifInfo.description();
     }
 }
 
@@ -476,6 +456,11 @@ bool ImageInfo::imageOnDisk() const
 void ImageInfo::setImageOnDisk( bool b )
 {
     _imageOnDisk = (b ? YesOnDisk : NoNotOnDisk);
+}
+
+ImageDateRange ImageInfo::dateRange() const
+{
+    return ImageDateRange( _startDate, _endDate );
 }
 
 #include "infobox.moc"

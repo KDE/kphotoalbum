@@ -442,9 +442,6 @@ bool Util::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int 
 
 bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width, int height)
 {
-   static QMutex jpegMutex;
-   QMutexLocker lock(&jpegMutex); //this is not necessary if all the following is reentrant - don't know
-
    struct jpeg_decompress_struct    cinfo;
    struct myjpeg_error_mgr jerr;
 

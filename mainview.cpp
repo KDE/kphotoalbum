@@ -1018,9 +1018,9 @@ void MainView::slotConfigureKeyBindings()
     dialog->insert( viewer->actions(), i18n("Viewer") );
 
     KIPI::PluginLoader::List list = _pluginLoader->pluginList();
-    for( QPtrListIterator<KIPI::Plugin> it( list ); *it; ++it ) {
-        KIPI::Plugin* plugin = *it;
-        dialog->insert( plugin->actionCollection(), QString::fromLatin1(plugin->name()) );
+    for( KIPI::PluginLoader::List::Iterator it = list.begin(); it != list.end(); ++it ) {
+        KIPI::Plugin* plugin = (*it).plugin;
+        dialog->insert( plugin->actionCollection(), (*it).comment );
     }
 
     dialog->configure();
@@ -1174,15 +1174,14 @@ void MainView::loadPlugins()
             << QString::fromLatin1( "SlideShow" );
 
     _pluginLoader = new KIPI::PluginLoader( ignores, interface );
-    _pluginLoader->loadPlugins();
 
     QPtrList<KAction> fileActions;
     QPtrList<KAction> imageActions;
     QPtrList<KAction> toolsActions;
 
     KIPI::PluginLoader::List list = _pluginLoader->pluginList();
-    for( QPtrListIterator<KIPI::Plugin> it( list ); *it; ++it ) {
-        KIPI::Plugin* plugin = *it;
+    for( KIPI::PluginLoader::List::Iterator it = list.begin(); it != list.end(); ++it ) {
+        KIPI::Plugin* plugin = (*it).plugin;
         plugin->setup( this );
         QPtrList<KAction>* popup = 0;
         if ( plugin->category() == KIPI::IMAGESPLUGIN )

@@ -591,8 +591,10 @@ QString HTMLExportDialog::createImage( ImageInfo* info, int size )
     return nameImage( info->fileName(), size );
 }
 
-void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*height*/, int /*angle*/, const QImage& image )
+void HTMLExportDialog::pixmapLoaded( const QString& fileName, const QSize& imgSize,
+                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image )
 {
+    int size = imgSize.width();
     _progress->setProgress( _total - _waitCounter );
 
     _waitCounter--;

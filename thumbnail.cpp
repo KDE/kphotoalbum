@@ -71,7 +71,7 @@ ImageInfo* ThumbNail::imageInfo()
     return _imageInfo;
 }
 
-void ThumbNail::pixmapLoaded( const QString&, int, int, int, const QImage& image  )
+void ThumbNail::pixmapLoaded( const QString&, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image  )
 {
     if ( !image.isNull() )
         _pixmap.convertFromImage( image );

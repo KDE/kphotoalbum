@@ -27,6 +27,8 @@
 #include <qdeepcopy.h>
 #include <qstring.h>
 #include <qpixmap.h>
+#include <qcache.h>
+
 class ImageClient;
 
 class LoadInfo {
@@ -45,6 +47,9 @@ public:
     bool cache() const;
     ImageClient* client();
 
+    QSize fullSize() const;
+    void setFullSize( const QSize& );
+
     bool operator<( const LoadInfo& other ) const;
     bool operator==( const LoadInfo& other ) const;
 
@@ -56,6 +61,7 @@ private:
     bool _cache;
     ImageClient* _client;
     int _angle;
+    QSize _fullSize;
 };
 
 class ImageEvent :public QCustomEvent {

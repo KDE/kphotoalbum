@@ -62,7 +62,7 @@ int main( int argc, char** argv ) {
     MainView* view = new MainView( 0, "view" );
 
     qApp->setMainWidget( view );
-    view->resize(800, 600);
+    view->resize( Options::instance()->windowSize( Options::MainWindow ) );
     splash->finish( view );
 
     int code = app.exec();

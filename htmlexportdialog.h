@@ -47,7 +47,7 @@ protected slots:
 protected:
     QString createImage( ImageInfo* info, int size );
     QString imageName( const QString& fileName, int size );
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& );
     bool generate();
     bool generateIndexPage( int width, int height );
     bool generateContextPage( int width, int height, ImageInfo* prevInfo,

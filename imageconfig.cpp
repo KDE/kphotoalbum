@@ -233,7 +233,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // If I don't explicit show _dockWindow here, then no windows will show up.
     _dockWindow->show();
 
-    resize( 800, 600 );
+    resize( Options::instance()->windowSize( Options::ConfigWindow ) );
 }
 
 
@@ -762,6 +762,11 @@ void ImageConfig::showHelpDialog( SetupType type )
 
 
     KMessageBox::information( this, txt, QString::null, doNotShowKey, KMessageBox::AllowLink );
+}
+
+void ImageConfig::resizeEvent( QResizeEvent* e )
+{
+    Options::instance()->setWindowSize( Options::ConfigWindow, e->size() );
 }
 
 #include "imageconfig.moc"

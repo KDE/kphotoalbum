@@ -34,7 +34,7 @@ public:
     void showToolTips( bool force );
     virtual void setActive(bool);
     void clear();
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& );
 
 protected:
     virtual bool eventFilter( QObject*, QEvent* e );

@@ -313,12 +313,14 @@ QImage ImageInfo::load( int width, int height ) const
         QString standardThumbFile(Util::getThumbnailFile
                  (fileName(), Options::instance()->thumbSize(), Options::instance()->thumbSize(), _angle));
 
-        if ( Options::instance()->thumbSize() <= QMAX(width, height) && QFile(standardThumbFile).isReadable() )
-            image.load(standardThumbFile);
         if ( QFile(thumbFile).isReadable() )
             image.load(thumbFile);
-        else if ( Util::isJPEG( fileName() ) )
-            Util::loadJPEG( &image, fileName(), width, height );
+        else if ( Options::instance()->thumbSize() <= QMAX(width, height) && QFile(standardThumbFile).isReadable() )
+            image.load(standardThumbFile);
+        else if ( Util::isJPEG( fileName() ) ) {
+            QSize dummy;
+            Util::loadJPEG( &image, fileName(), &dummy, width, height );
+        }
         else
             image.load( fileName() );
     }

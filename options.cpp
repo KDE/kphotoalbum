@@ -75,6 +75,7 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _displayLabels = (bool) config.attribute( QString::fromLatin1( "displayLabels" ), QString::fromLatin1( "1" ) ).toInt();
     _thumbNailBackgroundColor = QColor( config.attribute( QString::fromLatin1( "thumbNailBackgroundColor" ),
                                                           QString::fromLatin1( "black" ) ) );
+    _viewerCacheSize = config.attribute( QString::fromLatin1( "viewerCacheSize" ), QString::fromLatin1( "25" )  ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -92,6 +93,18 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
                                    QString::fromLatin1( "450" ) ).toInt();
     _slideShowSize = QSize( width, height );
     _slideShowInterval = config.attribute( QString::fromLatin1( "slideShowInterval" ), QString::fromLatin1( "5" ) ).toInt();
+
+    // Window sizes
+    for ( int i = 0; i < LastWindowSize; ++i ) {
+        bool ok;
+        int w = config.attribute( QString::fromLatin1( "windowWidth-%1" ).arg(i), QString::fromLatin1( "800" )).toInt(&ok);
+        if ( !ok )
+            w = 800;
+        int h = config.attribute( QString::fromLatin1( "windowHeight-%1" ).arg(i), QString::fromLatin1( "600" )).toInt(&ok);
+        if ( !ok )
+            h = 600;
+        _windowSizes[(WindowType) i] = QSize( w,h );
+    }
 
     Util::readOptions( options, &_options, &_optionGroups );
     _configDock = configWindowSetup;
@@ -148,6 +161,7 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "launchSlideShowFullScreen" ), _launchSlideShowFullScreen );
     config.setAttribute( QString::fromLatin1( "displayLabels" ), _displayLabels );
     config.setAttribute( QString::fromLatin1( "thumbNailBackgroundColor" ), _thumbNailBackgroundColor.name() );
+    config.setAttribute( QString::fromLatin1( "viewerCacheSize" ), _viewerCacheSize );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -158,6 +172,12 @@ void Options::save( QDomElement top )
     // Slide show size
     config.setAttribute( QString::fromLatin1( "slideShowWidth_%1" ).arg(rect.width()), _slideShowSize.width() );
     config.setAttribute( QString::fromLatin1( "slideShowHeight_%1" ).arg( rect.width()), _slideShowSize.height() );
+
+    // Window sizes
+    for ( int i = 0; i < LastWindowSize; ++i ) {
+        config.setAttribute( QString::fromLatin1( "windowWidth-%1" ).arg(i), _windowSizes[(WindowType)i].width() );
+        config.setAttribute( QString::fromLatin1( "windowHeight-%1" ).arg(i), _windowSizes[(WindowType)i].height() );
+    }
 
     QStringList grps = optionGroups();
     QDomElement options = doc.createElement( QString::fromLatin1("options") );
@@ -754,6 +774,31 @@ void Options::setThumbNailBackgroundColor( const QColor& col )
 QColor Options::thumbNailBackgroundColor() const
 {
     return _thumbNailBackgroundColor;
+}
+
+void Options::setWindowSize( WindowType win, const QSize& size )
+{
+    _windowSizes[win] = size;
+}
+
+QSize Options::windowSize( WindowType win ) const
+{
+    return _windowSizes[win];
+}
+
+bool Options::ready()
+{
+    return _instance != 0;
+}
+
+int Options::viewerCacheSize() const
+{
+    return _viewerCacheSize;
+}
+
+void Options::setViewerCacheSize( int size )
+{
+    _viewerCacheSize = size;
 }
 
 #include "options.moc"

@@ -107,6 +107,7 @@ protected:
     void configureImages( bool oneAtATime );
     QString welcome();
     virtual void closeEvent( QCloseEvent* e );
+    virtual void resizeEvent( QResizeEvent* );
     void setupMenuBar();
     void startAutoSaveTimer();
     void createImageConfig();

@@ -66,31 +66,28 @@ void ImageLoader::run()
 
             if ( !imageLoaded && QFile( li.fileName() ).exists() ) {
                 if (Util::isJPEG(li.fileName())) {
-                   Util::loadJPEG(&img, li.fileName(), li.width(), li.height());
-                } else
-                   img.load( li.fileName() );
-
-                // If we are looking for a scaled version, then scale
-                if ( li.width() != -1 && li.height() != -1 )
-                    img = img.smoothScale( li.width(), li.height(), QImage::ScaleMin );
+                    QSize fullSize;
+                    Util::loadJPEG(&img, li.fileName(),  &fullSize, li.width(), li.height());
+                    li.setFullSize( fullSize );
+                } else {
+                    img.load( li.fileName() );
+                    li.setFullSize( img.size() );
+                }
 
                 if ( li.angle() != 0 )  {
                     QWMatrix matrix;
                     matrix.rotate( li.angle() );
                     img = img.xForm( matrix );
+                    int angle = (li.angle() + 360)%360;
+                    Q_ASSERT( angle >= 0 && angle <= 360 );
+                    if ( angle == 90 || angle == 270 )
+                        li.setFullSize( QSize( li.fullSize().height(), li.fullSize().width() ) );
+
                 }
 
-                // HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT
-                // To optimize showing tooltip images in the browser, we better cache the 256x256 thumbnails here
-                // this is of course not a proper way of doing this - an ugly side effect of this image loader in fact,
-                // but in love and war (and software optimization) sometimes you must do something wrong to get it really good ;-)
-                //  4 Jan. 2004 19:51 -- Jesper K. Pedersen
-                // HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT
-                {
-                    QImage hack = img.smoothScale( 256, 256, QImage::ScaleMin );
-                    QString cacheFileForHack = Util::getThumbnailFile( li.fileName(), 256, 256, li.angle() );
-                    hack.save( cacheFileForHack, "JPEG" );
-                }
+                // If we are looking for a scaled version, then scale
+                if ( li.width() != -1 && li.height() != -1 )
+                    img = img.smoothScale( li.width(), li.height(), QImage::ScaleMin );
 
                 // Save thumbnail to disk
                 if ( li.cache() ) {

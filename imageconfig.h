@@ -82,6 +82,7 @@ protected:
     KDockWidget* createListSel( const QString& optionGroup );
     bool hasChanges();
     void showHelpDialog( SetupType );
+    virtual void resizeEvent( QResizeEvent* );
 
 private:
     ImageInfoList _origList;

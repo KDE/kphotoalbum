@@ -1,3 +1,22 @@
+2004-08-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* The viewer now preloads images, which makes it feel a LOT more
+	responsive.
+
+2004-08-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added zoom out to full view in viewer.
+
+2004-08-07  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Removed the preload hack for preview, which was broken
+	anyway. Not needed now when image loading is so much faster.
+
+2004-08-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Size of main windows and configuration window are now stored in
+	the index.xml file, and restored for future sessions
+
 2004-07-24  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Moved all plugins to one menu rather than scattered out over all

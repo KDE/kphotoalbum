@@ -44,9 +44,9 @@ public:
     static void removeThumbNail( const QString& imageFile );
     static QString readFile( const QString& fileName );
     static QMap<QString,QVariant> getEXIF( const QString& fileName );
-    static bool loadJPEG(QImage *img, const QString& imageFile, int width=-1, int height=-1);
+    static bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
     static bool isJPEG( const QString& fileName );
-    
+
     static ImageInfoList shuffle( ImageInfoList list );
 
     typedef QMap<QString, QString> UniqNameMap;

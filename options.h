@@ -32,6 +32,7 @@ class Options :public QObject {
 
 public:
     static Options* instance();
+    static bool ready();
     static void setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory );
 
     void setThumbSize( int );
@@ -181,6 +182,13 @@ public:
     void setThumbNailBackgroundColor( const QColor& );
     QColor thumbNailBackgroundColor() const;
 
+    enum WindowType { MainWindow = 0, ConfigWindow = 1, LastWindowSize = 2};
+    void setWindowSize( WindowType, const QSize& size );
+    QSize windowSize( WindowType ) const;
+
+    int viewerCacheSize() const;
+    void setViewerCacheSize( int size );
+
 signals:
     void optionGroupsChanged();
     void changed();
@@ -220,6 +228,8 @@ private:
     QString _albumCategory;
     bool _displayLabels;
     QColor _thumbNailBackgroundColor;
+    QMap<WindowType, QSize> _windowSizes;
+    int _viewerCacheSize;
 };
 
 #endif /* OPTIONS_H */

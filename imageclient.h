@@ -18,13 +18,14 @@
 
 #ifndef IMAGECLIENT_H
 #define IMAGECLIENT_H
+class QSize;
 class QImage;
 class QString;
 
 class ImageClient {
 public:
     virtual ~ImageClient();
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& ) = 0;
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& ) = 0;
 };
 
 #endif /* IMAGECLIENT_H */

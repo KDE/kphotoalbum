@@ -110,7 +110,7 @@ void ImagePreview::setCurrentImage(const QImage &image)
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
 }
 
-void ImagePreview::pixmapLoaded( const QString& fileName, int, int, int, const QImage& image)
+void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image)
 {
     if ( !_info.isNull() ) {
         if (_info.fileName() == fileName)
@@ -171,7 +171,8 @@ void ImagePreview::PreviewImage::reset()
 }
 
 
-void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, int /*w*/, int /*h*/, int, const QImage& image)
+void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
+                                                const QSize& /*fullSize*/, int, const QImage& image)
 {
     set(fileName, image);
 }

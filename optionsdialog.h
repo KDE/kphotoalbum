@@ -112,6 +112,7 @@ private:
     ViewerSizeConfig* _slideShowSetup;
     ViewerSizeConfig* _viewImageSetup;
     QSpinBox* _slideShowInterval;
+    QSpinBox* _cacheSize;
 
     // Plugin config
     KIPI::ConfigWidget* _pluginConfig;

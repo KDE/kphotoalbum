@@ -24,6 +24,11 @@
 #include "viewhandler.h"
 #include "drawhandler.h"
 #include <qlabel.h>
+#include "imagemanager.h"
+#include <qcursor.h>
+#include <qapplication.h>
+#include <klocale.h>
+#include <math.h>
 
 /**
    Area displaying the actual image in the viewer.
@@ -69,16 +74,37 @@
    These handlers draw on _viewPixmap, but to do so, the painters need to
    be set up with transformation, as the pixmap is no longer the size of
    the original image, but rather the size of the display.
+
+
+
+   To make viewing faster, preloading of images is done. However,
+   preloading is not done of the full size images, as each image easily is
+   approximate 20Mb large (5Mega pixels of each 4 bytes), which would fill
+   the preloading cache with just a few images. Instead preloads of images
+   in the view size are stored. This unfortunately complicated the code
+   quite a bit.
+
+   For the zooming and drawing to work, we need the total size of
+   the images, even when it is scaled down in size. For that the preload
+   info struct keeps this information, together with the image itself.
+
+   Whenever zooming or rotation is performed, we need to load the real
+   image, which is why we need the instance variable _cachedView and
+   _reloadImageInProgress.
+
+   To propagate the cache, we need to know which direction the
+   images are viewed in, which is the job of the instance variable _forward.
 */
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
-    :QWidget( parent, name )
+    :QWidget( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true)
 {
     setBackgroundMode( NoBackground );
 
     _viewHandler = new ViewHandler( this );
     _drawHanler = new DrawHandler( this );
     _currentHandler = _viewHandler;
+    _cache.setAutoDelete( true );
 
     connect( _drawHanler, SIGNAL( redraw() ), this, SLOT( drawAll() ) );
 
@@ -111,6 +137,7 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 
 void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
+    _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio;
     (void) offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), &ratio );
@@ -156,19 +183,42 @@ void DisplayArea::toggleShowDrawings( bool b )
     drawAll();
 }
 
-void DisplayArea::setImage( ImageInfo* info )
+void DisplayArea::setImage( ImageInfo* info, bool forward )
 {
     _info = info;
-    _loadedImage = info->load();
+    _loadedImage = QImage();
 
-    _zStart = QPoint(0,0);
-    _zEnd = QPoint( _loadedImage.width(), _loadedImage.height() );
-    cropAndScale();
+    // Find the index of the current image
+    _curIndex = 0;
+    for( ImageInfoListIterator it( _imageList ); *it; ++it ) {
+        if ( *it == info )
+            break;
+        ++_curIndex;
+    }
+
+    ViewPreloadInfo* found = _cache[_curIndex];
+    if ( found && found->angle == info->angle() ) {
+        _loadedImage = found->img;
+        _zStart = QPoint(0,0);
+        _zEnd = QPoint( found->size.width(), found->size.height() );
+        cropAndScale();
+        _cachedView = true;
+    }
+    else {
+        ImageManager::instance()->load( info->fileName(), this, info->angle(), -1, -1, false, true );
+        busy();
+        _cachedView = false;
+    }
+    _forward = forward;
+    updatePreload();
 }
 
 void DisplayArea::resizeEvent( QResizeEvent* )
 {
-    cropAndScale();
+    if ( _info )
+        cropAndScale();
+    _cache.fill(0); // Clear the cache
+    ImageManager::instance()->stop( this );
 }
 
 DrawHandler* DisplayArea::drawHandler()
@@ -216,6 +266,7 @@ QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWid
 
 void DisplayArea::zoom( QPoint p1, QPoint p2 )
 {
+    _cache.remove( _curIndex );
     normalize( p1, p2 );
 
     double ratio;
@@ -227,24 +278,43 @@ void DisplayArea::zoom( QPoint p1, QPoint p2 )
     else
         p1.setX(0);
 
-    if ( p2.x() + off.x() < _loadedImage.width() )
+    int maxWidth;
+    int maxHeight;
+    if ( _cachedView ) {
+        maxWidth = _zEnd.x();
+        maxHeight = _zEnd.y();
+    }
+    else {
+        maxWidth = _loadedImage.width();
+        maxHeight = _loadedImage.height();
+    }
+
+    if ( p2.x() + off.x() < maxWidth )
         p2.setX( p2.x()+off.x() );
     else
-        p2.setX( _loadedImage.width() );
+        p2.setX( maxWidth );
 
     if ( p1.y() - off.y() > 0 )
         p1.setY( p1.y() - off.y() );
     else
         p1.setY(0);
 
-    if ( p2.y() + off.y() < _loadedImage.height() )
+    if ( p2.y() + off.y() < maxHeight )
         p2.setY( p2.y()+off.y() );
     else
-        p2.setY( _loadedImage.height() );
+        p2.setY( maxHeight );
 
     _zStart = p1;
     _zEnd = p2;
-    cropAndScale();
+    if ( _cachedView ) {
+        // This was a cached version, which means not full size, lets load
+        // the real size now.
+        ImageManager::instance()->load( _info->fileName(), this, _info->angle(), -1, -1, false, true );
+        busy();
+        _reloadImageInProgress = true;
+    }
+    else
+        cropAndScale();
 }
 
 QPoint DisplayArea::mapPos( QPoint p )
@@ -276,11 +346,21 @@ void DisplayArea::zoomIn()
 
 void DisplayArea::zoomOut()
 {
+    if ( _zStart == QPoint(0,0) && _zEnd == QPoint( _loadedImage.width(), _loadedImage.height() ) )
+        return; // Bail out if we have zoomed all the way out, to avoid spending time in scaling
+
     QPoint size = (_zEnd-_zStart);
     QPoint p1 = _zStart - size*(0.25/2);
     QPoint p2 = _zEnd + size*(0.25/2);
     zoom(p1,p2);
 }
+
+void DisplayArea::zoomFull()
+{
+    if ( !_cachedView ) // Cached views are always full views
+        zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
+}
+
 
 void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
 {
@@ -294,6 +374,9 @@ void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
 
 void DisplayArea::pan( const QPoint& point )
 {
+    if ( _cachedView )
+        return; // Cached views are always full screen, so no panning is available.
+
     QPoint p = point;
     if ( p.x() < 0 && _zStart.x() < -p.x() )
         p.setX( -_zStart.x() );
@@ -314,15 +397,27 @@ void DisplayArea::pan( const QPoint& point )
 
 void DisplayArea::cropAndScale()
 {
-    if ( _loadedImage.isNull() )
-        return;
+    ViewPreloadInfo* info = _cache[_curIndex];
 
-    if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) )
-        _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
-    else
-        _croppedAndScaledImg = _loadedImage;
+    if ( info && info->angle == _info->angle() ) {
+        _croppedAndScaledImg = info->img;
+        _zEnd = QPoint( info->size.width(), info->size.height() );
+        _cachedView = true;
+    }
+    else {
+        if ( _loadedImage.isNull() || _cachedView ) {
+            return;
+        }
 
-    _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
+        if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) ) {
+            _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
+        }
+        else
+            _croppedAndScaledImg = _loadedImage;
+
+        if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
+            _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
+    }
 
     drawAll();
 }
@@ -335,6 +430,124 @@ void DisplayArea::doShowDrawings()
 QImage DisplayArea::currentViewAsThumbnail() const
 {
     return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
+}
+
+void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img )
+{
+    if ( fileName == _info->fileName() ) {
+        _loadedImage = img;
+        _cachedView = !( imgSize == fullSize || imgSize == QSize(-1,-1) );
+        if ( !_reloadImageInProgress ) {
+            _zStart=QPoint( 0, 0 );
+            _zEnd=QPoint( img.width(), img.height() );
+        }
+        else
+            _reloadImageInProgress = false;
+
+        cropAndScale();
+    }
+    else {
+        if ( imgSize != size() )
+            return; // Might be an old preload version, or a loaded version that never made it in time
+
+        ViewPreloadInfo* info = new ViewPreloadInfo( img, fullSize, angle );
+        bool ok = _cache.insert( indexOf(fileName), info );
+        if ( !ok )
+            delete info;
+        updatePreload();
+    }
+    unbusy();
+}
+
+void DisplayArea::setImageList( const ImageInfoList& list )
+{
+    _imageList = list;
+    _cache.fill( 0, list.count() );
+}
+
+void DisplayArea::updatePreload()
+{
+    uint cacheSize = ( Options::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
+    bool cacheFull = _cache.count() == cacheSize;
+
+    int incr = ( _forward ? 1 : -1 );
+    int nextOnesInCache = 0;
+    // Iterate from the current image in the direction of the viewing
+    for ( int i = _curIndex+incr; true ; i += incr ) {
+        if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
+            break;
+
+        ImageInfo* info = _imageList.at(i);
+        if ( !info ) {
+            qWarning("Info was null for index %d!", i);
+            return;
+        }
+
+        if ( _cache[i] ) {
+            nextOnesInCache++;
+            if ( nextOnesInCache >= ceil(cacheSize/2.0) && cacheFull ) {
+                // Ok enough images in cache
+                return;
+            }
+        }
+        else {
+            ImageManager::instance()->load( info->fileName(), this, info->angle(), width(), height(), false, false );
+
+            if ( cacheFull ) {
+                // The cache was full, we need to delete an item from the cache.
+
+                // First try to find an item from the direction we came from
+                for ( int j = ( _forward ? 0 : _imageList.count() -1 );
+                      j != _curIndex;
+                      j += ( _forward ? 1 : -1 ) ) {
+                    if ( _cache[j] ) {
+                        _cache.remove(j);
+                        return;
+                    }
+                }
+
+                // OK We found no item in the direction we came from (think of home/end keys)
+                for ( int j = ( _forward ? _imageList.count() -1 : 0 );
+                      j != _curIndex;
+                      j += ( _forward ? -1 : 1 ) ) {
+                    if ( _cache[j] ) {
+                        _cache.remove(j);
+                        return;
+                    }
+                }
+
+                Q_ASSERT( false ); // We should never get here.
+            }
+
+            return;
+        }
+    }
+}
+
+
+int DisplayArea::indexOf( const QString& fileName )
+{
+    int i = 0;
+    for( ImageInfoListIterator it( _imageList ); *it; ++it ) {
+        if ( (*it)->fileName() == fileName )
+            break;
+        ++i;
+    }
+    return i;
+}
+
+void DisplayArea::busy()
+{
+    if ( !_busy )
+        qApp->setOverrideCursor( Qt::WaitCursor );
+    _busy = true;
+}
+
+void DisplayArea::unbusy()
+{
+    if ( _busy )
+        qApp->restoreOverrideCursor();
+    _busy = false;
 }
 
 #include "displayarea.moc"

@@ -1320,4 +1320,10 @@ void MainView::slotSelectionChanged()
     _pluginInterface->slotSelectionChanged( selected().count() != 0);
 }
 
+void MainView::resizeEvent( QResizeEvent* e )
+{
+    if ( Options::ready() )
+        Options::instance()->setWindowSize( Options::MainWindow, e->size() );
+}
+
 #include "mainview.moc"

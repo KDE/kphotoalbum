@@ -136,6 +136,7 @@ private:
     SpeedDisplay* _speedDisplay;
     KActionCollection* _actions;
     bool _sized;
+    bool _forward;
 };
 
 #endif /* VIEWER_H */

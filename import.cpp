@@ -47,6 +47,7 @@
 #include <qprogressdialog.h>
 #include <kio/netaccess.h>
 #include "mainview.h"
+#include <kapplication.h>
 
 class KPushButton;
 
@@ -195,14 +196,13 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
 
 void Import::setupPages()
 {
-    helpButton()->hide();
-
     createIntroduction();
     createImagesPage();
     createDestination();
     createOptionPages();
     connect( this, SIGNAL( selected( const QString& ) ), this, SLOT( updateNextButtonState() ) );
     connect( finishButton(), SIGNAL( clicked() ), this, SLOT( slotFinish() ) );
+    connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }
 
 void Import::createIntroduction()
@@ -695,5 +695,10 @@ void Import::closeEvent( QCloseEvent* e )
 }
 
 
+
+void Import::slotHelp()
+{
+    kapp->invokeBrowser( QString::fromLatin1( "help://kimdaba#chp-exportDialog" ) );
+}
 
 #include "import.moc"

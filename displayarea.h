@@ -24,6 +24,9 @@
 #include "drawlist.h"
 #include "imageclient.h"
 #include <qimage.h>
+#include <qcache.h>
+#include "imageinfo.h"
+#include <qptrvector.h>
 class Draw;
 class ImageInfo;
 class ViewHandler_viewHandler;
@@ -32,20 +35,32 @@ class DisplayAreaHandler;
 class ViewHandler;
 class LoadInfo;
 
-class DisplayArea :public QWidget {
+struct ViewPreloadInfo
+{
+    ViewPreloadInfo( const QImage& img, const QSize& size, int angle )
+        : img(img), size(size), angle(angle) {}
+    QImage img;
+    QSize size;
+    int angle;
+};
+
+class DisplayArea :public QWidget, public ImageClient {
 Q_OBJECT
 public:
     DisplayArea( QWidget* parent, const char* name = 0 );
     void startDrawing();
     void stopDrawing();
-    void setImage( ImageInfo* info );
+    void setImage( ImageInfo* info, bool forward );
     DrawHandler* drawHandler();
     QImage currentViewAsThumbnail() const;
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& );
+    void setImageList( const ImageInfoList& list );
 
 public slots:
     void toggleShowDrawings( bool );
     void zoomIn();
     void zoomOut();
+    void zoomFull();
 
 protected slots:
     void drawAll();
@@ -64,6 +79,8 @@ protected:
     QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );
     void xformPainter( QPainter* );
     void cropAndScale();
+    void updatePreload();
+    int indexOf( const QString& fileName );
 
     friend class DrawHandler;
     friend class ViewHandler;
@@ -71,6 +88,8 @@ protected:
     void zoom( QPoint p1, QPoint p2 );
     void normalize( QPoint& p1, QPoint& p2 );
     void pan( const QPoint& );
+    void busy();
+    void unbusy();
 
 private:
     QImage _loadedImage;
@@ -85,6 +104,13 @@ private:
 
     QPoint _zStart; // Stands for zoom start
     QPoint _zEnd;
+    QPtrVector<ViewPreloadInfo> _cache;
+    ImageInfoList _imageList;
+    bool _cachedView;
+    bool _reloadImageInProgress;
+    int _forward;
+    int _curIndex;
+    bool _busy;
 };
 
 

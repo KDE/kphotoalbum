@@ -325,6 +325,7 @@ void OptionsDialog::show()
     _slideShowSetup->setSize( opt->slideShowSize() );
     _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
     _slideShowInterval->setValue( opt->slideShowInterval() );
+    _cacheSize->setValue( opt->viewerCacheSize() );
 
     // Config Groups page
     _optionGroups->clear();
@@ -358,6 +359,7 @@ void OptionsDialog::slotMyOK()
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );
+    opt->setViewerCacheSize( _cacheSize->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
 
@@ -717,15 +719,21 @@ void OptionsDialog::createViewerPage()
     _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing images from thumbnail view" ), top, "_viewImageSetup" );
     lay1->addWidget( _viewImageSetup );
 
-    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    QGridLayout* glay = new QGridLayout( lay1, 2, 2, 6 );
 
-    QLabel* label = new QLabel( i18n("slideshow interval" ), top );
-    lay2->addWidget( label );
+    QLabel* label = new QLabel( i18n("Slideshow interval" ), top );
+    glay->addWidget( label, 0, 0 );
 
     _slideShowInterval = new QSpinBox( 1, INT_MAX, 1, top );
-    lay2->addWidget( _slideShowInterval );
+    glay->addWidget( _slideShowInterval, 0, 1 );
     _slideShowInterval->setSuffix( i18n( " sec" ) );
-    lay2->addStretch( 1 );
+
+    label = new QLabel( i18n("Image cache"), top );
+    glay->addWidget( label, 1, 0 );
+
+    _cacheSize = new QSpinBox( 0, 2000, 10, top, "_cacheSize" );
+    _cacheSize->setSuffix( i18n(" Mbytes") );
+    glay->addWidget( _cacheSize, 1, 1 );
 }
 
 

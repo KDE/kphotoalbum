@@ -65,7 +65,7 @@ Viewer* Viewer::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::Viewer( const char* name )
-    :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false )
+    :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true )
 {
     setWFlags( WDestructiveClose );
     _latest = this;
@@ -133,6 +133,9 @@ void Viewer::setupContextMenu()
     action->plug( _popup );
 
     action = new KAction( i18n("Zoom Out"), Key_Minus, _display, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
+    action->plug( _popup );
+
+    action = new KAction( i18n("Full View"), Key_Period, _display, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
     action->plug( _popup );
 
     action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
@@ -242,6 +245,7 @@ void Viewer::setupContextMenu()
 void Viewer::load( const ImageInfoList& list, int index )
 {
     _list = list;
+    _display->setImageList( list );
     _current = index;
     load();
 
@@ -254,7 +258,7 @@ void Viewer::load( const ImageInfoList& list, int index )
 void Viewer::load()
 {
     _display->drawHandler()->setDrawList( currentInfo()->drawList() );
-    _display->setImage( currentInfo() );
+    _display->setImage( currentInfo(), _forward );
     setCaption( QString::fromLatin1( "KimDaBa - %1" ).arg( currentInfo()->fileName() ) );
     updateInfoBox();
 
@@ -276,6 +280,7 @@ void Viewer::showNext()
     save();
     if ( _current +1 < (int) _list.count() )  {
         _current++;
+        _forward = true;
         load();
     }
 }
@@ -285,6 +290,7 @@ void Viewer::showPrev()
     save();
     if ( _current > 0  )  {
         _current--;
+        _forward = false;
         load();
     }
 }
@@ -340,6 +346,7 @@ void Viewer::toggleShowOption( const QString& optionGroup, bool b )
 
 void Viewer::showFirst()
 {
+    _forward = true;
     save();
     _current = 0;
     load();
@@ -347,6 +354,7 @@ void Viewer::showFirst()
 
 void Viewer::showLast()
 {
+    _forward = false;
     save();
      _current = _list.count() -1;
      load();
@@ -577,6 +585,7 @@ void Viewer::slotStartStopSlideShow()
 
 void Viewer::slotSlideShowNext()
 {
+    _forward = true;
     save();
     if ( _current +1 < (int) _list.count() )
         _current++;

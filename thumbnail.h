@@ -31,7 +31,7 @@ public:
     ThumbNail( ImageInfo* imageInfo,  ThumbNailView* parent );
     ThumbNail( ImageInfo* imageInfo,  ThumbNail* after, ThumbNailView* parent );
 
-    virtual void pixmapLoaded( const QString&, int, int, int, const QImage& );
+    virtual void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage& );
     QString fileName() const;
     ImageInfo* imageInfo();
     virtual bool acceptDrop ( const QMimeSource * mime ) const;

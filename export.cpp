@@ -70,13 +70,21 @@ ExportConfig::ExportConfig()
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
+    // Include images
+    QVButtonGroup* grp = new QVButtonGroup( i18n("How to handle images"), top );
+    lay1->addWidget( grp );
+    _include = new QRadioButton( i18n("Include in .kim file"), grp );
+    _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
+    _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
+    _manually->setChecked( true );
+
     // Compress
     _compress = new QCheckBox( i18n("Compress Export File"), top );
     lay1->addWidget( _compress );
 
     // Enforece max size
     QHBoxLayout* hlay = new QHBoxLayout( lay1, 6 );
-    _enforeMaxSize = new QCheckBox( i18n( "Limit maximum dimension of images to: " ), top, "_enforeMaxSize" );
+    _enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimension to: " ), top, "_enforeMaxSize" );
     hlay->addWidget( _enforeMaxSize );
 
     _maxSize = new QSpinBox( 100, 4000, 50, top, "_maxSize" );
@@ -85,14 +93,6 @@ ExportConfig::ExportConfig()
 
     connect( _enforeMaxSize, SIGNAL( toggled( bool ) ), _maxSize, SLOT( setEnabled( bool ) ) );
     _maxSize->setEnabled( false );
-
-    // Include images
-    QVButtonGroup* grp = new QVButtonGroup( i18n("How to handle images"), top );
-    lay1->addWidget( grp );
-    _include = new QRadioButton( i18n("Include in .kim file"), grp );
-    _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
-    _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
-    _manually->setChecked( true );
 
     QString txt = i18n( "<qt><p>If your images are stored in a non-compressed file format then you may check this; "
                         "otherwise, this just wastes time during import and export operations.</p>"
@@ -120,7 +120,6 @@ ExportConfig::ExportConfig()
     QWhatsThis::add( _include, txt );
     QWhatsThis::add( _manually, txt );
     QWhatsThis::add( _auto, txt );
-
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
 
@@ -274,7 +273,7 @@ void Export::copyImages( const ImageInfoList& list )
     }
 }
 
-void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*/, int /*angle*/, const QImage& image )
+void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image )
 {
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Util::stripSlash(_subdir)).arg(QFileInfo( _nameMap[fileName] ).baseName())

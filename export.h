@@ -35,7 +35,7 @@ class Export :public ImageClient {
 
 public:
     static void imageExport( const ImageInfoList& list);
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
+    virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& );
     Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize,
             ImageFileLocation, const QString& baseUrl, bool& ok );
     static void showUsageDialog();

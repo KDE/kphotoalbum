@@ -86,6 +86,7 @@ protected slots:
     void downloadKimJobCompleted( KIO::Job* );
     void aCopyJobCompleted( KIO::Job* );
     void stopCopyingImages();
+    void slotHelp();
 
 private:
     Import( const QString& file, bool* ok, QWidget* parent, const char* name = 0 );

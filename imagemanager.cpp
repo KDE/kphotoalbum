@@ -57,7 +57,6 @@ void ImageManager::load( const QString& fileName, ImageClient* client, int angle
                          bool cache, bool priority )
 {
     QString key = QString::fromLatin1("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
-
     _lock->lock();
     LoadInfo li( fileName, width, height, angle, client );
     li.setCache( cache );
@@ -115,11 +114,12 @@ void ImageManager::customEvent( QCustomEvent* ev )
                       .arg( li.width() ).arg( li.height() ).arg( li.angle() );
 
         QImage image = iev->image();
+
         if ( _clientMap.contains( li ) )  {
             // If it is not in the map, then it has been deleted since the request.
             ImageClient* client = _clientMap[li];
 
-            client->pixmapLoaded( li.fileName(), li.width(), li.height(), li.angle(), image );
+            client->pixmapLoaded( li.fileName(), QSize(li.width(), li.height()), li.fullSize(), li.angle(), image );
             _clientMap.remove(li);
         }
     }
@@ -236,6 +236,16 @@ QImage ImageEvent::image()
 int LoadInfo::angle() const
 {
     return _angle;
+}
+
+QSize LoadInfo::fullSize() const
+{
+    return _fullSize;
+}
+
+void LoadInfo::setFullSize( const QSize& size )
+{
+    _fullSize = size;
 }
 
 #include "imagemanager.moc"

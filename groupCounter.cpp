@@ -1,19 +1,22 @@
 #include "groupCounter.h"
 #include <qmap.h>
+#include "options.h"
 
 GroupCounter::GroupCounter( const QString& optionGroup )
 {
     MemberMap map = Options::instance()->memberMap();
-    QMap<QString,QStringList> groupToMemberMap = map._members[optionGroup];
+    QMap<QString,QStringList> groupToMemberMap = map.groupMap(optionGroup);
     _memberToGroup.resize( 2729 /* A large prime */ );
     _groupCount.resize( 2729 /* A large prime */ );
 
     // Initialize _memberToGroup map.
     QStringList items = Options::instance()->optionValue( optionGroup );
+    items += map.groups( optionGroup );
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         _memberToGroup.insert( *it, new QStringList );
     }
 
+    // Populate the _memberToGroup map
     for( QMapIterator<QString,QStringList> it= groupToMemberMap.begin();
          it != groupToMemberMap.end(); ++it ) {
         QStringList list = it.data();

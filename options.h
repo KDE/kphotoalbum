@@ -35,10 +35,12 @@ public:
     bool isEmpty() const;
     void load( const QDomElement& );
     bool isGroup( const QString& optionGroup, const QString& memberGroup );
+    QMap<QString,QStringList> groupMap( const QString& optionGroup );
 
 private:
+    QStringList groupClosure( QMap<QString,QStringList>& resultSoFar, const QString& optionGroup, const QString& group );
+    QStringList memberClosure( const QString& optionGroup, const QString& memberGroup, QStringList& seen );
     QMap<QString, QMap<QString,QStringList> > _members;
-    friend class GroupCounter;
 };
 
 

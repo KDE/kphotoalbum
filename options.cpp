@@ -424,7 +424,32 @@ void MemberMap::deleteGroup( const QString& optionGroup, const QString& name )
 
 QStringList MemberMap::members( const QString& optionGroup, const QString& memberGroup )
 {
-    return _members[optionGroup][memberGroup];
+    QStringList seen;
+    QStringList result =  memberClosure( optionGroup, memberGroup, seen );
+    result += _members[optionGroup][memberGroup];
+    QStringList uniq;
+    for( QStringList::Iterator it = result.begin(); it != result.end(); ++it ) {
+        if ( !uniq.contains(*it) )
+            uniq << *it;
+    }
+    return uniq;
+}
+
+QStringList MemberMap::memberClosure( const QString& optionGroup, const QString& memberGroup, QStringList& seen )
+{
+    if ( seen.contains( memberGroup ) )
+        return QStringList(); // prevent against cyckles
+
+    seen << memberGroup;
+
+    QStringList list =  _members[optionGroup][memberGroup];
+    QStringList result = list;
+
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        if ( isGroup( optionGroup, *it ) )
+            result += memberClosure( optionGroup, *it, seen );
+    }
+    return result;
 }
 
 void MemberMap::setMembers( const QString& optionGroup, const QString& memberGroup, const QStringList& members )
@@ -473,5 +498,38 @@ bool MemberMap::isGroup( const QString& optionGroup, const QString& memberGroup 
 {
     return !members( optionGroup, memberGroup ).isEmpty();
 }
+
+
+QMap<QString,QStringList> MemberMap::groupMap( const QString& optionGroup )
+{
+    QMap<QString,QStringList> result;
+
+    QStringList groups = _members[optionGroup].keys();
+    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
+        if ( result.count( *it ) == 0 )
+            (void) groupClosure( result, optionGroup, *it );
+    }
+    return result;
+}
+
+QStringList MemberMap::groupClosure( QMap<QString,QStringList>& resultSoFar, const QString& optionGroup, const QString& group )
+{
+    resultSoFar[group] = QStringList(); // Prevent against cykles.
+    QStringList members = _members[optionGroup][group];
+    QStringList result = members;
+    for( QStringList::Iterator it = members.begin(); it != members.end(); ++it ) {
+        if ( resultSoFar.contains( *it ) ) {
+            result += resultSoFar[*it];
+        }
+        else if ( isGroup(optionGroup, *it ) ) {
+            result += groupClosure( resultSoFar, optionGroup, *it );
+        }
+    }
+    resultSoFar[group] = result;
+
+    return result;
+}
+
+
 
 #include "options.moc"

@@ -49,7 +49,7 @@ ImageInfo::ImageInfo( const QString& fileName )
     _angle = 0;
 
     // Read EXIF information
-    readExif(fullPath, ImageInfo::Init);
+    readExif(fullPath, EXIFMODE_INIT);
 }
 
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
@@ -312,7 +312,7 @@ QImage ImageInfo::load( int width, int height ) const
         QString thumbFile(Util::getThumbnailFile(fileName(), width, height, _angle));
         QString standardThumbFile(Util::getThumbnailFile
                  (fileName(), Options::instance()->thumbSize(), Options::instance()->thumbSize(), _angle));
-                 
+
         if ( Options::instance()->thumbSize() <= QMAX(width, height) && QFile(standardThumbFile).isReadable() )
             image.load(standardThumbFile);
         if ( QFile(thumbFile).isReadable() )
@@ -325,7 +325,7 @@ QImage ImageInfo::load( int width, int height ) const
 
     if ( width != -1 && height != -1 )
         image = image.smoothScale( width, height, QImage::ScaleMin );
-    
+
     if ( _angle != 0 ) {
         QWMatrix matrix;
         matrix.rotate( _angle );
@@ -400,7 +400,7 @@ bool ImageInfo::isJPEG( const QString& fileName ) const
 }*/
 
 
-void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
+void ImageInfo::readExif(const QString& fullPath, int mode)
 {
     QFileInfo fi( fullPath );
     QMap<QString,QVariant> exif = Util::getEXIF( fullPath );
@@ -416,9 +416,9 @@ void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
                                   i18n("Unable to Read EXIF Information"), QString::fromLatin1("UnableToReadEXIFInformation") );
     }
 
-    if( mode == ImageInfo::Time ) {
+    //Time
+    if ( mode & EXIFMODE_TIME ) {
         if ( Options::instance()->trustTimeStamps() ) {
-            //Time
             if (exif.contains( QString::fromLatin1( "CreationTime" ) ) ){
                 QTime time = exif[QString::fromLatin1( "CreationTime" )].toTime();
                 if (time.isValid())
@@ -430,8 +430,9 @@ void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
             }
         }
     }
-    else if ( mode == ImageInfo::Init ) {
-        // Date
+
+    // Date
+    if ( mode & EXIFMODE_DATE ) {
         if ( Options::instance()->trustTimeStamps() ) {
             bool dateFound = false;
             if ( exif.contains( QString::fromLatin1( "CreationDate" ) ) ) {
@@ -460,25 +461,11 @@ void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
                 QDate date = fi.lastModified().date();
                 _startDate.setDate( date );
             }
-
-
-            //Time
-            if (exif.contains( QString::fromLatin1( "CreationTime" ) ) ){
-
-                QTime time = exif[QString::fromLatin1( "CreationTime" )].toTime();
-                if (time.isValid())
-                    _startDate.setTime( time );
-
-            }
-            else{
-
-                QTime time = fi.lastModified().time();
-                _startDate.setTime( time );
-
-            }
-
         }
-        // Orientation
+    }
+
+    // Orientation
+    if ( mode & EXIFMODE_ORIENTATION ) {
         if ( Options::instance()->useEXIFRotate() && exif.contains( QString::fromLatin1( "Orientation" ) ) ) {
             int orientation =  exif[QString::fromLatin1( "Orientation" )].toInt();
             if ( orientation == 1 || orientation == 2 )
@@ -490,14 +477,15 @@ void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
             else if ( orientation == 6 || orientation == 7 )
                 _angle = 90;
         }
+    }
 
-        // Description
+    // Description
+    if ( mode & EXIFMODE_DESCRIPTION ) {
         if ( Options::instance()->useEXIFComments() && exif.contains( QString::fromLatin1( "Comment" ) ) ) {
             _description = exif[QString::fromLatin1( "Comment" )].toString();
         }
     }
 }
-
 
 
 QStringList ImageInfo::availableOptionGroups() const

@@ -1,3 +1,8 @@
+2004-06-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Thanks to Marco Caldarelli <caldarel@yahoo.it> for a patch to
+	reread EXIF info, available from a dialog in the menu.
+
 2004-06-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Thanks to Marcel Wiesweg <marcel.wiesweg@gmx.de> for a patch for

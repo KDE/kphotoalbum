@@ -52,7 +52,7 @@ public slots:
     void save( QDomElement top );
     void slotRescan();
     void slotRecalcCheckSums();
-    void slotReread(ImageInfoList rereadList);
+    void slotReread(ImageInfoList rereadList, int mode);
     void slotTimeInfo();
 
 signals:

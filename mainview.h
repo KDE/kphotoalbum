@@ -26,6 +26,7 @@ class QTimer;
 class Browser;
 class KTipDialog;
 class DeleteDialog;
+class ReadInfoDialog;
 class QLabel;
 class HTMLExportDialog;
 class KActionMenu;
@@ -60,6 +61,8 @@ protected slots:
     void slotConfigureImagesOneAtATime();
     void slotSave();
     void slotDeleteSelected();
+    void slotReadInfoSelected();
+    void slotReadInfo();
     void slotSearch();
     void slotView( bool reuse = false, bool slideShow = false, bool random = false );
     void slotViewNewWindow();
@@ -132,6 +135,7 @@ private:
     Browser* _browser;
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
+    ReadInfoDialog* _readInfoDialog;
     QLabel* _dirtyIndicator;
     QLabel* _lockedIndicator;
     KAction* _lock;
@@ -143,6 +147,7 @@ private:
     KAction* _configAllSimultaniously;
     KAction* _view;
     KAction* _sortByDateAndTime;
+    KAction* _readInfoSelected;
     KAction* _viewInNewWindow;
     KActionMenu* _viewMenu;
     KRadioAction* _smallListView;

@@ -25,6 +25,7 @@
       <Separator/>
       <Action name="sortImages" />
       <Action name="limitToMarked" />
+      <Action name="readInfoSelected" />
       <Menu name="privacy">
         <text>Privacy</text>
         <Action name="lockToDefaultScope"/>
@@ -45,6 +46,7 @@
         <Action name="rebuildMD5s"/>
         <Action name="rescan"/>
         <Action name="readTime"/>
+        <Action name="readInfo" />
         <Separator/>
         <Action name="removeAllThumbs"/>
         <Action name="buildThumbs"/>

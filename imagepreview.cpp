@@ -83,7 +83,7 @@ void ImagePreview::reload()
             setCurrentImage(QImage(_lastImage.getImage()));
         else {
             setPixmap(QImage()); //erase old image
-            ImageManager::instance()->stop(this);    
+            ImageManager::instance()->stop(this);
             ImageManager::instance()->load(_info.fileName(), this, _info.angle(), width(), height(), false, true);
         }
     }
@@ -110,7 +110,7 @@ void ImagePreview::setCurrentImage(const QImage &image)
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
 }
 
-void ImagePreview::pixmapLoaded( const QString& fileName, int, int, int, const QImage& image) 
+void ImagePreview::pixmapLoaded( const QString& fileName, int, int, int, const QImage& image)
 {
     if ( !_info.isNull() ) {
         if (_info.fileName() == fileName)
@@ -171,21 +171,21 @@ void ImagePreview::PreviewImage::reset()
 }
 
 
-void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, int w, int h, int, const QImage& image) 
+void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, int /*w*/, int /*h*/, int, const QImage& image)
 {
     set(fileName, image);
 }
 
 
-void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int width, int height, int angle) 
+void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int width, int height, int angle)
 {
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();
-    ImageManager::instance()->stop(this);    
+    ImageManager::instance()->stop(this);
     ImageManager::instance()->load(fileName, this, angle, width, height, false, true);
 }
 
-void ImagePreview::PreviewLoader::cancelPreload() 
+void ImagePreview::PreviewLoader::cancelPreload()
 {
     reset();
     ImageManager::instance()->stop(this);

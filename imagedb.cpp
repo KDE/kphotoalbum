@@ -110,7 +110,7 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
 
         if ( ret ==KMessageBox::Yes)  {
 
-            slotReread( missingTimes );
+            slotReread( missingTimes, EXIFMODE_TIME );
             *dirty = true;
         }
     }
@@ -545,11 +545,11 @@ void ImageDB::slotTimeInfo()
     if ( ret == KMessageBox::No )
         return;
 
-    slotReread(missingTimes);
+    slotReread(missingTimes, EXIFMODE_TIME);
 }
 
 
-void ImageDB::slotReread(ImageInfoList rereadList)
+void ImageDB::slotReread(ImageInfoList rereadList, int mode)
 {
     // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
     QProgressDialog  dialog( i18n("<qt><p><b>Loading time information from images</b></p>"
@@ -574,7 +574,7 @@ void ImageDB::slotReread(ImageInfoList rereadList)
         QFileInfo fi( (*it)->fileName() );
 
         if (fi.exists())
-            (*it)->readExif((*it)->fileName(),ImageInfo::Time);
+            (*it)->readExif((*it)->fileName(), mode);
         emit dirty();
     }
 }

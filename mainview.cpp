@@ -69,6 +69,7 @@
 #include "plugininterface.h"
 #include <libkipi/pluginloader.h>
 #include <libkipi/plugin.h>
+#include "readinfodialog.h"
 #include "imageloader.h"
 #include "mysplashscreen.h"
 
@@ -76,7 +77,8 @@ MainView* MainView::_instance = 0;
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _autoSaveDirty( false ),
-     _deleteDialog( 0 ), _dirtyIndicator(0), _htmlDialog(0)
+     _deleteDialog( 0 ), _readInfoDialog( 0 ), _dirtyIndicator(0),
+     _htmlDialog(0)
 {
     MySplashScreen::instance()->message( i18n("Loading Database") );
     _instance = this;
@@ -345,6 +347,30 @@ void MainView::slotDeleteSelected()
 }
 
 
+void MainView::slotReadInfoSelected()
+{
+    ImageInfoList listOnDisk = getSelectedOnDisk();
+
+    if ( listOnDisk.count() == 0 ) {
+        KMessageBox::sorry( this, i18n("None of the selected images were available on the disk.") );
+    } else {
+        if ( ! _readInfoDialog )
+            _readInfoDialog = new ReadInfoDialog( this );
+        if ( _readInfoDialog->exec( listOnDisk ) == QDialog::Accepted )
+            setDirty( true );
+    }
+}
+
+
+void MainView::slotReadInfo()
+{
+    if ( ! _readInfoDialog )
+        _readInfoDialog = new ReadInfoDialog( this );
+    if ( _readInfoDialog->exec( ImageDB::instance()->images() ) == QDialog::Accepted )
+        setDirty( true );
+}
+
+
 ImageInfoList MainView::selected()
 {
     ImageInfoList list;
@@ -610,6 +636,7 @@ void MainView::setupMenuBar()
                                        actionCollection(), "runRandomizedSlideShow" );
 
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date and Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
+    _readInfoSelected = new KAction( i18n("Read EXIF info from selected files..."), 0, this, SLOT( slotReadInfoSelected() ), actionCollection(), "readInfoSelected" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
 
@@ -630,6 +657,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     new KAction( i18n("Read time info from files..."), 0, ImageDB::instance(), SLOT( slotTimeInfo() ), actionCollection(), "readTime" );
+    new KAction( i18n("Read EXIF info from all files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
     new KAction( i18n("Remove all thumbnails..."), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
     new KAction( i18n("Build thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
 
@@ -1121,6 +1149,7 @@ void MainView::updateStates( bool thumbNailView )
     _paste->setEnabled( thumbNailView );
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
+    _readInfoSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
 }
 

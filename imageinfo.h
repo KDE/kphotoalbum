@@ -31,10 +31,15 @@
 #include "drawlist.h"
 #include <qimage.h>
 
+#define EXIFMODE_TIME          1
+#define EXIFMODE_DATE          2
+#define EXIFMODE_ORIENTATION   4
+#define EXIFMODE_DESCRIPTION   8
+#define EXIFMODE_INIT ( EXIFMODE_TIME | EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION )
+
 class ImageInfo {
 
 public:
-    enum ExifMode { Init, Time };
 
     ImageInfo();
     ImageInfo( const QString& fileName );
@@ -56,7 +61,7 @@ public:
     ImageDate& startDate();
     ImageDate& endDate();
 
-    void readExif(const QString& fullPath, ExifMode mode);
+    void readExif(const QString& fullPath, int mode);
 
     void rotate( int degrees );
     int angle() const;

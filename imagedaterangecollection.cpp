@@ -39,7 +39,7 @@ ImageCount ImageDateRangeCollection::count( const ImageDate& from, const ImageDa
 
     int exact = 0, rangeMatch = 0;
     for( QValueList<ImageDateRange>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
-        ImageDateRange::MatchType tp = (*it).includes( ImageDateRange( from, to ) );
+        ImageDateRange::MatchType tp = (*it).isIncludedIn( ImageDateRange( from, to ) );
         switch (tp) {
         case ImageDateRange::ExactMatch: exact++;break;
         case ImageDateRange::RangeMatch: rangeMatch++; break;

@@ -27,7 +27,8 @@ public:
     ImageDateRange( const ImageDate& from, const ImageDate& to );
 
     enum MatchType { DontMatch, ExactMatch, RangeMatch };
-    MatchType includes( const ImageDateRange& searchRange );
+    MatchType isIncludedIn( const ImageDateRange& searchRange );
+    bool includes( const QDateTime& date );
     ImageDate start() const;
     ImageDate end() const;
     bool operator<(const ImageDateRange& other ) const;

@@ -125,6 +125,13 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _dateBar, SIGNAL( dateSelected( const ImageDateRange&, bool ) ), _thumbNailView, SLOT( gotoDate( const ImageDateRange&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Options::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
+
+
+    connect( _dateBar, SIGNAL( dateRangeChange( const ImageDateRange& ) ),
+             this, SLOT( setDateRange( const ImageDateRange& ) ) );
+    connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
+
+
     connect( _thumbNailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
     connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
@@ -712,6 +719,9 @@ void MainView::slotAutoSave()
 
 void MainView::showThumbNails()
 {
+    if ( _stack->visibleWidget() == _thumbNailView )
+        return;
+
     reloadThumbNail();
     _stack->raiseWidget( _thumbNailView );
     _thumbNailView->setFocus();
@@ -1343,6 +1353,20 @@ void MainView::slotJumpToContext()
         ThumbNail* tn = static_cast<ThumbNail*>( item );
         _browser->addImageView( tn->imageInfo() );
    }
+}
+
+void MainView::setDateRange( const ImageDateRange& range )
+{
+    ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
+    _browser->reload();
+    reloadThumbNail();
+}
+
+void MainView::clearDateRange()
+{
+    ImageDB::instance()->clearDateRange();
+    _browser->reload();
+    reloadThumbNail();
 }
 
 #include "mainview.moc"

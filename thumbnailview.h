@@ -54,7 +54,7 @@ protected slots:
     void slotOnItem( QIconViewItem* );
     void slotOnViewPort();
     void setupGrid();
-    void slotContentsMoved();
+    void emitDateChange();
 
 protected:
     virtual void contentsDragMoveEvent( QDragMoveEvent *e );

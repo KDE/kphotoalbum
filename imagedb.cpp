@@ -141,7 +141,7 @@ int ImageDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int
 {
     int count = 0;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && info.match( *it );
+        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
 
         if ( match )
             ++count;
@@ -222,13 +222,8 @@ void ImageDB::loadExtraFiles()
         dialog.setProgress( count ); // ensure to call setProgress(0)
         qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
-#if QT_VERSION < 0x030104
-        if ( dialog.wasCancelled() )
-            return;
-#else
         if ( dialog.wasCanceled() )
             return;
-#endif
         loadExtraFile( *it );
     }
 }
@@ -315,7 +310,7 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
 
     // Iterate through the whole database of images.
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && info.match( *it );
+        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
         if ( match ) { // If the given image is currently matched.
 
             // Now iterate through all the categories the current image
@@ -641,6 +636,29 @@ void ImageDB::checkIfImagesAreSorted()
                                   i18n("Images are not sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }
+}
+
+void ImageDB::setDateRange( const ImageDateRange& range, bool includeFuzzyCounts )
+{
+    _selectionRange = range;
+    _includeFuzzyCounts = includeFuzzyCounts;
+}
+
+void ImageDB::clearDateRange()
+{
+    _selectionRange = ImageDateRange();
+}
+
+bool ImageDB::rangeInclude( ImageInfo* info )
+{
+    if (_selectionRange.start().isNull() )
+        return true;
+
+    ImageDateRange::MatchType tp = info->dateRange().isIncludedIn( _selectionRange );
+    if ( _includeFuzzyCounts )
+        return ( tp == ImageDateRange::ExactMatch || tp == ImageDateRange::RangeMatch );
+    else
+        return ( tp == ImageDateRange::ExactMatch );
 }
 
 #include "imagedb.moc"

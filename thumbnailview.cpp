@@ -53,7 +53,7 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( onViewport() ), this, SLOT( slotOnViewPort() ) );
     setupGrid();
     connect( Options::instance(), SIGNAL( changed() ), this, SLOT( setupGrid() ) );
-    connect( this, SIGNAL( contentsMoving(int, int) ), this, SLOT( slotContentsMoved() ) );
+    connect( this, SIGNAL( contentsMoving(int, int) ), this, SLOT( emitDateChange() ) );
 }
 
 
@@ -93,7 +93,7 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::reload()
 {
-    // I'm not if this is needed, it would require that we were in a
+    // I'm not sure if this is needed, it would require that we were in a
     // drag'n'drop action, and the sudantly got the reload before we got
     // the drop event or leave event.
     _currentHighlighted = 0;
@@ -108,6 +108,7 @@ void ThumbNailView::reload()
         if ( (*it)->visible() )
             new ThumbNail( *it,  this );
     }
+    emitDateChange();
 }
 
 void ThumbNailView::slotSelectAll()
@@ -281,12 +282,17 @@ void ThumbNailView::drawBackground( QPainter * p, const QRect & r )
 
 void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
 {
+     // When the user clicks outside the range in the datebar, then first a
+     // reload() is executed, and then this function, but when this
+     // function is called, the thumbnails have not yet been placed, and
+     // thus candiate->x() and candidate->y() below will not return valid values.
+    qApp->processEvents();
     bool block = _blockMoveSignals;
     _blockMoveSignals = true;
     ThumbNail* candidate = 0;
     for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        ImageDateRange::MatchType match = tn->imageInfo()->dateRange().includes( date );
+        ImageDateRange::MatchType match = tn->imageInfo()->dateRange().isIncludedIn( date );
         if ( match == ImageDateRange::ExactMatch || ( match == ImageDateRange::RangeMatch && includeRanges ) ) {
             if ( candidate ) {
                 if ( tn->imageInfo()->startDate().min() < candidate->imageInfo()->startDate().min() )
@@ -319,7 +325,7 @@ void ThumbNailView::makeCurrent( ImageInfo* info )
     }
 }
 
-void ThumbNailView::slotContentsMoved()
+void ThumbNailView::emitDateChange()
 {
     if ( _blockMoveSignals )
         return;
@@ -336,7 +342,7 @@ void ThumbNailView::slotContentsMoved()
 void ThumbNailView::showEvent( QShowEvent* event )
 {
     QIconView::showEvent( event );
-    slotContentsMoved();
+    emitDateChange();
 }
 
 #include "thumbnailview.moc"

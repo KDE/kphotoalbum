@@ -23,6 +23,7 @@
 #include "imageinfolist.h"
 #include <qobject.h>
 #include <qstringlist.h>
+#include "imagedaterange.h"
 class ImageInfo;
 
 class ImageDB :public QObject {
@@ -56,6 +57,8 @@ public slots:
     void slotRescan();
     void slotRecalcCheckSums();
     void slotReread(ImageInfoList rereadList, int mode);
+    void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );
+    void clearDateRange();
 
 signals:
     void matchCountChange( int, int, int );
@@ -73,6 +76,7 @@ protected:
     QString MD5Sum( const QString& fileName );
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
     void checkIfImagesAreSorted();
+    bool rangeInclude( ImageInfo* info );
 
 protected slots:
     void renameOption( const QString& category, const QString& oldName, const QString& newName );
@@ -89,6 +93,8 @@ private:
     QMap<QString, QString> _md5Map;
     QMap<QString, ImageInfo* > _fileMap;
     QStringList _pendingLoad;
+    ImageDateRange _selectionRange;
+    bool _includeFuzzyCounts;
 
 public:
     static QString NONE();

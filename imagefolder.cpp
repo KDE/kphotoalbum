@@ -59,6 +59,8 @@ void ImageFolderAction::action( BrowserItemFactory* )
 {
     ImageDB::instance()->search( _info, _from, _to );
 
+// Not used anymore after the one large thumbnail view change.
+#ifdef TEMPORARILY_REMOVED
     if ( _addExtraToBrowser ) {
         // Add all the following image fractions to the image list, so the user
         // simply can use the forward button to see the following images.
@@ -83,6 +85,7 @@ void ImageFolderAction::action( BrowserItemFactory* )
         // Only add extra items the first time the action is executed.
         _addExtraToBrowser = false;
     }
+#endif
     if ( _context )
         ThumbNailView::theThumbnailView()->makeCurrent( _context );
 }

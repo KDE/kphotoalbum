@@ -112,6 +112,8 @@ protected slots:
     void slotShowImagesWithInvalidDate();
     void showDateBarTip( const QString& );
     void slotJumpToContext();
+    void setDateRange( const ImageDateRange& );
+    void clearDateRange();
 
 protected:
     void configureImages( bool oneAtATime );

@@ -201,7 +201,9 @@ void Browser::reload()
     if ( _current != 0 ) {
         // _current == 0 when browser hasn't yet been initialized (Which happens through a zero-timer.)
         FolderAction* a = _list[_current-1];
+#ifdef TEMPORARILY_REMOVED
         if ( !a->showsImages() )
+#endif
             a->action( _currentFactory );
     }
 }

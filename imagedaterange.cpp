@@ -26,7 +26,7 @@ ImageDateRange::ImageDateRange()
 {
 }
 
-ImageDateRange::MatchType ImageDateRange::includes( const ImageDateRange& searchRange )
+ImageDateRange::MatchType ImageDateRange::isIncludedIn( const ImageDateRange& searchRange )
 {
     // We don't really want to include images without a year, as they clutter up things too much.
     if ( _imageStart.year() == 0  || ( !_imageEnd.isNull() && _imageEnd.year() == 0 ) )
@@ -51,6 +51,12 @@ ImageDateRange::MatchType ImageDateRange::includes( const ImageDateRange& search
     return DontMatch;
 }
 
+bool ImageDateRange::includes( const QDateTime& date )
+{
+    return ImageDateRange( ImageDate( date ), ImageDate(date) ).isIncludedIn( *this ) == ExactMatch;
+}
+
+
 ImageDate ImageDateRange::start() const
 {
     return _imageStart;
@@ -66,3 +72,4 @@ bool ImageDateRange::operator<(const ImageDateRange& other ) const
     return _imageStart < other._imageStart ||
         ( _imageStart == other._imageStart && _imageEnd < other._imageEnd );
 }
+

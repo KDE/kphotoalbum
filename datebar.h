@@ -24,6 +24,7 @@
 #include "imagedaterange.h"
 #include "imagedaterangecollection.h"
 #include "dateviewhandler.h"
+#include "datebarmousehandler.h"
 class QPopupMenu;
 class QToolButton;
 
@@ -53,6 +54,8 @@ signals:
     void canZoomOut( bool );
     void dateSelected( const ImageDateRange&, bool includeRanges );
     void toolTipInfo( const QString& );
+    void dateRangeChange( const ImageDateRange& );
+    void dateRangeCleared();
 
 public:
     // Overriden methods for internal purpose
@@ -80,17 +83,20 @@ protected:
     QRect dateAreaGeometry() const;
     int numberOfUnits() const;
     void drawArrow( QPainter&, const QPoint& start, const QPoint& end );
-    void startAutoScroll();
-    void endAutoScroll();
-    void doScroll( int x );
     void updateArrowState();
     ImageDateRange currentDateRange() const;
     void showStatusBarTip( const QPoint& pos );
     ImageDateRange rangeAt( const QPoint& );
     void placeAndSizeButtons();
-
-protected slots:
-    void autoScroll();
+    int unitAtPos( int x ) const;
+    QDateTime dateForUnit( int unit, const QDateTime& offset = QDateTime() ) const;
+    int unitForDate( const QDateTime& date ) const;
+    bool isUnitSelected( int unit ) const;
+    bool hasSelection() const;
+    ImageDateRange currentSelection() const;
+    void clearSelection();
+    void emitDateSelected();
+    void emitRangeSelection( const ImageDateRange& );
 
 private:
     QPixmap _buffer;
@@ -106,6 +112,15 @@ private:
     DateViewHandler* _currentHandler;
     ViewType _tp;
 
+    DateBarMouseHandler::Handler* _currentMouseHandler;
+    DateBarMouseHandler::FocusItem* _focusItemHandler;
+    DateBarMouseHandler::DateArea* _dateAreaHandler;
+    DateBarMouseHandler::Selection* _selectionHandler;
+    friend class DateBarMouseHandler::Handler;
+    friend class DateBarMouseHandler::FocusItem;
+    friend class DateBarMouseHandler::DateArea;
+    friend class DateBarMouseHandler::Selection;
+
     QToolButton* _rightArrow;
     QToolButton* _leftArrow;
     QToolButton* _zoomIn;
@@ -113,14 +128,11 @@ private:
 
     int _currentUnit;
     QDateTime _currentDate;
-    bool _movingBar;
-    int _movementOffset;
     int _barWidth;
     int _barHeight;
     bool _includeFuzzyCounts;
     QPopupMenu* _contextMenu;
     bool _showResolutionIndicator;
-    QTimer* _autoScrollTimer;
 };
 
 

@@ -1,5 +1,8 @@
 2004-12-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Offer to make hard link from the export dialog (patch from  
+	Robert L Krawitz <rlk@alum.mit.edu>)
+
 	* SUSE introduced a maximum on QImages, a patch from  Robert L
 	Krawitz <rlk@alum.mit.edu> works around this, and ensures that
 	KimDaBa do not crash when images are larger than the maximum size.

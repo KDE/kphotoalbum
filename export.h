@@ -29,7 +29,7 @@ class QCheckBox;
 class KZip;
 class QProgressDialog;
 
-enum ImageFileLocation { Inline, ManualCopy, AutoCopy };
+enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link };
 
 class Export :public ImageClient {
 
@@ -37,7 +37,7 @@ public:
     static void imageExport( const ImageInfoList& list);
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage& );
     Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize,
-            ImageFileLocation, const QString& baseUrl, bool& ok );
+            ImageFileLocation, const QString& baseUrl, bool& ok, bool generateThumbnails );
     static void showUsageDialog();
 
 protected:
@@ -66,6 +66,7 @@ class ExportConfig :public KDialogBase {
 public:
     ExportConfig();
     QCheckBox* _compress;
+    QCheckBox* _generateThumbnails;
     QCheckBox* _enforeMaxSize;
     QSpinBox* _maxSize;
 
@@ -74,6 +75,7 @@ public:
 private:
     QRadioButton* _include;
     QRadioButton* _manually;
+    QRadioButton* _link;
     QRadioButton* _auto;
 };
 

@@ -36,6 +36,7 @@ public:
     static void checkForBackupFile( const QString& fileName );
     static bool ctrlKeyDown();
     static bool copy( const QString& from, const QString& to );
+    static bool makeHardLink( const QString& from, const QString& to );
     static bool runningDemo();
     static void deleteDemo();
     static QString setupDemo();

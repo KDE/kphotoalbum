@@ -279,7 +279,7 @@ bool HTMLExportDialog::generate()
         if ( destURL.isEmpty() )
             destURL = _baseURL->text();
 
-        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy, destURL, ok );
+        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy, destURL, ok, true );
         delete exp; // It will not return before done - we still need a class to connect slots etc.
         if ( !ok )
             return false;

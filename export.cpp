@@ -54,7 +54,7 @@ void Export::imageExport( const ImageInfoList& list )
 
     bool ok;
     Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation(),
-                              QString::fromLatin1( "" ), ok );
+                              QString::fromLatin1( "" ), ok, config._generateThumbnails->isChecked());
     delete exp; // It will not return before done - we still need a class to connect slots etc.
 
     if ( ok )
@@ -75,11 +75,17 @@ ExportConfig::ExportConfig()
     _include = new QRadioButton( i18n("Include in .kim file"), grp );
     _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
     _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
+    _link = new QRadioButton( i18n("Hard link next to .kim file"), grp );
     _manually->setChecked( true );
 
     // Compress
     _compress = new QCheckBox( i18n("Compress export file"), top );
     lay1->addWidget( _compress );
+
+    // Generate thumbnails
+    _generateThumbnails = new QCheckBox( i18n("Generate Thumbnails"), top );
+    _generateThumbnails->setChecked(true);
+    lay1->addWidget( _generateThumbnails );
 
     // Enforece max size
     QHBoxLayout* hlay = new QHBoxLayout( lay1, 6 );
@@ -98,6 +104,9 @@ ExportConfig::ExportConfig()
                         "<p>In other words, do not check this if your images are stored in jpg, png or gif; but do check this "
                         "if your images are stored in tiff.</p></qt>" );
     QWhatsThis::add( _compress, txt );
+
+    txt = i18n( "<qt><p>Generate thumbnail images</p></qt>" );
+    QWhatsThis::add( _generateThumbnails, txt );
 
     txt = i18n( "<qt><p>With this option you may limit the maximum dimensions (width and height) of your images. "
                 "Doing so will make the resulting export file smaller, but will of course also make the quality "
@@ -118,6 +127,7 @@ ExportConfig::ExportConfig()
     QWhatsThis::add( grp, txt );
     QWhatsThis::add( _include, txt );
     QWhatsThis::add( _manually, txt );
+    QWhatsThis::add( _link, txt );
     QWhatsThis::add( _auto, txt );
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
@@ -128,13 +138,15 @@ ImageFileLocation ExportConfig::imageFileLocation() const
         return Inline;
     else if ( _manually->isChecked() )
         return ManualCopy;
+    else if ( _link->isChecked() )
+        return Link;
     else
         return AutoCopy;
 }
 
 
 Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
-                const QString& baseUrl, bool& ok )
+                const QString& baseUrl, bool& ok, bool doGenerateThumbnails )
     : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
     ok = true;
@@ -148,9 +160,11 @@ Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress
     }
 
     // Create progress dialog
-    int total = list.count(); // number of images *  create the thumbnails
-    if ( location != ManualCopy )
-        total *= 2;  // number of images *  copy images
+    int total = 1;
+    if (location != ManualCopy)
+      total += list.count();
+    if (doGenerateThumbnails)
+      total += list.count();
 
     _steps = 0;
     _progressDialog = new QProgressDialog( QString::null, i18n("&Cancel"), total, 0, "progress dialog", true );
@@ -165,19 +179,22 @@ Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress
         copyImages( list );
     }
 
-    if ( _ok ) {
+    if ( _ok && doGenerateThumbnails ) {
         _copyingFiles = false;
         generateThumbnails( list );
     }
 
     if ( _ok ) {
         // Create the index.xml file
+        _progressDialog->setLabelText(i18n("Creating index file"));
         QCString indexml = createIndexXML( list, baseUrl );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.size()-1,
                          0444, t, t, t, indexml.data() );
 
+       _steps++;
+       _progressDialog->setProgress( _steps );
         _zip->close();
     }
 }
@@ -245,6 +262,9 @@ void Export::copyImages( const ImageInfoList& list )
                 _zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
             else if ( _location == AutoCopy )
                 Util::copy( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
+            else if ( _location == Link )
+                Util::makeHardLink( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
+
             _steps++;
             _progressDialog->setProgress( _steps );
         }

@@ -326,6 +326,14 @@ bool Util::copy( const QString& from, const QString& to )
     return true;
 }
 
+bool Util::makeHardLink( const QString& from, const QString& to )
+{
+  if (link(from.ascii(), to.ascii()) != 0)
+    return false;
+  else
+    return true;
+}
+
 QString Util::readInstalledFile( const QString& fileName )
 {
     QString inFileName = locate( "data", QString::fromLatin1( "kimdaba/%1" ).arg( fileName ) );

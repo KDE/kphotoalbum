@@ -15,10 +15,10 @@ void Draw::draw( QPainter&, QMouseEvent* event )
 
 QPoint Draw::w2g( const QPoint& point )
 {
-    return QPoint( point.x() * 10000 / _widget->width(),  point.y() * 10000 / _widget->height() );
+    return QPoint( point.x() * 10000.0 / _widget->width(),  point.y() * 10000.0 / _widget->height() );
 }
 
 QPoint Draw::g2w( const QPoint& point )
 {
-    return QPoint( point.x() / 10000 * _widget->width(),  point.y() / 10000 * _widget->height() );
+    return QPoint( point.x() / 10000.0 * _widget->width(),  point.y() / 10000.0 * _widget->height() );
 }

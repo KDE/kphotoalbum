@@ -7,16 +7,16 @@ CircleDraw::CircleDraw( QWidget* widget ) :Draw( widget )
 void CircleDraw::draw( QPainter& painter, QMouseEvent* event )
 {
     Draw::draw( painter, event );
-    painter.drawEllipse( _startPos.x(), _startPos.y(), _lastPos.x()-_startPos.x(), _lastPos.y()-_startPos.y() );
+    painter.drawEllipse( g2w(_startPos).x(), g2w(_startPos).y(), g2w(_lastPos).x()-g2w(_startPos).x(), g2w(_lastPos).y()-g2w(_startPos).y() );
 }
 
 PointList CircleDraw::anchorPoints()
 {
     PointList res;
-    QPoint center = _startPos + (_lastPos-_startPos)/2;
-    res << QPoint( center.x(), _startPos.y() )
-        << QPoint( center.x(), _lastPos.y() )
-        << QPoint( _startPos.x(), center.y() )
-        << QPoint( _lastPos.x(), center.y() );
+    QPoint center = g2w(_startPos + (_lastPos-_startPos)/2);
+    res << QPoint( center.x(), g2w(_startPos).y() )
+        << QPoint( center.x(), g2w(_lastPos).y() )
+        << QPoint( g2w(_startPos).x(), center.y() )
+        << QPoint( g2w(_lastPos).x(), center.y() );
     return res;
 }

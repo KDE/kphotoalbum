@@ -22,7 +22,7 @@ void ImageManager::init()
     _imageLoader->start();
 }
 
-void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache )
+void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache, bool priority )
 {
     QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
 
@@ -35,7 +35,10 @@ void ImageManager::load( const QString& fileName, ImageClient* client, int angle
         _lock->lock();
         LoadInfo li( fileName, width, height, angle, client );
         li.setCache( cache );
-        _loadList.append( li );
+        if ( priority )
+            _loadList.prepend( li );
+        else
+            _loadList.append( li );
         _lock->unlock();
         if ( client )
             _clientMap.insert( li, client );
@@ -84,6 +87,7 @@ void ImageManager::customEvent( QCustomEvent* ev )
         if ( _clientMap.contains( li ) )  {
             // If it is not in the map, then it has been deleted since the request.
             ImageClient* client = _clientMap[li];
+
             client->pixmapLoaded( li.fileName(), li.width(), li.height(), li.angle(), pixmap );
             _clientMap.remove(li);
         }

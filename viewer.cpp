@@ -158,7 +158,7 @@ void Viewer::load()
 
     _label->setText( "Loading..." );
 
-    ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), w,  h, false );
+    ImageManager::instance()->load( _info.fileName( false ), this, _info.angle(), w,  h, false, true );
     _nextAction->setEnabled( _current +1 < (int) _list.count() );
     _prevAction->setEnabled( _current > 0 );
 }

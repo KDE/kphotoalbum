@@ -19,7 +19,7 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent, const char* n
     painter.drawRect( 0, 0, size-1, size-1 );
     setPixmap( img );
     setText( imageInfo->label() );
-    ImageManager::instance()->load( _imageInfo->fileName( false ),  this, _imageInfo->angle(), size, size );
+    ImageManager::instance()->load( _imageInfo->fileName( false ),  this, _imageInfo->angle(), size, size, true, false );
 }
 
 QString ThumbNail::fileName() const

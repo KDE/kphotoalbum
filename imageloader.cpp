@@ -53,7 +53,7 @@ void ImageLoader::run()
             img = img.scale( li.width(), li.height(), QImage::ScaleMin );
 
             // Save thumbnail to disk
-            if (  Options::instance()->cacheThumbNails() ) {
+            if (  Options::instance()->cacheThumbNails() && li.cache() ) {
                 if ( ! QDir( cacheDir ).exists() ) {
                     QDir().mkdir( cacheDir, true );
                 }

@@ -184,7 +184,7 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         quality->setCurrentText( "High" );
         _preloadImageMap.clear();
         for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
-            ImageManager::instance()->load( (*it)->fileName( false ), this, (*it)->angle(), 256, 256, false );
+            ImageManager::instance()->load( (*it)->fileName( false ), this, (*it)->angle(), 256, 256, false, true );
         }
         _current = -1;
         slotNext();

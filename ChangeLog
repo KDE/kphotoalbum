@@ -1,5 +1,9 @@
 2004-04-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: when exporting the image loader also saved the large
+	images (like 1024x768) to tumbnails dir. Please remove all
+	thumbnails using the maintenance menu item.
+
 	* BUGFIX: images inline in export files was broken if the
 	extension was different from .jpg
 

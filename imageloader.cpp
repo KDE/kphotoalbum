@@ -86,12 +86,14 @@ void ImageLoader::run()
                     img = img.smoothScale( li.width(), li.height(), QImage::ScaleMin );
 
                 // Save thumbnail to disk
-                if ( ! QDir( cacheDir ).exists() ) {
-                    QDir().mkdir( cacheDir, true );
+                if ( li.cache() ) {
+                    if ( ! QDir( cacheDir ).exists() ) {
+                        QDir().mkdir( cacheDir, true );
+                    }
+                    img.save( cacheFile, "JPEG" );
                 }
-                img.save( cacheFile, "JPEG" );
-                imageLoaded = true;
 
+                imageLoaded = true;
             }
 
             ImageEvent* iew = new ImageEvent( li, img );

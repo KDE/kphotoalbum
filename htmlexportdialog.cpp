@@ -174,6 +174,11 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     _outputDir = new KLineEdit( generalPage );
     lay2->addWidget( _outputDir, 7, 1 );
 
+    // Sponsoring link
+    _sponsoringLink = new QCheckBox( i18n("Include sponsoring link"), generalPage );
+    _sponsoringLink->setChecked( true );
+    lay1->addWidget( _sponsoringLink );
+
     // Image sizes
     QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), generalPage );
     lay1->addWidget( sizes );
@@ -266,6 +271,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
     // -------------------------------------------------- Header information + title + description
     QDomDocument doc;
     QDomElement elm;
+    QDomElement col;
     QDomElement body = createHTMLHeader( doc, _title->text() );
 
     if ( !_title->text().isEmpty() ) {
@@ -298,7 +304,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
             count = 0;
         }
 
-        QDomElement col = doc.createElement( QString::fromLatin1( "td" ) );
+        col = doc.createElement( QString::fromLatin1( "td" ) );
         row.appendChild( col );
 
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
@@ -313,11 +319,18 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
         ++count;
     }
 
+    table = doc.createElement( QString::fromLatin1( "table" ) );
+    table.setAttribute( QString::fromLatin1( "width" ), QString::fromLatin1( "100%" ) );
+
+    body.appendChild ( table );
+    row = doc.createElement( QString::fromLatin1( "tr" ) );
+    table.appendChild( row );
     // -------------------------------------------------- Resolution
     QValueList<MyCheckBox*> actRes = activeResolutions();
     if ( actRes.count() > 1 ) {
-        body.appendChild( doc.createElement( QString::fromLatin1( "hr" ) ) );
-        body.appendChild( doc.createTextNode( QString::fromLatin1( "Resolutions: " ) ) );
+        col = doc.createElement( QString::fromLatin1( "td" ) );
+        row.appendChild( col );
+        col.appendChild( doc.createTextNode( QString::fromLatin1( "Resolutions: " ) ) );
 
         for( QValueList<MyCheckBox*>::Iterator sizeIt = actRes.begin();
              sizeIt != actRes.end(); ++sizeIt ) {
@@ -328,32 +341,34 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
             QString text = (*sizeIt)->text(false);
 
             if ( width == w && height == h ) {
-                body.appendChild( doc.createTextNode( text ) );
+                col.appendChild( doc.createTextNode( text ) );
             }
             else {
                 QDomElement link = createLink( doc, page, text );
-                body.appendChild( link );
+                col.appendChild( link );
             }
-            body.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
+            col.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
         }
     }
 
-    // -------------------------------------------------- Advertise
-
     // -------------------------------------------------- Logo
-    QDomElement p = doc.createElement( QString::fromLatin1( "p" ) );
-    p.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "right" ) );
-    body.appendChild( p );
+    col = doc.createElement( QString::fromLatin1( "td" ) );
+    col.setAttribute( QString::fromLatin1( "align" ), QString::fromLatin1( "right" ) );
+    row.appendChild( col );
 
-    p.appendChild( doc.createTextNode( QString::fromLatin1( "Created by " ) ) );
+    col.appendChild( doc.createTextNode( QString::fromLatin1( "Created by " ) ) );
     QDomElement link = createLink( doc, QString::fromLatin1( "http://ktown.kde.org/kimdaba/" ),
                                    QString::fromLatin1( "KimDaBa" ) );
-    p.appendChild( link );
+    col.appendChild( link );
 
 
 
     if ( _progress->wasCancelled() )
         return false;
+
+    // -------------------------------------------------- Sponsoring links
+    if ( _sponsoringLink->isChecked() )
+        createSponsorLink( doc, body);
 
     // -------------------------------------------------- write to file
     QString str = doc.toString();
@@ -749,6 +764,34 @@ QValueList<MyCheckBox*> HTMLExportDialog::activeResolutions()
         }
     }
     return res;
+}
+
+void HTMLExportDialog::createSponsorLink( QDomDocument& doc, QDomElement& body )
+{
+    body.appendChild( doc.createElement( QString::fromLatin1( "hr" ) ) );
+    body.appendChild( doc.createTextNode( QString::fromLatin1( "Sponsoring links:" ) ) );
+    body.appendChild( doc.createElement( QString::fromLatin1( "br" ) ) );
+    QDomElement script = doc.createElement( QString::fromLatin1( "script" ) );
+    script.setAttribute( QString::fromLatin1( "type" ), QString::fromLatin1( "text/javascript" ) );
+    body.appendChild( script );
+
+    QString content = QString::fromLatin1( "\ngoogle_ad_client = \"pub-5849826863035695\";\n"
+                                           "google_ad_width = 728;\n"
+                                           "google_ad_height = 90;\n"
+                                           "google_ad_format = \"728x90_as\";\n"
+                                           "google_color_border = \"336699\";\n"
+                                           "google_color_bg = \"FFFFFF\";\n"
+                                           "google_color_link = \"0000FF\";\n"
+                                           "google_color_url = \"008000\";\n"
+                                           "google_color_text = \"000000\";\n");
+    script.appendChild( doc.createComment( content ) );
+
+    script = doc.createElement( QString::fromLatin1( "script" ) );
+    script.setAttribute( QString::fromLatin1("type"), QString::fromLatin1("text/javascript") );
+    script.setAttribute( QString::fromLatin1( "src" ),
+                         QString::fromLatin1( "http://pagead2.googlesyndication.com/pagead/show_ads.js" ));
+    body.appendChild( script );
+    script.appendChild( doc.createTextNode( QString::fromLatin1( " " ) ) );
 }
 
 #include "htmlexportdialog.moc"

@@ -43,6 +43,11 @@ public:
 protected slots:
     void fromDateChanged( QDate );
     void toDateChanged();
+    void slotCopy();
+
+protected:
+    void disableDefaultButtons();
+    void increaseFont( QWidget* widget, int factor );
 
 private:
     KDatePicker* _from;

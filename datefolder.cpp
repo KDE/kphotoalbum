@@ -24,6 +24,8 @@
 #include <kdatepicker.h>
 #include <qlabel.h>
 #include "contentfolder.h"
+#include <qpushbutton.h>
+#include <qobjectlist.h>
 DateFolder::DateFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent )
 {
@@ -62,18 +64,27 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
     QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
 
     QVBoxLayout* lay2 = new QVBoxLayout( lay1, 6 );
-    QLabel* label = new QLabel( QString::fromLatin1( "<qt><font size=\"+3\">%1:</font></qt>")
-                                .arg(i18n("From") ), top );
+
+    // PENDING(blackie) When done with message freze, join the two strings below
+    QLabel* label = new QLabel( QString::fromLatin1( "%1:").arg(i18n("From") ), top );
+    increaseFont( label, 2 );
     lay2->addWidget( label );
     _from = new KDatePicker( top );
 
     lay2->addWidget( _from );
 
-    lay1->addSpacing( 100 );
+    lay1->addSpacing( 25 );
+    QPushButton* copy = new QPushButton( QString::fromLatin1( ">>" ), top );
+    copy->setFixedWidth( 30 );
+    lay1->addWidget( copy );
+    lay1->addSpacing( 25 );
+    connect( copy, SIGNAL( clicked() ), this, SLOT( slotCopy() ) );
 
     QVBoxLayout* lay3 = new QVBoxLayout( lay1, 6 );
-    label = new QLabel( QString::fromLatin1( "<qt><font size=\"+3\">%1:</font></qt>" )
-                        .arg( i18n("To") ), top );
+    // PENDING(blackie) When done with message freze, join the two strings below
+    label = new QLabel( QString::fromLatin1( "%1:" ).arg( i18n("To") ), top );
+    increaseFont( label, 2 );
+
     lay3->addWidget( label );
     _to = new KDatePicker( top );
     lay3->addWidget( _to );
@@ -82,6 +93,8 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
     _to->setDate( QDate( QDate::currentDate().year()+1, 1, 1 ) );
     connect( _from, SIGNAL( dateChanged( QDate ) ), this, SLOT( fromDateChanged( QDate ) ) );
     connect( _to, SIGNAL( dateChanged( QDate ) ), this, SLOT( toDateChanged() ) );
+
+    disableDefaultButtons();
 }
 
 QDate DateSearchDialog::fromDate() const
@@ -108,6 +121,29 @@ void DateSearchDialog::toDateChanged()
 QString DateFolder::countLabel() const
 {
     return QString::null;
+}
+
+void DateSearchDialog::slotCopy()
+{
+    _to->setDate( _from->date() );
+}
+
+void DateSearchDialog::disableDefaultButtons()
+{
+    QObjectList* list = queryList( "QPushButton" );
+    QObject* obj;
+    for ( QObjectListIt it( *list ); (obj = it.current()) != 0; ++it ) {
+        ((QPushButton*)obj)->setDefault( false );
+        ((QPushButton*)obj)->setAutoDefault( false );
+    }
+    delete list; // delete the list, not the objects
+}
+
+void DateSearchDialog::increaseFont( QWidget* widget, int factor )
+{
+    QFont font = widget->font();
+    font.setPointSize( font.pointSize() * factor );
+    widget->setFont( font );
 }
 
 #include "datefolder.moc"

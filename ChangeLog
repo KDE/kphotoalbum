@@ -1,3 +1,10 @@
+2004-09-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Improved date editor: (1) sizing now works (2) there are no
+	default buttons, so it is possible to press enter in the line edit
+	to specify a date. (3) there now is a ">>" button to copy from
+	date to to-date
+
 2004-09-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* The editor for image comments now has an on the fly spell checker.

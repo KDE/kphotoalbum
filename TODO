@@ -9,7 +9,6 @@ BUGS To be handled soonish
 - Adding a new ListSelect will not show it up initially.
 - searching for jan 02 2003 in the demo should yield img015, but no images
   are found.
-- typing in a date in the line edit of the date browser does not work.
 
 =======================
 BUGS of less importance

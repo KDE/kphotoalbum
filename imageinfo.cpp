@@ -205,3 +205,8 @@ bool ImageInfo::operator==( const ImageInfo& other )
     }
     return !changed;
 }
+
+void ImageInfo::removeOption( const QString& key, const QString& value )
+{
+    _options[key].remove( value );
+}

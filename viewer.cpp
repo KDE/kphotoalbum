@@ -45,6 +45,7 @@
 #include <kglobalsettings.h>
 #include "speeddisplay.h"
 #include <qdesktopwidget.h>
+#include "mainview.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -183,6 +184,11 @@ void Viewer::setupContextMenu()
     action = new QAction( i18n("Draw on Image"),  QIconSet(),  i18n("Draw on Image"),  0, this );
     connect( action,  SIGNAL( activated() ),  this, SLOT( startDraw() ) );
     action->addTo( _popup );
+
+    action = new QAction( i18n("Edit Image Properties"),  QIconSet(),  i18n("Edit Image Properties"),  CTRL+Key_1, this );
+    connect( action,  SIGNAL( activated() ),  this, SLOT( editImage() ) );
+    action->addTo( _popup );
+
 
     action = new QAction( i18n("Close"),  QIconSet(), i18n("Close"), Key_Q, this );
     connect( action,  SIGNAL( activated() ), this, SLOT( close() ) );
@@ -525,6 +531,13 @@ void Viewer::slotSlideShowSlower()
     _speedDisplay->display( _slideShowPause );
     if (_slideShowTimer->isActive() )
         _slideShowTimer->changeInterval( _slideShowPause );
+}
+
+void Viewer::editImage()
+{
+    ImageInfoList list;
+    list.append( currentInfo() );
+    MainView::configureImages( list, true );
 }
 
 #include "viewer.moc"

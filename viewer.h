@@ -76,6 +76,7 @@ protected slots:
     void slotSlideShowNext();
     void slotSlideShowFaster();
     void slotSlideShowSlower();
+    void editImage();
 
 private:
     static Viewer* _latest;

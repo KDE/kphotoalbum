@@ -56,9 +56,12 @@
 #include <kiconloader.h>
 #include <kpassdlg.h>
 
+MainView* MainView::_instance = 0;
+
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 ), _dirtyIndicator(0)
 {
+    _instance = this;
     load();
 
     // To avoid a race conditions where both the image loader thread creates an instance of
@@ -165,10 +168,16 @@ void MainView::configureImages( bool oneAtATime )
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     }
     else {
-        createImageConfig();
-        _imageConfigure->configure( list,  oneAtATime );
+        configureImages( list, oneAtATime );
     }
 }
+
+void MainView::configureImages( const ImageInfoList& list, bool oneAtATime )
+{
+    _instance->createImageConfig();
+    _instance->_imageConfigure->configure( list,  oneAtATime );
+}
+
 
 void MainView::slotSearch()
 {

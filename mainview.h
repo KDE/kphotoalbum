@@ -38,6 +38,7 @@ class MainView :public KMainWindow
 
 public:
     MainView( QWidget* parent,  const char* name = 0 );
+    static void configureImages( const ImageInfoList& list, bool oneAtATime );
 
 protected slots:
     bool slotExit();
@@ -80,6 +81,8 @@ protected:
     void setLocked( bool b );
 
 private:
+    static MainView* _instance;
+
     ThumbNailView* _thumbNailView;
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;

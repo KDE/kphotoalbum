@@ -1,3 +1,7 @@
+2003-10-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Its now possible to configure image properties from within the viewer.
+
 2003-10-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added new feature, which allows you to specify a default search
@@ -14,7 +18,7 @@
 
 	* Added status bar icon for dirtyness.
 
-	* BUGDIX: In the image config, selecting an item from the listbox
+	* BUGFIX: In the image config, selecting an item from the listbox
 	did not mark the image dirty.
 
 	* BUGFIX: Pressing Cancel in the find dialog, does no longer

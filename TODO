@@ -23,6 +23,8 @@ BUGS To be handled soonish
   focus so dialog can be closed with simple return, with-
   out the need to first click into it.
 - Add a README file to the tar balls.
+- export to HTML with nothing selected should export all.
+
 =======================
 BUGS of less importance
 =======================

@@ -266,7 +266,7 @@ void OptionsDialog::createThumbNailPage()
     QWhatsThis::add( _displayLabels, txt );
 
     txt = i18n("<qt><p>When you are browsing the images, and the count gets below the value specified here, "
-               "the thumbnils will automatically be shown. The alternative is to continue showing the "
+               "the thumbnails will be shown automatically. The alternative is to continue showing the "
                "browser until you press <i>Show Images</i>.<p>"
                "<p>With this option on, you can choose to see the browser by pressing ctrl+mouse button.<br>"
                "With this option off, you can choose to see the images by pressing ctrl+mouse button.</p></qt>");

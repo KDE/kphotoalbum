@@ -44,11 +44,24 @@ Editor::Editor( QWidget* parent, const char* name )
 bool Editor::loadPart()
 {
     // Don't ask, this is pure magic ;-)
-    _doc = KParts::ComponentFactory::createPartInstanceFromQuery< KTextEditor::Document >( QString::fromLatin1("KTextEditor/Document"), QString::null, this, 0, this, 0 );
+    int errCode;
+    _doc = KParts::ComponentFactory::createPartInstanceFromQuery< KTextEditor::Document >( QString::fromLatin1("KTextEditor/Document"), QString::null, this, 0, this, 0,
+                                                                                           QStringList(), &errCode );
 
     if( !_doc ) {
+        QString err;
+        switch ( errCode ) {
+        case KParts::ComponentFactory::ErrNoServiceFound: err = QString::fromLatin1( "NoServiceFound" ); break;
+        case KParts::ComponentFactory::ErrServiceProvidesNoLibrary: err = QString::fromLatin1( "ServiceProvidesNoLibrary" ); break;
+        case KParts::ComponentFactory::ErrNoLibrary: err = QString::fromLatin1( "NoLibrary" ); break;
+        case KParts::ComponentFactory::ErrNoFactory: err = QString::fromLatin1( "NoFactory" ); break;
+        case KParts::ComponentFactory::ErrNoComponent: err = QString::fromLatin1( "NoComponent" ); break;
+        default: err= QString::fromLatin1( "Unknown" );
+        }
+
         KMessageBox::error(this,i18n("KimDaba cannot start a text editor component.\n"
-                                     "Please check your KDE installation."));
+                                     "Please check your KDE installation\n"
+                                     "Error was: %1").arg( err ));
         _doc=0;
         _view=0;
         return false;

@@ -37,6 +37,8 @@
 class KInputDialog : public KLineEditDlg
 {
     Q_OBJECT
+private:
+    KInputDialog() :KLineEditDlg( QString::null, QString::null, (QWidget*) 0 ) {}
 };
 
 #endif // KINPUTDIALOG_H

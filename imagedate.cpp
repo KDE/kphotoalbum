@@ -210,7 +210,6 @@ bool ImageDate::hasValidTime() const
 
 QDate ImageDate::getDate()
 {
-    QDate date = QDate::currentDate();
     int day = 1;
     int month = 1;
     int year = 1970;
@@ -280,4 +279,9 @@ void ImageDate::setDate( const QString& date )
 QString ImageDate::formatRegexp()
 {
     return QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((jan|feb|mar|apr|may|jun|jul|aug|sep|nov|dec|\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
+}
+
+bool ImageDate::isFuzzyData()
+{
+    return _year == 0 || _month == 0 || _day == 0;
 }

@@ -50,6 +50,10 @@ protected:
     void increaseFont( QWidget* widget, int factor );
 
 private:
+    void highlightPossibleDates( KDatePicker* picker);
+
+    QDate  _prevFrom;
+    QDate  _prevTo;
     KDatePicker* _from;
     KDatePicker* _to;
     bool _toChanged;

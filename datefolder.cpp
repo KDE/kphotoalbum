@@ -26,6 +26,14 @@
 #include "contentfolder.h"
 #include <qpushbutton.h>
 #include <qobjectlist.h>
+#include "mainview.h"
+#include <kdatetbl.h>
+#include <qdatetime.h>
+#include "imagedb.h"
+#include "imageinfo.h"
+#include "imagesearchinfo.h"
+#include "showbusycursor.h"
+
 DateFolder::DateFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent )
 {
@@ -60,6 +68,7 @@ FolderAction* DateFolder::action( bool /* ctrlDown */ )
 DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
     :KDialogBase( KDialogBase::Plain, i18n("Date Search"), KDialogBase::Ok | KDialogBase::Cancel, KDialogBase::Ok, parent, name ), _toChanged( false )
 {
+    ShowBusyCursor dummy;
     QWidget* top = plainPage();
     QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
 
@@ -89,6 +98,10 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
 
     _from->setDate( QDate( QDate::currentDate().year(), 1, 1 ) );
     _to->setDate( QDate( QDate::currentDate().year()+1, 1, 1 ) );
+    _prevFrom = _from->date();
+    _prevTo   = _to   ->date();
+    highlightPossibleDates( _from );
+    highlightPossibleDates( _to   );
     connect( _from, SIGNAL( dateChanged( QDate ) ), this, SLOT( fromDateChanged( QDate ) ) );
     connect( _to, SIGNAL( dateChanged( QDate ) ), this, SLOT( toDateChanged() ) );
 
@@ -107,13 +120,20 @@ QDate DateSearchDialog::toDate() const
 
 void DateSearchDialog::fromDateChanged( QDate date )
 {
+    if ( (_prevFrom.year() != date.year()) || (_prevFrom.month() != date.month() ) )
+	highlightPossibleDates( _from );
     if ( !_toChanged )
         _to->setDate( date );
+    _prevFrom = date;
 }
 
 void DateSearchDialog::toDateChanged()
 {
+    QDate date = _to->date();
+    if ( (_prevTo.year() != date.year()) || (_prevTo.month() != date.month() ) )
+	highlightPossibleDates( _to );
     _toChanged = true;
+    _prevTo = date;
 }
 
 QString DateFolder::countLabel() const
@@ -144,4 +164,57 @@ void DateSearchDialog::increaseFont( QWidget* widget, int factor )
     widget->setFont( font );
 }
 
+void DateSearchDialog::highlightPossibleDates( KDatePicker* picker)
+{
+    ShowBusyCursor dummy;
+    KDateTable * dateTable = picker->dateTable();
+    ImageSearchInfo context = MainView::theMainView()->currentContext();
+    ImageDate date = ImageDate( picker->date() );
+
+    int nbDays = date.getDate().daysInMonth() ;
+    bool picturesByDays[ 31 ];
+    for (int i = 0 ; i < 31 ; i++ ) { picturesByDays[i] = false; }
+
+    date.setDay( 1 );
+    context.setStartDate( date );
+    date.setDay( date.getDate().daysInMonth() );
+    context.setEndDate( date );
+    ImageInfoList list = ImageDB::instance()->images( context, TRUE );
+
+    ImageInfo* image;
+    for( image = list.first(); image ; image=list.next() )
+    {
+        if ( image->startDate().isFuzzyData() || ( !image->endDate().isNull() && image->endDate().isFuzzyData() ) )
+            continue;
+        QDate start = image->startDate().getDate();
+        QDate end = image->endDate().getDate();
+
+        int a,b;
+        a = start.day();
+        if ( date.year()  < start.year() )
+            a = 1;
+        else if (date.month() < start.month() )
+            a=1;
+
+        b = end.day();
+        if ( end.year() < date.year()  ) //TODO: how to check there is no second date ?
+            b = a;
+        else if (date.year()  > end.year())
+            b = nbDays;
+        else if (date.month() > end.month() )
+            b = nbDays;
+
+        for (int i = a ; i <= b ; i++ )
+            picturesByDays[ i-1 ] = true;
+
+    }
+    for( int i = 0 ; i < nbDays ; i++ )
+    {
+        if (picturesByDays[ i ] == false)
+            continue;
+        date.setDay( i+1 );
+        // TODO: pick the best parameter possible for this function
+        dateTable->setCustomDatePainting( date.getDate(), QColor( "red" ) );
+    }
+}
 #include "datefolder.moc"

@@ -41,6 +41,7 @@ public:
     QTime getTime();
     QDate getDate();
     void setDate( const QString& date );
+    bool isFuzzyData();
 
     void setYear( int );
     void setMonth( int );

@@ -1,3 +1,8 @@
+2004-12-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Highlight date with images in the date picker. (Thanks to
+	Jean-Michel FAYARD <jmfayard@gmail.com> for a patch for this)
+
 2004-12-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Categories in Member Group config is now internationalized.

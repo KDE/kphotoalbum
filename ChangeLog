@@ -1,5 +1,9 @@
 2004-06-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Bugfix: The time config was not set correctly for configuring
+	multiple images, often resulting in many images getting the same
+	time stamp.
+
 	* Its now possible to configure which plugins should be loaded.
 
 2004-06-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

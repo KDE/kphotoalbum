@@ -411,6 +411,9 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
     else {
         _startDate->setDate( ImageDate() );
         _endDate->setDate( ImageDate() );
+        _time->hide();
+        _addTime->show();
+
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->setSelection( QStringList() );

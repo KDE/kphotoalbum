@@ -220,17 +220,23 @@ void ImageDB::loadExtraFile( const QString& relativeName )
     QString sum = MD5Sum( Options::instance()->imageDirectory() + QString::fromLatin1("/") + relativeName );
     if ( _md5Map.contains( sum ) ) {
         QString fileName = _md5Map[sum];
-        for( ImageInfoListIterator it( _images ); *it; ++it ) {
-            if ( (*it)->fileName(true) == fileName ) {
-                // Update the label in case it contained the previos file name
-                QFileInfo fi( (*it)->fileName() );
-                if ( (*it)->label() == fi.baseName() ) {
-                    QFileInfo fi2( relativeName );
-                    (*it)->setLabel( fi2.baseName() );
-                }
+        QFileInfo fi( Options::instance()->imageDirectory() + QString::fromLatin1("/") + fileName );
 
-                (*it)->setFileName( relativeName );
-                return;
+        if ( !fi.exists() ) {
+            // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
+
+            for( ImageInfoListIterator it( _images ); *it; ++it ) {
+                if ( (*it)->fileName(true) == fileName ) {
+                    // Update the label in case it contained the previos file name
+                    fi = QFileInfo ( (*it)->fileName() );
+                    if ( (*it)->label() == fi.baseName() ) {
+                        fi = QFileInfo( relativeName );
+                        (*it)->setLabel( fi.baseName() );
+                    }
+
+                    (*it)->setFileName( relativeName );
+                    return;
+                }
             }
         }
     }

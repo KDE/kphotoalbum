@@ -30,8 +30,6 @@ Features for a soonish version
 - show slideshow in several Viewers, that is show image 1 in viewer 1, and
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.
-- add md5 sum to the DB that is used to re-find images if the DB is reordered.
-
 - Loseless image rotation (which actually affects the files)
 - add a kpart call for editing images.
 - when going into full screen mode, move mouse to (width()-1,height()-1)

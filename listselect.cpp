@@ -119,7 +119,7 @@ QListBoxItem* CompletableLineEdit::findItemInListBox( const QString& text )
 {
     for ( QListBoxItem* item = _listbox->firstItem();
           item; item = item->next() ) {
-        if ( item->text().startsWith( text, false ) )
+        if ( item->text().lower().startsWith( text.lower() ) )
             return item;
     }
     return 0;

@@ -63,6 +63,8 @@ protected:
     void saveOldGroup();
     void selectMembers( const QString& );
     void slotCategoryChanged( const QString&, bool saveGroups );
+    void setButtonStates();
+    QString currentGroup() const;
 
 
 private:
@@ -92,7 +94,8 @@ private:
     QListBox* _members;
     MemberMap _memberMap;
     QString _currentCategory;
-    QString _currentGroup;
+    QPushButton* _rename;
+    QPushButton* _del;
 };
 
 

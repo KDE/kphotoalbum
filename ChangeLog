@@ -1,3 +1,8 @@
+2004-02-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Pressing the rename button in member groups made
+	KimDaBa crash if no member groups are selected.
+
 --------------------------- version 1.1 released --------------------------------------
 
 2004-02-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

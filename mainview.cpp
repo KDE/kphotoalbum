@@ -349,9 +349,7 @@ void MainView::slotViewSelected( bool reuse )
             setActiveWindow();
         }
         else {
-            // We don't want this to be child of anything. Originally it was child of the mainwindow
-            // but that had the effect that it would always be on top of it.
-            viewer = new Viewer( 0 );
+            viewer = new Viewer( "viewer" );
             viewer->show();
         }
         viewer->load( list2 );

@@ -47,3 +47,13 @@ int BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const
     return _folder->compare( static_cast<BrowserListItem*>(other)->_folder, col, asc );
 }
 
+BrowserIconItem::~BrowserIconItem()
+{
+    delete _folder;
+}
+
+BrowserListItem::~BrowserListItem()
+{
+    delete _folder;
+}
+

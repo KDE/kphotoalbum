@@ -33,6 +33,7 @@ class Browser :public QWidget {
 
 public:
     Browser( QWidget* parent, const char* name = 0 );
+    ~Browser();
     void addSearch( ImageSearchInfo& info );
     static Browser* theBrowser();
     void load( const QString& optionGroup, const QString& value );

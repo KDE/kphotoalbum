@@ -2,12 +2,22 @@
 #include <qmap.h>
 #include "options.h"
 
+
+// Examples:
+// groupToMemberMap = { USA |-> [Chicago, Santa Clara],
+//                      California |-> [Santa Clara, Los Angeles] }
+// _memberToGroup = { Chicago |-> [USA],
+//                    Sanata Clara |-> [ USA, California ],
+//                    Los Angeless |-> [ California ] }
+
 GroupCounter::GroupCounter( const QString& optionGroup )
 {
     MemberMap map = Options::instance()->memberMap();
     QMap<QString,QStringList> groupToMemberMap = map.groupMap(optionGroup);
     _memberToGroup.resize( 2729 /* A large prime */ );
     _groupCount.resize( 2729 /* A large prime */ );
+    _memberToGroup.setAutoDelete( true );
+    _groupCount.setAutoDelete( true );
 
     // Initialize _memberToGroup map.
     QStringList items = Options::instance()->optionValue( optionGroup );
@@ -35,12 +45,12 @@ GroupCounter::GroupCounter( const QString& optionGroup )
 
 }
 
-/* optionList is the selected options for one image, members may be Las Vegas, Chicago, and Los Angeles if the
-   option group in question is Locations.
-   This function then increases _groupCount with 1 for each of the groups the relavant items belongs to
-   Las Vegas might increase the _groupCount[Nevada] by one.
-   The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
-   used for.
+/** optionList is the selected options for one image, members may be Las Vegas, Chicago, and Los Angeles if the
+    option group in question is Locations.
+    This function then increases _groupCount with 1 for each of the groups the relavant items belongs to
+    Las Vegas might increase the _groupCount[Nevada] by one.
+    The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
+    used for.
 */
 void GroupCounter::count( const QStringList& optionList )
 {

@@ -69,6 +69,13 @@ Browser::Browser( QWidget* parent, const char* name )
     QTimer::singleShot( 0, this, SLOT( init() ) );
 }
 
+Browser::~Browser()
+{
+    delete _listViewFactory;
+    delete _iconViewFactory;
+}
+
+
 void Browser::init()
 {
     FolderAction* action = new ContentFolderAction( QString::null, QString::null, ImageSearchInfo(), this );
@@ -139,8 +146,11 @@ void Browser::addSearch( ImageSearchInfo& info )
 
 void Browser::addItem( FolderAction* action )
 {
-    while ( (int) _list.count() > _current )
+    while ( (int) _list.count() > _current ) {
+        FolderAction* a = _list.back();
         _list.pop_back();
+        delete a;
+    }
 
     _list.append(action);
     _current++;

@@ -58,8 +58,10 @@ Viewer* Viewer::latest()
     return _latest;
 }
 
-Viewer::Viewer( QWidget* parent, const char* name )
-    :QDialog( parent,  name ), _current(0), _showingFullScreen( false )
+
+// Notice the parent is zero to allow other windows to come on top of it.
+Viewer::Viewer( const char* name )
+    :QWidget( 0,  name ), _current(0), _showingFullScreen( false )
 {
     resize( Options::instance()->viewerSize() );
     setWFlags( WDestructiveClose );
@@ -397,7 +399,7 @@ bool Viewer::close( bool alsoDelete)
 {
     save();
     _slideShowTimer->stop();
-    return QDialog::close( alsoDelete );
+    return QWidget::close( alsoDelete );
 }
 
 ImageInfo* Viewer::currentInfo()
@@ -479,7 +481,7 @@ void Viewer::moveInfoBox()
 void Viewer::resizeEvent( QResizeEvent* e )
 {
     moveInfoBox();
-    QDialog::resizeEvent( e );
+    QWidget::resizeEvent( e );
 }
 
 void Viewer::updateInfoBox()

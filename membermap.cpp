@@ -98,6 +98,7 @@ bool MemberMap::isGroup( const QString& optionGroup, const QString& item ) const
 
 /**
    return a map from groupName to list of items for optionGroup
+   example: { USA |-> [Chicago, Grand Canyon, Santa Clara], Denmark |-> [Esbjerg, Odense] }
 */
 QMap<QString,QStringList> MemberMap::groupMap( const QString& optionGroup )
 {

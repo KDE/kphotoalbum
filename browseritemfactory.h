@@ -58,6 +58,7 @@ class BrowserIconItem :public QIconViewItem
 {
 public:
     BrowserIconItem( QIconView* view, Folder* folder );
+    ~BrowserIconItem();
     Folder* _folder;
 };
 
@@ -66,6 +67,7 @@ class BrowserListItem :public QListViewItem
 {
 public:
     BrowserListItem( QListView* view, Folder* folder );
+    ~BrowserListItem();
     Folder* _folder;
     virtual int compare( QListViewItem* other, int col, bool asc ) const;
 

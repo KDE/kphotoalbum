@@ -34,11 +34,11 @@ class SpeedDisplay;
 class CategoryImageConfig;
 class ExternalPopup;
 
-class Viewer :public QDialog
+class Viewer :public QWidget
 {
     Q_OBJECT
 public:
-    Viewer( QWidget* parent, const char* name = 0 );
+    Viewer( const char* name = 0 );
     ~Viewer();
     static Viewer* latest();
     void load( const ImageInfoList& list, int index = 0 );

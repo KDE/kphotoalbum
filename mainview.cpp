@@ -211,6 +211,8 @@ ImageInfoList MainView::selected()
 
 void MainView::slotViewSelected()
 {
+    qDebug("view Selected");
+
     ImageInfoList list = selected();
     ImageInfoList list2;
     for( ImageInfoListIterator it( list ); *it; ++it ) {

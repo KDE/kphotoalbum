@@ -150,17 +150,17 @@ void Viewer::setupContextMenu()
     action->addTo( _popup );
     action->setOn( Options::instance()->showInfoBox() );
 
-    action = new QAction( i18n("Show Drawing"), QIconSet(), i18n("Show Drawing"), CTRL+Key_I, this, "showDrawing", true );
+    action = new QAction( i18n("Show Drawing"), QIconSet(), i18n("Show Drawing"), Key_D, this, "showDrawing", true );
     connect( action, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDrawings() );
 
-    action = new QAction( i18n("Show Description"), QIconSet(), i18n("Show Description"), Key_D, this, "showDescription", true );
+    action = new QAction( i18n("Show Description"), QIconSet(), i18n("Show Description"), 0, this, "showDescription", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDescription() );
 
-    action = new QAction( i18n("Show Date"), QIconSet(), i18n("Show Date"), Key_A, this, "showDate", true );
+    action = new QAction( i18n("Show Date"), QIconSet(), i18n("Show Date"), 0, this, "showDate", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDate() );
@@ -255,6 +255,7 @@ void Viewer::toggleShowInfoBox( bool b )
 {
     Options::instance()->setShowInfoBox( b );
     _infoBox->setShown(b);
+    updateInfoBox();
 }
 
 void Viewer::toggleShowDescription( bool b )
@@ -407,7 +408,8 @@ void Viewer::updateInfoBox()
         QMap<int, QPair<QString,QString> > map;
         QString text = Util::createInfoText( currentInfo(), &map );
         text = QString::fromLatin1("<qt>") + text + QString::fromLatin1("</qt>");
-        _infoBox->setInfo( text, map );
+        if ( Options::instance()->showInfoBox() )
+            _infoBox->setInfo( text, map );
         moveInfoBox();
     }
 }

@@ -20,6 +20,7 @@
 #include <qurl.h>
 #include "viewer.h"
 #include "browser.h"
+#include <qfontmetrics.h>
 InfoBox::InfoBox( Viewer* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )
 {
@@ -41,14 +42,31 @@ void InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QStrin
 {
     _linkMap = linkMap;
     setText( text );
-    int width = 25;
-    Q_ASSERT( isShown() ); // It seems like the contentsWidth() and contentsHeight() are not updated
-                           // if the widget is not shown.
+    int width = 200;
+    int height = 0, h2;
+
     do {
         width +=10;
-        resize( width, width );
-    } while ( contentsHeight() > contentsWidth() );
-    resize( contentsWidth()+5, contentsHeight()+5 );
+        height = heightForWidth( width );
+    } while ( height > width && width < _viewer->width()/3 );
+    height = QMIN( height, _viewer->height()/3 );
+
+
+    // make the box smaller in width till it fits
+    do {
+        width -= 10;
+        h2 = heightForWidth( width );
+    } while( height == h2 );
+    width+=10;
+
+    resize( width +4*frameWidth(), height +4*frameWidth());
+
+    // Force the scrollbar off. This is to ensuer that we don't get in the situation where an image might have fited,
+    // if it hadn't been because a scrollbar is shown
+    setVScrollBarMode( AlwaysOff );
+    setHScrollBarMode( AlwaysOff );
+    setVScrollBarMode( Auto );
+    setHScrollBarMode( Auto );
 }
 
 void InfoBox::contentsMouseMoveEvent( QMouseEvent* e)

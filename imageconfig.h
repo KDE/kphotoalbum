@@ -15,6 +15,9 @@ public:
     int search();
     bool match( ImageInfo* info );
 
+signals:
+    void changed();
+
 protected slots:
     void displayImage();
     void slotRevert();

@@ -16,6 +16,8 @@ public:
     bool isNull() const;
     QString toString();
     operator QString() { return toString(); }
+    bool operator==( const ImageDate& other );
+    bool operator!=( const ImageDate& other );
 
 private:
     int _year, _month, _day;

@@ -31,20 +31,21 @@
         <cstring>menubar</cstring>
     </property>
     <item text="&amp;File" name="PopupMenu">
-        <action name="Options"/>
-        <action name="Search"/>
-        <action name="ViewSelected"/>
-        <action name="Export"/>
-        <separator/>
+        <action name="Save"/>
         <action name="Exit"/>
     </item>
     <item text="&amp;Edit" name="PopupMenu_2">
         <action name="Cut"/>
         <action name="Paste"/>
         <separator/>
+        <action name="Options"/>
         <action name="ImageProperties"/>
         <action name="SelectAll"/>
         <action name="DeleteSelected"/>
+    </item>
+    <item text="Images" name="PopupMenu_3">
+        <action name="Search"/>
+        <action name="ViewSelected"/>
     </item>
 </menubar>
 <toolbars>
@@ -121,7 +122,7 @@
             <cstring>ViewSelected</cstring>
         </property>
         <property name="text">
-            <string>&amp;View Images</string>
+            <string>&amp;View</string>
         </property>
         <property name="accel">
             <string>Ctrl+I</string>
@@ -210,6 +211,14 @@
             <string>Ctrl+V</string>
         </property>
     </action>
+    <action>
+        <property name="name">
+            <cstring>Save</cstring>
+        </property>
+        <property name="text">
+            <string>&amp;Save</string>
+        </property>
+    </action>
 </actions>
 <images>
     <image name="image0">
@@ -277,6 +286,12 @@
         <receiver>thumbNailView</receiver>
         <slot>slotPaste()</slot>
     </connection>
+    <connection>
+        <sender>Save</sender>
+        <signal>activated()</signal>
+        <receiver>MainViewUI</receiver>
+        <slot>slotSave()</slot>
+    </connection>
 </connections>
 <slots>
     <slot access="protected">slotExit()</slot>
@@ -287,6 +302,7 @@
     <slot access="protected">slotSearch()</slot>
     <slot access="protected">slotViewSelected()</slot>
     <slot access="protected">slotReorder()</slot>
+    <slot access="protected">slotSave()</slot>
 </slots>
 <layoutdefaults spacing="0" margin="0"/>
 <includehints>

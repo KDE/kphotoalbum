@@ -46,6 +46,8 @@ public:
     QStringList optionValue( const QString& key ) const;
 
     QDomElement save( QDomDocument& doc );
+    bool operator!=( const ImageInfo& other );
+    bool operator==( const ImageInfo& other );
 
 private:
      // This string is accessed on several threads, so we need to make it a deep copy!

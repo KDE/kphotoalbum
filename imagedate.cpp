@@ -90,6 +90,15 @@ QString ImageDate::toString()
     return result;
 }
 
+bool ImageDate::operator==( const ImageDate& other )
+{
+    return
+        ( _year == other._year &&
+          _month == other._month &&
+          _day == other._day );
+}
 
-
-
+bool ImageDate::operator!=( const ImageDate& other )
+{
+    return !(*this == other );
+}

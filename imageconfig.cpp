@@ -77,12 +77,13 @@ void ImageConfig::slotNext()
 
 void ImageConfig::slotOK()
 {
+    bool change = false;
     if ( _setup == SINGLE )  {
         save();
         for ( uint i = 0; i < _editList.count(); ++i )  {
+            change |= (*(_origList.at(i)) != _editList[i]);
             *(_origList.at(i)) = _editList[i];
         }
-        Options::instance()->save();
     }
 
     else if ( _setup == MULTIPLE ) {
@@ -92,33 +93,45 @@ void ImageConfig::slotOK()
                 info->startDate().setDay( dayStart->value() );
                 info->startDate().setMonth( monthStart->currentItem() );
                 info->startDate().setYear( yearStart->value() );
+                change = true;
             }
 
             if ( dayEnd->value() != 0 || monthEnd->currentText() != "---" || yearEnd->value() != 0 )  {
                 info->endDate().setDay( dayEnd->value() );
                 info->endDate().setMonth( monthEnd->currentItem() );
                 info->endDate().setYear( yearEnd->value() );
+                change = true;
             }
 
-            if ( quality->currentText() != "---" )
+            if ( quality->currentText() != "---" ) {
                 info->setQuality( quality->currentItem() );
+                change = true;
+            }
+
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
-                if ( (*it)->merge() )
-                    info->addOption( (*it)->label(),  (*it)->selection() );
-                else
-                    info->setOption( (*it)->label(),  (*it)->selection() );
+                    change = true;
+                    if ( (*it)->merge() )
+                        info->addOption( (*it)->label(),  (*it)->selection() );
+                    else
+                        info->setOption( (*it)->label(),  (*it)->selection() );
                 }
             }
 
-            if ( !label->text().isEmpty() )
+            if ( !label->text().isEmpty() ) {
+                change = true;
                 info->setLabel( label->text() );
-            if ( !description->text().isEmpty() )
+            }
+
+            if ( !description->text().isEmpty() ) {
+                change = true;
                 info->setDescription( description->text() );
+            }
         }
-        Options::instance()->save();
     }
+    if ( change )
+        emit changed();
 }
 
 void ImageConfig::load()

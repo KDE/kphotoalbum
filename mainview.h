@@ -18,11 +18,12 @@ protected slots:
     void slotOptions();
     void slotConfigureAllImages();
     void slotConfigureImagesOneAtATime();
-    void save();
+    void slotSave();
     void slotDeleteSelected();
     void slotSearch();
     void load();
     void slotViewSelected();
+    void slotChanges();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -30,11 +31,13 @@ protected:
     void load( const QString& indexDirectory,  const QString& filename, QDomElement elm );
     ImageInfoList selected();
     void wellcome();
+    virtual void closeEvent( QCloseEvent* e );
 
 private:
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
     ImageInfoList _images;
+    bool _dirty;
 };
 
 

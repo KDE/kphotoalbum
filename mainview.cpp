@@ -13,7 +13,7 @@
 #include <wellcomedialog.h>
 
 MainView::MainView( QWidget* parent, const char* name )
-    :MainViewUI( parent,  name )
+    :MainViewUI( parent,  name ), _dirty( false )
 {
     _optionsDialog = 0;
     _imageConfigure = 0;
@@ -21,11 +21,19 @@ MainView::MainView( QWidget* parent, const char* name )
         load();
     else
         wellcome();
-    connect( thumbNailView, SIGNAL( changed() ), this, SLOT( save() ) );
+    connect( thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 }
 
 void MainView::slotExit()
 {
+    if ( _dirty ) {
+        int ret = QMessageBox::warning( this, "Save Changes", "Save Changes?", QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
+        if ( ret == QMessageBox::Cancel )
+            return;
+        if ( ret == QMessageBox::Yes )
+            slotSave();
+    }
+
     qApp->quit();
 }
 
@@ -57,6 +65,7 @@ void MainView::configureImages( bool oneAtATime )
 {
     if ( ! _imageConfigure ) {
         _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
+        connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     }
 
     ImageInfoList list = selected();
@@ -65,7 +74,6 @@ void MainView::configureImages( bool oneAtATime )
     }
     else {
         _imageConfigure->configure( list,  oneAtATime );
-        save();
     }
 }
 
@@ -83,8 +91,10 @@ void MainView::slotSearch()
     }
 }
 
-void MainView::save()
+void MainView::slotSave()
 {
+    Options::instance()->save();
+
     QMap<QString, QDomDocument> docs;
     for( QPtrListIterator<ImageInfo> it( _images ); *it; ++it ) {
         QString indexDirectory = (*it)->indexDirectory();
@@ -114,6 +124,7 @@ void MainView::save()
             out.close();
         }
     }
+    _dirty = false;
 }
 
 void MainView::slotDeleteSelected()
@@ -234,5 +245,19 @@ void MainView::wellcome()
     dialog->exec();
     delete dialog;
     slotOptions();
+}
+
+void MainView::slotChanges()
+{
+    qDebug("DIRTY!");
+    _dirty = true;
+}
+
+void MainView::closeEvent( QCloseEvent* e )
+{
+    if ( _dirty )
+        slotExit();
+    // If I made it here, then the user canceled
+    e->ignore();
 }
 

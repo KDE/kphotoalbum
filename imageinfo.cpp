@@ -179,3 +179,29 @@ bool ImageInfo::visible() const
 {
     return _visible;
 }
+
+
+bool ImageInfo::operator!=( const ImageInfo& other )
+{
+    return !(*this == other);
+}
+
+bool ImageInfo::operator==( const ImageInfo& other )
+{
+    bool changed =
+        ( _indexDirectory != other._indexDirectory ||
+          _fileName != other._fileName ||
+          _label != other._label ||
+          _description != other._description ||
+          _startDate != other._startDate ||
+          _endDate != other._endDate ||
+          _quality != other._quality ||
+          _angle != other._angle);
+    if ( !changed ) {
+        QStringList keys = _options.keys();
+        for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
+            changed |= _options[*it] != other._options[*it];
+        }
+    }
+    return !changed;
+}

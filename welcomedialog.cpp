@@ -45,7 +45,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     QLabel* textLabel2 = new QLabel( this, "textLabel2" );
     lay2->addWidget( textLabel2 );
     textLabel2->setText( i18n( "<h1>Welcome to KimDaba</h1>"
-                               "<p>If you are interested in trying out KimDaBa with a prebuild set of images, "
+                               "<p>If you are interested in trying out KimDaBa with a prebuilt set of images, "
                                "then simply choose the <b>Load Demo</b> "
                                "button. You may get to this demo at a later time from the <b>Help</b> menu.</p>"
                                "<p>Alternatively you may start making you own database of images, simply by pressing the "

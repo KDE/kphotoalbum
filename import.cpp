@@ -218,7 +218,7 @@ void Import::createIntroduction()
                         "and also tell KimDaBa how to match the categories from the file to your categories. "
                         "Imagine you load from a file, where a category is called <tt>Blomst</tt> (which is the "
                         "Danish word for flower), then you would likely want to match this with your category, which might be "
-                        "called <tt>Blume</tt> (which is the German word for flower) - of course given you are german.</li>"
+                        "called <tt>Blume</tt> (which is the German word for flower) - of course given you are German.</li>"
                         "<li>The final steps, is matching the individual tokens from the categories. I may call myself <tt>Jesper</tt> "
                         "in my image database, while you want to call me by my full name, namely <tt>Jesper K. Pedersen</tt>. "
                         "In this step non matches will be highlighted in red, so you can see which tokens was not found in your "

@@ -43,7 +43,7 @@ Donate::Donate( QWidget* parent, const char* name )
 
                        "<p>Donating money will have the following effects:"
                        "<ul><li>The KimDaBa developer will be motivated "
-                       "by your acknowledgment of his work."
+                       "by your acknowledgement of his work."
                        "<li>The KimDaBa developer will get a chance to take "
                        "some time off from his daily work to be able to complete "
                        "larger features or reorganizations (For example, in January 2004, he took "

@@ -11,8 +11,11 @@ endif
 SUBDIRS = images icons demo themes $(COMPAT_DIR)
 INCLUDES = $(all_includes) $(COMPAT_INCLUDE)
 
-bin_PROGRAMS = kimdaba
-kimdaba_SOURCES = \
+bin_PROGRAMS =
+lib_LTLIBRARIES=
+kdeinit_LTLIBRARIES = kimdaba.la
+
+kimdaba_la_SOURCES = \
 	main.cpp thumbnailview.cpp thumbnail.cpp imagemanager.cpp imageloader.cpp \
 	options.cpp imageinfo.cpp viewer.cpp listselect.cpp mainview.cpp imageconfig.cpp \
 	imageclient.cpp util.cpp imagepreview.cpp imagedate.cpp imagesearchinfo.cpp \
@@ -31,8 +34,8 @@ kimdaba_SOURCES = \
     datebar.cpp dateviewhandler.cpp imagedaterangecollection.cpp imagedaterange.cpp \
 	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp
 
-kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)
+kimdaba_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module $(KDE_PLUGIN)
+kimdaba_la_LIBADD = $(LIB_KIO) $(COMPAT_LIBS) $(LIBJPEG) $(KIPI_LIBS)
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS) $(KIMDABA_KIPI_CXXFLAGS)

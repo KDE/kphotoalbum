@@ -34,7 +34,8 @@ static const KCmdLineOptions options[] =
 	{ 0, 0, 0}
 };
 
-int main( int argc, char** argv ) {
+extern "C" int kdemain(int argc, char **argv) {
+
     KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaBa"), "snapshot 1/1-05",
                           I18N_NOOP("KDE Image Database"), KAboutData::License_GPL,
                           0, 0, "http://ktown.kde.org/kimdaba");

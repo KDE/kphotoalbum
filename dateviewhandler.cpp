@@ -20,6 +20,8 @@
 #include <qobject.h>
 #include <math.h>
 #include <klocale.h>
+#include <kglobal.h>
+#include <kapplication.h>
 
 void DateViewHandler::init( const QDateTime& startDate )
 {
@@ -122,6 +124,8 @@ QString MonthViewHandler::text( int unit )
 {
     static int lastYear=0;
     QDateTime d = date(unit);
+    // return KGlobal::locale()->formatDate( d.date(), true );
+
     if ( d.date().year() != lastYear ) {
         lastYear = d.date().year();
         return d.toString( QString::fromLatin1( "d/M-yy" ) );

@@ -40,7 +40,6 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
 
     // Now merge in the items
     for( ImageInfoListIterator it( sorted ); *it; ++it ) {
-        qDebug("Inserting at index %d", index );
         insert( index, *it );
         ++index;
     }

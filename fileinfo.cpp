@@ -81,7 +81,8 @@ int FileInfo::angle( bool* found ) const
     else if ( orientation == 6 || orientation == 7 )
         return 90;
     else {
-        Q_ASSERT( false );
+        if ( found )
+            *found = false;
         return 0;
     }
 }

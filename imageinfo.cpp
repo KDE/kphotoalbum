@@ -383,6 +383,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
                    _fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
                    _fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
                    _fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) ) {
+                hasShownWarning = true;
                 KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read the date from the EXIF information.</b></p>"
                                                   "<p>EXIF information is meta information about the image stored in JPEG files. "
                                                   "KimDaBa tries to read the date, orientation and description from EXIF.</p>"

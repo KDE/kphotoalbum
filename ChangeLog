@@ -1,3 +1,10 @@
+2005-01-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Made KimDaBa into a kdeinit loadable module. On non Linux
+	systems this should speed up start up time significantly, when
+	KimDaBa is started from the menu. Thanks to David Faure for once
+	again helping me out with automake.
+
 2005-01-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Reimplemented sort images as it could lead to image loss, plus

@@ -36,4 +36,4 @@ rc_DATA = kpalbumui.rc
 
 pkg_DATA = infobox.js
 pkgdir = $(kde_datadir)/kpalbum/
-EXTRA_DIST = $(pkg_data)
+EXTRA_DIST = $(pkg_DATA)

@@ -38,6 +38,9 @@ public:
     ImageInfoList& clipboard() { return _clipboard; }
     bool isClipboardEmpty();
 
+    void blockList( const ImageInfoList& list );
+    void deleteList( const ImageInfoList& list );
+
 public slots:
     void load();
     void save( const QString& fileName );

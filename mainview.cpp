@@ -47,9 +47,10 @@
 #include <kapplication.h>
 #include <ktip.h>
 #include <kprocess.h>
+#include "deletedialog.h"
 
 MainView::MainView( bool demo, QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false )
+    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _deleteDialog( 0 )
 {
     bool showWelcome = !Options::configFileExists();
 
@@ -195,7 +196,10 @@ void MainView::slotSave()
 
 void MainView::slotDeleteSelected()
 {
-    qDebug("NYI!");
+    if ( ! _deleteDialog )
+        _deleteDialog = new DeleteDialog( this );
+    _deleteDialog->exec( selected() );
+    _thumbNailView->reload();
 }
 
 

@@ -25,6 +25,7 @@ class ImageCounter;
 class QTimer;
 class Browser;
 class KTipDialog;
+class DeleteDialog;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -81,6 +82,7 @@ private:
     QTimer* _autoSaveTimer;
     Browser* _browser;
     KTipDialog* _tipDialog;
+    DeleteDialog* _deleteDialog;
 };
 
 

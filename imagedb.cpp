@@ -251,4 +251,21 @@ void ImageDB::renameOptionGroup( const QString& oldName, const QString newName )
     }
 }
 
+void ImageDB::blockList( const ImageInfoList& list )
+{
+    qDebug("NYI");
+}
+
+void ImageDB::deleteList( const ImageInfoList& list )
+{
+    for( ImageInfoListIterator it( list ); *it; ) {
+        ImageInfo* info = *it;
+        ++it;
+        _images.removeRef( info );
+        delete info;
+    }
+    qDebug("%d", _images.count() );
+
+}
+
 #include "imagedb.moc"

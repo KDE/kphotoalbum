@@ -215,3 +215,5 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
 }
 
 
+
+#include "membermap.moc"

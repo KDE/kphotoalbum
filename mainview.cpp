@@ -14,12 +14,22 @@
 #include <qcursor.h>
 #include "showbusycursor.h"
 #include <klocale.h>
+#include <qhbox.h>
+#include <qwidgetstack.h>
+#include <kstandarddirs.h>
+#include "infopage.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _dirty( false )
 {
-    _thumbNailView = new ThumbNailView( this );
-    setCentralWidget( _thumbNailView );
+    _stack = new QWidgetStack( this );
+    _welcome = new InfoPage( _stack, "infopage" );
+    _thumbNailView = new ThumbNailView( _stack );
+    _stack->addWidget( _welcome );
+    _stack->addWidget( _thumbNailView );
+    setCentralWidget( _stack );
+    _stack->raiseWidget( _welcome );
+
     _optionsDialog = 0;
     setupMenuBar();
 
@@ -104,6 +114,7 @@ void MainView::slotSearch()
         }
         _thumbNailView->reload();
     }
+    _stack->raiseWidget( _thumbNailView );
 }
 
 void MainView::slotSave()
@@ -209,6 +220,7 @@ void MainView::load()
 void MainView::load( const QString& indexDirectory,  const QString& fileName, QDomElement elm )
 {
     ImageInfo* info = new ImageInfo( indexDirectory, fileName, elm );
+    info->setVisible( false );
     _images.append(info);
 }
 
@@ -293,6 +305,7 @@ void MainView::slotShowAllThumbNails()
         (*it)->setVisible( true );
     }
     _thumbNailView->reload();
+    _stack->raiseWidget( _thumbNailView );
 }
 
 void MainView::slotLimitToSelected()

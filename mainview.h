@@ -2,8 +2,8 @@
 #define MAINVIEW_H
 class OptionsDialog;
 class ImageConfig;
+class QWidgetStack;
 #include "imageinfo.h"
-#include "mainviewui.h"
 #include <qdict.h>
 #include <kmainwindow.h>
 #include "thumbnailview.h"
@@ -44,6 +44,8 @@ private:
     ImageConfig* _imageConfigure;
     ImageInfoList _images;
     bool _dirty;
+    QWidgetStack* _stack;
+    QWidget* _welcome;
 };
 
 

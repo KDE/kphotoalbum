@@ -23,7 +23,7 @@
 class CircleDraw :public Draw
 {
 public:
-    CircleDraw( QWidget* widget = 0 );
+    CircleDraw() {}
     CircleDraw( QDomElement elm );
     void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints();

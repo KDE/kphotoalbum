@@ -136,38 +136,52 @@ QPainter* DisplayArea::painter()
 
 void DisplayArea::paintEvent( QPaintEvent* )
 {
+    if ( _viewPixmap.isNull() )
+        return;
+
     QPixmap tmp( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ) );
     bitBlt( &tmp, QPoint(0,0), &_viewPixmap, QRect( _zStart, _zEnd ) );
+    tmp = scalePixmap( tmp, width(), height() );
 
     QPainter p(this);
-    p.setWindow( QRect( QPoint(0,0), _zEnd-_zStart) );
     p.drawPixmap( 0,0, tmp );
 }
 
 QPixmap DisplayArea::scalePixmap( QPixmap pix, int width, int height )
 {
-    double pixWidth = pix.width();
-    double pixHeight = pix.height();
-    double ratio = width/pixWidth;
-
-    if ( ratio * pixHeight > height ) {
-        ratio = height/pixHeight;
-        Q_ASSERT( ratio*pixWidth <= width );
-    }
+    int pixWidth = pix.width();
+    int pixHeight = pix.height();
+    double ratio;
+    QPoint off = offset(pixWidth, pixHeight, width, height, &ratio );
+    off = off/ratio;
 
     QWMatrix matrix;
     matrix.scale( ratio, ratio );
-
-    int ox = (int) ((width - pixWidth*ratio)/ratio)/2;
-    int oy = (int) ((height - pixHeight*ratio)/ratio)/2;
 
     QPixmap res( width, height );
     res.fill( black );
     QPainter p(&res );
     p.setWorldMatrix( matrix );
-    p.drawPixmap( ox, oy, pix );
+    p.drawPixmap( off, pix );
     return res;
 }
+
+QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
+{
+    double rat = ((double)physicalWidth)/logicalWidth;
+
+    if ( rat * logicalHeight > physicalHeight ) {
+        rat = ((double)physicalHeight)/logicalHeight;
+        Q_ASSERT( rat * logicalWidth <= physicalWidth );
+    }
+
+    int ox = (int) (physicalWidth - logicalWidth*rat)/2;
+    int oy = (int) (physicalHeight - logicalHeight*rat)/2;
+    if ( ratio )
+        *ratio = rat;
+    return QPoint(ox,oy);
+}
+
 
 
 void DisplayArea::zoom( const QPoint& p1, const QPoint& p2 )
@@ -176,10 +190,13 @@ void DisplayArea::zoom( const QPoint& p1, const QPoint& p2 )
     _zEnd = p2;
 }
 
-QPoint DisplayArea::mapPos( const QPoint& p )
+QPoint DisplayArea::mapPos( QPoint p )
 {
-    int x = (int) (_zStart.x() + (_zEnd.x()-_zStart.x())*((double)p.x()/ width()));
-    int y = (int) (_zStart.y() + (_zEnd.y()-_zStart.y())*((double)p.y()/ height()));
+    QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
+
+    p -= off;
+    int x = (int) (_zStart.x() + (_zEnd.x()-_zStart.x())*((double)p.x()/ (width()-2*off.x())));
+    int y = (int) (_zStart.y() + (_zEnd.y()-_zStart.y())*((double)p.y()/ (height()-2*off.y())));
     return QPoint( x, y );
 }
 

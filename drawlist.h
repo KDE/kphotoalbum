@@ -32,7 +32,6 @@ public:
     DrawList& operator=( const DrawList& other );
     void load( QDomElement elm );
     void save( QDomDocument doc, QDomElement top );
-    void setWidget( QWidget* widget );
 
 protected:
     void deleteItems();

@@ -23,7 +23,7 @@
 class LineDraw :public Draw
 {
 public:
-    LineDraw( QWidget* widget = 0 );
+    LineDraw(){}
     LineDraw( QDomElement elm );
     void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints();

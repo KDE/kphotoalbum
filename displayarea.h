@@ -54,7 +54,8 @@ protected:
     virtual void paintEvent( QPaintEvent* event );
     void pixmapLoaded( const QString&, int, int, int, const QImage& image );
     QPixmap scalePixmap( QPixmap pix, int width, int height );
-    QPoint mapPos( const QPoint& );
+    QPoint mapPos( QPoint );
+    QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );
 
     friend class DrawHandler;
     friend class ViewHandler;

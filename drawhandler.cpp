@@ -88,18 +88,16 @@ DrawList DrawHandler::drawList() const
 
 void DrawHandler::setDrawList( const DrawList& list )
 {
-    _drawings.setWidget( 0 );
     _drawings = list;
-    _drawings.setWidget( _display );
     emit redraw();
 }
 
 Draw* DrawHandler::createTool()
 {
     switch ( _tool ) {
-    case Line: return new LineDraw( _display );
-    case Rectangle: return new RectDraw( _display );
-    case Circle: return new CircleDraw( _display );
+    case Line: return new LineDraw();
+    case Rectangle: return new RectDraw();
+    case Circle: return new CircleDraw();
     default:
     {
         Q_ASSERT( false );

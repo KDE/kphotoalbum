@@ -99,9 +99,3 @@ void DrawList::save( QDomDocument doc, QDomElement top )
     }
 }
 
-void DrawList::setWidget( QWidget* widget )
-{
-    for( QValueList<Draw*>::ConstIterator it = begin(); it != end(); ++it ) {
-        (*it)->setWidget( widget );
-    }
-}

@@ -18,7 +18,7 @@ MySplashScreen::MySplashScreen()
     painter.setFont( fnt );
     QPen pen( white );
     painter.setPen( pen );
-    painter.drawText( QRect( QPoint(260, 400), QPoint( 620, 470 )), AlignRight | AlignTop,
+    painter.drawText( QRect( QPoint(260, 400), QPoint( 630, 470 )), AlignRight | AlignBottom,
                       i18n( "KimDaBa version %1" ).arg( KGlobal::instance()->aboutData()->version() ) );
 }
 

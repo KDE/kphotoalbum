@@ -450,7 +450,6 @@ void ImageInfo::readExif(const QString& fullPath, ExifMode mode)
             if (exif.contains( QString::fromLatin1( "CreationTime" ) ) ){
 
                 QTime time = exif[QString::fromLatin1( "CreationTime" )].toTime();
-                qDebug ("TIME READ");
                 if (time.isValid())
                     _startDate.setTime( time );
 

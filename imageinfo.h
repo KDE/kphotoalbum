@@ -40,6 +40,9 @@ public:
     void setQuality( int );
     int quality() const;
 
+    void rotate( int degrees );
+    int angle() const;
+
     void setOption( const QString& key,  const QStringList& value );
     void addOption( const QString& key,  const QStringList& value );
     QStringList optionValue( const QString& key ) const;
@@ -54,6 +57,7 @@ private:
     int _yearFrom,  _monthFrom,  _dayFrom,  _yearTo,  _monthTo,  _dayTo;
     int _quality;
     QMap<QString, QStringList> _options;
+    int _angle;
 };
 
 typedef QPtrList<ImageInfo> ImageInfoList;

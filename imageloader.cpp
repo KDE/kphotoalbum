@@ -12,6 +12,8 @@ extern "C" {
 #include <stdio.h>
 }
 
+#include <qwmatrix.h>
+
 ImageLoader::ImageLoader( QWaitCondition* sleeper )
     : _sleeper( sleeper )
 {
@@ -54,6 +56,12 @@ void ImageLoader::run()
                         QDir().mkdir( cacheDir, true );
                     }
                     scaled.save( cacheFile, "JPEG" );
+                    }
+
+                if ( li.angle() != 0 )  {
+                    QWMatrix matrix;
+                    matrix.rotate( li.angle() );
+                    scaled = scaled.xForm( matrix );
                 }
 
                 ImageEvent* iew = new ImageEvent( li, scaled );
@@ -62,7 +70,6 @@ void ImageLoader::run()
         }
         else
             _sleeper->wait();
-        sleep( 1 );
     }
 }
 

@@ -21,7 +21,6 @@ void ThumbNailView::showImage( QIconViewItem* item )
         ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
         Q_ASSERT( tn );
         Viewer* viewer = new Viewer( this );
-        viewer->resize(800, 600);
         viewer->show();
         viewer->load(  tn->imageInfo() );
     }

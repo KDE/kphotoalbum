@@ -8,6 +8,7 @@
 #include <qlabel.h>
 #include "imagemanager.h"
 #include "options.h"
+#include "imagepreview.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
@@ -114,6 +115,7 @@ void ImageConfig::load()
          preview->setPixmap( _preloadImageMap[ info->fileName() ] );
     else
         preview->setText( "<qt>Loading<br>preview</qt>" );
+    preview->setInfo( info );
 }
 
 void ImageConfig::save()
@@ -137,7 +139,7 @@ void ImageConfig::save()
     }
 }
 
-void ImageConfig::pixmapLoaded( const QString& fileName, int, int, const QPixmap& pixmap )
+void ImageConfig::pixmapLoaded( const QString& fileName, int, int, int, const QPixmap& pixmap )
 {
     if ( fileName == _list.at( _current )->fileName() )
         preview->setPixmap( pixmap );
@@ -161,7 +163,7 @@ int ImageConfig::exec( ImageInfoList list, bool oneAtATime )
         revert->setText( "Revert edits for this image" );
         _preloadImageMap.clear();
         for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
-            ImageManager::instance()->load( (*it)->fileName(), this, 256, 256, false );
+            ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), 256, 256, false );
         }
         _current = -1;
         slotNext();

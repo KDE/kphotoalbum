@@ -33,7 +33,8 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _monthTo = elm.attribute( "monthTo", QString::number(monthTo) ).toInt();
     _dayTo = elm.attribute( "dayTo", QString::number(dayTo) ).toInt();
 
-    _quality = elm.attribute( "quality" ).toInt();
+    _quality = elm.attribute( "quality", "3" ).toInt();
+    _angle = elm.attribute( "angle", "0" ).toInt();
     Util::readOptions( elm, &_options );
 }
 
@@ -157,8 +158,19 @@ QDomElement ImageInfo::save( QDomDocument& doc )
     elm.setAttribute( "dayTo",  _dayTo );
 
     elm.setAttribute( "quality",  _quality );
+    elm.setAttribute( "angle",  _angle );
     Util::writeOptions( doc, elm, _options );
     return elm;
+}
+
+void ImageInfo::rotate( int degrees )
+{
+    _angle += degrees;
+}
+
+int ImageInfo::angle() const
+{
+    return _angle;
 }
 
 

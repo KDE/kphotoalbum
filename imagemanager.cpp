@@ -23,17 +23,17 @@ void ImageManager::init()
     }
 }
 
-void ImageManager::load( const QString& fileName, ImageClient* client, int width, int height, bool cache )
+void ImageManager::load( const QString& fileName, ImageClient* client, int angle,  int width, int height, bool cache )
 {
-    QString key = QString("%1-%2x%3").arg( fileName ).arg( width ).arg( height );
+    QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
     QPixmap* pixmap = QPixmapCache::find( key );
     if ( pixmap )  {
         if ( client )
-            client->pixmapLoaded( fileName, width, height, *pixmap );
+            client->pixmapLoaded( fileName, width, height, angle, *pixmap );
     }
     else {
         _lock->lock();
-        LoadInfo li( fileName, width, height, client );
+        LoadInfo li( fileName, width, height, angle, client );
         li.setCache( cache );
         _loadList.append( li );
         _lock->unlock();
@@ -59,8 +59,8 @@ LoadInfo::LoadInfo() : _null( true ),  _cache( true ),  _client( 0 )
 {
 }
 
-LoadInfo::LoadInfo( const QString& fileName, int width, int height, ImageClient* client )
-    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),  _cache( true ),  _client( client )
+LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, ImageClient* client )
+    : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),  _cache( true ),  _client( client ),  _angle( angle )
 {
 }
 
@@ -74,7 +74,8 @@ void ImageManager::customEvent( QCustomEvent* ev )
         }
 
         LoadInfo li = iev->loadInfo();
-        QString key = QString("%1-%2x%3").arg( li.fileName() ).arg( li.width() ).arg( li.height() );
+        QString key = QString("%1-%2x%3-%4").arg( li.fileName() ).arg( li.width() ).arg( li.height() ).arg( li.angle() );
+
         QImage image = iev->image();
         QPixmap pixmap( image );
         if ( li.cache() )  {
@@ -83,7 +84,7 @@ void ImageManager::customEvent( QCustomEvent* ev )
         if ( _clientMap.contains( li ) )  {
             // If it is not in the map, then it has been deleted since the request.
             ImageClient* client = _clientMap[li];
-            client->pixmapLoaded( li.fileName(), li.width(), li.height(), pixmap );
+            client->pixmapLoaded( li.fileName(), li.width(), li.height(), li.angle(), pixmap );
         }
     }
 }
@@ -137,8 +138,10 @@ bool LoadInfo::operator<( const LoadInfo& other ) const
         return t._fileName < o._fileName;
     else if ( t._width != o._width )
         return t._width < o._width;
-    else
+    else if ( t._height < o._height )
         return t._height < o._height;
+    else
+        return t._angle < o._angle;
 }
 
 bool LoadInfo::operator==( const LoadInfo& other ) const
@@ -146,7 +149,7 @@ bool LoadInfo::operator==( const LoadInfo& other ) const
     // Compare all atributes but the pixmap.
     LoadInfo& t = const_cast<LoadInfo&>( *this );
     LoadInfo& o = const_cast<LoadInfo&>( other );
-    return ( t._null == o._null && t._fileName == o._fileName && t._width == o._width && t._height == o._height );
+    return ( t._null == o._null && t._fileName == o._fileName && t._width == o._width && t._height == o._height && t._angle == o._angle );
 }
 
 
@@ -190,6 +193,11 @@ ImageClient* LoadInfo::client()
 QImage ImageEvent::image()
 {
     return _image;
+}
+
+int LoadInfo::angle() const
+{
+    return _angle;
 }
 
 

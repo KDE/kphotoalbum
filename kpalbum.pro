@@ -10,7 +10,8 @@ SOURCES	+= main.cpp \
     mainview.cpp \
     imageconfig.cpp \
     imageclient.cpp \
-    util.cpp
+    util.cpp \
+    imagepreview.cpp
 
 HEADERS	+= thumbnailview.h \
 	thumbnail.h \
@@ -23,7 +24,8 @@ HEADERS	+= thumbnailview.h \
     mainview.h \
     imageconfig.h \
     imageclient.h \
-    util.h
+    util.h \
+    imagepreview.h
 
 FORMS	= mainviewui.ui \
 	optionsdialog.ui \

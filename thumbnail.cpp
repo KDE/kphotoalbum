@@ -20,7 +20,7 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent, const char* n
     painter.drawRect( 0, 0, w-1, h-1 );
     setPixmap( img );
     setText( imageInfo->label() );
-    ImageManager::instance()->load( _imageInfo->fileName(),  this,  w,  h );
+    ImageManager::instance()->load( _imageInfo->fileName(),  this, _imageInfo->angle(), w,  h );
 }
 
 QString ThumbNail::fileName() const
@@ -33,7 +33,7 @@ ImageInfo* ThumbNail::imageInfo()
     return _imageInfo;
 }
 
-void ThumbNail::pixmapLoaded( const QString&, int, int, const QPixmap& pixmap )
+void ThumbNail::pixmapLoaded( const QString&, int, int, int, const QPixmap& pixmap )
 {
     setPixmap( pixmap );
 }

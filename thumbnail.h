@@ -11,7 +11,7 @@ class ThumbNail :public QIconViewItem, public ImageClient {
 public:
     ThumbNail( ImageInfo* image,  ThumbNailView* parent,  const char* name );
 
-    virtual void pixmapLoaded( const QString&, int, int, const QPixmap& pixmap );
+    virtual void pixmapLoaded( const QString&, int, int, int, const QPixmap& pixmap );
     QString fileName() const;
     ImageInfo* imageInfo();
 

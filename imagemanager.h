@@ -14,12 +14,14 @@ class ImageClient;
 class LoadInfo {
 public:
     LoadInfo();
-    LoadInfo( const QString& fileName, int width,  int heigth, ImageClient* client );
+    LoadInfo( const QString& fileName, int width,  int heigth, int angle, ImageClient* client );
 
     bool isNull() const;
     QString fileName() const;
     int width() const;
     int height() const;
+    int angle() const;
+
     void setCache( bool );
     bool cache() const;
     ImageClient* client();
@@ -34,6 +36,7 @@ private:
     int _height;
     bool _cache;
     ImageClient* _client;
+    int _angle;
 };
 
 class ImageEvent :public QCustomEvent {
@@ -52,7 +55,7 @@ class ImageManager :public QObject {
     Q_OBJECT
 
 public:
-    void load( const QString& fileName, ImageClient* client, int width = -1, int height = -1, bool cache = true );
+    void load( const QString& fileName, ImageClient* client, int angle, int width = -1, int height = -1, bool cache = true );
     LoadInfo next();
     static ImageManager* instance();
     void stop( ImageClient* );

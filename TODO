@@ -1,7 +1,5 @@
 TODO next
 =========
-- Add a message box with information about how the imageconfig window
-works. (with a do-not-show-again checkbox)
 - remember windows sizes so they can be restored on start up
 - make it possible to disable the labels from the thumbnail views
 

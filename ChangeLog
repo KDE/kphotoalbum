@@ -1,5 +1,8 @@
 2004-04-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* When opening the image config dialog, show a message box with
+	a link to the help page.
+
 	* Made it possible to re enable message boxes where the user
 	previously checked do-not-show-again
 

@@ -81,6 +81,7 @@ protected:
     virtual bool eventFilter( QObject*, QEvent* );
     KDockWidget* createListSel( const QString& optionGroup );
     bool hasChanges();
+    void showHelpDialog( SetupType );
 
 private:
     ImageInfoList _origList;

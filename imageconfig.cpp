@@ -50,6 +50,8 @@
 #include <ktimewidget.h>
 #include "kdateedit.h"
 #include "deletedialog.h"
+#include <kguiitem.h>
+#include <kapplication.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -423,6 +425,7 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
 
     _thumbnailShouldReload = false;
 
+    showHelpDialog( oneAtATime ? SINGLE : MULTIPLE );
     return exec();
 }
 
@@ -433,6 +436,7 @@ ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
         _oldSearch = *search;
 
     setup();
+    showHelpDialog( SEARCH );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
         _oldSearch = ImageSearchInfo( _startDate->date(), _endDate->date(),
@@ -722,6 +726,32 @@ void ImageConfig::slotDeleteImage()
         _current--;
 
     load();
+}
+
+void ImageConfig::showHelpDialog( SetupType type )
+{
+    QString doNotShowKey;
+    QString txt;
+    if ( type == SEARCH ) {
+        doNotShowKey = QString::fromLatin1( "image_config_search_show_help" );
+        txt = i18n( "<qt><p>You have just opened the advanced search dialog, to get the most out of it, "
+                    "I suggest that you read the section in the manual on <a href=\"help:/kimdaba/sect-general-image-searches.html\">"
+                    "advanced searching</a>.</p>"
+                    "<p>This dialog is also used for typing in information about images, you may find "
+                    "extra tips on its usage by reading about "
+                    "<a href=\"help:/kimdaba/chp-typingIn.html\">typing in</a>.</p></qt>" );
+    }
+    else {
+        doNotShowKey = QString::fromLatin1( "image_config_typein_show_help" );
+        txt = i18n("<qt><p>You have just opened one of the most important windows in KimDaBa, "
+                   "it contains lots of functionality which has been optimized for fast usage.<p>"
+                   "<p>I strongly recomment that you take 5 minutes to read the "
+                   "<a href=\"help:/kimdaba/chp-typingIn.html\">documentation for this "
+                   "dialog</a></p></qt>" );
+    }
+
+
+    KMessageBox::information( this, txt, QString::null, doNotShowKey, KMessageBox::AllowLink );
 }
 
 #include "imageconfig.moc"

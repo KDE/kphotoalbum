@@ -34,6 +34,7 @@
 #include "browser.h"
 
 ImageDB* ImageDB::_instance = 0;
+const QString ImageDB::NONE = i18n("**NONE**");
 
 ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* dirty )
 {
@@ -304,7 +305,7 @@ QMap<QString,int> ImageDB::classify( const ImageSearchInfo& info, const QString 
                 map[*it]++;
             }
             if ( list.count() == 0 )
-                map[i18n( "**NONE**" )]++;
+                map[ImageDB::NONE]++;
         }
     }
 

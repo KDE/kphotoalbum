@@ -78,6 +78,10 @@ private:
     ImageInfoList _clipboard;
     QMap<QString, QString> _md5Map;
     QStringList _pendingLoad;
+
+public:
+    static const QString NONE;
+
 };
 
 

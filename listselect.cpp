@@ -30,6 +30,7 @@
 #include <kmessagebox.h>
 #include <kinputdialog.h>
 #include <qapplication.h>
+#include "imagedb.h"
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -254,7 +255,7 @@ void ListSelect::setMode( Mode mode )
     _mode = mode;
     _lineEdit->setMode( mode );
     if ( mode == SEARCH) {
-        QListBoxItem * none = new QListBoxText( 0, i18n("**NONE**") );
+        QListBoxItem * none = new QListBoxText( 0, ImageDB::NONE );
         _listBox->insertItem( none, 0 );
     }
 }

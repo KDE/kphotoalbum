@@ -23,6 +23,7 @@
 #include "util.h"
 #include <kdebug.h>
 #include "optionmatcher.h"
+#include "imagedb.h"
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
@@ -265,7 +266,7 @@ void ImageSearchInfo::compile() const
         QString optionGroup = it.key();
         QString matchText = it.data();
 
-        if ( matchText == QString::fromLatin1( "**NONE**" ) ) {
+        if ( matchText == ImageDB::NONE ) {
             matcher->addElement( new OptionEmptyMatcher( optionGroup ) );
             continue;
         }
@@ -297,5 +298,10 @@ void ImageSearchInfo::compile() const
     }
     _compiled = true;
     _optionMatcher = matcher->optimize();
+}
+
+ImageSearchInfo::~ImageSearchInfo()
+{
+    delete _optionMatcher;
 }
 

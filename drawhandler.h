@@ -11,7 +11,7 @@ class QPoint;
 class Draw;
 class QPainter;
 
-class DrawHandler :public QObject, public DisplayAreaHandler {
+class DrawHandler :public DisplayAreaHandler {
     Q_OBJECT
 
 public:

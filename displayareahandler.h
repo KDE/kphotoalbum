@@ -1,13 +1,13 @@
 #ifndef DISPLAYAREAHANDLER_H
 #define DISPLAYAREAHANDLER_H
-class DisplayArea;
 class QMouseEvent;
-#include <qnamespace.h>
+#include <qobject.h>
+#include "displayarea.h"
 
-class DisplayAreaHandler :public Qt
+class DisplayAreaHandler :public QObject
 {
 public:
-    DisplayAreaHandler( DisplayArea* display ) : _display( display ) {}
+    DisplayAreaHandler( DisplayArea* display ) : QObject( display, "display handler" ), _display( display ) {}
     virtual bool mousePressEvent ( QMouseEvent* e ) = 0;
     virtual bool mouseReleaseEvent ( QMouseEvent* e ) = 0;
     virtual bool mouseMoveEvent ( QMouseEvent* e ) = 0;

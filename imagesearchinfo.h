@@ -27,6 +27,7 @@ class OptionMatcher;
 class ImageSearchInfo {
 public:
     ImageSearchInfo();
+    ~ImageSearchInfo();
     ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                      const QString& label, const QString& description );
     ImageSearchInfo( const ImageSearchInfo& other );

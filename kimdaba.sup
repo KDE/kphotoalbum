@@ -136,3 +136,11 @@
    fun:_ZN7QPixmap16convertFromImageERK6QImagei
    fun:_ZN7QPixmap16convertFromImageERK6QImageNS_9ColorModeE
 }
+{
+   <insert a suppression name here>
+   Memcheck:Leak
+   fun:malloc
+   fun:XcursorCursorsCreate
+   fun:XcursorImagesLoadCursors
+   fun:XcursorImagesLoadCursor
+}

@@ -1,0 +1,77 @@
+#ifndef IMAGEMANAGER_H
+#define IMAGEMANAGER_H
+#include "thumbnail.h"
+#include "imageloader.h"
+#include <qptrlist.h>
+#include <qwaitcondition.h>
+#include <qvaluelist.h>
+#include <qevent.h>
+#include <qdeepcopy.h>
+#include <qstring.h>
+#include <qpixmap.h>
+class ImageClient;
+
+class LoadInfo {
+public:
+    LoadInfo();
+    LoadInfo( const QString& fileName, int width,  int heigth, QPixmap image, ImageClient* client );
+
+    bool isNull() const;
+    QString fileName() const;
+    int width() const;
+    int height() const;
+    QPixmap image();
+    void setImage( const QPixmap& image );
+    void setCache( bool );
+    bool cache() const;
+    ImageClient* client();
+
+    bool operator<( const LoadInfo& other ) const;
+    bool operator==( const LoadInfo& other ) const;
+
+private:
+    bool _null;
+    QDeepCopy<QString> _fileName;
+    int _width;
+    int _height;
+    QDeepCopy<QPixmap> _image;
+    bool _cache;
+    ImageClient* _client;
+};
+
+class ImageEvent :public QCustomEvent {
+public:
+    ImageEvent( LoadInfo info );
+    LoadInfo loadInfo();
+
+private:
+    LoadInfo _info;
+};
+
+// This class needs to inherit QObject to be capable of receiving events.
+class ImageManager :public QObject {
+    Q_OBJECT
+
+public:
+    void load( const QString& fileName, ImageClient* client, int width = -1, int height = -1, bool cache = true );
+    LoadInfo next();
+    static ImageManager* instance();
+    void stop( ImageClient* );
+
+protected:
+    virtual void customEvent( QCustomEvent* ev );
+
+private:
+    ImageManager();
+    void init();
+    static ImageManager* _instance;
+
+    QPtrList<ImageLoader> _imageLoaders;
+    QValueList<LoadInfo> _loadList;
+    QWaitCondition* _sleepers;
+    QMutex* _lock;
+    QMap<LoadInfo, ImageClient*> _clientMap;
+};
+
+#endif /* IMAGEMANAGER_H */
+

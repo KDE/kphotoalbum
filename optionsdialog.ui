@@ -1,0 +1,221 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>OptionsDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>OptionsDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>301</width>
+            <height>243</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Options</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>tabWidget3</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Thumbnails</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QSpinBox" row="1" column="1">
+                        <property name="name">
+                            <cstring>thumbNailWidth</cstring>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>1</hsizetype>
+                                <vsizetype>0</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
+                        </property>
+                        <property name="maxValue">
+                            <number>256</number>
+                        </property>
+                    </widget>
+                    <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="3">
+                        <property name="name">
+                            <cstring>cacheThumbNails</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Cache On Disk</string>
+                        </property>
+                    </widget>
+                    <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="2">
+                        <property name="name">
+                            <cstring>use4to3ratio</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Use 4-to-3 ratio</string>
+                        </property>
+                    </widget>
+                    <widget class="QSpinBox" row="2" column="1">
+                        <property name="name">
+                            <cstring>thumbNailHeight</cstring>
+                        </property>
+                        <property name="maxValue">
+                            <number>256</number>
+                        </property>
+                    </widget>
+                    <spacer row="1" column="2">
+                        <property name="name">
+                            <cstring>spacer2_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>139</width>
+                                <height>20</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QLabel" row="2" column="0">
+                        <property name="name">
+                            <cstring>heightLabel</cstring>
+                        </property>
+                        <property name="text">
+                            <string>height:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLabel" row="1" column="0">
+                        <property name="name">
+                            <cstring>textLabel1</cstring>
+                        </property>
+                        <property name="text">
+                            <string>width:</string>
+                        </property>
+                    </widget>
+                    <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="2">
+                        <property name="name">
+                            <cstring>trustFileTimeStamps</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Trust File Time Stamps</string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout1</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer1</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>0</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>OK</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton2</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Apply</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton3</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Cancel</string>
+                    </property>
+                </widget>
+            </hbox>
+        </widget>
+    </vbox>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButton3</sender>
+        <signal>clicked()</signal>
+        <receiver>OptionsDialog</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>OptionsDialog</receiver>
+        <slot>slotApply()</slot>
+    </connection>
+    <connection>
+        <sender>pushButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>OptionsDialog</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>OptionsDialog</receiver>
+        <slot>slotApply()</slot>
+    </connection>
+    <connection>
+        <sender>use4to3ratio</sender>
+        <signal>clicked()</signal>
+        <receiver>OptionsDialog</receiver>
+        <slot>slotUpdate4To3View()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in declaration">options.h</include>
+    <include location="local" impldecl="in implementation">optionsdialog.ui.h</include>
+</includes>
+<signals>
+    <signal>changed();</signal>
+</signals>
+<slots>
+    <slot access="protected" specifier="non virtual">slotApply()</slot>
+    <slot access="protected" specifier="non virtual">slotUpdate4To3View()</slot>
+</slots>
+<functions>
+    <function>show()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

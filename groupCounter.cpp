@@ -44,7 +44,10 @@ GroupCounter::GroupCounter( const QString& optionGroup )
 */
 void GroupCounter::count( const QStringList& optionList )
 {
-    QDict<void> countedGroupDict( 2729 /* a large prime */ );
+    // It takes quite some time to clear the dict with a large prime!
+    static QDict<void> countedGroupDict( 97 /* a large, but not extreme prime */ );
+
+    countedGroupDict.clear();
     for( QStringList::ConstIterator optionIt = optionList.begin(); optionIt != optionList.end(); ++optionIt ) {
         QStringList* groups = _memberToGroup[*optionIt];
         if ( groups ) {

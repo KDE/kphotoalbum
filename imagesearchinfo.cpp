@@ -110,7 +110,7 @@ bool ImageSearchInfo::match( ImageInfo* info )
 
     // -------------------------------------------------- Text
     QString txt = info->description();
-    QStringList list = QStringList::split(QRegExp(QString::fromLatin1("\\s")), _description );
+    QStringList list = QStringList::split( QChar(' '), _description );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         ok &= ( txt.find(*it) != -1 );
     }
@@ -138,7 +138,7 @@ bool ImageSearchInfo::stringMatch( const QString& key, ImageInfo* info )
         for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
             QString str = *itAnd;
             bool negate = false;
-            QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
+            static QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
             if ( regexp.exactMatch( str ) )  {
                 negate = true;
                 str = regexp.cap(1);

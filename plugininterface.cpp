@@ -55,8 +55,12 @@ void PluginInterface::refreshImages( const KURL::List& urls )
 
 int PluginInterface::features() const
 {
-    return KIPI::ImagesHasComments | KIPI::ImagesHasTime | KIPI::SupportsDateRanges |
-        KIPI::AcceptNewImages | KIPI::ImageTitlesWritable;
+    return
+        KIPI::ImagesHasComments |
+        KIPI::ImagesHasTime |
+        KIPI::SupportsDateRanges |
+        KIPI::AcceptNewImages |
+        KIPI::ImageTitlesWritable;
 }
 
 bool PluginInterface::addImage( const KURL& url, QString& errmsg )

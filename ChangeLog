@@ -7,8 +7,6 @@
 	are plugins, with plugins perhaps being less integrated than
 	build-in features.
 
-2004-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
-
 	* import/export is improved so during import of external images,
 	KimDaBa will first search for the images next to the .kim file,
 	and then at the URL the images originally was uploaded to.

@@ -29,6 +29,7 @@ class QTextEdit;
 #include "imageclient.h"
 #include <qvaluelist.h>
 #include <qcombobox.h>
+#include "util.h"
 
 class HTMLExportDialog :public KDialogBase, private ImageClient {
     Q_OBJECT
@@ -63,7 +64,7 @@ protected:
     void createContentPage();
     void createLayoutPage();
     void createDestinationPage();
-
+    QString kimFileName( bool relative );
 
 private:
     KLineEdit* _title;
@@ -77,6 +78,7 @@ private:
     QValueList<ImageSizeCheckBox*> _preferredSizes;
     QTextEdit* _description;
     QSpinBox* _numOfCols;
+    QCheckBox* _generateKimFile;
 
     ImageInfoList _list;
     int _waitCounter;
@@ -84,9 +86,9 @@ private:
     QProgressDialog* _progress;
     bool _doneLoading;
     QString _tempDir;
-    QMap< QPair<QString,int>, QString> _pageNames;
-    QMap< QPair<QString,int>, QString> _imageNames;
     QMap< QString, QCheckBox* > _whatToIncludeMap;
+    Util::UniqNameMap _nameMap;
+    int _maxImageSize;
 };
 
 

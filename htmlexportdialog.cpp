@@ -55,6 +55,7 @@
 #include <qvgroupbox.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include "export.h"
 
 class ImageSizeCheckBox :public QCheckBox {
 
@@ -124,6 +125,10 @@ void HTMLExportDialog::createContentPage()
     lay2->addWidget( label, 1, 0 );
     _description = new QTextEdit( contentPage );
     lay2->addWidget( _description, 1, 1 );
+
+    _generateKimFile = new QCheckBox( i18n("Create .kim export file"), contentPage );
+    _generateKimFile->setChecked( true );
+    lay1->addWidget( _generateKimFile );
 
     // What to include
     QVGroupBox* whatToInclude = new QVGroupBox( i18n( "What to Include" ), contentPage );
@@ -250,15 +255,24 @@ bool HTMLExportDialog::generate()
     if ( !checkVars() )
         return false;
 
+    hide();
+
+    _tempDir = KTempDir().name();
+
+
+    // Generate .kim file
+    if ( _generateKimFile->isChecked() ) {
+        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy );
+        delete exp; // It will not return before done - we still need a class to connect slots etc.
+    }
+
     // prepare the progress dialog
     _total = _waitCounter = calculateSteps();
     _progress->setTotalSteps( _total );
     _progress->setProgress( 0 );
     connect( _progress, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
 
-    _tempDir = KTempDir().name();
-
-    hide();
+    _nameMap = Util::createUniqNameMap( _list, false, QString::null );
 
     // Itertate over each of the image sizes needed.
     for( QValueList<ImageSizeCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
@@ -344,7 +358,11 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _title->text() );
-
+    QString kimLink = QString::fromLatin1( "Share and Enjoy <a href=\"%1\">KimDaBa export file</a>" ).arg( kimFileName( true ) );
+    if ( _generateKimFile->isChecked() )
+        content.replace( QString::fromLatin1( "**KIMFILE**" ), kimLink );
+    else
+        content.replace( QString::fromLatin1( "**KIMFILE**" ), QString::null );
     QDomDocument doc;
 
     QDomElement elm;
@@ -698,51 +716,20 @@ int HTMLExportDialog::calculateSteps()
 
 QString HTMLExportDialog::namePage( int width, int height, const QString& fileName )
 {
-    QPair<QString,int> key = qMakePair(fileName,width);
-    if ( _pageNames.contains( key ) )
-        return _pageNames[key];
-
-    QFileInfo fi(fileName);
-    QString baseName = fi.baseName();
-    bool conflict = true;
-    int i = 0;
-    QString name;
-    while ( conflict ) {
-        name = QString::fromLatin1( "%1%2-%3.html" )
-               .arg( baseName )
-               .arg( (i == 0) ? QString::fromLatin1("") : QString::number(i) )
-               .arg(ImageSizeCheckBox::text(width,height,true));
-        ++i;
-        conflict = _pageNames.values().contains( name );
-    }
-    _pageNames.insert( key, name );
-    return name;
+    QString name = _nameMap[fileName];
+    QString base = QFileInfo( name ).baseName();
+    return QString::fromLatin1( "%1-%2.html" ).arg( base ).arg( ImageSizeCheckBox::text(width,height,true) );
 }
 
 QString HTMLExportDialog::nameImage( const QString& fileName, int size )
 {
-    QPair<QString,int> key = qMakePair( fileName, size );
-    if ( _imageNames.contains( key ) )
-        return _imageNames[ key ];
-
-    QFileInfo finfo( fileName );
-    QString baseName = finfo.baseName();
-    bool conflict = true;
-    int i = 0;
-    QString name;
-
-    while ( conflict ){
-        name = QString::fromLatin1( "%1%2" ).arg( baseName ).arg( (i == 0) ? QString::fromLatin1("") : QString::number(i) );
-        if ( size != -1 )
-            name += QString::fromLatin1( "-" ) + QString::number( size );
-        name += QString::fromLatin1( ".jpg" ) ;
-
-        ++i;
-        conflict = _imageNames.values().contains( name );
-    }
-    _imageNames.insert( key, name );
-
-    return name;
+    QString name = _nameMap[fileName];
+    QString base = QFileInfo( name ).baseName();
+    QString ext = QFileInfo( name ).extension();
+    if ( size == _maxImageSize )
+        return name;
+    else
+        return QString::fromLatin1( "%1-%2.%3" ).arg( base ).arg( size ).arg( ext );
 }
 
 
@@ -774,6 +761,7 @@ QValueList<ImageSizeCheckBox*> HTMLExportDialog::activeResolutions()
     for( QValueList<ImageSizeCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
         if ( (*sizeIt)->isChecked() ) {
             res << *sizeIt;
+            _maxImageSize = (*sizeIt)->width();
         }
     }
     return res;
@@ -823,9 +811,15 @@ void HTMLExportDialog::getThemeInfo( QString* baseDir, QString* name, QString* a
 int HTMLExportDialog::exec( const ImageInfoList& list )
 {
     _list = list;
-    _pageNames.clear();
-    _imageNames.clear();
     return KDialogBase::exec();
+}
+
+QString HTMLExportDialog::kimFileName( bool relative )
+{
+    if ( relative )
+        return QString::fromLatin1( "%2.kim" ).arg( _outputDir->text() );
+    else
+        return QString::fromLatin1( "%1/%2.kim" ).arg( _tempDir ).arg( _outputDir->text() );
 }
 
 #include "htmlexportdialog.moc"

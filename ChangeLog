@@ -1,5 +1,7 @@
 2004-04-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Now its possible to ask for a .kim file on the HTML generated pages
+
 	* BUGFIX: pressing cancel in export dialog still continue exporting.
 
 	* BUGFIX: It was not possible to import twice in one session.

@@ -46,7 +46,14 @@ void Export::imageExport( const ImageInfoList& list )
     if ( config._enforeMaxSize->isChecked() )
         maxSize = config._maxSize->value();
 
-    new Export( list, config._compress->isChecked(), maxSize, config.imageFileLocation() );
+    // Ask for zip file name
+    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
+    if ( zipFile.isNull() )
+        return;
+
+
+    Export* exp = new Export( list, zipFile, config._compress->isChecked(), maxSize, config.imageFileLocation() );
+    delete exp; // It will not return before done - we still need a class to connect slots etc.
 }
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
@@ -127,14 +134,9 @@ void ExportConfig::slotHelp()
 }
 
 
-Export::Export( const ImageInfoList& list, bool compress, int maxSize, ImageFileLocation location )
+Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location )
     : _ok( true ), _maxSize( maxSize ), _location( location )
 {
-    // Ask for zip file name, and create it.
-    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
-    if ( zipFile.isNull() )
-        return;
-
     _destdir = QFileInfo( zipFile ).dirPath();
     _zip = new KZip( zipFile );
     _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );

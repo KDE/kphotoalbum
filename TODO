@@ -99,3 +99,4 @@ Features still to be considered (aka not likely to go in next release)
  something like this on a webpage: www.kellerkinder.de.gg (it is in german, 
  but just klick on one thumbnail, and afterwards put the mouse over the names 
  after "Bildquelle" or "Zu sehen" below the picture)
+- make it possible to specify a pattern for directories to ignore, say .thumbs

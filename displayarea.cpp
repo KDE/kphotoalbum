@@ -44,6 +44,10 @@ void DisplayArea::mousePressEvent( QMouseEvent* event )
 {
     if ( _tool == None )
         QLabel::mousePressEvent( event );
+    else if ( _tool == Select )  {
+        _activeTool = findShape( event->pos() );
+        drawAll();
+    }
     else {
         _activeTool = createTool();
         _activeTool->startDraw( event );
@@ -64,7 +68,9 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
 
 void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
-    if ( _activeTool ) {
+    if ( _tool == Select )  {
+    }
+    else if ( _activeTool ) {
         QPixmap pix = _curPixmap;
         QPainter painter( &pix );
         _activeTool->draw( painter, event );
@@ -108,7 +114,10 @@ void DisplayArea::drawAll()
             for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
                 QPoint point = *it2;
                 painter.save();
-                painter.setBrush( QBrush( Qt::blue ) );
+                if ( *it == _activeTool )
+                    painter.setBrush( Qt::red );
+                else
+                    painter.setBrush( Qt::blue );
                 painter.drawRect( point.x()-4, point.y()-4, 8, 8 );
                 painter.restore();
             }
@@ -120,6 +129,22 @@ void DisplayArea::drawAll()
 void DisplayArea::slotSelect()
 {
     _showAnchors = true;
+    _tool = Select;
+    _activeTool = 0;
     drawAll();
+}
+
+Draw* DisplayArea::findShape( const QPoint& pos)
+{
+    for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
+        PointList list = (*it)->anchorPoints();
+        for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+            QPoint point = *it2;
+            QRect rect( point.x()-4, point.y()-4, 8, 8 );
+            if ( rect.contains( pos ) )
+                return *it;
+        }
+    }
+    return 0;
 }
 

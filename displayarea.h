@@ -23,9 +23,10 @@ protected:
     virtual void mouseReleaseEvent( QMouseEvent* event );
     Draw* createTool();
     void drawAll();
+    Draw* findShape( const QPoint& );
 
 private:
-    enum Tool {Line, Rectangle, Circle, None};
+    enum Tool { Select, Line, Rectangle, Circle, None};
     Tool _tool;
     Draw* _activeTool;
     QValueList<Draw*> _drawings;

@@ -2,7 +2,7 @@
 AC_LANG_SAVE
 AC_LANG_CPLUSPLUS
 
-AC_MSG_CHECKING([for kdelibs newer than 3.2.x])
+AC_MSG_CHECKING([for kdelibs newer than 3.1.x])
 
 kcompat_save_CXXFLAGS="$CXXFLAGS"
 kcompat_safe_LIBS="$LIBS"
@@ -11,6 +11,7 @@ if test "$GXX" = "yes"; then
 CXXFLAGS="$CXXFLAGS $all_includes"
 fi
 
+kimdaba_need_compat=
 AC_TRY_COMPILE([
 #include <kdeversion.h>
 #if !( KDE_IS_VERSION( 3, 1, 90 ) )
@@ -21,15 +22,13 @@ AC_TRY_COMPILE([
 ],
 	AC_MSG_RESULT(yes)
 ,
-	KIMDABA_COMPAT_INCLUDES='-I$(top_srcdir)/kimdaba/compat'
-	KIMDABA_INCLUDES=$KIMDABA_INCLUDES' $(KIMDABA_COMPAT_INCLUDES)'
-	LIB_KIMDABACOMPAT='$(top_builddir)/kimdaba/compat/libkimdaba.la'
+	kimdaba_need_compat=yes
 	AC_MSG_RESULT(no)
 )
 CXXFLAGS="$kcompat_save_CXXFLAGS"
 LIBS="$kcompat_safe_LIBS"
 
-AM_CONDITIONAL(compile_LIBKIMDABA_COMPAT, test -n "$LIB_KIMDABACOMPAT")
+AM_CONDITIONAL(compile_LIBKIMDABA_COMPAT, test -n "kimdaba_need_compat")
 
 AC_LANG_RESTORE
 # -- End KDE 3.1 check ----------------------------------------------

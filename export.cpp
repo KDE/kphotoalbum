@@ -54,6 +54,7 @@ Export::Export( const ImageInfoList& list ) : _ok( true )
     _steps = 0;
     _progressDialog = new QProgressDialog( i18n("Generating Thumbnails"), i18n("Cancel"), total, 0, "progress dialog", true );
     _progressDialog->setProgress( 0 );
+    _progressDialog->show();
 
     // Copy image files and generate thumbnails
     copyImages( list );

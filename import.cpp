@@ -354,12 +354,16 @@ QMap<QString,QString> Import::copyFilesFromZipFile()
         bool exists = true;
         QString newName;
         while ( exists ) {
-            newName = QString::fromLatin1( "%1/image%2.%3" ).arg(_destinationEdit->text()).arg( Util::pad(6,++index) )
+            QString path = _destinationEdit->text();
+            newName = QString::fromLatin1( "%1/image%2.%3" ).arg(path).arg( Util::pad(6,++index) )
                       .arg( QFileInfo( fileName ).extension() );
             exists = QFileInfo( newName ).exists();
         }
 
         QString relativeName = newName.mid( Options::instance()->imageDirectory().length() );
+        if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
+            relativeName= relativeName.mid(1);
+
         map.insert( fileName, relativeName );
 
         QFile out( newName );

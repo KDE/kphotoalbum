@@ -342,10 +342,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
-    if ( _whatToIncludeMap[QString::fromLatin1( "**DESCRIPTION**" )]->isChecked() )
-        content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
-    else
-        content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1("") );
+    content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _title->text() );
 
     QDomDocument doc;
@@ -521,8 +518,10 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
         description += QString::fromLatin1( "  <li> <b>Description:</b> %1\n" ).arg( info->description() );
     }
 
-    content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "<ul>\n%1\n</ul>" ).arg( description ) );
-
+    if ( _whatToIncludeMap[QString::fromLatin1( "**DESCRIPTION**" )]->isChecked() )
+        content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "<ul>\n%1\n</ul>" ).arg( description ) );
+    else
+        content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "" ) );
 
     // -------------------------------------------------- write to file
     QString fileName = _tempDir + namePage( width, height, info->fileName() );

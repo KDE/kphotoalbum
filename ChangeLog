@@ -1,3 +1,8 @@
+2004-02-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: description on index page was controlled by
+	"description" checkbox rather than the description for each page
+
 2004-02-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: option groups was not available for translations.

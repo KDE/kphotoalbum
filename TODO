@@ -16,7 +16,9 @@ BUGS To be handled soonish
  kaddressbook) do it: to write them in one single text field and to offer a 
  calender as well.
 - the viewer should allow you to close it by hitting q.
-
+- The first one deals with the options dialog. Here I've defined a new category 
+  (for example animals). When I then go to the member groups configuration, the 
+  new categories are missing. They need a program restart to appear.
 =======================
 BUGS of less importance
 =======================
@@ -42,6 +44,7 @@ Features for a soonish version
 - Add a message box with information about how the imageconfig window
 works. (with a do-not-show-again checkbox)
 - make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
+- add Maintenance/remove all thumbnails and Maintenance/regenerate all thumbnails.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

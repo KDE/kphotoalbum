@@ -630,14 +630,14 @@ void MainView::setupMenuBar()
                                             actionCollection(), "allProp" );
 
     // The Images menu
-    _view = new KAction( i18n("View"), Key_I, this, SLOT( slotView() ),
+    _view = new KAction( i18n("View"), CTRL+Key_I, this, SLOT( slotView() ),
                                  actionCollection(), "viewImages" );
 
-    _viewInNewWindow = new KAction( i18n("View (In New Window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
+    _viewInNewWindow = new KAction( i18n("View (In New Window)"), 0, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
-    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("kview"), Key_S, this, SLOT( slotRunSlideShow() ),
+    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("kview"), CTRL+Key_R, this, SLOT( slotRunSlideShow() ),
                                  actionCollection(), "runSlideShow" );
-    _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), SHIFT+Key_S, this, SLOT( slotRunRandomizedSlideShow() ),
+    _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), 0, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );
 
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date and Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );

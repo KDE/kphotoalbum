@@ -140,10 +140,12 @@ void HTMLExportDialog::createContentPage()
     QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
     lay3->setAutoAdd( true );
 
-    QStringList categories = CategoryCollection::instance()->categoryNames();
-    for( QStringList::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-        QCheckBox* cb = new QCheckBox( CategoryCollection::instance()->categoryForName( *it )->text(), w );
-        _whatToIncludeMap.insert( *it, cb );
+    QValueList<Category*> categories = CategoryCollection::instance()->categories();
+    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if ( ! (*it)->isSpecialCategory() ) {
+            QCheckBox* cb = new QCheckBox( (*it)->text(), w );
+            _whatToIncludeMap.insert( (*it)->name(), cb );
+        }
     }
     QCheckBox* cb = new QCheckBox( i18n("Description"), w );
     _whatToIncludeMap.insert( QString::fromLatin1("**DESCRIPTION**"), cb );
@@ -542,11 +544,15 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     // -------------------------------------------------- Description
     QString description;
 
-    QStringList categories = CategoryCollection::instance()->categoryNames();
-    for( QStringList::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-        if ( info->optionValue( *it ).count() != 0 && _whatToIncludeMap[*it]->isChecked() ) {
-            QString val = info->optionValue( *it ).join( QString::fromLatin1(", ") );
-            description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( *it ).arg( val );
+    QValueList<Category*> categories = categories = CategoryCollection::instance()->categories();
+    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if ( (*it)->isSpecialCategory() )
+            continue;
+
+        QString name = (*it)->name();
+        if ( info->optionValue( name ).count() != 0 && _whatToIncludeMap[name]->isChecked() ) {
+            QString val = info->optionValue( name ).join( QString::fromLatin1(", ") );
+            description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( name ).arg( val );
         }
     }
 

@@ -654,13 +654,13 @@ void Viewer::setShowFullScreen( bool on )
 
 void Viewer::makeCategoryImage()
 {
-    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail() );
+    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
     CategoryImageConfig::instance()->show();
 }
 
 void Viewer::updateCategoryConfig()
 {
-    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail() );
+    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
 }
 
 

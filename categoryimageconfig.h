@@ -21,6 +21,7 @@
 
 #include <kdialogbase.h>
 #include <qimage.h>
+class ImageInfo;
 class QComboBox;
 class QLabel;
 
@@ -29,7 +30,7 @@ class CategoryImageConfig :public KDialogBase {
 
 public:
     static CategoryImageConfig* instance();
-    void setCurrentImage( const QImage& image );
+    void setCurrentImage( const QImage& image, const ImageInfo* info );
     void show();
 
 protected slots:
@@ -48,6 +49,7 @@ private:
     QLabel* _current;
     QImage _image;
     QLabel* _imageLabel;
+    const ImageInfo* _info;
 };
 
 

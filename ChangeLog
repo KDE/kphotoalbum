@@ -1,5 +1,8 @@
 2004-11-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Only items from the current image are shown in the image
+	category editor.
+
 	* Added an option to automatically load images when matches in the
 	browser goes below what can be shown in a single view.
 

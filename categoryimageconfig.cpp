@@ -73,8 +73,7 @@ void CategoryImageConfig::groupChanged()
 {
     QString currentText = _member->currentText();
     _member->clear();
-    QStringList list = Options::instance()->optionValue( currentGroup() );
-    list += Options::instance()->memberMap().groups( currentGroup() );
+    QStringList list = _info->optionValue( currentGroup() );
     list.sort();
     _member->insertStringList( list );
     int index = list.findIndex( currentText );
@@ -102,10 +101,12 @@ QString CategoryImageConfig::currentGroup()
     return Options::instance()->optionGroups()[index];
 }
 
-void CategoryImageConfig::setCurrentImage( const QImage& image )
+void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfo* info )
 {
     _image = image;
     _imageLabel->setPixmap( image );
+    _info = info;
+    groupChanged();
 }
 
 CategoryImageConfig* CategoryImageConfig::instance()

@@ -235,9 +235,6 @@ void ImageDB::loadExtraFiles()
 
 void ImageDB::mergeNewImagesInWithExistingList( ImageInfoList newImages )
 {
-    qDebug("List of new Images: " );
-    newImages.printItems();
-
     newImages = newImages.sort();
     if ( _images.count() == 0 ) {
         // case 1: The existing imagelist is empty.
@@ -249,17 +246,13 @@ void ImageDB::mergeNewImagesInWithExistingList( ImageInfoList newImages )
     else if ( newImages.first()->startDate().min() > _images.last()->startDate().min() ) {
         // case 2: The new list is later than the existsing
         _images.appendList(newImages);
-        qDebug("Case 2");
-        newImages.printItems();
     }
     else if ( _images.isSorted() ) {
         // case 3: The lists overlaps, and the existsing list is sorted
-        qDebug("Case 3");
         _images.mergeIn( newImages );
     }
     else{
         // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
-        qDebug("Case 4");
         _images.appendList( newImages );
     }
 }

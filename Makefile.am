@@ -8,8 +8,8 @@ if HAVE_KIPI
   KIPI_LIBS = -lkipi
 endif
 
-SUBDIRS = images icons demo themes $(COMPAT_DIR)
-INCLUDES = $(all_includes) $(COMPAT_INCLUDE)
+SUBDIRS = images icons demo themes survey $(COMPAT_DIR)
+INCLUDES = $(all_includes) $(COMPAT_INCLUDE) -I$(top_srcdir)/kimdaba/survey
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = \
@@ -30,10 +30,10 @@ kimdaba_SOURCES = \
 	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
     datebar.cpp dateviewhandler.cpp imagedaterangecollection.cpp imagedaterange.cpp \
 	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp datebarmousehandler.cpp \
-	imagerequest.cpp thumbnailrequest.cpp
+	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)
+kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS) $(top_builddir)/kimdaba/survey/libsurvey.la
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS) $(KIMDABA_KIPI_CXXFLAGS)

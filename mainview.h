@@ -81,6 +81,7 @@ protected slots:
     void showTipOfDay();
     void pathChanged( const QString& );
     void runDemo();
+    void runSurvey();
     void lockToDefaultScope();
     void setDefaultScopePositive();
     void setDefaultScopeNegative();
@@ -133,6 +134,7 @@ protected:
     void updateStates( bool thumbNailView );
     ImageInfoList getSelectedOnDisk();
     void loadPlugins();
+    void possibleRunSuvey();
 
 private:
     static MainView* _instance;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2004 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2005 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -85,6 +85,7 @@
 #include "imagedaterangecollection.h"
 #include "invaliddatefinder.h"
 #include "imageinfo.h"
+#include "mysurvey.h"
 
 MainView* MainView::_instance = 0;
 
@@ -221,6 +222,8 @@ void MainView::delayedInit()
     else {
         // I need to postpone this otherwise the tip dialog will not get focus on start up
         KTipDialog::showTip( this );
+
+        possibleRunSuvey();
     }
 }
 
@@ -665,6 +668,7 @@ void MainView::setupMenuBar()
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
     connect( taction, SIGNAL( toggled( bool ) ), _thumbNailView, SLOT( showToolTipsOnImages( bool ) ) );
     new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
+    new KAction( i18n("Answer KimDaBa Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
     new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
@@ -1375,6 +1379,18 @@ void MainView::clearDateRange()
     ImageDB::instance()->clearDateRange();
     _browser->reload();
     reloadThumbNail();
+}
+
+void MainView::runSurvey()
+{
+    MySurvey survey(this);
+    survey.exec();
+}
+
+void MainView::possibleRunSuvey()
+{
+    MySurvey survey(this);
+    survey.possibleExecSurvey();
 }
 
 #include "mainview.moc"

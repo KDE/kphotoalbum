@@ -127,32 +127,32 @@ void OptionsDialog::createGeneralPage()
     QWhatsThis::add( previewSizeLabel, txt );
     QWhatsThis::add( _previewSize, txt );
 
-    txt = i18n( "<qt><p>KimDaBa will try to read the of the image date out of EXIF information in the image, "
-                "if that fails it will try to get the date from the file time stamp.</p>"
-                "<p>This information will, however, be wrong if the image is scanned in - you want the date the image "
-                "was taken, not the date of the scan.</p>"
+    txt = i18n( "<qt><p>KimDaBa will try to read the image date from EXIF information in the image. "
+                "If that fails it will try to get the date from the file's time stamp.</p>"
+                "<p>However, this information will be wrong if the image was scanned in (you want the date the image "
+                "was taken, not the date of the scan).</p>"
                 "<p>If you only scan images, in contrast to sometimes using "
-                "a digital camera, then you should say <b>no</b>. If you never scan, then you should say <b>yes</b>, "
-                "otherwise say <b>ask</b> - that will allow you from session to session to decide whether the images are from "
-                "the scanner or the camera.</p></qt>" );
+                "a digital camera, you should reply <b>no</b>. If you never scan images, you should reply <b>yes</b>, "
+                "otherwise reply <b>ask</b>. This will allow you to decide whether the images are from "
+                "the scanner or the camera, from session to session.</p></qt>" );
     QWhatsThis::add( timeStampLabel, txt );
     QWhatsThis::add( _trustTimeStamps, txt );
 
-    txt = i18n( "<qt><p>A 128x128 pixel thumbnail will take up approximate 64Kb of memory from in your X server. "
-                "This may not sound like much but please try changing the number of images to show to say 3000, "
-                "and you will see your X server require approximate 200Mb of memory, just to show the KimDaBa "
+    txt = i18n( "<qt><p>A 128x128 pixel thumbnail will take up approximately 64KB of memory from your X server. "
+                "This may not sound like much but try changing the number of images to be displayed to 3000. "
+                "You will see that your X server requires approximately 200Mb of memory, just to show the KimDaBa "
                 "thumbnail overview.</p>"
-                "<p>Besides showing 3000 thumbnails will take time to display, and be of little use. "
-                "the conclusion therefore is to keep this value to a reasonable limit that fits your needs and "
+                "<p>Besides, showing 3000 thumbnails will take time to display, and be of little use. "
+                "The conclusion therefore is to keep this value to a reasonable limit that fits your needs, and "
                 "the amount of installed memory in your system.</p></qt>" );
 
     QWhatsThis::add( maxImagesLabel, txt );
     QWhatsThis::add( _maxImages, txt );
 
-    txt = i18n( "<qt><p>JPEG images might contain information about rotation. "
+    txt = i18n( "<qt><p>JPEG images may contain information about rotation. "
                 "If you have a reason for not using this information to get a default rotation of "
-                "your images, then uncheck this check box.</p>"
-                "<p>Note: You digital camera might not write this information into the images at all.</p></qt>" );
+                "your images, uncheck this check box.</p>"
+                "<p>Note: Your digital camera may not write this information into the images at all.</p></qt>" );
     QWhatsThis::add( _useEXIFRotate, txt );
 }
 

@@ -25,17 +25,18 @@ Donate::Donate( QWidget* parent, const char* name )
 
                        "<p>Donating money will have the following effects:"
                        "<ul><li>The KimDaBa developer will be motivated "
-                       "from your acknowledgment of his work."
+                       "by your acknowledgment of his work."
                        "<li>The KimDaBa developer will get a chance to take "
-                       "some time of from his daily work to be able to complete "
-                       "larger features or reorganizations (In January 2004, he took for example, "
-                       "a week of from work to focus on optimizations, EXIF handling, and "
-                       "making KimDaBa independent of file reorganizations, this work resulted version 1.1)</ul></p>"
+                       "some time off from his daily work to be able to complete "
+                       "larger features or reorganizations (For example, in January 2004, he took "
+                       "a week off from work to focus on optimizations, EXIF handling and "
+                       "making KimDaBa independent of file reorganizations. This work resulted in version "
+                       "1.1).</ul></p>"
 
                        "<p>Money may be donated by clicking on the Donate button below, which will take you "
-                       "to paypal.</p>"
+                       "to PayPal.</p>"
 
-                       "<p>Alternatively you may transfer money to:<br/>Jesper Pedersen<br/>Danske Bank, Denmark<br/>"
+                       "<p>Alternatively you may transfer money to:<br/>Jesper Pedersen<br/>Danske Bank, Denmark.<br/>"
                        "SWIFT code is DABADKKK<br/>reg no: 3203<br/>account no: 35934019283203<br>"
                        "(Please email blackie@kde.org a notification)</p>"
                        "<p>Any donation is highly appreciated.</p></qt>");

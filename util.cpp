@@ -300,13 +300,13 @@ QString Util::readInstalledFile( const QString& fileName )
 {
     QString inFileName = locate( "data", QString::fromLatin1( "kimdaba/%1" ).arg( fileName ) );
     if ( inFileName.isEmpty() ) {
-        KMessageBox::error( 0, i18n("<qt>Couldn't find kimdaba/%1 - this is likely an installation error - Did you remember to do a make install, and did you set KDEDIRS, in case you did not install it in the default place.</qt>").arg( fileName ) );
+        KMessageBox::error( 0, i18n("<qt>Couldn't find kimdaba/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you didn't install it in the default location?</qt>").arg( fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
         return QString::null;
     }
 
     QFile file( inFileName );
     if ( !file.open( IO_ReadOnly ) ) {
-        KMessageBox::error( 0, i18n("Couldn't open file %s").arg( inFileName ) );
+        KMessageBox::error( 0, i18n("Couldn't open file %1.").arg( inFileName ) );
         return QString::null;
     }
 

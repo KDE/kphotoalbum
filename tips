@@ -1,9 +1,9 @@
 <tip category="KimDaBa">
 <html>
-<p>Its possible to create new option groups, that is alternatives
-to <b>Person</b>, <b>Location</b>, and <b>Keywords</b>, in the image
-property page. Simply go to the <tt>Settings|Configure KimDaBa</tt> dialog to add your own, or
-delete one of the premade.</p>
+<p>It's possible to create new option groups, that is alternatives
+to <b>Person</b>, <b>Location</b> and <b>Keywords</b>, in the image
+property page. Simply go to the <tt>Settings->Configure KimDaBa</tt> dialog to add your own, or
+delete one of the existing ones.</p>
 </html>
 </tip>
 
@@ -17,7 +17,7 @@ right clicking on the item in the image property dialog.</p>
 <tip category="KimDaBa">
 <html>
 <p>When generating HTML you must specify a base directory for
-the images. Here you may specify any <a
+the images. Here you can specify any <a
 href="help:/kioslave/index.html">protocol</a> supported by KDE, like ftp or
 fish.</p>
 <p>Examples:
@@ -33,20 +33,20 @@ fish.</p>
 <tip category="KimDaBa">
 <html>
 <p>You can reorder images on your hard disk after having loaded them into
-KimDaBa - KimDaBa will still remember them, as it calculates check sums for
+KimDaBa - KimDaBa will still remember them, as it calculates checksums for
 the images.</p>
 </html>
 </tip>
 
 <tip category="KimDaBa">
 <html>
-<p>If you like KimDaBa, and it adds value to your daily life, then please
+<p>If you like KimDaBa, and it adds value to your daily life, please
 consider donating money to the KimDaBa developer, who will: (1) be motivated
-from your acknowledgment of his work, and (2) will get a chance to take
-some time of from his daily work to be able to work extra hard on
-KimDaBa. (In January 2004, he took a whole week of from work to focus on
-KimDaBa version 1.1)</p>
-<p>Donation can be given either at 
+by your acknowledgment of his work, and (2) will get a chance to take
+some time off from his daily work to be able to work extra hard on
+KimDaBa. (In January 2004, he took a whole week off from work to focus on
+KimDaBa version 1.1).</p>
+<p>Donations can be made either at 
 https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa
 or by transferring money to
 <pre>
@@ -62,12 +62,12 @@ account no: 35934019283203
 
 <tip category="KimDaBa">
 <html>
-<p>It's possible to associate images for
+<p>It's possible to associate images with
 persons/locations/keywords/etc. That way when browsing, say persons, you
-may get a small icon for each person with e.g. the persons face.</p>
+may get a small icon for each person with e.g. the person's face.</p>
 <p>To specify an icon for a person, load the person in the viewer, zoom to
-the part which you want to make an icon, and choose
-<tt>Show Category Editor</tt>, which will bring up a dialog where you can
+the part which you want to make into an icon, and choose
+<tt>Show Category Editor</tt>. This will bring up a dialog where you can
 find the person, and set the image.
 </p>
 </html>
@@ -75,20 +75,20 @@ find the person, and set the image.
 
 <tip category="KimDaBa">
 <html>
-<p>You may close the image configuration dialog by pressing Control + Return.
+<p>You may close the image configuration dialog by pressing Ctrl+Enter.
 </p>
 </html>
 </tip>
 
 <tip category="KimDaBa">
 <html>
-<p>You may make groups of, say persons by selecting <tt>Settings|Configure
-KimDaBa</tt>, and the choosing the tab <tt>Member Groups</tt>.</p>
+<p>You may make groups of, say, persons by selecting <tt>Settings->Configure
+KimDaBa</tt>, and then choosing the tab <tt>Member Groups</tt>.</p>
 <p> That way you can make a group called <tt>Family</tt>, which includes
-all the persons you are in family with. When browsing, each individual
+all the persons in your family. When browsing, each individual
 person will still be available when choosing the <tt>Persons</tt> icon, but in
 addition an item labeled <tt>Family</tt> will be available. When selecting
-that item pictures including <b>any</b> of the persons from your family
+that item, pictures including <b>any</b> of the persons from your family
 will be shown.
 </p>
 </html>
@@ -96,9 +96,9 @@ will be shown.
 
 <tip category="KimDaBa">
 <html>
-<p>KimDaBa is pronounced Ki'da'ba (the m is not pronounced - hey I'm
+<p>KimDaBa is pronounced Ki'da'ba (the 'm' is not pronounced - hey I'm
 the author I can come up with these weird rules!). KimDaBa stands for <b>KDE</b>
-<b>Im</b>age <b>Da</b>tabase. Originally I wanted it to just be KiDaBa, but I
+<b>Im</b>age <b>Da</b>ta<b>ba</b>se. Originally I wanted it to just be KiDaBa, but I
 then found that it looked to much like kid-aba, and the name suggested that
 it was an algebra program for kids.</p>
 </html>

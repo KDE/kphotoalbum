@@ -130,7 +130,7 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
 {
     setPixmap( _pixmap );
     if ( e->source() != iconView() ) {
-        KMessageBox::sorry( 0, i18n("Sorry KimDaBa do not support data being dragged onto it.") );
+        KMessageBox::sorry( 0, i18n("KimDaBa does not support data being dragged onto it.") );
         return;
     }
 

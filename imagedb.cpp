@@ -204,8 +204,8 @@ void ImageDB::searchForNewFiles( const QDict<void>& loadedFiles, QString directo
 void ImageDB::loadExtraFiles()
 {
     QProgressDialog  dialog( i18n("<qt><p><b>Loading information from images</b></p>"
-                                  "<p>Depending on the number of images, this may take some time,<br/>"
-                                  "This is, however, only a delay when new images are found.</p></qt>"),
+                                  "<p>Depending on the number of images, this may take some time.<br/>"
+                                  "However, there is only a delay when new images are found.</p></qt>"),
                              i18n("Cancel"), _pendingLoad.count() );
     int count = 0;
     for( QStringList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
@@ -386,9 +386,9 @@ void ImageDB::lockDB( bool lock, bool exclude  )
 
 bool  ImageDB::calculateMD5sums( ImageInfoList& list )
 {
-    QProgressDialog dialog( i18n("<qt><p><b>Calculating check sum of you images<b></p>"
-                                "<p>By storing check sum for each image KimDaBa is capable of finding images "
-                                 "even when you have moved them on disk</p></qt>"), i18n("Cancel"), list.count() );
+    QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum of your images<b></p>"
+                                "<p>By storing a checksum for each image KimDaBa is capable of finding images "
+                                 "even when you have moved them on the disk.</p></qt>"), i18n("Cancel"), list.count() );
 
     int count = 0;
     bool dirty = false;

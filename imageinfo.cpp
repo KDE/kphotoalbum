@@ -53,13 +53,13 @@ ImageInfo::ImageInfo( const QString& fileName )
     static bool hasShownWarning = false;
     if ( exif.count() == 0 && !hasShownWarning ) {
         hasShownWarning = true;
-        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information</b></p>"
-                                          "<p>EXIF information is meta information stored in JPEG files about the image. "
-                                          "KimDaBa tries to read the date, orientation and description from EXIF</p>"
-                                          "<p>KimDaBa was, however, unable to read information out of %1, which might "
-                                          "either be because the file did not contain any EXIF information, or "
+        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information.</b></p>"
+                                          "<p>EXIF information is meta information about the image stored in JPEG files. "
+                                          "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
+                                          "<p>However, KimDaBa was unable to read information from %1. This may "
+                                          "either be because the file does not contain any EXIF information, or "
                                           "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                  i18n("Unable to read EXIF information"), QString::fromLatin1("UnableToReadEXIFInformation") );
+                                  i18n("Unable to Read EXIF Information"), QString::fromLatin1("UnableToReadEXIFInformation") );
     }
 
 
@@ -78,13 +78,13 @@ ImageInfo::ImageInfo( const QString& fileName )
                     fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
                     fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) && !hasShownWarning ) {
             hasShownWarning = true;
-            KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read date out of EXIF information</b></p>"
-                                              "<p>EXIF information is meta information stored in JPEG files about the image. "
-                                              "KimDaBa tries to read the date, orientation and description from EXIF</p>"
-                                              "<p>KimDaBa was, however, unable to read date information out of %1, which might "
+            KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read the date from the EXIF information.</b></p>"
+                                              "<p>EXIF information is meta information about the image stored in JPEG files. "
+                                              "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
+                                              "<p>However, KimDaBa was unable to read date information from %1. This may "
                                               "either be because the file did not contain any EXIF information, or "
                                               "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                      i18n("Unable to read date out of EXIF information"),
+                                      i18n("Unable to Read Date from EXIF Information"),
                                       QString::fromLatin1("UnableToReadEXIFInformation") );
         }
 
@@ -145,8 +145,8 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
                 _drawList.load( childElm );
             }
             else {
-                KMessageBox::error( 0, i18n("<qt><p>Unknown tag %1, while reading configuration file</p>"
-                                            "<p>Expected one of Options, Drawings</p></qt>" ).arg( childElm.tagName() ) );
+                KMessageBox::error( 0, i18n("<qt><p>Unknown tag %1, while reading configuration file.</p>"
+                                            "<p>Expected one of: Options, Drawings</p></qt>" ).arg( childElm.tagName() ) );
             }
         }
     }

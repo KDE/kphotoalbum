@@ -442,7 +442,7 @@ void MainView::setupMenuBar()
 
     // Maintenance
     new KAction( i18n("Display Images not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
-    new KAction( i18n("Recalculate Check Sum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
+    new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );

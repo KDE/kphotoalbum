@@ -78,3 +78,5 @@ void DateSearchDialog::toDateChanged()
 {
     _toChanged = true;
 }
+
+#include "datefolder.moc"

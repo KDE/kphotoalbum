@@ -23,25 +23,22 @@
 #include "imageclient.h"
 #include <qimage.h>
 
-class ImagePreview :public QLabel, public ImageClient {
+class ImagePreview :public QLabel {
     Q_OBJECT
 public:
     ImagePreview( QWidget* parent, const char* name = 0);
-    void setInfo( ImageInfo* info );
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
     virtual QSize sizeHint() const;
-
-signals:
-    void doubleClicked();
+    void rotate(int angle);
+    void setImage( const QImage& img, int angle );
+    int angle() const;
 
 protected:
-    virtual void keyPressEvent( QKeyEvent* );
     virtual void resizeEvent( QResizeEvent* );
     void reload();
 
 private:
-    ImageInfo* _info;
     QImage _img;
+    int _angle;
 };
 
 

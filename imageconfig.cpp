@@ -44,6 +44,8 @@
 #include <qeventloop.h>
 #include <qdialog.h>
 #include <kmessagebox.h>
+#include <kglobal.h>
+#include <kiconloader.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -139,13 +141,26 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     QHBoxLayout* lay6 = new QHBoxLayout( lay5 );
     lay6->addStretch(1);
 
-    _prevBut = new QPushButton( QString::fromLatin1( "<" ), top2 );
-    _prevBut->setFixedWidth( 30 );
+    _prevBut = new QPushButton( top2 );
+    _prevBut->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "1leftarrow" ), KIcon::Desktop, 22 ) );
     lay6->addWidget( _prevBut );
 
-    _nextBut = new QPushButton( QString::fromLatin1( ">" ), top2 );
-    _nextBut->setFixedWidth( 30 );
+    _nextBut = new QPushButton( top2 );
+    _nextBut->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "1rightarrow" ), KIcon::Desktop, 22 ) );
     lay6->addWidget( _nextBut );
+
+    lay6->addStretch(1);
+
+    _rotateLeft = new QPushButton( top2 );
+    lay6->addWidget( _rotateLeft );
+    _rotateLeft->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "rotate_ccw" ), KIcon::Desktop, 22 ) );
+    connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
+
+    _rotateRight = new QPushButton( top2 );
+    lay6->addWidget( _rotateRight );
+    _rotateRight->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
+    connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
+
 
     lay6->addStretch(1);
 
@@ -269,6 +284,7 @@ void ImageConfig::slotOK()
 
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             ImageInfo* info = *it;
+            info->rotate( _preview->angle() );
             if ( _dayStart->value() != 0 ||  _monthStart->currentText() != QString::fromLatin1("---") || _yearStart->value() != 0 )  {
                 info->startDate().setDay( _dayStart->value() );
                 info->startDate().setMonth( _monthStart->currentItem() );
@@ -326,7 +342,7 @@ void ImageConfig::load()
     _nextBut->setEnabled( _current != (int)_origList.count()-1 );
     _prevBut->setEnabled( _current != 0 );
 
-    _preview->setInfo( &info );
+    _preview->setImage( QImage( info.fileName( false ) ), info.angle() );
 
     if ( _viewer )
         _viewer->load( _origList, _current );
@@ -430,10 +446,11 @@ void ImageConfig::setup()
         mode = ListSelect::SEARCH;
         setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
-        _preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ) );
-        _preview->setInfo(0);
+        _preview->setImage( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ), 0 );
         _nextBut->setEnabled( false );
         _prevBut->setEnabled( false );
+        _rotateLeft->setEnabled( false );
+        _rotateRight->setEnabled( false );
     }
     else {
         _okBut->setText( i18n("&OK") );
@@ -442,11 +459,10 @@ void ImageConfig::setup()
         mode = ListSelect::INPUT;
         setCaption( i18n("Image Configuration") );
         if ( _setup == MULTIPLE ) {
-            _preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ) );
-            _preview->setInfo(0);
+            _preview->setImage( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ), 0 );
         }
-
-
+        _rotateLeft->setEnabled( true );
+        _rotateRight->setEnabled( true );
     }
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setMode( mode );
@@ -640,6 +656,28 @@ bool ImageConfig::hasChanges()
         changed |= ( !_description->text().isEmpty() );
     }
     return changed;
+}
+
+void ImageConfig::rotateLeft()
+{
+    rotate(-90);
+}
+
+void ImageConfig::rotateRight()
+{
+    rotate(90);
+}
+
+void ImageConfig::rotate( int angle )
+{
+    if ( _setup == MULTIPLE ) {
+        // In slot OK the preview will be queried for its angle.
+    }
+    else {
+        ImageInfo& info = _editList[ _current ];
+        info.rotate(angle);
+    }
+    _preview->rotate( angle );
 }
 
 #include "imageconfig.moc"

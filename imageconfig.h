@@ -60,6 +60,9 @@ protected slots:
     void slotDeleteOption( const QString&, const QString& );
     void slotRenameOption( const QString& , const QString& , const QString&  );
     virtual void reject();
+    void rotateLeft();
+    void rotateRight();
+    void rotate( int angle );
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };
@@ -102,6 +105,8 @@ private:
     QPushButton* _okBut;
     QPushButton* _prevBut;
     QPushButton* _nextBut;
+    QPushButton* _rotateLeft;
+    QPushButton* _rotateRight;
     Editor* _description;
 
 };

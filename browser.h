@@ -62,7 +62,7 @@ signals:
     void showingOverview();
     void pathChanged( const QString& );
     void showsContentView( bool );
-    void currentSizeAndTypeChanged( Options::ViewSize, Options::ViewType );
+    void currentSizeAndTypeChanged( Category::ViewSize, Category::ViewType );
     void viewChanged();
 
 protected slots:
@@ -76,7 +76,7 @@ protected:
     void addItem( FolderAction* );
     void emitSignals();
     void setupFactory();
-    void setSizeAndType( Options::ViewType type, Options::ViewSize size );
+    void setSizeAndType( Category::ViewType type, Category::ViewSize size );
 
 private:
     static Browser* _instance;

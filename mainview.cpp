@@ -79,6 +79,7 @@
 #include <kmenubar.h>
 #include <searchbar.h>
 #include "tokeneditor.h"
+#include "categorycollection.h"
 
 MainView* MainView::_instance = 0;
 
@@ -144,7 +145,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
     connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
     connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
-    connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
+    connect( CategoryCollection::instance(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
     connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
@@ -646,7 +647,7 @@ void MainView::setupMenuBar()
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     _deleteSelected = new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
-    KAction* removeTokens = new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
+    new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
     _configOneAtATime = new KAction( i18n( "Configure Images &One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
     _configAllSimultaniously = new KAction( i18n( "Configure &All Images Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
@@ -717,8 +718,8 @@ void MainView::setupMenuBar()
     _viewMenu->insert( _largeIconView );
     _largeIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
-    connect( _browser, SIGNAL( currentSizeAndTypeChanged( Options::ViewSize, Options::ViewType ) ),
-             this, SLOT( slotUpdateViewMenu( Options::ViewSize, Options::ViewType ) ) );
+    connect( _browser, SIGNAL( currentSizeAndTypeChanged( Category::ViewSize, Category::ViewType ) ),
+             this, SLOT( slotUpdateViewMenu( Category::ViewSize, Category::ViewType ) ) );
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
@@ -798,6 +799,7 @@ void MainView::slotOptionGroupChanged()
     Q_ASSERT( !_imageConfigure || !_imageConfigure->isShown() );
     delete _imageConfigure;
     _imageConfigure = 0;
+    setDirty( true );
 }
 
 void MainView::showTipOfDay()
@@ -1151,15 +1153,15 @@ void MainView::reloadThumbNail()
     slotThumbNailSelectionChanged();
 }
 
-void MainView::slotUpdateViewMenu( Options::ViewSize size, Options::ViewType type )
+void MainView::slotUpdateViewMenu( Category::ViewSize size, Category::ViewType type )
 {
-    if ( size == Options::Small && type == Options::ListView )
+    if ( size == Category::Small && type == Category::ListView )
         _smallListView->setChecked( true );
-    else if ( size == Options::Large && type == Options::ListView )
+    else if ( size == Category::Large && type == Category::ListView )
         _largeListView->setChecked( true );
-    else if ( size == Options::Small && type == Options::IconView )
+    else if ( size == Category::Small && type == Category::IconView )
         _smallIconView->setChecked( true );
-    else if ( size == Options::Large && type == Options::IconView )
+    else if ( size == Category::Large && type == Category::IconView )
         _largeIconView->setChecked( true );
 }
 

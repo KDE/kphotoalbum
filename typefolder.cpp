@@ -22,6 +22,7 @@
 #include "contentfolder.h"
 #include <klocale.h>
 #include "browseritemfactory.h"
+#include "categorycollection.h"
 
 TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup ( optionGroup )
@@ -35,12 +36,12 @@ TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info,
 
 QPixmap TypeFolder::pixmap()
 {
-    return Options::instance()->iconForOptionGroup( _optionGroup );
+    return CategoryCollection::instance()->categoryForName( _optionGroup )->icon();
 }
 
 QString TypeFolder::text() const
 {
-    return Options::instance()->textForOptionGroup( _optionGroup );
+    return CategoryCollection::instance()->categoryForName( _optionGroup )->text();
 }
 
 FolderAction* TypeFolder::action( bool /* ctrlDown */ )
@@ -74,7 +75,7 @@ void TypeFolderAction::action( BrowserItemFactory* factory )
 
 QString TypeFolderAction::title() const
 {
-    return Options::instance()->textForOptionGroup( _optionGroup );
+    return CategoryCollection::instance()->categoryForName( _optionGroup )->text();
 }
 
 QString TypeFolderAction::optionGroup() const

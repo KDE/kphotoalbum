@@ -57,6 +57,7 @@
 #include <kiconloader.h>
 #include "export.h"
 #include "mainview.h"
+#include "categorycollection.h"
 
 class ImageSizeCheckBox :public QCheckBox {
 
@@ -139,9 +140,9 @@ void HTMLExportDialog::createContentPage()
     QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
     lay3->setAutoAdd( true );
 
-    QStringList optionGroups = Options::instance()->optionGroups();
+    QStringList optionGroups = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
-        QCheckBox* cb = new QCheckBox( Options::instance()->textForOptionGroup(*it), w );
+        QCheckBox* cb = new QCheckBox( CategoryCollection::instance()->categoryForName( *it )->text(), w );
         _whatToIncludeMap.insert( *it, cb );
     }
     QCheckBox* cb = new QCheckBox( i18n("Description"), w );
@@ -541,7 +542,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     // -------------------------------------------------- Description
     QString description;
 
-    QStringList optionGroups = Options::instance()->optionGroups();
+    QStringList optionGroups = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = optionGroups.begin(); it != optionGroups.end(); ++it ) {
         if ( info->optionValue( *it ).count() != 0 && _whatToIncludeMap[*it]->isChecked() ) {
             QString val = info->optionValue( *it ).join( QString::fromLatin1(", ") );

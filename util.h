@@ -23,14 +23,15 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include "options.h"
+class CategoryCollection;
 class ImageInfo;
 
 class Util {
 public:
     static bool writeOptions( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& options,
-                              QMap<QString,Options::OptionGroupInfo>* optionGroupInfo );
+                              CategoryCollection* categories );
     static void readOptions( QDomElement elm, QMap<QString, QStringList>* options,
-                             QMap<QString,Options::OptionGroupInfo>* optionGroupInfo );
+                             CategoryCollection* categories );
     static QString createInfoText( ImageInfo* info, QMap<int, QPair<QString,QString> >* );
     static void checkForBackupFile( const QString& fileName );
     static bool ctrlKeyDown();

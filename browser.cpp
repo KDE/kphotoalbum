@@ -32,6 +32,7 @@
 #include <qwidgetstack.h>
 #include <qlayout.h>
 #include <qlabel.h>
+#include "categorycollection.h"
 
 Browser* Browser::_instance = 0;
 
@@ -63,7 +64,7 @@ Browser::Browser( QWidget* parent, const char* name )
     connect( _listView, SIGNAL( returnPressed( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
     connect( _iconView, SIGNAL( clicked( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
     connect( _iconView, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
-    connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( reload() ) );
+    connect( CategoryCollection::instance(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
     // I got to wait till the event loops runs, so I'm sure that the image database has been loaded.
@@ -173,8 +174,8 @@ void Browser::emitSignals()
     if ( a->contentView() && _list.size() > 0 ) {
         QString grp = a->optionGroup();
         Q_ASSERT( !grp.isNull() );
-        Options::ViewSize size = Options::instance()->viewSize( grp );
-        Options::ViewType type = Options::instance()->viewType( grp );
+        Category::ViewSize size = CategoryCollection::instance()->categoryForName( grp )->viewSize();
+        Category::ViewType type = CategoryCollection::instance()->categoryForName( grp )->viewType();
         emit currentSizeAndTypeChanged( size, type );
     }
 }
@@ -237,25 +238,25 @@ ImageSearchInfo Browser::currentContext()
 
 void Browser::slotSmallListView()
 {
-    setSizeAndType( Options::ListView,Options::Small );
+    setSizeAndType( Category::ListView,Category::Small );
 }
 
 void Browser::slotLargeListView()
 {
-    setSizeAndType( Options::ListView,Options::Large );
+    setSizeAndType( Category::ListView,Category::Large );
 }
 
 void Browser::slotSmallIconView()
 {
-    setSizeAndType( Options::IconView,Options::Small );
+    setSizeAndType( Category::IconView,Category::Small );
 }
 
 void Browser::slotLargeIconView()
 {
-    setSizeAndType( Options::IconView,Options::Large );
+    setSizeAndType( Category::IconView,Category::Large );
 }
 
-void Browser::setSizeAndType( Options::ViewType type, Options::ViewSize size )
+void Browser::setSizeAndType( Category::ViewType type, Category::ViewSize size )
 {
     Q_ASSERT( _list.size() > 0 );
 
@@ -263,8 +264,8 @@ void Browser::setSizeAndType( Options::ViewType type, Options::ViewSize size )
     QString grp = a->optionGroup();
     Q_ASSERT( !grp.isNull() );
 
-    Options::instance()->setViewType( grp, type );
-    Options::instance()->setViewSize( grp, size );
+    CategoryCollection::instance()->categoryForName( grp )->setViewType( type );
+    CategoryCollection::instance()->categoryForName( grp )->setViewSize( size );
     reload();
 }
 
@@ -276,7 +277,7 @@ void Browser::clear()
 
 void Browser::setupFactory()
 {
-    Options::ViewType type = Options::ListView;
+    Category::ViewType type = Category::ListView;
     if ( _list.size() == 0 )
         return;
 
@@ -284,9 +285,9 @@ void Browser::setupFactory()
     QString optionGroup = a->optionGroup();
 
     if ( !optionGroup.isNull() )
-        type = Options::instance()->viewType( optionGroup );
+        type = CategoryCollection::instance()->categoryForName( optionGroup )->viewType();
 
-    if ( type == Options::ListView ) {
+    if ( type == Category::ListView ) {
         _currentFactory = _listViewFactory;
         _stack->raiseWidget( _listView );
     }

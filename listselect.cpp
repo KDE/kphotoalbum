@@ -34,6 +34,7 @@
 #include <qtoolbutton.h>
 #include <kiconloader.h>
 #include <qbuttongroup.h>
+#include "categorycollection.h"
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -157,7 +158,7 @@ ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char*
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
 
-    _label = new QLabel( Options::instance()->textForOptionGroup( optionGroup ), this );
+    _label = new QLabel( CategoryCollection::instance()->categoryForName( optionGroup )->text(), this );
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
@@ -458,7 +459,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 
 void ListSelect::populate()
 {
-    _label->setText( Options::instance()->textForOptionGroup( _optionGroup ) );
+    _label->setText( CategoryCollection::instance()->categoryForName( _optionGroup )->text() );
     _listBox->clear();
     QStringList items = Options::instance()->optionValueInclGroups( _optionGroup );
     _listBox->insertStringList( items );

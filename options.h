@@ -25,6 +25,7 @@
 #include <qdom.h>
 #include "membermap.h"
 #include "imagesearchinfo.h"
+#include "category.h"
 class ImageConfig;
 
 class Options :public QObject {
@@ -71,36 +72,6 @@ public:
     QImage optionImage( const QString& optionGroup,  QString, int size ) const;
 
     // -------------------------------------------------- Option Groups
-    enum ViewSize { Small, Large };
-    enum ViewType { ListView, IconView };
-
-    struct OptionGroupInfo
-    {
-        OptionGroupInfo() {}
-        OptionGroupInfo( const QString& icon, ViewSize size, ViewType type, bool show = true )
-            : _icon(icon), _show(show), _size( size ), _type( type ) {}
-        QString _icon;
-        bool _show;
-        ViewSize _size;
-        ViewType _type;
-    };
-
-    QStringList optionGroups() const;
-    void addOptionGroup( const QString& name, const QString& icon, ViewSize size, ViewType type );
-    void deleteOptionGroup( const QString& name );
-    void renameOptionGroup( const QString& oldName, const QString& newName );
-
-    QString textForOptionGroup( const QString& name ) const;
-
-    QPixmap iconForOptionGroup( const QString& name, int size = 22 ) const;
-    QString iconNameForOptionGroup( const QString& name ) const;
-    void setIconForOptionGroup( const QString& name, const QString& icon );
-
-    void setViewSize( const QString& optionGroup, ViewSize size );
-    void setViewType( const QString& optionGroup, ViewType type );
-    ViewSize viewSize( const QString& optionGroup ) const;
-    ViewType viewType( const QString& optionGroup ) const;
-
     QString albumCategory() const;
     void setAlbumCategory(  const QString& optionGroup );
 
@@ -196,7 +167,6 @@ public:
     void setAutoShowThumbnailView( bool b );
 
 signals:
-    void optionGroupsChanged();
     void changed();
     void renamedOption( const QString& optionGroup, const QString& oldName, const QString& newName );
     void deletedOption( const QString& optionGroup, const QString& name );
@@ -213,8 +183,9 @@ private:
     bool _useEXIFComments;
     int _autoSave, _maxImages;
     bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps, _ensureImageWindowsOnScreen;
+
+    friend class CategoryCollection;
     QMap<QString, QStringList> _options;
-    QMap<QString,OptionGroupInfo> _optionGroups;
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL, _htmlDestURL;
 
     Position _infoBoxPosition;

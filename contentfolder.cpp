@@ -27,6 +27,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "browseritemfactory.h"
+#include "categorycollection.h"
 ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup( optionGroup ), _value( value )
@@ -37,11 +38,11 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
 
 QPixmap ContentFolder::pixmap()
 {
-    if ( Options::instance()->viewSize( _optionGroup ) == Options::Small ) {
+    if ( CategoryCollection::instance()->categoryForName( _optionGroup )->viewSize() == Category::Small ) {
         if ( Options::instance()->memberMap().isGroup( _optionGroup, _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
-            return Options::instance()->iconForOptionGroup( _optionGroup );
+            return CategoryCollection::instance()->categoryForName( _optionGroup )->icon();
         }
     }
     else
@@ -52,9 +53,9 @@ QString ContentFolder::text() const
 {
     if ( _value == ImageDB::NONE() ) {
         if ( _info.option(_optionGroup) == ImageDB::NONE() )
-            return i18n( "No %1" ).arg( Options::instance()->textForOptionGroup( _optionGroup )  );
+            return i18n( "No %1" ).arg( CategoryCollection::instance()->categoryForName( _optionGroup )->text() );
         else
-            return i18n( "No other %1" ).arg( Options::instance()->textForOptionGroup( _optionGroup )  );
+            return i18n( "No other %1" ).arg( CategoryCollection::instance()->categoryForName( _optionGroup )->text() );
     }
     else {
         return _value;
@@ -65,7 +66,7 @@ QString ContentFolder::text() const
 void ContentFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
-    QStringList grps = Options::instance()->optionGroups();
+    QStringList grps = CategoryCollection::instance()->categoryNames();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         factory->createItem( new TypeFolder( *it, _info, _browser ) );

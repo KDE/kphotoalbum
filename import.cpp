@@ -48,6 +48,7 @@
 #include <kio/netaccess.h>
 #include "mainview.h"
 #include <kapplication.h>
+#include "categorycollection.h"
 
 class KPushButton;
 
@@ -392,7 +393,7 @@ void Import::createOptionPages()
         }
     }
 
-    _optionGroupMatcher = new ImportMatcher( QString::null, QString::null, options, Options::instance()->optionGroups(),
+    _optionGroupMatcher = new ImportMatcher( QString::null, QString::null, options, CategoryCollection::instance()->categoryNames(),
                                              false, this, "import matcher" );
     addPage( _optionGroupMatcher, i18n("Match Option Groups") );
 

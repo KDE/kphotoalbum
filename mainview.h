@@ -40,6 +40,7 @@ class PluginInterface;
 #include "thumbnailview.h"
 #include "options.h"
 #include <kurl.h>
+#include "category.h"
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -88,7 +89,7 @@ protected slots:
     void slotSetFileName( const QString& );
     void slotThumbNailSelectionChanged();
     void reloadThumbNail();
-    void slotUpdateViewMenu( Options::ViewSize, Options::ViewType );
+    void slotUpdateViewMenu( Category::ViewSize, Category::ViewType );
     void slotShowNotOnDisk();
     void markDirty();
     void donateMoney();

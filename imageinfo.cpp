@@ -35,6 +35,7 @@ extern "C" {
 #include <kmessagebox.h>
 #include <klocale.h>
 #include "imagedb.h"
+#include "categorycollection.h"
 
 ImageInfo::ImageInfo() :_null( true )
 {
@@ -269,7 +270,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _endDate != other._endDate ||
           _angle != other._angle);
     if ( !changed ) {
-        QStringList keys = Options::instance()->optionGroups();
+        QStringList keys = CategoryCollection::instance()->categoryNames();
         for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
             _options[*it].sort();
             QStringList otherList = other._options[*it];

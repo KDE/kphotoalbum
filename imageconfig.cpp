@@ -53,6 +53,7 @@
 #include <kguiitem.h>
 #include <kapplication.h>
 #include <qobjectlist.h>
+#include "categorycollection.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -173,8 +174,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     KDockWidget* last = dateDock;
     KDockWidget::DockPosition pos = KDockWidget::DockTop;
 
-    Options* opt = Options::instance();
-    QStringList grps = opt->optionGroups();
+    QStringList grps = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         KDockWidget* dockWidget = createListSel( *it );
         dockWidget->manualDock( last, pos );
@@ -607,8 +607,8 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 
 KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 {
-    KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
-                                                             this, Options::instance()->textForOptionGroup(optionGroup));
+    KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, CategoryCollection::instance()->categoryForName( optionGroup)->icon(),
+                                                             this, CategoryCollection::instance()->categoryForName( optionGroup )->text() );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
     _optionList.append( sel );

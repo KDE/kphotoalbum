@@ -54,6 +54,7 @@
 #include <kkeydialog.h>
 #include <kapplication.h>
 #include <kglobal.h>
+#include "categorycollection.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -182,7 +183,7 @@ void Viewer::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showTime() );
 
-    QStringList grps = Options::instance()->optionGroups();
+    QStringList grps = CategoryCollection::instance()->categoryNames();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         ShowOptionAction* action = new ShowOptionAction( *it, this );

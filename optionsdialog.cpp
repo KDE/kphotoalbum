@@ -43,6 +43,7 @@
 #endif
 #include <kdebug.h>
 #include <kcolorbutton.h>
+#include "categorycollection.h"
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Ok | Cancel, Ok, parent, name ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -101,7 +102,7 @@ void OptionsDialog::createGeneralPage()
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
-    _albumCategory->insertStringList( Options::instance()->optionGroups() );
+    _albumCategory->insertStringList( CategoryCollection::instance()->categoryNames() ); // PENDING(blackie) Shouldn't this be the text for each group instead?
 
     lay1->addStretch( 1 );
 
@@ -240,17 +241,17 @@ class OptionGroupItem :public QListBoxText
 {
 public:
     OptionGroupItem( const QString& optionGroup, const QString& text, const QString& icon,
-                     Options::ViewSize size, Options::ViewType type, QListBox* parent );
+                     Category::ViewSize size, Category::ViewType type, QListBox* parent );
     void setLabel( const QString& label );
 
     QString _optionGroupOrig, _textOrig, _iconOrig;
     QString _text, _icon;
-    Options::ViewSize _size, _sizeOrig;
-    Options::ViewType _type, _typeOrig;
+    Category::ViewSize _size, _sizeOrig;
+    Category::ViewType _type, _typeOrig;
 };
 
 OptionGroupItem::OptionGroupItem( const QString& optionGroup, const QString& text, const QString& icon,
-                                  Options::ViewSize size, Options::ViewType type, QListBox* parent )
+                                  Category::ViewSize size, Category::ViewType type, QListBox* parent )
     :QListBoxText( parent, text ),
      _optionGroupOrig( optionGroup ), _textOrig( text ), _iconOrig( icon ),
      _text( text ), _icon( icon ), _size( size ), _sizeOrig( size ), _type( type ), _typeOrig( type )
@@ -354,13 +355,16 @@ void OptionsDialog::show()
 
     // Config Groups page
     _optionGroups->clear();
-    QStringList grps = opt->optionGroups();
+    QStringList grps = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         if( *it == QString::fromLatin1( "Folder") ) {
             continue; // make it impossible to change the name or the icon of the folder
         }
-        new OptionGroupItem( *it, opt->textForOptionGroup( *it ), opt->iconNameForOptionGroup( *it ),
-                             opt->viewSize( *it ), opt->viewType( *it ), _optionGroups );
+        new OptionGroupItem( *it, CategoryCollection::instance()->categoryForName( *it )->text(),
+                             CategoryCollection::instance()->categoryForName( *it )->iconName(),
+                             CategoryCollection::instance()->categoryForName( *it )->viewSize(),
+                             CategoryCollection::instance()->categoryForName( *it )->viewType(),
+                             _optionGroups );
     }
     enableDisable( false );
     KDialogBase::show();
@@ -400,7 +404,7 @@ void OptionsDialog::slotMyOK()
     for( QValueList<OptionGroupItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
         if ( !(*it)->_optionGroupOrig.isNull() ) {
             // the Options instance knows about the item.
-            opt->deleteOptionGroup( (*it)->_optionGroupOrig );
+            CategoryCollection::instance()->removeCategory( (*it)->_optionGroupOrig );
         }
     }
 
@@ -409,21 +413,22 @@ void OptionsDialog::slotMyOK()
         OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
         if ( item->_optionGroupOrig.isNull() ) {
             // New Item
-            opt->addOptionGroup( item->_text, item->_icon, item->_size, item->_type );
+            Category* category = new Category( item->_text, item->_icon, item->_size, item->_type );
+            CategoryCollection::instance()->addCategory( category );
         }
         else {
             if ( item->_text != item->_textOrig ) {
-                opt->renameOptionGroup( item->_optionGroupOrig, item->_text );
+                CategoryCollection::instance()->rename(  item->_optionGroupOrig, item->_text );
                 item->_optionGroupOrig =item->_text;
             }
             if ( item->_icon != item->_iconOrig ) {
-                opt->setIconForOptionGroup( item->_optionGroupOrig, item->_icon );
+                CategoryCollection::instance()->categoryForName( item->_optionGroupOrig )->setIconName( item->_icon );
             }
             if ( item->_size != item->_sizeOrig ) {
-                opt->setViewSize( item->_optionGroupOrig, item->_size );
+                CategoryCollection::instance()->categoryForName( item->_optionGroupOrig )->setViewSize( item->_size );
             }
             if ( item->_type != item->_typeOrig ) {
-                opt->setViewType( item->_optionGroupOrig, item->_type );
+                CategoryCollection::instance()->categoryForName( item->_optionGroupOrig )->setViewType( item->_type );
             }
         }
     }
@@ -462,14 +467,14 @@ void OptionsDialog::slotPreferredViewChanged( int i )
 {
     if ( _current ) {
         if ( i < 2 )
-            _current->_type = Options::ListView;
+            _current->_type = Category::ListView;
         else
-            _current->_type = Options::IconView;
+            _current->_type = Category::IconView;
 
         if ( i % 2 == 1 )
-            _current->_size = Options::Large;
+            _current->_size = Category::Large;
         else
-            _current->_size = Options::Small;
+            _current->_size = Category::Small;
     }
 }
 
@@ -483,7 +488,7 @@ void OptionsDialog::slotIconChanged( QString icon )
 
 void OptionsDialog::slotNewItem()
 {
-    _current = new OptionGroupItem( QString::null, QString::null, QString::null, Options::Small, Options::ListView, _optionGroups );
+    _current = new OptionGroupItem( QString::null, QString::null, QString::null, Category::Small, Category::ListView, _optionGroups );
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
     enableDisable( true );
@@ -729,7 +734,7 @@ void OptionsDialog::setButtonStates()
 void OptionsDialog::slotPageChange()
 {
     _category->clear();
-    QStringList l = Options::instance()->optionGroups();
+    QStringList l = CategoryCollection::instance()->categoryNames();
 
     // We do not want to configure folders in the member groups.
     l.remove( QString::fromLatin1("Folder") );

@@ -23,6 +23,7 @@
 #include <qcombobox.h>
 #include "options.h"
 #include "membermap.h"
+#include "categorycollection.h"
 
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
@@ -98,7 +99,7 @@ void CategoryImageConfig::slotSet()
 QString CategoryImageConfig::currentGroup()
 {
     int index = _group->currentItem();
-    return Options::instance()->optionGroups()[index];
+    return CategoryCollection::instance()->categoryNames()[index];
 }
 
 void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfo* info )
@@ -120,11 +121,11 @@ void CategoryImageConfig::show()
 {
     QString current = _group->currentText();
     _group->clear();
-    QStringList list = Options::instance()->optionGroups();
+    QStringList list = CategoryCollection::instance()->categoryNames();
     int index = 0;
     int currentIndex = -1;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        _group->insertItem( Options::instance()->textForOptionGroup( *it ) );
+        _group->insertItem( CategoryCollection::instance()->categoryForName( *it )->text() );
         if ( *it == current )
             currentIndex = index;
         ++index;

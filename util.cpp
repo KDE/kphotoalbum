@@ -47,23 +47,24 @@ extern "C" {
 #include <sys/stat.h>
 #include <setjmp.h>
 #include <sys/types.h>
+#include "categorycollection.h"
 }
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
-                         QMap<QString,Options::OptionGroupInfo>* optionGroupInfo )
+                         CategoryCollection* categories )
 {
     bool anyAtAll = false;
-    QStringList grps = Options::instance()->optionGroups();
+    QStringList grps = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         QString name = *it;
         opt.setAttribute( QString::fromLatin1("name"),  name );
 
-        if ( optionGroupInfo ) {
-            opt.setAttribute( QString::fromLatin1( "icon" ), (*optionGroupInfo)[name]._icon );
-            opt.setAttribute( QString::fromLatin1( "show" ), (*optionGroupInfo)[name]._show );
-            opt.setAttribute( QString::fromLatin1( "viewsize" ), (*optionGroupInfo)[name]._size );
-            opt.setAttribute( QString::fromLatin1( "viewtype" ), (*optionGroupInfo)[name]._type );
+        if ( categories ) {
+            opt.setAttribute( QString::fromLatin1( "icon" ), categories->categoryForName(name)->iconName() );
+            opt.setAttribute( QString::fromLatin1( "show" ), categories->categoryForName(name)->doShow() );
+            opt.setAttribute( QString::fromLatin1( "viewsize" ), categories->categoryForName(name)->viewSize() );
+            opt.setAttribute( QString::fromLatin1( "viewtype" ), categories->categoryForName(name)->viewType() );
         }
 
         // we don t save the values for the option "Folder" since it is automatically set
@@ -81,7 +82,7 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
             any = true;
             anyAtAll = true;
         }
-        if ( any || optionGroupInfo  ) // We always want to write all records when writing from Options
+        if ( any || categories  ) // We always want to write all records when writing from Options
             elm.appendChild( opt );
     }
     return anyAtAll;
@@ -90,7 +91,7 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
 
 
 void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
-                        QMap<QString,Options::OptionGroupInfo>* optionGroupInfo )
+                        CategoryCollection* categories )
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
 
@@ -103,15 +104,18 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
             QString name = elmOption.attribute( QString::fromLatin1("name") );
             if ( !name.isNull() )  {
                 // Read Option Group info
-                if ( optionGroupInfo ) {
+                if ( categories ) {
                     QString icon= elmOption.attribute( QString::fromLatin1("icon") );
-                    Options::ViewSize size =
-                        (Options::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
-                    Options::ViewType type =
-                        (Options::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
+                    Category::ViewSize size =
+                        (Category::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
+                    Category::ViewType type =
+                        (Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
                     bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                             QString::fromLatin1( "1" ) ).toInt();
-                    (*optionGroupInfo)[name] = Options::OptionGroupInfo( icon, size, type, show );
+
+                    Q_ASSERT( !categories->categoryForName( name ) );
+                    Category* cat = new Category( name, icon, size, type, show );
+                    categories->addCategory( cat );
                 }
 
                 // Read values
@@ -149,7 +153,7 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
         }
     }
 
-    QStringList grps = Options::instance()->optionGroups();
+    QStringList grps = CategoryCollection::instance()->categoryNames();
     int link = 0;
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QString optionGroup = *it;
@@ -157,7 +161,7 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
             QStringList items = info->optionValue( optionGroup );
             if (items.count() != 0 ) {
                 text += QString::fromLatin1( "<b>%1: </b> " )
-                        .arg( Options::instance()->textForOptionGroup( optionGroup ) );
+                        .arg( CategoryCollection::instance()->categoryForName( optionGroup )->text() );
                 bool first = true;
                 for( QStringList::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;

@@ -113,7 +113,7 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
         else if ( info->endDate().isNull() )
             text += info->startDate();
         else
-            text += info->startDate() + i18n("date1 to date2", "%1 to %2") + info->endDate();
+            text += i18n("date1 to date2", "%1 to %2").arg( info->startDate() ).arg( info->endDate() );
 
         if ( !text.isEmpty() ) {
             text = i18n("<b>Date: </b> ") + text + QString::fromLatin1("<br>");

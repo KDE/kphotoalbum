@@ -46,6 +46,7 @@
 #include "speeddisplay.h"
 #include <qdesktopwidget.h>
 #include "mainview.h"
+#include <qdatetime.h>
 
 Viewer* Viewer::_latest = 0;
 
@@ -500,7 +501,7 @@ void Viewer::slotStartStopSlideShow()
         _speedDisplay->end();
     }
     else {
-        _slideShowTimer->start( _slideShowPause );
+        _slideShowTimer->start( _slideShowPause, true );
         _speedDisplay->start();
     }
 }
@@ -512,7 +513,17 @@ void Viewer::slotSlideShowNext()
         _current++;
     else
         _current = 0;
+
+    // Load the next images.
+    QTime timer;
+    timer.start();
     load();
+
+    // ensure that there is a few milliseconds pause, so that an end slideshow keypress
+    // can get through immediately, we don't want it to queue up behind a bunch of timer events,
+    // which loaded a number of new images before the slideshow stops
+    int ms = QMAX( 200, _slideShowPause - timer.elapsed() );
+    _slideShowTimer->start( ms, true );
 }
 
 void Viewer::slotSlideShowFaster()

@@ -1,5 +1,8 @@
 2003-10-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: if the slideshow was running very fast, then keyevents got utterly much
+	  behind making it almost impossible to stop the slideshow.
+
 	* Its now possible to configure image properties from within the viewer.
 
 2003-10-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

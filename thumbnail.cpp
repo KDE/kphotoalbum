@@ -32,23 +32,6 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 
-class DeleteHelper :public QObject
-{
-public:
-    DeleteHelper( ThumbNail* tn )
-        : QObject( 0 ), _tn(tn)
-        {
-            deleteLater();
-        }
-    ~DeleteHelper()
-        {
-            delete _tn;
-        }
-private:
-    ThumbNail* _tn;
-};
-
-
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
     :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent )
 {
@@ -168,12 +151,9 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
 
     for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
         ThumbNail* item = *it;
-        ThumbNail* tn = new ThumbNail( item->_imageInfo, last, _parent);
-
-        // Originally I just invoked "delete item" here, but valgrind told me that Qt would reference the item later.
-        // this I had to rewrite it like this, so the item isn't delete before next time in the event loop.
-        new DeleteHelper(item);
-        last = tn;
+        _parent->takeItem( item );
+        _parent->insertItem( item, last );
+        last = item;
     }
 }
 

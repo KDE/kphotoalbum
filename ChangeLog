@@ -1,3 +1,7 @@
+2004-03-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Fixed crash when moving images arround
+
 2004-03-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: If you have to rotate an image to view it, you get black stripes besides your 

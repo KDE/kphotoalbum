@@ -42,7 +42,7 @@ ImageInfo::ImageInfo() :_null( true )
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    :  _visible( true ), _imageOnDisk( true ), _null( false ), _locked( false )
+    :  _visible( true ), _imageOnDisk( YesOnDisk ), _null( false ), _locked( false )
 {
     QString fullPath = Options::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Options::instance()->imageDirectory() + fileName );
@@ -163,15 +163,11 @@ QString ImageInfo::fileName( bool relative ) const
 void ImageInfo::setFileName( const QString& relativeFileName )
 {
     _fileName = relativeFileName;
-    QFileInfo fi( fileName() );
-    _imageOnDisk = fi.exists();
-    if (_imageOnDisk) {
-        QString folderName = Util::relativeFolderName( _fileName );
-        _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
-        Options::instance()->addOption( QString::fromLatin1("Folder"), folderName );
-    } else {
-        _options.insert( QString::fromLatin1( "Folder") , QStringList() );
-    }
+    _imageOnDisk = Unchecked;
+
+    QString folderName = Util::relativeFolderName( _fileName );
+    _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
+    Options::instance()->addOption( QString::fromLatin1("Folder"), folderName );
 }
 
 
@@ -466,6 +462,20 @@ bool ImageInfo::allMatched( const QString& category )
             return false;
     }
     return true;
+}
+
+bool ImageInfo::imageOnDisk() const
+{
+    if ( _imageOnDisk == Unchecked ) {
+        QFileInfo fi( fileName() );
+        _imageOnDisk = (fi.exists() ? YesOnDisk : NoNotOnDisk);
+    }
+    return _imageOnDisk == YesOnDisk;
+}
+
+void ImageInfo::setImageOnDisk( bool b )
+{
+    _imageOnDisk = (b ? YesOnDisk : NoNotOnDisk);
 }
 
 #include "infobox.moc"

@@ -1,3 +1,13 @@
+2004-12-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Postpone checking if images is on disk till the information is
+	needed, this speeds up start up with a couple of seconds.
+
+	* I've now started integrating my date bar, which shows statistics
+	about images, and hopefully will allow you to navigates using
+	dates.
+	
+
 2004-12-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* KimDaBa will now escape all non-latin1 characters, so they still

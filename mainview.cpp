@@ -1398,7 +1398,7 @@ void MainView::slotRemoveTokens()
 
 void MainView::updateDateBar()
 {
-    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
+    // _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
 }
 
 #include "mainview.moc"

@@ -84,8 +84,8 @@ public:
     DrawList drawList() const;
     void setDrawList( const DrawList& );
 
-    bool imageOnDisk() const { return _imageOnDisk; }
-    void setImageOnDisk( bool b ) {_imageOnDisk = b; }
+    bool imageOnDisk() const;
+    void setImageOnDisk( bool b );
     QString MD5Sum() const { return _md5sum; }
     void setMD5Sum( const QString& sum ) { _md5sum = sum; }
 
@@ -119,7 +119,8 @@ private:
     int _angle;
     bool _visible;
     DrawList _drawList;
-    bool _imageOnDisk; // true if the image is available on disk
+    enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
+    mutable OnDisk _imageOnDisk;
     QString _md5sum;
     bool _null;
 

@@ -150,16 +150,12 @@ QString ImageDate::toString( bool withTime ) const
 {
     QString result;
 
-    QStringList month;
-    month << i18n("Jan") << i18n("Feb") << i18n("Mar") << i18n("Apr") << i18n("May") << i18n("Jun") << i18n("Jul") << i18n("Aug")
-          << i18n("Sep") << i18n("Oct") << i18n("Nov") << i18n("Dec");
-
     if ( _day > 0 && _month > 0 )
-        result = QString::fromLatin1("%1. %2").arg(_day).arg(month[_month-1]);
+        result = QString::fromLatin1("%1. %2").arg(_day).arg(monthName(_month));
     else if ( _day > 0 && _month <= 0 )
         result = QString::fromLatin1("%1/???").arg(_day);
     else if ( _day <= 0 && _month > 0 )  {
-        result = month[_month-1];
+        result = monthName(_month);
     }
 
     if ( !result.isEmpty() && _year != 0 )
@@ -272,29 +268,29 @@ void ImageDate::setDate( const QString& date )
                 _year += 1900;
         }
         if ( month.length() != 0 ) {
-            if ( month == QString::fromLatin1( "jan" ) )
+            if ( month == monthName(1).lower() )
                 _month = 1;
-            else if ( month == QString::fromLatin1( "feb" ) )
+            else if ( month == monthName(2).lower() )
                 _month = 2;
-            else if ( month == QString::fromLatin1( "mar" ) )
+            else if ( month == monthName(3).lower() )
                 _month = 3;
-            else if ( month == QString::fromLatin1( "apr" ) )
+            else if ( month == monthName(4).lower() )
                 _month = 4;
-            else if ( month == QString::fromLatin1( "may" ) )
+            else if ( month == monthName(5).lower() )
                 _month = 5;
-            else if ( month == QString::fromLatin1( "jun" ) )
+            else if ( month == monthName(6).lower() )
                 _month = 6;
-            else if ( month == QString::fromLatin1( "jul" ) )
+            else if ( month == monthName(7).lower() )
                 _month = 7;
-            else if ( month == QString::fromLatin1( "aug" ) )
+            else if ( month == monthName(8).lower() )
                 _month = 8;
-            else if ( month == QString::fromLatin1( "sep" ) )
+            else if ( month == monthName(9).lower() )
                 _month = 9;
-            else if ( month == QString::fromLatin1( "oct" ) )
+            else if ( month == monthName(10).lower() )
                 _month = 10;
-            else if ( month == QString::fromLatin1( "nov" ) )
+            else if ( month == monthName(11).lower() )
                 _month = 11;
-            else if ( month == QString::fromLatin1( "dec" ) )
+            else if ( month == monthName(12).lower() )
                 _month = 12;
             else
                 _month = month.toInt();
@@ -306,7 +302,14 @@ void ImageDate::setDate( const QString& date )
 
 QString ImageDate::formatRegexp()
 {
-    return QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
+    static QString str;
+    if ( str.isNull() ) {
+        str = QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((" );
+        for ( int i = 1; i <= 12; ++i )
+            str += QString::fromLatin1("%1|").arg(monthName(i).lower() );
+        str += QString::fromLatin1("\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
+    }
+    return str;
 }
 
 bool ImageDate::isFuzzyData()
@@ -355,5 +358,24 @@ void ImageDate::calcMinMax() const
 bool ImageDate::operator<( const ImageDate& other ) const
 {
     return min() < other.min();
+}
+
+QString ImageDate::monthName( int month )
+{
+    switch ( month ) {
+    case 1: return i18n("Jan");
+    case 2: return i18n("Feb");
+    case 3: return i18n("Mar");
+    case 4: return i18n("Apr");
+    case 5: return i18n("May");
+    case 6: return i18n("Jun");
+    case 7: return i18n("Jul");
+    case 8: return i18n("Aug");
+    case 9: return i18n("Sep");
+    case 10: return i18n("Oct");
+    case 11: return i18n("Nov");
+    case 12: return i18n("Dec");
+    }
+    qWarning("monthName invoked with invalid name");
 }
 

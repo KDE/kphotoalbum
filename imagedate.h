@@ -68,6 +68,7 @@ public:
 
 protected:
     void calcMinMax() const;
+    static QString monthName( int month );
 
 private:
     int _year, _month, _day, _hour, _minute, _second;

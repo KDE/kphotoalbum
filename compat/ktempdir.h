@@ -25,6 +25,9 @@
 #include <errno.h>
 
 class QDir;
+
+namespace KimDaBaCompat {
+
 class KTempDirPrivate;
 
 /**
@@ -133,5 +136,9 @@ private:
 
    KTempDirPrivate *d;
 };
+
+} // namespace KimDaBaCompat
+
+using namespace KimDaBaCompat;
 
 #endif

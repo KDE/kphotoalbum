@@ -24,6 +24,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+namespace KimDaBaCompat {
+
 /**
  * \namespace KShell
  * Provides some basic POSIX shell and bash functionality.
@@ -96,5 +98,8 @@ namespace KShell {
 
 }
 
+} // namespace KimDaBaCompat
+
+using namespace KimDaBaCompat;
 
 #endif /* _KSHELL_H */

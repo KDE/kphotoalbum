@@ -22,6 +22,8 @@
 
 #include <klineeditdlg.h>
 
+namespace KimDaBaCompat {
+
 /**
  * The KInputDialog class provides a simple dialog to get a single value
  * from the user. The value can be a string, a number (either an integer or
@@ -40,5 +42,9 @@ class KInputDialog : public KLineEditDlg
 private:
     KInputDialog() :KLineEditDlg( QString::null, QString::null, (QWidget*) 0 ) {}
 };
+
+} // namespace KimDaBaCompat
+
+using namespace KimDaBaCompat;
 
 #endif // KINPUTDIALOG_H

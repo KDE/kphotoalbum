@@ -89,9 +89,11 @@ void CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
             int start = txt.findRev( QRegExp(QString::fromLatin1("[!&|]")), cursorPosition() -2 ) +1;
             QString input = txt.mid( start, cursorPosition()-start-1 );
 
-            QListBoxItem* item = findItemInListBox( input );
-            if ( item )
-                _listbox->setSelected( item, true );
+            if ( !input.isEmpty() ) {
+                QListBoxItem* item = findItemInListBox( input );
+                if ( item )
+                    _listbox->setSelected( item, true );
+            }
 
             return;
         }

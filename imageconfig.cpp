@@ -581,8 +581,9 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 
 KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 {
+    // I need the fifth argument to get things compiling with KDE 3.1.0, given that I use -DNO_CAST_ASCII
     KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
-                                                             this, optionGroup );
+                                                             this, optionGroup, QString::fromLatin1("") );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
     _optionList.append( sel );

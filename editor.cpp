@@ -16,6 +16,13 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
+#include <kdeversion.h>
+#if !KDE_IS_VERSION(3,1,2)
+  // Bug in Qt 3.1.0 needs these undefined
+  #undef QT_NO_CAST_ASCII
+  #undef QT_CAST_NO_ASCII
+#endif
+
 #include "editor.h"
 #include <qlayout.h>
 #include <qtextedit.h>
@@ -25,12 +32,7 @@
 #include <klibloader.h>
 #include <ktexteditor/editinterface.h>
 
-// Bug in Qt 3.1.0 needs these undefined
-#undef QT_NO_CAST_ASCII
-#undef QT_CAST_NO_ASCII
 #include <kparts/componentfactory.h>
-#define QT_NO_CAST_ASCII
-#define QT_CAST_NO_ASCII
 
 Editor::Editor( QWidget* parent, const char* name )
     :QWidget( parent, name )
@@ -72,3 +74,7 @@ void Editor::setText( const QString& txt )
     edit->setText( txt );
 }
 
+#if !KDE_IS_VERSION(3,1,2)
+  #define QT_NO_CAST_ASCII
+  #define QT_CAST_NO_ASCII
+#endif

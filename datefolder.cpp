@@ -59,6 +59,8 @@ FolderAction* DateFolder::action( bool /* ctrlDown */ )
         ImageSearchInfo info( _info );
         info.setStartDate( ImageDate( dialog.fromDate() ) );
         info.setEndDate( ImageDate( dialog.toDate() ) );
+	Options::instance()->setFromDate( dialog.fromDate() );
+	Options::instance()->setToDate( dialog.toDate() );
         return new ContentFolderAction( QString::null, QString::null, info, _browser );
     }
     else
@@ -96,8 +98,8 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
     _to = new KDatePicker( top );
     lay3->addWidget( _to );
 
-    _from->setDate( QDate( QDate::currentDate().year(), 1, 1 ) );
-    _to->setDate( QDate( QDate::currentDate().year()+1, 1, 1 ) );
+    _from->setDate( Options::instance()->fromDate() );
+    _to->setDate( Options::instance()->toDate() );
     _prevFrom = _from->date();
     _prevTo   = _to   ->date();
     highlightPossibleDates( _from );

@@ -59,6 +59,11 @@ public:
     void setViewSortType( ViewSortType );
     ViewSortType viewSortType() const;
 
+    void setFromDate( const QDate& );
+    QDate fromDate() const;
+    void setToDate( const QDate& );
+    QDate toDate() const;
+
     // -------------------------------------------------- Options
     void setOption( const QString& category,  const QStringList& value );
     void addOption( const QString& category,  const QString& value );
@@ -190,6 +195,7 @@ private:
     friend class CategoryCollection;
     QMap<QString, QStringList> _options;
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL, _htmlDestURL;
+    QDate _fromDate, _toDate;
 
     Position _infoBoxPosition;
     bool _showInfoBox, _showDrawings, _showDescription, _showDate, _showTime;

@@ -1,5 +1,9 @@
 2004-12-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* The Date picker now remember dates from invocation to invocation
+	(Thanks to Jean-Michel FAYARD <jmfayard@gmail.com> for a patch for
+	this)
+
 	* Highlight date with images in the date picker. (Thanks to
 	Jean-Michel FAYARD <jmfayard@gmail.com> for a patch for this)
 

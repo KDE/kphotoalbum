@@ -36,6 +36,8 @@
 #include <qregexp.h>
 #include <qmessagebox.h>
 #include "categorycollection.h"
+#include <qdatetime.h>
+#include <qnamespace.h>
 
 Options* Options::_instance = 0;
 
@@ -71,6 +73,12 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
     _albumCategory = config.attribute( QString::fromLatin1( "albumCategory" ) );
     _viewSortType = (ViewSortType) config.attribute( QString::fromLatin1( "viewSortType" ) ).toInt();
+    _fromDate = QDate::fromString( config.attribute( QString::fromLatin1( "fromDate" ) ), ISODate );
+    if (! _fromDate.isValid() )
+        _fromDate = QDate( QDate::currentDate().year(), 1, 1 );
+    _toDate = QDate::fromString( config.attribute( QString::fromLatin1( "toDate" ) ), ISODate );
+    if (! _toDate.isValid() )
+        _toDate = QDate( QDate::currentDate().year()+1, 1, 1 );
     _launchViewerFullScreen = (bool) config.attribute( QString::fromLatin1( "launchViewerFullScreen" ) ).toInt();
     _launchSlideShowFullScreen = (bool) config.attribute( QString::fromLatin1( "launchSlideShowFullScreen" ) ).toInt();
     _displayLabels = (bool) config.attribute( QString::fromLatin1( "displayLabels" ), QString::fromLatin1( "1" ) ).toInt();
@@ -164,6 +172,8 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1("passwd"), _passwd );
     config.setAttribute( QString::fromLatin1( "albumCategory" ), _albumCategory );
     config.setAttribute( QString::fromLatin1( "viewSortTye" ), _viewSortType );
+    config.setAttribute( QString::fromLatin1( "fromDate" ), _fromDate.toString( Qt::ISODate ) );
+    config.setAttribute( QString::fromLatin1( "toDate" ), _toDate.toString( Qt::ISODate ) );
     config.setAttribute( QString::fromLatin1( "slideShowInterval" ), _slideShowInterval );
     config.setAttribute( QString::fromLatin1( "launchViewerFullScreen" ), _launchViewerFullScreen );
     config.setAttribute( QString::fromLatin1( "launchSlideShowFullScreen" ), _launchSlideShowFullScreen );
@@ -628,6 +638,28 @@ void Options::setViewSortType( ViewSortType tp )
 Options::ViewSortType Options::viewSortType() const
 {
     return _viewSortType;
+}
+
+void Options::setFromDate( const QDate& date)
+{
+    if (date.isValid())
+        _fromDate = date;
+}
+
+QDate Options::fromDate() const
+{
+    return _fromDate;
+}
+
+void  Options::setToDate( const QDate& date)
+{
+    if (date.isValid())
+	_toDate = date;
+}
+
+QDate Options::toDate() const
+{
+    return _toDate;
 }
 
 void Options::setSlideShowInterval( int interval )

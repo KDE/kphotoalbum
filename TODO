@@ -68,6 +68,14 @@ pictures were selected.
   Shopping >> Men's Clothing >> Outdoor gear
 - In the viewer it should be possible to click on the date, and get it to
 limit to that date.
+- Store URI in the XML file rather than relative names from a root dir.
+  Advantages are:
+  - It'd be possible to have the xml-file somewhere completely outside of
+    the image-tree so that you could, for example, have the images
+    themselves on a read-only media.  
+  - It'd be possible to work with a image-directory accessed over any of
+    the protocols for which there are kioslaves.  
+  - It'd be possible to include images from more than one directory.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
@@ -86,3 +94,4 @@ a 32x32 image to 1024x768)
   restore them later.  The scenario would be that I would select all
   images not previously backed up (by means of a keyword) and export
   them preserving layout, and dump the exported tree to DVD.
+- add a DCOP interface to KimDaBa

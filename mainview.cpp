@@ -1215,10 +1215,12 @@ void MainView::plug()
     unplugActionList( QString::fromLatin1("file_actions") );
     unplugActionList( QString::fromLatin1("image_actions") );
     unplugActionList( QString::fromLatin1("tool_actions") );
+    unplugActionList( QString::fromLatin1("batch_actions") );
 
     QPtrList<KAction> fileActions;
     QPtrList<KAction> imageActions;
     QPtrList<KAction> toolsActions;
+    QPtrList<KAction> batchActions;
 
     KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
@@ -1237,6 +1239,9 @@ void MainView::plug()
         else if ( plugin->category() == KIPI::TOOLSPLUGIN )
             popup = &toolsActions;
 
+        else if ( plugin->category() == KIPI::BATCHPLUGIN )
+            popup = &batchActions;
+
         if ( popup ) {
             KActionPtrList actions = plugin->actions();
             for( KActionPtrList::Iterator it = actions.begin(); it != actions.end(); ++it ) {
@@ -1254,6 +1259,7 @@ void MainView::plug()
     plugActionList( QString::fromLatin1("file_actions"), fileActions );
     plugActionList( QString::fromLatin1("image_actions"), imageActions );
     plugActionList( QString::fromLatin1("tool_actions"), toolsActions );
+    plugActionList( QString::fromLatin1("batch_actions"), batchActions );
 }
 
 

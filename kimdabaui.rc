@@ -49,6 +49,10 @@
         <Action name="removeAllThumbs"/>
         <Action name="buildThumbs"/>
       </Menu>
+      <Menu name="batch">
+        <text>Batch</text>
+        <ActionList name="batch_actions"/>
+      </Menu>
       <ActionList name="tool_actions"/>
    </Menu>
    <Menu name="settings">

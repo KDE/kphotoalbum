@@ -127,6 +127,7 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
     layout->addWidget( _listBox );
 
     _merge = new QCheckBox( "Merge",  this );
+    _merge->setChecked( true );
     layout->addWidget( _merge );
 
     _lineEdit->setListBox( _listBox );

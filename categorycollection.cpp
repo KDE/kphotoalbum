@@ -68,3 +68,16 @@ const QValueList<Category*>& CategoryCollection::categories() const
     return _categories;
 }
 
+/**
+   See Category::text() for description why I might want to do this conversion.
+*/
+QString CategoryCollection::nameForText( const QString& text )
+{
+    for( QValueList<Category*>::Iterator it = _categories.begin(); it != _categories.end(); ++it ) {
+        if ( (*it)->text() == text )
+            return (*it)->name();
+    }
+    Q_ASSERT( false );
+    return QString::null;
+}
+

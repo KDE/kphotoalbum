@@ -65,8 +65,7 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
 
     QVBoxLayout* lay2 = new QVBoxLayout( lay1, 6 );
 
-    // PENDING(blackie) When done with message freze, join the two strings below
-    QLabel* label = new QLabel( QString::fromLatin1( "%1:").arg(i18n("From") ), top );
+    QLabel* label = new QLabel( i18n("From:"), top );
     increaseFont( label, 2 );
     lay2->addWidget( label );
     _from = new KDatePicker( top );
@@ -82,7 +81,7 @@ DateSearchDialog::DateSearchDialog( QWidget* parent, const char* name )
 
     QVBoxLayout* lay3 = new QVBoxLayout( lay1, 6 );
     // PENDING(blackie) When done with message freze, join the two strings below
-    label = new QLabel( QString::fromLatin1( "%1:" ).arg( i18n("To") ), top );
+    label = new QLabel( i18n("To:"), top );
     increaseFont( label, 2 );
 
     lay3->addWidget( label );

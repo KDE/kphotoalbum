@@ -1,3 +1,8 @@
+2004-12-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Categories in virtual album configuration (General tab in
+	Settings) are now internationalized.
+
 2004-12-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* In the viewer moved away every default key binding on lettered

@@ -102,7 +102,10 @@ void OptionsDialog::createGeneralPage()
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
-    _albumCategory->insertStringList( CategoryCollection::instance()->categoryNames() ); // PENDING(blackie) Shouldn't this be the text for each group instead?
+    QValueList<Category*> categories = CategoryCollection::instance()->categories();
+    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        _albumCategory->insertItem( (*it)->text() );
+    }
 
     lay1->addStretch( 1 );
 
@@ -341,7 +344,12 @@ void OptionsDialog::show()
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
     _autosave->setValue( opt->autoSave() );
-    _albumCategory->setCurrentText( opt->albumCategory() );
+
+    Category* cat = CategoryCollection::instance()->categoryForName( opt->albumCategory() );
+    if ( !cat )
+        cat = CategoryCollection::instance()->categories()[0];
+    _albumCategory->setCurrentText( cat->text() );
+
     _displayLabels->setChecked( opt->displayLabels() );
     _backgroundColor->setColor( opt->thumbNailBackgroundColor() );
     _maxImages->setValue( opt->maxImages() );
@@ -380,7 +388,11 @@ void OptionsDialog::slotMyOK()
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
     opt->setAutoSave( _autosave->value() );
-    opt->setAlbumCategory( _albumCategory->currentText() );
+    QString name = CategoryCollection::instance()->nameForText( _albumCategory->currentText() );
+    if ( name.isNull() )
+        name = CategoryCollection::instance()->categoryNames()[0];
+
+    opt->setAlbumCategory( name );
     opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setThumbNailBackgroundColor( _backgroundColor->color() );
     opt->setMaxImages( _maxImages->value() );

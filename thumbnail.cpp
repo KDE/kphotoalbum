@@ -209,7 +209,13 @@ void ThumbNail::paintItem( QPainter * p, const QColorGroup & cg )
 QPixmapCache& ThumbNail::pixmapCache()
 {
     static QPixmapCache cache;
-    cache.setCacheLimit( 4* 1024 );
+    static int lastSize = -1;
+    cache.setCacheLimit( 4* 1024 ); // PENDING(blackie) make this size customizable
+    int currentThumbSize = Options::instance()->thumbSize();
+    if (lastSize != currentThumbSize) {
+      cache.clear();
+      lastSize = currentThumbSize;
+    }
     return cache;
 }
 

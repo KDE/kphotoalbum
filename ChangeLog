@@ -1,3 +1,10 @@
+2004-10-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Items in the edit menu (among these "delete image") was
+	not available if "display images not on disk" was activated from
+	the browser. Thanks to Robert L Krawitz <rlk@alum.mit.edu> for
+	finding the bug.
+
 2004-09-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Improved date editor: (1) sizing now works (2) there are no

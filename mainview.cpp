@@ -1140,9 +1140,8 @@ void MainView::slotUpdateViewMenu( Options::ViewSize size, Options::ViewType typ
 
 void MainView::slotShowNotOnDisk()
 {
-    _stack->raiseWidget( _thumbNailView );
     ImageDB::instance()->showUnavailableImages();
-    _thumbNailView->reload();
+    showThumbNails();
 }
 
 

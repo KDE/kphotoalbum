@@ -544,7 +544,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     // -------------------------------------------------- Description
     QString description;
 
-    QValueList<Category*> categories = categories = CategoryCollection::instance()->categories();
+    QValueList<Category*> categories = CategoryCollection::instance()->categories();
     for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( (*it)->isSpecialCategory() )
             continue;

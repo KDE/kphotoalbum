@@ -8,5 +8,7 @@ libsurvey_la_SOURCES = \
 	question.cpp surveydialog.cpp textquestion.cpp countprogressbar.cpp \
 	infopage.cpp alternativequestion.cpp
 
+METASOURCES = AUTO
+
 icondir = $(kde_datadir)/kimdaba/pics
 icon_DATA = questionmark.png questionmark-flipped.png exclamationmark.png

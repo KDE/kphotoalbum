@@ -68,33 +68,14 @@ label and an icon.</para>
 
 
 
-<sect1 id="sec-member-groups">
-  <title>Member Groups</title>
-  <para>Las Vegas, San Francisco, Los Angeles, and California are all
-located in USA. Furthermore, San Francisco and Los Angeles are located in
-California.</para>
+<sect1 id="sec-member-groups-in-options-dialog">
+<title>Member Groups</title>
 
-<para>Instead of specifying for each and every image from San Francisco,
-that it is in San Francisco, and in California, and in USA, you may instead
-specify in the <literal>Member Group</literal> configuration dialog, that
-San Francisco, and Los Angeles are in California, and that California among
-others are in USA. Doing so the browser (see <xref
-linkend="chp-browsing"/>) will offer you an item for USA, and an item for
-California in addition to all your normal items. Selecting California, you
-will see all images from San Francisco, Los Angeles, etc.</para>
-
-<para>In <xref linkend="fig-usa-as-a-member"/> you can see a browser
-window, containing USA as a member group item. To indicate to you that this is a
-group, a special icons is used.</para>
-
-<figure id="fig-usa-as-a-member">
-<title>Browser showing USA as a member</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="usa-as-a-member.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</figure>
+<para>In <xref linkend="sec-member-groups-in-property-editor"/> we discussed member
+groups. From the options dialog, it is possible to configure entire member
+groups, i.e. configure all members of a group in one go rather than
+configure all groups for a member as was the situation in <xref
+linkend="sec-member-groups-in-property-editor"/>.</para>
 
 <para>In <xref linkend="fig-options-member"/> you can see the configuration
 page for specifying member groups. At the top there is a combo box, where
@@ -117,11 +98,6 @@ button at the bottom of the dialog.</para>
 <para>As in the example above, member groups may contain member groups
 them self, so the member group USA may contain the member group
 California.</para>
-
-<para>When setting properties for images (see <xref
-linkend="chp-typingIn"/>), the member groups are available as any other item
-in the list box, that way you may specify that a given image is from USA,
-if you don't remember where in USA it exactly is.</para>
 
 </sect1>
 

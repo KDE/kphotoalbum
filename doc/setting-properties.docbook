@@ -138,7 +138,62 @@ in question. If on the other hand you uncheck the <literal>merge</literal>
 check box, then the option will be set unconditionally.</para>
     </sect2>
   </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title>Member Groups</title>
+  <para>Las Vegas, San Francisco, Los Angeles, and California are all
+located in USA. Furthermore, San Francisco and Los Angeles are located in
+California.</para>
+
+<para>Instead of specifying for each and every image from San Francisco,
+that it is in San Francisco, and in California, and in USA, you may instead
+tell KimDaBa that San Francisco, and Los Angeles are in California, and that California among
+others are in USA. Doing so the browser (see <xref
+linkend="chp-browsing"/>) will offer you an item for USA, and an item for
+California in addition to all your normal items. Selecting California, you
+will see all images from San Francisco, Los Angeles, etc.</para>
+
+<para>In <xref linkend="fig-usa-as-a-member"/> you can see a browser
+window, containing USA as a member group item. To indicate to you that this is a
+group, a special icon is used.</para>
+
+<figure id="fig-usa-as-a-member">
+<title>Browser showing USA as a member</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>In the context menu for the image property editor there is an item
+for member groups, here you specify that the given item is a member of a
+given group. See <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title>Member Group Configuration</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>When setting properties for images, the member groups are available as any other item
+in the list box, that way you may specify that a given image is from USA,
+if you don't remember where in USA it exactly is.</para>
+
+<para>It is also possible to configure all members of a group in one go,
+see <xref linkend="sec-member-groups-in-options-dialog"/>.</para>
+
+</sect1>
+
+
+
   
+
+
   <sect1 id="sect-changing-layout-of-the-property-window">
     <title>Changing layout of the property window</title>
     <para>It is possible to move the items of the property window

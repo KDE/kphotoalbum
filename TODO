@@ -15,7 +15,8 @@ an other 90.0 angle...
 - Import is only working when I import into the directory with an existing 
 thumbnails directory. I tried to import into a new subdirectory: Kimdaba 
 didn't create the thumbnails directory.
-
+- when writing to a different directory that the topmost, import doesn't
+work. The file part of the xml file needs to be updated.
 
 ==========================
 BUGS To be handled soonish

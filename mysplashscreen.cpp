@@ -38,3 +38,5 @@ bool MySplashScreen::close( bool /*alsoDelete*/ )
     _instance = 0;
     return KSplashScreen::close( true );
 }
+
+#include "mysplashscreen.moc"

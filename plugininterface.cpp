@@ -19,7 +19,10 @@ KIPI::ImageCollection PluginInterface::currentAlbum()
 
 KIPI::ImageCollection PluginInterface::currentSelection()
 {
-    return KIPI::ImageCollection( new MyImageCollection( MyImageCollection::CurrentSelection ) );
+    if ( MainView::theMainView()->selected().count() != 0 )
+        return KIPI::ImageCollection( new MyImageCollection( MyImageCollection::CurrentSelection ) );
+    else
+        return KIPI::ImageCollection(0);
 }
 
 QValueList<KIPI::ImageCollection> PluginInterface::allAlbums()

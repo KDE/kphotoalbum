@@ -227,14 +227,16 @@ void Viewer::setDisplayedPixmap()
 
         QString text = "" ;
         if ( Options::instance()->showDate() )  {
-            text += "<b>Date:</b> ";
             if ( currentInfo()->startDate().isNull() )
-                text += "Unknown";
+                text += "";
             else if ( currentInfo()->endDate().isNull() )
                 text += currentInfo()->startDate();
             else
                 text += currentInfo()->startDate() + " to " + currentInfo()->endDate();
-            text += "<br>";
+
+            if ( !text.isEmpty() ) {
+                text = "<b>Date:</b> " + text + "<br>";
+            }
         }
 
         // PENDING(blackie) The key is used both as a key and a label, which is a problem here.

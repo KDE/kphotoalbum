@@ -25,7 +25,7 @@ kpalbum_SOURCES = main.cpp \
 	showbusycursor.cpp \
 	displayarea.cpp \
 	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp \
-	infopage.cpp htmlexportdialog.cpp imagecounter.cpp
+	infopage.cpp htmlexportdialog.cpp imagecounter.cpp iconviewtooltip.cpp
 
 kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH) -lktexteditor
 kpalbum_LDADD = $(LIB_KIO) $(LIBJPEG)

@@ -17,6 +17,7 @@
 #include <kiconloader.h>
 #include <kaction.h>
 #include <klocale.h>
+#include "util.h"
 
 Viewer* Viewer::_instance = 0;
 
@@ -225,43 +226,7 @@ void Viewer::setDisplayedPixmap()
     if ( Options::instance()->showInfoBox() )  {
         QPainter p( &pixmap );
 
-        QString text = "" ;
-        if ( Options::instance()->showDate() )  {
-            if ( currentInfo()->startDate().isNull() )
-                text += "";
-            else if ( currentInfo()->endDate().isNull() )
-                text += currentInfo()->startDate();
-            else
-                text += currentInfo()->startDate() + " to " + currentInfo()->endDate();
-
-            if ( !text.isEmpty() ) {
-                text = "<b>Date:</b> " + text + "<br>";
-            }
-        }
-
-        // PENDING(blackie) The key is used both as a key and a label, which is a problem here.
-        if ( Options::instance()->showLocation() )  {
-            QString location = currentInfo()->optionValue( "Locations" ).join( ", " );
-            if ( location )
-                text += "<b>Location:</b> " + location + "<br>";
-        }
-
-        if ( Options::instance()->showNames() ) {
-            QString persons = currentInfo()->optionValue( "Persons" ).join( ", " );
-            if ( persons )
-                text += "<b>Persons:</b> " + persons + "<br>";
-        }
-
-        if ( Options::instance()->showDescription() && !currentInfo()->description().isEmpty())  {
-            if ( !text.isEmpty() )
-                text += "<b>Description:</b> " +  currentInfo()->description() + "<br>";
-        }
-
-        if ( Options::instance()->showKeyWords() )  {
-            QString keyWords = currentInfo()->optionValue( "Keywords" ).join( ", " );
-            if ( keyWords )
-                text += "<b>Key Words:</b> " + keyWords + "<br>";
-        }
+        QString text = Util::createInfoText( currentInfo() );
 
         Options::Position pos = Options::instance()->infoBoxPosition();
         if ( !text.isEmpty() )  {

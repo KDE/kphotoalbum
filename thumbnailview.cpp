@@ -4,6 +4,7 @@
 #include <qpixmap.h>
 #include "viewer.h"
 #include <qmessagebox.h>
+#include "iconviewtooltip.h"
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :QIconView( parent,  name ), _currentHighlighted( 0 )
@@ -15,6 +16,7 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     connect( this,  SIGNAL( doubleClicked( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
 
     setSelectionMode( Extended );
+    new IconViewToolTip( this );
 }
 
 

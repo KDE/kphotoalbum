@@ -1,4 +1,6 @@
 #include "util.h"
+#include "options.h"
+#include "imageinfo.h"
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options )
 {
@@ -45,4 +47,46 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
             }
         }
     }
+}
+
+QString Util::createInfoText( ImageInfo* info )
+{
+    QString text = "" ;
+    if ( Options::instance()->showDate() )  {
+        if ( info->startDate().isNull() )
+            text += "";
+        else if ( info->endDate().isNull() )
+            text += info->startDate();
+        else
+            text += info->startDate() + " to " + info->endDate();
+
+        if ( !text.isEmpty() ) {
+            text = "<b>Date:</b> " + text + "<br>";
+        }
+    }
+
+    // PENDING(blackie) The key is used both as a key and a label, which is a problem here.
+    if ( Options::instance()->showLocation() )  {
+        QString location = info->optionValue( "Locations" ).join( ", " );
+        if ( location )
+            text += "<b>Location:</b> " + location + "<br>";
+    }
+
+    if ( Options::instance()->showNames() ) {
+        QString persons = info->optionValue( "Persons" ).join( ", " );
+        if ( persons )
+            text += "<b>Persons:</b> " + persons + "<br>";
+    }
+
+    if ( Options::instance()->showDescription() && !info->description().isEmpty())  {
+        if ( !text.isEmpty() )
+            text += "<b>Description:</b> " +  info->description() + "<br>";
+    }
+
+    if ( Options::instance()->showKeyWords() )  {
+        QString keyWords = info->optionValue( "Keywords" ).join( ", " );
+        if ( keyWords )
+            text += "<b>Key Words:</b> " + keyWords + "<br>";
+    }
+    return text;
 }

@@ -8,7 +8,6 @@
 - when images are deleted, the total count at the bottom of the mainwindow,
 should update
 - undo/redo
-- drag an image out of KimDaBa to say the background
 - read date and rotation out of the JPEG file info
 - made it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when exporting

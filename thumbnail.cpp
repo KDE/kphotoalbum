@@ -110,7 +110,7 @@ bool ThumbNail::acceptDrop( const QMimeSource * /*mime*/ ) const
 void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* lst */ )
 {
     setPixmap( _pixmap );
-    if ( !e->source() || e->source()->parent() != iconView() ) {
+    if ( e->source() != iconView() ) {
         // PENDING(blackie) Show a message box
         qDebug("Nope we don't want drops from outside!");
         return;
@@ -165,3 +165,4 @@ bool ThumbNail::atRightSizeOfItem()
     int xDiff = (cursorPos-myPos).x();
     return ( xDiff > width()/2 );
 }
+

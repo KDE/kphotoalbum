@@ -50,6 +50,7 @@ protected:
     void setHighlighted( ThumbNail* item );
     QPtrList<ThumbNail> selected() const;
     void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
+    QDragObject* dragObject();
 
 private:
     ThumbNail* _currentHighlighted;

@@ -28,6 +28,7 @@
 #include <qapplication.h>
 #include "util.h"
 #include <qpopupmenu.h>
+#include <kurldrag.h>
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :KIconView( parent,  name ), _currentHighlighted( 0 )
@@ -211,5 +212,20 @@ void ThumbNailView::showToolTipsOnImages()
     _iconViewToolTip->showToolTips();
 }
 
+
+QDragObject* ThumbNailView::dragObject()
+{
+    QPtrList<ThumbNail> list= selected();
+    if ( !list.isEmpty() ) {
+        KURL::List l;
+        for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
+            l.append( (*it)->fileName() );
+        }
+        return new KURLDrag( l, this );
+    }
+
+    else
+        return 0;
+}
 
 #include "thumbnailview.moc"

@@ -5,6 +5,7 @@
 #include "imageinfo.h"
 #include "options.h"
 #include <kmainwindow.h>
+#include <kaction.h>
 class ImageInfo;
 class QLabel;
 class QPopupMenu;
@@ -72,10 +73,11 @@ private:
     QPixmap _pixmap;
 
     KToolBar* _toolbar;
-    KAction* _select;
-    KAction* _line;
-    KAction* _rect;
-    KAction* _circle;
+    KToggleAction* _select;
+    KToggleAction* _line;
+    KToggleAction* _rect;
+    KToggleAction* _circle;
+    KAction* _delete;
 };
 
 #endif /* VIEWER_H */

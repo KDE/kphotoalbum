@@ -37,21 +37,28 @@ Viewer::Viewer( QWidget* parent, const char* name )
 
     KIconLoader loader;
     _toolbar = new KToolBar( this );
-    _select = new KAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
+    _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
                          0, _label, SLOT( slotSelect() ),actionCollection(), "_select");
     _select->plug( _toolbar );
+    _select->setExclusiveGroup( "ViewerTools" );
 
-    _line = new KAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
+    _line = new KToggleAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
                          0, _label, SLOT( slotLine() ),actionCollection(), "_line");
     _line->plug( _toolbar );
+    _line->setExclusiveGroup( "ViewerTools" );
 
-    _rect = new KAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
+    _rect = new KToggleAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
                          0, _label, SLOT( slotRectangle() ),actionCollection(), "_rect");
     _rect->plug( _toolbar );
+    _rect->setExclusiveGroup( "ViewerTools" );
 
-    _circle = new KAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
+    _circle = new KToggleAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
                            0, _label, SLOT( slotCircle() ),actionCollection(), "_circle");
     _circle->plug( _toolbar );
+    _circle->setExclusiveGroup( "ViewerTools" );
+
+    _delete = KStdAction::cut( _label, SLOT( cut() ), actionCollection(), "cutAction" );
+    _delete->plug( _toolbar );
 
     setupContextMenu();
 }

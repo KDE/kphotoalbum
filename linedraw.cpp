@@ -13,7 +13,6 @@ void LineDraw::draw( QPainter& painter, QMouseEvent* event )
     Draw::draw( painter, event );
 
     painter.save();
-    painter.setPen( QPen( Qt::black, 3 ) );
     painter.drawLine( _startPos, _lastPos );
 
     double dx = _lastPos.x() - _startPos.x();

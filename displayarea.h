@@ -16,6 +16,7 @@ public slots:
     void slotCircle();
     void slotSelect();
     void setPixmap( const QPixmap& pixmap );
+    void cut();
 
 protected:
     virtual void mousePressEvent( QMouseEvent* event );
@@ -24,6 +25,7 @@ protected:
     Draw* createTool();
     void drawAll();
     Draw* findShape( const QPoint& );
+    void setupPainter( QPainter& painter );
 
 private:
     enum Tool { Select, Line, Rectangle, Circle, None};

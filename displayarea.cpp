@@ -59,6 +59,7 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
     if ( _activeTool ) {
         QPixmap pix = _curPixmap;
         QPainter painter( &pix );
+        setupPainter( painter );
         _activeTool->draw( painter, event );
         QLabel::setPixmap( pix );
     }
@@ -73,6 +74,7 @@ void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
     else if ( _activeTool ) {
         QPixmap pix = _curPixmap;
         QPainter painter( &pix );
+        setupPainter( painter );
         _activeTool->draw( painter, event );
         _curPixmap = pix;
         QLabel::setPixmap( pix );
@@ -108,7 +110,10 @@ void DisplayArea::drawAll()
     _curPixmap = _origPixmap;
     QPainter painter( &_curPixmap );
     for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
+        painter.save();
+        setupPainter( painter );
         (*it)->draw( painter, 0 );
+        painter.restore();
         if ( _showAnchors ) {
             PointList list = (*it)->anchorPoints();
             for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
@@ -146,5 +151,20 @@ Draw* DisplayArea::findShape( const QPoint& pos)
         }
     }
     return 0;
+}
+
+void DisplayArea::cut()
+{
+    if ( _activeTool )  {
+        _drawings.remove( _activeTool );
+        delete _activeTool;
+        _activeTool = 0;
+        drawAll();
+    }
+}
+
+void DisplayArea::setupPainter( QPainter& painter )
+{
+    painter.setPen( QPen( Qt::black, 3 ) );
 }
 

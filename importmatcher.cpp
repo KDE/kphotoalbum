@@ -63,13 +63,15 @@ ImportMatcher::ImportMatcher( const QString& otherOptionGroup, const QString& my
     }
 }
 
-OptionMatch::OptionMatch( bool allowNew, const QString& option, const QStringList& options, QWidget* parent, QGridLayout* grid, int row )
+OptionMatch::OptionMatch( bool allowNew, const QString& option, QStringList options, QWidget* parent, QGridLayout* grid, int row )
 {
     _checkbox = new QCheckBox( option, parent );
     _checkbox->setChecked( true );
     grid->addWidget( _checkbox, row, 0 );
 
     _combobox = new QComboBox( allowNew, parent, "combo box" );
+
+    options.sort();
     _combobox->insertStringList( options );
     QObject::connect( _checkbox, SIGNAL( toggled( bool ) ), _combobox, SLOT( setEnabled( bool ) ) );
     grid->addWidget( _combobox, row, 1 );

@@ -5,7 +5,7 @@
 class LineDraw :public Draw
 {
 public:
-    LineDraw();
+    LineDraw( QWidget* widget );
     void draw( QPainter&, QMouseEvent* );
     virtual PointList anchorPoints();
 };

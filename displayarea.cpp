@@ -87,9 +87,9 @@ void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 Draw* DisplayArea::createTool()
 {
     switch ( _tool ) {
-    case Line: return new LineDraw();
-    case Rectangle: return new RectDraw();
-    case Circle: return new CircleDraw();
+    case Line: return new LineDraw( this );
+    case Rectangle: return new RectDraw( this );
+    case Circle: return new CircleDraw( this );
     default:
     {
         Q_ASSERT( false );

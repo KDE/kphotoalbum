@@ -1,6 +1,6 @@
 #include "rectdraw.h"
 #include <qpainter.h>
-RectDraw::RectDraw()
+RectDraw::RectDraw( QWidget* widget ) :Draw( widget )
 {
 
 }

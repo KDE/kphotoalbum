@@ -3,7 +3,7 @@
 #include <qevent.h>
 #include <math.h>
 #include <iostream.h>
-LineDraw::LineDraw()
+LineDraw::LineDraw( QWidget* widget ) :Draw( widget )
 {
 
 }
@@ -13,10 +13,11 @@ void LineDraw::draw( QPainter& painter, QMouseEvent* event )
     Draw::draw( painter, event );
 
     painter.save();
-    painter.drawLine( _startPos, _lastPos );
+    painter.drawLine( g2w(_startPos), g2w(_lastPos) );
 
-    double dx = _lastPos.x() - _startPos.x();
-    double dy = _lastPos.y() - _startPos.y();
+    QPoint diff = g2w( QPoint( _lastPos.x() - _startPos.x(), _lastPos.y() - _startPos.y() ) );
+    double dx = diff.x();
+    double dy = diff.y();
 
     if ( dx != 0 || dy != 0 ) {
         if( dy < 0 ) dx = -dx;
@@ -26,7 +27,7 @@ void LineDraw::draw( QPainter& painter, QMouseEvent* event )
         // angle is now the angle of the line.
 
         angle = angle + 180 - 15;
-        painter.translate( _lastPos.x(), _lastPos.y() );
+        painter.translate( g2w(_lastPos).x(), g2w(_lastPos).y() );
         painter.rotate( angle );
         painter.drawLine( QPoint(0,0), QPoint( 30,0 ) );
 
@@ -40,6 +41,6 @@ void LineDraw::draw( QPainter& painter, QMouseEvent* event )
 PointList LineDraw::anchorPoints()
 {
     PointList res;
-    res << _startPos << _lastPos << _startPos + (_lastPos - _startPos) / 2;
+    res << g2w(_startPos) << g2w(_lastPos) << g2w(_startPos) + g2w((_lastPos - _startPos) / 2);
     return res;
 }

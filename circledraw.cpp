@@ -1,8 +1,7 @@
 #include "circledraw.h"
 #include <qpainter.h>
-CircleDraw::CircleDraw()
+CircleDraw::CircleDraw( QWidget* widget ) :Draw( widget )
 {
-
 }
 
 void CircleDraw::draw( QPainter& painter, QMouseEvent* event )

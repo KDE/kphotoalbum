@@ -46,6 +46,7 @@ DateBar::DateBar( QWidget* parent, const char* name )
 {
     setBackgroundMode( NoBackground );
     setMouseTracking( true );
+    setFocusPolicy( StrongFocus );
 
     _barWidth = Options::instance()->histogramSize().width();
     _barHeight = Options::instance()->histogramSize().height();
@@ -649,5 +650,32 @@ void DateBar::placeAndSizeButtons()
 
     x = _rightArrow->pos().x();
     _zoomIn->move(x, y );
+}
+
+void DateBar::keyPressEvent( QKeyEvent* event )
+{
+    int offset = 0;
+    if ( event->key() == Key_Left )
+        offset = -1;
+    else if ( event->key() == Key_Right )
+        offset = 1;
+    else if ( event->key() == Key_PageDown )
+        offset = -10;
+    else if ( event->key() == Key_PageUp )
+        offset = 10;
+    else
+        return;
+
+    QDateTime newDate =_currentHandler->date( offset, _currentDate );
+    if ( (offset < 0 && newDate >= _dates.lowerLimit()) ||
+         ( offset > 0 && newDate <= _dates.upperLimit() ) ) {
+        _currentDate = newDate;
+        _currentUnit += offset;
+        if ( _currentUnit < 0 )
+            _currentUnit = 0;
+        if ( _currentUnit > numberOfUnits() )
+            _currentUnit = numberOfUnits();
+    }
+    redraw();
 }
 

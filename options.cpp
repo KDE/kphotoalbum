@@ -33,6 +33,7 @@
 #include "imagedb.h"
 #include "imageconfig.h"
 #include <qtextstream.h>
+#include <qregexp.h>
 
 Options* Options::_instance = 0;
 QString Options::_confFile = QString::null;
@@ -73,6 +74,9 @@ Options::Options()
             str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
             str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
             str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
+            str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
+            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
+            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
             doc.setContent( str );
         }
     }

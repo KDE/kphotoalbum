@@ -23,6 +23,7 @@
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
+#include <kimageio.h>
 
 static const KCmdLineOptions options[] =
 {
@@ -44,6 +45,8 @@ int main( int argc, char** argv ) {
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "c" ) )
         Options::setConfFile( args->getOption( "c" ) );
+
+    KImageIO::registerFormats();
 
     MainView* view = new MainView( args->isSet( "demo" ), 0,  "view" );
     qApp->setMainWidget( view );

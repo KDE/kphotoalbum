@@ -40,6 +40,7 @@ protected:
 private:
     ImageInfo _info;
     QString _fileName;
+    int _angle;
 };
 
 

@@ -41,34 +41,17 @@ QSize ImagePreview::sizeHint() const
 
 void ImagePreview::rotate(int angle)
 {
-    if ( !_info.isNull() ) {
+    if ( !_info.isNull() )
         _info.rotate( angle );
-        reload();
-    }
+    else
+        _angle += angle;
+    reload();
 }
 
 void ImagePreview::setImage( const ImageInfo& info )
 {
     _info = info;
     reload();
-}
-
-void ImagePreview::reload()
-{
-    if ( !_info.isNull() ) {
-        QImage img = _info.load( width(), height() );
-        setPixmap( img );
-    }
-    else {
-        QImage img( _fileName );
-        img = ImageLoader::rotateAndScale( img, width(), height(), 0 );
-        setPixmap( img );
-    }
-}
-
-int ImagePreview::angle() const
-{
-    return _info.angle();
 }
 
 /**
@@ -79,7 +62,28 @@ void ImagePreview::setImage( const QString& fileName )
 {
     _fileName = fileName;
     _info = ImageInfo();
+    _angle = 0;
     reload();
+}
+
+
+void ImagePreview::reload()
+{
+    if ( !_info.isNull() ) {
+        QImage img = _info.load( width(), height() );
+        setPixmap( img );
+    }
+    else {
+        QImage img( _fileName );
+        img = ImageLoader::rotateAndScale( img, width(), height(), _angle );
+        setPixmap( img );
+    }
+}
+
+int ImagePreview::angle() const
+{
+    Q_ASSERT( _info.isNull() );
+    return _angle;
 }
 
 #include "imagepreview.moc"

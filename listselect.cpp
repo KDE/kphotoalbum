@@ -29,6 +29,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
+#include <qapplication.h>
 
 class CompletableLineEdit :public QLineEdit {
 public:

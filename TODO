@@ -40,17 +40,6 @@ Features for a soonish version
   This is the behaviour of many programs with possibilities to select many 
   items and change some properties (mostly checkboxes)
 - make it possible to specify dates in other formats in the image config dialog
-- Add a way to mark images using a single key stroke, something like:
-  select a bunch of images, start the viewer in the viewer SPACE set some
-  options for the image, and go to the next image, while RET just goes to the
-  next image. (That way you can easily go through hundreds of images putting
-  the keyword "print", and later search for keyword print for sending images
-  to printer)
-  This could of course be extended so you could set keywords with
-  different key bindings (which should be configurable):
-  (c) - image is from Copenhagen
-  (l) - image is from Las Vegas.
-  I doubt that extension will be very useful tho.
 - rework member group config page to use kdlistboxpair instead.
 - improve the spelling support, so the user get the benefit of the config dialog.
 - Find all images with changed checksums (rather than merely
@@ -63,16 +52,11 @@ Features still to be considered (aka not likely to go in next release)
 ======================================================================
 - In search mode, radio buttons labeled "Or" and "And" should be available
   to tell how the items in the listbox should be combined.
-- undo/redo
 - when specifying options for several images at a time, present items that
   are on all images.
-- Path could be a criteria in image search.
 - add kio: kimdaba://places/house
 - polish the offline mode, so it might be able to ask for you mounting say
   a cd with the images needed.
-- the search dialog does currently support &,|, and ! 
-  (example Anne Helene & !Jesper )
-  add support for parenthesis (example Spiff & ( Anne Helene | Jesper ) )
 - make it possible to specify a pattern for directories to ignore, say .thumbs
 - Viewer: make it optional if images should be sized up (that is don't scale
 a 32x32 image to 1024x768)

@@ -250,6 +250,8 @@ void ImageConfig::slotPrev()
         return;
 
     _current--;
+    if ( _setup == SINGLE && _current != 0 )
+        _preview->anticipate(_editList[ _current-1 ]);
     load();
 }
 
@@ -262,6 +264,8 @@ void ImageConfig::slotNext()
         return;
 
     _current++;
+    if ( _setup == SINGLE && _current != (int)_origList.count()-1 )
+        _preview->anticipate(_editList[ _current+1 ]);
     load();
 }
 

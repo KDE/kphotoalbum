@@ -31,6 +31,8 @@ ImagePreview::ImagePreview( QWidget* parent, const char* name )
 
 void ImagePreview::resizeEvent( QResizeEvent* )
 {
+    _preloader.cancelPreload();
+    _lastImage.reset();
     reload();
 }
 
@@ -45,6 +47,8 @@ void ImagePreview::rotate(int angle)
         _info.rotate( angle );
     else
         _angle += angle;
+    _preloader.cancelPreload();
+    _lastImage.reset();
     reload();
 }
 
@@ -70,8 +74,18 @@ void ImagePreview::setImage( const QString& fileName )
 void ImagePreview::reload()
 {
     if ( !_info.isNull() ) {
-        QImage img = _info.load( width(), height() );
-        setPixmap( img );
+        QImage img;
+        if (_preloader.has(_info.fileName()))
+            setCurrentImage(_preloader.getImage());
+        else if (_lastImage.has(_info.fileName()))
+            //don't pass by reference, the additional constructor is needed here
+            //see setCurrentImage for the reason (where _lastImage is changed...)
+            setCurrentImage(QImage(_lastImage.getImage()));
+        else {
+            setPixmap(QImage()); //erase old image
+            ImageManager::instance()->stop(this);    
+            ImageManager::instance()->load(_info.fileName(), this, _info.angle(), width(), height(), false, true);
+        }
     }
     else {
         QImage img( _fileName );
@@ -85,5 +99,97 @@ int ImagePreview::angle() const
     Q_ASSERT( _info.isNull() );
     return _angle;
 }
+
+void ImagePreview::setCurrentImage(const QImage &image)
+{
+    //cache the current image as the last image before changing it
+    _lastImage.set(_currentImage);
+    _currentImage.set(_info.fileName(), image);
+    setPixmap(_currentImage.getImage());
+    if (!_anticipated._fileName.isNull())
+        _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
+}
+
+void ImagePreview::pixmapLoaded( const QString& fileName, int, int, int, const QImage& image) 
+{
+    if ( !_info.isNull() ) {
+        if (_info.fileName() == fileName)
+            setCurrentImage(image);
+    }
+}
+
+void ImagePreview::anticipate(ImageInfo &info1) {
+    //We cannot call _preloader.preloadImage right here:
+    //this function is called before reload(), so if we preload here,
+    //the preloader will always be loading the image after the next image.
+    _anticipated.set(info1.fileName(), info1.angle());
+}
+
+
+ImagePreview::PreloadInfo::PreloadInfo() : _angle(0)
+{
+}
+
+void ImagePreview::PreloadInfo::set(const QString& fileName, int angle)
+{
+    _fileName=fileName;
+    _angle=angle;
+}
+
+
+bool ImagePreview::PreviewImage::has(const QString &fileName) const
+{
+    return fileName==_fileName && !_image.isNull();
+}
+
+QImage &ImagePreview::PreviewImage::getImage()
+{
+    return _image;
+}
+
+const QString &ImagePreview::PreviewImage::getName() const
+{
+    return _fileName;
+}
+
+void ImagePreview::PreviewImage::set(const QString &fileName, const QImage &image)
+{
+    _fileName=fileName;
+    _image=image;
+}
+
+void ImagePreview::PreviewImage::set(const PreviewImage &other)
+{
+    _fileName=other._fileName;
+    _image=other._image;
+}
+
+void ImagePreview::PreviewImage::reset()
+{
+    _fileName=QString::null;
+    _image=QImage();
+}
+
+
+void ImagePreview::PreviewLoader::pixmapLoaded( const QString& fileName, int w, int h, int, const QImage& image) 
+{
+    set(fileName, image);
+}
+
+
+void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int width, int height, int angle) 
+{
+    //no need to worry about concurrent access: everything happens in the event loop thread
+    reset();
+    ImageManager::instance()->stop(this);    
+    ImageManager::instance()->load(fileName, this, angle, width, height, false, true);
+}
+
+void ImagePreview::PreviewLoader::cancelPreload() 
+{
+    reset();
+    ImageManager::instance()->stop(this);
+}
+
 
 #include "imagepreview.moc"

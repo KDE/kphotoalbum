@@ -24,7 +24,6 @@
 #include "imagesearchinfo.h"
 #include <kdockwidget.h>
 #include <qspinbox.h>
-#include "imagepreview.h"
 #include "editor.h"
 #include <qdialog.h>
 #include <ktimewidget.h>
@@ -36,6 +35,7 @@ class KLineEdit;
 class KDockWidget;
 class KDatePicker;
 class KDateEdit;
+class ImagePreview;
 
 class ImageConfig :public QDialog {
     Q_OBJECT

@@ -23,7 +23,7 @@
 #include "imageclient.h"
 #include <qimage.h>
 
-class ImagePreview :public QLabel {
+class ImagePreview :public QLabel, public ImageClient {
     Q_OBJECT
 public:
     ImagePreview( QWidget* parent, const char* name = 0);
@@ -32,14 +32,47 @@ public:
     void setImage( const ImageInfo& info );
     void setImage( const QString& fileName );
     int angle() const;
+    void anticipate(ImageInfo &info1);
+    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
 
 protected:
     virtual void resizeEvent( QResizeEvent* );
     void reload();
+    void setCurrentImage(const QImage &image);
+    
+    class PreviewImage {
+    public:
+        bool has(const QString &fileName) const;
+        QImage &getImage();
+        const QString &getName() const;
+        void set(const QString &fileName, const QImage &image);
+        void set(const PreviewImage &other);
+        void reset();
+    protected:
+        QString _fileName;
+        QImage _image;
+    };
+    
+    struct PreloadInfo {
+        PreloadInfo();
+        void set(const QString& fileName, int angle);
+        QString _fileName;
+        int _angle;
+    };
+    
+    class PreviewLoader : public ImageClient, public PreviewImage  {
+    public:
+        void preloadImage( const QString& fileName, int width, int height, int angle);
+        void cancelPreload();    
+        virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
+    };
+    PreviewLoader _preloader;
 
 private:
     ImageInfo _info;
     QString _fileName;
+    PreviewImage _currentImage, _lastImage;
+    PreloadInfo _anticipated;
     int _angle;
 };
 

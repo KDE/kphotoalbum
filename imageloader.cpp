@@ -20,6 +20,7 @@
 #include <qwaitcondition.h>
 #include "imagemanager.h"
 #include "thumbnail.h"
+#include "util.h"
 #include <qfileinfo.h>
 #include <qapplication.h>
 #include "options.h"
@@ -28,7 +29,14 @@
 extern "C" {
 #define XMD_H // prevent INT32 clash from jpeglib
 #include <jpeglib.h>
+#include <limits.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <setjmp.h>
+#include <sys/types.h>
 }
 
 #include <qwmatrix.h>
@@ -47,11 +55,9 @@ void ImageLoader::run()
             QImage img;
             bool imageLoaded = false;
 
-            QString cacheDir = QFileInfo( li.fileName() ).dirPath() + QString::fromLatin1("/ThumbNails");
-            QString cacheFile = cacheDir + QString::fromLatin1("/%1x%2-%3-%4")
-                                .arg(li.width()).arg(li.height())
-                                .arg( li.angle()).arg( QFileInfo( li.fileName() ).fileName() );
-            // Try to load thumbernail from cache
+            QString cacheDir =  Util::getThumbnailDir( li.fileName() );
+            QString cacheFile = Util::getThumbnailFile( li.fileName(), li.width(), li.height(), li.angle() );
+             // Try to load thumbernail from cache
             if ( QFileInfo( cacheFile ).exists() ) {
                 if ( img.load( cacheFile ) )  {
                     imageLoaded = true;
@@ -59,7 +65,14 @@ void ImageLoader::run()
             }
 
             if ( !imageLoaded && QFile( li.fileName() ).exists() ) {
-                img.load( li.fileName() );
+                if (Util::isJPEG(li.fileName())) {
+                   Util::loadJPEG(&img, li.fileName(), li.width(), li.height());
+                } else
+                   img.load( li.fileName() );
+
+                // If we are looking for a scaled version, then scale
+                if ( li.width() != -1 && li.height() != -1 )
+                    img = img.smoothScale( li.width(), li.height(), QImage::ScaleMin );
 
                 if ( li.angle() != 0 )  {
                     QWMatrix matrix;
@@ -75,15 +88,9 @@ void ImageLoader::run()
                 // HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT
                 {
                     QImage hack = img.smoothScale( 256, 256, QImage::ScaleMin );
-                    QString cacheFileForHack = cacheDir + QString::fromLatin1("/%1x%2-%3-%4")
-                                               .arg(256).arg(256)
-                                               .arg( li.angle()).arg( QFileInfo( li.fileName() ).fileName() );
+                    QString cacheFileForHack = Util::getThumbnailFile( li.fileName(), 256, 256, li.angle() );
                     hack.save( cacheFileForHack, "JPEG" );
                 }
-
-                // If we are looking for a scaled version, then scale
-                if ( li.width() != -1 && li.height() != -1 )
-                    img = img.smoothScale( li.width(), li.height(), QImage::ScaleMin );
 
                 // Save thumbnail to disk
                 if ( li.cache() ) {

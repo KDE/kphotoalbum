@@ -39,9 +39,14 @@ public:
     static void deleteDemo();
     static QString setupDemo();
     static QString readInstalledFile( const QString& fileName );
+    static QString getThumbnailDir( const QString& imageFile );
+    static QString getThumbnailFile( const QString& imageFile, int width, int height, int angle );
     static void removeThumbNail( const QString& imageFile );
     static QString readFile( const QString& fileName );
     static QMap<QString,QVariant> getEXIF( const QString& fileName );
+    static bool loadJPEG(QImage *img, const QString& imageFile, int width=-1, int height=-1);
+    static bool isJPEG( const QString& fileName );
+    
     static ImageInfoList shuffle( ImageInfoList list );
 
     typedef QMap<QString, QString> UniqNameMap;

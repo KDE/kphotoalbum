@@ -25,6 +25,7 @@
 #include <qurl.h>
 #include <kapplication.h>
 #include <unistd.h>
+#include <qmutex.h>
 #include <qdir.h>
 #include <kstandarddirs.h>
 #include <stdlib.h>
@@ -34,6 +35,19 @@
 #include <kcmdlineargs.h>
 #include <kio/netaccess.h>
 #include "mainview.h"
+
+extern "C" {
+#define XMD_H // prevent INT32 clash from jpeglib
+#include <jpeglib.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <setjmp.h>
+#include <sys/types.h>
+}
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
                          QMap<QString,Options::OptionGroupInfo>* optionGroupInfo )
@@ -320,6 +334,20 @@ QString Util::readInstalledFile( const QString& fileName )
     return content;
 }
 
+QString Util::getThumbnailDir( const QString& imageFile ) {
+    return QFileInfo( imageFile ).dirPath() + QString::fromLatin1("/ThumbNails");
+}
+
+QString Util::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
+    QFileInfo info( imageFile );
+    return info.dirPath() + QString::fromLatin1("/ThumbNails")+
+           QString::fromLatin1("/%1x%2-%3-%4")
+                                .arg(width)
+                                .arg(height)
+                                .arg(angle)
+                                .arg( info.fileName() );
+}
+
 void Util::removeThumbNail( const QString& imageFile )
 {
     QFileInfo fi( imageFile );
@@ -367,6 +395,121 @@ QMap<QString,QVariant> Util::getEXIF( const QString& fileName )
         map.insert( *it, item.value() );
     }
     return map;
+}
+
+struct myjpeg_error_mgr : public jpeg_error_mgr 
+{
+    jmp_buf setjmp_buffer;
+};
+
+extern "C"
+{
+  static void myjpeg_error_exit(j_common_ptr cinfo)
+  {
+    myjpeg_error_mgr* myerr = 
+      (myjpeg_error_mgr*) cinfo->err;
+
+    char buffer[JMSG_LENGTH_MAX];
+    (*cinfo->err->format_message)(cinfo, buffer);
+    //kdWarning() << buffer << endl;
+    longjmp(myerr->setjmp_buffer, 1);
+  }
+}
+
+bool Util::loadJPEG(QImage *img, const QString& imageFile, int width, int height) {
+   static QMutex jpegMutex;
+   QMutexLocker lock(&jpegMutex); //this is not necessary if all the following is reentrant - don't know
+   
+   FILE* inputFile=fopen(imageFile.latin1(), "rb");
+   if(!inputFile)
+      return false;
+   
+   struct jpeg_decompress_struct    cinfo;
+   struct myjpeg_error_mgr jerr;
+   
+   // JPEG error handling - thanks to Marcus Meissner
+   cinfo.err             = jpeg_std_error(&jerr);
+   cinfo.err->error_exit = myjpeg_error_exit;
+   
+   if (setjmp(jerr.setjmp_buffer)) {
+      jpeg_destroy_decompress(&cinfo);
+      fclose(inputFile);
+      return false;
+   }
+   
+   jpeg_create_decompress(&cinfo);
+   jpeg_stdio_src(&cinfo, inputFile);
+   jpeg_read_header(&cinfo, TRUE);
+   
+   int imgSize = QMAX(cinfo.image_width, cinfo.image_height);
+   
+   //libjpeg supports a sort of scale-while-decoding which speeds up decoding
+   int scale=1;
+   if (width != -1 || height != -1) {
+      int size_=QMAX(width, height);
+      while(size_*scale*2<=imgSize) {
+         scale*=2;
+      }
+      if(scale>8) scale=8;
+   }
+   
+   cinfo.scale_num=1;
+   cinfo.scale_denom=scale;
+   
+   // Create QImage
+   jpeg_start_decompress(&cinfo);
+   
+   //QImage img;
+   
+   switch(cinfo.output_components) {
+   case 3:
+   case 4:
+      img->create( cinfo.output_width, cinfo.output_height, 32 );
+      break;
+   case 1: // B&W image
+      img->create( cinfo.output_width, cinfo.output_height,
+                     8, 256 );
+      for (int i=0; i<256; i++)
+            img->setColor(i, qRgb(i,i,i));
+      break;
+   default:
+      return false;
+   }
+   
+   uchar** lines = img->jumpTable();
+   while (cinfo.output_scanline < cinfo.output_height)
+      jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline,
+                           cinfo.output_height);
+   jpeg_finish_decompress(&cinfo);
+   
+   // Expand 24->32 bpp
+   if ( cinfo.output_components == 3 ) {
+      for (uint j=0; j<cinfo.output_height; j++) {
+            uchar *in = img->scanLine(j) + cinfo.output_width*3;
+            QRgb *out = (QRgb*)( img->scanLine(j) );
+   
+            for (uint i=cinfo.output_width; i--; ) {
+               in-=3;
+               out[i] = qRgb(in[0], in[1], in[2]);
+            }
+      }
+   }
+   
+   /*int newMax = QMAX(cinfo.output_width, cinfo.output_height);
+   int newx = size_*cinfo.output_width / newMax;
+   int newy = size_*cinfo.output_height / newMax;*/
+   
+   jpeg_destroy_decompress(&cinfo);
+   fclose(inputFile);
+   
+   //image = img.smoothScale(newx,newy);
+   return true;
+}
+
+bool Util::isJPEG( const QString& fileName )
+{
+    QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
+    return format == QString::fromLocal8Bit( "JPEG" );
 }
 
 ImageInfoList Util::shuffle( ImageInfoList list )

@@ -308,19 +308,29 @@ QImage ImageInfo::load( int width, int height ) const
     QImage image;
     if ( !_importImage.isNull() )
         image = _importImage;
-    else if ( isJPEG( fileName() ) )
-        loadJPEG( &image, fileName() );
-    else
-        image.load( fileName() );
+    else  {
+        QString thumbFile(Util::getThumbnailFile(fileName(), width, height, _angle));
+        QString standardThumbFile(Util::getThumbnailFile
+                 (fileName(), Options::instance()->thumbSize(), Options::instance()->thumbSize(), _angle));
+                 
+        if ( Options::instance()->thumbSize() <= QMAX(width, height) && QFile(standardThumbFile).isReadable() )
+            image.load(standardThumbFile);
+        if ( QFile(thumbFile).isReadable() )
+            image.load(thumbFile);
+        else if ( Util::isJPEG( fileName() ) )
+            Util::loadJPEG( &image, fileName(), width, height );
+        else
+            image.load( fileName() );
+    }
 
+    if ( width != -1 && height != -1 )
+        image = image.smoothScale( width, height, QImage::ScaleMin );
+    
     if ( _angle != 0 ) {
         QWMatrix matrix;
         matrix.rotate( _angle );
         image = image.xForm( matrix );
     }
-
-    if ( width != -1 && height != -1 )
-        image = image.smoothScale( width, height, QImage::ScaleMin );
 
     return image;
 
@@ -329,7 +339,7 @@ QImage ImageInfo::load( int width, int height ) const
 
 // Fudged Fast JPEG decoding code from GWENVIEW (picked out out digikam)
 
-bool ImageInfo::loadJPEG(QImage* image, const QString& fileName ) const
+/*bool ImageInfo::loadJPEG(QImage* image, const QString& fileName, int width, int height ) const
 {
     FILE* inputFile=fopen( fileName.latin1(), "rb");
     if(!inputFile) return false;
@@ -387,7 +397,7 @@ bool ImageInfo::isJPEG( const QString& fileName ) const
 {
     QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
     return format == QString::fromLocal8Bit( "JPEG" );
-}
+}*/
 
 
 void ImageInfo::readExif(const QString& fullPath, ExifMode mode)

@@ -42,18 +42,20 @@ protected:
     virtual void dragLeft();
     virtual void dragMove();
     virtual void dropped ( QDropEvent * e, const QValueList<QIconDragItem> & lst );
-    bool atRightSizeOfItem();
+    bool atRightSizeOfItem() const;
     virtual void calcRect( const QString& text = QString::null );
     virtual void paintItem ( QPainter * p, const QColorGroup & cg );
     virtual QPixmap* pixmap() const;
+    void repaintItem();
 
     static QPixmapCache& pixmapCache();
     static QPixmap* emptyPixmap();
+    static QPixmap& highlightPixmap();
 
 private:
     ImageInfo* _imageInfo;
-    QPixmap _pixmap;
     ThumbNailView* _parent;
+    bool _highlightItem;
 };
 
 #endif /* THUMBNAIL_H */

@@ -36,13 +36,13 @@
 #include "imageinfolist.h"
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
-    :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent )
+    :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent ), _highlightItem( false )
 {
     init();
 }
 
 ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* parent )
-    :QIconViewItem( parent, after ),  _imageInfo( imageInfo ), _parent( parent )
+    :QIconViewItem( parent, after ),  _imageInfo( imageInfo ), _parent( parent ), _highlightItem( false )
 {
     init();
 }
@@ -83,34 +83,22 @@ void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& /*
     }
 
     pixmapCache().insert( _imageInfo->fileName(), pixmap );
-
-    QRect oR = rect();
-    calcRect();
-    oR = oR.unite( rect() );
-
-	if ( QRect( iconView()->contentsX(), iconView()->contentsY(),
-                iconView()->visibleWidth(), iconView()->visibleHeight() ).
-	     intersects( oR ) )
-	    iconView()->repaintContents( oR.x() - 1, oR.y() - 1,
-                                   oR.width() + 2, oR.height() + 2, FALSE );
+    repaintItem();
 }
 
 void ThumbNail::dragMove()
 {
-    QPixmap pix( _pixmap );
-    QPainter p( &pix );
-    if ( atRightSizeOfItem() )
-        p.fillRect( pix.width()-5, 0, 5, pix.height(), red );
-    else
-        p.fillRect( 0, 0, 5, pix.height(), red );
-
-    setPixmap( pix );
-    _parent->setHighlighted( this );
+    if ( !_highlightItem ) {
+        _highlightItem = true;
+        repaintItem();
+        _parent->setHighlighted( this );
+    }
 }
 
 void ThumbNail::dragLeft()
 {
-    setPixmap( _pixmap );
+    _highlightItem = false;
+    repaintItem();
     _parent->setDragLeft( this );
 }
 
@@ -121,7 +109,8 @@ bool ThumbNail::acceptDrop( const QMimeSource * /*mime*/ ) const
 
 void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* lst */ )
 {
-    setPixmap( _pixmap );
+    _highlightItem = false;
+    repaintItem();
     if ( e->source() != iconView() ) {
         KMessageBox::sorry( 0, i18n("KimDaBa does not support data being dragged onto it.") );
         return;
@@ -167,7 +156,7 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
     }
 }
 
-bool ThumbNail::atRightSizeOfItem()
+bool ThumbNail::atRightSizeOfItem() const
 {
     QPoint cursorPos = iconView()->mapFromGlobal( QCursor::pos() );
     QPoint myPos = pos();
@@ -177,15 +166,27 @@ bool ThumbNail::atRightSizeOfItem()
 
 void ThumbNail::calcRect( const QString& text )
 {
-    int size = Options::instance()->thumbSize();
-    QIconViewItem::calcRect( text );
-    if ( !Options::instance()->displayLabels() ) {
-        setTextRect( QRect(0,0,0,0) );
+    if ( !Options::instance()->displayLabels() )
         setText( QString::null );
-        setItemRect( QRect( rect().x(), rect().y(), size, size ) );
-    }
     else
         setText( _imageInfo->label() );
+
+    if ( Options::instance()->displayLabels() )
+        QIconViewItem::calcRect( text );
+    else {
+        int size = Options::instance()->thumbSize();
+        QPixmap* pix = pixmap();
+        QRect r( 0,0, size, size );
+        if ( !pix->isNull() ) {
+            int w = pix->width();
+            int h = pix->height();
+            r = QRect( (size-w)/2, 0, w, h );
+        }
+
+        setTextRect( QRect(0,0,0,0) );
+        setItemRect( QRect( x(), y(), size, size ) );
+        setPixmapRect( r );
+    }
 }
 
 void ThumbNail::paintItem( QPainter * p, const QColorGroup & cg )
@@ -215,8 +216,19 @@ QPixmapCache& ThumbNail::pixmapCache()
 QPixmap* ThumbNail::pixmap() const
 {
     QPixmap* pix = pixmapCache().find( _imageInfo->fileName() );
-    if ( pix )
-        return pix;
+    if ( pix ) {
+        if ( _highlightItem ) {
+            highlightPixmap() = *pix;
+            QPainter p( &highlightPixmap() );
+            if ( atRightSizeOfItem() )
+                p.fillRect( highlightPixmap().width()-5, 0, 5, highlightPixmap().height(), red );
+            else
+                p.fillRect( 0, 0, 5, highlightPixmap().height(), red );
+            return &highlightPixmap();
+        }
+        else
+            return pix;
+    }
 
     int size = Options::instance()->thumbSize();
     ImageManager::instance()->load( _imageInfo->fileName(),  const_cast<ThumbNail*>( this ), _imageInfo->angle(), size, size, true, false );
@@ -226,8 +238,25 @@ QPixmap* ThumbNail::pixmap() const
 QPixmap* ThumbNail::emptyPixmap()
 {
     static QPixmap pixmap;
-    if ( pixmap.isNull() ) {
-        pixmap.resize( 0,0 );
-    }
     return &pixmap;
+}
+
+void ThumbNail::repaintItem()
+{
+    QRect oR = rect();
+    calcRect();
+    oR = oR.unite( rect() );
+
+	if ( QRect( iconView()->contentsX(), iconView()->contentsY(),
+                iconView()->visibleWidth(), iconView()->visibleHeight() ).
+	     intersects( oR ) )
+	    iconView()->repaintContents( oR.x() - 1, oR.y() - 1,
+                                   oR.width() + 2, oR.height() + 2, FALSE );
+}
+
+QPixmap& ThumbNail::highlightPixmap()
+{
+    // We don't want to bother remembering to delete the highlight pixmap, so we just create a global one we reuse over and over again.
+    static QPixmap pix;
+    return pix;
 }

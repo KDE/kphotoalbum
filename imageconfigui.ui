@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>807</width>
+            <width>861</width>
             <height>535</height>
         </rect>
     </property>
@@ -783,7 +783,7 @@
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout11</cstring>
+                <cstring>layout14</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -823,17 +823,17 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>440</width>
+                            <width>441</width>
                             <height>20</height>
                         </size>
                     </property>
                 </spacer>
                 <widget class="QPushButton">
                     <property name="name">
-                        <cstring>cancel</cstring>
+                        <cstring>okBut</cstring>
                     </property>
                     <property name="text">
-                        <string>Cancel</string>
+                        <string>OK</string>
                     </property>
                     <property name="autoDefault">
                         <bool>false</bool>
@@ -841,10 +841,10 @@
                 </widget>
                 <widget class="QPushButton">
                     <property name="name">
-                        <cstring>okBut</cstring>
+                        <cstring>cancel</cstring>
                     </property>
                     <property name="text">
-                        <string>OK</string>
+                        <string>Cancel</string>
                     </property>
                     <property name="autoDefault">
                         <bool>false</bool>

@@ -2,7 +2,6 @@
 #define MAINVIEW_H
 class OptionsDialog;
 class ImageConfig;
-class ReorderDialog;
 #include "imageinfo.h"
 #include "mainviewui.h"
 #include <qdict.h>
@@ -24,7 +23,6 @@ protected slots:
     void slotSearch();
     void load();
     void slotViewSelected();
-    void slotReorder();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -37,8 +35,6 @@ private:
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
     ImageInfoList _images;
-    ImageInfoList _curView;
-    ReorderDialog* _reorderDialog;
 };
 
 

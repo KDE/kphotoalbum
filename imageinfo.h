@@ -17,6 +17,8 @@ public:
     ImageInfo();
     ImageInfo( const QString& indexDirectory, const QString& fileName );
     ImageInfo( const QString& indexDirectory, const QString& fileName, QDomElement elm );
+    void setVisible( bool b );
+    bool visible() const;
 
     QString fileName( bool relative );
     QString indexDirectory() const;
@@ -54,6 +56,7 @@ private:
     int _quality;
     QMap<QString, QStringList> _options;
     int _angle;
+    bool _visible;
 };
 
 typedef QPtrList<ImageInfo> ImageInfoList;

@@ -162,7 +162,7 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>0</width>
+                            <width>118</width>
                             <height>20</height>
                         </size>
                     </property>
@@ -173,14 +173,6 @@
                     </property>
                     <property name="text">
                         <string>OK</string>
-                    </property>
-                </widget>
-                <widget class="QPushButton">
-                    <property name="name">
-                        <cstring>pushButton2</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Apply</string>
                     </property>
                 </widget>
                 <widget class="QPushButton">
@@ -201,12 +193,6 @@
         <signal>clicked()</signal>
         <receiver>OptionsDialog</receiver>
         <slot>close()</slot>
-    </connection>
-    <connection>
-        <sender>pushButton2</sender>
-        <signal>clicked()</signal>
-        <receiver>OptionsDialog</receiver>
-        <slot>slotApply()</slot>
     </connection>
     <connection>
         <sender>pushButton1</sender>

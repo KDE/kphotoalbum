@@ -6,6 +6,7 @@ class ImageManager;
 
 class ThumbNailView :public QIconView {
     Q_OBJECT
+    friend class ThumbNail;
 
 public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
@@ -15,9 +16,17 @@ public slots:
     void reload();
     void slotSelectAll();
 
+signals:
+    void changed();
+
 protected slots:
     void showImage( QIconViewItem* );
     virtual void startDrag();
+
+protected:
+    virtual void contentsDragMoveEvent( QDragMoveEvent *e );
+    void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
+
 private:
     ImageInfoList* _imageList;
 };

@@ -11,7 +11,7 @@ ImageInfo::ImageInfo()
 }
 
 ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName )
-    : _indexDirectory( indexDirectory ), _fileName( fileName )
+    : _indexDirectory( indexDirectory ), _fileName( fileName ), _visible( true )
 {
     if ( _indexDirectory.endsWith( "/" ) )
          _indexDirectory = _indexDirectory.mid( 0, _indexDirectory.length()-1 );
@@ -22,7 +22,7 @@ ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName )
 }
 
 ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QDomElement elm )
-    : _indexDirectory( indexDirectory ), _fileName( fileName )
+    : _indexDirectory( indexDirectory ), _fileName( fileName ), _visible( true )
 {
     if ( _indexDirectory.endsWith( "/" ) )
          _indexDirectory = _indexDirectory.mid( 0, _indexDirectory.length()-1 );
@@ -168,4 +168,14 @@ ImageDate& ImageInfo::endDate()
 QString ImageInfo::indexDirectory() const
 {
     return _indexDirectory;
+}
+
+void ImageInfo::setVisible( bool b )
+{
+    _visible = b;
+}
+
+bool ImageInfo::visible() const
+{
+    return _visible;
 }

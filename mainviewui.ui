@@ -40,7 +40,6 @@
     </item>
     <item text="&amp;Edit" name="PopupMenu_2">
         <action name="ImageProperties"/>
-        <action name="Reorder"/>
         <action name="SelectAll"/>
         <action name="DeleteSelected"/>
     </item>
@@ -181,14 +180,6 @@
             <string>Delete Selected</string>
         </property>
     </action>
-    <action>
-        <property name="name">
-            <cstring>Reorder</cstring>
-        </property>
-        <property name="text">
-            <string>Reorder</string>
-        </property>
-    </action>
 </actions>
 <images>
     <image name="image0">
@@ -243,12 +234,6 @@
         <signal>activated()</signal>
         <receiver>MainViewUI</receiver>
         <slot>slotConfigureImagesOneAtATime()</slot>
-    </connection>
-    <connection>
-        <sender>Reorder</sender>
-        <signal>activated()</signal>
-        <receiver>MainViewUI</receiver>
-        <slot>slotReorder()</slot>
     </connection>
 </connections>
 <slots>

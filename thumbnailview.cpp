@@ -8,12 +8,12 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :QIconView( parent,  name )
 {
     setResizeMode( QIconView::Adjust );
+    setAutoArrange( true );
 
     connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
     connect( this,  SIGNAL( doubleClicked( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
 
     setSelectionMode( Extended );
-//    setItemsMovable( true );
 }
 
 
@@ -33,6 +33,7 @@ void ThumbNailView::showImage( QIconViewItem* item )
 void ThumbNailView::startDrag()
 {
     // No dnd please.
+    QIconView::startDrag();
     return;
 }
 
@@ -40,7 +41,8 @@ void ThumbNailView::load( ImageInfoList* list )
 {
     clear();
     for( QPtrListIterator<ImageInfo> it( *list ); *it; ++it ) {
-        new ThumbNail( *it,  this,  "thumbnail" );
+        if ( (*it)->visible() )
+            new ThumbNail( *it,  this,  "thumbnail" );
     }
     _imageList = list;
 }
@@ -54,4 +56,32 @@ void ThumbNailView::reload()
 void ThumbNailView::slotSelectAll()
 {
     selectAll( true );
+}
+
+void ThumbNailView::contentsDragMoveEvent( QDragMoveEvent *e )
+{
+    QIconView::contentsDragMoveEvent( e );
+    QIconViewItem* item = findItem( e->pos() );
+    if ( item ) {
+        ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
+        Q_ASSERT( tn );
+        tn->dragMove();
+    }
+}
+
+void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& list, bool after )
+{
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        _imageList->removeRef( *it );
+    }
+
+    int index =  _imageList->find( item );
+    if ( after )
+        ++index;
+
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        _imageList->insert( index, *it );
+        ++index;
+    }
+    emit changed();
 }

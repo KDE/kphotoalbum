@@ -11,7 +11,6 @@
 #include <qdict.h>
 #include "viewer.h"
 #include <wellcomedialog.h>
-#include "reorderdialog.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :MainViewUI( parent,  name )
@@ -22,6 +21,7 @@ MainView::MainView( QWidget* parent, const char* name )
         load();
     else
         wellcome();
+    connect( thumbNailView, SIGNAL( changed() ), this, SLOT( save() ) );
 }
 
 void MainView::slotExit()
@@ -76,12 +76,10 @@ void MainView::slotSearch()
     }
     int ok = _imageConfigure->search();
     if ( ok == QDialog::Accepted )  {
-        _curView.clear();
         for( ImageInfoListIterator it( _images ); *it; ++it ) {
-            if ( _imageConfigure->match( *it ) )
-                 _curView.append( *it );
+            (*it)->setVisible( _imageConfigure->match( *it ) );
         }
-        thumbNailView->load( &_curView );
+        thumbNailView->reload();
     }
 }
 
@@ -126,7 +124,6 @@ void MainView::slotDeleteSelected()
 void MainView::load()
 {
     _images.clear();
-    _curView.clear();
 
     QString directory = Options::instance()->imageDirectory();
     if ( directory.isEmpty() )
@@ -237,11 +234,4 @@ void MainView::wellcome()
     dialog->exec();
     delete dialog;
     slotOptions();
-}
-
-void MainView::slotReorder()
-{
-    if ( ! _reorderDialog )
-        _reorderDialog = new ReorderDialog( this );
-    _reorderDialog->show();
 }

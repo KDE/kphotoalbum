@@ -13,8 +13,7 @@ SOURCES	+= main.cpp \
 	util.cpp \
 	imagepreview.cpp \
 	imagedate.cpp \
-	imagesearchinfo.cpp \
-    reorderdialog.cpp
+	imagesearchinfo.cpp
 
 HEADERS	+= thumbnailview.h \
 	thumbnail.h \
@@ -30,10 +29,7 @@ HEADERS	+= thumbnailview.h \
 	util.h \
 	imagepreview.h \
 	imagedate.h \
-	imagesearchinfo.h \
-    reorderdialog.h
-
-
+	imagesearchinfo.h
 
 unix {
   MOC_DIR = .moc
@@ -49,12 +45,12 @@ unix {
 FORMS	= mainviewui.ui \
 	optionsdialog.ui \
 	imageconfigui.ui \
-	wellcomedialog.ui \
-	reorderdialogui.ui
+	wellcomedialog.ui
+
 IMAGES	= images/splash.png \
 	images/multiconfig.jpg \
-	images/search.jpg \
-	images/reorder.jpg
+	images/search.jpg
+
 TEMPLATE	=app
 CONFIG	+= thread
 INCLUDEPATH	+= .

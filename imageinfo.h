@@ -51,6 +51,8 @@ public:
     DrawList drawList() const;
     void setDrawList( const DrawList& );
 
+    bool imageOnDisk() const { return _imageOnDisk; }
+
 private:
      // This string is accessed on several threads, so we need to make it a deep copy!
     QString _fileName;
@@ -62,6 +64,7 @@ private:
     int _angle;
     bool _visible;
     DrawList _drawList;
+    bool _imageOnDisk; // true if the image is available on disk
 };
 
 typedef QPtrList<ImageInfo> ImageInfoList;

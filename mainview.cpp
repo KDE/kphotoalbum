@@ -230,13 +230,12 @@ void MainView::load()
                 QString fileName = elm.attribute( "file" );
                 if ( fileName.isNull() )
                     qWarning( "Element did not contain a file attirbute" );
-                else if ( ! QFileInfo( directory + "/" + fileName ).exists() )
-                    qWarning( "File %s didn't exists", fileName.latin1());
                 else if ( loadedFiles.find( fileName ) != 0 )
                     qWarning( "XML file contained image %s, more than ones - only first one will be loaded", fileName.latin1());
                 else {
-                    loadedFiles.insert( directory + "/" + fileName, (void*)0x1 /* void pointer to nothing I never need the value,
-                                                                                  just its existsance, must be != 0x0 though.*/ );
+                    loadedFiles.insert( directory + "/" + fileName,
+                                        (void*)0x1 /* void pointer to nothing I never need the value,
+                                                      just its existsance, must be != 0x0 though.*/ );
                     load( fileName, elm );
                 }
             }
@@ -299,11 +298,20 @@ ImageInfoList MainView::selected()
 void MainView::slotViewSelected()
 {
     ImageInfoList list = selected();
+    ImageInfoList list2;
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        if ( (*it)->imageOnDisk() )
+            list2.append( *it );
+    }
+
     if ( list.count() == 0 )
         QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
+    else if ( list2.count() == 0 )
+        QMessageBox::warning( this, tr("No Images to Display"),
+                              tr("None of the seleceted images were available on disk") );
     else {
         Viewer* viewer = Viewer::instance();
-        viewer->load( list );
+        viewer->load( list2 );
         viewer->show();
     }
 }

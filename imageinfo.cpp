@@ -11,7 +11,7 @@ ImageInfo::ImageInfo()
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    : _fileName( fileName ), _visible( true )
+    : _fileName( fileName ), _visible( true ), _imageOnDisk( true )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ "/" + fileName );
     _label = fi.baseName();
@@ -29,6 +29,7 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     : _fileName( fileName ), _visible( true )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ "/" + fileName );
+    _imageOnDisk = fi.exists();
     _label = elm.attribute( "label",  _label );
     _description = elm.attribute( "description" );
 

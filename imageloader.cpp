@@ -39,7 +39,7 @@ void ImageLoader::run()
                 }
             }
 
-            if ( !imageLoaded ) {
+            if ( !imageLoaded && QFile( li.fileName() ).exists() ) {
                 img.load( li.fileName() );
 
                 if ( li.angle() != 0 )  {
@@ -59,10 +59,11 @@ void ImageLoader::run()
                     }
                     img.save( cacheFile, "JPEG" );
                 }
+                imageLoaded = true;
             }
 
             // should we compress the image, this is needed for thumbnail overview of say 2500 images
-            if ( li.compress() )
+            if ( imageLoaded && li.compress() )
                 img = img.convertDepth(8);
 
             ImageEvent* iew = new ImageEvent( li, img );

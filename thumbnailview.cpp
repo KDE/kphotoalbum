@@ -12,8 +12,8 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
 
-    connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
-    connect( this,  SIGNAL( doubleClicked( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
+    connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
+    connect( this,  SIGNAL( doubleClicked( QIconViewItem* ) ), this, SLOT( showImage( QIconViewItem* ) ) );
 
     setSelectionMode( Extended );
     new IconViewToolTip( this );

@@ -27,11 +27,11 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* par
 void ThumbNail::init()
 {
     int size = Options::instance()->thumbSize();
-    QPixmap img( size, size );
-    QPainter painter( &img );
+    _pixmap.resize( size, size );
+    QPainter painter( &_pixmap );
     painter.fillRect( 0, 0,  size, size,  white );
-    painter.drawRect( 0, 0, size-1, size-1 );
-    setPixmap( img );
+    painter.drawRect( 0, 0, size, size );
+    setPixmap( _pixmap );
     setText( _imageInfo->label() );
     // PENDING(blackie) Consider whether this can be replaced with KIO::PreviewJob
     ImageManager::instance()->load( _imageInfo->fileName( false ),  this, _imageInfo->angle(), size, size, true, false, true );
@@ -53,7 +53,17 @@ ImageInfo* ThumbNail::imageInfo()
 
 void ThumbNail::pixmapLoaded( const QString&, int, int, int, const QImage& image  )
 {
-    _pixmap.convertFromImage( image );
+    if ( !image.isNull() )
+        _pixmap.convertFromImage( image );
+
+    if ( !_imageInfo->imageOnDisk() ) {
+        QPainter p( &_pixmap );
+        p.setBrush( white );
+        p.setWindow( 0, 0, 100, 100 );
+        QPointArray pts;
+        pts.setPoints( 3, 70,-1,  100,-1,  100,30 );
+        p.drawConvexPolygon( pts );
+    }
     setPixmap( _pixmap );
 }
 void ThumbNail::dragMove()

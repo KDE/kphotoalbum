@@ -15,6 +15,8 @@ BUGS To be handled soonish
 -I do not like the way dates are entered. I prefer the way (korganizer and  
  kaddressbook) do it: to write them in one single text field and to offer a 
  calender as well.
+- the viewer should allow you to close it by hitting q.
+
 =======================
 BUGS of less importance
 =======================
@@ -36,9 +38,10 @@ Features for a soonish version
   image 2 in viewer 2, next show image 3 in viewer 1, and image 4 in viewer
   2. This would be very cool when the user as multiple monitors.
 - Loseless image rotation (which actually affects the files)
-- Make a plugin structure for KimDaBa.
+- Make a plugin structure for KimDaBa. (Will be in KimDaBa version 1.2)
 - Add a message box with information about how the imageconfig window
 works. (with a do-not-show-again checkbox)
+- make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -121,7 +121,6 @@ void ImageManager::customEvent( QCustomEvent* ev )
 
         QImage image = iev->image();
 
-        qDebug("Got image");
         if ( _clientMap.contains( li ) )  {
             // If it is not in the map, then it has been deleted since the request.
             ImageClient* client = _clientMap[li];
@@ -129,8 +128,6 @@ void ImageManager::customEvent( QCustomEvent* ev )
             client->pixmapLoaded( li.fileName(), QSize(li.width(), li.height()), li.fullSize(), li.angle(), image );
             _clientMap.remove(li);
         }
-        else
-            qDebug("Oh its gone");
     }
 }
 

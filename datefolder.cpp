@@ -9,12 +9,20 @@
 DateFolder::DateFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent )
 {
-    setText( 0, i18n("Date") );
-    setText( 1, QString::fromLatin1( "-" ) );
-        KIconLoader loader;
-    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "korganizer" ), KIcon::Desktop, 22 ) );
-
+    setCount( -1 );
 }
+
+QPixmap DateFolder::pixmap()
+{
+    KIconLoader loader;
+    return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "korganizer" ), KIcon::Desktop, 22 );
+}
+
+QString DateFolder::text() const
+{
+    return QString::fromLatin1( "Date" );
+}
+
 
 FolderAction* DateFolder::action( bool /* ctrlDown */ )
 {

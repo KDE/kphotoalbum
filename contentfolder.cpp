@@ -26,6 +26,7 @@
 #include "datefolder.h"
 #include <kglobal.h>
 #include <kiconloader.h>
+#include "browseritemfactory.h"
 ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup( optionGroup ), _value( value )
@@ -37,52 +38,57 @@ ContentFolder::ContentFolder( const QString& optionGroup, const QString& value, 
         // It will be null for the initial element ceated from the browser.
         _info.addAnd( _optionGroup, _value );
     }
+    setCount( count );
+}
 
-    if ( value == i18n( "**NONE**" ) ) {
-        setText( 0, i18n( "None" ) );
-    }
-    else {
-        setText( 0, value );
-    }
-
+QPixmap ContentFolder::pixmap()
+{
     if ( Options::instance()->viewSize() == Options::Small ) {
-        if ( Options::instance()->memberMap().isGroup( optionGroup, value ) )
-            setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, 22 ) );
+        if ( Options::instance()->memberMap().isGroup( _optionGroup, _value ) )
+            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kpersonalizer" ), KIcon::Desktop, 22 );
         else {
-            setPixmap( 0, Options::instance()->iconForOptionGroup( optionGroup ) );
+            return Options::instance()->iconForOptionGroup( _optionGroup );
         }
     }
     else
-        setPixmap( 0, Options::instance()->optionImage( optionGroup, value, 64 ) );
-
-    setCount( count );
-    setText( 1, i18n( "1 image", "%n images", count ) );
+        return Options::instance()->optionImage( _optionGroup, _value, 64 );
 }
 
-void ContentFolderAction::action()
+QString ContentFolder::text() const
+{
+    if ( _value == i18n( "**NONE**" ) ) {
+        return i18n( "None" );
+    }
+    else {
+        return _value;
+    }
+}
+
+
+void ContentFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
     QStringList grps = Options::instance()->optionGroups();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        new TypeFolder( *it, _info, _browser );
+        factory->createItem( new TypeFolder( *it, _info, _browser ) );
     }
 
     //-------------------------------------------------- Search Folders
-    new DateFolder( _info, _browser );
-    new SearchFolder( _info, _browser );
+    factory->createItem( new DateFolder( _info, _browser ) );
+    factory->createItem( new SearchFolder( _info, _browser ) );
 
     //-------------------------------------------------- Image Folders
     int count = ImageDB::instance()->count( _info );
     int maxPerPage = Options::instance()->maxImages();
 
     if ( count < maxPerPage ) {
-        new ImageFolder( _info, _browser );
+        factory->createItem( new ImageFolder( _info, _browser ) );
     }
     else {
         int last = 1;
         while ( last < count ) {
-            new ImageFolder( _info, last, QMIN( count, last+maxPerPage-1 ), _browser );
+            factory->createItem( new ImageFolder( _info, last, QMIN( count, last+maxPerPage-1 ), _browser ) );
             last += maxPerPage;
         }
     }
@@ -106,7 +112,7 @@ ContentFolderAction::ContentFolderAction( const QString& optionGroup, const QStr
 {
 }
 
-int ContentFolder::compare( QListViewItem* other, int col, bool asc ) const
+int ContentFolder::compare( Folder* other, int col, bool asc ) const
 {
     if ( col == 0 ) {
         if ( _value == QString::fromLatin1( "**NONE**" ) )

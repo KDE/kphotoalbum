@@ -24,16 +24,19 @@
 #include "imagesearchinfo.h"
 
 class FolderAction;
+class BrowserItemFactory;
 
-class Folder :public QListViewItem {
+class Folder {
 
 public:
-    Folder( const ImageSearchInfo& info, Browser* parent );
+    Folder( const ImageSearchInfo& info, Browser* browser );
+    virtual ~Folder() {};
     virtual FolderAction* action( bool ctrlDown = false ) = 0;
     void setCount( int count ) { _count = count; }
-
-protected:
-    int compare( QListViewItem* other, int col, bool asc ) const;
+    virtual QPixmap pixmap() = 0;
+    virtual QString text() const = 0;
+    virtual int count() { return _count; }
+    virtual int compare( Folder* other, int col, bool asc ) const;
 
     friend class TypeFolder;
     friend class ImageFolder;
@@ -50,7 +53,7 @@ class FolderAction
 public:
     FolderAction( const ImageSearchInfo& info, Browser* browser );
     virtual ~FolderAction() {}
-    virtual void action() = 0;
+    virtual void action( BrowserItemFactory* factory ) = 0;
     virtual bool showsImages() = 0;
     QString path() const;
     virtual bool allowSort() const;

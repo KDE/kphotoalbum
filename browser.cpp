@@ -28,31 +28,52 @@
 #include "util.h"
 #include <qlistview.h>
 #include "showbusycursor.h"
+#include "browseritemfactory.h"
+#include <qwidgetstack.h>
+#include <qlayout.h>
+#include <qlabel.h>
 
 Browser* Browser::_instance = 0;
 
 Browser::Browser( QWidget* parent, const char* name )
-    :QListView( parent, name ), _current(0)
+    :QWidget( parent, name ), _current(0)
 {
     Q_ASSERT( !_instance );
     _instance = this;
+
+    _stack = new QWidgetStack( this );
+    QHBoxLayout* layout = new QHBoxLayout( this );
+    layout->addWidget( _stack );
+
+    _listView = new QListView ( _stack );
+    _stack->addWidget( _listView );
+
+    _iconView = new QIconView( _stack );
+    _stack->addWidget( _iconView );
+
+    _listViewFactory = new BrowserListViewItemFactory( _listView );
+    _iconViewFactory = new BrowserIconViewItemFactory( _iconView );
+
+    _listView->addColumn( i18n("What") );
+    _listView->addColumn( i18n("Count") );
+
+    _listView->setSelectionMode( QListView::NoSelection );
+    _iconView->setSelectionMode( QIconView::NoSelection );
+    connect( _listView, SIGNAL( clicked( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
+    connect( _listView, SIGNAL( returnPressed( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
+    connect( _iconView, SIGNAL( clicked( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
+    connect( _iconView, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
+    connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( reload() ) );
+
     // I got to wait till the event loops runs, so I'm sure that the image database has been loaded.
     QTimer::singleShot( 0, this, SLOT( init() ) );
 }
 
 void Browser::init()
 {
-    addColumn( i18n("What") );
-    addColumn( i18n("Count") );
-
     FolderAction* action = new ContentFolderAction( QString::null, QString::null, ImageSearchInfo(), this );
     _list.append( action );
     forward();
-
-    setSelectionMode( NoSelection );
-    connect( this, SIGNAL( clicked( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
-    connect( this, SIGNAL( returnPressed( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
-    connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( reload() ) );
 }
 
 void Browser::select( QListViewItem* item )
@@ -60,15 +81,27 @@ void Browser::select( QListViewItem* item )
     if ( !item )
         return;
 
-    Folder* f = static_cast<Folder*>( item );
-    FolderAction* action = f->action( Util::ctrlKeyDown() );
+    BrowserListItem* folder = static_cast<BrowserListItem*>( item );
+    FolderAction* action = folder->_folder->action( Util::ctrlKeyDown() );
+    select( action );
+}
 
-    // This one must not come before here, as the function above might bring up a
-    // dialog (which is the case for search folders).
+void Browser::select( QIconViewItem* item )
+{
+    if ( !item )
+        return;
+
+    BrowserIconItem* folder = static_cast<BrowserIconItem*>( item );
+    FolderAction* action = folder->_folder->action( Util::ctrlKeyDown() );
+    select( action );
+}
+
+void Browser::select( FolderAction* action )
+{
     ShowBusyCursor dummy;
     if ( action ) {
         addItem( action );
-        action->action();
+        action->action( _currentFactory );
     }
 }
 
@@ -86,9 +119,9 @@ void Browser::back()
 
 void Browser::go()
 {
+    setupFactory();
     FolderAction* a = _list[_current-1];
-    a->action();
-    setFocus();
+    a->action( _currentFactory );
     emitSignals();
 }
 
@@ -121,7 +154,7 @@ void Browser::emitSignals()
     if ( !a->showsImages() )
         emit showingOverview();
     emit pathChanged( a->path() );
-    setColumnText( 0, a->title() );
+    _listView->setColumnText( 0, a->title() );
 }
 
 void Browser::home()
@@ -133,11 +166,13 @@ void Browser::home()
 
 void Browser::reload()
 {
+    setupFactory();
+
     if ( _current != 0 ) {
         // _current == 0 when browser hasn't yet been initialized (Which happens through a zero-timer.)
         FolderAction* a = _list[_current-1];
         if ( !a->showsImages() )
-            a->action();
+            a->action( _currentFactory );
     }
 }
 
@@ -159,7 +194,7 @@ void Browser::load( const QString& optionGroup, const QString& value )
     }
 
     addItem( a );
-    a->action();
+    a->action( _currentFactory );
     topLevelWidget()->raise();
     setActiveWindow();
 }
@@ -201,6 +236,33 @@ void Browser::slotLargeIconView()
     Options::instance()->setViewType( Options::IconView );
     Options::instance()->setViewSize( Options::Large );
     reload();
+}
+
+void Browser::clear()
+{
+    _iconView->clear();
+    _listView->clear();
+}
+
+void Browser::setupFactory()
+{
+    if ( Options::instance()->viewType() == Options::ListView ) {
+        _currentFactory = _listViewFactory;
+        _stack->raiseWidget( _listView );
+    }
+    else {
+        _currentFactory = _iconViewFactory;
+        _stack->raiseWidget( _iconView );
+    }
+    setFocus();
+}
+
+void Browser::setFocus()
+{
+    if ( Options::instance()->viewType() == Options::ListView )
+        _listView->setFocus();
+    else
+        _iconView->setFocus();
 }
 
 #include "browser.moc"

@@ -28,23 +28,33 @@
 ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _from(-1), _to(-1)
 {
-    setText( 0, i18n( "View Images" ) );
     int count = ImageDB::instance()->count( info );
-    setText( 1, i18n( "1 image", "%n images", count ) );
-    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 ) );
+    setCount( count );
 }
 
 ImageFolder::ImageFolder( const ImageSearchInfo& info, int from, int to, Browser* parent )
     :Folder( info,parent), _from( from ), _to( to )
 {
-    setText( 0, i18n( "View Images (%1-%2)").arg(from).arg(to) );
-    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 ) );
     int count = to - from +1;
     setCount( count );
-    setText( 1, i18n( "1 image", "%n images", count ) );
 }
 
-void ImageFolderAction::action()
+QPixmap ImageFolder::pixmap()
+{
+    return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 );
+}
+
+QString ImageFolder::text() const
+{
+    if ( _from == -1 )
+        return i18n( "View Images" );
+    else
+        return i18n( "View Images (%1-%2)").arg(_from).arg(_to);
+}
+
+
+
+void ImageFolderAction::action( BrowserItemFactory* )
 {
     ImageDB::instance()->search( _info, _from, _to );
 

@@ -25,9 +25,9 @@ public:
     ContentFolder( const QString& optionGroup, const QString& value, int count,
                    const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
-
-protected:
-    int compare( QListViewItem* other, int col, bool asc ) const;
+    virtual QPixmap pixmap();
+    virtual QString text() const;
+    int compare( Folder* other, int col, bool asc ) const;
 
 private:
     QString _optionGroup;
@@ -39,7 +39,7 @@ class ContentFolderAction :public FolderAction {
 public:
     ContentFolderAction( const QString& optionGroup, const QString& value,
                          const ImageSearchInfo& info, Browser* parent );
-    virtual void action();
+    virtual void action( BrowserItemFactory* factory );
     virtual bool showsImages() { return false; }
     virtual bool allowSort() const;
     virtual QString title() const;

@@ -26,7 +26,7 @@
 int Folder::_idCount = 0;
 
 Folder::Folder( const ImageSearchInfo& info, Browser* parent )
-    :QListViewItem( parent ), _index(_idCount++), _browser( parent ), _info( info )
+    : _index(_idCount++), _browser( parent ), _info( info )
 {
 }
 
@@ -41,7 +41,7 @@ QString FolderAction::path() const
     return _info.toString();
 }
 
-int Folder::compare( QListViewItem* other, int col, bool asc ) const
+int Folder::compare( Folder* other, int col, bool asc ) const
 {
     Folder* o = static_cast<Folder*>( other );
     if ( !_browser->allowSort() ) {
@@ -54,6 +54,13 @@ int Folder::compare( QListViewItem* other, int col, bool asc ) const
             return 0;
     }
 
+    else if ( col == 0 ) {
+        if ( text() == o->text() )
+            return 0;
+        bool b =  (text() < o->text() );
+        return asc ? b : !b;
+    }
+
     else if ( col == 1 ) {
         if ( _count < o->_count )
             return -1;
@@ -61,7 +68,8 @@ int Folder::compare( QListViewItem* other, int col, bool asc ) const
             return ( _count != o->_count);
     }
     else
-        return QListViewItem::compare( other, col, asc );
+        Q_ASSERT( false );
+    return 0;
 }
 
 bool FolderAction::allowSort() const

@@ -19,11 +19,14 @@
 #ifndef BROWSER_H
 #define BROWSER_H
 #include <qlistview.h>
+#include <qiconview.h>
 class FolderAction;
 class ImageSearchInfo;
 class QListViewItem;
+class BrowserItemFactory;
+class QWidgetStack;
 
-class Browser :public QListView {
+class Browser :public QWidget {
     Q_OBJECT
     friend class ImageFolderAction;
 
@@ -34,6 +37,8 @@ public:
     void load( const QString& optionGroup, const QString& value );
     bool allowSort();
     ImageSearchInfo current();
+    void clear();
+    void setFocus();
 
 public slots:
     void back();
@@ -56,15 +61,24 @@ signals:
 protected slots:
     void init();
     void select( QListViewItem* item );
+    void select( QIconViewItem* item );
+    void select( FolderAction* action );
 
 protected:
     void addItem( FolderAction* );
     void emitSignals();
+    void setupFactory();
 
 private:
     static Browser* _instance;
     QValueList<FolderAction*> _list;
     int _current;
+    BrowserItemFactory* _listViewFactory;
+    BrowserItemFactory* _iconViewFactory;
+    BrowserItemFactory* _currentFactory;
+    QWidgetStack* _stack;
+    QIconView* _iconView;
+    QListView* _listView;
 };
 
 

@@ -25,6 +25,9 @@ public:
     ImageFolder( const ImageSearchInfo& info, Browser* parent );
     ImageFolder( const ImageSearchInfo& info, int from, int to, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
+    virtual QPixmap pixmap();
+    virtual QString text() const;
+
 private:
     int _from, _to;
 };
@@ -33,7 +36,7 @@ class ImageFolderAction :public FolderAction
 {
 public:
     ImageFolderAction( const ImageSearchInfo& info, int from, int to, Browser* browser );
-    virtual void action();
+    virtual void action( BrowserItemFactory* );
     virtual bool showsImages() { return true; }
 
 private:

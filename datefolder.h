@@ -27,6 +27,8 @@ class DateFolder :public Folder {
 public:
     DateFolder( const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
+    virtual QPixmap pixmap();
+    virtual QString text() const;
 
 };
 
@@ -47,23 +49,6 @@ private:
     KDatePicker* _to;
     bool _toChanged;
 };
-
-/*
-  class ContentFolderAction :public FolderAction {
-
-public:
-    ContentFolderAction( const QString& optionGroup, const QString& value,
-                         const ImageSearchInfo& info, Browser* parent );
-    virtual void action();
-    virtual bool showsImages() { return false; }
-    virtual bool allowSort() const;
-    virtual QString title() const;
-
-private:
-    QString _optionGroup;
-    QString _value;
-};
-*/
 
 
 #endif /* DATEFOLDER_H */

@@ -497,11 +497,13 @@ void MainView::showThumbNails()
 {
     reloadThumbNail();
     _stack->raiseWidget( _thumbNailView );
+    _thumbNailView->setFocus();
 }
 
 void MainView::showBrowser()
 {
     _stack->raiseWidget( _browser );
+    _browser->setFocus();
 }
 
 

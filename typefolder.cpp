@@ -21,17 +21,24 @@
 #include "imagedb.h"
 #include "contentfolder.h"
 #include <klocale.h>
+#include "browseritemfactory.h"
 
 TypeFolder::TypeFolder( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _optionGroup ( optionGroup )
 {
-    setText( 0, Options::instance()->textForOptionGroup( optionGroup ) );
     QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
     int count = map.size();
     setCount( count );
+}
 
-    setText( 1, i18n("1 category", "%n categories", count ) );
-    setPixmap( 0, Options::instance()->iconForOptionGroup( _optionGroup ) );
+QPixmap TypeFolder::pixmap()
+{
+    return Options::instance()->iconForOptionGroup( _optionGroup );
+}
+
+QString TypeFolder::text() const
+{
+    return Options::instance()->textForOptionGroup( _optionGroup );
 }
 
 FolderAction* TypeFolder::action( bool /* ctrlDown */ )
@@ -45,25 +52,27 @@ TypeFolderAction::TypeFolderAction( const QString& optionGroup, const ImageSearc
 {
 }
 
-void TypeFolderAction::action()
+void TypeFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
 
     QMap<QString, int> map = ImageDB::instance()->classify( _info, _optionGroup );
     for( QMapIterator<QString,int> it= map.begin(); it != map.end(); ++it ) {
         if ( it.key() != i18n( "**NONE**" ) ) {
-            new ContentFolder( _optionGroup, it.key(), it.data(), _info, _browser );
+            factory->createItem( new ContentFolder( _optionGroup, it.key(), it.data(), _info, _browser ) );
         }
     }
 
     // Add the none option to the end
     int i = map[i18n("**NONE**")];
     if ( i != 0 )
-        new ContentFolder( _optionGroup, i18n( "**NONE**" ), i, _info, _browser );
+        factory->createItem( new ContentFolder( _optionGroup, i18n( "**NONE**" ), i, _info, _browser ) );
 }
 
 QString TypeFolderAction::title() const
 {
     return Options::instance()->textForOptionGroup( _optionGroup );
 }
+
+
 

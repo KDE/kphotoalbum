@@ -11,11 +11,20 @@
 SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
 {
-    setText( 0, i18n("Search") );
-    setText( 1, QString::fromLatin1( "-" ) );
-    KIconLoader loader;
-    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "find" ), KIcon::Desktop, 22 ) );
+    setCount(-1);
 }
+
+QPixmap SearchFolder::pixmap()
+{
+    KIconLoader loader;
+    return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "find" ), KIcon::Desktop, 22 );
+}
+
+QString SearchFolder::text() const
+{
+    return i18n("Search");
+}
+
 
 FolderAction* SearchFolder::action( bool )
 {

@@ -24,6 +24,9 @@ class TypeFolder :public Folder {
 public:
     TypeFolder( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
+    virtual QPixmap pixmap();
+    virtual QString text() const;
+
 private:
     QString _optionGroup;
 };
@@ -32,7 +35,7 @@ class TypeFolderAction :public FolderAction {
 
 public:
     TypeFolderAction( const QString& optionGroup, const ImageSearchInfo& info, Browser* parent  );
-    virtual void action();
+    virtual void action( BrowserItemFactory* factory );
     virtual bool showsImages() { return false; }
     virtual QString title() const;
 

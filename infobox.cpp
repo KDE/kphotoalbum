@@ -49,7 +49,12 @@ void InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QStrin
 {
     _linkMap = linkMap;
     setText( text );
-    int width = 200;
+    setSize();
+}
+
+void InfoBox::setSize()
+{
+        int width = 200;
     int height = 0, h2;
 
     do {

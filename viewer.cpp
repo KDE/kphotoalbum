@@ -464,6 +464,7 @@ void Viewer::infoBoxMove()
 
 void Viewer::moveInfoBox()
 {
+    _infoBox->setSize();
     Options::Position pos = Options::instance()->infoBoxPosition();
 
     int lx = _display->pos().x();
@@ -627,30 +628,17 @@ bool Viewer::showingFullScreen() const
 void Viewer::setShowFullScreen( bool on )
 {
     if ( on ) {
-
-#if KDE_IS_VERSION( 3,1,90 )
-        KWin::WindowInfo info( winId(), 0, 0 );
-        _oldGeometry = info.frameGeometry();
-#else
-        KWin::Info info = KWin::info( winId() );
-        _oldGeometry = info.frameGeometry;
-#endif
-
-        QRect r = QApplication::desktop()->screenGeometry( QApplication::desktop()->screenNumber( this ) );
-
-        setFixedSize( r.size() );
-
-        KWin::setType( winId(), NET::Override );
-        KWin::setState( winId(), NET::StaysOnTop );
-
-        setGeometry( r );
-        QCursor::setPos( width()-1, height()-1 );
+        KWin::setState( winId(), NET::FullScreen );
+        moveInfoBox();
     }
     else {
-        setMinimumSize(0,0);
-        KWin::setType( winId(), NET::Normal );
-        KWin::clearState( winId(), NET::StaysOnTop );
-        setGeometry( _oldGeometry );
+        // We need to size the image when going out of full screen, in case we started directly in full screen
+        //
+        KWin::clearState( winId(), NET::FullScreen );
+        if ( !_sized ) {
+            resize( Options::instance()->viewerSize() );
+            _sized = true;
+        }
     }
     _showingFullScreen = on;
 }
@@ -675,19 +663,23 @@ void Viewer::populateExternalPopup()
 void Viewer::show( bool slideShow )
 {
     QSize size;
-    if ( slideShow )
+    bool fullScreen;
+    if ( slideShow ) {
+        fullScreen = Options::instance()->launchSlideShowFullScreen();
         size = Options::instance()->slideShowSize();
-    else
+    }
+    else {
+        fullScreen = Options::instance()->launchViewerFullScreen();
         size = Options::instance()->viewerSize();
+    }
 
-    if ( size.width() != -1 )
-        resize( size );
-    else
+    if ( fullScreen )
         setShowFullScreen( true );
 
     QWidget::show();
     if ( slideShow )
         slotStartStopSlideShow();
+    _sized = !fullScreen;
 }
 
 KActionCollection* Viewer::actions()

@@ -130,12 +130,12 @@ private:
     QImage _currentImage;
 
     bool _showingFullScreen;
-    QRect _oldGeometry;
 
     QTimer* _slideShowTimer;
     int _slideShowPause;
     SpeedDisplay* _speedDisplay;
     KActionCollection* _actions;
+    bool _sized;
 };
 
 #endif /* VIEWER_H */

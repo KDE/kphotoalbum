@@ -45,9 +45,13 @@ public:
 
     void setViewerSize( const QSize& );
     QSize viewerSize() const;
+    void setLaunchViewerFullScreen( bool b );
+    bool launchViewerFullScreen() const;
 
     void setSlideShowSize( const QSize& );
     QSize slideShowSize() const;
+    void setLaunchSlideShowFullScreen( bool b );
+    bool launchSlideShowFullScreen() const;
 
     enum ViewSortType { SortLastUse, SortAlpha };
     void setViewSortType( ViewSortType );
@@ -196,6 +200,7 @@ private:
 
     QSize _viewerSize;
     QSize _slideShowSize;
+    bool _launchViewerFullScreen, _launchSlideShowFullScreen;
     int _slideShowInterval;
 
     MemberMap _members;

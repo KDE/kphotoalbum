@@ -28,6 +28,7 @@ public:
     InfoBox( Viewer* parent, const char* name = 0 );
     void setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap );
     virtual void setSource( const QString& which );
+    void setSize();
 
 protected:
     virtual void contentsMouseMoveEvent( QMouseEvent* );

@@ -7,7 +7,7 @@
 ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const char* name )
     :QVGroupBox( title, parent, name )
 {
-    _fullScreen = new QCheckBox( i18n("Full screen" ), this );
+    _fullScreen = new QCheckBox( i18n("Launch in full screen" ), this );
 
     QWidget* sizeBox = new QWidget( this );
     QHBoxLayout* lay = new QHBoxLayout( sizeBox, 0, 6 );
@@ -25,28 +25,27 @@ ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const
     lay->addWidget( _height );
 
     lay->addStretch( 1 );
-
-    connect( _fullScreen, SIGNAL( toggled( bool ) ), sizeBox, SLOT( setDisabled( bool ) ) );
 }
 
 void ViewerSizeConfig::setSize( const QSize& size  )
 {
-    int width = size.width();
-    int height = size.height();
-
-    _fullScreen->setChecked( width == -1 );
-    if ( width != -1 )
-        _width->setValue( width );
-    if ( height != -1 )
-        _height->setValue( height );
+    _width->setValue( size.width() );
+    _height->setValue( size.height() );
 }
 
 QSize ViewerSizeConfig::size()
 {
-    if ( _fullScreen->isChecked() )
-        return QSize( -1, -1 );
-    else
-        return QSize( _width->value(), _height->value() );
+    return QSize( _width->value(), _height->value() );
+}
+
+void ViewerSizeConfig::setLaunchFullScreen( bool b )
+{
+    _fullScreen->setChecked( b );
+}
+
+bool ViewerSizeConfig::launchFullScreen() const
+{
+    return _fullScreen->isChecked();
 }
 
 #include "viewersizeconfig.moc"

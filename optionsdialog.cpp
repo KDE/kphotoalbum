@@ -286,7 +286,9 @@ void OptionsDialog::show()
     _albumCategory->setCurrentText( opt->albumCategory() );
     _maxImages->setValue( opt->maxImages() );
     _viewImageSetup->setSize( opt->viewerSize() );
+    _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
+    _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
     _slideShowInterval->setValue( opt->slideShowInterval() );
 
     // Config Groups page
@@ -317,8 +319,10 @@ void OptionsDialog::slotMyOK()
     opt->setAlbumCategory( _albumCategory->currentText() );
     opt->setMaxImages( _maxImages->value() );
     opt->setViewerSize( _viewImageSetup->size() );
+    opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
+    opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
 
     // ----------------------------------------------------------------------
     // Option Groups

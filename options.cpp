@@ -69,6 +69,8 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
     _albumCategory = config.attribute( QString::fromLatin1( "albumCategory" ) );
     _viewSortType = (ViewSortType) config.attribute( QString::fromLatin1( "viewSortType" ) ).toInt();
+    _launchViewerFullScreen = (bool) config.attribute( QString::fromLatin1( "launchViewerFullScreen" ) ).toInt();
+    _launchSlideShowFullScreen = (bool) config.attribute( QString::fromLatin1( "launchSlideShowFullScreen" ) ).toInt();
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -137,6 +139,8 @@ void Options::save( QDomElement top )
     config.setAttribute( QString::fromLatin1( "albumCategory" ), _albumCategory );
     config.setAttribute( QString::fromLatin1( "viewSortTye" ), _viewSortType );
     config.setAttribute( QString::fromLatin1( "slideShowInterval" ), _slideShowInterval );
+    config.setAttribute( QString::fromLatin1( "launchViewerFullScreen" ), _launchViewerFullScreen );
+    config.setAttribute( QString::fromLatin1( "launchSlideShowFullScreen" ), _launchSlideShowFullScreen );
 
     // Viewer size
     QDesktopWidget* desktop = qApp->desktop();
@@ -692,6 +696,26 @@ QString Options::albumCategory() const
 void Options::setAlbumCategory( const QString& optionGroup )
 {
     _albumCategory = optionGroup;
+}
+
+void Options::setLaunchViewerFullScreen( bool b )
+{
+    _launchViewerFullScreen = b;
+}
+
+bool Options::launchViewerFullScreen() const
+{
+    return _launchViewerFullScreen;
+}
+
+void Options::setLaunchSlideShowFullScreen( bool b )
+{
+    _launchSlideShowFullScreen = b;
+}
+
+bool Options::launchSlideShowFullScreen() const
+{
+    return _launchSlideShowFullScreen;
 }
 
 #include "options.moc"

@@ -15,7 +15,7 @@ void ExternalPopup::populate( ImageInfo* current, const ImageInfoList& imageList
     clear();
     KTrader::OfferList offers = KTrader::self()->query( QString::fromLatin1("image/jpeg"), QString::fromLatin1("Type == 'Application'"));
 
-    QStringList list = QStringList() << i18n("Current Image") << i18n("All Image in Viewer");
+    QStringList list = QStringList() << i18n("Current Image") << i18n("All Images in Viewer");
 
     bool first = true;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {

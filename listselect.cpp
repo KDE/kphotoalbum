@@ -126,12 +126,12 @@ QListBoxItem* CompletableLineEdit::findItemInListBox( const QString& text )
 }
 
 
-ListSelect::ListSelect( QWidget* parent, const char* name )
-    : QWidget( parent,  name )
+ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char* name )
+    : QWidget( parent,  name ), _optionGroup( optionGroup )
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
 
-    _label = new QLabel( this );
+    _label = new QLabel( Options::instance()->textForOptionGroup( optionGroup ), this );
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
@@ -151,12 +151,13 @@ ListSelect::ListSelect( QWidget* parent, const char* name )
 
     _lineEdit->setListBox( _listBox );
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
+
+    _listBox->insertStringList( Options::instance()->optionValue( optionGroup ) );
 }
 
-void ListSelect::setLabel( const QString& label )
+void ListSelect::setOptionGroup( const QString& optionGroup )
 {
-    _textLabel = label;
-    _label->setText( label );
+    _optionGroup = optionGroup;
 }
 
 void ListSelect::slotReturn()
@@ -172,7 +173,7 @@ void ListSelect::slotReturn()
             item = new QListBoxText( _listBox, txt );
         }
         Options* options = Options::instance();
-        options->addOption( _textLabel, txt);
+        options->addOption( _optionGroup, txt);
 
         _listBox->setSelected( item,  true );
         _lineEdit->clear();
@@ -183,14 +184,9 @@ void ListSelect::slotReturn()
     }
 }
 
-void ListSelect::insertStringList( const QStringList& list )
+QString ListSelect::optionGroup() const
 {
-    _listBox->insertStringList( list );
-}
-
-QString ListSelect::label() const
-{
-    return _textLabel;
+    return _optionGroup;
 }
 
 void ListSelect::setSelection( const QStringList& list )
@@ -202,7 +198,7 @@ void ListSelect::setSelection( const QStringList& list )
         if ( !item )  {
             _listBox->insertItem( *it );
             item = _listBox->findItem( *it,  ExactMatch );
-            Options::instance()->addOption( _textLabel, *it);
+            Options::instance()->addOption( _optionGroup, *it);
         }
         _listBox->setSelected( item,  true );
     }
@@ -233,36 +229,6 @@ void ListSelect::setMode( Mode mode)
 {
     _mode = mode;
     _lineEdit->setMode( mode );
-}
-
-bool ListSelect::matches( ImageInfo* info )
-{
-    // PENDING(blackie) to simple algorithm for matching, could be improved with parentheses.
-    QString matchText = _lineEdit->text();
-    if ( matchText.isEmpty() )
-        return true;
-
-    QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
-    bool orTrue = false;
-    for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
-        QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
-        bool andTrue = true;
-        for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
-            QString str = *itAnd;
-            bool negate = false;
-            QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
-            if ( regexp.exactMatch( str ) )  {
-                negate = true;
-                str = regexp.cap(1);
-            }
-            str = str.stripWhiteSpace();
-            bool found = info->hasOption( _textLabel,  str );
-            andTrue &= ( negate ? !found : found );
-        }
-        orTrue |= andTrue;
-    }
-
-    return orTrue;
 }
 
 QWidget* ListSelect::firstTabWidget() const
@@ -344,7 +310,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()),
                                                i18n("Really Delete %1?").arg(item->text()) );
         if ( code == KMessageBox::Yes ) {
-            emit deleteOption( label(), item->text() );
+            emit deleteOption( optionGroup(), item->text() );
             delete item;
         }
     }
@@ -358,7 +324,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()).arg(newStr).arg(item->text()),
                                                i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
-                emit renameOption( label(), item->text(), newStr );
+                emit renameOption( optionGroup(), item->text(), newStr );
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
@@ -372,6 +338,14 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
             }
         }
     }
+}
+
+
+void ListSelect::updateGroupInfo()
+{
+    _label->setText( Options::instance()->textForOptionGroup( _optionGroup ) );
+    _listBox->clear();
+    _listBox->insertStringList( Options::instance()->optionValue( _optionGroup ) );
 }
 
 

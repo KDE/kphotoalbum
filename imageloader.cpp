@@ -54,18 +54,12 @@ void ImageLoader::run()
                     img = img.scale( li.width(), li.height(), QImage::ScaleMin );
 
                 // Save thumbnail to disk
-                if (  Options::instance()->cacheThumbNails() && li.cache() ) {
-                    if ( ! QDir( cacheDir ).exists() ) {
-                        QDir().mkdir( cacheDir, true );
-                    }
-                    img.save( cacheFile, "JPEG" );
+                if ( ! QDir( cacheDir ).exists() ) {
+                    QDir().mkdir( cacheDir, true );
                 }
+                img.save( cacheFile, "JPEG" );
                 imageLoaded = true;
             }
-
-            // should we compress the image, this is needed for thumbnail overview of say 2500 images
-            if ( imageLoaded && li.compress() )
-                img = img.convertDepth(8);
 
             ImageEvent* iew = new ImageEvent( li, img );
             QApplication::postEvent( ImageManager::instance(),  iew );
@@ -73,4 +67,15 @@ void ImageLoader::run()
         else
             _sleeper->wait();
     }
+}
+
+QImage ImageLoader::rotateAndScale( QImage img, int width, int height, int angle )
+{
+    if ( angle != 0 )  {
+        QWMatrix matrix;
+        matrix.rotate( angle );
+        img = img.xForm( matrix );
+    }
+    img = img.scale( width, height, QImage::ScaleMin );
+    return img;
 }

@@ -6,12 +6,16 @@
 #include <qpainter.h>
 #include <qpicture.h>
 #include "options.h"
+#include "imageinfo.h"
+#include "imagemanager.h"
+#include "imageloader.h"
 
 DisplayArea::DisplayArea( QWidget* parent, const char* name )
     :QLabel( parent, name ), _tool( None ), _activeTool( 0 )
 {
     setAlignment( AlignCenter );
-    setBackgroundMode( NoBackground );
+//    setBackgroundMode( NoBackground );
+    setPaletteBackgroundColor( black );
 }
 
 void DisplayArea::slotLine()
@@ -191,11 +195,33 @@ void DisplayArea::toggleShowDrawings( bool b )
 {
     Options::instance()->setShowDrawings( b );
     drawAll();
-    Options::instance()->save();
 }
 
+void DisplayArea::setImage( ImageInfo* info )
+{
+    _info = info;
+    ImageManager::instance()->load( info->fileName( false ), this, 0, -1,  -1, false, true );
+}
 
+void DisplayArea::pixmapLoaded( const QString&, int, int, int, const QImage& image )
+{
+    _currentImage= image;
+    QImage img = ImageLoader::rotateAndScale( _currentImage, width(), height(), _info->angle() );
 
+    QPixmap pixmap;
+    pixmap.convertFromImage( img );
+    setPixmap( pixmap );
+}
 
+void DisplayArea::resizeEvent( QResizeEvent* )
+{
+    if ( !_currentImage.isNull() ) {
+        QImage img = ImageLoader::rotateAndScale( _currentImage, width(), height(), _info->angle() );
+
+        QPixmap pixmap;
+        pixmap.convertFromImage( img );
+        setPixmap( pixmap );
+    }
+}
 
 #include "displayarea.moc"

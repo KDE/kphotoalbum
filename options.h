@@ -2,24 +2,73 @@
 #define OPTIONS_H
 #include <qstringlist.h>
 #include <qmap.h>
+#include <qpixmap.h>
+#include <qobject.h>
+#include <qdom.h>
+class ImageConfig;
 
-class Options {
+class Options :public QObject {
+    Q_OBJECT
+
 public:
     static Options* instance();
     static bool configFileExists();
     static void setConfFile( const QString& file );
+    QString configFile() const;
+    QString autoSaveFile() const;
 
     void setThumbSize( int );
     int thumbSize() const;
 
-    void setCacheThumbNails( bool );
-    bool cacheThumbNails() const;
+    void setMaxImages( int );
+    int maxImages() const;
 
+    // -------------------------------------------------- Options
     void setOption( const QString& key,  const QStringList& value );
     void addOption( const QString& key,  const QString& value );
     void removeOption( const QString& key, const QString& value );
     QStringList optionValue( const QString& key ) const;
 
+    // -------------------------------------------------- Option Groups
+    struct OptionGroupInfo
+    {
+        OptionGroupInfo() {}
+        OptionGroupInfo( const QString& text, const QString& icon, bool show = true )
+            : _text(text), _icon(icon), _show(show) {}
+        QString _text;
+        QString _icon;
+        bool _show;
+    };
+
+    QStringList optionGroups() const;
+    void addOptionGroup( const QString& name, const QString& label, const QString& icon );
+    void deleteOptionGroup( const QString& name );
+    void renameOptionGroup( const QString& oldName, const QString& newName );
+
+    QString textForOptionGroup( const QString& name ) const;
+
+    QPixmap iconForOptionGroup( const QString& name ) const;
+    QString iconNameForOptionGroup( const QString& name ) const;
+    void setIconForOptionGroup( const QString& name, const QString& icon );
+
+    // -------------------------------------------------- Options for the Viewer
+    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
+    bool showInfoBox() const;
+    bool showDrawings() const;
+    bool showDescription() const;
+    bool showDate() const;
+    bool showOption( const QString& ) const;
+
+    void setShowInfoBox(bool b);
+    void setShowDrawings(bool b);
+    void setShowDescription(bool b);
+    void setShowDate(bool b);
+    void setShowOption( const QString& optionGroup, bool b );
+
+    Position infoBoxPosition() const;
+    void setInfoBoxPosition( Position pos );
+
+    // -------------------------------------------------- misc
     enum TimeStampTrust {
         Always = 0,
         Ask = 1,
@@ -33,7 +82,8 @@ public:
     void setAutoSave( int min );
     int autoSave() const;
 
-    void save();
+    void save( const QString& fileName );
+    bool isDirty() const { return _dirty; }
 
     QString imageDirectory() const;
     void setImageDirecotry( const QString& directory );
@@ -44,27 +94,11 @@ public:
     QString HTMLBaseURL() const;
     void setHTMLBaseURL( const QString& dir );
 
-    // Options for the Viewer
-    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
-    bool showInfoBox() const;
-    bool showDrawings() const;
-    bool showDescription() const;
-    bool showDate() const;
-    bool showLocation() const;
-    bool showNames() const;
-    bool showKeyWords() const;
+    void saveConfigWindowLayout( ImageConfig* );
+    void loadConfigWindowLayout( ImageConfig* );
 
-    void setShowInfoBox(bool b);
-    void setShowDrawings(bool b);
-    void setShowDescription(bool b);
-    void setShowDate(bool b);
-    void setShowLocation(bool b);
-    void setShowNames(bool b);
-    void setShowKeyWords( bool b );
-
-    Position infoBoxPosition() const;
-    void setInfoBoxPosition( Position pos );
-
+signals:
+    void optionGroupsChanged();
 
 private:
     Options();
@@ -74,14 +108,16 @@ private:
 
     int _thumbSize,  _imageCacheSize;
     TimeStampTrust _tTimeStamps;
-    int _autoSave;
-    bool _cacheThumbNails, _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps;
+    int _autoSave, _maxImages;
+    bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps;
     QMap<QString, QStringList> _options;
+    QMap<QString,OptionGroupInfo> _optionGroups;
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL;
 
     Position _infoBoxPosition;
-    bool _showInfoBox, _showDrawings, _showDescription, _showDate, _showNames, _showLocation, _showKeyWords;
-
+    bool _showInfoBox, _showDrawings, _showDescription, _showDate;
+    bool _dirty;
+    QDomElement _configDock;
 };
 
 #endif /* OPTIONS_H */

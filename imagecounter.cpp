@@ -1,26 +1,30 @@
 #include "imagecounter.h"
 #include <klocale.h>
+#include <qlayout.h>
 
 ImageCounter::ImageCounter( QWidget* parent, const char* name )
-    :QLabel( parent, name ), _partial(0), _total(0)
+    :QLabel( parent, name )
 {
-    setFrameStyle( Sunken );
-    setMargin(5);
+    setText( QString::fromLatin1( "---" ) );
+    setMargin( 5 );
 }
 
-void ImageCounter::setPartial( int c )
+void ImageCounter::setMatchCount( int start, int end, int matches )
 {
-    _partial = c;
-    updateText();
+    if (start == -1 )
+        setText( i18n( "Showing %1 images" ).arg( matches ) );
+    else
+        setText( i18n( "Showing %1-%2 of %3").arg(start).arg(end).arg(matches) );
 }
 
 void ImageCounter::setTotal( int c )
 {
-    _total = c;
-    updateText();
+    setText( i18n( "Total: %1" ).arg(c) );
 }
 
-void ImageCounter::updateText()
+void ImageCounter::showingOverview()
 {
-    setText( i18n("Showing %1 of %2 images") .arg( _partial ).arg( _total ) );
+    setText( QString::fromLatin1( "---" ) );
 }
+
+#include "imagecounter.moc"

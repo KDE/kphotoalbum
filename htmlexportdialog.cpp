@@ -341,7 +341,7 @@ QString HTMLExportDialog::createImage( ImageInfo* info, int size )
     QFileInfo finfo(info->fileName(true));
     QString baseName = finfo.baseName();
 
-    ImageManager::instance()->load( info->fileName( false ),  this, info->angle(), size, size, false, true, false );
+    ImageManager::instance()->load( info->fileName( false ),  this, info->angle(), size, size, false, true );
     QString name = baseName;
     if ( size != -1 )
         name += QString::fromLatin1( "-" ) + QString::number( size );
@@ -388,7 +388,6 @@ void HTMLExportDialog::slotOk()
     if ( ok ) {
         Options::instance()->setHTMLBaseDir( _baseDir->text() );
         Options::instance()->setHTMLBaseURL( _baseURL->text() );
-        Options::instance()->save();
         accept();
         if ( ! _baseURL->text().isEmpty() )
             new KRun( _baseURL->text() + QString::fromLatin1( "/" ) + _outputDir->text() );

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>ImageConfigUI</class>
 <widget class="QDialog">
     <property name="name">
@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>943</width>
-            <height>529</height>
+            <width>815</width>
+            <height>511</height>
         </rect>
     </property>
     <property name="caption">
@@ -21,14 +21,14 @@
         </property>
         <widget class="QSplitter">
             <property name="name">
-                <cstring>splitter5</cstring>
+                <cstring>splitter3</cstring>
             </property>
             <property name="orientation">
                 <enum>Vertical</enum>
             </property>
             <widget class="QLayoutWidget">
                 <property name="name">
-                    <cstring>layout20</cstring>
+                    <cstring>layout9</cstring>
                 </property>
                 <hbox>
                     <property name="name">
@@ -36,7 +36,7 @@
                     </property>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout11</cstring>
+                            <cstring>layout8</cstring>
                         </property>
                         <vbox>
                             <property name="name">
@@ -570,29 +570,31 @@
                     </widget>
                 </hbox>
             </widget>
-            <widget class="QSplitter">
+            <widget class="QFrame">
                 <property name="name">
-                    <cstring>splitter1</cstring>
+                    <cstring>optionFrame</cstring>
                 </property>
-                <property name="orientation">
-                    <enum>Horizontal</enum>
+                <property name="minimumSize">
+                    <size>
+                        <width>50</width>
+                        <height>50</height>
+                    </size>
                 </property>
-                <widget class="ListSelect">
-                    <property name="name">
-                        <cstring>persons</cstring>
-                    </property>
-                </widget>
-                <widget class="ListSelect">
-                    <property name="name">
-                        <cstring>locations</cstring>
-                    </property>
-                </widget>
-                <widget class="ListSelect">
-                    <property name="name">
-                        <cstring>keywords</cstring>
-                    </property>
-                </widget>
+                <property name="frameShape">
+                    <enum>NoFrame</enum>
+                </property>
+                <property name="frameShadow">
+                    <enum>Plain</enum>
+                </property>
             </widget>
+        </widget>
+        <widget class="QSplitter">
+            <property name="name">
+                <cstring>splitter1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
@@ -668,22 +670,6 @@
     </vbox>
 </widget>
 <customwidgets>
-    <customwidget>
-        <class>ListSelect</class>
-        <header location="local">listselect.h</header>
-        <sizehint>
-            <width>150</width>
-            <height>150</height>
-        </sizehint>
-        <container>0</container>
-        <sizepolicy>
-            <hordata>3</hordata>
-            <verdata>3</verdata>
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-        </sizepolicy>
-        <pixmap>image0</pixmap>
-    </customwidget>
     <customwidget>
         <class>ImagePreview</class>
         <header location="local">imagepreview.h</header>
@@ -791,8 +777,5 @@
 <includehints>
     <includehint>editor.h</includehint>
     <includehint>imagepreview.h</includehint>
-    <includehint>listselect.h</includehint>
-    <includehint>listselect.h</includehint>
-    <includehint>listselect.h</includehint>
 </includehints>
 </UI>

@@ -46,7 +46,7 @@ void IconViewToolTip::showToolTips()
     QIconViewItem* item = itemAtCursor();
     if ( item ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        setText( QString::fromLatin1("<qt>") + Util::createInfoText( tn->imageInfo() ) + QString::fromLatin1("</qt") );
+        setText( QString::fromLatin1("<qt>") + Util::createInfoText( tn->imageInfo(), 0 ) + QString::fromLatin1("</qt") );
 
         _current = item;
         move( QCursor::pos() + QPoint( 10, 10 ));

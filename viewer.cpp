@@ -18,24 +18,26 @@
 #include <kaction.h>
 #include <klocale.h>
 #include "util.h"
+#include <qsignalmapper.h>
+#include "showoptionaction.h"
+#include <qtimer.h>
 
-Viewer* Viewer::_instance = 0;
+Viewer* Viewer::_latest = 0;
 
-Viewer* Viewer::instance( QWidget* parent )
+Viewer* Viewer::latest()
 {
-    if ( !_instance )
-        _instance = new Viewer( parent , "viewer" );
-    return _instance;
+    return _latest;
 }
 
 Viewer::Viewer( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _width(800), _height(600)
+    :QDialog( parent,  name )
 {
+    _latest = this;
     _label = new DisplayArea( this );
-    setCentralWidget( _label );
-    setPaletteBackgroundColor( black );
-    _label->setFixedSize( _width, _height );
-
+    _label->move( 0,0 );
+    _infoBox = new InfoBox( this );
+    _infoBox->setShown( Options::instance()->showInfoBox() );
+#if 0
     KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this, "actions" );
     _toolbar = new KToolBar( this );
@@ -66,6 +68,8 @@ Viewer::Viewer( QWidget* parent, const char* name )
     close->plug( _toolbar );
 
     _toolbar->hide();
+#endif
+
     setupContextMenu();
 }
 
@@ -132,25 +136,19 @@ void Viewer::setupContextMenu()
     action->addTo( _popup );
     action->setOn( Options::instance()->showDescription() );
 
-    action = new QAction( i18n("Show Time"), QIconSet(), i18n("Show Time"), Key_T, this, "showTime", true );
+    action = new QAction( i18n("Show Date"), QIconSet(), i18n("Show Date"), Key_A, this, "showDate", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     action->addTo( _popup );
     action->setOn( Options::instance()->showDate() );
 
-    action = new QAction( i18n("Show Names"), QIconSet(), i18n("Show Names"), Key_N, this, "showNames", true );
-    connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowNames( bool ) ) );
-    action->addTo( _popup );
-    action->setOn( Options::instance()->showNames() );
+    QStringList grps = Options::instance()->optionGroups();
 
-    action = new QAction( i18n("Show Location"), QIconSet(), i18n("Show Location"), Key_L, this, "showLocation", true );
-    connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowLocation( bool ) ) );
-    action->addTo( _popup );
-    action->setOn( Options::instance()->showLocation() );
-
-    action = new QAction( i18n("Show Keywords"), QIconSet(), i18n("Show Keywords"), Key_K, this, "showKeywords", true );
-    connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowKeyWords( bool ) ) );
-    action->addTo( _popup );
-    action->setOn( Options::instance()->showKeyWords() );
+    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        action = new ShowOptionAction( *it, this );
+        action->addTo( _popup );
+        connect( action, SIGNAL( toggled( const QString&, bool ) ),
+                 this, SLOT( toggleShowOption( const QString&, bool ) ) );
+    }
 
     _popup->insertSeparator();
 
@@ -170,176 +168,23 @@ void Viewer::load( const ImageInfoList& list, int index )
     load();
 }
 
-void Viewer::pixmapLoaded( const QString&, int w, int h, int, const QImage& image )
-{
-    // Erase
-    QPainter p( _label );
-    p.fillRect( 0, 0, _label->width(), _label->height(), paletteBackgroundColor() );
-    w = QMIN( w, image.width() );
-    h = QMIN( h, image.height() );
-    _label->setFixedSize( w, h );
-    _label->updateGeometry();
-
-    _pixmap.convertFromImage( image );
-    setDisplayedPixmap();
-    _label->setDrawList( currentInfo()->drawList() );
-}
-
 void Viewer::load()
 {
-    QRect rect = QApplication::desktop()->screenGeometry( this );
-    int w, h;
-
-    if ( currentInfo()->angle() == 0 || currentInfo()->angle() == 180 )  {
-        w = _width;
-        h = _height;
-    }
-    else {
-        h = _width;
-        w = _height;
-    }
-
-    if ( w > rect.width() )  {
-        h = (int) (h*((double)rect.width()/w));
-        w = rect.width();
-    }
-    if ( h > rect.height() )  {
-        w = (int) (w*((double)rect.height()/h));
-        h = rect.height();
-    }
-
+    _label->setDrawList( currentInfo()->drawList() );
     _label->setText( i18n("Loading...") );
+    _label->setImage( currentInfo() );
+    updateInfoBox();
 
-    ImageManager::instance()->load( currentInfo()->fileName( false ), this, currentInfo()->angle(), w,  h, false, true, false );
     _nextAction->setEnabled( _current +1 < (int) _list.count() );
     _prevAction->setEnabled( _current > 0 );
     _firstAction->setEnabled( _current > 0 );
     _lastAction->setEnabled( _current +1 < (int) _list.count() );
 }
 
-void Viewer::setDisplayedPixmap()
-{
-    QPixmap pixmap = _pixmap;
-    if ( pixmap.isNull() )
-        return;
-
-    if ( Options::instance()->showInfoBox() )  {
-        QPainter p( &pixmap );
-
-        QString text = Util::createInfoText( currentInfo() );
-
-        Options::Position pos = Options::instance()->infoBoxPosition();
-        if ( !text.isEmpty() )  {
-            text = QString::fromLatin1("<qt>") + text + QString::fromLatin1("</qt>");
-
-            QSimpleRichText txt( text, qApp->font() );
-
-            if ( pos == Options::Top || pos == Options::Bottom )  {
-                txt.setWidth( pixmap.width() - 20 ); // 2x5 pixels for inside border + 2x5 outside border.
-            }
-            else {
-                int width = 25;
-                do {
-                    width += 25;
-                    txt.setWidth( width );
-                }  while ( txt.height() > width + 25 );
-            }
-
-            // -------------------------------------------------- Position rectangle
-            QRect rect;
-            rect.setWidth( txt.widthUsed() + 10 ); // 5 pixels border in all directions
-            rect.setHeight( txt.height() + 10 );
-
-            // x-coordinate
-            if ( pos == Options::TopRight || pos == Options::BottomRight || pos == Options::Right )
-                rect.moveRight( pixmap.width() - 5 );
-            else if ( pos == Options::TopLeft || pos == Options::BottomLeft || pos == Options::Left )
-                rect.moveLeft( 5 );
-            else
-                rect.moveLeft( (pixmap.width() - txt.widthUsed())/2+5 );
-
-            // Y-coordinate
-            if ( pos == Options::TopLeft || pos == Options::TopRight || pos == Options::Top )
-                rect.moveTop( 5 );
-            else if ( pos == Options::BottomLeft || pos == Options::BottomRight || pos == Options::Bottom )
-                rect.moveBottom( pixmap.height() - 5 );
-            else
-                rect.moveTop( (pixmap.height()-txt.height())/2 + 5 );
-
-            p.fillRect( rect, white );
-            txt.draw( &p,  rect.left()+5, rect.top()+5,  QRect(),  _label->colorGroup());
-            _textRect = rect;
-        }
-    }
-
-    _label->setPixmap( pixmap );
-}
-
-void Viewer::mousePressEvent( QMouseEvent* e )
-{
-    if ( e->button() == LeftButton )  {
-        _moving = Options::instance()->showInfoBox() && _textRect.contains( _label->mapFromParent( e->pos() ) );
-        _startPos = Options::instance()->infoBoxPosition();
-        if ( _moving )
-            _label->setCursor( PointingHandCursor );
-    }
-    else
-        _moving = false;
-    KMainWindow::mousePressEvent( e );
-}
-
-void Viewer::mouseMoveEvent( QMouseEvent* e )
-{
-    if ( !_moving )
-        return;
-
-    Options::Position oldPos = Options::instance()->infoBoxPosition();
-    Options::Position pos = oldPos;
-    int x = _label->mapFromParent( e->pos() ).x();
-    int y = _label->mapFromParent( e->pos() ).y();
-    int w = _label->width();
-    int h = _label->height();
-
-    if ( x < w/3 )  {
-        if ( y < h/3  )
-            pos = Options::TopLeft;
-        else if ( y > h*2/3 )
-            pos = Options::BottomLeft;
-        else
-            pos = Options::Left;
-    }
-    else if ( x > w*2/3 )  {
-        if ( y < h/3  )
-            pos = Options::TopRight;
-        else if ( y > h*2/3 )
-            pos = Options::BottomRight;
-        else
-            pos = Options::Right;
-    }
-    else {
-        if ( y < h/3  )
-            pos = Options::Top;
-        else if ( y > h*2/3 )
-            pos = Options::Bottom;
-    }
-    if ( pos != oldPos )  {
-        Options::instance()->setInfoBoxPosition( pos );
-        setDisplayedPixmap();
-    }
-    KMainWindow::mouseMoveEvent( e );
-}
-
-void Viewer::mouseReleaseEvent( QMouseEvent* e )
-{
-    _label->setCursor( ArrowCursor  );
-    if ( Options::instance()->infoBoxPosition() != _startPos )
-        Options::instance()->save();
-    KMainWindow::mouseReleaseEvent( e );
-}
-
 void Viewer::contextMenuEvent( QContextMenuEvent * e )
 {
     _popup->exec( e->globalPos() );
+    e->accept();
 }
 
 void Viewer::showNext()
@@ -362,19 +207,23 @@ void Viewer::showPrev()
 
 void Viewer::zoomIn()
 {
+#if 0
     _width = _width*4/3;
     _height = _height*4/3;
     resize( _width, _height );
     load();
+#endif
 }
 
 void Viewer::zoomOut()
 {
+#if 0
     _width = _width*3/4;
     _height = _height*3/4;
     _label->setMinimumSize(0,0);
     resize( _width, _height );
     load();
+#endif
 }
 
 void Viewer::rotate90()
@@ -398,49 +247,25 @@ void Viewer::rotate270()
 void Viewer::toggleShowInfoBox( bool b )
 {
     Options::instance()->setShowInfoBox( b );
-    setDisplayedPixmap();
-    Options::instance()->save();
+    _infoBox->setShown(b);
 }
 
 void Viewer::toggleShowDescription( bool b )
 {
     Options::instance()->setShowDescription( b );
-    setDisplayedPixmap();
-    Options::instance()->save();
+    updateInfoBox();
 }
 
 void Viewer::toggleShowDate( bool b )
 {
     Options::instance()->setShowDate( b );
-    setDisplayedPixmap();
-    Options::instance()->save();
+    updateInfoBox();
 }
 
-void Viewer::toggleShowNames( bool b )
+void Viewer::toggleShowOption( const QString& optionGroup, bool b )
 {
-    Options::instance()->setShowNames( b );
-    setDisplayedPixmap();
-    Options::instance()->save();
-}
-
-void Viewer::toggleShowLocation( bool b )
-{
-    Options::instance()->setShowLocation( b );
-    setDisplayedPixmap();
-    Options::instance()->save();
-}
-
-void Viewer::toggleShowKeyWords( bool b )
-{
-    Options::instance()->setShowKeyWords( b );
-    setDisplayedPixmap();
-    Options::instance()->save();
-}
-
-
-Viewer::~Viewer()
-{
-    _instance = 0;
+    Options::instance()->setShowOption( optionGroup, b );
+    updateInfoBox();
 }
 
 void Viewer::showFirst()
@@ -470,13 +295,17 @@ void Viewer::save()
 void Viewer::startDraw()
 {
     _label->slotSelect();
+#if 0
     _toolbar->show();
+#endif
 }
 
 void Viewer::stopDraw()
 {
     _label->stopDrawings();
+#if 0
     _toolbar->hide();
+#endif
 }
 
 void Viewer::close()
@@ -488,6 +317,100 @@ void Viewer::close()
 ImageInfo* Viewer::currentInfo()
 {
     return _list.at( _current );
+}
+
+void Viewer::infoBoxMove()
+{
+    QPoint p = mapFromGlobal( QCursor::pos() );
+    Options::Position oldPos = Options::instance()->infoBoxPosition();
+    Options::Position pos = oldPos;
+    int x = _label->mapFromParent( p ).x();
+    int y = _label->mapFromParent( p ).y();
+    int w = _label->width();
+    int h = _label->height();
+
+    if ( x < w/3 )  {
+        if ( y < h/3  )
+            pos = Options::TopLeft;
+        else if ( y > h*2/3 )
+            pos = Options::BottomLeft;
+        else
+            pos = Options::Left;
+    }
+    else if ( x > w*2/3 )  {
+        if ( y < h/3  )
+            pos = Options::TopRight;
+        else if ( y > h*2/3 )
+            pos = Options::BottomRight;
+        else
+            pos = Options::Right;
+    }
+    else {
+        if ( y < h/3  )
+            pos = Options::Top;
+            else if ( y > h*2/3 )
+                pos = Options::Bottom;
+    }
+    if ( pos != oldPos )  {
+        Options::instance()->setInfoBoxPosition( pos );
+        updateInfoBox();
+    }
+}
+
+void Viewer::moveInfoBox()
+{
+    Options::Position pos = Options::instance()->infoBoxPosition();
+
+    int lx = _label->pos().x();
+    int ly = _label->pos().y();
+    int lw = _label->width();
+    int lh = _label->height();
+
+    int bw = _infoBox->width();
+    int bh = _infoBox->height();
+
+    int bx, by;
+    // x-coordinate
+    if ( pos == Options::TopRight || pos == Options::BottomRight || pos == Options::Right )
+        bx = lx+lw-5-bw;
+    else if ( pos == Options::TopLeft || pos == Options::BottomLeft || pos == Options::Left )
+        bx = lx+5;
+    else
+        bx = lx+lw/2-bw/2;
+
+
+    // Y-coordinate
+    if ( pos == Options::TopLeft || pos == Options::TopRight || pos == Options::Top )
+        by = ly+5;
+    else if ( pos == Options::BottomLeft || pos == Options::BottomRight || pos == Options::Bottom )
+        by = ly+lh-5-bh;
+    else
+        by = ly+lh/2-bh/2;
+
+    _infoBox->move(bx,by);
+}
+
+void Viewer::resizeEvent( QResizeEvent* )
+{
+    _label->resize( size() );
+    moveInfoBox();
+}
+
+void Viewer::updateInfoBox()
+{
+    if ( currentInfo() ) {
+        QMap<int, QPair<QString,QString> > map;
+        QString text = Util::createInfoText( currentInfo(), &map );
+        text = QString::fromLatin1("<qt>") + text + QString::fromLatin1("</qt>");
+        _infoBox->setInfo( text, map );
+        moveInfoBox();
+    }
+}
+
+Viewer::~Viewer()
+{
+    if ( _latest == this )
+        _latest = 0;
 }
 
 #include "viewer.moc"

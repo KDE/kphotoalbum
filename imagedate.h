@@ -12,7 +12,7 @@ public:
     void setYear( int );
     void setMonth( int );
     void setDay( int );
-    bool operator<=( ImageDate& other );
+    bool operator<=( const ImageDate& other ) const;
     bool isNull() const;
     QString toString();
     operator QString() { return toString(); }

@@ -39,7 +39,7 @@ void ImageDate::setDay( int day )
     _day = day;
 }
 
-bool ImageDate::operator<=( ImageDate& other )
+bool ImageDate::operator<=( const ImageDate& other ) const
 {
     bool ignoreYear =  ( _year == 0 || other._year == 0 );
     bool ignoreMonth = ( _month == 0 || other._month == 0 );

@@ -15,7 +15,7 @@ class LoadInfo {
 public:
     LoadInfo();
     LoadInfo( const QString& fileName, int width,  int heigth, int angle,
-              bool compress,  ImageClient* client);
+              ImageClient* client);
 
     bool isNull() const;
     QString fileName() const;
@@ -26,8 +26,6 @@ public:
     void setCache( bool );
     bool cache() const;
     ImageClient* client();
-
-    bool compress() const;
 
     bool operator<( const LoadInfo& other ) const;
     bool operator==( const LoadInfo& other ) const;
@@ -40,7 +38,6 @@ private:
     bool _cache;
     ImageClient* _client;
     int _angle;
-    bool _compress;
 };
 
 class ImageEvent :public QCustomEvent {
@@ -60,7 +57,7 @@ class ImageManager :public QObject {
 
 public:
     void load( const QString& fileName, ImageClient* client, int angle, int width, int height,
-               bool cache, bool priority, bool compress );
+               bool cache, bool priority );
     LoadInfo next();
     static ImageManager* instance();
     void stop( ImageClient* );

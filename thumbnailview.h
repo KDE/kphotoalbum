@@ -12,8 +12,6 @@ class ThumbNailView :public QIconView {
 public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
     void load( ImageInfoList* list );
-    bool isClipboardEmpty();
-    ImageInfoList clipboard();
 
 public slots:
     void reload();
@@ -39,7 +37,6 @@ protected:
 private:
     ImageInfoList* _imageList;
     ThumbNail* _currentHighlighted;
-    ImageInfoList _cutList;
     IconViewToolTip* _iconViewToolTip;
 };
 

@@ -2,9 +2,11 @@
 #include "viewer.h"
 #include "imagemanager.h"
 #include <klocale.h>
+#include <qwmatrix.h>
+#include "imageloader.h"
 
 ImagePreview::ImagePreview( QWidget* parent, const char* name )
-    : QLabel( parent, name )
+    : QLabel( parent, name ), _info(0)
 {
     setAlignment( AlignCenter );
     setFocusPolicy( WheelFocus );
@@ -13,12 +15,8 @@ ImagePreview::ImagePreview( QWidget* parent, const char* name )
 void ImagePreview::setInfo( ImageInfo* info )
 {
     _info = info;
-}
-
-void ImagePreview::mouseDoubleClickEvent( QMouseEvent* )
-{
-    if ( _info )
-        emit doubleClicked();
+    _img = QImage();
+    reload();
 }
 
 void ImagePreview::keyPressEvent( QKeyEvent* ev)
@@ -46,16 +44,35 @@ void ImagePreview::reload()
     if ( !_info )
         return;
 
-    setText( i18n("Loading...") );
-    ImageManager::instance()->load( _info->fileName( false ), this, _info->angle(), 256, 256, false, true, false );
+    if ( _img.isNull() ) {
+        setText( i18n("Loading...") );
+        ImageManager::instance()->load( _info->fileName( false ), this, 0, -1, -1, false, true );
+    }
+    else {
+        QImage img = ImageLoader::rotateAndScale( _img, width(), height(), _info->angle() );
+        QPixmap pix;
+        pix.convertFromImage( img );
+        setPixmap( pix );
+    }
 }
 
-void ImagePreview::pixmapLoaded( const QString&, int, int, int, const QImage& image )
+void ImagePreview::pixmapLoaded( const QString& fileName, int, int, int, const QImage& image )
 {
-    QPixmap pix;
-    pix.convertFromImage( image );
-    setPixmap( pix );
+    if ( fileName == _info->fileName( false ) ) {
+        _img = image;
+        reload();
+    }
 }
 
+
+void ImagePreview::resizeEvent( QResizeEvent* )
+{
+    reload();
+}
+
+QSize ImagePreview::sizeHint() const
+{
+    return QSize( 128,128 );
+}
 
 #include "imagepreview.moc"

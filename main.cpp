@@ -14,7 +14,7 @@ static const KCmdLineOptions options[] =
 
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaba"), "0.01",
-                          I18N_NOOP("Virtual Photo Album for KDE"), KAboutData::License_GPL );
+                          I18N_NOOP("KDE Image Database"), KAboutData::License_GPL );
     aboutData.addAuthor( "Jesper K. Pedersen", "Development", "blackie@kde.org" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
@@ -27,9 +27,9 @@ int main( int argc, char** argv ) {
         Options::setConfFile( args->getOption( "c" ) );
 
     MainView* view = new MainView( 0,  "view" );
+    qApp->setMainWidget( view );
     view->resize(800, 600);
     view->show();
 
-    QObject::connect( qApp, SIGNAL( lastWindowClosed() ), qApp, SLOT( quit() ) );
     return app.exec();
 }

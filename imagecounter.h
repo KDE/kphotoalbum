@@ -3,15 +3,15 @@
 #include <qlabel.h>
 
 class ImageCounter :public QLabel {
+    Q_OBJECT
 
 public:
     ImageCounter( QWidget* parent, const char* name = 0 );
-    void setPartial( int );
+
+public slots:
+    void setMatchCount( int start, int end, int matches );
     void setTotal( int );
-protected:
-    void updateText();
-private:
-    int _partial, _total;
+    void showingOverview();
 };
 
 

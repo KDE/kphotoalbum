@@ -17,12 +17,16 @@
       <text>&amp;Images</text>
       <Action name="viewImages" />
       <Action name="limitToMarked" />
-      <Separator/>
-      <Action name="displayAllThumbs" />
     </Menu>
    <Menu name="help">
      <Action name="showToolTipOnImages"/>
    </Menu>
   </MenuBar>
+
+  <ToolBar name="mainToolBar">
+    <text>Main Toolbar</text>
+    <Action name="go_back"/>
+    <Action name="go_forward"/>
+  </ToolBar>
 
 </kpartgui>

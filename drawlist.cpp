@@ -44,7 +44,7 @@ DrawList::DrawList( const DrawList& other )
 
 void DrawList::load( QDomElement elm )
 {
-    Q_ASSERT( elm.tagName() == QString::fromLatin1( "Drawings" ) );
+    Q_ASSERT( elm.tagName() == QString::fromLatin1( "drawings" ) );
     Q_ASSERT( count() == 0 );
     for ( QDomNode node = elm.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( !node.isElement() )
@@ -73,7 +73,7 @@ void DrawList::save( QDomDocument doc, QDomElement top )
     if ( count() == 0 )
         return;
 
-    QDomElement elm = doc.createElement( QString::fromLatin1( "Drawings" ) );
+    QDomElement elm = doc.createElement( QString::fromLatin1( "drawings" ) );
     top.appendChild( elm );
 
     for( QValueList<Draw*>::iterator it = begin(); it != end(); ++it ) {

@@ -6,7 +6,6 @@
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qlabel.h>
-#include "imagemanager.h"
 #include "options.h"
 #include "imagepreview.h"
 #include <qregexp.h>
@@ -16,39 +15,186 @@
 #include <kstandarddirs.h>
 #include "editor.h"
 #include <klocale.h>
+#include <qlayout.h>
+#include <qsplitter.h>
+#include <kpushbutton.h>
+#include <klineedit.h>
+#include <qpopupmenu.h>
+#include <qpoint.h>
+#include <qcursor.h>
+#include <qapplication.h>
+#include <qeventloop.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
-    : ImageConfigUI( parent, name )
+    : KDockMainWindow( parent, name ), _viewer(0)
 {
-    // PENDING(blackie) Once this is rewritten to KDialogBase, do delayed initialization,
-    // we need to create this instance at startup, see comment in mainview.cpp constructor.
-    persons->setLabel( i18n("Persons") );
-    keywords->setLabel( i18n("Keywords") );
-    locations->setLabel( i18n("Locations") );
-    _optionList.append(persons);
-    _optionList.append(keywords);
-    _optionList.append(locations);
+    // -------------------------------------------------- The buttons.
+    KDockWidget* buttonDock = createDockWidget( i18n("Buttons"), QPixmap(), this );
+    _dockWidgets.append( buttonDock );
+    buttonDock->setEnableDocking(KDockWidget::DockNone);
+
+    QWidget* buttons = new QWidget( buttonDock );
+    QHBoxLayout* lay1 = new QHBoxLayout( buttons, 6 );
+
+    buttonDock->setWidget( buttons );
+    setView( buttonDock);
+    setMainDockWidget( buttonDock);
+
+    _revertBut = new QPushButton( i18n("Revert this image"), buttons );
+    lay1->addWidget( _revertBut );
+
+    QPushButton* clearBut = new QPushButton( i18n("Clear form"), buttons );
+    lay1->addWidget( clearBut );
+
+    QPushButton* optionsBut = new QPushButton( i18n("Options..." ), buttons );
+    lay1->addWidget( optionsBut );
+
+    lay1->addStretch(1);
+
+    _okBut = new QPushButton( i18n("OK"), buttons );
+    lay1->addWidget( _okBut );
+
+    QPushButton* cancelBut = new QPushButton( i18n("Cancel"), buttons );
+    lay1->addWidget( cancelBut );
+
+    connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
+    connect( _okBut, SIGNAL( clicked() ), this, SLOT( slotOK() ) );
+    connect( cancelBut, SIGNAL( clicked() ), this, SLOT( slotCancel() ) );
+    connect( clearBut, SIGNAL( clicked() ), this, SLOT(slotClear() ) );
+    connect( optionsBut, SIGNAL( clicked() ), this, SLOT( slotOptions() ) );
+
+    buttonDock->setForcedFixedHeight( buttons->sizeHint().height() );
+
+    // -------------------------------------------------- Label and Date
+    // If I make the dateDock a child of 'this', then things seems to break.
+    // The datedock isn't shown at all
+    KDockWidget* dateDock = createDockWidget( i18n("Label and Dates"), QPixmap(), 0 );
+    _dockWidgets.append( dateDock );
+    QWidget* top = new QWidget( dateDock );
+    QVBoxLayout* lay2 = new QVBoxLayout( top, 6 );
+    dateDock->setWidget( top );
+
+    // Image Label
+    QHBoxLayout* lay3 = new QHBoxLayout( lay2, 6 );
+    QLabel* label = new QLabel( i18n("Label: " ), top );
+    lay3->addWidget( label );
+    _imageLabel = new KLineEdit( top );
+    lay3->addWidget( _imageLabel );
+
+    // Date
+    QHBoxLayout* lay4 = new QHBoxLayout( lay2, 6 );
+
+    label = new QLabel( i18n("From: "), top );
+    lay4->addWidget( label );
+
+    _dayStart = new QSpinBox( 0, 31, 1, top );
+    _dayStart->setSpecialValueText( QString::fromLatin1( "---" ) );
+    lay4->addWidget( _dayStart );
+
+    label = new QLabel( QString::fromLatin1( "-" ), top );
+    lay4->addWidget( label );
+
+    _monthStart = new QComboBox( top );
+    _monthStart->insertStringList( QStringList() << QString::fromLatin1( "---" )
+                                   << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
+                                   << i18n( "May" ) << i18n( "June" ) << i18n( "July" ) << i18n( "Aug" )
+                                   << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
+    lay4->addWidget( _monthStart );
+
+    label = new QLabel( QString::fromLatin1( "-" ), top );
+    lay4->addWidget( label );
+
+    _yearStart = new QSpinBox( 0, 9999, 1, top );
+    _yearStart->setSpecialValueText( QString::fromLatin1( "---" ) );
+    lay4->addWidget( _yearStart );
+
+    lay4->addStretch(1);
+
+    label = new QLabel( i18n("To: "), top );
+    lay4->addWidget( label );
+
+    _dayEnd = new QSpinBox( 0, 31, 1, top );
+    _dayStart->setSpecialValueText( QString::fromLatin1( "---" ) );
+    lay4->addWidget( _dayEnd );
+
+    label = new QLabel( QString::fromLatin1( "-" ), top );
+    lay4->addWidget( label );
+
+    _monthEnd = new QComboBox( top );
+    _monthEnd->insertStringList( QStringList() << QString::fromLatin1( "---" )
+                                   << i18n( "Jan" ) << i18n( "Feb" ) << i18n( "Mar" ) << i18n( "Apr" )
+                                   << i18n( "May" ) << i18n( "June" ) << i18n( "July" ) << i18n( "Aug" )
+                                   << i18n( "Sep" ) << i18n( "Oct" ) << i18n( "Nov" ) << i18n( "Dec" ) );
+    lay4->addWidget( _monthEnd );
+
+    label = new QLabel( QString::fromLatin1( "-" ), top );
+    lay4->addWidget( label );
+
+    _yearEnd = new QSpinBox( 0, 9999, 1, top );
+    _yearEnd->setSpecialValueText( QString::fromLatin1( "---" ) );
+    lay4->addWidget( _yearEnd );
+
+    dateDock->manualDock( buttonDock, KDockWidget::DockTop );
+    // PENDING(blackie) Ask author of KDock* why the line below does not work.
+    // dateDock->setForcedFixedHeight( top->sizeHint().height() );
+
+    // -------------------------------------------------- Image preview
+    KDockWidget* previewDock
+        = createDockWidget( i18n("Image Preview"),
+                            locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ));
+    _dockWidgets.append( previewDock );
+    QWidget* top2 = new QWidget( previewDock );
+    QVBoxLayout* lay5 = new QVBoxLayout( top2, 6 );
+    previewDock->setWidget( top2 );
+
+    _preview = new ImagePreview( top2 );
+    lay5->addWidget( _preview );
+
+    QHBoxLayout* lay6 = new QHBoxLayout( lay5 );
+    lay6->addStretch(1);
+
+    _prevBut = new QPushButton( QString::fromLatin1( "<" ), top2 );
+    _prevBut->setFixedWidth( 30 );
+    lay6->addWidget( _prevBut );
+
+    _nextBut = new QPushButton( QString::fromLatin1( ">" ), top2 );
+    _nextBut->setFixedWidth( 30 );
+    lay6->addWidget( _nextBut );
+
+    lay6->addStretch(1);
+
+    previewDock->manualDock( dateDock, KDockWidget::DockRight );
+
+
+    // -------------------------------------------------- The editor
+    KDockWidget* descriptionDock = createDockWidget( i18n("Description"), QPixmap() );
+    _dockWidgets.append(descriptionDock);
+    _description = new Editor( descriptionDock );
+    descriptionDock->setWidget( _description );
+    descriptionDock->manualDock( dateDock, KDockWidget::DockBottom, 0 );
+
+
+    // -------------------------------------------------- Option groups
+    KDockWidget* last = buttonDock;
+    KDockWidget::DockPosition pos = KDockWidget::DockTop;
 
     Options* opt = Options::instance();
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->insertStringList( opt->optionValue( (*it)->label() ) );
-        connect( *it, SIGNAL( deleteOption( const QString&, const QString& ) ),
-                 this, SIGNAL( deleteOption( const QString&, const QString& ) ) );
-        connect( *it, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
-                 this, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ) );
+    QStringList grps = opt->optionGroups();
+    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        KDockWidget* dockWidget = createListSel( *it );
+        dockWidget->manualDock( last, pos );
+        last = dockWidget;
+        pos = KDockWidget::DockRight;
     }
 
-    // Update tab order.
-    // PENDING(blackie) Is this still OK?
-    setTabOrder( yearEnd,  persons->firstTabWidget() );
-    setTabOrder( persons->lastTabWidget(), locations->firstTabWidget() );
-
-    connect( preview,  SIGNAL( doubleClicked() ),  this,  SLOT( displayImage() ) );
 
     // Connect PageUp/PageDown to prev/next
     QAccel* accel = new QAccel( this, "accel for ImageConfig" );
     accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
     accel->connectItem( accel->insertItem( Key_PageUp ), this, SLOT( slotPrev() ) );
+
+    _optionList.setAutoDelete( true );
+    Options::instance()->loadConfigWindowLayout( this );
 }
 
 
@@ -98,17 +244,17 @@ void ImageConfig::slotOK()
 
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             ImageInfo* info = *it;
-            if ( dayStart->value() != 0 ||  monthStart->currentText() != QString::fromLatin1("---") || yearStart->value() != 0 )  {
-                info->startDate().setDay( dayStart->value() );
-                info->startDate().setMonth( monthStart->currentItem() );
-                info->startDate().setYear( yearStart->value() );
+            if ( _dayStart->value() != 0 ||  _monthStart->currentText() != QString::fromLatin1("---") || _yearStart->value() != 0 )  {
+                info->startDate().setDay( _dayStart->value() );
+                info->startDate().setMonth( _monthStart->currentItem() );
+                info->startDate().setYear( _yearStart->value() );
                 change = true;
             }
 
-            if ( dayEnd->value() != 0 || monthEnd->currentText() != QString::fromLatin1("---") || yearEnd->value() != 0 )  {
-                info->endDate().setDay( dayEnd->value() );
-                info->endDate().setMonth( monthEnd->currentItem() );
-                info->endDate().setYear( yearEnd->value() );
+            if ( _dayEnd->value() != 0 || _monthEnd->currentText() != QString::fromLatin1("---") || _yearEnd->value() != 0 )  {
+                info->endDate().setDay( _dayEnd->value() );
+                info->endDate().setMonth( _monthEnd->currentItem() );
+                info->endDate().setYear( _yearEnd->value() );
                 change = true;
             }
 
@@ -116,53 +262,54 @@ void ImageConfig::slotOK()
                 if ( (*it)->selection().count() != 0 )  {
                     change = true;
                     if ( (*it)->merge() )
-                        info->addOption( (*it)->label(),  (*it)->selection() );
+                        info->addOption( (*it)->optionGroup(),  (*it)->selection() );
                     else
-                        info->setOption( (*it)->label(),  (*it)->selection() );
+                        info->setOption( (*it)->optionGroup(),  (*it)->selection() );
                 }
             }
 
-            if ( !label->text().isEmpty() ) {
+            if ( !_imageLabel->text().isEmpty() ) {
                 change = true;
-                info->setLabel( label->text() );
+                info->setLabel( _imageLabel->text() );
             }
 
-            if ( !description->text().isEmpty() ) {
+            if ( !_description->text().isEmpty() ) {
                 change = true;
-                info->setDescription( description->text() );
+                info->setDescription( _description->text() );
             }
         }
     }
     if ( change )
         emit changed();
+    _accept = QDialog::Accepted;
+    qApp->eventLoop()->exitLoop();
 }
 
 void ImageConfig::load()
 {
     ImageInfo& info = _editList[ _current ];
-    yearStart->setValue( info.startDate().year() );
-    monthStart->setCurrentItem( info.startDate().month() );
-    dayStart->setValue( info.startDate().day() );
+    _yearStart->setValue( info.startDate().year() );
+    _monthStart->setCurrentItem( info.startDate().month() );
+    _dayStart->setValue( info.startDate().day() );
 
-    yearEnd->setValue( info.endDate().year() );
-    monthEnd->setCurrentItem( info.endDate().month() );
-    dayEnd->setValue( info.endDate().day() );
+    _yearEnd->setValue( info.endDate().year() );
+    _monthEnd->setCurrentItem( info.endDate().month() );
+    _dayEnd->setValue( info.endDate().day() );
 
-    label->setText( info.label() );
-    description->setText( info.description() );
+    _imageLabel->setText( info.label() );
+    _description->setText( info.description() );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setSelection( info.optionValue( (*it)->label() ) );
+        (*it)->setSelection( info.optionValue( (*it)->optionGroup() ) );
     }
 
-    nextBut->setEnabled( _current != (int)_origList.count()-1 );
-    prevBut->setEnabled( _current != 0 );
+    _nextBut->setEnabled( _current != (int)_origList.count()-1 );
+    _prevBut->setEnabled( _current != 0 );
 
-    preview->setInfo( &info );
+    _preview->setInfo( &info );
 
-    Viewer* viewer = Viewer::instance();
-    viewer->load( _origList, _current );
-    ImageManager::instance()->load( info.fileName( false ), this, info.angle(), 256, 256, false, true, false );
+    if ( _viewer )
+        _viewer->load( _origList, _current );
 }
 
 void ImageConfig::save()
@@ -173,32 +320,23 @@ void ImageConfig::save()
 
     ImageInfo& info = _editList[ _current ];
 
-    info.startDate().setYear( yearStart->value() );
-    info.startDate().setMonth( monthStart->currentItem() );
-    info.startDate().setDay( dayStart->value() );
+    info.startDate().setYear( _yearStart->value() );
+    info.startDate().setMonth( _monthStart->currentItem() );
+    info.startDate().setDay( _dayStart->value() );
 
-    info.endDate().setYear( yearEnd->value() );
-    info.endDate().setMonth( monthEnd->currentItem() );
-    info.endDate().setDay( dayEnd->value() );
+    info.endDate().setYear( _yearEnd->value() );
+    info.endDate().setMonth( _monthEnd->currentItem() );
+    info.endDate().setDay( _dayEnd->value() );
 
-    info.setLabel( label->text() );
-    info.setDescription( description->text() );
-    QStringList list = persons->selection();
+    info.setLabel( _imageLabel->text() );
+    info.setDescription( _description->text() );
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        info.setOption( (*it)->label(), (*it)->selection() );
+        info.setOption( (*it)->optionGroup(), (*it)->selection() );
     }
 }
 
-void ImageConfig::pixmapLoaded( const QString& fileName, int, int, int, const QImage& image )
-{
-    if ( fileName == _origList.at( _current )->fileName( false ) ) {
-        QPixmap pixmap;
-        pixmap.convertFromImage( image );
-        preview->setPixmap( pixmap );
-    }
-}
 
-int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
+void ImageConfig::configure( ImageInfoList list, bool oneAtATime )
 {
     _origList = list;
     _editList.clear();
@@ -211,75 +349,78 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         _setup = MULTIPLE;
 
     if ( oneAtATime )  {
-        // PENDING(blackie) We can't just have a QMap as this fills up memory.
-        /*_preloadImageMap.clear();
-        for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
-             ImageManager::instance()->load( (*it)->fileName( false ), this, (*it)->angle(), 256, 256, false, true );
-             }*/
         _current = -1;
         slotNext();
     }
     else {
-        dayStart->setValue( 0 );
-        monthStart->setCurrentText( QString::fromLatin1("---") );
-        yearStart->setValue( 0 );
+        _dayStart->setValue( 0 );
+        _monthStart->setCurrentText( QString::fromLatin1("---") );
+        _yearStart->setValue( 0 );
 
-        dayEnd->setValue( 0 );
-        monthEnd->setCurrentText( QString::fromLatin1("---") );
-        yearEnd->setValue( 0 );
+        _dayEnd->setValue( 0 );
+        _monthEnd->setCurrentText( QString::fromLatin1("---") );
+        _yearEnd->setValue( 0 );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->setSelection( QStringList() );
         }
 
-        label->setText( QString::fromLatin1("") );
-        description->setText( QString::fromLatin1("") );
+        _imageLabel->setText( QString::fromLatin1("") );
+        _description->setText( QString::fromLatin1("") );
 
-        prevBut->setEnabled( false );
-        nextBut->setEnabled( false );
+        _prevBut->setEnabled( false );
+        _nextBut->setEnabled( false );
     }
 
     setup();
-    return exec();
+    exec();
 }
 
-int ImageConfig::search()
+ImageSearchInfo ImageConfig::search()
 {
     _setup = SEARCH;
     setup();
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
-        _oldSearch = ImageSearchInfo( ImageDate( dayStart->value(), monthStart->currentItem(), yearStart->value()),
-                                      ImageDate( dayEnd->value(), monthEnd->currentItem(), yearEnd->value() ),
-                                      persons->text(), locations->text(), keywords->text(),
-                                      label->text(), description->text() );
+        _oldSearch = ImageSearchInfo( ImageDate( _dayStart->value(), _monthStart->currentItem(),
+                                                 _yearStart->value()),
+                                      ImageDate( _dayEnd->value(), _monthEnd->currentItem(),
+                                                 _yearEnd->value() ),
+                                      _imageLabel->text(), _description->text() );
+
+        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+            _oldSearch.setOption( (*it)->optionGroup(), (*it)->text() );
+        }
+
+        return _oldSearch;
     }
-    return ok;
+    else
+        return ImageSearchInfo();
 }
 
 void ImageConfig::setup()
 {
     ListSelect::Mode mode;
     if ( _setup == SEARCH )  {
-        okBut->setText( i18n("&Search") );
-        revertBut->hide();
+        _okBut->setText( i18n("&Search") );
+        _revertBut->hide();
         mode = ListSelect::SEARCH;
         setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
-        preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ) );
-        preview->setInfo(0);
-        nextBut->setEnabled( false );
-        prevBut->setEnabled( false );
+        _preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ) );
+        _preview->setInfo(0);
+        _nextBut->setEnabled( false );
+        _prevBut->setEnabled( false );
     }
     else {
-        okBut->setText( i18n("&OK") );
-        revertBut->setEnabled( _setup == SINGLE );
-        revertBut->show();
+        _okBut->setText( i18n("&OK") );
+        _revertBut->setEnabled( _setup == SINGLE );
+        _revertBut->show();
         mode = ListSelect::INPUT;
         setCaption( i18n("Image Configuration") );
         if ( _setup == MULTIPLE ) {
-            preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ) );
-            preview->setInfo(0);
+            _preview->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ) );
+            _preview->setInfo(0);
         }
 
 
@@ -290,67 +431,19 @@ void ImageConfig::setup()
     }
 }
 
-bool ImageConfig::match( ImageInfo* info )
-{
-    bool ok = true;
-
-    // Date
-    // the search date matches the actual date if:
-    // actual.start <= search.start <= actuel.end or
-    // actual.start <= search.end <=actuel.end or
-    // search.start <= actual.start and actual.end <= search.end
-    ImageDate searchStart = ImageDate( dayStart->value(),  monthStart->currentItem(), yearStart->value() );
-    ImageDate searchEnd = ImageDate( dayEnd->value(),  monthEnd->currentItem(), yearEnd->value() );
-    ImageDate tmp;
-    if ( !searchEnd.isNull() && searchEnd <= searchStart )  {
-        tmp = searchEnd;
-        searchEnd = searchStart;
-        searchStart = tmp;
-    }
-
-    if ( searchEnd.isNull() )
-        searchEnd = searchStart;
-
-    ImageDate actualStart = info->startDate();
-    ImageDate actualEnd = info->endDate();
-    if ( !actualEnd.isNull() && actualEnd <= actualStart )  {
-        tmp = actualStart;
-        actualStart = actualEnd;
-        actualEnd = tmp;
-    }
-    if ( actualEnd.isNull() )
-        actualEnd = actualStart;
-
-    bool b1 =( actualStart <= searchStart && searchStart <= actualEnd );
-    bool b2 =( actualStart <= searchEnd && searchEnd <= actualEnd );
-    bool b3 = ( searchStart <= actualStart && actualEnd <= searchEnd );
-
-    ok &= ( b1 || b2 || b3 );
-
-
-    // -------------------------------------------------- ListSelect
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        ok &= (*it)->matches( info );
-    }
-
-    // -------------------------------------------------- Label
-    ok &= ( label->text().isEmpty() || info->label().find(label->text()) != -1 );
-
-    // -------------------------------------------------- Text
-    QString txt = description->text();
-    QStringList list = QStringList::split(QRegExp(QString::fromLatin1("\\s")), txt );
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        ok &= ( txt.find(*it) != -1 );
-    }
-
-    return ok;
-}
 
 void ImageConfig::displayImage()
 {
-    Viewer* viewer = Viewer::instance();
-    viewer->show();
-    viewer->load( _origList, _current );
+    if ( !_viewer ) {
+        _viewer = new Viewer( this );
+        connect( _viewer, SIGNAL( destroyed() ), this, SLOT( viewerDestroyed() ) );
+        _viewer->resize( 400, 300 );
+    }
+
+    _viewer->show();
+    _viewer->load( _origList, _current );
+    topLevelWidget()->raise();
+    setActiveWindow();
 }
 
 void ImageConfig::slotClear()
@@ -360,20 +453,139 @@ void ImageConfig::slotClear()
 
 void ImageConfig::loadInfo( const ImageSearchInfo& info )
 {
-    yearStart->setValue( info.startDate().year() );
-    monthStart->setCurrentItem( info.startDate().month() );
-    dayStart->setValue( info.startDate().day() );
+    _yearStart->setValue( info.startDate().year() );
+    _monthStart->setCurrentItem( info.startDate().month() );
+    _dayStart->setValue( info.startDate().day() );
 
-    yearEnd->setValue( info.endDate().year() );
-    monthEnd->setCurrentItem( info.endDate().month() );
-    dayEnd->setValue( info.endDate().day() );
+    _yearEnd->setValue( info.endDate().year() );
+    _monthEnd->setCurrentItem( info.endDate().month() );
+    _dayEnd->setValue( info.endDate().day() );
 
-    persons->setText( info.persons() );
-    locations->setText( info.locations() );
-    keywords->setText( info.keywords() );
+    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        (*it)->setText( info.option( (*it)->optionGroup() ) );
+    }
 
-    label->setText( info.label() );
-    description->setText( info.description() );
+    _imageLabel->setText( info.label() );
+    _description->setText( info.description() );
+}
+
+void ImageConfig::viewerDestroyed()
+{
+    _viewer = 0;
+}
+
+void ImageConfig::slotOptions()
+{
+    QPopupMenu menu;
+    _noFilters.append( &menu );
+    QPopupMenu* dock = dockHideShowMenu();
+    _noFilters.append( dock );
+
+    menu.insertItem( i18n("Show/Hide windows"), dock );
+    menu.insertItem( i18n("Save current window setup"), this, SLOT( slotSaveWindowSetup() ) );
+    menu.exec( QCursor::pos() );
+
+    _noFilters.remove( &menu );
+    _noFilters.remove( dock );
+
+}
+
+int ImageConfig::exec()
+{
+    show();
+    showTornOfWindows();
+    qApp->installEventFilter( this );
+    qApp->eventLoop()->enterLoop();
+
+    // Executed when the window is gone.
+    qApp->removeEventFilter( this );
+    hide();
+    hideTornOfWindows();
+    return _accept;
+}
+
+void ImageConfig::slotCancel()
+{
+    _accept = QDialog::Rejected;
+    qApp->eventLoop()->exitLoop();
+}
+
+void ImageConfig::slotSaveWindowSetup()
+{
+    Options::instance()->saveConfigWindowLayout( this );
+}
+
+void ImageConfig::closeEvent( QCloseEvent* e )
+{
+    e->ignore();
+    slotCancel();
+}
+
+void ImageConfig::hideTornOfWindows()
+{
+    _tornOfWindows.clear();
+    for( QValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
+        if ( (*it)->isTopLevel() && (*it)->isShown() ) {
+            (*it)->hide();
+            _tornOfWindows.append( *it );
+        }
+    }
+}
+
+void ImageConfig::showTornOfWindows()
+{
+    for( QValueList<KDockWidget*>::Iterator it = _tornOfWindows.begin(); it != _tornOfWindows.end(); ++it ) {
+        (*it)->show();
+    }
+}
+
+bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
+{
+    if ( !watched->isWidgetType() )
+        return false;
+
+    QWidget* w = static_cast<QWidget*>( watched );
+
+    if ( event->type() != QEvent::MouseButtonPress &&
+         event->type() != QEvent::MouseButtonRelease &&
+         event->type() != QEvent::MouseButtonDblClick &&
+         event->type() != QEvent::KeyPress &&
+         event->type() != QEvent::KeyRelease )
+        return false;
+
+    for( QValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
+        // The dock might be torn of but be ion a combined dock with another dock
+        if ( w->topLevelWidget() == (*it)->topLevelWidget() )
+            return false;
+    }
+
+    for( QValueList<QWidget*>::Iterator it = _noFilters.begin(); it != _noFilters.end(); ++it ) {
+        if ( (*it)->isTopLevel() &&  w->topLevelWidget() == *it )
+            return false;
+    }
+
+    // That was a mouse or key event to one of the other windows block it, so it looks like the config window is modal
+    if ( isMinimized() )
+        showNormal();
+    raise();
+    return true;
+}
+
+
+KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
+{
+    KDockWidget* dockWidget = createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
+                                                0L, optionGroup );
+    _dockWidgets.append( dockWidget );
+    ListSelect* sel = new ListSelect( optionGroup, dockWidget );
+    _optionList.append( sel );
+    connect( sel, SIGNAL( deleteOption( const QString&, const QString& ) ),
+             this, SIGNAL( deleteOption( const QString&, const QString& ) ) );
+    connect( sel, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
+             this, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ) );
+
+    dockWidget->setWidget( sel );
+    return dockWidget;
 }
 
 #include "imageconfig.moc"

@@ -17,65 +17,78 @@
 #include <qhbox.h>
 #include <qwidgetstack.h>
 #include <kstandarddirs.h>
-#include "infopage.h"
 #include "htmlexportdialog.h"
 #include <kstatusbar.h>
 #include "imagecounter.h"
 #include <qtimer.h>
 #include <kmessagebox.h>
 #include "options.h"
+#include "browser.h"
+#include "imagedb.h"
+#include "util.h"
 
 MainView::MainView( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _dirty( false )
+    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false )
 {
+    bool showWelcome = !Options::configFileExists();
+
+    // To avoid a race conditions where both the image loader thread creates an instance of
+    // Options, and where the main thread crates an instance, we better get it created now.
+    (void) Options::instance();
+
+
     _stack = new QWidgetStack( this );
-    _welcome = new InfoPage( _stack, "infopage" );
+    _browser = new Browser( _stack );
+    connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     _thumbNailView = new ThumbNailView( _stack );
-    _stack->addWidget( _welcome );
+    _stack->addWidget( _browser );
     _stack->addWidget( _thumbNailView );
     setCentralWidget( _stack );
-    _stack->raiseWidget( _welcome );
+    _stack->raiseWidget( _browser );
 
-    _counter = new ImageCounter( statusBar() );
-    statusBar()->addWidget( _counter, 0, true );
+    ImageCounter* partial = new ImageCounter( statusBar() );
+    statusBar()->addWidget( partial, 0, true );
+
+    ImageCounter* total = new ImageCounter( statusBar() );
+    statusBar()->addWidget( total, 0, true );
 
     _optionsDialog = 0;
     setupMenuBar();
 
-    // For modality to work, we need to create these here.
-    // Otherwise we would have this problem:
-    // The image config is brough up, from there we start the viewer
-    // The viewer was, however, already created, so all that is happening is a show
-    // The viewer is now not a child of the image config, and is therefore inaccessible
-    // given that the image config is modal.
-    _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
-    connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-    connect( _imageConfigure, SIGNAL( deleteOption( const QString&, const QString& ) ),
-             this, SLOT( slotDeleteOption( const QString&, const QString& ) ) );
-    connect( _imageConfigure, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
-             this, SLOT( slotRenameOption( const QString& , const QString& , const QString&  ) ) );
-    (void) Viewer::instance( _imageConfigure );
-
-    if ( Options::configFileExists() )
-        load();
-    else
-        welcome();
-    _counter->setTotal( _images.count() );
-    statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
-
     _autoSaveTimer = new QTimer( this );
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
+
+    connect( ImageDB::instance(), SIGNAL( matchCountChange( int, int, int ) ),
+             partial, SLOT( setMatchCount( int, int, int ) ) );
+    connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
+    connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
+    connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
+
+    if ( showWelcome )
+        welcome();
+    else
+        load();
+
+    // PENDING(blackie) ImageDB should emit a signal when total changes.
+    total->setTotal( ImageDB::instance()->totalCount() );
+    statusBar()->message(i18n("Welcome to KimDaba"), 5000 );
 }
 
 bool MainView::slotExit()
 {
-    if ( _dirty || !_thumbNailView->isClipboardEmpty() ) {
-        int ret = QMessageBox::warning( this, i18n("Save Changes?"), i18n("Do you wnat to save the changes?"), QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
+    if ( _dirty || Options::instance()->isDirty() || !ImageDB::instance()->isClipboardEmpty() ) {
+        int ret = QMessageBox::warning( this, i18n("Save Changes?"),
+                                        i18n("Do you want to save the changes?"),
+                                        QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel );
         if ( ret == QMessageBox::Cancel )
             return false;
         if ( ret == QMessageBox::Yes ) {
             slotSave();
+        }
+        if ( ret == QMessageBox::No ) {
+            QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
+            QDir().remove( Options::instance()->autoSaveFile() );
         }
     }
 
@@ -91,8 +104,7 @@ void MainView::slotOptions()
         connect( _optionsDialog, SIGNAL( imagePathChanged() ), this, SLOT( load() ) );
     }
     _optionsDialog->exec();
-    Options::instance()->save();
-    startAutoSaveTimer();
+    startAutoSaveTimer(); // In case auto save period has changed, we better restart the timer.
 }
 
 
@@ -116,172 +128,49 @@ void MainView::configureImages( bool oneAtATime )
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     }
     else {
+        createImageConfig();
         _imageConfigure->configure( list,  oneAtATime );
-        Options::instance()->save();
     }
 }
 
 void MainView::slotSearch()
 {
-    if ( ! _imageConfigure ) {
-        _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
-    }
-    int ok = _imageConfigure->search();
-    int count = 0;
-    if ( ok == QDialog::Accepted )  {
-        ShowBusyCursor dummy;
-        for( ImageInfoListIterator it( _images ); *it; ++it ) {
-            bool match = _imageConfigure->match( *it );
-            (*it)->setVisible( match );
-            if ( match )
-                ++count;
-        }
-        _thumbNailView->reload();
-    }
-    _stack->raiseWidget( _thumbNailView );
-   _counter->setPartial(count);
+    createImageConfig();
+    ImageSearchInfo searchInfo = _imageConfigure->search();
+    _browser->addSearch( searchInfo );
+}
+
+void MainView::createImageConfig()
+{
+    ShowBusyCursor dummy;
+    if ( _imageConfigure )
+        return;
+
+    _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
+    connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    connect( _imageConfigure, SIGNAL( deleteOption( const QString&, const QString& ) ),
+             this, SLOT( slotDeleteOption( const QString&, const QString& ) ) );
+    connect( _imageConfigure, SIGNAL( renameOption( const QString& , const QString& , const QString&  ) ),
+             this, SLOT( slotRenameOption( const QString& , const QString& , const QString&  ) ) );
 }
 
 void MainView::slotSave()
 {
     statusBar()->message(i18n("Saving..."), 5000 );
-    save( Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml") );
+    ImageDB::instance()->save( Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml") );
+    Options::instance()->save( Options::instance()->configFile() );
     _dirty = false;
     QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
-
+    QDir().remove( Options::instance()->autoSaveFile() );
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
 
-void MainView::save( const QString& fileName )
-{
-    ShowBusyCursor dummy;
-
-    ImageInfoList list = _images;
-
-    // Copy files from clipboard to end of overview, so we don't loose them
-    if ( !_thumbNailView->isClipboardEmpty() ) {
-        ImageInfoList clip= _thumbNailView->clipboard();
-        for( ImageInfoListIterator it(clip); *it; ++it ) {
-            list.append( *it );
-        }
-    }
-
-    // Open the output file
-    QDomDocument doc;
-
-    // PENDING(blackie) The user should be able to specify the coding himself.
-    doc.appendChild( doc. createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement elm = doc.createElement( QString::fromLatin1("Images") );
-    doc.appendChild( elm );
-
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        elm.appendChild( (*it)->save( doc ) );
-    }
-
-    QFile out( fileName );
-
-    if ( !out.open( IO_WriteOnly ) )  {
-        qWarning( "Could not open file '%s'", fileName.latin1() );
-    }
-    else {
-        QTextStream stream( &out );
-        stream << doc.toString().utf8();
-        out.close();
-    }
-}
 
 void MainView::slotDeleteSelected()
 {
     qDebug("NYI!");
 }
 
-void MainView::load()
-{
-    checkForBackupFile();
-
-    ShowBusyCursor dummy;
-    _images.clear();
-
-    QString directory = Options::instance()->imageDirectory();
-    if ( directory.isEmpty() )
-        return;
-    if ( directory.endsWith( QString::fromLatin1("/") ) )
-        directory = directory.mid( 0, directory.length()-1 );
-
-
-    // Load the information from the XML file.
-    QDict<void> loadedFiles( 6301 /* a large prime */ );
-
-    QString xmlFile = directory + QString::fromLatin1("/index.xml");
-    if ( QFileInfo( xmlFile ).exists() )  {
-        QFile file( xmlFile );
-        if ( ! file.open( IO_ReadOnly ) )  {
-            qWarning( "Couldn't read file %s",  xmlFile.latin1() );
-        }
-        else {
-            QDomDocument doc;
-            doc.setContent( &file );
-            for ( QDomNode node = doc.documentElement().firstChild(); !node.isNull(); node = node.nextSibling() )  {
-                QDomElement elm;
-                if ( node.isElement() )
-                    elm = node.toElement();
-                else
-                    continue;
-
-                QString fileName = elm.attribute( QString::fromLatin1("file") );
-                if ( fileName.isNull() )
-                    qWarning( "Element did not contain a file attribute" );
-                else if ( loadedFiles.find( fileName ) != 0 )
-                    qWarning( "XML file contained image %s, more than ones - only first one will be loaded", fileName.latin1());
-                else {
-                    loadedFiles.insert( directory + QString::fromLatin1("/") + fileName,
-                                        (void*)0x1 /* void pointer to nothing I never need the value,
-                                                      just its existsance, must be != 0x0 though.*/ );
-                    load( fileName, elm );
-                }
-            }
-        }
-    }
-
-    loadExtraFiles( loadedFiles, directory );
-    _thumbNailView->load( &_images );
-}
-
-void MainView::load( const QString& fileName, QDomElement elm )
-{
-    ImageInfo* info = new ImageInfo( fileName, elm );
-    info->setVisible( false );
-    _images.append(info);
-}
-
-void MainView::loadExtraFiles( const QDict<void>& loadedFiles, QString directory )
-{
-    if ( directory.endsWith( QString::fromLatin1("/") ) )
-        directory = directory.mid( 0, directory.length()-1 );
-    QString imageDir = Options::instance()->imageDirectory();
-    if ( imageDir.endsWith( QString::fromLatin1("/") ) )
-        imageDir = imageDir.mid( 0, imageDir.length()-1 );
-    QDir dir( directory );
-    QStringList dirList = dir.entryList();
-    for( QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it ) {
-        QString file = directory + QString::fromLatin1("/") + *it;
-        QFileInfo fi( file );
-        if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") || (*it) == QString::fromLatin1("ThumbNails") || !fi.isReadable() )
-                continue;
-
-        if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
-             ( (*it).endsWith( QString::fromLatin1(".jpg") ) || (*it).endsWith( QString::fromLatin1(".jpeg") ) || (*it).endsWith( QString::fromLatin1(".png") ) ||
-                 (*it).endsWith( QString::fromLatin1(".tiff") ) || (*it).endsWith( QString::fromLatin1(".gif") ) ) )  {
-            QString baseName = file.mid( imageDir.length()+1 );
-
-            ImageInfo* info = new ImageInfo( baseName  );
-            _images.append(info);
-        }
-        else if ( fi.isDir() )  {
-            loadExtraFiles( loadedFiles, file );
-        }
-    }
-}
 
 ImageInfoList MainView::selected()
 {
@@ -311,9 +200,21 @@ void MainView::slotViewSelected()
         QMessageBox::warning( this, i18n("No Images to Display"),
                               i18n("None of the seleceted images were available on disk.") );
     else {
-        Viewer* viewer = Viewer::instance();
+        // PENDING(blackie) Lots of code in common with thumbnailview.cpp
+        Viewer* viewer;
+        if ( Util::ctrlKeyDown() && Viewer::latest() ) {
+            viewer = Viewer::latest();
+            topLevelWidget()->raise();
+            setActiveWindow();
+        }
+        else {
+            // We don't want this to be child of anything. Originally it was child of the mainwindow
+            // but that had the effect that it would always be on top of it.
+            viewer = new Viewer( 0 );
+            viewer->show();
+            viewer->resize( 700, 500 ); // PENDING(blackie) change this please
+        }
         viewer->load( list2 );
-        viewer->show();
     }
 }
 
@@ -340,19 +241,6 @@ void MainView::closeEvent( QCloseEvent* e )
 }
 
 
-void MainView::slotShowAllThumbNails()
-{
-    ShowBusyCursor dummy;
-    statusBar()->message(i18n("Showing all thumbnails"), 5000 );
-
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        (*it)->setVisible( true );
-    }
-    _thumbNailView->reload();
-    _stack->raiseWidget( _thumbNailView );
-
-}
-
 void MainView::slotLimitToSelected()
 {
     ShowBusyCursor dummy;
@@ -370,6 +258,15 @@ void MainView::setupMenuBar()
     KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
     new KAction( i18n("Export to HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
+    KAction* a = KStdAction::back( _browser, SLOT( back() ), actionCollection() );
+    connect( _browser, SIGNAL( canGoBack( bool ) ), a, SLOT( setEnabled( bool ) ) );
+    a->setEnabled( false );
+
+    a = KStdAction::forward( _browser, SLOT( forward() ), actionCollection() );
+    connect( _browser, SIGNAL( canGoForward( bool ) ), a, SLOT( setEnabled( bool ) ) );
+    a->setEnabled( false );
+
+    a = KStdAction::home( _browser, SLOT( home() ), actionCollection() );
 
     // The Edit menu
     KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
@@ -390,8 +287,6 @@ void MainView::setupMenuBar()
                  actionCollection(), "viewImages" );
     new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                  actionCollection(), "limitToMarked" );
-    new KAction( i18n("Display All Thumbnails"), 0, this, SLOT( slotShowAllThumbNails() ),
-                 actionCollection(), "displayAllThumbs" );
 
     // The help menu
     new KAction( i18n("Show Tooltips on Images"), CTRL+Key_T, _thumbNailView, SLOT( showToolTipsOnImages() ),
@@ -414,7 +309,7 @@ void MainView::slotExportToHTML()
 
 void MainView::slotDeleteOption( const QString& optionGroup, const QString& which )
 {
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListIterator it( ImageDB::instance()->images() ); *it; ++it ) {
         (*it)->removeOption( optionGroup, which );
     }
     Options::instance()->removeOption( optionGroup, which );
@@ -424,12 +319,11 @@ void MainView::slotDeleteOption( const QString& optionGroup, const QString& whic
 
 void MainView::slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue )
 {
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListIterator it( ImageDB::instance()->images() ); *it; ++it ) {
         (*it)->renameOption( optionGroup, oldValue, newValue );
     }
     Options::instance()->removeOption( optionGroup, oldValue );
     Options::instance()->addOption( optionGroup, newValue );
-    Options::instance()->save();
     _dirty = true;
 }
 
@@ -444,38 +338,42 @@ void MainView::startAutoSaveTimer()
 
 void MainView::slotAutoSave()
 {
-    if ( _dirty ) {
+    if ( _dirty || Options::instance()->isDirty() ) {
         statusBar()->message(i18n("Auto saving...."));
-        save ( Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml") );
+        if ( _dirty )
+            ImageDB::instance()->save( Options::instance()->imageDirectory() +
+                                       QString::fromLatin1("/.#index.xml") );
+        if ( Options::instance()->isDirty() )
+            Options::instance()->save( Options::instance()->autoSaveFile() );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
     }
 }
 
-void MainView::checkForBackupFile()
-{
-    QString backupNm = Options::instance()->imageDirectory() + QString::fromLatin1("/.#index.xml");
-    QString indexNm = Options::instance()->imageDirectory() + QString::fromLatin1("/index.xml");
-    QFileInfo backUpFile( backupNm);
-    QFileInfo indexFile( indexNm );
-    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
-        return;
 
-    int code = KMessageBox::questionYesNo( this, i18n("Backup file '%1' exists and is newer than '%2'. "
-                                                      "Should I use the backup file?")
-                                           .arg(backupNm).arg(indexNm),
-                                           i18n("Found Backup File") );
-    if ( code == KMessageBox::Yes ) {
-        QFile in( backupNm );
-        if ( in.open( IO_ReadOnly ) ) {
-            QFile out( indexNm );
-            if (out.open( IO_WriteOnly ) ) {
-                char data[1024];
-                int len;
-                while ( (len = in.readBlock( data, 1024 ) ) )
-                    out.writeBlock( data, len );
-            }
-        }
-    }
+void MainView::showThumbNails()
+{
+    _thumbNailView->reload();
+    _stack->raiseWidget( _thumbNailView );
+}
+
+void MainView::load()
+{
+    ShowBusyCursor dummy;
+    ImageDB::instance()->load();
+    _thumbNailView->load( &ImageDB::instance()->images() );
+}
+
+void MainView::showBrowser()
+{
+    _stack->raiseWidget( _browser );
+}
+
+
+void MainView::slotOptionGroupChanged()
+{
+    Q_ASSERT( !_imageConfigure || !_imageConfigure->isShown() );
+    delete _imageConfigure;
+    _imageConfigure = 0;
 }
 
 #include "mainview.moc"

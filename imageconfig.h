@@ -1,19 +1,26 @@
 #ifndef IMAGECONFIG_H
 #define IMAGECONFIG_H
 #include "imageinfo.h"
-#include "imageconfigui.h"
 #include "imageclient.h"
 #include "listselect.h"
 #include "imagesearchinfo.h"
+#include <kdockwidget.h>
+#include <qspinbox.h>
+#include "imagepreview.h"
+#include "editor.h"
 
-class ImageConfig :public ImageConfigUI, public ImageClient {
+class QSplitter;
+class Viewer;
+class QPushButton;
+class KLineEdit;
+class KDockWidget;
+
+class ImageConfig :public KDockMainWindow {
     Q_OBJECT
 public:
     ImageConfig( QWidget* parent, const char* name = 0 );
-    virtual void pixmapLoaded( const QString&, int, int, int, const QImage& );
-    int configure( ImageInfoList list,  bool oneAtATime );
-    int search();
-    bool match( ImageInfo* info );
+    void configure( ImageInfoList list,  bool oneAtATime );
+    ImageSearchInfo search();
 
 signals:
     void changed();
@@ -26,7 +33,11 @@ protected slots:
     void slotPrev();
     void slotNext();
     void slotOK();
+    void slotCancel();
     void slotClear();
+    void viewerDestroyed();
+    void slotOptions();
+    void slotSaveWindowSetup();
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };
@@ -34,16 +45,42 @@ protected:
     void save();
     void setup();
     void loadInfo( const ImageSearchInfo& );
+    int exec();
+    virtual void closeEvent( QCloseEvent* );
+    void showTornOfWindows();
+    void hideTornOfWindows();
+    virtual bool eventFilter( QObject*, QEvent* );
+    KDockWidget* createListSel( const QString& optionGroup );
 
 private:
     ImageInfoList _origList;
     QValueList<ImageInfo> _editList;
     int _current;
-    // PENDING(blackie) We can't just have a QMap as this fills up memory.
-    // QMap<QString, QPixmap> _preloadImageMap;
     SetupType _setup;
     QPtrList< ListSelect > _optionList;
     ImageSearchInfo _oldSearch;
+    QSplitter* _splitter;
+    Viewer* _viewer;
+    int _accept;
+    QValueList<KDockWidget*> _dockWidgets;
+    QValueList<KDockWidget*> _tornOfWindows;
+    QValueList<QWidget*> _noFilters;
+
+    // Widgets
+    KLineEdit* _imageLabel;
+    QSpinBox* _dayStart;
+    QSpinBox* _dayEnd;
+    QSpinBox* _yearStart;
+    QSpinBox* _yearEnd;
+    QComboBox* _monthStart;
+    QComboBox* _monthEnd;
+    ImagePreview* _preview;
+    QPushButton* _revertBut;
+    QPushButton* _okBut;
+    QPushButton* _prevBut;
+    QPushButton* _nextBut;
+    Editor* _description;
+
 };
 
 #endif /* IMAGECONFIG_H */

@@ -8,6 +8,7 @@ class LoadInfo;
 class ImageLoader :public QThread {
 public:
     ImageLoader( QWaitCondition* sleeper );
+    static QImage rotateAndScale( QImage, int width, int height, int angle );
 protected:
     virtual void run();
 

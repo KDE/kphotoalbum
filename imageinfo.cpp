@@ -47,10 +47,10 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
-            if ( childElm.tagName() == QString::fromLatin1( "Options" ) ) {
-                Util::readOptions( childElm, &_options );
+            if ( childElm.tagName() == QString::fromLatin1( "options" ) ) {
+                Util::readOptions( childElm, &_options, 0 );
             }
-            else if ( childElm.tagName() == QString::fromLatin1( "Drawings" ) ) {
+            else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
                 _drawList.load( childElm );
             }
             else {
@@ -127,7 +127,7 @@ QString ImageInfo::fileName( bool relative )
 
 QDomElement ImageInfo::save( QDomDocument& doc )
 {
-    QDomElement elm = doc.createElement( QString::fromLatin1("Image") );
+    QDomElement elm = doc.createElement( QString::fromLatin1("image") );
     elm.setAttribute( QString::fromLatin1("file"),  fileName( true ) );
     elm.setAttribute( QString::fromLatin1("label"),  _label );
     elm.setAttribute( QString::fromLatin1("description"), _description );
@@ -143,8 +143,8 @@ QDomElement ImageInfo::save( QDomDocument& doc )
     elm.setAttribute( QString::fromLatin1("angle"),  _angle );
 
     if ( _options.count() != 0 ) {
-        QDomElement top = doc.createElement( QString::fromLatin1("Options") );
-        bool any = Util::writeOptions( doc, top, _options );
+        QDomElement top = doc.createElement( QString::fromLatin1("options") );
+        bool any = Util::writeOptions( doc, top, _options, 0 );
         if ( any )
             elm.appendChild( top );
     }
@@ -210,7 +210,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _endDate != other._endDate ||
           _angle != other._angle);
     if ( !changed ) {
-        QStringList keys = _options.keys();
+        QStringList keys = Options::instance()->optionGroups();
         for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
             changed |= _options[*it] != other._options[*it];
         }
@@ -232,3 +232,11 @@ void ImageInfo::setDrawList( const DrawList& list )
 {
     _drawList = list;
 }
+
+void ImageInfo::renameOptionGroup( const QString& oldName, const QString& newName )
+{
+    _options[newName] = _options[oldName];
+    _options.erase(oldName);
+}
+
+#include "infobox.moc"

@@ -24,13 +24,21 @@ void ImageManager::init()
 }
 
 void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height,
-                         bool cache, bool priority, bool compress )
+                         bool cache, bool priority )
 {
     QString key = QString::fromLatin1("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
 
     _lock->lock();
-    LoadInfo li( fileName, width, height, angle, compress, client );
+    LoadInfo li( fileName, width, height, angle, client );
     li.setCache( cache );
+
+    // Delete other request for the same file from the same client
+    for( QValueList<LoadInfo>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
+        if ( (*it).fileName() == fileName && (*it).client() == client )
+            it = _loadList.remove(it) ;
+        else
+            ++it;
+    }
     if ( priority )
         _loadList.prepend( li );
     else
@@ -57,11 +65,9 @@ LoadInfo::LoadInfo() : _null( true ),  _cache( true ),  _client( 0 )
 {
 }
 
-LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, bool compress,
-                    ImageClient* client )
+LoadInfo::LoadInfo( const QString& fileName, int width, int height, int angle, ImageClient* client )
     : _null( false ),  _fileName( fileName ),  _width( width ),  _height( height ),
-      _cache( true ),  _client( client ),  _angle( angle ),
-      _compress( compress )
+      _cache( true ),  _client( client ),  _angle( angle )
 {
 }
 
@@ -200,13 +206,6 @@ QImage ImageEvent::image()
 int LoadInfo::angle() const
 {
     return _angle;
-}
-
-
-
-bool LoadInfo::compress() const
-{
-    return _compress;
 }
 
 #include "imagemanager.moc"

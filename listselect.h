@@ -14,12 +14,11 @@ class ListSelect :public QWidget {
     Q_OBJECT
 
 public:
-    ListSelect( QWidget* parent,  const char* name = 0 );
-    void setLabel( const QString& label );
-    QString label() const;
+    ListSelect( const QString& optionGroup, QWidget* parent,  const char* name = 0 );
+    void setOptionGroup( const QString& group );
+    QString optionGroup() const;
     QString text() const;
     void setText( const QString& );
-    void insertStringList( const QStringList& list );
     void setSelection( const QStringList& list );
     QStringList selection();
     void setShowMergeCheckbox( bool b );
@@ -27,7 +26,8 @@ public:
 
     enum Mode {INPUT, SEARCH};
     void setMode( Mode );
-    bool matches( ImageInfo* info );
+
+    void updateGroupInfo();
 
     QWidget* firstTabWidget() const;
     QWidget* lastTabWidget() const;
@@ -45,7 +45,7 @@ protected slots:
 
 private:
     QLabel* _label;
-    QString _textLabel;
+    QString _optionGroup;
     CompletableLineEdit* _lineEdit;
     QListBox* _listBox;
     QCheckBox* _merge;

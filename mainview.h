@@ -5,6 +5,7 @@ class ImageConfig;
 class QWidgetStack;
 class ImageCounter;
 class QTimer;
+class Browser;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -25,38 +26,36 @@ protected slots:
     void slotSave();
     void slotDeleteSelected();
     void slotSearch();
-    void load();
     void slotViewSelected();
     void slotChanges();
-    void slotShowAllThumbNails();
     void slotLimitToSelected();
     void slotExportToHTML();
     void slotDeleteOption( const QString& optionGroup, const QString& which );
     void slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
     void slotAutoSave();
+    void showThumbNails();
+    void load();
+    void showBrowser();
+    void slotOptionGroupChanged();
 
 protected:
     void configureImages( bool oneAtATime );
-    void loadExtraFiles( const QDict<void>& loadedFiles, QString directory );
-    void load( const QString& filename, QDomElement elm );
     ImageInfoList selected();
     void welcome();
     virtual void closeEvent( QCloseEvent* e );
     void setupMenuBar();
     void startAutoSaveTimer();
-    void save( const QString& fileName );
-    void checkForBackupFile();
+    void createImageConfig();
 
 private:
     ThumbNailView* _thumbNailView;
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
-    ImageInfoList _images;
     bool _dirty;
     QWidgetStack* _stack;
     QWidget* _welcome;
-    ImageCounter* _counter;
     QTimer* _autoSaveTimer;
+    Browser* _browser;
 };
 
 

@@ -1,38 +1,37 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-#include "imageclient.h"
 #include "imageinfo.h"
 #include "options.h"
-#include <kmainwindow.h>
 #include <kaction.h>
+#include "infobox.h"
+#include <qdialog.h>
+#include <qimage.h>
 class ImageInfo;
 class QLabel;
 class QPopupMenu;
 class QAction;
-class KToolBar;
-class KAction;
 class DisplayArea;
 
-class Viewer :public KMainWindow,  public ImageClient
+class Viewer :public QDialog
 {
     Q_OBJECT
 public:
-    static Viewer* instance( QWidget* parent = 0 );
+    Viewer( QWidget* parent, const char* name = 0 );
     ~Viewer();
+    static Viewer* latest();
     void load( const ImageInfoList& list, int index = 0 );
-    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
+    void infoBoxMove();
 
 protected:
-    virtual void mousePressEvent( QMouseEvent* e );
-    virtual void mouseMoveEvent( QMouseEvent* e );
-    virtual void mouseReleaseEvent( QMouseEvent* );
     virtual void contextMenuEvent ( QContextMenuEvent * e );
     virtual void closeEvent( QCloseEvent* e );
+    virtual void resizeEvent( QResizeEvent* );
+    void moveInfoBox();
+
 
     void load();
-    void saveOptions();
-    void setDisplayedPixmap();
+    void updateInfoBox();
     void setupContextMenu();
     virtual void close();
     ImageInfo* currentInfo();
@@ -50,16 +49,13 @@ protected slots:
     void toggleShowInfoBox( bool );
     void toggleShowDescription( bool );
     void toggleShowDate( bool );
-    void toggleShowNames( bool );
-    void toggleShowLocation( bool );
-    void toggleShowKeyWords( bool );
     void save();
     void startDraw();
     void stopDraw();
+    void toggleShowOption( const QString& optionGroup, bool b ) ;
 
 private:
-    Viewer( QWidget* parent, const char* name = 0 );
-    static Viewer* _instance;
+    static Viewer* _latest;
 
     QAction* _firstAction;
     QAction* _lastAction;
@@ -69,19 +65,22 @@ private:
     DisplayArea* _label;
     ImageInfoList _list;
     int _current;
-    bool _moving;
     QRect _textRect;
     QPopupMenu* _popup;
     int _width, _height;
-    Options::Position _startPos;
     QPixmap _pixmap;
 
+#if 0
     KToolBar* _toolbar;
     KToggleAction* _select;
     KToggleAction* _line;
     KToggleAction* _rect;
     KToggleAction* _circle;
     KAction* _delete;
+#endif
+
+    InfoBox* _infoBox;
+    QImage _currentImage;
 };
 
 #endif /* VIEWER_H */

@@ -6,6 +6,9 @@
 #include <qmessagebox.h>
 #include "iconviewtooltip.h"
 #include <klocale.h>
+#include "imagedb.h"
+#include <qapplication.h>
+#include "util.h"
 
 ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     :QIconView( parent,  name ), _currentHighlighted( 0 )
@@ -25,13 +28,32 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
 void ThumbNailView::showImage( QIconViewItem* item )
 {
     if ( item ) {
-        ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
-        Q_ASSERT( tn );
-        ImageInfoList list;
-        list.append( tn->imageInfo() );
-        Viewer* viewer = Viewer::instance();
-        viewer->show();
-        viewer->load( list );
+        ThumbNail* tn = static_cast<ThumbNail*>( item );
+        ImageInfo* info = tn->imageInfo();
+        if ( !info->imageOnDisk() ) {
+            QMessageBox::warning( this, i18n("No Images to Display"),
+                                  i18n("The seleceted image was not available on disk.") );
+        }
+        else {
+            ImageInfoList list;
+            list.append( info );
+            // PENDING(blackie) Lots of code in common with mainwindow.cpp
+            Viewer* viewer;
+            if ( Util::ctrlKeyDown() && Viewer::latest() ) {
+                qDebug("Reusing");
+                viewer = Viewer::latest();
+                viewer->setActiveWindow();
+                viewer->raise();
+            }
+            else {
+                // We don't want this to be child of anything. Originally it was child of the mainwindow
+                // but that had the effect that it would always be on top of it.
+                viewer = new Viewer( 0 );
+                viewer->show();
+                viewer->resize(700,500); // PENDING(blackie) Change this please.
+            }
+            viewer->load( list );
+        }
     }
 }
 
@@ -116,7 +138,7 @@ void ThumbNailView::slotCut()
 {
     QPtrList<ThumbNail> list = selected();
     for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
-        _cutList.append( (*it)->imageInfo() );
+        ImageDB::instance()->clipboard().append( (*it)->imageInfo() );
         _imageList->removeRef( (*it)->imageInfo() );
         delete *it;
     }
@@ -128,7 +150,7 @@ void ThumbNailView::slotPaste()
     if ( list.count() == 0 ) {
         QMessageBox::information( this, i18n("Nothing Selected"), i18n("To paste you have to select an image that the past should go after."), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
     }
-    else if ( _cutList.count() == 0 ) {
+    else if ( ImageDB::instance()->clipboard().count() == 0 ) {
         QMessageBox::information( this, i18n("Nothing on Clipboard"), i18n("<qt><p>No data on clipboard to paste.</p>"
                                   "<p>It really doesn't make any sence to the application to have an image represented twice, "
                                   "therefore you can only paste an image off the clipboard ones.</p>"),
@@ -139,17 +161,18 @@ void ThumbNailView::slotPaste()
 
         // Update the image list
         int index = _imageList->findRef( last->imageInfo() ) +1;
-        for( ImageInfoListIterator it( _cutList ); *it; ++it ) {
+        ImageInfoList& list = ImageDB::instance()->clipboard();
+        for( ImageInfoListIterator it( list ); *it; ++it ) {
             _imageList->insert( index, *it );
             ++index;
         }
 
         // updatet the thumbnail view
-        for( ImageInfoListIterator it( _cutList ); *it; ++it ) {
+        for( ImageInfoListIterator it( list ); *it; ++it ) {
             last = new ThumbNail( *it, last, this );
         }
 
-        _cutList.clear();
+        list.clear();
         emit changed();
     }
 }
@@ -165,16 +188,6 @@ QPtrList<ThumbNail> ThumbNailView::selected() const
         }
     }
     return list;
-}
-
-bool ThumbNailView::isClipboardEmpty()
-{
-    return ( _cutList.count() == 0 );
-}
-
-ImageInfoList ThumbNailView::clipboard()
-{
-    return _cutList;
 }
 
 void ThumbNailView::showToolTipsOnImages()

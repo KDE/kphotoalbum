@@ -43,6 +43,7 @@ public:
     bool hasOption( const QString& key,  const QString& value );
     QStringList optionValue( const QString& key ) const;
     void renameOption( const QString& key, const QString& oldValue, const QString& newValue );
+    void renameOptionGroup( const QString& oldName, const QString& newName );
 
     QDomElement save( QDomDocument& doc );
     bool operator!=( const ImageInfo& other );
@@ -54,12 +55,12 @@ public:
     bool imageOnDisk() const { return _imageOnDisk; }
 
 private:
-     // This string is accessed on several threads, so we need to make it a deep copy!
+    // This string is accessed on several threads, so we need to make it a deep copy!
+    // PENDING(blackie) Is the above comment true?
     QString _fileName;
     QString _label;
     QString _description;
     ImageDate _startDate, _endDate;
-    int _quality;
     QMap<QString, QStringList> _options;
     int _angle;
     bool _visible;

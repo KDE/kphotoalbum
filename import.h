@@ -40,7 +40,7 @@ protected:
     void createOptionPages();
     ImportMatcher* createOptionPage( const QString& myOptionGroup, const QString& otherOptionGroup );
     QMap<QString,QString> copyFilesFromZipFile();
-    QPixmap loadThumbnail( const QString& fileName );
+    QPixmap loadThumbnail( QString fileName );
     QByteArray loadImage( const QString& fileName );
     void selectImage( bool on );
     ImageInfoList selectedImages();

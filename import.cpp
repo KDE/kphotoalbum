@@ -422,24 +422,22 @@ void Import::slotFinish()
     Browser::instance()->home();
 }
 
-QPixmap Import::loadThumbnail( const QString& fileName )
+QPixmap Import::loadThumbnail( QString fileName )
 {
-    static const KArchiveDirectory* thumbnailDir = 0;
-    if ( !thumbnailDir ) {
-        const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
-        if ( !thumbnails ) {
-            KMessageBox::error( this, i18n("export file did not contain a Thumbnails subdirectory, this indicates that the file is broken") );
-            return QPixmap();
-        }
-
-        if ( !thumbnails->isDirectory() ) {
-            KMessageBox::error( this, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken") );
-            return QPixmap();
-        }
-
-        thumbnailDir = static_cast<const KArchiveDirectory*>( thumbnails );
+    const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
+    if ( !thumbnails ) {
+        KMessageBox::error( this, i18n("export file did not contain a Thumbnails subdirectory, this indicates that the file is broken") );
+        return QPixmap();
     }
 
+    if ( !thumbnails->isDirectory() ) {
+        KMessageBox::error( this, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken") );
+        return QPixmap();
+    }
+
+    const KArchiveDirectory* thumbnailDir = static_cast<const KArchiveDirectory*>( thumbnails );
+
+    fileName = QFileInfo( fileName ).baseName() + QString::fromLatin1( ".jpg" );
     const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
     if ( fileEntry == 0 || !fileEntry->isFile() ) {
         KMessageBox::error( this, i18n("No thumbnail existed in export file for %1").arg( fileName ) );
@@ -470,21 +468,18 @@ void Import::selectImage( bool on )
 
 QByteArray Import::loadImage( const QString& fileName )
 {
-    static const KArchiveDirectory* imagesDir = 0;
-    if ( !imagesDir ) {
-        const KArchiveEntry* images = _dir->entry( QString::fromLatin1( "Images" ) );
-        if ( !images ) {
-            KMessageBox::error( this, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken") );
-            return QByteArray();
-        }
-
-        if ( !images->isDirectory() ) {
-            KMessageBox::error( this, i18n("Images item in export file was not a directory, this indicates that the file is broken") );
-            return QByteArray();
-        }
-
-        imagesDir = static_cast<const KArchiveDirectory*>( images );
+    const KArchiveEntry* images = _dir->entry( QString::fromLatin1( "Images" ) );
+    if ( !images ) {
+        KMessageBox::error( this, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken") );
+        return QByteArray();
     }
+
+    if ( !images->isDirectory() ) {
+        KMessageBox::error( this, i18n("Images item in export file was not a directory, this indicates that the file is broken") );
+        return QByteArray();
+    }
+
+    const KArchiveDirectory* imagesDir = static_cast<const KArchiveDirectory*>( images );
 
     const KArchiveEntry* fileEntry = imagesDir->entry( fileName );
     if ( fileEntry == 0 || !fileEntry->isFile() ) {

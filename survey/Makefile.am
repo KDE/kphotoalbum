@@ -5,7 +5,7 @@ INCLUDES = \
     $(all_includes)
 
 libsurvey_la_SOURCES = \
-	question.cpp surveydialog.cpp textquestion.cpp countprogressbar.cpp \
+	question.cpp surveydialog.cpp textquestion.cpp\
 	infopage.cpp alternativequestion.cpp
 
 METASOURCES = AUTO

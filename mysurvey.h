@@ -7,6 +7,7 @@ class MySurvey : public Survey::SurveyDialog {
 
 public:
     MySurvey( QWidget* parent, const char* name = 0 );
+    virtual QSize sizeHint() const;
 };
 
 

@@ -25,13 +25,13 @@
 #include <qwidgetstack.h>
 #include <klocale.h>
 #include <qpushbutton.h>
-#include <countprogressbar.h>
 #include <qdom.h>
 #include <kstandarddirs.h>
 #include <qfile.h>
 #include <kapplication.h>
 #include <kglobal.h>
 #include <kaboutdata.h>
+#include <qprogressbar.h>
 
 class SurveyPrivate
 {
@@ -132,10 +132,12 @@ QWidget* Survey::SurveyDialog::createStackItem( Question* question, int count )
     hlay->addWidget( title, 1 );
 
     // Progress
-    CountProgressBar* progress = new CountProgressBar( d->questions.count(), w );
-    hlay->addWidget( progress );
+    QProgressBar* progress = new QProgressBar( d->questions.count(), w );
     progress->setFixedWidth( 200 );
-    progress->setProgress( count );
+    hlay->addWidget( progress );
+    progress->setProgress( count+1 );
+    QLabel* label = new QLabel( QString::fromLatin1("%1/%2").arg( count+1 ).arg( d->questions.count() ), w );
+    hlay->addWidget( label );
 
     // Line
     QFrame* frame = new QFrame( w );

@@ -7,7 +7,7 @@
 MySurvey::MySurvey( QWidget* parent, const char* name )
     :Survey::SurveyDialog( parent, name )
 {
-    setSurveyVersion( 1, 0 );
+    setSurveyVersion( 1, 1 );
     setReceiver( QString::fromLatin1( "blackie@kde.org" ) );
 
     QStringList yesNoList;
@@ -54,9 +54,19 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     new Survey::RadioButtonQuestion( QString::fromLatin1( "MemberGroups" ), i18n("Member Groups"),
                                      i18n("One of the main features of KimDaBa is that it is possible to create member groups. "
                                           "Using this feature, you can specify that Las Vegas is in Nevada, which is in USA, "
-                                          "which is on earth and so on. Whenever you then look for images from Nevada, USA, or the earth, "
+                                          "which is on the earth and so on. Whenever you look for images from Nevada, USA, or the earth, "
                                           "you will also see the images from Las Vegas."),
                                      i18n("Are you using Member Groups?"), yesNoList, this );
+
+    QStringList offLineList;
+    offLineList << i18n("Yes") << i18n("No but I expect to have within the next year") << i18n("No and I don't expect within the next year" );
+    new Survey::RadioButtonQuestion( QString::fromLatin1( "OffLineMode" ), i18n("Offline Mode"),
+                                     i18n("<p>If you have more images than can be stored on your disk, KimDaBa allows you to store some of them "
+                                          "on offline medias like cd's or dvd's. If an image is not available, KimDaBa will show it with the corner cut off "
+                                          "in the thumbnail viewer.</p>"
+                                          "<p>Currently you need to restart KimDaBa when an image has become available (like a dvd has been mounted), and you need "
+                                          "to do quite a bit of symlinks tricks to always show the thumbnails even when the real images is not available.</p>" ),
+                                     i18n("Are you having more images than fits on your disk?"), offLineList, this );
     QStringList imageAppList;
     imageAppList << QString::fromLatin1( "Digikam" ) << QString::fromLatin1( "Gvenview" ) << QString::fromLatin1( "kuickshow" );
 
@@ -65,6 +75,14 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                      QString::null,
                                      i18n("Which other image applications are you using?"), imageAppList, 5,
                                      Survey::AlternativeQuestion::CheckBox, this );
+
+    QStringList kimdabaUsage;
+    kimdabaUsage << i18n("Private albums") << i18n("Professional");
+
+    new Survey::AlternativeQuestion( QString::fromLatin1( "WhatAreYouUsingKimDaBaFor" ),
+                                     i18n( "For what are you using KimDaBa?"),
+                                     QString::null, i18n( "For what are you using KimDaBa?"),
+                                     kimdabaUsage, 2, Survey::AlternativeQuestion::CheckBox, this );
 
     new Survey::TextQuestion( QString::fromLatin1( "Comment" ),
                               i18n("General Comments"),
@@ -85,4 +103,10 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     setBackPage( back );
 
 
+}
+
+QSize MySurvey::sizeHint() const
+{
+    QSize size = Survey::SurveyDialog::sizeHint();
+    return QSize( QMAX( size.width(), 800 ), size.height() );
 }

@@ -9,7 +9,7 @@ BUGS To be handled soonish
 - Adding a new ListSelect will not show it up initially.
 - renaming a category should not result in the listselect being placed
 different in the image property page.
-- Config window layout should be saved when a new tab as been created.
+- Config window layout should be saved when a new tab has been created.
 - the tips of the day screen only shows up randomly.
 - searches using the description field should be case insensitive.
 
@@ -57,8 +57,6 @@ the top of the view. Thus if I in a persons view select Pete, then when
 going back to that persons view, Pete should be visible.
 -  When no selection is active, pgup/pgdn in the viewer work as if all
 pictures were selected.
-- When no selection is active, pgup/pgdn in the viewer work as if all
-  pictures were selected.
 - The "current image"/cursor are kept synchronized between the
   thumbnails navigator, the viewer, and the keyword editor (C-1). In
   particular, when hitting C-I while several images are selected,
@@ -82,7 +80,7 @@ Features still to be considered (aka not likely to go in next release)
 - make it possible to specify a pattern for directories to ignore, say .thumbs
 - Viewer: make it optional if images should be sized up (that is don't scale
 a 32x32 image to 1024x768)
-a- Export preserves folder layout.  This would be very helpful for
+- Export preserves folder layout.  This would be very helpful for
   exporting a set of images for purpose of mirroring them, or for
   backing them up to DVD's in a form that I could easily use to
   restore them later.  The scenario would be that I would select all

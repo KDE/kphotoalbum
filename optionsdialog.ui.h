@@ -15,6 +15,7 @@ void OptionsDialog::show()
     cacheThumbNails->setChecked( opt->cacheThumbNails() );
     trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     imageDirectory->setText( opt->imageDirectory() );
+    autosave->setValue( opt->autoSave() );
     QDialog::show();
 }
 
@@ -28,6 +29,7 @@ void OptionsDialog::slotApply()
     opt->setTTimeStamps( (Options::TimeStampTrust) trustTimeStamps->currentItem() );
     bool pathChanged = opt->imageDirectory() != imageDirectory->text();
     opt->setImageDirecotry( imageDirectory->text() );
+    opt->setAutoSave( autosave->value() );
     opt->save();
     if ( pathChanged )
         emit imagePathChanged();

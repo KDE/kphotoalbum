@@ -30,6 +30,9 @@ public:
     void setTTimeStamps( TimeStampTrust );
     TimeStampTrust tTimeStamps() const;
 
+    void setAutoSave( int min );
+    int autoSave() const;
+
     QStringList dataDirs() const;
     void save();
 
@@ -72,6 +75,7 @@ private:
 
     int _thumbSize,  _imageCacheSize;
     TimeStampTrust _tTimeStamps;
+    int _autoSave;
     bool _cacheThumbNails, _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps;
     QMap<QString, QStringList> _options;
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL;

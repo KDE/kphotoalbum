@@ -4,6 +4,7 @@ class OptionsDialog;
 class ImageConfig;
 class QWidgetStack;
 class ImageCounter;
+class QTimer;
 #include "imageinfo.h"
 #include <qdict.h>
 #include <kmainwindow.h>
@@ -32,6 +33,7 @@ protected slots:
     void slotExportToHTML();
     void slotDeleteOption( const QString& optionGroup, const QString& which );
     void slotRenameOption( const QString& optionGroup, const QString& oldValue, const QString& newValue );
+    void slotAutoSave();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -41,6 +43,7 @@ protected:
     void wellcome();
     virtual void closeEvent( QCloseEvent* e );
     void setupMenuBar();
+    void startAutoSaveTimer();
 
 private:
     ThumbNailView* _thumbNailView;
@@ -51,6 +54,7 @@ private:
     QWidgetStack* _stack;
     QWidget* _welcome;
     ImageCounter* _counter;
+    QTimer* _autoSaveTimer;
 };
 
 

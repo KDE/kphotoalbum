@@ -21,6 +21,7 @@
 #include "htmlexportdialog.h"
 #include <kstatusbar.h>
 #include "imagecounter.h"
+#include <qtimer.h>
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _dirty( false )
@@ -59,6 +60,10 @@ MainView::MainView( QWidget* parent, const char* name )
         wellcome();
     _counter->setTotal( _images.count() );
     statusBar()->message("Wellcome to KPAlbum", 5000 );
+
+    _autoSaveTimer = new QTimer( this );
+    connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
+    startAutoSaveTimer();
 }
 
 bool MainView::slotExit()
@@ -85,6 +90,7 @@ void MainView::slotOptions()
     }
     _optionsDialog->exec();
     Options::instance()->save();
+    startAutoSaveTimer();
 }
 
 
@@ -405,6 +411,24 @@ void MainView::slotRenameOption( const QString& optionGroup, const QString& oldV
     Options::instance()->addOption( optionGroup, newValue );
     Options::instance()->save();
     _dirty = true;
+}
+
+void MainView::startAutoSaveTimer()
+{
+    int i = Options::instance()->autoSave();
+    _autoSaveTimer->stop();
+    if ( i != 0 ) {
+        _autoSaveTimer->start( i * 1000 * 60 );
+    }
+}
+
+void MainView::slotAutoSave()
+{
+    if ( _dirty ) {
+        statusBar->message("Auto saving....");
+
+        statusBar->message("Auto saving....Done", 5000);
+    }
 }
 
 #include "mainview.moc"

@@ -39,6 +39,7 @@ Options::Options()
     _thumbSize = top.attribute( "thumbSize", QString::number(_thumbSize) ).toInt();
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _tTimeStamps = (TimeStampTrust) top.attribute( "trustTimeStamps",  "0" ).toInt();
+    _autoSave = top.attribute( "autoSave", QString::number( 5 ) ).toInt();
     _imageDirectory = top.attribute( "imageDirectory" );
     _htmlBaseDir = top.attribute( "htmlBaseDir", QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
     _htmlBaseURL = top.attribute( "htmlBaseURL", QString::fromLatin1( "file://" ) + _htmlBaseDir );
@@ -96,6 +97,7 @@ void Options::save()
     top.setAttribute( "thumbSize", _thumbSize );
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "trustTimeStamps", _tTimeStamps );
+    top.setAttribute( "autoSave", _autoSave );
     top.setAttribute( "imageDirectory", _imageDirectory );
     top.setAttribute( "htmlBaseDir", _htmlBaseDir );
     top.setAttribute( "htmlBaseURL", _htmlBaseURL );
@@ -291,5 +293,15 @@ QString Options::HTMLBaseURL() const
 void Options::setHTMLBaseURL( const QString& dir )
 {
     _htmlBaseURL = dir;
+}
+
+void Options::setAutoSave( int min )
+{
+    _autoSave = min;
+}
+
+int Options::autoSave() const
+{
+    return _autoSave;
 }
 

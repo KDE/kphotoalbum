@@ -11,6 +11,7 @@ BUGS To be handled soonish
 different in the image property page.
 - Config window layout should be saved when a new tab as been created.
 - the tips of the day screen only shows up randomly.
+- searches using the description field should be case insensitive.
 
 =======================
 BUGS of less importance
@@ -51,7 +52,11 @@ Features for a soonish version
   If it doesn´t work, the default KDE icon, just like today.
 - Make it possible to use the thumbnail standard
   (http://jens.triq.net/thumbnail-spec/) 
-- The image display window should show the zoom-factor in the caption
+- The image display window should show the zoom-factor in the
+caption
+- when using the back button, the window should position it correctly rather than at
+the top of the view. Thus if I in a persons view select Pete, then when
+going back to that persons view, Pete should be visible.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

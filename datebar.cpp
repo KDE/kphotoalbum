@@ -659,6 +659,17 @@ void DateBar::placeAndSizeButtons()
 void DateBar::keyPressEvent( QKeyEvent* event )
 {
     int offset = 0;
+    if ( event->key() == Key_Plus ) {
+        if ( _tp != HourView )
+            zoom(1);
+        return;
+    }
+    if ( event->key() == Key_Minus ) {
+        if ( _tp != DecadeView )
+            zoom( -1 );
+        return;
+    }
+
     if ( event->key() == Key_Left )
         offset = -1;
     else if ( event->key() == Key_Right )

@@ -17,6 +17,7 @@ BUGS To be handled soonish
 - context menu for thumbnail view shows up in browser.
 - when renaming an item in the listselect, then category image should also
   be renamed, and when deleting an item.
+- Adding a new ListSelect will not show it up initially.
 
 =======================
 BUGS of less importance

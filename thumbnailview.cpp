@@ -10,6 +10,8 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     setResizeMode( QIconView::Adjust );
 
     connect( this,  SIGNAL( returnPressed( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
+    connect( this,  SIGNAL( doubleClicked( QIconViewItem* ) ),  this,  SLOT( showImage( QIconViewItem* ) ) );
+
     setSelectionMode( Extended );
 //    setItemsMovable( true );
 }
@@ -20,9 +22,11 @@ void ThumbNailView::showImage( QIconViewItem* item )
     if ( item ) {
         ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
         Q_ASSERT( tn );
-        Viewer* viewer = new Viewer( this );
+        ImageInfoList list;
+        list.append( tn->imageInfo() );
+        Viewer* viewer = Viewer::instance();
         viewer->show();
-        viewer->load(  tn->imageInfo() );
+        viewer->load( list );
     }
 }
 

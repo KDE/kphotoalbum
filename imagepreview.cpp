@@ -16,19 +16,22 @@ void ImagePreview::setInfo( ImageInfo* info )
 
 void ImagePreview::mouseDoubleClickEvent( QMouseEvent* )
 {
-    Viewer* viewer = new Viewer( this, "image viewer" );
-    viewer->show();
-    viewer->load( _info );
+    emit doubleClicked();
 }
 
 void ImagePreview::keyPressEvent( QKeyEvent* ev)
 {
-    if ( ev->key() == Key_PageDown )  {
+    if ( ev->key() == Key_9 )  {
         _info->rotate( 90 );
         reload();
     }
-    else if ( ev->key() == Key_PageUp )  {
+    else if ( ev->key() == Key_7 )  {
         _info->rotate( -90 );
+        reload();
+    }
+
+    else if ( ev->key() == Key_8 )  {
+        _info->rotate( 180 );
         reload();
     }
 }

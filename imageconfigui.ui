@@ -36,7 +36,7 @@
                             <cstring>tab</cstring>
                         </property>
                         <attribute name="title">
-                            <string>Metrics</string>
+                            <string>&amp;Metrics</string>
                         </attribute>
                         <vbox>
                             <property name="name">
@@ -457,7 +457,7 @@
                             <cstring>tab</cstring>
                         </property>
                         <attribute name="title">
-                            <string>Description</string>
+                            <string>&amp;Description</string>
                         </attribute>
                         <vbox>
                             <property name="name">
@@ -903,14 +903,18 @@
     <tabstop>monthStart</tabstop>
     <tabstop>yearStart</tabstop>
     <tabstop>dayEnd</tabstop>
+    <tabstop>monthEnd</tabstop>
     <tabstop>yearEnd</tabstop>
     <tabstop>quality</tabstop>
-    <tabstop>options</tabstop>
-    <tabstop>monthEnd</tabstop>
+    <tabstop>qualityTo</tabstop>
     <tabstop>label</tabstop>
     <tabstop>description</tabstop>
+    <tabstop>nextBut</tabstop>
+    <tabstop>prevBut</tabstop>
     <tabstop>revertBut</tabstop>
+    <tabstop>cancel</tabstop>
     <tabstop>okBut</tabstop>
+    <tabstop>options</tabstop>
 </tabstops>
 <slots>
     <slot access="protected">slotRevert()</slot>

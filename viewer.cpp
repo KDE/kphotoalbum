@@ -3,30 +3,33 @@
 #include <qlabel.h>
 #include "imageinfo.h"
 #include "imagemanager.h"
-#include <qtimer.h>
+#include <qsizepolicy.h>
+
+Viewer* Viewer::_instance = 0;
+
+Viewer* Viewer::instance()
+{
+    if ( !_instance )
+        _instance = new Viewer( 0, "viewer" );
+    return _instance;
+}
 
 Viewer::Viewer( QWidget* parent, const char* name )
-    :QDialog( parent,  name ), _info(0)
+    :QDialog( parent,  name )
 {
     QVBoxLayout* layout = new QVBoxLayout( this );
+    layout->setResizeMode( QLayout::FreeResize );
     _label = new QLabel( this );
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
-    _timer = new QTimer( this );
-    connect( _timer, SIGNAL( timeout() ), this,  SLOT( resizeImage() ) );
 }
 
-void Viewer::load( ImageInfo* info )
+void Viewer::load( const ImageInfoList& list, int index )
 {
-    _info = info;
-    _label->setText( "Loading..." );
-    ImageManager::instance()->load( info->fileName(), this, info->angle(), _label->width(),  _label->height(), false );
-}
-
-void Viewer::resizeEvent( QResizeEvent* e )
-{
-    _timer->start( 1000, true );
-    QDialog::resizeEvent( e );
+    _list = list;
+    _current = index;
+    _info = *( _list.at( _current ) );
+    load();
 }
 
 void Viewer::pixmapLoaded( const QString&, int, int, int, const QPixmap& pixmap )
@@ -40,9 +43,36 @@ void Viewer::show()
     QDialog::show();
 }
 
-void Viewer::resizeImage()
+void Viewer::keyPressEvent( QKeyEvent* e )
 {
-    if ( _info )
-        load( _info );
+    if ( e->key() == Key_Plus )  {
+        resize( width()*4/3,  height()*4/3 );
+        load();
+    }
+
+    else if ( e->key() == Key_Minus )  {
+        resize( width()*3/4,  height()*3/4 );
+        load();
+    }
+
+    else if ( e->key() == Key_9 )  {
+        _info.rotate( 90 );
+        load();
+    }
+
+    else if ( e->key() == Key_7 )  {
+        _info.rotate( -90 );
+        load();
+    }
+
+    else if ( e->key() == Key_8 )  {
+        _info.rotate( 180 );
+        load();
+    }
 }
 
+void Viewer::load()
+{
+    _label->setText( "Loading..." );
+    ImageManager::instance()->load( _info.fileName(), this, _info.angle(), _label->width(),  _label->height(), false );
+}

@@ -215,3 +215,14 @@ bool ListSelect::matches( ImageInfo* info )
 
     return orTrue;
 }
+
+QWidget* ListSelect::firstTabWidget() const
+{
+    return _lineEdit;
+}
+
+QWidget* ListSelect::lastTabWidget() const
+{
+    return _lineEdit;
+}
+

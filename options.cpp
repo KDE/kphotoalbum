@@ -16,7 +16,7 @@ Options* Options::instance()
 
 
 Options::Options()
-    : _thumbSize( 32 ), _cacheThumbNails( true ),  _use4To3Ratio( true )
+    : _thumbSize( 64 ), _cacheThumbNails( true ),  _use4To3Ratio( true )
 {
     QFile file( QDir::home().path() + "/.kpalbum" );
     if ( !file.open( IO_ReadOnly ) )  {

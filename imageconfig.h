@@ -6,12 +6,16 @@
 #include "listselect.h"
 
 class ImageConfig :public ImageConfigUI, public ImageClient {
+    Q_OBJECT
 public:
     ImageConfig( QWidget* parent, const char* name = 0 );
     virtual void pixmapLoaded( const QString&, int, int, int, const QPixmap& );
     int configure( ImageInfoList list,  bool oneAtATime );
     int search();
     bool match( ImageInfo* info );
+
+protected slots:
+    void displayImage();
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };

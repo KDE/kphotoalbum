@@ -29,3 +29,9 @@ void OptionsDialog::slotApply()
     opt->save();
     emit changed();
 }
+
+
+void OptionsDialog::slotBrowseForDirecory()
+{
+
+}

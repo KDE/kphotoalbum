@@ -10,6 +10,8 @@
 #include "options.h"
 #include "imagepreview.h"
 #include <qregexp.h>
+#include <qtabwidget.h>
+#include "viewer.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : ImageConfigUI( parent, name )
@@ -23,10 +25,19 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _optionList.append(locations);
     _optionList.append(items);
 
-    Options* options = Options::instance();
+    Options* opt = Options::instance();
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->insertStringList( options->optionValue( (*it)->label() ) );
+        (*it)->insertStringList( opt->optionValue( (*it)->label() ) );
     }
+
+    // Update tab order.
+    setTabOrder( qualityTo,  persons->firstTabWidget() );
+    setTabOrder( persons->lastTabWidget(), locations->firstTabWidget() );
+    setTabOrder( locations->lastTabWidget(), options );
+    setTabOrder( keywords->lastTabWidget(),  items->firstTabWidget() );
+    setTabOrder( items->lastTabWidget(),  description );
+
+    connect( preview,  SIGNAL( doubleClicked() ),  this,  SLOT( displayImage() ) );
 }
 
 
@@ -65,19 +76,17 @@ void ImageConfig::slotOK()
     else if ( _setup == MULTIPLE ) {
         for( ImageInfoListIterator it( _origList ); *it; ++it ) {
             ImageInfo* info = *it;
-            if ( dayStart->value() != 0 )
+            if ( dayStart->value() != 0 ||  monthStart->currentText() != "---" || yearStart->value() != 0 )  {
                 info->startDate().setDay( dayStart->value() );
-            if ( monthStart->currentText() != "---" )
                 info->startDate().setMonth( monthStart->currentItem() );
-            if ( yearStart->value() != 0 )
                 info->startDate().setYear( yearStart->value() );
+            }
 
-            if ( dayEnd->value() != 0 )
+            if ( dayEnd->value() != 0 || monthEnd->currentText() != "---" || yearEnd->value() != 0 )  {
                 info->endDate().setDay( dayEnd->value() );
-            if ( monthEnd->currentText() != "---" )
                 info->endDate().setMonth( monthEnd->currentItem() );
-            if ( yearEnd->value() != 0 )
                 info->endDate().setYear( yearEnd->value() );
+            }
 
             if ( quality->currentText() != "---" )
                 info->setQuality( quality->currentItem() );
@@ -126,6 +135,9 @@ void ImageConfig::load()
     else
         preview->setText( "<qt>Loading<br>preview</qt>" );
     preview->setInfo( &info );
+
+    Viewer* viewer = Viewer::instance();
+    viewer->load( _origList, _current );
 }
 
 void ImageConfig::save()
@@ -316,4 +328,11 @@ bool ImageConfig::match( ImageInfo* info )
     }
 
     return ok;
+}
+
+void ImageConfig::displayImage()
+{
+    Viewer* viewer = Viewer::instance();
+    viewer->show();
+    viewer->load( _origList, _current );
 }

@@ -26,6 +26,9 @@ public:
     void setMode( Mode );
     bool matches( ImageInfo* info );
 
+    QWidget* firstTabWidget() const;
+    QWidget* lastTabWidget() const;
+
 protected slots:
     void slotReturn();
 

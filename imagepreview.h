@@ -5,10 +5,14 @@
 #include "imageclient.h"
 
 class ImagePreview :public QLabel, public ImageClient {
+    Q_OBJECT
 public:
     ImagePreview( QWidget* parent, const char* name = 0);
     void setInfo( ImageInfo* info );
     virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QPixmap& );
+
+signals:
+    void doubleClicked();
 
 protected:
     virtual void mouseDoubleClickEvent( QMouseEvent* );

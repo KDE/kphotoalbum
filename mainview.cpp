@@ -194,7 +194,7 @@ void MainView::loadExtraFiles( const QDict<void>& loadedFiles, const QString& in
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
              ( (*it).endsWith( ".jpg" ) || (*it).endsWith( ".jpeg" ) || (*it).endsWith( ".png" ) ||
                  (*it).endsWith( ".tiff" ) || (*it).endsWith( ".gif" ) ) )  {
-            QString baseName = file.mid( indexDirectory.length() );
+            QString baseName = file.mid( indexDirectory.length()+1 );
 
             ImageInfo* info = new ImageInfo( indexDirectory, baseName  );
             _images.append(info);

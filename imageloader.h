@@ -27,6 +27,7 @@ class ImageLoader :public QThread {
 public:
     ImageLoader( QWaitCondition* sleeper );
     static QImage rotateAndScale( QImage, int width, int height, int angle );
+    static void removeThumbnail( const QString& imageFile );
 protected:
     virtual void run();
 

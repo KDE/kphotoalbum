@@ -70,6 +70,7 @@
 #include "plugininterface.h"
 #include <libkipi/pluginloader.h>
 #include <libkipi/plugin.h>
+#include "imageloader.h"
 
 MainView* MainView::_instance = 0;
 
@@ -1090,7 +1091,6 @@ void MainView::updateStates( bool thumbNailView )
 
 void MainView::slotRemoveAllThumbnails()
 {
-    QStringList files;
     DeleteThumbnailsDialog dialog( this );
     dialog.exec();
 }
@@ -1160,6 +1160,8 @@ void MainView::loadPlugins()
 {
     // Sets up the plugin interface, and load the plugins
     PluginInterface* interface = new PluginInterface( this, "demo interface" );
+    connect( interface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
+
     QStringList ignores;
     ignores << QString::fromLatin1( "CommentsEditor" );
 
@@ -1199,6 +1201,14 @@ void MainView::loadPlugins()
     plugActionList( QString::fromLatin1("file_actions"), fileActions );
     plugActionList( QString::fromLatin1("image_actions"), imageActions );
     plugActionList( QString::fromLatin1("tool_actions"), toolsActions );
+}
+
+void MainView::slotImagesChanged( const KURL::List& urls )
+{
+    for( KURL::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
+        ImageLoader::removeThumbnail( (*it).path() );
+    }
+    reloadThumbNail();
 }
 
 #include "mainview.moc"

@@ -35,6 +35,7 @@ class KRadioAction;
 #include <kmainwindow.h>
 #include "thumbnailview.h"
 #include "options.h"
+#include <kurl.h>
 
 class MainView :public KMainWindow
 {
@@ -91,6 +92,7 @@ protected slots:
     void slotExport();
     void delayedInit();
     void slotReenableMessages();
+    void slotImagesChanged( const KURL::List& );
 
 protected:
     void configureImages( bool oneAtATime );

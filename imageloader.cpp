@@ -114,3 +114,14 @@ QImage ImageLoader::rotateAndScale( QImage img, int width, int height, int angle
     img = img.smoothScale( width, height, QImage::ScaleMin );
     return img;
 }
+
+void ImageLoader::removeThumbnail( const QString& imageFile )
+{
+    QFileInfo fi( imageFile );
+    QString tnPattern = QString::fromLatin1( "*-%2.%3" ).arg(fi.baseName()).arg(fi.extension());
+    QDir dir( QString::fromLatin1( "%1/ThumbNails" ).arg( fi.dirPath() ) );
+    QStringList files = dir.entryList( tnPattern );
+    for( QStringList::ConstIterator it = files.begin(); it != files.end(); ++it ) {
+        dir.remove( *it );
+    }
+}

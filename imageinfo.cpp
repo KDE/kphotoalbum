@@ -209,6 +209,12 @@ int ImageInfo::angle() const
     return _angle;
 }
 
+void ImageInfo::setAngle( int angle )
+{
+    _angle = angle;
+}
+
+
 void ImageInfo::setStartDate( const ImageDate& date )
 {
     _startDate = date;

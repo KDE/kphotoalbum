@@ -53,7 +53,6 @@ Features for a soonish version
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
 ======================================================================
-- Loseless image rotation (which actually affects the files)
 - In search mode, radio buttons labeled "Or" and "And" should be available
   to tell how the items in the listbox should be combined.
 - undo/redo

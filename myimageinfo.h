@@ -17,6 +17,9 @@ public:
     virtual QMap<QString,QVariant> attributes();
     virtual void clearAttributes();
     virtual void addAttributes( const QMap<QString,QVariant>& );
+
+    virtual int angle();
+    virtual void setAngle( int );
 private:
     ImageInfo* _info;
 };

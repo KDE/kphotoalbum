@@ -18,6 +18,10 @@ public:
     virtual KIPI::ImageCollection currentSelection();
     virtual QValueList<KIPI::ImageCollection> allAlbums();
     virtual KIPI::ImageInfo info( const KURL& );
+    virtual void refreshImages( const KURL::List& urls );
+
+signals:
+    void imagesChanged( const KURL::List& );
 };
 
 #endif /* PLUGININTERFACE_H */

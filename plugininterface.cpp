@@ -33,3 +33,8 @@ KIPI::ImageInfo PluginInterface::info( const KURL& url )
 {
     return KIPI::ImageInfo( new MyImageInfo( url ) );
 }
+
+void PluginInterface::refreshImages( const KURL::List& urls )
+{
+    emit imagesChanged( urls );
+}

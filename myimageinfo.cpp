@@ -51,3 +51,17 @@ void MyImageInfo::addAttributes( const QMap<QString,QVariant>& /* map */ )
     qDebug("NYI: MyImageInfo::addAttributes" );
 }
 
+int MyImageInfo::angle()
+{
+    if ( _info )
+        return _info->angle();
+    else
+        return 0;
+}
+
+void MyImageInfo::setAngle( int angle )
+{
+    if ( _info )
+        _info->setAngle( angle );
+}
+

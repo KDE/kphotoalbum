@@ -60,6 +60,7 @@ public:
 
     void rotate( int degrees );
     int angle() const;
+    void setAngle( int angle );
 
     void setOption( const QString& key,  const QStringList& value );
     void addOption( const QString& key,  const QStringList& value );

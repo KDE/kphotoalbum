@@ -400,6 +400,29 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     menu.insertItem( i18n("Delete"), 1 );
     menu.insertItem( i18n("Rename"), 2 );
 
+    // -------------------------------------------------- Add/Remove member group
+    MemberMap memberMap = Options::instance()->memberMap();
+    QMap<int, QString> map;
+    QPopupMenu* members = new QPopupMenu( &menu );
+    members->setCheckable( true );
+    menu.insertItem( i18n( "Member Groups" ), members, 5 );
+    if ( item ) {
+        QStringList grps = memberMap.groups( _category );
+
+        int index = 10;
+
+        for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+            members->insertItem( *it, ++index );
+            map.insert( index, *it );
+            members->setItemChecked( index, (bool) memberMap.members( _category, *it, true ).contains( item->text() ) );
+        }
+
+        if ( !grps.isEmpty() )
+            members->insertSeparator();
+        members->insertItem( i18n("New group..." ), 7 );
+    }
+
+    // -------------------------------------------------- sort
     QLabel* sortTitle = new QLabel( i18n("<qt><b>Sorting</b></qt>"), &menu );
     sortTitle->setAlignment( Qt::AlignCenter );
     menu.insertItem( sortTitle );
@@ -408,45 +431,6 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     menu.setItemChecked(3, Options::instance()->viewSortType() == Options::SortLastUse);
     menu.setItemChecked(4, Options::instance()->viewSortType() == Options::SortAlpha);
 
-    label = new QLabel( i18n("<qt><b>Member Group</b></qt>"), &menu );
-    label->setAlignment( Qt::AlignCenter );
-    menu.insertItem( label );
-
-    MemberMap map = Options::instance()->memberMap();
-
-    // Add/Remove member group
-    QPopupMenu* add = new QPopupMenu( &menu );
-    menu.insertItem( i18n( "Add to group" ), add, 5 );
-    QStringList grps = map.groups( _category );
-
-    QPopupMenu* del = new QPopupMenu( &menu );
-    menu.insertItem( i18n( "Remove from group" ), del, 6 );
-
-    QMap<int, QString> addMap;
-    QMap<int, QString> delMap;
-    int index = 10;
-
-    bool anyInAdd = false;
-    bool anyInRemove = false;
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        if ( !map.members( _category, *it, true ).contains( item->text() ) ) {
-            add->insertItem( *it, ++index );
-            anyInAdd = true;
-            addMap.insert( index, *it );
-        }
-        else {
-            del->insertItem( *it, ++index );
-            anyInRemove = true;
-            delMap.insert( index, *it );
-        }
-    }
-
-    if ( anyInAdd )
-        add->insertSeparator();
-    add->insertItem( i18n("New group..." ), 7 );
-    if ( !anyInRemove )
-        menu.setItemEnabled( 6, false );
-
     if ( !item ) {
         menu.setItemEnabled( 1, false );
         menu.setItemEnabled( 2, false );
@@ -454,6 +438,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
         menu.setItemEnabled( 6, false );
     }
 
+    // -------------------------------------------------- exec
     int which = menu.exec( pos );
     if ( which == 1 ) {
         int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
@@ -502,18 +487,18 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
         QString group = QInputDialog::getText( i18n("Member group name"), i18n("Member group name") );
         if ( group.isNull() )
             return;
-        map.addGroup( _category, group );
-        map.addMemberToGroup( _category, group, item->text() );
-        Options::instance()->setMemberMap( map );
+        memberMap.addGroup( _category, group );
+        memberMap.addMemberToGroup( _category, group, item->text() );
+        Options::instance()->setMemberMap( memberMap );
     }
     else {
-        if ( addMap.contains( which ) ) {
-            map.addMemberToGroup( _category, addMap[which], item->text() );
-            Options::instance()->setMemberMap( map );
-        }
-        else if ( delMap.contains( which ) ) {
-            map.removeMemberFromGroup( _category, delMap[which], item->text() );
-            Options::instance()->setMemberMap( map );
+        if ( map.contains( which ) ) {
+            QString checkedItem = map[which];
+            if ( !members->isItemChecked( which ) ) // chosing the item doesn't check it, so this is the value before.
+                memberMap.addMemberToGroup( _category, checkedItem, item->text() );
+            else
+                memberMap.removeMemberFromGroup( _category, checkedItem, item->text() );
+            Options::instance()->setMemberMap( memberMap );
         }
     }
 }

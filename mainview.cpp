@@ -73,7 +73,6 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     _thumbNailView = new ThumbNailView( _stack );
-    _thumbNailView->load( &ImageDB::instance()->images() );
 
     _stack->addWidget( _browser );
     _stack->addWidget( _thumbNailView );

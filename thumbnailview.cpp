@@ -34,8 +34,6 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
 {
     setSpacing(2);
 
-
-    _imageList=0L;
     setResizeMode( QIconView::Adjust );
     setAutoArrange( true );
 
@@ -82,22 +80,18 @@ void ThumbNailView::startDrag()
     return;
 }
 
-void ThumbNailView::load( ImageInfoList* list )
-{
-    if ( !list )
-        return;
-    clear();
-    for( QPtrListIterator<ImageInfo> it( *list ); *it; ++it ) {
-        if ( (*it)->visible() )
-            new ThumbNail( *it,  this );
-    }
-    _imageList = list;
-}
-
 void ThumbNailView::reload()
 {
     clear();
-    load( _imageList );
+    ImageInfoList& list = ImageDB::instance()->images();
+    if ( list.isEmpty() )
+        return;
+
+    clear();
+    for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
+        if ( (*it)->visible() )
+            new ThumbNail( *it,  this );
+    }
 }
 
 void ThumbNailView::slotSelectAll()
@@ -116,18 +110,20 @@ void ThumbNailView::contentsDragMoveEvent( QDragMoveEvent *e )
     }
 }
 
-void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& list, bool after )
+void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool after )
 {
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        _imageList->removeRef( *it );
+    ImageInfoList& images = ImageDB::instance()->images();
+
+    for( ImageInfoListIterator it( cutList ); *it; ++it ) {
+        images.removeRef( *it );
     }
 
-    int index =  _imageList->find( item );
+    int index =  images.find( item );
     if ( after )
         ++index;
 
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        _imageList->insert( index, *it );
+    for( ImageInfoListIterator it( cutList ); *it; ++it ) {
+        images.insert( index, *it );
         ++index;
     }
     emit changed();
@@ -154,18 +150,19 @@ void ThumbNailView::setHighlighted( ThumbNail* item )
 
 void ThumbNailView::slotCut()
 {
-    QPtrList<ThumbNail> list = selected();
-    for( QPtrListIterator<ThumbNail> it( list ); *it; ++it ) {
+    ImageInfoList& images = ImageDB::instance()->images();
+    QPtrList<ThumbNail> thumbNails = selected();
+    for( QPtrListIterator<ThumbNail> it( thumbNails ); *it; ++it ) {
         ImageDB::instance()->clipboard().append( (*it)->imageInfo() );
-        _imageList->removeRef( (*it)->imageInfo() );
+        images.removeRef( (*it)->imageInfo() );
         delete *it;
     }
 }
 
 void ThumbNailView::slotPaste()
 {
-    QPtrList<ThumbNail> list = selected();
-    if ( list.count() == 0 ) {
+    QPtrList<ThumbNail> selectedList = selected();
+    if ( selectedList.count() == 0 ) {
         QMessageBox::information( this, i18n("Nothing Selected"), i18n("To paste you have to select an image that the past should go after."), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
     }
     else if ( ImageDB::instance()->clipboard().count() == 0 ) {
@@ -175,22 +172,23 @@ void ThumbNailView::slotPaste()
                                   QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
     }
     else {
-        ThumbNail* last = list.last();
+        ThumbNail* last = selectedList.last();
 
         // Update the image list
-        int index = _imageList->findRef( last->imageInfo() ) +1;
-        ImageInfoList& list = ImageDB::instance()->clipboard();
-        for( ImageInfoListIterator it( list ); *it; ++it ) {
-            _imageList->insert( index, *it );
+        ImageInfoList& images = ImageDB::instance()->images();
+        int index = images.findRef( last->imageInfo() ) +1;
+        ImageInfoList& clipboard = ImageDB::instance()->clipboard();
+        for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
+            images.insert( index, *it );
             ++index;
         }
 
         // updatet the thumbnail view
-        for( ImageInfoListIterator it( list ); *it; ++it ) {
+        for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
             last = new ThumbNail( *it, last, this );
         }
 
-        list.clear();
+        clipboard.clear();
         emit changed();
     }
 }

@@ -1,3 +1,9 @@
+2003-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Previously the image loader was asked to load all images
+	on start up, making machines with low memory crash. This was
+	clearly unintentional, and as such a bug.
+
 2003-11-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: indicator marks are now properly shown during selection

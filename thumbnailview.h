@@ -29,7 +29,6 @@ class ThumbNailView :public KIconView {
 
 public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
-    void load( ImageInfoList* list );
 
 public slots:
     void reload();
@@ -53,7 +52,6 @@ protected:
     void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
 
 private:
-    ImageInfoList* _imageList;
     ThumbNail* _currentHighlighted;
     IconViewToolTip* _iconViewToolTip;
 };

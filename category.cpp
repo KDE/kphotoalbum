@@ -25,8 +25,7 @@ void Category::setName( const QString& name )
 QString Category::text() const
 {
     if ( _name == QString::fromLatin1( "Persons" ) )
-        // return i18n("Persons");
-        return QString::fromLatin1( "Personer" );
+        return i18n("Persons");
     else if ( _name == QString::fromLatin1( "Locations" ) )
         return i18n("Locations");
     else if ( _name == QString::fromLatin1( "Keywords" ) )

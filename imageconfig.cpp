@@ -379,16 +379,19 @@ void ImageConfig::writeToInfo()
 
 void ImageConfig::configure( ImageInfoList list, bool oneAtATime )
 {
-    setup();
-    _origList = list;
-    _editList.clear();
-    for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
-        _editList.append( *(*it) );
-    }
     if ( oneAtATime )
         _setup = SINGLE;
     else
         _setup = MULTIPLE;
+
+    _origList = list;
+    _editList.clear();
+
+    for( QPtrListIterator<ImageInfo> it( list ); *it; ++it ) {
+        _editList.append( *(*it) );
+    }
+
+    setup();
 
     if ( oneAtATime )  {
         _current = -1;
@@ -476,8 +479,8 @@ void ImageConfig::setup()
         _rotateRight->setEnabled( true );
     }
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setMode( mode );
         (*it)->setShowMergeCheckbox( _setup == MULTIPLE );
+        (*it)->setMode( mode );
     }
 }
 

@@ -1,3 +1,8 @@
+2003-10-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: First search for an image, then set properties, and the
+	app crashed.
+
 2003-10-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: KimDaBa crashed when it found new images at start up.

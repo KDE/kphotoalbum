@@ -31,6 +31,9 @@ public:
     void addSearch( ImageSearchInfo& info );
     static Browser* theBrowser();
     void load( const QString& optionGroup, const QString& value );
+    QString path() const;
+    QString addPath( const QString& elm ) const;
+
 
 public slots:
     void back();
@@ -42,6 +45,7 @@ signals:
     void canGoBack( bool );
     void canGoForward( bool );
     void showingOverview();
+    void pathChanged( const QString& );
 
 
 protected slots:

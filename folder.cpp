@@ -29,10 +29,16 @@ Folder::Folder( const ImageSearchInfo& info, Browser* parent )
 }
 
 
-FolderAction::FolderAction( const ImageSearchInfo& info, Browser* browser )
-    : _browser( browser ), _info( info )
+FolderAction::FolderAction( const QString& path, const ImageSearchInfo& info, Browser* browser )
+    : _path(path), _browser( browser ), _info( info )
 {
 }
+
+QString FolderAction::path() const
+{
+    return _path;
+}
+
 
 
 

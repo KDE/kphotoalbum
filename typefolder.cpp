@@ -33,8 +33,8 @@ FolderAction* TypeFolder::action( bool /* ctrlDown */ )
 }
 
 TypeFolderAction::TypeFolderAction( const QString& optionGroup, const ImageSearchInfo& info,
-                                    Browser* parent )
-    :FolderAction( info, parent ), _optionGroup( optionGroup )
+                                    Browser* browser )
+    :FolderAction( browser->path(), info, browser ), _optionGroup( optionGroup )
 {
 }
 

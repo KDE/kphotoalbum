@@ -57,6 +57,7 @@ protected slots:
     void showBrowser();
     void slotOptionGroupChanged();
     void showTipOfDay();
+    void pathChanged( const QString& );
 
 protected:
     void configureImages( bool oneAtATime );

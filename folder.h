@@ -39,12 +39,14 @@ protected:
 class FolderAction
 {
 public:
-    FolderAction( const ImageSearchInfo& info, Browser* browser );
+    FolderAction( const QString& path, const ImageSearchInfo& info, Browser* browser );
     virtual ~FolderAction() {}
     virtual void action() = 0;
     virtual bool showsImages() = 0;
+    QString path() const;
 
 protected:
+    QString _path;
     Browser* _browser;
     ImageSearchInfo _info;
 };

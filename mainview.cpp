@@ -60,12 +60,14 @@ MainView::MainView( QWidget* parent, const char* name )
     _stack = new QWidgetStack( this );
     _browser = new Browser( _stack );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
+    connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     _thumbNailView = new ThumbNailView( _stack );
     _stack->addWidget( _browser );
     _stack->addWidget( _thumbNailView );
     setCentralWidget( _stack );
     _stack->raiseWidget( _browser );
 
+    // Setting up status bar
     ImageCounter* partial = new ImageCounter( statusBar() );
     statusBar()->addWidget( partial, 0, true );
 
@@ -402,6 +404,24 @@ void MainView::slotOptionGroupChanged()
 void MainView::showTipOfDay()
 {
     KTipDialog::showTip( this, QString::null, true );
+}
+
+void MainView::pathChanged( const QString& path )
+{
+    static bool itemVisible = false;
+    if ( path.isEmpty() ) {
+        if ( itemVisible ) {
+            statusBar()->removeItem( 0 );
+            itemVisible = false;
+        }
+    }
+    else if ( !itemVisible ) {
+        statusBar()->insertItem( path, 0 );
+        itemVisible = true;
+    }
+    else
+        statusBar()->changeItem( path, 0 );
+
 }
 
 #include "mainview.moc"

@@ -78,8 +78,9 @@ FolderAction* ContentFolder::action( bool ctrlDown )
 }
 
 ContentFolderAction::ContentFolderAction( const QString& optionGroup, const QString& value,
-                                          const ImageSearchInfo& info, Browser* parent )
-    :FolderAction( info, parent ), _optionGroup( optionGroup ), _value( value )
+                                          const ImageSearchInfo& info, Browser* browser )
+    :FolderAction( optionGroup.isNull() ? QString::null : browser->addPath( value ), info, browser ),
+     _optionGroup( optionGroup ), _value( value )
 {
 }
 

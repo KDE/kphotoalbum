@@ -111,7 +111,7 @@ void Browser::emitSignals()
     emit canGoForward( _current < (int)_list.count() );
     if ( !a->showsImages() )
         emit showingOverview();
-
+    emit pathChanged( path() );
 }
 
 void Browser::home()
@@ -147,6 +147,25 @@ void Browser::load( const QString& optionGroup, const QString& value )
     a->action();
     topLevelWidget()->raise();
     setActiveWindow();
+}
+
+QString Browser::path() const
+{
+    if ( _current == 0 )
+        return QString::null;
+    else {
+        FolderAction* a = _list[_current-1];
+        return a->path();
+    }
+}
+
+QString Browser::addPath( const QString& elm ) const
+{
+    QString p = path();
+    if ( p.isEmpty() )
+        return elm;
+    else
+        return p + QString::fromLatin1( " / " ) + elm;
 }
 
 #include "browser.moc"

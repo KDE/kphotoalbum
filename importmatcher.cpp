@@ -78,5 +78,5 @@ OptionMatch::OptionMatch( const QString& option, const QStringList& options, QWi
         }
         _checkbox->setPaletteForegroundColor( Qt::red );
     }
-
+    QObject::connect( _checkbox, SIGNAL( toggled( bool ) ), _combobox, SLOT( setEnabled( bool ) ) );
 }

@@ -601,4 +601,10 @@ ImageInfoList ImageDB::currentContext() const
     return images;
 }
 
+void ImageDB::addImage( ImageInfo* info )
+{
+    _images.append( info );
+    emit totalChanged( _images.count() );
+}
+
 #include "imagedb.moc"

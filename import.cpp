@@ -19,6 +19,9 @@
 #include "imagedb.h"
 #include <qimage.h>
 #include <qwmatrix.h>
+#include "browser.h"
+#include <qdir.h>
+#include <kstandarddirs.h>
 class KPushButton;
 
 void Import::imageImport()
@@ -118,7 +121,24 @@ void Import::setupPages()
 
 void Import::createIntroduction()
 {
-    QString txt = i18n( "<qt><p>This wizard will take you through the steps of an import operation</p></qt>" );
+    QString txt = i18n( "<qt><h1><font size=\"+2\">Welcome to KimDaBa Import</font></h1>"
+                        "This wizard will take you through the steps of an import operation, The steps are: "
+                        "<ul><li>First you must select which images you want to import from the export file. "
+                        "You do so by selecting the checkbox next to the image.</li>"
+                        "<li>Next you must tell KimDaBa in which directory to put the images. This directory must "
+                        "of course be below the directory root KimDaBa uses for images. "
+                        "KimDaBa will take care to avoid name clashes</li>"
+                        "<li>The next step is to specify which categories you want to import (Persons, Locations, ... ) "
+                        "and also tell KimDaBa how to match the categories from the file to your categories. "
+                        "Imagine you load from a file, where a category is called <tt>Blomst</tt> (which is the "
+                        "Danish word for flower), then you would likely want to match this with your category, which might be "
+                        "called <tt>Blume</tt> (which is the German word for flower) - of course given you are german.</li>"
+                        "<li>The final steps, is matching the individual tokens from the categories. I may call myself <tt>Jesper</tt> "
+                        "in my image database, while you want to call me by my full name, namely <tt>Jesper K. Pedersen</tt>. "
+                        "In this step non matches will be highlighted in red, so you can see which tokens was not found in your "
+                        "database, or which tokens was only a partial match.</li>"
+                        "</p></qt>" );
+
     QLabel* intro = new QLabel( txt, this );
     addPage( intro, i18n("Introduction") );
 }
@@ -232,7 +252,7 @@ void Import::updateNextButtonState()
     bool enabled = true;
     if ( currentPage() == _destinationPage ) {
         QString dest = _destinationEdit->text();
-        if ( !QFileInfo( dest ).isDir() )
+        if ( QFileInfo( dest ).isFile() )
             enabled = false;
         else if ( ! QFileInfo(dest).absFilePath().startsWith( QFileInfo(Options::instance()->imageDirectory()).absFilePath()) )
             enabled = false;
@@ -284,6 +304,21 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
 void Import::next()
 {
     static bool hasFilled = false;
+    if ( currentPage() == _destinationPage ) {
+        QString dir = _destinationEdit->text();
+        if ( !QFileInfo( dir ).exists() ) {
+            int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exists. Should it be created?").arg( dir ) );
+            if ( answer == KMessageBox::Yes ) {
+                bool ok = KStandardDirs::makeDir( dir );
+                if ( !ok ) {
+                    KMessageBox::error( this, i18n("Error creating directory %1").arg( dir ) );
+                    return;
+                }
+            }
+            else
+                return;
+        }
+    }
     if ( !hasFilled && currentPage() == _optionGroupMatcher ) {
         hasFilled = true;
         _optionGroupMatcher->setEnabled( false );
@@ -358,7 +393,7 @@ void Import::slotFinish()
         newInfo->rotate( info->angle() );
         newInfo->setDrawList( info->drawList() );
         newInfo->setMD5Sum( info->MD5Sum() );
-        ImageDB::instance()->images().append( newInfo );
+        ImageDB::instance()->addImage( newInfo );
 
         // Run though the optionGroups
         for( QValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {
@@ -380,6 +415,7 @@ void Import::slotFinish()
             }
         }
     }
+    Browser::instance()->home();
 }
 
 QPixmap Import::loadThumbnail( const QString& fileName )

@@ -37,6 +37,7 @@ public:
 
     QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
     ImageInfoList& images() { return _images; }
+    void addImage( ImageInfo* info );
     ImageInfoList& clipboard() { return _clipboard; }
     bool isClipboardEmpty();
 

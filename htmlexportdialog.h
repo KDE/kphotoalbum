@@ -29,6 +29,7 @@ class QTextEdit;
 #include "imageinfo.h"
 #include "imageclient.h"
 #include <qvaluelist.h>
+#include <qcombobox.h>
 
 class HTMLExportDialog :public KDialogBase, private ImageClient {
     Q_OBJECT
@@ -57,6 +58,8 @@ protected:
     bool writeToFile( const QString& fileName, const QString& str );
     bool linkIndexFile();
     QValueList<MyCheckBox*> activeResolutions();
+    void populateThemesCombo();
+    void getThemeInfo( QString* baseDir, QString* name, QString* author );
 
 private:
     KLineEdit* _title;
@@ -65,6 +68,8 @@ private:
     KLineEdit* _outputDir;
     QSpinBox* _thumbSize;
     QSlider* _numOfCols;
+    QComboBox *_themeBox;
+    QMap<int,QString> _themes;
     QValueList<MyCheckBox*> _cbs;
     QValueList<MyCheckBox*> _preferredSizes;
     QTextEdit* _description;

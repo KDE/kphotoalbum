@@ -38,6 +38,7 @@ public:
     static QString setupDemo();
     static QString readInstalledFile( const QString& fileName );
     static void removeThumbNail( const QString& imageFile );
+    static QString readFile( const QString& fileName );
 };
 
 

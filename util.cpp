@@ -327,3 +327,23 @@ void Util::removeThumbNail( const QString& imageFile )
     }
 
 }
+
+QString Util::readFile( const QString& fileName )
+{
+    if ( fileName.isEmpty() ) {
+        KMessageBox::error( 0, i18n("<qt>Couldn't find file %1</qt>").arg( fileName ) );
+        return QString::null;
+    }
+
+    QFile file( fileName );
+    if ( !file.open( IO_ReadOnly ) ) {
+        //KMessageBox::error( 0, i18n("Couldn't open file %1").arg( fileName ) );
+        return QString::null;
+    }
+
+    QTextStream stream( &file );
+    QString content = stream.read();
+    file.close();
+
+    return content;
+}

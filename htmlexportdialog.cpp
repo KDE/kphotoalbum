@@ -49,6 +49,9 @@
 #include <qregexp.h>
 #include <unistd.h>
 #include "util.h"
+#include <kdebug.h>
+#include <qdir.h>
+#include <ksimpleconfig.h>
 
 class MyCheckBox :public QCheckBox {
 
@@ -94,6 +97,7 @@ private:
 HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("HTML Export"), Ok|Cancel, Ok, parent, name ), _list(list)
 {
+    enableButtonOK( false );
     QWidget* generalPage = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( generalPage, 6 );
     QGridLayout* lay2 = new QGridLayout( lay1, 2 );
@@ -175,6 +179,13 @@ HTMLExportDialog::HTMLExportDialog( const ImageInfoList& list, QWidget* parent, 
     _outputDir = new KLineEdit( generalPage );
     lay2->addWidget( _outputDir, 7, 1 );
 
+    // Theme box
+    label = new QLabel( i18n("Theme:"), generalPage );
+    lay2->addWidget( label, 8, 0 );
+    _themeBox = new QComboBox( generalPage, "theme_combobox" );
+    lay2->addWidget( _themeBox, 8, 1 );
+    populateThemesCombo();
+
     // Image sizes
     QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), generalPage );
     lay1->addWidget( sizes );
@@ -255,10 +266,16 @@ bool HTMLExportDialog::generate()
         qApp->eventLoop()->enterLoop();
 
     // Copy over the mainpage.css, indepage.css
-    QStringList files = QStringList() << QString::fromLatin1( "mainpage.css" ) << QString::fromLatin1( "imagepage.css" );
+    QString themeDir, themeAuthor, themeName;
+    getThemeInfo( &themeDir, &themeName, &themeAuthor );
+    QDir dir( themeDir );
+    QStringList files = dir.entryList( QDir::Files );
+    if( files.count() < 1 )
+        kdDebug() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir ) << endl;
 
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-        QString from = locate( "data", QString::fromLatin1( "kimdaba/html_templates/%1" ).arg( *it ) );
+        if( *it == QString::fromLatin1("kimdaba.theme") ) continue;
+        QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
         QString to = _tempDir+QString::fromLatin1("/") + *it;
         ok = Util::copy( from, to );
         if ( !ok ) {
@@ -277,9 +294,13 @@ bool HTMLExportDialog::generate()
 
 bool HTMLExportDialog::generateIndexPage( int width, int height )
 {
-    QString content = Util::readInstalledFile( QString::fromLatin1( "html_templates/mainpage.html" ) );
+    QString themeDir, themeAuthor, themeName;
+    getThemeInfo( &themeDir, &themeName, &themeAuthor );
+    QString content = Util::readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
     if ( content.isNull() )
         return false;
+
+    content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
     content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _title->text() );
@@ -368,9 +389,13 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* prevInfo,
                                             ImageInfo* info, ImageInfo* nextInfo )
 {
-    QString content = Util::readInstalledFile( QString::fromLatin1( "html_templates/imagepage.html" ) );
+    QString themeDir, themeAuthor, themeName;
+    getThemeInfo( &themeDir, &themeName, &themeAuthor );
+    QString content = Util::readFile( QString::fromLatin1( "%1imagepage.html" ).arg( themeDir ));
     if ( content.isNull() )
         return false;
+
+    content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
     content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
     content.replace( QString::fromLatin1( "**IMAGE**" ), createImage( info, width ) );
@@ -676,6 +701,47 @@ QValueList<MyCheckBox*> HTMLExportDialog::activeResolutions()
         }
     }
     return res;
+}
+
+void HTMLExportDialog::populateThemesCombo()
+{
+    QStringList dirs = KGlobal::dirs()->findDirs( "data", QString::fromLocal8Bit("kimdaba/themes/") );
+    int i = 0;
+    for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
+        QDir dir(*it);
+        QStringList themes = dir.entryList( QDir::Dirs | QDir::Readable );
+        for(QStringList::Iterator it = themes.begin(); it != themes.end(); ++it) {
+            if(*it == QString::fromLatin1(".") || *it == QString::fromLatin1("..")) continue;
+            QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
+
+            KSimpleConfig themeConfig( QString::fromLatin1( "%1kimdaba.theme" ).arg( themePath ), true );
+            if( !themeConfig.hasGroup( QString::fromLatin1( "theme" ) ) ) {
+                kdDebug() << QString::fromLatin1("invalid theme: %1 (missing theme section)").arg( *it )
+                          << endl;
+                continue;
+            }
+            themeConfig.setGroup( QString::fromLatin1( "theme" ) );
+            QString themeName = themeConfig.readEntry( "Name" );
+            QString themeAuthor = themeConfig.readEntry( "Author" );
+
+            enableButtonOK( true );
+            _themeBox->insertItem( i18n( "%1 (by %2)" ).arg( themeName ).arg( themeAuthor ), i );
+            _themes.insert( i, themePath );
+            i++;
+        }
+    }
+    if(_themeBox->count() < 1) {
+        KMessageBox::error( this, i18n("Couldn't find any themes - this is very likely an installation error" ) );
+    }
+}
+
+void HTMLExportDialog::getThemeInfo( QString* baseDir, QString* name, QString* author )
+{
+    *baseDir = _themes[_themeBox->currentItem()];
+    KSimpleConfig themeConfig( QString::fromLatin1( "%1kimdaba.theme" ).arg( *baseDir ), true );
+    themeConfig.setGroup( QString::fromLatin1( "theme" ) );
+    *name = themeConfig.readEntry( "Name" );
+    *author = themeConfig.readEntry( "Author" );
 }
 
 #include "htmlexportdialog.moc"

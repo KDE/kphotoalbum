@@ -1,5 +1,8 @@
 2004-01-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Thanks to Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, KimDaBa
+	will now offer themes when generating HTML.
+
 	* Heavily optimized browsing functions. Not everything is
 	hopefully lightning fast.
 

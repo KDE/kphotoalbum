@@ -40,8 +40,8 @@ int main( int argc, char** argv ) {
                          "zefo@seznam.cz" );
 
     aboutData.addCredit( "Teemu Rytilahti",
-                         "Sending a patch implementing the \"Set As Wallpaper\" "
-                         "menu in the viewer.", "teemu.rytilahti@kde-fi.org" );
+                         "Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
+                         "(.) Theme support for HTML generation", "teemu.rytilahti@kde-fi.org" );
 
 
     KCmdLineArgs::init( argc, argv, &aboutData );

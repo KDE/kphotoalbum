@@ -19,6 +19,13 @@ ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName )
     QFileInfo fi( indexDirectory+ "/" + fileName );
     _label = fi.baseName();
     _angle = 0;
+
+    if ( Options::instance()->trustTimeStamps() )  {
+        QDate date = fi.created().date();
+        _startDate.setYear(date.year());
+        _startDate.setMonth(date.month());
+        _startDate.setDay(date.day());
+    }
 }
 
 ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QDomElement elm )
@@ -33,12 +40,6 @@ ImageInfo::ImageInfo( const QString& indexDirectory, const QString& fileName, QD
 
     int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0;
 
-    if ( Options::instance()->trustTimeStamps() )  {
-        QDate date = fi.created().date();
-        yearFrom = date.year();
-        monthFrom = date.month();
-        dayFrom = date.day();
-    }
     _startDate.setYear( elm.attribute( "yearFrom", QString::number( yearFrom) ).toInt() );
     _startDate.setMonth( elm.attribute( "monthFrom", QString::number(monthFrom) ).toInt() );
     _startDate.setDay( elm.attribute( "dayFrom", QString::number(dayFrom) ).toInt() );

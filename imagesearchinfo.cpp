@@ -75,6 +75,9 @@ bool ImageSearchInfo::isNull()
 
 bool ImageSearchInfo::match( ImageInfo* info ) const
 {
+    if ( _isNull )
+        return true;
+
     if ( !_compiled )
         compile();
 
@@ -104,7 +107,8 @@ bool ImageSearchInfo::match( ImageInfo* info ) const
 
 
     // -------------------------------------------------- Options
-    ok &= _optionMatcher->eval( info );
+    if ( _optionMatcher )
+        ok &= _optionMatcher->eval( info );
 
 #ifdef TEMPORARILY_REMOVED
  QStringList grps = Options::instance()->optionGroups();

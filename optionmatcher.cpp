@@ -82,23 +82,38 @@ OptionMatcher* OptionEmptyMatcher::optimize()
 
 OptionMatcher* OptionContainerMatcher::optimize()
 {
-    if ( _elements.count() == 1 ) {
+    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ) {
+        QValueList<OptionMatcher*>::Iterator matcher = it;
+        ++it;
+
+        (*matcher) = (*matcher)->optimize();
+        if ( *matcher == 0 )
+            _elements.remove( matcher );
+    }
+
+    if ( _elements.count() == 0 ) {
+        delete this;
+        return 0;
+    }
+    else if ( _elements.count() == 1 ) {
         OptionMatcher* res = _elements[0]->optimize();
         _elements.clear();
         delete this;
         return res;
     }
-    else {
-        for ( uint i=0; i<_elements.count(); ++i ) {
-            _elements[i] = _elements[i]->optimize();
-        }
+
+    else
         return this;
-    }
+
 }
 
 OptionMatcher* OptionNotMatcher::optimize()
 {
     _element = _element->optimize();
+    if ( _element == 0 ) {
+        delete this;
+        return 0;
+    }
     return this;
 }
 

@@ -1,6 +1,6 @@
 <chapter id="introduction">
   <title>Introduction</title>
-  <para>KimDaba stands for K Image Database.</para>
+  <para>KimDaba stands for KDE Image Database.</para>
   
   <para>If you are like me you have hundreds or even thousands of images
 ever since you got your first camera, some taken with a normal camera other
@@ -19,7 +19,7 @@ images. This is exactly what KimDaba is all about.</para>
       <listitem><para>It must be easy to describe a number of images at a
 time. It must for example not take more than a few mouse clicks to mark all
 your images from your holiday as being from Italy, 1992. KimDaba offers two
-ways of description images <emphasis>one at a time</emphasis>, which is
+ways of describing images: <emphasis>one at a time</emphasis>, which is
 useful for writing text about images, and <emphasis>All
 Simultaneously</emphasis>, which is useful for selecting a 
 number of images, and setting properties like location, persons on images,
@@ -55,15 +55,12 @@ advanced topics and customization.</para>
     <title>Organization of images and KimDaBa files</title>
     <para>KimDaBa uses all the images of a directory and all subdirectories
 below it, first time you start KimDaBa, you will be ask for the location of
-this directory, as can been see in . KimDaBa will not modify any images, so you do not have to
-be afraid of KimDaBa altering your images <footnote><para>The only destructive operation
-KimDaBa will perform towards your images is to delete individual images, if
-you ask it to from <guimenu>Edit</guimenu>|<guimenuitem>Delete
-Selected</guimenuitem></para></footnote>, actually if you do not trust
-KimDaBa, feel free to make all your images write protected - but as I said KimDaBa will not modify your
-images in any way, that is no rotation, no scaling, no changing colors,or
-anything are done to your images on disk, all these operations will be done
-in between reading the image from disk, and showing it on screen.</para>
+this directory. KimDaBa will not modify any images, so you do not have to
+be afraid of KimDaBa altering your images <footnote><para>The two
+exceptions to this rule is (1) if you ask KimDaBa to delete individual
+images, from <guimenu>Edit</guimenu>|<guimenuitem>Delete
+Selected</guimenuitem>, and (2) plug-in operations.</para></footnote>, actually if you do not trust
+KimDaBa, feel free to make all your images write protected.</para>
     
     <para>KimDaBa will save all its information in the file
 <filename>index.xml</filename> in your topmost image directory. This file
@@ -75,7 +72,7 @@ floppy disk, or keeping revisions using CVS.</para>
 located, and reuse that in future use of KimDaBa. Should you ever want to
 load another database into KimDaBa (i.e. another directory tree of
 images), then you may start it with the  <option>-c</option> option. For
-example: <literal>kimdaba -c ~/MyMovies/index.xml</literal></para>
+example: <literal>kimdaba -c ~/CompanyImages/index.xml</literal></para>
   </sect1>
 </chapter>
 

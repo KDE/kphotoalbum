@@ -18,7 +18,7 @@ database before you try them on
 your own images<footnote><para>You start KimDaBa with the demo setup either from the shell by executing <literal>kimdaba
 -demo</literal>, or from the Help menu.</para></footnote> (Don't say I didn't warn you!).</emphasis></para>
 
-<para>The application behind KIPI are very different, this means that some
+<para>The applications using KIPI are very different from each other, this means that some
 plugins are not always working the KimDaBa way, but after all, this is the
 price for sharing the functionality between the applications.</para>
 

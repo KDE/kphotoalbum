@@ -2,12 +2,9 @@
   <title>Thumbnail viewer</title>
   <para>Selecting <literal>View Images</literal> in the browser, you get to
 a thumbnail overview of the images currently in scope (or all images if no
-scope have been selected <footnote><para>To avoid that your X server runs out of
-      memory KimDaBa limits the amount of images you look at a time. The
-      limit can be configured in the <literal>Options</literal>
-      dialog.</para></footnote>). An example of this can be seen in <xref
-      linkend="fig-thumbnailview"/> below. The size and number of the thumbnails can be
-configure in from the <guimenu>Settings</guimenu>|<guimenuitem>Configure
+scope have been selected). An example of this can be seen in <xref
+      linkend="fig-thumbnailview"/> below. The size of the thumbnails can be
+configure from the <guimenu>Settings</guimenu>|<guimenuitem>Configure
 KimDaBa</guimenuitem> menu as
 described in <xref linkend="chp-options"/>.</para>
 
@@ -21,8 +18,13 @@ described in <xref linkend="chp-options"/>.</para>
   </figure>
 
   <para>In the thumbnail overview you can reorder your pictures by dragging
-them around with the mouse, or cut and paste them using the keyboard. But most important you
-can start the viewer simply by clicking on an image from there.</para>
+them around with the mouse, or cut and paste them using the keyboard. For
+the date bar to work properly you should, however, aim at keeping your
+images sorted at all time. Sorting you images can be done by selecting all
+images, and choosing <guimenu>Images</guimenu>|<guimenu>Sort Selected by
+Date &amp; Time</guimenu>. The sorting will not reorder images which has
+the same date and time, so if you have say 100 images from 1992, you can
+move them around, and their individual order will stay unchanged after a sort.</para>
 
 <para>Dragging an image from the viewer to the background will set
 the image as the background image of your desktop.</para>
@@ -30,16 +32,22 @@ the image as the background image of your desktop.</para>
   <para>By clicking on an image you load it into the viewer, if no viewer
 window is present, a viewer window will be created.</para>
 
-  <para>If you select a number of images, and presses <literal>i</literal>
-(or chooses "<guimenu>Images</guimenu>|<guimenuitem>View Selected</guimenuitem>"),
-the images will be loaded into the existing viewer (if no viewer exists, one will be created). Finally, pressing <literal>control+i</literal> (or
-choosing "<guimenu>Images</guimenu>|<guimenuitem>View Selected (in new
-window)</guimenuitem>" ), the images will be loaded into a new viewer.</para>
+  <para>If you select a number of images, and presses <literal>control+i</literal>
+or chooses "<guimenu>Images</guimenu>|<guimenuitem>View Selected</guimenuitem>",
+the images will be loaded into the existing viewer (if no viewer exists,
+one will be created). Alternatively you may choose "<guimenu>Images</guimenu>|<guimenuitem>View Selected (in new
+window)</guimenuitem>" to get the images loaded into a new viewer. If you
+press <literal>control+r</literal> or choose
+"<guimenu>Images</guimenu>|<guimenuitem>Run Slide Show</guimenuitem>" the
+selected images will be loaded into the viewer and a slide show will
+start. Finally choosing "<guimenu>Images</guimenu>|<guimenuitem>Run
+Randomized Slide Show</guimenuitem>" will show a slide show of the images
+selected in random order.</para>
 
 
 <sect1 id="sect-deleting-images">
   <title>Deleting Images</title>
-  <para>From the thumbnail views it is also possible to delete images. To
+  <para>From the thumbnail view it is also possible to delete images. To
   do so select the images you want to delete and press the delete key or
   select <guimenu>Edit</guimenu>|<guimenuitem>Delete Selected</guimenuitem>
   from the menu bar. Doing so KimDaBa will show you the dialog in <xref
@@ -141,12 +149,12 @@ laugh on me. That episode inspired me to add a new feature to KimDaBa,
 namely privacy locking.</para>
 
 <para>In the <guimenu>Images</guimenu> menu you will find a sub menu call
-<guimenuitem>privacy</guimenuitem>. To get some privacy browse - while you
+<guimenuitem>privacy</guimenuitem>. To get some privacy, browse - while you
 are on your own - to the images that you want to keep private, and
-select <guimenuitem>Mark Current View As Lock</guimenuitem> from the
+select <guimenuitem>Lock Away Current Set of Images</guimenuitem> from the
 privacy sub menu. Alternatively you may browse to the images you want to
-limit your little sister to see, and select <guimenuitem>Mark Everything
-but the Current View as Lock</guimenuitem>.</para>
+limit your little sister to see, and select <guimenuitem>Lock Away All
+Other Images</guimenuitem>.</para>
 
 <para>Now you have specified what to hide away, and once you hand over your
 laptop to your little sister, simply choose <guimenuitem>Lock

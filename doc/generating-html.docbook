@@ -12,14 +12,14 @@
       <literal>Destination</literal>. The following section describes each
       page in detail.</para>
 
-    <sect1>
+    <sect1 id="the_content_page">
       <title>The <literal>Content</literal> page</title>
       <para>In the content page you specify which information should be
         generated to the HTML pages.</para>
 
       <para>First you specify the title of the overview pages, plus a
         description generated on these pages. See <ulink
-          url="http://www.blackie.dk/kimdaba/rounded-theme/index.html">KimDaBa example HTML pages</ulink> 
+          url="http://ktown.kde.org/kimdaba/rounded-theme/index.html">KimDaBa example HTML pages</ulink> 
         to see an example of this.</para>
 
       <para>Next you specify whether a KimDaBa export file should be
@@ -35,7 +35,7 @@
         want readers of your pages to see.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="the_layout_page">
       <title>The <literal>Layout</literal> page</title>
       <para>On the layout page you specify what your HTML pages should look
         like. Most of the options on this page are straight forward, and do
@@ -53,7 +53,7 @@
         resolution.</para>
     </sect1>
 
-    <sect1>
+    <sect1 id="the_destination_page">
       <title>The <literal>Destination</literal> page</title>
       <para>On the destination page you specify several directories and
         URL's specifying where your pages goes.</para>

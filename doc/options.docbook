@@ -42,21 +42,21 @@ cursor on the option in general.</para>
 
 
 
-<sect1 id="sec-specifying-option-groups">
-  <title>Option Groups</title>
+<sect1 id="sec-specifying-categories">
+  <title>Categories</title>
   <para>In <xref linkend="chp-typingIn"/> it was described how you could
 specify different properties for each image, these included
 <literal>Persons</literal>, <literal>Locations</literal> and
-<literal>Keywords</literal>. It is possible to specify your own groups, so
+<literal>Keywords</literal>. It is possible to specify your own categories, so
 if you prefer you could get an <literal>Items</literal>, a
-<literal>Animals</literal>, or a <literal>Albums</literal> group your self.</para>
+<literal>Animals</literal>, or a <literal>Albums</literal> category your self.</para>
 
 <para>In <xref linkend="fig-options-group"/> below you can see the dialog
-used to configure which groups exists. For each group you specify a
+used to configure which categories exists. For each category you specify a
 label and an icon.</para>
 
 <figure id="fig-options-group">
-<title>Configuring Option Groups</title>
+<title>Configuring Categories</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="options-groups.png" format="PNG"/>
@@ -98,7 +98,7 @@ group, a special icons is used.</para>
 
 <para>In <xref linkend="fig-options-member"/> you can see the configuration
 page for specifying member groups. At the top there is a combo box, where
-you can specify which option group you are currently configuring. On the
+you can specify which category you are currently configuring. On the
 left side you see a list box with the current member groups, and on the
 right side you see a list box with the members of that member group.</para>
 

@@ -4,7 +4,7 @@
     browse through your images, see <xref
       linkend="fig-browser-with-images"/>. If you compare that to <xref
       linkend="fig-empty-browser-window"/> , you will see that there now is
-    items available in each of the groups for <literal>Persons</literal>,
+    items available in each of the categories for <literal>Persons</literal>,
     <literal>Locations</literal>, and <literal>Keywords</literal>.</para>
   
   <figure id="fig-browser-with-images">
@@ -17,8 +17,8 @@
     </mediaobject>
   </figure>
   
-  <para>In the browser window you can see the option groups you typed
-information into when setting properties for the images, these groups are
+  <para>In the browser window you can see the categories you typed
+information into when setting properties for the images, these categories are
 <literal>Keywords</literal>, <literal>Locations</literal>, and
 <literal>Persons</literal>. After them there is an item for browsing by
 date, an item for general searches, and finally an item for
@@ -41,7 +41,7 @@ in <xref linkend="fig-browser-for-persons"/>.</para>
   <para>The browser is now populated with the persons you specified for
     your images <footnote><para>You may notice that the item
     <literal>Pets</literal> has a special icon. For details about that, see
-    <xref linkend="sec-specifying-option-groups"/>.</para></footnote>,
+    <xref linkend="sec-specifying-categories"/>.</para></footnote>,
     selecting a person will bring you back to the original state for the
     browser, as we saw in <xref linkend="fig-browser-with-images"/>, this
     time, however, we are <emphasis>in the scope</emphasis> of the person
@@ -52,7 +52,7 @@ in <xref linkend="fig-browser-for-persons"/>.</para>
       linkend="fig-browser-with-images"/> with <xref
       linkend="fig-browser-for-jesper"/>, where you will see that the number
     of available images has gone down from 24 to 10, and the amount of
-    categories for the different groups have also changed.</para>
+    items for the different categories have also changed.</para>
   
   <figure id="fig-browser-for-jesper">
     <title>Browser limited to the scope of the person <literal>Jesper</literal></title>
@@ -85,7 +85,7 @@ matching your current scope.</para>
   <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
 that each person has the same icon in front of his name. KimDaBa is actual
 capable of showing a preview image for each individual person <footnote><para>This of
-course also applies to locations, keywords, and other options groups you
+course also applies to locations, keywords, and other categories you
 have defined yourself.</para></footnote> as can be seen in  <xref
 linkend="fig-imagesForPersons"/>.</para>
 
@@ -100,8 +100,8 @@ linkend="fig-imagesForPersons"/>.</para>
 
 <para>To show images along with the names, choose the tool
 button to the very right of the toolbar, that will bring up a popup menu,
-where you can chose which view you want to use for the given option
-group. Notice views must be configured for each option group - that way you
+where you can chose which view you want to use for the given
+category. Notice views must be configured for each category - that way you
 may for example use an icon view with images of persons, but a plain list view for
 keywords (in case you can't come up with good images for your
 keywords).</para>  

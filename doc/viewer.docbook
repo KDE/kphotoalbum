@@ -46,6 +46,17 @@ as it would have done if you selected <literal>Persons</literal> from the
 root of the browser, and next selected <literal>Anne
 Helene</literal>.</para>
   
+<para>In the info box you can see a small button with the KimDaBa
+logo. Pressing that button will get you to the thumbnail viewer. The
+thumbnail view will display all images, and the image you just had in the
+viewer will be selected. The idea behind this is the following: You browse
+to a given person, and look at the images of that
+person. One of the images is from say your high school time, and now you
+want to see images from that period of time. Using the <emphasis>Jump to
+Context</emphasis> button, you are brought to the thumbnail view showing
+all images, with the current one being in focus, and likely all your high
+school pictures around it.</para>
+
   <para>In case you have loaded several images into the viewer, you can go
 forth and back using <literal>Page Up</literal> and <literal>Page
 Down</literal>. You can go to the first and last images
@@ -57,7 +68,7 @@ them as a slide show, which means that KimDaBa loads a new image every few
 second. How often it loads a new image is configure by pressing the control
 key and respective plus (for go faster) or minus
 (go slower). Starting and stopping the slide show is
-done simply by pressing the key <literal>s</literal>.</para>
+done simply by pressing <literal>control+s</literal>.</para>
   
   <para>A very useful feature of the KimDaBa viewer is it ability to go into
 full screen mode. In this mode, the viewer is using the complete screen
@@ -69,7 +80,8 @@ dragging out a rectangle with the mouse. Pressing the minus key will zoom
 out again. Pressing the plus key will zoom in at the center of the image. <xref
       linkend="fig-marking-zoom-rectangle"/> below shows how a zoom
 rectangle is marked, and <xref linkend="fig-zoomed-view"/> shows the result of
-the zoom.
+the zoom. Finally pressing the period key, lets you reset zooming, so the
+image is shown unzoomed.
 </para>
   
   <figure id="fig-marking-zoom-rectangle">
@@ -93,10 +105,7 @@ the zoom.
   </figure>
     
   <para>Choosing the rotate operations from the context menu, you may
-rotate the image, but next time you start the viewer with that image, it
-will show up in its original orientation. To change the rotation
-permanently, you must changed it by setting image properties (see <xref
-      linkend="chp-typingIn"/>). You can set properties for
+rotate the image. You can set properties for
 the current image, simply by choosing <literal>Edit Image Properties</literal> in the
 context menu.
 </para>

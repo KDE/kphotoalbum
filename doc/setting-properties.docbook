@@ -12,12 +12,6 @@ yet specified any information about your images. In <xref
 now, simply press the <literal>View Images</literal> item, which will show
 you an overview of all your images.</para>
   
-  <para>In case you have more than 100 images, KimDaBa will sort your
-images into groups each of 100 images. This is simply to avoid that your
-machine runs out of RAM while trying to show you all your images. The
-amount of images per pages can be configured in the Options dialog (see 
-<xref linkend="chp-options"/>)</para>
-  
   <figure id="fig-empty-browser-window">
     <title>Starting KimDaBa with your own images</title>
     <mediaobject>
@@ -64,11 +58,11 @@ the date of the image, the label of the image <footnote><para>The label is
           initialized to the name of the file. The label is used in the
           browser, and when the images are exported to HTML
           pages</para></footnote>, a description for the image, and most important
-different <emphasis>options</emphasis> for the image. In the screen dump, these options are
+different <emphasis>categories</emphasis> for the image. In the screen dump, these categories are
 <literal>Persons</literal>, <literal>Loctions</literal>, and
 <literal>Keywords</literal>, but as you will see in <xref
-        linkend="sec-specifying-option-groups"/>, these three predefined
-groups may be changed to your preferences. 
+        linkend="sec-specifying-categories"/>, these three predefined
+categories may be changed to your preferences. 
  </para>
     
     <figure id="fig-image-config-window">
@@ -81,7 +75,7 @@ groups may be changed to your preferences.
       </mediaobject>
     </figure>
     
-    <para>The date, plus the options may be used for searching and
+    <para>The date, plus the categories may be used for searching and
 browsing for images, as we will see in <xref linkend="chp-browsing"/>, and
 they will also be shown when you later view the images.</para>
     
@@ -89,14 +83,14 @@ they will also be shown when you later view the images.</para>
     
     
     <sect2 id="sect-specifying-options">
-      <title>Specifying options</title>
+      <title>Categories</title>
       <para>In <xref linkend="fig-image-config-window"/> there are three
 list boxes combined with a line edits for specifying persons, locations and
 keywords. These widget are a very important part of KimDaBa,
 as you will use them over and over again, when specifying information about
 your images.</para>
       
-      <para> You can specify an option from a list box, simply by
+      <para> You can specify a property from a list box, simply by
 selecting it (Select say <literal>Donna</literal> to specify that Donna is
 on the given image. Alternatively you may type its name in the line edit.
 When you start typing a name in the line edit, KimDaBa will look into the listbox,
@@ -112,6 +106,9 @@ selected is, that when going to, say a family party, you will get perhaps
 50 images all with the same 5-10 persons. When typing in information about these
 50 images you will have the 5-10 persons at the top of the listbox as soon as
 you have type in their name the first time.</para>
+
+     <para>If you prefer to have the list alphabetically sorted instead,
+simply press the icon for sorting for dates under the list box.</para>
     </sect2>
     
     
@@ -133,7 +130,7 @@ selected images</emphasis>.</para>
       
       <para>In this situation, you will not see the existing values of
 each of the items. If you specify a date or description, then that value
-will be set unconditionally. For options it is a bit different. In this
+will be set unconditionally. For categories it is a bit different. In this
 situation you will find that there is a check box under the list box
 labeled <literal>merge</literal>. When this list box is selected, the
 values you specify will be merged with the existing values for the option

@@ -160,19 +160,19 @@ void OptionsDialog::createGeneralPage()
                "default description for your images.</p></qt>" );
     QWhatsThis::add( _useEXIFComments, txt );
 
-    txt = i18n("<qt><p>KimDaBa shares plugins with other imaging applications, some of these have the concept of albums. "
-               "KimDaBa do not have that concept, nevertheless it needs to pretend to have so towards the plugin system for "
-               "certain plugins to function.</p>"
-               "<p>KimDaBa does this by defining the current album to be the current view - that is all the images the "
-               "browsers offers to display.</p>"
-               "<p>In addition to the current album, KimDaBa must also be able to give a list of all albums. "
-               "The list of all albums are defined in the following way:"
-               "<ul><li>When KimDaBa's browser displays the content of a category - say all Persons, then each item in this category "
+    txt = i18n("<qt><p>KimDaBa shares plugins with other imaging applications, some of which have the concept of albums. "
+               "KimDaBa do not have this concept; nevertheless, for certain plugins to function, KimDaBa informs "
+               "to the plugin system that it does.</p>"
+               "<p>KimDaBa does this by defining the current album to be the current view - that is, all the images the "
+               "browser offers to display.</p>"
+               "<p>In addition to the current album, KimDaBa must also be able to give a list of all albums; "
+               "the list of all albums is defined in the following way:"
+               "<ul><li>When KimDaBa's browser displays the content of a category, say all Persons, then each item in this category "
                "will look like an album to the plugin."
-               "<li>Otherwise the category you specify using this option will be used. Thus if you specify Persons "
-               "with this option, then KimDaBa will act as if you had just chosen to display persons, and then invoked "
+               "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify Persons "
+               "with this option, then KimDaBa will act as if you had just chosen to display persons and then invoke "
                "the plugin which needs to know about all albums.</p>"
-               "<p>Most users would likely want to specify Keywords here.</p></qt>");
+               "<p>Most users would probably want to specify Keywords here.</p></qt>");
     QWhatsThis::add( albumCategoryLabel, txt );
     QWhatsThis::add( _albumCategory, txt );
 }

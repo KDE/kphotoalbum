@@ -53,6 +53,7 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     void moveInfoBox();
     void createToolBar();
+    void setAsWallpaper(int mode);
 
     void load();
     void updateInfoBox();
@@ -82,6 +83,13 @@ protected slots:
     void editImage();
     void makeCategoryImage();
     void updateCategoryConfig();
+    void slotSetWallpaperC();
+    void slotSetWallpaperT();
+    void slotSetWallpaperCT();
+    void slotSetWallpaperCM();
+    void slotSetWallpaperTM();
+    void slotSetWallpaperS();
+    void slotSetWallpaperCAF();
 
 private:
     static Viewer* _latest;

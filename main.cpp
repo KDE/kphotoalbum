@@ -36,6 +36,13 @@ int main( int argc, char** argv ) {
     KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaba"), "1.0",
                           I18N_NOOP("KDE Image Database"), KAboutData::License_GPL );
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
+    aboutData.addCredit( "Jozef Riha","Testing early versions of KimDaBa.",
+                         "zefo@seznam.cz" );
+
+    aboutData.addCredit( "Teemu Rytilahti",
+                         "Sending a patch implementing the \"Set As Wallpaper\" "
+                         "menu in the viewer.", "teemu.rytilahti@kde-fi.org" );
+
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

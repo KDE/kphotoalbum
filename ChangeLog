@@ -1,5 +1,9 @@
 2004-01-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added an item to the context menu in the viewer for setting the
+	current image as the background. (Thanks to Teemu Rytilahti
+	<teemu.rytilahti@kde-fi.org>) for a patch with this feature.
+
 	* New Feature: It is now possible to show the content views (those
 	with overview of persons, locations, keywords etc) either with a
 	list view or with an icon view. In addition it is also possible to

@@ -553,7 +553,9 @@ void MainView::setupMenuBar()
 
     _viewInNewWindow = new KAction( i18n("View (In New Window)"), CTRL+Key_I, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
-    _runSlideShow = new KAction( i18n("Run Slide Show"), Key_S, this, SLOT( slotRunSlideShow() ),
+    _runSlideShow = new KAction( i18n("Run Slide Show"),
+                                 KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kview" ), KIcon::Toolbar ),
+                                 Key_S, this, SLOT( slotRunSlideShow() ),
                                  actionCollection(), "runSlideShow" );
     _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), SHIFT+Key_S, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );

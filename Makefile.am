@@ -1,4 +1,4 @@
-SUBDIRS = images icons
+SUBDIRS = images icons demo
 INCLUDES = $(all_includes)
 AM_CPPFLAGS = -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
 

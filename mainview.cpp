@@ -46,8 +46,9 @@
 #include "util.h"
 #include <kapplication.h>
 #include <ktip.h>
+#include <kprocess.h>
 
-MainView::MainView( QWidget* parent, const char* name )
+MainView::MainView( bool demo, QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false )
 {
     bool showWelcome = !Options::configFileExists();
@@ -87,7 +88,9 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
     connect( Options::instance(), SIGNAL( optionGroupsChanged() ), this, SLOT( slotOptionGroupChanged() ) );
 
-    if ( showWelcome )
+    if ( demo )
+        loadDemo();
+    else if ( showWelcome )
         welcome();
     else
         load();
@@ -248,10 +251,24 @@ void MainView::slotViewSelected( bool reuse )
 void MainView::welcome()
 {
     WelComeDialog* dialog = new WelComeDialog( this );
-    dialog->exec();
+    int ret = dialog->exec();
     delete dialog;
-    slotOptions();
+    if ( ret == QDialog::Accepted )
+        slotOptions();
+    else
+        loadDemo();
 }
+
+void MainView::loadDemo()
+{
+    if ( !Util::setupDemo() )
+        qApp->quit();
+
+    delete Options::instance(); // We need it to reload.
+    load();
+    _browser->reload();
+}
+
 
 void MainView::slotChanges()
 {
@@ -321,6 +338,8 @@ void MainView::setupMenuBar()
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     new KAction( i18n("Show Tooltips on Images"), CTRL+Key_T, _thumbNailView, SLOT( showToolTipsOnImages() ),
                  actionCollection(), "showToolTipOnImages" );
+    new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ),
+                 actionCollection(), "runDemo" );
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     createGUI( QString::fromLatin1( "kimdabaui.rc" ) );
@@ -427,6 +446,13 @@ void MainView::pathChanged( const QString& path )
     else
         statusBar()->changeItem( path, 0 );
 
+}
+
+void MainView::runDemo()
+{
+    KProcess* process = new KProcess;
+    *process << "kimdaba" << "-demo";
+    process->start();
 }
 
 #include "mainview.moc"

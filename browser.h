@@ -39,6 +39,7 @@ public slots:
     void forward();
     void go();
     void home();
+    void reload();
 
 signals:
     void canGoBack( bool );
@@ -50,7 +51,6 @@ signals:
 protected slots:
     void init();
     void select( QListViewItem* item );
-    void reload();
 
 protected:
     void addItem( FolderAction* );

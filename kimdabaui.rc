@@ -21,6 +21,7 @@
     </Menu>
    <Menu name="help">
      <Action name="showToolTipOnImages"/>
+     <Action name="runDemo"/>
    </Menu>
   </MenuBar>
 

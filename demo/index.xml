@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<images>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img001.jpg" label="img001" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="Anne Helene's 30 years birthday" />
+   </option>
+   <option name="Locations" >
+    <value value="denmark" />
+    <value value="esbjerg" />
+   </option>
+   <option name="Persons" >
+    <value value="donna" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img002.jpg" label="img002" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="Anne Helene's 30 years birthday" />
+   </option>
+   <option name="Locations" >
+    <value value="denmark" />
+    <value value="esbjerg" />
+   </option>
+   <option name="Persons" >
+    <value value="donna" />
+   </option>
+  </options>
+  <drawings>
+   <Line _lastPos.x="415" _lastPos.y="261" _startPos.x="773" _startPos.y="36" />
+   <Line _lastPos.x="411" _lastPos.y="304" _startPos.x="802" _startPos.y="574" />
+   <Line _lastPos.x="347" _lastPos.y="245" _startPos.x="36" _startPos.y="53" />
+   <Line _lastPos.x="361" _lastPos.y="308" _startPos.x="41" _startPos.y="573" />
+  </drawings>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img003.jpg" label="img003" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="Anne Helene's 30 years birthday" />
+   </option>
+   <option name="Locations" >
+    <value value="pool club" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img004.jpg" label="img004" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="Anne Helene's 30 years birthday" />
+   </option>
+   <option name="Locations" >
+    <value value="pool club" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img005.jpg" label="img005" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Locations" >
+    <value value="usa" />
+    <value value="chicago" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img006.jpg" label="img006" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Locations" >
+    <value value="usa" />
+    <value value="chicago" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img007.jpg" label="img007" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="silo falls over" />
+   </option>
+   <option name="Locations" >
+    <value value="denmark" />
+    <value value="esbjerg" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img008.jpg" label="img008" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="silo falls over" />
+   </option>
+   <option name="Locations" >
+    <value value="denmark" />
+    <value value="esbjerg" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img009.jpg" label="img009" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="silo falls over" />
+   </option>
+   <option name="Locations" >
+    <value value="denmark" />
+    <value value="esbjerg" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img010.jpg" label="img010" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="holiday" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img011.jpg" label="img011" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="holiday" />
+   </option>
+   <option name="Locations" >
+    <value value="mallorca" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+    <value value="anne helene" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img012.jpg" label="img012" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="holiday" />
+   </option>
+   <option name="Locations" >
+    <value value="mallorca" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img013.jpg" label="img013" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="holiday" />
+   </option>
+   <option name="Locations" >
+    <value value="grand canyon" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+    <value value="anne helene" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img014.jpg" label="img014" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="holiday" />
+   </option>
+   <option name="Locations" >
+    <value value="grand canyon" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img015.jpg" label="img015" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="holiday" />
+   </option>
+   <option name="Locations" >
+    <value value="grand canyon" />
+   </option>
+   <option name="Persons" >
+    <value value="anne helene" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="0" dayFrom="0" yearTo="0" monthTo="0" file="img016.jpg" label="img016" angle="0" dayTo="0" yearFrom="1985" description="" >
+  <options>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="0" dayFrom="0" yearTo="1990" monthTo="0" file="img017.jpg" label="img017" angle="0" dayTo="0" yearFrom="1988" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="new wave" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="0" dayFrom="0" yearTo="1990" monthTo="0" file="img018.jpg" label="img018" angle="0" dayTo="0" yearFrom="1988" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="new wave" />
+   </option>
+   <option name="Persons" >
+    <value value="jesper" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img019.jpg" label="img019" angle="0" dayTo="0" yearFrom="1998" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="beers" />
+   </option>
+   <option name="Persons" >
+    <value value="spiff" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img020.jpg" label="img020" angle="0" dayTo="0" yearFrom="1998" description="" >
+  <options>
+   <option name="Persons" >
+    <value value="spiff" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img021.jpg" label="img021" angle="0" dayTo="0" yearFrom="1998" description="" >
+  <options>
+   <option name="Persons" >
+    <value value="spiff" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img022.jpg" label="img022" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Persons" >
+    <value value="donna" />
+   </option>
+  </options>
+ </image>
+ <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img023.jpg" label="img023" angle="0" dayTo="0" yearFrom="2003" description="" >
+  <options>
+   <option name="Keywords" >
+    <value value="holiday" />
+    <value value="beers" />
+   </option>
+   <option name="Locations" >
+    <value value="rhodos" />
+   </option>
+   <option name="Persons" >
+    <value value="anne helene" />
+   </option>
+  </options>
+ </image>
+</images>

@@ -34,6 +34,9 @@ public:
     static QString createInfoText( ImageInfo* info, QMap<int, QPair<QString,QString> >* );
     static void checkForBackupFile( const QString& realName, const QString& backupName );
     static bool ctrlKeyDown();
+    static bool copy( const QString& from, const QString& to );
+    static bool setupDemo();
+
 };
 
 

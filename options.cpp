@@ -44,6 +44,11 @@ Options* Options::instance()
     return _instance;
 }
 
+Options::~Options()
+{
+    _instance = 0;
+}
+
 
 Options::Options()
     : _thumbSize( 64 ), _hasAskedAboutTimeStamps( false ), _dirty( false )

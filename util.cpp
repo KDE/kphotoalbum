@@ -24,6 +24,11 @@
 #include <kmessagebox.h>
 #include <qurl.h>
 #include <kapplication.h>
+#include <unistd.h>
+#include <qdir.h>
+#include <kstandarddirs.h>
+#include <stdlib.h>
+#include <qregexp.h>
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
                          QMap<QString,Options::OptionGroupInfo>* optionGroupInfo )
@@ -182,5 +187,94 @@ void Util::checkForBackupFile( const QString& realName, const QString& backupNam
 bool Util::ctrlKeyDown()
 {
     return KApplication::keyboardModifiers() & KApplication::ControlModifier;
+}
+
+bool Util::setupDemo()
+{
+    QString dir = QString::fromLatin1( "/tmp/kimdaba-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
+    QFileInfo fi(dir);
+    if ( ! fi.exists() ) {
+        bool ok = QDir().mkdir( dir );
+        if ( !ok ) {
+            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo").arg( dir ), i18n("Error running demo") );
+            return false;
+        }
+    }
+
+    bool ok;
+
+    // index.xml
+    QString srcFile = locate( "data", QString::fromLatin1( "kimdaba/demo/index.xml" ) );
+    QString destFile = dir + QString::fromLatin1( "/index.xml" );
+    if ( ! QFileInfo( destFile ).exists() ) {
+        ok = copy( srcFile, destFile );
+        if ( !ok ) {
+            KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'").arg( srcFile ).arg( destFile ), i18n("Error running demo") );
+            return false;
+        }
+    }
+
+
+    // setup
+    srcFile = locate( "data", QString::fromLatin1( "kimdaba/demo/setup" ) );
+    destFile = dir + QString::fromLatin1( "/setup" );
+
+    QFile in( srcFile );
+    ok = in.open( IO_ReadOnly );
+    if ( !ok ) {
+        KMessageBox::error( 0, i18n("Unable to open '%1' for reading").arg( srcFile ), i18n("Error running demo") );
+        return false;
+    }
+    QString str = QTextStream( &in ).read();
+    in.close();
+    str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("imageDirectory=\"%1\"").arg(dir) );
+    str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
+    str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
+    QFile out( destFile );
+    if ( !out.open( IO_WriteOnly ) ) {
+        KMessageBox::error( 0, i18n("Unable to open '%1' for writting").arg( destFile ), i18n("Error running demo") );
+        return false;
+    }
+    QTextStream( &out ) << str;
+    out.close();
+
+    // Images
+    QStringList files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kimdaba/demo/*.jpg" ) );
+    for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
+        destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
+        if ( ! QFileInfo( destFile ).exists() ) {
+            ok = ( symlink( (*it).latin1(), destFile.latin1() ) == 0 );
+            if ( !ok ) {
+                KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'").arg( *it ).arg( destFile ), i18n("Error running demo") );
+                return false;
+            }
+        }
+
+    }
+    Options::setConfFile( dir + QString::fromLatin1( "/setup" ) );
+    return true;
+}
+
+bool Util::copy( const QString& from, const QString& to )
+{
+    QFile in( from );
+    QFile out( to );
+    if ( !in.open(IO_ReadOnly) ) {
+        return false;
+    }
+    if ( !out.open(IO_WriteOnly) ) {
+		in.close();
+        return false;
+    }
+
+    char buf[4096];
+    while( !in.atEnd() ) {
+      unsigned long int len = in.readBlock( buf, sizeof(buf));
+      out.writeBlock( buf, len );
+    }
+
+	in.close();
+	out.close();
+    return true;
 }
 

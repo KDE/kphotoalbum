@@ -30,6 +30,8 @@ class Options :public QObject {
 
 public:
     static Options* instance();
+    ~Options();
+
     static bool configFileExists();
     static void setConfFile( const QString& file );
     QString configFile() const;
@@ -120,7 +122,6 @@ signals:
 
 private:
     Options();
-    ~Options() {};
     static Options* _instance;
     static QString _confFile;
 

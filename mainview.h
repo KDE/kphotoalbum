@@ -35,7 +35,7 @@ class MainView :public KMainWindow
     Q_OBJECT
 
 public:
-    MainView( QWidget* parent,  const char* name = 0 );
+    MainView( bool demo, QWidget* parent,  const char* name = 0 );
 
 protected slots:
     bool slotExit();
@@ -59,6 +59,8 @@ protected slots:
     void slotOptionGroupChanged();
     void showTipOfDay();
     void pathChanged( const QString& );
+    void runDemo();
+    void loadDemo();
 
 protected:
     void configureImages( bool oneAtATime );

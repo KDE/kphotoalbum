@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>WelComeDialog</class>
 <widget class="QDialog">
     <property name="name">
@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>800</width>
-            <height>301</height>
+            <height>309</height>
         </rect>
     </property>
     <property name="caption">
@@ -59,14 +59,15 @@
 
 &lt;p&gt;Welcome to KimDaba. The first thing you need to do is to specify a directory in which your images are stored. This directory may contain subdirectories with images.&lt;/p&gt;
 &lt;p&gt;You specify the directory in the options dialog that will show next.&lt;/p&gt;
-</string>
+&lt;p&gt;If you are interested in trying out KimDaBa with a prebuild set of images, then simply choose the &lt;b&gt;Load Demo&lt;/b&gt; 
+button. You may get to this demo at a later time from the &lt;b&gt;Help&lt;/b&gt; menu.&lt;/p&gt;</string>
                     </property>
                 </widget>
             </hbox>
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout2</cstring>
+                <cstring>layout3</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -84,11 +85,19 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>201</width>
+                            <width>460</width>
                             <height>31</height>
                         </size>
                     </property>
                 </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>loadDemo</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Load Demo</string>
+                    </property>
+                </widget>
                 <widget class="QPushButton">
                     <property name="name">
                         <cstring>pushButton1</cstring>
@@ -107,6 +116,12 @@
         <signal>clicked()</signal>
         <receiver>WelComeDialog</receiver>
         <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>loadDemo</sender>
+        <signal>clicked()</signal>
+        <receiver>WelComeDialog</receiver>
+        <slot>reject()</slot>
     </connection>
 </connections>
 <includes>

@@ -27,6 +27,7 @@
 static const KCmdLineOptions options[] =
 {
 	{ "c ", I18N_NOOP("Config file"), 0 },
+    { "demo", I18N_NOOP( "Starts KimDaBa with a prebuild set of demo images" ), 0 },
 	{ 0, 0, 0}
 };
 
@@ -44,7 +45,7 @@ int main( int argc, char** argv ) {
     if ( args->isSet( "c" ) )
         Options::setConfFile( args->getOption( "c" ) );
 
-    MainView* view = new MainView( 0,  "view" );
+    MainView* view = new MainView( args->isSet( "demo" ), 0,  "view" );
     qApp->setMainWidget( view );
     view->resize(800, 600);
     view->show();

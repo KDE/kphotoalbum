@@ -57,6 +57,9 @@ protected slots:
     void itemSelected( QListBoxItem* );
     void showContextMenu( QListBoxItem*, const QPoint& );
 
+protected:
+    virtual bool eventFilter( QObject* object, QEvent* event );
+
 private:
     QLabel* _label;
     QString _optionGroup;

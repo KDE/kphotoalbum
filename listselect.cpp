@@ -165,6 +165,7 @@ ListSelect::ListSelect( const QString& optionGroup, QWidget* parent, const char*
     connect( _listBox, SIGNAL( contextMenuRequested( QListBoxItem*, const QPoint& ) ),
              this, SLOT(showContextMenu( QListBoxItem*, const QPoint& ) ) );
     layout->addWidget( _listBox );
+    _listBox->installEventFilter( this );
 
     _merge = new QCheckBox( i18n("Merge"),  this );
     _merge->setChecked( true );
@@ -347,7 +348,9 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     }
     else if ( which == 2 ) {
         bool ok;
-        QString newStr = KInputDialog::getText( i18n("Rename Item"), i18n("Rename %1").arg( item->text() ), item->text(), &ok, this );
+        QString newStr = KInputDialog::getText( i18n("Rename Item"), i18n("Rename %1").arg( item->text() ),
+                                                item->text(), &ok, this );
+
         if ( ok && newStr != item->text() ) {
             int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to rename \"%1\" to \"%2\"?<br>"
                                                               "Doing so will rename \"%3\" "
@@ -359,12 +362,6 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
-
-                // PENDING(blackie) Currently this does not work, since
-                // pressing the right mouse button on the item selects
-                // it. I concider this a bug in Qt. If TT doesn't change
-                // that behavior before KimDaba is released, then do
-                // something about it.
                 _listBox->setSelected( newItem, sel );
             }
         }
@@ -388,5 +385,18 @@ void ListSelect::populate()
     }
 }
 
+/**
+   When the user presses the right mouse button on the list box to show the
+   context menu, then the selection state of the list box will also change,
+   which is indeed not his intention. Therefore this event filter will
+   block the mouse press events when they come from a right mouse button.
+*/
+bool ListSelect::eventFilter( QObject* object, QEvent* event )
+{
+    if ( object == _listBox && event->type() == QEvent::MouseButtonPress &&
+         static_cast<QMouseEvent*>(event)->button() == Qt::RightButton )
+        return true;
+    return QWidget::eventFilter( object, event );
+}
 
 #include "listselect.moc"

@@ -301,6 +301,9 @@ void Options::setConfFile( const QString& file )
     _confFile = file;
 }
 
+/**
+   Returns whether the given option groups is shown in the viewer.
+*/
 bool Options::showOption( const QString& optionGroup ) const
 {
     return _optionGroups[optionGroup]._show;
@@ -382,7 +385,7 @@ QString Options::textForOptionGroup( const QString& name ) const
 
 QPixmap Options::iconForOptionGroup( const QString& name ) const
 {
-    return KGlobal::iconLoader()->loadIcon( _optionGroups[name]._icon, KIcon::Desktop, 32 );
+    return KGlobal::iconLoader()->loadIcon( _optionGroups[name]._icon, KIcon::Desktop, 22 );
 }
 
 QString Options::iconNameForOptionGroup( const QString& name ) const

@@ -22,6 +22,9 @@
 #include "imagesearchinfo.h"
 #include "options.h"
 #include <kstandarddirs.h>
+#include <kglobal.h>
+#include <kiconloader.h>
+
 ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _from(-1), _to(-1)
 {
@@ -31,7 +34,7 @@ ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
         setText( 1, i18n( "1 image" ) );
     else
         setText( 1, i18n( "%1 images" ).arg( count ) );
-    setPixmap( 0, locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ) );
+    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "image" ), KIcon::Desktop, 22 ) );
 }
 
 ImageFolder::ImageFolder( const ImageSearchInfo& info, int from, int to, Browser* parent )

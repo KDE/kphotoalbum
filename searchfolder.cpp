@@ -6,6 +6,7 @@
 #include "contentfolder.h"
 #include "imagedb.h"
 #include <kmessagebox.h>
+#include <kglobal.h>
 
 SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
@@ -13,7 +14,7 @@ SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
     setText( 0, i18n("Search") );
     setText( 1, QString::fromLatin1( "-" ) );
     KIconLoader loader;
-    setPixmap( 0, locate("data", QString::fromLatin1("kimdaba/pics/searchIcon.png") ) );
+    setPixmap( 0, KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "find" ), KIcon::Desktop, 22 ) );
 }
 
 FolderAction* SearchFolder::action( bool )

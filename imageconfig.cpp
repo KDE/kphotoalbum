@@ -591,7 +591,7 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 KDockWidget* ImageConfig::createListSel( const QString& optionGroup )
 {
     KDockWidget* dockWidget = _dockWindow->createDockWidget( optionGroup, Options::instance()->iconForOptionGroup(optionGroup),
-                                                0L, optionGroup );
+                                                             0L, optionGroup );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( optionGroup, dockWidget );
     _optionList.append( sel );

@@ -17,6 +17,8 @@
 #include <qcombobox.h>
 #include "util.h"
 #include "imagedb.h"
+#include <qimage.h>
+#include <qwmatrix.h>
 class KPushButton;
 
 void Import::imageImport()
@@ -35,20 +37,21 @@ void Import::imageImport()
 Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* name )
     :KWizard( parent, name ), _zipFile( fileName )
 {
-    KZip zip( fileName );
-    if ( !zip.open( IO_ReadOnly ) ) {
+    _zip = new KZip( fileName );
+    if ( !_zip->open( IO_ReadOnly ) ) {
         KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( fileName ), i18n("Error importing data") );
         *ok = false;
+        _zip =0;
         return;
     }
-    const KArchiveDirectory* dir = zip.directory();
-    if ( dir == 0 ) {
+    _dir = _zip->directory();
+    if ( _dir == 0 ) {
         KMessageBox::error( this, i18n( "Error reading directory contest of file %1. The file is likely broken" ).arg( fileName ) );
         *ok = false;
         return;
     }
 
-    const KArchiveEntry* indexxml = dir->entry( QString::fromLatin1( "index.xml" ) );
+    const KArchiveEntry* indexxml = _dir->entry( QString::fromLatin1( "index.xml" ) );
     if ( indexxml == 0 || ! indexxml->isFile() ) {
         KMessageBox::error( this, i18n( "Error reading index.xml file from %1. The file is likely broken" ).arg( fileName ) );
         *ok = false;
@@ -59,11 +62,13 @@ Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* 
     QByteArray data = file->data();
 
     *ok = readFile( data, fileName );
-    if ( !*ok ) {
-        return;
-    }
+    if ( *ok )
+        setupPages();
+}
 
-    setupPages();
+Import::~Import()
+{
+    delete _zip;
 }
 
 bool Import::readFile( const QByteArray& data, const QString& fileName )
@@ -104,6 +109,7 @@ void Import::setupPages()
     helpButton()->hide();
 
     createIntroduction();
+    createImagesPage();
     createDestination();
     createOptionPages();
     connect( this, SIGNAL( selected( const QString& ) ), this, SLOT( updateNextButtonState() ) );
@@ -116,6 +122,70 @@ void Import::createIntroduction()
     QLabel* intro = new QLabel( txt, this );
     addPage( intro, i18n("Introduction") );
 }
+
+void Import::createImagesPage()
+{
+    QScrollView* top = new QScrollView( this );
+    top->setResizePolicy( QScrollView::AutoOneFit );
+
+    QWidget* container = new QWidget( this );
+    QVBoxLayout* lay1 = new QVBoxLayout( container, 6 );
+    top->addChild( container );
+
+    // Select all and Deselect All buttons
+    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    QPushButton* selectAll = new QPushButton( i18n("Select All"), container );
+    lay2->addWidget( selectAll );
+    QPushButton* selectNone = new QPushButton( i18n("Deselect All"), container );
+    lay2->addWidget( selectNone );
+    lay2->addStretch( 1 );
+    connect( selectAll, SIGNAL( clicked() ), this, SLOT( slotSelectAll() ) );
+    connect( selectNone, SIGNAL( clicked() ), this, SLOT( slotSelectNone() ) );
+
+    QGridLayout* lay3 = new QGridLayout( lay1, _images.count(), 3, 6 );
+    lay3->setColStretch( 2, 1 );
+
+    int row = 0;
+    for( ImageInfoListIterator it( _images ); *it; ++it, ++row ) {
+        ImageInfo* info = *it;
+        ImageRow* ir = new ImageRow( info, this, container );
+        lay3->addWidget( ir->_checkbox, row, 0 );
+
+        QPushButton* but = new QPushButton( container, "image" );
+        but->setPixmap( loadThumbnail( info->fileName( true ) ) );
+        lay3->addWidget( but, row, 1 );
+        connect( but, SIGNAL( clicked() ), ir, SLOT( showImage() ) );
+
+        QLabel* label = new QLabel( QString::fromLatin1("<qt>%1</qt>").arg(info->description()), container, "description" );
+        lay3->addWidget( label, row, 2 );
+        _imagesSelect.append( ir );
+    }
+
+    addPage( top, i18n("Select which Images to Import") );
+}
+
+ImageRow::ImageRow( ImageInfo* info, Import* import, QWidget* parent )
+    : QObject( parent ), _info( info ), _import( import )
+{
+    _checkbox = new QCheckBox( QString::null, parent, "_checkbox" );
+    _checkbox->setChecked( true );
+}
+
+void ImageRow::showImage()
+{
+    QImage img = QImage( _import->loadImage( _info->fileName(true) ) );
+    if ( _info->angle() != 0 ) {
+        QWMatrix matrix;
+        matrix.rotate( _info->angle() );
+        img = img.xForm( matrix );
+    }
+    QLabel* label = new QLabel( 0 );
+    label->setPixmap( img );
+    label->show();
+}
+
+
+
 
 void Import::createDestination()
 {
@@ -174,7 +244,8 @@ void Import::updateNextButtonState()
 void Import::createOptionPages()
 {
     QStringList options;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    ImageInfoList images = selectedImages();
+    for( ImageInfoListIterator it( images ); *it; ++it ) {
         ImageInfo* info = *it;
         QStringList opts = info->availableOptionGroups();
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
@@ -194,7 +265,8 @@ void Import::createOptionPages()
 ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QString& otherOptionGroup )
 {
     QStringList otherOptions;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    ImageInfoList images = selectedImages();
+    for( ImageInfoListIterator it( images ); *it; ++it ) {
         ImageInfo* info = *it;
         QStringList opts = info->optionValue( otherOptionGroup );
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
@@ -239,41 +311,21 @@ QMap<QString,QString> Import::copyFilesFromZipFile()
 {
     QMap< QString, QString> map;
 
-    KZip zip( _zipFile );
-    if ( !zip.open( IO_ReadOnly ) ) {
-        KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( _zipFile ), i18n("Error importing data") );
-        return QMap<QString,QString>();
-    }
-    const KArchiveDirectory* dir = zip.directory();
-    if ( dir == 0 ) {
-        KMessageBox::error( this, i18n( "Error reading directory contest of file %1. The file is likely broken" ).arg( _zipFile ) );
-        return QMap<QString,QString>();
-    }
-
-    QStringList files = dir->entries();
-    files.sort();
     int index = 0;
-    for( QStringList::Iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
-        if ( ! (*fileIt).startsWith( QString::fromLatin1("image") ) )
-            continue;
-
-        const KArchiveEntry* fileEntry = dir->entry( *fileIt );
-        if ( fileEntry == 0 || !fileEntry->isFile() )
-            continue;
-
-        const KArchiveFile* file = static_cast<const KArchiveFile*>( fileEntry );
-        QByteArray data = file->data();
-
+    ImageInfoList images = selectedImages();
+    for( ImageInfoListIterator it( images ); *it; ++it ) {
+        QString fileName = (*it)->fileName( true );
+        QByteArray data = loadImage( fileName );
         bool exists = true;
         QString newName;
         while ( exists ) {
             newName = QString::fromLatin1( "%1/image%2.%3" ).arg(_destinationEdit->text()).arg( Util::pad(6,++index) )
-                      .arg( QFileInfo( *fileIt ).extension() );
+                      .arg( QFileInfo( fileName ).extension() );
             exists = QFileInfo( newName ).exists();
         }
 
         QString relativeName = newName.mid( Options::instance()->imageDirectory().length() );
-        map.insert( *fileIt, relativeName );
+        map.insert( fileName, relativeName );
 
         QFile out( newName );
         if ( !out.open( IO_WriteOnly ) ) {
@@ -294,7 +346,8 @@ void Import::slotFinish()
         return;
 
     // Run though all images
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    ImageInfoList images = selectedImages();
+    for( ImageInfoListIterator it( images ); *it; ++it ) {
         ImageInfo* info = *it;
 
         ImageInfo* newInfo = new ImageInfo( map[info->fileName(true)] );
@@ -328,5 +381,92 @@ void Import::slotFinish()
         }
     }
 }
+
+QPixmap Import::loadThumbnail( const QString& fileName )
+{
+    static const KArchiveDirectory* thumbnailDir = 0;
+    if ( !thumbnailDir ) {
+        const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
+        if ( !thumbnails ) {
+            KMessageBox::error( this, i18n("export file did not contain a Thumbnails subdirectory, this indicates that the file is broken") );
+            return QPixmap();
+        }
+
+        if ( !thumbnails->isDirectory() ) {
+            KMessageBox::error( this, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken") );
+            return QPixmap();
+        }
+
+        thumbnailDir = static_cast<const KArchiveDirectory*>( thumbnails );
+    }
+
+    const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
+    if ( fileEntry == 0 || !fileEntry->isFile() ) {
+        KMessageBox::error( this, i18n("No thumbnail existed in export file for %1").arg( fileName ) );
+        return QPixmap();
+    }
+
+    const KArchiveFile* file = static_cast<const KArchiveFile*>( fileEntry );
+    QByteArray data = file->data();
+    return QPixmap( data );
+}
+
+void Import::slotSelectAll()
+{
+    selectImage( true );
+}
+
+void Import::slotSelectNone()
+{
+    selectImage( false );
+}
+
+void Import::selectImage( bool on )
+{
+    for( QValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+        (*it)->_checkbox->setChecked( on );
+    }
+}
+
+QByteArray Import::loadImage( const QString& fileName )
+{
+    static const KArchiveDirectory* imagesDir = 0;
+    if ( !imagesDir ) {
+        const KArchiveEntry* images = _dir->entry( QString::fromLatin1( "Images" ) );
+        if ( !images ) {
+            KMessageBox::error( this, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken") );
+            return QByteArray();
+        }
+
+        if ( !images->isDirectory() ) {
+            KMessageBox::error( this, i18n("Images item in export file was not a directory, this indicates that the file is broken") );
+            return QByteArray();
+        }
+
+        imagesDir = static_cast<const KArchiveDirectory*>( images );
+    }
+
+    const KArchiveEntry* fileEntry = imagesDir->entry( fileName );
+    if ( fileEntry == 0 || !fileEntry->isFile() ) {
+        KMessageBox::error( this, i18n("No image existed in export file for %1").arg( fileName ) );
+        return QByteArray();
+    }
+
+    const KArchiveFile* file = static_cast<const KArchiveFile*>( fileEntry );
+    QByteArray data = file->data();
+    return data;
+}
+
+ImageInfoList Import::selectedImages()
+{
+    ImageInfoList res;
+    for( QValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+        if ( (*it)->_checkbox->isChecked() )
+            res.append( (*it)->_info );
+    }
+    return res;
+}
+
+
 
 

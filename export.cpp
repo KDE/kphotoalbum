@@ -4,37 +4,20 @@
 #include <qfileinfo.h>
 #include <time.h>
 #include "util.h"
+#include <qprogressdialog.h>
+#include <qeventloop.h>
+#include <klocale.h>
+#include "imagemanager.h"
+#include <qapplication.h>
+#include <kmessagebox.h>
 
 void Export::imageExport( const ImageInfoList& list )
 {
-    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
-    if ( zipFile.isNull() )
-        return;
-
-    KZip zip( zipFile );
-    zip.open( IO_WriteOnly );
-
-    QMap<QString,QString> map;
-    int index = 0;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        QString file =  (*it)->fileName();
-        QString zippedName = QString::fromLatin1( "image%1.%2" ).arg( Util::pad(6,++index) ).arg( QFileInfo( file).extension() );
-        map.insert( file, zippedName );
-
-        if ( QFileInfo( file ).isSymLink() )
-            file = QFileInfo(file).readLink();
-
-        zip.addLocalFile( file, zippedName );
-    }
-
-    QCString indexml = createIndexXML( list, map );
-    time_t t;
-    time(&t);
-    zip.writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.size()-1, 0444, t, t, t, indexml.data() );
-    zip.close();
+    new Export( list );
 }
 
-QCString Export::createIndexXML( const ImageInfoList& list, const QMap<QString, QString>& map)
+
+QCString Export::createIndexXML( const ImageInfoList& list )
 {
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
@@ -45,10 +28,122 @@ QCString Export::createIndexXML( const ImageInfoList& list, const QMap<QString, 
 
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         QString file = (*it)->fileName();
-        QString mappedFile = map[file];
+        QString mappedFile = _map[file];
         QDomElement elm = (*it)->save( doc );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         top.appendChild( elm );
     }
     return doc.toCString();
+}
+
+Export::Export( const ImageInfoList& list ) : _ok( true )
+{
+    // Ask for zip file name, and create it.
+    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa export files" ), 0 );
+    if ( zipFile.isNull() )
+        return;
+
+    _zip = new KZip( zipFile );
+    if ( ! _zip->open( IO_WriteOnly ) ) {
+        KMessageBox::error( 0, i18n("Error creating zip file") );
+        return;
+    }
+
+    // Create progress dialog
+    int total = 2 * list.count(); // number of images * ( createh thumbnails + copy image )
+    _steps = 0;
+    _progressDialog = new QProgressDialog( i18n("Generating Thumbnails"), i18n("Cancel"), total, 0, "progress dialog", true );
+    _progressDialog->setProgress( 0 );
+
+    // Copy image files and generate thumbnails
+    copyImages( list );
+    if ( _ok )
+        generateThumbnails( list );
+
+    if ( _ok ) {
+        // Create the index.xml file
+        QCString indexml = createIndexXML( list );
+        time_t t;
+        time(&t);
+        _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.size()-1,
+                         0444, t, t, t, indexml.data() );
+
+        _zip->close();
+    }
+}
+
+
+void Export::generateThumbnails( const ImageInfoList& list )
+{
+    _filesRemaining = list.count(); // Used to break the event loop.
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        ImageManager::instance()->load( (*it)->fileName(), this, (*it)->angle(), 128, 128, false, true );
+    }
+    qApp->eventLoop()->enterLoop();
+}
+
+void Export::copyImages( const ImageInfoList& list )
+{
+    _progressDialog->setLabelText( i18n("Copying image files") );
+
+    int index = 0;
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        QString file =  (*it)->fileName();
+        QString zippedName = QString::fromLatin1( "image%1.%2" ).arg( Util::pad(6,++index) ).arg( QFileInfo( file).extension() );
+        _map.insert( file, zippedName );
+
+        if ( QFileInfo( file ).isSymLink() )
+            file = QFileInfo(file).readLink();
+
+        _zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
+        _steps++;
+        _progressDialog->setProgress( _steps );
+
+        // Test if the cancel button was pressed.
+        qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+
+#if QT_VERSION < 0x030104
+        bool canceled = _progressDialog->wasCancelled();
+#else
+        bool canceled =  _progressDialog->wasCanceled();
+#endif
+        if ( canceled ) {
+            _ok = false;
+            return;
+        }
+    }
+}
+
+void Export::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*/, int /*angle*/, const QImage& image )
+{
+    // Add the file to the zip archive
+    QString zipFileName = QString::fromLatin1( "Thumbnails/" ) + QFileInfo( _map[fileName] ).baseName() + QString::fromLatin1(".jpg");
+    QByteArray data;
+    QBuffer buffer( data );
+    buffer.open( IO_WriteOnly );
+    image.save( &buffer, "JPEG" );
+
+    _zip->writeFile( zipFileName, QString::null, QString::null, data.size(), data );
+
+    qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+
+#if QT_VERSION < 0x030104
+    bool canceled = _progressDialog->wasCancelled();
+#else
+    bool canceled =  _progressDialog->wasCanceled();
+#endif
+
+    if ( canceled ) {
+        _ok = false;
+        qApp->eventLoop()->exitLoop();
+        ImageManager::instance()->stop( this );
+        return;
+    }
+
+    _steps++;
+    _filesRemaining--;
+    _progressDialog->setProgress( _steps );
+
+    if ( _filesRemaining == 0 )
+        qApp->eventLoop()->exitLoop();
 }

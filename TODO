@@ -17,13 +17,10 @@ BUGS To be handled soonish
 BUGS of less importance
 =======================
 - In the group editor (options->group), ensure that no cycles are created.
-- It is possible to select the same filter option multiple times. This value 
-  will then be displayed multiple times in the status bar
 
 ==============================
 Features for a soonish version
 ==============================
-- make it possible to disable the labels from the thumbnail views
 - make it possible to select individual persons on images, and associate
   their names with that region - then generate an image map when generating
   HTML

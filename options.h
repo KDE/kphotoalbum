@@ -30,6 +30,24 @@ public:
     QString imageDirectory() const;
     void setImageDirecotry( const QString& directory );
 
+    // Options for the Viewer
+    enum Position { Bottom, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
+    bool showInfoBox() const;
+    bool showDescription() const;
+    bool showDate() const;
+    bool showLocation() const;
+    bool showNames() const;
+
+    void setShowInfoBox(bool b);
+    void setShowDescription(bool b);
+    void setShowDate(bool b);
+    void setShowLocation(bool b);
+    void setShowNames(bool b);
+
+    Position infoBoxPosition() const;
+    void setInfoBoxPosition( Position pos );
+
+
 private:
     Options();
     ~Options() {};
@@ -39,6 +57,10 @@ private:
     bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps;
     QMap<QString, QStringList> _options;
     QString _imageDirectory;
+
+    Position _infoBoxPosition;
+    bool _showInfoBox, _showDescription, _showDate, _showNames, _showLocation;
+
 };
 
 #endif /* OPTIONS_H */

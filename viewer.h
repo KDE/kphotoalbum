@@ -4,6 +4,7 @@
 #include <qdialog.h>
 #include "imageclient.h"
 #include "imageinfo.h"
+#include "options.h"
 class ImageInfo;
 class QLabel;
 class QPopupMenu;
@@ -24,6 +25,7 @@ protected:
     virtual void contextMenuEvent ( QContextMenuEvent * e );
 
     void load();
+    void saveOptions();
     void setDisplayedPixmap();
 
 protected slots:
@@ -44,9 +46,6 @@ private:
     Viewer( QWidget* parent, const char* name = 0 );
     static Viewer* _instance;
 
-    enum Position { TopLeft, TopRight, BottomLeft, BottomRight, Bottom, Top, Left, Right };
-    Position _pos;
-
     QLabel* _label;
     ImageInfoList _list;
     int _current;
@@ -55,8 +54,8 @@ private:
     bool _moving;
     QRect _textRect;
     QPopupMenu* _popup;
-    bool _showInfoBox, _showDescription, _showDate, _showNames, _showLocation;
     int _width, _height;
+    Options::Position _startPos;
 };
 
 #endif /* VIEWER_H */

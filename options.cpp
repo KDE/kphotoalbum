@@ -34,6 +34,13 @@ Options::Options()
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
     _imageDirectory = top.attribute( "imageDirectory" );
 
+    _infoBoxPosition = (Position) top.attribute( "infoBoxPosition", "0" ).toInt();
+    _showInfoBox = top.attribute( "showInfoBox", "1" ).toInt();
+    _showDescription = top.attribute( "showDescription", "1" ).toInt();
+    _showDate = top.attribute( "showDate", "1" ).toInt();
+    _showNames = top.attribute( "showNames", "0" ).toInt();
+    _showLocation = top.attribute( "showLocation", "0" ).toInt();
+
     Util::readOptions( top, &_options );
 }
 
@@ -90,6 +97,14 @@ void Options::save()
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
     top.setAttribute( "imageDirectory", _imageDirectory );
 
+
+    top.setAttribute( "infoBoxPosition", (int) _infoBoxPosition );
+    top.setAttribute( "showInfoBox", _showInfoBox );
+    top.setAttribute( "showDescription", _showDescription );
+    top.setAttribute( "showDate", _showDate );
+    top.setAttribute( "showNames", _showNames );
+    top.setAttribute( "showLocation", _showLocation );
+
     Util::writeOptions( doc, top, _options );
 
     QTextStream stream( &file );
@@ -138,4 +153,63 @@ bool Options::configFileExists()
     return info.exists();
 }
 
+bool Options::showInfoBox() const
+{
+    return _showInfoBox;
+}
+
+bool Options::showDescription() const
+{
+    return _showDescription;
+}
+
+bool Options::showDate() const
+{
+    return _showDate;
+}
+
+bool Options::showLocation() const
+{
+    return _showLocation;
+}
+
+bool Options::showNames() const
+{
+    return _showNames;
+}
+
+void Options::setShowInfoBox(bool b)
+{
+    _showInfoBox = b;
+}
+
+void Options::setShowDescription(bool b)
+{
+    _showDescription = b;
+}
+
+void Options::setShowDate(bool b)
+{
+    _showDate = b;
+}
+
+void Options::setShowLocation(bool b)
+{
+    _showLocation = b;
+}
+
+void Options::setShowNames(bool b)
+{
+    _showNames = b;
+}
+
+Options::Position Options::infoBoxPosition() const
+{
+    return _infoBoxPosition;
+}
+
+void Options::setInfoBoxPosition( Position pos )
+{
+    _infoBoxPosition = pos;
+}
 

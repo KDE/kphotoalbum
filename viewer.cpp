@@ -22,8 +22,7 @@ Viewer* Viewer::instance()
 }
 
 Viewer::Viewer( QWidget* parent, const char* name )
-    :QDialog( parent,  name ),  _pos( BottomRight ), _showInfoBox(true), _showDescription(true),
-     _showDate(true), _showNames(false), _showLocation(false),  _width(800), _height(600)
+    :QDialog( parent,  name ), _width(800), _height(600)
 {
     QVBoxLayout* layout = new QVBoxLayout( this );
     layout->setResizeMode( QLayout::FreeResize );
@@ -73,27 +72,27 @@ Viewer::Viewer( QWidget* parent, const char* name )
     action = new QAction( "Show Info Box", QIconSet(), "Show Info Box", Key_I, this, "showInfoBox", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     action->addTo( _popup );
-    action->setOn( _showInfoBox );
+    action->setOn( Options::instance()->showInfoBox() );
 
     action = new QAction( "Show Description", QIconSet(), "Show Description", Key_D, this, "showDescription", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
     action->addTo( _popup );
-    action->setOn( _showDescription );
+    action->setOn( Options::instance()->showDescription() );
 
     action = new QAction( "Show Time", QIconSet(), "Show Time", Key_T, this, "showTime", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     action->addTo( _popup );
-    action->setOn( _showDate );
+    action->setOn( Options::instance()->showDate() );
 
     action = new QAction( "Show Names", QIconSet(), "Show Names", Key_N, this, "showNames", true );
     connect( action, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowNames( bool ) ) );
     action->addTo( _popup );
-    action->setOn( _showNames );
+    action->setOn( Options::instance()->showLocation() );
 
     action = new QAction( "Show Location", QIconSet(), "Show Location", Key_L, this, "showLocation", true );
     connect( action,  SIGNAL( toggled( bool ) ), this, SLOT( toggleShowLocation( bool ) ) );
     action->addTo( _popup );
-    action->setOn( _showLocation );
+    action->setOn( Options::instance()->showLocation() );
 
     _popup->insertSeparator();
 
@@ -168,11 +167,11 @@ void Viewer::setDisplayedPixmap()
     if ( pixmap.isNull() )
         return;
 
-    if ( _showInfoBox )  {
+    if ( Options::instance()->showInfoBox() )  {
         QPainter p( &pixmap );
 
         QString text = "" ;
-        if ( _showDate )  {
+        if ( Options::instance()->showDate() )  {
             text += "<b>Date:</b> ";
             if ( _info.startDate().isNull() )
                 text += "Unknown";
@@ -184,31 +183,32 @@ void Viewer::setDisplayedPixmap()
         }
 
         // PENDING(blackie) The key is used both as a key and a label, which is a problem here.
-        if ( _showLocation )  {
+        if ( Options::instance()->showLocation() )  {
             QString location = _info.optionValue( "Locations" ).join( ", " );
             if ( location )
                 text += "<b>Location:</b> " + location + "<br>";
         }
 
-        if ( _showNames ) {
+        if ( Options::instance()->showNames() ) {
             QString persons = _info.optionValue( "Persons" ).join( ", " );
             if ( persons )
                 text += "<b>Persons:</b> " + persons + "<br>";
         }
 
-        if ( _showDescription && !_info.description().isEmpty())  {
+        if ( Options::instance()->showDescription() && !_info.description().isEmpty())  {
             if ( !text.isEmpty() )
                 text += "<b>Description:</b> ";
 
             text += _info.description();
         }
 
+        Options::Position pos = Options::instance()->infoBoxPosition();
         if ( !text.isEmpty() )  {
             text = "<qt>" + text + "</qt>";
 
             QSimpleRichText txt( text, qApp->font() );
 
-            if ( _pos == Top || _pos == Bottom )  {
+            if ( pos == Options::Top || pos == Options::Bottom )  {
                 txt.setWidth( _label->width() - 20 ); // 2x5 pixels for inside border + 2x5 outside border.
             }
             else {
@@ -225,17 +225,17 @@ void Viewer::setDisplayedPixmap()
             rect.setHeight( txt.height() + 10 );
 
             // x-coordinate
-            if ( _pos == TopRight || _pos == BottomRight || _pos == Right )
+            if ( pos == Options::TopRight || pos == Options::BottomRight || pos == Options::Right )
                 rect.moveRight( _label->width() - 5 );
-            else if ( _pos == TopLeft || _pos == BottomLeft || _pos == Left )
+            else if ( pos == Options::TopLeft || pos == Options::BottomLeft || pos == Options::Left )
                 rect.moveLeft( 5 );
             else
                 rect.moveLeft( (_label->width() - txt.widthUsed())/2+5 );
 
             // Y-coordinate
-            if ( _pos == TopLeft || _pos == TopRight || _pos == Top )
+            if ( pos == Options::TopLeft || pos == Options::TopRight || pos == Options::Top )
                 rect.moveTop( 5 );
-            else if ( _pos == BottomLeft || _pos == BottomRight || _pos == Bottom )
+            else if ( pos == Options::BottomLeft || pos == Options::BottomRight || pos == Options::Bottom )
                 rect.moveBottom( _label->height() - 5 );
             else
                 rect.moveTop( (_label->height()-txt.height())/2 + 5 );
@@ -252,7 +252,8 @@ void Viewer::setDisplayedPixmap()
 void Viewer::mousePressEvent( QMouseEvent* e )
 {
     if ( e->button() == LeftButton )  {
-        _moving = _showInfoBox && _textRect.contains( e->pos() );
+        _moving = Options::instance()->showInfoBox() && _textRect.contains( e->pos() );
+        _startPos = Options::instance()->infoBoxPosition();
         if ( _moving )
             _label->setCursor( PointingHandCursor );
     }
@@ -266,7 +267,8 @@ void Viewer::mouseMoveEvent( QMouseEvent* e )
     if ( !_moving )
         return;
 
-    Position oldPos = _pos;
+    Options::Position oldPos = Options::instance()->infoBoxPosition();
+    Options::Position pos = oldPos;
     int x = e->pos().x();
     int y = e->pos().y();
     int w = width();
@@ -274,34 +276,38 @@ void Viewer::mouseMoveEvent( QMouseEvent* e )
 
     if ( x < w/3 )  {
         if ( y < h/3  )
-            _pos = TopLeft;
+            pos = Options::TopLeft;
         else if ( y > h*2/3 )
-            _pos = BottomLeft;
+            pos = Options::BottomLeft;
         else
-            _pos = Left;
+            pos = Options::Left;
     }
     else if ( x > w*2/3 )  {
         if ( y < h/3  )
-            _pos = TopRight;
+            pos = Options::TopRight;
         else if ( y > h*2/3 )
-            _pos = BottomRight;
+            pos = Options::BottomRight;
         else
-            _pos = Right;
+            pos = Options::Right;
     }
     else {
         if ( y < h/3  )
-            _pos = Top;
+            pos = Options::Top;
         else if ( y > h*2/3 )
-            _pos = Bottom;
+            pos = Options::Bottom;
     }
-    if ( _pos != oldPos )
+    if ( pos != oldPos )  {
+        Options::instance()->setInfoBoxPosition( pos );
         setDisplayedPixmap();
+    }
     QDialog::mouseMoveEvent( e );
 }
 
 void Viewer::mouseReleaseEvent( QMouseEvent* e )
 {
     _label->setCursor( ArrowCursor  );
+    if ( Options::instance()->infoBoxPosition() != _startPos )
+        Options::instance()->save();
     QDialog::mouseReleaseEvent( e );
 }
 
@@ -364,32 +370,36 @@ void Viewer::rotate270()
 
 void Viewer::toggleShowInfoBox( bool b )
 {
-    _showInfoBox = b;
+    Options::instance()->setShowInfoBox( b );
     setDisplayedPixmap();
+    Options::instance()->save();
 }
 
 void Viewer::toggleShowDescription( bool b )
 {
-    _showDescription = b;
+    Options::instance()->setShowDescription( b );
     setDisplayedPixmap();
+    Options::instance()->save();
 }
 
 void Viewer::toggleShowDate( bool b )
 {
-    _showDate = b;
+    Options::instance()->setShowDate( b );
     setDisplayedPixmap();
+    Options::instance()->save();
 }
 
 void Viewer::toggleShowNames( bool b )
 {
-    _showNames = b;
+    Options::instance()->setShowNames( b );
     setDisplayedPixmap();
+    Options::instance()->save();
 }
 
 void Viewer::toggleShowLocation( bool b )
 {
-    _showLocation = b;
+    Options::instance()->setShowLocation( b );
     setDisplayedPixmap();
+    Options::instance()->save();
 }
-
 

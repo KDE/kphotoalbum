@@ -23,26 +23,29 @@
 #include <qlabel.h>
 #include <qdialog.h>
 #include <qdict.h>
+#include "imageclient.h"
 class ImageInfo;
 
-class IconViewToolTip :public QLabel {
+class IconViewToolTip :public QLabel, public ImageClient {
     Q_OBJECT
 
 public:
     IconViewToolTip( QIconView* view, const char* name = 0 );
-    void showToolTips();
+    void showToolTips( bool force );
     virtual void setActive(bool);
     void clear();
+    virtual void pixmapLoaded( const QString& fileName, int width, int height, int angle, const QImage& );
 
 protected:
     virtual bool eventFilter( QObject*, QEvent* e );
     QIconViewItem* itemAtCursor();
-    void loadImage( const ImageInfo& info );
+    bool loadImage( const ImageInfo& info );
     void placeWindow();
 
 private:
     QIconView* _view;
     QIconViewItem* _current;
+    QString _currentFileName;
     QStringList _loadedImages;
     bool _widthInverse;
     bool _heightInverse;

@@ -67,6 +67,20 @@ void ImageLoader::run()
                     img = img.xForm( matrix );
                 }
 
+                // HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT
+                // To optimize showing tooltip images in the browser, we better cache the 256x256 thumbnails here
+                // this is of course not a proper way of doing this - an ugly side effect of this image loader in fact,
+                // but in love and war (and software optimization) sometimes you must do something wrong to get it really good ;-)
+                //  4 Jan. 2004 19:51 -- Jesper K. Pedersen
+                // HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT  HACK ALERT
+                {
+                    QImage hack = img.scale( 256, 256, QImage::ScaleMin );
+                    QString cacheFileForHack = cacheDir + QString::fromLatin1("/%1x%2-%3-%4")
+                                               .arg(256).arg(256)
+                                               .arg( li.angle()).arg( QFileInfo( li.fileName() ).fileName() );
+                    hack.save( cacheFileForHack, "JPEG" );
+                }
+
                 // If we are looking for a scaled version, then scale
                 if ( li.width() != -1 && li.height() != -1 )
                     img = img.scale( li.width(), li.height(), QImage::ScaleMin );
@@ -77,6 +91,7 @@ void ImageLoader::run()
                 }
                 img.save( cacheFile, "JPEG" );
                 imageLoaded = true;
+
             }
 
             ImageEvent* iew = new ImageEvent( li, img );

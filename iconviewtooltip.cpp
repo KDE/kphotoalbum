@@ -26,6 +26,7 @@
 #include <qmime.h>
 #include <qapplication.h>
 #include <qdesktopwidget.h>
+#include "imagemanager.h"
 
 /**
    This class takes care of showing tooltips for the individual items in the iconview.
@@ -51,19 +52,24 @@ bool IconViewToolTip::eventFilter( QObject* o , QEvent* event )
         hide();
 
     else if ( event->type() == QEvent::MouseMove )
-        showToolTips();
+        showToolTips( false );
     return false;
 }
 
-void IconViewToolTip::showToolTips()
+void IconViewToolTip::showToolTips( bool force )
 {
     QIconViewItem* item = itemAtCursor();
-    if ( item && item != _current ) {
+    if ( item == 0 )
+        return;
+
+    if ( force || (item && item != _current) ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        loadImage( *tn->imageInfo() );
-        setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
-                 .arg(tn->fileName()).
-                 arg(Util::createInfoText( tn->imageInfo(), 0 ) ) );
+        if ( loadImage( *tn->imageInfo() ) ) {
+            setText( QString::null );
+            setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
+                     .arg(tn->fileName()).
+                     arg(Util::createInfoText( tn->imageInfo(), 0 ) ) );
+        }
 
         _current = item;
         resize( sizeHint() );
@@ -85,19 +91,10 @@ QIconViewItem* IconViewToolTip::itemAtCursor()
     return item;
 }
 
-void IconViewToolTip::loadImage( const ImageInfo& info )
-{
-    if ( !_loadedImages.contains( info.fileName( false ) ) ) {
-        QImage img = info.load( 256, 256 );
-        QMimeSourceFactory::defaultFactory()->setImage( info.fileName(false), img );
-        _loadedImages.append( info.fileName(false) );
-    }
-}
-
 void IconViewToolTip::setActive( bool b )
 {
     if ( b ) {
-        showToolTips();
+        showToolTips(true);
         _view->viewport()->installEventFilter( this );
         show();
     }
@@ -154,6 +151,26 @@ void IconViewToolTip::clear()
         QMimeSourceFactory::defaultFactory()->setImage( *it, QImage() );
     }
     _loadedImages.clear();
+}
+
+
+bool IconViewToolTip::loadImage( const ImageInfo& info )
+{
+    _currentFileName = info.fileName( false );
+    if ( !_loadedImages.contains( info.fileName( false ) ) ) {
+        ImageManager::instance()->load( info.fileName( false ),  this, info.angle(), 256, 256, true, true );
+        QMimeSourceFactory::defaultFactory()->setImage( info.fileName(false), QImage() );
+        _loadedImages.append( info.fileName(false) );
+        return false;
+    }
+    return true;
+}
+
+void IconViewToolTip::pixmapLoaded( const QString& fileName, int /*width*/, int /*height*/, int /*angle*/, const QImage& image )
+{
+    QMimeSourceFactory::defaultFactory()->setImage( fileName, image );
+    if ( fileName == _currentFileName )
+        showToolTips(true);
 }
 
 #include "iconviewtooltip.moc"

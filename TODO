@@ -45,6 +45,8 @@ Features for a soonish version
 works. (with a do-not-show-again checkbox)
 - make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
 - add Maintenance/remove all thumbnails and Maintenance/regenerate all thumbnails.
+- make it possible to find images with only a given set of persons on.
+  The following syntax might do it: "Jesper & !*" The start would mean all persons.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

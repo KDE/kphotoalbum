@@ -466,7 +466,7 @@ void MainView::slotSortByDateAndTime()
         //(we would have them doubled if we wouldn't remove them)
         for( ImageInfoListIterator it3( sorted );*it3; ++it3 ) {
             if (!(images.removeRef((*it3)))){
-                KMessageBox::error(0,i18n("MD5Sum failure! Try recalcing your MD5Sums !"));
+                KMessageBox::error(0,i18n("MD5Sum failure; try recalcing your MD5Sums."));
                 return;
             }
         }
@@ -826,13 +826,13 @@ void MainView::load()
     }
 
     if ( config.isNull() )
-        KMessageBox::sorry( this, i18n("Didn't find 'Config' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'Config' tag in configuration file %1").arg( configFile ) );
     if ( options.isNull() )
-        KMessageBox::sorry( this, i18n("Didn't find 'Options' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'Options' tag in configuration file %1").arg( configFile ) );
     if ( configWindowSetup.isNull() )
-        KMessageBox::sorry( this, i18n("Didn't find 'ConfigWindowSetup' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'ConfigWindowSetup' tag in configuration file %1").arg( configFile ) );
     if ( images.isNull() )
-        KMessageBox::sorry( this, i18n("Didn't find 'Images' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'Images' tag in configuration file %1").arg( configFile ) );
 
     file.close();
 
@@ -909,7 +909,7 @@ void MainView::lockToDefaultScope()
                                                       "to look in your images, without getting to those embarrassing images from "
                                                       "your last party.</p>"
                                                       "<p>In other words, anyone with access to the index.xml file can easily circumvent "
-                                                      "this password!</b></p>"),
+                                                      "this password.</b></p>"),
                                                 i18n("Password protection"),
                                                 KStdGuiItem::cont(),
                                                 QString::fromLatin1( "lockPassWordIsNotEncruption" ) );

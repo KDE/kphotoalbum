@@ -99,14 +99,14 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
 
     if ( missingTimes.count() != 0 ) {
         int ret = KMessageBox::questionYesNoList(0,i18n("<qt><p>KimDaBa now also shows the time of images."
-                                                        "As a mean of migration for existing KimDaBa users, "
-                                                        "we may now read all time stamps from your existing images."
-                                                        "If you do not want us to do to do that now, "
-                                                        "you may simply push \"Don't read\" and later use "
+                                                        "As a means of migration for existing KimDaBa users "
+                                                        "all the time stamps cano now be read from your existing images; "
+                                                        "if you do not want this to be done now "
+                                                        "select \"Do not read now\" and then later use "
                                                         "\"Maintenance->Read out time info\".</p>"
                                                         "<p>The files affected are:</p></qt>"),
-                                                 files,QString::null,i18n("Read it now"),
-                                                 i18n("Don't read it"),QString::fromLatin1("showTimeWarningStartup"));
+                                                 files,QString::null,i18n("Read them now"),
+                                                 i18n("Do not read now"),QString::fromLatin1("showTimeWarningStartup"));
 
         if ( ret ==KMessageBox::Yes)  {
 
@@ -454,7 +454,7 @@ QString ImageDB::MD5Sum( const QString& fileName )
 {
     QFile file( fileName );
     if ( !file.open( IO_ReadOnly ) ) {
-        if ( KMessageBox::warningContinueCancel( 0, i18n("Couldn't open %1").arg( fileName ) ) == KMessageBox::No )
+        if ( KMessageBox::warningContinueCancel( 0, i18n("Could not open %1").arg( fileName ) ) == KMessageBox::No )
             return QString::null;
     }
 
@@ -516,7 +516,7 @@ void ImageDB::slotTimeInfo()
         files.append(i18n("There are no images without time info"));
 
     int ret = KMessageBox::questionYesNoList(0,i18n("These files will be affected:"),
-                                             files,QString::null,i18n("Read it now"),i18n("Don't read it"));
+                                             files,QString::null,i18n("Read it now"),i18n("Do not read it"));
     if ( ret == KMessageBox::No )
         return;
 

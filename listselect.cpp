@@ -413,7 +413,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     if ( which == 1 ) {
         int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
                                                           "Deleting the item will remove any information about "
-                                                          "about it from any image containing the item!</qt>")
+                                                          "about it from any image containing the item.</qt>")
                                                .arg(item->text()),
                                                i18n("Really Delete %1?").arg(item->text()) );
         if ( code == KMessageBox::Yes ) {

@@ -538,8 +538,8 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
 {
     QFile file(fileName);
     if ( !file.open(IO_WriteOnly) ) {
-        KMessageBox::error( this, i18n("Couldn't create file '%1'.").arg(fileName),
-                            i18n("Couldn't Create File") );
+        KMessageBox::error( this, i18n("Could not create file '%1'.").arg(fileName),
+                            i18n("Could Not Create File") );
         return false;
     }
 
@@ -585,7 +585,7 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, int size, int /*he
 void HTMLExportDialog::slotOk()
 {
     if( activeResolutions().count() < 1 ) {
-        KMessageBox::error( 0, i18n( "You must select at least one resolution!" ) );
+        KMessageBox::error( 0, i18n( "You must select at least one resolution." ) );
         return;
     }
     // Progress dialog
@@ -807,7 +807,7 @@ void HTMLExportDialog::populateThemesCombo()
         }
     }
     if(_themeBox->count() < 1) {
-        KMessageBox::error( this, i18n("Couldn't find any themes - this is very likely an installation error" ) );
+        KMessageBox::error( this, i18n("Could not find any themes - this is very likely an installation error" ) );
     }
 }
 

@@ -173,7 +173,7 @@ void ThumbNailView::slotPaste()
     }
     else if ( ImageDB::instance()->clipboard().count() == 0 ) {
         QMessageBox::information( this, i18n("Nothing on Clipboard"), i18n("<qt><p>No data on clipboard to paste.</p>"
-                                  "<p>It really doesn't make any sense to the application to have an image represented twice, "
+                                  "<p>It really does not make any sense to the application to have an image represented twice, "
                                   "therefore you can only paste an image off the clipboard once.</p>"),
                                   QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
     }

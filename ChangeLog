@@ -1,5 +1,9 @@
 2004-09-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: now that it is possible to set background color of
+	thumbnail view, the foreground color must also be changed, to
+	ensure maximum contrast (and that it is visible at all)
+
 	* No key bindings should be made to letters in the main window, as
 	this makes it impossible to press that letter in the browser to jump to
 	the item in question. Thus I made these change to key bindings:

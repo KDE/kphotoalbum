@@ -25,7 +25,7 @@ kpalbum_SOURCES = main.cpp \
 	showbusycursor.cpp \
 	displayarea.cpp \
 	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp \
-	infopage.cpp
+	infopage.cpp htmlexportdialog.cpp
 
 kpalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH) -lktexteditor
 kpalbum_LDADD = $(LIB_KIO) $(LIBJPEG)
@@ -33,3 +33,7 @@ METASOURCES = AUTO
 
 rcdir = $(kde_datadir)/kpalbum
 rc_DATA = kpalbumui.rc
+
+pkg_DATA = infobox.js
+pkgdir = $(kde_datadir)/kpalbum/
+EXTRA_DIST = $(pkg_data)

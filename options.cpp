@@ -4,6 +4,7 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include "util.h"
+#include <stdlib.h>
 
 Options* Options::_instance = 0;
 QString Options::_confFile = QString::null;
@@ -35,6 +36,7 @@ Options::Options()
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
     _imageDirectory = top.attribute( "imageDirectory" );
+    _htmlBaseDir = top.attribute( "htmlBaseDir", QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
 
     _infoBoxPosition = (Position) top.attribute( "infoBoxPosition", "0" ).toInt();
     _showInfoBox = top.attribute( "showInfoBox", "1" ).toInt();
@@ -91,6 +93,7 @@ void Options::save()
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );
     top.setAttribute( "imageDirectory", _imageDirectory );
+    top.setAttribute( "htmlBaseDir", _htmlBaseDir );
 
 
     top.setAttribute( "infoBoxPosition", (int) _infoBoxPosition );
@@ -237,4 +240,14 @@ bool Options::showKeyWords() const
 void Options::setShowKeyWords( bool b )
 {
     _showKeyWords = b;
+}
+
+QString Options::HTMLBaseDir() const
+{
+    return _htmlBaseDir;
+}
+
+void Options::setHTMLBaseDir( const QString& dir )
+{
+    _htmlBaseDir = dir;
 }

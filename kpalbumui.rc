@@ -1,6 +1,9 @@
 <!DOCTYPE kpartgui>
 <kpartgui name="kpalbum">
   <MenuBar>
+    <Menu name="file">
+      <Action name="exportHTML"/>
+    </Menu>
     <Menu name="edit" >
       <Action name="options" />
       <Action name="deleteSelected" />

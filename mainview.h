@@ -28,6 +28,7 @@ protected slots:
     void slotChanges();
     void slotShowAllThumbNails();
     void slotLimitToSelected();
+    void slotExportToHTML();
 
 protected:
     void configureImages( bool oneAtATime );

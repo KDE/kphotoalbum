@@ -18,6 +18,7 @@
 #include <qwidgetstack.h>
 #include <kstandarddirs.h>
 #include "infopage.h"
+#include "htmlexportdialog.h"
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _dirty( false )
@@ -324,6 +325,7 @@ void MainView::setupMenuBar()
     // File menu
     KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
+    new KAction( i18n("Export to HTML"), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
 
     // The Edit menu
     KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
@@ -349,6 +351,17 @@ void MainView::setupMenuBar()
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     createGUI( QString::fromLatin1( "kpalbumui.rc" ) );
+}
+
+void MainView::slotExportToHTML()
+{
+    ImageInfoList list = selected();
+    if ( list.count() == 0 )  {
+        QMessageBox::warning( this,  tr("No Selection"),  tr("No item selected.") );
+    }
+
+    HTMLExportDialog dialog( list, this, "htmlExportDialog" );
+    dialog.exec();
 }
 
 #include "mainview.moc"

@@ -51,7 +51,8 @@ void ImageLoader::run()
             }
 
             // If we are looking for a scaled version, then scale
-            img = img.scale( li.width(), li.height(), QImage::ScaleMin );
+            if ( li.width() != -1 && li.height() != -1 )
+                img = img.scale( li.width(), li.height(), QImage::ScaleMin );
 
             // should we compress the image, this is needed for thumbnail overview of say 2500 images
             if ( li.compress() )

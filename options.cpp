@@ -16,7 +16,7 @@ Options* Options::instance()
 
 
 Options::Options()
-    : _thumbSize( 32 ),  _numThreads( 1 ),  _cacheThumbNails( true ),  _use4To3Ratio( true )
+    : _thumbSize( 32 ), _cacheThumbNails( true ),  _use4To3Ratio( true )
 {
     QFile file( QDir::home().path() + "/.kpalbum" );
     if ( !file.open( IO_ReadOnly ) )  {
@@ -29,7 +29,6 @@ Options::Options()
     QDomElement top = doc.documentElement();
 
     _thumbSize = top.attribute( "thumbSize", QString::number(_thumbSize) ).toInt();
-    _numThreads = top.attribute( "numThreads",  QString::number( _numThreads ) ).toInt();
     _cacheThumbNails = top.attribute( "cacheThumbNails",  QString::number( _cacheThumbNails ) ).toInt();
     _use4To3Ratio = top.attribute( "use4To3Ratio",  QString::number( _use4To3Ratio ) ).toInt();
     _trustTimeStamps = top.attribute( "trustTimeStamps",  "1" ).toInt();
@@ -45,16 +44,6 @@ void Options::setThumbSize( int w )
 int Options::thumbSize() const
 {
     return _thumbSize;
-}
-
-void Options::setNumThreads( int count )
-{
-    _numThreads = count;
-}
-
-int Options::numThreads() const
-{
-    return _numThreads;
 }
 
 void Options::setCacheThumbNails( bool b )
@@ -95,7 +84,6 @@ void Options::save()
     QDomElement top = doc.documentElement();
 
     top.setAttribute( "thumbSize", _thumbSize );
-    top.setAttribute( "numThreads", _numThreads );
     top.setAttribute( "cacheThumbNails", _cacheThumbNails );
     top.setAttribute( "use4To3Ratio", _use4To3Ratio );
     top.setAttribute( "trustTimeStamps", _trustTimeStamps );

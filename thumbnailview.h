@@ -13,6 +13,7 @@ public:
 
 public slots:
     void reload();
+    void slotSelectAll();
 
 protected slots:
     void showImage( QIconViewItem* );

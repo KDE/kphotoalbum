@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>301</width>
-            <height>163</height>
+            <width>315</width>
+            <height>129</height>
         </rect>
     </property>
     <property name="caption">
@@ -19,41 +19,15 @@
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
-        <widget class="QGroupBox">
+        <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>groupBox1</cstring>
+                <cstring>layout3</cstring>
             </property>
-            <property name="frameShape">
-                <enum>GroupBoxPanel</enum>
-            </property>
-            <property name="frameShadow">
-                <enum>Sunken</enum>
-            </property>
-            <property name="title">
-                <string>Images</string>
-            </property>
-            <grid>
+            <hbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <spacer row="1" column="2">
-                    <property name="name">
-                        <cstring>spacer2_2</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>97</width>
-                            <height>20</height>
-                        </size>
-                    </property>
-                </spacer>
-                <widget class="QLabel" row="1" column="0">
+                <widget class="QLabel">
                     <property name="name">
                         <cstring>textLabel1</cstring>
                     </property>
@@ -61,7 +35,7 @@
                         <string>Thumbnail Size:</string>
                     </property>
                 </widget>
-                <widget class="QSpinBox" row="1" column="1">
+                <widget class="QSpinBox">
                     <property name="name">
                         <cstring>thumbnailSize</cstring>
                     </property>
@@ -77,23 +51,40 @@
                         <number>256</number>
                     </property>
                 </widget>
-                <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="3">
+                <spacer>
                     <property name="name">
-                        <cstring>cacheThumbNails</cstring>
+                        <cstring>spacer2_2</cstring>
                     </property>
-                    <property name="text">
-                        <string>Cache On Disk</string>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
                     </property>
-                </widget>
-                <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="3">
-                    <property name="name">
-                        <cstring>trustTimeStamps</cstring>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
                     </property>
-                    <property name="text">
-                        <string>Trust Time Stamps</string>
+                    <property name="sizeHint">
+                        <size>
+                            <width>152</width>
+                            <height>20</height>
+                        </size>
                     </property>
-                </widget>
-            </grid>
+                </spacer>
+            </hbox>
+        </widget>
+        <widget class="QCheckBox">
+            <property name="name">
+                <cstring>cacheThumbNails</cstring>
+            </property>
+            <property name="text">
+                <string>Cache On Disk</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox">
+            <property name="name">
+                <cstring>trustTimeStamps</cstring>
+            </property>
+            <property name="text">
+                <string>Trust Time Stamps</string>
+            </property>
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">

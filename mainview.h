@@ -19,6 +19,7 @@ protected slots:
     void slotConfigureImagesOneAtATime();
     void save();
     void imageDeleted( QObject* );
+    void slotDeleteSelected();
 
 protected:
     void configureImages( bool oneAtATime );

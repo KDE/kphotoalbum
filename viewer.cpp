@@ -25,7 +25,7 @@ void Viewer::load( ImageInfo* info )
 
 void Viewer::resizeEvent( QResizeEvent* e )
 {
-    _timer->start( 500, true );
+    _timer->start( 1000, true );
     QDialog::resizeEvent( e );
 }
 

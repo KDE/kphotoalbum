@@ -16,14 +16,13 @@ void ImageManager::init()
 {
     _sleepers = new QWaitCondition(); // Is it necessary to load this using new?
     _lock = new QMutex(); // necessary with new?
-    for ( int i = 0; i < Options::instance()->numThreads(); ++i ) {
-        ImageLoader* imageLoader = new ImageLoader( _sleepers );
-        _imageLoaders.append( imageLoader );
-        imageLoader->start();
-    }
+
+    // Only use 1 image loader thread as the JPEG loader is not thread safe
+    _imageLoader = new ImageLoader( _sleepers );
+    _imageLoader->start();
 }
 
-void ImageManager::load( const QString& fileName, ImageClient* client, int angle,  int width, int height, bool cache )
+void ImageManager::load( const QString& fileName, ImageClient* client, int angle, int width, int height, bool cache )
 {
     QString key = QString("%1-%2x%3-%4").arg( fileName ).arg( width ).arg( height ).arg( angle );
     QPixmap* pixmap = QPixmapCache::find( key );

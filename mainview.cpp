@@ -148,3 +148,8 @@ void MainView::imageDeleted( QObject* obj )
     ImageInfo* image = reinterpret_cast<ImageInfo*>( obj );
     _images.removeRef( image );
 }
+
+void MainView::slotDeleteSelected()
+{
+    qDebug("NYI!");
+}

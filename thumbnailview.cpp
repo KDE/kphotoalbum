@@ -45,3 +45,8 @@ void ThumbNailView::reload()
     clear();
     load( _imageList );
 }
+
+void ThumbNailView::slotSelectAll()
+{
+    selectAll( true );
+}

@@ -13,9 +13,6 @@ public:
     void setThumbSize( int );
     int thumbSize() const;
 
-    void setNumThreads( int );
-    int numThreads() const;
-
     void setCacheThumbNails( bool );
     bool cacheThumbNails() const;
 
@@ -34,7 +31,7 @@ private:
     ~Options() {};
     static Options* _instance;
 
-    int _thumbSize,  _imageCacheSize,  _numThreads;
+    int _thumbSize,  _imageCacheSize;
     bool _cacheThumbNails,  _use4To3Ratio, _trustTimeStamps;
     QMap<QString, QStringList> _options;
 };

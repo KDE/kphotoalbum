@@ -11,6 +11,15 @@ BUGS To be handled soonish
 -I do not like the way dates are entered. I prefer the way (korganizer and  
  kaddressbook) do it: to write them in one single text field and to offer a 
  calender as well.
+- ensure file permissions is set correct for HTML pages.
+- ensure HTML pages has a UTF8 tag otherwise danish characters will not get
+properly through
+- generating HTML pages on top of an existing dir fails.
+  (Suggestion from bo: You just need to cp /tmp/kimdabaXXX/* to destdir instead of
+  /tmp/kimdabaXXX to destdir) 
+- When you want to regenerate the HTML page, you get a dialog with a
+  "No/Yes" question. KDE always has "Yes/No" (I think this is in case where
+  you override an existing directory)
 
 =======================
 BUGS of less importance

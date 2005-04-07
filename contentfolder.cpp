@@ -99,7 +99,6 @@ FolderAction* ContentFolder::action( bool ctrlDown )
 
     if ( loadImages ) {
         ImageSearchInfo info = _info;
-        info.addAnd( _category, _value );
         if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
         if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
             return new ImageFolderAction( info, -1, -1, _browser );

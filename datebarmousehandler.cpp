@@ -174,3 +174,8 @@ ImageDateRange DateBarMouseHandler::Selection::dateRange() const
     return ImageDateRange( min(), max() );
 }
 
+bool DateBarMouseHandler::Selection::hasSelection() const
+{
+    return min().isValid();
+}
+

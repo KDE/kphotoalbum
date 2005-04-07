@@ -61,6 +61,8 @@ public:
     // Overriden methods for internal purpose
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
+
+protected:
     virtual void paintEvent( QPaintEvent* event );
     virtual void resizeEvent( QResizeEvent* event );
     virtual void mousePressEvent( QMouseEvent* event );
@@ -70,8 +72,8 @@ public:
     virtual void keyPressEvent( QKeyEvent* event );
     virtual void focusInEvent( QFocusEvent* );
     virtual void focusOutEvent( QFocusEvent* );
+    virtual void wheelEvent ( QWheelEvent * e );
 
-protected:
     void redraw();
     void drawTickMarks( QPainter& p, const QRect& textRect );
     void drawHistograms( QPainter& p );

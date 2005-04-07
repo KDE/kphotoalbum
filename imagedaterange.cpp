@@ -18,8 +18,15 @@
 
 #include "imagedaterange.h"
 ImageDateRange::ImageDateRange( const ImageDate& from, const ImageDate& to )
-    : _imageStart( from ), _imageEnd( to )
 {
+    if ( from <= to ) {
+        _imageStart = from;
+        _imageEnd = to;
+    }
+    else {
+        _imageStart = to;
+        _imageEnd = from;
+    }
 }
 
 ImageDateRange::ImageDateRange()

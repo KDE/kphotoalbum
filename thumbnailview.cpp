@@ -299,10 +299,10 @@ void ThumbNailView::drawBackground( QPainter * p, const QRect & r )
 
 void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
 {
-     // When the user clicks outside the range in the datebar, then first a
-     // reload() is executed, and then this function, but when this
-     // function is called, the thumbnails have not yet been placed, and
-     // thus candiate->x() and candidate->y() below will not return valid values.
+    // When the user clicks outside the range in the datebar, then first a
+    // reload() is executed, and then this function, but when this
+    // function is called, the thumbnails have not yet been placed, and
+    // thus candiate->x() and candidate->y() below will not return valid values.
     qApp->processEvents();
     bool block = _blockMoveSignals;
     _blockMoveSignals = true;
@@ -324,6 +324,7 @@ void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
         setCurrentItem( candidate );
         candidate->setSelected( true );
     }
+
     _blockMoveSignals = block;
 }
 

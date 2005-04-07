@@ -303,6 +303,7 @@ void DateBar::scroll( int units )
 {
     _currentDate = dateForUnit( units, _currentDate );
     redraw();
+    emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
 
 void DateBar::drawFocusRectagle( QPainter& p)
@@ -582,7 +583,7 @@ void DateBar::updateArrowState()
 
 ImageDateRange DateBar::currentDateRange() const
 {
-    return ImageDateRange( ImageDate( _currentDate ), ImageDate( dateForUnit( _currentUnit+1 ) ) );
+    return ImageDateRange( ImageDate( dateForUnit( _currentUnit ) ), ImageDate( dateForUnit( _currentUnit+1 ) ) );
 }
 
 void DateBar::showStatusBarTip( const QPoint& pos )
@@ -706,8 +707,10 @@ ImageDateRange DateBar::currentSelection() const
 
 void DateBar::clearSelection()
 {
-    _selectionHandler->clearSelection();
-    emit dateRangeCleared();
+    if ( _selectionHandler->hasSelection() ) {
+        _selectionHandler->clearSelection();
+        emit dateRangeCleared();
+    }
 }
 
 void DateBar::emitRangeSelection( const ImageDateRange&  range )
@@ -727,6 +730,14 @@ int DateBar::unitForDate( const QDateTime& date ) const
 void DateBar::emitDateSelected()
 {
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
+}
+
+void DateBar::wheelEvent( QWheelEvent * e )
+{
+    if ( e->delta() > 0 )
+        scroll(1);
+    else
+        scroll(-1);
 }
 
 #include "datebar.moc"

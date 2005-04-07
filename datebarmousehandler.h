@@ -71,6 +71,7 @@ namespace DateBarMouseHandler {
         QDateTime max() const;
         ImageDateRange dateRange() const;
         void clearSelection();
+        bool hasSelection() const;
     private:
         QDateTime _start;
         QDateTime _end;

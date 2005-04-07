@@ -1,5 +1,9 @@
 2005-04-07  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: Using kapp->invokeHelp to show help rather than
+	kapp->invokeBrowser, as the later doesn't work unless your default
+	browser is konqueror.
+
 	* BUGFIX: the category was sometimes shown twice in the status bar
 
 	* BUGFIX: remove tokens didn't work for KDE 3.4

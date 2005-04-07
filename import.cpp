@@ -681,7 +681,7 @@ void Import::closeEvent( QCloseEvent* e )
 
 void Import::slotHelp()
 {
-    kapp->invokeBrowser( QString::fromLatin1( "help://kimdaba#chp-exportDialog" ) );
+    kapp->invokeHelp( QString::fromLatin1( "kimdaba#chp-exportDialog" ) );
 }
 
 #include "import.moc"

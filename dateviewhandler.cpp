@@ -71,7 +71,7 @@ QDateTime DecadeViewHandler::date(int unit, QDateTime reference )
 
 QString DecadeViewHandler::unitText() const
 {
-    return i18n( "1 year" );
+    return i18n( "1 Year" );
 }
 
 void YearViewHandler::init( const QDateTime& startDate )
@@ -143,7 +143,7 @@ QDateTime MonthViewHandler::date(int unit, QDateTime reference )
 
 QString MonthViewHandler::unitText() const
 {
-    return i18n("1 week");
+    return i18n("1 Week");
 }
 
 
@@ -171,7 +171,7 @@ QDateTime WeekViewHandler::date(int unit, QDateTime reference )
 
 QString WeekViewHandler::unitText() const
 {
-    return i18n("1 day");
+    return i18n("1 Day");
 }
 
 
@@ -214,7 +214,7 @@ QDateTime DayViewHandler::date(int unit, QDateTime reference )
 
 QString DayViewHandler::unitText() const
 {
-    return i18n("2 hours");
+    return i18n("2 Hours");
 }
 
 
@@ -250,6 +250,6 @@ QDateTime HourViewHandler::date(int unit, QDateTime reference )
 
 QString HourViewHandler::unitText() const
 {
-    return i18n("10 minutes");
+    return i18n("10 Minutes");
 }
 

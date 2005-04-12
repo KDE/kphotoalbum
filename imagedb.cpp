@@ -455,7 +455,7 @@ bool  ImageDB::calculateMD5sums( ImageInfoList& list )
 {
     QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum of your images<b></p>"
                                  "<p>By storing a checksum for each image KimDaBa is capable of finding images "
-                                 "even when you have moved them on the disk.</p></qt>"), i18n("Cancel"), list.count() );
+                                 "even when you have moved them on the disk.</p></qt>"), i18n("&Cancel"), list.count() );
 
     int count = 0;
     bool dirty = false;

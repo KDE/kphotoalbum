@@ -231,7 +231,7 @@ void Viewer::setupContextMenu()
     action = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Edit Image Properties"),  CTRL+Key_1, this, SLOT( editImage() ),
+    action = new KAction( i18n("Edit Image Properties..."),  CTRL+Key_1, this, SLOT( editImage() ),
                           _actions, "viewer-edit-image-properties" );
     action->plug( _popup );
 

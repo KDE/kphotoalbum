@@ -58,12 +58,12 @@ DateBar::DateBar( QWidget* parent, const char* name )
     connect( _leftArrow, SIGNAL( clicked() ), this, SLOT( scrollLeft() ) );
 
     _zoomIn = new QToolButton( this );
-    _zoomIn->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag+" ), KIcon::Toolbar, 16 ) );
+    _zoomIn->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "viewmag+" ), KIcon::Toolbar, 16 ) );
     connect( _zoomIn, SIGNAL( clicked() ), this, SLOT( zoomIn() ) );
     connect( this, SIGNAL(canZoomIn(bool)), _zoomIn, SLOT( setEnabled( bool ) ) );
 
     _zoomOut = new QToolButton( this );
-    _zoomOut->setIconSet(  KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag-" ), KIcon::Toolbar, 16 ) );
+    _zoomOut->setIconSet(  KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "viewmag-" ), KIcon::Toolbar, 16 ) );
     connect( _zoomOut, SIGNAL( clicked() ), this, SLOT( zoomOut() ) );
     connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT( setEnabled( bool ) ) );
 

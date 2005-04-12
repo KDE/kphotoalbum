@@ -85,7 +85,7 @@ QString TypeFolderAction::category() const
 
 QString TypeFolder::countLabel() const
 {
-    return i18n("1 category", "%n categories", _count);
+    return i18n("1 Category", "%n Categories", _count);
 }
 
 bool TypeFolderAction::contentView() const

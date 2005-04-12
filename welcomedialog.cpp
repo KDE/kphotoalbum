@@ -57,7 +57,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     QPushButton* loadDemo = new QPushButton( i18n("Load Demo"), this, "loadDemo" );
     lay3->addWidget( loadDemo );
 
-    QPushButton* createSetup = new QPushButton( i18n("Create My Own Database"), this );
+    QPushButton* createSetup = new QPushButton( i18n("Create My Own Database..."), this );
     lay3->addWidget( createSetup );
 
     connect( loadDemo, SIGNAL( clicked() ), this, SLOT( slotLoadDemo() ) );

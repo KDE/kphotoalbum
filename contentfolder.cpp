@@ -139,5 +139,5 @@ QString ContentFolderAction::title() const
 
 QString ContentFolder::countLabel() const
 {
-    return i18n("1 image", "%n images", _count);
+    return i18n("1 Image", "%n Images", _count);
 }

@@ -391,7 +391,7 @@ void MainView::save( const QString& fileName )
     QFile out( fileName );
 
     if ( !out.open( IO_WriteOnly ) )
-        KMessageBox::sorry( this, i18n( "Could not open file '%1'" ).arg( fileName ) );
+        KMessageBox::sorry( this, i18n( "Could not open file '%1'." ).arg( fileName ) );
     else {
         QCString s = doc.toCString();
         out.writeBlock( s.data(), s.size()-1 );
@@ -426,7 +426,7 @@ void MainView::slotReadInfo()
                       "the files for which you really want to reread the "
                       "EXIF info. There are <b>%1 files</b> affected, their filenames "
                       "can be seen below.</p></qt>").arg(files.count()), files,
-                                                    i18n("Read EXIF info from files..."),
+                                                    i18n("Read EXIF Info From Files"),
                 KStdGuiItem::cont(),
                 QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
     if ( i == KMessageBox::Cancel )
@@ -587,12 +587,12 @@ void MainView::setupMenuBar()
     _paste = KStdAction::paste( _thumbNailView, SLOT( slotPaste() ), actionCollection() );
     _selectAll = KStdAction::selectAll( _thumbNailView, SLOT( slotSelectAll() ), actionCollection() );
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
-    _deleteSelected = new KAction( i18n( "Delete Selected" ), Key_Delete, this, SLOT( slotDeleteSelected() ),
+    _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
     new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
-    _configOneAtATime = new KAction( i18n( "Configure Images &One at a Time" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+    _configOneAtATime = new KAction( i18n( "Configure Images &One at a Time..." ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
-    _configAllSimultaniously = new KAction( i18n( "Configure &All Images Simultaneously" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+    _configAllSimultaniously = new KAction( i18n( "Configure &All Images Simultaneously..." ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
 
     // The Images menu
@@ -626,11 +626,11 @@ void MainView::setupMenuBar()
 
     // Maintenance
     new KAction( i18n("Display Images Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
-    new KAction( i18n("Display Images with Incomplete Dates"), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
+    new KAction( i18n("Display Images with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
-    new KAction( i18n("Remove All Thumbnails..."), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
+    new KAction( i18n("Remove All Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
     new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
 
     // Settings
@@ -900,13 +900,13 @@ void MainView::load()
     }
 
     if ( config.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Config' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'Config' tag in configuration file %1.").arg( configFile ) );
     if ( options.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Options' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
     if ( configWindowSetup.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'ConfigWindowSetup' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'ConfigWindowSetup' tag in configuration file %1.").arg( configFile ) );
     if ( images.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Images' tag in configuration file %1").arg( configFile ) );
+        KMessageBox::sorry( this, i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
 
     file.close();
 
@@ -1002,7 +1002,7 @@ void MainView::unlockFromDefaultScope()
     QCString passwd;
     bool OK = ( Options::instance()->password().isEmpty() );
     while ( !OK ) {
-        int code = KPasswordDialog::getPassword( passwd, i18n("Type in Password to unlock"));
+        int code = KPasswordDialog::getPassword( passwd, i18n("Type in Password to Unlock"));
         if ( code == QDialog::Rejected )
             return;
         OK = (Options::instance()->password() == QString(passwd));
@@ -1038,7 +1038,7 @@ void MainView::changePassword()
     bool OK = ( Options::instance()->password().isEmpty() );
 
     while ( !OK ) {
-        int code = KPasswordDialog::getPassword( passwd, i18n("Type in old Password"));
+        int code = KPasswordDialog::getPassword( passwd, i18n("Type in Old Password"));
         if ( code == QDialog::Rejected )
             return;
         OK = (Options::instance()->password() == QString(passwd));
@@ -1191,7 +1191,7 @@ void MainView::slotExport()
 {
     ImageInfoList list = getSelectedOnDisk();
     if ( list.count() == 0 ) {
-        KMessageBox::sorry( this, i18n("No images to export") );
+        KMessageBox::sorry( this, i18n("No images to export.") );
     }
     else
         Export::imageExport( list );

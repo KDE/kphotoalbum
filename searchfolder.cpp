@@ -53,7 +53,7 @@ FolderAction* SearchFolder::action( bool )
         return 0;
 
     if ( ImageDB::instance()->count( info ) == 0 ) {
-        KMessageBox::information( _browser, i18n( "Search did not match any images" ), i18n("Empty Search Result") );
+        KMessageBox::information( _browser, i18n( "Search did not match any images." ), i18n("Empty Search Result") );
         return 0;
     }
 

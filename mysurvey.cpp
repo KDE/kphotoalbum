@@ -27,8 +27,8 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     new Survey::RadioButtonQuestion( QString::fromLatin1( "HowLongHaveYouUsedKimDaBa" ),
                                      i18n("Length of Usage"),
                                      QString::null,
-                                     i18n("How Long Have you used KimDaBa"),
-                                     QStringList() << i18n("< 1 Month") << i18n("1-6 Month") << i18n("6-12 Month")
+                                     i18n("How long have you used KimDaBa?"),
+                                     QStringList() << i18n("< 1 Month") << i18n("1-6 Months") << i18n("6-12 Months")
                                      << i18n("1-2 Year" ) << i18n("> 2 Years"), this );
 
     new SurveyCountQuestion( QString::fromLatin1( "ImageCount" ),
@@ -48,7 +48,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     new Survey::AlternativeQuestion( QString::fromLatin1( "CategoriesUsed" ),
                                      i18n("Categories Used"),
                                      QString::null,
-                                     i18n("Which categories are you using"),
+                                     i18n("Which categories are you using?"),
                                      categories, 5, Survey::AlternativeQuestion::CheckBox, this );
 
     new Survey::RadioButtonQuestion( QString::fromLatin1( "MemberGroups" ), i18n("Member Groups"),
@@ -56,7 +56,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                           "Using this feature, you can specify that Las Vegas is in Nevada, which is in USA, "
                                           "which is on the earth and so on. Whenever you look for images from Nevada, USA, or the earth, "
                                           "you will also see the images from Las Vegas."),
-                                     i18n("Are you using Member Groups?"), yesNoList, this );
+                                     i18n("Are you using member groups?"), yesNoList, this );
 
     QStringList offLineList;
     offLineList << i18n("Yes") << i18n("No but I expect to have within the next year") << i18n("No and I don't expect within the next year" );

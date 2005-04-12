@@ -84,7 +84,7 @@ ExportConfig::ExportConfig()
     lay1->addWidget( _compress );
 
     // Generate thumbnails
-    _generateThumbnails = new QCheckBox( i18n("Generate Thumbnails"), top );
+    _generateThumbnails = new QCheckBox( i18n("Generate thumbnails"), top );
     _generateThumbnails->setChecked(true);
     lay1->addWidget( _generateThumbnails );
 

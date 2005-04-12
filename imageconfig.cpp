@@ -133,23 +133,23 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     lay6->addStretch(1);
 
     _prevBut = new QPushButton( top2 );
-    _prevBut->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "1leftarrow" ), KIcon::Desktop, 22 ) );
+    _prevBut->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "1leftarrow" ), KIcon::Desktop, 22 ) );
     lay6->addWidget( _prevBut );
 
     _nextBut = new QPushButton( top2 );
-    _nextBut->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "1rightarrow" ), KIcon::Desktop, 22 ) );
+    _nextBut->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "1rightarrow" ), KIcon::Desktop, 22 ) );
     lay6->addWidget( _nextBut );
 
     lay6->addStretch(1);
 
     _rotateLeft = new QPushButton( top2 );
     lay6->addWidget( _rotateLeft );
-    _rotateLeft->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "rotate_ccw" ), KIcon::Desktop, 22 ) );
+    _rotateLeft->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), KIcon::Desktop, 22 ) );
     connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
 
     _rotateRight = new QPushButton( top2 );
     lay6->addWidget( _rotateRight );
-    _rotateRight->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
+    _rotateRight->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
     connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
 
     lay6->addStretch( 1 );
@@ -190,7 +190,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _revertBut = new QPushButton( i18n("Revert This Image"), this );
     lay1->addWidget( _revertBut );
 
-    QPushButton* clearBut = new QPushButton( i18n("Clear Form"), this );
+    QPushButton* clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::reverseLayout()
+                                             ? QString::fromLatin1("clear_left")
+                                             : QString::fromLatin1("locationbar_erase")), this );
     lay1->addWidget( clearBut );
 
     QPushButton* optionsBut = new QPushButton( i18n("Options" ), this );
@@ -198,10 +200,10 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     lay1->addStretch(1);
 
-    _okBut = new QPushButton( i18n("&OK"), this );
+    _okBut = new KPushButton( KStdGuiItem::ok(), this );
     lay1->addWidget( _okBut );
 
-    QPushButton* cancelBut = new QPushButton( i18n("&Cancel"), this );
+    QPushButton* cancelBut = new KPushButton( KStdGuiItem::cancel(), this );
     lay1->addWidget( cancelBut );
 
     connect( _revertBut, SIGNAL( clicked() ), this, SLOT( slotRevert() ) );
@@ -474,7 +476,7 @@ void ImageConfig::setup()
 
     ListSelect::Mode mode;
     if ( _setup == SEARCH )  {
-        _okBut->setText( i18n("&Search") );
+        _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
         _revertBut->hide();
         mode = ListSelect::SEARCH;
         setCaption( i18n("Image Search") );
@@ -486,7 +488,7 @@ void ImageConfig::setup()
         _rotateRight->setEnabled( false );
     }
     else {
-        _okBut->setText( i18n("&OK") );
+        _okBut->setGuiItem( KStdGuiItem::ok() );
         _revertBut->setEnabled( _setup == SINGLE );
         _revertBut->show();
         mode = ListSelect::INPUT;

@@ -166,7 +166,7 @@ void ThumbNailView::contentsDropEvent( QDropEvent* e )
         QIconView::contentsDropEvent( e );
     else {
         repaintContents( 0,0, width(), height(), true );
-        KMessageBox::information( this, i18n("Please drop onto an image") );
+        KMessageBox::information( this, i18n("Please drop onto an image.") );
     }
 }
 
@@ -202,13 +202,13 @@ void ThumbNailView::slotPaste()
 {
     QPtrList<ThumbNail> selectedList = selected();
     if ( selectedList.count() == 0 ) {
-        QMessageBox::information( this, i18n("Nothing Selected"), i18n("To paste you have to select an image that the past should go after."), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
+        KMessageBox::information( this, i18n("To paste you have to select an image that the past should go after."), i18n("Nothing Selected") );
     }
     else if ( ImageDB::instance()->clipboard().count() == 0 ) {
-        QMessageBox::information( this, i18n("Nothing on Clipboard"), i18n("<qt><p>No data on clipboard to paste.</p>"
+        KMessageBox::information( this, i18n("<qt><p>No data on clipboard to paste.</p>"
                                   "<p>It really does not make any sense to the application to have an image represented twice, "
                                   "therefore you can only paste an image off the clipboard once.</p>"),
-                                  QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton );
+                                  i18n("Nothing on Clipboard") );
     }
     else {
         ThumbNail* last = selectedList.last();

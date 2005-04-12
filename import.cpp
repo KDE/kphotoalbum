@@ -118,7 +118,7 @@ bool Import::init( const QString& fileName )
     _finishedPressed = false;
     _zip = new KZip( fileName );
     if ( !_zip->open( IO_ReadOnly ) ) {
-        KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( fileName ), i18n("Error Importing Data") );
+        KMessageBox::error( this, i18n("Unable to open '%1' for reading.").arg( fileName ), i18n("Error Importing Data") );
         _zip =0;
         return false;
     }

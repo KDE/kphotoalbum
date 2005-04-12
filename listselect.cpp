@@ -397,8 +397,8 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     QLabel* label = new QLabel( QString::fromLatin1("<qt><b>%1</b></qt>").arg(title), &menu );
     label->setAlignment( Qt::AlignCenter );
     menu.insertItem( label );
-    menu.insertItem( i18n("Delete"), 1 );
-    menu.insertItem( i18n("Rename"), 2 );
+    menu.insertItem( SmallIcon(QString::fromLatin1("editdelete")), i18n("Delete"), 1 );
+    menu.insertItem( i18n("Rename..."), 2 );
 
     // -------------------------------------------------- Add/Remove member group
     MemberMap memberMap = Options::instance()->memberMap();
@@ -419,7 +419,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 
         if ( !grps.isEmpty() )
             members->insertSeparator();
-        members->insertItem( i18n("New group..." ), 7 );
+        members->insertItem( i18n("New Group..." ), 7 );
     }
 
     // -------------------------------------------------- sort
@@ -441,19 +441,19 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     // -------------------------------------------------- exec
     int which = menu.exec( pos );
     if ( which == 1 ) {
-        int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
+        int code = KMessageBox::warningContinueCancel( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
                                                           "Deleting the item will remove any information about "
                                                           "about it from any image containing the item.</qt>")
                                                .arg(item->text()),
-                                               i18n("Really Delete %1?").arg(item->text()) );
-        if ( code == KMessageBox::Yes ) {
+                                               i18n("Really Delete %1?").arg(item->text()), KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
+        if ( code == KMessageBox::Continue ) {
             Options::instance()->removeOption(category(), item->text() );
             delete item;
         }
     }
     else if ( which == 2 ) {
         bool ok;
-        QString newStr = KInputDialog::getText( i18n("Rename Item"), i18n("Rename %1").arg( item->text() ),
+        QString newStr = KInputDialog::getText( i18n("Rename Item"), i18n("Enter new name:"),
                                                 item->text(), &ok, this );
 
         if ( ok && newStr != item->text() ) {
@@ -484,7 +484,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
         Options::instance()->setViewSortType( Options::SortAlpha );
     }
     else if ( which == 7 ) {
-        QString group = QInputDialog::getText( i18n("Member group name"), i18n("Member group name") );
+        QString group = KInputDialog::getText( i18n("Member Group Name"), i18n("Member group name:") );
         if ( group.isNull() )
             return;
         memberMap.addGroup( _category, group );

@@ -18,7 +18,7 @@ SurveyCountQuestion::SurveyCountQuestion( const QString& id, const QString& titl
 
     label = new QLabel(i18n("How many percentages of your images are scanned in: "), this );
     _scanned = new QSpinBox( 0, 100, 10, this );
-    _scanned->setSpecialValueText( i18n("none" ) );
+    _scanned->setSpecialValueText( i18n("None" ) );
     _scanned->setSuffix(QString::fromLatin1( "%" ) );
     lay->addWidget( label, 1, 0 );
     lay->addWidget( _scanned, 1, 1 );

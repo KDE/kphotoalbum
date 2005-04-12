@@ -94,7 +94,7 @@ void OptionsDialog::createGeneralPage()
     container = new QWidget( top );
     lay1->addWidget( container );
     hlay = new QHBoxLayout( container, 0, 6 );
-    QLabel* datebarSize = new QLabel( i18n("Size of histogram boxes in datebar"), container );
+    QLabel* datebarSize = new QLabel( i18n("Size of histogram boxes in datebar:"), container );
     hlay->addWidget( datebarSize );
     _barWidth = new QSpinBox( 15, 100, 1, container );
     hlay->addWidget( _barWidth );
@@ -234,7 +234,7 @@ void OptionsDialog::createThumbNailPage()
     lay4->addWidget( _autoShowThumbnailView );
 
     // Align Columns
-    _alignColumns = new QCheckBox( i18n( "Align Columns" ), top, "alignColumns" );
+    _alignColumns = new QCheckBox( i18n( "Align columns" ), top, "alignColumns" );
     lay1->addWidget( _alignColumns );
 
 
@@ -725,8 +725,8 @@ void OptionsDialog::slotRenameGroup()
 void OptionsDialog::slotDelGroup()
 {
     Q_ASSERT( !_currentGroup.isNull() );
-    int res = KMessageBox::warningYesNo( this, i18n( "Really delete group %1" ).arg( _currentGroup ) );
-    if ( res == KMessageBox::No )
+    int res = KMessageBox::warningContinueCancel( this, i18n( "Really delete group %1?" ).arg( _currentGroup ),i18n("Delete Group"),KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
+    if ( res == KMessageBox::Cancel )
         return;
 
     saveOldGroup();

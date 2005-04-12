@@ -31,7 +31,7 @@
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Images"), Cancel|User1, User1, parent, name,
-                  true, false, i18n("Delete Images"))
+                  true, false, KGuiItem(i18n("Delete Images"),QString::fromLatin1("editdelete")))
 {
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
@@ -72,7 +72,7 @@ void DeleteDialog::deleteImages()
             if ( (*it)->imageOnDisk() ) {
                 bool ok = QFile( (*it)->fileName() ).remove();
                 if ( !ok ) {
-                    KMessageBox::error( this, i18n("Unable to delete file %1").arg((*it)->fileName()),
+                    KMessageBox::error( this, i18n("Unable to delete file '%1'.").arg((*it)->fileName()),
                                         i18n("Error Deleting Files") );
                 }
             }

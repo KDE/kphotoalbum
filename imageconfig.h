@@ -37,6 +37,7 @@ class KDockWidget;
 class KDatePicker;
 class KDateEdit;
 class ImagePreview;
+class KPushButton;
 
 class ImageConfig :public QDialog {
     Q_OBJECT
@@ -108,7 +109,7 @@ private:
 
     ImagePreview* _preview;
     QPushButton* _revertBut;
-    QPushButton* _okBut;
+    KPushButton* _okBut;
     QPushButton* _prevBut;
     QPushButton* _nextBut;
     QPushButton* _rotateLeft;

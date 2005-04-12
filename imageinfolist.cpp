@@ -61,10 +61,9 @@ bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
     for ( ; *mergeListIt; ++mergeListIt, ++thisListIt ) {
         Q_ASSERT( *mergeListIt ); Q_ASSERT( *thisListIt );
         if ( *mergeListIt != *thisListIt ) {
-            return ( KMessageBox::warningYesNo(0,i18n("<qt>You are about to sort a set of images with others in between"
+            return ( KMessageBox::warningContinueCancel(0,i18n("<qt>You are about to sort a set of images with others in between"
                                                       "<br>This might result in an unexpected sort order</br>"
-                                                      "<p>Are you sure you want to continue?</p></qt>"), QString::null, KStdGuiItem::yes(),
-                                               KStdGuiItem::no(), QString::null, KMessageBox::Dangerous) == KMessageBox::Yes);
+                                                      "<p>Are you sure you want to continue?</p></qt>"), i18n("Sort Images?") ) == KMessageBox::Continue);
             break;
         }
     }

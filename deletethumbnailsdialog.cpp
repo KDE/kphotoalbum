@@ -38,7 +38,7 @@ DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* nam
     edit->setReadOnly( true );
     layout->addWidget( edit );
 
-    setButtonText( User1, i18n("Delete") );
+    setButtonGuiItem( User1, KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotDeleteFiles() ) );
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( accept() ) );
     resize( 600, 600 );

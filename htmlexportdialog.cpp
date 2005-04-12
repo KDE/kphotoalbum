@@ -130,7 +130,7 @@ void HTMLExportDialog::createContentPage()
     _description = new QTextEdit( contentPage );
     lay2->addWidget( _description, 1, 1 );
 
-    _generateKimFile = new QCheckBox( i18n("Create .kim Export File"), contentPage );
+    _generateKimFile = new QCheckBox( i18n("Create .kim export file"), contentPage );
     _generateKimFile->setChecked( true );
     lay1->addWidget( _generateKimFile );
 

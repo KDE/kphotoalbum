@@ -134,10 +134,12 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     _prevBut = new QPushButton( top2 );
     _prevBut->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "1leftarrow" ), KIcon::Desktop, 22 ) );
+    _prevBut->setFixedWidth( 40 );
     lay6->addWidget( _prevBut );
 
     _nextBut = new QPushButton( top2 );
     _nextBut->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "1rightarrow" ), KIcon::Desktop, 22 ) );
+    _nextBut->setFixedWidth( 40 );
     lay6->addWidget( _nextBut );
 
     lay6->addStretch(1);
@@ -145,11 +147,13 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     _rotateLeft = new QPushButton( top2 );
     lay6->addWidget( _rotateLeft );
     _rotateLeft->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), KIcon::Desktop, 22 ) );
+    _rotateLeft->setFixedWidth( 40 );
     connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
 
     _rotateRight = new QPushButton( top2 );
     lay6->addWidget( _rotateRight );
     _rotateRight->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
+    _rotateRight->setFixedWidth( 40 );
     connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
 
     lay6->addStretch( 1 );

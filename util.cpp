@@ -1,19 +1,19 @@
 /* Copyright (C) 2003-2005 Jesper K. Pedersen <blackie@kde.org>
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+You should have received a copy of the GNU General Public License
+along with this program; see the file COPYING.  If not, write to
+the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+Boston, MA 02111-1307, USA.
 */
 
 #include "util.h"
@@ -203,7 +203,7 @@ void Util::checkForBackupFile( const QString& fileName )
         return;
 
     int code = KMessageBox::questionYesNo( 0, i18n("Backup file '%1' exists and is newer than '%2'. "
-                                                      "Should I use the backup file?")
+                                                   "Should I use the backup file?")
                                            .arg(backupName).arg(fileName),
                                            i18n("Found Backup File") );
     if ( code == KMessageBox::Yes ) {
@@ -310,27 +310,27 @@ bool Util::copy( const QString& from, const QString& to )
         return false;
     }
     if ( !out.open(IO_WriteOnly) ) {
-		in.close();
+        in.close();
         return false;
     }
 
     char buf[4096];
     while( !in.atEnd() ) {
-      unsigned long int len = in.readBlock( buf, sizeof(buf));
-      out.writeBlock( buf, len );
+        unsigned long int len = in.readBlock( buf, sizeof(buf));
+        out.writeBlock( buf, len );
     }
 
-	in.close();
-	out.close();
+    in.close();
+    out.close();
     return true;
 }
 
 bool Util::makeHardLink( const QString& from, const QString& to )
 {
-  if (link(from.ascii(), to.ascii()) != 0)
-    return false;
-  else
-    return true;
+    if (link(from.ascii(), to.ascii()) != 0)
+        return false;
+    else
+        return true;
 }
 
 QString Util::readInstalledFile( const QString& fileName )
@@ -361,14 +361,14 @@ QString Util::getThumbnailDir( const QString& imageFile ) {
 QString Util::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
     QFileInfo info( imageFile );
     while (angle < 0)
-      angle += 360;
+        angle += 360;
     angle %= 360;
     return info.dirPath() + QString::fromLatin1("/ThumbNails")+
-           QString::fromLatin1("/%1x%2-%3-%4")
-                                .arg(width)
-                                .arg(height)
-                                .arg(angle)
-                                .arg( info.fileName() );
+        QString::fromLatin1("/%1x%2-%3-%4")
+        .arg(width)
+        .arg(height)
+        .arg(angle)
+        .arg( info.fileName() );
 }
 
 void Util::removeThumbNail( const QString& imageFile )
@@ -418,109 +418,109 @@ struct myjpeg_error_mgr : public jpeg_error_mgr
 
 extern "C"
 {
-  static void myjpeg_error_exit(j_common_ptr cinfo)
-  {
-    myjpeg_error_mgr* myerr =
-      (myjpeg_error_mgr*) cinfo->err;
+    static void myjpeg_error_exit(j_common_ptr cinfo)
+    {
+        myjpeg_error_mgr* myerr =
+            (myjpeg_error_mgr*) cinfo->err;
 
-    char buffer[JMSG_LENGTH_MAX];
-    (*cinfo->err->format_message)(cinfo, buffer);
-    //kdWarning() << buffer << endl;
-    longjmp(myerr->setjmp_buffer, 1);
-  }
+        char buffer[JMSG_LENGTH_MAX];
+        (*cinfo->err->format_message)(cinfo, buffer);
+        //kdWarning() << buffer << endl;
+        longjmp(myerr->setjmp_buffer, 1);
+    }
 }
 
 bool Util::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int width, int height)
 {
-   FILE* inputFile=fopen(imageFile.latin1(), "rb");
-   if(!inputFile)
-      return false;
-   bool ok = loadJPEG( img, inputFile, fullSize, width, height );
-   fclose(inputFile);
-   return ok;
+    FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
+    if(!inputFile)
+        return false;
+    bool ok = loadJPEG( img, inputFile, fullSize, width, height );
+    fclose(inputFile);
+    return ok;
 }
 
 bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width, int height)
 {
-   struct jpeg_decompress_struct    cinfo;
-   struct myjpeg_error_mgr jerr;
+    struct jpeg_decompress_struct    cinfo;
+    struct myjpeg_error_mgr jerr;
 
-   // JPEG error handling - thanks to Marcus Meissner
-   cinfo.err             = jpeg_std_error(&jerr);
-   cinfo.err->error_exit = myjpeg_error_exit;
+    // JPEG error handling - thanks to Marcus Meissner
+    cinfo.err             = jpeg_std_error(&jerr);
+    cinfo.err->error_exit = myjpeg_error_exit;
 
-   if (setjmp(jerr.setjmp_buffer)) {
-      jpeg_destroy_decompress(&cinfo);
-      return false;
-   }
+    if (setjmp(jerr.setjmp_buffer)) {
+        jpeg_destroy_decompress(&cinfo);
+        return false;
+    }
 
-   jpeg_create_decompress(&cinfo);
-   jpeg_stdio_src(&cinfo, inputFile);
-   jpeg_read_header(&cinfo, TRUE);
-   *fullSize = QSize( cinfo.image_width, cinfo.image_height );
+    jpeg_create_decompress(&cinfo);
+    jpeg_stdio_src(&cinfo, inputFile);
+    jpeg_read_header(&cinfo, TRUE);
+    *fullSize = QSize( cinfo.image_width, cinfo.image_height );
 
-   int imgSize = QMAX(cinfo.image_width, cinfo.image_height);
+    int imgSize = QMAX(cinfo.image_width, cinfo.image_height);
 
-   //libjpeg supports a sort of scale-while-decoding which speeds up decoding
-   int scale=1;
-   if (width != -1 || height != -1) {
-      int size_=QMAX(width, height);
-      while(size_*scale*2<=imgSize) {
-         scale*=2;
-      }
-      if(scale>8) scale=8;
-   }
+    //libjpeg supports a sort of scale-while-decoding which speeds up decoding
+    int scale=1;
+    if (width != -1 || height != -1) {
+        int size_=QMAX(width, height);
+        while(size_*scale*2<=imgSize) {
+            scale*=2;
+        }
+        if(scale>8) scale=8;
+    }
 
-   cinfo.scale_num=1;
-   cinfo.scale_denom=scale;
+    cinfo.scale_num=1;
+    cinfo.scale_denom=scale;
 
-   // Create QImage
-   jpeg_start_decompress(&cinfo);
+    // Create QImage
+    jpeg_start_decompress(&cinfo);
 
-   switch(cinfo.output_components) {
-   case 3:
-   case 4:
-      if (!img->create( cinfo.output_width, cinfo.output_height, 32 ))
-       return false;
-      break;
-   case 1: // B&W image
-      if (!img->create( cinfo.output_width, cinfo.output_height,
-                       8, 256 ))
-       return false;
-      for (int i=0; i<256; i++)
+    switch(cinfo.output_components) {
+    case 3:
+    case 4:
+        if (!img->create( cinfo.output_width, cinfo.output_height, 32 ))
+            return false;
+        break;
+    case 1: // B&W image
+        if (!img->create( cinfo.output_width, cinfo.output_height,
+                          8, 256 ))
+            return false;
+        for (int i=0; i<256; i++)
             img->setColor(i, qRgb(i,i,i));
-      break;
-   default:
-      return false;
-   }
+        break;
+    default:
+        return false;
+    }
 
-   uchar** lines = img->jumpTable();
-   while (cinfo.output_scanline < cinfo.output_height)
-      jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline,
-                           cinfo.output_height);
-   jpeg_finish_decompress(&cinfo);
+    uchar** lines = img->jumpTable();
+    while (cinfo.output_scanline < cinfo.output_height)
+        jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline,
+                            cinfo.output_height);
+    jpeg_finish_decompress(&cinfo);
 
-   // Expand 24->32 bpp
-   if ( cinfo.output_components == 3 ) {
-      for (uint j=0; j<cinfo.output_height; j++) {
+    // Expand 24->32 bpp
+    if ( cinfo.output_components == 3 ) {
+        for (uint j=0; j<cinfo.output_height; j++) {
             uchar *in = img->scanLine(j) + cinfo.output_width*3;
             QRgb *out = (QRgb*)( img->scanLine(j) );
 
             for (uint i=cinfo.output_width; i--; ) {
-               in-=3;
-               out[i] = qRgb(in[0], in[1], in[2]);
+                in-=3;
+                out[i] = qRgb(in[0], in[1], in[2]);
             }
-      }
-   }
+        }
+    }
 
-   /*int newMax = QMAX(cinfo.output_width, cinfo.output_height);
-   int newx = size_*cinfo.output_width / newMax;
-   int newy = size_*cinfo.output_height / newMax;*/
+    /*int newMax = QMAX(cinfo.output_width, cinfo.output_height);
+      int newx = size_*cinfo.output_width / newMax;
+      int newy = size_*cinfo.output_height / newMax;*/
 
-   jpeg_destroy_decompress(&cinfo);
+    jpeg_destroy_decompress(&cinfo);
 
-   //image = img.smoothScale(newx,newy);
-   return true;
+    //image = img.smoothScale(newx,newy);
+    return true;
 }
 
 bool Util::isJPEG( const QString& fileName )
@@ -532,35 +532,35 @@ bool Util::isJPEG( const QString& fileName )
 /* Load embedded JPEG preview from Canon CRW "digital negative" */
 bool Util::loadCRW(QImage *img, const QString& imageFile, QSize* fullSize, int width, int height)
 {
-   static const off_t thumb_block_start_offset = -18;
+    static const off_t thumb_block_start_offset = -18;
 
-   /* We just find the offset of the JPEG inside the CRW
-     file, fseek() and pass the FILE* on to the JPEG loader.
-     The code is inspired by CRWInfo
-     (http://neuemuenze.heim1.tu-clausthal.de/~sven/crwinfo/)
+    /* We just find the offset of the JPEG inside the CRW
+       file, fseek() and pass the FILE* on to the JPEG loader.
+       The code is inspired by CRWInfo
+       (http://neuemuenze.heim1.tu-clausthal.de/~sven/crwinfo/)
 
-     Steffen Hansen <hansen@kde.org>
-   */
-   FILE* inputFile=fopen(imageFile.latin1(), "rb");
-   if(!inputFile)
-      return false;
-   if( fseek( inputFile, thumb_block_start_offset, SEEK_END ) != 0 ) {
-	 fclose( inputFile );
-	 return false;
-   }
-   long int offset_buffer;
-   if( fread( &offset_buffer, 4, 1, inputFile ) <= 0 ) {
-	 fclose( inputFile );
-	 return false;
-   }
-   off_t thumb_block_start = 26 + (off_t)offset_buffer;
-   if( fseek( inputFile, thumb_block_start, SEEK_SET ) ) {
-	 fclose( inputFile );
-	 return false;
-   }
-   bool rc = loadJPEG( img, inputFile, fullSize, width, height );
-   fclose(inputFile);
-   return rc;
+       Steffen Hansen <hansen@kde.org>
+    */
+    FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
+    if(!inputFile)
+        return false;
+    if( fseek( inputFile, thumb_block_start_offset, SEEK_END ) != 0 ) {
+        fclose( inputFile );
+        return false;
+    }
+    long int offset_buffer;
+    if( fread( &offset_buffer, 4, 1, inputFile ) <= 0 ) {
+        fclose( inputFile );
+        return false;
+    }
+    off_t thumb_block_start = 26 + (off_t)offset_buffer;
+    if( fseek( inputFile, thumb_block_start, SEEK_SET ) ) {
+        fclose( inputFile );
+        return false;
+    }
+    bool rc = loadJPEG( img, inputFile, fullSize, width, height );
+    fclose(inputFile);
+    return rc;
 }
 
 bool Util::isCRW( const QString& fileName )

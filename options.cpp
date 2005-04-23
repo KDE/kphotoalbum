@@ -74,11 +74,13 @@ Options::Options( const QDomElement& config, const QDomElement& options, const Q
     _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
     _albumCategory = config.attribute( QString::fromLatin1( "albumCategory" ) );
     _viewSortType = (ViewSortType) config.attribute( QString::fromLatin1( "viewSortType" ) ).toInt();
-    _fromDate = QDate::fromString( config.attribute( QString::fromLatin1( "fromDate" ) ), ISODate );
-    if (! _fromDate.isValid() )
+    if ( config.hasAttribute( QString::fromLatin1( "fromDate" ) ) )
+        _fromDate = QDate::fromString( config.attribute( QString::fromLatin1( "fromDate" ) ), ISODate );
+    else
         _fromDate = QDate( QDate::currentDate().year(), 1, 1 );
-    _toDate = QDate::fromString( config.attribute( QString::fromLatin1( "toDate" ) ), ISODate );
-    if (! _toDate.isValid() )
+    if ( config.hasAttribute( QString::fromLatin1( "toDate" ) ) )
+        _toDate = QDate::fromString( config.attribute( QString::fromLatin1( "toDate" ) ), ISODate );
+    else
         _toDate = QDate( QDate::currentDate().year()+1, 1, 1 );
     _launchViewerFullScreen = (bool) config.attribute( QString::fromLatin1( "launchViewerFullScreen" ) ).toInt();
     _launchSlideShowFullScreen = (bool) config.attribute( QString::fromLatin1( "launchSlideShowFullScreen" ) ).toInt();

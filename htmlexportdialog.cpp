@@ -776,7 +776,7 @@ bool HTMLExportDialog::linkIndexFile()
             QString fromFile = QString::fromLatin1("index-%1.html" )
                                .arg((*it)->text(true));
             QString destFile = _tempDir + QString::fromLatin1("/index.html");
-            bool ok = ( symlink( fromFile.latin1(), destFile.latin1() ) == 0 );
+            bool ok = ( symlink( QFile::encodeName(fromFile), QFile::encodeName(destFile) ) == 0 );
             if ( !ok ) {
                 KMessageBox::error( this, i18n("<qt>Unable to make a symlink from %1 to %2</qt>")
                                     .arg( fromFile ).arg( destFile ) );

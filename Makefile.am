@@ -9,7 +9,7 @@ if HAVE_KIPI
 endif
 
 SUBDIRS = images icons demo themes survey $(COMPAT_DIR)
-INCLUDES = $(all_includes) $(COMPAT_INCLUDE) -I$(top_srcdir)/kimdaba/survey
+INCLUDES = $(all_includes) $(COMPAT_INCLUDE) -I$(srcdir)/survey
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = \
@@ -33,7 +33,7 @@ kimdaba_SOURCES = \
 	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp miniviewer.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS) $(top_builddir)/kimdaba/survey/libsurvey.la
+kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS) survey/libsurvey.la
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS) $(KIMDABA_KIPI_CXXFLAGS)

@@ -1,7 +1,7 @@
 <chapter id="chp-datebar">
   <title>The Datebar</title>
 
-<para>At the bottom of the KimDaBa main window, you will find the data
+<para>At the bottom of the &kimdaba; main window, you will find the data
 bar (see <xref linkend="fig-datebar"/>). As the name indicates it shows date statistics over the images in your
 database.</para>
 
@@ -23,11 +23,11 @@ an overlap for all the month of 2005, while an image from Jan 24th 2005
 will count as an exact date for January 2005. Exact matches are displayed
 with green, while inexact matches are displayed in yellow. Thus in December
 2004 I have 86 images with exact count, and 61 with overlap count. (I know
-the counts by hovering the mouse over the given range, since this displayes
+the counts by hovering the mouse over the given range, since this displays
 the counts in the status bar).</para>
 
 <para>The date bar offers you a number of different granularities, where
-each bar displayes a different time range. The range are years, month,
+each bar displays a different time range. The range are years, month,
 weeks, days, hours, and 10 minutes. <xref
 linkend="fig-datebar-for-minutes"/> shows you part of my database where
 each bar shows only 10 minutes.</para>

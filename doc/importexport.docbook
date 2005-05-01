@@ -1,18 +1,18 @@
 <chapter id="chp-importExport">
   <title>Import/Exporting</title>
   <para>If you attend a family party, a company meeting, a conference, or
-      any other event where other KimDaBa users may be present, you may
+      any other event where other &kimdaba; users may be present, you may
       wish to share your images with those people. You may of course choose
       to generate HTML pages for them to browse, but given you already have
     spent time classifying all images (Who is on the images, where were they
       taken etc), there are no reason for them to redo all that
       work.</para>
 
-    <para>KimDaBa allows you to export a set of your images into a
-      <literal>.kim</literal> file, which other people may import into
+    <para>&kimdaba; allows you to export a set of your images into a
+      <literal role="extension">.kim</literal> file, which other people may import into
       their database, to get your classification for these images.</para>
 
-    <para>Two different kind of <literal>.kim</literal> files exists,
+    <para>Two different kind of <literal role="extension">.kim</literal> files exists,
       inlines or externals, referring to whether the images them self are
       located in the file or at some other location. Placing the images in
       the file has the obvious advantage that the file is self contained,
@@ -20,52 +20,51 @@
       rather big.</para>
 
     <para>There are two places from which you may generate a
-      <literal>.kim</literal> file, namely directly from
-      <guimenu>File</guimenu>|<guimenuitem>Export...</guimenuitem>, or
-      along with HTML pages (see <xref
-        linkend="chp-generating-html"/>). Creating a
-      <literal>.kim</literal> file during HTML export will create an
-      external <literal>.kim</literal> file.</para>
+      <literal role="extension">.kim</literal> file, namely directly from
+      <menuchoice><guimenu>File</guimenu><guimenuitem>Export...</guimenuitem></menuchoice>, 
+      or along with HTML pages (see <xref linkend="chp-generating-html"/>). Creating a
+      <literal role="extension">.kim</literal> file during HTML export will create an
+      external <literal role="extension">.kim</literal> file.</para>
 
-    <para>External <literal>.kim</literal> files will search for images in
+    <para>External <literal role="extension">.kim</literal> files will search for images in
       one of two ways. First it will try to look for the images next to the
-      <literal>.kim</literal> file, and if not found, it will search for them
-      at the URL specified when the <literal>.kim</literal> file was
+      <literal role="extension">.kim</literal> file, and if not found, it will search for them
+      at the URL specified when the <literal role="extension">.kim</literal> file was
       created. Notice the later is only possible for
-      <literal>.kim</literal> files created during HTML export.</para>
+      <literal role="extension">.kim</literal> files created during HTML export.</para>
     
     <sect1 id="chp-exportDialog">
       <title>Export Dialog</title>
       <para>This section will tell you about the export dialog which you
-        get to from
-        <guimenu>File</guimenu>|<guimenuitem>Export...</guimenuitem>.</para>
+        get to from <menuchoice><guimenu>File</guimenu>
+	<guimenuitem>Export...</guimenuitem></menuchoice>.</para>
 
       <para>The most important part of this dialog is specifying whether
-        the <literal>.kim</literal> file should be internal or external
+        the <literal role="extension">.kim</literal> file should be internal or external
         (see description above). You have the following three
         options:
       
         <itemizedlist>
-          <listitem><para>Include in <literal>.kim</literal> file - this
+          <listitem><para>Include in <literal role="extension">.kim</literal> file - this
               will be an internal file</para></listitem>
           <listitem><para>Manual copy next to .kim file - Here you must
               copy the images yourself next to the .kim file</para></listitem>
           <listitem><para>Automatically copy next to .kim file - here
-              KimDaBa will copy the images for you.</para></listitem>
+              &kimdaba; will copy the images for you.</para></listitem>
         </itemizedlist>
       </para>
       
-      <para>Between you and me, <literal>.kim</literal> files are really
+      <para>Between you and me, <literal role="extension">.kim</literal> files are really
         just zip files. Normally it is not worth bothering compressing the
         files because images normally are compressed JPEG already, and the
-        xml file itself are really tiny. If you really want to squish out
+        XML file itself are really tiny. If you really want to squish out
         the last few bytes, you may still do so, by checking
-        <literal>Compress Export File</literal></para>
+        <guilabel>Compress Export File</guilabel></para>
 
-      <para>The final option on the page are <literal>Limit maximum image
-          dimension</literal>. When sending some images to some friends,
+      <para>The final option on the page are <guilabel>Limit maximum image
+          dimension</guilabel>. When sending some images to some friends,
         you may not want to send images in full size, as the
-        <literal>.kim</literal> file might be huge. For this, you may
+        <literal role="extension">.kim</literal> file might be huge. For this, you may
         specify that the maximum dimension of images should be say maximum 800
         pixels in each direction.</para>
     </sect1>
@@ -76,10 +75,10 @@
     
 <sect1 id="chp-importDialog">
   <title>Import Dialog</title>
-<para>When you select a <literal>.kim</literal> file from a web
+<para>When you select a <literal role="extension">.kim</literal> file from a web
     browser, or choose
-"<guimenu>File</guimenu>|<guimenuitem>Import...</guimenuitem>", KimDaBa
-will import the database exported with the functionality described in <xref
+<menuchoice><guimenu>File</guimenu><guimenuitem>Import...</guimenuitem></menuchoice>, 
+&kimdaba; will import the database exported with the functionality described in <xref
 linkend="chp-importExport"/>.</para>
 
 <para>The import wizard consist of four steps. First you must specify which
@@ -87,7 +86,7 @@ images you want to import. Next you must specify in which directory to put
 the imported images.</para>
 
 <para>Chances are that you call the persons category
-<emphasis>personen</emphasis> (if you are german), while I in Danish might
+<emphasis>personen</emphasis> (if you are German), while I in Danish might
 call this category <emphasis>personer</emphasis>. In the third step of the
 import dialog, you must specify which category from the import file to
 import, plus which categories in your database they match.</para>
@@ -110,7 +109,7 @@ up matching for each of the imported categories. This can be see in <xref linken
 perfect match in the database. The other three names was not found in the
 database, though both Jesper and Anne Helene was found matching as
 substring, so these are suggested. Finally in my database I didn't have
-Spiff (or I might have named it quite differently), so KimDaBa simply
+Spiff (or I might have named it quite differently), so &kimdaba; simply
 suggest Spiff for the import name.</para>
 
 </sect1>

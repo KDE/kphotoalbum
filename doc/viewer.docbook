@@ -1,8 +1,8 @@
 <chapter id="chp-viewer">
   <title>The Viewer</title>
-  <para>The reason for you to put all your images into KimDaba, and
+  <para>The reason for you to put all your images into &kimdaba;, and
 spending hours after hours describing them, is of course that you at some
-point want to look at them. For that purpose kimdaba has an image view,
+point want to look at them. For that purpose &kimdaba; has an image view,
 which you can get to from the thumbnail overview, as described in <xref
       linkend="chp-thumbnail-view"/>.</para>
   
@@ -46,31 +46,31 @@ as it would have done if you selected <literal>Persons</literal> from the
 root of the browser, and next selected <literal>Anne
 Helene</literal>.</para>
   
-<para>In the info box you can see a small button with the KimDaBa
+<para>In the info box you can see a small button with the &kimdaba;
 logo. Pressing that button will get you to the thumbnail viewer. The
 thumbnail view will display all images, and the image you just had in the
-viewer will be selected. The idea behind this is the following: You browse
+viewer will be selected. The idea behind this is the following: you browse
 to a given person, and look at the images of that
 person. One of the images is from say your high school time, and now you
-want to see images from that period of time. Using the <emphasis>Jump to
-Context</emphasis> button, you are brought to the thumbnail view showing
+want to see images from that period of time. Using the <guilabel>Jump to
+Context</guilabel> button, you are brought to the thumbnail view showing
 all images, with the current one being in focus, and likely all your high
 school pictures around it.</para>
 
   <para>In case you have loaded several images into the viewer, you can go
-forth and back using <literal>Page Up</literal> and <literal>Page
-Down</literal>. You can go to the first and last images
-using <literal>home</literal> and <literal>end</literal>. These functions
+forth and back using <keycap>Page Up</keycap> and <keycap>Page
+Down</keycap>. You can go to the first and last images
+using <keycap>Home</keycap> and <keycap>End</keycap>. These functions
 are of course also available from the context menu.</para>
   
   <para>If several images was loaded into the viewer, you can ask it to run
-them as a slide show, which means that KimDaBa loads a new image every few
+them as a slide show, which means that &kimdaba; loads a new image every few
 second. How often it loads a new image is configure by pressing the control
 key and respective plus (for go faster) or minus
 (go slower). Starting and stopping the slide show is
-done simply by pressing <literal>control+s</literal>.</para>
+done simply by pressing <keycombo>&Ctrl;<keycap>S</keycap></keycombo>.</para>
   
-  <para>A very useful feature of the KimDaBa viewer is it ability to go into
+  <para>A very useful feature of the &kimdaba; viewer is it ability to go into
 full screen mode. In this mode, the viewer is using the complete screen
 space, simply press the return key to make it go into and out of full screen
 mode.</para>
@@ -106,9 +106,8 @@ image is shown unzoomed.
     
   <para>Choosing the rotate operations from the context menu, you may
 rotate the image. You can set properties for
-the current image, simply by choosing <literal>Edit Image Properties</literal> in the
-context menu.
-</para>
+the current image, simply by choosing <guimenuitem>Edit Image 
+Properties</guimenuitem> in the context menu.</para>
 
 
 
@@ -119,19 +118,18 @@ context menu.
 <para>When viewing the images you may find that a given image contains a person
 whose name you forgot to set on the images. At this time you may cancel
 your viewing, and rush to the image config dialog to specify the
-person. Often, however, you may wish to just tag the image and continue on
+person. However, you may prefer to just tag the image and continue on
 viewing images.</para>
 
-<para>An alternative situation is this: You want to sent a number of images
-to a printer to get them developed on paper. To see which you want to get
-developed, you start the viewer on the images, and now you want to tag the
-images as good or bad while you see each image.</para>
+<para>An alternative situation is if you want to sent a number of images
+to a printer to get them developed on paper. To see which you want, you 
+start the viewer on the images, and tag them as good or bad while by 
+inspecting see each one.</para>
 
 <para>For the above two examples the viewer offers you to set tokens on the
 images when viewing them. Tokens are named from A to Z, and you set a token
-simply by pressing the letter of the token. In <xref
-linkend="fig-images-with-tokens"/> you may see an image where the token A,
-B and C are set.</para>
+simply by pressing its letter. In <xref linkend="fig-images-with-tokens"/> 
+you may see an image where the tokens A, B and C are set.</para>
 
   <figure id="fig-images-with-tokens">
     <title>An Image with Tokens</title>
@@ -143,13 +141,13 @@ B and C are set.</para>
     </mediaobject>
   </figure>
 
-<para>Once you've set tokens on your images, the tokens will be available for
+<para>Once you've set tokens on your images, they will be available for
 regular browsing in the browser, as can be seen in <xref
 linkend="fig-tokens-in-browser"/>. So when you've marked images that
 needs to be edited, printed, or whatever, simply browse to the images, and
 set image properties on all images at a time (as described in <xref
 linkend="sect-specifying-properties-for-all-images-simultaneously"/>), use
-a plugin to copy the selected images to a cd, or whatever you need to do.</para>
+a plugin to copy the selected images to a CD, or whatever you need to do.</para>
 
   <figure id="fig-tokens-in-browser">
     <title>Tokens seen in the Browser</title>
@@ -171,16 +169,16 @@ a plugin to copy the selected images to a cd, or whatever you need to do.</para>
   <sect1 id="drawing-on-images">
     <title>Drawing on Images</title>
     <para>Sometimes it might not be obvious what you want to show with a
-given image, for that purpose KimDaBa allows you to draw on the
+given image, for that purpose &kimdaba; allows you to draw on the
 images. Currently the drawing operations are pretty limited, but future
-version of KimDaBa is expected to have a larger set available.</para>
+version of &kimdaba; is expected to have a larger set available.</para>
 
 <para>The actual drawing is not saved to the image, but rather to the
 database, that way you can undo your drawing at a later point.</para>
 
 <para>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
-on. To bring KimDaBa in to drawing mode, select <literal>Draw on
-Image</literal> from the context menu. To quit drawing, press the cross in
+on. To bring &kimdaba; in to drawing mode, select <guimenuitem>Draw on
+Image</guimenuitem> from the context menu. To quit drawing, press the cross in
 the toolbar at the top of the window.</para> 
 
 <figure id="fig-draw-on-image">

@@ -1,7 +1,7 @@
 <chapter id="chp-typingIn">
   <title>Typing in information about your images</title>
   <para>In figure <xref linkend="fig-empty-browser-window"/> you can see
-an example of the window that will greet you once you have started KimDaBa
+an example of the window that will greet you once you have started &kimdaba;
 with your own images.</para>
   
   <para>At the top of the screen you will find a menu and toolbar, as you
@@ -9,11 +9,11 @@ know from any KDE application. Below the toolbar you see the browser
 window. Currently this is not containing much information, as you have not
 yet specified any information about your images. In <xref
       linkend="chp-browsing"/> we will get back to the browser, but for
-now, simply press the <literal>View Images</literal> item, which will show
+now, simply press the <guibutton>View Images</guibutton> item, which will show
 you an overview of all your images.</para>
   
   <figure id="fig-empty-browser-window">
-    <title>Starting KimDaBa with your own images</title>
+    <title>Starting &kimdaba; with your own images</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="empty-browser-window.png"
@@ -24,7 +24,7 @@ you an overview of all your images.</para>
   
   <sect1 id="sect-specifying-properties-for-images">
     <title>Specifying properties for images</title>
-    <para>The key feature of KimDaBa is that you can specify properties
+    <para>The key feature of &kimdaba; is that you can specify properties
 for images. This includes who is on a given image, where is it taken,
 etc. You can do this either an image at a time, or you can set 
 properties for a number of images simultaneously (For example, all these
@@ -32,7 +32,8 @@ images contain the person <emphasis>Jesper</emphasis>, and is taken in
 <emphasis>Copenhagen</emphasis>.)</para>
 
     <para>To set properties for images, select the images in question,
-and go to <guimenu>Edit</guimenu>|<guisubmenu>Properties</guisubmenu>, here
+and go to <menuchoice><guimenu>Edit</guimenu>
+<guisubmenu>Properties</guisubmenu></menuchoice>, here
 you will find two items, namely <guimenuitem>One at a time</guimenuitem>,
 and <guimenuitem>All simultaneously</guimenuitem>. Choosing
 <guimenuitem>One at a time</guimenuitem>, you get to set properties for
@@ -40,7 +41,7 @@ each of the selected images, one at a time, while choosing <guimenuitem>All
 simultaneously</guimenuitem>, you set properties for all selected
 images. These two options are also available from a context menu, that you
 get by right clicking the mouse in the thumbnail overview. An example of
-this can be seen in <xref linkend="fig-edit-properies-menu"/>. </para> 
+this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para> 
     
     <figure id="fig-edit-properies-menu">
       <title>Context menu for editing properties</title>
@@ -59,7 +60,7 @@ the date of the image, the label of the image <footnote><para>The label is
           browser, and when the images are exported to HTML
           pages</para></footnote>, a description for the image, and most important
 different <emphasis>categories</emphasis> for the image. In the screen dump, these categories are
-<literal>Persons</literal>, <literal>Loctions</literal>, and
+<literal>Persons</literal>, <literal>Locations</literal>, and
 <literal>Keywords</literal>, but as you will see in <xref
         linkend="sec-specifying-categories"/>, these three predefined
 categories may be changed to your preferences. 
@@ -86,14 +87,14 @@ they will also be shown when you later view the images.</para>
       <title>Categories</title>
       <para>In <xref linkend="fig-image-config-window"/> there are three
 list boxes combined with a line edits for specifying persons, locations and
-keywords. These widget are a very important part of KimDaBa,
+keywords. These widget are a very important part of &kimdaba;,
 as you will use them over and over again, when specifying information about
 your images.</para>
       
       <para> You can specify a property from a list box, simply by
 selecting it (Select say <literal>Donna</literal> to specify that Donna is
 on the given image. Alternatively you may type its name in the line edit.
-When you start typing a name in the line edit, KimDaBa will look into the listbox,
+When you start typing a name in the line edit, &kimdaba; will look into the listbox,
 and search for the first item matching what you've typed so far, and fill
 it out. Thus typing <literal>Do</literal> might be enough to find
 <literal>Donna</literal>. Once you have found the item you search for,
@@ -132,9 +133,9 @@ selected images</emphasis>.</para>
 each of the items. If you specify a date or description, then that value
 will be set unconditionally. For categories it is a bit different. In this
 situation you will find that there is a check box under the list box
-labeled <literal>merge</literal>. When this list box is selected, the
+labeled <guilabel>Merge</guilabel>. When this list box is selected, the
 values you specify will be merged with the existing values for the option
-in question. If on the other hand you uncheck the <literal>merge</literal>
+in question. If on the other hand you uncheck the <guilabel>Merge</guilabel>
 check box, then the option will be set unconditionally.</para>
     </sect2>
   </sect1>
@@ -148,7 +149,7 @@ California.</para>
 
 <para>Instead of specifying for each and every image from San Francisco,
 that it is in San Francisco, and in California, and in USA, you may instead
-tell KimDaBa that San Francisco, and Los Angeles are in California, and that California among
+tell &kimdaba; that San Francisco, and Los Angeles are in California, and that California among
 others are in USA. Doing so the browser (see <xref
 linkend="chp-browsing"/>) will offer you an item for USA, and an item for
 California in addition to all your normal items. Selecting California, you
@@ -197,11 +198,11 @@ see <xref linkend="sec-member-groups-in-options-dialog"/>.</para>
   <sect1 id="sect-changing-layout-of-the-property-window">
     <title>Changing layout of the property window</title>
     <para>It is possible to move the items of the property window
-around, simply from the bar at the top of the frames, and move them arroud
+around, simply from the bar at the top of the frames, and move them around
 - you can even make a frame into a top level window on its own.</para>
     
     <para>Once you have found a layout that matches your screen layout,
-your usage of KimDaBa, etc, simply press the <literal>Options...</literal>
+your usage of &kimdaba;, etc, simply press the <guibutton>Options...</guibutton>
 button, that will display a popup menu from which you can save the current
 window layout.</para>
     
@@ -209,8 +210,8 @@ window layout.</para>
 your digital camera save images in a way, so the date of the image is
 preserved in the file date, then you may not need the frame with file
 dates. If you later want to include that frame in your layout, then choose
-the <literal>Options...</literal> button, and from there the
-<literal>Show/Hide windows</literal> item. This can be see in <xref
+the <guibutton>Options...</guibutton> button, and from there the
+<guimenuitem>Show/Hide windows</guimenuitem> item. This can be see in <xref
         linkend="fig-redisplay-frames"/>.</para>
   
 

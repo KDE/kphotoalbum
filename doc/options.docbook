@@ -1,7 +1,8 @@
 <chapter id="chp-options">
-  <title>Configuring KimDaBa</title>
+  <title>Configuring &kimdaba;</title>
   <para>Selecting
-<guimenu>Settings</guimenu>|<guimenuitem>Configure KimDaBa..</guimenuitem> from the menu
+<menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure 
+KimDaBa...</guimenuitem></menuchoice> from the menu
 bar will bring up the options dialog. This chapter will tell you about the
 configuration option available there.</para>
 
@@ -92,7 +93,7 @@ right side you see a list box with the members of that member group.</para>
 </mediaobject>
 </figure>
 
-<para>To add a new group, simply press the <literal>Add Group</literal>
+<para>To add a new group, simply press the <guibutton>Add Group</guibutton>
 button at the bottom of the dialog.</para>
 
 <para>As in the example above, member groups may contain member groups

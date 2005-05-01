@@ -1,6 +1,6 @@
 <chapter id="chp-browsing">
   <title>Browsing</title>
-  <para>Once you have    specified properties for your images, KimDaBa is ready to let you
+  <para>Once you have    specified properties for your images, &kimdaba; is ready to let you
     browse through your images, see <xref
       linkend="fig-browser-with-images"/>. If you compare that to <xref
       linkend="fig-empty-browser-window"/> , you will see that there now is
@@ -48,7 +48,7 @@ in <xref linkend="fig-browser-for-persons"/>.</para>
     we selected. That means that we only shows information about images
     containing that person. See <xref linkend="fig-browser-for-jesper"/>
     below, which is the result of us selecting the Person <literal>Jesper</literal>, you can see an
-    indication of that in the buttom of the window. Please compare <xref
+    indication of that in the bottom of the window. Please compare <xref
       linkend="fig-browser-with-images"/> with <xref
       linkend="fig-browser-for-jesper"/>, where you will see that the number
     of available images has gone down from 24 to 10, and the amount of
@@ -70,7 +70,7 @@ set of images that you have in mind down to a few images from a set of
 thousands.</para>
   
   <para>When you are done limiting the scope of images, you may select
-the <literal>View Images</literal> icon, to see exactly those images
+the <guilabel>View Images</guilabel> icon, to see exactly those images
 matching your current scope.</para>
 
 
@@ -83,7 +83,7 @@ matching your current scope.</para>
   <sect1 id="sect-adding-preview-images-to-the-browser">
   <title>Adding Preview Images to the Browser</title>
   <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
-that each person has the same icon in front of his name. KimDaBa is actual
+that each person has the same icon in front of his name. &kimdaba; is actual
 capable of showing a preview image for each individual person <footnote><para>This of
 course also applies to locations, keywords, and other categories you
 have defined yourself.</para></footnote> as can be seen in  <xref
@@ -139,7 +139,7 @@ the image, and that way crop what part should be shown.</para>
   
   <sect1 id="sect-general-image-searches">
     <title>General image searches</title>
-    <para>If you chose the <literal>Search</literal> item in the
+    <para>If you chose the <guilabel>Search</guilabel> item in the
 browser, you will get to a dialog with great resemblance to the dialog you
 used for setting properties of your images. You can see this dialog in <xref
         linkend="fig-search"/> below.</para>

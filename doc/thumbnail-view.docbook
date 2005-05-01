@@ -1,15 +1,15 @@
 <chapter id="chp-thumbnail-view">
   <title>Thumbnail viewer</title>
-  <para>Selecting <literal>View Images</literal> in the browser, you get to
+  <para>Selecting <guilabel>View Images</guilabel> in the browser, you get to
 a thumbnail overview of the images currently in scope (or all images if no
 scope have been selected). An example of this can be seen in <xref
       linkend="fig-thumbnailview"/> below. The size of the thumbnails can be
-configure from the <guimenu>Settings</guimenu>|<guimenuitem>Configure
-KimDaBa</guimenuitem> menu as
+configure from the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
+KimDaBa</guimenuitem></menuchoice> menu as
 described in <xref linkend="chp-options"/>.</para>
 
   <figure id="fig-thumbnailview">
-    <title>Thumnail View</title>
+    <title>Thumbnail View</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="thumbnailview.png" format="PNG"/>
@@ -21,8 +21,8 @@ described in <xref linkend="chp-options"/>.</para>
 them around with the mouse, or cut and paste them using the keyboard. For
 the date bar to work properly you should, however, aim at keeping your
 images sorted at all time. Sorting you images can be done by selecting all
-images, and choosing <guimenu>Images</guimenu>|<guimenu>Sort Selected by
-Date &amp; Time</guimenu>. The sorting will not reorder images which has
+images, and choosing <menuchoice><guimenu>Images</guimenu><guimenuitem>Sort Selected by
+Date &amp; Time</guimenuitem></menuchoice>. The sorting will not reorder images which has
 the same date and time, so if you have say 100 images from 1992, you can
 move them around, and their individual order will stay unchanged after a sort.</para>
 
@@ -32,16 +32,17 @@ the image as the background image of your desktop.</para>
   <para>By clicking on an image you load it into the viewer, if no viewer
 window is present, a viewer window will be created.</para>
 
-  <para>If you select a number of images, and presses <literal>control+i</literal>
-or chooses "<guimenu>Images</guimenu>|<guimenuitem>View Selected</guimenuitem>",
-the images will be loaded into the existing viewer (if no viewer exists,
-one will be created). Alternatively you may choose "<guimenu>Images</guimenu>|<guimenuitem>View Selected (in new
-window)</guimenuitem>" to get the images loaded into a new viewer. If you
-press <literal>control+r</literal> or choose
-"<guimenu>Images</guimenu>|<guimenuitem>Run Slide Show</guimenuitem>" the
-selected images will be loaded into the viewer and a slide show will
-start. Finally choosing "<guimenu>Images</guimenu>|<guimenuitem>Run
-Randomized Slide Show</guimenuitem>" will show a slide show of the images
+  <para>If you select a number of images, and presses <keycombo>&Ctrl;<keycap>I</keycap></keycombo>
+or chooses <menuchoice><guimenu>Images</guimenu><guimenuitem>View 
+Selected</guimenuitem></menuchoice>, the images will be loaded into the 
+existing viewer (if no viewer exists, one will be created). Alternatively you 
+may choose <menuchoice><guimenu>Images</guimenu><guimenuitem>View 
+(in new window)</guimenuitem></menuchoice> to get the images loaded into a 
+new viewer. If you press <keycombo>&Ctrl;<keycap>R</keycap></keycombo> or choose
+<menuchoice><guimenu>Images</guimenu><guimenuitem>Run Slide 
+Show</guimenuitem></menuchoice> the selected images will be loaded into the viewer and a slide show will
+start. Finally choosing <menuchoice><guimenu>Images</guimenu><guimenuitem>Run
+Randomized Slide Show</guimenuitem></menuchoice> will show a slide show of the images
 selected in random order.</para>
 
 
@@ -49,9 +50,9 @@ selected in random order.</para>
   <title>Deleting Images</title>
   <para>From the thumbnail view it is also possible to delete images. To
   do so select the images you want to delete and press the delete key or
-  select <guimenu>Edit</guimenu>|<guimenuitem>Delete Selected</guimenuitem>
-  from the menu bar. Doing so KimDaBa will show you the dialog in <xref
-  linkend="fig-delete-images"/></para>
+  select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete 
+  Selected</guimenuitem></menuchoice> from the menu bar. Doing so &kimdaba; 
+  will show you the dialog in <xref linkend="fig-delete-images"/></para>
 
 <figure id="fig-delete-images">
 <title>Deleting Images</title>
@@ -62,13 +63,13 @@ selected in random order.</para>
 </mediaobject>
 </figure>
 
-  <para>There are two ways of deleting an image in KimDaBa, namely either
+  <para>There are two ways of deleting an image in &kimdaba;, namely either
 delete it from the disk, which means that it will be permanently gone, or
-tell KimDaBa not to include it. In the later situation, KimDaBa will never
+tell &kimdaba; not to include it. In the later situation, &kimdaba; will never
 again show the image, but it will keep it on disk. This is useful if
 there for example is <emphasis>thumbnail images</emphasis> stored among
 your images. This thumbnail image would contain an overview of all the
-other images, and would thus be useless in KimDaBa, but for other
+other images, and would thus be useless in &kimdaba;, but for other
 application, say a web browser, it might be needed.</para>
 </sect1>
 
@@ -79,19 +80,19 @@ application, say a web browser, it might be needed.</para>
 disks getting bigger. If you have a large number of images, you might find
 yourself in the middle of that battle, not having enough hard disk space to
 store all your images. In that situation you might choose to put some of
-the images on cd's. An alternative scenario might be that you are going on a
+the images on CD's. An alternative scenario might be that you are going on a
 business trip, and want to bring your images with you, but do not have the
-20Gb disk space requires for that purpose.</para>
+20GB disk space requires for that purpose.</para>
 
-<para>KimDaBa offers a solution to that problem, namely that it allows you
+<para>&kimdaba; offers a solution to that problem, namely that it allows you
 to use it, without having the images available on disk. You do of course
-need to have them available at some point in time for KimDaBa to realize
+need to have them available at some point in time for &kimdaba; to realize
 that there are new images for it to index. <xref
-linkend="fig-offline-mode"/> shows KimDaBa when it is not capable of
+linkend="fig-offline-mode"/> shows &kimdaba; when it is not capable of
 finding all needed images on the disk.</para>
 
 <figure id="fig-offline-mode">
-<title>KimDaBa in Offline Mode</title>
+<title>&kimdaba; in Offline Mode</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="offline-mode.png" format="PNG"/>
@@ -101,35 +102,35 @@ finding all needed images on the disk.</para>
 
 <para>Images which has the corner cut of (that is image 1-9) are not
 available on disk. Thumb nails are, however, available for images 5-9,
-therefore KimDaBa can show you the thumbnails for these images. You can,
+therefore &kimdaba; can show you the thumbnails for these images. You can,
 however, still not display these images in the viewer.</para>
 
 <para>As you can see, this feature requires you to copy files in and out of
-your directories, KimDaBa do currently not have any support for asking you to
-insert the cd you labeled blah blah. Thus please forget about this feature
+your directories, &kimdaba; do currently not have any support for asking you to
+insert the CD you labeled blah blah. Thus please forget about this feature
 if you are the kind of person who do not like messing with files etc, and
 instead simply ensure to buy hard disks that is large enough to always
 store all your images.</para>
 
 <para>For the rest of you, here comes the setup that I - the author of
-KimDaBa - uses myself, merely as inspiration.</para>
+&kimdaba; - uses myself, merely as inspiration.</para>
 
 <para>I store all images in subdirectories called cd1, cd2, etc. (Where each
-toplevel directory correspond to a cd with the images, for backup
+top-level directory correspond to a CD with the images, for backup
 purposes). When I go abroad and bring my laptop, I copy the images I want
 to the laptop, and for the remaining I create the directory structure which
 exists under each top level directory (e.g. cd1/holiday2003,
 cd1/birthday-party etc). In these directory structures I copy in all the
-<literal>ThumbNails</literal> directories, and for the actual images, I
-create symlinks to the cd drive. That way I can simply mount a given cd to
+<emphasis>thumbnail</emphasis> directories, and for the actual images, I
+create symlinks to the CD drive. That way I can simply mount a given CD to
 view its images, and at any time I can see the thumbnails for any
 image.</para>
 
-<para>The cd a given image is store on is specified as a keyword for the
-image, that way I can easily figure out which cd to mount.</para>
+<para>The CD a given image is store on is specified as a keyword for the
+image, that way I can easily figure out which CD to mount.</para>
 
 <para>Currently I have
-to restart KimDaBa to get it to recognize that the availability of images
+to restart &kimdaba; to get it to recognize that the availability of images
 has changed. If you use this feature, please let me know at
 blackie@kde.org, and I'll consider polishing it a bit more.</para>
 
@@ -140,15 +141,15 @@ blackie@kde.org, and I'll consider polishing it a bit more.</para>
 <sect1 id="sect-privacy">
 <title>Privacy</title>
 <para>Some time ago my girlfriend and I brought my laptop with us on a visit to my parents in
-law, to show them the images from our most recent holiday. KimDaBa turned
+law, to show them the images from our most recent holiday. &kimdaba; turned
 out to be a great success, and it didn't last long before my girlfriends
 little sister seized the laptop and started browsing around on her
 own. Unfortunately it didn't take her long either to get to some, let say
 unfortunate, images of me from my youth, and they all had quite a bit of
-laugh on me. That episode inspired me to add a new feature to KimDaBa,
+laugh on me. That episode inspired me to add a new feature to &kimdaba;,
 namely privacy locking.</para>
 
-<para>In the <guimenu>Images</guimenu> menu you will find a sub menu call
+<para>In the <guimenu>Images</guimenu> menu you will find a sub menu called
 <guimenuitem>privacy</guimenuitem>. To get some privacy, browse - while you
 are on your own - to the images that you want to keep private, and
 select <guimenuitem>Lock Away Current Set of Images</guimenuitem> from the
@@ -168,9 +169,9 @@ database. In the <guimenuitem>privacy</guimenuitem> menu, simply select
 
 <para>Don't get fooled to believe that this will help you hide away images
 for good. First the images are still on the disk, second, anyone with
-access to the <literal>index.xml</literal> file that KimDaBa uses can read
+access to the <filename>index.xml</filename> file that &kimdaba; uses can read
 the password in clear text and optionally delete it. This feature is only
-meant as a protection against someone sitting with KimDaBa unintentionally
+meant as a protection against someone sitting with &kimdaba; unintentionally
 getting to your private images.</para>
 
 </sect1>

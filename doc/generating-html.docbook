@@ -1,42 +1,43 @@
   <chapter id="chp-generating-html">
     <title>Generating HTML</title>
-    <para>KimDaBa offers two possibilities for generating HTML from your
-      image database. One is the implementation build into KimDaBa, the other is
+    <para>&kimdaba; offers two possibilities for generating HTML from your
+      image database. One is the implementation build into &kimdaba;, the other is
       available as an plugin (see <xref linkend="chp-plugins"/>). This section
       will describe the build in version, which you may find in the menubar
-      <guimenu>File</guimenu>|<guimenuitem>Generate HTML</guimenuitem></para>
+      <menuchoice><guimenu>File</guimenu><guimenuitem>Generate 
+      HTML</guimenuitem></menuchoice></para>
     
     <para>Before HTML pages are generated, you need to specify a bit of
       information, split over the three pages
-      <literal>Content</literal>, <literal>Layout</literal> and
-      <literal>Destination</literal>. The following section describes each
+      <guilabel>Content</guilabel>, <guilabel>Layout</guilabel> and
+      <guilabel>Destination</guilabel>. The following section describes each
       page in detail.</para>
 
     <sect1 id="the_content_page">
-      <title>The <literal>Content</literal> page</title>
+      <title>The <guilabel>Content</guilabel> page</title>
       <para>In the content page you specify which information should be
         generated to the HTML pages.</para>
 
       <para>First you specify the title of the overview pages, plus a
         description generated on these pages. See <ulink
-          url="http://ktown.kde.org/kimdaba/rounded-theme/index.html">KimDaBa example HTML pages</ulink> 
+          url="http://ktown.kde.org/kimdaba/rounded-theme/index.html">&kimdaba; example HTML pages</ulink> 
         to see an example of this.</para>
 
-      <para>Next you specify whether a KimDaBa export file should be
+      <para>Next you specify whether a &kimdaba; export file should be
         generated, and put on the overview page. See <xref
           linkend="chp-importExport"/> for details on export files.</para>
 
       <para>Finally you may specify which information should be generated
         on the HTML pages. This way you may skip generating information
         which might be obvious to the reader of the pages (say these images
-        was from the party we all attended). Notice, KimDaBa does currently not
+        was from the party we all attended). Notice, &kimdaba; does currently not
         allow you to exclude certain categories from the export file, so
         don't rely on this as a way of excluding information you do not
         want readers of your pages to see.</para>
     </sect1>
 
     <sect1 id="the_layout_page">
-      <title>The <literal>Layout</literal> page</title>
+      <title>The <guilabel>Layout</guilabel> page</title>
       <para>On the layout page you specify what your HTML pages should look
         like. Most of the options on this page are straight forward, and do
         not need further description here.</para>
@@ -54,7 +55,7 @@
     </sect1>
 
     <sect1 id="the_destination_page">
-      <title>The <literal>Destination</literal> page</title>
+      <title>The <guilabel>Destination</guilabel> page</title>
       <para>On the destination page you specify several directories and
         URL's specifying where your pages goes.</para>
 
@@ -66,7 +67,7 @@
         images. This directory will be remembered from session to session,
         and allows you to once and for all tell where all subsequent images
         should go. Here you may specify a directory, or any <ulink
-          url="help:/kioslave/index.html">protocal</ulink> supported by
+          url="help:/kioslave/index.html">protocol</ulink> supported by
         KDE. Examples includes:
         
         <itemizedlist>
@@ -78,14 +79,14 @@
       
       <para>Once you are done generating your images, you may want to check
         whether they are really available to your audience. If you specify a
-        URL in the <literal>Base Url</literal> line edit, a web browser will
+        URL in the <guilabel>Base URL</guilabel> line edit, a web browser will
         be spawned once HTML pages has been generated. The URL you specify
         here should match the directory you specified above. Thus the web
         browser will be started on the subdirectories of this URL.</para>
       
       <para>Once you have generated HTML pages, your pages may still not be
         in their final destination, you may still need special upload
-        procedures out of the control of KimDaBa. For
+        procedures out of the control of &kimdaba;. For
         the Import feature (see <xref linkend="chp-importExport"/>) to
         work, you need to specify the final destination of the pages. Again
         this does not include the subdirectory of the current
@@ -93,8 +94,8 @@
 
       <para>The three line edits described above are all base
         directories and base URL's. At these locations a new subdirectory will be
-        created named with the name you specify in <literal>Output
-          Directory</literal>.</para>
+        created named with the name you specify in <guilabel>Output
+          Directory</guilabel>.</para>
     </sect1>
 
 </chapter>

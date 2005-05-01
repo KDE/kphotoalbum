@@ -1,52 +1,55 @@
 <chapter id="chp-plugins">
   <title>Plugins</title>
-  <para>KimDaBa shares a plugin system with a number of other image
-applications, among these Digikam and Gwenview. The plugin system is named
-<literal>KIPI</literal>, which is short for KDE Image Plugin
-Interface. See <ulink url="http://extragear.kde.org/apps/kipi.php">KIPI Homepage</ulink></para>
+  <para>&kimdaba; shares a plugin system with a number of other image
+applications, among these <application>digiKam</application> and 
+<application>Gwenview</application>. The plugin system is named
+<application>Kipi</application>, which is short for &kde; Image Plugin
+Interface. See <ulink url="http://extragear.kde.org/apps/kipi.php">Kipi Homepage</ulink></para>
 
 <para>The plugins are available from the menu bar, under the item
-<literal>Plugins</literal>. The plugins will and can not be described in
-this manual, as the plugins are not part of KimDaBa, but shipped
+<guimenu>Plugins</guimenu>. The plugins will and can not be described in
+this manual, as the plugins are not part of &kimdaba;, but shipped
 separately. Most plugins do, however have a help page available from the
 plugin itself.</para>
 
-<para><emphasis>Warning: As the plugins are shared between a
+<warning><para>As the plugins are shared between a
 number of applications, certain plugins might be very little tested with
-KimDaBa, you should therefore always try out new plugins with the demo
+&kimdaba;, you should therefore always try out new plugins with the demo
 database before you try them on
-your own images<footnote><para>You start KimDaBa with the demo setup either from the shell by executing <literal>kimdaba
--demo</literal>, or from the Help menu.</para></footnote> (Don't say I didn't warn you!).</emphasis></para>
+your own images<footnote><para>You start &kimdaba; with the demo setup either 
+from the shell by executing <userinput><command>kimdaba</command> 
+<option>-demo</option></userinput>, or from the <guimenu>Help</guimenu> menu.</para></footnote> 
+(Don't say I didn't warn you!).</para></warning>
 
 <para>The applications using KIPI are very different from each other, this means that some
-plugins are not always working the KimDaBa way, but after all, this is the
+plugins are not always working the &kimdaba; way, but after all, this is the
 price for sharing the functionality between the applications.</para>
 
-<para>The most important difference between KimDaBa and the other
+<para>The most important difference between &kimdaba; and the other
 applications using KIPI, is that the other applications order the images in
-albums, where an album simply is a directory. KimDaBa do not have this
-concept; nevertheless, for certain plugins to function, KimDaBa behaves
+albums, where an album simply is a directory. &kimdaba; do not have this
+concept; nevertheless, for certain plugins to function, &kimdaba; behaves
 towards the plugin system as if it did.</para>
 
-<para>KimDaBa does this by defining <emphasis>the current album</emphasis>
+<para>&kimdaba; does this by defining <emphasis>the current album</emphasis>
 to be the current view - that is, all the images the browser currently offers to display.</para>
 
-<para>In addition to the current album, KimDaBa must also be able to give a list of all albums; 
-KimDaBa defines this list in the following way:</para>
+<para>In addition to the current album, &kimdaba; must also be able to give a list of all albums; 
+&kimdaba; defines this list in the following way:</para>
 
 <itemizedlist>
-  <listitem><para>When KimDaBa's browser displays the content of a
+  <listitem><para>When &kimdaba;'s browser displays the content of a
     category, say all Persons, then each item in this category will look like
     an album to the plugin.</para></listitem> 
   <listitem><para>Otherwise, the
-    category you specify for <literal>Category for virtual albums</literal>
+    category you specify for <guilabel>Category for virtual albums</guilabel>
 in the options dialog, will be used; e.g. if you specify
-    Persons with this option, then KimDaBa will act as if you had just chosen
+    Persons with this option, then &kimdaba; will act as if you had just chosen
     to display persons and then invoke the plugin which needs to know about
     all albums.</para></listitem>
 </itemizedlist>
 
-<para>Some plugins might be redundant to features implemented in KimDaBa,
+<para>Some plugins might be redundant to features implemented in &kimdaba;,
 and in that case you may not want to see them at all in the Plugin
 menu. For that, you may go to the options dialog, and specify which plugins
 should be shown at all.</para>

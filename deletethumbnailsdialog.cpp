@@ -16,6 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <kdeversion.h>
 #include "deletethumbnailsdialog.h"
 #include <klocale.h>
 #include <qlayout.h>
@@ -38,7 +39,12 @@ DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* nam
     edit->setReadOnly( true );
     layout->addWidget( edit );
 
+#if !KDE_IS_VERSION( 3,3,0 )
+    setButtonText( User1, i18n("&Delete") );
+#else
     setButtonGuiItem( User1, KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
+#endif
+
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotDeleteFiles() ) );
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( accept() ) );
     resize( 600, 600 );

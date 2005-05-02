@@ -62,12 +62,10 @@ int main( int argc, char** argv ) {
     KImageIO::registerFormats();
     MainView* view = new MainView( 0, "view" );
 
-    qApp->setMainWidget( view );
+    // qApp->setMainWidget( view );
     view->resize( Options::instance()->windowSize( Options::MainWindow ) );
 
     int code = app.exec();
 
-    // I need this to ensure that I don't get a crash on exit from the kate part.
-    delete view;
     return code;
 }

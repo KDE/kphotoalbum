@@ -49,6 +49,7 @@ public:
 
 signals:
     void changed();
+    void deleteMe();
 
 protected slots:
     void slotRevert();
@@ -67,6 +68,7 @@ protected slots:
     void rotate( int angle );
     void slotAddTimeInfo();
     void slotDeleteImage();
+    void slotRecetLayout();
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };
@@ -85,7 +87,6 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     virtual void moveEvent ( QMoveEvent * );
     void setupFocus();
-    void setupWindow();
 
 private:
     ImageInfoList _origList;

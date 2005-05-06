@@ -53,3 +53,5 @@ messages: rc.cpp
 	$(PREPARETIPS) > tips.cc
 	$(XGETTEXT) *.cpp *.h *.cc -o $(podir)/kimdaba.pot
 	rm -f tips.cc 
+
+kde_conf_DATA = kimdabarc

@@ -51,7 +51,7 @@ public:
     static Options* instance();
     static bool ready();
     static void setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory );
-    // General
+    // -------------------------------------------------- General
     boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
     boolProperty( General, useEXIFComments, setUseEXIFComments, true );
     boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
@@ -60,7 +60,7 @@ public:
     QSize histogramSize() const;
     void setHistogramSize( const QSize& size );
 
-    // Thumbnails
+    // -------------------------------------------------- Thumbnails
     intProperty( Thumbnails, thumbSize, setThumbSize, 128 );
     intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
     intProperty( Thumbnails, rowSpacing, setRowSpacing, 10 );
@@ -69,7 +69,7 @@ public:
     boolProperty( Thumbnails, alignColumns, setAlignColumns, true );
     colorProperty( Thumbnails, thumbNailBackgroundColor, setThumbNailBackgroundColor, Qt::black );
 
-    // Viewer
+    // -------------------------------------------------- Viewer
     sizeProperty( Viewer, viewerSize, setViewerSize, QSize( 800,600 ) );
     sizeProperty( Viewer, slideShowSize, setSlideShowSize, QSize( 800, 600 ) );
     boolProperty( Viewer, launchViewerFullScreen, setLaunchViewerFullScreen, false );
@@ -88,7 +88,15 @@ public:
     void setViewSortType( ViewSortType );
     ViewSortType viewSortType() const;
 
-    // Miscellaneous
+    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
+    bool showOption( const QString& ) const;
+    void setShowOption( const QString& category, bool b );
+
+    Position infoBoxPosition() const;
+    void setInfoBoxPosition( Position pos );
+
+
+    // -------------------------------------------------- Miscellaneous
     void setFromDate( const QDate& );
     QDate fromDate() const;
     void setToDate( const QDate& );
@@ -113,14 +121,6 @@ public:
     // -------------------------------------------------- Member Groups
     const MemberMap& memberMap();
     void setMemberMap( const MemberMap& );
-
-    // -------------------------------------------------- Options for the Viewer
-    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
-    bool showOption( const QString& ) const;
-    void setShowOption( const QString& category, bool b );
-
-    Position infoBoxPosition() const;
-    void setInfoBoxPosition( Position pos );
 
     // -------------------------------------------------- misc
     enum TimeStampTrust {

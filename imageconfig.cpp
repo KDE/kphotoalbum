@@ -55,6 +55,8 @@
 #include <qobjectlist.h>
 #include "categorycollection.h"
 #include "imageinfo.h"
+#include "imageconfig.moc"
+#include <kconfig.h>
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -68,9 +70,8 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- Label and Date
     // If I make the dateDock a child of 'this', then things seems to break.
     // The datedock isn't shown at all
-    KDockWidget* dateDock = _dockWindow->createDockWidget( QString::fromLatin1("Label and Dates"), QPixmap(), 0,
+    KDockWidget* dateDock = _dockWindow->createDockWidget( QString::fromLatin1("Label and Dates"), QPixmap(), _dockWindow,
                                                            i18n("Label and Dates") );
-    _dockWindow->setMainDockWidget( dateDock );
 
     _dockWidgets.append( dateDock );
     QWidget* top = new QWidget( dateDock );
@@ -122,7 +123,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     KDockWidget* previewDock
         = _dockWindow->createDockWidget( QString::fromLatin1("Image Preview"),
                                          locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ),
-                                         0, i18n("Image Preview") );
+                                         _dockWindow, i18n("Image Preview") );
     _dockWidgets.append( previewDock );
     QWidget* top2 = new QWidget( previewDock );
     QVBoxLayout* lay5 = new QVBoxLayout( top2, 6 );
@@ -166,28 +167,31 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     lay6->addStretch(1);
 
-    previewDock->manualDock( dateDock, KDockWidget::DockRight, 50 );
+    previewDock->manualDock( dateDock, KDockWidget::DockRight, 80  );
 
 
     // -------------------------------------------------- The editor
-    KDockWidget* descriptionDock = _dockWindow->createDockWidget( QString::fromLatin1("Description"), QPixmap(), this,
+    KDockWidget* descriptionDock = _dockWindow->createDockWidget( QString::fromLatin1("Description"), QPixmap(), _dockWindow,
                                                                   i18n("Description") );
 
     _dockWidgets.append(descriptionDock);
     _description = new Editor( descriptionDock, "_description" );
     descriptionDock->setWidget( _description );
-    descriptionDock->manualDock( dateDock, KDockWidget::DockTop );
+    descriptionDock->manualDock( dateDock, KDockWidget::DockBottom, 20 );
 
     // -------------------------------------------------- Categrories
-    KDockWidget* last = dateDock;
-    KDockWidget::DockPosition pos = KDockWidget::DockTop;
+    KDockWidget* last = descriptionDock;
+    KDockWidget::DockPosition pos = KDockWidget::DockBottom;
 
     QStringList grps = CategoryCollection::instance()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        KDockWidget* dockWidget = createListSel( *it );
-        dockWidget->manualDock( last, pos );
-        last = dockWidget;
-        pos = KDockWidget::DockRight;
+        Category* category = CategoryCollection::instance()->categoryForName( *it );
+        if ( !category->isSpecialCategory() ) {
+            KDockWidget* dockWidget = createListSel( *it );
+            dockWidget->manualDock( last, pos );
+            last = dockWidget;
+            pos = KDockWidget::DockRight;
+        }
     }
 
 
@@ -242,10 +246,11 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     setGeometry( Options::instance()->windowGeometry( Options::ConfigWindow ) );
 
 
-    _dockWindow->readDockConfig( kapp->config(), QString::fromLatin1("Config Window Layout") );
-
-    // If I don't explicit show _dockWindow here, then no windows will show up.
-    _dockWindow->show();
+    QString group = QString::fromLatin1("Config Window for %1").arg( Options::instance()->imageDirectory() );
+    if ( kapp->config()->hasGroup( group ) )
+        _dockWindow->readDockConfig( kapp->config(), group );
+    else
+        _dockWindow->readDockConfig( kapp->config(), QString::fromLatin1("Config Window Layout") );
 }
 
 
@@ -476,7 +481,7 @@ ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
 
 void ImageConfig::setup()
 {
-    // Repopulate the listboxes in case data has changed
+// Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->populate();
@@ -542,6 +547,7 @@ void ImageConfig::slotOptions()
     QPopupMenu menu( this, "context popup menu");
     menu.insertItem( i18n("Show/Hide Windows"),  _dockWindow->dockHideShowMenu());
     menu.insertItem( i18n("Save Current Window Setup"), this, SLOT( slotSaveWindowSetup() ) );
+    menu.insertItem( i18n( "Reset layout" ), this, SLOT( slotRecetLayout() ) );
     menu.exec( QCursor::pos() );
 }
 
@@ -562,7 +568,8 @@ int ImageConfig::exec()
 
 void ImageConfig::slotSaveWindowSetup()
 {
-    _dockWindow->writeDockConfig( kapp->config(), QString::fromLatin1( "Config Window Layout" ) );
+    QString group = QString::fromLatin1("Config Window for %1").arg( Options::instance()->imageDirectory() );
+    _dockWindow->writeDockConfig( kapp->config(), group );
 }
 
 void ImageConfig::closeEvent( QCloseEvent* e )
@@ -619,7 +626,7 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 KDockWidget* ImageConfig::createListSel( const QString& category )
 {
     KDockWidget* dockWidget = _dockWindow->createDockWidget( category, CategoryCollection::instance()->categoryForName( category)->icon(),
-                                                             this, CategoryCollection::instance()->categoryForName( category )->text() );
+                                                             _dockWindow, CategoryCollection::instance()->categoryForName( category )->text() );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( category, dockWidget );
     _optionList.append( sel );
@@ -825,8 +832,12 @@ void ImageConfig::setupFocus()
     delete list;
 }
 
-void ImageConfig::setupWindow()
+void ImageConfig::slotRecetLayout()
 {
+    QString group = QString::fromLatin1("Config Window for %1").arg( Options::instance()->imageDirectory() );
+    kapp->config()->deleteGroup( group );
+    kapp->config()->sync();
+    close();
+    emit deleteMe();
 }
 
-#include "imageconfig.moc"

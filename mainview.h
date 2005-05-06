@@ -116,6 +116,7 @@ protected slots:
     void slotJumpToContext();
     void setDateRange( const ImageDateRange& );
     void clearDateRange();
+    void deleteImageConfigure();
 
 protected:
     void configureImages( bool oneAtATime );

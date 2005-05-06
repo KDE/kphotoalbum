@@ -364,6 +364,13 @@ void MainView::createImageConfig()
 
     _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
     connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    connect( _imageConfigure, SIGNAL( deleteMe() ),  this, SLOT( deleteImageConfigure() ) );
+}
+
+void MainView::deleteImageConfigure()
+{
+    _imageConfigure->deleteLater();
+    _imageConfigure = 0;
 }
 
 void MainView::slotSave()
@@ -1399,5 +1406,6 @@ void MainView::possibleRunSuvey()
     MySurvey survey(this);
     survey.possibleExecSurvey();
 }
+
 
 #include "mainview.moc"

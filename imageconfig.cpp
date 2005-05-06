@@ -68,8 +68,10 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- Label and Date
     // If I make the dateDock a child of 'this', then things seems to break.
     // The datedock isn't shown at all
-    KDockWidget* dateDock = _dockWindow->createDockWidget( QString::fromLatin1("Label and Dates"), QPixmap(), this,
+    KDockWidget* dateDock = _dockWindow->createDockWidget( QString::fromLatin1("Label and Dates"), QPixmap(), 0,
                                                            i18n("Label and Dates") );
+    _dockWindow->setMainDockWidget( dateDock );
+
     _dockWidgets.append( dateDock );
     QWidget* top = new QWidget( dateDock );
     QVBoxLayout* lay2 = new QVBoxLayout( top, 6 );
@@ -120,7 +122,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     KDockWidget* previewDock
         = _dockWindow->createDockWidget( QString::fromLatin1("Image Preview"),
                                          locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ),
-                                         this, i18n("Image Preview") );
+                                         0, i18n("Image Preview") );
     _dockWidgets.append( previewDock );
     QWidget* top2 = new QWidget( previewDock );
     QVBoxLayout* lay5 = new QVBoxLayout( top2, 6 );
@@ -164,16 +166,17 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     lay6->addStretch(1);
 
-    previewDock->manualDock( dateDock, KDockWidget::DockRight );
+    previewDock->manualDock( dateDock, KDockWidget::DockRight, 50 );
 
 
     // -------------------------------------------------- The editor
     KDockWidget* descriptionDock = _dockWindow->createDockWidget( QString::fromLatin1("Description"), QPixmap(), this,
                                                                   i18n("Description") );
+
     _dockWidgets.append(descriptionDock);
     _description = new Editor( descriptionDock, "_description" );
     descriptionDock->setWidget( _description );
-    descriptionDock->manualDock( dateDock, KDockWidget::DockBottom, 0 );
+    descriptionDock->manualDock( dateDock, KDockWidget::DockTop );
 
     // -------------------------------------------------- Categrories
     KDockWidget* last = dateDock;
@@ -236,12 +239,13 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
 
     _optionList.setAutoDelete( true );
-    Options::instance()->loadConfigWindowLayout( this );
+    setGeometry( Options::instance()->windowGeometry( Options::ConfigWindow ) );
+
+
+    _dockWindow->readDockConfig( kapp->config(), QString::fromLatin1("Config Window Layout") );
 
     // If I don't explicit show _dockWindow here, then no windows will show up.
     _dockWindow->show();
-
-    resize( Options::instance()->windowSize( Options::ConfigWindow ) );
 }
 
 
@@ -558,7 +562,7 @@ int ImageConfig::exec()
 
 void ImageConfig::slotSaveWindowSetup()
 {
-    Options::instance()->saveConfigWindowLayout( this );
+    _dockWindow->writeDockConfig( kapp->config(), QString::fromLatin1( "Config Window Layout" ) );
 }
 
 void ImageConfig::closeEvent( QCloseEvent* e )
@@ -627,16 +631,6 @@ KDockWidget* ImageConfig::createListSel( const QString& category )
     dockWidget->setWidget( sel );
 
     return dockWidget;
-}
-
-void ImageConfig::writeDockConfig( QDomElement& doc )
-{
-    _dockWindow->writeDockConfig( doc );
-}
-
-void ImageConfig::readDockConfig( QDomElement& doc )
-{
-    _dockWindow->readDockConfig( doc );
 }
 
 void ImageConfig::slotDeleteOption( const QString& category, const QString& which)
@@ -775,10 +769,17 @@ void ImageConfig::showHelpDialog( SetupType type )
     KMessageBox::information( this, txt, QString::null, doNotShowKey, KMessageBox::AllowLink );
 }
 
-void ImageConfig::resizeEvent( QResizeEvent* e )
+void ImageConfig::resizeEvent( QResizeEvent* )
 {
-    Options::instance()->setWindowSize( Options::ConfigWindow, e->size() );
+    Options::instance()->setWindowGeometry( Options::ConfigWindow, geometry() );
 }
+
+void ImageConfig::moveEvent( QMoveEvent * )
+{
+    Options::instance()->setWindowGeometry( Options::ConfigWindow, geometry() );
+
+}
+
 
 void ImageConfig::setupFocus()
 {
@@ -822,6 +823,10 @@ void ImageConfig::setupFocus()
         prev = *orderedIt;
     }
     delete list;
+}
+
+void ImageConfig::setupWindow()
+{
 }
 
 #include "imageconfig.moc"

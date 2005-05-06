@@ -122,6 +122,7 @@ protected:
     QString welcome();
     virtual void closeEvent( QCloseEvent* e );
     virtual void resizeEvent( QResizeEvent* );
+    virtual void moveEvent ( QMoveEvent * );
     void setupMenuBar();
     void startAutoSaveTimer();
     void createImageConfig();

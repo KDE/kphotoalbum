@@ -210,16 +210,8 @@ void OptionsDialog::createThumbNailPage()
     gridLay->addWidget( _backgroundColor, 3, 1 );
 
 
-    // PENDING(blackie) Delete this
-    // Max images to show per page
-    QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page:"), top );
-    _maxImages = new QSpinBox( 10, 10000, 1, top ) ;
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
-    lay4->addWidget( maxImagesLabel );
-    lay4->addWidget( _maxImages );
     lay4->addStretch(1);
-    maxImagesLabel->hide();
-    _maxImages->hide();
 
     // Display Labels
     _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
@@ -250,16 +242,6 @@ void OptionsDialog::createThumbNailPage()
     QWhatsThis::add( previewSizeLabel, txt );
     QWhatsThis::add( _previewSize, txt );
 
-    txt = i18n( "<qt><p>A 128x128 pixel thumbnail will take up approximately 64KB of memory from your X server. "
-                "This may not sound like much but try changing the number of images to be displayed to 3000. "
-                "You will see that your X server requires approximately 200Mb of memory, just to show the KimDaBa "
-                "thumbnail overview.</p>"
-                "<p>Besides, showing 3000 thumbnails will take time to display, and be of little use. "
-                "The conclusion therefore is to keep this value to a reasonable limit that fits your needs, and "
-                "the amount of installed memory in your system.</p></qt>" );
-
-    QWhatsThis::add( maxImagesLabel, txt );
-    QWhatsThis::add( _maxImages, txt );
 
     txt = i18n("<qt>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view</qt>");
@@ -391,7 +373,6 @@ void OptionsDialog::show()
 
     _displayLabels->setChecked( opt->displayLabels() );
     _backgroundColor->setColor( opt->thumbNailBackgroundColor() );
-    _maxImages->setValue( opt->maxImages() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
@@ -438,7 +419,6 @@ void OptionsDialog::slotMyOK()
     opt->setAlbumCategory( name );
     opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setThumbNailBackgroundColor( _backgroundColor->color() );
-    opt->setMaxImages( _maxImages->value() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );

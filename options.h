@@ -28,6 +28,22 @@
 #include "category.h"
 class ImageConfig;
 
+
+#define property__( type, group, prop, setFunction, defaultValue ) \
+    void setFunction( type val )                                     \
+    {                                                             \
+        setValue( #group, #prop, val );                     \
+    }                                             \
+    type prop() const                          \
+    {                                             \
+        return value( #group, #prop, defaultValue ); \
+    }
+
+#define intProperty( group, prop, setFunction, defaultValue ) property__( int, group, prop, setFunction, defaultValue )
+#define boolProperty( group, prop, setFunction, defaultValue ) property__( bool, group, prop, setFunction, defaultValue )
+#define colorProperty( group, prop, setFunction, defaultValue ) property__( QColor, group, prop, setFunction, defaultValue )
+#define sizeProperty(  group, prop, setFunction, defaultValue ) property__( QSize, group, prop, setFunction, defaultValue )
+
 class Options :public QObject {
     Q_OBJECT
 
@@ -35,30 +51,44 @@ public:
     static Options* instance();
     static bool ready();
     static void setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory );
+    // General
+    boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
+    boolProperty( General, useEXIFComments, setUseEXIFComments, true );
+    boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
+    intProperty( General, autoSave, setAutoSave, 5 );
 
-    void setThumbSize( int );
-    int thumbSize() const;
+    QSize histogramSize() const;
+    void setHistogramSize( const QSize& size );
 
-    void setPreviewSize( int );
-    int previewSize() const;
+    // Thumbnails
+    intProperty( Thumbnails, thumbSize, setThumbSize, 128 );
+    intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
+    intProperty( Thumbnails, rowSpacing, setRowSpacing, 10 );
+    boolProperty( Thumbnails, displayLabels, setDisplayLabels, true );
+    intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
+    boolProperty( Thumbnails, alignColumns, setAlignColumns, true );
+    colorProperty( Thumbnails, thumbNailBackgroundColor, setThumbNailBackgroundColor, Qt::black );
 
-    void setMaxImages( int );
-    int maxImages() const;
+    // Viewer
+    sizeProperty( Viewer, viewerSize, setViewerSize, QSize( 800,600 ) );
+    sizeProperty( Viewer, slideShowSize, setSlideShowSize, QSize( 800, 600 ) );
+    boolProperty( Viewer, launchViewerFullScreen, setLaunchViewerFullScreen, false );
+    boolProperty( Viewer, launchSlideShowFullScreen, setLaunchSlideShowFullScreen, false );
+    intProperty( Viewer, slideShowInterval, setSlideShowInterval, 5 );
+    intProperty( Viewer, viewerCacheSize, setViewerCacheSize, 25 );
 
-    void setViewerSize( const QSize& );
-    QSize viewerSize() const;
-    void setLaunchViewerFullScreen( bool b );
-    bool launchViewerFullScreen() const;
+    boolProperty( Viewer, showInfoBox, setShowInfoBox, true );
+    boolProperty( Viewer, showDrawings, setShowDrawings, true );
+    boolProperty( Viewer, showDescription, setShowDescription, true );
+    boolProperty( Viewer, showDate, setShowDate, true );
+    boolProperty( Viewer, showTime, setShowTime, true );
 
-    void setSlideShowSize( const QSize& );
-    QSize slideShowSize() const;
-    void setLaunchSlideShowFullScreen( bool b );
-    bool launchSlideShowFullScreen() const;
 
     enum ViewSortType { SortLastUse, SortAlpha };
     void setViewSortType( ViewSortType );
     ViewSortType viewSortType() const;
 
+    // Miscellaneous
     void setFromDate( const QDate& );
     QDate fromDate() const;
     void setToDate( const QDate& );
@@ -86,18 +116,7 @@ public:
 
     // -------------------------------------------------- Options for the Viewer
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
-    bool showInfoBox() const;
-    bool showDrawings() const;
-    bool showDescription() const;
-    bool showDate() const;
-    bool showTime() const;
     bool showOption( const QString& ) const;
-
-    void setShowInfoBox(bool b);
-    void setShowDrawings(bool b);
-    void setShowDescription(bool b);
-    void setShowDate(bool b);
-    void setShowTime(bool b);
     void setShowOption( const QString& category, bool b );
 
     Position infoBoxPosition() const;
@@ -114,15 +133,6 @@ public:
     void setTTimeStamps( TimeStampTrust );
     TimeStampTrust tTimeStamps() const;
 
-    void setUseEXIFRotate( bool b );
-    bool useEXIFRotate() const;
-
-    void setUseEXIFComments( bool b );
-    bool useEXIFComments() const;
-
-    void setAutoSave( int min );
-    int autoSave() const;
-
     void save( QDomElement top );
 
     QString imageDirectory() const;
@@ -136,9 +146,6 @@ public:
     QString HTMLDestURL() const;
     void setHTMLDestURL( const QString& dir );
 
-    void saveConfigWindowLayout( ImageConfig* );
-    void loadConfigWindowLayout( ImageConfig* );
-
     void setCurrentLock( const ImageSearchInfo&, bool exclude );
     ImageSearchInfo currentLock() const;
 
@@ -149,39 +156,25 @@ public:
     void setPassword( const QString& passwd );
     QString password() const;
 
-    void setSlideShowInterval( int );
-    int slideShowInterval() const;
-
-    void setDisplayLabels( bool );
-    bool displayLabels() const;
-
-    void setThumbNailBackgroundColor( const QColor& );
-    QColor thumbNailBackgroundColor() const;
-
-    enum WindowType { MainWindow = 0, ConfigWindow = 1, LastWindowSize = 2};
-    void setWindowSize( WindowType, const QSize& size );
-    QSize windowSize( WindowType ) const;
-
-    int viewerCacheSize() const;
-    void setViewerCacheSize( int size );
-
-    bool searchForImagesOnStartup() const;
-    void setSearchForImagesOnStartup(bool b);
-
-    int autoShowThumbnailView() const;
-    void setAutoShowThumbnailView( int val );
-
-    QSize histogramSize() const;
-    void setHistogramSize( const QSize& size );
-
-    bool alignColumns() const;
-    void setAlignColumns( bool );
-
-    int rowSpacing() const;
-    void setRowSpacing( int );
+    enum WindowType { MainWindow = 0, ConfigWindow = 1 };
+    void setWindowGeometry( WindowType, const QRect& geometry );
+    QRect windowGeometry( WindowType ) const;
 
 protected:
     void createSpecialCategories();
+
+    int value( const char* group, const char* option, int defaultValue ) const;
+    QString value( const char* group, const char* option, const char* defaultValue ) const;
+    bool value( const char* group, const char* option, bool defaultValue ) const;
+    QColor value( const char* group, const char* option, const QColor& defaultValue ) const;
+    QSize value( const char* group, const char* option, const QSize& defaultValue ) const;
+
+    void setValue( const char* group, const char* option, int value );
+    void setValue( const char* group, const char* option, const QString& value );
+    void setValue( const char* group, const char* option, bool value );
+    void setValue( const char* group, const char* option, const QColor& value );
+    void setValue( const char* group, const char* option, const QSize& value );
+    const char* windowTypeToString( WindowType tp ) const;
 
 signals:
     void changed();
@@ -195,43 +188,21 @@ private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
     static Options* _instance;
 
-    int _thumbSize,  _previewSize;
-    TimeStampTrust _tTimeStamps;
-    bool _useEXIFRotate;
-    bool _useEXIFComments;
-    int _autoSave, _maxImages;
-    bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps, _ensureImageWindowsOnScreen;
-    QSize _histogramSize;
+    bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps;
 
     friend class CategoryCollection;
     QMap<QString, QStringList> _options;
     QString _imageDirectory, _htmlBaseDir, _htmlBaseURL, _htmlDestURL;
-    QDate _fromDate, _toDate;
-
-    Position _infoBoxPosition;
-    bool _showInfoBox, _showDrawings, _showDescription, _showDate, _showTime;
-    QDomElement _configDock;
-
-    QSize _viewerSize;
-    QSize _slideShowSize;
-    bool _launchViewerFullScreen, _launchSlideShowFullScreen;
-    int _slideShowInterval;
 
     MemberMap _members;
     ImageSearchInfo _currentLock;
     bool _locked, _exclude;
     QString _passwd;
-    ViewSortType _viewSortType;
-    QString _albumCategory;
-    bool _displayLabels;
-    QColor _thumbNailBackgroundColor;
-    QMap<WindowType, QSize> _windowSizes;
-    int _viewerCacheSize;
-    bool _searchForImagesOnStartup;
-    int _autoShowThumbnailView;
-    bool _alignColumns;
-    int _rowSpacing;
 };
+
+#undef intProperty
+#undef boolProperty
+#undef property__
 
 #endif /* OPTIONS_H */
 

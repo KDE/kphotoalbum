@@ -77,31 +77,17 @@ void ContentFolderAction::action( BrowserItemFactory* factory )
     factory->createItem( new SearchFolder( _info, _browser ) );
 
     //-------------------------------------------------- Image Folders
-    int count = ImageDB::instance()->count( _info );
-    int maxPerPage = Options::instance()->maxImages();
-
-    if ( count < maxPerPage ) {
-        factory->createItem( new ImageFolder( _info, _browser ) );
-    }
-    else {
-        int last = 1;
-        while ( last < count ) {
-            factory->createItem( new ImageFolder( _info, last, QMIN( count, last+maxPerPage-1 ), _browser ) );
-            last += maxPerPage;
-        }
-    }
+    factory->createItem( new ImageFolder( _info, _browser ) );
 }
 
 FolderAction* ContentFolder::action( bool ctrlDown )
 {
-    bool loadImages = ImageDB::instance()->count( _info ) < Options::instance()->autoShowThumbnailView();
+    bool loadImages = (ImageDB::instance()->count( _info ) < Options::instance()->autoShowThumbnailView());
     if ( ctrlDown ) loadImages = !loadImages;
 
     if ( loadImages ) {
         ImageSearchInfo info = _info;
-        if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
-        if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
-            return new ImageFolderAction( info, -1, -1, _browser );
+        return new ImageFolderAction( info, -1, -1, _browser );
     }
 
     return new ContentFolderAction( _category, _value, _info, _browser );

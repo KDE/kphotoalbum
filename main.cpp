@@ -63,7 +63,7 @@ int main( int argc, char** argv ) {
     MainView* view = new MainView( 0, "view" );
 
     // qApp->setMainWidget( view );
-    view->resize( Options::instance()->windowSize( Options::MainWindow ) );
+    view->setGeometry( Options::instance()->windowGeometry( Options::MainWindow ) );
 
     int code = app.exec();
 

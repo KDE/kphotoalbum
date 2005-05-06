@@ -34,6 +34,7 @@ Boston, MA 02111-1307, USA.
 #include <kcmdlineargs.h>
 #include <kio/netaccess.h>
 #include "mainview.h"
+#include "X11/X.h"
 
 extern "C" {
 #define XMD_H // prevent INT32 clash from jpeglib
@@ -222,7 +223,11 @@ void Util::checkForBackupFile( const QString& fileName )
 
 bool Util::ctrlKeyDown()
 {
+#if KDE_IS_VERSION( 3, 4, 0 )
+    return KApplication::keyboardMouseState() & ControlMask;
+#else
     return KApplication::keyboardModifiers() & KApplication::ControlModifier;
+#endif
 }
 
 QString Util::setupDemo()

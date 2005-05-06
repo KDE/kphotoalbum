@@ -45,8 +45,6 @@ public:
     ImageConfig( QWidget* parent, const char* name = 0 );
     int configure( ImageInfoList list,  bool oneAtATime );
     ImageSearchInfo search( ImageSearchInfo* search = 0 );
-    void writeDockConfig( QDomElement& doc );
-    void readDockConfig( QDomElement& doc );
     bool thumbnailShouldReload() const;
 
 signals:
@@ -85,7 +83,9 @@ protected:
     bool hasChanges();
     void showHelpDialog( SetupType );
     virtual void resizeEvent( QResizeEvent* );
+    virtual void moveEvent ( QMoveEvent * );
     void setupFocus();
+    void setupWindow();
 
 private:
     ImageInfoList _origList;

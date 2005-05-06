@@ -139,10 +139,7 @@ void Browser::go()
 void Browser::addSearch( ImageSearchInfo& info )
 {
     FolderAction* a;
-    if ( ImageDB::instance()->count( info ) > Options::instance()->maxImages() )
-        a = new ContentFolderAction( QString::null, QString::null, info, this );
-    else
-        a = new ImageFolderAction( info, -1, -1, this );
+    a = new ImageFolderAction( info, -1, -1, this );
     addItem(a);
     go();
 }

@@ -80,7 +80,6 @@ private:
     QSpinBox* _thumbnailSize;
     KComboBox* _trustTimeStamps;
     QSpinBox* _autosave;
-    QSpinBox* _maxImages;
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
     QSpinBox* _previewSize;

@@ -26,6 +26,7 @@
 #include <kiconloader.h>
 #include "thumbnailview.h"
 
+// PENDING(blackie) cleanup, we don't need from and to anymore
 ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _from(-1), _to(-1)
 {

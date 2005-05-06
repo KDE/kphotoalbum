@@ -795,6 +795,7 @@ void MainView::load()
     else if ( args->isSet( "demo" ) )
         configFile = Util::setupDemo();
     else {
+        // PENDING(blackie) This should be rewritten to KConfig* config = kapp->config()
         KSimpleConfig config( QString::fromLatin1("kimdaba") );
         bool showWelcome = false;
         if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
@@ -1318,11 +1319,18 @@ void MainView::slotSelectionChanged()
 #endif
 }
 
-void MainView::resizeEvent( QResizeEvent* e )
+void MainView::resizeEvent( QResizeEvent* )
 {
     if ( Options::ready() )
-        Options::instance()->setWindowSize( Options::MainWindow, e->size() );
+        Options::instance()->setWindowGeometry( Options::MainWindow, geometry() );
 }
+
+void MainView::moveEvent( QMoveEvent * )
+{
+    if ( Options::ready() )
+        Options::instance()->setWindowGeometry( Options::MainWindow, geometry() );
+}
+
 
 void MainView::slotRemoveTokens()
 {

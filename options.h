@@ -32,11 +32,11 @@ class ImageConfig;
 #define property__( type, group, prop, setFunction, defaultValue ) \
     void setFunction( type val )                                     \
     {                                                             \
-        setValue( #group, #prop, val );                     \
+        setValue( QString::fromLatin1(#group), QString::fromLatin1(#prop), val ); \
     }                                             \
     type prop() const                          \
     {                                             \
-        return value( #group, #prop, defaultValue ); \
+        return value( QString::fromLatin1(#group), QString::fromLatin1(#prop), defaultValue ); \
     }
 
 #define intProperty( group, prop, setFunction, defaultValue ) property__( int, group, prop, setFunction, defaultValue )
@@ -160,24 +160,25 @@ public:
     void setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
 
+    QString groupForDatabase( const QString& setting ) const;
+
 protected:
     void createSpecialCategories();
 
-    int value( const char* group, const char* option, int defaultValue ) const;
-    QString value( const char* group, const char* option, const char* defaultValue ) const;
-    bool value( const char* group, const char* option, bool defaultValue ) const;
-    QColor value( const char* group, const char* option, const QColor& defaultValue ) const;
-    QSize value( const char* group, const char* option, const QSize& defaultValue ) const;
+    int value( const QString& group, const QString& option, int defaultValue ) const;
+    QString value( const QString& group, const QString& option, const QString& defaultValue ) const;
+    bool value( const QString& group, const QString& option, bool defaultValue ) const;
+    QColor value( const QString& group, const QString& option, const QColor& defaultValue ) const;
+    QSize value( const QString& group, const QString& option, const QSize& defaultValue ) const;
 
-    void setValue( const char* group, const char* option, int value );
-    void setValue( const char* group, const char* option, const QString& value );
-    void setValue( const char* group, const char* option, bool value );
-    void setValue( const char* group, const char* option, const QColor& value );
-    void setValue( const char* group, const char* option, const QSize& value );
-    const char* windowTypeToString( WindowType tp ) const;
+    void setValue( const QString& group, const QString& option, int value );
+    void setValue( const QString& group, const QString& option, const QString& value );
+    void setValue( const QString& group, const QString& option, bool value );
+    void setValue( const QString& group, const QString& option, const QColor& value );
+    void setValue( const QString& group, const QString& option, const QSize& value );
+    QString windowTypeToString( WindowType tp ) const;
 
 signals:
-    void changed();
     void renamedOption( const QString& category, const QString& oldName, const QString& newName );
     void deletedOption( const QString& category, const QString& name );
     void locked( bool lock, bool exclude );
@@ -187,17 +188,11 @@ signals:
 private:
     Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
     static Options* _instance;
-
-    bool _trustTimeStamps, _markNew, _hasAskedAboutTimeStamps;
-
+    bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class CategoryCollection;
     QMap<QString, QStringList> _options;
-    QString _imageDirectory, _htmlBaseDir, _htmlBaseURL, _htmlDestURL;
-
+    QString _imageDirectory;
     MemberMap _members;
-    ImageSearchInfo _currentLock;
-    bool _locked, _exclude;
-    QString _passwd;
 };
 
 #undef intProperty

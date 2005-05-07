@@ -246,11 +246,11 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     setGeometry( Options::instance()->windowGeometry( Options::ConfigWindow ) );
 
 
-    QString group = QString::fromLatin1("Config Window for %1").arg( Options::instance()->imageDirectory() );
+    QString group = Options::instance()->groupForDatabase( QString::fromLatin1("Config Window"));
     if ( kapp->config()->hasGroup( group ) )
         _dockWindow->readDockConfig( kapp->config(), group );
     else
-        _dockWindow->readDockConfig( kapp->config(), QString::fromLatin1("Config Window Layout") );
+        _dockWindow->readDockConfig( kapp->config(), QString::fromLatin1("Config Window Layout") ); // This will be read by the system default override file.
 }
 
 
@@ -568,7 +568,7 @@ int ImageConfig::exec()
 
 void ImageConfig::slotSaveWindowSetup()
 {
-    QString group = QString::fromLatin1("Config Window for %1").arg( Options::instance()->imageDirectory() );
+    QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
     _dockWindow->writeDockConfig( kapp->config(), group );
 }
 
@@ -834,7 +834,7 @@ void ImageConfig::setupFocus()
 
 void ImageConfig::slotRecetLayout()
 {
-    QString group = QString::fromLatin1("Config Window for %1").arg( Options::instance()->imageDirectory() );
+    QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
     kapp->config()->deleteGroup( group );
     kapp->config()->sync();
     close();

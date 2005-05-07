@@ -101,7 +101,7 @@ MainView::MainView( QWidget* parent, const char* name )
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Options, and where the main thread crates an instance, we better get it created now.
-    connect( Options::instance(), SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    Options::instance();
 
     QWidget* top = new QWidget( this, "top" );
     QVBoxLayout* lay = new QVBoxLayout( top, 6 );
@@ -272,6 +272,7 @@ void MainView::slotOptions()
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbNail() ) );
+        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
     }
     _optionsDialog->show();
 }
@@ -541,7 +542,6 @@ QString MainView::welcome()
 void MainView::slotChanges()
 {
     setDirty( true );
-    startAutoSaveTimer(); // In case auto save period has changed, we better restart the timer.
 }
 
 void MainView::closeEvent( QCloseEvent* e )

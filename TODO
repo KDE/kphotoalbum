@@ -44,10 +44,10 @@ Features for a soonish version
 - Adding blinking icons to the splash screen.
 - Choose a default category image, as Jean-Michel suggest (for category
   image of Anne Helene):
-  Pick the first picture with ONLY Anne Helene (it´s likely to be more
+  Pick the first picture with ONLY Anne Helene (itÂ´s likely to be more
   specific to recognize Anne Helene)
-  If it doesn´t work, pick the first picture with Ann Helen
-  If it doesn´t work, the default KDE icon, just like today.
+  If it doesnÂ´t work, pick the first picture with Ann Helen
+  If it doesnÂ´t work, the default KDE icon, just like today.
   The problem here is speed. Currently it is not possible to load these images
   using the image manager, so say 300 images would take approx 1 minute to load.
 - Make it possible to use the thumbnail standard
@@ -78,6 +78,8 @@ limit to that date.
   - It'd be possible to work with a image-directory accessed over any of
     the protocols for which there are kioslaves.  
   - It'd be possible to include images from more than one directory.
+
+- red eye removal (See email from Martin Ehmsen <martin@ehmsen.org>)
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

@@ -25,6 +25,8 @@
 #include "optionmatcher.h"
 #include "imagedb.h"
 #include "imageinfo.h"
+#include <kapplication.h>
+#include <kconfig.h>
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
@@ -202,55 +204,30 @@ void ImageSearchInfo::debug()
     }
 }
 
-/**
-   This method saves the current seachinfo to XML.
-   This is used when saving index.xml, where the current lock is saved -- the current lock is represented by a SearchInfo.
-*/
-QDomElement ImageSearchInfo::toXML( QDomDocument doc )
+void ImageSearchInfo::saveLock() const
 {
-    // We miss saving dates.
-    QDomElement res = doc.createElement( QString::fromLatin1( "SearchInfo" ) );
-    res.setAttribute( QString::fromLatin1("label"), _label );
-    res.setAttribute( QString::fromLatin1("description"), _description );
-
-    QDomElement options = doc.createElement( QString::fromLatin1( "Options" ) );
-    res.appendChild( options );
-    for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
-        QDomElement option = doc.createElement( QString::fromLatin1("Option") );
-        option.setAttribute( QString::fromLatin1("category"), it.key() );
-        option.setAttribute( QString::fromLatin1( "value" ), it.data() );
-        options.appendChild( option );
+    KConfig* config = kapp->config();
+    config->setGroup( Options::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    config->writeEntry( QString::fromLatin1("label"), _label );
+    config->writeEntry( QString::fromLatin1("description"), _description );
+    config->writeEntry( QString::fromLatin1("categories"), _options.keys() );
+    for( QMapConstIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+        config->writeEntry( it.key(), it.data() );
     }
-    return res;
 }
 
-void ImageSearchInfo::load( QDomElement top )
+ImageSearchInfo ImageSearchInfo::loadLock()
 {
-    _isNull = false;
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() && node.toElement().tagName() == QString::fromLatin1( "SearchInfo" ) ) {
-            QDomElement elm = node.toElement();
-            _label = elm.attribute( QString::fromLatin1( "label" ) );
-            _description = elm.attribute( QString::fromLatin1( "description" ) );
-            QDomNode childNode = elm.firstChild();
-            if ( !childNode.isNull() && childNode.isElement() && childNode.toElement().tagName() == QString::fromLatin1( "Options" ) ) {
-                QDomElement options = childNode.toElement();
-                for ( QDomNode optionNode = options.firstChild(); !optionNode.isNull(); optionNode = optionNode.nextSibling() ) {
-                    if ( !optionNode.isElement() )
-                        continue;
-
-                    QDomElement option = optionNode.toElement();
-                    QString category = option.attribute( QString::fromLatin1( "category" ) );
-                    if ( category.isNull() )
-                        category = option.attribute( QString::fromLatin1( "optionGroup" ) ); // Compatible with KimDaBa 2.0
-                    QString value = option.attribute( QString::fromLatin1( "value" ) );
-                    if ( !category.isEmpty() )
-                        _options.insert( category, value );
-                }
-                return;
-            }
-        }
+    KConfig* config = kapp->config();
+    config->setGroup( Options::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    ImageSearchInfo info;
+    info._label = config->readEntry( "label" );
+    info._description = config->readEntry( "description" );
+    QStringList categories = config->readListEntry( "categories" );
+    for( QStringList::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+        info.setOption( *it, config->readEntry( *it ) );
     }
+    return info;
 }
 
 ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )

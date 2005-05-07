@@ -45,6 +45,9 @@
 #include <kcolorbutton.h>
 #include "categorycollection.h"
 #include "showbusycursor.h"
+#include "optionsdialog.moc"
+#include <kapplication.h>
+#include <kconfig.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -471,6 +474,7 @@ void OptionsDialog::slotMyOK()
     _pluginConfig->apply();
 #endif
     emit changed();
+    kapp->config()->sync();
 }
 
 
@@ -821,4 +825,3 @@ void OptionsDialog::createPluginPage()
 #endif
 }
 
-#include "optionsdialog.moc"

@@ -43,6 +43,8 @@
 #include <kconfig.h>
 #include "options.moc"
 
+#define STR(x) QString::fromLatin1(x)
+
 Options* Options::_instance = 0;
 
 Options* Options::instance()
@@ -55,61 +57,38 @@ Options* Options::instance()
 Options::Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
-    _htmlBaseDir = config.attribute( QString::fromLatin1("htmlBaseDir"), QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
-    _htmlBaseURL = config.attribute( QString::fromLatin1("htmlBaseURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
-    _htmlDestURL = config.attribute( QString::fromLatin1("htmlDestURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
-
-    _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
-    _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
-    _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
-
     Util::readOptions( options, &_options, CategoryCollection::instance() );
     createSpecialCategories();
 
     _members.load( memberGroups );
-    _currentLock.load( config );
 }
 
 void Options::save( QDomElement top )
 {
     QDomDocument doc = top.ownerDocument();
-    QDomElement config = doc.createElement( QString::fromLatin1( "config" ) );
+    QDomElement config = doc.createElement( STR( "config" ) );
     top.appendChild( config );
 
-    config.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "1" ) );
-    config.setAttribute( QString::fromLatin1("imageDirectory"), _imageDirectory );
-
-    config.setAttribute( QString::fromLatin1("htmlBaseDir"), _htmlBaseDir );
-    config.setAttribute( QString::fromLatin1("htmlBaseURL"), _htmlBaseURL );
-    config.setAttribute( QString::fromLatin1("htmlDestURL"), _htmlDestURL );
-
-    config.setAttribute( QString::fromLatin1("locked"), _locked );
-    config.setAttribute( QString::fromLatin1("exclude"), _exclude );
-    config.setAttribute( QString::fromLatin1("passwd"), _passwd );
+    config.setAttribute( STR( "version" ), STR( "1" ) );
+    config.setAttribute( STR("imageDirectory"), _imageDirectory );
 
     QStringList grps = CategoryCollection::instance()->categoryNames();
-    QDomElement options = doc.createElement( QString::fromLatin1("options") );
+    QDomElement options = doc.createElement( STR("options") );
     top.appendChild( options );
     (void) Util::writeOptions( doc, options, _options, CategoryCollection::instance() );
 
     // Member Groups
     if ( ! _members.isEmpty() )
         top.appendChild( _members.save( doc ) );
-
-    if ( !_currentLock.isNull() )
-        config.appendChild( _currentLock.toXML( doc ) );
 }
 
 void Options::setOption( const QString& key, const QStringList& value )
 {
-    if ( _options[key] != value )
-        emit changed();
     _options[key] = value;
 }
 
 void Options::removeOption( const QString& key, const QString& value )
 {
-    emit changed();
     _options[key].remove( value );
     emit deletedOption( key, value );
 }
@@ -125,8 +104,6 @@ void Options::addOption( const QString& key, const QString& value )
 {
     if ( _options[key].contains( value ) )
         _options[key].remove( value );
-    else
-        emit changed();
     _options[key].prepend( value );
 }
 
@@ -180,18 +157,18 @@ bool Options::trustTimeStamps()
 }
 void Options::setTTimeStamps( TimeStampTrust t )
 {
-    setValue( "General", "trustTimeStamps", (int) t );
+    setValue( STR("General"), STR("trustTimeStamps"), (int) t );
 }
 
 Options::TimeStampTrust Options::tTimeStamps() const
 {
-    return (TimeStampTrust) value(  "General", "trustTimeStamps", (int) Always );
+    return (TimeStampTrust) value(  STR("General"), STR("trustTimeStamps"), (int) Always );
 }
 
 QString Options::imageDirectory() const
 {
-    if ( !_imageDirectory.endsWith( QString::fromLatin1( "/" ) ) )
-        return _imageDirectory + QString::fromLatin1( "/" );
+    if ( !_imageDirectory.endsWith( STR( "/" ) ) )
+        return _imageDirectory + STR( "/" );
     else
         return _imageDirectory;
 }
@@ -199,12 +176,12 @@ QString Options::imageDirectory() const
 
 Options::Position Options::infoBoxPosition() const
 {
-    return (Position) value( "Viewer", "infoBoxPosition", 0 );
+    return (Position) value( STR("Viewer"), STR("infoBoxPosition"), 0 );
 }
 
 void Options::setInfoBoxPosition( Position pos )
 {
-    setValue( "Viewer", "infoBoxPosition", (int) pos );
+    setValue( STR("Viewer"), STR("infoBoxPosition"), (int) pos );
 }
 
 /**
@@ -217,41 +194,37 @@ bool Options::showOption( const QString& category ) const
 
 void Options::setShowOption( const QString& category, bool b )
 {
-    if ( CategoryCollection::instance()->categoryForName(category)->doShow() != b ) emit changed();
     CategoryCollection::instance()->categoryForName(category)->setDoShow( b );
 }
 
 QString Options::HTMLBaseDir() const
 {
-    return _htmlBaseDir;
+    return value( groupForDatabase( STR("HTML Settings") ), STR("baseDir"), QString::fromLocal8Bit(getenv("HOME")) + STR( "/public_html") );
 }
 
 void Options::setHTMLBaseDir( const QString& dir )
 {
-    if ( _htmlBaseDir != dir ) emit changed();
-    _htmlBaseDir = dir;
+    setValue( groupForDatabase( STR("HTML Settings") ), STR("baseDir"), dir );
 }
 
 QString Options::HTMLBaseURL() const
 {
-    return _htmlBaseURL;
+    return value( groupForDatabase( STR("HTML Settings") ), STR("baseUrl"),  STR( "file://" ) + HTMLBaseDir() );
 }
 
 void Options::setHTMLBaseURL( const QString& url )
 {
-    if ( _htmlBaseURL != url ) emit changed();
-    _htmlBaseURL = url;
+    setValue( groupForDatabase( STR("HTML Settings") ), STR("baseUrl"), url );
 }
 
 QString Options::HTMLDestURL() const
 {
-    return _htmlDestURL;
+    return value( groupForDatabase( STR("HTML Settings") ), STR("destUrl"),  STR( "file://" ) + HTMLBaseDir() );
 }
 
 void Options::setHTMLDestURL( const QString& url )
 {
-    if ( _htmlDestURL != url ) emit changed();
-    _htmlDestURL = url;
+    setValue( groupForDatabase( STR("HTML Settings") ), STR("destUrl"), url );
 }
 
 
@@ -269,60 +242,60 @@ const MemberMap& Options::memberMap()
 
 void Options::setMemberMap( const MemberMap& members )
 {
-    // In a perfect world, I should check if _members != members, and only emit changed in that case.
-    emit changed();
     _members = members;
 }
 
 void Options::setCurrentLock( const ImageSearchInfo& info, bool exclude )
 {
-    _currentLock = info;
-    _exclude = exclude;
+    info.saveLock();
+    setValue( groupForDatabase( STR("Privacy Settings") ), STR("exclude"), exclude );
 }
 
 ImageSearchInfo Options::currentLock() const
 {
-    return _currentLock;
+    return ImageSearchInfo::loadLock();
 }
 
 void Options::setLocked( bool lock )
 {
-    _locked = lock;
-    emit locked( lock, _exclude );
+    bool changed = ( lock != isLocked() );
+    setValue( groupForDatabase( STR("Privacy Settings") ), STR("locked"), lock );
+    if (changed)
+        emit locked( lock, lockExcludes() );
 }
 
 bool Options::isLocked() const
 {
-    return _locked;
+    return value( groupForDatabase( STR("Privacy Settings") ), STR("locked"), false );
 }
 
 bool Options::lockExcludes() const
 {
-    return _exclude;
+    return value( groupForDatabase( STR("Privacy Settings") ), STR("exclude"), false );
 }
 
 void Options::setPassword( const QString& passwd )
 {
-    _passwd = passwd;
+    setValue( groupForDatabase( STR("Privacy Settings") ), STR("password"), passwd );
 }
 
 QString Options::password() const
 {
-    return _passwd;
+    return value( groupForDatabase( STR("Privacy Settings") ), STR("password"), STR("") );
 }
 
 QString Options::fileForCategoryImage( const QString& category, QString member ) const
 {
-    QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
+    QString dir = imageDirectory() + STR("CategoryImages" );
     member.replace( ' ', '_' );
-    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( category ).arg( member );
+    QString fileName = dir + STR("/%1-%2.jpg").arg( category ).arg( member );
     return fileName;
 }
 
 
 void Options::setOptionImage( const QString& category, QString member, const QImage& image )
 {
-    QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
+    QString dir = imageDirectory() + STR("CategoryImages" );
     QFileInfo fi( dir );
     bool ok;
     if ( !fi.exists() ) {
@@ -347,7 +320,7 @@ QImage Options::optionImage( const QString& category, QString member, int size )
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
         if ( Options::instance()->memberMap().isGroup( category, member ) )
-            img = KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, size );
+            img = KGlobal::iconLoader()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
         else
             img = CategoryCollection::instance()->categoryForName( category )->icon( size );
     }
@@ -357,25 +330,25 @@ QImage Options::optionImage( const QString& category, QString member, int size )
 void Options::setViewSortType( ViewSortType tp )
 {
     bool changed = ( viewSortType() != tp );
-    setValue( "General", "viewSortType", (int) tp );
+    setValue( STR("General"), STR("viewSortType"), (int) tp );
     if ( changed )
         emit viewSortTypeChanged( tp );
 }
 
 Options::ViewSortType Options::viewSortType() const
 {
-    return (ViewSortType) value( "General", "viewSortType", 0 );
+    return (ViewSortType) value( STR("General"), STR("viewSortType"), 0 );
 }
 
 void Options::setFromDate( const QDate& date)
 {
     if (date.isValid())
-        setValue( "Miscellaneous", "fromDate", date.toString( Qt::ISODate ) );
+        setValue( STR("Miscellaneous"), STR("fromDate"), date.toString( Qt::ISODate ) );
 }
 
 QDate Options::fromDate() const
 {
-    QString date = value("Miscellaneous", "fromDate", "" );
+    QString date = value( STR("Miscellaneous"), STR("fromDate"), STR("") );
     if ( date.isEmpty() )
         return QDate( QDate::currentDate().year(), 1, 1 );
     else
@@ -385,12 +358,12 @@ QDate Options::fromDate() const
 void  Options::setToDate( const QDate& date)
 {
     if (date.isValid())
-        setValue( "Miscellaneous", "toDate", date.toString( Qt::ISODate ) );
+        setValue( STR("Miscellaneous"), STR("toDate"), date.toString( Qt::ISODate ) );
 }
 
 QDate Options::toDate() const
 {
-    QString date = value("Miscellaneous", "toDate", "" );
+    QString date = value( STR("Miscellaneous"), STR("toDate"), STR("") );
     if ( date.isEmpty() )
         return QDate( QDate::currentDate().year()+1, 1, 1 );
     else
@@ -399,7 +372,7 @@ QDate Options::toDate() const
 
 QString Options::albumCategory() const
 {
-    QString category = value( "General", "albumCategory", "" );
+    QString category = value( STR("General"), STR("albumCategory"), STR("") );
 
     if ( !CategoryCollection::instance()->categoryNames().contains( category ) ) {
         category = CategoryCollection::instance()->categoryNames()[0];
@@ -411,7 +384,7 @@ QString Options::albumCategory() const
 
 void Options::setAlbumCategory( const QString& category )
 {
-    setValue( "General", "albumCategory", category );
+    setValue( STR("General"), STR("albumCategory"), category );
 }
 
 void Options::setWindowGeometry( WindowType win, const QRect& geometry )
@@ -436,89 +409,89 @@ bool Options::ready()
 
 void Options::createSpecialCategories()
 {
-    Category* folderCat = CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Folder" ) );
+    Category* folderCat = CategoryCollection::instance()->categoryForName( STR( "Folder" ) );
     if( folderCat == 0 ) {
-        _options.insert( QString::fromLatin1("Folder"), QStringList() );
-        folderCat = new Category( QString::fromLatin1("Folder"), QString::fromLatin1("folder"), Category::Small, Category::ListView, false );
+        _options.insert( STR("Folder"), QStringList() );
+        folderCat = new Category( STR("Folder"), STR("folder"), Category::Small, Category::ListView, false );
         CategoryCollection::instance()->addCategory( folderCat );
     }
     folderCat->setSpecialCategory( true );
 
 
-    Category* tokenCat = CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Tokens" ) );
+    Category* tokenCat = CategoryCollection::instance()->categoryForName( STR( "Tokens" ) );
     if ( !tokenCat ) {
-        _options.insert( QString::fromLatin1("Tokens"), QStringList() );
-        tokenCat = new Category( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"), Category::Small, Category::ListView, true );
+        _options.insert( STR("Tokens"), QStringList() );
+        tokenCat = new Category( STR("Tokens"), STR("cookie"), Category::Small, Category::ListView, true );
         CategoryCollection::instance()->addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
 }
 
 
-int Options::value( const char* group, const char* option, int defaultValue ) const
+int Options::value( const QString& group, const QString& option, int defaultValue ) const
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     return config->readNumEntry( option, defaultValue );
 }
 
-QString Options::value( const char* group, const char* option, const char* defaultValue ) const
+QString Options::value( const QString& group, const QString& option, const QString& defaultValue ) const
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
-    return config->readEntry( option, QString::fromLatin1(defaultValue) );
+    return config->readEntry( option, defaultValue );
 }
 
-bool Options::value( const char* group, const char* option, bool defaultValue ) const
+bool Options::value( const QString& group, const QString& option, bool defaultValue ) const
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     return config->readBoolEntry( option, defaultValue );
 }
 
-QColor Options::value( const char* group, const char* option, const QColor& defaultValue ) const
+QColor Options::value( const QString& group, const QString& option, const QColor& defaultValue ) const
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     return config->readColorEntry( option, &defaultValue );
 }
 
-QSize Options::value( const char* group, const char* option, const QSize& defaultValue ) const
+QSize Options::value( const QString& group, const QString& option, const QSize& defaultValue ) const
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     return config->readSizeEntry( option, &defaultValue );
 }
 
-void Options::setValue( const char* group, const char* option, int value )
+void Options::setValue( const QString& group, const QString& option, int value )
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
-void Options::setValue( const char* group, const char* option, const QString& value )
+void Options::setValue( const QString& group, const QString& option, const QString& value )
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
-void Options::setValue( const char* group, const char* option, bool value )
+void Options::setValue( const QString& group, const QString& option, bool value )
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
-void Options::setValue( const char* group, const char* option, const QColor& value )
+void Options::setValue( const QString& group, const QString& option, const QColor& value )
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
-void Options::setValue( const char* group, const char* option, const QSize& value )
+void Options::setValue( const QString& group, const QString& option, const QSize& value )
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
@@ -527,24 +500,30 @@ void Options::setValue( const char* group, const char* option, const QSize& valu
 
 QSize Options::histogramSize() const
 {
-    return value( "General", "histogramSize", QSize( 15, 30 ) );
+    return value( STR("General"), STR("histogramSize"), QSize( 15, 30 ) );
 }
 
 void Options::setHistogramSize( const QSize& size )
 {
     bool changed = (size != histogramSize() );
-    setValue( "General", "histogramSize", size );
+    setValue( STR("General"), STR("histogramSize"), size );
     if (changed)
         emit histogramSizeChanged( size );
 }
 
-const char* Options::windowTypeToString( WindowType tp ) const
+QString Options::windowTypeToString( WindowType tp ) const
 {
     switch (tp) {
-    case MainWindow: return "MainWindow";
-    case ConfigWindow: return "ConfigWindow";
+    case MainWindow: return STR("MainWindow");
+    case ConfigWindow: return STR("ConfigWindow");
     }
-    return "";
+    return STR("");
+}
+
+QString Options::groupForDatabase( const QString& setting ) const
+{
+    return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
 
 
+#undef STR

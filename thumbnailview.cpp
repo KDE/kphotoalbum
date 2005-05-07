@@ -53,7 +53,6 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( onItem( QIconViewItem* ) ), this, SLOT( slotOnItem( QIconViewItem* ) ) );
     connect( this, SIGNAL( onViewport() ), this, SLOT( slotOnViewPort() ) );
     setupGrid();
-    connect( Options::instance(), SIGNAL( changed() ), this, SLOT( setupGrid() ) );
     connect( this, SIGNAL( contentsMoving(int, int) ), this, SLOT( emitDateChange() ) );
 }
 
@@ -94,6 +93,7 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::reload()
 {
+    setupGrid();
     ThumbNail::pixmapCache().clear();
     // I'm not sure if this is needed, it would require that we were in a
     // drag'n'drop action, and the sudantly got the reload before we got

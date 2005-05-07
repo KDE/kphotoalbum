@@ -50,8 +50,8 @@ public:
     void addAnd( const QString& group, const QString& value );
     QString toString() const;
 
-    QDomElement toXML( QDomDocument );
-    void load( QDomElement );
+    void saveLock() const;
+    static ImageSearchInfo loadLock();
 
     void debug();
 

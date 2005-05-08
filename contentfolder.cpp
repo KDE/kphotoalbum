@@ -28,6 +28,7 @@
 #include <kiconloader.h>
 #include "browseritemfactory.h"
 #include "categorycollection.h"
+#include "membermap.h"
 ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category( category ), _value( value )

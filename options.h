@@ -83,6 +83,12 @@ public:
     boolProperty( Viewer, showTime, setShowTime, true );
 
 
+    // -------------------------------------------------- Miscellaneous
+    void setFromDate( const QDate& );
+    QDate fromDate() const;
+    void setToDate( const QDate& );
+    QDate toDate() const;
+
     enum ViewSortType { SortLastUse, SortAlpha };
     void setViewSortType( ViewSortType );
     ViewSortType viewSortType() const;
@@ -94,12 +100,6 @@ public:
     Position infoBoxPosition() const;
     void setInfoBoxPosition( Position pos );
 
-
-    // -------------------------------------------------- Miscellaneous
-    void setFromDate( const QDate& );
-    QDate fromDate() const;
-    void setToDate( const QDate& );
-    QDate toDate() const;
 
     // -------------------------------------------------- Options
     void setOption( const QString& category,  const QStringList& value );
@@ -154,6 +154,7 @@ public:
     enum WindowType { MainWindow = 0, ConfigWindow = 1 };
     void setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
+    QString windowTypeToString( WindowType tp ) const;
 
     QString groupForDatabase( const QString& setting ) const;
 
@@ -171,7 +172,6 @@ protected:
     void setValue( const QString& group, const QString& option, bool value );
     void setValue( const QString& group, const QString& option, const QColor& value );
     void setValue( const QString& group, const QString& option, const QSize& value );
-    QString windowTypeToString( WindowType tp ) const;
 
 signals:
     void renamedOption( const QString& category, const QString& oldName, const QString& newName );

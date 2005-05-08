@@ -559,22 +559,8 @@ void OptionsDialog::enableDisable( bool b )
     _preferredView->setEnabled( b );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 void OptionsDialog::createGroupConfig()
 {
-    Options* opt = Options::instance();
-
     QWidget* top = addPage( i18n("Member Groups" ), i18n("Member Groups" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ),
                                                              KIcon::Desktop, 32 ) );

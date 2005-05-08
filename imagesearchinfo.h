@@ -18,7 +18,6 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
-#include "imagesearchinfo.h"
 #include "imagedate.h"
 #include <qdom.h>
 #include <qmap.h>

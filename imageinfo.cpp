@@ -37,6 +37,8 @@ extern "C" {
 #include "imagedb.h"
 #include "categorycollection.h"
 #include "fileinfo.h"
+#include <qstringlist.h>
+#include "membermap.h"
 
 bool ImageInfo::_anyImageWithEmptySize = false;
 

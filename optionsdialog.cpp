@@ -467,7 +467,7 @@ void OptionsDialog::slotMyOK()
     }
 
     saveOldGroup();
-    opt->setMemberMap( _memberMap );
+    ImageDB::instance()->setMemberMap( _memberMap );
 
     // misc stuff
 #ifdef HASKIPI
@@ -616,7 +616,7 @@ void OptionsDialog::createGroupConfig()
     lay6->addWidget( _del );
 
     // Setup the actions
-    _memberMap = opt->memberMap();
+    _memberMap = ImageDB::instance()->memberMap();
     connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
     connect( _groups, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
     connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );

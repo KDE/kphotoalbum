@@ -22,7 +22,6 @@
 #include <klocale.h>
 #include <qcombobox.h>
 #include "options.h"
-#include "membermap.h"
 #include "categorycollection.h"
 #include "imageinfo.h"
 

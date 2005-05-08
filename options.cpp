@@ -42,6 +42,7 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include "options.moc"
+#include "membermap.h"
 
 #define STR(x) QString::fromLatin1(x)
 
@@ -54,32 +55,21 @@ Options* Options::instance()
     return _instance;
 }
 
-Options::Options( const QDomElement& options, const QDomElement& memberGroups, const QString& imageDirectory )
+Options::Options( const QDomElement& options, const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
     Util::readOptions( options, &_options, CategoryCollection::instance() );
     createSpecialCategories();
-
-    _members.load( memberGroups );
 }
 
 void Options::save( QDomElement top )
 {
     QDomDocument doc = top.ownerDocument();
-    QDomElement config = doc.createElement( STR( "config" ) );
-    top.appendChild( config );
-
-    config.setAttribute( STR( "version" ), STR( "1" ) );
-    config.setAttribute( STR("imageDirectory"), _imageDirectory );
 
     QStringList grps = CategoryCollection::instance()->categoryNames();
     QDomElement options = doc.createElement( STR("options") );
     top.appendChild( options );
     (void) Util::writeOptions( doc, options, _options, CategoryCollection::instance() );
-
-    // Member Groups
-    if ( ! _members.isEmpty() )
-        top.appendChild( _members.save( doc ) );
 }
 
 void Options::setOption( const QString& key, const QStringList& value )
@@ -123,7 +113,7 @@ QStringList Options::optionValueInclGroups( const QString& category ) const
     };
     // add the groups to the listbox too, but only if the group is not there already, which will be the case
     // if it has ever been selected once.
-    QStringList groups = _members.groups( category );
+    QStringList groups = ImageDB::instance()->memberMap().groups( category );
     for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
         if ( ! items.contains(  *it ) )
             itemsAndGroups << *it ;
@@ -228,21 +218,9 @@ void Options::setHTMLDestURL( const QString& url )
 }
 
 
-void Options::setup( const QDomElement& options,
-                     const QDomElement& memberGroups,
-                     const QString& imageDirectory )
+void Options::setup( const QDomElement& options, const QString& imageDirectory )
 {
-    _instance = new Options( options, memberGroups, imageDirectory );
-}
-
-const MemberMap& Options::memberMap()
-{
-    return _members;
-}
-
-void Options::setMemberMap( const MemberMap& members )
-{
-    _members = members;
+    _instance = new Options( options, imageDirectory );
 }
 
 void Options::setCurrentLock( const ImageSearchInfo& info, bool exclude )
@@ -319,7 +297,7 @@ QImage Options::optionImage( const QString& category, QString member, int size )
     QImage img;
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
-        if ( Options::instance()->memberMap().isGroup( category, member ) )
+        if ( ImageDB::instance()->memberMap().isGroup( category, member ) )
             img = KGlobal::iconLoader()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
         else
             img = CategoryCollection::instance()->categoryForName( category )->icon( size );

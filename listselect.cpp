@@ -401,7 +401,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     menu.insertItem( i18n("Rename..."), 2 );
 
     // -------------------------------------------------- Add/Remove member group
-    MemberMap memberMap = Options::instance()->memberMap();
+    MemberMap memberMap = ImageDB::instance()->memberMap();
     QMap<int, QString> map;
     QPopupMenu* members = new QPopupMenu( &menu );
     members->setCheckable( true );
@@ -489,7 +489,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
             return;
         memberMap.addGroup( _category, group );
         memberMap.addMemberToGroup( _category, group, item->text() );
-        Options::instance()->setMemberMap( memberMap );
+        ImageDB::instance()->setMemberMap( memberMap );
     }
     else {
         if ( map.contains( which ) ) {
@@ -498,7 +498,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                 memberMap.addMemberToGroup( _category, checkedItem, item->text() );
             else
                 memberMap.removeMemberFromGroup( _category, checkedItem, item->text() );
-            Options::instance()->setMemberMap( memberMap );
+            ImageDB::instance()->setMemberMap( memberMap );
         }
     }
 }

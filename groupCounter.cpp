@@ -19,7 +19,8 @@
 #include "groupCounter.h"
 #include <qmap.h>
 #include "options.h"
-
+#include "membermap.h"
+#include "imagedb.h"
 
 // Examples:
 // groupToMemberMap = { USA |-> [Chicago, Santa Clara],
@@ -30,7 +31,7 @@
 
 GroupCounter::GroupCounter( const QString& category )
 {
-    MemberMap map = Options::instance()->memberMap();
+    MemberMap map = ImageDB::instance()->memberMap();
     QMap<QString,QStringList> groupToMemberMap = map.groupMap(category);
     _memberToGroup.resize( 2729 /* A large prime */ );
     _groupCount.resize( 2729 /* A large prime */ );

@@ -39,7 +39,7 @@ ContentFolder::ContentFolder( const QString& category, const QString& value, int
 QPixmap ContentFolder::pixmap()
 {
     if ( CategoryCollection::instance()->categoryForName( _category )->viewSize() == Category::Small ) {
-        if ( Options::instance()->memberMap().isGroup( _category, _value ) )
+        if ( ImageDB::instance()->memberMap().isGroup( _category, _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
             return CategoryCollection::instance()->categoryForName( _category )->icon();

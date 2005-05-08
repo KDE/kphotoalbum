@@ -24,6 +24,7 @@
 #include <qobject.h>
 #include <qstringlist.h>
 #include "imagedaterange.h"
+#include "membermap.h"
 class ImageInfo;
 
 class ImageDB :public QObject {
@@ -31,7 +32,7 @@ class ImageDB :public QObject {
 
 public:
     static ImageDB* instance();
-    static bool setup( const QDomElement& images, const QDomElement& blockList);
+    static bool setup( const QDomElement& images, const QDomElement& blockList, const QDomElement& memberGroups );
 
     int totalCount() const;
     void search( const ImageSearchInfo& info, int from = -1, int to = -1 );
@@ -51,6 +52,8 @@ public:
     void showUnavailableImages();
     ImageInfoList currentContext( bool onDisk ) const;
     ImageInfo* find( const QString& fileName ) const;
+    const MemberMap& memberMap();
+    void setMemberMap( const MemberMap& members );
 
 public slots:
     void save( QDomElement top );
@@ -86,7 +89,7 @@ protected slots:
     void lockDB( bool lock, bool exclude );
 
 private:
-    ImageDB( const QDomElement& images, const QDomElement& blockList, bool* newImages );
+    ImageDB( const QDomElement& images, const QDomElement& blockList, const QDomElement& memberGroups, bool* newImages );
     static ImageDB* _instance;
 
     ImageInfoList _images;
@@ -97,6 +100,7 @@ private:
     QStringList _pendingLoad;
     ImageDateRange _selectionRange;
     bool _includeFuzzyCounts;
+    MemberMap _members;
 
 public:
     static QString NONE();

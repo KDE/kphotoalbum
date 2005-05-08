@@ -905,19 +905,15 @@ void MainView::load()
         }
     }
 
-    if ( config.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Config' tag in configuration file %1.").arg( configFile ) );
     if ( options.isNull() )
         KMessageBox::sorry( this, i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
-    if ( configWindowSetup.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'ConfigWindowSetup' tag in configuration file %1.").arg( configFile ) );
     if ( images.isNull() )
         KMessageBox::sorry( this, i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
 
     file.close();
 
-    Options::setup( options, memberGroups, QFileInfo( configFile ).dirPath( true ) );
-    bool newImages = ImageDB::setup( images, blockList );
+    Options::setup( options, QFileInfo( configFile ).dirPath( true ) );
+    bool newImages = ImageDB::setup( images, blockList, memberGroups );
     if ( newImages )
         setDirty( true );
 }

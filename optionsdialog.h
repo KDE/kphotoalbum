@@ -20,6 +20,7 @@
 #define OPTIONSDIALOG_H
 #include <kdialogbase.h>
 #include "options.h"
+#include "membermap.h"
 class KColorButton;
 class QSpinBox;
 class KComboBox;

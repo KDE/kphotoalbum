@@ -407,7 +407,7 @@ void ImageInfo::clearMatched() const
 void ImageInfo::setMatched( const QString& category, const QString& value ) const
 {
     _matched[category].append( value );
-    const MemberMap& map = Options::instance()->memberMap();
+    const MemberMap& map = ImageDB::instance()->memberMap();
     QStringList members = map.members( category, value, true );
     _matched[category] += members;
 }

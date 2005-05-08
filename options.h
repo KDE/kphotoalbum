@@ -23,7 +23,6 @@
 #include <qpixmap.h>
 #include <qobject.h>
 #include <qdom.h>
-#include "membermap.h"
 #include "imagesearchinfo.h"
 #include "category.h"
 class ImageConfig;
@@ -50,7 +49,7 @@ class Options :public QObject {
 public:
     static Options* instance();
     static bool ready();
-    static void setup( const QDomElement& options, const QDomElement& memberGroups, const QString& imageDirectory );
+    static void setup( const QDomElement& options, const QString& imageDirectory );
     // -------------------------------------------------- General
     boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
     boolProperty( General, useEXIFComments, setUseEXIFComments, true );
@@ -118,10 +117,6 @@ public:
     QString albumCategory() const;
     void setAlbumCategory(  const QString& category );
 
-    // -------------------------------------------------- Member Groups
-    const MemberMap& memberMap();
-    void setMemberMap( const MemberMap& );
-
     // -------------------------------------------------- misc
     enum TimeStampTrust {
         Always = 0,
@@ -186,13 +181,12 @@ signals:
     void histogramSizeChanged( const QSize& );
 
 private:
-    Options( const QDomElement& options, const QDomElement& memberGroups, const QString& imageDirectory  );
+    Options( const QDomElement& options, const QString& imageDirectory  );
     static Options* _instance;
     bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class CategoryCollection;
     QMap<QString, QStringList> _options;
     QString _imageDirectory;
-    MemberMap _members;
 };
 
 #undef intProperty

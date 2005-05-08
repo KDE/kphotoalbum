@@ -34,10 +34,11 @@
 #include <qdict.h>
 #include "mainview.h"
 #include "imageinfo.h"
+#include "imagedb.moc"
 
 ImageDB* ImageDB::_instance = 0;
 
-ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* dirty )
+ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups, bool* dirty )
 {
     *dirty = false;
 
@@ -118,6 +119,8 @@ ImageDB::ImageDB( const QDomElement& top, const QDomElement& blockList, bool* di
 
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
+
+    _members.load( memberGroups );
 }
 
 int ImageDB::totalCount() const
@@ -162,10 +165,10 @@ ImageDB* ImageDB::instance()
     return _instance;
 }
 
-bool ImageDB::setup( const QDomElement& top, const QDomElement& blockList )
+bool ImageDB::setup( const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups )
 {
     bool dirty;
-    _instance = new ImageDB( top, blockList, &dirty );
+    _instance = new ImageDB( top, blockList, memberGroups, &dirty );
     return dirty;
 }
 
@@ -320,6 +323,11 @@ void ImageDB::save( QDomElement top )
 
     if (any)
         top.appendChild( blockList );
+
+    // Member Groups
+    if ( ! _members.isEmpty() )
+        top.appendChild( _members.save( doc ) );
+
 }
 
 bool ImageDB::isClipboardEmpty()
@@ -707,4 +715,14 @@ void ImageDB::checkIfAllImagesHasSizeAttributes()
     }
 }
 
-#include "imagedb.moc"
+
+const MemberMap& ImageDB::memberMap()
+{
+    return _members;
+}
+
+void ImageDB::setMemberMap( const MemberMap& members )
+{
+    _members = members;
+}
+

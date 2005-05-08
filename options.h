@@ -50,7 +50,7 @@ class Options :public QObject {
 public:
     static Options* instance();
     static bool ready();
-    static void setup( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory );
+    static void setup( const QDomElement& options, const QDomElement& memberGroups, const QString& imageDirectory );
     // -------------------------------------------------- General
     boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
     boolProperty( General, useEXIFComments, setUseEXIFComments, true );
@@ -186,7 +186,7 @@ signals:
     void histogramSizeChanged( const QSize& );
 
 private:
-    Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory  );
+    Options( const QDomElement& options, const QDomElement& memberGroups, const QString& imageDirectory  );
     static Options* _instance;
     bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class CategoryCollection;

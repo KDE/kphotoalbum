@@ -12,6 +12,10 @@ different in the image property page.
 - Config window layout should be saved when a new tab has been created.
 - the tips of the day screen only shows up randomly.
 - searches using the description field should be case insensitive.
+- When exporting to HTML or otherwise, use a filename suffix that
+  matches what's actually being exported.  For example, exporting a
+  file named foo.png generates a file named foo.png, even though the
+  exported file is actually a JPEG.
 
 =======================
 BUGS of less importance
@@ -99,3 +103,11 @@ a 32x32 image to 1024x768)
   images not previously backed up (by means of a keyword) and export
   them preserving layout, and dump the exported tree to DVD.
 - add a DCOP interface to KimDaBa
+- Predefined filtering, or "dynamic selection" : let the user define
+  a selection and display it. This gives the advantage of not having to
+  manually having to set a given keyword to the new images corresponding
+  to this selection.
+- display the current "location" in the status bar, something like
+  Paris > StreetArt > Invaders
+  and the ability to click on them to remove them from the filter
+  (enlarging the selection).

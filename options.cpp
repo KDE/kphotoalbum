@@ -54,7 +54,7 @@ Options* Options::instance()
     return _instance;
 }
 
-Options::Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory )
+Options::Options( const QDomElement& options, const QDomElement& memberGroups, const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
     Util::readOptions( options, &_options, CategoryCollection::instance() );
@@ -228,11 +228,11 @@ void Options::setHTMLDestURL( const QString& url )
 }
 
 
-void Options::setup( const QDomElement& config, const QDomElement& options,
-                     const QDomElement& configWindowSetup, const QDomElement& memberGroups,
+void Options::setup( const QDomElement& options,
+                     const QDomElement& memberGroups,
                      const QString& imageDirectory )
 {
-    _instance = new Options( config, options, configWindowSetup, memberGroups, imageDirectory );
+    _instance = new Options( options, memberGroups, imageDirectory );
 }
 
 const MemberMap& Options::memberMap()

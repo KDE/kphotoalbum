@@ -878,9 +878,7 @@ void MainView::load()
         exit(-1);
     }
 
-    QDomElement config;
     QDomElement options;
-    QDomElement configWindowSetup;
     QDomElement images;
     QDomElement blockList;
     QDomElement memberGroups;
@@ -890,11 +888,11 @@ void MainView::load()
             QDomElement elm = node.toElement();
             QString tag = elm.tagName().lower();
             if ( tag == QString::fromLatin1( "config" ) )
-                config = elm;
+                ; // Skip for compatibility with 2.1 and older
             else if ( tag == QString::fromLatin1( "options" ) )
                 options = elm;
             else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
-                configWindowSetup = elm;
+                ; // Skip for compatibility with 2.1 and older
             else if ( tag == QString::fromLatin1("images") )
                 images = elm;
             else if ( tag == QString::fromLatin1( "blocklist" ) )
@@ -918,7 +916,7 @@ void MainView::load()
 
     file.close();
 
-    Options::setup( config, options, configWindowSetup, memberGroups, QFileInfo( configFile ).dirPath( true ) );
+    Options::setup( options, memberGroups, QFileInfo( configFile ).dirPath( true ) );
     bool newImages = ImageDB::setup( images, blockList );
     if ( newImages )
         setDirty( true );

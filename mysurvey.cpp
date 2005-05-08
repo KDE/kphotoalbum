@@ -110,3 +110,5 @@ QSize MySurvey::sizeHint() const
     QSize size = Survey::SurveyDialog::sizeHint();
     return QSize( QMAX( size.width(), 800 ), size.height() );
 }
+
+#include "mysurvey.moc"

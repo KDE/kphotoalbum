@@ -179,3 +179,5 @@ bool DateBarMouseHandler::Selection::hasSelection() const
     return min().isValid();
 }
 
+
+#include "datebarmousehandler.moc"

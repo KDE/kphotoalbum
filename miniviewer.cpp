@@ -67,3 +67,5 @@ MiniViewer::MiniViewer()
     connect( but, SIGNAL( clicked() ), this, SLOT( slotClose() ) );
     hlay->addWidget( but );
 }
+
+#include "miniviewer.moc"

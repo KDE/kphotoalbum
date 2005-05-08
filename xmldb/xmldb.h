@@ -74,6 +74,8 @@ protected:
     void checkIfImagesAreSorted();
     bool rangeInclude( ImageInfo* info );
     void checkIfAllImagesHasSizeAttributes();
+    void loadOptions( const QDomElement& elm );
+    void saveOptions( QDomElement top );
 
 protected slots:
     void renameOption( const QString& category, const QString& oldName, const QString& newName );
@@ -82,7 +84,7 @@ protected slots:
 
 private:
     friend class ImageDB;
-    XMLDB( const QDomElement& images, const QDomElement& blockList, const QDomElement& memberGroups, bool* newImages );
+    XMLDB( const QDomElement& options, const QDomElement& images, const QDomElement& blockList, const QDomElement& memberGroups, bool* newImages );
 
     ImageInfoList _images;
     QStringList _blockList;

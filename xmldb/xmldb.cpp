@@ -34,10 +34,13 @@
 #include <qdict.h>
 #include "mainview.h"
 #include "imageinfo.h"
+#include "categorycollection.h"
 #include "xmldb.moc"
 
-XMLDB::XMLDB( const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups, bool* dirty )
+XMLDB::XMLDB( const QDomElement& options, const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups, bool* dirty )
 {
+    loadOptions( options );
+
     *dirty = false;
 
     QString directory = Options::instance()->imageDirectory();
@@ -281,6 +284,8 @@ ImageInfo* XMLDB::loadExtraFile( const QString& relativeName )
 
 void XMLDB::save( QDomElement top )
 {
+    saveOptions( top );
+
     ImageInfoList list = _images;
 
     // Copy files from clipboard to end of overview, so we don't loose them
@@ -705,3 +710,85 @@ void XMLDB::setMemberMap( const MemberMap& members )
     _members = members;
 }
 
+void XMLDB::loadOptions( const QDomElement& elm )
+{
+    Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
+    CategoryCollection* categories = CategoryCollection::instance();
+
+    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
+
+        if ( nodeOption.isElement() )  {
+            QDomElement elmOption = nodeOption.toElement();
+            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
+            QString name = elmOption.attribute( QString::fromLatin1("name") );
+
+            if ( !name.isNull() )  {
+                // Read Category info
+                QString icon= elmOption.attribute( QString::fromLatin1("icon") );
+                Category::ViewSize size =
+                    (Category::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
+                Category::ViewType type =
+                    (Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
+                bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
+                                                        QString::fromLatin1( "1" ) ).toInt();
+
+                Category* cat = categories->categoryForName( name ); // Special Categories are already created.
+                if ( !cat ) {
+                    cat = new Category( name, icon, size, type, show );
+                    categories->addCategory( cat );
+                }
+
+                // Read values
+                QStringList items;
+                for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
+                      nodeValue = nodeValue.nextSibling() ) {
+                    if ( nodeValue.isElement() ) {
+                        QDomElement elmValue = nodeValue.toElement();
+                        Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
+                        QString value = elmValue.attribute( QString::fromLatin1("value") );
+                        items.append( value );
+                    }
+                }
+                cat->setItems( items );
+            }
+        }
+    }
+}
+
+void XMLDB::saveOptions( QDomElement top )
+{
+    QDomDocument doc = top.ownerDocument();
+
+    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QDomElement options = doc.createElement( QString::fromLatin1("options") );
+    top.appendChild( options );
+
+
+    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
+        QString name = *it;
+        opt.setAttribute( QString::fromLatin1("name"),  name );
+        Category* category = CategoryCollection::instance()->categoryForName( name );
+
+        opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
+        opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
+        opt.setAttribute( QString::fromLatin1( "viewsize" ), category->viewSize() );
+        opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
+
+        // we don t save the values for the option "Folder" since it is automatically set
+        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
+        QStringList list;
+        if ( category->isSpecialCategory() )
+            list = QStringList();
+        else
+            list = category->items();
+        bool any = false;
+        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+            QDomElement val = doc.createElement( QString::fromLatin1("value") );
+            val.setAttribute( QString::fromLatin1("value"), *it2 );
+            opt.appendChild( val );
+            any = true;
+        }
+        options.appendChild( opt );
+    }
+}

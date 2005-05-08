@@ -55,72 +55,43 @@ Options* Options::instance()
     return _instance;
 }
 
-Options::Options( const QDomElement& options, const QString& imageDirectory )
+Options::Options( const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
-    Util::readOptions( options, &_options, CategoryCollection::instance() );
     createSpecialCategories();
 }
 
-void Options::save( QDomElement top )
-{
-    QDomDocument doc = top.ownerDocument();
-
-    QStringList grps = CategoryCollection::instance()->categoryNames();
-    QDomElement options = doc.createElement( STR("options") );
-    top.appendChild( options );
-    (void) Util::writeOptions( doc, options, _options, CategoryCollection::instance() );
-}
-
+// PENDING(blackie) remove all these functions.
 void Options::setOption( const QString& key, const QStringList& value )
 {
-    _options[key] = value;
+    CategoryCollection::instance()->categoryForName( key )->setItems( value );
 }
 
 void Options::removeOption( const QString& key, const QString& value )
 {
-    _options[key].remove( value );
+    CategoryCollection::instance()->categoryForName( key )->removeItem( value );
     emit deletedOption( key, value );
 }
 
 void Options::renameOption( const QString& category, const QString& oldValue, const QString& newValue )
 {
-    _options[category].remove( oldValue );
-    addOption( category, newValue );
+    CategoryCollection::instance()->categoryForName( category )->renameItem( oldValue, newValue );
     emit renamedOption( category, oldValue, newValue );
 }
 
 void Options::addOption( const QString& key, const QString& value )
 {
-    if ( _options[key].contains( value ) )
-        _options[key].remove( value );
-    _options[key].prepend( value );
+    CategoryCollection::instance()->categoryForName( key )->addItem( value );
 }
 
 QStringList Options::optionValue( const QString& key ) const
 {
-    return _options[key];
+    return CategoryCollection::instance()->categoryForName( key )->items();
 }
 
 QStringList Options::optionValueInclGroups( const QString& category ) const
 {
-    // values including member groups
-
-    QStringList items = optionValue( category );
-    QStringList itemsAndGroups = QStringList::QStringList();
-    for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
-        itemsAndGroups << *it ;
-    };
-    // add the groups to the listbox too, but only if the group is not there already, which will be the case
-    // if it has ever been selected once.
-    QStringList groups = ImageDB::instance()->memberMap().groups( category );
-    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
-        if ( ! items.contains(  *it ) )
-            itemsAndGroups << *it ;
-    };
-    if ( viewSortType() == SortAlpha )
-        itemsAndGroups.sort();
-    return itemsAndGroups;
+    return CategoryCollection::instance()->categoryForName( category )->itemsInclGroups();
 }
 
 
@@ -218,9 +189,9 @@ void Options::setHTMLDestURL( const QString& url )
 }
 
 
-void Options::setup( const QDomElement& options, const QString& imageDirectory )
+void Options::setup( const QString& imageDirectory )
 {
-    _instance = new Options( options, imageDirectory );
+    _instance = new Options( imageDirectory );
 }
 
 void Options::setCurrentLock( const ImageSearchInfo& info, bool exclude )
@@ -389,7 +360,6 @@ void Options::createSpecialCategories()
 {
     Category* folderCat = CategoryCollection::instance()->categoryForName( STR( "Folder" ) );
     if( folderCat == 0 ) {
-        _options.insert( STR("Folder"), QStringList() );
         folderCat = new Category( STR("Folder"), STR("folder"), Category::Small, Category::ListView, false );
         CategoryCollection::instance()->addCategory( folderCat );
     }
@@ -398,7 +368,6 @@ void Options::createSpecialCategories()
 
     Category* tokenCat = CategoryCollection::instance()->categoryForName( STR( "Tokens" ) );
     if ( !tokenCat ) {
-        _options.insert( STR("Tokens"), QStringList() );
         tokenCat = new Category( STR("Tokens"), STR("cookie"), Category::Small, Category::ListView, true );
         CategoryCollection::instance()->addCategory( tokenCat );
     }
@@ -502,6 +471,7 @@ QString Options::groupForDatabase( const QString& setting ) const
 {
     return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
+
 
 
 #undef STR

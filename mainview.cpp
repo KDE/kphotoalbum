@@ -393,7 +393,6 @@ void MainView::save( const QString& fileName )
     QDomElement elm = doc.createElement( QString::fromLatin1("KimDaBa") );
     doc.appendChild( elm );
 
-    Options::instance()->save( elm );
     ImageDB::instance()->save( elm );
 
     QFile out( fileName );
@@ -912,8 +911,8 @@ void MainView::load()
 
     file.close();
 
-    Options::setup( options, QFileInfo( configFile ).dirPath( true ) );
-    bool newImages = ImageDB::setup( images, blockList, memberGroups );
+    Options::setup( QFileInfo( configFile ).dirPath( true ) );
+    bool newImages = ImageDB::setup( options, images, blockList, memberGroups );
     if ( newImages )
         setDirty( true );
 }

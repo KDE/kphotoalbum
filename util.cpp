@@ -95,8 +95,7 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
 
-    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull();
-          nodeOption = nodeOption.nextSibling() )  {
+    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
         if ( nodeOption.isElement() )  {
             QDomElement elmOption = nodeOption.toElement();

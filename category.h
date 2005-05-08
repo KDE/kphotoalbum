@@ -40,6 +40,13 @@ public:
     void setSpecialCategory( bool b );
     bool isSpecialCategory() const;
 
+    void setItems( const QStringList& items );
+    void removeItem( const QString& item );
+    void renameItem( const QString& oldValue, const QString& newValue );
+    void addItem( const QString& item );
+    QStringList items() const;
+    QStringList itemsInclGroups() const;
+
 signals:
     void changed();
 
@@ -51,6 +58,7 @@ private:
     ViewType _type;
 
     bool _isSpecial;
+    QStringList _items;
 };
 
 #endif /* CATEGORY_H */

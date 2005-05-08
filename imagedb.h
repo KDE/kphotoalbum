@@ -31,7 +31,7 @@ class ImageDB  :public QObject {
 
 public:
     static ImageDB* instance();
-    static bool setup( const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups );
+    static bool setup( const QDomElement& options, const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups );
 
 private:
     static ImageDB* _instance;

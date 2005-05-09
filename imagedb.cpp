@@ -1,6 +1,7 @@
 #include "imagedb.h"
 #include <xmldb.h>
 #include <klocale.h>
+#include <qfileinfo.h>
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -23,6 +24,3 @@ QString ImageDB::NONE()
 {
     return i18n("**NONE**");
 }
-
-
-

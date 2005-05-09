@@ -47,7 +47,7 @@ ImageInfo::ImageInfo() :_null( true )
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    :  _visible( true ), _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
+    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
 {
     QString fullPath = Options::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Options::instance()->imageDirectory() + fileName );
@@ -61,7 +61,7 @@ ImageInfo::ImageInfo( const QString& fileName )
 }
 
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
-    :  _visible( true ), _null( false ), _locked( false )
+    :  _null( false ), _locked( false )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ fileName );
     setFileName( fileName );
@@ -251,16 +251,6 @@ ImageDate& ImageInfo::startDate()
 ImageDate& ImageInfo::endDate()
 {
     return _endDate;
-}
-
-void ImageInfo::setVisible( bool b )
-{
-    _visible = b;
-}
-
-bool ImageInfo::visible() const
-{
-    return _visible;
 }
 
 

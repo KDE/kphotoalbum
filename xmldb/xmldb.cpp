@@ -228,11 +228,13 @@ int XMLDB::totalCount() const
     return _images.count();
 }
 
-ImageInfoList XMLDB::search( const ImageSearchInfo& info )
+ImageInfoList XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk )
 {
     ImageInfoList result;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+        match &= !requireOnDisk || (*it)->imageOnDisk();
+
         if (match)
             result.append(*it);
     }
@@ -250,7 +252,6 @@ int XMLDB::count( const ImageSearchInfo& info )
 ImageInfo* XMLDB::load( const QString& fileName, QDomElement elm )
 {
     ImageInfo* info = new ImageInfo( fileName, elm );
-    info->setVisible( false );
     _images.append(info);
     _fileMap.insert( info->fileName(), info );
     return info;
@@ -454,23 +455,6 @@ QMap<QString,int> XMLDB::classify( const ImageSearchInfo& info, const QString &g
     return map;
 }
 
-ImageInfoList XMLDB::images( const ImageSearchInfo& info, bool onDisk )
-{
-    ImageInfoList res;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && info.match( *it );
-        match &= !onDisk || (*it)->imageOnDisk();
-        if ( match )
-            res.append( *it );
-    }
-    return res;
-}
-
-
-
-
-
-
 int XMLDB::countItemsOfCategory( const QString& group )
 {
     int count = 0;
@@ -656,13 +640,6 @@ void XMLDB::slotRecalcCheckSums()
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::showUnavailableImages()
-{
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        QFileInfo fi( (*it)->fileName() );
-        (*it)->setVisible( !fi.exists() );
-    }
-}
 
 /**
    Returns a list of current context.

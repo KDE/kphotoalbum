@@ -60,9 +60,10 @@ public:
     QString currentBrowseCategory() const;
 
 public slots:
-    void showThumbNails();
+    void showThumbNails( const ImageInfoList& list );
 
 protected slots:
+    void showThumbNails();
     bool slotExit();
     void slotOptions();
     void slotConfigureAllImages();

@@ -34,21 +34,19 @@ class XMLDB :public ImageDB
     Q_OBJECT
 public:
     int totalCount() const;
-    ImageInfoList search( const ImageSearchInfo& info );
+    ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false );
     int count( const ImageSearchInfo& info );
     int countItemsOfCategory( const QString& group );
     void renameOptionGroup( const QString& oldName, const QString newName );
 
     QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
     ImageInfoList& images() { return _images; }
-    ImageInfoList images( const ImageSearchInfo& info, bool onDisk );
     void addImage( ImageInfo* info );
     ImageInfoList& clipboard() { return _clipboard; }
     bool isClipboardEmpty();
 
     void blockList( const ImageInfoList& list );
     void deleteList( const ImageInfoList& list );
-    void showUnavailableImages();
     ImageInfoList currentContext( bool onDisk ) const;
     ImageInfo* find( const QString& fileName ) const;
     const MemberMap& memberMap();

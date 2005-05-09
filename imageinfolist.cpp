@@ -52,7 +52,6 @@ bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
 {
     Q_ASSERT( mergeList.count() != 0 );
     int index = find( mergeList.at(0));
-    Q_ASSERT( index != 1 );
 
     ImageInfoListIterator thisListIt( *this );
     thisListIt += index;

@@ -539,12 +539,7 @@ void MainView::closeEvent( QCloseEvent* e )
 void MainView::slotLimitToSelected()
 {
     ShowBusyCursor dummy;
-    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
-        ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
-        Q_ASSERT( tn );
-        tn->imageInfo()->setVisible( item->isSelected() );
-    }
-    reloadThumbNail();
+    showThumbNails( selected() );
 }
 
 void MainView::setupMenuBar()
@@ -988,6 +983,12 @@ void MainView::slotThumbNailSelectionChanged()
     _sortByDateAndTime->setEnabled( manySelected );
 }
 
+void MainView::showThumbNails( const ImageInfoList& list )
+{
+    _thumbNailView->setImageList( list );
+    showThumbNails();
+}
+
 void MainView::reloadThumbNail()
 {
     _thumbNailView->reload();
@@ -1008,8 +1009,15 @@ void MainView::slotUpdateViewMenu( Category::ViewSize size, Category::ViewType t
 
 void MainView::slotShowNotOnDisk()
 {
-    ImageDB::instance()->showUnavailableImages();
-    showThumbNails();
+    ImageInfoList allImages = ImageDB::instance()->images();
+    ImageInfoList notOnDisk;
+    for( ImageInfoListIterator it( allImages ); *it; ++it ) {
+        QFileInfo fi( (*it)->fileName() );
+        if ( !fi.exists() )
+            notOnDisk.append(*it);
+    }
+
+    showThumbNails( notOnDisk );
 }
 
 
@@ -1237,7 +1245,7 @@ void MainView::updateDateBar( const QString& path )
 
 void MainView::updateDateBar()
 {
-    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
+    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->search( currentContext(), false ) ) );
 }
 
 

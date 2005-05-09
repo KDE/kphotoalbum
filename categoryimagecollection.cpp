@@ -40,7 +40,7 @@ KURL::List CategoryImageCollection::images()
 {
     ImageSearchInfo context( _context );
     context.addAnd( _category, _value );
-    ImageInfoList list = ImageDB::instance()->images( context, true );
+    ImageInfoList list = ImageDB::instance()->search( context, true );
     return imageListToUrlList( list );
 }
 #endif // KIPI

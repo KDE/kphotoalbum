@@ -39,8 +39,9 @@ private:
 public:
     static QString NONE();
 
+public: // Methods that must be overriden
     virtual int totalCount() const = 0; // OK
-    virtual ImageInfoList search( const ImageSearchInfo& info ) = 0; // OK
+    virtual ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) = 0; // OK
     virtual int count( const ImageSearchInfo& info ) = 0; //OK
 
     virtual int countItemsOfCategory( const QString& group ) = 0;
@@ -48,14 +49,12 @@ public:
 
     virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group ) = 0;
     virtual ImageInfoList& images() = 0;
-    virtual ImageInfoList images( const ImageSearchInfo& info, bool onDisk ) = 0;
     virtual void addImage( ImageInfo* info ) = 0;
     virtual ImageInfoList& clipboard() = 0;
     virtual bool isClipboardEmpty() = 0;
 
     virtual void blockList( const ImageInfoList& list ) = 0;
     virtual void deleteList( const ImageInfoList& list ) = 0;
-    virtual void showUnavailableImages() = 0;
     virtual ImageInfoList currentContext( bool onDisk ) const = 0;
     virtual ImageInfo* find( const QString& fileName ) const = 0;
     virtual const MemberMap& memberMap() = 0;

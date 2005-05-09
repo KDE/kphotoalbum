@@ -62,6 +62,7 @@ void InvalidDateFinder::slotOk()
 
     // Now search for the images.
     ImageInfoList list = ImageDB::instance()->images();
+    ImageInfoList toBeShown;
     KProgressDialog dialog( 0, "progress dialog", i18n("Reading file properties"),
                             i18n("Reading File Properties"), true );
     dialog.progressBar()->setTotalSteps( list.count() );
@@ -95,7 +96,7 @@ void InvalidDateFinder::slotOk()
             show = (date.year() == 0 || date.month() == 0 || date.day() == 0) && (date.year() != 0 || date.month() != 0 || date.day() != 0 );
         }
 
-        (*it)->setVisible( show );
+        toBeShown.append(*it);
     }
 
     if ( _dateNotTime->isChecked() ) {
@@ -110,6 +111,7 @@ void InvalidDateFinder::slotOk()
     else
         delete info;
 
+    MainView::theMainView()->showThumbNails( toBeShown );
     KDialogBase::slotOk();
 }
 

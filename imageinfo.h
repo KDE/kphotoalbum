@@ -48,8 +48,6 @@ public:
     ImageInfo();
     ImageInfo( const QString& fileName );
     ImageInfo( const QString& fileName, QDomElement elm );
-    void setVisible( bool b );
-    bool visible() const;
 
     QString fileName( bool relative = false ) const;
     void setFileName( const QString& relativeFileName );
@@ -117,7 +115,6 @@ private:
     ImageDate _startDate, _endDate;
     QMap<QString, QStringList> _options;
     int _angle;
-    bool _visible;
     DrawList _drawList;
     enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
     mutable OnDisk _imageOnDisk;

@@ -183,7 +183,7 @@ void DateSearchDialog::highlightPossibleDates( KDatePicker* picker)
     context.setStartDate( date );
     date.setDay( date.getDate().daysInMonth() );
     context.setEndDate( date );
-    ImageInfoList list = ImageDB::instance()->images( context, TRUE );
+    ImageInfoList list = ImageDB::instance()->search( context, true );
 
     // Iterate through the list of images in the current context that is within the current month.
     for( ImageInfo* image = list.first(); image ; image=list.next() ) {

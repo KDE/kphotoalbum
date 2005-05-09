@@ -49,12 +49,10 @@ QString ImageFolder::text() const
 
 void ImageFolderAction::action( BrowserItemFactory* )
 {
-    ImageInfoList list = ImageDB::instance()->search( _info );
-    ThumbNailView::theThumbnailView()->setImageList( list );
+    MainView::theMainView()->showThumbNails( ImageDB::instance()->search( _info ) );
 
     if ( _context )
         ThumbNailView::theThumbnailView()->makeCurrent( _context );
-    MainView::theMainView()->showThumbNails();
 }
 
 FolderAction* ImageFolder::action( bool /* ctrlDown */ )

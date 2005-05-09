@@ -176,8 +176,8 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
-    connect( ImageDB::instance(), SIGNAL( matchCountChange( int, int, int ) ),
-             partial, SLOT( setMatchCount( int, int, int ) ) );
+    connect( ImageDB::instance(), SIGNAL( matchCountChange( int ) ),
+             partial, SLOT( setMatchCount( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
     connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );

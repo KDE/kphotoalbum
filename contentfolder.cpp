@@ -88,7 +88,7 @@ FolderAction* ContentFolder::action( bool ctrlDown )
 
     if ( loadImages ) {
         ImageSearchInfo info = _info;
-        return new ImageFolderAction( info, -1, -1, _browser );
+        return new ImageFolderAction( info, _browser );
     }
 
     return new ContentFolderAction( _category, _value, _info, _browser );

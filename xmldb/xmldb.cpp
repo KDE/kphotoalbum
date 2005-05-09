@@ -228,20 +228,20 @@ int XMLDB::totalCount() const
     return _images.count();
 }
 
-void XMLDB::search( const ImageSearchInfo& info, int from, int to )
+void XMLDB::search( const ImageSearchInfo& info )
 {
     ShowBusyCursor dummy;
-    int c = count( info, true, from, to );
+    int c = count( info, true );
     emit searchCompleted();
-    emit matchCountChange( from, to, c );
+    emit matchCountChange( c );
 }
 
 int XMLDB::count( const ImageSearchInfo& info )
 {
-    return count( info, false, -1, -1 );
+    return count( info, false );
 }
 
-int XMLDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int to )
+int XMLDB::count( const ImageSearchInfo& info, bool makeVisible )
 {
     int count = 0;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
@@ -250,8 +250,6 @@ int XMLDB::count( const ImageSearchInfo& info, bool makeVisible, int from, int t
         if ( match )
             ++count;
 
-        match &= ( from != -1 && to != -1 && from <= count && count <= to ) ||
-                 ( from == -1 && to == -1 );
         if ( makeVisible )
             (*it)->setVisible( match );
     }

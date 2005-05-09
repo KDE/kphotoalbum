@@ -139,7 +139,7 @@ void Browser::go()
 void Browser::addSearch( ImageSearchInfo& info )
 {
     FolderAction* a;
-    a = new ImageFolderAction( info, -1, -1, this );
+    a = new ImageFolderAction( info, this );
     addItem(a);
     go();
 }
@@ -221,7 +221,7 @@ void Browser::load( const QString& category, const QString& value )
     if ( Util::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )
-        a = new ImageFolderAction( info, -1, -1, this );
+        a = new ImageFolderAction( info, this );
     else
         a = new ContentFolderAction( category, value, info, this );
 

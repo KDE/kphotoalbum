@@ -27,7 +27,7 @@ public:
     ImageCounter( QWidget* parent, const char* name = 0 );
 
 public slots:
-    void setMatchCount( int start, int end, int matches );
+    void setMatchCount( int matches );
     void setTotal( int );
     void showingOverview();
 };

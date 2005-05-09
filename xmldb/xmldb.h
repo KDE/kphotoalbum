@@ -52,9 +52,9 @@ public:
     ImageInfo* find( const QString& fileName ) const;
     const MemberMap& memberMap();
     void setMemberMap( const MemberMap& members );
+    void save( const QString& fileName );
 
 public slots:
-    void save( QDomElement top );
     void slotRescan();
     void slotRecalcCheckSums();
     void slotReread(ImageInfoList rereadList, int mode);
@@ -62,6 +62,7 @@ public slots:
     void clearDateRange();
 
 protected:
+    void save( QDomElement top );
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
     void mergeNewImagesInWithExistingList( ImageInfoList newImages );
@@ -84,7 +85,7 @@ protected slots:
 
 private:
     friend class ImageDB;
-    XMLDB( const QDomElement& options, const QDomElement& images, const QDomElement& blockList, const QDomElement& memberGroups, bool* newImages );
+    XMLDB( const QString& configFile, bool* newImages );
 
     ImageInfoList _images;
     QStringList _blockList;

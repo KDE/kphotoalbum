@@ -51,7 +51,6 @@
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
 #include <qregexp.h>
-#include <stdlib.h>
 #include <qpopupmenu.h>
 #include <kiconloader.h>
 #include <kpassdlg.h>
@@ -386,24 +385,7 @@ void MainView::slotSave()
 void MainView::save( const QString& fileName )
 {
     ShowBusyCursor dummy;
-
-    QDomDocument doc;
-
-    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement elm = doc.createElement( QString::fromLatin1("KimDaBa") );
-    doc.appendChild( elm );
-
-    ImageDB::instance()->save( elm );
-
-    QFile out( fileName );
-
-    if ( !out.open( IO_WriteOnly ) )
-        KMessageBox::sorry( this, i18n( "Could not open file '%1'." ).arg( fileName ) );
-    else {
-        QCString s = doc.toCString();
-        out.writeBlock( s.data(), s.size()-1 );
-        out.close();
-    }
+    ImageDB::instance()->save( fileName );
 }
 
 
@@ -818,101 +800,8 @@ void MainView::load()
         }
     }
 
-    Util::checkForBackupFile( configFile );
-
-
-    QDomDocument doc;
-    QFile file( configFile );
-    if ( !file.exists() ) {
-        // Load a default setup
-        QFile file( locate( "data", QString::fromLatin1( "kimdaba/default-setup" ) ) );
-        if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::information( 0, i18n( "<qt><p>KimDaBa was unable to load a default setup, which indicates an installation error</p>"
-                                               "<p>If you have installed KimDaBa yourself, then you must remember to set the environment variable "
-                                               "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                               "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
-                                               "environment variable setup (this example is for Bash and compatible shells):</p>"
-                                               "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
-                                               "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
-                                               "environment variable</p></qt>"), i18n("No default setup file found") );
-        }
-        else {
-            QTextStream stream( &file );
-            stream.setEncoding( QTextStream::UnicodeUTF8 );
-            QString str = stream.read();
-            str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
-            str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
-            str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
-            str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
-            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
-            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-            doc.setContent( str );
-        }
-    }
-    else {
-        if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
-            exit(-1);
-        }
-
-        QString errMsg;
-        int errLine;
-        int errCol;
-
-        if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
-            KMessageBox::error( this, i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
-            exit(-1);
-        }
-    }
-
-    // Now read the content of the file.
-    QDomElement top = doc.documentElement();
-    if ( top.isNull() ) {
-        KMessageBox::error( this, i18n("Error in file %1: No elements found").arg( configFile ) );
-        exit(-1);
-    }
-
-    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) {
-        KMessageBox::error( this, i18n("Error in file %1: expected 'KimDaBa' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
-        exit(-1);
-    }
-
-    QDomElement options;
-    QDomElement images;
-    QDomElement blockList;
-    QDomElement memberGroups;
-
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString tag = elm.tagName().lower();
-            if ( tag == QString::fromLatin1( "config" ) )
-                ; // Skip for compatibility with 2.1 and older
-            else if ( tag == QString::fromLatin1( "options" ) )
-                options = elm;
-            else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
-                ; // Skip for compatibility with 2.1 and older
-            else if ( tag == QString::fromLatin1("images") )
-                images = elm;
-            else if ( tag == QString::fromLatin1( "blocklist" ) )
-                blockList = elm;
-            else if ( tag == QString::fromLatin1( "member-groups" ) )
-                memberGroups = elm;
-            else {
-                KMessageBox::error( this, i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
-            }
-        }
-    }
-
-    if ( options.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
-    if ( images.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
-
-    file.close();
-
     Options::setup( QFileInfo( configFile ).dirPath( true ) );
-    bool newImages = ImageDB::setup( options, images, blockList, memberGroups );
+    bool newImages = ImageDB::setup( configFile );
     if ( newImages )
         setDirty( true );
 }

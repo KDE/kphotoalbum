@@ -12,10 +12,10 @@ ImageDB* ImageDB::instance()
     return _instance;
 }
 
-bool ImageDB::setup( const QDomElement& options, const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups )
+bool ImageDB::setup( const QString& configFile )
 {
     bool dirty;
-    _instance = new XMLDB( options, top, blockList, memberGroups, &dirty );
+    _instance = new XMLDB( configFile, &dirty );
     return dirty;
 }
 

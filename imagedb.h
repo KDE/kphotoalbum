@@ -31,7 +31,7 @@ class ImageDB  :public QObject {
 
 public:
     static ImageDB* instance();
-    static bool setup( const QDomElement& options, const QDomElement& top, const QDomElement& blockList, const QDomElement& memberGroups );
+    static bool setup( const QString& configFile );
 
 private:
     static ImageDB* _instance;
@@ -61,9 +61,9 @@ public:
     virtual ImageInfo* find( const QString& fileName ) const = 0;
     virtual const MemberMap& memberMap() = 0;
     virtual void setMemberMap( const MemberMap& members ) = 0;
+    virtual void save( const QString& fileName ) = 0;
 
 public slots:
-    virtual void save( QDomElement top ) = 0;
     virtual void slotRescan() = 0;
     virtual void slotRecalcCheckSums() = 0;
     virtual void slotReread(ImageInfoList rereadList, int mode) = 0;

@@ -225,8 +225,7 @@ void ListSelect::slotReturn()
         if ( !item ) {
             item = new QListBoxText( _listBox, txt );
         }
-        Options* options = Options::instance();
-        options->addOption( _category, txt);
+        CategoryCollection::instance()->categoryForName( _category )->addItem( txt);
 
         // move item to front
         _listBox->takeItem( item );
@@ -265,7 +264,7 @@ void ListSelect::setSelection( const QStringList& list )
         if ( !item )  {
             _listBox->insertItem( *it );
             item = _listBox->findItem( *it,  ExactMatch );
-            Options::instance()->addOption( _category, *it);
+            CategoryCollection::instance()->categoryForName( _category )->addItem( *it);
         }
         _listBox->setSelected( item,  true );
     }
@@ -447,7 +446,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()),
                                                i18n("Really Delete %1?").arg(item->text()), KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
-            Options::instance()->removeOption(category(), item->text() );
+            CategoryCollection::instance()->categoryForName(category())->removeItem( item->text() );
             delete item;
         }
     }
@@ -464,7 +463,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text();
-                Options::instance()->renameOption( category(), oldStr, newStr );
+                CategoryCollection::instance()->categoryForName( category() )->renameItem( oldStr, newStr );
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
@@ -508,7 +507,7 @@ void ListSelect::populate()
 {
     _label->setText( CategoryCollection::instance()->categoryForName( _category )->text() );
     _listBox->clear();
-    QStringList items = Options::instance()->optionValueInclGroups( _category );
+    QStringList items = CategoryCollection::instance()->categoryForName( _category )->itemsInclGroups();
     _listBox->insertStringList( items );
 }
 

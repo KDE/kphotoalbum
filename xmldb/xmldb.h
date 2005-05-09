@@ -26,6 +26,7 @@
 #include "imagedaterange.h"
 #include "membermap.h"
 #include <imagedb.h>
+#include <category.h>
 class ImageInfo;
 
 class XMLDB :public ImageDB
@@ -79,8 +80,8 @@ protected:
     void saveOptions( QDomElement top );
 
 protected slots:
-    void renameOption( const QString& category, const QString& oldName, const QString& newName );
-    void deleteOption( const QString& category, const QString& option );
+    void renameOption( Category* category, const QString& oldName, const QString& newName );
+    void deleteOption( Category* category, const QString& option );
     void lockDB( bool lock, bool exclude );
 
 private:

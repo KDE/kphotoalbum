@@ -117,6 +117,7 @@ protected slots:
     void setDateRange( const ImageDateRange& );
     void clearDateRange();
     void deleteImageConfigure();
+    void startAutoSaveTimer();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -125,7 +126,6 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     virtual void moveEvent ( QMoveEvent * );
     void setupMenuBar();
-    void startAutoSaveTimer();
     void createImageConfig();
     void load();
     void save( const QString& fileName );

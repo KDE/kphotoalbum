@@ -1,5 +1,6 @@
 #include "categorycollection.h"
 #include "imagedb.h"
+#include "category.h"
 
 CategoryCollection* CategoryCollection::_instance = 0;
 
@@ -28,6 +29,8 @@ void CategoryCollection::addCategory( Category* category )
 {
     _categories.append( category );
     connect( category, SIGNAL( changed() ), this, SIGNAL( categoryCollectionChanged() ) );
+    connect( category, SIGNAL( itemRemoved( const QString& ) ), this, SLOT( itemRemoved( const QString& ) ) );
+    connect( category, SIGNAL( itemRenamed( const QString&, const QString& ) ), this, SLOT( itemRenamed( const QString&, const QString& ) ) );
     emit categoryCollectionChanged();
 }
 
@@ -79,5 +82,15 @@ QString CategoryCollection::nameForText( const QString& text )
     return QString::null;
 }
 
+
+void CategoryCollection::itemRenamed( const QString& oldName, const QString& newName )
+{
+    emit itemRenamed( static_cast<Category*>( const_cast<QObject*>( sender() ) ), oldName, newName );
+}
+
+void CategoryCollection::itemRemoved( const QString& item )
+{
+    emit itemRemoved( static_cast<Category*>( const_cast<QObject*>( sender() ) ), item );
+}
 
 #include "categorycollection.moc"

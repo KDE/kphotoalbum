@@ -21,6 +21,7 @@
 #include "options.h"
 #include "membermap.h"
 #include "imagedb.h"
+#include "categorycollection.h"
 
 // Examples:
 // groupToMemberMap = { USA |-> [Chicago, Santa Clara],
@@ -39,7 +40,7 @@ GroupCounter::GroupCounter( const QString& category )
     _groupCount.setAutoDelete( true );
 
     // Initialize _memberToGroup map.
-    QStringList items = Options::instance()->optionValue( category );
+    QStringList items = CategoryCollection::instance()->categoryForName( category )->items();
     items += map.groups( category );
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         _memberToGroup.insert( *it, new QStringList );

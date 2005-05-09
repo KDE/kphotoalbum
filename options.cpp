@@ -61,40 +61,6 @@ Options::Options( const QString& imageDirectory )
     createSpecialCategories();
 }
 
-// PENDING(blackie) remove all these functions.
-void Options::setOption( const QString& key, const QStringList& value )
-{
-    CategoryCollection::instance()->categoryForName( key )->setItems( value );
-}
-
-void Options::removeOption( const QString& key, const QString& value )
-{
-    CategoryCollection::instance()->categoryForName( key )->removeItem( value );
-    emit deletedOption( key, value );
-}
-
-void Options::renameOption( const QString& category, const QString& oldValue, const QString& newValue )
-{
-    CategoryCollection::instance()->categoryForName( category )->renameItem( oldValue, newValue );
-    emit renamedOption( category, oldValue, newValue );
-}
-
-void Options::addOption( const QString& key, const QString& value )
-{
-    CategoryCollection::instance()->categoryForName( key )->addItem( value );
-}
-
-QStringList Options::optionValue( const QString& key ) const
-{
-    return CategoryCollection::instance()->categoryForName( key )->items();
-}
-
-QStringList Options::optionValueInclGroups( const QString& category ) const
-{
-    return CategoryCollection::instance()->categoryForName( category )->itemsInclGroups();
-}
-
-
 bool Options::trustTimeStamps()
 {
     if ( tTimeStamps() == Always )
@@ -233,6 +199,7 @@ QString Options::password() const
     return value( groupForDatabase( STR("Privacy Settings") ), STR("password"), STR("") );
 }
 
+// PENDING(blackie) move this function to Category
 QString Options::fileForCategoryImage( const QString& category, QString member ) const
 {
     QString dir = imageDirectory() + STR("CategoryImages" );
@@ -241,7 +208,7 @@ QString Options::fileForCategoryImage( const QString& category, QString member )
     return fileName;
 }
 
-
+// PENDING(blackie) move this function to Category
 void Options::setOptionImage( const QString& category, QString member, const QImage& image )
 {
     QString dir = imageDirectory() + STR("CategoryImages" );
@@ -262,6 +229,7 @@ void Options::setOptionImage( const QString& category, QString member, const QIm
     }
 }
 
+// PENDING(blackie) moved this function to Category
 QImage Options::optionImage( const QString& category, QString member, int size ) const
 {
     QString fileName = fileForCategoryImage( category, member );

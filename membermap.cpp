@@ -19,6 +19,7 @@
 #include "membermap.h"
 #include "options.h"
 #include <qtimer.h>
+#include "categorycollection.h"
 
 MemberMap::MemberMap() :QObject(0), _dirty( true )
 {
@@ -27,10 +28,10 @@ MemberMap::MemberMap() :QObject(0), _dirty( true )
 
 void MemberMap::init()
 {
-    connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
-             this, SLOT( deleteOption( const QString&, const QString& ) ) );
-    connect( Options::instance(), SIGNAL( renamedOption( const QString&, const QString&, const QString& ) ),
-             this, SLOT( renameOption( const QString&, const QString&, const QString& ) ) );
+    connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+             this, SLOT( deleteOption( Category*, const QString& ) ) );
+    connect( CategoryCollection::instance(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
+             this, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
 }
 
 /**
@@ -194,7 +195,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
             list.append( newName );
         }
     }
-    Options::instance()->renameOption( category, oldName, newName );
+    CategoryCollection::instance()->categoryForName( category )->renameItem( oldName, newName );
 }
 
 MemberMap::MemberMap( const MemberMap& other )
@@ -202,20 +203,20 @@ MemberMap::MemberMap( const MemberMap& other )
 {
 }
 
-void MemberMap::deleteOption( const QString& category, const QString& name)
+void MemberMap::deleteOption( Category* category, const QString& name)
 {
     _dirty = true;
-    QMap<QString, QStringList>& groupMap = _members[category];
+    QMap<QString, QStringList>& groupMap = _members[category->name()];
     for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         QStringList& list = it.data();
         list.remove( name );
     }
 }
 
-void MemberMap::renameOption( const QString& category, const QString& oldName, const QString& newName )
+void MemberMap::renameOption( Category* category, const QString& oldName, const QString& newName )
 {
     _dirty = true;
-    QMap<QString, QStringList>& groupMap = _members[category];
+    QMap<QString, QStringList>& groupMap = _members[category->name()];
     for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         QStringList& list = it.data();
         if (list.contains( oldName ) ) {

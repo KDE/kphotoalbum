@@ -22,6 +22,7 @@
 #include <qdom.h>
 #include <qmap.h>
 #include <qobject.h>
+class Category;
 
 class MemberMap :public QObject {
     Q_OBJECT
@@ -51,8 +52,8 @@ protected:
 
 protected slots:
     void init();
-    void deleteOption( const QString& category, const QString& name);
-    void renameOption( const QString& category, const QString& oldName, const QString& newName );
+    void deleteOption( Category* category, const QString& name);
+    void renameOption( Category* category, const QString& oldName, const QString& newName );
 
 private:
     // This is the primary data structure

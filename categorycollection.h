@@ -26,6 +26,12 @@ public:
 
 signals:
     void categoryCollectionChanged();
+    void itemRenamed( Category* category, const QString& oldName, const QString& newName );
+    void itemRemoved( Category* category, const QString& name );
+
+protected slots:
+    void itemRenamed( const QString& oldName, const QString& newName );
+    void itemRemoved( const QString& item );
 
 private:
     static CategoryCollection* _instance;

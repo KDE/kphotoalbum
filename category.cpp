@@ -108,12 +108,14 @@ void Category::setItems( const QStringList& items )
 void Category::removeItem( const QString& item )
 {
     _items.remove( item );
+    emit itemRemoved( item );
 }
 
 void Category::renameItem( const QString& oldValue, const QString& newValue )
 {
     _items.remove( oldValue );
     addItem( newValue );
+    emit itemRenamed( oldValue, newValue );
 }
 
 void Category::addItem( const QString& item )

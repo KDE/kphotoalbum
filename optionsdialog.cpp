@@ -634,7 +634,7 @@ void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
     _groups->insertStringList( groupList );
 
     _members->clear();
-    QStringList list = Options::instance()->optionValue(name);
+    QStringList list = CategoryCollection::instance()->categoryForName(name)->items();
     list += _memberMap.groups( name );
     QStringList uniq;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
@@ -671,7 +671,7 @@ void OptionsDialog::slotAddGroup()
         QListBoxItem* item = new QListBoxText( _groups, text );
         _groups->setCurrentItem( item );
         selectMembers( text );
-        Options::instance()->addOption( _currentCategory, text );
+        CategoryCollection::instance()->categoryForName( _currentCategory )->addItem( text );
         _memberMap.setMembers(_currentCategory, text, QStringList() );
         slotCategoryChanged( _currentCategory, false );
     }
@@ -687,7 +687,7 @@ void OptionsDialog::slotRenameGroup()
     if ( ok ) {
         saveOldGroup();
         _memberMap.renameGroup( _currentCategory, currentValue, text );
-        Options::instance()->renameOption( _currentCategory, currentValue, text );
+        CategoryCollection::instance()->categoryForName( _currentCategory )->renameItem( currentValue, text );
         slotCategoryChanged( _currentCategory, false );
     }
 }
@@ -705,7 +705,7 @@ void OptionsDialog::slotDelGroup()
     delete item;
 
     _memberMap.deleteGroup( _currentCategory, _currentGroup );
-    Options::instance()->removeOption( _currentCategory, _currentGroup );
+    CategoryCollection::instance()->categoryForName( _currentCategory )->removeItem( _currentGroup );
     _currentGroup = _groups->text(0);
     slotCategoryChanged( _currentCategory, false );
     selectMembers( _currentGroup );

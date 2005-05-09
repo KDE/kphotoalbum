@@ -49,6 +49,8 @@ public:
 
 signals:
     void changed();
+    void itemRenamed( const QString& oldName, const QString& newName );
+    void itemRemoved( const QString& name );
 
 private:
     QString _name;

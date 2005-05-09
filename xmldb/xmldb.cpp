@@ -211,10 +211,10 @@ XMLDB::XMLDB( const QString& configFile, bool* dirty )
 
     *dirty |= (_pendingLoad.count() != 0);
 
-    connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
-             this, SLOT( deleteOption( const QString&, const QString& ) ) );
-    connect( Options::instance(), SIGNAL( renamedOption( const QString&, const QString&, const QString& ) ),
-             this, SLOT( renameOption( const QString&, const QString&, const QString& ) ) );
+    connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+             this, SLOT( deleteOption( Category*, const QString& ) ) );
+    connect( CategoryCollection::instance(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
+             this, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
     connect( Options::instance(), SIGNAL( locked( bool, bool ) ), this, SLOT( lockDB( bool, bool ) ) );
 
     checkIfImagesAreSorted();
@@ -518,17 +518,17 @@ void XMLDB::deleteList( const ImageInfoList& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::renameOption( const QString& category, const QString& oldName, const QString& newName )
+void XMLDB::renameOption( Category* category, const QString& oldName, const QString& newName )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        (*it)->renameOption( category, oldName, newName );
+        (*it)->renameOption( category->name(), oldName, newName );
     }
 }
 
-void XMLDB::deleteOption( const QString& category, const QString& option )
+void XMLDB::deleteOption( Category* category, const QString& option )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        (*it)->removeOption( category, option );
+        (*it)->removeOption( category->name(), option );
     }
 }
 

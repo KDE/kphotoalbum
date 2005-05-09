@@ -102,13 +102,6 @@ public:
 
 
     // -------------------------------------------------- Options
-    void setOption( const QString& category,  const QStringList& value );
-    void addOption( const QString& category,  const QString& value );
-    void removeOption( const QString& category, const QString& value );
-    QStringList optionValue( const QString& category ) const;
-    QStringList optionValueInclGroups( const QString& category ) const;
-    void renameOption( const QString& category, const QString& oldValue, const QString& newValue );
-
     QString fileForCategoryImage(  const QString& category, QString member ) const;
     void setOptionImage( const QString& category, QString, const QImage& image );
     QImage optionImage( const QString& category,  QString, int size ) const;
@@ -172,8 +165,6 @@ protected:
     void setValue( const QString& group, const QString& option, const QSize& value );
 
 signals:
-    void renamedOption( const QString& category, const QString& oldName, const QString& newName );
-    void deletedOption( const QString& category, const QString& name );
     void locked( bool lock, bool exclude );
     void viewSortTypeChanged( Options::ViewSortType );
     void histogramSizeChanged( const QSize& );

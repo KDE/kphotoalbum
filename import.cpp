@@ -396,7 +396,7 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
         }
     }
 
-    QStringList myOptions = Options::instance()->optionValueInclGroups( myOptionGroup );
+    QStringList myOptions = CategoryCollection::instance()->categoryForName( myOptionGroup )->itemsInclGroups();
     ImportMatcher* matcher = new ImportMatcher( otherOptionGroup, myOptionGroup, otherOptions, myOptions, true, this, "import matcher" );
     addPage( matcher, myOptionGroup );
     return matcher;
@@ -580,7 +580,7 @@ void Import::updateDB()
 
                 if ( info->hasOption( otherGrp, otherOption ) ) {
                     newInfo->addOption( myGrp, myOption );
-                    Options::instance()->addOption( myGrp, myOption );
+                    CategoryCollection::instance()->categoryForName( myGrp )->addItem( myOption );
                 }
 
             }

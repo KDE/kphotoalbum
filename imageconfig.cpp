@@ -630,27 +630,27 @@ KDockWidget* ImageConfig::createListSel( const QString& category )
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( category, dockWidget );
     _optionList.append( sel );
-    connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
-             this, SLOT( slotDeleteOption( const QString&, const QString& ) ) );
-    connect( Options::instance(), SIGNAL( renamedOption( const QString& , const QString& , const QString&  ) ),
-             this, SLOT( slotRenameOption( const QString& , const QString& , const QString&  ) ) );
+    connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+             this, SLOT( slotDeleteOption( Category*, const QString& ) ) );
+    connect( CategoryCollection::instance(), SIGNAL( itemRenamed( Category* , const QString& , const QString&  ) ),
+             this, SLOT( slotRenameOption( Category* , const QString& , const QString&  ) ) );
 
     dockWidget->setWidget( sel );
 
     return dockWidget;
 }
 
-void ImageConfig::slotDeleteOption( const QString& category, const QString& which)
+void ImageConfig::slotDeleteOption( Category* category, const QString& which)
 {
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
-        (*it).removeOption( category, which );
+        (*it).removeOption( category->name(), which );
     }
 }
 
-void ImageConfig::slotRenameOption( const QString& category, const QString& oldValue, const QString& newValue )
+void ImageConfig::slotRenameOption( Category* category, const QString& oldValue, const QString& newValue )
 {
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
-        (*it).renameOption( category, oldValue, newValue );
+        (*it).renameOption( category->name(), oldValue, newValue );
     }
 }
 

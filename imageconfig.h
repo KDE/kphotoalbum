@@ -60,8 +60,8 @@ protected slots:
     void viewerDestroyed();
     void slotOptions();
     void slotSaveWindowSetup();
-    void slotDeleteOption( const QString&, const QString& );
-    void slotRenameOption( const QString& , const QString& , const QString&  );
+    void slotDeleteOption( Category*, const QString& );
+    void slotRenameOption( Category* , const QString& , const QString&  );
     virtual void reject();
     void rotateLeft();
     void rotateRight();

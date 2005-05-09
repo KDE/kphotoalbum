@@ -178,7 +178,7 @@ void ImageInfo::setFileName( const QString& relativeFileName )
 
     QString folderName = Util::relativeFolderName( _fileName );
     _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
-    Options::instance()->addOption( QString::fromLatin1("Folder"), folderName );
+    CategoryCollection::instance()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
 }
 
 

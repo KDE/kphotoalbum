@@ -59,6 +59,9 @@ public:
     ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 
+public slots:
+    void showThumbNails();
+
 protected slots:
     bool slotExit();
     void slotOptions();
@@ -75,7 +78,6 @@ protected slots:
     void slotLimitToSelected();
     void slotExportToHTML();
     void slotAutoSave();
-    void showThumbNails();
     void showBrowser();
     void slotOptionGroupChanged();
     void showTipOfDay();

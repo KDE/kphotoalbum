@@ -176,12 +176,11 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
-    connect( ImageDB::instance(), SIGNAL( matchCountChange( int ) ),
+    connect( _thumbNailView, SIGNAL( showCount( int ) ),
              partial, SLOT( setMatchCount( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
     connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
-    connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
     connect( CategoryCollection::instance(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 

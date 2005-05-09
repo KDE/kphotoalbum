@@ -19,6 +19,7 @@
 #ifndef THUMBNAILVIEW_H
 #define THUMBNAILVIEW_H
 #include <kiconview.h>
+#include "imageinfolist.h"
 class QDateTime;
 class ImageInfo;
 class ImageInfoList;
@@ -35,6 +36,7 @@ public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
     static ThumbNailView* theThumbnailView();
     void makeCurrent( ImageInfo* info );
+    void setImageList( const ImageInfoList& list );
 
 public slots:
     void reload();
@@ -48,6 +50,7 @@ signals:
     void changed();
     void fileNameChanged( const QString& );
     void currentDateChanged( const QDateTime& );
+    void showCount(int);
 
 protected slots:
     void showImage( QIconViewItem* );
@@ -73,6 +76,7 @@ private:
     ThumbNail* _currentHighlighted;
     IconViewToolTip* _iconViewToolTip;
     bool _blockMoveSignals;
+    ImageInfoList _images;
 };
 
 #endif /* THUMBNAILVIEW_H */

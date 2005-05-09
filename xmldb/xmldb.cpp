@@ -228,31 +228,22 @@ int XMLDB::totalCount() const
     return _images.count();
 }
 
-void XMLDB::search( const ImageSearchInfo& info )
+ImageInfoList XMLDB::search( const ImageSearchInfo& info )
 {
-    ShowBusyCursor dummy;
-    int c = count( info, true );
-    emit searchCompleted();
-    emit matchCountChange( c );
+    ImageInfoList result;
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+        if (match)
+            result.append(*it);
+    }
+    return result;
 }
+// PENDING(blackie)  emit searchCompleted() and matchCountChange( list.count() );
+
 
 int XMLDB::count( const ImageSearchInfo& info )
 {
-    return count( info, false );
-}
-
-int XMLDB::count( const ImageSearchInfo& info, bool makeVisible )
-{
-    int count = 0;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
-
-        if ( match )
-            ++count;
-
-        if ( makeVisible )
-            (*it)->setVisible( match );
-    }
+    int count = search( info ).count();
     return count;
 }
 
@@ -910,3 +901,4 @@ void XMLDB::save( const QString& fileName )
         out.close();
     }
 }
+

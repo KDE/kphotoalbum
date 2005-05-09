@@ -34,7 +34,7 @@ class XMLDB :public ImageDB
     Q_OBJECT
 public:
     int totalCount() const;
-    void search( const ImageSearchInfo& info );
+    ImageInfoList search( const ImageSearchInfo& info );
     int count( const ImageSearchInfo& info );
     int countItemsOfCategory( const QString& group );
     void renameOptionGroup( const QString& oldName, const QString newName );
@@ -69,7 +69,6 @@ protected:
     void mergeNewImagesInWithExistingList( ImageInfoList newImages );
     ImageInfo* loadExtraFile( const QString& name );
     ImageInfo* load( const QString& filename, QDomElement elm );
-    int count( const ImageSearchInfo& info, bool makeVisible );
     bool calculateMD5sums( ImageInfoList& list );
     QString MD5Sum( const QString& fileName );
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );

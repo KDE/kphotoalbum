@@ -93,6 +93,7 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::reload()
 {
+    emit showCount( _images.count() );
     setupGrid();
     ThumbNail::pixmapCache().clear();
     // I'm not sure if this is needed, it would require that we were in a
@@ -102,17 +103,14 @@ void ThumbNailView::reload()
 
     clear();
     _iconViewToolTip->clear();
-    ImageInfoList& list = ImageDB::instance()->images();
-    if ( list.isEmpty() )
+    if ( _images.isEmpty() )
         return;
 
     ThumbNail* first = 0;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        if ( (*it)->visible() ) {
-            ThumbNail* tn = new ThumbNail( *it,  this );
-            if ( !first )
-                first = tn;
-        }
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        ThumbNail* tn = new ThumbNail( *it,  this );
+        if ( !first )
+            first = tn;
     }
     if ( first ) {
         first->setSelected( true );
@@ -363,6 +361,11 @@ void ThumbNailView::showEvent( QShowEvent* event )
 {
     QIconView::showEvent( event );
     emitDateChange();
+}
+
+void ThumbNailView::setImageList( const ImageInfoList& list )
+{
+    _images = list;
 }
 
 #include "thumbnailview.moc"

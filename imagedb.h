@@ -40,8 +40,9 @@ public:
     static QString NONE();
 
     virtual int totalCount() const = 0; // OK
-    virtual void search( const ImageSearchInfo& info ) = 0;
-    virtual int count( const ImageSearchInfo& info ) = 0;
+    virtual ImageInfoList search( const ImageSearchInfo& info ) = 0; // OK
+    virtual int count( const ImageSearchInfo& info ) = 0; //OK
+
     virtual int countItemsOfCategory( const QString& group ) = 0;
     virtual void renameOptionGroup( const QString& oldName, const QString newName ) = 0;
 
@@ -69,9 +70,7 @@ public slots:
     virtual void clearDateRange() = 0;
 
 signals:
-    void matchCountChange( int );
     void totalChanged( int );
-    void searchCompleted();
     void dirty();
 };
 

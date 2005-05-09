@@ -25,6 +25,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "thumbnailview.h"
+#include "mainview.h"
 
 // PENDING(blackie) cleanup, we don't need from and to anymore
 ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
@@ -48,10 +49,12 @@ QString ImageFolder::text() const
 
 void ImageFolderAction::action( BrowserItemFactory* )
 {
-    ImageDB::instance()->search( _info );
+    ImageInfoList list = ImageDB::instance()->search( _info );
+    ThumbNailView::theThumbnailView()->setImageList( list );
 
     if ( _context )
         ThumbNailView::theThumbnailView()->makeCurrent( _context );
+    MainView::theMainView()->showThumbNails();
 }
 
 FolderAction* ImageFolder::action( bool /* ctrlDown */ )

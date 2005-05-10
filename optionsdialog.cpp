@@ -532,13 +532,8 @@ void OptionsDialog::slotNewItem()
 
 void OptionsDialog::slotDeleteCurrent()
 {
-    int count = ImageDB::instance()->countItemsOfCategory( _current->_categoryOrig );
     int answer = KMessageBox::Yes;
-    if ( count != 0 )
-        KMessageBox::questionYesNo( this,
-                                    i18n("<qt>Really delete group '%1'?<br>"
-                                         "%2 images contains information in that group")
-                                    .arg( _current->_text).arg(count) );
+    KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->_text) );
     if ( answer == KMessageBox::No )
         return;
 

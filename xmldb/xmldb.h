@@ -36,7 +36,6 @@ public:
     int totalCount() const;
     ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false );
     int count( const ImageSearchInfo& info );
-    int countItemsOfCategory( const QString& group );
     void renameOptionGroup( const QString& oldName, const QString newName );
 
     QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );

@@ -455,16 +455,6 @@ QMap<QString,int> XMLDB::classify( const ImageSearchInfo& info, const QString &g
     return map;
 }
 
-int XMLDB::countItemsOfCategory( const QString& group )
-{
-    int count = 0;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        if ( (*it)->optionValue( group ).count() != 0 )
-            ++count;
-    }
-    return count;
-}
-
 void XMLDB::renameOptionGroup( const QString& oldName, const QString newName )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {

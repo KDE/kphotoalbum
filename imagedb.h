@@ -44,11 +44,10 @@ public: // Methods that must be overriden
     virtual ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) = 0; // OK
     virtual int count( const ImageSearchInfo& info ) = 0; //OK
 
-    virtual int countItemsOfCategory( const QString& group ) = 0;
     virtual void renameOptionGroup( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group ) = 0;
-    virtual ImageInfoList& images() = 0;
+    virtual ImageInfoList& images() = 0; // OK
     virtual void addImage( ImageInfo* info ) = 0;
     virtual ImageInfoList& clipboard() = 0;
     virtual bool isClipboardEmpty() = 0;

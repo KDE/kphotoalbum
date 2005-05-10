@@ -37,11 +37,12 @@ private:
     static ImageDB* _instance;
 
 public:
-    static QString NONE();
+    static QString NONE(); // OK
+    ImageInfoList currentScope( bool requireOnDisk ) const; // OK
 
 public: // Methods that must be overriden
     virtual int totalCount() const = 0; // OK
-    virtual ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) = 0; // OK
+    virtual ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) const = 0; // OK
     virtual int count( const ImageSearchInfo& info ) = 0; //OK
 
     virtual void renameOptionGroup( const QString& oldName, const QString newName ) = 0;
@@ -54,7 +55,6 @@ public: // Methods that must be overriden
 
     virtual void blockList( const ImageInfoList& list ) = 0;
     virtual void deleteList( const ImageInfoList& list ) = 0;
-    virtual ImageInfoList currentContext( bool onDisk ) const = 0;
     virtual ImageInfo* find( const QString& fileName ) const = 0;
     virtual const MemberMap& memberMap() = 0;
     virtual void setMemberMap( const MemberMap& members ) = 0;

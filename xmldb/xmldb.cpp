@@ -228,7 +228,7 @@ int XMLDB::totalCount() const
     return _images.count();
 }
 
-ImageInfoList XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk )
+ImageInfoList XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
 {
     ImageInfoList result;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
@@ -240,7 +240,6 @@ ImageInfoList XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk )
     }
     return result;
 }
-// PENDING(blackie)  emit searchCompleted() and matchCountChange( list.count() );
 
 
 int XMLDB::count( const ImageSearchInfo& info )
@@ -631,25 +630,6 @@ void XMLDB::slotRecalcCheckSums()
 }
 
 
-/**
-   Returns a list of current context.
-   Imagin you have 5000 images, and you search for say Las Vegas, and 1000 images matches that search,
-   then you would in the browser see 10 "folders" each with 100 images.
-   currentContext() does not only give you whatever seubset of 100 images,
-   but does instead give you a list of all 1000 images.
-*/
-ImageInfoList XMLDB::currentContext( bool onDisk ) const
-{
-    ImageSearchInfo currentContext = Browser::instance()->currentContext();
-    ImageInfoList images;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && currentContext.match( *it );
-        if ( match && ( !onDisk || (*it)->imageOnDisk() ) )
-            images.append(*it);
-    }
-    return images;
-}
-
 void XMLDB::addImage( ImageInfo* info )
 {
     _images.append( info );
@@ -723,7 +703,7 @@ void XMLDB::clearDateRange()
     _selectionRange = ImageDateRange();
 }
 
-bool XMLDB::rangeInclude( ImageInfo* info )
+bool XMLDB::rangeInclude( ImageInfo* info ) const
 {
     if (_selectionRange.start().isNull() )
         return true;

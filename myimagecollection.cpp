@@ -45,7 +45,7 @@ KURL::List MyImageCollection::images()
 {
     switch ( _tp ) {
     case CurrentAlbum:
-        return imageListToUrlList( ImageDB::instance()->currentContext( false ) );
+        return imageListToUrlList( ImageDB::instance()->currentScope( false ) );
 
     case CurrentSelection:
         return imageListToUrlList( MainView::theMainView()->selected() );

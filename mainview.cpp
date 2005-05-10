@@ -463,7 +463,7 @@ ImageInfoList MainView::getSelectedOnDisk()
     ImageInfoList listOnDisk;
     ImageInfoList list = selected();
     if ( list.count() == 0 )
-        list = ImageDB::instance()->currentContext(  true );
+        list = ImageDB::instance()->currentScope(  true );
 
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         if ( (*it)->imageOnDisk() )
@@ -663,7 +663,7 @@ void MainView::slotExportToHTML()
 {
     ImageInfoList list = getSelectedOnDisk();
     if ( list.count() == 0 )  {
-        list = ImageDB::instance()->currentContext( true );
+        list = ImageDB::instance()->currentScope( true );
 
         if ( list.count() != _thumbNailView->count() &&
             _stack->visibleWidget() == _thumbNailView ) {

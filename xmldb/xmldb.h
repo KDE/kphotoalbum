@@ -34,7 +34,7 @@ class XMLDB :public ImageDB
     Q_OBJECT
 public:
     int totalCount() const;
-    ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false );
+    ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) const;
     int count( const ImageSearchInfo& info );
     void renameOptionGroup( const QString& oldName, const QString newName );
 
@@ -46,7 +46,6 @@ public:
 
     void blockList( const ImageInfoList& list );
     void deleteList( const ImageInfoList& list );
-    ImageInfoList currentContext( bool onDisk ) const;
     ImageInfo* find( const QString& fileName ) const;
     const MemberMap& memberMap();
     void setMemberMap( const MemberMap& members );
@@ -70,7 +69,7 @@ protected:
     QString MD5Sum( const QString& fileName );
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
     void checkIfImagesAreSorted();
-    bool rangeInclude( ImageInfo* info );
+    bool rangeInclude( ImageInfo* info ) const;
     void checkIfAllImagesHasSizeAttributes();
     void loadOptions( const QDomElement& elm );
     void saveOptions( QDomElement top );

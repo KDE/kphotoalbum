@@ -2,6 +2,7 @@
 #include <xmldb.h>
 #include <klocale.h>
 #include <qfileinfo.h>
+#include "browser.h"
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -23,4 +24,9 @@ bool ImageDB::setup( const QString& configFile )
 QString ImageDB::NONE()
 {
     return i18n("**NONE**");
+}
+
+ImageInfoList ImageDB::currentScope( bool requireOnDisk ) const
+{
+    return search( Browser::instance()->currentContext(), requireOnDisk );
 }

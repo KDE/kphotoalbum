@@ -189,11 +189,13 @@ void ThumbNailView::slotCut()
 {
     ImageInfoList& images = ImageDB::instance()->images();
     QPtrList<ThumbNail> thumbNails = selected();
+    ImageInfoList list;
     for( QPtrListIterator<ThumbNail> it( thumbNails ); *it; ++it ) {
-        ImageDB::instance()->clipboard().append( (*it)->imageInfo() );
         images.removeRef( (*it)->imageInfo() );
+        list.append( (*it)->imageInfo() );
         delete *it;
     }
+    ImageDB::instance()->setClipboard( list );
 }
 
 void ThumbNailView::slotPaste()
@@ -202,7 +204,7 @@ void ThumbNailView::slotPaste()
     if ( selectedList.count() == 0 ) {
         KMessageBox::information( this, i18n("To paste you have to select an image that the past should go after."), i18n("Nothing Selected") );
     }
-    else if ( ImageDB::instance()->clipboard().count() == 0 ) {
+    else if ( ImageDB::instance()->isClipboardEmpty() ) {
         KMessageBox::information( this, i18n("<qt><p>No data on clipboard to paste.</p>"
                                   "<p>It really does not make any sense to the application to have an image represented twice, "
                                   "therefore you can only paste an image off the clipboard once.</p>"),
@@ -214,7 +216,7 @@ void ThumbNailView::slotPaste()
         // Update the image list
         ImageInfoList& images = ImageDB::instance()->images();
         int index = images.findRef( last->imageInfo() ) +1;
-        ImageInfoList& clipboard = ImageDB::instance()->clipboard();
+        ImageInfoList clipboard = ImageDB::instance()->clipboard();
         for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
             images.insert( index, *it );
             ++index;

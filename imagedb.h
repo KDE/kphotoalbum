@@ -32,9 +32,22 @@ class ImageDB  :public QObject {
 public:
     static ImageDB* instance();
     static bool setup( const QString& configFile );
+    ImageInfoList clipboard();
+    void setClipboard( const ImageInfoList& list );
+    bool isClipboardEmpty();
+
+public slots:
+    void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );
+    void clearDateRange();
+
+protected:
+    ImageDateRange _selectionRange;
+    bool _includeFuzzyCounts;
+    ImageInfoList _clipboard;
 
 private:
     static ImageDB* _instance;
+
 
 public:
     static QString NONE(); // OK
@@ -50,12 +63,10 @@ public: // Methods that must be overriden
     virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group ) = 0;
     virtual ImageInfoList& images() = 0; // OK
     virtual void addImage( ImageInfo* info ) = 0;
-    virtual ImageInfoList& clipboard() = 0;
-    virtual bool isClipboardEmpty() = 0;
 
     virtual void blockList( const ImageInfoList& list ) = 0;
     virtual void deleteList( const ImageInfoList& list ) = 0;
-    virtual ImageInfo* find( const QString& fileName ) const = 0;
+    virtual ImageInfo* find( const QString& fileName ) const = 0; // OK
     virtual const MemberMap& memberMap() = 0;
     virtual void setMemberMap( const MemberMap& members ) = 0;
     virtual void save( const QString& fileName ) = 0;
@@ -64,8 +75,6 @@ public slots:
     virtual void slotRescan() = 0;
     virtual void slotRecalcCheckSums() = 0;
     virtual void slotReread(ImageInfoList rereadList, int mode) = 0;
-    virtual void setDateRange( const ImageDateRange&, bool includeFuzzyCounts ) = 0;
-    virtual void clearDateRange() = 0;
 
 signals:
     void totalChanged( int );

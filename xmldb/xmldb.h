@@ -41,8 +41,6 @@ public:
     QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
     ImageInfoList& images() { return _images; }
     void addImage( ImageInfo* info );
-    ImageInfoList& clipboard() { return _clipboard; }
-    bool isClipboardEmpty();
 
     void blockList( const ImageInfoList& list );
     void deleteList( const ImageInfoList& list );
@@ -55,8 +53,6 @@ public slots:
     void slotRescan();
     void slotRecalcCheckSums();
     void slotReread(ImageInfoList rereadList, int mode);
-    void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );
-    void clearDateRange();
 
 protected:
     void save( QDomElement top );
@@ -85,12 +81,10 @@ private:
 
     ImageInfoList _images;
     QStringList _blockList;
-    ImageInfoList _clipboard, _missingTimes;
+    ImageInfoList _missingTimes;
     QMap<QString, QString> _md5Map;
     QMap<QString, ImageInfo* > _fileMap;
     QStringList _pendingLoad;
-    ImageDateRange _selectionRange;
-    bool _includeFuzzyCounts;
     MemberMap _members;
 };
 

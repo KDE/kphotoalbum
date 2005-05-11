@@ -30,3 +30,30 @@ ImageInfoList ImageDB::currentScope( bool requireOnDisk ) const
 {
     return search( Browser::instance()->currentContext(), requireOnDisk );
 }
+
+void ImageDB::setDateRange( const ImageDateRange& range, bool includeFuzzyCounts )
+{
+    _selectionRange = range;
+    _includeFuzzyCounts = includeFuzzyCounts;
+}
+
+void ImageDB::clearDateRange()
+{
+    _selectionRange = ImageDateRange();
+}
+
+ImageInfoList ImageDB::clipboard()
+{
+    return _clipboard;
+}
+
+void ImageDB::setClipboard( const ImageInfoList& list )
+{
+    _clipboard = list;
+}
+
+bool ImageDB::isClipboardEmpty()
+{
+    return (_clipboard.count() == 0 );
+}
+

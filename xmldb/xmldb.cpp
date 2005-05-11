@@ -407,11 +407,6 @@ void XMLDB::save( QDomElement top )
 
 }
 
-bool XMLDB::isClipboardEmpty()
-{
-    return _clipboard.count() == 0;
-}
-
 QMap<QString,int> XMLDB::classify( const ImageSearchInfo& info, const QString &group )
 {
     QMap<QString, int> map;
@@ -690,17 +685,6 @@ void XMLDB::checkIfImagesAreSorted()
                                   i18n("Images Are Not Sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }
-}
-
-void XMLDB::setDateRange( const ImageDateRange& range, bool includeFuzzyCounts )
-{
-    _selectionRange = range;
-    _includeFuzzyCounts = includeFuzzyCounts;
-}
-
-void XMLDB::clearDateRange()
-{
-    _selectionRange = ImageDateRange();
 }
 
 bool XMLDB::rangeInclude( ImageInfo* info ) const

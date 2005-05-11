@@ -26,7 +26,6 @@
 #include <klocale.h>
 #include "util.h"
 #include "groupCounter.h"
-#include <kmdcodec.h>
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -40,7 +39,7 @@
 #include <qregexp.h>
 #include <stdlib.h>
 
-XMLDB::XMLDB( const QString& configFile, bool* dirty )
+XMLDB::XMLDB( const QString& configFile )
 {
     Util::checkForBackupFile( configFile );
 
@@ -140,19 +139,11 @@ XMLDB::XMLDB( const QString& configFile, bool* dirty )
 
     loadOptions( options );
 
-    *dirty = false;
-
     QString directory = Options::instance()->imageDirectory();
     if ( directory.isEmpty() )
         return;
     if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
-
-    // Collect all the ImageInfo's which do not have md5 sum, so we can calculate them in one go,
-    // and show the user a progress bar while doing so.
-    // This is really only needed for upgrading from KimDaBa version 1.0 so at a later point this
-    // code might simply be deleted.
-    ImageInfoList missingSums, missingTimes;
 
     for ( QDomNode node = images.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
@@ -166,34 +157,8 @@ XMLDB::XMLDB( const QString& configFile, bool* dirty )
             qWarning( "Element did not contain a file attribute" );
         else {
             ImageInfo* info = load( fileName, elm );
-            if ( info->MD5Sum().length()<32 && info->imageOnDisk() )
-                missingSums.append( info );
-            else
-                _md5Map.insert( info->MD5Sum(), fileName );
-
-            // test for valid Timestamps - this should only happen when people upgrade from an older
-            // version of KimDaBa, which did not include time stamps.
-            if (!info->startDate().hasValidTime())
-                missingTimes.append( info );
+            _md5map.insert( info->MD5Sum(), fileName );
         }
-    }
-
-    // calculate md5sums - this should only happen the first time the user starts kimdaba after md5sum has been introducted.
-    if ( missingSums.count() != 0 )  {
-        calculateMD5sums( missingSums );
-        *dirty = true;
-    }
-
-    if ( missingTimes.count() != 0 ) {
-        KMessageBox::information(0,i18n("<qt><p>KimDaBa now also shows the time of images."
-                                        "As a means of migration for existing KimDaBa users "
-                                        "all the time stamps can now be read from your existing images; "
-                                        "if you want to do this, use \"Tools->Maintenance->Read EXIF info from files...\" "
-                                        "and check \"Read time\". "
-                                        "<p>Be aware that this may overwrite the time info you have previously entered. "
-                                        "Be sure you have in the current view only the files for which you really want to read time.</p></qt>"),
-                                 QString::null,
-                                 QString::fromLatin1("showTimeWarningStartup"));
     }
 
     // Read the block list
@@ -208,8 +173,6 @@ XMLDB::XMLDB( const QString& configFile, bool* dirty )
         if ( !fileName.isEmpty() )
             _blockList << fileName;
     }
-
-    *dirty |= (_pendingLoad.count() != 0);
 
     connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              this, SLOT( deleteOption( Category*, const QString& ) ) );
@@ -252,121 +215,6 @@ ImageInfo* XMLDB::load( const QString& fileName, QDomElement elm )
 {
     ImageInfo* info = new ImageInfo( fileName, elm );
     _images.append(info);
-    _fileMap.insert( info->fileName(), info );
-    return info;
-}
-
-void XMLDB::searchForNewFiles( const QDict<void>& loadedFiles, QString directory )
-{
-    if ( directory.endsWith( QString::fromLatin1("/") ) )
-        directory = directory.mid( 0, directory.length()-1 );
-
-    QString imageDir = Options::instance()->imageDirectory();
-    if ( imageDir.endsWith( QString::fromLatin1("/") ) )
-        imageDir = imageDir.mid( 0, imageDir.length()-1 );
-
-    QDir dir( directory );
-    QStringList dirList = dir.entryList( QDir::All );
-    for( QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it ) {
-        QString file = directory + QString::fromLatin1("/") + *it;
-        QFileInfo fi( file );
-        if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
-             (*it) == QString::fromLatin1("ThumbNails") ||
-             (*it) == QString::fromLatin1("CategoryImages") ||
-             !fi.isReadable() )
-            continue;
-
-        if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
-             Util::canReadImage(fi.extension()) ) {
-            QString baseName = file.mid( imageDir.length()+1 );
-
-            if ( ! _blockList.contains( baseName ) ) {
-                _pendingLoad.append( baseName );
-            }
-        }
-        else if ( fi.isDir() )  {
-            searchForNewFiles( loadedFiles, file );
-        }
-    }
-}
-
-void XMLDB::loadExtraFiles()
-{
-    QProgressDialog  dialog( i18n("<qt><p><b>Loading information from images</b></p>"
-                                  "<p>Depending on the number of images, this may take some time.<br/>"
-                                  "However, there is only a delay when new images are found.</p></qt>"),
-                             i18n("&Cancel"), _pendingLoad.count() );
-    int count = 0;
-    ImageInfoList newImages;
-    for( QStringList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
-        dialog.setProgress( count ); // ensure to call setProgress(0)
-        qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
-
-        if ( dialog.wasCanceled() )
-            return;
-        ImageInfo* info = loadExtraFile( *it );
-        if ( info )
-            newImages.append(info);
-    }
-    mergeNewImagesInWithExistingList( newImages );
-}
-
-void XMLDB::mergeNewImagesInWithExistingList( ImageInfoList newImages )
-{
-    newImages = newImages.sort();
-    if ( _images.count() == 0 ) {
-        // case 1: The existing imagelist is empty.
-        _images = newImages;
-    }
-    else if ( newImages.count() == 0 ) {
-        // case 2: No images to merge in - that's easy ;-)
-    }
-    else if ( newImages.first()->startDate().min() > _images.last()->startDate().min() ) {
-        // case 2: The new list is later than the existsing
-        _images.appendList(newImages);
-    }
-    else if ( _images.isSorted() ) {
-        // case 3: The lists overlaps, and the existsing list is sorted
-        _images.mergeIn( newImages );
-    }
-    else{
-        // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
-        _images.appendList( newImages );
-    }
-}
-
-
-ImageInfo* XMLDB::loadExtraFile( const QString& relativeName )
-{
-    QString sum = MD5Sum( Options::instance()->imageDirectory() + QString::fromLatin1("/") + relativeName );
-    if ( _md5Map.contains( sum ) ) {
-        QString fileName = _md5Map[sum];
-        QFileInfo fi( Options::instance()->imageDirectory() + QString::fromLatin1("/") + fileName );
-
-        if ( !fi.exists() ) {
-            // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-
-            // Iterate through the db searching for the image with the correct file name
-            // PENDING(blackie) Isn't this what XMLDB::find() is all about?
-            for( ImageInfoListIterator it( _images ); *it; ++it ) {
-                if ( (*it)->fileName(true) == fileName ) {
-                    // Update the label in case it contained the previos file name
-                    fi = QFileInfo ( (*it)->fileName() );
-                    if ( (*it)->label() == fi.baseName(true) ) {
-                        fi = QFileInfo( relativeName );
-                        (*it)->setLabel( fi.baseName(true) );
-                    }
-
-                    (*it)->setFileName( relativeName );
-                    return 0;
-                }
-            }
-        }
-    }
-
-    ImageInfo* info = new ImageInfo( relativeName  );
-    info->setMD5Sum(sum);
-    _fileMap.insert( info->fileName(), info );
     return info;
 }
 
@@ -456,12 +304,11 @@ void XMLDB::renameOptionGroup( const QString& oldName, const QString newName )
     }
 }
 
-void XMLDB::blockList( const ImageInfoList& list )
+void XMLDB::addToBlockList( const ImageInfoList& list )
 {
     for( ImageInfoListIterator it( list ); *it; ++it) {
         _blockList << (*it)->fileName( true );
         _images.removeRef( *it );
-        _fileMap.remove( (*it)->fileName() );
     }
     emit totalChanged( _images.count() );
 }
@@ -470,7 +317,6 @@ void XMLDB::deleteList( const ImageInfoList& list )
 {
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         _images.removeRef( *it );
-        _fileMap.remove( (*it)->fileName() );
     }
     emit totalChanged( _images.count() );
 }
@@ -504,85 +350,6 @@ void XMLDB::lockDB( bool lock, bool exclude  )
     }
 }
 
-bool  XMLDB::calculateMD5sums( ImageInfoList& list )
-{
-    QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum of your images<b></p>"
-                                 "<p>By storing a checksum for each image KimDaBa is capable of finding images "
-                                 "even when you have moved them on the disk.</p></qt>"), i18n("&Cancel"), list.count() );
-
-    int count = 0;
-    bool dirty = false;
-
-    for( ImageInfoListIterator it( list ); *it; ++it, ++count ) {
-        if ( count % 10 == 0 ) {
-            dialog.setProgress( count ); // ensure to call setProgress(0)
-            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
-
-#if QT_VERSION < 0x030104
-            if ( dialog.wasCancelled() )
-                return dirty;
-#else
-            if ( dialog.wasCanceled() )
-                return dirty;
-#endif
-        }
-        QString md5 = MD5Sum( (*it)->fileName() );
-        QString orig = (*it)->MD5Sum();
-        (*it)->setMD5Sum( md5 );
-        if  ( orig != md5 ) {
-            dirty = true;
-            Util::removeThumbNail( (*it)->fileName() );
-        }
-
-        _md5Map.insert( md5, (*it)->fileName(true) );
-    }
-    return dirty;
-}
-
-QString XMLDB::MD5Sum( const QString& fileName )
-{
-    QFile file( fileName );
-    if ( !file.open( IO_ReadOnly ) ) {
-        if ( KMessageBox::warningContinueCancel( 0, i18n("Could not open %1").arg( fileName ) ) == KMessageBox::No )
-            return QString::null;
-    }
-
-    KMD5 md5calculator( 0 /* char* */);
-    md5calculator.reset();
-    md5calculator.update( file );
-    QString md5 = md5calculator.hexDigest();
-    return md5;
-}
-
-void XMLDB::slotRescan()
-{
-    // Load the information from the XML file.
-    QDict<void> loadedFiles( 6301 /* a large prime */ );
-
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        QFileInfo fi( (*it)->fileName() );
-        bool fileExists = fi.exists();
-        (*it)->setImageOnDisk( fileExists );
-        if (!fileExists) {
-            // we need to delete here the folder value for the images that get deleted
-            (*it)->setOption( QString::fromLatin1("Folder"), QStringList() );
-        }
-        loadedFiles.insert( (*it)->fileName(),
-                            (void*)0x1 /* void pointer to nothing I never need the value,
-                                          just its existsance, must be != 0x0 though.*/ );
-    }
-
-    _pendingLoad.clear();
-    searchForNewFiles( loadedFiles, Options::instance()->imageDirectory() );
-    loadExtraFiles();
-
-    // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
-    // we rather just go to home.
-    Browser::instance()->home();
-
-    emit totalChanged( _images.count() );
-}
-
 
 void XMLDB::slotReread(ImageInfoList rereadList, int mode)
 {
@@ -610,35 +377,28 @@ void XMLDB::slotReread(ImageInfoList rereadList, int mode)
 }
 
 
-void XMLDB::slotRecalcCheckSums()
-{
-    _md5Map.clear();
-    bool d = calculateMD5sums( _images );
-    if ( d )
-        emit dirty();
-
-    // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
-    // we rather just go to home.
-    Browser::instance()->home();
-
-    emit totalChanged( _images.count() );
-}
-
-
 void XMLDB::addImage( ImageInfo* info )
 {
     _images.append( info );
-    _fileMap.insert( info->fileName(), info );
     emit totalChanged( _images.count() );
     emit dirty();
 }
 
 ImageInfo* XMLDB::find( const QString& fileName ) const
 {
-    if ( _fileMap.contains( fileName ) )
-        return _fileMap[ fileName ];
-    else
-        return 0;
+    static QMap<QString, ImageInfo* > fileMap;
+
+    if ( fileMap.contains( fileName ) )
+        return fileMap[ fileName ];
+    else {
+        fileMap.clear();
+        for( ImageInfoListIterator it( _images ); *it; ++it ) {
+            fileMap.insert( (*it)->fileName(), *it );
+        }
+        if ( fileMap.contains( fileName ) )
+            return fileMap[ fileName ];
+    }
+    return 0;
 }
 
 QDict<void> XMLDB::findAlreadyMatched( const ImageSearchInfo& info, const QString &group )
@@ -833,3 +593,13 @@ void XMLDB::save( const QString& fileName )
     }
 }
 
+
+MD5Map* XMLDB::md5Map()
+{
+    return &_md5map;
+}
+
+bool XMLDB::isBlocking( const QString& fileName )
+{
+    return _blockList.contains( fileName );
+}

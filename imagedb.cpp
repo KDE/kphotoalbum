@@ -14,11 +14,9 @@ ImageDB* ImageDB::instance()
     return _instance;
 }
 
-bool ImageDB::setup( const QString& configFile )
+void ImageDB::setup( const QString& configFile )
 {
-    bool dirty;
-    _instance = new XMLDB( configFile, &dirty );
-    return dirty;
+    _instance = new XMLDB( configFile );
 }
 
 QString ImageDB::NONE()
@@ -55,5 +53,28 @@ void ImageDB::setClipboard( const ImageInfoList& list )
 bool ImageDB::isClipboardEmpty()
 {
     return (_clipboard.count() == 0 );
+}
+
+void ImageDB::slotRescan()
+{
+    bool newImages = NewImageFinder().findImages();
+    if ( newImages )
+        emit dirty();
+
+    emit totalChanged( totalCount() );
+}
+
+void ImageDB::slotRecalcCheckSums()
+{
+    md5Map()->clear();
+    bool d = NewImageFinder().calculateMD5sums( images() );
+    if ( d )
+        emit dirty();
+
+    // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
+    // we rather just go to home.
+    Browser::instance()->home();
+
+    emit totalChanged( totalCount() );
 }
 

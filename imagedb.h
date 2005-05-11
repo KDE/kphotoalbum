@@ -23,6 +23,7 @@
 #include <qobject.h>
 #include "imageinfolist.h"
 #include "imageinfo.h"
+class MD5Map;
 class ImageDateRange;
 class MemberMap;
 
@@ -31,7 +32,7 @@ class ImageDB  :public QObject {
 
 public:
     static ImageDB* instance();
-    static bool setup( const QString& configFile );
+    static void setup( const QString& configFile );
     ImageInfoList clipboard();
     void setClipboard( const ImageInfoList& list );
     bool isClipboardEmpty();
@@ -39,6 +40,8 @@ public:
 public slots:
     void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );
     void clearDateRange();
+    virtual void slotRescan();
+    virtual void slotRecalcCheckSums();
 
 protected:
     ImageDateRange _selectionRange;
@@ -64,16 +67,16 @@ public: // Methods that must be overriden
     virtual ImageInfoList& images() = 0; // OK
     virtual void addImage( ImageInfo* info ) = 0;
 
-    virtual void blockList( const ImageInfoList& list ) = 0;
+    virtual void addToBlockList( const ImageInfoList& list ) = 0; // OK
+    virtual bool isBlocking( const QString& fileName ) = 0; // OK
     virtual void deleteList( const ImageInfoList& list ) = 0;
     virtual ImageInfo* find( const QString& fileName ) const = 0; // OK
     virtual const MemberMap& memberMap() = 0;
     virtual void setMemberMap( const MemberMap& members ) = 0;
     virtual void save( const QString& fileName ) = 0;
+    virtual MD5Map* md5Map() = 0;
 
 public slots:
-    virtual void slotRescan() = 0;
-    virtual void slotRecalcCheckSums() = 0;
     virtual void slotReread(ImageInfoList rereadList, int mode) = 0;
 
 signals:

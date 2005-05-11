@@ -80,7 +80,7 @@ void DeleteDialog::deleteImages()
     }
 
     if ( _block->isChecked() )
-        ImageDB::instance()->blockList( _list );
+        ImageDB::instance()->addToBlockList( _list );
 
     if ( _deleteFromDisk->isChecked() )
         ImageDB::instance()->deleteList( _list );

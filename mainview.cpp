@@ -795,9 +795,7 @@ void MainView::load()
     }
 
     Options::setup( QFileInfo( configFile ).dirPath( true ) );
-    bool newImages = ImageDB::setup( configFile );
-    if ( newImages )
-        setDirty( true );
+    ImageDB::setup( configFile );
 }
 
 void MainView::contextMenuEvent( QContextMenuEvent* )

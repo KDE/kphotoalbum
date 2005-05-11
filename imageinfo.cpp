@@ -426,11 +426,6 @@ bool ImageInfo::imageOnDisk() const
     return _imageOnDisk == YesOnDisk;
 }
 
-void ImageInfo::setImageOnDisk( bool b )
-{
-    _imageOnDisk = (b ? YesOnDisk : NoNotOnDisk);
-}
-
 ImageDateRange ImageInfo::dateRange() const
 {
     return ImageDateRange( _startDate, _endDate );

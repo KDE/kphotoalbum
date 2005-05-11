@@ -27,6 +27,7 @@
 #include "membermap.h"
 #include <imagedb.h>
 #include <category.h>
+#include "newimagefinder.h"
 class ImageInfo;
 
 class XMLDB :public ImageDB
@@ -42,27 +43,22 @@ public:
     ImageInfoList& images() { return _images; }
     void addImage( ImageInfo* info );
 
-    void blockList( const ImageInfoList& list );
+    void addToBlockList( const ImageInfoList& list );
+    virtual bool isBlocking( const QString& fileName );
     void deleteList( const ImageInfoList& list );
     ImageInfo* find( const QString& fileName ) const;
     const MemberMap& memberMap();
     void setMemberMap( const MemberMap& members );
     void save( const QString& fileName );
+    virtual MD5Map* md5Map();
 
 public slots:
-    void slotRescan();
-    void slotRecalcCheckSums();
     void slotReread(ImageInfoList rereadList, int mode);
 
 protected:
     void save( QDomElement top );
-    void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
-    void loadExtraFiles();
     void mergeNewImagesInWithExistingList( ImageInfoList newImages );
-    ImageInfo* loadExtraFile( const QString& name );
     ImageInfo* load( const QString& filename, QDomElement elm );
-    bool calculateMD5sums( ImageInfoList& list );
-    QString MD5Sum( const QString& fileName );
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
     void checkIfImagesAreSorted();
     bool rangeInclude( ImageInfo* info ) const;
@@ -77,15 +73,13 @@ protected slots:
 
 private:
     friend class ImageDB;
-    XMLDB( const QString& configFile, bool* newImages );
+    XMLDB( const QString& configFile );
 
     ImageInfoList _images;
     QStringList _blockList;
     ImageInfoList _missingTimes;
-    QMap<QString, QString> _md5Map;
-    QMap<QString, ImageInfo* > _fileMap;
-    QStringList _pendingLoad;
     MemberMap _members;
+    MD5Map _md5map;
 };
 
 

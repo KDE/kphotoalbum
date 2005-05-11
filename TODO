@@ -16,6 +16,8 @@ different in the image property page.
   matches what's actually being exported.  For example, exporting a
   file named foo.png generates a file named foo.png, even though the
   exported file is actually a JPEG.
+- look into using libkexif rather than kdeutil for reading EXIF info, or
+alternatively warn the user about kdelibs not installed.
 
 =======================
 BUGS of less importance

@@ -23,6 +23,7 @@
 #include <qobject.h>
 #include "imageinfolist.h"
 #include "imageinfo.h"
+class Category;
 class MD5Map;
 class ImageDateRange;
 class MemberMap;
@@ -51,6 +52,8 @@ protected:
 private:
     static ImageDB* _instance;
 
+protected:
+    ImageDB();
 
 public:
     static QString NONE(); // OK
@@ -71,10 +74,15 @@ public: // Methods that must be overriden
     virtual bool isBlocking( const QString& fileName ) = 0; // OK
     virtual void deleteList( const ImageInfoList& list ) = 0;
     virtual ImageInfo* find( const QString& fileName ) const = 0; // OK
-    virtual const MemberMap& memberMap() = 0;
+    virtual const MemberMap& memberMap() = 0; // Implement as md5map
     virtual void setMemberMap( const MemberMap& members ) = 0;
     virtual void save( const QString& fileName ) = 0;
-    virtual MD5Map* md5Map() = 0;
+    virtual MD5Map* md5Map() = 0; // OK
+
+protected slots:
+    virtual void renameOption( Category* category, const QString& oldName, const QString& newName ) = 0;
+    virtual void deleteOption( Category* category, const QString& option ) = 0;
+    virtual void lockDB( bool lock, bool exclude ) = 0;
 
 public slots:
     virtual void slotReread(ImageInfoList rereadList, int mode) = 0;

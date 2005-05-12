@@ -3,6 +3,7 @@
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "browser.h"
+#include "categorycollection.h"
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -76,5 +77,14 @@ void ImageDB::slotRecalcCheckSums()
     Browser::instance()->home();
 
     emit totalChanged( totalCount() );
+}
+
+ImageDB::ImageDB()
+{
+    connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+             this, SLOT( deleteOption( Category*, const QString& ) ) );
+    connect( CategoryCollection::instance(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
+             this, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
+    connect( Options::instance(), SIGNAL( locked( bool, bool ) ), this, SLOT( lockDB( bool, bool ) ) );
 }
 

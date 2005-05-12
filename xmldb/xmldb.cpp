@@ -42,148 +42,21 @@
 XMLDB::XMLDB( const QString& configFile )
 {
     Util::checkForBackupFile( configFile );
-
-    QDomDocument doc;
-    QFile file( configFile );
-    if ( !file.exists() ) {
-        // Load a default setup
-        QFile file( locate( "data", QString::fromLatin1( "kimdaba/default-setup" ) ) );
-        if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::information( 0, i18n( "<qt><p>KimDaBa was unable to load a default setup, which indicates an installation error</p>"
-                                               "<p>If you have installed KimDaBa yourself, then you must remember to set the environment variable "
-                                               "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                               "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
-                                               "environment variable setup (this example is for Bash and compatible shells):</p>"
-                                               "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
-                                               "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
-                                               "environment variable</p></qt>"), i18n("No default setup file found") );
-        }
-        else {
-            QTextStream stream( &file );
-            stream.setEncoding( QTextStream::UnicodeUTF8 );
-            QString str = stream.read();
-            str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
-            str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
-            str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
-            str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
-            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
-            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-            doc.setContent( str );
-        }
-    }
-    else {
-        if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::error( MainView::theMainView(), i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
-            exit(-1);
-        }
-
-        QString errMsg;
-        int errLine;
-        int errCol;
-
-        if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
-            KMessageBox::error( MainView::theMainView(), i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
-            exit(-1);
-        }
-    }
-
-    // Now read the content of the file.
-    QDomElement top = doc.documentElement();
-    if ( top.isNull() ) {
-        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: No elements found").arg( configFile ) );
-        exit(-1);
-    }
-
-    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) {
-        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: expected 'KimDaBa' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
-        exit(-1);
-    }
-
-    QDomElement options;
+    QDomElement top = readConfigFile( configFile );
+    QDomElement categories;
     QDomElement images;
     QDomElement blockList;
     QDomElement memberGroups;
+    readTopNodeInConfigDocument( configFile, top, &categories, &images, &blockList, &memberGroups );
 
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString tag = elm.tagName().lower();
-            if ( tag == QString::fromLatin1( "config" ) )
-                ; // Skip for compatibility with 2.1 and older
-            else if ( tag == QString::fromLatin1( "options" ) )
-                options = elm;
-            else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
-                ; // Skip for compatibility with 2.1 and older
-            else if ( tag == QString::fromLatin1("images") )
-                images = elm;
-            else if ( tag == QString::fromLatin1( "blocklist" ) )
-                blockList = elm;
-            else if ( tag == QString::fromLatin1( "member-groups" ) )
-                memberGroups = elm;
-            else {
-                KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
-            }
-        }
-    }
+    loadCategories( categories );
+    loadImages( images );
+    loadBlockList( blockList );
+    loadMemberGroups( memberGroups );
 
-    if ( options.isNull() )
-        KMessageBox::sorry( MainView::theMainView(), i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
-    if ( images.isNull() )
-        KMessageBox::sorry( MainView::theMainView(), i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
-
-    file.close();
-
-
-
-
-
-    loadOptions( options );
-
-    QString directory = Options::instance()->imageDirectory();
-    if ( directory.isEmpty() )
-        return;
-    if ( directory.endsWith( QString::fromLatin1("/") ) )
-        directory = directory.mid( 0, directory.length()-1 );
-
-    for ( QDomNode node = images.firstChild(); !node.isNull(); node = node.nextSibling() )  {
-        QDomElement elm;
-        if ( node.isElement() )
-            elm = node.toElement();
-        else
-            continue;
-
-        QString fileName = elm.attribute( QString::fromLatin1("file") );
-        if ( fileName.isNull() )
-            qWarning( "Element did not contain a file attribute" );
-        else {
-            ImageInfo* info = load( fileName, elm );
-            _md5map.insert( info->MD5Sum(), fileName );
-        }
-    }
-
-    // Read the block list
-    for ( QDomNode node = blockList.firstChild(); !node.isNull(); node = node.nextSibling() )  {
-        QDomElement elm;
-        if ( node.isElement() )
-            elm = node.toElement();
-        else
-            continue;
-
-        QString fileName = elm.attribute( QString::fromLatin1( "file" ) );
-        if ( !fileName.isEmpty() )
-            _blockList << fileName;
-    }
-
-    connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
-             this, SLOT( deleteOption( Category*, const QString& ) ) );
-    connect( CategoryCollection::instance(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
-             this, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
-    connect( Options::instance(), SIGNAL( locked( bool, bool ) ), this, SLOT( lockDB( bool, bool ) ) );
-
+    // PENDING(blackie) Where should these go?
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
-
-    _members.load( memberGroups );
 }
 
 int XMLDB::totalCount() const
@@ -211,16 +84,9 @@ int XMLDB::count( const ImageSearchInfo& info )
     return count;
 }
 
-ImageInfo* XMLDB::load( const QString& fileName, QDomElement elm )
-{
-    ImageInfo* info = new ImageInfo( fileName, elm );
-    _images.append(info);
-    return info;
-}
-
 void XMLDB::save( QDomElement top )
 {
-    saveOptions( top );
+    saveCategories( top );
 
     ImageInfoList list = _images;
 
@@ -489,7 +355,7 @@ void XMLDB::setMemberMap( const MemberMap& members )
     _members = members;
 }
 
-void XMLDB::loadOptions( const QDomElement& elm )
+void XMLDB::loadCategories( const QDomElement& elm )
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
     CategoryCollection* categories = CategoryCollection::instance();
@@ -534,7 +400,7 @@ void XMLDB::loadOptions( const QDomElement& elm )
     }
 }
 
-void XMLDB::saveOptions( QDomElement top )
+void XMLDB::saveCategories( QDomElement top )
 {
     QDomDocument doc = top.ownerDocument();
 
@@ -602,4 +468,147 @@ MD5Map* XMLDB::md5Map()
 bool XMLDB::isBlocking( const QString& fileName )
 {
     return _blockList.contains( fileName );
+}
+
+QDomElement XMLDB::readConfigFile( const QString& configFile )
+{
+    QDomDocument doc;
+    QFile file( configFile );
+    if ( !file.exists() ) {
+        // Load a default setup
+        QFile file( locate( "data", QString::fromLatin1( "kimdaba/default-setup" ) ) );
+        if ( !file.open( IO_ReadOnly ) ) {
+            KMessageBox::information( 0, i18n( "<qt><p>KimDaBa was unable to load a default setup, which indicates an installation error</p>"
+                                               "<p>If you have installed KimDaBa yourself, then you must remember to set the environment variable "
+                                               "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
+                                               "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
+                                               "environment variable setup (this example is for Bash and compatible shells):</p>"
+                                               "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
+                                               "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
+                                               "environment variable</p></qt>"), i18n("No default setup file found") );
+        }
+        else {
+            QTextStream stream( &file );
+            stream.setEncoding( QTextStream::UnicodeUTF8 );
+            QString str = stream.read();
+            str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
+            str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
+            str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
+            str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
+            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
+            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
+            doc.setContent( str );
+        }
+    }
+    else {
+        if ( !file.open( IO_ReadOnly ) ) {
+            KMessageBox::error( MainView::theMainView(), i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
+            exit(-1);
+        }
+
+        QString errMsg;
+        int errLine;
+        int errCol;
+
+        if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
+            KMessageBox::error( MainView::theMainView(), i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
+            exit(-1);
+        }
+    }
+
+    // Now read the content of the file.
+    QDomElement top = doc.documentElement();
+    if ( top.isNull() ) {
+        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: No elements found").arg( configFile ) );
+        exit(-1);
+    }
+
+    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) {
+        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: expected 'KimDaBa' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
+        exit(-1);
+    }
+
+    file.close();
+    return top;
+}
+
+void XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
+                                         QDomElement* blockList, QDomElement* memberGroups )
+{
+    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
+        if ( node.isElement() ) {
+            QDomElement elm = node.toElement();
+            QString tag = elm.tagName().lower();
+            if ( tag == QString::fromLatin1( "config" ) )
+                ; // Skip for compatibility with 2.1 and older
+            else if ( tag == QString::fromLatin1( "options" ) )
+                *options = elm;
+            else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
+                ; // Skip for compatibility with 2.1 and older
+            else if ( tag == QString::fromLatin1("images") )
+                *images = elm;
+            else if ( tag == QString::fromLatin1( "blocklist" ) )
+                *blockList = elm;
+            else if ( tag == QString::fromLatin1( "member-groups" ) )
+                *memberGroups = elm;
+            else {
+                KMessageBox::error( MainView::theMainView(),
+                                    i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
+            }
+        }
+    }
+
+    if ( options->isNull() )
+        KMessageBox::sorry( MainView::theMainView(), i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
+    if ( images->isNull() )
+        KMessageBox::sorry( MainView::theMainView(), i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
+}
+
+void XMLDB::loadImages( const QDomElement& images )
+{
+    QString directory = Options::instance()->imageDirectory();
+
+    for ( QDomNode node = images.firstChild(); !node.isNull(); node = node.nextSibling() )  {
+        QDomElement elm;
+        if ( node.isElement() )
+            elm = node.toElement();
+        else
+            continue;
+
+        QString fileName = elm.attribute( QString::fromLatin1("file") );
+        if ( fileName.isNull() )
+            qWarning( "Element did not contain a file attribute" );
+        else {
+            ImageInfo* info = load( fileName, elm );
+            _images.append(info);
+            _md5map.insert( info->MD5Sum(), fileName );
+        }
+    }
+
+}
+
+ImageInfo* XMLDB::load( const QString& fileName, QDomElement elm )
+{
+    ImageInfo* info = new ImageInfo( fileName, elm );
+    return info;
+}
+
+void XMLDB::loadBlockList( const QDomElement& blockList )
+{
+    for ( QDomNode node = blockList.firstChild(); !node.isNull(); node = node.nextSibling() )  {
+        QDomElement elm;
+        if ( node.isElement() )
+            elm = node.toElement();
+        else
+            continue;
+
+        QString fileName = elm.attribute( QString::fromLatin1( "file" ) );
+        if ( !fileName.isEmpty() )
+            _blockList << fileName;
+    }
+}
+
+void XMLDB::loadMemberGroups( const QDomElement& memberGroups )
+{
+    _members.load( memberGroups );
 }

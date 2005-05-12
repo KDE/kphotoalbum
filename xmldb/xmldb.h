@@ -63,8 +63,16 @@ protected:
     void checkIfImagesAreSorted();
     bool rangeInclude( ImageInfo* info ) const;
     void checkIfAllImagesHasSizeAttributes();
-    void loadOptions( const QDomElement& elm );
-    void saveOptions( QDomElement top );
+    void saveCategories( QDomElement top );
+
+    QDomElement readConfigFile( const QString& configFile );
+    void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
+                                      QDomElement* blockList, QDomElement* memberGroups );
+    void loadCategories( const QDomElement& elm );
+    void loadImages( const QDomElement& images );
+    void loadBlockList( const QDomElement& blockList );
+    void loadMemberGroups( const QDomElement& memberGroups );
+
 
 protected slots:
     void renameOption( Category* category, const QString& oldName, const QString& newName );

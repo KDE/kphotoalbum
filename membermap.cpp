@@ -68,44 +68,9 @@ void MemberMap::setMembers( const QString& category, const QString& memberGroup,
     _dirty = true;
 }
 
-QDomElement MemberMap::save( QDomDocument doc )
-{
-    QDomElement top = doc.createElement( QString::fromLatin1( "member-groups" ) );
-    for( QMapIterator< QString,QMap<QString,QStringList> > it1= _members.begin(); it1 != _members.end(); ++it1 ) {
-        QMap<QString,QStringList> map = it1.data();
-        for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
-            QStringList list = it2.data();
-            for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
-                QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
-                top.appendChild( elm );
-                elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
-                elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
-                elm.setAttribute( QString::fromLatin1( "member" ), *it3 );
-            }
-        }
-    }
-    return top;
-}
-
 bool MemberMap::isEmpty() const
 {
     return _members.empty();
-}
-
-void MemberMap::load( const QDomElement& top )
-{
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString category = elm.attribute( QString::fromLatin1( "category" ) );
-            if ( category.isNull() )
-                category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
-            QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
-            QString member = elm.attribute( QString::fromLatin1( "member" ) );
-            _members[category][group].append( member );
-        }
-    }
-    _dirty = true;
 }
 
 /**
@@ -240,8 +205,6 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
 
 void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
 {
-    Q_ASSERT( _members.contains(category) );
-    Q_ASSERT( _members[category].contains(group) );
     _members[category][group].append( item );
     _dirty = true;
 }

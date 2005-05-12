@@ -84,43 +84,6 @@ int XMLDB::count( const ImageSearchInfo& info )
     return count;
 }
 
-void XMLDB::save( QDomElement top )
-{
-    saveCategories( top );
-
-    ImageInfoList list = _images;
-
-    // Copy files from clipboard to end of overview, so we don't loose them
-    for( ImageInfoListIterator it(_clipboard); *it; ++it ) {
-        list.append( *it );
-    }
-
-    QDomDocument doc = top.ownerDocument();
-    QDomElement images = doc.createElement( QString::fromLatin1( "images" ) );
-    top.appendChild( images );
-
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        images.appendChild( (*it)->save( doc ) );
-    }
-
-    QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
-    bool any=false;
-    for( QStringList::Iterator it = _blockList.begin(); it != _blockList.end(); ++it ) {
-        any=true;
-        QDomElement elm = doc.createElement( QString::fromLatin1( "block" ) );
-        elm.setAttribute( QString::fromLatin1( "file" ), *it );
-        blockList.appendChild( elm );
-    }
-
-    if (any)
-        top.appendChild( blockList );
-
-    // Member Groups
-    if ( ! _members.isEmpty() )
-        top.appendChild( _members.save( doc ) );
-
-}
-
 QMap<QString,int> XMLDB::classify( const ImageSearchInfo& info, const QString &group )
 {
     QMap<QString, int> map;
@@ -400,53 +363,18 @@ void XMLDB::loadCategories( const QDomElement& elm )
     }
 }
 
-void XMLDB::saveCategories( QDomElement top )
-{
-    QDomDocument doc = top.ownerDocument();
-
-    QStringList grps = CategoryCollection::instance()->categoryNames();
-    QDomElement options = doc.createElement( QString::fromLatin1("options") );
-    top.appendChild( options );
-
-
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
-        QString name = *it;
-        opt.setAttribute( QString::fromLatin1("name"),  name );
-        Category* category = CategoryCollection::instance()->categoryForName( name );
-
-        opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
-        opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
-        opt.setAttribute( QString::fromLatin1( "viewsize" ), category->viewSize() );
-        opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
-
-        // we don t save the values for the option "Folder" since it is automatically set
-        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
-        QStringList list;
-        if ( category->isSpecialCategory() )
-            list = QStringList();
-        else
-            list = category->items();
-        bool any = false;
-        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            QDomElement val = doc.createElement( QString::fromLatin1("value") );
-            val.setAttribute( QString::fromLatin1("value"), *it2 );
-            opt.appendChild( val );
-            any = true;
-        }
-        options.appendChild( opt );
-    }
-}
-
 void XMLDB::save( const QString& fileName )
 {
     QDomDocument doc;
 
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement elm = doc.createElement( QString::fromLatin1("KimDaBa") );
-    doc.appendChild( elm );
+    QDomElement top = doc.createElement( QString::fromLatin1("KimDaBa") );
+    doc.appendChild( top );
 
-    save( elm );
+    saveImages( doc, top );
+    saveBlockList( doc, top );
+    saveMemberGroups( doc, top );
+    saveCategories( doc, top );
 
     QFile out( fileName );
 
@@ -610,5 +538,107 @@ void XMLDB::loadBlockList( const QDomElement& blockList )
 
 void XMLDB::loadMemberGroups( const QDomElement& memberGroups )
 {
-    _members.load( memberGroups );
+    for ( QDomNode node = memberGroups.firstChild(); !node.isNull(); node = node.nextSibling() ) {
+        if ( node.isElement() ) {
+            QDomElement elm = node.toElement();
+            QString category = elm.attribute( QString::fromLatin1( "category" ) );
+            if ( category.isNull() )
+                category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
+            QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
+            QString member = elm.attribute( QString::fromLatin1( "member" ) );
+            _members.addMemberToGroup( category, group, member );
+        }
+    }
 }
+
+void XMLDB::saveImages( QDomDocument doc, QDomElement top )
+{
+    ImageInfoList list = _images;
+
+    // Copy files from clipboard to end of overview, so we don't loose them
+    for( ImageInfoListIterator it(_clipboard); *it; ++it ) {
+        list.append( *it );
+    }
+
+    QDomElement images = doc.createElement( QString::fromLatin1( "images" ) );
+    top.appendChild( images );
+
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        images.appendChild( (*it)->save( doc ) );
+    }
+}
+
+void XMLDB::saveBlockList( QDomDocument doc, QDomElement top )
+{
+    QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
+    bool any=false;
+    for( QStringList::Iterator it = _blockList.begin(); it != _blockList.end(); ++it ) {
+        any=true;
+        QDomElement elm = doc.createElement( QString::fromLatin1( "block" ) );
+        elm.setAttribute( QString::fromLatin1( "file" ), *it );
+        blockList.appendChild( elm );
+    }
+
+    if (any)
+        top.appendChild( blockList );
+}
+
+void XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
+{
+    if ( _members.isEmpty() )
+        return;
+
+    QDomElement memberNode = doc.createElement( QString::fromLatin1( "member-groups" ) );
+    for( QMapIterator< QString,QMap<QString,QStringList> > it1= _members._members.begin(); it1 != _members._members.end(); ++it1 ) {
+        QMap<QString,QStringList> map = it1.data();
+        for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
+            QStringList list = it2.data();
+            for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
+                QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
+                memberNode.appendChild( elm );
+                elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
+                elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
+                elm.setAttribute( QString::fromLatin1( "member" ), *it3 );
+            }
+        }
+    }
+
+    top.appendChild( memberNode );
+}
+
+void XMLDB::saveCategories( QDomDocument doc, QDomElement top )
+{
+    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QDomElement options = doc.createElement( QString::fromLatin1("options") );
+    top.appendChild( options );
+
+
+    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
+        QString name = *it;
+        opt.setAttribute( QString::fromLatin1("name"),  name );
+        Category* category = CategoryCollection::instance()->categoryForName( name );
+
+        opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
+        opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
+        opt.setAttribute( QString::fromLatin1( "viewsize" ), category->viewSize() );
+        opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
+
+        // we don t save the values for the option "Folder" since it is automatically set
+        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
+        QStringList list;
+        if ( category->isSpecialCategory() )
+            list = QStringList();
+        else
+            list = category->items();
+        bool any = false;
+        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+            QDomElement val = doc.createElement( QString::fromLatin1("value") );
+            val.setAttribute( QString::fromLatin1("value"), *it2 );
+            opt.appendChild( val );
+            any = true;
+        }
+        options.appendChild( opt );
+    }
+}
+

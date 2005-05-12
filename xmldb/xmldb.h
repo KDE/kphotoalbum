@@ -56,14 +56,12 @@ public slots:
     void slotReread(ImageInfoList rereadList, int mode);
 
 protected:
-    void save( QDomElement top );
     void mergeNewImagesInWithExistingList( ImageInfoList newImages );
     ImageInfo* load( const QString& filename, QDomElement elm );
     QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
     void checkIfImagesAreSorted();
     bool rangeInclude( ImageInfo* info ) const;
     void checkIfAllImagesHasSizeAttributes();
-    void saveCategories( QDomElement top );
 
     QDomElement readConfigFile( const QString& configFile );
     void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
@@ -72,6 +70,11 @@ protected:
     void loadImages( const QDomElement& images );
     void loadBlockList( const QDomElement& blockList );
     void loadMemberGroups( const QDomElement& memberGroups );
+
+    void saveImages( QDomDocument doc, QDomElement top );
+    void saveBlockList( QDomDocument doc, QDomElement top );
+    void saveMemberGroups( QDomDocument doc, QDomElement top );
+    void saveCategories( QDomDocument doc, QDomElement top );
 
 
 protected slots:

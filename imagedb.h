@@ -74,8 +74,8 @@ public: // Methods that must be overriden
     virtual bool isBlocking( const QString& fileName ) = 0; // OK
     virtual void deleteList( const ImageInfoList& list ) = 0;
     virtual ImageInfo* find( const QString& fileName ) const = 0; // OK
-    virtual const MemberMap& memberMap() = 0; // Implement as md5map
-    virtual void setMemberMap( const MemberMap& members ) = 0;
+    virtual const MemberMap& memberMap() = 0; // OK
+    virtual void setMemberMap( const MemberMap& members ) = 0; // OK
     virtual void save( const QString& fileName ) = 0;
     virtual MD5Map* md5Map() = 0; // OK
 

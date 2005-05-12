@@ -138,7 +138,7 @@ void ThumbNailView::contentsDragMoveEvent( QDragMoveEvent *e )
 
 void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool after )
 {
-    ImageInfoList& images = ImageDB::instance()->images();
+    ImageInfoList& images = ImageDB::instance()->imageInfoList();
 
     for( ImageInfoListIterator it( cutList ); *it; ++it ) {
         images.removeRef( *it );
@@ -187,7 +187,7 @@ void ThumbNailView::setDragLeft( ThumbNail* item )
 
 void ThumbNailView::slotCut()
 {
-    ImageInfoList& images = ImageDB::instance()->images();
+    ImageInfoList& images = ImageDB::instance()->imageInfoList();
     QPtrList<ThumbNail> thumbNails = selected();
     ImageInfoList list;
     for( QPtrListIterator<ThumbNail> it( thumbNails ); *it; ++it ) {
@@ -214,7 +214,7 @@ void ThumbNailView::slotPaste()
         ThumbNail* last = selectedList.last();
 
         // Update the image list
-        ImageInfoList& images = ImageDB::instance()->images();
+        ImageInfoList& images = ImageDB::instance()->imageInfoList();
         int index = images.findRef( last->imageInfo() ) +1;
         ImageInfoList clipboard = ImageDB::instance()->clipboard();
         for( ImageInfoListIterator it( clipboard ); *it; ++it ) {

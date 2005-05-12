@@ -563,7 +563,9 @@ void Import::updateDB()
         newInfo->rotate( info->angle() );
         newInfo->setDrawList( info->drawList() );
         newInfo->setMD5Sum( info->MD5Sum() );
-        ImageDB::instance()->addImage( newInfo );
+        ImageInfoList list;
+        list.append(info);
+        ImageDB::instance()->addImages( list );
 
         // Run though the categories
         for( QValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {

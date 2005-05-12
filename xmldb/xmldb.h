@@ -35,29 +35,29 @@ namespace XMLDB {
     {
         Q_OBJECT
     public:
-        int totalCount() const;
-        ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) const;
-        int count( const ImageSearchInfo& info );
-        void renameOptionGroup( const QString& oldName, const QString newName );
+        virtual int totalCount() const;
+        virtual ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) const;
+        virtual int count( const ImageSearchInfo& info );
+        virtual void renameOptionGroup( const QString& oldName, const QString newName );
 
-        QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
-        ImageInfoList& images() { return _images; }
-        void addImage( ImageInfo* info );
+        virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
+        virtual ImageInfoList& imageInfoList() { return _images; }
+        virtual QStringList images();
+        virtual void addImages( const ImageInfoList& images );
 
-        void addToBlockList( const ImageInfoList& list );
+        virtual void addToBlockList( const ImageInfoList& list );
         virtual bool isBlocking( const QString& fileName );
-        void deleteList( const ImageInfoList& list );
-        ImageInfo* find( const QString& fileName ) const;
-        const MemberMap& memberMap();
-        void setMemberMap( const MemberMap& members );
-        void save( const QString& fileName );
+        virtual void deleteList( const ImageInfoList& list );
+        virtual ImageInfo* info( const QString& fileName ) const;
+        virtual const MemberMap& memberMap();
+        virtual void setMemberMap( const MemberMap& members );
+        virtual void save( const QString& fileName );
         virtual MD5Map* md5Map();
 
     public slots:
         void slotReread(ImageInfoList rereadList, int mode);
 
     protected:
-        void mergeNewImagesInWithExistingList( ImageInfoList newImages );
         ImageInfo* load( const QString& filename, QDomElement elm );
         QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
         void checkIfImagesAreSorted();

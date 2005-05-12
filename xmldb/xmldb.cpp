@@ -205,15 +205,33 @@ void XMLDB::XMLDB::slotReread(ImageInfoList rereadList, int mode)
     }
 }
 
-
-void XMLDB::XMLDB::addImage( ImageInfo* info )
+void XMLDB::XMLDB::addImages( const ImageInfoList& images )
 {
-    _images.append( info );
+    ImageInfoList newImages = images.sort();
+    if ( _images.count() == 0 ) {
+        // case 1: The existing imagelist is empty.
+        _images = newImages;
+    }
+    else if ( newImages.count() == 0 ) {
+        // case 2: No images to merge in - that's easy ;-)
+    }
+    else if ( newImages.first()->startDate().min() > _images.last()->startDate().min() ) {
+        // case 2: The new list is later than the existsing
+        _images.appendList(newImages);
+    }
+    else if ( _images.isSorted() ) {
+        // case 3: The lists overlaps, and the existsing list is sorted
+        _images.mergeIn( newImages );
+    }
+    else{
+        // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
+        _images.appendList( newImages );
+    }
     emit totalChanged( _images.count() );
     emit dirty();
 }
 
-ImageInfo* XMLDB::XMLDB::find( const QString& fileName ) const
+ImageInfo* XMLDB::XMLDB::info( const QString& fileName ) const
 {
     static QMap<QString, ImageInfo* > fileMap;
 
@@ -641,4 +659,14 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
         options.appendChild( opt );
     }
 }
+
+QStringList XMLDB::XMLDB::images()
+{
+    QStringList result;
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        result.append( (*it)->fileName() );
+    }
+    return result;
+}
+
 

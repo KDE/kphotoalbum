@@ -17,11 +17,10 @@ bool NewImageFinder::findImages()
     // Load the information from the XML file.
     QDict<void> loadedFiles( 6301 /* a large prime */ );
 
-    ImageInfoList images = ImageDB::instance()->images();
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
-        loadedFiles.insert( (*it)->fileName(),
-                            (void*)0x1 /* void pointer to nothing I never need the value,
-                                          just its existsance, must be != 0x0 though.*/ );
+    QStringList images = ImageDB::instance()->images();
+    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
+        loadedFiles.insert( *it, (void*)0x1 /* void pointer to nothing I never need the value,
+                                               just its existsance, must be != 0x0 though.*/ );
     }
 
     _pendingLoad.clear();
@@ -86,32 +85,7 @@ void NewImageFinder::loadExtraFiles()
         if ( info )
             newImages.append(info);
     }
-    mergeNewImagesInWithExistingList( newImages );
-}
-
-void NewImageFinder::mergeNewImagesInWithExistingList( ImageInfoList newImages )
-{
-    ImageInfoList& images = ImageDB::instance()->images();
-    newImages = newImages.sort();
-    if ( images.count() == 0 ) {
-        // case 1: The existing imagelist is empty.
-        images = newImages;
-    }
-    else if ( newImages.count() == 0 ) {
-        // case 2: No images to merge in - that's easy ;-)
-    }
-    else if ( newImages.first()->startDate().min() > images.last()->startDate().min() ) {
-        // case 2: The new list is later than the existsing
-        images.appendList(newImages);
-    }
-    else if ( images.isSorted() ) {
-        // case 3: The lists overlaps, and the existsing list is sorted
-        images.mergeIn( newImages );
-    }
-    else{
-        // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
-        images.appendList( newImages );
-    }
+        ImageDB::instance()->addImages( newImages );
 }
 
 
@@ -124,22 +98,18 @@ ImageInfo* NewImageFinder::loadExtraFile( const QString& relativeName )
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-
-            // Iterate through the db searching for the image with the correct file name
-            // PENDING(blackie) Isn't this what XMLDB::find() is all about?
-            ImageInfoList images = ImageDB::instance()->images();
-            for( ImageInfoListIterator it( images ); *it; ++it ) {
-                if ( (*it)->fileName(true) == fileName ) {
-                    // Update the label in case it contained the previos file name
-                    fi = QFileInfo ( (*it)->fileName() );
-                    if ( (*it)->label() == fi.baseName(true) ) {
-                        fi = QFileInfo( relativeName );
-                        (*it)->setLabel( fi.baseName(true) );
-                    }
-
-                    (*it)->setFileName( relativeName );
-                    return 0;
+            ImageInfo* info = ImageDB::instance()->info( Options::instance()->imageDirectory() + fileName );
+            if ( !info )
+                qWarning("How did that happen? We couldn't find info for the images %s", fileName.latin1());
+            else {
+                fi = QFileInfo ( fileName );
+                if ( info->label() == fi.baseName(true) ) {
+                    fi = QFileInfo( relativeName );
+                    info->setLabel( fi.baseName(true) );
                 }
+
+                info->setFileName( relativeName );
+                return 0;
             }
         }
     }
@@ -149,7 +119,7 @@ ImageInfo* NewImageFinder::loadExtraFile( const QString& relativeName )
     return info;
 }
 
-bool  NewImageFinder::calculateMD5sums( ImageInfoList& list )
+bool  NewImageFinder::calculateMD5sums( const QStringList& list )
 {
     QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum of your images<b></p>"
                                  "<p>By storing a checksum for each image KimDaBa is capable of finding images "
@@ -158,28 +128,24 @@ bool  NewImageFinder::calculateMD5sums( ImageInfoList& list )
     int count = 0;
     bool dirty = false;
 
-    for( ImageInfoListIterator it( list ); *it; ++it, ++count ) {
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageInfo* info = ImageDB::instance()->info( *it );
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
-#if QT_VERSION < 0x030104
-            if ( dialog.wasCancelled() )
-                return dirty;
-#else
             if ( dialog.wasCanceled() )
                 return dirty;
-#endif
         }
-        QString md5 = MD5Sum( (*it)->fileName() );
-        QString orig = (*it)->MD5Sum();
-        (*it)->setMD5Sum( md5 );
+        QString md5 = MD5Sum( *it );
+        QString orig = info->MD5Sum();
+        info->setMD5Sum( md5 );
         if  ( orig != md5 ) {
             dirty = true;
-            Util::removeThumbNail( (*it)->fileName() );
+            Util::removeThumbNail( *it );
         }
 
-        ImageDB::instance()->md5Map()->insert( md5, (*it)->fileName(true) );
+        ImageDB::instance()->md5Map()->insert( md5, info->fileName(true) );
     }
     return dirty;
 }

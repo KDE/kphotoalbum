@@ -37,7 +37,7 @@ ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
 
 void ThumbnailBuilder::generateNext()
 {
-    ImageInfo* info = _images.at(_index);
+    ImageInfo* info = ImageDB::instance()->info(_images[_index]);
     ++_index;
     setProgress( _index );
     int size = Options::instance()->thumbSize();

@@ -506,7 +506,7 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 void MainView::slotSortByDateAndTime()
 {
     ImageInfoList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
-    ImageDB::instance()->images().sortAndMergeBackIn( listOnDisk );
+    ImageDB::instance()->imageInfoList().sortAndMergeBackIn( listOnDisk );
     _thumbNailView->reload();
     markDirty();
 }
@@ -1007,12 +1007,13 @@ void MainView::slotUpdateViewMenu( Category::ViewSize size, Category::ViewType t
 
 void MainView::slotShowNotOnDisk()
 {
-    ImageInfoList allImages = ImageDB::instance()->images();
+    QStringList allImages = ImageDB::instance()->images();
     ImageInfoList notOnDisk;
-    for( ImageInfoListIterator it( allImages ); *it; ++it ) {
-        QFileInfo fi( (*it)->fileName() );
+    for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
+        ImageInfo* info = ImageDB::instance()->info(*it);
+        QFileInfo fi( info->fileName() );
         if ( !fi.exists() )
-            notOnDisk.append(*it);
+            notOnDisk.append(info);
     }
 
     showThumbNails( notOnDisk );

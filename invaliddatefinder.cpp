@@ -61,28 +61,31 @@ void InvalidDateFinder::slotOk()
     edit->setText( i18n("<h1>Here you may see the image date changes for the displayed images.</h1>") );
 
     // Now search for the images.
-    ImageInfoList list = ImageDB::instance()->images();
+    QStringList list = ImageDB::instance()->images();
     ImageInfoList toBeShown;
     KProgressDialog dialog( 0, "progress dialog", i18n("Reading file properties"),
                             i18n("Reading File Properties"), true );
     dialog.progressBar()->setTotalSteps( list.count() );
     dialog.progressBar()->setProgress(0);
     int progress = 0;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
+
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageInfo* info = ImageDB::instance()->info(*it);
         dialog.progressBar()->setProgress( ++progress );
         qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )
             break;
 
-        ImageDate date = (*it)->startDate();
+        ImageDate date = info->startDate();
         bool show = false;
         if ( _dateNotTime->isChecked() ) {
-            FileInfo fi = FileInfo::read( (*it)->fileName() );
-            if ( fi.date() == (*it)->startDate().getDate() )
-                show = ( fi.time() != (*it)->startDate().getTime() );
+            FileInfo fi = FileInfo::read( info->fileName() );
+            if ( fi.date() == info->startDate().getDate() )
+                show = ( fi.time() != info->startDate().getTime() );
             if ( show ) {
                 edit->append( QString::fromLatin1("%1:<br>existing = %2 %3<br>new..... = %4 %5" )
-                              .arg((*it)->fileName()).arg((*it)->startDate().getDate().toString()).arg((*it)->startDate().getTime().toString())
+                              .arg(info->fileName()).arg(info->startDate().getDate().toString())
+                              .arg(info->startDate().getTime().toString())
                               .arg(fi.date().toString()).arg( fi.time().toString() ) );
             }
         }
@@ -96,7 +99,7 @@ void InvalidDateFinder::slotOk()
             show = (date.year() == 0 || date.month() == 0 || date.day() == 0) && (date.year() != 0 || date.month() != 0 || date.day() != 0 );
         }
 
-        toBeShown.append(*it);
+        toBeShown.append( info );
     }
 
     if ( _dateNotTime->isChecked() ) {

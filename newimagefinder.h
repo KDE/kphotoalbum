@@ -28,12 +28,11 @@ class NewImageFinder
 {
 public:
     bool findImages();
-    bool calculateMD5sums( ImageInfoList& list );
+    bool calculateMD5sums( const QStringList& list );
 
 protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
-    void mergeNewImagesInWithExistingList( ImageInfoList newImages );
     ImageInfo* loadExtraFile( const QString& name );
     QString MD5Sum( const QString& fileName );
 

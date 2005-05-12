@@ -30,69 +30,70 @@
 #include "newimagefinder.h"
 class ImageInfo;
 
-class XMLDB :public ImageDB
-{
-    Q_OBJECT
-public:
-    int totalCount() const;
-    ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) const;
-    int count( const ImageSearchInfo& info );
-    void renameOptionGroup( const QString& oldName, const QString newName );
+namespace XMLDB {
+    class XMLDB :public ImageDB
+    {
+        Q_OBJECT
+    public:
+        int totalCount() const;
+        ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) const;
+        int count( const ImageSearchInfo& info );
+        void renameOptionGroup( const QString& oldName, const QString newName );
 
-    QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
-    ImageInfoList& images() { return _images; }
-    void addImage( ImageInfo* info );
+        QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
+        ImageInfoList& images() { return _images; }
+        void addImage( ImageInfo* info );
 
-    void addToBlockList( const ImageInfoList& list );
-    virtual bool isBlocking( const QString& fileName );
-    void deleteList( const ImageInfoList& list );
-    ImageInfo* find( const QString& fileName ) const;
-    const MemberMap& memberMap();
-    void setMemberMap( const MemberMap& members );
-    void save( const QString& fileName );
-    virtual MD5Map* md5Map();
+        void addToBlockList( const ImageInfoList& list );
+        virtual bool isBlocking( const QString& fileName );
+        void deleteList( const ImageInfoList& list );
+        ImageInfo* find( const QString& fileName ) const;
+        const MemberMap& memberMap();
+        void setMemberMap( const MemberMap& members );
+        void save( const QString& fileName );
+        virtual MD5Map* md5Map();
 
-public slots:
-    void slotReread(ImageInfoList rereadList, int mode);
+    public slots:
+        void slotReread(ImageInfoList rereadList, int mode);
 
-protected:
-    void mergeNewImagesInWithExistingList( ImageInfoList newImages );
-    ImageInfo* load( const QString& filename, QDomElement elm );
-    QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
-    void checkIfImagesAreSorted();
-    bool rangeInclude( ImageInfo* info ) const;
-    void checkIfAllImagesHasSizeAttributes();
+    protected:
+        void mergeNewImagesInWithExistingList( ImageInfoList newImages );
+        ImageInfo* load( const QString& filename, QDomElement elm );
+        QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
+        void checkIfImagesAreSorted();
+        bool rangeInclude( ImageInfo* info ) const;
+        void checkIfAllImagesHasSizeAttributes();
 
-    QDomElement readConfigFile( const QString& configFile );
-    void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
-                                      QDomElement* blockList, QDomElement* memberGroups );
-    void loadCategories( const QDomElement& elm );
-    void loadImages( const QDomElement& images );
-    void loadBlockList( const QDomElement& blockList );
-    void loadMemberGroups( const QDomElement& memberGroups );
+        QDomElement readConfigFile( const QString& configFile );
+        void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
+                                          QDomElement* blockList, QDomElement* memberGroups );
+        void loadCategories( const QDomElement& elm );
+        void loadImages( const QDomElement& images );
+        void loadBlockList( const QDomElement& blockList );
+        void loadMemberGroups( const QDomElement& memberGroups );
 
-    void saveImages( QDomDocument doc, QDomElement top );
-    void saveBlockList( QDomDocument doc, QDomElement top );
-    void saveMemberGroups( QDomDocument doc, QDomElement top );
-    void saveCategories( QDomDocument doc, QDomElement top );
+        void saveImages( QDomDocument doc, QDomElement top );
+        void saveBlockList( QDomDocument doc, QDomElement top );
+        void saveMemberGroups( QDomDocument doc, QDomElement top );
+        void saveCategories( QDomDocument doc, QDomElement top );
 
 
-protected slots:
-    void renameOption( Category* category, const QString& oldName, const QString& newName );
-    void deleteOption( Category* category, const QString& option );
-    void lockDB( bool lock, bool exclude );
+    protected slots:
+        void renameOption( Category* category, const QString& oldName, const QString& newName );
+        void deleteOption( Category* category, const QString& option );
+        void lockDB( bool lock, bool exclude );
 
-private:
-    friend class ImageDB;
-    XMLDB( const QString& configFile );
+    private:
+        friend class ImageDB;
+        XMLDB( const QString& configFile );
 
-    ImageInfoList _images;
-    QStringList _blockList;
-    ImageInfoList _missingTimes;
-    MemberMap _members;
-    MD5Map _md5map;
-};
-
+        ImageInfoList _images;
+        QStringList _blockList;
+        ImageInfoList _missingTimes;
+        MemberMap _members;
+        MD5Map _md5map;
+    };
+}
 
 #endif /* XMLDB_H */
 

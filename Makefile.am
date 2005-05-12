@@ -9,7 +9,7 @@ if HAVE_KIPI
 endif
 
 SUBDIRS = images icons demo themes survey xmldb $(COMPAT_DIR)
-INCLUDES = $(all_includes) $(COMPAT_INCLUDE) -I$(srcdir)/survey -I$(srcdir)/xmldb
+INCLUDES =  -I$(srcdir)/survey $(all_includes) $(COMPAT_INCLUDE)
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = \
@@ -34,7 +34,7 @@ kimdaba_SOURCES = \
 	newimagefinder.cpp md5map.cpp
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS) survey/libsurvey.la xmldb/libxmldb.la
+kimdaba_LDADD =  survey/libsurvey.la xmldb/libxmldb.la $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS) $(KIMDABA_KIPI_CXXFLAGS)

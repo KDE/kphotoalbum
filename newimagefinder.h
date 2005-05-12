@@ -23,7 +23,6 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include "md5map.h"
-class XMLDB;
 
 class NewImageFinder
 {

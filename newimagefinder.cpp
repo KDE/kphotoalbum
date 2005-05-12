@@ -3,7 +3,6 @@
 #include <qfileinfo.h>
 #include "options.h"
 #include "browser.h"
-#include "xmldb.h"
 #include <qdir.h>
 #include "util.h"
 #include <qprogressdialog.h>

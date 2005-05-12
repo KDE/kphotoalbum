@@ -39,7 +39,7 @@
 #include <qregexp.h>
 #include <stdlib.h>
 
-XMLDB::XMLDB( const QString& configFile )
+XMLDB::XMLDB::XMLDB( const QString& configFile )
 {
     Util::checkForBackupFile( configFile );
     QDomElement top = readConfigFile( configFile );
@@ -59,12 +59,12 @@ XMLDB::XMLDB( const QString& configFile )
     checkIfAllImagesHasSizeAttributes();
 }
 
-int XMLDB::totalCount() const
+int XMLDB::XMLDB::totalCount() const
 {
     return _images.count();
 }
 
-ImageInfoList XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
+ImageInfoList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
 {
     ImageInfoList result;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
@@ -78,13 +78,13 @@ ImageInfoList XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) c
 }
 
 
-int XMLDB::count( const ImageSearchInfo& info )
+int XMLDB::XMLDB::count( const ImageSearchInfo& info )
 {
     int count = search( info ).count();
     return count;
 }
 
-QMap<QString,int> XMLDB::classify( const ImageSearchInfo& info, const QString &group )
+QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QString &group )
 {
     QMap<QString, int> map;
     GroupCounter counter( group );
@@ -126,14 +126,14 @@ QMap<QString,int> XMLDB::classify( const ImageSearchInfo& info, const QString &g
     return map;
 }
 
-void XMLDB::renameOptionGroup( const QString& oldName, const QString newName )
+void XMLDB::XMLDB::renameOptionGroup( const QString& oldName, const QString newName )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->renameOptionGroup( oldName, newName );
     }
 }
 
-void XMLDB::addToBlockList( const ImageInfoList& list )
+void XMLDB::XMLDB::addToBlockList( const ImageInfoList& list )
 {
     for( ImageInfoListIterator it( list ); *it; ++it) {
         _blockList << (*it)->fileName( true );
@@ -142,7 +142,7 @@ void XMLDB::addToBlockList( const ImageInfoList& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::deleteList( const ImageInfoList& list )
+void XMLDB::XMLDB::deleteList( const ImageInfoList& list )
 {
     for( ImageInfoListIterator it( list ); *it; ++it ) {
         _images.removeRef( *it );
@@ -150,21 +150,21 @@ void XMLDB::deleteList( const ImageInfoList& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::renameOption( Category* category, const QString& oldName, const QString& newName )
+void XMLDB::XMLDB::renameOption( Category* category, const QString& oldName, const QString& newName )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->renameOption( category->name(), oldName, newName );
     }
 }
 
-void XMLDB::deleteOption( Category* category, const QString& option )
+void XMLDB::XMLDB::deleteOption( Category* category, const QString& option )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->removeOption( category->name(), option );
     }
 }
 
-void XMLDB::lockDB( bool lock, bool exclude  )
+void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
 {
     ImageSearchInfo info = Options::instance()->currentLock();
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
@@ -180,7 +180,7 @@ void XMLDB::lockDB( bool lock, bool exclude  )
 }
 
 
-void XMLDB::slotReread(ImageInfoList rereadList, int mode)
+void XMLDB::XMLDB::slotReread(ImageInfoList rereadList, int mode)
 {
     // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
     QProgressDialog  dialog( i18n("<qt><p><b>Loading time information from images</b></p>"
@@ -206,14 +206,14 @@ void XMLDB::slotReread(ImageInfoList rereadList, int mode)
 }
 
 
-void XMLDB::addImage( ImageInfo* info )
+void XMLDB::XMLDB::addImage( ImageInfo* info )
 {
     _images.append( info );
     emit totalChanged( _images.count() );
     emit dirty();
 }
 
-ImageInfo* XMLDB::find( const QString& fileName ) const
+ImageInfo* XMLDB::XMLDB::find( const QString& fileName ) const
 {
     static QMap<QString, ImageInfo* > fileMap;
 
@@ -230,7 +230,7 @@ ImageInfo* XMLDB::find( const QString& fileName ) const
     return 0;
 }
 
-QDict<void> XMLDB::findAlreadyMatched( const ImageSearchInfo& info, const QString &group )
+QDict<void> XMLDB::XMLDB::findAlreadyMatched( const ImageSearchInfo& info, const QString &group )
 {
     QDict<void> map;
     QString str = info.option( group );
@@ -247,7 +247,7 @@ QDict<void> XMLDB::findAlreadyMatched( const ImageSearchInfo& info, const QStrin
     return map;
 }
 
-void XMLDB::checkIfImagesAreSorted()
+void XMLDB::XMLDB::checkIfImagesAreSorted()
 {
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )
         return;
@@ -276,7 +276,7 @@ void XMLDB::checkIfImagesAreSorted()
     }
 }
 
-bool XMLDB::rangeInclude( ImageInfo* info ) const
+bool XMLDB::XMLDB::rangeInclude( ImageInfo* info ) const
 {
     if (_selectionRange.start().isNull() )
         return true;
@@ -288,7 +288,7 @@ bool XMLDB::rangeInclude( ImageInfo* info ) const
         return ( tp == ImageDateRange::ExactMatch );
 }
 
-void XMLDB::checkIfAllImagesHasSizeAttributes()
+void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
 {
     QTime time;
     time.start();
@@ -308,17 +308,17 @@ void XMLDB::checkIfAllImagesHasSizeAttributes()
 }
 
 
-const MemberMap& XMLDB::memberMap()
+const MemberMap& XMLDB::XMLDB::memberMap()
 {
     return _members;
 }
 
-void XMLDB::setMemberMap( const MemberMap& members )
+void XMLDB::XMLDB::setMemberMap( const MemberMap& members )
 {
     _members = members;
 }
 
-void XMLDB::loadCategories( const QDomElement& elm )
+void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
     CategoryCollection* categories = CategoryCollection::instance();
@@ -363,7 +363,7 @@ void XMLDB::loadCategories( const QDomElement& elm )
     }
 }
 
-void XMLDB::save( const QString& fileName )
+void XMLDB::XMLDB::save( const QString& fileName )
 {
     QDomDocument doc;
 
@@ -388,17 +388,17 @@ void XMLDB::save( const QString& fileName )
 }
 
 
-MD5Map* XMLDB::md5Map()
+MD5Map* XMLDB::XMLDB::md5Map()
 {
     return &_md5map;
 }
 
-bool XMLDB::isBlocking( const QString& fileName )
+bool XMLDB::XMLDB::isBlocking( const QString& fileName )
 {
     return _blockList.contains( fileName );
 }
 
-QDomElement XMLDB::readConfigFile( const QString& configFile )
+QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
 {
     QDomDocument doc;
     QFile file( configFile );
@@ -460,7 +460,7 @@ QDomElement XMLDB::readConfigFile( const QString& configFile )
     return top;
 }
 
-void XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
+void XMLDB::XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
                                          QDomElement* blockList, QDomElement* memberGroups )
 {
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
@@ -492,7 +492,7 @@ void XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomElement 
         KMessageBox::sorry( MainView::theMainView(), i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
 }
 
-void XMLDB::loadImages( const QDomElement& images )
+void XMLDB::XMLDB::loadImages( const QDomElement& images )
 {
     QString directory = Options::instance()->imageDirectory();
 
@@ -515,13 +515,13 @@ void XMLDB::loadImages( const QDomElement& images )
 
 }
 
-ImageInfo* XMLDB::load( const QString& fileName, QDomElement elm )
+ImageInfo* XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
 {
     ImageInfo* info = new ImageInfo( fileName, elm );
     return info;
 }
 
-void XMLDB::loadBlockList( const QDomElement& blockList )
+void XMLDB::XMLDB::loadBlockList( const QDomElement& blockList )
 {
     for ( QDomNode node = blockList.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
@@ -536,7 +536,7 @@ void XMLDB::loadBlockList( const QDomElement& blockList )
     }
 }
 
-void XMLDB::loadMemberGroups( const QDomElement& memberGroups )
+void XMLDB::XMLDB::loadMemberGroups( const QDomElement& memberGroups )
 {
     for ( QDomNode node = memberGroups.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -551,7 +551,7 @@ void XMLDB::loadMemberGroups( const QDomElement& memberGroups )
     }
 }
 
-void XMLDB::saveImages( QDomDocument doc, QDomElement top )
+void XMLDB::XMLDB::saveImages( QDomDocument doc, QDomElement top )
 {
     ImageInfoList list = _images;
 
@@ -568,7 +568,7 @@ void XMLDB::saveImages( QDomDocument doc, QDomElement top )
     }
 }
 
-void XMLDB::saveBlockList( QDomDocument doc, QDomElement top )
+void XMLDB::XMLDB::saveBlockList( QDomDocument doc, QDomElement top )
 {
     QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
     bool any=false;
@@ -583,7 +583,7 @@ void XMLDB::saveBlockList( QDomDocument doc, QDomElement top )
         top.appendChild( blockList );
 }
 
-void XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
+void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
 {
     if ( _members.isEmpty() )
         return;
@@ -606,7 +606,7 @@ void XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
     top.appendChild( memberNode );
 }
 
-void XMLDB::saveCategories( QDomDocument doc, QDomElement top )
+void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
 {
     QStringList grps = CategoryCollection::instance()->categoryNames();
     QDomElement options = doc.createElement( QString::fromLatin1("options") );

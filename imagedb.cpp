@@ -1,5 +1,5 @@
 #include "imagedb.h"
-#include <xmldb.h>
+#include "xmldb/xmldb.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "browser.h"
@@ -17,7 +17,7 @@ ImageDB* ImageDB::instance()
 
 void ImageDB::setup( const QString& configFile )
 {
-    _instance = new XMLDB( configFile );
+    _instance = new XMLDB::XMLDB( configFile );
 }
 
 QString ImageDB::NONE()

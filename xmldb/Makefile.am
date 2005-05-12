@@ -2,7 +2,7 @@ noinst_LTLIBRARIES = \
     libxmldb.la
 
 INCLUDES = \
-    $(all_includes) -I$(srcdir)/..
+	 -I$(srcdir)/.. $(all_includes)
 
 libxmldb_la_SOURCES = \
 	xmldb.cpp

@@ -64,23 +64,9 @@ int XMLDB::XMLDB::totalCount() const
     return _images.count();
 }
 
-ImageInfoList XMLDB::XMLDB::searchImageInfo( const ImageSearchInfo& info, bool requireOnDisk ) const
-{
-    ImageInfoList result;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
-        match &= !requireOnDisk || (*it)->imageOnDisk();
-
-        if (match)
-            result.append(*it);
-    }
-    return result;
-}
-
-
 int XMLDB::XMLDB::count( const ImageSearchInfo& info )
 {
-    int count = searchImageInfo( info ).count();
+    int count = search( info ).count();
     return count;
 }
 
@@ -673,10 +659,13 @@ QStringList XMLDB::XMLDB::images()
 
 QStringList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    ImageInfoList list = searchImageInfo( info, requireOnDisk );
     QStringList result;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        result.append( (*it)->fileName() );
+    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+        match &= !requireOnDisk || (*it)->imageOnDisk();
+
+        if (match)
+            result.append((*it)->fileName());
     }
     return result;
 }

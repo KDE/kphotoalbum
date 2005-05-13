@@ -36,7 +36,6 @@ namespace XMLDB {
         Q_OBJECT
     public:
         virtual int totalCount() const;
-        virtual ImageInfoList searchImageInfo( const ImageSearchInfo& info, bool requireOnDisk = false ) const;
         virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const;
         virtual int count( const ImageSearchInfo& info );
         virtual void renameOptionGroup( const QString& oldName, const QString newName );

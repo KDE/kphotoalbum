@@ -61,7 +61,6 @@ public:
 
 public: // Methods that must be overriden
     virtual int totalCount() const = 0; // OK
-    virtual ImageInfoList searchImageInfo( const ImageSearchInfo& info, bool requireOnDisk = false ) const = 0; // Must die
     virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
     virtual int count( const ImageSearchInfo& info ) = 0; //OK
 

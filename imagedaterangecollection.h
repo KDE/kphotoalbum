@@ -22,6 +22,7 @@
 #include <qvaluelist.h>
 #include <qmap.h>
 #include "imageinfolist.h"
+class QStringList;
 
 class ImageCount
 {
@@ -41,7 +42,7 @@ class ImageDateRangeCollection
 {
 public:
     ImageDateRangeCollection();
-    ImageDateRangeCollection( const ImageInfoList& );
+    ImageDateRangeCollection( const QStringList& );
     void append( const ImageDateRange& );
     ImageCount count( const ImageDate& from, const ImageDate& to );
     QDateTime lowerLimit() const;

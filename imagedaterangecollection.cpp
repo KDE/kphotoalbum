@@ -18,6 +18,7 @@
 
 #include "imagedaterangecollection.h"
 #include "imageinfo.h"
+#include "imagedb.h"
 
 ImageDateRangeCollection::ImageDateRangeCollection()
     : _dirtyLower( false ), _dirtyUpper( false )
@@ -99,10 +100,11 @@ QDateTime ImageDateRangeCollection::upperLimit() const
     return _upper;
 }
 
-ImageDateRangeCollection::ImageDateRangeCollection( const ImageInfoList& list )
+ImageDateRangeCollection::ImageDateRangeCollection( const QStringList& list )
 {
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        append( ImageDateRange( (*it)->startDate(), (*it)->endDate() ) );
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageInfo* info = ImageDB::instance()->info( *it );
+        append( ImageDateRange( info->startDate(), info->endDate() ) );
     }
 }
 

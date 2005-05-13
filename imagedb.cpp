@@ -4,6 +4,7 @@
 #include <qfileinfo.h>
 #include "browser.h"
 #include "categorycollection.h"
+#include "sqldb/sqldb.h"
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -18,6 +19,8 @@ ImageDB* ImageDB::instance()
 void ImageDB::setup( const QString& configFile )
 {
     _instance = new XMLDB::XMLDB( configFile );
+
+    new SQLDB::SQLDB();
 }
 
 QString ImageDB::NONE()

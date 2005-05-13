@@ -351,6 +351,7 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
                     cat = new Category( name, icon, size, type, show );
                     categories->addCategory( cat );
                 }
+                // PENDING(blackie) else set the values for icons, size, type, and show
 
                 // Read values
                 QStringList items;

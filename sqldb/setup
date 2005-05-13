@@ -1,0 +1,312 @@
+echo y | mysqladmin -u root drop kimdaba
+
+mysqladmin -u root create kimdaba;
+mysql -u root kimdaba << EOF
+
+CREATE TABLE membergroup
+(
+   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   groupname varchar(128) NOT NULL,
+   category varchar(128) NOT NULL,
+   member varchar(128) NOT NULL
+);
+
+CREATE TABLE imageinfo 
+(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  fileName varchar(1024),
+  label varchar(1024),
+  description TEXT,
+  dayFrom INT, monthFrom INT, yearFrom INT,
+  dayTo INT, monthTo INT, yearTo INT,
+  hour INT, minute INT, second INT,
+  angle INT,
+  md5sum varchar(64),
+  width INT,
+  height INT );
+
+CREATE TABLE imagecategoryinfo
+(
+  filename varchar(1024),
+  category varchar(1024),
+  value varchar(1024)
+);
+
+CREATE TABLE categorysetup 
+(
+  category varchar(1024),
+  viewtype INT,
+  viewsize INT,
+  icon varchar(128),
+  showIt BOOLEAN
+);
+
+insert into membergroup( groupname, category, member ) values
+  ("Denmark", "Locations", "Esbjerg" ),
+  ("Denmark", "Locations", "Pool Club" ),
+  ("USA", "Locations", "Chicago" ),
+  ("USA", "Locations", "Grand Canyon" ),
+  ("USA", "Locations", "Santa Clara" ),
+  ("Pets", "Persons", "Donna" ),
+  ("Pets", "Persons", "Spiff" );
+
+
+
+insert into categorysetup
+  set viewtype=0, viewsize=0, icon="password", category="Keywords", showIt=1;
+
+insert into categorysetup
+  set viewtype=0, viewsize=0, icon="network", category="Locations", showIt=1;
+
+insert into categorysetup
+  set viewtype=1, viewsize=1, icon="personal", category="Persons", showIt=1;
+
+insert into categorysetup
+  set viewtype=0, viewsize=0, icon="folder", category="Folder", showIt=0;
+
+insert into categorysetup
+  set viewtype=0, viewsize=0, icon="cookie", category="Tokens", showIt=1;
+
+
+
+
+insert into imageinfo
+  set width=569, height=800, md5sum="570cb78b687b85f1e840b276868832aa", fileName="img016.jpg", label="img016", angle=0, description="",
+      monthFrom=0, dayFrom=0, hour=0, yearTo=0, monthTo=0, dayTo=0, second=0, yearFrom=1985, minute=0;
+
+insert into imageinfo
+  set width=549, monthFrom=0, dayFrom=0, hour=0, height=800, yearTo=1990, monthTo=0, md5sum="301ed80fa98e9388656cd06dc027463b", minute=0, fileName="img017.jpg" , label="img017", angle=0, dayTo=0, second=0, yearFrom=1988, description="When I was 17-20 years old I considered myself a new-waver, and therefore looked like this most of the time. My dirvers license (which I'll have till I'm 60 years old), does still contain such an image ;-)";
+
+insert into imageinfo
+  set width=800, monthFrom=0, dayFrom=0, hour=0, height=550, yearTo=1990, monthTo=0, md5sum="b9117748687c4aa5375e103cc05d5ee8", minute=0, fileName="img018.jpg" , label="img018", angle=0, dayTo=0, second=0, yearFrom=1988, description="Getting the hair standing like this took almost 20 minues each and every morning, plus 10 minutes fix up during lunch break from school.";
+
+insert into imageinfo
+  set width=800, monthFrom=0, dayFrom=0, hour=0, height=550, yearTo=2000, monthTo=0, md5sum="5a5d3f200abdaa8863d9d1350cd1cc0b", minute=0, fileName="img019.jpg" , label="img019", angle=0, dayTo=0, second=0, yearFrom=1998, description="Spiff is enjoying a box of beers, or rather a beer box ;-)";
+
+insert into imageinfo
+  set width=550, monthFrom=0, dayFrom=0, hour=0, height=800, yearTo=2000, monthTo=0, md5sum="4ce27d23f69210d809bd2e8e0f188151", minute=0, fileName="img020.jpg" , label="img020", angle=0, dayTo=0, second=0, yearFrom=1998, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=0, dayFrom=0, hour=0, height=551, yearTo=2000, monthTo=0, md5sum="5216980dd2b315a2f022fcaf1271f6bc", minute=0, fileName="img021.jpg" , label="img021", angle=0, dayTo=0, second=0, yearFrom=1998, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=12, dayFrom=24, hour=10, height=600, yearTo=0, monthTo=0, md5sum="2bddc648abe5cb9cac8d299d68015081", minute=25, fileName="img024.jpg" , label="img024", angle=0, dayTo=0, second=0, yearFrom=2002, description="Just in case you haven't figure out what this is - its sugar ;-)";
+
+insert into imageinfo
+  set width=800, monthFrom=1, dayFrom=2, hour=0, height=535, yearTo=0, monthTo=0, md5sum="ca5d49e569a7061544fbb439b1522e06", minute=0, fileName="img013.jpg" , label="img013", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=1, dayFrom=2, hour=0, height=535, yearTo=0, monthTo=0, md5sum="7b3f9984fb669bd57c807370ea5746d9", minute=0, fileName="img014.jpg" , label="img014", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=1, dayFrom=2, hour=0, height=535, yearTo=0, monthTo=0, md5sum="0890cc6feef62fb62b417aaf403d390d", minute=0, fileName="img015.jpg" , label="img015", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="252228ba88fa9fc6ecac30bcca99141e", minute=0, fileName="img001.jpg" , label="img001", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="5d8af651aa3491765bbe8a08a475cc3e", minute=0, fileName="img002.jpg" , label="img002", angle=0, dayTo=0, second=0, yearFrom=2003, description="Its not obvious, but the main focus of this picture is Donna, whos nose you can see in the middle of the picture.";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="b8915701a21c6fa71c1c9c560664a371", minute=0, fileName="img003.jpg" , label="img003", angle=0, dayTo=0, second=0, yearFrom=2003, description="I'm in no way &lt;em>a shark&lt;/em> at pool, but I enjoy a game once in a while. I've been a board member of a pool club for almost 2 years, which unfortunately means that I'm more often in boardmeetings than at the pool tables.";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="8d2d351e523dd0e5c54db76d321b5be6", minute=0, fileName="img004.jpg" , label="img004", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=600, monthFrom=8, dayFrom=31, hour=0, height=800, yearTo=0, monthTo=0, md5sum="3354ef8dc72be960d8add460998f28a0", minute=0, fileName="img005.jpg" , label="img005", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="be19fc1a4af1e4a31fff66c7c58a11dd", minute=0, fileName="img006.jpg" , label="img006", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=600, monthFrom=8, dayFrom=31, hour=0, height=800, yearTo=0, monthTo=0, md5sum="40e6335090bb9a4ab316eb969369cd62", minute=0, fileName="img007.jpg" , label="img007", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="897a960470fc2557cabe9b7371274ec9", minute=0, fileName="img008.jpg" , label="img008", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="ec8fe2b7d784813379042e83e0f7aaa6", minute=0, fileName="img009.jpg" , label="img009", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="b9b3da4f9a225e5bff296f8075828eff", minute=0, fileName="img010.jpg" , label="img010", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="92f54b52ba44869e620d713f1b0420a3", minute=0, fileName="img011.jpg" , label="img011", angle=0, dayTo=0, second=0, yearFrom=2003, description="Anne Helene and I had a lot of fun playing with the automatic timer on our digital camera.";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=600, yearTo=0, monthTo=0, md5sum="aca7182ae0ae819e48ba7221afb4559c", minute=0, fileName="img012.jpg" , label="img012", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=800, monthFrom=8, dayFrom=31, hour=0, height=551, yearTo=0, monthTo=0, md5sum="5ccc31e822e0638740c8296c2b9637dc", minute=0, fileName="img022.jpg" , label="img022", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+insert into imageinfo
+  set width=551, monthFrom=8, dayFrom=31, hour=0, height=800, yearTo=0, monthTo=0, md5sum="bdc4b7ed37734d14c909162f101e78e3", minute=0, fileName="img023.jpg" , label="img023", angle=0, dayTo=0, second=0, yearFrom=2003, description="";
+
+
+
+
+
+
+
+
+insert into imagecategoryinfo
+  set fileName="img016.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img017.jpg",category="Keywords", value="new wave" ;
+
+insert into imagecategoryinfo
+  set fileName="img017.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img018.jpg",category="Keywords", value="new wave" ;
+
+insert into imagecategoryinfo
+  set fileName="img018.jpg" ,category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img019.jpg" ,category="Keywords", value="beers" ;
+
+insert into imagecategoryinfo
+  set fileName="img019.jpg" ,category="Persons", value="Spiff" ;
+
+insert into imagecategoryinfo
+  set fileName="img020.jpg" ,category="Persons", value="Spiff" ;
+
+insert into imagecategoryinfo
+  set fileName="img021.jpg" ,category="Persons", value="Spiff" ;
+
+insert into imagecategoryinfo
+  set fileName="img024.jpg" ,category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img024.jpg" ,category="Locations", value="Santa Clara" ;
+
+insert into imagecategoryinfo
+  set fileName="img024.jpg",category="Persons", value="Anne Helene" ;
+
+insert into imagecategoryinfo
+  set fileName="img013.jpg",category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img013.jpg" ,category="Locations", value="Grand Canyon" ;
+
+insert into imagecategoryinfo
+  set fileName="img013.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img014.jpg",category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img014.jpg",category="Locations", value="Grand Canyon" ;
+
+insert into imagecategoryinfo
+  set fileName="img015.jpg",category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img015.jpg",category="Locations", value="Grand Canyon" ;
+
+insert into imagecategoryinfo
+  set fileName="img015.jpg",category="Persons", value="Anne Helene" ;
+
+insert into imagecategoryinfo
+  set fileName="img001.jpg",category="Keywords", value="Anne Helene's 30 years birthday" ;
+
+insert into imagecategoryinfo
+  set fileName="img001.jpg",category="Locations", value="Esbjerg" ;
+
+insert into imagecategoryinfo
+  set fileName="img001.jpg",category="Persons", value="Donna" ;
+
+insert into imagecategoryinfo
+  set fileName="img002.jpg",category="Keywords", value="Anne Helene's 30 years birthday" ;
+
+insert into imagecategoryinfo
+  set fileName="img002.jpg",category="Locations", value="Esbjerg" ;
+
+insert into imagecategoryinfo
+  set fileName="img002.jpg",category="Persons", value="Donna" ;
+
+insert into imagecategoryinfo
+  set fileName="img003.jpg",category="Keywords", value="Anne Helene's 30 years birthday" ;
+
+insert into imagecategoryinfo
+  set fileName="img003.jpg",category="Locations", value="Pool Club" ;
+
+insert into imagecategoryinfo
+  set fileName="img003.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img004.jpg",category="Keywords", value="Anne Helene's 30 years birthday" ;
+
+insert into imagecategoryinfo
+  set fileName="img004.jpg",category="Locations", value="Pool Club" ;
+
+insert into imagecategoryinfo
+  set fileName="img004.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img005.jpg",category="Locations", value="Chicago" ;
+
+insert into imagecategoryinfo
+  set fileName="img006.jpg",category="Locations", value="Chicago" ;
+
+insert into imagecategoryinfo
+  set fileName="img006.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img007.jpg",category="Keywords", value="silo falls over" ;
+
+insert into imagecategoryinfo
+  set fileName="img007.jpg",category="Locations", value="Esbjerg" ;
+
+insert into imagecategoryinfo
+  set fileName="img008.jpg",category="Keywords", value="silo falls over" ;
+
+insert into imagecategoryinfo
+  set fileName="img008.jpg",category="Locations", value="Esbjerg" ;
+
+insert into imagecategoryinfo
+  set fileName="img009.jpg",category="Keywords", value="silo falls over" ;
+
+insert into imagecategoryinfo
+  set fileName="img009.jpg",category="Locations", value="Esbjerg" ;
+
+insert into imagecategoryinfo
+  set fileName="img010.jpg",category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img010.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img011.jpg",category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img011.jpg",category="Locations", value="Mallorca" ;
+
+insert into imagecategoryinfo
+  set fileName="img011.jpg",category="Persons", value="Anne Helene" ;
+
+insert into imagecategoryinfo
+  set fileName="img012.jpg",category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img012.jpg",category="Locations", value="Mallorca" ;
+
+insert into imagecategoryinfo
+  set fileName="img012.jpg",category="Persons", value="Jesper" ;
+
+insert into imagecategoryinfo
+  set fileName="img022.jpg",category="Persons", value="Donna" ;
+
+insert into imagecategoryinfo
+  set fileName="img023.jpg",category="Keywords", value="holiday" ;
+
+insert into imagecategoryinfo
+  set fileName="img023.jpg",category="Locations", value="Rhodos" ;
+
+insert into imagecategoryinfo
+  set fileName="img023.jpg",category="Persons", value="Anne Helene" ;
+
+

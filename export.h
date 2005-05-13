@@ -33,16 +33,16 @@ enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link };
 class Export :public ImageClient {
 
 public:
-    static void imageExport( const ImageInfoList& list);
+    static void imageExport( const QStringList& list);
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
-    Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize,
+    Export( const QStringList& list, const QString& zipFile, bool compress, int maxSize,
             ImageFileLocation, const QString& baseUrl, bool& ok, bool generateThumbnails );
     static void showUsageDialog();
 
 protected:
-    QCString createIndexXML( const ImageInfoList&, const QString& baseUrl );
-    void generateThumbnails( const ImageInfoList& list );
-    void copyImages( const ImageInfoList& list );
+    QCString createIndexXML( const QStringList&, const QString& baseUrl );
+    void generateThumbnails( const QStringList& list );
+    void copyImages( const QStringList& list );
 
 private:
     int _filesRemaining;

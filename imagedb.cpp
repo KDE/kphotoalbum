@@ -25,7 +25,7 @@ QString ImageDB::NONE()
     return i18n("**NONE**");
 }
 
-ImageInfoList ImageDB::currentScope( bool requireOnDisk ) const
+QStringList ImageDB::currentScope( bool requireOnDisk ) const
 {
     return search( Browser::instance()->currentContext(), requireOnDisk );
 }

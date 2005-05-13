@@ -54,13 +54,13 @@ public:
     MainView( QWidget* parent,  const char* name = 0 );
     static void configureImages( const ImageInfoList& list, bool oneAtATime );
     static MainView* theMainView();
-    ImageInfoList selected();
+    QStringList selected();
     ImageInfoList currentView();
     ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 
 public slots:
-    void showThumbNails( const ImageInfoList& list );
+    void showThumbNails( const QStringList& list );
 
 protected slots:
     void showThumbNails();
@@ -137,7 +137,7 @@ protected:
     void setLocked( bool b );
     void configImages( const ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    ImageInfoList getSelectedOnDisk();
+    QStringList getSelectedOnDisk();
     void loadPlugins();
     void possibleRunSuvey();
 

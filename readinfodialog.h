@@ -29,12 +29,12 @@ class ReadInfoDialog :public KDialogBase {
 
 public:
     ReadInfoDialog( QWidget* parent, const char* name = 0 );
-    int exec( const ImageInfoList& );
+    int exec( const QStringList& );
 
 protected slots:
     void readInfo();
 private:
-    ImageInfoList _list;
+    QStringList _list;
     QLabel* _label;
     QCheckBox* _time;
     QCheckBox* _date;

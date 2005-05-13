@@ -64,7 +64,7 @@ int XMLDB::XMLDB::totalCount() const
     return _images.count();
 }
 
-ImageInfoList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
+ImageInfoList XMLDB::XMLDB::searchImageInfo( const ImageSearchInfo& info, bool requireOnDisk ) const
 {
     ImageInfoList result;
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
@@ -80,7 +80,7 @@ ImageInfoList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnD
 
 int XMLDB::XMLDB::count( const ImageSearchInfo& info )
 {
-    int count = search( info ).count();
+    int count = searchImageInfo( info ).count();
     return count;
 }
 
@@ -133,19 +133,21 @@ void XMLDB::XMLDB::renameOptionGroup( const QString& oldName, const QString newN
     }
 }
 
-void XMLDB::XMLDB::addToBlockList( const ImageInfoList& list )
+void XMLDB::XMLDB::addToBlockList( const QStringList& list )
 {
-    for( ImageInfoListIterator it( list ); *it; ++it) {
-        _blockList << (*it)->fileName( true );
-        _images.removeRef( *it );
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageInfo* inf= info(*it);
+        _blockList << inf->fileName( true );
+        _images.removeRef( inf );
     }
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::XMLDB::deleteList( const ImageInfoList& list )
+void XMLDB::XMLDB::deleteList( const QStringList& list )
 {
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        _images.removeRef( *it );
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageInfo* inf= info(*it);
+        _images.removeRef( inf );
     }
     emit totalChanged( _images.count() );
 }
@@ -180,15 +182,15 @@ void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
 }
 
 
-void XMLDB::XMLDB::slotReread(ImageInfoList rereadList, int mode)
+void XMLDB::XMLDB::slotReread( const QStringList& list, int mode)
 {
     // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
     QProgressDialog  dialog( i18n("<qt><p><b>Loading time information from images</b></p>"
                                   "<p>Depending on the number of images, this may take some time.</p></qt>"),
-                             i18n("Cancel"), rereadList.count() );
+                             i18n("Cancel"), list.count() );
 
     int count=0;
-    for( ImageInfoListIterator it( rereadList ); *it; ++it, ++count ) {
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
@@ -197,10 +199,10 @@ void XMLDB::XMLDB::slotReread(ImageInfoList rereadList, int mode)
                 return;
         }
 
-        QFileInfo fi( (*it)->fileName() );
+        QFileInfo fi( *it );
 
         if (fi.exists())
-            (*it)->readExif((*it)->fileName(), mode);
+            info(*it)->readExif(*it, mode);
         emit dirty();
     }
 }
@@ -667,6 +669,22 @@ QStringList XMLDB::XMLDB::images()
         result.append( (*it)->fileName() );
     }
     return result;
+}
+
+QStringList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
+{
+    ImageInfoList list = searchImageInfo( info, requireOnDisk );
+    QStringList result;
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        result.append( (*it)->fileName() );
+    }
+    return result;
+}
+
+void XMLDB::XMLDB::sortAndMergeBackIn( const QStringList& fileList )
+{
+    ImageInfoList list = Util::stringListToInfoList( fileList );
+    _images.sortAndMergeBackIn( list );
 }
 
 

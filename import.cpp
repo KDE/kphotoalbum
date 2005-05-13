@@ -534,7 +534,7 @@ void Import::stopCopyingImages()
 void Import::slotFinish()
 {
     _finishedPressed = true;
-    _nameMap = Util::createUniqNameMap( selectedImages(), true, _destinationEdit->text() );
+    _nameMap = Util::createUniqNameMap( Util::infoListToStringList(selectedImages()), true, _destinationEdit->text() );
     bool ok;
     if ( _externalSource ) {
         hide();

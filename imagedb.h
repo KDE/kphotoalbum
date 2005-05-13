@@ -57,13 +57,12 @@ protected:
 
 public:
     static QString NONE(); // OK
-    ImageInfoList currentScope( bool requireOnDisk ) const; // OK
+    QStringList currentScope( bool requireOnDisk ) const;
 
 public: // Methods that must be overriden
     virtual int totalCount() const = 0; // OK
-#ifdef TEMPORARILY_REMOVED
-    virtual ImageInfoList search( const ImageSearchInfo& info, bool requireOnDisk = false ) const = 0; // OK
-#endif
+    virtual ImageInfoList searchImageInfo( const ImageSearchInfo& info, bool requireOnDisk = false ) const = 0; // Must die
+    virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
     virtual int count( const ImageSearchInfo& info ) = 0; //OK
 
     virtual void renameOptionGroup( const QString& oldName, const QString newName ) = 0;
@@ -73,14 +72,15 @@ public: // Methods that must be overriden
     virtual QStringList images() = 0; // TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0; // OK
 
-    virtual void addToBlockList( const ImageInfoList& list ) = 0; // OK
+    virtual void addToBlockList( const QStringList& list ) = 0; // OK
     virtual bool isBlocking( const QString& fileName ) = 0; // OK
-    virtual void deleteList( const ImageInfoList& list ) = 0;
+    virtual void deleteList( const QStringList& list ) = 0;
     virtual ImageInfo* info( const QString& fileName ) const = 0; // OK
     virtual const MemberMap& memberMap() = 0; // OK
     virtual void setMemberMap( const MemberMap& members ) = 0; // OK
     virtual void save( const QString& fileName ) = 0;
     virtual MD5Map* md5Map() = 0; // OK
+    virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
 
 protected slots:
     virtual void renameOption( Category* category, const QString& oldName, const QString& newName ) = 0;
@@ -88,7 +88,7 @@ protected slots:
     virtual void lockDB( bool lock, bool exclude ) = 0;
 
 public slots:
-    virtual void slotReread(ImageInfoList rereadList, int mode) = 0;
+    virtual void slotReread( const QStringList& list, int mode) = 0;
 
 signals:
     void totalChanged( int );

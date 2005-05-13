@@ -441,4 +441,10 @@ void ImageInfo::setSize( const QSize& size )
     _size = size;
 }
 
+bool ImageInfo::imageOnDisk( const QString& fileName )
+{
+    QFileInfo fi( fileName );
+    return fi.exists();
+}
+
 #include "infobox.moc"

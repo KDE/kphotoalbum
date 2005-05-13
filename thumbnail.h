@@ -29,12 +29,12 @@ class ImageInfo;
 class ThumbNail :public QIconViewItem, public ImageClient {
 public:
     friend class ThumbNailView;
-    ThumbNail( ImageInfo* imageInfo,  ThumbNailView* parent );
-    ThumbNail( ImageInfo* imageInfo,  ThumbNail* after, ThumbNailView* parent );
+    ThumbNail( const QString& fileName,  ThumbNailView* parent );
+    ThumbNail( const QString& fileName,  ThumbNail* after, ThumbNailView* parent );
 
     virtual void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, bool loadedOK );
     QString fileName() const;
-    ImageInfo* imageInfo();
+    ImageInfo* imageInfo() const;
     virtual bool acceptDrop ( const QMimeSource * mime ) const;
 
 protected:
@@ -53,7 +53,7 @@ protected:
     static QPixmap& highlightPixmap();
 
 private:
-    ImageInfo* _imageInfo;
+    QString _fileName;
     ThumbNailView* _parent;
     bool _highlightItem;
 };

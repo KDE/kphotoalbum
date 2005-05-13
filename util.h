@@ -53,13 +53,15 @@ public:
     static bool loadCRW(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
     static bool isCRW( const QString& fileName );
 
-    static ImageInfoList shuffle( ImageInfoList list );
+    static QStringList shuffle( const QStringList& list );
 
     typedef QMap<QString, QString> UniqNameMap;
-    static UniqNameMap createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destdir );
+    static UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
 
     static QString stripSlash( const QString& fileName );
     static QString relativeFolderName( const QString& fileName);
+    static ImageInfoList stringListToInfoList( const QStringList& list );
+    static QStringList infoListToStringList( const ImageInfoList& list );
 };
 
 

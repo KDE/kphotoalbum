@@ -61,14 +61,14 @@ void ThumbNailView::showImage( QIconViewItem* item )
 {
     if ( item ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        ImageInfo* info = tn->imageInfo();
-        if ( !info->imageOnDisk() ) {
+        QString fileName = tn->fileName();
+        if ( !ImageInfo::imageOnDisk(fileName) ) {
             QMessageBox::warning( this, i18n("No Images to Display"),
                                   i18n("The selected image was not available on disk.") );
         }
         else {
-            ImageInfoList list;
-            list.append( info );
+            QStringList list;
+            list.append( fileName );
             Viewer* viewer;
             if ( !Util::ctrlKeyDown() && Viewer::latest() ) {
                 viewer = Viewer::latest();
@@ -107,7 +107,7 @@ void ThumbNailView::reload()
         return;
 
     ThumbNail* first = 0;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( QStringList::Iterator it = _images.begin(); it != _images.end(); ++it ) {
         ThumbNail* tn = new ThumbNail( *it,  this );
         if ( !first )
             first = tn;
@@ -224,7 +224,7 @@ void ThumbNailView::slotPaste()
 
         // updatet the thumbnail view
         for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
-            last = new ThumbNail( *it, last, this );
+            last = new ThumbNail( (*it)->fileName(), last, this );
         }
 
         clipboard.clear();
@@ -365,7 +365,7 @@ void ThumbNailView::showEvent( QShowEvent* event )
     emitDateChange();
 }
 
-void ThumbNailView::setImageList( const ImageInfoList& list )
+void ThumbNailView::setImageList( const QStringList& list )
 {
     _images = list;
 }

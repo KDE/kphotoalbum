@@ -115,15 +115,6 @@ void Survey::AlternativeQuestion::load( QDomElement& top )
             }
         }
     }
-
-#ifdef TEMPORARILY_REMOVED
-    int id = elm.attribute( QString::fromLatin1( "id" ), QString::fromLatin1( "-1" ) ).toInt();
-    if ( id != -1 ) {
-        QButton* but =_answers->find( id );
-        if ( but )
-            static_cast<QRadioButton*>(but)->setChecked( true );
-    }
-#endif
 }
 
 Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QString& title, const QString& text,

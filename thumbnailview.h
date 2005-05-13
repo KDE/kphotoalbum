@@ -36,7 +36,7 @@ public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
     static ThumbNailView* theThumbnailView();
     void makeCurrent( ImageInfo* info );
-    void setImageList( const ImageInfoList& list );
+    void setImageList( const QStringList& list );
 
 public slots:
     void reload();
@@ -76,7 +76,7 @@ private:
     ThumbNail* _currentHighlighted;
     IconViewToolTip* _iconViewToolTip;
     bool _blockMoveSignals;
-    ImageInfoList _images;
+    QStringList _images;
 };
 
 #endif /* THUMBNAILVIEW_H */

@@ -291,12 +291,16 @@ void MainView::slotConfigureImagesOneAtATime()
 
 void MainView::configureImages( bool oneAtATime )
 {
-    ImageInfoList list = selected();
+    QStringList list = selected();
     if ( list.count() == 0 )  {
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     }
     else {
-        configureImages( list, oneAtATime );
+        ImageInfoList images;
+        for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+            images.append( ImageDB::instance()->info( *it ) );
+        }
+        configureImages( images, oneAtATime );
     }
 }
 
@@ -400,11 +404,7 @@ void MainView::slotDeleteSelected()
 
 void MainView::slotReadInfo()
 {
-    ImageInfoList list = getSelectedOnDisk();
-    QStringList files;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        files.append( (*it)->fileName() );
-    }
+    QStringList files = getSelectedOnDisk();;
 
     int i = KMessageBox::warningContinueCancelList( this,
                 i18n( "<qt><p>Be aware that reading EXIF info from files may "
@@ -422,19 +422,19 @@ void MainView::slotReadInfo()
 
     if ( ! _readInfoDialog )
         _readInfoDialog = new ReadInfoDialog( this );
-    if ( _readInfoDialog->exec( list ) == QDialog::Accepted )
+    if ( _readInfoDialog->exec( files ) == QDialog::Accepted )
         setDirty( true );
 }
 
 
-ImageInfoList MainView::selected()
+QStringList MainView::selected()
 {
-    ImageInfoList list;
+    QStringList list;
     for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
         if ( item->isSelected() ) {
             ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
             Q_ASSERT( tn );
-            list.append( tn->imageInfo() );
+            list.append( tn->fileName() );
         }
     }
     return list;
@@ -458,15 +458,15 @@ void MainView::slotViewNewWindow()
     slotView( false, false );
 }
 
-ImageInfoList MainView::getSelectedOnDisk()
+QStringList MainView::getSelectedOnDisk()
 {
-    ImageInfoList listOnDisk;
-    ImageInfoList list = selected();
+    QStringList listOnDisk;
+    QStringList list = selected();
     if ( list.count() == 0 )
         list = ImageDB::instance()->currentScope(  true );
 
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        if ( (*it)->imageOnDisk() )
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        if ( ImageInfo::imageOnDisk( *it ) )
             listOnDisk.append( *it );
     }
 
@@ -475,7 +475,7 @@ ImageInfoList MainView::getSelectedOnDisk()
 
 void MainView::slotView( bool reuse, bool slideShow, bool random )
 {
-    ImageInfoList listOnDisk = getSelectedOnDisk();
+    QStringList listOnDisk = getSelectedOnDisk();
 
     if ( listOnDisk.count() == 0 ) {
         QMessageBox::warning( this, i18n("No Images to Display"),
@@ -505,8 +505,8 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 
 void MainView::slotSortByDateAndTime()
 {
-    ImageInfoList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
-    ImageDB::instance()->imageInfoList().sortAndMergeBackIn( listOnDisk );
+    QStringList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
+    ImageDB::instance()->sortAndMergeBackIn( listOnDisk );
     _thumbNailView->reload();
     markDirty();
 }
@@ -661,7 +661,7 @@ void MainView::setupMenuBar()
 
 void MainView::slotExportToHTML()
 {
-    ImageInfoList list = getSelectedOnDisk();
+    QStringList list = getSelectedOnDisk();
     if ( list.count() == 0 )  {
         list = ImageDB::instance()->currentScope( true );
 
@@ -981,12 +981,6 @@ void MainView::slotThumbNailSelectionChanged()
     _sortByDateAndTime->setEnabled( manySelected );
 }
 
-void MainView::showThumbNails( const ImageInfoList& list )
-{
-    _thumbNailView->setImageList( list );
-    showThumbNails();
-}
-
 void MainView::reloadThumbNail()
 {
     _thumbNailView->reload();
@@ -1008,12 +1002,12 @@ void MainView::slotUpdateViewMenu( Category::ViewSize size, Category::ViewType t
 void MainView::slotShowNotOnDisk()
 {
     QStringList allImages = ImageDB::instance()->images();
-    ImageInfoList notOnDisk;
+    QStringList notOnDisk;
     for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
         ImageInfo* info = ImageDB::instance()->info(*it);
         QFileInfo fi( info->fileName() );
         if ( !fi.exists() )
-            notOnDisk.append(info);
+            notOnDisk.append(*it);
     }
 
     showThumbNails( notOnDisk );
@@ -1085,7 +1079,7 @@ void MainView::slotImport()
 
 void MainView::slotExport()
 {
-    ImageInfoList list = getSelectedOnDisk();
+    QStringList list = getSelectedOnDisk();
     if ( list.count() == 0 ) {
         KMessageBox::sorry( this, i18n("No images to export.") );
     }
@@ -1244,7 +1238,7 @@ void MainView::updateDateBar( const QString& path )
 
 void MainView::updateDateBar()
 {
-    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->search( currentContext(), false ) ) );
+    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->searchImageInfo( currentContext(), false ) ) );
 }
 
 
@@ -1295,5 +1289,12 @@ void MainView::possibleRunSuvey()
     survey.possibleExecSurvey();
 }
 
+
+
+void MainView::showThumbNails( const QStringList& list )
+{
+    _thumbNailView->setImageList( list );
+    showThumbNails();
+}
 
 #include "mainview.moc"

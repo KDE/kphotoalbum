@@ -26,7 +26,7 @@
 #include <krun.h>
 #include <klocale.h>
 
-void ExternalPopup::populate( ImageInfo* current, const ImageInfoList& imageList )
+void ExternalPopup::populate( ImageInfo* current, const QStringList& imageList )
 {
     _list = imageList;
     _currentInfo = current;
@@ -63,8 +63,8 @@ void ExternalPopup::slotExecuteService( int id )
     KService::Ptr ptr = offers.first();
     KURL::List lst;
     if ( (uint) indexOf(id) > count() / 2 ) {
-        for( ImageInfoListIterator it( _list ); *it; ++it ) {
-            lst.append( KURL::fromPathOrURL((*it)->fileName() ) );
+        for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
+            lst.append( KURL::fromPathOrURL(*it) );
         }
     }
     else {

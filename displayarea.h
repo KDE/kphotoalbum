@@ -54,7 +54,7 @@ public:
     DrawHandler* drawHandler();
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
-    void setImageList( const ImageInfoList& list );
+    void setImageList( const QStringList& list );
 
 public slots:
     void toggleShowDrawings( bool );
@@ -105,7 +105,7 @@ private:
     QPoint _zStart; // Stands for zoom start
     QPoint _zEnd;
     QPtrVector<ViewPreloadInfo> _cache;
-    ImageInfoList _imageList;
+    QStringList _imageList;
     bool _cachedView;
     bool _reloadImageInProgress;
     int _forward;

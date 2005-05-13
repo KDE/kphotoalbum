@@ -59,6 +59,7 @@
 #include "mainview.h"
 #include "categorycollection.h"
 #include "imageinfo.h"
+#include "imagedb.h"
 
 class ImageSizeCheckBox :public QCheckBox {
 
@@ -303,14 +304,14 @@ bool HTMLExportDialog::generate()
             if ( !ok )
                 return false;
             for ( uint index = 0; index < _list.count(); ++index ) {
-                ImageInfo* info = _list.at(index);
-                ImageInfo* prev = 0;
-                ImageInfo* next = 0;
+                QString current = _list[index];
+                QString prev;
+                QString next;
                 if ( index != 0 )
-                    prev = _list.at(index-1);
+                    prev = _list[index-1];
                 if ( index != _list.count() -1 )
-                    next = _list.at(index+1);
-                ok = generateContextPage( (*sizeIt)->width(), (*sizeIt)->height(), prev, info, next );
+                    next = _list[index+1];
+                ok = generateContextPage( (*sizeIt)->width(), (*sizeIt)->height(), prev, current, next );
                 if (!ok)
                     return false;
             }
@@ -318,15 +319,9 @@ bool HTMLExportDialog::generate()
     }
 
     // Now generate the thumbnail images
-    for( ImageInfoListIterator it( _list ); *it; ++it ) {
-
-#if QT_VERSION < 0x030104
-        if ( _progress->wasCancelled() )
-            return false;
-#else
+    for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
         if ( _progress->wasCanceled() )
             return false;
-#endif
 
         createImage( *it, _thumbSize->value() );
     }
@@ -398,15 +393,9 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
     int count = 0;
     int cols = _numOfCols->value();
     QDomElement row;
-    for( ImageInfoListIterator it( _list ); *it; ++it ) {
-
-#if QT_VERSION < 0x030104
-        if ( _progress->wasCancelled() )
-            return false;
-#else
+    for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
         if ( _progress->wasCanceled() )
             return false;
-#endif
 
         if ( count % cols == 0 ) {
             row = doc.createElement( QString::fromLatin1( "tr" ) );
@@ -421,14 +410,14 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
         href.setAttribute( QString::fromLatin1( "href" ),
-                           namePage( width, height, (*it)->fileName(false) ) );
+                           namePage( width, height, ImageDB::instance()->info(*it)->fileName(false) ) ); // PENDING(blackie) cleanup
         col.appendChild( href );
 
         QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
         img.setAttribute( QString::fromLatin1( "src" ),
-                          nameImage( (*it)->fileName(), _thumbSize->value() ) );
+                          nameImage( *it, _thumbSize->value() ) );
         img.setAttribute( QString::fromLatin1( "alt" ),
-                          nameImage( (*it)->fileName(), _thumbSize->value() ) );
+                          nameImage( *it, _thumbSize->value() ) );
         href.appendChild( img );
         ++count;
     }
@@ -479,8 +468,8 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
     return true;
 }
 
-bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* prevInfo,
-                                            ImageInfo* info, ImageInfo* nextInfo )
+bool HTMLExportDialog::generateContextPage( int width, int height, const QString& prev,
+                                            const QString& current, const QString& next )
 {
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
@@ -488,18 +477,20 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     if ( content.isNull() )
         return false;
 
+    ImageInfo* info = ImageDB::instance()->info( current );
+
     content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
     content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
-    content.replace( QString::fromLatin1( "**IMAGE**" ), createImage( info, width ) );
+    content.replace( QString::fromLatin1( "**IMAGE**" ), createImage( current, width ) );
 
 
     // -------------------------------------------------- Links
     QString link;
 
     // prev link
-    if ( prevInfo )
-        link = QString::fromLatin1( "<a href=\"%1\">prev</a>" ).arg( namePage( width, height, prevInfo->fileName() ) );
+    if ( !prev.isNull() )
+        link = QString::fromLatin1( "<a href=\"%1\">prev</a>" ).arg( namePage( width, height, prev ) );
     else
         link = QString::fromLatin1( "prev" );
     content.replace( QString::fromLatin1( "**PREV**" ), link );
@@ -510,14 +501,14 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
     content.replace( QString::fromLatin1( "**INDEX**" ), link );
 
     // Next Link
-    if ( nextInfo )
-        link = QString::fromLatin1( "<a href=\"%1\">next</a>" ).arg( namePage( width, height, nextInfo->fileName() ) );
+    if ( !next.isNull() )
+        link = QString::fromLatin1( "<a href=\"%1\">next</a>" ).arg( namePage( width, height, next ) );
     else
         link = QString::fromLatin1( "next" );
     content.replace( QString::fromLatin1( "**NEXT**" ), link );
 
-    if ( nextInfo )
-        link = namePage( width, height, nextInfo->fileName() );
+    if ( !next.isNull() )
+        link = namePage( width, height, next );
     else
         link = QString::fromLatin1( "index-%1.html" ).arg(ImageSizeCheckBox::text(width,height,true));
 
@@ -532,7 +523,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
              sizeIt != actRes.end(); ++sizeIt ) {
             int w = (*sizeIt)->width();
             int h = (*sizeIt)->height();
-            QString page = namePage( w, h, info->fileName() );
+            QString page = namePage( w, h, current );
             QString text = (*sizeIt)->text(false);
             resolutions += QString::fromLatin1( " " );
 
@@ -569,7 +560,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, ImageInfo* pr
         content.replace( QString::fromLatin1( "**DESCRIPTION**" ), QString::fromLatin1( "" ) );
 
     // -------------------------------------------------- write to file
-    QString fileName = _tempDir + namePage( width, height, info->fileName() );
+    QString fileName = _tempDir + namePage( width, height, current );
     bool ok = writeToFile( fileName, content );
     if ( !ok )
         return false;
@@ -595,12 +586,12 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
 }
 
 
-QString HTMLExportDialog::createImage( ImageInfo* info, int size )
+QString HTMLExportDialog::createImage( const QString& fileName, int size )
 {
-    ImageRequest* request = new ImageRequest( info->fileName(), QSize( size, size ), info->angle(),  this );
+    ImageRequest* request = new ImageRequest( fileName, QSize( size, size ), ImageDB::instance()->info(fileName)->angle(), this );
     request->setPriority();
     ImageManager::instance()->load( request );
-    return nameImage( info->fileName(), size );
+    return nameImage( fileName, size );
 }
 
 void HTMLExportDialog::pixmapLoaded( const QString& fileName, const QSize& imgSize,
@@ -843,7 +834,7 @@ void HTMLExportDialog::getThemeInfo( QString* baseDir, QString* name, QString* a
     *author = themeConfig.readEntry( "Author" );
 }
 
-int HTMLExportDialog::exec( const ImageInfoList& list )
+int HTMLExportDialog::exec( const QStringList& list )
 {
     _list = list;
     return KDialogBase::exec();

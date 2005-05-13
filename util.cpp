@@ -48,6 +48,7 @@ extern "C" {
 #include <setjmp.h>
 #include <sys/types.h>
 #include "categorycollection.h"
+#include "imagedb.h"
 }
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
@@ -573,8 +574,9 @@ bool Util::isCRW( const QString& fileName )
     return fileName.endsWith( QString::fromLatin1("CRW"), false);
 }
 
-ImageInfoList Util::shuffle( ImageInfoList list )
+QStringList Util::shuffle( const QStringList& input )
 {
+    QStringList list = input;
     static bool init = false;
     if ( !init ) {
         QTime midnight( 0, 0, 0 );
@@ -582,12 +584,12 @@ ImageInfoList Util::shuffle( ImageInfoList list )
         init = true;
     }
 
-    ImageInfoList result;
+    QStringList result;
 
     while ( list.count() != 0 ) {
         int index = (int) ( (double)list.count()* rand()/((double)RAND_MAX) );
-        result.append( list.at(index) );
-        list.remove( list.at(index) );
+        result.append( list[index] );
+        list.remove( list[index] );
     }
     return result;
 }
@@ -598,13 +600,13 @@ ImageInfoList Util::shuffle( ImageInfoList list )
    cd1/abc/file.jpg -> file.jpg
    cd3/file.jpg     -> file-2.jpg
 */
-Util::UniqNameMap Util::createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destDir  )
+Util::UniqNameMap Util::createUniqNameMap( const QStringList& images, bool relative, const QString& destDir  )
 {
     QMap<QString, QString> map;
     QMap<QString, QString> inverseMap;
 
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
-        QString fullName = (*it)->fileName( relative );
+    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
+        QString fullName = ImageDB::instance()->info(*it)->fileName( relative );
         QString base = QFileInfo( fullName ).baseName();
         QString ext = QFileInfo( fullName ).extension();
         QString file = base + QString::fromLatin1( "." ) +  ext;
@@ -668,4 +670,24 @@ void Util::deleteDemo()
     KURL url;
     url.setPath( dir );
     (void) KIO::NetAccess::del( dir, MainView::theMainView() );
+}
+
+// PENDING(blackie) delete me
+ImageInfoList Util::stringListToInfoList( const QStringList& list )
+{
+    ImageInfoList result;
+
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        result.append( ImageDB::instance()->info( *it ) );
+    }
+    return result;
+}
+
+QStringList Util::infoListToStringList( const ImageInfoList& list )
+{
+    QStringList result;
+    for( ImageInfoListIterator it( list ); *it; ++it ) {
+        result.append( (*it)->fileName() );
+    }
+    return result;
 }

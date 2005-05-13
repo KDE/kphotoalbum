@@ -57,6 +57,7 @@
 #include "imageinfo.h"
 #include "imageconfig.moc"
 #include <kconfig.h>
+#include "util.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -377,7 +378,7 @@ void ImageConfig::load()
     _preview->setImage( info );
 
     if ( _viewer )
-        _viewer->load( _origList, _current );
+        _viewer->load( Util::infoListToStringList(_origList), _current );
 
     if ( _setup == SINGLE )
         setCaption( i18n("KimDaBa Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
@@ -732,7 +733,11 @@ void ImageConfig::slotDeleteImage()
     ImageInfo* info = _origList.at( _current );
     ImageInfoList list;
     list.append( info );
-    int ret = dialog.exec( list );
+
+    QStringList strList;
+    for( ImageInfoListIterator it( list ); *it; ++it )
+        strList.append( (*it)->fileName() );
+    int ret = dialog.exec( strList );
     if ( ret == Rejected )
         return;
 

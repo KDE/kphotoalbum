@@ -48,14 +48,9 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
-int DeleteDialog::exec( const ImageInfoList& list )
+int DeleteDialog::exec( const QStringList& list )
 {
     _label->setText( i18n("<qt><b><center><font size=\"+3\">Delete Images<br>%1 selected</font></center></b></qt>").arg( list.count() ) );
-
-    bool onDisk = false;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        onDisk |= (*it)->imageOnDisk();
-    }
 
     _deleteFromDisk->setChecked( true );
     _block->setChecked( false );
@@ -67,12 +62,12 @@ int DeleteDialog::exec( const ImageInfoList& list )
 void DeleteDialog::deleteImages()
 {
     if ( _deleteFromDisk->isChecked() ) {
-        for( ImageInfoListIterator it( _list ); *it; ++it ) {
-            Util::removeThumbNail( (*it)->fileName() );
-            if ( (*it)->imageOnDisk() ) {
-                bool ok = QFile( (*it)->fileName() ).remove();
+        for( QStringList::ConstIterator it = _list.begin(); it != _list.end(); ++it ) {
+            Util::removeThumbNail( *it );
+            if ( ImageDB::instance()->info(*it)->imageOnDisk() ) { // PENDING(blackie) we don't need imageinfo for this
+                bool ok = QFile( *it ).remove();
                 if ( !ok ) {
-                    KMessageBox::error( this, i18n("Unable to delete file '%1'.").arg((*it)->fileName()),
+                    KMessageBox::error( this, i18n("Unable to delete file '%1'.").arg(*it),
                                         i18n("Error Deleting Files") );
                 }
             }

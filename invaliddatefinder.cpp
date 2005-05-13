@@ -62,7 +62,7 @@ void InvalidDateFinder::slotOk()
 
     // Now search for the images.
     QStringList list = ImageDB::instance()->images();
-    ImageInfoList toBeShown;
+    QStringList toBeShown;
     KProgressDialog dialog( 0, "progress dialog", i18n("Reading file properties"),
                             i18n("Reading File Properties"), true );
     dialog.progressBar()->setTotalSteps( list.count() );
@@ -99,7 +99,7 @@ void InvalidDateFinder::slotOk()
             show = (date.year() == 0 || date.month() == 0 || date.day() == 0) && (date.year() != 0 || date.month() != 0 || date.day() != 0 );
         }
 
-        toBeShown.append( info );
+        toBeShown.append( *it );
     }
 
     if ( _dateNotTime->isChecked() ) {

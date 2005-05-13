@@ -55,6 +55,7 @@
 #include <kapplication.h>
 #include <kglobal.h>
 #include "categorycollection.h"
+#include "imagedb.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -244,7 +245,7 @@ void Viewer::setupContextMenu()
     _actions->readShortcutSettings();
 }
 
-void Viewer::load( const ImageInfoList& list, int index )
+void Viewer::load( const QStringList& list, int index )
 {
     _list = list;
     _display->setImageList( list );
@@ -431,7 +432,7 @@ bool Viewer::close( bool alsoDelete)
 
 ImageInfo* Viewer::currentInfo()
 {
-    return _list.at( _current );
+    return ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }
 
 void Viewer::infoBoxMove()

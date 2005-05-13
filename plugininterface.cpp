@@ -105,8 +105,8 @@ void PluginInterface::delImage( const KURL& url )
 {
     ImageInfo* info = ImageDB::instance()->info( url.path() );
     if ( info ) {
-        ImageInfoList list;
-        list.append( info );
+        QStringList list;
+        list.append( info->fileName() );
         ImageDB::instance()->deleteList( list );
     }
 }

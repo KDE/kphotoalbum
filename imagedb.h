@@ -23,6 +23,7 @@
 #include <qobject.h>
 #include "imageinfolist.h"
 #include "imageinfo.h"
+class CategoryCollection;
 class Category;
 class MD5Map;
 class ImageDateRange;
@@ -80,6 +81,7 @@ public: // Methods that must be overriden
     virtual void save( const QString& fileName ) = 0;
     virtual MD5Map* md5Map() = 0; // OK
     virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
+    virtual CategoryCollection* categoryCollection() = 0;
 
 protected slots:
     virtual void renameOption( Category* category, const QString& oldName, const QString& newName ) = 0;

@@ -327,7 +327,6 @@ void XMLDB::XMLDB::setMemberMap( const MemberMap& members )
 void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
-    CategoryCollection* categories = CategoryCollection::instance();
 
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
@@ -346,10 +345,10 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
                 bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                         QString::fromLatin1( "1" ) ).toInt();
 
-                Category* cat = categories->categoryForName( name ); // Special Categories are already created.
+                Category* cat = _categoryCollection.categoryForName( name ); // Special Categories are already created.
                 if ( !cat ) {
                     cat = new Category( name, icon, size, type, show );
-                    categories->addCategory( cat );
+                    _categoryCollection.addCategory( cat );
                 }
                 // PENDING(blackie) else set the values for icons, size, type, and show
 
@@ -525,6 +524,10 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
 ImageInfo* XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
 {
     ImageInfo* info = new ImageInfo( fileName, elm );
+    // This is for compatibility with KimDaBa 2.1 where this info was not saved.
+    QString folderName = Util::relativeFolderName( fileName );
+    info->setOption( QString::fromLatin1( "Folder") , QStringList( folderName ) );
+    _categoryCollection.categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
     return info;
 }
 
@@ -615,7 +618,7 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
 
 void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
 {
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     QDomElement options = doc.createElement( QString::fromLatin1("options") );
     top.appendChild( options );
 
@@ -624,7 +627,7 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         QString name = *it;
         opt.setAttribute( QString::fromLatin1("name"),  name );
-        Category* category = CategoryCollection::instance()->categoryForName( name );
+        Category* category = ImageDB::instance()->categoryCollection()->categoryForName( name );
 
         opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
         opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
@@ -677,4 +680,7 @@ void XMLDB::XMLDB::sortAndMergeBackIn( const QStringList& fileList )
     _images.sortAndMergeBackIn( list );
 }
 
-
+CategoryCollection* XMLDB::XMLDB::categoryCollection()
+{
+    return &_categoryCollection;
+}

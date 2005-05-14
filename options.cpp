@@ -116,12 +116,12 @@ void Options::setInfoBoxPosition( Position pos )
 */
 bool Options::showOption( const QString& category ) const
 {
-    return CategoryCollection::instance()->categoryForName(category)->doShow();
+    return ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow();
 }
 
 void Options::setShowOption( const QString& category, bool b )
 {
-    CategoryCollection::instance()->categoryForName(category)->setDoShow( b );
+    ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
 }
 
 QString Options::HTMLBaseDir() const
@@ -239,7 +239,7 @@ QImage Options::optionImage( const QString& category, QString member, int size )
         if ( ImageDB::instance()->memberMap().isGroup( category, member ) )
             img = KGlobal::iconLoader()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
         else
-            img = CategoryCollection::instance()->categoryForName( category )->icon( size );
+            img = ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
     }
     return img.smoothScale( size, size, QImage::ScaleMin );
 }
@@ -291,8 +291,8 @@ QString Options::albumCategory() const
 {
     QString category = value( STR("General"), STR("albumCategory"), STR("") );
 
-    if ( !CategoryCollection::instance()->categoryNames().contains( category ) ) {
-        category = CategoryCollection::instance()->categoryNames()[0];
+    if ( !ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) ) {
+        category = ImageDB::instance()->categoryCollection()->categoryNames()[0];
         const_cast<Options*>(this)->setAlbumCategory( category );
     }
 
@@ -326,20 +326,22 @@ bool Options::ready()
 
 void Options::createSpecialCategories()
 {
-    Category* folderCat = CategoryCollection::instance()->categoryForName( STR( "Folder" ) );
+#ifdef TEMPORARILY_REMOVED
+    Category* folderCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Folder" ) );
     if( folderCat == 0 ) {
         folderCat = new Category( STR("Folder"), STR("folder"), Category::Small, Category::ListView, false );
-        CategoryCollection::instance()->addCategory( folderCat );
+        ImageDB::instance()->categoryCollection()->addCategory( folderCat );
     }
     folderCat->setSpecialCategory( true );
 
 
-    Category* tokenCat = CategoryCollection::instance()->categoryForName( STR( "Tokens" ) );
+    Category* tokenCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Tokens" ) );
     if ( !tokenCat ) {
         tokenCat = new Category( STR("Tokens"), STR("cookie"), Category::Small, Category::ListView, true );
-        CategoryCollection::instance()->addCategory( tokenCat );
+        ImageDB::instance()->categoryCollection()->addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
+#endif
 }
 
 

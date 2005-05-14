@@ -64,7 +64,8 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     :  _null( false ), _locked( false )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ fileName );
-    setFileName( fileName );
+    _fileName = fileName;
+    _imageOnDisk = Unchecked;
     _label = elm.attribute( QString::fromLatin1("label"),  _label );
     _description = elm.attribute( QString::fromLatin1("description") );
 
@@ -175,10 +176,9 @@ void ImageInfo::setFileName( const QString& relativeFileName )
 {
     _fileName = relativeFileName;
     _imageOnDisk = Unchecked;
-
     QString folderName = Util::relativeFolderName( _fileName );
     _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
-    CategoryCollection::instance()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
+    ImageDB::instance()->categoryCollection()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
 }
 
 
@@ -269,7 +269,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _endDate != other._endDate ||
           _angle != other._angle);
     if ( !changed ) {
-        QStringList keys = CategoryCollection::instance()->categoryNames();
+        QStringList keys = ImageDB::instance()->categoryCollection()->categoryNames();
         for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
             _options[*it].sort();
             QStringList otherList = other._options[*it];

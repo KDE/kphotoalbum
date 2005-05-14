@@ -375,7 +375,7 @@ void Import::createOptionPages()
         }
     }
 
-    _categoryMatcher = new ImportMatcher( QString::null, QString::null, options, CategoryCollection::instance()->categoryNames(),
+    _categoryMatcher = new ImportMatcher( QString::null, QString::null, options, ImageDB::instance()->categoryCollection()->categoryNames(),
                                              false, this, "import matcher" );
     addPage( _categoryMatcher, i18n("Match Categories") );
 
@@ -396,7 +396,7 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
         }
     }
 
-    QStringList myOptions = CategoryCollection::instance()->categoryForName( myOptionGroup )->itemsInclGroups();
+    QStringList myOptions = ImageDB::instance()->categoryCollection()->categoryForName( myOptionGroup )->itemsInclGroups();
     ImportMatcher* matcher = new ImportMatcher( otherOptionGroup, myOptionGroup, otherOptions, myOptions, true, this, "import matcher" );
     addPage( matcher, myOptionGroup );
     return matcher;
@@ -582,7 +582,7 @@ void Import::updateDB()
 
                 if ( info->hasOption( otherGrp, otherOption ) ) {
                     newInfo->addOption( myGrp, myOption );
-                    CategoryCollection::instance()->categoryForName( myGrp )->addItem( myOption );
+                    ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
                 }
 
             }

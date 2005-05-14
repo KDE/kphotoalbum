@@ -36,12 +36,12 @@ TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo& info, Br
 
 QPixmap TypeFolder::pixmap()
 {
-    return CategoryCollection::instance()->categoryForName( _category )->icon();
+    return ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
 }
 
 QString TypeFolder::text() const
 {
-    return CategoryCollection::instance()->categoryForName( _category )->text();
+    return ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
 }
 
 FolderAction* TypeFolder::action( bool /* ctrlDown */ )
@@ -75,7 +75,7 @@ void TypeFolderAction::action( BrowserItemFactory* factory )
 
 QString TypeFolderAction::title() const
 {
-    return CategoryCollection::instance()->categoryForName( _category )->text();
+    return ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
 }
 
 QString TypeFolderAction::category() const
@@ -90,7 +90,7 @@ QString TypeFolder::countLabel() const
 
 bool TypeFolderAction::contentView() const
 {
-    return ( !CategoryCollection::instance()->categoryForName( _category )->isSpecialCategory() );
+    return ( !ImageDB::instance()->categoryCollection()->categoryForName( _category )->isSpecialCategory() );
 }
 
 

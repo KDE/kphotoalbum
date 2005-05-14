@@ -21,6 +21,7 @@ Boston, MA 02111-1307, USA.
 
 #include <imagedb.h>
 #include <membermap.h>
+#include <categorycollection.h>
 
 namespace SQLDB {
     class SQLDB  :public ImageDB {
@@ -51,6 +52,7 @@ namespace SQLDB {
         virtual void save( const QString& fileName );
         virtual MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
+        virtual CategoryCollection* categoryCollection();
 
     protected slots:
         virtual void renameOption( Category* category, const QString& oldName, const QString& newName );
@@ -67,6 +69,7 @@ namespace SQLDB {
 
     private:
         MemberMap _members;
+        CategoryCollection _categoryCollection;
     };
 }
 

@@ -15,7 +15,7 @@ class CategoryCollection :public QObject
     Q_OBJECT
 
 public:
-    static CategoryCollection* instance();
+    CategoryCollection();
     Category* categoryForName( const QString& name );
     void addCategory( Category* );
     QStringList categoryNames();
@@ -34,9 +34,6 @@ protected slots:
     void itemRemoved( const QString& item );
 
 private:
-    static CategoryCollection* _instance;
-    CategoryCollection();
-
     QValueList<Category*> _categories;
 };
 

@@ -20,6 +20,7 @@
 #include "options.h"
 #include <qtimer.h>
 #include "categorycollection.h"
+#include "imagedb.h"
 
 MemberMap::MemberMap() :QObject(0), _dirty( true )
 {
@@ -28,9 +29,9 @@ MemberMap::MemberMap() :QObject(0), _dirty( true )
 
 void MemberMap::init()
 {
-    connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              this, SLOT( deleteOption( Category*, const QString& ) ) );
-    connect( CategoryCollection::instance(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
              this, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
 }
 
@@ -160,7 +161,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
             list.append( newName );
         }
     }
-    CategoryCollection::instance()->categoryForName( category )->renameItem( oldName, newName );
+    ImageDB::instance()->categoryCollection()->categoryForName( category )->renameItem( oldName, newName );
 }
 
 MemberMap::MemberMap( const MemberMap& other )

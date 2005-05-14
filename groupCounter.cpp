@@ -40,7 +40,7 @@ GroupCounter::GroupCounter( const QString& category )
     _groupCount.setAutoDelete( true );
 
     // Initialize _memberToGroup map.
-    QStringList items = CategoryCollection::instance()->categoryForName( category )->items();
+    QStringList items = ImageDB::instance()->categoryCollection()->categoryForName( category )->items();
     items += map.groups( category );
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         _memberToGroup.insert( *it, new QStringList );

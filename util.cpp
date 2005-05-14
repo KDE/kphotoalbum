@@ -55,7 +55,7 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
                          CategoryCollection* categories )
 {
     bool anyAtAll = false;
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         QString name = *it;
@@ -68,13 +68,7 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
             opt.setAttribute( QString::fromLatin1( "viewtype" ), categories->categoryForName(name)->viewType() );
         }
 
-        // we don t save the values for the option "Folder" since it is automatically set
-        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
-        QStringList list;
-        if ( name== QString::fromLatin1("Folder") )
-            list = QStringList();
-        else
-            list = options[name];
+        QStringList list = options[name];
         bool any = false;
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
@@ -156,7 +150,7 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
         }
     }
 
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     int link = 0;
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QString category = *it;
@@ -164,7 +158,7 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
             QStringList items = info->optionValue( category );
             if (items.count() != 0 ) {
                 text += QString::fromLatin1( "<b>%1: </b> " )
-                        .arg( CategoryCollection::instance()->categoryForName( category )->text() );
+                        .arg( ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
                 bool first = true;
                 for( QStringList::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;

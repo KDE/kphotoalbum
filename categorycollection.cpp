@@ -2,18 +2,9 @@
 #include "imagedb.h"
 #include "category.h"
 
-CategoryCollection* CategoryCollection::_instance = 0;
-
 CategoryCollection::CategoryCollection()
     :QObject( 0, "CategoryCollection" )
 {
-}
-
-CategoryCollection* CategoryCollection::instance()
-{
-    if ( !_instance )
-        _instance = new CategoryCollection;
-    return _instance;
 }
 
 Category* CategoryCollection::categoryForName( const QString& name )

@@ -24,6 +24,7 @@
 #include "options.h"
 #include "categorycollection.h"
 #include "imageinfo.h"
+#include "imagedb.h"
 
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
@@ -99,7 +100,7 @@ void CategoryImageConfig::slotSet()
 QString CategoryImageConfig::currentGroup()
 {
     int index = _group->currentItem();
-    return CategoryCollection::instance()->categoryNames()[index];
+    return ImageDB::instance()->categoryCollection()->categoryNames()[index];
 }
 
 void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfo* info )
@@ -121,11 +122,11 @@ void CategoryImageConfig::show()
 {
     QString current = _group->currentText();
     _group->clear();
-    QStringList list = CategoryCollection::instance()->categoryNames();
+    QStringList list = ImageDB::instance()->categoryCollection()->categoryNames();
     int index = 0;
     int currentIndex = -1;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        _group->insertItem( CategoryCollection::instance()->categoryForName( *it )->text() );
+        _group->insertItem( ImageDB::instance()->categoryCollection()->categoryForName( *it )->text() );
         if ( *it == current )
             currentIndex = index;
         ++index;

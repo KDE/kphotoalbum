@@ -142,7 +142,7 @@ void HTMLExportDialog::createContentPage()
     QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
     lay3->setAutoAdd( true );
 
-    QValueList<Category*> categories = CategoryCollection::instance()->categories();
+    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
             QCheckBox* cb = new QCheckBox( (*it)->text(), w );
@@ -538,7 +538,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
     // -------------------------------------------------- Description
     QString description;
 
-    QValueList<Category*> categories = CategoryCollection::instance()->categories();
+    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( (*it)->isSpecialCategory() )
             continue;

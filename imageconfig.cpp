@@ -58,6 +58,7 @@
 #include "imageconfig.moc"
 #include <kconfig.h>
 #include "util.h"
+#include "imagedb.h"
 
 ImageConfig::ImageConfig( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -184,9 +185,9 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     KDockWidget* last = descriptionDock;
     KDockWidget::DockPosition pos = KDockWidget::DockBottom;
 
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        Category* category = CategoryCollection::instance()->categoryForName( *it );
+        Category* category = ImageDB::instance()->categoryCollection()->categoryForName( *it );
         if ( !category->isSpecialCategory() ) {
             KDockWidget* dockWidget = createListSel( *it );
             dockWidget->manualDock( last, pos );
@@ -626,14 +627,16 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 
 KDockWidget* ImageConfig::createListSel( const QString& category )
 {
-    KDockWidget* dockWidget = _dockWindow->createDockWidget( category, CategoryCollection::instance()->categoryForName( category)->icon(),
-                                                             _dockWindow, CategoryCollection::instance()->categoryForName( category )->text() );
+    KDockWidget* dockWidget = _dockWindow->createDockWidget( category,
+                                                             ImageDB::instance()->categoryCollection()->categoryForName( category)->icon(),
+                                                             _dockWindow,
+                                                             ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( category, dockWidget );
     _optionList.append( sel );
-    connect( CategoryCollection::instance(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              this, SLOT( slotDeleteOption( Category*, const QString& ) ) );
-    connect( CategoryCollection::instance(), SIGNAL( itemRenamed( Category* , const QString& , const QString&  ) ),
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( Category* , const QString& , const QString&  ) ),
              this, SLOT( slotRenameOption( Category* , const QString& , const QString&  ) ) );
 
     dockWidget->setWidget( sel );

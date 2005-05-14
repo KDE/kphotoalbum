@@ -85,7 +85,7 @@ void TokenEditor::slotOk()
     for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
-            CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
+            ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
         }
     }
     KDialogBase::slotOk();

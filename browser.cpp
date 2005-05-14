@@ -64,7 +64,7 @@ Browser::Browser( QWidget* parent, const char* name )
     connect( _listView, SIGNAL( returnPressed( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
     connect( _iconView, SIGNAL( clicked( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
     connect( _iconView, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
-    connect( CategoryCollection::instance(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
     // I got to wait till the event loops runs, so I'm sure that the image database has been loaded.
@@ -178,8 +178,8 @@ void Browser::emitSignals()
     if ( a->contentView() && _list.size() > 0 ) {
         QString grp = a->category();
         Q_ASSERT( !grp.isNull() );
-        Category::ViewSize size = CategoryCollection::instance()->categoryForName( grp )->viewSize();
-        Category::ViewType type = CategoryCollection::instance()->categoryForName( grp )->viewType();
+        Category::ViewSize size = ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewSize();
+        Category::ViewType type = ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewType();
         emit currentSizeAndTypeChanged( size, type );
     }
 }
@@ -266,8 +266,8 @@ void Browser::setSizeAndType( Category::ViewType type, Category::ViewSize size )
     QString grp = a->category();
     Q_ASSERT( !grp.isNull() );
 
-    CategoryCollection::instance()->categoryForName( grp )->setViewType( type );
-    CategoryCollection::instance()->categoryForName( grp )->setViewSize( size );
+    ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewType( type );
+    ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewSize( size );
     reload();
 }
 
@@ -287,7 +287,7 @@ void Browser::setupFactory()
     QString category = a->category();
 
     if ( !category.isNull() )
-        type = CategoryCollection::instance()->categoryForName( category )->viewType();
+        type = ImageDB::instance()->categoryCollection()->categoryForName( category )->viewType();
 
     if ( type == Category::ListView ) {
         _currentFactory = _listViewFactory;

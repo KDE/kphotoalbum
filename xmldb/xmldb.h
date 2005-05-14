@@ -28,6 +28,7 @@
 #include <imagedb.h>
 #include <category.h>
 #include "newimagefinder.h"
+#include <categorycollection.h>
 class ImageInfo;
 
 namespace XMLDB {
@@ -54,6 +55,7 @@ namespace XMLDB {
         virtual void save( const QString& fileName );
         virtual MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
+        virtual CategoryCollection* categoryCollection();
 
     public slots:
         void slotReread( const QStringList& list, int mode);
@@ -93,6 +95,7 @@ namespace XMLDB {
         ImageInfoList _missingTimes;
         MemberMap _members;
         MD5Map _md5map;
+        CategoryCollection _categoryCollection;
     };
 }
 

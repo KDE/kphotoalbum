@@ -160,7 +160,7 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
 
-    _label = new QLabel( CategoryCollection::instance()->categoryForName( category )->text(), this );
+    _label = new QLabel( ImageDB::instance()->categoryCollection()->categoryForName( category )->text(), this );
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
@@ -225,7 +225,7 @@ void ListSelect::slotReturn()
         if ( !item ) {
             item = new QListBoxText( _listBox, txt );
         }
-        CategoryCollection::instance()->categoryForName( _category )->addItem( txt);
+        ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( txt);
 
         // move item to front
         _listBox->takeItem( item );
@@ -264,7 +264,7 @@ void ListSelect::setSelection( const QStringList& list )
         if ( !item )  {
             _listBox->insertItem( *it );
             item = _listBox->findItem( *it,  ExactMatch );
-            CategoryCollection::instance()->categoryForName( _category )->addItem( *it);
+            ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( *it);
         }
         _listBox->setSelected( item,  true );
     }
@@ -446,7 +446,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()),
                                                i18n("Really Delete %1?").arg(item->text()), KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
-            CategoryCollection::instance()->categoryForName(category())->removeItem( item->text() );
+            ImageDB::instance()->categoryCollection()->categoryForName(category())->removeItem( item->text() );
             delete item;
         }
     }
@@ -463,7 +463,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text();
-                CategoryCollection::instance()->categoryForName( category() )->renameItem( oldStr, newStr );
+                ImageDB::instance()->categoryCollection()->categoryForName( category() )->renameItem( oldStr, newStr );
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
@@ -505,9 +505,9 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 
 void ListSelect::populate()
 {
-    _label->setText( CategoryCollection::instance()->categoryForName( _category )->text() );
+    _label->setText( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
     _listBox->clear();
-    QStringList items = CategoryCollection::instance()->categoryForName( _category )->itemsInclGroups();
+    QStringList items = ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclGroups();
     _listBox->insertStringList( items );
 }
 

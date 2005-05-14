@@ -170,7 +170,6 @@ void SQLDB::SQLDB::loadCategories()
     if ( !categoriesQuery.exec( "SELECT category, viewtype, viewsize, icon, showIt FROM categorysetup" ) )
         qFatal("Could not run query");
 
-    CategoryCollection* collection = CategoryCollection::instance();
     QStringList categories;
     while ( categoriesQuery.next() ) {
         QString category = categoriesQuery.value(0).toString();
@@ -179,10 +178,10 @@ void SQLDB::SQLDB::loadCategories()
         QString icon = categoriesQuery.value(3).toString();
         bool show = categoriesQuery.value(4).toBool();
 
-        Category* cat = collection->categoryForName( category ); // Special Categories are already created.
+        Category* cat = _categoryCollection.categoryForName( category ); // Special Categories are already created.
         if ( !cat ) {
             cat = new Category( category, icon, (Category::ViewSize) viewsize, (Category::ViewType) viewtype, show );
-            collection->addCategory( cat );
+            _categoryCollection.addCategory( cat );
         }
         // PENDING(blackie) else set the values for icons, size, type, and show
     }
@@ -194,11 +193,13 @@ void SQLDB::SQLDB::loadCategories()
     while (categoryValuesQuery.next() ) {
         QString category = categoryValuesQuery.value(0).toString();
         QString value = categoryValuesQuery.value(1).toString();
-        Category* cat = collection->categoryForName( category );
+        Category* cat = _categoryCollection.categoryForName( category );
         if ( cat )
             cat->addItem( value );
     }
+}
 
-
-
+CategoryCollection* SQLDB::SQLDB::categoryCollection()
+{
+    return &_categoryCollection;
 }

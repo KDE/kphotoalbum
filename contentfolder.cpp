@@ -39,11 +39,11 @@ ContentFolder::ContentFolder( const QString& category, const QString& value, int
 
 QPixmap ContentFolder::pixmap()
 {
-    if ( CategoryCollection::instance()->categoryForName( _category )->viewSize() == Category::Small ) {
+    if ( ImageDB::instance()->categoryCollection()->categoryForName( _category )->viewSize() == Category::Small ) {
         if ( ImageDB::instance()->memberMap().isGroup( _category, _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
-            return CategoryCollection::instance()->categoryForName( _category )->icon();
+            return ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
         }
     }
     else
@@ -54,9 +54,9 @@ QString ContentFolder::text() const
 {
     if ( _value == ImageDB::NONE() ) {
         if ( _info.option(_category) == ImageDB::NONE() )
-            return i18n( "No %1" ).arg( CategoryCollection::instance()->categoryForName( _category )->text() );
+            return i18n( "No %1" ).arg( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
         else
-            return i18n( "No other %1" ).arg( CategoryCollection::instance()->categoryForName( _category )->text() );
+            return i18n( "No other %1" ).arg( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
     }
     else {
         return _value;
@@ -67,7 +67,7 @@ QString ContentFolder::text() const
 void ContentFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         factory->createItem( new TypeFolder( *it, _info, _browser ) );

@@ -35,4 +35,4 @@ X-KDE-StartupNotify=true
 Icon=kimdaba
 Categories=Qt;KDE;Graphics;
 NoDisplay=true
-MimeType=application/vnd.kde.kimdaba-import 
+MimeType=application/vnd.kde.kimdaba-import

@@ -31,7 +31,7 @@ kimdaba_SOURCES = \
 	datebar.cpp dateviewhandler.cpp imagedaterangecollection.cpp imagedaterange.cpp \
 	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp datebarmousehandler.cpp \
 	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp miniviewer.cpp \
-	newimagefinder.cpp md5map.cpp
+	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD =  survey/libsurvey.la xmldb/libxmldb.la sqldb/libsqldb.la $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)

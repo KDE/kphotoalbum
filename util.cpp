@@ -19,6 +19,7 @@ Boston, MA 02111-1307, USA.
 #include "util.h"
 #include "options.h"
 #include "imageinfo.h"
+#include "imagedecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include <kmessagebox.h>
@@ -386,7 +387,7 @@ void Util::removeThumbNail( const QString& imageFile )
 
 bool Util::canReadImage( const QString& fileName )
 {
-    return KImageIO::canRead(KImageIO::type(fileName)) || isCRW( fileName );
+    return KImageIO::canRead(KImageIO::type(fileName)) || ImageDecoder::mightDecode( fileName );
 }
 
 
@@ -526,46 +527,6 @@ bool Util::isJPEG( const QString& fileName )
 {
     QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
     return format == QString::fromLocal8Bit( "JPEG" );
-}
-
-/* Load embedded JPEG preview from Canon CRW "digital negative" */
-bool Util::loadCRW(QImage *img, const QString& imageFile, QSize* fullSize, int width, int height)
-{
-    static const off_t thumb_block_start_offset = -18;
-
-    /* We just find the offset of the JPEG inside the CRW
-       file, fseek() and pass the FILE* on to the JPEG loader.
-       The code is inspired by CRWInfo
-       (http://neuemuenze.heim1.tu-clausthal.de/~sven/crwinfo/)
-
-       Steffen Hansen <hansen@kde.org>
-    */
-    FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
-    if(!inputFile)
-        return false;
-    if( fseek( inputFile, thumb_block_start_offset, SEEK_END ) != 0 ) {
-        fclose( inputFile );
-        return false;
-    }
-    long int offset_buffer;
-    if( fread( &offset_buffer, 4, 1, inputFile ) <= 0 ) {
-        fclose( inputFile );
-        return false;
-    }
-    off_t thumb_block_start = 26 + (off_t)offset_buffer;
-    if( fseek( inputFile, thumb_block_start, SEEK_SET ) ) {
-        fclose( inputFile );
-        return false;
-    }
-    bool rc = loadJPEG( img, inputFile, fullSize, width, height );
-    fclose(inputFile);
-    return rc;
-}
-
-bool Util::isCRW( const QString& fileName )
-{
-    /* Really cheesy filetype detection, but for now it works */
-    return fileName.endsWith( QString::fromLatin1("CRW"), false);
 }
 
 QStringList Util::shuffle( const QStringList& input )

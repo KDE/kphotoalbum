@@ -9,6 +9,10 @@ FileInfo FileInfo::read( const QString& fileName )
     FileInfo fi;
     fi._fullPath = fileName;
     QString tempFileName( fileName );
+#if 0
+	/* TODO(Jesper): What do we do about this?
+	   /steffen
+	*/
     if ( Util::isCRW( fileName ) ) {
       QString dirName = QFileInfo( fileName ).dirPath();
       QString baseName = QFileInfo( fileName ).baseName();
@@ -17,6 +21,7 @@ FileInfo FileInfo::read( const QString& fileName )
       if ( !tempFile.exists() )
           tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
     }
+#endif
 
     KFileMetaInfo metainfo( tempFileName );
     if ( metainfo.isEmpty() )

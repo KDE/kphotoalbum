@@ -25,7 +25,7 @@ void ImageDB::setup( const QString& configFile )
              _instance, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
     connect( Options::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
 
-    new SQLDB::SQLDB();
+    //new SQLDB::SQLDB();
 }
 
 QString ImageDB::NONE()

@@ -48,6 +48,14 @@ public:
     ImageInfo();
     ImageInfo( const QString& fileName );
     ImageInfo( const QString& fileName, QDomElement elm );
+    ImageInfo( const QString& fileName,
+               const QString& label,
+               const QString& description,
+               const ImageDate& startDate,
+               const ImageDate& endDate,
+               int angle,
+               const QString& md5sum,
+               const QSize& size );
 
     QString fileName( bool relative = false ) const;
     void setFileName( const QString& relativeFileName );

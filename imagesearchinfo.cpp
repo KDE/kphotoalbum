@@ -72,7 +72,7 @@ ImageSearchInfo::ImageSearchInfo()
 {
 }
 
-bool ImageSearchInfo::isNull()
+bool ImageSearchInfo::isNull() const
 {
     return _isNull;
 }
@@ -141,15 +141,15 @@ void ImageSearchInfo::setOption( const QString& name, const QString& value )
     _compiled = false;
 }
 
-void ImageSearchInfo::addAnd( const QString& group, const QString& value )
+void ImageSearchInfo::addAnd( const QString& category, const QString& value )
 {
-    QString val = option( group );
+    QString val = option( category );
     if ( !val.isEmpty() )
         val += QString::fromLatin1( " & " ) + value;
     else
         val = value;
 
-    setOption( group, val );
+    setOption( category, val );
     _isNull = false;
     _compiled = false;
 }
@@ -204,6 +204,7 @@ void ImageSearchInfo::debug()
     }
 }
 
+// PENDING(blackie) move this into the Options class instead of having it here.
 void ImageSearchInfo::saveLock() const
 {
     KConfig* config = kapp->config();
@@ -287,5 +288,29 @@ void ImageSearchInfo::compile() const
 ImageSearchInfo::~ImageSearchInfo()
 {
     delete _optionMatcher;
+}
+
+QString ImageSearchInfo::toSQLQuery() const
+{
+    if ( !_compiled )
+        compile();
+    return _optionMatcher->toSQLQuery();
+}
+
+void ImageSearchInfo::debugMatcher() const
+{
+    if ( !_compiled )
+        compile();
+    if ( _optionMatcher ) {
+        qDebug("=======================================================");
+        _optionMatcher->debug(0);
+        qDebug("--------------------------------------------------------");
+        _optionMatcher = _optionMatcher->normalize();
+        _optionMatcher = _optionMatcher->optimize();
+        if ( _optionMatcher )
+            _optionMatcher->debug(0);
+        else
+            qDebug("EMPTY MATCHER");
+    }
 }
 

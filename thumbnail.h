@@ -56,6 +56,7 @@ private:
     QString _fileName;
     ThumbNailView* _parent;
     bool _highlightItem;
+    mutable ImageInfo* _info; // Only to be used by method imageInfo()
 };
 
 #endif /* THUMBNAIL_H */

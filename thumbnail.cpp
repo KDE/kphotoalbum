@@ -52,6 +52,7 @@ ThumbNail::ThumbNail( const QString& fileName, ThumbNail* after, ThumbNailView* 
 
 void ThumbNail::init()
 {
+    _info = 0;
     setDropEnabled( true );
     setText( imageInfo()->label());
 }
@@ -288,5 +289,7 @@ QPixmap& ThumbNail::highlightPixmap()
 
 ImageInfo* ThumbNail::imageInfo() const
 {
-    return ImageDB::instance()->info( _fileName );
+    if ( !_info )
+        _info = ImageDB::instance()->info( _fileName );
+    return _info;
 }

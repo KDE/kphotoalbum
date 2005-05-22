@@ -43,16 +43,18 @@ public:
     QString label() const;
     QString description() const;
 
-    bool isNull();
+    bool isNull() const;
     bool match( ImageInfo* ) const;
+    QString toSQLQuery() const;
 
-    void addAnd( const QString& group, const QString& value );
+    void addAnd( const QString& category, const QString& value );
     QString toString() const;
 
     void saveLock() const;
     static ImageSearchInfo loadLock();
 
     void debug();
+    void debugMatcher() const;
 
 protected:
     void compile() const;

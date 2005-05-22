@@ -38,7 +38,6 @@ namespace XMLDB {
     public:
         virtual int totalCount() const;
         virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const;
-        virtual int count( const ImageSearchInfo& info );
         virtual void renameOptionGroup( const QString& oldName, const QString newName );
 
         virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );

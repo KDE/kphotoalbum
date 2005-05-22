@@ -22,6 +22,8 @@ Boston, MA 02111-1307, USA.
 #include <imagedb.h>
 #include <membermap.h>
 #include <categorycollection.h>
+#include <md5map.h>
+class QSqlError;
 
 namespace SQLDB {
     class SQLDB  :public ImageDB {
@@ -34,7 +36,6 @@ namespace SQLDB {
     public:
         virtual int totalCount() const;
         virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const;
-        virtual int count( const ImageSearchInfo& info );
 
         virtual void renameOptionGroup( const QString& oldName, const QString newName );
 
@@ -66,10 +67,14 @@ namespace SQLDB {
         void openDatabase();
         void loadMemberGroups();
         void loadCategories();
+        QStringList allImages() const;
+        void showError( const QSqlError& error ) const;
+        QStringList filesMatchingQuery( const ImageSearchInfo& ) const;
 
     private:
         MemberMap _members;
         CategoryCollection _categoryCollection;
+        MD5Map _md5map;
     };
 }
 

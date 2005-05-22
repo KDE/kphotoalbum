@@ -771,9 +771,15 @@ void MainView::load()
     // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile = QString::null;
+    QString backEnd = QString::null;
 
-    if ( args->isSet( "c" ) )
+    if ( args->isSet( "c" ) ) {
         configFile = args->getOption( "c" );
+        if ( configFile.find( QString::fromLatin1("sql:") ) != -1 ) {
+            backEnd = QString::fromLatin1( "sql" );
+            configFile = configFile.mid(4);
+        }
+    }
     else if ( args->isSet( "demo" ) )
         configFile = Util::setupDemo();
     else {
@@ -795,7 +801,7 @@ void MainView::load()
     }
 
     Options::setup( QFileInfo( configFile ).dirPath( true ) );
-    ImageDB::setup( configFile );
+    ImageDB::setup( backEnd, configFile );
 }
 
 void MainView::contextMenuEvent( QContextMenuEvent* )

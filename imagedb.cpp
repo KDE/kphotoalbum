@@ -16,16 +16,17 @@ ImageDB* ImageDB::instance()
     return _instance;
 }
 
-void ImageDB::setup( const QString& configFile )
+void ImageDB::setup( const QString& backend, const QString& configFile )
 {
-    _instance = new XMLDB::XMLDB( configFile );
+    if ( backend == QString::fromLatin1( "sql" ) )
+        _instance = new SQLDB::SQLDB;
+    else
+        _instance = new XMLDB::XMLDB( configFile );
     connect( _instance->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              _instance, SLOT( deleteOption( Category*, const QString& ) ) );
     connect( _instance->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
              _instance, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
     connect( Options::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
-
-    //new SQLDB::SQLDB();
 }
 
 QString ImageDB::NONE()
@@ -89,5 +90,11 @@ void ImageDB::slotRecalcCheckSums()
 
 ImageDB::ImageDB()
 {
+}
+
+int ImageDB::count( const ImageSearchInfo& info )
+{
+    int count = search( info ).count();
+    return count;
 }
 

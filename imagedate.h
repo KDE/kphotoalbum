@@ -24,7 +24,7 @@
 class ImageDate {
 public:
     ImageDate();
-    ImageDate( int day, int month, int year );
+    ImageDate( int day, int month, int year, int hour = -1, int minute = -1, int second = -1 );
     ImageDate( const QDate& );
     ImageDate( const QDateTime& );
 

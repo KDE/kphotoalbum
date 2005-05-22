@@ -447,4 +447,24 @@ bool ImageInfo::imageOnDisk( const QString& fileName )
     return fi.exists();
 }
 
+ImageInfo::ImageInfo( const QString& fileName,
+                      const QString& label,
+                      const QString& description,
+                      const ImageDate& startDate,
+                      const ImageDate& endDate,
+                      int angle,
+                      const QString& md5sum,
+                      const QSize& size )
+{
+    _fileName = fileName;
+    _label =label;
+    _description =description;
+    _startDate = startDate;
+    _endDate = endDate;
+    _angle =angle;
+    _md5sum =md5sum;
+    _size = size;
+    _imageOnDisk = Unchecked;
+}
+
 #include "infobox.moc"

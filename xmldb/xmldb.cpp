@@ -64,12 +64,6 @@ int XMLDB::XMLDB::totalCount() const
     return _images.count();
 }
 
-int XMLDB::XMLDB::count( const ImageSearchInfo& info )
-{
-    int count = search( info ).count();
-    return count;
-}
-
 QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QString &group )
 {
     QMap<QString, int> map;
@@ -89,8 +83,8 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
         if ( match ) { // If the given image is currently matched.
 
             // Now iterate through all the categories the current image
-            // contains, and increase them in the map mapping from option
-            // group to count for this group.
+            // contains, and increase them in the map mapping from category
+            // to count.
             QStringList list = (*it)->optionValue(group);
             counter.count( list );
             for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {

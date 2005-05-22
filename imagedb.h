@@ -34,7 +34,7 @@ class ImageDB  :public QObject {
 
 public:
     static ImageDB* instance();
-    static void setup( const QString& configFile );
+    static void setup( const QString& backEnd, const QString& configFile );
     ImageInfoList clipboard();
     void setClipboard( const ImageInfoList& list );
     bool isClipboardEmpty();
@@ -44,6 +44,7 @@ public slots:
     void clearDateRange();
     virtual void slotRescan();
     virtual void slotRecalcCheckSums();
+    virtual int count( const ImageSearchInfo& info );
 
 protected:
     ImageDateRange _selectionRange;
@@ -63,11 +64,10 @@ public:
 public: // Methods that must be overriden
     virtual int totalCount() const = 0; // OK
     virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
-    virtual int count( const ImageSearchInfo& info ) = 0; //OK
 
     virtual void renameOptionGroup( const QString& oldName, const QString newName ) = 0;
 
-    virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group ) = 0;
+    virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category ) = 0;
     virtual ImageInfoList& imageInfoList() = 0; // TO BE DELETED!
     virtual QStringList images() = 0; // TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0; // OK

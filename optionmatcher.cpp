@@ -146,3 +146,240 @@ OptionContainerMatcher::~OptionContainerMatcher()
     for( uint i = 0; i < _elements.count(); ++i )
         delete _elements[i];
 }
+
+QString OptionValueMatcher::toSQLQuery() const
+{
+    return QString::fromLatin1( "category=\"%1\" and value = \"%2\"" ).arg( _category, _option );
+}
+
+QString OptionEmptyMatcher::toSQLQuery() const
+{
+//    qDebug("No Idea how to implement OptionEmptyMatcher::toSQLQuery" ); // PENDING(blackie) implement
+    return QString::null;
+}
+
+
+QString OptionContainerMatcher::toSQLQuery( const QString& op ) const
+{
+//    Q_ASSERT( _elements.count() > 1 );
+    QString result;
+    for( QValueList<OptionMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
+        if ( !result.isEmpty() )
+            result += op;
+        result += QString::fromLatin1( "(%1)" ).arg( (*it)->toSQLQuery() );
+    }
+    return result;
+}
+
+QString OptionAndMatcher::toSQLQuery() const
+{
+    return OptionContainerMatcher::toSQLQuery( QString::fromLatin1( " and " ) );
+}
+
+QString OptionOrMatcher::toSQLQuery() const
+{
+    return OptionContainerMatcher::toSQLQuery( QString::fromLatin1( " or " ) );
+}
+
+QString OptionNotMatcher::toSQLQuery() const
+{
+    return QString::fromLatin1( "(not %1)" ).arg( _element->toSQLQuery() );
+}
+
+void OptionValueMatcher::debug(int level) const
+{
+    qDebug("%s%s: %s", spaces(level).latin1(), _category.latin1(), _option.latin1());
+}
+
+void OptionEmptyMatcher::debug( int level ) const
+{
+    qDebug("%s%s:EMPTY", spaces(level).latin1(), _category.latin1() );
+}
+
+void OptionAndMatcher::debug( int level ) const
+{
+    qDebug("%sAND:", spaces(level).latin1() );
+    OptionContainerMatcher::debug( level + 1 );
+}
+
+void OptionNotMatcher::debug( int level ) const
+{
+    qDebug("%sNOT:", spaces(level).latin1() );
+    _element->debug( level + 1 );
+}
+
+void OptionOrMatcher::debug( int level ) const
+{
+    qDebug("%sOR:", spaces(level).latin1() );
+    OptionContainerMatcher::debug( level + 1 );
+}
+
+void OptionContainerMatcher::debug( int level ) const
+{
+    for( QValueList<OptionMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
+        (*it)->debug( level );
+    }
+}
+
+QString OptionMatcher::spaces(int level ) const
+{
+    return QString::fromLatin1("").rightJustify(level*3 );
+}
+
+
+OptionMatcher* OptionValueMatcher::clone()
+{
+    return new OptionValueMatcher( _category, _option );
+}
+
+OptionMatcher* OptionEmptyMatcher::clone()
+{
+    return new OptionEmptyMatcher( _category );
+}
+
+OptionMatcher* OptionAndMatcher::clone()
+{
+    OptionAndMatcher* matcher = new OptionAndMatcher;
+    OptionContainerMatcher::clone( matcher );
+    return matcher;
+}
+
+OptionMatcher* OptionOrMatcher::clone()
+{
+    OptionOrMatcher* matcher = new OptionOrMatcher;
+    OptionContainerMatcher::clone( matcher );
+    return matcher;
+}
+
+OptionMatcher* OptionNotMatcher::clone()
+{
+    return new OptionNotMatcher( _element->clone() );
+}
+
+void OptionContainerMatcher::clone( OptionContainerMatcher* newMatcher )
+{
+    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+        newMatcher->addElement( (*it)->clone() );
+    }
+}
+
+OptionMatcher* OptionAndMatcher::optimize()
+{
+    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ) {
+        QValueList<OptionMatcher*>::Iterator  elm = it;
+        ++it;
+        OptionAndMatcher* child = dynamic_cast<OptionAndMatcher*>(*elm);
+        if ( child ) {
+            for( QValueList<OptionMatcher*>::Iterator itChild = child->_elements.begin(); itChild != child->_elements.end(); ++itChild ) {
+                _elements.prepend( *itChild );
+            }
+            _elements.remove( elm );
+        }
+    }
+    return OptionContainerMatcher::optimize();
+}
+
+OptionMatcher* OptionOrMatcher::optimize()
+{
+    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ) {
+        QValueList<OptionMatcher*>::Iterator  elm = it;
+        ++it;
+        OptionOrMatcher* child = dynamic_cast<OptionOrMatcher*>(*elm);
+        if ( child ) {
+            for( QValueList<OptionMatcher*>::Iterator itChild = child->_elements.begin(); itChild != child->_elements.end(); ++itChild ) {
+                _elements.prepend( *itChild );
+            }
+            _elements.remove( elm );
+        }
+    }
+    return OptionContainerMatcher::optimize();
+}
+
+OptionMatcher* OptionValueMatcher::normalize()
+{
+    return clone();
+}
+
+OptionMatcher* OptionEmptyMatcher::normalize()
+{
+    return clone();
+}
+
+OptionMatcher* OptionAndMatcher::normalize()
+{
+    if ( _elements.count() == 0 )
+        return clone();
+    else if ( _elements.count() == 1 )
+        return _elements[0]->normalize();
+
+    OptionMatcher* result = _elements[0]->normalize();
+    result = result->optimize();
+
+    QValueList<OptionMatcher*>::Iterator it = _elements.begin();
+    ++it;
+
+    for( ; it != _elements.end(); ) {
+        OptionMatcher* elm = (*it)->normalize()->optimize();
+        ++it;
+
+        OptionMatcher* tmp = normalizeTwo( result, elm );
+        delete result;
+        delete elm;
+        result = tmp;
+    }
+    return result;
+}
+
+OptionMatcher* OptionOrMatcher::normalize()
+{
+    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+        OptionMatcher* item = *it;
+        (*it) = item->normalize();
+        delete item;
+    }
+    return this;
+}
+
+OptionMatcher* OptionNotMatcher::normalize()
+{
+    return clone();
+}
+
+OptionMatcher* OptionAndMatcher::normalizeTwo( OptionMatcher* a, OptionMatcher* b)
+{
+    // a and b are normalized and optimized.
+    QValueList<OptionMatcher*> listA;
+    QValueList<OptionMatcher*> listB;
+
+    if ( a->isSimple() )
+        listA.append( a );
+    else {
+        OptionOrMatcher* matcher = dynamic_cast<OptionOrMatcher*>( a );
+        if ( matcher )
+            listA = matcher->_elements;
+        else
+            listA.append( a );
+    }
+
+    if ( b->isSimple() )
+        listB.append( b );
+    else {
+        OptionOrMatcher* matcher = dynamic_cast<OptionOrMatcher*>( b );
+        if ( matcher )
+            listB = matcher->_elements;
+        else
+            listB.append( b );
+    }
+
+    OptionOrMatcher* result = new OptionOrMatcher;
+    for( QValueList<OptionMatcher*>::Iterator itA = listA.begin(); itA != listA.end(); ++itA ) {
+        for( QValueList<OptionMatcher*>::Iterator itB = listB.begin(); itB != listB.end(); ++itB ) {
+            OptionAndMatcher* andMatcher = new OptionAndMatcher;
+            andMatcher->addElement( (*itA)->clone() );
+            andMatcher->addElement( (*itB)->clone() );
+            result->addElement( andMatcher );
+        }
+    }
+
+    return result;
+}

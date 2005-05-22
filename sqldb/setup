@@ -27,7 +27,7 @@ CREATE TABLE imageinfo
 
 CREATE TABLE imagecategoryinfo
 (
-  filename varchar(1024),
+  fileName varchar(1024),
   category varchar(1024),
   value varchar(1024)
 );
@@ -41,6 +41,12 @@ CREATE TABLE categorysetup
   showIt BOOLEAN
 );
 
+CREATE TABLE sortorder 
+(
+  idx INT PRIMARY KEY,
+  fileName varchar(1024)
+);
+
 insert into membergroup( groupname, category, member ) values
   ("Denmark", "Locations", "Esbjerg" ),
   ("Denmark", "Locations", "Pool Club" ),
@@ -50,6 +56,33 @@ insert into membergroup( groupname, category, member ) values
   ("Pets", "Persons", "Donna" ),
   ("Pets", "Persons", "Spiff" );
 
+
+
+insert into sortorder( idx, fileName ) values
+  ( 0, "img001.jpg" ),
+  ( 1, "img002.jpg" ),
+  ( 2, "img003.jpg" ),
+  ( 3, "img004.jpg" ),
+  ( 4, "img005.jpg" ),
+  ( 5, "img006.jpg" ),
+  ( 6, "img007.jpg" ),
+  ( 7, "img008.jpg" ),
+  ( 8, "img009.jpg" ),
+  ( 9, "img010.jpg" ),
+  ( 10, "img011.jpg" ),
+  ( 11, "img012.jpg" ),
+  ( 12, "img013.jpg" ),
+  ( 13, "img014.jpg" ),
+  ( 14, "img015.jpg" ),
+  ( 15, "img016.jpg" ),
+  ( 16, "img017.jpg" ),
+  ( 17, "img018.jpg" ),
+  ( 18, "img019.jpg" ),
+  ( 19, "img020.jpg" ),
+  ( 20, "img021.jpg" ),
+  ( 21, "img022.jpg" ),
+  ( 22, "img023.jpg" ),
+  ( 23, "img024.jpg" );
 
 
 insert into categorysetup
@@ -196,6 +229,9 @@ insert into imagecategoryinfo
   set fileName="img013.jpg",category="Persons", value="Jesper" ;
 
 insert into imagecategoryinfo
+  set fileName="img013.jpg",category="Persons", value="Anne Helene" ;
+
+insert into imagecategoryinfo
   set fileName="img014.jpg",category="Keywords", value="holiday" ;
 
 insert into imagecategoryinfo
@@ -287,6 +323,9 @@ insert into imagecategoryinfo
 
 insert into imagecategoryinfo
   set fileName="img011.jpg",category="Persons", value="Anne Helene" ;
+
+insert into imagecategoryinfo
+  set fileName="img011.jpg",category="Persons", value="Jesper" ;
 
 insert into imagecategoryinfo
   set fileName="img012.jpg",category="Keywords", value="holiday" ;

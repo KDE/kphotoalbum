@@ -30,6 +30,14 @@ public:
     virtual bool eval( ImageInfo* ) = 0;
     virtual ~OptionMatcher() {}
     virtual OptionMatcher* optimize() = 0;
+    virtual void debug( int level ) const = 0;
+    virtual QString toSQLQuery() const = 0;
+    virtual OptionMatcher* normalize() = 0;
+    virtual OptionMatcher* clone() = 0;
+    virtual bool isSimple() const { return true; }
+
+protected:
+    QString spaces(int level ) const;
 };
 
 class OptionValueMatcher :public OptionMatcher
@@ -38,6 +46,10 @@ public:
     OptionValueMatcher( const QString& category, const QString& option );
     virtual bool eval( ImageInfo* );
     virtual OptionMatcher* optimize();
+    virtual void debug( int level ) const;
+    virtual QString toSQLQuery() const;
+    virtual OptionMatcher* normalize();
+    virtual OptionMatcher* clone();
 
 private:
     QString _category;
@@ -51,6 +63,10 @@ public:
     OptionEmptyMatcher( const QString& category );
     virtual bool eval( ImageInfo* info );
     virtual OptionMatcher* optimize();
+    virtual void debug( int level ) const;
+    virtual QString toSQLQuery() const;
+    virtual OptionMatcher* normalize();
+    virtual OptionMatcher* clone();
 
 private:
     QString _category;
@@ -62,8 +78,11 @@ public:
     virtual OptionMatcher* optimize();
     void addElement( OptionMatcher* );
     ~OptionContainerMatcher();
+    QString toSQLQuery( const QString& op ) const;
+    virtual void debug( int level ) const;
+    void clone( OptionContainerMatcher* newMatcher );
+    virtual bool isSimple() const { return false; }
 
-protected:
     QValueList<OptionMatcher*> _elements;
 };
 
@@ -71,6 +90,12 @@ class OptionAndMatcher :public OptionContainerMatcher
 {
 public:
     virtual bool eval( ImageInfo* );
+    virtual QString toSQLQuery() const;
+    virtual void debug( int level ) const;
+    virtual OptionMatcher* normalize();
+    virtual OptionMatcher* clone();
+    virtual OptionMatcher* optimize();
+    OptionMatcher* normalizeTwo( OptionMatcher*, OptionMatcher* );
 };
 
 
@@ -79,6 +104,11 @@ class OptionOrMatcher :public OptionContainerMatcher
 {
 public:
     virtual bool eval( ImageInfo* );
+    virtual QString toSQLQuery() const;
+    virtual void debug( int level ) const;
+    virtual OptionMatcher* normalize();
+    virtual OptionMatcher* clone();
+    virtual OptionMatcher* optimize();
 };
 
 
@@ -89,6 +119,11 @@ public:
     OptionNotMatcher( OptionMatcher* );
     virtual bool eval( ImageInfo* );
     virtual OptionMatcher* optimize();
+    virtual QString toSQLQuery() const;
+    virtual void debug( int level ) const;
+    virtual OptionMatcher* normalize();
+    virtual OptionMatcher* clone();
+
 private:
     OptionMatcher* _element;
 };

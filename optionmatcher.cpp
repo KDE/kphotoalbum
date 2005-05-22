@@ -147,45 +147,6 @@ OptionContainerMatcher::~OptionContainerMatcher()
         delete _elements[i];
 }
 
-QString OptionValueMatcher::toSQLQuery() const
-{
-    return QString::fromLatin1( "category=\"%1\" and value = \"%2\"" ).arg( _category, _option );
-}
-
-QString OptionEmptyMatcher::toSQLQuery() const
-{
-//    qDebug("No Idea how to implement OptionEmptyMatcher::toSQLQuery" ); // PENDING(blackie) implement
-    return QString::null;
-}
-
-
-QString OptionContainerMatcher::toSQLQuery( const QString& op ) const
-{
-//    Q_ASSERT( _elements.count() > 1 );
-    QString result;
-    for( QValueList<OptionMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
-        if ( !result.isEmpty() )
-            result += op;
-        result += QString::fromLatin1( "(%1)" ).arg( (*it)->toSQLQuery() );
-    }
-    return result;
-}
-
-QString OptionAndMatcher::toSQLQuery() const
-{
-    return OptionContainerMatcher::toSQLQuery( QString::fromLatin1( " and " ) );
-}
-
-QString OptionOrMatcher::toSQLQuery() const
-{
-    return OptionContainerMatcher::toSQLQuery( QString::fromLatin1( " or " ) );
-}
-
-QString OptionNotMatcher::toSQLQuery() const
-{
-    return QString::fromLatin1( "(not %1)" ).arg( _element->toSQLQuery() );
-}
-
 void OptionValueMatcher::debug(int level) const
 {
     qDebug("%s%s: %s", spaces(level).latin1(), _category.latin1(), _option.latin1());

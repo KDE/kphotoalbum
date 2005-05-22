@@ -290,13 +290,6 @@ ImageSearchInfo::~ImageSearchInfo()
     delete _optionMatcher;
 }
 
-QString ImageSearchInfo::toSQLQuery() const
-{
-    if ( !_compiled )
-        compile();
-    return _optionMatcher->toSQLQuery();
-}
-
 void ImageSearchInfo::debugMatcher() const
 {
     if ( !_compiled )
@@ -312,5 +305,15 @@ void ImageSearchInfo::debugMatcher() const
         else
             qDebug("EMPTY MATCHER");
     }
+}
+
+OptionMatcher* ImageSearchInfo::query() const
+{
+    if ( !_compiled )
+        compile();
+    if ( isNull() )
+        return 0;
+    else
+        return _optionMatcher;
 }
 

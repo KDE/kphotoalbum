@@ -68,8 +68,6 @@ namespace SQLDB {
         void loadMemberGroups();
         void loadCategories();
         QStringList allImages() const;
-        void showError( const QSqlError& error ) const;
-        QStringList filesMatchingQuery( const ImageSearchInfo& ) const;
 
     private:
         MemberMap _members;

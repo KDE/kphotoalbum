@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <categorycollection.h>
 #include <qsqlerror.h>
+#include "query.h"
 
 const QString imageInfoAttributes = "label, description, dayFrom, monthFrom, yearFrom, dayTo, monthTo, "
                                     "yearTo, hour, minute, second, angle, md5sum, width, height";
@@ -33,8 +34,12 @@ int SQLDB::SQLDB::totalCount() const
 
 QStringList SQLDB::SQLDB::search( const ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
 {
-    info.debugMatcher();
-    return filesMatchingQuery( info );
+    QStringList matches = filesMatchingQuery( info );
+    QStringList result;
+    for( QStringList::Iterator it = matches.begin(); it != matches.end(); ++it ) {
+        result.append( Options::instance()->imageDirectory() + *it );
+    }
+    return result;
 }
 
 void SQLDB::SQLDB::renameOptionGroup( const QString& /*oldName*/, const QString /*newName*/ )
@@ -44,14 +49,17 @@ void SQLDB::SQLDB::renameOptionGroup( const QString& /*oldName*/, const QString 
 
 QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QString& category )
 {
+    // PENDING(blackie) count member maps too.
+
     QStringList matches = filesMatchingQuery( info );
     QMap<QString,int> result;
 
     for( QStringList::ConstIterator it = matches.begin(); it != matches.end(); ++it ) {
         QSqlQuery categoryQuery;
-        if ( !categoryQuery.exec( QString::fromLatin1("SELECT value from imagecategoryinfo WHERE filename=\"%1\" and category=\"%2\"" )
-                                  .arg( *it ).arg( category ) ) )
-            showError( categoryQuery.lastError() );
+        QString queryString = QString::fromLatin1("SELECT value from imagecategoryinfo WHERE filename=\"%1\" and category=\"%2\"" )
+                              .arg( *it ).arg( category );
+        if ( !categoryQuery.exec( queryString ) )
+            showError( categoryQuery.lastError(), queryString );
 
         while ( categoryQuery.next() )
             result[ categoryQuery.value(0).toString() ]++;
@@ -104,8 +112,9 @@ ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
         return map[file];
 
     QSqlQuery query;
-    if ( !query.exec( QString::fromLatin1( "SELECT %1 FROM imageinfo where fileName=\"%2\"" ).arg( imageInfoAttributes ).arg( file ) ) )
-        showError( query.lastError() );
+    QString queryString = QString::fromLatin1( "SELECT %1 FROM imageinfo where fileName=\"%2\"" ).arg( imageInfoAttributes ).arg( file );
+    if ( !query.exec( queryString ) )
+        showError( query.lastError(), queryString );
 
     Q_ASSERT( query.numRowsAffected() == 1 );
 
@@ -131,9 +140,9 @@ ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
                                      ImageDate( dayTo, monthTo, yearTo ), angle, md5sum, QSize( width, heigh ) );
 
 
-    if ( !query.exec( QString::fromLatin1( "SELECT category, value FROM imagecategoryinfo WHERE fileName=\"%1\"" )
-                      .arg( file ) ) )
-        showError( query.lastError() );
+    queryString = QString::fromLatin1( "SELECT category, value FROM imagecategoryinfo WHERE fileName=\"%1\"" ).arg( file );
+    if ( !query.exec( queryString ) )
+        showError( query.lastError(), queryString );
 
     while ( query.next() ) {
         info->addOption( query.value(0).toString(), query.value(1).toString() );
@@ -265,30 +274,6 @@ QStringList SQLDB::SQLDB::allImages() const
     QStringList result;
     while (sortOrderQuery.next() )
         result.append( Options::instance()->imageDirectory() + sortOrderQuery.value(0).toString() );
-    return result;
-}
-
-void SQLDB::SQLDB::showError( const QSqlError& error ) const
-{
-    qFatal( "Error running query: %s,%s", error.driverText().latin1(), error.databaseText().latin1() );
-}
-
-QStringList SQLDB::SQLDB::filesMatchingQuery( const ImageSearchInfo& info ) const
-{
-    QString queryTxt = QString::fromLatin1( "SELECT distinct fileName FROM imagecategoryinfo" );
-    if ( !info.isNull() ) {
-        queryTxt += QString::fromLatin1( " WHERE " ) + info.toSQLQuery();
-    }
-
-    queryTxt = QString::fromLatin1( "SELECT q1.fileName FROM imagecategoryinfo q1, imagecategoryinfo q2 WHERE q1.fileName = q2.fileName and q1.category = \"Persons\" and q1.value = \"Jesper\" and q2.category = \"Persons\" and q2.value = \"Anne Helene\"" );
-
-    QSqlQuery query;
-    if ( !query.exec( queryTxt ) )
-        showError( query.lastError() );
-
-    QStringList result;
-    while ( query.next() )
-        result.append( Options::instance()->imageDirectory() + query.value(0).toString() );
     return result;
 }
 

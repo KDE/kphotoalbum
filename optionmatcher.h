@@ -19,6 +19,7 @@
 #ifndef OPTIONMATCHER_H
 #define OPTIONMATCHER_H
 #include <qvaluelist.h>
+#include <qstringlist.h>
 class ImageInfo;
 
 /**
@@ -31,7 +32,6 @@ public:
     virtual ~OptionMatcher() {}
     virtual OptionMatcher* optimize() = 0;
     virtual void debug( int level ) const = 0;
-    virtual QString toSQLQuery() const = 0;
     virtual OptionMatcher* normalize() = 0;
     virtual OptionMatcher* clone() = 0;
     virtual bool isSimple() const { return true; }
@@ -47,11 +47,9 @@ public:
     virtual bool eval( ImageInfo* );
     virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
-    virtual QString toSQLQuery() const;
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
 
-private:
     QString _category;
     QString _option;
 };
@@ -64,7 +62,6 @@ public:
     virtual bool eval( ImageInfo* info );
     virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
-    virtual QString toSQLQuery() const;
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
 
@@ -78,7 +75,6 @@ public:
     virtual OptionMatcher* optimize();
     void addElement( OptionMatcher* );
     ~OptionContainerMatcher();
-    QString toSQLQuery( const QString& op ) const;
     virtual void debug( int level ) const;
     void clone( OptionContainerMatcher* newMatcher );
     virtual bool isSimple() const { return false; }
@@ -90,7 +86,6 @@ class OptionAndMatcher :public OptionContainerMatcher
 {
 public:
     virtual bool eval( ImageInfo* );
-    virtual QString toSQLQuery() const;
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
@@ -104,7 +99,6 @@ class OptionOrMatcher :public OptionContainerMatcher
 {
 public:
     virtual bool eval( ImageInfo* );
-    virtual QString toSQLQuery() const;
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
@@ -119,12 +113,10 @@ public:
     OptionNotMatcher( OptionMatcher* );
     virtual bool eval( ImageInfo* );
     virtual OptionMatcher* optimize();
-    virtual QString toSQLQuery() const;
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
 
-private:
     OptionMatcher* _element;
 };
 

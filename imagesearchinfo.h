@@ -21,6 +21,8 @@
 #include "imagedate.h"
 #include <qdom.h>
 #include <qmap.h>
+#include <qstringlist.h>
+class OptionOrMatcher;
 class ImageInfo;
 class OptionMatcher;
 
@@ -45,7 +47,7 @@ public:
 
     bool isNull() const;
     bool match( ImageInfo* ) const;
-    QString toSQLQuery() const;
+    OptionMatcher* query() const;
 
     void addAnd( const QString& category, const QString& value );
     QString toString() const;

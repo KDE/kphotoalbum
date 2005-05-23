@@ -85,7 +85,7 @@ void NewImageFinder::loadExtraFiles()
         if ( info )
             newImages.append(info);
     }
-        ImageDB::instance()->addImages( newImages );
+    ImageDB::instance()->addImages( newImages );
 }
 
 

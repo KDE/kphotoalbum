@@ -646,3 +646,11 @@ QStringList Util::infoListToStringList( const ImageInfoList& list )
     }
     return result;
 }
+
+QString Util::stripImageDirectory( const QString& fileName )
+{
+    if ( fileName.startsWith( Options::instance()->imageDirectory() ) )
+        return fileName.mid( Options::instance()->imageDirectory().length() );
+    else
+        return fileName;
+}

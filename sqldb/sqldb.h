@@ -67,7 +67,7 @@ namespace SQLDB {
         void openDatabase();
         void loadMemberGroups();
         void loadCategories();
-        QStringList allImages() const;
+        QStringList imageList( bool withRelativePath );
 
     private:
         MemberMap _members;

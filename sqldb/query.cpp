@@ -6,7 +6,7 @@
 QStringList SQLDB::buildQueries( OptionMatcher* matcher )
 {
     QStringList allImages;
-    allImages << QString::fromLatin1( "SELECT distinct fileName FROM imagecategoryinfo" );
+    allImages << QString::fromLatin1( "SELECT distinct fileName FROM sortorder" );
 
     if ( matcher == 0 )
         return allImages;

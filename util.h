@@ -60,6 +60,7 @@ public:
     static QString relativeFolderName( const QString& fileName);
     static ImageInfoList stringListToInfoList( const QStringList& list );
     static QStringList infoListToStringList( const ImageInfoList& list );
+    static QString stripImageDirectory( const QString& fileName );
 };
 
 

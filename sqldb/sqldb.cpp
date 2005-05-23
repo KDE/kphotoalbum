@@ -175,8 +175,7 @@ void SQLDB::SQLDB::deleteList( const QStringList& list )
         if ( !query.exec( queryString ) )
             showError( query.lastError(), queryString );
     }
-
-    qDebug("Images: %s", images().join( QString::fromLatin1( ", " ) ).latin1() );
+    emit totalChanged( totalCount() );
 }
 
 ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
@@ -284,7 +283,7 @@ void SQLDB::SQLDB::openDatabase()
     }
 
     database->setDatabaseName( "kimdaba" );
-    database->setUserName("root");
+    database->setUserName("root"); // PENDING(blackie) change
     if ( !database->open() )
         qFatal("Couldn't open db");
 }

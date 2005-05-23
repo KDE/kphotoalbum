@@ -50,7 +50,7 @@ void CategoryCollection::removeCategory( const QString& name )
 void CategoryCollection::rename( const QString& oldName, const QString& newName )
 {
     categoryForName(oldName)->setName(newName);
-    ImageDB::instance()->renameOptionGroup( oldName, newName );
+    ImageDB::instance()->renameCategory( oldName, newName );
     emit categoryCollectionChanged();
 
 }

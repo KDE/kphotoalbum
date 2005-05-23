@@ -85,7 +85,7 @@ public:
     QStringList availableOptionGroups() const;
     QStringList optionValue( const QString& key ) const;
     void renameOption( const QString& key, const QString& oldValue, const QString& newValue );
-    void renameOptionGroup( const QString& oldName, const QString& newName );
+    void renameCategory( const QString& oldName, const QString& newName );
 
     QDomElement save( QDomDocument doc );
     bool operator!=( const ImageInfo& other );

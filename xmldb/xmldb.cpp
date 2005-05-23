@@ -106,10 +106,10 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
     return map;
 }
 
-void XMLDB::XMLDB::renameOptionGroup( const QString& oldName, const QString newName )
+void XMLDB::XMLDB::renameCategory( const QString& oldName, const QString newName )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        (*it)->renameOptionGroup( oldName, newName );
+        (*it)->renameCategory( oldName, newName );
     }
 }
 

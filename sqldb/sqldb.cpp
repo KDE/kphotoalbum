@@ -47,9 +47,13 @@ QStringList SQLDB::SQLDB::search( const ImageSearchInfo& info, bool /*requireOnD
     return result;
 }
 
-void SQLDB::SQLDB::renameOptionGroup( const QString& /*oldName*/, const QString /*newName*/ )
+void SQLDB::SQLDB::renameCategory( const QString& oldName, const QString newName )
 {
-    qDebug("NYI: void SQLDB::SQLDB::renameOptionGroup( const QString& oldName, const QString newName )" );
+    QString queryString = QString::fromLatin1( "UPDATE imagecategoryinfo SET category=\"%1\" WHERE category=\"%2\"" )
+                          .arg( newName ).arg( oldName );
+    QSqlQuery query;
+    if ( !query.exec( queryString ) )
+        showError( query.lastError(), queryString );
 }
 
 QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QString& category )

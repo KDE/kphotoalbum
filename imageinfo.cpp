@@ -295,7 +295,7 @@ void ImageInfo::setDrawList( const DrawList& list )
     _drawList = list;
 }
 
-void ImageInfo::renameOptionGroup( const QString& oldName, const QString& newName )
+void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
 {
     _options[newName] = _options[oldName];
     _options.erase(oldName);

@@ -65,7 +65,7 @@ public: // Methods that must be overriden
     virtual int totalCount() const = 0; // OK
     virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
 
-    virtual void renameOptionGroup( const QString& oldName, const QString newName ) = 0;
+    virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category ) = 0;
     virtual ImageInfoList& imageInfoList() = 0; // TO BE DELETED!

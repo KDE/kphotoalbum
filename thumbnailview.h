@@ -19,6 +19,7 @@
 #ifndef THUMBNAILVIEW_H
 #define THUMBNAILVIEW_H
 #include <kiconview.h>
+class KXMLGUIClient;
 class QDateTime;
 class ImageInfo;
 class ImageInfoList;

@@ -18,6 +18,7 @@
 
 #ifndef SHOWOPTIONACTION_H
 #define SHOWOPTIONACTION_H
+#include <kxmlguiclient.h>
 #include <kaction.h>
 
 class ShowOptionAction :public KToggleAction {

@@ -25,9 +25,10 @@ class ImageSearchInfo;
 namespace SQLDB {
     QStringList buildQueries( OptionMatcher* );
     QString buildAndQuery( OptionAndMatcher* matcher );
-    QString buildValue( OptionValueMatcher*, int idx, bool negate );
+    QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
     QStringList filesMatchingQuery( const ::ImageSearchInfo& info );
     void showError( const QSqlError& error, const QString& query );
+    QStringList values( OptionValueMatcher* matcher );
 }
 
 #endif /* SQLDB_QUERY_H */

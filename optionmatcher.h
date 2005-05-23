@@ -65,7 +65,6 @@ public:
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
 
-private:
     QString _category;
 };
 

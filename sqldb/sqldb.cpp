@@ -258,9 +258,15 @@ void SQLDB::SQLDB::sortAndMergeBackIn( const QStringList& /*fileList*/ )
     qDebug("NYI: void SQLDB::SQLDB::sortAndMergeBackIn( const QStringList& fileList )" );
 }
 
-void SQLDB::SQLDB::renameOption( Category* /*category*/, const QString& /*oldName*/, const QString& /*newName*/ )
+void SQLDB::SQLDB::renameOption( Category* category, const QString& oldName, const QString& newName )
 {
-    qDebug("NYI: void SQLDB::SQLDB::renameOption( Category* category, const QString& oldName, const QString& newName )" );
+    QString queryString = QString::fromLatin1( "UPDATE imagecategoryinfo SET value = \"%1\" "
+                                               "WHERE category = \"%2\" and value = \"%3\"" )
+                          .arg( newName ).arg( category->name() ).arg( oldName );
+    QSqlQuery query;
+    if ( !query.exec( queryString ) )
+        showError( query.lastError(), queryString );
+
 }
 
 void SQLDB::SQLDB::deleteOption( Category* /*category*/, const QString& /*option*/ )

@@ -54,7 +54,7 @@ protected:
 protected slots:
     void init();
     void deleteOption( Category* category, const QString& name);
-    void renameOption( Category* category, const QString& oldName, const QString& newName );
+    void renameItem( Category* category, const QString& oldName, const QString& newName );
 
 private:
     friend class XMLDB::XMLDB;

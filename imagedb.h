@@ -84,7 +84,7 @@ public: // Methods that must be overriden
     virtual CategoryCollection* categoryCollection() = 0;
 
 protected slots:
-    virtual void renameOption( Category* category, const QString& oldName, const QString& newName ) = 0;
+    virtual void renameItem( Category* category, const QString& oldName, const QString& newName ) = 0;
     virtual void deleteOption( Category* category, const QString& option ) = 0;
     virtual void lockDB( bool lock, bool exclude ) = 0;
 

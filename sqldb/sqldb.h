@@ -56,7 +56,7 @@ namespace SQLDB {
         virtual CategoryCollection* categoryCollection();
 
     protected slots:
-        virtual void renameOption( Category* category, const QString& oldName, const QString& newName );
+        virtual void renameItem( Category* category, const QString& oldName, const QString& newName );
         virtual void deleteOption( Category* category, const QString& option );
         virtual void lockDB( bool lock, bool exclude );
 

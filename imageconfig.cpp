@@ -654,7 +654,7 @@ void ImageConfig::slotDeleteOption( Category* category, const QString& which)
 void ImageConfig::slotRenameOption( Category* category, const QString& oldValue, const QString& newValue )
 {
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
-        (*it).renameOption( category->name(), oldValue, newValue );
+        (*it).renameItem( category->name(), oldValue, newValue );
     }
 }
 

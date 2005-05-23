@@ -84,7 +84,7 @@ public:
     bool hasOption( const QString& key,  const QString& value );
     QStringList availableOptionGroups() const;
     QStringList optionValue( const QString& key ) const;
-    void renameOption( const QString& key, const QString& oldValue, const QString& newValue );
+    void renameItem( const QString& key, const QString& oldValue, const QString& newValue );
     void renameCategory( const QString& oldName, const QString& newName );
 
     QDomElement save( QDomDocument doc );

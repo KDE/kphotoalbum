@@ -25,7 +25,7 @@ void ImageDB::setup( const QString& backend, const QString& configFile )
     connect( _instance->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              _instance, SLOT( deleteOption( Category*, const QString& ) ) );
     connect( _instance->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
-             _instance, SLOT( renameOption( Category*, const QString&, const QString& ) ) );
+             _instance, SLOT( renameItem( Category*, const QString&, const QString& ) ) );
     connect( Options::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
 }
 

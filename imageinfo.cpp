@@ -154,7 +154,7 @@ QStringList ImageInfo::optionValue( const QString& key ) const
     return _options[key];
 }
 
-void ImageInfo::renameOption( const QString& key, const QString& oldValue, const QString& newValue )
+void ImageInfo::renameItem( const QString& key, const QString& oldValue, const QString& newValue )
 {
     QStringList& list = _options[key];
     QStringList::Iterator it = list.find( oldValue );

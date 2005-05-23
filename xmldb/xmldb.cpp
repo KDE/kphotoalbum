@@ -132,10 +132,10 @@ void XMLDB::XMLDB::deleteList( const QStringList& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::XMLDB::renameOption( Category* category, const QString& oldName, const QString& newName )
+void XMLDB::XMLDB::renameItem( Category* category, const QString& oldName, const QString& newName )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
-        (*it)->renameOption( category->name(), oldName, newName );
+        (*it)->renameItem( category->name(), oldName, newName );
     }
 }
 

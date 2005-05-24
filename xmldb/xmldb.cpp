@@ -139,7 +139,7 @@ void XMLDB::XMLDB::renameItem( Category* category, const QString& oldName, const
     }
 }
 
-void XMLDB::XMLDB::deleteOption( Category* category, const QString& option )
+void XMLDB::XMLDB::deleteItem( Category* category, const QString& option )
 {
     for( ImageInfoListIterator it( _images ); *it; ++it ) {
         (*it)->removeOption( category->name(), option );

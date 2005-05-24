@@ -30,7 +30,7 @@ MemberMap::MemberMap() :QObject(0), _dirty( true )
 void MemberMap::init()
 {
     connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
-             this, SLOT( deleteOption( Category*, const QString& ) ) );
+             this, SLOT( deleteItem( Category*, const QString& ) ) );
     connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
              this, SLOT( renameItem( Category*, const QString&, const QString& ) ) );
 }
@@ -169,7 +169,7 @@ MemberMap::MemberMap( const MemberMap& other )
 {
 }
 
-void MemberMap::deleteOption( Category* category, const QString& name)
+void MemberMap::deleteItem( Category* category, const QString& name)
 {
     _dirty = true;
     QMap<QString, QStringList>& groupMap = _members[category->name()];

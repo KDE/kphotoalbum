@@ -82,7 +82,7 @@ namespace XMLDB {
 
     protected slots:
         void renameItem( Category* category, const QString& oldName, const QString& newName );
-        void deleteOption( Category* category, const QString& option );
+        void deleteItem( Category* category, const QString& option );
         void lockDB( bool lock, bool exclude );
 
     private:

@@ -269,9 +269,9 @@ void SQLDB::SQLDB::renameItem( Category* category, const QString& oldName, const
 
 }
 
-void SQLDB::SQLDB::deleteOption( Category* /*category*/, const QString& /*option*/ )
+void SQLDB::SQLDB::deleteItem( Category* /*category*/, const QString& /*option*/ )
 {
-    qDebug("NYI: void SQLDB::SQLDB::deleteOption( Category* category, const QString& option )" );
+    qDebug("NYI: void SQLDB::SQLDB::deleteItem( Category* category, const QString& option )" );
 }
 
 void SQLDB::SQLDB::lockDB( bool /*lock*/, bool /*exclude*/ )

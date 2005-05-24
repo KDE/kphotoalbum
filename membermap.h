@@ -53,7 +53,7 @@ protected:
 
 protected slots:
     void init();
-    void deleteOption( Category* category, const QString& name);
+    void deleteItem( Category* category, const QString& name);
     void renameItem( Category* category, const QString& oldName, const QString& newName );
 
 private:

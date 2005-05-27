@@ -21,9 +21,10 @@
 
 #ifdef HASKIPI
 #include <libkipi/imageinfoshared.h>
+#include <kdemacros.h>
 class ImageInfo;
 
-class MyImageInfo :public KIPI::ImageInfoShared
+class KDE_EXPORT MyImageInfo :public KIPI::ImageInfoShared
 {
 public:
     MyImageInfo( KIPI::Interface* interface, const KURL& url );

@@ -22,8 +22,8 @@
 #ifdef HASKIPI
 #include "myimagecollection.h"
 #include "imagesearchinfo.h"
-
-class CategoryImageCollection :public MyImageCollection {
+#include <kdemacros.h>
+class KDE_EXPORT CategoryImageCollection :public MyImageCollection {
 
 public:
     CategoryImageCollection( const ImageSearchInfo& context, const QString& category, const QString& value );

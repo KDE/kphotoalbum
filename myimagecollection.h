@@ -22,8 +22,8 @@
 #ifdef HASKIPI
 #include <libkipi/imagecollectionshared.h>
 #include "imageinfolist.h"
-
-class MyImageCollection :public KIPI::ImageCollectionShared
+#include <kdemacros.h>
+class KDE_EXPORT MyImageCollection :public KIPI::ImageCollectionShared
 {
 public:
     enum Type { CurrentAlbum, CurrentSelection, SubClass };

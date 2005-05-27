@@ -25,8 +25,8 @@
 #include <libkipi/imagecollection.h>
 #include <libkipi/imageinfo.h>
 #include <kurl.h>
-
-class PluginInterface :public KIPI::Interface
+#include <kdemacros.h>
+class KDE_EXPORT PluginInterface :public KIPI::Interface
 {
     Q_OBJECT
 

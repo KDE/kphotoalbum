@@ -95,8 +95,8 @@ QString SQLDB::buildAndQuery( OptionAndMatcher* matcher )
 
     for( QValueList<OptionEmptyMatcher*>::Iterator it = emptyMatchers.begin(); it != emptyMatchers.end(); ++it ) {
         QStringList list = matchedValues[(*it)->_category ];
-        result += QString::fromLatin1( " and q0.fileName not in ( SELECT fileName FROM imagecategoryinfo WHERE %1)" )
-                  .arg( buildValue( (*it)->_category, list, -1, true ) );
+        result += QString::fromLatin1( " %1 q0.fileName not in ( SELECT fileName FROM imagecategoryinfo WHERE %2)" )
+                  .arg( query.isEmpty() ? QString::null : QString::fromLatin1( "and" ) ).arg( buildValue( (*it)->_category, list, -1, true ) );
     }
     return result;
 }
@@ -108,18 +108,22 @@ QString SQLDB::buildValue( const QString& category, const QStringList& vals, int
     if ( idx != -1 )
         prefix = QString::fromLatin1("q%1.").arg( idx );
 
-    for( QStringList::ConstIterator it = vals.begin(); it != vals.end(); ++it ) {
-        if ( !expression.isEmpty() )
-            expression += QString::fromLatin1( " or " );
-        expression += QString::fromLatin1( "%1value = \"%2\"" ).arg( prefix ).arg( *it );
-    }
-    if ( negate )
-        expression = QString::fromLatin1( "!(%1)" ).arg( expression );
-    else
-        expression = QString::fromLatin1( "(%1)" ).arg( expression );
+    if ( !vals.isEmpty() ) {
+        for( QStringList::ConstIterator it = vals.begin(); it != vals.end(); ++it ) {
+            if ( !expression.isEmpty() )
+                expression += QString::fromLatin1( " or " );
+            expression += QString::fromLatin1( "%1value = \"%2\"" ).arg( prefix ).arg( *it );
+        }
+        if ( negate )
+            expression = QString::fromLatin1( "!(%1)" ).arg( expression );
+        else
+            expression = QString::fromLatin1( "(%1)" ).arg( expression );
 
-    return QString::fromLatin1( "%1category = \"%2\" and %3 " )
-        .arg(prefix).arg( category ).arg( expression );
+        return QString::fromLatin1( "%1category = \"%2\" and %3 " )
+            .arg(prefix).arg( category ).arg( expression );
+    }
+    else
+        return QString::fromLatin1( "%1category = \"%2\" " ).arg(prefix).arg( category );
 }
 
 QStringList SQLDB::filesMatchingQuery( const ImageSearchInfo& info )

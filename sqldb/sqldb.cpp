@@ -1,5 +1,3 @@
-// HINT: distinct
-
 #include "sqldb.h"
 #include <membermap.h>
 #include <qsqldatabase.h>
@@ -125,34 +123,66 @@ QStringList SQLDB::SQLDB::images()
 void SQLDB::SQLDB::addImages( const ImageInfoList& images )
 {
     int idx = totalCount();
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
-        qDebug( "Inserting %s", (*it)->fileName().latin1());
-        ImageInfo* info = *it;
-        QString queryString = QString::fromLatin1( "INSERT INTO imageinfo set " );
-        queryString += QString::fromLatin1( "width = %1, " ).arg( info->size().width() );
-        queryString += QString::fromLatin1( "height = %1, " ).arg( info->size().height() );
-        queryString += QString::fromLatin1( "md5sum = \"%1\", " ).arg( info->MD5Sum() );
-        queryString += QString::fromLatin1( "fileName = \"%1\", " ).arg( info->fileName( true ) );
-        queryString += QString::fromLatin1( "label = \"%1\", " ).arg( info->label() );
-        queryString += QString::fromLatin1( "angle = %1, " ).arg( info->angle() );
-        queryString += QString::fromLatin1( "description = \"%1\", " ).arg( info->description() );
-        queryString += QString::fromLatin1( "yearFrom = %1, " ).arg( info->startDate().year() );
-        queryString += QString::fromLatin1( "monthFrom = %1, " ).arg( info->startDate().month() );
-        queryString += QString::fromLatin1( "dayFrom = %1, " ).arg( info->startDate().day() );
-        queryString += QString::fromLatin1( "hour = %1, " ).arg( info->startDate().hour() );
-        queryString += QString::fromLatin1( "minute = %1, " ).arg( info->startDate().minute() );
-        queryString += QString::fromLatin1( "second = %1, " ).arg( info->startDate().second() );
-        queryString += QString::fromLatin1( "yearTo = %1, " ).arg( info->endDate().year() );
-        queryString += QString::fromLatin1( "monthTo = %1, " ).arg( info->endDate().month() );
-        queryString += QString::fromLatin1( "dayTo = %1 " ).arg( info->endDate().day() );
-        QSqlQuery query;
-        if ( !query.exec( queryString ) )
-            showError( query.lastError(), queryString );
 
-        queryString = QString::fromLatin1( "INSERT INTO sortorder SET idx=%1, fileName=\"%2\"" ).arg(idx++).arg(info->fileName( true ) );
-        if ( !query.exec( queryString ) )
-            showError( query.lastError(), queryString );
+    QString imageQueryString = QString::fromLatin1( "INSERT INTO imageinfo set "
+                                                    "width = :width, height = :height, md5sum = :md5sum, fileName = :fileName, label = :label, "
+                                                    "angle = :angle, description = :description, yearFrom = :yearFrom, monthFrom = :monthFrom, "
+                                                    "dayFrom = :dayFrom, hour = :hour, minute = :minute, second = :second, yearTo = :yearTo, "
+                                                    "monthTo = :monthTo, dayTo = :dayTo" );
+    QSqlQuery imageQuery;
+    imageQuery.prepare( imageQueryString );
+
+    QString categoryQueryString = QString::fromLatin1( "insert INTO imagecategoryinfo set fileName = :fileName, category = :category, value = :value" );
+    QSqlQuery categoryQuery;
+    categoryQuery.prepare( categoryQueryString );
+
+    QString sortOrderQueryString = QString::fromLatin1( "INSERT INTO sortorder SET idx=:idx, fileName=:fileName" );
+    QSqlQuery sortOrderQuery;
+    sortOrderQuery.prepare( sortOrderQueryString );
+
+    for( ImageInfoListIterator it( images ); *it; ++it ) {
+        ImageInfo* info = *it;
+
+        imageQuery.bindValue( QString::fromLatin1( ":width" ),  info->size().width() );
+        imageQuery.bindValue( QString::fromLatin1( ":height" ),  info->size().height() );
+        imageQuery.bindValue( QString::fromLatin1( ":md5sum" ), info->MD5Sum() );
+        imageQuery.bindValue( QString::fromLatin1( ":fileName" ),  info->fileName( true ) );
+        imageQuery.bindValue( QString::fromLatin1( ":label" ),  info->label() );
+        imageQuery.bindValue( QString::fromLatin1( ":angle" ),  info->angle() );
+        imageQuery.bindValue( QString::fromLatin1( ":description" ),  info->description() );
+        imageQuery.bindValue( QString::fromLatin1( ":yearFrom" ),  info->startDate().year() );
+        imageQuery.bindValue( QString::fromLatin1( ":monthFrom" ),  info->startDate().month() );
+        imageQuery.bindValue( QString::fromLatin1( ":dayFrom" ),  info->startDate().day() );
+        imageQuery.bindValue( QString::fromLatin1( ":hour" ),  info->startDate().hour() );
+        imageQuery.bindValue( QString::fromLatin1( ":minute" ),  info->startDate().minute() );
+        imageQuery.bindValue( QString::fromLatin1( ":second" ),  info->startDate().second() );
+        imageQuery.bindValue( QString::fromLatin1( ":yearTo" ),  info->endDate().year() );
+        imageQuery.bindValue( QString::fromLatin1( ":monthTo" ),  info->endDate().month() );
+        imageQuery.bindValue( QString::fromLatin1( ":dayTo" ), info->endDate().day() );
+        if ( !imageQuery.exec() )
+            showError( imageQuery.lastError(), imageQueryString );
+
+        sortOrderQuery.bindValue( QString::fromLatin1( ":idx" ), idx++ );
+        sortOrderQuery.bindValue( QString::fromLatin1( ":fileName" ), info->fileName( true ) );
+        if ( !sortOrderQuery.exec() )
+            showError( sortOrderQuery.lastError(), sortOrderQuery.executedQuery() );
+
+
+        // Category info
+
+        QStringList categories = info->availableOptionGroups();
+        categoryQuery.bindValue( QString::fromLatin1( ":fileName" ), info->fileName( true ) );
+        for( QStringList::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+            QStringList items = info->optionValue( *categoryIt );
+            categoryQuery.bindValue( QString::fromLatin1( ":category" ), *categoryIt );
+            for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+                categoryQuery.bindValue( QString::fromLatin1( ":value" ), *itemIt );
+                if ( !categoryQuery.exec() )
+                    showError( categoryQuery.lastError(), categoryQuery.executedQuery() );
+            }
+        }
     }
+
     emit totalChanged( totalCount() );
 }
 
@@ -213,8 +243,10 @@ ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
         showError( query.lastError(), queryString );
 
     Q_ASSERT( query.numRowsAffected() == 1 );
-    if ( query.numRowsAffected() != 1 )
+    if ( query.numRowsAffected() != 1 ) {
         qWarning( "Internal Error: Didn't find %s in Database", fileName.latin1() );
+        return new ImageInfo( relativeFileName ); // I'm afraid it will crash if we return 0.
+    }
 
     query.next();
     QString label = query.value(0).toString();

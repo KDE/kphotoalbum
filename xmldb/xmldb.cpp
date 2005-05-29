@@ -68,7 +68,7 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
 {
     QMap<QString, int> map;
     GroupCounter counter( group );
-    QDict<void> alreadyMatched = findAlreadyMatched( info, group );
+    QDict<void> alreadyMatched = info.findAlreadyMatched( group );
 
     ImageSearchInfo noMatchInfo = info;
     QString currentMatchTxt = noMatchInfo.option( group );
@@ -228,23 +228,6 @@ ImageInfo* XMLDB::XMLDB::info( const QString& fileName ) const
             return fileMap[ fileName ];
     }
     return 0;
-}
-
-QDict<void> XMLDB::XMLDB::findAlreadyMatched( const ImageSearchInfo& info, const QString &group )
-{
-    QDict<void> map;
-    QString str = info.option( group );
-    if ( str.contains( QString::fromLatin1( "|" ) ) ) {
-        return map;
-    }
-
-    QStringList list = QStringList::split( QString::fromLatin1( "&" ), str );
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        QString nm = (*it).stripWhiteSpace();
-        if (! nm.contains( QString::fromLatin1( "!" ) ) )
-            map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
-    }
-    return map;
 }
 
 void XMLDB::XMLDB::checkIfImagesAreSorted()

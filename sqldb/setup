@@ -14,8 +14,8 @@ CREATE TABLE membergroup
 CREATE TABLE imageinfo 
 (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  fileName varchar(1024),
-  label varchar(1024),
+  fileName varchar(255),
+  label varchar(255),
   description TEXT,
   dayFrom INT, monthFrom INT, yearFrom INT,
   dayTo INT, monthTo INT, yearTo INT,
@@ -27,24 +27,24 @@ CREATE TABLE imageinfo
 
 CREATE TABLE imagecategoryinfo
 (
-  fileName varchar(1024),
-  category varchar(1024),
-  value varchar(1024)
+  fileName varchar(255),
+  category varchar(255),
+  value varchar(255)
 );
 
 CREATE TABLE categorysetup 
 (
-  category varchar(1024),
+  category varchar(255),
   viewtype INT,
   viewsize INT,
   icon varchar(128),
-  showIt BOOLEAN
+  showIt bool
 );
 
 CREATE TABLE sortorder 
 (
   idx INT PRIMARY KEY,
-  fileName varchar(1024)
+  fileName varchar(255)
 );
 
 insert into membergroup( groupname, category, member ) values

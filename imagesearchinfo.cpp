@@ -317,3 +317,19 @@ OptionMatcher* ImageSearchInfo::query() const
         return _optionMatcher;
 }
 
+QDict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
+{
+    QDict<void> map;
+    QString str = option( group );
+    if ( str.contains( QString::fromLatin1( "|" ) ) ) {
+        return map;
+    }
+
+    QStringList list = QStringList::split( QString::fromLatin1( "&" ), str );
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        QString nm = (*it).stripWhiteSpace();
+        if (! nm.contains( QString::fromLatin1( "!" ) ) )
+            map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
+    }
+    return map;
+}

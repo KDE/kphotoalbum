@@ -61,7 +61,6 @@ namespace XMLDB {
 
     protected:
         ImageInfo* load( const QString& filename, QDomElement elm );
-        QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
         void checkIfImagesAreSorted();
         bool rangeInclude( ImageInfo* info ) const;
         void checkIfAllImagesHasSizeAttributes();

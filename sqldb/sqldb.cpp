@@ -11,6 +11,7 @@
 #include "query.h"
 #include <imageinfo.h>
 #include <util.h>
+#include "groupCounter.h"
 
 const QString imageInfoAttributes = "label, description, dayFrom, monthFrom, yearFrom, dayTo, monthTo, "
                                     "yearTo, hour, minute, second, angle, md5sum, width, height";
@@ -58,10 +59,10 @@ void SQLDB::SQLDB::renameCategory( const QString& oldName, const QString newName
 
 QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QString& category )
 {
-    // PENDING(blackie) count member maps too.
-
     QStringList matches = filesMatchingQuery( info );
     QMap<QString,int> result;
+    GroupCounter counter( category );
+    QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
     for( QStringList::ConstIterator it = matches.begin(); it != matches.end(); ++it ) {
         QSqlQuery categoryQuery;
@@ -70,8 +71,24 @@ QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QSt
         if ( !categoryQuery.exec( queryString ) )
             showError( categoryQuery.lastError(), queryString );
 
-        while ( categoryQuery.next() )
-            result[ categoryQuery.value(0).toString() ]++;
+        QStringList items;
+        bool any = false;
+        while ( categoryQuery.next() ) {
+            QString item = categoryQuery.value(0).toString();
+            if ( !alreadyMatched[item] ) { // We do not want to match "Jesper & Jesper"
+                result[ item ]++;
+                items << item;
+                any = true;
+            }
+        }
+        if ( !any )
+            result[ImageDB::NONE()]++;
+        counter.count( items );
+    }
+
+    QMap<QString,int> groups = counter.result();
+    for( QMapIterator<QString,int> it= groups.begin(); it != groups.end(); ++it ) {
+        result[it.key()] = it.data();
     }
     return result;
 }

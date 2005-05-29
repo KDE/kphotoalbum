@@ -22,6 +22,7 @@
 #include <qdom.h>
 #include <qmap.h>
 #include <qstringlist.h>
+#include <qdict.h>
 class OptionOrMatcher;
 class ImageInfo;
 class OptionMatcher;
@@ -57,6 +58,7 @@ public:
 
     void debug();
     void debugMatcher() const;
+    QDict<void> findAlreadyMatched( const QString &group ) const;
 
 protected:
     void compile() const;

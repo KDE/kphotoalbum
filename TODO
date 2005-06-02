@@ -89,6 +89,8 @@ limit to that date.
 
 - items in the browsers should be case insensitive
 - make it possible in the browser to select multiple images to form an "or query"
+- make it possible to specify sort order for the thumbnail (newest image
+first or last)
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)

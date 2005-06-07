@@ -23,6 +23,7 @@ Boston, MA 02111-1307, USA.
 #include <membermap.h>
 #include <categorycollection.h>
 #include <md5map.h>
+#include "sqlcategorycollection.h"
 class QSqlError;
 
 namespace SQLDB {
@@ -71,7 +72,7 @@ namespace SQLDB {
 
     private:
         MemberMap _members;
-        CategoryCollection _categoryCollection;
+        SQLCategoryCollection _categoryCollection;
         MD5Map _md5map;
     };
 }

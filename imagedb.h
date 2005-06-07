@@ -38,6 +38,7 @@ public:
     ImageInfoList clipboard();
     void setClipboard( const ImageInfoList& list );
     bool isClipboardEmpty();
+    void convertBackend();
 
 public slots:
     void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );

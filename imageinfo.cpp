@@ -95,7 +95,7 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
             if ( childElm.tagName() == QString::fromLatin1( "options" ) ) {
-                Util::readOptions( childElm, &_options, 0 );
+                Util::readOptions( childElm, &_options );
             }
             else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
                 _drawList.load( childElm );

@@ -86,8 +86,7 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
 
 
 
-void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
-                        CategoryCollection* categories )
+void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
 
@@ -101,21 +100,6 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
                 continue; // KimDaBa 2.0 save this to the file, that was a mistake.
 
             if ( !name.isNull() )  {
-                // Read Category info
-                if ( categories ) {
-                    QString icon= elmOption.attribute( QString::fromLatin1("icon") );
-                    Category::ViewSize size =
-                        (Category::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
-                    Category::ViewType type =
-                        (Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
-                    bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
-                                                            QString::fromLatin1( "1" ) ).toInt();
-
-                    Q_ASSERT( !categories->categoryForName( name ) );
-                    Category* cat = new Category( name, icon, size, type, show );
-                    categories->addCategory( cat );
-                }
-
                 // Read values
                 for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
                       nodeValue = nodeValue.nextSibling() ) {
@@ -561,7 +545,9 @@ Util::UniqNameMap Util::createUniqNameMap( const QStringList& images, bool relat
     QMap<QString, QString> inverseMap;
 
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
-        QString fullName = ImageDB::instance()->info(*it)->fileName( relative );
+        QString fullName = *it;
+        if ( relative )
+            fullName = Util::stripImageDirectory( *it );
         QString base = QFileInfo( fullName ).baseName();
         QString ext = QFileInfo( fullName ).extension();
         QString file = base + QString::fromLatin1( "." ) +  ext;

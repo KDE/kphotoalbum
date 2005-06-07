@@ -121,6 +121,7 @@ protected slots:
     void clearDateRange();
     void deleteImageConfigure();
     void startAutoSaveTimer();
+    void convertBackend();
 
 protected:
     void configureImages( bool oneAtATime );

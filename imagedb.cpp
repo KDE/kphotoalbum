@@ -5,6 +5,8 @@
 #include "browser.h"
 #include "categorycollection.h"
 #include "sqldb/sqldb.h"
+#include <qprogressdialog.h>
+#include <qapplication.h>
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -96,5 +98,39 @@ int ImageDB::count( const ImageSearchInfo& info )
 {
     int count = search( info ).count();
     return count;
+}
+
+void ImageDB::convertBackend()
+{
+    QStringList allImages = images();
+
+    QProgressDialog dialog( 0 );
+    dialog.setLabelText( i18n( "Converting Backend" ) );
+    dialog.setTotalSteps( allImages.count() );
+    SQLDB::SQLDB* newBackend = new SQLDB::SQLDB;
+
+    // Convert all images to the new back end
+    int count = 0;
+    ImageInfoList list;
+    for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
+        dialog.setProgress( count++ );
+        qApp->processEvents();
+        list.append( info(*it) );
+        if ( count % 1000 == 0 ) {
+            newBackend->addImages( list );
+            list.clear();
+        }
+    }
+    if ( list.count() != 0 )
+        newBackend->addImages( list );
+
+    // Convert the Category info
+    CategoryCollection* origCategories = categoryCollection();
+    CategoryCollection* newCategories = newBackend->categoryCollection();
+
+    QValueList<CategoryPtr> categories = origCategories->categories();
+    for( QValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+        newCategories->addCategory( (*it)->text(), (*it)->iconName(), (*it)->viewSize(), (*it)->viewType(), (*it)->doShow() );
+    }
 }
 

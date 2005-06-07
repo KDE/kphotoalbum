@@ -129,11 +129,11 @@ QString SQLDB::buildValue( const QString& category, const QStringList& vals, int
 QStringList SQLDB::filesMatchingQuery( const ImageSearchInfo& info )
 {
     QStringList result;
-    QStringList queries = buildQueries( info.query() );
+    QStringList queries = buildQueries( info.query() ); // PENDING(blackie) How about bindvalue here?
     for( QStringList::Iterator it = queries.begin(); it != queries.end(); ++it ) {
         QSqlQuery query;
         if ( !query.exec( *it ) )
-            showError( query.lastError(), *it );
+            showError( query );
 
         while ( query.next() ) {
             QString str = query.value(0).toString();
@@ -144,9 +144,9 @@ QStringList SQLDB::filesMatchingQuery( const ImageSearchInfo& info )
     return result;
 }
 
-void SQLDB::showError( const QSqlError& error, const QString& query )
+void SQLDB::showError( QSqlQuery& query )
 {
-    qFatal( "Error running query: %s\nError was: %s,%s", query.latin1(), error.driverText().latin1(), error.databaseText().latin1() );
+    qFatal( "Error running query: %s\nError was: %s", query.executedQuery().latin1(), query.lastError().text().latin1());
 }
 
 QStringList SQLDB::values( OptionValueMatcher* matcher )
@@ -157,5 +157,48 @@ QStringList SQLDB::values( OptionValueMatcher* matcher )
     if ( ImageDB::instance()->memberMap().isGroup( matcher->_category, matcher->_option ) )
         values += ImageDB::instance()->memberMap().members( matcher->_category, matcher->_option, true );
     return values;
+}
+
+QStringList SQLDB::runAndReturnList( const QString& queryString )
+{
+    QSqlQuery query;
+    if ( !query.exec( queryString ) ) {
+        showError( query );
+        return QStringList();
+    }
+    QStringList result;
+    while ( query.next() )
+        result.append( query.value(0).toString() );
+    return result;
+}
+
+QVariant SQLDB::fetchItem( const QString& queryString, const QMap<QString,QVariant>& bindings )
+{
+    QSqlQuery query;
+    if ( !runQuery( queryString, bindings, query ) )
+        return QVariant();
+
+    if ( query.next() )
+        return query.value(0);
+    return QVariant();
+}
+
+bool SQLDB::runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings, QSqlQuery& query )
+{
+    query.prepare( queryString );
+    for( QMap<QString,QVariant>::ConstIterator it = bindings.begin(); it != bindings.end(); ++it ) {
+        query.bindValue( it.key(), it.data() );
+    }
+    if ( !query.exec() ) {
+        showError( query );
+        return false;
+    }
+    return true;
+}
+
+bool SQLDB::runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings )
+{
+    QSqlQuery query;
+    return runQuery( queryString, bindings, query );
 }
 

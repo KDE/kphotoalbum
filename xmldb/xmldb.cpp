@@ -38,6 +38,7 @@
 #include <kstandarddirs.h>
 #include <qregexp.h>
 #include <stdlib.h>
+#include "xmlcategory.h"
 
 XMLDB::XMLDB::XMLDB( const QString& configFile )
 {
@@ -322,9 +323,9 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
                 bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                         QString::fromLatin1( "1" ) ).toInt();
 
-                Category* cat = _categoryCollection.categoryForName( name ); // Special Categories are already created.
+                CategoryPtr cat = _categoryCollection.categoryForName( name ); // Special Categories are already created.
                 if ( !cat ) {
-                    cat = new Category( name, icon, size, type, show );
+                    cat = new XMLCategory( name, icon, size, type, show );
                     _categoryCollection.addCategory( cat );
                 }
                 // PENDING(blackie) else set the values for icons, size, type, and show
@@ -604,7 +605,7 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         QString name = *it;
         opt.setAttribute( QString::fromLatin1("name"),  name );
-        Category* category = ImageDB::instance()->categoryCollection()->categoryForName( name );
+        CategoryPtr category = ImageDB::instance()->categoryCollection()->categoryForName( name );
 
         opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
         opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );

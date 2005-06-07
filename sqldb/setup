@@ -47,6 +47,15 @@ CREATE TABLE sortorder
   fileName varchar(255)
 );
 
+CREATE TABLE categorysortorder
+(
+  idx INT PRIMARY KEY,
+  category varchar(255),
+  item varchar(255)
+);
+
+#exit
+
 insert into membergroup( groupname, category, member ) values
   ("Denmark", "Locations", "Esbjerg" ),
   ("Denmark", "Locations", "Pool Club" ),

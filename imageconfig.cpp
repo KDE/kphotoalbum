@@ -187,7 +187,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 
     QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        Category* category = ImageDB::instance()->categoryCollection()->categoryForName( *it );
+        CategoryPtr category = ImageDB::instance()->categoryCollection()->categoryForName( *it );
         if ( !category->isSpecialCategory() ) {
             KDockWidget* dockWidget = createListSel( *it );
             dockWidget->manualDock( last, pos );

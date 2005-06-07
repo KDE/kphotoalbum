@@ -29,10 +29,9 @@ SQLDB::SQLDB::SQLDB()
 
 int SQLDB::SQLDB::totalCount() const
 {
-    QString queryString = QString::fromLatin1( "SELECT * from sortorder" );
     QSqlQuery query;
-    if ( !query.exec( queryString ) )
-        showError( query.lastError(), queryString );
+    if ( !query.exec( QString::fromLatin1( "SELECT * from sortorder" ) ) )
+        showError( query );
     return query.numRowsAffected();
 }
 
@@ -48,11 +47,12 @@ QStringList SQLDB::SQLDB::search( const ImageSearchInfo& info, bool /*requireOnD
 
 void SQLDB::SQLDB::renameCategory( const QString& oldName, const QString newName )
 {
-    QString queryString = QString::fromLatin1( "UPDATE imagecategoryinfo SET category=\"%1\" WHERE category=\"%2\"" )
-                          .arg( newName ).arg( oldName );
     QSqlQuery query;
-    if ( !query.exec( queryString ) )
-        showError( query.lastError(), queryString );
+    query.prepare( "UPDATE imagecategoryinfo SET category=:newName WHERE category=:oldName" );
+    query.bindValue( QString::fromLatin1( ":newName" ), newName );
+    query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
+    if ( !query.exec() )
+        showError( query );
 }
 
 QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QString& category )
@@ -63,16 +63,17 @@ QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QSt
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
     for( QStringList::ConstIterator it = matches.begin(); it != matches.end(); ++it ) {
-        QSqlQuery categoryQuery;
-        QString queryString = QString::fromLatin1("SELECT value from imagecategoryinfo WHERE filename=\"%1\" and category=\"%2\"" )
-                              .arg( *it ).arg( category );
-        if ( !categoryQuery.exec( queryString ) )
-            showError( categoryQuery.lastError(), queryString );
+        QSqlQuery query;
+        query.prepare( "SELECT value from imagecategoryinfo WHERE filename=:fileName and category=:category" );
+        query.bindValue( QString::fromLatin1( ":fileName" ), *it );
+        query.bindValue( QString::fromLatin1( ":category" ), category );
+        if ( !query.exec() )
+            showError( query );
 
         QStringList items;
         bool any = false;
-        while ( categoryQuery.next() ) {
-            QString item = categoryQuery.value(0).toString();
+        while ( query.next() ) {
+            QString item = query.value(0).toString();
             if ( !alreadyMatched[item] ) { // We do not want to match "Jesper & Jesper"
                 result[ item ]++;
                 items << item;
@@ -100,10 +101,9 @@ ImageInfoList& SQLDB::SQLDB::imageInfoList()
 
 QStringList SQLDB::SQLDB::imageList( bool withRelativePath )
 {
-    QString queryString = QString::fromLatin1( "SELECT fileName FROM sortorder" );
     QSqlQuery query;
-    if ( !query.exec( queryString ) )
-        showError( query.lastError(), queryString );
+    if ( !query.exec( QString::fromLatin1( "SELECT fileName FROM sortorder" ) ) )
+        showError( query );
     QStringList result;
     while ( query.next() ) {
         if ( withRelativePath )
@@ -160,12 +160,12 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
         imageQuery.bindValue( QString::fromLatin1( ":monthTo" ),  info->endDate().month() );
         imageQuery.bindValue( QString::fromLatin1( ":dayTo" ), info->endDate().day() );
         if ( !imageQuery.exec() )
-            showError( imageQuery.lastError(), imageQueryString );
+            showError( imageQuery );
 
         sortOrderQuery.bindValue( QString::fromLatin1( ":idx" ), idx++ );
         sortOrderQuery.bindValue( QString::fromLatin1( ":fileName" ), info->fileName( true ) );
         if ( !sortOrderQuery.exec() )
-            showError( sortOrderQuery.lastError(), sortOrderQuery.executedQuery() );
+            showError( sortOrderQuery );
 
 
         // Category info
@@ -178,7 +178,7 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
             for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
                 categoryQuery.bindValue( QString::fromLatin1( ":value" ), *itemIt );
                 if ( !categoryQuery.exec() )
-                    showError( categoryQuery.lastError(), categoryQuery.executedQuery() );
+                    showError( categoryQuery );
             }
         }
     }
@@ -200,31 +200,35 @@ bool SQLDB::SQLDB::isBlocking( const QString& /*fileName*/ )
 void SQLDB::SQLDB::deleteList( const QStringList& list )
 {
     QStringList sortOrder = imageList( true );
-    QSqlQuery query;
-    QString queryString;
+    QSqlQuery imageInfoQuery, imageCategoryQuery;
+    imageInfoQuery.prepare( "DELETE FROM imageinfo where fileName=:fileName" );
+    imageCategoryQuery.prepare( "DELETE FROM imagecategoryinfo where fileName=:fileName" );
+
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         QString fileName = Util::stripImageDirectory( *it );
+        imageInfoQuery.bindValue( QString::fromLatin1( ":fileName" ), fileName );
+        imageCategoryQuery.bindValue( QString::fromLatin1( ":fileName" ), fileName );
 
-        queryString = QString::fromLatin1( "DELETE FROM imageinfo where fileName=\"%1\"" ).arg( fileName );
-        if ( !query.exec( queryString ) )
-            showError( query.lastError(), queryString );
+        if ( !imageInfoQuery.exec() )
+            showError( imageInfoQuery );
 
-        queryString = QString::fromLatin1( "DELETE FROM imagecategoryinfo where fileName=\"%1\"" ).arg( fileName );
-        if ( !query.exec( queryString ) )
-            showError( query.lastError(), queryString );
+        if ( !imageCategoryQuery.exec() )
+            showError( imageCategoryQuery );
 
         sortOrder.remove( fileName );
     }
 
-    queryString = QString::fromLatin1( "DELETE FROM sortorder" );
-    if ( !query.exec( queryString ) )
-        showError( query.lastError(), queryString );
+    QSqlQuery query;
+    if ( !query.exec( QString::fromLatin1( "DELETE FROM sortorder" ) ) )
+        showError( query );
 
     int idx = 0;
+    query.prepare( QString::fromLatin1( "INSERT INTO sortorder SET idx=:idx, fileName=:fileName" ) );
     for( QStringList::Iterator it = sortOrder.begin(); it != sortOrder.end(); ++it ) {
-        queryString = QString::fromLatin1( "INSERT INTO sortorder SET idx=%1, fileName=\"%2\"" ).arg(idx++).arg( *it );
-        if ( !query.exec( queryString ) )
-            showError( query.lastError(), queryString );
+        query.bindValue( QString::fromLatin1( ":idx" ), idx++ );
+        query.bindValue( QString::fromLatin1( ":fileName" ), *it );
+        if ( !query.exec() )
+            showError( query );
     }
     emit totalChanged( totalCount() );
 }
@@ -238,13 +242,14 @@ ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
         return map[relativeFileName];
 
     QSqlQuery query;
-    QString queryString = QString::fromLatin1( "SELECT %1 FROM imageinfo where fileName=\"%2\"" ).arg( imageInfoAttributes ).arg( relativeFileName );
-    if ( !query.exec( queryString ) )
-        showError( query.lastError(), queryString );
+    query.prepare( QString::fromLatin1( "SELECT %1 FROM imageinfo where fileName=:fileName" ).arg( imageInfoAttributes ) );
+    query.bindValue( QString::fromLatin1( ":fileName" ), relativeFileName );
+    if ( !query.exec() )
+        showError( query );
 
     Q_ASSERT( query.numRowsAffected() == 1 );
     if ( query.numRowsAffected() != 1 ) {
-        qWarning( "Internal Error: Didn't find %s in Database", fileName.latin1() );
+        qWarning( "Internal Error: Didn't find %s (%s) in Database", fileName.latin1(), relativeFileName.latin1() );
         return new ImageInfo( relativeFileName ); // I'm afraid it will crash if we return 0.
     }
 
@@ -270,9 +275,10 @@ ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
                                      ImageDate( dayTo, monthTo, yearTo ), angle, md5sum, QSize( width, heigh ) );
 
 
-    queryString = QString::fromLatin1( "SELECT category, value FROM imagecategoryinfo WHERE fileName=\"%1\"" ).arg( relativeFileName );
-    if ( !query.exec( queryString ) )
-        showError( query.lastError(), queryString );
+    query.prepare( QString::fromLatin1( "SELECT category, value FROM imagecategoryinfo WHERE fileName=:fileName" ) );
+    query.bindValue( QString::fromLatin1( ":fileName" ), relativeFileName );
+    if ( !query.exec() )
+        showError( query );
 
     while ( query.next() ) {
         info->addOption( query.value(0).toString(), query.value(1).toString() );
@@ -309,12 +315,15 @@ void SQLDB::SQLDB::sortAndMergeBackIn( const QStringList& /*fileList*/ )
 
 void SQLDB::SQLDB::renameItem( Category* category, const QString& oldName, const QString& newName )
 {
-    QString queryString = QString::fromLatin1( "UPDATE imagecategoryinfo SET value = \"%1\" "
-                                               "WHERE category = \"%2\" and value = \"%3\"" )
-                          .arg( newName ).arg( category->name() ).arg( oldName );
     QSqlQuery query;
-    if ( !query.exec( queryString ) )
-        showError( query.lastError(), queryString );
+    query.prepare( QString::fromLatin1( "UPDATE imagecategoryinfo SET value = :newName "
+                                        "WHERE category = :category and value = :oldName" ));
+    query.bindValue( QString::fromLatin1( ":newName" ), newName );
+    query.bindValue( QString::fromLatin1( ":category" ), category->name() );
+    query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
+
+    if ( !query.exec() )
+        showError( query );
 
 }
 
@@ -363,6 +372,7 @@ void SQLDB::SQLDB::loadMemberGroups()
 
 void SQLDB::SQLDB::loadCategories()
 {
+#ifdef TEMPORARILY_REMOVED
     QSqlQuery categoriesQuery;
     if ( !categoriesQuery.exec( "SELECT category, viewtype, viewsize, icon, showIt FROM categorysetup" ) )
         qFatal("Could not run query");
@@ -375,7 +385,7 @@ void SQLDB::SQLDB::loadCategories()
         QString icon = categoriesQuery.value(3).toString();
         bool show = categoriesQuery.value(4).toBool();
 
-        Category* cat = _categoryCollection.categoryForName( category ); // Special Categories are already created.
+        CategoryPtr cat = _categoryCollection.categoryForName( category ); // Special Categories are already created.
         if ( !cat ) {
             cat = new Category( category, icon, (Category::ViewSize) viewsize, (Category::ViewType) viewtype, show );
             _categoryCollection.addCategory( cat );
@@ -390,10 +400,11 @@ void SQLDB::SQLDB::loadCategories()
     while (categoryValuesQuery.next() ) {
         QString category = categoryValuesQuery.value(0).toString();
         QString value = categoryValuesQuery.value(1).toString();
-        Category* cat = _categoryCollection.categoryForName( category );
+        CategoryPtr cat = _categoryCollection.categoryForName( category );
         if ( cat )
             cat->addItem( value );
     }
+#endif
 }
 
 CategoryCollection* SQLDB::SQLDB::categoryCollection()

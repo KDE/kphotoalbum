@@ -19,6 +19,8 @@
 #ifndef SQLDB_QUERY_H
 #define SQLDB_QUERY_H
 #include <optionmatcher.h>
+#include <qvariant.h>
+class QSqlQuery;
 class QSqlError;
 class ImageSearchInfo;
 
@@ -27,8 +29,12 @@ namespace SQLDB {
     QString buildAndQuery( OptionAndMatcher* matcher );
     QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
     QStringList filesMatchingQuery( const ::ImageSearchInfo& info );
-    void showError( const QSqlError& error, const QString& query );
+    void showError( QSqlQuery& query );
     QStringList values( OptionValueMatcher* matcher );
+    QStringList runAndReturnList( const QString& queryString );
+    QVariant fetchItem( const QString& queryString, const QMap<QString,QVariant>& bindings );
+    bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings, QSqlQuery& query  );
+    bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings );
 }
 
 #endif /* SQLDB_QUERY_H */

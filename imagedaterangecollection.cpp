@@ -102,9 +102,12 @@ QDateTime ImageDateRangeCollection::upperLimit() const
 
 ImageDateRangeCollection::ImageDateRangeCollection( const QStringList& list )
 {
+    qDebug("datebar disabled in ImageDateRangeCollection::ImageDateRangeCollection");
+#ifdef TEMPORARILY_REMOVED
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageInfo* info = ImageDB::instance()->info( *it );
         append( ImageDateRange( info->startDate(), info->endDate() ) );
     }
+#endif
 }
 

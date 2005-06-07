@@ -123,8 +123,8 @@ void OptionsDialog::createGeneralPage()
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
-    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         _albumCategory->insertItem( (*it)->text() );
     }
 
@@ -369,7 +369,7 @@ void OptionsDialog::show()
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
 
-    Category* cat = ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
+    CategoryPtr cat = ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
         cat = ImageDB::instance()->categoryCollection()->categories()[0];
     _albumCategory->setCurrentText( cat->text() );
@@ -386,8 +386,8 @@ void OptionsDialog::show()
 
     // Config Groups page
     _categories->clear();
-    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
             new OptionGroupItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(),_categories );
         }
@@ -446,8 +446,7 @@ void OptionsDialog::slotMyOK()
         OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
         if ( item->_categoryOrig.isNull() ) {
             // New Item
-            Category* category = new Category( item->_text, item->_icon, item->_size, item->_type );
-            ImageDB::instance()->categoryCollection()->addCategory( category );
+            ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon, item->_size, item->_type  );
         }
         else {
             if ( item->_text != item->_textOrig ) {
@@ -749,8 +748,8 @@ void OptionsDialog::setButtonStates()
 void OptionsDialog::slotPageChange()
 {
     _category->clear();
-    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( !(*it)->isSpecialCategory() )
             _category->insertItem( (*it)->text() );
     }

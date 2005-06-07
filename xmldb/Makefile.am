@@ -5,6 +5,6 @@ INCLUDES = \
 	 -I$(srcdir)/.. $(all_includes)
 
 libxmldb_la_SOURCES = \
-	xmldb.cpp
+	xmldb.cpp xmlcategorycollection.cpp xmlcategory.cpp
 
 METASOURCES = AUTO

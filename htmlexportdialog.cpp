@@ -142,8 +142,8 @@ void HTMLExportDialog::createContentPage()
     QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
     lay3->setAutoAdd( true );
 
-    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
             QCheckBox* cb = new QCheckBox( (*it)->text(), w );
             _whatToIncludeMap.insert( (*it)->name(), cb );
@@ -538,8 +538,8 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
     // -------------------------------------------------- Description
     QString description;
 
-    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( (*it)->isSpecialCategory() )
             continue;
 

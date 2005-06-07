@@ -29,6 +29,7 @@
 #include <category.h>
 #include "newimagefinder.h"
 #include <categorycollection.h>
+#include "xmlcategorycollection.h"
 class ImageInfo;
 
 namespace XMLDB {
@@ -93,7 +94,7 @@ namespace XMLDB {
         ImageInfoList _missingTimes;
         MemberMap _members;
         MD5Map _md5map;
-        CategoryCollection _categoryCollection;
+        XMLCategoryCollection _categoryCollection;
     };
 }
 

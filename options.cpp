@@ -326,8 +326,9 @@ bool Options::ready()
 
 void Options::createSpecialCategories()
 {
+    qDebug("TEMP REM: Options::createSpecialCategories" );
 #ifdef TEMPORARILY_REMOVED
-    Category* folderCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Folder" ) );
+    CategoryPtr folderCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Folder" ) );
     if( folderCat == 0 ) {
         folderCat = new Category( STR("Folder"), STR("folder"), Category::Small, Category::ListView, false );
         ImageDB::instance()->categoryCollection()->addCategory( folderCat );
@@ -335,7 +336,7 @@ void Options::createSpecialCategories()
     folderCat->setSpecialCategory( true );
 
 
-    Category* tokenCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Tokens" ) );
+    CategoryPtr tokenCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Tokens" ) );
     if ( !tokenCat ) {
         tokenCat = new Category( STR("Tokens"), STR("cookie"), Category::Small, Category::ListView, true );
         ImageDB::instance()->categoryCollection()->addCategory( tokenCat );

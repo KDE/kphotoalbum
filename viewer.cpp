@@ -184,8 +184,8 @@ void Viewer::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showTime() );
 
-    QValueList<Category*> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         ShowOptionAction* action = new ShowOptionAction( (*it)->name(), this );
         action->plug( _popup );
         connect( action, SIGNAL( toggled( const QString&, bool ) ),

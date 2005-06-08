@@ -802,6 +802,9 @@ void MainView::load()
         }
     }
 
+    if (configFile.startsWith( QString::fromLatin1( "~" ) ) )
+        configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
+
     Options::setup( QFileInfo( configFile ).dirPath( true ) );
     ImageDB::setup( backEnd, configFile );
 }

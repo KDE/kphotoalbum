@@ -3,10 +3,11 @@
 #include <imagedb.h>
 #include <imagesearchinfo.h>
 #include <qsqlquery.h>
+#include <options.h>
 QStringList SQLDB::buildQueries( OptionMatcher* matcher )
 {
     QStringList allImages;
-    allImages << QString::fromLatin1( "SELECT distinct fileName FROM sortorder" );
+    allImages << QString::fromLatin1( "SELECT distinct fileId FROM sortorder" );
 
     if ( matcher == 0 )
         return allImages;
@@ -37,7 +38,7 @@ QStringList SQLDB::buildQueries( OptionMatcher* matcher )
 
 QString SQLDB::buildAndQuery( OptionAndMatcher* matcher )
 {
-    QString prefix = QString::fromLatin1( "SELECT distinct q0.fileName FROM " );
+    QString prefix = QString::fromLatin1( "SELECT distinct q0.fileId FROM " );
     QString query;
     QString filesMatch;
     int idx = 0;
@@ -49,7 +50,7 @@ QString SQLDB::buildAndQuery( OptionAndMatcher* matcher )
             prefix += QString::fromLatin1( ", " );
             if ( idx > 1 )
                 filesMatch += QString::fromLatin1( "and " );
-            filesMatch += QString::fromLatin1( "q0.fileName = q%1.fileName" ).arg( idx );
+            filesMatch += QString::fromLatin1( "q0.fileId = q%1.fileId" ).arg( idx );
         }
         prefix += QString::fromLatin1( "imagecategoryinfo q%1" ).arg( idx );
 
@@ -95,7 +96,7 @@ QString SQLDB::buildAndQuery( OptionAndMatcher* matcher )
 
     for( QValueList<OptionEmptyMatcher*>::Iterator it = emptyMatchers.begin(); it != emptyMatchers.end(); ++it ) {
         QStringList list = matchedValues[(*it)->_category ];
-        result += QString::fromLatin1( " %1 q0.fileName not in ( SELECT fileName FROM imagecategoryinfo WHERE %2)" )
+        result += QString::fromLatin1( " %1 q0.fileId not in ( SELECT fileId FROM imagecategoryinfo WHERE %2)" )
                   .arg( query.isEmpty() ? QString::null : QString::fromLatin1( "and" ) ).arg( buildValue( (*it)->_category, list, -1, true ) );
     }
     return result;
@@ -126,9 +127,9 @@ QString SQLDB::buildValue( const QString& category, const QStringList& vals, int
         return QString::fromLatin1( "%1category = \"%2\" " ).arg(prefix).arg( category );
 }
 
-QStringList SQLDB::filesMatchingQuery( const ImageSearchInfo& info )
+QValueList<int> SQLDB::filesMatchingQuery( const ImageSearchInfo& info )
 {
-    QStringList result;
+    QValueList<int> result;
     QStringList queries = buildQueries( info.query() ); // PENDING(blackie) How about bindvalue here?
     for( QStringList::Iterator it = queries.begin(); it != queries.end(); ++it ) {
         QSqlQuery query;
@@ -136,9 +137,9 @@ QStringList SQLDB::filesMatchingQuery( const ImageSearchInfo& info )
             showError( query );
 
         while ( query.next() ) {
-            QString str = query.value(0).toString();
-            if ( !result.contains( str ) ) // PENDING(blackie) ouch O(n^2) complexity, do better!
-                result.append( str );
+            int val = query.value(0).toInt();
+            if ( !result.contains( val ) ) // PENDING(blackie) ouch O(n^2) complexity, do better!
+                result.append( val );
         }
     }
     return result;
@@ -159,10 +160,14 @@ QStringList SQLDB::values( OptionValueMatcher* matcher )
     return values;
 }
 
-QStringList SQLDB::runAndReturnList( const QString& queryString )
+QStringList SQLDB::runAndReturnList( const QString& queryString, const QMap<QString,QVariant>& bindings )
 {
     QSqlQuery query;
-    if ( !query.exec( queryString ) ) {
+    query.prepare( queryString );
+    for( QMap<QString,QVariant>::ConstIterator it = bindings.begin(); it != bindings.end(); ++it ) {
+        query.bindValue( it.key(), it.data() );
+    }
+    if ( !query.exec() ) {
         showError( query );
         return QStringList();
     }
@@ -200,5 +205,33 @@ bool SQLDB::runQuery( const QString& queryString, const QMap<QString,QVariant>& 
 {
     QSqlQuery query;
     return runQuery( queryString, bindings, query );
+}
+
+QStringList SQLDB::memberOfCategory( const QString& category )
+{
+    QString query = QString::fromLatin1( "SELECT item FROM categorysortorder WHERE category=:category" );
+    QMap<QString,QVariant> map;
+    map.insert( QString::fromLatin1( ":category" ), category );
+    return runAndReturnList( query, map );
+}
+
+QString SQLDB::fileNameForId( int id, bool fullPath )
+{
+    QString query = QString::fromLatin1( "SELECT fileName FROM sortorder WHERE fileId = :id" );
+    QMap<QString,QVariant> map;
+    map.insert( QString::fromLatin1( ":id" ), id );
+    QString fileName = fetchItem( query, map ).toString();
+    if ( fullPath )
+        return Options::instance()->imageDirectory() + fileName;
+    else
+        return fileName;
+}
+
+int SQLDB::idForFileName( const QString& relativePath )
+{
+    QString query = QString::fromLatin1( "SELECT fileId from sortorder WHERE fileName = :fileName " );
+    QMap<QString,QVariant> map;
+    map.insert( QString::fromLatin1( ":fileName" ), relativePath );
+    return fetchItem( query, map ).toInt();
 }
 

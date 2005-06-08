@@ -28,13 +28,16 @@ namespace SQLDB {
     QStringList buildQueries( OptionMatcher* );
     QString buildAndQuery( OptionAndMatcher* matcher );
     QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
-    QStringList filesMatchingQuery( const ::ImageSearchInfo& info );
+    QValueList<int> filesMatchingQuery( const ::ImageSearchInfo& info );
     void showError( QSqlQuery& query );
     QStringList values( OptionValueMatcher* matcher );
-    QStringList runAndReturnList( const QString& queryString );
-    QVariant fetchItem( const QString& queryString, const QMap<QString,QVariant>& bindings );
+    QStringList runAndReturnList( const QString& queryString, const QMap<QString,QVariant>& bindings = QMap<QString,QVariant>() );
+    QVariant fetchItem( const QString& queryString, const QMap<QString,QVariant>& bindings  = QMap<QString,QVariant>() );
     bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings, QSqlQuery& query  );
     bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings );
+    QStringList memberOfCategory( const QString& category );
+    QString fileNameForId( int id, bool fullPath );
+    int idForFileName( const QString& fullPath );
 }
 
 #endif /* SQLDB_QUERY_H */

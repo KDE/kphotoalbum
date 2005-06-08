@@ -80,6 +80,7 @@ void GroupCounter::count( const QStringList& optionList )
     countedGroupDict.clear();
     for( QStringList::ConstIterator optionIt = optionList.begin(); optionIt != optionList.end(); ++optionIt ) {
         QStringList* groups = _memberToGroup[*optionIt];
+        qDebug("%d", _memberToGroup.count());
         if ( groups ) {
             for( QStringList::Iterator groupsIt = (*groups).begin(); groupsIt != (*groups).end(); ++groupsIt ) {
                 if ( countedGroupDict.find( *groupsIt ) == 0 ) {

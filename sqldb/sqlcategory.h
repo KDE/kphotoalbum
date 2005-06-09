@@ -30,7 +30,6 @@ namespace SQLDB {
         virtual void renameItem( const QString& oldValue, const QString& newValue );
         virtual void addItem( const QString& item );
         virtual QStringList items() const;
-        virtual QStringList itemsInclGroups() const;
 
     private:
         QString _category;

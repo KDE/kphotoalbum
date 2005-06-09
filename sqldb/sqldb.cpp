@@ -197,7 +197,7 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
         imageQuery.bindValue( QString::fromLatin1( ":width" ),  info->size().width() );
         imageQuery.bindValue( QString::fromLatin1( ":height" ),  info->size().height() );
         imageQuery.bindValue( QString::fromLatin1( ":md5sum" ), info->MD5Sum() );
-        imageQuery.bindValue( QString::fromLatin1( ":fileId" ),  idForFileName( info->fileName( true ) ) );
+        imageQuery.bindValue( QString::fromLatin1( ":fileId" ),  nextId );
         imageQuery.bindValue( QString::fromLatin1( ":label" ),  info->label() );
         imageQuery.bindValue( QString::fromLatin1( ":angle" ),  info->angle() );
         imageQuery.bindValue( QString::fromLatin1( ":description" ),  info->description() );
@@ -301,8 +301,8 @@ ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
         showError( query );
 
     Q_ASSERT( query.numRowsAffected() == 1 );
-    if ( query.numRowsAffected() != 1 ) {
-        qWarning( "Internal Error: Didn't find %s (%s) in Database", fileName.latin1(), relativeFileName.latin1() );
+    if ( query.numRowsAffected() < 1 ) {
+        qWarning( "Internal Error: Didn't find %s (%s) fileId = %d in Database", fileName.latin1(), relativeFileName.latin1(), idForFileName(relativeFileName) );
         return new ImageInfo( relativeFileName ); // I'm afraid it will crash if we return 0.
     }
 

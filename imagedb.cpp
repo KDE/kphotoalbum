@@ -131,6 +131,7 @@ void ImageDB::convertBackend()
     QValueList<CategoryPtr> categories = origCategories->categories();
     for( QValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
         newCategories->addCategory( (*it)->text(), (*it)->iconName(), (*it)->viewSize(), (*it)->viewType(), (*it)->doShow() );
+        newCategories->categoryForName( (*it)->text() )->setItems( (*it)->items() );
     }
 }
 

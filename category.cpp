@@ -2,6 +2,9 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h>
+#include "imagedb.h"
+#include "options.h"
+#include "membermap.h"
 
 QPixmap Category::icon( int size ) const
 {
@@ -27,6 +30,24 @@ QString Category::text() const
         return i18n("Tokens");
     else
         return name();
+}
+
+QStringList Category::itemsInclGroups() const
+{
+        // values including member groups
+
+    QStringList items = this->items();
+
+    // add the groups to the list too, but only if the group is not there already, which will be the case
+    // if it has ever been selected once.
+    QStringList groups = ImageDB::instance()->memberMap().groups( name() );
+    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
+        if ( ! items.contains(  *it ) )
+            items << *it ;
+    };
+    if ( Options::instance()->viewSortType() == Options::SortAlpha )
+        items.sort();
+    return items;
 }
 
 #include "category.moc"

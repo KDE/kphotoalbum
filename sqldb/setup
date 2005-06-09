@@ -53,7 +53,7 @@ CREATE TABLE sortorder
 
 CREATE TABLE categorysortorder
 (
-  idx INT PRIMARY KEY,
+  idx INT,
   category varchar(255),
   item varchar(255)
 );

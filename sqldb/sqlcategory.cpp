@@ -88,7 +88,21 @@ bool SQLDB::SQLCategory::isSpecialCategory() const
 
 void SQLDB::SQLCategory::setItems( const QStringList& items )
 {
-    qDebug("NYI: void SQLDB::SQLCategory::setItems( const QStringList& items )" );
+    QString queryStr = QString::fromLatin1( "DELETE FROM categorysortorder WHERE category = :category" );
+    QMap<QString, QVariant> map;
+    map.insert( QString::fromLatin1( ":category" ), _category );
+    runQuery( queryStr, map );
+
+    QSqlQuery query;
+    query.prepare( QString::fromLatin1( "INSERT INTO categorysortorder set idx = :idx, category = :category, item = :item" ) );
+    query.bindValue( QString::fromLatin1( ":category" ), _category );
+    int idx = 0;
+    for( QStringList::ConstIterator it = items.begin(); it != items.end(); ++it ) {
+        query.bindValue( QString::fromLatin1( ":idx" ), idx++ );
+        query.bindValue( QString::fromLatin1( ":item" ), *it );
+        if ( !query.exec() )
+            showError( query );
+    }
 }
 
 void SQLDB::SQLCategory::removeItem( const QString& item )
@@ -103,19 +117,24 @@ void SQLDB::SQLCategory::renameItem( const QString& oldValue, const QString& new
 
 void SQLDB::SQLCategory::addItem( const QString& item )
 {
-    qDebug("NYI: void SQLDB::SQLCategory::addItem( const QString& item )" );
+    QString queryStr = QString::fromLatin1( "SELECT MAX(idx) FROM categorysortorder" );
+    int idx = fetchItem( queryStr ).toInt();
+
+    QSqlQuery query;
+    query.prepare( QString::fromLatin1( "INSERT INTO categorysortorder set idx = :idx, category = :category, item = :item" ) );
+    query.bindValue( QString::fromLatin1( ":category" ), _category );
+    query.bindValue( QString::fromLatin1( ":idx" ), idx++ );
+    query.bindValue( QString::fromLatin1( ":item" ), item );
+    if ( !query.exec() )
+        showError( query );
 }
 
 QStringList SQLDB::SQLCategory::items() const
 {
-    qDebug("NYI: QStringList SQLDB::SQLCategory::items() const" );
-    return QStringList();
-}
-
-QStringList SQLDB::SQLCategory::itemsInclGroups() const
-{
-    qDebug("NYI: QStringList SQLDB::SQLCategory::itemsInclGroups() const" );
-    return QStringList();
+    QString query = QString::fromLatin1( "SELECT item FROM categorysortorder WHERE category = :category" ); // SORT BY idx" );
+    QMap<QString,QVariant> map;
+    map.insert( QString::fromLatin1( ":category" ), _category );
+    return runAndReturnList( query, map );
 }
 
 SQLDB::SQLCategory::SQLCategory( const QString& category )

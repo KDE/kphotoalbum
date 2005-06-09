@@ -44,7 +44,7 @@ public:
     virtual void renameItem( const QString& oldValue, const QString& newValue ) = 0;
     virtual void addItem( const QString& item ) = 0;
     virtual QStringList items() const = 0;
-    virtual QStringList itemsInclGroups() const = 0;
+    virtual QStringList itemsInclGroups() const;
 
 signals:
     void changed();

@@ -101,21 +101,3 @@ QStringList XMLDB::XMLCategory::items() const
 {
     return _items;
 }
-
-QStringList XMLDB::XMLCategory::itemsInclGroups() const
-{
-    // values including member groups
-
-    QStringList items = _items;
-
-    // add the groups to the list too, but only if the group is not there already, which will be the case
-    // if it has ever been selected once.
-    QStringList groups = ImageDB::instance()->memberMap().groups( name() );
-    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
-        if ( ! items.contains(  *it ) )
-            items << *it ;
-    };
-    if ( Options::instance()->viewSortType() == Options::SortAlpha )
-        items.sort();
-    return items;
-}

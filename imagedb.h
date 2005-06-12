@@ -46,6 +46,7 @@ public slots:
     virtual void slotRescan();
     virtual void slotRecalcCheckSums();
     virtual int count( const ImageSearchInfo& info );
+    virtual void slotReread( const QStringList& list, int mode);
 
 protected:
     ImageDateRange _selectionRange;
@@ -89,8 +90,6 @@ protected slots:
     virtual void deleteItem( Category* category, const QString& option ) = 0;
     virtual void lockDB( bool lock, bool exclude ) = 0;
 
-public slots:
-    virtual void slotReread( const QStringList& list, int mode) = 0;
 
 signals:
     void totalChanged( int );

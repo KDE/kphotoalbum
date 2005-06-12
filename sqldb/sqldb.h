@@ -61,13 +61,9 @@ namespace SQLDB {
         virtual void deleteItem( Category* category, const QString& option );
         virtual void lockDB( bool lock, bool exclude );
 
-    public slots:
-        virtual void slotReread( const QStringList& list, int mode);
-
     protected:
         void openDatabase();
         void loadMemberGroups();
-        void loadCategories();
         QStringList imageList( bool withRelativePath );
 
     private:

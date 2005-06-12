@@ -57,9 +57,6 @@ namespace XMLDB {
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();
 
-    public slots:
-        void slotReread( const QStringList& list, int mode);
-
     protected:
         ImageInfo* load( const QString& filename, QDomElement elm );
         void checkIfImagesAreSorted();

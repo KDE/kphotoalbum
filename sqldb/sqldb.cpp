@@ -10,6 +10,7 @@
 #include <imageinfo.h>
 #include <util.h>
 #include "groupCounter.h"
+#include <kdebug.h>
 
 const QString imageInfoAttributes = "label, description, dayFrom, monthFrom, yearFrom, dayTo, monthTo, "
                                     "yearTo, hour, minute, second, angle, md5sum, width, height";
@@ -24,7 +25,6 @@ SQLDB::SQLDB::SQLDB()
 
     openDatabase();
     loadMemberGroups();
-    loadCategories();
 }
 
 int SQLDB::SQLDB::totalCount() const
@@ -390,11 +390,6 @@ void SQLDB::SQLDB::lockDB( bool /*lock*/, bool /*exclude*/ )
     qDebug("NYI: void SQLDB::SQLDB::lockDB( bool lock, bool exclude )" );
 }
 
-void SQLDB::SQLDB::slotReread( const QStringList& /*list*/, int /*mode*/)
-{
-    qDebug("NYI: void SQLDB::SQLDB::slotReread( const QStringList& list, int mode)" );
-}
-
 
 void SQLDB::SQLDB::openDatabase()
 {
@@ -423,42 +418,6 @@ void SQLDB::SQLDB::loadMemberGroups()
     }
 }
 
-void SQLDB::SQLDB::loadCategories()
-{
-#ifdef TEMPORARILY_REMOVED
-    QSqlQuery categoriesQuery;
-    if ( !categoriesQuery.exec( "SELECT category, viewtype, viewsize, icon, showIt FROM categorysetup" ) )
-        qFatal("Could not run query");
-
-    QStringList categories;
-    while ( categoriesQuery.next() ) {
-        QString category = categoriesQuery.value(0).toString();
-        int viewtype = categoriesQuery.value(1).toInt();
-        int viewsize = categoriesQuery.value(2).toInt();
-        QString icon = categoriesQuery.value(3).toString();
-        bool show = categoriesQuery.value(4).toBool();
-
-        CategoryPtr cat = _categoryCollection.categoryForName( category ); // Special Categories are already created.
-        if ( !cat ) {
-            cat = new Category( category, icon, (Category::ViewSize) viewsize, (Category::ViewType) viewtype, show );
-            _categoryCollection.addCategory( cat );
-        }
-        // PENDING(blackie) else set the values for icons, size, type, and show
-    }
-
-    QSqlQuery categoryValuesQuery;
-    if ( !categoryValuesQuery.exec( "select distinct category, value from imagecategoryinfo" ) )
-        qFatal("Unable to exec query");
-
-    while (categoryValuesQuery.next() ) {
-        QString category = categoryValuesQuery.value(0).toString();
-        QString value = categoryValuesQuery.value(1).toString();
-        CategoryPtr cat = _categoryCollection.categoryForName( category );
-        if ( cat )
-            cat->addItem( value );
-    }
-#endif
-}
 
 CategoryCollection* SQLDB::SQLDB::categoryCollection()
 {

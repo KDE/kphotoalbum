@@ -7,6 +7,7 @@
 #include "sqldb/sqldb.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>
+#include <qeventloop.h>
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -133,5 +134,31 @@ void ImageDB::convertBackend()
         newCategories->addCategory( (*it)->text(), (*it)->iconName(), (*it)->viewSize(), (*it)->viewType(), (*it)->doShow() );
         newCategories->categoryForName( (*it)->text() )->setItems( (*it)->items() );
     }
+}
+
+void ImageDB::slotReread( const QStringList& list, int mode)
+{
+        // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
+    QProgressDialog  dialog( i18n("<qt><p><b>Loading time information from images</b></p>"
+                                  "<p>Depending on the number of images, this may take some time.</p></qt>"),
+                             i18n("Cancel"), list.count() );
+
+    int count=0;
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
+        if ( count % 10 == 0 ) {
+            dialog.setProgress( count ); // ensure to call setProgress(0)
+            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+
+            if ( dialog.wasCanceled() )
+                return;
+        }
+
+        QFileInfo fi( *it );
+
+        if (fi.exists())
+            info(*it)->readExif(*it, mode);
+        emit dirty();
+    }
+
 }
 

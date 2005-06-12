@@ -79,7 +79,7 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
         noMatchInfo.setOption( group, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(ImageDB::NONE()) );
 
     // Iterate through the whole database of images.
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
         if ( match ) { // If the given image is currently matched.
 
@@ -109,7 +109,7 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
 
 void XMLDB::XMLDB::renameCategory( const QString& oldName, const QString newName )
 {
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->renameCategory( oldName, newName );
     }
 }
@@ -119,7 +119,7 @@ void XMLDB::XMLDB::addToBlockList( const QStringList& list )
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageInfo* inf= info(*it);
         _blockList << inf->fileName( true );
-        _images.removeRef( inf );
+        _images.remove( inf );
     }
     emit totalChanged( _images.count() );
 }
@@ -128,21 +128,21 @@ void XMLDB::XMLDB::deleteList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageInfo* inf= info(*it);
-        _images.removeRef( inf );
+        _images.remove( inf );
     }
     emit totalChanged( _images.count() );
 }
 
 void XMLDB::XMLDB::renameItem( Category* category, const QString& oldName, const QString& newName )
 {
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->renameItem( category->name(), oldName, newName );
     }
 }
 
 void XMLDB::XMLDB::deleteItem( Category* category, const QString& option )
 {
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->removeOption( category->name(), option );
     }
 }
@@ -150,7 +150,7 @@ void XMLDB::XMLDB::deleteItem( Category* category, const QString& option )
 void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
 {
     ImageSearchInfo info = Options::instance()->currentLock();
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         if ( lock ) {
             bool match = info.match( *it );
             if ( !exclude )
@@ -197,7 +197,7 @@ ImageInfo* XMLDB::XMLDB::info( const QString& fileName ) const
         return fileMap[ fileName ];
     else {
         fileMap.clear();
-        for( ImageInfoListIterator it( _images ); *it; ++it ) {
+        for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
             fileMap.insert( (*it)->fileName(), *it );
         }
         if ( fileMap.contains( fileName ) )
@@ -213,7 +213,7 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
 
     QDateTime last( QDate( 1900, 1, 1 ) );
     bool wrongOrder = false;
-    for( ImageInfoListIterator it( _images ); !wrongOrder && *it; ++it ) {
+    for( ImageInfoListIterator it = _images.begin(); !wrongOrder && it != _images.end(); ++it ) {
         if ( last > (*it)->startDate().min() )
             wrongOrder = true;
         last = (*it)->startDate().min();
@@ -519,14 +519,14 @@ void XMLDB::XMLDB::saveImages( QDomDocument doc, QDomElement top )
     ImageInfoList list = _images;
 
     // Copy files from clipboard to end of overview, so we don't loose them
-    for( ImageInfoListIterator it(_clipboard); *it; ++it ) {
+    for( ImageInfoListConstIterator it = _clipboard.constBegin(); it != _clipboard.constEnd(); ++it ) {
         list.append( *it );
     }
 
     QDomElement images = doc.createElement( QString::fromLatin1( "images" ) );
     top.appendChild( images );
 
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
+    for( ImageInfoListIterator it = list.begin(); it != list.end(); ++it ) {
         images.appendChild( (*it)->save( doc ) );
     }
 }
@@ -608,7 +608,7 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
 QStringList XMLDB::XMLDB::images()
 {
     QStringList result;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         result.append( (*it)->fileName() );
     }
     return result;
@@ -617,7 +617,7 @@ QStringList XMLDB::XMLDB::images()
 QStringList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
 {
     QStringList result;
-    for( ImageInfoListIterator it( _images ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
         match &= !requireOnDisk || (*it)->imageOnDisk();
 

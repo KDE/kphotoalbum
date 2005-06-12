@@ -399,7 +399,15 @@ void MainView::slotDeleteSelected()
         _deleteDialog = new DeleteDialog( this );
     if ( _deleteDialog->exec( selected() ) == QDialog::Accepted )
         setDirty( true );
-    reloadThumbNail();
+
+    QStringList images = _thumbNailView->imageList();
+    QStringList allImages = ImageDB::instance()->images();
+    QStringList newSet;
+    for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
+        if ( allImages.contains( *it ) )
+            newSet.append(*it);
+    }
+    showThumbNails( newSet );
 }
 
 

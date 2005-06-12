@@ -255,7 +255,7 @@ void Import::createImagesPage()
     lay3->setColStretch( 2, 1 );
 
     int row = 0;
-    for( ImageInfoListIterator it( _images ); *it; ++it, ++row ) {
+    for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it, ++row ) {
         ImageInfo* info = *it;
         ImageRow* ir = new ImageRow( info, this, container );
         lay3->addWidget( ir->_checkbox, row, 0 );
@@ -364,7 +364,7 @@ void Import::createOptionPages()
 {
     QStringList options;
     ImageInfoList images = selectedImages();
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         ImageInfo* info = *it;
         QStringList opts = info->availableOptionGroups();
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
@@ -387,7 +387,7 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
 {
     QStringList otherOptions;
     ImageInfoList images = selectedImages();
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         ImageInfo* info = *it;
         QStringList opts = info->optionValue( otherOptionGroup );
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
@@ -447,7 +447,7 @@ void Import::next()
 bool Import::copyFilesFromZipFile()
 {
     ImageInfoList images = selectedImages();
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         QString fileName = (*it)->fileName( true );
         QByteArray data = loadImage( fileName );
         if ( data.isNull() )
@@ -482,8 +482,8 @@ void Import::copyFromExternal()
 
 void Import::copyNextFromExternal()
 {
-    ImageInfo* info = _pendingCopies.at(0);
-    _pendingCopies.remove((uint)0);
+    ImageInfo* info = _pendingCopies[0];
+    _pendingCopies.pop_front();
     QString fileName = info->fileName( true );
     KURL src1 = _kimFile;
     KURL src2 = _baseUrl + QString::fromLatin1( "/" );
@@ -552,7 +552,7 @@ void Import::updateDB()
 {
     // Run though all images
     ImageInfoList images = selectedImages();
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         ImageInfo* info = *it;
 
         ImageInfo* newInfo = new ImageInfo( _nameMap[info->fileName(true)] );

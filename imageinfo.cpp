@@ -253,6 +253,16 @@ ImageDate& ImageInfo::endDate()
     return _endDate;
 }
 
+ImageDate ImageInfo::startDate() const
+{
+    return _startDate;
+}
+
+ImageDate ImageInfo::endDate() const
+{
+    return _endDate;
+}
+
 
 bool ImageInfo::operator!=( const ImageInfo& other )
 {

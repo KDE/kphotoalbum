@@ -190,7 +190,7 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
     sortOrderQuery.prepare( sortOrderQueryString );
 
     int nextId = fetchItem( QString::fromLatin1( "SELECT MAX(fileId) FROM sortorder" ) ).toInt();
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         ImageInfo* info = *it;
         ++nextId;
 

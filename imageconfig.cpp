@@ -298,7 +298,7 @@ void ImageConfig::slotOK()
     if ( _setup == SINGLE )  {
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
-            *(_origList.at(i)) = _editList[i];
+            *(_origList[i]) = _editList[i];
         }
     }
     else if ( _setup == MULTIPLE ) {
@@ -306,7 +306,7 @@ void ImageConfig::slotOK()
             (*it)->slotReturn();
         }
 
-        for( ImageInfoListIterator it( _origList ); *it; ++it ) {
+        for( ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
             ImageInfo* info = *it;
             info->rotate( _preview->angle() );
             if ( !_startDate->date().isNull() ) {
@@ -424,7 +424,7 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
     _origList = list;
     _editList.clear();
 
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         _editList.append( *(*it) );
     }
 
@@ -678,7 +678,7 @@ bool ImageConfig::hasChanges()
         // PENDING(blackie) how about description and label?
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
-            changed |= (*(_origList.at(i)) != _editList[i]);
+            changed |= (*(_origList[i]) != _editList[i]);
         }
     }
 
@@ -733,18 +733,18 @@ void ImageConfig::slotAddTimeInfo()
 void ImageConfig::slotDeleteImage()
 {
     DeleteDialog dialog( this );
-    ImageInfo* info = _origList.at( _current );
+    ImageInfo* info = _origList[_current];
     ImageInfoList list;
     list.append( info );
 
     QStringList strList;
-    for( ImageInfoListIterator it( list ); *it; ++it )
+    for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it )
         strList.append( (*it)->fileName() );
     int ret = dialog.exec( strList );
     if ( ret == Rejected )
         return;
 
-    _origList.removeRef( info );
+    _origList.remove( info );
     _editList.remove( _editList.at( _current ) );
     _thumbnailShouldReload = true;
     emit changed();

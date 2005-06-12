@@ -31,6 +31,7 @@
 #include "drawlist.h"
 #include <qimage.h>
 #include "imagedaterange.h"
+#include <ksharedptr.h>
 
 #define EXIFMODE_TIME          0x01
 #define EXIFMODE_DATE          0x02
@@ -41,7 +42,7 @@
 #define EXIFMODE_FORCE_DATE    0x40
 #define EXIFMODE_INIT ( EXIFMODE_TIME | EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION | EXIFMODE_FORCE_TIME | EXIFMODE_FORCE_DATE )
 
-class ImageInfo {
+class ImageInfo :public KShared {
 
 public:
 
@@ -68,6 +69,8 @@ public:
 
     void setStartDate( const ImageDate& );
     void setEndDate( const ImageDate& );
+    ImageDate startDate() const;
+    ImageDate endDate() const;
     ImageDate& startDate();
     ImageDate& endDate();
     ImageDateRange dateRange() const;
@@ -142,5 +145,6 @@ public:
     static bool _anyImageWithEmptySize;
 };
 
+typedef KSharedPtr<ImageInfo> ImageInfoPtr;
 #endif /* IMAGEINFO_H */
 

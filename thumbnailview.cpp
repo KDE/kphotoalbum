@@ -138,9 +138,11 @@ void ThumbNailView::contentsDragMoveEvent( QDragMoveEvent *e )
 
 void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool after )
 {
+    qDebug( "Temp Removed in ThumbNailView::reorder" );
+#ifdef TEMPORARILY_REMOVED
     ImageInfoList& images = ImageDB::instance()->imageInfoList();
 
-    for( ImageInfoListIterator it( cutList ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = cutList.constBegin(); it != cutList.constEnd(); ++it ) {
         images.removeRef( *it );
     }
 
@@ -153,6 +155,7 @@ void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool
         ++index;
     }
     emit changed();
+#endif
 }
 
 void ThumbNailView::contentsDropEvent( QDropEvent* e )
@@ -191,7 +194,7 @@ void ThumbNailView::slotCut()
     QPtrList<ThumbNail> thumbNails = selected();
     ImageInfoList list;
     for( QPtrListIterator<ThumbNail> it( thumbNails ); *it; ++it ) {
-        images.removeRef( (*it)->imageInfo() );
+        images.remove( (*it)->imageInfo() );
         list.append( (*it)->imageInfo() );
         delete *it;
     }
@@ -200,6 +203,8 @@ void ThumbNailView::slotCut()
 
 void ThumbNailView::slotPaste()
 {
+    qDebug("Temp removed in ThumbNailView::slotPaste()");
+#ifdef TEMPORARILY_REMOVED
     QPtrList<ThumbNail> selectedList = selected();
     if ( selectedList.count() == 0 ) {
         KMessageBox::information( this, i18n("To paste you have to select an image that the past should go after."), i18n("Nothing Selected") );
@@ -230,6 +235,7 @@ void ThumbNailView::slotPaste()
         clipboard.clear();
         emit changed();
     }
+#endif
 }
 
 QPtrList<ThumbNail> ThumbNailView::selected() const
@@ -368,6 +374,11 @@ void ThumbNailView::showEvent( QShowEvent* event )
 void ThumbNailView::setImageList( const QStringList& list )
 {
     _images = list;
+}
+
+QStringList ThumbNailView::imageList() const
+{
+    return _images;
 }
 
 #include "thumbnailview.moc"

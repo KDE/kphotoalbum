@@ -37,6 +37,7 @@ public:
     static ThumbNailView* theThumbnailView();
     void makeCurrent( ImageInfo* info );
     void setImageList( const QStringList& list );
+    QStringList imageList() const;
 
 public slots:
     void reload();

@@ -627,7 +627,7 @@ ImageInfoList Util::stringListToInfoList( const QStringList& list )
 QStringList Util::infoListToStringList( const ImageInfoList& list )
 {
     QStringList result;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         result.append( (*it)->fileName() );
     }
     return result;

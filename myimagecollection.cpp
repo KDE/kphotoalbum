@@ -60,7 +60,7 @@ KURL::List MyImageCollection::images()
 KURL::List MyImageCollection::imageListToUrlList( const ImageInfoList& imageList )
 {
     KURL::List urlList;
-    for( ImageInfoListIterator it( imageList ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
         KURL url;
         url.setPath( (*it)->fileName() );
         urlList.append( url );

@@ -77,7 +77,7 @@ bool ImageSearchInfo::isNull() const
     return _isNull;
 }
 
-bool ImageSearchInfo::match( ImageInfo* info ) const
+bool ImageSearchInfo::match( ImageInfoPtr info ) const
 {
     if ( _isNull )
         return true;

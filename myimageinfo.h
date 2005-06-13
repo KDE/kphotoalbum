@@ -21,6 +21,7 @@
 
 #ifdef HASKIPI
 #include <libkipi/imageinfoshared.h>
+#include "imageinfoptr.h"
 class ImageInfo;
 
 class MyImageInfo :public KIPI::ImageInfoShared
@@ -47,7 +48,7 @@ public:
     virtual void cloneData( ImageInfoShared* other );
 
 private:
-    ImageInfo* _info;
+    ImageInfoPtr _info;
 };
 
 #endif // NOKIP

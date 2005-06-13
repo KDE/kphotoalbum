@@ -65,7 +65,7 @@ protected:
     void load();
     void updateInfoBox();
     void setupContextMenu();
-    ImageInfo* currentInfo();
+    ImageInfoPtr currentInfo();
     friend class InfoBox;
 
 protected slots:

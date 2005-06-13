@@ -145,6 +145,5 @@ public:
     static bool _anyImageWithEmptySize;
 };
 
-typedef KSharedPtr<ImageInfo> ImageInfoPtr;
 #endif /* IMAGEINFO_H */
 

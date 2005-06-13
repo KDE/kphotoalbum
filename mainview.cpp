@@ -832,7 +832,7 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
         _viewInNewWindow->plug( &menu );
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
-        ImageInfo* info = 0;
+        ImageInfoPtr info = ImageInfoPtr( 0 );
         QIconViewItem* item =
             _thumbNailView->findItem( _thumbNailView->viewportToContents( _thumbNailView->mapFromGlobal( QCursor::pos() ) ) );
         if ( item )
@@ -1023,7 +1023,7 @@ void MainView::slotShowNotOnDisk()
     QStringList allImages = ImageDB::instance()->images();
     QStringList notOnDisk;
     for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
-        ImageInfo* info = ImageDB::instance()->info(*it);
+        ImageInfoPtr info = ImageDB::instance()->info(*it);
         QFileInfo fi( info->fileName() );
         if ( !fi.exists() )
             notOnDisk.append(*it);

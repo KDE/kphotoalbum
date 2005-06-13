@@ -136,7 +136,7 @@ void ThumbNailView::contentsDragMoveEvent( QDragMoveEvent *e )
     }
 }
 
-void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool after )
+void ThumbNailView::reorder( ImageInfoPtr /*item*/, const ImageInfoList& /*cutList*/, bool /*after*/ )
 {
     qDebug( "Temp Removed in ThumbNailView::reorder" );
 #ifdef TEMPORARILY_REMOVED
@@ -339,11 +339,11 @@ ThumbNailView* ThumbNailView::theThumbnailView()
     return _instance;
 }
 
-void ThumbNailView::makeCurrent( ImageInfo* info )
+void ThumbNailView::makeCurrent( ImageInfoPtr info )
 {
     for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        if ( tn->imageInfo() == info ) {
+        if ( *(tn->imageInfo()) == *info ) {
             setCurrentItem( tn );
             tn->setSelected( true );
             ensureItemVisible( tn );

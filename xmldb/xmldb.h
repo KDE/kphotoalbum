@@ -49,7 +49,7 @@ namespace XMLDB {
         virtual void addToBlockList( const QStringList& list );
         virtual bool isBlocking( const QString& fileName );
         virtual void deleteList( const QStringList& list );
-        virtual ImageInfo* info( const QString& fileName ) const;
+        virtual ImageInfoPtr info( const QString& fileName ) const;
         virtual const MemberMap& memberMap();
         virtual void setMemberMap( const MemberMap& members );
         virtual void save( const QString& fileName );
@@ -58,9 +58,9 @@ namespace XMLDB {
         virtual CategoryCollection* categoryCollection();
 
     protected:
-        ImageInfo* load( const QString& filename, QDomElement elm );
+        ImageInfoPtr load( const QString& filename, QDomElement elm );
         void checkIfImagesAreSorted();
-        bool rangeInclude( ImageInfo* info ) const;
+        bool rangeInclude( ImageInfoPtr info ) const;
         void checkIfAllImagesHasSizeAttributes();
 
         QDomElement readConfigFile( const QString& configFile );

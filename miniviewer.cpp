@@ -27,7 +27,7 @@
 
 MiniViewer* MiniViewer::_instance = 0;
 
-void MiniViewer::show( QImage img, ImageInfo* info )
+void MiniViewer::show( QImage img, ImageInfoPtr info )
 {
     if ( !_instance )
         _instance = new MiniViewer();

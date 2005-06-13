@@ -70,7 +70,7 @@ void InvalidDateFinder::slotOk()
     int progress = 0;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfo* info = ImageDB::instance()->info(*it);
+        ImageInfoPtr info = ImageDB::instance()->info(*it);
         dialog.progressBar()->setProgress( ++progress );
         qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )

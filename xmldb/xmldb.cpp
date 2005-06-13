@@ -117,7 +117,7 @@ void XMLDB::XMLDB::renameCategory( const QString& oldName, const QString newName
 void XMLDB::XMLDB::addToBlockList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfo* inf= info(*it);
+        ImageInfoPtr inf= info(*it);
         _blockList << inf->fileName( true );
         _images.remove( inf );
     }
@@ -127,7 +127,7 @@ void XMLDB::XMLDB::addToBlockList( const QStringList& list )
 void XMLDB::XMLDB::deleteList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfo* inf= info(*it);
+        ImageInfoPtr inf= info(*it);
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
@@ -189,9 +189,9 @@ void XMLDB::XMLDB::addImages( const ImageInfoList& images )
     emit dirty();
 }
 
-ImageInfo* XMLDB::XMLDB::info( const QString& fileName ) const
+ImageInfoPtr XMLDB::XMLDB::info( const QString& fileName ) const
 {
-    static QMap<QString, ImageInfo* > fileMap;
+    static QMap<QString, ImageInfoPtr > fileMap;
 
     if ( fileMap.contains( fileName ) )
         return fileMap[ fileName ];
@@ -235,7 +235,7 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
     }
 }
 
-bool XMLDB::XMLDB::rangeInclude( ImageInfo* info ) const
+bool XMLDB::XMLDB::rangeInclude( ImageInfoPtr info ) const
 {
     if (_selectionRange.start().isNull() )
         return true;
@@ -466,7 +466,7 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
         if ( fileName.isNull() )
             qWarning( "Element did not contain a file attribute" );
         else {
-            ImageInfo* info = load( fileName, elm );
+            ImageInfoPtr info = load( fileName, elm );
             _images.append(info);
             _md5map.insert( info->MD5Sum(), fileName );
         }
@@ -474,9 +474,9 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
 
 }
 
-ImageInfo* XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
+ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
 {
-    ImageInfo* info = new ImageInfo( fileName, elm );
+    ImageInfoPtr info = new ImageInfo( fileName, elm );
     // This is for compatibility with KimDaBa 2.1 where this info was not saved.
     QString folderName = Util::relativeFolderName( fileName );
     info->setOption( QString::fromLatin1( "Folder") , QStringList( folderName ) );

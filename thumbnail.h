@@ -22,9 +22,9 @@
 #include <qlabel.h>
 #include <qiconview.h>
 #include "imageclient.h"
+#include "imageinfoptr.h"
 class QPixmapCache;
 class ThumbNailView;
-class ImageInfo;
 
 class ThumbNail :public QIconViewItem, public ImageClient {
 public:
@@ -34,7 +34,7 @@ public:
 
     virtual void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, bool loadedOK );
     QString fileName() const;
-    ImageInfo* imageInfo() const;
+    ImageInfoPtr imageInfo() const;
     virtual bool acceptDrop ( const QMimeSource * mime ) const;
 
 protected:
@@ -56,7 +56,7 @@ private:
     QString _fileName;
     ThumbNailView* _parent;
     bool _highlightItem;
-    mutable ImageInfo* _info; // Only to be used by method imageInfo()
+    mutable ImageInfoPtr _info; // Only to be used by method imageInfo()
 };
 
 #endif /* THUMBNAIL_H */

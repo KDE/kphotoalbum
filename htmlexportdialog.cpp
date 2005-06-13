@@ -477,7 +477,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
     if ( content.isNull() )
         return false;
 
-    ImageInfo* info = ImageDB::instance()->info( current );
+    ImageInfoPtr info = ImageDB::instance()->info( current );
 
     content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 

@@ -144,7 +144,7 @@ void Browser::addSearch( ImageSearchInfo& info )
     go();
 }
 
-void Browser::addImageView( ImageInfo* context )
+void Browser::addImageView( ImageInfoPtr context )
 {
     FolderAction* a = new ImageFolderAction( context, this );
     addItem(a);

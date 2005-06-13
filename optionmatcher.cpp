@@ -27,7 +27,7 @@ OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& 
 {
 }
 
-bool OptionValueMatcher::eval( ImageInfo* info )
+bool OptionValueMatcher::eval( ImageInfoPtr info )
 {
     info->setMatched( _category, _option );
     if ( info->hasOption( _category, _option ) ) {
@@ -50,7 +50,7 @@ OptionEmptyMatcher::OptionEmptyMatcher( const QString& category )
 {
 }
 
-bool OptionEmptyMatcher::eval( ImageInfo* info )
+bool OptionEmptyMatcher::eval( ImageInfoPtr info )
 {
     return info->allMatched( _category );
 }
@@ -62,7 +62,7 @@ void OptionContainerMatcher::addElement( OptionMatcher* element )
     _elements.append( element );
 }
 
-bool OptionAndMatcher::eval( ImageInfo* info )
+bool OptionAndMatcher::eval( ImageInfoPtr info )
 {
     for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( !(*it)->eval( info ) )
@@ -73,7 +73,7 @@ bool OptionAndMatcher::eval( ImageInfo* info )
 
 
 
-bool OptionOrMatcher::eval( ImageInfo* info )
+bool OptionOrMatcher::eval( ImageInfoPtr info )
 {
     for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( (*it)->eval( info ) )
@@ -89,7 +89,7 @@ OptionNotMatcher::OptionNotMatcher( OptionMatcher* element )
 {
 }
 
-bool OptionNotMatcher::eval( ImageInfo* info )
+bool OptionNotMatcher::eval( ImageInfoPtr info )
 {
     return !_element->eval( info );
 }

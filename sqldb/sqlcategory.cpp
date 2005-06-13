@@ -75,7 +75,7 @@ bool SQLDB::SQLCategory::doShow() const
 
 }
 
-void SQLDB::SQLCategory::setSpecialCategory( bool b )
+void SQLDB::SQLCategory::setSpecialCategory( bool /*b*/ )
 {
     qDebug("NYI: void SQLDB::SQLCategory::setSpecialCategory( bool b )" );
 }
@@ -105,12 +105,12 @@ void SQLDB::SQLCategory::setItems( const QStringList& items )
     }
 }
 
-void SQLDB::SQLCategory::removeItem( const QString& item )
+void SQLDB::SQLCategory::removeItem( const QString& /*item*/ )
 {
     qDebug("NYI: void SQLDB::SQLCategory::removeItem( const QString& item )" );
 }
 
-void SQLDB::SQLCategory::renameItem( const QString& oldValue, const QString& newValue )
+void SQLDB::SQLCategory::renameItem( const QString& /*oldValue*/, const QString& /*newValue*/ )
 {
     qDebug("NYI: void SQLDB::SQLCategory::renameItem( const QString& oldValue, const QString& newValue )" );
 }

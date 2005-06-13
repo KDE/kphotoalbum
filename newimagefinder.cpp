@@ -81,7 +81,7 @@ void NewImageFinder::loadExtraFiles()
 
         if ( dialog.wasCanceled() )
             return;
-        ImageInfo* info = loadExtraFile( *it );
+        ImageInfoPtr info = loadExtraFile( *it );
         if ( info )
             newImages.append(info);
     }
@@ -89,7 +89,7 @@ void NewImageFinder::loadExtraFiles()
 }
 
 
-ImageInfo* NewImageFinder::loadExtraFile( const QString& relativeName )
+ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeName )
 {
     QString sum = MD5Sum( Options::instance()->imageDirectory() + QString::fromLatin1("/") + relativeName );
     if ( ImageDB::instance()->md5Map()->contains( sum ) ) {
@@ -98,7 +98,7 @@ ImageInfo* NewImageFinder::loadExtraFile( const QString& relativeName )
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfo* info = ImageDB::instance()->info( Options::instance()->imageDirectory() + fileName );
+            ImageInfoPtr info = ImageDB::instance()->info( Options::instance()->imageDirectory() + fileName );
             if ( !info )
                 qWarning("How did that happen? We couldn't find info for the images %s", fileName.latin1());
             else {
@@ -114,7 +114,7 @@ ImageInfo* NewImageFinder::loadExtraFile( const QString& relativeName )
         }
     }
 
-    ImageInfo* info = new ImageInfo( relativeName  );
+    ImageInfoPtr info = new ImageInfo( relativeName  );
     info->setMD5Sum(sum);
     return info;
 }
@@ -129,7 +129,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list )
     bool dirty = false;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfo* info = ImageDB::instance()->info( *it );
+        ImageInfoPtr info = ImageDB::instance()->info( *it );
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );

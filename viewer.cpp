@@ -430,7 +430,7 @@ bool Viewer::close( bool alsoDelete)
     return QWidget::close( alsoDelete );
 }
 
-ImageInfo* Viewer::currentInfo()
+ImageInfoPtr Viewer::currentInfo()
 {
     return ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }

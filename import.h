@@ -38,9 +38,9 @@ class ImageRow :public QObject
 {
     Q_OBJECT
 public:
-    ImageRow( ImageInfo* info, Import* import, QWidget* parent );
+    ImageRow( ImageInfoPtr info, Import* import, QWidget* parent );
     QCheckBox* _checkbox;
-    ImageInfo* _info;
+    ImageInfoPtr _info;
     Import* _import;
 protected slots:
     void showImage();

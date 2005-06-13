@@ -191,7 +191,7 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
 
     int nextId = fetchItem( QString::fromLatin1( "SELECT MAX(fileId) FROM sortorder" ) ).toInt();
     for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfo* info = *it;
+        ImageInfoPtr info = *it;
         ++nextId;
 
         imageQuery.bindValue( QString::fromLatin1( ":width" ),  info->size().width() );
@@ -286,11 +286,11 @@ void SQLDB::SQLDB::deleteList( const QStringList& list )
     emit totalChanged( totalCount() );
 }
 
-ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
+ImageInfoPtr SQLDB::SQLDB::info( const QString& fileName ) const
 {
     QString relativeFileName = Util::stripImageDirectory( fileName );
 
-    static QMap<QString,ImageInfo*> map;
+    static QMap<QString,ImageInfoPtr> map;
     if ( map.contains( relativeFileName ) )
         return map[relativeFileName];
 
@@ -324,7 +324,7 @@ ImageInfo* SQLDB::SQLDB::info( const QString& fileName ) const
     int heigh = query.value( 14 ).toInt();
 
     // PENDING(blackie) where will this be deleted?
-    ImageInfo* info = new ImageInfo( relativeFileName, label, description, ImageDate( dayFrom, monthFrom, yearFrom, hour, minute, second ),
+    ImageInfoPtr info = new ImageInfo( relativeFileName, label, description, ImageDate( dayFrom, monthFrom, yearFrom, hour, minute, second ),
                                      ImageDate( dayTo, monthTo, yearTo ), angle, md5sum, QSize( width, heigh ) );
 
 

@@ -23,6 +23,7 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include <qdict.h>
+#include "imageinfoptr.h"
 class OptionOrMatcher;
 class ImageInfo;
 class OptionMatcher;
@@ -47,7 +48,7 @@ public:
     QString description() const;
 
     bool isNull() const;
-    bool match( ImageInfo* ) const;
+    bool match( ImageInfoPtr ) const;
     OptionMatcher* query() const;
 
     void addAnd( const QString& category, const QString& value );

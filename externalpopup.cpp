@@ -26,7 +26,7 @@
 #include <krun.h>
 #include <klocale.h>
 
-void ExternalPopup::populate( ImageInfo* current, const QStringList& imageList )
+void ExternalPopup::populate( ImageInfoPtr current, const QStringList& imageList )
 {
     _list = imageList;
     _currentInfo = current;

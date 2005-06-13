@@ -184,7 +184,7 @@ void DisplayArea::toggleShowDrawings( bool b )
     drawAll();
 }
 
-void DisplayArea::setImage( ImageInfo* info, bool forward )
+void DisplayArea::setImage( ImageInfoPtr info, bool forward )
 {
     _info = info;
     _loadedImage = QImage();
@@ -493,7 +493,7 @@ void DisplayArea::updatePreload()
         if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
             break;
 
-        ImageInfo* info = ImageDB::instance()->info(_imageList[i]);
+        ImageInfoPtr info = ImageDB::instance()->info(_imageList[i]);
         if ( !info ) {
             qWarning("Info was null for index %d!", i);
             return;

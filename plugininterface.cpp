@@ -94,7 +94,7 @@ bool PluginInterface::addImage( const KURL& url, QString& errmsg )
     }
 
     dir = dir.mid( root.length() );
-    ImageInfo* info = new ImageInfo( dir );
+    ImageInfoPtr info = new ImageInfo( dir );
     ImageInfoList list;
     list.append( info );
     ImageDB::instance()->addImages( list );
@@ -103,7 +103,7 @@ bool PluginInterface::addImage( const KURL& url, QString& errmsg )
 
 void PluginInterface::delImage( const KURL& url )
 {
-    ImageInfo* info = ImageDB::instance()->info( url.path() );
+    ImageInfoPtr info = ImageDB::instance()->info( url.path() );
     if ( info ) {
         QStringList list;
         list.append( info->fileName() );

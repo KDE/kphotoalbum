@@ -65,7 +65,7 @@ ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, Browser* brow
 {
 }
 
-ImageFolderAction::ImageFolderAction( ImageInfo* context, Browser* browser )
+ImageFolderAction::ImageFolderAction( ImageInfoPtr context, Browser* browser )
     :FolderAction( ImageSearchInfo(), browser ), _addExtraToBrowser(false), _context( context )
 {
 

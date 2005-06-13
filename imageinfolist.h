@@ -1,10 +1,7 @@
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
 #include <qvaluelist.h>
-#include <ksharedptr.h>
-
-class ImageInfo;
-typedef KSharedPtr<ImageInfo> ImageInfoPtr;
+#include "imageinfoptr.h"
 
 class ImageInfoList :public QValueList<ImageInfoPtr>
 {
@@ -16,7 +13,7 @@ public:
     void printItems();
     bool isSorted();
     void mergeIn( ImageInfoList list );
-    void remove( ImageInfo* info );
+    void remove( ImageInfoPtr info );
 
 private:
     bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );

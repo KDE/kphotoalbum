@@ -9,22 +9,22 @@
 
 ImageInfoList ImageInfoList::sort() const
 {
-    QMap<QDateTime, QValueList<ImageInfo*> > map;
+    QMap<QDateTime, QValueList<ImageInfoPtr> > map;
     for( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         map[(*it)->startDate().min()].append( *it );
     }
 
     ImageInfoList res;
-    for( QMap<QDateTime, QValueList<ImageInfo*> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
-        QValueList<ImageInfo*> list = mapIt.data();
-        for( QValueList<ImageInfo*>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+    for( QMap<QDateTime, QValueList<ImageInfoPtr> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
+        QValueList<ImageInfoPtr> list = mapIt.data();
+        for( QValueList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
             res.append( *listIt );
         }
     }
     return res;
 }
 
-void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
+void ImageInfoList::sortAndMergeBackIn( ImageInfoList& /*subListToSort*/ )
 {
     // qDebug( "REM: ImageInfoList::sortAndMergeBackIn" );
 #ifdef TEMPORARILY_REMOVED
@@ -54,7 +54,7 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
 /**
    return true if we should continue the sort.
 */
-bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
+bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& /*mergeList*/ )
 {
     qDebug( "Temp removed ImageInfoList::checkIfMergeListIsContiniously" );
 #ifdef TEMPORARILY_REMOVED
@@ -76,6 +76,7 @@ bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
     }
     return true;
 #endif
+    return true;
 }
 
 ImageInfoList::~ImageInfoList()
@@ -111,7 +112,7 @@ bool ImageInfoList::isSorted()
     return true;
 }
 
-void ImageInfoList::mergeIn( ImageInfoList other)
+void ImageInfoList::mergeIn( ImageInfoList /*other*/)
 {
     qDebug("Temp removed ImageInfoList::mergeIn" );
 #ifdef TEMPORARILY_REMOVED
@@ -133,7 +134,7 @@ void ImageInfoList::mergeIn( ImageInfoList other)
 #endif
 }
 
-void ImageInfoList::remove( ImageInfo* info )
+void ImageInfoList::remove( ImageInfoPtr info )
 {
     for( ImageInfoListIterator it = begin(); it != end(); ++it ) {
         if ( (*(*it)) == *info ) {

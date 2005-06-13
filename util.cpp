@@ -117,7 +117,7 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
     }
 }
 
-QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> >* linkMap )
+QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
     Q_ASSERT( info );
     QString text;

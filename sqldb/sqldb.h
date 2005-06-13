@@ -48,7 +48,7 @@ namespace SQLDB {
         virtual void addToBlockList( const QStringList& list );
         virtual bool isBlocking( const QString& fileName );
         virtual void deleteList( const QStringList& list );
-        virtual ImageInfo* info( const QString& fileName ) const;
+        virtual ImageInfoPtr info( const QString& fileName ) const;
         virtual const MemberMap& memberMap();
         virtual void setMemberMap( const MemberMap& members );
         virtual void save( const QString& fileName );

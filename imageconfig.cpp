@@ -307,7 +307,7 @@ void ImageConfig::slotOK()
         }
 
         for( ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
-            ImageInfo* info = *it;
+            ImageInfoPtr info = *it;
             info->rotate( _preview->angle() );
             if ( !_startDate->date().isNull() ) {
                 info->startDate().setDay( _startDate->date().day() );
@@ -733,7 +733,7 @@ void ImageConfig::slotAddTimeInfo()
 void ImageConfig::slotDeleteImage()
 {
     DeleteDialog dialog( this );
-    ImageInfo* info = _origList[_current];
+    ImageInfoPtr info = _origList[_current];
     ImageInfoList list;
     list.append( info );
 

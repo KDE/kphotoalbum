@@ -190,7 +190,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
         }
         QDomElement elm = node.toElement();
 
-        ImageInfo* info = new ImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
+        ImageInfoPtr info = new ImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
         _images.append( info );
     }
 
@@ -256,7 +256,7 @@ void Import::createImagesPage()
 
     int row = 0;
     for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it, ++row ) {
-        ImageInfo* info = *it;
+        ImageInfoPtr info = *it;
         ImageRow* ir = new ImageRow( info, this, container );
         lay3->addWidget( ir->_checkbox, row, 0 );
 
@@ -273,7 +273,7 @@ void Import::createImagesPage()
     addPage( top, i18n("Select Which Images to Import") );
 }
 
-ImageRow::ImageRow( ImageInfo* info, Import* import, QWidget* parent )
+ImageRow::ImageRow( ImageInfoPtr info, Import* import, QWidget* parent )
     : QObject( parent ), _info( info ), _import( import )
 {
     _checkbox = new QCheckBox( QString::null, parent, "_checkbox" );
@@ -365,7 +365,7 @@ void Import::createOptionPages()
     QStringList options;
     ImageInfoList images = selectedImages();
     for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfo* info = *it;
+        ImageInfoPtr info = *it;
         QStringList opts = info->availableOptionGroups();
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
             if ( !options.contains( *optsIt ) &&
@@ -388,7 +388,7 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
     QStringList otherOptions;
     ImageInfoList images = selectedImages();
     for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfo* info = *it;
+        ImageInfoPtr info = *it;
         QStringList opts = info->optionValue( otherOptionGroup );
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
             if ( !otherOptions.contains( *optsIt ) )
@@ -482,7 +482,7 @@ void Import::copyFromExternal()
 
 void Import::copyNextFromExternal()
 {
-    ImageInfo* info = _pendingCopies[0];
+    ImageInfoPtr info = _pendingCopies[0];
     _pendingCopies.pop_front();
     QString fileName = info->fileName( true );
     KURL src1 = _kimFile;
@@ -553,9 +553,9 @@ void Import::updateDB()
     // Run though all images
     ImageInfoList images = selectedImages();
     for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfo* info = *it;
+        ImageInfoPtr info = *it;
 
-        ImageInfo* newInfo = new ImageInfo( _nameMap[info->fileName(true)] );
+        ImageInfoPtr newInfo = new ImageInfo( _nameMap[info->fileName(true)] );
         newInfo->setLabel( info->label() );
         newInfo->setDescription( info->description() );
         newInfo->setStartDate( info->startDate() );

@@ -77,7 +77,7 @@ public: // Methods that must be overriden
     virtual void addToBlockList( const QStringList& list ) = 0; // OK
     virtual bool isBlocking( const QString& fileName ) = 0; // OK
     virtual void deleteList( const QStringList& list ) = 0;
-    virtual ImageInfo* info( const QString& fileName ) const = 0; // OK
+    virtual ImageInfoPtr info( const QString& fileName ) const = 0; // OK
     virtual const MemberMap& memberMap() = 0; // OK
     virtual void setMemberMap( const MemberMap& members ) = 0; // OK
     virtual void save( const QString& fileName ) = 0;

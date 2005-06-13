@@ -20,6 +20,7 @@
 #define OPTIONMATCHER_H
 #include <qvaluelist.h>
 #include <qstringlist.h>
+#include "imageinfoptr.h"
 class ImageInfo;
 
 /**
@@ -28,7 +29,7 @@ class ImageInfo;
 class OptionMatcher
 {
 public:
-    virtual bool eval( ImageInfo* ) = 0;
+    virtual bool eval( ImageInfoPtr ) = 0;
     virtual ~OptionMatcher() {}
     virtual OptionMatcher* optimize() = 0;
     virtual void debug( int level ) const = 0;
@@ -44,7 +45,7 @@ class OptionValueMatcher :public OptionMatcher
 {
 public:
     OptionValueMatcher( const QString& category, const QString& option );
-    virtual bool eval( ImageInfo* );
+    virtual bool eval( ImageInfoPtr );
     virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();
@@ -59,7 +60,7 @@ class OptionEmptyMatcher :public OptionMatcher
 {
 public:
     OptionEmptyMatcher( const QString& category );
-    virtual bool eval( ImageInfo* info );
+    virtual bool eval( ImageInfoPtr info );
     virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();
@@ -84,7 +85,7 @@ public:
 class OptionAndMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval( ImageInfo* );
+    virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
@@ -97,7 +98,7 @@ public:
 class OptionOrMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval( ImageInfo* );
+    virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
@@ -110,7 +111,7 @@ class OptionNotMatcher :public OptionMatcher
 {
 public:
     OptionNotMatcher( OptionMatcher* );
-    virtual bool eval( ImageInfo* );
+    virtual bool eval( ImageInfoPtr );
     virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
     virtual OptionMatcher* normalize();

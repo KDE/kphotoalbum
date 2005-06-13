@@ -187,7 +187,7 @@ void DateSearchDialog::highlightPossibleDates( KDatePicker* picker)
 
     // Iterate through the list of images in the current context that is within the current month.
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfo* image = ImageDB::instance()->info( *it );
+        ImageInfoPtr image = ImageDB::instance()->info( *it );
         if ( image->startDate().isFuzzyData() || ( !image->endDate().isNull() && image->endDate().isFuzzyData() ) )
             continue;
         QDate start = image->startDate().getDate();

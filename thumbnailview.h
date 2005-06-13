@@ -35,7 +35,7 @@ class ThumbNailView :public KIconView {
 public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
     static ThumbNailView* theThumbnailView();
-    void makeCurrent( ImageInfo* info );
+    void makeCurrent( ImageInfoPtr info );
     void setImageList( const QStringList& list );
     QStringList imageList() const;
 
@@ -67,7 +67,7 @@ protected:
     void setHighlighted( ThumbNail* item );
     void setDragLeft(  ThumbNail* item );
     QPtrList<ThumbNail> selected() const;
-    void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
+    void reorder( ImageInfoPtr item, const ImageInfoList& list, bool after );
     QDragObject* dragObject();
     virtual void drawBackground ( QPainter * p, const QRect & r );
     virtual void showEvent( QShowEvent* );

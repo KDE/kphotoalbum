@@ -33,7 +33,7 @@ public:
 protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
-    ImageInfo* loadExtraFile( const QString& name );
+    ImageInfoPtr loadExtraFile( const QString& name );
     QString MD5Sum( const QString& fileName );
 
 private:

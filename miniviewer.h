@@ -21,6 +21,7 @@
 
 #include <qdialog.h>
 #include <qimage.h>
+#include "imageinfoptr.h"
 class ImageInfo;
 class QCloseEvent;
 class QLabel;
@@ -30,7 +31,7 @@ class MiniViewer :public QDialog
     Q_OBJECT
 
 public:
-    static void show( QImage img, ImageInfo* info );
+    static void show( QImage img, ImageInfoPtr info );
     virtual void closeEvent( QCloseEvent* event );
 
 protected slots:

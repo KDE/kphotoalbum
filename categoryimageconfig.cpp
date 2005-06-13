@@ -103,7 +103,7 @@ QString CategoryImageConfig::currentGroup()
     return ImageDB::instance()->categoryCollection()->categoryNames()[index];
 }
 
-void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfo* info )
+void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfoPtr& info )
 {
     _image = image;
     _imageLabel->setPixmap( image );

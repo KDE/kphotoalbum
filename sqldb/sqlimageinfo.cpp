@@ -3,8 +3,7 @@
 #include <qsqlquery.h>
 #include <util.h>
 
-const QString imageInfoAttributes = "label, description, dayFrom, monthFrom, yearFrom, dayTo, monthTo, "
-                                    "yearTo, hour, minute, second, angle, md5sum, width, height";
+const QString imageInfoAttributes = "label, description, startDate, endDate, angle, md5sum, width, height";
 
 SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     :ImageInfo()
@@ -27,26 +26,19 @@ SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     query.next();
     QString label = query.value(0).toString();
     QString description = query.value( 1 ).toString();
-    int dayFrom = query.value( 2 ).toInt();
-    int monthFrom = query.value( 3 ).toInt();
-    int yearFrom = query.value( 4 ).toInt();
-    int dayTo = query.value( 5 ).toInt();
-    int monthTo = query.value( 6 ).toInt();
-    int yearTo = query.value( 7 ).toInt();
-    int hour = query.value( 8 ).toInt();
-    int minute = query.value( 9 ).toInt();
-    int second = query.value( 10 ).toInt();
-    int angle = query.value( 11 ).toInt();
-    QString     md5sum = query.value( 12 ).toString();
-    int width = query.value( 13 ).toInt();
-    int height = query.value( 14 ).toInt();
+    QDateTime startDate = query.value(2).toDateTime();
+    QDateTime endDate = query.value(3).toDateTime();
+    int angle = query.value( 4 ).toInt();
+    QString     md5sum = query.value( 5 ).toString();
+    int width = query.value( 6 ).toInt();
+    int height = query.value( 7 ).toInt();
 
 
     ImageInfo::setFileName( relativeFileName );
     ImageInfo::setLabel( label );
     ImageInfo::setDescription( description );
-    ImageInfo::setStartDate( ImageDate( dayFrom, monthFrom, yearFrom, hour, minute, second ) );
-    ImageInfo::setEndDate( ImageDate( dayTo, monthTo, yearTo ) );
+    ImageInfo::setStartDate( startDate );
+    ImageInfo::setEndDate( endDate );
     ImageInfo::setAngle( angle );
     ImageInfo::setMD5Sum( md5sum );
     ImageInfo::setSize( QSize( width, height ) );
@@ -90,6 +82,16 @@ ImageInfo& SQLDB::SQLImageInfo::operator=( const ImageInfo& other )
         queryList << QString::fromLatin1( "width = :width" ) << QString::fromLatin1( "height = :height" );
         map.insert( QString::fromLatin1( ":width" ), other.size().width() );
         map.insert( QString::fromLatin1( ":height" ), other.size().height() );
+    }
+
+    if ( startDate().min() != other.startDate().min() ) {
+        queryList << QString::fromLatin1( "startDate = :startDate" );
+        map.insert( QString::fromLatin1( ":startDate" ), other.startDate().min() );
+    }
+
+    if ( endDate().max() != other.endDate().max() ) {
+        queryList << QString::fromLatin1( "endDate = :endDate" );
+        map.insert( QString::fromLatin1( ":endDate" ), other.endDate().max() );
     }
 
     if ( queryList.count() ) {

@@ -174,9 +174,8 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
 
     QString imageQueryString = QString::fromLatin1( "INSERT INTO imageinfo set "
                                                     "width = :width, height = :height, md5sum = :md5sum, fileId = :fileId, label = :label, "
-                                                    "angle = :angle, description = :description, yearFrom = :yearFrom, monthFrom = :monthFrom, "
-                                                    "dayFrom = :dayFrom, hour = :hour, minute = :minute, second = :second, yearTo = :yearTo, "
-                                                    "monthTo = :monthTo, dayTo = :dayTo" );
+                                                    "angle = :angle, description = :description, startDate = :startDate, "
+                                                    "endDate = :endDate " );
     QSqlQuery imageQuery;
     imageQuery.prepare( imageQueryString );
 
@@ -200,15 +199,9 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
         imageQuery.bindValue( QString::fromLatin1( ":label" ),  info->label() );
         imageQuery.bindValue( QString::fromLatin1( ":angle" ),  info->angle() );
         imageQuery.bindValue( QString::fromLatin1( ":description" ),  info->description() );
-        imageQuery.bindValue( QString::fromLatin1( ":yearFrom" ),  info->startDate().year() );
-        imageQuery.bindValue( QString::fromLatin1( ":monthFrom" ),  info->startDate().month() );
-        imageQuery.bindValue( QString::fromLatin1( ":dayFrom" ),  info->startDate().day() );
-        imageQuery.bindValue( QString::fromLatin1( ":hour" ),  info->startDate().hour() );
-        imageQuery.bindValue( QString::fromLatin1( ":minute" ),  info->startDate().minute() );
-        imageQuery.bindValue( QString::fromLatin1( ":second" ),  info->startDate().second() );
-        imageQuery.bindValue( QString::fromLatin1( ":yearTo" ),  info->endDate().year() );
-        imageQuery.bindValue( QString::fromLatin1( ":monthTo" ),  info->endDate().month() );
-        imageQuery.bindValue( QString::fromLatin1( ":dayTo" ), info->endDate().day() );
+        imageQuery.bindValue( QString::fromLatin1( ":startDate" ), info->startDate().min() );
+        imageQuery.bindValue( QString::fromLatin1( ":endDate" ), info->endDate().min() );
+
         if ( !imageQuery.exec() )
             showError( imageQuery );
 

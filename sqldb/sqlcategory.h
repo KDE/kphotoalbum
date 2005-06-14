@@ -6,7 +6,7 @@ namespace SQLDB {
     class SQLCategory :public Category
     {
     public:
-        SQLCategory( const QString& category );
+        SQLCategory( int categoryId );
         virtual QString name() const;
         virtual void setName( const QString& name );
 
@@ -32,7 +32,7 @@ namespace SQLDB {
         virtual QStringList items() const;
 
     private:
-        QString _category;
+        int _categoryId;
     };
 }
 

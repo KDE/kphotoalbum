@@ -4,7 +4,7 @@
 #include <qsqlquery.h>
 CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {
-    return KSharedPtr<Category>( new SQLCategory( name ) );
+    return KSharedPtr<Category>( new SQLCategory( idForCategory(name) ) );
 }
 
 QStringList SQLDB::SQLCategoryCollection::categoryNames() const

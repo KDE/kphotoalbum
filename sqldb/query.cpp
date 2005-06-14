@@ -120,11 +120,11 @@ QString SQLDB::buildValue( const QString& category, const QStringList& vals, int
         else
             expression = QString::fromLatin1( "(%1)" ).arg( expression );
 
-        return QString::fromLatin1( "%1category = \"%2\" and %3 " )
-            .arg(prefix).arg( category ).arg( expression );
+        return QString::fromLatin1( "%1categoryId = \"%2\" and %3 " )
+            .arg(prefix).arg( idForCategory(category) ).arg( expression );
     }
     else
-        return QString::fromLatin1( "%1category = \"%2\" " ).arg(prefix).arg( category );
+        return QString::fromLatin1( "%1categoryId = \"%2\" " ).arg(prefix).arg( idForCategory(category) );
 }
 
 QValueList<int> SQLDB::filesMatchingQuery( const ImageSearchInfo& info )
@@ -232,6 +232,22 @@ int SQLDB::idForFileName( const QString& relativePath )
     QString query = QString::fromLatin1( "SELECT fileId from sortorder WHERE fileName = :fileName " );
     QMap<QString,QVariant> map;
     map.insert( QString::fromLatin1( ":fileName" ), relativePath );
+    return fetchItem( query, map ).toInt();
+}
+
+QString SQLDB::categoryForId( int id )
+{
+    QString query = QString::fromLatin1( "SELECT category FROM categorysetup WHERE categoryId = :categoryId" );
+    QMap<QString,QVariant> map;
+    map.insert( QString::fromLatin1( ":categoryId" ), id );
+    return fetchItem( query, map ).toString();
+}
+
+int SQLDB::idForCategory( const QString& category )
+{
+    QString query = QString::fromLatin1( "SELECT categoryId from categorysetup WHERE category = :category " );
+    QMap<QString,QVariant> map;
+    map.insert( QString::fromLatin1( ":category" ), category );
     return fetchItem( query, map ).toInt();
 }
 

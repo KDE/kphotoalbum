@@ -68,8 +68,8 @@ QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QSt
 
 
     QSqlQuery query;
-    query.prepare( "SELECT fileId, value from imagecategoryinfo WHERE category=:category" );
-    query.bindValue( QString::fromLatin1( ":category" ), category );
+    query.prepare( "SELECT fileId, value from imagecategoryinfo WHERE categoryId=:categoryId" );
+    query.bindValue( QString::fromLatin1( ":categoryId" ), idForCategory(category) );
     if ( !query.exec() )
         showError( query );
 

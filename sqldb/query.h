@@ -38,6 +38,8 @@ namespace SQLDB {
     QStringList memberOfCategory( const QString& category );
     QString fileNameForId( int id, bool fullPath );
     int idForFileName( const QString& fullPath );
+    QString categoryForId( int id );
+    int idForCategory( const QString& category );
 }
 
 #endif /* SQLDB_QUERY_H */

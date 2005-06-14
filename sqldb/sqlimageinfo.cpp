@@ -43,13 +43,13 @@ SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     ImageInfo::setMD5Sum( md5sum );
     ImageInfo::setSize( QSize( width, height ) );
 
-    query.prepare( QString::fromLatin1( "SELECT category, value FROM imagecategoryinfo WHERE fileId=:fileId" ) );
+    query.prepare( QString::fromLatin1( "SELECT categoryId, value FROM imagecategoryinfo WHERE fileId=:fileId" ) );
     query.bindValue( QString::fromLatin1( ":fileId" ), _fileId );
     if ( !query.exec() )
         showError( query );
 
     while ( query.next() ) {
-        addOption( query.value(0).toString(), query.value(1).toString() );
+        addOption( categoryForId(query.value(0).toInt()), query.value(1).toString() );
     }
 }
 

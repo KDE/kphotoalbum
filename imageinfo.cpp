@@ -149,7 +149,7 @@ bool ImageInfo::hasOption( const QString& key, const QString& value )
     return _options[key].contains(value);
 }
 
-QStringList ImageInfo::optionValue( const QString& key ) const
+QStringList ImageInfo::itemsOfCategory( const QString& key ) const
 {
     return _options[key];
 }
@@ -396,7 +396,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
 }
 
 
-QStringList ImageInfo::availableOptionGroups() const
+QStringList ImageInfo::availableCategories() const
 {
     return _options.keys();
 }
@@ -419,7 +419,7 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
 // it is only true if there are no persons on the image that are not explicit searched for.
 bool ImageInfo::allMatched( const QString& category )
 {
-    QStringList list = optionValue( category );
+    QStringList list = itemsOfCategory( category );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         if ( !_matched[category].contains( *it ) )
             return false;
@@ -475,6 +475,24 @@ ImageInfo::ImageInfo( const QString& fileName,
     _md5sum =md5sum;
     _size = size;
     _imageOnDisk = Unchecked;
+}
+
+ImageInfo& ImageInfo::operator=( const ImageInfo& other )
+{
+    _fileName = other._fileName;
+    _label = other._label;
+    _description = other._description;
+    _startDate = other._startDate;
+    _endDate = other._endDate;
+    _options = other._options;
+    _angle = other._angle;
+    _drawList = other._drawList;
+    _imageOnDisk = other._imageOnDisk;
+    _md5sum = other._md5sum;
+    _null = other._null;
+    _size = other._size;
+
+    return *this;
 }
 
 #include "infobox.moc"

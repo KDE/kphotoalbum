@@ -85,14 +85,15 @@ public:
     void addOption( const QString& key,  const QStringList& value );
     void removeOption( const QString& key, const QString& value );
     bool hasOption( const QString& key,  const QString& value );
-    QStringList availableOptionGroups() const;
-    QStringList optionValue( const QString& key ) const;
+    QStringList availableCategories() const;
+    QStringList itemsOfCategory( const QString& category ) const;
     void renameItem( const QString& key, const QString& oldValue, const QString& newValue );
     void renameCategory( const QString& oldName, const QString& newName );
 
     QDomElement save( QDomDocument doc );
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );
+    virtual ImageInfo& operator=( const ImageInfo& other );
 
     DrawList drawList() const;
     void setDrawList( const DrawList& );

@@ -144,4 +144,3 @@ void ImageInfoList::remove( ImageInfoPtr info )
         }
     }
 }
-

@@ -75,7 +75,7 @@ void CategoryImageConfig::groupChanged()
 {
     QString currentText = _member->currentText();
     _member->clear();
-    QStringList list = _info->optionValue( currentGroup() );
+    QStringList list = _info->itemsOfCategory( currentGroup() );
     list.sort();
     _member->insertStringList( list );
     int index = list.findIndex( currentText );

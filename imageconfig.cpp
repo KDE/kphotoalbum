@@ -370,7 +370,7 @@ void ImageConfig::load()
     _description->setText( info.description() );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setSelection( info.optionValue( (*it)->category() ) );
+        (*it)->setSelection( info.itemsOfCategory( (*it)->category() ) );
     }
 
     _nextBut->setEnabled( _current != (int)_origList.count()-1 );

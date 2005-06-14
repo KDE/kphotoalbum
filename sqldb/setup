@@ -15,9 +15,9 @@ CREATE TABLE membergroup
 
 CREATE TABLE imageinfo 
 (
-  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 #  fileName varchar(255),
-   fileId INT,
+  fileId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   label varchar(255),
   description TEXT,
   dayFrom INT, monthFrom INT, yearFrom INT,

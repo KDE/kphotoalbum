@@ -86,7 +86,7 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
             // Now iterate through all the categories the current image
             // contains, and increase them in the map mapping from category
             // to count.
-            QStringList list = (*it)->optionValue(group);
+            QStringList list = (*it)->itemsOfCategory(group);
             counter.count( list );
             for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
                 if ( !alreadyMatched[*it2] ) // We do not want to match "Jesper & Jesper"

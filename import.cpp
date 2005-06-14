@@ -366,7 +366,7 @@ void Import::createOptionPages()
     ImageInfoList images = selectedImages();
     for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         ImageInfoPtr info = *it;
-        QStringList opts = info->availableOptionGroups();
+        QStringList opts = info->availableCategories();
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
             if ( !options.contains( *optsIt ) &&
                  (*optsIt) != QString::fromLatin1( "Folder" ) &&
@@ -389,7 +389,7 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
     ImageInfoList images = selectedImages();
     for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         ImageInfoPtr info = *it;
-        QStringList opts = info->optionValue( otherOptionGroup );
+        QStringList opts = info->itemsOfCategory( otherOptionGroup );
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
             if ( !otherOptions.contains( *optsIt ) )
                 otherOptions.append( *optsIt );

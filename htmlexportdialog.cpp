@@ -544,8 +544,8 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
             continue;
 
         QString name = (*it)->name();
-        if ( info->optionValue( name ).count() != 0 && _whatToIncludeMap[name]->isChecked() ) {
-            QString val = info->optionValue( name ).join( QString::fromLatin1(", ") );
+        if ( info->itemsOfCategory( name ).count() != 0 && _whatToIncludeMap[name]->isChecked() ) {
+            QString val = info->itemsOfCategory( name ).join( QString::fromLatin1(", ") );
             description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( name ).arg( val );
         }
     }

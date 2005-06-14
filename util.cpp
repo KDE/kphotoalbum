@@ -140,7 +140,7 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QString category = *it;
         if ( Options::instance()->showOption( category ) ) {
-            QStringList items = info->optionValue( category );
+            QStringList items = info->itemsOfCategory( category );
             if (items.count() != 0 ) {
                 text += QString::fromLatin1( "<b>%1: </b> " )
                         .arg( ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
@@ -639,4 +639,14 @@ QString Util::stripImageDirectory( const QString& fileName )
         return fileName.mid( Options::instance()->imageDirectory().length() );
     else
         return fileName;
+}
+
+QStringList Util::diff( const QStringList& list1, const QStringList& list2 )
+{
+    QStringList result;
+    for( QStringList::ConstIterator it = list1.constBegin(); it != list1.constEnd(); ++it ) {
+        if ( !list2.contains( *it ) )
+            result.append( *it );
+    }
+    return result;
 }

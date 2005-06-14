@@ -11,9 +11,8 @@
 #include <util.h>
 #include "groupCounter.h"
 #include <kdebug.h>
+#include "sqlimageinfo.h"
 
-const QString imageInfoAttributes = "label, description, dayFrom, monthFrom, yearFrom, dayTo, monthTo, "
-                                    "yearTo, hour, minute, second, angle, md5sum, width, height";
 
 SQLDB::SQLDB::SQLDB()
 {
@@ -222,10 +221,10 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
 
         // Category info
 
-        QStringList categories = info->availableOptionGroups();
+        QStringList categories = info->availableCategories();
         categoryQuery.bindValue( QString::fromLatin1( ":fileId" ), nextId );
         for( QStringList::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-            QStringList items = info->optionValue( *categoryIt );
+            QStringList items = info->itemsOfCategory( *categoryIt );
             categoryQuery.bindValue( QString::fromLatin1( ":category" ), *categoryIt );
             for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
                 categoryQuery.bindValue( QString::fromLatin1( ":value" ), *itemIt );
@@ -288,57 +287,7 @@ void SQLDB::SQLDB::deleteList( const QStringList& list )
 
 ImageInfoPtr SQLDB::SQLDB::info( const QString& fileName ) const
 {
-    QString relativeFileName = Util::stripImageDirectory( fileName );
-
-    static QMap<QString,ImageInfoPtr> map;
-    if ( map.contains( relativeFileName ) )
-        return map[relativeFileName];
-
-    QSqlQuery query;
-    query.prepare( QString::fromLatin1( "SELECT %1 FROM imageinfo where fileId=:fileId" ).arg( imageInfoAttributes ) );
-    query.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( relativeFileName ) );
-    if ( !query.exec() )
-        showError( query );
-
-    Q_ASSERT( query.numRowsAffected() == 1 );
-    if ( query.numRowsAffected() < 1 ) {
-        qWarning( "Internal Error: Didn't find %s (%s) fileId = %d in Database", fileName.latin1(), relativeFileName.latin1(), idForFileName(relativeFileName) );
-        return new ImageInfo( relativeFileName ); // I'm afraid it will crash if we return 0.
-    }
-
-    query.next();
-    QString label = query.value(0).toString();
-    QString description = query.value( 1 ).toString();
-    int dayFrom = query.value( 2 ).toInt();
-    int monthFrom = query.value( 3 ).toInt();
-    int yearFrom = query.value( 4 ).toInt();
-    int dayTo = query.value( 5 ).toInt();
-    int monthTo = query.value( 6 ).toInt();
-    int yearTo = query.value( 7 ).toInt();
-    int hour = query.value( 8 ).toInt();
-    int minute = query.value( 9 ).toInt();
-    int second = query.value( 10 ).toInt();
-    int angle = query.value( 11 ).toInt();
-    QString     md5sum = query.value( 12 ).toString();
-    int width = query.value( 13 ).toInt();
-    int heigh = query.value( 14 ).toInt();
-
-    // PENDING(blackie) where will this be deleted?
-    ImageInfoPtr info = new ImageInfo( relativeFileName, label, description, ImageDate( dayFrom, monthFrom, yearFrom, hour, minute, second ),
-                                     ImageDate( dayTo, monthTo, yearTo ), angle, md5sum, QSize( width, heigh ) );
-
-
-    query.prepare( QString::fromLatin1( "SELECT category, value FROM imagecategoryinfo WHERE fileId=:fileId" ) );
-    query.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( relativeFileName ) );
-    if ( !query.exec() )
-        showError( query );
-
-    while ( query.next() ) {
-        info->addOption( query.value(0).toString(), query.value(1).toString() );
-    }
-
-    map.insert( relativeFileName, info );
-    return info;
+    return new SQLImageInfo( fileName );
 }
 
 const MemberMap& SQLDB::SQLDB::memberMap()

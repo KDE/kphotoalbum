@@ -179,7 +179,8 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
     QSqlQuery imageQuery;
     imageQuery.prepare( imageQueryString );
 
-    QString categoryQueryString = QString::fromLatin1( "insert INTO imagecategoryinfo set fileId = :fileId, category = :category, value = :value" );
+    QString categoryQueryString = QString::fromLatin1( "insert INTO imagecategoryinfo set fileId = :fileId, "
+                                                       "categoryId = :categoryId, value = :value" );
     QSqlQuery categoryQuery;
     categoryQuery.prepare( categoryQueryString );
 
@@ -218,7 +219,7 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
         categoryQuery.bindValue( QString::fromLatin1( ":fileId" ), nextId );
         for( QStringList::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
             QStringList items = info->itemsOfCategory( *categoryIt );
-            categoryQuery.bindValue( QString::fromLatin1( ":category" ), *categoryIt );
+            categoryQuery.bindValue( QString::fromLatin1( ":categoryId" ), idForCategory(*categoryIt) );
             for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
                 categoryQuery.bindValue( QString::fromLatin1( ":value" ), *itemIt );
                 if ( !categoryQuery.exec() )

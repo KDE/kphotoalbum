@@ -8,6 +8,7 @@
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
+#include <kdebug.h>
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -110,6 +111,18 @@ void ImageDB::convertBackend()
     dialog.setTotalSteps( allImages.count() );
     SQLDB::SQLDB* newBackend = new SQLDB::SQLDB;
 
+    // Convert the Category info
+    CategoryCollection* origCategories = categoryCollection();
+    CategoryCollection* newCategories = newBackend->categoryCollection();
+
+    QValueList<CategoryPtr> categories = origCategories->categories();
+    for( QValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+        newCategories->addCategory( (*it)->text(), (*it)->iconName(), (*it)->viewSize(), (*it)->viewType(), (*it)->doShow() );
+        newCategories->categoryForName( (*it)->text() )->setItems( (*it)->items() );
+    }
+
+    kdDebug() << "Also save membermaps" << endl;
+
     // Convert all images to the new back end
     int count = 0;
     ImageInfoList list;
@@ -124,16 +137,6 @@ void ImageDB::convertBackend()
     }
     if ( list.count() != 0 )
         newBackend->addImages( list );
-
-    // Convert the Category info
-    CategoryCollection* origCategories = categoryCollection();
-    CategoryCollection* newCategories = newBackend->categoryCollection();
-
-    QValueList<CategoryPtr> categories = origCategories->categories();
-    for( QValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
-        newCategories->addCategory( (*it)->text(), (*it)->iconName(), (*it)->viewSize(), (*it)->viewType(), (*it)->doShow() );
-        newCategories->categoryForName( (*it)->text() )->setItems( (*it)->items() );
-    }
 }
 
 void ImageDB::slotReread( const QStringList& list, int mode)

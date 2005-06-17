@@ -10,7 +10,7 @@ QString SQLDB::SQLCategory::name() const
 void SQLDB::SQLCategory::setName( const QString& /*name*/ )
 {
     // PENDING(blackie) do I need to update the DB?
-    kdDebug() << "What should I do here?!";
+    kdDebug() << "What should I do here?!\n";
 }
 
 QString SQLDB::SQLCategory::iconName() const

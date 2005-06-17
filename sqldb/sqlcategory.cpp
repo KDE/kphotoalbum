@@ -1,7 +1,8 @@
 #include "sqlcategory.h"
 #include <kdebug.h>
 #include <qsqlquery.h>
-#include "query.h"
+#include "queryutil.h"
+
 QString SQLDB::SQLCategory::name() const
 {
     return categoryForId(_categoryId);

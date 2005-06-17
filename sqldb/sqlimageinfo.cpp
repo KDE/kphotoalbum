@@ -1,5 +1,5 @@
 #include "sqlimageinfo.h"
-#include "query.h"
+#include "queryutil.h"
 #include <qsqlquery.h>
 #include <util.h>
 

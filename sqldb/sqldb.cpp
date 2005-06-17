@@ -7,6 +7,7 @@
 #include <categorycollection.h>
 #include <qsqlerror.h>
 #include "query.h"
+#include "queryutil.h"
 #include <imageinfo.h>
 #include <util.h>
 #include "groupCounter.h"

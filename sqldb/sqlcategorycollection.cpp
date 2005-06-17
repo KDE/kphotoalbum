@@ -1,6 +1,6 @@
 #include "sqlcategorycollection.h"
 #include "sqlcategory.h"
-#include "query.h"
+#include "queryutil.h"
 #include <qsqlquery.h>
 CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {

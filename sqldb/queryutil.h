@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef SQLDB_QUERY_H
-#define SQLDB_QUERY_H
+#ifndef SQLDB_QUERYUTIL_H
+#define SQLDB_QUERYUTIL_H
 #include <optionmatcher.h>
 #include <qvariant.h>
 class QSqlQuery;
@@ -25,12 +25,17 @@ class QSqlError;
 class ImageSearchInfo;
 
 namespace SQLDB {
-    QStringList buildQueries( OptionMatcher* );
-    QString buildAndQuery( OptionAndMatcher* matcher );
-    QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
-    QValueList<int> filesMatchingQuery( const ::ImageSearchInfo& info );
-    QStringList values( OptionValueMatcher* matcher );
+    void showError( QSqlQuery& query );
+    QStringList runAndReturnList( const QString& queryString, const QMap<QString,QVariant>& bindings = QMap<QString,QVariant>() );
+    QVariant fetchItem( const QString& queryString, const QMap<QString,QVariant>& bindings  = QMap<QString,QVariant>() );
+    bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings, QSqlQuery& query  );
+    bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings );
+    QStringList membersOfCategory( const QString& category );
+    QString fileNameForId( int id, bool fullPath );
+    int idForFileName( const QString& fullPath );
+    QString categoryForId( int id );
+    int idForCategory( const QString& category );
 }
 
-#endif /* SQLDB_QUERY_H */
+#endif /* SQLDB_QUERYUTIL_H */
 

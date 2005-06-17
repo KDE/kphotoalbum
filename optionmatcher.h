@@ -44,7 +44,7 @@ protected:
 class OptionValueMatcher :public OptionMatcher
 {
 public:
-    OptionValueMatcher( const QString& category, const QString& option );
+    OptionValueMatcher( const QString& category, const QString& value, bool sign );
     virtual bool eval( ImageInfoPtr );
     virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
@@ -53,13 +53,14 @@ public:
 
     QString _category;
     QString _option;
+    bool _sign;
 };
 
 
 class OptionEmptyMatcher :public OptionMatcher
 {
 public:
-    OptionEmptyMatcher( const QString& category );
+    OptionEmptyMatcher( const QString& category, bool sign );
     virtual bool eval( ImageInfoPtr info );
     virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
@@ -67,6 +68,7 @@ public:
     virtual OptionMatcher* clone();
 
     QString _category;
+    bool _sign;
 };
 
 class OptionContainerMatcher :public OptionMatcher
@@ -103,21 +105,6 @@ public:
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
     virtual OptionMatcher* optimize();
-};
-
-
-
-class OptionNotMatcher :public OptionMatcher
-{
-public:
-    OptionNotMatcher( OptionMatcher* );
-    virtual bool eval( ImageInfoPtr );
-    virtual OptionMatcher* optimize();
-    virtual void debug( int level ) const;
-    virtual OptionMatcher* normalize();
-    virtual OptionMatcher* clone();
-
-    OptionMatcher* _element;
 };
 
 #endif /* OPTIONMATCHER_H */

@@ -57,7 +57,6 @@ QString SQLDB::buildAndQuery( OptionAndMatcher* matcher )
         prefix += QString::fromLatin1( "imagecategoryinfo q%1" ).arg( idx );
 
         OptionValueMatcher* valueMatcher;
-        OptionNotMatcher* notMatcher;
         OptionEmptyMatcher* emptyMatcher;
 
         if ( (valueMatcher = dynamic_cast<OptionValueMatcher*>( *it ) ) ) {
@@ -66,19 +65,6 @@ QString SQLDB::buildAndQuery( OptionAndMatcher* matcher )
 
             query += buildValue( valueMatcher->_category, values( valueMatcher), idx, false );
             matchedValues[valueMatcher->_category] += values( valueMatcher );
-        }
-        else if ( ( notMatcher = dynamic_cast<OptionNotMatcher*>( *it ) ) ) {
-            if ( idx != 0 )
-                query += QString::fromLatin1( "and " );
-
-            OptionMatcher* child = notMatcher->_element;
-            OptionValueMatcher* childValue = dynamic_cast<OptionValueMatcher*>( child );
-            if ( !childValue ) {
-                qWarning( "Internal Error: child of not matcher was not a value matcher" );
-                child->debug(0);
-            }
-            else
-                query += buildValue( childValue->_category, values( childValue ), idx, true );
         }
         else if ( ( emptyMatcher = dynamic_cast<OptionEmptyMatcher*>( *it ) ) ) {
             emptyMatchers.append( emptyMatcher );

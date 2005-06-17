@@ -22,8 +22,8 @@
 #include "membermap.h"
 #include "imagedb.h"
 
-OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& option )
-    :_category( category ), _option( option )
+OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& value, bool sign )
+    :_category( category ), _option( value ), _sign( sign )
 {
 }
 
@@ -31,28 +31,28 @@ bool OptionValueMatcher::eval( ImageInfoPtr info )
 {
     info->setMatched( _category, _option );
     if ( info->hasOption( _category, _option ) ) {
-        return true;
+        return _sign;
     }
 
     QStringList list = ImageDB::instance()->memberMap().members( _category, _option, true );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         if ( info->hasOption( _category, *it ) )
-            return true;
+            return _sign;
     }
 
-    return false;
+    return !_sign;
 }
 
 
 
-OptionEmptyMatcher::OptionEmptyMatcher( const QString& category )
-    :_category( category )
+OptionEmptyMatcher::OptionEmptyMatcher( const QString& category, bool sign )
+    :_category( category ),_sign( sign)
 {
 }
 
 bool OptionEmptyMatcher::eval( ImageInfoPtr info )
 {
-    return info->allMatched( _category );
+    return _sign ? info->allMatched( _category ) : !info->allMatched( _category );
 }
 
 
@@ -83,16 +83,6 @@ bool OptionOrMatcher::eval( ImageInfoPtr info )
 }
 
 
-
-OptionNotMatcher::OptionNotMatcher( OptionMatcher* element )
-    :_element( element )
-{
-}
-
-bool OptionNotMatcher::eval( ImageInfoPtr info )
-{
-    return !_element->eval( info );
-}
 
 OptionMatcher* OptionValueMatcher::optimize()
 {
@@ -131,16 +121,6 @@ OptionMatcher* OptionContainerMatcher::optimize()
 
 }
 
-OptionMatcher* OptionNotMatcher::optimize()
-{
-    _element = _element->optimize();
-    if ( _element == 0 ) {
-        delete this;
-        return 0;
-    }
-    return this;
-}
-
 OptionContainerMatcher::~OptionContainerMatcher()
 {
     for( uint i = 0; i < _elements.count(); ++i )
@@ -161,12 +141,6 @@ void OptionAndMatcher::debug( int level ) const
 {
     qDebug("%sAND:", spaces(level).latin1() );
     OptionContainerMatcher::debug( level + 1 );
-}
-
-void OptionNotMatcher::debug( int level ) const
-{
-    qDebug("%sNOT:", spaces(level).latin1() );
-    _element->debug( level + 1 );
 }
 
 void OptionOrMatcher::debug( int level ) const
@@ -190,12 +164,12 @@ QString OptionMatcher::spaces(int level ) const
 
 OptionMatcher* OptionValueMatcher::clone()
 {
-    return new OptionValueMatcher( _category, _option );
+    return new OptionValueMatcher( _category, _option, _sign );
 }
 
 OptionMatcher* OptionEmptyMatcher::clone()
 {
-    return new OptionEmptyMatcher( _category );
+    return new OptionEmptyMatcher( _category, _sign );
 }
 
 OptionMatcher* OptionAndMatcher::clone()
@@ -210,11 +184,6 @@ OptionMatcher* OptionOrMatcher::clone()
     OptionOrMatcher* matcher = new OptionOrMatcher;
     OptionContainerMatcher::clone( matcher );
     return matcher;
-}
-
-OptionMatcher* OptionNotMatcher::clone()
-{
-    return new OptionNotMatcher( _element->clone() );
 }
 
 void OptionContainerMatcher::clone( OptionContainerMatcher* newMatcher )
@@ -299,11 +268,6 @@ OptionMatcher* OptionOrMatcher::normalize()
         delete item;
     }
     return this;
-}
-
-OptionMatcher* OptionNotMatcher::normalize()
-{
-    return clone();
 }
 
 OptionMatcher* OptionAndMatcher::normalizeTwo( OptionMatcher* a, OptionMatcher* b)

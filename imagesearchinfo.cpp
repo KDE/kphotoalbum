@@ -270,11 +270,9 @@ void ImageSearchInfo::compile() const
                 str = str.stripWhiteSpace();
                 OptionMatcher* valueMatcher;
                 if ( str == ImageDB::NONE() )
-                    valueMatcher = new OptionEmptyMatcher( category );
+                    valueMatcher = new OptionEmptyMatcher( category, !negate );
                 else
-                    valueMatcher = new OptionValueMatcher( category, str );
-                if ( negate )
-                    valueMatcher = new OptionNotMatcher( valueMatcher );
+                    valueMatcher = new OptionValueMatcher( category, str, !negate );
                 andMatcher->addElement( valueMatcher );
             }
             orMatcher->addElement( andMatcher );

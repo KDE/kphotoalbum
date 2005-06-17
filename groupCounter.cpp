@@ -42,7 +42,6 @@ GroupCounter::GroupCounter( const QString& category )
     // Initialize _memberToGroup map.
     QStringList items = ImageDB::instance()->categoryCollection()->categoryForName( category )->items();
     items += map.groups( category );
-    qDebug("%s: %s", category.latin1(), items.join( QString::fromLatin1( ", " ) ).latin1() );
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         _memberToGroup.insert( *it, new QStringList );
     }

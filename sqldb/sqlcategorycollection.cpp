@@ -44,6 +44,9 @@ QValueList<CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, Category::ViewSize size,
                                                 Category::ViewType type, bool showIt )
 {
+    QString queryStr = QString::fromLatin1( "SELECT MAX(categoryId) FROM categorysetup" );
+    int idx = fetchItem( queryStr ).toInt() + 1;
+
     QSqlQuery query;
     query.prepare( QString::fromLatin1( "INSERT into categorysetup set category=:category, viewtype=:viewtype,"
                                         "viewsize=:viewsize, icon=:icon, showIt=:showIt" ) );
@@ -52,6 +55,7 @@ void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const Q
     query.bindValue( ":viewsize", size );
     query.bindValue( ":viewtype", type );
     query.bindValue( ":showIt", showIt );
+    query.bindValue( ":categoryId", idx );
     if ( !query.exec() )
         showError( query );
 }

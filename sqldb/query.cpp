@@ -48,7 +48,6 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<OptionSimpleMatcher*> matche
     for( QValueList<OptionSimpleMatcher*>::Iterator it = negativeList.begin(); it != negativeList.end(); ++it, ++idx ) {
         OptionValueMatcher* valueMatcher;
         if ( ( valueMatcher = dynamic_cast<OptionValueMatcher*>( *it ) ) ) {
-            // WHERE ... and q0.fileId not in ( SELECT q1.fileId FROM imagecategoryinfo WHERE q1.categoryId = 3 and q1.value = "Jesper" )
             negativeQuery << buildValue( valueMatcher->_category, values( valueMatcher), idx, false );
         }
         else

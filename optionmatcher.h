@@ -31,55 +31,60 @@ class OptionMatcher
 public:
     virtual bool eval( ImageInfoPtr ) = 0;
     virtual ~OptionMatcher() {}
-    virtual OptionMatcher* optimize() = 0;
     virtual void debug( int level ) const = 0;
+#ifdef TEMPORARILY_REMOVED
     virtual OptionMatcher* normalize() = 0;
     virtual OptionMatcher* clone() = 0;
-    virtual bool isSimple() const { return true; }
+#endif
 
 protected:
     QString spaces(int level ) const;
 };
 
-class OptionValueMatcher :public OptionMatcher
+class OptionSimpleMatcher :public OptionMatcher
+{
+public:
+    QString _category;
+    bool _sign;
+};
+
+class OptionValueMatcher :public OptionSimpleMatcher
 {
 public:
     OptionValueMatcher( const QString& category, const QString& value, bool sign );
     virtual bool eval( ImageInfoPtr );
-    virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
+#ifdef TEMPORARILY_REMOVED
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
+#endif
 
-    QString _category;
     QString _option;
-    bool _sign;
 };
 
 
-class OptionEmptyMatcher :public OptionMatcher
+class OptionEmptyMatcher :public OptionSimpleMatcher
 {
 public:
     OptionEmptyMatcher( const QString& category, bool sign );
     virtual bool eval( ImageInfoPtr info );
-    virtual OptionMatcher* optimize();
     virtual void debug( int level ) const;
+#ifdef TEMPORARILY_REMOVED
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
+#endif
 
-    QString _category;
-    bool _sign;
 };
 
 class OptionContainerMatcher :public OptionMatcher
 {
 public:
-    virtual OptionMatcher* optimize();
     void addElement( OptionMatcher* );
     ~OptionContainerMatcher();
     virtual void debug( int level ) const;
+#ifdef TEMPORARILY_REMOVED
     void clone( OptionContainerMatcher* newMatcher );
-    virtual bool isSimple() const { return false; }
+#endif
 
     QValueList<OptionMatcher*> _elements;
 };
@@ -89,10 +94,11 @@ class OptionAndMatcher :public OptionContainerMatcher
 public:
     virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
+#ifdef TEMPORARILY_REMOVED
     virtual OptionMatcher* normalize();
-    virtual OptionMatcher* clone();
-    virtual OptionMatcher* optimize();
     OptionMatcher* normalizeTwo( OptionMatcher*, OptionMatcher* );
+    virtual OptionMatcher* clone();
+#endif
 };
 
 
@@ -102,9 +108,10 @@ class OptionOrMatcher :public OptionContainerMatcher
 public:
     virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
+#ifdef TEMPORARILY_REMOVED
     virtual OptionMatcher* normalize();
     virtual OptionMatcher* clone();
-    virtual OptionMatcher* optimize();
+#endif
 };
 
 #endif /* OPTIONMATCHER_H */

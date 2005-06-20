@@ -23,8 +23,10 @@
 #include "imagedb.h"
 
 OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& value, bool sign )
-    :_category( category ), _option( value ), _sign( sign )
 {
+    _category = category ;
+    _option = value;
+    _sign = sign;
 }
 
 bool OptionValueMatcher::eval( ImageInfoPtr info )
@@ -46,8 +48,9 @@ bool OptionValueMatcher::eval( ImageInfoPtr info )
 
 
 OptionEmptyMatcher::OptionEmptyMatcher( const QString& category, bool sign )
-    :_category( category ),_sign( sign)
 {
+    _category = category;
+    _sign = sign;
 }
 
 bool OptionEmptyMatcher::eval( ImageInfoPtr info )
@@ -83,43 +86,6 @@ bool OptionOrMatcher::eval( ImageInfoPtr info )
 }
 
 
-
-OptionMatcher* OptionValueMatcher::optimize()
-{
-    return this;
-}
-
-OptionMatcher* OptionEmptyMatcher::optimize()
-{
-    return this;
-}
-
-OptionMatcher* OptionContainerMatcher::optimize()
-{
-    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ) {
-        QValueList<OptionMatcher*>::Iterator matcher = it;
-        ++it;
-
-        (*matcher) = (*matcher)->optimize();
-        if ( *matcher == 0 )
-            _elements.remove( matcher );
-    }
-
-    if ( _elements.count() == 0 ) {
-        delete this;
-        return 0;
-    }
-    else if ( _elements.count() == 1 ) {
-        OptionMatcher* res = _elements[0]->optimize();
-        _elements.clear();
-        delete this;
-        return res;
-    }
-
-    else
-        return this;
-
-}
 
 OptionContainerMatcher::~OptionContainerMatcher()
 {
@@ -162,6 +128,7 @@ QString OptionMatcher::spaces(int level ) const
 }
 
 
+#ifdef TEMPORARILY_REMOVED
 OptionMatcher* OptionValueMatcher::clone()
 {
     return new OptionValueMatcher( _category, _option, _sign );
@@ -192,39 +159,9 @@ void OptionContainerMatcher::clone( OptionContainerMatcher* newMatcher )
         newMatcher->addElement( (*it)->clone() );
     }
 }
+#endif
 
-OptionMatcher* OptionAndMatcher::optimize()
-{
-    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ) {
-        QValueList<OptionMatcher*>::Iterator  elm = it;
-        ++it;
-        OptionAndMatcher* child = dynamic_cast<OptionAndMatcher*>(*elm);
-        if ( child ) {
-            for( QValueList<OptionMatcher*>::Iterator itChild = child->_elements.begin(); itChild != child->_elements.end(); ++itChild ) {
-                _elements.prepend( *itChild );
-            }
-            _elements.remove( elm );
-        }
-    }
-    return OptionContainerMatcher::optimize();
-}
-
-OptionMatcher* OptionOrMatcher::optimize()
-{
-    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ) {
-        QValueList<OptionMatcher*>::Iterator  elm = it;
-        ++it;
-        OptionOrMatcher* child = dynamic_cast<OptionOrMatcher*>(*elm);
-        if ( child ) {
-            for( QValueList<OptionMatcher*>::Iterator itChild = child->_elements.begin(); itChild != child->_elements.end(); ++itChild ) {
-                _elements.prepend( *itChild );
-            }
-            _elements.remove( elm );
-        }
-    }
-    return OptionContainerMatcher::optimize();
-}
-
+#ifdef TEMPORARILY_REMOVED
 OptionMatcher* OptionValueMatcher::normalize()
 {
     return clone();
@@ -243,13 +180,12 @@ OptionMatcher* OptionAndMatcher::normalize()
         return _elements[0]->normalize();
 
     OptionMatcher* result = _elements[0]->normalize();
-    result = result->optimize();
 
     QValueList<OptionMatcher*>::Iterator it = _elements.begin();
     ++it;
 
     for( ; it != _elements.end(); ) {
-        OptionMatcher* elm = (*it)->normalize()->optimize();
+        OptionMatcher* elm = (*it)->normalize();
         ++it;
 
         OptionMatcher* tmp = normalizeTwo( result, elm );
@@ -308,3 +244,4 @@ OptionMatcher* OptionAndMatcher::normalizeTwo( OptionMatcher* a, OptionMatcher* 
 
     return result;
 }
+#endif

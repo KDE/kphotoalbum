@@ -25,11 +25,19 @@ class QSqlError;
 class ImageSearchInfo;
 
 namespace SQLDB {
-    QStringList buildQueries( OptionMatcher* );
-    QString buildAndQuery( OptionAndMatcher* matcher );
+    QValueList<int> filesMatchingQuery( const ImageSearchInfo& info );
+    QValueList<int> runCategoryQuery( QValueList<OptionSimpleMatcher*> );
+    void split( const QValueList<OptionSimpleMatcher*>& input,
+                QValueList<OptionSimpleMatcher*>& positiveList,
+                QValueList<OptionSimpleMatcher*>& negativeList );
+    QString buildQueryPrefix( int count, int firstId );
+
     QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
-    QValueList<int> filesMatchingQuery( const ::ImageSearchInfo& info );
     QStringList values( OptionValueMatcher* matcher );
+
+    QValueList<int> mergeUniqly( QValueList<int>, QValueList<int> );
+    QValueList<int> listSubstract( QValueList<int>, QValueList<int> );
+
 }
 
 #endif /* SQLDB_QUERY_H */

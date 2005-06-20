@@ -24,7 +24,8 @@
 #include <qstringlist.h>
 #include <qdict.h>
 #include "imageinfoptr.h"
-class OptionOrMatcher;
+class OptionAndMatcher;
+class OptionSimpleMatcher;
 class ImageInfo;
 class OptionMatcher;
 
@@ -49,7 +50,7 @@ public:
 
     bool isNull() const;
     bool match( ImageInfoPtr ) const;
-    OptionMatcher* query() const;
+    QValueList< QValueList<OptionSimpleMatcher*> > query() const;
 
     void addAnd( const QString& category, const QString& value );
     QString toString() const;
@@ -63,6 +64,11 @@ public:
 
 protected:
     void compile() const;
+    void deleteMatchers() const;
+
+    QValueList<OptionSimpleMatcher*> extractAndMatcher( OptionMatcher* andMatcher ) const;
+    QValueList< QValueList<OptionSimpleMatcher*> > convertMatcher( OptionMatcher* ) const;
+
 
 private:
     ImageDate _startDate;
@@ -72,7 +78,7 @@ private:
     QString _description;
     bool _isNull;
     mutable bool _compiled;
-    mutable OptionMatcher* _optionMatcher;
+    mutable QValueList<OptionMatcher*> _optionMatchers;
 };
 
 

@@ -30,7 +30,7 @@
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
-    : _label( label ), _description( description ), _isNull( false ), _compiled( false ), _optionMatcher( 0 )
+    : _label( label ), _description( description ), _isNull( false ), _compiled( false )
 {
     if ( endDate.isNull() ) {
         _startDate = startDate;
@@ -68,7 +68,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _isNull( true ), _compiled( false ), _optionMatcher( 0 )
+    : _isNull( true ), _compiled( false )
 {
 }
 
@@ -112,8 +112,10 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     // -------------------------------------------------- Options
     info->clearMatched();
-    if ( _optionMatcher )
-        ok &= _optionMatcher->eval( info );
+    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
+        ok &= (*it)->eval( info );
+    }
+
 
     // -------------------------------------------------- Label
     ok &= ( _label.isEmpty() || info->label().find(_label) != -1 );
@@ -240,25 +242,29 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _description = other._description;
     _isNull = other._isNull;
     _compiled = false;
-    _optionMatcher = 0;
 }
 
 void ImageSearchInfo::compile() const
 {
-    delete _optionMatcher;
-    OptionAndMatcher* matcher = new OptionAndMatcher;
+    deleteMatchers();
 
     for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
         QString category = it.key();
         QString matchText = it.data();
 
         QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
-        OptionOrMatcher* orMatcher = new OptionOrMatcher;
+        OptionContainerMatcher* orMatcher = new OptionOrMatcher;
 
         for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
             QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
 
-            OptionAndMatcher* andMatcher = new OptionAndMatcher;
+            OptionContainerMatcher* andMatcher = orMatcher;
+            if ( andParts.count() > 1 ) {
+                andMatcher = new OptionAndMatcher;
+                orMatcher->addElement( andMatcher );
+            }
+
+
             for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
                 QString str = *itAnd;
                 bool negate = false;
@@ -275,44 +281,63 @@ void ImageSearchInfo::compile() const
                     valueMatcher = new OptionValueMatcher( category, str, !negate );
                 andMatcher->addElement( valueMatcher );
             }
-            orMatcher->addElement( andMatcher );
         }
-        matcher->addElement( orMatcher );
+        if ( orMatcher->_elements.count() == 1 )
+            _optionMatchers.append( orMatcher->_elements[0] );
+        else if ( orMatcher->_elements.count() > 1 )
+            _optionMatchers.append( orMatcher );
     }
     _compiled = true;
-    _optionMatcher = matcher->optimize();
 }
 
 ImageSearchInfo::~ImageSearchInfo()
 {
-    delete _optionMatcher;
+    deleteMatchers();
 }
 
 void ImageSearchInfo::debugMatcher() const
 {
     if ( !_compiled )
         compile();
-    if ( _optionMatcher ) {
-        qDebug("=======================================================");
-        _optionMatcher->debug(0);
-        qDebug("--------------------------------------------------------");
-        _optionMatcher = _optionMatcher->normalize();
-        _optionMatcher = _optionMatcher->optimize();
-        if ( _optionMatcher )
-            _optionMatcher->debug(0);
-        else
-            qDebug("EMPTY MATCHER");
+
+    qDebug("And:");
+    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
+        (*it)->debug(1);
     }
 }
 
-OptionMatcher* ImageSearchInfo::query() const
+QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
 {
     if ( !_compiled )
         compile();
-    if ( isNull() )
-        return 0;
-    else
-        return _optionMatcher;
+
+    QValueList<OptionMatcher*>::Iterator it  = _optionMatchers.begin();
+    QValueList< QValueList<OptionSimpleMatcher*> > result;
+    if ( it == _optionMatchers.end() )
+        return result;
+
+    result = convertMatcher( *it );
+    ++it;
+
+    for( ; it != _optionMatchers.end(); ++it ) {
+        QValueList< QValueList<OptionSimpleMatcher*> > current = convertMatcher( *it );
+        QValueList< QValueList<OptionSimpleMatcher*> > oldResult = result;
+        result.clear();
+
+        for( QValueList< QValueList<OptionSimpleMatcher*> >::Iterator resultIt = oldResult.begin();
+             resultIt != oldResult.end(); ++resultIt ) {
+
+            for( QValueList< QValueList<OptionSimpleMatcher*> >::Iterator currentIt = current.begin();
+                 currentIt != current.end(); ++currentIt ) {
+
+                QValueList<OptionSimpleMatcher*> tmp;
+                tmp += (*resultIt);
+                tmp += (*currentIt);
+                result.append( tmp );
+            }
+        }
+    }
+    return result;
 }
 
 QDict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
@@ -330,4 +355,53 @@ QDict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
             map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
     }
     return map;
+}
+
+void ImageSearchInfo::deleteMatchers() const
+{
+    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end();  ) {
+        OptionMatcher* matcher = *it;
+        ++it;
+        delete matcher;
+    }
+    _optionMatchers.clear();
+}
+
+QValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( OptionMatcher* matcher ) const
+{
+    QValueList< OptionSimpleMatcher*> result;
+
+    OptionAndMatcher* andMatcher;
+    OptionSimpleMatcher* simpleMatcher;
+
+    if ( ( andMatcher = dynamic_cast<OptionAndMatcher*>( matcher ) ) ) {
+        for( QValueList<OptionMatcher*>::Iterator childIt = andMatcher->_elements.begin();
+             childIt != andMatcher->_elements.end(); ++childIt ) {
+            OptionSimpleMatcher* simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( *childIt );
+            Q_ASSERT( simpleMatcher );
+            result.append( simpleMatcher );
+        }
+    }
+    else if ( ( simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( matcher ) ) )
+        result.append( simpleMatcher );
+    else
+        Q_ASSERT( false );
+
+    return result;
+}
+
+QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( OptionMatcher* item ) const
+{
+    QValueList< QValueList<OptionSimpleMatcher*> > result;
+    OptionOrMatcher* orMacther;
+
+    if ( ( orMacther = dynamic_cast<OptionOrMatcher*>( item ) ) ) {
+        for( QValueList<OptionMatcher*>::Iterator childIt = orMacther->_elements.begin();
+             childIt != orMacther->_elements.end(); ++childIt ) {
+            result.append( extractAndMatcher( *childIt ) );
+        }
+    }
+    else
+        result.append( extractAndMatcher( item ) );
+    return result;
 }

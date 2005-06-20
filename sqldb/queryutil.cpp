@@ -21,9 +21,28 @@ QStringList SQLDB::runAndReturnList( const QString& queryString, const QMap<QStr
         showError( query );
         return QStringList();
     }
+
     QStringList result;
     while ( query.next() )
         result.append( query.value(0).toString() );
+    return result;
+}
+
+QValueList<int> SQLDB::runAndReturnIntList( const QString& queryString, const QMap<QString,QVariant>& bindings )
+{
+    QValueList<int> result;
+
+    QSqlQuery query;
+    query.prepare( queryString );
+    for( QMap<QString,QVariant>::ConstIterator it = bindings.begin(); it != bindings.end(); ++it ) {
+        query.bindValue( it.key(), it.data() );
+    }
+    if ( !query.exec() ) {
+        showError( query );
+        return result;
+    }
+    while ( query.next() )
+        result.append( query.value(0).toInt() );
     return result;
 }
 
@@ -99,5 +118,10 @@ int SQLDB::idForCategory( const QString& category )
     QMap<QString,QVariant> map;
     map.insert( QString::fromLatin1( ":category" ), category );
     return fetchItem( query, map ).toInt();
+}
+
+QValueList<int> SQLDB::allImages()
+{
+    return runAndReturnIntList( QString::fromLatin1( "SELECT * from sortorder" ) );
 }
 

@@ -27,6 +27,7 @@ class ImageSearchInfo;
 namespace SQLDB {
     void showError( QSqlQuery& query );
     QStringList runAndReturnList( const QString& queryString, const QMap<QString,QVariant>& bindings = QMap<QString,QVariant>() );
+    QValueList<int> runAndReturnIntList( const QString& queryString, const QMap<QString,QVariant>& bindings = QMap<QString,QVariant>() );
     QVariant fetchItem( const QString& queryString, const QMap<QString,QVariant>& bindings  = QMap<QString,QVariant>() );
     bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings, QSqlQuery& query  );
     bool runQuery( const QString& queryString, const QMap<QString,QVariant>& bindings );
@@ -35,6 +36,7 @@ namespace SQLDB {
     int idForFileName( const QString& fullPath );
     QString categoryForId( int id );
     int idForCategory( const QString& category );
+    QValueList<int> allImages();
 }
 
 #endif /* SQLDB_QUERYUTIL_H */

@@ -13,6 +13,8 @@
 #include "groupCounter.h"
 #include <kdebug.h>
 #include "sqlimageinfo.h"
+#include <browser.h>
+#include "sqlimagedaterangecollection.h"
 
 
 SQLDB::SQLDB::SQLDB()
@@ -201,8 +203,15 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
         imageQuery.bindValue( QString::fromLatin1( ":label" ),  info->label() );
         imageQuery.bindValue( QString::fromLatin1( ":angle" ),  info->angle() );
         imageQuery.bindValue( QString::fromLatin1( ":description" ),  info->description() );
-        imageQuery.bindValue( QString::fromLatin1( ":startDate" ), info->startDate().min() );
-        imageQuery.bindValue( QString::fromLatin1( ":endDate" ), info->endDate().min() );
+        if ( info->startDate().year() != 0 )
+            imageQuery.bindValue( QString::fromLatin1( ":startDate" ), info->startDate().min() );
+
+        ImageDate endDate = info->endDate();
+        if ( info->startDate().max() > info->endDate().max() )
+            endDate = info->startDate();
+
+        if ( endDate.year() != 0 )
+            imageQuery.bindValue( QString::fromLatin1( ":endDate" ), endDate.max() );
 
         if ( !imageQuery.exec() )
             showError( imageQuery );
@@ -366,5 +375,10 @@ void SQLDB::SQLDB::loadMemberGroups()
 CategoryCollection* SQLDB::SQLDB::categoryCollection()
 {
     return &_categoryCollection;
+}
+
+KSharedPtr<ImageDateRangeCollection> SQLDB::SQLDB::rangeCollection()
+{
+    return new SQLImageDateRangeCollection( /*search( Browser::instance()->currentContext(), false ) */ );
 }
 

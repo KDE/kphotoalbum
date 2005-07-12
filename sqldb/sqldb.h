@@ -55,6 +55,7 @@ namespace SQLDB {
         virtual MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();
+        virtual KSharedPtr<ImageDateRangeCollection> rangeCollection();
 
     protected slots:
         virtual void renameItem( Category* category, const QString& oldName, const QString& newName );

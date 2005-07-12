@@ -74,9 +74,9 @@ void DateBarMouseHandler::FocusItem::mouseMoveEvent( int x )
     // We use oldUnit here, to ensure that we scroll all the way to the end
     // better scroll a bit over than not all the way.
     if ( (newUnit > oldUnit &&
-          _dateBar->dateForUnit( oldUnit ) > _dateBar->_dates.upperLimit() ) ||
+          _dateBar->dateForUnit( oldUnit ) > _dateBar->_dates->upperLimit() ) ||
          ( newUnit < oldUnit &&
-           _dateBar->dateForUnit( oldUnit ) < _dateBar->_dates.lowerLimit() ) )
+           _dateBar->dateForUnit( oldUnit ) < _dateBar->_dates->lowerLimit() ) )
         return;
     _dateBar->_currentUnit = newUnit;
 
@@ -120,9 +120,9 @@ void DateBarMouseHandler::DateArea::mouseMoveEvent( int x )
     // We use oldUnit here, to ensure that we scroll all the way to the end
     // better scroll a bit over than not all the way.
     if ( (newUnit > oldUnit &&
-            _dateBar->dateForUnit( 0 ) < _dateBar->_dates.lowerLimit() ) ||
+            _dateBar->dateForUnit( 0 ) < _dateBar->_dates->lowerLimit() ) ||
            ( newUnit < oldUnit &&
-             _dateBar->dateForUnit( _dateBar->numberOfUnits() ) > _dateBar->_dates.upperLimit() ) )
+             _dateBar->dateForUnit( _dateBar->numberOfUnits() ) > _dateBar->_dates->upperLimit() ) )
         return;
 
     _dateBar->_currentUnit = newUnit;

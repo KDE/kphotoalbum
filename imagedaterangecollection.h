@@ -22,6 +22,7 @@
 #include <qvaluelist.h>
 #include <qmap.h>
 #include "imageinfolist.h"
+#include <ksharedptr.h>
 class QStringList;
 
 class ImageCount
@@ -38,20 +39,12 @@ public:
 };
 
 
-class ImageDateRangeCollection
+class ImageDateRangeCollection :public KShared
 {
 public:
-    ImageDateRangeCollection();
-    ImageDateRangeCollection( const QStringList& );
-    void append( const ImageDateRange& );
-    ImageCount count( const ImageDate& from, const ImageDate& to );
-    QDateTime lowerLimit() const;
-    QDateTime upperLimit() const;
-
-private:
-    QValueList<ImageDateRange> _dates;
-    QMap<ImageDateRange,ImageCount> _cache;
-    mutable bool _dirtyLower, _dirtyUpper;
+    virtual ImageCount count( const ImageDate& from, const ImageDate& to ) = 0;
+    virtual QDateTime lowerLimit() const = 0;
+    virtual QDateTime upperLimit() const = 0;
 };
 
 

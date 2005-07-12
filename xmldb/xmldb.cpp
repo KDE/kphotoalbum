@@ -39,6 +39,8 @@
 #include <qregexp.h>
 #include <stdlib.h>
 #include "xmlcategory.h"
+#include <ksharedptr.h>
+#include "xmlimagedaterangecollection.h"
 
 XMLDB::XMLDB::XMLDB( const QString& configFile )
 {
@@ -636,4 +638,9 @@ void XMLDB::XMLDB::sortAndMergeBackIn( const QStringList& fileList )
 CategoryCollection* XMLDB::XMLDB::categoryCollection()
 {
     return &_categoryCollection;
+}
+
+KSharedPtr<ImageDateRangeCollection> XMLDB::XMLDB::rangeCollection()
+{
+    return new XMLImageDateRangeCollection( search( Browser::instance()->currentContext(), false ) );
 }

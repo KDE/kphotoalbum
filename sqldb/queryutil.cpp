@@ -21,6 +21,7 @@ QStringList SQLDB::runAndReturnList( const QString& queryString, const QMap<QStr
         showError( query );
         return QStringList();
     }
+    // qDebug("%s", query.executedQuery().latin1());
 
     QStringList result;
     while ( query.next() )

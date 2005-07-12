@@ -250,7 +250,10 @@ ImageDate& ImageInfo::startDate()
 
 ImageDate& ImageInfo::endDate()
 {
-    return _endDate;
+    if ( _endDate.isValid() )
+        return _endDate;
+    else
+        return _startDate;
 }
 
 ImageDate ImageInfo::startDate() const

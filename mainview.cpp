@@ -1257,7 +1257,7 @@ void MainView::updateDateBar( const QString& path )
 
 void MainView::updateDateBar()
 {
-    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->search( currentContext(), false ) ) );
+    _dateBar->setImageRangeCollection( ImageDB::instance()->rangeCollection() );
 }
 
 

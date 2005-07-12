@@ -56,6 +56,7 @@ namespace XMLDB {
         virtual MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();
+        virtual KSharedPtr<ImageDateRangeCollection> rangeCollection();
 
     protected:
         ImageInfoPtr load( const QString& filename, QDomElement elm );

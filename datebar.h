@@ -25,6 +25,7 @@
 #include "imagedaterangecollection.h"
 #include "dateviewhandler.h"
 #include "datebarmousehandler.h"
+#include <ksharedptr.h>
 class QPopupMenu;
 class QToolButton;
 
@@ -39,7 +40,7 @@ public:
 public slots:
     void setViewType( ViewType tp );
     void setDate( const QDateTime& date );
-    void setImageRangeCollection( const ImageDateRangeCollection& );
+    void setImageRangeCollection( const KSharedPtr<ImageDateRangeCollection>& );
     void scrollLeft();
     void scrollRight();
     void scroll( int units );
@@ -104,7 +105,7 @@ private:
     QPixmap _buffer;
     friend class DateBarTip;
 
-    ImageDateRangeCollection _dates;
+    KSharedPtr<ImageDateRangeCollection> _dates;
     DecadeViewHandler _decadeViewHandler;
     YearViewHandler _yearViewHandler;
     MonthViewHandler _monthViewHandler;

@@ -9,7 +9,7 @@ public:
     XMLImageDateRangeCollection( const QStringList& );
 
 public:
-    virtual ImageCount count( const ImageDate& from, const ImageDate& to );
+    virtual ImageCount count( const ImageDateRange& range );
     virtual QDateTime lowerLimit() const;
     virtual QDateTime upperLimit() const;
 

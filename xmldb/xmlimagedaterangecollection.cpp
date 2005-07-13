@@ -32,15 +32,14 @@ void XMLImageDateRangeCollection::append( const ImageDateRange& dateRange )
     _dirtyUpper = true;
 }
 
-ImageCount XMLImageDateRangeCollection::count( const ImageDate& from, const ImageDate& to )
+ImageCount XMLImageDateRangeCollection::count( const ImageDateRange& range )
 {
-    ImageDateRange range( from, to );
     if ( _cache.contains( range ) )
         return _cache[range];
 
     int exact = 0, rangeMatch = 0;
     for( QValueList<ImageDateRange>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
-        ImageDateRange::MatchType tp = (*it).isIncludedIn( ImageDateRange( from, to ) );
+        ImageDateRange::MatchType tp = (*it).isIncludedIn( range );
         switch (tp) {
         case ImageDateRange::ExactMatch: exact++;break;
         case ImageDateRange::RangeMatch: rangeMatch++; break;

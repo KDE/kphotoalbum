@@ -236,7 +236,7 @@ void DateBar::drawHistograms( QPainter& p)
     int unit = 0;
     int max = 0;
     for ( int x = rect.x(); x + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) );
+        ImageCount count = _dates->count( ImageDateRange( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
         int cnt = count._exact;
         if ( _includeFuzzyCounts )
             cnt += count._rangeMatch;
@@ -245,7 +245,7 @@ void DateBar::drawHistograms( QPainter& p)
 
     unit = 0;
     for ( int x = rect.x(); x  + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) );
+        ImageCount count = _dates->count( ImageDateRange( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
         int exact = 0;
         if ( max != 0 )
             exact = (int) ((double) (rect.height()-2) * count._exact / max );
@@ -592,7 +592,7 @@ ImageDateRange DateBar::currentDateRange() const
 void DateBar::showStatusBarTip( const QPoint& pos )
 {
     ImageDateRange range = rangeAt( pos );
-    ImageCount count = _dates->count( range.start(), range.end().max().addSecs(-1) );
+    ImageCount count = _dates->count( range );
 
     QString cnt;
     if ( count._rangeMatch != 0 && includeFuzzyCounts())

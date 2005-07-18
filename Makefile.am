@@ -4,11 +4,20 @@ if compile_LIBKIMDABA_COMPAT
   COMPAT_INCLUDE = -I$(srcdir)/compat
 endif
 
+if compile_sqldb
+  LIBKIMDABA_SQLDB=sqldb/libsqlqdb.la
+  SQLDB=sqldb
+else
+  LIBKIMDABA_SQLDB=
+  SQLDB=
+endif
+
+
 if HAVE_KIPI
   KIPI_LIBS = -lkipi
 endif
 
-SUBDIRS = images icons demo themes survey xmldb sqldb $(COMPAT_DIR)
+SUBDIRS = images icons demo themes survey xmldb $(SQLDB) $(COMPAT_DIR)
 INCLUDES =  -I$(srcdir)/survey $(all_includes) $(COMPAT_INCLUDE)
 
 bin_PROGRAMS = kimdaba
@@ -34,7 +43,7 @@ kimdaba_SOURCES = \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD =  survey/libsurvey.la xmldb/libxmldb.la sqldb/libsqldb.la $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)
+kimdaba_LDADD =  survey/libsurvey.la xmldb/libxmldb.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS) $(KIMDABA_KIPI_CXXFLAGS)

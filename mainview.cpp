@@ -621,7 +621,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
-    new KAction( i18n("Convert Backend..." ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
+    new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
     new KAction( i18n("Remove All Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
     new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
 

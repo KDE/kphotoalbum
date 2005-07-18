@@ -22,9 +22,11 @@ ImageDB* ImageDB::instance()
 
 void ImageDB::setup( const QString& backend, const QString& configFile )
 {
+#ifdef SQLDB_SUPPORT
     if ( backend == QString::fromLatin1( "sql" ) )
         _instance = new SQLDB::SQLDB;
     else
+#endif // SQLDB_SUPPORT
         _instance = new XMLDB::XMLDB( configFile );
     connect( _instance->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              _instance, SLOT( deleteItem( Category*, const QString& ) ) );
@@ -104,6 +106,7 @@ int ImageDB::count( const ImageSearchInfo& info )
 
 void ImageDB::convertBackend()
 {
+#ifdef SQLDB_SUPPORT
     QStringList allImages = images();
 
     QProgressDialog dialog( 0 );
@@ -137,6 +140,7 @@ void ImageDB::convertBackend()
     }
     if ( list.count() != 0 )
         newBackend->addImages( list );
+#endif // SQLDB_SUPPORT
 }
 
 void ImageDB::slotReread( const QStringList& list, int mode)

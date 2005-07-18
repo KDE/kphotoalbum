@@ -69,13 +69,9 @@ void ContentFolderAction::action( BrowserItemFactory* factory )
     _browser->clear();
     QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
 
-    QTime timer;
-    timer.start();
-    qDebug("Classifying...");
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         factory->createItem( new TypeFolder( *it, _info, _browser ) );
     }
-    qDebug("End %d", timer.elapsed() );
 
     //-------------------------------------------------- Search Folders
     factory->createItem( new DateFolder( _info, _browser ) );

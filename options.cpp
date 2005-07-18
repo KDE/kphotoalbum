@@ -43,6 +43,7 @@
 #include <kconfig.h>
 #include "options.moc"
 #include "membermap.h"
+#include <kdebug.h>
 
 #define STR(x) QString::fromLatin1(x)
 
@@ -326,8 +327,7 @@ bool Options::ready()
 
 void Options::createSpecialCategories()
 {
-    qDebug("TEMP REM: Options::createSpecialCategories" );
-#ifdef TEMPORARILY_REMOVED
+#ifdef TEMP_REMOVED
     CategoryPtr folderCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Folder" ) );
     if( folderCat == 0 ) {
         folderCat = new Category( STR("Folder"), STR("folder"), Category::Small, Category::ListView, false );
@@ -342,6 +342,8 @@ void Options::createSpecialCategories()
         ImageDB::instance()->categoryCollection()->addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
+#else
+    kdDebug() << "You need to implement Options::createSpecialCategories()\n";
 #endif
 }
 

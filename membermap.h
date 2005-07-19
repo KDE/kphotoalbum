@@ -22,6 +22,10 @@
 #include <qdom.h>
 #include <qmap.h>
 #include <qobject.h>
+class Category;
+namespace XMLDB {
+    class XMLDB;
+}
 
 class MemberMap :public QObject {
     Q_OBJECT
@@ -34,9 +38,7 @@ public:
     void deleteGroup( const QString& category, const QString& name );
     QStringList members( const QString& category, const QString& memberGroup, bool closure ) const;
     void setMembers( const QString& category, const QString& memberGroup, const QStringList& members );
-    QDomElement save( QDomDocument doc );
     bool isEmpty() const;
-    void load( const QDomElement& );
     bool isGroup( const QString& category, const QString& memberGroup ) const;
     QMap<QString,QStringList> groupMap( const QString& category );
     void renameGroup( const QString& category, const QString& oldName, const QString& newName );
@@ -51,10 +53,11 @@ protected:
 
 protected slots:
     void init();
-    void deleteOption( const QString& category, const QString& name);
-    void renameOption( const QString& category, const QString& oldName, const QString& newName );
+    void deleteItem( Category* category, const QString& name);
+    void renameItem( Category* category, const QString& oldName, const QString& newName );
 
 private:
+    friend class XMLDB::XMLDB;
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)
     QMap<QString, QMap<QString,QStringList> > _members;

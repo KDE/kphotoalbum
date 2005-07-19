@@ -22,6 +22,7 @@
 #ifdef HASKIPI
 #include <libkipi/imageinfoshared.h>
 #include <kdemacros.h>
+#include "imageinfoptr.h"
 class ImageInfo;
 
 class KDE_EXPORT MyImageInfo :public KIPI::ImageInfoShared
@@ -48,7 +49,7 @@ public:
     virtual void cloneData( ImageInfoShared* other );
 
 private:
-    ImageInfo* _info;
+    ImageInfoPtr _info;
 };
 
 #endif // NOKIP

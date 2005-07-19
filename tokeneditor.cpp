@@ -6,6 +6,8 @@
 #include <qlabel.h>
 #include "imagedb.h"
 #include "options.h"
+#include "categorycollection.h"
+#include "category.h"
 TokenEditor::TokenEditor( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n( "Remove Tokens" ), Cancel | Ok, Ok, parent, name )
 {
@@ -83,7 +85,7 @@ void TokenEditor::slotOk()
     for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
-            Options::instance()->removeOption( QString::fromLatin1( "Tokens" ), txt );
+            ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
         }
     }
     KDialogBase::slotOk();

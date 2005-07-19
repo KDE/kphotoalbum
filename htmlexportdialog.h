@@ -35,7 +35,7 @@ class HTMLExportDialog :public KDialogBase, private ImageClient {
 
 public:
     HTMLExportDialog( QWidget* parent, const char* name = 0 );
-    int exec( const ImageInfoList& list );
+    int exec( const QStringList& list );
 
 protected slots:
     void slotOk();
@@ -44,13 +44,13 @@ protected slots:
     void showBrowser();
 
 protected:
-    QString createImage( ImageInfo* info, int size );
+    QString createImage( const QString& fileName, int size );
     QString imageName( const QString& fileName, int size );
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
     bool generate();
     bool generateIndexPage( int width, int height );
-    bool generateContextPage( int width, int height, ImageInfo* prevInfo,
-                              ImageInfo* info, ImageInfo* nextInfo );
+    bool generateContextPage( int width, int height, const QString& prevInfo,
+                              const QString& info, const QString& nextInfo );
     bool checkVars();
     int calculateSteps();
     QString namePage( int width, int height, const QString& fileName );
@@ -81,7 +81,7 @@ private:
     QSpinBox* _numOfCols;
     QCheckBox* _generateKimFile;
 
-    ImageInfoList _list;
+    QStringList _list;
     int _waitCounter;
     int _total;
     QProgressDialog* _progress;

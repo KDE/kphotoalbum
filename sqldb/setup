@@ -1,0 +1,62 @@
+#select *, UTC_TIMESTAMP() from test;
+
+echo y | mysqladmin -u root drop kimdaba
+
+mysqladmin -u root create kimdaba;
+mysql -u root kimdaba << EOF
+
+CREATE TABLE membergroup
+(
+   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   groupname varchar(128) NOT NULL,
+   category varchar(128) NOT NULL,
+   member varchar(128) NOT NULL
+);
+
+CREATE TABLE imageinfo 
+(
+  fileId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  label varchar(255),
+  description TEXT,
+  startDate DATETIME,
+  endDate DATETIME,
+  angle INT,
+  md5sum varchar(64),
+  width INT,
+  height INT,
+  INDEX( startDate ),
+  INDEX( endDate )
+);
+
+CREATE TABLE imagecategoryinfo
+(
+  fileId INT,
+  categoryId INT,
+  value varchar(255),
+  INDEX(fileId),
+  INDEX(categoryId)
+);
+
+CREATE TABLE categorysetup 
+(
+  categoryId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,   
+  category varchar(255),
+  viewtype INT,
+  viewsize INT,
+  icon varchar(128),
+  showIt bool
+);
+
+CREATE TABLE sortorder 
+(
+  fileId INT PRIMARY KEY,
+  fileName varchar(255),
+  idx INT
+);
+
+CREATE TABLE categorysortorder
+(
+  idx INT,
+  categoryId INT,
+  item varchar(255)
+);

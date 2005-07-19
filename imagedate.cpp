@@ -22,14 +22,14 @@
 #include "options.h"
 #include <qregexp.h>
 
-ImageDate::ImageDate( int day, int month, int year )
+ImageDate::ImageDate( int day, int month, int year, int hour, int minute, int second )
 {
     _day = day;
     _month = month;
     _year = year;
-    _hour = -1;
-    _minute = -1;
-    _second = -1;
+    _hour = hour;
+    _minute = minute;
+    _second = second;
     _dirty = true;
 }
 

@@ -19,6 +19,8 @@
 #ifndef OPTIONMATCHER_H
 #define OPTIONMATCHER_H
 #include <qvaluelist.h>
+#include <qstringlist.h>
+#include "imageinfoptr.h"
 class ImageInfo;
 
 /**
@@ -27,50 +29,55 @@ class ImageInfo;
 class OptionMatcher
 {
 public:
-    virtual bool eval( ImageInfo* ) = 0;
+    virtual bool eval( ImageInfoPtr ) = 0;
     virtual ~OptionMatcher() {}
-    virtual OptionMatcher* optimize() = 0;
+    virtual void debug( int level ) const = 0;
+
+protected:
+    QString spaces(int level ) const;
 };
 
-class OptionValueMatcher :public OptionMatcher
+class OptionSimpleMatcher :public OptionMatcher
 {
 public:
-    OptionValueMatcher( const QString& category, const QString& option );
-    virtual bool eval( ImageInfo* );
-    virtual OptionMatcher* optimize();
-
-private:
     QString _category;
+    bool _sign;
+};
+
+class OptionValueMatcher :public OptionSimpleMatcher
+{
+public:
+    OptionValueMatcher( const QString& category, const QString& value, bool sign );
+    virtual bool eval( ImageInfoPtr );
+    virtual void debug( int level ) const;
+
     QString _option;
 };
 
 
-class OptionEmptyMatcher :public OptionMatcher
+class OptionEmptyMatcher :public OptionSimpleMatcher
 {
 public:
-    OptionEmptyMatcher( const QString& category );
-    virtual bool eval( ImageInfo* info );
-    virtual OptionMatcher* optimize();
-
-private:
-    QString _category;
+    OptionEmptyMatcher( const QString& category, bool sign );
+    virtual bool eval( ImageInfoPtr info );
+    virtual void debug( int level ) const;
 };
 
 class OptionContainerMatcher :public OptionMatcher
 {
 public:
-    virtual OptionMatcher* optimize();
     void addElement( OptionMatcher* );
     ~OptionContainerMatcher();
+    virtual void debug( int level ) const;
 
-protected:
     QValueList<OptionMatcher*> _elements;
 };
 
 class OptionAndMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval( ImageInfo* );
+    virtual bool eval( ImageInfoPtr );
+    virtual void debug( int level ) const;
 };
 
 
@@ -78,19 +85,8 @@ public:
 class OptionOrMatcher :public OptionContainerMatcher
 {
 public:
-    virtual bool eval( ImageInfo* );
-};
-
-
-
-class OptionNotMatcher :public OptionMatcher
-{
-public:
-    OptionNotMatcher( OptionMatcher* );
-    virtual bool eval( ImageInfo* );
-    virtual OptionMatcher* optimize();
-private:
-    OptionMatcher* _element;
+    virtual bool eval( ImageInfoPtr );
+    virtual void debug( int level ) const;
 };
 
 #endif /* OPTIONMATCHER_H */

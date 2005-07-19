@@ -60,7 +60,7 @@ ReadInfoDialog::ReadInfoDialog( QWidget* parent, const char* name )
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( readInfo() ) );
 }
 
-int ReadInfoDialog::exec( const ImageInfoList& list )
+int ReadInfoDialog::exec( const QStringList& list )
 {
     _label->setText( i18n("<qt><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></qt>").arg( list.count() ) );
 

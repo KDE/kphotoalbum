@@ -43,6 +43,7 @@
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
       <Action name="readInfo" />
+      <Action name="convertBackend" />
       <Separator/>
       <Action name="removeAllThumbs"/>
       <Action name="buildThumbs"/>

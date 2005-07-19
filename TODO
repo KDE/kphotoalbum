@@ -12,6 +12,12 @@ different in the image property page.
 - Config window layout should be saved when a new tab has been created.
 - the tips of the day screen only shows up randomly.
 - searches using the description field should be case insensitive.
+- When exporting to HTML or otherwise, use a filename suffix that
+  matches what's actually being exported.  For example, exporting a
+  file named foo.png generates a file named foo.png, even though the
+  exported file is actually a JPEG.
+- look into using libkexif rather than kdeutil for reading EXIF info, or
+alternatively warn the user about kdelibs not installed.
 
 =======================
 BUGS of less importance
@@ -44,10 +50,10 @@ Features for a soonish version
 - Adding blinking icons to the splash screen.
 - Choose a default category image, as Jean-Michel suggest (for category
   image of Anne Helene):
-  Pick the first picture with ONLY Anne Helene (it´s likely to be more
+  Pick the first picture with ONLY Anne Helene (itÂ´s likely to be more
   specific to recognize Anne Helene)
-  If it doesn´t work, pick the first picture with Ann Helen
-  If it doesn´t work, the default KDE icon, just like today.
+  If it doesnÂ´t work, pick the first picture with Ann Helen
+  If it doesnÂ´t work, the default KDE icon, just like today.
   The problem here is speed. Currently it is not possible to load these images
   using the image manager, so say 300 images would take approx 1 minute to load.
 - Make it possible to use the thumbnail standard
@@ -79,6 +85,13 @@ limit to that date.
     the protocols for which there are kioslaves.  
   - It'd be possible to include images from more than one directory.
 
+- red eye removal (See email from Martin Ehmsen <martin@ehmsen.org>)
+
+- items in the browsers should be case insensitive
+- make it possible in the browser to select multiple images to form an "or query"
+- make it possible to specify sort order for the thumbnail (newest image
+first or last)
+
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
 ======================================================================
@@ -97,3 +110,11 @@ a 32x32 image to 1024x768)
   images not previously backed up (by means of a keyword) and export
   them preserving layout, and dump the exported tree to DVD.
 - add a DCOP interface to KimDaBa
+- Predefined filtering, or "dynamic selection" : let the user define
+  a selection and display it. This gives the advantage of not having to
+  manually having to set a given keyword to the new images corresponding
+  to this selection.
+- display the current "location" in the status bar, something like
+  Paris > StreetArt > Invaders
+  and the ability to click on them to remove them from the filter
+  (enlarging the selection).

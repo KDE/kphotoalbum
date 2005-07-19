@@ -28,6 +28,7 @@
 #include <kiconloader.h>
 #include "browseritemfactory.h"
 #include "categorycollection.h"
+#include "membermap.h"
 ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category( category ), _value( value )
@@ -38,11 +39,11 @@ ContentFolder::ContentFolder( const QString& category, const QString& value, int
 
 QPixmap ContentFolder::pixmap()
 {
-    if ( CategoryCollection::instance()->categoryForName( _category )->viewSize() == Category::Small ) {
-        if ( Options::instance()->memberMap().isGroup( _category, _value ) )
+    if ( ImageDB::instance()->categoryCollection()->categoryForName( _category )->viewSize() == Category::Small ) {
+        if ( ImageDB::instance()->memberMap().isGroup( _category, _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
-            return CategoryCollection::instance()->categoryForName( _category )->icon();
+            return ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
         }
     }
     else
@@ -53,9 +54,9 @@ QString ContentFolder::text() const
 {
     if ( _value == ImageDB::NONE() ) {
         if ( _info.option(_category) == ImageDB::NONE() )
-            return i18n( "No %1" ).arg( CategoryCollection::instance()->categoryForName( _category )->text() );
+            return i18n( "No %1" ).arg( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
         else
-            return i18n( "No other %1" ).arg( CategoryCollection::instance()->categoryForName( _category )->text() );
+            return i18n( "No other %1" ).arg( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
     }
     else {
         return _value;
@@ -66,7 +67,7 @@ QString ContentFolder::text() const
 void ContentFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         factory->createItem( new TypeFolder( *it, _info, _browser ) );
@@ -77,31 +78,17 @@ void ContentFolderAction::action( BrowserItemFactory* factory )
     factory->createItem( new SearchFolder( _info, _browser ) );
 
     //-------------------------------------------------- Image Folders
-    int count = ImageDB::instance()->count( _info );
-    int maxPerPage = Options::instance()->maxImages();
-
-    if ( count < maxPerPage ) {
-        factory->createItem( new ImageFolder( _info, _browser ) );
-    }
-    else {
-        int last = 1;
-        while ( last < count ) {
-            factory->createItem( new ImageFolder( _info, last, QMIN( count, last+maxPerPage-1 ), _browser ) );
-            last += maxPerPage;
-        }
-    }
+    factory->createItem( new ImageFolder( _info, _browser ) );
 }
 
 FolderAction* ContentFolder::action( bool ctrlDown )
 {
-    bool loadImages = ImageDB::instance()->count( _info ) < Options::instance()->autoShowThumbnailView();
+    bool loadImages = (ImageDB::instance()->count( _info ) < Options::instance()->autoShowThumbnailView());
     if ( ctrlDown ) loadImages = !loadImages;
 
     if ( loadImages ) {
         ImageSearchInfo info = _info;
-        if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
-        if ( ImageDB::instance()->count( info ) < Options::instance()->maxImages() )
-            return new ImageFolderAction( info, -1, -1, _browser );
+        return new ImageFolderAction( info, _browser );
     }
 
     return new ContentFolderAction( _category, _value, _info, _browser );

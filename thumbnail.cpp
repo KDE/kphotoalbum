@@ -35,15 +35,16 @@
 #include <qpixmapcache.h>
 #include "imageinfolist.h"
 #include "thumbnailrequest.h"
+#include "imagedb.h"
 
-ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNailView* parent )
-    :QIconViewItem( parent ),  _imageInfo( imageInfo ), _parent( parent ), _highlightItem( false )
+ThumbNail::ThumbNail( const QString& fileName, ThumbNailView* parent )
+    :QIconViewItem( parent ),  _fileName( fileName ), _parent( parent ), _highlightItem( false )
 {
     init();
 }
 
-ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* parent )
-    :QIconViewItem( parent, after ),  _imageInfo( imageInfo ), _parent( parent ), _highlightItem( false )
+ThumbNail::ThumbNail( const QString& fileName, ThumbNail* after, ThumbNailView* parent )
+    :QIconViewItem( parent, after ),  _fileName( fileName ), _parent( parent ), _highlightItem( false )
 {
     init();
 }
@@ -51,8 +52,9 @@ ThumbNail::ThumbNail( ImageInfo* imageInfo, ThumbNail* after, ThumbNailView* par
 
 void ThumbNail::init()
 {
+    _info = KSharedPtr<ImageInfo>( 0 );
     setDropEnabled( true );
-    setText( _imageInfo->label());
+    setText( imageInfo()->label());
 }
 
 
@@ -60,12 +62,7 @@ void ThumbNail::init()
 
 QString ThumbNail::fileName() const
 {
-    return _imageInfo->fileName();
-}
-
-ImageInfo* ThumbNail::imageInfo()
-{
-    return _imageInfo;
+    return _fileName;
 }
 
 void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage& image, bool loadedOK )
@@ -78,7 +75,7 @@ void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& fu
         pixmap->fill(Qt::gray);
 
 
-    if ( !loadedOK || !_imageInfo->imageOnDisk() ) {
+    if ( !loadedOK || !imageInfo()->imageOnDisk() ) {
         QPainter p( pixmap );
         p.setBrush( white );
         p.setWindow( 0, 0, 100, 100 );
@@ -88,9 +85,9 @@ void ThumbNail::pixmapLoaded( const QString&, const QSize& size, const QSize& fu
     }
 
     if ( fullSize.isValid() )
-        _imageInfo->setSize( fullSize );
+        imageInfo()->setSize( fullSize );
 
-    pixmapCache().insert( _imageInfo->fileName(), pixmap );
+    pixmapCache().insert( imageInfo()->fileName(), pixmap );
     repaintItem();
 }
 
@@ -130,7 +127,7 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
         ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
         if ( item->isSelected() ) {
             list.append(tn);
-            imageList.append( tn->_imageInfo );
+            imageList.append( tn->imageInfo() );
             // Protect against a drop on yourself.
             if ( item == this ) {
                 return;
@@ -138,7 +135,7 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
         }
     }
 
-    _parent->reorder( _imageInfo, imageList, atRightSizeOfItem() );
+    _parent->reorder( imageInfo(), imageList, atRightSizeOfItem() );
 
     ThumbNail* last;
     if ( atRightSizeOfItem() ) {
@@ -175,8 +172,8 @@ bool ThumbNail::atRightSizeOfItem() const
 void ThumbNail::calcRect( const QString& )
 {
     int size = Options::instance()->thumbSize();
-    int w = _imageInfo->size().width();
-    int h = _imageInfo->size().height();
+    int w = imageInfo()->size().width();
+    int h = imageInfo()->size().height();
     if ( w == -1 || h == -1 ) {
         w = size;
         h = size;
@@ -242,7 +239,7 @@ QPixmapCache& ThumbNail::pixmapCache()
 
 QPixmap* ThumbNail::pixmap() const
 {
-    QPixmap* pix = pixmapCache().find( _imageInfo->fileName() );
+    QPixmap* pix = pixmapCache().find( _fileName );
     if ( pix ) {
         if ( _highlightItem ) {
             highlightPixmap() = *pix;
@@ -258,7 +255,7 @@ QPixmap* ThumbNail::pixmap() const
     }
 
     int size = Options::instance()->thumbSize();
-    ThumbnailRequest* request = new ThumbnailRequest( _imageInfo->fileName(), QSize( size, size ), _imageInfo->angle(), const_cast<ThumbNail*>( this ) );
+    ThumbnailRequest* request = new ThumbnailRequest( _fileName, QSize( size, size ), imageInfo()->angle(), const_cast<ThumbNail*>( this ) );
     request->setCache();
     ImageManager::instance()->load( request );
     return emptyPixmap();
@@ -288,4 +285,11 @@ QPixmap& ThumbNail::highlightPixmap()
     // We don't want to bother remembering to delete the highlight pixmap, so we just create a global one we reuse over and over again.
     static QPixmap pix;
     return pix;
+}
+
+ImageInfoPtr ThumbNail::imageInfo() const
+{
+    if ( !_info )
+        _info = ImageDB::instance()->info( _fileName );
+    return _info;
 }

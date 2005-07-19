@@ -45,10 +45,10 @@ KURL::List MyImageCollection::images()
 {
     switch ( _tp ) {
     case CurrentAlbum:
-        return imageListToUrlList( ImageDB::instance()->currentContext( false ) );
+        return stringListToUrlList( ImageDB::instance()->currentScope( false ) );
 
     case CurrentSelection:
-        return imageListToUrlList( MainView::theMainView()->selected() );
+        return stringListToUrlList( MainView::theMainView()->selected() );
 
     case SubClass:
         qFatal( "The subclass should implement images()" );
@@ -60,9 +60,20 @@ KURL::List MyImageCollection::images()
 KURL::List MyImageCollection::imageListToUrlList( const ImageInfoList& imageList )
 {
     KURL::List urlList;
-    for( ImageInfoListIterator it( imageList ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
         KURL url;
         url.setPath( (*it)->fileName() );
+        urlList.append( url );
+    }
+    return urlList;
+}
+
+KURL::List MyImageCollection::stringListToUrlList( const QStringList& list )
+{
+    KURL::List urlList;
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        KURL url;
+        url.setPath( *it );
         urlList.append( url );
     }
     return urlList;

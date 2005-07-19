@@ -51,7 +51,6 @@
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
 #include <qregexp.h>
-#include <stdlib.h>
 #include <qpopupmenu.h>
 #include <kiconloader.h>
 #include <kpassdlg.h>
@@ -101,7 +100,7 @@ MainView::MainView( QWidget* parent, const char* name )
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Options, and where the main thread crates an instance, we better get it created now.
-    connect( Options::instance(), SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    Options::instance();
 
     QWidget* top = new QWidget( this, "top" );
     QVBoxLayout* lay = new QVBoxLayout( top, 6 );
@@ -177,13 +176,13 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
-    connect( ImageDB::instance(), SIGNAL( matchCountChange( int, int, int ) ),
-             partial, SLOT( setMatchCount( int, int, int ) ) );
+    connect( _thumbNailView, SIGNAL( showCount( int ) ),
+             partial, SLOT( setMatchCount( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
+    connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), _browser, SLOT( home() ) );
     connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
-    connect( ImageDB::instance(), SIGNAL( searchCompleted() ), this, SLOT( showThumbNails() ) );
-    connect( CategoryCollection::instance(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
     connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
@@ -272,6 +271,7 @@ void MainView::slotOptions()
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbNail() ) );
+        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
     }
     _optionsDialog->show();
 }
@@ -292,12 +292,16 @@ void MainView::slotConfigureImagesOneAtATime()
 
 void MainView::configureImages( bool oneAtATime )
 {
-    ImageInfoList list = selected();
+    QStringList list = selected();
     if ( list.count() == 0 )  {
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     }
     else {
-        configureImages( list, oneAtATime );
+        ImageInfoList images;
+        for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+            images.append( ImageDB::instance()->info( *it ) );
+        }
+        configureImages( images, oneAtATime );
     }
 }
 
@@ -364,6 +368,13 @@ void MainView::createImageConfig()
 
     _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
     connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    connect( _imageConfigure, SIGNAL( deleteMe() ),  this, SLOT( deleteImageConfigure() ) );
+}
+
+void MainView::deleteImageConfigure()
+{
+    _imageConfigure->deleteLater();
+    _imageConfigure = 0;
 }
 
 void MainView::slotSave()
@@ -378,25 +389,7 @@ void MainView::slotSave()
 void MainView::save( const QString& fileName )
 {
     ShowBusyCursor dummy;
-
-    QDomDocument doc;
-
-    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement elm = doc.createElement( QString::fromLatin1("KimDaBa") );
-    doc.appendChild( elm );
-
-    Options::instance()->save( elm );
-    ImageDB::instance()->save( elm );
-
-    QFile out( fileName );
-
-    if ( !out.open( IO_WriteOnly ) )
-        KMessageBox::sorry( this, i18n( "Could not open file '%1'." ).arg( fileName ) );
-    else {
-        QCString s = doc.toCString();
-        out.writeBlock( s.data(), s.size()-1 );
-        out.close();
-    }
+    ImageDB::instance()->save( fileName );
 }
 
 
@@ -406,17 +399,21 @@ void MainView::slotDeleteSelected()
         _deleteDialog = new DeleteDialog( this );
     if ( _deleteDialog->exec( selected() ) == QDialog::Accepted )
         setDirty( true );
-    reloadThumbNail();
+
+    QStringList images = _thumbNailView->imageList();
+    QStringList allImages = ImageDB::instance()->images();
+    QStringList newSet;
+    for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
+        if ( allImages.contains( *it ) )
+            newSet.append(*it);
+    }
+    showThumbNails( newSet );
 }
 
 
 void MainView::slotReadInfo()
 {
-    ImageInfoList list = getSelectedOnDisk();
-    QStringList files;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        files.append( (*it)->fileName() );
-    }
+    QStringList files = getSelectedOnDisk();;
 
     int i = KMessageBox::warningContinueCancelList( this,
                 i18n( "<qt><p>Be aware that reading EXIF info from files may "
@@ -434,19 +431,19 @@ void MainView::slotReadInfo()
 
     if ( ! _readInfoDialog )
         _readInfoDialog = new ReadInfoDialog( this );
-    if ( _readInfoDialog->exec( list ) == QDialog::Accepted )
+    if ( _readInfoDialog->exec( files ) == QDialog::Accepted )
         setDirty( true );
 }
 
 
-ImageInfoList MainView::selected()
+QStringList MainView::selected()
 {
-    ImageInfoList list;
+    QStringList list;
     for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
         if ( item->isSelected() ) {
             ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
             Q_ASSERT( tn );
-            list.append( tn->imageInfo() );
+            list.append( tn->fileName() );
         }
     }
     return list;
@@ -470,15 +467,15 @@ void MainView::slotViewNewWindow()
     slotView( false, false );
 }
 
-ImageInfoList MainView::getSelectedOnDisk()
+QStringList MainView::getSelectedOnDisk()
 {
-    ImageInfoList listOnDisk;
-    ImageInfoList list = selected();
+    QStringList listOnDisk;
+    QStringList list = selected();
     if ( list.count() == 0 )
-        list = ImageDB::instance()->currentContext(  true );
+        list = ImageDB::instance()->currentScope(  true );
 
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        if ( (*it)->imageOnDisk() )
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        if ( ImageInfo::imageOnDisk( *it ) )
             listOnDisk.append( *it );
     }
 
@@ -487,7 +484,7 @@ ImageInfoList MainView::getSelectedOnDisk()
 
 void MainView::slotView( bool reuse, bool slideShow, bool random )
 {
-    ImageInfoList listOnDisk = getSelectedOnDisk();
+    QStringList listOnDisk = getSelectedOnDisk();
 
     if ( listOnDisk.count() == 0 ) {
         QMessageBox::warning( this, i18n("No Images to Display"),
@@ -517,8 +514,8 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 
 void MainView::slotSortByDateAndTime()
 {
-    ImageInfoList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
-    ImageDB::instance()->images().sortAndMergeBackIn( listOnDisk );
+    QStringList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
+    ImageDB::instance()->sortAndMergeBackIn( listOnDisk );
     _thumbNailView->reload();
     markDirty();
 }
@@ -534,7 +531,6 @@ QString MainView::welcome()
 void MainView::slotChanges()
 {
     setDirty( true );
-    startAutoSaveTimer(); // In case auto save period has changed, we better restart the timer.
 }
 
 void MainView::closeEvent( QCloseEvent* e )
@@ -552,12 +548,7 @@ void MainView::closeEvent( QCloseEvent* e )
 void MainView::slotLimitToSelected()
 {
     ShowBusyCursor dummy;
-    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
-        ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
-        Q_ASSERT( tn );
-        tn->imageInfo()->setVisible( item->isSelected() );
-    }
-    reloadThumbNail();
+    showThumbNails( selected() );
 }
 
 void MainView::setupMenuBar()
@@ -630,6 +621,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
+    new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
     new KAction( i18n("Remove All Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
     new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
 
@@ -679,9 +671,9 @@ void MainView::setupMenuBar()
 
 void MainView::slotExportToHTML()
 {
-    ImageInfoList list = getSelectedOnDisk();
+    QStringList list = getSelectedOnDisk();
     if ( list.count() == 0 )  {
-        list = ImageDB::instance()->currentContext( true );
+        list = ImageDB::instance()->currentScope( true );
 
         if ( list.count() != _thumbNailView->count() &&
             _stack->visibleWidget() == _thumbNailView ) {
@@ -789,12 +781,19 @@ void MainView::load()
     // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile = QString::null;
+    QString backEnd = QString::null;
 
-    if ( args->isSet( "c" ) )
+    if ( args->isSet( "c" ) ) {
         configFile = args->getOption( "c" );
+        if ( configFile.find( QString::fromLatin1("sql:") ) != -1 ) {
+            backEnd = QString::fromLatin1( "sql" );
+            configFile = configFile.mid(4);
+        }
+    }
     else if ( args->isSet( "demo" ) )
         configFile = Util::setupDemo();
     else {
+        // PENDING(blackie) This should be rewritten to KConfig* config = kapp->config()
         KSimpleConfig config( QString::fromLatin1("kimdaba") );
         bool showWelcome = false;
         if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
@@ -811,109 +810,11 @@ void MainView::load()
         }
     }
 
-    Util::checkForBackupFile( configFile );
+    if (configFile.startsWith( QString::fromLatin1( "~" ) ) )
+        configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
-
-    QDomDocument doc;
-    QFile file( configFile );
-    if ( !file.exists() ) {
-        // Load a default setup
-        QFile file( locate( "data", QString::fromLatin1( "kimdaba/default-setup" ) ) );
-        if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::information( 0, i18n( "<qt><p>KimDaBa was unable to load a default setup, which indicates an installation error</p>"
-                                               "<p>If you have installed KimDaBa yourself, then you must remember to set the environment variable "
-                                               "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                               "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
-                                               "environment variable setup (this example is for Bash and compatible shells):</p>"
-                                               "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
-                                               "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
-                                               "environment variable</p></qt>"), i18n("No default setup file found") );
-        }
-        else {
-            QTextStream stream( &file );
-            stream.setEncoding( QTextStream::UnicodeUTF8 );
-            QString str = stream.read();
-            str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
-            str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
-            str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
-            str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
-            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );
-            str = str.replace( QRegExp( QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1("") );
-            doc.setContent( str );
-        }
-    }
-    else {
-        if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::error( this, i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
-            exit(-1);
-        }
-
-        QString errMsg;
-        int errLine;
-        int errCol;
-
-        if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
-            KMessageBox::error( this, i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
-            exit(-1);
-        }
-    }
-
-    // Now read the content of the file.
-    QDomElement top = doc.documentElement();
-    if ( top.isNull() ) {
-        KMessageBox::error( this, i18n("Error in file %1: No elements found").arg( configFile ) );
-        exit(-1);
-    }
-
-    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) {
-        KMessageBox::error( this, i18n("Error in file %1: expected 'KimDaBa' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
-        exit(-1);
-    }
-
-    QDomElement config;
-    QDomElement options;
-    QDomElement configWindowSetup;
-    QDomElement images;
-    QDomElement blockList;
-    QDomElement memberGroups;
-
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString tag = elm.tagName().lower();
-            if ( tag == QString::fromLatin1( "config" ) )
-                config = elm;
-            else if ( tag == QString::fromLatin1( "options" ) )
-                options = elm;
-            else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
-                configWindowSetup = elm;
-            else if ( tag == QString::fromLatin1("images") )
-                images = elm;
-            else if ( tag == QString::fromLatin1( "blocklist" ) )
-                blockList = elm;
-            else if ( tag == QString::fromLatin1( "member-groups" ) )
-                memberGroups = elm;
-            else {
-                KMessageBox::error( this, i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
-            }
-        }
-    }
-
-    if ( config.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Config' tag in configuration file %1.").arg( configFile ) );
-    if ( options.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
-    if ( configWindowSetup.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'ConfigWindowSetup' tag in configuration file %1.").arg( configFile ) );
-    if ( images.isNull() )
-        KMessageBox::sorry( this, i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
-
-    file.close();
-
-    Options::setup( config, options, configWindowSetup, memberGroups, QFileInfo( configFile ).dirPath( true ) );
-    bool newImages = ImageDB::setup( images, blockList );
-    if ( newImages )
-        setDirty( true );
+    Options::setup( QFileInfo( configFile ).dirPath( true ) );
+    ImageDB::setup( backEnd, configFile );
 }
 
 void MainView::contextMenuEvent( QContextMenuEvent* )
@@ -931,7 +832,7 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
         _viewInNewWindow->plug( &menu );
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
-        ImageInfo* info = 0;
+        ImageInfoPtr info = ImageInfoPtr( 0 );
         QIconViewItem* item =
             _thumbNailView->findItem( _thumbNailView->viewportToContents( _thumbNailView->mapFromGlobal( QCursor::pos() ) ) );
         if ( item )
@@ -1119,8 +1020,16 @@ void MainView::slotUpdateViewMenu( Category::ViewSize size, Category::ViewType t
 
 void MainView::slotShowNotOnDisk()
 {
-    ImageDB::instance()->showUnavailableImages();
-    showThumbNails();
+    QStringList allImages = ImageDB::instance()->images();
+    QStringList notOnDisk;
+    for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
+        ImageInfoPtr info = ImageDB::instance()->info(*it);
+        QFileInfo fi( info->fileName() );
+        if ( !fi.exists() )
+            notOnDisk.append(*it);
+    }
+
+    showThumbNails( notOnDisk );
 }
 
 
@@ -1189,7 +1098,7 @@ void MainView::slotImport()
 
 void MainView::slotExport()
 {
-    ImageInfoList list = getSelectedOnDisk();
+    QStringList list = getSelectedOnDisk();
     if ( list.count() == 0 ) {
         KMessageBox::sorry( this, i18n("No images to export.") );
     }
@@ -1318,11 +1227,18 @@ void MainView::slotSelectionChanged()
 #endif
 }
 
-void MainView::resizeEvent( QResizeEvent* e )
+void MainView::resizeEvent( QResizeEvent* )
 {
     if ( Options::ready() )
-        Options::instance()->setWindowSize( Options::MainWindow, e->size() );
+        Options::instance()->setWindowGeometry( Options::MainWindow, geometry() );
 }
+
+void MainView::moveEvent( QMoveEvent * )
+{
+    if ( Options::ready() )
+        Options::instance()->setWindowGeometry( Options::MainWindow, geometry() );
+}
+
 
 void MainView::slotRemoveTokens()
 {
@@ -1341,7 +1257,7 @@ void MainView::updateDateBar( const QString& path )
 
 void MainView::updateDateBar()
 {
-    _dateBar->setImageRangeCollection( ImageDateRangeCollection( ImageDB::instance()->images( currentContext(), false ) ) );
+    _dateBar->setImageRangeCollection( ImageDB::instance()->rangeCollection() );
 }
 
 
@@ -1390,6 +1306,19 @@ void MainView::possibleRunSuvey()
 {
     MySurvey survey(this);
     survey.possibleExecSurvey();
+}
+
+
+
+void MainView::showThumbNails( const QStringList& list )
+{
+    _thumbNailView->setImageList( list );
+    showThumbNails();
+}
+
+void MainView::convertBackend()
+{
+    ImageDB::instance()->convertBackend();
 }
 
 #include "mainview.moc"

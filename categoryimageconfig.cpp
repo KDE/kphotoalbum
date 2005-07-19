@@ -22,9 +22,9 @@
 #include <klocale.h>
 #include <qcombobox.h>
 #include "options.h"
-#include "membermap.h"
 #include "categorycollection.h"
 #include "imageinfo.h"
+#include "imagedb.h"
 
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
@@ -75,7 +75,7 @@ void CategoryImageConfig::groupChanged()
 {
     QString currentText = _member->currentText();
     _member->clear();
-    QStringList list = _info->optionValue( currentGroup() );
+    QStringList list = _info->itemsOfCategory( currentGroup() );
     list.sort();
     _member->insertStringList( list );
     int index = list.findIndex( currentText );
@@ -100,10 +100,10 @@ void CategoryImageConfig::slotSet()
 QString CategoryImageConfig::currentGroup()
 {
     int index = _group->currentItem();
-    return CategoryCollection::instance()->categoryNames()[index];
+    return ImageDB::instance()->categoryCollection()->categoryNames()[index];
 }
 
-void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfo* info )
+void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfoPtr& info )
 {
     _image = image;
     _imageLabel->setPixmap( image );
@@ -122,11 +122,11 @@ void CategoryImageConfig::show()
 {
     QString current = _group->currentText();
     _group->clear();
-    QStringList list = CategoryCollection::instance()->categoryNames();
+    QStringList list = ImageDB::instance()->categoryCollection()->categoryNames();
     int index = 0;
     int currentIndex = -1;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        _group->insertItem( CategoryCollection::instance()->categoryForName( *it )->text() );
+        _group->insertItem( ImageDB::instance()->categoryCollection()->categoryForName( *it )->text() );
         if ( *it == current )
             currentIndex = index;
         ++index;

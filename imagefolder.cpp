@@ -25,18 +25,13 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "thumbnailview.h"
+#include "mainview.h"
 
+// PENDING(blackie) cleanup, we don't need from and to anymore
 ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
-    :Folder( info, parent ), _from(-1), _to(-1)
+    :Folder( info, parent )
 {
     int count = ImageDB::instance()->count( info );
-    setCount( count );
-}
-
-ImageFolder::ImageFolder( const ImageSearchInfo& info, int from, int to, Browser* parent )
-    :Folder( info,parent), _from( from ), _to( to )
-{
-    int count = to - from +1;
     setCount( count );
 }
 
@@ -47,61 +42,31 @@ QPixmap ImageFolder::pixmap()
 
 QString ImageFolder::text() const
 {
-    if ( _from == -1 )
-        return i18n( "View Images" );
-    else
-        return i18n( "View Images (%1-%2)").arg(_from).arg(_to);
+    return i18n( "View Images" );
 }
 
 
 
 void ImageFolderAction::action( BrowserItemFactory* )
 {
-    ImageDB::instance()->search( _info, _from, _to );
+    MainView::theMainView()->showThumbNails( ImageDB::instance()->search( _info ) );
 
-// Not used anymore after the one large thumbnail view change.
-#ifdef TEMPORARILY_REMOVED
-    if ( _addExtraToBrowser ) {
-        // Add all the following image fractions to the image list, so the user
-        // simply can use the forward button to see the following images.
-        int count = ImageDB::instance()->count( _info );
-        int maxPerPage = Options::instance()->maxImages();
-
-        if ( count > maxPerPage ) {
-            int last = _to;
-            while ( last < count ) {
-                ImageFolderAction* action =
-                    new ImageFolderAction( _info, last, QMIN( count, last+maxPerPage-1 ), _browser );
-
-                // We do not want this new action to create extra items as we do here.
-                action->_addExtraToBrowser = false;
-
-                _browser->_list.append( action );
-                _browser->emitSignals();
-                last += maxPerPage;
-            }
-        }
-
-        // Only add extra items the first time the action is executed.
-        _addExtraToBrowser = false;
-    }
-#endif
     if ( _context )
         ThumbNailView::theThumbnailView()->makeCurrent( _context );
 }
 
 FolderAction* ImageFolder::action( bool /* ctrlDown */ )
 {
-    return new ImageFolderAction( _info, _from, _to, _browser );
+    return new ImageFolderAction( _info, _browser );
 }
 
-ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, int from, int to,  Browser* browser )
-    : FolderAction( info, browser ), _from(from), _to(to), _addExtraToBrowser( true ), _context( 0 )
+ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, Browser* browser )
+    : FolderAction( info, browser ), _addExtraToBrowser( true ), _context( 0 )
 {
 }
 
-ImageFolderAction::ImageFolderAction( ImageInfo* context, Browser* browser )
-    :FolderAction( ImageSearchInfo(), browser ), _from(-1), _to(-1), _addExtraToBrowser(false), _context( context )
+ImageFolderAction::ImageFolderAction( ImageInfoPtr context, Browser* browser )
+    :FolderAction( ImageSearchInfo(), browser ), _addExtraToBrowser(false), _context( context )
 {
 
 }

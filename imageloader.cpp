@@ -18,6 +18,7 @@ Boston, MA 02111-1307, USA.
 
 #include "imageloader.h"
 #include <qwaitcondition.h>
+#include "imagedecoder.h"
 #include "imagemanager.h"
 #include "thumbnail.h"
 #include "util.h"
@@ -72,16 +73,18 @@ void ImageLoader::run()
                     ok = Util::loadJPEG(&img, request->fileName(),  &fullSize, request->width(), request->height());
                     if (ok == true)
                         request->setFullSize( fullSize );
-                } else if( Util::isCRW(request->fileName())) {
-                    QSize fullSize;
-                    ok = Util::loadCRW(&img, request->fileName(),  &fullSize, request->width(), request->height());
-                    if (ok)
-                        request->setFullSize( fullSize );
                 } else {
                     ok = img.load( request->fileName() );
                     if (ok)
                         request->setFullSize( img.size() );
                 }
+				if (!ok) {
+					// Still didn't work, try with our own decoders
+                    QSize fullSize;
+					ok = ImageDecoder::decode( &img, request->fileName(),  &fullSize, request->width(), request->height());
+					if (ok)
+						request->setFullSize( img.size() );
+				}
 
                 if (ok) {
                     if ( request->angle() != 0 )  {

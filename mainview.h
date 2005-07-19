@@ -54,12 +54,16 @@ public:
     MainView( QWidget* parent,  const char* name = 0 );
     static void configureImages( const ImageInfoList& list, bool oneAtATime );
     static MainView* theMainView();
-    ImageInfoList selected();
+    QStringList selected();
     ImageInfoList currentView();
     ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 
+public slots:
+    void showThumbNails( const QStringList& list );
+
 protected slots:
+    void showThumbNails();
     bool slotExit();
     void slotOptions();
     void slotConfigureAllImages();
@@ -75,7 +79,6 @@ protected slots:
     void slotLimitToSelected();
     void slotExportToHTML();
     void slotAutoSave();
-    void showThumbNails();
     void showBrowser();
     void slotOptionGroupChanged();
     void showTipOfDay();
@@ -116,14 +119,17 @@ protected slots:
     void slotJumpToContext();
     void setDateRange( const ImageDateRange& );
     void clearDateRange();
+    void deleteImageConfigure();
+    void startAutoSaveTimer();
+    void convertBackend();
 
 protected:
     void configureImages( bool oneAtATime );
     QString welcome();
     virtual void closeEvent( QCloseEvent* e );
     virtual void resizeEvent( QResizeEvent* );
+    virtual void moveEvent ( QMoveEvent * );
     void setupMenuBar();
-    void startAutoSaveTimer();
     void createImageConfig();
     void load();
     void save( const QString& fileName );
@@ -132,7 +138,7 @@ protected:
     void setLocked( bool b );
     void configImages( const ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    ImageInfoList getSelectedOnDisk();
+    QStringList getSelectedOnDisk();
     void loadPlugins();
     void possibleRunSuvey();
 

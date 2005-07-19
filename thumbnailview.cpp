@@ -53,7 +53,6 @@ ThumbNailView::ThumbNailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( onItem( QIconViewItem* ) ), this, SLOT( slotOnItem( QIconViewItem* ) ) );
     connect( this, SIGNAL( onViewport() ), this, SLOT( slotOnViewPort() ) );
     setupGrid();
-    connect( Options::instance(), SIGNAL( changed() ), this, SLOT( setupGrid() ) );
     connect( this, SIGNAL( contentsMoving(int, int) ), this, SLOT( emitDateChange() ) );
 }
 
@@ -62,14 +61,14 @@ void ThumbNailView::showImage( QIconViewItem* item )
 {
     if ( item ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        ImageInfo* info = tn->imageInfo();
-        if ( !info->imageOnDisk() ) {
+        QString fileName = tn->fileName();
+        if ( !ImageInfo::imageOnDisk(fileName) ) {
             QMessageBox::warning( this, i18n("No Images to Display"),
                                   i18n("The selected image was not available on disk.") );
         }
         else {
-            ImageInfoList list;
-            list.append( info );
+            QStringList list;
+            list.append( fileName );
             Viewer* viewer;
             if ( !Util::ctrlKeyDown() && Viewer::latest() ) {
                 viewer = Viewer::latest();
@@ -94,6 +93,8 @@ void ThumbNailView::startDrag()
 
 void ThumbNailView::reload()
 {
+    emit showCount( _images.count() );
+    setupGrid();
     ThumbNail::pixmapCache().clear();
     // I'm not sure if this is needed, it would require that we were in a
     // drag'n'drop action, and the sudantly got the reload before we got
@@ -102,17 +103,14 @@ void ThumbNailView::reload()
 
     clear();
     _iconViewToolTip->clear();
-    ImageInfoList& list = ImageDB::instance()->images();
-    if ( list.isEmpty() )
+    if ( _images.isEmpty() )
         return;
 
     ThumbNail* first = 0;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        if ( (*it)->visible() ) {
-            ThumbNail* tn = new ThumbNail( *it,  this );
-            if ( !first )
-                first = tn;
-        }
+    for( QStringList::Iterator it = _images.begin(); it != _images.end(); ++it ) {
+        ThumbNail* tn = new ThumbNail( *it,  this );
+        if ( !first )
+            first = tn;
     }
     if ( first ) {
         first->setSelected( true );
@@ -138,11 +136,13 @@ void ThumbNailView::contentsDragMoveEvent( QDragMoveEvent *e )
     }
 }
 
-void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool after )
+void ThumbNailView::reorder( ImageInfoPtr /*item*/, const ImageInfoList& /*cutList*/, bool /*after*/ )
 {
-    ImageInfoList& images = ImageDB::instance()->images();
+    qDebug( "Temp Removed in ThumbNailView::reorder" );
+#ifdef TEMPORARILY_REMOVED
+    ImageInfoList& images = ImageDB::instance()->imageInfoList();
 
-    for( ImageInfoListIterator it( cutList ); *it; ++it ) {
+    for( ImageInfoListConstIterator it = cutList.constBegin(); it != cutList.constEnd(); ++it ) {
         images.removeRef( *it );
     }
 
@@ -155,6 +155,7 @@ void ThumbNailView::reorder( ImageInfo* item, const ImageInfoList& cutList, bool
         ++index;
     }
     emit changed();
+#endif
 }
 
 void ThumbNailView::contentsDropEvent( QDropEvent* e )
@@ -189,22 +190,26 @@ void ThumbNailView::setDragLeft( ThumbNail* item )
 
 void ThumbNailView::slotCut()
 {
-    ImageInfoList& images = ImageDB::instance()->images();
+    ImageInfoList& images = ImageDB::instance()->imageInfoList();
     QPtrList<ThumbNail> thumbNails = selected();
+    ImageInfoList list;
     for( QPtrListIterator<ThumbNail> it( thumbNails ); *it; ++it ) {
-        ImageDB::instance()->clipboard().append( (*it)->imageInfo() );
-        images.removeRef( (*it)->imageInfo() );
+        images.remove( (*it)->imageInfo() );
+        list.append( (*it)->imageInfo() );
         delete *it;
     }
+    ImageDB::instance()->setClipboard( list );
 }
 
 void ThumbNailView::slotPaste()
 {
+    qDebug("Temp removed in ThumbNailView::slotPaste()");
+#ifdef TEMPORARILY_REMOVED
     QPtrList<ThumbNail> selectedList = selected();
     if ( selectedList.count() == 0 ) {
         KMessageBox::information( this, i18n("To paste you have to select an image that the past should go after."), i18n("Nothing Selected") );
     }
-    else if ( ImageDB::instance()->clipboard().count() == 0 ) {
+    else if ( ImageDB::instance()->isClipboardEmpty() ) {
         KMessageBox::information( this, i18n("<qt><p>No data on clipboard to paste.</p>"
                                   "<p>It really does not make any sense to the application to have an image represented twice, "
                                   "therefore you can only paste an image off the clipboard once.</p>"),
@@ -214,9 +219,9 @@ void ThumbNailView::slotPaste()
         ThumbNail* last = selectedList.last();
 
         // Update the image list
-        ImageInfoList& images = ImageDB::instance()->images();
+        ImageInfoList& images = ImageDB::instance()->imageInfoList();
         int index = images.findRef( last->imageInfo() ) +1;
-        ImageInfoList& clipboard = ImageDB::instance()->clipboard();
+        ImageInfoList clipboard = ImageDB::instance()->clipboard();
         for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
             images.insert( index, *it );
             ++index;
@@ -224,12 +229,13 @@ void ThumbNailView::slotPaste()
 
         // updatet the thumbnail view
         for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
-            last = new ThumbNail( *it, last, this );
+            last = new ThumbNail( (*it)->fileName(), last, this );
         }
 
         clipboard.clear();
         emit changed();
     }
+#endif
 }
 
 QPtrList<ThumbNail> ThumbNailView::selected() const
@@ -333,11 +339,11 @@ ThumbNailView* ThumbNailView::theThumbnailView()
     return _instance;
 }
 
-void ThumbNailView::makeCurrent( ImageInfo* info )
+void ThumbNailView::makeCurrent( ImageInfoPtr info )
 {
     for ( QIconViewItem* item = firstItem(); item; item = item->nextItem() ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        if ( tn->imageInfo() == info ) {
+        if ( *(tn->imageInfo()) == *info ) {
             setCurrentItem( tn );
             tn->setSelected( true );
             ensureItemVisible( tn );
@@ -363,6 +369,16 @@ void ThumbNailView::showEvent( QShowEvent* event )
 {
     QIconView::showEvent( event );
     emitDateChange();
+}
+
+void ThumbNailView::setImageList( const QStringList& list )
+{
+    _images = list;
+}
+
+QStringList ThumbNailView::imageList() const
+{
+    return _images;
 }
 
 #include "thumbnailview.moc"

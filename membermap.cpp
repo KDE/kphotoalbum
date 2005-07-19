@@ -19,6 +19,8 @@
 #include "membermap.h"
 #include "options.h"
 #include <qtimer.h>
+#include "categorycollection.h"
+#include "imagedb.h"
 
 MemberMap::MemberMap() :QObject(0), _dirty( true )
 {
@@ -27,10 +29,10 @@ MemberMap::MemberMap() :QObject(0), _dirty( true )
 
 void MemberMap::init()
 {
-    connect( Options::instance(), SIGNAL( deletedOption( const QString&, const QString& ) ),
-             this, SLOT( deleteOption( const QString&, const QString& ) ) );
-    connect( Options::instance(), SIGNAL( renamedOption( const QString&, const QString&, const QString& ) ),
-             this, SLOT( renameOption( const QString&, const QString&, const QString& ) ) );
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+             this, SLOT( deleteItem( Category*, const QString& ) ) );
+    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
+             this, SLOT( renameItem( Category*, const QString&, const QString& ) ) );
 }
 
 /**
@@ -67,44 +69,9 @@ void MemberMap::setMembers( const QString& category, const QString& memberGroup,
     _dirty = true;
 }
 
-QDomElement MemberMap::save( QDomDocument doc )
-{
-    QDomElement top = doc.createElement( QString::fromLatin1( "member-groups" ) );
-    for( QMapIterator< QString,QMap<QString,QStringList> > it1= _members.begin(); it1 != _members.end(); ++it1 ) {
-        QMap<QString,QStringList> map = it1.data();
-        for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
-            QStringList list = it2.data();
-            for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
-                QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
-                top.appendChild( elm );
-                elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
-                elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
-                elm.setAttribute( QString::fromLatin1( "member" ), *it3 );
-            }
-        }
-    }
-    return top;
-}
-
 bool MemberMap::isEmpty() const
 {
     return _members.empty();
-}
-
-void MemberMap::load( const QDomElement& top )
-{
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() ) {
-            QDomElement elm = node.toElement();
-            QString category = elm.attribute( QString::fromLatin1( "category" ) );
-            if ( category.isNull() )
-                category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
-            QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
-            QString member = elm.attribute( QString::fromLatin1( "member" ) );
-            _members[category][group].append( member );
-        }
-    }
-    _dirty = true;
 }
 
 /**
@@ -194,7 +161,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
             list.append( newName );
         }
     }
-    Options::instance()->renameOption( category, oldName, newName );
+    ImageDB::instance()->categoryCollection()->categoryForName( category )->renameItem( oldName, newName );
 }
 
 MemberMap::MemberMap( const MemberMap& other )
@@ -202,20 +169,20 @@ MemberMap::MemberMap( const MemberMap& other )
 {
 }
 
-void MemberMap::deleteOption( const QString& category, const QString& name)
+void MemberMap::deleteItem( Category* category, const QString& name)
 {
     _dirty = true;
-    QMap<QString, QStringList>& groupMap = _members[category];
+    QMap<QString, QStringList>& groupMap = _members[category->name()];
     for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         QStringList& list = it.data();
         list.remove( name );
     }
 }
 
-void MemberMap::renameOption( const QString& category, const QString& oldName, const QString& newName )
+void MemberMap::renameItem( Category* category, const QString& oldName, const QString& newName )
 {
     _dirty = true;
-    QMap<QString, QStringList>& groupMap = _members[category];
+    QMap<QString, QStringList>& groupMap = _members[category->name()];
     for( QMapIterator<QString,QStringList> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         QStringList& list = it.data();
         if (list.contains( oldName ) ) {
@@ -239,8 +206,6 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
 
 void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
 {
-    Q_ASSERT( _members.contains(category) );
-    Q_ASSERT( _members[category].contains(group) );
     _members[category][group].append( item );
     _dirty = true;
 }

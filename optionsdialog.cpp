@@ -45,6 +45,9 @@
 #include <kcolorbutton.h>
 #include "categorycollection.h"
 #include "showbusycursor.h"
+#include "optionsdialog.moc"
+#include <kapplication.h>
+#include <kconfig.h>
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -120,8 +123,8 @@ void OptionsDialog::createGeneralPage()
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
-    QValueList<Category*> categories = CategoryCollection::instance()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         _albumCategory->insertItem( (*it)->text() );
     }
 
@@ -210,16 +213,8 @@ void OptionsDialog::createThumbNailPage()
     gridLay->addWidget( _backgroundColor, 3, 1 );
 
 
-    // PENDING(blackie) Delete this
-    // Max images to show per page
-    QLabel* maxImagesLabel = new QLabel( i18n("Maximum images to show per page:"), top );
-    _maxImages = new QSpinBox( 10, 10000, 1, top ) ;
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
-    lay4->addWidget( maxImagesLabel );
-    lay4->addWidget( _maxImages );
     lay4->addStretch(1);
-    maxImagesLabel->hide();
-    _maxImages->hide();
 
     // Display Labels
     _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
@@ -250,16 +245,6 @@ void OptionsDialog::createThumbNailPage()
     QWhatsThis::add( previewSizeLabel, txt );
     QWhatsThis::add( _previewSize, txt );
 
-    txt = i18n( "<qt><p>A 128x128 pixel thumbnail will take up approximately 64KB of memory from your X server. "
-                "This may not sound like much but try changing the number of images to be displayed to 3000. "
-                "You will see that your X server requires approximately 200Mb of memory, just to show the KimDaBa "
-                "thumbnail overview.</p>"
-                "<p>Besides, showing 3000 thumbnails will take time to display, and be of little use. "
-                "The conclusion therefore is to keep this value to a reasonable limit that fits your needs, and "
-                "the amount of installed memory in your system.</p></qt>" );
-
-    QWhatsThis::add( maxImagesLabel, txt );
-    QWhatsThis::add( _maxImages, txt );
 
     txt = i18n("<qt>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view</qt>");
@@ -384,14 +369,13 @@ void OptionsDialog::show()
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
 
-    Category* cat = CategoryCollection::instance()->categoryForName( opt->albumCategory() );
+    CategoryPtr cat = ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
-        cat = CategoryCollection::instance()->categories()[0];
+        cat = ImageDB::instance()->categoryCollection()->categories()[0];
     _albumCategory->setCurrentText( cat->text() );
 
     _displayLabels->setChecked( opt->displayLabels() );
     _backgroundColor->setColor( opt->thumbNailBackgroundColor() );
-    _maxImages->setValue( opt->maxImages() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
@@ -402,8 +386,8 @@ void OptionsDialog::show()
 
     // Config Groups page
     _categories->clear();
-    QValueList<Category*> categories = CategoryCollection::instance()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
             new OptionGroupItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(),_categories );
         }
@@ -430,15 +414,14 @@ void OptionsDialog::slotMyOK()
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
     opt->setAutoSave( _autosave->value() );
-    QString name = CategoryCollection::instance()->nameForText( _albumCategory->currentText() );
+    QString name = ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )
-        name = CategoryCollection::instance()->categoryNames()[0];
+        name = ImageDB::instance()->categoryCollection()->categoryNames()[0];
     opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
     opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setThumbNailBackgroundColor( _backgroundColor->color() );
-    opt->setMaxImages( _maxImages->value() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );
@@ -454,7 +437,7 @@ void OptionsDialog::slotMyOK()
     for( QValueList<OptionGroupItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
         if ( !(*it)->_categoryOrig.isNull() ) {
             // the Options instance knows about the item.
-            CategoryCollection::instance()->removeCategory( (*it)->_categoryOrig );
+            ImageDB::instance()->categoryCollection()->removeCategory( (*it)->_categoryOrig );
         }
     }
 
@@ -463,34 +446,34 @@ void OptionsDialog::slotMyOK()
         OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
         if ( item->_categoryOrig.isNull() ) {
             // New Item
-            Category* category = new Category( item->_text, item->_icon, item->_size, item->_type );
-            CategoryCollection::instance()->addCategory( category );
+            ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon, item->_size, item->_type  );
         }
         else {
             if ( item->_text != item->_textOrig ) {
-                CategoryCollection::instance()->rename(  item->_categoryOrig, item->_text );
+                ImageDB::instance()->categoryCollection()->rename(  item->_categoryOrig, item->_text );
                 item->_categoryOrig =item->_text;
             }
             if ( item->_icon != item->_iconOrig ) {
-                CategoryCollection::instance()->categoryForName( item->_categoryOrig )->setIconName( item->_icon );
+                ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setIconName( item->_icon );
             }
             if ( item->_size != item->_sizeOrig ) {
-                CategoryCollection::instance()->categoryForName( item->_categoryOrig )->setViewSize( item->_size );
+                ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewSize( item->_size );
             }
             if ( item->_type != item->_typeOrig ) {
-                CategoryCollection::instance()->categoryForName( item->_categoryOrig )->setViewType( item->_type );
+                ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewType( item->_type );
             }
         }
     }
 
     saveOldGroup();
-    opt->setMemberMap( _memberMap );
+    ImageDB::instance()->setMemberMap( _memberMap );
 
     // misc stuff
 #ifdef HASKIPI
     _pluginConfig->apply();
 #endif
     emit changed();
+    kapp->config()->sync();
 }
 
 
@@ -548,13 +531,8 @@ void OptionsDialog::slotNewItem()
 
 void OptionsDialog::slotDeleteCurrent()
 {
-    int count = ImageDB::instance()->countItemsOfCategory( _current->_categoryOrig );
     int answer = KMessageBox::Yes;
-    if ( count != 0 )
-        KMessageBox::questionYesNo( this,
-                                    i18n("<qt>Really delete group '%1'?<br>"
-                                         "%2 images contains information in that group")
-                                    .arg( _current->_text).arg(count) );
+    KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->_text) );
     if ( answer == KMessageBox::No )
         return;
 
@@ -575,22 +553,8 @@ void OptionsDialog::enableDisable( bool b )
     _preferredView->setEnabled( b );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 void OptionsDialog::createGroupConfig()
 {
-    Options* opt = Options::instance();
-
     QWidget* top = addPage( i18n("Member Groups" ), i18n("Member Groups" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ),
                                                              KIcon::Desktop, 32 ) );
@@ -632,7 +596,7 @@ void OptionsDialog::createGroupConfig()
     lay6->addWidget( _del );
 
     // Setup the actions
-    _memberMap = opt->memberMap();
+    _memberMap = ImageDB::instance()->memberMap();
     connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
     connect( _groups, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
     connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
@@ -648,7 +612,7 @@ void OptionsDialog::createGroupConfig()
 */
 void OptionsDialog::slotCategoryChanged( const QString& text )
 {
-    slotCategoryChanged( CategoryCollection::instance()->nameForText(text), true );
+    slotCategoryChanged( ImageDB::instance()->categoryCollection()->nameForText(text), true );
 }
 
 void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
@@ -664,7 +628,7 @@ void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
     _groups->insertStringList( groupList );
 
     _members->clear();
-    QStringList list = Options::instance()->optionValue(name);
+    QStringList list = ImageDB::instance()->categoryCollection()->categoryForName(name)->items();
     list += _memberMap.groups( name );
     QStringList uniq;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
@@ -701,7 +665,7 @@ void OptionsDialog::slotAddGroup()
         QListBoxItem* item = new QListBoxText( _groups, text );
         _groups->setCurrentItem( item );
         selectMembers( text );
-        Options::instance()->addOption( _currentCategory, text );
+        ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
         _memberMap.setMembers(_currentCategory, text, QStringList() );
         slotCategoryChanged( _currentCategory, false );
     }
@@ -717,7 +681,7 @@ void OptionsDialog::slotRenameGroup()
     if ( ok ) {
         saveOldGroup();
         _memberMap.renameGroup( _currentCategory, currentValue, text );
-        Options::instance()->renameOption( _currentCategory, currentValue, text );
+        ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( currentValue, text );
         slotCategoryChanged( _currentCategory, false );
     }
 }
@@ -735,7 +699,7 @@ void OptionsDialog::slotDelGroup()
     delete item;
 
     _memberMap.deleteGroup( _currentCategory, _currentGroup );
-    Options::instance()->removeOption( _currentCategory, _currentGroup );
+    ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->removeItem( _currentGroup );
     _currentGroup = _groups->text(0);
     slotCategoryChanged( _currentCategory, false );
     selectMembers( _currentGroup );
@@ -784,8 +748,8 @@ void OptionsDialog::setButtonStates()
 void OptionsDialog::slotPageChange()
 {
     _category->clear();
-    QValueList<Category*> categories = CategoryCollection::instance()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( !(*it)->isSpecialCategory() )
             _category->insertItem( (*it)->text() );
     }
@@ -841,4 +805,3 @@ void OptionsDialog::createPluginPage()
 #endif
 }
 
-#include "optionsdialog.moc"

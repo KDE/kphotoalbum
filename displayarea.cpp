@@ -29,6 +29,7 @@
 #include <qapplication.h>
 #include <klocale.h>
 #include <math.h>
+#include "imagedb.h"
 
 /**
    Area displaying the actual image in the viewer.
@@ -183,15 +184,15 @@ void DisplayArea::toggleShowDrawings( bool b )
     drawAll();
 }
 
-void DisplayArea::setImage( ImageInfo* info, bool forward )
+void DisplayArea::setImage( ImageInfoPtr info, bool forward )
 {
     _info = info;
     _loadedImage = QImage();
 
     // Find the index of the current image
     _curIndex = 0;
-    for( ImageInfoListIterator it( _imageList ); *it; ++it ) {
-        if ( *it == info )
+    for( QStringList::Iterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+        if ( *it == info->fileName() )
             break;
         ++_curIndex;
     }
@@ -474,7 +475,7 @@ void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, c
     emit possibleChange();
 }
 
-void DisplayArea::setImageList( const ImageInfoList& list )
+void DisplayArea::setImageList( const QStringList& list )
 {
     _imageList = list;
     _cache.fill( 0, list.count() );
@@ -492,7 +493,7 @@ void DisplayArea::updatePreload()
         if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
             break;
 
-        ImageInfo* info = _imageList.at(i);
+        ImageInfoPtr info = ImageDB::instance()->info(_imageList[i]);
         if ( !info ) {
             qWarning("Info was null for index %d!", i);
             return;
@@ -544,8 +545,8 @@ void DisplayArea::updatePreload()
 int DisplayArea::indexOf( const QString& fileName )
 {
     int i = 0;
-    for( ImageInfoListIterator it( _imageList ); *it; ++it ) {
-        if ( (*it)->fileName() == fileName )
+    for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+        if ( *it == fileName )
             break;
         ++i;
     }

@@ -4,12 +4,21 @@ if compile_LIBKIMDABA_COMPAT
   COMPAT_INCLUDE = -I$(srcdir)/compat
 endif
 
+if compile_sqldb
+  LIBKIMDABA_SQLDB=sqldb/libsqlqdb.la
+  SQLDB=sqldb
+else
+  LIBKIMDABA_SQLDB=
+  SQLDB=
+endif
+
+
 if HAVE_KIPI
   KIPI_LIBS = -lkipi
 endif
 
-SUBDIRS = images icons demo themes survey $(COMPAT_DIR)
-INCLUDES = $(all_includes) $(COMPAT_INCLUDE) -I$(srcdir)/survey
+SUBDIRS = images icons demo themes survey xmldb $(SQLDB) $(COMPAT_DIR)
+INCLUDES =  -I$(srcdir)/survey $(all_includes) $(COMPAT_INCLUDE)
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = \
@@ -28,12 +37,13 @@ kimdaba_SOURCES = \
 	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
 	mysplashscreen.cpp readinfodialog.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \
 	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
-    datebar.cpp dateviewhandler.cpp imagedaterangecollection.cpp imagedaterange.cpp \
+	datebar.cpp dateviewhandler.cpp imagedaterange.cpp \
 	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp datebarmousehandler.cpp \
-	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp miniviewer.cpp
+	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp miniviewer.cpp \
+	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD = $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS) survey/libsurvey.la
+kimdaba_LDADD =  survey/libsurvey.la xmldb/libxmldb.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) $(COMPAT_LIBS) -ljpeg $(KIPI_LIBS)
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_THREADS) $(KIMDABA_CXXFLAGS) $(KIMDABA_KIPI_CXXFLAGS)
@@ -53,3 +63,5 @@ messages: rc.cpp
 	$(PREPARETIPS) > tips.cc
 	$(XGETTEXT) *.cpp *.h *.cc -o $(podir)/kimdaba.pot
 	rm -f tips.cc 
+
+kde_conf_DATA = kimdabarc

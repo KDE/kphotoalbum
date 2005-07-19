@@ -39,6 +39,13 @@
 #include <qdatetime.h>
 #include <qnamespace.h>
 #include "imageinfo.h"
+#include <kapplication.h>
+#include <kconfig.h>
+#include "options.moc"
+#include "membermap.h"
+#include <kdebug.h>
+
+#define STR(x) QString::fromLatin1(x)
 
 Options* Options::_instance = 0;
 
@@ -49,246 +56,16 @@ Options* Options::instance()
     return _instance;
 }
 
-Options::Options( const QDomElement& config, const QDomElement& options, const QDomElement& configWindowSetup, const QDomElement& memberGroups, const QString& imageDirectory )
+Options::Options( const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
-    _thumbSize = config.attribute( QString::fromLatin1("thumbSize"), QString::fromLatin1( "64" ) ).toInt();
-    _previewSize = config.attribute( QString::fromLatin1( "previewSize" ), QString::fromLatin1( "256" ) ).toInt();
-    _tTimeStamps = (TimeStampTrust) config.attribute( QString::fromLatin1("trustTimeStamps"),  QString::fromLatin1("0") ).toInt();
-    _useEXIFRotate = (bool) config.attribute( QString::fromLatin1( "useEXIFRotate" ), QString::fromLatin1( "1" ) ).toInt();
-    _useEXIFComments = (bool) config.attribute( QString::fromLatin1( "useEXIFComments" ), QString::fromLatin1( "1" ) ).toInt();
-    _autoSave = config.attribute( QString::fromLatin1("autoSave"), QString::number( 5 ) ).toInt();
-    _maxImages = config.attribute( QString::fromLatin1("maxImages"), QString::number( 100 ) ).toInt();
-    _ensureImageWindowsOnScreen = (bool) config.attribute( QString::fromLatin1( "ensureImageWindowsOnScreen" ), QString::fromLatin1( "1" ) ).toInt();
-    _htmlBaseDir = config.attribute( QString::fromLatin1("htmlBaseDir"), QString::fromLocal8Bit(getenv("HOME")) + QString::fromLatin1("/public_html") );
-    _htmlBaseURL = config.attribute( QString::fromLatin1("htmlBaseURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
-    _htmlDestURL = config.attribute( QString::fromLatin1("htmlDestURL"), QString::fromLatin1( "file://" ) + _htmlBaseDir );
-    _infoBoxPosition = (Position) config.attribute( QString::fromLatin1("infoBoxPosition"), QString::fromLatin1("0") ).toInt();
-    _showInfoBox = config.attribute( QString::fromLatin1("showInfoBox"), QString::fromLatin1("1") ).toInt();
-    _showDrawings = config.attribute( QString::fromLatin1("showDrawings"), QString::fromLatin1("1") ).toInt();
-    _showDescription = config.attribute( QString::fromLatin1("showDescription"), QString::fromLatin1("1") ).toInt();
-    _showDate = config.attribute( QString::fromLatin1("showDate"), QString::fromLatin1("1") ).toInt();
-    _showTime = config.attribute( QString::fromLatin1("showTime"), QString::fromLatin1("1") ).toInt();
-    _locked = config.attribute( QString::fromLatin1( "locked" ), QString::fromLatin1( "0" ) ).toInt();
-    _exclude = config.attribute( QString::fromLatin1( "exclude" ), QString::fromLatin1( "1" ) ).toInt();
-    _passwd = config.attribute( QString::fromLatin1( "passwd" ) );
-    _albumCategory = config.attribute( QString::fromLatin1( "albumCategory" ) );
-    _viewSortType = (ViewSortType) config.attribute( QString::fromLatin1( "viewSortType" ) ).toInt();
-    if ( config.hasAttribute( QString::fromLatin1( "fromDate" ) ) )
-        _fromDate = QDate::fromString( config.attribute( QString::fromLatin1( "fromDate" ) ), ISODate );
-    else
-        _fromDate = QDate( QDate::currentDate().year(), 1, 1 );
-    if ( config.hasAttribute( QString::fromLatin1( "toDate" ) ) )
-        _toDate = QDate::fromString( config.attribute( QString::fromLatin1( "toDate" ) ), ISODate );
-    else
-        _toDate = QDate( QDate::currentDate().year()+1, 1, 1 );
-    _launchViewerFullScreen = (bool) config.attribute( QString::fromLatin1( "launchViewerFullScreen" ) ).toInt();
-    _launchSlideShowFullScreen = (bool) config.attribute( QString::fromLatin1( "launchSlideShowFullScreen" ) ).toInt();
-    _displayLabels = (bool) config.attribute( QString::fromLatin1( "displayLabels" ), QString::fromLatin1( "1" ) ).toInt();
-    _thumbNailBackgroundColor = QColor( config.attribute( QString::fromLatin1( "thumbNailBackgroundColor" ),
-                                                          QString::fromLatin1( "black" ) ) );
-    _viewerCacheSize = config.attribute( QString::fromLatin1( "viewerCacheSize" ), QString::fromLatin1( "25" )  ).toInt();
-    _searchForImagesOnStartup = (bool) config.attribute( QString::fromLatin1( "searchForImagesOnStartup" ),
-                                                         QString::fromLatin1( "1" ) ).toInt();
-    _autoShowThumbnailView =  config.attribute( QString::fromLatin1( "autoShowThumbnailViewCount" ),
-                                                QString::fromLatin1( "0" ) ).toInt();
-    int width = config.attribute( QString::fromLatin1( "histogramWidth" ), QString::fromLatin1( "15" ) ).toInt();
-    int height = config.attribute( QString::fromLatin1( "histogramHeigth" ), QString::fromLatin1( "30" ) ).toInt();
-    _histogramSize = QSize( QMAX( 15, width ), QMAX( 15, height ) );
-
-    _alignColumns = config.attribute( QString::fromLatin1( "alignColumns" ), QString::fromLatin1( "1" ) ).toInt();
-    _rowSpacing = config.attribute( QString::fromLatin1( "rowSpacing" ), QString::fromLatin1( "10" ) ).toInt();
-
-    // Viewer size
-    QDesktopWidget* desktop = qApp->desktop();
-    QRect rect = desktop->screenGeometry( desktop->primaryScreen() );
-    width = config.attribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()),
-                                  QString::fromLatin1( "600" ) ).toInt();
-    height = config.attribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()),
-                                   QString::fromLatin1( "450" ) ).toInt();
-    _viewerSize = QSize( width, height );
-
-    // Slideshow size
-    width = config.attribute( QString::fromLatin1( "slideShowWidth_%1" ).arg(rect.width()),
-                                  QString::fromLatin1( "600" ) ).toInt();
-    height = config.attribute( QString::fromLatin1( "slideShowHeight_%1" ).arg( rect.width()),
-                                   QString::fromLatin1( "450" ) ).toInt();
-    _slideShowSize = QSize( width, height );
-    _slideShowInterval = config.attribute( QString::fromLatin1( "slideShowInterval" ), QString::fromLatin1( "5" ) ).toInt();
-
-    // Window sizes
-    for ( int i = 0; i < LastWindowSize; ++i ) {
-        bool ok;
-        int w = config.attribute( QString::fromLatin1( "windowWidth-%1" ).arg(i), QString::fromLatin1( "800" )).toInt(&ok);
-        if ( !ok )
-            w = 800;
-        int h = config.attribute( QString::fromLatin1( "windowHeight-%1" ).arg(i), QString::fromLatin1( "600" )).toInt(&ok);
-        if ( !ok )
-            h = 600;
-        _windowSizes[(WindowType) i] = QSize( w,h );
-    }
-
-    Util::readOptions( options, &_options, CategoryCollection::instance() );
-    createSpecialCategories();
-
-    _configDock = configWindowSetup;
-    _members.load( memberGroups );
-    _currentLock.load( config );
 }
-
-void Options::setThumbSize( int w )
-{
-    if ( _thumbSize != w )
-        emit changed();
-    _thumbSize = w;
-}
-
-int Options::thumbSize() const
-{
-    return _thumbSize;
-}
-
-
-void Options::save( QDomElement top )
-{
-    QDomDocument doc = top.ownerDocument();
-    QDomElement config = doc.createElement( QString::fromLatin1( "config" ) );
-    top.appendChild( config );
-
-    config.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "1" ) );
-    config.setAttribute( QString::fromLatin1("thumbSize"), _thumbSize );
-    config.setAttribute( QString::fromLatin1( "previewSize" ), _previewSize );
-    config.setAttribute( QString::fromLatin1("trustTimeStamps"), _tTimeStamps );
-    config.setAttribute( QString::fromLatin1("useEXIFRotate"), _useEXIFRotate );
-    config.setAttribute( QString::fromLatin1("useEXIFComments"), _useEXIFComments );
-    config.setAttribute( QString::fromLatin1("autoSave"), _autoSave );
-    config.setAttribute( QString::fromLatin1("maxImages" ), _maxImages );
-    config.setAttribute( QString::fromLatin1( "ensureImageWindowsOnScreen" ), _ensureImageWindowsOnScreen );
-    config.setAttribute( QString::fromLatin1("imageDirectory"), _imageDirectory );
-    config.setAttribute( QString::fromLatin1("htmlBaseDir"), _htmlBaseDir );
-    config.setAttribute( QString::fromLatin1("htmlBaseURL"), _htmlBaseURL );
-    config.setAttribute( QString::fromLatin1("htmlDestURL"), _htmlDestURL );
-
-    config.setAttribute( QString::fromLatin1("infoBoxPosition"), (int) _infoBoxPosition );
-    config.setAttribute( QString::fromLatin1("showInfoBox"), _showInfoBox );
-    config.setAttribute( QString::fromLatin1("showDrawings"), _showDrawings );
-    config.setAttribute( QString::fromLatin1("showDescription"), _showDescription );
-    config.setAttribute( QString::fromLatin1("showDate"), _showDate );
-    config.setAttribute( QString::fromLatin1("showTime"), _showTime );
-    config.setAttribute( QString::fromLatin1("locked"), _locked );
-    config.setAttribute( QString::fromLatin1("exclude"), _exclude );
-    config.setAttribute( QString::fromLatin1("passwd"), _passwd );
-    config.setAttribute( QString::fromLatin1( "albumCategory" ), _albumCategory );
-    config.setAttribute( QString::fromLatin1( "viewSortTye" ), _viewSortType );
-    config.setAttribute( QString::fromLatin1( "fromDate" ), _fromDate.toString( Qt::ISODate ) );
-    config.setAttribute( QString::fromLatin1( "toDate" ), _toDate.toString( Qt::ISODate ) );
-    config.setAttribute( QString::fromLatin1( "slideShowInterval" ), _slideShowInterval );
-    config.setAttribute( QString::fromLatin1( "launchViewerFullScreen" ), _launchViewerFullScreen );
-    config.setAttribute( QString::fromLatin1( "launchSlideShowFullScreen" ), _launchSlideShowFullScreen );
-    config.setAttribute( QString::fromLatin1( "displayLabels" ), _displayLabels );
-    config.setAttribute( QString::fromLatin1( "thumbNailBackgroundColor" ), _thumbNailBackgroundColor.name() );
-    config.setAttribute( QString::fromLatin1( "viewerCacheSize" ), _viewerCacheSize );
-    config.setAttribute( QString::fromLatin1( "searchForImagesOnStartup" ), _searchForImagesOnStartup );
-    config.setAttribute( QString::fromLatin1( "autoShowThumbnailViewCount" ), _autoShowThumbnailView );
-    config.setAttribute( QString::fromLatin1( "histogramWidth" ), _histogramSize.width() );
-    config.setAttribute( QString::fromLatin1( "histogramHeigth" ), _histogramSize.height() );
-    config.setAttribute( QString::fromLatin1( "alignColumns" ), _alignColumns );
-    config.setAttribute( QString::fromLatin1( "rowSpacing" ), _rowSpacing );
-
-    // Viewer size
-    QDesktopWidget* desktop = qApp->desktop();
-    QRect rect = desktop->screenGeometry( desktop->primaryScreen() );
-    config.setAttribute( QString::fromLatin1( "viewerWidth_%1" ).arg(rect.width()), _viewerSize.width() );
-    config.setAttribute( QString::fromLatin1( "viewerHeight_%1" ).arg( rect.width()), _viewerSize.height() );
-
-    // Slide show size
-    config.setAttribute( QString::fromLatin1( "slideShowWidth_%1" ).arg(rect.width()), _slideShowSize.width() );
-    config.setAttribute( QString::fromLatin1( "slideShowHeight_%1" ).arg( rect.width()), _slideShowSize.height() );
-
-    // Window sizes
-    for ( int i = 0; i < LastWindowSize; ++i ) {
-        config.setAttribute( QString::fromLatin1( "windowWidth-%1" ).arg(i), _windowSizes[(WindowType)i].width() );
-        config.setAttribute( QString::fromLatin1( "windowHeight-%1" ).arg(i), _windowSizes[(WindowType)i].height() );
-    }
-
-    QStringList grps = CategoryCollection::instance()->categoryNames();
-    QDomElement options = doc.createElement( QString::fromLatin1("options") );
-    top.appendChild( options );
-    (void) Util::writeOptions( doc, options, _options, CategoryCollection::instance() );
-
-    // Save window layout for config window
-    top.appendChild( _configDock );
-
-    // Member Groups
-    if ( ! _members.isEmpty() )
-        top.appendChild( _members.save( doc ) );
-
-    if ( !_currentLock.isNull() )
-        config.appendChild( _currentLock.toXML( doc ) );
-}
-
-void Options::setOption( const QString& key, const QStringList& value )
-{
-    if ( _options[key] != value )
-        emit changed();
-    _options[key] = value;
-}
-
-void Options::removeOption( const QString& key, const QString& value )
-{
-    emit changed();
-    _options[key].remove( value );
-    emit deletedOption( key, value );
-}
-
-void Options::renameOption( const QString& category, const QString& oldValue, const QString& newValue )
-{
-    _options[category].remove( oldValue );
-    addOption( category, newValue );
-    emit renamedOption( category, oldValue, newValue );
-}
-
-void Options::addOption( const QString& key, const QString& value )
-{
-    if ( _options[key].contains( value ) )
-        _options[key].remove( value );
-    else
-        emit changed();
-    _options[key].prepend( value );
-}
-
-QStringList Options::optionValue( const QString& key ) const
-{
-    return _options[key];
-}
-
-QStringList Options::optionValueInclGroups( const QString& category ) const
-{
-    // values including member groups
-
-    QStringList items = optionValue( category );
-    QStringList itemsAndGroups = QStringList::QStringList();
-    for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
-        itemsAndGroups << *it ;
-    };
-    // add the groups to the listbox too, but only if the group is not there already, which will be the case
-    // if it has ever been selected once.
-    QStringList groups = _members.groups( category );
-    for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
-        if ( ! items.contains(  *it ) )
-            itemsAndGroups << *it ;
-    };
-    if ( viewSortType() == SortAlpha )
-        itemsAndGroups.sort();
-    return itemsAndGroups;
-}
-
 
 bool Options::trustTimeStamps()
 {
-    if ( _tTimeStamps == Always )
+    if ( tTimeStamps() == Always )
         return true;
-    else if ( _tTimeStamps == Never )
+    else if ( tTimeStamps() == Never )
         return false;
     else {
         if (!_hasAskedAboutTimeStamps ) {
@@ -307,88 +84,31 @@ bool Options::trustTimeStamps()
 }
 void Options::setTTimeStamps( TimeStampTrust t )
 {
-    if ( _tTimeStamps != t )
-        emit changed();
-    _tTimeStamps = t;
+    setValue( STR("General"), STR("trustTimeStamps"), (int) t );
 }
 
 Options::TimeStampTrust Options::tTimeStamps() const
 {
-    return _tTimeStamps;
+    return (TimeStampTrust) value(  STR("General"), STR("trustTimeStamps"), (int) Always );
 }
 
 QString Options::imageDirectory() const
 {
-    if ( !_imageDirectory.endsWith( QString::fromLatin1( "/" ) ) )
-        return _imageDirectory + QString::fromLatin1( "/" );
+    if ( !_imageDirectory.endsWith( STR( "/" ) ) )
+        return _imageDirectory + STR( "/" );
     else
         return _imageDirectory;
 }
 
-bool Options::showInfoBox() const
-{
-    return _showInfoBox;
-}
-
-bool Options::showDrawings() const
-{
-    return _showDrawings;
-}
-
-bool Options::showDescription() const
-{
-    return _showDescription;
-}
-
-bool Options::showDate() const
-{
-    return _showDate;
-}
-
-bool Options::showTime() const
-{
-    return _showTime;
-}
-
-void Options::setShowInfoBox(bool b)
-{
-    if ( _showInfoBox != b ) emit changed();
-    _showInfoBox = b;
-}
-
-void Options::setShowDrawings(bool b)
-{
-    if ( _showDrawings != b ) emit changed();
-    _showDrawings = b;
-}
-
-void Options::setShowDescription(bool b)
-{
-    if ( _showDescription != b ) emit changed();
-    _showDescription = b;
-}
-
-void Options::setShowDate(bool b)
-{
-    if ( _showDate != b ) emit changed();
-    _showDate = b;
-}
-
-void Options::setShowTime(bool b)
-{
-    if ( _showTime != b ) emit changed();
-    _showTime = b;
-}
 
 Options::Position Options::infoBoxPosition() const
 {
-    return _infoBoxPosition;
+    return (Position) value( STR("Viewer"), STR("infoBoxPosition"), 0 );
 }
 
 void Options::setInfoBoxPosition( Position pos )
 {
-    if ( _infoBoxPosition != pos ) emit changed();
-    _infoBoxPosition = pos;
+    setValue( STR("Viewer"), STR("infoBoxPosition"), (int) pos );
 }
 
 /**
@@ -396,184 +116,102 @@ void Options::setInfoBoxPosition( Position pos )
 */
 bool Options::showOption( const QString& category ) const
 {
-    return CategoryCollection::instance()->categoryForName(category)->doShow();
+    return ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow();
 }
 
 void Options::setShowOption( const QString& category, bool b )
 {
-    if ( CategoryCollection::instance()->categoryForName(category)->doShow() != b ) emit changed();
-    CategoryCollection::instance()->categoryForName(category)->setDoShow( b );
+    ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
 }
 
 QString Options::HTMLBaseDir() const
 {
-    return _htmlBaseDir;
+    return value( groupForDatabase( STR("HTML Settings") ), STR("baseDir"), QString::fromLocal8Bit(getenv("HOME")) + STR( "/public_html") );
 }
 
 void Options::setHTMLBaseDir( const QString& dir )
 {
-    if ( _htmlBaseDir != dir ) emit changed();
-    _htmlBaseDir = dir;
+    setValue( groupForDatabase( STR("HTML Settings") ), STR("baseDir"), dir );
 }
 
 QString Options::HTMLBaseURL() const
 {
-    return _htmlBaseURL;
+    return value( groupForDatabase( STR("HTML Settings") ), STR("baseUrl"),  STR( "file://" ) + HTMLBaseDir() );
 }
 
 void Options::setHTMLBaseURL( const QString& url )
 {
-    if ( _htmlBaseURL != url ) emit changed();
-    _htmlBaseURL = url;
+    setValue( groupForDatabase( STR("HTML Settings") ), STR("baseUrl"), url );
 }
 
 QString Options::HTMLDestURL() const
 {
-    return _htmlDestURL;
+    return value( groupForDatabase( STR("HTML Settings") ), STR("destUrl"),  STR( "file://" ) + HTMLBaseDir() );
 }
 
 void Options::setHTMLDestURL( const QString& url )
 {
-    if ( _htmlDestURL != url ) emit changed();
-    _htmlDestURL = url;
-}
-
-void Options::setAutoSave( int min )
-{
-    if ( _autoSave != min ) emit changed();
-    _autoSave = min;
-}
-
-int Options::autoSave() const
-{
-    return _autoSave;
-}
-
-void Options::setMaxImages( int i )
-{
-    if ( _maxImages != i ) emit changed();
-    _maxImages = i;
-}
-
-int Options::maxImages() const
-{
-    return 10000000;
-#ifdef TEMPORARILY_REMOVED
-    return _maxImages;
-#endif
+    setValue( groupForDatabase( STR("HTML Settings") ), STR("destUrl"), url );
 }
 
 
-void Options::saveConfigWindowLayout( ImageConfig* config )
+void Options::setup( const QString& imageDirectory )
 {
-    QDomDocument doc;
-    _configDock = doc.createElement( QString::fromLatin1("configWindowSetup" ) );
-    config->writeDockConfig( _configDock );
-    emit changed();
-}
-
-
-void Options::loadConfigWindowLayout( ImageConfig* config )
-{
-    config->readDockConfig( _configDock );
-}
-
-void Options::setup( const QDomElement& config, const QDomElement& options,
-                     const QDomElement& configWindowSetup, const QDomElement& memberGroups,
-                     const QString& imageDirectory )
-{
-    _instance = new Options( config, options, configWindowSetup, memberGroups, imageDirectory );
-}
-
-void Options::setViewerSize( const QSize& size )
-{
-    if ( size != _viewerSize )
-        emit changed();
-
-    _viewerSize = size;
-}
-
-QSize Options::viewerSize() const
-{
-    return _viewerSize;
-}
-
-void Options::setSlideShowSize( const QSize& size )
-{
-    if ( size != _slideShowSize )
-        emit changed();
-
-    _slideShowSize = size;
-}
-
-QSize Options::slideShowSize() const
-{
-    return _slideShowSize;
-}
-
-
-
-const MemberMap& Options::memberMap()
-{
-    return _members;
-}
-
-void Options::setMemberMap( const MemberMap& members )
-{
-    // In a perfect world, I should check if _members != members, and only emit changed in that case.
-    emit changed();
-    _members = members;
+    _instance = new Options( imageDirectory );
 }
 
 void Options::setCurrentLock( const ImageSearchInfo& info, bool exclude )
 {
-    _currentLock = info;
-    _exclude = exclude;
+    info.saveLock();
+    setValue( groupForDatabase( STR("Privacy Settings") ), STR("exclude"), exclude );
 }
 
 ImageSearchInfo Options::currentLock() const
 {
-    return _currentLock;
+    return ImageSearchInfo::loadLock();
 }
 
 void Options::setLocked( bool lock )
 {
-    _locked = lock;
-    emit locked( lock, _exclude );
+    bool changed = ( lock != isLocked() );
+    setValue( groupForDatabase( STR("Privacy Settings") ), STR("locked"), lock );
+    if (changed)
+        emit locked( lock, lockExcludes() );
 }
 
 bool Options::isLocked() const
 {
-    return _locked;
+    return value( groupForDatabase( STR("Privacy Settings") ), STR("locked"), false );
 }
 
 bool Options::lockExcludes() const
 {
-    return _exclude;
+    return value( groupForDatabase( STR("Privacy Settings") ), STR("exclude"), false );
 }
 
 void Options::setPassword( const QString& passwd )
 {
-    _passwd = passwd;
+    setValue( groupForDatabase( STR("Privacy Settings") ), STR("password"), passwd );
 }
 
 QString Options::password() const
 {
-    return _passwd;
+    return value( groupForDatabase( STR("Privacy Settings") ), STR("password"), STR("") );
 }
 
+// PENDING(blackie) move this function to Category
 QString Options::fileForCategoryImage( const QString& category, QString member ) const
 {
-    QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
+    QString dir = imageDirectory() + STR("CategoryImages" );
     member.replace( ' ', '_' );
-    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg( category ).arg( member );
+    QString fileName = dir + STR("/%1-%2.jpg").arg( category ).arg( member );
     return fileName;
 }
 
-
+// PENDING(blackie) move this function to Category
 void Options::setOptionImage( const QString& category, QString member, const QImage& image )
 {
-    QString dir = imageDirectory() + QString::fromLatin1("CategoryImages" );
+    QString dir = imageDirectory() + STR("CategoryImages" );
     QFileInfo fi( dir );
     bool ok;
     if ( !fi.exists() ) {
@@ -591,183 +229,94 @@ void Options::setOptionImage( const QString& category, QString member, const QIm
     }
 }
 
+// PENDING(blackie) moved this function to Category
 QImage Options::optionImage( const QString& category, QString member, int size ) const
 {
     QString fileName = fileForCategoryImage( category, member );
     QImage img;
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
-        if ( Options::instance()->memberMap().isGroup( category, member ) )
-            img = KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, size );
+        if ( ImageDB::instance()->memberMap().isGroup( category, member ) )
+            img = KGlobal::iconLoader()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
         else
-            img = CategoryCollection::instance()->categoryForName( category )->icon( size );
+            img = ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
     }
     return img.smoothScale( size, size, QImage::ScaleMin );
 }
 
-void Options::setUseEXIFRotate( bool b )
-{
-    if ( _useEXIFRotate != b )
-        emit changed();
-    _useEXIFRotate = b;
-}
-
-bool Options::useEXIFRotate() const
-{
-    return _useEXIFRotate;
-}
-
-void Options::setUseEXIFComments( bool b )
-{
-    if ( _useEXIFComments != b )
-        emit changed();
-    _useEXIFComments = b;
-}
-
-bool Options::useEXIFComments() const
-{
-    return _useEXIFComments;
-}
-
-void Options::setPreviewSize( int size )
-{
-    if ( _previewSize != size )
-        emit changed();
-    _previewSize = size;
-}
-
-int Options::previewSize() const
-{
-    return _previewSize;
-}
-
 void Options::setViewSortType( ViewSortType tp )
 {
-    if ( _viewSortType != tp ) {
-        _viewSortType = tp;
+    bool changed = ( viewSortType() != tp );
+    setValue( STR("General"), STR("viewSortType"), (int) tp );
+    if ( changed )
         emit viewSortTypeChanged( tp );
-        emit changed();
-    }
 }
 
 Options::ViewSortType Options::viewSortType() const
 {
-    return _viewSortType;
+    return (ViewSortType) value( STR("General"), STR("viewSortType"), 0 );
 }
 
 void Options::setFromDate( const QDate& date)
 {
     if (date.isValid())
-        _fromDate = date;
+        setValue( STR("Miscellaneous"), STR("fromDate"), date.toString( Qt::ISODate ) );
 }
 
 QDate Options::fromDate() const
 {
-    return _fromDate;
+    QString date = value( STR("Miscellaneous"), STR("fromDate"), STR("") );
+    if ( date.isEmpty() )
+        return QDate( QDate::currentDate().year(), 1, 1 );
+    else
+        return QDate::fromString( date, ISODate );
 }
 
 void  Options::setToDate( const QDate& date)
 {
     if (date.isValid())
-	_toDate = date;
+        setValue( STR("Miscellaneous"), STR("toDate"), date.toString( Qt::ISODate ) );
 }
 
 QDate Options::toDate() const
 {
-    return _toDate;
-}
-
-void Options::setSlideShowInterval( int interval )
-{
-    if (_slideShowInterval != interval ) {
-        _slideShowInterval = interval;
-        emit changed();
-    }
-}
-
-int Options::slideShowInterval() const
-{
-    return _slideShowInterval;
+    QString date = value( STR("Miscellaneous"), STR("toDate"), STR("") );
+    if ( date.isEmpty() )
+        return QDate( QDate::currentDate().year()+1, 1, 1 );
+    else
+        return QDate::fromString( date, ISODate );
 }
 
 QString Options::albumCategory() const
 {
-    if ( !CategoryCollection::instance()->categoryNames().contains( _albumCategory ) )
-        const_cast<Options*>(this)->_albumCategory = CategoryCollection::instance()->categoryNames()[0];
-    return _albumCategory;
+    QString category = value( STR("General"), STR("albumCategory"), STR("") );
+
+    if ( !ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) ) {
+        category = ImageDB::instance()->categoryCollection()->categoryNames()[0];
+        const_cast<Options*>(this)->setAlbumCategory( category );
+    }
+
+    return category;
 }
 
 void Options::setAlbumCategory( const QString& category )
 {
-    if (_albumCategory != category ) {
-        _albumCategory = category;
-        emit changed();
-    }
+    setValue( STR("General"), STR("albumCategory"), category );
 }
 
-void Options::setLaunchViewerFullScreen( bool b )
+void Options::setWindowGeometry( WindowType win, const QRect& geometry )
 {
-    if (_launchViewerFullScreen != b ) {
-        _launchViewerFullScreen = b;
-        emit changed();
-    }
+    KConfig* config = kapp->config();
+    config->setGroup( "Window Geometry" );
+    config->writeEntry( windowTypeToString( win ), geometry );
 }
 
-bool Options::launchViewerFullScreen() const
+QRect Options::windowGeometry( WindowType win ) const
 {
-    return _launchViewerFullScreen;
-}
-
-void Options::setLaunchSlideShowFullScreen( bool b )
-{
-    if ( _launchSlideShowFullScreen != b ) {
-        _launchSlideShowFullScreen = b;
-        emit changed();
-    }
-}
-
-bool Options::launchSlideShowFullScreen() const
-{
-    return _launchSlideShowFullScreen;
-}
-
-void Options::setDisplayLabels( bool b )
-{
-    if (_displayLabels != b ) {
-        _displayLabels = b;
-        emit changed();
-    }
-}
-
-bool Options::displayLabels() const
-{
-    return _displayLabels;
-}
-
-void Options::setThumbNailBackgroundColor( const QColor& col )
-{
-    if ( _thumbNailBackgroundColor != col ) {
-        _thumbNailBackgroundColor = col;
-        emit changed();
-    }
-}
-
-QColor Options::thumbNailBackgroundColor() const
-{
-    return _thumbNailBackgroundColor;
-}
-
-void Options::setWindowSize( WindowType win, const QSize& size )
-{
-    if ( _windowSizes[win] != size ) {
-        _windowSizes[win] = size;
-        emit changed();
-    }
-}
-
-QSize Options::windowSize( WindowType win ) const
-{
-    return _windowSizes[win];
+    KConfig* config = kapp->config();
+    config->setGroup( "Window Geometry" );
+    QRect rect( 0,0, 800, 600 );
+    return config->readRectEntry( windowTypeToString( win ), &rect );
 }
 
 bool Options::ready()
@@ -775,104 +324,103 @@ bool Options::ready()
     return _instance != 0;
 }
 
-int Options::viewerCacheSize() const
+int Options::value( const QString& group, const QString& option, int defaultValue ) const
 {
-    return _viewerCacheSize;
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    return config->readNumEntry( option, defaultValue );
 }
 
-void Options::setViewerCacheSize( int size )
+QString Options::value( const QString& group, const QString& option, const QString& defaultValue ) const
 {
-    if ( _viewerCacheSize != size ) {
-        _viewerCacheSize = size;
-        emit changed();
-    }
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    return config->readEntry( option, defaultValue );
 }
 
-bool Options::searchForImagesOnStartup() const
+bool Options::value( const QString& group, const QString& option, bool defaultValue ) const
 {
-    return _searchForImagesOnStartup;
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    return config->readBoolEntry( option, defaultValue );
 }
 
-void Options::setSearchForImagesOnStartup(bool b)
+QColor Options::value( const QString& group, const QString& option, const QColor& defaultValue ) const
 {
-    if ( b != _searchForImagesOnStartup ) {
-        _searchForImagesOnStartup = b;
-        emit changed();
-    }
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    return config->readColorEntry( option, &defaultValue );
 }
 
-int Options::autoShowThumbnailView() const
+QSize Options::value( const QString& group, const QString& option, const QSize& defaultValue ) const
 {
-    return _autoShowThumbnailView;
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    return config->readSizeEntry( option, &defaultValue );
 }
 
-void Options::setAutoShowThumbnailView( int val )
+void Options::setValue( const QString& group, const QString& option, int value )
 {
-    if ( val != _autoShowThumbnailView ) {
-        _autoShowThumbnailView = val;
-        emit changed();
-    }
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    config->writeEntry( option, value );
 }
 
-void Options::createSpecialCategories()
+void Options::setValue( const QString& group, const QString& option, const QString& value )
 {
-    Category* folderCat = CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Folder" ) );
-    if( folderCat == 0 ) {
-        _options.insert( QString::fromLatin1("Folder"), QStringList() );
-        folderCat = new Category( QString::fromLatin1("Folder"), QString::fromLatin1("folder"), Category::Small, Category::ListView, false );
-        CategoryCollection::instance()->addCategory( folderCat );
-    }
-    folderCat->setSpecialCategory( true );
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    config->writeEntry( option, value );
+}
 
+void Options::setValue( const QString& group, const QString& option, bool value )
+{
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    config->writeEntry( option, value );
+}
 
-    Category* tokenCat = CategoryCollection::instance()->categoryForName( QString::fromLatin1( "Tokens" ) );
-    if ( !tokenCat ) {
-        _options.insert( QString::fromLatin1("Tokens"), QStringList() );
-        tokenCat = new Category( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"), Category::Small, Category::ListView, true );
-        CategoryCollection::instance()->addCategory( tokenCat );
-    }
-    tokenCat->setSpecialCategory( true );
+void Options::setValue( const QString& group, const QString& option, const QColor& value )
+{
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    config->writeEntry( option, value );
+}
+
+void Options::setValue( const QString& group, const QString& option, const QSize& value )
+{
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    config->writeEntry( option, value );
 }
 
 QSize Options::histogramSize() const
 {
-    return _histogramSize;
+    return value( STR("General"), STR("histogramSize"), QSize( 15, 30 ) );
 }
 
 void Options::setHistogramSize( const QSize& size )
 {
-    if ( _histogramSize != size ) {
-        emit changed();
+    bool changed = (size != histogramSize() );
+    setValue( STR("General"), STR("histogramSize"), size );
+    if (changed)
         emit histogramSizeChanged( size );
+}
+
+QString Options::windowTypeToString( WindowType tp ) const
+{
+    switch (tp) {
+    case MainWindow: return STR("MainWindow");
+    case ConfigWindow: return STR("ConfigWindow");
     }
-
-    _histogramSize = size;
+    return STR("");
 }
 
-bool Options::alignColumns() const
+QString Options::groupForDatabase( const QString& setting ) const
 {
-    return _alignColumns;
+    return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
 
-void Options::setAlignColumns( bool b )
-{
-    if ( _alignColumns != b ) {
-        _alignColumns = b;
-        emit changed();
-    }
-}
 
-int Options::rowSpacing() const
-{
-    return _rowSpacing;
-}
 
-void Options::setRowSpacing( int i )
-{
-    if ( _rowSpacing != i ) {
-        _rowSpacing = i;
-        emit changed();
-    }
-}
-
-#include "options.moc"
+#undef STR

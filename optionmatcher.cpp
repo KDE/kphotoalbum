@@ -19,37 +19,43 @@
 #include "optionmatcher.h"
 #include "options.h"
 #include "imageinfo.h"
-OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& option )
-    :_category( category ), _option( option )
+#include "membermap.h"
+#include "imagedb.h"
+
+OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& value, bool sign )
 {
+    _category = category ;
+    _option = value;
+    _sign = sign;
 }
 
-bool OptionValueMatcher::eval( ImageInfo* info )
+bool OptionValueMatcher::eval( ImageInfoPtr info )
 {
     info->setMatched( _category, _option );
     if ( info->hasOption( _category, _option ) ) {
-        return true;
+        return _sign;
     }
 
-    QStringList list = Options::instance()->memberMap().members( _category, _option, true );
+    QStringList list = ImageDB::instance()->memberMap().members( _category, _option, true );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         if ( info->hasOption( _category, *it ) )
-            return true;
+            return _sign;
     }
 
-    return false;
+    return !_sign;
 }
 
 
 
-OptionEmptyMatcher::OptionEmptyMatcher( const QString& category )
-    :_category( category )
+OptionEmptyMatcher::OptionEmptyMatcher( const QString& category, bool sign )
 {
+    _category = category;
+    _sign = sign;
 }
 
-bool OptionEmptyMatcher::eval( ImageInfo* info )
+bool OptionEmptyMatcher::eval( ImageInfoPtr info )
 {
-    return info->allMatched( _category );
+    return _sign ? info->allMatched( _category ) : !info->allMatched( _category );
 }
 
 
@@ -59,7 +65,7 @@ void OptionContainerMatcher::addElement( OptionMatcher* element )
     _elements.append( element );
 }
 
-bool OptionAndMatcher::eval( ImageInfo* info )
+bool OptionAndMatcher::eval( ImageInfoPtr info )
 {
     for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( !(*it)->eval( info ) )
@@ -70,7 +76,7 @@ bool OptionAndMatcher::eval( ImageInfo* info )
 
 
 
-bool OptionOrMatcher::eval( ImageInfo* info )
+bool OptionOrMatcher::eval( ImageInfoPtr info )
 {
     for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( (*it)->eval( info ) )
@@ -81,65 +87,42 @@ bool OptionOrMatcher::eval( ImageInfo* info )
 
 
 
-OptionNotMatcher::OptionNotMatcher( OptionMatcher* element )
-    :_element( element )
-{
-}
-
-bool OptionNotMatcher::eval( ImageInfo* info )
-{
-    return !_element->eval( info );
-}
-
-OptionMatcher* OptionValueMatcher::optimize()
-{
-    return this;
-}
-
-OptionMatcher* OptionEmptyMatcher::optimize()
-{
-    return this;
-}
-
-OptionMatcher* OptionContainerMatcher::optimize()
-{
-    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ) {
-        QValueList<OptionMatcher*>::Iterator matcher = it;
-        ++it;
-
-        (*matcher) = (*matcher)->optimize();
-        if ( *matcher == 0 )
-            _elements.remove( matcher );
-    }
-
-    if ( _elements.count() == 0 ) {
-        delete this;
-        return 0;
-    }
-    else if ( _elements.count() == 1 ) {
-        OptionMatcher* res = _elements[0]->optimize();
-        _elements.clear();
-        delete this;
-        return res;
-    }
-
-    else
-        return this;
-
-}
-
-OptionMatcher* OptionNotMatcher::optimize()
-{
-    _element = _element->optimize();
-    if ( _element == 0 ) {
-        delete this;
-        return 0;
-    }
-    return this;
-}
-
 OptionContainerMatcher::~OptionContainerMatcher()
 {
     for( uint i = 0; i < _elements.count(); ++i )
         delete _elements[i];
+}
+
+void OptionValueMatcher::debug(int level) const
+{
+    qDebug("%s%s: %s", spaces(level).latin1(), _category.latin1(), _option.latin1());
+}
+
+void OptionEmptyMatcher::debug( int level ) const
+{
+    qDebug("%s%s:EMPTY", spaces(level).latin1(), _category.latin1() );
+}
+
+void OptionAndMatcher::debug( int level ) const
+{
+    qDebug("%sAND:", spaces(level).latin1() );
+    OptionContainerMatcher::debug( level + 1 );
+}
+
+void OptionOrMatcher::debug( int level ) const
+{
+    qDebug("%sOR:", spaces(level).latin1() );
+    OptionContainerMatcher::debug( level + 1 );
+}
+
+void OptionContainerMatcher::debug( int level ) const
+{
+    for( QValueList<OptionMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
+        (*it)->debug( level );
+    }
+}
+
+QString OptionMatcher::spaces(int level ) const
+{
+    return QString::fromLatin1("").rightJustify(level*3 );
 }

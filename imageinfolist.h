@@ -1,9 +1,9 @@
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
-#include <qptrlist.h>
-class ImageInfo;
+#include <qvaluelist.h>
+#include "imageinfoptr.h"
 
-class ImageInfoList :public QPtrList<ImageInfo>
+class ImageInfoList :public QValueList<ImageInfoPtr>
 {
 public:
     ~ImageInfoList();
@@ -13,12 +13,14 @@ public:
     void printItems();
     bool isSorted();
     void mergeIn( ImageInfoList list );
+    void remove( ImageInfoPtr info );
 
 private:
     bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );
 };
 
-typedef QPtrListIterator<ImageInfo> ImageInfoListIterator;
+typedef QValueList<ImageInfoPtr>::Iterator ImageInfoListIterator;
+typedef QValueList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
 
 #endif /* IMAGEINFOLIST_H */
 

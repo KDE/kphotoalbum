@@ -32,9 +32,9 @@ public:
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
 
 private:
-    ImageInfoList _images;
+    QStringList _images;
     uint _index;
-    QMap<QString, ImageInfo*> _infoMap;
+    QMap<QString, ImageInfoPtr> _infoMap;
 };
 
 

@@ -37,8 +37,9 @@
 #include <qradiobutton.h>
 #include <kimageio.h>
 #include "imageinfo.h"
+#include "imagedb.h"
 
-void Export::imageExport( const ImageInfoList& list )
+void Export::imageExport( const QStringList& list )
 {
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
@@ -146,7 +147,7 @@ ImageFileLocation ExportConfig::imageFileLocation() const
 }
 
 
-Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
+Export::Export( const QStringList& list, const QString& zipFile, bool compress, int maxSize, ImageFileLocation location,
                 const QString& baseUrl, bool& ok, bool doGenerateThumbnails )
     : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
@@ -200,7 +201,7 @@ Export::Export( const ImageInfoList& list, const QString& zipFile, bool compress
     }
 }
 
-QCString Export::createIndexXML( const ImageInfoList& list, const QString& baseUrl )
+QCString Export::createIndexXML( const QStringList& list, const QString& baseUrl )
 {
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
@@ -213,10 +214,9 @@ QCString Export::createIndexXML( const ImageInfoList& list, const QString& baseU
     doc.appendChild( top );
 
 
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        QString file = (*it)->fileName();
-        QString mappedFile = _nameMap[file];
-        QDomElement elm = (*it)->save( doc );
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        QString mappedFile = _nameMap[*it];
+        QDomElement elm = ImageDB::instance()->info(*it)->save( doc );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         elm.setAttribute( QString::fromLatin1( "angle" ), 0 ); // We have rotated the image while copying it
         top.appendChild( elm );
@@ -226,14 +226,14 @@ QCString Export::createIndexXML( const ImageInfoList& list, const QString& baseU
 
 
 
-void Export::generateThumbnails( const ImageInfoList& list )
+void Export::generateThumbnails( const QStringList& list )
 {
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Thumbnails/" );
     _filesRemaining = list.count(); // Used to break the event loop.
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        ImageRequest* request = new ImageRequest( (*it)->fileName(), QSize( 128, 128 ), (*it)->angle(), this );
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageRequest* request = new ImageRequest( *it, QSize( 128, 128 ), ImageDB::instance()->info(*it)->angle(), this );
         request->setPriority();
         ImageManager::instance()->load( request );
     }
@@ -243,7 +243,7 @@ void Export::generateThumbnails( const ImageInfoList& list )
     }
 }
 
-void Export::copyImages( const ImageInfoList& list )
+void Export::copyImages( const QStringList& list )
 {
     Q_ASSERT( _location != ManualCopy );
 
@@ -253,8 +253,8 @@ void Export::copyImages( const ImageInfoList& list )
     _progressDialog->setLabelText( i18n("Copying image files") );
 
     _filesRemaining = 0;
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        QString file =  (*it)->fileName();
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        QString file = *it;
         QString zippedName = _nameMap[file];
 
         if ( _maxSize == -1 ) {
@@ -273,7 +273,7 @@ void Export::copyImages( const ImageInfoList& list )
         }
         else {
             _filesRemaining++;
-            ImageRequest* request = new ImageRequest( (*it)->fileName(), QSize( _maxSize, _maxSize ), (*it)->angle(), this );
+            ImageRequest* request = new ImageRequest( *it, QSize( _maxSize, _maxSize ), ImageDB::instance()->info(*it)->angle(), this );
             request->setPriority();
             ImageManager::instance()->load( request );
         }

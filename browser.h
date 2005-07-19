@@ -21,6 +21,7 @@
 #include <qlistview.h>
 #include <qiconview.h>
 #include "options.h"
+#include "imageinfoptr.h"
 class BrowserIconViewItemFactory;
 class FolderAction;
 class ImageSearchInfo;
@@ -36,7 +37,7 @@ public:
     Browser( QWidget* parent, const char* name = 0 );
     ~Browser();
     void addSearch( ImageSearchInfo& info );
-    void addImageView( ImageInfo* context );
+    void addImageView( ImageInfoPtr context );
 
     static Browser* instance();
     void load( const QString& category, const QString& value );

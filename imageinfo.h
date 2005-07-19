@@ -31,6 +31,7 @@
 #include "drawlist.h"
 #include <qimage.h>
 #include "imagedaterange.h"
+#include <ksharedptr.h>
 
 #define EXIFMODE_TIME          0x01
 #define EXIFMODE_DATE          0x02
@@ -41,15 +42,21 @@
 #define EXIFMODE_FORCE_DATE    0x40
 #define EXIFMODE_INIT ( EXIFMODE_TIME | EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION | EXIFMODE_FORCE_TIME | EXIFMODE_FORCE_DATE )
 
-class ImageInfo {
+class ImageInfo :public KShared {
 
 public:
 
     ImageInfo();
     ImageInfo( const QString& fileName );
     ImageInfo( const QString& fileName, QDomElement elm );
-    void setVisible( bool b );
-    bool visible() const;
+    ImageInfo( const QString& fileName,
+               const QString& label,
+               const QString& description,
+               const ImageDate& startDate,
+               const ImageDate& endDate,
+               int angle,
+               const QString& md5sum,
+               const QSize& size );
 
     QString fileName( bool relative = false ) const;
     void setFileName( const QString& relativeFileName );
@@ -62,6 +69,8 @@ public:
 
     void setStartDate( const ImageDate& );
     void setEndDate( const ImageDate& );
+    ImageDate startDate() const;
+    ImageDate endDate() const;
     ImageDate& startDate();
     ImageDate& endDate();
     ImageDateRange dateRange() const;
@@ -76,20 +85,22 @@ public:
     void addOption( const QString& key,  const QStringList& value );
     void removeOption( const QString& key, const QString& value );
     bool hasOption( const QString& key,  const QString& value );
-    QStringList availableOptionGroups() const;
-    QStringList optionValue( const QString& key ) const;
-    void renameOption( const QString& key, const QString& oldValue, const QString& newValue );
-    void renameOptionGroup( const QString& oldName, const QString& newName );
+    QStringList availableCategories() const;
+    QStringList itemsOfCategory( const QString& category ) const;
+    void renameItem( const QString& key, const QString& oldValue, const QString& newValue );
+    void renameCategory( const QString& oldName, const QString& newName );
 
     QDomElement save( QDomDocument doc );
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );
+    virtual ImageInfo& operator=( const ImageInfo& other );
 
     DrawList drawList() const;
     void setDrawList( const DrawList& );
 
     bool imageOnDisk() const;
-    void setImageOnDisk( bool b );
+    static bool imageOnDisk( const QString& fileName );
+
     QString MD5Sum() const { return _md5sum; }
     void setMD5Sum( const QString& sum ) { _md5sum = sum; }
 
@@ -117,7 +128,6 @@ private:
     ImageDate _startDate, _endDate;
     QMap<QString, QStringList> _options;
     int _angle;
-    bool _visible;
     DrawList _drawList;
     enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
     mutable OnDisk _imageOnDisk;

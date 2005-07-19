@@ -37,6 +37,8 @@ extern "C" {
 #include "imagedb.h"
 #include "categorycollection.h"
 #include "fileinfo.h"
+#include <qstringlist.h>
+#include "membermap.h"
 
 bool ImageInfo::_anyImageWithEmptySize = false;
 
@@ -45,7 +47,7 @@ ImageInfo::ImageInfo() :_null( true )
 }
 
 ImageInfo::ImageInfo( const QString& fileName )
-    :  _visible( true ), _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
+    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
 {
     QString fullPath = Options::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Options::instance()->imageDirectory() + fileName );
@@ -59,10 +61,11 @@ ImageInfo::ImageInfo( const QString& fileName )
 }
 
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
-    :  _visible( true ), _null( false ), _locked( false )
+    :  _null( false ), _locked( false )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ fileName );
-    setFileName( fileName );
+    _fileName = fileName;
+    _imageOnDisk = Unchecked;
     _label = elm.attribute( QString::fromLatin1("label"),  _label );
     _description = elm.attribute( QString::fromLatin1("description") );
 
@@ -92,7 +95,7 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
             if ( childElm.tagName() == QString::fromLatin1( "options" ) ) {
-                Util::readOptions( childElm, &_options, 0 );
+                Util::readOptions( childElm, &_options );
             }
             else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
                 _drawList.load( childElm );
@@ -146,12 +149,12 @@ bool ImageInfo::hasOption( const QString& key, const QString& value )
     return _options[key].contains(value);
 }
 
-QStringList ImageInfo::optionValue( const QString& key ) const
+QStringList ImageInfo::itemsOfCategory( const QString& key ) const
 {
     return _options[key];
 }
 
-void ImageInfo::renameOption( const QString& key, const QString& oldValue, const QString& newValue )
+void ImageInfo::renameItem( const QString& key, const QString& oldValue, const QString& newValue )
 {
     QStringList& list = _options[key];
     QStringList::Iterator it = list.find( oldValue );
@@ -173,10 +176,9 @@ void ImageInfo::setFileName( const QString& relativeFileName )
 {
     _fileName = relativeFileName;
     _imageOnDisk = Unchecked;
-
     QString folderName = Util::relativeFolderName( _fileName );
     _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
-    Options::instance()->addOption( QString::fromLatin1("Folder"), folderName );
+    ImageDB::instance()->categoryCollection()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
 }
 
 
@@ -248,17 +250,20 @@ ImageDate& ImageInfo::startDate()
 
 ImageDate& ImageInfo::endDate()
 {
+    if ( _endDate.isValid() )
+        return _endDate;
+    else
+        return _startDate;
+}
+
+ImageDate ImageInfo::startDate() const
+{
+    return _startDate;
+}
+
+ImageDate ImageInfo::endDate() const
+{
     return _endDate;
-}
-
-void ImageInfo::setVisible( bool b )
-{
-    _visible = b;
-}
-
-bool ImageInfo::visible() const
-{
-    return _visible;
 }
 
 
@@ -277,7 +282,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _endDate != other._endDate ||
           _angle != other._angle);
     if ( !changed ) {
-        QStringList keys = CategoryCollection::instance()->categoryNames();
+        QStringList keys = ImageDB::instance()->categoryCollection()->categoryNames();
         for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
             _options[*it].sort();
             QStringList otherList = other._options[*it];
@@ -303,7 +308,7 @@ void ImageInfo::setDrawList( const DrawList& list )
     _drawList = list;
 }
 
-void ImageInfo::renameOptionGroup( const QString& oldName, const QString& newName )
+void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
 {
     _options[newName] = _options[oldName];
     _options.erase(oldName);
@@ -394,7 +399,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
 }
 
 
-QStringList ImageInfo::availableOptionGroups() const
+QStringList ImageInfo::availableCategories() const
 {
     return _options.keys();
 }
@@ -407,7 +412,7 @@ void ImageInfo::clearMatched() const
 void ImageInfo::setMatched( const QString& category, const QString& value ) const
 {
     _matched[category].append( value );
-    const MemberMap& map = Options::instance()->memberMap();
+    const MemberMap& map = ImageDB::instance()->memberMap();
     QStringList members = map.members( category, value, true );
     _matched[category] += members;
 }
@@ -417,7 +422,7 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
 // it is only true if there are no persons on the image that are not explicit searched for.
 bool ImageInfo::allMatched( const QString& category )
 {
-    QStringList list = optionValue( category );
+    QStringList list = itemsOfCategory( category );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         if ( !_matched[category].contains( *it ) )
             return false;
@@ -434,11 +439,6 @@ bool ImageInfo::imageOnDisk() const
     return _imageOnDisk == YesOnDisk;
 }
 
-void ImageInfo::setImageOnDisk( bool b )
-{
-    _imageOnDisk = (b ? YesOnDisk : NoNotOnDisk);
-}
-
 ImageDateRange ImageInfo::dateRange() const
 {
     return ImageDateRange( _startDate, _endDate );
@@ -452,6 +452,50 @@ QSize ImageInfo::size() const
 void ImageInfo::setSize( const QSize& size )
 {
     _size = size;
+}
+
+bool ImageInfo::imageOnDisk( const QString& fileName )
+{
+    QFileInfo fi( fileName );
+    return fi.exists();
+}
+
+ImageInfo::ImageInfo( const QString& fileName,
+                      const QString& label,
+                      const QString& description,
+                      const ImageDate& startDate,
+                      const ImageDate& endDate,
+                      int angle,
+                      const QString& md5sum,
+                      const QSize& size )
+{
+    _fileName = fileName;
+    _label =label;
+    _description =description;
+    _startDate = startDate;
+    _endDate = endDate;
+    _angle =angle;
+    _md5sum =md5sum;
+    _size = size;
+    _imageOnDisk = Unchecked;
+}
+
+ImageInfo& ImageInfo::operator=( const ImageInfo& other )
+{
+    _fileName = other._fileName;
+    _label = other._label;
+    _description = other._description;
+    _startDate = other._startDate;
+    _endDate = other._endDate;
+    _options = other._options;
+    _angle = other._angle;
+    _drawList = other._drawList;
+    _imageOnDisk = other._imageOnDisk;
+    _md5sum = other._md5sum;
+    _null = other._null;
+    _size = other._size;
+
+    return *this;
 }
 
 #include "infobox.moc"

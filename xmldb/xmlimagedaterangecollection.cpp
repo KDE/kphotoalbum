@@ -16,30 +16,30 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "imagedaterangecollection.h"
+#include "xmlimagedaterangecollection.h"
 #include "imageinfo.h"
+#include "imagedb.h"
 
-ImageDateRangeCollection::ImageDateRangeCollection()
+XMLImageDateRangeCollection::XMLImageDateRangeCollection()
     : _dirtyLower( false ), _dirtyUpper( false )
 {
 }
 
-void ImageDateRangeCollection::append( const ImageDateRange& dateRange )
+void XMLImageDateRangeCollection::append( const ImageDateRange& dateRange )
 {
     _dates.append( dateRange );
     _dirtyLower = true;
     _dirtyUpper = true;
 }
 
-ImageCount ImageDateRangeCollection::count( const ImageDate& from, const ImageDate& to )
+ImageCount XMLImageDateRangeCollection::count( const ImageDateRange& range )
 {
-    ImageDateRange range( from, to );
     if ( _cache.contains( range ) )
         return _cache[range];
 
     int exact = 0, rangeMatch = 0;
     for( QValueList<ImageDateRange>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
-        ImageDateRange::MatchType tp = (*it).isIncludedIn( ImageDateRange( from, to ) );
+        ImageDateRange::MatchType tp = (*it).isIncludedIn( range );
         switch (tp) {
         case ImageDateRange::ExactMatch: exact++;break;
         case ImageDateRange::RangeMatch: rangeMatch++; break;
@@ -52,7 +52,7 @@ ImageCount ImageDateRangeCollection::count( const ImageDate& from, const ImageDa
     return res;
 }
 
-QDateTime ImageDateRangeCollection::lowerLimit() const
+QDateTime XMLImageDateRangeCollection::lowerLimit() const
 {
     static QDateTime _lower = QDateTime( QDate( 1900, 1, 1 ) );
     if ( _dirtyLower && _dates.count() != 0 ) {
@@ -74,7 +74,7 @@ QDateTime ImageDateRangeCollection::lowerLimit() const
     return _lower;
 }
 
-QDateTime ImageDateRangeCollection::upperLimit() const
+QDateTime XMLImageDateRangeCollection::upperLimit() const
 {
     static QDateTime _upper = QDateTime( QDate( 2100, 1, 1 ) );
     if ( _dirtyUpper && _dates.count() != 0 ) {
@@ -99,10 +99,11 @@ QDateTime ImageDateRangeCollection::upperLimit() const
     return _upper;
 }
 
-ImageDateRangeCollection::ImageDateRangeCollection( const ImageInfoList& list )
+XMLImageDateRangeCollection::XMLImageDateRangeCollection( const QStringList& list )
 {
-    for( ImageInfoListIterator it( list ); *it; ++it ) {
-        append( ImageDateRange( (*it)->startDate(), (*it)->endDate() ) );
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageInfoPtr info = ImageDB::instance()->info( *it );
+        append( ImageDateRange( info->startDate(), info->endDate() ) );
     }
 }
 

@@ -19,6 +19,7 @@ Boston, MA 02111-1307, USA.
 #include "util.h"
 #include "options.h"
 #include "imageinfo.h"
+#include "imagedecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include <kmessagebox.h>
@@ -34,6 +35,7 @@ Boston, MA 02111-1307, USA.
 #include <kcmdlineargs.h>
 #include <kio/netaccess.h>
 #include "mainview.h"
+#include "X11/X.h"
 
 extern "C" {
 #define XMD_H // prevent INT32 clash from jpeglib
@@ -47,13 +49,14 @@ extern "C" {
 #include <setjmp.h>
 #include <sys/types.h>
 #include "categorycollection.h"
+#include "imagedb.h"
 }
 
 bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
                          CategoryCollection* categories )
 {
     bool anyAtAll = false;
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         QString name = *it;
@@ -66,13 +69,7 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
             opt.setAttribute( QString::fromLatin1( "viewtype" ), categories->categoryForName(name)->viewType() );
         }
 
-        // we don t save the values for the option "Folder" since it is automatically set
-        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
-        QStringList list;
-        if ( name== QString::fromLatin1("Folder") )
-            list = QStringList();
-        else
-            list = options[name];
+        QStringList list = options[name];
         bool any = false;
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
@@ -89,13 +86,11 @@ bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStrin
 
 
 
-void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
-                        CategoryCollection* categories )
+void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
 
-    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull();
-          nodeOption = nodeOption.nextSibling() )  {
+    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
         if ( nodeOption.isElement() )  {
             QDomElement elmOption = nodeOption.toElement();
@@ -105,21 +100,6 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
                 continue; // KimDaBa 2.0 save this to the file, that was a mistake.
 
             if ( !name.isNull() )  {
-                // Read Category info
-                if ( categories ) {
-                    QString icon= elmOption.attribute( QString::fromLatin1("icon") );
-                    Category::ViewSize size =
-                        (Category::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
-                    Category::ViewType type =
-                        (Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
-                    bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
-                                                            QString::fromLatin1( "1" ) ).toInt();
-
-                    Q_ASSERT( !categories->categoryForName( name ) );
-                    Category* cat = new Category( name, icon, size, type, show );
-                    categories->addCategory( cat );
-                }
-
                 // Read values
                 for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
                       nodeValue = nodeValue.nextSibling() ) {
@@ -137,7 +117,7 @@ void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options,
     }
 }
 
-QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> >* linkMap )
+QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
     Q_ASSERT( info );
     QString text;
@@ -155,15 +135,15 @@ QString Util::createInfoText( ImageInfo* info, QMap< int,QPair<QString,QString> 
         }
     }
 
-    QStringList grps = CategoryCollection::instance()->categoryNames();
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     int link = 0;
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QString category = *it;
         if ( Options::instance()->showOption( category ) ) {
-            QStringList items = info->optionValue( category );
+            QStringList items = info->itemsOfCategory( category );
             if (items.count() != 0 ) {
                 text += QString::fromLatin1( "<b>%1: </b> " )
-                        .arg( CategoryCollection::instance()->categoryForName( category )->text() );
+                        .arg( ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
                 bool first = true;
                 for( QStringList::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;
@@ -222,7 +202,11 @@ void Util::checkForBackupFile( const QString& fileName )
 
 bool Util::ctrlKeyDown()
 {
+#if KDE_IS_VERSION( 3, 4, 0 )
+    return KApplication::keyboardMouseState() & ControlMask;
+#else
     return KApplication::keyboardModifiers() & KApplication::ControlModifier;
+#endif
 }
 
 QString Util::setupDemo()
@@ -387,7 +371,7 @@ void Util::removeThumbNail( const QString& imageFile )
 
 bool Util::canReadImage( const QString& fileName )
 {
-    return KImageIO::canRead(KImageIO::type(fileName)) || isCRW( fileName );
+    return KImageIO::canRead(KImageIO::type(fileName)) || ImageDecoder::mightDecode( fileName );
 }
 
 
@@ -529,48 +513,9 @@ bool Util::isJPEG( const QString& fileName )
     return format == QString::fromLocal8Bit( "JPEG" );
 }
 
-/* Load embedded JPEG preview from Canon CRW "digital negative" */
-bool Util::loadCRW(QImage *img, const QString& imageFile, QSize* fullSize, int width, int height)
+QStringList Util::shuffle( const QStringList& input )
 {
-    static const off_t thumb_block_start_offset = -18;
-
-    /* We just find the offset of the JPEG inside the CRW
-       file, fseek() and pass the FILE* on to the JPEG loader.
-       The code is inspired by CRWInfo
-       (http://neuemuenze.heim1.tu-clausthal.de/~sven/crwinfo/)
-
-       Steffen Hansen <hansen@kde.org>
-    */
-    FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
-    if(!inputFile)
-        return false;
-    if( fseek( inputFile, thumb_block_start_offset, SEEK_END ) != 0 ) {
-        fclose( inputFile );
-        return false;
-    }
-    long int offset_buffer;
-    if( fread( &offset_buffer, 4, 1, inputFile ) <= 0 ) {
-        fclose( inputFile );
-        return false;
-    }
-    off_t thumb_block_start = 26 + (off_t)offset_buffer;
-    if( fseek( inputFile, thumb_block_start, SEEK_SET ) ) {
-        fclose( inputFile );
-        return false;
-    }
-    bool rc = loadJPEG( img, inputFile, fullSize, width, height );
-    fclose(inputFile);
-    return rc;
-}
-
-bool Util::isCRW( const QString& fileName )
-{
-    /* Really cheesy filetype detection, but for now it works */
-    return fileName.endsWith( QString::fromLatin1("CRW"), false);
-}
-
-ImageInfoList Util::shuffle( ImageInfoList list )
-{
+    QStringList list = input;
     static bool init = false;
     if ( !init ) {
         QTime midnight( 0, 0, 0 );
@@ -578,12 +523,12 @@ ImageInfoList Util::shuffle( ImageInfoList list )
         init = true;
     }
 
-    ImageInfoList result;
+    QStringList result;
 
     while ( list.count() != 0 ) {
         int index = (int) ( (double)list.count()* rand()/((double)RAND_MAX) );
-        result.append( list.at(index) );
-        list.remove( list.at(index) );
+        result.append( list[index] );
+        list.remove( list[index] );
     }
     return result;
 }
@@ -594,13 +539,15 @@ ImageInfoList Util::shuffle( ImageInfoList list )
    cd1/abc/file.jpg -> file.jpg
    cd3/file.jpg     -> file-2.jpg
 */
-Util::UniqNameMap Util::createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destDir  )
+Util::UniqNameMap Util::createUniqNameMap( const QStringList& images, bool relative, const QString& destDir  )
 {
     QMap<QString, QString> map;
     QMap<QString, QString> inverseMap;
 
-    for( ImageInfoListIterator it( images ); *it; ++it ) {
-        QString fullName = (*it)->fileName( relative );
+    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
+        QString fullName = *it;
+        if ( relative )
+            fullName = Util::stripImageDirectory( *it );
         QString base = QFileInfo( fullName ).baseName();
         QString ext = QFileInfo( fullName ).extension();
         QString file = base + QString::fromLatin1( "." ) +  ext;
@@ -664,4 +611,42 @@ void Util::deleteDemo()
     KURL url;
     url.setPath( dir );
     (void) KIO::NetAccess::del( dir, MainView::theMainView() );
+}
+
+// PENDING(blackie) delete me
+ImageInfoList Util::stringListToInfoList( const QStringList& list )
+{
+    ImageInfoList result;
+
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        result.append( ImageDB::instance()->info( *it ) );
+    }
+    return result;
+}
+
+QStringList Util::infoListToStringList( const ImageInfoList& list )
+{
+    QStringList result;
+    for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
+        result.append( (*it)->fileName() );
+    }
+    return result;
+}
+
+QString Util::stripImageDirectory( const QString& fileName )
+{
+    if ( fileName.startsWith( Options::instance()->imageDirectory() ) )
+        return fileName.mid( Options::instance()->imageDirectory().length() );
+    else
+        return fileName;
+}
+
+QStringList Util::diff( const QStringList& list1, const QStringList& list2 )
+{
+    QStringList result;
+    for( QStringList::ConstIterator it = list1.constBegin(); it != list1.constEnd(); ++it ) {
+        if ( !list2.contains( *it ) )
+            result.append( *it );
+    }
+    return result;
 }

@@ -27,6 +27,7 @@
 #include <qcache.h>
 #include <qptrvector.h>
 #include "imageinfolist.h"
+#include "imageinfoptr.h"
 class Draw;
 class ImageInfo;
 class ViewHandler_viewHandler;
@@ -50,11 +51,11 @@ public:
     DisplayArea( QWidget* parent, const char* name = 0 );
     void startDrawing();
     void stopDrawing();
-    void setImage( ImageInfo* info, bool forward );
+    void setImage( ImageInfoPtr info, bool forward );
     DrawHandler* drawHandler();
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
-    void setImageList( const ImageInfoList& list );
+    void setImageList( const QStringList& list );
 
 public slots:
     void toggleShowDrawings( bool );
@@ -96,7 +97,7 @@ private:
     QImage _croppedAndScaledImg;
     QPixmap _drawingPixmap;
     QPixmap _viewPixmap;
-    ImageInfo* _info;
+    ImageInfoPtr _info;
 
     ViewHandler* _viewHandler;
     DrawHandler* _drawHanler;
@@ -105,7 +106,7 @@ private:
     QPoint _zStart; // Stands for zoom start
     QPoint _zEnd;
     QPtrVector<ViewPreloadInfo> _cache;
-    ImageInfoList _imageList;
+    QStringList _imageList;
     bool _cachedView;
     bool _reloadImageInProgress;
     int _forward;

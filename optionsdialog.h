@@ -20,6 +20,7 @@
 #define OPTIONSDIALOG_H
 #include <kdialogbase.h>
 #include "options.h"
+#include "membermap.h"
 class KColorButton;
 class QSpinBox;
 class KComboBox;
@@ -80,7 +81,6 @@ private:
     QSpinBox* _thumbnailSize;
     KComboBox* _trustTimeStamps;
     QSpinBox* _autosave;
-    QSpinBox* _maxImages;
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
     QSpinBox* _previewSize;

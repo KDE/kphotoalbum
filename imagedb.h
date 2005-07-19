@@ -18,89 +18,84 @@
 
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
-#include "imagesearchinfo.h"
-#include <qdict.h>
-#include "imageinfolist.h"
-#include <qobject.h>
-#include <qstringlist.h>
-#include "imagedaterange.h"
-class ImageInfo;
 
-class ImageDB :public QObject {
+#include "imagesearchinfo.h"
+#include <qobject.h>
+#include "imageinfolist.h"
+#include "imageinfo.h"
+#include "imagedaterangecollection.h"
+class CategoryCollection;
+class Category;
+class MD5Map;
+class ImageDateRange;
+class MemberMap;
+
+class ImageDB  :public QObject {
     Q_OBJECT
 
 public:
     static ImageDB* instance();
-    static bool setup( const QDomElement& images, const QDomElement& blockList);
-
-    int totalCount() const;
-    void search( const ImageSearchInfo& info, int from = -1, int to = -1 );
-    int count( const ImageSearchInfo& info );
-    int countItemsOfCategory( const QString& group );
-    void renameOptionGroup( const QString& oldName, const QString newName );
-
-    QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
-    ImageInfoList& images() { return _images; }
-    ImageInfoList images( const ImageSearchInfo& info, bool onDisk );
-    void addImage( ImageInfo* info );
-    ImageInfoList& clipboard() { return _clipboard; }
+    static void setup( const QString& backEnd, const QString& configFile );
+    ImageInfoList clipboard();
+    void setClipboard( const ImageInfoList& list );
     bool isClipboardEmpty();
-
-    void blockList( const ImageInfoList& list );
-    void deleteList( const ImageInfoList& list );
-    void showUnavailableImages();
-    ImageInfoList currentContext( bool onDisk ) const;
-    ImageInfo* find( const QString& fileName ) const;
+    void convertBackend();
 
 public slots:
-    void save( QDomElement top );
-    void slotRescan();
-    void slotRecalcCheckSums();
-    void slotReread(ImageInfoList rereadList, int mode);
     void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );
     void clearDateRange();
-
-signals:
-    void matchCountChange( int, int, int );
-    void totalChanged( int );
-    void searchCompleted();
-    void dirty();
+    virtual void slotRescan();
+    virtual void slotRecalcCheckSums();
+    virtual int count( const ImageSearchInfo& info );
+    virtual void slotReread( const QStringList& list, int mode);
 
 protected:
-    void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
-    void loadExtraFiles();
-    void mergeNewImagesInWithExistingList( ImageInfoList newImages );
-    ImageInfo* loadExtraFile( const QString& name );
-    ImageInfo* load( const QString& filename, QDomElement elm );
-    int count( const ImageSearchInfo& info, bool makeVisible, int from, int to );
-    bool calculateMD5sums( ImageInfoList& list );
-    QString MD5Sum( const QString& fileName );
-    QDict<void> findAlreadyMatched( const ImageSearchInfo& info, const QString &group );
-    void checkIfImagesAreSorted();
-    bool rangeInclude( ImageInfo* info );
-    void checkIfAllImagesHasSizeAttributes();
-
-protected slots:
-    void renameOption( const QString& category, const QString& oldName, const QString& newName );
-    void deleteOption( const QString& category, const QString& option );
-    void lockDB( bool lock, bool exclude );
-
-private:
-    ImageDB( const QDomElement& images, const QDomElement& blockList, bool* newImages );
-    static ImageDB* _instance;
-
-    ImageInfoList _images;
-    QStringList _blockList;
-    ImageInfoList _clipboard, _missingTimes;
-    QMap<QString, QString> _md5Map;
-    QMap<QString, ImageInfo* > _fileMap;
-    QStringList _pendingLoad;
     ImageDateRange _selectionRange;
     bool _includeFuzzyCounts;
+    ImageInfoList _clipboard;
+
+private:
+    static ImageDB* _instance;
+
+protected:
+    ImageDB();
 
 public:
-    static QString NONE();
+    static QString NONE(); // OK
+    QStringList currentScope( bool requireOnDisk ) const;
 
+public: // Methods that must be overriden
+    virtual int totalCount() const = 0; // OK
+    virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
+
+    virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
+
+    virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category ) = 0;
+    virtual ImageInfoList& imageInfoList() = 0; // TO BE DELETED!
+    virtual QStringList images() = 0; // TO BE REPLACED WITH URL's
+    virtual void addImages( const ImageInfoList& images ) = 0; // OK
+
+    virtual void addToBlockList( const QStringList& list ) = 0; // OK
+    virtual bool isBlocking( const QString& fileName ) = 0; // OK
+    virtual void deleteList( const QStringList& list ) = 0;
+    virtual ImageInfoPtr info( const QString& fileName ) const = 0; // OK
+    virtual const MemberMap& memberMap() = 0; // OK
+    virtual void setMemberMap( const MemberMap& members ) = 0; // OK
+    virtual void save( const QString& fileName ) = 0;
+    virtual MD5Map* md5Map() = 0; // OK
+    virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
+    virtual CategoryCollection* categoryCollection() = 0;
+    virtual KSharedPtr<ImageDateRangeCollection> rangeCollection() = 0;
+
+protected slots:
+    virtual void renameItem( Category* category, const QString& oldName, const QString& newName ) = 0;
+    virtual void deleteItem( Category* category, const QString& option ) = 0;
+    virtual void lockDB( bool lock, bool exclude ) = 0;
+
+
+signals:
+    void totalChanged( int );
+    void dirty();
 };
 
 

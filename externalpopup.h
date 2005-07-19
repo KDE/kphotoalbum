@@ -27,14 +27,14 @@ class ExternalPopup :public QPopupMenu {
 
 public:
     ExternalPopup( QWidget* parent, const char* name = 0 );
-    void populate( ImageInfo* current, const ImageInfoList& list );
+    void populate( ImageInfoPtr current, const QStringList& list );
 
 protected slots:
     void slotExecuteService( int );
 
 private:
-    ImageInfoList _list;
-    ImageInfo* _currentInfo;
+    QStringList _list;
+    ImageInfoPtr _currentInfo;
 };
 
 

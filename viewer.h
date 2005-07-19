@@ -43,7 +43,7 @@ public:
     Viewer( const char* name = 0 );
     ~Viewer();
     static Viewer* latest();
-    void load( const ImageInfoList& list, int index = 0 );
+    void load( const QStringList& list, int index = 0 );
     void infoBoxMove();
     bool showingFullScreen() const;
     void setShowFullScreen( bool on );
@@ -65,7 +65,7 @@ protected:
     void load();
     void updateInfoBox();
     void setupContextMenu();
-    ImageInfo* currentInfo();
+    ImageInfoPtr currentInfo();
     friend class InfoBox;
 
 protected slots:
@@ -114,7 +114,7 @@ private:
     KAction* _slideShowRunSlower;
 
     DisplayArea* _display;
-    ImageInfoList _list;
+    QStringList _list;
     int _current;
     QRect _textRect;
     QPopupMenu* _popup;

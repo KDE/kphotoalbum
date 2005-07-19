@@ -23,7 +23,7 @@
 MyImageInfo::MyImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {
-    _info = ImageDB::instance()->find( _url.path() );
+    _info = ImageDB::instance()->info( _url.path() );
 }
 
 QString MyImageInfo::title()

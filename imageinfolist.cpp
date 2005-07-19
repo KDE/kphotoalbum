@@ -9,23 +9,25 @@
 
 ImageInfoList ImageInfoList::sort() const
 {
-    QMap<QDateTime, QValueList<ImageInfo*> > map;
-    for( ImageInfoListIterator it( *this ); *it; ++it ) {
+    QMap<QDateTime, QValueList<ImageInfoPtr> > map;
+    for( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         map[(*it)->startDate().min()].append( *it );
     }
 
     ImageInfoList res;
-    for( QMap<QDateTime, QValueList<ImageInfo*> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
-        QValueList<ImageInfo*> list = mapIt.data();
-        for( QValueList<ImageInfo*>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+    for( QMap<QDateTime, QValueList<ImageInfoPtr> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
+        QValueList<ImageInfoPtr> list = mapIt.data();
+        for( QValueList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
             res.append( *listIt );
         }
     }
     return res;
 }
 
-void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
+void ImageInfoList::sortAndMergeBackIn( ImageInfoList& /*subListToSort*/ )
 {
+    qDebug("Temp removed ImageInfoList::sortAndMergeBackIn" );
+#ifdef TEMPORARILY_REMOVED
     if ( !checkIfMergeListIsContiniously( subListToSort ) )
         return;
     ImageInfoList sorted = subListToSort.sort();
@@ -43,16 +45,18 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
         insert( index, *it );
         ++index;
     }
+#endif
 }
 
 /**
    return true if we should continue the sort.
 */
-bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
+bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& /*mergeList*/ )
 {
+    qDebug( "Temp removed ImageInfoList::checkIfMergeListIsContiniously" );
+#ifdef TEMPORARILY_REMOVED
     Q_ASSERT( mergeList.count() != 0 );
     int index = find( mergeList.at(0));
-    Q_ASSERT( index != 1 );
 
     ImageInfoListIterator thisListIt( *this );
     thisListIt += index;
@@ -68,6 +72,8 @@ bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
         }
     }
     return true;
+#endif
+    return true;
 }
 
 ImageInfoList::~ImageInfoList()
@@ -76,14 +82,14 @@ ImageInfoList::~ImageInfoList()
 
 void ImageInfoList::appendList( ImageInfoList& list )
 {
-    for ( ImageInfoListIterator it( list ); *it; ++it ) {
+    for ( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         append( *it );
     }
 }
 
 void ImageInfoList::printItems()
 {
-    for ( ImageInfoListIterator it( *this ); *it; ++it ) {
+    for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         qDebug("%s", (*it)->fileName().latin1() );
     }
 }
@@ -94,7 +100,7 @@ bool ImageInfoList::isSorted()
         return true;
 
     QDateTime prev = first()->startDate().min();
-    for ( ImageInfoListIterator it( *this ); *it; ++it ) {
+    for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         QDateTime cur = (*it)->startDate().min();
         if ( prev > cur )
             return false;
@@ -103,11 +109,13 @@ bool ImageInfoList::isSorted()
     return true;
 }
 
-void ImageInfoList::mergeIn( ImageInfoList other)
+void ImageInfoList::mergeIn( ImageInfoList /*other*/)
 {
+    qDebug("Temp removed ImageInfoList::mergeIn" );
+#ifdef TEMPORARILY_REMOVED
     ImageInfoList tmp;
 
-    for ( ImageInfoListIterator it( *this ); *it; ++it ) {
+    for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         QDateTime thisDate = (*it)->startDate().min();
         while ( other.count() != 0 ) {
             QDateTime otherDate = other.first()->startDate().min();
@@ -120,5 +128,16 @@ void ImageInfoList::mergeIn( ImageInfoList other)
     }
     tmp.appendList( other );
     *this = tmp;
+#endif
 }
 
+void ImageInfoList::remove( ImageInfoPtr info )
+{
+    for( ImageInfoListIterator it = begin(); it != end(); ++it ) {
+        if ( (*(*it)) == *info ) {
+            qDebug("Found it!");
+            QValueList<ImageInfoPtr>::remove(it);
+            return;
+        }
+    }
+}

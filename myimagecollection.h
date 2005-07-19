@@ -38,6 +38,7 @@ public:
 
 protected:
     KURL::List imageListToUrlList( const ImageInfoList& list );
+    KURL::List stringListToUrlList( const QStringList& list );
     KURL commonRoot();
 
 private:

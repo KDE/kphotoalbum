@@ -20,6 +20,7 @@
 #define THUMBNAILVIEW_H
 #include <kiconview.h>
 class KXMLGUIClient;
+#include "imageinfolist.h"
 class QDateTime;
 class ImageInfo;
 class ImageInfoList;
@@ -35,7 +36,9 @@ class ThumbNailView :public KIconView {
 public:
     ThumbNailView( QWidget* parent,  const char* name = 0 );
     static ThumbNailView* theThumbnailView();
-    void makeCurrent( ImageInfo* info );
+    void makeCurrent( ImageInfoPtr info );
+    void setImageList( const QStringList& list );
+    QStringList imageList() const;
 
 public slots:
     void reload();
@@ -49,6 +52,7 @@ signals:
     void changed();
     void fileNameChanged( const QString& );
     void currentDateChanged( const QDateTime& );
+    void showCount(int);
 
 protected slots:
     void showImage( QIconViewItem* );
@@ -64,7 +68,7 @@ protected:
     void setHighlighted( ThumbNail* item );
     void setDragLeft(  ThumbNail* item );
     QPtrList<ThumbNail> selected() const;
-    void reorder( ImageInfo* item, const ImageInfoList& list, bool after );
+    void reorder( ImageInfoPtr item, const ImageInfoList& list, bool after );
     QDragObject* dragObject();
     virtual void drawBackground ( QPainter * p, const QRect & r );
     virtual void showEvent( QShowEvent* );
@@ -74,6 +78,7 @@ private:
     ThumbNail* _currentHighlighted;
     IconViewToolTip* _iconViewToolTip;
     bool _blockMoveSignals;
+    QStringList _images;
 };
 
 #endif /* THUMBNAILVIEW_H */

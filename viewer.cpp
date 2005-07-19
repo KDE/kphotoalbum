@@ -55,6 +55,7 @@
 #include <kapplication.h>
 #include <kglobal.h>
 #include "categorycollection.h"
+#include "imagedb.h"
 
 Viewer* Viewer::_latest = 0;
 
@@ -183,8 +184,8 @@ void Viewer::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showTime() );
 
-    QValueList<Category*> categories = CategoryCollection::instance()->categories();
-    for( QValueList<Category*>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         ShowOptionAction* action = new ShowOptionAction( (*it)->name(), this );
         action->plug( _popup );
         connect( action, SIGNAL( toggled( const QString&, bool ) ),
@@ -244,7 +245,7 @@ void Viewer::setupContextMenu()
     _actions->readShortcutSettings();
 }
 
-void Viewer::load( const ImageInfoList& list, int index )
+void Viewer::load( const QStringList& list, int index )
 {
     _list = list;
     _display->setImageList( list );
@@ -429,9 +430,9 @@ bool Viewer::close( bool alsoDelete)
     return QWidget::close( alsoDelete );
 }
 
-ImageInfo* Viewer::currentInfo()
+ImageInfoPtr Viewer::currentInfo()
 {
-    return _list.at( _current );
+    return ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }
 
 void Viewer::infoBoxMove()

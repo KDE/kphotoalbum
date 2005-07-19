@@ -27,6 +27,7 @@ ImagePreview::ImagePreview( QWidget* parent, const char* name )
     : QLabel( parent, name )
 {
     setAlignment( AlignCenter );
+    setMinimumSize( 64, 64 );
 }
 
 void ImagePreview::resizeEvent( QResizeEvent* )

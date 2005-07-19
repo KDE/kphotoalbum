@@ -25,10 +25,12 @@
 #include "optionmatcher.h"
 #include "imagedb.h"
 #include "imageinfo.h"
+#include <kapplication.h>
+#include <kconfig.h>
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
                                   const QString& label, const QString& description )
-    : _label( label ), _description( description ), _isNull( false ), _compiled( false ), _optionMatcher( 0 )
+    : _label( label ), _description( description ), _isNull( false ), _compiled( false )
 {
     if ( endDate.isNull() ) {
         _startDate = startDate;
@@ -66,16 +68,16 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : _isNull( true ), _compiled( false ), _optionMatcher( 0 )
+    : _isNull( true ), _compiled( false )
 {
 }
 
-bool ImageSearchInfo::isNull()
+bool ImageSearchInfo::isNull() const
 {
     return _isNull;
 }
 
-bool ImageSearchInfo::match( ImageInfo* info ) const
+bool ImageSearchInfo::match( ImageInfoPtr info ) const
 {
     if ( _isNull )
         return true;
@@ -110,8 +112,10 @@ bool ImageSearchInfo::match( ImageInfo* info ) const
 
     // -------------------------------------------------- Options
     info->clearMatched();
-    if ( _optionMatcher )
-        ok &= _optionMatcher->eval( info );
+    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
+        ok &= (*it)->eval( info );
+    }
+
 
     // -------------------------------------------------- Label
     ok &= ( _label.isEmpty() || info->label().find(_label) != -1 );
@@ -139,15 +143,15 @@ void ImageSearchInfo::setOption( const QString& name, const QString& value )
     _compiled = false;
 }
 
-void ImageSearchInfo::addAnd( const QString& group, const QString& value )
+void ImageSearchInfo::addAnd( const QString& category, const QString& value )
 {
-    QString val = option( group );
+    QString val = option( category );
     if ( !val.isEmpty() )
         val += QString::fromLatin1( " & " ) + value;
     else
         val = value;
 
-    setOption( group, val );
+    setOption( category, val );
     _isNull = false;
     _compiled = false;
 }
@@ -202,55 +206,31 @@ void ImageSearchInfo::debug()
     }
 }
 
-/**
-   This method saves the current seachinfo to XML.
-   This is used when saving index.xml, where the current lock is saved -- the current lock is represented by a SearchInfo.
-*/
-QDomElement ImageSearchInfo::toXML( QDomDocument doc )
+// PENDING(blackie) move this into the Options class instead of having it here.
+void ImageSearchInfo::saveLock() const
 {
-    // We miss saving dates.
-    QDomElement res = doc.createElement( QString::fromLatin1( "SearchInfo" ) );
-    res.setAttribute( QString::fromLatin1("label"), _label );
-    res.setAttribute( QString::fromLatin1("description"), _description );
-
-    QDomElement options = doc.createElement( QString::fromLatin1( "Options" ) );
-    res.appendChild( options );
-    for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
-        QDomElement option = doc.createElement( QString::fromLatin1("Option") );
-        option.setAttribute( QString::fromLatin1("category"), it.key() );
-        option.setAttribute( QString::fromLatin1( "value" ), it.data() );
-        options.appendChild( option );
+    KConfig* config = kapp->config();
+    config->setGroup( Options::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    config->writeEntry( QString::fromLatin1("label"), _label );
+    config->writeEntry( QString::fromLatin1("description"), _description );
+    config->writeEntry( QString::fromLatin1("categories"), _options.keys() );
+    for( QMapConstIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+        config->writeEntry( it.key(), it.data() );
     }
-    return res;
 }
 
-void ImageSearchInfo::load( QDomElement top )
+ImageSearchInfo ImageSearchInfo::loadLock()
 {
-    _isNull = false;
-    for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( node.isElement() && node.toElement().tagName() == QString::fromLatin1( "SearchInfo" ) ) {
-            QDomElement elm = node.toElement();
-            _label = elm.attribute( QString::fromLatin1( "label" ) );
-            _description = elm.attribute( QString::fromLatin1( "description" ) );
-            QDomNode childNode = elm.firstChild();
-            if ( !childNode.isNull() && childNode.isElement() && childNode.toElement().tagName() == QString::fromLatin1( "Options" ) ) {
-                QDomElement options = childNode.toElement();
-                for ( QDomNode optionNode = options.firstChild(); !optionNode.isNull(); optionNode = optionNode.nextSibling() ) {
-                    if ( !optionNode.isElement() )
-                        continue;
-
-                    QDomElement option = optionNode.toElement();
-                    QString category = option.attribute( QString::fromLatin1( "category" ) );
-                    if ( category.isNull() )
-                        category = option.attribute( QString::fromLatin1( "optionGroup" ) ); // Compatible with KimDaBa 2.0
-                    QString value = option.attribute( QString::fromLatin1( "value" ) );
-                    if ( !category.isEmpty() )
-                        _options.insert( category, value );
-                }
-                return;
-            }
-        }
+    KConfig* config = kapp->config();
+    config->setGroup( Options::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    ImageSearchInfo info;
+    info._label = config->readEntry( "label" );
+    info._description = config->readEntry( "description" );
+    QStringList categories = config->readListEntry( "categories" );
+    for( QStringList::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+        info.setOption( *it, config->readEntry( *it ) );
     }
+    return info;
 }
 
 ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
@@ -262,25 +242,29 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _description = other._description;
     _isNull = other._isNull;
     _compiled = false;
-    _optionMatcher = 0;
 }
 
 void ImageSearchInfo::compile() const
 {
-    delete _optionMatcher;
-    OptionAndMatcher* matcher = new OptionAndMatcher;
+    deleteMatchers();
 
     for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
         QString category = it.key();
         QString matchText = it.data();
 
         QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
-        OptionOrMatcher* orMatcher = new OptionOrMatcher;
+        OptionContainerMatcher* orMatcher = new OptionOrMatcher;
 
         for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
             QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
 
-            OptionAndMatcher* andMatcher = new OptionAndMatcher;
+            OptionContainerMatcher* andMatcher = orMatcher;
+            if ( andParts.count() > 1 ) {
+                andMatcher = new OptionAndMatcher;
+                orMatcher->addElement( andMatcher );
+            }
+
+
             for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
                 QString str = *itAnd;
                 bool negate = false;
@@ -292,23 +276,132 @@ void ImageSearchInfo::compile() const
                 str = str.stripWhiteSpace();
                 OptionMatcher* valueMatcher;
                 if ( str == ImageDB::NONE() )
-                    valueMatcher = new OptionEmptyMatcher( category );
+                    valueMatcher = new OptionEmptyMatcher( category, !negate );
                 else
-                    valueMatcher = new OptionValueMatcher( category, str );
-                if ( negate )
-                    valueMatcher = new OptionNotMatcher( valueMatcher );
+                    valueMatcher = new OptionValueMatcher( category, str, !negate );
                 andMatcher->addElement( valueMatcher );
             }
-            orMatcher->addElement( andMatcher );
         }
-        matcher->addElement( orMatcher );
+        if ( orMatcher->_elements.count() == 1 )
+            _optionMatchers.append( orMatcher->_elements[0] );
+        else if ( orMatcher->_elements.count() > 1 )
+            _optionMatchers.append( orMatcher );
     }
     _compiled = true;
-    _optionMatcher = matcher->optimize();
 }
 
 ImageSearchInfo::~ImageSearchInfo()
 {
-    delete _optionMatcher;
+    deleteMatchers();
 }
 
+void ImageSearchInfo::debugMatcher() const
+{
+    if ( !_compiled )
+        compile();
+
+    qDebug("And:");
+    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
+        (*it)->debug(1);
+    }
+}
+
+QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
+{
+    if ( !_compiled )
+        compile();
+
+    QValueList<OptionMatcher*>::Iterator it  = _optionMatchers.begin();
+    QValueList< QValueList<OptionSimpleMatcher*> > result;
+    if ( it == _optionMatchers.end() )
+        return result;
+
+    result = convertMatcher( *it );
+    ++it;
+
+    for( ; it != _optionMatchers.end(); ++it ) {
+        QValueList< QValueList<OptionSimpleMatcher*> > current = convertMatcher( *it );
+        QValueList< QValueList<OptionSimpleMatcher*> > oldResult = result;
+        result.clear();
+
+        for( QValueList< QValueList<OptionSimpleMatcher*> >::Iterator resultIt = oldResult.begin();
+             resultIt != oldResult.end(); ++resultIt ) {
+
+            for( QValueList< QValueList<OptionSimpleMatcher*> >::Iterator currentIt = current.begin();
+                 currentIt != current.end(); ++currentIt ) {
+
+                QValueList<OptionSimpleMatcher*> tmp;
+                tmp += (*resultIt);
+                tmp += (*currentIt);
+                result.append( tmp );
+            }
+        }
+    }
+    return result;
+}
+
+QDict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
+{
+    QDict<void> map;
+    QString str = option( group );
+    if ( str.contains( QString::fromLatin1( "|" ) ) ) {
+        return map;
+    }
+
+    QStringList list = QStringList::split( QString::fromLatin1( "&" ), str );
+    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+        QString nm = (*it).stripWhiteSpace();
+        if (! nm.contains( QString::fromLatin1( "!" ) ) )
+            map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
+    }
+    return map;
+}
+
+void ImageSearchInfo::deleteMatchers() const
+{
+    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end();  ) {
+        OptionMatcher* matcher = *it;
+        ++it;
+        delete matcher;
+    }
+    _optionMatchers.clear();
+}
+
+QValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( OptionMatcher* matcher ) const
+{
+    QValueList< OptionSimpleMatcher*> result;
+
+    OptionAndMatcher* andMatcher;
+    OptionSimpleMatcher* simpleMatcher;
+
+    if ( ( andMatcher = dynamic_cast<OptionAndMatcher*>( matcher ) ) ) {
+        for( QValueList<OptionMatcher*>::Iterator childIt = andMatcher->_elements.begin();
+             childIt != andMatcher->_elements.end(); ++childIt ) {
+            OptionSimpleMatcher* simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( *childIt );
+            Q_ASSERT( simpleMatcher );
+            result.append( simpleMatcher );
+        }
+    }
+    else if ( ( simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( matcher ) ) )
+        result.append( simpleMatcher );
+    else
+        Q_ASSERT( false );
+
+    return result;
+}
+
+QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( OptionMatcher* item ) const
+{
+    QValueList< QValueList<OptionSimpleMatcher*> > result;
+    OptionOrMatcher* orMacther;
+
+    if ( ( orMacther = dynamic_cast<OptionOrMatcher*>( item ) ) ) {
+        for( QValueList<OptionMatcher*>::Iterator childIt = orMacther->_elements.begin();
+             childIt != orMacther->_elements.end(); ++childIt ) {
+            result.append( extractAndMatcher( *childIt ) );
+        }
+    }
+    else
+        result.append( extractAndMatcher( item ) );
+    return result;
+}

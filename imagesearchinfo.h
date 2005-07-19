@@ -18,10 +18,14 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
-#include "imagesearchinfo.h"
 #include "imagedate.h"
 #include <qdom.h>
 #include <qmap.h>
+#include <qstringlist.h>
+#include <qdict.h>
+#include "imageinfoptr.h"
+class OptionAndMatcher;
+class OptionSimpleMatcher;
 class ImageInfo;
 class OptionMatcher;
 
@@ -44,19 +48,27 @@ public:
     QString label() const;
     QString description() const;
 
-    bool isNull();
-    bool match( ImageInfo* ) const;
+    bool isNull() const;
+    bool match( ImageInfoPtr ) const;
+    QValueList< QValueList<OptionSimpleMatcher*> > query() const;
 
-    void addAnd( const QString& group, const QString& value );
+    void addAnd( const QString& category, const QString& value );
     QString toString() const;
 
-    QDomElement toXML( QDomDocument );
-    void load( QDomElement );
+    void saveLock() const;
+    static ImageSearchInfo loadLock();
 
     void debug();
+    void debugMatcher() const;
+    QDict<void> findAlreadyMatched( const QString &group ) const;
 
 protected:
     void compile() const;
+    void deleteMatchers() const;
+
+    QValueList<OptionSimpleMatcher*> extractAndMatcher( OptionMatcher* andMatcher ) const;
+    QValueList< QValueList<OptionSimpleMatcher*> > convertMatcher( OptionMatcher* ) const;
+
 
 private:
     ImageDate _startDate;
@@ -66,7 +78,7 @@ private:
     QString _description;
     bool _isNull;
     mutable bool _compiled;
-    mutable OptionMatcher* _optionMatcher;
+    mutable QValueList<OptionMatcher*> _optionMatchers;
 };
 
 

@@ -31,9 +31,8 @@ class Util {
 public:
     static bool writeOptions( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& options,
                               CategoryCollection* categories );
-    static void readOptions( QDomElement elm, QMap<QString, QStringList>* options,
-                             CategoryCollection* categories );
-    static QString createInfoText( ImageInfo* info, QMap<int, QPair<QString,QString> >* );
+    static void readOptions( QDomElement elm, QMap<QString, QStringList>* options );
+    static QString createInfoText( ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
     static void checkForBackupFile( const QString& fileName );
     static bool ctrlKeyDown();
     static bool copy( const QString& from, const QString& to );
@@ -50,16 +49,18 @@ public:
     static bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
     static bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width=-1, int height=-1);
     static bool isJPEG( const QString& fileName );
-    static bool loadCRW(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
-    static bool isCRW( const QString& fileName );
 
-    static ImageInfoList shuffle( ImageInfoList list );
+    static QStringList shuffle( const QStringList& list );
 
     typedef QMap<QString, QString> UniqNameMap;
-    static UniqNameMap createUniqNameMap( const ImageInfoList& images, bool relative, const QString& destdir );
+    static UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
 
     static QString stripSlash( const QString& fileName );
     static QString relativeFolderName( const QString& fileName);
+    static ImageInfoList stringListToInfoList( const QStringList& list );
+    static QStringList infoListToStringList( const ImageInfoList& list );
+    static QString stripImageDirectory( const QString& fileName );
+    static QStringList diff( const QStringList& list1, const QStringList& list2 );
 };
 
 

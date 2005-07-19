@@ -150,8 +150,6 @@ public:
     QString groupForDatabase( const QString& setting ) const;
 
 protected:
-    void createSpecialCategories();
-
     int value( const QString& group, const QString& option, int defaultValue ) const;
     QString value( const QString& group, const QString& option, const QString& defaultValue ) const;
     bool value( const QString& group, const QString& option, bool defaultValue ) const;

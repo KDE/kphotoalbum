@@ -322,6 +322,27 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
             }
         }
     }
+    createSpecialCategories();
+}
+
+void XMLDB::XMLDB::createSpecialCategories()
+{
+    CategoryPtr folderCat = _categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
+    if( folderCat == 0 ) {
+        folderCat = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
+                                     Category::Small, Category::ListView, false );
+        _categoryCollection.addCategory( folderCat );
+    }
+    folderCat->setSpecialCategory( true );
+
+
+    CategoryPtr tokenCat = _categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
+    if ( !tokenCat ) {
+        tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"),
+                                    Category::Small, Category::ListView, true );
+        _categoryCollection.addCategory( tokenCat );
+    }
+    tokenCat->setSpecialCategory( true );
 }
 
 void XMLDB::XMLDB::save( const QString& fileName )
@@ -644,3 +665,4 @@ KSharedPtr<ImageDateRangeCollection> XMLDB::XMLDB::rangeCollection()
 {
     return new XMLImageDateRangeCollection( search( Browser::instance()->currentContext(), false ) );
 }
+

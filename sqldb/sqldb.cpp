@@ -108,43 +108,6 @@ QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QSt
         result[it.key()] = it.data();
     }
     return result;
-
-
-#ifdef TEMPORARILY_REMOVED
-    QValueList<int> matches = filesMatchingQuery( info );
-    QMap<QString,int> result;
-    GroupCounter counter( category );
-    QDict<void> alreadyMatched = info.findAlreadyMatched( category );
-
-    for( QValueList<int>::ConstIterator it = matches.begin(); it != matches.end(); ++it ) {
-        QSqlQuery query;
-        query.prepare( "SELECT value from imagecategoryinfo WHERE fileId=:fileId and category=:category" );
-        query.bindValue( QString::fromLatin1( ":fileId" ), *it );
-        query.bindValue( QString::fromLatin1( ":category" ), category );
-        if ( !query.exec() )
-            showError( query );
-
-        QStringList items;
-        bool any = false;
-        while ( query.next() ) {
-            QString item = query.value(0).toString();
-            if ( !alreadyMatched[item] ) { // We do not want to match "Jesper & Jesper"
-                result[ item ]++;
-                items << item;
-                any = true;
-            }
-        }
-        if ( !any )
-            result[ImageDB::NONE()]++;
-        counter.count( items );
-    }
-
-    QMap<QString,int> groups = counter.result();
-    for( QMapIterator<QString,int> it= groups.begin(); it != groups.end(); ++it ) {
-        result[it.key()] = it.data();
-    }
-    return result;
-#endif
 }
 
 ImageInfoList& SQLDB::SQLDB::imageInfoList()
@@ -374,6 +337,7 @@ void SQLDB::SQLDB::loadMemberGroups()
 
 CategoryCollection* SQLDB::SQLDB::categoryCollection()
 {
+    // PENDING(blackie) Implement something similar to XMLDB::createSpecialCategories()
     return &_categoryCollection;
 }
 

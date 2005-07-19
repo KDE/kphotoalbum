@@ -59,7 +59,6 @@ Options* Options::instance()
 Options::Options( const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
-    createSpecialCategories();
 }
 
 bool Options::trustTimeStamps()
@@ -324,29 +323,6 @@ bool Options::ready()
 {
     return _instance != 0;
 }
-
-void Options::createSpecialCategories()
-{
-#ifdef TEMP_REMOVED
-    CategoryPtr folderCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Folder" ) );
-    if( folderCat == 0 ) {
-        folderCat = new Category( STR("Folder"), STR("folder"), Category::Small, Category::ListView, false );
-        ImageDB::instance()->categoryCollection()->addCategory( folderCat );
-    }
-    folderCat->setSpecialCategory( true );
-
-
-    CategoryPtr tokenCat = ImageDB::instance()->categoryCollection()->categoryForName( STR( "Tokens" ) );
-    if ( !tokenCat ) {
-        tokenCat = new Category( STR("Tokens"), STR("cookie"), Category::Small, Category::ListView, true );
-        ImageDB::instance()->categoryCollection()->addCategory( tokenCat );
-    }
-    tokenCat->setSpecialCategory( true );
-#else
-    kdDebug() << "You need to implement Options::createSpecialCategories()\n";
-#endif
-}
-
 
 int Options::value( const QString& group, const QString& option, int defaultValue ) const
 {

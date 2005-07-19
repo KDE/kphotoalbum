@@ -26,8 +26,6 @@ ImageInfoList ImageInfoList::sort() const
 
 void ImageInfoList::sortAndMergeBackIn( ImageInfoList& /*subListToSort*/ )
 {
-    // qDebug( "REM: ImageInfoList::sortAndMergeBackIn" );
-#ifdef TEMPORARILY_REMOVED
     qDebug("Temp removed ImageInfoList::sortAndMergeBackIn" );
 #ifdef TEMPORARILY_REMOVED
     if ( !checkIfMergeListIsContiniously( subListToSort ) )
@@ -47,7 +45,6 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& /*subListToSort*/ )
         insert( index, *it );
         ++index;
     }
-#endif
 #endif
 }
 

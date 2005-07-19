@@ -32,10 +32,6 @@ public:
     virtual bool eval( ImageInfoPtr ) = 0;
     virtual ~OptionMatcher() {}
     virtual void debug( int level ) const = 0;
-#ifdef TEMPORARILY_REMOVED
-    virtual OptionMatcher* normalize() = 0;
-    virtual OptionMatcher* clone() = 0;
-#endif
 
 protected:
     QString spaces(int level ) const;
@@ -54,10 +50,6 @@ public:
     OptionValueMatcher( const QString& category, const QString& value, bool sign );
     virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
-#ifdef TEMPORARILY_REMOVED
-    virtual OptionMatcher* normalize();
-    virtual OptionMatcher* clone();
-#endif
 
     QString _option;
 };
@@ -69,11 +61,6 @@ public:
     OptionEmptyMatcher( const QString& category, bool sign );
     virtual bool eval( ImageInfoPtr info );
     virtual void debug( int level ) const;
-#ifdef TEMPORARILY_REMOVED
-    virtual OptionMatcher* normalize();
-    virtual OptionMatcher* clone();
-#endif
-
 };
 
 class OptionContainerMatcher :public OptionMatcher
@@ -82,9 +69,6 @@ public:
     void addElement( OptionMatcher* );
     ~OptionContainerMatcher();
     virtual void debug( int level ) const;
-#ifdef TEMPORARILY_REMOVED
-    void clone( OptionContainerMatcher* newMatcher );
-#endif
 
     QValueList<OptionMatcher*> _elements;
 };
@@ -94,11 +78,6 @@ class OptionAndMatcher :public OptionContainerMatcher
 public:
     virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
-#ifdef TEMPORARILY_REMOVED
-    virtual OptionMatcher* normalize();
-    OptionMatcher* normalizeTwo( OptionMatcher*, OptionMatcher* );
-    virtual OptionMatcher* clone();
-#endif
 };
 
 
@@ -108,10 +87,6 @@ class OptionOrMatcher :public OptionContainerMatcher
 public:
     virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
-#ifdef TEMPORARILY_REMOVED
-    virtual OptionMatcher* normalize();
-    virtual OptionMatcher* clone();
-#endif
 };
 
 #endif /* OPTIONMATCHER_H */

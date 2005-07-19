@@ -68,6 +68,7 @@ namespace XMLDB {
         void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
                                           QDomElement* blockList, QDomElement* memberGroups );
         void loadCategories( const QDomElement& elm );
+        void createSpecialCategories();
         void loadImages( const QDomElement& images );
         void loadBlockList( const QDomElement& blockList );
         void loadMemberGroups( const QDomElement& memberGroups );

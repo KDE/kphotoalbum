@@ -57,6 +57,10 @@ namespace XMLDB {
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();
         virtual KSharedPtr<ImageDateRangeCollection> rangeCollection();
+        virtual void reorder( const QString& item, const QStringList& cutList, bool after );
+        virtual void cutToClipboard( const QStringList& list );
+        virtual QStringList pasteFromCliboard( const QString& afterFile );
+        virtual bool isClipboardEmpty();
 
     protected:
         ImageInfoPtr load( const QString& filename, QDomElement elm );
@@ -77,6 +81,8 @@ namespace XMLDB {
         void saveBlockList( QDomDocument doc, QDomElement top );
         void saveMemberGroups( QDomDocument doc, QDomElement top );
         void saveCategories( QDomDocument doc, QDomElement top );
+        ImageInfoList takeImagesFromSelection( const QStringList& list );
+        QStringList insertList( const QString& fileName, const ImageInfoList& list, bool after );
 
 
     protected slots:
@@ -94,6 +100,7 @@ namespace XMLDB {
         MemberMap _members;
         MD5Map _md5map;
         XMLCategoryCollection _categoryCollection;
+        ImageInfoList _clipboard;
     };
 }
 

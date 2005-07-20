@@ -36,9 +36,6 @@ class ImageDB  :public QObject {
 public:
     static ImageDB* instance();
     static void setup( const QString& backEnd, const QString& configFile );
-    ImageInfoList clipboard();
-    void setClipboard( const ImageInfoList& list );
-    bool isClipboardEmpty();
     void convertBackend();
 
 public slots:
@@ -86,6 +83,11 @@ public: // Methods that must be overriden
     virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateRangeCollection> rangeCollection() = 0;
+
+    virtual void reorder( const QString& item, const QStringList& cutList, bool after ) = 0;
+    virtual void cutToClipboard( const QStringList& list ) = 0;
+    virtual QStringList pasteFromCliboard( const QString& afterFile ) = 0;
+    virtual bool isClipboardEmpty() = 0;
 
 protected slots:
     virtual void renameItem( Category* category, const QString& oldName, const QString& newName ) = 0;

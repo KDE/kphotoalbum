@@ -26,6 +26,8 @@ void ImageDB::setup( const QString& backend, const QString& configFile )
     if ( backend == QString::fromLatin1( "sql" ) )
         _instance = new SQLDB::SQLDB;
     else
+#else
+        Q_UNUSED( backend );
 #endif // SQLDB_SUPPORT
         _instance = new XMLDB::XMLDB( configFile );
     connect( _instance->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
@@ -54,21 +56,6 @@ void ImageDB::setDateRange( const ImageDateRange& range, bool includeFuzzyCounts
 void ImageDB::clearDateRange()
 {
     _selectionRange = ImageDateRange();
-}
-
-ImageInfoList ImageDB::clipboard()
-{
-    return _clipboard;
-}
-
-void ImageDB::setClipboard( const ImageInfoList& list )
-{
-    _clipboard = list;
-}
-
-bool ImageDB::isClipboardEmpty()
-{
-    return (_clipboard.count() == 0 );
 }
 
 void ImageDB::slotRescan()

@@ -136,28 +136,6 @@ void ThumbNailView::contentsDragMoveEvent( QDragMoveEvent *e )
     }
 }
 
-void ThumbNailView::reorder( ImageInfoPtr /*item*/, const ImageInfoList& /*cutList*/, bool /*after*/ )
-{
-    qDebug( "Temp Removed in ThumbNailView::reorder" );
-#ifdef TEMPORARILY_REMOVED
-    ImageInfoList& images = ImageDB::instance()->imageInfoList();
-
-    for( ImageInfoListConstIterator it = cutList.constBegin(); it != cutList.constEnd(); ++it ) {
-        images.removeRef( *it );
-    }
-
-    int index =  images.find( item );
-    if ( after )
-        ++index;
-
-    for( ImageInfoListIterator it( cutList ); *it; ++it ) {
-        images.insert( index, *it );
-        ++index;
-    }
-    emit changed();
-#endif
-}
-
 void ThumbNailView::contentsDropEvent( QDropEvent* e )
 {
     _currentHighlighted = 0;
@@ -190,21 +168,17 @@ void ThumbNailView::setDragLeft( ThumbNail* item )
 
 void ThumbNailView::slotCut()
 {
-    ImageInfoList& images = ImageDB::instance()->imageInfoList();
     QPtrList<ThumbNail> thumbNails = selected();
-    ImageInfoList list;
+    QStringList list;
     for( QPtrListIterator<ThumbNail> it( thumbNails ); *it; ++it ) {
-        images.remove( (*it)->imageInfo() );
-        list.append( (*it)->imageInfo() );
+        list << (*it)->fileName();
         delete *it;
     }
-    ImageDB::instance()->setClipboard( list );
+    ImageDB::instance()->cutToClipboard( list );
 }
 
 void ThumbNailView::slotPaste()
 {
-    qDebug("Temp removed in ThumbNailView::slotPaste()");
-#ifdef TEMPORARILY_REMOVED
     QPtrList<ThumbNail> selectedList = selected();
     if ( selectedList.count() == 0 ) {
         KMessageBox::information( this, i18n("To paste you have to select an image that the past should go after."), i18n("Nothing Selected") );
@@ -217,25 +191,14 @@ void ThumbNailView::slotPaste()
     }
     else {
         ThumbNail* last = selectedList.last();
-
-        // Update the image list
-        ImageInfoList& images = ImageDB::instance()->imageInfoList();
-        int index = images.findRef( last->imageInfo() ) +1;
-        ImageInfoList clipboard = ImageDB::instance()->clipboard();
-        for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
-            images.insert( index, *it );
-            ++index;
-        }
+        QString fileName = last->fileName();
+        QStringList fileNames = ImageDB::instance()->pasteFromCliboard( fileName );
 
         // updatet the thumbnail view
-        for( ImageInfoListIterator it( clipboard ); *it; ++it ) {
-            last = new ThumbNail( (*it)->fileName(), last, this );
+        for( QStringList::Iterator it = fileNames.begin(); it != fileNames.end(); ++it ) {
+            last = new ThumbNail( *it, last, this );
         }
-
-        clipboard.clear();
-        emit changed();
     }
-#endif
 }
 
 QPtrList<ThumbNail> ThumbNailView::selected() const

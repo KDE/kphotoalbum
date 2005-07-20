@@ -122,12 +122,12 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
     }
 
     QPtrList<ThumbNail> list;
-    ImageInfoList imageList;
+    QStringList imageList;
     for ( QIconViewItem* item = iconView()->firstItem(); item; item = item->nextItem() ) {
         ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
         if ( item->isSelected() ) {
             list.append(tn);
-            imageList.append( tn->imageInfo() );
+            imageList << tn->fileName();
             // Protect against a drop on yourself.
             if ( item == this ) {
                 return;
@@ -135,7 +135,7 @@ void ThumbNail::dropped( QDropEvent * e, const QValueList<QIconDragItem> & /* ls
         }
     }
 
-    _parent->reorder( imageInfo(), imageList, atRightSizeOfItem() );
+    ImageDB::instance()->reorder( _fileName, imageList, atRightSizeOfItem() );
 
     ThumbNail* last;
     if ( atRightSizeOfItem() ) {

@@ -56,6 +56,10 @@ namespace SQLDB {
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();
         virtual KSharedPtr<ImageDateRangeCollection> rangeCollection();
+        virtual void reorder( const QString& item, const QStringList& cutList, bool after );
+        virtual void cutToClipboard( const QStringList& list );
+        virtual QStringList pasteFromCliboard( const QString& afterFile );
+        virtual bool isClipboardEmpty();
 
     protected slots:
         virtual void renameItem( Category* category, const QString& oldName, const QString& newName );

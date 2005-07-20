@@ -281,6 +281,7 @@ void XMLDB::XMLDB::setMemberMap( const MemberMap& members )
 
 void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
 {
+    createSpecialCategories();
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
 
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
@@ -300,12 +301,15 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
                 bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                         QString::fromLatin1( "1" ) ).toInt();
 
-                CategoryPtr cat = _categoryCollection.categoryForName( name ); // Special Categories are already created.
+                CategoryPtr cat = _categoryCollection.categoryForName( name );
                 if ( !cat ) {
+                    // Special categories are already created so they
+                    // should not be created here. Besides they are not
+                    // configurable (they were in previous versions, but
+                    // that is just too much trouble for too litle gain)
                     cat = new XMLCategory( name, icon, size, type, show );
                     _categoryCollection.addCategory( cat );
                 }
-                // PENDING(blackie) else set the values for icons, size, type, and show
 
                 // Read values
                 QStringList items;
@@ -322,7 +326,6 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
             }
         }
     }
-    createSpecialCategories();
 }
 
 void XMLDB::XMLDB::createSpecialCategories()
@@ -610,19 +613,14 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
         opt.setAttribute( QString::fromLatin1( "viewsize" ), category->viewSize() );
         opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
 
-        // we don t save the values for the option "Folder" since it is automatically set
-        // but we keep the <option> element to allow to save user's preference for viewsize,icon,show,name
-        QStringList list;
         if ( category->isSpecialCategory() )
-            list = QStringList();
-        else
-            list = category->items();
-        bool any = false;
+            continue;
+
+        QStringList list = category->items();
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
             val.setAttribute( QString::fromLatin1("value"), *it2 );
             opt.appendChild( val );
-            any = true;
         }
         options.appendChild( opt );
     }
@@ -664,5 +662,69 @@ CategoryCollection* XMLDB::XMLDB::categoryCollection()
 KSharedPtr<ImageDateRangeCollection> XMLDB::XMLDB::rangeCollection()
 {
     return new XMLImageDateRangeCollection( search( Browser::instance()->currentContext(), false ) );
+}
+
+void XMLDB::XMLDB::reorder( const QString& item, const QStringList& selection, bool after )
+{
+    ImageInfoList list = takeImagesFromSelection( selection );
+    insertList( item, list, after );
+}
+
+// The selection is know to be sorted wrt the order in the image list.
+ImageInfoList XMLDB::XMLDB::takeImagesFromSelection( const QStringList& selection )
+{
+    QStringList cutList = selection;
+    ImageInfoList result;
+    for( ImageInfoListIterator it = _images.begin(); it != _images.end() && !cutList.isEmpty(); ) {
+        if ( (*it)->fileName() == cutList[0] ) {
+            result << *it;
+            it = _images.erase(it);
+            cutList.pop_front();
+        }
+        else
+            ++it;
+    }
+    Q_ASSERT( cutList.isEmpty() );
+
+    return result;
+}
+
+QStringList XMLDB::XMLDB::insertList( const QString& fileName, const ImageInfoList& list, bool after )
+{
+    QStringList result;
+
+    ImageInfoListIterator imageIt = _images.begin();
+    for( ; imageIt != _images.end(); ++imageIt ) {
+        if ( (*imageIt)->fileName() == fileName ) {
+            break;
+        }
+    }
+
+    if ( after )
+        imageIt++;
+    for( ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
+        _images.insert( imageIt, *it );
+        result << (*it)->fileName();
+    }
+    emit dirty();
+    return result;
+}
+
+
+void XMLDB::XMLDB::cutToClipboard( const QStringList& selection )
+{
+    _clipboard = takeImagesFromSelection( selection );
+}
+
+QStringList XMLDB::XMLDB::pasteFromCliboard( const QString& afterFile )
+{
+    QStringList result = insertList( afterFile, _clipboard, true );
+    _clipboard.clear();
+    return result;
+}
+
+bool XMLDB::XMLDB::isClipboardEmpty()
+{
+    return _clipboard.isEmpty();
 }
 

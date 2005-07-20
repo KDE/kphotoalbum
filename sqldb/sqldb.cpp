@@ -346,3 +346,25 @@ KSharedPtr<ImageDateRangeCollection> SQLDB::SQLDB::rangeCollection()
     return new SQLImageDateRangeCollection( /*search( Browser::instance()->currentContext(), false ) */ );
 }
 
+void SQLDB::SQLDB::reorder( const QString& item, const QStringList& cutList, bool after)
+{
+    qDebug("Not Yet implemented SQLDB::SQLDB::reorder");
+}
+
+void SQLDB::SQLDB::cutToClipboard( const QStringList& list )
+{
+    qDebug("NYI: SQLDB::SQLDB::cutToClipboard");
+}
+
+QStringList SQLDB::SQLDB::pasteFromCliboard( const QString& afterFile )
+{
+    qDebug("NYI: SQLDB::SQLDB::pasteFromCliboard");
+
+}
+
+bool SQLDB::SQLDB::isClipboardEmpty()
+{
+    qDebug("NYI: SQLDB::SQLDB::isClipboardEmpty");
+    return true;
+}
+

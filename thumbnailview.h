@@ -68,7 +68,6 @@ protected:
     void setHighlighted( ThumbNail* item );
     void setDragLeft(  ThumbNail* item );
     QPtrList<ThumbNail> selected() const;
-    void reorder( ImageInfoPtr item, const ImageInfoList& list, bool after );
     QDragObject* dragObject();
     virtual void drawBackground ( QPainter * p, const QRect & r );
     virtual void showEvent( QShowEvent* );

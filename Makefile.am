@@ -1,5 +1,5 @@
 if compile_sqldb
-  LIBKIMDABA_SQLDB=sqldb/libsqlqdb.la
+  LIBKIMDABA_SQLDB=sqldb/libsqldb.la
   SQLDB=sqldb
 else
   LIBKIMDABA_SQLDB=

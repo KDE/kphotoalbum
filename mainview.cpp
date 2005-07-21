@@ -516,7 +516,7 @@ void MainView::slotSortByDateAndTime()
 {
     QStringList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
     ImageDB::instance()->sortAndMergeBackIn( listOnDisk );
-    _thumbNailView->reload();
+    showThumbNails( ImageDB::instance()->search( Browser::instance()->currentContext() ) );
     markDirty();
 }
 

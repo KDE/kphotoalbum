@@ -24,45 +24,36 @@ ImageInfoList ImageInfoList::sort() const
     return res;
 }
 
-void ImageInfoList::sortAndMergeBackIn( ImageInfoList& /*subListToSort*/ )
+void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
 {
-    qDebug("Temp removed ImageInfoList::sortAndMergeBackIn" );
-#ifdef TEMPORARILY_REMOVED
     if ( !checkIfMergeListIsContiniously( subListToSort ) )
         return;
     ImageInfoList sorted = subListToSort.sort();
 
-    int index = find( subListToSort.at(0));
-    Q_ASSERT( index != 1 );
+    ImageInfoListIterator insertIt = find( subListToSort[0]);
+    --insertIt;
 
     // Delete the items we will merge in.
-    for( ImageInfoListIterator it( sorted ); *it; ++it ) {
+    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it ) {
         remove( *it );
     }
 
+    ++insertIt;
+
     // Now merge in the items
-    for( ImageInfoListIterator it( sorted ); *it; ++it ) {
-        insert( index, *it );
-        ++index;
-    }
-#endif
+    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it )
+        insert( insertIt, *it );
 }
 
 /**
    return true if we should continue the sort.
 */
-bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& /*mergeList*/ )
+bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& mergeList )
 {
-    qDebug( "Temp removed ImageInfoList::checkIfMergeListIsContiniously" );
-#ifdef TEMPORARILY_REMOVED
     Q_ASSERT( mergeList.count() != 0 );
-    int index = find( mergeList.at(0));
+    ImageInfoListIterator thisListIt = find( mergeList[0]);
 
-    ImageInfoListIterator thisListIt( *this );
-    thisListIt += index;
-
-    ImageInfoListIterator mergeListIt( mergeList );
-    for ( ; *mergeListIt; ++mergeListIt, ++thisListIt ) {
+    for( ImageInfoListIterator mergeListIt = mergeList.begin(); mergeListIt != mergeList.end(); ++mergeListIt, ++thisListIt ) {
         Q_ASSERT( *mergeListIt ); Q_ASSERT( *thisListIt );
         if ( *mergeListIt != *thisListIt ) {
             return ( KMessageBox::warningContinueCancel(0,i18n("<qt>You are about to sort a set of images with others in between"
@@ -71,8 +62,6 @@ bool ImageInfoList::checkIfMergeListIsContiniously( ImageInfoList& /*mergeList*/
             break;
         }
     }
-    return true;
-#endif
     return true;
 }
 
@@ -109,10 +98,8 @@ bool ImageInfoList::isSorted()
     return true;
 }
 
-void ImageInfoList::mergeIn( ImageInfoList /*other*/)
+void ImageInfoList::mergeIn( ImageInfoList other)
 {
-    qDebug("Temp removed ImageInfoList::mergeIn" );
-#ifdef TEMPORARILY_REMOVED
     ImageInfoList tmp;
 
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
@@ -120,7 +107,7 @@ void ImageInfoList::mergeIn( ImageInfoList /*other*/)
         while ( other.count() != 0 ) {
             QDateTime otherDate = other.first()->startDate().min();
             if ( otherDate < thisDate )
-                tmp.append( other.take(0) );
+                tmp.append( other[0] );
             else
                 break;
         }
@@ -128,14 +115,12 @@ void ImageInfoList::mergeIn( ImageInfoList /*other*/)
     }
     tmp.appendList( other );
     *this = tmp;
-#endif
 }
 
 void ImageInfoList::remove( ImageInfoPtr info )
 {
     for( ImageInfoListIterator it = begin(); it != end(); ++it ) {
         if ( (*(*it)) == *info ) {
-            qDebug("Found it!");
             QValueList<ImageInfoPtr>::remove(it);
             return;
         }

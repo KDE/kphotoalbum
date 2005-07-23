@@ -22,6 +22,7 @@
 #include <qdom.h>
 #include <qmap.h>
 #include <qobject.h>
+class ImageDB;
 class Category;
 namespace XMLDB {
     class XMLDB;
@@ -30,7 +31,7 @@ namespace XMLDB {
 class MemberMap :public QObject {
     Q_OBJECT
 public:
-    MemberMap();
+    MemberMap( ImageDB* db );
     MemberMap( const MemberMap& );
     MemberMap& operator=( const MemberMap& );
 
@@ -52,7 +53,6 @@ protected:
     QStringList calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group );
 
 protected slots:
-    void init();
     void deleteItem( Category* category, const QString& name);
     void renameItem( Category* category, const QString& oldName, const QString& newName );
 

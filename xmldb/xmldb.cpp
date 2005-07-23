@@ -42,7 +42,7 @@
 #include <ksharedptr.h>
 #include "xmlimagedaterangecollection.h"
 
-XMLDB::XMLDB::XMLDB( const QString& configFile )
+XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )
 {
     Util::checkForBackupFile( configFile );
     QDomElement top = readConfigFile( configFile );

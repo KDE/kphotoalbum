@@ -22,16 +22,11 @@
 #include "categorycollection.h"
 #include "imagedb.h"
 
-MemberMap::MemberMap() :QObject(0), _dirty( true )
+MemberMap::MemberMap( ImageDB* db) :QObject(0), _dirty( true )
 {
-    QTimer::singleShot( 0, this, SLOT( init() ) );
-}
-
-void MemberMap::init()
-{
-    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
+    connect( db->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              this, SLOT( deleteItem( Category*, const QString& ) ) );
-    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
+    connect( db->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
              this, SLOT( renameItem( Category*, const QString&, const QString& ) ) );
 }
 

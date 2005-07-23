@@ -17,7 +17,7 @@
 #include "sqlimagedaterangecollection.h"
 
 
-SQLDB::SQLDB::SQLDB()
+SQLDB::SQLDB::SQLDB() :_members( this )
 {
     if ( !QSqlDatabase::isDriverAvailable( "QMYSQL3" ) ) {
         // PENDING(blackie) better message

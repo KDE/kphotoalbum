@@ -72,8 +72,8 @@ namespace SQLDB {
         QStringList imageList( bool withRelativePath );
 
     private:
-        MemberMap _members;
         SQLCategoryCollection _categoryCollection;
+        MemberMap _members;
         MD5Map _md5map;
     };
 }

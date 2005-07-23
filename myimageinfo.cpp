@@ -20,6 +20,7 @@
 #include "myimageinfo.h"
 #include "imagedb.h"
 #include "imageinfo.h"
+#include <kdebug.h>
 MyImageInfo::MyImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {
@@ -110,7 +111,7 @@ QDateTime MyImageInfo::time( KIPI::TimeSpec what )
 bool MyImageInfo::isTimeExact()
 {
     ImageDate date = _info->endDate();
-    if ( date.year() > 0 || date.month() > 0 || date.day() > 0 )
+    if ( (date.year() > 0 || date.month() > 0 || date.day() > 0) && date != _info->startDate() )
         return false;
     date = _info->startDate();
     if ( date.year() <= 0 || date.month() <= 0 || date.day() <= 0 )

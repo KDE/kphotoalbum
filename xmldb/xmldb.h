@@ -97,9 +97,9 @@ namespace XMLDB {
         ImageInfoList _images;
         QStringList _blockList;
         ImageInfoList _missingTimes;
+        XMLCategoryCollection _categoryCollection;
         MemberMap _members;
         MD5Map _md5map;
-        XMLCategoryCollection _categoryCollection;
         ImageInfoList _clipboard;
     };
 }

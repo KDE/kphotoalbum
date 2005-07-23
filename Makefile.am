@@ -26,7 +26,7 @@ kimdaba_SOURCES = \
 	imagedb.cpp showoptionaction.cpp \
 	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
 	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp \
-	datefolder.cpp groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
+	groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp thumbnailbuilder.cpp \
 	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
 	mysplashscreen.cpp readinfodialog.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \

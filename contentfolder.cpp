@@ -23,7 +23,6 @@
 #include <klocale.h>
 #include "imagedb.h"
 #include "searchfolder.h"
-#include "datefolder.h"
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "browseritemfactory.h"
@@ -74,7 +73,6 @@ void ContentFolderAction::action( BrowserItemFactory* factory )
     }
 
     //-------------------------------------------------- Search Folders
-    factory->createItem( new DateFolder( _info, _browser ) );
     factory->createItem( new SearchFolder( _info, _browser ) );
 
     //-------------------------------------------------- Image Folders

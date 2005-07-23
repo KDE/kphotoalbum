@@ -1,3 +1,13 @@
+2005-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Threw away the date folder, it is redundant now we have the datebar.
+
+	* A lot of clean up in the code has happen over the last many
+	month, and I've been working on making the backend plugable, and
+	implement a SQL backend. I gave up with the SQL backend, as it was
+	too hard. My code is still in there in case someone wants to take
+	over that part.
+
 --------------------------- version 2.1 released --------------------------------------
 
 2005-04-07  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

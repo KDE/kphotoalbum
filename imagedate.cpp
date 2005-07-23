@@ -312,10 +312,12 @@ QString ImageDate::formatRegexp()
     return str;
 }
 
+#ifdef TO_BE_REMOVED
 bool ImageDate::isFuzzyData()
 {
     return _year == 0 || _month == 0 || _day == 0;
 }
+#endif
 
 QDateTime ImageDate::min() const
 {

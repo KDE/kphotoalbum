@@ -42,7 +42,9 @@ public:
     QTime getTime();
     QDate getDate();
     void setDate( const QString& date );
+#ifdef TO_BE_REMOVED
     bool isFuzzyData();
+#endif
     QDateTime min() const;
     QDateTime max() const;
 

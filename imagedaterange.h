@@ -24,18 +24,16 @@ class ImageDateRange
 {
 public:
     ImageDateRange();
-    ImageDateRange( const ImageDate& from, const ImageDate& to );
+    ImageDateRange( const ImageDate& date );
 
     enum MatchType { DontMatch, ExactMatch, RangeMatch };
     MatchType isIncludedIn( const ImageDateRange& searchRange );
     bool includes( const QDateTime& date );
-    ImageDate start() const;
-    ImageDate end() const;
+    ImageDate date() const;
     bool operator<(const ImageDateRange& other ) const;
 
 private:
-    ImageDate _imageStart;
-    ImageDate _imageEnd;
+    ImageDate _date;
 };
 
 

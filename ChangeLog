@@ -1,8 +1,17 @@
+2005-08-03  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Internal: Simplify ImageDate so it now is only a from and a to
+	QDateTime - this makes it possible for backends to do better date
+	searches (needed by the SQL backend)
+
+	* Delay loading plugins - this will save us half a second at start
+	up.
+
 2005-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Threw away the date folder, it is redundant now we have the datebar.
 
-	* A lot of clean up in the code has happen over the last many
+	* Internal: A lot of clean up in the code has happen over the last many
 	month, and I've been working on making the backend plugable, and
 	implement a SQL backend. I gave up with the SQL backend, as it was
 	too hard. My code is still in there in case someone wants to take

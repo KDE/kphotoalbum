@@ -57,7 +57,6 @@ public:
 
     static QString stripSlash( const QString& fileName );
     static QString relativeFolderName( const QString& fileName);
-    static ImageInfoList stringListToInfoList( const QStringList& list );
     static QStringList infoListToStringList( const ImageInfoList& list );
     static QString stripImageDirectory( const QString& fileName );
     static QStringList diff( const QStringList& list1, const QStringList& list2 );

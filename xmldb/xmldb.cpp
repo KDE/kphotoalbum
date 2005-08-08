@@ -46,6 +46,7 @@ XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )
 {
     Util::checkForBackupFile( configFile );
     QDomElement top = readConfigFile( configFile );
+    _fileVersion = top.attribute( QString::fromLatin1( "version" ), QString::fromLatin1( "1" ) ).toInt();
     QDomElement categories;
     QDomElement images;
     QDomElement blockList;
@@ -57,9 +58,9 @@ XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )
     loadBlockList( blockList );
     loadMemberGroups( memberGroups );
 
-    // PENDING(blackie) Where should these go?
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
+    checkAndWarnAboutVersionConflict();
 }
 
 int XMLDB::XMLDB::totalCount() const
@@ -175,7 +176,7 @@ void XMLDB::XMLDB::addImages( const ImageInfoList& images )
     else if ( newImages.count() == 0 ) {
         // case 2: No images to merge in - that's easy ;-)
     }
-    else if ( newImages.first()->startDate().min() > _images.last()->startDate().min() ) {
+    else if ( newImages.first()->date().start() > _images.last()->date().start() ) {
         // case 2: The new list is later than the existsing
         _images.appendList(newImages);
     }
@@ -216,9 +217,9 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
     QDateTime last( QDate( 1900, 1, 1 ) );
     bool wrongOrder = false;
     for( ImageInfoListIterator it = _images.begin(); !wrongOrder && it != _images.end(); ++it ) {
-        if ( last > (*it)->startDate().min() )
+        if ( last > (*it)->date().start() )
             wrongOrder = true;
-        last = (*it)->startDate().min();
+        last = (*it)->date().start();
     }
 
     if ( wrongOrder ) {
@@ -239,7 +240,7 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
 
 bool XMLDB::XMLDB::rangeInclude( ImageInfoPtr info ) const
 {
-    if (_selectionRange.start().isNull() )
+    if (_selectionRange.date().start().isNull() )
         return true;
 
     ImageDateRange::MatchType tp = info->dateRange().isIncludedIn( _selectionRange );
@@ -354,6 +355,7 @@ void XMLDB::XMLDB::save( const QString& fileName )
 
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
     QDomElement top = doc.createElement( QString::fromLatin1("KimDaBa") );
+    top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "2" ) );
     doc.appendChild( top );
 
     saveImages( doc, top );
@@ -650,7 +652,11 @@ QStringList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDis
 
 void XMLDB::XMLDB::sortAndMergeBackIn( const QStringList& fileList )
 {
-    ImageInfoList list = Util::stringListToInfoList( fileList );
+    ImageInfoList list;
+
+    for( QStringList::ConstIterator it = fileList.begin(); it != fileList.end(); ++it ) {
+        list.append( ImageDB::instance()->info( *it ) );
+    }
     _images.sortAndMergeBackIn( list );
 }
 
@@ -728,3 +734,17 @@ bool XMLDB::XMLDB::isClipboardEmpty()
     return _clipboard.isEmpty();
 }
 
+int XMLDB::XMLDB::fileVersion()
+{
+    return _fileVersion;
+}
+
+void XMLDB::XMLDB::checkAndWarnAboutVersionConflict()
+{
+    if ( _fileVersion == 1 ) {
+        KMessageBox::information( 0, i18n( "<p>The index.xml file read was from an older version of KimDaBa. "
+                                       "KimDaBa read the old format without problems, but be aware that if you save "
+                                       "to the file now, you will not be able to go back to the old version of KimDaBa.</p>"),
+                              i18n("Old File Format read"), QString::fromLatin1( "version1FileFormatRead" ) );
+    }
+}

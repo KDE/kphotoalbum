@@ -37,8 +37,7 @@ SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     ImageInfo::setFileName( relativeFileName );
     ImageInfo::setLabel( label );
     ImageInfo::setDescription( description );
-    ImageInfo::setStartDate( startDate );
-    ImageInfo::setEndDate( endDate );
+    ImageInfo::setDate( ImageDate( startDate, endDate ) );
     ImageInfo::setAngle( angle );
     ImageInfo::setMD5Sum( md5sum );
     ImageInfo::setSize( QSize( width, height ) );
@@ -84,14 +83,14 @@ ImageInfo& SQLDB::SQLImageInfo::operator=( const ImageInfo& other )
         map.insert( QString::fromLatin1( ":height" ), other.size().height() );
     }
 
-    if ( startDate().min() != other.startDate().min() ) {
+    if ( date().start() != other.date().start() ) {
         queryList << QString::fromLatin1( "startDate = :startDate" );
-        map.insert( QString::fromLatin1( ":startDate" ), other.startDate().min() );
+        map.insert( QString::fromLatin1( ":startDate" ), other.date().start() );
     }
 
-    if ( endDate().max() != other.endDate().max() ) {
+    if ( date().end() != other.date().end() ) {
         queryList << QString::fromLatin1( "endDate = :endDate" );
-        map.insert( QString::fromLatin1( ":endDate" ), other.endDate().max() );
+        map.insert( QString::fromLatin1( ":endDate" ), other.date().end() );
     }
 
     if ( queryList.count() ) {

@@ -28,33 +28,10 @@
 #include <kapplication.h>
 #include <kconfig.h>
 
-ImageSearchInfo::ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
+ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : _label( label ), _description( description ), _isNull( false ), _compiled( false )
+    : _date( date), _label( label ), _description( description ), _isNull( false ), _compiled( false )
 {
-    if ( endDate.isNull() ) {
-        _startDate = startDate;
-        _endDate = startDate;
-    }
-    else if ( endDate <= startDate )  {
-        _startDate = endDate;
-        _endDate = startDate;
-    }
-    else {
-        _startDate = startDate;
-        _endDate = endDate;
-    }
-}
-
-ImageDate ImageSearchInfo::startDate() const
-{
-    return _startDate;
-}
-
-
-ImageDate ImageSearchInfo::endDate() const
-{
-    return _endDate;
 }
 
 QString ImageSearchInfo::label() const
@@ -87,28 +64,27 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     bool ok = true;
 
-    // Date
-    // the search date matches the actual date if:
-    // actual.start <= search.start <= actuel.end or
-    // actual.start <= search.end <=actuel.end or
-    // search.start <= actual.start and actual.end <= search.end
+    if ( !_date.start().isNull() ) {
+        // Date
+        // the search date matches the actual date if:
+        // actual.start <= search.start <= actuel.end or
+        // actual.start <= search.end <=actuel.end or
+        // search.start <= actual.start and actual.end <= search.end
 
-    ImageDate actualStart = info->startDate();
-    ImageDate actualEnd = info->endDate();
-    if ( !actualEnd.isNull() && actualEnd <= actualStart )  {
-        ImageDate tmp = actualStart;
-        actualStart = actualEnd;
+        QDateTime actualStart = info->date().start();
+        QDateTime actualEnd = info->date().end();
+        if ( actualEnd <= actualStart )  {
+            QDateTime tmp = actualStart;
+            actualStart = actualEnd;
         actualEnd = tmp;
+        }
+
+        bool b1 =( actualStart <= _date.start() && _date.start() <= actualEnd );
+        bool b2 =( actualStart <= _date.end() && _date.end() <= actualEnd );
+        bool b3 = ( _date.start() <= actualStart && actualEnd <= _date.end() );
+
+        ok &= ( ( b1 || b2 || b3 ) );
     }
-    if ( actualEnd.isNull() )
-        actualEnd = actualStart;
-
-    bool b1 =( actualStart <= _startDate && _startDate <= actualEnd );
-    bool b2 =( actualStart <= _endDate && _endDate <= actualEnd );
-    bool b3 = ( _startDate <= actualStart && actualEnd <= _endDate );
-
-    ok &= ( ( b1 || b2 || b3 ) && !actualStart.isNull() ) || _startDate.isNull();
-
 
     // -------------------------------------------------- Options
     info->clearMatched();
@@ -154,18 +130,6 @@ void ImageSearchInfo::addAnd( const QString& category, const QString& value )
     setOption( category, val );
     _isNull = false;
     _compiled = false;
-}
-
-void ImageSearchInfo::setStartDate( const ImageDate& date )
-{
-    _startDate = date;
-    _isNull = false;
-}
-
-void ImageSearchInfo::setEndDate( const ImageDate& date )
-{
-    _endDate = date;
-    _isNull = false;
 }
 
 QString ImageSearchInfo::toString() const
@@ -235,8 +199,7 @@ ImageSearchInfo ImageSearchInfo::loadLock()
 
 ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
 {
-    _startDate = other._startDate;
-    _endDate = other._endDate;
+    _date = other._date;
     _options = other._options;
     _label = other._label;
     _description = other._description;
@@ -404,4 +367,9 @@ QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( 
     else
         result.append( extractAndMatcher( item ) );
     return result;
+}
+
+ImageDate ImageSearchInfo::date() const
+{
+    return _date;
 }

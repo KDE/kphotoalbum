@@ -43,7 +43,6 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
 
     _dateNotTime = new QRadioButton( i18n( "Search for images with a valid date but an invalid time stamp"), grp );
     _missingDate = new QRadioButton( i18n( "Search for images missing date and time" ), grp );
-    _missingYear = new QRadioButton( i18n( "Search for images missing year information" ), grp );
     _partialDate = new QRadioButton( i18n( "Search for images with only partial dates (like 1971 vs. 11/7-1971)"), grp );
     _dateNotTime->setChecked( true );
 }
@@ -76,30 +75,28 @@ void InvalidDateFinder::slotOk()
         if ( dialog.wasCancelled() )
             break;
 
-        ImageDate date = info->startDate();
+        ImageDate date = info->date();
         bool show = false;
         if ( _dateNotTime->isChecked() ) {
             FileInfo fi = FileInfo::read( info->fileName() );
-            if ( fi.date() == info->startDate().getDate() )
-                show = ( fi.time() != info->startDate().getTime() );
+            if ( fi.date() == date.start().date() )
+                show = ( fi.time() != date.start().time() );
             if ( show ) {
                 edit->append( QString::fromLatin1("%1:<br>existing = %2 %3<br>new..... = %4 %5" )
-                              .arg(info->fileName()).arg(info->startDate().getDate().toString())
-                              .arg(info->startDate().getTime().toString())
+                              .arg(info->fileName()).arg(date.start().toString())
+                              .arg(date.start().time().toString())
                               .arg(fi.date().toString()).arg( fi.time().toString() ) );
             }
         }
         else if ( _missingDate->isChecked() ) {
-            show = ( date.year() == 0  && date.month() == 0 && date.day() == 0);
-        }
-        else if ( _missingYear->isChecked() ) {
-            show = ( date.year() == 0 );
+            show = !date.start().isValid();
         }
         else if ( _partialDate->isChecked() ) {
-            show = (date.year() == 0 || date.month() == 0 || date.day() == 0) && (date.year() != 0 || date.month() != 0 || date.day() != 0 );
+            show = ( date.start() != date.end() );
         }
 
-        toBeShown.append( *it );
+        if ( show )
+            toBeShown.append( *it );
     }
 
     if ( _dateNotTime->isChecked() ) {

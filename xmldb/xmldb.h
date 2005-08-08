@@ -61,6 +61,7 @@ namespace XMLDB {
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();
+        int fileVersion();
 
     protected:
         ImageInfoPtr load( const QString& filename, QDomElement elm );
@@ -89,6 +90,7 @@ namespace XMLDB {
         void renameItem( Category* category, const QString& oldName, const QString& newName );
         void deleteItem( Category* category, const QString& option );
         void lockDB( bool lock, bool exclude );
+        void checkAndWarnAboutVersionConflict();
 
     private:
         friend class ImageDB;
@@ -101,6 +103,7 @@ namespace XMLDB {
         MemberMap _members;
         MD5Map _md5map;
         ImageInfoList _clipboard;
+        int _fileVersion;
     };
 }
 

@@ -122,13 +122,7 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
     Q_ASSERT( info );
     QString text;
     if ( Options::instance()->showDate() )  {
-        if ( info->startDate().isNull() ) {
-            // Don't append anything
-        }
-        else if ( info->endDate().isNull() )
-            text += info->startDate();
-        else
-            text += i18n("date1 to date2", "%1 to %2").arg( info->startDate() ).arg( info->endDate() );
+        text = info->date().toString( true );
 
         if ( !text.isEmpty() ) {
             text = i18n("<b>Date: </b> ") + text + QString::fromLatin1("<br>");
@@ -613,17 +607,7 @@ void Util::deleteDemo()
     (void) KIO::NetAccess::del( dir, MainView::theMainView() );
 }
 
-// PENDING(blackie) delete me
-ImageInfoList Util::stringListToInfoList( const QStringList& list )
-{
-    ImageInfoList result;
-
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        result.append( ImageDB::instance()->info( *it ) );
-    }
-    return result;
-}
-
+// PENDING(blackie) delete this method
 QStringList Util::infoListToStringList( const ImageInfoList& list )
 {
     QStringList result;

@@ -48,6 +48,7 @@
 #include "optionsdialog.moc"
 #include <kapplication.h>
 #include <kconfig.h>
+#include "mainview.h"
 
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Apply | Ok | Cancel, Ok, parent, name, false ), _memberMap( MemberMap( ImageDB::instance() ) ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -795,6 +796,7 @@ void OptionsDialog::createViewerPage()
 
 void OptionsDialog::createPluginPage()
 {
+    MainView::theMainView()->loadPlugins();
 #ifdef HASKIPI
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),

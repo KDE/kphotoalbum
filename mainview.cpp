@@ -197,18 +197,13 @@ MainView::MainView( QWidget* parent, const char* name )
 void MainView::delayedInit()
 {
     MySplashScreen* splash = MySplashScreen::instance();
-#ifdef HASKIPI
-    splash->message( i18n("Loading Plugins") );
-#endif
+    setupPluginMenu();
 
-    loadPlugins(); // The plugins may ask for the current album, which needs the browser fully initialized.
-
-    splash->message( i18n("Searching for New Images") );
-
-    qApp->processEvents();
-
-    if ( Options::instance()->searchForImagesOnStartup() )
+    if ( Options::instance()->searchForImagesOnStartup() ) {
+        splash->message( i18n("Searching for New Images") );
+        qApp->processEvents();
         ImageDB::instance()->slotRescan();
+    }
 
     splash->done();
     show();
@@ -1115,10 +1110,33 @@ void MainView::slotReenableMessages()
 
 }
 
+void MainView::setupPluginMenu()
+{
+    QObjectList *l = queryList( "QPopupMenu", "plugins" );
+    QObject *obj;
+    QPopupMenu* menu;
+    for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {
+        ++it;
+        menu = static_cast<QPopupMenu*>( obj );
+        break;
+    }
+    delete l; // delete the list, not the objects
+
+#ifdef HASKIPI
+    connect( menu, SIGNAL( aboutToShow() ), this, SLOT( loadPlugins() ) );
+    _hasLoadedPlugins = false;
+#else
+    delete menu;
+    _hasLoadedPlugins = true;
+#endif
+}
+
 void MainView::loadPlugins()
 {
-#ifdef HASKIPI
-    // Sets up the plugin interface, and load the plugins
+    ShowBusyCursor dummy;
+    if ( _hasLoadedPlugins )
+        return;
+
     _pluginInterface = new PluginInterface( this, "demo interface" );
     connect( _pluginInterface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
 
@@ -1133,16 +1151,9 @@ void MainView::loadPlugins()
 
     // Setup signals
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
-#else
-    QObjectList *l = queryList( "QPopupMenu", "plugins" );
-    QObject *obj;
-    for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {
-        ++it;
-        delete obj;
-    }
-    delete l; // delete the list, not the objects
-#endif
+    _hasLoadedPlugins = true;
 }
+
 
 void MainView::plug()
 {

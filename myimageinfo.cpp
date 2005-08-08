@@ -99,10 +99,10 @@ QDateTime MyImageInfo::time( KIPI::TimeSpec what )
 {
     if ( _info ) {
         if ( what == KIPI::FromInfo ) {
-            return QDateTime(_info->startDate().getDate(), _info->startDate().getTime() );
+            return _info->date().start() ;
         }
         else
-            return QDateTime(_info->endDate().getDate(), _info->endDate().getTime() );
+            return _info->date().end();
     }
     else
         return KIPI::ImageInfoShared::time( what );
@@ -110,25 +110,22 @@ QDateTime MyImageInfo::time( KIPI::TimeSpec what )
 
 bool MyImageInfo::isTimeExact()
 {
-    ImageDate date = _info->endDate();
-    if ( (date.year() > 0 || date.month() > 0 || date.day() > 0) && date != _info->startDate() )
-        return false;
-    date = _info->startDate();
-    if ( date.year() <= 0 || date.month() <= 0 || date.day() <= 0 )
-        return false;
-    return true;
+    if ( !_info )
+        return true;
+    return _info->date().hasValidTime();
 }
 
 void MyImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
 {
     if ( !_info )
         return;
-    ImageDate& date = _info->startDate();
-    if ( spec == KIPI::ToInfo )
-        date = _info->endDate();
-
-    date.setDate( time.date() );
-    date.setTime( time.time() );
+    if ( spec == KIPI::FromInfo ) {
+        _info->setDate( ImageDate( time, time ) );
+    }
+    else {
+        ImageDate date = _info->date();
+        _info->setDate( ImageDate( date.start(), time ) );
+    }
 }
 
 void MyImageInfo::cloneData( ImageInfoShared* other )
@@ -136,8 +133,7 @@ void MyImageInfo::cloneData( ImageInfoShared* other )
     ImageInfoShared::cloneData( other );
     if ( _info ) {
         MyImageInfo* inf = static_cast<MyImageInfo*>( other );
-        _info->setStartDate( inf->_info->startDate() );
-        _info->setEndDate( inf->_info->endDate() );
+        _info->setDate( inf->_info->date() );
     }
 }
 

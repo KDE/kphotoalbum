@@ -39,12 +39,6 @@ ReadInfoDialog::ReadInfoDialog( QWidget* parent, const char* name )
     _label = new QLabel( top );
     lay1->addWidget( _label );
 
-    _time = new QCheckBox( i18n( "Read time" ), top );
-    lay1->addWidget( _time );
-
-    _force_time = new QCheckBox( i18n( "Use modification time if EXIF not present" ), top );
-    lay1->addWidget( _force_time );
-
     _date = new QCheckBox( i18n( "Read date" ), top );
     lay1->addWidget( _date );
 
@@ -64,8 +58,6 @@ int ReadInfoDialog::exec( const QStringList& list )
 {
     _label->setText( i18n("<qt><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></qt>").arg( list.count() ) );
 
-    _time->setChecked( true );
-    _force_time->setChecked( true );
     _date->setChecked( true );
     _force_date->setChecked( true );
     _orientation->setChecked( false );
@@ -79,10 +71,6 @@ void ReadInfoDialog::readInfo()
 {
     int mode = EXIFMODE_FORCE;
 
-    if ( _time->isChecked() )
-            mode |= EXIFMODE_TIME;
-    if ( _force_time->isChecked() )
-            mode |= EXIFMODE_FORCE_TIME;
     if ( _date->isChecked() )
             mode |= EXIFMODE_DATE;
     if ( _force_date->isChecked() )

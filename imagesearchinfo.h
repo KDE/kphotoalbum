@@ -33,14 +33,11 @@ class ImageSearchInfo {
 public:
     ImageSearchInfo();
     ~ImageSearchInfo();
-    ImageSearchInfo( const ImageDate& startDate, const ImageDate& endDate,
+    ImageSearchInfo( const ImageDate& date,
                      const QString& label, const QString& description );
     ImageSearchInfo( const ImageSearchInfo& other );
 
-    void setStartDate( const ImageDate& );
-    void setEndDate( const ImageDate& );
-    ImageDate startDate() const;
-    ImageDate endDate() const;
+    ImageDate date() const;
 
     QString option( const QString& name ) const;
     void setOption( const QString& name, const QString& value );
@@ -71,8 +68,7 @@ protected:
 
 
 private:
-    ImageDate _startDate;
-    ImageDate _endDate;
+    ImageDate _date;
     QMap<QString, QString> _options;
     QString _label;
     QString _description;

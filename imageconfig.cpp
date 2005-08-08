@@ -94,13 +94,14 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     label = new QLabel( i18n("Date: "), top, "date label" );
     lay4->addWidget( label );
 
-    _startDate = new KDateEdit( top, "date config" );
+    _startDate = new KDateEdit( true, top, "date config" );
     lay4->addWidget( _startDate, 1 );
+    connect( _startDate, SIGNAL( dateChanged( const ImageDate& ) ), this, SLOT( slotStartDateChanged( const ImageDate& ) ) );
 
     label = new QLabel( QString::fromLatin1( "-" ), top );
     lay4->addWidget( label );
 
-    _endDate = new KDateEdit( top, "date config" );
+    _endDate = new KDateEdit( false, top, "date config" );
     lay4->addWidget( _endDate, 1 );
 
     // Time
@@ -309,24 +310,8 @@ void ImageConfig::slotOK()
         for( ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
             ImageInfoPtr info = *it;
             info->rotate( _preview->angle() );
-            if ( !_startDate->date().isNull() ) {
-                info->startDate().setDay( _startDate->date().day() );
-                info->startDate().setMonth( _startDate->date().month() );
-                info->startDate().setYear( _startDate->date().year() );
-            }
-            if ( _time->time().isValid() ) {
-                if ( !_time->isHidden() ) {
-                    info->startDate().setHour( _time->time().hour());
-                    info->startDate().setMinute( _time->time().minute());
-                    info->startDate().setSecond( _time->time().second());
-                }
-            }
-
-            if ( !_endDate->date().isNull() )  {
-                info->endDate().setDay( _endDate->date().day() );
-                info->endDate().setMonth( _endDate->date().month() );
-                info->endDate().setYear( _endDate->date().year() );
-            }
+            if ( !_startDate->date().isNull() )
+                info->setDate( ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
@@ -353,19 +338,23 @@ void ImageConfig::slotOK()
 void ImageConfig::load()
 {
     ImageInfo& info = _editList[ _current ];
-    _startDate->setDate( info.startDate() );
+    _startDate->setDate( info.date().start().date() );
 
-    if( info.startDate().hasValidTime() ) {
+    if( info.date().hasValidTime() ) {
         _time->show();
         _addTime->hide();
-        _time->setTime( info.startDate().getTime());
+        _time->setTime( info.date().start().time());
     }
     else {
         _time->hide();
         _addTime->show();
     }
 
-    _endDate->setDate( info.endDate() );
+    if ( info.date().start().date() == info.date().end().date() )
+        _endDate->setDate( QDate() );
+    else
+        _endDate->setDate( info.date().end().date() );
+
     _imageLabel->setText( info.label() );
     _description->setText( info.description() );
 
@@ -392,19 +381,7 @@ void ImageConfig::writeToInfo()
     }
 
     ImageInfo& info = _editList[ _current ];
-
-    info.startDate().setYear( _startDate->date().year() );
-    info.startDate().setMonth( _startDate->date().month() );
-    info.startDate().setDay( _startDate->date().day() );
-
-    if( _time->time().isValid() ) {
-        if(!_time->isHidden())
-            info.startDate().setTime( _time->time());
-    }
-
-    info.endDate().setYear( _endDate->date().year() );
-    info.endDate().setMonth( _endDate->date().month() );
-    info.endDate().setDay( _endDate->date().day() );
+    info.setDate( ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->text() );
@@ -435,8 +412,8 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
         slotNext();
     }
     else {
-        _startDate->setDate( ImageDate() );
-        _endDate->setDate( ImageDate() );
+        _startDate->setDate( QDate() );
+        _endDate->setDate( QDate() );
         _time->hide();
         _addTime->show();
 
@@ -468,7 +445,7 @@ ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
     showHelpDialog( SEARCH );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
-        _oldSearch = ImageSearchInfo( _startDate->date(), _endDate->date(),
+        _oldSearch = ImageSearchInfo( ImageDate( _startDate->date(), _endDate->date() ),
                                       _imageLabel->text(), _description->text() );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -528,8 +505,8 @@ void ImageConfig::slotClear()
 
 void ImageConfig::loadInfo( const ImageSearchInfo& info )
 {
-    _startDate->setDate( info.startDate() );
-    _endDate->setDate( info.endDate() );
+    _startDate->setDate( info.date().start().date() );
+    _endDate->setDate( info.date().end().date() );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setText( info.option( (*it)->category() ) );
@@ -849,3 +826,10 @@ void ImageConfig::slotRecetLayout()
     emit deleteMe();
 }
 
+void ImageConfig::slotStartDateChanged( const ImageDate& date )
+{
+    if ( date.start() == date.end() )
+        _endDate->setDate( QDate() );
+    else
+        _endDate->setDate( date.end().date() );
+}

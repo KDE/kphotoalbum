@@ -58,16 +58,14 @@ QDateTime XMLImageDateRangeCollection::lowerLimit() const
     if ( _dirtyLower && _dates.count() != 0 ) {
         bool first = true;
         for( QValueList<ImageDateRange>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
-            ImageDate date = (*it).start();
-            if ( date.year() == 0 )
-                continue;
+            ImageDate date = (*it).date();
 
             if ( first ) {
-                _lower = date.min();
+                _lower = date.start();
                 first = false;
             }
-            else if ( date.min() < _lower )
-                _lower = date.min();
+            else if ( date.start() < _lower )
+                _lower = date.start();
         }
     }
     _dirtyLower = false;
@@ -80,18 +78,14 @@ QDateTime XMLImageDateRangeCollection::upperLimit() const
     if ( _dirtyUpper && _dates.count() != 0 ) {
         bool first = true;
         for( QValueList<ImageDateRange>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
-            ImageDate date = (*it).end();
-            if ( date.year() == 0 )
-                date = (*it).start();
-            if ( date.year() == 0 )
-                continue;
+            ImageDate date = (*it).date();
 
             if ( first ) {
-                _upper = date.max();
+                _upper = date.end();
                 first = false;
             }
-            else if ( date.max() > _upper ) {
-                _upper = date.max();
+            else if ( date.end() > _upper ) {
+                _upper = date.end();
             }
         }
     }
@@ -103,7 +97,7 @@ XMLImageDateRangeCollection::XMLImageDateRangeCollection( const QStringList& lis
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageInfoPtr info = ImageDB::instance()->info( *it );
-        append( ImageDateRange( info->startDate(), info->endDate() ) );
+        append( ImageDateRange( info->date() ) );
     }
 }
 

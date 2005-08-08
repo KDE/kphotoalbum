@@ -33,14 +33,12 @@
 #include "imagedaterange.h"
 #include <ksharedptr.h>
 
-#define EXIFMODE_TIME          0x01
-#define EXIFMODE_DATE          0x02
-#define EXIFMODE_ORIENTATION   0x04
-#define EXIFMODE_DESCRIPTION   0x08
-#define EXIFMODE_FORCE         0x10
-#define EXIFMODE_FORCE_TIME    0x20
-#define EXIFMODE_FORCE_DATE    0x40
-#define EXIFMODE_INIT ( EXIFMODE_TIME | EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION | EXIFMODE_FORCE_TIME | EXIFMODE_FORCE_DATE )
+#define EXIFMODE_DATE          0x01
+#define EXIFMODE_ORIENTATION   0x02
+#define EXIFMODE_DESCRIPTION   0x04
+#define EXIFMODE_FORCE         0x08
+#define EXIFMODE_FORCE_DATE    0x10
+#define EXIFMODE_INIT ( EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION | EXIFMODE_FORCE_DATE )
 
 class ImageInfo :public KShared {
 
@@ -52,8 +50,7 @@ public:
     ImageInfo( const QString& fileName,
                const QString& label,
                const QString& description,
-               const ImageDate& startDate,
-               const ImageDate& endDate,
+               const ImageDate& date,
                int angle,
                const QString& md5sum,
                const QSize& size );
@@ -67,12 +64,9 @@ public:
     void setDescription( const QString& );
     QString description() const;
 
-    void setStartDate( const ImageDate& );
-    void setEndDate( const ImageDate& );
-    ImageDate startDate() const;
-    ImageDate endDate() const;
-    ImageDate& startDate();
-    ImageDate& endDate();
+    void setDate( const ImageDate& );
+    ImageDate date() const;
+    ImageDate& date();
     ImageDateRange dateRange() const;
 
     void readExif(const QString& fullPath, int mode);
@@ -125,7 +119,7 @@ private:
     QString _fileName;
     QString _label;
     QString _description;
-    ImageDate _startDate, _endDate;
+    ImageDate _date;
     QMap<QString, QStringList> _options;
     int _angle;
     DrawList _drawList;

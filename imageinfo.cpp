@@ -60,6 +60,7 @@ ImageInfo::ImageInfo( const QString& fileName )
     readExif(fullPath, EXIFMODE_INIT);
 }
 
+// This constructor is shared between the XML backend and the import filter.
 ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     :  _null( false ), _locked( false )
 {
@@ -69,18 +70,26 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _label = elm.attribute( QString::fromLatin1("label"),  _label );
     _description = elm.attribute( QString::fromLatin1("description") );
 
-    int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
+    if ( elm.hasAttribute( QString::fromLatin1( "startDate" ) ) ) {
+        QDateTime start = QDateTime::fromString( elm.attribute( QString::fromLatin1( "startDate" ) ), Qt::ISODate );
+        QDateTime end = QDateTime::fromString( elm.attribute( QString::fromLatin1( "endDate" ) ), Qt::ISODate );
+        _date = ImageDate( start, end );
+    }
+    else {
+        int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
 
-    _startDate.setYear( elm.attribute( QString::fromLatin1("yearFrom"), QString::number( yearFrom) ).toInt() );
-    _startDate.setMonth( elm.attribute( QString::fromLatin1("monthFrom"), QString::number(monthFrom) ).toInt() );
-    _startDate.setDay( elm.attribute( QString::fromLatin1("dayFrom"), QString::number(dayFrom) ).toInt() );
-    _startDate.setHour( elm.attribute( QString::fromLatin1("hourFrom"), QString::number(hourFrom) ).toInt() );
-    _startDate.setMinute( elm.attribute( QString::fromLatin1("minuteFrom"), QString::number(minuteFrom) ).toInt() );
-    _startDate.setSecond( elm.attribute( QString::fromLatin1("secondFrom"), QString::number(secondFrom) ).toInt() );
+        yearFrom = elm.attribute( QString::fromLatin1("yearFrom"), QString::number( yearFrom) ).toInt();
+        monthFrom = elm.attribute( QString::fromLatin1("monthFrom"), QString::number(monthFrom) ).toInt();
+        dayFrom = elm.attribute( QString::fromLatin1("dayFrom"), QString::number(dayFrom) ).toInt();
+        hourFrom = elm.attribute( QString::fromLatin1("hourFrom"), QString::number(hourFrom) ).toInt();
+        minuteFrom = elm.attribute( QString::fromLatin1("minuteFrom"), QString::number(minuteFrom) ).toInt();
+        secondFrom = elm.attribute( QString::fromLatin1("secondFrom"), QString::number(secondFrom) ).toInt();
 
-    _endDate.setYear( elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt() );
-    _endDate.setMonth( elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt() );
-    _endDate.setDay( elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt() );
+        yearTo = elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt();
+        monthTo = elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt();
+        dayTo = elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt();
+        _date = ImageDate( yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, hourFrom, minuteFrom, secondFrom );
+    }
 
     _angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
     _md5sum = elm.attribute( QString::fromLatin1( "md5sum" ) );
@@ -188,18 +197,8 @@ QDomElement ImageInfo::save( QDomDocument doc )
     elm.setAttribute( QString::fromLatin1("file"),  fileName( true ) );
     elm.setAttribute( QString::fromLatin1("label"),  _label );
     elm.setAttribute( QString::fromLatin1("description"), _description );
-
-    elm.setAttribute( QString::fromLatin1("yearFrom"), _startDate.year() );
-    elm.setAttribute( QString::fromLatin1("monthFrom"),  _startDate.month() );
-    elm.setAttribute( QString::fromLatin1("dayFrom"),  _startDate.day() );
-    elm.setAttribute( QString::fromLatin1("hourFrom"), _startDate.hour() );
-    elm.setAttribute( QString::fromLatin1("minuteFrom"), _startDate.minute() );
-    elm.setAttribute( QString::fromLatin1("secondFrom"), _startDate.second() );
-
-    elm.setAttribute( QString::fromLatin1("yearTo"), _endDate.year() );
-    elm.setAttribute( QString::fromLatin1("monthTo"),  _endDate.month() );
-    elm.setAttribute( QString::fromLatin1("dayTo"),  _endDate.day() );
-
+    elm.setAttribute( QString::fromLatin1( "startDate" ), _date.start().toString(Qt::ISODate) );
+    elm.setAttribute( QString::fromLatin1( "endDate" ), _date.end().toString(Qt::ISODate) );
     elm.setAttribute( QString::fromLatin1("angle"),  _angle );
     elm.setAttribute( QString::fromLatin1( "md5sum" ), _md5sum );
     elm.setAttribute( QString::fromLatin1( "width" ), _size.width() );
@@ -233,39 +232,20 @@ void ImageInfo::setAngle( int angle )
 }
 
 
-void ImageInfo::setStartDate( const ImageDate& date )
+void ImageInfo::setDate( const ImageDate& date )
 {
-    _startDate = date;
+    _date = date;
 }
 
-void ImageInfo::setEndDate( const ImageDate& date )
+ImageDate& ImageInfo::date()
 {
-    _endDate = date;
+    return _date;
 }
 
-ImageDate& ImageInfo::startDate()
+ImageDate ImageInfo::date() const
 {
-    return _startDate;
+    return _date;
 }
-
-ImageDate& ImageInfo::endDate()
-{
-    if ( _endDate.isValid() )
-        return _endDate;
-    else
-        return _startDate;
-}
-
-ImageDate ImageInfo::startDate() const
-{
-    return _startDate;
-}
-
-ImageDate ImageInfo::endDate() const
-{
-    return _endDate;
-}
-
 
 bool ImageInfo::operator!=( const ImageInfo& other )
 {
@@ -278,8 +258,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
         ( _fileName != other._fileName ||
           _label != other._label ||
           ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
-          _startDate != other._startDate ||
-          _endDate != other._endDate ||
+          _date != other._date ||
           _angle != other._angle);
     if ( !changed ) {
         QStringList keys = ImageDB::instance()->categoryCollection()->categoryNames();
@@ -329,7 +308,9 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     QFileInfo fi( fullPath );
     FileInfo exifInfo = FileInfo::read( fullPath );
     static bool hasShownWarning = false;
-    bool foundInExif = 0;
+    bool foundInExif = false;
+    bool foundDateInExif = false;
+    bool foundTimeInExif = false;
     if ( exifInfo.isEmpty() && !hasShownWarning ) {
         hasShownWarning = true;
         KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information.</b></p>"
@@ -341,27 +322,18 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
                                   i18n("Unable to Read EXIF Information"), QString::fromLatin1("UnableToReadEXIFInformation") );
     }
 
-    //Time
-    if ( mode & EXIFMODE_TIME ) {
-        if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
-            QTime time = exifInfo.time( &foundInExif );
-            if ( time.isValid() ) {
-                if ( foundInExif || (mode & EXIFMODE_FORCE_TIME) )
-                    _startDate.setTime( time );
-            }
-        }
-    }
-
     // Date
     if ( mode & EXIFMODE_DATE ) {
         if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
-            QDate date = exifInfo.date( &foundInExif );
-            if ( date.isValid() ) {
-                if ( foundInExif || (mode & EXIFMODE_FORCE_DATE) )
-                    _startDate.setDate( date );
-                _endDate = ImageDate();
+            QDate date = exifInfo.date( &foundDateInExif );
+            QTime time = exifInfo.time( &foundTimeInExif );
+            if ( date.isValid() && foundDateInExif ) {
+                if ( time.isValid() && foundTimeInExif )
+                    _date = QDateTime( date, time );
+                else
+                    _date = ImageDate( QDateTime( date, QTime( 0,0,0 ) ), QDateTime( date, QTime( 23, 59, 59 ) ) );
             }
-            if ( !foundInExif && !hasShownWarning &&
+            if ( !foundDateInExif && !hasShownWarning &&
                  ( _fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
                    _fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
                    _fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
@@ -441,7 +413,7 @@ bool ImageInfo::imageOnDisk() const
 
 ImageDateRange ImageInfo::dateRange() const
 {
-    return ImageDateRange( _startDate, _endDate );
+    return ImageDateRange( _date );
 }
 
 QSize ImageInfo::size() const
@@ -463,8 +435,7 @@ bool ImageInfo::imageOnDisk( const QString& fileName )
 ImageInfo::ImageInfo( const QString& fileName,
                       const QString& label,
                       const QString& description,
-                      const ImageDate& startDate,
-                      const ImageDate& endDate,
+                      const ImageDate& date,
                       int angle,
                       const QString& md5sum,
                       const QSize& size )
@@ -472,8 +443,7 @@ ImageInfo::ImageInfo( const QString& fileName,
     _fileName = fileName;
     _label =label;
     _description =description;
-    _startDate = startDate;
-    _endDate = endDate;
+    _date = date;
     _angle =angle;
     _md5sum =md5sum;
     _size = size;
@@ -485,8 +455,7 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _fileName = other._fileName;
     _label = other._label;
     _description = other._description;
-    _startDate = other._startDate;
-    _endDate = other._endDate;
+    _date = other._date;
     _options = other._options;
     _angle = other._angle;
     _drawList = other._drawList;

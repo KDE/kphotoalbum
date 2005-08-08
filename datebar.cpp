@@ -207,10 +207,10 @@ void DateBar::setDate( const QDateTime& date )
 {
     _currentDate = date;
     if ( hasSelection() ) {
-        if ( currentSelection().start().min() > _currentDate )
-            _currentDate = currentSelection().start().min();
-        if ( currentSelection().end().max() < _currentDate )
-            _currentDate = currentSelection().end().max();
+        if ( currentSelection().date().start() > _currentDate )
+            _currentDate = currentSelection().date().start();
+        if ( currentSelection().date().end() < _currentDate )
+            _currentDate = currentSelection().date().end();
     }
 
     if ( unitForDate( _currentDate ) != -1 )
@@ -236,7 +236,7 @@ void DateBar::drawHistograms( QPainter& p)
     int unit = 0;
     int max = 0;
     for ( int x = rect.x(); x + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( ImageDateRange( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
+        ImageCount count = _dates->count( ImageDateRange( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) ) );
         int cnt = count._exact;
         if ( _includeFuzzyCounts )
             cnt += count._rangeMatch;
@@ -245,7 +245,7 @@ void DateBar::drawHistograms( QPainter& p)
 
     unit = 0;
     for ( int x = rect.x(); x  + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( ImageDateRange( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
+        ImageCount count = _dates->count( ImageDateRange( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) ) );
         int exact = 0;
         if ( max != 0 )
             exact = (int) ((double) (rect.height()-2) * count._exact / max );
@@ -459,7 +459,7 @@ void DateBar::setIncludeFuzzyCounts( bool b )
 ImageDateRange DateBar::rangeAt( const QPoint& p )
 {
     int unit = (p.x() - barAreaGeometry().x())/ _barWidth;
-    return ImageDateRange( dateForUnit( unit ), dateForUnit(unit+1) );
+    return ImageDateRange( ImageDate( dateForUnit( unit ), dateForUnit(unit+1) ) );
 }
 
 bool DateBar::includeFuzzyCounts() const
@@ -586,7 +586,7 @@ void DateBar::updateArrowState()
 
 ImageDateRange DateBar::currentDateRange() const
 {
-    return ImageDateRange( ImageDate( dateForUnit( _currentUnit ) ), ImageDate( dateForUnit( _currentUnit+1 ) ) );
+    return ImageDateRange( ImageDate( dateForUnit( _currentUnit ), dateForUnit( _currentUnit+1 ) ) );
 }
 
 void DateBar::showStatusBarTip( const QPoint& pos )
@@ -600,7 +600,7 @@ void DateBar::showStatusBarTip( const QPoint& pos )
     else
         cnt = i18n("%1 images").arg( count._exact );
 
-    QString res = i18n("%1 to %2  %3").arg(range.start().toString()).arg(range.end().toString())
+    QString res = i18n("%1 to %2  %3").arg(range.date().start().toString()).arg(range.date().end().toString())
                   .arg(cnt);
 
     static QString lastTip = QString::null;
@@ -705,7 +705,7 @@ bool DateBar::hasSelection() const
 
 ImageDateRange DateBar::currentSelection() const
 {
-    return ImageDateRange( ImageDate(_selectionHandler->min()), ImageDate( _selectionHandler->max() ) );
+    return ImageDateRange( ImageDate(_selectionHandler->min(), _selectionHandler->max() ) );
 }
 
 void DateBar::clearSelection()

@@ -281,7 +281,7 @@ void ThumbNailView::gotoDate( const ImageDateRange& date, bool includeRanges )
         ImageDateRange::MatchType match = tn->imageInfo()->dateRange().isIncludedIn( date );
         if ( match == ImageDateRange::ExactMatch || ( match == ImageDateRange::RangeMatch && includeRanges ) ) {
             if ( candidate ) {
-                if ( tn->imageInfo()->startDate().min() < candidate->imageInfo()->startDate().min() )
+                if ( tn->imageInfo()->date().start() < candidate->imageInfo()->date().start() )
                     candidate = tn;
             }
             else
@@ -322,7 +322,7 @@ void ThumbNailView::emitDateChange()
     QIconViewItem* item = findFirstVisibleItem( QRect( contentsX(), contentsY(), width(), height() ) );
     if ( item ) {
         ThumbNail* tn = static_cast<ThumbNail*>( item );
-        QDateTime date = tn->imageInfo()->startDate().min();
+        QDateTime date = tn->imageInfo()->date().start();
         if ( date.date().year() != 1900 )
             emit currentDateChanged( date );
     }

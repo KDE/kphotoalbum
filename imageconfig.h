@@ -69,6 +69,7 @@ protected slots:
     void slotAddTimeInfo();
     void slotDeleteImage();
     void slotRecetLayout();
+    void slotStartDateChanged( const ImageDate& );
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };

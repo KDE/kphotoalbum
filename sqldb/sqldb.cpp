@@ -166,15 +166,8 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
         imageQuery.bindValue( QString::fromLatin1( ":label" ),  info->label() );
         imageQuery.bindValue( QString::fromLatin1( ":angle" ),  info->angle() );
         imageQuery.bindValue( QString::fromLatin1( ":description" ),  info->description() );
-        if ( info->startDate().year() != 0 )
-            imageQuery.bindValue( QString::fromLatin1( ":startDate" ), info->startDate().min() );
-
-        ImageDate endDate = info->endDate();
-        if ( info->startDate().max() > info->endDate().max() )
-            endDate = info->startDate();
-
-        if ( endDate.year() != 0 )
-            imageQuery.bindValue( QString::fromLatin1( ":endDate" ), endDate.max() );
+        imageQuery.bindValue( QString::fromLatin1( ":startDate" ), info->date().start() );
+        imageQuery.bindValue( QString::fromLatin1( ":endDate" ), info->date().end() );
 
         if ( !imageQuery.exec() )
             showError( imageQuery );

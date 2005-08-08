@@ -11,7 +11,7 @@ ImageInfoList ImageInfoList::sort() const
 {
     QMap<QDateTime, QValueList<ImageInfoPtr> > map;
     for( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        map[(*it)->startDate().min()].append( *it );
+        map[(*it)->date().start()].append( *it );
     }
 
     ImageInfoList res;
@@ -88,9 +88,9 @@ bool ImageInfoList::isSorted()
     if ( count() == 0 )
         return true;
 
-    QDateTime prev = first()->startDate().min();
+    QDateTime prev = first()->date().start();
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        QDateTime cur = (*it)->startDate().min();
+        QDateTime cur = (*it)->date().start();
         if ( prev > cur )
             return false;
         prev = cur;
@@ -103,9 +103,9 @@ void ImageInfoList::mergeIn( ImageInfoList other)
     ImageInfoList tmp;
 
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        QDateTime thisDate = (*it)->startDate().min();
+        QDateTime thisDate = (*it)->date().start();
         while ( other.count() != 0 ) {
-            QDateTime otherDate = other.first()->startDate().min();
+            QDateTime otherDate = other.first()->date().start();
             if ( otherDate < thisDate )
                 tmp.append( other[0] );
             else

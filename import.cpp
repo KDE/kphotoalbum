@@ -558,8 +558,7 @@ void Import::updateDB()
         ImageInfoPtr newInfo = new ImageInfo( _nameMap[info->fileName(true)] );
         newInfo->setLabel( info->label() );
         newInfo->setDescription( info->description() );
-        newInfo->setStartDate( info->startDate() );
-        newInfo->setEndDate( info->endDate() );
+        newInfo->setDate( info->date() );
         newInfo->rotate( info->angle() );
         newInfo->setDrawList( info->drawList() );
         newInfo->setMD5Sum( info->MD5Sum() );

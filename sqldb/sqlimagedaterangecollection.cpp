@@ -15,8 +15,8 @@ ImageCount SQLImageDateRangeCollection::count( const ImageDateRange& range )
 
     QString queryStr = QString::fromLatin1( "SELECT count(*) from imageinfo WHERE startDate >= :startDate and endDate <= :endDate" );
     QMap<QString,QVariant> map;
-    map.insert( QString::fromLatin1( ":startDate" ), range.start().min() );
-    map.insert( QString::fromLatin1( ":endDate" ), range.end().max() );
+    map.insert( QString::fromLatin1( ":startDate" ), range.date().start() );
+    map.insert( QString::fromLatin1( ":endDate" ), range.date().end() );
     int exact = SQLDB::fetchItem( queryStr, map ).toInt();
 
     queryStr = QString::fromLatin1( "SELECT count(*) from imageinfo WHERE endDate >= :startDate and startDate <= :endDate" );

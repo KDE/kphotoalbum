@@ -35,7 +35,6 @@ private:
     QRadioButton* _dateNotTime;
     QRadioButton* _missingDate;
     QRadioButton* _partialDate;
-    QRadioButton* _missingYear;
 };
 
 

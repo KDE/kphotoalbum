@@ -17,16 +17,9 @@
 */
 
 #include "imagedaterange.h"
-ImageDateRange::ImageDateRange( const ImageDate& from, const ImageDate& to )
+ImageDateRange::ImageDateRange( const ImageDate& date )
 {
-    if ( from <= to ) {
-        _imageStart = from;
-        _imageEnd = to;
-    }
-    else {
-        _imageStart = to;
-        _imageEnd = from;
-    }
+    _date = date;
 }
 
 ImageDateRange::ImageDateRange()
@@ -35,24 +28,10 @@ ImageDateRange::ImageDateRange()
 
 ImageDateRange::MatchType ImageDateRange::isIncludedIn( const ImageDateRange& searchRange )
 {
-    // We don't really want to include images without a year, as they clutter up things too much.
-    if ( _imageStart.year() == 0  || ( !_imageEnd.isNull() && _imageEnd.year() == 0 ) )
-        return DontMatch;
-
-    ImageDate searchStart = searchRange.start();
-    ImageDate searchEnd = searchRange.end();
-
-    // We always want a range, so if no range is specified, then copy from-date to to-date.
-    ImageDate imageEnd( _imageEnd );
-    if ( _imageEnd.isNull() )
-        imageEnd = _imageStart;
-    if ( searchEnd.isNull() )
-        searchEnd = searchStart;
-
-    if ( searchStart.min() <= _imageStart.min() && searchEnd.max() >= imageEnd.max() )
+    if ( searchRange.date().start() <= _date.start() && searchRange.date().end() >= _date.end() )
         return ExactMatch;
 
-    if ( searchStart.min() <= imageEnd.max() && searchEnd.max() >= _imageStart.min() ) {
+    if ( searchRange.date().start() <= _date.end() && searchRange.date().end() >= _date.start() ) {
         return RangeMatch;
     }
     return DontMatch;
@@ -60,23 +39,17 @@ ImageDateRange::MatchType ImageDateRange::isIncludedIn( const ImageDateRange& se
 
 bool ImageDateRange::includes( const QDateTime& date )
 {
-    return ImageDateRange( ImageDate( date ), ImageDate(date) ).isIncludedIn( *this ) == ExactMatch;
+    return ImageDateRange( ImageDate( date ) ).isIncludedIn( *this ) == ExactMatch;
 }
 
-
-ImageDate ImageDateRange::start() const
-{
-    return _imageStart;
-}
-
-ImageDate ImageDateRange::end() const
-{
-    return _imageEnd;
-}
 
 bool ImageDateRange::operator<(const ImageDateRange& other ) const
 {
-    return _imageStart < other._imageStart ||
-        ( _imageStart == other._imageStart && _imageEnd < other._imageEnd );
+    return _date < other._date;
+}
+
+ImageDate ImageDateRange::date() const
+{
+    return _date;
 }
 

@@ -32,18 +32,19 @@
 #include "kdateedit.moc"
 
 
-KDateEdit::KDateEdit(QWidget *parent, const char *name)
+KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const char *name)
     : QComboBox(true, parent, name),
-      defaultValue( ImageDate( QDate::currentDate()) ),
+      defaultValue( QDate::currentDate() ),
       mReadOnly(false),
-      mDiscardNextMousePress(false)
+      mDiscardNextMousePress(false),
+      mIsStartEdit( isStartEdit )
 {
     setMaxCount(1);       // need at least one entry for popup to work
     value = defaultValue;
     QString today = QDate::currentDate().toString( QString::fromLatin1("dd. MMM yyyy") );
-    insertItem(today);
+    insertItem(QString::fromLatin1( "" ) );
     setCurrentItem(0);
-    changeItem(today, 0);
+    changeItem(QString::fromLatin1( "" ), 0);
     setMinimumSize(sizeHint());
 
     mDateFrame = new QVBox(0,0,WType_Popup);
@@ -52,7 +53,7 @@ KDateEdit::KDateEdit(QWidget *parent, const char *name)
     mDateFrame->hide();
     mDateFrame->installEventFilter(this);
 
-    mDatePicker = new KDatePicker(mDateFrame, value.getDate());
+    mDatePicker = new KDatePicker(mDateFrame, value);
 
     connect(lineEdit(),SIGNAL(returnPressed()),SLOT(lineEnterPressed()));
     connect(this,SIGNAL(textChanged(const QString &)),
@@ -84,11 +85,11 @@ KDateEdit::~KDateEdit()
     delete mDateFrame;
 }
 
-void KDateEdit::setDate(const ImageDate& newDate)
+void KDateEdit::setDate(const QDate& newDate)
 {
     QString dateString = QString::fromLatin1("");
     if(newDate.isValid())
-        dateString = newDate.toString( false );
+        dateString = ImageDate( newDate ).toString( false );
 
     mTextChanged = false;
 
@@ -123,24 +124,24 @@ bool KDateEdit::isReadOnly() const
     return mReadOnly;
 }
 
-bool KDateEdit::validate( const ImageDate & )
+bool KDateEdit::validate( const QDate & )
 {
     return true;
 }
 
-ImageDate KDateEdit::date() const
+QDate KDateEdit::date() const
 {
-    ImageDate dt;
-    readDate(dt);
+    QDate dt;
+    readDate(dt, 0);
     return dt;
 }
 
-ImageDate KDateEdit::defaultDate() const
+QDate KDateEdit::defaultDate() const
 {
     return defaultValue;
 }
 
-void KDateEdit::setDefaultDate(const ImageDate& date)
+void KDateEdit::setDefaultDate(const QDate& date)
 {
     defaultValue = date;
 }
@@ -165,12 +166,12 @@ void KDateEdit::popup()
 
     mDateFrame->move( popupPoint );
 
-    ImageDate date;
-    readDate(date);
+    QDate date;
+    readDate(date, 0);
     if (date.isValid()) {
-        mDatePicker->setDate( date.getDate() );
+        mDatePicker->setDate( date );
     } else {
-        mDatePicker->setDate( defaultValue.getDate() );
+        mDatePicker->setDate( defaultValue );
     }
 
     mDateFrame->show();
@@ -190,6 +191,7 @@ void KDateEdit::dateSelected(QDate newDate)
     if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
+        emit dateChanged( ImageDate( newDate, newDate ) );
         mDateFrame->hide();
     }
 }
@@ -199,18 +201,21 @@ void KDateEdit::dateEntered(QDate newDate)
     if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
+        emit dateChanged( ImageDate( newDate, newDate ) );
     }
 }
 
 void KDateEdit::lineEnterPressed()
 {
-    ImageDate date;
-    if (readDate(date) && (mHandleInvalid || date.isValid()) && validate(date))
+    QDate date;
+    QDate end;
+    if (readDate(date, &end) && (mHandleInvalid || date.isValid()) && validate(date))
     {
         // Update the edit. This is needed if the user has entered a
         // word rather than the actual date.
         setDate(date);
         emit(dateChanged(date));
+        emit dateChanged( ImageDate( date, end ) );
     }
     else {
         // Invalid or unacceptable date - revert to previous value
@@ -222,8 +227,8 @@ void KDateEdit::lineEnterPressed()
 
 bool KDateEdit::inputIsValid() const
 {
-    ImageDate date;
-    return readDate(date) && date.isValid();
+    QDate date;
+    return readDate(date, 0) && date.isValid();
 }
 
 /* Reads the text from the line edit. If the text is a keyword, the
@@ -231,12 +236,12 @@ bool KDateEdit::inputIsValid() const
  * text will be interpreted as a date.
  * Returns true if the date text is blank or valid, false otherwise.
  */
-bool KDateEdit::readDate(ImageDate& result) const
+bool KDateEdit::readDate(QDate& result, QDate* end) const
 {
     QString text = currentText();
 
     if (text.isEmpty()) {
-        result = ImageDate();
+        result = QDate();
     }
     else if (mKeywordMap.contains(text.lower()))
     {
@@ -263,7 +268,9 @@ bool KDateEdit::readDate(ImageDate& result) const
     }
     else
     {
-        result.setDate(text);
+        result = ImageDate::parseDate( text, mIsStartEdit );
+        if ( end )
+            *end = ImageDate::parseDate( text, false );
         return result.isValid();
     }
 

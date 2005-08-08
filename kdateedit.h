@@ -29,7 +29,7 @@ class KDateEdit : public QComboBox
 {
     Q_OBJECT
 public:
-    KDateEdit(QWidget *parent=0, const char *name=0);
+    KDateEdit( bool isStartEdit, QWidget *parent=0, const char *name=0);
     virtual ~KDateEdit();
 
     /** @return True if the date in the text edit is valid,
@@ -41,24 +41,24 @@ public:
     /** @return The date entered. This will not
      * modify the display of the date, but only return it.
      */
-    ImageDate date() const;
+    QDate date() const;
 
     /** Sets the date.
      *
      * @param date The new date to display. This date must be valid or
      * it will not be displayed.
      */
-    void setDate(const ImageDate& date);
+    void setDate(const QDate& date);
 
     /** @return The default date used if no valid date has been set or entered.
      */
-    ImageDate defaultDate() const;
+    QDate defaultDate() const;
 
     /** Sets the default date to use if no valid date has been set or entered.
      * If no default date has been set, the current date is used as the default.
      * @param date The default date.
      */
-    void setDefaultDate(const ImageDate& date);
+    void setDefaultDate(const QDate& date);
 
     /** @param handleInvalid If true the date edit accepts invalid dates
      * and displays them as the empty ("") string. It also returns an invalid date.
@@ -85,7 +85,7 @@ public:
      * If false is returned, the value reverts to what it was before the
      * new date was entered.
      */
-    virtual bool validate(const ImageDate &newDate);
+    virtual bool validate(const QDate &newDate);
 
     virtual void popup();
 
@@ -94,7 +94,8 @@ signals:
      * may not get emitted until the user presses enter in the line edit or
      * focus leaves the widget (i.e. the user confirms their selection).
      */
-    void dateChanged(ImageDate);
+    void dateChanged(QDate);
+    void dateChanged( const ImageDate& );
 
     /** This signal is emitted whenever the user enters an invalid date.
      */
@@ -109,7 +110,7 @@ protected slots:
 
 private:
     virtual bool eventFilter(QObject *o, QEvent *e);
-    bool readDate(ImageDate& result) const;
+    bool readDate(QDate& result, QDate* end) const;
 
     /** Maps the text that the user can enter to the offset in days from
      * today. For example, the text 'tomorrow' is mapped to +1.
@@ -120,10 +121,11 @@ private:
 
     KDatePicker *mDatePicker;
     QVBox *mDateFrame;
-    ImageDate  defaultValue;
-    ImageDate  value;
+    QDate  defaultValue;
+    QDate  value;
     bool   mReadOnly;
     bool   mDiscardNextMousePress;
+    bool   mIsStartEdit;
 };
 
 #endif

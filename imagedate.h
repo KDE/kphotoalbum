@@ -24,58 +24,33 @@
 class ImageDate {
 public:
     ImageDate();
-    ImageDate( int day, int month, int year, int hour = -1, int minute = -1, int second = -1 );
+    ImageDate( const QDateTime& start, const QDateTime& end );
+    ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom );
     ImageDate( const QDate& );
     ImageDate( const QDateTime& );
+    ImageDate( const QDate& start, QDate end, const QTime& time );
 
-    int year() const;
-    int month() const;
-    int day() const;
-
-    int hour() const;
-    int minute() const;
-    int second() const;
-
-    void setDate( const QDate& );
-    void setTime( const QTime& );
-
-    QTime getTime();
-    QDate getDate();
-    void setDate( const QString& date );
-#ifdef TO_BE_REMOVED
-    bool isFuzzyData();
-#endif
-    QDateTime min() const;
-    QDateTime max() const;
-
-    void setYear( int );
-    void setMonth( int );
-    void setDay( int );
-
-    void setHour( int );
-    void setMinute( int );
-    void setSecond( int );
+    QDateTime start() const;
+    QDateTime end() const;
+    static QDate parseDate( const QString& date, bool startDate );
 
     bool operator<( const ImageDate& other ) const;
     bool operator<=( const ImageDate& other ) const;
+    bool operator==( const ImageDate& other ) const;
+    bool operator!=( const ImageDate& other );
+
     bool isValid() const { return !isNull(); }
     bool isNull() const;
     QString toString( bool withTime = true ) const;
-    operator QString() { return toString(); }
-    bool operator==( const ImageDate& other ) const;
-    bool operator!=( const ImageDate& other );
     bool hasValidTime() const;
 
-    static QString formatRegexp();
 
 protected:
-    void calcMinMax() const;
     static QString monthName( int month );
+    static QString formatRegexp();
 
 private:
-    int _year, _month, _day, _hour, _minute, _second;
-    mutable QDateTime _min, _max;
-    mutable bool _dirty;
+    QDateTime _start, _end;
 };
 
 #endif /* IMAGEDATE_H */

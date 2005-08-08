@@ -171,7 +171,7 @@ void DateBarMouseHandler::Selection::mouseReleaseEvent()
 
 ImageDateRange DateBarMouseHandler::Selection::dateRange() const
 {
-    return ImageDateRange( min(), max() );
+    return ImageDateRange( ImageDate( min(), max() ) );
 }
 
 bool DateBarMouseHandler::Selection::hasSelection() const

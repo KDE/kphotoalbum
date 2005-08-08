@@ -58,28 +58,28 @@ protected:
     ImageDB();
 
 public:
-    static QString NONE(); // OK
+    static QString NONE();
     QStringList currentScope( bool requireOnDisk ) const;
 
 public: // Methods that must be overriden
-    virtual int totalCount() const = 0; // OK
+    virtual int totalCount() const = 0;
     virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category ) = 0;
-    virtual ImageInfoList& imageInfoList() = 0; // TO BE DELETED!
-    virtual QStringList images() = 0; // TO BE REPLACED WITH URL's
-    virtual void addImages( const ImageInfoList& images ) = 0; // OK
+    virtual ImageInfoList& imageInfoList() = 0; // PENDING(blackie) TO BE DELETED!
+    virtual QStringList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
+    virtual void addImages( const ImageInfoList& images ) = 0;
 
-    virtual void addToBlockList( const QStringList& list ) = 0; // OK
-    virtual bool isBlocking( const QString& fileName ) = 0; // OK
+    virtual void addToBlockList( const QStringList& list ) = 0;
+    virtual bool isBlocking( const QString& fileName ) = 0;
     virtual void deleteList( const QStringList& list ) = 0;
-    virtual ImageInfoPtr info( const QString& fileName ) const = 0; // OK
-    virtual const MemberMap& memberMap() = 0; // OK
-    virtual void setMemberMap( const MemberMap& members ) = 0; // OK
+    virtual ImageInfoPtr info( const QString& fileName ) const = 0;
+    virtual const MemberMap& memberMap() = 0;
+    virtual void setMemberMap( const MemberMap& members ) = 0;
     virtual void save( const QString& fileName ) = 0;
-    virtual MD5Map* md5Map() = 0; // OK
+    virtual MD5Map* md5Map() = 0;
     virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
     virtual CategoryCollection* categoryCollection() = 0;
     virtual KSharedPtr<ImageDateRangeCollection> rangeCollection() = 0;

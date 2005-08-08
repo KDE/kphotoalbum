@@ -36,11 +36,9 @@ protected slots:
 private:
     QStringList _list;
     QLabel* _label;
-    QCheckBox* _time;
     QCheckBox* _date;
     QCheckBox* _orientation;
     QCheckBox* _description;
-    QCheckBox* _force_time;
     QCheckBox* _force_date;
 };
 

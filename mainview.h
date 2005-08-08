@@ -61,6 +61,7 @@ public:
 
 public slots:
     void showThumbNails( const QStringList& list );
+    void loadPlugins();
 
 protected slots:
     void showThumbNails();
@@ -139,8 +140,8 @@ protected:
     void configImages( const ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
     QStringList getSelectedOnDisk();
-    void loadPlugins();
     void possibleRunSuvey();
+    void setupPluginMenu();
 
 private:
     static MainView* _instance;
@@ -189,6 +190,7 @@ private:
 #endif
     TokenEditor* _tokenEditor;
     DateBar* _dateBar;
+    bool _hasLoadedPlugins;
 };
 
 

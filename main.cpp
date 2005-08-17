@@ -51,6 +51,8 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( "Jean-Michel FAYARD", "(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page.", "jmfayard@gmail.com" );
     aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KimDaBa again and again.", "rlk@alum.mit.edu" );
 
+    aboutData.setHomepage( "http://ktown.kde.org/kimdaba/" );
+
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );
 

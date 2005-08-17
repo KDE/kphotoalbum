@@ -58,6 +58,7 @@ public slots:
     void slotSmallIconView();
     void slotLargeIconView();
     void slotLimitToMatch( const QString& );
+    void slotInvokeSeleted();
 
 signals:
     void canGoBack( bool );

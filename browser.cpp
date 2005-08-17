@@ -333,4 +333,29 @@ void Browser::resetIconViewSearch()
     _iconViewFactory->setMatchText( QString::null );
 }
 
+void Browser::slotInvokeSeleted()
+{
+    if ( _currentFactory == _iconViewFactory ) {
+        QIconViewItem* item = _iconView->currentItem();
+        if ( !item )
+            item = _iconView->firstItem();
+
+        select( item );
+    }
+
+    else {
+        QListViewItem* item = _listView->currentItem();
+        if ( !item || !item->isVisible() ) {
+            for ( QListViewItem* it = _listView->firstChild(); it; it = it->nextSibling() ) {
+                if ( it->isVisible() ) {
+                    item = it;
+                    break;
+                }
+            }
+        }
+        select( item );
+    }
+}
+
+
 #include "browser.moc"

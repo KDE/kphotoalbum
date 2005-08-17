@@ -146,6 +146,7 @@ MainView::MainView( QWidget* parent, const char* name )
     // Set up the search tool bar
     SearchBar* bar = new SearchBar( this );
     connect( bar, SIGNAL( textChanged( const QString& ) ), _browser, SLOT( slotLimitToMatch( const QString& ) ) );
+    connect( bar, SIGNAL( returnPressed() ), _browser, SLOT( slotInvokeSeleted() ) );
     connect( _browser, SIGNAL( viewChanged() ), bar, SLOT( reset() ) );
     connect( _browser, SIGNAL( showsContentView( bool ) ), bar, SLOT( setEnabled( bool ) ) );
 

@@ -15,6 +15,7 @@ protected slots:
 
 signals:
     void textChanged( const QString& );
+    void returnPressed();
 
 private:
     KLineEdit* _edit;

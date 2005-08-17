@@ -31,6 +31,7 @@ SearchBar::SearchBar( KMainWindow* parent, const char* name )
   _edit = new KLineEdit( this );
   insertWidget( -1, -1, _edit );
   connect( _edit, SIGNAL( textChanged( const QString& ) ), this, SIGNAL( textChanged( const QString& ) ) );
+  connect( _edit, SIGNAL( returnPressed() ), this, SIGNAL( returnPressed() ) );
 
   setStretchableWidget( _edit );
 }

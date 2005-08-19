@@ -106,8 +106,10 @@ void ImageInfoList::mergeIn( ImageInfoList other)
         QDateTime thisDate = (*it)->date().start();
         while ( other.count() != 0 ) {
             QDateTime otherDate = other.first()->date().start();
-            if ( otherDate < thisDate )
+            if ( otherDate < thisDate ) {
                 tmp.append( other[0] );
+                other.pop_front();
+            }
             else
                 break;
         }

@@ -123,6 +123,7 @@ protected slots:
     void deleteImageConfigure();
     void startAutoSaveTimer();
     void convertBackend();
+    void slotRecalcCheckSums();
 
 protected:
     void configureImages( bool oneAtATime );

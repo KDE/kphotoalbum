@@ -109,6 +109,9 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeName )
                 }
 
                 info->setFileName( relativeName );
+
+                // We need to insert the new name into the MD5 map
+                ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
                 return 0;
             }
         }
@@ -116,19 +119,21 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeName )
 
     ImageInfoPtr info = new ImageInfo( relativeName  );
     info->setMD5Sum(sum);
+    ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
+
     return info;
 }
 
 bool  NewImageFinder::calculateMD5sums( const QStringList& list )
 {
-    QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum of your images<b></p>"
+    QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum for %1 images<b></p>"
                                  "<p>By storing a checksum for each image KimDaBa is capable of finding images "
-                                 "even when you have moved them on the disk.</p></qt>"), i18n("&Cancel"), list.count() );
+                                 "even when you have moved them on the disk.</p></qt>").arg( list.count() ), i18n("&Cancel"), list.count() );
 
     int count = 0;
     bool dirty = false;
 
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count ) {
         ImageInfoPtr info = ImageDB::instance()->info( *it );
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)

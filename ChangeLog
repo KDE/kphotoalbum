@@ -1,3 +1,8 @@
+2005-08-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* recalculate checksum will now work only on the selected images
+	if there is a selection.
+
 2005-08-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Pressing return in the search bar now selects the current item.

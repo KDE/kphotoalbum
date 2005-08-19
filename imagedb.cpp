@@ -67,10 +67,14 @@ void ImageDB::slotRescan()
     emit totalChanged( totalCount() );
 }
 
-void ImageDB::slotRecalcCheckSums()
+void ImageDB::slotRecalcCheckSums( QStringList list )
 {
-    md5Map()->clear();
-    bool d = NewImageFinder().calculateMD5sums( images() );
+    if ( list.isEmpty() ) {
+        list = images();
+        md5Map()->clear();
+    }
+
+    bool d = NewImageFinder().calculateMD5sums( list );
     if ( d )
         emit dirty();
 

@@ -42,7 +42,7 @@ public slots:
     void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );
     void clearDateRange();
     virtual void slotRescan();
-    virtual void slotRecalcCheckSums();
+    virtual void slotRecalcCheckSums( QStringList selection );
     virtual int count( const ImageSearchInfo& info );
     virtual void slotReread( const QStringList& list, int mode);
 

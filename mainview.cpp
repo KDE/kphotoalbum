@@ -435,11 +435,13 @@ void MainView::slotReadInfo()
 QStringList MainView::selected()
 {
     QStringList list;
-    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
-        if ( item->isSelected() ) {
-            ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
-            Q_ASSERT( tn );
-            list.append( tn->fileName() );
+    if ( _thumbNailView == _stack->visibleWidget() ) {
+        for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
+            if ( item->isSelected() ) {
+                ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
+                Q_ASSERT( tn );
+                list.append( tn->fileName() );
+            }
         }
     }
     return list;
@@ -614,7 +616,7 @@ void MainView::setupMenuBar()
     // Maintenance
     new KAction( i18n("Display Images Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
     new KAction( i18n("Display Images with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
-    new KAction( i18n("Recalculate Checksum"), 0, ImageDB::instance(), SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
+    new KAction( i18n("Recalculate Checksum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
     new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
@@ -1331,6 +1333,11 @@ void MainView::showThumbNails( const QStringList& list )
 void MainView::convertBackend()
 {
     ImageDB::instance()->convertBackend();
+}
+
+void MainView::slotRecalcCheckSums()
+{
+    ImageDB::instance()->slotRecalcCheckSums( selected() );
 }
 
 #include "mainview.moc"

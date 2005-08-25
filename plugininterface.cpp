@@ -26,10 +26,12 @@
 #include "categoryimagecollection.h"
 #include <klocale.h>
 #include "imageinfo.h"
+#include "browser.h"
 
 PluginInterface::PluginInterface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
 {
+    connect( Browser::instance(), SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
 }
 
 KIPI::ImageCollection PluginInterface::currentAlbum()
@@ -117,4 +119,12 @@ void PluginInterface::slotSelectionChanged( bool b )
 }
 
 #include "plugininterface.moc"
+void PluginInterface::pathChanged( const QString& path )
+{
+    static QString _path;
+    if ( _path != path ) {
+        emit currentAlbumChanged( true );
+        _path = path;
+    }
+}
 #endif // KIPI

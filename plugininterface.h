@@ -43,6 +43,7 @@ public:
 
 public slots:
     void slotSelectionChanged( bool );
+    void pathChanged( const QString& path );
 
 signals:
     void imagesChanged( const KURL::List& );

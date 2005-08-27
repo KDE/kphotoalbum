@@ -375,19 +375,13 @@ void MainView::deleteImageConfigure()
 
 void MainView::slotSave()
 {
+    ShowBusyCursor dummy;
     statusBar()->message(i18n("Saving..."), 5000 );
-    save( Options::instance()->imageDirectory() + QString::fromLatin1("index.xml") );
+    ImageDB::instance()->save( Options::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
     setDirty( false );
     QDir().remove( Options::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
-
-void MainView::save( const QString& fileName )
-{
-    ShowBusyCursor dummy;
-    ImageDB::instance()->save( fileName );
-}
-
 
 void MainView::slotDeleteSelected()
 {
@@ -706,8 +700,9 @@ void MainView::startAutoSaveTimer()
 void MainView::slotAutoSave()
 {
     if ( _autoSaveDirty ) {
+        ShowBusyCursor dummy;
         statusBar()->message(i18n("Auto saving...."));
-        save( Options::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
+        ImageDB::instance()->save( Options::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
         _autoSaveDirty = false;
     }

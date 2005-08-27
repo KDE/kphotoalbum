@@ -260,7 +260,7 @@ void SQLDB::SQLDB::setMemberMap( const MemberMap& map )
     _members = map;
 }
 
-void SQLDB::SQLDB::save( const QString& /*fileName*/ )
+void SQLDB::SQLDB::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
 {
     qDebug("NYI: void SQLDB::SQLDB::save( const QString& fileName )" );
 }

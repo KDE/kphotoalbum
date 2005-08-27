@@ -1,3 +1,14 @@
+2005-08-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added command line option --export-in-2.1-format to allow
+	KimDaBa to save an index.xml that can be read by KimDaBa 2.1. All
+	configurations in the config dialog (like do auto save etc) will
+	be lost though.
+	
+	* KimDaBa does now offer to save numbered backups of the index.xml
+	file: index.xml~0001~, index.xml~0002~ etc. In addition this file
+	can be zipped to preserve disk space.
+
 2005-08-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* recalculate checksum will now work only on the selected images

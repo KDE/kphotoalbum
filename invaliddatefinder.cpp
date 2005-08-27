@@ -31,6 +31,7 @@
 #include <qeventloop.h>
 #include "showbusycursor.h"
 #include <qtextedit.h>
+#include <kdebug.h>
 
 InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Search for Images with Missing Dates" ), Cancel | Ok, Ok, parent, name )

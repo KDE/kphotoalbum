@@ -55,6 +55,8 @@ public:
     boolProperty( General, useEXIFComments, setUseEXIFComments, true );
     boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
     intProperty( General, autoSave, setAutoSave, 5 );
+    intProperty( General, backupCount, setBackupCount, 0 );
+    boolProperty( General, compressBackup, setCompressBackup, true );
 
     QSize histogramSize() const;
     void setHistogramSize( const QSize& size );

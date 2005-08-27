@@ -41,6 +41,9 @@
 #include "xmlcategory.h"
 #include <ksharedptr.h>
 #include "xmlimagedaterangecollection.h"
+#include <kcmdlineargs.h>
+#include <kdebug.h>
+#include "numberedbackup.h"
 
 XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )
 {
@@ -349,14 +352,20 @@ void XMLDB::XMLDB::createSpecialCategories()
     tokenCat->setSpecialCategory( true );
 }
 
-void XMLDB::XMLDB::save( const QString& fileName )
+void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
 {
+    if ( !isAutoSave )
+        NumberedBackup().makeNumberedBackup();
+
     QDomDocument doc;
 
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
     QDomElement top = doc.createElement( QString::fromLatin1("KimDaBa") );
     top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "2" ) );
     doc.appendChild( top );
+
+    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
+        add21CompatXML( top );
 
     saveImages( doc, top );
     saveBlockList( doc, top );
@@ -747,4 +756,20 @@ void XMLDB::XMLDB::checkAndWarnAboutVersionConflict()
                                        "to the file now, you will not be able to go back to the old version of KimDaBa.</p>"),
                               i18n("Old File Format read"), QString::fromLatin1( "version1FileFormatRead" ) );
     }
+}
+
+// This function will save an empty config element and a valid configWindowSetup element in the XML file.
+// In versions of KimDaBa newer than 2.1, these informations are stored
+// using KConfig, rather than in the database, so I need to add them like
+// this to make the file readable by KimDaBa 2.1.
+void XMLDB::XMLDB::add21CompatXML( QDomElement& top )
+{
+    QDomDocument doc = top.ownerDocument();
+    top.appendChild( doc.createElement( QString::fromLatin1( "config" ) ) );
+
+    QCString conf = QCString( "<configWindowSetup>  <dock>   <name>Label and Dates</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </dock>  <dock>   <name>Image Preview</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </dock>  <dock>   <name>Description</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </dock>  <dock>   <name>Keywords</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </dock>  <dock>   <name>Locations</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </dock>  <dock>   <name>Persons</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </dock>  <splitGroup>   <firstName>Label and Dates</firstName>   <secondName>Description</secondName>   <orientation>0</orientation>   <separatorPos>31</separatorPos>   <name>Label and Dates,Description</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </splitGroup>  <splitGroup>   <firstName>Label and Dates,Description</firstName>   <secondName>Image Preview</secondName>   <orientation>1</orientation>   <separatorPos>70</separatorPos>   <name>Label and Dates,Description,Image Preview</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </splitGroup>  <splitGroup>   <firstName>Locations</firstName>   <secondName>Keywords</secondName>   <orientation>1</orientation>   <separatorPos>50</separatorPos>   <name>Locations,Keywords</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </splitGroup>  <splitGroup>   <firstName>Persons</firstName>   <secondName>Locations,Keywords</secondName>   <orientation>1</orientation>   <separatorPos>34</separatorPos>   <name>Persons,Locations,Keywords</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </splitGroup>  <splitGroup>   <firstName>Label and Dates,Description,Image Preview</firstName>   <secondName>Persons,Locations,Keywords</secondName>   <orientation>0</orientation>   <separatorPos>0</separatorPos>   <name>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</name>   <hasParent>true</hasParent>   <dragEnabled>true</dragEnabled>  </splitGroup>  <centralWidget>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</centralWidget>  <mainDockWidget>Label and Dates</mainDockWidget>  <geometry>   <x>6</x>   <y>6</y>   <width>930</width>   <height>492</height>  </geometry> </configWindowSetup>" );
+
+    QDomDocument tmpDoc;
+    tmpDoc.setContent( conf );
+    top.appendChild( tmpDoc.documentElement() );
 }

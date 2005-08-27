@@ -51,7 +51,7 @@ namespace SQLDB {
         virtual ImageInfoPtr info( const QString& fileName ) const;
         virtual const MemberMap& memberMap();
         virtual void setMemberMap( const MemberMap& members );
-        virtual void save( const QString& fileName );
+        virtual void save( const QString& fileName, bool isAutoSave );
         virtual MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();

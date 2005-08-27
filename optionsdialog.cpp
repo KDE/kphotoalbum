@@ -118,6 +118,18 @@ void OptionsDialog::createGeneralPage()
     lay6->addWidget( _autosave );
     lay6->addStretch( 1 );
 
+    // Backup
+    hlay = new QHBoxLayout( lay1 );
+    QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep" ), top );
+    hlay->addWidget( backupLabel );
+
+    _backupCount = new QSpinBox( -1, 100, 1, top );
+    _backupCount->setSpecialValueText( i18n( "Infinite" ) );
+    hlay->addWidget( _backupCount );
+
+    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), top );
+    lay1->addWidget( _compressBackup );
+
     // Album Category
     QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), top, "albumCategoryLabel" );
     _albumCategory = new QComboBox( top, "_albumCategory" );
@@ -177,6 +189,15 @@ void OptionsDialog::createGeneralPage()
                "<p>Most users would probably want to specify Keywords here.</p></qt>");
     QWhatsThis::add( albumCategoryLabel, txt );
     QWhatsThis::add( _albumCategory, txt );
+
+    txt = i18n("<qt><p>KimDaBa has the possibility to back up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc."
+               "using the spinbox specify the amount of backup files to keep - KimDaBa will delete the oldest backup file when it reaches "
+               "the maximum amount of backup files.</p>"
+               "<p>The index.xml file may grow large if you have many images, and in that case it is useful to ask KimDaBa to zip "
+               "the backup files to preserve disk space.</p></qt>" );
+    QWhatsThis::add( backupLabel, txt );
+    QWhatsThis::add( _backupCount, txt );
+    QWhatsThis::add( _compressBackup, txt );
 }
 
 void OptionsDialog::createThumbNailPage()
@@ -369,6 +390,8 @@ void OptionsDialog::show()
     _autosave->setValue( opt->autoSave() );
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
+    _backupCount->setValue( opt->backupCount() );
+    _compressBackup->setChecked( opt->compressBackup() );
 
     CategoryPtr cat = ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
@@ -414,6 +437,8 @@ void OptionsDialog::slotMyOK()
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
+    opt->setBackupCount( _backupCount->value() );
+    opt->setCompressBackup( _compressBackup->isChecked() );
     opt->setAutoSave( _autosave->value() );
     QString name = ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )

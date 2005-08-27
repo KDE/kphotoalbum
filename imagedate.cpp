@@ -102,7 +102,7 @@ QString ImageDate::toString( bool withTime ) const
             else {
                 // jan 2005 - feb 2006
                 return QString::fromLatin1( "%1 %2 - %3 %4" ).arg( QDate::shortMonthName(_start.date().month()) ).arg(_start.date().year() )
-                    .arg( QDate::shortMonthName( _end.date().month() ).arg( _end.date().year() ) );
+                    .arg( QDate::shortMonthName( _end.date().month() ) ).arg( _end.date().year() );
             }
         }
     }
@@ -207,11 +207,6 @@ static QDate addMonth( int year, int month )
     return QDate( year, month, 1 );
 }
 
-static QDate addDay( int year, int month, int day )
-{
-    return QDate( year, month, day ).addDays( 1 );
-}
-
 ImageDate::ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom )
 {
     if ( yearFrom <= 0 ) {
@@ -230,7 +225,7 @@ ImageDate::ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int 
     }
     else if ( hourFrom < 0 ) {
         _start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ) );
-        _end = QDateTime( addDay( yearFrom, monthFrom, dayFrom ) ).addSecs(-1);
+        _end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ).addDays(1) ).addSecs(-1);
     }
     else if ( minuteFrom < 0 ) {
         _start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, 0, 0 ) );
@@ -242,7 +237,7 @@ ImageDate::ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int 
     }
     else {
         _start = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, secondFrom ) );
-        _end = QDateTime( QDate( yearFrom, monthFrom, dayFrom ), QTime( hourFrom, minuteFrom, secondFrom ) );
+        _end =   _start;
     }
 
     if ( yearTo > 0 ) {
@@ -252,7 +247,10 @@ ImageDate::ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int 
             _end = QDateTime( addMonth( yearTo, monthTo ) ).addSecs( -1 );
 
             if ( dayTo > 0 ) {
-                _end = QDateTime( addDay( yearTo, monthTo, dayTo ) );
+                if ( dayFrom == dayTo && monthFrom == monthTo && yearFrom == yearTo )
+                    _end = _start;
+                else
+                    _end = QDateTime( QDate( yearTo, monthTo, dayTo ).addDays(1) ).addSecs(-1);
             }
         }
     }

@@ -52,7 +52,7 @@ namespace XMLDB {
         virtual ImageInfoPtr info( const QString& fileName ) const;
         virtual const MemberMap& memberMap();
         virtual void setMemberMap( const MemberMap& members );
-        virtual void save( const QString& fileName );
+        virtual void save( const QString& fileName, bool isAutoSave );
         virtual MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();
@@ -84,6 +84,7 @@ namespace XMLDB {
         void saveCategories( QDomDocument doc, QDomElement top );
         ImageInfoList takeImagesFromSelection( const QStringList& list );
         QStringList insertList( const QString& fileName, const ImageInfoList& list, bool after );
+        void add21CompatXML( QDomElement& top );
 
 
     protected slots:

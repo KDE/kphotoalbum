@@ -78,7 +78,7 @@ public: // Methods that must be overriden
     virtual ImageInfoPtr info( const QString& fileName ) const = 0;
     virtual const MemberMap& memberMap() = 0;
     virtual void setMemberMap( const MemberMap& members ) = 0;
-    virtual void save( const QString& fileName ) = 0;
+    virtual void save( const QString& fileName, bool isAutoSave ) = 0;
     virtual MD5Map* md5Map() = 0;
     virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
     virtual CategoryCollection* categoryCollection() = 0;

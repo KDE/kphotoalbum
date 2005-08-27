@@ -134,7 +134,6 @@ protected:
     void setupMenuBar();
     void createImageConfig();
     void load();
-    void save( const QString& fileName );
     virtual void contextMenuEvent( QContextMenuEvent* e );
     void setDirty( bool b );
     void setLocked( bool b );

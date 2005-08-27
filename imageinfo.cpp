@@ -39,6 +39,7 @@ extern "C" {
 #include "fileinfo.h"
 #include <qstringlist.h>
 #include "membermap.h"
+#include <kcmdlineargs.h>
 
 bool ImageInfo::_anyImageWithEmptySize = false;
 
@@ -71,8 +72,16 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
     _description = elm.attribute( QString::fromLatin1("description") );
 
     if ( elm.hasAttribute( QString::fromLatin1( "startDate" ) ) ) {
-        QDateTime start = QDateTime::fromString( elm.attribute( QString::fromLatin1( "startDate" ) ), Qt::ISODate );
-        QDateTime end = QDateTime::fromString( elm.attribute( QString::fromLatin1( "endDate" ) ), Qt::ISODate );
+        QDateTime start;
+        QDateTime end;
+
+        QString str = elm.attribute( QString::fromLatin1( "startDate" ) );
+        if ( !str.isEmpty() )
+            start = QDateTime::fromString( str, Qt::ISODate );
+
+        str = elm.attribute( QString::fromLatin1( "endDate" ) );
+        if ( !str.isEmpty() )
+            end = QDateTime::fromString( str, Qt::ISODate );
         _date = ImageDate( start, end );
     }
     else {
@@ -197,8 +206,25 @@ QDomElement ImageInfo::save( QDomDocument doc )
     elm.setAttribute( QString::fromLatin1("file"),  fileName( true ) );
     elm.setAttribute( QString::fromLatin1("label"),  _label );
     elm.setAttribute( QString::fromLatin1("description"), _description );
-    elm.setAttribute( QString::fromLatin1( "startDate" ), _date.start().toString(Qt::ISODate) );
-    elm.setAttribute( QString::fromLatin1( "endDate" ), _date.end().toString(Qt::ISODate) );
+
+    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
+        elm.setAttribute( QString::fromLatin1("yearFrom"), _date.start().date().year() );
+        elm.setAttribute( QString::fromLatin1("monthFrom"),  _date.start().date().month() );
+        elm.setAttribute( QString::fromLatin1("dayFrom"),  _date.start().date().day() );
+        elm.setAttribute( QString::fromLatin1("hourFrom"), _date.start().time().hour() );
+        elm.setAttribute( QString::fromLatin1("minuteFrom"), _date.start().time().minute() );
+        elm.setAttribute( QString::fromLatin1("secondFrom"), _date.start().time().second() );
+
+        elm.setAttribute( QString::fromLatin1("yearTo"), _date.end().date().year() );
+        elm.setAttribute( QString::fromLatin1("monthTo"),  _date.end().date().month() );
+        elm.setAttribute( QString::fromLatin1("dayTo"),  _date.end().date().day() );
+
+    }
+    else {
+        elm.setAttribute( QString::fromLatin1( "startDate" ), _date.start().toString(Qt::ISODate) );
+        elm.setAttribute( QString::fromLatin1( "endDate" ), _date.end().toString(Qt::ISODate) );
+    }
+
     elm.setAttribute( QString::fromLatin1("angle"),  _angle );
     elm.setAttribute( QString::fromLatin1( "md5sum" ), _md5sum );
     elm.setAttribute( QString::fromLatin1( "width" ), _size.width() );

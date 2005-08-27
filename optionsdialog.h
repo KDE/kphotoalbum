@@ -93,6 +93,8 @@ private:
     QSpinBox* _barHeight;
     QSpinBox* _rowSpacing;
     QCheckBox* _alignColumns;
+    QSpinBox* _backupCount;
+    QCheckBox* _compressBackup;
 
     // Categories page
     QListBox* _categories;

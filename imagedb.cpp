@@ -9,6 +9,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kdebug.h>
+#include <config.h>
 
 ImageDB* ImageDB::_instance = 0;
 

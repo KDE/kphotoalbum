@@ -16,7 +16,6 @@
 #include <browser.h>
 #include "sqlimagedaterangecollection.h"
 
-
 SQLDB::SQLDB::SQLDB() :_members( this )
 {
     if ( !QSqlDatabase::isDriverAvailable( "QMYSQL3" ) ) {

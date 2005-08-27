@@ -232,13 +232,37 @@ QDomElement ImageInfo::save( QDomDocument doc )
 
     if ( _options.count() != 0 ) {
         QDomElement top = doc.createElement( QString::fromLatin1("options") );
-        bool any = Util::writeOptions( doc, top, _options, 0 );
+        bool any = writeOptions( doc, top, _options );
         if ( any )
             elm.appendChild( top );
     }
 
     _drawList.save( doc, elm );
     return elm;
+}
+
+bool ImageInfo::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options )
+{
+    bool anyAtAll = false;
+    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
+    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
+        QString name = *it;
+        opt.setAttribute( QString::fromLatin1("name"),  name );
+
+        QStringList list = options[name];
+        bool any = false;
+        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+            QDomElement val = doc.createElement( QString::fromLatin1("value") );
+            val.setAttribute( QString::fromLatin1("value"), *it2 );
+            opt.appendChild( val );
+            any = true;
+            anyAtAll = true;
+        }
+        if ( any ) // We always want to write all records when writing from Options
+            elm.appendChild( opt );
+    }
+    return anyAtAll;
 }
 
 void ImageInfo::rotate( int degrees )

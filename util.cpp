@@ -52,37 +52,6 @@ extern "C" {
 #include "imagedb.h"
 }
 
-bool Util::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options,
-                         CategoryCollection* categories )
-{
-    bool anyAtAll = false;
-    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
-        QString name = *it;
-        opt.setAttribute( QString::fromLatin1("name"),  name );
-
-        if ( categories ) {
-            opt.setAttribute( QString::fromLatin1( "icon" ), categories->categoryForName(name)->iconName() );
-            opt.setAttribute( QString::fromLatin1( "show" ), categories->categoryForName(name)->doShow() );
-            opt.setAttribute( QString::fromLatin1( "viewsize" ), categories->categoryForName(name)->viewSize() );
-            opt.setAttribute( QString::fromLatin1( "viewtype" ), categories->categoryForName(name)->viewType() );
-        }
-
-        QStringList list = options[name];
-        bool any = false;
-        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            QDomElement val = doc.createElement( QString::fromLatin1("value") );
-            val.setAttribute( QString::fromLatin1("value"), *it2 );
-            opt.appendChild( val );
-            any = true;
-            anyAtAll = true;
-        }
-        if ( any || categories  ) // We always want to write all records when writing from Options
-            elm.appendChild( opt );
-    }
-    return anyAtAll;
-}
 
 
 

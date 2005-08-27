@@ -85,6 +85,8 @@ public:
     void renameCategory( const QString& oldName, const QString& newName );
 
     QDomElement save( QDomDocument doc );
+    bool writeOptions( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& options );
+
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );
     virtual ImageInfo& operator=( const ImageInfo& other );

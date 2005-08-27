@@ -29,8 +29,6 @@ class ImageInfo;
 
 class Util {
 public:
-    static bool writeOptions( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& options,
-                              CategoryCollection* categories );
     static void readOptions( QDomElement elm, QMap<QString, QStringList>* options );
     static QString createInfoText( ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
     static void checkForBackupFile( const QString& fileName );

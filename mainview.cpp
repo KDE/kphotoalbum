@@ -88,6 +88,7 @@
 
 MainView* MainView::_instance = 0;
 
+
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _autoSaveDirty( false ),
      _deleteDialog( 0 ), _readInfoDialog( 0 ), _dirtyIndicator(0),
@@ -770,7 +771,6 @@ void MainView::runDemo()
 
 void MainView::load()
 {
-
     // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile = QString::null;

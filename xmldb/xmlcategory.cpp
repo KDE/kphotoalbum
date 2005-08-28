@@ -101,3 +101,28 @@ QStringList XMLDB::XMLCategory::items() const
 {
     return _items;
 }
+
+int XMLDB::XMLCategory::idForName( const QString& name ) const
+{
+    return _idMap[name];
+}
+
+void XMLDB::XMLCategory::initIdMap()
+{
+    int i = 0;
+    _idMap.clear();
+    for( QStringList::Iterator it = _items.begin(); it != _items.end(); ++it ) {
+        _idMap.insert( *it, i );
+        ++i;
+    }
+}
+
+void XMLDB::XMLCategory::setIdMapping( const QString& name, int id )
+{
+    _nameMap.insert( id, name );
+}
+
+QString XMLDB::XMLCategory::nameForId( int id ) const
+{
+    return _nameMap[id];
+}

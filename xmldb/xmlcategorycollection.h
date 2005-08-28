@@ -18,6 +18,8 @@ namespace XMLDB {
         virtual QValueList<CategoryPtr> categories() const;
         virtual void addCategory( const QString& text, const QString& icon, Category::ViewSize size, Category::ViewType type, bool show = true );
 
+        void initIdMap();
+
     private:
         QValueList<CategoryPtr> _categories;
     };

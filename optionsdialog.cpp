@@ -108,6 +108,9 @@ void OptionsDialog::createGeneralPage()
     hlay->addWidget( _barHeight );
     hlay->addStretch( 1 );
 
+    // Compressed index.xml
+    _compressedIndexXML = new QCheckBox( i18n("Use compressed index.xml file"), top );
+    lay1->addWidget( _compressedIndexXML );
 
     // Auto save
     QLabel* label = new QLabel( i18n("Auto save every:"), top );
@@ -198,6 +201,11 @@ void OptionsDialog::createGeneralPage()
     QWhatsThis::add( backupLabel, txt );
     QWhatsThis::add( _backupCount, txt );
     QWhatsThis::add( _compressBackup, txt );
+
+    txt = i18n( "<qt>KimDaBa is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
+                "a long time to read this file. You may cut down this time by approaximately a factor of 2 by checking this check box. "
+                "The disadvantage is that the index.xml file is less readable by human eyes.</qt>");
+    QWhatsThis::add( _compressedIndexXML, txt );
 }
 
 void OptionsDialog::createThumbNailPage()
@@ -387,6 +395,7 @@ void OptionsDialog::show()
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
+    _compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
     _autosave->setValue( opt->autoSave() );
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
@@ -439,6 +448,7 @@ void OptionsDialog::slotMyOK()
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
     opt->setBackupCount( _backupCount->value() );
     opt->setCompressBackup( _compressBackup->isChecked() );
+    opt->setUseCompressedIndexXML( _compressedIndexXML->isChecked() );
     opt->setAutoSave( _autosave->value() );
     QString name = ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )

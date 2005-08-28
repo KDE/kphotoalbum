@@ -60,3 +60,9 @@ void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QStri
     addCategory( new XMLCategory( text, icon, size, type, show ) );
 }
 
+void XMLDB::XMLCategoryCollection::initIdMap()
+{
+    for( QValueList<CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it )
+        static_cast<XMLCategory*>((*it).data())->initIdMap();
+}
+

@@ -40,6 +40,7 @@ extern "C" {
 #include <qstringlist.h>
 #include "membermap.h"
 #include <kcmdlineargs.h>
+#include "xmldb/xmlcategory.h"
 
 bool ImageInfo::_anyImageWithEmptySize = false;
 
@@ -62,7 +63,7 @@ ImageInfo::ImageInfo( const QString& fileName )
 }
 
 // This constructor is shared between the XML backend and the import filter.
-ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
+ImageInfo::ImageInfo( const QString& fileName, QDomElement elm, CategoryCollection* categories )
     :  _null( false ), _locked( false )
 {
     QFileInfo fi( Options::instance()->imageDirectory()+ fileName );
@@ -123,6 +124,10 @@ ImageInfo::ImageInfo( const QString& fileName, QDomElement elm )
                                             "<p>Expected one of: Options, Drawings</p></qt>" ).arg( childElm.tagName() ) );
             }
         }
+    }
+
+    if ( 1 ) { // PENDING(blackie)
+        loadCompressedCategories( elm, categories );
     }
 }
 
@@ -231,17 +236,22 @@ QDomElement ImageInfo::save( QDomDocument doc )
     elm.setAttribute( QString::fromLatin1( "height" ), _size.height() );
 
     if ( _options.count() != 0 ) {
-        QDomElement top = doc.createElement( QString::fromLatin1("options") );
-        bool any = writeOptions( doc, top, _options );
-        if ( any )
-            elm.appendChild( top );
+        if ( !Options::instance()->useCompressedIndexXML() ) {
+            QDomElement top = doc.createElement( QString::fromLatin1("options") );
+            bool any = writeCategories( doc, top, _options );
+            if ( any )
+                elm.appendChild( top );
+        }
+        else {
+            writeCategoriesCompressed( elm, _options );
+        }
     }
 
     _drawList.save( doc, elm );
     return elm;
 }
 
-bool ImageInfo::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options )
+bool ImageInfo::writeCategories( QDomDocument doc, QDomElement elm, QMap<QString, QStringList>& options )
 {
     bool anyAtAll = false;
     QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
@@ -259,11 +269,47 @@ bool ImageInfo::writeOptions( QDomDocument doc, QDomElement elm, QMap<QString, Q
             any = true;
             anyAtAll = true;
         }
-        if ( any ) // We always want to write all records when writing from Options
+        if ( any )
             elm.appendChild( opt );
     }
     return anyAtAll;
 }
+
+void ImageInfo::writeCategoriesCompressed( QDomElement& elm, QMap<QString, QStringList>& categories )
+{
+    QValueList<CategoryPtr> categoryList = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+        QString categoryName = (*categoryIt)->name();
+        QStringList items = categories[categoryName];
+        if ( !items.isEmpty() ) {
+            QStringList idList;
+            for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+                int id = static_cast<XMLDB::XMLCategory*>((*categoryIt).data())->idForName( *itemIt );
+                idList.append( QString::number( id ) );
+            }
+            elm.setAttribute( categoryName, idList.join( QString::fromLatin1( "," ) ) );
+        }
+    }
+}
+
+void ImageInfo::loadCompressedCategories( QDomElement elm, CategoryCollection* collection )
+{
+    QValueList<CategoryPtr> categoryList = collection->categories();
+//    QValueList<CategoryPtr> categoryList = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+        QString categoryName = (*categoryIt)->name();
+        QString str = elm.attribute( categoryName );
+        if ( !str.isEmpty() ) {
+            QStringList list = QStringList::split( QString::fromLatin1( "," ), str);
+            for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+                int id = (*listIt).toInt();
+                QString name = static_cast<XMLDB::XMLCategory*>((*categoryIt).data())->nameForId(id);
+                _options[categoryName].append( name );
+            }
+        }
+    }
+}
+
 
 void ImageInfo::rotate( int degrees )
 {

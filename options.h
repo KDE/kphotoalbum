@@ -54,6 +54,7 @@ public:
     boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
     boolProperty( General, useEXIFComments, setUseEXIFComments, true );
     boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
+    boolProperty( General, useCompressedIndexXML, setUseCompressedIndexXML, false );
     intProperty( General, autoSave, setAutoSave, 5 );
     intProperty( General, backupCount, setBackupCount, 0 );
     boolProperty( General, compressBackup, setCompressBackup, true );

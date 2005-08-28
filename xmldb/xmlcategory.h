@@ -33,6 +33,10 @@ namespace XMLDB {
         virtual void renameItem( const QString& oldValue, const QString& newValue );
         virtual void addItem( const QString& item );
         virtual QStringList items() const;
+        int idForName( const QString& name ) const;
+        void initIdMap();
+        void setIdMapping( const QString& name, int id );
+        QString nameForId( int id ) const;
 
     private:
         QString _name;
@@ -43,6 +47,8 @@ namespace XMLDB {
 
         bool _isSpecial;
         QStringList _items;
+        QMap<QString,int> _idMap;
+        QMap<int,QString> _nameMap;
     };
 }
 

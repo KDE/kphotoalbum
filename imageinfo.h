@@ -32,6 +32,7 @@
 #include <qimage.h>
 #include "imagedaterange.h"
 #include <ksharedptr.h>
+#include "categorycollection.h"
 
 #define EXIFMODE_DATE          0x01
 #define EXIFMODE_ORIENTATION   0x02
@@ -46,7 +47,7 @@ public:
 
     ImageInfo();
     ImageInfo( const QString& fileName );
-    ImageInfo( const QString& fileName, QDomElement elm );
+    ImageInfo( const QString& fileName, QDomElement elm, CategoryCollection* categories );
     ImageInfo( const QString& fileName,
                const QString& label,
                const QString& description,
@@ -85,7 +86,9 @@ public:
     void renameCategory( const QString& oldName, const QString& newName );
 
     QDomElement save( QDomDocument doc );
-    bool writeOptions( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& options );
+    bool writeCategories( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& categoris );
+    void writeCategoriesCompressed( QDomElement& elm, QMap<QString, QStringList>& categories );
+    void loadCompressedCategories( QDomElement, CategoryCollection* );
 
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );

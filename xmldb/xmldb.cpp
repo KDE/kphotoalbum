@@ -323,6 +323,10 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
                         QDomElement elmValue = nodeValue.toElement();
                         Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
                         QString value = elmValue.attribute( QString::fromLatin1("value") );
+                        if ( 1 ) { // PENDING(blackie) Only for compressed!
+                            int id = elmValue.attribute( QString::fromLatin1( "id" ) ).toInt();
+                            static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
+                        }
                         items.append( value );
                     }
                 }
@@ -357,6 +361,7 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
     if ( !isAutoSave )
         NumberedBackup().makeNumberedBackup();
 
+    _categoryCollection.initIdMap();
     QDomDocument doc;
 
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
@@ -367,10 +372,10 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
     if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         add21CompatXML( top );
 
+    saveCategories( doc, top );
     saveImages( doc, top );
     saveBlockList( doc, top );
     saveMemberGroups( doc, top );
-    saveCategories( doc, top );
 
     QFile out( fileName );
 
@@ -513,7 +518,7 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
 
 ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
 {
-    ImageInfoPtr info = new ImageInfo( fileName, elm );
+    ImageInfoPtr info = new ImageInfo( fileName, elm, &_categoryCollection );
     // This is for compatibility with KimDaBa 2.1 where this info was not saved.
     QString folderName = Util::relativeFolderName( fileName );
     info->setOption( QString::fromLatin1( "Folder") , QStringList( folderName ) );
@@ -545,8 +550,19 @@ void XMLDB::XMLDB::loadMemberGroups( const QDomElement& memberGroups )
             if ( category.isNull() )
                 category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
             QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
-            QString member = elm.attribute( QString::fromLatin1( "member" ) );
-            _members.addMemberToGroup( category, group, member );
+            if ( elm.hasAttribute( QString::fromLatin1( "member" ) ) ) {
+                QString member = elm.attribute( QString::fromLatin1( "member" ) );
+                _members.addMemberToGroup( category, group, member );
+            }
+            else {
+                QStringList members = QStringList::split( QString::fromLatin1( "," ), elm.attribute( QString::fromLatin1( "members" ) ) );
+                for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                    CategoryPtr catPtr = _categoryCollection.categoryForName( category );
+                    XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
+                    QString member = cat->nameForId( (*membersIt).toInt() );
+                    _members.addMemberToGroup( category, group, member );
+                }
+            }
         }
     }
 }
@@ -593,12 +609,27 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
         QMap<QString,QStringList> map = it1.data();
         for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
             QStringList list = it2.data();
-            for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
+            if ( Options::instance()->useCompressedIndexXML() ) {
                 QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
-                memberNode.appendChild( elm );
                 elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
-                elm.setAttribute( QString::fromLatin1( "member" ), *it3 );
+                QStringList idList;
+                for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+                    CategoryPtr catPtr = _categoryCollection.categoryForName( it1.key() );
+                    XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
+                    idList.append( QString::number( category->idForName( *listIt ) ) );
+                }
+                elm.setAttribute( QString::fromLatin1( "members" ), idList.join( QString::fromLatin1( "," ) ) );
+                memberNode.appendChild( elm );
+            }
+            else {
+                for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
+                    QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
+                    memberNode.appendChild( elm );
+                    elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
+                    elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
+                    elm.setAttribute( QString::fromLatin1( "member" ), *it3 );
+                }
             }
         }
     }
@@ -631,6 +662,7 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
             val.setAttribute( QString::fromLatin1("value"), *it2 );
+            val.setAttribute( QString::fromLatin1( "id" ), static_cast<XMLCategory*>( category.data() )->idForName( *it2 ) );
             opt.appendChild( val );
         }
         options.appendChild( opt );

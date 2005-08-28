@@ -95,6 +95,7 @@ private:
     QCheckBox* _alignColumns;
     QSpinBox* _backupCount;
     QCheckBox* _compressBackup;
+    QCheckBox* _compressedIndexXML;
 
     // Categories page
     QListBox* _categories;

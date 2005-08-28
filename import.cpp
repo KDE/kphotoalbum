@@ -190,7 +190,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
         }
         QDomElement elm = node.toElement();
 
-        ImageInfoPtr info = new ImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
+        ImageInfoPtr info = new ImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm, 0 ); // PENDING(blackie) fix the zero
         _images.append( info );
     }
 

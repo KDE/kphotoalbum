@@ -25,6 +25,7 @@
 #include <kaboutdata.h>
 #include <kimageio.h>
 #include "mysplashscreen.h"
+#include <qdatetime.h>
 
 static const KCmdLineOptions options[] =
 {

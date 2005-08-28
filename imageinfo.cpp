@@ -42,8 +42,6 @@ extern "C" {
 #include <kcmdlineargs.h>
 #include "xmldb/xmlcategory.h"
 
-bool ImageInfo::_anyImageWithEmptySize = false;
-
 ImageInfo::ImageInfo() :_null( true )
 {
 }
@@ -61,77 +59,6 @@ ImageInfo::ImageInfo( const QString& fileName )
     // Read EXIF information
     readExif(fullPath, EXIFMODE_INIT);
 }
-
-// This constructor is shared between the XML backend and the import filter.
-ImageInfo::ImageInfo( const QString& fileName, QDomElement elm, CategoryCollection* categories )
-    :  _null( false ), _locked( false )
-{
-    QFileInfo fi( Options::instance()->imageDirectory()+ fileName );
-    _fileName = fileName;
-    _imageOnDisk = Unchecked;
-    _label = elm.attribute( QString::fromLatin1("label"),  _label );
-    _description = elm.attribute( QString::fromLatin1("description") );
-
-    if ( elm.hasAttribute( QString::fromLatin1( "startDate" ) ) ) {
-        QDateTime start;
-        QDateTime end;
-
-        QString str = elm.attribute( QString::fromLatin1( "startDate" ) );
-        if ( !str.isEmpty() )
-            start = QDateTime::fromString( str, Qt::ISODate );
-
-        str = elm.attribute( QString::fromLatin1( "endDate" ) );
-        if ( !str.isEmpty() )
-            end = QDateTime::fromString( str, Qt::ISODate );
-        _date = ImageDate( start, end );
-    }
-    else {
-        int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
-
-        yearFrom = elm.attribute( QString::fromLatin1("yearFrom"), QString::number( yearFrom) ).toInt();
-        monthFrom = elm.attribute( QString::fromLatin1("monthFrom"), QString::number(monthFrom) ).toInt();
-        dayFrom = elm.attribute( QString::fromLatin1("dayFrom"), QString::number(dayFrom) ).toInt();
-        hourFrom = elm.attribute( QString::fromLatin1("hourFrom"), QString::number(hourFrom) ).toInt();
-        minuteFrom = elm.attribute( QString::fromLatin1("minuteFrom"), QString::number(minuteFrom) ).toInt();
-        secondFrom = elm.attribute( QString::fromLatin1("secondFrom"), QString::number(secondFrom) ).toInt();
-
-        yearTo = elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt();
-        monthTo = elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt();
-        dayTo = elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt();
-        _date = ImageDate( yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, hourFrom, minuteFrom, secondFrom );
-    }
-
-    _angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
-    _md5sum = elm.attribute( QString::fromLatin1( "md5sum" ) );
-
-    _anyImageWithEmptySize |= !elm.hasAttribute( QString::fromLatin1( "width" ) );
-
-    int w = elm.attribute( QString::fromLatin1( "width" ), QString::fromLatin1( "-1" ) ).toInt();
-    int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
-    _size = QSize( w,h );
-
-    for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
-        if ( child.isElement() ) {
-            QDomElement childElm = child.toElement();
-            if ( childElm.tagName() == QString::fromLatin1( "options" ) ) {
-                Util::readOptions( childElm, &_options );
-            }
-            else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
-                _drawList.load( childElm );
-            }
-            else {
-                KMessageBox::error( 0, i18n("<qt><p>Unknown tag %1, while reading configuration file.</p>"
-                                            "<p>Expected one of: Options, Drawings</p></qt>" ).arg( childElm.tagName() ) );
-            }
-        }
-    }
-
-    if ( 1 ) { // PENDING(blackie)
-        loadCompressedCategories( elm, categories );
-    }
-}
-
-
 
 void ImageInfo::setLabel( const QString& desc )
 {
@@ -236,14 +163,14 @@ QDomElement ImageInfo::save( QDomDocument doc )
     elm.setAttribute( QString::fromLatin1( "height" ), _size.height() );
 
     if ( _options.count() != 0 ) {
-        if ( !Options::instance()->useCompressedIndexXML() ) {
+        if ( Options::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
+            writeCategoriesCompressed( elm, _options );
+        }
+        else {
             QDomElement top = doc.createElement( QString::fromLatin1("options") );
             bool any = writeCategories( doc, top, _options );
             if ( any )
                 elm.appendChild( top );
-        }
-        else {
-            writeCategoriesCompressed( elm, _options );
         }
     }
 
@@ -291,25 +218,6 @@ void ImageInfo::writeCategoriesCompressed( QDomElement& elm, QMap<QString, QStri
         }
     }
 }
-
-void ImageInfo::loadCompressedCategories( QDomElement elm, CategoryCollection* collection )
-{
-    QValueList<CategoryPtr> categoryList = collection->categories();
-//    QValueList<CategoryPtr> categoryList = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
-        QString categoryName = (*categoryIt)->name();
-        QString str = elm.attribute( categoryName );
-        if ( !str.isEmpty() ) {
-            QStringList list = QStringList::split( QString::fromLatin1( "," ), str);
-            for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
-                int id = (*listIt).toInt();
-                QString name = static_cast<XMLDB::XMLCategory*>((*categoryIt).data())->nameForId(id);
-                _options[categoryName].append( name );
-            }
-        }
-    }
-}
-
 
 void ImageInfo::rotate( int degrees )
 {
@@ -561,6 +469,11 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _size = other._size;
 
     return *this;
+}
+
+void ImageInfo::addDrawing( const QDomElement& elm )
+{
+    _drawList.load( elm );
 }
 
 #include "infobox.moc"

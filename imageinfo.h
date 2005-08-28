@@ -47,7 +47,6 @@ public:
 
     ImageInfo();
     ImageInfo( const QString& fileName );
-    ImageInfo( const QString& fileName, QDomElement elm, CategoryCollection* categories );
     ImageInfo( const QString& fileName,
                const QString& label,
                const QString& description,
@@ -88,7 +87,6 @@ public:
     QDomElement save( QDomDocument doc );
     bool writeCategories( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& categoris );
     void writeCategoriesCompressed( QDomElement& elm, QMap<QString, QStringList>& categories );
-    void loadCompressedCategories( QDomElement, CategoryCollection* );
 
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );
@@ -96,6 +94,7 @@ public:
 
     DrawList drawList() const;
     void setDrawList( const DrawList& );
+    void addDrawing( const QDomElement& );
 
     bool imageOnDisk() const;
     static bool imageOnDisk( const QString& fileName );
@@ -139,10 +138,6 @@ private:
 
     // Used during searching to make it possible to search for Jesper & None
     mutable QMap<QString,QStringList> _matched;
-
-public:
-    // used for checking if any images are without image attribute from the database.
-    static bool _anyImageWithEmptySize;
 };
 
 #endif /* IMAGEINFO_H */

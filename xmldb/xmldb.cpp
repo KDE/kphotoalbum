@@ -33,6 +33,7 @@
 #include <qdict.h>
 #include "mainview.h"
 #include "imageinfo.h"
+#include "imageinfoptr.h"
 #include "categorycollection.h"
 #include "xmldb.moc"
 #include <kstandarddirs.h>
@@ -45,6 +46,7 @@
 #include <kdebug.h>
 #include "numberedbackup.h"
 
+bool XMLDB::XMLDB::_anyImageWithEmptySize = false;
 XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )
 {
     Util::checkForBackupFile( configFile );
@@ -260,7 +262,7 @@ void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) ) )
         return;
 
-    if ( ImageInfo::_anyImageWithEmptySize ) {
+    if ( _anyImageWithEmptySize ) {
         KMessageBox::information( MainView::theMainView(),
                                   i18n("<qt><p>Not all the images in the database have information about image sizes; this is needed to "
                                        "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
@@ -323,7 +325,7 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
                         QDomElement elmValue = nodeValue.toElement();
                         Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
                         QString value = elmValue.attribute( QString::fromLatin1("value") );
-                        if ( 1 ) { // PENDING(blackie) Only for compressed!
+                        if ( elmValue.hasAttribute( QString::fromLatin1( "id" ) ) ) {
                             int id = elmValue.attribute( QString::fromLatin1( "id" ) ).toInt();
                             static_cast<XMLCategory*>(cat.data())->setIdMapping( value, id );
                         }
@@ -518,7 +520,7 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
 
 ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
 {
-    ImageInfoPtr info = new ImageInfo( fileName, elm, &_categoryCollection );
+    ImageInfoPtr info = createImageInfo( fileName, elm, this );
     // This is for compatibility with KimDaBa 2.1 where this info was not saved.
     QString folderName = Util::relativeFolderName( fileName );
     info->setOption( QString::fromLatin1( "Folder") , QStringList( folderName ) );
@@ -609,7 +611,7 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
         QMap<QString,QStringList> map = it1.data();
         for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
             QStringList list = it2.data();
-            if ( Options::instance()->useCompressedIndexXML() ) {
+            if ( Options::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" )) {
                 QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                 elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
@@ -784,8 +786,9 @@ void XMLDB::XMLDB::checkAndWarnAboutVersionConflict()
 {
     if ( _fileVersion == 1 ) {
         KMessageBox::information( 0, i18n( "<p>The index.xml file read was from an older version of KimDaBa. "
-                                       "KimDaBa read the old format without problems, but be aware that if you save "
-                                       "to the file now, you will not be able to go back to the old version of KimDaBa.</p>"),
+                                           "KimDaBa read the old format without problems, but to be able to convert back to "
+                                           "KimDaBa 2.1 format, you need to run the current KimDaBa using the flag "
+                                           "<tt>export-in-2.1-format</tt>, and then save.</p>"),
                               i18n("Old File Format read"), QString::fromLatin1( "version1FileFormatRead" ) );
     }
 }
@@ -805,3 +808,122 @@ void XMLDB::XMLDB::add21CompatXML( QDomElement& top )
     tmpDoc.setContent( conf );
     top.appendChild( tmpDoc.documentElement() );
 }
+
+ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomElement& elm, XMLDB* db )
+{
+    QString label = elm.attribute( QString::fromLatin1("label") );
+    QString description = elm.attribute( QString::fromLatin1("description") );
+
+    ImageDate date;
+    if ( elm.hasAttribute( QString::fromLatin1( "startDate" ) ) ) {
+        QDateTime start;
+        QDateTime end;
+
+        QString str = elm.attribute( QString::fromLatin1( "startDate" ) );
+        if ( !str.isEmpty() )
+            start = QDateTime::fromString( str, Qt::ISODate );
+
+        str = elm.attribute( QString::fromLatin1( "endDate" ) );
+        if ( !str.isEmpty() )
+            end = QDateTime::fromString( str, Qt::ISODate );
+        date = ImageDate( start, end );
+    }
+    else {
+        int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
+
+        yearFrom = elm.attribute( QString::fromLatin1("yearFrom"), QString::number( yearFrom) ).toInt();
+        monthFrom = elm.attribute( QString::fromLatin1("monthFrom"), QString::number(monthFrom) ).toInt();
+        dayFrom = elm.attribute( QString::fromLatin1("dayFrom"), QString::number(dayFrom) ).toInt();
+        hourFrom = elm.attribute( QString::fromLatin1("hourFrom"), QString::number(hourFrom) ).toInt();
+        minuteFrom = elm.attribute( QString::fromLatin1("minuteFrom"), QString::number(minuteFrom) ).toInt();
+        secondFrom = elm.attribute( QString::fromLatin1("secondFrom"), QString::number(secondFrom) ).toInt();
+
+        yearTo = elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt();
+        monthTo = elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt();
+        dayTo = elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt();
+        date = ImageDate( yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, hourFrom, minuteFrom, secondFrom );
+    }
+
+    int angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
+    QString md5sum = elm.attribute( QString::fromLatin1( "md5sum" ) );
+
+    _anyImageWithEmptySize |= !elm.hasAttribute( QString::fromLatin1( "width" ) );
+
+    int w = elm.attribute( QString::fromLatin1( "width" ), QString::fromLatin1( "-1" ) ).toInt();
+    int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
+    QSize size = QSize( w,h );
+
+    ImageInfo* info = new ImageInfo( fileName, label, description, date, angle, md5sum, size );
+    ImageInfoPtr result = info;
+    for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
+        if ( child.isElement() ) {
+            QDomElement childElm = child.toElement();
+            if ( childElm.tagName() == QString::fromLatin1( "options" ) ) {
+                readOptions( result, childElm );
+            }
+            else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
+                result->addDrawing( childElm );
+            }
+            else {
+                KMessageBox::error( 0, i18n("<qt><p>Unknown tag %1, while reading configuration file.</p>"
+                                            "<p>Expected one of: Options, Drawings</p></qt>" ).arg( childElm.tagName() ) );
+            }
+        }
+    }
+
+    possibleLoadCompressedCategories( elm, result, db );
+
+    return result;
+}
+
+void XMLDB::XMLDB::readOptions( ImageInfoPtr info, QDomElement elm )
+{
+    Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
+
+    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
+
+        if ( nodeOption.isElement() )  {
+            QDomElement elmOption = nodeOption.toElement();
+            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
+            QString name = elmOption.attribute( QString::fromLatin1("name") );
+            if ( name == QString::fromLatin1( "Folder" ) )
+                continue; // KimDaBa 2.0 save this to the file, that was a mistake.
+
+            if ( !name.isNull() )  {
+                // Read values
+                for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
+                      nodeValue = nodeValue.nextSibling() ) {
+                    if ( nodeValue.isElement() ) {
+                        QDomElement elmValue = nodeValue.toElement();
+                        Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
+                        QString value = elmValue.attribute( QString::fromLatin1("value") );
+                        if ( !value.isNull() )  {
+                            info->addOption( name, value );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void XMLDB::XMLDB::possibleLoadCompressedCategories( const QDomElement& elm, ImageInfoPtr info, XMLDB* db )
+{
+    if ( db == 0 )
+        return;
+
+    QValueList<CategoryPtr> categoryList = db->_categoryCollection.categories();
+    for( QValueList<CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+        QString categoryName = (*categoryIt)->name();
+        QString str = elm.attribute( categoryName );
+        if ( !str.isEmpty() ) {
+            QStringList list = QStringList::split( QString::fromLatin1( "," ), str);
+            for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+                int id = (*listIt).toInt();
+                QString name = static_cast<XMLCategory*>((*categoryIt).data())->nameForId(id);
+                info->addOption( categoryName, name );
+            }
+        }
+    }
+}
+

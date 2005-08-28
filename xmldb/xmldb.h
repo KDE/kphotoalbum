@@ -62,6 +62,9 @@ namespace XMLDB {
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();
         int fileVersion();
+        static ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, XMLDB* db = 0 );
+        static void possibleLoadCompressedCategories( const QDomElement& , ImageInfoPtr info, XMLDB* db );
+
 
     protected:
         ImageInfoPtr load( const QString& filename, QDomElement elm );
@@ -85,6 +88,7 @@ namespace XMLDB {
         ImageInfoList takeImagesFromSelection( const QStringList& list );
         QStringList insertList( const QString& fileName, const ImageInfoList& list, bool after );
         void add21CompatXML( QDomElement& top );
+        static void readOptions( ImageInfoPtr info, QDomElement elm );
 
 
     protected slots:
@@ -105,7 +109,10 @@ namespace XMLDB {
         MD5Map _md5map;
         ImageInfoList _clipboard;
         int _fileVersion;
-    };
+
+        // used for checking if any images are without image attribute from the database.
+        static bool _anyImageWithEmptySize;
+};
 }
 
 #endif /* XMLDB_H */

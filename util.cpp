@@ -55,37 +55,6 @@ extern "C" {
 
 
 
-void Util::readOptions( QDomElement elm, QMap<QString, QStringList>* options )
-{
-    Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
-
-    for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
-
-        if ( nodeOption.isElement() )  {
-            QDomElement elmOption = nodeOption.toElement();
-            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
-            QString name = elmOption.attribute( QString::fromLatin1("name") );
-            if ( name == QString::fromLatin1( "Folder" ) )
-                continue; // KimDaBa 2.0 save this to the file, that was a mistake.
-
-            if ( !name.isNull() )  {
-                // Read values
-                for ( QDomNode nodeValue = elmOption.firstChild(); !nodeValue.isNull();
-                      nodeValue = nodeValue.nextSibling() ) {
-                    if ( nodeValue.isElement() ) {
-                        QDomElement elmValue = nodeValue.toElement();
-                        Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
-                        QString value = elmValue.attribute( QString::fromLatin1("value") );
-                        if ( !value.isNull() )  {
-                            (*options)[name].append( value );
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
     Q_ASSERT( info );

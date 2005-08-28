@@ -51,6 +51,7 @@
 #include "categorycollection.h"
 #include "imageinfo.h"
 #include "miniviewer.h"
+#include "xmldb/xmldb.h"
 
 class KPushButton;
 
@@ -190,7 +191,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
         }
         QDomElement elm = node.toElement();
 
-        ImageInfoPtr info = new ImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm, 0 ); // PENDING(blackie) fix the zero
+        ImageInfoPtr info = XMLDB::XMLDB::createImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
         _images.append( info );
     }
 

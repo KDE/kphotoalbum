@@ -61,7 +61,6 @@
 #include <donate.h>
 #include <kstdaction.h>
 #include "deletethumbnailsdialog.h"
-#include "thumbnailbuilder.h"
 #include <kedittoolbar.h>
 #include "export.h"
 #include "import.h"
@@ -85,6 +84,8 @@
 #include "invaliddatefinder.h"
 #include "imageinfo.h"
 #include "mysurvey.h"
+#include <libkexif/kexifdialog.h>
+#include <config.h>
 
 MainView* MainView::_instance = 0;
 
@@ -615,8 +616,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
     new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
-    new KAction( i18n("Remove All Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
-    new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
+    new KAction( i18n("Remove All KimDaBa 2.1 Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
 
     // Settings
     KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
@@ -658,6 +658,11 @@ void MainView::setupMenuBar()
     new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
     new KAction( i18n("Answer KimDaBa Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
     new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
+
+    // Context menu actions
+#ifdef KEXIF_SUPPORT
+    _showExifDialog = new KAction( i18n("Show Exif Info"), 0, this, SLOT( slotShowExifInfo() ), actionCollection(), "showExifInfo" );
+#endif
 
     connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
     createGUI( QString::fromLatin1( "kimdabaui.rc" ), false );
@@ -819,6 +824,9 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
         _configAllSimultaniously->plug( &menu );
         _runSlideShow->plug( &menu );
         _runRandomSlideShow->plug( &menu );
+#ifdef KEXIF_SUPPORT
+        _showExifDialog->plug( &menu );
+#endif
 
         menu.insertSeparator();
 
@@ -838,6 +846,8 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
             menu.setItemEnabled( id, false );
 
         menu.exec( QCursor::pos() );
+
+        delete externalCommands;
     }
 }
 
@@ -1046,11 +1056,6 @@ void MainView::slotRemoveAllThumbnails()
 {
     DeleteThumbnailsDialog dialog( this );
     dialog.exec();
-}
-
-void MainView::slotBuildThumbnails()
-{
-    new ThumbnailBuilder( this ); // It will delete itself
 }
 
 void MainView::slotRunSlideShow()
@@ -1334,6 +1339,16 @@ void MainView::convertBackend()
 void MainView::slotRecalcCheckSums()
 {
     ImageDB::instance()->slotRecalcCheckSums( selected() );
+}
+
+void MainView::slotShowExifInfo()
+{
+#ifdef KEXIF_SUPPORT
+    QStringList items = selected();
+    KExifDialog* dialog = new KExifDialog( this );
+    dialog->loadFile( items[0] );
+    dialog->exec();
+#endif
 }
 
 #include "mainview.moc"

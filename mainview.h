@@ -100,7 +100,6 @@ protected slots:
     void markDirty();
     void donateMoney();
     void slotRemoveAllThumbnails();
-    void slotBuildThumbnails();
     void slotRunSlideShow();
     void slotRunRandomizedSlideShow();
     void slotConfigureToolbars();
@@ -124,6 +123,7 @@ protected slots:
     void startAutoSaveTimer();
     void convertBackend();
     void slotRecalcCheckSums();
+    void slotShowExifInfo();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -185,6 +185,8 @@ private:
     KAction* _runSlideShow;
     KAction* _runRandomSlideShow;
     PluginInterface* _pluginInterface;
+    KAction* _showExifDialog;
+
 #ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
 #endif

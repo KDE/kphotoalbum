@@ -11,6 +11,17 @@ AC_SUBST(KIMDABA_KIPI_CXXFLAGS)
 AM_CONDITIONAL(HAVE_KIPI, test "$have_kipi" = "yes")
 
 
+# -------------------------------------------------- KEXIF Check
+KDE_CHECK_HEADER(libkexif/kexifdialog.h,  have_kexif=yes, have_kexif=no)
+
+if test "$have_kexif" = "no"; then
+  AC_MSG_WARN([Can't find libkexif, compiling without]);  
+else
+   AC_DEFINE(KEXIF_SUPPORT, 1, [Define to 1 if you have libkexif])
+fi
+AC_SUBST(KIMDABA_KIPI_CXXFLAGS)
+
+
 
 
 dnl ============================================================

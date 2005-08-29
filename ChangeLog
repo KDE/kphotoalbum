@@ -1,3 +1,10 @@
+2005-08-29  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added a Exif dialog to the context menu in the browser.
+
+	* KimDaBa now stores its thumbnails in ~/.thumbnails complying
+	with many other applications.
+
 2005-08-28  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added an option to save the index.xml file in a compressed

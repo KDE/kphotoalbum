@@ -48,11 +48,9 @@ extern "C" {
 #include <sys/stat.h>
 #include <setjmp.h>
 #include <sys/types.h>
+}
 #include "categorycollection.h"
 #include "imagedb.h"
-}
-
-
 
 
 QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )

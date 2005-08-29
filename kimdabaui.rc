@@ -46,7 +46,6 @@
       <Action name="convertBackend" />
       <Separator/>
       <Action name="removeAllThumbs"/>
-      <Action name="buildThumbs"/>
     </Menu>
     <Menu name="plugins">
       <text>Plugins</text>

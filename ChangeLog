@@ -1,3 +1,9 @@
+2005-08-28  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added an option to save the index.xml file in a compressed
+	format, this speeds up loading the xml file by approximate a
+	factor 2.
+
 2005-08-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added command line option --export-in-2.1-format to allow

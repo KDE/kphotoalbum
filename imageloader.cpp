@@ -41,6 +41,9 @@ extern "C" {
 }
 
 #include <qwmatrix.h>
+#include <kurl.h>
+#include <kdebug.h>
+#include <kmdcodec.h>
 
 ImageLoader::ImageLoader( QWaitCondition* sleeper )
     : _sleeper( sleeper )
@@ -53,65 +56,14 @@ void ImageLoader::run()
         ImageRequest* request = ImageManager::instance()->next();
 
         if ( request ) {
-            bool ok = false;
-            QImage img;
-            bool imageLoaded = false;
-
-            QString cacheDir =  Util::getThumbnailDir( request->fileName() );
-            QString cacheFile = Util::getThumbnailFile( request->fileName(), request->width(), request->height(), request->angle() );
-            // Try to load thumbernail from cache
-            if ( QFileInfo( cacheFile ).exists() ) {
-                if ( img.load( cacheFile ) )  {
-                    imageLoaded = true;
-                    ok = true;
+            bool ok;
+            QImage img = tryLoadThumbnail( request, ok );
+            if ( ! ok ) {
+                img = loadImage( request, ok );
+                if ( ok ) {
+                    writeThumbnail( request, img );
+                    img = scaleAndRotate( request, img );
                 }
-            }
-
-            if ( !imageLoaded && QFile( request->fileName() ).exists() ) {
-                if (Util::isJPEG(request->fileName())) {
-                    QSize fullSize;
-                    ok = Util::loadJPEG(&img, request->fileName(),  &fullSize, request->width(), request->height());
-                    if (ok == true)
-                        request->setFullSize( fullSize );
-                } else {
-                    ok = img.load( request->fileName() );
-                    if (ok)
-                        request->setFullSize( img.size() );
-                }
-				if (!ok) {
-					// Still didn't work, try with our own decoders
-                    QSize fullSize;
-					ok = ImageDecoder::decode( &img, request->fileName(),  &fullSize, request->width(), request->height());
-					if (ok)
-						request->setFullSize( img.size() );
-				}
-
-                if (ok) {
-                    if ( request->angle() != 0 )  {
-                        QWMatrix matrix;
-                        matrix.rotate( request->angle() );
-                        img = img.xForm( matrix );
-                        int angle = (request->angle() + 360)%360;
-                        Q_ASSERT( angle >= 0 && angle <= 360 );
-                        if ( angle == 90 || angle == 270 )
-                            request->setFullSize( QSize( request->fullSize().height(), request->fullSize().width() ) );
-
-                    }
-
-                    // If we are looking for a scaled version, then scale
-                    if ( request->width() != -1 && request->height() != -1 )
-                        img = img.smoothScale( request->width(), request->height(), QImage::ScaleMin );
-
-                    // Save thumbnail to disk
-                    if ( request->cache() ) {
-                        if ( ! QDir( cacheDir ).exists() ) {
-                            QDir().mkdir( cacheDir, true );
-                        }
-                        img.save( cacheFile, "JPEG" );
-                    }
-                }
-
-                imageLoaded = true;
             }
 
             request->setLoadedOK( ok );
@@ -143,4 +95,129 @@ void ImageLoader::removeThumbnail( const QString& imageFile )
     for( QStringList::ConstIterator it = files.begin(); it != files.end(); ++it ) {
         dir.remove( *it );
     }
+}
+
+QImage ImageLoader::tryLoadThumbnail( ImageRequest* request, bool& ok )
+{
+    ok = false;
+    QString path = thumbnailPath( request );
+    if ( QFile::exists( path ) ) {
+        QImage img;
+        ok = img.load( path );
+        if ( img.text( "Thumb::MTime" ).toInt() != QFileInfo(request->fileName()).lastModified().toTime_t() )
+            ok = false;
+        return img;
+    }
+    return QImage();
+}
+
+QImage ImageLoader::loadImage( ImageRequest* request, bool& ok )
+{
+    int dim = calcLoadSize( request );
+    QSize fullSize;
+
+    ok = false;
+    if ( !QFile( request->fileName() ).exists() )
+        return QImage();
+
+    QImage img;
+    if (Util::isJPEG(request->fileName())) {
+        ok = Util::loadJPEG(&img, request->fileName(),  &fullSize, dim);
+        if (ok == true)
+            request->setFullSize( fullSize );
+    } else {
+        ok = img.load( request->fileName() );
+        if (ok)
+            request->setFullSize( img.size() );
+    }
+    if (!ok) {
+        // Still didn't work, try with our own decoders
+        ok = ImageDecoder::decode( &img, request->fileName(),  &fullSize, dim);
+        if (ok)
+            request->setFullSize( img.size() );
+    }
+
+    return img;
+}
+
+void ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
+{
+    QDir dir(QDir::homeDirPath());
+    dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
+    dir.cd( QString::fromLatin1( ".thumbnails" ) );
+    dir.mkdir( QString::fromLatin1( "normal" ) );
+    dir.mkdir( QString::fromLatin1( "large" ) );
+
+    QString path = thumbnailPath( request );
+    if ( path.isNull() )
+        return;
+
+    int dim = calcLoadSize( request );
+    QFileInfo fi( request->fileName() );
+    img = img.smoothScale( dim, dim, QImage::ScaleMin );
+    img.setText( "Software","en",QString::fromLatin1( "KimDaBa" ) );
+    img.setText( "Thumb::URI", "en", requestURL( request ) );
+    img.setText( "Thumb::MTime", "en", QString::number( fi.lastModified().toTime_t() ) );
+    img.setText( "Thumb::Size", "en", QString::number( fi.size() ) );
+    img.setText( "Thumb::Image::Width", "en", QString::number( request->fullSize().width() ) );
+    img.setText( "Thumb::Image::Height", "en", QString::number( request->fullSize().height() ) );
+
+
+    img.save( path, "PNG" );
+}
+
+int ImageLoader::calcLoadSize( ImageRequest* request )
+{
+    if ( request->width() == -1 )
+        return -1;
+
+    int max = QMAX( request->width(), request->height() );
+    if ( max > 256 )
+        return max;
+    else if ( max > 128 )
+        return 256;
+    else
+        return 128;
+}
+
+QImage ImageLoader::scaleAndRotate( ImageRequest* request, QImage img )
+{
+    if ( request->angle() != 0 )  {
+        QWMatrix matrix;
+        matrix.rotate( request->angle() );
+        img = img.xForm( matrix );
+        int angle = (request->angle() + 360)%360;
+        Q_ASSERT( angle >= 0 && angle <= 360 );
+        if ( angle == 90 || angle == 270 )
+            request->setFullSize( QSize( request->fullSize().height(), request->fullSize().width() ) );
+    }
+
+    // If we are looking for a scaled version, then scale
+    if ( request->width() != -1 )
+        img = img.smoothScale( request->width(), request->height(), QImage::ScaleMin );
+
+    return img;
+}
+
+QString ImageLoader::thumbnailPath( ImageRequest* request )
+{
+    QString uri = requestURL( request );
+
+    QString dir;
+    if ( calcLoadSize( request ) == 256 )
+        dir = QString::fromLatin1( "large" );
+    else if ( calcLoadSize( request ) == 128 )
+        dir = QString::fromLatin1( "normal" );
+    else
+        return QString::null;
+
+    KMD5 md5( uri.utf8() );
+    return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homeDirPath()).arg(dir).arg(md5.hexDigest());
+}
+
+QString ImageLoader::requestURL( ImageRequest* request )
+{
+    KURL url;
+    url.setPath( request->fileName() );
+    return url.url();
 }

@@ -6,16 +6,16 @@
 
 class ImageDecoder {
 public:
-	static bool decode( QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1 );
+	static bool decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1 );
 	static bool mightDecode( const QString& imageFile );
-	
+
 	virtual ~ImageDecoder();
-	
+
 protected:
 	ImageDecoder();
-	virtual bool _decode( QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1 ) = 0;
+	virtual bool _decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1 ) = 0;
 	virtual bool _mightDecode( const QString& imageFile ) = 0;
-	
+
 private:
 	static QPtrList<ImageDecoder>* decoders();
 };

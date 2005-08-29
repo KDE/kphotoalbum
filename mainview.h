@@ -124,6 +124,10 @@ protected slots:
     void startAutoSaveTimer();
     void convertBackend();
     void slotRecalcCheckSums();
+    void slotSmallIcons();
+    void slotMediumIcons();
+    void slotLargeIcons();
+
 
 protected:
     void configureImages( bool oneAtATime );

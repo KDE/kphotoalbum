@@ -43,8 +43,8 @@ public:
     static QString getThumbnailFile( const QString& imageFile, int width, int height, int angle );
     static void removeThumbNail( const QString& imageFile );
     static QString readFile( const QString& fileName );
-    static bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
-    static bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width=-1, int height=-1);
+    static bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
+    static bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim=-1);
     static bool isJPEG( const QString& fileName );
 
     static QStringList shuffle( const QStringList& list );

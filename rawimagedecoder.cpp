@@ -14,16 +14,15 @@ extern "C" {
 class RAWImageDecoder : public ImageDecoder {
 public:
 	RAWImageDecoder() {}
-	
-	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int width=-1, int height=-1);
+
+	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
 	virtual bool _mightDecode( const QString& imageFile );
 };
 
-bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int width, int height)
+bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
   /* width and height seem to be only hints, ignore */
-  Q_UNUSED( width );
-  Q_UNUSED( height );
+  Q_UNUSED( dim );
   /* Open file and extract thumbnail */
   FILE* input = fopen( QFile::encodeName(imageFile), "rb" );
   if( !input ) return false;
@@ -37,7 +36,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
   fclose(input);
   output.close();
   if( !img->load( output.name() ) ) return false;
-  
+
   if( fullSize ) *fullSize = img->size();
 
   if(orientation) {
@@ -64,19 +63,19 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 {
 	/* Known RAW file extensions. TODO: Complete */
-	static const QString extensions[] = { QString::fromLatin1("crw"), 
-										  QString::fromLatin1("cr2"), 
-										  QString::fromLatin1("nef"), 
-										  QString::fromLatin1("bay"), 
-										  QString::fromLatin1("mos"), 
+	static const QString extensions[] = { QString::fromLatin1("crw"),
+										  QString::fromLatin1("cr2"),
+										  QString::fromLatin1("nef"),
+										  QString::fromLatin1("bay"),
+										  QString::fromLatin1("mos"),
 										  QString::fromLatin1("mrw"),
 										  QString::fromLatin1("orf"),
 										  QString::fromLatin1("cs1"),
-										  QString::fromLatin1("dc2"), 
+										  QString::fromLatin1("dc2"),
 										  QString::fromLatin1("kdc"),
 										  QString::fromLatin1("raf"),
 										  QString::fromLatin1("rdc"),
-										  QString::fromLatin1("x3f"), 
+										  QString::fromLatin1("x3f"),
 										  QString::null };
 	for( int i = 0; !extensions[i].isNull(); ++i ) {
 		if( imageFile.endsWith( extensions[i], false ) ) return true;

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="24">
+<kpartgui name="kimdaba" version="25">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -88,6 +88,9 @@
     <Action name="go_forward"/>
     <Action name="runSlideShow"/>
     <Action name="configureView"/>
+    <Action name="smallIcons"/>
+    <Action name="mediumIcons"/>
+    <Action name="largeIcons"/>
   </ToolBar>
 
 

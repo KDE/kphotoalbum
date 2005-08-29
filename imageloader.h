@@ -28,8 +28,16 @@ public:
     ImageLoader( QWaitCondition* sleeper );
     static QImage rotateAndScale( QImage, int width, int height, int angle );
     static void removeThumbnail( const QString& imageFile );
+
 protected:
     virtual void run();
+    QImage tryLoadThumbnail( ImageRequest* request, bool& ok );
+    QImage loadImage( ImageRequest* request, bool& ok );
+    void writeThumbnail( ImageRequest* request, QImage image );
+    int calcLoadSize( ImageRequest* request );
+    QImage scaleAndRotate( ImageRequest* request, QImage img );
+    QString thumbnailPath( ImageRequest* request );
+    QString requestURL( ImageRequest* request );
 
 private:
     QWaitCondition* _sleeper;

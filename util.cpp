@@ -346,17 +346,17 @@ extern "C"
     }
 }
 
-bool Util::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int width, int height)
+bool Util::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
     FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
     if(!inputFile)
         return false;
-    bool ok = loadJPEG( img, inputFile, fullSize, width, height );
+    bool ok = loadJPEG( img, inputFile, fullSize, dim );
     fclose(inputFile);
     return ok;
 }
 
-bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width, int height)
+bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim )
 {
     struct jpeg_decompress_struct    cinfo;
     struct myjpeg_error_mgr jerr;
@@ -379,9 +379,8 @@ bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int width, in
 
     //libjpeg supports a sort of scale-while-decoding which speeds up decoding
     int scale=1;
-    if (width != -1 || height != -1) {
-        int size_=QMAX(width, height);
-        while(size_*scale*2<=imgSize) {
+    if (dim != -1) {
+        while(dim*scale*2<=imgSize) {
             scale*=2;
         }
         if(scale>8) scale=8;

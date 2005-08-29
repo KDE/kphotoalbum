@@ -648,10 +648,6 @@ void MainView::setupMenuBar()
     _viewMenu->insert( _largeIconView );
     _largeIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
-    KAction* smallIcons = new KAction( i18n("Small Icons"), 0, this, SLOT( slotSmallIcons() ), actionCollection(), "smallIcons" );
-    KAction* mediumIcons = new KAction( i18n("Medium Icons"), 0, this, SLOT( slotMediumIcons() ), actionCollection(), "mediumIcons" );
-    KAction* largeIcons = new KAction( i18n("Large Icons"), 0, this, SLOT( slotLargeIcons() ), actionCollection(), "largeIcons" );
-
 
     connect( _browser, SIGNAL( currentSizeAndTypeChanged( Category::ViewSize, Category::ViewType ) ),
              this, SLOT( slotUpdateViewMenu( Category::ViewSize, Category::ViewType ) ) );
@@ -1338,21 +1334,6 @@ void MainView::convertBackend()
 void MainView::slotRecalcCheckSums()
 {
     ImageDB::instance()->slotRecalcCheckSums( selected() );
-}
-
-void MainView::slotSmallIcons()
-{
-
-}
-
-void MainView::slotMediumIcons()
-{
-
-}
-
-void MainView::slotLargeIcons()
-{
-
 }
 
 #include "mainview.moc"

@@ -62,9 +62,11 @@ void ImageLoader::run()
                 img = loadImage( request, ok );
                 if ( ok ) {
                     writeThumbnail( request, img );
-                    img = scaleAndRotate( request, img );
                 }
             }
+
+            if ( ok )
+                img = scaleAndRotate( request, img );
 
             request->setLoadedOK( ok );
             ImageEvent* iew = new ImageEvent( request, img );

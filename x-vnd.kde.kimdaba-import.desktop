@@ -17,6 +17,7 @@ Comment[sr@Latn]=Uvoz u KimDaBa-u
 Comment[sv]=KimDaBa-import
 Comment[ta]=கிம்டாபா உள்வாங்கல்
 Comment[tr]=KimDaBa dosya alma
+Comment[xx]=xxKimDaBa importxx
 Icon=kimdaba
 Type=MimeType
 MimeType=application/vnd.kde.kimdaba-import

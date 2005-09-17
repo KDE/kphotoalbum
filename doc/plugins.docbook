@@ -4,7 +4,7 @@
 applications, among these <application>digiKam</application> and 
 <application>Gwenview</application>. The plugin system is named
 <application>Kipi</application>, which is short for &kde; Image Plugin
-Interface. See <ulink url="http://extragear.kde.org/apps/kipi.php">Kipi Homepage</ulink></para>
+Interface. See <ulink url="http://extragear.kde.org/apps/kipi/">Kipi Homepage</ulink></para>
 
 <para>The plugins are available from the menu bar, under the item
 <guimenu>Plugins</guimenu>. The plugins will and can not be described in

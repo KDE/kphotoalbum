@@ -327,12 +327,12 @@ bool HTMLExportDialog::generate()
     }
 
 
+    if ( _waitCounter > 0 )
+        qApp->eventLoop()->enterLoop();
+
     bool ok = linkIndexFile();
     if ( !ok )
         return false;
-
-    if ( _waitCounter > 0 )
-        qApp->eventLoop()->enterLoop();
 
     // Copy over the mainpage.css, indepage.css
     QString themeDir, themeAuthor, themeName;
@@ -768,9 +768,10 @@ bool HTMLExportDialog::linkIndexFile()
                                .arg((*it)->text(true));
             QString destFile = _tempDir + QString::fromLatin1("/index.html");
             // bool ok = ( symlink( QFile::encodeName(fromFile), QFile::encodeName(destFile) ) == 0 );
-            bool ok = Util::copy( fromFile, destFile );
+            kdDebug() <<fromFile << " " << QFile( fromFile ).exists() << " " << destFile << endl;
+            bool ok = Util::copy( QFileInfo(destFile).dirPath() + fromFile, destFile );
             if ( !ok ) {
-                KMessageBox::error( this, i18n("<qt>Unable to make a symlink from %1 to %2</qt>")
+                KMessageBox::error( this, i18n("<qt>Unable to copy %1 to %2</qt>")
                                     .arg( fromFile ).arg( destFile ) );
 
                 return false;

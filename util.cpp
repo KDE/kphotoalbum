@@ -51,6 +51,7 @@ extern "C" {
 }
 #include "categorycollection.h"
 #include "imagedb.h"
+#include <kdebug.h>
 
 
 QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
@@ -221,9 +222,11 @@ bool Util::copy( const QString& from, const QString& to )
     QFile out( to );
 
     if ( !in.open(IO_ReadOnly) ) {
+        kdWarning() << "Couldn't open " << from << " for reading\n";
         return false;
     }
     if ( !out.open(IO_WriteOnly) ) {
+        kdWarning() << "Couldn't open " << to << " for writing\n";
         in.close();
         return false;
     }

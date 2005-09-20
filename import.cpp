@@ -52,6 +52,7 @@
 #include "imageinfo.h"
 #include "miniviewer.h"
 #include "xmldb/xmldb.h"
+#include <kdebug.h>
 
 class KPushButton;
 
@@ -564,7 +565,7 @@ void Import::updateDB()
         newInfo->setDrawList( info->drawList() );
         newInfo->setMD5Sum( info->MD5Sum() );
         ImageInfoList list;
-        list.append(info);
+        list.append(newInfo);
         ImageDB::instance()->addImages( list );
 
         // Run though the categories

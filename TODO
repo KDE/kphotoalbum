@@ -1,6 +1,8 @@
 =================
 TODO UTTERLY SOON
 =================
+The export feature currently saves in whatever is the current XML encoding
+- that is no good, as this will make it save in uncompatible format.
 
 ==========================
 BUGS To be handled soonish
@@ -18,6 +20,7 @@ different in the image property page.
   exported file is actually a JPEG.
 - look into using libkexif rather than kdeutil for reading EXIF info, or
 alternatively warn the user about kdelibs not installed.
+- changing tokens doesn't mark the DB as dirty.
 
 =======================
 BUGS of less importance
@@ -118,3 +121,10 @@ a 32x32 image to 1024x768)
   Paris > StreetArt > Invaders
   and the ability to click on them to remove them from the filter
   (enlarging the selection).
+- Lots of people are asking for an extension of the token feature. One
+  useful extension could be this:
+  In the viewer make it possible to show up a dialog that allows user to
+  move tokens to items in the categories. That way I could add "Jesper" to
+  all images with the token "J". This would allow me to shortcut the step
+  of going out of the viewer, into the token editor, just to search for all
+  images with token "j", and then set person Jesper on these.

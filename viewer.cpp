@@ -270,6 +270,9 @@ void Viewer::load()
     _firstAction->setEnabled( _current > 0 );
     _lastAction->setEnabled( _current +1 < (int) _list.count() );
     updateCategoryConfig();
+
+    if (_slideShowTimer->isActive() )
+        _slideShowTimer->changeInterval( _slideShowPause );
 }
 
 void Viewer::contextMenuEvent( QContextMenuEvent * e )

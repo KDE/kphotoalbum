@@ -1,5 +1,7 @@
 2005-09-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: Setting tokens should mark the database as dirty.
+
 	* BUGFIX: Restart slideshow timer when user manually moves to a
 	new image.
 

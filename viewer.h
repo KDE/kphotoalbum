@@ -68,6 +68,9 @@ protected:
     ImageInfoPtr currentInfo();
     friend class InfoBox;
 
+signals:
+    void dirty();
+
 protected slots:
     void showNext();
     void showPrev();

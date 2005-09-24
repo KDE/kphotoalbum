@@ -498,6 +498,7 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
         }
         else {
             viewer = new Viewer( "viewer" );
+            connect( viewer, SIGNAL( dirty() ), this, SLOT( markDirty() ) );
         }
         viewer->show( slideShow );
 

@@ -716,6 +716,7 @@ void Viewer::keyPressEvent( QKeyEvent* event )
         else
             currentInfo()->addOption( QString::fromLatin1("Tokens"), token );
         updateInfoBox();
+        emit dirty();
     }
     QWidget::keyPressEvent( event );
 }

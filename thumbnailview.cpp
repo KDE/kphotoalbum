@@ -112,10 +112,6 @@ void ThumbNailView::reload()
         if ( !first )
             first = tn;
     }
-    if ( first ) {
-        first->setSelected( true );
-        setCurrentItem( first );
-    }
 
     emitDateChange();
 }

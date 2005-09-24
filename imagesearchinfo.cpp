@@ -100,7 +100,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     QString txt = info->description();
     QStringList list = QStringList::split( QChar(' '), _description );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        ok &= ( txt.find(*it) != -1 );
+        ok &= ( txt.find( *it, 0, false ) != -1 );
     }
 
     return ok;

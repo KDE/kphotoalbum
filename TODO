@@ -13,7 +13,6 @@ BUGS To be handled soonish
 different in the image property page.
 - Config window layout should be saved when a new tab has been created.
 - the tips of the day screen only shows up randomly.
-- searches using the description field should be case insensitive.
 - When exporting to HTML or otherwise, use a filename suffix that
   matches what's actually being exported.  For example, exporting a
   file named foo.png generates a file named foo.png, even though the

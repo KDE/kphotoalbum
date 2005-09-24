@@ -42,7 +42,7 @@ extern "C" {
 #include <kcmdlineargs.h>
 #include "xmldb/xmlcategory.h"
 
-ImageInfo::ImageInfo() :_null( true )
+ImageInfo::ImageInfo() :_null( true ), _locked( false )
 {
 }
 
@@ -452,6 +452,7 @@ ImageInfo::ImageInfo( const QString& fileName,
     _md5sum =md5sum;
     _size = size;
     _imageOnDisk = Unchecked;
+    _locked = false;
 }
 
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )

@@ -1,3 +1,4 @@
+#!/bin/sh
 #select *, UTC_TIMESTAMP() from test;
 
 echo y | mysqladmin -u root drop kimdaba

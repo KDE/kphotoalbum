@@ -1,3 +1,4 @@
+#!/bin/sh
 mysql -u root kimdaba << EOF
 
 insert into membergroup( groupname, category, member ) values

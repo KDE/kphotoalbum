@@ -19,7 +19,6 @@ different in the image property page.
   exported file is actually a JPEG.
 - look into using libkexif rather than kdeutil for reading EXIF info, or
 alternatively warn the user about kdelibs not installed.
-- changing tokens doesn't mark the DB as dirty.
 
 =======================
 BUGS of less importance
@@ -58,8 +57,6 @@ Features for a soonish version
   If it doesn´t work, the default KDE icon, just like today.
   The problem here is speed. Currently it is not possible to load these images
   using the image manager, so say 300 images would take approx 1 minute to load.
-- Make it possible to use the thumbnail standard
-  (http://jens.triq.net/thumbnail-spec/) 
 - The image display window should show the zoom-factor in the
 caption
 - when using the back button, the window should position it correctly rather than at
@@ -127,3 +124,8 @@ a 32x32 image to 1024x768)
   all images with the token "J". This would allow me to shortcut the step
   of going out of the viewer, into the token editor, just to search for all
   images with token "j", and then set person Jesper on these.
+- I find that when I'm adding tokens to a set of pictures, it is frequently the
+  case that the tokens I want to apply to a picture are exactly (or close to)
+  the same tokens I set for the last picture. So a single character (maybe '/'
+  or some other non-token character) to duplicate the previous pictures tokens
+  would be a wonderful time-saver.

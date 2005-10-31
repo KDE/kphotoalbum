@@ -1147,8 +1147,7 @@ void MainView::loadPlugins()
 
     QStringList ignores;
     ignores << QString::fromLatin1( "CommentsEditor" )
-            << QString::fromLatin1( "HelloWorld" )
-            << QString::fromLatin1( "SlideShow" );
+            << QString::fromLatin1( "HelloWorld" );
 
     _pluginLoader = new KIPI::PluginLoader( ignores, _pluginInterface );
     connect( _pluginLoader, SIGNAL( replug() ), this, SLOT( plug() ) );

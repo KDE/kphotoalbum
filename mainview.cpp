@@ -576,9 +576,9 @@ void MainView::setupMenuBar()
     _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
     new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
-    _configOneAtATime = new KAction( i18n( "Configure Images &One at a Time..." ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+    _configOneAtATime = new KAction( i18n( "Set Properties for Individual Images" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
-    _configAllSimultaniously = new KAction( i18n( "Configure &All Images Simultaneously..." ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+    _configAllSimultaniously = new KAction( i18n( "Set Properties for Multiple Images at a Time" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
 
     // The Images menu
@@ -1138,6 +1138,7 @@ void MainView::setupPluginMenu()
 
 void MainView::loadPlugins()
 {
+#ifdef HASKIPI
     ShowBusyCursor dummy;
     if ( _hasLoadedPlugins )
         return;
@@ -1156,6 +1157,7 @@ void MainView::loadPlugins()
     // Setup signals
     connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
     _hasLoadedPlugins = true;
+#endif // HASKIPI
 }
 
 

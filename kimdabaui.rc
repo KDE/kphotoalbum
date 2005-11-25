@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="26">
+<kpartgui name="kimdaba" version="27">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -9,11 +9,9 @@
     <Menu name="edit" >
       <Action name="deleteSelected" />
       <Action name="removeTokens" />
-      <Menu name="properties">
-        <text>P&amp;roperties</text>
-        <Action name="oneProp"/>
-        <Action name="allProp"/>
-      </Menu>
+      <Separator/>
+      <Action name="oneProp"/>
+      <Action name="allProp"/>
     </Menu>
     <Menu name="Images" >
       <text>&amp;Images</text>

@@ -23,7 +23,7 @@ ExifDialog::ExifDialog( const QString& fileName, QWidget* parent, const char* na
     QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
     QLabel* label = new QLabel( fileName, top );
     QFont fnt = font();
-    fnt.setPointSize( (int) (f1.pointSize() * 1.2) );
+    fnt.setPointSize( (int) (fnt.pointSize() * 1.2) );
     fnt.setWeight( QFont::Bold );
     label->setFont( fnt );
     label->setAlignment( AlignCenter );
@@ -46,8 +46,8 @@ ExifDialog::ExifDialog( const QString& fileName, QWidget* parent, const char* na
     _searchLabel = new QLabel( top );
     _searchLabel->setPaletteForegroundColor( red );
     fnt = font();
-    fnr.setWeight( QFont::Bold );
-    _searchLabel->setFont( fnr );
+    fnt.setWeight( QFont::Bold );
+    _searchLabel->setFont( fnt );
 
     hlay->addWidget( _searchLabel );
     hlay->addStretch( 1 );

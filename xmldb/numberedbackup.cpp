@@ -70,6 +70,9 @@ void XMLDB::NumberedBackup::deleteOldBackupFiles()
 {
     int maxId = getMaxId();
     int maxBackupFiles = Options::instance()->backupCount();
+    if ( maxBackupFiles == -1 )
+        return;
+
     QStringList files = backupFiles();
 
     for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {

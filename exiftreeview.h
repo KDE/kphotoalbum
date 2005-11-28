@@ -11,6 +11,7 @@ public:
     ExifTreeView( const QString& title, QWidget* parent, const char* name = 0 );
     Set<QString> selected();
     void setSelected( const Set<QString>& selected );
+    void reload();
 
 protected slots:
     void toggleChildren( QListViewItem* );

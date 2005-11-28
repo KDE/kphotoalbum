@@ -7,23 +7,71 @@
 #include <qevent.h>
 #include <qtimer.h>
 #include <qlabel.h>
+#include "imagemanager.h"
+#include "imagerequest.h"
+#include "imagedb.h"
 
 ExifDialog::ExifDialog( const QString& fileName, QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name )
+    :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
 {
-    QWidget* top = plainPage();
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    setWFlags( WDestructiveClose | getWFlags() );
 
+    QWidget* top = plainPage();
+    QVBoxLayout* vlay = new QVBoxLayout( top, 6 );
+
+    // -------------------------------------------------- File name and pixmap
+    QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
+    QLabel* label = new QLabel( fileName, top );
+    QFont fnt = font();
+    fnt.setPointSize( (int) (f1.pointSize() * 1.2) );
+    fnt.setWeight( QFont::Bold );
+    label->setFont( fnt );
+    label->setAlignment( AlignCenter );
+    hlay->addWidget( label, 1 );
+
+    _pix = new QLabel( top );
+    hlay->addWidget( _pix );
+    ImageManager::instance()->load( new ImageRequest( fileName, QSize( 128, 128 ), ImageDB::instance()->info(fileName)->angle(), this ) );
+
+    // -------------------------------------------------- Exif Grid
     ExifGrid* grid = new ExifGrid( fileName, top );
-    lay1->addWidget( grid );
+    vlay->addWidget( grid );
+    grid->setFocus();
+
+    // -------------------------------------------------- Current Search
+    hlay = new QHBoxLayout( vlay, 6 );
+    label = new QLabel( i18n( "Current Search: "), top );
+    hlay->addWidget( label );
+
+    _searchLabel = new QLabel( top );
+    _searchLabel->setPaletteForegroundColor( red );
+    fnt = font();
+    fnr.setWeight( QFont::Bold );
+    _searchLabel->setFont( fnr );
+
+    hlay->addWidget( _searchLabel );
+    hlay->addStretch( 1 );
+
+    connect( grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
+    updateSearchString( QString::null );
 }
+
+void ExifDialog::updateSearchString( const QString& txt )
+{
+    if( txt.isEmpty() )
+        _searchLabel->setText( i18n("<No Search>") );
+    else
+        _searchLabel->setText( txt );
+}
+
 
 ExifGrid::ExifGrid( const QString& fileName, QWidget* parent, const char* name )
     :QGridView( parent, name )
 {
     QMap<QString,QString> map = ExifInfo::instance()->infoForDialog( fileName );
     calculateMaxKeyWidth( map );
-
+    setFocusPolicy( WheelFocus );
+    setHScrollBarMode( AlwaysOff );
 
     Set<QString> groups = exifGroups( map );
     int index = 0;
@@ -71,7 +119,13 @@ void ExifGrid::paintCell( QPainter * p, int row, int col )
         p->drawText( cellRect(), ((index % 2) ? AlignLeft : AlignRight ), _texts[index].first );
     }
     else {
-        p->drawText( cellRect(), AlignLeft, _texts[index].first);
+        QString text = _texts[index].first;
+        bool match = ( !_search.isEmpty() && text.contains( _search, false ) );
+        QFont f(p->font());
+        f.setWeight( match ? QFont::Bold : QFont::Normal );
+        p->setFont( f );
+        p->setPen( match ? red : black );
+        p->drawText( cellRect(), AlignLeft, text);
         QRect rect = cellRect();
         rect.setX( _maxKeyWidth + 10 );
         p->drawText( rect, AlignLeft, _texts[index].second );
@@ -127,10 +181,49 @@ void ExifGrid::updateGrid()
 
 void ExifGrid::calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo )
 {
+    QFont f = font();
+    f.setWeight( QFont::Bold );
+    QFontMetrics metrics( f );
     _maxKeyWidth = 0;
     for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
-        _maxKeyWidth = QMAX( _maxKeyWidth, QFontMetrics( font() ).width( exifNameNoGroup( it.key() ) ) );
+        _maxKeyWidth = QMAX( _maxKeyWidth, metrics.width( exifNameNoGroup( it.key() ) ) );
     }
+}
+
+void ExifGrid::keyPressEvent( QKeyEvent* e )
+{
+    switch ( e->key() ) {
+    case Key_Down:
+        scrollBy( 0, cellHeight() );
+        return;
+    case Key_Up:
+        scrollBy( 0, -cellHeight() );
+        return;
+    case Key_PageDown:
+        scrollBy( 0, (clipper()->height() - cellHeight() ));
+        return;
+    case Key_PageUp:
+        scrollBy( 0, -(clipper()->height() - cellHeight()) );
+        return;
+    case Key_Backspace:
+        _search.remove( _search.length()-1, 1 );
+        emit searchStringChanged( _search );
+        updateContents();
+        return;
+    }
+
+    if ( !e->text().isNull() ) {
+        _search += e->text();
+        emit searchStringChanged( _search );
+        updateContents();
+    }
+}
+
+
+void ExifDialog::pixmapLoaded( const QString& , const QSize& , const QSize& , int , const QImage& img, bool loadedOK )
+{
+    if ( loadedOK )
+        _pix->setPixmap( img );
 }
 
 #include "exifdialog.moc"

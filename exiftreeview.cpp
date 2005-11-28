@@ -9,35 +9,7 @@ ExifTreeView::ExifTreeView( const QString& title, QWidget* parent, const char* n
     :QListView( parent, name )
 {
     addColumn( title );
-
-    Set<QString> keys = ExifInfo::instance()->availableKeys();
-
-    QMap<QString, QCheckListItem*> tree;
-
-    for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
-        QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
-        QCheckListItem* parent = 0;
-        QString path = QString::null;
-        for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
-            if ( !path.isNull() )
-                path += QString::fromLatin1( "." );
-            path +=  *subKeyIt;
-            if ( tree.contains( path ) )
-                parent = tree[path];
-            else {
-                if ( parent == 0 )
-                    parent = new QCheckListItem( this, *subKeyIt, QCheckListItem::CheckBox );
-                else
-                    parent = new QCheckListItem( parent, *subKeyIt, QCheckListItem::CheckBox );
-                parent->setText( 1, path ); // This is simply to make the implementation of selected easier.
-                tree.insert( path, parent );
-            }
-        }
-    }
-
-    if ( QListViewItem* item = firstChild() )
-        item->setOpen( true );
-
+    reload();
     connect( this, SIGNAL( clicked( QListViewItem* ) ), this, SLOT( toggleChildren( QListViewItem* ) ) );
 }
 
@@ -70,6 +42,38 @@ void ExifTreeView::setSelected( const Set<QString>& selected )
         bool on = selected.contains( (*it)->text(1) );
         static_cast<QCheckListItem*>(*it)->setOn( on );
     }
+}
+
+void ExifTreeView::reload()
+{
+    clear();
+    Set<QString> keys = ExifInfo::instance()->availableKeys();
+
+    QMap<QString, QCheckListItem*> tree;
+
+    for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
+        QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
+        QCheckListItem* parent = 0;
+        QString path = QString::null;
+        for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
+            if ( !path.isNull() )
+                path += QString::fromLatin1( "." );
+            path +=  *subKeyIt;
+            if ( tree.contains( path ) )
+                parent = tree[path];
+            else {
+                if ( parent == 0 )
+                    parent = new QCheckListItem( this, *subKeyIt, QCheckListItem::CheckBox );
+                else
+                    parent = new QCheckListItem( parent, *subKeyIt, QCheckListItem::CheckBox );
+                parent->setText( 1, path ); // This is simply to make the implementation of selected easier.
+                tree.insert( path, parent );
+            }
+        }
+    }
+
+    if ( QListViewItem* item = firstChild() )
+        item->setOpen( true );
 }
 
 #include "exiftreeview.moc"

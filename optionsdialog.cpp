@@ -435,6 +435,8 @@ void OptionsDialog::show()
     }
 
 #ifdef HASEXIV2
+    _exifForViewer->reload();
+    _exifForDialog->reload();
     _exifForViewer->setSelected( Options::instance()->exifForViewer() );
     _exifForDialog->setSelected( Options::instance()->exifForDialog() );
 #endif

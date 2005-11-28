@@ -106,7 +106,7 @@ QImage ImageLoader::tryLoadThumbnail( ImageRequest* request, bool& ok )
     if ( QFile::exists( path ) ) {
         QImage img;
         ok = img.load( path );
-        if ( img.text( "Thumb::MTime" ).toInt() != QFileInfo(request->fileName()).lastModified().toTime_t() )
+        if ( img.text( "Thumb::MTime" ).toUInt() != QFileInfo(request->fileName()).lastModified().toTime_t() )
             ok = false;
         return img;
     }

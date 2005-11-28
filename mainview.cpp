@@ -84,8 +84,13 @@
 #include "invaliddatefinder.h"
 #include "imageinfo.h"
 #include "mysurvey.h"
-#include <libkexif/kexifdialog.h>
 #include <config.h>
+#ifdef HASEXIV2
+#  include "exifinfo.h"
+#  include "exifdialog.h"
+#endif
+
+#include "featuredialog.h"
 
 MainView* MainView::_instance = 0;
 
@@ -222,6 +227,9 @@ void MainView::delayedInit()
 
         possibleRunSuvey();
     }
+
+    if ( !Options::instance()->delayLoadingPlugins() )
+        loadPlugins();
 }
 
 
@@ -405,7 +413,7 @@ void MainView::slotDeleteSelected()
 
 void MainView::slotReadInfo()
 {
-    QStringList files = getSelectedOnDisk();;
+    QStringList files = selectedOnDisk();;
 
     int i = KMessageBox::warningContinueCancelList( this,
                 i18n( "<qt><p>Be aware that reading EXIF info from files may "
@@ -461,7 +469,7 @@ void MainView::slotViewNewWindow()
     slotView( false, false );
 }
 
-QStringList MainView::getSelectedOnDisk()
+QStringList MainView::selectedOnDisk()
 {
     QStringList listOnDisk;
     QStringList list = selected();
@@ -478,7 +486,7 @@ QStringList MainView::getSelectedOnDisk()
 
 void MainView::slotView( bool reuse, bool slideShow, bool random )
 {
-    QStringList listOnDisk = getSelectedOnDisk();
+    QStringList listOnDisk = selectedOnDisk();
 
     if ( listOnDisk.count() == 0 ) {
         QMessageBox::warning( this, i18n("No Images to Display"),
@@ -509,7 +517,7 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 
 void MainView::slotSortByDateAndTime()
 {
-    QStringList listOnDisk = getSelectedOnDisk();// just sort images available (on disk)
+    QStringList listOnDisk = selectedOnDisk();// just sort images available (on disk)
     ImageDB::instance()->sortAndMergeBackIn( listOnDisk );
     showThumbNails( ImageDB::instance()->search( Browser::instance()->currentContext() ) );
     markDirty();
@@ -659,9 +667,10 @@ void MainView::setupMenuBar()
     new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
     new KAction( i18n("Answer KimDaBa Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
     new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
+    new KAction( i18n("KimDaBa Feature Status"), 0, this, SLOT( showFeatures() ), actionCollection(), "features" );
 
     // Context menu actions
-#ifdef KEXIF_SUPPORT
+#ifdef HASEXIV2
     _showExifDialog = new KAction( i18n("Show Exif Info"), 0, this, SLOT( slotShowExifInfo() ), actionCollection(), "showExifInfo" );
 #endif
 
@@ -671,7 +680,7 @@ void MainView::setupMenuBar()
 
 void MainView::slotExportToHTML()
 {
-    QStringList list = getSelectedOnDisk();
+    QStringList list = selectedOnDisk();
     if ( list.count() == 0 )  {
         list = ImageDB::instance()->currentScope( true );
 
@@ -825,7 +834,7 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
         _configAllSimultaniously->plug( &menu );
         _runSlideShow->plug( &menu );
         _runRandomSlideShow->plug( &menu );
-#ifdef KEXIF_SUPPORT
+#ifdef HASEXIV2
         _showExifDialog->plug( &menu );
 #endif
 
@@ -966,6 +975,7 @@ void MainView::slotConfigureKeyBindings()
     dialog->insert( viewer->actions(), i18n("Viewer") );
 
 #ifdef HASKIPI
+    loadPlugins();
     KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
         KIPI::Plugin* plugin = (*it)->plugin();
@@ -1098,7 +1108,7 @@ void MainView::slotImport()
 
 void MainView::slotExport()
 {
-    QStringList list = getSelectedOnDisk();
+    QStringList list = selectedOnDisk();
     if ( list.count() == 0 ) {
         KMessageBox::sorry( this, i18n("No images to export.") );
     }
@@ -1345,12 +1355,19 @@ void MainView::slotRecalcCheckSums()
 
 void MainView::slotShowExifInfo()
 {
-#ifdef KEXIF_SUPPORT
-    QStringList items = selected();
-    KExifDialog* dialog = new KExifDialog( this );
-    dialog->loadFile( items[0] );
-    dialog->exec();
+#ifdef HASEXIV2
+    QStringList items = selectedOnDisk();
+    if ( !items.empty() ) {
+        ExifDialog* exifDialog = new ExifDialog( items[0], this );
+        exifDialog->show();
+    }
 #endif
+}
+
+void MainView::showFeatures()
+{
+    FeatureDialog dialog(this);
+    dialog.exec();
 }
 
 #include "mainview.moc"

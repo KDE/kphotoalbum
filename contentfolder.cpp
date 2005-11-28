@@ -46,7 +46,7 @@ QPixmap ContentFolder::pixmap()
         }
     }
     else
-        return Options::instance()->optionImage( _category, _value, 64 );
+        return Options::instance()->categoryImage( _category, _value, 64 );
 }
 
 QString ContentFolder::text() const

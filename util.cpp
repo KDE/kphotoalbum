@@ -51,8 +51,12 @@ extern "C" {
 }
 #include "categorycollection.h"
 #include "imagedb.h"
-#include <kdebug.h>
 
+#ifdef HASEXIV2
+#  include "exifinfo.h"
+#endif
+
+#include <kdebug.h>
 
 QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
@@ -101,6 +105,15 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
         if ( !text.isEmpty() )
             text += i18n("<b>Description: </b> ") +  info->description() + QString::fromLatin1("<br>");
     }
+
+#ifdef HASEXIV2
+    if ( Options::instance()->showEXIF() ) {
+        QMap<QString,QString> exifMap = ExifInfo::instance()->infoForViewer( info->fileName() );
+        for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+            text += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
+        }
+    }
+#endif
 
     return text;
 }

@@ -5,21 +5,24 @@ if test "$have_kipi" = "no"; then
   AC_MSG_WARN([Can't find KIPI (KDE Image Plugin Interface), compiling without]);  
 else
    KIMDABA_KIPI_CXXFLAGS="-DHASKIPI"
+   KIMDABA_KIPI_LIBS="-lkipi"
 fi
 AC_SUBST(KIMDABA_KIPI_CXXFLAGS)
+AC_SUBST(KIMDABA_KIPI_LIBS)
 
-AM_CONDITIONAL(HAVE_KIPI, test "$have_kipi" = "yes")
 
+# -------------------------------------------------- EXIV2 Check
+KDE_CHECK_HEADER(exiv2/exif.hpp,  have_exif2=yes, have_exif2=no)
 
-# -------------------------------------------------- KEXIF Check
-KDE_CHECK_HEADER(libkexif/kexifdialog.h,  have_kexif=yes, have_kexif=no)
-
-if test "$have_kexif" = "no"; then
-  AC_MSG_WARN([Can't find libkexif, compiling without]);  
+if test "$have_exif2" = "no"; then
+  AC_MSG_WARN([Can't find exif2, compiling without]);  
 else
-   AC_DEFINE(KEXIF_SUPPORT, 1, [Define to 1 if you have libkexif])
+   KIMDABA_EXIV2_CXXFLAGS="-DHASEXIV2"
+   KIMDABA_EXIV2_LIBS="-lexiv2"
 fi
-AC_SUBST(KIMDABA_KIPI_CXXFLAGS)
+AC_SUBST(KIMDABA_EXIV2_CXXFLAGS)
+AC_SUBST(KIMDABA_EXIV2_LIBS)
+AM_CONDITIONAL(compile_with_exiv2, test "$have_exif2" = "yes")
 
 
 

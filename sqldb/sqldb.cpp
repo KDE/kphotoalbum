@@ -360,3 +360,4 @@ bool SQLDB::SQLDB::isClipboardEmpty()
     return true;
 }
 
+#include "sqldb.moc"

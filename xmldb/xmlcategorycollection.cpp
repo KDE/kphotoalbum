@@ -66,3 +66,4 @@ void XMLDB::XMLCategoryCollection::initIdMap()
         static_cast<XMLCategory*>((*it).data())->initIdMap();
 }
 
+#include "xmlcategorycollection.moc"

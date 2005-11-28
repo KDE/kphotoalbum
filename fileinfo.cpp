@@ -5,7 +5,7 @@
 #include "util.h"
 #include <kdebug.h>
 
-// PENDING(blackie) rework to only use KEXIF, it is silly to use two different mechanisms for this.
+// PENDING(blackie) rework to only use EXIV2, it is silly to use two different mechanisms for this.
 FileInfo FileInfo::read( const QString& fileName )
 {
     FileInfo fi;

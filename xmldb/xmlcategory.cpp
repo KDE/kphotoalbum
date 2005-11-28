@@ -126,3 +126,5 @@ QString XMLDB::XMLCategory::nameForId( int id ) const
 {
     return _nameMap[id];
 }
+
+#include "xmlcategory.moc"

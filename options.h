@@ -25,6 +25,10 @@
 #include <qdom.h>
 #include "imagesearchinfo.h"
 #include "category.h"
+#ifdef HASEXIV2
+#  include "exifinfo.h"
+#endif
+#include "set.h"
 class ImageConfig;
 
 
@@ -42,6 +46,7 @@ class ImageConfig;
 #define boolProperty( group, prop, setFunction, defaultValue ) property__( bool, group, prop, setFunction, defaultValue )
 #define colorProperty( group, prop, setFunction, defaultValue ) property__( QColor, group, prop, setFunction, defaultValue )
 #define sizeProperty(  group, prop, setFunction, defaultValue ) property__( QSize, group, prop, setFunction, defaultValue )
+#define stringSetProperty( group, prop, setFunction, defaultValue ) property__( Set<QString>, group, prop, setFunction, defaultValue )
 
 class Options :public QObject {
     Q_OBJECT
@@ -84,9 +89,12 @@ public:
     boolProperty( Viewer, showDescription, setShowDescription, true );
     boolProperty( Viewer, showDate, setShowDate, true );
     boolProperty( Viewer, showTime, setShowTime, true );
+    boolProperty( Viewer, showEXIF, setShowEXIF, true );
 
 
     // -------------------------------------------------- Miscellaneous
+    boolProperty( Plug-ins, delayLoadingPlugins, setDelayLoadingPlugins, true );
+
     void setFromDate( const QDate& );
     QDate fromDate() const;
     void setToDate( const QDate& );
@@ -104,14 +112,18 @@ public:
     void setInfoBoxPosition( Position pos );
 
 
-    // -------------------------------------------------- Options
-    QString fileForCategoryImage(  const QString& category, QString member ) const;
-    void setOptionImage( const QString& category, QString, const QImage& image );
-    QImage optionImage( const QString& category,  QString, int size ) const;
-
     // -------------------------------------------------- Categories
+    QString fileForCategoryImage(  const QString& category, QString member ) const;
+    void setCategoryImage( const QString& category, QString, const QImage& image );
+    QImage categoryImage( const QString& category,  QString, int size ) const;
     QString albumCategory() const;
     void setAlbumCategory(  const QString& category );
+
+    // -------------------------------------------------- EXIF
+#ifdef HASEXIV2
+    stringSetProperty( EXIF, exifForViewer, setExifForViewer, Set<QString>() );
+    stringSetProperty( EXIF, exifForDialog, setExifForDialog, ExifInfo::instance()->standardKeys() );
+#endif
 
     // -------------------------------------------------- misc
     enum TimeStampTrust {
@@ -158,12 +170,14 @@ protected:
     bool value( const QString& group, const QString& option, bool defaultValue ) const;
     QColor value( const QString& group, const QString& option, const QColor& defaultValue ) const;
     QSize value( const QString& group, const QString& option, const QSize& defaultValue ) const;
+    Set<QString> value(const QString& group, const QString& option, const Set<QString>& defaultValue ) const;
 
     void setValue( const QString& group, const QString& option, int value );
     void setValue( const QString& group, const QString& option, const QString& value );
     void setValue( const QString& group, const QString& option, bool value );
     void setValue( const QString& group, const QString& option, const QColor& value );
     void setValue( const QString& group, const QString& option, const QSize& value );
+    void setValue( const QString& group, const QString& option, const Set<QString>& value );
 
 signals:
     void locked( bool lock, bool exclude );

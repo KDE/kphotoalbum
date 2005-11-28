@@ -124,6 +124,7 @@ protected slots:
     void convertBackend();
     void slotRecalcCheckSums();
     void slotShowExifInfo();
+    void showFeatures();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -139,7 +140,7 @@ protected:
     void setLocked( bool b );
     void configImages( const ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
-    QStringList getSelectedOnDisk();
+    QStringList selectedOnDisk();
     void possibleRunSuvey();
     void setupPluginMenu();
 

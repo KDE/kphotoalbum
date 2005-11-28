@@ -87,13 +87,13 @@ void CategoryImageConfig::groupChanged()
 
 void CategoryImageConfig::memberChanged()
 {
-    QImage img = Options::instance()->optionImage( currentGroup(), _member->currentText(), 128 );
+    QImage img = Options::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
     _current->setPixmap( img );
 }
 
 void CategoryImageConfig::slotSet()
 {
-    Options::instance()->setOptionImage( currentGroup(), _member->currentText(), _image );
+    Options::instance()->setCategoryImage( currentGroup(), _member->currentText(), _image );
     memberChanged();
 }
 

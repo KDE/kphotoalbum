@@ -184,6 +184,11 @@ void Viewer::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Options::instance()->showTime() );
 
+    taction = new KToggleAction( i18n("Show EXIF"), 0, _actions, "viewer-show-exif" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowEXIF( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Options::instance()->showEXIF() );
+
     QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         ShowOptionAction* action = new ShowOptionAction( (*it)->name(), this );
@@ -343,6 +348,13 @@ void Viewer::toggleShowTime( bool b )
     Options::instance()->setShowTime( b );
     updateInfoBox();
 }
+
+void Viewer::toggleShowEXIF( bool b )
+{
+    Options::instance()->setShowEXIF( b );
+    updateInfoBox();
+}
+
 
 void Viewer::toggleShowOption( const QString& category, bool b )
 {

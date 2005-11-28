@@ -59,3 +59,5 @@ void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const Q
     if ( !query.exec() )
         showError( query );
 }
+
+#include "sqlcategorycollection.moc"

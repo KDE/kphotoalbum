@@ -50,6 +50,13 @@
 #include <kconfig.h>
 #include "mainview.h"
 
+#ifdef HASEXIV2
+#  include "exifinfo.h"
+#  include "exiftreeview.h"
+#endif
+
+#include <qlistview.h>
+
 OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Options" ), Apply | Ok | Cancel, Ok, parent, name, false ), _memberMap( MemberMap( ImageDB::instance() ) ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
@@ -58,9 +65,9 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     createOptionGroupsPage();
     createGroupConfig();
     createViewerPage();
-#ifdef HASKIPI
     createPluginPage();
-#endif
+    createEXIFPage();
+
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
     connect( this, SIGNAL( applyClicked() ), this, SLOT( slotMyOK() ) );
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
@@ -417,6 +424,7 @@ void OptionsDialog::show()
     _cacheSize->setValue( opt->viewerCacheSize() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
 
+    _delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
     // Config Groups page
     _categories->clear();
     QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
@@ -425,6 +433,11 @@ void OptionsDialog::show()
             new OptionGroupItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(),_categories );
         }
     }
+
+#ifdef HASEXIV2
+    _exifForViewer->setSelected( Options::instance()->exifForViewer() );
+    _exifForDialog->setSelected( Options::instance()->exifForDialog() );
+#endif
     enableDisable( false );
     KDialogBase::show();
 }
@@ -507,7 +520,15 @@ void OptionsDialog::slotMyOK()
     // misc stuff
 #ifdef HASKIPI
     _pluginConfig->apply();
+    opt->setDelayLoadingPlugins( _delayLoadingPlugins->isChecked() );
 #endif
+
+    // EXIF
+#ifdef HASEXIV2
+    opt->setExifForViewer( _exifForViewer->selected() ) ;
+    opt->setExifForDialog( _exifForDialog->selected() ) ;
+#endif
+
     emit changed();
     kapp->config()->sync();
 }
@@ -831,14 +852,37 @@ void OptionsDialog::createViewerPage()
 
 void OptionsDialog::createPluginPage()
 {
-    MainView::theMainView()->loadPlugins();
 #ifdef HASKIPI
+    MainView::theMainView()->loadPlugins();
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+
+    QLabel* label = new QLabel( i18n("Choose Plugins to load:"), top );
+    lay1->addWidget( label );
+
     _pluginConfig = KIPI::PluginLoader::instance()->configWidget( top );
     lay1->addWidget( _pluginConfig );
+
+    _delayLoadingPlugins = new QCheckBox( i18n("Delay loading plug-ins till plug-in menu is opened"), top );
+    lay1->addWidget( _delayLoadingPlugins );
+#endif
+}
+
+void OptionsDialog::createEXIFPage()
+{
+#ifdef HASEXIV2
+    QWidget* top = addPage( i18n("EXIF Information" ), i18n("Exif Information" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "contents" ),
+                                                             KIcon::Desktop, 32 ) );
+    QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
+
+    _exifForViewer = new ExifTreeView( i18n( "EXIF info to show in the Viewer" ), top );
+    lay1->addWidget( _exifForViewer );
+
+    _exifForDialog = new ExifTreeView( i18n("EXIF info to show in the EXIF dialog"), top );
+    lay1->addWidget( _exifForDialog );
 #endif
 }
 

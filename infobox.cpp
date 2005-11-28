@@ -75,7 +75,7 @@ void InfoBox::setSize()
         width -= 10;
         h2 = heightForWidth( width );
         if ( width < 0 ) {
-            // something went wrong - samn I hate this code
+            // something went wrong - damn I hate this code
             break;
         }
     } while( height == h2 );

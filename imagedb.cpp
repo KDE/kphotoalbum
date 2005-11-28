@@ -161,3 +161,4 @@ void ImageDB::slotReread( const QStringList& list, int mode)
 
 }
 
+#include "imagedb.moc"

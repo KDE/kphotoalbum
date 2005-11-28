@@ -83,6 +83,7 @@ protected slots:
     void toggleShowDescription( bool );
     void toggleShowDate( bool );
     void toggleShowTime( bool );
+    void toggleShowEXIF( bool );
     void save();
     void startDraw();
     void stopDraw();

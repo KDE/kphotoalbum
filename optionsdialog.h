@@ -21,6 +21,8 @@
 #include <kdialogbase.h>
 #include "options.h"
 #include "membermap.h"
+class ExifTreeView;
+class QListView;
 class KColorButton;
 class QSpinBox;
 class KComboBox;
@@ -75,6 +77,7 @@ protected:
     void setButtonStates();
     void createViewerPage();
     void createPluginPage();
+    void createEXIFPage();
 
 private:
     // General page
@@ -126,7 +129,12 @@ private:
 #ifdef HASKIPI
     // Plugin config
     KIPI::ConfigWidget* _pluginConfig;
+    QCheckBox* _delayLoadingPlugins;
 #endif
+
+    // Exif viewer
+    ExifTreeView* _exifForViewer;
+    ExifTreeView* _exifForDialog;
 };
 
 

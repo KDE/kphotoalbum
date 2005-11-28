@@ -209,7 +209,7 @@ QString Options::fileForCategoryImage( const QString& category, QString member )
 }
 
 // PENDING(blackie) move this function to Category
-void Options::setOptionImage( const QString& category, QString member, const QImage& image )
+void Options::setCategoryImage( const QString& category, QString member, const QImage& image )
 {
     QString dir = imageDirectory() + STR("CategoryImages" );
     QFileInfo fi( dir );
@@ -230,7 +230,7 @@ void Options::setOptionImage( const QString& category, QString member, const QIm
 }
 
 // PENDING(blackie) moved this function to Category
-QImage Options::optionImage( const QString& category, QString member, int size ) const
+QImage Options::categoryImage( const QString& category, QString member, int size ) const
 {
     QString fileName = fileForCategoryImage( category, member );
     QImage img;
@@ -359,6 +359,13 @@ QSize Options::value( const QString& group, const QString& option, const QSize& 
     return config->readSizeEntry( option, &defaultValue );
 }
 
+Set<QString> Options::value(const QString& group, const QString& option, const Set<QString>& defaultValue ) const
+{
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    return config->readListEntry( option.latin1(), QStringList( defaultValue.toList() ) );
+}
+
 void Options::setValue( const QString& group, const QString& option, int value )
 {
     KConfig* config = kapp->config();
@@ -392,6 +399,13 @@ void Options::setValue( const QString& group, const QString& option, const QSize
     KConfig* config = kapp->config();
     config->setGroup( group );
     config->writeEntry( option, value );
+}
+
+void Options::setValue( const QString& group, const QString& option, const Set<QString>& value )
+{
+    KConfig* config = kapp->config();
+    config->setGroup( group );
+    config->writeEntry( option, value.toList() );
 }
 
 QSize Options::histogramSize() const

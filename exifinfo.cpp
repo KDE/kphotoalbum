@@ -3,6 +3,8 @@
 #include "exiv2/exif.hpp"
 #include "set.h"
 #include "options.h"
+#include <iostream>
+#include <sstream>
 
 ExifInfo* ExifInfo::_instance = 0;
 
@@ -30,7 +32,12 @@ QMap<QString, QString> ExifInfo::info( const QString& fileName, Set<QString> wan
                 QString text = key;
                 if ( !fullName )
                     text = QStringList::split( QString::fromLatin1("."), key ).last();
-                result.insert( text, QString::fromLocal8Bit(i->value().toString().c_str()) );
+
+                std::string str;
+                std::ostringstream stream;
+                stream << *i;
+                str = stream.str();
+                result.insert( text, QString::fromLocal8Bit(str.c_str()) );
             }
         }
     }

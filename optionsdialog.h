@@ -21,7 +21,6 @@
 #include <kdialogbase.h>
 #include "options.h"
 #include "membermap.h"
-class ExifTreeView;
 class QListView;
 class KColorButton;
 class QSpinBox;
@@ -38,7 +37,9 @@ namespace KIPI
 {
     class ConfigWidget;
 }
-
+namespace Exif{
+    class TreeView;
+}
 class OptionsDialog :public KDialogBase {
     Q_OBJECT
 
@@ -133,8 +134,8 @@ private:
 #endif
 
     // Exif viewer
-    ExifTreeView* _exifForViewer;
-    ExifTreeView* _exifForDialog;
+    Exif::TreeView* _exifForViewer;
+    Exif::TreeView* _exifForDialog;
 };
 
 

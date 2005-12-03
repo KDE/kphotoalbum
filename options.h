@@ -122,7 +122,7 @@ public:
     // -------------------------------------------------- EXIF
 #ifdef HASEXIV2
     stringSetProperty( EXIF, exifForViewer, setExifForViewer, Set<QString>() );
-    stringSetProperty( EXIF, exifForDialog, setExifForDialog, ExifInfo::instance()->standardKeys() );
+    stringSetProperty( EXIF, exifForDialog, setExifForDialog, Exif::Info::instance()->standardKeys() );
 #endif
 
     // -------------------------------------------------- misc

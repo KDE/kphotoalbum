@@ -6,6 +6,9 @@
 #include "ExifSearchInfo.h"
 class QCheckBox;
 
+namespace Exif
+{
+
 class IntValueSetting
 {
 public:
@@ -21,12 +24,12 @@ public:
     QValueList<int> selected();
 };
 
-class ExifSearchDialog : public KDialogBase {
+class SearchDialog : public KDialogBase {
     Q_OBJECT
 
 public:
-    ExifSearchDialog( QWidget* parent, const char* name = 0 );
-    ExifSearchInfo info();
+    SearchDialog( QWidget* parent, const char* name = 0 );
+    Exif::SearchInfo info();
 
 protected:
     QWidget* makeISO( QWidget* parent );
@@ -53,6 +56,7 @@ private:
     Settings _cameras;
 };
 
+}
 
 #endif /* EXIFSEARCHDIALOG_H */
 

@@ -4,11 +4,13 @@
 #include <qlistview.h>
 #include "set.h"
 
-class ExifTreeView : public QListView {
+namespace Exif{
+
+class TreeView : public QListView {
     Q_OBJECT
 
 public:
-    ExifTreeView( const QString& title, QWidget* parent, const char* name = 0 );
+    TreeView( const QString& title, QWidget* parent, const char* name = 0 );
     Set<QString> selected();
     void setSelected( const Set<QString>& selected );
     void reload();
@@ -16,6 +18,9 @@ public:
 protected slots:
     void toggleChildren( QListViewItem* );
 };
+
+}
+
 
 
 #endif /* EXIFTREEVIEW_H */

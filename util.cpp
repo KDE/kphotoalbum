@@ -108,7 +108,7 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
 
 #ifdef HASEXIV2
     if ( Options::instance()->showEXIF() ) {
-        QMap<QString,QString> exifMap = ExifInfo::instance()->infoForViewer( info->fileName() );
+        QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
         for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
             text += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
         }

@@ -13,18 +13,23 @@ namespace Exiv2 {
 typedef QPair<int,int> Rational;
 typedef QValueList<Rational> RationalList;
 
-class ExifDatabase {
+namespace Exif
+{
+
+class Database {
 
 public:
-    static ExifDatabase* instance();
+    static Database* instance();
     void setup();
     void insert( const QString& filename, Exiv2::ExifData );
     RationalList rationalValue( const QString& tag );
 
 private:
-    ExifDatabase();
-    static ExifDatabase* _instance;
+    Database();
+    static Database* _instance;
 };
+
+}
 
 #endif /* EXIFDATABASE_H */
 

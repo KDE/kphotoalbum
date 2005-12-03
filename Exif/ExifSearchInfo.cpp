@@ -1,13 +1,13 @@
 #include "ExifSearchInfo.h"
 #include <qsqlquery.h>
 
-void ExifSearchInfo::addSearchKey( const QString& key, const QValueList<int> values )
+void Exif::SearchInfo::addSearchKey( const QString& key, const QValueList<int> values )
 {
     _intKeys.append( qMakePair( key, values ) );
 }
 
 
-QStringList ExifSearchInfo::matches()
+QStringList Exif::SearchInfo::matches()
 {
     QStringList result;
 
@@ -23,7 +23,7 @@ QStringList ExifSearchInfo::matches()
 }
 
 
-QString ExifSearchInfo::buildQuery()
+QString Exif::SearchInfo::buildQuery()
 {
     QStringList andArgs;
     qDebug("length 1= %d", _intKeys.count() );

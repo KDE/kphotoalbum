@@ -3,9 +3,9 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include <klocale.h>
-#include "exifinfo.h"
+#include "ExifInfo.h"
 
-ExifTreeView::ExifTreeView( const QString& title, QWidget* parent, const char* name )
+Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
     :QListView( parent, name )
 {
     addColumn( title );
@@ -13,7 +13,7 @@ ExifTreeView::ExifTreeView( const QString& title, QWidget* parent, const char* n
     connect( this, SIGNAL( clicked( QListViewItem* ) ), this, SLOT( toggleChildren( QListViewItem* ) ) );
 }
 
-void ExifTreeView::toggleChildren( QListViewItem* parent )
+void Exif::TreeView::toggleChildren( QListViewItem* parent )
 {
     if ( !parent )
         return;
@@ -26,7 +26,7 @@ void ExifTreeView::toggleChildren( QListViewItem* parent )
     }
 }
 
-Set<QString> ExifTreeView::selected()
+Set<QString> Exif::TreeView::selected()
 {
     Set<QString> result;
     for ( QListViewItemIterator it( this ); *it; ++it ) {
@@ -36,7 +36,7 @@ Set<QString> ExifTreeView::selected()
     return result;
 }
 
-void ExifTreeView::setSelected( const Set<QString>& selected )
+void Exif::TreeView::setSelected( const Set<QString>& selected )
 {
     for ( QListViewItemIterator it( this ); *it; ++it ) {
         bool on = selected.contains( (*it)->text(1) );
@@ -44,10 +44,10 @@ void ExifTreeView::setSelected( const Set<QString>& selected )
     }
 }
 
-void ExifTreeView::reload()
+void Exif::TreeView::reload()
 {
     clear();
-    Set<QString> keys = ExifInfo::instance()->availableKeys();
+    Set<QString> keys = Exif::Info::instance()->availableKeys();
 
     QMap<QString, QCheckListItem*> tree;
 

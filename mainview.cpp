@@ -87,7 +87,7 @@
 #include <config.h>
 #ifdef HASEXIV2
 #  include "Exif/ExifInfo.h"
-#  include "Exif/exifdialog.h"
+#  include "Exif/ExifDialog.h"
 #endif
 
 #include "featuredialog.h"
@@ -1371,7 +1371,7 @@ void MainView::slotShowExifInfo()
 #ifdef HASEXIV2
     QStringList items = selectedOnDisk();
     if ( !items.empty() ) {
-        ExifDialog* exifDialog = new ExifDialog( items[0], this );
+        Exif::InfoDialog* exifDialog = new Exif::InfoDialog( items[0], this );
         exifDialog->show();
     }
 #endif

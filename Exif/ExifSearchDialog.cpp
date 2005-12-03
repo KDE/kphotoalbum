@@ -1,9 +1,11 @@
-#include "exifsearchdialog.h"
+#include "ExifSearchDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
 #include <qcheckbox.h>
-#include "exifdatabase.h"
+#include "ExifDataBase.h"
+
+using namespace Exif;
 
 QValueList<int> Settings::selected()
 {
@@ -16,7 +18,7 @@ QValueList<int> Settings::selected()
 }
 
 
-ExifSearchDialog::ExifSearchDialog( QWidget* parent, const char* name )
+Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     : KDialogBase( Plain, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
 {
     QWidget* top = plainPage();
@@ -33,7 +35,7 @@ ExifSearchDialog::ExifSearchDialog( QWidget* parent, const char* name )
     layout->addWidget( makeFNumber( top ) );
 }
 
-QWidget* ExifSearchDialog::makeISO( QWidget* parent )
+QWidget* Exif::SearchDialog::makeISO( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n("ISO"), parent );
     for ( int i = 100; i <= 1600; i*=2 ) {
@@ -42,7 +44,7 @@ QWidget* ExifSearchDialog::makeISO( QWidget* parent )
     return box;
 }
 
-QWidget* ExifSearchDialog::makeExposureProgram( QWidget* parent )
+QWidget* Exif::SearchDialog::makeExposureProgram( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Exposure Program" ), parent );
     _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Not defined" ), box ), 0 ) );
@@ -57,7 +59,7 @@ QWidget* ExifSearchDialog::makeExposureProgram( QWidget* parent )
     return box;
 }
 
-QWidget* ExifSearchDialog::makeOrientation( QWidget* parent )
+QWidget* Exif::SearchDialog::makeOrientation( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Orientation" ), parent );
     _orientation.append( IntValueSetting( new QCheckBox( i18n( "Not rotated" ), box ), 0) );
@@ -67,7 +69,7 @@ QWidget* ExifSearchDialog::makeOrientation( QWidget* parent )
     return box;
 }
 
-QWidget* ExifSearchDialog::makeMeteringMode( QWidget* parent )
+QWidget* Exif::SearchDialog::makeMeteringMode( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Metering Mode" ), parent );
     _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "Unknown" ), box ), 0 ) );
@@ -81,7 +83,7 @@ QWidget* ExifSearchDialog::makeMeteringMode( QWidget* parent )
     return box;
 }
 
-QWidget* ExifSearchDialog::makeContrast( QWidget* parent )
+QWidget* Exif::SearchDialog::makeContrast( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Contrast" ), parent );
     _contrast.append(IntValueSetting( new QCheckBox( i18n( "Normal"), box ), 0 ) );
@@ -90,7 +92,7 @@ QWidget* ExifSearchDialog::makeContrast( QWidget* parent )
     return box;
 }
 
-QWidget* ExifSearchDialog::makeSharpness( QWidget* parent )
+QWidget* Exif::SearchDialog::makeSharpness( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Sharpness" ), parent );
     _sharpness.append(IntValueSetting( new QCheckBox( i18n( "Normal"), box ), 0 ) );
@@ -99,7 +101,7 @@ QWidget* ExifSearchDialog::makeSharpness( QWidget* parent )
     return box;
 }
 
-QWidget* ExifSearchDialog::makeSaturation( QWidget* parent )
+QWidget* Exif::SearchDialog::makeSaturation( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Saturation" ), parent );
     _saturation.append(IntValueSetting( new QCheckBox( i18n( "Normal"), box ), 0 ) );
@@ -108,7 +110,7 @@ QWidget* ExifSearchDialog::makeSaturation( QWidget* parent )
     return box;
 }
 
-QWidget* ExifSearchDialog::makeCamera( QWidget* parent )
+QWidget* Exif::SearchDialog::makeCamera( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Saturation" ), parent );
     QStringList cameras = availableCameras();
@@ -118,25 +120,25 @@ QWidget* ExifSearchDialog::makeCamera( QWidget* parent )
     return box;
 }
 
-QStringList ExifSearchDialog::availableCameras()
+QStringList Exif::SearchDialog::availableCameras()
 {
     return (QStringList() << QString::fromLatin1("Camera 1") << QString::fromLatin1("Camera 2"));
 }
 
-QWidget* ExifSearchDialog::makeExposureTime( QWidget* parent )
+QWidget* Exif::SearchDialog::makeExposureTime( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Exposure time" ), parent );
-    RationalList list = ExifDatabase::instance()->rationalValue( QString::fromLatin1( "Exif_Photo_ExposureTime" ) );
+    RationalList list = Exif::Database::instance()->rationalValue( QString::fromLatin1( "Exif_Photo_ExposureTime" ) );
     for( RationalList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         new QCheckBox( QString::fromLatin1("%1/%2").arg( (*it).first ).arg( (*it).second ), box );
     }
     return box;
 }
 
-QWidget* ExifSearchDialog::makeFNumber( QWidget* parent )
+QWidget* Exif::SearchDialog::makeFNumber( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "F Number" ), parent );
-    RationalList list = ExifDatabase::instance()->rationalValue( QString::fromLatin1( "Exif_Photo_FNumber" ) );
+    RationalList list = Exif::Database::instance()->rationalValue( QString::fromLatin1( "Exif_Photo_FNumber" ) );
     for( RationalList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         new QCheckBox( QString::fromLatin1("%1/%2").arg( (*it).first ).arg( (*it).second ), box );
     }
@@ -144,9 +146,9 @@ QWidget* ExifSearchDialog::makeFNumber( QWidget* parent )
 
 }
 
-ExifSearchInfo ExifSearchDialog::info()
+Exif::SearchInfo Exif::SearchDialog::info()
 {
-    ExifSearchInfo result;
+    Exif::SearchInfo result;
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_MeteringMode" ), _meteringMode.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), _iso.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_ExposureTime" ), _exposureProgram.selected() );

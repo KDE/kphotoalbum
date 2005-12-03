@@ -6,11 +6,14 @@
 #include "imageclient.h"
 class QTable;
 
-class ExifDialog : public KDialogBase, public ImageClient {
+namespace Exif
+{
+
+class InfoDialog : public KDialogBase, public ImageClient {
     Q_OBJECT
 
 public:
-    ExifDialog( const QString& fileName, QWidget* parent, const char* name = 0 );
+    InfoDialog( const QString& fileName, QWidget* parent, const char* name = 0 );
     virtual QSize sizeHint() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
 
@@ -22,12 +25,12 @@ private:
     QLabel* _pix;
 };
 
-class ExifGrid :public QGridView
+class Grid :public QGridView
 {
     Q_OBJECT
 
 public:
-    ExifGrid( const QString& fileName, QWidget* parent, const char* name = 0 );
+    Grid( const QString& fileName, QWidget* parent, const char* name = 0 );
 
 signals:
     QString searchStringChanged( const QString& text );
@@ -53,6 +56,7 @@ private:
     QString _search;
 };
 
+}
 
 #endif /* EXIFDIALOG_H */
 

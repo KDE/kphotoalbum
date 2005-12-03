@@ -5,13 +5,15 @@
 #include "options.h"
 #include <qsqldatabase.h>
 #include <qsqlquery.h>
-#include "exifdatabase.h"
+#include "ExifDataBase.h"
 #include <iostream>
 #include <sstream>
 
-ExifInfo* ExifInfo::_instance = 0;
+using namespace Exif;
 
-QMap<QString, QString> ExifInfo::info( const QString& fileName, Set<QString> wantedKeys, bool fullName )
+Info* Info::_instance = 0;
+
+QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedKeys, bool fullName )
 {
     QMap<QString, QString> result;
 
@@ -43,7 +45,7 @@ QMap<QString, QString> ExifInfo::info( const QString& fileName, Set<QString> wan
                 result.insert( text, QString::fromLocal8Bit(str.c_str()) );
             }
         }
-        ExifDatabase::instance()->insert( fileName, exifData );
+        Exif::Database::instance()->insert( fileName, exifData );
     }
     catch ( ... ) {
     }
@@ -51,29 +53,29 @@ QMap<QString, QString> ExifInfo::info( const QString& fileName, Set<QString> wan
     return result;
 }
 
-ExifInfo* ExifInfo::instance()
+Info* Info::instance()
 {
     if ( !_instance )
-        _instance = new ExifInfo;
+        _instance = new Info;
     return _instance;
 }
 
-Set<QString> ExifInfo::availableKeys()
+Set<QString> Info::availableKeys()
 {
     return _keys;
 }
 
-QMap<QString, QString> ExifInfo::infoForViewer( const QString& fileName )
+QMap<QString, QString> Info::infoForViewer( const QString& fileName )
 {
     return info( fileName, Options::instance()->exifForViewer(), false );
 }
 
-QMap<QString, QString> ExifInfo::infoForDialog( const QString& fileName )
+QMap<QString, QString> Info::infoForDialog( const QString& fileName )
 {
     return info( fileName, Options::instance()->exifForDialog(), true);
 }
 
-Set<QString> ExifInfo::standardKeys()
+Set<QString> Info::standardKeys()
 {
     Set<QString> res;
     res.insert( QString::fromLatin1( "Exif.Image.NewSubfileType" ) );
@@ -219,7 +221,7 @@ Set<QString> ExifInfo::standardKeys()
     return res;
 }
 
-ExifInfo::ExifInfo()
+Info::Info()
 {
     _keys = standardKeys();
 }

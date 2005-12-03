@@ -4,10 +4,12 @@
 #include <qstringlist.h>
 #include "set.h"
 
-class ExifInfo {
+namespace Exif {
+
+class Info {
 public:
-    ExifInfo();
-    static ExifInfo* instance();
+    Info();
+    static Info* instance();
     QMap<QString, QString> info( const QString& fileName, Set<QString> wantedKeys, bool fullName );
     QMap<QString, QString> infoForViewer( const QString& fileName );
     QMap<QString, QString> infoForDialog( const QString& fileName );
@@ -15,9 +17,11 @@ public:
     Set<QString> standardKeys();
 
 private:
-    static ExifInfo* _instance;
+    static Info* _instance;
     Set<QString> _keys;
 };
+
+}
 
 #endif /* EXIF_H */
 

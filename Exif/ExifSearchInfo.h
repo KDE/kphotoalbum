@@ -5,7 +5,9 @@
 #include <qvaluelist.h>
 #include <qpair.h>
 
-class ExifSearchInfo  {
+namespace Exif {
+
+class SearchInfo  {
 
 public:
     void addSearchKey( const QString& key, const QValueList<int> values );
@@ -16,6 +18,8 @@ private:
     QValueList< QPair<QString, QValueList<int> > > _intKeys;
 
 };
+
+}
 
 
 #endif /* EXIFSEARCHINFO_H */

@@ -2,7 +2,7 @@
 #include <kiconloader.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include "Exif/exifsearchdialog.h"
+#include "Exif/ExifSearchDialog.h"
 
 ExifFolder::ExifFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
@@ -12,7 +12,7 @@ ExifFolder::ExifFolder( const ImageSearchInfo& info, Browser* browser )
 
 FolderAction* ExifFolder::action( bool /* ctrlDown */ )
 {
-    ExifSearchDialog dialog( _browser );
+    Exif::SearchDialog dialog( _browser );
     dialog.exec();
     QStringList list = dialog.info().matches();
     qDebug( "%s", list.join( QString::fromLatin1( ", " ) ).latin1() );

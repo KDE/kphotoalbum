@@ -1,6 +1,6 @@
 #undef QT_NO_CAST_ASCII
 #undef QT_CAST_NO_ASCII
-#include "exifdatabase.h"
+#include "ExifDataBase.h"
 #include <qsqldatabase.h>
 #include "options.h"
 #include <qsqlquery.h>
@@ -140,14 +140,14 @@ static QValueList<ExifElement*> elements()
 
 
 
-ExifDatabase* ExifDatabase::_instance = 0;
+Exif::Database* Exif::Database::_instance = 0;
 
 static void showError( QSqlQuery& query )
 {
     qWarning( "Error running query: %s\nError was: %s", query.executedQuery().latin1(), query.lastError().text().latin1());
 }
 
-ExifDatabase::ExifDatabase()
+Exif::Database::Database()
 {
     QSqlDatabase* database = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ) );
     Q_ASSERT( database );
@@ -161,7 +161,7 @@ ExifDatabase::ExifDatabase()
 }
 
 
-void ExifDatabase::setup()
+void Exif::Database::setup()
 {
     qDebug("Setup!");
     QStringList list;
@@ -176,7 +176,7 @@ void ExifDatabase::setup()
 
 }
 
-void ExifDatabase::insert( const QString& filename, Exiv2::ExifData data )
+void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
 {
     QStringList formalList;
     QValueList<ExifElement*> elms = elements();
@@ -195,14 +195,14 @@ void ExifDatabase::insert( const QString& filename, Exiv2::ExifData data )
         showError( query );
 }
 
-ExifDatabase* ExifDatabase::instance()
+Exif::Database* Exif::Database::instance()
 {
     if ( !_instance )
-        _instance = new ExifDatabase;
+        _instance = new Exif::Database;
     return _instance;
 }
 
-RationalList ExifDatabase::rationalValue( const QString& tag )
+RationalList Exif::Database::rationalValue( const QString& tag )
 {
     RationalList result;
     QSqlQuery query( QString::fromLatin1( "SELECT DISTINCT %1_denom,%2_nom FROM exif" ).arg(tag).arg(tag));

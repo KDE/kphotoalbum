@@ -880,10 +880,10 @@ void OptionsDialog::createEXIFPage()
                                                              KIcon::Desktop, 32 ) );
     QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
 
-    _exifForViewer = new ExifTreeView( i18n( "EXIF info to show in the Viewer" ), top );
+    _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );
     lay1->addWidget( _exifForViewer );
 
-    _exifForDialog = new ExifTreeView( i18n("EXIF info to show in the EXIF dialog"), top );
+    _exifForDialog = new Exif::TreeView( i18n("EXIF info to show in the EXIF dialog"), top );
     lay1->addWidget( _exifForDialog );
 #endif
 }

@@ -1,4 +1,4 @@
-#include "exifdialog.h"
+#include "ExifDialog.h"
 #include <klocale.h>
 #include "Exif/ExifInfo.h"
 #include <qlayout.h>
@@ -11,7 +11,7 @@
 #include "imagerequest.h"
 #include "imagedb.h"
 
-ExifDialog::ExifDialog( const QString& fileName, QWidget* parent, const char* name )
+Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
 {
     setWFlags( WDestructiveClose | getWFlags() );
@@ -34,7 +34,7 @@ ExifDialog::ExifDialog( const QString& fileName, QWidget* parent, const char* na
     ImageManager::instance()->load( new ImageRequest( fileName, QSize( 128, 128 ), ImageDB::instance()->info(fileName)->angle(), this ) );
 
     // -------------------------------------------------- Exif Grid
-    ExifGrid* grid = new ExifGrid( fileName, top );
+    Exif::Grid* grid = new Exif::Grid( fileName, top );
     vlay->addWidget( grid );
     grid->setFocus();
 
@@ -56,7 +56,7 @@ ExifDialog::ExifDialog( const QString& fileName, QWidget* parent, const char* na
     updateSearchString( QString::null );
 }
 
-void ExifDialog::updateSearchString( const QString& txt )
+void Exif::InfoDialog::updateSearchString( const QString& txt )
 {
     if( txt.isEmpty() )
         _searchLabel->setText( i18n("<No Search>") );
@@ -65,10 +65,10 @@ void ExifDialog::updateSearchString( const QString& txt )
 }
 
 
-ExifGrid::ExifGrid( const QString& fileName, QWidget* parent, const char* name )
+Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
     :QGridView( parent, name )
 {
-    QMap<QString,QString> map = ExifInfo::instance()->infoForDialog( fileName );
+    QMap<QString,QString> map = Exif::Info::instance()->infoForDialog( fileName );
     calculateMaxKeyWidth( map );
     setFocusPolicy( WheelFocus );
     setHScrollBarMode( AlwaysOff );
@@ -103,7 +103,7 @@ ExifGrid::ExifGrid( const QString& fileName, QWidget* parent, const char* name )
     setCellHeight( QFontMetrics( font() ).height() );
 }
 
-void ExifGrid::paintCell( QPainter * p, int row, int col )
+void Exif::Grid::paintCell( QPainter * p, int row, int col )
 {
     int index = row * 2 + col;
     QColor background;
@@ -133,12 +133,12 @@ void ExifGrid::paintCell( QPainter * p, int row, int col )
 }
 
 
-QSize ExifDialog::sizeHint() const
+QSize Exif::InfoDialog::sizeHint() const
 {
     return QSize( 800, 400 );
 }
 
-Set<QString> ExifGrid::exifGroups( const QMap<QString,QString>& exifInfo )
+Set<QString> Exif::Grid::exifGroups( const QMap<QString,QString>& exifInfo )
 {
     Set<QString> result;
     for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
@@ -147,7 +147,7 @@ Set<QString> ExifGrid::exifGroups( const QMap<QString,QString>& exifInfo )
     return result;
 }
 
-QMap<QString,QString> ExifGrid::itemsForGroup( const QString& group, const QMap<QString, QString>& exifInfo )
+QMap<QString,QString> Exif::Grid::itemsForGroup( const QString& group, const QMap<QString, QString>& exifInfo )
 {
     QMap<QString,QString> result;
     for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
@@ -157,29 +157,29 @@ QMap<QString,QString> ExifGrid::itemsForGroup( const QString& group, const QMap<
     return result;
 }
 
-QString ExifGrid::groupName( const QString& exifName )
+QString Exif::Grid::groupName( const QString& exifName )
 {
     QStringList list = QStringList::split( QString::fromLatin1("."), exifName );
     list.pop_back();
     return list.join( QString::fromLatin1(".") );
 }
 
-QString ExifGrid::exifNameNoGroup( const QString& fullName )
+QString Exif::Grid::exifNameNoGroup( const QString& fullName )
 {
     return QStringList::split( QString::fromLatin1("."), fullName ).last();
 }
 
-void ExifGrid::resizeEvent( QResizeEvent* )
+void Exif::Grid::resizeEvent( QResizeEvent* )
 {
     QTimer::singleShot( 0, this, SLOT( updateGrid() ) );
 }
 
-void ExifGrid::updateGrid()
+void Exif::Grid::updateGrid()
 {
     setCellWidth( clipper()->width() / 2 );
 }
 
-void ExifGrid::calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo )
+void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo )
 {
     QFont f = font();
     f.setWeight( QFont::Bold );
@@ -190,7 +190,7 @@ void ExifGrid::calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo )
     }
 }
 
-void ExifGrid::keyPressEvent( QKeyEvent* e )
+void Exif::Grid::keyPressEvent( QKeyEvent* e )
 {
     switch ( e->key() ) {
     case Key_Down:
@@ -220,10 +220,10 @@ void ExifGrid::keyPressEvent( QKeyEvent* e )
 }
 
 
-void ExifDialog::pixmapLoaded( const QString& , const QSize& , const QSize& , int , const QImage& img, bool loadedOK )
+void Exif::InfoDialog::pixmapLoaded( const QString& , const QSize& , const QSize& , int , const QImage& img, bool loadedOK )
 {
     if ( loadedOK )
         _pix->setPixmap( img );
 }
 
-#include "exifdialog.moc"
+#include "ExifDialog.moc"

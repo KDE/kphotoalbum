@@ -51,8 +51,8 @@
 #include "mainview.h"
 
 #ifdef HASEXIV2
-#  include "Exif/ExifInfo.h"
-#  include "Exif/ExifTreeView.h"
+#  include "Exif/Info.h"
+#  include "Exif/TreeView.h"
 #endif
 
 #include <qlistview.h>

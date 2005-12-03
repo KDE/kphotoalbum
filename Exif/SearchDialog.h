@@ -4,25 +4,13 @@
 #include <kdialogbase.h>
 #include <qvaluelist.h>
 #include "Exif/SearchInfo.h"
+#include "Exif/SearchDialogSettings.h"
+#include "Exif/RangeWidget.h"
+
 class QCheckBox;
 
 namespace Exif
 {
-
-class IntValueSetting
-{
-public:
-    IntValueSetting() {}
-    IntValueSetting( QCheckBox* cb, int value ) : cb( cb ), value( value ) {}
-    QCheckBox* cb;
-    int value;
-};
-
-class Settings :public QValueList<IntValueSetting>
-{
-public:
-    QValueList<int> selected();
-};
 
 class SearchDialog : public KDialogBase {
     Q_OBJECT
@@ -46,14 +34,16 @@ protected:
     QStringList availableCameras();
 
 private:
-    Settings _iso;
-    Settings _exposureProgram;
-    Settings _orientation;
-    Settings _meteringMode;
-    Settings _contrast;
-    Settings _sharpness;
-    Settings _saturation;
-    Settings _cameras;
+    Exif::RangeWidget* _iso;
+    Exif::RangeWidget* _exposureTime;
+    Exif::RangeWidget* _fnumber;
+    IntSettings _exposureProgram;
+    IntSettings _orientation;
+    IntSettings _meteringMode;
+    IntSettings _contrast;
+    IntSettings _sharpness;
+    IntSettings _saturation;
+    IntSettings _cameras;
 };
 
 }

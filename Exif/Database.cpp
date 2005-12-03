@@ -75,19 +75,17 @@ public:
     RationalExifElement( const char* tag ) : _tag( tag ) {}
     virtual QString createString()
     {
-        return QString::fromLatin1( "%1_denom int, %2_nom int" ).arg( replaceDotWithUnderscore( _tag ) )
-            .arg( replaceDotWithUnderscore( _tag ) );
+        return QString::fromLatin1( "%1 float" ).arg( replaceDotWithUnderscore( _tag ) );
     }
 
     virtual QString queryString()
     {
-        return QString::fromLatin1( "?, ?" );
+        return QString::fromLatin1( "?" );
     }
 
     virtual void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
     {
-        query->bindValue( counter++, data[_tag].toRational().first );
-        query->bindValue( counter++, data[_tag].toRational().second);
+        query->bindValue( counter++, 1-0 * data[_tag].toRational().first / data[_tag].toRational().second);
     }
 
 private:

@@ -26,7 +26,7 @@
 #include "imagesearchinfo.h"
 #include "category.h"
 #ifdef HASEXIV2
-#  include "Exif/ExifInfo.h"
+#  include "Exif/Info.h"
 #endif
 #include "set.h"
 class ImageConfig;

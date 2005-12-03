@@ -2,7 +2,7 @@
 #include <kiconloader.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include "Exif/ExifSearchDialog.h"
+#include "Exif/SearchDialog.h"
 
 ExifFolder::ExifFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )

@@ -7,17 +7,6 @@
 
 using namespace Exif;
 
-QValueList<int> Settings::selected()
-{
-    QValueList<int> result;
-    for( QValueList<IntValueSetting>::Iterator it = begin(); it != end(); ++it ) {
-        if ( (*it).cb->isChecked() )
-            result.append( (*it).value );
-    }
-    return result;
-}
-
-
 Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     : KDialogBase( Plain, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
 {
@@ -25,23 +14,130 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     QVBoxLayout* layout = new QVBoxLayout( top, 10 );
 
     layout->addWidget( makeISO( top ) );
+    layout->addWidget( makeExposureTime( top ) );
+    layout->addWidget( makeFNumber( top ) );
     layout->addWidget( makeExposureProgram( top ) );
     layout->addWidget( makeOrientation( top ));
     layout->addWidget( makeMeteringMode( top ) );
     layout->addWidget( makeContrast( top ) );
     layout->addWidget( makeSharpness( top ) );
     layout->addWidget( makeSaturation( top ) );
-    layout->addWidget( makeExposureTime( top ) );
-    layout->addWidget( makeFNumber( top ) );
 }
 
 QWidget* Exif::SearchDialog::makeISO( QWidget* parent )
 {
-    QVGroupBox* box = new QVGroupBox( i18n("ISO"), parent );
-    for ( int i = 100; i <= 1600; i*=2 ) {
-        _iso.append( IntValueSetting( new QCheckBox( QString::number( i ), box ), i ) );
-    }
-    return box;
+    Exif::RangeWidget::ValueList list;
+    list << Exif::RangeWidget::Value( 100, QString::fromLatin1("100") )
+         << Exif::RangeWidget::Value( 200, QString::fromLatin1("200") )
+         << Exif::RangeWidget::Value( 400, QString::fromLatin1("400") )
+         << Exif::RangeWidget::Value( 800, QString::fromLatin1("800") )
+         << Exif::RangeWidget::Value( 1600, QString::fromLatin1("1600") );
+
+    _iso = new RangeWidget( i18n("Iso setting" ), QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), list, parent, "iso settings" );
+    return _iso;
+}
+
+QWidget* Exif::SearchDialog::makeExposureTime( QWidget* parent )
+{
+    QString secs = i18n( "Example 1.6 secs (as in seconds)", "secs." );
+    Exif::RangeWidget::ValueList list;
+    list
+        << Exif::RangeWidget::Value( 1.0/4000, QString::fromLatin1( "1/4000" ) )
+        << Exif::RangeWidget::Value( 1.0/3200, QString::fromLatin1( "1/3200" ) )
+        << Exif::RangeWidget::Value( 1.0/2500,  QString::fromLatin1( "1/2500" ) )
+        << Exif::RangeWidget::Value( 1.0/2000, QString::fromLatin1( "1/2000" ) )
+        << Exif::RangeWidget::Value( 1.0/1600,  QString::fromLatin1( "1/1600" ) )
+        << Exif::RangeWidget::Value( 1.0/1250, QString::fromLatin1( "1/1250" ) )
+        << Exif::RangeWidget::Value( 1.0/1000,  QString::fromLatin1( "1/1000" ) )
+        << Exif::RangeWidget::Value( 1.0/800, QString::fromLatin1( "1/800" ) )
+        << Exif::RangeWidget::Value( 1.0/640, QString::fromLatin1( "1/640" ) )
+        << Exif::RangeWidget::Value( 1.0/500, QString::fromLatin1( "1/500" ) )
+        << Exif::RangeWidget::Value( 1.0/400, QString::fromLatin1( "1/400" ) )
+        << Exif::RangeWidget::Value( 1.0/320, QString::fromLatin1( "1/320" ) )
+        << Exif::RangeWidget::Value( 1.0/250, QString::fromLatin1( "1/250" ) )
+        << Exif::RangeWidget::Value( 1.0/200, QString::fromLatin1( "1/200" ) )
+        << Exif::RangeWidget::Value( 1.0/160, QString::fromLatin1( "1/160" ) )
+        << Exif::RangeWidget::Value( 1.0/125, QString::fromLatin1( "1/125" ) )
+        << Exif::RangeWidget::Value( 1.0/100, QString::fromLatin1( "1/100" ) )
+        << Exif::RangeWidget::Value( 1.0/80, QString::fromLatin1( "1/80" ) )
+        << Exif::RangeWidget::Value( 1.0/60, QString::fromLatin1( "1/60" ) )
+        << Exif::RangeWidget::Value( 1.0/50, QString::fromLatin1( "1/50" ) )
+        << Exif::RangeWidget::Value( 1.0/40, QString::fromLatin1( "1/40" ) )
+        << Exif::RangeWidget::Value( 1.0/30, QString::fromLatin1( "1/30" ) )
+        << Exif::RangeWidget::Value( 1.0/25, QString::fromLatin1( "1/25" ) )
+        << Exif::RangeWidget::Value( 1.0/20, QString::fromLatin1( "1/20" ) )
+        << Exif::RangeWidget::Value( 1.0/15, QString::fromLatin1( "1/15" ) )
+        << Exif::RangeWidget::Value( 1.0/13, QString::fromLatin1( "1/13" ) )
+        << Exif::RangeWidget::Value( 1.0/10, QString::fromLatin1( "1/10" ) )
+        << Exif::RangeWidget::Value( 1.0/8, QString::fromLatin1( "1/8" ) )
+        << Exif::RangeWidget::Value( 1.0/6, QString::fromLatin1( "1/6" ) )
+        << Exif::RangeWidget::Value( 1.0/5, QString::fromLatin1( "1/5" ) )
+        << Exif::RangeWidget::Value( 1.0/4, QString::fromLatin1( "1/4" ) )
+        << Exif::RangeWidget::Value( 0.3, QString::fromLatin1( "0.3 %1" ).arg( secs ) )
+        << Exif::RangeWidget::Value( 0.4, QString::fromLatin1( "0.4 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 0.5, QString::fromLatin1( "0.5 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 0.6, QString::fromLatin1( "0.6 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 0.8, QString::fromLatin1( "0.8 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 1, i18n( "1 second" ) )
+        << Exif::RangeWidget::Value( 1.3, QString::fromLatin1( "1.3 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 1.6, QString::fromLatin1( "1.6 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 2, QString::fromLatin1( "2 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 2.5, QString::fromLatin1( "2.5 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 3.2, QString::fromLatin1( "3.2 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 4, QString::fromLatin1( "4 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 5, QString::fromLatin1( "5 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 6, QString::fromLatin1( "6 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 8, QString::fromLatin1( "8 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 10, QString::fromLatin1( "10 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 13, QString::fromLatin1( "13 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 15, QString::fromLatin1( "15 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 20, QString::fromLatin1( "20 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 25, QString::fromLatin1( "25 %1").arg(secs ) )
+        << Exif::RangeWidget::Value( 30, QString::fromLatin1( "30 %1").arg(secs ) );
+
+    _exposureTime = new RangeWidget( i18n("Exposure time" ), QString::fromLatin1( "Exif_Photo_ExposureTime" ),
+                                     list, parent, "exposure time" );
+    return _exposureTime;
+}
+
+QWidget* Exif::SearchDialog::makeFNumber( QWidget* parent )
+{
+    Exif::RangeWidget::ValueList list;
+    list
+        << Exif::RangeWidget::Value( 1.4, QString::fromLatin1( "1.4" ) )
+        << Exif::RangeWidget::Value( 1.8, QString::fromLatin1( "1.8" ) )
+        << Exif::RangeWidget::Value( 2.0, QString::fromLatin1( "2.0" ) )
+        << Exif::RangeWidget::Value( 2.2, QString::fromLatin1( "2.2" ) )
+        << Exif::RangeWidget::Value( 2.5, QString::fromLatin1( "2.5" ) )
+        << Exif::RangeWidget::Value( 2.8, QString::fromLatin1( "2.8" ) )
+        << Exif::RangeWidget::Value( 3.2, QString::fromLatin1( "3.2" ) )
+        << Exif::RangeWidget::Value( 3.5, QString::fromLatin1( "3.5" ) )
+        << Exif::RangeWidget::Value( 4.0, QString::fromLatin1( "4.0" ) )
+        << Exif::RangeWidget::Value( 4.5, QString::fromLatin1( "4.5" ) )
+        << Exif::RangeWidget::Value( 5.0, QString::fromLatin1( "5.0" ) )
+        << Exif::RangeWidget::Value( 5.6, QString::fromLatin1( "5.6" ) )
+        << Exif::RangeWidget::Value( 6.3, QString::fromLatin1( "6.3" ) )
+        << Exif::RangeWidget::Value( 7.1, QString::fromLatin1( "7.1" ) )
+        << Exif::RangeWidget::Value( 8.0, QString::fromLatin1( "8.0" ) )
+        << Exif::RangeWidget::Value( 9.0, QString::fromLatin1( "9.0" ) )
+        << Exif::RangeWidget::Value( 10, QString::fromLatin1( "10" ) )
+        << Exif::RangeWidget::Value( 11, QString::fromLatin1( "11" ) )
+        << Exif::RangeWidget::Value( 13, QString::fromLatin1( "13" ) )
+        << Exif::RangeWidget::Value( 14, QString::fromLatin1( "14" ) )
+        << Exif::RangeWidget::Value( 16, QString::fromLatin1( "16" ) )
+        << Exif::RangeWidget::Value( 18, QString::fromLatin1( "18" ) )
+        << Exif::RangeWidget::Value( 20, QString::fromLatin1( "20" ) )
+        << Exif::RangeWidget::Value( 22, QString::fromLatin1( "22" ) )
+        << Exif::RangeWidget::Value( 25, QString::fromLatin1( "25" ) )
+        << Exif::RangeWidget::Value( 29, QString::fromLatin1( "29" ) )
+        << Exif::RangeWidget::Value( 32, QString::fromLatin1( "32" ) )
+        << Exif::RangeWidget::Value( 36, QString::fromLatin1( "36" ) )
+        << Exif::RangeWidget::Value( 40, QString::fromLatin1( "40" ) )
+        << Exif::RangeWidget::Value( 45, QString::fromLatin1( "45" ) );
+
+    _fnumber = new RangeWidget( i18n("F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), list, parent, "f number" );
+    return _fnumber;
+
 }
 
 QWidget* Exif::SearchDialog::makeExposureProgram( QWidget* parent )
@@ -125,39 +221,19 @@ QStringList Exif::SearchDialog::availableCameras()
     return (QStringList() << QString::fromLatin1("Camera 1") << QString::fromLatin1("Camera 2"));
 }
 
-QWidget* Exif::SearchDialog::makeExposureTime( QWidget* parent )
-{
-    QVGroupBox* box = new QVGroupBox( i18n( "Exposure time" ), parent );
-    RationalList list = Exif::Database::instance()->rationalValue( QString::fromLatin1( "Exif_Photo_ExposureTime" ) );
-    for( RationalList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        new QCheckBox( QString::fromLatin1("%1/%2").arg( (*it).first ).arg( (*it).second ), box );
-    }
-    return box;
-}
-
-QWidget* Exif::SearchDialog::makeFNumber( QWidget* parent )
-{
-    QVGroupBox* box = new QVGroupBox( i18n( "F Number" ), parent );
-    RationalList list = Exif::Database::instance()->rationalValue( QString::fromLatin1( "Exif_Photo_FNumber" ) );
-    for( RationalList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        new QCheckBox( QString::fromLatin1("%1/%2").arg( (*it).first ).arg( (*it).second ), box );
-    }
-    return box;
-
-}
-
 Exif::SearchInfo Exif::SearchDialog::info()
 {
     Exif::SearchInfo result;
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_MeteringMode" ), _meteringMode.selected() );
-    result.addSearchKey( QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), _iso.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_ExposureTime" ), _exposureProgram.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Image_Orientation" ), _orientation.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_MeteringMode" ), _meteringMode.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Contrast" ), _contrast.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Sharpness" ), _sharpness.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Saturation" ), _saturation.selected() );
-
+    result.addRangeKey( _iso->range() );
+    result.addRangeKey( _exposureTime->range() );
+    result.addRangeKey( _fnumber->range() );
     return result;
 }
 

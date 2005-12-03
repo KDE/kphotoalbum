@@ -1,11 +1,11 @@
-#include "Exif/ExifInfo.h"
+#include "Exif/Info.h"
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
 #include "set.h"
 #include "options.h"
 #include <qsqldatabase.h>
 #include <qsqlquery.h>
-#include "ExifDataBase.h"
+#include "Exif/Database.h"
 #include <iostream>
 #include <sstream>
 

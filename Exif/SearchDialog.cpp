@@ -1,9 +1,9 @@
-#include "ExifSearchDialog.h"
+#include "Exif/SearchDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <qvgroupbox.h>
 #include <qcheckbox.h>
-#include "ExifDataBase.h"
+#include "Exif/Database.h"
 
 using namespace Exif;
 

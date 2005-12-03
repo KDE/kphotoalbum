@@ -1,6 +1,6 @@
 #undef QT_NO_CAST_ASCII
 #undef QT_CAST_NO_ASCII
-#include "ExifDataBase.h"
+#include "Exif/Database.h"
 #include <qsqldatabase.h>
 #include "options.h"
 #include <qsqlquery.h>

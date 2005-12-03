@@ -1,6 +1,6 @@
-#include "ExifDialog.h"
+#include "Exif/InfoDialog.h"
 #include <klocale.h>
-#include "Exif/ExifInfo.h"
+#include "Exif/Info.h"
 #include <qlayout.h>
 #include <qpainter.h>
 #include <qtable.h>
@@ -225,5 +225,3 @@ void Exif::InfoDialog::pixmapLoaded( const QString& , const QSize& , const QSize
     if ( loadedOK )
         _pix->setPixmap( img );
 }
-
-#include "ExifDialog.moc"

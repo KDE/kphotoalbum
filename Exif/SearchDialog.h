@@ -3,7 +3,7 @@
 
 #include <kdialogbase.h>
 #include <qvaluelist.h>
-#include "ExifSearchInfo.h"
+#include "Exif/SearchInfo.h"
 class QCheckBox;
 
 namespace Exif

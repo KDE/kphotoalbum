@@ -1,4 +1,4 @@
-#include "ExifSearchInfo.h"
+#include "Exif/SearchInfo.h"
 #include <qsqlquery.h>
 
 void Exif::SearchInfo::addSearchKey( const QString& key, const QValueList<int> values )

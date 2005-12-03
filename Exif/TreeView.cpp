@@ -1,9 +1,9 @@
-#include "ExifTreeView.h"
+#include "Exif/TreeView.h"
 #include "set.h"
 #include <qmap.h>
 #include <qstringlist.h>
 #include <klocale.h>
-#include "ExifInfo.h"
+#include "Exif/Info.h"
 
 Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
     :QListView( parent, name )
@@ -75,5 +75,3 @@ void Exif::TreeView::reload()
     if ( QListViewItem* item = firstChild() )
         item->setOpen( true );
 }
-
-#include "ExifTreeView.moc"

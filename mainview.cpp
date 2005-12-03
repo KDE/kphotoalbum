@@ -86,8 +86,8 @@
 #include "mysurvey.h"
 #include <config.h>
 #ifdef HASEXIV2
-#  include "exifinfo.h"
-#  include "exifdialog.h"
+#  include "Exif/ExifInfo.h"
+#  include "Exif/exifdialog.h"
 #endif
 
 #include "featuredialog.h"
@@ -230,6 +230,19 @@ void MainView::delayedInit()
 
     if ( !Options::instance()->delayLoadingPlugins() )
         loadPlugins();
+
+
+#ifdef TEMPORARILY_REMOVED
+    qDebug("OK Lets go");
+    QStringList images = ImageDB::instance()->images();
+    int i = 0;
+    ExifInfo* inf = ExifInfo::instance();
+    for( QStringList::Iterator it = images.begin(); it != images.end(); ++it, ++i ) {
+        if ( i % 100 == 0)
+            qDebug( "%d", i );
+        inf->infoForViewer( *it );
+    }
+#endif
 }
 
 

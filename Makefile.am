@@ -7,10 +7,15 @@ else
 endif
 
 if compile_with_exiv2
-  EXIF_SOURCES = exifinfo.cpp exiftreeview.cpp exifdialog.cpp 
+  EXIF_SOURCES = exiffolder.cpp
+  EXIF_DIR = Exif
+  LIBKIMDABA_EXIF = Exif/libexif.la
+else
+  EXIF_DIR =
+  LIBKIMDABA_EXIF =
 endif
 
-SUBDIRS = images icons demo themes survey xmldb $(SQLDB)
+SUBDIRS = images icons demo themes survey xmldb $(SQLDB) $(EXIF_DIR)
 INCLUDES =  -I$(srcdir)/survey $(all_includes)
 
 bin_PROGRAMS = kimdaba
@@ -37,7 +42,8 @@ kimdaba_SOURCES = \
 	featuredialog.cpp $(EXIF_SOURCES)
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD =  survey/libsurvey.la xmldb/libxmldb.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) -ljpeg $(KIMDABA_KIPI_LIBS) $(KIMDABA_EXIV2_LIBS)
+kimdaba_LDADD =  survey/libsurvey.la xmldb/libxmldb.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) -ljpeg $(KIMDABA_KIPI_LIBS) \
+	$(LIBKIMDABA_EXIF) $(KIMDABA_EXIV2_LIBS)
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII $(KIMDABA_KIPI_CXXFLAGS) $(KIMDABA_EXIV2_CXXFLAGS)

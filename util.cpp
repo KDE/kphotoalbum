@@ -53,7 +53,7 @@ extern "C" {
 #include "imagedb.h"
 
 #ifdef HASEXIV2
-#  include "exifinfo.h"
+#  include "Exif/ExifInfo.h"
 #endif
 
 #include <kdebug.h>

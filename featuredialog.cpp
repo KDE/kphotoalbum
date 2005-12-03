@@ -3,6 +3,7 @@
 #include <qlayout.h>
 #include <qtextbrowser.h>
 #include <kapplication.h>
+#include <qfeatures.h>
 
 FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("KimDaBa Feature Status"), Close, Close, parent, name )
@@ -23,6 +24,11 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     hasEXIV2 = true;
 #endif
 
+    bool hasDatabaseSupport = true;
+#ifdef QT_NO_SQL
+    hasDatabaseSupport = false;
+#endif
+
     QString text =
         i18n("<h1>Overview</h1>"
              "<p>Below you may see the list of compiling time features that may be compiled into KimDaBa, and their status:</p>"
@@ -30,9 +36,11 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
              "<p><table>"
              "<tr><td><a href=\"#kipi\">Plug-ins available</a></td><td>%1</tr></tr>"
              "<tr><td><a href=\"#exiv2\">EXIF info supported</a></td><td>%2</td></tr>"
+             "<tr><td><a href=\"#database\">SQL Database Support</a></td><td>%3</td></tr>"
              "</table></p>" )
         .arg( hasKipi ? i18n( "Yes" ) : i18n( "No" ) )
-        .arg( hasEXIV2 ? i18n( "Yes" ) : i18n( "No" ) );
+        .arg( hasEXIV2 ? i18n( "Yes" ) : i18n( "No" ) )
+        .arg( hasDatabaseSupport ? i18n( "Yes" ) : i18n( "No" ) );
 
     text += i18n( "<h1>What can I do if I miss a feature?</h1>"
 
@@ -75,6 +83,8 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
         );
 
 
+    text += i18n( "<h1><a name=\"database\">SQL Database Support</a>"
+                  "TBD." );
     edit->setText( text );
 
     resize( 800, 600 );

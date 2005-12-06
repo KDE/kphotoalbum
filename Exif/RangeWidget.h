@@ -1,13 +1,14 @@
 #ifndef RANGEWIDGET_H
 #define RANGEWIDGET_H
 
-#include <qwidget.h>
+#include <qobject.h>
 #include "Exif/SearchInfo.h"
+class QGrid;
 class QComboBox;
 
 namespace Exif{
 
-class RangeWidget : public QWidget {
+class RangeWidget :public QObject{
     Q_OBJECT
 
 public:
@@ -22,7 +23,7 @@ public:
 
     typedef QValueList<Value> ValueList ;
 
-    RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QWidget* parent, const char* name = 0 );
+    RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QGrid* parent);
     Exif::SearchInfo::Range range() const;
 
 protected slots:

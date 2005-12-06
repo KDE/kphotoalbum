@@ -5,104 +5,19 @@
 #include "options.h"
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
+#include "Exif/DatabaseElement.h"
 
-class ExifElement
+using namespace Exif;
+
+static QValueList<DatabaseElement*> elements()
 {
-public:
-    virtual QString createString() = 0; // Exif_Photo_FNumber_denominator int, Exif_Photo_FNumber_nominator int
-    virtual QString queryString() = 0; // ?, ?
-    virtual void bindValues( QSqlQuery*, int& counter, Exiv2::ExifData& data ) = 0; // bind values
-};
-
-static QString replaceDotWithUnderscore( const char* cstr )
-{
-    QString str( QString::fromLatin1( cstr ) );
-    return str.replace( QString::fromLatin1( "." ), QString::fromLatin1( "_" ) );
-}
-
-class StringExifElement :public ExifElement
-{
-public:
-    StringExifElement( const char* tag ) : _tag( tag ) {}
-
-    QString createString()
-    {
-        return QString::fromLatin1( "%1 string" ).arg( replaceDotWithUnderscore( _tag ) );
-    }
-
-    QString queryString()
-    {
-        return QString::fromLatin1( "?" );
-    }
-
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
-    {
-        query->bindValue( counter++, data[_tag].toString().c_str() );
-    }
-
-private:
-    const char* _tag;
-};
-
-class IntExifElement :public ExifElement
-{
-public:
-    IntExifElement( const char* tag ) : _tag( tag ) {}
-
-    QString createString()
-    {
-        return QString::fromLatin1( "%1 int" ).arg( replaceDotWithUnderscore( _tag ) );
-    }
-
-    QString queryString()
-    {
-        return QString::fromLatin1( "?" );
-    }
-
-    void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
-    {
-        query->bindValue( counter++, (int) data[_tag].toLong() );
-    }
-
-private:
-    const char* _tag;
-};
-
-
-class RationalExifElement :public ExifElement
-{
-public:
-    RationalExifElement( const char* tag ) : _tag( tag ) {}
-    virtual QString createString()
-    {
-        return QString::fromLatin1( "%1 float" ).arg( replaceDotWithUnderscore( _tag ) );
-    }
-
-    virtual QString queryString()
-    {
-        return QString::fromLatin1( "?" );
-    }
-
-    virtual void bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
-    {
-        query->bindValue( counter++, 1-0 * data[_tag].toRational().first / data[_tag].toRational().second);
-    }
-
-private:
-    const char* _tag;
-};
-
-
-
-static QValueList<ExifElement*> elements()
-{
-    static QValueList<ExifElement*> elms;
+    static QValueList<DatabaseElement*> elms;
 
     if ( elms.count() == 0 ) {
         elms.append( new RationalExifElement( "Exif.Photo.FocalLength" ) );
         elms.append( new RationalExifElement( "Exif.Photo.ExposureTime" ) );
 
-        elms.append( new RationalExifElement( "Exif.Photo.FNumber" ) );
+        elms.append( new RationalExifElement( "Exif.Photo.ApertureValue" ) );
         elms.append( new RationalExifElement( "Exif.Photo.FlashEnergy" ) );
 
         elms.append( new IntExifElement( "Exif.Photo.Flash" ) );
@@ -112,6 +27,7 @@ static QValueList<ExifElement*> elements()
         elms.append( new IntExifElement( "Exif.Image.Orientation" ) );
         elms.append( new IntExifElement( "Exif.Photo.MeteringMode" ) );
         elms.append( new IntExifElement( "Exif.Photo.ISOSpeedRatings" ) );
+        elms.append( new IntExifElement( "Exif.Photo.ExposureProgram" ) );
 
         elms.append( new StringExifElement( "Exif.Image.Make" ) );
         elms.append( new StringExifElement( "Exif.Image.Model" ) );
@@ -119,24 +35,6 @@ static QValueList<ExifElement*> elements()
 
     return elms;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Exif::Database* Exif::Database::_instance = 0;
 
@@ -163,8 +61,8 @@ void Exif::Database::setup()
 {
     qDebug("Setup!");
     QStringList list;
-    QValueList<ExifElement*> elms = elements();
-    for( QValueList<ExifElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    QValueList<DatabaseElement*> elms = elements();
+    for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         list.append( (*tagIt)->createString() );
     }
 
@@ -177,15 +75,15 @@ void Exif::Database::setup()
 void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
 {
     QStringList formalList;
-    QValueList<ExifElement*> elms = elements();
-    for( QValueList<ExifElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    QValueList<DatabaseElement*> elms = elements();
+    for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         formalList.append( (*tagIt)->queryString() );
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ) );
     query.bindValue(  0, filename );
     int i = 1;
-    for( QValueList<ExifElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );
     }
 
@@ -200,6 +98,7 @@ Exif::Database* Exif::Database::instance()
     return _instance;
 }
 
+// PENDING(blackie) This function is outdated!
 RationalList Exif::Database::rationalValue( const QString& tag )
 {
     RationalList result;

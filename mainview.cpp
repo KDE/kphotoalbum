@@ -88,6 +88,7 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #  include "Exif/InfoDialog.h"
+#  include "Exif/Database.h"
 #endif
 
 #include "featuredialog.h"
@@ -243,6 +244,9 @@ void MainView::delayedInit()
         inf->infoForViewer( *it );
     }
 #endif
+
+    qDebug("This is not really a good place to do this, is it?");
+    Exif::Database::instance(); // Open the database
 }
 
 

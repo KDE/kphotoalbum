@@ -24,10 +24,13 @@
 #include <qstringlist.h>
 #include <qdict.h>
 #include "imageinfoptr.h"
+#include "Exif/SearchInfo.h"
+
 class OptionAndMatcher;
 class OptionSimpleMatcher;
 class ImageInfo;
 class OptionMatcher;
+
 
 class ImageSearchInfo {
 public:
@@ -59,6 +62,8 @@ public:
     void debugMatcher() const;
     QDict<void> findAlreadyMatched( const QString &group ) const;
 
+    void addExifSearchInfo( const Exif::SearchInfo info );
+
 protected:
     void compile() const;
     void deleteMatchers() const;
@@ -75,6 +80,8 @@ private:
     bool _isNull;
     mutable bool _compiled;
     mutable QValueList<OptionMatcher*> _optionMatchers;
+    Exif::SearchInfo _exifSearchInfo;
+    // When adding new instance variable, please notice that this class as an explicit written copy constructor.
 };
 
 

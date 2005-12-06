@@ -3,24 +3,15 @@
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <math.h> // for NAN
+#include <qgrid.h>
 
-Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QWidget* parent, const char* name )
-    : QWidget( parent, name ),_searchTag ( searchTag ), _list( list )
+Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QGrid* parent )
+    : QObject( parent ),_searchTag ( searchTag ), _list( list )
 {
-    QHBoxLayout* lay = new QHBoxLayout( this, 6 );
-
-    QLabel* label = new QLabel( text, this );
-    lay->addWidget( label );
-
-    _from = new QComboBox( this );
-    lay->addWidget( _from );
-
-    label = new QLabel( QString::fromLatin1( "to" ), this );
-    lay->addWidget( label );
-
-    _to = new QComboBox( this );
-    lay->addWidget( _to );
-    lay->addStretch(1);
+    QLabel* label = new QLabel( text, parent );
+    _from = new QComboBox( parent );
+    label = new QLabel( QString::fromLatin1( "to" ), parent );
+    _to = new QComboBox( parent );
 
     Q_ASSERT( list.count() > 2 );
     ValueList::ConstIterator it = list.begin();

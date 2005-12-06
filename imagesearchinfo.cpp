@@ -62,7 +62,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     if ( !_compiled )
         compile();
 
-    bool ok = true;
+    bool ok = _exifSearchInfo.matches( info->fileName() );
 
     if ( !_date.start().isNull() ) {
         // Date
@@ -205,10 +205,12 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _description = other._description;
     _isNull = other._isNull;
     _compiled = false;
+    _exifSearchInfo = other._exifSearchInfo;
 }
 
 void ImageSearchInfo::compile() const
 {
+    _exifSearchInfo.search();
     deleteMatchers();
 
     for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
@@ -372,4 +374,10 @@ QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( 
 ImageDate ImageSearchInfo::date() const
 {
     return _date;
+}
+
+void ImageSearchInfo::addExifSearchInfo( const Exif::SearchInfo info )
+{
+    _exifSearchInfo = info;
+    _isNull = false;
 }

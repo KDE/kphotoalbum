@@ -3,6 +3,9 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include "Exif/SearchDialog.h"
+#include "contentfolder.h"
+#include "imagedb.h"
+#include <kmessagebox.h>
 
 ExifFolder::ExifFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
@@ -13,10 +16,21 @@ ExifFolder::ExifFolder( const ImageSearchInfo& info, Browser* browser )
 FolderAction* ExifFolder::action( bool /* ctrlDown */ )
 {
     Exif::SearchDialog dialog( _browser );
-    dialog.exec();
-    QStringList list = dialog.info().matches();
-    qDebug( "%s", list.join( QString::fromLatin1( ", " ) ).latin1() );
-    return 0;
+    if ( dialog.exec() == QDialog::Rejected )
+        return 0;
+
+    Exif::SearchInfo result = dialog.info();
+
+    ImageSearchInfo info = _info;
+
+    info.addExifSearchInfo( dialog.info() );
+
+    if ( ImageDB::instance()->count( info ) == 0 ) {
+        KMessageBox::information( _browser, i18n( "Search did not match any images." ), i18n("Empty Search Result") );
+        return 0;
+    }
+
+    return new ContentFolderAction( QString::null, QString::null, info, _browser );
 }
 
 

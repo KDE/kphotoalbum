@@ -4,6 +4,7 @@
 #include <qvgroupbox.h>
 #include <qcheckbox.h>
 #include "Exif/Database.h"
+#include <qgrid.h>
 
 using namespace Exif;
 
@@ -11,20 +12,30 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     : KDialogBase( Plain, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
 {
     QWidget* top = plainPage();
-    QVBoxLayout* layout = new QVBoxLayout( top, 10 );
+    QVBoxLayout* vlay = new QVBoxLayout( top, 6 );
 
-    layout->addWidget( makeISO( top ) );
-    layout->addWidget( makeExposureTime( top ) );
-    layout->addWidget( makeFNumber( top ) );
-    layout->addWidget( makeExposureProgram( top ) );
-    layout->addWidget( makeOrientation( top ));
-    layout->addWidget( makeMeteringMode( top ) );
-    layout->addWidget( makeContrast( top ) );
-    layout->addWidget( makeSharpness( top ) );
-    layout->addWidget( makeSaturation( top ) );
+    QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
+
+    QGrid* grid = new QGrid( 4, top );
+    grid->setSpacing( 6 );
+    hlay->addWidget( grid );
+    makeISO( grid );
+    makeExposureTime( grid );
+    makeApertureValue( grid );
+
+    hlay->addWidget( makeOrientation( top ), 1 );
+
+    hlay = new QHBoxLayout( vlay, 6 );
+    hlay->addWidget( makeExposureProgram( top ) );
+    hlay->addWidget( makeMeteringMode( top ) );
+
+    hlay = new QHBoxLayout( vlay, 6 );
+    hlay->addWidget( makeContrast( top ) );
+    hlay->addWidget( makeSharpness( top ) );
+    hlay->addWidget( makeSaturation( top ) );
 }
 
-QWidget* Exif::SearchDialog::makeISO( QWidget* parent )
+void Exif::SearchDialog::makeISO( QGrid* parent )
 {
     Exif::RangeWidget::ValueList list;
     list << Exif::RangeWidget::Value( 100, QString::fromLatin1("100") )
@@ -33,11 +44,10 @@ QWidget* Exif::SearchDialog::makeISO( QWidget* parent )
          << Exif::RangeWidget::Value( 800, QString::fromLatin1("800") )
          << Exif::RangeWidget::Value( 1600, QString::fromLatin1("1600") );
 
-    _iso = new RangeWidget( i18n("Iso setting" ), QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), list, parent, "iso settings" );
-    return _iso;
+    _iso = new RangeWidget( i18n("Iso setting" ), QString::fromLatin1( "Exif_Photo_ISOSpeedRatings" ), list, parent );
 }
 
-QWidget* Exif::SearchDialog::makeExposureTime( QWidget* parent )
+void Exif::SearchDialog::makeExposureTime( QGrid* parent )
 {
     QString secs = i18n( "Example 1.6 secs (as in seconds)", "secs." );
     Exif::RangeWidget::ValueList list;
@@ -95,12 +105,10 @@ QWidget* Exif::SearchDialog::makeExposureTime( QWidget* parent )
         << Exif::RangeWidget::Value( 25, QString::fromLatin1( "25 %1").arg(secs ) )
         << Exif::RangeWidget::Value( 30, QString::fromLatin1( "30 %1").arg(secs ) );
 
-    _exposureTime = new RangeWidget( i18n("Exposure time" ), QString::fromLatin1( "Exif_Photo_ExposureTime" ),
-                                     list, parent, "exposure time" );
-    return _exposureTime;
+    _exposureTime = new RangeWidget( i18n("Exposure time" ), QString::fromLatin1( "Exif_Photo_ExposureTime" ), list, parent );
 }
 
-QWidget* Exif::SearchDialog::makeFNumber( QWidget* parent )
+void Exif::SearchDialog::makeApertureValue( QGrid* parent )
 {
     Exif::RangeWidget::ValueList list;
     list
@@ -135,9 +143,7 @@ QWidget* Exif::SearchDialog::makeFNumber( QWidget* parent )
         << Exif::RangeWidget::Value( 40, QString::fromLatin1( "40" ) )
         << Exif::RangeWidget::Value( 45, QString::fromLatin1( "45" ) );
 
-    _fnumber = new RangeWidget( i18n("F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), list, parent, "f number" );
-    return _fnumber;
-
+    _apertureValue = new RangeWidget( i18n("F Number" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), list, parent );
 }
 
 QWidget* Exif::SearchDialog::makeExposureProgram( QWidget* parent )
@@ -225,7 +231,7 @@ Exif::SearchInfo Exif::SearchDialog::info()
 {
     Exif::SearchInfo result;
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_MeteringMode" ), _meteringMode.selected() );
-    result.addSearchKey( QString::fromLatin1( "Exif_Photo_ExposureTime" ), _exposureProgram.selected() );
+    result.addSearchKey( QString::fromLatin1( "Exif_Photo_ExposureProgram" ), _exposureProgram.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Image_Orientation" ), _orientation.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_MeteringMode" ), _meteringMode.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Contrast" ), _contrast.selected() );
@@ -233,7 +239,7 @@ Exif::SearchInfo Exif::SearchDialog::info()
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Saturation" ), _saturation.selected() );
     result.addRangeKey( _iso->range() );
     result.addRangeKey( _exposureTime->range() );
-    result.addRangeKey( _fnumber->range() );
+    result.addRangeKey( _apertureValue->range() );
     return result;
 }
 

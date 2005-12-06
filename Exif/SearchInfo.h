@@ -4,6 +4,7 @@
 #include <qstringlist.h>
 #include <qvaluelist.h>
 #include <qpair.h>
+#include <set.h>
 
 namespace Exif {
 
@@ -23,19 +24,22 @@ public:
     void addSearchKey( const QString& key, const QValueList<int> values );
     void addRangeKey( const Range& range );
 
-    QStringList matches();
-    QString buildQuery();
+    void search() const;
+    bool matches( const QString& fileName ) const;
 
 protected:
-    QStringList buildIntKeyQuery();
-    QStringList buildRangeQuery();
-    QString sqlForOneRangeItem( const Range& );
+    QString buildQuery() const;
+    QStringList buildIntKeyQuery() const;
+    QStringList buildRangeQuery() const;
+    QString sqlForOneRangeItem( const Range& ) const;
 
 private:
     typedef QValueList< QPair<QString, QValueList<int> > > IntKeyList;
     IntKeyList _intKeys;
     typedef QValueList<Range> RangeList;
     RangeList _rangeKeys;
+    mutable Set<QString> _matches;
+    mutable bool _emptyQuery;
 };
 
 }

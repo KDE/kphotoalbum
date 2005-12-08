@@ -8,6 +8,7 @@ Name[tg]=Ким-Да-Ба
 Name[xx]=xxKimDaBaxx
 Exec=kimdaba
 GenericName=Image Database
+GenericName[bg]=База от данни със снимки
 GenericName[br]=Stlennvon ar skeudennoù
 GenericName[bs]=Baza slika
 GenericName[ca]=Base de dades d'imatges

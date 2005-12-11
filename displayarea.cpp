@@ -262,7 +262,6 @@ QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWid
 
     if ( rat * logicalHeight > physicalHeight ) {
         rat = ((double)physicalHeight)/logicalHeight;
-        Q_ASSERT( rat * logicalWidth <= physicalWidth );
     }
 
     int ox = (int) (physicalWidth - logicalWidth*rat)/2;

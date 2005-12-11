@@ -24,9 +24,6 @@ AC_SUBST(KIMDABA_EXIV2_CXXFLAGS)
 AC_SUBST(KIMDABA_EXIV2_LIBS)
 AM_CONDITIONAL(compile_with_exiv2, test "$have_exif2" = "yes")
 
-
-
-
 dnl ============================================================
 dnl Check for sqldb
 dnl ============================================================

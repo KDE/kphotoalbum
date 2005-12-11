@@ -49,7 +49,7 @@ METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII $(KIMDABA_KIPI_CXXFLAGS) $(KIMDABA_EXIV2_CXXFLAGS)
 
 rcdir = $(kde_datadir)/kimdaba
-rc_DATA = kimdabaui.rc default-setup
+rc_DATA = kimdabaui.rc default-setup exif-sqlite.db
 
 appsdatadir=$(kde_datadir)/kimdaba
 appsdata_DATA=tips

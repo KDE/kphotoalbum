@@ -4,6 +4,7 @@
 #include <qtextbrowser.h>
 #include <kapplication.h>
 #include <qfeatures.h>
+#include "Exif/Database.h"
 
 FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("KimDaBa Feature Status"), Close, Close, parent, name )
@@ -28,7 +29,6 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 #ifdef QT_NO_SQL
     hasDatabaseSupport = false;
 #endif
-
     QString text =
         i18n("<h1>Overview</h1>"
              "<p>Below you may see the list of compiling time features that may be compiled into KimDaBa, and their status:</p>"
@@ -37,10 +37,13 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
              "<tr><td><a href=\"#kipi\">Plug-ins available</a></td><td>%1</tr></tr>"
              "<tr><td><a href=\"#exiv2\">EXIF info supported</a></td><td>%2</td></tr>"
              "<tr><td><a href=\"#database\">SQL Database Support</a></td><td>%3</td></tr>"
+             "<tr><td><a href=\"#database\">Sqlite Database Support</a></td><td>%4</td></tr>"
              "</table></p>" )
         .arg( hasKipi ? i18n( "Yes" ) : i18n( "No" ) )
         .arg( hasEXIV2 ? i18n( "Yes" ) : i18n( "No" ) )
-        .arg( hasDatabaseSupport ? i18n( "Yes" ) : i18n( "No" ) );
+        .arg( hasDatabaseSupport ? i18n( "Yes" ) : i18n( "No" ) )
+        .arg( Exif::Database::isAvailable() ? i18n("Yes") : i18n( "No" ) );
+
 
     text += i18n( "<h1>What can I do if I miss a feature?</h1>"
 
@@ -84,7 +87,9 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
 
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a>"
-                  "TBD." );
+                  "KimDaBa allows you to search using a certain number of EXIF tags. For this KimDaBa "
+                  "needs a Sqlite database. Unfortunately, for this to work, you need to run Sqlite version 2.8.16, "
+                  "so please make sure this is the right version installed on your system." );
     edit->setText( text );
 
     resize( 800, 600 );

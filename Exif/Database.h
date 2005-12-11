@@ -20,9 +20,15 @@ class Database {
 
 public:
     static Database* instance();
-    void setup();
+    static void setup();
+
     void insert( const QString& filename, Exiv2::ExifData );
-    RationalList rationalValue( const QString& tag );
+    static bool isAvailable();
+
+protected:
+    static QString exifDBFile();
+    static void openDatabase();
+    static void populateDatabase();
 
 private:
     Database();

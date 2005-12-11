@@ -6,6 +6,10 @@
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
 #include "Exif/DatabaseElement.h"
+#include "Database.h"
+#include <qfile.h>
+#include "util.h"
+#include <kstandarddirs.h>
 
 using namespace Exif;
 
@@ -45,31 +49,51 @@ static void showError( QSqlQuery& query )
 
 Exif::Database::Database()
 {
-    QSqlDatabase* database = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ) );
-    Q_ASSERT( database );
+    bool dbExists = QFile::exists( exifDBFile() );
+    if ( !dbExists )
+        Util::copy( locate( "data", QString::fromLatin1( "kimdaba/exif-sqlite.db" ) ), exifDBFile() );
 
-    database->setDatabaseName( Options::instance()->imageDirectory() + "/kimdaba.db" );
+    openDatabase();
 
-    if ( !database->open() )
-        qFatal("Couldn't open db %s", database->lastError().text().latin1());
-
-    setup();
+    if ( !dbExists ) {
+        populateDatabase();
+        // PENDING(blackie) Offer user to fill the DB.
+    }
 }
 
 
 void Exif::Database::setup()
 {
-    qDebug("Setup!");
-    QStringList list;
+    if ( !isAvailable() )
+        return;
+
+    _instance = new Exif::Database();
+}
+
+void Exif::Database::openDatabase()
+{
+    QSqlDatabase* database = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ) );
+    Q_ASSERT( database );
+
+    database->setDatabaseName( exifDBFile() );
+
+    if ( !database->open() )
+        qFatal("Couldn't open db %s", database->lastError().text().latin1());
+
+}
+
+void Exif::Database::populateDatabase()
+{
+    QStringList attributes;
     QValueList<DatabaseElement*> elms = elements();
     for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
-        list.append( (*tagIt)->createString() );
+        attributes.append( (*tagIt)->createString() );
     }
 
-    QSqlQuery query( QString::fromLatin1( "create table exif (filename string, %1 )").arg( list.join( QString::fromLatin1(", ") ) ) );
+    QSqlQuery query( QString::fromLatin1( "create table exif (filename string, %1 )")
+                     .arg( attributes.join( QString::fromLatin1(", ") ) ) );
     if ( !query.exec())
         showError( query );
-
 }
 
 void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
@@ -94,37 +118,22 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
 Exif::Database* Exif::Database::instance()
 {
     if ( !_instance )
-        _instance = new Exif::Database;
+        qFatal("You must call setup() before calling Exif::Database::instance()");
     return _instance;
 }
 
-// PENDING(blackie) This function is outdated!
-RationalList Exif::Database::rationalValue( const QString& tag )
+bool Exif::Database::isAvailable()
 {
-    RationalList result;
-    QSqlQuery query( QString::fromLatin1( "SELECT DISTINCT %1_denom,%2_nom FROM exif" ).arg(tag).arg(tag));
-
-    if ( !query.exec() ) {
-        showError( query );
-        return result;
-    }
-
-    QMap<int,Rational> map;
-    while ( query.next() ) {
-        int denominator = query.value(0).toInt();
-        int nominator = query.value(1).toInt();
-        float f = (1.0 * denominator) / nominator;
-        qDebug("%f", f );
-        map.insert( (int) (10000*f), Rational( denominator, nominator ), true );
-    }
-
-    QValueList<int> keys = map.keys();
-    qHeapSort(keys);
-
-    for( QValueList<int>::ConstIterator it = keys.begin(); it != keys.end(); ++it ) {
-        result.append( map[*it] );
-        qDebug("%d,%d", map[*it].first, map[*it].second );
-    }
-
-    return result;
+#ifdef QT_NO_SQL
+    return false;
+#endif
+    return QSqlDatabase::isDriverAvailable( QString::fromLatin1( "QSQLITE" ) );
 }
+
+QString Exif::Database::exifDBFile()
+{
+    return Options::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
+}
+
+
+

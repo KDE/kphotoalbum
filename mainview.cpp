@@ -245,8 +245,7 @@ void MainView::delayedInit()
     }
 #endif
 
-    qDebug("This is not really a good place to do this, is it?");
-    Exif::Database::instance(); // Open the database
+    Exif::Database::setup();
 }
 
 

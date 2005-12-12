@@ -41,6 +41,8 @@ extern "C" {
 #include "membermap.h"
 #include <kcmdlineargs.h>
 #include "xmldb/xmlcategory.h"
+#include <config.h>
+#include "Exif/Database.h"
 
 ImageInfo::ImageInfo() :_null( true ), _locked( false )
 {
@@ -371,6 +373,13 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
             if ( foundInExif )
                 _description = exifInfo.description();
         }
+    }
+
+    // Database update
+    if ( mode & EXIFMODE_DATABASE_UPDATE ) {
+#ifdef HASEXIV2
+        Exif::Database::instance()->add( fullPath );
+#endif
     }
 }
 

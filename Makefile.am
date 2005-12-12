@@ -31,7 +31,7 @@ kimdaba_SOURCES = \
 	groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp \
 	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
-	mysplashscreen.cpp readinfodialog.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \
+	mysplashscreen.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \
 	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
 	datebar.cpp dateviewhandler.cpp imagedaterange.cpp \
 	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp datebarmousehandler.cpp \

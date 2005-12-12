@@ -69,7 +69,7 @@
 #  include <libkipi/pluginloader.h>
 #  include <libkipi/plugin.h>
 #endif
-#include "readinfodialog.h"
+#include "Exif/ReReadDialog.h"
 #include "imageloader.h"
 #include "mysplashscreen.h"
 #include <qobjectlist.h>
@@ -97,7 +97,7 @@ MainView* MainView::_instance = 0;
 
 MainView::MainView( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _autoSaveDirty( false ),
-     _deleteDialog( 0 ), _readInfoDialog( 0 ), _dirtyIndicator(0),
+     _deleteDialog( 0 ), _dirtyIndicator(0),
      _htmlDialog(0), _tokenEditor( 0 )
 {
     MySplashScreen::instance()->message( i18n("Loading Database") );
@@ -232,17 +232,8 @@ void MainView::delayedInit()
     if ( !Options::instance()->delayLoadingPlugins() )
         loadPlugins();
 
-
-#ifdef TEMPORARILY_REMOVED
-    qDebug("OK Lets go");
-    QStringList images = ImageDB::instance()->images();
-    int i = 0;
-    Exif::Info* inf = Exif::Info::instance();
-    for( QStringList::Iterator it = images.begin(); it != images.end(); ++it, ++i ) {
-        if ( i % 100 == 0)
-            qDebug( "%d", i );
-        inf->infoForViewer( *it );
-    }
+#ifdef HASEXIV2
+    Exif::Database::instance(); // Load the database
 #endif
 }
 
@@ -425,27 +416,13 @@ void MainView::slotDeleteSelected()
 }
 
 
-void MainView::slotReadInfo()
+void MainView::slotReReadExifInfo()
 {
-    QStringList files = selectedOnDisk();;
-
-    int i = KMessageBox::warningContinueCancelList( this,
-                i18n( "<qt><p>Be aware that reading EXIF info from files may "
-                      "<b>overwrite</b> data you have previously entered "
-                      "manually using the image configuration dialog.</p>"
-                      "<p>Be sure you have in the current view <b>only</b> "
-                      "the files for which you really want to reread the "
-                      "EXIF info. There are <b>%1 files</b> affected, their filenames "
-                      "can be seen below.</p></qt>").arg(files.count()), files,
-                                                    i18n("Read EXIF Info From Files"),
-                KStdGuiItem::cont(),
-                QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
-    if ( i == KMessageBox::Cancel )
-        return;
-
-    if ( ! _readInfoDialog )
-        _readInfoDialog = new ReadInfoDialog( this );
-    if ( _readInfoDialog->exec( files ) == QDialog::Accepted )
+    QStringList files = selectedOnDisk();
+    static Exif::ReReadDialog* dialog = 0;
+    if ( ! dialog )
+        dialog = new Exif::ReReadDialog( this );
+    if ( dialog->exec( files ) == QDialog::Accepted )
         setDirty( true );
 }
 
@@ -637,7 +614,9 @@ void MainView::setupMenuBar()
     new KAction( i18n("Display Images with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
     new KAction( i18n("Recalculate Checksum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
-    new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReadInfo() ), actionCollection(), "readInfo" );
+#ifdef HASEXIV2
+    new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
+#endif
     new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
     new KAction( i18n("Remove All KimDaBa 2.1 Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
 

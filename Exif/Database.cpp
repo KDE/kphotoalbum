@@ -11,6 +11,10 @@
 #include <qfile.h>
 #include "util.h"
 #include <kstandarddirs.h>
+#include "mainview.h"
+#include <kmessagebox.h>
+#include <klocale.h>
+#include "imagedb.h"
 
 using namespace Exif;
 
@@ -61,7 +65,7 @@ Exif::Database::Database()
 
     if ( !dbExists ) {
         populateDatabase();
-        // PENDING(blackie) Offer user to fill the DB.
+        offerInitialize();
     }
 }
 
@@ -86,7 +90,7 @@ void Exif::Database::populateDatabase()
         attributes.append( (*tagIt)->createString() );
     }
 
-    QSqlQuery query( QString::fromLatin1( "create table exif (filename string, %1 )")
+    QSqlQuery query( QString::fromLatin1( "create table exif (filename string PRIMARY KEY, %1 )")
                      .arg( attributes.join( QString::fromLatin1(", ") ) ), _db );
     if ( !query.exec())
         showError( query );
@@ -178,5 +182,17 @@ Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
     }
 
     return result;
+}
+
+void Exif::Database::offerInitialize()
+{
+    int ret = KMessageBox::questionYesNo( MainView::theMainView(),
+                                          i18n("<qt><p>Congratulation, your KimDaBa version now supports searching "
+                                               "for EXIF information.</p>"
+                                               "<p>For this to work, I need to rescan your images. Do you want me to do so now?</p>"),
+                                          i18n("Rescan for EXIF information") );
+    if ( ret == KMessageBox::Yes )
+        ImageDB::instance()->slotReread( ImageDB::instance()->images(), EXIFMODE_DATABASE_UPDATE );
+
 }
 

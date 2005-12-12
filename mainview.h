@@ -72,7 +72,7 @@ protected slots:
     void slotConfigureImagesOneAtATime();
     void slotSave();
     void slotDeleteSelected();
-    void slotReadInfo();
+    void slotReReadExifInfo();
     void slotSearch();
     void slotView( bool reuse = false, bool slideShow = false, bool random = false );
     void slotViewNewWindow();
@@ -159,7 +159,6 @@ private:
     Browser* _browser;
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
-    ReadInfoDialog* _readInfoDialog;
     QLabel* _dirtyIndicator;
     QLabel* _lockedIndicator;
     KAction* _lock;

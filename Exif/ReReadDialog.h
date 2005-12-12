@@ -16,32 +16,41 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef READINFODIALOG_H
-#define READINFODIALOG_H
+#ifndef REREADDIALOG_H
+#define REREADDIALOG_H
 #include <kdialogbase.h>
 #include "imageinfolist.h"
+#include <config.h>
 class QLabel;
 class QCheckBox;
 class QRadioButton;
 
-class ReadInfoDialog :public KDialogBase {
+namespace Exif
+{
+
+class ReReadDialog :public KDialogBase {
     Q_OBJECT
 
 public:
-    ReadInfoDialog( QWidget* parent, const char* name = 0 );
+    ReReadDialog( QWidget* parent, const char* name = 0 );
     int exec( const QStringList& );
 
 protected slots:
     void readInfo();
+    void showFileList();
+    void warnAboutDates( bool );
+
 private:
     QStringList _list;
     QLabel* _label;
+    QCheckBox* _exifDB;
     QCheckBox* _date;
     QCheckBox* _orientation;
     QCheckBox* _description;
     QCheckBox* _force_date;
 };
 
+}
 
-#endif /* READINFODIALOG_H */
+#endif /* REREADDIALOG_H */
 

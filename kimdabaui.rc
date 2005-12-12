@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="28">
+<kpartgui name="kimdaba" version="29">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -40,7 +40,7 @@
       <Action name="findImagesWithInvalidDate"/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
-      <Action name="readInfo" />
+      <Action name="reReadExifInfo" />
       <Action name="convertBackend" />
       <Separator/>
       <Action name="removeAllThumbs"/>

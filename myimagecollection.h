@@ -19,6 +19,7 @@
 #ifndef MYIMAGECOLLECTION_H
 #define MYIMAGECOLLECTION_H
 
+#include <config.h>
 #ifdef HASKIPI
 #include <libkipi/imagecollectionshared.h>
 #include "imageinfolist.h"

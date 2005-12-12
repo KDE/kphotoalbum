@@ -21,6 +21,7 @@
 #include <kdialogbase.h>
 #include "options.h"
 #include "membermap.h"
+#include <config.h>
 class QListView;
 class KColorButton;
 class QSpinBox;

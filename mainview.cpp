@@ -244,8 +244,6 @@ void MainView::delayedInit()
         inf->infoForViewer( *it );
     }
 #endif
-
-    Exif::Database::setup();
 }
 
 

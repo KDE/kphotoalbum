@@ -1,4 +1,5 @@
 #include "Exif/SearchInfo.h"
+#include "Exif/Database.h"
 #include <qsqlquery.h>
 #include "SearchInfo.h"
 
@@ -52,7 +53,7 @@ QString Exif::SearchInfo::buildQuery() const
 QStringList Exif::SearchInfo::buildRangeQuery() const
 {
     QStringList result;
-    for( RangeList::ConstIterator it = _rangeKeys.begin(); it != _rangeKeys.end(); ++it ) {
+    for( QValueList<Range>::ConstIterator it = _rangeKeys.begin(); it != _rangeKeys.end(); ++it ) {
         QString str = sqlForOneRangeItem( *it );
         if ( !str.isNull() )
             result.append( str );
@@ -93,33 +94,21 @@ QString Exif::SearchInfo::sqlForOneRangeItem( const Range& range ) const
         .arg( range.max * 1.01);
 }
 
-// PENDING(blackie) clean up will ya
-static void showError( QSqlQuery& query )
-{
-    qWarning( "Error running query: %s\nError was: %s", query.executedQuery().latin1(), query.lastError().text().latin1());
-}
-
-
 void Exif::SearchInfo::search() const
 {
-    _matches.clear();
-
     QString queryStr = buildQuery();
     _emptyQuery = queryStr.isNull();
 
-    if ( _emptyQuery )
+    // ensure to do SQL queries as little as possible.
+    static QString lastQuery = QString::null;
+    if ( queryStr == lastQuery )
         return;
 
-    qDebug(">%s<",  queryStr.latin1());
-    QSqlQuery query( queryStr );
-    if ( !query.exec() )
-        showError( query );
 
-    else {
-        while ( query.next() )
-            _matches.insert( query.value(0).toString() );
-        qDebug("Matches from query: %d", _matches.count() );
-    }
+    _matches.clear();
+    if ( _emptyQuery )
+        return;
+    _matches = Exif::Database::instance()->filesMatchingQuery( queryStr );
 }
 
 bool Exif::SearchInfo::matches( const QString& fileName ) const

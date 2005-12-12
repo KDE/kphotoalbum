@@ -29,6 +29,7 @@
 #  include "Exif/Info.h"
 #endif
 #include "set.h"
+#include <config.h>
 class ImageConfig;
 
 

@@ -19,6 +19,7 @@
 #ifndef CATEGORYIMAGECOLLECTION_H
 #define CATEGORYIMAGECOLLECTION_H
 
+#include <config.h>
 #ifdef HASKIPI
 #include "myimagecollection.h"
 #include "imagesearchinfo.h"

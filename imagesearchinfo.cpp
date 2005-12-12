@@ -27,6 +27,7 @@
 #include "imageinfo.h"
 #include <kapplication.h>
 #include <kconfig.h>
+#include <config.h>
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
@@ -62,7 +63,10 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     if ( !_compiled )
         compile();
 
-    bool ok = _exifSearchInfo.matches( info->fileName() );
+    bool ok = true;
+#ifdef HASEXIV2
+    ok = _exifSearchInfo.matches( info->fileName() );
+#endif
 
     if ( !_date.start().isNull() ) {
         // Date
@@ -205,12 +209,16 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _description = other._description;
     _isNull = other._isNull;
     _compiled = false;
+#ifdef HASEXIV2
     _exifSearchInfo = other._exifSearchInfo;
+#endif
 }
 
 void ImageSearchInfo::compile() const
 {
+#ifdef HASEXIV2
     _exifSearchInfo.search();
+#endif
     deleteMatchers();
 
     for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
@@ -376,8 +384,10 @@ ImageDate ImageSearchInfo::date() const
     return _date;
 }
 
+#ifdef HASEXIV2
 void ImageSearchInfo::addExifSearchInfo( const Exif::SearchInfo info )
 {
     _exifSearchInfo = info;
     _isNull = false;
 }
+#endif

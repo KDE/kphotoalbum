@@ -3,9 +3,7 @@
 #include "exiv2/exif.hpp"
 #include "set.h"
 #include "options.h"
-#include <qsqldatabase.h>
 #include <qsqlquery.h>
-#include "Exif/Database.h"
 #include <iostream>
 #include <sstream>
 
@@ -45,7 +43,6 @@ QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedK
                 result.insert( text, QString::fromLocal8Bit(str.c_str()) );
             }
         }
-        Exif::Database::instance()->insert( fileName, exifData );
     }
     catch ( ... ) {
     }

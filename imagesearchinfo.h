@@ -25,6 +25,7 @@
 #include <qdict.h>
 #include "imageinfoptr.h"
 #include "Exif/SearchInfo.h"
+#include <config.h>
 
 class OptionAndMatcher;
 class OptionSimpleMatcher;
@@ -62,7 +63,9 @@ public:
     void debugMatcher() const;
     QDict<void> findAlreadyMatched( const QString &group ) const;
 
+#ifdef HASEXIV2
     void addExifSearchInfo( const Exif::SearchInfo info );
+#endif
 
 protected:
     void compile() const;
@@ -70,7 +73,6 @@ protected:
 
     QValueList<OptionSimpleMatcher*> extractAndMatcher( OptionMatcher* andMatcher ) const;
     QValueList< QValueList<OptionSimpleMatcher*> > convertMatcher( OptionMatcher* ) const;
-
 
 private:
     ImageDate _date;
@@ -80,7 +82,10 @@ private:
     bool _isNull;
     mutable bool _compiled;
     mutable QValueList<OptionMatcher*> _optionMatchers;
+
+#ifdef HASEXIV2
     Exif::SearchInfo _exifSearchInfo;
+#endif
     // When adding new instance variable, please notice that this class as an explicit written copy constructor.
 };
 

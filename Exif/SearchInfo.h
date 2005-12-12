@@ -36,8 +36,7 @@ protected:
 private:
     typedef QValueList< QPair<QString, QValueList<int> > > IntKeyList;
     IntKeyList _intKeys;
-    typedef QValueList<Range> RangeList;
-    RangeList _rangeKeys;
+    QValueList<Range> _rangeKeys;
     mutable Set<QString> _matches;
     mutable bool _emptyQuery;
 };

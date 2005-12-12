@@ -57,6 +57,7 @@ extern "C" {
 #endif
 
 #include <kdebug.h>
+#include <config.h>
 
 QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
@@ -107,12 +108,17 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
     }
 
 #ifdef HASEXIV2
+    QString exifText;
     if ( Options::instance()->showEXIF() ) {
         QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
         for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
-            text += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
+            exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
         }
     }
+
+    if ( !text.isEmpty() && !exifText.isEmpty() )
+        text += QString::fromLatin1( "<hr>" );
+    text += exifText;
 #endif
 
     return text;
@@ -584,4 +590,9 @@ QStringList Util::diff( const QStringList& list1, const QStringList& list2 )
             result.append( *it );
     }
     return result;
+}
+
+QString Util::absoluteImageFileName( const QString& relativeName )
+{
+    return stripSlash( Options::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
 }

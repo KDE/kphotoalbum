@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config.h>
+
 #ifdef HASKIPI
 #include "plugininterface.h"
 #include <libkipi/imagecollection.h>

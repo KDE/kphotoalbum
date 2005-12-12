@@ -4,10 +4,14 @@
 #include <qstring.h>
 #include <qvaluelist.h>
 #include <qpair.h>
+#include <qstringlist.h>
+#include <set.h>
 
+class QSqlDatabase;
 class QSqlQuery;
+
 namespace Exiv2 {
-    class ExifData;
+class ExifData;
 }
 
 typedef QPair<int,int> Rational;
@@ -16,23 +20,33 @@ typedef QValueList<Rational> RationalList;
 namespace Exif
 {
 
+// ================================================================================
+// IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
+// ================================================================================
+//
+// It is the resposibility of the methods in here to bail out in case database support
+// is not available ( !isAvailable() ). This is to simplify client code.
 class Database {
 
 public:
     static Database* instance();
-    static void setup();
-
-    void insert( const QString& filename, Exiv2::ExifData );
     static bool isAvailable();
+
+    void add( const QString& fileName );
+    void remove( const QString& fileName );
+    Set<QString> filesMatchingQuery( const QString& query );
 
 protected:
     static QString exifDBFile();
-    static void openDatabase();
-    static void populateDatabase();
+    void openDatabase();
+    void populateDatabase();
+    static QString connectionName();
+    void insert( const QString& filename, Exiv2::ExifData );
 
 private:
     Database();
     static Database* _instance;
+    QSqlDatabase* _db;
 };
 
 }

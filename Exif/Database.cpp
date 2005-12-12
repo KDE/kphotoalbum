@@ -5,6 +5,7 @@
 #include "options.h"
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
+#include <exiv2/image.hpp>
 #include "Exif/DatabaseElement.h"
 #include "Database.h"
 #include <qfile.h>
@@ -49,6 +50,9 @@ static void showError( QSqlQuery& query )
 
 Exif::Database::Database()
 {
+    if ( !isAvailable() )
+        return;
+
     bool dbExists = QFile::exists( exifDBFile() );
     if ( !dbExists )
         Util::copy( locate( "data", QString::fromLatin1( "kimdaba/exif-sqlite.db" ) ), exifDBFile() );
@@ -62,23 +66,15 @@ Exif::Database::Database()
 }
 
 
-void Exif::Database::setup()
-{
-    if ( !isAvailable() )
-        return;
-
-    _instance = new Exif::Database();
-}
-
 void Exif::Database::openDatabase()
 {
-    QSqlDatabase* database = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ) );
-    Q_ASSERT( database );
+    _db = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ), QString::fromLatin1( "exif" ) );
+    Q_ASSERT( _db );
 
-    database->setDatabaseName( exifDBFile() );
+    _db->setDatabaseName( exifDBFile() );
 
-    if ( !database->open() )
-        qFatal("Couldn't open db %s", database->lastError().text().latin1());
+    if ( !_db->open() )
+        qFatal("Couldn't open db %s", _db->lastError().text().latin1());
 
 }
 
@@ -91,8 +87,36 @@ void Exif::Database::populateDatabase()
     }
 
     QSqlQuery query( QString::fromLatin1( "create table exif (filename string, %1 )")
-                     .arg( attributes.join( QString::fromLatin1(", ") ) ) );
+                     .arg( attributes.join( QString::fromLatin1(", ") ) ), _db );
     if ( !query.exec())
+        showError( query );
+}
+
+void Exif::Database::add( const QString& fileName )
+{
+    if ( !isAvailable() )
+        return;
+
+    try {
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.local8Bit().data());
+        Q_ASSERT(image.get() != 0);
+        image->readMetadata();
+        Exiv2::ExifData &exifData = image->exifData();
+        insert( fileName, exifData );
+    }
+    catch (...)
+    {
+    }
+}
+
+void Exif::Database::remove( const QString& fileName )
+{
+    if ( !isAvailable() )
+        return;
+
+    QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
+    query.bindValue( 0, fileName );
+    if ( !query.exec() )
         showError( query );
 }
 
@@ -104,7 +128,7 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
         formalList.append( (*tagIt)->queryString() );
     }
 
-    QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ) );
+    QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
     query.bindValue(  0, filename );
     int i = 1;
     for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
@@ -113,12 +137,13 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
 
     if ( !query.exec() )
         showError( query );
+
 }
 
 Exif::Database* Exif::Database::instance()
 {
     if ( !_instance )
-        qFatal("You must call setup() before calling Exif::Database::instance()");
+        _instance = new Exif::Database();
     return _instance;
 }
 
@@ -127,6 +152,7 @@ bool Exif::Database::isAvailable()
 #ifdef QT_NO_SQL
     return false;
 #endif
+
     return QSqlDatabase::isDriverAvailable( QString::fromLatin1( "QSQLITE" ) );
 }
 
@@ -135,5 +161,22 @@ QString Exif::Database::exifDBFile()
     return Options::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
+Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
+{
+    if ( !isAvailable() )
+        return Set<QString>();
 
+    Set<QString> result;
+    QSqlQuery query( queryStr, _db );
+
+    if ( !query.exec() )
+        showError( query );
+
+    else {
+        while ( query.next() )
+            result.insert( query.value(0).toString() );
+    }
+
+    return result;
+}
 

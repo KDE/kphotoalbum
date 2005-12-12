@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config.h>
 #ifdef HASKIPI
 #include "myimageinfo.h"
 #include "imagedb.h"

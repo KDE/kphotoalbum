@@ -29,6 +29,9 @@
 #include "categorycollection.h"
 #include "membermap.h"
 #include "exiffolder.h"
+#include "Exif/Database.h"
+#include <config.h>
+
 ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category( category ), _value( value )
@@ -75,7 +78,10 @@ void ContentFolderAction::action( BrowserItemFactory* factory )
 
     //-------------------------------------------------- Search,Exif, and Image Folder
     factory->createItem( new SearchFolder( _info, _browser ) );
-    factory->createItem( new ExifFolder( _info, _browser ) );
+#ifdef HASEXIV2
+    if ( Exif::Database::isAvailable() )
+        factory->createItem( new ExifFolder( _info, _browser ) );
+#endif
     factory->createItem( new ImageFolder( _info, _browser ) );
 }
 

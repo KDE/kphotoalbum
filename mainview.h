@@ -42,6 +42,7 @@ class PluginInterface;
 #include "options.h"
 #include <kurl.h>
 #include "category.h"
+#include <config.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif

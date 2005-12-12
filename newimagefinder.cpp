@@ -11,6 +11,10 @@
 #include <qeventloop.h>
 #include <kmessagebox.h>
 #include <kmdcodec.h>
+#include <config.h>
+#ifdef HASEXIV2
+#  include "Exif/Database.h"
+#endif
 
 bool NewImageFinder::findImages()
 {
@@ -89,37 +93,48 @@ void NewImageFinder::loadExtraFiles()
 }
 
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeName )
+ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
 {
-    QString sum = MD5Sum( Options::instance()->imageDirectory() + QString::fromLatin1("/") + relativeName );
+    QString absoluteNewFileName = Util::absoluteImageFileName( relativeNewFileName );
+    QString sum = MD5Sum( absoluteNewFileName );
     if ( ImageDB::instance()->md5Map()->contains( sum ) ) {
-        QString fileName = ImageDB::instance()->md5Map()->lookup(sum);
-        QFileInfo fi( Options::instance()->imageDirectory() + QString::fromLatin1("/") + fileName );
+        QString relativeMatchedFileName = ImageDB::instance()->md5Map()->lookup(sum);
+        QString absoluteMatchedFileName = Util::absoluteImageFileName( relativeMatchedFileName );
+        QFileInfo fi( absoluteMatchedFileName );
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfoPtr info = ImageDB::instance()->info( Options::instance()->imageDirectory() + fileName );
+            ImageInfoPtr info = ImageDB::instance()->info( Options::instance()->imageDirectory() + relativeMatchedFileName );
             if ( !info )
-                qWarning("How did that happen? We couldn't find info for the images %s", fileName.latin1());
+                qWarning("How did that happen? We couldn't find info for the images %s", relativeMatchedFileName.latin1());
             else {
-                fi = QFileInfo ( fileName );
+                fi = QFileInfo ( relativeMatchedFileName );
                 if ( info->label() == fi.baseName(true) ) {
-                    fi = QFileInfo( relativeName );
+                    fi = QFileInfo( relativeNewFileName );
                     info->setLabel( fi.baseName(true) );
                 }
 
-                info->setFileName( relativeName );
+                info->setFileName( relativeNewFileName );
 
-                // We need to insert the new name into the MD5 map
+                // We need to insert the new name into the MD5 map,
+                // as it is a map, the value for the moved file will automatically be deleted.
                 ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
+
+#ifdef HASEXIV2
+                Exif::Database::instance()->remove( absoluteMatchedFileName );
+                Exif::Database::instance()->add( absoluteNewFileName );
+#endif
                 return 0;
             }
         }
     }
 
-    ImageInfoPtr info = new ImageInfo( relativeName  );
+    ImageInfoPtr info = new ImageInfo( relativeNewFileName  );
     info->setMD5Sum(sum);
     ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
+#ifdef HASEXIV2
+    Exif::Database::instance()->add( absoluteNewFileName );
+#endif
 
     return info;
 }

@@ -19,6 +19,7 @@
 #ifndef KIMDABA_PLUGININTERFACE_H
 #define KIMDABA_PLUGININTERFACE_H
 
+#include <config.h>
 #ifdef HASKIPI
 #include <libkipi/interface.h>
 #include <qvaluelist.h>
@@ -26,6 +27,7 @@
 #include <libkipi/imageinfo.h>
 #include <kurl.h>
 #include <kdemacros.h>
+
 class KDE_EXPORT PluginInterface :public KIPI::Interface
 {
     Q_OBJECT

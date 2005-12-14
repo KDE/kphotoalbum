@@ -508,8 +508,7 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 
 void MainView::slotSortByDateAndTime()
 {
-    QStringList listOnDisk = selectedOnDisk();// just sort images available (on disk)
-    ImageDB::instance()->sortAndMergeBackIn( listOnDisk );
+    ImageDB::instance()->sortAndMergeBackIn( selected() );
     showThumbNails( ImageDB::instance()->search( Browser::instance()->currentContext() ) );
     markDirty();
 }

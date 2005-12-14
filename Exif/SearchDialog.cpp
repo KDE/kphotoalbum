@@ -21,7 +21,8 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     hlay->addWidget( grid );
     makeISO( grid );
     makeExposureTime( grid );
-    makeApertureValue( grid );
+    _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), grid );
+    _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), grid );
 
     hlay->addWidget( makeOrientation( top ), 1 );
 
@@ -108,7 +109,7 @@ void Exif::SearchDialog::makeExposureTime( QGrid* parent )
     _exposureTime = new RangeWidget( i18n("Exposure time" ), QString::fromLatin1( "Exif_Photo_ExposureTime" ), list, parent );
 }
 
-void Exif::SearchDialog::makeApertureValue( QGrid* parent )
+RangeWidget* Exif::SearchDialog::makeApertureOrFNumber( const QString& text, const QString& key, QGrid* parent )
 {
     Exif::RangeWidget::ValueList list;
     list
@@ -143,7 +144,7 @@ void Exif::SearchDialog::makeApertureValue( QGrid* parent )
         << Exif::RangeWidget::Value( 40, QString::fromLatin1( "40" ) )
         << Exif::RangeWidget::Value( 45, QString::fromLatin1( "45" ) );
 
-    _apertureValue = new RangeWidget( i18n("F Number" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), list, parent );
+    return new RangeWidget( text, key, list, parent );
 }
 
 QWidget* Exif::SearchDialog::makeExposureProgram( QWidget* parent )
@@ -240,6 +241,7 @@ Exif::SearchInfo Exif::SearchDialog::info()
     result.addRangeKey( _iso->range() );
     result.addRangeKey( _exposureTime->range() );
     result.addRangeKey( _apertureValue->range() );
+    result.addRangeKey( _fNumber->range() );
     return result;
 }
 

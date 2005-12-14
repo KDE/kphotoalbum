@@ -69,19 +69,19 @@ QString Exif::SearchInfo::sqlForOneRangeItem( const Range& range ) const
     if ( range.isLowerMin ) {
         //  Min to Min  means < x
         if ( range.isUpperMin )
-            return QString::fromLatin1( "%1 < %2" ).arg( range.key ).arg( range.min *1.01 );
+            return QString::fromLatin1( "%1 < %2 and %3 > 0" ).arg( range.key ).arg( range.min *1.01 ).arg( range.key );
 
         //  Min to Max means all images
         if ( range.isUpperMax )
             return QString::null;
 
         //  Min to y   means <= y
-        return QString::fromLatin1( "%1 <= %2" ).arg( range.key ).arg( range.max * 1.01 );
+        return QString::fromLatin1( "%1 <= %2 and %3 > 0" ).arg( range.key ).arg( range.max * 1.01 ).arg( range.key );
     }
 
-    //  MAX to MAX   means y
+    //  MAX to MAX   means >= y
     if ( range.isLowerMax )
-        return QString::fromLatin1( "%1 > %2" ).arg( range.key ).arg( range.max*1.01 );
+        return QString::fromLatin1( "%1 > %2" ).arg( range.key ).arg( range.max*0.99 );
 
     //  x to Max   means >= x
     if ( range.isUpperMax )

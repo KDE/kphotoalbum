@@ -27,6 +27,7 @@ static QValueList<DatabaseElement*> elements()
         elms.append( new RationalExifElement( "Exif.Photo.ExposureTime" ) );
 
         elms.append( new RationalExifElement( "Exif.Photo.ApertureValue" ) );
+        elms.append( new RationalExifElement( "Exif.Photo.FNumber" ) );
         elms.append( new RationalExifElement( "Exif.Photo.FlashEnergy" ) );
 
         elms.append( new IntExifElement( "Exif.Photo.Flash" ) );
@@ -189,7 +190,8 @@ void Exif::Database::offerInitialize()
     int ret = KMessageBox::questionYesNo( MainView::theMainView(),
                                           i18n("<qt><p>Congratulation, your KimDaBa version now supports searching "
                                                "for EXIF information.</p>"
-                                               "<p>For this to work, I need to rescan your images. Do you want me to do so now?</p>"),
+                                               "<p>For this to work, KimDaBa needs to rescan your images. "
+                                               "Do you want this to happen now?</p>"),
                                           i18n("Rescan for EXIF information") );
     if ( ret == KMessageBox::Yes )
         ImageDB::instance()->slotReread( ImageDB::instance()->images(), EXIFMODE_DATABASE_UPDATE );

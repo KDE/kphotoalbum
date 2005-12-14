@@ -1,5 +1,12 @@
 <tip category="KimDaBa">
 <html>
+<p>On KimDaBa's home page (http://ktown.kde.org/kimdaba/) you may see a few videos featuring a number of
+different KimDaBa features.</p>
+</html>
+</tip>
+
+<tip category="KimDaBa">
+<html>
 <p>It is possible to create new categories - that are alternatives
 to <b>Person</b>, <b>Location</b>, and <b>Keywords</b> - in the image
 property page. Simply go to the <tt>Settings->Configure KimDaBa</tt> dialog to add your own, or

@@ -138,9 +138,8 @@ void ImageDB::convertBackend()
 void ImageDB::slotReread( const QStringList& list, int mode)
 {
     // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
-    QProgressDialog  dialog( i18n("<qt><p><b>Loading time information from images</b></p>"
-                                  "<p>Depending on the number of images, this may take some time.</p></qt>"),
-                             i18n("Cancel"), list.count() );
+    QProgressDialog  dialog( i18n("Loading information from images"),
+                             i18n("Cancel"), list.count(), 0, "progress dialog", true );
 
     int count=0;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {

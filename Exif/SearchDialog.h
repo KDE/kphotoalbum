@@ -29,7 +29,7 @@ protected:
     QWidget* makeSaturation( QWidget* parent );
     QWidget* makeCamera( QWidget* parent );
     void makeExposureTime( QGrid* parent );
-    void makeApertureValue( QGrid* parent );
+    RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, QGrid* parent );
 
     QStringList availableCameras();
 
@@ -37,6 +37,7 @@ private:
     Exif::RangeWidget* _iso;
     Exif::RangeWidget* _exposureTime;
     Exif::RangeWidget* _apertureValue;
+    Exif::RangeWidget* _fNumber;
     IntSettings _exposureProgram;
     IntSettings _orientation;
     IntSettings _meteringMode;

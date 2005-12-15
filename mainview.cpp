@@ -69,7 +69,9 @@
 #  include <libkipi/pluginloader.h>
 #  include <libkipi/plugin.h>
 #endif
-#include "Exif/ReReadDialog.h"
+#ifdef HASEXIV2
+#  include "Exif/ReReadDialog.h"
+#endif
 #include "imageloader.h"
 #include "mysplashscreen.h"
 #include <qobjectlist.h>
@@ -418,12 +420,14 @@ void MainView::slotDeleteSelected()
 
 void MainView::slotReReadExifInfo()
 {
+#ifdef HASEXIV2
     QStringList files = selectedOnDisk();
     static Exif::ReReadDialog* dialog = 0;
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
     if ( dialog->exec( files ) == QDialog::Accepted )
         setDirty( true );
+#endif
 }
 
 
@@ -1121,7 +1125,7 @@ void MainView::setupPluginMenu()
 {
     QObjectList *l = queryList( "QPopupMenu", "plugins" );
     QObject *obj;
-    QPopupMenu* menu;
+    QPopupMenu* menu = NULL;
     for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {
         ++it;
         menu = static_cast<QPopupMenu*>( obj );

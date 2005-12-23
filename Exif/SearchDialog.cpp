@@ -7,6 +7,8 @@
 #include <qgrid.h>
 #include "SearchDialog.h"
 #include <qvbox.h>
+#include <qlabel.h>
+#include <qspinbox.h>
 
 using namespace Exif;
 
@@ -25,14 +27,34 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
 
     makeISO( grid );
     makeExposureTime( grid );
-    _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), grid );
-    _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), grid );
 
+    QGrid* grid2 = new QGrid( 4, settings );
+    grid2->setSpacing( 6 );
+    hlay->addWidget( grid2 );
+    hlay->addStretch( 1 );
+    _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), grid2 );
+    _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), grid2 );
 
+    // Focal length
+    QLabel* label = new QLabel( i18n( "Focal Length" ), grid );
+    _fromFocalLength = new QSpinBox( 0, 10000, 10, grid );
+    label = new QLabel( i18n("to"), grid );
+    _toFocalLength = new QSpinBox( 0, 10000, 10, grid );
+
+    _toFocalLength->setValue( 10000 );
+    QString suffix = i18n( "This is milimeter for focal length, like 35mm", "mm" );
+    _fromFocalLength->setSuffix( suffix );
+    _toFocalLength->setSuffix( suffix );
+
+    connect( _fromFocalLength, SIGNAL( valueChanged( int ) ), this, SLOT( fromFocalLengthChanged( int ) ) );
+    connect( _toFocalLength, SIGNAL( valueChanged( int ) ), this, SLOT( toFocalLengthChanged( int ) ) );
+
+    // exposure program and Metring mode
     hlay = new QHBoxLayout( vlay, 6 );
     hlay->addWidget( makeExposureProgram( settings ) );
     hlay->addWidget( makeMeteringMode( settings ) );
 
+    vlay->addStretch( 1 );
 
     // ------------------------------------------------------------ Camera
     QVBox* camera = addVBoxPage( i18n("Camera") );
@@ -47,8 +69,7 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     hlay->addWidget( makeContrast( misc ) );
     hlay->addWidget( makeSharpness( misc ) );
     hlay->addWidget( makeSaturation( misc ) );
-
-
+    vlay->addStretch( 1 );
 }
 
 void Exif::SearchDialog::makeISO( QGrid* parent )
@@ -248,6 +269,11 @@ Exif::SearchInfo Exif::SearchDialog::info()
     result.addRangeKey( _exposureTime->range() );
     result.addRangeKey( _apertureValue->range() );
     result.addRangeKey( _fNumber->range() );
+
+    SearchInfo::Range focalRange( QString::fromLatin1( "Exif_Photo_FocalLength" ) );
+    focalRange.min = _fromFocalLength->value();
+    focalRange.max = _toFocalLength->value();
+    result.addRangeKey( focalRange );
     return result;
 }
 
@@ -268,5 +294,17 @@ QWidget* Exif::SearchDialog::makeCamera( QWidget* parent )
         _cameras.append( Setting< QPair<QString,QString> >( cb, *cameraIt ) );
     }
     return view;
+}
+
+void Exif::SearchDialog::fromFocalLengthChanged( int val )
+{
+    if ( _toFocalLength->value() < val )
+        _toFocalLength->setValue( val );
+}
+
+void Exif::SearchDialog::toFocalLengthChanged( int val )
+{
+    if ( _fromFocalLength->value() > val )
+        _fromFocalLength->setValue( val );
 }
 

@@ -7,6 +7,7 @@
 #include "Exif/SearchDialogSettings.h"
 #include "Exif/RangeWidget.h"
 
+class QSpinBox;
 class QCheckBox;
 
 namespace Exif
@@ -30,8 +31,11 @@ protected:
     void makeExposureTime( QGrid* parent );
     RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, QGrid* parent );
     QWidget* makeCamera( QWidget* parent );
-
     QStringList availableCameras();
+
+protected slots:
+    void fromFocalLengthChanged( int );
+    void toFocalLengthChanged( int );
 
 private:
     Exif::RangeWidget* _iso;
@@ -45,6 +49,8 @@ private:
     Settings<int> _sharpness;
     Settings<int> _saturation;
     Settings< QPair<QString,QString> > _cameras;
+    QSpinBox* _fromFocalLength;
+    QSpinBox* _toFocalLength;
 };
 
 }

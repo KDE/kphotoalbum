@@ -27,9 +27,9 @@ protected:
     QWidget* makeContrast( QWidget* parent );
     QWidget* makeSharpness( QWidget* parent );
     QWidget* makeSaturation( QWidget* parent );
-    QWidget* makeCamera( QWidget* parent );
     void makeExposureTime( QGrid* parent );
     RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, QGrid* parent );
+    QWidget* makeCamera( QWidget* parent );
 
     QStringList availableCameras();
 
@@ -38,13 +38,13 @@ private:
     Exif::RangeWidget* _exposureTime;
     Exif::RangeWidget* _apertureValue;
     Exif::RangeWidget* _fNumber;
-    IntSettings _exposureProgram;
-    IntSettings _orientation;
-    IntSettings _meteringMode;
-    IntSettings _contrast;
-    IntSettings _sharpness;
-    IntSettings _saturation;
-    IntSettings _cameras;
+    Settings<int> _exposureProgram;
+    Settings<int> _orientation;
+    Settings<int> _meteringMode;
+    Settings<int> _contrast;
+    Settings<int> _sharpness;
+    Settings<int> _saturation;
+    Settings< QPair<QString,QString> > _cameras;
 };
 
 }

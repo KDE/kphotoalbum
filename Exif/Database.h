@@ -35,6 +35,7 @@ public:
     void add( const QString& fileName );
     void remove( const QString& fileName );
     Set<QString> filesMatchingQuery( const QString& query );
+    QValueList< QPair<QString,QString> > cameras() const;
 
 protected:
     static QString exifDBFile();

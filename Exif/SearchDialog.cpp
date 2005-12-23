@@ -5,35 +5,50 @@
 #include <qcheckbox.h>
 #include "Exif/Database.h"
 #include <qgrid.h>
+#include "SearchDialog.h"
+#include <qvbox.h>
 
 using namespace Exif;
 
 Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
-    : KDialogBase( Plain, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
+    : KDialogBase( Tabbed, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
 {
-    QWidget* top = plainPage();
-    QVBoxLayout* vlay = new QVBoxLayout( top, 6 );
+    QWidget* settings = addPage( i18n( "Settings" ) );
+    QVBoxLayout* vlay = new QVBoxLayout( settings, 6 );
 
+    // Iso, Exposure, Aperture, FNumber
     QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
-
-    QGrid* grid = new QGrid( 4, top );
+    QGrid* grid = new QGrid( 4, settings );
     grid->setSpacing( 6 );
     hlay->addWidget( grid );
+    hlay->addStretch( 1 );
+
     makeISO( grid );
     makeExposureTime( grid );
     _apertureValue = makeApertureOrFNumber( i18n( "Aperture Value" ), QString::fromLatin1( "Exif_Photo_ApertureValue" ), grid );
     _fNumber = makeApertureOrFNumber( i18n( "F Number" ), QString::fromLatin1( "Exif_Photo_FNumber" ), grid );
 
-    hlay->addWidget( makeOrientation( top ), 1 );
 
     hlay = new QHBoxLayout( vlay, 6 );
-    hlay->addWidget( makeExposureProgram( top ) );
-    hlay->addWidget( makeMeteringMode( top ) );
+    hlay->addWidget( makeExposureProgram( settings ) );
+    hlay->addWidget( makeMeteringMode( settings ) );
+
+
+    // ------------------------------------------------------------ Camera
+    QVBox* camera = addVBoxPage( i18n("Camera") );
+    makeCamera( camera );
+
+    // ------------------------------------------------------------ Misc
+    QWidget* misc = addPage( i18n("Miscellaneous") );
+    vlay = new QVBoxLayout( misc, 6 );
+    vlay->addWidget( makeOrientation( misc ), 1 );
 
     hlay = new QHBoxLayout( vlay, 6 );
-    hlay->addWidget( makeContrast( top ) );
-    hlay->addWidget( makeSharpness( top ) );
-    hlay->addWidget( makeSaturation( top ) );
+    hlay->addWidget( makeContrast( misc ) );
+    hlay->addWidget( makeSharpness( misc ) );
+    hlay->addWidget( makeSaturation( misc ) );
+
+
 }
 
 void Exif::SearchDialog::makeISO( QGrid* parent )
@@ -150,76 +165,66 @@ RangeWidget* Exif::SearchDialog::makeApertureOrFNumber( const QString& text, con
 QWidget* Exif::SearchDialog::makeExposureProgram( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Exposure Program" ), parent );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Not defined" ), box ), 0 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Manual" ), box ), 1 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Normal program" ), box ), 2 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Aperture priority" ), box ), 3 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Shutter priority" ), box ), 4 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Creative program (biased toward depth of field)" ), box ), 5 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Action program (biased toward fast shutter speed)" ), box ), 6 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Portrait mode (for closeup photos with the background out of focus)" ), box ), 7 ) );
-    _exposureProgram.append( IntValueSetting( new QCheckBox( i18n( "Landscape mode (for landscape photos with the background in focus)" ), box ), 8 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Not defined" ), box ), 0 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Manual" ), box ), 1 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Normal program" ), box ), 2 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Aperture priority" ), box ), 3 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Shutter priority" ), box ), 4 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Creative program (biased toward depth of field)" ), box ), 5 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Action program (biased toward fast shutter speed)" ), box ), 6 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Portrait mode (for closeup photos with the background out of focus)" ), box ), 7 ) );
+    _exposureProgram.append( Setting<int>( new QCheckBox( i18n( "Landscape mode (for landscape photos with the background in focus)" ), box ), 8 ) );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeOrientation( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Orientation" ), parent );
-    _orientation.append( IntValueSetting( new QCheckBox( i18n( "Not rotated" ), box ), 0) );
-    _orientation.append( IntValueSetting( new QCheckBox( i18n( "Rotated left" ), box ), 6 ) );
-    _orientation.append( IntValueSetting( new QCheckBox( i18n( "Rotated right" ), box ), 8 ) );
-    _orientation.append( IntValueSetting( new QCheckBox( i18n( "Rotated 180 degrees" ), box ), 3 ) );
+    _orientation.append( Setting<int>( new QCheckBox( i18n( "Not rotated" ), box ), 0) );
+    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated left" ), box ), 6 ) );
+    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated right" ), box ), 8 ) );
+    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated 180 degrees" ), box ), 3 ) );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeMeteringMode( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Metering Mode" ), parent );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "Unknown" ), box ), 0 ) );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "Average" ), box ), 1 ) );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "CenterWeightedAverage" ), box ), 2 ) );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "Spot" ), box ), 3 ) );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "MultiSpot" ), box ), 4 ) );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "Pattern" ), box ), 5 ) );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "Partial" ), box ), 6 ) );
-    _meteringMode.append( IntValueSetting( new QCheckBox( i18n( "Other" ), box ), 255 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Unknown" ), box ), 0 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Average" ), box ), 1 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "CenterWeightedAverage" ), box ), 2 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Spot" ), box ), 3 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "MultiSpot" ), box ), 4 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Pattern" ), box ), 5 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Partial" ), box ), 6 ) );
+    _meteringMode.append( Setting<int>( new QCheckBox( i18n( "Other" ), box ), 255 ) );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeContrast( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Contrast" ), parent );
-    _contrast.append(IntValueSetting( new QCheckBox( i18n( "Normal"), box ), 0 ) );
-    _contrast.append(IntValueSetting( new QCheckBox( i18n( "Soft"), box ), 1 ) );
-    _contrast.append(IntValueSetting( new QCheckBox( i18n( "Hard"), box ), 2 ) );
+    _contrast.append(Setting<int>( new QCheckBox( i18n( "Normal"), box ), 0 ) );
+    _contrast.append(Setting<int>( new QCheckBox( i18n( "Soft"), box ), 1 ) );
+    _contrast.append(Setting<int>( new QCheckBox( i18n( "Hard"), box ), 2 ) );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeSharpness( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Sharpness" ), parent );
-    _sharpness.append(IntValueSetting( new QCheckBox( i18n( "Normal"), box ), 0 ) );
-    _sharpness.append(IntValueSetting( new QCheckBox( i18n( "Soft"), box ), 1 ) );
-    _sharpness.append(IntValueSetting( new QCheckBox( i18n( "Hard"), box ), 2 ) );
+    _sharpness.append(Setting<int>( new QCheckBox( i18n( "Normal"), box ), 0 ) );
+    _sharpness.append(Setting<int>( new QCheckBox( i18n( "Soft"), box ), 1 ) );
+    _sharpness.append(Setting<int>( new QCheckBox( i18n( "Hard"), box ), 2 ) );
     return box;
 }
 
 QWidget* Exif::SearchDialog::makeSaturation( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Saturation" ), parent );
-    _saturation.append(IntValueSetting( new QCheckBox( i18n( "Normal"), box ), 0 ) );
-    _saturation.append(IntValueSetting( new QCheckBox( i18n( "Low"), box ), 1 ) );
-    _saturation.append(IntValueSetting( new QCheckBox( i18n( "High"), box ), 2 ) );
-    return box;
-}
-
-QWidget* Exif::SearchDialog::makeCamera( QWidget* parent )
-{
-    QVGroupBox* box = new QVGroupBox( i18n( "Saturation" ), parent );
-    QStringList cameras = availableCameras();
-    for( QStringList::Iterator cameraIt = cameras.begin(); cameraIt != cameras.end(); ++cameraIt ) {
-        _cameras.append( IntValueSetting( new QCheckBox( *cameraIt, box ), -1 ) );
-    }
+    _saturation.append(Setting<int>( new QCheckBox( i18n( "Normal"), box ), 0 ) );
+    _saturation.append(Setting<int>( new QCheckBox( i18n( "Low"), box ), 1 ) );
+    _saturation.append(Setting<int>( new QCheckBox( i18n( "High"), box ), 2 ) );
     return box;
 }
 
@@ -238,10 +243,30 @@ Exif::SearchInfo Exif::SearchDialog::info()
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Contrast" ), _contrast.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Sharpness" ), _sharpness.selected() );
     result.addSearchKey( QString::fromLatin1( "Exif_Photo_Saturation" ), _saturation.selected() );
+    result.addCamara( _cameras.selected() );
     result.addRangeKey( _iso->range() );
     result.addRangeKey( _exposureTime->range() );
     result.addRangeKey( _apertureValue->range() );
     result.addRangeKey( _fNumber->range() );
     return result;
+}
+
+QWidget* Exif::SearchDialog::makeCamera( QWidget* parent )
+{
+    QScrollView* view = new QScrollView( parent );
+    // view->setFrameStyle( QFrame::NoFrame );
+    view->setResizePolicy( QScrollView::AutoOneFit );
+    QVBox* w = new QVBox( view->viewport() );
+    view->addChild( w );
+
+
+    QValueList< QPair<QString, QString> > cameras = Exif::Database::instance()->cameras();
+    qHeapSort( cameras );
+
+    for( QValueList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.begin(); cameraIt != cameras.end(); ++cameraIt ) {
+        QCheckBox* cb = new QCheckBox( QString::fromLatin1( "%1 - %2" ).arg( (*cameraIt).first.stripWhiteSpace() ).arg( (*cameraIt).second.stripWhiteSpace() ), w );
+        _cameras.append( Setting< QPair<QString,QString> >( cb, *cameraIt ) );
+    }
+    return view;
 }
 

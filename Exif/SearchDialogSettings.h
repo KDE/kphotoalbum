@@ -4,19 +4,29 @@
 
 namespace Exif{
 
-class IntValueSetting
+template <class T>
+class Setting
 {
 public:
-    IntValueSetting() {}
-    IntValueSetting( QCheckBox* cb, int value ) : cb( cb ), value( value ) {}
+    Setting() {}
+    Setting( QCheckBox* cb, T value ) : cb( cb ), value( value ) {}
     QCheckBox* cb;
-    int value;
+    T value;
 };
 
-class IntSettings :public QValueList<IntValueSetting>
+template <class T>
+class Settings :public QValueList< Setting<T> >
 {
 public:
-    QValueList<int> selected();
+    QValueList<T> selected()
+    {
+        QValueList<T> result;
+        for( typename QValueList< Setting<T> >::Iterator it = this->begin(); it != this->end(); ++it ) {
+            if ( (*it).cb->isChecked() )
+                result.append( (*it).value );
+        }
+        return result;
+    }
 };
 
 }

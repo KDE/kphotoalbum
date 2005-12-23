@@ -28,7 +28,7 @@ static QValueList<DatabaseElement*> elements()
 
         elms.append( new RationalExifElement( "Exif.Photo.ApertureValue" ) );
         elms.append( new RationalExifElement( "Exif.Photo.FNumber" ) );
-        elms.append( new RationalExifElement( "Exif.Photo.FlashEnergy" ) );
+        //elms.append( new RationalExifElement( "Exif.Photo.FlashEnergy" ) );
 
         elms.append( new IntExifElement( "Exif.Photo.Flash" ) );
         elms.append( new IntExifElement( "Exif.Photo.Contrast" ) );
@@ -196,5 +196,25 @@ void Exif::Database::offerInitialize()
     if ( ret == KMessageBox::Yes )
         ImageDB::instance()->slotReread( ImageDB::instance()->images(), EXIFMODE_DATABASE_UPDATE );
 
+}
+
+QValueList< QPair<QString,QString> > Exif::Database::cameras() const
+{
+    QValueList< QPair<QString,QString> > result;
+
+    QSqlQuery query( "SELECT DISTINCT Exif_Image_Make, Exif_Image_Model FROM exif", _db );
+    if ( !query.exec() )
+        showError( query );
+
+    else {
+        while ( query.next() ) {
+            QString make = query.value(0).toString();
+            QString model = query.value(1).toString();
+            if ( !make.isEmpty() && !model.isEmpty() )
+                result.append( qMakePair( make, model ) );
+        }
+    }
+
+    return result;
 }
 

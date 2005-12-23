@@ -42,6 +42,12 @@ QString Exif::SearchInfo::buildQuery() const
     QStringList subQueries;
     subQueries += buildIntKeyQuery();
     subQueries += buildRangeQuery();
+    QString cameraQuery = buildCameraSearchQuery();
+    if ( !cameraQuery.isNull() )
+        subQueries.append( cameraQuery );
+
+    qDebug("<%s>",QString::fromLatin1( "SELECT filename from exif WHERE %1" )
+           .arg( subQueries.join( QString::fromLatin1( " and " ) ) ).latin1() );
 
     if ( subQueries.empty() )
         return QString::null;
@@ -117,5 +123,23 @@ bool Exif::SearchInfo::matches( const QString& fileName ) const
         return true;
 
     return _matches.contains( fileName );
+}
+
+void Exif::SearchInfo::addCamara( const QValueList< QPair<QString,QString> >& list )
+{
+    _cameras = list;
+}
+
+QString Exif::SearchInfo::buildCameraSearchQuery() const
+{
+    QStringList subResults;
+    for( QValueList< QPair<QString,QString> >::ConstIterator cameraIt = _cameras.begin(); cameraIt != _cameras.end(); ++cameraIt ) {
+        subResults.append( QString::fromLatin1( "(Exif_Image_Make='%1' and Exif_Image_Model='%2')" )
+                           .arg( (*cameraIt).first).arg( (*cameraIt).second ) );
+    }
+    if ( subResults.count() != 0 )
+        return QString::fromLatin1( "(%1)" ).arg( subResults.join( QString::fromLatin1( " or " ) ) );
+    else
+        return QString::null;
 }
 

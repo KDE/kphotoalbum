@@ -6,12 +6,15 @@
 #include <qsqlquery.h>
 #include <iostream>
 #include <sstream>
+#include "Info.h"
+#include "imageinfo.h"
+#include "imagedb.h"
 
 using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedKeys, bool fullName )
+QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedKeys, bool returnFullExifName )
 {
     QMap<QString, QString> result;
 
@@ -33,7 +36,7 @@ QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedK
 
             if ( wantedKeys.contains( key ) ) {
                 QString text = key;
-                if ( !fullName )
+                if ( !returnFullExifName )
                     text = QStringList::split( QString::fromLatin1("."), key ).last();
 
                 std::string str;
@@ -221,5 +224,21 @@ Set<QString> Info::standardKeys()
 Info::Info()
 {
     _keys = standardKeys();
+}
+
+void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destName )
+{
+    // Load Exif from source image
+    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(srcName.local8Bit().data());
+    image->readMetadata();
+    Exiv2::ExifData data = image->exifData();
+
+    // Modify Exif information from database.
+    ImageInfoPtr info = ImageDB::instance()->info( srcName );
+    data["Exif.Image.ImageDescription"] = info->description().local8Bit().data();
+
+    image = Exiv2::ImageFactory::open( destName.local8Bit().data() );
+    image->setExifData(data);
+    image->writeMetadata();
 }
 

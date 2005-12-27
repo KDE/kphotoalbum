@@ -1,20 +1,21 @@
 #include "fileinfo.h"
-#include <kfilemetainfo.h>
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "util.h"
-#include <kdebug.h>
+#include <config.h>
+#include "set.h"
+#ifdef HASEXIV2
+#  include "Exif/Info.h"
+#endif
 
-// PENDING(blackie) rework to only use EXIV2, it is silly to use two different mechanisms for this.
 FileInfo FileInfo::read( const QString& fileName )
 {
     FileInfo fi;
     fi._fullPath = fileName;
     QString tempFileName( fileName );
+
 #if 0
-	/* TODO(Jesper): What do we do about this?
-	   /steffen
-	*/
+    // PENDING(blackie) What do we do about this?
     if ( Util::isCRW( fileName ) ) {
       QString dirName = QFileInfo( fileName ).dirPath();
       QString baseName = QFileInfo( fileName ).baseName();
@@ -25,69 +26,43 @@ FileInfo FileInfo::read( const QString& fileName )
     }
 #endif
 
-    KFileMetaInfo metainfo( tempFileName );
-    if ( metainfo.isEmpty() )
-        return fi;
+#ifdef HASEXIV2
+    Set<QString> wantedKeys;
+    wantedKeys.insert( QString::fromLatin1( "Exif.Image.ImageDescription" ) );
+    wantedKeys.insert( QString::fromLatin1( "Exif.Image.Orientation" ) );
+    wantedKeys.insert( QString::fromLatin1( "Exif.Image.DateTime" ) );
+    fi._map = Exif::Info::instance()->info( tempFileName, wantedKeys, false );
+#endif
 
-    QStringList keys = metainfo.supportedKeys();
-    for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
-        KFileMetaInfoItem item = metainfo.item( *it );
-        if (item.type() != QVariant::Invalid) {
-            fi._map.insert( *it, item.value() );
-        }
-    }
     return fi;
 }
 
-bool FileInfo::isEmpty() const
+QTime FileInfo::time() const
 {
-    return _map.count() == 0;
-}
-
-QTime FileInfo::time( bool* foundTimeInExif ) const
-{
-    if ( _map.contains( QString::fromLatin1( "CreationTime" ) ) ) {
-        QTime time = _map[QString::fromLatin1( "CreationTime" )].toTime();
-        if ( time.isValid() ) {
-            if ( foundTimeInExif )
-                *foundTimeInExif = true;
+    if ( _map.contains( QString::fromLatin1( "DateTime" ) ) ) {
+        QTime time = QDateTime::fromString( _map[QString::fromLatin1( "DateTime" )], Qt::ISODate ).time();
+        if ( time.isValid() )
             return time;
-        }
     }
-
-    if ( foundTimeInExif )
-        *foundTimeInExif = false;
 
     return QFileInfo( _fullPath ).lastModified().time();
 }
 
-QDate FileInfo::date( bool* foundDateInExif ) const
+QDate FileInfo::date() const
 {
-    if ( _map.contains( QString::fromLatin1( "CreationDate" ) ) ) {
-        QDate date = _map[QString::fromLatin1( "CreationDate" )].toDate();
-        if ( date.isValid() ) {
-            if ( foundDateInExif )
-                *foundDateInExif = true;
+    if ( _map.contains( QString::fromLatin1( "DateTime" ) ) ) {
+        QDate date = QDateTime::fromString( _map[QString::fromLatin1( "DateTime" )], Qt::ISODate ).date();
+        if ( date.isValid() )
             return date;
-        }
     }
-
-    if ( foundDateInExif )
-        *foundDateInExif = false;
 
     return QFileInfo( _fullPath ).lastModified().date();
 }
 
-int FileInfo::angle( bool* found ) const
+int FileInfo::angle() const
 {
-    if ( !_map.contains(QString::fromLatin1( "Orientation" )) ) {
-        if ( found )
-            *found = false;
+    if ( !_map.contains(QString::fromLatin1( "Orientation" )) )
         return 0;
-    }
-
-    if ( found )
-        *found = true;
 
     int orientation =  _map[QString::fromLatin1( "Orientation" )].toInt();
     if ( orientation == 1 || orientation == 2 )
@@ -98,18 +73,13 @@ int FileInfo::angle( bool* found ) const
         return 270;
     else if ( orientation == 6 || orientation == 7 )
         return 90;
-    else {
-        if ( found )
-            *found = false;
+    else
         return 0;
-    }
 }
 
-QString FileInfo::description( bool* found) const
+QString FileInfo::description() const
 {
-    if ( !_map.contains(QString::fromLatin1( "Comment" )) ) {
-        if ( found )
-            found = false;
-    }
-    return _map[QString::fromLatin1( "Comment" )].toString();
+    if ( _map.contains(QString::fromLatin1( "ImageDescription" )) )
+        return _map[QString::fromLatin1( "ImageDescription" )];
+    return QString::null;
 }

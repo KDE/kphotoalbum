@@ -60,6 +60,10 @@
 #include "categorycollection.h"
 #include "imageinfo.h"
 #include "imagedb.h"
+#include <config.h>
+#ifdef HASEXIV2
+#  include "Exif/Info.h"
+#endif
 
 class ImageSizeCheckBox :public QCheckBox {
 
@@ -450,18 +454,14 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
     content.replace( QString::fromLatin1( "**RESOLUTIONS**" ), resolutions );
 
-#if QT_VERSION < 0x030104
-    if ( _progress->wasCancelled() )
-        return false;
-#else
     if ( _progress->wasCanceled() )
         return false;
-#endif
 
     // -------------------------------------------------- write to file
     QString fileName = _tempDir + QString::fromLatin1("/index-%1.html" )
                        .arg(ImageSizeCheckBox::text(width,height,true));
     bool ok = writeToFile( fileName, content );
+
     if ( !ok )
         return false;
 
@@ -612,6 +612,10 @@ void HTMLExportDialog::pixmapLoaded( const QString& fileName, const QSize& imgSi
         slotCancelGenerate();
         KMessageBox::error( this, i18n("Unable to write image '%1'.").arg(file) );
     }
+
+#ifdef HASEXIV2
+    Exif::Info::instance()->writeInfoToFile( fileName, file );
+#endif
 
     if ( _waitCounter == 0 ) {
         qApp->eventLoop()->exitLoop();

@@ -311,69 +311,27 @@ bool ImageInfo::isLocked() const
 
 void ImageInfo::readExif(const QString& fullPath, int mode)
 {
-    QFileInfo fi( fullPath );
     FileInfo exifInfo = FileInfo::read( fullPath );
-    static bool hasShownWarning = false;
-    bool foundInExif = false;
-    bool foundDateInExif = false;
-    bool foundTimeInExif = false;
-    if ( exifInfo.isEmpty() && !hasShownWarning ) {
-        hasShownWarning = true;
-        KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read EXIF information.</b></p>"
-                                          "<p>EXIF information is meta information about the image stored in JPEG files. "
-                                          "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
-                                          "<p>However, KimDaBa was unable to read information from %1. This may "
-                                          "either be because the file does not contain any EXIF information, or "
-                                          "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                  i18n("Unable to Read EXIF Information"), QString::fromLatin1("UnableToReadEXIFInformation") );
-    }
 
     // Date
-    if ( mode & EXIFMODE_DATE ) {
-        if ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) {
-            QDate date = exifInfo.date( &foundDateInExif );
-            QTime time = exifInfo.time( &foundTimeInExif );
-            if ( date.isValid() && foundDateInExif ) {
-                if ( time.isValid() && foundTimeInExif )
-                    _date = QDateTime( date, time );
-                else
-                    _date = ImageDate( QDateTime( date, QTime( 0,0,0 ) ), QDateTime( date, QTime( 23, 59, 59 ) ) );
-            }
-            if ( !foundDateInExif && !hasShownWarning &&
-                 ( _fileName.endsWith( QString::fromLatin1( ".jpg" ) ) ||
-                   _fileName.endsWith( QString::fromLatin1( ".jpeg" ) ) ||
-                   _fileName.endsWith( QString::fromLatin1( ".JPG" ) ) ||
-                   _fileName.endsWith( QString::fromLatin1( ".JPEG" ) ) ) ) {
-                hasShownWarning = true;
-                KMessageBox::information( 0, i18n("<qt><p><b>KimDaBa was unable to read the date from the EXIF information.</b></p>"
-                                                  "<p>EXIF information is meta information about the image stored in JPEG files. "
-                                                  "KimDaBa tries to read the date, orientation and description from EXIF.</p>"
-                                                  "<p>However, KimDaBa was unable to read date information from %1. This may "
-                                                  "either be because the file did not contain any EXIF information, or "
-                                                  "because you did not install the package kde-graphics.</p></qt>").arg( fullPath ),
-                                          i18n("Unable to Read Date From EXIF Information"),
-                                          QString::fromLatin1("UnableToReadEXIFInformation") );
-            }
+    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) ) {
+        QDate date = exifInfo.date();
+        QTime time = exifInfo.time();
+        if ( date.isValid() ) {
+            if ( time.isValid() )
+                _date = QDateTime( date, time );
+            else
+                _date = ImageDate( QDateTime( date, QTime( 0,0,0 ) ), QDateTime( date, QTime( 23, 59, 59 ) ) );
         }
     }
 
     // Orientation
-    if ( mode & EXIFMODE_ORIENTATION ) {
-        if ( Options::instance()->useEXIFRotate() ) {
-            int angle = exifInfo.angle( &foundInExif );
-            if ( foundInExif )
-                _angle = angle;
-        }
-    }
+    if ( (mode & EXIFMODE_ORIENTATION) && Options::instance()->useEXIFRotate() )
+        _angle = exifInfo.angle();
 
     // Description
-    if ( mode & EXIFMODE_DESCRIPTION ) {
-        if ( Options::instance()->useEXIFComments() ) {
-            QString desc = exifInfo.description( &foundInExif );
-            if ( foundInExif )
-                _description = exifInfo.description();
-        }
-    }
+    if ( (mode & EXIFMODE_DESCRIPTION) && Options::instance()->useEXIFComments() )
+        _description = exifInfo.description();
 
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {

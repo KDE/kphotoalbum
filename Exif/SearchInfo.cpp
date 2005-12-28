@@ -3,6 +3,15 @@
 #include <qsqlquery.h>
 #include "SearchInfo.h"
 
+/**
+ * \class Exif::SearchInfo
+ * This class represents a search for Exif information. It is similar in functionality for category searches which is in the
+ * class \ref ImageSearchInfo.
+ *
+ * The search is build, from \ref Exif::SearchDialog, using the functions addRangeKey(), addSearchKey(), and addCamara().
+ * The search is stored in an instance of \ref ImageSearchInfo, and may later be executed using search().
+ * Once a search has been executed, the application may ask if a given image is in the search result using matches()
+ */
 void Exif::SearchInfo::addSearchKey( const QString& key, const QValueList<int> values )
 {
     _intKeys.append( qMakePair( key, values ) );
@@ -45,9 +54,6 @@ QString Exif::SearchInfo::buildQuery() const
     QString cameraQuery = buildCameraSearchQuery();
     if ( !cameraQuery.isNull() )
         subQueries.append( cameraQuery );
-
-    qDebug("<%s>",QString::fromLatin1( "SELECT filename from exif WHERE %1" )
-           .arg( subQueries.join( QString::fromLatin1( " and " ) ) ).latin1() );
 
     if ( subQueries.empty() )
         return QString::null;
@@ -109,7 +115,7 @@ void Exif::SearchInfo::search() const
     static QString lastQuery = QString::null;
     if ( queryStr == lastQuery )
         return;
-
+    lastQuery = queryStr;
 
     _matches.clear();
     if ( _emptyQuery )

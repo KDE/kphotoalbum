@@ -17,6 +17,9 @@ public:
     Set<QString> standardKeys();
     void writeInfoToFile( const QString& srcName, const QString& destName );
 
+protected:
+    QString exifInfoFile( const QString& fileName );
+
 private:
     static Info* _instance;
     Set<QString> _keys;

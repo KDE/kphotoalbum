@@ -12,26 +12,13 @@ FileInfo FileInfo::read( const QString& fileName )
 {
     FileInfo fi;
     fi._fullPath = fileName;
-    QString tempFileName( fileName );
-
-#if 0
-    // PENDING(blackie) What do we do about this?
-    if ( Util::isCRW( fileName ) ) {
-      QString dirName = QFileInfo( fileName ).dirPath();
-      QString baseName = QFileInfo( fileName ).baseName();
-      tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
-      QFileInfo tempFile (tempFileName);
-      if ( !tempFile.exists() )
-          tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
-    }
-#endif
 
 #ifdef HASEXIV2
     Set<QString> wantedKeys;
     wantedKeys.insert( QString::fromLatin1( "Exif.Image.ImageDescription" ) );
     wantedKeys.insert( QString::fromLatin1( "Exif.Image.Orientation" ) );
     wantedKeys.insert( QString::fromLatin1( "Exif.Image.DateTime" ) );
-    fi._map = Exif::Info::instance()->info( tempFileName, wantedKeys, false );
+    fi._map = Exif::Info::instance()->info( fileName, wantedKeys, false );
 #endif
 
     return fi;

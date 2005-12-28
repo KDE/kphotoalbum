@@ -9,6 +9,7 @@
 #include "Info.h"
 #include "imageinfo.h"
 #include "imagedb.h"
+#include <qfileinfo.h>
 
 using namespace Exif;
 
@@ -17,9 +18,10 @@ Info* Info::_instance = 0;
 QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedKeys, bool returnFullExifName )
 {
     QMap<QString, QString> result;
+    QString exifFileName = exifInfoFile( fileName );
 
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.local8Bit().data());
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(exifFileName.local8Bit().data());
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
 
@@ -240,5 +242,24 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
     image = Exiv2::ImageFactory::open( destName.local8Bit().data() );
     image->setExifData(data);
     image->writeMetadata();
+}
+
+/**
+ * Some Canon cameras stores EXIF info in files ending in .thm, so we need to use those files for fetching EXIF info
+ * if they exists.
+ */
+QString Exif::Info::exifInfoFile( const QString& fileName )
+{
+    QString dirName = QFileInfo( fileName ).dirPath();
+    QString baseName = QFileInfo( fileName ).baseName();
+    QString name = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
+    if ( QFileInfo(name).exists() )
+        return name;
+
+    name = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
+    if ( QFileInfo(name).exists() )
+        return name;
+
+    return fileName;
 }
 

@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "dateviewhandler.h"
+#include "ViewHandler.h"
 #include <qobject.h>
 #include <math.h>
 #include <klocale.h>
@@ -24,14 +24,72 @@
 #include <kapplication.h>
 #include "util.h"
 
-void DateViewHandler::init( const QDateTime& startDate )
+using namespace DateBar;
+
+
+/**
+ * \class DateBar::ViewHandler
+ * \brief Base class for classes handling logic regarding individual bars in the datebar.
+ *
+ * A major part of the date bar is figuring out which date interval a given bar represent, this class is taking care of this.
+ */
+
+
+/**
+ * Indicate that the first unit in the bar represent the date given as parameter
+ */
+void ViewHandler::init( const QDateTime& startDate )
 {
     _startDate = startDate;
 }
 
-bool DateViewHandler::isMidUnit( int /*unit*/ )
+/**
+ * Returns whether this unit is a major unit (like January in year view, or Monday in week view)
+ * This information is used to draw a longer line in the date bar for the given unit.
+ */
+bool DateBar::ViewHandler::isMajorUnit( int )
+{
+    // included for documentation
+    return true;
+}
+
+
+/**
+ * Returns whether this is a mid unit (like 30 minute in hour view)
+ * This information is used to draw a slightly longer line in the date bar for the given unit.
+ */
+bool ViewHandler::isMidUnit( int /*unit*/ )
 {
     return false;
+}
+
+/**
+ * Returns the text to be shown for the given unit. This method will only be call for major units.
+ */
+QString DateBar::ViewHandler::text( int )
+{
+    // Included for documentation.
+    return QString::null;
+}
+
+
+/**
+ * Returns the length of one unit (to be shown at the right of the date bar)
+ */
+QString DateBar::ViewHandler::unitText() const
+{
+    // Included for documentation.
+    return QString::null;
+}
+
+/**
+ * Return the date for the beginning of the unit given as the first argument. If the second optional argument is
+ * given, then this is used as the date for the first unit, otherwise the date given to \ref init will be used as offset.
+ */
+QDateTime DateBar::ViewHandler::date(int, QDateTime )
+{
+    // Included for documentation.
+    return QDateTime();
 }
 
 
@@ -44,7 +102,7 @@ bool DateViewHandler::isMidUnit( int /*unit*/ )
 void DecadeViewHandler::init( const QDateTime& startDate )
 {
     QDateTime date = QDateTime( QDate( startDate.date().year(), 1, 1 ), QTime( 0,0,0 ) );
-    DateViewHandler::init( date );
+    ViewHandler::init( date );
 }
 
 bool DecadeViewHandler::isMajorUnit( int unit )
@@ -77,7 +135,7 @@ QString DecadeViewHandler::unitText() const
 void YearViewHandler::init( const QDateTime& startDate )
 {
     QDateTime date = QDateTime( QDate( startDate.date().year(), startDate.date().month(), 1 ), QTime( 0,0,0 ) );
-    DateViewHandler::init( date );
+    ViewHandler::init( date );
 }
 
 bool YearViewHandler::isMajorUnit( int unit )
@@ -113,7 +171,7 @@ QString YearViewHandler::unitText() const
 void MonthViewHandler::init( const QDateTime& startDate)
 {
     QDate date = startDate.date().addDays( - startDate.date().dayOfWeek() +1 ); // Wind to monday
-    DateViewHandler::init( QDateTime( date, QTime( 0, 0, 0 ) ) );
+    ViewHandler::init( QDateTime( date, QTime( 0, 0, 0 ) ) );
 }
 
 bool MonthViewHandler::isMajorUnit( int unit )
@@ -150,7 +208,7 @@ QString MonthViewHandler::unitText() const
 
 void WeekViewHandler::init( const QDateTime& startDate)
 {
-    DateViewHandler::init( QDateTime( startDate.date(), QTime( 0, 0, 0 ) ) );
+    ViewHandler::init( QDateTime( startDate.date(), QTime( 0, 0, 0 ) ) );
 }
 
 bool WeekViewHandler::isMajorUnit( int unit )
@@ -183,7 +241,7 @@ void DayViewHandler::init( const QDateTime& startDate)
     if ( date.time().hour() %2 )
         date = date.addSecs( 60*60 );
 
-    DateViewHandler::init( QDateTime( date.date(), QTime( date.time().hour(), 0, 0 ) ) );
+    ViewHandler::init( QDateTime( date.date(), QTime( date.time().hour(), 0, 0 ) ) );
 }
 
 bool DayViewHandler::isMajorUnit( int unit )
@@ -222,7 +280,7 @@ QString DayViewHandler::unitText() const
 
 void HourViewHandler::init( const QDateTime& startDate)
 {
-    DateViewHandler::init( QDateTime( startDate.date(),
+    ViewHandler::init( QDateTime( startDate.date(),
                                       QTime( startDate.time().hour(), 10 * (int) floor(startDate.time().minute()/10.0), 0 ) ) );
 }
 
@@ -252,4 +310,5 @@ QString HourViewHandler::unitText() const
 {
     return i18n("10 Minutes");
 }
+
 

@@ -23,11 +23,14 @@
 #include <qdatetime.h>
 #include "imagedaterange.h"
 #include "imagedaterangecollection.h"
-#include "dateviewhandler.h"
-#include "datebarmousehandler.h"
+#include "DateBar/ViewHandler.h"
+#include "DateBar/MouseHandler.h"
 #include <ksharedptr.h>
 class QPopupMenu;
 class QToolButton;
+
+namespace DateBar
+{
 
 class DateBar :public QWidget {
     Q_OBJECT
@@ -112,17 +115,17 @@ private:
     WeekViewHandler _weekViewHandler;
     DayViewHandler _dayViewHandler;
     HourViewHandler _hourViewHandler;
-    DateViewHandler* _currentHandler;
+    ViewHandler* _currentHandler;
     ViewType _tp;
 
-    DateBarMouseHandler::Handler* _currentMouseHandler;
-    DateBarMouseHandler::FocusItem* _focusItemHandler;
-    DateBarMouseHandler::DateArea* _dateAreaHandler;
-    DateBarMouseHandler::Selection* _selectionHandler;
-    friend class DateBarMouseHandler::Handler;
-    friend class DateBarMouseHandler::FocusItem;
-    friend class DateBarMouseHandler::DateArea;
-    friend class DateBarMouseHandler::Selection;
+    MouseHandler* _currentMouseHandler;
+    FocusItemDragHandler* _focusItemDragHandler;
+    BarDragHandler* _barDragHandler;
+    SelectionHandler* _selectionHandler;
+    friend class Handler;
+    friend class FocusItemDragHandler;
+    friend class BarDragHandler;
+    friend class SelectionHandler;
 
     QToolButton* _rightArrow;
     QToolButton* _leftArrow;
@@ -138,6 +141,7 @@ private:
     bool _showResolutionIndicator;
 };
 
+}
 
 #endif /* DATEBAR_H */
 

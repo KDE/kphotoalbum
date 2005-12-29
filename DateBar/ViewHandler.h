@@ -22,7 +22,10 @@
 #include <qstring.h>
 #include "imagedaterangecollection.h"
 
-class DateViewHandler
+namespace DateBar
+{
+
+class ViewHandler
 {
 public:
     virtual void init( const QDateTime& startDate ) = 0;
@@ -37,7 +40,7 @@ protected:
 };
 
 
-class DecadeViewHandler :public DateViewHandler
+class DecadeViewHandler :public ViewHandler
 {
 public:
     virtual void init( const QDateTime& startDate );
@@ -48,7 +51,7 @@ public:
     virtual QString unitText() const;
 };
 
-class YearViewHandler :public DateViewHandler
+class YearViewHandler :public ViewHandler
 {
 public:
     virtual void init( const QDateTime& startDate );
@@ -59,7 +62,7 @@ public:
     virtual QString unitText() const;
 };
 
-class MonthViewHandler :public DateViewHandler
+class MonthViewHandler :public ViewHandler
 {
 public:
     virtual void init( const QDateTime& startDate );
@@ -69,7 +72,7 @@ public:
     virtual QString unitText() const;
 };
 
-class WeekViewHandler :public DateViewHandler
+class WeekViewHandler :public ViewHandler
 {
 public:
     virtual void init( const QDateTime& startDate );
@@ -79,7 +82,7 @@ public:
     virtual QString unitText() const;
 };
 
-class DayViewHandler :public DateViewHandler
+class DayViewHandler :public ViewHandler
 {
 public:
     virtual void init( const QDateTime& startDate );
@@ -90,7 +93,7 @@ public:
     virtual QString unitText() const;
 };
 
-class HourViewHandler :public DateViewHandler
+class HourViewHandler :public ViewHandler
 {
 public:
     virtual void init( const QDateTime& startDate );
@@ -100,6 +103,8 @@ public:
     virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
     virtual QString unitText() const;
 };
+
+}
 
 
 #endif /* DATEVIEWHANDLER_H */

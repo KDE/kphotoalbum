@@ -18,7 +18,6 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
-class DateBar;
 class TokenEditor;
 class OptionsDialog;
 class ImageConfig;
@@ -46,6 +45,11 @@ class PluginInterface;
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
+
+namespace DateBar
+{
+    class DateBar;
+}
 
 class MainView :public KMainWindow
 {
@@ -192,7 +196,7 @@ private:
     KIPI::PluginLoader* _pluginLoader;
 #endif
     TokenEditor* _tokenEditor;
-    DateBar* _dateBar;
+    DateBar::DateBar* _dateBar;
     bool _hasLoadedPlugins;
 };
 

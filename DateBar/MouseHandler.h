@@ -6,20 +6,20 @@
 #include <kdemacros.h>
 #include "imagedaterange.h"
 #include <kdeversion.h>
-class DateBar;
 
 #if ! KDE_IS_VERSION(3,3,90)
 #undef KDE_EXPORT
 #define KDE_EXPORT
 #endif
 
-namespace DateBarMouseHandler {
+namespace DateBar {
+class DateBar;
 
-    class KDE_EXPORT Handler : public QObject
+    class KDE_EXPORT MouseHandler : public QObject
     {
         Q_OBJECT
     public:
-        Handler( DateBar* dateBar );
+        MouseHandler( DateBar* dateBar );
         virtual void mousePressEvent( int x ) = 0;
         virtual void mouseMoveEvent( int x ) = 0;
         virtual void mouseReleaseEvent() {};
@@ -38,20 +38,20 @@ namespace DateBarMouseHandler {
 
 
 
-    class KDE_EXPORT FocusItem : public Handler
+    class KDE_EXPORT FocusItemDragHandler : public MouseHandler
     {
     public:
-        FocusItem( DateBar* dateBar );
+        FocusItemDragHandler( DateBar* dateBar );
         void mousePressEvent( int x );
         void mouseMoveEvent( int x );
     };
 
 
 
-    class KDE_EXPORT DateArea : public Handler
+    class KDE_EXPORT BarDragHandler : public MouseHandler
     {
     public:
-        DateArea( DateBar* );
+        BarDragHandler( DateBar* );
         void mousePressEvent( int x );
         void mouseMoveEvent(  int x );
     private:
@@ -60,10 +60,10 @@ namespace DateBarMouseHandler {
 
 
 
-    class KDE_EXPORT Selection : public Handler
+    class KDE_EXPORT SelectionHandler : public MouseHandler
     {
     public:
-        Selection( DateBar* );
+        SelectionHandler( DateBar* );
         void mousePressEvent( int x );
         void mouseMoveEvent( int x );
         virtual void mouseReleaseEvent();

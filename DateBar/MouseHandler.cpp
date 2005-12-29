@@ -1,44 +1,69 @@
-#include "datebarmousehandler.h"
-#include "datebar.h"
+#include "MouseHandler.h"
+#include "DateBar.h"
 #include <math.h>
 #include <qtimer.h>
 #include <qcursor.h>
 
-DateBarMouseHandler::Handler::Handler( DateBar* dateBar )
+/**
+ * \class DateBar::MouseHandler
+ * \brief Base class for handling mouse events in the \ref DateBar
+ *
+ * The mouse events in the date bar are handled by subclasses of MouseHandler.
+ * The subclasses are:
+ * \li DateBar::BarDragHandler - used during dragging the bar (control left mouse button)
+ * \li DateBar::FocusItemDragHandler - used during dragging the focus item (drag the top of the bar)
+ * \li DateBar::SelectionHandler - used during range selection (drag on the bottom of the bar)
+ */
+
+/**
+ * \class DateBar::BarDragHandler
+ * \brief Mouse handler used when dragging the date bar (using control left mouse button on the bar)
+ */
+
+/**
+ * \class DateBar::FocusItemDragHandler
+ * \brief Handler used during dragging of the focus rectangle in the date bar (mouse button on upper part of the bar)
+ */
+
+/**
+ * \class DateBar::SelectionHandler
+ * \brief Handler used during range selection in the date bar (mouse button on lower part of the bar)
+ */
+DateBar::MouseHandler::MouseHandler( DateBar* dateBar )
     :QObject( dateBar, "handler" ), _dateBar( dateBar )
 {
     _autoScrollTimer = new QTimer( this );
     connect( _autoScrollTimer, SIGNAL( timeout() ), this, SLOT( autoScroll() ) );
 }
 
-void DateBarMouseHandler::Handler::autoScroll()
+void DateBar::MouseHandler::autoScroll()
 {
     mouseMoveEvent( _dateBar->mapFromGlobal( QCursor::pos() ).x() );
 }
 
-void DateBarMouseHandler::Handler::startAutoScroll()
+void DateBar::MouseHandler::startAutoScroll()
 {
     _autoScrollTimer->start( 100 );
 }
 
-void DateBarMouseHandler::Handler::endAutoScroll()
+void DateBar::MouseHandler::endAutoScroll()
 {
     _autoScrollTimer->stop();
 }
 
-DateBarMouseHandler::Selection::Selection( DateBar* dateBar )
-    :Handler( dateBar )
+DateBar::SelectionHandler::SelectionHandler( DateBar* dateBar )
+    :MouseHandler( dateBar )
 {
 }
 
-void DateBarMouseHandler::Selection::mousePressEvent( int x )
+void DateBar::SelectionHandler::mousePressEvent( int x )
 {
     int unit = _dateBar->unitAtPos( x );
     _start = _dateBar->dateForUnit( unit );
     _end = _dateBar->dateForUnit( unit + 1 );
 }
 
-void DateBarMouseHandler::Selection::mouseMoveEvent( int x )
+void DateBar::SelectionHandler::mouseMoveEvent( int x )
 {
     int unit = _dateBar->unitAtPos( x );
     QDateTime date = _dateBar->dateForUnit( unit );
@@ -52,12 +77,12 @@ void DateBarMouseHandler::Selection::mouseMoveEvent( int x )
 
 
 
-DateBarMouseHandler::FocusItem::FocusItem( DateBar* dateBar )
-    : Handler( dateBar )
+DateBar::FocusItemDragHandler::FocusItemDragHandler( DateBar* dateBar )
+    : MouseHandler( dateBar )
 {
 }
 
-void DateBarMouseHandler::FocusItem::mousePressEvent( int x )
+void DateBar::FocusItemDragHandler::mousePressEvent( int x )
 {
     _dateBar->_currentUnit = _dateBar->unitAtPos( x );
     _dateBar->_currentDate = _dateBar->dateForUnit( _dateBar->_currentUnit );
@@ -65,7 +90,7 @@ void DateBarMouseHandler::FocusItem::mousePressEvent( int x )
         _dateBar->clearSelection();
 }
 
-void DateBarMouseHandler::FocusItem::mouseMoveEvent( int x )
+void DateBar::FocusItemDragHandler::mouseMoveEvent( int x )
 {
     int oldUnit = _dateBar->_currentUnit;
     int newUnit = ( x - _dateBar->barAreaGeometry().left() )/_dateBar->_barWidth;
@@ -100,18 +125,18 @@ void DateBarMouseHandler::FocusItem::mouseMoveEvent( int x )
 
 
 
-DateBarMouseHandler::DateArea::DateArea( DateBar* dateBar )
-    : Handler( dateBar )
+DateBar::BarDragHandler::BarDragHandler( DateBar* dateBar )
+    : MouseHandler( dateBar )
 {
 }
 
-void DateBarMouseHandler::DateArea::mousePressEvent( int x )
+void DateBar::BarDragHandler::mousePressEvent( int x )
 {
     _movementOffset = _dateBar->_currentUnit * _dateBar->_barWidth - ( x - _dateBar->barAreaGeometry().left() );
 
 }
 
-void DateBarMouseHandler::DateArea::mouseMoveEvent( int x )
+void DateBar::BarDragHandler::mouseMoveEvent( int x )
 {
     int oldUnit = _dateBar->_currentUnit;
     int newUnit = ( x + _movementOffset - _dateBar->barAreaGeometry().left() )/_dateBar->_barWidth;
@@ -142,7 +167,7 @@ void DateBarMouseHandler::DateArea::mouseMoveEvent( int x )
     _dateBar->emitDateSelected();
 }
 
-QDateTime DateBarMouseHandler::Selection::min() const
+QDateTime DateBar::SelectionHandler::min() const
 {
     if ( _start < _end )
         return _start;
@@ -150,7 +175,7 @@ QDateTime DateBarMouseHandler::Selection::min() const
         return _end;
 }
 
-QDateTime DateBarMouseHandler::Selection::max() const
+QDateTime DateBar::SelectionHandler::max() const
 {
     if ( _start >= _end )
         return _dateBar->dateForUnit( 1,_start );
@@ -158,26 +183,26 @@ QDateTime DateBarMouseHandler::Selection::max() const
         return _end;
 }
 
-void DateBarMouseHandler::Selection::clearSelection()
+void DateBar::SelectionHandler::clearSelection()
 {
     _start = QDateTime();
     _end = QDateTime();
 }
 
-void DateBarMouseHandler::Selection::mouseReleaseEvent()
+void DateBar::SelectionHandler::mouseReleaseEvent()
 {
     _dateBar->emitRangeSelection( dateRange() );
 }
 
-ImageDateRange DateBarMouseHandler::Selection::dateRange() const
+ImageDateRange DateBar::SelectionHandler::dateRange() const
 {
     return ImageDateRange( ImageDate( min(), max() ) );
 }
 
-bool DateBarMouseHandler::Selection::hasSelection() const
+bool DateBar::SelectionHandler::hasSelection() const
 {
     return min().isValid();
 }
 
 
-#include "datebarmousehandler.moc"
+#include "MouseHandler.moc"

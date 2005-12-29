@@ -1,4 +1,4 @@
-#include "xmlcategory.h"
+#include "XMLCategory.h"
 #include "imagedb.h"
 #include "options.h"
 #include "membermap.h"
@@ -127,4 +127,4 @@ QString XMLDB::XMLCategory::nameForId( int id ) const
     return _nameMap[id];
 }
 
-#include "xmlcategory.moc"
+#include "XMLCategory.moc"

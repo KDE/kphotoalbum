@@ -16,7 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "xmldb.h"
+#include "XMLDB.h"
 #include "showbusycursor.h"
 #include "options.h"
 #include <qfileinfo.h>
@@ -35,16 +35,16 @@
 #include "imageinfo.h"
 #include "imageinfoptr.h"
 #include "categorycollection.h"
-#include "xmldb.moc"
+#include "XMLDB.moc"
 #include <kstandarddirs.h>
 #include <qregexp.h>
 #include <stdlib.h>
-#include "xmlcategory.h"
+#include "XMLCategory.h"
 #include <ksharedptr.h>
-#include "xmlimagedaterangecollection.h"
+#include "XMLImageDateRangeCollection.h"
 #include <kcmdlineargs.h>
 #include <kdebug.h>
-#include "numberedbackup.h"
+#include "NumberedBackup.h"
 
 bool XMLDB::XMLDB::_anyImageWithEmptySize = false;
 XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )

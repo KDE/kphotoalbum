@@ -29,7 +29,7 @@
 #include <category.h>
 #include "newimagefinder.h"
 #include <categorycollection.h>
-#include "xmlcategorycollection.h"
+#include "XMLCategoryCollection.h"
 class ImageInfo;
 
 namespace XMLDB {

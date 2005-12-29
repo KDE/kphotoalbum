@@ -1,4 +1,4 @@
-#include "numberedbackup.h"
+#include "NumberedBackup.h"
 #include "options.h"
 #include <kzip.h>
 #include <kmessagebox.h>

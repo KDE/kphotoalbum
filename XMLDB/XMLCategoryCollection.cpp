@@ -1,6 +1,6 @@
 #include "imagedb.h"
-#include "xmlcategorycollection.h"
-#include "xmlcategory.h"
+#include "XMLCategoryCollection.h"
+#include "XMLCategory.h"
 
 CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const
 {
@@ -66,4 +66,4 @@ void XMLDB::XMLCategoryCollection::initIdMap()
         static_cast<XMLCategory*>((*it).data())->initIdMap();
 }
 
-#include "xmlcategorycollection.moc"
+#include "XMLCategoryCollection.moc"

@@ -16,7 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "xmlimagedaterangecollection.h"
+#include "XMLImageDateRangeCollection.h"
 #include "imageinfo.h"
 #include "imagedb.h"
 

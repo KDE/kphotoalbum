@@ -1,6 +1,6 @@
 if compile_sqldb
-  LIBKIMDABA_SQLDB=sqldb/libsqldb.la
-  SQLDB=sqldb
+  LIBKIMDABA_SQLDB=SQLDB/libsqldb.la
+  SQLDB=SQLDB
 endif
 
 if compile_with_kipi

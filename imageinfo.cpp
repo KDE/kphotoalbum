@@ -40,7 +40,7 @@ extern "C" {
 #include <qstringlist.h>
 #include "membermap.h"
 #include <kcmdlineargs.h>
-#include "XMLDB/xmlcategory.h"
+#include "XMLDB/XMLCategory.h"
 #include <config.h>
 #include "Exif/Database.h"
 

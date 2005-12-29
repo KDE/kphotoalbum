@@ -51,7 +51,7 @@
 #include "categorycollection.h"
 #include "imageinfo.h"
 #include "miniviewer.h"
-#include "XMLDB/xmldb.h"
+#include "XMLDB/XMLDB.h"
 #include <kdebug.h>
 
 class KPushButton;

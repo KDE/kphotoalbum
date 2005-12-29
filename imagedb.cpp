@@ -1,10 +1,10 @@
 #include "imagedb.h"
-#include "XMLDB/xmldb.h"
+#include "XMLDB/XMLDB.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "browser.h"
 #include "categorycollection.h"
-#include "sqldb/sqldb.h"
+#include "SQLDB/sqldb.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>

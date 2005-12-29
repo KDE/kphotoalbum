@@ -1,4 +1,4 @@
-#include "sqldb.h"
+#include "SQLDB.h"
 #include <membermap.h>
 #include <qsqldatabase.h>
 #include <kmessagebox.h>
@@ -6,15 +6,15 @@
 #include <stdlib.h>
 #include <categorycollection.h>
 #include <qsqlerror.h>
-#include "query.h"
-#include "queryutil.h"
+#include "Query.h"
+#include "QueryUtil.h"
 #include <imageinfo.h>
 #include <util.h>
 #include "groupCounter.h"
 #include <kdebug.h>
-#include "sqlimageinfo.h"
+#include "SQLImageInfo.h"
 #include <browser.h>
-#include "sqlimagedaterangecollection.h"
+#include "SQLImageDateRangeCollection.h"
 
 SQLDB::SQLDB::SQLDB() :_members( this )
 {
@@ -360,4 +360,4 @@ bool SQLDB::SQLDB::isClipboardEmpty()
     return true;
 }
 
-#include "sqldb.moc"
+#include "SQLDB.moc"

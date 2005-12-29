@@ -5,6 +5,6 @@ INCLUDES = \
 	 -I$(srcdir)/.. $(all_includes)
 
 libsqldb_la_SOURCES = \
-	sqldb.cpp query.cpp sqlcategorycollection.cpp sqlcategory.cpp sqlimageinfo.cpp queryutil.cpp sqlimagedaterangecollection.cpp
+	SQLDB.cpp Query.cpp SQLCategoryCollection.cpp SQLCategory.cpp SQLImageInfo.cpp QueryUtil.cpp SQLImageDateRangeCollection.cpp
 
 METASOURCES = AUTO

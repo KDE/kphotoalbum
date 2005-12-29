@@ -1,10 +1,10 @@
-#include "query.h"
+#include "Query.h"
 #include <membermap.h>
 #include <imagedb.h>
 #include <imagesearchinfo.h>
 #include <qsqlquery.h>
 #include <options.h>
-#include "queryutil.h"
+#include "QueryUtil.h"
 #include <kdebug.h>
 
 QValueList<int> SQLDB::filesMatchingQuery( const ImageSearchInfo& info )

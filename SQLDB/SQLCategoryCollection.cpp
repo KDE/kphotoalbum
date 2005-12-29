@@ -1,6 +1,6 @@
-#include "sqlcategorycollection.h"
-#include "sqlcategory.h"
-#include "queryutil.h"
+#include "SQLCategoryCollection.h"
+#include "SQLCategory.h"
+#include "QueryUtil.h"
 #include <qsqlquery.h>
 CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {
@@ -60,4 +60,4 @@ void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const Q
         showError( query );
 }
 
-#include "sqlcategorycollection.moc"
+#include "SQLCategoryCollection.moc"

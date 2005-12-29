@@ -1,7 +1,7 @@
-#include "sqlcategory.h"
+#include "SQLCategory.h"
 #include <kdebug.h>
 #include <qsqlquery.h>
-#include "queryutil.h"
+#include "QueryUtil.h"
 
 QString SQLDB::SQLCategory::name() const
 {

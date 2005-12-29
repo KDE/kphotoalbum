@@ -1,4 +1,4 @@
-#include "queryutil.h"
+#include "QueryUtil.h"
 #include <membermap.h>
 #include <imagedb.h>
 #include <imagesearchinfo.h>

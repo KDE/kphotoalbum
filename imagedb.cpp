@@ -4,7 +4,7 @@
 #include <qfileinfo.h>
 #include "browser.h"
 #include "categorycollection.h"
-#include "SQLDB/sqldb.h"
+#include "SQLDB/SQLDB.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>

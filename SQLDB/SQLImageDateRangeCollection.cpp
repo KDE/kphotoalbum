@@ -1,7 +1,7 @@
-#include "sqlimagedaterangecollection.h"
+#include "SQLImageDateRangeCollection.h"
 #include <qvariant.h>
 #include <qmap.h>
-#include "queryutil.h"
+#include "QueryUtil.h"
 ImageCount SQLImageDateRangeCollection::count( const ImageDateRange& range )
 {
     // In a perfect world, we should check that the db hasn't changed, but

@@ -23,7 +23,7 @@ Boston, MA 02111-1307, USA.
 #include <membermap.h>
 #include <categorycollection.h>
 #include <md5map.h>
-#include "sqlcategorycollection.h"
+#include "SQLCategoryCollection.h"
 class QSqlError;
 
 namespace SQLDB {

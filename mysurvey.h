@@ -1,6 +1,6 @@
 #ifndef MYSURVEY_H
 #define MYSURVEY_H
-#include "survey/surveydialog.h"
+#include "Survey/surveydialog.h"
 
 class MySurvey : public Survey::SurveyDialog {
     Q_OBJECT

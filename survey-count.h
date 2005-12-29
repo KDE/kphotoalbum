@@ -1,7 +1,7 @@
 #ifndef SURVEY_COUNT_H
 #define SURVEY_COUNT_H
 
-#include "survey/question.h"
+#include "Survey/question.h"
 class QSpinBox;
 class QLineEdit;
 

@@ -1,9 +1,9 @@
 #include "mysurvey.h"
-#include "survey/textquestion.h"
+#include "Survey/textquestion.h"
 #include "survey-count.h"
-#include "survey/infopage.h"
+#include "Survey/infopage.h"
 #include <klocale.h>
-#include "survey/alternativequestion.h"
+#include "Survey/alternativequestion.h"
 MySurvey::MySurvey( QWidget* parent, const char* name )
     :Survey::SurveyDialog( parent, name )
 {

@@ -13,7 +13,7 @@ if compile_with_exiv2
   KIMDABA_EXIV2_LIBS = Exif/libexif.la -lexiv2
 endif
 
-SUBDIRS = images icons demo themes Survey xmldb DateBar $(SQLDB) $(EXIF_DIR)
+SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR)
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kimdaba
@@ -39,7 +39,7 @@ kimdaba_SOURCES = \
 	featuredialog.cpp $(EXIF_SOURCES)
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD =  Survey/libsurvey.la xmldb/libxmldb.la DateBar/libdatebar.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) -ljpeg $(KIMDABA_KIPI_LIBS) \
+kimdaba_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) -ljpeg $(KIMDABA_KIPI_LIBS) \
 	         $(KIMDABA_EXIV2_LIBS)
 
 METASOURCES = AUTO

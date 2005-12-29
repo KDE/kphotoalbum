@@ -1,5 +1,5 @@
 #include "imagedb.h"
-#include "xmldb/xmldb.h"
+#include "XMLDB/xmldb.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "browser.h"

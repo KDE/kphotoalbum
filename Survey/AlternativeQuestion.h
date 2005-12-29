@@ -19,7 +19,7 @@
 #ifndef ALTERNATIVEQUESTION_H
 #define ALTERNATIVEQUESTION_H
 
-#include <question.h>
+#include "Question.h"
 #include <qvaluelist.h>
 class QLineEdit;
 class QButton;

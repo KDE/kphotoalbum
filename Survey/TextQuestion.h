@@ -16,21 +16,26 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "question.h"
-#include <surveydialog.h>
+#include "Question.h"
+class QTextEdit;
+#ifndef TEXTQUESTION_H
+#define TEXTQUESTION_H
 
-Survey::Question::Question( const QString& id, const QString& title, SurveyDialog* parent )
-    : QWidget( parent ), _id( id ), _title( title )
-{
-    parent->addQuestion( this );
+namespace Survey {
+
+    class TextQuestion :public Question
+    {
+    public:
+        TextQuestion( const QString& id, const QString& title, const QString& question, SurveyDialog* parent );
+
+    protected:
+        virtual void save( QDomElement& doc );
+        virtual void load( QDomElement& doc );
+
+    private:
+        QTextEdit* _edit;
+    };
 }
 
-QString Survey::Question::id() const
-{
-    return _id;
-}
+#endif /* TEXTQUESTION_H */
 
-QString Survey::Question::title() const
-{
-    return _title;
-}

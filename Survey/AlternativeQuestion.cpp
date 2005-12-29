@@ -1,4 +1,4 @@
-#include "alternativequestion.h"
+#include "AlternativeQuestion.h"
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qlabel.h>

@@ -85,7 +85,7 @@
 #include "imagedaterangecollection.h"
 #include "invaliddatefinder.h"
 #include "imageinfo.h"
-#include "mysurvey.h"
+#include "Survey/MySurvey.h"
 #include <config.h>
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
@@ -1321,13 +1321,13 @@ void MainView::clearDateRange()
 
 void MainView::runSurvey()
 {
-    MySurvey survey(this);
+    Survey::MySurvey survey(this);
     survey.exec();
 }
 
 void MainView::possibleRunSuvey()
 {
-    MySurvey survey(this);
+    Survey::MySurvey survey(this);
     survey.possibleExecSurvey();
 }
 

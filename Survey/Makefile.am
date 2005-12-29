@@ -2,11 +2,11 @@ noinst_LTLIBRARIES = \
     libsurvey.la
 
 INCLUDES = \
-    $(all_includes)
+    $(all_includes) -I$(srcdir)/..
 
 libsurvey_la_SOURCES = \
-	question.cpp surveydialog.cpp textquestion.cpp\
-	infopage.cpp alternativequestion.cpp
+	Question.cpp SurveyDialog.cpp TextQuestion.cpp\
+	InfoPage.cpp AlternativeQuestion.cpp MySurvey.cpp SurveyCount.cpp
 
 METASOURCES = AUTO
 

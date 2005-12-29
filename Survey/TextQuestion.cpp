@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "textquestion.h"
+#include "TextQuestion.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtextedit.h>

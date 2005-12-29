@@ -34,7 +34,7 @@ kimdaba_SOURCES = \
 	mysplashscreen.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \
 	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
 	imagedaterange.cpp invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
-	imagerequest.cpp thumbnailrequest.cpp mysurvey.cpp survey-count.cpp miniviewer.cpp \
+	imagerequest.cpp thumbnailrequest.cpp miniviewer.cpp \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c \
 	featuredialog.cpp $(EXIF_SOURCES)
 

@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "infopage.h"
+#include "InfoPage.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qframe.h>

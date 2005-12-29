@@ -1,10 +1,13 @@
-#include "survey-count.h"
+#include "SurveyCount.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <qlineedit.h>
 #include <klocale.h>
 #include "imagedb.h"
+
+using namespace Survey;
+
 SurveyCountQuestion::SurveyCountQuestion( const QString& id, const QString& title, Survey::SurveyDialog* parent )
     :Question( id, title, parent )
 {

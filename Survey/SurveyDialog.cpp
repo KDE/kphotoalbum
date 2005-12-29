@@ -16,12 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "surveydialog.h"
+#include "SurveyDialog.h"
 #include <qlayout.h>
 #include <qvgroupbox.h>
 #include <qlabel.h>
 #include <qvaluelist.h>
-#include "question.h"
+#include "Question.h"
 #include <qwidgetstack.h>
 #include <klocale.h>
 #include <qpushbutton.h>
@@ -314,4 +314,4 @@ QCString Survey::SurveyDialog::configAsXML()
     return doc.toCString();
 }
 
-#include "surveydialog.moc"
+#include "SurveyDialog.moc"

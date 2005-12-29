@@ -1,9 +1,12 @@
 #ifndef SURVEY_COUNT_H
 #define SURVEY_COUNT_H
 
-#include "Survey/question.h"
+#include "Question.h"
 class QSpinBox;
 class QLineEdit;
+
+namespace Survey
+{
 
 class SurveyCountQuestion : public Survey::Question {
 
@@ -19,6 +22,7 @@ private:
     QSpinBox* _scanned;
 };
 
+}
 
 #endif /* SURVEY_COUNT_H */
 

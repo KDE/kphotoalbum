@@ -1,9 +1,12 @@
-#include "mysurvey.h"
-#include "Survey/textquestion.h"
-#include "survey-count.h"
-#include "Survey/infopage.h"
+#include "MySurvey.h"
+#include "TextQuestion.h"
+#include "SurveyCount.h"
+#include "InfoPage.h"
 #include <klocale.h>
-#include "Survey/alternativequestion.h"
+#include "AlternativeQuestion.h"
+
+using namespace Survey;
+
 MySurvey::MySurvey( QWidget* parent, const char* name )
     :Survey::SurveyDialog( parent, name )
 {
@@ -111,4 +114,4 @@ QSize MySurvey::sizeHint() const
     return QSize( QMAX( size.width(), 800 ), size.height() );
 }
 
-#include "mysurvey.moc"
+#include "MySurvey.moc"

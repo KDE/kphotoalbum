@@ -59,6 +59,16 @@ extern "C" {
 #include <kdebug.h>
 #include <config.h>
 
+/**
+ * Given an ImageInfoPtr this function will create an HTML blob about the
+ * image. The blob is used in the viewer and in the tool tip box from the
+ * thumbnail view.
+ *
+ * As the HTML text is created, the parameter linkMap is filled with
+ * informations about hyberlinks. The map maps from an index to a pair of
+ * (categoryName, categoryItem). This linkMap is used when the user selects
+ * one of the hyberlinks.
+ */
 QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
     Q_ASSERT( info );
@@ -71,15 +81,14 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
         }
     }
 
-    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
+    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        QString category = *it;
-        if ( ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow() ) {
-            QStringList items = info->itemsOfCategory( category );
+    for( QValueList<CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+        QString categoryName = (*categoryIt)->name();
+        if ( (*categoryIt)->doShow() ) {
+            QStringList items = info->itemsOfCategory( categoryName );
             if (items.count() != 0 ) {
-                text += QString::fromLatin1( "<b>%1: </b> " )
-                        .arg( ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
+                text += QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
                 bool first = true;
                 for( QStringList::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;
@@ -90,9 +99,8 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
 
                     if ( linkMap ) {
                         ++link;
-                        (*linkMap)[link] = QPair<QString,QString>( category, item );
-                        text += QString::fromLatin1( "<a href=\"%1\">%2</a>")
-                                .arg( link ).arg( item );
+                        (*linkMap)[link] = QPair<QString,QString>( categoryName, item );
+                        text += QString::fromLatin1( "<a href=\"%1\">%2</a>").arg( link ).arg( item );
                     }
                     else
                         text += item;

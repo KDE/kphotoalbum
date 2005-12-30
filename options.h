@@ -106,9 +106,6 @@ public:
     ViewSortType viewSortType() const;
 
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
-    bool showOption( const QString& ) const;
-    void setShowOption( const QString& category, bool b );
-
     Position infoBoxPosition() const;
     void setInfoBoxPosition( Position pos );
 

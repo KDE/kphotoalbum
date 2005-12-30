@@ -75,7 +75,7 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
     int link = 0;
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         QString category = *it;
-        if ( Options::instance()->showOption( category ) ) {
+        if ( ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow() ) {
             QStringList items = info->itemsOfCategory( category );
             if (items.count() != 0 ) {
                 text += QString::fromLatin1( "<b>%1: </b> " )

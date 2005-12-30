@@ -111,19 +111,6 @@ void Options::setInfoBoxPosition( Position pos )
     setValue( STR("Viewer"), STR("infoBoxPosition"), (int) pos );
 }
 
-/**
-   Returns whether the given category is shown in the viewer.
-*/
-bool Options::showOption( const QString& category ) const
-{
-    return ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow();
-}
-
-void Options::setShowOption( const QString& category, bool b )
-{
-    ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
-}
-
 QString Options::HTMLBaseDir() const
 {
     return value( groupForDatabase( STR("HTML Settings") ), STR("baseDir"), QString::fromLocal8Bit(getenv("HOME")) + STR( "/public_html") );

@@ -19,13 +19,14 @@
 #include "showoptionaction.h"
 #include "options.h"
 #include <klocale.h>
+#include "imagedb.h"
 
 ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent, const char* name )
     :KToggleAction( parent, name ), _category( category )
 {
     setText( i18n( "Show %1" ).arg( category ) );
     connect( this, SIGNAL( toggled(bool) ), this, SLOT( slotToggled( bool ) ) );
-    setChecked( Options::instance()->showOption( category ) );
+    setChecked( ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow() );
 }
 
 void ShowOptionAction::slotToggled( bool b )

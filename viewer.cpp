@@ -358,7 +358,7 @@ void Viewer::toggleShowEXIF( bool b )
 
 void Viewer::toggleShowOption( const QString& category, bool b )
 {
-    Options::instance()->setShowOption( category, b );
+    ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
     updateInfoBox();
 }
 

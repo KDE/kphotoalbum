@@ -6,6 +6,7 @@
 #include "imageclient.h"
 #include "set.h"
 #include "ThumbnailToolTip.h"
+class QTimer;
 class ImageDateRange;
 class QDateTime;
 class QPixmapCache;
@@ -26,7 +27,7 @@ public:
     QString fileNameUnderCursor() const;
     QString currentItem() const;
     static ThumbnailView* theThumbnailView();
-    void makeCurrent( const QString& fileName );
+    void setCurrentItem( const QString& fileName );
 
 public slots:
     void gotoDate( const ImageDateRange& date, bool includeRanges );
@@ -74,10 +75,9 @@ protected:
     void keyboardMoveEvent( QKeyEvent* );
 
     // Selection
-    void selectAllCellsBetween( QPoint pos1, QPoint pos2 );
-    void selectCell( int row, int col );
+    void selectAllCellsBetween( QPoint pos1, QPoint pos2, bool repaint = true );
+    void selectCell( int row, int col, bool repaint = true );
     void selectCell( const QPoint& );
-    void handleDragSelection();
     void clearSelection();
     void toggleSelection( const QString& fileName );
     void possibleEmitSelectionChanged();
@@ -89,6 +89,7 @@ protected:
 
 protected slots:
     void emitDateChange( int, int );
+    void handleDragSelection();
 
 private:
     QValueList<QString> _imageList;
@@ -159,6 +160,8 @@ private:
     static ThumbnailView* _instance;
 
     ThumbnailToolTip* _toolTip;
+
+    QTimer* _dragTimer;
 };
 
 

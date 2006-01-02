@@ -52,7 +52,7 @@ void ImageFolderAction::action( BrowserItemFactory* )
     MainView::theMainView()->showThumbNails( ImageDB::instance()->search( _info ) );
 
     if ( !_context.isNull() )
-        ThumbnailView::theThumbnailView()->makeCurrent( _context );
+        ThumbnailView::theThumbnailView()->setCurrentItem( _context );
 }
 
 FolderAction* ImageFolder::action( bool /* ctrlDown */ )

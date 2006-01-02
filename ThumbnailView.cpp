@@ -13,7 +13,6 @@
 #include "ThumbnailToolTip.h"
 
 // PENDING(blackie) TODO:
-// - Selection
 // - show file names
 
 /*
@@ -43,6 +42,8 @@ ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( emitDateChange( int, int ) ) );
 
     _toolTip = new ThumbnailToolTip( this );
+    _dragTimer = new QTimer( this );
+    connect( _dragTimer, SIGNAL( timeout() ), this, SLOT( handleDragSelection() ) );
 }
 
 
@@ -270,7 +271,10 @@ void ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
         clearSelection();
 
     // Decide the next keyboard focus cell
-    QPoint currentPos = positionForFileName( _currentItem );
+    QPoint currentPos(0,0);
+    if ( !_currentItem.isNull() )
+        currentPos = positionForFileName( _currentItem );
+
     QPoint newPos;
     switch (event->key() ) {
     case Key_Left:
@@ -396,6 +400,10 @@ void ThumbnailView::mouseMoveEvent( QMouseEvent* event )
     else {
         if ( event->state() & LeftButton ) {
             handleDragSelection();
+            if ( event->pos().y() < 0 || event->pos().y() > height() )
+                _dragTimer->start( 100 );
+            else
+                _dragTimer->stop();
         }
         else {
             // normal mouse tracking should show file under cursor.
@@ -415,10 +423,13 @@ void ThumbnailView::mouseReleaseEvent( QMouseEvent* event )
     Options::instance()->setThumbSize( cellWidth() - SPACE );
     if ( event->button() & MidButton ) {
         _isResizing = false;
-        QPoint cell = positionForFileName( _currentItem );
-        ensureCellVisible( cell.y(), cell.x() );
+        if ( !_currentItem.isNull() ) {
+            QPoint cell = positionForFileName( _currentItem );
+            ensureCellVisible( cell.y(), cell.x() );
+        }
         repaintScreen();
     }
+    _dragTimer->stop();
 }
 
 void ThumbnailView::mouseDoubleClickEvent( QMouseEvent * event )
@@ -473,7 +484,7 @@ void ThumbnailView::gotoDate( const ImageDateRange& date, bool includeRanges )
         QPoint pos = positionForFileName( candidate );
         QRect contentsRect = cellGeometry( pos.y(), pos.x() );
         setContentsPos( contentsRect.x(), contentsRect.y() );
-        // PENDING(blackie) setCurrentItem( candidate );
+        _currentItem = candidate;
     }
     _isSettingDate = false;
 }
@@ -486,6 +497,10 @@ QPoint ThumbnailView::positionForFileName( const QString& fileName ) const
     Q_ASSERT( !fileName.isNull() );
     int index = _imageList.findIndex( fileName );
     Q_ASSERT ( index != -1 );
+#ifdef TEMPORARILY_REMOVED // I'll bet you I'll get in trouble here again
+    if ( index == -1 )
+        qDebug("Ups");
+#endif
 
     int row = index / thumbnailsPerRow();
     int col = index % thumbnailsPerRow();
@@ -531,12 +546,13 @@ void ThumbnailView::selectCell( const QPoint& pos )
     selectCell( pos.y(), pos.x() );
 }
 
-void ThumbnailView::selectCell( int row, int col )
+void ThumbnailView::selectCell( int row, int col, bool repaint )
 {
     QString file = fileNameInCell( row, col );
     if ( !file.isNull() ) {
         _selectedFiles.insert( file );
-        repaintCell( row, col );
+        if ( repaint )
+            repaintCell( row, col );
     }
 }
 
@@ -545,18 +561,31 @@ void ThumbnailView::handleDragSelection()
     int col1 = columnAt( _mousePressPosContents.x() );
     int row1 = rowAt( _mousePressPosContents.y() );
 
-    QPoint pos = viewport()->mapFromGlobal( QCursor::pos() );
+    QPoint viewportPos = viewport()->mapFromGlobal( QCursor::pos() );
+    QPoint pos = viewportToContents( viewportPos );
     int col2 = columnAt( pos.x() );
     int row2 = rowAt( pos.y() );
+    _currentItem = fileNameInCell( row2, col2 );
+
+    if ( viewportPos.y() < 0 )
+        scrollBy( 0, viewportPos.y()/2 );
+    else if ( viewportPos.y() > height() )
+        scrollBy( 0, (viewportPos.y() - height())/3 );
 
     Set<QString> oldSelection = _selectedFiles;
     _selectedFiles = _originalSelectionBeforeDragStart;
-    selectAllCellsBetween( QPoint( col1,row1 ), QPoint( col2,row2 ) );
+    selectAllCellsBetween( QPoint( col1,row1 ), QPoint( col2,row2 ), false );
 
     for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_selectedFiles.contains( *it ) )
             repaintCell( *it );
     }
+
+    for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
+        if ( !oldSelection.contains( *it ) )
+            repaintCell( *it );
+    }
+
 }
 
 QPoint ThumbnailView::cellAtViewportPos( const QPoint& pos ) const
@@ -567,30 +596,30 @@ QPoint ThumbnailView::cellAtViewportPos( const QPoint& pos ) const
     return QPoint( col, row );
 }
 
-void ThumbnailView::selectAllCellsBetween( QPoint pos1, QPoint pos2 )
+void ThumbnailView::selectAllCellsBetween( QPoint pos1, QPoint pos2, bool repaint )
 {
     Util::ensurePosSorted( pos1, pos2 );
 
     if ( pos1.y() == pos2.y() ) {
         // This is the case where images from only one row is selected.
         for ( int col = pos1.x(); col <= pos2.x(); ++ col )
-            selectCell( pos1.y(), col );
+            selectCell( pos1.y(), col, repaint );
     }
     else {
         // We know we have at least two rows.
 
         // first row
         for ( int col = pos1.x(); col < thumbnailsPerRow(); ++ col )
-            selectCell( pos1.y(), col );
+            selectCell( pos1.y(), col, repaint );
 
         // rows in between
         for ( int row = pos1.y()+1; row < pos2.y(); ++row )
             for ( int col = 0; col < thumbnailsPerRow(); ++ col )
-                selectCell( row, col );
+                selectCell( row, col, repaint );
 
         // last row
         for ( int col = 0; col <= pos2.x(); ++ col )
-            selectCell( pos2.y(), col );
+            selectCell( pos2.y(), col, repaint );
     }
 }
 
@@ -716,7 +745,7 @@ ThumbnailView* ThumbnailView::theThumbnailView()
     return _instance;
 }
 
-void ThumbnailView::makeCurrent( const QString& fileName )
+void ThumbnailView::setCurrentItem( const QString& fileName )
 {
     QPoint pos = positionForFileName( fileName );
     _currentItem = fileName;

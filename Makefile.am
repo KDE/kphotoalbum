@@ -18,12 +18,12 @@ INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kimdaba
 kimdaba_SOURCES = \
-	main.cpp thumbnailview.cpp thumbnail.cpp imagemanager.cpp imageloader.cpp \
+	main.cpp imagemanager.cpp imageloader.cpp \
 	options.cpp imageinfo.cpp viewer.cpp listselect.cpp mainview.cpp imageconfig.cpp \
 	imageclient.cpp util.cpp imagepreview.cpp imagedate.cpp imagesearchinfo.cpp \
 	editor.cpp showbusycursor.cpp displayarea.cpp \
 	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp \
-	htmlexportdialog.cpp imagecounter.cpp iconviewtooltip.cpp \
+	htmlexportdialog.cpp imagecounter.cpp ThumbnailToolTip.cpp \
 	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
@@ -34,9 +34,9 @@ kimdaba_SOURCES = \
 	mysplashscreen.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \
 	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
 	imagedaterange.cpp invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
-	imagerequest.cpp thumbnailrequest.cpp miniviewer.cpp \
+	imagerequest.cpp miniviewer.cpp \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c \
-	featuredialog.cpp $(EXIF_SOURCES)
+	featuredialog.cpp ThumbnailView.cpp ThumbnailRequest.cpp $(EXIF_SOURCES)
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kimdaba_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) -ljpeg $(KIMDABA_KIPI_LIBS) \

@@ -37,7 +37,7 @@ public:
     Browser( QWidget* parent, const char* name = 0 );
     ~Browser();
     void addSearch( ImageSearchInfo& info );
-    void addImageView( ImageInfoPtr context );
+    void addImageView( const QString& context );
 
     static Browser* instance();
     void load( const QString& category, const QString& value );

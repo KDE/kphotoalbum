@@ -25,6 +25,23 @@ public:
     {
         return QMap<TYPE,TYPE>::keys();
     }
+
+    bool operator==( const Set<TYPE>& other )
+    {
+        for( typename Set<TYPE>::Iterator it = this->begin(); it != this->end(); ++it ) {
+            if ( ! other.contains( *it ) )
+                return false;
+        }
+
+        // The other set has the same elements as this one have, so if the number of elements are the same then
+        // we can conclude the other set doesn't have any extra elements.
+        return (this->count() == other.count());
+    }
+
+    bool operator!=( const Set<TYPE>& other )
+    {
+        return !(operator==(other));
+    }
 };
 
 

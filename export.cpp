@@ -38,6 +38,7 @@
 #include <kimageio.h>
 #include "imageinfo.h"
 #include "imagedb.h"
+#include <qbuffer.h>
 
 void Export::imageExport( const QStringList& list )
 {

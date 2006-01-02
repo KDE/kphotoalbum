@@ -83,7 +83,6 @@ protected:
 
 private:
     // General page
-    QSpinBox* _thumbnailSize;
     KComboBox* _trustTimeStamps;
     QSpinBox* _autosave;
     QCheckBox* _useEXIFRotate;
@@ -91,13 +90,10 @@ private:
     QSpinBox* _previewSize;
     QComboBox* _albumCategory;
     QCheckBox* _displayLabels;
-    KColorButton* _backgroundColor;
     QCheckBox* _searchForImagesOnStartup;
     QSpinBox* _autoShowThumbnailView;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;
-    QSpinBox* _rowSpacing;
-    QCheckBox* _alignColumns;
     QSpinBox* _backupCount;
     QCheckBox* _compressBackup;
     QCheckBox* _compressedIndexXML;

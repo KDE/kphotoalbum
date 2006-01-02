@@ -222,34 +222,15 @@ void OptionsDialog::createThumbNailPage()
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_icon" ),
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
-    QGridLayout* gridLay = new QGridLayout( lay1, 3, 3, 6 );
-    gridLay->setColStretch( 2, 1 );
-
-    // Thumbnail size
-    QLabel* label = new QLabel( i18n("Thumbnail size:"), top );
-    _thumbnailSize = new QSpinBox( 16, 512, 8, top );
-    gridLay->addWidget( label, 0, 0 );
-    gridLay->addWidget( _thumbnailSize, 0, 1 );
+    QHBoxLayout* hlay = new QHBoxLayout( lay1, 6 );
 
     // Preview size
     QLabel* previewSizeLabel = new QLabel( i18n("Preview image size:" ), top, "previewSizeLabel" );
     _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
     _previewSize->setSpecialValueText( i18n("No Image Preview") );
-    gridLay->addWidget( previewSizeLabel, 1, 0 );
-    gridLay->addWidget( _previewSize, 1, 1 );
-
-    // Space between rows
-    QLabel* spaceLabel = new QLabel( i18n( "Space between rows" ), top );
-    _rowSpacing = new QSpinBox( 0, 100, 1, top );
-    gridLay->addWidget( spaceLabel, 2, 0 );
-    gridLay->addWidget( _rowSpacing, 2, 1 );
-
-    // Background Color
-    QLabel* backgroundColorLabel = new QLabel( i18n( "Background color:" ), top, "backgroundColorLabel" );
-    _backgroundColor = new KColorButton( black, top, "_backgroundColor" );
-    gridLay->addWidget( backgroundColorLabel, 3, 0 );
-    gridLay->addWidget( _backgroundColor, 3, 1 );
-
+    hlay->addWidget( previewSizeLabel );
+    hlay->addWidget( _previewSize );
+    hlay->addStretch( 1 );
 
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
     lay4->addStretch(1);
@@ -265,11 +246,6 @@ void OptionsDialog::createThumbNailPage()
     lay4 = new QHBoxLayout( lay1, 6 );
     lay4->addWidget( autoShowLabel );
     lay4->addWidget( _autoShowThumbnailView );
-
-    // Align Columns
-    _alignColumns = new QCheckBox( i18n( "Align columns" ), top, "alignColumns" );
-    lay1->addWidget( _alignColumns );
-
 
 
     lay1->addStretch(1);
@@ -395,10 +371,7 @@ void OptionsDialog::show()
     Options* opt = Options::instance();
 
     // General page
-    _thumbnailSize->setValue( opt->thumbSize() );
     _previewSize->setValue( opt->previewSize() );
-    _alignColumns->setChecked( opt->alignColumns() );
-    _rowSpacing->setValue( opt->rowSpacing() );
     _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
@@ -416,7 +389,6 @@ void OptionsDialog::show()
     _albumCategory->setCurrentText( cat->text() );
 
     _displayLabels->setChecked( opt->displayLabels() );
-    _backgroundColor->setColor( opt->thumbNailBackgroundColor() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
@@ -454,10 +426,7 @@ void OptionsDialog::slotMyOK()
     Options* opt = Options::instance();
 
     // General
-    opt->setThumbSize( _thumbnailSize->value() );
     opt->setPreviewSize( _previewSize->value() );
-    opt->setAlignColumns( _alignColumns->isChecked() );
-    opt->setRowSpacing( _rowSpacing->value() );
     opt->setTTimeStamps( (Options::TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
@@ -473,7 +442,6 @@ void OptionsDialog::slotMyOK()
 
     opt->setAlbumCategory( name );
     opt->setDisplayLabels( _displayLabels->isChecked() );
-    opt->setThumbNailBackgroundColor( _backgroundColor->color() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );

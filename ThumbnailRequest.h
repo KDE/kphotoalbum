@@ -1,18 +1,18 @@
 #ifndef THUMBNAILREQUEST_H
 #define THUMBNAILREQUEST_H
-#include "thumbnail.h"
 #include "imagerequest.h"
-class ThumbNail;
+class ThumbnailView;
 
 class ThumbnailRequest :public ImageRequest
 {
 public:
     ThumbnailRequest();
-    ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbNail* client);
+    ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailView* client);
     virtual bool stillNeeded() const;
 
 private:
-    ThumbNail* _thumbnail;
+    ThumbnailView* _thumbnailView;
+    QString _fileName;
 };
 
 #endif /* THUMBNAILREQUEST_H */

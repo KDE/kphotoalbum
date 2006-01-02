@@ -18,7 +18,6 @@
 
 #ifndef IMAGEMANAGER_H
 #define IMAGEMANAGER_H
-#include "thumbnail.h"
 #include "imageloader.h"
 #include <qptrlist.h>
 #include <qwaitcondition.h>
@@ -31,6 +30,8 @@
 #include "imagerequest.h"
 #include <qmutex.h>
 #include <qptrdict.h>
+#include <qimage.h>
+#include <qobject.h>
 
 class ImageClient;
 

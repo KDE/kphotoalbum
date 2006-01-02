@@ -20,7 +20,6 @@ Boston, MA 02110-1301, USA.
 #include <qwaitcondition.h>
 #include "imagedecoder.h"
 #include "imagemanager.h"
-#include "thumbnail.h"
 #include "util.h"
 #include <qfileinfo.h>
 #include <qapplication.h>

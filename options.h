@@ -71,11 +71,8 @@ public:
     // -------------------------------------------------- Thumbnails
     intProperty( Thumbnails, thumbSize, setThumbSize, 128 );
     intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
-    intProperty( Thumbnails, rowSpacing, setRowSpacing, 10 );
     boolProperty( Thumbnails, displayLabels, setDisplayLabels, true );
     intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
-    boolProperty( Thumbnails, alignColumns, setAlignColumns, true );
-    colorProperty( Thumbnails, thumbNailBackgroundColor, setThumbNailBackgroundColor, Qt::black );
 
     // -------------------------------------------------- Viewer
     sizeProperty( Viewer, viewerSize, setViewerSize, QSize( 800,600 ) );

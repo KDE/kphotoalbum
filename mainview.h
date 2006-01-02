@@ -18,6 +18,7 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
+class ThumbnailView;
 class TokenEditor;
 class OptionsDialog;
 class ImageConfig;
@@ -37,11 +38,11 @@ class PluginInterface;
 #include "imageinfolist.h"
 #include <qdict.h>
 #include <kmainwindow.h>
-#include "thumbnailview.h"
 #include "options.h"
 #include <kurl.h>
 #include "category.h"
 #include <config.h>
+#include "imagedaterange.h"
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -60,7 +61,6 @@ public:
     static void configureImages( const ImageInfoList& list, bool oneAtATime );
     static MainView* theMainView();
     QStringList selected();
-    ImageInfoList currentView();
     ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 
@@ -99,7 +99,7 @@ protected slots:
     void slotConfigureKeyBindings();
     void slotSetFileName( const QString& );
     void slotThumbNailSelectionChanged();
-    void reloadThumbNail();
+    void reloadThumbnails();
     void slotUpdateViewMenu( Category::ViewSize, Category::ViewType );
     void slotShowNotOnDisk();
     void markDirty();
@@ -130,6 +130,7 @@ protected slots:
     void slotRecalcCheckSums();
     void slotShowExifInfo();
     void showFeatures();
+    void showImage( const QString& fileName );
 
 protected:
     void configureImages( bool oneAtATime );
@@ -152,7 +153,7 @@ protected:
 private:
     static MainView* _instance;
 
-    ThumbNailView* _thumbNailView;
+    ThumbnailView* _thumbnailView;
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
     bool _dirty;
@@ -198,6 +199,7 @@ private:
     TokenEditor* _tokenEditor;
     DateBar::DateBar* _dateBar;
     bool _hasLoadedPlugins;
+    ImageCounter* _partial;
 };
 
 

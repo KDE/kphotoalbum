@@ -58,8 +58,11 @@ public:
     static QStringList infoListToStringList( const ImageInfoList& list );
     static QString stripImageDirectory( const QString& fileName );
     static QStringList diff( const QStringList& list1, const QStringList& list2 );
+    static void ensurePosSorted( QPoint& pos1, QPoint& pos2 );
 };
 
+bool operator>( const QPoint&, const QPoint& );
+bool operator<( const QPoint&, const QPoint& );
 
 #endif /* UTIL_H */
 

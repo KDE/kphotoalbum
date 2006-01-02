@@ -113,7 +113,7 @@ void InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
 
 void InfoBox::jumpToContext()
 {
-    Browser::instance()->addImageView( _viewer->currentInfo() );
+    Browser::instance()->addImageView( _viewer->currentInfo()->fileName() );
     showBrowser();
 }
 

@@ -19,8 +19,7 @@
 #include "mainview.h"
 #include <optionsdialog.h>
 #include <qapplication.h>
-#include "thumbnailview.h"
-#include "thumbnail.h"
+#include "ThumbnailView.h"
 #include "imageconfig.h"
 #include <qdir.h>
 #include <qfile.h>
@@ -131,8 +130,8 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
-    _thumbNailView = new ThumbNailView( _stack, "_thumbNailView" );
-    connect( _dateBar, SIGNAL( dateSelected( const ImageDateRange&, bool ) ), _thumbNailView, SLOT( gotoDate( const ImageDateRange&, bool ) ) );
+    _thumbnailView = new ThumbnailView( _stack, "_thumbnailView" );
+    connect( _dateBar, SIGNAL( dateSelected( const ImageDateRange&, bool ) ), _thumbnailView, SLOT( gotoDate( const ImageDateRange&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Options::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
 
@@ -141,13 +140,13 @@ MainView::MainView( QWidget* parent, const char* name )
              this, SLOT( setDateRange( const ImageDateRange& ) ) );
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
 
+    connect( _thumbnailView, SIGNAL( showImage( const QString& ) ), this, SLOT( showImage( const QString& ) ) );
+    connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
-    connect( _thumbNailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
-
-    connect( _thumbNailView, SIGNAL( fileNameChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
+    connect( _thumbnailView, SIGNAL( fileNameUnderCursorChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
 
     _stack->addWidget( _browser );
-    _stack->addWidget( _thumbNailView );
+    _stack->addWidget( _thumbnailView );
     _stack->raiseWidget( _browser );
 
     _optionsDialog = 0;
@@ -176,8 +175,8 @@ MainView::MainView( QWidget* parent, const char* name )
 
     statusBar()->addWidget( indicators, 0, true );
 
-    ImageCounter* partial = new ImageCounter( statusBar(), "partial image counter" );
-    statusBar()->addWidget( partial, 0, true );
+    _partial = new ImageCounter( statusBar(), "partial image counter" );
+    statusBar()->addWidget( _partial, 0, true );
 
     ImageCounter* total = new ImageCounter( statusBar(), "total image counter" );
     statusBar()->addWidget( total, 0, true );
@@ -187,14 +186,12 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
-    connect( _thumbNailView, SIGNAL( showCount( int ) ),
-             partial, SLOT( setMatchCount( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
     connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), _browser, SLOT( home() ) );
-    connect( _browser, SIGNAL( showingOverview() ), partial, SLOT( showingOverview() ) );
+    connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
     connect( ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
-    connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
+    connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
     connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
 
@@ -283,7 +280,9 @@ void MainView::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
-        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbNail() ) );
+#ifdef TEMPORARILY_REMOVED
+        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnails() ) );
+#endif
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
     }
     _optionsDialog->show();
@@ -327,41 +326,9 @@ void MainView::configureImages( const ImageInfoList& list, bool oneAtATime )
 void MainView::configImages( const ImageInfoList& list, bool oneAtATime )
 {
     createImageConfig();
-    int x = _thumbNailView->contentsX();
-    int y = _thumbNailView->contentsY() + Options::instance()->thumbSize()/2;
-    int w = _thumbNailView->contentsWidth();
-    int h =_thumbNailView->contentsHeight() - Options::instance()->thumbSize()/2;
-    QString firstName;
-    QString lastName;
-    QIconViewItem* item = _thumbNailView->findFirstVisibleItem( QRect(x,y,w,h) );
-    if ( item ) {
-        ThumbNail* tn = static_cast<ThumbNail*>( item );
-        firstName = tn->fileName();
-    }
-    item = _thumbNailView->findLastVisibleItem( QRect(x,y,w,h) );
-    if ( item ) {
-        ThumbNail* tn = static_cast<ThumbNail*>( item );
-        lastName = tn->fileName();
-    }
-
     _imageConfigure->configure( list,  oneAtATime );
-    if ( _imageConfigure->thumbnailShouldReload() ) {
-        reloadThumbNail();
-
-        QIconViewItem* firstItem = 0;
-        QIconViewItem* lastItem = 0;
-        for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
-            ThumbNail* tn = static_cast<ThumbNail*>( item );
-            if ( tn->fileName() == firstName )
-                firstItem = item;
-            if ( tn->fileName() == lastName )
-                lastItem = item;
-        }
-        if ( lastItem )
-            _thumbNailView->ensureItemVisible( lastItem );
-        if ( firstItem )
-            _thumbNailView->ensureItemVisible( firstItem );
-    }
+    if ( _imageConfigure->thumbnailShouldReload() )
+        reloadThumbnails();
 }
 
 
@@ -407,7 +374,7 @@ void MainView::slotDeleteSelected()
     if ( _deleteDialog->exec( selected() ) == QDialog::Accepted )
         setDirty( true );
 
-    QStringList images = _thumbNailView->imageList();
+    QStringList images = _thumbnailView->imageList();
     QStringList allImages = ImageDB::instance()->images();
     QStringList newSet;
     for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
@@ -433,31 +400,11 @@ void MainView::slotReReadExifInfo()
 
 QStringList MainView::selected()
 {
-    QStringList list;
-    if ( _thumbNailView == _stack->visibleWidget() ) {
-        for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
-            if ( item->isSelected() ) {
-                ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
-                Q_ASSERT( tn );
-                list.append( tn->fileName() );
-            }
-        }
-    }
-    return list;
+    if ( _thumbnailView == _stack->visibleWidget() )
+        return _thumbnailView->selection();
+    else
+        return QStringList();
 }
-
-ImageInfoList MainView::currentView()
-{
-    ImageInfoList list;
-    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
-        ThumbNail* tn = dynamic_cast<ThumbNail*>( item );
-        Q_ASSERT( tn );
-        list.append( tn->imageInfo() );
-    }
-    return list;
-}
-
-
 
 void MainView::slotViewNewWindow()
 {
@@ -571,9 +518,11 @@ void MainView::setupMenuBar()
     a = KStdAction::home( _browser, SLOT( home() ), actionCollection() );
 
     // The Edit menu
-    _cut = KStdAction::cut( _thumbNailView, SLOT( slotCut() ), actionCollection() );
-    _paste = KStdAction::paste( _thumbNailView, SLOT( slotPaste() ), actionCollection() );
-    _selectAll = KStdAction::selectAll( _thumbNailView, SLOT( slotSelectAll() ), actionCollection() );
+#ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
+    _cut = KStdAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
+    _paste = KStdAction::paste( _thumbNailViewOLD, SLOT( slotPaste() ), actionCollection() );
+#endif
+    _selectAll = KStdAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
@@ -659,7 +608,7 @@ void MainView::setupMenuBar()
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
-    connect( taction, SIGNAL( toggled( bool ) ), _thumbNailView, SLOT( showToolTipsOnImages( bool ) ) );
+    connect( taction, SIGNAL( toggled( bool ) ), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
     new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
     new KAction( i18n("Answer KimDaBa Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
     new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
@@ -670,31 +619,17 @@ void MainView::setupMenuBar()
     _showExifDialog = new KAction( i18n("Show Exif Info"), 0, this, SLOT( slotShowExifInfo() ), actionCollection(), "showExifInfo" );
 #endif
 
-    connect( _thumbNailView, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+#ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
+    connect( _thumbNailViewOLD, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+#endif
     createGUI( QString::fromLatin1( "kimdabaui.rc" ), false );
 }
 
 void MainView::slotExportToHTML()
 {
     QStringList list = selectedOnDisk();
-    if ( list.count() == 0 )  {
+    if ( list.count() == 0 )
         list = ImageDB::instance()->currentScope( true );
-
-        if ( list.count() != _thumbNailView->count() &&
-            _stack->visibleWidget() == _thumbNailView ) {
-            int code = KMessageBox::warningContinueCancel( this,
-                                                           i18n("<qt>You are about to generate an HTML page for %1 images, "
-                                                                "which are all the images in your current context. "
-                                                                "If you only want to generate HTML for the set of images you "
-                                                                "are currently looking at, then choose select all from the "
-                                                                "edit menu and choose generate.</qt>")
-                                                           .arg( list.count() ),
-                                                           QString::null, KStdGuiItem::cont(),
-                                                           QString::fromLatin1( "generateMoreImagesThatCurrentView" ) );
-            if ( code == KMessageBox::Cancel )
-                return;
-        }
-    }
 
     if ( ! _htmlDialog )
         _htmlDialog = new HTMLExportDialog( this, "htmlExportDialog" );
@@ -724,9 +659,9 @@ void MainView::slotAutoSave()
 
 void MainView::showThumbNails()
 {
-    reloadThumbNail();
-    _stack->raiseWidget( _thumbNailView );
-    _thumbNailView->setFocus();
+    reloadThumbnails();
+    _stack->raiseWidget( _thumbnailView );
+    _thumbnailView->setFocus();
     updateStates( true );
 }
 
@@ -822,9 +757,9 @@ void MainView::load()
     ImageDB::setup( backEnd, configFile );
 }
 
-void MainView::contextMenuEvent( QContextMenuEvent* )
+void MainView::contextMenuEvent( QContextMenuEvent* e )
 {
-    if ( _stack->visibleWidget() == _thumbNailView ) {
+    if ( _stack->visibleWidget() == _thumbnailView ) {
         QPopupMenu menu( this, "context popup menu");
         _configOneAtATime->plug( &menu );
         _configAllSimultaniously->plug( &menu );
@@ -841,10 +776,9 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         ImageInfoPtr info = ImageInfoPtr( 0 );
-        QIconViewItem* item =
-            _thumbNailView->findItem( _thumbNailView->viewportToContents( _thumbNailView->mapFromGlobal( QCursor::pos() ) ) );
-        if ( item )
-            info = static_cast<ThumbNail*>(item)->imageInfo();
+        QString fileName = _thumbnailView->fileNameUnderCursor();
+        if ( !fileName.isNull() )
+            info = ImageDB::instance()->info( fileName );
 
         externalCommands->populate( info, selected() );
         int id = menu.insertItem( i18n( "Invoke External Program" ), externalCommands );
@@ -855,6 +789,7 @@ void MainView::contextMenuEvent( QContextMenuEvent* )
 
         delete externalCommands;
     }
+    e->consume();
 }
 
 void MainView::markDirty()
@@ -993,27 +928,18 @@ void MainView::slotSetFileName( const QString& fileName )
 
 void MainView::slotThumbNailSelectionChanged()
 {
-    bool oneSelected = false;
-    bool manySelected = false;
-    for ( QIconViewItem* item = _thumbNailView->firstItem(); item; item = item->nextItem() ) {
-        if ( item->isSelected() ) {
-            if ( ! oneSelected )
-                oneSelected = true;
-            else {
-                manySelected = true;
-                break;
-            }
-        }
-    }
+    QStringList selection = _thumbnailView->selection();
+    bool oneSelected = (selection.count() == 1 );
+    bool manySelected = (selection.count() > 1 );
 
     _configAllSimultaniously->setEnabled( manySelected );
     _configOneAtATime->setEnabled( oneSelected );
     _sortByDateAndTime->setEnabled( manySelected );
 }
 
-void MainView::reloadThumbNail()
+void MainView::reloadThumbnails()
 {
-    _thumbNailView->reload();
+    _thumbnailView->reload();
     slotThumbNailSelectionChanged();
 }
 
@@ -1052,8 +978,10 @@ void MainView::donateMoney()
 
 void MainView::updateStates( bool thumbNailView )
 {
+#ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     _cut->setEnabled( thumbNailView );
     _paste->setEnabled( thumbNailView );
+#endif
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
@@ -1161,7 +1089,7 @@ void MainView::loadPlugins()
     _pluginLoader->loadPlugins();
 
     // Setup signals
-    connect( _thumbNailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
+    connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
     _hasLoadedPlugins = true;
 #endif // HASKIPI
 }
@@ -1230,7 +1158,7 @@ void MainView::slotImagesChanged( const KURL::List& urls )
     for( KURL::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
         ImageLoader::removeThumbnail( (*it).path() );
     }
-    reloadThumbNail();
+    reloadThumbnails();
 }
 
 ImageSearchInfo MainView::currentContext()
@@ -1298,10 +1226,9 @@ void MainView::showDateBarTip( const QString& msg )
 
 void MainView::slotJumpToContext()
 {
-    QIconViewItem* item =_thumbNailView->currentItem();
-    if ( item ) {
-        ThumbNail* tn = static_cast<ThumbNail*>( item );
-        _browser->addImageView( tn->imageInfo() );
+    QString fileName =_thumbnailView->currentItem();
+    if ( !fileName.isNull() ) {
+        _browser->addImageView( fileName );
    }
 }
 
@@ -1309,14 +1236,14 @@ void MainView::setDateRange( const ImageDateRange& range )
 {
     ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
     _browser->reload();
-    reloadThumbNail();
+    reloadThumbnails();
 }
 
 void MainView::clearDateRange()
 {
     ImageDB::instance()->clearDateRange();
     _browser->reload();
-    reloadThumbNail();
+    reloadThumbnails();
 }
 
 void MainView::runSurvey()
@@ -1335,7 +1262,8 @@ void MainView::possibleRunSuvey()
 
 void MainView::showThumbNails( const QStringList& list )
 {
-    _thumbNailView->setImageList( list );
+    _thumbnailView->setImageList( list );
+    _partial->setMatchCount( list.count() );
     showThumbNails();
 }
 
@@ -1364,6 +1292,31 @@ void MainView::showFeatures()
 {
     FeatureDialog dialog(this);
     dialog.exec();
+}
+
+void MainView::showImage( const QString& fileName )
+{
+    // PENDING(blackie) This code most be duplicated for Ctrl+I
+    if ( !ImageInfo::imageOnDisk(fileName) ) {
+        QMessageBox::warning( this, i18n("No Images to Display"),
+                              i18n("The selected image was not available on disk.") );
+    }
+    else {
+        QStringList list;
+        list.append( fileName );
+        Viewer* viewer;
+        if ( !Util::ctrlKeyDown() && Viewer::latest() ) {
+            viewer = Viewer::latest();
+            viewer->setActiveWindow();
+            viewer->raise();
+        }
+        else {
+            viewer = new Viewer( "viewer" );
+            viewer->show( false );
+        }
+        viewer->load( list );
+    }
+
 }
 
 #include "mainview.moc"

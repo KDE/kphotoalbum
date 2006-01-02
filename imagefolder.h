@@ -33,14 +33,14 @@ class ImageFolderAction :public FolderAction
 {
 public:
     ImageFolderAction( const ImageSearchInfo& info, Browser* browser );
-    ImageFolderAction( ImageInfoPtr context, Browser* parent );
+    ImageFolderAction( const QString& context, Browser* parent );
     virtual void action( BrowserItemFactory* );
     virtual bool showsImages() const { return true; }
     virtual bool contentView() const { return false; }
 
 private:
     bool _addExtraToBrowser;
-    ImageInfoPtr _context;
+    QString _context;
 };
 
 #endif /* IMAGEFOLDER_H */

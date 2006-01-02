@@ -9,6 +9,7 @@
 class Category;
 
 /**
+   \class CategoryCollection
    This class is the collection of categories. It is the basic anchor point to categories.
 */
 

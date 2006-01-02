@@ -16,21 +16,21 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef ICONVIEWTOOLTIP_H
-#define ICONVIEWTOOLTIP_H
-#include <qiconview.h>
+#ifndef THUMBNAILTOOLTIP_H
+#define THUMBNAILTOOLTIP_H
 #include <qtimer.h>
 #include <qlabel.h>
 #include <qdialog.h>
 #include <qdict.h>
 #include "imageclient.h"
+class ThumbnailView;
 class ImageInfo;
 
-class IconViewToolTip :public QLabel, public ImageClient {
+class ThumbnailToolTip :public QLabel, public ImageClient {
     Q_OBJECT
 
 public:
-    IconViewToolTip( QIconView* view, const char* name = 0 );
+    ThumbnailToolTip( ThumbnailView* view, const char* name = 0 );
     void showToolTips( bool force );
     virtual void setActive(bool);
     void clear();
@@ -38,13 +38,11 @@ public:
 
 protected:
     virtual bool eventFilter( QObject*, QEvent* e );
-    QIconViewItem* itemAtCursor();
-    bool loadImage( const ImageInfo& info );
+    bool loadImage( const QString& fileName );
     void placeWindow();
 
 private:
-    QIconView* _view;
-    QIconViewItem* _current;
+    ThumbnailView* _view;
     QString _currentFileName;
     QStringList _loadedImages;
     bool _widthInverse;
@@ -52,5 +50,5 @@ private:
 };
 
 
-#endif /* ICONVIEWTOOLTIP_H */
+#endif /* THUMBNAILTOOLTIP_H */
 

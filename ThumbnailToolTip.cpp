@@ -16,9 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "iconviewtooltip.h"
+#include "ThumbnailToolTip.h"
 #include <qcursor.h>
-#include "thumbnail.h"
 #include <qlayout.h>
 #include "util.h"
 #include <qtooltip.h>
@@ -28,16 +27,19 @@
 #include <qdesktopwidget.h>
 #include "imagemanager.h"
 #include "imageinfo.h"
+#include "ThumbnailView.h"
+#include "imagedb.h"
 
 /**
-   This class takes care of showing tooltips for the individual items in the iconview.
-   I tried implementing this with QToolTip::maybeTip() on the iconview, but it had two
-   disadvantages: (1) When scrolling using the scrollbutton of the mouse,
-   the tooltip was not updated. (2) Either the tooltip would not follow the
+   \class ThumbnailToolTip
+   This class takes care of showing tooltips for the individual items in the thumbnail view.
+   I tried implementing this with QToolTip::maybeTip() on the iconview, but it had the
+   disadvantages that either the tooltip would not follow the
    mouse( and would therefore stand on top of the image), or it flickered.
 */
-IconViewToolTip::IconViewToolTip( QIconView* view, const char* name )
-    : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ), _current(0),
+
+ThumbnailToolTip::ThumbnailToolTip( ThumbnailView* view, const char* name )
+    : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ),
       _widthInverse( false ), _heightInverse( false )
 {
 	setAlignment( AlignAuto | AlignTop );
@@ -47,7 +49,7 @@ IconViewToolTip::IconViewToolTip( QIconView* view, const char* name )
     setPalette( QToolTip::palette() );
 }
 
-bool IconViewToolTip::eventFilter( QObject* o , QEvent* event )
+bool ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 {
     if ( o == _view->viewport() && event->type() == QEvent::Leave )
         hide();
@@ -57,28 +59,27 @@ bool IconViewToolTip::eventFilter( QObject* o , QEvent* event )
     return false;
 }
 
-void IconViewToolTip::showToolTips( bool force )
+void ThumbnailToolTip::showToolTips( bool force )
 {
-    QIconViewItem* item = itemAtCursor();
-    if ( item == 0 )
+    QString fileName = _view->fileNameUnderCursor();
+    if ( fileName.isNull() )
         return;
 
-    if ( force || (item && item != _current) ) {
-        ThumbNail* tn = static_cast<ThumbNail*>( item );
-        if ( loadImage( *tn->imageInfo() ) ) {
+    if ( force || (fileName != _currentFileName) ) {
+        if ( loadImage( fileName ) ) {
             setText( QString::null );
             int size = Options::instance()->previewSize();
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
-                         .arg(tn->fileName()).
-                         arg(Util::createInfoText( tn->imageInfo(), 0 ) ) );
+                         .arg(fileName).
+                         arg(Util::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             else {
-                setText( QString::fromLatin1("<qt>%1</qt>").arg( Util::createInfoText( tn->imageInfo(), 0 ) ) );
+                setText( QString::fromLatin1("<qt>%1</qt>").arg( Util::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
             }
         }
 
-        _current = item;
+        _currentFileName = fileName;
         resize( sizeHint() );
         _view->setFocus();
     }
@@ -88,17 +89,7 @@ void IconViewToolTip::showToolTips( bool force )
 }
 
 
-QIconViewItem* IconViewToolTip::itemAtCursor()
-{
-    QPoint pos = QCursor::pos();
-    int x,y;
-    pos = _view->mapFromGlobal( pos );
-    _view->viewportToContents( pos.x(), pos.y(), x, y );
-    QIconViewItem* item = _view->findItem( QPoint(x,y) );
-    return item;
-}
-
-void IconViewToolTip::setActive( bool b )
+void ThumbnailToolTip::setActive( bool b )
 {
     if ( b ) {
         showToolTips(true);
@@ -111,7 +102,7 @@ void IconViewToolTip::setActive( bool b )
     }
 }
 
-void IconViewToolTip::placeWindow()
+void ThumbnailToolTip::placeWindow()
 {
     // First try to set the position.
     QPoint pos = QCursor::pos() + QPoint( 20, 20 );
@@ -153,7 +144,7 @@ void IconViewToolTip::placeWindow()
 
 }
 
-void IconViewToolTip::clear()
+void ThumbnailToolTip::clear()
 {
     // I can't find any better way to remove the images from the cache.
     for( QStringList::Iterator it = _loadedImages.begin(); it != _loadedImages.end(); ++it ) {
@@ -163,25 +154,25 @@ void IconViewToolTip::clear()
 }
 
 
-bool IconViewToolTip::loadImage( const ImageInfo& info )
+bool ThumbnailToolTip::loadImage( const QString& fileName )
 {
-    _currentFileName = info.fileName();
     int size = Options::instance()->previewSize();
+    ImageInfoPtr info = ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
-        if ( !_loadedImages.contains( info.fileName() ) ) {
-            ImageRequest* request = new ImageRequest( info.fileName(), QSize( size, size ), info.angle(), this );
+        if ( !_loadedImages.contains( fileName ) ) {
+            ImageRequest* request = new ImageRequest( fileName, QSize( size, size ), info->angle(), this );
             request->setCache();
             request->setPriority();
             ImageManager::instance()->load( request );
-            QMimeSourceFactory::defaultFactory()->setImage( info.fileName(), QImage() );
-            _loadedImages.append( info.fileName() );
+            QMimeSourceFactory::defaultFactory()->setImage( fileName, QImage() );
+            _loadedImages.append( fileName );
             return false;
         }
     }
     return true;
 }
 
-void IconViewToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
+void ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool /*loadedOK*/ )
 {
     QMimeSourceFactory::defaultFactory()->setImage( fileName, image );
@@ -189,4 +180,4 @@ void IconViewToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size
         showToolTips(true);
 }
 
-#include "iconviewtooltip.moc"
+#include "ThumbnailToolTip.moc"

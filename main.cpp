@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "thumbnailview.h"
 #include "options.h"
 #include <qdir.h>
 #include "mainview.h"

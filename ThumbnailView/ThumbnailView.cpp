@@ -62,13 +62,13 @@ void ThumbnailView::ThumbnailView::paintCell( QPainter * p, int row, int col )
     paintCellBackground( &painter, row, col );
 
     QString fileName = fileNameInCell( row, col );
-    if ( !fileName.isNull() && _mouseHandler != &_gridResizeInteraction ) {
+    if ( !fileName.isNull() && !_mouseHandler->isResizingGrid() ) {
         QPixmap* pix = pixmapCache().find( fileNameInCell( row, col ) );
         if ( pix ) {
             QRect rect = iconGeometry( row, col );
             Q_ASSERT( !rect.isNull() );
             painter.drawPixmap( rect, *pix );
-            if ( _selectedFiles.contains( fileName ) && _mouseHandler != &_gridResizeInteraction )
+            if ( _selectedFiles.contains( fileName ) )
                 painter.fillRect( rect, QBrush( palette().active().highlight(), Dense4Pattern ) );
         }
         else {
@@ -275,8 +275,11 @@ void ThumbnailView::ThumbnailView::keyPressEvent( QKeyEvent* event )
 
 void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
 {
-    if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) )
+    static QString startPossition;
+
+    if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) ) {
         clearSelection();
+    }
 
     // Decide the next keyboard focus cell
     QPoint currentPos(0,0);
@@ -336,21 +339,46 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
 
     // Update focus cell, and set selection
     if ( event->state() & ShiftButton )
-        selectAllCellsBetween( currentPos, newPos );
+        selectItems( positionForFileName( startPossition ), newPos );
+
     else if ( ! (event->state() & ControlButton ) ) {
         selectCell( newPos );
         repaintCell( currentPos.y(), currentPos.x() );
     }
     _currentItem = fileNameInCell( newPos );
+    if ( !( event->state() & ShiftButton ) )
+        startPossition = _currentItem;
 
     // Scroll if necesary
-    if ( newPos.y() > lastVisibleRow( FullyVisible ) )
-        setContentsPos( contentsX(), cellGeometry( newPos.y(), newPos.x() ).top() - (numRowsPerPage()-1)*cellHeight()  );
+    if ( newPos.y() > lastVisibleRow( ThumbnailView::FullyVisible ) )
+        setContentsPos( contentsX(), cellGeometry( newPos.y(), newPos.x() ).top() -
+                               (numRowsPerPage()-1)*cellHeight()  );
 
-    if  ( newPos.y() < firstVisibleRow( FullyVisible ) )
+    if  ( newPos.y() < firstVisibleRow( ThumbnailView::FullyVisible ) )
         setContentsPos( contentsX(), cellGeometry( newPos.y(), newPos.x() ).top() );
 }
 
+/**
+ * Update selection to include files from start to end
+ */
+void ThumbnailView::ThumbnailView::selectItems( const QPoint& start, const QPoint& end )
+{
+    Set<QString> oldSelection = _selectedFiles;
+    _selectedFiles.clear();
+
+    selectAllCellsBetween( start, end, false );
+
+    for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+        if ( !_selectedFiles.contains( *it ) )
+            repaintCell( *it );
+    }
+
+    for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
+        if ( !oldSelection.contains( *it ) )
+            repaintCell( *it );
+    }
+
+}
 /**
  * Return the number of complete rows per page
  */

@@ -17,6 +17,7 @@ public:
     virtual void mousePressEvent( QMouseEvent* ) {};
     virtual void mouseMoveEvent( QMouseEvent* ) {};
     virtual void mouseReleaseEvent( QMouseEvent* ) {};
+    virtual bool isResizingGrid() { return false; }
 };
 
 }

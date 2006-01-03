@@ -9,6 +9,7 @@ ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailView* view
 
 void ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
 {
+    _resizing = true;
     _mousePressPos = event->pos();
     _view->setContentsPos( 0, 0 );
     _origSize = _view->cellWidth();
@@ -32,7 +33,13 @@ void ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
         QPoint cell = _view->positionForFileName( _view->_currentItem );
         _view->ensureCellVisible( cell.y(), cell.x() );
     }
+    _resizing = false;
     _view->repaintScreen();
+}
+
+bool ThumbnailView::GridResizeInteraction::isResizingGrid()
+{
+    return _resizing;
 }
 
 

@@ -12,6 +12,7 @@ public:
     virtual void mousePressEvent( QMouseEvent* );
     virtual void mouseMoveEvent( QMouseEvent* );
     virtual void mouseReleaseEvent( QMouseEvent* );
+    virtual bool isResizingGrid();
 
 private:
     /**
@@ -26,6 +27,8 @@ private:
     int _origSize;
 
     ThumbnailView* _view;
+
+    bool _resizing;
 };
 
 }

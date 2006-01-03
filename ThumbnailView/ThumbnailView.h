@@ -95,6 +95,7 @@ protected:
     QPixmapCache& pixmapCache();
     void updateGridSize();
     bool isMovementKey( int key );
+    void selectItems( const QPoint& start, const QPoint& end );
 
 protected slots:
     void emitDateChange( int, int );

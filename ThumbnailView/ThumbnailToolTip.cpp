@@ -38,7 +38,7 @@
    mouse( and would therefore stand on top of the image), or it flickered.
 */
 
-ThumbnailToolTip::ThumbnailToolTip( ThumbnailView* view, const char* name )
+ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailView* view, const char* name )
     : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ),
       _widthInverse( false ), _heightInverse( false )
 {
@@ -49,7 +49,7 @@ ThumbnailToolTip::ThumbnailToolTip( ThumbnailView* view, const char* name )
     setPalette( QToolTip::palette() );
 }
 
-bool ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
+bool ThumbnailView::ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
 {
     if ( o == _view->viewport() && event->type() == QEvent::Leave )
         hide();
@@ -59,7 +59,7 @@ bool ThumbnailToolTip::eventFilter( QObject* o , QEvent* event )
     return false;
 }
 
-void ThumbnailToolTip::showToolTips( bool force )
+void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
 {
     QString fileName = _view->fileNameUnderCursor();
     if ( fileName.isNull() )
@@ -89,7 +89,7 @@ void ThumbnailToolTip::showToolTips( bool force )
 }
 
 
-void ThumbnailToolTip::setActive( bool b )
+void ThumbnailView::ThumbnailToolTip::setActive( bool b )
 {
     if ( b ) {
         showToolTips(true);
@@ -102,7 +102,7 @@ void ThumbnailToolTip::setActive( bool b )
     }
 }
 
-void ThumbnailToolTip::placeWindow()
+void ThumbnailView::ThumbnailToolTip::placeWindow()
 {
     // First try to set the position.
     QPoint pos = QCursor::pos() + QPoint( 20, 20 );
@@ -144,7 +144,7 @@ void ThumbnailToolTip::placeWindow()
 
 }
 
-void ThumbnailToolTip::clear()
+void ThumbnailView::ThumbnailToolTip::clear()
 {
     // I can't find any better way to remove the images from the cache.
     for( QStringList::Iterator it = _loadedImages.begin(); it != _loadedImages.end(); ++it ) {
@@ -154,7 +154,7 @@ void ThumbnailToolTip::clear()
 }
 
 
-bool ThumbnailToolTip::loadImage( const QString& fileName )
+bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 {
     int size = Options::instance()->previewSize();
     ImageInfoPtr info = ImageDB::instance()->info( fileName );
@@ -172,7 +172,7 @@ bool ThumbnailToolTip::loadImage( const QString& fileName )
     return true;
 }
 
-void ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
+void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool /*loadedOK*/ )
 {
     QMimeSourceFactory::defaultFactory()->setImage( fileName, image );

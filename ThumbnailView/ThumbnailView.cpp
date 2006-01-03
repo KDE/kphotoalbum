@@ -12,10 +12,17 @@
 #include <qapplication.h>
 #include "ThumbnailToolTip.h"
 
+using namespace ThumbnailView;
+
 // PENDING(blackie) TODO:
 // - show file names
 
-/*
+/**
+ * \namespace ThumbnailView
+ * The thumbnail view.
+ */
+
+/**
  * \class ThumbnailView
  * This is the widget which shows the thumbnails.
  *
@@ -24,10 +31,13 @@
  * rewrote it.
  */
 
-ThumbnailView* ThumbnailView::_instance = 0;
-static const int SPACE = 3;
-ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
-    :QGridView( parent, name ), _isResizing( false )
+ThumbnailView::ThumbnailView* ThumbnailView::ThumbnailView::_instance = 0;
+ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
+    :QGridView( parent, name ),
+     _gridResizeInteraction( this ),
+    _dragInteraction( this ),
+     _mouseTrackingHandler( this ),
+     _mouseHandler( &_mouseTrackingHandler )
 {
     _instance = this;
     int size = Options::instance()->thumbSize() + SPACE;
@@ -42,25 +52,23 @@ ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( emitDateChange( int, int ) ) );
 
     _toolTip = new ThumbnailToolTip( this );
-    _dragTimer = new QTimer( this );
-    connect( _dragTimer, SIGNAL( timeout() ), this, SLOT( handleDragSelection() ) );
 }
 
 
-void ThumbnailView::paintCell( QPainter * p, int row, int col )
+void ThumbnailView::ThumbnailView::paintCell( QPainter * p, int row, int col )
 {
     QPixmap doubleBuffer( cellRect().size() );
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );
 
     QString fileName = fileNameInCell( row, col );
-    if ( !fileName.isNull() && !_isResizing ) {
+    if ( !fileName.isNull() && _mouseHandler != &_gridResizeInteraction ) {
         QPixmap* pix = pixmapCache().find( fileNameInCell( row, col ) );
         if ( pix ) {
             QRect rect = iconGeometry( row, col );
             Q_ASSERT( !rect.isNull() );
             painter.drawPixmap( rect, *pix );
-            if ( _selectedFiles.contains( fileName ) && !_isResizing )
+            if ( _selectedFiles.contains( fileName ) && _mouseHandler != &_gridResizeInteraction )
                 painter.fillRect( rect, QBrush( palette().active().highlight(), Dense4Pattern ) );
         }
         else {
@@ -77,7 +85,7 @@ void ThumbnailView::paintCell( QPainter * p, int row, int col )
 }
 
 
-void ThumbnailView::setImageList( const QStringList& list )
+void ThumbnailView::ThumbnailView::setImageList( const QStringList& list )
 {
     _imageList = list;
     if ( isVisible() ) {
@@ -90,7 +98,7 @@ void ThumbnailView::setImageList( const QStringList& list )
 /**
  * Calculate the about of thumbnails per row.
  */
-int ThumbnailView::thumbnailsPerRow() const
+int ThumbnailView::ThumbnailView::thumbnailsPerRow() const
 {
     return width() / cellWidth();
 }
@@ -99,7 +107,7 @@ int ThumbnailView::thumbnailsPerRow() const
 /**
  * Return the file name shown in cell (row,col) if a thumbnail is shown in this cell or null otherwise.
  */
-QString ThumbnailView::fileNameInCell( int row, int col ) const
+QString ThumbnailView::ThumbnailView::fileNameInCell( int row, int col ) const
 {
     uint index = row * thumbnailsPerRow() + col;
     if ( index >= _imageList.count() )
@@ -111,7 +119,7 @@ QString ThumbnailView::fileNameInCell( int row, int col ) const
 /**
  * Returns the file name shown at viewport position (x,y) if a thumbnail is shown at this position or QString::null otherwise.
  */
-QString ThumbnailView::fileNameAtViewportPos( const QPoint& viewpointPos ) const
+QString ThumbnailView::ThumbnailView::fileNameAtViewportPos( const QPoint& viewpointPos ) const
 {
     QPoint contentsPos = viewportToContents( viewpointPos );
     int col = columnAt( contentsPos.x() );
@@ -132,7 +140,7 @@ QString ThumbnailView::fileNameAtViewportPos( const QPoint& viewpointPos ) const
 /**
  * Return the geometry for the icon in the cell (row,col). The coordinates are local to the cell.
  */
-QRect ThumbnailView::iconGeometry( int row, int col ) const
+QRect ThumbnailView::ThumbnailView::iconGeometry( int row, int col ) const
 {
     QString fileName = fileNameInCell( row, col );
     if ( fileName.isNull() ) // empty cell
@@ -152,7 +160,7 @@ QRect ThumbnailView::iconGeometry( int row, int col ) const
 /**
  * Return a pixmap cache to use for caching the thumbnails.
  */
-QPixmapCache& ThumbnailView::pixmapCache()
+QPixmapCache& ThumbnailView::ThumbnailView::pixmapCache()
 {
     static QPixmapCache cache;
     static int lastSize = -1;
@@ -165,7 +173,7 @@ QPixmapCache& ThumbnailView::pixmapCache()
     return cache;
 }
 
-void ThumbnailView::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image,
+void ThumbnailView::ThumbnailView::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image,
                                   bool loadedOK )
 {
     QPixmap* pixmap = new QPixmap( size );
@@ -196,7 +204,7 @@ void ThumbnailView::pixmapLoaded( const QString& fileName, const QSize& size, co
 /**
  * Request a repaint of the cell showing filename
  */
-void ThumbnailView::repaintCell( const QString& fileName )
+void ThumbnailView::ThumbnailView::repaintCell( const QString& fileName )
 {
     // This ought really be updateCell, but I get errors where cells are
     // not repainted though requested, during scrolling.
@@ -207,13 +215,13 @@ void ThumbnailView::repaintCell( const QString& fileName )
 /**
  * Update the grid size depending on the size of the widget
  */
-void ThumbnailView::updateGridSize()
+void ThumbnailView::ThumbnailView::updateGridSize()
 {
     setNumCols( thumbnailsPerRow() );
     setNumRows( QMAX( numRowsPerPage(), (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow() ) ) );
 }
 
-void ThumbnailView::showEvent( QShowEvent* )
+void ThumbnailView::ThumbnailView::showEvent( QShowEvent* )
 {
     updateGridSize();
 }
@@ -221,7 +229,7 @@ void ThumbnailView::showEvent( QShowEvent* )
 /**
  * Paint the cell back ground, and the outline
  */
-void ThumbnailView::paintCellBackground( QPainter* p, int row, int col )
+void ThumbnailView::ThumbnailView::paintCellBackground( QPainter* p, int row, int col )
 {
     QRect rect = cellRect();
     p->fillRect( rect, black );
@@ -251,7 +259,7 @@ void ThumbnailView::paintCellBackground( QPainter* p, int row, int col )
     }
 }
 
-void ThumbnailView::keyPressEvent( QKeyEvent* event )
+void ThumbnailView::ThumbnailView::keyPressEvent( QKeyEvent* event )
 {
     if ( isMovementKey( event->key() ) )
         keyboardMoveEvent( event );
@@ -265,7 +273,7 @@ void ThumbnailView::keyPressEvent( QKeyEvent* event )
     possibleEmitSelectionChanged();
 }
 
-void ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
+void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
 {
     if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) )
         clearSelection();
@@ -346,93 +354,35 @@ void ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
 /**
  * Return the number of complete rows per page
  */
-int ThumbnailView::numRowsPerPage() const
+int ThumbnailView::ThumbnailView::numRowsPerPage() const
 {
     return height() / cellHeight();
 }
 
-void ThumbnailView::mousePressEvent( QMouseEvent* event )
+void ThumbnailView::ThumbnailView::mousePressEvent( QMouseEvent* event )
 {
     if ( event->button() == RightButton )
         return;
+    else if (event->button() & MidButton )
+        _mouseHandler = &_gridResizeInteraction;
+    else
+        _mouseHandler = &_dragInteraction;
 
-    _mousePressPosViewport = event->pos();
-    _mousePressPosContents = viewportToContents( event->pos() );
-    _isResizing = (event->button() & MidButton );
-    if ( _isResizing ) {
-        setContentsPos( 0, 0 );
-        _origSize = cellWidth();
-    }
-    else {
-        if ( !( event->state() & ControlButton ) && !( event->state() & ShiftButton ) ) {
-            // Unselect every thing
-            Set<QString> oldSelection = _selectedFiles;
-            _selectedFiles.clear();
-            repaintScreen();
-        }
-
-        QString file = fileNameAtViewportPos( event->pos() );
-        if ( !file.isNull() ) {
-            if ( event->state() & ShiftButton ) {
-                selectAllCellsBetween( positionForFileName( _currentItem ), cellAtViewportPos( event->pos() ) );
-            }
-            else {
-                _selectedFiles.insert( file );
-                repaintCell( file );
-                _originalSelectionBeforeDragStart = _selectedFiles;
-            }
-            _currentItem = fileNameAtViewportPos( event->pos() );
-        }
-    }
-    possibleEmitSelectionChanged();
+    _mouseHandler->mousePressEvent( event );
 }
 
-void ThumbnailView::mouseMoveEvent( QMouseEvent* event )
+void ThumbnailView::ThumbnailView::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( _isResizing ) {
-        QPoint dist = event->pos() - _mousePressPosViewport;
-        int size = QMAX( 32, _origSize + (dist.x() + dist.y())/10 );
-        setCellWidth( size );
-        setCellHeight( size );
-        updateGridSize();
-    }
-
-    else {
-        if ( event->state() & LeftButton ) {
-            handleDragSelection();
-            if ( event->pos().y() < 0 || event->pos().y() > height() )
-                _dragTimer->start( 100 );
-            else
-                _dragTimer->stop();
-        }
-        else {
-            // normal mouse tracking should show file under cursor.
-            static QString lastFileNameUderCursor;
-            QString fileName = fileNameAtViewportPos( event->pos() );
-            if ( fileName != lastFileNameUderCursor ) {
-                emit fileNameUnderCursorChanged( fileName );
-                lastFileNameUderCursor = fileName;
-            }
-        }
-        possibleEmitSelectionChanged();
-    }
+    _mouseHandler->mouseMoveEvent( event );
 }
 
-void ThumbnailView::mouseReleaseEvent( QMouseEvent* event )
+void ThumbnailView::ThumbnailView::mouseReleaseEvent( QMouseEvent* event )
 {
-    Options::instance()->setThumbSize( cellWidth() - SPACE );
-    if ( event->button() & MidButton ) {
-        _isResizing = false;
-        if ( !_currentItem.isNull() ) {
-            QPoint cell = positionForFileName( _currentItem );
-            ensureCellVisible( cell.y(), cell.x() );
-        }
-        repaintScreen();
-    }
-    _dragTimer->stop();
+    _mouseHandler->mouseReleaseEvent( event );
+    _mouseHandler = &_mouseTrackingHandler;
 }
 
-void ThumbnailView::mouseDoubleClickEvent( QMouseEvent * event )
+void ThumbnailView::ThumbnailView::mouseDoubleClickEvent( QMouseEvent * event )
 {
     QString fileName = fileNameAtViewportPos( event->pos() );
     if ( !fileName.isNull() )
@@ -440,7 +390,7 @@ void ThumbnailView::mouseDoubleClickEvent( QMouseEvent * event )
 }
 
 
-void ThumbnailView::emitDateChange( int x, int y )
+void ThumbnailView::ThumbnailView::emitDateChange( int x, int y )
 {
     if ( _isSettingDate )
         return;
@@ -463,7 +413,7 @@ void ThumbnailView::emitDateChange( int x, int y )
  * scroll to the date specified with the parameter date.
  * The boolean includeRanges tells whether we accept range matches or not.
  */
-void ThumbnailView::gotoDate( const ImageDateRange& date, bool includeRanges )
+void ThumbnailView::ThumbnailView::gotoDate( const ImageDateRange& date, bool includeRanges )
 {
     _isSettingDate = true;
     QString candidate;
@@ -492,7 +442,7 @@ void ThumbnailView::gotoDate( const ImageDateRange& date, bool includeRanges )
 /**
  * return the position (row,col) for the given file name
  */
-QPoint ThumbnailView::positionForFileName( const QString& fileName ) const
+QPoint ThumbnailView::ThumbnailView::positionForFileName( const QString& fileName ) const
 {
     Q_ASSERT( !fileName.isNull() );
     int index = _imageList.findIndex( fileName );
@@ -515,7 +465,7 @@ QPoint ThumbnailView::positionForFileName( const QString& fileName ) const
  * the \ref ImageManger has the capability to check whether a thumbnail
  * request is really needed, when it gets to load the given thumbnail.
  */
-bool ThumbnailView::thumbnailStillNeeded( const QString& fileName ) const
+bool ThumbnailView::ThumbnailView::thumbnailStillNeeded( const QString& fileName ) const
 {
     QPoint pos = positionForFileName( fileName );
     return pos.y() >= firstVisibleRow( PartlyVisible ) && pos.y() <= lastVisibleRow( PartlyVisible );
@@ -524,7 +474,7 @@ bool ThumbnailView::thumbnailStillNeeded( const QString& fileName ) const
 /*
  * Returns the first row that is at least partly visible.
  */
-int ThumbnailView::firstVisibleRow( VisibleState state ) const
+int ThumbnailView::ThumbnailView::firstVisibleRow( VisibleState state ) const
 {
     int firstRow = rowAt( contentsY() );
     if ( state == FullyVisible && rowAt( contentsY() + cellHeight()-1 ) != firstRow )
@@ -533,7 +483,7 @@ int ThumbnailView::firstVisibleRow( VisibleState state ) const
     return firstRow;
 }
 
-int ThumbnailView::lastVisibleRow( VisibleState state ) const
+int ThumbnailView::ThumbnailView::lastVisibleRow( VisibleState state ) const
 {
     int lastRow = rowAt( contentsY() + visibleHeight() );
     if ( state == FullyVisible && rowAt( contentsY() + visibleHeight() - cellHeight() -1 ) != lastRow )
@@ -541,12 +491,12 @@ int ThumbnailView::lastVisibleRow( VisibleState state ) const
     return lastRow;
 }
 
-void ThumbnailView::selectCell( const QPoint& pos )
+void ThumbnailView::ThumbnailView::selectCell( const QPoint& pos )
 {
     selectCell( pos.y(), pos.x() );
 }
 
-void ThumbnailView::selectCell( int row, int col, bool repaint )
+void ThumbnailView::ThumbnailView::selectCell( int row, int col, bool repaint )
 {
     QString file = fileNameInCell( row, col );
     if ( !file.isNull() ) {
@@ -556,39 +506,7 @@ void ThumbnailView::selectCell( int row, int col, bool repaint )
     }
 }
 
-void ThumbnailView::handleDragSelection()
-{
-    int col1 = columnAt( _mousePressPosContents.x() );
-    int row1 = rowAt( _mousePressPosContents.y() );
-
-    QPoint viewportPos = viewport()->mapFromGlobal( QCursor::pos() );
-    QPoint pos = viewportToContents( viewportPos );
-    int col2 = columnAt( pos.x() );
-    int row2 = rowAt( pos.y() );
-    _currentItem = fileNameInCell( row2, col2 );
-
-    if ( viewportPos.y() < 0 )
-        scrollBy( 0, viewportPos.y()/2 );
-    else if ( viewportPos.y() > height() )
-        scrollBy( 0, (viewportPos.y() - height())/3 );
-
-    Set<QString> oldSelection = _selectedFiles;
-    _selectedFiles = _originalSelectionBeforeDragStart;
-    selectAllCellsBetween( QPoint( col1,row1 ), QPoint( col2,row2 ), false );
-
-    for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
-        if ( !_selectedFiles.contains( *it ) )
-            repaintCell( *it );
-    }
-
-    for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
-        if ( !oldSelection.contains( *it ) )
-            repaintCell( *it );
-    }
-
-}
-
-QPoint ThumbnailView::cellAtViewportPos( const QPoint& pos ) const
+QPoint ThumbnailView::ThumbnailView::cellAtViewportPos( const QPoint& pos ) const
 {
     QPoint contentsPos = viewportToContents( pos );
     int col = columnAt( contentsPos.x() );
@@ -596,7 +514,7 @@ QPoint ThumbnailView::cellAtViewportPos( const QPoint& pos ) const
     return QPoint( col, row );
 }
 
-void ThumbnailView::selectAllCellsBetween( QPoint pos1, QPoint pos2, bool repaint )
+void ThumbnailView::ThumbnailView::selectAllCellsBetween( QPoint pos1, QPoint pos2, bool repaint )
 {
     Util::ensurePosSorted( pos1, pos2 );
 
@@ -623,13 +541,13 @@ void ThumbnailView::selectAllCellsBetween( QPoint pos1, QPoint pos2, bool repain
     }
 }
 
-void ThumbnailView::resizeEvent( QResizeEvent* e )
+void ThumbnailView::ThumbnailView::resizeEvent( QResizeEvent* e )
 {
     QGridView::resizeEvent( e );
     updateGridSize();
 }
 
-void ThumbnailView::clearSelection()
+void ThumbnailView::ThumbnailView::clearSelection()
 {
     Set<QString> oldSelection = _selectedFiles;
     _selectedFiles.clear();
@@ -638,17 +556,17 @@ void ThumbnailView::clearSelection()
     }
 }
 
-QString ThumbnailView::fileNameInCell( const QPoint& cell ) const
+QString ThumbnailView::ThumbnailView::fileNameInCell( const QPoint& cell ) const
 {
     return fileNameInCell( cell.y(), cell.x() );
 }
 
-bool ThumbnailView::isFocusAtLastCell() const
+bool ThumbnailView::ThumbnailView::isFocusAtLastCell() const
 {
     return positionForFileName(_currentItem) == lastCell();
 }
 
-bool ThumbnailView::isFocusAtFirstCell() const
+bool ThumbnailView::ThumbnailView::isFocusAtFirstCell() const
 {
     return positionForFileName(_currentItem).x() == 0 && positionForFileName(_currentItem).y() == 0;
 }
@@ -656,19 +574,19 @@ bool ThumbnailView::isFocusAtFirstCell() const
 /**
  * Return the coordinates of the last cell with a thumbnail in
  */
-QPoint ThumbnailView::lastCell() const
+QPoint ThumbnailView::ThumbnailView::lastCell() const
 {
     return QPoint( _imageList.count() % thumbnailsPerRow() -1,
                    _imageList.count() / thumbnailsPerRow() );
 }
 
-bool ThumbnailView::isMovementKey( int key )
+bool ThumbnailView::ThumbnailView::isMovementKey( int key )
 {
     return ( key == Key_Up || key == Key_Down || key == Key_Left || key == Key_Right ||
              key == Key_Home || key == Key_End || key == Key_PageUp || key == Key_PageDown );
 }
 
-void ThumbnailView::toggleSelection( const QString& fileName )
+void ThumbnailView::ThumbnailView::toggleSelection( const QString& fileName )
 {
     if ( _selectedFiles.contains( fileName ) )
         _selectedFiles.remove( fileName );
@@ -678,7 +596,7 @@ void ThumbnailView::toggleSelection( const QString& fileName )
     repaintCell( fileName );
 }
 
-QStringList ThumbnailView::selection() const
+QStringList ThumbnailView::ThumbnailView::selection() const
 {
     QStringList res;
     for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
@@ -688,7 +606,7 @@ QStringList ThumbnailView::selection() const
     return res;
 }
 
-void ThumbnailView::possibleEmitSelectionChanged()
+void ThumbnailView::ThumbnailView::possibleEmitSelectionChanged()
 {
     static Set<QString> oldSelection;
     if ( oldSelection != _selectedFiles ) {
@@ -697,12 +615,12 @@ void ThumbnailView::possibleEmitSelectionChanged()
     }
 }
 
-QStringList ThumbnailView::imageList() const
+QStringList ThumbnailView::ThumbnailView::imageList() const
 {
     return _imageList;
 }
 
-void ThumbnailView::selectAll()
+void ThumbnailView::ThumbnailView::selectAll()
 {
     _selectedFiles.clear();
     for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
@@ -711,41 +629,41 @@ void ThumbnailView::selectAll()
     repaintScreen();
 }
 
-void ThumbnailView::repaintCell( int row, int col )
+void ThumbnailView::ThumbnailView::repaintCell( int row, int col )
 {
     QGridView::repaintCell( row, col );
 }
 
-void ThumbnailView::reload()
+void ThumbnailView::ThumbnailView::reload()
 {
     pixmapCache().clear();
     _selectedFiles.clear();
     repaintScreen();
 }
 
-void ThumbnailView::repaintScreen()
+void ThumbnailView::ThumbnailView::repaintScreen()
 {
     for ( int row = firstVisibleRow( PartlyVisible ); row <= lastVisibleRow( PartlyVisible ); ++row )
         for ( int col = 0; col < thumbnailsPerRow(); ++col )
             repaintCell( row, col );
 }
 
-QString ThumbnailView::fileNameUnderCursor() const
+QString ThumbnailView::ThumbnailView::fileNameUnderCursor() const
 {
     return fileNameAtViewportPos( mapFromGlobal( QCursor::pos() ) );
 }
 
-QString ThumbnailView::currentItem() const
+QString ThumbnailView::ThumbnailView::currentItem() const
 {
     return _currentItem;
 }
 
-ThumbnailView* ThumbnailView::theThumbnailView()
+ThumbnailView::ThumbnailView* ThumbnailView::ThumbnailView::theThumbnailView()
 {
     return _instance;
 }
 
-void ThumbnailView::setCurrentItem( const QString& fileName )
+void ThumbnailView::ThumbnailView::setCurrentItem( const QString& fileName )
 {
     QPoint pos = positionForFileName( fileName );
     _currentItem = fileName;
@@ -755,7 +673,7 @@ void ThumbnailView::setCurrentItem( const QString& fileName )
     ensureCellVisible( pos.y(), pos.x() );
 }
 
-void ThumbnailView::showToolTipsOnImages( bool on )
+void ThumbnailView::ThumbnailView::showToolTipsOnImages( bool on )
 {
     _toolTip->setActive( on );
 }

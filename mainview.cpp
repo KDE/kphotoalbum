@@ -19,7 +19,7 @@
 #include "mainview.h"
 #include <optionsdialog.h>
 #include <qapplication.h>
-#include "ThumbnailView.h"
+#include "ThumbnailView/ThumbnailView.h"
 #include "imageconfig.h"
 #include <qdir.h>
 #include <qfile.h>
@@ -130,7 +130,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
-    _thumbnailView = new ThumbnailView( _stack, "_thumbnailView" );
+    _thumbnailView = new ThumbnailView::ThumbnailView( _stack, "_thumbnailView" );
     connect( _dateBar, SIGNAL( dateSelected( const ImageDateRange&, bool ) ), _thumbnailView, SLOT( gotoDate( const ImageDateRange&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Options::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
@@ -929,12 +929,10 @@ void MainView::slotSetFileName( const QString& fileName )
 void MainView::slotThumbNailSelectionChanged()
 {
     QStringList selection = _thumbnailView->selection();
-    bool oneSelected = (selection.count() == 1 );
-    bool manySelected = (selection.count() > 1 );
 
-    _configAllSimultaniously->setEnabled( manySelected );
-    _configOneAtATime->setEnabled( oneSelected );
-    _sortByDateAndTime->setEnabled( manySelected );
+    _configAllSimultaniously->setEnabled(selection.count() > 1 );
+    _configOneAtATime->setEnabled(selection.count() >= 1 );
+    _sortByDateAndTime->setEnabled(selection.count() > 1 );
 }
 
 void MainView::reloadThumbnails()

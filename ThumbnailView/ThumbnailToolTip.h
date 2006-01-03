@@ -23,8 +23,11 @@
 #include <qdialog.h>
 #include <qdict.h>
 #include "imageclient.h"
-class ThumbnailView;
 class ImageInfo;
+
+namespace ThumbnailView
+{
+class ThumbnailView;
 
 class ThumbnailToolTip :public QLabel, public ImageClient {
     Q_OBJECT
@@ -48,6 +51,8 @@ private:
     bool _widthInverse;
     bool _heightInverse;
 };
+
+}
 
 
 #endif /* THUMBNAILTOOLTIP_H */

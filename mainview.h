@@ -18,7 +18,6 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
-class ThumbnailView;
 class TokenEditor;
 class OptionsDialog;
 class ImageConfig;
@@ -34,6 +33,12 @@ class HTMLExportDialog;
 class KActionMenu;
 class KRadioAction;
 class PluginInterface;
+
+namespace ThumbnailView
+{
+    class ThumbnailView;
+}
+
 
 #include "imageinfolist.h"
 #include <qdict.h>
@@ -153,7 +158,7 @@ protected:
 private:
     static MainView* _instance;
 
-    ThumbnailView* _thumbnailView;
+    ThumbnailView::ThumbnailView* _thumbnailView;
     OptionsDialog* _optionsDialog;
     ImageConfig* _imageConfigure;
     bool _dirty;

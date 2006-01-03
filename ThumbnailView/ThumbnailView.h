@@ -6,13 +6,22 @@
 #include "imageclient.h"
 #include "set.h"
 #include "ThumbnailToolTip.h"
+#include "GridResizeInteraction.h"
+#include "DragInteraction.h"
+#include "MouseTrackingInteraction.h"
+
 class QTimer;
 class ImageDateRange;
 class QDateTime;
 class QPixmapCache;
 
+namespace ThumbnailView
+{
+
 class ThumbnailView : public QGridView, public ImageClient {
     Q_OBJECT
+
+    static const int SPACE = 3;
 
 public:
     ThumbnailView( QWidget* parent, const char* name = 0 );
@@ -89,43 +98,9 @@ protected:
 
 protected slots:
     void emitDateChange( int, int );
-    void handleDragSelection();
 
 private:
     QValueList<QString> _imageList;
-
-    /**
-     * This variable contains the position the mouse was pressed down. This
-     * is used for selection.
-     *
-     * The point is in contents coordinates.
-     *
-     * Auto scroll prevents us from using _mousePressPosViewport for this.
-     */
-    QPoint _mousePressPosContents;
-
-    /**
-     * This variable contains the position the mouse was pressed down. This
-     * is used to calculate the grid size when resizing grid.
-     *
-     * The point is in viewport coordinates.
-     * It is not possible to used the _mousePressPosContents instance
-     * variable for this, since the view is scroll at soon as a resize is started.
-     */
-    QPoint _mousePressPosViewport;
-
-    /**
-     * This variable contains the size of a cell prior to the beginning of
-     * resizing the grid.
-     */
-    int _origSize;
-
-    /**
-     * During resizing the size of the thumbnails, thumbnails should not be
-     * displayed. This variable indicates whether we are resizing the view
-     * or not.
-     */
-    bool _isResizing;
 
     /**
      * When the user selects a date on the date bar the thumbnail view will
@@ -155,15 +130,20 @@ private:
      */
     QString _currentItem;
 
-    Set<QString> _originalSelectionBeforeDragStart ;
-
     static ThumbnailView* _instance;
 
     ThumbnailToolTip* _toolTip;
 
-    QTimer* _dragTimer;
+    GridResizeInteraction _gridResizeInteraction;
+    DragInteraction _dragInteraction;
+    MouseTrackingInteraction _mouseTrackingHandler;
+    MouseInteraction* _mouseHandler;
+    friend class GridResizeInteraction;
+    friend class DragInteraction;
+    friend class MouseTrackingInteraction;
 };
 
+}
 
 
 #endif /* THUMBNAILVIEW_H */

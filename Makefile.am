@@ -13,7 +13,7 @@ if compile_with_exiv2
   KIMDABA_EXIV2_LIBS = Exif/libexif.la -lexiv2
 endif
 
-SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR)
+SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kimdaba
@@ -23,7 +23,7 @@ kimdaba_SOURCES = \
 	imageclient.cpp util.cpp imagepreview.cpp imagedate.cpp imagesearchinfo.cpp \
 	editor.cpp showbusycursor.cpp displayarea.cpp \
 	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp \
-	htmlexportdialog.cpp imagecounter.cpp ThumbnailToolTip.cpp \
+	htmlexportdialog.cpp imagecounter.cpp \
 	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
@@ -36,10 +36,11 @@ kimdaba_SOURCES = \
 	imagedaterange.cpp invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
 	imagerequest.cpp miniviewer.cpp \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c \
-	featuredialog.cpp ThumbnailView.cpp ThumbnailRequest.cpp $(EXIF_SOURCES)
+	featuredialog.cpp $(EXIF_SOURCES)
 
 kimdaba_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kimdaba_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la $(LIBKIMDABA_SQLDB) $(LIB_KIO) -ljpeg $(KIMDABA_KIPI_LIBS) \
+kimdaba_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la ThumbnailView/libThumbnailView.la \
+                 $(LIBKIMDABA_SQLDB) $(LIB_KIO) -ljpeg $(KIMDABA_KIPI_LIBS) \
 	         $(KIMDABA_EXIV2_LIBS)
 
 METASOURCES = AUTO

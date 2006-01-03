@@ -1,6 +1,9 @@
 #ifndef THUMBNAILREQUEST_H
 #define THUMBNAILREQUEST_H
 #include "imagerequest.h"
+
+namespace ThumbnailView
+{
 class ThumbnailView;
 
 class ThumbnailRequest :public ImageRequest
@@ -14,6 +17,8 @@ private:
     ThumbnailView* _thumbnailView;
     QString _fileName;
 };
+
+}
 
 #endif /* THUMBNAILREQUEST_H */
 

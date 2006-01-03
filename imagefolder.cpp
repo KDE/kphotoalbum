@@ -24,7 +24,7 @@
 #include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "ThumbnailView.h"
+#include "ThumbnailView/ThumbnailView.h"
 #include "mainview.h"
 
 // PENDING(blackie) cleanup, we don't need from and to anymore
@@ -52,7 +52,7 @@ void ImageFolderAction::action( BrowserItemFactory* )
     MainView::theMainView()->showThumbNails( ImageDB::instance()->search( _info ) );
 
     if ( !_context.isNull() )
-        ThumbnailView::theThumbnailView()->setCurrentItem( _context );
+        ThumbnailView::ThumbnailView::theThumbnailView()->setCurrentItem( _context );
 }
 
 FolderAction* ImageFolder::action( bool /* ctrlDown */ )

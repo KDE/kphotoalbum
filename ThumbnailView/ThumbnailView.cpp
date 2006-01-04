@@ -12,8 +12,6 @@
 #include <qapplication.h>
 #include "ThumbnailToolTip.h"
 
-using namespace ThumbnailView;
-
 // PENDING(blackie) TODO:
 // - show file names
 
@@ -313,6 +311,7 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
 
     case Key_PageDown:
     case Key_PageUp:
+    {
         int rows = (event->key() == Key_PageDown) ? 1 : -1;
         if ( event->state() & AltButton )
             rows *= numRows() / 20;
@@ -321,7 +320,7 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
 
         newPos = QPoint( currentPos.x(), currentPos.y() + rows );
         break;
-
+    }
     case Key_Home:
         newPos = QPoint( 0, 0 );
         break;

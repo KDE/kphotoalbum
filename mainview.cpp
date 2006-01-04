@@ -254,8 +254,9 @@ bool MainView::slotExit()
             Util::deleteDemo();
             goto doQuit;
         }
-        else
-            ; // pass through to the check for dirtyness.
+        else {
+            // pass through to the check for dirtyness.
+        }
     }
 
     if ( _dirty || !ImageDB::instance()->isClipboardEmpty() ) {

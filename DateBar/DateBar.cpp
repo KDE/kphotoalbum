@@ -40,8 +40,6 @@ const int borderArroundWidget = 0;
 const int buttonWidth = 22;
 const int arrowLength = 20;
 
-using namespace DateBar;
-
 /**
  * \namespace DateBar
  * \brief The date bar at the bottom of the main window

@@ -6,7 +6,7 @@ INCLUDES = \
 
 libThumbnailView_la_SOURCES = \
          ThumbnailRequest.cpp  ThumbnailToolTip.cpp  ThumbnailView.cpp \
-         GridResizeInteraction.cpp DragInteraction.cpp MouseTrackingInteraction.cpp 
+         GridResizeInteraction.cpp SelectionInteraction.cpp MouseTrackingInteraction.cpp
 
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
 

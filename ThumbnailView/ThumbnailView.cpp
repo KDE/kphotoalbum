@@ -11,6 +11,9 @@
 #include <qcursor.h>
 #include <qapplication.h>
 #include "ThumbnailToolTip.h"
+#include "browser.h"
+#include <klocale.h>
+#include <kmessagebox.h>
 
 // PENDING(blackie) TODO:
 // - show file names
@@ -33,7 +36,7 @@ ThumbnailView::ThumbnailView* ThumbnailView::ThumbnailView::_instance = 0;
 ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
     :QGridView( parent, name ),
      _gridResizeInteraction( this ),
-    _dragInteraction( this ),
+     _selectionInteraction( this ),
      _mouseTrackingHandler( this ),
      _mouseHandler( &_mouseTrackingHandler )
 {
@@ -50,6 +53,8 @@ ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( emitDateChange( int, int ) ) );
 
     _toolTip = new ThumbnailToolTip( this );
+
+    viewport()->setAcceptDrops( true );
 }
 
 
@@ -68,6 +73,13 @@ void ThumbnailView::ThumbnailView::paintCell( QPainter * p, int row, int col )
             painter.drawPixmap( rect, *pix );
             if ( _selectedFiles.contains( fileName ) )
                 painter.fillRect( rect, QBrush( palette().active().highlight(), Dense4Pattern ) );
+
+            rect = QRect( 0, 0, cellWidth(), cellHeight() );
+            if ( _leftDrop == fileName )
+                painter.fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( red ) );
+            else if ( _rightDrop == fileName )
+                painter.fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( red ) );
+
         }
         else {
             int size = Options::instance()->thumbSize();
@@ -136,7 +148,7 @@ QString ThumbnailView::ThumbnailView::fileNameAtViewportPos( const QPoint& viewp
 }
 
 /**
- * Return the geometry for the icon in the cell (row,col). The coordinates are local to the cell.
+ * Return the geometry for the icon in the cell (row,col). The returned coordinates are local to the cell.
  */
 QRect ThumbnailView::ThumbnailView::iconGeometry( int row, int col ) const
 {
@@ -351,7 +363,7 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
     // Scroll if necesary
     if ( newPos.y() > lastVisibleRow( ThumbnailView::FullyVisible ) )
         setContentsPos( contentsX(), cellGeometry( newPos.y(), newPos.x() ).top() -
-                               (numRowsPerPage()-1)*cellHeight()  );
+                        (numRowsPerPage()-1)*cellHeight()  );
 
     if  ( newPos.y() < firstVisibleRow( ThumbnailView::FullyVisible ) )
         setContentsPos( contentsX(), cellGeometry( newPos.y(), newPos.x() ).top() );
@@ -393,7 +405,7 @@ void ThumbnailView::ThumbnailView::mousePressEvent( QMouseEvent* event )
     else if (event->button() & MidButton )
         _mouseHandler = &_gridResizeInteraction;
     else
-        _mouseHandler = &_dragInteraction;
+        _mouseHandler = &_selectionInteraction;
 
     _mouseHandler->mousePressEvent( event );
 }
@@ -603,8 +615,8 @@ bool ThumbnailView::ThumbnailView::isFocusAtFirstCell() const
  */
 QPoint ThumbnailView::ThumbnailView::lastCell() const
 {
-    return QPoint( _imageList.count() % thumbnailsPerRow() -1,
-                   _imageList.count() / thumbnailsPerRow() );
+    return QPoint( (_imageList.count()-1) % thumbnailsPerRow(),
+                   (_imageList.count()-1) / thumbnailsPerRow() );
 }
 
 bool ThumbnailView::ThumbnailView::isMovementKey( int key )
@@ -703,5 +715,94 @@ void ThumbnailView::ThumbnailView::setCurrentItem( const QString& fileName )
 void ThumbnailView::ThumbnailView::showToolTipsOnImages( bool on )
 {
     _toolTip->setActive( on );
+}
+
+
+void ThumbnailView::ThumbnailView::contentsDragMoveEvent( QDragMoveEvent* event )
+{
+    bool accept = event->provides( "text/uri-list" ) && _selectionInteraction.isDragging();
+    event->accept( accept );
+
+    if ( !accept )
+        return;
+
+    int row = rowAt( event->pos().y() );
+    int col = columnAt( event->pos().x() );
+    QString fileName = fileNameInCell( row, col );
+
+    removeDropIndications();
+
+    QRect rect = cellGeometry( row, col );
+    bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
+    if ( left ) {
+        _leftDrop = fileName;
+        int index = _imageList.findIndex( fileName ) -1;
+        if ( index != -1 )
+            _rightDrop = _imageList[index];
+    }
+
+    else {
+        _rightDrop = fileName;
+        uint index = _imageList.findIndex( fileName ) +1;
+        if ( index != _imageList.count() )
+            _leftDrop = _imageList[index];
+    }
+
+    repaintCell( _leftDrop );
+    repaintCell( _rightDrop );
+}
+
+void ThumbnailView::ThumbnailView::contentsDragLeaveEvent( QDragLeaveEvent* )
+{
+    removeDropIndications();
+}
+
+void ThumbnailView::ThumbnailView::contentsDropEvent( QDropEvent* )
+{
+    QTimer::singleShot( 0, this, SLOT( realDropEvent() ) );
+}
+
+/**
+ * Do the real work for the drop event.
+ * We can't bring up the dialog in the contentsDropEvent, as Qt is still in drag and drop mode with a different cursor etc.
+ * That's why we use a QTimer to get this call back executed.
+ */
+void ThumbnailView::ThumbnailView::realDropEvent()
+{
+    QString msg =
+        i18n( "<p><b>Really reorder images?</b></p>"
+              "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
+              "This is very useful in case you don't know the exact date for the images. On the other hand, "
+              "if the images them self has a valid time stamp, you should instead use "
+              "<tt>Images -&gt; Sort Selected By Date and Time</tt></p>" );
+
+    if ( KMessageBox::questionYesNo( this, msg, i18n("Reorder Images") , KStdGuiItem::yes(), KStdGuiItem::no(),
+                                     QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {
+
+        // protect against self drop
+        if ( !_selectedFiles.contains( _leftDrop ) && ! _selectedFiles.contains( _rightDrop ) ) {
+            QStringList selected = selection();
+            if ( _rightDrop.isNull() ) {
+                // We dropped onto the first image.
+                ImageDB::instance()->reorder( _leftDrop, selected, false );
+            }
+            else
+                ImageDB::instance()->reorder( _rightDrop, selected, true );
+
+            Browser::instance()->reload();
+        }
+    }
+    removeDropIndications();
+}
+
+void ThumbnailView::ThumbnailView::removeDropIndications()
+{
+    QString left = _leftDrop;
+    QString right = _rightDrop;
+    _leftDrop = QString::null;
+    _rightDrop = QString::null;
+
+    repaintCell( left );
+    repaintCell( right );
 }
 

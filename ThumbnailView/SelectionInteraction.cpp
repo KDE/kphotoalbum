@@ -1,9 +1,12 @@
-#include "DragInteraction.h"
+#include "SelectionInteraction.h"
 #include <qtimer.h>
 #include "ThumbnailView.h"
 #include <qcursor.h>
+#include <qapplication.h>
+#include <kurl.h>
+#include <kurldrag.h>
 
-ThumbnailView::DragInteraction::DragInteraction( ThumbnailView* view )
+ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailView* view )
     :_view( view )
 {
     _dragTimer = new QTimer( this );
@@ -11,13 +14,18 @@ ThumbnailView::DragInteraction::DragInteraction( ThumbnailView* view )
 }
 
 
-void ThumbnailView::DragInteraction::mousePressEvent( QMouseEvent* event )
+void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
+    _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
     _mousePressPos = _view->viewportToContents( event->pos() );
-    if ( !( event->state() & ControlButton ) && !( event->state() & ShiftButton ) ) {
+
+    QString fileNameAtPos = _view->fileNameAtViewportPos( event->pos() );
+    bool wasIconUnderMouseSelected = !fileNameAtPos.isNull() && _view->_selectedFiles.contains( fileNameAtPos );
+    if ( !( event->state() & ControlButton ) && !( event->state() & ShiftButton ) && !wasIconUnderMouseSelected) {
         // Unselect every thing
         Set<QString> oldSelection = _view->_selectedFiles;
         _view->_selectedFiles.clear();
+        _originalSelectionBeforeDragStart.clear();
         _view->repaintScreen();
     }
 
@@ -38,29 +46,30 @@ void ThumbnailView::DragInteraction::mousePressEvent( QMouseEvent* event )
 }
 
 
-void ThumbnailView::DragInteraction::mouseMoveEvent( QMouseEvent* event )
+void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( event->state() & LeftButton ) {
+    if ( _mousePressWasOnIcon &&
+         (_view->viewportToContents(event->pos()) - _mousePressPos ).manhattanLength() > QApplication::startDragDistance() )
+        startDrag();
+
+    else {
         handleDragSelection();
         if ( event->pos().y() < 0 || event->pos().y() > _view->height() )
             _dragTimer->start( 100 );
         else
             _dragTimer->stop();
     }
-    else {
-        // normal mouse tracking should show file under cursor.
-    }
     _view->possibleEmitSelectionChanged();
 }
 
 
-void ThumbnailView::DragInteraction::mouseReleaseEvent( QMouseEvent* )
+void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* )
 {
     _dragTimer->stop();
 }
 
 
-void ThumbnailView::DragInteraction::handleDragSelection()
+void ThumbnailView::SelectionInteraction::handleDragSelection()
 {
     int col1 = _view->columnAt( _mousePressPos.x() );
     int row1 = _view->rowAt( _mousePressPos.y() );
@@ -92,3 +101,37 @@ void ThumbnailView::DragInteraction::handleDragSelection()
 
 }
 
+/**
+ * Returns whether the point viewportPos is on top of the pixmap
+ */
+bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewportPos ) const
+{
+    QPoint pos = _view->cellAtViewportPos( viewportPos );
+    QRect cellRect = const_cast<ThumbnailView*>(_view)->cellGeometry(pos.y(), pos.x() );
+    QRect iconRect = _view->iconGeometry( pos.y(), pos.x() );
+
+    // map iconRect from local coordinates within the cell to contents coordinates
+    iconRect.moveBy( cellRect.x(), cellRect.y() );
+
+    return iconRect.contains( _view->viewportToContents(viewportPos) );
+}
+
+void ThumbnailView::SelectionInteraction::startDrag()
+{
+    _dragInProgress = true;
+    KURL::List l;
+    QStringList selected = _view->selection();
+    for( QStringList::Iterator fileIt = selected.begin(); fileIt != selected.end(); ++fileIt ) {
+        l.append( KURL(*fileIt) );
+    }
+    KURLDrag* drag = new KURLDrag( l, _view, "drag" );
+    drag->dragCopy();
+
+    _view->_mouseHandler = &(_view->_mouseTrackingHandler);
+    _dragInProgress = false;
+}
+
+bool ThumbnailView::SelectionInteraction::isDragging() const
+{
+    return _dragInProgress;
+}

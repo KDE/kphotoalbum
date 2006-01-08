@@ -7,7 +7,7 @@
 #include "set.h"
 #include "ThumbnailToolTip.h"
 #include "GridResizeInteraction.h"
-#include "DragInteraction.h"
+#include "SelectionInteraction.h"
 #include "MouseTrackingInteraction.h"
 
 class QTimer;
@@ -91,6 +91,12 @@ protected:
     void toggleSelection( const QString& fileName );
     void possibleEmitSelectionChanged();
 
+    // Drag and drop
+    virtual void contentsDragMoveEvent ( QDragMoveEvent * );
+    virtual void contentsDragLeaveEvent ( QDragLeaveEvent * );
+    virtual void contentsDropEvent ( QDropEvent * );
+    void removeDropIndications();
+
     // Misc
     QPixmapCache& pixmapCache();
     void updateGridSize();
@@ -99,9 +105,10 @@ protected:
 
 protected slots:
     void emitDateChange( int, int );
+    void realDropEvent();
 
 private:
-    QValueList<QString> _imageList;
+    QStringList _imageList;
 
     /**
      * When the user selects a date on the date bar the thumbnail view will
@@ -136,12 +143,22 @@ private:
     ThumbnailToolTip* _toolTip;
 
     GridResizeInteraction _gridResizeInteraction;
-    DragInteraction _dragInteraction;
+    SelectionInteraction _selectionInteraction;
     MouseTrackingInteraction _mouseTrackingHandler;
     MouseInteraction* _mouseHandler;
     friend class GridResizeInteraction;
-    friend class DragInteraction;
+    friend class SelectionInteraction;
     friend class MouseTrackingInteraction;
+
+    /**
+     * file which should have drop indication point drawn on its left side
+     */
+    QString _leftDrop;
+
+    /**
+     * file which should have drop indication point drawn on its right side
+     */
+    QString _rightDrop;
 };
 
 }

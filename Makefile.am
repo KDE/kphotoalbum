@@ -44,7 +44,7 @@ kimdaba_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la Thu
 	         $(KIMDABA_EXIV2_LIBS)
 
 METASOURCES = AUTO
-KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
+KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII 
 
 rcdir = $(kde_datadir)/kimdaba
 rc_DATA = kimdabaui.rc default-setup exif-sqlite.db

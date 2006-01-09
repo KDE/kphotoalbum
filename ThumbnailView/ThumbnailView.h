@@ -9,6 +9,7 @@
 #include "GridResizeInteraction.h"
 #include "SelectionInteraction.h"
 #include "MouseTrackingInteraction.h"
+#include "Cell.h"
 
 class QTimer;
 class ImageDateRange;
@@ -17,6 +18,7 @@ class QPixmapCache;
 
 namespace ThumbnailView
 {
+enum CoordinateSystem {ViewportCoordinates, ContentsCoordinates };
 
 class ThumbnailView : public QGridView, public ImageClient {
     Q_OBJECT
@@ -58,10 +60,10 @@ protected:
 
     // Cell handling methods.
     QString fileNameInCell( int row, int col ) const;
-    QString fileNameInCell( const QPoint& cell ) const;
-    QString fileNameAtViewportPos( const QPoint& pos ) const;
-    QPoint positionForFileName( const QString& fileName ) const;
-    QPoint cellAtViewportPos( const QPoint& pos ) const;
+    QString fileNameInCell( const Cell& cell ) const;
+    QString fileNameAtCoordinate( const QPoint& coordinate, CoordinateSystem ) const;
+    Cell positionForFileName( const QString& fileName ) const;
+    Cell cellAtCoordinate( const QPoint& pos, CoordinateSystem ) const;
 
     enum VisibleState { FullyVisible, PartlyVisible };
     int firstVisibleRow( VisibleState ) const;
@@ -71,7 +73,7 @@ protected:
     QRect iconGeometry( int row, int col ) const;
     bool isFocusAtFirstCell() const;
     bool isFocusAtLastCell() const;
-    QPoint lastCell() const;
+    Cell lastCell() const;
 
     // event handlers
     virtual void keyPressEvent( QKeyEvent* );
@@ -84,9 +86,9 @@ protected:
     void keyboardMoveEvent( QKeyEvent* );
 
     // Selection
-    void selectAllCellsBetween( QPoint pos1, QPoint pos2, bool repaint = true );
+    void selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint = true );
     void selectCell( int row, int col, bool repaint = true );
-    void selectCell( const QPoint& );
+    void selectCell( const Cell& );
     void clearSelection();
     void toggleSelection( const QString& fileName );
     void possibleEmitSelectionChanged();
@@ -101,7 +103,8 @@ protected:
     QPixmapCache& pixmapCache();
     void updateGridSize();
     bool isMovementKey( int key );
-    void selectItems( const QPoint& start, const QPoint& end );
+    void selectItems( const Cell& start, const Cell& end );
+    void ensureCellsSorted( Cell& pos1, Cell& pos2 );
 
 protected slots:
     void emitDateChange( int, int );

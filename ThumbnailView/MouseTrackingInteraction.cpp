@@ -10,7 +10,7 @@ ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailView
 void ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event )
 {
     static QString lastFileNameUderCursor;
-    QString fileName = _view->fileNameAtViewportPos( event->pos() );
+    QString fileName = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
     if ( fileName != lastFileNameUderCursor ) {
         emit _view->fileNameUnderCursorChanged( fileName );
         lastFileNameUderCursor = fileName;

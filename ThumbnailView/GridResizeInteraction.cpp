@@ -30,8 +30,8 @@ void ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
 {
     Options::instance()->setThumbSize( _view->cellWidth() - ThumbnailView::SPACE );
     if ( !_view->_currentItem.isNull() ) {
-        QPoint cell = _view->positionForFileName( _view->_currentItem );
-        _view->ensureCellVisible( cell.y(), cell.x() );
+        Cell cell = _view->positionForFileName( _view->_currentItem );
+        _view->ensureCellVisible( cell.row(), cell.col() );
     }
     _resizing = false;
     _view->repaintScreen();

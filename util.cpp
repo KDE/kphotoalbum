@@ -604,17 +604,6 @@ QString Util::absoluteImageFileName( const QString& relativeName )
 {
     return stripSlash( Options::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
 }
-
-void Util::ensurePosSorted( QPoint& pos1, QPoint& pos2 )
-{
-    if ( pos2.y() < pos1.y() || ( pos2.y() == pos1.y() && pos2.x() < pos1.x() ) ) {
-        QPoint tmp = pos1;
-        pos1 = pos2;
-        pos2 = tmp;
-    }
-}
-
-
 bool operator>( const QPoint& p1, const QPoint& p2)
 {
     return p1.y() > p2.y() || (p1.y() == p2.y() && p1.x() > p2.x() );

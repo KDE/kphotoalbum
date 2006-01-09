@@ -19,7 +19,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
     _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
     _mousePressPos = _view->viewportToContents( event->pos() );
 
-    QString fileNameAtPos = _view->fileNameAtViewportPos( event->pos() );
+    QString fileNameAtPos = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
     bool wasIconUnderMouseSelected = !fileNameAtPos.isNull() && _view->_selectedFiles.contains( fileNameAtPos );
     if ( !( event->state() & ControlButton ) && !( event->state() & ShiftButton ) && !wasIconUnderMouseSelected) {
         // Unselect every thing
@@ -29,17 +29,18 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
         _view->repaintScreen();
     }
 
-    QString file = _view->fileNameAtViewportPos( event->pos() );
+    QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
     if ( !file.isNull() ) {
         if ( event->state() & ShiftButton ) {
-            _view->selectAllCellsBetween( _view->positionForFileName( _view->_currentItem ), _view->cellAtViewportPos( event->pos() ) );
+            _view->selectAllCellsBetween( _view->positionForFileName( _view->_currentItem ),
+                                          _view->cellAtCoordinate( event->pos(), ViewportCoordinates ) );
         }
         else {
             _view->_selectedFiles.insert( file );
             _view->repaintCell( file );
             _originalSelectionBeforeDragStart = _view->_selectedFiles;
         }
-        _view->_currentItem = _view->fileNameAtViewportPos( event->pos() );
+        _view->_currentItem = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
     }
     _view->possibleEmitSelectionChanged();
 
@@ -87,7 +88,7 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
 
     Set<QString> oldSelection = _view->_selectedFiles;
     _view->_selectedFiles = _originalSelectionBeforeDragStart;
-    _view->selectAllCellsBetween( QPoint( col1,row1 ), QPoint( col2,row2 ), false );
+    _view->selectAllCellsBetween( Cell( row1, col1 ), Cell( row2, col2 ), false );
 
     for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_view->_selectedFiles.contains( *it ) )
@@ -106,9 +107,9 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
  */
 bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewportPos ) const
 {
-    QPoint pos = _view->cellAtViewportPos( viewportPos );
-    QRect cellRect = const_cast<ThumbnailView*>(_view)->cellGeometry(pos.y(), pos.x() );
-    QRect iconRect = _view->iconGeometry( pos.y(), pos.x() );
+    Cell pos = _view->cellAtCoordinate( viewportPos, ViewportCoordinates );
+    QRect cellRect = const_cast<ThumbnailView*>(_view)->cellGeometry(pos.row(), pos.col() );
+    QRect iconRect = _view->iconGeometry( pos.row(), pos.col() );
 
     // map iconRect from local coordinates within the cell to contents coordinates
     iconRect.moveBy( cellRect.x(), cellRect.y() );

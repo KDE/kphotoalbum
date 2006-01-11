@@ -53,8 +53,8 @@ signals:
 
 protected:
     // Painting
-    void repaintCell( const QString& fileName );
-    void repaintCell( int row, int col );
+    void updateCell( const QString& fileName );
+    void updateCell( int row, int col );
     void paintCellBackground( QPainter* p, int row, int col );
     void repaintScreen();
 
@@ -68,7 +68,6 @@ protected:
     enum VisibleState { FullyVisible, PartlyVisible };
     int firstVisibleRow( VisibleState ) const;
     int lastVisibleRow( VisibleState ) const;
-    int thumbnailsPerRow() const;
     int numRowsPerPage() const;
     QRect iconGeometry( int row, int col ) const;
     bool isFocusAtFirstCell() const;
@@ -84,6 +83,7 @@ protected:
     virtual void mouseDoubleClickEvent ( QMouseEvent* );
     virtual void resizeEvent( QResizeEvent* );
     void keyboardMoveEvent( QKeyEvent* );
+    virtual void dimensionChange ( int oldNumRows, int oldNumCols );
 
     // Selection
     void selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint = true );
@@ -109,6 +109,7 @@ protected:
 protected slots:
     void emitDateChange( int, int );
     void realDropEvent();
+    void slotRepaint();
 
 private:
     QStringList _imageList;
@@ -162,6 +163,10 @@ private:
      * file which should have drop indication point drawn on its right side
      */
     QString _rightDrop;
+
+    QTimer* _repaintTimer;
+
+    Set<QString> _pendingRepaint;
 };
 
 }

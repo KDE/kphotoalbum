@@ -37,7 +37,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
         }
         else {
             _view->_selectedFiles.insert( file );
-            _view->repaintCell( file );
+            _view->updateCell( file );
             _originalSelectionBeforeDragStart = _view->_selectedFiles;
         }
         _view->_currentItem = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
@@ -72,15 +72,13 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* )
 
 void ThumbnailView::SelectionInteraction::handleDragSelection()
 {
-    int col1 = _view->columnAt( _mousePressPos.x() );
-    int row1 = _view->rowAt( _mousePressPos.y() );
-
+    Cell pos1 = _view->cellAtCoordinate( _mousePressPos, ContentsCoordinates );
     QPoint viewportPos = _view->viewport()->mapFromGlobal( QCursor::pos() );
-    QPoint pos = _view->viewportToContents( viewportPos );
-    int col2 = _view->columnAt( pos.x() );
-    int row2 = _view->rowAt( pos.y() );
-    _view->_currentItem = _view->fileNameInCell( row2, col2 );
+    Cell pos2 = _view->cellAtCoordinate( viewportPos, ViewportCoordinates );
 
+    _view->_currentItem = _view->fileNameInCell( pos2 );
+
+    // Auto scroll
     if ( viewportPos.y() < 0 )
         _view->scrollBy( 0, viewportPos.y()/2 );
     else if ( viewportPos.y() > _view->height() )
@@ -88,16 +86,16 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
 
     Set<QString> oldSelection = _view->_selectedFiles;
     _view->_selectedFiles = _originalSelectionBeforeDragStart;
-    _view->selectAllCellsBetween( Cell( row1, col1 ), Cell( row2, col2 ), false );
+    _view->selectAllCellsBetween( pos1, pos2, false );
 
     for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_view->_selectedFiles.contains( *it ) )
-            _view->repaintCell( *it );
+            _view->updateCell( *it );
     }
 
     for( Set<QString>::Iterator it = _view->_selectedFiles.begin(); it != _view->_selectedFiles.end(); ++it ) {
         if ( !oldSelection.contains( *it ) )
-            _view->repaintCell( *it );
+            _view->updateCell( *it );
     }
 
 }

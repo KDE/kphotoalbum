@@ -55,6 +55,9 @@ ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
     _toolTip = new ThumbnailToolTip( this );
 
     viewport()->setAcceptDrops( true );
+
+    _repaintTimer = new QTimer( this );
+    connect( _repaintTimer, SIGNAL( timeout() ), this, SLOT( slotRepaint() ) );
 }
 
 
@@ -106,20 +109,11 @@ void ThumbnailView::ThumbnailView::setImageList( const QStringList& list )
 
 
 /**
- * Calculate the about of thumbnails per row.
- */
-int ThumbnailView::ThumbnailView::thumbnailsPerRow() const
-{
-    return width() / cellWidth();
-}
-
-
-/**
  * Return the file name shown in cell (row,col) if a thumbnail is shown in this cell or null otherwise.
  */
 QString ThumbnailView::ThumbnailView::fileNameInCell( int row, int col ) const
 {
-    uint index = row * thumbnailsPerRow() + col;
+    uint index = row * numCols() + col;
     if ( index >= _imageList.count() )
         return QString::null;
     else
@@ -211,27 +205,38 @@ void ThumbnailView::ThumbnailView::pixmapLoaded( const QString& fileName, const 
         imageInfo->setSize( fullSize );
 
     pixmapCache().insert( fileName, pixmap );
-    repaintCell( fileName );
+    updateCell( fileName );
 }
 
 /**
  * Request a repaint of the cell showing filename
+ *
+ * QGridView::updateCell has some problems when we scroll during a keyboard selection, so thatswhy we role our own one.
  */
-void ThumbnailView::ThumbnailView::repaintCell( const QString& fileName )
+void ThumbnailView::ThumbnailView::updateCell( const QString& fileName )
 {
-    // This ought really be updateCell, but I get errors where cells are
-    // not repainted though requested, during scrolling.
-    Cell pos = positionForFileName( fileName );
-    repaintCell( pos.row(), pos.col() );
+    if ( fileName.isNull() )
+        return;
+
+    _pendingRepaint.insert( fileName );
+    _repaintTimer->start( 0, true );
 }
+
+void ThumbnailView::ThumbnailView::updateCell( int row, int col )
+{
+    updateCell( fileNameInCell( row, col ) );
+}
+
 
 /**
  * Update the grid size depending on the size of the widget
  */
 void ThumbnailView::ThumbnailView::updateGridSize()
 {
-    setNumCols( thumbnailsPerRow() );
-    setNumRows( QMAX( numRowsPerPage(), (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow() ) ) );
+    int thumbnailsPerRow = width() / cellWidth();
+    int numRowsPerPage = height() / cellHeight();
+    setNumCols( thumbnailsPerRow );
+    setNumRows( QMAX( numRowsPerPage, (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow ) ) );
 }
 
 void ThumbnailView::ThumbnailView::showEvent( QShowEvent* )
@@ -306,13 +311,13 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
         newPos.col()--;
 
         if ( newPos.col() < 0 )
-            newPos = Cell( newPos.row()-1, thumbnailsPerRow()-1 );
+            newPos = Cell( newPos.row()-1, numCols()-1 );
         break;
 
     case Key_Right:
         newPos = currentPos;
         newPos.col()++;
-        if ( newPos.col() == thumbnailsPerRow() )
+        if ( newPos.col() == numCols() )
             newPos = Cell( newPos.row()+1, 0 );
         break;
 
@@ -357,7 +362,7 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
 
     else if ( ! (event->state() & ControlButton ) ) {
         selectCell( newPos );
-        repaintCell( currentPos.row(), currentPos.col() );
+        updateCell( currentPos.row(), currentPos.col() );
     }
     _currentItem = fileNameInCell( newPos );
     if ( !( event->state() & ShiftButton ) )
@@ -384,12 +389,12 @@ void ThumbnailView::ThumbnailView::selectItems( const Cell& start, const Cell& e
 
     for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_selectedFiles.contains( *it ) )
-            repaintCell( *it );
+            updateCell( *it );
     }
 
     for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
         if ( !oldSelection.contains( *it ) )
-            repaintCell( *it );
+            updateCell( *it );
     }
 
 }
@@ -494,8 +499,8 @@ ThumbnailView::Cell ThumbnailView::ThumbnailView::positionForFileName( const QSt
         qDebug("Ups");
 #endif
 
-    int row = index / thumbnailsPerRow();
-    int col = index % thumbnailsPerRow();
+    int row = index / numCols();
+    int col = index % numCols();
     return Cell( row, col );
 }
 
@@ -544,7 +549,7 @@ void ThumbnailView::ThumbnailView::selectCell( int row, int col, bool repaint )
     if ( !file.isNull() ) {
         _selectedFiles.insert( file );
         if ( repaint )
-            repaintCell( row, col );
+            updateCell( row, col );
     }
 }
 
@@ -572,12 +577,12 @@ void ThumbnailView::ThumbnailView::selectAllCellsBetween( Cell pos1, Cell pos2, 
         // We know we have at least two rows.
 
         // first row
-        for ( int col = pos1.col(); col < thumbnailsPerRow(); ++ col )
+        for ( int col = pos1.col(); col < numCols(); ++ col )
             selectCell( pos1.row(), col, repaint );
 
         // rows in between
         for ( int row = pos1.row()+1; row < pos2.row(); ++row )
-            for ( int col = 0; col < thumbnailsPerRow(); ++ col )
+            for ( int col = 0; col < numCols(); ++ col )
                 selectCell( row, col, repaint );
 
         // last row
@@ -597,7 +602,7 @@ void ThumbnailView::ThumbnailView::clearSelection()
     Set<QString> oldSelection = _selectedFiles;
     _selectedFiles.clear();
     for( Set<QString>::Iterator fileIt = oldSelection.begin(); fileIt != oldSelection.end(); ++fileIt ) {
-        repaintCell( *fileIt );
+        updateCell( *fileIt );
     }
 }
 
@@ -621,8 +626,8 @@ bool ThumbnailView::ThumbnailView::isFocusAtFirstCell() const
  */
 ThumbnailView::Cell ThumbnailView::ThumbnailView::lastCell() const
 {
-    return Cell( (_imageList.count()-1) / thumbnailsPerRow(),
-                 (_imageList.count()-1) % thumbnailsPerRow());
+    return Cell( (_imageList.count()-1) / numCols(),
+                 (_imageList.count()-1) % numCols());
 }
 
 bool ThumbnailView::ThumbnailView::isMovementKey( int key )
@@ -638,7 +643,7 @@ void ThumbnailView::ThumbnailView::toggleSelection( const QString& fileName )
     else
         _selectedFiles.insert( fileName );
 
-    repaintCell( fileName );
+    updateCell( fileName );
 }
 
 QStringList ThumbnailView::ThumbnailView::selection() const
@@ -674,11 +679,6 @@ void ThumbnailView::ThumbnailView::selectAll()
     repaintScreen();
 }
 
-void ThumbnailView::ThumbnailView::repaintCell( int row, int col )
-{
-    QGridView::repaintCell( row, col );
-}
-
 void ThumbnailView::ThumbnailView::reload()
 {
     pixmapCache().clear();
@@ -689,8 +689,8 @@ void ThumbnailView::ThumbnailView::reload()
 void ThumbnailView::ThumbnailView::repaintScreen()
 {
     for ( int row = firstVisibleRow( PartlyVisible ); row <= lastVisibleRow( PartlyVisible ); ++row )
-        for ( int col = 0; col < thumbnailsPerRow(); ++col )
-            repaintCell( row, col );
+        for ( int col = 0; col < numCols(); ++col )
+            QGridView::updateCell( row, col );
 }
 
 QString ThumbnailView::ThumbnailView::fileNameUnderCursor() const
@@ -714,7 +714,7 @@ void ThumbnailView::ThumbnailView::setCurrentItem( const QString& fileName )
     _currentItem = fileName;
     _selectedFiles.clear();
     _selectedFiles.insert( fileName );
-    repaintCell( fileName );
+    updateCell( fileName );
     ensureCellVisible( cell.row(), cell.col() );
 }
 
@@ -754,8 +754,8 @@ void ThumbnailView::ThumbnailView::contentsDragMoveEvent( QDragMoveEvent* event 
             _leftDrop = _imageList[index];
     }
 
-    repaintCell( _leftDrop );
-    repaintCell( _rightDrop );
+    updateCell( _leftDrop );
+    updateCell( _rightDrop );
 }
 
 void ThumbnailView::ThumbnailView::contentsDragLeaveEvent( QDragLeaveEvent* )
@@ -808,8 +808,8 @@ void ThumbnailView::ThumbnailView::removeDropIndications()
     _leftDrop = QString::null;
     _rightDrop = QString::null;
 
-    repaintCell( left );
-    repaintCell( right );
+    updateCell( left );
+    updateCell( right );
 }
 
 void ThumbnailView::ThumbnailView::ensureCellsSorted( Cell& pos1, Cell& pos2 )
@@ -821,3 +821,21 @@ void ThumbnailView::ThumbnailView::ensureCellsSorted( Cell& pos1, Cell& pos2 )
     }
 }
 
+void ThumbnailView::ThumbnailView::slotRepaint()
+{
+    if ( (int) _pendingRepaint.count() > numCols() * numRowsPerPage() / 2 )
+        repaintScreen();
+    else {
+        for( Set<QString>::Iterator it = _pendingRepaint.begin(); it != _pendingRepaint.end(); ++it ) {
+            Cell cell = positionForFileName( *it );
+            QGridView::repaintCell( cell.row(), cell.col() );
+        }
+    }
+    _pendingRepaint.clear();
+}
+
+void ThumbnailView::ThumbnailView::dimensionChange( int oldNumRows, int /*oldNumCols*/ )
+{
+    if ( oldNumRows != numRows() )
+        repaintScreen();
+}

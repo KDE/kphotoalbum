@@ -18,6 +18,8 @@ class QPixmapCache;
 
 namespace ThumbnailView
 {
+enum SortDirection {NewestFirst, OldestFirst};
+
 class ThumbnailView : public QGridView, public ImageClient {
     Q_OBJECT
 
@@ -37,6 +39,8 @@ public:
     QString currentItem() const;
     static ThumbnailView* theThumbnailView();
     void setCurrentItem( const QString& fileName );
+    void setSortDirection( SortDirection );
+
 
 public slots:
     void gotoDate( const ImageDateRange& date, bool includeRanges );
@@ -103,6 +107,7 @@ protected:
     bool isMovementKey( int key );
     void selectItems( const Cell& start, const Cell& end );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
+    QStringList reverseList( const QStringList& );
 
 protected slots:
     void emitDateChange( int, int );
@@ -165,6 +170,8 @@ private:
     QTimer* _repaintTimer;
 
     Set<QString> _pendingRepaint;
+
+    SortDirection _sortDirection;
 };
 
 }

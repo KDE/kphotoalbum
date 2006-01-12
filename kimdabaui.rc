@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="30">
+<kpartgui name="kimdaba" version="34">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -24,6 +24,9 @@
       <Action name="limitToMarked" />
       <Separator/>
       <Action name="sortImages" />
+      <Action name="orderIncr"/>
+      <Action name="orderDecr"/>
+      <Separator/>
       <Menu name="privacy">
         <text>Privacy</text>
         <Action name="lockToDefaultScope"/>

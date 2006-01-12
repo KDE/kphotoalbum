@@ -137,6 +137,8 @@ protected slots:
     void slotShowExifInfo();
     void showFeatures();
     void showImage( const QString& fileName );
+    void slotOrderIncr();
+    void slotOrderDecr();
 
 protected:
     void configureImages( bool oneAtATime );

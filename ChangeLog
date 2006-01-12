@@ -1,3 +1,8 @@
+2006-01-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Its now possible to select whether the newest or the oldest
+	thumbnail should be shown first.
+
 2006-01-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Made it possible to configure the thumbnail cache.

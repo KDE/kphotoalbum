@@ -35,7 +35,8 @@ ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
      _gridResizeInteraction( this ),
      _selectionInteraction( this ),
      _mouseTrackingHandler( this ),
-     _mouseHandler( &_mouseTrackingHandler )
+     _mouseHandler( &_mouseTrackingHandler ),
+     _sortDirection( Options::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
 {
     _instance = this;
     int size = Options::instance()->thumbSize() + SPACE;
@@ -97,10 +98,14 @@ void ThumbnailView::ThumbnailView::paintCell( QPainter * p, int row, int col )
 
 void ThumbnailView::ThumbnailView::setImageList( const QStringList& list )
 {
-    _imageList = list;
+    if ( _sortDirection == OldestFirst )
+        _imageList = list;
+    else
+        _imageList = reverseList( list );
+
     if ( isVisible() ) {
         updateGridSize();
-        update();
+        repaintScreen();
     }
 }
 
@@ -835,4 +840,27 @@ void ThumbnailView::ThumbnailView::dimensionChange( int oldNumRows, int /*oldNum
 {
     if ( oldNumRows != numRows() )
         repaintScreen();
+}
+
+void ThumbnailView::ThumbnailView::setSortDirection( SortDirection direction )
+{
+    if ( direction == _sortDirection )
+        return;
+
+    Options::instance()->setShowNewestFirst( direction == NewestFirst );
+    _imageList = reverseList( _imageList );
+    if ( !_currentItem.isNull() )
+        setCurrentItem( _currentItem );
+    repaintScreen();
+
+    _sortDirection = direction;
+}
+
+QStringList ThumbnailView::ThumbnailView::reverseList( const QStringList& list)
+{
+    QStringList res;
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        res.prepend(*it);
+    }
+    return res;
 }

@@ -544,6 +544,14 @@ void MainView::setupMenuBar()
                                  actionCollection(), "runSlideShow" );
     _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), 0, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );
+    KToggleAction* incr = new KToggleAction( i18n("Show &Oldest Image First"), 0, this,
+                                             SLOT( slotOrderIncr() ), actionCollection(), "orderIncr" );
+    KToggleAction* decr = new KToggleAction( i18n("Show &Newest Image First"), 0, this,
+                                             SLOT( slotOrderDecr() ), actionCollection(), "orderDecr" );
+    incr->setExclusiveGroup( QString::fromLatin1( "Sort Direction") );
+    decr->setExclusiveGroup(QString::fromLatin1( "Sort Direction") );
+    incr->setChecked( !Options::instance()->showNewestThumbnailFirst() );
+    decr->setChecked( Options::instance()->showNewestThumbnailFirst() );
 
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date && Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
@@ -1323,6 +1331,16 @@ void MainView::showImage( const QString& fileName )
 void MainView::slotBuildThumbnails()
 {
     new ThumbnailView::ThumbnailBuilder( this ); // It will delete itself
+}
+
+void MainView::slotOrderIncr()
+{
+    _thumbnailView->setSortDirection( ThumbnailView::OldestFirst );
+}
+
+void MainView::slotOrderDecr()
+{
+    _thumbnailView->setSortDirection( ThumbnailView::NewestFirst );
 }
 
 #include "mainview.moc"

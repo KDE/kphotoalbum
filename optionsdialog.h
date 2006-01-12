@@ -90,6 +90,7 @@ private:
     QSpinBox* _previewSize;
     QComboBox* _albumCategory;
     QCheckBox* _searchForImagesOnStartup;
+    QSpinBox* _thumbnailCache;
     QSpinBox* _autoShowThumbnailView;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;

@@ -72,6 +72,7 @@ public:
     intProperty( Thumbnails, thumbSize, setThumbSize, 128 );
     intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
     intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
+    intProperty( Thumbnails, thumbnailCache, setThumbnailCache, 4096 );
 
     // -------------------------------------------------- Viewer
     sizeProperty( Viewer, viewerSize, setViewerSize, QSize( 800,600 ) );

@@ -168,7 +168,7 @@ QPixmapCache& ThumbnailView::ThumbnailView::pixmapCache()
 {
     static QPixmapCache cache;
     static int lastSize = -1;
-    cache.setCacheLimit( 4* 1024 ); // PENDING(blackie) make this size customizable
+    cache.setCacheLimit( Options::instance()->thumbnailCache() );
     int currentThumbSize = Options::instance()->thumbSize();
     if (lastSize != currentThumbSize) {
         cache.clear();

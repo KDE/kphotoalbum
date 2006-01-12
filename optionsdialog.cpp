@@ -221,30 +221,32 @@ void OptionsDialog::createThumbNailPage()
     QWidget* top = addPage( i18n("Thumbnail View" ), i18n("Thumbnail View" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_icon" ),
                                                              KIcon::Desktop, 32 ) );
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
-    QHBoxLayout* hlay = new QHBoxLayout( lay1, 6 );
+
+    QGridLayout* lay = new QGridLayout( top );
+    int row = 0;
 
     // Preview size
     QLabel* previewSizeLabel = new QLabel( i18n("Preview image size:" ), top, "previewSizeLabel" );
     _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
     _previewSize->setSpecialValueText( i18n("No Image Preview") );
-    hlay->addWidget( previewSizeLabel );
-    hlay->addWidget( _previewSize );
-    hlay->addStretch( 1 );
-
-    QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
-    lay4->addStretch(1);
+    lay->addWidget( previewSizeLabel, row, 0 );
+    lay->addWidget( _previewSize, row, 1 );
 
     // Auto Show Thumbnail view
-    QLabel* autoShowLabel = new QLabel( i18n("Automatically show thumbnail view when images matches gets below: "), top );
+    ++row;
+    QLabel* autoShowLabel = new QLabel( i18n("Auto display limit: "), top );
     _autoShowThumbnailView = new QSpinBox( 0, 10000, 10, top );
     _autoShowThumbnailView->setSpecialValueText( i18n("Never") );
-    lay4 = new QHBoxLayout( lay1, 6 );
-    lay4->addWidget( autoShowLabel );
-    lay4->addWidget( _autoShowThumbnailView );
+    lay->addWidget( autoShowLabel, row, 0 );
+    lay->addWidget( _autoShowThumbnailView, row, 1 );
 
-
-    lay1->addStretch(1);
+    // Thumbnail Cache
+    ++row;
+    QLabel* cacheLabel = new QLabel( i18n( "Thumbnail cache:" ), top );
+    _thumbnailCache = new QSpinBox( 1024, 256*1024, 1024, top );
+    _thumbnailCache->setSuffix( i18n("Mbytes" ) );
+    lay->addWidget( cacheLabel, row, 0 );
+    lay->addWidget( _thumbnailCache, row, 1 );
 
     // Whats This
     QString txt;
@@ -263,6 +265,10 @@ void OptionsDialog::createThumbNailPage()
                "With this option off, you can choose to see the images by pressing ctrl+mouse button.</p></qt>");
     QWhatsThis::add( _autoShowThumbnailView, txt );
     QWhatsThis::add( autoShowLabel, txt );
+
+    txt = i18n("<qt><p>Specify the size of the cache used to hold thumbnails.</p></qt>");
+    QWhatsThis::add( cacheLabel, txt );
+    QWhatsThis::add( _thumbnailCache, txt );
 }
 
 
@@ -386,6 +392,7 @@ void OptionsDialog::show()
     _slideShowSetup->setLaunchFullScreen( opt->launchSlideShowFullScreen() );
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );
+    _thumbnailCache->setValue( opt->thumbnailCache() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
 
     _delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
@@ -436,6 +443,7 @@ void OptionsDialog::slotMyOK()
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );
     opt->setViewerCacheSize( _cacheSize->value() );
+    opt->setThumbnailCache( _thumbnailCache->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
     opt->setAutoShowThumbnailView( _autoShowThumbnailView->value() );

@@ -1,6 +1,6 @@
 2006-01-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* Completely reimplemented the thumbnail dialog, to solve a huge
+	* Completely reimplemented the thumbnail view, to solve a huge
 	amount of issues with QIconView.
 
 2005-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

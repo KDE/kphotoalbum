@@ -235,10 +235,6 @@ void OptionsDialog::createThumbNailPage()
     QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
     lay4->addStretch(1);
 
-    // Display Labels
-    _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
-    lay1->addWidget( _displayLabels );
-
     // Auto Show Thumbnail view
     QLabel* autoShowLabel = new QLabel( i18n("Automatically show thumbnail view when images matches gets below: "), top );
     _autoShowThumbnailView = new QSpinBox( 0, 10000, 10, top );
@@ -259,10 +255,6 @@ void OptionsDialog::createThumbNailPage()
     QWhatsThis::add( previewSizeLabel, txt );
     QWhatsThis::add( _previewSize, txt );
 
-
-    txt = i18n("<qt>Checking this option will show the base name for the file under "
-               "thumbnails in the thumbnail view</qt>");
-    QWhatsThis::add( _displayLabels, txt );
 
     txt = i18n("<qt><p>When you are browsing the images, and the count gets below the value specified here, "
                "the thumbnails will be shown automatically. The alternative is to continue showing the "
@@ -388,7 +380,6 @@ void OptionsDialog::show()
         cat = ImageDB::instance()->categoryCollection()->categories()[0];
     _albumCategory->setCurrentText( cat->text() );
 
-    _displayLabels->setChecked( opt->displayLabels() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
@@ -441,7 +432,6 @@ void OptionsDialog::slotMyOK()
     opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
-    opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );

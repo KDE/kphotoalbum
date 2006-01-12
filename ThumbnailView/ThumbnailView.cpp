@@ -15,9 +15,6 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 
-// PENDING(blackie) TODO:
-// - show file names
-
 /**
  * \namespace ThumbnailView
  * The thumbnail view.

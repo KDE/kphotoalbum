@@ -89,7 +89,6 @@ private:
     QCheckBox* _useEXIFComments;
     QSpinBox* _previewSize;
     QComboBox* _albumCategory;
-    QCheckBox* _displayLabels;
     QCheckBox* _searchForImagesOnStartup;
     QSpinBox* _autoShowThumbnailView;
     QSpinBox* _barWidth;

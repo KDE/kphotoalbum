@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kimdaba" version="29">
+<kpartgui name="kimdaba" version="30">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -44,6 +44,7 @@
       <Action name="convertBackend" />
       <Separator/>
       <Action name="removeAllThumbs"/>
+      <Action name="buildThumbs"/>
     </Menu>
     <Menu name="plugins">
       <text>Plugins</text>

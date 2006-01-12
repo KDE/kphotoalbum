@@ -110,6 +110,7 @@ protected slots:
     void markDirty();
     void donateMoney();
     void slotRemoveAllThumbnails();
+    void slotBuildThumbnails();
     void slotRunSlideShow();
     void slotRunRandomizedSlideShow();
     void slotConfigureToolbars();

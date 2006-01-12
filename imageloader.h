@@ -37,6 +37,7 @@ protected:
     int calcLoadSize( ImageRequest* request );
     QImage scaleAndRotate( ImageRequest* request, QImage img );
     QString thumbnailPath( ImageRequest* request );
+    QString thumbnailPath( QString uri, int dim );
     QString requestURL( ImageRequest* request );
 
 private:

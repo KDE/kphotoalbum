@@ -20,6 +20,7 @@
 #include <optionsdialog.h>
 #include <qapplication.h>
 #include "ThumbnailView/ThumbnailView.h"
+#include "ThumbnailView/ThumbnailBuilder.h"
 #include "imageconfig.h"
 #include <qdir.h>
 #include <qfile.h>
@@ -571,6 +572,7 @@ void MainView::setupMenuBar()
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
 #endif
     new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
+    new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
     new KAction( i18n("Remove All KimDaBa 2.1 Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
 
     // Settings
@@ -1316,6 +1318,11 @@ void MainView::showImage( const QString& fileName )
         viewer->load( list );
     }
 
+}
+
+void MainView::slotBuildThumbnails()
+{
+    new ThumbnailView::ThumbnailBuilder( this ); // It will delete itself
 }
 
 #include "mainview.moc"

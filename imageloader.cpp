@@ -149,22 +149,27 @@ void ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
     dir.mkdir( QString::fromLatin1( "normal" ) );
     dir.mkdir( QString::fromLatin1( "large" ) );
 
-    QString path = thumbnailPath( request );
-    if ( path.isNull() )
-        return;
-
     int dim = calcLoadSize( request );
-    QFileInfo fi( request->fileName() );
-    img = img.smoothScale( dim, dim, QImage::ScaleMin );
-    img.setText( "Software","en",QString::fromLatin1( "KimDaBa" ) );
-    img.setText( "Thumb::URI", "en", requestURL( request ) );
-    img.setText( "Thumb::MTime", "en", QString::number( fi.lastModified().toTime_t() ) );
-    img.setText( "Thumb::Size", "en", QString::number( fi.size() ) );
-    img.setText( "Thumb::Image::Width", "en", QString::number( request->fullSize().width() ) );
-    img.setText( "Thumb::Image::Height", "en", QString::number( request->fullSize().height() ) );
+    QValueList<int> list;
+    list << 128;
+    if ( dim == 256 )
+        list << 256;
 
+    for( QValueList<int>::Iterator it = list.begin(); it != list.end(); ++it ) {
+        QString path = thumbnailPath( requestURL( request ), *it );
+        if ( path.isNull() )
+            continue;
 
-    img.save( path, "PNG" );
+        QFileInfo fi( request->fileName() );
+        QImage scaledImg = img.smoothScale( *it, *it, QImage::ScaleMin );
+        scaledImg.setText( "Software","en",QString::fromLatin1( "KimDaBa" ) );
+        scaledImg.setText( "Thumb::URI", "en", requestURL( request ) );
+        scaledImg.setText( "Thumb::MTime", "en", QString::number( fi.lastModified().toTime_t() ) );
+        scaledImg.setText( "Thumb::Size", "en", QString::number( fi.size() ) );
+        scaledImg.setText( "Thumb::Image::Width", "en", QString::number( request->fullSize().width() ) );
+        scaledImg.setText( "Thumb::Image::Height", "en", QString::number( request->fullSize().height() ) );
+        scaledImg.save( path, "PNG" );
+    }
 }
 
 int ImageLoader::calcLoadSize( ImageRequest* request )
@@ -202,12 +207,15 @@ QImage ImageLoader::scaleAndRotate( ImageRequest* request, QImage img )
 
 QString ImageLoader::thumbnailPath( ImageRequest* request )
 {
-    QString uri = requestURL( request );
+    return thumbnailPath( requestURL( request ), calcLoadSize( request ) );
+}
 
+QString ImageLoader::thumbnailPath( QString uri, int dim )
+{
     QString dir;
-    if ( calcLoadSize( request ) == 256 )
+    if ( dim == 256 )
         dir = QString::fromLatin1( "large" );
-    else if ( calcLoadSize( request ) == 128 )
+    else if ( dim == 128 )
         dir = QString::fromLatin1( "normal" );
     else
         return QString::null;

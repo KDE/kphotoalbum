@@ -18,8 +18,6 @@ class QPixmapCache;
 
 namespace ThumbnailView
 {
-enum CoordinateSystem {ViewportCoordinates, ContentsCoordinates };
-
 class ThumbnailView : public QGridView, public ImageClient {
     Q_OBJECT
 

@@ -72,13 +72,14 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* )
 
 void ThumbnailView::SelectionInteraction::handleDragSelection()
 {
-    Cell pos1 = _view->cellAtCoordinate( _mousePressPos, ContentsCoordinates );
-    QPoint viewportPos = _view->viewport()->mapFromGlobal( QCursor::pos() );
-    Cell pos2 = _view->cellAtCoordinate( viewportPos, ViewportCoordinates );
+    Cell pos1;
+    Cell pos2;
+    calculateSelection( &pos1, &pos2 );
 
     _view->_currentItem = _view->fileNameInCell( pos2 );
 
     // Auto scroll
+    QPoint viewportPos = _view->viewport()->mapFromGlobal( QCursor::pos() );
     if ( viewportPos.y() < 0 )
         _view->scrollBy( 0, viewportPos.y()/2 );
     else if ( viewportPos.y() > _view->height() )
@@ -105,14 +106,8 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
  */
 bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewportPos ) const
 {
-    Cell pos = _view->cellAtCoordinate( viewportPos, ViewportCoordinates );
-    QRect cellRect = const_cast<ThumbnailView*>(_view)->cellGeometry(pos.row(), pos.col() );
-    QRect iconRect = _view->iconGeometry( pos.row(), pos.col() );
-
-    // map iconRect from local coordinates within the cell to contents coordinates
-    iconRect.moveBy( cellRect.x(), cellRect.y() );
-
-    return iconRect.contains( _view->viewportToContents(viewportPos) );
+    QRect rect = iconRect( viewportPos, ViewportCoordinates );
+    return rect.contains( _view->viewportToContents(viewportPos) );
 }
 
 void ThumbnailView::SelectionInteraction::startDrag()
@@ -133,4 +128,70 @@ void ThumbnailView::SelectionInteraction::startDrag()
 bool ThumbnailView::SelectionInteraction::isDragging() const
 {
     return _dragInProgress;
+}
+
+void ThumbnailView::SelectionInteraction::calculateSelection( Cell* pos1, Cell* pos2 )
+{
+    *pos1 = _view->cellAtCoordinate( _mousePressPos, ContentsCoordinates );
+    QPoint viewportPos = _view->viewport()->mapFromGlobal( QCursor::pos() );
+    *pos2 = _view->cellAtCoordinate( viewportPos, ViewportCoordinates );
+
+    if ( *pos1 < *pos2 ) {
+        if ( atRightSide( _mousePressPos ) )
+            *pos1 = nextCell( *pos1 );
+        if ( atLeftSide( _view->viewportToContents( viewportPos ) ) )
+            *pos2 = prevCell( *pos2 );
+    }
+    else if ( *pos1 > *pos2 ) {
+        if ( atLeftSide( _mousePressPos ) )
+            *pos1 = prevCell( *pos1 );
+        if ( atRightSide( _view->viewportToContents( viewportPos ) ) )
+            *pos2 = nextCell( *pos2 );
+    }
+}
+
+bool ThumbnailView::SelectionInteraction::atLeftSide( const QPoint& contentCoordinates )
+{
+    QRect rect = iconRect( contentCoordinates, ContentsCoordinates );
+    return contentCoordinates.x() < rect.left();
+}
+
+bool ThumbnailView::SelectionInteraction::atRightSide( const QPoint& contentCoordinates )
+{
+    QRect rect = iconRect( contentCoordinates, ContentsCoordinates );
+    return contentCoordinates.x() > rect.right();
+}
+
+ThumbnailView::Cell ThumbnailView::SelectionInteraction::prevCell( const Cell& cell )
+{
+    Cell res( cell.row(), cell.col() -1 );
+    if ( res.col() == -1 )
+        res = Cell( cell.row()-1, _view->numCols()-1 );
+    if ( res < Cell(0,0) )
+        return Cell(0,0);
+    else
+        return res;
+}
+
+ThumbnailView::Cell ThumbnailView::SelectionInteraction::nextCell( const Cell& cell )
+{
+    Cell res( cell.row(), cell.col()+1 );
+    if ( res.col() == _view->numCols() )
+        res = Cell( cell.row()+1, 0 );
+    if ( res > _view->lastCell() )
+        return _view->lastCell();
+    else
+        return res;
+}
+
+QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, CoordinateSystem system ) const
+{
+    Cell pos = _view->cellAtCoordinate( coordinate, system );
+    QRect cellRect = const_cast<ThumbnailView*>(_view)->cellGeometry(pos.row(), pos.col() );
+    QRect iconRect = _view->iconGeometry( pos.row(), pos.col() );
+
+    // map iconRect from local coordinates within the cell to the coordinates requires
+    iconRect.moveBy( cellRect.x(), cellRect.y() );
+
+    return iconRect;
 }

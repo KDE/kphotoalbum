@@ -4,7 +4,7 @@
 #include "MouseInteraction.h"
 #include <qobject.h>
 #include "set.h"
-
+#include "Cell.h"
 
 namespace ThumbnailView
 {
@@ -23,9 +23,15 @@ public:
 protected:
     bool isMouseOverIcon( const QPoint& viewportPos ) const;
     void startDrag();
+    bool atLeftSide( const QPoint& contentCoordinates );
+    bool atRightSide( const QPoint& contentCoordinates );
+    Cell prevCell( const Cell& cell );
+    Cell nextCell( const Cell& cell );
+    QRect iconRect( const QPoint& pos, CoordinateSystem ) const;
 
 protected slots:
     void handleDragSelection();
+    void calculateSelection( Cell* pos1, Cell* pos2 );
 
 private:
     /**

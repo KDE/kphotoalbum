@@ -2,6 +2,8 @@
 #define THUMBNAILVIEW_CELL_H
 
 namespace ThumbnailView {
+enum CoordinateSystem {ViewportCoordinates, ContentsCoordinates };
+
 
 class Cell
 {

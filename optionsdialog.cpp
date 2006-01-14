@@ -77,7 +77,7 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
 void OptionsDialog::createGeneralPage()
 {
     QWidget* top = addPage( i18n("General" ), i18n("General" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
@@ -158,7 +158,7 @@ void OptionsDialog::createGeneralPage()
     // Whats This
     QString txt;
 
-    txt = i18n( "<qt><p>KimDaBa will try to read the image date from EXIF information in the image. "
+    txt = i18n( "<qt><p>KPhotoAlbum will try to read the image date from EXIF information in the image. "
                 "If that fails it will try to get the date from the file's time stamp.</p>"
                 "<p>However, this information will be wrong if the image was scanned in (you want the date the image "
                 "was taken, not the date of the scan).</p>"
@@ -180,37 +180,37 @@ void OptionsDialog::createGeneralPage()
                "default description for your images.</p></qt>" );
     QWhatsThis::add( _useEXIFComments, txt );
 
-    txt = i18n( "<qt><p>KimDaBa is capable of searching for new images itself when started, this does, "
-                "however, take some time, so instead you may wish to manually tell KimDaBa to search for new images "
+    txt = i18n( "<qt><p>KPhotoAlbum is capable of searching for new images itself when started, this does, "
+                "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
                 "using <tt>Maintenance->Rescan for new images</tt></qt>");
     QWhatsThis::add( _searchForImagesOnStartup, txt );
 
-    txt = i18n("<qt><p>KimDaBa shares plugins with other imaging applications, some of which have the concept of albums. "
-               "KimDaBa do not have this concept; nevertheless, for certain plugins to function, KimDaBa behaves "
+    txt = i18n("<qt><p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
+               "KPhotoAlbum do not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
                "to the plugin system as if it did.</p>"
-               "<p>KimDaBa does this by defining the current album to be the current view - that is, all the images the "
+               "<p>KPhotoAlbum does this by defining the current album to be the current view - that is, all the images the "
                "browser offers to display.</p>"
-               "<p>In addition to the current album, KimDaBa must also be able to give a list of all albums; "
+               "<p>In addition to the current album, KPhotoAlbum must also be able to give a list of all albums; "
                "the list of all albums is defined in the following way:"
-               "<ul><li>When KimDaBa's browser displays the content of a category, say all Persons, then each item in this category "
+               "<ul><li>When KPhotoAlbum's browser displays the content of a category, say all Persons, then each item in this category "
                "will look like an album to the plugin."
                "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify Persons "
-               "with this option, then KimDaBa will act as if you had just chosen to display persons and then invoke "
+               "with this option, then KPhotoAlbum will act as if you had just chosen to display persons and then invoke "
                "the plugin which needs to know about all albums.</p>"
                "<p>Most users would probably want to specify Keywords here.</p></qt>");
     QWhatsThis::add( albumCategoryLabel, txt );
     QWhatsThis::add( _albumCategory, txt );
 
-    txt = i18n("<qt><p>KimDaBa has the possibility to back up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc."
-               "using the spinbox specify the amount of backup files to keep - KimDaBa will delete the oldest backup file when it reaches "
+    txt = i18n("<qt><p>KPhotoAlbum has the possibility to back up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc."
+               "using the spinbox specify the amount of backup files to keep - KPhotoAlbum will delete the oldest backup file when it reaches "
                "the maximum amount of backup files.</p>"
-               "<p>The index.xml file may grow large if you have many images, and in that case it is useful to ask KimDaBa to zip "
+               "<p>The index.xml file may grow large if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
                "the backup files to preserve disk space.</p></qt>" );
     QWhatsThis::add( backupLabel, txt );
     QWhatsThis::add( _backupCount, txt );
     QWhatsThis::add( _compressBackup, txt );
 
-    txt = i18n( "<qt>KimDaBa is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
+    txt = i18n( "<qt>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
                 "a long time to read this file. You may cut down this time by approaximately a factor of 2 by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</qt>");
     QWhatsThis::add( _compressedIndexXML, txt );

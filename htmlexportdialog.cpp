@@ -347,7 +347,7 @@ bool HTMLExportDialog::generate()
         kdDebug() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir ) << endl;
 
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-        if( *it == QString::fromLatin1("kimdaba.theme") ||
+        if( *it == QString::fromLatin1("kphotoalbum.theme") ||
             *it == QString::fromLatin1("mainpage.html") ||
             *it == QString::fromLatin1("imagepage.html")) continue;
         QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
@@ -376,11 +376,11 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
     if ( content.isNull() )
         return false;
 
-    content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://ktown.kde.org/kphotoalbum/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
     content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _title->text() );
-    QString kimLink = QString::fromLatin1( "Share and Enjoy <a href=\"%1\">KimDaBa export file</a>" ).arg( kimFileName( true ) );
+    QString kimLink = QString::fromLatin1( "Share and Enjoy <a href=\"%1\">KPhotoAlbum export file</a>" ).arg( kimFileName( true ) );
     if ( _generateKimFile->isChecked() )
         content.replace( QString::fromLatin1( "**KIMFILE**" ), kimLink );
     else
@@ -479,7 +479,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
 
     ImageInfoPtr info = ImageDB::instance()->info( current );
 
-    content = QString::fromLatin1("<!--\nMade with KimDaba. (http://ktown.kde.org/kimdaba/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://ktown.kde.org/kphotoalbum/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
     content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
     content.replace( QString::fromLatin1( "**IMAGE**" ), createImage( current, width ) );
@@ -801,7 +801,7 @@ QValueList<ImageSizeCheckBox*> HTMLExportDialog::activeResolutions()
 
 void HTMLExportDialog::populateThemesCombo()
 {
-    QStringList dirs = KGlobal::dirs()->findDirs( "data", QString::fromLocal8Bit("kimdaba/themes/") );
+    QStringList dirs = KGlobal::dirs()->findDirs( "data", QString::fromLocal8Bit("kphotoalbum/themes/") );
     int i = 0;
     for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
         QDir dir(*it);
@@ -810,7 +810,7 @@ void HTMLExportDialog::populateThemesCombo()
             if(*it == QString::fromLatin1(".") || *it == QString::fromLatin1("..")) continue;
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
 
-            KSimpleConfig themeConfig( QString::fromLatin1( "%1kimdaba.theme" ).arg( themePath ), true );
+            KSimpleConfig themeConfig( QString::fromLatin1( "%1kphotoalbum.theme" ).arg( themePath ), true );
             if( !themeConfig.hasGroup( QString::fromLatin1( "theme" ) ) ) {
                 kdDebug() << QString::fromLatin1("invalid theme: %1 (missing theme section)").arg( *it )
                           << endl;
@@ -834,7 +834,7 @@ void HTMLExportDialog::populateThemesCombo()
 void HTMLExportDialog::getThemeInfo( QString* baseDir, QString* name, QString* author )
 {
     *baseDir = _themes[_themeBox->currentItem()];
-    KSimpleConfig themeConfig( QString::fromLatin1( "%1kimdaba.theme" ).arg( *baseDir ), true );
+    KSimpleConfig themeConfig( QString::fromLatin1( "%1kphotoalbum.theme" ).arg( *baseDir ), true );
     themeConfig.setGroup( QString::fromLatin1( "theme" ) );
     *name = themeConfig.readEntry( "Name" );
     *author = themeConfig.readEntry( "Author" );

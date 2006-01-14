@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KimDaBa version="2" >
+<KPhotoAlbum version="2" >
  <images>
   <image width="569" startDate="1985-01-01T00:00:00" height="800" endDate="1985-12-31T23:59:59" md5sum="570cb78b687b85f1e840b276868832aa" file="img016.jpg" label="img016" angle="0" description="" >
    <options>
@@ -50,7 +50,7 @@
     </option>
    </options>
   </image>
-  <image width="550" startDate="1998-01-01T00:00:00" height="800" endDate="2000-12-31T23:59:59" md5sum="4ce27d23f69210d809bd2e8e0f188151" file="img020.jpg" label="img020" angle="0" description="Notice the picture range. As this picture was scanned in I did not know exactly when it was taken. Fortunately KimDaBa allows me to specify a range. In the line edit simply type 1998-2000, and it will replace it with 1 Jan. 1998 - 31. Dec 2000" >
+  <image width="550" startDate="1998-01-01T00:00:00" height="800" endDate="2000-12-31T23:59:59" md5sum="4ce27d23f69210d809bd2e8e0f188151" file="img020.jpg" label="img020" angle="0" description="Notice the picture range. As this picture was scanned in I did not know exactly when it was taken. Fortunately KPhotoAlbum allows me to specify a range. In the line edit simply type 1998-2000, and it will replace it with 1 Jan. 1998 - 31. Dec 2000" >
    <options>
     <option name="Folder" >
      <value value="(base folder)" />
@@ -371,4 +371,4 @@
    <value value="Donna" />
   </option>
  </options>
-</KimDaBa>
+</KPhotoAlbum>

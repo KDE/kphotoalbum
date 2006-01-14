@@ -6,7 +6,7 @@ if test x$have_kipi = xno; then
     echo "------------------------------------------"
     echo ""
 	echo "You are missing the KIPI plugin interface from kdeextragear-libs-1"
-    echo "KimDaBa will thus be missing the plugins"
+    echo "KPhotoAlbum will thus be missing the plugins"
     echo ""
     echo ""
 fi

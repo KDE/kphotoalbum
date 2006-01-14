@@ -8,7 +8,7 @@
 #include <config.h>
 
 FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("KimDaBa Feature Status"), Close, Close, parent, name )
+    :KDialogBase( Plain, i18n("KPhotoAlbum Feature Status"), Close, Close, parent, name )
 {
     QWidget* top = plainPage();
     QHBoxLayout* layout = new QHBoxLayout( top, 10 );
@@ -40,7 +40,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
     QString text =
         i18n("<h1>Overview</h1>"
-             "<p>Below you may see the list of compile- and runtime features KimDaBa has, and their status:</p>"
+             "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
 
              "<p><table>"
              "<tr><td><a href=\"#kipi\">Plug-ins available</a></td><td>%1</tr></tr>"
@@ -56,22 +56,22 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
     text += i18n( "<h1>What can I do if I miss a feature?</h1>"
 
-                  "<p>If you compiled KimDaBa yourself, then please review the sections below to learn what to install "
-                  "to get the feature in question. If on the other hand you installed KimDaBa from a binary package, please tell "
+                  "<p>If you compiled KPhotoAlbum yourself, then please review the sections below to learn what to install "
+                  "to get the feature in question. If on the other hand you installed KPhotoAlbum from a binary package, please tell "
                   "whoever made the package about this defeact, eventually including the information from the section below.<p>"
 
-                  "<p>In case you are missing a feature and you did not compile KimDaBa yourself, please do consider doing so. "
-                  "It really isn't that hard. If you need help compiling KimDaBa, feel free to ask on the "
-                  "<a href=\"http://mail.kdab.net/mailman/listinfo/kimdaba\">KimDaBa mailing list</a></p>"
+                  "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
+                  "It really isn't that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
+                  "<a href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
 
-                  "<p>The steps to compile KimDaBa can be seen on <a href=\"http://ktown.kde.org/kimdaba/download-source.htm\">"
-                  "the KimDaBa home page</a>. If you have never compiled a KDE application, then please ensure that "
+                  "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://ktown.kde.org/kphotoalbum/download-source.htm\">"
+                  "the KPhotoAlbum home page</a>. If you have never compiled a KDE application, then please ensure that "
                   "you have the developer packages installed, in most distributions they go under names like kdelibs<i>-devel</i></p>" );
 
 
 
     text += i18n( "<h1><a name=\"kipi\">Plug-ins Support</a></h1>"
-                 "<p>KimDaBa has a plug-in system with lots of extensions. You may among other things find plug-ins for:"
+                 "<p>KPhotoAlbum has a plug-in system with lots of extensions. You may among other things find plug-ins for:"
                   "<ul>"
                   "<li>Writting images to cds or dvd's"
                   "<li>Adjusting timestamps on your images"
@@ -86,17 +86,17 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "<p>Images store information like date image was shot, angle it was shot with, focal length, and shutter time "
                   "in what is know as EXIF information.</p>"
 
-                  "<p>If you do not care about focal length, ISO speed, etc, then you might well live without these features in KimDaBa, "
-                  "be, however, aware that KimDaBa will then use the time stamp of the image files to identify when the image was taken. "
+                  "<p>If you do not care about focal length, ISO speed, etc, then you might well live without these features in KPhotoAlbum, "
+                  "be, however, aware that KPhotoAlbum will then use the time stamp of the image files to identify when the image was taken. "
                   "This time stamp might be wrong in case you moved the image arround for example.</p>"
 
-                  "<p>KimDaBa uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
+                  "<p>KPhotoAlbum uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
                   "for reading EXIF information from images</p>"
         );
 
 
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"
-                  "KimDaBa allows you to search using a certain number of EXIF tags. For this KimDaBa "
+                  "KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs a Sqlite database. Unfortunately, for this to work, you need to run Sqlite version 2.8.16, "
                   "so please make sure this is the right version installed on your system." );
     edit->setText( text );

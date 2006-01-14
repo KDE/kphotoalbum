@@ -306,7 +306,7 @@ void SQLDB::SQLDB::openDatabase()
         qFatal("What?!");
     }
 
-    database->setDatabaseName( "kimdaba" );
+    database->setDatabaseName( "kphotoalbum" );
     database->setUserName("root"); // PENDING(blackie) change
     if ( !database->open() )
         qFatal("Couldn't open db");

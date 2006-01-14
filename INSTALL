@@ -1,22 +1,22 @@
-A number of binary packages of KimDaBa is available from the home page at 
-http://ktown.kde.org/kimdaba. You may want to have a look there before
+A number of binary packages of KPhotoAlbum is available from the home page at 
+http://ktown.kde.org/kphotoalbum. You may want to have a look there before
 proceeding compiling the sources yourself.
 
-To install KimDaBa into your normal KDE setup, simply run
+To install KPhotoAlbum into your normal KDE setup, simply run
 ./configure
 make
 make install
 
-If you want KimDaBa placed in a different directories take the following
-steps. Below I assume /opt/KimDaBa for your instalation direction, replace
+If you want KPhotoAlbum placed in a different directories take the following
+steps. Below I assume /opt/KPhotoAlbum for your instalation direction, replace
 with your preference.
 
-./configure --prefix=/opt/KimDaBa
+./configure --prefix=/opt/KPhotoAlbum
 make
 make install
 
 Next modify your ~/.bashrc, ~/.zshrc, or whatever to include this line:
-export KDEDIRS=/opt/KimDaBa:$KDEDIRS
+export KDEDIRS=/opt/KPhotoAlbum:$KDEDIRS
 
 In case of problems, please refer to the README file for further instructions.
 

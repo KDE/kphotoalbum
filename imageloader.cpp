@@ -165,7 +165,7 @@ void ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
 
         QFileInfo fi( request->fileName() );
         QImage scaledImg = img.smoothScale( *it, *it, QImage::ScaleMin );
-        scaledImg.setText( "Software","en",QString::fromLatin1( "KimDaBa" ) );
+        scaledImg.setText( "Software","en",QString::fromLatin1( "KPhotoAlbum" ) );
         scaledImg.setText( "Thumb::URI", "en", requestURL( request ) );
         scaledImg.setText( "Thumb::MTime", "en", QString::number( fi.lastModified().toTime_t() ) );
         scaledImg.setText( "Thumb::Size", "en", QString::number( fi.size() ) );

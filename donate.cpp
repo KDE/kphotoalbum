@@ -33,10 +33,10 @@ Donate::Donate( QWidget* parent, const char* name )
     QLabel* image = new QLabel( top, "image" );
     image->setMinimumSize( QSize( 273, 204 ) );
     image->setMaximumSize( QSize( 273, 204 ) );
-    image->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/splash.png") ) );
+    image->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
     layout->addWidget( image );
 
-    QString txt = i18n("<qt><p><center><b>Donate Money to the KimDaBa developer</b></center></p>"
+    QString txt = i18n("<qt><p><center><b>Donate Money to the KPhotoAlbum developer</b></center></p>"
 
                        "<p>My digital camera is starting to get old "
                        "so I hope that all of you would show your appreciation of my work, by helping me buy a new one, that will "

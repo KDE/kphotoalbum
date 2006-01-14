@@ -367,7 +367,7 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
     QDomDocument doc;
 
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement top = doc.createElement( QString::fromLatin1("KimDaBa") );
+    QDomElement top = doc.createElement( QString::fromLatin1("KPhotoAlbum") );
     top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "2" ) );
     doc.appendChild( top );
 
@@ -407,10 +407,10 @@ QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
     QFile file( configFile );
     if ( !file.exists() ) {
         // Load a default setup
-        QFile file( locate( "data", QString::fromLatin1( "kimdaba/default-setup" ) ) );
+        QFile file( locate( "data", QString::fromLatin1( "kphotoalbum/default-setup" ) ) );
         if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::information( 0, i18n( "<qt><p>KimDaBa was unable to load a default setup, which indicates an installation error</p>"
-                                               "<p>If you have installed KimDaBa yourself, then you must remember to set the environment variable "
+            KMessageBox::information( 0, i18n( "<qt><p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
+                                               "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
                                                "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
                                                "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
                                                "environment variable setup (this example is for Bash and compatible shells):</p>"
@@ -454,8 +454,8 @@ QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
         exit(-1);
     }
 
-    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) {
-        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: expected 'KimDaBa' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
+    if ( top.tagName().lower() != QString::fromLatin1( "kphotoalbum" ) ) {
+        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
         exit(-1);
     }
 
@@ -785,18 +785,18 @@ int XMLDB::XMLDB::fileVersion()
 void XMLDB::XMLDB::checkAndWarnAboutVersionConflict()
 {
     if ( _fileVersion == 1 ) {
-        KMessageBox::information( 0, i18n( "<p>The index.xml file read was from an older version of KimDaBa. "
-                                           "KimDaBa read the old format without problems, but to be able to convert back to "
-                                           "KimDaBa 2.1 format, you need to run the current KimDaBa using the flag "
+        KMessageBox::information( 0, i18n( "<p>The index.xml file read was from an older version of KPhotoAlbum. "
+                                           "KPhotoAlbum read the old format without problems, but to be able to convert back to "
+                                           "KimDaBa 2.1 format, you need to run the current KPhotoAlbum using the flag "
                                            "<tt>export-in-2.1-format</tt>, and then save.</p>"),
                               i18n("Old File Format read"), QString::fromLatin1( "version1FileFormatRead" ) );
     }
 }
 
 // This function will save an empty config element and a valid configWindowSetup element in the XML file.
-// In versions of KimDaBa newer than 2.1, these informations are stored
+// In versions of KPhotoAlbum newer than 2.1, these informations are stored
 // using KConfig, rather than in the database, so I need to add them like
-// this to make the file readable by KimDaBa 2.1.
+// this to make the file readable by KPhotoAlbum 2.1.
 void XMLDB::XMLDB::add21CompatXML( QDomElement& top )
 {
     QDomDocument doc = top.ownerDocument();

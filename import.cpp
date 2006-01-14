@@ -58,7 +58,7 @@ class KPushButton;
 
 void Import::imageImport()
 {
-    KURL url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KimDaBa Export Files" ), 0 );
+    KURL url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ), 0 );
     if ( url.isEmpty() )
         return;
     imageImport( url );
@@ -166,8 +166,8 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
     }
 
     QDomElement top = doc.documentElement();
-    if ( ! (top.tagName().lower() == QString::fromLatin1( "kimdaba-export" ) ) ) {
-        KMessageBox::error( this, i18n("Unexpected top element while reading file %1. Expected KimDaBa-export found %2")
+    if ( ! (top.tagName().lower() == QString::fromLatin1( "kphotoalbum-export" ) ) ) {
+        KMessageBox::error( this, i18n("Unexpected top element while reading file %1. Expected KPhotoAlbum-export found %2")
                             .arg( fileName ).arg( top.tagName() ) );
         return false;
     }
@@ -212,15 +212,15 @@ void Import::setupPages()
 
 void Import::createIntroduction()
 {
-    QString txt = i18n( "<qt><h1><font size=\"+2\">Welcome to KimDaBa Import</font></h1>"
+    QString txt = i18n( "<qt><h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>"
                         "This wizard will take you through the steps of an import operation, The steps are: "
                         "<ul><li>First you must select which images you want to import from the export file. "
                         "You do so by selecting the checkbox next to the image.</li>"
-                        "<li>Next you must tell KimDaBa in which directory to put the images. This directory must "
-                        "of course be below the directory root KimDaBa uses for images. "
-                        "KimDaBa will take care to avoid name clashes</li>"
+                        "<li>Next you must tell KPhotoAlbum in which directory to put the images. This directory must "
+                        "of course be below the directory root KPhotoAlbum uses for images. "
+                        "KPhotoAlbum will take care to avoid name clashes</li>"
                         "<li>The next step is to specify which categories you want to import (Persons, Locations, ... ) "
-                        "and also tell KimDaBa how to match the categories from the file to your categories. "
+                        "and also tell KPhotoAlbum how to match the categories from the file to your categories. "
                         "Imagine you load from a file, where a category is called <tt>Blomst</tt> (which is the "
                         "Danish word for flower), then you would likely want to match this with your category, which might be "
                         "called <tt>Blume</tt> (which is the German word for flower) - of course given you are German.</li>"
@@ -684,7 +684,7 @@ void Import::closeEvent( QCloseEvent* e )
 
 void Import::slotHelp()
 {
-    kapp->invokeHelp( QString::fromLatin1( "kimdaba#chp-exportDialog" ) );
+    kapp->invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
 
 #include "import.moc"

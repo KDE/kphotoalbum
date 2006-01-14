@@ -35,7 +35,7 @@ InfoBox::InfoBox( Viewer* viewer, const char* name )
     setMidLineWidth(0);
 
     _jumpToContext = new QToolButton( this );
-    _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 16 ) );
+    _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Desktop, 16 ) );
     _jumpToContext->setFixedSize( 16, 16 );
     connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
 }

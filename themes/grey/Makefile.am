@@ -1,2 +1,2 @@
-themesdir = $(kde_datadir)/kimdaba/themes/grey
-themes_DATA = imagepage.html  kimdaba.theme  mainpage.css  mainpage.html
+themesdir = $(kde_datadir)/kphotoalbum/themes/grey
+themes_DATA = imagepage.html  kphotoalbum.theme  mainpage.css  mainpage.html

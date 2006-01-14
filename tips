@@ -1,27 +1,27 @@
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
-<p>On KimDaBa's home page (http://ktown.kde.org/kimdaba/) you may see a few videos featuring a number of
-different KimDaBa features.</p>
+<p>On KPhotoAlbum's home page (http://ktown.kde.org/kphotoalbum/) you may see a few videos featuring a number of
+different KPhotoAlbum features.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>It is possible to create new categories - that are alternatives
 to <b>Person</b>, <b>Location</b>, and <b>Keywords</b> - in the image
-property page. Simply go to the <tt>Settings->Configure KimDaBa</tt> dialog to add your own, or
+property page. Simply go to the <tt>Settings->Configure KPhotoAlbum</tt> dialog to add your own, or
 delete one of the existing ones.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>You may rename or delete a person, location, keyword or similar by
 right-clicking on the item in the image property dialog.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>When generating HTML you must specify a base directory for
 the images. Here you can specify any <a
@@ -37,7 +37,7 @@ fish.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>When you bring new images to your collection, you might not have time
 right away to categorize them (i.e. specify Persons, Locations,
@@ -53,22 +53,22 @@ type <tt>!OK</tt>. This will find all images which do <b>not</b> have the
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>You can reorder images on your hard disk after having loaded them into
-KimDaBa - KimDaBa will still remember them, as it calculates checksums for
+KPhotoAlbum - KPhotoAlbum will still remember them, as it calculates checksums for
 the images.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
-<p>If you like KimDaBa, and it adds value to your daily life, please
-consider donating money to the KimDaBa developer, who will: (1) be motivated
+<p>If you like KPhotoAlbum, and it adds value to your daily life, please
+consider donating money to the KPhotoAlbum developer, who will: (1) be motivated
 by your acknowledgement of his work, and (2) will get a chance to take
 some time off from his daily work to be able to work extra hard on
-KimDaBa. (In January 2004, he took a whole week off from work to focus on
-KimDaBa version 1.1).</p>
+KPhotoAlbum. (In January 2004, he took a whole week off from work to focus on
+KPhotoAlbum version 1.1).</p>
 <p>Donations can be made either at 
 https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa
 or by transferring money to
@@ -83,7 +83,7 @@ account no: 35934019283203
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>In the image-properties, keywords, persons and locations (as well as 
 any additional properties you define) are sorted so that the most 
@@ -93,7 +93,7 @@ similar images.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>It's possible to associate images with
 persons/locations/keywords/etc. That way when browsing, say persons, you
@@ -106,17 +106,17 @@ find the person, and set the image.
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>You may close the image configuration dialog by pressing Ctrl+Enter.
 </p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>You may make groups of, say, persons by selecting <tt>Settings->Configure
-KimDaBa</tt>, and then choosing the tab <tt>Member Groups</tt>.</p>
+KPhotoAlbum</tt>, and then choosing the tab <tt>Member Groups</tt>.</p>
 <p> That way you can make a group called <tt>Family</tt>, which includes
 all the persons in your family. When browsing, each individual
 person will still be available when choosing the <tt>Persons</tt> icon, but in
@@ -127,25 +127,25 @@ will be shown.
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
-<p>KimDaBa is pronounced Ki'da'ba (the 'm' is not pronounced - hey I'm
-the author I can come up with these weird rules!). KimDaBa stands for <b>KDE</b>
+<p>KPhotoAlbum is pronounced Ki'da'ba (the 'm' is not pronounced - hey I'm
+the author I can come up with these weird rules!). KPhotoAlbum stands for <b>KDE</b>
 <b>Im</b>age <b>Da</b>ta<b>ba</b>se. Originally I wanted it to just be KiDaBa, but I
 then found that it looked to much like kid-aba, and the name suggested that
 it was an algebra program for kids.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
-<p>KimDaBa has an email list at
-http://klaralvdalens-datakonsult.se/mailman/listinfo/kimdaba, and an IRC
-channel named <tt>#kimdaba</tt> at <tt>irc.kde.org</tt></p>
+<p>KPhotoAlbum has an email list at
+http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, and an IRC
+channel named <tt>#kphotoalbum</tt> at <tt>irc.kde.org</tt></p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>You may reorder images by dragging and dropping one image onto
 another. If you drop it on the left edge, it will end up in front of
@@ -154,7 +154,7 @@ the other, if you drop it on the right edge it will be inserted behind.</p>
 </html>
 </tip>
 
-<tip category="KimDaBa">
+<tip category="KPhotoAlbum">
 <html>
 <p>This is the last tip. If you know any additional tips or tricks, then please
 send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a></p>

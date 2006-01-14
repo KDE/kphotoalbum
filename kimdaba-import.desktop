@@ -1,12 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=KimDaBa
+Name=KPhotoAlbum
 Name[hi]=किमडाबा
-Name[sv]=KimDaba
+Name[sv]=KPhotoAlbum
 Name[ta]=கிம்டாபா
 Name[tg]=Ким-Да-Ба
-Name[xx]=xxKimDaBaxx
-Exec=kimdaba --import %u
+Name[xx]=xxKPhotoAlbumxx
+Exec=kphotoalbum --import %u
 GenericName=Image Database
 GenericName[bg]=База от данни със снимки
 GenericName[br]=Stlennvon ar skeudennoù
@@ -40,7 +40,7 @@ GenericName[zh_CN]=图像数据库
 Terminal=false
 Type=Application
 X-KDE-StartupNotify=true
-Icon=kimdaba
+Icon=kphotoalbum
 Categories=Qt;KDE;Graphics;
 NoDisplay=true
-MimeType=application/vnd.kde.kimdaba-import
+MimeType=application/vnd.kde.kphotoalbum-import

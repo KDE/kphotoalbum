@@ -1,10 +1,10 @@
 #!/bin/sh
 #select *, UTC_TIMESTAMP() from test;
 
-echo y | mysqladmin -u root drop kimdaba
+echo y | mysqladmin -u root drop kphotoalbum
 
-mysqladmin -u root create kimdaba;
-mysql -u root kimdaba << EOF
+mysqladmin -u root create kphotoalbum;
+mysql -u root kphotoalbum << EOF
 
 CREATE TABLE membergroup
 (

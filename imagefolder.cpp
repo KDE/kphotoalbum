@@ -37,7 +37,7 @@ ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
 
 QPixmap ImageFolder::pixmap()
 {
-    return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Desktop, 22 );
+    return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Desktop, 22 );
 }
 
 QString ImageFolder::text() const

@@ -10,5 +10,5 @@ libsurvey_la_SOURCES = \
 
 METASOURCES = AUTO
 
-icondir = $(kde_datadir)/kimdaba/pics
+icondir = $(kde_datadir)/kphotoalbum/pics
 icon_DATA = questionmark.png questionmark-flipped.png exclamationmark.png

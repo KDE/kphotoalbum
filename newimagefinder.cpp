@@ -142,7 +142,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
 bool  NewImageFinder::calculateMD5sums( const QStringList& list )
 {
     QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum for %1 images<b></p>"
-                                 "<p>By storing a checksum for each image KimDaBa is capable of finding images "
+                                 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
                                  "even when you have moved them on the disk.</p></qt>").arg( list.count() ), i18n("&Cancel"), list.count() );
 
     int count = 0;

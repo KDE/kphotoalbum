@@ -29,19 +29,19 @@
 static const KCmdLineOptions options[] =
 {
 	{ "c ", I18N_NOOP("Config file"), 0 },
-        { "demo", I18N_NOOP( "Starts KimDaBa with a prebuilt set of demo images" ), 0 },
+        { "demo", I18N_NOOP( "Starts KPhotoAlbum with a prebuilt set of demo images" ), 0 },
         { "import ", I18N_NOOP( "Import file" ), 0 },
         { "export-in-2.1-format", I18N_NOOP( "This will make an attempt at saving in a format understandable by KimDaBa 2.1" ), 0 },
 	{ 0, 0, 0}
 };
 
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kimdaba", I18N_NOOP("KimDaBa"), "SVN",
+    KAboutData aboutData( "kphotoalbum", I18N_NOOP("KPhotoAlbum"), "SVN",
                           I18N_NOOP("KDE Image Database"), KAboutData::License_GPL,
-                          0, 0, "http://ktown.kde.org/kimdaba");
+                          0, 0, "http://ktown.kde.org/kphotoalbum");
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
 
-    aboutData.addCredit( "Will Stephenson", "Developing an Icon for KimDaBa", "will@stevello.free-online.co.uk" );
+    aboutData.addCredit( "Will Stephenson", "Developing an Icon for KPhotoAlbum", "will@stevello.free-online.co.uk" );
     aboutData.addCredit( "Teemu Rytilahti",
                          "Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
                          "(.) Theme support for HTML generation", "teemu.rytilahti@kde-fi.org" );
@@ -50,9 +50,9 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( "Marcel Wiesweg", "Patch which speed up loading of thumbnails plus preview in image property dialog.", "marcel.wiesweg@gmx.de" );
     aboutData.addCredit( "Marco Caldarelli", "Patch for making it possible to reread EXIF info using a nice dialog.", "caldarel@yahoo.it" );
     aboutData.addCredit( "Jean-Michel FAYARD", "(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page.", "jmfayard@gmail.com" );
-    aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KimDaBa again and again.", "rlk@alum.mit.edu" );
+    aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KPhotoAlbum again and again.", "rlk@alum.mit.edu" );
 
-    aboutData.setHomepage( "http://ktown.kde.org/kimdaba/" );
+    aboutData.setHomepage( "http://ktown.kde.org/kphotoalbum/" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

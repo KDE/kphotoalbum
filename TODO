@@ -29,7 +29,7 @@ BUGS of less importance
 ==============================
 Features for a soonish version
 ==============================
-- make KimDaBa a KPart (talk to cschum@suse.de, schumacher@kde.org)
+- make KPhotoAlbum a KPart (talk to cschum@suse.de, schumacher@kde.org)
 - For removing properties:
   I think a good solution would be:
 
@@ -95,7 +95,7 @@ Features still to be considered (aka not likely to go in next release)
 ======================================================================
 - when specifying options for several images at a time, present items that
   are on all images.
-- add kio: kimdaba://places/house
+- add kio: kphotoalbum://places/house
 - polish the offline mode, so it might be able to ask for you mounting say
   a cd with the images needed.
 - make it possible to specify a pattern for directories to ignore, say .thumbs
@@ -107,7 +107,7 @@ a 32x32 image to 1024x768)
   restore them later.  The scenario would be that I would select all
   images not previously backed up (by means of a keyword) and export
   them preserving layout, and dump the exported tree to DVD.
-- add a DCOP interface to KimDaBa
+- add a DCOP interface to KPhotoAlbum
 - Predefined filtering, or "dynamic selection" : let the user define
   a selection and display it. This gives the advantage of not having to
   manually having to set a given keyword to the new images corresponding

@@ -43,9 +43,9 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
 
     QLabel* pict = new QLabel( this );
     if ( location == Front )
-        pict->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/questionmark-flipped.png")) );
+        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark-flipped.png")) );
     else
-        pict->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/exclamationmark.png")) );
+        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
     hlay->addWidget( pict );
 
     QLabel* desc = new QLabel( text, this );
@@ -53,9 +53,9 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
 
     pict = new QLabel( this );
     if ( location == Front )
-        pict->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/questionmark.png")) );
+        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark.png")) );
     else
-        pict->setPixmap( locate("data", QString::fromLatin1("kimdaba/pics/exclamationmark.png")) );
+        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
     hlay->addWidget( pict );
 
     frame = new QFrame( this );

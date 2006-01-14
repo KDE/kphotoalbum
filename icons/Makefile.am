@@ -1,4 +1,4 @@
-appicondir = $(kde_datadir)/kimdaba/icons
+appicondir = $(kde_datadir)/kphotoalbum/icons
 appicon_ICON = ellipsetool linetool recttool selecttool texttool key video
 
-KDE_ICON = kimdaba
+KDE_ICON = kphotoalbum

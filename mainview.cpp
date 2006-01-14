@@ -197,7 +197,7 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
 
     total->setTotal( ImageDB::instance()->totalCount() );
-    statusBar()->message(i18n("Welcome to KimDaBa"), 5000 );
+    statusBar()->message(i18n("Welcome to KPhotoAlbum"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
     slotThumbNailSelectionChanged();
@@ -242,7 +242,7 @@ bool MainView::slotExit()
 {
     if ( Util::runningDemo() ) {
         QString txt = i18n("<qt><p><b>Delete Your Temporary Demo Database</b></p>"
-                           "<p>I hope you enjoyed the KimDaBa demo. The demo database was copied to "
+                           "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
                            "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
                            "on the other hand, if you want to come back and try the demo again, you "
                            "might want to keep it around with the changes you made through this session.</p></qt>" );
@@ -555,7 +555,7 @@ void MainView::setupMenuBar()
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
     _jumpToContext = new KAction( i18n("Jump to Context"), CTRL+Key_J, this, SLOT( slotJumpToContext() ), actionCollection(), "jumpToContext" );
-    _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kimdaba" ), KIcon::Small ) );
+    _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Small ) );
 
     _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
                          actionCollection(), "lockToDefaultScope" );
@@ -618,10 +618,10 @@ void MainView::setupMenuBar()
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
     connect( taction, SIGNAL( toggled( bool ) ), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
-    new KAction( i18n("Run KimDaBa Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
-    new KAction( i18n("Answer KimDaBa Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
+    new KAction( i18n("Run KPhotoAlbum Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
+    new KAction( i18n("Answer KPhotoAlbum Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
     new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
-    new KAction( i18n("KimDaBa Feature Status"), 0, this, SLOT( showFeatures() ), actionCollection(), "features" );
+    new KAction( i18n("KPhotoAlbum Feature Status"), 0, this, SLOT( showFeatures() ), actionCollection(), "features" );
 
     // Context menu actions
 #ifdef HASEXIV2
@@ -631,7 +631,7 @@ void MainView::setupMenuBar()
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     connect( _thumbNailViewOLD, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 #endif
-    createGUI( QString::fromLatin1( "kimdabaui.rc" ), false );
+    createGUI( QString::fromLatin1( "kphotoalbumui.rc" ), false );
 }
 
 void MainView::slotExportToHTML()
@@ -721,7 +721,7 @@ void MainView::pathChanged( const QString& path )
 void MainView::runDemo()
 {
     KProcess* process = new KProcess;
-    *process << "kimdaba" << "-demo";
+    *process << "kphotoalbum" << "-demo";
     process->start();
 }
 
@@ -743,7 +743,7 @@ void MainView::load()
         configFile = Util::setupDemo();
     else {
         // PENDING(blackie) This should be rewritten to KConfig* config = kapp->config()
-        KSimpleConfig config( QString::fromLatin1("kimdaba") );
+        KSimpleConfig config( QString::fromLatin1("kphotoalbum") );
         bool showWelcome = false;
         if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
             configFile = config.readEntry( QString::fromLatin1("configfile") );

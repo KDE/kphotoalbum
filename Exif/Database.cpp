@@ -60,7 +60,7 @@ Exif::Database::Database()
 
     bool dbExists = QFile::exists( exifDBFile() );
     if ( !dbExists )
-        Util::copy( locate( "data", QString::fromLatin1( "kimdaba/exif-sqlite.db" ) ), exifDBFile() );
+        Util::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
 
     openDatabase();
 
@@ -188,9 +188,9 @@ Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
 void Exif::Database::offerInitialize()
 {
     int ret = KMessageBox::questionYesNo( MainView::theMainView(),
-                                          i18n("<qt><p>Congratulation, your KimDaBa version now supports searching "
+                                          i18n("<qt><p>Congratulation, your KPhotoAlbum version now supports searching "
                                                "for EXIF information.</p>"
-                                               "<p>For this to work, KimDaBa needs to rescan your images. "
+                                               "<p>For this to work, KPhotoAlbum needs to rescan your images. "
                                                "Do you want this to happen now?</p>"),
                                           i18n("Rescan for EXIF information") );
     if ( ret == KMessageBox::Yes )

@@ -125,7 +125,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     // -------------------------------------------------- Image preview
     KDockWidget* previewDock
         = _dockWindow->createDockWidget( QString::fromLatin1("Image Preview"),
-                                         locate("data", QString::fromLatin1("kimdaba/pics/imagesIcon.png") ),
+                                         locate("data", QString::fromLatin1("kphotoalbum/pics/imagesIcon.png") ),
                                          _dockWindow, i18n("Image Preview") );
     _dockWidgets.append( previewDock );
     QWidget* top2 = new QWidget( previewDock );
@@ -371,7 +371,7 @@ void ImageConfig::load()
         _viewer->load( Util::infoListToStringList(_origList), _current );
 
     if ( _setup == SINGLE )
-        setCaption( i18n("KimDaBa Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
+        setCaption( i18n("KPhotoAlbum Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
 }
 
 void ImageConfig::writeToInfo()
@@ -473,7 +473,7 @@ void ImageConfig::setup()
         mode = ListSelect::SEARCH;
         setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
-        _preview->setImage( locate("data", QString::fromLatin1("kimdaba/pics/search.jpg") ) );
+        _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/search.jpg") ) );
         _nextBut->setEnabled( false );
         _prevBut->setEnabled( false );
         _rotateLeft->setEnabled( false );
@@ -486,7 +486,7 @@ void ImageConfig::setup()
         mode = ListSelect::INPUT;
         setCaption( i18n("Image Configuration") );
         if ( _setup == MULTIPLE ) {
-            _preview->setImage( locate("data", QString::fromLatin1("kimdaba/pics/multiconfig.jpg") ) );
+            _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/multiconfig.jpg") ) );
         }
         _rotateLeft->setEnabled( true );
         _rotateRight->setEnabled( true );
@@ -742,18 +742,18 @@ void ImageConfig::showHelpDialog( SetupType type )
     if ( type == SEARCH ) {
         doNotShowKey = QString::fromLatin1( "image_config_search_show_help" );
         txt = i18n( "<qt><p>You have just opened the advanced search dialog; to get the most out of it, "
-                    "it is suggested that you read the section in the manual on <a href=\"help:/kimdaba/sect-general-image-searches.html\">"
+                    "it is suggested that you read the section in the manual on <a href=\"help:/kphotoalbum/sect-general-image-searches.html\">"
                     "advanced searching</a>.</p>"
                     "<p>This dialog is also used for typing in information about images; you can find "
                     "extra tips on its usage by reading about "
-                    "<a href=\"help:/kimdaba/chp-typingIn.html\">typing in</a>.</p></qt>" );
+                    "<a href=\"help:/kphotoalbum/chp-typingIn.html\">typing in</a>.</p></qt>" );
     }
     else {
         doNotShowKey = QString::fromLatin1( "image_config_typein_show_help" );
-        txt = i18n("<qt><p>You have just opened one of the most important windows in KimDaBa; "
+        txt = i18n("<qt><p>You have just opened one of the most important windows in KPhotoAlbum; "
                    "it contains lots of functionality which has been optimized for fast usage.<p>"
                    "<p>It is strongly recommended that you take 5 minutes to read the "
-                   "<a href=\"help:/kimdaba/chp-typingIn.html\">documentation for this "
+                   "<a href=\"help:/kphotoalbum/chp-typingIn.html\">documentation for this "
                    "dialog</a></p></qt>" );
     }
 

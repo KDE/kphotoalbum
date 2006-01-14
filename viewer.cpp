@@ -267,7 +267,7 @@ void Viewer::load()
 {
     _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     _display->setImage( currentInfo(), _forward );
-    setCaption( QString::fromLatin1( "KimDaBa - %1" ).arg( currentInfo()->fileName() ) );
+    setCaption( QString::fromLatin1( "KPhotoAlbum - %1" ).arg( currentInfo()->fileName() ) );
     updateInfoBox();
 
     _nextAction->setEnabled( _current +1 < (int) _list.count() );

@@ -26,7 +26,7 @@
 MySplashScreen* MySplashScreen::_instance = 0;
 
 MySplashScreen::MySplashScreen()
-    :KSplashScreen( locate("data", QString::fromLatin1("kimdaba/pics/splash-large.png") ) )
+    :KSplashScreen( locate("data", QString::fromLatin1("kphotoalbum/pics/splash-large.png") ) )
 {
     _instance = this;
     QPixmap* pix = pixmap();
@@ -41,9 +41,9 @@ MySplashScreen::MySplashScreen()
     QString txt;
     QString version = KGlobal::instance()->aboutData()->version();
     if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
-        txt = i18n( "KimDaBa version %1" ).arg( version );
+        txt = i18n( "KPhotoAlbum version %1" ).arg( version );
     else
-        txt = i18n( "KimDaBa %1" ).arg( version );
+        txt = i18n( "KPhotoAlbum %1" ).arg( version );
     painter.drawText( QRect( QPoint(10, 400), QPoint( 630, 470 )), AlignRight | AlignBottom, txt );
 }
 

@@ -34,7 +34,7 @@
 
 	* Added a Exif dialog to the context menu in the browser.
 
-	* KimDaBa now stores its thumbnails in ~/.thumbnails complying
+	* KPhotoAlbum now stores its thumbnails in ~/.thumbnails complying
 	with many other applications.
 
 2005-08-28  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
@@ -46,11 +46,11 @@
 2005-08-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Added command line option --export-in-2.1-format to allow
-	KimDaBa to save an index.xml that can be read by KimDaBa 2.1. All
+	KPhotoAlbum to save an index.xml that can be read by KPhotoAlbum 2.1. All
 	configurations in the config dialog (like do auto save etc) will
 	be lost though.
 	
-	* KimDaBa does now offer to save numbered backups of the index.xml
+	* KPhotoAlbum does now offer to save numbered backups of the index.xml
 	file: index.xml~0001~, index.xml~0002~ etc. In addition this file
 	can be zipped to preserve disk space.
 
@@ -109,7 +109,7 @@
 	* Added a jump-to-context  button to the viewer, plus ensure
 	keyboard focus would be better shown in the thumbnail view.
 
-	* BUGFIX: When quiting KDE, KimDaBa will asks if you want to
+	* BUGFIX: When quiting KDE, KPhotoAlbum will asks if you want to
 	save. This previously canceled logging out of KDE.
 
 2005-03-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
@@ -118,7 +118,7 @@
 
 2005-03-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* Added a survey, where I can get some feedback from the KimDaBa users.
+	* Added a survey, where I can get some feedback from the KPhotoAlbum users.
 
 2005-02-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
@@ -193,7 +193,7 @@
 	* Added Maintenance->Display Images with Incomplete Dates
 	this will help update images with missing or invalid dates.
 
-	* KimDaBa no longer splits images into a bunch of folders, but
+	* KPhotoAlbum no longer splits images into a bunch of folders, but
 	does instead show them in one big collection, this makes the date
 	bar more powerful, plus allows you to scroll backwards.
 
@@ -217,7 +217,7 @@
 
 2004-12-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* KimDaBa will now escape all non-latin1 characters, so they still
+	* KPhotoAlbum will now escape all non-latin1 characters, so they still
 	look good on web servers that seems to ignore the meta tag. (Like
 	mine does ;-)
 
@@ -228,7 +228,7 @@
 
 	* SUSE introduced a maximum on QImages, a patch from  Robert L
 	Krawitz <rlk@alum.mit.edu> works around this, and ensures that
-	KimDaBa do not crash when images are larger than the maximum size.
+	KPhotoAlbum do not crash when images are larger than the maximum size.
 
 	* The Date picker now remember dates from invocation to invocation
 	(Thanks to Jean-Michel FAYARD <jmfayard@gmail.com> for a patch for
@@ -332,7 +332,7 @@
 	S -> ctrl+R (run slide show)
 	Ctrl+S -> none (run randomized slideshow)
 	          (this conflicted with save which was and are still on Ctrl-s too)
-	Remember you can make your own key bindings in KimDaBa, so this are
+	Remember you can make your own key bindings in KPhotoAlbum, so this are
 	really just the defaults I change.
 
 2004-08-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
@@ -364,12 +364,12 @@
 	* Moved all plugins to one menu rather than scattered out over all
 	the menus. The former seems like the best idea for easy finding a
 	functionality, while the later seems to be best, to ensure that
-	users know which functionality is KimDaBa core features, and which
+	users know which functionality is KPhotoAlbum core features, and which
 	are plugins, with plugins perhaps being less integrated than
 	build-in features.
 
 	* import/export is improved so during import of external images,
-	KimDaBa will first search for the images next to the .kim file,
+	KPhotoAlbum will first search for the images next to the .kim file,
 	and then at the URL the images originally was uploaded to.
 
 2004-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
@@ -447,7 +447,7 @@
 
 2004-05-02  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* BUGFIX: KimDaBa crashed in the following situation:
+	* BUGFIX: KPhotoAlbum crashed in the following situation:
 	  - drag an image out from the thumbnail view
 	  - browse, so the thumbnail view shows some other images
 	  - drag another image out
@@ -474,7 +474,7 @@
 	* BUGFIX: When generating HTML, only generate image on disk
 
 	* Added a dialog with a description on how to enable webservers to
-	server KimDaBa files.
+	server KPhotoAlbum files.
 
 2004-04-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
@@ -603,7 +603,7 @@
 2004-02-15  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: Pressing the rename button in member groups made
-	KimDaBa crash if no member groups are selected.
+	KPhotoAlbum crash if no member groups are selected.
 
 --------------------------- version 1.1 released --------------------------------------
 
@@ -633,7 +633,7 @@
 
 2004-01-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* Made the KimDaBa properties dialog look better.
+	* Made the KPhotoAlbum properties dialog look better.
 
 2004-01-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
@@ -669,7 +669,7 @@
 	new images are found or existing images are deleted.
 
 	* BUGFIX: don't load the search and multi-config images through
-	the imageinfo clas as this will make KimDaBa ask whether date
+	the imageinfo clas as this will make KPhotoAlbum ask whether date
 	should be trusted.
 
 	* Added a configuration option for whether EXIF rotation
@@ -683,7 +683,7 @@
 
 2004-01-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* Thanks to Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, KimDaBa
+	* Thanks to Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, KPhotoAlbum
 	will now offer themes when generating HTML.
 
 	* Heavily optimized browsing functions. Now everything is
@@ -706,7 +706,7 @@
 
 2004-01-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* MD5 sums are now calculated for each image, so that KimDaBa can
+	* MD5 sums are now calculated for each image, so that KPhotoAlbum can
 	track movement of images in the directories
 
 2004-01-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
@@ -766,18 +766,18 @@
 
 2003-12-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* BUGFIX: fixed crash where KimDaBa crashes if you right click outside
+	* BUGFIX: fixed crash where KPhotoAlbum crashes if you right click outside
 	an item in one of the list boxes with properties (Persons,
 	Locations, ...)
 
 2003-12-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* BUGFIX: KimDaBa used to crash on moving images around.
+	* BUGFIX: KPhotoAlbum used to crash on moving images around.
 
 2003-12-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* New Feature: Its now possible to drag(copy) images from kimdaba
-	to say the desktop. Unfortunately KimDaBa crashes in KDE code if I
+	* New Feature: Its now possible to drag(copy) images from kphotoalbum
+	to say the desktop. Unfortunately KPhotoAlbum crashes in KDE code if I
 	drag an QImage out, so I can only drag the filename out, which
 	means that rotated images are not rotated when dragged out. Still
 	better than nothing ;-)
@@ -788,7 +788,7 @@
 
 	* Added Settings | Configure Shortcuts
 
-	* Edit->Options was moved Settings->Configure Kimdaba.
+	* Edit->Options was moved Settings->Configure Kphotoalbum.
 
 	* New Feature: It is now possible to using fish:// or ftp:// when
 	exporting to HTML
@@ -813,9 +813,9 @@
 	directory. This resulted in a name class if two files existed with
 	same base name but different extension.
 
-	* Completed the KimDaBa handbook.
+	* Completed the KPhotoAlbum handbook.
 
-	* BUGFIX: KimDaBa did always show one image less than the index promised.
+	* BUGFIX: KPhotoAlbum did always show one image less than the index promised.
 
 	* IMPROVEMENT: Exchanged Ctrl+plus and Ctrl+minus in the viewer, so ctrl+plus
 	now means run faster and ctrl+minus means run slower. This seems
@@ -828,9 +828,9 @@
 
 2003-10-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* BUGFIX: KimDaBa crashed when it found new images at start up.
+	* BUGFIX: KPhotoAlbum crashed when it found new images at start up.
 
-	* Started writing a handbook for KimDaBa.
+	* Started writing a handbook for KPhotoAlbum.
 
 	* BUGFIX: if the slideshow was running very fast, then keyevents got utterly much
 	  behind making it almost impossible to stop the slideshow.

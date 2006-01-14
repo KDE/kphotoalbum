@@ -1,5 +1,5 @@
 #!/bin/sh
-mysql -u root kimdaba << EOF
+mysql -u root kphotoalbum << EOF
 
 insert into membergroup( groupname, category, member ) values
   ("Denmark", "Locations", "Esbjerg" ),

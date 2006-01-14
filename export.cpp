@@ -51,7 +51,7 @@ void Export::imageExport( const QStringList& list )
         maxSize = config._maxSize->value();
 
     // Ask for zip file name
-    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KimDaBa Export Files" ), 0 );
+    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ), 0 );
     if ( zipFile.isNull() )
         return;
 
@@ -207,7 +207,7 @@ QCString Export::createIndexXML( const QStringList& list, const QString& baseUrl
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
 
-    QDomElement top = doc.createElement( QString::fromLatin1( "KimDaBa-export" ) );
+    QDomElement top = doc.createElement( QString::fromLatin1( "KPhotoAlbum-export" ) );
     top.setAttribute( QString::fromLatin1( "location" ),
                       _location == Inline ? QString::fromLatin1( "inline" ) : QString::fromLatin1( "external" ) );
     if ( !baseUrl.isEmpty() )
@@ -349,13 +349,13 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
 void Export::showUsageDialog()
 {
     QString txt =
-        i18n( "<qt><p>Other KimDaBa users may now load the import file into their database, by choosing <tt>import</tt> in "
+        i18n( "<qt><p>Other KPhotoAlbum users may now load the import file into their database, by choosing <tt>import</tt> in "
               "the file menu.</p>"
               "<p>If they find it on a web site, and the web server is correctly configured, all they need to do is simply "
-              "to click it from within konqueror. To enable this, your web server needs to be configured for KimDaBa. You do so by adding "
+              "to click it from within konqueror. To enable this, your web server needs to be configured for KPhotoAlbum. You do so by adding "
               "the following line to <tt>/etc/httpd/mime.types</tt> or similar:"
-              "<pre>application/vnd.kde.kimdaba-import kim</pre>"
-              "This will make your web server tell konqueror that it is a KimDaBa fill when clicking on the link, "
+              "<pre>application/vnd.kde.kphotoalbum-import kim</pre>"
+              "This will make your web server tell konqueror that it is a KPhotoAlbum fill when clicking on the link, "
               "otherwise the web server will just tell konqueror that it is a plain text file.</p></qt>" );
 
     KMessageBox::information( 0, txt, i18n("How to Use the Export File"), QString::fromLatin1("export_how_to_use_the_export_file") );

@@ -92,7 +92,7 @@ bool PluginInterface::addImage( const KURL& url, QString& errmsg )
     QString dir = url.path();
     QString root = Options::instance()->imageDirectory();
     if ( !dir.startsWith( root ) ) {
-        errmsg = i18n("<qt>Image needs to be placed in a sub directory of the KimDaBa image database, "
+        errmsg = i18n("<qt>Image needs to be placed in a sub directory of PhotoAlbum, "
                       "which is rooted at %1. Image path was %2</qt>").arg( root ).arg( dir );
         return false;
     }

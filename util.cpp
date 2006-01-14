@@ -169,7 +169,7 @@ bool Util::ctrlKeyDown()
 
 QString Util::setupDemo()
 {
-    QString dir = QString::fromLatin1( "/tmp/kimdaba-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
+    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
     QFileInfo fi(dir);
     if ( ! fi.exists() ) {
         bool ok = QDir().mkdir( dir );
@@ -202,7 +202,7 @@ QString Util::setupDemo()
     }
 
     // Images
-    QStringList files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kimdaba/demo/*.jpg" ) );
+    QStringList files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.jpg" ) );
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
         QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
         if ( ! QFileInfo( destFile ).exists() ) {
@@ -227,7 +227,7 @@ QString Util::setupDemo()
     }
 
     // Category images.
-    files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kimdaba/demo/CategoryImages/*.jpg" ) );
+    files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/CategoryImages/*.jpg" ) );
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
         QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
         if ( ! QFileInfo( destFile ).exists() ) {
@@ -279,9 +279,9 @@ bool Util::makeHardLink( const QString& from, const QString& to )
 
 QString Util::readInstalledFile( const QString& fileName )
 {
-    QString inFileName = locate( "data", QString::fromLatin1( "kimdaba/%1" ).arg( fileName ) );
+    QString inFileName = locate( "data", QString::fromLatin1( "kphotoalbum/%1" ).arg( fileName ) );
     if ( inFileName.isEmpty() ) {
-        KMessageBox::error( 0, i18n("<qt>Unable to find kimdaba/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</qt>").arg( fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
+        KMessageBox::error( 0, i18n("<qt>Unable to find kphotoalbum/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</qt>").arg( fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
         return QString::null;
     }
 
@@ -566,7 +566,7 @@ bool Util::runningDemo()
 
 void Util::deleteDemo()
 {
-    QString dir = QString::fromLatin1( "/tmp/kimdaba-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
+    QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
     KURL url;
     url.setPath( dir );
     (void) KIO::NetAccess::del( dir, MainView::theMainView() );

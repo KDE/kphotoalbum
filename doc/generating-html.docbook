@@ -1,7 +1,7 @@
   <chapter id="chp-generating-html">
     <title>Generating HTML</title>
     <para>&kphotoalbum; offers two possibilities for generating HTML from your
-      image database. One is the implementation build into &kphotoalbum;, the other is
+      photo album. One is the implementation build into &kphotoalbum;, the other is
       available as an plugin (see <xref linkend="chp-plugins"/>). This section
       will describe the build in version, which you may find in the menubar
       <menuchoice><guimenu>File</guimenu><guimenuitem>Generate 

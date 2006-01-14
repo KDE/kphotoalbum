@@ -161,7 +161,7 @@ QRect ThumbnailView::ThumbnailView::iconGeometry( int row, int col ) const
 
     int size = Options::instance()->thumbSize() + SPACE;
     int xoff = 1 + (size - pix->width())/2; // 1 is for the border at the left
-    int yoff = 1 + (size - pix->height() )/2;
+    int yoff = (size - pix->height() )/2;
     return QRect( xoff, yoff, pix->width(), pix->height() );
 }
 
@@ -182,21 +182,21 @@ QPixmapCache& ThumbnailView::ThumbnailView::pixmapCache()
     return cache;
 }
 
-void ThumbnailView::ThumbnailView::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int, const QImage& image,
-                                  bool loadedOK )
+void ThumbnailView::ThumbnailView::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
+                                                 const QImage& image, bool loadedOK )
 {
     QPixmap* pixmap = new QPixmap( size );
     if ( loadedOK && !image.isNull() )
         pixmap->convertFromImage( image );
 
     else if ( !loadedOK)
-        pixmap->fill(Qt::gray);
+        pixmap->fill( palette().active().dark());
 
     ImageInfoPtr imageInfo = ImageDB::instance()->info( fileName );
 
     if ( !loadedOK || !imageInfo->imageOnDisk() ) {
         QPainter p( pixmap );
-        p.setBrush( white );
+        p.setBrush( palette().active().base() );
         p.setWindow( 0, 0, 100, 100 );
         QPointArray pts;
         pts.setPoints( 3, 70,-1,  100,-1,  100,30 );
@@ -252,30 +252,18 @@ void ThumbnailView::ThumbnailView::showEvent( QShowEvent* )
 void ThumbnailView::ThumbnailView::paintCellBackground( QPainter* p, int row, int col )
 {
     QRect rect = cellRect();
-    p->fillRect( rect, black );
-    p->fillRect( QRect( QPoint( rect.left(), rect.top()+1), QPoint( rect.right(), rect.bottom()-1 ) ), white );
-    p->setPen( gray );
+    p->fillRect( rect, palette().active().base() );
 
+    p->setPen( palette().active().dark() );
     // left of frame
     if ( col != 0 )
-        p->drawLine( rect.left(), rect.top()+1, rect.left(), rect.bottom()-1 );
+        p->drawLine( rect.left(), rect.top(), rect.left(), rect.bottom() );
 
     // bottom line
     if ( row != numRows() -1 ) {
-        // Draw a grey line to give an illusion of a raised box.
         p->drawLine( rect.left(), rect.bottom() -1, rect.right(), rect.bottom()-1 );
-    }
-    else {
-        // We don't want a seperating line at the bottom, but we've already drawn the black one
-        // during the fillRect above, so lets undraw it now.
-        p->setPen( white );
-        p->drawLine( rect.left(), rect.bottom(), rect.right(), rect.bottom() );
-    }
-
-    if ( row == 0 ) {
-        // undraw the topmost line of row zero
-        p->setPen( white );
-        p->drawLine( rect.left(), rect.top(), rect.right(), rect.top() );
+        p->setPen( palette().active().light() );
+        p->drawLine( rect.left(), rect.bottom() -2, rect.right(), rect.bottom()-2 );
     }
 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
-  <!ENTITY kimdaba "<application>KimDaBa</application>">
-  <!ENTITY kappname "&kimdaba;">
+  <!ENTITY kphotoalbum "<application>KPhotoAlbum</application>">
+  <!ENTITY kappname "&kphotoalbum;">
   <!ENTITY package "kdeextragear-2">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE"> 
@@ -21,7 +21,7 @@
 <book lang="&language;">
   
   <bookinfo>
-    <title>The &kimdaba; Handbook</title>
+    <title>The &kphotoalbum; Handbook</title>
     
     <authorgroup>
       <author>
@@ -44,25 +44,25 @@
     <keywordset>
       <keyword>KDE</keyword>
       <keyword>kdeextragear-2</keyword>
-      <keyword>KimDaBa</keyword>
+      <keyword>KPhotoAlbum</keyword>
       <keyword>Image Database</keyword>
     </keywordset>
     <abstract><para>
-  This is the user manual for &kimdaba; - The &kde; Image Database. If you are
+  This is the user manual for &kphotoalbum; - The &kde; Image Database. If you are
   not the type who likes reading documentation, but rather just want to try
   out things, here are a few alternatives:
   <itemizedlist>
-          <listitem><para>Go to the <ulink url="http://ktown.kde.org/kimdaba/">&kimdaba; Homepage</ulink>, and look at
+          <listitem><para>Go to the <ulink url="http://ktown.kde.org/kphotoalbum/">&kphotoalbum; Homepage</ulink>, and look at
     the quick overview plus screen dumps.</para></listitem>
-          <listitem><para>Start &kimdaba;, and accepts its offer for a demo (If
+          <listitem><para>Start &kphotoalbum;, and accepts its offer for a demo (If
 this is your first time you start it), or go to <guimenu>Help</guimenu>
-menu and select <guimenuitem>Run &kimdaba; demo</guimenuitem>. That will load
-&kimdaba; with a number of images, and let you browse around.</para></listitem>
+menu and select <guimenuitem>Run &kphotoalbum; demo</guimenuitem>. That will load
+&kphotoalbum; with a number of images, and let you browse around.</para></listitem>
         </itemizedlist></para>
 
    <para>If you prefer to print out this document, then you may find it as
 on long HTML document at <ulink
-url="http://ktown.kde.org/kimdaba/">&kimdaba;'s Homepage</ulink></para>
+url="http://ktown.kde.org/kphotoalbum/">&kphotoalbum;'s Homepage</ulink></para>
 </abstract>
   </bookinfo>
   
@@ -85,7 +85,7 @@ url="http://ktown.kde.org/kimdaba/">&kimdaba;'s Homepage</ulink></para>
     <title>Frequently asked questions</title>
 
 <para>For a list of frequently asked questions, please see <ulink
-          url="http://wiki.kde.org/tiki-index.php?page=KimDaBa+FAQ">http://wiki.kde.org/tiki-index.php?page=KimDaBa+FAQ</ulink></para>
+          url="http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+FAQ">http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+FAQ</ulink></para>
   </chapter>
 
 

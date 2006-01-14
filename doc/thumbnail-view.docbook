@@ -5,7 +5,7 @@ a thumbnail overview of the images currently in scope (or all images if no
 scope have been selected). An example of this can be seen in <xref
       linkend="fig-thumbnailview"/> below. The size of the thumbnails can be
 configure from the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
-KimDaBa</guimenuitem></menuchoice> menu as
+KPhotoAlbum</guimenuitem></menuchoice> menu as
 described in <xref linkend="chp-options"/>.</para>
 
   <figure id="fig-thumbnailview">
@@ -51,7 +51,7 @@ selected in random order.</para>
   <para>From the thumbnail view it is also possible to delete images. To
   do so select the images you want to delete and press the delete key or
   select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete 
-  Selected</guimenuitem></menuchoice> from the menu bar. Doing so &kimdaba; 
+  Selected</guimenuitem></menuchoice> from the menu bar. Doing so &kphotoalbum; 
   will show you the dialog in <xref linkend="fig-delete-images"/></para>
 
 <figure id="fig-delete-images">
@@ -63,13 +63,13 @@ selected in random order.</para>
 </mediaobject>
 </figure>
 
-  <para>There are two ways of deleting an image in &kimdaba;, namely either
+  <para>There are two ways of deleting an image in &kphotoalbum;, namely either
 delete it from the disk, which means that it will be permanently gone, or
-tell &kimdaba; not to include it. In the later situation, &kimdaba; will never
+tell &kphotoalbum; not to include it. In the later situation, &kphotoalbum; will never
 again show the image, but it will keep it on disk. This is useful if
 there for example is <emphasis>thumbnail images</emphasis> stored among
 your images. This thumbnail image would contain an overview of all the
-other images, and would thus be useless in &kimdaba;, but for other
+other images, and would thus be useless in &kphotoalbum;, but for other
 application, say a web browser, it might be needed.</para>
 </sect1>
 
@@ -84,15 +84,15 @@ the images on CD's. An alternative scenario might be that you are going on a
 business trip, and want to bring your images with you, but do not have the
 20GB disk space requires for that purpose.</para>
 
-<para>&kimdaba; offers a solution to that problem, namely that it allows you
+<para>&kphotoalbum; offers a solution to that problem, namely that it allows you
 to use it, without having the images available on disk. You do of course
-need to have them available at some point in time for &kimdaba; to realize
+need to have them available at some point in time for &kphotoalbum; to realize
 that there are new images for it to index. <xref
-linkend="fig-offline-mode"/> shows &kimdaba; when it is not capable of
+linkend="fig-offline-mode"/> shows &kphotoalbum; when it is not capable of
 finding all needed images on the disk.</para>
 
 <figure id="fig-offline-mode">
-<title>&kimdaba; in Offline Mode</title>
+<title>&kphotoalbum; in Offline Mode</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="offline-mode.png" format="PNG"/>
@@ -102,18 +102,18 @@ finding all needed images on the disk.</para>
 
 <para>Images which has the corner cut of (that is image 1-9) are not
 available on disk. Thumb nails are, however, available for images 5-9,
-therefore &kimdaba; can show you the thumbnails for these images. You can,
+therefore &kphotoalbum; can show you the thumbnails for these images. You can,
 however, still not display these images in the viewer.</para>
 
 <para>As you can see, this feature requires you to copy files in and out of
-your directories, &kimdaba; do currently not have any support for asking you to
+your directories, &kphotoalbum; do currently not have any support for asking you to
 insert the CD you labeled blah blah. Thus please forget about this feature
 if you are the kind of person who do not like messing with files etc, and
 instead simply ensure to buy hard disks that is large enough to always
 store all your images.</para>
 
 <para>For the rest of you, here comes the setup that I - the author of
-&kimdaba; - uses myself, merely as inspiration.</para>
+&kphotoalbum; - uses myself, merely as inspiration.</para>
 
 <para>I store all images in subdirectories called cd1, cd2, etc. (Where each
 top-level directory correspond to a CD with the images, for backup
@@ -130,7 +130,7 @@ image.</para>
 image, that way I can easily figure out which CD to mount.</para>
 
 <para>Currently I have
-to restart &kimdaba; to get it to recognize that the availability of images
+to restart &kphotoalbum; to get it to recognize that the availability of images
 has changed. If you use this feature, please let me know at
 blackie@kde.org, and I'll consider polishing it a bit more.</para>
 
@@ -141,12 +141,12 @@ blackie@kde.org, and I'll consider polishing it a bit more.</para>
 <sect1 id="sect-privacy">
 <title>Privacy</title>
 <para>Some time ago my girlfriend and I brought my laptop with us on a visit to my parents in
-law, to show them the images from our most recent holiday. &kimdaba; turned
+law, to show them the images from our most recent holiday. &kphotoalbum; turned
 out to be a great success, and it didn't last long before my girlfriends
 little sister seized the laptop and started browsing around on her
 own. Unfortunately it didn't take her long either to get to some, let say
 unfortunate, images of me from my youth, and they all had quite a bit of
-laugh on me. That episode inspired me to add a new feature to &kimdaba;,
+laugh on me. That episode inspired me to add a new feature to &kphotoalbum;,
 namely privacy locking.</para>
 
 <para>In the <guimenu>Images</guimenu> menu you will find a sub menu called
@@ -169,9 +169,9 @@ database. In the <guimenuitem>privacy</guimenuitem> menu, simply select
 
 <para>Don't get fooled to believe that this will help you hide away images
 for good. First the images are still on the disk, second, anyone with
-access to the <filename>index.xml</filename> file that &kimdaba; uses can read
+access to the <filename>index.xml</filename> file that &kphotoalbum; uses can read
 the password in clear text and optionally delete it. This feature is only
-meant as a protection against someone sitting with &kimdaba; unintentionally
+meant as a protection against someone sitting with &kphotoalbum; unintentionally
 getting to your private images.</para>
 
 </sect1>

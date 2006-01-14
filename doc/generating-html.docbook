@@ -1,7 +1,7 @@
   <chapter id="chp-generating-html">
     <title>Generating HTML</title>
-    <para>&kimdaba; offers two possibilities for generating HTML from your
-      image database. One is the implementation build into &kimdaba;, the other is
+    <para>&kphotoalbum; offers two possibilities for generating HTML from your
+      image database. One is the implementation build into &kphotoalbum;, the other is
       available as an plugin (see <xref linkend="chp-plugins"/>). This section
       will describe the build in version, which you may find in the menubar
       <menuchoice><guimenu>File</guimenu><guimenuitem>Generate 
@@ -20,17 +20,17 @@
 
       <para>First you specify the title of the overview pages, plus a
         description generated on these pages. See <ulink
-          url="http://ktown.kde.org/kimdaba/rounded-theme/index.html">&kimdaba; example HTML pages</ulink> 
+          url="http://ktown.kde.org/kphotoalbum/rounded-theme/index.html">&kphotoalbum; example HTML pages</ulink> 
         to see an example of this.</para>
 
-      <para>Next you specify whether a &kimdaba; export file should be
+      <para>Next you specify whether a &kphotoalbum; export file should be
         generated, and put on the overview page. See <xref
           linkend="chp-importExport"/> for details on export files.</para>
 
       <para>Finally you may specify which information should be generated
         on the HTML pages. This way you may skip generating information
         which might be obvious to the reader of the pages (say these images
-        was from the party we all attended). Notice, &kimdaba; does currently not
+        was from the party we all attended). Notice, &kphotoalbum; does currently not
         allow you to exclude certain categories from the export file, so
         don't rely on this as a way of excluding information you do not
         want readers of your pages to see.</para>
@@ -86,7 +86,7 @@
       
       <para>Once you have generated HTML pages, your pages may still not be
         in their final destination, you may still need special upload
-        procedures out of the control of &kimdaba;. For
+        procedures out of the control of &kphotoalbum;. For
         the Import feature (see <xref linkend="chp-importExport"/>) to
         work, you need to specify the final destination of the pages. Again
         this does not include the subdirectory of the current

@@ -1,14 +1,14 @@
 <chapter id="chp-importExport">
   <title>Import/Exporting</title>
   <para>If you attend a family party, a company meeting, a conference, or
-      any other event where other &kimdaba; users may be present, you may
+      any other event where other &kphotoalbum; users may be present, you may
       wish to share your images with those people. You may of course choose
       to generate HTML pages for them to browse, but given you already have
     spent time classifying all images (Who is on the images, where were they
       taken etc), there are no reason for them to redo all that
       work.</para>
 
-    <para>&kimdaba; allows you to export a set of your images into a
+    <para>&kphotoalbum; allows you to export a set of your images into a
       <literal role="extension">.kim</literal> file, which other people may import into
       their database, to get your classification for these images.</para>
 
@@ -50,7 +50,7 @@
           <listitem><para>Manual copy next to .kim file - Here you must
               copy the images yourself next to the .kim file</para></listitem>
           <listitem><para>Automatically copy next to .kim file - here
-              &kimdaba; will copy the images for you.</para></listitem>
+              &kphotoalbum; will copy the images for you.</para></listitem>
         </itemizedlist>
       </para>
       
@@ -78,7 +78,7 @@
 <para>When you select a <literal role="extension">.kim</literal> file from a web
     browser, or choose
 <menuchoice><guimenu>File</guimenu><guimenuitem>Import...</guimenuitem></menuchoice>, 
-&kimdaba; will import the database exported with the functionality described in <xref
+&kphotoalbum; will import the database exported with the functionality described in <xref
 linkend="chp-importExport"/>.</para>
 
 <para>The import wizard consist of four steps. First you must specify which
@@ -109,7 +109,7 @@ up matching for each of the imported categories. This can be see in <xref linken
 perfect match in the database. The other three names was not found in the
 database, though both Jesper and Anne Helene was found matching as
 substring, so these are suggested. Finally in my database I didn't have
-Spiff (or I might have named it quite differently), so &kimdaba; simply
+Spiff (or I might have named it quite differently), so &kphotoalbum; simply
 suggest Spiff for the import name.</para>
 
 </sect1>

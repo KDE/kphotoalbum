@@ -1,6 +1,6 @@
 <chapter id="introduction">
   <title>Introduction</title>
-  <para>&kimdaba; stands for KDE Image Database.</para>
+  <para>&kphotoalbum; stands for KDE Image Database.</para>
   
   <para>If you are like me you have hundreds or even thousands of images
 ever since you got your first camera, some taken with a normal camera other
@@ -11,25 +11,25 @@ images, and you would be able to remember the exact date of every single
 image. I personally realized that this was not possible anymore, and
 especially for my digital images - but also for my paper images - I needed
 a tool to help me describe my images, and to search in the pile of
-images. This is exactly what &kimdaba; is all about.</para>
+images. This is exactly what &kphotoalbum; is all about.</para>
   
   
-  <para>&kimdaba; focuses on three key points: 
+  <para>&kphotoalbum; focuses on three key points: 
 <itemizedlist>
       <listitem><para>It must be easy to describe a number of images at a
 time. It must for example not take more than a few mouse clicks to mark all
-your images from your holiday as being from Italy, 1992. &kimdaba; offers two
+your images from your holiday as being from Italy, 1992. &kphotoalbum; offers two
 ways of describing images: <guilabel>one at a time</guilabel>, which is
 useful for writing text about images, and <guilabel>All
 Simultaneously</guilabel>, which is useful for selecting a 
 number of images, and setting properties like location, persons on images,
 and date of image.</para></listitem>
       
-      <listitem><para>It must be easy to search for images. &kimdaba; offers to
+      <listitem><para>It must be easy to search for images. &kphotoalbum; offers to
 describe images with a number of properties. These includes date, persons
 on image, location of image, plus a keyword field the user can use for
 custom keywords like <emphasis>Album 7</emphasis> or <emphasis>Holiday trip
-to Italy</emphasis>. With &kimdaba; you can 
+to Italy</emphasis>. With &kphotoalbum; you can 
 search for images in each of the categories - e.g. find all the images with Jesper on
 them from the holiday in Italy.</para></listitem>
       
@@ -51,29 +51,29 @@ advanced topics and customization.</para>
   
   
   <!-- ====================================================================== -->
-  <sect1 id="sec-organization-of-images-and-KimDaBa-files">
-    <title>Organization of images and &kimdaba; files</title>
-    <para>&kimdaba; uses all the images of a directory and all subdirectories
-below it, first time you start &kimdaba;, you will be ask for the location of
-this directory. &kimdaba; will not modify any images, so you do not have to
-be afraid of &kimdaba; altering your images <footnote><para>The two
-exceptions to this rule is (1) if you ask &kimdaba; to delete individual
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title>Organization of images and &kphotoalbum; files</title>
+    <para>&kphotoalbum; uses all the images of a directory and all subdirectories
+below it, first time you start &kphotoalbum;, you will be ask for the location of
+this directory. &kphotoalbum; will not modify any images, so you do not have to
+be afraid of &kphotoalbum; altering your images <footnote><para>The two
+exceptions to this rule is (1) if you ask &kphotoalbum; to delete individual
 images, from <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete
 Selected</guimenuitem></menuchoice>, and (2) plug-in operations.</para></footnote>, 
-actually if you do not trust &kimdaba;, feel free to make all your images 
+actually if you do not trust &kphotoalbum;, feel free to make all your images 
 write protected.</para>
     
-    <para>&kimdaba; will save all its information in the file
+    <para>&kphotoalbum; will save all its information in the file
 <filename>index.xml</filename> in your topmost image directory. This file
 is a simple XML file, so you can easily back it up using what ever tools
 you prefer, including normal backup utilities, copying the file to a
 floppy disk, or keeping revisions using CVS.</para>
     
-    <para>&kimdaba; will remember where you told it your images were
-located, and reuse that in future use of &kimdaba;. Should you ever want to
-load another database into &kimdaba; (i.e. another directory tree of
+    <para>&kphotoalbum; will remember where you told it your images were
+located, and reuse that in future use of &kphotoalbum;. Should you ever want to
+load another database into &kphotoalbum; (i.e. another directory tree of
 images), then you may start it with the  <option>-c</option> option. For
-example: <userinput><command>kimdaba</command> <option>-c</option> 
+example: <userinput><command>kphotoalbum</command> <option>-c</option> 
 <filename>~/CompanyImages/index.xml</filename></userinput>.</para>
   </sect1>
 </chapter>

@@ -1,6 +1,6 @@
 <chapter id="chp-browsing">
   <title>Browsing</title>
-  <para>Once you have    specified properties for your images, &kimdaba; is ready to let you
+  <para>Once you have    specified properties for your images, &kphotoalbum; is ready to let you
     browse through your images, see <xref
       linkend="fig-browser-with-images"/>. If you compare that to <xref
       linkend="fig-empty-browser-window"/> , you will see that there now is
@@ -83,7 +83,7 @@ matching your current scope.</para>
   <sect1 id="sect-adding-preview-images-to-the-browser">
   <title>Adding Preview Images to the Browser</title>
   <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
-that each person has the same icon in front of his name. &kimdaba; is actual
+that each person has the same icon in front of his name. &kphotoalbum; is actual
 capable of showing a preview image for each individual person <footnote><para>This of
 course also applies to locations, keywords, and other categories you
 have defined yourself.</para></footnote> as can be seen in  <xref

@@ -1,8 +1,8 @@
 <chapter id="chp-options">
-  <title>Configuring &kimdaba;</title>
+  <title>Configuring &kphotoalbum;</title>
   <para>Selecting
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure 
-KimDaBa...</guimenuitem></menuchoice> from the menu
+KPhotoAlbum...</guimenuitem></menuchoice> from the menu
 bar will bring up the options dialog. This chapter will tell you about the
 configuration option available there.</para>
 

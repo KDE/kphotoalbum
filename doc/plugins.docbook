@@ -1,6 +1,6 @@
 <chapter id="chp-plugins">
   <title>Plugins</title>
-  <para>&kimdaba; shares a plugin system with a number of other image
+  <para>&kphotoalbum; shares a plugin system with a number of other image
 applications, among these <application>digiKam</application> and 
 <application>Gwenview</application>. The plugin system is named
 <application>Kipi</application>, which is short for &kde; Image Plugin
@@ -8,48 +8,48 @@ Interface. See <ulink url="http://extragear.kde.org/apps/kipi/">Kipi Homepage</u
 
 <para>The plugins are available from the menu bar, under the item
 <guimenu>Plugins</guimenu>. The plugins will and can not be described in
-this manual, as the plugins are not part of &kimdaba;, but shipped
+this manual, as the plugins are not part of &kphotoalbum;, but shipped
 separately. Most plugins do, however have a help page available from the
 plugin itself.</para>
 
 <warning><para>As the plugins are shared between a
 number of applications, certain plugins might be very little tested with
-&kimdaba;, you should therefore always try out new plugins with the demo
+&kphotoalbum;, you should therefore always try out new plugins with the demo
 database before you try them on
-your own images<footnote><para>You start &kimdaba; with the demo setup either 
-from the shell by executing <userinput><command>kimdaba</command> 
+your own images<footnote><para>You start &kphotoalbum; with the demo setup either 
+from the shell by executing <userinput><command>kphotoalbum</command> 
 <option>-demo</option></userinput>, or from the <guimenu>Help</guimenu> menu.</para></footnote> 
 (Don't say I didn't warn you!).</para></warning>
 
 <para>The applications using KIPI are very different from each other, this means that some
-plugins are not always working the &kimdaba; way, but after all, this is the
+plugins are not always working the &kphotoalbum; way, but after all, this is the
 price for sharing the functionality between the applications.</para>
 
-<para>The most important difference between &kimdaba; and the other
+<para>The most important difference between &kphotoalbum; and the other
 applications using KIPI, is that the other applications order the images in
-albums, where an album simply is a directory. &kimdaba; do not have this
-concept; nevertheless, for certain plugins to function, &kimdaba; behaves
+albums, where an album simply is a directory. &kphotoalbum; do not have this
+concept; nevertheless, for certain plugins to function, &kphotoalbum; behaves
 towards the plugin system as if it did.</para>
 
-<para>&kimdaba; does this by defining <emphasis>the current album</emphasis>
+<para>&kphotoalbum; does this by defining <emphasis>the current album</emphasis>
 to be the current view - that is, all the images the browser currently offers to display.</para>
 
-<para>In addition to the current album, &kimdaba; must also be able to give a list of all albums; 
-&kimdaba; defines this list in the following way:</para>
+<para>In addition to the current album, &kphotoalbum; must also be able to give a list of all albums; 
+&kphotoalbum; defines this list in the following way:</para>
 
 <itemizedlist>
-  <listitem><para>When &kimdaba;'s browser displays the content of a
+  <listitem><para>When &kphotoalbum;'s browser displays the content of a
     category, say all Persons, then each item in this category will look like
     an album to the plugin.</para></listitem> 
   <listitem><para>Otherwise, the
     category you specify for <guilabel>Category for virtual albums</guilabel>
 in the options dialog, will be used; e.g. if you specify
-    Persons with this option, then &kimdaba; will act as if you had just chosen
+    Persons with this option, then &kphotoalbum; will act as if you had just chosen
     to display persons and then invoke the plugin which needs to know about
     all albums.</para></listitem>
 </itemizedlist>
 
-<para>Some plugins might be redundant to features implemented in &kimdaba;,
+<para>Some plugins might be redundant to features implemented in &kphotoalbum;,
 and in that case you may not want to see them at all in the Plugin
 menu. For that, you may go to the options dialog, and specify which plugins
 should be shown at all.</para>

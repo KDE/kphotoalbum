@@ -1,8 +1,8 @@
 <chapter id="chp-viewer">
   <title>The Viewer</title>
-  <para>The reason for you to put all your images into &kimdaba;, and
+  <para>The reason for you to put all your images into &kphotoalbum;, and
 spending hours after hours describing them, is of course that you at some
-point want to look at them. For that purpose &kimdaba; has an image view,
+point want to look at them. For that purpose &kphotoalbum; has an image view,
 which you can get to from the thumbnail overview, as described in <xref
       linkend="chp-thumbnail-view"/>.</para>
   
@@ -46,7 +46,7 @@ as it would have done if you selected <literal>Persons</literal> from the
 root of the browser, and next selected <literal>Anne
 Helene</literal>.</para>
   
-<para>In the info box you can see a small button with the &kimdaba;
+<para>In the info box you can see a small button with the &kphotoalbum;
 logo. Pressing that button will get you to the thumbnail viewer. The
 thumbnail view will display all images, and the image you just had in the
 viewer will be selected. The idea behind this is the following: you browse
@@ -64,13 +64,13 @@ using <keycap>Home</keycap> and <keycap>End</keycap>. These functions
 are of course also available from the context menu.</para>
   
   <para>If several images was loaded into the viewer, you can ask it to run
-them as a slide show, which means that &kimdaba; loads a new image every few
+them as a slide show, which means that &kphotoalbum; loads a new image every few
 second. How often it loads a new image is configure by pressing the control
 key and respective plus (for go faster) or minus
 (go slower). Starting and stopping the slide show is
 done simply by pressing <keycombo>&Ctrl;<keycap>S</keycap></keycombo>.</para>
   
-  <para>A very useful feature of the &kimdaba; viewer is it ability to go into
+  <para>A very useful feature of the &kphotoalbum; viewer is it ability to go into
 full screen mode. In this mode, the viewer is using the complete screen
 space, simply press the return key to make it go into and out of full screen
 mode.</para>
@@ -169,15 +169,15 @@ a plugin to copy the selected images to a CD, or whatever you need to do.</para>
   <sect1 id="drawing-on-images">
     <title>Drawing on Images</title>
     <para>Sometimes it might not be obvious what you want to show with a
-given image, for that purpose &kimdaba; allows you to draw on the
+given image, for that purpose &kphotoalbum; allows you to draw on the
 images. Currently the drawing operations are pretty limited, but future
-version of &kimdaba; is expected to have a larger set available.</para>
+version of &kphotoalbum; is expected to have a larger set available.</para>
 
 <para>The actual drawing is not saved to the image, but rather to the
 database, that way you can undo your drawing at a later point.</para>
 
 <para>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
-on. To bring &kimdaba; in to drawing mode, select <guimenuitem>Draw on
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem>Draw on
 Image</guimenuitem> from the context menu. To quit drawing, press the cross in
 the toolbar at the top of the window.</para> 
 

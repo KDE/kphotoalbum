@@ -1,7 +1,7 @@
 <chapter id="chp-typingIn">
   <title>Typing in information about your images</title>
   <para>In figure <xref linkend="fig-empty-browser-window"/> you can see
-an example of the window that will greet you once you have started &kimdaba;
+an example of the window that will greet you once you have started &kphotoalbum;
 with your own images.</para>
   
   <para>At the top of the screen you will find a menu and toolbar, as you
@@ -13,7 +13,7 @@ now, simply press the <guibutton>View Images</guibutton> item, which will show
 you an overview of all your images.</para>
   
   <figure id="fig-empty-browser-window">
-    <title>Starting &kimdaba; with your own images</title>
+    <title>Starting &kphotoalbum; with your own images</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="empty-browser-window.png"
@@ -24,7 +24,7 @@ you an overview of all your images.</para>
   
   <sect1 id="sect-specifying-properties-for-images">
     <title>Specifying properties for images</title>
-    <para>The key feature of &kimdaba; is that you can specify properties
+    <para>The key feature of &kphotoalbum; is that you can specify properties
 for images. This includes who is on a given image, where is it taken,
 etc. You can do this either an image at a time, or you can set 
 properties for a number of images simultaneously (For example, all these
@@ -87,14 +87,14 @@ they will also be shown when you later view the images.</para>
       <title>Categories</title>
       <para>In <xref linkend="fig-image-config-window"/> there are three
 list boxes combined with a line edits for specifying persons, locations and
-keywords. These widget are a very important part of &kimdaba;,
+keywords. These widget are a very important part of &kphotoalbum;,
 as you will use them over and over again, when specifying information about
 your images.</para>
       
       <para> You can specify a property from a list box, simply by
 selecting it (Select say <literal>Donna</literal> to specify that Donna is
 on the given image. Alternatively you may type its name in the line edit.
-When you start typing a name in the line edit, &kimdaba; will look into the listbox,
+When you start typing a name in the line edit, &kphotoalbum; will look into the listbox,
 and search for the first item matching what you've typed so far, and fill
 it out. Thus typing <literal>Do</literal> might be enough to find
 <literal>Donna</literal>. Once you have found the item you search for,
@@ -149,7 +149,7 @@ California.</para>
 
 <para>Instead of specifying for each and every image from San Francisco,
 that it is in San Francisco, and in California, and in USA, you may instead
-tell &kimdaba; that San Francisco, and Los Angeles are in California, and that California among
+tell &kphotoalbum; that San Francisco, and Los Angeles are in California, and that California among
 others are in USA. Doing so the browser (see <xref
 linkend="chp-browsing"/>) will offer you an item for USA, and an item for
 California in addition to all your normal items. Selecting California, you
@@ -202,7 +202,7 @@ around, simply from the bar at the top of the frames, and move them around
 - you can even make a frame into a top level window on its own.</para>
     
     <para>Once you have found a layout that matches your screen layout,
-your usage of &kimdaba;, etc, simply press the <guibutton>Options...</guibutton>
+your usage of &kphotoalbum;, etc, simply press the <guibutton>Options...</guibutton>
 button, that will display a popup menu from which you can save the current
 window layout.</para>
     

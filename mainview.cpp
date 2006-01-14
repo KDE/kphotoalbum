@@ -282,9 +282,7 @@ void MainView::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
-#ifdef TEMPORARILY_REMOVED
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnails() ) );
-#endif
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
     }
     _optionsDialog->show();

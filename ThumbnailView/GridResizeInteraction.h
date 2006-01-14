@@ -24,7 +24,7 @@ private:
      * This variable contains the size of a cell prior to the beginning of
      * resizing the grid.
      */
-    int _origSize;
+    QSize _origSize;
 
     ThumbnailView* _view;
 

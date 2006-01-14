@@ -57,7 +57,10 @@ protected:
     // Painting
     void updateCell( const QString& fileName );
     void updateCell( int row, int col );
-    void paintCellBackground( QPainter* p, int row, int col );
+    void paintCellBackground( QPainter*, int row, int col );
+    void paintCellPixmap( QPainter*, int row, int col );
+    void paintCellText( QPainter*, int row, int col );
+
     void repaintScreen();
 
     // Cell handling methods.
@@ -72,6 +75,7 @@ protected:
     int lastVisibleRow( VisibleState ) const;
     int numRowsPerPage() const;
     QRect iconGeometry( int row, int col ) const;
+    QRect cellTextGeometry( int row, int col ) const;
     bool isFocusAtFirstCell() const;
     bool isFocusAtLastCell() const;
     Cell lastCell() const;
@@ -108,6 +112,7 @@ protected:
     void selectItems( const Cell& start, const Cell& end );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
     QStringList reverseList( const QStringList& );
+    void updateCellSize();
 
 protected slots:
     void emitDateChange( int, int );

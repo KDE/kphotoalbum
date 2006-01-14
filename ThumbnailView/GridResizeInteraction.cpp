@@ -12,23 +12,28 @@ void ThumbnailView::GridResizeInteraction::mousePressEvent( QMouseEvent* event )
     _resizing = true;
     _mousePressPos = event->pos();
     _view->setContentsPos( 0, 0 );
-    _origSize = _view->cellWidth();
+    _origSize = QSize( _view->cellWidth(), _view->cellHeight() );
 }
 
 
 void ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 {
     QPoint dist = event->pos() - _mousePressPos;
-    int size = QMAX( 32, _origSize + (dist.x() + dist.y())/10 );
-    _view->setCellWidth( size );
-    _view->setCellHeight( size );
+    int h = 0;
+    if ( Options::instance()->displayLabels() )
+        h = QFontMetrics( _view->font() ).height();
+
+    _view->setCellWidth( QMAX( 32, _origSize.width() + (dist.x() + dist.y())/10 ) );
+    _view->setCellHeight( QMAX( 32 + h, _origSize.height() + (dist.x() + dist.y())/10 ) );
+
     _view->updateGridSize();
 }
 
 
 void ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
 {
-    Options::instance()->setThumbSize( _view->cellWidth() - ThumbnailView::SPACE );
+    int delta = _view->cellWidth() - _origSize.width();
+    Options::instance()->setThumbSize( Options::instance()->thumbSize() + delta);
     if ( !_view->_currentItem.isNull() ) {
         Cell cell = _view->positionForFileName( _view->_currentItem );
         _view->ensureCellVisible( cell.row(), cell.col() );

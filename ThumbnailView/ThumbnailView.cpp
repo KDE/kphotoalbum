@@ -14,6 +14,7 @@
 #include "browser.h"
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <qfontmetrics.h>
 
 /**
  * \namespace ThumbnailView
@@ -39,10 +40,8 @@ ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
      _sortDirection( Options::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
 {
     _instance = this;
-    int size = Options::instance()->thumbSize() + SPACE;
-    setCellWidth( size );
-    setCellHeight( size +2 );
     setFocusPolicy( WheelFocus );
+    updateCellSize();
 
     // It beats me why I need to set mouse tracking on both, but without it doesn't work.
     viewport()->setMouseTracking( true );
@@ -64,22 +63,31 @@ void ThumbnailView::ThumbnailView::paintCell( QPainter * p, int row, int col )
     QPixmap doubleBuffer( cellRect().size() );
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );
+    if ( !_mouseHandler->isResizingGrid() ) {
+        paintCellPixmap( &painter, row, col );
+        paintCellText( &painter, row, col );
+    }
+    painter.end();
+    p->drawPixmap( cellRect(), doubleBuffer );
+}
 
+void ThumbnailView::ThumbnailView::paintCellPixmap( QPainter* painter, int row, int col )
+{
     QString fileName = fileNameInCell( row, col );
-    if ( !fileName.isNull() && !_mouseHandler->isResizingGrid() ) {
+    if ( !fileName.isNull() ) {
         QPixmap* pix = pixmapCache().find( fileNameInCell( row, col ) );
         if ( pix ) {
             QRect rect = iconGeometry( row, col );
             Q_ASSERT( !rect.isNull() );
-            painter.drawPixmap( rect, *pix );
+            painter->drawPixmap( rect, *pix );
             if ( _selectedFiles.contains( fileName ) )
-                painter.fillRect( rect, QBrush( palette().active().highlight(), Dense4Pattern ) );
+                painter->fillRect( rect, QBrush( palette().active().highlight(), Dense4Pattern ) );
 
             rect = QRect( 0, 0, cellWidth(), cellHeight() );
             if ( _leftDrop == fileName )
-                painter.fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( red ) );
+                painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( red ) );
             else if ( _rightDrop == fileName )
-                painter.fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( red ) );
+                painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( red ) );
 
         }
         else {
@@ -90,10 +98,26 @@ void ThumbnailView::ThumbnailView::paintCell( QPainter * p, int row, int col )
             ImageManager::instance()->load( request );
         }
     }
-
-    painter.end();
-    p->drawPixmap( cellRect(), doubleBuffer );
 }
+
+void ThumbnailView::ThumbnailView::paintCellText( QPainter* painter, int row, int col )
+{
+    if ( !Options::instance()->displayLabels() )
+        return;
+
+    QString fileName = fileNameInCell( row, col );
+    if ( fileName.isNull() )
+        return;
+
+    QString title = ImageDB::instance()->info( fileName )->label();
+    QRect rect = cellTextGeometry( row, col );
+    painter->setPen( palette().active().text() );
+
+    int align = (QFontMetrics( font() ).width( title ) > rect.width()) ? Qt::AlignLeft : Qt::AlignCenter;
+
+    painter->drawText( rect, align, title );
+}
+
 
 
 void ThumbnailView::ThumbnailView::setImageList( const QStringList& list )
@@ -155,15 +179,33 @@ QRect ThumbnailView::ThumbnailView::iconGeometry( int row, int col ) const
     if ( fileName.isNull() ) // empty cell
         return QRect();
 
+    int size = Options::instance()->thumbSize() + SPACE;
     QPixmap* pix = const_cast<ThumbnailView*>(this)->pixmapCache().find( fileName );
     if ( !pix )
-        return QRect();
+        return QRect( SPACE, SPACE, size, size );
 
-    int size = Options::instance()->thumbSize() + SPACE;
     int xoff = 1 + (size - pix->width())/2; // 1 is for the border at the left
     int yoff = (size - pix->height() )/2;
     return QRect( xoff, yoff, pix->width(), pix->height() );
 }
+
+QRect ThumbnailView::ThumbnailView::cellTextGeometry( int row, int col ) const
+{
+    if ( !Options::instance()->displayLabels() )
+        return QRect();
+
+    QString fileName = fileNameInCell( row, col );
+    if ( fileName.isNull() ) // empty cell
+        return QRect();
+
+
+    int h = QFontMetrics(font()).height();
+    QRect iconRect = iconGeometry( row, col );
+    QRect cellRect = const_cast<ThumbnailView*>(this)->cellGeometry( row, col );
+
+    return QRect( 1, iconRect.bottom() +1, cellRect.width()-2, h );
+}
+
 
 
 /**
@@ -673,6 +715,7 @@ void ThumbnailView::ThumbnailView::reload()
 {
     pixmapCache().clear();
     _selectedFiles.clear();
+    updateCellSize();
     repaintScreen();
 }
 
@@ -852,3 +895,15 @@ QStringList ThumbnailView::ThumbnailView::reverseList( const QStringList& list)
     }
     return res;
 }
+
+void ThumbnailView::ThumbnailView::updateCellSize()
+{
+    int size = Options::instance()->thumbSize() + SPACE;
+    setCellWidth( size );
+
+    int h = size +2;
+    if ( Options::instance()->displayLabels() )
+        h += QFontMetrics( font() ).height() +2;
+    setCellHeight( h );
+}
+

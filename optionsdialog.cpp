@@ -223,6 +223,7 @@ void OptionsDialog::createThumbNailPage()
                                                              KIcon::Desktop, 32 ) );
 
     QGridLayout* lay = new QGridLayout( top );
+    lay->setSpacing( 6 );
     int row = 0;
 
     // Preview size
@@ -231,6 +232,11 @@ void OptionsDialog::createThumbNailPage()
     _previewSize->setSpecialValueText( i18n("No Image Preview") );
     lay->addWidget( previewSizeLabel, row, 0 );
     lay->addWidget( _previewSize, row, 1 );
+
+    // Display Labels
+    ++row;
+    _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
+    lay->addMultiCellWidget( _displayLabels, row, row, 0, 1 );
 
     // Auto Show Thumbnail view
     ++row;
@@ -248,6 +254,9 @@ void OptionsDialog::createThumbNailPage()
     lay->addWidget( cacheLabel, row, 0 );
     lay->addWidget( _thumbnailCache, row, 1 );
 
+    lay->setColStretch( 1, 1 );
+    lay->setRowStretch( ++row, 1 );
+
     // Whats This
     QString txt;
 
@@ -257,6 +266,10 @@ void OptionsDialog::createThumbNailPage()
     QWhatsThis::add( previewSizeLabel, txt );
     QWhatsThis::add( _previewSize, txt );
 
+
+    txt = i18n("<qt>Checking this option will show the base name for the file under "
+               "thumbnails in the thumbnail view</qt>");
+    QWhatsThis::add( _displayLabels, txt );
 
     txt = i18n("<qt><p>When you are browsing the images, and the count gets below the value specified here, "
                "the thumbnails will be shown automatically. The alternative is to continue showing the "
@@ -386,6 +399,7 @@ void OptionsDialog::show()
         cat = ImageDB::instance()->categoryCollection()->categories()[0];
     _albumCategory->setCurrentText( cat->text() );
 
+    _displayLabels->setChecked( opt->displayLabels() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
@@ -439,6 +453,7 @@ void OptionsDialog::slotMyOK()
     opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
+    opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );

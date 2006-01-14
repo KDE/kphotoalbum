@@ -71,6 +71,9 @@ void ThumbnailView::ThumbnailView::paintCell( QPainter * p, int row, int col )
     p->drawPixmap( cellRect(), doubleBuffer );
 }
 
+/**
+ * Paint the pixmap in the cell (row,col)
+ */
 void ThumbnailView::ThumbnailView::paintCellPixmap( QPainter* painter, int row, int col )
 {
     QString fileName = fileNameInCell( row, col );
@@ -100,6 +103,9 @@ void ThumbnailView::ThumbnailView::paintCellPixmap( QPainter* painter, int row, 
     }
 }
 
+/**
+ * Draw the title under the thumbnail
+ */
 void ThumbnailView::ThumbnailView::paintCellText( QPainter* painter, int row, int col )
 {
     if ( !Options::instance()->displayLabels() )
@@ -185,7 +191,9 @@ QRect ThumbnailView::ThumbnailView::iconGeometry( int row, int col ) const
         return QRect( SPACE, SPACE, size, size );
 
     int xoff = 1 + (size - pix->width())/2; // 1 is for the border at the left
-    int yoff = (size - pix->height() )/2;
+    int yoff = (size - pix->height() );
+    if ( !Options::instance()->displayLabels() )
+        yoff /= 2; // we wil center the images if we do not show the label, otherwise we will align it to the bottom
     return QRect( xoff, yoff, pix->width(), pix->height() );
 }
 
@@ -203,7 +211,7 @@ QRect ThumbnailView::ThumbnailView::cellTextGeometry( int row, int col ) const
     QRect iconRect = iconGeometry( row, col );
     QRect cellRect = const_cast<ThumbnailView*>(this)->cellGeometry( row, col );
 
-    return QRect( 1, iconRect.bottom() +1, cellRect.width()-2, h );
+    return QRect( 1, cellRect.height() -h -1, cellRect.width()-2, h );
 }
 
 

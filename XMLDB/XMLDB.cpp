@@ -454,7 +454,8 @@ QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
         exit(-1);
     }
 
-    if ( top.tagName().lower() != QString::fromLatin1( "kphotoalbum" ) ) {
+    if ( top.tagName().lower() != QString::fromLatin1( "kphotoalbum" ) &&
+         top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) { // KimDaBa compatibility
         KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
         exit(-1);
     }

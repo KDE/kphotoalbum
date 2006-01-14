@@ -742,16 +742,25 @@ void MainView::load()
     else if ( args->isSet( "demo" ) )
         configFile = Util::setupDemo();
     else {
-        // PENDING(blackie) This should be rewritten to KConfig* config = kapp->config()
-        KSimpleConfig config( QString::fromLatin1("kphotoalbum") );
         bool showWelcome = false;
-        if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
-            configFile = config.readEntry( QString::fromLatin1("configfile") );
+        KConfig* config = kapp->config();
+        if ( config->hasKey( QString::fromLatin1("configfile") ) ) {
+            configFile = config->readEntry( QString::fromLatin1("configfile") );
             if ( !QFileInfo( configFile ).exists() )
                 showWelcome = true;
         }
-        else
-            showWelcome = true;
+        else {
+            // KimDaBa compatibility
+            KSimpleConfig oldConfig( QString::fromLatin1("kimdaba") );
+            if ( oldConfig.hasKey( QString::fromLatin1("configfile") ) ) {
+                configFile = oldConfig.readEntry( QString::fromLatin1("configfile") );
+                if ( !QFileInfo( configFile ).exists() )
+                    showWelcome = true;
+                kapp->config()->writeEntry( QString::fromLatin1("configfile"), configFile );
+            }
+            else
+                showWelcome = true;
+        }
 
         if ( showWelcome ) {
             MySplashScreen::instance()->hide();

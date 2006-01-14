@@ -28,6 +28,7 @@
 #include <ksimpleconfig.h>
 #include <kmessagebox.h>
 #include "kshell.h"
+#include <kapplication.h>
 
 WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     : QDialog( parent, name, true )
@@ -147,8 +148,7 @@ QString FileDialog::getFileName()
     }
 
     QString file = dir + QString::fromLatin1("/index.xml");
-    KSimpleConfig config( QString::fromLatin1("kphotoalbum") );
-    config.writeEntry( QString::fromLatin1("configfile"), file );
+    kapp->config()->writeEntry( QString::fromLatin1("configfile"), file );
 
     return file;
 }

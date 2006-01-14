@@ -1,2 +1,2 @@
 KDE_LANG = en
-KDE_DOCS = kimdaba
+KDE_DOCS = photoalbum

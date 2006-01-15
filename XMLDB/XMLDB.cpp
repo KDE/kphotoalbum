@@ -288,13 +288,16 @@ void XMLDB::XMLDB::setMemberMap( const MemberMap& members )
 void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
 {
     createSpecialCategories();
-    Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
+    // options is for KimDaBa 2.1 compatibility
+    Q_ASSERT( elm.tagName().lower() == QString::fromLatin1( "categories" ) || elm.tagName().lower() == QString::fromLatin1( "options" ) );
 
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
         if ( nodeOption.isElement() )  {
             QDomElement elmOption = nodeOption.toElement();
-            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
+            // option is for KimDaBa 2.1 compatibility
+            Q_ASSERT( elmOption.tagName().lower() == QString::fromLatin1("category") ||
+                      elmOption.tagName() == QString::fromLatin1("option").lower() );
             QString name = elmOption.attribute( QString::fromLatin1("name") );
 
             if ( !name.isNull() )  {
@@ -367,8 +370,15 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
     QDomDocument doc;
 
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement top = doc.createElement( QString::fromLatin1("KPhotoAlbum") );
-    top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "2" ) );
+    QDomElement top;
+    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
+        top = doc.createElement( QString::fromLatin1("KimDaBa") );
+    }
+    else {
+        top = doc.createElement( QString::fromLatin1("KPhotoAlbum") );
+        top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "2" ) );
+        top.setAttribute( QString::fromLatin1( "compressed" ), Options::instance()->useCompressedIndexXML() );
+    }
     doc.appendChild( top );
 
     if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
@@ -473,8 +483,10 @@ void XMLDB::XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomE
             QString tag = elm.tagName().lower();
             if ( tag == QString::fromLatin1( "config" ) )
                 ; // Skip for compatibility with 2.1 and older
-            else if ( tag == QString::fromLatin1( "options" ) )
+            else if ( tag == QString::fromLatin1( "categories" ) || tag == QString::fromLatin1( "options" ) ) {
+                // options is for KimDaBa 2.1 compatibility
                 *options = elm;
+            }
             else if ( tag == QString::fromLatin1( "configwindowsetup" ) )
                 ; // Skip for compatibility with 2.1 and older
             else if ( tag == QString::fromLatin1("images") )
@@ -643,12 +655,20 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
 void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
 {
     QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
-    QDomElement options = doc.createElement( QString::fromLatin1("options") );
+    QDomElement options;
+    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
+        options = doc.createElement( QString::fromLatin1("options") );
+    else
+        options = doc.createElement( QString::fromLatin1("Categories") );
     top.appendChild( options );
 
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
+        QDomElement opt;
+        if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
+            opt = doc.createElement( QString::fromLatin1("option") );
+        else
+            opt = doc.createElement( QString::fromLatin1("Category") );
         QString name = *it;
         opt.setAttribute( QString::fromLatin1("name"),  name );
         CategoryPtr category = ImageDB::instance()->categoryCollection()->categoryForName( name );
@@ -859,7 +879,8 @@ ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomE
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
-            if ( childElm.tagName() == QString::fromLatin1( "options" ) ) {
+            if ( childElm.tagName() == QString::fromLatin1( "categories" ) || childElm.tagName() == QString::fromLatin1( "options" ) ) {
+                // options is for KimDaBa 2.1 compatibility
                 readOptions( result, childElm );
             }
             else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
@@ -879,13 +900,15 @@ ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomE
 
 void XMLDB::XMLDB::readOptions( ImageInfoPtr info, QDomElement elm )
 {
-    Q_ASSERT( elm.tagName() == QString::fromLatin1( "options" ) );
+    // options is for KimDaBa 2.1 compatibility
+    Q_ASSERT( elm.tagName() == QString::fromLatin1( "categories" ) || elm.tagName() == QString::fromLatin1( "options" ) );
 
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
         if ( nodeOption.isElement() )  {
             QDomElement elmOption = nodeOption.toElement();
-            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("option") );
+            // option is for KimDaBa 2.1 compatibility
+            Q_ASSERT( elmOption.tagName() == QString::fromLatin1("category") || elmOption.tagName() == QString::fromLatin1("option") );
             QString name = elmOption.attribute( QString::fromLatin1("name") );
             if ( name == QString::fromLatin1( "Folder" ) )
                 continue; // KimDaBa 2.0 save this to the file, that was a mistake.

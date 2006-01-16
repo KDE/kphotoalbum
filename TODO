@@ -4,8 +4,6 @@ TODO UTTERLY SOON
 - The export feature currently saves in whatever is the current XML encoding
   that is no good, as this will make it save in uncompatible format.
 - Update the KPhotoAlbum demo's index.xml file.
-- thumbnail cache claims it is in MBytes, while it really is in
-Kbytes. Change it to show in MByte though
 - sort selected is again complaining about some images being in between,
 though I've selected all - didn't i fix that bug already?
 - selecting things with the keyboard does not update the configure image menus.

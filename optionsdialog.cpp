@@ -249,7 +249,7 @@ void OptionsDialog::createThumbNailPage()
     // Thumbnail Cache
     ++row;
     QLabel* cacheLabel = new QLabel( i18n( "Thumbnail cache:" ), top );
-    _thumbnailCache = new QSpinBox( 1024, 256*1024, 1024, top );
+    _thumbnailCache = new QSpinBox( 1, 256, 1, top );
     _thumbnailCache->setSuffix( i18n("Mbytes" ) );
     lay->addWidget( cacheLabel, row, 0 );
     lay->addWidget( _thumbnailCache, row, 1 );

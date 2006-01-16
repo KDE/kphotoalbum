@@ -4,7 +4,6 @@ TODO UTTERLY SOON
 - The export feature currently saves in whatever is the current XML encoding
   that is no good, as this will make it save in uncompatible format.
 - Update the KPhotoAlbum demo's index.xml file.
-- change the minimum size of a datebar item to 1
 - thumbnail cache claims it is in MBytes, while it really is in
 Kbytes. Change it to show in MByte though
 - sort selected is again complaining about some images being in between,

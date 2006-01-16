@@ -108,7 +108,7 @@ void OptionsDialog::createGeneralPage()
     hlay = new QHBoxLayout( container, 0, 6 );
     QLabel* datebarSize = new QLabel( i18n("Size of histogram boxes in datebar:"), container );
     hlay->addWidget( datebarSize );
-    _barWidth = new QSpinBox( 15, 100, 1, container );
+    _barWidth = new QSpinBox( 1, 100, 1, container );
     hlay->addWidget( _barWidth );
     QLabel* cross = new QLabel( QString::fromLatin1( " x " ), container );
     hlay->addWidget( cross );

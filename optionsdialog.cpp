@@ -409,7 +409,10 @@ void OptionsDialog::show()
     _thumbnailCache->setValue( opt->thumbnailCache() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
 
+#ifdef HASKIPI
     _delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
+#endif
+
     // Config Groups page
     _categories->clear();
     QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();

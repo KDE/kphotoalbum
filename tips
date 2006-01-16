@@ -129,16 +129,6 @@ will be shown.
 
 <tip category="KPhotoAlbum">
 <html>
-<p>KPhotoAlbum is pronounced Ki'da'ba (the 'm' is not pronounced - hey I'm
-the author I can come up with these weird rules!). KPhotoAlbum stands for <b>KDE</b>
-<b>Im</b>age <b>Da</b>ta<b>ba</b>se. Originally I wanted it to just be KiDaBa, but I
-then found that it looked to much like kid-aba, and the name suggested that
-it was an algebra program for kids.</p>
-</html>
-</tip>
-
-<tip category="KPhotoAlbum">
-<html>
 <p>KPhotoAlbum has an email list at
 http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, and an IRC
 channel named <tt>#kphotoalbum</tt> at <tt>irc.kde.org</tt></p>

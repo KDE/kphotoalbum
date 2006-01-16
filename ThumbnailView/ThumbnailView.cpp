@@ -731,7 +731,7 @@ void ThumbnailView::ThumbnailView::repaintScreen()
 {
     for ( int row = firstVisibleRow( PartlyVisible ); row <= lastVisibleRow( PartlyVisible ); ++row )
         for ( int col = 0; col < numCols(); ++col )
-            QGridView::updateCell( row, col );
+            QGridView::repaintCell( row, col );
 }
 
 QString ThumbnailView::ThumbnailView::fileNameUnderCursor() const

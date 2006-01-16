@@ -26,7 +26,9 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
         Set<QString> oldSelection = _view->_selectedFiles;
         _view->_selectedFiles.clear();
         _originalSelectionBeforeDragStart.clear();
-        _view->repaintScreen();
+        for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+            _view->updateCell( *it );
+        }
     }
 
     QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );

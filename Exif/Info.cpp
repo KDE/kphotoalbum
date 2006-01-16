@@ -18,21 +18,16 @@ Info* Info::_instance = 0;
 QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedKeys, bool returnFullExifName )
 {
     QMap<QString, QString> result;
-    QString exifFileName = exifInfoFile( fileName );
 
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(exifFileName.local8Bit().data());
-        Q_ASSERT(image.get() != 0);
-        image->readMetadata();
-
-        Exiv2::ExifData &exifData = image->exifData();
-        if (exifData.empty()) {
+        Exiv2::ExifData data = exifData( fileName );
+        if (data.empty()) {
             return result;
         }
 
-        Exiv2::ExifData::const_iterator end = exifData.end();
+        Exiv2::ExifData::const_iterator end = data.end();
 
-        for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) {
+        for (Exiv2::ExifData::const_iterator i = data.begin(); i != end; ++i) {
             QString key = QString::fromLocal8Bit(i->key().c_str());
             _keys.insert( key );
 
@@ -261,5 +256,19 @@ QString Exif::Info::exifInfoFile( const QString& fileName )
         return name;
 
     return fileName;
+}
+
+Exiv2::ExifData Exif::Info::exifData( const QString& fileName )
+{
+    try {
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.local8Bit().data());
+        Q_ASSERT(image.get() != 0);
+        image->readMetadata();
+
+        return image->exifData();
+    }
+    catch ( ... ) {
+    }
+    return Exiv2::ExifData();
 }
 

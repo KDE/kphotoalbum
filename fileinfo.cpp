@@ -2,7 +2,6 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "util.h"
-#include <config.h>
 #include "set.h"
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
@@ -14,59 +13,65 @@ FileInfo FileInfo::read( const QString& fileName )
     fi._fullPath = fileName;
 
 #ifdef HASEXIV2
-    Set<QString> wantedKeys;
-    wantedKeys.insert( QString::fromLatin1( "Exif.Image.ImageDescription" ) );
-    wantedKeys.insert( QString::fromLatin1( "Exif.Image.Orientation" ) );
-    wantedKeys.insert( QString::fromLatin1( "Exif.Image.DateTime" ) );
-    fi._map = Exif::Info::instance()->info( fileName, wantedKeys, false );
+    fi._map = Exif::Info::instance()->exifData( fileName );
 #endif
 
     return fi;
 }
 
-QTime FileInfo::time() const
+QTime FileInfo::time()
 {
-    if ( _map.contains( QString::fromLatin1( "DateTime" ) ) ) {
-        QTime time = QDateTime::fromString( _map[QString::fromLatin1( "DateTime" )], Qt::ISODate ).time();
+#ifdef HASEXIV2
+    if ( _map.findKey( Exiv2::ExifKey( "Exif.Image.DateTime" ) ) != _map.end() ) {
+        const Exiv2::Exifdatum& datum = _map["Exif.Image.DateTime"];
+        QTime time = QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate ).time();
         if ( time.isValid() )
             return time;
     }
-
+#endif
     return QFileInfo( _fullPath ).lastModified().time();
 }
 
-QDate FileInfo::date() const
+QDate FileInfo::date()
 {
-    if ( _map.contains( QString::fromLatin1( "DateTime" ) ) ) {
-        QDate date = QDateTime::fromString( _map[QString::fromLatin1( "DateTime" )], Qt::ISODate ).date();
+#ifdef HASEXIV2
+    if ( _map.findKey( Exiv2::ExifKey( "Exif.Image.DateTime" ) ) != _map.end() ) {
+        const Exiv2::Exifdatum& datum = _map["Exif.Image.DateTime"];
+        QDate date = QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate ).date();
         if ( date.isValid() )
             return date;
     }
-
+#endif
     return QFileInfo( _fullPath ).lastModified().date();
 }
 
-int FileInfo::angle() const
+int FileInfo::angle()
 {
-    if ( !_map.contains(QString::fromLatin1( "Orientation" )) )
-        return 0;
+#ifdef HASEXIV2
+    if ( _map.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != _map.end() ) {
+        const Exiv2::Exifdatum& datum = _map["Exif.Image.Orientation"];
 
-    int orientation =  _map[QString::fromLatin1( "Orientation" )].toInt();
-    if ( orientation == 1 || orientation == 2 )
-        return 0;
-    else if ( orientation == 3 || orientation == 4 )
-        return 180;
-    else if ( orientation == 5 || orientation == 8 )
-        return 270;
-    else if ( orientation == 6 || orientation == 7 )
-        return 90;
-    else
-        return 0;
+        int orientation =  datum.toLong();
+        if ( orientation == 1 || orientation == 2 )
+            return 0;
+        else if ( orientation == 3 || orientation == 4 )
+            return 180;
+        else if ( orientation == 5 || orientation == 8 )
+            return 270;
+        else if ( orientation == 6 || orientation == 7 )
+            return 90;
+    }
+#endif
+    return 0;
 }
 
-QString FileInfo::description() const
+QString FileInfo::description()
 {
-    if ( _map.contains(QString::fromLatin1( "ImageDescription" )) )
-        return _map[QString::fromLatin1( "ImageDescription" )];
+#ifdef HASEXIV2
+    if( _map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != _map.end() ) {
+        const Exiv2::Exifdatum& datum = _map["Exif.Image.ImageDescription"];
+        return QString::fromLatin1( datum.toString().c_str() );
+    }
+#endif
     return QString::null;
 }

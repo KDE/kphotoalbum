@@ -22,18 +22,24 @@
 #include <qmap.h>
 #include <qstring.h>
 #include <qvariant.h>
+#include <config.h>
+#ifdef HASEXIV2
+#  include "Exif/Info.h"
+#endif
 
 class FileInfo
 {
 public:
     static FileInfo read( const QString& fileName );
-    QTime time() const;
-    QDate date() const;
-    int angle() const;
-    QString description() const;
+    QTime time();
+    QDate date();
+    int angle();
+    QString description();
 
 private:
-    QMap<QString,QString> _map;
+#ifdef HASEXIV2
+    Exiv2::ExifData _map;
+#endif
     QString _fullPath;
 };
 

@@ -3,6 +3,7 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include "set.h"
+#include <exiv2/exif.hpp>
 
 namespace Exif {
 
@@ -16,6 +17,7 @@ public:
     Set<QString> availableKeys();
     Set<QString> standardKeys();
     void writeInfoToFile( const QString& srcName, const QString& destName );
+    Exiv2::ExifData exifData( const QString& fileName );
 
 protected:
     QString exifInfoFile( const QString& fileName );

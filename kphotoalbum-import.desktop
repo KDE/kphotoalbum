@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=KPhotoAlbum
 Exec=kphotoalbum --import %u
 GenericName=Photo Album
+GenericName[da]=Fotoalbum
 GenericName[el]=Φωτογραφικό άλμπουμ
 GenericName[ga]=Albam Grianghraf
 GenericName[it]=Album fotografico

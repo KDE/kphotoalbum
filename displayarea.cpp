@@ -483,7 +483,7 @@ void DisplayArea::setImageList( const QStringList& list )
 void DisplayArea::updatePreload()
 {
     uint cacheSize = ( Options::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
-    bool cacheFull = _cache.count() == cacheSize;
+    bool cacheFull = (_cache.count() > cacheSize);
 
     int incr = ( _forward ? 1 : -1 );
     int nextOnesInCache = 0;

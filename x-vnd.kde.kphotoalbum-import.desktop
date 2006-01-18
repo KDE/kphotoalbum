@@ -5,6 +5,7 @@ Comment[el]=Εισαγωγή KPhotoAlbum
 Comment[ga]=Iompórtáil KPhotoAlbum
 Comment[it]=Importazione di KPhotoAlbum
 Comment[pt]=Importação do KPhotoAlbum
+Comment[sv]=Kfotoalbum import
 Icon=kphotoalbum
 Type=MimeType
 MimeType=application/vnd.kde.kphotoalbum-import

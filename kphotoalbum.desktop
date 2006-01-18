@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KPhotoAlbum
+Name[sv]=Kfotoalbum
 Exec=kphotoalbum
 GenericName=Photo Album
 GenericName[da]=Fotoalbum
@@ -8,6 +9,7 @@ GenericName[el]=Φωτογραφικό άλμπουμ
 GenericName[ga]=Albam Grianghraf
 GenericName[it]=Album fotografico
 GenericName[pt]=Álbum de Fotografias
+GenericName[sv]=Fotoalbum
 Terminal=false
 Type=Application
 X-KDE-StartupNotify=true

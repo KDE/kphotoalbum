@@ -716,6 +716,7 @@ void ThumbnailView::ThumbnailView::selectAll()
     for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
         _selectedFiles.insert(*it);
     }
+    possibleEmitSelectionChanged();
     repaintScreen();
 }
 

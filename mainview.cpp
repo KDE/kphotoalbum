@@ -398,10 +398,10 @@ void MainView::slotReReadExifInfo()
 }
 
 
-QStringList MainView::selected()
+QStringList MainView::selected( bool keepSortOrderOfDatabase )
 {
     if ( _thumbnailView == _stack->visibleWidget() )
-        return _thumbnailView->selection();
+        return _thumbnailView->selection( keepSortOrderOfDatabase );
     else
         return QStringList();
 }
@@ -459,7 +459,7 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 
 void MainView::slotSortByDateAndTime()
 {
-    ImageDB::instance()->sortAndMergeBackIn( selected() );
+    ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
     showThumbNails( ImageDB::instance()->search( Browser::instance()->currentContext() ) );
     markDirty();
 }

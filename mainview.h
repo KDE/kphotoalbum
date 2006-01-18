@@ -65,7 +65,7 @@ public:
     MainView( QWidget* parent,  const char* name = 0 );
     static void configureImages( const ImageInfoList& list, bool oneAtATime );
     static MainView* theMainView();
-    QStringList selected();
+    QStringList selected( bool keepSortOrderOfDatabase = false );
     ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 

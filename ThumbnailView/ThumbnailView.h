@@ -32,7 +32,7 @@ public:
     virtual void paintCell ( QPainter * p, int row, int col );
     virtual void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, bool loadedOK );
     bool thumbnailStillNeeded( const QString& fileName ) const;
-    QStringList selection() const;
+    QStringList selection( bool keepSortOrderOfDatabase = false ) const;
     QStringList imageList() const;
     void reload();
     QString fileNameUnderCursor() const;
@@ -111,7 +111,7 @@ protected:
     bool isMovementKey( int key );
     void selectItems( const Cell& start, const Cell& end );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
-    QStringList reverseList( const QStringList& );
+    QStringList reverseList( const QStringList& ) const;
     void updateCellSize();
 
 protected slots:

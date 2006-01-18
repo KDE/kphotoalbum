@@ -686,10 +686,14 @@ void ThumbnailView::ThumbnailView::toggleSelection( const QString& fileName )
     updateCell( fileName );
 }
 
-QStringList ThumbnailView::ThumbnailView::selection() const
+QStringList ThumbnailView::ThumbnailView::selection( bool keepSortOrderOfDatabase ) const
 {
+    QStringList images = _imageList;
+    if ( keepSortOrderOfDatabase && _sortDirection == NewestFirst )
+        images = reverseList( images );
+
     QStringList res;
-    for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
         if ( _selectedFiles.contains( *it ) )
             res.append( *it );
     }
@@ -896,7 +900,7 @@ void ThumbnailView::ThumbnailView::setSortDirection( SortDirection direction )
     _sortDirection = direction;
 }
 
-QStringList ThumbnailView::ThumbnailView::reverseList( const QStringList& list)
+QStringList ThumbnailView::ThumbnailView::reverseList( const QStringList& list) const
 {
     QStringList res;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {

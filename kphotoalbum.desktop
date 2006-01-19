@@ -4,6 +4,7 @@ Name=KPhotoAlbum
 Name[sv]=Kfotoalbum
 Exec=kphotoalbum
 GenericName=Photo Album
+GenericName[br]=Albom foto
 GenericName[da]=Fotoalbum
 GenericName[el]=Φωτογραφικό άλμπουμ
 GenericName[ga]=Albam Grianghraf

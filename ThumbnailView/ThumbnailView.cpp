@@ -448,9 +448,7 @@ int ThumbnailView::ThumbnailView::numRowsPerPage() const
 
 void ThumbnailView::ThumbnailView::mousePressEvent( QMouseEvent* event )
 {
-    if ( event->button() == RightButton )
-        return;
-    else if (event->button() & MidButton )
+    if (event->button() & MidButton )
         _mouseHandler = &_gridResizeInteraction;
     else
         _mouseHandler = &_selectionInteraction;

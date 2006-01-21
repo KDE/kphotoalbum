@@ -8,28 +8,24 @@ TODO UTTERLY SOON
 ==========================
 BUGS To be handled soonish
 ==========================
-- drawing on an image doesn't mark it as dirty
 - Adding a new ListSelect will not show it up initially.
 - renaming a category should not result in the listselect being placed
 different in the image property page.
 - Config window layout should be saved when a new tab has been created.
-- the tips of the day screen only shows up randomly.
 - When exporting to HTML or otherwise, use a filename suffix that
   matches what's actually being exported.  For example, exporting a
   file named foo.png generates a file named foo.png, even though the
   exported file is actually a JPEG.
-- use exiv2 rather than kdeutil for reading EXIF info.
 
 =======================
 BUGS of less importance
 =======================
-- In the group editor (options->group), ensure that no cycles are created.
 - When going back in the thumbnail view, the view is positioned at the top,
   rather than at its last current position.
 
-==============================
-Features for a soonish version
-==============================
+================================================================
+Features I like, and wish I would have time to look at some day.
+================================================================
 - make KPhotoAlbum a KPart (talk to cschum@suse.de, schumacher@kde.org)
 - For removing properties:
   I think a good solution would be:
@@ -48,7 +44,6 @@ Features for a soonish version
 - Find all images with changed checksums (rather than merely
   recompute the checksum).  This would help identify images
   requiring backup.
-- Adding blinking icons to the splash screen.
 - Choose a default category image, as Jean-Michel suggest (for category
   image of Anne Helene):
   Pick the first picture with ONLY Anne Helene (it´s likely to be more
@@ -57,17 +52,8 @@ Features for a soonish version
   If it doesn´t work, the default KDE icon, just like today.
   The problem here is speed. Currently it is not possible to load these images
   using the image manager, so say 300 images would take approx 1 minute to load.
-- The image display window should show the zoom-factor in the
-caption
-- when using the back button, the window should position it correctly rather than at
-the top of the view. Thus if I in a persons view select Pete, then when
-going back to that persons view, Pete should be visible.
 -  When no selection is active, pgup/pgdn in the viewer work as if all
 pictures were selected.
-- The "current image"/cursor are kept synchronized between the
-  thumbnails navigator, the viewer, and the keyword editor (C-1). In
-  particular, when hitting C-I while several images are selected,
-  display first the image on which the cursor currently is.
 - Use clickable breadcrumbs as commonly used on the web, where each
   level in the hierarchy is a clickable link, allowing the user to
   easily go back multiple levels with one click.  On the web they often
@@ -90,16 +76,13 @@ limit to that date.
 - make it possible in the browser to select multiple images to form an "or query"
 - make it possible to specify sort order for the thumbnail (newest image
 first or last)
+- when specifying options for several images at a time, present items that
+  are on all images.
 
 ======================================================================
 Features still to be considered (aka not likely to go in next release)
 ======================================================================
-- when specifying options for several images at a time, present items that
-  are on all images.
 - add kio: kphotoalbum://places/house
-- polish the offline mode, so it might be able to ask for you mounting say
-  a cd with the images needed.
-- make it possible to specify a pattern for directories to ignore, say .thumbs
 - Viewer: make it optional if images should be sized up (that is don't scale
 a 32x32 image to 1024x768)
 - Export preserves folder layout.  This would be very helpful for
@@ -117,13 +100,6 @@ a 32x32 image to 1024x768)
   Paris > StreetArt > Invaders
   and the ability to click on them to remove them from the filter
   (enlarging the selection).
-- Lots of people are asking for an extension of the token feature. One
-  useful extension could be this:
-  In the viewer make it possible to show up a dialog that allows user to
-  move tokens to items in the categories. That way I could add "Jesper" to
-  all images with the token "J". This would allow me to shortcut the step
-  of going out of the viewer, into the token editor, just to search for all
-  images with token "j", and then set person Jesper on these.
 - I find that when I'm adding tokens to a set of pictures, it is frequently the
   case that the tokens I want to apply to a picture are exactly (or close to)
   the same tokens I set for the last picture. So a single character (maybe '/'

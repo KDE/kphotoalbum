@@ -30,6 +30,7 @@
 #include "util.h"
 #include "Exif/Database.h"
 
+
 Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Read File Info"), Cancel|User1|User2, User1, parent, name,
                   true, false, i18n("Read File Info"), i18n("Show File List") )
@@ -40,9 +41,10 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
     _label = new QLabel( top );
     lay1->addWidget( _label );
 
-    if ( Exif::Database::isAvailable() ) {
-        _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
-        lay1->addWidget( _exifDB );
+    _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
+    lay1->addWidget( _exifDB );
+    if ( !Exif::Database::isAvailable() ) {
+        _exifDB->hide();
     }
 
     _date = new QCheckBox( i18n( "Update image date" ), top );

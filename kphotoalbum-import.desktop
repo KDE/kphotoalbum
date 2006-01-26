@@ -12,6 +12,7 @@ GenericName[ga]=Albam Grianghraf
 GenericName[it]=Album fotografico
 GenericName[pt]=Álbum de Fotografias
 GenericName[sv]=Fotoalbum
+GenericName[tr]=Fotoğraf Albümü
 Terminal=false
 Type=Application
 X-KDE-StartupNotify=true

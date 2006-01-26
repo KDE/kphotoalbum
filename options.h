@@ -73,7 +73,7 @@ public:
     intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
     boolProperty( Thumbnails, displayLabels, setDisplayLabels, true );
     intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
-    intProperty( Thumbnails, thumbnailCache, setThumbnailCache, 4096 );
+    intProperty( Thumbnails, thumbnailCache, setThumbnailCache, 5 );
     boolProperty( Thumbnails, showNewestThumbnailFirst, setShowNewestFirst, false );
 
     // -------------------------------------------------- Viewer

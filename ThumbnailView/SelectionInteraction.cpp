@@ -17,7 +17,6 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailView* view )
 void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
-    qDebug("Mouse press was on icon: %d", _mousePressWasOnIcon );
     _mousePressPos = _view->viewportToContents( event->pos() );
 
     QString fileNameAtPos = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );

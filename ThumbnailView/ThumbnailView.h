@@ -60,8 +60,8 @@ protected:
     void paintCellBackground( QPainter*, int row, int col );
     void paintCellPixmap( QPainter*, int row, int col );
     void paintCellText( QPainter*, int row, int col );
-
     void repaintScreen();
+    virtual void viewportPaintEvent( QPaintEvent* );
 
     // Cell handling methods.
     QString fileNameInCell( int row, int col ) const;

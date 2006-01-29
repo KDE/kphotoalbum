@@ -55,6 +55,8 @@ ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
 
     _repaintTimer = new QTimer( this );
     connect( _repaintTimer, SIGNAL( timeout() ), this, SLOT( slotRepaint() ) );
+
+    viewport()->setBackgroundMode( NoBackground );
 }
 
 
@@ -918,3 +920,10 @@ void ThumbnailView::ThumbnailView::updateCellSize()
     setCellHeight( h );
 }
 
+void ThumbnailView::ThumbnailView::viewportPaintEvent( QPaintEvent* e )
+{
+    QPainter p( viewport() );
+    p.fillRect( numCols() * cellWidth(), 0, width(), height(), palette().active().base() );
+    p.fillRect( 0, numRows() * cellHeight(), width(), height(), palette().active().base() );
+    QGridView::viewportPaintEvent( e );
+}

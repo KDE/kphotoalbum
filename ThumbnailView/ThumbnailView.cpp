@@ -399,10 +399,10 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
         newPos = Cell(0,0);
 
     // Update focus cell, and set selection
-    if ( event->state() & ShiftButton )
+    if ( (event->state() & ShiftButton) && !startPossition.isEmpty() )
         selectItems( positionForFileName( startPossition ), newPos );
 
-    else if ( ! (event->state() & ControlButton ) ) {
+    if ( ! (event->state() & ControlButton ) ) {
         selectCell( newPos );
         updateCell( currentPos.row(), currentPos.col() );
     }

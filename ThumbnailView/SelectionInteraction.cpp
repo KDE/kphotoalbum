@@ -17,6 +17,7 @@ ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailView* view )
 void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 {
     _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
+    qDebug("Mouse press was on icon: %d", _mousePressWasOnIcon );
     _mousePressPos = _view->viewportToContents( event->pos() );
 
     QString fileNameAtPos = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
@@ -145,11 +146,19 @@ void ThumbnailView::SelectionInteraction::calculateSelection( Cell* pos1, Cell* 
             *pos2 = prevCell( *pos2 );
     }
     else if ( *pos1 > *pos2 ) {
-        if ( atLeftSide( _mousePressPos ) )
+        if ( atLeftSide( _mousePressPos ) ){
             *pos1 = prevCell( *pos1 );
-        if ( atRightSide( _view->viewportToContents( viewportPos ) ) )
+        }
+        if ( atRightSide( _view->viewportToContents( viewportPos ) ) ) {
             *pos2 = nextCell( *pos2 );
+        }
     }
+
+    // Selecting to the right of the thumbnailview result in a position at cols(), though we only have 0..cols()-1
+    if( pos1->col() == _view->numCols() )
+        pos1->col()--;
+    if( pos2->col() == _view->numCols() )
+        pos2->col()--;
 }
 
 bool ThumbnailView::SelectionInteraction::atLeftSide( const QPoint& contentCoordinates )

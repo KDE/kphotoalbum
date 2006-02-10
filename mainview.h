@@ -32,7 +32,11 @@ class QLabel;
 class HTMLExportDialog;
 class KActionMenu;
 class KRadioAction;
-class PluginInterface;
+
+namespace Plugins
+{
+    class Interface;
+}
 
 namespace ThumbnailView
 {
@@ -198,7 +202,7 @@ private:
     KAction* _selectAll;
     KAction* _runSlideShow;
     KAction* _runRandomSlideShow;
-    PluginInterface* _pluginInterface;
+    Plugins::Interface* _pluginInterface;
     KAction* _showExifDialog;
 
 #ifdef HASKIPI

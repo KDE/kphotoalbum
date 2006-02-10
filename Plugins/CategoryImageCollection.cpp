@@ -19,17 +19,17 @@
 #include <config.h>
 #ifdef HASKIPI
 #include "imageinfo.h"
-#include "categoryimagecollection.h"
+#include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
 #include "imagedb.h"
-CategoryImageCollection::CategoryImageCollection( const ImageSearchInfo& context, const QString& category,
+Plugins::CategoryImageCollection::CategoryImageCollection( const ImageSearchInfo& context, const QString& category,
                                                   const QString& value )
-    : MyImageCollection( CategoryImageCollection::SubClass ), _context( context ), _category( category ),
+    : Plugins::ImageCollection( CategoryImageCollection::SubClass ), _context( context ), _category( category ),
       _value( value )
 {
 }
 
-QString CategoryImageCollection::name()
+QString Plugins::CategoryImageCollection::name()
 {
     if ( _value == QString::fromLatin1( "**NONE**" ) )
         return i18n( "Example: No Persons", "No %1" ).arg( _category );
@@ -37,7 +37,7 @@ QString CategoryImageCollection::name()
         return _value;
 }
 
-KURL::List CategoryImageCollection::images()
+KURL::List Plugins::CategoryImageCollection::images()
 {
     ImageSearchInfo context( _context );
     context.addAnd( _category, _value );

@@ -21,10 +21,13 @@
 
 #include <config.h>
 #ifdef HASKIPI
-#include "myimagecollection.h"
+#include "Plugins/ImageCollection.h"
 #include "imagesearchinfo.h"
 #include <kdemacros.h>
-class KDE_EXPORT CategoryImageCollection :public MyImageCollection {
+namespace Plugins
+{
+
+class KDE_EXPORT CategoryImageCollection :public Plugins::ImageCollection {
 
 public:
     CategoryImageCollection( const ImageSearchInfo& context, const QString& category, const QString& value );
@@ -35,6 +38,9 @@ private:
     const QString _category;
     const QString _value;
 };
+
+}
+
 #endif // KIPI
 
 

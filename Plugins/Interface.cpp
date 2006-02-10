@@ -19,37 +19,37 @@
 #include <config.h>
 
 #ifdef HASKIPI
-#include "plugininterface.h"
+#include "Plugins/Interface.h"
 #include <libkipi/imagecollection.h>
-#include "myimagecollection.h"
-#include "myimageinfo.h"
+#include "Plugins/ImageCollection.h"
+#include "Plugins/ImageInfo.h"
 #include "imagedb.h"
 #include "mainview.h"
-#include "categoryimagecollection.h"
+#include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
 #include "imageinfo.h"
 #include "browser.h"
 
-PluginInterface::PluginInterface( QObject *parent, const char *name )
+Plugins::Interface::Interface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
 {
     connect( Browser::instance(), SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
 }
 
-KIPI::ImageCollection PluginInterface::currentAlbum()
+KIPI::ImageCollection Plugins::Interface::currentAlbum()
 {
-    return KIPI::ImageCollection( new MyImageCollection( MyImageCollection::CurrentAlbum ) );
+    return KIPI::ImageCollection( new Plugins::ImageCollection( Plugins::ImageCollection::CurrentAlbum ) );
 }
 
-KIPI::ImageCollection PluginInterface::currentSelection()
+KIPI::ImageCollection Plugins::Interface::currentSelection()
 {
     if ( MainView::theMainView()->selected().count() != 0 )
-        return KIPI::ImageCollection( new MyImageCollection( MyImageCollection::CurrentSelection ) );
+        return KIPI::ImageCollection( new Plugins::ImageCollection( Plugins::ImageCollection::CurrentSelection ) );
     else
         return KIPI::ImageCollection(0);
 }
 
-QValueList<KIPI::ImageCollection> PluginInterface::allAlbums()
+QValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 {
     QValueList<KIPI::ImageCollection> result;
     ImageSearchInfo context = MainView::theMainView()->currentContext();
@@ -67,17 +67,17 @@ QValueList<KIPI::ImageCollection> PluginInterface::allAlbums()
     return result;
 }
 
-KIPI::ImageInfo PluginInterface::info( const KURL& url )
+KIPI::ImageInfo Plugins::Interface::info( const KURL& url )
 {
-    return KIPI::ImageInfo( new MyImageInfo( this, url ) );
+    return KIPI::ImageInfo( new Plugins::ImageInfo( this, url ) );
 }
 
-void PluginInterface::refreshImages( const KURL::List& urls )
+void Plugins::Interface::refreshImages( const KURL::List& urls )
 {
     emit imagesChanged( urls );
 }
 
-int PluginInterface::features() const
+int Plugins::Interface::features() const
 {
     return
         KIPI::ImagesHasComments |
@@ -87,7 +87,7 @@ int PluginInterface::features() const
         KIPI::ImageTitlesWritable;
 }
 
-bool PluginInterface::addImage( const KURL& url, QString& errmsg )
+bool Plugins::Interface::addImage( const KURL& url, QString& errmsg )
 {
     QString dir = url.path();
     QString root = Options::instance()->imageDirectory();
@@ -98,14 +98,14 @@ bool PluginInterface::addImage( const KURL& url, QString& errmsg )
     }
 
     dir = dir.mid( root.length() );
-    ImageInfoPtr info = new ImageInfo( dir );
+    ImageInfoPtr info = new ::ImageInfo( dir );
     ImageInfoList list;
     list.append( info );
     ImageDB::instance()->addImages( list );
     return true;
 }
 
-void PluginInterface::delImage( const KURL& url )
+void Plugins::Interface::delImage( const KURL& url )
 {
     ImageInfoPtr info = ImageDB::instance()->info( url.path() );
     if ( info ) {
@@ -115,13 +115,12 @@ void PluginInterface::delImage( const KURL& url )
     }
 }
 
-void PluginInterface::slotSelectionChanged( bool b )
+void Plugins::Interface::slotSelectionChanged( bool b )
 {
     emit selectionChanged( b );
 }
 
-#include "plugininterface.moc"
-void PluginInterface::pathChanged( const QString& path )
+void Plugins::Interface::pathChanged( const QString& path )
 {
     static QString _path;
     if ( _path != path ) {
@@ -129,4 +128,6 @@ void PluginInterface::pathChanged( const QString& path )
         _path = path;
     }
 }
+
+#include "Interface.moc"
 #endif // KIPI

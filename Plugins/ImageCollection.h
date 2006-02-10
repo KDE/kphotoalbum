@@ -24,12 +24,16 @@
 #include <libkipi/imagecollectionshared.h>
 #include "imageinfolist.h"
 #include <kdemacros.h>
-class KDE_EXPORT MyImageCollection :public KIPI::ImageCollectionShared
+
+namespace Plugins
+{
+
+class KDE_EXPORT ImageCollection :public KIPI::ImageCollectionShared
 {
 public:
     enum Type { CurrentAlbum, CurrentSelection, SubClass };
 
-    MyImageCollection( Type tp );
+    ImageCollection( Type tp );
     virtual QString name();
     virtual QString comment();
     virtual KURL::List images();
@@ -45,6 +49,9 @@ protected:
 private:
     Type _tp;
 };
+
+}
+
 #endif // KIPI
 
 #endif /* MYIMAGECOLLECTION_H */

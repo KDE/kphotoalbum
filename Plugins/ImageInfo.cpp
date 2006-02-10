@@ -18,17 +18,17 @@
 
 #include <config.h>
 #ifdef HASKIPI
-#include "myimageinfo.h"
+#include "Plugins/ImageInfo.h"
 #include "imagedb.h"
 #include "imageinfo.h"
 #include <kdebug.h>
-MyImageInfo::MyImageInfo( KIPI::Interface* interface, const KURL& url )
+Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {
     _info = ImageDB::instance()->info( _url.path() );
 }
 
-QString MyImageInfo::title()
+QString Plugins::ImageInfo::title()
 {
     if ( _info )
         return _info->label();
@@ -36,7 +36,7 @@ QString MyImageInfo::title()
         return QString::null;
 }
 
-QString MyImageInfo::description()
+QString Plugins::ImageInfo::description()
 {
     if ( _info )
         return _info->description();
@@ -44,7 +44,7 @@ QString MyImageInfo::description()
         return QString::null;
 }
 
-QMap<QString,QVariant> MyImageInfo::attributes()
+QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 {
     QMap<QString,QVariant> res;
     if ( _info ) {
@@ -55,24 +55,24 @@ QMap<QString,QVariant> MyImageInfo::attributes()
     return res;
 }
 
-void MyImageInfo::setTitle( const QString& name )
+void Plugins::ImageInfo::setTitle( const QString& name )
 {
     if ( _info )
         _info->setLabel( name );
 }
 
-void MyImageInfo::setDescription( const QString& description )
+void Plugins::ImageInfo::setDescription( const QString& description )
 {
     if ( _info )
         _info->setDescription( description );
 }
 
-void MyImageInfo::clearAttributes()
+void Plugins::ImageInfo::clearAttributes()
 {
     _info->_options.clear();
 }
 
-void MyImageInfo::addAttributes( const QMap<QString,QVariant>& map )
+void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
 {
     if ( _info ) {
         for( QMapConstIterator<QString,QVariant> it = map.begin(); it != map.end(); ++it ) {
@@ -82,7 +82,7 @@ void MyImageInfo::addAttributes( const QMap<QString,QVariant>& map )
     }
 }
 
-int MyImageInfo::angle()
+int Plugins::ImageInfo::angle()
 {
     if ( _info )
         return _info->angle();
@@ -90,13 +90,13 @@ int MyImageInfo::angle()
         return 0;
 }
 
-void MyImageInfo::setAngle( int angle )
+void Plugins::ImageInfo::setAngle( int angle )
 {
     if ( _info )
         _info->setAngle( angle );
 }
 
-QDateTime MyImageInfo::time( KIPI::TimeSpec what )
+QDateTime Plugins::ImageInfo::time( KIPI::TimeSpec what )
 {
     if ( _info ) {
         if ( what == KIPI::FromInfo ) {
@@ -109,14 +109,14 @@ QDateTime MyImageInfo::time( KIPI::TimeSpec what )
         return KIPI::ImageInfoShared::time( what );
 }
 
-bool MyImageInfo::isTimeExact()
+bool Plugins::ImageInfo::isTimeExact()
 {
     if ( !_info )
         return true;
     return _info->date().hasValidTime();
 }
 
-void MyImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
+void Plugins::ImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
 {
     if ( !_info )
         return;
@@ -129,11 +129,11 @@ void MyImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
     }
 }
 
-void MyImageInfo::cloneData( ImageInfoShared* other )
+void Plugins::ImageInfo::cloneData( ImageInfoShared* other )
 {
     ImageInfoShared::cloneData( other );
     if ( _info ) {
-        MyImageInfo* inf = static_cast<MyImageInfo*>( other );
+        Plugins::ImageInfo* inf = static_cast<Plugins::ImageInfo*>( other );
         _info->setDate( inf->_info->date() );
     }
 }

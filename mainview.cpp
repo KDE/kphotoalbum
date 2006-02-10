@@ -65,7 +65,7 @@
 #include "export.h"
 #include "import.h"
 #ifdef HASKIPI
-#  include "plugininterface.h"
+#  include "Plugins/Interface.h"
 #  include <libkipi/pluginloader.h>
 #  include <libkipi/plugin.h>
 #endif
@@ -1093,7 +1093,7 @@ void MainView::loadPlugins()
     if ( _hasLoadedPlugins )
         return;
 
-    _pluginInterface = new PluginInterface( this, "demo interface" );
+    _pluginInterface = new Plugins::Interface( this, "demo interface" );
     connect( _pluginInterface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
 
     QStringList ignores;

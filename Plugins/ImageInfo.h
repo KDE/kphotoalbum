@@ -26,10 +26,13 @@
 #include "imageinfoptr.h"
 class ImageInfo;
 
-class KDE_EXPORT MyImageInfo :public KIPI::ImageInfoShared
+namespace Plugins
+{
+
+class KDE_EXPORT ImageInfo :public KIPI::ImageInfoShared
 {
 public:
-    MyImageInfo( KIPI::Interface* interface, const KURL& url );
+    ImageInfo( KIPI::Interface* interface, const KURL& url );
     virtual QString title();
     virtual void setTitle( const QString& );
 
@@ -52,6 +55,8 @@ public:
 private:
     ImageInfoPtr _info;
 };
+
+}
 
 #endif // NOKIP
 

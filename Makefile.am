@@ -13,7 +13,7 @@ if compile_with_exiv2
   KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la -lexiv2
 endif
 
-SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView
+SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kphotoalbum
@@ -31,8 +31,8 @@ kphotoalbum_SOURCES = \
 	groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp \
 	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
-	mysplashscreen.cpp plugininterface.cpp myimageinfo.cpp myimagecollection.cpp \
-	categoryimagecollection.cpp searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
+	mysplashscreen.cpp \
+	searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
 	imagedaterange.cpp invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
 	imagerequest.cpp miniviewer.cpp \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c \
@@ -40,8 +40,9 @@ kphotoalbum_SOURCES = \
 
 kphotoalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kphotoalbum_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la ThumbnailView/libThumbnailView.la \
-                 $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) \
-	         $(KPHOTOALBUM_EXIV2_LIBS)
+		     Plugins/libPlugins.la \
+                     $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) \
+	             $(KPHOTOALBUM_EXIV2_LIBS)
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII 

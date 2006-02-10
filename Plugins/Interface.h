@@ -28,12 +28,15 @@
 #include <kurl.h>
 #include <kdemacros.h>
 
-class KDE_EXPORT PluginInterface :public KIPI::Interface
+namespace Plugins
+{
+
+class KDE_EXPORT Interface :public KIPI::Interface
 {
     Q_OBJECT
 
 public:
-    PluginInterface( QObject *parent, const char *name=0);
+    Interface( QObject *parent, const char *name=0);
     virtual KIPI::ImageCollection currentAlbum();
     virtual KIPI::ImageCollection currentSelection();
     virtual QValueList<KIPI::ImageCollection> allAlbums();
@@ -50,6 +53,9 @@ public slots:
 signals:
     void imagesChanged( const KURL::List& );
 };
+
+}
+
 #endif
 
 #endif /* PLUGININTERFACE_H */

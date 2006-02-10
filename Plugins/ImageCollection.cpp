@@ -19,7 +19,7 @@
 #include <config.h>
 
 #ifdef HASKIPI
-#include "myimagecollection.h"
+#include "Plugins/ImageCollection.h"
 #include "mainview.h"
 #include "imagedb.h"
 #include "options.h"
@@ -27,23 +27,23 @@
 #include "imageinfolist.h"
 #include "imageinfo.h"
 
-MyImageCollection::MyImageCollection( Type tp )
+Plugins::ImageCollection::ImageCollection( Type tp )
     : _tp( tp )
 {
 }
 
-QString MyImageCollection::name()
+QString Plugins::ImageCollection::name()
 {
     // This doesn't really make much sence for selection and current album.
     return QString::null;
 }
 
-QString MyImageCollection::comment()
+QString Plugins::ImageCollection::comment()
 {
     return QString::null;
 }
 
-KURL::List MyImageCollection::images()
+KURL::List Plugins::ImageCollection::images()
 {
     switch ( _tp ) {
     case CurrentAlbum:
@@ -59,7 +59,7 @@ KURL::List MyImageCollection::images()
     return KURL::List();
 }
 
-KURL::List MyImageCollection::imageListToUrlList( const ImageInfoList& imageList )
+KURL::List Plugins::ImageCollection::imageListToUrlList( const ImageInfoList& imageList )
 {
     KURL::List urlList;
     for( ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
@@ -70,7 +70,7 @@ KURL::List MyImageCollection::imageListToUrlList( const ImageInfoList& imageList
     return urlList;
 }
 
-KURL::List MyImageCollection::stringListToUrlList( const QStringList& list )
+KURL::List Plugins::ImageCollection::stringListToUrlList( const QStringList& list )
 {
     KURL::List urlList;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
@@ -81,12 +81,12 @@ KURL::List MyImageCollection::stringListToUrlList( const QStringList& list )
     return urlList;
 }
 
-KURL MyImageCollection::path()
+KURL Plugins::ImageCollection::path()
 {
     return commonRoot();
 }
 
-KURL MyImageCollection::commonRoot()
+KURL Plugins::ImageCollection::commonRoot()
 {
     QString imgRoot = Options::instance()->imageDirectory();
     const KURL::List imgs = images();
@@ -119,12 +119,12 @@ KURL MyImageCollection::commonRoot()
     return url;
 }
 
-KURL MyImageCollection::uploadPath()
+KURL Plugins::ImageCollection::uploadPath()
 {
     return commonRoot();
 }
 
-KURL MyImageCollection::uploadRoot()
+KURL Plugins::ImageCollection::uploadRoot()
 {
     KURL url;
     url.setPath( Options::instance()->imageDirectory() );

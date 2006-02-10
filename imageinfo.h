@@ -42,6 +42,11 @@
 #define EXIFMODE_DATABASE_UPDATE 0x20
 #define EXIFMODE_INIT ( EXIFMODE_DATE | EXIFMODE_ORIENTATION | EXIFMODE_DESCRIPTION | EXIFMODE_FORCE_DATE | EXIFMODE_DATABASE_UPDATE )
 
+namespace Plugins
+{
+class ImageInfo;
+}
+
 class ImageInfo :public KShared {
 
 public:
@@ -120,7 +125,7 @@ protected:
     bool isJPEG( const QString& fileName ) const;
 
 private:
-    friend class MyImageInfo;
+    friend class Plugins::ImageInfo;
     QString _fileName;
     QString _label;
     QString _description;

@@ -21,20 +21,22 @@
 #include <qlabel.h>
 #include <qpixmap.h>
 #include <qptrlist.h>
-#include "drawlist.h"
+#include "Viewer/DrawList.h"
 #include "imageclient.h"
 #include <qimage.h>
 #include <qcache.h>
 #include <qptrvector.h>
 #include "imageinfolist.h"
 #include "imageinfoptr.h"
-class Draw;
 class ImageInfo;
-class ViewHandler_viewHandler;
+class ImageRequest;
+
+namespace Viewer
+{
+class Draw;
 class DrawHandler;
 class DisplayAreaHandler;
 class ViewHandler;
-class ImageRequest;
 
 struct ViewPreloadInfo
 {
@@ -100,7 +102,7 @@ private:
     ImageInfoPtr _info;
 
     ViewHandler* _viewHandler;
-    DrawHandler* _drawHanler;
+    DrawHandler* _drawHandler;
     DisplayAreaHandler* _currentHandler;
 
     QPoint _zStart; // Stands for zoom start
@@ -113,6 +115,8 @@ private:
     int _curIndex;
     bool _busy;
 };
+
+}
 
 
 #endif /* DISPLAYAREA_H */

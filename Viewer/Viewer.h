@@ -31,10 +31,13 @@ class ImageInfo;
 class QLabel;
 class QPopupMenu;
 class KAction;
-class DisplayArea;
-class SpeedDisplay;
 class CategoryImageConfig;
 class ExternalPopup;
+
+namespace Viewer
+{
+class DisplayArea;
+class SpeedDisplay;
 
 class Viewer :public QWidget
 {
@@ -66,7 +69,7 @@ protected:
     void updateInfoBox();
     void setupContextMenu();
     ImageInfoPtr currentInfo();
-    friend class InfoBox;
+    friend class ::InfoBox;
 
 signals:
     void dirty();
@@ -145,6 +148,8 @@ private:
     bool _sized;
     bool _forward;
 };
+
+}
 
 #endif /* VIEWER_H */
 

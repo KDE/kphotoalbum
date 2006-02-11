@@ -16,22 +16,22 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "draw.h"
+#include "Viewer/Draw.h"
 #include <qevent.h>
 #include <qwidget.h>
-void Draw::startDraw( QMouseEvent* event )
+void Viewer::Draw::startDraw( QMouseEvent* event )
 {
     _startPos = event->pos();
     _lastPos = QPoint();
 }
 
-void Draw::draw( QPainter*, QMouseEvent* event )
+void Viewer::Draw::draw( QPainter*, QMouseEvent* event )
 {
     if ( event )
         _lastPos = event->pos();
 }
 
-void Draw::saveDrawAttr( QDomElement* elm )
+void Viewer::Draw::saveDrawAttr( QDomElement* elm )
 {
     elm->setAttribute( QString::fromLatin1("_startPos.x"), _startPos.x() );
     elm->setAttribute( QString::fromLatin1("_startPos.y"), _startPos.y() );
@@ -39,7 +39,7 @@ void Draw::saveDrawAttr( QDomElement* elm )
     elm->setAttribute( QString::fromLatin1("_lastPos.y"), _lastPos.y() );
 }
 
-void Draw::readDrawAttr( QDomElement elm )
+void Viewer::Draw::readDrawAttr( QDomElement elm )
 {
     _startPos = QPoint( elm.attribute( QString::fromLatin1("_startPos.x"), QString::fromLatin1("0") ).toInt(),
                         elm.attribute( QString::fromLatin1("_startPos.y"), QString::fromLatin1("0") ).toInt() );

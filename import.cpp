@@ -40,7 +40,7 @@
 #include "browser.h"
 #include <qdir.h>
 #include <kstandarddirs.h>
-#include "viewer.h"
+#include "Viewer/Viewer.h"
 #include <ktempfile.h>
 #include <kurl.h>
 #include <kio/job.h>

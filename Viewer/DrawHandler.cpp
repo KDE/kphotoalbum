@@ -16,21 +16,21 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "drawhandler.h"
+#include "Viewer/DrawHandler.h"
 #include "options.h"
-#include "draw.h"
-#include "displayarea.h"
+#include "Viewer/Draw.h"
+#include "Viewer/DisplayArea.h"
 #include <qpainter.h>
-#include "linedraw.h"
-#include "rectdraw.h"
-#include "circledraw.h"
-DrawHandler::DrawHandler( DisplayArea* display )
+#include "Viewer/LineDraw.h"
+#include "Viewer/RectDraw.h"
+#include "Viewer/CircleDraw.h"
+Viewer::DrawHandler::DrawHandler( DisplayArea* display )
     :DisplayAreaHandler( display ), _tool( None ), _activeTool( 0 )
 {
 
 }
 
-bool DrawHandler::mousePressEvent( QMouseEvent* event, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
+bool Viewer::DrawHandler::mousePressEvent( QMouseEvent* event, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _tool == None )
         return false;
@@ -49,7 +49,7 @@ bool DrawHandler::mousePressEvent( QMouseEvent* event, const QPoint& /*unTransla
     return true;
 }
 
-bool DrawHandler::mouseMoveEvent( QMouseEvent* event, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
+bool Viewer::DrawHandler::mouseMoveEvent( QMouseEvent* event, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
    if ( _activeTool && _tool != Select && _tool != None) {
         QPainter* painter = _display->painter();
@@ -62,7 +62,7 @@ bool DrawHandler::mouseMoveEvent( QMouseEvent* event, const QPoint& /*unTranslat
         return false;
 }
 
-bool DrawHandler::mouseReleaseEvent( QMouseEvent*, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
+bool Viewer::DrawHandler::mouseReleaseEvent( QMouseEvent*, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _tool == Select || _tool == None ) {
         return false;
@@ -75,43 +75,43 @@ bool DrawHandler::mouseReleaseEvent( QMouseEvent*, const QPoint& /*unTranslatedP
         return false;
 }
 
-void DrawHandler::slotLine()
+void Viewer::DrawHandler::slotLine()
 {
     _tool = Line;
     emit redraw();
 }
 
-void DrawHandler::slotRectangle()
+void Viewer::DrawHandler::slotRectangle()
 {
     _tool = Rectangle;
     emit redraw();
 }
 
-void DrawHandler::slotCircle()
+void Viewer::DrawHandler::slotCircle()
 {
     _tool = Circle;
     emit redraw();
 }
 
-void DrawHandler::slotSelect()
+void Viewer::DrawHandler::slotSelect()
 {
     _tool = Select;
     _activeTool = 0;
     emit redraw();
 }
 
-DrawList DrawHandler::drawList() const
+Viewer::DrawList Viewer::DrawHandler::drawList() const
 {
     return _drawings;
 }
 
-void DrawHandler::setDrawList( const DrawList& list )
+void Viewer::DrawHandler::setDrawList( const DrawList& list )
 {
     _drawings = list;
     emit redraw();
 }
 
-Draw* DrawHandler::createTool()
+Viewer::Draw* Viewer::DrawHandler::createTool()
 {
     switch ( _tool ) {
     case Line: return new LineDraw();
@@ -125,7 +125,7 @@ Draw* DrawHandler::createTool()
     }
 }
 
-void DrawHandler::drawAll( QPainter& painter )
+void Viewer::DrawHandler::drawAll( QPainter& painter )
 {
     if ( Options::instance()->showDrawings() || _tool != None ) {
         for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
@@ -156,7 +156,7 @@ void DrawHandler::drawAll( QPainter& painter )
     }
 }
 
-Draw* DrawHandler::findShape( const QPoint& pos)
+Viewer::Draw* Viewer::DrawHandler::findShape( const QPoint& pos)
 {
     QPainter* painter = _display->painter();
     for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
@@ -176,7 +176,7 @@ Draw* DrawHandler::findShape( const QPoint& pos)
     return 0;
 }
 
-void DrawHandler::cut()
+void Viewer::DrawHandler::cut()
 {
     if ( _activeTool )  {
         _drawings.remove( _activeTool );
@@ -186,21 +186,21 @@ void DrawHandler::cut()
     }
 }
 
-void DrawHandler::stopDrawing()
+void Viewer::DrawHandler::stopDrawing()
 {
     _activeTool = 0;
     _tool = None;
 }
 
-void DrawHandler::setupPainter( QPainter* painter )
+void Viewer::DrawHandler::setupPainter( QPainter* painter )
 {
     painter->setPen( QPen( Qt::black, 3 ) );
 }
 
-bool DrawHandler::hasDrawings() const
+bool Viewer::DrawHandler::hasDrawings() const
 {
     return _drawings.size() != 0;
 }
 
 
-#include "drawhandler.moc"
+#include "DrawHandler.moc"

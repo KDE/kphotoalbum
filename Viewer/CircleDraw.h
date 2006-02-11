@@ -16,20 +16,25 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef LINEDRAW_H
-#define LINEDRAW_H
-#include "draw.h"
+#ifndef CIRCLEDRAW_H
+#define CIRCLEDRAW_H
+#include "Viewer/Draw.h"
 
-class LineDraw :public Draw
+namespace Viewer
+{
+
+class CircleDraw :public Draw
 {
 public:
-    LineDraw(){}
-    LineDraw( QDomElement elm );
+    CircleDraw() {}
+    CircleDraw( QDomElement elm );
     void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints();
     virtual Draw* clone();
     virtual QDomElement save( QDomDocument doc );
 };
 
-#endif /* LINEDRAW_H */
+}
+
+#endif /* CIRCLEDRAW_H */
 

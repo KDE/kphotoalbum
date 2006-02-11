@@ -16,24 +16,30 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VIEWHANDLER_H
-#define VIEWHANDLER_H
-#include "displayareahandler.h"
-#include <qpoint.h>
+#ifndef DRAWLIST_H
+#define DRAWLIST_H
+class QWidget;
+#include <qvaluelist.h>
+#include <qdom.h>
 
-class ViewHandler :public DisplayAreaHandler {
+namespace Viewer
+{
+class Draw;
 
+class DrawList :public QValueList<Draw*>
+{
 public:
-    ViewHandler( DisplayArea* display );
-    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-private:
-    bool _scale, _pan;
-    QPoint _start, _last;
-    double _errorX, _errorY;
+    DrawList();
+    DrawList( const DrawList& other );
+    ~DrawList();
+    DrawList& operator=( const DrawList& other );
+    void load( QDomElement elm );
+    void save( QDomDocument doc, QDomElement top );
+
+protected:
+    void deleteItems();
 };
+}
 
-
-#endif /* VIEWHANDLER_H */
+#endif /* DRAWLIST_H */
 

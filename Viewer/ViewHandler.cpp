@@ -16,20 +16,20 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "viewhandler.h"
+#include "Viewer/ViewHandler.h"
 #include <qevent.h>
 #include <qpainter.h>
-#include "displayarea.h"
+#include "Viewer/DisplayArea.h"
 #include <qapplication.h>
 #include <qcursor.h>
 
-ViewHandler::ViewHandler( DisplayArea* display )
+Viewer::ViewHandler::ViewHandler( DisplayArea* display )
     :DisplayAreaHandler( display )
 {
 
 }
 
-bool ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTranslatedPos, double /*scaleFactor*/ )
+bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTranslatedPos, double /*scaleFactor*/ )
 {
     _pan = false;
     _scale = false;
@@ -54,7 +54,7 @@ bool ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTranslatedPos
         return true;
 }
 
-bool ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )
+bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )
 {
     if ( _scale ) {
         QPainter* p = _display->painter();
@@ -82,7 +82,7 @@ bool ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos
         return false;
 }
 
-bool ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
+bool Viewer::ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _scale && (e->pos()-_start).manhattanLength() > 1 ) {
         _display->zoom( _start, e->pos() );

@@ -16,23 +16,25 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DISPLAYAREAHANDLER_H
-#define DISPLAYAREAHANDLER_H
-class QMouseEvent;
-#include <qobject.h>
-#include "displayarea.h"
+#ifndef RECTDRAW_H
+#define RECTDRAW_H
+#include "Viewer/Draw.h"
 
-class DisplayAreaHandler :public QObject
+namespace Viewer
+{
+
+class RectDraw :public Draw
 {
 public:
-    DisplayAreaHandler( DisplayArea* display ) : QObject( display, "display handler" ), _display( display ) {}
-    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
-    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
-    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
-
-protected:
-    DisplayArea* _display;
+    RectDraw() {}
+    RectDraw( QDomElement elm );
+    void draw( QPainter*, QMouseEvent* );
+    virtual PointList anchorPoints();
+    virtual Draw* clone();
+    virtual QDomElement save( QDomDocument doc );
 };
 
-#endif /* DISPLAYAREAHANDLER_H */
+}
+
+#endif /* RECTDRAW_H */
 

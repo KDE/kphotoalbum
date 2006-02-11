@@ -19,15 +19,18 @@
 #ifndef DRAWHANDLER_H
 #define DRAWHANDLER_H
 
-#include "displayareahandler.h"
+#include "Viewer/DisplayAreaHandler.h"
 #include <qobject.h>
-#include "drawlist.h"
+#include "Viewer/DrawList.h"
 
 class QMouseEvent;
 class QPixmap;
 class QPoint;
 class Draw;
 class QPainter;
+
+namespace Viewer
+{
 
 class DrawHandler :public DisplayAreaHandler {
     Q_OBJECT
@@ -68,6 +71,7 @@ private:
 
 
 };
+}
 
 #endif /* DRAWHANDLER_H */
 

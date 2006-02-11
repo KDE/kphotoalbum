@@ -30,7 +30,6 @@
 
 class ImageInfo;
 class QSplitter;
-class Viewer;
 class QPushButton;
 class KLineEdit;
 class KDockWidget;
@@ -38,6 +37,12 @@ class KDatePicker;
 class KDateEdit;
 class ImagePreview;
 class KPushButton;
+
+namespace Viewer
+{
+    class Viewer;
+}
+
 
 class ImageConfig :public QDialog {
     Q_OBJECT
@@ -97,7 +102,7 @@ private:
     QPtrList< ListSelect > _optionList;
     ImageSearchInfo _oldSearch;
     QSplitter* _splitter;
-    Viewer* _viewer;
+    Viewer::Viewer* _viewer;
     int _accept;
     QValueList<KDockWidget*> _dockWidgets;
     QValueList<KDockWidget*> _tornOfWindows;

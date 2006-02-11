@@ -16,20 +16,38 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef CIRCLEDRAW_H
-#define CIRCLEDRAW_H
-#include "draw.h"
+#ifndef DRAW_H
+#define DRAW_H
+class QMouseEvent;
+class QPainter;
+class QWidget;
+#include <qpoint.h>
+#include <qvaluelist.h>
+#include <qdom.h>
 
-class CircleDraw :public Draw
+typedef QValueList<QPoint> PointList;
+typedef QValueList<QPoint>::Iterator PointListIterator;
+
+namespace Viewer
+{
+
+class Draw
 {
 public:
-    CircleDraw() {}
-    CircleDraw( QDomElement elm );
-    void draw( QPainter*, QMouseEvent* );
-    virtual PointList anchorPoints();
-    virtual Draw* clone();
-    virtual QDomElement save( QDomDocument doc );
+    void startDraw( QMouseEvent* );
+    virtual void draw( QPainter*, QMouseEvent* );
+    virtual PointList anchorPoints() = 0;
+    virtual Draw* clone() = 0;
+    virtual QDomElement save( QDomDocument doc ) = 0;
+
+protected:
+    QPoint _startPos;
+    QPoint _lastPos;
+    void saveDrawAttr( QDomElement* elm );
+    void readDrawAttr( QDomElement elm );
 };
 
-#endif /* CIRCLEDRAW_H */
+}
+
+#endif /* DRAW_H */
 

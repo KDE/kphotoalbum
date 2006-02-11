@@ -16,20 +16,33 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef RECTDRAW_H
-#define RECTDRAW_H
-#include "draw.h"
+#ifndef SPEEDDISPLAY_H
+#define SPEEDDISPLAY_H
+#include <qdialog.h>
+class QTimer;
+class QLabel;
+class QHBoxLayout;
 
-class RectDraw :public Draw
+namespace Viewer
 {
+
+class SpeedDisplay :public QDialog {
+    Q_OBJECT
+
 public:
-    RectDraw() {}
-    RectDraw( QDomElement elm );
-    void draw( QPainter*, QMouseEvent* );
-    virtual PointList anchorPoints();
-    virtual Draw* clone();
-    virtual QDomElement save( QDomDocument doc );
+    SpeedDisplay( QWidget* parent, const char* name = 0 );
+    void display( int );
+    void start();
+    void end();
+    void go();
+
+private:
+    QTimer* _timer;
+    QLabel* _label;
+    QHBoxLayout* _layout;
 };
 
-#endif /* RECTDRAW_H */
+}
+
+#endif /* SPEEDDISPLAY_H */
 

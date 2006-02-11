@@ -16,12 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "linedraw.h"
+#include "Viewer/LineDraw.h"
 #include <qpainter.h>
 #include <qevent.h>
 #include <math.h>
 
-void LineDraw::draw( QPainter* painter, QMouseEvent* event )
+void Viewer::LineDraw::draw( QPainter* painter, QMouseEvent* event )
 {
     Draw::draw( painter, event );
 
@@ -51,28 +51,28 @@ void LineDraw::draw( QPainter* painter, QMouseEvent* event )
     painter->restore();
 }
 
-PointList LineDraw::anchorPoints()
+PointList Viewer::LineDraw::anchorPoints()
 {
     PointList res;
     res << _startPos << _lastPos << _startPos + (_lastPos - _startPos) / 2;
     return res;
 }
 
-Draw* LineDraw::clone()
+Viewer::Draw* Viewer::LineDraw::clone()
 {
-    LineDraw* res = new LineDraw();
+    Viewer::LineDraw* res = new Viewer::LineDraw();
     *res = *this;
     return res;
 }
 
-QDomElement LineDraw::save( QDomDocument doc )
+QDomElement Viewer::LineDraw::save( QDomDocument doc )
 {
     QDomElement res = doc.createElement( QString::fromLatin1( "Line" ) );
     saveDrawAttr( &res );
     return res;
 }
 
-LineDraw::LineDraw( QDomElement elm )
+Viewer::LineDraw::LineDraw( QDomElement elm )
     : Draw()
 {
     readDrawAttr( elm );

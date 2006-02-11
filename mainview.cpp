@@ -27,7 +27,7 @@
 #include <qtextstream.h>
 #include <qmessagebox.h>
 #include <qdict.h>
-#include "viewer.h"
+#include "Viewer/Viewer.h"
 #include <welcomedialog.h>
 #include <qcursor.h>
 #include "showbusycursor.h"
@@ -440,14 +440,14 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
 
     if ( listOnDisk.count() != 0 ) {
 
-        Viewer* viewer;
-        if ( reuse && Viewer::latest() ) {
-            viewer = Viewer::latest();
+        Viewer::Viewer* viewer;
+        if ( reuse && Viewer::Viewer::latest() ) {
+            viewer = Viewer::Viewer::latest();
             topLevelWidget()->raise();
             setActiveWindow();
         }
         else {
-            viewer = new Viewer( "viewer" );
+            viewer = new Viewer::Viewer( "viewer" );
             connect( viewer, SIGNAL( dirty() ), this, SLOT( markDirty() ) );
         }
         viewer->show( slideShow );
@@ -918,7 +918,7 @@ void MainView::changePassword()
 
 void MainView::slotConfigureKeyBindings()
 {
-    Viewer* viewer = new Viewer( "viewer" ); // Do not show, this is only used to get a key configuration
+    Viewer::Viewer* viewer = new Viewer::Viewer( "viewer" ); // Do not show, this is only used to get a key configuration
     KKeyDialog* dialog = new KKeyDialog();
     dialog->insert( actionCollection(), i18n( "General" ) );
     dialog->insert( viewer->actions(), i18n("Viewer") );
@@ -1320,14 +1320,14 @@ void MainView::showImage( const QString& fileName )
     else {
         QStringList list;
         list.append( fileName );
-        Viewer* viewer;
-        if ( !Util::ctrlKeyDown() && Viewer::latest() ) {
-            viewer = Viewer::latest();
+        Viewer::Viewer* viewer;
+        if ( !Util::ctrlKeyDown() && Viewer::Viewer::latest() ) {
+            viewer = Viewer::Viewer::latest();
             viewer->setActiveWindow();
             viewer->raise();
         }
         else {
-            viewer = new Viewer( "viewer" );
+            viewer = new Viewer::Viewer( "viewer" );
             viewer->show( false );
         }
         viewer->load( list );

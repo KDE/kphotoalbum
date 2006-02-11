@@ -17,12 +17,12 @@
 */
 
 
-#include "displayarea.h"
+#include "Viewer/DisplayArea.h"
 #include <qpainter.h>
 #include "options.h"
 #include "imageinfo.h"
-#include "viewhandler.h"
-#include "drawhandler.h"
+#include "Viewer/ViewHandler.h"
+#include "Viewer/DrawHandler.h"
 #include <qlabel.h>
 #include "imagemanager.h"
 #include <qcursor.h>
@@ -66,7 +66,7 @@
    overriding mouse events. To make the code more readable, the strategy
    pattern is used to separate the two, and when the widget sees a
    mousePress, mouseMove or mouseRelease event then it delegates this to
-   either _viewHandler or _drawHanler.
+   either _viewHandler or _drawHandler.
 
    The code in the handlers should not care about actual zooming, therefore
    mouse coordinates are translated before they are given to the handlers
@@ -97,24 +97,24 @@
    images are viewed in, which is the job of the instance variable _forward.
 */
 
-DisplayArea::DisplayArea( QWidget* parent, const char* name )
+Viewer::DisplayArea::DisplayArea( QWidget* parent, const char* name )
     :QWidget( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
 {
     setBackgroundMode( NoBackground );
 
     _viewHandler = new ViewHandler( this );
-    _drawHanler = new DrawHandler( this );
+    _drawHandler = new DrawHandler( this );
     _currentHandler = _viewHandler;
     _cache.setAutoDelete( true );
 
-    connect( _drawHanler, SIGNAL( redraw() ), this, SLOT( drawAll() ) );
+    connect( _drawHandler, SIGNAL( redraw() ), this, SLOT( drawAll() ) );
 
     // This is to ensure that people do see the drawing when they draw,
     // otherwise the drawing would disappear as soon as mouse was released.
-    connect( _drawHanler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
+    connect( _drawHandler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
 }
 
-void DisplayArea::mousePressEvent( QMouseEvent* event )
+void Viewer::DisplayArea::mousePressEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio;
@@ -125,7 +125,7 @@ void DisplayArea::mousePressEvent( QMouseEvent* event )
     update();
 }
 
-void DisplayArea::mouseMoveEvent( QMouseEvent* event )
+void Viewer::DisplayArea::mouseMoveEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio;
@@ -136,7 +136,7 @@ void DisplayArea::mouseMoveEvent( QMouseEvent* event )
     update();
 }
 
-void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
+void Viewer::DisplayArea::mouseReleaseEvent( QMouseEvent* event )
 {
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
@@ -150,41 +150,41 @@ void DisplayArea::mouseReleaseEvent( QMouseEvent* event )
     drawAll();
 }
 
-void DisplayArea::drawAll()
+void Viewer::DisplayArea::drawAll()
 {
     if ( _croppedAndScaledImg.isNull() )
         return;
 
     _drawingPixmap = _croppedAndScaledImg;
 
-    if ( Options::instance()->showDrawings() && _drawHanler->hasDrawings() ) {
+    if ( Options::instance()->showDrawings() && _drawHandler->hasDrawings() ) {
         QPainter painter( &_drawingPixmap );
         xformPainter( &painter );
-        _drawHanler->drawAll( painter );
+        _drawHandler->drawAll( painter );
     }
     _viewPixmap = _drawingPixmap;
     repaint();
 }
 
-void DisplayArea::startDrawing()
+void Viewer::DisplayArea::startDrawing()
 {
-    _currentHandler = _drawHanler;
+    _currentHandler = _drawHandler;
 }
 
-void DisplayArea::stopDrawing()
+void Viewer::DisplayArea::stopDrawing()
 {
-    _drawHanler->stopDrawing();
+    _drawHandler->stopDrawing();
     _currentHandler = _viewHandler;
     drawAll();
 }
 
-void DisplayArea::toggleShowDrawings( bool b )
+void Viewer::DisplayArea::toggleShowDrawings( bool b )
 {
     Options::instance()->setShowDrawings( b );
     drawAll();
 }
 
-void DisplayArea::setImage( ImageInfoPtr info, bool forward )
+void Viewer::DisplayArea::setImage( ImageInfoPtr info, bool forward )
 {
     _info = info;
     _loadedImage = QImage();
@@ -216,7 +216,7 @@ void DisplayArea::setImage( ImageInfoPtr info, bool forward )
     updatePreload();
 }
 
-void DisplayArea::resizeEvent( QResizeEvent* )
+void Viewer::DisplayArea::resizeEvent( QResizeEvent* )
 {
     ImageManager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
@@ -231,12 +231,12 @@ void DisplayArea::resizeEvent( QResizeEvent* )
     updatePreload();
 }
 
-DrawHandler* DisplayArea::drawHandler()
+Viewer::DrawHandler* Viewer::DisplayArea::drawHandler()
 {
-    return _drawHanler;
+    return _drawHandler;
 }
 
-QPainter* DisplayArea::painter()
+QPainter* Viewer::DisplayArea::painter()
 {
     _viewPixmap = _drawingPixmap;
     QPainter* p = new QPainter( &_viewPixmap );
@@ -244,7 +244,7 @@ QPainter* DisplayArea::painter()
     return p;
 }
 
-void DisplayArea::paintEvent( QPaintEvent* )
+void Viewer::DisplayArea::paintEvent( QPaintEvent* )
 {
     int x = ( width() - _viewPixmap.width() ) / 2;
     int y = ( height() - _viewPixmap.height() ) / 2;
@@ -256,7 +256,7 @@ void DisplayArea::paintEvent( QPaintEvent* )
     p.fillRect( width()-x, 0, width()-x, height(), black ); // right
 }
 
-QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
+QPoint Viewer::DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
 {
     double rat = ((double)physicalWidth)/logicalWidth;
 
@@ -273,7 +273,7 @@ QPoint DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWid
 
 
 
-void DisplayArea::zoom( QPoint p1, QPoint p2 )
+void Viewer::DisplayArea::zoom( QPoint p1, QPoint p2 )
 {
     _cache.remove( _curIndex );
     normalize( p1, p2 );
@@ -328,7 +328,7 @@ void DisplayArea::zoom( QPoint p1, QPoint p2 )
         cropAndScale();
 }
 
-QPoint DisplayArea::mapPos( QPoint p )
+QPoint Viewer::DisplayArea::mapPos( QPoint p )
 {
     QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
     p -= off;
@@ -339,7 +339,7 @@ QPoint DisplayArea::mapPos( QPoint p )
 
 }
 
-void DisplayArea::xformPainter( QPainter* p )
+void Viewer::DisplayArea::xformPainter( QPainter* p )
 {
     QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
     double s = (width()-2*off.x())/QABS( (double)_zEnd.x()-_zStart.x());
@@ -347,7 +347,7 @@ void DisplayArea::xformPainter( QPainter* p )
     p->translate( -_zStart.x(), -_zStart.y() );
 }
 
-void DisplayArea::zoomIn()
+void Viewer::DisplayArea::zoomIn()
 {
     QPoint size = (_zEnd-_zStart);
     QPoint p1 = _zStart + size*(0.2/2);
@@ -355,7 +355,7 @@ void DisplayArea::zoomIn()
     zoom(p1, p2);
 }
 
-void DisplayArea::zoomOut()
+void Viewer::DisplayArea::zoomOut()
 {
     if ( _zStart == QPoint(0,0) && _zEnd == QPoint( _loadedImage.width(), _loadedImage.height() ) )
         return; // Bail out if we have zoomed all the way out, to avoid spending time in scaling
@@ -366,14 +366,14 @@ void DisplayArea::zoomOut()
     zoom(p1,p2);
 }
 
-void DisplayArea::zoomFull()
+void Viewer::DisplayArea::zoomFull()
 {
     if ( !_cachedView ) // Cached views are always full views
         zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
 }
 
 
-void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
+void Viewer::DisplayArea::normalize( QPoint& p1, QPoint& p2 )
 {
     int minx = QMIN( p1.x(), p2.x() );
     int miny = QMIN( p1.y(), p2.y() );
@@ -383,7 +383,7 @@ void DisplayArea::normalize( QPoint& p1, QPoint& p2 )
     p2 = QPoint( maxx, maxy );
 }
 
-void DisplayArea::pan( const QPoint& point )
+void Viewer::DisplayArea::pan( const QPoint& point )
 {
     if ( _cachedView )
         return; // Cached views are always full screen, so no panning is available.
@@ -406,7 +406,7 @@ void DisplayArea::pan( const QPoint& point )
     cropAndScale();
 }
 
-void DisplayArea::cropAndScale()
+void Viewer::DisplayArea::cropAndScale()
 {
     ViewPreloadInfo* info = _cache[_curIndex];
 
@@ -433,12 +433,12 @@ void DisplayArea::cropAndScale()
     drawAll();
 }
 
-void DisplayArea::doShowDrawings()
+void Viewer::DisplayArea::doShowDrawings()
 {
     Options::instance()->setShowDrawings( true );
 }
 
-QImage DisplayArea::currentViewAsThumbnail() const
+QImage Viewer::DisplayArea::currentViewAsThumbnail() const
 {
     if ( _croppedAndScaledImg.isNull() )
         return QImage();
@@ -446,7 +446,7 @@ QImage DisplayArea::currentViewAsThumbnail() const
         return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
 }
 
-void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
+void Viewer::DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
 {
     if ( loadedOK && fileName == _info->fileName() ) {
         _loadedImage = img;
@@ -474,13 +474,13 @@ void DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, c
     emit possibleChange();
 }
 
-void DisplayArea::setImageList( const QStringList& list )
+void Viewer::DisplayArea::setImageList( const QStringList& list )
 {
     _imageList = list;
     _cache.fill( 0, list.count() );
 }
 
-void DisplayArea::updatePreload()
+void Viewer::DisplayArea::updatePreload()
 {
     uint cacheSize = ( Options::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
     bool cacheFull = (_cache.count() > cacheSize);
@@ -541,7 +541,7 @@ void DisplayArea::updatePreload()
 }
 
 
-int DisplayArea::indexOf( const QString& fileName )
+int Viewer::DisplayArea::indexOf( const QString& fileName )
 {
     int i = 0;
     for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
@@ -552,18 +552,18 @@ int DisplayArea::indexOf( const QString& fileName )
     return i;
 }
 
-void DisplayArea::busy()
+void Viewer::DisplayArea::busy()
 {
     if ( !_busy )
         qApp->setOverrideCursor( Qt::WaitCursor );
     _busy = true;
 }
 
-void DisplayArea::unbusy()
+void Viewer::DisplayArea::unbusy()
 {
     if ( _busy )
         qApp->restoreOverrideCursor();
     _busy = false;
 }
 
-#include "displayarea.moc"
+#include "DisplayArea.moc"

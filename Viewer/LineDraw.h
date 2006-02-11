@@ -16,33 +16,26 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DRAW_H
-#define DRAW_H
-class QMouseEvent;
-class QPainter;
-class QWidget;
-#include <qpoint.h>
-#include <qvaluelist.h>
-#include <qdom.h>
+#ifndef LINEDRAW_H
+#define LINEDRAW_H
+#include "Viewer/Draw.h"
 
-typedef QValueList<QPoint> PointList;
-typedef QValueList<QPoint>::Iterator PointListIterator;
 
-class Draw
+namespace Viewer
+{
+
+class LineDraw :public Draw
 {
 public:
-    void startDraw( QMouseEvent* );
-    virtual void draw( QPainter*, QMouseEvent* );
-    virtual PointList anchorPoints() = 0;
-    virtual Draw* clone() = 0;
-    virtual QDomElement save( QDomDocument doc ) = 0;
-
-protected:
-    QPoint _startPos;
-    QPoint _lastPos;
-    void saveDrawAttr( QDomElement* elm );
-    void readDrawAttr( QDomElement elm );
+    LineDraw(){}
+    LineDraw( QDomElement elm );
+    void draw( QPainter*, QMouseEvent* );
+    virtual PointList anchorPoints();
+    virtual Draw* clone();
+    virtual QDomElement save( QDomDocument doc );
 };
 
-#endif /* DRAW_H */
+}
+
+#endif /* LINEDRAW_H */
 

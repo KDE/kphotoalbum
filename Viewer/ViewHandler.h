@@ -16,29 +16,28 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef SPEEDDISPLAY_H
-#define SPEEDDISPLAY_H
-#include <qdialog.h>
-class QTimer;
-class QLabel;
-class QHBoxLayout;
+#ifndef VIEWHANDLER_H
+#define VIEWHANDLER_H
+#include "Viewer/DisplayAreaHandler.h"
+#include <qpoint.h>
 
-class SpeedDisplay :public QDialog {
-    Q_OBJECT
+namespace Viewer
+{
+
+class ViewHandler :public DisplayAreaHandler {
 
 public:
-    SpeedDisplay( QWidget* parent, const char* name = 0 );
-    void display( int );
-    void start();
-    void end();
-    void go();
-
+    ViewHandler( DisplayArea* display );
+    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
 private:
-    QTimer* _timer;
-    QLabel* _label;
-    QHBoxLayout* _layout;
+    bool _scale, _pan;
+    QPoint _start, _last;
+    double _errorX, _errorY;
 };
 
+}
 
-#endif /* SPEEDDISPLAY_H */
+#endif /* VIEWHANDLER_H */
 

@@ -283,12 +283,12 @@ void ImageInfo::removeOption( const QString& key, const QString& value )
     _options[key].remove( value );
 }
 
-DrawList ImageInfo::drawList() const
+Viewer::DrawList ImageInfo::drawList() const
 {
     return _drawList;
 }
 
-void ImageInfo::setDrawList( const DrawList& list )
+void ImageInfo::setDrawList( const Viewer::DrawList& list )
 {
     _drawList = list;
 }

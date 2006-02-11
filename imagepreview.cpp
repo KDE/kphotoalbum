@@ -17,7 +17,7 @@
 */
 
 #include "imagepreview.h"
-#include "viewer.h"
+#include "Viewer/Viewer.h"
 #include "imagemanager.h"
 #include <klocale.h>
 #include <qwmatrix.h>

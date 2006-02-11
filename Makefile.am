@@ -13,21 +13,20 @@ if compile_with_exiv2
   KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la -lexiv2
 endif
 
-SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins
+SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kphotoalbum
 kphotoalbum_SOURCES = \
 	main.cpp imagemanager.cpp imageloader.cpp \
-	options.cpp imageinfo.cpp viewer.cpp listselect.cpp mainview.cpp imageconfig.cpp \
+	options.cpp imageinfo.cpp listselect.cpp mainview.cpp imageconfig.cpp \
 	imageclient.cpp util.cpp imagepreview.cpp imagedate.cpp imagesearchinfo.cpp \
-	editor.cpp showbusycursor.cpp displayarea.cpp \
-	draw.cpp linedraw.cpp rectdraw.cpp circledraw.cpp drawlist.cpp \
+	editor.cpp showbusycursor.cpp \
 	htmlexportdialog.cpp imagecounter.cpp \
 	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
-	viewhandler.cpp drawhandler.cpp searchfolder.cpp speeddisplay.cpp deletedialog.cpp \
+	searchfolder.cpp deletedialog.cpp \
 	groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp \
 	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
@@ -40,7 +39,7 @@ kphotoalbum_SOURCES = \
 
 kphotoalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kphotoalbum_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la ThumbnailView/libThumbnailView.la \
-		     Plugins/libPlugins.la \
+		     Plugins/libPlugins.la Viewer/libViewer.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) \
 	             $(KPHOTOALBUM_EXIV2_LIBS)
 

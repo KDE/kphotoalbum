@@ -28,7 +28,7 @@
 #include <qobject.h>
 #include <qdeepcopy.h>
 #include "imagedate.h"
-#include "drawlist.h"
+#include "Viewer/DrawList.h"
 #include <qimage.h>
 #include "imagedaterange.h"
 #include <ksharedptr.h>
@@ -98,8 +98,8 @@ public:
     bool operator==( const ImageInfo& other );
     virtual ImageInfo& operator=( const ImageInfo& other );
 
-    DrawList drawList() const;
-    void setDrawList( const DrawList& );
+    Viewer::DrawList drawList() const;
+    void setDrawList( const Viewer::DrawList& );
     void addDrawing( const QDomElement& );
 
     bool imageOnDisk() const;
@@ -132,7 +132,7 @@ private:
     ImageDate _date;
     QMap<QString, QStringList> _options;
     int _angle;
-    DrawList _drawList;
+    Viewer::DrawList _drawList;
     enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
     mutable OnDisk _imageOnDisk;
     QString _md5sum;

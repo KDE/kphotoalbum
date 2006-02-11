@@ -16,35 +16,35 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "drawlist.h"
-#include "draw.h"
-#include "linedraw.h"
-#include "rectdraw.h"
-#include "circledraw.h"
+#include "Viewer/DrawList.h"
+#include "Viewer/Draw.h"
+#include "Viewer/LineDraw.h"
+#include "Viewer/RectDraw.h"
+#include "Viewer/CircleDraw.h"
 #include <kmessagebox.h>
 #include <klocale.h>
-DrawList::DrawList() : QValueList<Draw*>()
+Viewer::DrawList::DrawList() : QValueList<Viewer::Draw*>()
 {
 }
 
-DrawList& DrawList::operator=( const DrawList& other )
+Viewer::DrawList& Viewer::DrawList::operator=( const Viewer::DrawList& other )
 {
     if ( this == &other )
         return *this;
     deleteItems();
 
-    for( QValueList<Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
+    for( QValueList<Viewer::Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
         append( (*it)->clone() );
     }
     return *this;
 }
 
-DrawList::~DrawList()
+Viewer::DrawList::~DrawList()
 {
     deleteItems();
 }
 
-void DrawList::deleteItems()
+void Viewer::DrawList::deleteItems()
 {
     for( QValueList<Draw*>::ConstIterator it = begin(); it != end();  ) {
         Draw* item = *it;
@@ -54,7 +54,7 @@ void DrawList::deleteItems()
     clear();
 }
 
-DrawList::DrawList( const DrawList& other )
+Viewer::DrawList::DrawList( const Viewer::DrawList& other )
     : QValueList<Draw*>()
 {
     for( QValueList<Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
@@ -62,7 +62,7 @@ DrawList::DrawList( const DrawList& other )
     }
 }
 
-void DrawList::load( QDomElement elm )
+void Viewer::DrawList::load( QDomElement elm )
 {
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "drawings" ) );
     Q_ASSERT( count() == 0 );
@@ -89,7 +89,7 @@ void DrawList::load( QDomElement elm )
     }
 }
 
-void DrawList::save( QDomDocument doc, QDomElement top )
+void Viewer::DrawList::save( QDomDocument doc, QDomElement top )
 {
     if ( count() == 0 )
         return;

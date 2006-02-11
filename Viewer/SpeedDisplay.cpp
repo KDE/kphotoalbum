@@ -16,14 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "speeddisplay.h"
+#include "Viewer/SpeedDisplay.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>
 
 #include <klocale.h>
 
-SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
+Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
     :QDialog( parent, name, false, WStyle_Customize | WStyle_NoBorder | WX11BypassWM| WStyle_StaysOnTop )
 {
     _label = new QLabel( this );
@@ -36,19 +36,19 @@ SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
     _label->setFrameStyle( QFrame::Box | QFrame::Plain );
 }
 
-void SpeedDisplay::display( int i )
+void Viewer::SpeedDisplay::display( int i )
 {
     _label->setText( i18n("<qt><center><font size=\"+4\">%1&nbsp;s</font></center></qt>").arg( QString::number( i/1000.0, 'f', 1 ) ) );
     go();
 }
 
-void SpeedDisplay::start( )
+void Viewer::SpeedDisplay::start( )
 {
     _label->setText( i18n("<qt><center><font size=\"+4\">Starting Slideshow</font></center></qt>"));
     go();
 }
 
-void SpeedDisplay::go()
+void Viewer::SpeedDisplay::go()
 {
     _layout->invalidate();
     resize( sizeHint() );
@@ -58,10 +58,10 @@ void SpeedDisplay::go()
     _timer->start( 1000 );
 }
 
-void SpeedDisplay::end()
+void Viewer::SpeedDisplay::end()
 {
     _label->setText( i18n("<qt><center><font size=\"+4\">Ending Slideshow</font></center></qt>") );
     go();
 }
 
-#include "speeddisplay.moc"
+#include "SpeedDisplay.moc"

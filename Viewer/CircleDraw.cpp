@@ -16,42 +16,43 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "rectdraw.h"
+#include "Viewer/CircleDraw.h"
 #include <qpainter.h>
 
-void RectDraw::draw( QPainter* painter, QMouseEvent* event )
+void Viewer::CircleDraw::draw( QPainter* painter, QMouseEvent* event )
 {
     Draw::draw( painter, event );
-    painter->drawRect( _startPos.x(), _startPos.y(), _lastPos.x()-_startPos.x(), _lastPos.y()-_startPos.y() );
+    painter->drawEllipse( _startPos.x(), _startPos.y(), _lastPos.x()-_startPos.x(), _lastPos.y()-_startPos.y() );
 }
 
-PointList RectDraw::anchorPoints()
+PointList Viewer::CircleDraw::anchorPoints()
 {
     PointList res;
-    res << _startPos << _lastPos << QPoint( _startPos.x(), _lastPos.y() )
-        << QPoint( _lastPos.x(), _startPos.y() );
+    QPoint center = _startPos + (_lastPos-_startPos)/2;
+    res << QPoint( center.x(), _startPos.y() )
+        << QPoint( center.x(), _lastPos.y() )
+        << QPoint( _startPos.x(), center.y() )
+        << QPoint( _lastPos.x(), center.y() );
     return res;
 }
 
-Draw* RectDraw::clone()
+Viewer::Draw* Viewer::CircleDraw::clone()
 {
-    RectDraw* res = new RectDraw();
+    Viewer::CircleDraw* res = new Viewer::CircleDraw();
     *res = *this;
     return res;
 
 }
 
-QDomElement RectDraw::save( QDomDocument doc )
+QDomElement Viewer::CircleDraw::save( QDomDocument doc )
 {
-    QDomElement res = doc.createElement( QString::fromLatin1( "Rectangle" ) );
+    QDomElement res = doc.createElement( QString::fromLatin1( "Circle" ) );
     saveDrawAttr( &res );
     return res;
 }
 
-RectDraw::RectDraw( QDomElement elm )
-    : Draw()
+Viewer::CircleDraw::CircleDraw( QDomElement elm )
+    :Draw()
 {
     readDrawAttr( elm );
 }
-
-

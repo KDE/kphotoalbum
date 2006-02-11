@@ -17,7 +17,7 @@
 */
 
 #include <kdeversion.h>
-#include "viewer.h"
+#include "Viewer/Viewer.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include "imageinfo.h"
@@ -30,7 +30,7 @@
 #include <qcursor.h>
 #include <qpopupmenu.h>
 #include <qaction.h>
-#include "displayarea.h"
+#include "Viewer/DisplayArea.h"
 #include <qtoolbar.h>
 #include <ktoolbar.h>
 #include <kiconloader.h>
@@ -40,10 +40,10 @@
 #include <qsignalmapper.h>
 #include "showoptionaction.h"
 #include <qtimer.h>
-#include "drawhandler.h"
+#include "Viewer/DrawHandler.h"
 #include <kwin.h>
 #include <kglobalsettings.h>
-#include "speeddisplay.h"
+#include "Viewer/SpeedDisplay.h"
 #include <qdesktopwidget.h>
 #include "mainview.h"
 #include <qdatetime.h>
@@ -57,16 +57,16 @@
 #include "categorycollection.h"
 #include "imagedb.h"
 
-Viewer* Viewer::_latest = 0;
+Viewer::Viewer* Viewer::Viewer::_latest = 0;
 
-Viewer* Viewer::latest()
+Viewer::Viewer* Viewer::Viewer::latest()
 {
     return _latest;
 }
 
 
 // Notice the parent is zero to allow other windows to come on top of it.
-Viewer::Viewer( const char* name )
+Viewer::Viewer::Viewer( const char* name )
     :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true )
 {
     setWFlags( WDestructiveClose );
@@ -99,7 +99,7 @@ Viewer::Viewer( const char* name )
 }
 
 
-void Viewer::setupContextMenu()
+void Viewer::Viewer::setupContextMenu()
 {
     _popup = new QPopupMenu( this, "context popup menu" );
     _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
@@ -250,7 +250,7 @@ void Viewer::setupContextMenu()
     _actions->readShortcutSettings();
 }
 
-void Viewer::load( const QStringList& list, int index )
+void Viewer::Viewer::load( const QStringList& list, int index )
 {
     _list = list;
     _display->setImageList( list );
@@ -263,7 +263,7 @@ void Viewer::load( const QStringList& list, int index )
     _slideShowRunSlower->setEnabled(on);
 }
 
-void Viewer::load()
+void Viewer::Viewer::load()
 {
     _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     _display->setImage( currentInfo(), _forward );
@@ -280,13 +280,13 @@ void Viewer::load()
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
-void Viewer::contextMenuEvent( QContextMenuEvent * e )
+void Viewer::Viewer::contextMenuEvent( QContextMenuEvent * e )
 {
     _popup->exec( e->globalPos() );
     e->accept();
 }
 
-void Viewer::showNext()
+void Viewer::Viewer::showNext()
 {
     save();
     if ( _current +1 < (int) _list.count() )  {
@@ -296,7 +296,7 @@ void Viewer::showNext()
     }
 }
 
-void Viewer::showPrev()
+void Viewer::Viewer::showPrev()
 {
     save();
     if ( _current > 0  )  {
@@ -306,63 +306,63 @@ void Viewer::showPrev()
     }
 }
 
-void Viewer::rotate90()
+void Viewer::Viewer::rotate90()
 {
     currentInfo()->rotate( 90 );
     load();
 }
 
-void Viewer::rotate180()
+void Viewer::Viewer::rotate180()
 {
     currentInfo()->rotate( 180 );
     load();
 }
 
-void Viewer::rotate270()
+void Viewer::Viewer::rotate270()
 {
     currentInfo()->rotate( 270 );
     load();
 }
 
-void Viewer::toggleShowInfoBox( bool b )
+void Viewer::Viewer::toggleShowInfoBox( bool b )
 {
     Options::instance()->setShowInfoBox( b );
     _infoBox->setShown(b);
     updateInfoBox();
 }
 
-void Viewer::toggleShowDescription( bool b )
+void Viewer::Viewer::toggleShowDescription( bool b )
 {
     Options::instance()->setShowDescription( b );
     updateInfoBox();
 }
 
-void Viewer::toggleShowDate( bool b )
+void Viewer::Viewer::toggleShowDate( bool b )
 {
     Options::instance()->setShowDate( b );
     updateInfoBox();
 }
 
-void Viewer::toggleShowTime( bool b )
+void Viewer::Viewer::toggleShowTime( bool b )
 {
     Options::instance()->setShowTime( b );
     updateInfoBox();
 }
 
-void Viewer::toggleShowEXIF( bool b )
+void Viewer::Viewer::toggleShowEXIF( bool b )
 {
     Options::instance()->setShowEXIF( b );
     updateInfoBox();
 }
 
 
-void Viewer::toggleShowOption( const QString& category, bool b )
+void Viewer::Viewer::toggleShowOption( const QString& category, bool b )
 {
     ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
     updateInfoBox();
 }
 
-void Viewer::showFirst()
+void Viewer::Viewer::showFirst()
 {
     _forward = true;
     save();
@@ -370,7 +370,7 @@ void Viewer::showFirst()
     load();
 }
 
-void Viewer::showLast()
+void Viewer::Viewer::showLast()
 {
     _forward = false;
     save();
@@ -378,79 +378,79 @@ void Viewer::showLast()
      load();
 }
 
-void Viewer::save()
+void Viewer::Viewer::save()
 {
     currentInfo()->setDrawList( _display->drawHandler()->drawList() );
 }
 
-void Viewer::startDraw()
+void Viewer::Viewer::startDraw()
 {
     _display->startDrawing();
     _display->drawHandler()->slotSelect();
     _toolbar->show();
 }
 
-void Viewer::stopDraw()
+void Viewer::Viewer::stopDraw()
 {
     _display->stopDrawing();
     _toolbar->hide();
 }
 
-void Viewer::slotSetWallpaperC()
+void Viewer::Viewer::slotSetWallpaperC()
 {
     setAsWallpaper(1);
 }
 
-void Viewer::slotSetWallpaperT()
+void Viewer::Viewer::slotSetWallpaperT()
 {
     setAsWallpaper(2);
 }
 
-void Viewer::slotSetWallpaperCT()
+void Viewer::Viewer::slotSetWallpaperCT()
 {
     setAsWallpaper(3);
 }
 
-void Viewer::slotSetWallpaperCM()
+void Viewer::Viewer::slotSetWallpaperCM()
 {
     setAsWallpaper(4);
 }
 
-void Viewer::slotSetWallpaperTM()
+void Viewer::Viewer::slotSetWallpaperTM()
 {
     setAsWallpaper(5);
 }
 
-void Viewer::slotSetWallpaperS()
+void Viewer::Viewer::slotSetWallpaperS()
 {
     setAsWallpaper(6);
 }
 
-void Viewer::slotSetWallpaperCAF()
+void Viewer::Viewer::slotSetWallpaperCAF()
 {
     setAsWallpaper(7);
 }
 
-void Viewer::setAsWallpaper(int mode)
+void Viewer::Viewer::setAsWallpaper(int mode)
 {
     if(mode>7 || mode<1) return;
     DCOPRef kdesktop("kdesktop","KBackgroundIface");
     kdesktop.send("setWallpaper(QString,int)",currentInfo()->fileName(0),mode);
 }
 
-bool Viewer::close( bool alsoDelete)
+bool Viewer::Viewer::close( bool alsoDelete)
 {
     save();
     _slideShowTimer->stop();
     return QWidget::close( alsoDelete );
 }
 
-ImageInfoPtr Viewer::currentInfo()
+ImageInfoPtr Viewer::Viewer::currentInfo()
 {
     return ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }
 
-void Viewer::infoBoxMove()
+void Viewer::Viewer::infoBoxMove()
 {
     QPoint p = mapFromGlobal( QCursor::pos() );
     Options::Position oldPos = Options::instance()->infoBoxPosition();
@@ -488,7 +488,7 @@ void Viewer::infoBoxMove()
     }
 }
 
-void Viewer::moveInfoBox()
+void Viewer::Viewer::moveInfoBox()
 {
     _infoBox->setSize();
     Options::Position pos = Options::instance()->infoBoxPosition();
@@ -522,13 +522,13 @@ void Viewer::moveInfoBox()
     _infoBox->move(bx,by);
 }
 
-void Viewer::resizeEvent( QResizeEvent* e )
+void Viewer::Viewer::resizeEvent( QResizeEvent* e )
 {
     moveInfoBox();
     QWidget::resizeEvent( e );
 }
 
-void Viewer::updateInfoBox()
+void Viewer::Viewer::updateInfoBox()
 {
     if ( currentInfo() ) {
         QMap<int, QPair<QString,QString> > map;
@@ -545,13 +545,13 @@ void Viewer::updateInfoBox()
     }
 }
 
-Viewer::~Viewer()
+Viewer::Viewer::~Viewer()
 {
     if ( _latest == this )
         _latest = 0;
 }
 
-void Viewer::createToolBar()
+void Viewer::Viewer::createToolBar()
 {
     KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this, "actions" );
@@ -584,12 +584,12 @@ void Viewer::createToolBar()
     close->plug( _toolbar );
 }
 
-void Viewer::toggleFullScreen()
+void Viewer::Viewer::toggleFullScreen()
 {
     setShowFullScreen( !_showingFullScreen );
 }
 
-void Viewer::slotStartStopSlideShow()
+void Viewer::Viewer::slotStartStopSlideShow()
 {
     if (_slideShowTimer->isActive() ) {
         _slideShowTimer->stop();
@@ -601,7 +601,7 @@ void Viewer::slotStartStopSlideShow()
     }
 }
 
-void Viewer::slotSlideShowNext()
+void Viewer::Viewer::slotSlideShowNext()
 {
     _forward = true;
     save();
@@ -622,7 +622,7 @@ void Viewer::slotSlideShowNext()
     _slideShowTimer->start( ms, true );
 }
 
-void Viewer::slotSlideShowFaster()
+void Viewer::Viewer::slotSlideShowFaster()
 {
     _slideShowPause -= 500;
     if ( _slideShowPause < 500 )
@@ -632,7 +632,7 @@ void Viewer::slotSlideShowFaster()
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
-void Viewer::slotSlideShowSlower()
+void Viewer::Viewer::slotSlideShowSlower()
 {
     _slideShowPause += 500;
     _speedDisplay->display( _slideShowPause );
@@ -640,19 +640,19 @@ void Viewer::slotSlideShowSlower()
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
-void Viewer::editImage()
+void Viewer::Viewer::editImage()
 {
     ImageInfoList list;
     list.append( currentInfo() );
     MainView::configureImages( list, true );
 }
 
-bool Viewer::showingFullScreen() const
+bool Viewer::Viewer::showingFullScreen() const
 {
     return _showingFullScreen;
 }
 
-void Viewer::setShowFullScreen( bool on )
+void Viewer::Viewer::setShowFullScreen( bool on )
 {
     if ( on ) {
         KWin::setState( winId(), NET::FullScreen );
@@ -670,24 +670,24 @@ void Viewer::setShowFullScreen( bool on )
     _showingFullScreen = on;
 }
 
-void Viewer::makeCategoryImage()
+void Viewer::Viewer::makeCategoryImage()
 {
     CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
     CategoryImageConfig::instance()->show();
 }
 
-void Viewer::updateCategoryConfig()
+void Viewer::Viewer::updateCategoryConfig()
 {
     CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
 }
 
 
-void Viewer::populateExternalPopup()
+void Viewer::Viewer::populateExternalPopup()
 {
     _externalPopup->populate( currentInfo(), _list );
 }
 
-void Viewer::show( bool slideShow )
+void Viewer::Viewer::show( bool slideShow )
 {
     QSize size;
     bool fullScreen;
@@ -714,12 +714,12 @@ void Viewer::show( bool slideShow )
     _sized = !fullScreen;
 }
 
-KActionCollection* Viewer::actions()
+KActionCollection* Viewer::Viewer::actions()
 {
     return _actions;
 }
 
-void Viewer::keyPressEvent( QKeyEvent* event )
+void Viewer::Viewer::keyPressEvent( QKeyEvent* event )
 {
     if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
         QString token = event->text().upper().left(1);
@@ -733,4 +733,4 @@ void Viewer::keyPressEvent( QKeyEvent* event )
     QWidget::keyPressEvent( event );
 }
 
-#include "viewer.moc"
+#include "Viewer.moc"

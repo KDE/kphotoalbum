@@ -10,6 +10,7 @@
 #include "SelectionInteraction.h"
 #include "MouseTrackingInteraction.h"
 #include "Cell.h"
+#include <qvaluevector.h>
 
 class QTimer;
 class ImageDateRange;
@@ -114,7 +115,10 @@ protected:
     void selectItems( const Cell& start, const Cell& end );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
     QStringList reverseList( const QStringList& ) const;
+    QValueVector<QString> reverseVector( const QValueVector<QString>& ) const;
     void updateCellSize();
+    QStringList vectorToList( const QValueVector<QString>& ) const;
+    void updateIndexCache();
 
 protected slots:
     void emitDateChange( int, int );
@@ -122,7 +126,15 @@ protected slots:
     void slotRepaint();
 
 private:
-    QStringList _imageList;
+    /**
+     * The list of images shown
+     */
+    QValueVector<QString> _imageList;
+
+    /**
+     * A map mapping from filename to its index in _imageList.
+     */
+    QMap<QString,int> _fileNameMap;
 
     /**
      * When the user selects a date on the date bar the thumbnail view will

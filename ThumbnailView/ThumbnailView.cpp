@@ -130,10 +130,18 @@ void ThumbnailView::ThumbnailView::paintCellText( QPainter* painter, int row, in
 
 void ThumbnailView::ThumbnailView::setImageList( const QStringList& list )
 {
+    QStringList l;
     if ( _sortDirection == OldestFirst )
-        _imageList = list;
+        l = list;
     else
-        _imageList = reverseList( list );
+        l = reverseList( list );
+
+    _imageList.clear();
+    _imageList.reserve( list.count() );
+    for( QStringList::ConstIterator it = l.begin(); it != l.end(); ++it ) {
+        _imageList.append( *it );
+    }
+    updateIndexCache();
 
     if ( isVisible() ) {
         updateGridSize();
@@ -504,7 +512,7 @@ void ThumbnailView::ThumbnailView::gotoDate( const ImageDateRange& date, bool in
 {
     _isSettingDate = true;
     QString candidate;
-    for( QStringList::Iterator imageIt = _imageList.begin(); imageIt != _imageList.end(); ++imageIt ) {
+    for( QValueVector<QString>::Iterator imageIt = _imageList.begin(); imageIt != _imageList.end(); ++imageIt ) {
         ImageInfoPtr info = ImageDB::instance()->info( *imageIt );
 
         ImageDateRange::MatchType match = info->dateRange().isIncludedIn( date );
@@ -532,7 +540,7 @@ void ThumbnailView::ThumbnailView::gotoDate( const ImageDateRange& date, bool in
 ThumbnailView::Cell ThumbnailView::ThumbnailView::positionForFileName( const QString& fileName ) const
 {
     Q_ASSERT( !fileName.isNull() );
-    int index = _imageList.findIndex( fileName );
+    int index = _fileNameMap[fileName];
     if ( index == -1 )
         return Cell( 0, 0 );
 
@@ -685,12 +693,12 @@ void ThumbnailView::ThumbnailView::toggleSelection( const QString& fileName )
 
 QStringList ThumbnailView::ThumbnailView::selection( bool keepSortOrderOfDatabase ) const
 {
-    QStringList images = _imageList;
+    QValueVector<QString> images = _imageList;
     if ( keepSortOrderOfDatabase && _sortDirection == NewestFirst )
-        images = reverseList( images );
+        images = reverseVector( images );
 
     QStringList res;
-    for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
+    for( QValueVector<QString>::ConstIterator it = images.begin(); it != images.end(); ++it ) {
         if ( _selectedFiles.contains( *it ) )
             res.append( *it );
     }
@@ -708,16 +716,18 @@ void ThumbnailView::ThumbnailView::possibleEmitSelectionChanged()
 
 QStringList ThumbnailView::ThumbnailView::imageList( Order order ) const
 {
+    QStringList res = vectorToList( _imageList );
+
     if ( order == SortedOrder &&  _sortDirection == NewestFirst )
-        return reverseList( _imageList );
+        return reverseList( res );
     else
-        return _imageList;
+        return res;
 }
 
 void ThumbnailView::ThumbnailView::selectAll()
 {
     _selectedFiles.clear();
-    for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
+    for( QValueVector<QString>::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
         _selectedFiles.insert(*it);
     }
     possibleEmitSelectionChanged();
@@ -788,14 +798,14 @@ void ThumbnailView::ThumbnailView::contentsDragMoveEvent( QDragMoveEvent* event 
     bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
     if ( left ) {
         _leftDrop = fileName;
-        int index = _imageList.findIndex( fileName ) -1;
+        int index = _fileNameMap[fileName] -1;
         if ( index != -1 )
             _rightDrop = _imageList[index];
     }
 
     else {
         _rightDrop = fileName;
-        uint index = _imageList.findIndex( fileName ) +1;
+        uint index = _fileNameMap[fileName] +1;
         if ( index != _imageList.count() )
             _leftDrop = _imageList[index];
     }
@@ -892,7 +902,8 @@ void ThumbnailView::ThumbnailView::setSortDirection( SortDirection direction )
         return;
 
     Options::instance()->setShowNewestFirst( direction == NewestFirst );
-    _imageList = reverseList( _imageList );
+    _imageList = reverseVector( _imageList );
+    updateIndexCache();
     if ( !_currentItem.isNull() )
         setCurrentItem( _currentItem );
     repaintScreen();
@@ -908,6 +919,19 @@ QStringList ThumbnailView::ThumbnailView::reverseList( const QStringList& list) 
     }
     return res;
 }
+
+QValueVector<QString> ThumbnailView::ThumbnailView::reverseVector( const QValueVector<QString>& vect) const
+{
+    QValueVector<QString> res;
+    int size = vect.count();
+    res.resize( size );
+    int index = 0;
+    for( QValueVector<QString>::ConstIterator it = vect.begin(); it != vect.end(); ++it, ++index ) {
+        res[size-1-index] = *it;
+    }
+    return res;
+}
+
 
 void ThumbnailView::ThumbnailView::updateCellSize()
 {
@@ -927,3 +951,22 @@ void ThumbnailView::ThumbnailView::viewportPaintEvent( QPaintEvent* e )
     p.fillRect( 0, numRows() * cellHeight(), width(), height(), palette().active().base() );
     QGridView::viewportPaintEvent( e );
 }
+
+QStringList ThumbnailView::ThumbnailView::vectorToList( const QValueVector<QString>& vect ) const
+{
+    QStringList res;
+    for( QValueVector<QString>::ConstIterator it = vect.begin(); it != vect.end(); ++it ) {
+        res.append( *it );
+    }
+    return res;
+}
+
+void ThumbnailView::ThumbnailView::updateIndexCache()
+{
+    _fileNameMap.clear();
+    int index = 0;
+    for( QValueVector<QString>::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it,++index ) {
+        _fileNameMap.insert( *it, index );
+    }
+}
+

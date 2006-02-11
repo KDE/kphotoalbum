@@ -371,11 +371,14 @@ void MainView::slotDeleteSelected()
 {
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
-    if ( _deleteDialog->exec( selected() ) == QDialog::Accepted )
-        setDirty( true );
+    if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
+        return;
 
-    QStringList images = _thumbnailView->imageList();
-    QStringList allImages = ImageDB::instance()->images();
+    ShowBusyCursor dummy;
+    setDirty( true );
+
+    QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailView::SortedOrder );
+    Set<QString> allImages( ImageDB::instance()->images() );
     QStringList newSet;
     for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
         if ( allImages.contains( *it ) )

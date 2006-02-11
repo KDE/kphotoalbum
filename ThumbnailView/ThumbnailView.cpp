@@ -533,11 +533,8 @@ ThumbnailView::Cell ThumbnailView::ThumbnailView::positionForFileName( const QSt
 {
     Q_ASSERT( !fileName.isNull() );
     int index = _imageList.findIndex( fileName );
-    Q_ASSERT ( index != -1 );
-#ifdef TEMPORARILY_REMOVED // I'll bet you I'll get in trouble here again
     if ( index == -1 )
-        qDebug("Ups");
-#endif
+        return Cell( 0, 0 );
 
     int row = index / numCols();
     int col = index % numCols();
@@ -709,9 +706,12 @@ void ThumbnailView::ThumbnailView::possibleEmitSelectionChanged()
     }
 }
 
-QStringList ThumbnailView::ThumbnailView::imageList() const
+QStringList ThumbnailView::ThumbnailView::imageList( Order order ) const
 {
-    return _imageList;
+    if ( order == SortedOrder &&  _sortDirection == NewestFirst )
+        return reverseList( _imageList );
+    else
+        return _imageList;
 }
 
 void ThumbnailView::ThumbnailView::selectAll()

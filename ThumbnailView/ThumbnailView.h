@@ -33,7 +33,9 @@ public:
     virtual void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, bool loadedOK );
     bool thumbnailStillNeeded( const QString& fileName ) const;
     QStringList selection( bool keepSortOrderOfDatabase = false ) const;
-    QStringList imageList() const;
+
+    enum Order { ViewOrder, SortedOrder };
+    QStringList imageList( Order ) const;
     void reload();
     QString fileNameUnderCursor() const;
     QString currentItem() const;

@@ -28,6 +28,8 @@
 #include "imagedb.h"
 #include "util.h"
 #include "imageinfo.h"
+#include "showbusycursor.h"
+#include <qapplication.h>
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Images"), Cancel|User1, User1, parent, name,
@@ -61,6 +63,8 @@ int DeleteDialog::exec( const QStringList& list )
 
 void DeleteDialog::deleteImages()
 {
+    ShowBusyCursor dummy;
+
     if ( _deleteFromDisk->isChecked() ) {
         for( QStringList::ConstIterator it = _list.begin(); it != _list.end(); ++it ) {
             Util::removeThumbNail( *it );

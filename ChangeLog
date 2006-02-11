@@ -1,5 +1,8 @@
 2006-02-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Drasticly improved performance of deleting images. Thanks for
+	Robert L Krawitz for his analysis of the problem.
+
 	* Don't show a warning about not being able to delete a file when
 	it doesn't exists in the first place. Thanks to Robert L Krawitz.
 

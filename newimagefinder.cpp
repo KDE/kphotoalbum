@@ -2,7 +2,7 @@
 #include "imagedb.h"
 #include <qfileinfo.h>
 #include "options.h"
-#include "browser.h"
+#include "Browser/Browser.h"
 #include <qdir.h>
 #include "util.h"
 #include <qprogressdialog.h>
@@ -33,7 +33,7 @@ bool NewImageFinder::findImages()
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
-    Browser::instance()->home();
+    Browser::Browser::instance()->home();
     return (!_pendingLoad.isEmpty()); // returns if new images was found.
 }
 

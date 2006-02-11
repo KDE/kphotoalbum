@@ -16,36 +16,36 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "searchfolder.h"
+#include "SearchFolder.h"
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kiconloader.h>
 #include "imageconfig.h"
-#include "contentfolder.h"
+#include "ContentFolder.h"
 #include "imagedb.h"
 #include <kmessagebox.h>
 #include <kglobal.h>
 #include "imageinfo.h"
 
-SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
+Browser::SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
 {
     setCount(-1);
 }
 
-QPixmap SearchFolder::pixmap()
+QPixmap Browser::SearchFolder::pixmap()
 {
     KIconLoader loader;
     return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "find" ), KIcon::Desktop, 22 );
 }
 
-QString SearchFolder::text() const
+QString Browser::SearchFolder::text() const
 {
     return i18n("Search");
 }
 
 
-FolderAction* SearchFolder::action( bool )
+Browser::FolderAction* Browser::SearchFolder::action( bool )
 {
     ImageConfig config( _browser );
     ImageSearchInfo info = config.search( &_info );
@@ -60,7 +60,7 @@ FolderAction* SearchFolder::action( bool )
     return new ContentFolderAction( QString::null, QString::null, info, _browser );
 }
 
-QString SearchFolder::countLabel() const
+QString Browser::SearchFolder::countLabel() const
 {
     return QString::null;
 }

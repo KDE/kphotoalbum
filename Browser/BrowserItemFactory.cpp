@@ -16,32 +16,33 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "browseritemfactory.h"
-#include "folder.h"
+#include "BrowserItemFactory.h"
+#include "Folder.h"
 #include <klocale.h>
-BrowserIconViewItemFactory::BrowserIconViewItemFactory( QIconView* view )
+
+Browser::BrowserIconViewItemFactory::BrowserIconViewItemFactory( QIconView* view )
     :BrowserItemFactory(), _view( view )
 {
 }
 
-void BrowserIconViewItemFactory::createItem( Folder* folder )
+void Browser::BrowserIconViewItemFactory::createItem( Folder* folder )
 {
     if ( folder->text().lower().contains( _matchText.lower() ) )
         new BrowserIconItem( _view, folder );
 }
 
-BrowserListViewItemFactory::BrowserListViewItemFactory( QListView* view )
+Browser::BrowserListViewItemFactory::BrowserListViewItemFactory( QListView* view )
     :BrowserItemFactory(), _view( view )
 {
 }
 
-void BrowserListViewItemFactory::createItem( Folder* folder )
+void Browser::BrowserListViewItemFactory::createItem( Folder* folder )
 {
     BrowserListItem* item = new BrowserListItem( _view, folder );
     item->setEnabled( folder->_enabled );
 }
 
-BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
+Browser::BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
     :QIconViewItem( view ), _folder(folder)
 {
     setPixmap( folder->pixmap() );
@@ -52,7 +53,7 @@ BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
         setText( QString::fromLatin1( "%1 (%2)" ).arg( folder->text() ).arg( count ) );
 }
 
-BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
+Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
      : QListViewItem( view ), _folder(folder)
 {
     setPixmap( 0, folder->pixmap() );
@@ -60,22 +61,22 @@ BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
     setText( 1, folder->countLabel() );
 }
 
-int BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const
+int Browser::BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const
 {
     return _folder->compare( static_cast<BrowserListItem*>(other)->_folder, col, asc );
 }
 
-BrowserIconItem::~BrowserIconItem()
+Browser::BrowserIconItem::~BrowserIconItem()
 {
     delete _folder;
 }
 
-BrowserListItem::~BrowserListItem()
+Browser::BrowserListItem::~BrowserListItem()
 {
     delete _folder;
 }
 
-void BrowserIconViewItemFactory::setMatchText( const QString& text )
+void Browser::BrowserIconViewItemFactory::setMatchText( const QString& text )
 {
     _matchText = text;
 }

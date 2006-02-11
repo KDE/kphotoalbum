@@ -16,36 +16,25 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef TYPEFOLDER_H
-#define TYPEFOLDER_H
-#include "folder.h"
+#ifndef SEARCHFOLDER_H
+#define SEARCHFOLDER_H
+#include "Folder.h"
 
-class TypeFolder :public Folder {
+namespace Browser
+{
+
+class SearchFolder :public Folder {
+
 public:
-    TypeFolder( const QString& category, const ImageSearchInfo& info, Browser* parent );
+    SearchFolder( const ImageSearchInfo& info, Browser* browser );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
     virtual QString countLabel() const;
-private:
-    QString _category;
+
 };
 
-class TypeFolderAction :public FolderAction {
+}
 
-public:
-    TypeFolderAction( const QString& category, const ImageSearchInfo& info, Browser* parent  );
-    virtual void action( BrowserItemFactory* factory );
-    virtual bool showsImages() const { return false; }
-    virtual bool contentView() const;
-    virtual QString title() const;
-    virtual QString category() const;
-
-private:
-    QString _category;
-};
-
-
-
-#endif /* TYPEFOLDER_H */
+#endif /* SEARCHFOLDER_H */
 

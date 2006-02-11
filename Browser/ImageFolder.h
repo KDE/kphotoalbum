@@ -18,7 +18,10 @@
 
 #ifndef IMAGEFOLDER_H
 #define IMAGEFOLDER_H
-#include "folder.h"
+#include "Folder.h"
+
+namespace Browser
+{
 
 class ImageFolder :public Folder {
 public:
@@ -42,6 +45,8 @@ private:
     bool _addExtraToBrowser;
     QString _context;
 };
+
+}
 
 #endif /* IMAGEFOLDER_H */
 

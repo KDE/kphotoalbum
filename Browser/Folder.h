@@ -19,9 +19,12 @@
 #ifndef FOLDER_H
 #define FOLDER_H
 #include <qiconview.h>
-#include "browser.h"
+#include "Browser.h"
 #include <qstring.h>
 #include "imagesearchinfo.h"
+
+namespace Browser
+{
 
 class FolderAction;
 class BrowserItemFactory;
@@ -69,6 +72,8 @@ protected:
     Browser* _browser;
     ImageSearchInfo _info;
 };
+
+}
 
 #endif /* FOLDER_H */
 

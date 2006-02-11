@@ -22,12 +22,16 @@
 #include <qiconview.h>
 #include "options.h"
 #include "imageinfoptr.h"
-class BrowserIconViewItemFactory;
-class FolderAction;
+
 class ImageSearchInfo;
 class QListViewItem;
-class BrowserItemFactory;
 class QWidgetStack;
+
+namespace Browser
+{
+class BrowserIconViewItemFactory;
+class FolderAction;
+class BrowserItemFactory;
 
 class Browser :public QWidget {
     Q_OBJECT
@@ -94,6 +98,7 @@ private:
     QListView* _listView;
 };
 
+}
 
 #endif /* BROWSER_H */
 

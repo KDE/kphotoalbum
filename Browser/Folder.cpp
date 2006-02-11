@@ -16,30 +16,30 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "folder.h"
+#include "Folder.h"
 #include <klocale.h>
 #include "options.h"
 #include "imagedb.h"
 
-int Folder::_idCount = 0;
+int Browser::Folder::_idCount = 0;
 
-Folder::Folder( const ImageSearchInfo& info, Browser* parent )
+Browser::Folder::Folder( const ImageSearchInfo& info, Browser* parent )
     : _index(_idCount++), _browser( parent ), _info( info ), _enabled( true )
 {
 }
 
 
-FolderAction::FolderAction(const ImageSearchInfo& info, Browser* browser )
+Browser::FolderAction::FolderAction(const ImageSearchInfo& info, Browser* browser )
     :  _browser( browser ), _info( info )
 {
 }
 
-QString FolderAction::path() const
+QString Browser::FolderAction::path() const
 {
     return _info.toString();
 }
 
-int Folder::compare( Folder* other, int col, bool asc ) const
+int Browser::Folder::compare( Folder* other, int col, bool asc ) const
 {
     Folder* o = static_cast<Folder*>( other );
     if ( !_browser->allowSort() ) {
@@ -66,22 +66,22 @@ int Folder::compare( Folder* other, int col, bool asc ) const
     return 0;
 }
 
-bool FolderAction::allowSort() const
+bool Browser::FolderAction::allowSort() const
 {
     return true;
 }
 
-QString FolderAction::title() const
+QString Browser::FolderAction::title() const
 {
     return QString::fromLatin1( "" );
 }
 
-QString FolderAction::category() const
+QString Browser::FolderAction::category() const
 {
     return QString::null;
 }
 
-void Folder::setEnabled( bool b )
+void Browser::Folder::setEnabled( bool b )
 {
     _enabled = b;
 }

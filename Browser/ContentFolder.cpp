@@ -16,23 +16,23 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "contentfolder.h"
+#include "ContentFolder.h"
 #include "options.h"
-#include "typefolder.h"
-#include "imagefolder.h"
+#include "TypeFolder.h"
+#include "ImageFolder.h"
 #include <klocale.h>
 #include "imagedb.h"
-#include "searchfolder.h"
+#include "SearchFolder.h"
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "browseritemfactory.h"
+#include "BrowserItemFactory.h"
 #include "categorycollection.h"
 #include "membermap.h"
-#include "exiffolder.h"
+#include "ExifFolder.h"
 #include "Exif/Database.h"
 #include <config.h>
 
-ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
+Browser::ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
                               const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category( category ), _value( value )
 {
@@ -40,7 +40,7 @@ ContentFolder::ContentFolder( const QString& category, const QString& value, int
     setCount( count );
 }
 
-QPixmap ContentFolder::pixmap()
+QPixmap Browser::ContentFolder::pixmap()
 {
     if ( ImageDB::instance()->categoryCollection()->categoryForName( _category )->viewSize() == Category::Small ) {
         if ( ImageDB::instance()->memberMap().isGroup( _category, _value ) )
@@ -53,7 +53,7 @@ QPixmap ContentFolder::pixmap()
         return Options::instance()->categoryImage( _category, _value, 64 );
 }
 
-QString ContentFolder::text() const
+QString Browser::ContentFolder::text() const
 {
     if ( _value == ImageDB::NONE() ) {
         if ( _info.option(_category) == ImageDB::NONE() )
@@ -67,7 +67,7 @@ QString ContentFolder::text() const
 }
 
 
-void ContentFolderAction::action( BrowserItemFactory* factory )
+void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
     QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
@@ -85,7 +85,7 @@ void ContentFolderAction::action( BrowserItemFactory* factory )
     factory->createItem( new ImageFolder( _info, _browser ) );
 }
 
-FolderAction* ContentFolder::action( bool ctrlDown )
+Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 {
     bool loadImages = (ImageDB::instance()->count( _info ) < Options::instance()->autoShowThumbnailView());
     if ( ctrlDown ) loadImages = !loadImages;
@@ -98,13 +98,13 @@ FolderAction* ContentFolder::action( bool ctrlDown )
     return new ContentFolderAction( _category, _value, _info, _browser );
 }
 
-ContentFolderAction::ContentFolderAction( const QString& category, const QString& value,
+Browser::ContentFolderAction::ContentFolderAction( const QString& category, const QString& value,
                                           const ImageSearchInfo& info, Browser* browser )
     :FolderAction( info, browser ), _category( category ), _value( value )
 {
 }
 
-int ContentFolder::compare( Folder* other, int col, bool asc ) const
+int Browser::ContentFolder::compare( Folder* other, int col, bool asc ) const
 {
     if ( col == 0 ) {
         if ( _value == ImageDB::NONE() )
@@ -117,18 +117,18 @@ int ContentFolder::compare( Folder* other, int col, bool asc ) const
     return Folder::compare( other, col, asc );
 }
 
-bool ContentFolderAction::allowSort() const
+bool Browser::ContentFolderAction::allowSort() const
 {
     return false;
 }
 
 
-QString ContentFolderAction::title() const
+QString Browser::ContentFolderAction::title() const
 {
     return i18n("Category");
 }
 
-QString ContentFolder::countLabel() const
+QString Browser::ContentFolder::countLabel() const
 {
     return i18n("1 Image", "%n Images", _count);
 }

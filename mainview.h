@@ -24,7 +24,6 @@ class ImageConfig;
 class QWidgetStack;
 class ImageCounter;
 class QTimer;
-class Browser;
 class KTipDialog;
 class DeleteDialog;
 class ReadInfoDialog;
@@ -41,6 +40,11 @@ namespace Plugins
 namespace ThumbnailView
 {
     class ThumbnailView;
+}
+
+namespace Browser
+{
+    class Browser;
 }
 
 
@@ -173,7 +177,7 @@ private:
     QWidgetStack* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;
-    Browser* _browser;
+    Browser::Browser* _browser;
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
     QLabel* _dirtyIndicator;

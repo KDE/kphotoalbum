@@ -19,9 +19,13 @@
 #ifndef BROWSERITEMFACTORY_H
 #define BROWSERITEMFACTORY_H
 
-class Folder;
 #include <qlistview.h>
 #include <qiconview.h>
+
+namespace Browser
+{
+class Folder;
+
 
 /**
    The Browser can display the items either in an QIconView or a QListView.
@@ -94,6 +98,8 @@ public:
     virtual int compare( QListViewItem* other, int col, bool asc ) const;
 
 };
+
+}
 
 #endif /* BROWSERITEMFACTORY_H */
 

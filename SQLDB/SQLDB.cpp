@@ -13,7 +13,7 @@
 #include "groupCounter.h"
 #include <kdebug.h>
 #include "SQLImageInfo.h"
-#include <browser.h>
+#include "Browser/Browser.h"
 #include "SQLImageDateRangeCollection.h"
 
 SQLDB::SQLDB::SQLDB() :_members( this )

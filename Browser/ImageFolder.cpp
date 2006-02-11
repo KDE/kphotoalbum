@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imagefolder.h"
+#include "ImageFolder.h"
 #include <klocale.h>
 #include "imagedb.h"
 #include "imagesearchinfo.h"
@@ -28,26 +28,26 @@
 #include "mainview.h"
 
 // PENDING(blackie) cleanup, we don't need from and to anymore
-ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
+Browser::ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent )
 {
     int count = ImageDB::instance()->count( info );
     setCount( count );
 }
 
-QPixmap ImageFolder::pixmap()
+QPixmap Browser::ImageFolder::pixmap()
 {
     return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Desktop, 22 );
 }
 
-QString ImageFolder::text() const
+QString Browser::ImageFolder::text() const
 {
     return i18n( "View Images" );
 }
 
 
 
-void ImageFolderAction::action( BrowserItemFactory* )
+void Browser::ImageFolderAction::action( BrowserItemFactory* )
 {
     MainView::theMainView()->showThumbNails( ImageDB::instance()->search( _info ) );
 
@@ -55,23 +55,22 @@ void ImageFolderAction::action( BrowserItemFactory* )
         ThumbnailView::ThumbnailView::theThumbnailView()->setCurrentItem( _context );
 }
 
-FolderAction* ImageFolder::action( bool /* ctrlDown */ )
+Browser::FolderAction* Browser::ImageFolder::action( bool /* ctrlDown */ )
 {
     return new ImageFolderAction( _info, _browser );
 }
 
-ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, Browser* browser )
+Browser::ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, Browser* browser )
     : FolderAction( info, browser ), _addExtraToBrowser( true )
 {
 }
 
-ImageFolderAction::ImageFolderAction( const QString& context, Browser* browser )
+Browser::ImageFolderAction::ImageFolderAction( const QString& context, Browser* browser )
     :FolderAction( ImageSearchInfo(), browser ), _addExtraToBrowser(false), _context( context )
 {
-
 }
 
-QString ImageFolder::countLabel() const
+QString Browser::ImageFolder::countLabel() const
 {
     return i18n("1 image", "%n images", _count );
 }

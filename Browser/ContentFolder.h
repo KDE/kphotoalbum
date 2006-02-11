@@ -16,20 +16,45 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef SEARCHFOLDER_H
-#define SEARCHFOLDER_H
-#include "folder.h"
+#ifndef CONTENTFOLDER_H
+#define CONTENTFOLDER_H
+#include "Folder.h"
 
-class SearchFolder :public Folder {
+namespace Browser
+{
 
+class ContentFolder :public Folder {
 public:
-    SearchFolder( const ImageSearchInfo& info, Browser* browser );
+    ContentFolder( const QString& category, const QString& value, int count,
+                   const ImageSearchInfo& info, Browser* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
+    int compare( Folder* other, int col, bool asc ) const;
     virtual QString countLabel() const;
 
+private:
+    QString _category;
+    QString _value;
 };
 
-#endif /* SEARCHFOLDER_H */
+class ContentFolderAction :public FolderAction {
+
+public:
+    ContentFolderAction( const QString& category, const QString& value,
+                         const ImageSearchInfo& info, Browser* parent );
+    virtual void action( BrowserItemFactory* factory );
+    virtual bool showsImages() const { return false; }
+    virtual bool contentView() const { return false; }
+    virtual bool allowSort() const;
+    virtual QString title() const;
+
+private:
+    QString _category;
+    QString _value;
+};
+
+}
+
+#endif /* CONTENTFOLDER_H */
 

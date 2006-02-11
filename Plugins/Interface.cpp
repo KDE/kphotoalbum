@@ -28,12 +28,12 @@
 #include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
 #include "imageinfo.h"
-#include "browser.h"
+#include "Browser/Browser.h"
 
 Plugins::Interface::Interface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
 {
-    connect( Browser::instance(), SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
+    connect( Browser::Browser::instance(), SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
 }
 
 KIPI::ImageCollection Plugins::Interface::currentAlbum()

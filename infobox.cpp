@@ -19,7 +19,7 @@
 #include "infobox.h"
 #include <qurl.h>
 #include "Viewer/Viewer.h"
-#include "browser.h"
+#include "Browser/Browser.h"
 #include <qfontmetrics.h>
 #include <qapplication.h>
 #include <qtoolbutton.h>
@@ -46,7 +46,7 @@ void InfoBox::setSource( const QString& which )
     QPair<QString,QString> p = _linkMap[index];
     QString category = p.first;
     QString value = p.second;
-    Browser::instance()->load( category, value );
+    Browser::Browser::instance()->load( category, value );
     showBrowser();
 }
 
@@ -113,14 +113,14 @@ void InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
 
 void InfoBox::jumpToContext()
 {
-    Browser::instance()->addImageView( _viewer->currentInfo()->fileName() );
+    Browser::Browser::instance()->addImageView( _viewer->currentInfo()->fileName() );
     showBrowser();
 }
 
 void InfoBox::showBrowser()
 {
     QDesktopWidget* desktop = qApp->desktop();
-    if ( desktop->screenNumber( Browser::instance() ) == desktop->screenNumber( _viewer ) ) {
+    if ( desktop->screenNumber( Browser::Browser::instance() ) == desktop->screenNumber( _viewer ) ) {
         if (_viewer->showingFullScreen() )
             _viewer->setShowFullScreen( false );
         MainView::theMainView()->raise();

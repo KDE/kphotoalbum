@@ -8,12 +8,11 @@ if compile_with_kipi
 endif
 
 if compile_with_exiv2
-  EXIF_SOURCES = exiffolder.cpp
   EXIF_DIR = Exif
   KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la -lexiv2
 endif
 
-SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer
+SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer Browser
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kphotoalbum
@@ -23,11 +22,10 @@ kphotoalbum_SOURCES = \
 	imageclient.cpp util.cpp imagepreview.cpp imagedate.cpp imagesearchinfo.cpp \
 	editor.cpp showbusycursor.cpp \
 	htmlexportdialog.cpp imagecounter.cpp \
-	folder.cpp browser.cpp imagefolder.cpp typefolder.cpp contentfolder.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
-	searchfolder.cpp deletedialog.cpp \
-	groupCounter.cpp membermap.cpp categoryimageconfig.cpp browseritemfactory.cpp \
+	deletedialog.cpp \
+	groupCounter.cpp membermap.cpp categoryimageconfig.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp \
 	kdateedit.cpp viewersizeconfig.cpp export.cpp import.cpp importmatcher.cpp \
 	mysplashscreen.cpp \
@@ -35,11 +33,11 @@ kphotoalbum_SOURCES = \
 	imagedaterange.cpp invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
 	imagerequest.cpp miniviewer.cpp \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c \
-	featuredialog.cpp $(EXIF_SOURCES)
+	featuredialog.cpp
 
 kphotoalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kphotoalbum_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la ThumbnailView/libThumbnailView.la \
-		     Plugins/libPlugins.la Viewer/libViewer.la \
+		     Plugins/libPlugins.la Viewer/libViewer.la Browser/libBrowser.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) \
 	             $(KPHOTOALBUM_EXIV2_LIBS)
 

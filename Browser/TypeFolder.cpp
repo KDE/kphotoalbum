@@ -16,15 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "typefolder.h"
+#include "TypeFolder.h"
 #include "options.h"
 #include "imagedb.h"
-#include "contentfolder.h"
+#include "ContentFolder.h"
 #include <klocale.h>
-#include "browseritemfactory.h"
+#include "BrowserItemFactory.h"
 #include "categorycollection.h"
 
-TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo& info, Browser* parent )
+Browser::TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category ( category )
 {
     QMap<QString, int> map = ImageDB::instance()->classify( _info, _category );
@@ -34,28 +34,28 @@ TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo& info, Br
         setEnabled( false );
 }
 
-QPixmap TypeFolder::pixmap()
+QPixmap Browser::TypeFolder::pixmap()
 {
     return ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
 }
 
-QString TypeFolder::text() const
+QString Browser::TypeFolder::text() const
 {
     return ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
 }
 
-FolderAction* TypeFolder::action( bool /* ctrlDown */ )
+Browser::FolderAction* Browser::TypeFolder::action( bool /* ctrlDown */ )
 {
     return new TypeFolderAction( _category, _info, _browser );
 }
 
-TypeFolderAction::TypeFolderAction( const QString& category, const ImageSearchInfo& info,
+Browser::TypeFolderAction::TypeFolderAction( const QString& category, const ImageSearchInfo& info,
                                     Browser* browser )
     :FolderAction( info, browser ), _category( category )
 {
 }
 
-void TypeFolderAction::action( BrowserItemFactory* factory )
+void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
 
@@ -73,22 +73,22 @@ void TypeFolderAction::action( BrowserItemFactory* factory )
         factory->createItem( new ContentFolder( _category, ImageDB::NONE(), i, _info, _browser ) );
 }
 
-QString TypeFolderAction::title() const
+QString Browser::TypeFolderAction::title() const
 {
     return ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
 }
 
-QString TypeFolderAction::category() const
+QString Browser::TypeFolderAction::category() const
 {
     return _category;
 }
 
-QString TypeFolder::countLabel() const
+QString Browser::TypeFolder::countLabel() const
 {
     return i18n("1 Category", "%n Categories", _count);
 }
 
-bool TypeFolderAction::contentView() const
+bool Browser::TypeFolderAction::contentView() const
 {
     return ( !ImageDB::instance()->categoryCollection()->categoryForName( _category )->isSpecialCategory() );
 }

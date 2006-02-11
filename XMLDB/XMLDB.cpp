@@ -29,7 +29,7 @@
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
-#include "browser.h"
+#include "Browser/Browser.h"
 #include <qdict.h>
 #include "mainview.h"
 #include "imageinfo.h"
@@ -731,7 +731,7 @@ CategoryCollection* XMLDB::XMLDB::categoryCollection()
 
 KSharedPtr<ImageDateRangeCollection> XMLDB::XMLDB::rangeCollection()
 {
-    return new XMLImageDateRangeCollection( search( Browser::instance()->currentContext(), false ) );
+    return new XMLImageDateRangeCollection( search( Browser::Browser::instance()->currentContext(), false ) );
 }
 
 void XMLDB::XMLDB::reorder( const QString& item, const QStringList& selection, bool after )

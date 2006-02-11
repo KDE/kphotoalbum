@@ -16,27 +16,27 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "browser.h"
-#include "folder.h"
+#include "Browser.h"
+#include "Folder.h"
 #include <klocale.h>
 #include "imagesearchinfo.h"
 #include "options.h"
-#include "contentfolder.h"
-#include "imagefolder.h"
+#include "ContentFolder.h"
+#include "ImageFolder.h"
 #include <qtimer.h>
 #include "imagedb.h"
 #include "util.h"
 #include <qlistview.h>
 #include "showbusycursor.h"
-#include "browseritemfactory.h"
+#include "BrowserItemFactory.h"
 #include <qwidgetstack.h>
 #include <qlayout.h>
 #include <qlabel.h>
 #include "categorycollection.h"
 
-Browser* Browser::_instance = 0;
+Browser::Browser* Browser::Browser::_instance = 0;
 
-Browser::Browser( QWidget* parent, const char* name )
+Browser::Browser::Browser( QWidget* parent, const char* name )
     :QWidget( parent, name ), _current(0)
 {
     Q_ASSERT( !_instance );
@@ -71,21 +71,21 @@ Browser::Browser( QWidget* parent, const char* name )
     QTimer::singleShot( 0, this, SLOT( init() ) );
 }
 
-Browser::~Browser()
+Browser::Browser::~Browser()
 {
     delete _listViewFactory;
     delete _iconViewFactory;
 }
 
 
-void Browser::init()
+void Browser::Browser::init()
 {
     FolderAction* action = new ContentFolderAction( QString::null, QString::null, ImageSearchInfo(), this );
     _list.append( action );
     forward();
 }
 
-void Browser::select( QListViewItem* item )
+void Browser::Browser::select( QListViewItem* item )
 {
     if ( !item )
         return;
@@ -95,7 +95,7 @@ void Browser::select( QListViewItem* item )
     select( action );
 }
 
-void Browser::select( QIconViewItem* item )
+void Browser::Browser::select( QIconViewItem* item )
 {
     if ( !item )
         return;
@@ -105,7 +105,7 @@ void Browser::select( QIconViewItem* item )
     select( action );
 }
 
-void Browser::select( FolderAction* action )
+void Browser::Browser::select( FolderAction* action )
 {
     ShowBusyCursor dummy;
     if ( action ) {
@@ -116,19 +116,19 @@ void Browser::select( FolderAction* action )
     emit viewChanged();
 }
 
-void Browser::forward()
+void Browser::Browser::forward()
 {
     _current++;
     go();
 }
 
-void Browser::back()
+void Browser::Browser::back()
 {
     _current--;
     go();
 }
 
-void Browser::go()
+void Browser::Browser::go()
 {
     setupFactory();
     FolderAction* a = _list[_current-1];
@@ -136,7 +136,7 @@ void Browser::go()
     emitSignals();
 }
 
-void Browser::addSearch( ImageSearchInfo& info )
+void Browser::Browser::addSearch( ImageSearchInfo& info )
 {
     FolderAction* a;
     a = new ImageFolderAction( info, this );
@@ -144,14 +144,14 @@ void Browser::addSearch( ImageSearchInfo& info )
     go();
 }
 
-void Browser::addImageView( const QString& context )
+void Browser::Browser::addImageView( const QString& context )
 {
     FolderAction* a = new ImageFolderAction( context, this );
     addItem(a);
     go();
 }
 
-void Browser::addItem( FolderAction* action )
+void Browser::Browser::addItem( FolderAction* action )
 {
     while ( (int) _list.count() > _current ) {
         FolderAction* a = _list.back();
@@ -164,7 +164,7 @@ void Browser::addItem( FolderAction* action )
     emitSignals();
 }
 
-void Browser::emitSignals()
+void Browser::Browser::emitSignals()
 {
     FolderAction* a = _list[_current-1];
     emit canGoBack( _current > 1 );
@@ -184,14 +184,14 @@ void Browser::emitSignals()
     }
 }
 
-void Browser::home()
+void Browser::Browser::home()
 {
     FolderAction* action = new ContentFolderAction( QString::null, QString::null, ImageSearchInfo(), this );
     addItem( action );
     go();
 }
 
-void Browser::reload()
+void Browser::Browser::reload()
 {
     setupFactory();
 
@@ -202,13 +202,13 @@ void Browser::reload()
     }
 }
 
-Browser* Browser::instance()
+Browser::Browser* Browser::Browser::instance()
 {
     Q_ASSERT( _instance );
     return _instance;
 }
 
-void Browser::load( const QString& category, const QString& value )
+void Browser::Browser::load( const QString& category, const QString& value )
 {
     ImageSearchInfo info;
     info.addAnd( category, value );
@@ -228,37 +228,37 @@ void Browser::load( const QString& category, const QString& value )
     setActiveWindow();
 }
 
-bool Browser::allowSort()
+bool Browser::Browser::allowSort()
 {
     return _list[_current-1]->allowSort();
 }
 
-ImageSearchInfo Browser::currentContext()
+ImageSearchInfo Browser::Browser::currentContext()
 {
     return _list[_current-1]->_info;
 }
 
-void Browser::slotSmallListView()
+void Browser::Browser::slotSmallListView()
 {
     setSizeAndType( Category::ListView,Category::Small );
 }
 
-void Browser::slotLargeListView()
+void Browser::Browser::slotLargeListView()
 {
     setSizeAndType( Category::ListView,Category::Large );
 }
 
-void Browser::slotSmallIconView()
+void Browser::Browser::slotSmallIconView()
 {
     setSizeAndType( Category::IconView,Category::Small );
 }
 
-void Browser::slotLargeIconView()
+void Browser::Browser::slotLargeIconView()
 {
     setSizeAndType( Category::IconView,Category::Large );
 }
 
-void Browser::setSizeAndType( Category::ViewType type, Category::ViewSize size )
+void Browser::Browser::setSizeAndType( Category::ViewType type, Category::ViewSize size )
 {
     Q_ASSERT( _list.size() > 0 );
 
@@ -271,13 +271,13 @@ void Browser::setSizeAndType( Category::ViewType type, Category::ViewSize size )
     reload();
 }
 
-void Browser::clear()
+void Browser::Browser::clear()
 {
     _iconView->clear();
     _listView->clear();
 }
 
-void Browser::setupFactory()
+void Browser::Browser::setupFactory()
 {
     Category::ViewType type = Category::ListView;
     if ( _list.size() == 0 )
@@ -300,18 +300,18 @@ void Browser::setupFactory()
     setFocus();
 }
 
-void Browser::setFocus()
+void Browser::Browser::setFocus()
 {
     _stack->visibleWidget()->setFocus();
 }
 
-QString Browser::currentCategory() const
+QString Browser::Browser::currentCategory() const
 {
     FolderAction* a = _list[_current-1];
     return a->category();
 }
 
-void Browser::slotLimitToMatch( const QString& str )
+void Browser::Browser::slotLimitToMatch( const QString& str )
 {
     if ( _currentFactory == _iconViewFactory ) {
         // This is a cruel hack to get things working till Qt 4 gets
@@ -328,12 +328,12 @@ void Browser::slotLimitToMatch( const QString& str )
     }
 }
 
-void Browser::resetIconViewSearch()
+void Browser::Browser::resetIconViewSearch()
 {
     _iconViewFactory->setMatchText( QString::null );
 }
 
-void Browser::slotInvokeSeleted()
+void Browser::Browser::slotInvokeSeleted()
 {
     if ( _currentFactory == _iconViewFactory ) {
         QIconViewItem* item = _iconView->currentItem();
@@ -358,4 +358,4 @@ void Browser::slotInvokeSeleted()
 }
 
 
-#include "browser.moc"
+#include "Browser.moc"

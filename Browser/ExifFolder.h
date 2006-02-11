@@ -1,7 +1,10 @@
 #ifndef EXIFFOLDER_H
 #define EXIFFOLDER_H
 
-#include "folder.h"
+#include "Folder.h"
+
+namespace Browser
+{
 
 class ExifFolder : public Folder {
 
@@ -13,6 +16,7 @@ public:
     virtual QString countLabel() const;
 };
 
+}
 
 #endif /* EXIFFOLDER_H */
 

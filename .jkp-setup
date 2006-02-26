@@ -1,1 +1,0 @@
-export VALGRIND_OPTS="--num-callers=100 --suppressions=$KPHOTOALBUM/kphotoalbum.sup --error-limit=no"

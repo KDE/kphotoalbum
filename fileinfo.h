@@ -31,10 +31,12 @@ class FileInfo
 {
 public:
     static FileInfo read( const QString& fileName );
-    QTime time();
-    QDate date();
+    QDateTime dateTime();
     int angle();
     QString description();
+
+protected:
+    QDateTime fetchDate( const char* key );
 
 private:
 #ifdef HASEXIV2

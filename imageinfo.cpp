@@ -314,16 +314,8 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     FileInfo exifInfo = FileInfo::read( fullPath );
 
     // Date
-    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) ) {
-        QDate date = exifInfo.date();
-        QTime time = exifInfo.time();
-        if ( date.isValid() ) {
-            if ( time.isValid() )
-                _date = QDateTime( date, time );
-            else
-                _date = ImageDate( QDateTime( date, QTime( 0,0,0 ) ), QDateTime( date, QTime( 23, 59, 59 ) ) );
-        }
-    }
+    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) )
+        _date = exifInfo.dateTime();
 
     // Orientation
     if ( (mode & EXIFMODE_ORIENTATION) && Options::instance()->useEXIFRotate() )

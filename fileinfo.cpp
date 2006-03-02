@@ -19,32 +19,6 @@ FileInfo FileInfo::read( const QString& fileName )
     return fi;
 }
 
-QTime FileInfo::time()
-{
-#ifdef HASEXIV2
-    if ( _map.findKey( Exiv2::ExifKey( "Exif.Image.DateTime" ) ) != _map.end() ) {
-        const Exiv2::Exifdatum& datum = _map["Exif.Image.DateTime"];
-        QTime time = QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate ).time();
-        if ( time.isValid() )
-            return time;
-    }
-#endif
-    return QFileInfo( _fullPath ).lastModified().time();
-}
-
-QDate FileInfo::date()
-{
-#ifdef HASEXIV2
-    if ( _map.findKey( Exiv2::ExifKey( "Exif.Image.DateTime" ) ) != _map.end() ) {
-        const Exiv2::Exifdatum& datum = _map["Exif.Image.DateTime"];
-        QDate date = QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate ).date();
-        if ( date.isValid() )
-            return date;
-    }
-#endif
-    return QFileInfo( _fullPath ).lastModified().date();
-}
-
 int FileInfo::angle()
 {
 #ifdef HASEXIV2
@@ -74,4 +48,43 @@ QString FileInfo::description()
     }
 #endif
     return QString::null;
+}
+
+QDateTime FileInfo::dateTime()
+{
+#ifdef HASEXIV2
+    QDateTime date = fetchDate( "Exif.Photo.DateTimeOriginal" );
+    if ( date.isValid() )
+        return date;
+
+    date = fetchDate( "Exif.Photo.DateTimeDigitized" );
+    if ( date.isValid() )
+        return date;
+
+    date = fetchDate( "Exif.Image.DateTime" );
+    if ( date.isValid() )
+        return date;
+
+#endif
+    if ( Options::instance()->trustTimeStamps() )
+        return QFileInfo( _fullPath ).lastModified();
+    else
+        return QDateTime();
+}
+
+QDateTime FileInfo::fetchDate( const char* key )
+{
+#ifdef HASEXIV2
+    try
+    {
+        if ( _map.findKey( Exiv2::ExifKey( key ) ) != _map.end() ) {
+            const Exiv2::Exifdatum& datum = _map[key ];
+            return QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate );
+        }
+    }
+    catch (...)
+    {
+    }
+#endif
+    return QDateTime();
 }

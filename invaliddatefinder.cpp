@@ -80,13 +80,13 @@ void InvalidDateFinder::slotOk()
         bool show = false;
         if ( _dateNotTime->isChecked() ) {
             FileInfo fi = FileInfo::read( info->fileName() );
-            if ( fi.date() == date.start().date() )
-                show = ( fi.time() != date.start().time() );
+            if ( fi.dateTime().date() == date.start().date() )
+                show = ( fi.dateTime().time() != date.start().time() );
             if ( show ) {
-                edit->append( QString::fromLatin1("%1:<br>existing = %2 %3<br>new..... = %4 %5" )
+                edit->append( QString::fromLatin1("%1:<br>existing = %2 %3<br>new..... = %4" )
                               .arg(info->fileName()).arg(date.start().toString())
                               .arg(date.start().time().toString())
-                              .arg(fi.date().toString()).arg( fi.time().toString() ) );
+                              .arg(fi.dateTime().toString()) );
             }
         }
         else if ( _missingDate->isChecked() ) {

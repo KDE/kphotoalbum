@@ -296,7 +296,7 @@ void ThumbnailView::ThumbnailView::updateCell( int row, int col )
 void ThumbnailView::ThumbnailView::updateGridSize()
 {
     int thumbnailsPerRow = width() / cellWidth();
-    int numRowsPerPage = height() / cellHeight();
+    int numRowsPerPage = (height() + cellHeight() - 1) / cellHeight();
     setNumCols( thumbnailsPerRow );
     setNumRows( QMAX( numRowsPerPage, (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow ) ) );
 }

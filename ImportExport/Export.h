@@ -28,6 +28,9 @@ class QCheckBox;
 class KZip;
 class QProgressDialog;
 
+namespace ImportExport
+{
+
 enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link };
 
 class Export :public ImageClient {
@@ -77,6 +80,8 @@ private:
     QRadioButton* _link;
     QRadioButton* _auto;
 };
+
+}
 
 
 #endif /* IMPORTEXPORT_H */

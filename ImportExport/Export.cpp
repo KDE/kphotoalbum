@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "export.h"
+#include "Export.h"
 #include <kfiledialog.h>
 #include <kzip.h>
 #include <qfileinfo.h>
@@ -39,6 +39,8 @@
 #include "imageinfo.h"
 #include "imagedb.h"
 #include <qbuffer.h>
+
+using namespace ImportExport;
 
 void Export::imageExport( const QStringList& list )
 {
@@ -364,4 +366,4 @@ void Export::showUsageDialog()
 
 
 
-#include "export.moc"
+#include "Export.moc"

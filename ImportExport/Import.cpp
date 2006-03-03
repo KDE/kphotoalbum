@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "import.h"
+#include "Import.h"
 #include <kfiledialog.h>
 #include <qlabel.h>
 #include <klocale.h>
@@ -30,7 +30,7 @@
 #include <klineedit.h>
 #include <kpushbutton.h>
 #include "options.h"
-#include "importmatcher.h"
+#include "ImportMatcher.h"
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include "util.h"
@@ -40,7 +40,6 @@
 #include "Browser/Browser.h"
 #include <qdir.h>
 #include <kstandarddirs.h>
-#include "Viewer/Viewer.h"
 #include <ktempfile.h>
 #include <kurl.h>
 #include <kio/job.h>
@@ -55,6 +54,7 @@
 #include <kdebug.h>
 
 class KPushButton;
+using namespace ImportExport;
 
 void Import::imageImport()
 {
@@ -378,7 +378,7 @@ void Import::createOptionPages()
     }
 
     _categoryMatcher = new ImportMatcher( QString::null, QString::null, options, ImageDB::instance()->categoryCollection()->categoryNames(),
-                                             false, this, "import matcher" );
+                                          false, this, "import matcher" );
     addPage( _categoryMatcher, i18n("Match Categories") );
 
     _dummy = new QWidget( this );
@@ -687,4 +687,4 @@ void Import::slotHelp()
     kapp->invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
 
-#include "import.moc"
+#include "Import.moc"

@@ -55,7 +55,7 @@
 #include <qvgroupbox.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "export.h"
+#include "ImportExport/Export.h"
 #include "mainview.h"
 #include "categorycollection.h"
 #include "imageinfo.h"
@@ -287,8 +287,7 @@ bool HTMLExportDialog::generate()
         if ( destURL.isEmpty() )
             destURL = _baseURL->text();
 
-        Export* exp = new Export( _list, kimFileName( false ), false, -1, ManualCopy, destURL, ok, true );
-        delete exp; // It will not return before done - we still need a class to connect slots etc.
+        ImportExport::Export exp( _list, kimFileName( false ), false, -1, ImportExport::ManualCopy, destURL, ok, true );
         if ( !ok )
             return false;
     }
@@ -658,7 +657,7 @@ void HTMLExportDialog::slotCancelGenerate()
 void HTMLExportDialog::showBrowser()
 {
     if ( _generateKimFile->isChecked() )
-        Export::showUsageDialog();
+        ImportExport::Export::showUsageDialog();
 
     if ( ! _baseURL->text().isEmpty() )
         new KRun( KURL(QString::fromLatin1( "%1/%2/index.html" ).arg( _baseURL->text() ).arg( _outputDir->text()) ) );

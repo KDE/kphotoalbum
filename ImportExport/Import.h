@@ -26,19 +26,22 @@
 
 class QProgressDialog;
 class KTempFile;
-class Import;
 class ImageInfo;
 class QCheckBox;
 class KArchiveDirectory;
 class KZip;
-class ImportMatcher;
 class KLineEdit;
+
+namespace ImportExport
+{
+class Import;
+class ImportMatcher;
 
 class ImageRow :public QObject
 {
     Q_OBJECT
 public:
-    ImageRow( ImageInfoPtr info, Import* import, QWidget* parent );
+    ImageRow( ImageInfoPtr info, ImportExport::Import* import, QWidget* parent );
     QCheckBox* _checkbox;
     ImageInfoPtr _info;
     Import* _import;
@@ -114,6 +117,7 @@ private:
     QString _baseUrl;
 };
 
+}
 
 
 #endif /* IMPORT_H */

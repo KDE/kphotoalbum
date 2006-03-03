@@ -62,8 +62,8 @@
 #include <kstdaction.h>
 #include "deletethumbnailsdialog.h"
 #include <kedittoolbar.h>
-#include "export.h"
-#include "import.h"
+#include "ImportExport/Export.h"
+#include "ImportExport/Import.h"
 #ifdef HASKIPI
 #  include "Plugins/Interface.h"
 #  include <libkipi/pluginloader.h>
@@ -220,7 +220,7 @@ void MainView::delayedInit()
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "import" ) ) {
         // I need to do this in delayed init to get the import window on top of the normal window
-        Import::imageImport( KCmdLineArgs::makeURL( args->getOption("import") ) );
+        ImportExport::Import::imageImport( KCmdLineArgs::makeURL( args->getOption("import") ) );
     }
     else {
         // I need to postpone this otherwise the tip dialog will not get focus on start up
@@ -1051,7 +1051,7 @@ void MainView::slotNewToolbarConfig()
 
 void MainView::slotImport()
 {
-    Import::imageImport();
+    ImportExport::Import::imageImport();
 }
 
 void MainView::slotExport()
@@ -1061,7 +1061,7 @@ void MainView::slotExport()
         KMessageBox::sorry( this, i18n("No images to export.") );
     }
     else
-        Export::imageExport( list );
+        ImportExport::Export::imageExport( list );
 }
 
 void MainView::slotReenableMessages()

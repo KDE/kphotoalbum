@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "importmatcher.h"
+#include "ImportMatcher.h"
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qstringlist.h>
@@ -25,6 +25,7 @@
 #include <qgrid.h>
 #include <qlabel.h>
 #include <klocale.h>
+using namespace ImportExport;
 
 ImportMatcher::ImportMatcher( const QString& otherOptionGroup, const QString& myOptionGroup,
                               const QStringList& otherOptionList, const QStringList& myOptionList,
@@ -105,4 +106,4 @@ OptionMatch::OptionMatch( bool allowNew, const QString& option, QStringList opti
     }
 }
 
-#include "importmatcher.moc"
+#include "ImportMatcher.moc"

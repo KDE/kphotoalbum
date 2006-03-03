@@ -24,6 +24,9 @@ class QGridLayout;
 class QComboBox;
 class QCheckBox;
 
+namespace ImportExport
+{
+
 class OptionMatch  {
 public:
     OptionMatch( bool allowNew, const QString& optioin, QStringList myOptionList, QWidget* parent, QGridLayout* grid, int row );
@@ -46,6 +49,7 @@ public:
     QValueList<OptionMatch*> _matchers;
 };
 
+}
 
 #endif /* IMPORTMATCHER_H */
 

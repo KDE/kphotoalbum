@@ -734,9 +734,10 @@ void ThumbnailView::ThumbnailView::selectAll()
     repaintScreen();
 }
 
-void ThumbnailView::ThumbnailView::reload()
+void ThumbnailView::ThumbnailView::reload(bool flushCache )
 {
-    pixmapCache().clear();
+    if ( flushCache )
+        pixmapCache().clear();
     _selectedFiles.clear();
     updateCellSize();
     repaintScreen();

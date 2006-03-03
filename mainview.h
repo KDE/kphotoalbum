@@ -112,7 +112,8 @@ protected slots:
     void slotConfigureKeyBindings();
     void slotSetFileName( const QString& );
     void slotThumbNailSelectionChanged();
-    void reloadThumbnails();
+    void reloadThumbnails(bool flushCache);
+    void reloadThumbnailsAndFlushCache();
     void slotUpdateViewMenu( Category::ViewSize, Category::ViewType );
     void slotShowNotOnDisk();
     void markDirty();

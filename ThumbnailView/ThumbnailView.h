@@ -37,7 +37,7 @@ public:
 
     enum Order { ViewOrder, SortedOrder };
     QStringList imageList( Order ) const;
-    void reload();
+    void reload( bool flushCache );
     QString fileNameUnderCursor() const;
     QString currentItem() const;
     static ThumbnailView* theThumbnailView();

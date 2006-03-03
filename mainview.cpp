@@ -282,7 +282,7 @@ void MainView::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new OptionsDialog( this );
-        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnails() ) );
+        connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnailsAndFlushCache() ) );
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
     }
     _optionsDialog->show();
@@ -328,7 +328,7 @@ void MainView::configImages( const ImageInfoList& list, bool oneAtATime )
     createImageConfig();
     _imageConfigure->configure( list,  oneAtATime );
     if ( _imageConfigure->thumbnailShouldReload() )
-        reloadThumbnails();
+        reloadThumbnails(true);
 }
 
 
@@ -671,7 +671,7 @@ void MainView::slotAutoSave()
 
 void MainView::showThumbNails()
 {
-    reloadThumbnails();
+    reloadThumbnails(false);
     _stack->raiseWidget( _thumbnailView );
     _thumbnailView->setFocus();
     updateStates( true );
@@ -956,10 +956,15 @@ void MainView::slotThumbNailSelectionChanged()
     _sortByDateAndTime->setEnabled(selection.count() > 1 );
 }
 
-void MainView::reloadThumbnails()
+void MainView::reloadThumbnails(bool flushCache)
 {
-    _thumbnailView->reload();
+    _thumbnailView->reload( flushCache );
     slotThumbNailSelectionChanged();
+}
+
+void MainView::reloadThumbnailsAndFlushCache()
+{
+    reloadThumbnails(true);
 }
 
 void MainView::slotUpdateViewMenu( Category::ViewSize size, Category::ViewType type )
@@ -1177,7 +1182,7 @@ void MainView::slotImagesChanged( const KURL::List& urls )
     for( KURL::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
         ImageLoader::removeThumbnail( (*it).path() );
     }
-    reloadThumbnails();
+    reloadThumbnails(true);
 }
 
 ImageSearchInfo MainView::currentContext()
@@ -1255,14 +1260,14 @@ void MainView::setDateRange( const ImageDateRange& range )
 {
     ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
     _browser->reload();
-    reloadThumbnails();
+    reloadThumbnails(false);
 }
 
 void MainView::clearDateRange()
 {
     ImageDB::instance()->clearDateRange();
     _browser->reload();
-    reloadThumbnails();
+    reloadThumbnails(false);
 }
 
 void MainView::runSurvey()

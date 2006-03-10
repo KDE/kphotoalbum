@@ -38,7 +38,7 @@ static const KCmdLineOptions options[] =
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kphotoalbum", I18N_NOOP("KPhotoAlbum"), "SVN",
                           I18N_NOOP("KDE Photo Album"), KAboutData::License_GPL,
-                          0, 0, "http://ktown.kde.org/kphotoalbum");
+                          0, 0, "http://www.kphotoalbum.org");
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
 
     aboutData.addCredit( "Will Stephenson", "Developing an Icon for KPhotoAlbum", "will@stevello.free-online.co.uk" );
@@ -52,7 +52,7 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( "Jean-Michel FAYARD", "(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page.", "jmfayard@gmail.com" );
     aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KPhotoAlbum again and again.", "rlk@alum.mit.edu" );
 
-    aboutData.setHomepage( "http://ktown.kde.org/kphotoalbum/" );
+    aboutData.setHomepage( "http://www.kphotoalbum.org/" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

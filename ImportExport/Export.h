@@ -43,7 +43,6 @@ public:
     static void showUsageDialog();
 
 protected:
-    QCString createIndexXML( const QStringList&, const QString& baseUrl );
     void generateThumbnails( const QStringList& list );
     void copyImages( const QStringList& list );
 

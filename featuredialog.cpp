@@ -64,7 +64,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "It really isn't that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
                   "<a href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
 
-                  "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://ktown.kde.org/kphotoalbum/download-source.htm\">"
+                  "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum.org/download-source.htm\">"
                   "the KPhotoAlbum home page</a>. If you have never compiled a KDE application, then please ensure that "
                   "you have the developer packages installed, in most distributions they go under names like kdelibs<i>-devel</i></p>" );
 

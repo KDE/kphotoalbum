@@ -595,7 +595,7 @@ void XMLDB::XMLDB::saveImages( QDomDocument doc, QDomElement top )
     top.appendChild( images );
 
     for( ImageInfoListIterator it = list.begin(); it != list.end(); ++it ) {
-        images.appendChild( (*it)->save( doc ) );
+        images.appendChild( save( doc, *it ) );
     }
 }
 
@@ -951,3 +951,91 @@ void XMLDB::XMLDB::possibleLoadCompressedCategories( const QDomElement& elm, Ima
     }
 }
 
+QDomElement XMLDB::XMLDB::save( QDomDocument doc, const ImageInfoPtr& info )
+{
+    QDomElement elm = doc.createElement( QString::fromLatin1("image") );
+    elm.setAttribute( QString::fromLatin1("file"),  info->fileName( true ) );
+    elm.setAttribute( QString::fromLatin1("label"),  info->label() );
+    elm.setAttribute( QString::fromLatin1("description"), info->description() );
+
+    ImageDate date = info->date();
+    QDateTime start = date.start();
+    QDateTime end = date.end();
+
+    if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) ) {
+        elm.setAttribute( QString::fromLatin1("yearFrom"), start.date().year() );
+        elm.setAttribute( QString::fromLatin1("monthFrom"),  start.date().month() );
+        elm.setAttribute( QString::fromLatin1("dayFrom"),  start.date().day() );
+        elm.setAttribute( QString::fromLatin1("hourFrom"), start.time().hour() );
+        elm.setAttribute( QString::fromLatin1("minuteFrom"), start.time().minute() );
+        elm.setAttribute( QString::fromLatin1("secondFrom"), start.time().second() );
+
+        elm.setAttribute( QString::fromLatin1("yearTo"), end.date().year() );
+        elm.setAttribute( QString::fromLatin1("monthTo"),  end.date().month() );
+        elm.setAttribute( QString::fromLatin1("dayTo"),  end.date().day() );
+
+    }
+    else {
+        elm.setAttribute( QString::fromLatin1( "startDate" ), start.toString(Qt::ISODate) );
+        elm.setAttribute( QString::fromLatin1( "endDate" ), end.toString(Qt::ISODate) );
+    }
+
+    elm.setAttribute( QString::fromLatin1("angle"),  info->angle() );
+    elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum() );
+    elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
+    elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
+
+    if ( Options::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
+        writeCategoriesCompressed( elm, info );
+    else
+        writeCategories( doc, elm, info );
+
+    info->drawList().save( doc, elm );
+    return elm;
+}
+
+void XMLDB::XMLDB::writeCategories( QDomDocument doc, QDomElement top, const ImageInfoPtr& info )
+{
+    QDomElement elm = doc.createElement( QString::fromLatin1("options") );
+
+
+    bool anyAtAll = false;
+    QStringList grps = info->availableCategories();
+    for( QStringList::Iterator categoryIt = grps.begin(); categoryIt != grps.end(); ++categoryIt ) {
+        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
+        QString name = *categoryIt;
+        opt.setAttribute( QString::fromLatin1("name"),  name );
+
+        QStringList list = info->itemsOfCategory(*categoryIt);
+        bool any = false;
+        for( QStringList::Iterator itemIt = list.begin(); itemIt != list.end(); ++itemIt ) {
+            QDomElement val = doc.createElement( QString::fromLatin1("value") );
+            val.setAttribute( QString::fromLatin1("value"), *itemIt );
+            opt.appendChild( val );
+            any = true;
+            anyAtAll = true;
+        }
+        if ( any )
+            elm.appendChild( opt );
+    }
+
+    if ( anyAtAll )
+        top.appendChild( elm );
+}
+
+void XMLDB::XMLDB::writeCategoriesCompressed( QDomElement& elm, const ImageInfoPtr& info )
+{
+    QValueList<CategoryPtr> categoryList = ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+        QString categoryName = (*categoryIt)->name();
+        QStringList items = info->itemsOfCategory(categoryName);
+        if ( !items.isEmpty() ) {
+            QStringList idList;
+            for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+                int id = static_cast<XMLCategory*>((*categoryIt).data())->idForName( *itemIt );
+                idList.append( QString::number( id ) );
+            }
+            elm.setAttribute( categoryName, idList.join( QString::fromLatin1( "," ) ) );
+        }
+    }
+}

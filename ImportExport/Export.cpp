@@ -39,6 +39,7 @@
 #include "imageinfo.h"
 #include "imagedb.h"
 #include <qbuffer.h>
+#include "XMLHandler.h"
 
 using namespace ImportExport;
 
@@ -192,7 +193,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
     if ( _ok ) {
         // Create the index.xml file
         _progressDialog->setLabelText(i18n("Creating index file"));
-        QCString indexml = createIndexXML( list, baseUrl );
+        QCString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, _nameMap );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.size()-1,
@@ -203,30 +204,6 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
         _zip->close();
     }
 }
-
-QCString Export::createIndexXML( const QStringList& list, const QString& baseUrl )
-{
-    QDomDocument doc;
-    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-
-    QDomElement top = doc.createElement( QString::fromLatin1( "KPhotoAlbum-export" ) );
-    top.setAttribute( QString::fromLatin1( "location" ),
-                      _location == Inline ? QString::fromLatin1( "inline" ) : QString::fromLatin1( "external" ) );
-    if ( !baseUrl.isEmpty() )
-        top.setAttribute( QString::fromLatin1( "baseurl" ), baseUrl );
-    doc.appendChild( top );
-
-
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        QString mappedFile = _nameMap[*it];
-        QDomElement elm = ImageDB::instance()->info(*it)->save( doc );
-        elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
-        elm.setAttribute( QString::fromLatin1( "angle" ), 0 ); // We have rotated the image while copying it
-        top.appendChild( elm );
-    }
-    return doc.toCString();
-}
-
 
 
 void Export::generateThumbnails( const QStringList& list )

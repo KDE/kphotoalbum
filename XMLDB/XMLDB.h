@@ -90,6 +90,9 @@ namespace XMLDB {
         void add21CompatXML( QDomElement& top );
         static void readOptions( ImageInfoPtr info, QDomElement elm );
 
+        QDomElement save( QDomDocument doc, const ImageInfoPtr& info );
+        void writeCategories( QDomDocument doc,  QDomElement elm, const ImageInfoPtr& info );
+        void writeCategoriesCompressed( QDomElement& elm, const ImageInfoPtr& info );
 
     protected slots:
         void renameItem( Category* category, const QString& oldName, const QString& newName );

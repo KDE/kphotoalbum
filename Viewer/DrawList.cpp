@@ -91,6 +91,10 @@ void Viewer::DrawList::load( QDomElement elm )
 
 void Viewer::DrawList::save( QDomDocument doc, QDomElement top )
 {
+    // Notice this method is used both from the XML DB and the .kim export.
+    // If you ever change this code, pleas ensure that it is still
+    // backwards compatible with older versions of the application (It
+    // should be possible to export using a new version and read in an old version).
     if ( count() == 0 )
         return;
 

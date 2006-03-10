@@ -375,7 +375,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
     if ( content.isNull() )
         return false;
 
-    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://ktown.kde.org/kphotoalbum/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
     content.replace( QString::fromLatin1( "**DESCRIPTION**" ), _description->text() );
     content.replace( QString::fromLatin1( "**TITLE**" ), _title->text() );
@@ -478,7 +478,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
 
     ImageInfoPtr info = ImageDB::instance()->info( current );
 
-    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://ktown.kde.org/kphotoalbum/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
+    content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
     content.replace( QString::fromLatin1( "**TITLE**" ), info->label() );
     content.replace( QString::fromLatin1( "**IMAGE**" ), createImage( current, width ) );

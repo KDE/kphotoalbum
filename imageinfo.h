@@ -90,10 +90,6 @@ public:
     void renameItem( const QString& key, const QString& oldValue, const QString& newValue );
     void renameCategory( const QString& oldName, const QString& newName );
 
-    QDomElement save( QDomDocument doc );
-    bool writeCategories( QDomDocument doc,  QDomElement elm, QMap<QString, QStringList>& categoris );
-    void writeCategoriesCompressed( QDomElement& elm, QMap<QString, QStringList>& categories );
-
     bool operator!=( const ImageInfo& other );
     bool operator==( const ImageInfo& other );
     virtual ImageInfo& operator=( const ImageInfo& other );

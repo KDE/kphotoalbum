@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Preview.h"
+#include "ImagePreview.h"
 #include "Viewer/Viewer.h"
 #include "imagemanager.h"
 #include <klocale.h>
@@ -201,4 +201,4 @@ void ImagePreview::PreviewLoader::cancelPreload()
 }
 
 
-#include "Preview.moc"
+#include "ImagePreview.moc"

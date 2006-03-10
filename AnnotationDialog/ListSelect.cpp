@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "listselect.h"
+#include "ListSelect.h"
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qlistbox.h>
@@ -37,6 +37,8 @@
 #include "categorycollection.h"
 #include "membermap.h"
 #include <qinputdialog.h>
+
+using namespace AnnotationDialog;
 
 class CompletableLineEdit :public QLineEdit {
 public:
@@ -535,4 +537,4 @@ void ListSelect::slotSortAlpha()
     Options::instance()->setViewSortType( Options::SortAlpha );
 }
 
-#include "listselect.moc"
+#include "ListSelect.moc"

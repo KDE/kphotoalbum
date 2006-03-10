@@ -20,7 +20,6 @@
 #define MAINVIEW_H
 class TokenEditor;
 class OptionsDialog;
-class ImageConfig;
 class QWidgetStack;
 class ImageCounter;
 class QTimer;
@@ -47,6 +46,10 @@ namespace Browser
     class Browser;
 }
 
+namespace AnnotationDialog
+{
+    class AnnotationDialog;
+}
 
 #include "imageinfolist.h"
 #include <qdict.h>
@@ -139,7 +142,7 @@ protected slots:
     void slotJumpToContext();
     void setDateRange( const ImageDateRange& );
     void clearDateRange();
-    void deleteImageConfigure();
+    void deleteAnnotationDialog();
     void startAutoSaveTimer();
     void convertBackend();
     void slotRecalcCheckSums();
@@ -156,7 +159,7 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     virtual void moveEvent ( QMoveEvent * );
     void setupMenuBar();
-    void createImageConfig();
+    void createAnnotationDialog();
     void load();
     virtual void contextMenuEvent( QContextMenuEvent* e );
     void setDirty( bool b );
@@ -172,7 +175,7 @@ private:
 
     ThumbnailView::ThumbnailView* _thumbnailView;
     OptionsDialog* _optionsDialog;
-    ImageConfig* _imageConfigure;
+    AnnotationDialog::AnnotationDialog* _annotationDialog;
     bool _dirty;
     bool _autoSaveDirty; // We do not want to continue autosaving the same date
     QWidgetStack* _stack;

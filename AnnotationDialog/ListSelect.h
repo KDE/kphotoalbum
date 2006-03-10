@@ -30,6 +30,9 @@ class CompletableLineEdit;
 class ImageInfo;
 class QListBoxItem;
 
+namespace AnnotationDialog
+{
+
 class ListSelect :public QWidget {
     Q_OBJECT
 
@@ -73,6 +76,8 @@ private:
     QToolButton* _alphaSort;
     QToolButton* _dateSort;
 };
+
+}
 
 #endif /* LISTSELECT_H */
 

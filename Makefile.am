@@ -12,15 +12,16 @@ if compile_with_exiv2
   KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la -lexiv2
 endif
 
-SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer Browser ImportExport
+SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer Browser ImportExport \
+          AnnotationDialog
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kphotoalbum
 kphotoalbum_SOURCES = \
 	main.cpp imagemanager.cpp imageloader.cpp \
-	options.cpp imageinfo.cpp listselect.cpp mainview.cpp imageconfig.cpp \
-	imageclient.cpp util.cpp imagepreview.cpp imagedate.cpp imagesearchinfo.cpp \
-	editor.cpp showbusycursor.cpp \
+	options.cpp imageinfo.cpp mainview.cpp \
+	imageclient.cpp util.cpp imagedate.cpp imagesearchinfo.cpp \
+	showbusycursor.cpp \
 	htmlexportdialog.cpp imagecounter.cpp \
 	imagedb.cpp showoptionaction.cpp \
 	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
@@ -37,6 +38,7 @@ kphotoalbum_SOURCES = \
 kphotoalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 kphotoalbum_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la ThumbnailView/libThumbnailView.la \
 		     Plugins/libPlugins.la Viewer/libViewer.la Browser/libBrowser.la ImportExport/libImportExport.la \
+		     AnnotationDialog/libAnnotationDialog.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) \
 	             $(KPHOTOALBUM_EXIV2_LIBS)
 

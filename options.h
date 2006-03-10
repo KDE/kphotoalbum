@@ -30,8 +30,6 @@
 #endif
 #include "set.h"
 #include <config.h>
-class ImageConfig;
-
 
 #define property__( type, group, prop, setFunction, defaultValue ) \
     void setFunction( type val )                                     \

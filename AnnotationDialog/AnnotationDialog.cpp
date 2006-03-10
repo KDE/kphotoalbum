@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imageconfig.h"
-#include "listselect.h"
+#include "AnnotationDialog.h"
+#include "ListSelect.h"
 #include <qspinbox.h>
 #include <qcombobox.h>
 #include <qtextedit.h>
@@ -25,13 +25,13 @@
 #include <qlineedit.h>
 #include <qlabel.h>
 #include "options.h"
-#include "imagepreview.h"
+#include "Preview.h"
 #include <qregexp.h>
 #include <qtabwidget.h>
 #include "Viewer/Viewer.h"
 #include <qaccel.h>
 #include <kstandarddirs.h>
-#include "editor.h"
+#include "Editor.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <qsplitter.h>
@@ -55,12 +55,11 @@
 #include <qobjectlist.h>
 #include "categorycollection.h"
 #include "imageinfo.h"
-#include "imageconfig.moc"
 #include <kconfig.h>
 #include "util.h"
 #include "imagedb.h"
 
-ImageConfig::ImageConfig( QWidget* parent, const char* name )
+AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
 {
     ShowBusyCursor dummy;
@@ -233,7 +232,7 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     optionsBut->setAutoDefault( false );
 
     // Connect PageUp/PageDown to prev/next
-    QAccel* accel = new QAccel( this, "accel for ImageConfig" );
+    QAccel* accel = new QAccel( this, "accel for AnnotationDialog" );
     accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
     accel->connectItem( accel->insertItem( Key_PageUp ), this, SLOT( slotPrev() ) );
     accel->connectItem( accel->insertItem( CTRL+Key_PageDown ), this, SLOT( slotNext() ) );
@@ -255,13 +254,13 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
 }
 
 
-void ImageConfig::slotRevert()
+void AnnotationDialog::AnnotationDialog::slotRevert()
 {
     if ( _setup == SINGLE )
         load();
 }
 
-void ImageConfig::slotPrev()
+void AnnotationDialog::AnnotationDialog::slotPrev()
 {
     writeToInfo();
     if ( _current == 0 )
@@ -273,7 +272,7 @@ void ImageConfig::slotPrev()
     load();
 }
 
-void ImageConfig::slotNext()
+void AnnotationDialog::AnnotationDialog::slotNext()
 {
     if ( _current != -1 ) {
         writeToInfo();
@@ -287,7 +286,7 @@ void ImageConfig::slotNext()
     load();
 }
 
-void ImageConfig::slotOK()
+void AnnotationDialog::AnnotationDialog::slotOK()
 {
     // I need to emit the changes first, as the case for _setup == SINGLE, saves to the _origList,
     // and we can thus not check for changes anymore
@@ -333,7 +332,7 @@ void ImageConfig::slotOK()
     qApp->eventLoop()->exitLoop();
 }
 
-void ImageConfig::load()
+void AnnotationDialog::AnnotationDialog::load()
 {
     ImageInfo& info = _editList[ _current ];
     _startDate->setDate( info.date().start().date() );
@@ -372,7 +371,7 @@ void ImageConfig::load()
         setCaption( i18n("KPhotoAlbum Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
 }
 
-void ImageConfig::writeToInfo()
+void AnnotationDialog::AnnotationDialog::writeToInfo()
 {
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->slotReturn();
@@ -389,7 +388,7 @@ void ImageConfig::writeToInfo()
 }
 
 
-int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
+int AnnotationDialog::AnnotationDialog::configure( ImageInfoList list, bool oneAtATime )
 {
     if ( oneAtATime )
         _setup = SINGLE;
@@ -433,7 +432,7 @@ int ImageConfig::configure( ImageInfoList list, bool oneAtATime )
     return exec();
 }
 
-ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
+ImageSearchInfo AnnotationDialog::AnnotationDialog::search( ImageSearchInfo* search  )
 {
     _setup = SEARCH;
     if ( search )
@@ -456,7 +455,7 @@ ImageSearchInfo ImageConfig::search( ImageSearchInfo* search  )
         return ImageSearchInfo();
 }
 
-void ImageConfig::setup()
+void AnnotationDialog::AnnotationDialog::setup()
 {
 // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
@@ -496,12 +495,12 @@ void ImageConfig::setup()
 }
 
 
-void ImageConfig::slotClear()
+void AnnotationDialog::AnnotationDialog::slotClear()
 {
     loadInfo( ImageSearchInfo() );
 }
 
-void ImageConfig::loadInfo( const ImageSearchInfo& info )
+void AnnotationDialog::AnnotationDialog::loadInfo( const ImageSearchInfo& info )
 {
     _startDate->setDate( info.date().start().date() );
     _endDate->setDate( info.date().end().date() );
@@ -514,12 +513,12 @@ void ImageConfig::loadInfo( const ImageSearchInfo& info )
     _description->setText( info.description() );
 }
 
-void ImageConfig::viewerDestroyed()
+void AnnotationDialog::AnnotationDialog::viewerDestroyed()
 {
     _viewer = 0;
 }
 
-void ImageConfig::slotOptions()
+void AnnotationDialog::AnnotationDialog::slotOptions()
 {
     QPopupMenu menu( this, "context popup menu");
     menu.insertItem( i18n("Show/Hide Windows"),  _dockWindow->dockHideShowMenu());
@@ -528,7 +527,7 @@ void ImageConfig::slotOptions()
     menu.exec( QCursor::pos() );
 }
 
-int ImageConfig::exec()
+int AnnotationDialog::AnnotationDialog::exec()
 {
     show();
     setupFocus();
@@ -543,19 +542,19 @@ int ImageConfig::exec()
     return _accept;
 }
 
-void ImageConfig::slotSaveWindowSetup()
+void AnnotationDialog::AnnotationDialog::slotSaveWindowSetup()
 {
     QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
     _dockWindow->writeDockConfig( kapp->config(), group );
 }
 
-void ImageConfig::closeEvent( QCloseEvent* e )
+void AnnotationDialog::AnnotationDialog::closeEvent( QCloseEvent* e )
 {
     e->ignore();
     reject();
 }
 
-void ImageConfig::hideTornOfWindows()
+void AnnotationDialog::AnnotationDialog::hideTornOfWindows()
 {
     _tornOfWindows.clear();
     for( QValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
@@ -566,14 +565,14 @@ void ImageConfig::hideTornOfWindows()
     }
 }
 
-void ImageConfig::showTornOfWindows()
+void AnnotationDialog::AnnotationDialog::showTornOfWindows()
 {
     for( QValueList<KDockWidget*>::Iterator it = _tornOfWindows.begin(); it != _tornOfWindows.end(); ++it ) {
         (*it)->show();
     }
 }
 
-bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
+bool AnnotationDialog::AnnotationDialog::eventFilter( QObject* watched, QEvent* event )
 {
     if ( !watched->isWidgetType() )
         return false;
@@ -600,7 +599,7 @@ bool ImageConfig::eventFilter( QObject* watched, QEvent* event )
 }
 
 
-KDockWidget* ImageConfig::createListSel( const QString& category )
+KDockWidget* AnnotationDialog::AnnotationDialog::createListSel( const QString& category )
 {
     KDockWidget* dockWidget = _dockWindow->createDockWidget( category,
                                                              ImageDB::instance()->categoryCollection()->categoryForName( category)->icon(),
@@ -619,21 +618,21 @@ KDockWidget* ImageConfig::createListSel( const QString& category )
     return dockWidget;
 }
 
-void ImageConfig::slotDeleteOption( Category* category, const QString& which)
+void AnnotationDialog::AnnotationDialog::slotDeleteOption( Category* category, const QString& which)
 {
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).removeOption( category->name(), which );
     }
 }
 
-void ImageConfig::slotRenameOption( Category* category, const QString& oldValue, const QString& newValue )
+void AnnotationDialog::AnnotationDialog::slotRenameOption( Category* category, const QString& oldValue, const QString& newValue )
 {
     for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).renameItem( category->name(), oldValue, newValue );
     }
 }
 
-void ImageConfig::reject()
+void AnnotationDialog::AnnotationDialog::reject()
 {
     if ( hasChanges() ) {
         int code =  KMessageBox::questionYesNo( this, i18n("<qt>Changes made to image info, really cancel?</qt>") );
@@ -646,7 +645,7 @@ void ImageConfig::reject()
     QDialog::reject();
 }
 
-bool ImageConfig::hasChanges()
+bool AnnotationDialog::AnnotationDialog::hasChanges()
 {
     bool changed = false;
     if ( _setup == SINGLE )  {
@@ -671,17 +670,17 @@ bool ImageConfig::hasChanges()
     return changed;
 }
 
-void ImageConfig::rotateLeft()
+void AnnotationDialog::AnnotationDialog::rotateLeft()
 {
     rotate(-90);
 }
 
-void ImageConfig::rotateRight()
+void AnnotationDialog::AnnotationDialog::rotateRight()
 {
     rotate(90);
 }
 
-void ImageConfig::rotate( int angle )
+void AnnotationDialog::AnnotationDialog::rotate( int angle )
 {
     _thumbnailShouldReload = true;
     if ( _setup == MULTIPLE ) {
@@ -694,18 +693,18 @@ void ImageConfig::rotate( int angle )
     _preview->rotate( angle );
 }
 
-bool ImageConfig::thumbnailShouldReload() const
+bool AnnotationDialog::AnnotationDialog::thumbnailShouldReload() const
 {
     return _thumbnailShouldReload;
 }
 
-void ImageConfig::slotAddTimeInfo()
+void AnnotationDialog::AnnotationDialog::slotAddTimeInfo()
 {
     _addTime->hide();
     _time->show();
 }
 
-void ImageConfig::slotDeleteImage()
+void AnnotationDialog::AnnotationDialog::slotDeleteImage()
 {
     DeleteDialog dialog( this );
     ImageInfoPtr info = _origList[_current];
@@ -733,7 +732,7 @@ void ImageConfig::slotDeleteImage()
     load();
 }
 
-void ImageConfig::showHelpDialog( SetupType type )
+void AnnotationDialog::AnnotationDialog::showHelpDialog( SetupType type )
 {
     QString doNotShowKey;
     QString txt;
@@ -759,19 +758,19 @@ void ImageConfig::showHelpDialog( SetupType type )
     KMessageBox::information( this, txt, QString::null, doNotShowKey, KMessageBox::AllowLink );
 }
 
-void ImageConfig::resizeEvent( QResizeEvent* )
+void AnnotationDialog::AnnotationDialog::resizeEvent( QResizeEvent* )
 {
     Options::instance()->setWindowGeometry( Options::ConfigWindow, geometry() );
 }
 
-void ImageConfig::moveEvent( QMoveEvent * )
+void AnnotationDialog::AnnotationDialog::moveEvent( QMoveEvent * )
 {
     Options::instance()->setWindowGeometry( Options::ConfigWindow, geometry() );
 
 }
 
 
-void ImageConfig::setupFocus()
+void AnnotationDialog::AnnotationDialog::setupFocus()
 {
     QObjectList* list = queryList( "QWidget" );
     QValueList<QWidget*> orderedList;
@@ -815,7 +814,7 @@ void ImageConfig::setupFocus()
     delete list;
 }
 
-void ImageConfig::slotRecetLayout()
+void AnnotationDialog::AnnotationDialog::slotRecetLayout()
 {
     QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
     kapp->config()->deleteGroup( group );
@@ -824,10 +823,12 @@ void ImageConfig::slotRecetLayout()
     emit deleteMe();
 }
 
-void ImageConfig::slotStartDateChanged( const ImageDate& date )
+void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const ImageDate& date )
 {
     if ( date.start() == date.end() )
         _endDate->setDate( QDate() );
     else
         _endDate->setDate( date.end().date() );
 }
+
+#include "AnnotationDialog.moc"

@@ -23,6 +23,9 @@
 #include "imageclient.h"
 #include <qimage.h>
 
+namespace AnnotationDialog
+{
+
 class ImagePreview :public QLabel, public ImageClient {
     Q_OBJECT
 public:
@@ -75,6 +78,8 @@ private:
     PreloadInfo _anticipated;
     int _angle;
 };
+
+}
 
 
 #endif /* IMAGEPREVIEW_H */

@@ -31,7 +31,6 @@
 #include <kiconloader.h>
 #include <kglobal.h>
 #include "imagedb.h"
-#include "imageconfig.h"
 #include <qtextstream.h>
 #include <qregexp.h>
 #include <qmessagebox.h>

@@ -21,7 +21,7 @@
 #include <qapplication.h>
 #include "ThumbnailView/ThumbnailView.h"
 #include "ThumbnailView/ThumbnailBuilder.h"
-#include "imageconfig.h"
+#include "AnnotationDialog/AnnotationDialog.h"
 #include <qdir.h>
 #include <qfile.h>
 #include <qtextstream.h>
@@ -98,7 +98,7 @@
 MainView* MainView::_instance = 0;
 
 MainView::MainView( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _imageConfigure(0), _dirty( false ), _autoSaveDirty( false ),
+    :KMainWindow( parent,  name ), _annotationDialog(0), _dirty( false ), _autoSaveDirty( false ),
      _deleteDialog( 0 ), _dirtyIndicator(0),
      _htmlDialog(0), _tokenEditor( 0 )
 {
@@ -325,36 +325,36 @@ void MainView::configureImages( const ImageInfoList& list, bool oneAtATime )
 
 void MainView::configImages( const ImageInfoList& list, bool oneAtATime )
 {
-    createImageConfig();
-    _imageConfigure->configure( list,  oneAtATime );
-    if ( _imageConfigure->thumbnailShouldReload() )
+    createAnnotationDialog();
+    _annotationDialog->configure( list,  oneAtATime );
+    if ( _annotationDialog->thumbnailShouldReload() )
         reloadThumbnails(true);
 }
 
 
 void MainView::slotSearch()
 {
-    createImageConfig();
-    ImageSearchInfo searchInfo = _imageConfigure->search();
+    createAnnotationDialog();
+    ImageSearchInfo searchInfo = _annotationDialog->search();
     if ( !searchInfo.isNull() )
         _browser->addSearch( searchInfo );
 }
 
-void MainView::createImageConfig()
+void MainView::createAnnotationDialog()
 {
     ShowBusyCursor dummy;
-    if ( _imageConfigure )
+    if ( _annotationDialog )
         return;
 
-    _imageConfigure = new ImageConfig( this,  "_imageConfigure" );
-    connect( _imageConfigure, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-    connect( _imageConfigure, SIGNAL( deleteMe() ),  this, SLOT( deleteImageConfigure() ) );
+    _annotationDialog = new AnnotationDialog::AnnotationDialog( this,  "_annotationDialog" );
+    connect( _annotationDialog, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
+    connect( _annotationDialog, SIGNAL( deleteMe() ),  this, SLOT( deleteAnnotationDialog() ) );
 }
 
-void MainView::deleteImageConfigure()
+void MainView::deleteAnnotationDialog()
 {
-    _imageConfigure->deleteLater();
-    _imageConfigure = 0;
+    _annotationDialog->deleteLater();
+    _annotationDialog = 0;
 }
 
 void MainView::slotSave()
@@ -687,9 +687,9 @@ void MainView::showBrowser()
 
 void MainView::slotOptionGroupChanged()
 {
-    Q_ASSERT( !_imageConfigure || !_imageConfigure->isShown() );
-    delete _imageConfigure;
-    _imageConfigure = 0;
+    Q_ASSERT( !_annotationDialog || !_annotationDialog->isShown() );
+    delete _annotationDialog;
+    _annotationDialog = 0;
     setDirty( true );
 }
 

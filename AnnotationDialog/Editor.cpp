@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "editor.h"
+#include "Editor.h"
 #include <qlayout.h>
 #include <qtextedit.h>
 #include <ktrader.h>
@@ -37,6 +37,8 @@
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qfocusdata.h>
+
+using namespace AnnotationDialog;
 
 Editor::Editor( QWidget* parent, const char* name )
     :QTextEdit( parent, name )
@@ -194,4 +196,4 @@ void Editor::keyPressEvent( QKeyEvent* event )
         QTextEdit::keyPressEvent( event );
 }
 
-#include "editor.moc"
+#include "Editor.moc"

@@ -27,6 +27,9 @@ class KSpellConfig;
 class QPoint;
 class QPopupMenu;
 
+namespace AnnotationDialog
+{
+
 class Editor :public QTextEdit
 {
     Q_OBJECT
@@ -55,6 +58,8 @@ private:
     KSpellConfig* _config;
     KDictSpellingHighlighter* _highlighter;
 };
+
+}
 
 #endif /* EDITOR_H */
 

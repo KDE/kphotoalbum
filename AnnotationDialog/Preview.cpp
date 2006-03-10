@@ -16,12 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imagepreview.h"
+#include "Preview.h"
 #include "Viewer/Viewer.h"
 #include "imagemanager.h"
 #include <klocale.h>
 #include <qwmatrix.h>
 #include "imageloader.h"
+
+using namespace AnnotationDialog;
 
 ImagePreview::ImagePreview( QWidget* parent, const char* name )
     : QLabel( parent, name )
@@ -199,4 +201,4 @@ void ImagePreview::PreviewLoader::cancelPreload()
 }
 
 
-#include "imagepreview.moc"
+#include "Preview.moc"

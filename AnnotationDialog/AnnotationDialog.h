@@ -19,11 +19,11 @@
 #ifndef IMAGECONFIG_H
 #define IMAGECONFIG_H
 #include "imageclient.h"
-#include "listselect.h"
+#include "ListSelect.h"
 #include "imagesearchinfo.h"
 #include <kdockwidget.h>
 #include <qspinbox.h>
-#include "editor.h"
+#include "Editor.h"
 #include <qdialog.h>
 #include <ktimewidget.h>
 #include "imageinfolist.h"
@@ -35,7 +35,6 @@ class KLineEdit;
 class KDockWidget;
 class KDatePicker;
 class KDateEdit;
-class ImagePreview;
 class KPushButton;
 
 namespace Viewer
@@ -43,11 +42,14 @@ namespace Viewer
     class Viewer;
 }
 
+namespace AnnotationDialog
+{
+class ImagePreview;
 
-class ImageConfig :public QDialog {
+class AnnotationDialog :public QDialog {
     Q_OBJECT
 public:
-    ImageConfig( QWidget* parent, const char* name = 0 );
+    AnnotationDialog( QWidget* parent, const char* name = 0 );
     int configure( ImageInfoList list,  bool oneAtATime );
     ImageSearchInfo search( ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;
@@ -126,6 +128,8 @@ private:
     KTimeWidget* _time;
     QPushButton* _addTime;
 };
+
+}
 
 #endif /* IMAGECONFIG_H */
 

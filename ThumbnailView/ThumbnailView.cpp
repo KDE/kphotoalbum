@@ -479,10 +479,13 @@ void ThumbnailView::ThumbnailView::mouseReleaseEvent( QMouseEvent* event )
 
 void ThumbnailView::ThumbnailView::mouseDoubleClickEvent( QMouseEvent * event )
 {
-    QString fileName = fileNameAtCoordinate( event->pos(), ViewportCoordinates );
-    if ( !fileName.isNull() )
-        emit showImage( fileName );
+    if ( !( event->state() & ControlButton ) ) {
+        QString fileName = fileNameAtCoordinate( event->pos(), ViewportCoordinates );
+        if ( !fileName.isNull() )
+            emit showImage( fileName );
+    }
 }
+
 
 
 void ThumbnailView::ThumbnailView::emitDateChange( int x, int y )

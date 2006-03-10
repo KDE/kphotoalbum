@@ -38,7 +38,10 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
                                           _view->cellAtCoordinate( event->pos(), ViewportCoordinates ) );
         }
         else {
-            _view->_selectedFiles.insert( file );
+            if ( _view->_selectedFiles.contains( file ) )
+                _view->_selectedFiles.remove( file);
+            else
+                _view->_selectedFiles.insert( file );
             _view->updateCell( file );
             _originalSelectionBeforeDragStart = _view->_selectedFiles;
         }

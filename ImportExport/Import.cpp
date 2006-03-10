@@ -166,7 +166,8 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
     }
 
     QDomElement top = doc.documentElement();
-    if ( ! (top.tagName().lower() == QString::fromLatin1( "kphotoalbum-export" ) ) ) {
+    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba-export" ) &&
+        top.tagName().lower() != QString::fromLatin1( "kphotoalbum-export" ) ) {
         KMessageBox::error( this, i18n("Unexpected top element while reading file %1. Expected KPhotoAlbum-export found %2")
                             .arg( fileName ).arg( top.tagName() ) );
         return false;

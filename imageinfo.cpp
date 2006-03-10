@@ -349,4 +349,3 @@ void ImageInfo::addDrawing( const QDomElement& elm )
     _drawList.load( elm );
 }
 
-#include "infobox.moc"

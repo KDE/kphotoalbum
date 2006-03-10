@@ -26,6 +26,9 @@ class ImageInfo;
 class QCloseEvent;
 class QLabel;
 
+namespace ImportExport
+{
+
 class MiniViewer :public QDialog
 {
     Q_OBJECT
@@ -42,6 +45,8 @@ private:
     static MiniViewer* _instance;
     QLabel* _pixmap;
 };
+
+}
 
 #endif /* MINIVIEWER_H */
 

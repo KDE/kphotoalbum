@@ -24,13 +24,12 @@ class QToolButton;
 namespace Viewer
 {
     class Viewer;
-}
 
 class InfoBox :public QTextBrowser {
     Q_OBJECT
 
 public:
-    InfoBox( Viewer::Viewer* parent, const char* name = 0 );
+    InfoBox( Viewer* parent, const char* name = 0 );
     void setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap );
     virtual void setSource( const QString& which );
     void setSize();
@@ -44,9 +43,11 @@ protected:
 
 private:
     QMap<int, QPair<QString,QString> > _linkMap;
-    Viewer::Viewer* _viewer;
+    Viewer* _viewer;
     QToolButton* _jumpToContext;
 };
+
+}
 
 
 #endif /* INFOBOX_H */

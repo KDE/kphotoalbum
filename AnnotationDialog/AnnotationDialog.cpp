@@ -25,7 +25,7 @@
 #include <qlineedit.h>
 #include <qlabel.h>
 #include "options.h"
-#include "Preview.h"
+#include "ImagePreview.h"
 #include <qregexp.h>
 #include <qtabwidget.h>
 #include "Viewer/Viewer.h"

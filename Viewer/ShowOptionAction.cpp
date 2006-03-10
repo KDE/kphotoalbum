@@ -16,10 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "showoptionaction.h"
+#include "ShowOptionAction.h"
 #include "options.h"
 #include <klocale.h>
 #include "imagedb.h"
+
+using namespace Viewer;
 
 ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent, const char* name )
     :KToggleAction( parent, name ), _category( category )
@@ -34,4 +36,4 @@ void ShowOptionAction::slotToggled( bool b )
     emit toggled( _category, b );
 }
 
-#include "showoptionaction.moc"
+#include "ShowOptionAction.moc"

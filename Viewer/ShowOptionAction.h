@@ -21,6 +21,9 @@
 #include <kxmlguiclient.h>
 #include <kaction.h>
 
+namespace Viewer
+{
+
 class ShowOptionAction :public KToggleAction {
     Q_OBJECT
 
@@ -37,6 +40,7 @@ private:
     QString _category;
 };
 
+}
 
 #endif /* SHOWOPTIONACTION_H */
 

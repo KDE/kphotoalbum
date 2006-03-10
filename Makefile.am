@@ -23,15 +23,15 @@ kphotoalbum_SOURCES = \
 	imageclient.cpp util.cpp imagedate.cpp imagesearchinfo.cpp \
 	showbusycursor.cpp \
 	htmlexportdialog.cpp imagecounter.cpp \
-	imagedb.cpp showoptionaction.cpp \
-	optionsdialog.cpp infobox.cpp welcomedialog.cpp \
+	imagedb.cpp \
+	optionsdialog.cpp welcomedialog.cpp \
 	deletedialog.cpp \
 	groupCounter.cpp membermap.cpp categoryimageconfig.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp \
 	kdateedit.cpp viewersizeconfig.cpp mysplashscreen.cpp \
 	searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
 	imagedaterange.cpp invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
-	imagerequest.cpp miniviewer.cpp \
+	imagerequest.cpp \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c \
 	featuredialog.cpp
 

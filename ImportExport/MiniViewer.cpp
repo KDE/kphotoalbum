@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "miniviewer.h"
+#include "MiniViewer.h"
 #include <qpushbutton.h>
 #include <klocale.h>
 #include <qlabel.h>
@@ -24,6 +24,8 @@
 #include <qimage.h>
 #include "imageinfo.h"
 #include <qwmatrix.h>
+
+using namespace ImportExport;
 
 MiniViewer* MiniViewer::_instance = 0;
 
@@ -68,4 +70,4 @@ MiniViewer::MiniViewer()
     hlay->addWidget( but );
 }
 
-#include "miniviewer.moc"
+#include "MiniViewer.moc"

@@ -38,7 +38,7 @@
 #include <klocale.h>
 #include "util.h"
 #include <qsignalmapper.h>
-#include "showoptionaction.h"
+#include "ShowOptionAction.h"
 #include <qtimer.h>
 #include "Viewer/DrawHandler.h"
 #include <kwin.h>

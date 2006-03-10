@@ -49,7 +49,7 @@
 #include <kapplication.h>
 #include "categorycollection.h"
 #include "imageinfo.h"
-#include "miniviewer.h"
+#include "MiniViewer.h"
 #include "XMLDB/XMLDB.h"
 #include <kdebug.h>
 

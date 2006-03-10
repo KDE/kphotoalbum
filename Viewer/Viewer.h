@@ -22,7 +22,7 @@
 #include "options.h"
 #include <kxmlguiclient.h>
 #include <kaction.h>
-#include "infobox.h"
+#include "InfoBox.h"
 #include <qdialog.h>
 #include <qimage.h>
 #include "imageinfolist.h"
@@ -69,7 +69,7 @@ protected:
     void updateInfoBox();
     void setupContextMenu();
     ImageInfoPtr currentInfo();
-    friend class ::InfoBox;
+    friend class InfoBox;
 
 signals:
     void dirty();

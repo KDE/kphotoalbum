@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "infobox.h"
+#include "InfoBox.h"
 #include <qurl.h>
 #include "Viewer/Viewer.h"
 #include "Browser/Browser.h"
@@ -27,7 +27,10 @@
 #include <kiconloader.h>
 #include "mainview.h"
 #include "imageinfo.h"
-InfoBox::InfoBox( Viewer::Viewer* viewer, const char* name )
+
+using namespace Viewer;
+
+InfoBox::InfoBox( Viewer* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )
 {
     setFrameStyle( Box | Plain );
@@ -129,3 +132,4 @@ void InfoBox::showBrowser()
 }
 
 
+#include "InfoBox.moc"

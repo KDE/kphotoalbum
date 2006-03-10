@@ -263,10 +263,17 @@ void Import::createImagesPage()
         ImageRow* ir = new ImageRow( info, this, container );
         lay3->addWidget( ir->_checkbox, row, 0 );
 
-        QPushButton* but = new QPushButton( container, "image" );
-        but->setPixmap( loadThumbnail( info->fileName( true ) ) );
-        lay3->addWidget( but, row, 1 );
-        connect( but, SIGNAL( clicked() ), ir, SLOT( showImage() ) );
+        const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
+        if ( thumbnails ) {
+            QPushButton* but = new QPushButton( container, "image" );
+            but->setPixmap( loadThumbnail( info->fileName( true ) ) );
+            lay3->addWidget( but, row, 1 );
+            connect( but, SIGNAL( clicked() ), ir, SLOT( showImage() ) );
+        }
+        else {
+            QLabel* label = new QLabel( info->label(), container, "filename" );
+            lay3->addWidget( label, row, 1 );
+        }
 
         QLabel* label = new QLabel( QString::fromLatin1("<qt>%1</qt>").arg(info->description()), container, "description" );
         lay3->addWidget( label, row, 2 );
@@ -596,10 +603,7 @@ void Import::updateDB()
 QPixmap Import::loadThumbnail( QString fileName )
 {
     const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
-    if ( !thumbnails ) {
-        KMessageBox::error( this, i18n("Export file did not contain a Thumbnails subdirectory, this indicates that the file is broken.") );
-        return QPixmap();
-    }
+    Q_ASSERT( thumbnails ); // We already tested for this.
 
     if ( !thumbnails->isDirectory() ) {
         KMessageBox::error( this, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken.") );

@@ -189,12 +189,10 @@ ImageConfig::ImageConfig( QWidget* parent, const char* name )
     QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         CategoryPtr category = ImageDB::instance()->categoryCollection()->categoryForName( *it );
-        if ( !category->isSpecialCategory() ) {
-            KDockWidget* dockWidget = createListSel( *it );
-            dockWidget->manualDock( last, pos );
-            last = dockWidget;
-            pos = KDockWidget::DockRight;
-        }
+        KDockWidget* dockWidget = createListSel( *it );
+        dockWidget->manualDock( last, pos );
+        last = dockWidget;
+        pos = KDockWidget::DockRight;
     }
 
 

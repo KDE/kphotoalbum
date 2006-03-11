@@ -83,7 +83,7 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
     QHBoxLayout* lay3 = new QHBoxLayout( lay2, 6 );
     QLabel* label = new QLabel( i18n("Label: " ), top, "label" );
     lay3->addWidget( label );
-    _imageLabel = new KLineEdit( top, "line edit for label" );
+    _imageLabel = new KLineEdit( top, "label line edit" );
     lay3->addWidget( _imageLabel );
 
 
@@ -772,6 +772,11 @@ void AnnotationDialog::AnnotationDialog::moveEvent( QMoveEvent * )
 
 void AnnotationDialog::AnnotationDialog::setupFocus()
 {
+    static bool initialized = false;
+    if ( initialized )
+        return;
+    initialized = true;
+
     QObjectList* list = queryList( "QWidget" );
     QValueList<QWidget*> orderedList;
 
@@ -806,12 +811,18 @@ void AnnotationDialog::AnnotationDialog::setupFocus()
     for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
         if ( prev )
             setTabOrder( prev, *orderedIt );
-        else
-            (*orderedIt)->setFocus(); // Give focus to the first widget
 
         prev = *orderedIt;
     }
     delete list;
+
+    // Finally set focus on the first list select
+    for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+        if ( QString::fromLatin1((*orderedIt)->name()).startsWith( QString::fromLatin1("line edit for") ) ) {
+            (*orderedIt)->setFocus();
+            break;
+        }
+    }
 }
 
 void AnnotationDialog::AnnotationDialog::slotRecetLayout()

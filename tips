@@ -64,20 +64,8 @@ the images.</p>
 <tip category="KPhotoAlbum">
 <html>
 <p>If you like KPhotoAlbum, and it adds value to your daily life, please
-consider donating money to the KPhotoAlbum developer, who will: (1) be motivated
-by your acknowledgement of his work, and (2) will get a chance to take
-some time off from his daily work to be able to work extra hard on
-KPhotoAlbum. (In January 2004, he took a whole week off from work to focus on
-KPhotoAlbum version 1.1).</p>
-<p>Donations can be made either at 
-https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa
-or by transferring money to
-<pre>
-Jesper Pedersen
-Danske Bank, Denmark
-SWIFT code is DABADKKK
-reg no: 3203
-account no: 35934019283203
+consider donating money to the KPhotoAlbum developer as a curtesy. See
+http://www.kphotoalbum.org/support.htm.
 </pre>
 </p>
 </html>
@@ -85,18 +73,7 @@ account no: 35934019283203
 
 <tip category="KPhotoAlbum">
 <html>
-<p>In the image-properties, keywords, persons and locations (as well as 
-any additional properties you define) are sorted so that the most 
-recently used are at the top, making it convenient to tag several 
-similar images.</p>
-<p align="right">-- Tip contributed by Eivind Kjorstad</p>
-</html>
-</tip>
-
-<tip category="KPhotoAlbum">
-<html>
-<p>It's possible to associate images with
-persons/locations/keywords/etc. That way when browsing, say persons, you
+<p>It's possible to associate images with categories. That way when browsing, say persons, you
 may get a small icon for each person with e.g. the person's face.</p>
 <p>To specify an icon for a person, load the person in the viewer, zoom to
 the part which you want to make into an icon, and choose
@@ -108,21 +85,8 @@ find the person, and set the image.
 
 <tip category="KPhotoAlbum">
 <html>
-<p>You may close the image configuration dialog by pressing Ctrl+Enter.
-</p>
-</html>
-</tip>
-
-<tip category="KPhotoAlbum">
-<html>
-<p>You may make groups of, say, persons by selecting <tt>Settings->Configure
-KPhotoAlbum</tt>, and then choosing the tab <tt>Member Groups</tt>.</p>
-<p> That way you can make a group called <tt>Family</tt>, which includes
-all the persons in your family. When browsing, each individual
-person will still be available when choosing the <tt>Persons</tt> icon, but in
-addition an item labeled <tt>Family</tt> will be available. When selecting
-that item, pictures including <b>any</b> of the persons from your family
-will be shown.
+<p>You may close the image annotation dialog (the one where you specify
+persons, location, etc for the images) by pressing Ctrl+Enter.
 </p>
 </html>
 </tip>
@@ -146,7 +110,19 @@ the other, if you drop it on the right edge it will be inserted behind.</p>
 
 <tip category="KPhotoAlbum">
 <html>
-<p>This is the last tip. If you know any additional tips or tricks, then please
-send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a></p>
+<p>
+On the thumbnail view, you can resize the grid to your needs just by clicking 
+the middle mouse button and dragging around. On most systems you can emulate 
+the middle mouse button by left and right clicking at the same time. 
+</p>
 </html>
 </tip>
+
+<tip category="KPhotoAlbum">
+<html>
+<p>This is the last tip. If you know any additional tips or tricks, then please
+send an email to <a href="mailto:blackie@kde.org">blackie@kde.org</a></p>
+<p align="right">-- Tip contributed by Rafael Beccar</p>
+</html>
+</tip>
+

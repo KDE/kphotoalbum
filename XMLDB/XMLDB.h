@@ -66,6 +66,7 @@ namespace XMLDB {
 
 
     protected:
+        QStringList searchPrivate( const ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
         ImageInfoPtr load( const QString& filename, QDomElement elm );
         void checkIfImagesAreSorted();
         bool rangeInclude( ImageInfoPtr info ) const;

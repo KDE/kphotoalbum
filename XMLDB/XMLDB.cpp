@@ -703,9 +703,16 @@ QStringList XMLDB::XMLDB::images()
 
 QStringList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
 {
+    return searchPrivate( info, requireOnDisk, true );
+}
+
+QStringList XMLDB::XMLDB::searchPrivate( const ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
+{
+    // When searching for images counts for the datebar, we want matches outside the range too.
+    // When searching for images for the thumbnail view, we only want matches inside the range.
     QStringList result;
     for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
-        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+        bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
         match &= !requireOnDisk || (*it)->imageOnDisk();
 
         if (match)
@@ -731,7 +738,7 @@ CategoryCollection* XMLDB::XMLDB::categoryCollection()
 
 KSharedPtr<ImageDateCollection> XMLDB::XMLDB::rangeCollection()
 {
-    return new XMLImageDateCollection( search( Browser::Browser::instance()->currentContext(), false ) );
+    return new XMLImageDateCollection( searchPrivate( Browser::Browser::instance()->currentContext(), false, false ) );
 }
 
 void XMLDB::XMLDB::reorder( const QString& item, const QStringList& selection, bool after )
@@ -1039,3 +1046,4 @@ void XMLDB::XMLDB::writeCategoriesCompressed( QDomElement& elm, const ImageInfoP
         }
     }
 }
+

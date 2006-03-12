@@ -40,7 +40,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
 
     // -------------------------------------------------- Current Search
     hlay = new QHBoxLayout( vlay, 6 );
-    label = new QLabel( i18n( "Current Search: "), top );
+    label = new QLabel( i18n( "Current EXIF Label Search: "), top );
     hlay->addWidget( label );
 
     _searchLabel = new QLabel( top );

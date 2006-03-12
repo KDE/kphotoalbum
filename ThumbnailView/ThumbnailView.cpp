@@ -57,6 +57,8 @@ ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
     connect( _repaintTimer, SIGNAL( timeout() ), this, SLOT( slotRepaint() ) );
 
     viewport()->setBackgroundMode( NoBackground );
+
+    connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( ensureCurrentVisible() ) );
 }
 
 
@@ -972,5 +974,21 @@ void ThumbnailView::ThumbnailView::updateIndexCache()
     for( QValueVector<QString>::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it,++index ) {
         _fileNameMap.insert( *it, index );
     }
+}
+
+void ThumbnailView::ThumbnailView::ensureCurrentVisible()
+{
+    // We need a single shot timer to ensure to be processed way after event processing for keyboard.
+    QTimer::singleShot( 0, this, SLOT( ensureCurrentVisiblePart2() ) );
+}
+
+
+void ThumbnailView::ThumbnailView::ensureCurrentVisiblePart2()
+{
+    Cell cur = positionForFileName(_currentItem);
+    if ( cur.row() < firstVisibleRow( PartlyVisible ) )
+        _currentItem = fileNameInCell( Cell( firstVisibleRow( FullyVisible ), cur.col() ) );
+    else if ( cur.row() > lastVisibleRow( PartlyVisible ) )
+        _currentItem = fileNameInCell( Cell( lastVisibleRow( FullyVisible ), cur.col() ) );
 }
 

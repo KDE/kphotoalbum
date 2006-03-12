@@ -99,9 +99,11 @@ protected:
     bool isUnitSelected( int unit ) const;
     bool hasSelection() const;
     ImageDate currentSelection() const;
-    void clearSelection();
     void emitDateSelected();
     void emitRangeSelection( const ImageDate& );
+
+protected slots:
+    void clearSelection();
 
 private:
     QPixmap _buffer;
@@ -130,6 +132,7 @@ private:
     QToolButton* _leftArrow;
     QToolButton* _zoomIn;
     QToolButton* _zoomOut;
+    QToolButton* _cancelSelection;
 
     int _currentUnit;
     QDateTime _currentDate;

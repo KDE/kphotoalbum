@@ -80,6 +80,11 @@ DateBar::DateBar::DateBar( QWidget* parent, const char* name )
     connect( _zoomOut, SIGNAL( clicked() ), this, SLOT( zoomOut() ) );
     connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT( setEnabled( bool ) ) );
 
+    _cancelSelection = new QToolButton( this );
+    _cancelSelection->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "cancel" ), KIcon::Toolbar, 16 ) );
+    connect( _cancelSelection, SIGNAL( clicked() ), this, SLOT( clearSelection() ) );
+    _cancelSelection->setEnabled( false );
+
     placeAndSizeButtons();
 
     _focusItemDragHandler = new FocusItemDragHandler( this );
@@ -121,7 +126,6 @@ void DateBar::DateBar::redraw()
 
     // Fill with background pixels
     p.save();
-    // p.setPen( grp.dark() );
     p.setPen( NoPen );
     p.setBrush( grp.background() );
     p.drawRect( rect() );
@@ -140,6 +144,7 @@ void DateBar::DateBar::redraw()
     drawResolutionIndicator( p, &right );
     QRect rect = dateAreaGeometry();
     rect.setRight( right );
+    rect.setLeft( rect.left() + buttonWidth + 2 );
 
     drawTickMarks( p, rect );
     drawHistograms( p );
@@ -188,7 +193,7 @@ void DateBar::DateBar::drawTickMarks( QPainter& p, const QRect& textRect )
             QString text = _currentHandler->text( unit );
             int w = fm.width( text );
             p.setFont( f );
-            if ( textRect.right() > x + w/2 )
+            if ( textRect.right() >  x + w/2 && textRect.left() < x - w/2)
                 p.drawText( x - w/2, textRect.top(), w, fontHeight, Qt::SingleLine, text );
         }
         else if ( _currentHandler->isMidUnit( unit ) )
@@ -343,9 +348,9 @@ void DateBar::DateBar::drawFocusRectagle( QPainter& p)
     p.setClipping( true );
     p.setClipRegion( region );
 
-    QColor col = red;
+    QColor col = gray;
     if ( !hasFocus() )
-        col = yellow;
+        col = white;
 
     p.setBrush( col );
     p.setPen( col );
@@ -411,6 +416,7 @@ void DateBar::DateBar::mousePressEvent( QMouseEvent* event )
         }
     }
     _currentMouseHandler->mousePressEvent( event->x() );
+    _cancelSelection->setEnabled( hasSelection() );
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
     showStatusBarTip( event->pos() );
     redraw();
@@ -633,11 +639,15 @@ void DateBar::DateBar::placeAndSizeButtons()
     _leftArrow->move( _rightArrow->pos().x() - _leftArrow->width() -2 , borderAboveHistogram );
 
     int x = _leftArrow->pos().x();
-    int y = _rightArrow->geometry().bottom() + 3;
+    int y = height() - buttonWidth;
     _zoomOut->move( x, y );
 
     x = _rightArrow->pos().x();
     _zoomIn->move(x, y );
+
+
+    _cancelSelection->setFixedSize( buttonWidth, buttonWidth );
+    _cancelSelection->move( 0, y );
 }
 
 void DateBar::DateBar::keyPressEvent( QKeyEvent* event )
@@ -726,6 +736,7 @@ void DateBar::DateBar::clearSelection()
     if ( _selectionHandler->hasSelection() ) {
         _selectionHandler->clearSelection();
         emit dateRangeCleared();
+        redraw();
     }
 }
 

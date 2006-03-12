@@ -1,3 +1,12 @@
+2006-03-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* The datebar now has an explicit button for canceling selection.
+
+	* Fixed bug where limited images on the date bar followed by a
+	limiting images from the browser, and then unlimiting from the
+	browser resulted in only items in the scope of the datebar
+	selection being shown on the datebar.
+
 2006-02-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Drasticly improved performance of deleting images. Thanks for

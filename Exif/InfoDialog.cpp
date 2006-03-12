@@ -210,6 +210,9 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
         emit searchStringChanged( _search );
         updateContents();
         return;
+    case Key_Escape:
+        QGridView::keyPressEvent( e ); // Propagate to close dialog.
+        return;
     }
 
     if ( !e->text().isNull() ) {

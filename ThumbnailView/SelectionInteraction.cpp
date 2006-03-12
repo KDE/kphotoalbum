@@ -54,6 +54,9 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 
 void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 {
+    if ( !(event->state() & LeftButton ) )
+        return;
+
     if ( _mousePressWasOnIcon &&
          (_view->viewportToContents(event->pos()) - _mousePressPos ).manhattanLength() > QApplication::startDragDistance() )
         startDrag();

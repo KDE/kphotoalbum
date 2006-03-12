@@ -44,6 +44,9 @@ public:
     QString toString( bool withTime = true ) const;
     bool hasValidTime() const;
 
+    enum MatchType { DontMatch, ExactMatch, RangeMatch };
+    MatchType isIncludedIn( const ImageDate& searchRange );
+    bool includes( const QDateTime& date );
 
 protected:
     static QString monthName( int month );

@@ -23,7 +23,6 @@
 #include "imageinfolist.h"
 #include <qobject.h>
 #include <qstringlist.h>
-#include "imagedaterange.h"
 #include "membermap.h"
 #include <imagedb.h>
 #include <category.h>
@@ -56,7 +55,7 @@ namespace XMLDB {
         virtual MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
         virtual CategoryCollection* categoryCollection();
-        virtual KSharedPtr<ImageDateRangeCollection> rangeCollection();
+        virtual KSharedPtr<ImageDateCollection> rangeCollection();
         virtual void reorder( const QString& item, const QStringList& cutList, bool after );
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );

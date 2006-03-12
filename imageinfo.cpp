@@ -287,11 +287,6 @@ bool ImageInfo::imageOnDisk() const
     return _imageOnDisk == YesOnDisk;
 }
 
-ImageDateRange ImageInfo::dateRange() const
-{
-    return ImageDateRange( _date );
-}
-
 QSize ImageInfo::size() const
 {
     return _size;

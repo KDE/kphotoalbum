@@ -4,8 +4,8 @@
 #include <qobject.h>
 #include <qdatetime.h>
 #include <kdemacros.h>
-#include "imagedaterange.h"
 #include <kdeversion.h>
+#include <imagedate.h>
 
 #if ! KDE_IS_VERSION(3,3,90)
 #undef KDE_EXPORT
@@ -69,7 +69,7 @@ class DateBar;
         virtual void mouseReleaseEvent();
         QDateTime min() const;
         QDateTime max() const;
-        ImageDateRange dateRange() const;
+        ImageDate dateRange() const;
         void clearSelection();
         bool hasSelection() const;
     private:

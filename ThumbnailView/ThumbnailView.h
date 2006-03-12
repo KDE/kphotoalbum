@@ -11,6 +11,7 @@
 #include "MouseTrackingInteraction.h"
 #include "Cell.h"
 #include <qvaluevector.h>
+#include <imagedate.h>
 
 class QTimer;
 class ImageDateRange;
@@ -46,7 +47,7 @@ public:
 
 
 public slots:
-    void gotoDate( const ImageDateRange& date, bool includeRanges );
+    void gotoDate( const ImageDate& date, bool includeRanges );
     void selectAll();
     void showToolTipsOnImages( bool b );
 

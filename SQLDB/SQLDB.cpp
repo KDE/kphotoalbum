@@ -14,7 +14,7 @@
 #include <kdebug.h>
 #include "SQLImageInfo.h"
 #include "Browser/Browser.h"
-#include "SQLImageDateRangeCollection.h"
+#include "SQLImageDateCollection.h"
 
 SQLDB::SQLDB::SQLDB() :_members( this )
 {
@@ -333,9 +333,9 @@ CategoryCollection* SQLDB::SQLDB::categoryCollection()
     return &_categoryCollection;
 }
 
-KSharedPtr<ImageDateRangeCollection> SQLDB::SQLDB::rangeCollection()
+KSharedPtr<ImageDateCollection> SQLDB::SQLDB::rangeCollection()
 {
-    return new SQLImageDateRangeCollection( /*search( Browser::instance()->currentContext(), false ) */ );
+    return new SQLImageDateCollection( /*search( Browser::instance()->currentContext(), false ) */ );
 }
 
 void SQLDB::SQLDB::reorder( const QString& /*item*/, const QStringList& /*cutList*/, bool /*after*/)

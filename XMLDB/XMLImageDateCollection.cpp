@@ -16,34 +16,34 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "XMLImageDateRangeCollection.h"
+#include "XMLImageDateCollection.h"
 #include "imageinfo.h"
 #include "imagedb.h"
 
-XMLImageDateRangeCollection::XMLImageDateRangeCollection()
+XMLImageDateCollection::XMLImageDateCollection()
     : _dirtyLower( false ), _dirtyUpper( false )
 {
 }
 
-void XMLImageDateRangeCollection::append( const ImageDateRange& dateRange )
+void XMLImageDateCollection::append( const ImageDate& date )
 {
-    _dates.append( dateRange );
+    _dates.append( date );
     _dirtyLower = true;
     _dirtyUpper = true;
 }
 
-ImageCount XMLImageDateRangeCollection::count( const ImageDateRange& range )
+ImageCount XMLImageDateCollection::count( const ImageDate& range )
 {
     if ( _cache.contains( range ) )
         return _cache[range];
 
     int exact = 0, rangeMatch = 0;
-    for( QValueList<ImageDateRange>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
-        ImageDateRange::MatchType tp = (*it).isIncludedIn( range );
+    for( QValueList<ImageDate>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
+        ImageDate::MatchType tp = (*it).isIncludedIn( range );
         switch (tp) {
-        case ImageDateRange::ExactMatch: exact++;break;
-        case ImageDateRange::RangeMatch: rangeMatch++; break;
-        case ImageDateRange::DontMatch: break;
+        case ImageDate::ExactMatch: exact++;break;
+        case ImageDate::RangeMatch: rangeMatch++; break;
+        case ImageDate::DontMatch: break;
         }
     }
 
@@ -52,40 +52,36 @@ ImageCount XMLImageDateRangeCollection::count( const ImageDateRange& range )
     return res;
 }
 
-QDateTime XMLImageDateRangeCollection::lowerLimit() const
+QDateTime XMLImageDateCollection::lowerLimit() const
 {
     static QDateTime _lower = QDateTime( QDate( 1900, 1, 1 ) );
     if ( _dirtyLower && _dates.count() != 0 ) {
         bool first = true;
-        for( QValueList<ImageDateRange>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
-            ImageDate date = (*it).date();
-
+        for( QValueList<ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
             if ( first ) {
-                _lower = date.start();
+                _lower = (*it).start();
                 first = false;
             }
-            else if ( date.start() < _lower )
-                _lower = date.start();
+            else if ( (*it).start() < _lower )
+                _lower = (*it).start();
         }
     }
     _dirtyLower = false;
     return _lower;
 }
 
-QDateTime XMLImageDateRangeCollection::upperLimit() const
+QDateTime XMLImageDateCollection::upperLimit() const
 {
     static QDateTime _upper = QDateTime( QDate( 2100, 1, 1 ) );
     if ( _dirtyUpper && _dates.count() != 0 ) {
         bool first = true;
-        for( QValueList<ImageDateRange>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
-            ImageDate date = (*it).date();
-
+        for( QValueList<ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
             if ( first ) {
-                _upper = date.end();
+                _upper = (*it).end();
                 first = false;
             }
-            else if ( date.end() > _upper ) {
-                _upper = date.end();
+            else if ( (*it).end() > _upper ) {
+                _upper = (*it).end();
             }
         }
     }
@@ -93,11 +89,11 @@ QDateTime XMLImageDateRangeCollection::upperLimit() const
     return _upper;
 }
 
-XMLImageDateRangeCollection::XMLImageDateRangeCollection( const QStringList& list )
+XMLImageDateCollection::XMLImageDateCollection( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageInfoPtr info = ImageDB::instance()->info( *it );
-        append( ImageDateRange( info->date() ) );
+        append( info->date() );
     }
 }
 

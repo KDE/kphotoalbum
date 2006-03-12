@@ -30,7 +30,7 @@ kphotoalbum_SOURCES = \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp \
 	kdateedit.cpp viewersizeconfig.cpp mysplashscreen.cpp \
 	searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
-	imagedaterange.cpp invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
+	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
 	imagerequest.cpp \
 	newimagefinder.cpp md5map.cpp imagedecoder.cpp rawimagedecoder.cpp parse.c \
 	featuredialog.cpp

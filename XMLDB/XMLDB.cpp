@@ -41,7 +41,7 @@
 #include <stdlib.h>
 #include "XMLCategory.h"
 #include <ksharedptr.h>
-#include "XMLImageDateRangeCollection.h"
+#include "XMLImageDateCollection.h"
 #include <kcmdlineargs.h>
 #include <kdebug.h>
 #include "NumberedBackup.h"
@@ -245,14 +245,14 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
 
 bool XMLDB::XMLDB::rangeInclude( ImageInfoPtr info ) const
 {
-    if (_selectionRange.date().start().isNull() )
+    if (_selectionRange.start().isNull() )
         return true;
 
-    ImageDateRange::MatchType tp = info->dateRange().isIncludedIn( _selectionRange );
+    ImageDate::MatchType tp = info->date().isIncludedIn( _selectionRange );
     if ( _includeFuzzyCounts )
-        return ( tp == ImageDateRange::ExactMatch || tp == ImageDateRange::RangeMatch );
+        return ( tp == ImageDate::ExactMatch || tp == ImageDate::RangeMatch );
     else
-        return ( tp == ImageDateRange::ExactMatch );
+        return ( tp == ImageDate::ExactMatch );
 }
 
 void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
@@ -729,9 +729,9 @@ CategoryCollection* XMLDB::XMLDB::categoryCollection()
     return &_categoryCollection;
 }
 
-KSharedPtr<ImageDateRangeCollection> XMLDB::XMLDB::rangeCollection()
+KSharedPtr<ImageDateCollection> XMLDB::XMLDB::rangeCollection()
 {
-    return new XMLImageDateRangeCollection( search( Browser::Browser::instance()->currentContext(), false ) );
+    return new XMLImageDateCollection( search( Browser::Browser::instance()->currentContext(), false ) );
 }
 
 void XMLDB::XMLDB::reorder( const QString& item, const QStringList& selection, bool after )

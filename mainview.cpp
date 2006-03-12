@@ -82,7 +82,7 @@
 #include "categorycollection.h"
 #include <qlayout.h>
 #include "DateBar/DateBar.h"
-#include "imagedaterangecollection.h"
+#include "imagedatecollection.h"
 #include "invaliddatefinder.h"
 #include "imageinfo.h"
 #include "Survey/MySurvey.h"
@@ -132,13 +132,13 @@ MainView::MainView( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
     _thumbnailView = new ThumbnailView::ThumbnailView( _stack, "_thumbnailView" );
-    connect( _dateBar, SIGNAL( dateSelected( const ImageDateRange&, bool ) ), _thumbnailView, SLOT( gotoDate( const ImageDateRange&, bool ) ) );
+    connect( _dateBar, SIGNAL( dateSelected( const ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Options::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
 
 
-    connect( _dateBar, SIGNAL( dateRangeChange( const ImageDateRange& ) ),
-             this, SLOT( setDateRange( const ImageDateRange& ) ) );
+    connect( _dateBar, SIGNAL( dateRangeChange( const ImageDate& ) ),
+             this, SLOT( setDateRange( const ImageDate& ) ) );
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
 
     connect( _thumbnailView, SIGNAL( showImage( const QString& ) ), this, SLOT( showImage( const QString& ) ) );
@@ -1232,7 +1232,7 @@ void MainView::updateDateBar( const QString& path )
 
 void MainView::updateDateBar()
 {
-    _dateBar->setImageRangeCollection( ImageDB::instance()->rangeCollection() );
+    _dateBar->setImageDateCollection( ImageDB::instance()->rangeCollection() );
 }
 
 
@@ -1256,7 +1256,7 @@ void MainView::slotJumpToContext()
    }
 }
 
-void MainView::setDateRange( const ImageDateRange& range )
+void MainView::setDateRange( const ImageDate& range )
 {
     ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
     _browser->reload();

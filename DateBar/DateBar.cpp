@@ -220,10 +220,10 @@ void DateBar::DateBar::setDate( const QDateTime& date )
 {
     _currentDate = date;
     if ( hasSelection() ) {
-        if ( currentSelection().date().start() > _currentDate )
-            _currentDate = currentSelection().date().start();
-        if ( currentSelection().date().end() < _currentDate )
-            _currentDate = currentSelection().date().end();
+        if ( currentSelection().start() > _currentDate )
+            _currentDate = currentSelection().start();
+        if ( currentSelection().end() < _currentDate )
+            _currentDate = currentSelection().end();
     }
 
     if ( unitForDate( _currentDate ) != -1 )
@@ -232,7 +232,7 @@ void DateBar::DateBar::setDate( const QDateTime& date )
     redraw();
 }
 
-void DateBar::DateBar::setImageRangeCollection( const KSharedPtr<ImageDateRangeCollection>& dates )
+void DateBar::DateBar::setImageDateCollection( const KSharedPtr<ImageDateCollection>& dates )
 {
     _dates = dates;
     redraw();
@@ -249,7 +249,7 @@ void DateBar::DateBar::drawHistograms( QPainter& p)
     int unit = 0;
     int max = 0;
     for ( int x = rect.x(); x + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( ImageDateRange( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) ) );
+        ImageCount count = _dates->count( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
         int cnt = count._exact;
         if ( _includeFuzzyCounts )
             cnt += count._rangeMatch;
@@ -258,7 +258,7 @@ void DateBar::DateBar::drawHistograms( QPainter& p)
 
     unit = 0;
     for ( int x = rect.x(); x  + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( ImageDateRange( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) ) );
+        ImageCount count = _dates->count( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
         int exact = 0;
         if ( max != 0 )
             exact = (int) ((double) (rect.height()-2) * count._exact / max );
@@ -469,10 +469,10 @@ void DateBar::DateBar::setIncludeFuzzyCounts( bool b )
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
 
-ImageDateRange DateBar::DateBar::rangeAt( const QPoint& p )
+ImageDate DateBar::DateBar::rangeAt( const QPoint& p )
 {
     int unit = (p.x() - barAreaGeometry().x())/ _barWidth;
-    return ImageDateRange( ImageDate( dateForUnit( unit ), dateForUnit(unit+1) ) );
+    return ImageDate( dateForUnit( unit ), dateForUnit(unit+1) );
 }
 
 bool DateBar::DateBar::includeFuzzyCounts() const
@@ -597,14 +597,14 @@ void DateBar::DateBar::updateArrowState()
     _rightArrow->setEnabled( _dates->upperLimit() > dateForUnit( numberOfUnits() ) );
 }
 
-ImageDateRange DateBar::DateBar::currentDateRange() const
+ImageDate DateBar::DateBar::currentDateRange() const
 {
-    return ImageDateRange( ImageDate( dateForUnit( _currentUnit ), dateForUnit( _currentUnit+1 ) ) );
+    return ImageDate( dateForUnit( _currentUnit ), dateForUnit( _currentUnit+1 ) );
 }
 
 void DateBar::DateBar::showStatusBarTip( const QPoint& pos )
 {
-    ImageDateRange range = rangeAt( pos );
+    ImageDate range = rangeAt( pos );
     ImageCount count = _dates->count( range );
 
     QString cnt;
@@ -613,7 +613,7 @@ void DateBar::DateBar::showStatusBarTip( const QPoint& pos )
     else
         cnt = i18n("%1 images").arg( count._exact );
 
-    QString res = i18n("%1 to %2  %3").arg(range.date().start().toString()).arg(range.date().end().toString())
+    QString res = i18n("%1 to %2  %3").arg(range.start().toString()).arg(range.end().toString())
                   .arg(cnt);
 
     static QString lastTip = QString::null;
@@ -716,9 +716,9 @@ bool DateBar::DateBar::hasSelection() const
     return !_selectionHandler->min().isNull();
 }
 
-ImageDateRange DateBar::DateBar::currentSelection() const
+ImageDate DateBar::DateBar::currentSelection() const
 {
-    return ImageDateRange( ImageDate(_selectionHandler->min(), _selectionHandler->max() ) );
+    return ImageDate(_selectionHandler->min(), _selectionHandler->max() );
 }
 
 void DateBar::DateBar::clearSelection()
@@ -729,7 +729,7 @@ void DateBar::DateBar::clearSelection()
     }
 }
 
-void DateBar::DateBar::emitRangeSelection( const ImageDateRange&  range )
+void DateBar::DateBar::emitRangeSelection( const ImageDate&  range )
 {
     emit dateRangeChange( range );
 }

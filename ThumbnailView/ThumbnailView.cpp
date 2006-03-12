@@ -513,15 +513,15 @@ void ThumbnailView::ThumbnailView::emitDateChange( int x, int y )
  * scroll to the date specified with the parameter date.
  * The boolean includeRanges tells whether we accept range matches or not.
  */
-void ThumbnailView::ThumbnailView::gotoDate( const ImageDateRange& date, bool includeRanges )
+void ThumbnailView::ThumbnailView::gotoDate( const ImageDate& date, bool includeRanges )
 {
     _isSettingDate = true;
     QString candidate;
     for( QValueVector<QString>::Iterator imageIt = _imageList.begin(); imageIt != _imageList.end(); ++imageIt ) {
         ImageInfoPtr info = ImageDB::instance()->info( *imageIt );
 
-        ImageDateRange::MatchType match = info->dateRange().isIncludedIn( date );
-        if ( match == ImageDateRange::ExactMatch || ( match == ImageDateRange::RangeMatch && includeRanges ) ) {
+        ImageDate::MatchType match = info->date().isIncludedIn( date );
+        if ( match == ImageDate::ExactMatch || ( match == ImageDate::RangeMatch && includeRanges ) ) {
             if ( !candidate.isNull() ) {
                 if ( info->date().start() < ImageDB::instance()->info(candidate)->date().start() )
                     candidate = *imageIt;

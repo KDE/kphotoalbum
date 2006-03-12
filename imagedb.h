@@ -23,11 +23,10 @@
 #include <qobject.h>
 #include "imageinfolist.h"
 #include "imageinfo.h"
-#include "imagedaterangecollection.h"
+#include "imagedatecollection.h"
 class CategoryCollection;
 class Category;
 class MD5Map;
-class ImageDateRange;
 class MemberMap;
 
 class ImageDB  :public QObject {
@@ -39,7 +38,7 @@ public:
     void convertBackend();
 
 public slots:
-    void setDateRange( const ImageDateRange&, bool includeFuzzyCounts );
+    void setDateRange( const ImageDate&, bool includeFuzzyCounts );
     void clearDateRange();
     virtual void slotRescan();
     virtual void slotRecalcCheckSums( QStringList selection );
@@ -47,7 +46,7 @@ public slots:
     virtual void slotReread( const QStringList& list, int mode);
 
 protected:
-    ImageDateRange _selectionRange;
+    ImageDate _selectionRange;
     bool _includeFuzzyCounts;
     ImageInfoList _clipboard;
 
@@ -82,7 +81,7 @@ public: // Methods that must be overriden
     virtual MD5Map* md5Map() = 0;
     virtual void sortAndMergeBackIn( const QStringList& fileList ) = 0;
     virtual CategoryCollection* categoryCollection() = 0;
-    virtual KSharedPtr<ImageDateRangeCollection> rangeCollection() = 0;
+    virtual KSharedPtr<ImageDateCollection> rangeCollection() = 0;
 
     virtual void reorder( const QString& item, const QStringList& cutList, bool after ) = 0;
     virtual void cutToClipboard( const QStringList& list ) = 0;

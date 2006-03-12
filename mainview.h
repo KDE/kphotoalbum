@@ -58,7 +58,6 @@ namespace AnnotationDialog
 #include <kurl.h>
 #include "category.h"
 #include <config.h>
-#include "imagedaterange.h"
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -140,7 +139,7 @@ protected slots:
     void slotShowImagesWithInvalidDate();
     void showDateBarTip( const QString& );
     void slotJumpToContext();
-    void setDateRange( const ImageDateRange& );
+    void setDateRange( const ImageDate& );
     void clearDateRange();
     void deleteAnnotationDialog();
     void startAutoSaveTimer();

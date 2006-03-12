@@ -16,26 +16,37 @@
    Boston, MA 02110-1301, USA.
 */
 
+#ifndef IMAGEDATERANGECOLLECTION_H
+#define IMAGEDATERANGECOLLECTION_H
 #include "imagedate.h"
-#ifndef IMAGEDATERANGE_H
-#define IMAGEDATERANGE_H
+#include <qvaluelist.h>
+#include <qmap.h>
+#include "imageinfolist.h"
+#include <ksharedptr.h>
+class QStringList;
 
-class ImageDateRange
+class ImageCount
 {
 public:
-    ImageDateRange();
-    ImageDateRange( const ImageDate& date );
+    ImageCount( int exact, int rangeMatch )
+        : _exact( exact ), _rangeMatch( rangeMatch )
+        {
+        }
+    ImageCount() {}
 
-    enum MatchType { DontMatch, ExactMatch, RangeMatch };
-    MatchType isIncludedIn( const ImageDateRange& searchRange );
-    bool includes( const QDateTime& date );
-    ImageDate date() const;
-    bool operator<(const ImageDateRange& other ) const;
-
-private:
-    ImageDate _date;
+    int _exact;
+    int _rangeMatch;
 };
 
 
-#endif /* IMAGEDATERANGE_H */
+class ImageDateCollection :public KShared
+{
+public:
+    virtual ImageCount count( const ImageDate& range ) = 0;
+    virtual QDateTime lowerLimit() const = 0;
+    virtual QDateTime upperLimit() const = 0;
+};
+
+
+#endif /* IMAGEDATERANGECOLLECTION_H */
 

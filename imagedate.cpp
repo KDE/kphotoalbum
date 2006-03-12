@@ -352,3 +352,19 @@ ImageDate::ImageDate( const QDate& start, QDate end, const QTime& time )
     }
 }
 
+ImageDate::MatchType ImageDate::isIncludedIn( const ImageDate& searchRange )
+{
+    if ( searchRange.start() <= start() && searchRange.end() >= end() )
+        return ExactMatch;
+
+    if ( searchRange.start() <= end() && searchRange.end() >= start() ) {
+        return RangeMatch;
+    }
+    return DontMatch;
+}
+
+bool ImageDate::includes( const QDateTime& date )
+{
+    return ImageDate( date ).isIncludedIn( *this ) == ExactMatch;
+}
+

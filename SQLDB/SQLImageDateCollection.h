@@ -1,11 +1,11 @@
 #ifndef SQLIMAGEDATERANGECOLLECTION_H
 #define SQLIMAGEDATERANGECOLLECTION_H
-#include <imagedaterangecollection.h>
+#include <imagedatecollection.h>
 
-class SQLImageDateRangeCollection :public ImageDateRangeCollection
+class SQLImageDateCollection :public ImageDateCollection
 {
 public:
-    virtual ImageCount count( const ImageDateRange& range );
+    virtual ImageCount count( const ImageDate& date );
     virtual QDateTime lowerLimit() const;
     virtual QDateTime upperLimit() const;
 };

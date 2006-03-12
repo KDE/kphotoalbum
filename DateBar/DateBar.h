@@ -21,8 +21,7 @@
 #include <qwidget.h>
 #include <qpixmap.h>
 #include <qdatetime.h>
-#include "imagedaterange.h"
-#include "imagedaterangecollection.h"
+#include "imagedatecollection.h"
 #include "DateBar/ViewHandler.h"
 #include "DateBar/MouseHandler.h"
 #include <ksharedptr.h>
@@ -43,7 +42,7 @@ public:
 public slots:
     void setViewType( ViewType tp );
     void setDate( const QDateTime& date );
-    void setImageRangeCollection( const KSharedPtr<ImageDateRangeCollection>& );
+    void setImageDateCollection( const KSharedPtr<ImageDateCollection>& );
     void scrollLeft();
     void scrollRight();
     void scroll( int units );
@@ -56,9 +55,9 @@ public slots:
 signals:
     void canZoomIn( bool );
     void canZoomOut( bool );
-    void dateSelected( const ImageDateRange&, bool includeRanges );
+    void dateSelected( const ImageDate&, bool includeRanges );
     void toolTipInfo( const QString& );
-    void dateRangeChange( const ImageDateRange& );
+    void dateRangeChange( const ImageDate& );
     void dateRangeCleared();
 
 public:
@@ -90,25 +89,25 @@ protected:
     int numberOfUnits() const;
     void drawArrow( QPainter&, const QPoint& start, const QPoint& end );
     void updateArrowState();
-    ImageDateRange currentDateRange() const;
+    ImageDate currentDateRange() const;
     void showStatusBarTip( const QPoint& pos );
-    ImageDateRange rangeAt( const QPoint& );
+    ImageDate rangeAt( const QPoint& );
     void placeAndSizeButtons();
     int unitAtPos( int x ) const;
     QDateTime dateForUnit( int unit, const QDateTime& offset = QDateTime() ) const;
     int unitForDate( const QDateTime& date ) const;
     bool isUnitSelected( int unit ) const;
     bool hasSelection() const;
-    ImageDateRange currentSelection() const;
+    ImageDate currentSelection() const;
     void clearSelection();
     void emitDateSelected();
-    void emitRangeSelection( const ImageDateRange& );
+    void emitRangeSelection( const ImageDate& );
 
 private:
     QPixmap _buffer;
     friend class DateBarTip;
 
-    KSharedPtr<ImageDateRangeCollection> _dates;
+    KSharedPtr<ImageDateCollection> _dates;
     DecadeViewHandler _decadeViewHandler;
     YearViewHandler _yearViewHandler;
     MonthViewHandler _monthViewHandler;

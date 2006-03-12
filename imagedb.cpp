@@ -48,7 +48,7 @@ QStringList ImageDB::currentScope( bool requireOnDisk ) const
     return search( Browser::Browser::instance()->currentContext(), requireOnDisk );
 }
 
-void ImageDB::setDateRange( const ImageDateRange& range, bool includeFuzzyCounts )
+void ImageDB::setDateRange( const ImageDate& range, bool includeFuzzyCounts )
 {
     _selectionRange = range;
     _includeFuzzyCounts = includeFuzzyCounts;
@@ -56,7 +56,7 @@ void ImageDB::setDateRange( const ImageDateRange& range, bool includeFuzzyCounts
 
 void ImageDB::clearDateRange()
 {
-    _selectionRange = ImageDateRange();
+    _selectionRange = ImageDate();
 }
 
 void ImageDB::slotRescan()

@@ -30,7 +30,6 @@
 #include "imagedate.h"
 #include "Viewer/DrawList.h"
 #include <qimage.h>
-#include "imagedaterange.h"
 #include <ksharedptr.h>
 #include "categorycollection.h"
 
@@ -73,8 +72,6 @@ public:
     void setDate( const ImageDate& );
     ImageDate date() const;
     ImageDate& date();
-    ImageDateRange dateRange() const;
-
     void readExif(const QString& fullPath, int mode);
 
     void rotate( int degrees );

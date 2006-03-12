@@ -37,6 +37,7 @@ ImageDate::ImageDate( const QDateTime& date)
 
 bool ImageDate::operator<=( const ImageDate& other ) const
 {
+    // This operator is used by QMap when checking for equal elements, thus we need the second part too.
     return _start < other._start || (_start == other._start && _end <= other._end);
 }
 
@@ -167,7 +168,7 @@ QDateTime ImageDate::end() const
 
 bool ImageDate::operator<( const ImageDate& other ) const
 {
-    return start() < other.start();
+    return start() < other.start() || start() == other.start() && end() < other.end();
 }
 
 QString ImageDate::monthName( int month )

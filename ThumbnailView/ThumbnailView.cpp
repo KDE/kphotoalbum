@@ -417,7 +417,7 @@ void ThumbnailView::ThumbnailView::keyboardMoveEvent( QKeyEvent* event )
         updateCell( currentPos.row(), currentPos.col() );
     }
     _currentItem = fileNameInCell( newPos );
-    if ( !( event->state() & ShiftButton ) )
+    if ( !( event->state() & ShiftButton ) || startPossition.isEmpty() )
         startPossition = _currentItem;
 
     // Scroll if necesary

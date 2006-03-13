@@ -10,15 +10,15 @@ using namespace Survey;
 MySurvey::MySurvey( QWidget* parent, const char* name )
     :Survey::SurveyDialog( parent, name )
 {
-    setSurveyVersion( 1, 1 );
+    setSurveyVersion( 2, 1 );
     setReceiver( QString::fromLatin1( "blackie@kde.org" ) );
 
     QStringList yesNoList;
     yesNoList << i18n("Yes") << i18n("No");
 
     QString txt
-        = i18n("<qt><p>This is the KPhotoAlbum survey, its intention is to make KPhotoAlbum fit the need of <i>you</i> - my valued user.</p>"
-               "I have spent most of my sparetime on KPhotoAlbum the last two and a half year, so I'd be really happy if you "
+        = i18n("<qt><p>This is the KPhotoAlbum survey, its intention is to make KPhotoAlbum fit the need <i>you</i> may have.</p>"
+               "I have spent most of my sparetime on KPhotoAlbum the last three and a half year, so I'd be really happy if you "
                "could spent the next five to ten minute telling me what you think about it, and giving me some "
                "feedback on which part of the application you are using.</p>"
                "<p>At any time you may quit the survey and get back to it later, it will remember your answers</p>"
@@ -38,38 +38,61 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                              i18n("Image Count"),
                              this );
 
-    new Survey::RadioButtonQuestion( QString::fromLatin1("StartUpTime"),
-                                     i18n("Start Up Time"),
-                                     i18n("It is always possible to get KPhotoAlbum to start faster, but doing so "
-                                          "would e.g. mean that KPhotoAlbum's backend should be changed from an XML file "
-                                          "to a database. Doing so would take time, time that otherwise could be "
-                                          "spent on implementing other features in KPhotoAlbum."),
-                                     i18n("Would you prefer that time was spent on making KPhotoAlbum faster?"), yesNoList, this );
+    new Survey::AlternativeQuestion( QString::fromLatin1( "WhoAreYou" ), i18n("Who Are You"),
+                                     i18n("I'd like you know what kind of people are using KPhotoAlbum, please let me know which "
+                                          "of these categories you feel you fit in" ),
+                                     i18n("Which of these categories do you fit in?"),
+                                     QStringList()
+                                     << i18n( "I'm a professional software developer" )
+                                     << i18n( "I'm a professional photographer" )
+                                     << i18n( "I'm a C++ programer" )
+                                     << i18n( "I'm a student studying software development" )
+                                     << i18n( "I'm a student studying something else" ), 0, Survey::AlternativeQuestion::CheckBox, this );
 
-    QStringList categories;
-    categories << i18n("Persons") << i18n("Locations") << i18n("Keywords");
-    new Survey::AlternativeQuestion( QString::fromLatin1( "CategoriesUsed" ),
-                                     i18n("Categories Used"),
-                                     QString::null,
-                                     i18n("Which categories are you using?"),
-                                     categories, 5, Survey::AlternativeQuestion::CheckBox, this );
 
-    new Survey::RadioButtonQuestion( QString::fromLatin1( "MemberGroups" ), i18n("Member Groups"),
-                                     i18n("One of the main features of KPhotoAlbum is that it is possible to create member groups. "
-                                          "Using this feature, you can specify that Las Vegas is in Nevada, which is in USA, "
-                                          "which is on the earth and so on. Whenever you look for images from Nevada, USA, or the earth, "
-                                          "you will also see the images from Las Vegas."),
-                                     i18n("Are you using member groups?"), yesNoList, this );
+    QStringList kphotoalbumUsage;
+    kphotoalbumUsage << i18n("Private albums") << i18n("Professional");
 
-    QStringList offLineList;
-    offLineList << i18n("Yes") << i18n("No but I expect to have within the next year") << i18n("No and I don't expect within the next year" );
-    new Survey::RadioButtonQuestion( QString::fromLatin1( "OffLineMode" ), i18n("Offline Mode"),
-                                     i18n("<p>If you have more images than can be stored on your disk, KPhotoAlbum allows you to store some of them "
-                                          "on offline medias like cd's or dvd's. If an image is not available, KPhotoAlbum will show it with the corner cut off "
-                                          "in the thumbnail viewer.</p>"
-                                          "<p>Currently you need to restart KPhotoAlbum when an image has become available (like a dvd has been mounted), and you need "
-                                          "to do quite a bit of symlinks tricks to always show the thumbnails even when the real images is not available.</p>" ),
-                                     i18n("Are you having more images than fits on your disk?"), offLineList, this );
+    new Survey::AlternativeQuestion( QString::fromLatin1( "WhatAreYouUsingKPhotoAlbumFor" ),
+                                     i18n( "For what are you using KPhotoAlbum?" ),
+                                     i18n( "If you are using KPhotoAlbum professionally, please send an email to me at blackie@kde.org "
+                                           "explaining how you are using KPhotoAlbum, and how I may improve it "
+                                           "in ways that would make it more valuable for professionals."),
+                                     i18n( "For what are you using KPhotoAlbum?"),
+                                     kphotoalbumUsage, 2, Survey::AlternativeQuestion::CheckBox, this );
+
+    new Survey::RadioButtonQuestion( QString::fromLatin1( "WhoAreYouTake2" ),
+                                     i18n( "Your Approach to Digital Images" ),
+                                     i18n( "I don't really care much about shutter speed, aperture value etc, I just take pictures, "
+                                           "and enjoy looking at them afterwards. In other words, only few of my pictures are of "
+                                           "fancy flowers in the right light, while most are pictures from holidays, parties, "
+                                           "and other such events. How about you?"),
+                                     i18n( "How are you using your camera?"),
+                                     QStringList() << i18n("I'm mostly interested in techniques of photographing.")
+                                     << i18n( "I take pictures to remember and enjoy given events (say a holiday).")
+                                     << i18n( "I can't really answer, a bit of both I guess." ), this );
+
+    new Survey::RadioButtonQuestion( QString::fromLatin1( "ImportExport" ), i18n("Import / Export"),
+                                     i18n("KPhotoAlbum has the capability to export your images in a format, so annotations etc "
+                                         "may be imported by another KPhotoAlbum user. "
+                                         "(The feature is available in the File menu, and also offered during HTML export)" ),
+                                     i18n("How often are you using Import/Export?"),
+                                     QStringList() << i18n("Never I didn't know it existed")
+                                     << i18n("Never, I don't know any other KPhotoAlbum users")
+                                     << i18n("Seldomly")
+                                     << i18n("From time to time")
+                                     << i18n("Often"), this );
+
+    new Survey::RadioButtonQuestion( QString::fromLatin1( "KIPI" ), i18n("KIPI"),
+                                     i18n("KPhotoAlbum supports KIPI, a set of plug-ins shared among a number of imageing application."
+                                         "All the features in the Plugins menu are from KIPI."),
+                                     i18n("How often are you using KIPI features?"),
+                                     QStringList() << i18n( "Never, I don't have a Plugins menu item" )
+                                     << i18n("Never, I didn't find anything I need there" )
+                                     << i18n("Seldomly" )
+                                     << i18n("Once in a while" )
+                                     << i18n("Often"), this );
+
     QStringList imageAppList;
     imageAppList << QString::fromLatin1( "Digikam" ) << QString::fromLatin1( "Gvenview" ) << QString::fromLatin1( "kuickshow" );
 
@@ -78,14 +101,6 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                      QString::null,
                                      i18n("Which other image applications are you using?"), imageAppList, 5,
                                      Survey::AlternativeQuestion::CheckBox, this );
-
-    QStringList kphotoalbumUsage;
-    kphotoalbumUsage << i18n("Private albums") << i18n("Professional");
-
-    new Survey::AlternativeQuestion( QString::fromLatin1( "WhatAreYouUsingKPhotoAlbumFor" ),
-                                     i18n( "For what are you using KPhotoAlbum?"),
-                                     QString::null, i18n( "For what are you using KPhotoAlbum?"),
-                                     kphotoalbumUsage, 2, Survey::AlternativeQuestion::CheckBox, this );
 
     new Survey::TextQuestion( QString::fromLatin1( "Comment" ),
                               i18n("General Comments"),
@@ -96,9 +111,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
 
     txt = i18n("<qt><p>Thank you very much for your time, I hope you will continue using KPhotoAlbum for many years to come, "
                "and that future versions will fit your purpose even better than it does today.</p>"
-               "Finally, allow me to ask you to consider giving a donation. My own digital camera is starting to get old "
-               "so I hope that all of you would show your appreciation of my work, by helping me buy a new one, that will "
-               "ensure that I enjoy taking pictures - and sorting them for many years to come. "
+               "Finally, allow me to ask you to consider giving a donation. "
                "See the Help->Donation menu on how to make a donation.</p>"
                "<p align=\"right\">Once again thanks for filling out this survey - Jesper</p></qt>");
 

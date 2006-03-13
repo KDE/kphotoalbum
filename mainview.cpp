@@ -580,7 +580,11 @@ void MainView::setupMenuBar()
 #ifdef HASEXIV2
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
 #endif
+
+#ifdef SQLDB_SUPPORT
     new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
+#endif
+
     new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
     new KAction( i18n("Remove All KimDaBa 2.1 Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
 

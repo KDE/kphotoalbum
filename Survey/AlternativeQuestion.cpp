@@ -71,16 +71,16 @@ void Survey::AlternativeQuestion::save( QDomElement& top )
             checked = rb->isChecked();
 
         if ( checked ) {
-            QDomElement elm = top.ownerDocument().createElement("ButtonAnswer");
+            QDomElement elm = top.ownerDocument().createElement( QString::fromLatin1("ButtonAnswer") );
             elm.setAttribute( QString::fromLatin1( "text" ), (*buttonIt)->text() );
-            elm.setAttribute( QString::fromLatin1( "index" ), (*buttonIt)->name() );
+            elm.setAttribute( QString::fromLatin1( "index" ), QString::fromLocal8Bit( (*buttonIt)->name() ) );
             top.appendChild( elm );
         }
     }
 
     for( QValueList<QLineEdit*>::Iterator editIt = _edits.begin(); editIt != _edits.end(); ++editIt ) {
         if ( !(*editIt)->text().isEmpty() ) {
-            QDomElement elm = top.ownerDocument().createElement("EditAnswer");
+            QDomElement elm = top.ownerDocument().createElement( QString::fromLatin1("EditAnswer") );
             elm.setAttribute( QString::fromLatin1( "text" ), (*editIt)->text() );
             top.appendChild( elm );
         }
@@ -97,7 +97,7 @@ void Survey::AlternativeQuestion::load( QDomElement& top )
             if ( tag == QString::fromLatin1( "ButtonAnswer" ) ) {
                 QString index = elm.attribute( QString::fromLatin1( "index" ) );
                 for( QValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
-                    if ( (*buttonIt)->name() == index ) {
+                    if ( QString::fromLocal8Bit( (*buttonIt)->name() ) == index ) {
                         QCheckBox* cb;
                         QRadioButton* rb;
                         if ( (cb = dynamic_cast<QCheckBox*>(*buttonIt) ) )

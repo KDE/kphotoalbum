@@ -237,7 +237,7 @@ bool Survey::SurveyDialog::lastPage() const
 
 void Survey::SurveyDialog::readConfig()
 {
-    QFile in( locateLocal( "appdata", "survey.xml" ) );
+    QFile in( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
     if ( in.open( IO_ReadOnly ) ) {
         QDomDocument doc;
         doc.setContent(&in );
@@ -260,7 +260,7 @@ void Survey::SurveyDialog::readConfig()
 
 void Survey::SurveyDialog::saveConfig( const QCString& xml )
 {
-    QFile out( locateLocal( "appdata", "survey.xml" ) );
+    QFile out( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
     if ( !out.open( IO_WriteOnly ) ) {
         Q_ASSERT( false );
     }

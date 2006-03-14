@@ -18,7 +18,7 @@
 
 SQLDB::SQLDB::SQLDB() :_members( this )
 {
-    if ( !QSqlDatabase::isDriverAvailable( "QMYSQL3" ) ) {
+    if ( !QSqlDatabase::isDriverAvailable( QString::fromLatin1("QMYSQL3") ) ) {
         // PENDING(blackie) better message
         KMessageBox::sorry( 0, i18n("The MySQL driver did not seem to be compiled into your Qt" ) );
         exit(-1);

@@ -75,7 +75,7 @@ protected slots:
     void rotate( int angle );
     void slotAddTimeInfo();
     void slotDeleteImage();
-    void slotRecetLayout();
+    void slotResetLayout();
     void slotStartDateChanged( const ImageDate& );
 
 protected:

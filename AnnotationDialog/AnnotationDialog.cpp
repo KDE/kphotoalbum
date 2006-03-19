@@ -58,6 +58,7 @@
 #include <kconfig.h>
 #include "util.h"
 #include "imagedb.h"
+#include <kdebug.h>
 
 AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -525,9 +526,13 @@ void AnnotationDialog::AnnotationDialog::slotOptions()
 {
     QPopupMenu menu( this, "context popup menu");
     menu.insertItem( i18n("Show/Hide Windows"),  _dockWindow->dockHideShowMenu());
-    menu.insertItem( i18n("Save Current Window Setup"), this, SLOT( slotSaveWindowSetup() ) );
-    menu.insertItem( i18n( "Reset layout" ), this, SLOT( slotRecetLayout() ) );
-    menu.exec( QCursor::pos() );
+    menu.insertItem( i18n("Save Current Window Setup"), 1 );
+    menu.insertItem( i18n( "Reset layout" ), 2 );
+    int res = menu.exec( QCursor::pos() );
+    if ( res == 1 )
+        slotSaveWindowSetup();
+    else if ( res == 2 )
+        slotResetLayout();
 }
 
 int AnnotationDialog::AnnotationDialog::exec()
@@ -827,7 +832,7 @@ void AnnotationDialog::AnnotationDialog::setupFocus()
     }
 }
 
-void AnnotationDialog::AnnotationDialog::slotRecetLayout()
+void AnnotationDialog::AnnotationDialog::slotResetLayout()
 {
     QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
     kapp->config()->deleteGroup( group );

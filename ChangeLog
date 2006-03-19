@@ -2,7 +2,7 @@
 
 	* Disable the delete button in the annotation dialog when
 	annotating multiple images at the same time, or when using the
-	dialog for searching. Thanks to Robert L Krawitz for finding this crash.
+	dialog for searching. Thanks to Martin Hoeller for finding this crash.
 
 2006-03-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 

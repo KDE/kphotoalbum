@@ -1,3 +1,9 @@
+2006-03-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Disable the delete button in the annotation dialog when
+	annotating multiple images at the same time, or when using the
+	dialog for searching. Thanks to Robert L Krawitz for finding this crash.
+
 2006-03-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* The datebar now has an explicit button for canceling selection.

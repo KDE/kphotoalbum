@@ -488,6 +488,9 @@ void AnnotationDialog::AnnotationDialog::setup()
         _rotateLeft->setEnabled( true );
         _rotateRight->setEnabled( true );
     }
+
+    _delBut->setEnabled( _setup == SINGLE );
+
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setShowMergeCheckbox( _setup == MULTIPLE || _setup == SEARCH );
         (*it)->setMode( mode );
@@ -706,14 +709,13 @@ void AnnotationDialog::AnnotationDialog::slotAddTimeInfo()
 
 void AnnotationDialog::AnnotationDialog::slotDeleteImage()
 {
+    Q_ASSERT( _setup != SEARCH );
+
     DeleteDialog dialog( this );
     ImageInfoPtr info = _origList[_current];
-    ImageInfoList list;
-    list.append( info );
-
     QStringList strList;
-    for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it )
-        strList.append( (*it)->fileName() );
+    strList << info->fileName();
+
     int ret = dialog.exec( strList );
     if ( ret == Rejected )
         return;

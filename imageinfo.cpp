@@ -320,6 +320,7 @@ ImageInfo::ImageInfo( const QString& fileName,
     _size = size;
     _imageOnDisk = Unchecked;
     _locked = false;
+    _null = false;
 }
 
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )

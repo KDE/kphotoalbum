@@ -40,8 +40,8 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
 
     new Survey::AlternativeQuestion( QString::fromLatin1( "WhoAreYou" ), i18n("Who Are You"),
                                      i18n("I'd like you know what kind of people are using KPhotoAlbum, please let me know which "
-                                          "of these categories you feel you fit in" ),
-                                     i18n("Which of these categories do you fit in?"),
+                                          "of these categories (if any) you feel you fit in" ),
+                                     i18n("Which of these categories (if any) do you fit in?"),
                                      QStringList()
                                      << i18n( "I'm a professional software developer" )
                                      << i18n( "I'm a professional photographer" )
@@ -94,7 +94,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                      << i18n("Often"), this );
 
     QStringList imageAppList;
-    imageAppList << QString::fromLatin1( "Digikam" ) << QString::fromLatin1( "Gvenview" ) << QString::fromLatin1( "kuickshow" );
+    imageAppList << QString::fromLatin1( "Digikam" ) << QString::fromLatin1( "Gwenview" ) << QString::fromLatin1( "kuickshow" );
 
     new Survey::AlternativeQuestion( QString::fromLatin1( "OtherApps" ),
                                      i18n( "Other Image Applications" ),

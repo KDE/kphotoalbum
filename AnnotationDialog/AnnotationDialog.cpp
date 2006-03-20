@@ -315,6 +315,8 @@ void AnnotationDialog::AnnotationDialog::slotOK()
                 if ( (*it)->selection().count() != 0 )  {
                     if ( (*it)->doMerge() )
                         info->addOption( (*it)->category(),  (*it)->selection() );
+                    else if ( (*it)->doRemove() )
+                        info->removeOption( (*it)->category(),  (*it)->selection() );
                     else
                         info->setOption( (*it)->category(),  (*it)->selection() );
                 }

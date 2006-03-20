@@ -156,6 +156,29 @@ QListBoxItem* CompletableLineEdit::findItemInListBox( const QString& text )
     return 0;
 }
 
+void ListSelect::checkBoxStateChanged( int )
+{
+    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
+        _removeCheckBox->setChecked(false);
+}
+
+void ListSelect::removeCheckBoxStateChanged( int )
+{
+    QString txt =
+        i18n("<qt><p>By checking this checkbox, any anotation you make will actually be removed from the images, "
+             "rather than added to them.</p>"
+             "<p>This is really just a tool for removing a tag that you by accicdent added to a number of images.</p>"
+             "<p>are you sure you want that?</p></qt>" );
+    if ( _removeCheckBox->isChecked() ) {
+        int ret = KMessageBox::warningContinueCancel( this, txt, i18n("Mass removal of tags"),KStdGuiItem::cont(),
+                                                      QString::fromLatin1("massremoval") );
+        if ( ret == KMessageBox::Cancel )
+            _removeCheckBox->setChecked( false );
+    }
+
+    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
+        _checkBox->setChecked(false);
+}
 
 ListSelect::ListSelect( const QString& category, QWidget* parent, const char* name )
     : QWidget( parent,  name ), _category( category )
@@ -180,7 +203,16 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
     // Merge CheckBox
     QHBoxLayout* lay2 = new QHBoxLayout( layout, 6 );
     _checkBox = new QCheckBox( QString(),  this );
+    connect( _checkBox, SIGNAL( stateChanged( int ) ), this,
+            SLOT(checkBoxStateChanged(int) ) );
     lay2->addWidget( _checkBox );
+    lay2->addStretch(1);
+
+    // Merge CheckBox
+    _removeCheckBox = new QCheckBox( QString(),  this );
+    connect( _removeCheckBox, SIGNAL( stateChanged( int ) ), this,
+            SLOT(removeCheckBoxStateChanged(int) ) );
+    lay2->addWidget( _removeCheckBox );
     lay2->addStretch(1);
 
     // Sorting tool button
@@ -285,12 +317,21 @@ QStringList ListSelect::selection()
 
 void ListSelect::setShowMergeCheckbox( bool b )
 {
+    // PENDING(blackie) 19 Mar. 2006 20:29 -- Jesper K. Pedersen
+    // This is really a crual hack and should be removed after next release.
+    // We should instead extend the Mode enum to say InputSingleConfig/InputMultiConfig/Search
     _checkBox->setEnabled( b );
+    _removeCheckBox->setEnabled( b );
 }
 
 bool ListSelect::doMerge() const
 {
     return _checkBox->isChecked();
+}
+
+bool ListSelect::doRemove() const
+{
+    return _removeCheckBox->isChecked();
 }
 
 bool ListSelect::isAND() const
@@ -308,9 +349,13 @@ void ListSelect::setMode( Mode mode )
 	_checkBox->setText( i18n("AND") );
 	// OR is a better default choice (the browser can do AND but not OR)
 	_checkBox->setChecked( false );
+        _removeCheckBox->hide();
     } else {
 	_checkBox->setText( i18n("Merge") );
 	_checkBox->setChecked( true );
+        _removeCheckBox->setText( i18n("Mass Remove") );
+        _removeCheckBox->setChecked( false );
+        _removeCheckBox->show();
     }
 }
 

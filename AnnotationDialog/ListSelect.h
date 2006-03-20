@@ -45,6 +45,7 @@ public:
     QStringList selection();
     void setShowMergeCheckbox( bool b );
     bool doMerge() const;
+    bool doRemove() const;
     bool isAND() const;
 
     enum Mode {INPUT, SEARCH};
@@ -61,16 +62,20 @@ protected slots:
     void setViewSortType( Options::ViewSortType );
     void slotSortDate();
     void slotSortAlpha();
+    void checkBoxStateChanged( int state );
+    void removeCheckBoxStateChanged( int state );
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
 
 private:
+
     QLabel* _label;
     QString _category;
     CompletableLineEdit* _lineEdit;
     QListBox* _listBox;
     QCheckBox* _checkBox;
+    QCheckBox* _removeCheckBox;
     Mode _mode;
     QListBoxItem* _none;
     QToolButton* _alphaSort;

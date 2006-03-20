@@ -535,6 +535,16 @@ void AnnotationDialog::AnnotationDialog::slotOptions()
         slotResetLayout();
 }
 
+/**
+ * What I was trying (I guess) was to make the dialog a modal dialog, but I
+ * couldn't do that (I guess) because the dialog has tear off windows,
+ * which then would be inaccessable.
+ *
+ * Thefore I instead install an event filter that blocks events to the rest
+ * of the world.
+ * (Written years after this code, darn I would have loved if I had written
+ * a comment here. tsk tsk)
+ */
 int AnnotationDialog::AnnotationDialog::exec()
 {
     show();
@@ -580,6 +590,9 @@ void AnnotationDialog::AnnotationDialog::showTornOfWindows()
     }
 }
 
+/**
+ * See comment above for exec()
+ */
 bool AnnotationDialog::AnnotationDialog::eventFilter( QObject* watched, QEvent* event )
 {
     if ( !watched->isWidgetType() )
@@ -590,6 +603,7 @@ bool AnnotationDialog::AnnotationDialog::eventFilter( QObject* watched, QEvent* 
     if ( event->type() != QEvent::MouseButtonPress &&
          event->type() != QEvent::MouseButtonRelease &&
          event->type() != QEvent::MouseButtonDblClick &&
+         event->type() != QEvent::MouseMove &&
          event->type() != QEvent::KeyPress &&
          event->type() != QEvent::KeyRelease &&
          event->type() != QEvent::ContextMenu )

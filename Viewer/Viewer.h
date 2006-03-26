@@ -22,7 +22,6 @@
 #include "options.h"
 #include <kxmlguiclient.h>
 #include <kaction.h>
-#include "InfoBox.h"
 #include <qdialog.h>
 #include <qimage.h>
 #include "imageinfolist.h"
@@ -38,6 +37,7 @@ namespace Viewer
 {
 class DisplayArea;
 class SpeedDisplay;
+class InfoBox;
 
 class Viewer :public QWidget
 {

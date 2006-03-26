@@ -56,6 +56,7 @@
 #include <kglobal.h>
 #include "categorycollection.h"
 #include "imagedb.h"
+#include "InfoBox.h"
 
 Viewer::Viewer* Viewer::Viewer::_latest = 0;
 

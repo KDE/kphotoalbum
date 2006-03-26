@@ -19,12 +19,11 @@
 #ifndef INFOBOX_H
 #define INFOBOX_H
 #include <qtextbrowser.h>
+#include "Viewer.h"
 class QToolButton;
 
 namespace Viewer
 {
-    class Viewer;
-
 class InfoBox :public QTextBrowser {
     Q_OBJECT
 

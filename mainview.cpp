@@ -343,12 +343,11 @@ void MainView::slotSearch()
 void MainView::createAnnotationDialog()
 {
     ShowBusyCursor dummy;
-    if ( _annotationDialog )
+    if ( !_annotationDialog.isNull() )
         return;
 
     _annotationDialog = new AnnotationDialog::AnnotationDialog( this,  "_annotationDialog" );
     connect( _annotationDialog, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
-    connect( _annotationDialog, SIGNAL( deleteMe() ),  this, SLOT( deleteAnnotationDialog() ) );
 }
 
 void MainView::deleteAnnotationDialog()

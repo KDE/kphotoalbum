@@ -663,7 +663,11 @@ void AnnotationDialog::AnnotationDialog::reject()
         if ( code == KMessageBox::No )
             return;
     }
+    closeDialog();
+}
 
+void AnnotationDialog::AnnotationDialog::closeDialog()
+{
     _accept = QDialog::Rejected;
     qApp->eventLoop()->exitLoop();
     QDialog::reject();
@@ -853,8 +857,8 @@ void AnnotationDialog::AnnotationDialog::slotResetLayout()
     QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
     kapp->config()->deleteGroup( group );
     kapp->config()->sync();
-    close();
-    emit deleteMe();
+    deleteLater();
+    closeDialog();
 }
 
 void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const ImageDate& date )

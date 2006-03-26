@@ -174,7 +174,7 @@ private:
 
     ThumbnailView::ThumbnailView* _thumbnailView;
     OptionsDialog* _optionsDialog;
-    AnnotationDialog::AnnotationDialog* _annotationDialog;
+    QGuardedPtr<AnnotationDialog::AnnotationDialog> _annotationDialog;
     bool _dirty;
     bool _autoSaveDirty; // We do not want to continue autosaving the same date
     QWidgetStack* _stack;

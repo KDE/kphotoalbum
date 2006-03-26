@@ -56,7 +56,6 @@ public:
 
 signals:
     void changed();
-    void deleteMe();
 
 protected slots:
     void slotRevert();
@@ -95,6 +94,7 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     virtual void moveEvent ( QMoveEvent * );
     void setupFocus();
+    void closeDialog();
 
 private:
     ImageInfoList _origList;

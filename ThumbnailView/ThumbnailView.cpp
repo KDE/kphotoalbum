@@ -59,6 +59,9 @@ ThumbnailView::ThumbnailView::ThumbnailView( QWidget* parent, const char* name )
     viewport()->setBackgroundMode( NoBackground );
 
     connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( ensureCurrentVisible() ) );
+
+    setVScrollBarMode( AlwaysOn );
+    setHScrollBarMode( AlwaysOff );
 }
 
 
@@ -298,7 +301,7 @@ void ThumbnailView::ThumbnailView::updateCell( int row, int col )
 void ThumbnailView::ThumbnailView::updateGridSize()
 {
     int thumbnailsPerRow = width() / cellWidth();
-    int numRowsPerPage = (height() + cellHeight() - 1) / cellHeight();
+    int numRowsPerPage = height() / cellHeight();
     setNumCols( thumbnailsPerRow );
     setNumRows( QMAX( numRowsPerPage, (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow ) ) );
 }

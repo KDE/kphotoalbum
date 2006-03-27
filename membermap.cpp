@@ -221,4 +221,10 @@ void MemberMap::addGroup( const QString& category, const QString& group )
     }
 }
 
+void MemberMap::renameCategory( const QString& oldName, const QString& newName )
+{
+    _members[newName] = _members[oldName];
+    _members.remove(oldName);
+}
+
 #include "membermap.moc"

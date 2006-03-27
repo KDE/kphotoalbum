@@ -260,7 +260,7 @@ void OptionsDialog::createThumbNailPage()
     // Whats This
     QString txt;
 
-    txt = i18n( "<qt><p>If you select <tt>Help|Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
+    txt = i18n( "<qt><p>If you select <tt>Settings|Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
                 "displaying information about the thumbnails. This window includes a small preview image. "
                 "This option configures the image size</p></qt>" );
     QWhatsThis::add( previewSizeLabel, txt );
@@ -487,6 +487,7 @@ void OptionsDialog::slotMyOK()
         else {
             if ( item->_text != item->_textOrig ) {
                 ImageDB::instance()->categoryCollection()->rename(  item->_categoryOrig, item->_text );
+                _memberMap.renameCategory(  item->_categoryOrig, item->_text );
                 item->_categoryOrig =item->_text;
             }
             if ( item->_icon != item->_iconOrig ) {

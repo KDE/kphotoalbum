@@ -43,6 +43,7 @@ public:
     bool isGroup( const QString& category, const QString& memberGroup ) const;
     QMap<QString,QStringList> groupMap( const QString& category );
     void renameGroup( const QString& category, const QString& oldName, const QString& newName );
+    void renameCategory( const QString& oldName, const QString& newName );
 
     void addGroup( const QString& category, const QString& group );
     void addMemberToGroup( const QString& category, const QString& group, const QString& item );

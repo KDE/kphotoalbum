@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KPhotoAlbum
+Name[pa]=ਕ-ਫੋਟੋਐਲਬਮ
 Name[sv]=Kfotoalbum
 Name[xx]=xxKPhotoAlbumxx
 Exec=kphotoalbum --import %u
@@ -12,7 +13,9 @@ GenericName[es]=Album de fotos
 GenericName[et]=Fotoalbum
 GenericName[ga]=Albam Grianghraf
 GenericName[it]=Album fotografico
+GenericName[ja]=フォトアルバム
 GenericName[nl]=Fotoalbum
+GenericName[pa]=ਫੋਟੋ-ਐਲਬਮ
 GenericName[pt]=Álbum de Fotografias
 GenericName[sv]=Fotoalbum
 GenericName[tr]=Fotoğraf Albümü

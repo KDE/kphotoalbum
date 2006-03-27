@@ -46,7 +46,7 @@ METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII 
 
 rcdir = $(kde_datadir)/kphotoalbum
-rc_DATA = kphotoalbumui.rc default-setup exif-sqlite.db
+rc_DATA = kphotoalbumui.rc default-setup default-layout.xml exif-sqlite.db
 
 appsdatadir=$(kde_datadir)/kphotoalbum
 appsdata_DATA=tips

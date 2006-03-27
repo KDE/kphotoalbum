@@ -1,0 +1,129 @@
+<WindowLayout>
+ <dock>
+  <tabCaption>Label and Dates</tabCaption>
+  <tabToolTip></tabToolTip>
+  <name>Label and Dates</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <dock>
+  <tabCaption>Image Preview</tabCaption>
+  <tabToolTip></tabToolTip>
+  <name>Image Preview</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <dock>
+  <tabCaption>Description</tabCaption>
+  <tabToolTip></tabToolTip>
+  <name>Description</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <dock>
+  <tabCaption>Folder</tabCaption>
+  <tabToolTip></tabToolTip>
+  <dockBackTo></dockBackTo>
+  <dockBackToPos>0</dockBackToPos>
+  <name>Folder</name>
+  <hasParent>false</hasParent>
+  <geometry>
+   <x>6</x>
+   <y>6</y>
+   <width>1004</width>
+   <height>445</height>
+  </geometry>
+  <visible>false</visible>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <dock>
+  <tabCaption>Tokens</tabCaption>
+  <tabToolTip></tabToolTip>
+  <dockBackTo></dockBackTo>
+  <dockBackToPos>0</dockBackToPos>
+  <name>Tokens</name>
+  <hasParent>false</hasParent>
+  <geometry>
+   <x>6</x>
+   <y>6</y>
+   <width>1004</width>
+   <height>445</height>
+  </geometry>
+  <visible>false</visible>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <dock>
+  <tabCaption>Keywords</tabCaption>
+  <tabToolTip></tabToolTip>
+  <name>Keywords</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <dock>
+  <tabCaption>Locations</tabCaption>
+  <tabToolTip></tabToolTip>
+  <name>Locations</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <dock>
+  <tabCaption>Persons</tabCaption>
+  <tabToolTip></tabToolTip>
+  <name>Persons</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </dock>
+ <splitGroup>
+  <firstName>Label and Dates</firstName>
+  <secondName>Description</secondName>
+  <orientation>0</orientation>
+  <separatorPos>39</separatorPos>
+  <name>Label and Dates,Description</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </splitGroup>
+ <splitGroup>
+  <firstName>Label and Dates,Description</firstName>
+  <secondName>Image Preview</secondName>
+  <orientation>1</orientation>
+  <separatorPos>80</separatorPos>
+  <name>Label and Dates,Description,Image Preview</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </splitGroup>
+ <splitGroup>
+  <firstName>Locations</firstName>
+  <secondName>Keywords</secondName>
+  <orientation>1</orientation>
+  <separatorPos>50</separatorPos>
+  <name>Locations,Keywords</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </splitGroup>
+ <splitGroup>
+  <firstName>Persons</firstName>
+  <secondName>Locations,Keywords</secondName>
+  <orientation>1</orientation>
+  <separatorPos>33</separatorPos>
+  <name>Persons,Locations,Keywords</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </splitGroup>
+ <splitGroup>
+  <firstName>Label and Dates,Description,Image Preview</firstName>
+  <secondName>Persons,Locations,Keywords</secondName>
+  <orientation>0</orientation>
+  <separatorPos>42</separatorPos>
+  <name>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</name>
+  <hasParent>true</hasParent>
+  <dragEnabled>true</dragEnabled>
+ </splitGroup>
+ <centralWidget>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</centralWidget>
+ <mainDockWidget></mainDockWidget>
+ <geometry>
+  <x>6</x>
+  <y>6</y>
+  <width>1004</width>
+  <height>445</height>
+ </geometry>
+</WindowLayout>

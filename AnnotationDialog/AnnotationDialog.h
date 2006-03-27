@@ -95,6 +95,7 @@ protected:
     virtual void moveEvent ( QMoveEvent * );
     void setupFocus();
     void closeDialog();
+    void loadWindowLayout();
 
 private:
     ImageInfoList _origList;

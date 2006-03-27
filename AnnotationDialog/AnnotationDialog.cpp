@@ -59,6 +59,8 @@
 #include "util.h"
 #include "imagedb.h"
 #include <kdebug.h>
+#include <qfile.h>
+#include <qfileinfo.h>
 
 AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -66,6 +68,7 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
     ShowBusyCursor dummy;
     QVBoxLayout* layout = new QVBoxLayout( this, 6 );
     _dockWindow = new KDockMainWindow( 0 );
+
     _dockWindow->reparent( this, false, QPoint( 0,0 ) );
     layout->addWidget( _dockWindow );
 
@@ -244,14 +247,12 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
 
     _optionList.setAutoDelete( true );
+    loadWindowLayout();
+
+    // If I don't explicit show _dockWindow here, then no windows will show up.
+    _dockWindow->show();
+
     setGeometry( Options::instance()->windowGeometry( Options::ConfigWindow ) );
-
-
-    QString group = Options::instance()->groupForDatabase( QString::fromLatin1("Config Window"));
-    if ( kapp->config()->hasGroup( group ) )
-        _dockWindow->readDockConfig( kapp->config(), group );
-    else
-        _dockWindow->readDockConfig( kapp->config(), QString::fromLatin1("Config Window Layout") ); // This will be read by the system default override file.
 }
 
 
@@ -564,8 +565,16 @@ int AnnotationDialog::AnnotationDialog::exec()
 
 void AnnotationDialog::AnnotationDialog::slotSaveWindowSetup()
 {
-    QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
-    _dockWindow->writeDockConfig( kapp->config(), group );
+    QDomDocument doc;
+    QDomElement top = doc.createElement( QString::fromLatin1( "WindowLayout" ) );
+    doc.appendChild( top );
+
+    _dockWindow->writeDockConfig( top );
+    QCString xml = doc.toCString();
+    QFile file( QString::fromLatin1( "%1/layout.xml" ).arg( Options::instance()->imageDirectory() ) );
+    file.open( IO_WriteOnly );
+    file.writeBlock( xml.data(), xml.size()-1 );
+    file.close();
 }
 
 void AnnotationDialog::AnnotationDialog::closeEvent( QCloseEvent* e )
@@ -854,9 +863,10 @@ void AnnotationDialog::AnnotationDialog::setupFocus()
 
 void AnnotationDialog::AnnotationDialog::slotResetLayout()
 {
-    QString group = Options::instance()->groupForDatabase(QString::fromLatin1("Config Window"));
-    kapp->config()->deleteGroup( group );
-    kapp->config()->sync();
+    QString dest =  QString::fromLatin1( "%1/layout.xml" ).arg( Options::instance()->imageDirectory() );
+    QString src =locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
+    Util::copy( src,dest );
+
     deleteLater();
     closeDialog();
 }
@@ -867,6 +877,20 @@ void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const ImageDate& 
         _endDate->setDate( QDate() );
     else
         _endDate->setDate( date.end().date() );
+}
+
+void AnnotationDialog::AnnotationDialog::loadWindowLayout()
+{
+    QString fileName =  QString::fromLatin1( "%1/layout.xml" ).arg( Options::instance()->imageDirectory() );
+    if ( !QFileInfo(fileName).exists() )
+        fileName =locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
+
+    QFile file( fileName );
+    file.open( IO_ReadOnly );
+    QDomDocument doc;
+    doc.setContent( &file );
+    QDomElement elm = doc.documentElement();
+    _dockWindow->readDockConfig( elm );
 }
 
 #include "AnnotationDialog.moc"

@@ -1,5 +1,7 @@
 2006-03-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Bugfix: inaccurate times now survives a visit to the annotation dialog.
+
 	* Bugfix: Member maps wasn't correctly renamed when renaming a category.
 
 	* Save the layout of the annotation dialog in the file layout.xml
@@ -7,6 +9,8 @@
 	development, it was saved in the KDE Registry, but the code for
 	doing this (which is out of my control) has a bug which makes it
 	impossible to save non latin1 characters.
+
+	Thanks to Martin Hoeller for finding the three above issues.
 
 2006-03-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 

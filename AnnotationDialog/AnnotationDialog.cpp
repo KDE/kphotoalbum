@@ -382,7 +382,17 @@ void AnnotationDialog::AnnotationDialog::writeToInfo()
     }
 
     ImageInfo& info = _editList[ _current ];
-    info.setDate( ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
+    if ( !_time->isShown() ) {
+        if ( _endDate->date().isValid() )
+            info.setDate( ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),
+                                     QDateTime( _endDate->date(), QTime( 23,59,59) ) ) );
+        else
+            info.setDate( ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),
+                                     QDateTime( _startDate->date(), QTime( 23,59,59) ) ) );
+    }
+    else
+        info.setDate( ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
+
 
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->text() );

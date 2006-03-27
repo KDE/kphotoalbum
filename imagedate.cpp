@@ -21,6 +21,7 @@
 #include <klocale.h>
 #include "options.h"
 #include <qregexp.h>
+#include <kdebug.h>
 
 ImageDate::ImageDate( const QDate& date )
 {

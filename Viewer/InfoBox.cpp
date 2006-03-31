@@ -28,9 +28,7 @@
 #include "mainview.h"
 #include "imageinfo.h"
 
-using namespace Viewer;
-
-InfoBox::InfoBox( Viewer* viewer, const char* name )
+Viewer::InfoBox::InfoBox( Viewer::Viewer* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )
 {
     setFrameStyle( Box | Plain );
@@ -43,7 +41,7 @@ InfoBox::InfoBox( Viewer* viewer, const char* name )
     connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
 }
 
-void InfoBox::setSource( const QString& which )
+void Viewer::InfoBox::setSource( const QString& which )
 {
     int index = which.toInt();
     QPair<QString,QString> p = _linkMap[index];
@@ -53,14 +51,14 @@ void InfoBox::setSource( const QString& which )
     showBrowser();
 }
 
-void InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap )
+void Viewer::InfoBox::setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap )
 {
     _linkMap = linkMap;
     setText( text );
     setSize();
 }
 
-void InfoBox::setSize()
+void Viewer::InfoBox::setSize()
 {
     int width = 200;
     int height = 0, h2;
@@ -104,7 +102,7 @@ void InfoBox::setSize()
 
 }
 
-void InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
+void Viewer::InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
 {
     if ( e->state() & LeftButton ) {
         _viewer->infoBoxMove();
@@ -114,13 +112,13 @@ void InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
         QTextBrowser::contentsMouseMoveEvent( e );
 }
 
-void InfoBox::jumpToContext()
+void Viewer::InfoBox::jumpToContext()
 {
     Browser::Browser::instance()->addImageView( _viewer->currentInfo()->fileName() );
     showBrowser();
 }
 
-void InfoBox::showBrowser()
+void Viewer::InfoBox::showBrowser()
 {
     QDesktopWidget* desktop = qApp->desktop();
     if ( desktop->screenNumber( Browser::Browser::instance() ) == desktop->screenNumber( _viewer ) ) {

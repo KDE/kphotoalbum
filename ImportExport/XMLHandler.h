@@ -17,7 +17,7 @@ public:
                              const Util::UniqNameMap& nameMap );
 
 protected:
-    QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const ImageInfoPtr& info );
+    QDomElement save( QDomDocument doc, const ImageInfoPtr& info );
     void writeCategories( QDomDocument doc, QDomElement elm, const ImageInfoPtr& info );
 };
 

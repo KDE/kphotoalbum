@@ -264,6 +264,9 @@ void AnnotationDialog::AnnotationDialog::slotRevert()
 
 void AnnotationDialog::AnnotationDialog::slotPrev()
 {
+    if ( _setup != SINGLE )
+        return;
+
     writeToInfo();
     if ( _current == 0 )
         return;
@@ -276,6 +279,9 @@ void AnnotationDialog::AnnotationDialog::slotPrev()
 
 void AnnotationDialog::AnnotationDialog::slotNext()
 {
+    if ( _setup != SINGLE )
+        return;
+
     if ( _current != -1 ) {
         writeToInfo();
     }

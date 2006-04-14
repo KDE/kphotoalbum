@@ -55,19 +55,6 @@ static void showError( QSqlQuery& query )
 
 Exif::Database::Database()
 {
-    if ( !isAvailable() )
-        return;
-
-    bool dbExists = QFile::exists( exifDBFile() );
-    if ( !dbExists )
-        Util::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
-
-    openDatabase();
-
-    if ( !dbExists ) {
-        populateDatabase();
-        offerInitialize();
-    }
 }
 
 
@@ -94,7 +81,7 @@ void Exif::Database::populateDatabase()
     QSqlQuery query( QString::fromLatin1( "create table exif (filename string PRIMARY KEY, %1 )")
                      .arg( attributes.join( QString::fromLatin1(", ") ) ), _db );
     if ( !query.exec())
-        showError( query );
+        ; // This always prints out a false error, so lets not worry about it now - //showError( query );
 }
 
 void Exif::Database::add( const QString& fileName )
@@ -147,8 +134,11 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
 
 Exif::Database* Exif::Database::instance()
 {
-    if ( !_instance )
+    if ( !_instance ) {
         _instance = new Exif::Database();
+        _instance->init();
+    }
+
     return _instance;
 }
 
@@ -216,5 +206,22 @@ QValueList< QPair<QString,QString> > Exif::Database::cameras() const
     }
 
     return result;
+}
+
+void Exif::Database::init()
+{
+    if ( !isAvailable() )
+        return;
+
+    bool dbExists = QFile::exists( exifDBFile() );
+    if ( !dbExists )
+        Util::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
+
+    openDatabase();
+
+    if ( !dbExists ) {
+        populateDatabase();
+        offerInitialize();
+    }
 }
 

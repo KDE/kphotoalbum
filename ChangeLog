@@ -1,3 +1,12 @@
+2006-04-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Fixed some problems with member groups, when renaming categories.
+
+2006-03-31  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX:Disallow pressing pgdown/pgup in the annotation dialog
+	when searching. Thanks to Martin Hoeller for finding this crash.
+
 2006-03-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Bugfix: inaccurate times now survives a visit to the annotation dialog.

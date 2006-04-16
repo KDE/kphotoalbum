@@ -201,6 +201,12 @@ QString Util::setupDemo()
         out.close();
     }
 
+    // exif-info.db
+    QString fileName = locate( "data", QString::fromLatin1( "kphotoalbum/demo/exif-info.db" ) );
+    if ( !fileName.isEmpty() )
+        copy( fileName, dir + QString::fromLatin1( "/exif-info.db" ) );
+
+
     // Images
     QStringList files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.jpg" ) );
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
@@ -237,7 +243,6 @@ QString Util::setupDemo()
                 exit(-1);
             }
         }
-
     }
 
     return configFile;

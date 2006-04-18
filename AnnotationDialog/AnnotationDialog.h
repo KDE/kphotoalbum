@@ -34,7 +34,6 @@ class QPushButton;
 class KLineEdit;
 class KDockWidget;
 class KDatePicker;
-class KDateEdit;
 class KPushButton;
 
 namespace Viewer
@@ -45,6 +44,7 @@ namespace Viewer
 namespace AnnotationDialog
 {
 class ImagePreview;
+class KDateEdit;
 
 class AnnotationDialog :public QDialog {
     Q_OBJECT

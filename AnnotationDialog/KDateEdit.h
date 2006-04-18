@@ -13,8 +13,8 @@
  * @author David Jarvie <software@astrojar.org.uk>
  * @author Jesper Pedersen <blackie@kde.org>
  */
-#ifndef KDATEEDIT_H
-#define KDATEEDIT_H
+#ifndef ANNOTATIONDIALOG_KDATEEDIT_H
+#define ANNOTATIONDIALOG_KDATEEDIT_H
 
 #include <qvbox.h>
 #include <qdatetime.h>
@@ -24,6 +24,9 @@
 
 class QEvent;
 class KDatePicker;
+
+namespace AnnotationDialog
+{
 
 class KDateEdit : public QComboBox
 {
@@ -127,5 +130,7 @@ private:
     bool   mDiscardNextMousePress;
     bool   mIsStartEdit;
 };
+
+}
 
 #endif

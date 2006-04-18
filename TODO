@@ -8,7 +8,10 @@ bar would be nice.
 - Its impossible to do multiple selection as part of the same selection in
 the thumbnail view (select one range, press ctrl and select a second to be
 part of the first)
-
+- Typing in "Maj 1999" in for a date in the annotation dialog (assuming
+danish is the current locale), result in the test "May 1999" being
+replaced. This is of course wrong,as replacing 1999 with 2000 result in a
+parse error of the date.
 
 ==========================
 BUGS To be handled soonish

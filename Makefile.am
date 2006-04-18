@@ -28,7 +28,7 @@ kphotoalbum_SOURCES = \
 	deletedialog.cpp \
 	groupCounter.cpp membermap.cpp categoryimageconfig.cpp \
 	externalpopup.cpp optionmatcher.cpp donate.cpp deletethumbnailsdialog.cpp \
-	kdateedit.cpp viewersizeconfig.cpp mysplashscreen.cpp \
+	viewersizeconfig.cpp mysplashscreen.cpp \
 	searchbar.cpp tokeneditor.cpp category.cpp categorycollection.cpp \
 	invaliddatefinder.cpp fileinfo.cpp imageinfolist.cpp \
 	imagerequest.cpp \

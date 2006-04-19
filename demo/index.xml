@@ -2,64 +2,70 @@
 <KPhotoAlbum version="2" compressed="1" >
  <Categories>
   <Category viewtype="0" viewsize="0" icon="password" name="Keywords" show="1" >
-   <value value="beers" id="0" />
-   <value value="holiday" id="1" />
-   <value value="new wave" id="2" />
-   <value value="silo falls over" id="3" />
-   <value value="Anne Helene's 30 years birthday" id="4" />
+   <value value="scanned in" id="0" />
+   <value value="scenic" id="1" />
+   <value value="desktop" id="2" />
+   <value value="new wave" id="3" />
+   <value value="fun" id="4" />
   </Category>
   <Category viewtype="0" viewsize="0" icon="network" name="Locations" show="1" >
-   <value value="Santa Clara" id="0" />
-   <value value="Mallorca" id="1" />
-   <value value="Grand Canyon" id="2" />
-   <value value="Pool Club" id="3" />
-   <value value="Chicago" id="4" />
-   <value value="Rhodos" id="5" />
-   <value value="Esbjerg" id="6" />
+   <value value="Grand Canyon" id="0" />
+   <value value="Esbjerg" id="1" />
+   <value value="Las Vegas" id="2" />
+   <value value="Skagen" id="3" />
+   <value value="Bridgeport" id="4" />
+   <value value="New York" id="5" />
+   <value value="Newark" id="6" />
+   <value value="Odense" id="7" />
+   <value value="Denmark" id="8" />
   </Category>
-  <Category viewtype="1" viewsize="1" icon="personal" name="Persons" show="1" >
-   <value value="Spiff" id="0" />
-   <value value="Anne Helene" id="1" />
-   <value value="Jesper" id="2" />
-   <value value="Donna" id="3" />
+  <Category viewtype="0" viewsize="1" icon="personal" name="Persons" show="1" >
+   <value value="Jesper" id="0" />
+   <value value="Jim" id="1" />
+   <value value="Donna" id="2" />
+   <value value="Wayne" id="3" />
+   <value value="Anne Helene" id="4" />
+   <value value="Blackie" id="5" />
+   <value value="Spiff" id="6" />
   </Category>
  </Categories>
  <images>
-  <image width="569" startDate="1985-01-01T00:00:00" Persons="2" height="800" endDate="1985-12-31T23:59:59" md5sum="570cb78b687b85f1e840b276868832aa" Folder="0" file="img016.jpg" label="img016" angle="0" description="" />
-  <image width="549" startDate="1988-01-01T00:00:00" Persons="2" height="800" endDate="1990-12-31T23:59:59" Keywords="2" md5sum="301ed80fa98e9388656cd06dc027463b" Folder="0" file="img017.jpg" label="img017" angle="0" description="When I was 17-20 years old I considered myself a new-waver, and therefore looked like this most of the time. My drivers license (which I'll have till I'm 60 years old), does still contain such an image ;-)" />
-  <image width="800" startDate="1988-01-01T00:00:00" Persons="2" height="550" endDate="1990-12-31T23:59:59" Keywords="2" md5sum="b9117748687c4aa5375e103cc05d5ee8" Folder="0" file="img018.jpg" label="img018" angle="0" description="Getting the hair standing like this took almost 20 minutes each and every morning, plus 10 minutes fix up during lunch break from school." />
-  <image width="800" startDate="1998-01-01T00:00:00" Persons="0" height="550" endDate="2000-12-31T23:59:59" Keywords="0" md5sum="5a5d3f200abdaa8863d9d1350cd1cc0b" Folder="0" file="img019.jpg" label="img019" angle="0" description="Spiff is enjoying a box of beers, or rather a beer box ;-)" />
-  <image width="550" startDate="1998-01-01T00:00:00" Persons="0" height="800" endDate="2000-12-31T23:59:59" md5sum="4ce27d23f69210d809bd2e8e0f188151" Folder="0" file="img020.jpg" label="img020" angle="0" description="Notice the picture range. As this picture was scanned in I did not know exactly when it was taken. Fortunately KPhotoAlbum allows me to specify a range. In the line edit simply type 1998-2000, and it will replace it with 1 Jan. 1998 - 31. Dec 2000" />
-  <image width="800" startDate="1998-01-01T00:00:00" Persons="0" height="551" endDate="2000-12-31T23:59:59" md5sum="5216980dd2b315a2f022fcaf1271f6bc" Folder="0" file="img021.jpg" label="img021" angle="0" description="" />
-  <image width="800" startDate="2002-12-24T10:25:00" Persons="1" height="600" endDate="2002-12-24T10:25:00" Locations="0" Keywords="1" md5sum="2bddc648abe5cb9cac8d299d68015081" Folder="0" file="img024.jpg" label="img024" angle="0" description="Just in case you haven't figure out what this is - its sugar ;-)" />
-  <image width="800" startDate="2003-01-02T00:00:00" Persons="1,2" height="535" endDate="2003-01-02T23:59:59" Locations="2" Keywords="1" md5sum="ca5d49e569a7061544fbb439b1522e06" Folder="0" file="img013.jpg" label="img013" angle="0" description="" />
-  <image width="800" startDate="2003-01-02T00:00:00" height="535" endDate="2003-01-02T23:59:59" Locations="2" Keywords="1" md5sum="7b3f9984fb669bd57c807370ea5746d9" Folder="0" file="img014.jpg" label="img014" angle="0" description="" />
-  <image width="800" startDate="2003-01-02T00:00:00" Persons="1" height="535" endDate="2003-01-02T23:59:59" Locations="2" Keywords="1" md5sum="0890cc6feef62fb62b417aaf403d390d" Folder="0" file="img015.jpg" label="img015" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="3" height="600" endDate="2003-08-31T23:59:59" Locations="6" Keywords="4" md5sum="252228ba88fa9fc6ecac30bcca99141e" Folder="0" file="img001.jpg" label="img001" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="3" height="600" endDate="2003-08-31T23:59:59" Locations="6" Keywords="4" md5sum="5d8af651aa3491765bbe8a08a475cc3e" Folder="0" file="img002.jpg" label="img002" angle="0" description="Its not obvious, but the main focus of this picture is Donna, whose nose you can see in the middle of the picture." >
-   <drawings>
-    <Line _lastPos.x="415" _lastPos.y="261" _startPos.x="773" _startPos.y="36" />
-    <Line _lastPos.x="411" _lastPos.y="304" _startPos.x="802" _startPos.y="574" />
-    <Line _lastPos.x="347" _lastPos.y="245" _startPos.x="36" _startPos.y="53" />
-    <Line _lastPos.x="361" _lastPos.y="308" _startPos.x="41" _startPos.y="573" />
-   </drawings>
-  </image>
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="2" height="600" endDate="2003-08-31T23:59:59" Locations="3" Keywords="4" md5sum="b8915701a21c6fa71c1c9c560664a371" Folder="0" file="img003.jpg" label="img003" angle="0" description="I'm in no way &lt;em>a shark&lt;/em> at pool, but I enjoy a game once in a while. I've been a board member of a pool club for almost 2 years, which unfortunately meant that I was more often in boardmeetings than at the pool tables." />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="2" height="600" endDate="2003-08-31T23:59:59" Locations="3" Keywords="4" md5sum="8d2d351e523dd0e5c54db76d321b5be6" Folder="0" file="img004.jpg" label="img004" angle="0" description="" />
-  <image width="600" startDate="2003-08-31T00:00:00" height="800" endDate="2003-08-31T23:59:59" Locations="4" md5sum="3354ef8dc72be960d8add460998f28a0" Folder="0" file="img005.jpg" label="img005" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="2" height="600" endDate="2003-08-31T23:59:59" Locations="4" md5sum="be19fc1a4af1e4a31fff66c7c58a11dd" Folder="0" file="img006.jpg" label="img006" angle="0" description="" />
-  <image width="600" startDate="2003-08-31T00:00:00" height="800" endDate="2003-08-31T23:59:59" Locations="6" Keywords="3" md5sum="40e6335090bb9a4ab316eb969369cd62" Folder="0" file="img007.jpg" label="img007" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" height="600" endDate="2003-08-31T23:59:59" Locations="6" Keywords="3" md5sum="897a960470fc2557cabe9b7371274ec9" Folder="0" file="img008.jpg" label="img008" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" height="600" endDate="2003-08-31T23:59:59" Locations="6" Keywords="3" md5sum="ec8fe2b7d784813379042e83e0f7aaa6" Folder="0" file="img009.jpg" label="img009" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="2" height="600" endDate="2003-08-31T23:59:59" Keywords="1" md5sum="b9b3da4f9a225e5bff296f8075828eff" Folder="0" file="img010.jpg" label="img010" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="1,2" height="600" endDate="2003-08-31T23:59:59" Locations="1" Keywords="1" md5sum="92f54b52ba44869e620d713f1b0420a3" Folder="0" file="img011.jpg" label="img011" angle="0" description="Anne Helene and I had a lot of fun playing with the automatic timer on our digital camera." />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="2" height="600" endDate="2003-08-31T23:59:59" Locations="1" Keywords="1" md5sum="aca7182ae0ae819e48ba7221afb4559c" Folder="0" file="img012.jpg" label="img012" angle="0" description="" />
-  <image width="800" startDate="2003-08-31T00:00:00" Persons="3" height="551" endDate="2003-08-31T23:59:59" md5sum="5ccc31e822e0638740c8296c2b9637dc" Folder="0" file="img022.jpg" label="img022" angle="0" description="" />
-  <image width="551" startDate="2003-08-31T00:00:00" Persons="1" height="800" endDate="2003-08-31T23:59:59" Locations="5" Keywords="0,1" md5sum="bdc4b7ed37734d14c909162f101e78e3" Folder="0" file="img023.jpg" label="img023" angle="0" description="" />
+  <image width="800" startDate="1988-01-01T00:00:00" Persons="0" height="549" endDate="1990-12-31T23:59:59" Locations="1" Keywords="0,3" md5sum="49c8843ab493b03d3fb172a5113c5c4d" Folder="0" file="new_wave_2.jpg" label="new_wave" angle="0" description="Back when I was a young boy I considered myself a new waver. This involved always being dressed in black, and listening to bands like Depeche Mode, The Cure, Front 242 and Nitzer Ebb." />
+  <image width="800" startDate="1989-01-01T00:00:00" Persons="0" height="549" endDate="1990-12-31T23:59:59" Locations="8" Keywords="0,3,4" md5sum="6b75faa6ba62e81ac73dff71794b9bd4" Folder="0" file="new_wave_1.jpg" label="new_wave" angle="90" description="Notice I scanned this image in, so I don't know exactly when it was taken. Fortunately KPhotoAlbum allows to just specify the date as a range. By the way, have a look at http://www.kphotoalbum.org/ where you may find some introduction videos about KPhotoAlbum." />
+  <image width="800" startDate="1990-01-01T00:00:00" Persons="5" height="549" endDate="1991-12-31T23:59:59" Locations="7" Keywords="0" md5sum="db9b08c49bacd727e10069965955aff1" Folder="0" file="blackie.jpg" label="blackie" angle="0" description="My nick name on the internet is &lt;i>blackie&lt;/i>. The reason for this is that when I got my first login to a UNIX machine, I had an electric eel named blackie." />
+  <image width="800" startDate="1995-01-01T00:00:00" Persons="6" height="550" endDate="1995-12-31T23:59:59" Locations="7" Keywords="0,4" md5sum="8878a22a439fdfabcdc1a6b356944bd7" Folder="0" file="spiff_2.jpg" label="spiff" angle="0" description="I've always loved animals. This was my beer eating pet named Spiff." />
+  <image width="800" startDate="1998-01-01T00:00:00" Persons="6" height="551" endDate="1998-12-31T23:59:59" Locations="7" Keywords="0" md5sum="0303db70b6c9f0035d24dec3cf05bf25" Folder="0" file="spiff.jpg" label="spiff" angle="0" description="" />
+  <image width="800" startDate="2002-01-01T00:00:00" Persons="0,1,3" height="542" endDate="2003-12-31T23:59:59" Locations="2" Keywords="0" md5sum="70318ab9389e641408d0c8540e7746f4" Folder="0" file="qt-logo.jpg" label="qt-logo" angle="0" description="KDE is build on top of the toolkit called Qt. In my daytime job I teach Qt programming.
+I once gave a course to these two guys, which later turned into a very strong friendship.
+
+The tattoo is the Qt logo. " />
+  <image width="800" startDate="2003-01-02T00:00:00" Persons="0,4" height="535" endDate="2003-01-02T23:59:59" Locations="0" Keywords="0,1" md5sum="5886c561a36aa0515a4f63b76ae95c15" Folder="0" file="grand_canyon_1.jpg" label="grand_canyon" angle="180" description="" />
+  <image width="-1" startDate="2003-01-02T14:48:54" Persons="0" height="-1" endDate="2003-01-02T14:48:54" Locations="0" md5sum="185bfe1bf4972b52fed3341335cb9ef3" Folder="0" file="grand_canyon_2.jpg" label="grand_canyon" angle="0" description="" />
+  <image width="-1" startDate="2003-01-02T15:31:00" height="-1" endDate="2003-01-02T15:31:00" Locations="0" Keywords="1" md5sum="6d51889b41436c4503698ca2293435dd" Folder="0" file="grand_canyon_3.jpg" label="grand_canyon" angle="0" description="" />
+  <image width="-1" startDate="2003-05-18T17:01:01" Persons="2" height="-1" endDate="2003-05-18T17:01:01" Locations="1" md5sum="1401b6a7e7f268b2cd256f1935970c3b" Folder="0" file="donna_2.jpg" label="donna" angle="0" description="" />
+  <image width="-1" startDate="2003-11-15T20:51:59" Persons="1,3" height="-1" endDate="2003-11-15T20:51:59" Locations="2" md5sum="be157a21c1dd8f8e28238bd813837bcf" Folder="0" file="wayne.jpg" label="wayne" angle="90" description="Wayne and Jim lives in Las Vegas. I visit them everytime I'm in the neighborhood :-)
+One would expect that I spent a lot of money gambling when going to Las Vegas, but all my money is spent on beer and pool :-)" />
+  <image width="-1" startDate="2005-02-05T00:00:00" Persons="0" height="-1" endDate="2005-02-05T23:59:59" md5sum="5c336824571bf536460fd428a68a6619" Folder="0" file="pool_2.jpg" label="pool" angle="270" description="" />
+  <image width="-1" startDate="2005-05-17T21:52:37" Persons="0" height="-1" endDate="2005-05-17T21:52:37" md5sum="2e38f252b40a898adb9bd01f55a9b4f5" Folder="0" file="pool.jpg" label="pool" angle="0" description="" />
+  <image width="-1" startDate="2005-06-24T18:38:48" height="-1" endDate="2005-06-24T18:38:48" Locations="3" Keywords="1" md5sum="9da8aee389f3a8a35e17acb537ff85dc" Folder="0" file="skagen_2.jpg" label="skagen" angle="0" description="This is skagen, the norther part of Denmark." />
+  <image width="-1" startDate="2005-07-28T11:09:07" height="-1" endDate="2005-07-28T11:09:07" Locations="3" Keywords="1,2" md5sum="01627ffc81e9136c4b904b36394c949f" Folder="0" file="skagen.jpg" label="skagen" angle="0" description="" />
+  <image width="-1" startDate="2005-07-28T11:18:48" Persons="4" height="-1" endDate="2005-07-28T11:18:48" Locations="3" md5sum="90653303e5579daa012dfc525323ffac" Folder="0" file="anne_helene.jpg" label="anne_helene" angle="0" description="May I introduce Anne Helene, my girlfriend for more than 10 years." />
+  <image width="-1" startDate="2005-07-28T12:01:56" Persons="0" height="-1" endDate="2005-07-28T12:01:56" Locations="3" md5sum="d5947475ae0595a989af38276f7ed8b8" Folder="0" file="cold_water.jpg" label="cold_water" angle="0" description="The interesting thing about skagen is that you may stand with a foot in Skagerrak and a foot in Kattegat.
+Besides the waters being named different on each side, waves actually also meet from each side which looks really cool.
+
+If you've never been then, you should really go (Honk the horn when you drive by Hjørring, where I currently lives :-)
+Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" />
+  <image width="-1" startDate="2005-11-25T16:23:10" height="-1" endDate="2005-11-25T16:23:10" Locations="4" Keywords="2,1" md5sum="b56041b354f8f7d1166bd2fe7f723aeb" Folder="0" file="sunset.jpg" label="sunset" angle="0" description="" />
+  <image width="-1" startDate="2005-12-21T16:44:31" Persons="0" height="-1" endDate="2005-12-21T16:44:31" md5sum="f1d93b16bfebdd1c34a0539283ccae66" Folder="0" file="jesper_2.jpg" label="jesper" angle="0" description="" />
+  <image width="800" startDate="2005-12-26T14:58:01" Persons="2" height="532" endDate="2005-12-26T14:58:01" Keywords="2" md5sum="78729cd615a7647deae3cd066f5c867b" Folder="0" file="donna.jpg" label="donna" angle="0" description="" />
+  <image width="800" startDate="2005-12-29T17:45:22" Persons="0" height="533" endDate="2005-12-29T17:45:22" md5sum="37b87706b2f0e256ea9ca7f75dbd81ab" Folder="0" file="jesper.jpg" label="jesper" angle="0" description="" />
+  <image width="800" startDate="2006-02-10T21:33:29" Persons="0,4" height="600" endDate="2006-02-10T21:33:29" Locations="5" md5sum="6e54f8727945a5b132bf991be6c50d00" Folder="0" file="bar55_2.jpg" label="bar55" angle="0" description="" />
+  <image width="800" startDate="2006-02-10T22:22:11" Persons="0,4" height="600" endDate="2006-02-10T22:22:11" Locations="5" md5sum="261e9e97b97771f62f170ac45a0cf85a" Folder="0" file="bar55.jpg" label="bar55" angle="0" description="" />
+  <image width="800" startDate="2006-02-12T18:10:17" height="600" endDate="2006-02-12T18:10:17" Locations="6" Keywords="2" md5sum="b8a254e7fd2b7b4d7c49073ffd8eabe8" Folder="0" file="snow.jpg" label="snow" angle="0" description="" />
  </images>
  <member-groups>
-  <member group-name="Denmark" members="6,3" category="Locations" />
-  <member group-name="USA" members="4,2,0" category="Locations" />
-  <member group-name="Pets" members="3,0" category="Persons" />
+  <member group-name="Denmark" members="7,1,3" category="Locations" />
+  <member group-name="USA" members="2,0,6,5,4" category="Locations" />
+  <member group-name="Pet" members="2,5,6" category="Persons" />
  </member-groups>
 </KPhotoAlbum>

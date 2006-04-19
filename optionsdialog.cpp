@@ -537,6 +537,9 @@ void OptionsDialog::edit( QListBoxItem* i )
 
 void OptionsDialog::slotLabelChanged( const QString& label)
 {
+    if ( _currentCategory == _current->_text )
+        _currentCategory = label;
+
     if( _current )
         _current->setLabel( label );
 }

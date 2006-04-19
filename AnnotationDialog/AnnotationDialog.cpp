@@ -48,7 +48,7 @@
 #include <kiconloader.h>
 #include "showbusycursor.h"
 #include <ktimewidget.h>
-#include "kdateedit.h"
+#include "KDateEdit.h"
 #include "deletedialog.h"
 #include <kguiitem.h>
 #include <kapplication.h>
@@ -97,14 +97,14 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
     label = new QLabel( i18n("Date: "), top, "date label" );
     lay4->addWidget( label );
 
-    _startDate = new KDateEdit( true, top, "date config" );
+    _startDate = new ::AnnotationDialog::KDateEdit( true, top, "date config" );
     lay4->addWidget( _startDate, 1 );
     connect( _startDate, SIGNAL( dateChanged( const ImageDate& ) ), this, SLOT( slotStartDateChanged( const ImageDate& ) ) );
 
     label = new QLabel( QString::fromLatin1( "-" ), top );
     lay4->addWidget( label );
 
-    _endDate = new KDateEdit( false, top, "date config" );
+    _endDate = new ::AnnotationDialog::KDateEdit( false, top, "date config" );
     lay4->addWidget( _endDate, 1 );
 
     // Time
@@ -264,6 +264,9 @@ void AnnotationDialog::AnnotationDialog::slotRevert()
 
 void AnnotationDialog::AnnotationDialog::slotPrev()
 {
+    if ( _setup != SINGLE )
+        return;
+
     writeToInfo();
     if ( _current == 0 )
         return;
@@ -276,6 +279,9 @@ void AnnotationDialog::AnnotationDialog::slotPrev()
 
 void AnnotationDialog::AnnotationDialog::slotNext()
 {
+    if ( _setup != SINGLE )
+        return;
+
     if ( _current != -1 ) {
         writeToInfo();
     }

@@ -47,6 +47,7 @@ protected:
 
 private:
     Database();
+    void init();
     static Database* _instance;
     QSqlDatabase* _db;
 };

@@ -1,7 +1,4 @@
 demodir = $(kde_datadir)/kphotoalbum/demo
-demo_DATA = index.xml img001.jpg img002.jpg img003.jpg img004.jpg img005.jpg img006.jpg \
-            img007.jpg img008.jpg img009.jpg img010.jpg img011.jpg img012.jpg img013.jpg \
-			img014.jpg img015.jpg img016.jpg img017.jpg img018.jpg img019.jpg img020.jpg \
-			img021.jpg img022.jpg img023.jpg img024.jpg
+demo_DATA = index.xml exif-info.db anne_helene.jpg bar55_2.jpg bar55.jpg blackie.jpg cold_water.jpg donna_2.jpg donna.jpg grand_canyon_1.jpg grand_canyon_2.jpg grand_canyon_3.jpg jesper_2.jpg jesper.jpg new_wave_1.jpg new_wave_2.jpg pool_2.jpg pool.jpg qt-logo.jpg skagen_2.jpg skagen.jpg snow.jpg spiff_2.jpg spiff.jpg sunset.jpg wayne.jpg
 
 SUBDIRS = CategoryImages

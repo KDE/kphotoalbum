@@ -159,7 +159,7 @@ protected:
     virtual void moveEvent ( QMoveEvent * );
     void setupMenuBar();
     void createAnnotationDialog();
-    void load();
+    bool load();
     virtual void contextMenuEvent( QContextMenuEvent* e );
     void setDirty( bool b );
     void setLocked( bool b );

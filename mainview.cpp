@@ -105,7 +105,9 @@ MainView::MainView( QWidget* parent, const char* name )
     MySplashScreen::instance()->message( i18n("Loading Database") );
     _instance = this;
 
-    load();
+    bool gotConfigFile = load();
+    if ( !gotConfigFile )
+        exit(0);
     MySplashScreen::instance()->message( i18n("Loading Main Window") );
 
     // To avoid a race conditions where both the image loader thread creates an instance of
@@ -233,7 +235,11 @@ void MainView::delayedInit()
         loadPlugins();
 
 #ifdef HASEXIV2
-    Exif::Database::instance(); // Load the database
+    Exif::Database* exifDB = Exif::Database::instance(); // Load the database
+    if ( !exifDB || !exifDB->isOpen() ) {
+        KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
+        qApp->exit(1);
+    }
 #endif
 }
 
@@ -731,7 +737,7 @@ void MainView::runDemo()
     process->start();
 }
 
-void MainView::load()
+bool MainView::load()
 {
     // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
@@ -771,6 +777,8 @@ void MainView::load()
         if ( showWelcome ) {
             MySplashScreen::instance()->hide();
             configFile = welcome();
+            if ( !configFile )
+                return false;
         }
     }
 
@@ -779,6 +787,7 @@ void MainView::load()
 
     Options::setup( QFileInfo( configFile ).dirPath( true ) );
     ImageDB::setup( backEnd, configFile );
+    return true;
 }
 
 void MainView::contextMenuEvent( QContextMenuEvent* e )

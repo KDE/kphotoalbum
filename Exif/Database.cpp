@@ -55,6 +55,7 @@ static void showError( QSqlQuery& query )
 
 Exif::Database::Database()
 {
+    _isOpen = false;
 }
 
 
@@ -66,8 +67,14 @@ void Exif::Database::openDatabase()
     _db->setDatabaseName( exifDBFile() );
 
     if ( !_db->open() )
-        qFatal("Couldn't open db %s", _db->lastError().text().latin1());
+        qWarning("Couldn't open db %s", _db->lastError().text().latin1());
+    else
+        _isOpen = true;
+}
 
+bool Exif::Database::isOpen() const
+{
+    return _isOpen;
 }
 
 void Exif::Database::populateDatabase()
@@ -214,10 +221,18 @@ void Exif::Database::init()
         return;
 
     bool dbExists = QFile::exists( exifDBFile() );
-    if ( !dbExists )
-        Util::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
+    if ( !dbExists ) {
+        bool copied = Util::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
+        if ( !copied ) {
+            qWarning( "Cannot initialize new EXIF database file: %s", (const char *)exifDBFile().local8Bit() );
+            return;
+        }
+    }
 
     openDatabase();
+
+    if ( !isOpen() )
+        return;
 
     if ( !dbExists ) {
         populateDatabase();

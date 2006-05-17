@@ -32,6 +32,7 @@ public:
     static Database* instance();
     static bool isAvailable();
 
+    bool isOpen() const;
     void add( const QString& fileName );
     void remove( const QString& fileName );
     Set<QString> filesMatchingQuery( const QString& query );
@@ -46,6 +47,7 @@ protected:
     void offerInitialize();
 
 private:
+    bool _isOpen;
     Database();
     void init();
     static Database* _instance;

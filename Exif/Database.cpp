@@ -54,8 +54,8 @@ static void showError( QSqlQuery& query )
 }
 
 Exif::Database::Database()
+    : _isOpen(false)
 {
-    _isOpen = false;
 }
 
 
@@ -224,7 +224,7 @@ void Exif::Database::init()
     if ( !dbExists ) {
         bool copied = Util::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
         if ( !copied ) {
-            qWarning( "Cannot initialize new EXIF database file: %s", (const char *)exifDBFile().local8Bit() );
+            qWarning( "Cannot initialize new EXIF database file: %s", exifDBFile().local8Bit().data() );
             return;
         }
     }

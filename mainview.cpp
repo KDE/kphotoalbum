@@ -743,13 +743,17 @@ bool MainView::load()
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile = QString::null;
     QString backEnd = QString::null;
+    QString sqlUser = QString::null;
+    QString sqlPassword = QString::null;
 
+    if ( args->isSet( "e" ) ) {
+        backEnd = args->getOption( "e" );
+        if ( backEnd != QString::fromLatin1("sql") ) {
+            backEnd = QString::null;
+        }
+    }
     if ( args->isSet( "c" ) ) {
         configFile = args->getOption( "c" );
-        if ( configFile.find( QString::fromLatin1("sql:") ) != -1 ) {
-            backEnd = QString::fromLatin1( "sql" );
-            configFile = configFile.mid(4);
-        }
     }
     else if ( args->isSet( "demo" ) )
         configFile = Util::setupDemo();
@@ -758,8 +762,22 @@ bool MainView::load()
         KConfig* config = kapp->config();
         if ( config->hasKey( QString::fromLatin1("configfile") ) ) {
             configFile = config->readEntry( QString::fromLatin1("configfile") );
-            if ( !QFileInfo( configFile ).exists() )
+            if ( !QFileInfo( configFile ).exists() ) {
                 showWelcome = true;
+                // Use default back-end, if image root doesn't exist
+                if ( !QFileInfo( QFileInfo( configFile ).dirPath( true ) ).exists() )
+                    backEnd = QString::null;
+            }
+
+            if ( backEnd == QString::fromLatin1( "sql" ) ) {
+                if ( config->hasKey( QString::fromLatin1("sqluser") ) ) {
+                    sqlUser = config->readEntry( QString::fromLatin1("sqluser") );
+                }
+                if ( config->hasKey( QString::fromLatin1("sqlpasswd") ) ) {
+                    sqlPassword = config->readEntry( QString::fromLatin1("sqlpasswd") );
+                }
+                showWelcome = false;
+            }
         }
         else {
             // KimDaBa compatibility
@@ -786,7 +804,12 @@ bool MainView::load()
         configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
     Options::setup( QFileInfo( configFile ).dirPath( true ) );
-    ImageDB::setup( backEnd, configFile );
+    if ( backEnd == QString::fromLatin1( "sql" ) ) {
+        ImageDB::setupSQLDB( sqlUser, sqlPassword );
+    }
+    else {
+        ImageDB::setupXMLDB( configFile );
+    }
     return true;
 }
 

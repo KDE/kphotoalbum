@@ -34,7 +34,8 @@ class ImageDB  :public QObject {
 
 public:
     static ImageDB* instance();
-    static void setup( const QString& backEnd, const QString& configFile );
+    static void setupXMLDB( const QString& configFile );
+    static void setupSQLDB( const QString& userName, const QString& password );
     void convertBackend();
 
 public slots:
@@ -51,6 +52,7 @@ protected:
     ImageInfoList _clipboard;
 
 private:
+    static void connectSlots();
     static ImageDB* _instance;
 
 protected:

@@ -32,7 +32,7 @@ namespace SQLDB {
 
     protected:
         friend class ImageDB;
-        SQLDB( QString username = QString::null, QString password = QString::null );
+        SQLDB( const QString& username = QString::null, const QString& password = QString::null );
 
     public:
         virtual int totalCount() const;
@@ -67,7 +67,7 @@ namespace SQLDB {
         virtual void lockDB( bool lock, bool exclude );
 
     protected:
-        void openDatabase( QString username, QString password );
+        void openDatabase( const QString& username, const QString& password );
         void loadMemberGroups();
         QStringList imageList( bool withRelativePath );
 

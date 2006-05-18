@@ -21,16 +21,23 @@ ImageDB* ImageDB::instance()
     return _instance;
 }
 
-void ImageDB::setup( const QString& backend, const QString& configFile )
+void ImageDB::setupXMLDB( const QString& configFile )
+{
+    _instance = new XMLDB::XMLDB( configFile );
+    connectSlots();
+}
+
+void ImageDB::setupSQLDB( const QString& userName, const QString& password )
 {
 #ifdef SQLDB_SUPPORT
-    if ( backend == QString::fromLatin1( "sql" ) )
-        _instance = new SQLDB::SQLDB( QString::fromLatin1("root") );
-    else
-#else
-        Q_UNUSED( backend );
+    _instance = new SQLDB::SQLDB( userName, password );
 #endif // SQLDB_SUPPORT
-        _instance = new XMLDB::XMLDB( configFile );
+
+    connectSlots();
+}
+
+void ImageDB::connectSlots()
+{
     connect( _instance->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              _instance, SLOT( deleteItem( Category*, const QString& ) ) );
     connect( _instance->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),

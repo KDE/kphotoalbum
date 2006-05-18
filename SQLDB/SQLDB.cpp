@@ -16,7 +16,7 @@
 #include "Browser/Browser.h"
 #include "SQLImageDateCollection.h"
 
-SQLDB::SQLDB::SQLDB( QString username, QString password ) :_members( this )
+SQLDB::SQLDB::SQLDB( const QString& username, const QString& password ) :_members( this )
 {
     if ( !QSqlDatabase::isDriverAvailable( QString::fromLatin1("QMYSQL3") ) ) {
         // PENDING(blackie) better message
@@ -299,7 +299,7 @@ void SQLDB::SQLDB::lockDB( bool /*lock*/, bool /*exclude*/ )
 }
 
 
-void SQLDB::SQLDB::openDatabase( QString username, QString password )
+void SQLDB::SQLDB::openDatabase( const QString& username, const QString& password )
 {
     QSqlDatabase* database = QSqlDatabase::addDatabase( "QMYSQL3" );
     if ( database == 0 ) {

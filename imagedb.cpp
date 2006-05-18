@@ -25,7 +25,7 @@ void ImageDB::setup( const QString& backend, const QString& configFile )
 {
 #ifdef SQLDB_SUPPORT
     if ( backend == QString::fromLatin1( "sql" ) )
-        _instance = new SQLDB::SQLDB;
+        _instance = new SQLDB::SQLDB( QString::fromLatin1("root") );
     else
 #else
         Q_UNUSED( backend );

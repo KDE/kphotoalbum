@@ -16,7 +16,7 @@
 #include "Browser/Browser.h"
 #include "SQLImageDateCollection.h"
 
-SQLDB::SQLDB::SQLDB() :_members( this )
+SQLDB::SQLDB::SQLDB( QString username, QString password ) :_members( this )
 {
     if ( !QSqlDatabase::isDriverAvailable( QString::fromLatin1("QMYSQL3") ) ) {
         // PENDING(blackie) better message
@@ -24,7 +24,7 @@ SQLDB::SQLDB::SQLDB() :_members( this )
         exit(-1);
     }
 
-    openDatabase();
+    openDatabase(username, password);
     loadMemberGroups();
 }
 
@@ -299,7 +299,7 @@ void SQLDB::SQLDB::lockDB( bool /*lock*/, bool /*exclude*/ )
 }
 
 
-void SQLDB::SQLDB::openDatabase()
+void SQLDB::SQLDB::openDatabase( QString username, QString password )
 {
     QSqlDatabase* database = QSqlDatabase::addDatabase( "QMYSQL3" );
     if ( database == 0 ) {
@@ -307,7 +307,11 @@ void SQLDB::SQLDB::openDatabase()
     }
 
     database->setDatabaseName( "kphotoalbum" );
-    database->setUserName("root"); // PENDING(blackie) change
+    if ( !username.isNull() ) {
+        database->setUserName(username);
+        if ( !password.isNull() )
+            database->setPassword(password);
+    }
     if ( !database->open() )
         qFatal("Couldn't open db");
 }

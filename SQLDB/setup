@@ -1,11 +1,55 @@
 #!/bin/sh
 #select *, UTC_TIMESTAMP() from test;
 
-echo y | mysqladmin -u root drop kphotoalbum
+DBNAME="kphotoalbum"
+USER=""
+PASSWD=""
 
-mysqladmin -u root create kphotoalbum;
-mysql -u root kphotoalbum << EOF
+function usage {
+	echo "Usage: $0 [-d db_name] [-u username] [-p [password]]"
+}
 
+while [ $# -ge 1 ]; do
+	if [ "$1" = "-d" ]; then
+		if [ -n "$2" ]; then
+			DBNAME="$2"
+			shift
+		else
+			usage
+		fi
+	elif [ "$1" = "-u" ]; then
+		if [ -n "$2" ]; then
+			USER="$2"
+			shift
+		else
+			usage
+		fi
+	elif [ "$1" = "-p" ]; then
+		if [ -n "$2" ]; then
+			PASSWD="$2"
+			shift
+		else
+			read -p "Enter password: " -s PASSWD
+			echo
+		fi
+	else
+		usage
+	fi
+	shift
+done
+
+opts=""
+[ -n "$USER" ] && opts+=" -u $USER"
+[ -n "$PASSWD" ] && opts+=" -p$PASSWD"
+
+echo y | mysqladmin $opts drop "$DBNAME" &>/dev/null
+
+mysqladmin $opts create "$DBNAME" || {
+	echo "Error creating database $DBNAME" 1>&2
+	exit 1
+}
+
+mysql $opts "$DBNAME" << EOF
 CREATE TABLE membergroup
 (
    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -61,3 +105,6 @@ CREATE TABLE categorysortorder
   categoryId INT,
   item varchar(255)
 );
+EOF
+
+echo show tables | mysql $opts "$DBNAME"

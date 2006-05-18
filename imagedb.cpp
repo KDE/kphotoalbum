@@ -1,5 +1,7 @@
 #include "imagedb.h"
 #include "XMLDB/XMLDB.h"
+#include <kinputdialog.h>
+#include <kpassdlg.h>
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "Browser/Browser.h"
@@ -108,10 +110,29 @@ void ImageDB::convertBackend()
 #ifdef SQLDB_SUPPORT
     QStringList allImages = images();
 
+    QString userName = QString::null;
+    QString password = QString::null;
+    bool ok = false;
+    userName = KInputDialog::getText( i18n("SQL database username"),
+                                      i18n("Username:"), QString::null, &ok );
+    if (!ok)
+        return;
+    if (userName.isEmpty()) {
+        userName = QString::null;
+    }
+    else {
+        QCString passwd;
+        if ( KPasswordDialog::getPassword(passwd, i18n("Password for SQL database")) ) {
+            password = passwd;
+        }
+        else
+            return;
+    }
+
     QProgressDialog dialog( 0 );
     dialog.setLabelText( i18n( "Converting Backend" ) );
     dialog.setTotalSteps( allImages.count() );
-    SQLDB::SQLDB* newBackend = new SQLDB::SQLDB;
+    SQLDB::SQLDB* newBackend = new SQLDB::SQLDB(userName, password);
 
     // Convert the Category info
     CategoryCollection* origCategories = categoryCollection();

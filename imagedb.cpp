@@ -122,7 +122,8 @@ void ImageDB::convertBackend()
     }
     else {
         QCString passwd;
-        if ( KPasswordDialog::getPassword(passwd, i18n("Password for SQL database")) ) {
+        if ( KPasswordDialog::getPassword(passwd, i18n("Password for SQL database"))
+             == KPasswordDialog::Accepted ) {
             password = passwd;
         }
         else

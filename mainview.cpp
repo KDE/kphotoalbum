@@ -748,7 +748,17 @@ bool MainView::load()
 
     if ( args->isSet( "e" ) ) {
         backEnd = args->getOption( "e" );
-        if ( backEnd != QString::fromLatin1("sql") ) {
+        if ( backEnd == QString::fromLatin1("sql") ) {
+#ifndef SQLDB_SUPPORT
+            qWarning( "SQL database support not compiled in. Using default." );
+            backEnd = QString::null;
+#endif
+        }
+        else if ( backEnd == QString::fromLatin1("xml") ) {
+            backEnd = QString::null;
+        }
+        else {
+            qWarning( "Invalid database engine. Using default." );
             backEnd = QString::null;
         }
     }
@@ -769,6 +779,7 @@ bool MainView::load()
                     backEnd = QString::null;
             }
 
+#ifdef SQLDB_SUPPORT
             if ( backEnd == QString::fromLatin1( "sql" ) ) {
                 if ( config->hasKey( QString::fromLatin1("sqluser") ) ) {
                     sqlUser = config->readEntry( QString::fromLatin1("sqluser") );
@@ -778,6 +789,7 @@ bool MainView::load()
                 }
                 showWelcome = false;
             }
+#endif
         }
         else {
             // KimDaBa compatibility

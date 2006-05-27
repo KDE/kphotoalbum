@@ -18,16 +18,13 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
-class TokenEditor;
 class OptionsDialog;
 class QWidgetStack;
 class ImageCounter;
 class QTimer;
 class KTipDialog;
-class DeleteDialog;
 class ReadInfoDialog;
 class QLabel;
-class HTMLExportDialog;
 class KActionMenu;
 class KRadioAction;
 
@@ -49,6 +46,13 @@ namespace Browser
 namespace AnnotationDialog
 {
     class AnnotationDialog;
+}
+
+namespace Dialogs
+{
+    class DeleteDialog;
+    class HTMLExportDialog;
+    class TokenEditor;
 }
 
 #include "imageinfolist.h"
@@ -182,7 +186,7 @@ private:
     QTimer* _autoSaveTimer;
     Browser::Browser* _browser;
     KTipDialog* _tipDialog;
-    DeleteDialog* _deleteDialog;
+    Dialogs::DeleteDialog* _deleteDialog;
     QLabel* _dirtyIndicator;
     QLabel* _lockedIndicator;
     KAction* _lock;
@@ -190,7 +194,7 @@ private:
     KAction* _setDefaultPos;
     KAction* _setDefaultNeg;
     KAction* _jumpToContext;
-    HTMLExportDialog* _htmlDialog;
+    Dialogs::HTMLExportDialog* _htmlDialog;
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;
     KAction* _view;
@@ -215,7 +219,7 @@ private:
 #ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
 #endif
-    TokenEditor* _tokenEditor;
+    Dialogs::TokenEditor* _tokenEditor;
     DateBar::DateBar* _dateBar;
     bool _hasLoadedPlugins;
     ImageCounter* _partial;

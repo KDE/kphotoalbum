@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "invaliddatefinder.h"
+#include "InvalidDateFinder.h"
 #include <qlayout.h>
 #include <qradiobutton.h>
 #include <klocale.h>
@@ -32,6 +32,8 @@
 #include "showbusycursor.h"
 #include <qtextedit.h>
 #include <kdebug.h>
+
+using namespace Dialogs;
 
 InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Search for Images with Missing Dates" ), Cancel | Ok, Ok, parent, name )
@@ -116,4 +118,4 @@ void InvalidDateFinder::slotOk()
     KDialogBase::slotOk();
 }
 
-#include "invaliddatefinder.moc"
+#include "InvalidDateFinder.moc"

@@ -28,14 +28,14 @@
 #include <qmessagebox.h>
 #include <qdict.h>
 #include "Viewer/Viewer.h"
-#include <welcomedialog.h>
+#include "Dialogs/WelcomeDialog.h"
 #include <qcursor.h>
 #include "showbusycursor.h"
 #include <klocale.h>
 #include <qhbox.h>
 #include <qwidgetstack.h>
 #include <kstandarddirs.h>
-#include "htmlexportdialog.h"
+#include "Dialogs/HtmlExportDialog.h"
 #include <kstatusbar.h>
 #include "imagecounter.h"
 #include <qtimer.h>
@@ -47,7 +47,7 @@
 #include <kapplication.h>
 #include <ktip.h>
 #include <kprocess.h>
-#include "deletedialog.h"
+#include "Dialogs/DeleteDialog.h"
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
 #include <qregexp.h>
@@ -58,9 +58,9 @@
 #include <kpopupmenu.h>
 #include <kdebug.h>
 #include "externalpopup.h"
-#include <donate.h>
+#include "Dialogs/DonateDialog.h"
 #include <kstdaction.h>
-#include "deletethumbnailsdialog.h"
+#include "Dialogs/DeleteThumbnailsDialog.h"
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
 #include "ImportExport/Import.h"
@@ -78,12 +78,12 @@
 #include <qmenubar.h>
 #include <kmenubar.h>
 #include <searchbar.h>
-#include "tokeneditor.h"
+#include "Dialogs/TokenEditor.h"
 #include "categorycollection.h"
 #include <qlayout.h>
 #include "DateBar/DateBar.h"
 #include "imagedatecollection.h"
-#include "invaliddatefinder.h"
+#include "Dialogs/InvalidDateFinder.h"
 #include "imageinfo.h"
 #include "Survey/MySurvey.h"
 #include <config.h>
@@ -93,7 +93,7 @@
 #  include "Exif/Database.h"
 #endif
 
-#include "featuredialog.h"
+#include "Dialogs/FeatureDialog.h"
 
 MainView* MainView::_instance = 0;
 
@@ -375,7 +375,7 @@ void MainView::slotSave()
 void MainView::slotDeleteSelected()
 {
     if ( ! _deleteDialog )
-        _deleteDialog = new DeleteDialog( this );
+        _deleteDialog = new Dialogs::DeleteDialog( this );
     if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
         return;
 
@@ -475,7 +475,7 @@ void MainView::slotSortByDateAndTime()
 
 QString MainView::welcome()
 {
-    WelComeDialog dialog( this );
+    Dialogs::WelComeDialog dialog( this );
     dialog.exec();
     return dialog.configFileName();
 }
@@ -653,7 +653,7 @@ void MainView::slotExportToHTML()
         list = ImageDB::instance()->currentScope( true );
 
     if ( ! _htmlDialog )
-        _htmlDialog = new HTMLExportDialog( this, "htmlExportDialog" );
+        _htmlDialog = new Dialogs::HTMLExportDialog( this, "htmlExportDialog" );
     _htmlDialog->exec( list );
 }
 
@@ -1043,7 +1043,7 @@ void MainView::slotShowNotOnDisk()
 
 void MainView::donateMoney()
 {
-    Donate donate( this, "Donate Money" );
+    Dialogs::DonateDialog donate( this, "Donate Money" );
     donate.exec();
 }
 
@@ -1060,7 +1060,7 @@ void MainView::updateStates( bool thumbNailView )
 
 void MainView::slotRemoveAllThumbnails()
 {
-    DeleteThumbnailsDialog dialog( this );
+    Dialogs::DeleteThumbnailsDialog dialog( this );
     dialog.exec();
 }
 
@@ -1265,7 +1265,7 @@ void MainView::moveEvent( QMoveEvent * )
 void MainView::slotRemoveTokens()
 {
     if ( !_tokenEditor )
-        _tokenEditor = new TokenEditor( this, "token editor" );
+        _tokenEditor = new Dialogs::TokenEditor( this, "token editor" );
     _tokenEditor->show();
 }
 
@@ -1285,7 +1285,7 @@ void MainView::updateDateBar()
 
 void MainView::slotShowImagesWithInvalidDate()
 {
-    InvalidDateFinder finder( this, "invaliddatefinder" );
+    Dialogs::InvalidDateFinder finder( this, "invaliddatefinder" );
     if ( finder.exec() == QDialog::Accepted )
         showThumbNails();
 }
@@ -1361,7 +1361,7 @@ void MainView::slotShowExifInfo()
 
 void MainView::showFeatures()
 {
-    FeatureDialog dialog(this);
+    Dialogs::FeatureDialog dialog(this);
     dialog.exec();
 }
 

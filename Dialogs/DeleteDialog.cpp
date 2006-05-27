@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "deletedialog.h"
+#include "DeleteDialog.h"
 #include <klocale.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
@@ -30,6 +30,8 @@
 #include "imageinfo.h"
 #include "showbusycursor.h"
 #include <qapplication.h>
+
+using namespace Dialogs;
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Images"), Cancel|User1, User1, parent, name,
@@ -87,4 +89,4 @@ void DeleteDialog::deleteImages()
     accept();
 }
 
-#include "deletedialog.moc"
+#include "DeleteDialog.moc"

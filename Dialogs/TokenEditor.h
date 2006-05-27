@@ -5,6 +5,9 @@
 #include <qvaluelist.h>
 class QCheckBox;
 
+namespace Dialogs
+{
+
 class TokenEditor :public KDialogBase {
     Q_OBJECT
 
@@ -24,6 +27,7 @@ private:
     QValueList<QCheckBox*> _cbs;
 };
 
+}
 
 #endif /* TOKENEDITOR_H */
 

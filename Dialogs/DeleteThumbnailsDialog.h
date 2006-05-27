@@ -22,6 +22,9 @@
 #include <kdialogbase.h>
 #include <qstringlist.h>
 
+namespace Dialogs
+{
+
 class DeleteThumbnailsDialog :public KDialogBase {
     Q_OBJECT
 
@@ -36,6 +39,7 @@ private:
     QStringList _files;
 };
 
+}
 
 #endif /* DELETEFILELISTDIALOG_H */
 

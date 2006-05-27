@@ -16,27 +16,37 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef INVALIDDATEFINDER_H
-#define INVALIDDATEFINDER_H
-
+#ifndef DELETEDIALOG_H
+#define DELETEDIALOG_H
 #include <kdialogbase.h>
+#include "imageinfolist.h"
+class QLabel;
+class QCheckBox;
 class QRadioButton;
 
-class InvalidDateFinder :public KDialogBase {
+namespace Dialogs
+{
+
+class DeleteDialog :public KDialogBase {
     Q_OBJECT
 
 public:
-    InvalidDateFinder( QWidget* parent, const char* name = 0 );
+    DeleteDialog( QWidget* parent, const char* name = 0 );
+    int exec( const QStringList& );
 
 protected slots:
-    virtual void slotOk();
+    void deleteImages();
 
 private:
-    QRadioButton* _dateNotTime;
-    QRadioButton* _missingDate;
-    QRadioButton* _partialDate;
+    QStringList _list;
+    QLabel* _label;
+    QCheckBox* _deleteFromDisk;
+    QCheckBox* _block;
+
 };
 
+}
 
-#endif /* INVALIDDATEFINDER_H */
+
+#endif /* DELETEDIALOG_H */
 

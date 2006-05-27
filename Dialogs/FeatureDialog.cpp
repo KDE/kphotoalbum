@@ -1,4 +1,4 @@
-#include "featuredialog.h"
+#include "FeatureDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <qtextbrowser.h>
@@ -6,6 +6,8 @@
 #include <qfeatures.h>
 #include "Exif/Database.h"
 #include <config.h>
+
+using namespace Dialogs;
 
 FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("KPhotoAlbum Feature Status"), Close, Close, parent, name )
@@ -117,4 +119,4 @@ void HelpBrowser::setSource( const QString& name )
         kapp->invokeBrowser( name );
 }
 
-#include "featuredialog.moc"
+#include "FeatureDialog.moc"

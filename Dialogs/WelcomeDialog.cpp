@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "welcomedialog.h"
+#include "WelcomeDialog.h"
 #include <qlabel.h>
 #include <klocale.h>
 #include <qpushbutton.h>
@@ -29,6 +29,8 @@
 #include <kmessagebox.h>
 #include "kshell.h"
 #include <kapplication.h>
+
+using namespace Dialogs;
 
 WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     : QDialog( parent, name, true )
@@ -153,4 +155,4 @@ QString FileDialog::getFileName()
     return file;
 }
 
-#include "welcomedialog.moc"
+#include "WelcomeDialog.moc"

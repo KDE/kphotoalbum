@@ -17,7 +17,7 @@
 */
 
 #include <kdeversion.h>
-#include "deletethumbnailsdialog.h"
+#include "DeleteThumbnailsDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <qlabel.h>
@@ -25,6 +25,8 @@
 #include <qfile.h>
 #include "options.h"
 #include <qdir.h>
+
+using namespace Dialogs;
 
 DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Thumbnails" ), Cancel | User1, Cancel, parent, name )
@@ -82,4 +84,4 @@ void DeleteThumbnailsDialog::findThumbnails( const QString& directory )
     }
 }
 
-#include "deletethumbnailsdialog.moc"
+#include "DeleteThumbnailsDialog.moc"

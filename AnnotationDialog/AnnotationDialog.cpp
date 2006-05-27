@@ -49,7 +49,7 @@
 #include "showbusycursor.h"
 #include <ktimewidget.h>
 #include "KDateEdit.h"
-#include "deletedialog.h"
+#include "Dialogs/DeleteDialog.h"
 #include <kguiitem.h>
 #include <kapplication.h>
 #include <qobjectlist.h>
@@ -761,7 +761,7 @@ void AnnotationDialog::AnnotationDialog::slotDeleteImage()
 {
     Q_ASSERT( _setup != SEARCH );
 
-    DeleteDialog dialog( this );
+    Dialogs::DeleteDialog dialog( this );
     ImageInfoPtr info = _origList[_current];
     QStringList strList;
     strList << info->fileName();

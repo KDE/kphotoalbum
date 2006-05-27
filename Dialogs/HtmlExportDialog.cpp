@@ -17,7 +17,7 @@
 */
 
 #include "kdeversion.h"
-#include "htmlexportdialog.h"
+#include "HtmlExportDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <klineedit.h>
@@ -64,6 +64,8 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
+
+using namespace Dialogs;
 
 class ImageSizeCheckBox :public QCheckBox {
 
@@ -866,4 +868,4 @@ QString HTMLExportDialog::translateToHTML( const QString& str )
     return res;
 }
 
-#include "htmlexportdialog.moc"
+#include "HtmlExportDialog.moc"

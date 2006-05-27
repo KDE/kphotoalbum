@@ -30,6 +30,9 @@ class QTextEdit;
 #include <qcombobox.h>
 #include "util.h"
 
+namespace Dialogs
+{
+
 class HTMLExportDialog :public KDialogBase, private ImageClient {
     Q_OBJECT
 
@@ -92,6 +95,7 @@ private:
     int _maxImageSize;
 };
 
+}
 
 #endif /* HTMLEXPORTDIALOG_H */
 

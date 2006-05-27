@@ -1,4 +1,4 @@
-#include "tokeneditor.h"
+#include "TokenEditor.h"
 #include <qlayout.h>
 #include <klocale.h>
 #include <kpushbutton.h>
@@ -8,6 +8,9 @@
 #include "options.h"
 #include "categorycollection.h"
 #include "category.h"
+
+using namespace Dialogs;
+
 TokenEditor::TokenEditor( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n( "Remove Tokens" ), Cancel | Ok, Ok, parent, name )
 {
@@ -91,4 +94,4 @@ void TokenEditor::slotOk()
     KDialogBase::slotOk();
 }
 
-#include "tokeneditor.moc"
+#include "TokenEditor.moc"

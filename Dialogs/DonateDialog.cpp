@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "donate.h"
+#include "DonateDialog.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <krun.h>
@@ -24,7 +24,9 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-Donate::Donate( QWidget* parent, const char* name )
+using namespace Dialogs;
+
+DonateDialog::DonateDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Donate Money"), Close | User1, Close, parent, name )
 {
     QWidget* top = plainPage();
@@ -55,10 +57,10 @@ Donate::Donate( QWidget* parent, const char* name )
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotDonate() ) );
 }
 
-void Donate::slotDonate()
+void DonateDialog::slotDonate()
 {
     KRun::runURL(KURL(QString::fromLatin1("https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa")),
                  QString::fromLatin1( "text/html" ) );
 }
 
-#include "donate.moc"
+#include "DonateDialog.moc"

@@ -3,6 +3,9 @@
 #include <kdialogbase.h>
 #include <qtextbrowser.h>
 
+namespace Dialogs
+{
+
 class FeatureDialog : public KDialogBase {
     Q_OBJECT
 
@@ -16,6 +19,8 @@ public:
     HelpBrowser( QWidget* parent, const char* name = 0 );
     virtual void setSource( const QString& name );
 };
+
+}
 
 #endif /* FEATUREDIALOG_H */
 

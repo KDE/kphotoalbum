@@ -20,15 +20,19 @@
 #define DONATE_H
 #include <kdialogbase.h>
 
-class Donate :public KDialogBase
+namespace Dialogs
+{
+
+class DonateDialog :public KDialogBase
 {
     Q_OBJECT
 public:
-    Donate( QWidget* parent, const char* name );
+    DonateDialog( QWidget* parent, const char* name );
 protected slots:
     void slotDonate();
 };
 
+}
 
 #endif /* DONATE_H */
 

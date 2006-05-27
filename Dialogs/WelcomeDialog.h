@@ -16,32 +16,43 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DELETEDIALOG_H
-#define DELETEDIALOG_H
-#include <kdialogbase.h>
-#include "imageinfolist.h"
-class QLabel;
-class QCheckBox;
-class QRadioButton;
+#ifndef WELCOMEDIALOG_H
+#define WELCOMEDIALOG_H
 
-class DeleteDialog :public KDialogBase {
+#include <qdialog.h>
+class QLineEdit;
+
+namespace Dialogs
+{
+
+class WelComeDialog : public QDialog
+{
     Q_OBJECT
 
 public:
-    DeleteDialog( QWidget* parent, const char* name = 0 );
-    int exec( const QStringList& );
+    WelComeDialog( QWidget* parent = 0, const char* name = 0 );
+    QString configFileName() const;
 
 protected slots:
-    void deleteImages();
-
+    void slotLoadDemo();
+    void createSetup();
 private:
-    QStringList _list;
-    QLabel* _label;
-    QCheckBox* _deleteFromDisk;
-    QCheckBox* _block;
-
+    QString _configFile;
 };
 
 
-#endif /* DELETEDIALOG_H */
+class FileDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    FileDialog( QWidget* parent, const char* name = 0 );
+    QString getFileName();
+protected slots:
+    void slotBrowseForDirecory();
+private:
+    QLineEdit* _lineEdit;
+};
 
+}
+
+#endif // WELCOMEDIALOG_H

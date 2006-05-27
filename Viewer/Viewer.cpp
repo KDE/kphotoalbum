@@ -36,7 +36,7 @@
 #include <kiconloader.h>
 #include <kaction.h>
 #include <klocale.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <qsignalmapper.h>
 #include "ShowOptionAction.h"
 #include <qtimer.h>
@@ -533,7 +533,7 @@ void Viewer::Viewer::updateInfoBox()
 {
     if ( currentInfo() ) {
         QMap<int, QPair<QString,QString> > map;
-        QString origText = Util::createInfoText( currentInfo(), &map );
+        QString origText = Utilities::createInfoText( currentInfo(), &map );
         QString text = QString::fromLatin1("<qt>") + origText + QString::fromLatin1("</qt>");
         if ( Settings::Settings::instance()->showInfoBox() && !origText.isNull() ) {
             _infoBox->setInfo( text, map );

@@ -4,7 +4,7 @@
 #include <qstringlist.h>
 #include <qvaluelist.h>
 #include <qpair.h>
-#include <set.h>
+#include "Utilities/Set.h"
 
 namespace Exif {
 

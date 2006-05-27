@@ -1,5 +1,5 @@
 #include "Exif/TreeView.h"
-#include "set.h"
+#include "Utilities/Set.h"
 #include <qmap.h>
 #include <qstringlist.h>
 #include <klocale.h>

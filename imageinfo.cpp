@@ -28,7 +28,7 @@ extern "C" {
 #include <qimage.h>
 #include <qdom.h>
 #include "Settings/Settings.h"
-#include "util.h"
+#include "Utilities/Util.h"
 #include <kdebug.h>
 #include <qwmatrix.h>
 #include <qvariant.h>
@@ -136,7 +136,7 @@ void ImageInfo::setFileName( const QString& relativeFileName )
 {
     _fileName = relativeFileName;
     _imageOnDisk = Unchecked;
-    QString folderName = Util::relativeFolderName( _fileName );
+    QString folderName = Utilities::relativeFolderName( _fileName );
     _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
     ImageDB::instance()->categoryCollection()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
 }

@@ -30,7 +30,7 @@
 #include "Viewer/Viewer.h"
 #include "Dialogs/WelcomeDialog.h"
 #include <qcursor.h>
-#include "showbusycursor.h"
+#include "Utilities/ShowBusyCursor.h"
 #include <klocale.h>
 #include <qhbox.h>
 #include <qwidgetstack.h>
@@ -43,7 +43,7 @@
 #include "Settings/Settings.h"
 #include "Browser/Browser.h"
 #include "imagedb.h"
-#include "util.h"
+#include "Utilities/Util.h"
 #include <kapplication.h>
 #include <ktip.h>
 #include <kprocess.h>
@@ -246,7 +246,7 @@ void MainView::delayedInit()
 
 bool MainView::slotExit()
 {
-    if ( Util::runningDemo() ) {
+    if ( Utilities::runningDemo() ) {
         QString txt = i18n("<qt><p><b>Delete Your Temporary Demo Database</b></p>"
                            "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
                            "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
@@ -258,7 +258,7 @@ bool MainView::slotExit()
         if ( ret == KMessageBox::Cancel )
             return false;
         else if ( ret == KMessageBox::Yes ) {
-            Util::deleteDemo();
+            Utilities::deleteDemo();
             goto doQuit;
         }
         else {
@@ -348,7 +348,7 @@ void MainView::slotSearch()
 
 void MainView::createAnnotationDialog()
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     if ( !_annotationDialog.isNull() )
         return;
 
@@ -364,7 +364,7 @@ void MainView::deleteAnnotationDialog()
 
 void MainView::slotSave()
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     statusBar()->message(i18n("Saving..."), 5000 );
     ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
     setDirty( false );
@@ -379,7 +379,7 @@ void MainView::slotDeleteSelected()
     if ( _deleteDialog->exec( selected() ) != QDialog::Accepted )
         return;
 
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     setDirty( true );
 
     QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailView::SortedOrder );
@@ -444,7 +444,7 @@ void MainView::slotView( bool reuse, bool slideShow, bool random )
     }
 
     if (random)
-        listOnDisk = Util::shuffle( listOnDisk );
+        listOnDisk = Utilities::shuffle( listOnDisk );
 
     if ( listOnDisk.count() != 0 ) {
 
@@ -499,7 +499,7 @@ void MainView::closeEvent( QCloseEvent* e )
 
 void MainView::slotLimitToSelected()
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     showThumbNails( selected() );
 }
 
@@ -669,7 +669,7 @@ void MainView::startAutoSaveTimer()
 void MainView::slotAutoSave()
 {
     if ( _autoSaveDirty ) {
-        ShowBusyCursor dummy;
+        Utilities::ShowBusyCursor dummy;
         statusBar()->message(i18n("Auto saving...."));
         ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
@@ -766,7 +766,7 @@ bool MainView::load()
         configFile = args->getOption( "c" );
     }
     else if ( args->isSet( "demo" ) )
-        configFile = Util::setupDemo();
+        configFile = Utilities::setupDemo();
     else {
         bool showWelcome = false;
         KConfig* config = kapp->config();
@@ -1144,7 +1144,7 @@ void MainView::setupPluginMenu()
 void MainView::loadPlugins()
 {
 #ifdef HASKIPI
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     if ( _hasLoadedPlugins )
         return;
 
@@ -1376,7 +1376,7 @@ void MainView::showImage( const QString& fileName )
         QStringList list;
         list.append( fileName );
         Viewer::Viewer* viewer;
-        if ( !Util::ctrlKeyDown() && Viewer::Viewer::latest() ) {
+        if ( !Utilities::ctrlKeyDown() && Viewer::Viewer::latest() ) {
             viewer = Viewer::Viewer::latest();
             viewer->setActiveWindow();
             viewer->raise();

@@ -21,7 +21,7 @@
 #include <kzip.h>
 #include <qfileinfo.h>
 #include <time.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <qprogressdialog.h>
 #include <qeventloop.h>
 #include <klocale.h>
@@ -177,7 +177,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
     _progressDialog->setProgress( 0 );
     _progressDialog->show();
 
-    _nameMap = Util::createUniqNameMap( list, false, QString::null );
+    _nameMap = Utilities::createUniqNameMap( list, false, QString::null );
 
     // Copy image files and generate thumbnails
     if ( location != ManualCopy ) {
@@ -244,9 +244,9 @@ void Export::copyImages( const QStringList& list )
             if ( _location == Inline )
                 _zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
             else if ( _location == AutoCopy )
-                Util::copy( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
+                Utilities::copy( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
             else if ( _location == Link )
-                Util::makeHardLink( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
+                Utilities::makeHardLink( file, _destdir + QString::fromLatin1( "/" ) + zippedName );
 
             _steps++;
             _progressDialog->setProgress( _steps );
@@ -282,7 +282,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( !loadedOK )
         return;
     // Add the file to the zip archive
-    QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Util::stripSlash(_subdir)).arg(QFileInfo( _nameMap[fileName] ).baseName())
+    QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripSlash(_subdir)).arg(QFileInfo( _nameMap[fileName] ).baseName())
                           .arg(QFileInfo( _nameMap[fileName] ).extension() );
     QByteArray data;
     QBuffer buffer( data );

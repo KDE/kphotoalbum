@@ -26,9 +26,9 @@
 #include <qfile.h>
 #include <kmessagebox.h>
 #include "imagedb.h"
-#include "util.h"
+#include "Utilities/Util.h"
 #include "imageinfo.h"
-#include "showbusycursor.h"
+#include "Utilities/ShowBusyCursor.h"
 #include <qapplication.h>
 
 using namespace Dialogs;
@@ -65,11 +65,11 @@ int DeleteDialog::exec( const QStringList& list )
 
 void DeleteDialog::deleteImages()
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
 
     if ( _deleteFromDisk->isChecked() ) {
         for( QStringList::ConstIterator it = _list.begin(); it != _list.end(); ++it ) {
-            Util::removeThumbNail( *it );
+            Utilities::removeThumbNail( *it );
             if ( ImageDB::instance()->info(*it)->imageOnDisk() ) { // PENDING(blackie) we don't need imageinfo for this
                 bool ok = !(QFile( *it ).exists()) ||  QFile( *it ).remove();
                 if ( !ok ) {

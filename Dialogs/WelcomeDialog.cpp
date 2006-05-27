@@ -23,7 +23,7 @@
 #include <qlayout.h>
 #include <kfiledialog.h>
 #include <kstandarddirs.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <klineedit.h>
 #include <ksimpleconfig.h>
 #include <kmessagebox.h>
@@ -70,7 +70,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
 
 void WelComeDialog::slotLoadDemo()
 {
-    _configFile = Util::setupDemo();
+    _configFile = Utilities::setupDemo();
     accept();
 }
 

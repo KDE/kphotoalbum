@@ -16,25 +16,23 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "showbusycursor.h"
-#include <qapplication.h>
-#include <qcursor.h>
+#ifndef SHOWBUSYCURSOR_H
+#define SHOWBUSYCURSOR_H
 
-ShowBusyCursor::ShowBusyCursor()
+namespace Utilities
 {
-    qApp->setOverrideCursor( QCursor( Qt::WaitCursor ) );
-    _active = true;
+
+class ShowBusyCursor {
+
+public:
+    ShowBusyCursor();
+    ~ShowBusyCursor();
+    void stop();
+private:
+    bool _active;
+};
+
 }
 
-ShowBusyCursor::~ShowBusyCursor()
-{
-    stop();
-}
+#endif /* SHOWBUSYCURSOR_H */
 
-void ShowBusyCursor::stop()
-{
-    if ( _active ) {
-        qApp->restoreOverrideCursor();
-        _active=false;
-    }
-}

@@ -46,7 +46,7 @@
 #include <kmessagebox.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "showbusycursor.h"
+#include "Utilities/ShowBusyCursor.h"
 #include <ktimewidget.h>
 #include "KDateEdit.h"
 #include "Dialogs/DeleteDialog.h"
@@ -56,7 +56,7 @@
 #include "categorycollection.h"
 #include "imageinfo.h"
 #include <kconfig.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include "imagedb.h"
 #include <kdebug.h>
 #include <qfile.h>
@@ -65,7 +65,7 @@
 AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     QVBoxLayout* layout = new QVBoxLayout( this, 6 );
     _dockWindow = new KDockMainWindow( 0 );
 
@@ -375,7 +375,7 @@ void AnnotationDialog::AnnotationDialog::load()
     _preview->setImage( info );
 
     if ( _viewer )
-        _viewer->load( Util::infoListToStringList(_origList), _current );
+        _viewer->load( Utilities::infoListToStringList(_origList), _current );
 
     if ( _setup == SINGLE )
         setCaption( i18n("KPhotoAlbum Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
@@ -881,7 +881,7 @@ void AnnotationDialog::AnnotationDialog::slotResetLayout()
 {
     QString dest =  QString::fromLatin1( "%1/layout.xml" ).arg( Settings::Settings::instance()->imageDirectory() );
     QString src =locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
-    Util::copy( src,dest );
+    Utilities::copy( src,dest );
 
     deleteLater();
     closeDialog();

@@ -27,7 +27,7 @@
 #include <kmessagebox.h>
 #include "imagedb.h"
 #include "imageinfo.h"
-#include "util.h"
+#include "Utilities/Util.h"
 #include "Exif/Database.h"
 
 

@@ -25,9 +25,9 @@
 #include "ImageFolder.h"
 #include <qtimer.h>
 #include "imagedb.h"
-#include "util.h"
+#include "Utilities/Util.h"
 #include <qlistview.h>
-#include "showbusycursor.h"
+#include "Utilities/ShowBusyCursor.h"
 #include "BrowserItemFactory.h"
 #include <qwidgetstack.h>
 #include <qlayout.h>
@@ -91,7 +91,7 @@ void Browser::Browser::select( QListViewItem* item )
         return;
 
     BrowserListItem* folder = static_cast<BrowserListItem*>( item );
-    FolderAction* action = folder->_folder->action( Util::ctrlKeyDown() );
+    FolderAction* action = folder->_folder->action( Utilities::ctrlKeyDown() );
     select( action );
 }
 
@@ -101,13 +101,13 @@ void Browser::Browser::select( QIconViewItem* item )
         return;
 
     BrowserIconItem* folder = static_cast<BrowserIconItem*>( item );
-    FolderAction* action = folder->_folder->action( Util::ctrlKeyDown() );
+    FolderAction* action = folder->_folder->action( Utilities::ctrlKeyDown() );
     select( action );
 }
 
 void Browser::Browser::select( FolderAction* action )
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     if ( action ) {
         addItem( action );
         setupFactory();
@@ -215,7 +215,7 @@ void Browser::Browser::load( const QString& category, const QString& value )
     FolderAction* a;
 
     bool loadImages = ImageDB::instance()->count( info ) < Settings::Settings::instance()->autoShowThumbnailView();
-    if ( Util::ctrlKeyDown() ) loadImages = !loadImages;
+    if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )
         a = new ImageFolderAction( info, this );

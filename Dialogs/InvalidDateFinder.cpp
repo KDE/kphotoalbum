@@ -29,7 +29,7 @@
 #include "kprogress.h"
 #include <qapplication.h>
 #include <qeventloop.h>
-#include "showbusycursor.h"
+#include "Utilities/ShowBusyCursor.h"
 #include <qtextedit.h>
 #include <kdebug.h>
 
@@ -52,7 +52,7 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
 
 void InvalidDateFinder::slotOk()
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
 
     // create the info dialog
     KDialogBase* info = new KDialogBase(  Plain, i18n("Image Info" ), Ok, Ok, 0, "infobox", false );

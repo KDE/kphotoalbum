@@ -2,7 +2,7 @@
 #define EXIFTREEVIEW_H
 
 #include <qlistview.h>
-#include "set.h"
+#include "Utilities/Set.h"
 
 namespace Exif{
 

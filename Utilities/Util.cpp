@@ -16,7 +16,7 @@ the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
 Boston, MA 02110-1301, USA.
 */
 
-#include "util.h"
+#include "Util.h"
 #include "Settings/Settings.h"
 #include "imageinfo.h"
 #include "imagedecoder.h"
@@ -69,7 +69,7 @@ extern "C" {
  * (categoryName, categoryItem). This linkMap is used when the user selects
  * one of the hyberlinks.
  */
-QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
+QString Utilities::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
     Q_ASSERT( info );
     QString text;
@@ -132,7 +132,7 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
     return text;
 }
 
-void Util::checkForBackupFile( const QString& fileName )
+void Utilities::checkForBackupFile( const QString& fileName )
 {
     QString backupName = QFileInfo( fileName ).dirPath( true ) + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
     QFileInfo backUpFile( backupName);
@@ -158,7 +158,7 @@ void Util::checkForBackupFile( const QString& fileName )
     }
 }
 
-bool Util::ctrlKeyDown()
+bool Utilities::ctrlKeyDown()
 {
 #if KDE_IS_VERSION( 3, 4, 0 )
     return KApplication::keyboardMouseState() & ControlMask;
@@ -167,7 +167,7 @@ bool Util::ctrlKeyDown()
 #endif
 }
 
-QString Util::setupDemo()
+QString Utilities::setupDemo()
 {
     QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
     QFileInfo fi(dir);
@@ -248,7 +248,7 @@ QString Util::setupDemo()
     return configFile;
 }
 
-bool Util::copy( const QString& from, const QString& to )
+bool Utilities::copy( const QString& from, const QString& to )
 {
     QFile in( from );
     QFile out( to );
@@ -274,7 +274,7 @@ bool Util::copy( const QString& from, const QString& to )
     return true;
 }
 
-bool Util::makeHardLink( const QString& from, const QString& to )
+bool Utilities::makeHardLink( const QString& from, const QString& to )
 {
     if (link(from.ascii(), to.ascii()) != 0)
         return false;
@@ -282,7 +282,7 @@ bool Util::makeHardLink( const QString& from, const QString& to )
         return true;
 }
 
-QString Util::readInstalledFile( const QString& fileName )
+QString Utilities::readInstalledFile( const QString& fileName )
 {
     QString inFileName = locate( "data", QString::fromLatin1( "kphotoalbum/%1" ).arg( fileName ) );
     if ( inFileName.isEmpty() ) {
@@ -303,11 +303,11 @@ QString Util::readInstalledFile( const QString& fileName )
     return content;
 }
 
-QString Util::getThumbnailDir( const QString& imageFile ) {
+QString Utilities::getThumbnailDir( const QString& imageFile ) {
     return QFileInfo( imageFile ).dirPath() + QString::fromLatin1("/ThumbNails");
 }
 
-QString Util::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
+QString Utilities::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
     QFileInfo info( imageFile );
     while (angle < 0)
         angle += 360;
@@ -320,7 +320,7 @@ QString Util::getThumbnailFile( const QString& imageFile, int width, int height,
         .arg( info.fileName() );
 }
 
-void Util::removeThumbNail( const QString& imageFile )
+void Utilities::removeThumbNail( const QString& imageFile )
 {
     QFileInfo fi( imageFile );
     QString path = fi.dirPath(true);
@@ -334,13 +334,13 @@ void Util::removeThumbNail( const QString& imageFile )
 
 }
 
-bool Util::canReadImage( const QString& fileName )
+bool Utilities::canReadImage( const QString& fileName )
 {
     return KImageIO::canRead(KImageIO::type(fileName)) || ImageDecoder::mightDecode( fileName );
 }
 
 
-QString Util::readFile( const QString& fileName )
+QString Utilities::readFile( const QString& fileName )
 {
     if ( fileName.isEmpty() ) {
         KMessageBox::error( 0, i18n("<qt>Unable to find file %1</qt>").arg( fileName ) );
@@ -379,7 +379,7 @@ extern "C"
     }
 }
 
-bool Util::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
+bool Utilities::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
     FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
     if(!inputFile)
@@ -389,7 +389,7 @@ bool Util::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int 
     return ok;
 }
 
-bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim )
+bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim )
 {
     struct jpeg_decompress_struct    cinfo;
     struct myjpeg_error_mgr jerr;
@@ -471,13 +471,13 @@ bool Util::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim )
     return true;
 }
 
-bool Util::isJPEG( const QString& fileName )
+bool Utilities::isJPEG( const QString& fileName )
 {
     QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
     return format == QString::fromLocal8Bit( "JPEG" );
 }
 
-QStringList Util::shuffle( const QStringList& input )
+QStringList Utilities::shuffle( const QStringList& input )
 {
     QStringList list = input;
     static bool init = false;
@@ -503,7 +503,7 @@ QStringList Util::shuffle( const QStringList& input )
    cd1/abc/file.jpg -> file.jpg
    cd3/file.jpg     -> file-2.jpg
 */
-Util::UniqNameMap Util::createUniqNameMap( const QStringList& images, bool relative, const QString& destDir  )
+Utilities::UniqNameMap Utilities::createUniqNameMap( const QStringList& images, bool relative, const QString& destDir  )
 {
     QMap<QString, QString> map;
     QMap<QString, QString> inverseMap;
@@ -511,7 +511,7 @@ Util::UniqNameMap Util::createUniqNameMap( const QStringList& images, bool relat
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
         QString fullName = *it;
         if ( relative )
-            fullName = Util::stripImageDirectory( *it );
+            fullName = Utilities::stripImageDirectory( *it );
         QString base = QFileInfo( fullName ).baseName();
         QString ext = QFileInfo( fullName ).extension();
         QString file = base + QString::fromLatin1( "." ) +  ext;
@@ -546,7 +546,7 @@ Util::UniqNameMap Util::createUniqNameMap( const QStringList& images, bool relat
     return map;
 }
 
-QString Util::stripSlash( const QString& fileName )
+QString Utilities::stripSlash( const QString& fileName )
 {
     if ( fileName.endsWith( QString::fromLatin1( "/" ) ) )
         return fileName.left( fileName.length()-1);
@@ -554,7 +554,7 @@ QString Util::stripSlash( const QString& fileName )
         return fileName;
 }
 
-QString Util::relativeFolderName( const QString& fileName)
+QString Utilities::relativeFolderName( const QString& fileName)
 {
     int index= fileName.findRev( '/', -1);
     if (index == -1)
@@ -563,13 +563,13 @@ QString Util::relativeFolderName( const QString& fileName)
         return fileName.left( index ) ;
 }
 
-bool Util::runningDemo()
+bool Utilities::runningDemo()
 {
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     return args->isSet( "demo" );
 }
 
-void Util::deleteDemo()
+void Utilities::deleteDemo()
 {
     QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
     KURL url;
@@ -578,7 +578,7 @@ void Util::deleteDemo()
 }
 
 // PENDING(blackie) delete this method
-QStringList Util::infoListToStringList( const ImageInfoList& list )
+QStringList Utilities::infoListToStringList( const ImageInfoList& list )
 {
     QStringList result;
     for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
@@ -587,7 +587,7 @@ QStringList Util::infoListToStringList( const ImageInfoList& list )
     return result;
 }
 
-QString Util::stripImageDirectory( const QString& fileName )
+QString Utilities::stripImageDirectory( const QString& fileName )
 {
     if ( fileName.startsWith( Settings::Settings::instance()->imageDirectory() ) )
         return fileName.mid( Settings::Settings::instance()->imageDirectory().length() );
@@ -595,7 +595,7 @@ QString Util::stripImageDirectory( const QString& fileName )
         return fileName;
 }
 
-QStringList Util::diff( const QStringList& list1, const QStringList& list2 )
+QStringList Utilities::diff( const QStringList& list1, const QStringList& list2 )
 {
     QStringList result;
     for( QStringList::ConstIterator it = list1.constBegin(); it != list1.constEnd(); ++it ) {
@@ -605,7 +605,7 @@ QStringList Util::diff( const QStringList& list1, const QStringList& list2 )
     return result;
 }
 
-QString Util::absoluteImageFileName( const QString& relativeName )
+QString Utilities::absoluteImageFileName( const QString& relativeName )
 {
     return stripSlash( Settings::Settings::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
 }

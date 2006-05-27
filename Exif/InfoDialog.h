@@ -2,7 +2,7 @@
 #define EXIFDIALOG_H
 #include <kdialogbase.h>
 #include <qgridview.h>
-#include "set.h"
+#include "Utilities/Set.h"
 #include "imageclient.h"
 class QTable;
 

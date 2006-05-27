@@ -17,14 +17,14 @@
 */
 
 #include "XMLDB.h"
-#include "showbusycursor.h"
+#include "Utilities/ShowBusyCursor.h"
 #include "Settings/Settings.h"
 #include <qfileinfo.h>
 #include <qfile.h>
 #include <qdir.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include "groupCounter.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>
@@ -49,7 +49,7 @@
 bool XMLDB::XMLDB::_anyImageWithEmptySize = false;
 XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )
 {
-    Util::checkForBackupFile( configFile );
+    Utilities::checkForBackupFile( configFile );
     QDomElement top = readConfigFile( configFile );
     _fileVersion = top.attribute( QString::fromLatin1( "version" ), QString::fromLatin1( "1" ) ).toInt();
     QDomElement categories;
@@ -535,7 +535,7 @@ ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
 {
     ImageInfoPtr info = createImageInfo( fileName, elm, this );
     // This is for compatibility with KimDaBa 2.1 where this info was not saved.
-    QString folderName = Util::relativeFolderName( fileName );
+    QString folderName = Utilities::relativeFolderName( fileName );
     info->setOption( QString::fromLatin1( "Folder") , QStringList( folderName ) );
     _categoryCollection.categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
     return info;

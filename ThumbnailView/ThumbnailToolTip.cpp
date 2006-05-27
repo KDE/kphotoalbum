@@ -19,7 +19,7 @@
 #include "ThumbnailToolTip.h"
 #include <qcursor.h>
 #include <qlayout.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <qtooltip.h>
 #include "Settings/Settings.h"
 #include <qmime.h>
@@ -72,10 +72,10 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
                          .arg(fileName).
-                         arg(Util::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
+                         arg(Utilities::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             else {
-                setText( QString::fromLatin1("<qt>%1</qt>").arg( Util::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
+                setText( QString::fromLatin1("<qt>%1</qt>").arg( Utilities::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
             }
         }
 

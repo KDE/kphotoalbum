@@ -48,7 +48,7 @@
 #include <qtextedit.h>
 #include <qregexp.h>
 #include <unistd.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <kdebug.h>
 #include <qdir.h>
 #include <ksimpleconfig.h>
@@ -300,7 +300,7 @@ bool HTMLExportDialog::generate()
     _progress->setProgress( 0 );
     connect( _progress, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
 
-    _nameMap = Util::createUniqNameMap( _list, false, QString::null );
+    _nameMap = Utilities::createUniqNameMap( _list, false, QString::null );
 
     // Itertate over each of the image sizes needed.
     for( QValueList<ImageSizeCheckBox*>::Iterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
@@ -353,7 +353,7 @@ bool HTMLExportDialog::generate()
             *it == QString::fromLatin1("imagepage.html")) continue;
         QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
         QString to = _tempDir+QString::fromLatin1("/") + *it;
-        ok = Util::copy( from, to );
+        ok = Utilities::copy( from, to );
         if ( !ok ) {
             KMessageBox::error( this, i18n("Error copying %1 to %2").arg( from ).arg( to ) );
             return false;
@@ -373,7 +373,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 {
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
-    QString content = Util::readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
+    QString content = Utilities::readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
     if ( content.isNull() )
         return false;
 
@@ -474,7 +474,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
 {
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
-    QString content = Util::readFile( QString::fromLatin1( "%1imagepage.html" ).arg( themeDir ));
+    QString content = Utilities::readFile( QString::fromLatin1( "%1imagepage.html" ).arg( themeDir ));
     if ( content.isNull() )
         return false;
 
@@ -774,7 +774,7 @@ bool HTMLExportDialog::linkIndexFile()
             QString destFile = _tempDir + QString::fromLatin1("/index.html");
             // bool ok = ( symlink( QFile::encodeName(fromFile), QFile::encodeName(destFile) ) == 0 );
             kdDebug() <<fromFile << " " << QFile( fromFile ).exists() << " " << destFile << endl;
-            bool ok = Util::copy( QFileInfo(destFile).dirPath() + fromFile, destFile );
+            bool ok = Utilities::copy( QFileInfo(destFile).dirPath() + fromFile, destFile );
             if ( !ok ) {
                 KMessageBox::error( this, i18n("<qt>Unable to copy %1 to %2</qt>")
                                     .arg( fromFile ).arg( destFile ) );

@@ -4,7 +4,7 @@
 #include "Settings/Settings.h"
 #include "Browser/Browser.h"
 #include <qdir.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <qprogressdialog.h>
 #include <klocale.h>
 #include <qapplication.h>
@@ -58,7 +58,7 @@ void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString 
             continue;
 
         if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
-             Util::canReadImage(fi.extension()) ) {
+             Utilities::canReadImage(fi.extension()) ) {
             QString baseName = file.mid( imageDir.length()+1 );
 
             if ( ! ImageDB::instance()->isBlocking( baseName ) ) {
@@ -95,11 +95,11 @@ void NewImageFinder::loadExtraFiles()
 
 ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
 {
-    QString absoluteNewFileName = Util::absoluteImageFileName( relativeNewFileName );
+    QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
     QString sum = MD5Sum( absoluteNewFileName );
     if ( ImageDB::instance()->md5Map()->contains( sum ) ) {
         QString relativeMatchedFileName = ImageDB::instance()->md5Map()->lookup(sum);
-        QString absoluteMatchedFileName = Util::absoluteImageFileName( relativeMatchedFileName );
+        QString absoluteMatchedFileName = Utilities::absoluteImageFileName( relativeMatchedFileName );
         QFileInfo fi( absoluteMatchedFileName );
 
         if ( !fi.exists() ) {
@@ -162,7 +162,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list )
         info->setMD5Sum( md5 );
         if  ( orig != md5 ) {
             dirty = true;
-            Util::removeThumbNail( *it );
+            Utilities::removeThumbNail( *it );
         }
 
         ImageDB::instance()->md5Map()->insert( md5, info->fileName(true) );

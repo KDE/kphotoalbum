@@ -28,7 +28,7 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
-#include "set.h"
+#include "Utilities/Set.h"
 #include <config.h>
 
 #define property__( type, group, prop, setFunction, defaultValue ) \

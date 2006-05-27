@@ -1,4 +1,4 @@
-#include "imagedecoder.h"
+#include "ImageDecoder.h"
 
 #include <ktempfile.h>
 #include <qfile.h>
@@ -10,6 +10,9 @@
 extern "C" {
 	int extract_thumbnail( FILE*, FILE*, int* );
 }
+
+namespace ImageManager
+{
 
 class RAWImageDecoder : public ImageDecoder {
 public:
@@ -83,6 +86,7 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 	return false;
 }
 
-namespace {
+  // Create a global instance. Its constructor will itself register it.
   RAWImageDecoder rawdecoder;
+
 }

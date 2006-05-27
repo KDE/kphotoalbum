@@ -7,7 +7,7 @@ ThumbnailView::ThumbnailRequest::ThumbnailRequest()
 }
 
 ThumbnailView::ThumbnailRequest::ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailView* client)
-    :ImageRequest( fileName, size, angle, client ), _thumbnailView( client ), _fileName( fileName )
+    : ImageManager::ImageRequest( fileName, size, angle, client ), _thumbnailView( client ), _fileName( fileName )
 {
 }
 

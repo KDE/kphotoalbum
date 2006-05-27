@@ -24,7 +24,7 @@
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
 #include <qlabel.h>
-#include "imagemanager.h"
+#include "ImageManager/ImageManager.h"
 #include <qcursor.h>
 #include <qapplication.h>
 #include <klocale.h>
@@ -206,9 +206,9 @@ void Viewer::DisplayArea::setImage( ImageInfoPtr info, bool forward )
         _cachedView = true;
     }
     else {
-        ImageRequest* request = new ImageRequest( info->fileName(), QSize( -1, -1 ), info->angle(), this );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( -1, -1 ), info->angle(), this );
         request->setPriority();
-        ImageManager::instance()->load( request );
+        ImageManager::ImageManager::instance()->load( request );
         busy();
         _cachedView = false;
     }
@@ -218,14 +218,14 @@ void Viewer::DisplayArea::setImage( ImageInfoPtr info, bool forward )
 
 void Viewer::DisplayArea::resizeEvent( QResizeEvent* )
 {
-    ImageManager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
+    ImageManager::ImageManager::instance()->stop( this, ImageManager::ImageManager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
     if ( _info ) {
         cropAndScale();
         if ( _cachedView ) {
-            ImageRequest* request = new ImageRequest( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
             request->setPriority();
-            ImageManager::instance()->load( request );
+            ImageManager::ImageManager::instance()->load( request );
         }
     }
     updatePreload();
@@ -318,9 +318,9 @@ void Viewer::DisplayArea::zoom( QPoint p1, QPoint p2 )
     if ( _cachedView ) {
         // This was a cached version, which means not full size, lets load
         // the real size now.
-        ImageRequest* request = new ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
         request->setPriority();
-        ImageManager::instance()->load( request );
+        ImageManager::ImageManager::instance()->load( request );
         busy();
         _reloadImageInProgress = true;
     }
@@ -506,8 +506,9 @@ void Viewer::DisplayArea::updatePreload()
             }
         }
         else {
-            ImageRequest* request = new ImageRequest( info->fileName(), QSize(width(), height()), info->angle(), this );
-            ImageManager::instance()->load( request );
+            ImageManager::ImageRequest* request =
+                new ImageManager::ImageRequest( info->fileName(), QSize(width(), height()), info->angle(), this );
+            ImageManager::ImageManager::instance()->load( request );
 
             if ( cacheFull ) {
                 // The cache was full, we need to delete an item from the cache.

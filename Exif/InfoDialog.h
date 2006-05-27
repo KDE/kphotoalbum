@@ -3,13 +3,13 @@
 #include <kdialogbase.h>
 #include <qgridview.h>
 #include "Utilities/Set.h"
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 class QTable;
 
 namespace Exif
 {
 
-class InfoDialog : public KDialogBase, public ImageClient {
+class InfoDialog : public KDialogBase, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:

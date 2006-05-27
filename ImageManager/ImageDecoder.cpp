@@ -1,22 +1,22 @@
-#include "imagedecoder.h"
+#include "ImageDecoder.h"
 
-QPtrList<ImageDecoder>* ImageDecoder::decoders()
+QPtrList<ImageManager::ImageDecoder>* ImageManager::ImageDecoder::decoders()
 {
 	static QPtrList<ImageDecoder> s_decoders;
 	return &s_decoders;
 }
 
-ImageDecoder::ImageDecoder()
+ImageManager::ImageDecoder::ImageDecoder()
 {
 	decoders()->append(this);
 }
 
-ImageDecoder::~ImageDecoder()
+ImageManager::ImageDecoder::~ImageDecoder()
 {
 	decoders()->remove(this);
 }
 
-bool ImageDecoder::decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
+bool ImageManager::ImageDecoder::decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
 	QPtrList<ImageDecoder>* lst = decoders();
 	for( QPtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
@@ -25,7 +25,7 @@ bool ImageDecoder::decode(QImage *img, const QString& imageFile, QSize* fullSize
 	return false;
 }
 
-bool ImageDecoder::mightDecode( const QString& imageFile )
+bool ImageManager::ImageDecoder::mightDecode( const QString& imageFile )
 {
 	QPtrList<ImageDecoder>* lst = decoders();
 	for( QPtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {

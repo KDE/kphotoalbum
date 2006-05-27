@@ -72,7 +72,7 @@
 #ifdef HASEXIV2
 #  include "Exif/ReReadDialog.h"
 #endif
-#include "imageloader.h"
+#include "ImageManager/ImageLoader.h"
 #include "mysplashscreen.h"
 #include <qobjectlist.h>
 #include <qmenubar.h>
@@ -1192,7 +1192,7 @@ void MainView::plug()
 void MainView::slotImagesChanged( const KURL::List& urls )
 {
     for( KURL::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
-        ImageLoader::removeThumbnail( (*it).path() );
+        ImageManager::ImageLoader::removeThumbnail( (*it).path() );
     }
     reloadThumbnails(true);
 }

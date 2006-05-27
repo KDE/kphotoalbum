@@ -22,14 +22,14 @@
 #include <qlabel.h>
 #include <qdialog.h>
 #include <qdict.h>
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 class ImageInfo;
 
 namespace ThumbnailView
 {
 class ThumbnailView;
 
-class ThumbnailToolTip :public QLabel, public ImageClient {
+class ThumbnailToolTip :public QLabel, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:

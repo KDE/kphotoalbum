@@ -7,8 +7,8 @@
 #include <qevent.h>
 #include <qtimer.h>
 #include <qlabel.h>
-#include "imagemanager.h"
-#include "imagerequest.h"
+#include "ImageManager/ImageManager.h"
+#include "ImageManager/ImageRequest.h"
 #include "imagedb.h"
 
 Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
@@ -31,7 +31,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
 
     _pix = new QLabel( top );
     hlay->addWidget( _pix );
-    ImageManager::instance()->load( new ImageRequest( fileName, QSize( 128, 128 ), ImageDB::instance()->info(fileName)->angle(), this ) );
+    ImageManager::ImageManager::instance()->load( new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), ImageDB::instance()->info(fileName)->angle(), this ) );
 
     // -------------------------------------------------- Exif Grid
     Exif::Grid* grid = new Exif::Grid( fileName, top );

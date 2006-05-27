@@ -20,7 +20,7 @@
 #include <klocale.h>
 #include "imagedb.h"
 #include "imagesearchinfo.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kiconloader.h>

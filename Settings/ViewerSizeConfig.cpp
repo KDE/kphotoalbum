@@ -16,13 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "viewersizeconfig.h"
+#include "ViewerSizeConfig.h"
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qspinbox.h>
 #include <klocale.h>
 #include <qlabel.h>
-ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const char* name )
+
+Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const char* name )
     :QVGroupBox( title, parent, name )
 {
     _fullScreen = new QCheckBox( i18n("Launch in full screen" ), this );
@@ -45,25 +46,25 @@ ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const
     lay->addStretch( 1 );
 }
 
-void ViewerSizeConfig::setSize( const QSize& size  )
+void Settings::ViewerSizeConfig::setSize( const QSize& size  )
 {
     _width->setValue( size.width() );
     _height->setValue( size.height() );
 }
 
-QSize ViewerSizeConfig::size()
+QSize Settings::ViewerSizeConfig::size()
 {
     return QSize( _width->value(), _height->value() );
 }
 
-void ViewerSizeConfig::setLaunchFullScreen( bool b )
+void Settings::ViewerSizeConfig::setLaunchFullScreen( bool b )
 {
     _fullScreen->setChecked( b );
 }
 
-bool ViewerSizeConfig::launchFullScreen() const
+bool Settings::ViewerSizeConfig::launchFullScreen() const
 {
     return _fullScreen->isChecked();
 }
 
-#include "viewersizeconfig.moc"
+#include "ViewerSizeConfig.moc"

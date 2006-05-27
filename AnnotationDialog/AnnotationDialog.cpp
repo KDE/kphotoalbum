@@ -24,7 +24,7 @@
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qlabel.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "ImagePreview.h"
 #include <qregexp.h>
 #include <qtabwidget.h>
@@ -252,7 +252,7 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
     // If I don't explicit show _dockWindow here, then no windows will show up.
     _dockWindow->show();
 
-    setGeometry( Options::instance()->windowGeometry( Options::ConfigWindow ) );
+    setGeometry( Settings::Settings::instance()->windowGeometry( Settings::ConfigWindow ) );
 }
 
 
@@ -587,7 +587,7 @@ void AnnotationDialog::AnnotationDialog::slotSaveWindowSetup()
 
     _dockWindow->writeDockConfig( top );
     QCString xml = doc.toCString();
-    QFile file( QString::fromLatin1( "%1/layout.xml" ).arg( Options::instance()->imageDirectory() ) );
+    QFile file( QString::fromLatin1( "%1/layout.xml" ).arg( Settings::Settings::instance()->imageDirectory() ) );
     file.open( IO_WriteOnly );
     file.writeBlock( xml.data(), xml.size()-1 );
     file.close();
@@ -812,12 +812,12 @@ void AnnotationDialog::AnnotationDialog::showHelpDialog( SetupType type )
 
 void AnnotationDialog::AnnotationDialog::resizeEvent( QResizeEvent* )
 {
-    Options::instance()->setWindowGeometry( Options::ConfigWindow, geometry() );
+    Settings::Settings::instance()->setWindowGeometry( Settings::ConfigWindow, geometry() );
 }
 
 void AnnotationDialog::AnnotationDialog::moveEvent( QMoveEvent * )
 {
-    Options::instance()->setWindowGeometry( Options::ConfigWindow, geometry() );
+    Settings::Settings::instance()->setWindowGeometry( Settings::ConfigWindow, geometry() );
 
 }
 
@@ -879,7 +879,7 @@ void AnnotationDialog::AnnotationDialog::setupFocus()
 
 void AnnotationDialog::AnnotationDialog::slotResetLayout()
 {
-    QString dest =  QString::fromLatin1( "%1/layout.xml" ).arg( Options::instance()->imageDirectory() );
+    QString dest =  QString::fromLatin1( "%1/layout.xml" ).arg( Settings::Settings::instance()->imageDirectory() );
     QString src =locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
     Util::copy( src,dest );
 
@@ -897,7 +897,7 @@ void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const ImageDate& 
 
 void AnnotationDialog::AnnotationDialog::loadWindowLayout()
 {
-    QString fileName =  QString::fromLatin1( "%1/layout.xml" ).arg( Options::instance()->imageDirectory() );
+    QString fileName =  QString::fromLatin1( "%1/layout.xml" ).arg( Settings::Settings::instance()->imageDirectory() );
     if ( !QFileInfo(fileName).exists() )
         fileName =locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
 

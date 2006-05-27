@@ -21,7 +21,7 @@
 #include <qlayout.h>
 #include <qstringlist.h>
 #include <qcombobox.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qgrid.h>
 #include <qlabel.h>
 #include <klocale.h>

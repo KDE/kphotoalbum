@@ -23,7 +23,7 @@ Boston, MA 02110-1301, USA.
 #include "util.h"
 #include <qfileinfo.h>
 #include <qapplication.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qdir.h>
 
 extern "C" {

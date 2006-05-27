@@ -44,7 +44,7 @@ void ImageDB::connectSlots()
              _instance, SLOT( deleteItem( Category*, const QString& ) ) );
     connect( _instance->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
              _instance, SLOT( renameItem( Category*, const QString&, const QString& ) ) );
-    connect( Options::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
+    connect( Settings::Settings::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
 }
 
 QString ImageDB::NONE()

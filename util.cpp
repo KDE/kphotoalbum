@@ -17,7 +17,7 @@ Boston, MA 02110-1301, USA.
 */
 
 #include "util.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include "imageinfo.h"
 #include "imagedecoder.h"
 #include <klocale.h>
@@ -73,7 +73,7 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
 {
     Q_ASSERT( info );
     QString text;
-    if ( Options::instance()->showDate() )  {
+    if ( Settings::Settings::instance()->showDate() )  {
         text = info->date().toString( true );
 
         if ( !text.isEmpty() ) {
@@ -110,14 +110,14 @@ QString Util::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString
         }
     }
 
-    if ( Options::instance()->showDescription() && !info->description().isEmpty())  {
+    if ( Settings::Settings::instance()->showDescription() && !info->description().isEmpty())  {
         if ( !text.isEmpty() )
             text += i18n("<b>Description: </b> ") +  info->description() + QString::fromLatin1("<br>");
     }
 
 #ifdef HASEXIV2
     QString exifText;
-    if ( Options::instance()->showEXIF() ) {
+    if ( Settings::Settings::instance()->showEXIF() ) {
         QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
         for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
             exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
@@ -533,8 +533,8 @@ Util::UniqNameMap Util::createUniqNameMap( const QStringList& images, bool relat
 
         QString relFile = file;
         if ( relative ) {
-            Q_ASSERT( file.startsWith( Options::instance()->imageDirectory() ) );
-            relFile = file.mid( Options::instance()->imageDirectory().length() );
+            Q_ASSERT( file.startsWith( Settings::Settings::instance()->imageDirectory() ) );
+            relFile = file.mid( Settings::Settings::instance()->imageDirectory().length() );
             if ( relFile.startsWith( QString::fromLatin1( "/" ) ) )
                 relFile = relFile.mid(1);
         }
@@ -589,8 +589,8 @@ QStringList Util::infoListToStringList( const ImageInfoList& list )
 
 QString Util::stripImageDirectory( const QString& fileName )
 {
-    if ( fileName.startsWith( Options::instance()->imageDirectory() ) )
-        return fileName.mid( Options::instance()->imageDirectory().length() );
+    if ( fileName.startsWith( Settings::Settings::instance()->imageDirectory() ) )
+        return fileName.mid( Settings::Settings::instance()->imageDirectory().length() );
     else
         return fileName;
 }
@@ -607,7 +607,7 @@ QStringList Util::diff( const QStringList& list1, const QStringList& list2 )
 
 QString Util::absoluteImageFileName( const QString& relativeName )
 {
-    return stripSlash( Options::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
+    return stripSlash( Settings::Settings::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
 }
 bool operator>( const QPoint& p1, const QPoint& p2)
 {

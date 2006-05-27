@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "optionsdialog.h"
+#include "SettingsDialog.h"
 #include <kfiledialog.h>
 #include <klocale.h>
 #include <qlayout.h>
@@ -24,7 +24,7 @@
 #include <kcombobox.h>
 #include <kpushbutton.h>
 #include <qspinbox.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <kicondialog.h>
 #include <qlistbox.h>
 #include <kmessagebox.h>
@@ -36,7 +36,7 @@
 #include <kiconloader.h>
 #include <qvgroupbox.h>
 #include <qhbox.h>
-#include "viewersizeconfig.h"
+#include "ViewerSizeConfig.h"
 #include <limits.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
@@ -45,7 +45,7 @@
 #include <kcolorbutton.h>
 #include "categorycollection.h"
 #include "showbusycursor.h"
-#include "optionsdialog.moc"
+#include "SettingsDialog.moc"
 #include <kapplication.h>
 #include <kconfig.h>
 #include "mainview.h"
@@ -58,8 +58,8 @@
 #include <qlistview.h>
 #include <config.h>
 
-OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n( "Options" ), Apply | Ok | Cancel, Ok, parent, name, false ), _memberMap( MemberMap( ImageDB::instance() ) ), _currentCategory( QString::null ), _currentGroup( QString::null )
+Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
+    :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _memberMap( MemberMap( ImageDB::instance() ) ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createThumbNailPage();
@@ -74,7 +74,7 @@ OptionsDialog::OptionsDialog( QWidget* parent, const char* name )
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }
 
-void OptionsDialog::createGeneralPage()
+void Settings::SettingsDialog::createGeneralPage()
 {
     QWidget* top = addPage( i18n("General" ), i18n("General" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
@@ -216,7 +216,7 @@ void OptionsDialog::createGeneralPage()
     QWhatsThis::add( _compressedIndexXML, txt );
 }
 
-void OptionsDialog::createThumbNailPage()
+void Settings::SettingsDialog::createThumbNailPage()
 {
     QWidget* top = addPage( i18n("Thumbnail View" ), i18n("Thumbnail View" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_icon" ),
@@ -318,7 +318,7 @@ void OptionGroupItem::setLabel( const QString& label )
 }
 
 
-void OptionsDialog::createOptionGroupsPage()
+void Settings::SettingsDialog::createOptionGroupsPage()
 {
     QWidget* top = addPage( i18n("Categories"), i18n("Categories"),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "identity" ),
@@ -377,9 +377,9 @@ void OptionsDialog::createOptionGroupsPage()
 
 
 
-void OptionsDialog::show()
+void Settings::SettingsDialog::show()
 {
-    Options* opt = Options::instance();
+    Settings::Settings* opt = Settings::Settings::instance();
 
     // General page
     _previewSize->setValue( opt->previewSize() );
@@ -425,8 +425,8 @@ void OptionsDialog::show()
 #ifdef HASEXIV2
     _exifForViewer->reload();
     _exifForDialog->reload();
-    _exifForViewer->setSelected( Options::instance()->exifForViewer() );
-    _exifForDialog->setSelected( Options::instance()->exifForDialog() );
+    _exifForViewer->setSelected( Settings::Settings::instance()->exifForViewer() );
+    _exifForDialog->setSelected( Settings::Settings::instance()->exifForDialog() );
 #endif
     enableDisable( false );
     KDialogBase::show();
@@ -435,14 +435,14 @@ void OptionsDialog::show()
 
 
 // KDialogBase has a slotOK which we do not want to override.
-void OptionsDialog::slotMyOK()
+void Settings::SettingsDialog::slotMyOK()
 {
     ShowBusyCursor dummy;
-    Options* opt = Options::instance();
+    Settings::Settings* opt = Settings::Settings::instance();
 
     // General
     opt->setPreviewSize( _previewSize->value() );
-    opt->setTTimeStamps( (Options::TimeStampTrust) _trustTimeStamps->currentItem() );
+    opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
@@ -472,7 +472,7 @@ void OptionsDialog::slotMyOK()
     // Delete items
     for( QValueList<OptionGroupItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
         if ( !(*it)->_categoryOrig.isNull() ) {
-            // the Options instance knows about the item.
+            // the Settings instance knows about the item.
             ImageDB::instance()->categoryCollection()->removeCategory( (*it)->_categoryOrig );
         }
     }
@@ -522,7 +522,7 @@ void OptionsDialog::slotMyOK()
 }
 
 
-void OptionsDialog::edit( QListBoxItem* i )
+void Settings::SettingsDialog::edit( QListBoxItem* i )
 {
     if ( i == 0 )
         return;
@@ -535,7 +535,7 @@ void OptionsDialog::edit( QListBoxItem* i )
     enableDisable( true );
 }
 
-void OptionsDialog::slotLabelChanged( const QString& label)
+void Settings::SettingsDialog::slotLabelChanged( const QString& label)
 {
     if ( _currentCategory == _current->_text )
         _currentCategory = label;
@@ -544,7 +544,7 @@ void OptionsDialog::slotLabelChanged( const QString& label)
         _current->setLabel( label );
 }
 
-void OptionsDialog::slotPreferredViewChanged( int i )
+void Settings::SettingsDialog::slotPreferredViewChanged( int i )
 {
     if ( _current ) {
         if ( i < 2 )
@@ -561,13 +561,13 @@ void OptionsDialog::slotPreferredViewChanged( int i )
 
 
 
-void OptionsDialog::slotIconChanged( QString icon )
+void Settings::SettingsDialog::slotIconChanged( QString icon )
 {
     if( _current )
         _current->_icon = icon;
 }
 
-void OptionsDialog::slotNewItem()
+void Settings::SettingsDialog::slotNewItem()
 {
     _current = new OptionGroupItem( QString::null, QString::null, QString::null, Category::Small, Category::ListView, _categories );
     _text->setText( QString::fromLatin1( "" ) );
@@ -577,7 +577,7 @@ void OptionsDialog::slotNewItem()
     _text->setFocus();
 }
 
-void OptionsDialog::slotDeleteCurrent()
+void Settings::SettingsDialog::slotDeleteCurrent()
 {
     int answer = KMessageBox::Yes;
     KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->_text) );
@@ -592,7 +592,7 @@ void OptionsDialog::slotDeleteCurrent()
     enableDisable(false);
 }
 
-void OptionsDialog::enableDisable( bool b )
+void Settings::SettingsDialog::enableDisable( bool b )
 {
     _delItem->setEnabled( b );
     _text->setEnabled( b );
@@ -601,7 +601,7 @@ void OptionsDialog::enableDisable( bool b )
     _preferredView->setEnabled( b );
 }
 
-void OptionsDialog::createGroupConfig()
+void Settings::SettingsDialog::createGroupConfig()
 {
     QWidget* top = addPage( i18n("Member Groups" ), i18n("Member Groups" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ),
@@ -658,12 +658,12 @@ void OptionsDialog::createGroupConfig()
    When the user selects a new category from the combo box then this method is called
    Its purpose is too fill the groups and members listboxes.
 */
-void OptionsDialog::slotCategoryChanged( const QString& text )
+void Settings::SettingsDialog::slotCategoryChanged( const QString& text )
 {
     slotCategoryChanged( ImageDB::instance()->categoryCollection()->nameForText(text), true );
 }
 
-void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
+void Settings::SettingsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
 {
     if ( saveGroups ) {
         // We do not want to save groups when renaming categories
@@ -697,14 +697,14 @@ void OptionsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
     setButtonStates();
 }
 
-void OptionsDialog::slotGroupSelected( QListBoxItem* item )
+void Settings::SettingsDialog::slotGroupSelected( QListBoxItem* item )
 {
     saveOldGroup();
     if ( item )
         selectMembers( item->text() );
 }
 
-void OptionsDialog::slotAddGroup()
+void Settings::SettingsDialog::slotAddGroup()
 {
     bool ok;
     QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), QString::null, &ok );
@@ -719,7 +719,7 @@ void OptionsDialog::slotAddGroup()
     }
 }
 
-void OptionsDialog::slotRenameGroup()
+void Settings::SettingsDialog::slotRenameGroup()
 {
     Q_ASSERT( !_currentGroup.isNull() );
     bool ok;
@@ -734,7 +734,7 @@ void OptionsDialog::slotRenameGroup()
     }
 }
 
-void OptionsDialog::slotDelGroup()
+void Settings::SettingsDialog::slotDelGroup()
 {
     Q_ASSERT( !_currentGroup.isNull() );
     int res = KMessageBox::warningContinueCancel( this, i18n( "Really delete group %1?" ).arg( _currentGroup ),i18n("Delete Group"),KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
@@ -754,7 +754,7 @@ void OptionsDialog::slotDelGroup()
     setButtonStates();
 }
 
-void OptionsDialog::saveOldGroup()
+void Settings::SettingsDialog::saveOldGroup()
 {
     if ( _currentCategory.isNull() || _currentGroup.isNull() )
         return;
@@ -768,7 +768,7 @@ void OptionsDialog::saveOldGroup()
     _memberMap.setMembers(_currentCategory, _currentGroup, list);
 }
 
-void OptionsDialog::selectMembers( const QString& group )
+void Settings::SettingsDialog::selectMembers( const QString& group )
 {
     _currentGroup = group;
     QStringList list = _memberMap.members(_currentCategory,group, false );
@@ -779,13 +779,13 @@ void OptionsDialog::selectMembers( const QString& group )
 }
 
 
-int OptionsDialog::exec()
+int Settings::SettingsDialog::exec()
 {
     slotCategoryChanged( _currentCategory, false );
     return KDialogBase::exec();
 }
 
-void OptionsDialog::setButtonStates()
+void Settings::SettingsDialog::setButtonStates()
 {
     bool b = !_currentGroup.isNull();
     _rename->setEnabled( b );
@@ -793,7 +793,7 @@ void OptionsDialog::setButtonStates()
 }
 
 
-void OptionsDialog::slotPageChange()
+void Settings::SettingsDialog::slotPageChange()
 {
     _category->clear();
     QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
@@ -810,7 +810,7 @@ void OptionsDialog::slotPageChange()
 
 
 
-void OptionsDialog::createViewerPage()
+void Settings::SettingsDialog::createViewerPage()
 {
     QWidget* top = addPage( i18n("Viewer" ), i18n("Viewer" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag" ),
@@ -841,7 +841,7 @@ void OptionsDialog::createViewerPage()
 }
 
 
-void OptionsDialog::createPluginPage()
+void Settings::SettingsDialog::createPluginPage()
 {
 #ifdef HASKIPI
     MainView::theMainView()->loadPlugins();
@@ -861,7 +861,7 @@ void OptionsDialog::createPluginPage()
 #endif
 }
 
-void OptionsDialog::createEXIFPage()
+void Settings::SettingsDialog::createEXIFPage()
 {
 #ifdef HASEXIV2
     QWidget* top = addPage( i18n("EXIF Information" ), i18n("Exif Information" ),

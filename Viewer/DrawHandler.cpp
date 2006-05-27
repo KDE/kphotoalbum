@@ -17,7 +17,7 @@
 */
 
 #include "Viewer/DrawHandler.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include "Viewer/Draw.h"
 #include "Viewer/DisplayArea.h"
 #include <qpainter.h>
@@ -127,7 +127,7 @@ Viewer::Draw* Viewer::DrawHandler::createTool()
 
 void Viewer::DrawHandler::drawAll( QPainter& painter )
 {
-    if ( Options::instance()->showDrawings() || _tool != None ) {
+    if ( Settings::Settings::instance()->showDrawings() || _tool != None ) {
         for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
             painter.save();
             setupPainter( &painter );

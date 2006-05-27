@@ -27,7 +27,7 @@ extern "C" {
 #include <qfileinfo.h>
 #include <qimage.h>
 #include <qdom.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "util.h"
 #include <kdebug.h>
 #include <qwmatrix.h>
@@ -51,8 +51,8 @@ ImageInfo::ImageInfo() :_null( true ), _locked( false )
 ImageInfo::ImageInfo( const QString& fileName )
     :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
 {
-    QString fullPath = Options::instance()->imageDirectory()+ fileName;
-    QFileInfo fi( Options::instance()->imageDirectory() + fileName );
+    QString fullPath = Settings::Settings::instance()->imageDirectory()+ fileName;
+    QFileInfo fi( Settings::Settings::instance()->imageDirectory() + fileName );
     _label = fi.baseName( true );
     _angle = 0;
 
@@ -129,7 +129,7 @@ QString ImageInfo::fileName( bool relative ) const
     if (relative)
         return _fileName;
     else
-        return  Options::instance()->imageDirectory() + _fileName;
+        return  Settings::Settings::instance()->imageDirectory() + _fileName;
 }
 
 void ImageInfo::setFileName( const QString& relativeFileName )
@@ -235,15 +235,15 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     FileInfo exifInfo = FileInfo::read( fullPath );
 
     // Date
-    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Options::instance()->trustTimeStamps() ) )
+    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::Settings::instance()->trustTimeStamps() ) )
         _date = exifInfo.dateTime();
 
     // Orientation
-    if ( (mode & EXIFMODE_ORIENTATION) && Options::instance()->useEXIFRotate() )
+    if ( (mode & EXIFMODE_ORIENTATION) && Settings::Settings::instance()->useEXIFRotate() )
         _angle = exifInfo.angle();
 
     // Description
-    if ( (mode & EXIFMODE_DESCRIPTION) && Options::instance()->useEXIFComments() )
+    if ( (mode & EXIFMODE_DESCRIPTION) && Settings::Settings::instance()->useEXIFComments() )
         _description = exifInfo.description();
 
     // Database update

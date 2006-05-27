@@ -2,7 +2,7 @@
 #define CATEGORYCOLLECTION_H
 
 #include <qvaluelist.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <ksharedptr.h>
 #include "category.h"
 

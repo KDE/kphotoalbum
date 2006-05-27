@@ -19,7 +19,7 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-#include "options.h"
+#include "Settings/Settings.h"
 #include <kxmlguiclient.h>
 #include <kaction.h>
 #include <qdialog.h>

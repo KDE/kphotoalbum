@@ -20,7 +20,7 @@
 #define BROWSER_H
 #include <qlistview.h>
 #include <qiconview.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "imageinfoptr.h"
 
 class ImageSearchInfo;

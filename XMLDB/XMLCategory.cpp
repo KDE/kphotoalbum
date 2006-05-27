@@ -1,6 +1,6 @@
 #include "XMLCategory.h"
 #include "imagedb.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include "membermap.h"
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewSize size, ViewType type, bool show )

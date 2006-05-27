@@ -16,29 +16,45 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VIEWERSIZECONFIG_H
-#define VIEWERSIZECONFIG_H
+#ifndef CATEGORYIMAGECONFIG_H
+#define CATEGORYIMAGECONFIG_H
 
-#include <qvgroupbox.h>
-class QCheckBox;
-class QSpinBox;
+#include <kdialogbase.h>
+#include <qimage.h>
+#include "imageinfoptr.h"
+#include "imageinfo.h"
 
-class ViewerSizeConfig :public QVGroupBox {
+class ImageInfo;
+class QComboBox;
+class QLabel;
+
+class CategoryImageConfig :public KDialogBase {
     Q_OBJECT
 
 public:
-    ViewerSizeConfig( const QString& title, QWidget* parent, const char* name = 0 );
-    void setSize( const QSize& size );
-    QSize size();
-    void setLaunchFullScreen( bool b );
-    bool launchFullScreen() const;
+    static CategoryImageConfig* instance();
+    void setCurrentImage( const QImage& image, const ImageInfoPtr& info );
+    void show();
+
+protected slots:
+    void groupChanged();
+    void memberChanged();
+    void slotSet();
+
+protected:
+    QString currentGroup();
 
 private:
-    QCheckBox* _fullScreen;
-    QSpinBox* _width;
-    QSpinBox* _height;
+    static CategoryImageConfig* _instance;
+    CategoryImageConfig();
+    QComboBox* _group;
+    QComboBox* _member;
+    QLabel* _current;
+    QImage _image;
+    QLabel* _imageLabel;
+    ImageInfoPtr _info;
 };
 
 
-#endif /* VIEWERSIZECONFIG_H */
+#endif /* CATEGORYIMAGECONFIG_H */
 

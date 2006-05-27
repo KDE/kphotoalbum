@@ -22,7 +22,7 @@
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "imageinfolist.h"
 class CategoryCollection;
 class ImageInfo;

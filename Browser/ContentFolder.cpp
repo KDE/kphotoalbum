@@ -17,7 +17,7 @@
 */
 
 #include "ContentFolder.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include "TypeFolder.h"
 #include "ImageFolder.h"
 #include <klocale.h>
@@ -50,7 +50,7 @@ QPixmap Browser::ContentFolder::pixmap()
         }
     }
     else
-        return Options::instance()->categoryImage( _category, _value, 64 );
+        return Settings::Settings::instance()->categoryImage( _category, _value, 64 );
 }
 
 QString Browser::ContentFolder::text() const
@@ -87,7 +87,7 @@ void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 
 Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 {
-    bool loadImages = (ImageDB::instance()->count( _info ) < Options::instance()->autoShowThumbnailView());
+    bool loadImages = (ImageDB::instance()->count( _info ) < Settings::Settings::instance()->autoShowThumbnailView());
     if ( ctrlDown ) loadImages = !loadImages;
 
     if ( loadImages ) {

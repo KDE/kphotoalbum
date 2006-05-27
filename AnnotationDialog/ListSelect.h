@@ -21,7 +21,7 @@
 
 #include <qwidget.h>
 #include <qstringlist.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qtoolbutton.h>
 class QListBox;
 class QLabel;
@@ -59,7 +59,7 @@ public slots:
 protected slots:
     void itemSelected( QListBoxItem* );
     void showContextMenu( QListBoxItem*, const QPoint& );
-    void setViewSortType( Options::ViewSortType );
+    void setViewSortType( Settings::ViewSortType );
     void slotSortDate();
     void slotSortAlpha();
     void checkBoxStateChanged( int state );

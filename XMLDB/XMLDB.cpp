@@ -18,7 +18,7 @@
 
 #include "XMLDB.h"
 #include "showbusycursor.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qfileinfo.h>
 #include <qfile.h>
 #include <qdir.h>
@@ -157,7 +157,7 @@ void XMLDB::XMLDB::deleteItem( Category* category, const QString& option )
 
 void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
 {
-    ImageSearchInfo info = Options::instance()->currentLock();
+    ImageSearchInfo info = Settings::Settings::instance()->currentLock();
     for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         if ( lock ) {
             bool match = info.match( *it );
@@ -377,7 +377,7 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
     else {
         top = doc.createElement( QString::fromLatin1("KPhotoAlbum") );
         top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "2" ) );
-        top.setAttribute( QString::fromLatin1( "compressed" ), Options::instance()->useCompressedIndexXML() );
+        top.setAttribute( QString::fromLatin1( "compressed" ), Settings::Settings::instance()->useCompressedIndexXML() );
     }
     doc.appendChild( top );
 
@@ -510,7 +510,7 @@ void XMLDB::XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomE
 
 void XMLDB::XMLDB::loadImages( const QDomElement& images )
 {
-    QString directory = Options::instance()->imageDirectory();
+    QString directory = Settings::Settings::instance()->imageDirectory();
 
     for ( QDomNode node = images.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
@@ -624,7 +624,7 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
         QMap<QString,QStringList> map = it1.data();
         for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
             QStringList list = it2.data();
-            if ( Options::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" )) {
+            if ( Settings::Settings::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" )) {
                 QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                 elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
@@ -992,7 +992,7 @@ QDomElement XMLDB::XMLDB::save( QDomDocument doc, const ImageInfoPtr& info )
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
 
-    if ( Options::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
+    if ( Settings::Settings::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         writeCategoriesCompressed( elm, info );
     else
         writeCategories( doc, elm, info );

@@ -2,7 +2,7 @@
 #undef QT_CAST_NO_ASCII
 #include "Exif/Database.h"
 #include <qsqldatabase.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
@@ -160,7 +160,7 @@ bool Exif::Database::isAvailable()
 
 QString Exif::Database::exifDBFile()
 {
-    return Options::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
+    return Settings::Settings::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
 Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )

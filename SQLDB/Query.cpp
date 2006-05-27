@@ -3,7 +3,7 @@
 #include <imagedb.h>
 #include <imagesearchinfo.h>
 #include <qsqlquery.h>
-#include <options.h>
+#include "Settings/Settings.h"
 #include "QueryUtil.h"
 #include <kdebug.h>
 

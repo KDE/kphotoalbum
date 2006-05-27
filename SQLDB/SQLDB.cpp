@@ -9,7 +9,7 @@
 #include "Query.h"
 #include "QueryUtil.h"
 #include <imageinfo.h>
-#include <util.h>
+#include "Utilities/Util.h"
 #include "groupCounter.h"
 #include <kdebug.h>
 #include "SQLImageInfo.h"
@@ -215,7 +215,7 @@ void SQLDB::SQLDB::deleteList( const QStringList& list )
     imageCategoryQuery.prepare( "DELETE FROM imagecategoryinfo where fileId=:fileId" );
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        QString fileName = Util::stripImageDirectory( *it );
+        QString fileName = Utilities::stripImageDirectory( *it );
         imageInfoQuery.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( fileName ) );
         imageCategoryQuery.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( fileName ) );
 

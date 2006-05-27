@@ -20,7 +20,7 @@ Boston, MA 02110-1301, USA.
 #include <qwaitcondition.h>
 #include "imagedecoder.h"
 #include "imagemanager.h"
-#include "util.h"
+#include "Utilities/Util.h"
 #include <qfileinfo.h>
 #include <qapplication.h>
 #include "Settings/Settings.h"
@@ -125,8 +125,8 @@ QImage ImageLoader::loadImage( ImageRequest* request, bool& ok )
         return QImage();
 
     QImage img;
-    if (Util::isJPEG(request->fileName())) {
-        ok = Util::loadJPEG(&img, request->fileName(),  &fullSize, dim);
+    if (Utilities::isJPEG(request->fileName())) {
+        ok = Utilities::loadJPEG(&img, request->fileName(),  &fullSize, dim);
         if (ok == true)
             request->setFullSize( fullSize );
     } else {

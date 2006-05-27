@@ -7,7 +7,7 @@
 #include "imagemanager.h"
 #include "imageinfoptr.h"
 #include "imagedb.h"
-#include "util.h"
+#include "Utilities/Util.h"
 #include <qcursor.h>
 #include <qapplication.h>
 #include "ThumbnailToolTip.h"

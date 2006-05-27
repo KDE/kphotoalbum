@@ -3,7 +3,7 @@
 
 #include "MouseInteraction.h"
 #include <qobject.h>
-#include "set.h"
+#include "Utilities/Set.h"
 #include "Cell.h"
 
 namespace ThumbnailView

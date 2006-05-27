@@ -21,7 +21,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qdir.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <stdlib.h>
 #include <kmessagebox.h>
 #include <klocale.h>

@@ -6,7 +6,7 @@
 #include <kdebug.h>
 #include <qregexp.h>
 #include <qdir.h>
-#include <util.h>
+#include "Utilities/Util.h"
 
 void XMLDB::NumberedBackup::makeNumberedBackup()
 {
@@ -29,7 +29,7 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
         zip.close();
     }
     else {
-        Util::copy( QString::fromLatin1( "%1/index.xml" ).arg( Settings::Settings::instance()->imageDirectory() ),
+        Utilities::copy( QString::fromLatin1( "%1/index.xml" ).arg( Settings::Settings::instance()->imageDirectory() ),
                     QString::fromLatin1( "%1/%2" ).arg( Settings::Settings::instance()->imageDirectory() ).arg( fileName ) );
     }
 }

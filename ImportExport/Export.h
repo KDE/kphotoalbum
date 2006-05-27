@@ -21,7 +21,7 @@ Boston, MA 02110-1301, USA.
 
 #include "imageclient.h"
 #include <kdialogbase.h>
-#include "util.h"
+#include "Utilities/Util.h"
 class QRadioButton;
 class QSpinBox;
 class QCheckBox;
@@ -56,7 +56,7 @@ private:
     QString _subdir;
     bool _loopEntered;
     ImageFileLocation _location;
-    Util::UniqNameMap _nameMap;
+    Utilities::UniqNameMap _nameMap;
     bool _copyingFiles;
     QString _destdir;
 };

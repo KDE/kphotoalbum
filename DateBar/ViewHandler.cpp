@@ -22,7 +22,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kapplication.h>
-#include "util.h"
+#include "Utilities/Util.h"
 
 using namespace DateBar;
 

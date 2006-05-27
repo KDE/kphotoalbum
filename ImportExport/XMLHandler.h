@@ -4,7 +4,7 @@
 #include <qstringlist.h>
 #include <qstring.h>
 #include "Export.h"
-#include <util.h>
+#include "Utilities/Util.h"
 #include "imageinfoptr.h"
 #include <qdom.h>
 
@@ -14,7 +14,7 @@ class XMLHandler
 {
 public:
     QCString createIndexXML( const QStringList& images, const QString& baseUrl, ImageFileLocation location,
-                             const Util::UniqNameMap& nameMap );
+                             const Utilities::UniqNameMap& nameMap );
 
 protected:
     QDomElement save( QDomDocument doc, const ImageInfoPtr& info );

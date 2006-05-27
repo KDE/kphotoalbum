@@ -9,7 +9,7 @@
 #include "Exif/DatabaseElement.h"
 #include "Database.h"
 #include <qfile.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <kstandarddirs.h>
 #include "mainview.h"
 #include <kmessagebox.h>
@@ -222,7 +222,7 @@ void Exif::Database::init()
 
     bool dbExists = QFile::exists( exifDBFile() );
     if ( !dbExists ) {
-        bool copied = Util::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
+        bool copied = Utilities::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
         if ( !copied ) {
             qWarning( "Cannot initialize new EXIF database file: %s", exifDBFile().local8Bit().data() );
             return;

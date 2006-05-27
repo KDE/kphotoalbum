@@ -44,7 +44,7 @@
 #include <kdebug.h>
 #include <kcolorbutton.h>
 #include "categorycollection.h"
-#include "showbusycursor.h"
+#include "Utilities/ShowBusyCursor.h"
 #include "SettingsDialog.moc"
 #include <kapplication.h>
 #include <kconfig.h>
@@ -437,7 +437,7 @@ void Settings::SettingsDialog::show()
 // KDialogBase has a slotOK which we do not want to override.
 void Settings::SettingsDialog::slotMyOK()
 {
-    ShowBusyCursor dummy;
+    Utilities::ShowBusyCursor dummy;
     Settings::Settings* opt = Settings::Settings::instance();
 
     // General

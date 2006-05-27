@@ -4,7 +4,7 @@
 #include <qgridview.h>
 #include <qvaluelist.h>
 #include "imageclient.h"
-#include "set.h"
+#include "Utilities/Set.h"
 #include "ThumbnailToolTip.h"
 #include "GridResizeInteraction.h"
 #include "SelectionInteraction.h"

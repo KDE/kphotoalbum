@@ -33,7 +33,7 @@
 #include "ImportMatcher.h"
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include "imagedb.h"
 #include <qimage.h>
 #include <qwmatrix.h>
@@ -544,7 +544,7 @@ void Import::stopCopyingImages()
 void Import::slotFinish()
 {
     _finishedPressed = true;
-    _nameMap = Util::createUniqNameMap( Util::infoListToStringList(selectedImages()), true, _destinationEdit->text() );
+    _nameMap = Utilities::createUniqNameMap( Utilities::infoListToStringList(selectedImages()), true, _destinationEdit->text() );
     bool ok;
     if ( _externalSource ) {
         hide();

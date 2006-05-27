@@ -2,7 +2,7 @@
 #define EXIF_H
 #include <qmap.h>
 #include <qstringlist.h>
-#include "set.h"
+#include "Utilities/Set.h"
 #include <exiv2/exif.hpp>
 
 namespace Exif {

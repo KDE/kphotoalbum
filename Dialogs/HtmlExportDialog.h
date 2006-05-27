@@ -28,7 +28,7 @@ class QTextEdit;
 #include "imageclient.h"
 #include <qvaluelist.h>
 #include <qcombobox.h>
-#include "util.h"
+#include "Utilities/Util.h"
 
 namespace Dialogs
 {
@@ -91,7 +91,7 @@ private:
     bool _doneLoading;
     QString _tempDir;
     QMap< QString, QCheckBox* > _whatToIncludeMap;
-    Util::UniqNameMap _nameMap;
+    Utilities::UniqNameMap _nameMap;
     int _maxImageSize;
 };
 

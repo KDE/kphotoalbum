@@ -1,14 +1,14 @@
 #include "SQLImageInfo.h"
 #include "QueryUtil.h"
 #include <qsqlquery.h>
-#include <util.h>
+#include "Utilities/Util.h"
 
 const QString imageInfoAttributes = "label, description, startDate, endDate, angle, md5sum, width, height";
 
 SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     :ImageInfo()
 {
-    QString relativeFileName = Util::stripImageDirectory( fileName );
+    QString relativeFileName = Utilities::stripImageDirectory( fileName );
     _fileId = idForFileName( relativeFileName );
 
     QSqlQuery query;
@@ -116,8 +116,8 @@ ImageInfo& SQLDB::SQLImageInfo::operator=( const ImageInfo& other )
     for( QStringList::ConstIterator categoryIt = categories.constBegin(); categoryIt != categories.constEnd(); ++categoryIt ) {
         QStringList myItems = itemsOfCategory( *categoryIt );
         QStringList otherItems = other.itemsOfCategory( *categoryIt );
-        QStringList newItems = Util::diff( otherItems, myItems );
-        QStringList deadItems = Util::diff( myItems, otherItems );
+        QStringList newItems = Utilities::diff( otherItems, myItems );
+        QStringList deadItems = Utilities::diff( myItems, otherItems );
 
         insertQuery.bindValue( QString::fromLatin1( ":category" ), *categoryIt );
         removeQuery.bindValue( QString::fromLatin1( ":category" ), *categoryIt );

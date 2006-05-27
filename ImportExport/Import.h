@@ -22,7 +22,7 @@
 #include <kwizard.h>
 #include <kurl.h>
 #include <kio/job.h>
-#include "util.h"
+#include "Utilities/Util.h"
 
 class QProgressDialog;
 class KTempFile;
@@ -107,7 +107,7 @@ private:
     KTempFile* _tmp;
     bool _externalSource;
     KURL _kimFile;
-    Util::UniqNameMap _nameMap;
+    Utilities::UniqNameMap _nameMap;
     bool _finishedPressed;
     int _totalCopied;
     ImageInfoList _pendingCopies;

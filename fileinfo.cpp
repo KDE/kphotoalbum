@@ -1,8 +1,8 @@
 #include "fileinfo.h"
 #include <qdatetime.h>
 #include <qfileinfo.h>
-#include "util.h"
-#include "set.h"
+#include "Utilities/Util.h"
+#include "Utilities/Set.h"
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif

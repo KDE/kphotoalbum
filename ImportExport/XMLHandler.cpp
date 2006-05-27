@@ -1,6 +1,6 @@
 #include "XMLHandler.h"
 #include <qdom.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include "imagedb.h"
 
 /**
@@ -17,7 +17,7 @@
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
 QCString ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
-                                                   ImageFileLocation location, const Util::UniqNameMap& nameMap )
+                                                   ImageFileLocation location, const Utilities::UniqNameMap& nameMap )
 {
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),

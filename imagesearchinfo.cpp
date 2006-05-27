@@ -20,7 +20,7 @@
 #include <qregexp.h>
 #include "Settings/Settings.h"
 #include <klocale.h>
-#include "util.h"
+#include "Utilities/Util.h"
 #include <kdebug.h>
 #include "optionmatcher.h"
 #include "imagedb.h"

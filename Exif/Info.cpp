@@ -1,7 +1,7 @@
 #include "Exif/Info.h"
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
-#include "set.h"
+#include "Utilities/Set.h"
 #include "Settings/Settings.h"
 #include <qsqlquery.h>
 #include <iostream>

@@ -22,11 +22,16 @@ class QSize;
 class QImage;
 class QString;
 
+namespace ImageManager
+{
+
 class ImageClient {
 public:
     virtual ~ImageClient();
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK ) = 0;
 };
+
+}
 
 #endif /* IMAGECLIENT_H */
 

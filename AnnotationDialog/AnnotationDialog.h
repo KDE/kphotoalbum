@@ -18,7 +18,7 @@
 
 #ifndef IMAGECONFIG_H
 #define IMAGECONFIG_H
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 #include "ListSelect.h"
 #include "imagesearchinfo.h"
 #include <kdockwidget.h>

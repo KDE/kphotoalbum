@@ -16,10 +16,10 @@ the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
 Boston, MA 02110-1301, USA.
 */
 
-#include "imageloader.h"
+#include "ImageLoader.h"
 #include <qwaitcondition.h>
-#include "imagedecoder.h"
-#include "imagemanager.h"
+#include "ImageDecoder.h"
+#include "ImageManager.h"
 #include "Utilities/Util.h"
 #include <qfileinfo.h>
 #include <qapplication.h>
@@ -44,12 +44,12 @@ extern "C" {
 #include <kdebug.h>
 #include <kmdcodec.h>
 
-ImageLoader::ImageLoader( QWaitCondition* sleeper )
+ImageManager::ImageLoader::ImageLoader( QWaitCondition* sleeper )
     : _sleeper( sleeper )
 {
 }
 
-void ImageLoader::run()
+void ImageManager::ImageLoader::run()
 {
     while ( true ) {
         ImageRequest* request = ImageManager::instance()->next();
@@ -76,7 +76,7 @@ void ImageLoader::run()
     }
 }
 
-QImage ImageLoader::rotateAndScale( QImage img, int width, int height, int angle )
+QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int height, int angle )
 {
     if ( angle != 0 )  {
         QWMatrix matrix;
@@ -87,7 +87,7 @@ QImage ImageLoader::rotateAndScale( QImage img, int width, int height, int angle
     return img;
 }
 
-void ImageLoader::removeThumbnail( const QString& imageFile )
+void ImageManager::ImageLoader::removeThumbnail( const QString& imageFile )
 {
     QFileInfo fi( imageFile );
     QString tnPattern = QString::fromLatin1( "*-%2.%3" ).arg(fi.baseName()).arg(fi.extension());
@@ -98,7 +98,7 @@ void ImageLoader::removeThumbnail( const QString& imageFile )
     }
 }
 
-QImage ImageLoader::tryLoadThumbnail( ImageRequest* request, bool& ok )
+QImage ImageManager::ImageLoader::tryLoadThumbnail( ImageRequest* request, bool& ok )
 {
     ok = false;
     QString path = thumbnailPath( request );
@@ -115,7 +115,7 @@ QImage ImageLoader::tryLoadThumbnail( ImageRequest* request, bool& ok )
     return QImage();
 }
 
-QImage ImageLoader::loadImage( ImageRequest* request, bool& ok )
+QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
 {
     int dim = calcLoadSize( request );
     QSize fullSize;
@@ -144,7 +144,7 @@ QImage ImageLoader::loadImage( ImageRequest* request, bool& ok )
     return img;
 }
 
-void ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
+void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
 {
     QDir dir(QDir::homeDirPath());
     dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
@@ -175,7 +175,7 @@ void ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
     }
 }
 
-int ImageLoader::calcLoadSize( ImageRequest* request )
+int ImageManager::ImageLoader::calcLoadSize( ImageRequest* request )
 {
     if ( request->width() == -1 )
         return -1;
@@ -189,7 +189,7 @@ int ImageLoader::calcLoadSize( ImageRequest* request )
         return 128;
 }
 
-QImage ImageLoader::scaleAndRotate( ImageRequest* request, QImage img )
+QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage img )
 {
     if ( request->angle() != 0 )  {
         QWMatrix matrix;
@@ -208,12 +208,12 @@ QImage ImageLoader::scaleAndRotate( ImageRequest* request, QImage img )
     return img;
 }
 
-QString ImageLoader::thumbnailPath( ImageRequest* request )
+QString ImageManager::ImageLoader::thumbnailPath( ImageRequest* request )
 {
     return thumbnailPath( requestURL( request ), calcLoadSize( request ) );
 }
 
-QString ImageLoader::thumbnailPath( QString uri, int dim )
+QString ImageManager::ImageLoader::thumbnailPath( QString uri, int dim )
 {
     QString dir;
     if ( dim == 256 )
@@ -227,7 +227,7 @@ QString ImageLoader::thumbnailPath( QString uri, int dim )
     return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homeDirPath()).arg(dir).arg(md5.hexDigest());
 }
 
-QString ImageLoader::requestURL( ImageRequest* request )
+QString ImageManager::ImageLoader::requestURL( ImageRequest* request )
 {
     KURL url;
     url.setPath( request->fileName() );

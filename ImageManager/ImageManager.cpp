@@ -16,15 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imagemanager.h"
-#include "imageloader.h"
+#include "ImageManager.h"
+#include "ImageLoader.h"
 #include "Settings/Settings.h"
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 #include <qdatetime.h>
 #include <qmutex.h>
 #include <qapplication.h>
 
-ImageManager* ImageManager::_instance = 0;
+ImageManager::ImageManager* ImageManager::ImageManager::_instance = 0;
 
 /**
    This class is responsible for loading icons in a separate thread.
@@ -38,20 +38,20 @@ ImageManager* ImageManager::_instance = 0;
    3) Most important, it did not allow loading only thumbnails when the
       image themself weren't available.
 */
-ImageManager::ImageManager() :_currentLoading(0)
+ImageManager::ImageManager::ImageManager() :_currentLoading(0)
 {
     _clientList.resize( 9973 /* a large prime */ );
 }
 
 // We need this as a separate method as the _instance variable will otherwise not be initialized
 // corrected before the thread starts.
-void ImageManager::init()
+void ImageManager::ImageManager::init()
 {
     ImageLoader* imageLoader = new ImageLoader( &_sleepers );
     imageLoader->start();
 }
 
-void ImageManager::load( ImageRequest* request )
+void ImageManager::ImageManager::load( ImageRequest* request )
 {
     QMutexLocker dummy( &_lock );
     if ( _currentLoading && _currentLoading->fileName() == request->fileName() && _currentLoading->client() == request->client() &&
@@ -79,7 +79,7 @@ void ImageManager::load( ImageRequest* request )
     _sleepers.wakeOne();
 }
 
-ImageRequest* ImageManager::next()
+ImageManager::ImageRequest* ImageManager::ImageManager::next()
 {
     QMutexLocker dummy(&_lock );
     ImageRequest* request = 0;
@@ -100,7 +100,7 @@ ImageRequest* ImageManager::next()
     return request;
 }
 
-void ImageManager::customEvent( QCustomEvent* ev )
+void ImageManager::ImageManager::customEvent( QCustomEvent* ev )
 {
     if ( ev->type() == 1001 )  {
         ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );
@@ -140,7 +140,7 @@ void ImageManager::customEvent( QCustomEvent* ev )
     }
 }
 
-ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
+ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
     : QCustomEvent( 1001 ), _request( request ),  _image( image )
 {
     // We would like to use QDeepCopy, but that results in multiple
@@ -149,12 +149,12 @@ ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
     _image.detach();
 }
 
-ImageRequest* ImageEvent::loadInfo()
+ImageManager::ImageRequest* ImageManager::ImageEvent::loadInfo()
 {
     return _request;
 }
 
-ImageManager* ImageManager::instance()
+ImageManager::ImageManager* ImageManager::ImageManager::instance()
 {
     if ( !_instance )  {
         _instance = new ImageManager;
@@ -164,7 +164,7 @@ ImageManager* ImageManager::instance()
     return _instance;
 }
 
-void ImageManager::stop( ImageClient* client, StopAction action )
+void ImageManager::ImageManager::stop( ImageClient* client, StopAction action )
 {
     // remove from active map
     for( QPtrDictIterator<void> it(_clientList); it.current(); ) {
@@ -185,9 +185,9 @@ void ImageManager::stop( ImageClient* client, StopAction action )
     _lock.unlock();
 }
 
-QImage ImageEvent::image()
+QImage ImageManager::ImageEvent::image()
 {
     return _image;
 }
 
-#include "imagemanager.moc"
+#include "ImageManager.moc"

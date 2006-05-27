@@ -1,12 +1,12 @@
 #ifndef THUMBNAILREQUEST_H
 #define THUMBNAILREQUEST_H
-#include "imagerequest.h"
+#include "ImageManager/ImageRequest.h"
 
 namespace ThumbnailView
 {
 class ThumbnailView;
 
-class ThumbnailRequest :public ImageRequest
+class ThumbnailRequest :public ImageManager::ImageRequest
 {
 public:
     ThumbnailRequest();

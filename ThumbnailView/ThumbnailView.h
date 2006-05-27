@@ -3,7 +3,7 @@
 
 #include <qgridview.h>
 #include <qvaluelist.h>
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 #include "Utilities/Set.h"
 #include "ThumbnailToolTip.h"
 #include "GridResizeInteraction.h"
@@ -22,7 +22,7 @@ namespace ThumbnailView
 {
 enum SortDirection {NewestFirst, OldestFirst};
 
-class ThumbnailView : public QGridView, public ImageClient {
+class ThumbnailView : public QGridView, public ImageManager::ImageClient {
     Q_OBJECT
 
     static const int SPACE = 3;

@@ -4,6 +4,9 @@
 #include <qptrlist.h>
 #include <qimage.h>
 
+namespace ImageManager
+{
+
 class ImageDecoder {
 public:
 	static bool decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1 );
@@ -19,6 +22,7 @@ protected:
 private:
 	static QPtrList<ImageDecoder>* decoders();
 };
+}
 
 #endif /* IMAGEDECODER_H */
 

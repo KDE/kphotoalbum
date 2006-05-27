@@ -22,14 +22,18 @@
 #include <qpixmap.h>
 #include <qptrlist.h>
 #include "Viewer/DrawList.h"
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 #include <qimage.h>
 #include <qcache.h>
 #include <qptrvector.h>
 #include "imageinfolist.h"
 #include "imageinfoptr.h"
 class ImageInfo;
-class ImageRequest;
+
+namespace ImageManager
+{
+    class ImageRequest;
+}
 
 namespace Viewer
 {
@@ -47,7 +51,7 @@ struct ViewPreloadInfo
     int angle;
 };
 
-class DisplayArea :public QWidget, public ImageClient {
+class DisplayArea :public QWidget, public ImageManager::ImageClient {
 Q_OBJECT
 public:
     DisplayArea( QWidget* parent, const char* name = 0 );

@@ -19,8 +19,11 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
 #include <qthread.h>
-class ImageManager;
 class QWaitCondition;
+
+namespace ImageManager
+{
+class ImageManager;
 class ImageRequest;
 
 class ImageLoader :public QThread {
@@ -43,6 +46,8 @@ protected:
 private:
     QWaitCondition* _sleeper;
 };
+
+}
 
 #endif /* IMAGELOADER_H */
 

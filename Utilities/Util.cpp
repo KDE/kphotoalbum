@@ -19,7 +19,7 @@ Boston, MA 02110-1301, USA.
 #include "Util.h"
 #include "Settings/Settings.h"
 #include "imageinfo.h"
-#include "imagedecoder.h"
+#include "ImageManager/ImageDecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include <kmessagebox.h>
@@ -336,7 +336,7 @@ void Utilities::removeThumbNail( const QString& imageFile )
 
 bool Utilities::canReadImage( const QString& fileName )
 {
-    return KImageIO::canRead(KImageIO::type(fileName)) || ImageDecoder::mightDecode( fileName );
+    return KImageIO::canRead(KImageIO::type(fileName)) || ImageManager::ImageDecoder::mightDecode( fileName );
 }
 
 

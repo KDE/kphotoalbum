@@ -25,7 +25,7 @@ class QCheckBox;
 class QProgressDialog;
 class ImageSizeCheckBox;
 class QTextEdit;
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 #include <qvaluelist.h>
 #include <qcombobox.h>
 #include "Utilities/Util.h"
@@ -33,7 +33,7 @@ class QTextEdit;
 namespace Dialogs
 {
 
-class HTMLExportDialog :public KDialogBase, private ImageClient {
+class HTMLExportDialog :public KDialogBase, private ImageManager::ImageClient {
     Q_OBJECT
 
 public:

@@ -18,7 +18,7 @@
 
 #ifndef IMAGEMANAGER_H
 #define IMAGEMANAGER_H
-#include "imageloader.h"
+#include "ImageManager/ImageLoader.h"
 #include <qptrlist.h>
 #include <qwaitcondition.h>
 #include <qvaluelist.h>
@@ -27,11 +27,14 @@
 #include <qstring.h>
 #include <qpixmap.h>
 #include <qcache.h>
-#include "imagerequest.h"
+#include "ImageManager/ImageRequest.h"
 #include <qmutex.h>
 #include <qptrdict.h>
 #include <qimage.h>
 #include <qobject.h>
+
+namespace ImageManager
+{
 
 class ImageClient;
 
@@ -53,7 +56,7 @@ class ImageManager :public QObject {
 public:
     enum StopAction { StopAll, StopOnlyNonPriorityLoads };
 
-    void load(  ImageRequest* request );
+    void load( ImageRequest* request );
     ImageRequest* next();
     static ImageManager* instance();
     void stop( ImageClient*, StopAction action = StopAll );
@@ -72,6 +75,8 @@ private:
     QPtrDict<void> _clientList;
     ImageRequest* _currentLoading;
 };
+
+}
 
 #endif /* IMAGEMANAGER_H */
 

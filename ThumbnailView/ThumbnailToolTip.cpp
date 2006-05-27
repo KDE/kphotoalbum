@@ -25,7 +25,7 @@
 #include <qmime.h>
 #include <qapplication.h>
 #include <qdesktopwidget.h>
-#include "imagemanager.h"
+#include "ImageManager/ImageManager.h"
 #include "imageinfo.h"
 #include "ThumbnailView.h"
 #include "imagedb.h"
@@ -160,10 +160,10 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
     ImageInfoPtr info = ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
         if ( !_loadedImages.contains( fileName ) ) {
-            ImageRequest* request = new ImageRequest( fileName, QSize( size, size ), info->angle(), this );
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );
             request->setCache();
             request->setPriority();
-            ImageManager::instance()->load( request );
+            ImageManager::ImageManager::instance()->load( request );
             QMimeSourceFactory::defaultFactory()->setImage( fileName, QImage() );
             _loadedImages.append( fileName );
             return false;

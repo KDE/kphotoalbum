@@ -16,10 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imageclient.h"
-#include "imagemanager.h"
+#include "ImageClient.h"
+#include "ImageManager.h"
 
-ImageClient::~ImageClient()
+ImageManager::ImageClient::~ImageClient()
 {
-    ImageManager::instance()->stop( this );
+    ImageManager::ImageManager::instance()->stop( this );
 }

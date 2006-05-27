@@ -19,7 +19,7 @@ Boston, MA 02110-1301, USA.
 #ifndef IMPORTEXPORT_H
 #define IMPORTEXPORT_H
 
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 #include <kdialogbase.h>
 #include "Utilities/Util.h"
 class QRadioButton;
@@ -33,7 +33,7 @@ namespace ImportExport
 
 enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link };
 
-class Export :public ImageClient {
+class Export :public ImageManager::ImageClient {
 
 public:
     static void imageExport( const QStringList& list);

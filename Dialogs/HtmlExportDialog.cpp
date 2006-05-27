@@ -27,7 +27,7 @@
 #include <qfile.h>
 #include <qapplication.h>
 #include <qeventloop.h>
-#include "imagemanager.h"
+#include "ImageManager/ImageManager.h"
 #include <qcheckbox.h>
 #include <kfiledialog.h>
 #include <qpushbutton.h>
@@ -589,9 +589,10 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
 
 QString HTMLExportDialog::createImage( const QString& fileName, int size )
 {
-    ImageRequest* request = new ImageRequest( fileName, QSize( size, size ), ImageDB::instance()->info(fileName)->angle(), this );
+    ImageManager::ImageRequest* request =
+        new ImageManager::ImageRequest( fileName, QSize( size, size ), ImageDB::instance()->info(fileName)->angle(), this );
     request->setPriority();
-    ImageManager::instance()->load( request );
+    ImageManager::ImageManager::instance()->load( request );
     return nameImage( fileName, size );
 }
 
@@ -652,7 +653,7 @@ void HTMLExportDialog::selectDir()
 
 void HTMLExportDialog::slotCancelGenerate()
 {
-    ImageManager::instance()->stop( this );
+    ImageManager::ImageManager::instance()->stop( this );
     _waitCounter = 0;
 }
 

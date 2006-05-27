@@ -18,10 +18,10 @@
 
 #include "ImagePreview.h"
 #include "Viewer/Viewer.h"
-#include "imagemanager.h"
+#include "ImageManager/ImageManager.h"
 #include <klocale.h>
 #include <qwmatrix.h>
-#include "imageloader.h"
+#include "ImageManager/ImageLoader.h"
 
 using namespace AnnotationDialog;
 
@@ -86,15 +86,15 @@ void ImagePreview::reload()
             setCurrentImage(QImage(_lastImage.getImage()));
         else {
             setPixmap(QImage()); //erase old image
-            ImageManager::instance()->stop(this);
-            ImageRequest* request = new ImageRequest( _info.fileName(), QSize( width(), height() ), _info.angle(), this );
+            ImageManager::ImageManager::instance()->stop(this);
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(), QSize( width(), height() ), _info.angle(), this );
             request->setPriority();
-            ImageManager::instance()->load( request );
+            ImageManager::ImageManager::instance()->load( request );
         }
     }
     else {
         QImage img( _fileName );
-        img = ImageLoader::rotateAndScale( img, width(), height(), _angle );
+        img = ImageManager::ImageLoader::rotateAndScale( img, width(), height(), _angle );
         setPixmap( img );
     }
 }
@@ -188,16 +188,16 @@ void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int widt
 {
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();
-    ImageManager::instance()->stop(this);
-    ImageRequest* request = new ImageRequest( fileName, QSize( width, height ), angle, this );
+    ImageManager::ImageManager::instance()->stop(this);
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( width, height ), angle, this );
     request->setPriority();
-    ImageManager::instance()->load( request );
+    ImageManager::ImageManager::instance()->load( request );
 }
 
 void ImagePreview::PreviewLoader::cancelPreload()
 {
     reset();
-    ImageManager::instance()->stop(this);
+    ImageManager::ImageManager::instance()->stop(this);
 }
 
 

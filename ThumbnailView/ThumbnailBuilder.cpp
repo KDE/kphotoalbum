@@ -17,7 +17,7 @@
 */
 
 #include "ThumbnailBuilder.h"
-#include "imagemanager.h"
+#include "ImageManager/ImageManager.h"
 #include "imagedb.h"
 #include <klocale.h>
 #include "Settings/Settings.h"
@@ -41,10 +41,10 @@ void ThumbnailView::ThumbnailBuilder::generateNext()
     ++_index;
     setProgress( _index );
     _infoMap.insert( info->fileName(), info );
-    ImageRequest* request = new ImageRequest( info->fileName(),  QSize(256,256), info->angle(), this );
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(),  QSize(256,256), info->angle(), this );
     request->setCache();
     request->setPriority();
-    ImageManager::instance()->load( request );
+    ImageManager::ImageManager::instance()->load( request );
 }
 
 void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& fullSize, int, const QImage&, bool /*loadedOK*/ )

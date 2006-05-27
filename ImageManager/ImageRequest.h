@@ -1,7 +1,7 @@
 #ifndef IMAGEREQUEST_H
 #define IMAGEREQUEST_H
 #include <qstring.h>
-#include "imageclient.h"
+#include "ImageManager/ImageClient.h"
 #include <qdeepcopy.h>
 #include <qsize.h>
 #include <qmutex.h>
@@ -12,6 +12,9 @@
 // you don't know the implication of this stay out of this class!
 //
 // WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
+
+namespace ImageManager
+{
 
 class ImageRequest {
 public:
@@ -57,6 +60,7 @@ private:
     bool _loadedOK;
 };
 
+}
 
 
 #endif /* IMAGEREQUEST_H */

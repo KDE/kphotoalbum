@@ -21,7 +21,7 @@
 #include <qlayout.h>
 #include "util.h"
 #include <qtooltip.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qmime.h>
 #include <qapplication.h>
 #include <qdesktopwidget.h>
@@ -68,7 +68,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
     if ( force || (fileName != _currentFileName) ) {
         if ( loadImage( fileName ) ) {
             setText( QString::null );
-            int size = Options::instance()->previewSize();
+            int size = Settings::Settings::instance()->previewSize();
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
                          .arg(fileName).
@@ -156,7 +156,7 @@ void ThumbnailView::ThumbnailToolTip::clear()
 
 bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 {
-    int size = Options::instance()->previewSize();
+    int size = Settings::Settings::instance()->previewSize();
     ImageInfoPtr info = ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
         if ( !_loadedImages.contains( fileName ) ) {

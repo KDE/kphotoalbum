@@ -2,7 +2,7 @@
 #include "exiv2/image.hpp"
 #include "exiv2/exif.hpp"
 #include "set.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qsqlquery.h>
 #include <iostream>
 #include <sstream>
@@ -64,12 +64,12 @@ Set<QString> Info::availableKeys()
 
 QMap<QString, QString> Info::infoForViewer( const QString& fileName )
 {
-    return info( fileName, Options::instance()->exifForViewer(), false );
+    return info( fileName, Settings::Settings::instance()->exifForViewer(), false );
 }
 
 QMap<QString, QString> Info::infoForDialog( const QString& fileName )
 {
-    return info( fileName, Options::instance()->exifForDialog(), true);
+    return info( fileName, Settings::Settings::instance()->exifForDialog(), true);
 }
 
 Set<QString> Info::standardKeys()

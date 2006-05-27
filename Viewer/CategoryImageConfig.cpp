@@ -16,12 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "categoryimageconfig.h"
+#include "CategoryImageConfig.h"
 #include <qlabel.h>
 #include <qlayout.h>
 #include <klocale.h>
 #include <qcombobox.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "categorycollection.h"
 #include "imageinfo.h"
 #include "imagedb.h"
@@ -87,13 +87,13 @@ void CategoryImageConfig::groupChanged()
 
 void CategoryImageConfig::memberChanged()
 {
-    QImage img = Options::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
+    QImage img = Settings::Settings::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
     _current->setPixmap( img );
 }
 
 void CategoryImageConfig::slotSet()
 {
-    Options::instance()->setCategoryImage( currentGroup(), _member->currentText(), _image );
+    Settings::Settings::instance()->setCategoryImage( currentGroup(), _member->currentText(), _image );
     memberChanged();
 }
 
@@ -140,4 +140,4 @@ void CategoryImageConfig::show()
     KDialogBase::show();
 }
 
-#include "categoryimageconfig.moc"
+#include "CategoryImageConfig.moc"

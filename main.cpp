@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qdir.h>
 #include "mainview.h"
 #include <kapplication.h>
@@ -66,7 +66,7 @@ int main( int argc, char** argv ) {
     MainView* view = new MainView( 0, "view" );
 
     // qApp->setMainWidget( view );
-    view->setGeometry( Options::instance()->windowGeometry( Options::MainWindow ) );
+    view->setGeometry( Settings::Settings::instance()->windowGeometry( Settings::MainWindow ) );
 
     int code = app.exec();
 

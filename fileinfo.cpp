@@ -66,7 +66,7 @@ QDateTime FileInfo::dateTime()
         return date;
 
 #endif
-    if ( Options::instance()->trustTimeStamps() )
+    if ( Settings::Settings::instance()->trustTimeStamps() )
         return QFileInfo( _fullPath ).lastModified();
     else
         return QDateTime();

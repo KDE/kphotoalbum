@@ -17,7 +17,7 @@
 */
 
 #include "optionmatcher.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include "imageinfo.h"
 #include "membermap.h"
 #include "imagedb.h"

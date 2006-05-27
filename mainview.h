@@ -18,7 +18,6 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
-class OptionsDialog;
 class QWidgetStack;
 class ImageCounter;
 class QTimer;
@@ -55,10 +54,15 @@ namespace Dialogs
     class TokenEditor;
 }
 
+namespace Settings
+{
+    class SettingsDialog;
+}
+
 #include "imageinfolist.h"
 #include <qdict.h>
 #include <kmainwindow.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <kurl.h>
 #include "category.h"
 #include <config.h>
@@ -177,7 +181,7 @@ private:
     static MainView* _instance;
 
     ThumbnailView::ThumbnailView* _thumbnailView;
-    OptionsDialog* _optionsDialog;
+    Settings::SettingsDialog* _optionsDialog;
     QGuardedPtr<AnnotationDialog::AnnotationDialog> _annotationDialog;
     bool _dirty;
     bool _autoSaveDirty; // We do not want to continue autosaving the same date

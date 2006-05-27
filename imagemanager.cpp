@@ -18,7 +18,7 @@
 
 #include "imagemanager.h"
 #include "imageloader.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include "imageclient.h"
 #include <qdatetime.h>
 #include <qmutex.h>

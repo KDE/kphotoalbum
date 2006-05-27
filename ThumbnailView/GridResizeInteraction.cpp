@@ -1,6 +1,6 @@
 #include "GridResizeInteraction.h"
 #include "ThumbnailView.h"
-#include <options.h>
+#include "Settings/Settings.h"
 
 ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailView* view )
     : _view( view )
@@ -20,7 +20,7 @@ void ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 {
     QPoint dist = event->pos() - _mousePressPos;
     int h = 0;
-    if ( Options::instance()->displayLabels() )
+    if ( Settings::Settings::instance()->displayLabels() )
         h = QFontMetrics( _view->font() ).height();
 
     _view->setCellWidth( QMAX( 32, _origSize.width() + (dist.x() + dist.y())/10 ) );
@@ -33,7 +33,7 @@ void ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 void ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
 {
     int delta = _view->cellWidth() - _origSize.width();
-    Options::instance()->setThumbSize( Options::instance()->thumbSize() + delta);
+    Settings::Settings::instance()->setThumbSize( Settings::Settings::instance()->thumbSize() + delta);
     if ( !_view->_currentItem.isNull() ) {
         Cell cell = _view->positionForFileName( _view->_currentItem );
         _view->ensureCellVisible( cell.row(), cell.col() );

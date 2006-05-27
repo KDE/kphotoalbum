@@ -23,7 +23,7 @@
 #include <qlabel.h>
 #include <qtextedit.h>
 #include <qfile.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qdir.h>
 
 using namespace Dialogs;
@@ -51,7 +51,7 @@ DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* nam
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( accept() ) );
     resize( 600, 600 );
 
-    findThumbnails( Options::instance()->imageDirectory() );
+    findThumbnails( Settings::Settings::instance()->imageDirectory() );
     edit->setText( _files.join( QString::fromLatin1("\n" ) ) );
 }
 

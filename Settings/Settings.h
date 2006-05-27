@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef OPTIONS_H
-#define OPTIONS_H
+#ifndef SETTINGS_SETTINGS_H
+#define SETTINGS_SETTINGS_H
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qpixmap.h>
@@ -47,11 +47,24 @@
 #define sizeProperty(  group, prop, setFunction, defaultValue ) property__( QSize, group, prop, setFunction, defaultValue )
 #define stringSetProperty( group, prop, setFunction, defaultValue ) property__( Set<QString>, group, prop, setFunction, defaultValue )
 
-class Options :public QObject {
+
+
+namespace Settings
+{
+    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
+    enum ViewSortType { SortLastUse, SortAlpha };
+    enum TimeStampTrust {
+        Always = 0,
+        Ask = 1,
+        Never = 2
+    };
+    enum WindowType { MainWindow = 0, ConfigWindow = 1 };
+
+class Settings :public QObject {
     Q_OBJECT
 
 public:
-    static Options* instance();
+    static Settings* instance();
     static bool ready();
     static void setup( const QString& imageDirectory );
     // -------------------------------------------------- General
@@ -98,11 +111,9 @@ public:
     void setToDate( const QDate& );
     QDate toDate() const;
 
-    enum ViewSortType { SortLastUse, SortAlpha };
     void setViewSortType( ViewSortType );
     ViewSortType viewSortType() const;
 
-    enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     Position infoBoxPosition() const;
     void setInfoBoxPosition( Position pos );
 
@@ -121,11 +132,6 @@ public:
 #endif
 
     // -------------------------------------------------- misc
-    enum TimeStampTrust {
-        Always = 0,
-        Ask = 1,
-        Never = 2
-    };
 
     bool trustTimeStamps();
     void setTTimeStamps( TimeStampTrust );
@@ -152,7 +158,6 @@ public:
     void setPassword( const QString& passwd );
     QString password() const;
 
-    enum WindowType { MainWindow = 0, ConfigWindow = 1 };
     void setWindowGeometry( WindowType, const QRect& geometry );
     QRect windowGeometry( WindowType ) const;
     QString windowTypeToString( WindowType tp ) const;
@@ -176,20 +181,23 @@ protected:
 
 signals:
     void locked( bool lock, bool exclude );
-    void viewSortTypeChanged( Options::ViewSortType );
+    void viewSortTypeChanged( ViewSortType );
     void histogramSizeChanged( const QSize& );
 
 private:
-    Options( const QString& imageDirectory  );
-    static Options* _instance;
+    Settings( const QString& imageDirectory  );
+    static Settings* _instance;
     bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class CategoryCollection;
     QString _imageDirectory;
 };
+} // end of namespace
+
 
 #undef intProperty
 #undef boolProperty
 #undef property__
 
-#endif /* OPTIONS_H */
+
+#endif /* SETTINGS_SETTINGS_H */
 

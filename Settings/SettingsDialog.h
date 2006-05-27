@@ -19,7 +19,7 @@
 #ifndef OPTIONSDIALOG_H
 #define OPTIONSDIALOG_H
 #include <kdialogbase.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "membermap.h"
 #include <config.h>
 class QListView;
@@ -33,7 +33,6 @@ class KPushButton;
 class OptionGroupItem;
 class QCheckBox;
 class QComboBox;
-class ViewerSizeConfig;
 namespace KIPI
 {
     class ConfigWidget;
@@ -41,11 +40,16 @@ namespace KIPI
 namespace Exif{
     class TreeView;
 }
-class OptionsDialog :public KDialogBase {
+
+namespace Settings
+{
+class ViewerSizeConfig;
+
+class SettingsDialog :public KDialogBase {
     Q_OBJECT
 
 public:
-    OptionsDialog( QWidget* parent, const char* name = 0 );
+    SettingsDialog( QWidget* parent, const char* name = 0 );
     virtual void show();
     int exec();
 
@@ -136,6 +140,7 @@ private:
     Exif::TreeView* _exifForDialog;
 };
 
+}
 
 #endif /* OPTIONSDIALOG_H */
 

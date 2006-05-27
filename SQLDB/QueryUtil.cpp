@@ -3,7 +3,7 @@
 #include <imagedb.h>
 #include <imagesearchinfo.h>
 #include <qsqlquery.h>
-#include <options.h>
+#include "Settings/Settings.h"
 
 void SQLDB::showError( QSqlQuery& query )
 {
@@ -92,7 +92,7 @@ QString SQLDB::fileNameForId( int id, bool fullPath )
     map.insert( QString::fromLatin1( ":id" ), id );
     QString fileName = fetchItem( query, map ).toString();
     if ( fullPath )
-        return Options::instance()->imageDirectory() + fileName;
+        return Settings::Settings::instance()->imageDirectory() + fileName;
     else
         return fileName;
 }

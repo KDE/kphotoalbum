@@ -18,7 +18,7 @@
 
 #ifndef GROUPCOUNTER_H
 #define GROUPCOUNTER_H
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qdict.h>
 
 class GroupCounter

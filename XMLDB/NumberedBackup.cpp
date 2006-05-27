@@ -1,5 +1,5 @@
 #include "NumberedBackup.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include <kzip.h>
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -15,22 +15,22 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
     int max = getMaxId();
     QString fileName;
     fileName.sprintf( "index.xml~%04d~", max+1 );
-    if ( Options::instance()->compressBackup() ) {
+    if ( Settings::Settings::instance()->compressBackup() ) {
         fileName += QString::fromLatin1( ".zip" );
 
-        QString fileAndDir = QString::fromLatin1( "%1/%2" ).arg(Options::instance()->imageDirectory() ).arg(fileName);
+        QString fileAndDir = QString::fromLatin1( "%1/%2" ).arg(Settings::Settings::instance()->imageDirectory() ).arg(fileName);
         KZip zip( fileAndDir );
         if ( ! zip.open( IO_WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error creating zip file %1").arg(fileAndDir) );
             return;
         }
 
-        zip.addLocalFile( QString::fromLatin1( "%1/index.xml" ).arg( Options::instance()->imageDirectory() ), fileName );
+        zip.addLocalFile( QString::fromLatin1( "%1/index.xml" ).arg( Settings::Settings::instance()->imageDirectory() ), fileName );
         zip.close();
     }
     else {
-        Util::copy( QString::fromLatin1( "%1/index.xml" ).arg( Options::instance()->imageDirectory() ),
-                    QString::fromLatin1( "%1/%2" ).arg( Options::instance()->imageDirectory() ).arg( fileName ) );
+        Util::copy( QString::fromLatin1( "%1/index.xml" ).arg( Settings::Settings::instance()->imageDirectory() ),
+                    QString::fromLatin1( "%1/%2" ).arg( Settings::Settings::instance()->imageDirectory() ).arg( fileName ) );
     }
 }
 
@@ -48,7 +48,7 @@ int XMLDB::NumberedBackup::getMaxId() const
 
 QStringList XMLDB::NumberedBackup::backupFiles() const
 {
-    QDir dir( Options::instance()->imageDirectory() );
+    QDir dir( Settings::Settings::instance()->imageDirectory() );
     return dir.entryList( QString::fromLatin1( "index.xml~*~*" ), QDir::Files );
 }
 
@@ -69,7 +69,7 @@ int XMLDB::NumberedBackup::idForFile( const QString& fileName, bool& OK ) const
 void XMLDB::NumberedBackup::deleteOldBackupFiles()
 {
     int maxId = getMaxId();
-    int maxBackupFiles = Options::instance()->backupCount();
+    int maxBackupFiles = Settings::Settings::instance()->backupCount();
     if ( maxBackupFiles == -1 )
         return;
 
@@ -79,7 +79,7 @@ void XMLDB::NumberedBackup::deleteOldBackupFiles()
         bool OK;
         int num = idForFile( *fileIt, OK );
         if ( OK && num <= maxId+1 - maxBackupFiles ) {
-            (QDir( Options::instance()->imageDirectory() )).remove( *fileIt );
+            (QDir( Settings::Settings::instance()->imageDirectory() )).remove( *fileIt );
         }
 
     }

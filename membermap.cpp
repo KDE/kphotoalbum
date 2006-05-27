@@ -17,7 +17,7 @@
 */
 
 #include "membermap.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include <qtimer.h>
 #include "categorycollection.h"
 #include "imagedb.h"

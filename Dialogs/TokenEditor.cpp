@@ -5,7 +5,7 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include "imagedb.h"
-#include "options.h"
+#include "Settings/Settings.h"
 #include "categorycollection.h"
 #include "category.h"
 
@@ -68,7 +68,7 @@ void TokenEditor::selectNone()
 
 
 /**
-   I would love to use Options::optionValue, but that method does not
+   I would love to use Settings::optionValue, but that method does not
     forget about an item once it has seen it, which is really what it should
     do anyway, otherwise it would be way to expensive in use.
 */

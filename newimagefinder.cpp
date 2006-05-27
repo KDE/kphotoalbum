@@ -1,7 +1,7 @@
 #include "newimagefinder.h"
 #include "imagedb.h"
 #include <qfileinfo.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "Browser/Browser.h"
 #include <qdir.h>
 #include "util.h"
@@ -28,7 +28,7 @@ bool NewImageFinder::findImages()
     }
 
     _pendingLoad.clear();
-    searchForNewFiles( loadedFiles, Options::instance()->imageDirectory() );
+    searchForNewFiles( loadedFiles, Settings::Settings::instance()->imageDirectory() );
     loadExtraFiles();
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
@@ -42,7 +42,7 @@ void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString 
     if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
 
-    QString imageDir = Options::instance()->imageDirectory();
+    QString imageDir = Settings::Settings::instance()->imageDirectory();
     if ( imageDir.endsWith( QString::fromLatin1("/") ) )
         imageDir = imageDir.mid( 0, imageDir.length()-1 );
 
@@ -104,7 +104,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfoPtr info = ImageDB::instance()->info( Options::instance()->imageDirectory() + relativeMatchedFileName );
+            ImageInfoPtr info = ImageDB::instance()->info( Settings::Settings::instance()->imageDirectory() + relativeMatchedFileName );
             if ( !info )
                 qWarning("How did that happen? We couldn't find info for the images %s", relativeMatchedFileName.latin1());
             else {

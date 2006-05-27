@@ -19,7 +19,7 @@
 
 #include "Viewer/DisplayArea.h"
 #include <qpainter.h>
-#include "options.h"
+#include "Settings/Settings.h"
 #include "imageinfo.h"
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
@@ -157,7 +157,7 @@ void Viewer::DisplayArea::drawAll()
 
     _drawingPixmap = _croppedAndScaledImg;
 
-    if ( Options::instance()->showDrawings() && _drawHandler->hasDrawings() ) {
+    if ( Settings::Settings::instance()->showDrawings() && _drawHandler->hasDrawings() ) {
         QPainter painter( &_drawingPixmap );
         xformPainter( &painter );
         _drawHandler->drawAll( painter );
@@ -180,7 +180,7 @@ void Viewer::DisplayArea::stopDrawing()
 
 void Viewer::DisplayArea::toggleShowDrawings( bool b )
 {
-    Options::instance()->setShowDrawings( b );
+    Settings::Settings::instance()->setShowDrawings( b );
     drawAll();
 }
 
@@ -435,7 +435,7 @@ void Viewer::DisplayArea::cropAndScale()
 
 void Viewer::DisplayArea::doShowDrawings()
 {
-    Options::instance()->setShowDrawings( true );
+    Settings::Settings::instance()->setShowDrawings( true );
 }
 
 QImage Viewer::DisplayArea::currentViewAsThumbnail() const
@@ -482,7 +482,7 @@ void Viewer::DisplayArea::setImageList( const QStringList& list )
 
 void Viewer::DisplayArea::updatePreload()
 {
-    uint cacheSize = ( Options::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
+    uint cacheSize = ( Settings::Settings::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
     bool cacheFull = (_cache.count() > cacheSize);
 
     int incr = ( _forward ? 1 : -1 );

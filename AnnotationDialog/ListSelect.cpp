@@ -230,8 +230,8 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
     _dateSort->setToggleButton( true );
     grp->insert( _dateSort );
 
-    _alphaSort->setOn( Options::ViewSortType() == Options::SortAlpha );
-    _dateSort->setOn( Options::ViewSortType() == Options::SortLastUse );
+    _alphaSort->setOn( Settings::ViewSortType() == Settings::SortAlpha );
+    _dateSort->setOn( Settings::ViewSortType() == Settings::SortLastUse );
     connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );
     connect( _alphaSort, SIGNAL( clicked() ), this, SLOT( slotSortAlpha() ) );
 
@@ -243,8 +243,8 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
 
     populate();
 
-    connect( Options::instance(), SIGNAL( viewSortTypeChanged( Options::ViewSortType ) ),
-             this, SLOT( setViewSortType( Options::ViewSortType ) ) );
+    connect( Settings::Settings::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
+             this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
 }
 
 void ListSelect::slotReturn()
@@ -263,7 +263,7 @@ void ListSelect::slotReturn()
 
         // move item to front
         _listBox->takeItem( item );
-        if ( Options::instance()->viewSortType() == Options::SortLastUse ) {
+        if ( Settings::Settings::instance()->viewSortType() == Settings::SortLastUse ) {
             _listBox->insertItem( item, 0 );
             _listBox->setContentsPos( 0,0 );
         }
@@ -360,7 +360,7 @@ void ListSelect::setMode( Mode mode )
 }
 
 
-void ListSelect::setViewSortType( Options::ViewSortType tp )
+void ListSelect::setViewSortType( Settings::ViewSortType tp )
 {
     // set sortType and redisplay with new sortType
     QString text = _lineEdit->text();
@@ -370,8 +370,8 @@ void ListSelect::setViewSortType( Options::ViewSortType tp )
     _lineEdit->setText( text );
     setMode( _mode );	// generate the ***NONE*** entry if in search mode
 
-    _alphaSort->setOn( tp == Options::SortAlpha );
-    _dateSort->setOn( tp == Options::SortLastUse );
+    _alphaSort->setOn( tp == Settings::SortAlpha );
+    _dateSort->setOn( tp == Settings::SortLastUse );
 }
 
 
@@ -474,8 +474,8 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     menu.insertItem( sortTitle );
     menu.insertItem( i18n("Usage"), 3 );
     menu.insertItem( i18n("Alphabetical"), 4 );
-    menu.setItemChecked(3, Options::instance()->viewSortType() == Options::SortLastUse);
-    menu.setItemChecked(4, Options::instance()->viewSortType() == Options::SortAlpha);
+    menu.setItemChecked(3, Settings::Settings::instance()->viewSortType() == Settings::SortLastUse);
+    menu.setItemChecked(4, Settings::Settings::instance()->viewSortType() == Settings::SortAlpha);
 
     if ( !item ) {
         menu.setItemEnabled( 1, false );
@@ -517,17 +517,17 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                 _listBox->setSelected( newItem, sel );
 
                 // rename the category image too
-                QString oldFile = Options::instance()->fileForCategoryImage( category(), oldStr );
-                QString newFile = Options::instance()->fileForCategoryImage( category(), newStr );
+                QString oldFile = Settings::Settings::instance()->fileForCategoryImage( category(), oldStr );
+                QString newFile = Settings::Settings::instance()->fileForCategoryImage( category(), newStr );
                 KIO::move( KURL(oldFile), KURL(newFile) );
             }
         }
     }
     else if ( which == 3 ) {
-        Options::instance()->setViewSortType( Options::SortLastUse );
+        Settings::Settings::instance()->setViewSortType( Settings::SortLastUse );
     }
     else if ( which == 4 ) {
-        Options::instance()->setViewSortType( Options::SortAlpha );
+        Settings::Settings::instance()->setViewSortType( Settings::SortAlpha );
     }
     else if ( which == 7 ) {
         QString group = KInputDialog::getText( i18n("Member Group Name"), i18n("Member group name:") );
@@ -574,12 +574,12 @@ bool ListSelect::eventFilter( QObject* object, QEvent* event )
 
 void ListSelect::slotSortDate()
 {
-    Options::instance()->setViewSortType( Options::SortLastUse );
+    Settings::Settings::instance()->setViewSortType( Settings::SortLastUse );
 }
 
 void ListSelect::slotSortAlpha()
 {
-    Options::instance()->setViewSortType( Options::SortAlpha );
+    Settings::Settings::instance()->setViewSortType( Settings::SortAlpha );
 }
 
 #include "ListSelect.moc"

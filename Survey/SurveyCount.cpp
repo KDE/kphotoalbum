@@ -17,7 +17,7 @@ SurveyCountQuestion::SurveyCountQuestion( const QString& id, const QString& titl
     _imageCount = new QSpinBox( 0, 1000000, 100, this );
     lay->addWidget( label, 0, 0 );
     lay->addWidget( _imageCount, 0, 1 );
-    _imageCount->setValue( ImageDB::instance()->totalCount() );
+    _imageCount->setValue( DB::ImageDB::instance()->totalCount() );
 
     label = new QLabel(i18n("How many percentages of your images are scanned in: "), this );
     _scanned = new QSpinBox( 0, 100, 10, this );

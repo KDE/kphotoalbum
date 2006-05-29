@@ -29,11 +29,11 @@ void SQLDB::SQLCategory::setIconName( const QString& name )
     runQuery( "UPDATE categorysetup set icon = :icon WHERE categoryId = :categoryId", map );
 }
 
-Category::ViewSize SQLDB::SQLCategory::viewSize() const
+DB::Category::ViewSize SQLDB::SQLCategory::viewSize() const
 {
     QMap<QString,QVariant> map;
     map.insert( QString::fromLatin1( ":categoryId" ), _categoryId  );
-    return (Category::ViewSize) fetchItem( QString::fromLatin1( "SELECT viewsize FROM categorysetup WHERE categoryId = :categoryId" ), map ).toInt();
+    return (DB::Category::ViewSize) fetchItem( QString::fromLatin1( "SELECT viewsize FROM categorysetup WHERE categoryId = :categoryId" ), map ).toInt();
 }
 
 void SQLDB::SQLCategory::setViewSize( ViewSize size )
@@ -52,11 +52,11 @@ void SQLDB::SQLCategory::setViewType( ViewType type )
     runQuery( "UPDATE categorysetup set viewtype = :type WHERE categoryId = :categoryId", map );
 }
 
-Category::ViewType SQLDB::SQLCategory::viewType() const
+DB::Category::ViewType SQLDB::SQLCategory::viewType() const
 {
     QMap<QString,QVariant> map;
     map.insert( QString::fromLatin1( ":categoryId" ), _categoryId  );
-    return (Category::ViewType) fetchItem( QString::fromLatin1( "SELECT viewtype FROM categorysetup WHERE categoryId = :categoryId" ), map ).toInt();
+    return (DB::Category::ViewType) fetchItem( QString::fromLatin1( "SELECT viewtype FROM categorysetup WHERE categoryId = :categoryId" ), map ).toInt();
 }
 
 void SQLDB::SQLCategory::setDoShow( bool b )

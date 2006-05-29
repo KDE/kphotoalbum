@@ -22,18 +22,23 @@
 #include <qvariant.h>
 class QSqlQuery;
 class QSqlError;
-class ImageSearchInfo;
+
+namespace DB
+{
+    class ImageSearchInfo;
+}
+
 
 namespace SQLDB {
-    QValueList<int> filesMatchingQuery( const ImageSearchInfo& info );
-    QValueList<int> runCategoryQuery( QValueList<OptionSimpleMatcher*> );
-    void split( const QValueList<OptionSimpleMatcher*>& input,
-                QValueList<OptionSimpleMatcher*>& positiveList,
-                QValueList<OptionSimpleMatcher*>& negativeList );
+    QValueList<int> filesMatchingQuery( const DB::ImageSearchInfo& info );
+    QValueList<int> runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> );
+    void split( const QValueList<DB::OptionSimpleMatcher*>& input,
+                QValueList<DB::OptionSimpleMatcher*>& positiveList,
+                QValueList<DB::OptionSimpleMatcher*>& negativeList );
     QString buildQueryPrefix( int count, int firstId );
 
     QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
-    QStringList values( OptionValueMatcher* matcher );
+    QStringList values( DB::OptionValueMatcher* matcher );
 
     QValueList<int> mergeUniqly( QValueList<int>, QValueList<int> );
     QValueList<int> listSubstract( QValueList<int>, QValueList<int> );

@@ -27,7 +27,7 @@
 #include <kglobal.h>
 #include "DB/ImageInfo.h"
 
-Browser::SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
+Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
 {
     setCount(-1);
@@ -48,11 +48,11 @@ QString Browser::SearchFolder::text() const
 Browser::FolderAction* Browser::SearchFolder::action( bool )
 {
     AnnotationDialog::AnnotationDialog config( _browser );
-    ImageSearchInfo info = config.search( &_info );
+    DB::ImageSearchInfo info = config.search( &_info );
     if ( info.isNull() )
         return 0;
 
-    if ( ImageDB::instance()->count( info ) == 0 ) {
+    if ( DB::ImageDB::instance()->count( info ) == 0 ) {
         KMessageBox::information( _browser, i18n( "Search did not match any images." ), i18n("Empty Search Result") );
         return 0;
     }

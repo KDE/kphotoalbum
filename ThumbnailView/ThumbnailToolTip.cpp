@@ -72,10 +72,10 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
                          .arg(fileName).
-                         arg(Utilities::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
+                         arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             else {
-                setText( QString::fromLatin1("<qt>%1</qt>").arg( Utilities::createInfoText( ImageDB::instance()->info( fileName ), 0 ) ) );
+                setText( QString::fromLatin1("<qt>%1</qt>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
         }
 
@@ -157,7 +157,7 @@ void ThumbnailView::ThumbnailToolTip::clear()
 bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 {
     int size = Settings::Settings::instance()->previewSize();
-    ImageInfoPtr info = ImageDB::instance()->info( fileName );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
         if ( !_loadedImages.contains( fileName ) ) {
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( size, size ), info->angle(), this );

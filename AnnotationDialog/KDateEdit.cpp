@@ -89,7 +89,7 @@ void AnnotationDialog::KDateEdit::setDate(const QDate& newDate)
 {
     QString dateString = QString::fromLatin1("");
     if(newDate.isValid())
-        dateString = ImageDate( newDate ).toString( false );
+        dateString = DB::ImageDate( newDate ).toString( false );
 
     mTextChanged = false;
 
@@ -191,7 +191,7 @@ void AnnotationDialog::KDateEdit::dateSelected(QDate newDate)
     if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
-        emit dateChanged( ImageDate( newDate, newDate ) );
+        emit dateChanged( DB::ImageDate( newDate, newDate ) );
         mDateFrame->hide();
     }
 }
@@ -201,7 +201,7 @@ void AnnotationDialog::KDateEdit::dateEntered(QDate newDate)
     if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
-        emit dateChanged( ImageDate( newDate, newDate ) );
+        emit dateChanged( DB::ImageDate( newDate, newDate ) );
     }
 }
 
@@ -215,7 +215,7 @@ void AnnotationDialog::KDateEdit::lineEnterPressed()
         // word rather than the actual date.
         setDate(date);
         emit(dateChanged(date));
-        emit dateChanged( ImageDate( date, end ) );
+        emit dateChanged( DB::ImageDate( date, end ) );
     }
     else {
         // Invalid or unacceptable date - revert to previous value
@@ -268,9 +268,9 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
     }
     else
     {
-        result = ImageDate::parseDate( text, mIsStartEdit );
+        result = DB::ImageDate::parseDate( text, mIsStartEdit );
         if ( end )
-            *end = ImageDate::parseDate( text, false );
+            *end = DB::ImageDate::parseDate( text, false );
         return result.isValid();
     }
 

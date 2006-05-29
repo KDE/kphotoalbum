@@ -27,43 +27,43 @@ Boston, MA 02111-1307, USA.
 class QSqlError;
 
 namespace SQLDB {
-    class SQLDB  :public ImageDB {
+    class SQLDB  :public DB::ImageDB {
         Q_OBJECT
 
     protected:
-        friend class ImageDB;
+        friend class DB::ImageDB;
         SQLDB();
 
     public:
         virtual int totalCount() const;
-        virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const;
+        virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 
         virtual void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString &group );
-        virtual ImageInfoList& imageInfoList();
+        virtual QMap<QString,int> classify( const DB::ImageSearchInfo& info, const QString &group );
+        virtual DB::ImageInfoList& imageInfoList();
         virtual QStringList images();
-        virtual void addImages( const ImageInfoList& images );
+        virtual void addImages( const DB::ImageInfoList& images );
 
         virtual void addToBlockList( const QStringList& list );
         virtual bool isBlocking( const QString& fileName );
         virtual void deleteList( const QStringList& list );
-        virtual ImageInfoPtr info( const QString& fileName ) const;
-        virtual const MemberMap& memberMap();
-        virtual void setMemberMap( const MemberMap& members );
+        virtual DB::ImageInfoPtr info( const QString& fileName ) const;
+        virtual const DB::MemberMap& memberMap();
+        virtual void setMemberMap( const DB::MemberMap& members );
         virtual void save( const QString& fileName, bool isAutoSave );
-        virtual MD5Map* md5Map();
+        virtual DB::MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
-        virtual CategoryCollection* categoryCollection();
-        virtual KSharedPtr<ImageDateCollection> rangeCollection();
+        virtual DB::CategoryCollection* categoryCollection();
+        virtual KSharedPtr<DB::ImageDateCollection> rangeCollection();
         virtual void reorder( const QString& item, const QStringList& cutList, bool after );
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();
 
     protected slots:
-        virtual void renameItem( Category* category, const QString& oldName, const QString& newName );
-        virtual void deleteItem( Category* category, const QString& option );
+        virtual void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
+        virtual void deleteItem( DB::Category* category, const QString& option );
         virtual void lockDB( bool lock, bool exclude );
 
     protected:
@@ -73,8 +73,8 @@ namespace SQLDB {
 
     private:
         SQLCategoryCollection _categoryCollection;
-        MemberMap _members;
-        MD5Map _md5map;
+        DB::MemberMap _members;
+        DB::MD5Map _md5map;
     };
 }
 

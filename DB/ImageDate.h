@@ -21,6 +21,10 @@
 #include <qstring.h>
 #include <qdatetime.h>
 
+namespace DB
+{
+
+
 class ImageDate {
 public:
     ImageDate();
@@ -55,6 +59,8 @@ protected:
 private:
     QDateTime _start, _end;
 };
+
+}
 
 #endif /* IMAGEDATE_H */
 

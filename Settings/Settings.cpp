@@ -147,15 +147,15 @@ void Settings::Settings::setup( const QString& imageDirectory )
     _instance = new Settings( imageDirectory );
 }
 
-void Settings::Settings::setCurrentLock( const ImageSearchInfo& info, bool exclude )
+void Settings::Settings::setCurrentLock( const DB::ImageSearchInfo& info, bool exclude )
 {
     info.saveLock();
     setValue( groupForDatabase( STR("Privacy Settings") ), STR("exclude"), exclude );
 }
 
-ImageSearchInfo Settings::Settings::currentLock() const
+DB::ImageSearchInfo Settings::Settings::currentLock() const
 {
-    return ImageSearchInfo::loadLock();
+    return DB::ImageSearchInfo::loadLock();
 }
 
 void Settings::Settings::setLocked( bool lock )
@@ -223,10 +223,10 @@ QImage Settings::Settings::categoryImage( const QString& category, QString membe
     QImage img;
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
-        if ( ImageDB::instance()->memberMap().isGroup( category, member ) )
+        if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
             img = KGlobal::iconLoader()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
         else
-            img = ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
+            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
     }
     return img.smoothScale( size, size, QImage::ScaleMin );
 }
@@ -278,8 +278,8 @@ QString Settings::Settings::albumCategory() const
 {
     QString category = value( STR("General"), STR("albumCategory"), STR("") );
 
-    if ( !ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) ) {
-        category = ImageDB::instance()->categoryCollection()->categoryNames()[0];
+    if ( !DB::ImageDB::instance()->categoryCollection()->categoryNames().contains( category ) ) {
+        category = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
         const_cast<Settings*>(this)->setAlbumCategory( category );
     }
 

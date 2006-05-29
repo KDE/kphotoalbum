@@ -21,6 +21,9 @@
 #include <qstring.h>
 #include <qmap.h>
 
+namespace DB
+{
+
 /**
    This class may be overriden by a which wants to store md5 information
    directly in a database, rather than in a map in memory.
@@ -36,6 +39,9 @@ public:
 private:
     QMap<QString,QString> _map;
 };
+
+}
+
 
 #endif /* MD5MAP_H */
 

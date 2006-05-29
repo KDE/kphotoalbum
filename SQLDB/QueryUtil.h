@@ -22,7 +22,11 @@
 #include <qvariant.h>
 class QSqlQuery;
 class QSqlError;
-class ImageSearchInfo;
+
+namespace DB
+{
+    class ImageSearchInfo;
+}
 
 namespace SQLDB {
     void showError( QSqlQuery& query );

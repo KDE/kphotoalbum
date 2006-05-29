@@ -47,7 +47,7 @@
 #include "NumberedBackup.h"
 
 bool XMLDB::XMLDB::_anyImageWithEmptySize = false;
-XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( MemberMap( this ) )
+XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( DB::MemberMap( this ) )
 {
     Utilities::checkForBackupFile( configFile );
     QDomElement top = readConfigFile( configFile );
@@ -73,21 +73,21 @@ int XMLDB::XMLDB::totalCount() const
     return _images.count();
 }
 
-QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QString &group )
+QMap<QString,int> XMLDB::XMLDB::classify( const DB::ImageSearchInfo& info, const QString &group )
 {
     QMap<QString, int> map;
-    GroupCounter counter( group );
+    DB::GroupCounter counter( group );
     QDict<void> alreadyMatched = info.findAlreadyMatched( group );
 
-    ImageSearchInfo noMatchInfo = info;
+    DB::ImageSearchInfo noMatchInfo = info;
     QString currentMatchTxt = noMatchInfo.option( group );
     if ( currentMatchTxt.isEmpty() )
-        noMatchInfo.setOption( group, ImageDB::NONE() );
+        noMatchInfo.setOption( group, DB::ImageDB::NONE() );
     else
-        noMatchInfo.setOption( group, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(ImageDB::NONE()) );
+        noMatchInfo.setOption( group, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
 
     // Iterate through the whole database of images.
-    for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
         if ( match ) { // If the given image is currently matched.
 
@@ -103,7 +103,7 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
 
             // Find those with no other matches
             if ( noMatchInfo.match( *it ) )
-                map[ImageDB::NONE()]++;
+                map[DB::ImageDB::NONE()]++;
         }
     }
 
@@ -117,7 +117,7 @@ QMap<QString,int> XMLDB::XMLDB::classify( const ImageSearchInfo& info, const QSt
 
 void XMLDB::XMLDB::renameCategory( const QString& oldName, const QString newName )
 {
-    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->renameCategory( oldName, newName );
     }
 }
@@ -125,7 +125,7 @@ void XMLDB::XMLDB::renameCategory( const QString& oldName, const QString newName
 void XMLDB::XMLDB::addToBlockList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfoPtr inf= info(*it);
+        DB::ImageInfoPtr inf= info(*it);
         _blockList << inf->fileName( true );
         _images.remove( inf );
     }
@@ -135,30 +135,30 @@ void XMLDB::XMLDB::addToBlockList( const QStringList& list )
 void XMLDB::XMLDB::deleteList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfoPtr inf= info(*it);
+        DB::ImageInfoPtr inf= info(*it);
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::XMLDB::renameItem( Category* category, const QString& oldName, const QString& newName )
+void XMLDB::XMLDB::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
-    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->renameItem( category->name(), oldName, newName );
     }
 }
 
-void XMLDB::XMLDB::deleteItem( Category* category, const QString& option )
+void XMLDB::XMLDB::deleteItem( DB::Category* category, const QString& option )
 {
-    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->removeOption( category->name(), option );
     }
 }
 
 void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
 {
-    ImageSearchInfo info = Settings::Settings::instance()->currentLock();
-    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    DB::ImageSearchInfo info = Settings::Settings::instance()->currentLock();
+    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         if ( lock ) {
             bool match = info.match( *it );
             if ( !exclude )
@@ -171,9 +171,9 @@ void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
 }
 
 
-void XMLDB::XMLDB::addImages( const ImageInfoList& images )
+void XMLDB::XMLDB::addImages( const DB::ImageInfoList& images )
 {
-    ImageInfoList newImages = images.sort();
+    DB::ImageInfoList newImages = images.sort();
     if ( _images.count() == 0 ) {
         // case 1: The existing imagelist is empty.
         _images = newImages;
@@ -197,15 +197,15 @@ void XMLDB::XMLDB::addImages( const ImageInfoList& images )
     emit dirty();
 }
 
-ImageInfoPtr XMLDB::XMLDB::info( const QString& fileName ) const
+DB::ImageInfoPtr XMLDB::XMLDB::info( const QString& fileName ) const
 {
-    static QMap<QString, ImageInfoPtr > fileMap;
+    static QMap<QString, DB::ImageInfoPtr > fileMap;
 
     if ( fileMap.contains( fileName ) )
         return fileMap[ fileName ];
     else {
         fileMap.clear();
-        for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+        for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
             fileMap.insert( (*it)->fileName(), *it );
         }
         if ( fileMap.contains( fileName ) )
@@ -221,7 +221,7 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
 
     QDateTime last( QDate( 1900, 1, 1 ) );
     bool wrongOrder = false;
-    for( ImageInfoListIterator it = _images.begin(); !wrongOrder && it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = _images.begin(); !wrongOrder && it != _images.end(); ++it ) {
         if ( last > (*it)->date().start() )
             wrongOrder = true;
         last = (*it)->date().start();
@@ -243,16 +243,16 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
     }
 }
 
-bool XMLDB::XMLDB::rangeInclude( ImageInfoPtr info ) const
+bool XMLDB::XMLDB::rangeInclude( DB::ImageInfoPtr info ) const
 {
     if (_selectionRange.start().isNull() )
         return true;
 
-    ImageDate::MatchType tp = info->date().isIncludedIn( _selectionRange );
+    DB::ImageDate::MatchType tp = info->date().isIncludedIn( _selectionRange );
     if ( _includeFuzzyCounts )
-        return ( tp == ImageDate::ExactMatch || tp == ImageDate::RangeMatch );
+        return ( tp == DB::ImageDate::ExactMatch || tp == DB::ImageDate::RangeMatch );
     else
-        return ( tp == ImageDate::ExactMatch );
+        return ( tp == DB::ImageDate::ExactMatch );
 }
 
 void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
@@ -275,12 +275,12 @@ void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
 }
 
 
-const MemberMap& XMLDB::XMLDB::memberMap()
+const DB::MemberMap& XMLDB::XMLDB::memberMap()
 {
     return _members;
 }
 
-void XMLDB::XMLDB::setMemberMap( const MemberMap& members )
+void XMLDB::XMLDB::setMemberMap( const DB::MemberMap& members )
 {
     _members = members;
 }
@@ -303,14 +303,14 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
             if ( !name.isNull() )  {
                 // Read Category info
                 QString icon= elmOption.attribute( QString::fromLatin1("icon") );
-                Category::ViewSize size =
-                    (Category::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
-                Category::ViewType type =
-                    (Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
+                DB::Category::ViewSize size =
+                    (DB::Category::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
+                DB::Category::ViewType type =
+                    (DB::Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
                 bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
                                                         QString::fromLatin1( "1" ) ).toInt();
 
-                CategoryPtr cat = _categoryCollection.categoryForName( name );
+                DB::CategoryPtr cat = _categoryCollection.categoryForName( name );
                 if ( !cat ) {
                     // Special categories are already created so they
                     // should not be created here. Besides they are not
@@ -343,19 +343,19 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
 
 void XMLDB::XMLDB::createSpecialCategories()
 {
-    CategoryPtr folderCat = _categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
+    DB::CategoryPtr folderCat = _categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
     if( folderCat == 0 ) {
         folderCat = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
-                                     Category::Small, Category::ListView, false );
+                                     DB::Category::Small, DB::Category::ListView, false );
         _categoryCollection.addCategory( folderCat );
     }
     folderCat->setSpecialCategory( true );
 
 
-    CategoryPtr tokenCat = _categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
+    DB::CategoryPtr tokenCat = _categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
         tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"),
-                                    Category::Small, Category::ListView, true );
+                                    DB::Category::Small, DB::Category::ListView, true );
         _categoryCollection.addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
@@ -401,7 +401,7 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
 }
 
 
-MD5Map* XMLDB::XMLDB::md5Map()
+DB::MD5Map* XMLDB::XMLDB::md5Map()
 {
     return &_md5map;
 }
@@ -523,7 +523,7 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
         if ( fileName.isNull() )
             qWarning( "Element did not contain a file attribute" );
         else {
-            ImageInfoPtr info = load( fileName, elm );
+            DB::ImageInfoPtr info = load( fileName, elm );
             _images.append(info);
             _md5map.insert( info->MD5Sum(), fileName );
         }
@@ -531,9 +531,9 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
 
 }
 
-ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
+DB::ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
 {
-    ImageInfoPtr info = createImageInfo( fileName, elm, this );
+    DB::ImageInfoPtr info = createImageInfo( fileName, elm, this );
     // This is for compatibility with KimDaBa 2.1 where this info was not saved.
     QString folderName = Utilities::relativeFolderName( fileName );
     info->setOption( QString::fromLatin1( "Folder") , QStringList( folderName ) );
@@ -572,7 +572,7 @@ void XMLDB::XMLDB::loadMemberGroups( const QDomElement& memberGroups )
             else {
                 QStringList members = QStringList::split( QString::fromLatin1( "," ), elm.attribute( QString::fromLatin1( "members" ) ) );
                 for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
-                    CategoryPtr catPtr = _categoryCollection.categoryForName( category );
+                    DB::CategoryPtr catPtr = _categoryCollection.categoryForName( category );
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
                     QString member = cat->nameForId( (*membersIt).toInt() );
                     _members.addMemberToGroup( category, group, member );
@@ -584,17 +584,17 @@ void XMLDB::XMLDB::loadMemberGroups( const QDomElement& memberGroups )
 
 void XMLDB::XMLDB::saveImages( QDomDocument doc, QDomElement top )
 {
-    ImageInfoList list = _images;
+    DB::ImageInfoList list = _images;
 
     // Copy files from clipboard to end of overview, so we don't loose them
-    for( ImageInfoListConstIterator it = _clipboard.constBegin(); it != _clipboard.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = _clipboard.constBegin(); it != _clipboard.constEnd(); ++it ) {
         list.append( *it );
     }
 
     QDomElement images = doc.createElement( QString::fromLatin1( "images" ) );
     top.appendChild( images );
 
-    for( ImageInfoListIterator it = list.begin(); it != list.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = list.begin(); it != list.end(); ++it ) {
         images.appendChild( save( doc, *it ) );
     }
 }
@@ -630,7 +630,7 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
                 elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
                 QStringList idList;
                 for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
-                    CategoryPtr catPtr = _categoryCollection.categoryForName( it1.key() );
+                    DB::CategoryPtr catPtr = _categoryCollection.categoryForName( it1.key() );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     idList.append( QString::number( category->idForName( *listIt ) ) );
                 }
@@ -654,7 +654,7 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
 
 void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
 {
-    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
+    QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     QDomElement options;
     if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         options = doc.createElement( QString::fromLatin1("options") );
@@ -671,7 +671,7 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
             opt = doc.createElement( QString::fromLatin1("Category") );
         QString name = *it;
         opt.setAttribute( QString::fromLatin1("name"),  name );
-        CategoryPtr category = ImageDB::instance()->categoryCollection()->categoryForName( name );
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
 
         opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
         opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
@@ -695,23 +695,23 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
 QStringList XMLDB::XMLDB::images()
 {
     QStringList result;
-    for( ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
+    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         result.append( (*it)->fileName() );
     }
     return result;
 }
 
-QStringList XMLDB::XMLDB::search( const ImageSearchInfo& info, bool requireOnDisk ) const
+QStringList XMLDB::XMLDB::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
     return searchPrivate( info, requireOnDisk, true );
 }
 
-QStringList XMLDB::XMLDB::searchPrivate( const ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
+QStringList XMLDB::XMLDB::searchPrivate( const DB::ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
     QStringList result;
-    for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
         match &= !requireOnDisk || (*it)->imageOnDisk();
 
@@ -723,36 +723,36 @@ QStringList XMLDB::XMLDB::searchPrivate( const ImageSearchInfo& info, bool requi
 
 void XMLDB::XMLDB::sortAndMergeBackIn( const QStringList& fileList )
 {
-    ImageInfoList list;
+    DB::ImageInfoList list;
 
     for( QStringList::ConstIterator it = fileList.begin(); it != fileList.end(); ++it ) {
-        list.append( ImageDB::instance()->info( *it ) );
+        list.append( DB::ImageDB::instance()->info( *it ) );
     }
     _images.sortAndMergeBackIn( list );
 }
 
-CategoryCollection* XMLDB::XMLDB::categoryCollection()
+DB::CategoryCollection* XMLDB::XMLDB::categoryCollection()
 {
     return &_categoryCollection;
 }
 
-KSharedPtr<ImageDateCollection> XMLDB::XMLDB::rangeCollection()
+KSharedPtr<DB::ImageDateCollection> XMLDB::XMLDB::rangeCollection()
 {
     return new XMLImageDateCollection( searchPrivate( Browser::Browser::instance()->currentContext(), false, false ) );
 }
 
 void XMLDB::XMLDB::reorder( const QString& item, const QStringList& selection, bool after )
 {
-    ImageInfoList list = takeImagesFromSelection( selection );
+    DB::ImageInfoList list = takeImagesFromSelection( selection );
     insertList( item, list, after );
 }
 
 // The selection is know to be sorted wrt the order in the image list.
-ImageInfoList XMLDB::XMLDB::takeImagesFromSelection( const QStringList& selection )
+DB::ImageInfoList XMLDB::XMLDB::takeImagesFromSelection( const QStringList& selection )
 {
     QStringList cutList = selection;
-    ImageInfoList result;
-    for( ImageInfoListIterator it = _images.begin(); it != _images.end() && !cutList.isEmpty(); ) {
+    DB::ImageInfoList result;
+    for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end() && !cutList.isEmpty(); ) {
         if ( (*it)->fileName() == cutList[0] ) {
             result << *it;
             it = _images.erase(it);
@@ -766,11 +766,11 @@ ImageInfoList XMLDB::XMLDB::takeImagesFromSelection( const QStringList& selectio
     return result;
 }
 
-QStringList XMLDB::XMLDB::insertList( const QString& fileName, const ImageInfoList& list, bool after )
+QStringList XMLDB::XMLDB::insertList( const QString& fileName, const DB::ImageInfoList& list, bool after )
 {
     QStringList result;
 
-    ImageInfoListIterator imageIt = _images.begin();
+    DB::ImageInfoListIterator imageIt = _images.begin();
     for( ; imageIt != _images.end(); ++imageIt ) {
         if ( (*imageIt)->fileName() == fileName ) {
             break;
@@ -779,7 +779,7 @@ QStringList XMLDB::XMLDB::insertList( const QString& fileName, const ImageInfoLi
 
     if ( after )
         imageIt++;
-    for( ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = list.begin(); it != list.end(); ++it ) {
         _images.insert( imageIt, *it );
         result << (*it)->fileName();
     }
@@ -837,12 +837,12 @@ void XMLDB::XMLDB::add21CompatXML( QDomElement& top )
     top.appendChild( tmpDoc.documentElement() );
 }
 
-ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomElement& elm, XMLDB* db )
+DB::ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomElement& elm, XMLDB* db )
 {
     QString label = elm.attribute( QString::fromLatin1("label") );
     QString description = elm.attribute( QString::fromLatin1("description") );
 
-    ImageDate date;
+    DB::ImageDate date;
     if ( elm.hasAttribute( QString::fromLatin1( "startDate" ) ) ) {
         QDateTime start;
         QDateTime end;
@@ -854,7 +854,7 @@ ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomE
         str = elm.attribute( QString::fromLatin1( "endDate" ) );
         if ( !str.isEmpty() )
             end = QDateTime::fromString( str, Qt::ISODate );
-        date = ImageDate( start, end );
+        date = DB::ImageDate( start, end );
     }
     else {
         int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;
@@ -869,7 +869,7 @@ ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomE
         yearTo = elm.attribute( QString::fromLatin1("yearTo"), QString::number(yearTo) ).toInt();
         monthTo = elm.attribute( QString::fromLatin1("monthTo"), QString::number(monthTo) ).toInt();
         dayTo = elm.attribute( QString::fromLatin1("dayTo"), QString::number(dayTo) ).toInt();
-        date = ImageDate( yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, hourFrom, minuteFrom, secondFrom );
+        date = DB::ImageDate( yearFrom, monthFrom, dayFrom, yearTo, monthTo, dayTo, hourFrom, minuteFrom, secondFrom );
     }
 
     int angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
@@ -881,8 +881,8 @@ ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomE
     int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
     QSize size = QSize( w,h );
 
-    ImageInfo* info = new ImageInfo( fileName, label, description, date, angle, md5sum, size );
-    ImageInfoPtr result = info;
+    DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size );
+    DB::ImageInfoPtr result = info;
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
@@ -905,7 +905,7 @@ ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomE
     return result;
 }
 
-void XMLDB::XMLDB::readOptions( ImageInfoPtr info, QDomElement elm )
+void XMLDB::XMLDB::readOptions( DB::ImageInfoPtr info, QDomElement elm )
 {
     // options is for KimDaBa 2.1 compatibility
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "categories" ) || elm.tagName() == QString::fromLatin1( "options" ) );
@@ -938,13 +938,13 @@ void XMLDB::XMLDB::readOptions( ImageInfoPtr info, QDomElement elm )
     }
 }
 
-void XMLDB::XMLDB::possibleLoadCompressedCategories( const QDomElement& elm, ImageInfoPtr info, XMLDB* db )
+void XMLDB::XMLDB::possibleLoadCompressedCategories( const QDomElement& elm, DB::ImageInfoPtr info, XMLDB* db )
 {
     if ( db == 0 )
         return;
 
-    QValueList<CategoryPtr> categoryList = db->_categoryCollection.categories();
-    for( QValueList<CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+    QValueList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
+    for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         QString str = elm.attribute( categoryName );
         if ( !str.isEmpty() ) {
@@ -958,14 +958,14 @@ void XMLDB::XMLDB::possibleLoadCompressedCategories( const QDomElement& elm, Ima
     }
 }
 
-QDomElement XMLDB::XMLDB::save( QDomDocument doc, const ImageInfoPtr& info )
+QDomElement XMLDB::XMLDB::save( QDomDocument doc, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
     elm.setAttribute( QString::fromLatin1("file"),  info->fileName( true ) );
     elm.setAttribute( QString::fromLatin1("label"),  info->label() );
     elm.setAttribute( QString::fromLatin1("description"), info->description() );
 
-    ImageDate date = info->date();
+    DB::ImageDate date = info->date();
     QDateTime start = date.start();
     QDateTime end = date.end();
 
@@ -1001,7 +1001,7 @@ QDomElement XMLDB::XMLDB::save( QDomDocument doc, const ImageInfoPtr& info )
     return elm;
 }
 
-void XMLDB::XMLDB::writeCategories( QDomDocument doc, QDomElement top, const ImageInfoPtr& info )
+void XMLDB::XMLDB::writeCategories( QDomDocument doc, QDomElement top, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("options") );
 
@@ -1030,10 +1030,10 @@ void XMLDB::XMLDB::writeCategories( QDomDocument doc, QDomElement top, const Ima
         top.appendChild( elm );
 }
 
-void XMLDB::XMLDB::writeCategoriesCompressed( QDomElement& elm, const ImageInfoPtr& info )
+void XMLDB::XMLDB::writeCategoriesCompressed( QDomElement& elm, const DB::ImageInfoPtr& info )
 {
-    QValueList<CategoryPtr> categoryList = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+    QValueList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         QStringList items = info->itemsOfCategory(categoryName);
         if ( !items.isEmpty() ) {

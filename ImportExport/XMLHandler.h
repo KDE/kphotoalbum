@@ -17,8 +17,8 @@ public:
                              const Utilities::UniqNameMap& nameMap );
 
 protected:
-    QDomElement save( QDomDocument doc, const ImageInfoPtr& info );
-    void writeCategories( QDomDocument doc, QDomElement elm, const ImageInfoPtr& info );
+    QDomElement save( QDomDocument doc, const DB::ImageInfoPtr& info );
+    void writeCategories( QDomDocument doc, QDomElement elm, const DB::ImageInfoPtr& info );
 };
 
 }

@@ -55,7 +55,7 @@ void ImagePreview::rotate(int angle)
     reload();
 }
 
-void ImagePreview::setImage( const ImageInfo& info )
+void ImagePreview::setImage( const DB::ImageInfo& info )
 {
     _info = info;
     reload();
@@ -68,7 +68,7 @@ void ImagePreview::setImage( const ImageInfo& info )
 void ImagePreview::setImage( const QString& fileName )
 {
     _fileName = fileName;
-    _info = ImageInfo();
+    _info = DB::ImageInfo();
     _angle = 0;
     reload();
 }
@@ -123,7 +123,7 @@ void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
     }
 }
 
-void ImagePreview::anticipate(ImageInfo &info1) {
+void ImagePreview::anticipate(DB::ImageInfo &info1) {
     //We cannot call _preloader.preloadImage right here:
     //this function is called before reload(), so if we preload here,
     //the preloader will always be loading the image after the next image.

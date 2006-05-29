@@ -7,7 +7,7 @@
 #include "DB/ImageDB.h"
 #include <kmessagebox.h>
 
-Browser::ExifFolder::ExifFolder( const ImageSearchInfo& info, Browser* browser )
+Browser::ExifFolder::ExifFolder( const DB::ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )
 {
 }
@@ -21,11 +21,11 @@ Browser::FolderAction* Browser::ExifFolder::action( bool /* ctrlDown */ )
 
     Exif::SearchInfo result = dialog.info();
 
-    ImageSearchInfo info = _info;
+    DB::ImageSearchInfo info = _info;
 
     info.addExifSearchInfo( dialog.info() );
 
-    if ( ImageDB::instance()->count( info ) == 0 ) {
+    if ( DB::ImageDB::instance()->count( info ) == 0 ) {
         KMessageBox::information( _browser, i18n( "Search did not match any images." ), i18n("Empty Search Result") );
         return 0;
     }

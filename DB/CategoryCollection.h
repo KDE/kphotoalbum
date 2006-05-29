@@ -8,6 +8,9 @@
 
 class Category;
 
+namespace DB
+{
+
 /**
    \class CategoryCollection
    This class is the collection of categories. It is the basic anchor point to categories.
@@ -38,6 +41,7 @@ protected slots:
     void itemRemoved( const QString& item );
 };
 
+}
 
 #endif /* CATEGORYCOLLECTION_H */
 

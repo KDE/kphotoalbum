@@ -33,7 +33,7 @@
 #include <config.h>
 
 Browser::ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
-                              const ImageSearchInfo& info, Browser* parent )
+                              const DB::ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category( category ), _value( value )
 {
     _info.addAnd( _category, _value );
@@ -42,11 +42,11 @@ Browser::ContentFolder::ContentFolder( const QString& category, const QString& v
 
 QPixmap Browser::ContentFolder::pixmap()
 {
-    if ( ImageDB::instance()->categoryCollection()->categoryForName( _category )->viewSize() == Category::Small ) {
-        if ( ImageDB::instance()->memberMap().isGroup( _category, _value ) )
+    if ( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->viewSize() == DB::Category::Small ) {
+        if ( DB::ImageDB::instance()->memberMap().isGroup( _category, _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
-            return ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
+            return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
         }
     }
     else
@@ -55,11 +55,11 @@ QPixmap Browser::ContentFolder::pixmap()
 
 QString Browser::ContentFolder::text() const
 {
-    if ( _value == ImageDB::NONE() ) {
-        if ( _info.option(_category) == ImageDB::NONE() )
-            return i18n( "No %1" ).arg( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
+    if ( _value == DB::ImageDB::NONE() ) {
+        if ( _info.option(_category) == DB::ImageDB::NONE() )
+            return i18n( "No %1" ).arg( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
         else
-            return i18n( "No other %1" ).arg( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
+            return i18n( "No other %1" ).arg( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
     }
     else {
         return _value;
@@ -70,7 +70,7 @@ QString Browser::ContentFolder::text() const
 void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
-    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
+    QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
         factory->createItem( new TypeFolder( *it, _info, _browser ) );
@@ -87,11 +87,11 @@ void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 
 Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 {
-    bool loadImages = (ImageDB::instance()->count( _info ) < Settings::Settings::instance()->autoShowThumbnailView());
+    bool loadImages = (DB::ImageDB::instance()->count( _info ) < Settings::Settings::instance()->autoShowThumbnailView());
     if ( ctrlDown ) loadImages = !loadImages;
 
     if ( loadImages ) {
-        ImageSearchInfo info = _info;
+        DB::ImageSearchInfo info = _info;
         return new ImageFolderAction( info, _browser );
     }
 
@@ -99,7 +99,7 @@ Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 }
 
 Browser::ContentFolderAction::ContentFolderAction( const QString& category, const QString& value,
-                                          const ImageSearchInfo& info, Browser* browser )
+                                          const DB::ImageSearchInfo& info, Browser* browser )
     :FolderAction( info, browser ), _category( category ), _value( value )
 {
 }
@@ -107,10 +107,10 @@ Browser::ContentFolderAction::ContentFolderAction( const QString& category, cons
 int Browser::ContentFolder::compare( Folder* other, int col, bool asc ) const
 {
     if ( col == 0 ) {
-        if ( _value == ImageDB::NONE() )
+        if ( _value == DB::ImageDB::NONE() )
             return ( asc ? -1 : 1);
         ContentFolder* o = static_cast<ContentFolder*>( other );
-        if ( o->_value == ImageDB::NONE() )
+        if ( o->_value == DB::ImageDB::NONE() )
             return ( asc ? 1: -1 );
     }
 

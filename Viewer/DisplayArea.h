@@ -28,7 +28,11 @@
 #include <qptrvector.h>
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfoPtr.h"
-class ImageInfo;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace ImageManager
 {
@@ -57,7 +61,7 @@ public:
     DisplayArea( QWidget* parent, const char* name = 0 );
     void startDrawing();
     void stopDrawing();
-    void setImage( ImageInfoPtr info, bool forward );
+    void setImage( DB::ImageInfoPtr info, bool forward );
     DrawHandler* drawHandler();
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
@@ -103,7 +107,7 @@ private:
     QImage _croppedAndScaledImg;
     QPixmap _drawingPixmap;
     QPixmap _viewPixmap;
-    ImageInfoPtr _info;
+    DB::ImageInfoPtr _info;
 
     ViewHandler* _viewHandler;
     DrawHandler* _drawHandler;

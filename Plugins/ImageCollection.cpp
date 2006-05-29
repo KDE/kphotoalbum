@@ -47,7 +47,7 @@ KURL::List Plugins::ImageCollection::images()
 {
     switch ( _tp ) {
     case CurrentAlbum:
-        return stringListToUrlList( ImageDB::instance()->currentScope( false ) );
+        return stringListToUrlList( DB::ImageDB::instance()->currentScope( false ) );
 
     case CurrentSelection:
         return stringListToUrlList( MainWindow::MainWindow::theMainWindow()->selected() );
@@ -59,10 +59,10 @@ KURL::List Plugins::ImageCollection::images()
     return KURL::List();
 }
 
-KURL::List Plugins::ImageCollection::imageListToUrlList( const ImageInfoList& imageList )
+KURL::List Plugins::ImageCollection::imageListToUrlList( const DB::ImageInfoList& imageList )
 {
     KURL::List urlList;
-    for( ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
         KURL url;
         url.setPath( (*it)->fileName() );
         urlList.append( url );

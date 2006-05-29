@@ -3,7 +3,7 @@
 #include "DB/Category.h"
 
 namespace XMLDB {
-    class XMLCategory :public Category
+    class XMLCategory :public DB::Category
     {
         Q_OBJECT
 

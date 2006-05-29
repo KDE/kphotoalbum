@@ -22,6 +22,8 @@
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
 
+using namespace DB;
+
 OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& value, bool sign )
 {
     _category = category ;
@@ -36,7 +38,7 @@ bool OptionValueMatcher::eval( ImageInfoPtr info )
         return _sign;
     }
 
-    QStringList list = ImageDB::instance()->memberMap().members( _category, _option, true );
+    QStringList list = DB::ImageDB::instance()->memberMap().members( _category, _option, true );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         if ( info->hasOption( _category, *it ) )
             return _sign;

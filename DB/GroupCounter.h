@@ -21,6 +21,9 @@
 #include "Settings/Settings.h"
 #include <qdict.h>
 
+namespace DB
+{
+
 class GroupCounter
 {
 public:
@@ -33,6 +36,8 @@ private:
     QDict<int> _groupCount;
 
 };
+
+}
 
 #endif /* GROUPCOUNTER_H */
 

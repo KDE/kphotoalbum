@@ -1,4 +1,7 @@
 #include "CategoryCollection.h"
+
+using namespace DB;
+
 void CategoryCollection::itemRenamed( const QString& oldName, const QString& newName )
 {
     emit itemRenamed( static_cast<Category*>( const_cast<QObject*>( sender() ) ), oldName, newName );

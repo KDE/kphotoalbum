@@ -190,8 +190,8 @@ void Viewer::Viewer::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Settings::Settings::instance()->showEXIF() );
 
-    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         ShowOptionAction* action = new ShowOptionAction( (*it)->name(), this );
         action->plug( _popup );
         connect( action, SIGNAL( toggled( const QString&, bool ) ),
@@ -359,7 +359,7 @@ void Viewer::Viewer::toggleShowEXIF( bool b )
 
 void Viewer::Viewer::toggleShowOption( const QString& category, bool b )
 {
-    ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
+    DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
     updateInfoBox();
 }
 
@@ -446,9 +446,9 @@ bool Viewer::Viewer::close( bool alsoDelete)
     return QWidget::close( alsoDelete );
 }
 
-ImageInfoPtr Viewer::Viewer::currentInfo()
+DB::ImageInfoPtr Viewer::Viewer::currentInfo()
 {
-    return ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
+    return DB::ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }
 
 void Viewer::Viewer::infoBoxMove()
@@ -643,7 +643,7 @@ void Viewer::Viewer::slotSlideShowSlower()
 
 void Viewer::Viewer::editImage()
 {
-    ImageInfoList list;
+    DB::ImageInfoList list;
     list.append( currentInfo() );
     MainWindow::MainWindow::configureImages( list, true );
 }

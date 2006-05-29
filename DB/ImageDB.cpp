@@ -12,10 +12,12 @@
 #include <config.h>
 #include "NewImageFinder.h"
 
+using namespace DB;
+
 ImageDB* ImageDB::_instance = 0;
 
 
-ImageDB* ImageDB::instance()
+ImageDB* DB::ImageDB::instance()
 {
     if ( _instance == 0 )
         qFatal("ImageDB::instance must not be called before ImageDB::setup");

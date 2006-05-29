@@ -70,7 +70,7 @@ void DeleteDialog::deleteImages()
     if ( _deleteFromDisk->isChecked() ) {
         for( QStringList::ConstIterator it = _list.begin(); it != _list.end(); ++it ) {
             Utilities::removeThumbNail( *it );
-            if ( ImageDB::instance()->info(*it)->imageOnDisk() ) { // PENDING(blackie) we don't need imageinfo for this
+            if ( DB::ImageDB::instance()->info(*it)->imageOnDisk() ) { // PENDING(blackie) we don't need imageinfo for this
                 bool ok = !(QFile( *it ).exists()) ||  QFile( *it ).remove();
                 if ( !ok ) {
                     KMessageBox::error( this, i18n("Unable to delete file '%1'.").arg(*it),
@@ -81,10 +81,10 @@ void DeleteDialog::deleteImages()
     }
 
     if ( _block->isChecked() )
-        ImageDB::instance()->addToBlockList( _list );
+        DB::ImageDB::instance()->addToBlockList( _list );
 
     if ( _deleteFromDisk->isChecked() )
-        ImageDB::instance()->deleteList( _list );
+        DB::ImageDB::instance()->deleteList( _list );
 
     accept();
 }

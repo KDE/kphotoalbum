@@ -43,8 +43,11 @@
 
 namespace Plugins
 {
-class ImageInfo;
+     class ImageInfo;
 }
+
+namespace DB
+{
 
 class ImageInfo :public KShared {
 
@@ -139,6 +142,8 @@ private:
     // Used during searching to make it possible to search for Jesper & None
     mutable QMap<QString,QStringList> _matched;
 };
+
+}
 
 #endif /* IMAGEINFO_H */
 

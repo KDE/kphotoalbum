@@ -42,7 +42,7 @@ public:
 public slots:
     void setViewType( ViewType tp );
     void setDate( const QDateTime& date );
-    void setImageDateCollection( const KSharedPtr<ImageDateCollection>& );
+    void setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& );
     void scrollLeft();
     void scrollRight();
     void scroll( int units );
@@ -55,9 +55,9 @@ public slots:
 signals:
     void canZoomIn( bool );
     void canZoomOut( bool );
-    void dateSelected( const ImageDate&, bool includeRanges );
+    void dateSelected( const DB::ImageDate&, bool includeRanges );
     void toolTipInfo( const QString& );
-    void dateRangeChange( const ImageDate& );
+    void dateRangeChange( const DB::ImageDate& );
     void dateRangeCleared();
 
 public:
@@ -89,18 +89,18 @@ protected:
     int numberOfUnits() const;
     void drawArrow( QPainter&, const QPoint& start, const QPoint& end );
     void updateArrowState();
-    ImageDate currentDateRange() const;
+    DB::ImageDate currentDateRange() const;
     void showStatusBarTip( const QPoint& pos );
-    ImageDate rangeAt( const QPoint& );
+    DB::ImageDate rangeAt( const QPoint& );
     void placeAndSizeButtons();
     int unitAtPos( int x ) const;
     QDateTime dateForUnit( int unit, const QDateTime& offset = QDateTime() ) const;
     int unitForDate( const QDateTime& date ) const;
     bool isUnitSelected( int unit ) const;
     bool hasSelection() const;
-    ImageDate currentSelection() const;
+    DB::ImageDate currentSelection() const;
     void emitDateSelected();
-    void emitRangeSelection( const ImageDate& );
+    void emitRangeSelection( const DB::ImageDate& );
 
 protected slots:
     void clearSelection();
@@ -109,7 +109,7 @@ private:
     QPixmap _buffer;
     friend class DateBarTip;
 
-    KSharedPtr<ImageDateCollection> _dates;
+    KSharedPtr<DB::ImageDateCollection> _dates;
     DecadeViewHandler _decadeViewHandler;
     YearViewHandler _yearViewHandler;
     MonthViewHandler _monthViewHandler;

@@ -64,7 +64,7 @@ Browser::Browser::Browser( QWidget* parent, const char* name )
     connect( _listView, SIGNAL( returnPressed( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
     connect( _iconView, SIGNAL( clicked( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
     connect( _iconView, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
-    connect( ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
+    connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
     // I got to wait till the event loops runs, so I'm sure that the image database has been loaded.
@@ -80,7 +80,7 @@ Browser::Browser::~Browser()
 
 void Browser::Browser::init()
 {
-    FolderAction* action = new ContentFolderAction( QString::null, QString::null, ImageSearchInfo(), this );
+    FolderAction* action = new ContentFolderAction( QString::null, QString::null, DB::ImageSearchInfo(), this );
     _list.append( action );
     forward();
 }
@@ -136,7 +136,7 @@ void Browser::Browser::go()
     emitSignals();
 }
 
-void Browser::Browser::addSearch( ImageSearchInfo& info )
+void Browser::Browser::addSearch( DB::ImageSearchInfo& info )
 {
     FolderAction* a;
     a = new ImageFolderAction( info, this );
@@ -178,15 +178,15 @@ void Browser::Browser::emitSignals()
     if ( a->contentView() && _list.size() > 0 ) {
         QString grp = a->category();
         Q_ASSERT( !grp.isNull() );
-        Category::ViewSize size = ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewSize();
-        Category::ViewType type = ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewType();
+        DB::Category::ViewSize size = DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewSize();
+        DB::Category::ViewType type = DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewType();
         emit currentSizeAndTypeChanged( size, type );
     }
 }
 
 void Browser::Browser::home()
 {
-    FolderAction* action = new ContentFolderAction( QString::null, QString::null, ImageSearchInfo(), this );
+    FolderAction* action = new ContentFolderAction( QString::null, QString::null, DB::ImageSearchInfo(), this );
     addItem( action );
     go();
 }
@@ -210,11 +210,11 @@ Browser::Browser* Browser::Browser::instance()
 
 void Browser::Browser::load( const QString& category, const QString& value )
 {
-    ImageSearchInfo info;
+    DB::ImageSearchInfo info;
     info.addAnd( category, value );
     FolderAction* a;
 
-    bool loadImages = ImageDB::instance()->count( info ) < Settings::Settings::instance()->autoShowThumbnailView();
+    bool loadImages = DB::ImageDB::instance()->count( info ) < Settings::Settings::instance()->autoShowThumbnailView();
     if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )
@@ -233,32 +233,32 @@ bool Browser::Browser::allowSort()
     return _list[_current-1]->allowSort();
 }
 
-ImageSearchInfo Browser::Browser::currentContext()
+DB::ImageSearchInfo Browser::Browser::currentContext()
 {
     return _list[_current-1]->_info;
 }
 
 void Browser::Browser::slotSmallListView()
 {
-    setSizeAndType( Category::ListView,Category::Small );
+    setSizeAndType( DB::Category::ListView,DB::Category::Small );
 }
 
 void Browser::Browser::slotLargeListView()
 {
-    setSizeAndType( Category::ListView,Category::Large );
+    setSizeAndType( DB::Category::ListView,DB::Category::Large );
 }
 
 void Browser::Browser::slotSmallIconView()
 {
-    setSizeAndType( Category::IconView,Category::Small );
+    setSizeAndType( DB::Category::IconView,DB::Category::Small );
 }
 
 void Browser::Browser::slotLargeIconView()
 {
-    setSizeAndType( Category::IconView,Category::Large );
+    setSizeAndType( DB::Category::IconView,DB::Category::Large );
 }
 
-void Browser::Browser::setSizeAndType( Category::ViewType type, Category::ViewSize size )
+void Browser::Browser::setSizeAndType( DB::Category::ViewType type, DB::Category::ViewSize size )
 {
     Q_ASSERT( _list.size() > 0 );
 
@@ -266,8 +266,8 @@ void Browser::Browser::setSizeAndType( Category::ViewType type, Category::ViewSi
     QString grp = a->category();
     Q_ASSERT( !grp.isNull() );
 
-    ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewType( type );
-    ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewSize( size );
+    DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewType( type );
+    DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewSize( size );
     reload();
 }
 
@@ -279,7 +279,7 @@ void Browser::Browser::clear()
 
 void Browser::Browser::setupFactory()
 {
-    Category::ViewType type = Category::ListView;
+    DB::Category::ViewType type = DB::Category::ListView;
     if ( _list.size() == 0 )
         return;
 
@@ -287,9 +287,9 @@ void Browser::Browser::setupFactory()
     QString category = a->category();
 
     if ( !category.isNull() )
-        type = ImageDB::instance()->categoryCollection()->categoryForName( category )->viewType();
+        type = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->viewType();
 
-    if ( type == Category::ListView ) {
+    if ( type == DB::Category::ListView ) {
         _currentFactory = _listViewFactory;
         _stack->raiseWidget( _listView );
     }

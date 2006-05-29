@@ -20,7 +20,11 @@
 #define EXTERNALPOPUP_H
 #include <qpopupmenu.h>
 #include "DB/ImageInfoList.h"
-class ImageInfo;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace MainWindow
 {
@@ -30,14 +34,14 @@ class ExternalPopup :public QPopupMenu {
 
 public:
     ExternalPopup( QWidget* parent, const char* name = 0 );
-    void populate( ImageInfoPtr current, const QStringList& list );
+    void populate( DB::ImageInfoPtr current, const QStringList& list );
 
 protected slots:
     void slotExecuteService( int );
 
 private:
     QStringList _list;
-    ImageInfoPtr _currentInfo;
+    DB::ImageInfoPtr _currentInfo;
 };
 
 }

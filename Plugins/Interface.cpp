@@ -52,12 +52,12 @@ KIPI::ImageCollection Plugins::Interface::currentSelection()
 QValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 {
     QValueList<KIPI::ImageCollection> result;
-    ImageSearchInfo context = MainWindow::MainWindow::theMainWindow()->currentContext();
+    DB::ImageSearchInfo context = MainWindow::MainWindow::theMainWindow()->currentContext();
     QString category = MainWindow::MainWindow::theMainWindow()->currentBrowseCategory();
     if ( category.isNull() )
         category = Settings::Settings::instance()->albumCategory();
 
-    QMap<QString,int> categories = ImageDB::instance()->classify( context, category );
+    QMap<QString,int> categories = DB::ImageDB::instance()->classify( context, category );
 
     for( QMapIterator<QString,int> it = categories.begin(); it != categories.end(); ++it ) {
         CategoryImageCollection* col = new CategoryImageCollection( context, category, it.key() );
@@ -98,20 +98,20 @@ bool Plugins::Interface::addImage( const KURL& url, QString& errmsg )
     }
 
     dir = dir.mid( root.length() );
-    ImageInfoPtr info = new ::ImageInfo( dir );
-    ImageInfoList list;
+    DB::ImageInfoPtr info = new DB::ImageInfo( dir );
+    DB::ImageInfoList list;
     list.append( info );
-    ImageDB::instance()->addImages( list );
+    DB::ImageDB::instance()->addImages( list );
     return true;
 }
 
 void Plugins::Interface::delImage( const KURL& url )
 {
-    ImageInfoPtr info = ImageDB::instance()->info( url.path() );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( url.path() );
     if ( info ) {
         QStringList list;
         list.append( info->fileName() );
-        ImageDB::instance()->deleteList( list );
+        DB::ImageDB::instance()->deleteList( list );
     }
 }
 

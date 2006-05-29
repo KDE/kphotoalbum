@@ -2,22 +2,22 @@
 #define XMLIMAGEDATERANGECOLLECTION_H
 #include "DB/ImageDateCollection.h"
 
-class XMLImageDateCollection :public ImageDateCollection
+class XMLImageDateCollection :public DB::ImageDateCollection
 {
 public:
     XMLImageDateCollection();
     XMLImageDateCollection( const QStringList& );
 
 public:
-    virtual ImageCount count( const ImageDate& range );
+    virtual DB::ImageCount count( const DB::ImageDate& range );
     virtual QDateTime lowerLimit() const;
     virtual QDateTime upperLimit() const;
 
 private:
-    void append( const ImageDate& );
+    void append( const DB::ImageDate& );
 
-    QValueList<ImageDate> _dates;
-    QMap<ImageDate,ImageCount> _cache;
+    QValueList<DB::ImageDate> _dates;
+    QMap<DB::ImageDate,DB::ImageCount> _cache;
     mutable bool _dirtyLower, _dirtyUpper;
 };
 

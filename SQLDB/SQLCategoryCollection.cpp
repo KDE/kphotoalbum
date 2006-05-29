@@ -2,9 +2,9 @@
 #include "SQLCategory.h"
 #include "QueryUtil.h"
 #include <qsqlquery.h>
-CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
+DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {
-    return KSharedPtr<Category>( new SQLCategory( idForCategory(name) ) );
+    return KSharedPtr<DB::Category>( new SQLCategory( idForCategory(name) ) );
 }
 
 QStringList SQLDB::SQLCategoryCollection::categoryNames() const
@@ -31,18 +31,18 @@ void SQLDB::SQLCategoryCollection::rename( const QString& oldName, const QString
         showError( query );
 }
 
-QValueList<CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
+QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 {
     QStringList cats = categoryNames();
-    QValueList<CategoryPtr> result;
+    QValueList<DB::CategoryPtr> result;
     for( QStringList::ConstIterator it = cats.begin(); it != cats.end(); ++it ) {
         result.append( categoryForName( *it ) );
     }
     return result;
 }
 
-void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, Category::ViewSize size,
-                                                Category::ViewType type, bool showIt )
+void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, DB::Category::ViewSize size,
+                                                DB::Category::ViewType type, bool showIt )
 {
     QString queryStr = QString::fromLatin1( "SELECT MAX(categoryId) FROM categorysetup" );
     int idx = fetchItem( queryStr ).toInt() + 1;

@@ -16,12 +16,14 @@
 #  include "Exif/Database.h"
 #endif
 
+using namespace DB;
+
 bool NewImageFinder::findImages()
 {
     // Load the information from the XML file.
     QDict<void> loadedFiles( 6301 /* a large prime */ );
 
-    QStringList images = ImageDB::instance()->images();
+    QStringList images = DB::ImageDB::instance()->images();
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
         loadedFiles.insert( *it, (void*)0x1 /* void pointer to nothing I never need the value,
                                                just its existsance, must be != 0x0 though.*/ );
@@ -61,7 +63,7 @@ void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString 
              Utilities::canReadImage(fi.extension()) ) {
             QString baseName = file.mid( imageDir.length()+1 );
 
-            if ( ! ImageDB::instance()->isBlocking( baseName ) ) {
+            if ( ! DB::ImageDB::instance()->isBlocking( baseName ) ) {
                 _pendingLoad.append( baseName );
             }
         }
@@ -89,7 +91,7 @@ void NewImageFinder::loadExtraFiles()
         if ( info )
             newImages.append(info);
     }
-    ImageDB::instance()->addImages( newImages );
+    DB::ImageDB::instance()->addImages( newImages );
 }
 
 
@@ -97,14 +99,14 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
 {
     QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
     QString sum = MD5Sum( absoluteNewFileName );
-    if ( ImageDB::instance()->md5Map()->contains( sum ) ) {
-        QString relativeMatchedFileName = ImageDB::instance()->md5Map()->lookup(sum);
+    if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
+        QString relativeMatchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
         QString absoluteMatchedFileName = Utilities::absoluteImageFileName( relativeMatchedFileName );
         QFileInfo fi( absoluteMatchedFileName );
 
         if ( !fi.exists() ) {
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
-            ImageInfoPtr info = ImageDB::instance()->info( Settings::Settings::instance()->imageDirectory() + relativeMatchedFileName );
+            ImageInfoPtr info = DB::ImageDB::instance()->info( Settings::Settings::instance()->imageDirectory() + relativeMatchedFileName );
             if ( !info )
                 qWarning("How did that happen? We couldn't find info for the images %s", relativeMatchedFileName.latin1());
             else {
@@ -118,7 +120,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.
-                ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
+                DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
 
 #ifdef HASEXIV2
                 Exif::Database::instance()->remove( absoluteMatchedFileName );
@@ -131,7 +133,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
 
     ImageInfoPtr info = new ImageInfo( relativeNewFileName  );
     info->setMD5Sum(sum);
-    ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
+    DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
 #ifdef HASEXIV2
     Exif::Database::instance()->add( absoluteNewFileName );
 #endif
@@ -149,7 +151,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list )
     bool dirty = false;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count ) {
-        ImageInfoPtr info = ImageDB::instance()->info( *it );
+        ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
@@ -165,7 +167,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list )
             Utilities::removeThumbNail( *it );
         }
 
-        ImageDB::instance()->md5Map()->insert( md5, info->fileName(true) );
+        DB::ImageDB::instance()->md5Map()->insert( md5, info->fileName(true) );
     }
     return dirty;
 }

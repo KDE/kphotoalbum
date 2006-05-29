@@ -22,11 +22,15 @@
 #include <qdom.h>
 #include <qmap.h>
 #include <qobject.h>
-class ImageDB;
-class Category;
+
 namespace XMLDB {
     class XMLDB;
 }
+
+namespace DB
+{
+class ImageDB;
+class Category;
 
 class MemberMap :public QObject {
     Q_OBJECT
@@ -69,6 +73,8 @@ private:
     QMap<QString, QMap<QString,QStringList> > _closureMembers;
 
 };
+
+}
 
 #endif /* MEMBERMAP_H */
 

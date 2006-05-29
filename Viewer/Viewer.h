@@ -26,11 +26,15 @@
 #include <qimage.h>
 #include "DB/ImageInfoList.h"
 
-class ImageInfo;
 class QLabel;
 class QPopupMenu;
 class KAction;
 class CategoryImageConfig;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace MainWindow
 {
@@ -72,7 +76,7 @@ protected:
     void load();
     void updateInfoBox();
     void setupContextMenu();
-    ImageInfoPtr currentInfo();
+    DB::ImageInfoPtr currentInfo();
     friend class InfoBox;
 
 signals:

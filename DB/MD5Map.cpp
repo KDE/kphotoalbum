@@ -17,6 +17,9 @@
 */
 
 #include "MD5Map.h"
+
+using namespace DB;
+
 void MD5Map::insert( const QString& md5sum, const QString& fileName )
 {
     _map.insert( md5sum, fileName );

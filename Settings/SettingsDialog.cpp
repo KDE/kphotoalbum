@@ -59,7 +59,7 @@
 #include <config.h>
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _memberMap( MemberMap( ImageDB::instance() ) ), _currentCategory( QString::null ), _currentGroup( QString::null )
+    :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _memberMap( DB::MemberMap( DB::ImageDB::instance() ) ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createThumbNailPage();
@@ -147,8 +147,8 @@ void Settings::SettingsDialog::createGeneralPage()
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
-    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         _albumCategory->insertItem( (*it)->text() );
     }
 
@@ -289,17 +289,17 @@ class OptionGroupItem :public QListBoxText
 {
 public:
     OptionGroupItem( const QString& category, const QString& text, const QString& icon,
-                     Category::ViewSize size, Category::ViewType type, QListBox* parent );
+                     DB::Category::ViewSize size, DB::Category::ViewType type, QListBox* parent );
     void setLabel( const QString& label );
 
     QString _categoryOrig, _textOrig, _iconOrig;
     QString _text, _icon;
-    Category::ViewSize _size, _sizeOrig;
-    Category::ViewType _type, _typeOrig;
+    DB::Category::ViewSize _size, _sizeOrig;
+    DB::Category::ViewType _type, _typeOrig;
 };
 
 OptionGroupItem::OptionGroupItem( const QString& category, const QString& text, const QString& icon,
-                                  Category::ViewSize size, Category::ViewType type, QListBox* parent )
+                                  DB::Category::ViewSize size, DB::Category::ViewType type, QListBox* parent )
     :QListBoxText( parent, text ),
      _categoryOrig( category ), _textOrig( text ), _iconOrig( icon ),
      _text( text ), _icon( icon ), _size( size ), _sizeOrig( size ), _type( type ), _typeOrig( type )
@@ -394,9 +394,9 @@ void Settings::SettingsDialog::show()
     _backupCount->setValue( opt->backupCount() );
     _compressBackup->setChecked( opt->compressBackup() );
 
-    CategoryPtr cat = ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
+    DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
-        cat = ImageDB::instance()->categoryCollection()->categories()[0];
+        cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
     _albumCategory->setCurrentText( cat->text() );
 
     _displayLabels->setChecked( opt->displayLabels() );
@@ -415,8 +415,8 @@ void Settings::SettingsDialog::show()
 
     // Config Groups page
     _categories->clear();
-    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
             new OptionGroupItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(),_categories );
         }
@@ -450,9 +450,9 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setCompressBackup( _compressBackup->isChecked() );
     opt->setUseCompressedIndexXML( _compressedIndexXML->isChecked() );
     opt->setAutoSave( _autosave->value() );
-    QString name = ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
+    QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )
-        name = ImageDB::instance()->categoryCollection()->categoryNames()[0];
+        name = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
     opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
@@ -473,7 +473,7 @@ void Settings::SettingsDialog::slotMyOK()
     for( QValueList<OptionGroupItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
         if ( !(*it)->_categoryOrig.isNull() ) {
             // the Settings instance knows about the item.
-            ImageDB::instance()->categoryCollection()->removeCategory( (*it)->_categoryOrig );
+            DB::ImageDB::instance()->categoryCollection()->removeCategory( (*it)->_categoryOrig );
         }
     }
 
@@ -482,28 +482,28 @@ void Settings::SettingsDialog::slotMyOK()
         OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
         if ( item->_categoryOrig.isNull() ) {
             // New Item
-            ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon, item->_size, item->_type  );
+            DB::ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon, item->_size, item->_type  );
         }
         else {
             if ( item->_text != item->_textOrig ) {
-                ImageDB::instance()->categoryCollection()->rename(  item->_categoryOrig, item->_text );
+                DB::ImageDB::instance()->categoryCollection()->rename(  item->_categoryOrig, item->_text );
                 _memberMap.renameCategory(  item->_categoryOrig, item->_text );
                 item->_categoryOrig =item->_text;
             }
             if ( item->_icon != item->_iconOrig ) {
-                ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setIconName( item->_icon );
+                DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setIconName( item->_icon );
             }
             if ( item->_size != item->_sizeOrig ) {
-                ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewSize( item->_size );
+                DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewSize( item->_size );
             }
             if ( item->_type != item->_typeOrig ) {
-                ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewType( item->_type );
+                DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewType( item->_type );
             }
         }
     }
 
     saveOldGroup();
-    ImageDB::instance()->setMemberMap( _memberMap );
+    DB::ImageDB::instance()->setMemberMap( _memberMap );
 
     // misc stuff
 #ifdef HASKIPI
@@ -548,14 +548,14 @@ void Settings::SettingsDialog::slotPreferredViewChanged( int i )
 {
     if ( _current ) {
         if ( i < 2 )
-            _current->_type = Category::ListView;
+            _current->_type = DB::Category::ListView;
         else
-            _current->_type = Category::IconView;
+            _current->_type = DB::Category::IconView;
 
         if ( i % 2 == 1 )
-            _current->_size = Category::Large;
+            _current->_size = DB::Category::Large;
         else
-            _current->_size = Category::Small;
+            _current->_size = DB::Category::Small;
     }
 }
 
@@ -569,7 +569,7 @@ void Settings::SettingsDialog::slotIconChanged( QString icon )
 
 void Settings::SettingsDialog::slotNewItem()
 {
-    _current = new OptionGroupItem( QString::null, QString::null, QString::null, Category::Small, Category::ListView, _categories );
+    _current = new OptionGroupItem( QString::null, QString::null, QString::null, DB::Category::Small, DB::Category::ListView, _categories );
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
     enableDisable( true );
@@ -644,7 +644,7 @@ void Settings::SettingsDialog::createGroupConfig()
     lay6->addWidget( _del );
 
     // Setup the actions
-    _memberMap = ImageDB::instance()->memberMap();
+    _memberMap = DB::ImageDB::instance()->memberMap();
     connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
     connect( _groups, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
     connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
@@ -660,7 +660,7 @@ void Settings::SettingsDialog::createGroupConfig()
 */
 void Settings::SettingsDialog::slotCategoryChanged( const QString& text )
 {
-    slotCategoryChanged( ImageDB::instance()->categoryCollection()->nameForText(text), true );
+    slotCategoryChanged( DB::ImageDB::instance()->categoryCollection()->nameForText(text), true );
 }
 
 void Settings::SettingsDialog::slotCategoryChanged( const QString& name, bool saveGroups )
@@ -676,7 +676,7 @@ void Settings::SettingsDialog::slotCategoryChanged( const QString& name, bool sa
     _groups->insertStringList( groupList );
 
     _members->clear();
-    QStringList list = ImageDB::instance()->categoryCollection()->categoryForName(name)->items();
+    QStringList list = DB::ImageDB::instance()->categoryCollection()->categoryForName(name)->items();
     list += _memberMap.groups( name );
     QStringList uniq;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
@@ -713,7 +713,7 @@ void Settings::SettingsDialog::slotAddGroup()
         QListBoxItem* item = new QListBoxText( _groups, text );
         _groups->setCurrentItem( item );
         selectMembers( text );
-        ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
         _memberMap.setMembers(_currentCategory, text, QStringList() );
         slotCategoryChanged( _currentCategory, false );
     }
@@ -729,7 +729,7 @@ void Settings::SettingsDialog::slotRenameGroup()
     if ( ok ) {
         saveOldGroup();
         _memberMap.renameGroup( _currentCategory, currentValue, text );
-        ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( currentValue, text );
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( currentValue, text );
         slotCategoryChanged( _currentCategory, false );
     }
 }
@@ -747,7 +747,7 @@ void Settings::SettingsDialog::slotDelGroup()
     delete item;
 
     _memberMap.deleteGroup( _currentCategory, _currentGroup );
-    ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->removeItem( _currentGroup );
+    DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->removeItem( _currentGroup );
     _currentGroup = _groups->text(0);
     slotCategoryChanged( _currentCategory, false );
     selectMembers( _currentGroup );
@@ -796,8 +796,8 @@ void Settings::SettingsDialog::setButtonStates()
 void Settings::SettingsDialog::slotPageChange()
 {
     _category->clear();
-    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( !(*it)->isSpecialCategory() )
             _category->insertItem( (*it)->text() );
     }

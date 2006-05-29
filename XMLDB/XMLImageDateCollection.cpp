@@ -25,29 +25,29 @@ XMLImageDateCollection::XMLImageDateCollection()
 {
 }
 
-void XMLImageDateCollection::append( const ImageDate& date )
+void XMLImageDateCollection::append( const DB::ImageDate& date )
 {
     _dates.append( date );
     _dirtyLower = true;
     _dirtyUpper = true;
 }
 
-ImageCount XMLImageDateCollection::count( const ImageDate& range )
+DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
 {
     if ( _cache.contains( range ) )
         return _cache[range];
 
     int exact = 0, rangeMatch = 0;
-    for( QValueList<ImageDate>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
-        ImageDate::MatchType tp = (*it).isIncludedIn( range );
+    for( QValueList<DB::ImageDate>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
+        DB::ImageDate::MatchType tp = (*it).isIncludedIn( range );
         switch (tp) {
-        case ImageDate::ExactMatch: exact++;break;
-        case ImageDate::RangeMatch: rangeMatch++; break;
-        case ImageDate::DontMatch: break;
+        case DB::ImageDate::ExactMatch: exact++;break;
+        case DB::ImageDate::RangeMatch: rangeMatch++; break;
+        case DB::ImageDate::DontMatch: break;
         }
     }
 
-    ImageCount res( exact, rangeMatch );
+    DB::ImageCount res( exact, rangeMatch );
     _cache.insert( range, res );
     return res;
 }
@@ -57,7 +57,7 @@ QDateTime XMLImageDateCollection::lowerLimit() const
     static QDateTime _lower = QDateTime( QDate( 1900, 1, 1 ) );
     if ( _dirtyLower && _dates.count() != 0 ) {
         bool first = true;
-        for( QValueList<ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
+        for( QValueList<DB::ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
             if ( first ) {
                 _lower = (*it).start();
                 first = false;
@@ -75,7 +75,7 @@ QDateTime XMLImageDateCollection::upperLimit() const
     static QDateTime _upper = QDateTime( QDate( 2100, 1, 1 ) );
     if ( _dirtyUpper && _dates.count() != 0 ) {
         bool first = true;
-        for( QValueList<ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
+        for( QValueList<DB::ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
             if ( first ) {
                 _upper = (*it).end();
                 first = false;
@@ -92,7 +92,7 @@ QDateTime XMLImageDateCollection::upperLimit() const
 XMLImageDateCollection::XMLImageDateCollection( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfoPtr info = ImageDB::instance()->info( *it );
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
         append( info->date() );
     }
 }

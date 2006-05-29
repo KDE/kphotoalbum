@@ -237,7 +237,7 @@ void DateBar::DateBar::setDate( const QDateTime& date )
     redraw();
 }
 
-void DateBar::DateBar::setImageDateCollection( const KSharedPtr<ImageDateCollection>& dates )
+void DateBar::DateBar::setImageDateCollection( const KSharedPtr<DB::ImageDateCollection>& dates )
 {
     _dates = dates;
     redraw();
@@ -254,7 +254,7 @@ void DateBar::DateBar::drawHistograms( QPainter& p)
     int unit = 0;
     int max = 0;
     for ( int x = rect.x(); x + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
+        DB::ImageCount count = _dates->count( DB::ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
         int cnt = count._exact;
         if ( _includeFuzzyCounts )
             cnt += count._rangeMatch;
@@ -263,7 +263,7 @@ void DateBar::DateBar::drawHistograms( QPainter& p)
 
     unit = 0;
     for ( int x = rect.x(); x  + _barWidth < rect.right(); x+=_barWidth, unit += 1 ) {
-        ImageCount count = _dates->count( ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
+        DB::ImageCount count = _dates->count( DB::ImageDate( dateForUnit(unit), dateForUnit(unit+1).addSecs(-1) ) );
         int exact = 0;
         if ( max != 0 )
             exact = (int) ((double) (rect.height()-2) * count._exact / max );
@@ -475,10 +475,10 @@ void DateBar::DateBar::setIncludeFuzzyCounts( bool b )
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
 
-ImageDate DateBar::DateBar::rangeAt( const QPoint& p )
+DB::ImageDate DateBar::DateBar::rangeAt( const QPoint& p )
 {
     int unit = (p.x() - barAreaGeometry().x())/ _barWidth;
-    return ImageDate( dateForUnit( unit ), dateForUnit(unit+1) );
+    return DB::ImageDate( dateForUnit( unit ), dateForUnit(unit+1) );
 }
 
 bool DateBar::DateBar::includeFuzzyCounts() const
@@ -603,15 +603,15 @@ void DateBar::DateBar::updateArrowState()
     _rightArrow->setEnabled( _dates->upperLimit() > dateForUnit( numberOfUnits() ) );
 }
 
-ImageDate DateBar::DateBar::currentDateRange() const
+DB::ImageDate DateBar::DateBar::currentDateRange() const
 {
-    return ImageDate( dateForUnit( _currentUnit ), dateForUnit( _currentUnit+1 ) );
+    return DB::ImageDate( dateForUnit( _currentUnit ), dateForUnit( _currentUnit+1 ) );
 }
 
 void DateBar::DateBar::showStatusBarTip( const QPoint& pos )
 {
-    ImageDate range = rangeAt( pos );
-    ImageCount count = _dates->count( range );
+    DB::ImageDate range = rangeAt( pos );
+    DB::ImageCount count = _dates->count( range );
 
     QString cnt;
     if ( count._rangeMatch != 0 && includeFuzzyCounts())
@@ -726,9 +726,9 @@ bool DateBar::DateBar::hasSelection() const
     return !_selectionHandler->min().isNull();
 }
 
-ImageDate DateBar::DateBar::currentSelection() const
+DB::ImageDate DateBar::DateBar::currentSelection() const
 {
-    return ImageDate(_selectionHandler->min(), _selectionHandler->max() );
+    return DB::ImageDate(_selectionHandler->min(), _selectionHandler->max() );
 }
 
 void DateBar::DateBar::clearSelection()
@@ -740,7 +740,7 @@ void DateBar::DateBar::clearSelection()
     }
 }
 
-void DateBar::DateBar::emitRangeSelection( const ImageDate&  range )
+void DateBar::DateBar::emitRangeSelection( const DB::ImageDate&  range )
 {
     emit dateRangeChange( range );
 }

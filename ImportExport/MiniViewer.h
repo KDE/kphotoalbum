@@ -22,9 +22,13 @@
 #include <qdialog.h>
 #include <qimage.h>
 #include "DB/ImageInfoPtr.h"
-class ImageInfo;
 class QCloseEvent;
 class QLabel;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace ImportExport
 {
@@ -34,7 +38,7 @@ class MiniViewer :public QDialog
     Q_OBJECT
 
 public:
-    static void show( QImage img, ImageInfoPtr info );
+    static void show( QImage img, DB::ImageInfoPtr info );
     virtual void closeEvent( QCloseEvent* event );
 
 protected slots:

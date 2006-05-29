@@ -24,6 +24,9 @@
 #include <qmap.h>
 #include "DB/MD5Map.h"
 
+namespace DB
+{
+
 class NewImageFinder
 {
 public:
@@ -39,6 +42,7 @@ protected:
 private:
     QStringList _pendingLoad;
 };
+}
 
 #endif /* NEWIMAGEFINDER_H */
 

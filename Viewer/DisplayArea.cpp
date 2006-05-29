@@ -184,7 +184,7 @@ void Viewer::DisplayArea::toggleShowDrawings( bool b )
     drawAll();
 }
 
-void Viewer::DisplayArea::setImage( ImageInfoPtr info, bool forward )
+void Viewer::DisplayArea::setImage( DB::ImageInfoPtr info, bool forward )
 {
     _info = info;
     _loadedImage = QImage();
@@ -492,7 +492,7 @@ void Viewer::DisplayArea::updatePreload()
         if ( _forward ? ( i >= (int) _imageList.count() ) : (i < 0) )
             break;
 
-        ImageInfoPtr info = ImageDB::instance()->info(_imageList[i]);
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_imageList[i]);
         if ( !info ) {
             qWarning("Info was null for index %d!", i);
             return;

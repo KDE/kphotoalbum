@@ -27,8 +27,12 @@ class QListBox;
 class QLabel;
 class QCheckBox;
 class CompletableLineEdit;
-class ImageInfo;
 class QListBoxItem;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace AnnotationDialog
 {

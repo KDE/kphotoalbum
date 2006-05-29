@@ -25,6 +25,9 @@
 #include <ksharedptr.h>
 class QStringList;
 
+namespace DB
+{
+
 class ImageCount
 {
 public:
@@ -47,6 +50,7 @@ public:
     virtual QDateTime upperLimit() const = 0;
 };
 
+}
 
 #endif /* IMAGEDATERANGECOLLECTION_H */
 

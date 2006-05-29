@@ -134,13 +134,13 @@ MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
     _thumbnailView = new ThumbnailView::ThumbnailView( _stack, "_thumbnailView" );
-    connect( _dateBar, SIGNAL( dateSelected( const ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const ImageDate&, bool ) ) );
+    connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Settings::Settings::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
 
 
-    connect( _dateBar, SIGNAL( dateRangeChange( const ImageDate& ) ),
-             this, SLOT( setDateRange( const ImageDate& ) ) );
+    connect( _dateBar, SIGNAL( dateRangeChange( const DB::ImageDate& ) ),
+             this, SLOT( setDateRange( const DB::ImageDate& ) ) );
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
 
     connect( _thumbnailView, SIGNAL( showImage( const QString& ) ), this, SLOT( showImage( const QString& ) ) );
@@ -189,16 +189,16 @@ MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
-    connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
-    connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
-    connect( ImageDB::instance(), SIGNAL( totalChanged( int ) ), _browser, SLOT( home() ) );
+    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
+    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
+    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( int ) ), _browser, SLOT( home() ) );
     connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
-    connect( ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
+    connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
-    connect( ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
+    connect( DB::ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
 
-    total->setTotal( ImageDB::instance()->totalCount() );
+    total->setTotal( DB::ImageDB::instance()->totalCount() );
     statusBar()->message(i18n("Welcome to KPhotoAlbum"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
@@ -213,7 +213,7 @@ void MainWindow::MainWindow::delayedInit()
     if ( Settings::Settings::instance()->searchForImagesOnStartup() ) {
         splash->message( i18n("Searching for New Images") );
         qApp->processEvents();
-        ImageDB::instance()->slotRescan();
+        DB::ImageDB::instance()->slotRescan();
     }
 
     splash->done();
@@ -266,7 +266,7 @@ bool MainWindow::MainWindow::slotExit()
         }
     }
 
-    if ( _dirty || !ImageDB::instance()->isClipboardEmpty() ) {
+    if ( _dirty || !DB::ImageDB::instance()->isClipboardEmpty() ) {
         int ret = KMessageBox::warningYesNoCancel( this, i18n("Do you want to save the changes?"),
                                                    i18n("Save Changes?") );
         if ( ret == KMessageBox::Cancel )
@@ -315,21 +315,21 @@ void MainWindow::MainWindow::configureImages( bool oneAtATime )
         QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
     }
     else {
-        ImageInfoList images;
+        DB::ImageInfoList images;
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-            images.append( ImageDB::instance()->info( *it ) );
+            images.append( DB::ImageDB::instance()->info( *it ) );
         }
         configureImages( images, oneAtATime );
     }
 }
 
-void MainWindow::MainWindow::configureImages( const ImageInfoList& list, bool oneAtATime )
+void MainWindow::MainWindow::configureImages( const DB::ImageInfoList& list, bool oneAtATime )
 {
     _instance->configImages( list, oneAtATime );
 }
 
 
-void MainWindow::MainWindow::configImages( const ImageInfoList& list, bool oneAtATime )
+void MainWindow::MainWindow::configImages( const DB::ImageInfoList& list, bool oneAtATime )
 {
     createAnnotationDialog();
     _annotationDialog->configure( list,  oneAtATime );
@@ -341,7 +341,7 @@ void MainWindow::MainWindow::configImages( const ImageInfoList& list, bool oneAt
 void MainWindow::MainWindow::slotSearch()
 {
     createAnnotationDialog();
-    ImageSearchInfo searchInfo = _annotationDialog->search();
+    DB::ImageSearchInfo searchInfo = _annotationDialog->search();
     if ( !searchInfo.isNull() )
         _browser->addSearch( searchInfo );
 }
@@ -366,7 +366,7 @@ void MainWindow::MainWindow::slotSave()
 {
     Utilities::ShowBusyCursor dummy;
     statusBar()->message(i18n("Saving..."), 5000 );
-    ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
+    DB::ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
     setDirty( false );
     QDir().remove( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     statusBar()->message(i18n("Saving... Done"), 5000 );
@@ -383,7 +383,7 @@ void MainWindow::MainWindow::slotDeleteSelected()
     setDirty( true );
 
     QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailView::SortedOrder );
-    Set<QString> allImages( ImageDB::instance()->images() );
+    Set<QString> allImages( DB::ImageDB::instance()->images() );
     QStringList newSet;
     for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
         if ( allImages.contains( *it ) )
@@ -424,10 +424,10 @@ QStringList MainWindow::MainWindow::selectedOnDisk()
     QStringList listOnDisk;
     QStringList list = selected();
     if ( list.count() == 0 )
-        list = ImageDB::instance()->currentScope(  true );
+        list = DB::ImageDB::instance()->currentScope(  true );
 
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        if ( ImageInfo::imageOnDisk( *it ) )
+        if ( DB::ImageInfo::imageOnDisk( *it ) )
             listOnDisk.append( *it );
     }
 
@@ -467,8 +467,8 @@ void MainWindow::MainWindow::slotView( bool reuse, bool slideShow, bool random )
 
 void MainWindow::MainWindow::slotSortByDateAndTime()
 {
-    ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
-    showThumbNails( ImageDB::instance()->search( Browser::Browser::instance()->currentContext() ) );
+    DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
+    showThumbNails( DB::ImageDB::instance()->search( Browser::Browser::instance()->currentContext() ) );
     markDirty();
 }
 
@@ -581,7 +581,7 @@ void MainWindow::MainWindow::setupMenuBar()
     new KAction( i18n("Display Images Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
     new KAction( i18n("Display Images with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
     new KAction( i18n("Recalculate Checksum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
-    new KAction( i18n("Rescan for Images"), 0, ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
+    new KAction( i18n("Rescan for Images"), 0, DB::ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
 #ifdef HASEXIV2
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
 #endif
@@ -624,8 +624,8 @@ void MainWindow::MainWindow::setupMenuBar()
     _largeIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
 
-    connect( _browser, SIGNAL( currentSizeAndTypeChanged( Category::ViewSize, Category::ViewType ) ),
-             this, SLOT( slotUpdateViewMenu( Category::ViewSize, Category::ViewType ) ) );
+    connect( _browser, SIGNAL( currentSizeAndTypeChanged( DB::Category::ViewSize, DB::Category::ViewType ) ),
+             this, SLOT( slotUpdateViewMenu( DB::Category::ViewSize, DB::Category::ViewType ) ) );
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
@@ -650,7 +650,7 @@ void MainWindow::MainWindow::slotExportToHTML()
 {
     QStringList list = selectedOnDisk();
     if ( list.count() == 0 )
-        list = ImageDB::instance()->currentScope( true );
+        list = DB::ImageDB::instance()->currentScope( true );
 
     if ( ! _htmlDialog )
         _htmlDialog = new HTMLExportDialog( this, "htmlExportDialog" );
@@ -671,7 +671,7 @@ void MainWindow::MainWindow::slotAutoSave()
     if ( _autoSaveDirty ) {
         Utilities::ShowBusyCursor dummy;
         statusBar()->message(i18n("Auto saving...."));
-        ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
+        DB::ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
         _autoSaveDirty = false;
     }
@@ -786,7 +786,7 @@ bool MainWindow::MainWindow::load()
         configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
     Settings::Settings::setup( QFileInfo( configFile ).dirPath( true ) );
-    ImageDB::setup( backEnd, configFile );
+    DB::ImageDB::setup( backEnd, configFile );
     return true;
 }
 
@@ -808,10 +808,10 @@ void MainWindow::MainWindow::contextMenuEvent( QContextMenuEvent* e )
         _viewInNewWindow->plug( &menu );
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
-        ImageInfoPtr info = ImageInfoPtr( 0 );
+        DB::ImageInfoPtr info = DB::ImageInfoPtr( 0 );
         QString fileName = _thumbnailView->fileNameUnderCursor();
         if ( !fileName.isNull() )
-            info = ImageDB::instance()->info( fileName );
+            info = DB::ImageDB::instance()->info( fileName );
 
         externalCommands->populate( info, selected() );
         int id = menu.insertItem( i18n( "Invoke External Program" ), externalCommands );
@@ -979,24 +979,24 @@ void MainWindow::MainWindow::reloadThumbnailsAndFlushCache()
     reloadThumbnails(true);
 }
 
-void MainWindow::MainWindow::slotUpdateViewMenu( Category::ViewSize size, Category::ViewType type )
+void MainWindow::MainWindow::slotUpdateViewMenu( DB::Category::ViewSize size, DB::Category::ViewType type )
 {
-    if ( size == Category::Small && type == Category::ListView )
+    if ( size == DB::Category::Small && type == DB::Category::ListView )
         _smallListView->setChecked( true );
-    else if ( size == Category::Large && type == Category::ListView )
+    else if ( size == DB::Category::Large && type == DB::Category::ListView )
         _largeListView->setChecked( true );
-    else if ( size == Category::Small && type == Category::IconView )
+    else if ( size == DB::Category::Small && type == DB::Category::IconView )
         _smallIconView->setChecked( true );
-    else if ( size == Category::Large && type == Category::IconView )
+    else if ( size == DB::Category::Large && type == DB::Category::IconView )
         _largeIconView->setChecked( true );
 }
 
 void MainWindow::MainWindow::slotShowNotOnDisk()
 {
-    QStringList allImages = ImageDB::instance()->images();
+    QStringList allImages = DB::ImageDB::instance()->images();
     QStringList notOnDisk;
     for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
-        ImageInfoPtr info = ImageDB::instance()->info(*it);
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
         QFileInfo fi( info->fileName() );
         if ( !fi.exists() )
             notOnDisk.append(*it);
@@ -1197,7 +1197,7 @@ void MainWindow::MainWindow::slotImagesChanged( const KURL::List& urls )
     reloadThumbnails(true);
 }
 
-ImageSearchInfo MainWindow::MainWindow::currentContext()
+DB::ImageSearchInfo MainWindow::MainWindow::currentContext()
 {
     return _browser->currentContext();
 }
@@ -1244,7 +1244,7 @@ void MainWindow::MainWindow::updateDateBar( const QString& path )
 
 void MainWindow::MainWindow::updateDateBar()
 {
-    _dateBar->setImageDateCollection( ImageDB::instance()->rangeCollection() );
+    _dateBar->setImageDateCollection( DB::ImageDB::instance()->rangeCollection() );
 }
 
 
@@ -1268,16 +1268,16 @@ void MainWindow::MainWindow::slotJumpToContext()
    }
 }
 
-void MainWindow::MainWindow::setDateRange( const ImageDate& range )
+void MainWindow::MainWindow::setDateRange( const DB::ImageDate& range )
 {
-    ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
+    DB::ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
     _browser->reload();
     reloadThumbnails(false);
 }
 
 void MainWindow::MainWindow::clearDateRange()
 {
-    ImageDB::instance()->clearDateRange();
+    DB::ImageDB::instance()->clearDateRange();
     _browser->reload();
     reloadThumbnails(false);
 }
@@ -1305,12 +1305,12 @@ void MainWindow::MainWindow::showThumbNails( const QStringList& list )
 
 void MainWindow::MainWindow::convertBackend()
 {
-    ImageDB::instance()->convertBackend();
+    DB::ImageDB::instance()->convertBackend();
 }
 
 void MainWindow::MainWindow::slotRecalcCheckSums()
 {
-    ImageDB::instance()->slotRecalcCheckSums( selected() );
+    DB::ImageDB::instance()->slotRecalcCheckSums( selected() );
 }
 
 void MainWindow::MainWindow::slotShowExifInfo()
@@ -1333,7 +1333,7 @@ void MainWindow::MainWindow::showFeatures()
 void MainWindow::MainWindow::showImage( const QString& fileName )
 {
     // PENDING(blackie) This code most be duplicated for Ctrl+I
-    if ( !ImageInfo::imageOnDisk(fileName) ) {
+    if ( !DB::ImageInfo::imageOnDisk(fileName) ) {
         QMessageBox::warning( this, i18n("No Images to Display"),
                               i18n("The selected image was not available on disk.") );
     }

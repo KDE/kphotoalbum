@@ -24,10 +24,10 @@
 #include "BrowserItemFactory.h"
 #include "DB/CategoryCollection.h"
 
-Browser::TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo& info, Browser* parent )
+Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category ( category )
 {
-    QMap<QString, int> map = ImageDB::instance()->classify( _info, _category );
+    QMap<QString, int> map = DB::ImageDB::instance()->classify( _info, _category );
     int count = map.size();
     setCount( count );
     if ( count <= 1 )
@@ -36,12 +36,12 @@ Browser::TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo&
 
 QPixmap Browser::TypeFolder::pixmap()
 {
-    return ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
+    return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
 }
 
 QString Browser::TypeFolder::text() const
 {
-    return ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
+    return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
 }
 
 Browser::FolderAction* Browser::TypeFolder::action( bool /* ctrlDown */ )
@@ -49,7 +49,7 @@ Browser::FolderAction* Browser::TypeFolder::action( bool /* ctrlDown */ )
     return new TypeFolderAction( _category, _info, _browser );
 }
 
-Browser::TypeFolderAction::TypeFolderAction( const QString& category, const ImageSearchInfo& info,
+Browser::TypeFolderAction::TypeFolderAction( const QString& category, const DB::ImageSearchInfo& info,
                                     Browser* browser )
     :FolderAction( info, browser ), _category( category )
 {
@@ -60,22 +60,22 @@ void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
     _browser->clear();
 
 
-    QMap<QString, int> map = ImageDB::instance()->classify( _info, _category );
+    QMap<QString, int> map = DB::ImageDB::instance()->classify( _info, _category );
     for( QMapIterator<QString,int> it= map.begin(); it != map.end(); ++it ) {
-        if ( it.key() != ImageDB::NONE() ) {
+        if ( it.key() != DB::ImageDB::NONE() ) {
             factory->createItem( new ContentFolder( _category, it.key(), it.data(), _info, _browser ) );
         }
     }
 
     // Add the none option to the end
-    int i = map[ImageDB::NONE()];
+    int i = map[DB::ImageDB::NONE()];
     if ( i != 0 )
-        factory->createItem( new ContentFolder( _category, ImageDB::NONE(), i, _info, _browser ) );
+        factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), i, _info, _browser ) );
 }
 
 QString Browser::TypeFolderAction::title() const
 {
-    return ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
+    return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
 }
 
 QString Browser::TypeFolderAction::category() const
@@ -90,7 +90,7 @@ QString Browser::TypeFolder::countLabel() const
 
 bool Browser::TypeFolderAction::contentView() const
 {
-    return ( !ImageDB::instance()->categoryCollection()->categoryForName( _category )->isSpecialCategory() );
+    return ( !DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->isSpecialCategory() );
 }
 
 

@@ -148,8 +148,8 @@ void HTMLExportDialog::createContentPage()
     QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
     lay3->setAutoAdd( true );
 
-    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
             QCheckBox* cb = new QCheckBox( (*it)->text(), w );
             _whatToIncludeMap.insert( (*it)->name(), cb );
@@ -415,7 +415,7 @@ bool HTMLExportDialog::generateIndexPage( int width, int height )
 
         QDomElement href = doc.createElement( QString::fromLatin1( "a" ) );
         href.setAttribute( QString::fromLatin1( "href" ),
-                           namePage( width, height, ImageDB::instance()->info(*it)->fileName(false) ) ); // PENDING(blackie) cleanup
+                           namePage( width, height, DB::ImageDB::instance()->info(*it)->fileName(false) ) ); // PENDING(blackie) cleanup
         col.appendChild( href );
 
         QDomElement img = doc.createElement( QString::fromLatin1( "img" ) );
@@ -478,7 +478,7 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
     if ( content.isNull() )
         return false;
 
-    ImageInfoPtr info = ImageDB::instance()->info( current );
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info( current );
 
     content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg( themeName ).arg( themeAuthor ) + content;
 
@@ -539,8 +539,8 @@ bool HTMLExportDialog::generateContextPage( int width, int height, const QString
     // -------------------------------------------------- Description
     QString description;
 
-    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( (*it)->isSpecialCategory() )
             continue;
 
@@ -590,7 +590,7 @@ bool HTMLExportDialog::writeToFile( const QString& fileName, const QString& str 
 QString HTMLExportDialog::createImage( const QString& fileName, int size )
 {
     ImageManager::ImageRequest* request =
-        new ImageManager::ImageRequest( fileName, QSize( size, size ), ImageDB::instance()->info(fileName)->angle(), this );
+        new ImageManager::ImageRequest( fileName, QSize( size, size ), DB::ImageDB::instance()->info(fileName)->angle(), this );
     request->setPriority();
     ImageManager::ImageManager::instance()->load( request );
     return nameImage( fileName, size );

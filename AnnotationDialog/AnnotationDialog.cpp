@@ -99,7 +99,7 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
 
     _startDate = new ::AnnotationDialog::KDateEdit( true, top, "date config" );
     lay4->addWidget( _startDate, 1 );
-    connect( _startDate, SIGNAL( dateChanged( const ImageDate& ) ), this, SLOT( slotStartDateChanged( const ImageDate& ) ) );
+    connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
 
     label = new QLabel( QString::fromLatin1( "-" ), top );
     lay4->addWidget( label );
@@ -189,9 +189,9 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
     KDockWidget* last = descriptionDock;
     KDockWidget::DockPosition pos = KDockWidget::DockBottom;
 
-    QStringList grps = ImageDB::instance()->categoryCollection()->categoryNames();
+    QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        CategoryPtr category = ImageDB::instance()->categoryCollection()->categoryForName( *it );
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( *it );
         KDockWidget* dockWidget = createListSel( *it );
         dockWidget->manualDock( last, pos );
         last = dockWidget;
@@ -312,11 +312,11 @@ void AnnotationDialog::AnnotationDialog::slotOK()
             (*it)->slotReturn();
         }
 
-        for( ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
-            ImageInfoPtr info = *it;
+        for( DB::ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
+            DB::ImageInfoPtr info = *it;
             info->rotate( _preview->angle() );
             if ( !_startDate->date().isNull() )
-                info->setDate( ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
+                info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
                 if ( (*it)->selection().count() != 0 )  {
@@ -344,7 +344,7 @@ void AnnotationDialog::AnnotationDialog::slotOK()
 
 void AnnotationDialog::AnnotationDialog::load()
 {
-    ImageInfo& info = _editList[ _current ];
+    DB::ImageInfo& info = _editList[ _current ];
     _startDate->setDate( info.date().start().date() );
 
     if( info.date().hasValidTime() ) {
@@ -387,17 +387,17 @@ void AnnotationDialog::AnnotationDialog::writeToInfo()
         (*it)->slotReturn();
     }
 
-    ImageInfo& info = _editList[ _current ];
+    DB::ImageInfo& info = _editList[ _current ];
     if ( !_time->isShown() ) {
         if ( _endDate->date().isValid() )
-            info.setDate( ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),
+            info.setDate( DB::ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),
                                      QDateTime( _endDate->date(), QTime( 23,59,59) ) ) );
         else
-            info.setDate( ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),
+            info.setDate( DB::ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),
                                      QDateTime( _startDate->date(), QTime( 23,59,59) ) ) );
     }
     else
-        info.setDate( ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
+        info.setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
 
     info.setLabel( _imageLabel->text() );
@@ -408,7 +408,7 @@ void AnnotationDialog::AnnotationDialog::writeToInfo()
 }
 
 
-int AnnotationDialog::AnnotationDialog::configure( ImageInfoList list, bool oneAtATime )
+int AnnotationDialog::AnnotationDialog::configure( DB::ImageInfoList list, bool oneAtATime )
 {
     if ( oneAtATime )
         _setup = SINGLE;
@@ -418,7 +418,7 @@ int AnnotationDialog::AnnotationDialog::configure( ImageInfoList list, bool oneA
     _origList = list;
     _editList.clear();
 
-    for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         _editList.append( *(*it) );
     }
 
@@ -452,7 +452,7 @@ int AnnotationDialog::AnnotationDialog::configure( ImageInfoList list, bool oneA
     return exec();
 }
 
-ImageSearchInfo AnnotationDialog::AnnotationDialog::search( ImageSearchInfo* search  )
+DB::ImageSearchInfo AnnotationDialog::AnnotationDialog::search( DB::ImageSearchInfo* search  )
 {
     _setup = SEARCH;
     if ( search )
@@ -462,7 +462,7 @@ ImageSearchInfo AnnotationDialog::AnnotationDialog::search( ImageSearchInfo* sea
     showHelpDialog( SEARCH );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
-        _oldSearch = ImageSearchInfo( ImageDate( _startDate->date(), _endDate->date() ),
+        _oldSearch = DB::ImageSearchInfo( DB::ImageDate( _startDate->date(), _endDate->date() ),
                                       _imageLabel->text(), _description->text() );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -472,7 +472,7 @@ ImageSearchInfo AnnotationDialog::AnnotationDialog::search( ImageSearchInfo* sea
         return _oldSearch;
     }
     else
-        return ImageSearchInfo();
+        return DB::ImageSearchInfo();
 }
 
 void AnnotationDialog::AnnotationDialog::setup()
@@ -520,10 +520,10 @@ void AnnotationDialog::AnnotationDialog::setup()
 
 void AnnotationDialog::AnnotationDialog::slotClear()
 {
-    loadInfo( ImageSearchInfo() );
+    loadInfo( DB::ImageSearchInfo() );
 }
 
-void AnnotationDialog::AnnotationDialog::loadInfo( const ImageSearchInfo& info )
+void AnnotationDialog::AnnotationDialog::loadInfo( const DB::ImageSearchInfo& info )
 {
     _startDate->setDate( info.date().start().date() );
     _endDate->setDate( info.date().end().date() );
@@ -651,32 +651,32 @@ bool AnnotationDialog::AnnotationDialog::eventFilter( QObject* watched, QEvent* 
 KDockWidget* AnnotationDialog::AnnotationDialog::createListSel( const QString& category )
 {
     KDockWidget* dockWidget = _dockWindow->createDockWidget( category,
-                                                             ImageDB::instance()->categoryCollection()->categoryForName( category)->icon(),
+                                                             DB::ImageDB::instance()->categoryCollection()->categoryForName( category)->icon(),
                                                              _dockWindow,
-                                                             ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
+                                                             DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( category, dockWidget );
     _optionList.append( sel );
-    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
-             this, SLOT( slotDeleteOption( Category*, const QString& ) ) );
-    connect( ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( Category* , const QString& , const QString&  ) ),
-             this, SLOT( slotRenameOption( Category* , const QString& , const QString&  ) ) );
+    connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
+             this, SLOT( slotDeleteOption( DB::Category*, const QString& ) ) );
+    connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( DB::Category* , const QString& , const QString&  ) ),
+             this, SLOT( slotRenameOption( DB::Category* , const QString& , const QString&  ) ) );
 
     dockWidget->setWidget( sel );
 
     return dockWidget;
 }
 
-void AnnotationDialog::AnnotationDialog::slotDeleteOption( Category* category, const QString& which)
+void AnnotationDialog::AnnotationDialog::slotDeleteOption( DB::Category* category, const QString& which)
 {
-    for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+    for( QValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).removeOption( category->name(), which );
     }
 }
 
-void AnnotationDialog::AnnotationDialog::slotRenameOption( Category* category, const QString& oldValue, const QString& newValue )
+void AnnotationDialog::AnnotationDialog::slotRenameOption( DB::Category* category, const QString& oldValue, const QString& newValue )
 {
-    for( QValueListIterator<ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+    for( QValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).renameItem( category->name(), oldValue, newValue );
     }
 }
@@ -740,7 +740,7 @@ void AnnotationDialog::AnnotationDialog::rotate( int angle )
         // In slotOK the preview will be queried for its angle.
     }
     else {
-        ImageInfo& info = _editList[ _current ];
+        DB::ImageInfo& info = _editList[ _current ];
         info.rotate(angle);
     }
     _preview->rotate( angle );
@@ -762,7 +762,7 @@ void AnnotationDialog::AnnotationDialog::slotDeleteImage()
     Q_ASSERT( _setup != SEARCH );
 
     MainWindow::DeleteDialog dialog( this );
-    ImageInfoPtr info = _origList[_current];
+    DB::ImageInfoPtr info = _origList[_current];
     QStringList strList;
     strList << info->fileName();
 
@@ -887,7 +887,7 @@ void AnnotationDialog::AnnotationDialog::slotResetLayout()
     closeDialog();
 }
 
-void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const ImageDate& date )
+void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const DB::ImageDate& date )
 {
     if ( date.start() == date.end() )
         _endDate->setDate( QDate() );

@@ -6,7 +6,7 @@
 #include "Settings/Settings.h"
 #include "DB/MemberMap.h"
 
-QPixmap Category::icon( int size ) const
+QPixmap DB::Category::icon( int size ) const
 {
     return KGlobal::iconLoader()->loadIcon( iconName(), KIcon::Desktop, size );
 }
@@ -16,7 +16,7 @@ QPixmap Category::icon( int size ) const
    If one person from say Denmark sends a database to a person from say germany, then the title of
    Persons, Locations, and Keywords will still be translated correct, when this function is used.
 */
-QString Category::text() const
+QString DB::Category::text() const
 {
     if ( name() == QString::fromLatin1( "Persons" ) )
         return i18n("Persons");
@@ -32,7 +32,7 @@ QString Category::text() const
         return name();
 }
 
-QStringList Category::itemsInclGroups() const
+QStringList DB::Category::itemsInclGroups() const
 {
         // values including member groups
 
@@ -40,7 +40,7 @@ QStringList Category::itemsInclGroups() const
 
     // add the groups to the list too, but only if the group is not there already, which will be the case
     // if it has ever been selected once.
-    QStringList groups = ImageDB::instance()->memberMap().groups( name() );
+    QStringList groups = DB::ImageDB::instance()->memberMap().groups( name() );
     for( QStringList::Iterator it = groups.begin(); it != groups.end(); ++it ) {
         if ( ! items.contains(  *it ) )
             items << *it ;

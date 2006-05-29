@@ -97,7 +97,7 @@ void Exif::ReReadDialog::readInfo()
             mode |= EXIFMODE_DESCRIPTION;
 
     accept();
-    ImageDB::instance()->slotReread(_list, mode);
+    DB::ImageDB::instance()->slotReread(_list, mode);
 }
 
 void Exif::ReReadDialog::showFileList()

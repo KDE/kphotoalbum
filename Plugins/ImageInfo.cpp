@@ -25,7 +25,7 @@
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {
-    _info = ImageDB::instance()->info( _url.path() );
+    _info = DB::ImageDB::instance()->info( _url.path() );
 }
 
 QString Plugins::ImageInfo::title()
@@ -121,11 +121,11 @@ void Plugins::ImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
     if ( !_info )
         return;
     if ( spec == KIPI::FromInfo ) {
-        _info->setDate( ImageDate( time, time ) );
+        _info->setDate( DB::ImageDate( time, time ) );
     }
     else {
-        ImageDate date = _info->date();
-        _info->setDate( ImageDate( date.start(), time ) );
+        DB::ImageDate date = _info->date();
+        _info->setDate( DB::ImageDate( date.start(), time ) );
     }
 }
 

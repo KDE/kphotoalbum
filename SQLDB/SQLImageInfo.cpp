@@ -6,7 +6,7 @@
 const QString imageInfoAttributes = "label, description, startDate, endDate, angle, md5sum, width, height";
 
 SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
-    :ImageInfo()
+    :DB::ImageInfo()
 {
     QString relativeFileName = Utilities::stripImageDirectory( fileName );
     _fileId = idForFileName( relativeFileName );
@@ -34,13 +34,13 @@ SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     int height = query.value( 7 ).toInt();
 
 
-    ImageInfo::setFileName( relativeFileName );
-    ImageInfo::setLabel( label );
-    ImageInfo::setDescription( description );
-    ImageInfo::setDate( ImageDate( startDate, endDate ) );
-    ImageInfo::setAngle( angle );
-    ImageInfo::setMD5Sum( md5sum );
-    ImageInfo::setSize( QSize( width, height ) );
+    DB::ImageInfo::setFileName( relativeFileName );
+    DB::ImageInfo::setLabel( label );
+    DB::ImageInfo::setDescription( description );
+    DB::ImageInfo::setDate( DB::ImageDate( startDate, endDate ) );
+    DB::ImageInfo::setAngle( angle );
+    DB::ImageInfo::setMD5Sum( md5sum );
+    DB::ImageInfo::setSize( QSize( width, height ) );
 
     query.prepare( QString::fromLatin1( "SELECT categoryId, value FROM imagecategoryinfo WHERE fileId=:fileId" ) );
     query.bindValue( QString::fromLatin1( ":fileId" ), _fileId );
@@ -52,7 +52,7 @@ SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     }
 }
 
-ImageInfo& SQLDB::SQLImageInfo::operator=( const ImageInfo& other )
+DB::ImageInfo& SQLDB::SQLImageInfo::operator=( const DB::ImageInfo& other )
 {
     QStringList queryList;
     QMap<QString, QVariant> map;
@@ -139,5 +139,5 @@ ImageInfo& SQLDB::SQLImageInfo::operator=( const ImageInfo& other )
 
     // PENDING(blackie) save draw list.
 
-    return ImageInfo::operator=( other );
+    return DB::ImageInfo::operator=( other );
 }

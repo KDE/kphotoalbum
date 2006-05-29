@@ -20,7 +20,9 @@
 #include "Settings/Settings.h"
 #include <qtimer.h>
 #include "CategoryCollection.h"
-#include "DB/ImageDB.h"
+#include "ImageDB.h"
+
+using namespace DB;
 
 MemberMap::MemberMap( ImageDB* db) :QObject(0), _dirty( true )
 {
@@ -156,7 +158,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
             list.append( newName );
         }
     }
-    ImageDB::instance()->categoryCollection()->categoryForName( category )->renameItem( oldName, newName );
+    DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->renameItem( oldName, newName );
 }
 
 MemberMap::MemberMap( const MemberMap& other )

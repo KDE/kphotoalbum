@@ -23,6 +23,9 @@
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
 
+using namespace DB;
+
+
 // Examples:
 // groupToMemberMap = { USA |-> [Chicago, Santa Clara],
 //                      California |-> [Santa Clara, Los Angeles] }
@@ -32,7 +35,7 @@
 
 GroupCounter::GroupCounter( const QString& category )
 {
-    MemberMap map = ImageDB::instance()->memberMap();
+    MemberMap map = DB::ImageDB::instance()->memberMap();
     QMap<QString,QStringList> groupToMemberMap = map.groupMap(category);
     _memberToGroup.resize( 2729 /* A large prime */ );
     _groupCount.resize( 2729 /* A large prime */ );
@@ -40,7 +43,7 @@ GroupCounter::GroupCounter( const QString& category )
     _groupCount.setAutoDelete( true );
 
     // Initialize _memberToGroup map.
-    QStringList items = ImageDB::instance()->categoryCollection()->categoryForName( category )->items();
+    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->items();
     items += map.groups( category );
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         _memberToGroup.insert( *it, new QStringList );

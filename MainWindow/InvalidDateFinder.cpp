@@ -63,7 +63,7 @@ void InvalidDateFinder::slotOk()
     edit->setText( i18n("<h1>Here you may see the image date changes for the displayed images.</h1>") );
 
     // Now search for the images.
-    QStringList list = ImageDB::instance()->images();
+    QStringList list = DB::ImageDB::instance()->images();
     QStringList toBeShown;
     KProgressDialog dialog( 0, "progress dialog", i18n("Reading file properties"),
                             i18n("Reading File Properties"), true );
@@ -72,16 +72,16 @@ void InvalidDateFinder::slotOk()
     int progress = 0;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        ImageInfoPtr info = ImageDB::instance()->info(*it);
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
         dialog.progressBar()->setProgress( ++progress );
         qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )
             break;
 
-        ImageDate date = info->date();
+        DB::ImageDate date = info->date();
         bool show = false;
         if ( _dateNotTime->isChecked() ) {
-            FileInfo fi = FileInfo::read( info->fileName() );
+            DB::FileInfo fi = DB::FileInfo::read( info->fileName() );
             if ( fi.dateTime().date() == date.start().date() )
                 show = ( fi.dateTime().time() != date.start().time() );
             if ( show ) {

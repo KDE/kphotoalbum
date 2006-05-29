@@ -23,7 +23,10 @@
 #include <qdialog.h>
 #include <qdict.h>
 #include "ImageManager/ImageClient.h"
-class ImageInfo;
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace ThumbnailView
 {

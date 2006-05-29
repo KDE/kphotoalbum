@@ -191,7 +191,7 @@ void Exif::Database::offerInitialize()
                                                "Do you want this to happen now?</p>"),
                                           i18n("Rescan for EXIF information") );
     if ( ret == KMessageBox::Yes )
-        ImageDB::instance()->slotReread( ImageDB::instance()->images(), EXIFMODE_DATABASE_UPDATE );
+        DB::ImageDB::instance()->slotReread( DB::ImageDB::instance()->images(), EXIFMODE_DATABASE_UPDATE );
 
 }
 

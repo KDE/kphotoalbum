@@ -193,7 +193,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
         }
         QDomElement elm = node.toElement();
 
-        ImageInfoPtr info = XMLDB::XMLDB::createImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
+        DB::ImageInfoPtr info = XMLDB::XMLDB::createImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
         _images.append( info );
     }
 
@@ -258,8 +258,8 @@ void Import::createImagesPage()
     lay3->setColStretch( 2, 1 );
 
     int row = 0;
-    for( ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it, ++row ) {
-        ImageInfoPtr info = *it;
+    for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it, ++row ) {
+        DB::ImageInfoPtr info = *it;
         ImageRow* ir = new ImageRow( info, this, container );
         lay3->addWidget( ir->_checkbox, row, 0 );
 
@@ -283,7 +283,7 @@ void Import::createImagesPage()
     addPage( top, i18n("Select Which Images to Import") );
 }
 
-ImageRow::ImageRow( ImageInfoPtr info, Import* import, QWidget* parent )
+ImageRow::ImageRow( DB::ImageInfoPtr info, Import* import, QWidget* parent )
     : QObject( parent ), _info( info ), _import( import )
 {
     _checkbox = new QCheckBox( QString::null, parent, "_checkbox" );
@@ -373,9 +373,9 @@ void Import::updateNextButtonState()
 void Import::createOptionPages()
 {
     QStringList options;
-    ImageInfoList images = selectedImages();
-    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfoPtr info = *it;
+    DB::ImageInfoList images = selectedImages();
+    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
+        DB::ImageInfoPtr info = *it;
         QStringList opts = info->availableCategories();
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
             if ( !options.contains( *optsIt ) &&
@@ -385,7 +385,7 @@ void Import::createOptionPages()
         }
     }
 
-    _categoryMatcher = new ImportMatcher( QString::null, QString::null, options, ImageDB::instance()->categoryCollection()->categoryNames(),
+    _categoryMatcher = new ImportMatcher( QString::null, QString::null, options, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
                                           false, this, "import matcher" );
     addPage( _categoryMatcher, i18n("Match Categories") );
 
@@ -396,9 +396,9 @@ void Import::createOptionPages()
 ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QString& otherOptionGroup )
 {
     QStringList otherOptions;
-    ImageInfoList images = selectedImages();
-    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfoPtr info = *it;
+    DB::ImageInfoList images = selectedImages();
+    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
+        DB::ImageInfoPtr info = *it;
         QStringList opts = info->itemsOfCategory( otherOptionGroup );
         for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
             if ( !otherOptions.contains( *optsIt ) )
@@ -406,7 +406,7 @@ ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QSt
         }
     }
 
-    QStringList myOptions = ImageDB::instance()->categoryCollection()->categoryForName( myOptionGroup )->itemsInclGroups();
+    QStringList myOptions = DB::ImageDB::instance()->categoryCollection()->categoryForName( myOptionGroup )->itemsInclGroups();
     ImportMatcher* matcher = new ImportMatcher( otherOptionGroup, myOptionGroup, otherOptions, myOptions, true, this, "import matcher" );
     addPage( matcher, myOptionGroup );
     return matcher;
@@ -456,8 +456,8 @@ void Import::next()
 
 bool Import::copyFilesFromZipFile()
 {
-    ImageInfoList images = selectedImages();
-    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
+    DB::ImageInfoList images = selectedImages();
+    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         QString fileName = (*it)->fileName( true );
         QByteArray data = loadImage( fileName );
         if ( data.isNull() )
@@ -492,7 +492,7 @@ void Import::copyFromExternal()
 
 void Import::copyNextFromExternal()
 {
-    ImageInfoPtr info = _pendingCopies[0];
+    DB::ImageInfoPtr info = _pendingCopies[0];
     _pendingCopies.pop_front();
     QString fileName = info->fileName( true );
     KURL src1 = _kimFile;
@@ -561,20 +561,20 @@ void Import::slotFinish()
 void Import::updateDB()
 {
     // Run though all images
-    ImageInfoList images = selectedImages();
-    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfoPtr info = *it;
+    DB::ImageInfoList images = selectedImages();
+    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
+        DB::ImageInfoPtr info = *it;
 
-        ImageInfoPtr newInfo = new ImageInfo( _nameMap[info->fileName(true)] );
+        DB::ImageInfoPtr newInfo = new DB::ImageInfo( _nameMap[info->fileName(true)] );
         newInfo->setLabel( info->label() );
         newInfo->setDescription( info->description() );
         newInfo->setDate( info->date() );
         newInfo->rotate( info->angle() );
         newInfo->setDrawList( info->drawList() );
         newInfo->setMD5Sum( info->MD5Sum() );
-        ImageInfoList list;
+        DB::ImageInfoList list;
         list.append(newInfo);
-        ImageDB::instance()->addImages( list );
+        DB::ImageDB::instance()->addImages( list );
 
         // Run though the categories
         for( QValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {
@@ -591,7 +591,7 @@ void Import::updateDB()
 
                 if ( info->hasOption( otherGrp, otherOption ) ) {
                     newInfo->addOption( myGrp, myOption );
-                    ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
+                    DB::ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
                 }
 
             }
@@ -667,9 +667,9 @@ QByteArray Import::loadImage( const QString& fileName )
     return data;
 }
 
-ImageInfoList Import::selectedImages()
+DB::ImageInfoList Import::selectedImages()
 {
-    ImageInfoList res;
+    DB::ImageInfoList res;
     for( QValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
         if ( (*it)->_checkbox->isChecked() )
             res.append( (*it)->_info );

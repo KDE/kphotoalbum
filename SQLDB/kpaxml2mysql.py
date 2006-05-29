@@ -335,23 +335,44 @@ class ImageIterator(object):
 		return img
 
 
-class KPADOMConverter(object):
-	def __init__(self, dom, progressFunction=None):
-		self.dom = dom
-		rootElem = dom.documentElement
+class KPADatabaseReader(object):
+	"""
+	Class for reading KPhotoAlbum index.xml.
+
+	Use categories and images attributes to iterate data of the
+	XML file.
+	"""
+	def __init__(self, filename):
+		"""
+		Initialize self with given XML file.
+
+		Pre:
+		 - ``filename`` is a KPhotoAlbum XML database (index.xml)
+		"""
+		self.dom = minidom.parse(filename)
+		rootElem = self.dom.documentElement
 		if rootElem.tagName != u'KPhotoAlbum':
 			raise InvalidDOM
 		ctgs = rootElem.getElementsByTagName('Categories')
-		self.categories = CategoryIterator(ctgs)
 		imgs = rootElem.getElementsByTagName('images')
+		self.categories = CategoryIterator(ctgs)
 		self.images = ImageIterator(imgs)
-		self.pf = progressFunction
 
-	def insertIntoDatabase(self, db, clearFirst=False):
-		dbmgr = DatabaseManager(db, self.pf)
-		if clearFirst:
-			dbmgr.clearTables()
-		dbmgr.feedDatabase(self.categories, self.images)
+
+def copyToDatabase(kpaReader, db, clearFirst=False, pf=None):
+	"""
+	Copy images from kpaReader to db.
+
+	If clearFirst, clear tables from db first.
+
+	If pf is given, it is called with image number as only
+	parameter for every image inserted into db.
+	"""
+	dbmgr = DatabaseManager(db, pf)
+	if clearFirst:
+		dbmgr.clearTables()
+
+	dbmgr.feedDatabase(kpaReader.categories, kpaReader.images)
 
 
 def printn(msg):
@@ -406,11 +427,11 @@ def main(argv):
 	doClear = (a[0] == 'y' or a[0] == 'Y')
 
 	printn('Parsing the XML file...')
-	dom = minidom.parse(xml_file)
+	reader = KPADatabaseReader(xml_file)
 	print('parsed.')
 
 	printn('Converting into MySQL')
-	KPADOMConverter(dom, showProgress).insertIntoDatabase(db, doClear)
+	copyToDatabase(reader, db, doClear, showProgress)
 	print('converted.')
 
 	return 0

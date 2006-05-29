@@ -28,16 +28,6 @@ from xml.dom import minidom
 # I use term tag for (category, item) pair.
 
 
-class Error(Exception):
-	"""
-	General error.
-	"""
-class InvalidDOM(Error):
-	"""
-	DOM is invalid.
-	"""
-
-
 class ItemNumMap(dict):
 	def numFor(self, item):
 		"""
@@ -210,7 +200,7 @@ class DatabaseManager(object):
 
 	def tableHasCol(self, table, col, colValue):
 		"""
-		Returt true, iff table has a row which has column col
+		Return true, iff table has a row which has column col
 		set to colValue.
 		"""
 		return 0L != self.c.execute('SELECT ' + col +
@@ -267,7 +257,6 @@ class DatabaseManager(object):
 		for tag in i.tags:
 			tid = self.tagMap.numFor(tag)
 			if not self.tableHasCol('tag', 'id', tid):
-				print 'Warning: Invalid tag', tid, tag
 				self.insertTag(tag)
 			self.insertImageTag(iid, tid)
 		if self.pf:
@@ -327,12 +316,30 @@ class ImageIterator(object):
 		for opts in imgNode.getElementsByTagName('options'):
 			for opt in opts.getElementsByTagName('option'):
 				category = opt.getAttribute('name')
-				if category == 'Folder':
-					continue
+				#if category == 'Folder':
+				#	continue
 				for ov in opt.getElementsByTagName('value'):
 					item = ov.getAttribute('value')
 					img.addTag((category, item))
 		return img
+
+
+class Error(Exception):
+	"""
+	General error.
+	"""
+	def __init__(self, msg):
+		Exception.__init__(self, msg)
+
+class InvalidFile(Error):
+	"""
+	File is invalid.
+	"""
+
+class UnsupportedFormat(InvalidFile):
+	"""
+	File format is not supported.
+	"""
 
 
 class KPADatabaseReader(object):
@@ -349,10 +356,17 @@ class KPADatabaseReader(object):
 		Pre:
 		 - ``filename`` is a KPhotoAlbum XML database (index.xml)
 		"""
-		self.dom = minidom.parse(filename)
+		try:
+			self.dom = minidom.parse(filename)
+		except Exception, (e):
+			raise InvalidFile('Parsing failed: ' + str(e))
 		rootElem = self.dom.documentElement
 		if rootElem.tagName != u'KPhotoAlbum':
-			raise InvalidDOM
+			raise InvalidFile('File should be in '
+					  'KPhotoAlbum index.xml format.')
+		if rootElem.getAttribute('compressed') == '1':
+			raise UnsupportedFormat('Compressed format '
+						'is not yet supported.')
 		ctgs = rootElem.getElementsByTagName('Categories')
 		imgs = rootElem.getElementsByTagName('images')
 		self.categories = CategoryIterator(ctgs)
@@ -427,12 +441,17 @@ def main(argv):
 	doClear = (a[0] == 'y' or a[0] == 'Y')
 
 	printn('Parsing the XML file...')
-	reader = KPADatabaseReader(xml_file)
+	try:
+		reader = KPADatabaseReader(xml_file)
+	except Error, (e):
+		print('failed.')
+		print(e)
+		return 2
 	print('parsed.')
 
-	printn('Converting into MySQL')
+	printn('Copying data to the MySQL database')
 	copyToDatabase(reader, db, doClear, showProgress)
-	print('converted.')
+	print('copied.')
 
 	return 0
 

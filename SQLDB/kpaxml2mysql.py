@@ -232,6 +232,11 @@ class DatabaseManager(object):
 		tid = self.tagMap.numFor(tag)
 		if not self.tableHasCol('tag', 'id', tid):
 			cid = self.categoryMap.numFor(tag[0])
+			if not self.tableHasCol('category', 'id', cid):
+				self.c.execute('INSERT INTO '
+					       'category(id, name) '
+					       'values(%s,%s)',
+					       (cid, tag[0]))
 			self.c.execute('INSERT INTO tag'
 				       '(id, categoryId, name) '
 				       'values(%s,%s,%s)',
@@ -316,8 +321,8 @@ class ImageIterator(object):
 		for opts in imgNode.getElementsByTagName('options'):
 			for opt in opts.getElementsByTagName('option'):
 				category = opt.getAttribute('name')
-				#if category == 'Folder':
-				#	continue
+				if category == 'Folder':
+					continue
 				for ov in opt.getElementsByTagName('value'):
 					item = ov.getAttribute('value')
 					img.addTag((category, item))
@@ -430,6 +435,7 @@ def main(argv):
 	db = MySQLdb.connect(db=db_name, user=username, passwd=password)
 	print('connected.')
 
+	print('WARNING!')
 	print('This script will mess up your database (' + db_name + ').')
 	printn('Are you sure you want to continue? ')
 	a = raw_input()

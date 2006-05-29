@@ -16,30 +16,30 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imagecounter.h"
+#include "ImageCounter.h"
 #include <klocale.h>
 #include <qlayout.h>
 
-ImageCounter::ImageCounter( QWidget* parent, const char* name )
+MainWindow::ImageCounter::ImageCounter( QWidget* parent, const char* name )
     :QLabel( parent, name )
 {
     setText( QString::fromLatin1( "---" ) );
     setMargin( 5 );
 }
 
-void ImageCounter::setMatchCount( int matches )
+void MainWindow::ImageCounter::setMatchCount( int matches )
 {
     setText( i18n( "Showing 1 image", "Showing %n images", matches ) );
 }
 
-void ImageCounter::setTotal( int c )
+void MainWindow::ImageCounter::setTotal( int c )
 {
     setText( i18n( "Total: %1" ).arg(c) );
 }
 
-void ImageCounter::showingOverview()
+void MainWindow::ImageCounter::showingOverview()
 {
     setText( QString::fromLatin1( "---" ) );
 }
 
-#include "imagecounter.moc"
+#include "ImageCounter.moc"

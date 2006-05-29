@@ -19,13 +19,23 @@
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
 class QWidgetStack;
-class ImageCounter;
 class QTimer;
 class KTipDialog;
 class ReadInfoDialog;
 class QLabel;
 class KActionMenu;
 class KRadioAction;
+
+#include "imageinfolist.h"
+#include <qdict.h>
+#include <kmainwindow.h>
+#include "Settings/Settings.h"
+#include <kurl.h>
+#include "category.h"
+#include <config.h>
+#ifdef HASKIPI
+#  include <libkipi/pluginloader.h>
+#endif
 
 namespace Plugins
 {
@@ -47,42 +57,31 @@ namespace AnnotationDialog
     class AnnotationDialog;
 }
 
-namespace Dialogs
-{
-    class DeleteDialog;
-    class HTMLExportDialog;
-    class TokenEditor;
-}
-
 namespace Settings
 {
     class SettingsDialog;
 }
-
-#include "imageinfolist.h"
-#include <qdict.h>
-#include <kmainwindow.h>
-#include "Settings/Settings.h"
-#include <kurl.h>
-#include "category.h"
-#include <config.h>
-#ifdef HASKIPI
-#  include <libkipi/pluginloader.h>
-#endif
 
 namespace DateBar
 {
     class DateBar;
 }
 
-class MainView :public KMainWindow
+namespace MainWindow
+{
+class DeleteDialog;
+class HTMLExportDialog;
+class TokenEditor;
+class ImageCounter;
+
+class MainWindow :public KMainWindow
 {
     Q_OBJECT
 
 public:
-    MainView( QWidget* parent,  const char* name = 0 );
+    MainWindow( QWidget* parent,  const char* name = 0 );
     static void configureImages( const ImageInfoList& list, bool oneAtATime );
-    static MainView* theMainView();
+    static MainWindow* theMainWindow();
     QStringList selected( bool keepSortOrderOfDatabase = false );
     ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
@@ -178,7 +177,7 @@ protected:
     void setupPluginMenu();
 
 private:
-    static MainView* _instance;
+    static MainWindow* _instance;
 
     ThumbnailView::ThumbnailView* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;
@@ -190,7 +189,7 @@ private:
     QTimer* _autoSaveTimer;
     Browser::Browser* _browser;
     KTipDialog* _tipDialog;
-    Dialogs::DeleteDialog* _deleteDialog;
+    DeleteDialog* _deleteDialog;
     QLabel* _dirtyIndicator;
     QLabel* _lockedIndicator;
     KAction* _lock;
@@ -198,7 +197,7 @@ private:
     KAction* _setDefaultPos;
     KAction* _setDefaultNeg;
     KAction* _jumpToContext;
-    Dialogs::HTMLExportDialog* _htmlDialog;
+    HTMLExportDialog* _htmlDialog;
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;
     KAction* _view;
@@ -223,12 +222,13 @@ private:
 #ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
 #endif
-    Dialogs::TokenEditor* _tokenEditor;
+    TokenEditor* _tokenEditor;
     DateBar::DateBar* _dateBar;
     bool _hasLoadedPlugins;
     ImageCounter* _partial;
 };
 
+}
 
 #endif /* MAINVIEW_H */
 

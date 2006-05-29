@@ -30,7 +30,7 @@ class QTextEdit;
 #include <qcombobox.h>
 #include "Utilities/Util.h"
 
-namespace Dialogs
+namespace MainWindow
 {
 
 class HTMLExportDialog :public KDialogBase, private ImageManager::ImageClient {

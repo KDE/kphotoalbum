@@ -49,7 +49,7 @@
 #include "Utilities/ShowBusyCursor.h"
 #include <ktimewidget.h>
 #include "KDateEdit.h"
-#include "Dialogs/DeleteDialog.h"
+#include "MainWindow/DeleteDialog.h"
 #include <kguiitem.h>
 #include <kapplication.h>
 #include <qobjectlist.h>
@@ -637,7 +637,7 @@ bool AnnotationDialog::AnnotationDialog::eventFilter( QObject* watched, QEvent* 
         return false;
 
     // Initially I used an allow list, but combo boxes pop up menu's did for example not work then.
-    if ( w->topLevelWidget()->className() == QCString( "MainView" ) || w->topLevelWidget()->className() == QCString( "Viewer" )) {
+    if ( w->topLevelWidget()->className() == QCString( "MainWindow" ) || w->topLevelWidget()->className() == QCString( "Viewer" )) {
         if ( isMinimized() )
             showNormal();
         raise();
@@ -761,7 +761,7 @@ void AnnotationDialog::AnnotationDialog::slotDeleteImage()
 {
     Q_ASSERT( _setup != SEARCH );
 
-    Dialogs::DeleteDialog dialog( this );
+    MainWindow::DeleteDialog dialog( this );
     ImageInfoPtr info = _origList[_current];
     QStringList strList;
     strList << info->fileName();

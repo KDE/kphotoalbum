@@ -16,22 +16,27 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef IMAGECOUNTER_H
-#define IMAGECOUNTER_H
-#include <qlabel.h>
+#include <ksplashscreen.h>
+#ifndef SPLASHSCREEN_H
+#define SPLASHSCREEN_H
 
-class ImageCounter :public QLabel {
+namespace MainWindow
+{
+
+class SplashScreen :public KSplashScreen {
     Q_OBJECT
 
 public:
-    ImageCounter( QWidget* parent, const char* name = 0 );
+    SplashScreen();
+    static SplashScreen* instance();
+    void done();
 
-public slots:
-    void setMatchCount( int matches );
-    void setTotal( int );
-    void showingOverview();
+private:
+    static SplashScreen* _instance;
 };
 
+}
 
-#endif /* IMAGECOUNTER_H */
+
+#endif /* SPLASHSCREEN_H */
 

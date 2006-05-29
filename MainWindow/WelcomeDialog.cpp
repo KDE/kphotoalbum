@@ -30,7 +30,7 @@
 #include "kshell.h"
 #include <kapplication.h>
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     : QDialog( parent, name, true )

@@ -9,7 +9,7 @@
 #include "categorycollection.h"
 #include "category.h"
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 TokenEditor::TokenEditor( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n( "Remove Tokens" ), Cancel | Ok, Ok, parent, name )

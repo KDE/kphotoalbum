@@ -16,16 +16,16 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "mysplashscreen.h"
+#include "SplashScreen.h"
 #include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kaboutdata.h>
 #include <qpainter.h>
 #include <qregexp.h>
 
-MySplashScreen* MySplashScreen::_instance = 0;
+MainWindow::SplashScreen* MainWindow::SplashScreen::_instance = 0;
 
-MySplashScreen::MySplashScreen()
+MainWindow::SplashScreen::SplashScreen()
     :KSplashScreen( locate("data", QString::fromLatin1("kphotoalbum/pics/splash-large.png") ) )
 {
     _instance = this;
@@ -47,15 +47,15 @@ MySplashScreen::MySplashScreen()
     painter.drawText( QRect( QPoint(10, 400), QPoint( 630, 470 )), AlignRight | AlignBottom, txt );
 }
 
-MySplashScreen* MySplashScreen::instance()
+MainWindow::SplashScreen* MainWindow::SplashScreen::instance()
 {
     return _instance;
 }
 
-void MySplashScreen::done()
+void MainWindow::SplashScreen::done()
 {
     _instance = 0;
     (void) close( true );
 }
 
-#include "mysplashscreen.moc"
+#include "SplashScreen.moc"

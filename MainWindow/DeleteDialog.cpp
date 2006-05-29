@@ -31,7 +31,7 @@
 #include "Utilities/ShowBusyCursor.h"
 #include <qapplication.h>
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Images"), Cancel|User1, User1, parent, name,

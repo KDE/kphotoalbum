@@ -5,7 +5,7 @@
 #include <qvaluelist.h>
 class QCheckBox;
 
-namespace Dialogs
+namespace MainWindow
 {
 
 class TokenEditor :public KDialogBase {

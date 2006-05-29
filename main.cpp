@@ -18,12 +18,12 @@
 
 #include "Settings/Settings.h"
 #include <qdir.h>
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kimageio.h>
-#include "mysplashscreen.h"
+#include "MainWindow/SplashScreen.h"
 #include <qdatetime.h>
 
 static const KCmdLineOptions options[] =
@@ -59,11 +59,11 @@ int main( int argc, char** argv ) {
 
     KApplication app;
 
-    MySplashScreen* splash = new MySplashScreen();
+    MainWindow::SplashScreen* splash = new MainWindow::SplashScreen();
     splash->show();
 
     KImageIO::registerFormats();
-    MainView* view = new MainView( 0, "view" );
+    MainWindow::MainWindow* view = new MainWindow::MainWindow( 0, "view" );
 
     // qApp->setMainWidget( view );
     view->setGeometry( Settings::Settings::instance()->windowGeometry( Settings::MainWindow ) );

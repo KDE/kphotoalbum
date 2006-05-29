@@ -25,7 +25,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "ThumbnailView/ThumbnailView.h"
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 
 // PENDING(blackie) cleanup, we don't need from and to anymore
 Browser::ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
@@ -49,7 +49,7 @@ QString Browser::ImageFolder::text() const
 
 void Browser::ImageFolderAction::action( BrowserItemFactory* )
 {
-    MainView::theMainView()->showThumbNails( ImageDB::instance()->search( _info ) );
+    MainWindow::MainWindow::theMainWindow()->showThumbNails( ImageDB::instance()->search( _info ) );
 
     if ( !_context.isNull() )
         ThumbnailView::ThumbnailView::theThumbnailView()->setCurrentItem( _context );

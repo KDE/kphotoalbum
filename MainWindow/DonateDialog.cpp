@@ -24,7 +24,7 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 DonateDialog::DonateDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Donate Money"), Close | User1, Close, parent, name )

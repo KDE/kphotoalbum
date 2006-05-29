@@ -13,28 +13,26 @@ if compile_with_exiv2
 endif
 
 SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer Browser ImportExport \
-          AnnotationDialog Dialogs Settings Utilities ImageManager
+          AnnotationDialog MainWindow Settings Utilities ImageManager
 
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
 bin_PROGRAMS = kphotoalbum
 kphotoalbum_SOURCES = \
 	main.cpp \
-	imageinfo.cpp mainview.cpp \
+	imageinfo.cpp \
 	imagedate.cpp imagesearchinfo.cpp \
-	imagecounter.cpp \
 	imagedb.cpp \
 	groupCounter.cpp membermap.cpp \
-	externalpopup.cpp optionmatcher.cpp  \
-	mysplashscreen.cpp \
-	searchbar.cpp category.cpp categorycollection.cpp \
+	optionmatcher.cpp  \
+	category.cpp categorycollection.cpp \
 	fileinfo.cpp imageinfolist.cpp \
 	newimagefinder.cpp md5map.cpp
 
 kphotoalbum_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-kphotoalbum_LDADD =  Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la ThumbnailView/libThumbnailView.la \
-		     Plugins/libPlugins.la Viewer/libViewer.la Browser/libBrowser.la ImportExport/libImportExport.la \
-		     AnnotationDialog/libAnnotationDialog.la Dialogs/libDialogs.la Settings/libSettings.la \
+kphotoalbum_LDADD =  MainWindow/libMainWindow.la Survey/libsurvey.la XMLDB/libxmldb.la DateBar/libdatebar.la Browser/libBrowser.la \
+		     Plugins/libPlugins.la Viewer/libViewer.la ThumbnailView/libThumbnailView.la \
+		     ImportExport/libImportExport.la AnnotationDialog/libAnnotationDialog.la Settings/libSettings.la \
 		     Utilities/libUtilities.la ImageManager/libImageManager.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) \
 	             $(KPHOTOALBUM_EXIV2_LIBS)

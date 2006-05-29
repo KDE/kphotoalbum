@@ -7,7 +7,7 @@
 #include "Exif/Database.h"
 #include <config.h>
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("KPhotoAlbum Feature Status"), Close, Close, parent, name )

@@ -56,7 +56,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "ImportExport/Export.h"
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include "categorycollection.h"
 #include "imageinfo.h"
 #include "imagedb.h"
@@ -65,7 +65,7 @@
 #  include "Exif/Info.h"
 #endif
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 class ImageSizeCheckBox :public QCheckBox {
 
@@ -715,7 +715,7 @@ bool HTMLExportDialog::checkVars()
 
     // test if destination directory exists.
 #if KDE_IS_VERSION( 3, 1, 90 )
-    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, MainView::theMainView() );
+    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, MainWindow::theMainWindow() );
 #else
     bool exists = KIO::NetAccess::exists( KURL(outputDir) );
 #endif
@@ -727,7 +727,7 @@ bool HTMLExportDialog::checkVars()
                                                 i18n("Directory Exists"), KStdGuiItem::yes(), KStdGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {
-            KIO::NetAccess::del( KURL(outputDir), MainView::theMainView() );
+            KIO::NetAccess::del( KURL(outputDir), MainWindow::theMainWindow() );
         }
         else
             return false;

@@ -4,6 +4,9 @@
 class KLineEdit;
 class KMainWindow;
 
+namespace MainWindow
+{
+
 class SearchBar :public KToolBar {
     Q_OBJECT
 
@@ -20,6 +23,8 @@ signals:
 private:
     KLineEdit* _edit;
 };
+
+}
 
 
 #endif /* SEARCHBAR_H */

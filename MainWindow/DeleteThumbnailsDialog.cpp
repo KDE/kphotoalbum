@@ -26,7 +26,7 @@
 #include "Settings/Settings.h"
 #include <qdir.h>
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Delete Thumbnails" ), Cancel | User1, Cancel, parent, name )

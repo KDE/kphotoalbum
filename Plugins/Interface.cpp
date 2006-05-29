@@ -24,7 +24,7 @@
 #include "Plugins/ImageCollection.h"
 #include "Plugins/ImageInfo.h"
 #include "imagedb.h"
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
 #include "imageinfo.h"
@@ -43,7 +43,7 @@ KIPI::ImageCollection Plugins::Interface::currentAlbum()
 
 KIPI::ImageCollection Plugins::Interface::currentSelection()
 {
-    if ( MainView::theMainView()->selected().count() != 0 )
+    if ( MainWindow::MainWindow::theMainWindow()->selected().count() != 0 )
         return KIPI::ImageCollection( new Plugins::ImageCollection( Plugins::ImageCollection::CurrentSelection ) );
     else
         return KIPI::ImageCollection(0);
@@ -52,8 +52,8 @@ KIPI::ImageCollection Plugins::Interface::currentSelection()
 QValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 {
     QValueList<KIPI::ImageCollection> result;
-    ImageSearchInfo context = MainView::theMainView()->currentContext();
-    QString category = MainView::theMainView()->currentBrowseCategory();
+    ImageSearchInfo context = MainWindow::MainWindow::theMainWindow()->currentContext();
+    QString category = MainWindow::MainWindow::theMainWindow()->currentBrowseCategory();
     if ( category.isNull() )
         category = Settings::Settings::instance()->albumCategory();
 

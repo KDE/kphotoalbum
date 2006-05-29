@@ -23,7 +23,7 @@
 class QRadioButton;
 
 
-namespace Dialogs
+namespace MainWindow
 {
 
 class InvalidDateFinder :public KDialogBase {

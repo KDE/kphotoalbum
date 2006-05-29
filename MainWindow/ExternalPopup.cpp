@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "externalpopup.h"
+#include "ExternalPopup.h"
 #include "imageinfo.h"
 #include <ktrader.h>
 #include <qstringlist.h>
@@ -26,7 +26,7 @@
 #include <krun.h>
 #include <klocale.h>
 
-void ExternalPopup::populate( ImageInfoPtr current, const QStringList& imageList )
+void MainWindow::ExternalPopup::populate( ImageInfoPtr current, const QStringList& imageList )
 {
     _list = imageList;
     _currentInfo = current;
@@ -55,7 +55,7 @@ void ExternalPopup::populate( ImageInfoPtr current, const QStringList& imageList
     }
 }
 
-void ExternalPopup::slotExecuteService( int id )
+void MainWindow::ExternalPopup::slotExecuteService( int id )
 {
     QString name = text( id );
     KTrader::OfferList offers = KTrader::self()->query( QString::fromLatin1("image/jpeg"), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
@@ -74,10 +74,10 @@ void ExternalPopup::slotExecuteService( int id )
     KRun::run(*ptr, lst);
 }
 
-ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
+MainWindow::ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
     :QPopupMenu( parent, name )
 {
     connect( this, SIGNAL( activated( int ) ), this, SLOT( slotExecuteService( int ) ) );
 }
 
-#include "externalpopup.moc"
+#include "ExternalPopup.moc"

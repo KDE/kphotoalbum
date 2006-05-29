@@ -16,23 +16,32 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DONATE_H
-#define DONATE_H
-#include <kdialogbase.h>
+#ifndef EXTERNALPOPUP_H
+#define EXTERNALPOPUP_H
+#include <qpopupmenu.h>
+#include "imageinfolist.h"
+class ImageInfo;
 
-namespace Dialogs
+namespace MainWindow
 {
 
-class DonateDialog :public KDialogBase
-{
+class ExternalPopup :public QPopupMenu {
     Q_OBJECT
+
 public:
-    DonateDialog( QWidget* parent, const char* name );
+    ExternalPopup( QWidget* parent, const char* name = 0 );
+    void populate( ImageInfoPtr current, const QStringList& list );
+
 protected slots:
-    void slotDonate();
+    void slotExecuteService( int );
+
+private:
+    QStringList _list;
+    ImageInfoPtr _currentInfo;
 };
 
 }
 
-#endif /* DONATE_H */
+
+#endif /* EXTERNALPOPUP_H */
 

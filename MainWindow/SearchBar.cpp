@@ -1,4 +1,4 @@
-#include "searchbar.h"
+#include "SearchBar.h"
 #include <klineedit.h>
 #include <kmainwindow.h>
 #include <qlabel.h>
@@ -12,7 +12,7 @@
 #include <kstdaction.h>
 #include <kactioncollection.h>
 
-SearchBar::SearchBar( KMainWindow* parent, const char* name )
+MainWindow::SearchBar::SearchBar( KMainWindow* parent, const char* name )
     : KToolBar( parent, DockTop, false, name, true )
 {
     KAction *resetQuickSearch = new KAction( i18n( "Reset Quick Search" ),
@@ -36,9 +36,9 @@ SearchBar::SearchBar( KMainWindow* parent, const char* name )
   setStretchableWidget( _edit );
 }
 
-void SearchBar::reset()
+void MainWindow::SearchBar::reset()
 {
     _edit->clear();
 }
 
-#include "searchbar.moc"
+#include "SearchBar.moc"

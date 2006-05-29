@@ -31,7 +31,11 @@ class QLabel;
 class QPopupMenu;
 class KAction;
 class CategoryImageConfig;
-class ExternalPopup;
+
+namespace MainWindow
+{
+    class ExternalPopup;
+}
 
 namespace Viewer
 {
@@ -125,7 +129,7 @@ private:
     int _current;
     QRect _textRect;
     QPopupMenu* _popup;
-    ExternalPopup* _externalPopup;
+    MainWindow::ExternalPopup* _externalPopup;
     int _width, _height;
     QPixmap _pixmap;
 

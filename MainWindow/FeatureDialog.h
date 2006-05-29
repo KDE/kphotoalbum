@@ -3,7 +3,7 @@
 #include <kdialogbase.h>
 #include <qtextbrowser.h>
 
-namespace Dialogs
+namespace MainWindow
 {
 
 class FeatureDialog : public KDialogBase {

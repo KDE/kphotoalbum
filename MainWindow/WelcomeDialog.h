@@ -16,22 +16,43 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <ksplashscreen.h>
-#ifndef MYSPLASHSCREEN_H
-#define MYSPLASHSCREEN_H
+#ifndef WELCOMEDIALOG_H
+#define WELCOMEDIALOG_H
 
-class MySplashScreen :public KSplashScreen {
+#include <qdialog.h>
+class QLineEdit;
+
+namespace MainWindow
+{
+
+class WelComeDialog : public QDialog
+{
     Q_OBJECT
 
 public:
-    MySplashScreen();
-    static MySplashScreen* instance();
-    void done();
+    WelComeDialog( QWidget* parent = 0, const char* name = 0 );
+    QString configFileName() const;
 
+protected slots:
+    void slotLoadDemo();
+    void createSetup();
 private:
-    static MySplashScreen* _instance;
+    QString _configFile;
 };
 
 
-#endif /* MYSPLASHSCREEN_H */
+class FileDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    FileDialog( QWidget* parent, const char* name = 0 );
+    QString getFileName();
+protected slots:
+    void slotBrowseForDirecory();
+private:
+    QLineEdit* _lineEdit;
+};
 
+}
+
+#endif // WELCOMEDIALOG_H

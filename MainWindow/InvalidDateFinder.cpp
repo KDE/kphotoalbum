@@ -25,7 +25,7 @@
 #include "imagedb.h"
 #include "imagedate.h"
 #include "fileinfo.h"
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include "kprogress.h"
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -33,7 +33,7 @@
 #include <qtextedit.h>
 #include <kdebug.h>
 
-using namespace Dialogs;
+using namespace MainWindow;
 
 InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Search for Images with Missing Dates" ), Cancel | Ok, Ok, parent, name )
@@ -114,7 +114,7 @@ void InvalidDateFinder::slotOk()
     else
         delete info;
 
-    MainView::theMainView()->showThumbNails( toBeShown );
+    MainWindow::theMainWindow()->showThumbNails( toBeShown );
     KDialogBase::slotOk();
 }
 

@@ -31,7 +31,7 @@
 #include <qeventloop.h>
 #include "Browser/Browser.h"
 #include <qdict.h>
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include "imageinfo.h"
 #include "imageinfoptr.h"
 #include "categorycollection.h"
@@ -228,7 +228,7 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
     }
 
     if ( wrongOrder ) {
-        KMessageBox::information( MainView::theMainView(),
+        KMessageBox::information( MainWindow::MainWindow::theMainWindow(),
                                   i18n("<qt><p>Your images are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
@@ -263,7 +263,7 @@ void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
         return;
 
     if ( _anyImageWithEmptySize ) {
-        KMessageBox::information( MainView::theMainView(),
+        KMessageBox::information( MainWindow::MainWindow::theMainWindow(),
                                   i18n("<qt><p>Not all the images in the database have information about image sizes; this is needed to "
                                        "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
                                        "choose <tt>Remove All Thumbnails</tt>, and after that choose <tt>Build Thumbnails</tt>.</p>"
@@ -392,7 +392,7 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
     QFile out( fileName );
 
     if ( !out.open( IO_WriteOnly ) )
-        KMessageBox::sorry( MainView::theMainView(), i18n( "Could not open file '%1'." ).arg( fileName ) );
+        KMessageBox::sorry( MainWindow::MainWindow::theMainWindow(), i18n( "Could not open file '%1'." ).arg( fileName ) );
     else {
         QCString s = doc.toCString();
         out.writeBlock( s.data(), s.size()-1 );
@@ -443,7 +443,7 @@ QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
     }
     else {
         if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::error( MainView::theMainView(), i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
+            KMessageBox::error( MainWindow::MainWindow::theMainWindow(), i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
 
@@ -452,7 +452,7 @@ QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
         int errCol;
 
         if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
-            KMessageBox::error( MainView::theMainView(), i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
+            KMessageBox::error( MainWindow::MainWindow::theMainWindow(), i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
             exit(-1);
         }
     }
@@ -460,13 +460,13 @@ QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
     // Now read the content of the file.
     QDomElement top = doc.documentElement();
     if ( top.isNull() ) {
-        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: No elements found").arg( configFile ) );
+        KMessageBox::error( MainWindow::MainWindow::theMainWindow(), i18n("Error in file %1: No elements found").arg( configFile ) );
         exit(-1);
     }
 
     if ( top.tagName().lower() != QString::fromLatin1( "kphotoalbum" ) &&
          top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) { // KimDaBa compatibility
-        KMessageBox::error( MainView::theMainView(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
+        KMessageBox::error( MainWindow::MainWindow::theMainWindow(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
         exit(-1);
     }
 
@@ -496,16 +496,16 @@ void XMLDB::XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomE
             else if ( tag == QString::fromLatin1( "member-groups" ) )
                 *memberGroups = elm;
             else {
-                KMessageBox::error( MainView::theMainView(),
+                KMessageBox::error( MainWindow::MainWindow::theMainWindow(),
                                     i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
             }
         }
     }
 
     if ( options->isNull() )
-        KMessageBox::sorry( MainView::theMainView(), i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
+        KMessageBox::sorry( MainWindow::MainWindow::theMainWindow(), i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
     if ( images->isNull() )
-        KMessageBox::sorry( MainView::theMainView(), i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
+        KMessageBox::sorry( MainWindow::MainWindow::theMainWindow(), i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
 }
 
 void XMLDB::XMLDB::loadImages( const QDomElement& images )

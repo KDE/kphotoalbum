@@ -16,37 +16,30 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef DELETEDIALOG_H
-#define DELETEDIALOG_H
-#include <kdialogbase.h>
-#include "imageinfolist.h"
-class QLabel;
-class QCheckBox;
-class QRadioButton;
+#ifndef DELETEFILELISTDIALOG_H
+#define DELETEFILELISTDIALOG_H
 
-namespace Dialogs
+#include <kdialogbase.h>
+#include <qstringlist.h>
+
+namespace MainWindow
 {
 
-class DeleteDialog :public KDialogBase {
+class DeleteThumbnailsDialog :public KDialogBase {
     Q_OBJECT
 
 public:
-    DeleteDialog( QWidget* parent, const char* name = 0 );
-    int exec( const QStringList& );
+    DeleteThumbnailsDialog( QWidget* parent, const char* name = 0 );
 
 protected slots:
-    void deleteImages();
+    void slotDeleteFiles();
+    void findThumbnails( const QString& directory );
 
 private:
-    QStringList _list;
-    QLabel* _label;
-    QCheckBox* _deleteFromDisk;
-    QCheckBox* _block;
-
+    QStringList _files;
 };
 
 }
 
-
-#endif /* DELETEDIALOG_H */
+#endif /* DELETEFILELISTDIALOG_H */
 

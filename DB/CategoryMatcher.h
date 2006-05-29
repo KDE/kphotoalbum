@@ -26,18 +26,18 @@ class ImageInfo;
 /**
    Base class for components in the state machine for image matching.
 */
-class OptionMatcher
+class CategoryMatcher
 {
 public:
     virtual bool eval( ImageInfoPtr ) = 0;
-    virtual ~OptionMatcher() {}
+    virtual ~CategoryMatcher() {}
     virtual void debug( int level ) const = 0;
 
 protected:
     QString spaces(int level ) const;
 };
 
-class OptionSimpleMatcher :public OptionMatcher
+class OptionSimpleMatcher :public CategoryMatcher
 {
 public:
     QString _category;
@@ -63,14 +63,14 @@ public:
     virtual void debug( int level ) const;
 };
 
-class OptionContainerMatcher :public OptionMatcher
+class OptionContainerMatcher :public CategoryMatcher
 {
 public:
-    void addElement( OptionMatcher* );
+    void addElement( CategoryMatcher* );
     ~OptionContainerMatcher();
     virtual void debug( int level ) const;
 
-    QValueList<OptionMatcher*> _elements;
+    QValueList<CategoryMatcher*> _elements;
 };
 
 class OptionAndMatcher :public OptionContainerMatcher

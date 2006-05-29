@@ -3,7 +3,7 @@ noinst_LTLIBRARIES = libDB.la
 INCLUDES = -I$(srcdir)/.. $(all_includes)
 
 libDB_la_SOURCES = ImageInfo.cpp Category.cpp CategoryCollection.cpp ImageDate.cpp MD5Map.cpp MemberMap.cpp \
-		     ImageInfoList.cpp ImageDB.cpp FileInfo.cpp NewImageFinder.cpp GroupCounter.cpp OptionMatcher.cpp \
+		     ImageInfoList.cpp ImageDB.cpp FileInfo.cpp NewImageFinder.cpp GroupCounter.cpp CategoryMatcher.cpp \
 		     ImageSearchInfo.cpp
 
 

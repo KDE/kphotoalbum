@@ -30,7 +30,7 @@
 class OptionAndMatcher;
 class OptionSimpleMatcher;
 class ImageInfo;
-class OptionMatcher;
+class CategoryMatcher;
 
 
 class ImageSearchInfo {
@@ -71,8 +71,8 @@ protected:
     void compile() const;
     void deleteMatchers() const;
 
-    QValueList<OptionSimpleMatcher*> extractAndMatcher( OptionMatcher* andMatcher ) const;
-    QValueList< QValueList<OptionSimpleMatcher*> > convertMatcher( OptionMatcher* ) const;
+    QValueList<OptionSimpleMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
+    QValueList< QValueList<OptionSimpleMatcher*> > convertMatcher( CategoryMatcher* ) const;
 
 private:
     ImageDate _date;
@@ -81,7 +81,7 @@ private:
     QString _description;
     bool _isNull;
     mutable bool _compiled;
-    mutable QValueList<OptionMatcher*> _optionMatchers;
+    mutable QValueList<CategoryMatcher*> _optionMatchers;
 
 #ifdef HASEXIV2
     Exif::SearchInfo _exifSearchInfo;

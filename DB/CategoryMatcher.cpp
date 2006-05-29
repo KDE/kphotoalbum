@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "OptionMatcher.h"
+#include "CategoryMatcher.h"
 #include "Settings/Settings.h"
 #include "DB/ImageInfo.h"
 #include "DB/MemberMap.h"
@@ -60,14 +60,14 @@ bool OptionEmptyMatcher::eval( ImageInfoPtr info )
 
 
 
-void OptionContainerMatcher::addElement( OptionMatcher* element )
+void OptionContainerMatcher::addElement( CategoryMatcher* element )
 {
     _elements.append( element );
 }
 
 bool OptionAndMatcher::eval( ImageInfoPtr info )
 {
-    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+    for( QValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( !(*it)->eval( info ) )
             return false;
     }
@@ -78,7 +78,7 @@ bool OptionAndMatcher::eval( ImageInfoPtr info )
 
 bool OptionOrMatcher::eval( ImageInfoPtr info )
 {
-    for( QValueList<OptionMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+    for( QValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( (*it)->eval( info ) )
             return true;
     }
@@ -117,12 +117,12 @@ void OptionOrMatcher::debug( int level ) const
 
 void OptionContainerMatcher::debug( int level ) const
 {
-    for( QValueList<OptionMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
+    for( QValueList<CategoryMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
         (*it)->debug( level );
     }
 }
 
-QString OptionMatcher::spaces(int level ) const
+QString CategoryMatcher::spaces(int level ) const
 {
     return QString::fromLatin1("").rightJustify(level*3 );
 }

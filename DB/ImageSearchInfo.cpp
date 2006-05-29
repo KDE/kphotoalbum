@@ -22,7 +22,7 @@
 #include <klocale.h>
 #include "Utilities/Util.h"
 #include <kdebug.h>
-#include "OptionMatcher.h"
+#include "CategoryMatcher.h"
 #include "ImageDB.h"
 #include "ImageInfo.h"
 #include <kapplication.h>
@@ -92,7 +92,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
     // -------------------------------------------------- Options
     info->clearMatched();
-    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
+    for( QValueList<CategoryMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
         ok &= (*it)->eval( info );
     }
 
@@ -247,7 +247,7 @@ void ImageSearchInfo::compile() const
                     str = regexp.cap(1);
                 }
                 str = str.stripWhiteSpace();
-                OptionMatcher* valueMatcher;
+                CategoryMatcher* valueMatcher;
                 if ( str == ImageDB::NONE() )
                     valueMatcher = new OptionEmptyMatcher( category, !negate );
                 else
@@ -274,7 +274,7 @@ void ImageSearchInfo::debugMatcher() const
         compile();
 
     qDebug("And:");
-    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
+    for( QValueList<CategoryMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end(); ++it ) {
         (*it)->debug(1);
     }
 }
@@ -284,7 +284,7 @@ QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
     if ( !_compiled )
         compile();
 
-    QValueList<OptionMatcher*>::Iterator it  = _optionMatchers.begin();
+    QValueList<CategoryMatcher*>::Iterator it  = _optionMatchers.begin();
     QValueList< QValueList<OptionSimpleMatcher*> > result;
     if ( it == _optionMatchers.end() )
         return result;
@@ -332,15 +332,15 @@ QDict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
 
 void ImageSearchInfo::deleteMatchers() const
 {
-    for( QValueList<OptionMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end();  ) {
-        OptionMatcher* matcher = *it;
+    for( QValueList<CategoryMatcher*>::Iterator it = _optionMatchers.begin(); it != _optionMatchers.end();  ) {
+        CategoryMatcher* matcher = *it;
         ++it;
         delete matcher;
     }
     _optionMatchers.clear();
 }
 
-QValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( OptionMatcher* matcher ) const
+QValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( CategoryMatcher* matcher ) const
 {
     QValueList< OptionSimpleMatcher*> result;
 
@@ -348,7 +348,7 @@ QValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( OptionMatch
     OptionSimpleMatcher* simpleMatcher;
 
     if ( ( andMatcher = dynamic_cast<OptionAndMatcher*>( matcher ) ) ) {
-        for( QValueList<OptionMatcher*>::Iterator childIt = andMatcher->_elements.begin();
+        for( QValueList<CategoryMatcher*>::Iterator childIt = andMatcher->_elements.begin();
              childIt != andMatcher->_elements.end(); ++childIt ) {
             OptionSimpleMatcher* simpleMatcher = dynamic_cast<OptionSimpleMatcher*>( *childIt );
             Q_ASSERT( simpleMatcher );
@@ -363,13 +363,13 @@ QValueList<OptionSimpleMatcher*> ImageSearchInfo::extractAndMatcher( OptionMatch
     return result;
 }
 
-QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( OptionMatcher* item ) const
+QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::convertMatcher( CategoryMatcher* item ) const
 {
     QValueList< QValueList<OptionSimpleMatcher*> > result;
     OptionOrMatcher* orMacther;
 
     if ( ( orMacther = dynamic_cast<OptionOrMatcher*>( item ) ) ) {
-        for( QValueList<OptionMatcher*>::Iterator childIt = orMacther->_elements.begin();
+        for( QValueList<CategoryMatcher*>::Iterator childIt = orMacther->_elements.begin();
              childIt != orMacther->_elements.end(); ++childIt ) {
             result.append( extractAndMatcher( *childIt ) );
         }

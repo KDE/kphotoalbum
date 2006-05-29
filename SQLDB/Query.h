@@ -18,7 +18,7 @@
 
 #ifndef SQLDB_QUERY_H
 #define SQLDB_QUERY_H
-#include "DB/OptionMatcher.h"
+#include "DB/CategoryMatcher.h"
 #include <qvariant.h>
 class QSqlQuery;
 class QSqlError;

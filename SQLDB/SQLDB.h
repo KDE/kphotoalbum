@@ -19,10 +19,10 @@ Boston, MA 02111-1307, USA.
 #ifndef SQLDB_H
 #define SQLDB_H
 
-#include "Data/ImageDB.h"
-#include "Data/MemberMap.h"
-#include "Data/CategoryCollection.h"
-#include "Data/MD5Map.h"
+#include "DB/ImageDB.h"
+#include "DB/MemberMap.h"
+#include "DB/CategoryCollection.h"
+#include "DB/MD5Map.h"
 #include "SQLCategoryCollection.h"
 class QSqlError;
 

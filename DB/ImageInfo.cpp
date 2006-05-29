@@ -34,11 +34,11 @@ extern "C" {
 #include <qvariant.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include "Data/ImageDB.h"
-#include "Data/CategoryCollection.h"
+#include "DB/ImageDB.h"
+#include "DB/CategoryCollection.h"
 #include "FileInfo.h"
 #include <qstringlist.h>
-#include "Data/MemberMap.h"
+#include "DB/MemberMap.h"
 #include <kcmdlineargs.h>
 #include "XMLDB/XMLCategory.h"
 #include <config.h>

@@ -19,10 +19,10 @@
 #ifndef NEWIMAGEFINDER_H
 #define NEWIMAGEFINDER_H
 #include <qdict.h>
-#include "Data/ImageInfoList.h"
+#include "DB/ImageInfoList.h"
 #include <qstringlist.h>
 #include <qmap.h>
-#include "Data/MD5Map.h"
+#include "DB/MD5Map.h"
 
 class NewImageFinder
 {

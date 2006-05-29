@@ -17,7 +17,7 @@
 */
 
 #include "ExternalPopup.h"
-#include "Data/ImageInfo.h"
+#include "DB/ImageInfo.h"
 #include <ktrader.h>
 #include <qstringlist.h>
 #include <qlabel.h>

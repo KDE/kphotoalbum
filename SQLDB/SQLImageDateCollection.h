@@ -1,6 +1,6 @@
 #ifndef SQLIMAGEDATERANGECOLLECTION_H
 #define SQLIMAGEDATERANGECOLLECTION_H
-#include "Data/ImageDateCollection.h"
+#include "DB/ImageDateCollection.h"
 
 class SQLImageDateCollection :public ImageDateCollection
 {

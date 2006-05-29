@@ -21,7 +21,7 @@
 #include <qiconview.h>
 #include "Browser.h"
 #include <qstring.h>
-#include "Data/ImageSearchInfo.h"
+#include "DB/ImageSearchInfo.h"
 
 namespace Browser
 {

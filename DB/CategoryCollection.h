@@ -4,7 +4,7 @@
 #include <qvaluelist.h>
 #include "Settings/Settings.h"
 #include <ksharedptr.h>
-#include "Data/Category.h"
+#include "DB/Category.h"
 
 class Category;
 

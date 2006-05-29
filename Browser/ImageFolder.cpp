@@ -18,8 +18,8 @@
 
 #include "ImageFolder.h"
 #include <klocale.h>
-#include "Data/ImageDB.h"
-#include "Data/ImageSearchInfo.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageSearchInfo.h"
 #include "Settings/Settings.h"
 #include <kstandarddirs.h>
 #include <kglobal.h>

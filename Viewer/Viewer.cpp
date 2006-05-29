@@ -20,7 +20,7 @@
 #include "Viewer/Viewer.h"
 #include <qlayout.h>
 #include <qlabel.h>
-#include "Data/ImageInfo.h"
+#include "DB/ImageInfo.h"
 #include "ImageManager/ImageManager.h"
 #include <qsizepolicy.h>
 #include <qsimplerichtext.h>
@@ -54,8 +54,8 @@
 #include <kkeydialog.h>
 #include <kapplication.h>
 #include <kglobal.h>
-#include "Data/CategoryCollection.h"
-#include "Data/ImageDB.h"
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 #include "InfoBox.h"
 
 Viewer::Viewer* Viewer::Viewer::_latest = 0;

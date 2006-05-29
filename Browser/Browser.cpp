@@ -19,12 +19,12 @@
 #include "Browser.h"
 #include "Folder.h"
 #include <klocale.h>
-#include "Data/ImageSearchInfo.h"
+#include "DB/ImageSearchInfo.h"
 #include "Settings/Settings.h"
 #include "ContentFolder.h"
 #include "ImageFolder.h"
 #include <qtimer.h>
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include <qlistview.h>
 #include "Utilities/ShowBusyCursor.h"
@@ -32,7 +32,7 @@
 #include <qwidgetstack.h>
 #include <qlayout.h>
 #include <qlabel.h>
-#include "Data/CategoryCollection.h"
+#include "DB/CategoryCollection.h"
 
 Browser::Browser* Browser::Browser::_instance = 0;
 

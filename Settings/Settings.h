@@ -23,8 +23,8 @@
 #include <qpixmap.h>
 #include <qobject.h>
 #include <qdom.h>
-#include "Data/ImageSearchInfo.h"
-#include "Data/Category.h"
+#include "DB/ImageSearchInfo.h"
+#include "DB/Category.h"
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif

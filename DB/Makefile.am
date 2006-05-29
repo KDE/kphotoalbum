@@ -1,8 +1,8 @@
-noinst_LTLIBRARIES = libData.la
+noinst_LTLIBRARIES = libDB.la
 
 INCLUDES = -I$(srcdir)/.. $(all_includes)
 
-libData_la_SOURCES = ImageInfo.cpp Category.cpp CategoryCollection.cpp ImageDate.cpp MD5Map.cpp MemberMap.cpp \
+libDB_la_SOURCES = ImageInfo.cpp Category.cpp CategoryCollection.cpp ImageDate.cpp MD5Map.cpp MemberMap.cpp \
 		     ImageInfoList.cpp ImageDB.cpp FileInfo.cpp NewImageFinder.cpp GroupCounter.cpp OptionMatcher.cpp \
 		     ImageSearchInfo.cpp
 

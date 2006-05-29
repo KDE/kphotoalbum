@@ -2,9 +2,9 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include "Settings/Settings.h"
-#include "Data/MemberMap.h"
+#include "DB/MemberMap.h"
 
 QPixmap Category::icon( int size ) const
 {

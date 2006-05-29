@@ -1,4 +1,4 @@
-if compile_sqldb
+f compile_sqldb
   LIBKPHOTOALBUM_SQLDB=SQLDB/libsqldb.la
   SQLDB=SQLDB
 endif
@@ -13,7 +13,7 @@ if compile_with_exiv2
 endif
 
 SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer Browser ImportExport \
-          AnnotationDialog MainWindow Settings Utilities ImageManager Data
+          AnnotationDialog MainWindow Settings Utilities ImageManager DB
 
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
@@ -24,7 +24,7 @@ kphotoalbum_LDADD =  MainWindow/libMainWindow.la Survey/libsurvey.la ImportExpor
 		     XMLDB/libxmldb.la DateBar/libdatebar.la Browser/libBrowser.la \
 		     Plugins/libPlugins.la Viewer/libViewer.la ThumbnailView/libThumbnailView.la \
 		     AnnotationDialog/libAnnotationDialog.la Settings/libSettings.la \
-		     Utilities/libUtilities.la ImageManager/libImageManager.la Data/libData.la \
+		     Utilities/libUtilities.la ImageManager/libImageManager.la DB/libDB.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) \
 	             $(KPHOTOALBUM_EXIV2_LIBS)
 

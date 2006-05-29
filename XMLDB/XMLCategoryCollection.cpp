@@ -1,4 +1,4 @@
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include "XMLCategoryCollection.h"
 #include "XMLCategory.h"
 

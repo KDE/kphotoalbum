@@ -24,7 +24,7 @@
 #include <kaction.h>
 #include <qdialog.h>
 #include <qimage.h>
-#include "Data/ImageInfoList.h"
+#include "DB/ImageInfoList.h"
 
 class ImageInfo;
 class QLabel;

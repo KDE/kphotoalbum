@@ -22,7 +22,7 @@
 #include "ImageManager/ImageClient.h"
 #include <qprogressdialog.h>
 #include <qimage.h>
-#include "Data/ImageInfoList.h"
+#include "DB/ImageInfoList.h"
 
 
 namespace ThumbnailView

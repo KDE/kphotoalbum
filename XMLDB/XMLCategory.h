@@ -1,6 +1,6 @@
 #ifndef XMLCATEGORY_H
 #define XMLCATEGORY_H
-#include "Data/Category.h"
+#include "DB/Category.h"
 
 namespace XMLDB {
     class XMLCategory :public Category

@@ -20,7 +20,7 @@
 #include <qdatetime.h>
 #include <qcombobox.h>
 #include <qmap.h>
-#include "Data/ImageDate.h"
+#include "DB/ImageDate.h"
 
 class QEvent;
 class KDatePicker;

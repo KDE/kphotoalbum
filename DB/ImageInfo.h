@@ -31,7 +31,7 @@
 #include "Viewer/DrawList.h"
 #include <qimage.h>
 #include <ksharedptr.h>
-#include "Data/CategoryCollection.h"
+#include "DB/CategoryCollection.h"
 
 #define EXIFMODE_DATE          0x01
 #define EXIFMODE_ORIENTATION   0x02

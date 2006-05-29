@@ -19,9 +19,9 @@
 #include "GroupCounter.h"
 #include <qmap.h>
 #include "Settings/Settings.h"
-#include "Data/MemberMap.h"
-#include "Data/ImageDB.h"
-#include "Data/CategoryCollection.h"
+#include "DB/MemberMap.h"
+#include "DB/ImageDB.h"
+#include "DB/CategoryCollection.h"
 
 // Examples:
 // groupToMemberMap = { USA |-> [Chicago, Santa Clara],

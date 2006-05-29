@@ -20,7 +20,7 @@
 #include "Settings/Settings.h"
 #include <qtimer.h>
 #include "CategoryCollection.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 
 MemberMap::MemberMap( ImageDB* db) :QObject(0), _dirty( true )
 {

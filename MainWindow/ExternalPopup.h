@@ -19,7 +19,7 @@
 #ifndef EXTERNALPOPUP_H
 #define EXTERNALPOPUP_H
 #include <qpopupmenu.h>
-#include "Data/ImageInfoList.h"
+#include "DB/ImageInfoList.h"
 class ImageInfo;
 
 namespace MainWindow

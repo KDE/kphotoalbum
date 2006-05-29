@@ -3,7 +3,7 @@
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "Browser/Browser.h"
-#include "Data/CategoryCollection.h"
+#include "DB/CategoryCollection.h"
 #include "SQLDB/SQLDB.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>

@@ -20,13 +20,13 @@
 #define IMAGECONFIG_H
 #include "ImageManager/ImageClient.h"
 #include "ListSelect.h"
-#include "Data/ImageSearchInfo.h"
+#include "DB/ImageSearchInfo.h"
 #include <kdockwidget.h>
 #include <qspinbox.h>
 #include "Editor.h"
 #include <qdialog.h>
 #include <ktimewidget.h>
-#include "Data/ImageInfoList.h"
+#include "DB/ImageInfoList.h"
 
 class ImageInfo;
 class QSplitter;

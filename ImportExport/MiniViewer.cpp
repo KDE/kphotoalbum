@@ -22,7 +22,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qimage.h>
-#include "Data/ImageInfo.h"
+#include "DB/ImageInfo.h"
 #include <qwmatrix.h>
 
 using namespace ImportExport;

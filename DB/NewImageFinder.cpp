@@ -1,5 +1,5 @@
 #include "NewImageFinder.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include <qfileinfo.h>
 #include "Settings/Settings.h"
 #include "Browser/Browser.h"

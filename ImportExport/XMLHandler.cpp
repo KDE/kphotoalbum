@@ -1,7 +1,7 @@
 #include "XMLHandler.h"
 #include <qdom.h>
 #include "Utilities/Util.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 
 /**
  * \class XMLHandler

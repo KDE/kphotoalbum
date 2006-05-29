@@ -22,7 +22,7 @@
 #include <config.h>
 #ifdef HASKIPI
 #include "Plugins/ImageCollection.h"
-#include "Data/ImageSearchInfo.h"
+#include "DB/ImageSearchInfo.h"
 #include <kdemacros.h>
 namespace Plugins
 {

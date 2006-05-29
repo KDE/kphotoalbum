@@ -9,7 +9,7 @@
 #include <qlabel.h>
 #include "ImageManager/ImageManager.h"
 #include "ImageManager/ImageRequest.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 
 Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )

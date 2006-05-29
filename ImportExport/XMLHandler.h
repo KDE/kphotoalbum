@@ -5,7 +5,7 @@
 #include <qstring.h>
 #include "Export.h"
 #include "Utilities/Util.h"
-#include "Data/ImageInfoPtr.h"
+#include "DB/ImageInfoPtr.h"
 #include <qdom.h>
 
 namespace ImportExport

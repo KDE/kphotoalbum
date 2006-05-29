@@ -18,11 +18,11 @@
 
 #include "TypeFolder.h"
 #include "Settings/Settings.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include "ContentFolder.h"
 #include <klocale.h>
 #include "BrowserItemFactory.h"
-#include "Data/CategoryCollection.h"
+#include "DB/CategoryCollection.h"
 
 Browser::TypeFolder::TypeFolder( const QString& category, const ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent ), _category ( category )

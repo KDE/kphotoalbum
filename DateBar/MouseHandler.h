@@ -5,7 +5,7 @@
 #include <qdatetime.h>
 #include <kdemacros.h>
 #include <kdeversion.h>
-#include "Data/ImageDate.h"
+#include "DB/ImageDate.h"
 
 #if ! KDE_IS_VERSION(3,3,90)
 #undef KDE_EXPORT

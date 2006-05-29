@@ -1,7 +1,7 @@
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
 #include <qvaluelist.h>
-#include "Data/ImageInfoPtr.h"
+#include "DB/ImageInfoPtr.h"
 
 class ImageInfoList :public QValueList<ImageInfoPtr>
 {

@@ -20,7 +20,7 @@
 #include "Viewer/DisplayArea.h"
 #include <qpainter.h>
 #include "Settings/Settings.h"
-#include "Data/ImageInfo.h"
+#include "DB/ImageInfo.h"
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
 #include <qlabel.h>
@@ -29,7 +29,7 @@
 #include <qapplication.h>
 #include <klocale.h>
 #include <math.h>
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 
 /**
    Area displaying the actual image in the viewer.

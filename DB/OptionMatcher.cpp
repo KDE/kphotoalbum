@@ -18,9 +18,9 @@
 
 #include "OptionMatcher.h"
 #include "Settings/Settings.h"
-#include "Data/ImageInfo.h"
-#include "Data/MemberMap.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageInfo.h"
+#include "DB/MemberMap.h"
+#include "DB/ImageDB.h"
 
 OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& value, bool sign )
 {

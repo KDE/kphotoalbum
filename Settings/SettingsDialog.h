@@ -20,7 +20,7 @@
 #define OPTIONSDIALOG_H
 #include <kdialogbase.h>
 #include "Settings/Settings.h"
-#include "Data/MemberMap.h"
+#include "DB/MemberMap.h"
 #include <config.h>
 class QListView;
 class KColorButton;

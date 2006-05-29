@@ -1,7 +1,7 @@
 #ifndef XMLCATEGORYCOLLECTION_H
 #define XMLCATEGORYCOLLECTION_H
 
-#include "Data/CategoryCollection.h"
+#include "DB/CategoryCollection.h"
 
 namespace XMLDB {
 

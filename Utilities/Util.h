@@ -23,7 +23,7 @@ Boston, MA 02110-1301, USA.
 #include <qstring.h>
 #include <qstringlist.h>
 #include "Settings/Settings.h"
-#include "Data/ImageInfoList.h"
+#include "DB/ImageInfoList.h"
 class CategoryCollection;
 class ImageInfo;
 

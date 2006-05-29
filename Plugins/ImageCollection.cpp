@@ -21,11 +21,11 @@
 #ifdef HASKIPI
 #include "Plugins/ImageCollection.h"
 #include "MainWindow/MainWindow.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include "Settings/Settings.h"
 #include <qfileinfo.h>
-#include "Data/ImageInfoList.h"
-#include "Data/ImageInfo.h"
+#include "DB/ImageInfoList.h"
+#include "DB/ImageInfo.h"
 
 Plugins::ImageCollection::ImageCollection( Type tp )
     : _tp( tp )

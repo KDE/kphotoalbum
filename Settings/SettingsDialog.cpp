@@ -28,7 +28,7 @@
 #include <kicondialog.h>
 #include <qlistbox.h>
 #include <kmessagebox.h>
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include <qcheckbox.h>
 #include <kinputdialog.h>
 #include <qwhatsthis.h>
@@ -43,7 +43,7 @@
 #endif
 #include <kdebug.h>
 #include <kcolorbutton.h>
-#include "Data/CategoryCollection.h"
+#include "DB/CategoryCollection.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "SettingsDialog.moc"
 #include <kapplication.h>

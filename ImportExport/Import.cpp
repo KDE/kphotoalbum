@@ -34,7 +34,7 @@
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include "Utilities/Util.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 #include <qimage.h>
 #include <qwmatrix.h>
 #include "Browser/Browser.h"
@@ -47,8 +47,8 @@
 #include <kio/netaccess.h>
 #include "MainWindow/MainWindow.h"
 #include <kapplication.h>
-#include "Data/CategoryCollection.h"
-#include "Data/ImageInfo.h"
+#include "DB/CategoryCollection.h"
+#include "DB/ImageInfo.h"
 #include "MiniViewer.h"
 #include "XMLDB/XMLDB.h"
 #include <kdebug.h>

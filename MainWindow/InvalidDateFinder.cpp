@@ -21,10 +21,10 @@
 #include <qradiobutton.h>
 #include <klocale.h>
 #include <qvbuttongroup.h>
-#include "Data/ImageInfo.h"
-#include "Data/ImageDB.h"
-#include "Data/ImageDate.h"
-#include "Data/FileInfo.h"
+#include "DB/ImageInfo.h"
+#include "DB/ImageDB.h"
+#include "DB/ImageDate.h"
+#include "DB/FileInfo.h"
 #include "MainWindow/MainWindow.h"
 #include "kprogress.h"
 #include <qapplication.h>

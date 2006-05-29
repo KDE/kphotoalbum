@@ -19,7 +19,7 @@
 #include "Folder.h"
 #include <klocale.h>
 #include "Settings/Settings.h"
-#include "Data/ImageDB.h"
+#include "DB/ImageDB.h"
 
 int Browser::Folder::_idCount = 0;
 

@@ -20,7 +20,7 @@
 #define OPTIONMATCHER_H
 #include <qvaluelist.h>
 #include <qstringlist.h>
-#include "Data/ImageInfoPtr.h"
+#include "DB/ImageInfoPtr.h"
 class ImageInfo;
 
 /**

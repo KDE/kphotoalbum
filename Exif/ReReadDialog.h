@@ -19,7 +19,7 @@
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
 #include <kdialogbase.h>
-#include "Data/ImageInfoList.h"
+#include "DB/ImageInfoList.h"
 #include <config.h>
 class QLabel;
 class QCheckBox;

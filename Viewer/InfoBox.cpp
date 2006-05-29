@@ -26,7 +26,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "MainWindow/MainWindow.h"
-#include "Data/ImageInfo.h"
+#include "DB/ImageInfo.h"
 
 Viewer::InfoBox::InfoBox( Viewer::Viewer* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )

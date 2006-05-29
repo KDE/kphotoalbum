@@ -42,7 +42,7 @@ public:
     virtual KURL uploadRoot();
 
 protected:
-    KURL::List imageListToUrlList( const ImageInfoList& list );
+    KURL::List imageListToUrlList( const DB::ImageInfoList& list );
     KURL::List stringListToUrlList( const QStringList& list );
     KURL commonRoot();
 

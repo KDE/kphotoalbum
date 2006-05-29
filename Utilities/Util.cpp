@@ -69,7 +69,7 @@ extern "C" {
  * (categoryName, categoryItem). This linkMap is used when the user selects
  * one of the hyberlinks.
  */
-QString Utilities::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
+QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
     Q_ASSERT( info );
     QString text;
@@ -81,9 +81,9 @@ QString Utilities::createInfoText( ImageInfoPtr info, QMap< int,QPair<QString,QS
         }
     }
 
-    QValueList<CategoryPtr> categories = ImageDB::instance()->categoryCollection()->categories();
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
-    for( QValueList<CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
             QStringList items = info->itemsOfCategory( categoryName );
@@ -578,10 +578,10 @@ void Utilities::deleteDemo()
 }
 
 // PENDING(blackie) delete this method
-QStringList Utilities::infoListToStringList( const ImageInfoList& list )
+QStringList Utilities::infoListToStringList( const DB::ImageInfoList& list )
 {
     QStringList result;
-    for( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
+    for( DB::ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         result.append( (*it)->fileName() );
     }
     return result;

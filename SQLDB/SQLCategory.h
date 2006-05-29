@@ -3,7 +3,7 @@
 #include "DB/Category.h"
 
 namespace SQLDB {
-    class SQLCategory :public Category
+    class SQLCategory :public DB::Category
     {
     public:
         SQLCategory( int categoryId );

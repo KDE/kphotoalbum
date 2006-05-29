@@ -23,13 +23,13 @@
 
 int Browser::Folder::_idCount = 0;
 
-Browser::Folder::Folder( const ImageSearchInfo& info, Browser* parent )
+Browser::Folder::Folder( const DB::ImageSearchInfo& info, Browser* parent )
     : _index(_idCount++), _browser( parent ), _info( info ), _enabled( true )
 {
 }
 
 
-Browser::FolderAction::FolderAction(const ImageSearchInfo& info, Browser* browser )
+Browser::FolderAction::FolderAction(const DB::ImageSearchInfo& info, Browser* browser )
     :  _browser( browser ), _info( info )
 {
 }

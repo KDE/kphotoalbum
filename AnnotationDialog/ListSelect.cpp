@@ -185,7 +185,7 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
 
-    _label = new QLabel( ImageDB::instance()->categoryCollection()->categoryForName( category )->text(), this );
+    _label = new QLabel( DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->text(), this );
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
@@ -259,7 +259,7 @@ void ListSelect::slotReturn()
         if ( !item ) {
             item = new QListBoxText( _listBox, txt );
         }
-        ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( txt);
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( txt);
 
         // move item to front
         _listBox->takeItem( item );
@@ -298,7 +298,7 @@ void ListSelect::setSelection( const QStringList& list )
         if ( !item )  {
             _listBox->insertItem( *it );
             item = _listBox->findItem( *it,  ExactMatch );
-            ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( *it);
+            DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( *it);
         }
         _listBox->setSelected( item,  true );
     }
@@ -344,7 +344,7 @@ void ListSelect::setMode( Mode mode )
     _mode = mode;
     _lineEdit->setMode( mode );
     if ( mode == SEARCH) {
-        QListBoxItem * none = new QListBoxText( 0, ImageDB::NONE() );
+        QListBoxItem * none = new QListBoxText( 0, DB::ImageDB::NONE() );
         _listBox->insertItem( none, 0 );
 	_checkBox->setText( i18n("AND") );
 	// OR is a better default choice (the browser can do AND but not OR)
@@ -447,7 +447,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     menu.insertItem( i18n("Rename..."), 2 );
 
     // -------------------------------------------------- Add/Remove member group
-    MemberMap memberMap = ImageDB::instance()->memberMap();
+    DB::MemberMap memberMap = DB::ImageDB::instance()->memberMap();
     QMap<int, QString> map;
     QPopupMenu* members = new QPopupMenu( &menu );
     members->setCheckable( true );
@@ -493,7 +493,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                .arg(item->text()),
                                                i18n("Really Delete %1?").arg(item->text()), KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
-            ImageDB::instance()->categoryCollection()->categoryForName(category())->removeItem( item->text() );
+            DB::ImageDB::instance()->categoryCollection()->categoryForName(category())->removeItem( item->text() );
             delete item;
         }
     }
@@ -510,7 +510,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                                                i18n("Really Rename %1?").arg(item->text()) );
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text();
-                ImageDB::instance()->categoryCollection()->categoryForName( category() )->renameItem( oldStr, newStr );
+                DB::ImageDB::instance()->categoryCollection()->categoryForName( category() )->renameItem( oldStr, newStr );
                 bool sel = item->isSelected();
                 delete item;
                 QListBoxText* newItem = new QListBoxText( _listBox, newStr );
@@ -535,7 +535,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
             return;
         memberMap.addGroup( _category, group );
         memberMap.addMemberToGroup( _category, group, item->text() );
-        ImageDB::instance()->setMemberMap( memberMap );
+        DB::ImageDB::instance()->setMemberMap( memberMap );
     }
     else {
         if ( map.contains( which ) ) {
@@ -544,7 +544,7 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                 memberMap.addMemberToGroup( _category, checkedItem, item->text() );
             else
                 memberMap.removeMemberFromGroup( _category, checkedItem, item->text() );
-            ImageDB::instance()->setMemberMap( memberMap );
+            DB::ImageDB::instance()->setMemberMap( memberMap );
         }
     }
 }
@@ -552,9 +552,9 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
 
 void ListSelect::populate()
 {
-    _label->setText( ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
+    _label->setText( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
     _listBox->clear();
-    QStringList items = ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclGroups();
+    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclGroups();
     _listBox->insertStringList( items );
 }
 

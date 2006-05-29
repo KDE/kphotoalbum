@@ -98,7 +98,7 @@ signals:
      * focus leaves the widget (i.e. the user confirms their selection).
      */
     void dateChanged(QDate);
-    void dateChanged( const ImageDate& );
+    void dateChanged( const DB::ImageDate& );
 
     /** This signal is emitted whenever the user enters an invalid date.
      */

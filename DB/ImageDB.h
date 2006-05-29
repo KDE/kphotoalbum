@@ -24,6 +24,10 @@
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"
+
+namespace DB
+{
+
 class CategoryCollection;
 class Category;
 class MD5Map;
@@ -101,6 +105,7 @@ signals:
     void dirty();
 };
 
+}
 
 #endif /* IMAGEDB_H */
 

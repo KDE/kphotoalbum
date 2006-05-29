@@ -7,6 +7,8 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 
+using namespace DB;
+
 ImageInfoList ImageInfoList::sort() const
 {
     QMap<QDateTime, QValueList<ImageInfoPtr> > map;

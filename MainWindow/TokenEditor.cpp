@@ -75,7 +75,7 @@ void TokenEditor::selectNone()
 QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
-    QMap<QString,int> map = ImageDB::instance()->classify( ImageSearchInfo(), QString::fromLatin1( "Tokens" ) );
+    QMap<QString,int> map = DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ) );
     for( QMap<QString,int>::Iterator it = map.begin(); it != map.end(); ++it ) {
         if ( it.data() > 0 )
             res.append( it.key() );
@@ -88,7 +88,7 @@ void TokenEditor::slotOk()
     for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
-            ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
+            DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
         }
     }
     KDialogBase::slotOk();

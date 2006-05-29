@@ -117,7 +117,7 @@ private:
     QComboBox* _category;
     QListBox* _groups;
     QListBox* _members;
-    MemberMap _memberMap;
+    DB::MemberMap _memberMap;
     QString _currentCategory;
     QString _currentGroup;
     QPushButton* _rename;

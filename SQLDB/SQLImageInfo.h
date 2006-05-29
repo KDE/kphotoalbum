@@ -3,11 +3,11 @@
 #include "DB/ImageInfo.h"
 
 namespace SQLDB {
-    class SQLImageInfo :public ImageInfo
+    class SQLImageInfo :public DB::ImageInfo
     {
     public:
         SQLImageInfo( const QString& relativeFileName );
-        ImageInfo& operator=( const ImageInfo& other );
+        DB::ImageInfo& operator=( const DB::ImageInfo& other );
 
     private:
         int _fileId;

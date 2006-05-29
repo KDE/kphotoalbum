@@ -31,7 +31,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
 
     _pix = new QLabel( top );
     hlay->addWidget( _pix );
-    ImageManager::ImageManager::instance()->load( new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), ImageDB::instance()->info(fileName)->angle(), this ) );
+    ImageManager::ImageManager::instance()->load( new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), DB::ImageDB::instance()->info(fileName)->angle(), this ) );
 
     // -------------------------------------------------- Exif Grid
     Exif::Grid* grid = new Exif::Grid( fileName, top );

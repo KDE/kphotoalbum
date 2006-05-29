@@ -33,7 +33,7 @@ QCString ImportExport::XMLHandler::createIndexXML( const QStringList& images, co
 
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
         QString mappedFile = nameMap[*it];
-        QDomElement elm = save( doc, ImageDB::instance()->info(*it) );
+        QDomElement elm = save( doc, DB::ImageDB::instance()->info(*it) );
         elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
         elm.setAttribute( QString::fromLatin1( "angle" ), 0 ); // We have rotated the image while copying it
         top.appendChild( elm );
@@ -41,13 +41,13 @@ QCString ImportExport::XMLHandler::createIndexXML( const QStringList& images, co
     return doc.toCString();
 }
 
-QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const ImageInfoPtr& info )
+QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
     elm.setAttribute( QString::fromLatin1("label"),  info->label() );
     elm.setAttribute( QString::fromLatin1("description"), info->description() );
 
-    ImageDate date = info->date();
+    DB::ImageDate date = info->date();
     QDateTime start = date.start();
     QDateTime end = date.end();
 
@@ -72,7 +72,7 @@ QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const ImageInfoPtr
 }
 
 
-void ImportExport::XMLHandler::writeCategories( QDomDocument doc, QDomElement root, const ImageInfoPtr& info )
+void ImportExport::XMLHandler::writeCategories( QDomDocument doc, QDomElement root, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("options") );
 

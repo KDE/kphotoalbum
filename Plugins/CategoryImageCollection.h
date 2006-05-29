@@ -30,11 +30,11 @@ namespace Plugins
 class KDE_EXPORT CategoryImageCollection :public Plugins::ImageCollection {
 
 public:
-    CategoryImageCollection( const ImageSearchInfo& context, const QString& category, const QString& value );
+    CategoryImageCollection( const DB::ImageSearchInfo& context, const QString& category, const QString& value );
     virtual QString name();
     virtual KURL::List images();
 private:
-    ImageSearchInfo _context;
+    DB::ImageSearchInfo _context;
     const QString _category;
     const QString _value;
 };

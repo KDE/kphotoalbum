@@ -69,7 +69,7 @@ class DateBar;
         virtual void mouseReleaseEvent();
         QDateTime min() const;
         QDateTime max() const;
-        ImageDate dateRange() const;
+        DB::ImageDate dateRange() const;
         void clearSelection();
         bool hasSelection() const;
     private:

@@ -28,10 +28,10 @@
 #include "MainWindow/MainWindow.h"
 
 // PENDING(blackie) cleanup, we don't need from and to anymore
-Browser::ImageFolder::ImageFolder( const ImageSearchInfo& info, Browser* parent )
+Browser::ImageFolder::ImageFolder( const DB::ImageSearchInfo& info, Browser* parent )
     :Folder( info, parent )
 {
-    int count = ImageDB::instance()->count( info );
+    int count = DB::ImageDB::instance()->count( info );
     setCount( count );
 }
 
@@ -49,7 +49,7 @@ QString Browser::ImageFolder::text() const
 
 void Browser::ImageFolderAction::action( BrowserItemFactory* )
 {
-    MainWindow::MainWindow::theMainWindow()->showThumbNails( ImageDB::instance()->search( _info ) );
+    MainWindow::MainWindow::theMainWindow()->showThumbNails( DB::ImageDB::instance()->search( _info ) );
 
     if ( !_context.isNull() )
         ThumbnailView::ThumbnailView::theThumbnailView()->setCurrentItem( _context );
@@ -60,13 +60,13 @@ Browser::FolderAction* Browser::ImageFolder::action( bool /* ctrlDown */ )
     return new ImageFolderAction( _info, _browser );
 }
 
-Browser::ImageFolderAction::ImageFolderAction( const ImageSearchInfo& info, Browser* browser )
+Browser::ImageFolderAction::ImageFolderAction( const DB::ImageSearchInfo& info, Browser* browser )
     : FolderAction( info, browser ), _addExtraToBrowser( true )
 {
 }
 
 Browser::ImageFolderAction::ImageFolderAction( const QString& context, Browser* browser )
-    :FolderAction( ImageSearchInfo(), browser ), _addExtraToBrowser(false), _context( context )
+    :FolderAction( DB::ImageSearchInfo(), browser ), _addExtraToBrowser(false), _context( context )
 {
 }
 

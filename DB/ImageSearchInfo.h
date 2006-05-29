@@ -27,6 +27,10 @@
 #include "Exif/SearchInfo.h"
 #include <config.h>
 
+namespace DB
+{
+
+
 class OptionAndMatcher;
 class OptionSimpleMatcher;
 class ImageInfo;
@@ -88,6 +92,8 @@ private:
 #endif
     // When adding new instance variable, please notice that this class as an explicit written copy constructor.
 };
+
+}
 
 
 #endif /* IMAGESEARCHINFO_H */

@@ -23,6 +23,8 @@
 #include <qregexp.h>
 #include <kdebug.h>
 
+using namespace DB;
+
 ImageDate::ImageDate( const QDate& date )
 {
     _start = date;

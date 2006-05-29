@@ -29,7 +29,7 @@ using namespace ImportExport;
 
 MiniViewer* MiniViewer::_instance = 0;
 
-void MiniViewer::show( QImage img, ImageInfoPtr info )
+void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
 {
     if ( !_instance )
         _instance = new MiniViewer();

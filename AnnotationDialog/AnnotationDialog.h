@@ -28,7 +28,6 @@
 #include <ktimewidget.h>
 #include "DB/ImageInfoList.h"
 
-class ImageInfo;
 class QSplitter;
 class QPushButton;
 class KLineEdit;
@@ -41,6 +40,12 @@ namespace Viewer
     class Viewer;
 }
 
+namespace DB
+{
+    class ImageInfo;
+}
+
+
 namespace AnnotationDialog
 {
 class ImagePreview;
@@ -50,8 +55,8 @@ class AnnotationDialog :public QDialog {
     Q_OBJECT
 public:
     AnnotationDialog( QWidget* parent, const char* name = 0 );
-    int configure( ImageInfoList list,  bool oneAtATime );
-    ImageSearchInfo search( ImageSearchInfo* search = 0 );
+    int configure( DB::ImageInfoList list,  bool oneAtATime );
+    DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;
 
 signals:
@@ -66,8 +71,8 @@ protected slots:
     void viewerDestroyed();
     void slotOptions();
     void slotSaveWindowSetup();
-    void slotDeleteOption( Category*, const QString& );
-    void slotRenameOption( Category* , const QString& , const QString&  );
+    void slotDeleteOption( DB::Category*, const QString& );
+    void slotRenameOption( DB::Category* , const QString& , const QString&  );
     virtual void reject();
     void rotateLeft();
     void rotateRight();
@@ -75,14 +80,14 @@ protected slots:
     void slotAddTimeInfo();
     void slotDeleteImage();
     void slotResetLayout();
-    void slotStartDateChanged( const ImageDate& );
+    void slotStartDateChanged( const DB::ImageDate& );
 
 protected:
     enum SetupType { SINGLE, MULTIPLE, SEARCH };
     void load();
     void writeToInfo();
     void setup();
-    void loadInfo( const ImageSearchInfo& );
+    void loadInfo( const DB::ImageSearchInfo& );
     int exec();
     virtual void closeEvent( QCloseEvent* );
     void showTornOfWindows();
@@ -98,12 +103,12 @@ protected:
     void loadWindowLayout();
 
 private:
-    ImageInfoList _origList;
-    QValueList<ImageInfo> _editList;
+    DB::ImageInfoList _origList;
+    QValueList<DB::ImageInfo> _editList;
     int _current;
     SetupType _setup;
     QPtrList< ListSelect > _optionList;
-    ImageSearchInfo _oldSearch;
+    DB::ImageSearchInfo _oldSearch;
     QSplitter* _splitter;
     Viewer::Viewer* _viewer;
     int _accept;

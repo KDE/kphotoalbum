@@ -24,16 +24,20 @@
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
 
-class ImageInfo;
 class QComboBox;
 class QLabel;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 class CategoryImageConfig :public KDialogBase {
     Q_OBJECT
 
 public:
     static CategoryImageConfig* instance();
-    void setCurrentImage( const QImage& image, const ImageInfoPtr& info );
+    void setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info );
     void show();
 
 protected slots:
@@ -52,7 +56,7 @@ private:
     QLabel* _current;
     QImage _image;
     QLabel* _imageLabel;
-    ImageInfoPtr _info;
+    DB::ImageInfoPtr _info;
 };
 
 

@@ -29,6 +29,8 @@
 #include <kconfig.h>
 #include <config.h>
 
+using namespace DB;
+
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
     : _date( date), _label( label ), _description( description ), _isNull( false ), _compiled( false )

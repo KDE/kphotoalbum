@@ -7,6 +7,8 @@
 #  include "Exif/Info.h"
 #endif
 
+using namespace DB;
+
 FileInfo FileInfo::read( const QString& fileName )
 {
     FileInfo fi;

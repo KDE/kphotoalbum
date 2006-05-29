@@ -2,10 +2,10 @@
 #define SQLIMAGEDATERANGECOLLECTION_H
 #include "DB/ImageDateCollection.h"
 
-class SQLImageDateCollection :public ImageDateCollection
+class SQLImageDateCollection :public DB::ImageDateCollection
 {
 public:
-    virtual ImageCount count( const ImageDate& date );
+    virtual DB::ImageCount count( const DB::ImageDate& date );
     virtual QDateTime lowerLimit() const;
     virtual QDateTime upperLimit() const;
 };

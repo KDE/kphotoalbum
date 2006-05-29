@@ -100,10 +100,10 @@ void CategoryImageConfig::slotSet()
 QString CategoryImageConfig::currentGroup()
 {
     int index = _group->currentItem();
-    return ImageDB::instance()->categoryCollection()->categoryNames()[index];
+    return DB::ImageDB::instance()->categoryCollection()->categoryNames()[index];
 }
 
-void CategoryImageConfig::setCurrentImage( const QImage& image, const ImageInfoPtr& info )
+void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info )
 {
     _image = image;
     _imageLabel->setPixmap( image );
@@ -122,11 +122,11 @@ void CategoryImageConfig::show()
 {
     QString current = _group->currentText();
     _group->clear();
-    QStringList list = ImageDB::instance()->categoryCollection()->categoryNames();
+    QStringList list = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     int index = 0;
     int currentIndex = -1;
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        _group->insertItem( ImageDB::instance()->categoryCollection()->categoryForName( *it )->text() );
+        _group->insertItem( DB::ImageDB::instance()->categoryCollection()->categoryForName( *it )->text() );
         if ( *it == current )
             currentIndex = index;
         ++index;

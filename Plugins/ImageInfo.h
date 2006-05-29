@@ -24,7 +24,11 @@
 #include <libkipi/imageinfoshared.h>
 #include <kdemacros.h>
 #include "DB/ImageInfoPtr.h"
-class ImageInfo;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace Plugins
 {
@@ -53,7 +57,7 @@ public:
     virtual void cloneData( ImageInfoShared* other );
 
 private:
-    ImageInfoPtr _info;
+    DB::ImageInfoPtr _info;
 };
 
 }

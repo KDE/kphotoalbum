@@ -21,6 +21,9 @@
 #include <qvaluelist.h>
 #include <qstringlist.h>
 #include "DB/ImageInfoPtr.h"
+
+namespace DB
+{
 class ImageInfo;
 
 /**
@@ -88,6 +91,9 @@ public:
     virtual bool eval( ImageInfoPtr );
     virtual void debug( int level ) const;
 };
+
+
+}
 
 #endif /* OPTIONMATCHER_H */
 

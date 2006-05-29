@@ -28,7 +28,7 @@ ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent, co
 {
     setText( i18n( "Show %1" ).arg( category ) );
     connect( this, SIGNAL( toggled(bool) ), this, SLOT( slotToggled( bool ) ) );
-    setChecked( ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow() );
+    setChecked( DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow() );
 }
 
 void ShowOptionAction::slotToggled( bool b )

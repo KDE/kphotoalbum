@@ -26,11 +26,15 @@
 
 class QProgressDialog;
 class KTempFile;
-class ImageInfo;
 class QCheckBox;
 class KArchiveDirectory;
 class KZip;
 class KLineEdit;
+
+namespace DB
+{
+    class ImageInfo;
+}
 
 namespace ImportExport
 {
@@ -41,9 +45,9 @@ class ImageRow :public QObject
 {
     Q_OBJECT
 public:
-    ImageRow( ImageInfoPtr info, ImportExport::Import* import, QWidget* parent );
+    ImageRow( DB::ImageInfoPtr info, ImportExport::Import* import, QWidget* parent );
     QCheckBox* _checkbox;
-    ImageInfoPtr _info;
+    DB::ImageInfoPtr _info;
     Import* _import;
 protected slots:
     void showImage();
@@ -72,7 +76,7 @@ protected:
     QPixmap loadThumbnail( QString fileName );
     QByteArray loadImage( const QString& fileName );
     void selectImage( bool on );
-    ImageInfoList selectedImages();
+    DB::ImageInfoList selectedImages();
     bool init( const QString& fileName );
     void updateDB();
     virtual void closeEvent( QCloseEvent* );
@@ -95,7 +99,7 @@ private:
     ~Import();
 
     QString _zipFile;
-    ImageInfoList _images;
+    DB::ImageInfoList _images;
     KLineEdit* _destinationEdit;
     QWidget* _destinationPage;
     QWidget* _dummy;
@@ -110,7 +114,7 @@ private:
     Utilities::UniqNameMap _nameMap;
     bool _finishedPressed;
     int _totalCopied;
-    ImageInfoList _pendingCopies;
+    DB::ImageInfoList _pendingCopies;
     QProgressDialog* _progress;
     KIO::FileCopyJob* _job;
     bool _hasFilled;

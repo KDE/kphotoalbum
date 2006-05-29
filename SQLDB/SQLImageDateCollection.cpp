@@ -2,14 +2,14 @@
 #include <qvariant.h>
 #include <qmap.h>
 #include "QueryUtil.h"
-ImageCount SQLImageDateCollection::count( const ImageDate& range )
+DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
 {
     // In a perfect world, we should check that the db hasn't changed, but
     // as we will get a new instance of this class each time the search
     // changes, it is really not that important, esp. because it is only
     // for the datebar, where a bit out of sync doens't matter too much.
 
-    static QMap<ImageDate, ImageCount> cache;
+    static QMap<DB::ImageDate, DB::ImageCount> cache;
     if ( cache.contains( range ) )
         return cache[range];
 
@@ -21,7 +21,7 @@ ImageCount SQLImageDateCollection::count( const ImageDate& range )
 
     queryStr = QString::fromLatin1( "SELECT count(*) from imageinfo WHERE endDate >= :startDate and startDate <= :endDate" );
     int rng = SQLDB::fetchItem( queryStr, map ).toInt() - exact;
-    ImageCount result( exact, rng );
+    DB::ImageCount result( exact, rng );
     cache.insert( range, result );
     return result;
 }

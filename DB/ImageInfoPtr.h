@@ -2,8 +2,11 @@
 #define IMAGEINFOPTR_H
 #include <ksharedptr.h>
 
-class ImageInfo;
-typedef KSharedPtr<ImageInfo> ImageInfoPtr;
+namespace DB
+{
+    class ImageInfo;
+    typedef KSharedPtr<ImageInfo> ImageInfoPtr;
+}
 
 #endif /* IMAGEINFOPTR_H */
 

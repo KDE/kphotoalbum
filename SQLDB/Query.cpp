@@ -7,25 +7,25 @@
 #include "QueryUtil.h"
 #include <kdebug.h>
 
-QValueList<int> SQLDB::filesMatchingQuery( const ImageSearchInfo& info )
+QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
 {
-    QValueList< QValueList< OptionSimpleMatcher*> > matches = info.query();
+    QValueList< QValueList< DB::OptionSimpleMatcher*> > matches = info.query();
 
     if ( matches.count() == 0 )
         return allImages();
 
     QValueList<int> result;
-    for( QValueList< QValueList<OptionSimpleMatcher*> >::Iterator it = matches.begin(); it != matches.end(); ++it ) {
+    for( QValueList< QValueList<DB::OptionSimpleMatcher*> >::Iterator it = matches.begin(); it != matches.end(); ++it ) {
         result = mergeUniqly( result, runCategoryQuery( *it ) );
     }
 
     return result;
 }
 
-QValueList<int> SQLDB::runCategoryQuery( QValueList<OptionSimpleMatcher*> matches )
+QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> matches )
 {
-    QValueList< OptionSimpleMatcher*> possitiveList;
-    QValueList< OptionSimpleMatcher*> negativeList;
+    QValueList< DB::OptionSimpleMatcher*> possitiveList;
+    QValueList< DB::OptionSimpleMatcher*> negativeList;
     split( matches, possitiveList, negativeList );
 
     // Prefix: SELECT q0.fileId from imagecategoryinfo q0, imagecategoryinfo q1, ... WHERE q0.fileId = q1.fileId and q0.fileId = q1.fileId
@@ -35,8 +35,8 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<OptionSimpleMatcher*> matche
     QStringList positiveQuery;
     int idx = 0;
     QMap<QString,QStringList> matchedValues;
-    for( QValueList<OptionSimpleMatcher*>::Iterator it = possitiveList.begin(); it != possitiveList.end(); ++it, ++idx ) {
-        OptionValueMatcher* valueMatcher = static_cast<OptionValueMatcher*>( *it );
+    for( QValueList<DB::OptionSimpleMatcher*>::Iterator it = possitiveList.begin(); it != possitiveList.end(); ++it, ++idx ) {
+        DB::OptionValueMatcher* valueMatcher = static_cast<DB::OptionValueMatcher*>( *it );
         positiveQuery << buildValue( valueMatcher->_category, values( valueMatcher), idx, false );
         matchedValues[valueMatcher->_category] += values( valueMatcher );
     }
@@ -45,9 +45,9 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<OptionSimpleMatcher*> matche
     // Negative query
     QStringList negativeQuery;
     idx = 0;
-    for( QValueList<OptionSimpleMatcher*>::Iterator it = negativeList.begin(); it != negativeList.end(); ++it, ++idx ) {
-        OptionValueMatcher* valueMatcher;
-        if ( ( valueMatcher = dynamic_cast<OptionValueMatcher*>( *it ) ) ) {
+    for( QValueList<DB::OptionSimpleMatcher*>::Iterator it = negativeList.begin(); it != negativeList.end(); ++it, ++idx ) {
+        DB::OptionValueMatcher* valueMatcher;
+        if ( ( valueMatcher = dynamic_cast<DB::OptionValueMatcher*>( *it ) ) ) {
             negativeQuery << buildValue( valueMatcher->_category, values( valueMatcher), idx, false );
         }
         else
@@ -100,23 +100,23 @@ QString SQLDB::buildValue( const QString& category, const QStringList& vals, int
         return QString::fromLatin1( "%1categoryId = \"%2\" " ).arg(prefix).arg( idForCategory(category) );
 }
 
-QStringList SQLDB::values( OptionValueMatcher* matcher )
+QStringList SQLDB::values( DB::OptionValueMatcher* matcher )
 {
     QStringList values;
     values.append( matcher->_option );
 
-    if ( ImageDB::instance()->memberMap().isGroup( matcher->_category, matcher->_option ) )
-        values += ImageDB::instance()->memberMap().members( matcher->_category, matcher->_option, true );
+    if ( DB::ImageDB::instance()->memberMap().isGroup( matcher->_category, matcher->_option ) )
+        values += DB::ImageDB::instance()->memberMap().members( matcher->_category, matcher->_option, true );
     return values;
 }
 
-void SQLDB::split( const QValueList<OptionSimpleMatcher*>& input,
-                   QValueList<OptionSimpleMatcher*>& positiveList,
-                   QValueList<OptionSimpleMatcher*>& negativeList )
+void SQLDB::split( const QValueList<DB::OptionSimpleMatcher*>& input,
+                   QValueList<DB::OptionSimpleMatcher*>& positiveList,
+                   QValueList<DB::OptionSimpleMatcher*>& negativeList )
 {
-    for( QValueList<OptionSimpleMatcher*>::ConstIterator it = input.constBegin(); it != input.constEnd(); ++it ) {
-        OptionValueMatcher* valueMatcher;
-        if ( ( valueMatcher = dynamic_cast<OptionValueMatcher*>( *it ) ) ) {
+    for( QValueList<DB::OptionSimpleMatcher*>::ConstIterator it = input.constBegin(); it != input.constEnd(); ++it ) {
+        DB::OptionValueMatcher* valueMatcher;
+        if ( ( valueMatcher = dynamic_cast<DB::OptionValueMatcher*>( *it ) ) ) {
             if ( valueMatcher->_sign )
                 positiveList.append( valueMatcher );
             else

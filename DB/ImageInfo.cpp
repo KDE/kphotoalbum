@@ -44,6 +44,8 @@ extern "C" {
 #include <config.h>
 #include "Exif/Database.h"
 
+using namespace DB;
+
 ImageInfo::ImageInfo() :_null( true ), _locked( false )
 {
 }
@@ -138,7 +140,7 @@ void ImageInfo::setFileName( const QString& relativeFileName )
     _imageOnDisk = Unchecked;
     QString folderName = Utilities::relativeFolderName( _fileName );
     _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
-    ImageDB::instance()->categoryCollection()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
+    DB::ImageDB::instance()->categoryCollection()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
 }
 
 
@@ -188,7 +190,7 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _date != other._date ||
           _angle != other._angle);
     if ( !changed ) {
-        QStringList keys = ImageDB::instance()->categoryCollection()->categoryNames();
+        QStringList keys = DB::ImageDB::instance()->categoryCollection()->categoryNames();
         for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
             _options[*it].sort();
             QStringList otherList = other._options[*it];
@@ -232,7 +234,7 @@ bool ImageInfo::isLocked() const
 
 void ImageInfo::readExif(const QString& fullPath, int mode)
 {
-    FileInfo exifInfo = FileInfo::read( fullPath );
+    DB::FileInfo exifInfo = DB::FileInfo::read( fullPath );
 
     // Date
     if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::Settings::instance()->trustTimeStamps() ) )
@@ -268,7 +270,7 @@ void ImageInfo::clearMatched() const
 void ImageInfo::setMatched( const QString& category, const QString& value ) const
 {
     _matched[category].append( value );
-    const MemberMap& map = ImageDB::instance()->memberMap();
+    const MemberMap& map = DB::ImageDB::instance()->memberMap();
     QStringList members = map.members( category, value, true );
     _matched[category] += members;
 }

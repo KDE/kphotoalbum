@@ -27,7 +27,7 @@
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
     :QProgressDialog( parent, name )
 {
-    _images = ImageDB::instance()->images();
+    _images = DB::ImageDB::instance()->images();
     setTotalSteps( _images.count() );
     setProgress( 0 );
     setLabelText( i18n("Generating thumbnails") );
@@ -37,7 +37,7 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* 
 
 void ThumbnailView::ThumbnailBuilder::generateNext()
 {
-    ImageInfoPtr info = ImageDB::instance()->info(_images[_index]);
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_images[_index]);
     ++_index;
     setProgress( _index );
     _infoMap.insert( info->fileName(), info );

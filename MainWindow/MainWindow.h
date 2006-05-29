@@ -80,10 +80,10 @@ class MainWindow :public KMainWindow
 
 public:
     MainWindow( QWidget* parent,  const char* name = 0 );
-    static void configureImages( const ImageInfoList& list, bool oneAtATime );
+    static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static MainWindow* theMainWindow();
     QStringList selected( bool keepSortOrderOfDatabase = false );
-    ImageSearchInfo currentContext();
+    DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
 
 public slots:
@@ -123,7 +123,7 @@ protected slots:
     void slotThumbNailSelectionChanged();
     void reloadThumbnails(bool flushCache);
     void reloadThumbnailsAndFlushCache();
-    void slotUpdateViewMenu( Category::ViewSize, Category::ViewType );
+    void slotUpdateViewMenu( DB::Category::ViewSize, DB::Category::ViewType );
     void slotShowNotOnDisk();
     void markDirty();
     void donateMoney();
@@ -146,7 +146,7 @@ protected slots:
     void slotShowImagesWithInvalidDate();
     void showDateBarTip( const QString& );
     void slotJumpToContext();
-    void setDateRange( const ImageDate& );
+    void setDateRange( const DB::ImageDate& );
     void clearDateRange();
     void deleteAnnotationDialog();
     void startAutoSaveTimer();
@@ -170,7 +170,7 @@ protected:
     virtual void contextMenuEvent( QContextMenuEvent* e );
     void setDirty( bool b );
     void setLocked( bool b );
-    void configImages( const ImageInfoList& list, bool oneAtATime );
+    void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
     QStringList selectedOnDisk();
     void possibleRunSuvey();

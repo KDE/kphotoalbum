@@ -3,6 +3,9 @@
 #include <qvaluelist.h>
 #include "DB/ImageInfoPtr.h"
 
+namespace DB
+{
+
 class ImageInfoList :public QValueList<ImageInfoPtr>
 {
 public:
@@ -21,6 +24,8 @@ private:
 
 typedef QValueList<ImageInfoPtr>::Iterator ImageInfoListIterator;
 typedef QValueList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
+
+}
 
 #endif /* IMAGEINFOLIST_H */
 

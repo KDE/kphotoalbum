@@ -102,7 +102,7 @@ void ThumbnailView::ThumbnailView::paintCellPixmap( QPainter* painter, int row, 
         }
         else {
             int size = Settings::Settings::instance()->thumbSize();
-            int angle = ImageDB::instance()->info( fileName )->angle();
+            int angle = DB::ImageDB::instance()->info( fileName )->angle();
             ThumbnailRequest* request = new ThumbnailRequest( fileName, QSize( size, size ), angle, this );
             request->setCache();
             ImageManager::ImageManager::instance()->load( request );
@@ -122,7 +122,7 @@ void ThumbnailView::ThumbnailView::paintCellText( QPainter* painter, int row, in
     if ( fileName.isNull() )
         return;
 
-    QString title = ImageDB::instance()->info( fileName )->label();
+    QString title = DB::ImageDB::instance()->info( fileName )->label();
     QRect rect = cellTextGeometry( row, col );
     painter->setPen( palette().active().text() );
 
@@ -257,7 +257,7 @@ void ThumbnailView::ThumbnailView::pixmapLoaded( const QString& fileName, const 
     else if ( !loadedOK)
         pixmap->fill( palette().active().dark());
 
-    ImageInfoPtr imageInfo = ImageDB::instance()->info( fileName );
+    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName );
 
     if ( !loadedOK || !imageInfo->imageOnDisk() ) {
         QPainter p( pixmap );
@@ -504,7 +504,7 @@ void ThumbnailView::ThumbnailView::emitDateChange( int x, int y )
         return;
 
     static QDateTime lastDate;
-    QDateTime date = ImageDB::instance()->info( fileName )->date().start();
+    QDateTime date = DB::ImageDB::instance()->info( fileName )->date().start();
     if ( date != lastDate ) {
         lastDate = date;
         if ( date.date().year() != 1900 )
@@ -516,17 +516,17 @@ void ThumbnailView::ThumbnailView::emitDateChange( int x, int y )
  * scroll to the date specified with the parameter date.
  * The boolean includeRanges tells whether we accept range matches or not.
  */
-void ThumbnailView::ThumbnailView::gotoDate( const ImageDate& date, bool includeRanges )
+void ThumbnailView::ThumbnailView::gotoDate( const DB::ImageDate& date, bool includeRanges )
 {
     _isSettingDate = true;
     QString candidate;
     for( QValueVector<QString>::Iterator imageIt = _imageList.begin(); imageIt != _imageList.end(); ++imageIt ) {
-        ImageInfoPtr info = ImageDB::instance()->info( *imageIt );
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt );
 
-        ImageDate::MatchType match = info->date().isIncludedIn( date );
-        if ( match == ImageDate::ExactMatch || ( match == ImageDate::RangeMatch && includeRanges ) ) {
+        DB::ImageDate::MatchType match = info->date().isIncludedIn( date );
+        if ( match == DB::ImageDate::ExactMatch || ( match == DB::ImageDate::RangeMatch && includeRanges ) ) {
             if ( !candidate.isNull() ) {
-                if ( info->date().start() < ImageDB::instance()->info(candidate)->date().start() )
+                if ( info->date().start() < DB::ImageDB::instance()->info(candidate)->date().start() )
                     candidate = *imageIt;
             }
             else
@@ -855,10 +855,10 @@ void ThumbnailView::ThumbnailView::realDropEvent()
             QStringList selected = selection();
             if ( _rightDrop.isNull() ) {
                 // We dropped onto the first image.
-                ImageDB::instance()->reorder( _leftDrop, selected, false );
+                DB::ImageDB::instance()->reorder( _leftDrop, selected, false );
             }
             else
-                ImageDB::instance()->reorder( _rightDrop, selected, true );
+                DB::ImageDB::instance()->reorder( _rightDrop, selected, true );
 
             Browser::Browser::instance()->reload();
         }

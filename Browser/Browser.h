@@ -23,9 +23,13 @@
 #include "Settings/Settings.h"
 #include "DB/ImageInfoPtr.h"
 
-class ImageSearchInfo;
 class QListViewItem;
 class QWidgetStack;
+
+namespace DB
+{
+    class ImageSearchInfo;
+}
 
 namespace Browser
 {
@@ -40,13 +44,13 @@ class Browser :public QWidget {
 public:
     Browser( QWidget* parent, const char* name = 0 );
     ~Browser();
-    void addSearch( ImageSearchInfo& info );
+    void addSearch( DB::ImageSearchInfo& info );
     void addImageView( const QString& context );
 
     static Browser* instance();
     void load( const QString& category, const QString& value );
     bool allowSort();
-    ImageSearchInfo currentContext();
+    DB::ImageSearchInfo currentContext();
     void clear();
     void setFocus();
     QString currentCategory() const;
@@ -70,7 +74,7 @@ signals:
     void showingOverview();
     void pathChanged( const QString& );
     void showsContentView( bool );
-    void currentSizeAndTypeChanged( Category::ViewSize, Category::ViewType );
+    void currentSizeAndTypeChanged( DB::Category::ViewSize, DB::Category::ViewType );
     void viewChanged();
 
 protected slots:
@@ -84,7 +88,7 @@ protected:
     void addItem( FolderAction* );
     void emitSignals();
     void setupFactory();
-    void setSizeAndType( Category::ViewType type, Category::ViewSize size );
+    void setSizeAndType( DB::Category::ViewType type, DB::Category::ViewSize size );
 
 private:
     static Browser* _instance;

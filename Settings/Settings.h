@@ -47,7 +47,10 @@
 #define sizeProperty(  group, prop, setFunction, defaultValue ) property__( QSize, group, prop, setFunction, defaultValue )
 #define stringSetProperty( group, prop, setFunction, defaultValue ) property__( Set<QString>, group, prop, setFunction, defaultValue )
 
-
+namespace DB
+{
+    class CategoryCollection;
+}
 
 namespace Settings
 {
@@ -148,8 +151,8 @@ public:
     QString HTMLDestURL() const;
     void setHTMLDestURL( const QString& dir );
 
-    void setCurrentLock( const ImageSearchInfo&, bool exclude );
-    ImageSearchInfo currentLock() const;
+    void setCurrentLock( const DB::ImageSearchInfo&, bool exclude );
+    DB::ImageSearchInfo currentLock() const;
 
     void setLocked( bool );
     bool isLocked() const;
@@ -188,7 +191,7 @@ private:
     Settings( const QString& imageDirectory  );
     static Settings* _instance;
     bool _trustTimeStamps, _hasAskedAboutTimeStamps;
-    friend class CategoryCollection;
+    friend class DB::CategoryCollection;
     QString _imageDirectory;
 };
 } // end of namespace

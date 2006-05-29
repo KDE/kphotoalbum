@@ -32,10 +32,10 @@ public:
     ImagePreview( QWidget* parent, const char* name = 0);
     virtual QSize sizeHint() const;
     void rotate(int angle);
-    void setImage( const ImageInfo& info );
+    void setImage( const DB::ImageInfo& info );
     void setImage( const QString& fileName );
     int angle() const;
-    void anticipate(ImageInfo &info1);
+    void anticipate(DB::ImageInfo &info1);
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
 
 protected:
@@ -72,7 +72,7 @@ protected:
     PreviewLoader _preloader;
 
 private:
-    ImageInfo _info;
+    DB::ImageInfo _info;
     QString _fileName;
     PreviewImage _currentImage, _lastImage;
     PreloadInfo _anticipated;

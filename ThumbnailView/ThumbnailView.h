@@ -47,7 +47,7 @@ public:
 
 
 public slots:
-    void gotoDate( const ImageDate& date, bool includeRanges );
+    void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
     void showToolTipsOnImages( bool b );
 

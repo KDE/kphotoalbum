@@ -32,7 +32,7 @@ class BrowserItemFactory;
 class Folder {
 
 public:
-    Folder( const ImageSearchInfo& info, Browser* browser );
+    Folder( const DB::ImageSearchInfo& info, Browser* browser );
     virtual ~Folder() {};
     virtual FolderAction* action( bool ctrlDown = false ) = 0;
     void setCount( int count ) { _count = count; }
@@ -49,7 +49,7 @@ public:
     static int _idCount;
 
     Browser* _browser;
-    ImageSearchInfo _info;
+    DB::ImageSearchInfo _info;
     int _count;
     bool _enabled;
 };
@@ -57,7 +57,7 @@ public:
 class FolderAction
 {
 public:
-    FolderAction( const ImageSearchInfo& info, Browser* browser );
+    FolderAction( const DB::ImageSearchInfo& info, Browser* browser );
     virtual ~FolderAction() {}
     virtual void action( BrowserItemFactory* factory ) = 0;
     virtual bool showsImages() const = 0;
@@ -70,7 +70,7 @@ public:
 protected:
     friend class Browser;
     Browser* _browser;
-    ImageSearchInfo _info;
+    DB::ImageSearchInfo _info;
 };
 
 }

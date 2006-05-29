@@ -24,13 +24,17 @@ Boston, MA 02110-1301, USA.
 #include <qstringlist.h>
 #include "Settings/Settings.h"
 #include "DB/ImageInfoList.h"
-class CategoryCollection;
-class ImageInfo;
+
+namespace DB
+{
+    class ImageInfo;
+    class CategoryCollection;
+}
 
 namespace Utilities
 {
 
-QString createInfoText( ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
+QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
 void checkForBackupFile( const QString& fileName );
 bool ctrlKeyDown();
 bool copy( const QString& from, const QString& to );
@@ -56,7 +60,7 @@ UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const Q
 QString stripSlash( const QString& fileName );
 QString absoluteImageFileName( const QString& relativeName );
 QString relativeFolderName( const QString& fileName);
-QStringList infoListToStringList( const ImageInfoList& list );
+QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );
 QStringList diff( const QStringList& list1, const QStringList& list2 );
 };

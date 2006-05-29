@@ -39,7 +39,7 @@ public:
 private:
     QStringList _images;
     uint _index;
-    QMap<QString, ImageInfoPtr> _infoMap;
+    QMap<QString, DB::ImageInfoPtr> _infoMap;
 };
 
 }

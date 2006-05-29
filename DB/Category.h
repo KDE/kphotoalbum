@@ -6,6 +6,9 @@
 #include <qobject.h>
 #include <ksharedptr.h>
 
+namespace DB
+{
+
 
 /**
    This class stores information about categories (Persons/Locations/Keywords)
@@ -51,6 +54,8 @@ signals:
     void itemRenamed( const QString& oldName, const QString& newName );
     void itemRemoved( const QString& name );
 };
+
+}
 
 #endif /* CATEGORY_H */
 

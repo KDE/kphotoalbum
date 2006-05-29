@@ -22,7 +22,7 @@
 #include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
 #include "DB/ImageDB.h"
-Plugins::CategoryImageCollection::CategoryImageCollection( const ImageSearchInfo& context, const QString& category,
+Plugins::CategoryImageCollection::CategoryImageCollection( const DB::ImageSearchInfo& context, const QString& category,
                                                   const QString& value )
     : Plugins::ImageCollection( CategoryImageCollection::SubClass ), _context( context ), _category( category ),
       _value( value )
@@ -39,9 +39,9 @@ QString Plugins::CategoryImageCollection::name()
 
 KURL::List Plugins::CategoryImageCollection::images()
 {
-    ImageSearchInfo context( _context );
+    DB::ImageSearchInfo context( _context );
     context.addAnd( _category, _value );
-    QStringList list = ImageDB::instance()->search( context, true );
+    QStringList list = DB::ImageDB::instance()->search( context, true );
     return stringListToUrlList( list );
 }
 #endif // KIPI

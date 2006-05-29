@@ -34,7 +34,7 @@ int SQLDB::SQLDB::totalCount() const
     return fetchItem( query ).toInt();
 }
 
-QStringList SQLDB::SQLDB::search( const ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
+QStringList SQLDB::SQLDB::search( const DB::ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
 {
     // PENDING(blackie) Handle on disk.
     QValueList<int> matches = filesMatchingQuery( info );
@@ -55,7 +55,7 @@ void SQLDB::SQLDB::renameCategory( const QString& oldName, const QString newName
         showError( query );
 }
 
-QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QString& category )
+QMap<QString,int> SQLDB::SQLDB::classify( const DB::ImageSearchInfo& info, const QString& category )
 {
     bool allFiles = true;
     QValueList<int> includedFiles;
@@ -65,7 +65,7 @@ QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QSt
     }
 
     QMap<QString,int> result;
-    GroupCounter counter( category );
+    DB::GroupCounter counter( category );
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
 
@@ -85,9 +85,9 @@ QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QSt
 
     // Count images that doesn't contain an item
     if ( allFiles )
-        result[ImageDB::NONE()] = totalCount() - itemMap.count();
+        result[DB::ImageDB::NONE()] = totalCount() - itemMap.count();
     else
-        result[ImageDB::NONE()] = includedFiles.count() - itemMap.count();
+        result[DB::ImageDB::NONE()] = includedFiles.count() - itemMap.count();
 
 
     for( QMap<int,QStringList>::Iterator mapIt = itemMap.begin(); mapIt != itemMap.end(); ++mapIt ) {
@@ -109,10 +109,10 @@ QMap<QString,int> SQLDB::SQLDB::classify( const ImageSearchInfo& info, const QSt
     return result;
 }
 
-ImageInfoList& SQLDB::SQLDB::imageInfoList()
+DB::ImageInfoList& SQLDB::SQLDB::imageInfoList()
 {
     qDebug("NYI: ImageInfoList& SQLDB::SQLDB::imageInfoList()" );
-    static ImageInfoList list;
+    static DB::ImageInfoList list;
     return list;
 }
 
@@ -133,7 +133,7 @@ QStringList SQLDB::SQLDB::images()
     return imageList( false );
 }
 
-void SQLDB::SQLDB::addImages( const ImageInfoList& images )
+void SQLDB::SQLDB::addImages( const DB::ImageInfoList& images )
 {
     int idx = totalCount();
 
@@ -154,8 +154,8 @@ void SQLDB::SQLDB::addImages( const ImageInfoList& images )
     sortOrderQuery.prepare( sortOrderQueryString );
 
     int nextId = fetchItem( QString::fromLatin1( "SELECT MAX(fileId) FROM sortorder" ) ).toInt();
-    for( ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        ImageInfoPtr info = *it;
+    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
+        DB::ImageInfoPtr info = *it;
         ++nextId;
 
         imageQuery.bindValue( QString::fromLatin1( ":width" ),  info->size().width() );
@@ -244,17 +244,17 @@ void SQLDB::SQLDB::deleteList( const QStringList& list )
     emit totalChanged( totalCount() );
 }
 
-ImageInfoPtr SQLDB::SQLDB::info( const QString& fileName ) const
+DB::ImageInfoPtr SQLDB::SQLDB::info( const QString& fileName ) const
 {
     return new SQLImageInfo( fileName );
 }
 
-const MemberMap& SQLDB::SQLDB::memberMap()
+const DB::MemberMap& SQLDB::SQLDB::memberMap()
 {
     return _members;
 }
 
-void SQLDB::SQLDB::setMemberMap( const MemberMap& map )
+void SQLDB::SQLDB::setMemberMap( const DB::MemberMap& map )
 {
     _members = map;
 }
@@ -264,7 +264,7 @@ void SQLDB::SQLDB::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
     qDebug("NYI: void SQLDB::SQLDB::save( const QString& fileName )" );
 }
 
-MD5Map* SQLDB::SQLDB::md5Map()
+DB::MD5Map* SQLDB::SQLDB::md5Map()
 {
     return &_md5map;
 }
@@ -274,7 +274,7 @@ void SQLDB::SQLDB::sortAndMergeBackIn( const QStringList& /*fileList*/ )
     qDebug("NYI: void SQLDB::SQLDB::sortAndMergeBackIn( const QStringList& fileList )" );
 }
 
-void SQLDB::SQLDB::renameItem( Category* category, const QString& oldName, const QString& newName )
+void SQLDB::SQLDB::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
     QSqlQuery query;
     query.prepare( QString::fromLatin1( "UPDATE imagecategoryinfo SET value = :newName "
@@ -288,9 +288,9 @@ void SQLDB::SQLDB::renameItem( Category* category, const QString& oldName, const
 
 }
 
-void SQLDB::SQLDB::deleteItem( Category* /*category*/, const QString& /*option*/ )
+void SQLDB::SQLDB::deleteItem( DB::Category* /*category*/, const QString& /*option*/ )
 {
-    qDebug("NYI: void SQLDB::SQLDB::deleteItem( Category* category, const QString& option )" );
+    qDebug("NYI: void SQLDB::SQLDB::deleteItem( DB::Category* category, const QString& option )" );
 }
 
 void SQLDB::SQLDB::lockDB( bool /*lock*/, bool /*exclude*/ )
@@ -331,13 +331,13 @@ void SQLDB::SQLDB::loadMemberGroups()
 }
 
 
-CategoryCollection* SQLDB::SQLDB::categoryCollection()
+DB::CategoryCollection* SQLDB::SQLDB::categoryCollection()
 {
     // PENDING(blackie) Implement something similar to XMLDB::createSpecialCategories()
     return &_categoryCollection;
 }
 
-KSharedPtr<ImageDateCollection> SQLDB::SQLDB::rangeCollection()
+KSharedPtr<DB::ImageDateCollection> SQLDB::SQLDB::rangeCollection()
 {
     return new SQLImageDateCollection( /*search( Browser::instance()->currentContext(), false ) */ );
 }

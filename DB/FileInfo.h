@@ -27,6 +27,9 @@
 #  include "Exif/Info.h"
 #endif
 
+namespace DB
+{
+
 class FileInfo
 {
 public:
@@ -44,6 +47,8 @@ private:
 #endif
     QString _fullPath;
 };
+
+}
 
 #endif /* FILEINFO_H */
 

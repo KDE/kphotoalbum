@@ -251,8 +251,6 @@ class DatabaseManager(object):
 		Insert image attributes to image table and image tags
 		into image_tag table.
 		"""
-		if not self.imageMap.has_key((i.filename, i.md5sum)):
-			print 'Strange, no id found for', i
 		iid = self.imageMap.numFor((i.filename, i.md5sum))
 		self.c.execute('DELETE FROM image WHERE id=%s',
 			       (iid,))

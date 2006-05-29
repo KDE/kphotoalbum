@@ -28,7 +28,7 @@
 #include <kicondialog.h>
 #include <qlistbox.h>
 #include <kmessagebox.h>
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 #include <qcheckbox.h>
 #include <kinputdialog.h>
 #include <qwhatsthis.h>
@@ -43,12 +43,12 @@
 #endif
 #include <kdebug.h>
 #include <kcolorbutton.h>
-#include "categorycollection.h"
+#include "DB/CategoryCollection.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "SettingsDialog.moc"
 #include <kapplication.h>
 #include <kconfig.h>
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
@@ -844,7 +844,7 @@ void Settings::SettingsDialog::createViewerPage()
 void Settings::SettingsDialog::createPluginPage()
 {
 #ifdef HASKIPI
-    MainView::theMainView()->loadPlugins();
+    MainWindow::MainWindow::theMainWindow()->loadPlugins();
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
                                                              KIcon::Desktop, 32 ) );

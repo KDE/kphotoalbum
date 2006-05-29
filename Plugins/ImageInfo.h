@@ -23,7 +23,7 @@
 #ifdef HASKIPI
 #include <libkipi/imageinfoshared.h>
 #include <kdemacros.h>
-#include "imageinfoptr.h"
+#include "DB/ImageInfoPtr.h"
 class ImageInfo;
 
 namespace Plugins

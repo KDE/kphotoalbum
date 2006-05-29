@@ -7,8 +7,8 @@
 #include <iostream>
 #include <sstream>
 #include "Info.h"
-#include "imageinfo.h"
-#include "imagedb.h"
+#include "DB/ImageInfo.h"
+#include "DB/ImageDB.h"
 #include <qfileinfo.h>
 
 using namespace Exif;

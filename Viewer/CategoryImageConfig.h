@@ -21,8 +21,8 @@
 
 #include <kdialogbase.h>
 #include <qimage.h>
-#include "imageinfoptr.h"
-#include "imageinfo.h"
+#include "DB/ImageInfoPtr.h"
+#include "DB/ImageInfo.h"
 
 class ImageInfo;
 class QComboBox;

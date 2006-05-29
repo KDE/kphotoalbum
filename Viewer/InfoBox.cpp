@@ -25,8 +25,8 @@
 #include <qtoolbutton.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "mainview.h"
-#include "imageinfo.h"
+#include "MainWindow/MainWindow.h"
+#include "DB/ImageInfo.h"
 
 Viewer::InfoBox::InfoBox( Viewer::Viewer* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )
@@ -124,7 +124,7 @@ void Viewer::InfoBox::showBrowser()
     if ( desktop->screenNumber( Browser::Browser::instance() ) == desktop->screenNumber( _viewer ) ) {
         if (_viewer->showingFullScreen() )
             _viewer->setShowFullScreen( false );
-        MainView::theMainView()->raise();
+        MainWindow::MainWindow::theMainWindow()->raise();
     }
 
 }

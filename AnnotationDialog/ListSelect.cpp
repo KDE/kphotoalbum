@@ -23,19 +23,19 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qvalidator.h>
-#include "imageinfo.h"
+#include "DB/ImageInfo.h"
 #include <qpopupmenu.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
 #include <qapplication.h>
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 #include <kio/job.h>
 #include <qtoolbutton.h>
 #include <kiconloader.h>
 #include <qbuttongroup.h>
-#include "categorycollection.h"
-#include "membermap.h"
+#include "DB/CategoryCollection.h"
+#include "DB/MemberMap.h"
 #include <qinputdialog.h>
 
 using namespace AnnotationDialog;

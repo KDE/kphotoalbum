@@ -1,7 +1,7 @@
 #include "XMLCategory.h"
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 #include "Settings/Settings.h"
-#include "membermap.h"
+#include "DB/MemberMap.h"
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewSize size, ViewType type, bool show )
     : _name( name ), _icon( icon ), _show( show ), _size( size ), _type( type ), _isSpecial(false)

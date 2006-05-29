@@ -19,7 +19,7 @@
 #include "ShowOptionAction.h"
 #include "Settings/Settings.h"
 #include <klocale.h>
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 
 using namespace Viewer;
 

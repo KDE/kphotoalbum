@@ -26,9 +26,9 @@
 #include <qapplication.h>
 #include <qdesktopwidget.h>
 #include "ImageManager/ImageManager.h"
-#include "imageinfo.h"
+#include "DB/ImageInfo.h"
 #include "ThumbnailView.h"
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 
 /**
    \class ThumbnailToolTip

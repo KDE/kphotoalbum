@@ -11,10 +11,10 @@
 #include <qfile.h>
 #include "Utilities/Util.h"
 #include <kstandarddirs.h>
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include <kmessagebox.h>
 #include <klocale.h>
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 
 using namespace Exif;
 
@@ -184,7 +184,7 @@ Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
 
 void Exif::Database::offerInitialize()
 {
-    int ret = KMessageBox::questionYesNo( MainView::theMainView(),
+    int ret = KMessageBox::questionYesNo( MainWindow::MainWindow::theMainWindow(),
                                           i18n("<qt><p>Congratulation, your KPhotoAlbum version now supports searching "
                                                "for EXIF information.</p>"
                                                "<p>For this to work, KPhotoAlbum needs to rescan your images. "

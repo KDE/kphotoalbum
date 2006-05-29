@@ -19,7 +19,7 @@
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
 #include <qlabel.h>
-#include "imageinfo.h"
+#include "DB/ImageInfo.h"
 #include "ImageManager/ImageClient.h"
 #include <qimage.h>
 

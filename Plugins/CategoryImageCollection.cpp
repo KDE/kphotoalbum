@@ -18,10 +18,10 @@
 
 #include <config.h>
 #ifdef HASKIPI
-#include "imageinfo.h"
+#include "DB/ImageInfo.h"
 #include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 Plugins::CategoryImageCollection::CategoryImageCollection( const ImageSearchInfo& context, const QString& category,
                                                   const QString& value )
     : Plugins::ImageCollection( CategoryImageCollection::SubClass ), _context( context ), _category( category ),

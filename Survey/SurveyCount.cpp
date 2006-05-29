@@ -4,7 +4,7 @@
 #include <qspinbox.h>
 #include <qlineedit.h>
 #include <klocale.h>
-#include "imagedb.h"
+#include "DB/ImageDB.h"
 
 using namespace Survey;
 

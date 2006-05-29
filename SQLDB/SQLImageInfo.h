@@ -1,6 +1,6 @@
 #ifndef SQLIMAGEINFO_H
 #define SQLIMAGEINFO_H
-#include <imageinfo.h>
+#include "DB/ImageInfo.h"
 
 namespace SQLDB {
     class SQLImageInfo :public ImageInfo

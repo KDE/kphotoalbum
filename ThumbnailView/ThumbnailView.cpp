@@ -5,8 +5,8 @@
 #include "Settings/Settings.h"
 #include "ThumbnailRequest.h"
 #include "ImageManager/ImageManager.h"
-#include "imageinfoptr.h"
-#include "imagedb.h"
+#include "DB/ImageInfoPtr.h"
+#include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include <qcursor.h>
 #include <qapplication.h>

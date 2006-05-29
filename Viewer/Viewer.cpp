@@ -20,7 +20,7 @@
 #include "Viewer/Viewer.h"
 #include <qlayout.h>
 #include <qlabel.h>
-#include "imageinfo.h"
+#include "DB/ImageInfo.h"
 #include "ImageManager/ImageManager.h"
 #include <qsizepolicy.h>
 #include <qsimplerichtext.h>
@@ -45,17 +45,17 @@
 #include <kglobalsettings.h>
 #include "Viewer/SpeedDisplay.h"
 #include <qdesktopwidget.h>
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include <qdatetime.h>
 #include "CategoryImageConfig.h"
 #include <dcopref.h>
-#include "externalpopup.h"
+#include "MainWindow/ExternalPopup.h"
 #include <kaccel.h>
 #include <kkeydialog.h>
 #include <kapplication.h>
 #include <kglobal.h>
-#include "categorycollection.h"
-#include "imagedb.h"
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 #include "InfoBox.h"
 
 Viewer::Viewer* Viewer::Viewer::_latest = 0;
@@ -230,7 +230,7 @@ void Viewer::Viewer::setupContextMenu()
     _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), wallpaperPopup );
 
     // -------------------------------------------------- Invoke external program
-    _externalPopup = new ExternalPopup( _popup );
+    _externalPopup = new MainWindow::ExternalPopup( _popup );
     _popup->insertItem( QIconSet(), i18n("Invoke External Program"), _externalPopup );
     connect( _externalPopup, SIGNAL( aboutToShow() ), this, SLOT( populateExternalPopup() ) );
 
@@ -645,7 +645,7 @@ void Viewer::Viewer::editImage()
 {
     ImageInfoList list;
     list.append( currentInfo() );
-    MainView::configureImages( list, true );
+    MainWindow::MainWindow::configureImages( list, true );
 }
 
 bool Viewer::Viewer::showingFullScreen() const

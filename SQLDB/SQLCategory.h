@@ -1,6 +1,6 @@
 #ifndef SQLCATEGORY_H
 #define SQLCATEGORY_H
-#include <category.h>
+#include "DB/Category.h"
 
 namespace SQLDB {
     class SQLCategory :public Category

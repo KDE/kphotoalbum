@@ -26,8 +26,8 @@
 #include <qimage.h>
 #include <qcache.h>
 #include <qptrvector.h>
-#include "imageinfolist.h"
-#include "imageinfoptr.h"
+#include "DB/ImageInfoList.h"
+#include "DB/ImageInfoPtr.h"
 class ImageInfo;
 
 namespace ImageManager

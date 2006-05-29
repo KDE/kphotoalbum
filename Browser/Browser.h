@@ -21,7 +21,7 @@
 #include <qlistview.h>
 #include <qiconview.h>
 #include "Settings/Settings.h"
-#include "imageinfoptr.h"
+#include "DB/ImageInfoPtr.h"
 
 class ImageSearchInfo;
 class QListViewItem;

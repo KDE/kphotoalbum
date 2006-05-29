@@ -20,12 +20,12 @@
 
 #ifdef HASKIPI
 #include "Plugins/ImageCollection.h"
-#include "mainview.h"
-#include "imagedb.h"
+#include "MainWindow/MainWindow.h"
+#include "DB/ImageDB.h"
 #include "Settings/Settings.h"
 #include <qfileinfo.h>
-#include "imageinfolist.h"
-#include "imageinfo.h"
+#include "DB/ImageInfoList.h"
+#include "DB/ImageInfo.h"
 
 Plugins::ImageCollection::ImageCollection( Type tp )
     : _tp( tp )
@@ -50,7 +50,7 @@ KURL::List Plugins::ImageCollection::images()
         return stringListToUrlList( ImageDB::instance()->currentScope( false ) );
 
     case CurrentSelection:
-        return stringListToUrlList( MainView::theMainView()->selected() );
+        return stringListToUrlList( MainWindow::MainWindow::theMainWindow()->selected() );
 
     case SubClass:
         qFatal( "The subclass should implement images()" );

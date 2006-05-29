@@ -18,7 +18,7 @@ Boston, MA 02110-1301, USA.
 
 #include "Util.h"
 #include "Settings/Settings.h"
-#include "imageinfo.h"
+#include "DB/ImageInfo.h"
 #include "ImageManager/ImageDecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
@@ -34,7 +34,7 @@ Boston, MA 02110-1301, USA.
 #include <kimageio.h>
 #include <kcmdlineargs.h>
 #include <kio/netaccess.h>
-#include "mainview.h"
+#include "MainWindow/MainWindow.h"
 #include "X11/X.h"
 
 extern "C" {
@@ -49,8 +49,8 @@ extern "C" {
 #include <setjmp.h>
 #include <sys/types.h>
 }
-#include "categorycollection.h"
-#include "imagedb.h"
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
@@ -574,7 +574,7 @@ void Utilities::deleteDemo()
     QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
     KURL url;
     url.setPath( dir );
-    (void) KIO::NetAccess::del( dir, MainView::theMainView() );
+    (void) KIO::NetAccess::del( dir, MainWindow::MainWindow::theMainWindow() );
 }
 
 // PENDING(blackie) delete this method

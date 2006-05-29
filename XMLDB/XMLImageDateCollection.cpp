@@ -17,8 +17,8 @@
 */
 
 #include "XMLImageDateCollection.h"
-#include "imageinfo.h"
-#include "imagedb.h"
+#include "DB/ImageInfo.h"
+#include "DB/ImageDB.h"
 
 XMLImageDateCollection::XMLImageDateCollection()
     : _dirtyLower( false ), _dirtyUpper( false )

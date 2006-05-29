@@ -1,4 +1,4 @@
-f compile_sqldb
+if compile_sqldb
   LIBKPHOTOALBUM_SQLDB=SQLDB/libsqldb.la
   SQLDB=SQLDB
 endif

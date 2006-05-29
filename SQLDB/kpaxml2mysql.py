@@ -184,12 +184,13 @@ class DatabaseManager(object):
 			self.imageMap[(unicode(f, self.db.charset), m)] = i
 		self.c.execute('SELECT id, name FROM category')
 		for (i, n) in self.c:
-			self.categoryMap[n] = i
+			self.categoryMap[unicode(n, self.db.charset)] = i
 		self.c.execute('SELECT tag.id, tag.name, category.name '
 			       'FROM tag JOIN category '
 			       'ON category.id=tag.categoryId')
 		for (i, tn, cn) in self.c:
-			self.tagMap[(cn, tn)] = i
+			self.tagMap[(unicode(cn, self.db.charset),
+				     unicode(tn, self.db.charset))] = i
 
 	def clearIds(self):
 		self.imageMap = ItemNumMap()

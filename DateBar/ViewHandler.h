@@ -20,7 +20,7 @@
 #define DATEVIEWHANDLER_H
 #include <qdatetime.h>
 #include <qstring.h>
-#include "imagedatecollection.h"
+#include "Data/ImageDateCollection.h"
 
 namespace DateBar
 {

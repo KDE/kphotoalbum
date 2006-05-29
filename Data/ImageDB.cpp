@@ -1,15 +1,16 @@
-#include "imagedb.h"
+#include "ImageDB.h"
 #include "XMLDB/XMLDB.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "Browser/Browser.h"
-#include "categorycollection.h"
+#include "Data/CategoryCollection.h"
 #include "SQLDB/SQLDB.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kdebug.h>
 #include <config.h>
+#include "NewImageFinder.h"
 
 ImageDB* ImageDB::_instance = 0;
 
@@ -160,4 +161,4 @@ void ImageDB::slotReread( const QStringList& list, int mode)
 
 }
 
-#include "imagedb.moc"
+#include "ImageDB.moc"

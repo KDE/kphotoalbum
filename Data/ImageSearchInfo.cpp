@@ -16,15 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imagesearchinfo.h"
+#include "ImageSearchInfo.h"
 #include <qregexp.h>
 #include "Settings/Settings.h"
 #include <klocale.h>
 #include "Utilities/Util.h"
 #include <kdebug.h>
-#include "optionmatcher.h"
-#include "imagedb.h"
-#include "imageinfo.h"
+#include "OptionMatcher.h"
+#include "ImageDB.h"
+#include "ImageInfo.h"
 #include <kapplication.h>
 #include <kconfig.h>
 #include <config.h>

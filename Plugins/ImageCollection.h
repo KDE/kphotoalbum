@@ -22,7 +22,7 @@
 #include <config.h>
 #ifdef HASKIPI
 #include <libkipi/imagecollectionshared.h>
-#include "imageinfolist.h"
+#include "Data/ImageInfoList.h"
 #include <kdemacros.h>
 
 namespace Plugins

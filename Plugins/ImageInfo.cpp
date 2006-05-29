@@ -19,8 +19,8 @@
 #include <config.h>
 #ifdef HASKIPI
 #include "Plugins/ImageInfo.h"
-#include "imagedb.h"
-#include "imageinfo.h"
+#include "Data/ImageDB.h"
+#include "Data/ImageInfo.h"
 #include <kdebug.h>
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )

@@ -4,10 +4,10 @@
 #include <kpushbutton.h>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include "Settings/Settings.h"
-#include "categorycollection.h"
-#include "category.h"
+#include "Data/CategoryCollection.h"
+#include "Data/Category.h"
 
 using namespace MainWindow;
 

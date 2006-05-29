@@ -18,10 +18,10 @@
 
 #ifndef IMAGEDATERANGECOLLECTION_H
 #define IMAGEDATERANGECOLLECTION_H
-#include "imagedate.h"
+#include "Data/ImageDate.h"
 #include <qvaluelist.h>
 #include <qmap.h>
-#include "imageinfolist.h"
+#include "Data/ImageInfoList.h"
 #include <ksharedptr.h>
 class QStringList;
 

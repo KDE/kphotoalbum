@@ -22,10 +22,10 @@
 #include <kiconloader.h>
 #include "AnnotationDialog/AnnotationDialog.h"
 #include "ContentFolder.h"
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include <kmessagebox.h>
 #include <kglobal.h>
-#include "imageinfo.h"
+#include "Data/ImageInfo.h"
 
 Browser::SearchFolder::SearchFolder( const ImageSearchInfo& info, Browser* browser )
     :Folder( info, browser )

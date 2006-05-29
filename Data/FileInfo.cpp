@@ -1,4 +1,4 @@
-#include "fileinfo.h"
+#include "FileInfo.h"
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "Utilities/Util.h"

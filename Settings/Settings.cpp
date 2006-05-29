@@ -30,18 +30,18 @@
 #include <kstandarddirs.h>
 #include <kiconloader.h>
 #include <kglobal.h>
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include <qtextstream.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
-#include "categorycollection.h"
+#include "Data/CategoryCollection.h"
 #include <qdatetime.h>
 #include <qnamespace.h>
-#include "imageinfo.h"
+#include "Data/ImageInfo.h"
 #include <kapplication.h>
 #include <kconfig.h>
 #include "Settings.moc"
-#include "membermap.h"
+#include "Data/MemberMap.h"
 #include <kdebug.h>
 
 #define STR(x) QString::fromLatin1(x)

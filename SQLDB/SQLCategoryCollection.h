@@ -1,7 +1,7 @@
 #ifndef SQLCATEGORYCOLLECTION_H
 #define SQLCATEGORYCOLLECTION_H
 
-#include <categorycollection.h>
+#include "Data/CategoryCollection.h"
 
 namespace SQLDB {
     class SQLCategoryCollection :public CategoryCollection

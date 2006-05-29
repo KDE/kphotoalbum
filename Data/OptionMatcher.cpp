@@ -16,11 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "optionmatcher.h"
+#include "OptionMatcher.h"
 #include "Settings/Settings.h"
-#include "imageinfo.h"
-#include "membermap.h"
-#include "imagedb.h"
+#include "Data/ImageInfo.h"
+#include "Data/MemberMap.h"
+#include "Data/ImageDB.h"
 
 OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& value, bool sign )
 {

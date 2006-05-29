@@ -42,7 +42,7 @@
 #include <kmessagebox.h>
 #include "Settings/Settings.h"
 #include "Browser/Browser.h"
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include "Utilities/Util.h"
 #include <kapplication.h>
 #include <ktip.h>
@@ -79,12 +79,12 @@
 #include <kmenubar.h>
 #include <SearchBar.h>
 #include "TokenEditor.h"
-#include "categorycollection.h"
+#include "Data/CategoryCollection.h"
 #include <qlayout.h>
 #include "DateBar/DateBar.h"
-#include "imagedatecollection.h"
+#include "Data/ImageDateCollection.h"
 #include "InvalidDateFinder.h"
-#include "imageinfo.h"
+#include "Data/ImageInfo.h"
 #include "Survey/MySurvey.h"
 #include <config.h>
 #ifdef HASEXIV2

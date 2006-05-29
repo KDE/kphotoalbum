@@ -22,9 +22,9 @@
 #include <klocale.h>
 #include <qcombobox.h>
 #include "Settings/Settings.h"
-#include "categorycollection.h"
-#include "imageinfo.h"
-#include "imagedb.h"
+#include "Data/CategoryCollection.h"
+#include "Data/ImageInfo.h"
+#include "Data/ImageDB.h"
 
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 

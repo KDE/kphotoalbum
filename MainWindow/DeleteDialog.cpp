@@ -25,9 +25,9 @@
 #include <qbuttongroup.h>
 #include <qfile.h>
 #include <kmessagebox.h>
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include "Utilities/Util.h"
-#include "imageinfo.h"
+#include "Data/ImageInfo.h"
 #include "Utilities/ShowBusyCursor.h"
 #include <qapplication.h>
 

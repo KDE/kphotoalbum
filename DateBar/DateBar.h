@@ -21,7 +21,7 @@
 #include <qwidget.h>
 #include <qpixmap.h>
 #include <qdatetime.h>
-#include "imagedatecollection.h"
+#include "Data/ImageDateCollection.h"
 #include "DateBar/ViewHandler.h"
 #include "DateBar/MouseHandler.h"
 #include <ksharedptr.h>

@@ -23,11 +23,11 @@
 #include <libkipi/imagecollection.h>
 #include "Plugins/ImageCollection.h"
 #include "Plugins/ImageInfo.h"
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include "MainWindow/MainWindow.h"
 #include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
-#include "imageinfo.h"
+#include "Data/ImageInfo.h"
 #include "Browser/Browser.h"
 
 Plugins::Interface::Interface( QObject *parent, const char *name )

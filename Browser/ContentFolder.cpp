@@ -21,13 +21,13 @@
 #include "TypeFolder.h"
 #include "ImageFolder.h"
 #include <klocale.h>
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include "SearchFolder.h"
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "BrowserItemFactory.h"
-#include "categorycollection.h"
-#include "membermap.h"
+#include "Data/CategoryCollection.h"
+#include "Data/MemberMap.h"
 #include "ExifFolder.h"
 #include "Exif/Database.h"
 #include <config.h>

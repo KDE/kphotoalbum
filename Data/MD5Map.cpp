@@ -16,7 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "md5map.h"
+#include "MD5Map.h"
 void MD5Map::insert( const QString& md5sum, const QString& fileName )
 {
     _map.insert( md5sum, fileName );

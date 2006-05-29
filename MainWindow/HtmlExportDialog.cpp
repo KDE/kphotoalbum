@@ -57,9 +57,9 @@
 #include <kiconloader.h>
 #include "ImportExport/Export.h"
 #include "MainWindow/MainWindow.h"
-#include "categorycollection.h"
-#include "imageinfo.h"
-#include "imagedb.h"
+#include "Data/CategoryCollection.h"
+#include "Data/ImageInfo.h"
+#include "Data/ImageDB.h"
 #include <config.h>
 #ifdef HASEXIV2
 #  include "Exif/Info.h"

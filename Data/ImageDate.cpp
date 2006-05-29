@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "imagedate.h"
+#include "ImageDate.h"
 #include <qstringlist.h>
 #include <klocale.h>
 #include "Settings/Settings.h"

@@ -16,11 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "membermap.h"
+#include "MemberMap.h"
 #include "Settings/Settings.h"
 #include <qtimer.h>
-#include "categorycollection.h"
-#include "imagedb.h"
+#include "CategoryCollection.h"
+#include "Data/ImageDB.h"
 
 MemberMap::MemberMap( ImageDB* db) :QObject(0), _dirty( true )
 {
@@ -227,4 +227,4 @@ void MemberMap::renameCategory( const QString& oldName, const QString& newName )
     _members.remove(oldName);
 }
 
-#include "membermap.moc"
+#include "MemberMap.moc"

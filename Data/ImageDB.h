@@ -19,11 +19,11 @@
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
 
-#include "imagesearchinfo.h"
+#include "Data/ImageSearchInfo.h"
 #include <qobject.h>
-#include "imageinfolist.h"
-#include "imageinfo.h"
-#include "imagedatecollection.h"
+#include "Data/ImageInfoList.h"
+#include "Data/ImageInfo.h"
+#include "Data/ImageDateCollection.h"
 class CategoryCollection;
 class Category;
 class MD5Map;

@@ -18,12 +18,12 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
-#include "imagedate.h"
+#include "Data/ImageDate.h"
 #include <qdom.h>
 #include <qmap.h>
 #include <qstringlist.h>
 #include <qdict.h>
-#include "imageinfoptr.h"
+#include "Data/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
 #include <config.h>
 

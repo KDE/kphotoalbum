@@ -16,12 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "groupCounter.h"
+#include "GroupCounter.h"
 #include <qmap.h>
 #include "Settings/Settings.h"
-#include "membermap.h"
-#include "imagedb.h"
-#include "categorycollection.h"
+#include "Data/MemberMap.h"
+#include "Data/ImageDB.h"
+#include "Data/CategoryCollection.h"
 
 // Examples:
 // groupToMemberMap = { USA |-> [Chicago, Santa Clara],

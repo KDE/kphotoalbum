@@ -11,7 +11,7 @@
 #include "MouseTrackingInteraction.h"
 #include "Cell.h"
 #include <qvaluevector.h>
-#include <imagedate.h>
+#include "Data/ImageDate.h"
 
 class QTimer;
 class ImageDateRange;

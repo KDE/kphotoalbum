@@ -1,6 +1,6 @@
 #ifndef XMLIMAGEDATERANGECOLLECTION_H
 #define XMLIMAGEDATERANGECOLLECTION_H
-#include <imagedatecollection.h>
+#include "Data/ImageDateCollection.h"
 
 class XMLImageDateCollection :public ImageDateCollection
 {

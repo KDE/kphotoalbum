@@ -27,11 +27,11 @@
 #include <qdom.h>
 #include <qobject.h>
 #include <qdeepcopy.h>
-#include "imagedate.h"
+#include "ImageDate.h"
 #include "Viewer/DrawList.h"
 #include <qimage.h>
 #include <ksharedptr.h>
-#include "categorycollection.h"
+#include "Data/CategoryCollection.h"
 
 #define EXIFMODE_DATE          0x01
 #define EXIFMODE_ORIENTATION   0x02

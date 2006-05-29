@@ -53,11 +53,11 @@
 #include <kguiitem.h>
 #include <kapplication.h>
 #include <qobjectlist.h>
-#include "categorycollection.h"
-#include "imageinfo.h"
+#include "Data/CategoryCollection.h"
+#include "Data/ImageInfo.h"
 #include <kconfig.h>
 #include "Utilities/Util.h"
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include <kdebug.h>
 #include <qfile.h>
 #include <qfileinfo.h>

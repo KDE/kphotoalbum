@@ -1,7 +1,7 @@
 #include "QueryUtil.h"
-#include <membermap.h>
-#include <imagedb.h>
-#include <imagesearchinfo.h>
+#include "Data/MemberMap.h"
+#include "Data/ImageDB.h"
+#include "Data/ImageSearchInfo.h"
 #include <qsqlquery.h>
 #include "Settings/Settings.h"
 

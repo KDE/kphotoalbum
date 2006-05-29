@@ -14,7 +14,7 @@
 #include "MainWindow/MainWindow.h"
 #include <kmessagebox.h>
 #include <klocale.h>
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 
 using namespace Exif;
 

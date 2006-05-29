@@ -21,7 +21,7 @@
 
 #include <qdialog.h>
 #include <qimage.h>
-#include "imageinfoptr.h"
+#include "Data/ImageInfoPtr.h"
 class ImageInfo;
 class QCloseEvent;
 class QLabel;

@@ -18,17 +18,17 @@
 
 #ifndef XMLDB_H
 #define XMLDB_H
-#include "imagesearchinfo.h"
+#include "Data/ImageSearchInfo.h"
 #include <qdict.h>
-#include "imageinfolist.h"
+#include "Data/ImageInfoList.h"
 #include <qobject.h>
 #include <qstringlist.h>
-#include "membermap.h"
-#include <imagedb.h>
-#include <category.h>
-#include "newimagefinder.h"
-#include <categorycollection.h>
+#include "Data/MemberMap.h"
+#include "Data/ImageDB.h"
+#include "Data/Category.h"
+#include "Data/CategoryCollection.h"
 #include "XMLCategoryCollection.h"
+#include "Data/MD5Map.h"
 class ImageInfo;
 
 namespace XMLDB {

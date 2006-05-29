@@ -1,4 +1,4 @@
-#include "categorycollection.h"
+#include "CategoryCollection.h"
 void CategoryCollection::itemRenamed( const QString& oldName, const QString& newName )
 {
     emit itemRenamed( static_cast<Category*>( const_cast<QObject*>( sender() ) ), oldName, newName );
@@ -23,4 +23,4 @@ QString CategoryCollection::nameForText( const QString& text )
     return QString::null;
 }
 
-#include "categorycollection.moc"
+#include "CategoryCollection.moc"

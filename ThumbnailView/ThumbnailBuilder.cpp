@@ -18,11 +18,11 @@
 
 #include "ThumbnailBuilder.h"
 #include "ImageManager/ImageManager.h"
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include <klocale.h>
 #include "Settings/Settings.h"
 #include <qimage.h>
-#include "imageinfo.h"
+#include "Data/ImageInfo.h"
 
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
     :QProgressDialog( parent, name )

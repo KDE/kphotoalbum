@@ -4,7 +4,7 @@
 #include <klocale.h>
 #include "Exif/SearchDialog.h"
 #include "ContentFolder.h"
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include <kmessagebox.h>
 
 Browser::ExifFolder::ExifFolder( const ImageSearchInfo& info, Browser* browser )

@@ -25,8 +25,8 @@
 #include <qbuttongroup.h>
 #include <qfile.h>
 #include <kmessagebox.h>
-#include "imagedb.h"
-#include "imageinfo.h"
+#include "Data/ImageDB.h"
+#include "Data/ImageInfo.h"
 #include "Utilities/Util.h"
 #include "Exif/Database.h"
 

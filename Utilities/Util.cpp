@@ -18,7 +18,7 @@ Boston, MA 02110-1301, USA.
 
 #include "Util.h"
 #include "Settings/Settings.h"
-#include "imageinfo.h"
+#include "Data/ImageInfo.h"
 #include "ImageManager/ImageDecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
@@ -49,8 +49,8 @@ extern "C" {
 #include <setjmp.h>
 #include <sys/types.h>
 }
-#include "categorycollection.h"
-#include "imagedb.h"
+#include "Data/CategoryCollection.h"
+#include "Data/ImageDB.h"
 
 #ifdef HASEXIV2
 #  include "Exif/Info.h"

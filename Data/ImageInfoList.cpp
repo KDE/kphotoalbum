@@ -1,9 +1,9 @@
-#include "imageinfolist.h"
+#include "ImageInfoList.h"
 #include <qmap.h>
 #include <qdatetime.h>
 #include <qvaluelist.h>
-#include "imageinfo.h"
-#include "imagedate.h"
+#include "ImageInfo.h"
+#include "ImageDate.h"
 #include <kmessagebox.h>
 #include <klocale.h>
 

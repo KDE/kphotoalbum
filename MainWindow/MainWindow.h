@@ -26,12 +26,12 @@ class QLabel;
 class KActionMenu;
 class KRadioAction;
 
-#include "imageinfolist.h"
+#include "Data/ImageInfoList.h"
 #include <qdict.h>
 #include <kmainwindow.h>
 #include "Settings/Settings.h"
 #include <kurl.h>
-#include "category.h"
+#include "Data/Category.h"
 #include <config.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>

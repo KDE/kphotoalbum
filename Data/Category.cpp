@@ -1,10 +1,10 @@
-#include "category.h"
+#include "Category.h"
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include "imagedb.h"
+#include "Data/ImageDB.h"
 #include "Settings/Settings.h"
-#include "membermap.h"
+#include "Data/MemberMap.h"
 
 QPixmap Category::icon( int size ) const
 {
@@ -50,4 +50,4 @@ QStringList Category::itemsInclGroups() const
     return items;
 }
 
-#include "category.moc"
+#include "Category.moc"

@@ -6,8 +6,8 @@ Script for copying data from KPhotoAlbum index.xml to MySQL database.
 import sys
 import getpass
 import MySQLdb
-from KPhotoAlbum.mysqldb import MySQLDatabase
-from KPhotoAlbum.xmldb import XMLDatabase
+from KPhotoAlbum import mysqldb
+from KPhotoAlbum import xmldb
 
 progressCounter = 0
 
@@ -51,7 +51,7 @@ def main(argv):
 
 	printn('Connecting to database...')
 	db = MySQLdb.connect(db=db_name, user=username, passwd=password)
-	destDb = MySQLDatabase(db)
+	destDb = mysqldb.MySQLDatabase(db)
 	print('connected.')
 
 	print('WARNING!')
@@ -67,8 +67,8 @@ def main(argv):
 
 	printn('Parsing the XML file...')
 	try:
-		srcDb = XMLDatabase(xml_file)
-	except Error, (e):
+		srcDb = xmldb.XMLDatabase(xml_file)
+	except xmldb.Error, (e):
 		print('failed.')
 		print(e)
 		return 2

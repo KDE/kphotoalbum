@@ -61,10 +61,6 @@ def main(argv):
 	if a[0] != 'y' and a[0] != 'Y':
 		return 0
 
-	printn('Do you want to clear old tables first? ')
-	a = raw_input()
-	doClear = (a[0] == 'y' or a[0] == 'Y')
-
 	printn('Parsing the XML file...')
 	try:
 		srcDb = xmldb.XMLDatabase(xml_file)
@@ -74,9 +70,14 @@ def main(argv):
 		return 2
 	print('parsed.')
 
-	printn('Copying data to the MySQL database')
-	if doClear:
+	printn('Do you want to clear the tables before copying? ')
+	a = raw_input()
+	if a[0] == 'y' or a[0] == 'Y':
+		printn('Clearing...')
 		destDb.clear()
+		print('cleared')
+
+	printn('Copying data to the MySQL database')
 	global progressCounter
 	progressCounter = 0
 	destDb.feedFrom(srcDb, showProgress)

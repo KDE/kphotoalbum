@@ -20,7 +20,7 @@ class MySQLDatabase(Database):
 		 'label VARCHAR(255), description TEXT, '
 		 'filename VARCHAR(1024), md5sum CHAR(32), '
 		 'startDate DATETIME, endDate DATETIME, '
-		 'width INT, height INT, angle INT(1)'),
+		 'width INT, height INT, angle SMALLINT'),
 		('category',
 		 'id SERIAL, name VARCHAR(255), icon VARCHAR(255), '
 		 'visible BOOL, viewtype TINYINT, viewsize TINYINT'),
@@ -95,8 +95,8 @@ class MySQLDatabase(Database):
 			       'values(%s,%s,%s,%s,%s,%s)',
 			       (cid, c.name, c.icon,
 				int(c.visible), c.viewtype, c.viewsize))
-		for i in c.items:
-			self.insertTag((c.name, i[0]))
+		for item in c.items.itervalues():
+			self.insertTag((c.name, item))
 
 	def insertTag(self, tag):
 		"""

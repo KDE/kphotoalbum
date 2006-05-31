@@ -12,13 +12,14 @@ class Category(object):
 		self.viewsize = viewsize
 		self.items = items
 		if self.items is None:
-			self.items = set()
+			self.items = {}
 
 	def addItem(self, name, id):
-		self.items.add((name, id))
+		assert not self.items.has_key(id)
+		self.items[id] = name
 
 	def __repr__(self):
-		s = ('Category(' +
+		s = (self.__class__.__name__ + '(' +
 		     repr(self.name) + ', ' +
 		     repr(self.icon) + ', ' +
 		     repr(self.visible) + ', ' +
@@ -56,7 +57,7 @@ class Image(object):
 		self.tags.add(tag)
 
 	def __repr__(self):
-		s = ('Image(' +
+		s = (self.__class__.__name__ + '(' +
 		     repr(self.label) + ', ' +
 		     repr(self.description) + ', ' +
 		     repr(self.filename) + ', ' +

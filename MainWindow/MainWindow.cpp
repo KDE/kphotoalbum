@@ -87,6 +87,9 @@
 #include "DB/ImageInfo.h"
 #include "Survey/MySurvey.h"
 #include <config.h>
+#ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+#endif
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #  include "Exif/InfoDialog.h"

@@ -5,7 +5,7 @@ Module for accessing KPhotoAlbum index.xml.
 from xml.dom import minidom
 from time import mktime, strptime
 from datetime import datetime
-from db import Database
+from db import DatabaseReader
 from datatypes import *
 
 # Structure of KPhotoAlbum index.xml:
@@ -24,7 +24,7 @@ from datatypes import *
 #	member-groups
 #		member
 
-class XMLDatabase(Database):
+class XMLDatabase(DatabaseReader):
 	"""
 	Class for reading KPhotoAlbum index.xml.
 	"""

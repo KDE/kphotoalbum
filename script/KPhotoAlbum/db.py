@@ -1,6 +1,6 @@
-class Database(object):
+class DatabaseReader(object):
 	"""
-	Interface for KPhotoAlbum database.
+	Interface for reading from KPhotoAlbum database.
 	"""
 	def getCategories(self):
 		raise NotImplementedError
@@ -19,6 +19,11 @@ class Database(object):
 	memberGroups = property(getMemberGroups)
 	blockItems = property(getBlockItems)
 
+
+class DatabaseWriter(object):
+	"""
+	Interface for writing to KPhotoAlbum database.
+	"""
 	def insertCategory(self, category):
 		"""
 		Insert category and its items.
@@ -60,6 +65,9 @@ class Database(object):
 		"""
 		Copy data from to other to self.
 
+		Parameter other should support DatabaseReader
+		interface.
+
 		If progressFunction is given, it is called after each
 		image copy operation.
 		"""
@@ -75,3 +83,7 @@ class Database(object):
 			self.insertMemberGroup(m)
 		for b in other.blockItems:
 			self.insertBlockItem(b)
+
+
+class Database(DatabaseReader, DatabaseWriter):
+	pass

@@ -3,10 +3,11 @@ Used for accessing KPhotoAlbum database in MySQL server.
 
 Currently supports only storing. (no reading)
 """
-from db import Database
+
+from db import DatabaseWriter
 #from datatypes import *
 
-class MySQLDatabase(Database):
+class MySQLDatabase(DatabaseWriter):
 	"""
 	Manages MySQL database stuff.
 

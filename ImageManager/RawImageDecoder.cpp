@@ -1,4 +1,4 @@
-#include "ImageDecoder.h"
+#include "RawImageDecoder.h"
 
 #include <ktempfile.h>
 #include <qfile.h>
@@ -13,14 +13,6 @@ extern "C" {
 
 namespace ImageManager
 {
-
-class RAWImageDecoder : public ImageDecoder {
-public:
-	RAWImageDecoder() {}
-
-	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
-	virtual bool _mightDecode( const QString& imageFile );
-};
 
 bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
@@ -85,8 +77,5 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 	}
 	return false;
 }
-
-  // Create a global instance. Its constructor will itself register it.
-  RAWImageDecoder rawdecoder;
 
 }

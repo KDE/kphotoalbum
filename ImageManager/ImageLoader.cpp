@@ -19,6 +19,7 @@ Boston, MA 02110-1301, USA.
 #include "ImageLoader.h"
 #include <qwaitcondition.h>
 #include "ImageDecoder.h"
+#include "RawImageDecoder.h"
 #include "ImageManager.h"
 #include "Utilities/Util.h"
 #include <qfileinfo.h>
@@ -43,6 +44,13 @@ extern "C" {
 #include <kurl.h>
 #include <kdebug.h>
 #include <kmdcodec.h>
+
+namespace ImageManager
+{
+    // Create a global instance. Its constructor will itself register it.
+    RAWImageDecoder rawdecoder;
+}
+
 
 ImageManager::ImageLoader::ImageLoader( QWaitCondition* sleeper )
     : _sleeper( sleeper )

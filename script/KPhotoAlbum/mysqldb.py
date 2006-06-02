@@ -58,7 +58,7 @@ class MySQLDatabase(DatabaseWriter):
 		self.__clearIds()
 		self.c.execute('SELECT id, filename, md5sum FROM image')
 		for (i, f, m) in self.c:
-			self.imageMap[self.__decodeString(f), m)] = i
+			self.imageMap[(self.__decodeString(f), m)] = i
 		self.c.execute('SELECT id, name FROM category')
 		for (i, n) in self.c:
 			self.categoryMap[self.__decodeString(n)] = i

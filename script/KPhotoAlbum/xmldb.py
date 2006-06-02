@@ -19,6 +19,10 @@ from datatypes import *
 #			options
 #				option
 #					value
+#			drawings
+#				Circle
+#				Rectangle
+#				Line
 #	blocklist
 #		block
 #	member-groups
@@ -186,5 +190,15 @@ class ImageIterator(object):
 					continue
 				item = category.items[n]
 				img.addTag((category.name, item))
-
+		# Parse drawings
+		for drws in imgElem.getElementsByTagName('drawings'):
+			for shape in ['Circle', 'Line', 'Rectangle']:
+				for s in drws.getElementsByTagName(shape):
+					x1 = int(s.getAttribute('_startPos.x'))
+					y1 = int(s.getAttribute('_startPos.y'))
+					x2 = int(s.getAttribute('_lastPos.x'))
+					y2 = int(s.getAttribute('_lastPos.y'))
+					img.addDrawing(Drawing(shape.lower(),
+							       (x1, y1),
+							       (x2, y2)))
 		return img

@@ -39,7 +39,7 @@ class Image(object):
 		     filename, md5sum,
 		     startDate, endDate,
 		     width, height, angle,
-		     tags=None):
+		     tags=None, drawings=None):
 		self.label = label
 		self.description = description
 		self.filename = filename
@@ -50,11 +50,17 @@ class Image(object):
 		self.height = height
 		self.angle = angle
 		self.tags = tags
+		self.drawings = drawings
 		if self.tags is None:
 			self.tags = set()
+		if self.drawings is None:
+			self.drawings = []
 
 	def addTag(self, tag):
 		self.tags.add(tag)
+
+	def addDrawing(self, drawing):
+		self.drawings += [drawing]
 
 	def __repr__(self):
 		s = (self.__class__.__name__ + '(' +
@@ -68,6 +74,22 @@ class Image(object):
 		     repr(self.height) + ', ' +
 		     repr(self.angle))
 		if len(self.tags) > 0:
-			s += ', ' + repr(self.tags)
+			s += ', tags=' + repr(self.tags)
+		if len(self.drawings) > 0:
+			s += ', drawings=' + repr(self.drawings)
 		s += ')'
 		return s
+
+
+class Drawing(object):
+	def __init__(self, shape, point1, point2):
+		assert shape in ['circle', 'line', 'rectangle']
+		self.shape = shape
+		self.point1 = point1
+		self.point2 = point2
+
+	def __repr__(self):
+		return (self.__class__.__name__ + '(' +
+			repr(self.shape) + ', ' +
+			repr(self.point1) + ', ' +
+			repr(self.point2) + ')')

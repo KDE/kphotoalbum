@@ -56,7 +56,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "ImportExport/Export.h"
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
@@ -715,7 +715,7 @@ bool HTMLExportDialog::checkVars()
 
     // test if destination directory exists.
 #if KDE_IS_VERSION( 3, 1, 90 )
-    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, MainWindow::theMainWindow() );
+    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, Window::theMainWindow() );
 #else
     bool exists = KIO::NetAccess::exists( KURL(outputDir) );
 #endif
@@ -727,7 +727,7 @@ bool HTMLExportDialog::checkVars()
                                                 i18n("Directory Exists"), KStdGuiItem::yes(), KStdGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {
-            KIO::NetAccess::del( KURL(outputDir), MainWindow::theMainWindow() );
+            KIO::NetAccess::del( KURL(outputDir), Window::theMainWindow() );
         }
         else
             return false;

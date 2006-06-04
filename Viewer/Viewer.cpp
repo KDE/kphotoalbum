@@ -45,7 +45,7 @@
 #include <kglobalsettings.h>
 #include "Viewer/SpeedDisplay.h"
 #include <qdesktopwidget.h>
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 #include <qdatetime.h>
 #include "CategoryImageConfig.h"
 #include <dcopref.h>
@@ -645,7 +645,7 @@ void Viewer::Viewer::editImage()
 {
     DB::ImageInfoList list;
     list.append( currentInfo() );
-    MainWindow::MainWindow::configureImages( list, true );
+    MainWindow::Window::configureImages( list, true );
 }
 
 bool Viewer::Viewer::showingFullScreen() const

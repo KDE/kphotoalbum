@@ -25,7 +25,7 @@
 #include <qtoolbutton.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 #include "DB/ImageInfo.h"
 
 Viewer::InfoBox::InfoBox( Viewer::Viewer* viewer, const char* name )
@@ -124,7 +124,7 @@ void Viewer::InfoBox::showBrowser()
     if ( desktop->screenNumber( Browser::BrowserWidget::instance() ) == desktop->screenNumber( _viewer ) ) {
         if (_viewer->showingFullScreen() )
             _viewer->setShowFullScreen( false );
-        MainWindow::MainWindow::theMainWindow()->raise();
+        MainWindow::Window::theMainWindow()->raise();
     }
 
 }

@@ -18,7 +18,7 @@
 
 #include "Settings/Settings.h"
 #include <qdir.h>
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
@@ -64,7 +64,7 @@ int main( int argc, char** argv ) {
     splash->show();
 
     KImageIO::registerFormats();
-    MainWindow::MainWindow* view = new MainWindow::MainWindow( 0, "view" );
+    MainWindow::Window* view = new MainWindow::Window( 0, "view" );
 
     // qApp->setMainWidget( view );
     view->setGeometry( Settings::Settings::instance()->windowGeometry( Settings::MainWindow ) );

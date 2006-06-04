@@ -48,7 +48,7 @@
 #include "SettingsDialog.moc"
 #include <kapplication.h>
 #include <kconfig.h>
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
@@ -844,7 +844,7 @@ void Settings::SettingsDialog::createViewerPage()
 void Settings::SettingsDialog::createPluginPage()
 {
 #ifdef HASKIPI
-    MainWindow::MainWindow::theMainWindow()->loadPlugins();
+    MainWindow::Window::theMainWindow()->loadPlugins();
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
                                                              KIcon::Desktop, 32 ) );

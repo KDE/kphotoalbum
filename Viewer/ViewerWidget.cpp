@@ -17,7 +17,7 @@
 */
 
 #include <kdeversion.h>
-#include "Viewer/Viewer.h"
+#include "Viewer/ViewerWidget.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include "DB/ImageInfo.h"
@@ -58,16 +58,16 @@
 #include "DB/ImageDB.h"
 #include "InfoBox.h"
 
-Viewer::Viewer* Viewer::Viewer::_latest = 0;
+Viewer::ViewerWidget* Viewer::ViewerWidget::_latest = 0;
 
-Viewer::Viewer* Viewer::Viewer::latest()
+Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 {
     return _latest;
 }
 
 
 // Notice the parent is zero to allow other windows to come on top of it.
-Viewer::Viewer::Viewer( const char* name )
+Viewer::ViewerWidget::ViewerWidget( const char* name )
     :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true )
 {
     setWFlags( WDestructiveClose );
@@ -100,7 +100,7 @@ Viewer::Viewer::Viewer( const char* name )
 }
 
 
-void Viewer::Viewer::setupContextMenu()
+void Viewer::ViewerWidget::setupContextMenu()
 {
     _popup = new QPopupMenu( this, "context popup menu" );
     _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
@@ -251,7 +251,7 @@ void Viewer::Viewer::setupContextMenu()
     _actions->readShortcutSettings();
 }
 
-void Viewer::Viewer::load( const QStringList& list, int index )
+void Viewer::ViewerWidget::load( const QStringList& list, int index )
 {
     _list = list;
     _display->setImageList( list );
@@ -264,7 +264,7 @@ void Viewer::Viewer::load( const QStringList& list, int index )
     _slideShowRunSlower->setEnabled(on);
 }
 
-void Viewer::Viewer::load()
+void Viewer::ViewerWidget::load()
 {
     _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     _display->setImage( currentInfo(), _forward );
@@ -281,13 +281,13 @@ void Viewer::Viewer::load()
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
-void Viewer::Viewer::contextMenuEvent( QContextMenuEvent * e )
+void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 {
     _popup->exec( e->globalPos() );
     e->accept();
 }
 
-void Viewer::Viewer::showNext()
+void Viewer::ViewerWidget::showNext()
 {
     save();
     if ( _current +1 < (int) _list.count() )  {
@@ -297,7 +297,7 @@ void Viewer::Viewer::showNext()
     }
 }
 
-void Viewer::Viewer::showPrev()
+void Viewer::ViewerWidget::showPrev()
 {
     save();
     if ( _current > 0  )  {
@@ -307,63 +307,63 @@ void Viewer::Viewer::showPrev()
     }
 }
 
-void Viewer::Viewer::rotate90()
+void Viewer::ViewerWidget::rotate90()
 {
     currentInfo()->rotate( 90 );
     load();
 }
 
-void Viewer::Viewer::rotate180()
+void Viewer::ViewerWidget::rotate180()
 {
     currentInfo()->rotate( 180 );
     load();
 }
 
-void Viewer::Viewer::rotate270()
+void Viewer::ViewerWidget::rotate270()
 {
     currentInfo()->rotate( 270 );
     load();
 }
 
-void Viewer::Viewer::toggleShowInfoBox( bool b )
+void Viewer::ViewerWidget::toggleShowInfoBox( bool b )
 {
     Settings::Settings::instance()->setShowInfoBox( b );
     _infoBox->setShown(b);
     updateInfoBox();
 }
 
-void Viewer::Viewer::toggleShowDescription( bool b )
+void Viewer::ViewerWidget::toggleShowDescription( bool b )
 {
     Settings::Settings::instance()->setShowDescription( b );
     updateInfoBox();
 }
 
-void Viewer::Viewer::toggleShowDate( bool b )
+void Viewer::ViewerWidget::toggleShowDate( bool b )
 {
     Settings::Settings::instance()->setShowDate( b );
     updateInfoBox();
 }
 
-void Viewer::Viewer::toggleShowTime( bool b )
+void Viewer::ViewerWidget::toggleShowTime( bool b )
 {
     Settings::Settings::instance()->setShowTime( b );
     updateInfoBox();
 }
 
-void Viewer::Viewer::toggleShowEXIF( bool b )
+void Viewer::ViewerWidget::toggleShowEXIF( bool b )
 {
     Settings::Settings::instance()->setShowEXIF( b );
     updateInfoBox();
 }
 
 
-void Viewer::Viewer::toggleShowOption( const QString& category, bool b )
+void Viewer::ViewerWidget::toggleShowOption( const QString& category, bool b )
 {
     DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->setDoShow( b );
     updateInfoBox();
 }
 
-void Viewer::Viewer::showFirst()
+void Viewer::ViewerWidget::showFirst()
 {
     _forward = true;
     save();
@@ -371,7 +371,7 @@ void Viewer::Viewer::showFirst()
     load();
 }
 
-void Viewer::Viewer::showLast()
+void Viewer::ViewerWidget::showLast()
 {
     _forward = false;
     save();
@@ -379,79 +379,79 @@ void Viewer::Viewer::showLast()
      load();
 }
 
-void Viewer::Viewer::save()
+void Viewer::ViewerWidget::save()
 {
     currentInfo()->setDrawList( _display->drawHandler()->drawList() );
 }
 
-void Viewer::Viewer::startDraw()
+void Viewer::ViewerWidget::startDraw()
 {
     _display->startDrawing();
     _display->drawHandler()->slotSelect();
     _toolbar->show();
 }
 
-void Viewer::Viewer::stopDraw()
+void Viewer::ViewerWidget::stopDraw()
 {
     _display->stopDrawing();
     _toolbar->hide();
 }
 
-void Viewer::Viewer::slotSetWallpaperC()
+void Viewer::ViewerWidget::slotSetWallpaperC()
 {
     setAsWallpaper(1);
 }
 
-void Viewer::Viewer::slotSetWallpaperT()
+void Viewer::ViewerWidget::slotSetWallpaperT()
 {
     setAsWallpaper(2);
 }
 
-void Viewer::Viewer::slotSetWallpaperCT()
+void Viewer::ViewerWidget::slotSetWallpaperCT()
 {
     setAsWallpaper(3);
 }
 
-void Viewer::Viewer::slotSetWallpaperCM()
+void Viewer::ViewerWidget::slotSetWallpaperCM()
 {
     setAsWallpaper(4);
 }
 
-void Viewer::Viewer::slotSetWallpaperTM()
+void Viewer::ViewerWidget::slotSetWallpaperTM()
 {
     setAsWallpaper(5);
 }
 
-void Viewer::Viewer::slotSetWallpaperS()
+void Viewer::ViewerWidget::slotSetWallpaperS()
 {
     setAsWallpaper(6);
 }
 
-void Viewer::Viewer::slotSetWallpaperCAF()
+void Viewer::ViewerWidget::slotSetWallpaperCAF()
 {
     setAsWallpaper(7);
 }
 
-void Viewer::Viewer::setAsWallpaper(int mode)
+void Viewer::ViewerWidget::setAsWallpaper(int mode)
 {
     if(mode>7 || mode<1) return;
     DCOPRef kdesktop("kdesktop","KBackgroundIface");
     kdesktop.send("setWallpaper(QString,int)",currentInfo()->fileName(0),mode);
 }
 
-bool Viewer::Viewer::close( bool alsoDelete)
+bool Viewer::ViewerWidget::close( bool alsoDelete)
 {
     save();
     _slideShowTimer->stop();
     return QWidget::close( alsoDelete );
 }
 
-DB::ImageInfoPtr Viewer::Viewer::currentInfo()
+DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo()
 {
     return DB::ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }
 
-void Viewer::Viewer::infoBoxMove()
+void Viewer::ViewerWidget::infoBoxMove()
 {
     QPoint p = mapFromGlobal( QCursor::pos() );
     Settings::Position oldPos = Settings::Settings::instance()->infoBoxPosition();
@@ -489,7 +489,7 @@ void Viewer::Viewer::infoBoxMove()
     }
 }
 
-void Viewer::Viewer::moveInfoBox()
+void Viewer::ViewerWidget::moveInfoBox()
 {
     _infoBox->setSize();
     Settings::Position pos = Settings::Settings::instance()->infoBoxPosition();
@@ -523,13 +523,13 @@ void Viewer::Viewer::moveInfoBox()
     _infoBox->move(bx,by);
 }
 
-void Viewer::Viewer::resizeEvent( QResizeEvent* e )
+void Viewer::ViewerWidget::resizeEvent( QResizeEvent* e )
 {
     moveInfoBox();
     QWidget::resizeEvent( e );
 }
 
-void Viewer::Viewer::updateInfoBox()
+void Viewer::ViewerWidget::updateInfoBox()
 {
     if ( currentInfo() ) {
         QMap<int, QPair<QString,QString> > map;
@@ -546,13 +546,13 @@ void Viewer::Viewer::updateInfoBox()
     }
 }
 
-Viewer::Viewer::~Viewer()
+Viewer::ViewerWidget::~ViewerWidget()
 {
     if ( _latest == this )
         _latest = 0;
 }
 
-void Viewer::Viewer::createToolBar()
+void Viewer::ViewerWidget::createToolBar()
 {
     KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this, "actions" );
@@ -585,12 +585,12 @@ void Viewer::Viewer::createToolBar()
     close->plug( _toolbar );
 }
 
-void Viewer::Viewer::toggleFullScreen()
+void Viewer::ViewerWidget::toggleFullScreen()
 {
     setShowFullScreen( !_showingFullScreen );
 }
 
-void Viewer::Viewer::slotStartStopSlideShow()
+void Viewer::ViewerWidget::slotStartStopSlideShow()
 {
     if (_slideShowTimer->isActive() ) {
         _slideShowTimer->stop();
@@ -602,7 +602,7 @@ void Viewer::Viewer::slotStartStopSlideShow()
     }
 }
 
-void Viewer::Viewer::slotSlideShowNext()
+void Viewer::ViewerWidget::slotSlideShowNext()
 {
     _forward = true;
     save();
@@ -623,7 +623,7 @@ void Viewer::Viewer::slotSlideShowNext()
     _slideShowTimer->start( ms, true );
 }
 
-void Viewer::Viewer::slotSlideShowFaster()
+void Viewer::ViewerWidget::slotSlideShowFaster()
 {
     _slideShowPause -= 500;
     if ( _slideShowPause < 500 )
@@ -633,7 +633,7 @@ void Viewer::Viewer::slotSlideShowFaster()
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
-void Viewer::Viewer::slotSlideShowSlower()
+void Viewer::ViewerWidget::slotSlideShowSlower()
 {
     _slideShowPause += 500;
     _speedDisplay->display( _slideShowPause );
@@ -641,19 +641,19 @@ void Viewer::Viewer::slotSlideShowSlower()
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
-void Viewer::Viewer::editImage()
+void Viewer::ViewerWidget::editImage()
 {
     DB::ImageInfoList list;
     list.append( currentInfo() );
     MainWindow::Window::configureImages( list, true );
 }
 
-bool Viewer::Viewer::showingFullScreen() const
+bool Viewer::ViewerWidget::showingFullScreen() const
 {
     return _showingFullScreen;
 }
 
-void Viewer::Viewer::setShowFullScreen( bool on )
+void Viewer::ViewerWidget::setShowFullScreen( bool on )
 {
     if ( on ) {
         KWin::setState( winId(), NET::FullScreen );
@@ -671,24 +671,24 @@ void Viewer::Viewer::setShowFullScreen( bool on )
     _showingFullScreen = on;
 }
 
-void Viewer::Viewer::makeCategoryImage()
+void Viewer::ViewerWidget::makeCategoryImage()
 {
     CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
     CategoryImageConfig::instance()->show();
 }
 
-void Viewer::Viewer::updateCategoryConfig()
+void Viewer::ViewerWidget::updateCategoryConfig()
 {
     CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
 }
 
 
-void Viewer::Viewer::populateExternalPopup()
+void Viewer::ViewerWidget::populateExternalPopup()
 {
     _externalPopup->populate( currentInfo(), _list );
 }
 
-void Viewer::Viewer::show( bool slideShow )
+void Viewer::ViewerWidget::show( bool slideShow )
 {
     QSize size;
     bool fullScreen;
@@ -715,12 +715,12 @@ void Viewer::Viewer::show( bool slideShow )
     _sized = !fullScreen;
 }
 
-KActionCollection* Viewer::Viewer::actions()
+KActionCollection* Viewer::ViewerWidget::actions()
 {
     return _actions;
 }
 
-void Viewer::Viewer::keyPressEvent( QKeyEvent* event )
+void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 {
     if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
         QString token = event->text().upper().left(1);
@@ -734,4 +734,4 @@ void Viewer::Viewer::keyPressEvent( QKeyEvent* event )
     QWidget::keyPressEvent( event );
 }
 
-#include "Viewer.moc"
+#include "ViewerWidget.moc"

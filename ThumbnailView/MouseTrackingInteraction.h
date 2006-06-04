@@ -5,16 +5,16 @@
 
 namespace ThumbnailView
 {
-class ThumbnailView;
+class ThumbnailWidget;
 
 class MouseTrackingInteraction : public MouseInteraction {
 
 public:
-    MouseTrackingInteraction( ThumbnailView* );
+    MouseTrackingInteraction( ThumbnailWidget* );
     virtual void mouseMoveEvent( QMouseEvent* );
 
 private:
-    ThumbnailView* _view;
+    ThumbnailWidget* _view;
 };
 
 }

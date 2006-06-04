@@ -19,7 +19,7 @@
 #include "Window.h"
 #include "Settings/SettingsDialog.h"
 #include <qapplication.h>
-#include "ThumbnailView/ThumbnailView.h"
+#include "ThumbnailView/ThumbnailWidget.h"
 #include "ThumbnailView/ThumbnailBuilder.h"
 #include "AnnotationDialog/AnnotationDialog.h"
 #include <qdir.h>
@@ -136,7 +136,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
-    _thumbnailView = new ThumbnailView::ThumbnailView( _stack, "_thumbnailView" );
+    _thumbnailView = new ThumbnailView::ThumbnailWidget( _stack, "_thumbnailView" );
     connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Settings::Settings::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
@@ -385,7 +385,7 @@ void MainWindow::Window::slotDeleteSelected()
     Utilities::ShowBusyCursor dummy;
     setDirty( true );
 
-    QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailView::SortedOrder );
+    QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
     Set<QString> allImages( DB::ImageDB::instance()->images() );
     QStringList newSet;
     for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {

@@ -23,20 +23,17 @@
 #include <qdialog.h>
 #include <qdict.h>
 #include "ImageManager/ImageClient.h"
-namespace DB
-{
-    class ImageInfo;
-}
+namespace DB { class ImageInfo; }
 
 namespace ThumbnailView
 {
-class ThumbnailView;
+class ThumbnailWidget;
 
 class ThumbnailToolTip :public QLabel, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    ThumbnailToolTip( ThumbnailView* view, const char* name = 0 );
+    ThumbnailToolTip( ThumbnailWidget* view, const char* name = 0 );
     void showToolTips( bool force );
     virtual void setActive(bool);
     void clear();
@@ -48,7 +45,7 @@ protected:
     void placeWindow();
 
 private:
-    ThumbnailView* _view;
+    ThumbnailWidget* _view;
     QString _currentFileName;
     QStringList _loadedImages;
     bool _widthInverse;

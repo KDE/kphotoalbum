@@ -8,13 +8,13 @@
 
 namespace ThumbnailView
 {
-class ThumbnailView;
+class ThumbnailWidget;
 
 class SelectionInteraction : public QObject, public MouseInteraction {
     Q_OBJECT
 
 public:
-    SelectionInteraction( ThumbnailView* );
+    SelectionInteraction( ThumbnailWidget* );
     virtual void mousePressEvent( QMouseEvent* );
     virtual void mouseMoveEvent( QMouseEvent* );
     virtual void mouseReleaseEvent( QMouseEvent* );
@@ -47,7 +47,7 @@ private:
 
     Set<QString> _originalSelectionBeforeDragStart ;
 
-    ThumbnailView* _view;
+    ThumbnailWidget* _view;
 
     QTimer* _dragTimer;
 

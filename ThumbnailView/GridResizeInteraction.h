@@ -4,11 +4,11 @@
 
 namespace ThumbnailView
 {
-class ThumbnailView;
+class ThumbnailWidget;
 
 class GridResizeInteraction : public MouseInteraction {
 public:
-    GridResizeInteraction( ThumbnailView* );
+    GridResizeInteraction( ThumbnailWidget* );
     virtual void mousePressEvent( QMouseEvent* );
     virtual void mouseMoveEvent( QMouseEvent* );
     virtual void mouseReleaseEvent( QMouseEvent* );
@@ -26,7 +26,7 @@ private:
      */
     QSize _origSize;
 
-    ThumbnailView* _view;
+    ThumbnailWidget* _view;
 
     bool _resizing;
 };

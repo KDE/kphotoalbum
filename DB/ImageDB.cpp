@@ -1,5 +1,5 @@
 #include "ImageDB.h"
-#include "XMLDB/XMLDB.h"
+#include "XMLDB/Database.h"
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "Browser/BrowserWidget.h"
@@ -33,7 +33,7 @@ void ImageDB::setup( const QString& backend, const QString& configFile )
 #else
         Q_UNUSED( backend );
 #endif // SQLDB_SUPPORT
-        _instance = new XMLDB::XMLDB( configFile );
+        _instance = new XMLDB::Database( configFile );
     connect( _instance->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
              _instance, SLOT( deleteItem( Category*, const QString& ) ) );
     connect( _instance->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),

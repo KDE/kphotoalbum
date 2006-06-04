@@ -50,7 +50,7 @@
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "MiniViewer.h"
-#include "XMLDB/XMLDB.h"
+#include "XMLDB/Database.h"
 #include <kdebug.h>
 
 class KPushButton;
@@ -193,7 +193,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
         }
         QDomElement elm = node.toElement();
 
-        DB::ImageInfoPtr info = XMLDB::XMLDB::createImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
+        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( elm.attribute( QString::fromLatin1( "file" ) ), elm );
         _images.append( info );
     }
 

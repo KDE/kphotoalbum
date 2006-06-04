@@ -1,4 +1,4 @@
-#include "SQLDB.h"
+#include "Database.h"
 #include "DB/MemberMap.h"
 #include <qsqldatabase.h>
 #include <kmessagebox.h>

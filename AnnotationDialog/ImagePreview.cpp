@@ -18,7 +18,7 @@
 
 #include "ImagePreview.h"
 #include "Viewer/Viewer.h"
-#include "ImageManager/ImageManager.h"
+#include "ImageManager/Manager.h"
 #include <klocale.h>
 #include <qwmatrix.h>
 #include "ImageManager/ImageLoader.h"
@@ -86,10 +86,10 @@ void ImagePreview::reload()
             setCurrentImage(QImage(_lastImage.getImage()));
         else {
             setPixmap(QImage()); //erase old image
-            ImageManager::ImageManager::instance()->stop(this);
+            ImageManager::Manager::instance()->stop(this);
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(), QSize( width(), height() ), _info.angle(), this );
             request->setPriority();
-            ImageManager::ImageManager::instance()->load( request );
+            ImageManager::Manager::instance()->load( request );
         }
     }
     else {
@@ -188,16 +188,16 @@ void ImagePreview::PreviewLoader::preloadImage(const QString &fileName, int widt
 {
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();
-    ImageManager::ImageManager::instance()->stop(this);
+    ImageManager::Manager::instance()->stop(this);
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( width, height ), angle, this );
     request->setPriority();
-    ImageManager::ImageManager::instance()->load( request );
+    ImageManager::Manager::instance()->load( request );
 }
 
 void ImagePreview::PreviewLoader::cancelPreload()
 {
     reset();
-    ImageManager::ImageManager::instance()->stop(this);
+    ImageManager::Manager::instance()->stop(this);
 }
 
 

@@ -20,7 +20,7 @@ Boston, MA 02110-1301, USA.
 #include <qwaitcondition.h>
 #include "ImageDecoder.h"
 #include "RawImageDecoder.h"
-#include "ImageManager.h"
+#include "Manager.h"
 #include "Utilities/Util.h"
 #include <qfileinfo.h>
 #include <qapplication.h>
@@ -60,7 +60,7 @@ ImageManager::ImageLoader::ImageLoader( QWaitCondition* sleeper )
 void ImageManager::ImageLoader::run()
 {
     while ( true ) {
-        ImageRequest* request = ImageManager::instance()->next();
+        ImageRequest* request = Manager::instance()->next();
 
         if ( request ) {
             bool ok;
@@ -77,7 +77,7 @@ void ImageManager::ImageLoader::run()
 
             request->setLoadedOK( ok );
             ImageEvent* iew = new ImageEvent( request, img );
-            QApplication::postEvent( ImageManager::instance(),  iew );
+            QApplication::postEvent( Manager::instance(),  iew );
         }
         else
             _sleeper->wait();

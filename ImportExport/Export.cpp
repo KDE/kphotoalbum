@@ -25,7 +25,7 @@
 #include <qprogressdialog.h>
 #include <qeventloop.h>
 #include <klocale.h>
-#include "ImageManager/ImageManager.h"
+#include "ImageManager/Manager.h"
 #include <qapplication.h>
 #include <kmessagebox.h>
 #include <kdialogbase.h>
@@ -215,7 +215,7 @@ void Export::generateThumbnails( const QStringList& list )
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *it, QSize( 128, 128 ), DB::ImageDB::instance()->info(*it)->angle(), this );
         request->setPriority();
-        ImageManager::ImageManager::instance()->load( request );
+        ImageManager::Manager::instance()->load( request );
     }
     if ( _filesRemaining > 0 ) {
         _loopEntered = true;
@@ -256,7 +256,7 @@ void Export::copyImages( const QStringList& list )
             ImageManager::ImageRequest* request =
                 new ImageManager::ImageRequest( *it, QSize( _maxSize, _maxSize ), DB::ImageDB::instance()->info(*it)->angle(), this );
             request->setPriority();
-            ImageManager::ImageManager::instance()->load( request );
+            ImageManager::Manager::instance()->load( request );
         }
 
         // Test if the cancel button was pressed.
@@ -314,7 +314,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( canceled ) {
         _ok = false;
         qApp->eventLoop()->exitLoop();
-        ImageManager::ImageManager::instance()->stop( this );
+        ImageManager::Manager::instance()->stop( this );
         return;
     }
 

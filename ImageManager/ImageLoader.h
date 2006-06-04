@@ -23,7 +23,7 @@ class QWaitCondition;
 
 namespace ImageManager
 {
-class ImageManager;
+class Manager;
 class ImageRequest;
 
 class ImageLoader :public QThread {

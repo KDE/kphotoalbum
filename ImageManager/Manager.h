@@ -50,7 +50,7 @@ private:
 };
 
 // This class needs to inherit QObject to be capable of receiving events.
-class ImageManager :public QObject {
+class Manager :public QObject {
     Q_OBJECT
 
 public:
@@ -58,16 +58,16 @@ public:
 
     void load( ImageRequest* request );
     ImageRequest* next();
-    static ImageManager* instance();
+    static Manager* instance();
     void stop( ImageClient*, StopAction action = StopAll );
 
 protected:
     virtual void customEvent( QCustomEvent* ev );
 
 private:
-    ImageManager();
+    Manager();
     void init();
-    static ImageManager* _instance;
+    static Manager* _instance;
 
     QValueList<ImageRequest*> _loadList;
     QWaitCondition _sleepers;

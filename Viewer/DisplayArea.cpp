@@ -24,7 +24,7 @@
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
 #include <qlabel.h>
-#include "ImageManager/ImageManager.h"
+#include "ImageManager/Manager.h"
 #include <qcursor.h>
 #include <qapplication.h>
 #include <klocale.h>
@@ -208,7 +208,7 @@ void Viewer::DisplayArea::setImage( DB::ImageInfoPtr info, bool forward )
     else {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( -1, -1 ), info->angle(), this );
         request->setPriority();
-        ImageManager::ImageManager::instance()->load( request );
+        ImageManager::Manager::instance()->load( request );
         busy();
         _cachedView = false;
     }
@@ -218,14 +218,14 @@ void Viewer::DisplayArea::setImage( DB::ImageInfoPtr info, bool forward )
 
 void Viewer::DisplayArea::resizeEvent( QResizeEvent* )
 {
-    ImageManager::ImageManager::instance()->stop( this, ImageManager::ImageManager::StopOnlyNonPriorityLoads );
+    ImageManager::Manager::instance()->stop( this, ImageManager::Manager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
     if ( _info ) {
         cropAndScale();
         if ( _cachedView ) {
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
             request->setPriority();
-            ImageManager::ImageManager::instance()->load( request );
+            ImageManager::Manager::instance()->load( request );
         }
     }
     updatePreload();
@@ -320,7 +320,7 @@ void Viewer::DisplayArea::zoom( QPoint p1, QPoint p2 )
         // the real size now.
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
         request->setPriority();
-        ImageManager::ImageManager::instance()->load( request );
+        ImageManager::Manager::instance()->load( request );
         busy();
         _reloadImageInProgress = true;
     }
@@ -508,7 +508,7 @@ void Viewer::DisplayArea::updatePreload()
         else {
             ImageManager::ImageRequest* request =
                 new ImageManager::ImageRequest( info->fileName(), QSize(width(), height()), info->angle(), this );
-            ImageManager::ImageManager::instance()->load( request );
+            ImageManager::Manager::instance()->load( request );
 
             if ( cacheFull ) {
                 // The cache was full, we need to delete an item from the cache.

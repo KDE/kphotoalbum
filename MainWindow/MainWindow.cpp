@@ -41,7 +41,7 @@
 #include <qtimer.h>
 #include <kmessagebox.h>
 #include "Settings/Settings.h"
-#include "Browser/Browser.h"
+#include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include <kapplication.h>
@@ -81,7 +81,7 @@
 #include "TokenEditor.h"
 #include "DB/CategoryCollection.h"
 #include <qlayout.h>
-#include "DateBar/DateBar.h"
+#include "DateBar/DateBarWidget.h"
 #include "DB/ImageDateCollection.h"
 #include "InvalidDateFinder.h"
 #include "DB/ImageInfo.h"
@@ -124,7 +124,7 @@ MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
     _stack = new QWidgetStack( top, "_stack" );
     lay->addWidget( _stack, 1 );
 
-    _dateBar = new DateBar::DateBar( top, "datebar" );
+    _dateBar = new DateBar::DateBarWidget( top, "datebar" );
     lay->addWidget( _dateBar );
 
     QFrame* line = new QFrame( top );
@@ -132,7 +132,7 @@ MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
     line->setLineWidth(1);
     lay->addWidget( line );
 
-    _browser = new Browser::Browser( _stack, "browser" );
+    _browser = new Browser::BrowserWidget( _stack, "browser" );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
@@ -471,7 +471,7 @@ void MainWindow::MainWindow::slotView( bool reuse, bool slideShow, bool random )
 void MainWindow::MainWindow::slotSortByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
-    showThumbNails( DB::ImageDB::instance()->search( Browser::Browser::instance()->currentContext() ) );
+    showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) );
     markDirty();
 }
 

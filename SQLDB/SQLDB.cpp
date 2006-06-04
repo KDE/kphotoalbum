@@ -13,7 +13,7 @@
 #include "DB/GroupCounter.h"
 #include <kdebug.h>
 #include "SQLImageInfo.h"
-#include "Browser/Browser.h"
+#include "Browser/BrowserWidget.h"
 #include "SQLImageDateCollection.h"
 
 SQLDB::SQLDB::SQLDB( const QString& username, const QString& password ) :_members( this )

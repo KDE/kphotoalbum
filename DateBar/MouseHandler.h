@@ -13,13 +13,13 @@
 #endif
 
 namespace DateBar {
-class DateBar;
+class DateBarWidget;
 
     class KDE_EXPORT MouseHandler : public QObject
     {
         Q_OBJECT
     public:
-        MouseHandler( DateBar* dateBar );
+        MouseHandler( DateBarWidget* dateBar );
         virtual void mousePressEvent( int x ) = 0;
         virtual void mouseMoveEvent( int x ) = 0;
         virtual void mouseReleaseEvent() {};
@@ -30,7 +30,7 @@ class DateBar;
         void autoScroll();
 
     protected:
-        DateBar* _dateBar;
+        DateBarWidget* _dateBar;
 
     private:
         QTimer* _autoScrollTimer;
@@ -41,7 +41,7 @@ class DateBar;
     class KDE_EXPORT FocusItemDragHandler : public MouseHandler
     {
     public:
-        FocusItemDragHandler( DateBar* dateBar );
+        FocusItemDragHandler( DateBarWidget* dateBar );
         void mousePressEvent( int x );
         void mouseMoveEvent( int x );
     };
@@ -51,7 +51,7 @@ class DateBar;
     class KDE_EXPORT BarDragHandler : public MouseHandler
     {
     public:
-        BarDragHandler( DateBar* );
+        BarDragHandler( DateBarWidget* );
         void mousePressEvent( int x );
         void mouseMoveEvent(  int x );
     private:
@@ -63,7 +63,7 @@ class DateBar;
     class KDE_EXPORT SelectionHandler : public MouseHandler
     {
     public:
-        SelectionHandler( DateBar* );
+        SelectionHandler( DateBarWidget* );
         void mousePressEvent( int x );
         void mouseMoveEvent( int x );
         virtual void mouseReleaseEvent();

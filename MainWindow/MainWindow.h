@@ -37,35 +37,12 @@ class KRadioAction;
 #  include <libkipi/pluginloader.h>
 #endif
 
-namespace Plugins
-{
-    class Interface;
-}
-
-namespace ThumbnailView
-{
-    class ThumbnailView;
-}
-
-namespace Browser
-{
-    class Browser;
-}
-
-namespace AnnotationDialog
-{
-    class AnnotationDialog;
-}
-
-namespace Settings
-{
-    class SettingsDialog;
-}
-
-namespace DateBar
-{
-    class DateBar;
-}
+namespace Plugins { class Interface; }
+namespace ThumbnailView { class ThumbnailView; }
+namespace Browser{ class BrowserWidget; }
+namespace AnnotationDialog { class AnnotationDialog; }
+namespace Settings { class SettingsDialog; }
+namespace DateBar { class DateBarWidget; }
 
 namespace MainWindow
 {
@@ -187,7 +164,7 @@ private:
     QWidgetStack* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;
-    Browser::Browser* _browser;
+    Browser::BrowserWidget* _browser;
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
     QLabel* _dirtyIndicator;
@@ -223,7 +200,7 @@ private:
     KIPI::PluginLoader* _pluginLoader;
 #endif
     TokenEditor* _tokenEditor;
-    DateBar::DateBar* _dateBar;
+    DateBar::DateBarWidget* _dateBar;
     bool _hasLoadedPlugins;
     ImageCounter* _partial;
 };

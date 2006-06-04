@@ -25,7 +25,7 @@ namespace Browser
 
 class ImageFolder :public Folder {
 public:
-    ImageFolder( const DB::ImageSearchInfo& info, Browser* parent );
+    ImageFolder( const DB::ImageSearchInfo& info, BrowserWidget* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
@@ -35,8 +35,8 @@ public:
 class ImageFolderAction :public FolderAction
 {
 public:
-    ImageFolderAction( const DB::ImageSearchInfo& info, Browser* browser );
-    ImageFolderAction( const QString& context, Browser* parent );
+    ImageFolderAction( const DB::ImageSearchInfo& info, BrowserWidget* browser );
+    ImageFolderAction( const QString& context, BrowserWidget* parent );
     virtual void action( BrowserItemFactory* );
     virtual bool showsImages() const { return true; }
     virtual bool contentView() const { return false; }

@@ -25,7 +25,7 @@ namespace Browser
 
 class TypeFolder :public Folder {
 public:
-    TypeFolder( const QString& category, const DB::ImageSearchInfo& info, Browser* parent );
+    TypeFolder( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
@@ -37,7 +37,7 @@ private:
 class TypeFolderAction :public FolderAction {
 
 public:
-    TypeFolderAction( const QString& category, const DB::ImageSearchInfo& info, Browser* parent  );
+    TypeFolderAction( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent  );
     virtual void action( BrowserItemFactory* factory );
     virtual bool showsImages() const { return false; }
     virtual bool contentView() const;

@@ -31,11 +31,11 @@ class QToolButton;
 namespace DateBar
 {
 
-class DateBar :public QWidget {
+class DateBarWidget :public QWidget {
     Q_OBJECT
 
 public:
-    DateBar( QWidget* parent, const char* name = 0 );
+    DateBarWidget( QWidget* parent, const char* name = 0 );
     enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView };
     bool includeFuzzyCounts() const;
 
@@ -75,7 +75,7 @@ protected:
     virtual void keyPressEvent( QKeyEvent* event );
     virtual void focusInEvent( QFocusEvent* );
     virtual void focusOutEvent( QFocusEvent* );
-    virtual void wheelEvent ( QWheelEvent * e );
+    virtual void wheelEvent( QWheelEvent * e );
 
     void redraw();
     void drawTickMarks( QPainter& p, const QRect& textRect );

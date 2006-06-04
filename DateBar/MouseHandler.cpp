@@ -1,5 +1,5 @@
 #include "MouseHandler.h"
-#include "DateBar.h"
+#include "DateBarWidget.h"
 #include <math.h>
 #include <qtimer.h>
 #include <qcursor.h>
@@ -29,7 +29,7 @@
  * \class DateBar::SelectionHandler
  * \brief Handler used during range selection in the date bar (mouse button on lower part of the bar)
  */
-DateBar::MouseHandler::MouseHandler( DateBar* dateBar )
+DateBar::MouseHandler::MouseHandler( DateBarWidget* dateBar )
     :QObject( dateBar, "handler" ), _dateBar( dateBar )
 {
     _autoScrollTimer = new QTimer( this );
@@ -51,7 +51,7 @@ void DateBar::MouseHandler::endAutoScroll()
     _autoScrollTimer->stop();
 }
 
-DateBar::SelectionHandler::SelectionHandler( DateBar* dateBar )
+DateBar::SelectionHandler::SelectionHandler( DateBarWidget* dateBar )
     :MouseHandler( dateBar )
 {
 }
@@ -77,7 +77,7 @@ void DateBar::SelectionHandler::mouseMoveEvent( int x )
 
 
 
-DateBar::FocusItemDragHandler::FocusItemDragHandler( DateBar* dateBar )
+DateBar::FocusItemDragHandler::FocusItemDragHandler( DateBarWidget* dateBar )
     : MouseHandler( dateBar )
 {
 }
@@ -125,7 +125,7 @@ void DateBar::FocusItemDragHandler::mouseMoveEvent( int x )
 
 
 
-DateBar::BarDragHandler::BarDragHandler( DateBar* dateBar )
+DateBar::BarDragHandler::BarDragHandler( DateBarWidget* dateBar )
     : MouseHandler( dateBar )
 {
 }

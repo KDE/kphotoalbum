@@ -28,7 +28,7 @@
 #include "MainWindow/MainWindow.h"
 
 // PENDING(blackie) cleanup, we don't need from and to anymore
-Browser::ImageFolder::ImageFolder( const DB::ImageSearchInfo& info, Browser* parent )
+Browser::ImageFolder::ImageFolder( const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent )
 {
     int count = DB::ImageDB::instance()->count( info );
@@ -60,12 +60,12 @@ Browser::FolderAction* Browser::ImageFolder::action( bool /* ctrlDown */ )
     return new ImageFolderAction( _info, _browser );
 }
 
-Browser::ImageFolderAction::ImageFolderAction( const DB::ImageSearchInfo& info, Browser* browser )
+Browser::ImageFolderAction::ImageFolderAction( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     : FolderAction( info, browser ), _addExtraToBrowser( true )
 {
 }
 
-Browser::ImageFolderAction::ImageFolderAction( const QString& context, Browser* browser )
+Browser::ImageFolderAction::ImageFolderAction( const QString& context, BrowserWidget* browser )
     :FolderAction( DB::ImageSearchInfo(), browser ), _addExtraToBrowser(false), _context( context )
 {
 }

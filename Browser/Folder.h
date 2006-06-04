@@ -19,7 +19,7 @@
 #ifndef FOLDER_H
 #define FOLDER_H
 #include <qiconview.h>
-#include "Browser.h"
+#include "BrowserWidget.h"
 #include <qstring.h>
 #include "DB/ImageSearchInfo.h"
 
@@ -32,7 +32,7 @@ class BrowserItemFactory;
 class Folder {
 
 public:
-    Folder( const DB::ImageSearchInfo& info, Browser* browser );
+    Folder( const DB::ImageSearchInfo& info, BrowserWidget* browser );
     virtual ~Folder() {};
     virtual FolderAction* action( bool ctrlDown = false ) = 0;
     void setCount( int count ) { _count = count; }
@@ -48,7 +48,7 @@ public:
     int _index;
     static int _idCount;
 
-    Browser* _browser;
+    BrowserWidget* _browser;
     DB::ImageSearchInfo _info;
     int _count;
     bool _enabled;
@@ -57,7 +57,7 @@ public:
 class FolderAction
 {
 public:
-    FolderAction( const DB::ImageSearchInfo& info, Browser* browser );
+    FolderAction( const DB::ImageSearchInfo& info, BrowserWidget* browser );
     virtual ~FolderAction() {}
     virtual void action( BrowserItemFactory* factory ) = 0;
     virtual bool showsImages() const = 0;
@@ -68,8 +68,8 @@ public:
     virtual QString category() const;
 
 protected:
-    friend class Browser;
-    Browser* _browser;
+    friend class BrowserWidget;
+    BrowserWidget* _browser;
     DB::ImageSearchInfo _info;
 };
 

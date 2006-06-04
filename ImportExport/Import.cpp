@@ -45,7 +45,7 @@
 #include <kio/job.h>
 #include <qprogressdialog.h>
 #include <kio/netaccess.h>
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 #include <kapplication.h>
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
@@ -303,7 +303,7 @@ void ImageRow::showImage()
             src.setFileName( _info->fileName( true ) );
             QString tmpFile;
 
-            if( KIO::NetAccess::download( src, tmpFile, MainWindow::MainWindow::theMainWindow() ) ) {
+            if( KIO::NetAccess::download( src, tmpFile, MainWindow::Window::theMainWindow() ) ) {
                 QImage img( tmpFile );
                 MiniViewer::show( img, _info );
                 KIO::NetAccess::removeTempFile( tmpFile );
@@ -503,7 +503,7 @@ void Import::copyNextFromExternal()
             src = src2;
 
         src.setFileName( fileName );
-        if ( KIO::NetAccess::exists( src, true, MainWindow::MainWindow::theMainWindow() ) ) {
+        if ( KIO::NetAccess::exists( src, true, MainWindow::Window::theMainWindow() ) ) {
             KURL dest;
             dest.setPath( Settings::Settings::instance()->imageDirectory() + _nameMap[fileName] );
             _job = KIO::file_copy( src, dest, -1, false, false, false );

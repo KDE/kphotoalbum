@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "MainWindow.h"
+#include "Window.h"
 #include "Settings/SettingsDialog.h"
 #include <qapplication.h>
 #include "ThumbnailView/ThumbnailView.h"
@@ -98,9 +98,9 @@
 
 #include "FeatureDialog.h"
 
-MainWindow::MainWindow* MainWindow::MainWindow::_instance = 0;
+MainWindow::Window* MainWindow::Window::_instance = 0;
 
-MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
+MainWindow::Window::Window( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _annotationDialog(0), _dirty( false ), _autoSaveDirty( false ),
      _deleteDialog( 0 ), _dirtyIndicator(0),
      _htmlDialog(0), _tokenEditor( 0 )
@@ -208,7 +208,7 @@ MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
     slotThumbNailSelectionChanged();
 }
 
-void MainWindow::MainWindow::delayedInit()
+void MainWindow::Window::delayedInit()
 {
     SplashScreen* splash = SplashScreen::instance();
     setupPluginMenu();
@@ -247,7 +247,7 @@ void MainWindow::MainWindow::delayedInit()
 }
 
 
-bool MainWindow::MainWindow::slotExit()
+bool MainWindow::Window::slotExit()
 {
     if ( Utilities::runningDemo() ) {
         QString txt = i18n("<qt><p><b>Delete Your Temporary Demo Database</b></p>"
@@ -287,7 +287,7 @@ bool MainWindow::MainWindow::slotExit()
     return true;
 }
 
-void MainWindow::MainWindow::slotOptions()
+void MainWindow::Window::slotOptions()
 {
     if ( ! _optionsDialog ) {
         _optionsDialog = new Settings::SettingsDialog( this );
@@ -298,20 +298,20 @@ void MainWindow::MainWindow::slotOptions()
 }
 
 
-void MainWindow::MainWindow::slotConfigureAllImages()
+void MainWindow::Window::slotConfigureAllImages()
 {
     configureImages( false );
 }
 
 
-void MainWindow::MainWindow::slotConfigureImagesOneAtATime()
+void MainWindow::Window::slotConfigureImagesOneAtATime()
 {
     configureImages( true );
 }
 
 
 
-void MainWindow::MainWindow::configureImages( bool oneAtATime )
+void MainWindow::Window::configureImages( bool oneAtATime )
 {
     QStringList list = selected();
     if ( list.count() == 0 )  {
@@ -326,13 +326,13 @@ void MainWindow::MainWindow::configureImages( bool oneAtATime )
     }
 }
 
-void MainWindow::MainWindow::configureImages( const DB::ImageInfoList& list, bool oneAtATime )
+void MainWindow::Window::configureImages( const DB::ImageInfoList& list, bool oneAtATime )
 {
     _instance->configImages( list, oneAtATime );
 }
 
 
-void MainWindow::MainWindow::configImages( const DB::ImageInfoList& list, bool oneAtATime )
+void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAtATime )
 {
     createAnnotationDialog();
     _annotationDialog->configure( list,  oneAtATime );
@@ -341,7 +341,7 @@ void MainWindow::MainWindow::configImages( const DB::ImageInfoList& list, bool o
 }
 
 
-void MainWindow::MainWindow::slotSearch()
+void MainWindow::Window::slotSearch()
 {
     createAnnotationDialog();
     DB::ImageSearchInfo searchInfo = _annotationDialog->search();
@@ -349,7 +349,7 @@ void MainWindow::MainWindow::slotSearch()
         _browser->addSearch( searchInfo );
 }
 
-void MainWindow::MainWindow::createAnnotationDialog()
+void MainWindow::Window::createAnnotationDialog()
 {
     Utilities::ShowBusyCursor dummy;
     if ( !_annotationDialog.isNull() )
@@ -359,13 +359,13 @@ void MainWindow::MainWindow::createAnnotationDialog()
     connect( _annotationDialog, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 }
 
-void MainWindow::MainWindow::deleteAnnotationDialog()
+void MainWindow::Window::deleteAnnotationDialog()
 {
     _annotationDialog->deleteLater();
     _annotationDialog = 0;
 }
 
-void MainWindow::MainWindow::slotSave()
+void MainWindow::Window::slotSave()
 {
     Utilities::ShowBusyCursor dummy;
     statusBar()->message(i18n("Saving..."), 5000 );
@@ -375,7 +375,7 @@ void MainWindow::MainWindow::slotSave()
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
 
-void MainWindow::MainWindow::slotDeleteSelected()
+void MainWindow::Window::slotDeleteSelected()
 {
     if ( ! _deleteDialog )
         _deleteDialog = new DeleteDialog( this );
@@ -396,7 +396,7 @@ void MainWindow::MainWindow::slotDeleteSelected()
 }
 
 
-void MainWindow::MainWindow::slotReReadExifInfo()
+void MainWindow::Window::slotReReadExifInfo()
 {
 #ifdef HASEXIV2
     QStringList files = selectedOnDisk();
@@ -409,7 +409,7 @@ void MainWindow::MainWindow::slotReReadExifInfo()
 }
 
 
-QStringList MainWindow::MainWindow::selected( bool keepSortOrderOfDatabase )
+QStringList MainWindow::Window::selected( bool keepSortOrderOfDatabase )
 {
     if ( _thumbnailView == _stack->visibleWidget() )
         return _thumbnailView->selection( keepSortOrderOfDatabase );
@@ -417,12 +417,12 @@ QStringList MainWindow::MainWindow::selected( bool keepSortOrderOfDatabase )
         return QStringList();
 }
 
-void MainWindow::MainWindow::slotViewNewWindow()
+void MainWindow::Window::slotViewNewWindow()
 {
     slotView( false, false );
 }
 
-QStringList MainWindow::MainWindow::selectedOnDisk()
+QStringList MainWindow::Window::selectedOnDisk()
 {
     QStringList listOnDisk;
     QStringList list = selected();
@@ -437,7 +437,7 @@ QStringList MainWindow::MainWindow::selectedOnDisk()
     return listOnDisk;
 }
 
-void MainWindow::MainWindow::slotView( bool reuse, bool slideShow, bool random )
+void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 {
     QStringList listOnDisk = selectedOnDisk();
 
@@ -468,7 +468,7 @@ void MainWindow::MainWindow::slotView( bool reuse, bool slideShow, bool random )
     }
 }
 
-void MainWindow::MainWindow::slotSortByDateAndTime()
+void MainWindow::Window::slotSortByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
     showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) );
@@ -476,19 +476,19 @@ void MainWindow::MainWindow::slotSortByDateAndTime()
 }
 
 
-QString MainWindow::MainWindow::welcome()
+QString MainWindow::Window::welcome()
 {
     WelComeDialog dialog( this );
     dialog.exec();
     return dialog.configFileName();
 }
 
-void MainWindow::MainWindow::slotChanges()
+void MainWindow::Window::slotChanges()
 {
     setDirty( true );
 }
 
-void MainWindow::MainWindow::closeEvent( QCloseEvent* e )
+void MainWindow::Window::closeEvent( QCloseEvent* e )
 {
     bool quit = true;
     quit = slotExit();
@@ -500,13 +500,13 @@ void MainWindow::MainWindow::closeEvent( QCloseEvent* e )
 }
 
 
-void MainWindow::MainWindow::slotLimitToSelected()
+void MainWindow::Window::slotLimitToSelected()
 {
     Utilities::ShowBusyCursor dummy;
     showThumbNails( selected() );
 }
 
-void MainWindow::MainWindow::setupMenuBar()
+void MainWindow::Window::setupMenuBar()
 {
     // File menu
     KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
@@ -649,7 +649,7 @@ void MainWindow::MainWindow::setupMenuBar()
     createGUI( QString::fromLatin1( "kphotoalbumui.rc" ), false );
 }
 
-void MainWindow::MainWindow::slotExportToHTML()
+void MainWindow::Window::slotExportToHTML()
 {
     QStringList list = selectedOnDisk();
     if ( list.count() == 0 )
@@ -660,7 +660,7 @@ void MainWindow::MainWindow::slotExportToHTML()
     _htmlDialog->exec( list );
 }
 
-void MainWindow::MainWindow::startAutoSaveTimer()
+void MainWindow::Window::startAutoSaveTimer()
 {
     int i = Settings::Settings::instance()->autoSave();
     _autoSaveTimer->stop();
@@ -669,7 +669,7 @@ void MainWindow::MainWindow::startAutoSaveTimer()
     }
 }
 
-void MainWindow::MainWindow::slotAutoSave()
+void MainWindow::Window::slotAutoSave()
 {
     if ( _autoSaveDirty ) {
         Utilities::ShowBusyCursor dummy;
@@ -681,7 +681,7 @@ void MainWindow::MainWindow::slotAutoSave()
 }
 
 
-void MainWindow::MainWindow::showThumbNails()
+void MainWindow::Window::showThumbNails()
 {
     reloadThumbnails(false);
     _stack->raiseWidget( _thumbnailView );
@@ -689,7 +689,7 @@ void MainWindow::MainWindow::showThumbNails()
     updateStates( true );
 }
 
-void MainWindow::MainWindow::showBrowser()
+void MainWindow::Window::showBrowser()
 {
     _stack->raiseWidget( _browser );
     _browser->setFocus();
@@ -697,7 +697,7 @@ void MainWindow::MainWindow::showBrowser()
 }
 
 
-void MainWindow::MainWindow::slotOptionGroupChanged()
+void MainWindow::Window::slotOptionGroupChanged()
 {
     Q_ASSERT( !_annotationDialog || !_annotationDialog->isShown() );
     delete _annotationDialog;
@@ -705,12 +705,12 @@ void MainWindow::MainWindow::slotOptionGroupChanged()
     setDirty( true );
 }
 
-void MainWindow::MainWindow::showTipOfDay()
+void MainWindow::Window::showTipOfDay()
 {
     KTipDialog::showTip( this, QString::null, true );
 }
 
-void MainWindow::MainWindow::pathChanged( const QString& path )
+void MainWindow::Window::pathChanged( const QString& path )
 {
     static bool itemVisible = false;
     QString text = path;
@@ -733,14 +733,14 @@ void MainWindow::MainWindow::pathChanged( const QString& path )
 
 }
 
-void MainWindow::MainWindow::runDemo()
+void MainWindow::Window::runDemo()
 {
     KProcess* process = new KProcess;
     *process << "kphotoalbum" << "-demo";
     process->start();
 }
 
-bool MainWindow::MainWindow::load()
+bool MainWindow::Window::load()
 {
     // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
@@ -793,7 +793,7 @@ bool MainWindow::MainWindow::load()
     return true;
 }
 
-void MainWindow::MainWindow::contextMenuEvent( QContextMenuEvent* e )
+void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 {
     if ( _stack->visibleWidget() == _thumbnailView ) {
         QPopupMenu menu( this, "context popup menu");
@@ -828,12 +828,12 @@ void MainWindow::MainWindow::contextMenuEvent( QContextMenuEvent* e )
     e->consume();
 }
 
-void MainWindow::MainWindow::markDirty()
+void MainWindow::Window::markDirty()
 {
     setDirty( true );
 }
 
-void MainWindow::MainWindow::setDirty( bool dirty )
+void MainWindow::Window::setDirty( bool dirty )
 {
     static QPixmap* dirtyPix = new QPixmap( SmallIcon( QString::fromLatin1( "3floppy_unmount" ) ) );
 
@@ -851,17 +851,17 @@ void MainWindow::MainWindow::setDirty( bool dirty )
     _autoSaveDirty = dirty;
 }
 
-void MainWindow::MainWindow::setDefaultScopePositive()
+void MainWindow::Window::setDefaultScopePositive()
 {
     Settings::Settings::instance()->setCurrentLock( _browser->currentContext(), false );
 }
 
-void MainWindow::MainWindow::setDefaultScopeNegative()
+void MainWindow::Window::setDefaultScopeNegative()
 {
     Settings::Settings::instance()->setCurrentLock( _browser->currentContext(), true );
 }
 
-void MainWindow::MainWindow::lockToDefaultScope()
+void MainWindow::Window::lockToDefaultScope()
 {
     int i = KMessageBox::warningContinueCancel( this,
                                                 i18n( "<qt><p>The password protection is only a means of allowing your little sister "
@@ -879,7 +879,7 @@ void MainWindow::MainWindow::lockToDefaultScope()
 
 }
 
-void MainWindow::MainWindow::unlockFromDefaultScope()
+void MainWindow::Window::unlockFromDefaultScope()
 {
     QCString passwd;
     bool OK = ( Settings::Settings::instance()->password().isEmpty() );
@@ -895,7 +895,7 @@ void MainWindow::MainWindow::unlockFromDefaultScope()
     setLocked( false );
 }
 
-void MainWindow::MainWindow::setLocked( bool locked )
+void MainWindow::Window::setLocked( bool locked )
 {
     static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "key" ) ) );
     _lockedIndicator->setFixedWidth( lockedPix->width() );
@@ -914,7 +914,7 @@ void MainWindow::MainWindow::setLocked( bool locked )
     _browser->reload();
 }
 
-void MainWindow::MainWindow::changePassword()
+void MainWindow::Window::changePassword()
 {
     QCString passwd;
     bool OK = ( Settings::Settings::instance()->password().isEmpty() );
@@ -934,7 +934,7 @@ void MainWindow::MainWindow::changePassword()
         Settings::Settings::instance()->setPassword( passwd );
 }
 
-void MainWindow::MainWindow::slotConfigureKeyBindings()
+void MainWindow::Window::slotConfigureKeyBindings()
 {
     Viewer::Viewer* viewer = new Viewer::Viewer( "viewer" ); // Do not show, this is only used to get a key configuration
     KKeyDialog* dialog = new KKeyDialog();
@@ -957,12 +957,12 @@ void MainWindow::MainWindow::slotConfigureKeyBindings()
     delete viewer;
 }
 
-void MainWindow::MainWindow::slotSetFileName( const QString& fileName )
+void MainWindow::Window::slotSetFileName( const QString& fileName )
 {
     statusBar()->message( fileName, 4000 );
 }
 
-void MainWindow::MainWindow::slotThumbNailSelectionChanged()
+void MainWindow::Window::slotThumbNailSelectionChanged()
 {
     QStringList selection = _thumbnailView->selection();
 
@@ -971,18 +971,18 @@ void MainWindow::MainWindow::slotThumbNailSelectionChanged()
     _sortByDateAndTime->setEnabled(selection.count() > 1 );
 }
 
-void MainWindow::MainWindow::reloadThumbnails(bool flushCache)
+void MainWindow::Window::reloadThumbnails(bool flushCache)
 {
     _thumbnailView->reload( flushCache );
     slotThumbNailSelectionChanged();
 }
 
-void MainWindow::MainWindow::reloadThumbnailsAndFlushCache()
+void MainWindow::Window::reloadThumbnailsAndFlushCache()
 {
     reloadThumbnails(true);
 }
 
-void MainWindow::MainWindow::slotUpdateViewMenu( DB::Category::ViewSize size, DB::Category::ViewType type )
+void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewSize size, DB::Category::ViewType type )
 {
     if ( size == DB::Category::Small && type == DB::Category::ListView )
         _smallListView->setChecked( true );
@@ -994,7 +994,7 @@ void MainWindow::MainWindow::slotUpdateViewMenu( DB::Category::ViewSize size, DB
         _largeIconView->setChecked( true );
 }
 
-void MainWindow::MainWindow::slotShowNotOnDisk()
+void MainWindow::Window::slotShowNotOnDisk()
 {
     QStringList allImages = DB::ImageDB::instance()->images();
     QStringList notOnDisk;
@@ -1009,13 +1009,13 @@ void MainWindow::MainWindow::slotShowNotOnDisk()
 }
 
 
-void MainWindow::MainWindow::donateMoney()
+void MainWindow::Window::donateMoney()
 {
     DonateDialog donate( this, "Donate Money" );
     donate.exec();
 }
 
-void MainWindow::MainWindow::updateStates( bool thumbNailView )
+void MainWindow::Window::updateStates( bool thumbNailView )
 {
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     _cut->setEnabled( thumbNailView );
@@ -1026,29 +1026,29 @@ void MainWindow::MainWindow::updateStates( bool thumbNailView )
     _limitToMarked->setEnabled( thumbNailView );
 }
 
-void MainWindow::MainWindow::slotRemoveAllThumbnails()
+void MainWindow::Window::slotRemoveAllThumbnails()
 {
     DeleteThumbnailsDialog dialog( this );
     dialog.exec();
 }
 
-void MainWindow::MainWindow::slotRunSlideShow()
+void MainWindow::Window::slotRunSlideShow()
 {
     slotView( true, true );
 }
 
-void MainWindow::MainWindow::slotRunRandomizedSlideShow()
+void MainWindow::Window::slotRunRandomizedSlideShow()
 {
     slotView( true, true, true );
 }
 
-MainWindow::MainWindow* MainWindow::MainWindow::theMainWindow()
+MainWindow::Window* MainWindow::Window::theMainWindow()
 {
     Q_ASSERT( _instance );
     return _instance;
 }
 
-void MainWindow::MainWindow::slotConfigureToolbars()
+void MainWindow::Window::slotConfigureToolbars()
 {
     saveMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
     KEditToolbar dlg(actionCollection());
@@ -1058,18 +1058,18 @@ void MainWindow::MainWindow::slotConfigureToolbars()
 
 }
 
-void MainWindow::MainWindow::slotNewToolbarConfig()
+void MainWindow::Window::slotNewToolbarConfig()
 {
     createGUI();
     applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
 }
 
-void MainWindow::MainWindow::slotImport()
+void MainWindow::Window::slotImport()
 {
     ImportExport::Import::imageImport();
 }
 
-void MainWindow::MainWindow::slotExport()
+void MainWindow::Window::slotExport()
 {
     QStringList list = selectedOnDisk();
     if ( list.count() == 0 ) {
@@ -1079,7 +1079,7 @@ void MainWindow::MainWindow::slotExport()
         ImportExport::Export::imageExport( list );
 }
 
-void MainWindow::MainWindow::slotReenableMessages()
+void MainWindow::Window::slotReenableMessages()
 {
     int ret = KMessageBox::questionYesNo( this, i18n("<qt><p>Really enable all messageboxes where you previously "
                                                      "checked the do-not-show-again check box?</p></qt>" ) );
@@ -1088,7 +1088,7 @@ void MainWindow::MainWindow::slotReenableMessages()
 
 }
 
-void MainWindow::MainWindow::setupPluginMenu()
+void MainWindow::Window::setupPluginMenu()
 {
     QObjectList *l = queryList( "QPopupMenu", "plugins" );
     QObject *obj;
@@ -1109,7 +1109,7 @@ void MainWindow::MainWindow::setupPluginMenu()
 #endif
 }
 
-void MainWindow::MainWindow::loadPlugins()
+void MainWindow::Window::loadPlugins()
 {
 #ifdef HASKIPI
     Utilities::ShowBusyCursor dummy;
@@ -1134,7 +1134,7 @@ void MainWindow::MainWindow::loadPlugins()
 }
 
 
-void MainWindow::MainWindow::plug()
+void MainWindow::Window::plug()
 {
 #ifdef HASKIPI
     unplugActionList( QString::fromLatin1("import_actions") );
@@ -1192,7 +1192,7 @@ void MainWindow::MainWindow::plug()
 }
 
 
-void MainWindow::MainWindow::slotImagesChanged( const KURL::List& urls )
+void MainWindow::Window::slotImagesChanged( const KURL::List& urls )
 {
     for( KURL::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
         ImageManager::ImageLoader::removeThumbnail( (*it).path() );
@@ -1200,44 +1200,44 @@ void MainWindow::MainWindow::slotImagesChanged( const KURL::List& urls )
     reloadThumbnails(true);
 }
 
-DB::ImageSearchInfo MainWindow::MainWindow::currentContext()
+DB::ImageSearchInfo MainWindow::Window::currentContext()
 {
     return _browser->currentContext();
 }
 
-QString MainWindow::MainWindow::currentBrowseCategory() const
+QString MainWindow::Window::currentBrowseCategory() const
 {
     return _browser->currentCategory();
 }
 
-void MainWindow::MainWindow::slotSelectionChanged()
+void MainWindow::Window::slotSelectionChanged()
 {
 #ifdef HASKIPI
     _pluginInterface->slotSelectionChanged( selected().count() != 0);
 #endif
 }
 
-void MainWindow::MainWindow::resizeEvent( QResizeEvent* )
+void MainWindow::Window::resizeEvent( QResizeEvent* )
 {
     if ( Settings::Settings::ready() )
         Settings::Settings::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
 }
 
-void MainWindow::MainWindow::moveEvent( QMoveEvent * )
+void MainWindow::Window::moveEvent( QMoveEvent * )
 {
     if ( Settings::Settings::ready() )
         Settings::Settings::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
 }
 
 
-void MainWindow::MainWindow::slotRemoveTokens()
+void MainWindow::Window::slotRemoveTokens()
 {
     if ( !_tokenEditor )
         _tokenEditor = new TokenEditor( this, "token editor" );
     _tokenEditor->show();
 }
 
-void MainWindow::MainWindow::updateDateBar( const QString& path )
+void MainWindow::Window::updateDateBar( const QString& path )
 {
     static QString lastPath = QString::fromLatin1("ThisStringShouldNeverBeSeenSoWeUseItAsInitialContent");
     if ( path != lastPath )
@@ -1245,25 +1245,25 @@ void MainWindow::MainWindow::updateDateBar( const QString& path )
     lastPath = path;
 }
 
-void MainWindow::MainWindow::updateDateBar()
+void MainWindow::Window::updateDateBar()
 {
     _dateBar->setImageDateCollection( DB::ImageDB::instance()->rangeCollection() );
 }
 
 
-void MainWindow::MainWindow::slotShowImagesWithInvalidDate()
+void MainWindow::Window::slotShowImagesWithInvalidDate()
 {
     InvalidDateFinder finder( this, "invaliddatefinder" );
     if ( finder.exec() == QDialog::Accepted )
         showThumbNails();
 }
 
-void MainWindow::MainWindow::showDateBarTip( const QString& msg )
+void MainWindow::Window::showDateBarTip( const QString& msg )
 {
     statusBar()->message( msg, 3000 );
 }
 
-void MainWindow::MainWindow::slotJumpToContext()
+void MainWindow::Window::slotJumpToContext()
 {
     QString fileName =_thumbnailView->currentItem();
     if ( !fileName.isNull() ) {
@@ -1271,27 +1271,27 @@ void MainWindow::MainWindow::slotJumpToContext()
    }
 }
 
-void MainWindow::MainWindow::setDateRange( const DB::ImageDate& range )
+void MainWindow::Window::setDateRange( const DB::ImageDate& range )
 {
     DB::ImageDB::instance()->setDateRange( range, _dateBar->includeFuzzyCounts() );
     _browser->reload();
     reloadThumbnails(false);
 }
 
-void MainWindow::MainWindow::clearDateRange()
+void MainWindow::Window::clearDateRange()
 {
     DB::ImageDB::instance()->clearDateRange();
     _browser->reload();
     reloadThumbnails(false);
 }
 
-void MainWindow::MainWindow::runSurvey()
+void MainWindow::Window::runSurvey()
 {
     Survey::MySurvey survey(this);
     survey.exec();
 }
 
-void MainWindow::MainWindow::possibleRunSuvey()
+void MainWindow::Window::possibleRunSuvey()
 {
     Survey::MySurvey survey(this);
     survey.possibleExecSurvey();
@@ -1299,24 +1299,24 @@ void MainWindow::MainWindow::possibleRunSuvey()
 
 
 
-void MainWindow::MainWindow::showThumbNails( const QStringList& list )
+void MainWindow::Window::showThumbNails( const QStringList& list )
 {
     _thumbnailView->setImageList( list );
     _partial->setMatchCount( list.count() );
     showThumbNails();
 }
 
-void MainWindow::MainWindow::convertBackend()
+void MainWindow::Window::convertBackend()
 {
     DB::ImageDB::instance()->convertBackend();
 }
 
-void MainWindow::MainWindow::slotRecalcCheckSums()
+void MainWindow::Window::slotRecalcCheckSums()
 {
     DB::ImageDB::instance()->slotRecalcCheckSums( selected() );
 }
 
-void MainWindow::MainWindow::slotShowExifInfo()
+void MainWindow::Window::slotShowExifInfo()
 {
 #ifdef HASEXIV2
     QStringList items = selectedOnDisk();
@@ -1327,13 +1327,13 @@ void MainWindow::MainWindow::slotShowExifInfo()
 #endif
 }
 
-void MainWindow::MainWindow::showFeatures()
+void MainWindow::Window::showFeatures()
 {
     FeatureDialog dialog(this);
     dialog.exec();
 }
 
-void MainWindow::MainWindow::showImage( const QString& fileName )
+void MainWindow::Window::showImage( const QString& fileName )
 {
     // PENDING(blackie) This code most be duplicated for Ctrl+I
     if ( !DB::ImageInfo::imageOnDisk(fileName) ) {
@@ -1358,19 +1358,19 @@ void MainWindow::MainWindow::showImage( const QString& fileName )
 
 }
 
-void MainWindow::MainWindow::slotBuildThumbnails()
+void MainWindow::Window::slotBuildThumbnails()
 {
     new ThumbnailView::ThumbnailBuilder( this ); // It will delete itself
 }
 
-void MainWindow::MainWindow::slotOrderIncr()
+void MainWindow::Window::slotOrderIncr()
 {
     _thumbnailView->setSortDirection( ThumbnailView::OldestFirst );
 }
 
-void MainWindow::MainWindow::slotOrderDecr()
+void MainWindow::Window::slotOrderDecr()
 {
     _thumbnailView->setSortDirection( ThumbnailView::NewestFirst );
 }
 
-#include "MainWindow.moc"
+#include "Window.moc"

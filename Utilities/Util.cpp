@@ -34,7 +34,7 @@ Boston, MA 02110-1301, USA.
 #include <kimageio.h>
 #include <kcmdlineargs.h>
 #include <kio/netaccess.h>
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 #include "X11/X.h"
 
 extern "C" {
@@ -574,7 +574,7 @@ void Utilities::deleteDemo()
     QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
     KURL url;
     url.setPath( dir );
-    (void) KIO::NetAccess::del( dir, MainWindow::MainWindow::theMainWindow() );
+    (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );
 }
 
 // PENDING(blackie) delete this method

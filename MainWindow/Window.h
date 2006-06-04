@@ -51,14 +51,14 @@ class HTMLExportDialog;
 class TokenEditor;
 class ImageCounter;
 
-class MainWindow :public KMainWindow
+class Window :public KMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow( QWidget* parent,  const char* name = 0 );
+    Window( QWidget* parent,  const char* name = 0 );
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
-    static MainWindow* theMainWindow();
+    static Window* theMainWindow();
     QStringList selected( bool keepSortOrderOfDatabase = false );
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
@@ -154,7 +154,7 @@ protected:
     void setupPluginMenu();
 
 private:
-    static MainWindow* _instance;
+    static Window* _instance;
 
     ThumbnailView::ThumbnailView* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;

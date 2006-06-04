@@ -25,7 +25,7 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
 #include "DB/FileInfo.h"
-#include "MainWindow/MainWindow.h"
+#include "MainWindow/Window.h"
 #include "kprogress.h"
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -114,7 +114,7 @@ void InvalidDateFinder::slotOk()
     else
         delete info;
 
-    MainWindow::theMainWindow()->showThumbNails( toBeShown );
+    Window::theMainWindow()->showThumbNails( toBeShown );
     KDialogBase::slotOk();
 }
 

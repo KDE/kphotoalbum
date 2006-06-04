@@ -29,7 +29,7 @@ class KRadioAction;
 #include "DB/ImageInfoList.h"
 #include <qdict.h>
 #include <kmainwindow.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <kurl.h>
 #include "DB/Category.h"
 #include <config.h>

@@ -3,7 +3,7 @@
 #include <kiconloader.h>
 #include <klocale.h>
 #include "DB/ImageDB.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
 
 QPixmap DB::Category::icon( int size ) const
@@ -45,7 +45,7 @@ QStringList DB::Category::itemsInclGroups() const
         if ( ! items.contains(  *it ) )
             items << *it ;
     };
-    if ( Settings::Settings::instance()->viewSortType() == Settings::SortAlpha )
+    if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
         items.sort();
     return items;
 }

@@ -40,7 +40,7 @@
 #include "ImageCounter.h"
 #include <qtimer.h>
 #include <kmessagebox.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
@@ -115,7 +115,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Options, and where the main thread crates an instance, we better get it created now.
-    Settings::Settings::instance();
+    Settings::SettingsData::instance();
 
     QWidget* top = new QWidget( this, "top" );
     QVBoxLayout* lay = new QVBoxLayout( top, 6 );
@@ -139,7 +139,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     _thumbnailView = new ThumbnailView::ThumbnailWidget( _stack, "_thumbnailView" );
     connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
-    connect( Settings::Settings::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
+    connect( Settings::SettingsData::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
 
 
     connect( _dateBar, SIGNAL( dateRangeChange( const DB::ImageDate& ) ),
@@ -177,7 +177,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     setDirty( _dirty ); // Might already have been made dirty by load above
 
     _lockedIndicator = new QLabel( indicators, "_lockedIndicator" );
-    setLocked( Settings::Settings::instance()->isLocked() );
+    setLocked( Settings::SettingsData::instance()->isLocked() );
 
     statusBar()->addWidget( indicators, 0, true );
 
@@ -213,7 +213,7 @@ void MainWindow::Window::delayedInit()
     SplashScreen* splash = SplashScreen::instance();
     setupPluginMenu();
 
-    if ( Settings::Settings::instance()->searchForImagesOnStartup() ) {
+    if ( Settings::SettingsData::instance()->searchForImagesOnStartup() ) {
         splash->message( i18n("Searching for New Images") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
@@ -234,7 +234,7 @@ void MainWindow::Window::delayedInit()
         possibleRunSuvey();
     }
 
-    if ( !Settings::Settings::instance()->delayLoadingPlugins() )
+    if ( !Settings::SettingsData::instance()->delayLoadingPlugins() )
         loadPlugins();
 
 #ifdef HASEXIV2
@@ -278,7 +278,7 @@ bool MainWindow::Window::slotExit()
             slotSave();
         }
         if ( ret == KMessageBox::No ) {
-            QDir().remove( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
+            QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
         }
     }
 
@@ -369,9 +369,9 @@ void MainWindow::Window::slotSave()
 {
     Utilities::ShowBusyCursor dummy;
     statusBar()->message(i18n("Saving..."), 5000 );
-    DB::ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
+    DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
     setDirty( false );
-    QDir().remove( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
+    QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
 
@@ -559,8 +559,8 @@ void MainWindow::Window::setupMenuBar()
                                              SLOT( slotOrderDecr() ), actionCollection(), "orderDecr" );
     incr->setExclusiveGroup( QString::fromLatin1( "Sort Direction") );
     decr->setExclusiveGroup(QString::fromLatin1( "Sort Direction") );
-    incr->setChecked( !Settings::Settings::instance()->showNewestThumbnailFirst() );
-    decr->setChecked( Settings::Settings::instance()->showNewestThumbnailFirst() );
+    incr->setChecked( !Settings::SettingsData::instance()->showNewestThumbnailFirst() );
+    decr->setChecked( Settings::SettingsData::instance()->showNewestThumbnailFirst() );
 
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date && Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
@@ -662,7 +662,7 @@ void MainWindow::Window::slotExportToHTML()
 
 void MainWindow::Window::startAutoSaveTimer()
 {
-    int i = Settings::Settings::instance()->autoSave();
+    int i = Settings::SettingsData::instance()->autoSave();
     _autoSaveTimer->stop();
     if ( i != 0 ) {
         _autoSaveTimer->start( i * 1000 * 60  );
@@ -674,7 +674,7 @@ void MainWindow::Window::slotAutoSave()
     if ( _autoSaveDirty ) {
         Utilities::ShowBusyCursor dummy;
         statusBar()->message(i18n("Auto saving...."));
-        DB::ImageDB::instance()->save( Settings::Settings::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
+        DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
         _autoSaveDirty = false;
     }
@@ -818,7 +818,7 @@ bool MainWindow::Window::load()
     if (configFile.startsWith( QString::fromLatin1( "~" ) ) )
         configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
-    Settings::Settings::setup( QFileInfo( configFile ).dirPath( true ) );
+    Settings::SettingsData::setup( QFileInfo( configFile ).dirPath( true ) );
     if ( backEnd == QString::fromLatin1( "sql" ) ) {
         DB::ImageDB::setupSQLDB( sqlUser, sqlPassword );
     }
@@ -888,12 +888,12 @@ void MainWindow::Window::setDirty( bool dirty )
 
 void MainWindow::Window::setDefaultScopePositive()
 {
-    Settings::Settings::instance()->setCurrentLock( _browser->currentContext(), false );
+    Settings::SettingsData::instance()->setCurrentLock( _browser->currentContext(), false );
 }
 
 void MainWindow::Window::setDefaultScopeNegative()
 {
-    Settings::Settings::instance()->setCurrentLock( _browser->currentContext(), true );
+    Settings::SettingsData::instance()->setCurrentLock( _browser->currentContext(), true );
 }
 
 void MainWindow::Window::lockToDefaultScope()
@@ -917,12 +917,12 @@ void MainWindow::Window::lockToDefaultScope()
 void MainWindow::Window::unlockFromDefaultScope()
 {
     QCString passwd;
-    bool OK = ( Settings::Settings::instance()->password().isEmpty() );
+    bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
     while ( !OK ) {
         int code = KPasswordDialog::getPassword( passwd, i18n("Type in Password to Unlock"));
         if ( code == QDialog::Rejected )
             return;
-        OK = (Settings::Settings::instance()->password() == QString(passwd));
+        OK = (Settings::SettingsData::instance()->password() == QString(passwd));
 
         if ( !OK )
             KMessageBox::sorry( this, i18n("Invalid password.") );
@@ -940,7 +940,7 @@ void MainWindow::Window::setLocked( bool locked )
     else
         _lockedIndicator->setPixmap( QPixmap() );
 
-    Settings::Settings::instance()->setLocked( locked );
+    Settings::SettingsData::instance()->setLocked( locked );
 
     _lock->setEnabled( !locked );
     _unlock->setEnabled( locked );
@@ -952,13 +952,13 @@ void MainWindow::Window::setLocked( bool locked )
 void MainWindow::Window::changePassword()
 {
     QCString passwd;
-    bool OK = ( Settings::Settings::instance()->password().isEmpty() );
+    bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
 
     while ( !OK ) {
         int code = KPasswordDialog::getPassword( passwd, i18n("Type in Old Password"));
         if ( code == QDialog::Rejected )
             return;
-        OK = (Settings::Settings::instance()->password() == QString(passwd));
+        OK = (Settings::SettingsData::instance()->password() == QString(passwd));
 
         if ( !OK )
             KMessageBox::sorry( this, i18n("Invalid password.") );
@@ -966,7 +966,7 @@ void MainWindow::Window::changePassword()
 
     int code = KPasswordDialog::getNewPassword( passwd, i18n("Type in New Password"));
     if ( code == QDialog::Accepted )
-        Settings::Settings::instance()->setPassword( passwd );
+        Settings::SettingsData::instance()->setPassword( passwd );
 }
 
 void MainWindow::Window::slotConfigureKeyBindings()
@@ -1254,14 +1254,14 @@ void MainWindow::Window::slotSelectionChanged()
 
 void MainWindow::Window::resizeEvent( QResizeEvent* )
 {
-    if ( Settings::Settings::ready() )
-        Settings::Settings::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
+    if ( Settings::SettingsData::ready() )
+        Settings::SettingsData::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
 }
 
 void MainWindow::Window::moveEvent( QMoveEvent * )
 {
-    if ( Settings::Settings::ready() )
-        Settings::Settings::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
+    if ( Settings::SettingsData::ready() )
+        Settings::SettingsData::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
 }
 
 

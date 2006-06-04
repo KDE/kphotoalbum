@@ -29,7 +29,7 @@
 #include <qlayout.h>
 #include <klineedit.h>
 #include <kpushbutton.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "ImportMatcher.h"
 #include <qcheckbox.h>
 #include <qcombobox.h>
@@ -336,7 +336,7 @@ void Import::createDestination()
     lay->addWidget( but );
 
 
-    _destinationEdit->setText( Settings::Settings::instance()->imageDirectory());
+    _destinationEdit->setText( Settings::SettingsData::instance()->imageDirectory());
     connect( but, SIGNAL( clicked() ), this, SLOT( slotEditDestination() ) );
     connect( _destinationEdit, SIGNAL( textChanged( const QString& ) ), this, SLOT( updateNextButtonState() ) );
     addPage( top, i18n("Destination of Images" ) );
@@ -346,8 +346,8 @@ void  Import::slotEditDestination()
 {
     QString file = KFileDialog::getExistingDirectory( _destinationEdit->text(), this );
     if ( !file.isNull() ) {
-        if ( ! QFileInfo(file).absFilePath().startsWith( QFileInfo(Settings::Settings::instance()->imageDirectory()).absFilePath()) ) {
-            KMessageBox::error( this, i18n("The directory must be a subdirectory of %1").arg( Settings::Settings::instance()->imageDirectory() ) );
+        if ( ! QFileInfo(file).absFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) ) {
+            KMessageBox::error( this, i18n("The directory must be a subdirectory of %1").arg( Settings::SettingsData::instance()->imageDirectory() ) );
         }
         else {
             _destinationEdit->setText( file );
@@ -363,7 +363,7 @@ void Import::updateNextButtonState()
         QString dest = _destinationEdit->text();
         if ( QFileInfo( dest ).isFile() )
             enabled = false;
-        else if ( ! QFileInfo(dest).absFilePath().startsWith( QFileInfo(Settings::Settings::instance()->imageDirectory()).absFilePath()) )
+        else if ( ! QFileInfo(dest).absFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) )
             enabled = false;
     }
 
@@ -462,9 +462,9 @@ bool Import::copyFilesFromZipFile()
         QByteArray data = loadImage( fileName );
         if ( data.isNull() )
             return false;
-        QString newName = Settings::Settings::instance()->imageDirectory() + _nameMap[fileName];
+        QString newName = Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName];
 
-        QString relativeName = newName.mid( Settings::Settings::instance()->imageDirectory().length() );
+        QString relativeName = newName.mid( Settings::SettingsData::instance()->imageDirectory().length() );
         if ( relativeName.startsWith( QString::fromLatin1( "/" ) ) )
             relativeName= relativeName.mid(1);
 
@@ -505,7 +505,7 @@ void Import::copyNextFromExternal()
         src.setFileName( fileName );
         if ( KIO::NetAccess::exists( src, true, MainWindow::Window::theMainWindow() ) ) {
             KURL dest;
-            dest.setPath( Settings::Settings::instance()->imageDirectory() + _nameMap[fileName] );
+            dest.setPath( Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName] );
             _job = KIO::file_copy( src, dest, -1, false, false, false );
             connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
             break;

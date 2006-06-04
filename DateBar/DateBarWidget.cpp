@@ -32,7 +32,7 @@
 #include <kiconloader.h>
 #include <math.h>
 #include <klocale.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qapplication.h>
 
 const int borderAboveHistogram = 4;
@@ -62,8 +62,8 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
     setMouseTracking( true );
     setFocusPolicy( StrongFocus );
 
-    _barWidth = Settings::Settings::instance()->histogramSize().width();
-    _barHeight = Settings::Settings::instance()->histogramSize().height();
+    _barWidth = Settings::SettingsData::instance()->histogramSize().width();
+    _barHeight = Settings::SettingsData::instance()->histogramSize().height();
     _rightArrow = new QToolButton( RightArrow, this );
     connect( _rightArrow, SIGNAL( clicked() ), this, SLOT( scrollRight() ) );
 

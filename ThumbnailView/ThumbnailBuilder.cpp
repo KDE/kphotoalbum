@@ -20,7 +20,7 @@
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
 #include <klocale.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qimage.h>
 #include "DB/ImageInfo.h"
 

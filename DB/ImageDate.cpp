@@ -19,7 +19,7 @@
 #include "ImageDate.h"
 #include <qstringlist.h>
 #include <klocale.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qregexp.h>
 #include <kdebug.h>
 

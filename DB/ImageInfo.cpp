@@ -27,7 +27,7 @@ extern "C" {
 #include <qfileinfo.h>
 #include <qimage.h>
 #include <qdom.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
 #include <kdebug.h>
 #include <qwmatrix.h>
@@ -53,8 +53,8 @@ ImageInfo::ImageInfo() :_null( true ), _locked( false )
 ImageInfo::ImageInfo( const QString& fileName )
     :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
 {
-    QString fullPath = Settings::Settings::instance()->imageDirectory()+ fileName;
-    QFileInfo fi( Settings::Settings::instance()->imageDirectory() + fileName );
+    QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
+    QFileInfo fi( Settings::SettingsData::instance()->imageDirectory() + fileName );
     _label = fi.baseName( true );
     _angle = 0;
 
@@ -131,7 +131,7 @@ QString ImageInfo::fileName( bool relative ) const
     if (relative)
         return _fileName;
     else
-        return  Settings::Settings::instance()->imageDirectory() + _fileName;
+        return  Settings::SettingsData::instance()->imageDirectory() + _fileName;
 }
 
 void ImageInfo::setFileName( const QString& relativeFileName )
@@ -237,15 +237,15 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath );
 
     // Date
-    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::Settings::instance()->trustTimeStamps() ) )
+    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::SettingsData::instance()->trustTimeStamps() ) )
         _date = exifInfo.dateTime();
 
     // Orientation
-    if ( (mode & EXIFMODE_ORIENTATION) && Settings::Settings::instance()->useEXIFRotate() )
+    if ( (mode & EXIFMODE_ORIENTATION) && Settings::SettingsData::instance()->useEXIFRotate() )
         _angle = exifInfo.angle();
 
     // Description
-    if ( (mode & EXIFMODE_DESCRIPTION) && Settings::Settings::instance()->useEXIFComments() )
+    if ( (mode & EXIFMODE_DESCRIPTION) && Settings::SettingsData::instance()->useEXIFComments() )
         _description = exifInfo.description();
 
     // Database update

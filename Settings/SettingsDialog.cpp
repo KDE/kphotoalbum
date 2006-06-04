@@ -24,7 +24,7 @@
 #include <kcombobox.h>
 #include <kpushbutton.h>
 #include <qspinbox.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <kicondialog.h>
 #include <qlistbox.h>
 #include <kmessagebox.h>
@@ -379,7 +379,7 @@ void Settings::SettingsDialog::createOptionGroupsPage()
 
 void Settings::SettingsDialog::show()
 {
-    Settings::Settings* opt = Settings::Settings::instance();
+    Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     // General page
     _previewSize->setValue( opt->previewSize() );
@@ -425,8 +425,8 @@ void Settings::SettingsDialog::show()
 #ifdef HASEXIV2
     _exifForViewer->reload();
     _exifForDialog->reload();
-    _exifForViewer->setSelected( Settings::Settings::instance()->exifForViewer() );
-    _exifForDialog->setSelected( Settings::Settings::instance()->exifForDialog() );
+    _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
+    _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
 #endif
     enableDisable( false );
     KDialogBase::show();
@@ -438,7 +438,7 @@ void Settings::SettingsDialog::show()
 void Settings::SettingsDialog::slotMyOK()
 {
     Utilities::ShowBusyCursor dummy;
-    Settings::Settings* opt = Settings::Settings::instance();
+    Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     // General
     opt->setPreviewSize( _previewSize->value() );

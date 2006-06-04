@@ -5,7 +5,7 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include "DB/ImageDB.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "DB/CategoryCollection.h"
 #include "DB/Category.h"
 

@@ -2,7 +2,7 @@
 #include <qpixmapcache.h>
 #include <qpainter.h>
 #include "math.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "ThumbnailRequest.h"
 #include "ImageManager/Manager.h"
 #include "DB/ImageInfoPtr.h"
@@ -38,7 +38,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent, const char* na
      _selectionInteraction( this ),
      _mouseTrackingHandler( this ),
      _mouseHandler( &_mouseTrackingHandler ),
-     _sortDirection( Settings::Settings::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
+     _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
 {
     _instance = this;
     setFocusPolicy( WheelFocus );
@@ -102,7 +102,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
 
         }
         else {
-            int size = Settings::Settings::instance()->thumbSize();
+            int size = Settings::SettingsData::instance()->thumbSize();
             int angle = DB::ImageDB::instance()->info( fileName )->angle();
             ThumbnailRequest* request = new ThumbnailRequest( fileName, QSize( size, size ), angle, this );
             request->setCache();
@@ -116,7 +116,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
  */
 void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, int col )
 {
-    if ( !Settings::Settings::instance()->displayLabels() )
+    if ( !Settings::SettingsData::instance()->displayLabels() )
         return;
 
     QString fileName = fileNameInCell( row, col );
@@ -201,21 +201,21 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
     if ( fileName.isNull() ) // empty cell
         return QRect();
 
-    int size = Settings::Settings::instance()->thumbSize() + SPACE;
+    int size = Settings::SettingsData::instance()->thumbSize() + SPACE;
     QPixmap* pix = const_cast<ThumbnailWidget*>(this)->pixmapCache().find( fileName );
     if ( !pix )
         return QRect( SPACE, SPACE, size, size );
 
     int xoff = 1 + (size - pix->width())/2; // 1 is for the border at the left
     int yoff = (size - pix->height() );
-    if ( !Settings::Settings::instance()->displayLabels() )
+    if ( !Settings::SettingsData::instance()->displayLabels() )
         yoff /= 2; // we wil center the images if we do not show the label, otherwise we will align it to the bottom
     return QRect( xoff, yoff, pix->width(), pix->height() );
 }
 
 QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 {
-    if ( !Settings::Settings::instance()->displayLabels() )
+    if ( !Settings::SettingsData::instance()->displayLabels() )
         return QRect();
 
     QString fileName = fileNameInCell( row, col );
@@ -239,8 +239,8 @@ QPixmapCache& ThumbnailView::ThumbnailWidget::pixmapCache()
 {
     static QPixmapCache cache;
     static int lastSize = -1;
-    cache.setCacheLimit( Settings::Settings::instance()->thumbnailCache() * 1024 );
-    int currentThumbSize = Settings::Settings::instance()->thumbSize();
+    cache.setCacheLimit( Settings::SettingsData::instance()->thumbnailCache() * 1024 );
+    int currentThumbSize = Settings::SettingsData::instance()->thumbSize();
     if (lastSize != currentThumbSize) {
         cache.clear();
         lastSize = currentThumbSize;
@@ -911,7 +911,7 @@ void ThumbnailView::ThumbnailWidget::setSortDirection( SortDirection direction )
     if ( direction == _sortDirection )
         return;
 
-    Settings::Settings::instance()->setShowNewestFirst( direction == NewestFirst );
+    Settings::SettingsData::instance()->setShowNewestFirst( direction == NewestFirst );
     _imageList = reverseVector( _imageList );
     updateIndexCache();
     if ( !_currentItem.isNull() )
@@ -945,11 +945,11 @@ QValueVector<QString> ThumbnailView::ThumbnailWidget::reverseVector( const QValu
 
 void ThumbnailView::ThumbnailWidget::updateCellSize()
 {
-    int size = Settings::Settings::instance()->thumbSize() + SPACE;
+    int size = Settings::SettingsData::instance()->thumbSize() + SPACE;
     setCellWidth( size );
 
     int h = size +2;
-    if ( Settings::Settings::instance()->displayLabels() )
+    if ( Settings::SettingsData::instance()->displayLabels() )
         h += QFontMetrics( font() ).height() +2;
     setCellHeight( h );
 }

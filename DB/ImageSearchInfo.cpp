@@ -18,7 +18,7 @@
 
 #include "ImageSearchInfo.h"
 #include <qregexp.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <klocale.h>
 #include "Utilities/Util.h"
 #include <kdebug.h>
@@ -180,7 +180,7 @@ void ImageSearchInfo::debug()
 void ImageSearchInfo::saveLock() const
 {
     KConfig* config = kapp->config();
-    config->setGroup( Settings::Settings::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
     config->writeEntry( QString::fromLatin1("label"), _label );
     config->writeEntry( QString::fromLatin1("description"), _description );
     config->writeEntry( QString::fromLatin1("categories"), _options.keys() );
@@ -192,7 +192,7 @@ void ImageSearchInfo::saveLock() const
 ImageSearchInfo ImageSearchInfo::loadLock()
 {
     KConfig* config = kapp->config();
-    config->setGroup( Settings::Settings::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
     ImageSearchInfo info;
     info._label = config->readEntry( "label" );
     info._description = config->readEntry( "description" );

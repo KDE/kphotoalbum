@@ -18,7 +18,7 @@
 
 #ifndef GROUPCOUNTER_H
 #define GROUPCOUNTER_H
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qdict.h>
 
 namespace DB

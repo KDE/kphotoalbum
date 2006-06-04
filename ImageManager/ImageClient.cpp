@@ -17,9 +17,9 @@
 */
 
 #include "ImageClient.h"
-#include "ImageManager.h"
+#include "Manager.h"
 
 ImageManager::ImageClient::~ImageClient()
 {
-    ImageManager::ImageManager::instance()->stop( this );
+    Manager::instance()->stop( this );
 }

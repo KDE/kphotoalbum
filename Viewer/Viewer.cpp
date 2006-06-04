@@ -21,7 +21,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include "DB/ImageInfo.h"
-#include "ImageManager/ImageManager.h"
+#include "ImageManager/Manager.h"
 #include <qsizepolicy.h>
 #include <qsimplerichtext.h>
 #include <qapplication.h>

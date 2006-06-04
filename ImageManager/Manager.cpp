@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ImageManager.h"
+#include "Manager.h"
 #include "ImageLoader.h"
 #include "Settings/Settings.h"
 #include "ImageManager/ImageClient.h"
@@ -24,7 +24,7 @@
 #include <qmutex.h>
 #include <qapplication.h>
 
-ImageManager::ImageManager* ImageManager::ImageManager::_instance = 0;
+ImageManager::Manager* ImageManager::Manager::_instance = 0;
 
 /**
    This class is responsible for loading icons in a separate thread.
@@ -38,20 +38,20 @@ ImageManager::ImageManager* ImageManager::ImageManager::_instance = 0;
    3) Most important, it did not allow loading only thumbnails when the
       image themself weren't available.
 */
-ImageManager::ImageManager::ImageManager() :_currentLoading(0)
+ImageManager::Manager::Manager() :_currentLoading(0)
 {
     _clientList.resize( 9973 /* a large prime */ );
 }
 
 // We need this as a separate method as the _instance variable will otherwise not be initialized
 // corrected before the thread starts.
-void ImageManager::ImageManager::init()
+void ImageManager::Manager::init()
 {
     ImageLoader* imageLoader = new ImageLoader( &_sleepers );
     imageLoader->start();
 }
 
-void ImageManager::ImageManager::load( ImageRequest* request )
+void ImageManager::Manager::load( ImageRequest* request )
 {
     QMutexLocker dummy( &_lock );
     if ( _currentLoading && _currentLoading->fileName() == request->fileName() && _currentLoading->client() == request->client() &&
@@ -79,7 +79,7 @@ void ImageManager::ImageManager::load( ImageRequest* request )
     _sleepers.wakeOne();
 }
 
-ImageManager::ImageRequest* ImageManager::ImageManager::next()
+ImageManager::ImageRequest* ImageManager::Manager::next()
 {
     QMutexLocker dummy(&_lock );
     ImageRequest* request = 0;
@@ -100,7 +100,7 @@ ImageManager::ImageRequest* ImageManager::ImageManager::next()
     return request;
 }
 
-void ImageManager::ImageManager::customEvent( QCustomEvent* ev )
+void ImageManager::Manager::customEvent( QCustomEvent* ev )
 {
     if ( ev->type() == 1001 )  {
         ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );
@@ -154,17 +154,17 @@ ImageManager::ImageRequest* ImageManager::ImageEvent::loadInfo()
     return _request;
 }
 
-ImageManager::ImageManager* ImageManager::ImageManager::instance()
+ImageManager::Manager* ImageManager::Manager::instance()
 {
     if ( !_instance )  {
-        _instance = new ImageManager;
+        _instance = new Manager;
         _instance->init();
     }
 
     return _instance;
 }
 
-void ImageManager::ImageManager::stop( ImageClient* client, StopAction action )
+void ImageManager::Manager::stop( ImageClient* client, StopAction action )
 {
     // remove from active map
     for( QPtrDictIterator<void> it(_clientList); it.current(); ) {
@@ -190,4 +190,4 @@ QImage ImageManager::ImageEvent::image()
     return _image;
 }
 
-#include "ImageManager.moc"
+#include "Manager.moc"

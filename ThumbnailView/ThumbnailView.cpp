@@ -4,7 +4,7 @@
 #include "math.h"
 #include "Settings/Settings.h"
 #include "ThumbnailRequest.h"
-#include "ImageManager/ImageManager.h"
+#include "ImageManager/Manager.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
@@ -105,7 +105,7 @@ void ThumbnailView::ThumbnailView::paintCellPixmap( QPainter* painter, int row, 
             int angle = DB::ImageDB::instance()->info( fileName )->angle();
             ThumbnailRequest* request = new ThumbnailRequest( fileName, QSize( size, size ), angle, this );
             request->setCache();
-            ImageManager::ImageManager::instance()->load( request );
+            ImageManager::Manager::instance()->load( request );
         }
     }
 }

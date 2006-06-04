@@ -6,7 +6,7 @@
 #include <qfileinfo.h>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include "SQLDB/SQLDB.h"
+#include "SQLDB/Database.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -28,14 +28,14 @@ ImageDB* DB::ImageDB::instance()
 
 void ImageDB::setupXMLDB( const QString& configFile )
 {
-    _instance = new XMLDB::XMLDB( configFile );
+    _instance = new XMLDB::Database( configFile );
     connectSlots();
 }
 
 void ImageDB::setupSQLDB( const QString& userName, const QString& password )
 {
 #ifdef SQLDB_SUPPORT
-    _instance = new SQLDB::SQLDB( userName, password );
+    _instance = new SQLDB::Database( userName, password );
 #endif // SQLDB_SUPPORT
 
     connectSlots();
@@ -136,7 +136,7 @@ void ImageDB::convertBackend()
     QProgressDialog dialog( 0 );
     dialog.setLabelText( i18n( "Converting Backend" ) );
     dialog.setTotalSteps( allImages.count() );
-    SQLDB::SQLDB* newBackend = new SQLDB::SQLDB(userName, password);
+    SQLDB::Database* newBackend = new SQLDB::Database(userName, password);
 
     // Convert the Category info
     CategoryCollection* origCategories = categoryCollection();

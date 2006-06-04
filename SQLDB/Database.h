@@ -16,8 +16,8 @@ the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.
 */
 
-#ifndef SQLDB_H
-#define SQLDB_H
+#ifndef SQLDB_DATABSE_H
+#define SQLDB_DATABSE_H
 
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
@@ -27,12 +27,12 @@ Boston, MA 02111-1307, USA.
 class QSqlError;
 
 namespace SQLDB {
-    class SQLDB  :public DB::ImageDB {
+    class Database  :public DB::ImageDB {
         Q_OBJECT
 
     protected:
         friend class DB::ImageDB;
-        SQLDB( const QString& username = QString::null, const QString& password = QString::null );
+        Database( const QString& username = QString::null, const QString& password = QString::null );
 
     public:
         virtual int totalCount() const;
@@ -78,5 +78,5 @@ namespace SQLDB {
     };
 }
 
-#endif /* SQLDB_H */
+#endif /* SQLDB_DATABSE_H */
 

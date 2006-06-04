@@ -17,7 +17,7 @@
 */
 
 #include "MemberMap.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qtimer.h>
 #include "CategoryCollection.h"
 #include "ImageDB.h"

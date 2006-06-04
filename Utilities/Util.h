@@ -22,7 +22,7 @@ Boston, MA 02110-1301, USA.
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
 
 namespace DB

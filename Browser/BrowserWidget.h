@@ -20,7 +20,7 @@
 #define BROWSER_H
 #include <qlistview.h>
 #include <qiconview.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "DB/ImageInfoPtr.h"
 
 class QListViewItem;

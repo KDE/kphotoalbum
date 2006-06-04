@@ -32,7 +32,7 @@
 #include <kfiledialog.h>
 #include <qpushbutton.h>
 #include <qmessagebox.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qprogressdialog.h>
 #include <qslider.h>
 #include <qlcdnumber.h>
@@ -244,21 +244,21 @@ void HTMLExportDialog::createDestinationPage()
     but->setFixedWidth( 25 );
 
     connect( but, SIGNAL( clicked() ), this, SLOT( selectDir() ) );
-    _baseDir->setText( Settings::Settings::instance()->HTMLBaseDir() );
+    _baseDir->setText( Settings::SettingsData::instance()->HTMLBaseDir() );
 
     // Base URL
     label = new QLabel( i18n("Base URL:"), destinationPage );
     lay2->addWidget( label, 1, 0 );
 
     _baseURL = new KLineEdit( destinationPage );
-    _baseURL->setText( Settings::Settings::instance()->HTMLBaseURL() );
+    _baseURL->setText( Settings::SettingsData::instance()->HTMLBaseURL() );
     lay2->addWidget( _baseURL, 1, 1 );
 
     // Destination URL
     label = new QLabel( i18n("URL for final destination:" ), destinationPage );
     lay2->addWidget( label, 2, 0 );
     _destURL = new KLineEdit( destinationPage );
-    _destURL->setText( Settings::Settings::instance()->HTMLDestURL() );
+    _destURL->setText( Settings::SettingsData::instance()->HTMLDestURL() );
     lay2->addWidget( _destURL, 2, 1 );
 
     // Output Directory
@@ -635,9 +635,9 @@ void HTMLExportDialog::slotOk()
 
     bool ok = generate();
     if ( ok ) {
-        Settings::Settings::instance()->setHTMLBaseDir( _baseDir->text() );
-        Settings::Settings::instance()->setHTMLBaseURL( _baseURL->text() );
-        Settings::Settings::instance()->setHTMLDestURL( _destURL->text() );
+        Settings::SettingsData::instance()->setHTMLBaseDir( _baseDir->text() );
+        Settings::SettingsData::instance()->setHTMLBaseURL( _baseURL->text() );
+        Settings::SettingsData::instance()->setHTMLDestURL( _destURL->text() );
         accept();
     }
     delete _progress;

@@ -22,7 +22,7 @@
 #include "Plugins/ImageCollection.h"
 #include "MainWindow/Window.h"
 #include "DB/ImageDB.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qfileinfo.h>
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
@@ -88,7 +88,7 @@ KURL Plugins::ImageCollection::path()
 
 KURL Plugins::ImageCollection::commonRoot()
 {
-    QString imgRoot = Settings::Settings::instance()->imageDirectory();
+    QString imgRoot = Settings::SettingsData::instance()->imageDirectory();
     const KURL::List imgs = images();
     if ( imgs.count() == 0 )
         return imgRoot;
@@ -127,7 +127,7 @@ KURL Plugins::ImageCollection::uploadPath()
 KURL Plugins::ImageCollection::uploadRoot()
 {
     KURL url;
-    url.setPath( Settings::Settings::instance()->imageDirectory() );
+    url.setPath( Settings::SettingsData::instance()->imageDirectory() );
     return url;
 }
 

@@ -17,7 +17,7 @@
 */
 
 #include "CategoryMatcher.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "DB/ImageInfo.h"
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"

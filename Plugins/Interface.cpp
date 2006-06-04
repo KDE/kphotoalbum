@@ -55,7 +55,7 @@ QValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     DB::ImageSearchInfo context = MainWindow::Window::theMainWindow()->currentContext();
     QString category = MainWindow::Window::theMainWindow()->currentBrowseCategory();
     if ( category.isNull() )
-        category = Settings::Settings::instance()->albumCategory();
+        category = Settings::SettingsData::instance()->albumCategory();
 
     QMap<QString,int> categories = DB::ImageDB::instance()->classify( context, category );
 
@@ -90,7 +90,7 @@ int Plugins::Interface::features() const
 bool Plugins::Interface::addImage( const KURL& url, QString& errmsg )
 {
     QString dir = url.path();
-    QString root = Settings::Settings::instance()->imageDirectory();
+    QString root = Settings::SettingsData::instance()->imageDirectory();
     if ( !dir.startsWith( root ) ) {
         errmsg = i18n("<qt>Image needs to be placed in a sub directory of PhotoAlbum, "
                       "which is rooted at %1. Image path was %2</qt>").arg( root ).arg( dir );

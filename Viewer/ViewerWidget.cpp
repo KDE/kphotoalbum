@@ -87,12 +87,12 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     // This must not be added to the layout, as it is standing on top of
     // the DisplayArea
     _infoBox = new InfoBox( this );
-    _infoBox->setShown( Settings::Settings::instance()->showInfoBox() );
+    _infoBox->setShown( Settings::SettingsData::instance()->showInfoBox() );
 
     setupContextMenu();
 
     _slideShowTimer = new QTimer( this );
-    _slideShowPause = Settings::Settings::instance()->slideShowInterval() * 1000;
+    _slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
     connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNext() ) );
     _speedDisplay = new SpeedDisplay( this );
 
@@ -163,32 +163,32 @@ void Viewer::ViewerWidget::setupContextMenu()
     KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Key_I, _actions, "viewer-show-infobox" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     taction->plug( _popup );
-    taction->setChecked( Settings::Settings::instance()->showInfoBox() );
+    taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
 
     taction = new KToggleAction( i18n("Show Drawing"), CTRL+Key_D, _actions, "viewer-show-drawing");
     connect( taction, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
     taction->plug( _popup );
-    taction->setChecked( Settings::Settings::instance()->showDrawings() );
+    taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
 
     taction = new KToggleAction( i18n("Show Description"), 0, _actions, "viewer-show-description" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
     taction->plug( _popup );
-    taction->setChecked( Settings::Settings::instance()->showDescription() );
+    taction->setChecked( Settings::SettingsData::instance()->showDescription() );
 
     taction = new KToggleAction( i18n("Show Date"), 0, _actions, "viewer-show-date" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
     taction->plug( _popup );
-    taction->setChecked( Settings::Settings::instance()->showDate() );
+    taction->setChecked( Settings::SettingsData::instance()->showDate() );
 
     taction = new KToggleAction( i18n("Show Time"), 0, _actions, "viewer-show-time" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowTime( bool ) ) );
     taction->plug( _popup );
-    taction->setChecked( Settings::Settings::instance()->showTime() );
+    taction->setChecked( Settings::SettingsData::instance()->showTime() );
 
     taction = new KToggleAction( i18n("Show EXIF"), 0, _actions, "viewer-show-exif" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowEXIF( bool ) ) );
     taction->plug( _popup );
-    taction->setChecked( Settings::Settings::instance()->showEXIF() );
+    taction->setChecked( Settings::SettingsData::instance()->showEXIF() );
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
@@ -327,32 +327,32 @@ void Viewer::ViewerWidget::rotate270()
 
 void Viewer::ViewerWidget::toggleShowInfoBox( bool b )
 {
-    Settings::Settings::instance()->setShowInfoBox( b );
+    Settings::SettingsData::instance()->setShowInfoBox( b );
     _infoBox->setShown(b);
     updateInfoBox();
 }
 
 void Viewer::ViewerWidget::toggleShowDescription( bool b )
 {
-    Settings::Settings::instance()->setShowDescription( b );
+    Settings::SettingsData::instance()->setShowDescription( b );
     updateInfoBox();
 }
 
 void Viewer::ViewerWidget::toggleShowDate( bool b )
 {
-    Settings::Settings::instance()->setShowDate( b );
+    Settings::SettingsData::instance()->setShowDate( b );
     updateInfoBox();
 }
 
 void Viewer::ViewerWidget::toggleShowTime( bool b )
 {
-    Settings::Settings::instance()->setShowTime( b );
+    Settings::SettingsData::instance()->setShowTime( b );
     updateInfoBox();
 }
 
 void Viewer::ViewerWidget::toggleShowEXIF( bool b )
 {
-    Settings::Settings::instance()->setShowEXIF( b );
+    Settings::SettingsData::instance()->setShowEXIF( b );
     updateInfoBox();
 }
 
@@ -454,7 +454,7 @@ DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo()
 void Viewer::ViewerWidget::infoBoxMove()
 {
     QPoint p = mapFromGlobal( QCursor::pos() );
-    Settings::Position oldPos = Settings::Settings::instance()->infoBoxPosition();
+    Settings::Position oldPos = Settings::SettingsData::instance()->infoBoxPosition();
     Settings::Position pos = oldPos;
     int x = _display->mapFromParent( p ).x();
     int y = _display->mapFromParent( p ).y();
@@ -484,7 +484,7 @@ void Viewer::ViewerWidget::infoBoxMove()
                 pos = Settings::Bottom;
     }
     if ( pos != oldPos )  {
-        Settings::Settings::instance()->setInfoBoxPosition( pos );
+        Settings::SettingsData::instance()->setInfoBoxPosition( pos );
         updateInfoBox();
     }
 }
@@ -492,7 +492,7 @@ void Viewer::ViewerWidget::infoBoxMove()
 void Viewer::ViewerWidget::moveInfoBox()
 {
     _infoBox->setSize();
-    Settings::Position pos = Settings::Settings::instance()->infoBoxPosition();
+    Settings::Position pos = Settings::SettingsData::instance()->infoBoxPosition();
 
     int lx = _display->pos().x();
     int ly = _display->pos().y();
@@ -535,7 +535,7 @@ void Viewer::ViewerWidget::updateInfoBox()
         QMap<int, QPair<QString,QString> > map;
         QString origText = Utilities::createInfoText( currentInfo(), &map );
         QString text = QString::fromLatin1("<qt>") + origText + QString::fromLatin1("</qt>");
-        if ( Settings::Settings::instance()->showInfoBox() && !origText.isNull() ) {
+        if ( Settings::SettingsData::instance()->showInfoBox() && !origText.isNull() ) {
             _infoBox->setInfo( text, map );
             _infoBox->show();
         }
@@ -664,7 +664,7 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
         //
         KWin::clearState( winId(), NET::FullScreen );
         if ( !_sized ) {
-            resize( Settings::Settings::instance()->viewerSize() );
+            resize( Settings::SettingsData::instance()->viewerSize() );
             _sized = true;
         }
     }
@@ -693,12 +693,12 @@ void Viewer::ViewerWidget::show( bool slideShow )
     QSize size;
     bool fullScreen;
     if ( slideShow ) {
-        fullScreen = Settings::Settings::instance()->launchSlideShowFullScreen();
-        size = Settings::Settings::instance()->slideShowSize();
+        fullScreen = Settings::SettingsData::instance()->launchSlideShowFullScreen();
+        size = Settings::SettingsData::instance()->slideShowSize();
     }
     else {
-        fullScreen = Settings::Settings::instance()->launchViewerFullScreen();
-        size = Settings::Settings::instance()->viewerSize();
+        fullScreen = Settings::SettingsData::instance()->launchViewerFullScreen();
+        size = Settings::SettingsData::instance()->viewerSize();
     }
 
     if ( fullScreen )

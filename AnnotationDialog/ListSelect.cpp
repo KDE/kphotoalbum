@@ -243,7 +243,7 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
 
     populate();
 
-    connect( Settings::Settings::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
+    connect( Settings::SettingsData::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
              this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
 }
 
@@ -263,7 +263,7 @@ void ListSelect::slotReturn()
 
         // move item to front
         _listBox->takeItem( item );
-        if ( Settings::Settings::instance()->viewSortType() == Settings::SortLastUse ) {
+        if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse ) {
             _listBox->insertItem( item, 0 );
             _listBox->setContentsPos( 0,0 );
         }
@@ -474,8 +474,8 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
     menu.insertItem( sortTitle );
     menu.insertItem( i18n("Usage"), 3 );
     menu.insertItem( i18n("Alphabetical"), 4 );
-    menu.setItemChecked(3, Settings::Settings::instance()->viewSortType() == Settings::SortLastUse);
-    menu.setItemChecked(4, Settings::Settings::instance()->viewSortType() == Settings::SortAlpha);
+    menu.setItemChecked(3, Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
+    menu.setItemChecked(4, Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha);
 
     if ( !item ) {
         menu.setItemEnabled( 1, false );
@@ -517,17 +517,17 @@ void ListSelect::showContextMenu( QListBoxItem* item, const QPoint& pos )
                 _listBox->setSelected( newItem, sel );
 
                 // rename the category image too
-                QString oldFile = Settings::Settings::instance()->fileForCategoryImage( category(), oldStr );
-                QString newFile = Settings::Settings::instance()->fileForCategoryImage( category(), newStr );
+                QString oldFile = Settings::SettingsData::instance()->fileForCategoryImage( category(), oldStr );
+                QString newFile = Settings::SettingsData::instance()->fileForCategoryImage( category(), newStr );
                 KIO::move( KURL(oldFile), KURL(newFile) );
             }
         }
     }
     else if ( which == 3 ) {
-        Settings::Settings::instance()->setViewSortType( Settings::SortLastUse );
+        Settings::SettingsData::instance()->setViewSortType( Settings::SortLastUse );
     }
     else if ( which == 4 ) {
-        Settings::Settings::instance()->setViewSortType( Settings::SortAlpha );
+        Settings::SettingsData::instance()->setViewSortType( Settings::SortAlpha );
     }
     else if ( which == 7 ) {
         QString group = KInputDialog::getText( i18n("Member Group Name"), i18n("Member group name:") );
@@ -574,12 +574,12 @@ bool ListSelect::eventFilter( QObject* object, QEvent* event )
 
 void ListSelect::slotSortDate()
 {
-    Settings::Settings::instance()->setViewSortType( Settings::SortLastUse );
+    Settings::SettingsData::instance()->setViewSortType( Settings::SortLastUse );
 }
 
 void ListSelect::slotSortAlpha()
 {
-    Settings::Settings::instance()->setViewSortType( Settings::SortAlpha );
+    Settings::SettingsData::instance()->setViewSortType( Settings::SortAlpha );
 }
 
 #include "ListSelect.moc"

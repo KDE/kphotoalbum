@@ -17,7 +17,7 @@ Boston, MA 02110-1301, USA.
 */
 
 #include "Util.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageDecoder.h"
 #include <klocale.h>
@@ -73,7 +73,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 {
     Q_ASSERT( info );
     QString text;
-    if ( Settings::Settings::instance()->showDate() )  {
+    if ( Settings::SettingsData::instance()->showDate() )  {
         text = info->date().toString( true );
 
         if ( !text.isEmpty() ) {
@@ -110,14 +110,14 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         }
     }
 
-    if ( Settings::Settings::instance()->showDescription() && !info->description().isEmpty())  {
+    if ( Settings::SettingsData::instance()->showDescription() && !info->description().isEmpty())  {
         if ( !text.isEmpty() )
             text += i18n("<b>Description: </b> ") +  info->description() + QString::fromLatin1("<br>");
     }
 
 #ifdef HASEXIV2
     QString exifText;
-    if ( Settings::Settings::instance()->showEXIF() ) {
+    if ( Settings::SettingsData::instance()->showEXIF() ) {
         QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
         for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
             exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
@@ -533,8 +533,8 @@ Utilities::UniqNameMap Utilities::createUniqNameMap( const QStringList& images, 
 
         QString relFile = file;
         if ( relative ) {
-            Q_ASSERT( file.startsWith( Settings::Settings::instance()->imageDirectory() ) );
-            relFile = file.mid( Settings::Settings::instance()->imageDirectory().length() );
+            Q_ASSERT( file.startsWith( Settings::SettingsData::instance()->imageDirectory() ) );
+            relFile = file.mid( Settings::SettingsData::instance()->imageDirectory().length() );
             if ( relFile.startsWith( QString::fromLatin1( "/" ) ) )
                 relFile = relFile.mid(1);
         }
@@ -589,8 +589,8 @@ QStringList Utilities::infoListToStringList( const DB::ImageInfoList& list )
 
 QString Utilities::stripImageDirectory( const QString& fileName )
 {
-    if ( fileName.startsWith( Settings::Settings::instance()->imageDirectory() ) )
-        return fileName.mid( Settings::Settings::instance()->imageDirectory().length() );
+    if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
+        return fileName.mid( Settings::SettingsData::instance()->imageDirectory().length() );
     else
         return fileName;
 }
@@ -607,7 +607,7 @@ QStringList Utilities::diff( const QStringList& list1, const QStringList& list2 
 
 QString Utilities::absoluteImageFileName( const QString& relativeName )
 {
-    return stripSlash( Settings::Settings::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
+    return stripSlash( Settings::SettingsData::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
 }
 bool operator>( const QPoint& p1, const QPoint& p2)
 {

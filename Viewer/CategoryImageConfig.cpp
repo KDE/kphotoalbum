@@ -21,7 +21,7 @@
 #include <qlayout.h>
 #include <klocale.h>
 #include <qcombobox.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
@@ -87,13 +87,13 @@ void CategoryImageConfig::groupChanged()
 
 void CategoryImageConfig::memberChanged()
 {
-    QImage img = Settings::Settings::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
+    QImage img = Settings::SettingsData::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
     _current->setPixmap( img );
 }
 
 void CategoryImageConfig::slotSet()
 {
-    Settings::Settings::instance()->setCategoryImage( currentGroup(), _member->currentText(), _image );
+    Settings::SettingsData::instance()->setCategoryImage( currentGroup(), _member->currentText(), _image );
     memberChanged();
 }
 

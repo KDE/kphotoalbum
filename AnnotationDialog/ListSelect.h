@@ -21,7 +21,7 @@
 
 #include <qwidget.h>
 #include <qstringlist.h>
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include <qtoolbutton.h>
 class QListBox;
 class QLabel;

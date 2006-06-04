@@ -20,7 +20,7 @@
 #include "Folder.h"
 #include <klocale.h>
 #include "DB/ImageSearchInfo.h"
-#include "Settings/Settings.h"
+#include "Settings/SettingsData.h"
 #include "ContentFolder.h"
 #include "ImageFolder.h"
 #include <qtimer.h>
@@ -214,7 +214,7 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     info.addAnd( category, value );
     FolderAction* a;
 
-    bool loadImages = DB::ImageDB::instance()->count( info ) < Settings::Settings::instance()->autoShowThumbnailView();
+    bool loadImages = DB::ImageDB::instance()->count( info ) < Settings::SettingsData::instance()->autoShowThumbnailView();
     if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )

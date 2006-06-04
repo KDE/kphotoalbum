@@ -63,11 +63,11 @@ namespace Settings
     };
     enum WindowType { MainWindow = 0, ConfigWindow = 1 };
 
-class Settings :public QObject {
+class SettingsData :public QObject {
     Q_OBJECT
 
 public:
-    static Settings* instance();
+    static SettingsData* instance();
     static bool ready();
     static void setup( const QString& imageDirectory );
     // -------------------------------------------------- General
@@ -188,8 +188,8 @@ signals:
     void histogramSizeChanged( const QSize& );
 
 private:
-    Settings( const QString& imageDirectory  );
-    static Settings* _instance;
+    SettingsData( const QString& imageDirectory  );
+    static SettingsData* _instance;
     bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class DB::CategoryCollection;
     QString _imageDirectory;

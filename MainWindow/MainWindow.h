@@ -42,7 +42,7 @@ namespace ThumbnailView { class ThumbnailView; }
 namespace Browser{ class BrowserWidget; }
 namespace AnnotationDialog { class AnnotationDialog; }
 namespace Settings { class SettingsDialog; }
-namespace DateBar { class DateBar; }
+namespace DateBar { class DateBarWidget; }
 
 namespace MainWindow
 {
@@ -200,7 +200,7 @@ private:
     KIPI::PluginLoader* _pluginLoader;
 #endif
     TokenEditor* _tokenEditor;
-    DateBar::DateBar* _dateBar;
+    DateBar::DateBarWidget* _dateBar;
     bool _hasLoadedPlugins;
     ImageCounter* _partial;
 };

@@ -81,7 +81,7 @@
 #include "TokenEditor.h"
 #include "DB/CategoryCollection.h"
 #include <qlayout.h>
-#include "DateBar/DateBar.h"
+#include "DateBar/DateBarWidget.h"
 #include "DB/ImageDateCollection.h"
 #include "InvalidDateFinder.h"
 #include "DB/ImageInfo.h"
@@ -124,7 +124,7 @@ MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
     _stack = new QWidgetStack( top, "_stack" );
     lay->addWidget( _stack, 1 );
 
-    _dateBar = new DateBar::DateBar( top, "datebar" );
+    _dateBar = new DateBar::DateBarWidget( top, "datebar" );
     lay->addWidget( _dateBar );
 
     QFrame* line = new QFrame( top );

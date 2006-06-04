@@ -37,7 +37,7 @@ class KPushButton;
 
 namespace Viewer
 {
-    class Viewer;
+    class ViewerWidget;
 }
 
 namespace DB
@@ -110,7 +110,7 @@ private:
     QPtrList< ListSelect > _optionList;
     DB::ImageSearchInfo _oldSearch;
     QSplitter* _splitter;
-    Viewer::Viewer* _viewer;
+    Viewer::ViewerWidget* _viewer;
     int _accept;
     QValueList<KDockWidget*> _dockWidgets;
     QValueList<KDockWidget*> _tornOfWindows;

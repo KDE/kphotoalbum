@@ -31,15 +31,8 @@ class QPopupMenu;
 class KAction;
 class CategoryImageConfig;
 
-namespace DB
-{
-    class ImageInfo;
-}
-
-namespace MainWindow
-{
-    class ExternalPopup;
-}
+namespace DB { class ImageInfo; }
+namespace MainWindow { class ExternalPopup; }
 
 namespace Viewer
 {
@@ -47,13 +40,13 @@ class DisplayArea;
 class SpeedDisplay;
 class InfoBox;
 
-class Viewer :public QWidget
+class ViewerWidget :public QWidget
 {
     Q_OBJECT
 public:
-    Viewer( const char* name = 0 );
-    ~Viewer();
-    static Viewer* latest();
+    ViewerWidget( const char* name = 0 );
+    ~ViewerWidget();
+    static ViewerWidget* latest();
     void load( const QStringList& list, int index = 0 );
     void infoBoxMove();
     bool showingFullScreen() const;
@@ -118,7 +111,7 @@ protected slots:
 
 
 private:
-    static Viewer* _latest;
+    static ViewerWidget* _latest;
 
     KAction* _firstAction;
     KAction* _lastAction;

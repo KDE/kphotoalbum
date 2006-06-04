@@ -28,7 +28,7 @@
 #include "ImagePreview.h"
 #include <qregexp.h>
 #include <qtabwidget.h>
-#include "Viewer/Viewer.h"
+#include "Viewer/ViewerWidget.h"
 #include <qaccel.h>
 #include <kstandarddirs.h>
 #include "Editor.h"

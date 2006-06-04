@@ -27,7 +27,7 @@
 #include <qtextstream.h>
 #include <qmessagebox.h>
 #include <qdict.h>
-#include "Viewer/Viewer.h"
+#include "Viewer/ViewerWidget.h"
 #include "WelcomeDialog.h"
 #include <qcursor.h>
 #include "Utilities/ShowBusyCursor.h"
@@ -451,14 +451,14 @@ void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 
     if ( listOnDisk.count() != 0 ) {
 
-        Viewer::Viewer* viewer;
-        if ( reuse && Viewer::Viewer::latest() ) {
-            viewer = Viewer::Viewer::latest();
+        Viewer::ViewerWidget* viewer;
+        if ( reuse && Viewer::ViewerWidget::latest() ) {
+            viewer = Viewer::ViewerWidget::latest();
             topLevelWidget()->raise();
             setActiveWindow();
         }
         else {
-            viewer = new Viewer::Viewer( "viewer" );
+            viewer = new Viewer::ViewerWidget( "viewer" );
             connect( viewer, SIGNAL( dirty() ), this, SLOT( markDirty() ) );
         }
         viewer->show( slideShow );
@@ -936,7 +936,7 @@ void MainWindow::Window::changePassword()
 
 void MainWindow::Window::slotConfigureKeyBindings()
 {
-    Viewer::Viewer* viewer = new Viewer::Viewer( "viewer" ); // Do not show, this is only used to get a key configuration
+    Viewer::ViewerWidget* viewer = new Viewer::ViewerWidget( "viewer" ); // Do not show, this is only used to get a key configuration
     KKeyDialog* dialog = new KKeyDialog();
     dialog->insert( actionCollection(), i18n( "General" ) );
     dialog->insert( viewer->actions(), i18n("Viewer") );
@@ -1343,14 +1343,14 @@ void MainWindow::Window::showImage( const QString& fileName )
     else {
         QStringList list;
         list.append( fileName );
-        Viewer::Viewer* viewer;
-        if ( !Utilities::ctrlKeyDown() && Viewer::Viewer::latest() ) {
-            viewer = Viewer::Viewer::latest();
+        Viewer::ViewerWidget* viewer;
+        if ( !Utilities::ctrlKeyDown() && Viewer::ViewerWidget::latest() ) {
+            viewer = Viewer::ViewerWidget::latest();
             viewer->setActiveWindow();
             viewer->raise();
         }
         else {
-            viewer = new Viewer::Viewer( "viewer" );
+            viewer = new Viewer::ViewerWidget( "viewer" );
             viewer->show( false );
         }
         viewer->load( list );

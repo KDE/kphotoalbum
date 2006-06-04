@@ -18,7 +18,7 @@
 
 #include "InfoBox.h"
 #include <qurl.h>
-#include "Viewer/Viewer.h"
+#include "Viewer/ViewerWidget.h"
 #include "Browser/BrowserWidget.h"
 #include <qfontmetrics.h>
 #include <qapplication.h>
@@ -28,7 +28,7 @@
 #include "MainWindow/Window.h"
 #include "DB/ImageInfo.h"
 
-Viewer::InfoBox::InfoBox( Viewer::Viewer* viewer, const char* name )
+Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer, const char* name )
     :QTextBrowser( viewer, name ), _viewer( viewer )
 {
     setFrameStyle( Box | Plain );

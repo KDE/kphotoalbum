@@ -51,10 +51,10 @@ namespace AnnotationDialog
 class ImagePreview;
 class KDateEdit;
 
-class AnnotationDialog :public QDialog {
+class Dialog :public QDialog {
     Q_OBJECT
 public:
-    AnnotationDialog( QWidget* parent, const char* name = 0 );
+    Dialog( QWidget* parent, const char* name = 0 );
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;

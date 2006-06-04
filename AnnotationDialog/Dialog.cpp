@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "AnnotationDialog.h"
+#include "Dialog.h"
 #include "ListSelect.h"
 #include <qspinbox.h>
 #include <qcombobox.h>
@@ -62,7 +62,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 
-AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const char* name )
+AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
 {
     Utilities::ShowBusyCursor dummy;
@@ -256,13 +256,13 @@ AnnotationDialog::AnnotationDialog::AnnotationDialog( QWidget* parent, const cha
 }
 
 
-void AnnotationDialog::AnnotationDialog::slotRevert()
+void AnnotationDialog::Dialog::slotRevert()
 {
     if ( _setup == SINGLE )
         load();
 }
 
-void AnnotationDialog::AnnotationDialog::slotPrev()
+void AnnotationDialog::Dialog::slotPrev()
 {
     if ( _setup != SINGLE )
         return;
@@ -277,7 +277,7 @@ void AnnotationDialog::AnnotationDialog::slotPrev()
     load();
 }
 
-void AnnotationDialog::AnnotationDialog::slotNext()
+void AnnotationDialog::Dialog::slotNext()
 {
     if ( _setup != SINGLE )
         return;
@@ -294,7 +294,7 @@ void AnnotationDialog::AnnotationDialog::slotNext()
     load();
 }
 
-void AnnotationDialog::AnnotationDialog::slotOK()
+void AnnotationDialog::Dialog::slotOK()
 {
     // I need to emit the changes first, as the case for _setup == SINGLE, saves to the _origList,
     // and we can thus not check for changes anymore
@@ -342,7 +342,7 @@ void AnnotationDialog::AnnotationDialog::slotOK()
     qApp->eventLoop()->exitLoop();
 }
 
-void AnnotationDialog::AnnotationDialog::load()
+void AnnotationDialog::Dialog::load()
 {
     DB::ImageInfo& info = _editList[ _current ];
     _startDate->setDate( info.date().start().date() );
@@ -381,7 +381,7 @@ void AnnotationDialog::AnnotationDialog::load()
         setCaption( i18n("KPhotoAlbum Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
 }
 
-void AnnotationDialog::AnnotationDialog::writeToInfo()
+void AnnotationDialog::Dialog::writeToInfo()
 {
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->slotReturn();
@@ -408,7 +408,7 @@ void AnnotationDialog::AnnotationDialog::writeToInfo()
 }
 
 
-int AnnotationDialog::AnnotationDialog::configure( DB::ImageInfoList list, bool oneAtATime )
+int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime )
 {
     if ( oneAtATime )
         _setup = SINGLE;
@@ -452,7 +452,7 @@ int AnnotationDialog::AnnotationDialog::configure( DB::ImageInfoList list, bool 
     return exec();
 }
 
-DB::ImageSearchInfo AnnotationDialog::AnnotationDialog::search( DB::ImageSearchInfo* search  )
+DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* search  )
 {
     _setup = SEARCH;
     if ( search )
@@ -475,7 +475,7 @@ DB::ImageSearchInfo AnnotationDialog::AnnotationDialog::search( DB::ImageSearchI
         return DB::ImageSearchInfo();
 }
 
-void AnnotationDialog::AnnotationDialog::setup()
+void AnnotationDialog::Dialog::setup()
 {
 // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
@@ -518,12 +518,12 @@ void AnnotationDialog::AnnotationDialog::setup()
 }
 
 
-void AnnotationDialog::AnnotationDialog::slotClear()
+void AnnotationDialog::Dialog::slotClear()
 {
     loadInfo( DB::ImageSearchInfo() );
 }
 
-void AnnotationDialog::AnnotationDialog::loadInfo( const DB::ImageSearchInfo& info )
+void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
 {
     _startDate->setDate( info.date().start().date() );
     _endDate->setDate( info.date().end().date() );
@@ -536,12 +536,12 @@ void AnnotationDialog::AnnotationDialog::loadInfo( const DB::ImageSearchInfo& in
     _description->setText( info.description() );
 }
 
-void AnnotationDialog::AnnotationDialog::viewerDestroyed()
+void AnnotationDialog::Dialog::viewerDestroyed()
 {
     _viewer = 0;
 }
 
-void AnnotationDialog::AnnotationDialog::slotOptions()
+void AnnotationDialog::Dialog::slotOptions()
 {
     QPopupMenu menu( this, "context popup menu");
     menu.insertItem( i18n("Show/Hide Windows"),  _dockWindow->dockHideShowMenu());
@@ -564,7 +564,7 @@ void AnnotationDialog::AnnotationDialog::slotOptions()
  * (Written years after this code, darn I would have loved if I had written
  * a comment here. tsk tsk)
  */
-int AnnotationDialog::AnnotationDialog::exec()
+int AnnotationDialog::Dialog::exec()
 {
     show();
     setupFocus();
@@ -579,7 +579,7 @@ int AnnotationDialog::AnnotationDialog::exec()
     return _accept;
 }
 
-void AnnotationDialog::AnnotationDialog::slotSaveWindowSetup()
+void AnnotationDialog::Dialog::slotSaveWindowSetup()
 {
     QDomDocument doc;
     QDomElement top = doc.createElement( QString::fromLatin1( "WindowLayout" ) );
@@ -593,13 +593,13 @@ void AnnotationDialog::AnnotationDialog::slotSaveWindowSetup()
     file.close();
 }
 
-void AnnotationDialog::AnnotationDialog::closeEvent( QCloseEvent* e )
+void AnnotationDialog::Dialog::closeEvent( QCloseEvent* e )
 {
     e->ignore();
     reject();
 }
 
-void AnnotationDialog::AnnotationDialog::hideTornOfWindows()
+void AnnotationDialog::Dialog::hideTornOfWindows()
 {
     _tornOfWindows.clear();
     for( QValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
@@ -610,7 +610,7 @@ void AnnotationDialog::AnnotationDialog::hideTornOfWindows()
     }
 }
 
-void AnnotationDialog::AnnotationDialog::showTornOfWindows()
+void AnnotationDialog::Dialog::showTornOfWindows()
 {
     for( QValueList<KDockWidget*>::Iterator it = _tornOfWindows.begin(); it != _tornOfWindows.end(); ++it ) {
         (*it)->show();
@@ -620,7 +620,7 @@ void AnnotationDialog::AnnotationDialog::showTornOfWindows()
 /**
  * See comment above for exec()
  */
-bool AnnotationDialog::AnnotationDialog::eventFilter( QObject* watched, QEvent* event )
+bool AnnotationDialog::Dialog::eventFilter( QObject* watched, QEvent* event )
 {
     if ( !watched->isWidgetType() )
         return false;
@@ -648,7 +648,7 @@ bool AnnotationDialog::AnnotationDialog::eventFilter( QObject* watched, QEvent* 
 }
 
 
-KDockWidget* AnnotationDialog::AnnotationDialog::createListSel( const QString& category )
+KDockWidget* AnnotationDialog::Dialog::createListSel( const QString& category )
 {
     KDockWidget* dockWidget = _dockWindow->createDockWidget( category,
                                                              DB::ImageDB::instance()->categoryCollection()->categoryForName( category)->icon(),
@@ -667,21 +667,21 @@ KDockWidget* AnnotationDialog::AnnotationDialog::createListSel( const QString& c
     return dockWidget;
 }
 
-void AnnotationDialog::AnnotationDialog::slotDeleteOption( DB::Category* category, const QString& which)
+void AnnotationDialog::Dialog::slotDeleteOption( DB::Category* category, const QString& which)
 {
     for( QValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).removeOption( category->name(), which );
     }
 }
 
-void AnnotationDialog::AnnotationDialog::slotRenameOption( DB::Category* category, const QString& oldValue, const QString& newValue )
+void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const QString& oldValue, const QString& newValue )
 {
     for( QValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).renameItem( category->name(), oldValue, newValue );
     }
 }
 
-void AnnotationDialog::AnnotationDialog::reject()
+void AnnotationDialog::Dialog::reject()
 {
     if ( hasChanges() ) {
         int code =  KMessageBox::questionYesNo( this, i18n("<qt>Changes made to image info, really cancel?</qt>") );
@@ -691,14 +691,14 @@ void AnnotationDialog::AnnotationDialog::reject()
     closeDialog();
 }
 
-void AnnotationDialog::AnnotationDialog::closeDialog()
+void AnnotationDialog::Dialog::closeDialog()
 {
     _accept = QDialog::Rejected;
     qApp->eventLoop()->exitLoop();
     QDialog::reject();
 }
 
-bool AnnotationDialog::AnnotationDialog::hasChanges()
+bool AnnotationDialog::Dialog::hasChanges()
 {
     bool changed = false;
     if ( _setup == SINGLE )  {
@@ -723,17 +723,17 @@ bool AnnotationDialog::AnnotationDialog::hasChanges()
     return changed;
 }
 
-void AnnotationDialog::AnnotationDialog::rotateLeft()
+void AnnotationDialog::Dialog::rotateLeft()
 {
     rotate(-90);
 }
 
-void AnnotationDialog::AnnotationDialog::rotateRight()
+void AnnotationDialog::Dialog::rotateRight()
 {
     rotate(90);
 }
 
-void AnnotationDialog::AnnotationDialog::rotate( int angle )
+void AnnotationDialog::Dialog::rotate( int angle )
 {
     _thumbnailShouldReload = true;
     if ( _setup == MULTIPLE ) {
@@ -746,18 +746,18 @@ void AnnotationDialog::AnnotationDialog::rotate( int angle )
     _preview->rotate( angle );
 }
 
-bool AnnotationDialog::AnnotationDialog::thumbnailShouldReload() const
+bool AnnotationDialog::Dialog::thumbnailShouldReload() const
 {
     return _thumbnailShouldReload;
 }
 
-void AnnotationDialog::AnnotationDialog::slotAddTimeInfo()
+void AnnotationDialog::Dialog::slotAddTimeInfo()
 {
     _addTime->hide();
     _time->show();
 }
 
-void AnnotationDialog::AnnotationDialog::slotDeleteImage()
+void AnnotationDialog::Dialog::slotDeleteImage()
 {
     Q_ASSERT( _setup != SEARCH );
 
@@ -784,7 +784,7 @@ void AnnotationDialog::AnnotationDialog::slotDeleteImage()
     load();
 }
 
-void AnnotationDialog::AnnotationDialog::showHelpDialog( SetupType type )
+void AnnotationDialog::Dialog::showHelpDialog( SetupType type )
 {
     QString doNotShowKey;
     QString txt;
@@ -810,19 +810,19 @@ void AnnotationDialog::AnnotationDialog::showHelpDialog( SetupType type )
     KMessageBox::information( this, txt, QString::null, doNotShowKey, KMessageBox::AllowLink );
 }
 
-void AnnotationDialog::AnnotationDialog::resizeEvent( QResizeEvent* )
+void AnnotationDialog::Dialog::resizeEvent( QResizeEvent* )
 {
     Settings::Settings::instance()->setWindowGeometry( Settings::ConfigWindow, geometry() );
 }
 
-void AnnotationDialog::AnnotationDialog::moveEvent( QMoveEvent * )
+void AnnotationDialog::Dialog::moveEvent( QMoveEvent * )
 {
     Settings::Settings::instance()->setWindowGeometry( Settings::ConfigWindow, geometry() );
 
 }
 
 
-void AnnotationDialog::AnnotationDialog::setupFocus()
+void AnnotationDialog::Dialog::setupFocus()
 {
     static bool initialized = false;
     if ( initialized )
@@ -877,7 +877,7 @@ void AnnotationDialog::AnnotationDialog::setupFocus()
     }
 }
 
-void AnnotationDialog::AnnotationDialog::slotResetLayout()
+void AnnotationDialog::Dialog::slotResetLayout()
 {
     QString dest =  QString::fromLatin1( "%1/layout.xml" ).arg( Settings::Settings::instance()->imageDirectory() );
     QString src =locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
@@ -887,7 +887,7 @@ void AnnotationDialog::AnnotationDialog::slotResetLayout()
     closeDialog();
 }
 
-void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const DB::ImageDate& date )
+void AnnotationDialog::Dialog::slotStartDateChanged( const DB::ImageDate& date )
 {
     if ( date.start() == date.end() )
         _endDate->setDate( QDate() );
@@ -895,7 +895,7 @@ void AnnotationDialog::AnnotationDialog::slotStartDateChanged( const DB::ImageDa
         _endDate->setDate( date.end().date() );
 }
 
-void AnnotationDialog::AnnotationDialog::loadWindowLayout()
+void AnnotationDialog::Dialog::loadWindowLayout()
 {
     QString fileName =  QString::fromLatin1( "%1/layout.xml" ).arg( Settings::Settings::instance()->imageDirectory() );
     if ( !QFileInfo(fileName).exists() )
@@ -909,4 +909,4 @@ void AnnotationDialog::AnnotationDialog::loadWindowLayout()
     _dockWindow->readDockConfig( elm );
 }
 
-#include "AnnotationDialog.moc"
+#include "Dialog.moc"

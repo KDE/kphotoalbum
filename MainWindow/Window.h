@@ -40,7 +40,7 @@ class KRadioAction;
 namespace Plugins { class Interface; }
 namespace ThumbnailView { class ThumbnailWidget; }
 namespace Browser{ class BrowserWidget; }
-namespace AnnotationDialog { class AnnotationDialog; }
+namespace AnnotationDialog { class Dialog; }
 namespace Settings { class SettingsDialog; }
 namespace DateBar { class DateBarWidget; }
 
@@ -158,7 +158,7 @@ private:
 
     ThumbnailView::ThumbnailWidget* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;
-    QGuardedPtr<AnnotationDialog::AnnotationDialog> _annotationDialog;
+    QGuardedPtr<AnnotationDialog::Dialog> _annotationDialog;
     bool _dirty;
     bool _autoSaveDirty; // We do not want to continue autosaving the same date
     QWidgetStack* _stack;

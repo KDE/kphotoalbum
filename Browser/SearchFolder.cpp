@@ -20,7 +20,7 @@
 #include <klocale.h>
 #include <kstandarddirs.h>
 #include <kiconloader.h>
-#include "AnnotationDialog/AnnotationDialog.h"
+#include "AnnotationDialog/Dialog.h"
 #include "ContentFolder.h"
 #include "DB/ImageDB.h"
 #include <kmessagebox.h>
@@ -47,7 +47,7 @@ QString Browser::SearchFolder::text() const
 
 Browser::FolderAction* Browser::SearchFolder::action( bool )
 {
-    AnnotationDialog::AnnotationDialog config( _browser );
+    AnnotationDialog::Dialog config( _browser );
     DB::ImageSearchInfo info = config.search( &_info );
     if ( info.isNull() )
         return 0;

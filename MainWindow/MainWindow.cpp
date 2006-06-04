@@ -41,7 +41,7 @@
 #include <qtimer.h>
 #include <kmessagebox.h>
 #include "Settings/Settings.h"
-#include "Browser/Browser.h"
+#include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include <kapplication.h>
@@ -132,7 +132,7 @@ MainWindow::MainWindow::MainWindow( QWidget* parent, const char* name )
     line->setLineWidth(1);
     lay->addWidget( line );
 
-    _browser = new Browser::Browser( _stack, "browser" );
+    _browser = new Browser::BrowserWidget( _stack, "browser" );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
@@ -471,7 +471,7 @@ void MainWindow::MainWindow::slotView( bool reuse, bool slideShow, bool random )
 void MainWindow::MainWindow::slotSortByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
-    showThumbNails( DB::ImageDB::instance()->search( Browser::Browser::instance()->currentContext() ) );
+    showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) );
     markDirty();
 }
 

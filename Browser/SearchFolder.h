@@ -26,7 +26,7 @@ namespace Browser
 class SearchFolder :public Folder {
 
 public:
-    SearchFolder( const DB::ImageSearchInfo& info, Browser* browser );
+    SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;

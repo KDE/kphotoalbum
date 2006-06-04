@@ -24,7 +24,7 @@
 #include "BrowserItemFactory.h"
 #include "DB/CategoryCollection.h"
 
-Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchInfo& info, Browser* parent )
+Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category ( category )
 {
     QMap<QString, int> map = DB::ImageDB::instance()->classify( _info, _category );
@@ -50,7 +50,7 @@ Browser::FolderAction* Browser::TypeFolder::action( bool /* ctrlDown */ )
 }
 
 Browser::TypeFolderAction::TypeFolderAction( const QString& category, const DB::ImageSearchInfo& info,
-                                    Browser* browser )
+                                    BrowserWidget* browser )
     :FolderAction( info, browser ), _category( category )
 {
 }

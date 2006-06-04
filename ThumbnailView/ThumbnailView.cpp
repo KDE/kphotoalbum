@@ -11,7 +11,7 @@
 #include <qcursor.h>
 #include <qapplication.h>
 #include "ThumbnailToolTip.h"
-#include "Browser/Browser.h"
+#include "Browser/BrowserWidget.h"
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <qfontmetrics.h>
@@ -860,7 +860,7 @@ void ThumbnailView::ThumbnailView::realDropEvent()
             else
                 DB::ImageDB::instance()->reorder( _rightDrop, selected, true );
 
-            Browser::Browser::instance()->reload();
+            Browser::BrowserWidget::instance()->reload();
         }
     }
     removeDropIndications();

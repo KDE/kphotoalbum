@@ -7,7 +7,7 @@
 #include "DB/ImageDB.h"
 #include <kmessagebox.h>
 
-Browser::ExifFolder::ExifFolder( const DB::ImageSearchInfo& info, Browser* browser )
+Browser::ExifFolder::ExifFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )
 {
 }

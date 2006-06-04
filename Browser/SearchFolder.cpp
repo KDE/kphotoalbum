@@ -27,7 +27,7 @@
 #include <kglobal.h>
 #include "DB/ImageInfo.h"
 
-Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, Browser* browser )
+Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )
 {
     setCount(-1);

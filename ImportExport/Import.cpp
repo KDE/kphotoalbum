@@ -37,7 +37,7 @@
 #include "DB/ImageDB.h"
 #include <qimage.h>
 #include <qwmatrix.h>
-#include "Browser/Browser.h"
+#include "Browser/BrowserWidget.h"
 #include <qdir.h>
 #include <kstandarddirs.h>
 #include <ktempfile.h>
@@ -597,7 +597,7 @@ void Import::updateDB()
             }
         }
     }
-    Browser::Browser::instance()->home();
+    Browser::BrowserWidget::instance()->home();
 }
 
 QPixmap Import::loadThumbnail( QString fileName )

@@ -2,7 +2,7 @@
 #include "XMLDB/XMLDB.h"
 #include <klocale.h>
 #include <qfileinfo.h>
-#include "Browser/Browser.h"
+#include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
 #include "SQLDB/SQLDB.h"
 #include <qprogressdialog.h>
@@ -48,7 +48,7 @@ QString ImageDB::NONE()
 
 QStringList ImageDB::currentScope( bool requireOnDisk ) const
 {
-    return search( Browser::Browser::instance()->currentContext(), requireOnDisk );
+    return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
 }
 
 void ImageDB::setDateRange( const ImageDate& range, bool includeFuzzyCounts )
@@ -84,7 +84,7 @@ void ImageDB::slotRecalcCheckSums( QStringList list )
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
-    Browser::Browser::instance()->home();
+    Browser::BrowserWidget::instance()->home();
 
     emit totalChanged( totalCount() );
 }

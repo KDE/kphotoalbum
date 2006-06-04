@@ -37,17 +37,17 @@ class BrowserIconViewItemFactory;
 class FolderAction;
 class BrowserItemFactory;
 
-class Browser :public QWidget {
+class BrowserWidget :public QWidget {
     Q_OBJECT
     friend class ImageFolderAction;
 
 public:
-    Browser( QWidget* parent, const char* name = 0 );
-    ~Browser();
+    BrowserWidget( QWidget* parent, const char* name = 0 );
+    ~BrowserWidget();
     void addSearch( DB::ImageSearchInfo& info );
     void addImageView( const QString& context );
 
-    static Browser* instance();
+    static BrowserWidget* instance();
     void load( const QString& category, const QString& value );
     bool allowSort();
     DB::ImageSearchInfo currentContext();
@@ -91,7 +91,7 @@ protected:
     void setSizeAndType( DB::Category::ViewType type, DB::Category::ViewSize size );
 
 private:
-    static Browser* _instance;
+    static BrowserWidget* _instance;
     QValueList<FolderAction*> _list;
     int _current;
     BrowserItemFactory* _listViewFactory;

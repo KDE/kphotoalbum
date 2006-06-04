@@ -33,7 +33,7 @@
 #include <config.h>
 
 Browser::ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
-                              const DB::ImageSearchInfo& info, Browser* parent )
+                              const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category( category ), _value( value )
 {
     _info.addAnd( _category, _value );
@@ -99,7 +99,7 @@ Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 }
 
 Browser::ContentFolderAction::ContentFolderAction( const QString& category, const QString& value,
-                                          const DB::ImageSearchInfo& info, Browser* browser )
+                                          const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :FolderAction( info, browser ), _category( category ), _value( value )
 {
 }

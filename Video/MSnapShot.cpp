@@ -8,6 +8,7 @@
 #include <kiconloader.h>
 
 Video::MSnapShot::MSnapShot()
+    : _current( 0 )
 {
     connect( &_process, SIGNAL(processExited(KProcess *)), this, SLOT( processDone() ) );
 }

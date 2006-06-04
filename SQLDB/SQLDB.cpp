@@ -16,7 +16,7 @@
 #include "Browser/BrowserWidget.h"
 #include "SQLImageDateCollection.h"
 
-SQLDB::SQLDB::SQLDB() :_members( this )
+SQLDB::Database::Database() :_members( this )
 {
     if ( !QSqlDatabase::isDriverAvailable( QString::fromLatin1("QMYSQL3") ) ) {
         // PENDING(blackie) better message
@@ -28,13 +28,13 @@ SQLDB::SQLDB::SQLDB() :_members( this )
     loadMemberGroups();
 }
 
-int SQLDB::SQLDB::totalCount() const
+int SQLDB::Database::totalCount() const
 {
     QString query = QString::fromLatin1( "SELECT COUNT(fileId) FROM sortorder" );
     return fetchItem( query ).toInt();
 }
 
-QStringList SQLDB::SQLDB::search( const DB::ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
+QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
 {
     // PENDING(blackie) Handle on disk.
     QValueList<int> matches = filesMatchingQuery( info );
@@ -45,7 +45,7 @@ QStringList SQLDB::SQLDB::search( const DB::ImageSearchInfo& info, bool /*requir
     return result;
 }
 
-void SQLDB::SQLDB::renameCategory( const QString& oldName, const QString newName )
+void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
     QSqlQuery query;
     query.prepare( "UPDATE imagecategoryinfo SET category=:newName WHERE category=:oldName" );
@@ -55,7 +55,7 @@ void SQLDB::SQLDB::renameCategory( const QString& oldName, const QString newName
         showError( query );
 }
 
-QMap<QString,int> SQLDB::SQLDB::classify( const DB::ImageSearchInfo& info, const QString& category )
+QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, const QString& category )
 {
     bool allFiles = true;
     QValueList<int> includedFiles;
@@ -109,14 +109,14 @@ QMap<QString,int> SQLDB::SQLDB::classify( const DB::ImageSearchInfo& info, const
     return result;
 }
 
-DB::ImageInfoList& SQLDB::SQLDB::imageInfoList()
+DB::ImageInfoList& SQLDB::Database::imageInfoList()
 {
-    qDebug("NYI: ImageInfoList& SQLDB::SQLDB::imageInfoList()" );
+    qDebug("NYI: ImageInfoList& SQLDB::Database::imageInfoList()" );
     static DB::ImageInfoList list;
     return list;
 }
 
-QStringList SQLDB::SQLDB::imageList( bool withRelativePath )
+QStringList SQLDB::Database::imageList( bool withRelativePath )
 {
     QSqlQuery query;
     if ( !query.exec( QString::fromLatin1( "SELECT fileId FROM sortorder" ) ) )
@@ -128,12 +128,12 @@ QStringList SQLDB::SQLDB::imageList( bool withRelativePath )
 }
 
 
-QStringList SQLDB::SQLDB::images()
+QStringList SQLDB::Database::images()
 {
     return imageList( false );
 }
 
-void SQLDB::SQLDB::addImages( const DB::ImageInfoList& images )
+void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 {
     int idx = totalCount();
 
@@ -196,18 +196,18 @@ void SQLDB::SQLDB::addImages( const DB::ImageInfoList& images )
     emit totalChanged( totalCount() );
 }
 
-void SQLDB::SQLDB::addToBlockList( const QStringList& /*list*/ )
+void SQLDB::Database::addToBlockList( const QStringList& /*list*/ )
 {
-    qDebug("NYI: void SQLDB::SQLDB::addToBlockList( const QStringList& list )" );
+    qDebug("NYI: void SQLDB::Database::addToBlockList( const QStringList& list )" );
 }
 
-bool SQLDB::SQLDB::isBlocking( const QString& /*fileName*/ )
+bool SQLDB::Database::isBlocking( const QString& /*fileName*/ )
 {
-    qDebug("NYI: bool SQLDB::SQLDB::isBlocking( const QString& fileName )" );
+    qDebug("NYI: bool SQLDB::Database::isBlocking( const QString& fileName )" );
     return false;
 }
 
-void SQLDB::SQLDB::deleteList( const QStringList& list )
+void SQLDB::Database::deleteList( const QStringList& list )
 {
     QStringList sortOrder = imageList( true );
     QSqlQuery imageInfoQuery, imageCategoryQuery;
@@ -244,37 +244,37 @@ void SQLDB::SQLDB::deleteList( const QStringList& list )
     emit totalChanged( totalCount() );
 }
 
-DB::ImageInfoPtr SQLDB::SQLDB::info( const QString& fileName ) const
+DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const
 {
     return new SQLImageInfo( fileName );
 }
 
-const DB::MemberMap& SQLDB::SQLDB::memberMap()
+const DB::MemberMap& SQLDB::Database::memberMap()
 {
     return _members;
 }
 
-void SQLDB::SQLDB::setMemberMap( const DB::MemberMap& map )
+void SQLDB::Database::setMemberMap( const DB::MemberMap& map )
 {
     _members = map;
 }
 
-void SQLDB::SQLDB::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
+void SQLDB::Database::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
 {
-    qDebug("NYI: void SQLDB::SQLDB::save( const QString& fileName )" );
+    qDebug("NYI: void SQLDB::Database::save( const QString& fileName )" );
 }
 
-DB::MD5Map* SQLDB::SQLDB::md5Map()
+DB::MD5Map* SQLDB::Database::md5Map()
 {
     return &_md5map;
 }
 
-void SQLDB::SQLDB::sortAndMergeBackIn( const QStringList& /*fileList*/ )
+void SQLDB::Database::sortAndMergeBackIn( const QStringList& /*fileList*/ )
 {
-    qDebug("NYI: void SQLDB::SQLDB::sortAndMergeBackIn( const QStringList& fileList )" );
+    qDebug("NYI: void SQLDB::Database::sortAndMergeBackIn( const QStringList& fileList )" );
 }
 
-void SQLDB::SQLDB::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
+void SQLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
     QSqlQuery query;
     query.prepare( QString::fromLatin1( "UPDATE imagecategoryinfo SET value = :newName "
@@ -288,18 +288,18 @@ void SQLDB::SQLDB::renameItem( DB::Category* category, const QString& oldName, c
 
 }
 
-void SQLDB::SQLDB::deleteItem( DB::Category* /*category*/, const QString& /*option*/ )
+void SQLDB::Database::deleteItem( DB::Category* /*category*/, const QString& /*option*/ )
 {
-    qDebug("NYI: void SQLDB::SQLDB::deleteItem( DB::Category* category, const QString& option )" );
+    qDebug("NYI: void SQLDB::Database::deleteItem( DB::Category* category, const QString& option )" );
 }
 
-void SQLDB::SQLDB::lockDB( bool /*lock*/, bool /*exclude*/ )
+void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
 {
-    qDebug("NYI: void SQLDB::SQLDB::lockDB( bool lock, bool exclude )" );
+    qDebug("NYI: void SQLDB::Database::lockDB( bool lock, bool exclude )" );
 }
 
 
-void SQLDB::SQLDB::openDatabase()
+void SQLDB::Database::openDatabase()
 {
     QSqlDatabase* database = QSqlDatabase::addDatabase( "QMYSQL3" );
     if ( database == 0 ) {
@@ -312,7 +312,7 @@ void SQLDB::SQLDB::openDatabase()
         qFatal("Couldn't open db");
 }
 
-void SQLDB::SQLDB::loadMemberGroups()
+void SQLDB::Database::loadMemberGroups()
 {
     QSqlQuery membersQuery;
     if (!membersQuery.exec( "SELECT groupname, category, member FROM membergroup" ) )
@@ -327,36 +327,36 @@ void SQLDB::SQLDB::loadMemberGroups()
 }
 
 
-DB::CategoryCollection* SQLDB::SQLDB::categoryCollection()
+DB::CategoryCollection* SQLDB::Database::categoryCollection()
 {
     // PENDING(blackie) Implement something similar to XMLDB::createSpecialCategories()
     return &_categoryCollection;
 }
 
-KSharedPtr<DB::ImageDateCollection> SQLDB::SQLDB::rangeCollection()
+KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
 {
     return new SQLImageDateCollection( /*search( Browser::instance()->currentContext(), false ) */ );
 }
 
-void SQLDB::SQLDB::reorder( const QString& /*item*/, const QStringList& /*cutList*/, bool /*after*/)
+void SQLDB::Database::reorder( const QString& /*item*/, const QStringList& /*cutList*/, bool /*after*/)
 {
-    qDebug("Not Yet implemented SQLDB::SQLDB::reorder");
+    qDebug("Not Yet implemented SQLDB::Database::reorder");
 }
 
-void SQLDB::SQLDB::cutToClipboard( const QStringList& /*list*/ )
+void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )
 {
-    qDebug("NYI: SQLDB::SQLDB::cutToClipboard");
+    qDebug("NYI: SQLDB::Database::cutToClipboard");
 }
 
-QStringList SQLDB::SQLDB::pasteFromCliboard( const QString& /*afterFile*/ )
+QStringList SQLDB::Database::pasteFromCliboard( const QString& /*afterFile*/ )
 {
-    qDebug("NYI: SQLDB::SQLDB::pasteFromCliboard");
+    qDebug("NYI: SQLDB::Database::pasteFromCliboard");
     return QStringList();
 }
 
-bool SQLDB::SQLDB::isClipboardEmpty()
+bool SQLDB::Database::isClipboardEmpty()
 {
-    qDebug("NYI: SQLDB::SQLDB::isClipboardEmpty");
+    qDebug("NYI: SQLDB::Database::isClipboardEmpty");
     return true;
 }
 

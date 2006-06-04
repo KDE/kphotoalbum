@@ -28,7 +28,7 @@ void ImageDB::setup( const QString& backend, const QString& configFile )
 {
 #ifdef SQLDB_SUPPORT
     if ( backend == QString::fromLatin1( "sql" ) )
-        _instance = new SQLDB::SQLDB;
+        _instance = new SQLDB::Database;
     else
 #else
         Q_UNUSED( backend );
@@ -107,7 +107,7 @@ void ImageDB::convertBackend()
     QProgressDialog dialog( 0 );
     dialog.setLabelText( i18n( "Converting Backend" ) );
     dialog.setTotalSteps( allImages.count() );
-    SQLDB::SQLDB* newBackend = new SQLDB::SQLDB;
+    SQLDB::Database* newBackend = new SQLDB::Database;
 
     // Convert the Category info
     CategoryCollection* origCategories = categoryCollection();

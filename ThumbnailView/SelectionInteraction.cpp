@@ -1,12 +1,12 @@
 #include "SelectionInteraction.h"
 #include <qtimer.h>
-#include "ThumbnailView.h"
+#include "ThumbnailWidget.h"
 #include <qcursor.h>
 #include <qapplication.h>
 #include <kurl.h>
 #include <kurldrag.h>
 
-ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailView* view )
+ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailWidget* view )
     :_view( view )
 {
     _dragTimer = new QTimer( this );
@@ -203,7 +203,7 @@ ThumbnailView::Cell ThumbnailView::SelectionInteraction::nextCell( const Cell& c
 QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, CoordinateSystem system ) const
 {
     Cell pos = _view->cellAtCoordinate( coordinate, system );
-    QRect cellRect = const_cast<ThumbnailView*>(_view)->cellGeometry(pos.row(), pos.col() );
+    QRect cellRect = const_cast<ThumbnailWidget*>(_view)->cellGeometry(pos.row(), pos.col() );
     QRect iconRect = _view->iconGeometry( pos.row(), pos.col() );
 
     // map iconRect from local coordinates within the cell to the coordinates requires

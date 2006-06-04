@@ -27,7 +27,7 @@
 #include <qdesktopwidget.h>
 #include "ImageManager/Manager.h"
 #include "DB/ImageInfo.h"
-#include "ThumbnailView.h"
+#include "ThumbnailWidget.h"
 #include "DB/ImageDB.h"
 
 /**
@@ -38,7 +38,7 @@
    mouse( and would therefore stand on top of the image), or it flickered.
 */
 
-ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailView* view, const char* name )
+ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view, const char* name )
     : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ),
       _widthInverse( false ), _heightInverse( false )
 {

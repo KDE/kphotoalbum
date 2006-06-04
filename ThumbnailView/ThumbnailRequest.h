@@ -4,17 +4,17 @@
 
 namespace ThumbnailView
 {
-class ThumbnailView;
+class ThumbnailWidget;
 
 class ThumbnailRequest :public ImageManager::ImageRequest
 {
 public:
     ThumbnailRequest();
-    ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailView* client);
+    ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailWidget* client);
     virtual bool stillNeeded() const;
 
 private:
-    ThumbnailView* _thumbnailView;
+    ThumbnailWidget* _thumbnailView;
     QString _fileName;
 };
 

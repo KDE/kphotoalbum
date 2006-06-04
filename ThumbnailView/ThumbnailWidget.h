@@ -22,13 +22,13 @@ namespace ThumbnailView
 {
 enum SortDirection {NewestFirst, OldestFirst};
 
-class ThumbnailView : public QGridView, public ImageManager::ImageClient {
+class ThumbnailWidget : public QGridView, public ImageManager::ImageClient {
     Q_OBJECT
 
     static const int SPACE = 3;
 
 public:
-    ThumbnailView( QWidget* parent, const char* name = 0 );
+    ThumbnailWidget( QWidget* parent, const char* name = 0 );
     void setImageList( const QStringList& list );
 
     virtual void paintCell ( QPainter * p, int row, int col );
@@ -41,7 +41,7 @@ public:
     void reload( bool flushCache );
     QString fileNameUnderCursor() const;
     QString currentItem() const;
-    static ThumbnailView* theThumbnailView();
+    static ThumbnailWidget* theThumbnailView();
     void setCurrentItem( const QString& fileName );
     void setSortDirection( SortDirection );
 
@@ -169,7 +169,7 @@ private:
      */
     QString _currentItem;
 
-    static ThumbnailView* _instance;
+    static ThumbnailWidget* _instance;
 
     ThumbnailToolTip* _toolTip;
 

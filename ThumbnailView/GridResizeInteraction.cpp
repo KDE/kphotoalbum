@@ -1,8 +1,8 @@
 #include "GridResizeInteraction.h"
-#include "ThumbnailView.h"
+#include "ThumbnailWidget.h"
 #include "Settings/Settings.h"
 
-ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailView* view )
+ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailWidget* view )
     : _view( view )
 {
 }

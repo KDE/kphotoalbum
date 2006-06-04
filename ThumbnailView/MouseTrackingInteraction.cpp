@@ -1,7 +1,7 @@
 #include "MouseTrackingInteraction.h"
-#include "ThumbnailView.h"
+#include "ThumbnailWidget.h"
 
-ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailView* view )
+ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailWidget* view )
     :_view( view )
 {
 }

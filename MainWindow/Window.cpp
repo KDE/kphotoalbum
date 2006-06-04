@@ -21,7 +21,7 @@
 #include <qapplication.h>
 #include "ThumbnailView/ThumbnailWidget.h"
 #include "ThumbnailView/ThumbnailBuilder.h"
-#include "AnnotationDialog/AnnotationDialog.h"
+#include "AnnotationDialog/Dialog.h"
 #include <qdir.h>
 #include <qfile.h>
 #include <qtextstream.h>
@@ -355,7 +355,7 @@ void MainWindow::Window::createAnnotationDialog()
     if ( !_annotationDialog.isNull() )
         return;
 
-    _annotationDialog = new AnnotationDialog::AnnotationDialog( this,  "_annotationDialog" );
+    _annotationDialog = new AnnotationDialog::Dialog( this,  "_annotationDialog" );
     connect( _annotationDialog, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 }
 

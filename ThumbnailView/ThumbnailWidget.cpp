@@ -339,7 +339,7 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
         keyboardMoveEvent( event );
 
     if ( event->key() == Key_Return )
-        emit showImage( _currentItem );
+        emit showSelection();
 
     if ( event->key() == Key_Space )
         toggleSelection( _currentItem );

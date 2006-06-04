@@ -50,8 +50,8 @@ ImageInfo::ImageInfo() :_null( true ), _locked( false )
 {
 }
 
-ImageInfo::ImageInfo( const QString& fileName )
-    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
+ImageInfo::ImageInfo( const QString& fileName, FileType type )
+    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ), _locked( false )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Settings::SettingsData::instance()->imageDirectory() + fileName );
@@ -321,6 +321,7 @@ ImageInfo::ImageInfo( const QString& fileName,
                       const QString& md5sum,
                       const QSize& size )
 {
+    // PENDING(blackie) VIDEO: also load file type.
     _fileName = fileName;
     _label =label;
     _description =description;

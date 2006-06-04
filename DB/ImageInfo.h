@@ -49,12 +49,14 @@ namespace Plugins
 namespace DB
 {
 
+enum FileType { Image, Movie };
+
 class ImageInfo :public KShared {
 
 public:
 
     ImageInfo();
-    ImageInfo( const QString& fileName );
+    ImageInfo( const QString& fileName, FileType type = Image );
     ImageInfo( const QString& fileName,
                const QString& label,
                const QString& description,
@@ -135,6 +137,7 @@ private:
     QString _md5sum;
     bool _null;
     QSize _size;
+    FileType _type;
 
     // Cache information
     bool _locked;

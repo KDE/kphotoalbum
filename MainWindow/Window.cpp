@@ -97,6 +97,8 @@
 #endif
 
 #include "FeatureDialog.h"
+#include "ViewerLauncher.h"
+#include <Video/Player.h>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -147,6 +149,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     connect( _dateBar, SIGNAL( dateRangeCleared() ), this, SLOT( clearDateRange() ) );
 
     connect( _thumbnailView, SIGNAL( showImage( const QString& ) ), this, SLOT( showImage( const QString& ) ) );
+    connect( _thumbnailView, SIGNAL( showSelection() ), this, SLOT( slotView() ) );
     connect( _thumbnailView, SIGNAL( currentDateChanged( const QDateTime& ) ), _dateBar, SLOT( setDate( const QDateTime& ) ) );
 
     connect( _thumbnailView, SIGNAL( fileNameUnderCursorChanged( const QString& ) ), this, SLOT( slotSetFileName( const QString& ) ) );
@@ -439,33 +442,7 @@ QStringList MainWindow::Window::selectedOnDisk()
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 {
-    QStringList listOnDisk = selectedOnDisk();
-
-    if ( listOnDisk.count() == 0 ) {
-        QMessageBox::warning( this, i18n("No Images to Display"),
-                              i18n("None of the selected images were available on the disk.") );
-    }
-
-    if (random)
-        listOnDisk = Utilities::shuffle( listOnDisk );
-
-    if ( listOnDisk.count() != 0 ) {
-
-        Viewer::ViewerWidget* viewer;
-        if ( reuse && Viewer::ViewerWidget::latest() ) {
-            viewer = Viewer::ViewerWidget::latest();
-            topLevelWidget()->raise();
-            setActiveWindow();
-        }
-        else {
-            viewer = new Viewer::ViewerWidget( "viewer" );
-            connect( viewer, SIGNAL( dirty() ), this, SLOT( markDirty() ) );
-        }
-        viewer->show( slideShow );
-
-        viewer->load( listOnDisk );
-        viewer->raise();
-    }
+    ViewerLauncher::launch( selectedOnDisk(), reuse, slideShow, random );
 }
 
 void MainWindow::Window::slotSortByDateAndTime()
@@ -592,6 +569,7 @@ void MainWindow::Window::setupMenuBar()
 #ifdef SQLDB_SUPPORT
     new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
 #endif
+
 
     new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
     new KAction( i18n("Remove All KimDaBa 2.1 Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
@@ -1335,27 +1313,7 @@ void MainWindow::Window::showFeatures()
 
 void MainWindow::Window::showImage( const QString& fileName )
 {
-    // PENDING(blackie) This code most be duplicated for Ctrl+I
-    if ( !DB::ImageInfo::imageOnDisk(fileName) ) {
-        QMessageBox::warning( this, i18n("No Images to Display"),
-                              i18n("The selected image was not available on disk.") );
-    }
-    else {
-        QStringList list;
-        list.append( fileName );
-        Viewer::ViewerWidget* viewer;
-        if ( !Utilities::ctrlKeyDown() && Viewer::ViewerWidget::latest() ) {
-            viewer = Viewer::ViewerWidget::latest();
-            viewer->setActiveWindow();
-            viewer->raise();
-        }
-        else {
-            viewer = new Viewer::ViewerWidget( "viewer" );
-            viewer->show( false );
-        }
-        viewer->load( list );
-    }
-
+    ViewerLauncher::launch( QStringList() << fileName, Utilities::ctrlKeyDown(), false, false );
 }
 
 void MainWindow::Window::slotBuildThumbnails()

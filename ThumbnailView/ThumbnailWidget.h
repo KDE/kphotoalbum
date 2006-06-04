@@ -57,6 +57,7 @@ protected slots:
 
 signals:
     void showImage( const QString& fileName );
+    void showSelection();
     void fileNameUnderCursorChanged( const QString& fileName );
     void currentDateChanged( const QDateTime& );
     void selectionChanged();

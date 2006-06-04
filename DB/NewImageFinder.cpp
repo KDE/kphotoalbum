@@ -59,14 +59,16 @@ void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString 
              !fi.isReadable() )
             continue;
 
-        if ( fi.isFile() && (loadedFiles.find( file ) == 0) &&
-             Utilities::canReadImage(fi.extension()) ) {
+        if ( fi.isFile() && loadedFiles.find( file ) == 0) {
             QString baseName = file.mid( imageDir.length()+1 );
-
             if ( ! DB::ImageDB::instance()->isBlocking( baseName ) ) {
-                _pendingLoad.append( baseName );
+                if ( Utilities::canReadImage(fi.extension()) )
+                    _pendingLoad.append( qMakePair( baseName, DB::Image ) );
+                else if ( Utilities::isMovie( file ) )
+                    _pendingLoad.append( qMakePair( baseName, DB::Movie ) );
             }
         }
+
         else if ( fi.isDir() )  {
             searchForNewFiles( loadedFiles, file );
         }
@@ -81,13 +83,13 @@ void NewImageFinder::loadExtraFiles()
                              i18n("&Cancel"), _pendingLoad.count() );
     int count = 0;
     ImageInfoList newImages;
-    for( QStringList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
+    for( LoadList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
         dialog.setProgress( count ); // ensure to call setProgress(0)
         qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
         if ( dialog.wasCanceled() )
             return;
-        ImageInfoPtr info = loadExtraFile( *it );
+        ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
         if ( info )
             newImages.append(info);
     }
@@ -95,7 +97,7 @@ void NewImageFinder::loadExtraFiles()
 }
 
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
+ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::FileType type )
 {
     QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
     QString sum = MD5Sum( absoluteNewFileName );
@@ -131,7 +133,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName )
         }
     }
 
-    ImageInfoPtr info = new ImageInfo( relativeNewFileName  );
+    ImageInfoPtr info = new ImageInfo( relativeNewFileName, type );
     info->setMD5Sum(sum);
     DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
 #ifdef HASEXIV2

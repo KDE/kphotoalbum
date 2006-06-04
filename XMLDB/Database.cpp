@@ -16,7 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "XMLDB.h"
+#include "Database.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "Settings/SettingsData.h"
 #include <qfileinfo.h>
@@ -35,7 +35,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/CategoryCollection.h"
-#include "XMLDB.moc"
+#include "Database.moc"
 #include <kstandarddirs.h>
 #include <qregexp.h>
 #include <stdlib.h>
@@ -46,8 +46,8 @@
 #include <kdebug.h>
 #include "NumberedBackup.h"
 
-bool XMLDB::XMLDB::_anyImageWithEmptySize = false;
-XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( DB::MemberMap( this ) )
+bool XMLDB::Database::_anyImageWithEmptySize = false;
+XMLDB::Database::Database( const QString& configFile ) : _members( DB::MemberMap( this ) )
 {
     Utilities::checkForBackupFile( configFile );
     QDomElement top = readConfigFile( configFile );
@@ -68,12 +68,12 @@ XMLDB::XMLDB::XMLDB( const QString& configFile ) : _members( DB::MemberMap( this
     checkAndWarnAboutVersionConflict();
 }
 
-int XMLDB::XMLDB::totalCount() const
+int XMLDB::Database::totalCount() const
 {
     return _images.count();
 }
 
-QMap<QString,int> XMLDB::XMLDB::classify( const DB::ImageSearchInfo& info, const QString &group )
+QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group )
 {
     QMap<QString, int> map;
     DB::GroupCounter counter( group );
@@ -115,14 +115,14 @@ QMap<QString,int> XMLDB::XMLDB::classify( const DB::ImageSearchInfo& info, const
     return map;
 }
 
-void XMLDB::XMLDB::renameCategory( const QString& oldName, const QString newName )
+void XMLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->renameCategory( oldName, newName );
     }
 }
 
-void XMLDB::XMLDB::addToBlockList( const QStringList& list )
+void XMLDB::Database::addToBlockList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         DB::ImageInfoPtr inf= info(*it);
@@ -132,7 +132,7 @@ void XMLDB::XMLDB::addToBlockList( const QStringList& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::XMLDB::deleteList( const QStringList& list )
+void XMLDB::Database::deleteList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         DB::ImageInfoPtr inf= info(*it);
@@ -141,21 +141,21 @@ void XMLDB::XMLDB::deleteList( const QStringList& list )
     emit totalChanged( _images.count() );
 }
 
-void XMLDB::XMLDB::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
+void XMLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->renameItem( category->name(), oldName, newName );
     }
 }
 
-void XMLDB::XMLDB::deleteItem( DB::Category* category, const QString& option )
+void XMLDB::Database::deleteItem( DB::Category* category, const QString& option )
 {
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
         (*it)->removeOption( category->name(), option );
     }
 }
 
-void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
+void XMLDB::Database::lockDB( bool lock, bool exclude  )
 {
     DB::ImageSearchInfo info = Settings::SettingsData::instance()->currentLock();
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
@@ -171,7 +171,7 @@ void XMLDB::XMLDB::lockDB( bool lock, bool exclude  )
 }
 
 
-void XMLDB::XMLDB::addImages( const DB::ImageInfoList& images )
+void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 {
     DB::ImageInfoList newImages = images.sort();
     if ( _images.count() == 0 ) {
@@ -197,7 +197,7 @@ void XMLDB::XMLDB::addImages( const DB::ImageInfoList& images )
     emit dirty();
 }
 
-DB::ImageInfoPtr XMLDB::XMLDB::info( const QString& fileName ) const
+DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName ) const
 {
     static QMap<QString, DB::ImageInfoPtr > fileMap;
 
@@ -214,7 +214,7 @@ DB::ImageInfoPtr XMLDB::XMLDB::info( const QString& fileName ) const
     return 0;
 }
 
-void XMLDB::XMLDB::checkIfImagesAreSorted()
+void XMLDB::Database::checkIfImagesAreSorted()
 {
     if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )
         return;
@@ -243,7 +243,7 @@ void XMLDB::XMLDB::checkIfImagesAreSorted()
     }
 }
 
-bool XMLDB::XMLDB::rangeInclude( DB::ImageInfoPtr info ) const
+bool XMLDB::Database::rangeInclude( DB::ImageInfoPtr info ) const
 {
     if (_selectionRange.start().isNull() )
         return true;
@@ -255,7 +255,7 @@ bool XMLDB::XMLDB::rangeInclude( DB::ImageInfoPtr info ) const
         return ( tp == DB::ImageDate::ExactMatch );
 }
 
-void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
+void XMLDB::Database::checkIfAllImagesHasSizeAttributes()
 {
     QTime time;
     time.start();
@@ -275,17 +275,17 @@ void XMLDB::XMLDB::checkIfAllImagesHasSizeAttributes()
 }
 
 
-const DB::MemberMap& XMLDB::XMLDB::memberMap()
+const DB::MemberMap& XMLDB::Database::memberMap()
 {
     return _members;
 }
 
-void XMLDB::XMLDB::setMemberMap( const DB::MemberMap& members )
+void XMLDB::Database::setMemberMap( const DB::MemberMap& members )
 {
     _members = members;
 }
 
-void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
+void XMLDB::Database::loadCategories( const QDomElement& elm )
 {
     createSpecialCategories();
     // options is for KimDaBa 2.1 compatibility
@@ -341,7 +341,7 @@ void XMLDB::XMLDB::loadCategories( const QDomElement& elm )
     }
 }
 
-void XMLDB::XMLDB::createSpecialCategories()
+void XMLDB::Database::createSpecialCategories()
 {
     DB::CategoryPtr folderCat = _categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
     if( folderCat == 0 ) {
@@ -361,7 +361,7 @@ void XMLDB::XMLDB::createSpecialCategories()
     tokenCat->setSpecialCategory( true );
 }
 
-void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
+void XMLDB::Database::save( const QString& fileName, bool isAutoSave )
 {
     if ( !isAutoSave )
         NumberedBackup().makeNumberedBackup();
@@ -401,17 +401,17 @@ void XMLDB::XMLDB::save( const QString& fileName, bool isAutoSave )
 }
 
 
-DB::MD5Map* XMLDB::XMLDB::md5Map()
+DB::MD5Map* XMLDB::Database::md5Map()
 {
     return &_md5map;
 }
 
-bool XMLDB::XMLDB::isBlocking( const QString& fileName )
+bool XMLDB::Database::isBlocking( const QString& fileName )
 {
     return _blockList.contains( fileName );
 }
 
-QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
+QDomElement XMLDB::Database::readConfigFile( const QString& configFile )
 {
     QDomDocument doc;
     QFile file( configFile );
@@ -474,7 +474,7 @@ QDomElement XMLDB::XMLDB::readConfigFile( const QString& configFile )
     return top;
 }
 
-void XMLDB::XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
+void XMLDB::Database::readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
                                          QDomElement* blockList, QDomElement* memberGroups )
 {
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
@@ -508,7 +508,7 @@ void XMLDB::XMLDB::readTopNodeInConfigDocument( const QString& configFile, QDomE
         KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
 }
 
-void XMLDB::XMLDB::loadImages( const QDomElement& images )
+void XMLDB::Database::loadImages( const QDomElement& images )
 {
     QString directory = Settings::SettingsData::instance()->imageDirectory();
 
@@ -531,7 +531,7 @@ void XMLDB::XMLDB::loadImages( const QDomElement& images )
 
 }
 
-DB::ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
+DB::ImageInfoPtr XMLDB::Database::load( const QString& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = createImageInfo( fileName, elm, this );
     // This is for compatibility with KimDaBa 2.1 where this info was not saved.
@@ -541,7 +541,7 @@ DB::ImageInfoPtr XMLDB::XMLDB::load( const QString& fileName, QDomElement elm )
     return info;
 }
 
-void XMLDB::XMLDB::loadBlockList( const QDomElement& blockList )
+void XMLDB::Database::loadBlockList( const QDomElement& blockList )
 {
     for ( QDomNode node = blockList.firstChild(); !node.isNull(); node = node.nextSibling() )  {
         QDomElement elm;
@@ -556,7 +556,7 @@ void XMLDB::XMLDB::loadBlockList( const QDomElement& blockList )
     }
 }
 
-void XMLDB::XMLDB::loadMemberGroups( const QDomElement& memberGroups )
+void XMLDB::Database::loadMemberGroups( const QDomElement& memberGroups )
 {
     for ( QDomNode node = memberGroups.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -582,7 +582,7 @@ void XMLDB::XMLDB::loadMemberGroups( const QDomElement& memberGroups )
     }
 }
 
-void XMLDB::XMLDB::saveImages( QDomDocument doc, QDomElement top )
+void XMLDB::Database::saveImages( QDomDocument doc, QDomElement top )
 {
     DB::ImageInfoList list = _images;
 
@@ -599,7 +599,7 @@ void XMLDB::XMLDB::saveImages( QDomDocument doc, QDomElement top )
     }
 }
 
-void XMLDB::XMLDB::saveBlockList( QDomDocument doc, QDomElement top )
+void XMLDB::Database::saveBlockList( QDomDocument doc, QDomElement top )
 {
     QDomElement blockList = doc.createElement( QString::fromLatin1( "blocklist" ) );
     bool any=false;
@@ -614,7 +614,7 @@ void XMLDB::XMLDB::saveBlockList( QDomDocument doc, QDomElement top )
         top.appendChild( blockList );
 }
 
-void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
+void XMLDB::Database::saveMemberGroups( QDomDocument doc, QDomElement top )
 {
     if ( _members.isEmpty() )
         return;
@@ -652,7 +652,7 @@ void XMLDB::XMLDB::saveMemberGroups( QDomDocument doc, QDomElement top )
     top.appendChild( memberNode );
 }
 
-void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
+void XMLDB::Database::saveCategories( QDomDocument doc, QDomElement top )
 {
     QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     QDomElement options;
@@ -692,7 +692,7 @@ void XMLDB::XMLDB::saveCategories( QDomDocument doc, QDomElement top )
     }
 }
 
-QStringList XMLDB::XMLDB::images()
+QStringList XMLDB::Database::images()
 {
     QStringList result;
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
@@ -701,12 +701,12 @@ QStringList XMLDB::XMLDB::images()
     return result;
 }
 
-QStringList XMLDB::XMLDB::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
+QStringList XMLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
     return searchPrivate( info, requireOnDisk, true );
 }
 
-QStringList XMLDB::XMLDB::searchPrivate( const DB::ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
+QStringList XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& info, bool requireOnDisk, bool onlyItemsMatchingRange ) const
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
@@ -721,7 +721,7 @@ QStringList XMLDB::XMLDB::searchPrivate( const DB::ImageSearchInfo& info, bool r
     return result;
 }
 
-void XMLDB::XMLDB::sortAndMergeBackIn( const QStringList& fileList )
+void XMLDB::Database::sortAndMergeBackIn( const QStringList& fileList )
 {
     DB::ImageInfoList list;
 
@@ -731,24 +731,24 @@ void XMLDB::XMLDB::sortAndMergeBackIn( const QStringList& fileList )
     _images.sortAndMergeBackIn( list );
 }
 
-DB::CategoryCollection* XMLDB::XMLDB::categoryCollection()
+DB::CategoryCollection* XMLDB::Database::categoryCollection()
 {
     return &_categoryCollection;
 }
 
-KSharedPtr<DB::ImageDateCollection> XMLDB::XMLDB::rangeCollection()
+KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) );
 }
 
-void XMLDB::XMLDB::reorder( const QString& item, const QStringList& selection, bool after )
+void XMLDB::Database::reorder( const QString& item, const QStringList& selection, bool after )
 {
     DB::ImageInfoList list = takeImagesFromSelection( selection );
     insertList( item, list, after );
 }
 
 // The selection is know to be sorted wrt the order in the image list.
-DB::ImageInfoList XMLDB::XMLDB::takeImagesFromSelection( const QStringList& selection )
+DB::ImageInfoList XMLDB::Database::takeImagesFromSelection( const QStringList& selection )
 {
     QStringList cutList = selection;
     DB::ImageInfoList result;
@@ -766,7 +766,7 @@ DB::ImageInfoList XMLDB::XMLDB::takeImagesFromSelection( const QStringList& sele
     return result;
 }
 
-QStringList XMLDB::XMLDB::insertList( const QString& fileName, const DB::ImageInfoList& list, bool after )
+QStringList XMLDB::Database::insertList( const QString& fileName, const DB::ImageInfoList& list, bool after )
 {
     QStringList result;
 
@@ -788,29 +788,29 @@ QStringList XMLDB::XMLDB::insertList( const QString& fileName, const DB::ImageIn
 }
 
 
-void XMLDB::XMLDB::cutToClipboard( const QStringList& selection )
+void XMLDB::Database::cutToClipboard( const QStringList& selection )
 {
     _clipboard = takeImagesFromSelection( selection );
 }
 
-QStringList XMLDB::XMLDB::pasteFromCliboard( const QString& afterFile )
+QStringList XMLDB::Database::pasteFromCliboard( const QString& afterFile )
 {
     QStringList result = insertList( afterFile, _clipboard, true );
     _clipboard.clear();
     return result;
 }
 
-bool XMLDB::XMLDB::isClipboardEmpty()
+bool XMLDB::Database::isClipboardEmpty()
 {
     return _clipboard.isEmpty();
 }
 
-int XMLDB::XMLDB::fileVersion()
+int XMLDB::Database::fileVersion()
 {
     return _fileVersion;
 }
 
-void XMLDB::XMLDB::checkAndWarnAboutVersionConflict()
+void XMLDB::Database::checkAndWarnAboutVersionConflict()
 {
     if ( _fileVersion == 1 ) {
         KMessageBox::information( 0, i18n( "<p>The index.xml file read was from an older version of KPhotoAlbum. "
@@ -825,7 +825,7 @@ void XMLDB::XMLDB::checkAndWarnAboutVersionConflict()
 // In versions of KPhotoAlbum newer than 2.1, these informations are stored
 // using KConfig, rather than in the database, so I need to add them like
 // this to make the file readable by KPhotoAlbum 2.1.
-void XMLDB::XMLDB::add21CompatXML( QDomElement& top )
+void XMLDB::Database::add21CompatXML( QDomElement& top )
 {
     QDomDocument doc = top.ownerDocument();
     top.appendChild( doc.createElement( QString::fromLatin1( "config" ) ) );
@@ -837,7 +837,7 @@ void XMLDB::XMLDB::add21CompatXML( QDomElement& top )
     top.appendChild( tmpDoc.documentElement() );
 }
 
-DB::ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const QDomElement& elm, XMLDB* db )
+DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, const QDomElement& elm, Database* db )
 {
     QString label = elm.attribute( QString::fromLatin1("label") );
     QString description = elm.attribute( QString::fromLatin1("description") );
@@ -905,7 +905,7 @@ DB::ImageInfoPtr XMLDB::XMLDB::createImageInfo( const QString& fileName, const Q
     return result;
 }
 
-void XMLDB::XMLDB::readOptions( DB::ImageInfoPtr info, QDomElement elm )
+void XMLDB::Database::readOptions( DB::ImageInfoPtr info, QDomElement elm )
 {
     // options is for KimDaBa 2.1 compatibility
     Q_ASSERT( elm.tagName() == QString::fromLatin1( "categories" ) || elm.tagName() == QString::fromLatin1( "options" ) );
@@ -938,7 +938,7 @@ void XMLDB::XMLDB::readOptions( DB::ImageInfoPtr info, QDomElement elm )
     }
 }
 
-void XMLDB::XMLDB::possibleLoadCompressedCategories( const QDomElement& elm, DB::ImageInfoPtr info, XMLDB* db )
+void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, DB::ImageInfoPtr info, Database* db )
 {
     if ( db == 0 )
         return;
@@ -958,7 +958,7 @@ void XMLDB::XMLDB::possibleLoadCompressedCategories( const QDomElement& elm, DB:
     }
 }
 
-QDomElement XMLDB::XMLDB::save( QDomDocument doc, const DB::ImageInfoPtr& info )
+QDomElement XMLDB::Database::save( QDomDocument doc, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
     elm.setAttribute( QString::fromLatin1("file"),  info->fileName( true ) );
@@ -1001,7 +1001,7 @@ QDomElement XMLDB::XMLDB::save( QDomDocument doc, const DB::ImageInfoPtr& info )
     return elm;
 }
 
-void XMLDB::XMLDB::writeCategories( QDomDocument doc, QDomElement top, const DB::ImageInfoPtr& info )
+void XMLDB::Database::writeCategories( QDomDocument doc, QDomElement top, const DB::ImageInfoPtr& info )
 {
     QDomElement elm = doc.createElement( QString::fromLatin1("options") );
 
@@ -1030,7 +1030,7 @@ void XMLDB::XMLDB::writeCategories( QDomDocument doc, QDomElement top, const DB:
         top.appendChild( elm );
 }
 
-void XMLDB::XMLDB::writeCategoriesCompressed( QDomElement& elm, const DB::ImageInfoPtr& info )
+void XMLDB::Database::writeCategoriesCompressed( QDomElement& elm, const DB::ImageInfoPtr& info )
 {
     QValueList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {

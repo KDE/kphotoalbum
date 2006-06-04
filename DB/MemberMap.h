@@ -23,9 +23,7 @@
 #include <qmap.h>
 #include <qobject.h>
 
-namespace XMLDB {
-    class XMLDB;
-}
+namespace XMLDB { class Database; }
 
 namespace DB
 {
@@ -62,7 +60,7 @@ protected slots:
     void renameItem( Category* category, const QString& oldName, const QString& newName );
 
 private:
-    friend class XMLDB::XMLDB;
+    friend class XMLDB::Database;
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)
     QMap<QString, QMap<QString,QStringList> > _members;

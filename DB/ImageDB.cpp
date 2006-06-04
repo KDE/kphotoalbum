@@ -1,5 +1,5 @@
 #include "ImageDB.h"
-#include "XMLDB/XMLDB.h"
+#include "XMLDB/Database.h"
 #include <kinputdialog.h>
 #include <kpassdlg.h>
 #include <klocale.h>

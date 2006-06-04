@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef XMLDB_H
-#define XMLDB_H
+#ifndef XMLDB_DATABSE_H
+#define XMLDB_DATABSE_H
 #include "DB/ImageSearchInfo.h"
 #include <qdict.h>
 #include "DB/ImageInfoList.h"
@@ -36,7 +36,7 @@ namespace DB
 }
 
 namespace XMLDB {
-    class XMLDB :public DB::ImageDB
+    class Database :public DB::ImageDB
     {
         Q_OBJECT
     public:
@@ -65,8 +65,8 @@ namespace XMLDB {
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();
         int fileVersion();
-        static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, XMLDB* db = 0 );
-        static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, XMLDB* db );
+        static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
+        static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
 
 
     protected:
@@ -106,7 +106,7 @@ namespace XMLDB {
 
     private:
         friend class DB::ImageDB;
-        XMLDB( const QString& configFile );
+        Database( const QString& configFile );
 
         DB::ImageInfoList _images;
         QStringList _blockList;
@@ -122,5 +122,5 @@ namespace XMLDB {
 };
 }
 
-#endif /* XMLDB_H */
+#endif /* XMLDB_DATABSE_H */
 

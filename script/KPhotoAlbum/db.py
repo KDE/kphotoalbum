@@ -5,7 +5,7 @@ class DatabaseReader(object):
 	def getCategories(self):
 		raise NotImplementedError
 
-	def getImages(self):
+	def getMediaItems(self):
 		raise NotImplementedError
 
 	def getMemberGroups(self):
@@ -15,9 +15,15 @@ class DatabaseReader(object):
 		raise NotImplementedError
 
 	categories = property(getCategories)
-	images = property(getImages)
+	mediaItems = property(getMediaItems)
 	memberGroups = property(getMemberGroups)
 	blockItems = property(getBlockItems)
+
+	def isEmpty(self):
+		return (len([1 for i in self.categories]) +
+			len([1 for i in self.mediaItems]) +
+			len([1 for i in self.memberGroups]) +
+			len([1 for i in blockItems])) == 0
 
 
 class DatabaseWriter(object):
@@ -32,24 +38,37 @@ class DatabaseWriter(object):
 		"""
 		raise NotImplementedError
 
-	def insertImage(self, image):
+	def insertMediaItem(self, mediaItem):
 		"""
-		Insert image attributes and its tags.
+		Insert media item attributes and its tags and
+		drawings.
 
-		Return image id number.
+		All tag categories used by mediaItem should be
+		inserted first with insertCategory method.
+
+		Return media item id number.
 		"""
 		raise NotImplementedError
 
 	def insertMemberGroup(self, memberGroup):
+		"""
+		Insert member group definition.
+
+		Categoriy of the memberGroup should be inserted first
+		with insertCategory method.
+		"""
 		raise NotImplementedError
 
 	def insertBlockItem(self, blockItem):
+		"""
+		Make blockItem blocked.
+		"""
 		raise NotImplementedError
 
 	def deleteCategory(self, categoryId):
 		raise NotImplementedError
 
-	def deleteImage(self, imageId):
+	def deleteMediaItem(self, mediaItemId):
 		raise NotImplementedError
 
 	def deleteMemberGroup(self, memberGroupId):
@@ -69,15 +88,15 @@ class DatabaseWriter(object):
 		interface.
 
 		If progressFunction is given, it is called after each
-		image copy operation.
+		media item copy operation.
 		"""
 		pf = progressFunction
 		if pf is None:
 			pf = lambda: None
 		for c in other.categories:
 			self.insertCategory(c)
-		for i in other.images:
-			self.insertImage(i)
+		for i in other.mediaItems:
+			self.insertMediaItem(i)
 			pf()
 		for m in other.memberGroups:
 			self.insertMemberGroup(m)

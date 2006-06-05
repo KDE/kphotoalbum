@@ -5,17 +5,18 @@ Currently supports only storing. (no reading)
 """
 
 from db import DatabaseWriter
+from datatypes import *
 
 class MySQLDatabase(DatabaseWriter):
 	"""
 	Manages MySQL database stuff.
 
-	Used to insert categories, images (with tags), member groups
-	and block list into database.
+	Used to insert categories, media items (with tags and
+	drawings), member groups and block list into database.
 	"""
 
 	tableList = [
-		('image',
+		('media',
 		 'id SERIAL, '
 		 'label VARCHAR(255), description TEXT, '
 		 'filename VARCHAR(1024), md5sum CHAR(32), '
@@ -27,11 +28,21 @@ class MySQLDatabase(DatabaseWriter):
 		('tag',
 		 'id SERIAL, '
 		 'categoryId BIGINT(20) UNSIGNED NOT NULL,'
-		 'name VARCHAR(255)'),
-		('image_tag',
-		 'imageId BIGINT(20) UNSIGNED NOT NULL, '
+		 'name VARCHAR(255), isGroup BOOL DEFAULT 0'),
+		('media_tag',
+		 'mediaId BIGINT(20) UNSIGNED NOT NULL, '
 		 'tagId BIGINT(20) UNSIGNED NOT NULL, '
-		 'UNIQUE KEY (imageId, tagId)')]
+		 'UNIQUE KEY (mediaId, tagId)'),
+		('drawing',
+		 'id SERIAL, mediaId BIGINT(20) UNSIGNED NOT NULL, '
+		 'shape INT, x0 INT, y0 INT, x1 INT, y1 INT'),
+		('relationType',
+		 'id SERIAL, name VARCHAR(255)'),
+		('tag_relation',
+		 'relationTypeId BIGINT(20) UNSIGNED NOT NULL, '
+		 'toTagId BIGINT(20) UNSIGNED NOT NULL, '
+		 'fromTagId BIGINT(20) UNSIGNED NOT NULL, '
+		 'UNIQUE KEY(relationTypeId, toTagId, fromTagId)')]
 
 	def __init__(self, mysqlDb):
 		"""
@@ -56,9 +67,9 @@ class MySQLDatabase(DatabaseWriter):
 
 	def __getIds(self):
 		self.__clearIds()
-		self.c.execute('SELECT id, filename, md5sum FROM image')
-		for (i, f, m) in self.c:
-			self.imageMap[(self.__decodeString(f), m)] = i
+		self.c.execute('SELECT id, filename FROM media')
+		for (i, f) in self.c:
+			self.mediaItemMap[self.__decodeString(f)] = i
 		self.c.execute('SELECT id, name FROM category')
 		for (i, n) in self.c:
 			self.categoryMap[self.__decodeString(n)] = i
@@ -70,7 +81,8 @@ class MySQLDatabase(DatabaseWriter):
 				     self.__decodeString(tn))] = i
 
 	def __clearIds(self):
-		self.imageMap = ItemNumMap()
+		self.mediaItemMap = ItemNumMap()
+		self.drawingMap = ItemNumMap()
 		self.categoryMap = ItemNumMap()
 		self.tagMap = ItemNumMap()
 
@@ -93,7 +105,8 @@ class MySQLDatabase(DatabaseWriter):
 			       (cid, c.name, c.icon,
 				int(c.visible), c.viewtype, c.viewsize))
 		for item in c.items.itervalues():
-			self.__insertTag((c.name, item))
+			self.__insertTag(Tag(c.name, item))
+		return cid
 
 	def __insertTag(self, tag):
 		"""
@@ -101,46 +114,74 @@ class MySQLDatabase(DatabaseWriter):
 
 		Assumes that category of tag is already created.
 		"""
-		tid = self.tagMap.numFor(tag)
+		tid = self.tagMap.numFor(tuple(tag))
 		if not self.__tableHasCol('tag', 'id', tid):
-			cid = self.categoryMap.numFor(tag[0])
+			cid = self.categoryMap.numFor(tag.category)
 			if not self.__tableHasCol('category', 'id', cid):
 				self.c.execute('INSERT INTO '
 					       'category(id, name) '
 					       'values(%s,%s)',
-					       (cid, tag[0]))
+					       (cid, tag.category))
 			self.c.execute('INSERT INTO tag(id, categoryId, name) '
-				       'values(%s,%s,%s)', (tid, cid, tag[1]))
+				       'values(%s,%s,%s)',
+				       (tid, cid, tag.name))
+		return tid
 
-	def insertImage(self, i):
-		iid = self.imageMap.numFor((i.filename, i.md5sum))
-		self.c.execute('DELETE FROM image WHERE id=%s',
-			       (iid,))
-		self.c.execute('INSERT INTO image(id, label, description, '
+	def insertMediaItem(self, i):
+		miid = self.mediaItemMap.numFor(i.filename)
+		self.c.execute('DELETE FROM media WHERE id=%s',
+			       (miid,))
+		self.c.execute('INSERT INTO media(id, label, description, '
 			       'filename, md5sum, '
 			       'startDate, endDate, '
 			       'width, height, angle) '
 			       'values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-			       (iid, i.label, i.description,
+			       (miid, i.label, i.description,
 				i.filename, i.md5sum,
 				i.startDate, i.endDate,
 				i.width, i.height, i.angle))
 		for tag in i.tags:
-			tid = self.tagMap.numFor(tag)
-			if not self.__tableHasCol('tag', 'id', tid):
-				self.__insertTag(tag)
-			self.__insertImageTag(iid, tid)
+			tid = self.__insertTag(tag)
+			self.__insertMediaTag(miid, tid)
+		for drw in i.drawings:
+			self.__insertMediaDrawing(miid, drw)
+		return miid
 
-	def __insertImageTag(self, iid, tid):
-		if self.c.execute('SELECT * FROM image_tag '
-				  'WHERE imageId=%s AND tagId=%s',
-				  (iid, tid)) == 0:
+	def __insertMediaTag(self, miid, tid):
+		if self.c.execute('SELECT * FROM media_tag '
+				  'WHERE mediaId=%s AND tagId=%s',
+				  (miid, tid)) == 0:
 			self.c.execute('INSERT INTO '
-				       'image_tag(imageId, tagId) '
-				       'values(%s,%s)', (iid, tid))
+				       'media_tag(mediaId, tagId) '
+				       'values(%s,%s)', (miid, tid))
+
+	def __insertMediaDrawing(self, miid, drw):
+		did = self.drawingMap.numFor((drw, miid))
+		if not self.__tableHasCol('drawing', 'id', did):
+			shapeid = {'circle': 0,
+				   'line': 1,
+				   'rectangle': 2}[drw.shape]
+			self.c.execute('INSERT INTO '
+				       'drawing(id, mediaId, shape, '
+				       'x0, y0, x1, y1) '
+				       'values(%s,%s,%s,%s,%s,%s,%s)',
+				       (did, miid, shapeid,
+					drw.point0[0], drw.point0[1],
+					drw.point1[0], drw.point1[1]))
 
 	def insertMemberGroup(self, m):
-		pass
+		tid = self.__insertTag(m)
+		self.c.execute('UPDATE tag SET isGroup=1 WHERE id=%s', (tid,))
+		for member in m.members:
+			fid = self.__insertTag(Tag(m.category, member))
+			if self.c.execute('SELECT * FROM tag_relation '
+					  'WHERE relationTypeId=%s AND '
+					  'toTagId=%s AND fromTagId=%s',
+					  (0, tid, fid)) != 0:
+				continue
+			self.c.execute('INSERT INTO tag_relation'
+				       '(relationTypeId, toTagId, fromTagId) '
+				       'values(0,%s,%s)', (tid, fid))
 
 	def insertBlockItem(self, b):
 		pass
@@ -156,6 +197,21 @@ class ItemNumMap(dict):
 	Simple extension to dict that can assign numbers to items
 	implicitly.
 	"""
+	def __init__(self, items={}):
+		super(ItemNumMap, self).__init__(items)
+		self.maxNumber = None
+		for i in self.itervalues():
+			if (self.maxNumber is None or
+			    i > self.maxNumber):
+				self.maxNumber = i
+
+	def __setitem__(self, key, value):
+		#assert value not in self.values()
+		if (self.maxNumber is None or
+		    value > self.maxNumber):
+			self.maxNumber = value
+		super(ItemNumMap, self).__setitem__(key, value)
+
 	def numFor(self, item):
 		"""
 		Get unique number for item.
@@ -164,5 +220,9 @@ class ItemNumMap(dict):
 		number, if it is asked twice for same item.
 		"""
 		if not self.has_key(item):
-			self[item] = len(self) + 1
+			if self.maxNumber is None:
+				self.maxNumber = 1
+			else:
+				self.maxNumber += 1
+			self[item] = self.maxNumber
 		return self[item]

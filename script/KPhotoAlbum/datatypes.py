@@ -31,9 +31,9 @@ class Category(object):
 		return s
 
 
-class Image(object):
+class MediaItem(object):
 	"""
-	Stores image information.
+	Stores media item information.
 	"""
 	def __init__(self, label, description,
 		     filename, md5sum,
@@ -81,15 +81,72 @@ class Image(object):
 		return s
 
 
+class Tag(object):
+	def __init__(self, category, name):
+		self.category = category
+		self.name = name
+
+
+	def __getitem__(self, i):
+		if i == 0:
+			return self.category
+		elif i == 1:
+			return self.name
+		else:
+			raise IndexError('index should be 0 or 1')
+
+	def __repr__(self):
+		return (self.__class__.__name__ + '(' +
+			repr(self.category) + ', ' +
+			repr(self.name) + ')')
+
+
 class Drawing(object):
-	def __init__(self, shape, point1, point2):
+	def __init__(self, shape, point0, point1):
 		assert shape in ['circle', 'line', 'rectangle']
 		self.shape = shape
+		self.point0 = point0
 		self.point1 = point1
-		self.point2 = point2
+
+	def __eq__(self, other):
+		return (self.shape == other.shape and
+			self.point0 == other.point0 and
+			self.point1 == other.point1)
+
+	def __hash__(self):
+		return (((ord(self.shape[0]) & 7) << 28) |
+			((hash(self.point0) & ((1 << 14) - 1)) << 14) |
+			(hash(self.point1) & ((1 << 14) - 1)))
 
 	def __repr__(self):
 		return (self.__class__.__name__ + '(' +
 			repr(self.shape) + ', ' +
-			repr(self.point1) + ', ' +
-			repr(self.point2) + ')')
+			repr(self.point0) + ', ' +
+			repr(self.point1) + ')')
+
+
+class MemberGroup(Tag):
+	def __init__(self, category, name, members=None):
+		super(MemberGroup, self).__init__(category, name)
+		self.members = members
+		if self.members is None:
+			self.members = []
+
+	def addMember(self, member):
+		self.members += [member]
+
+	def __repr__(self):
+		s = (self.__class__.__name__ + '(' +
+		     repr(self.category) + ', ' +
+		     repr(self.name))
+		if len(self.members) > 0:
+			s += ', ' + repr(self.members)
+		return s + ')'
+
+class BlockItem(object):
+	def __init__(self, filename):
+		self.filename = filename
+
+	def __repr__(self):
+		return (self.__class__.__name__ + '(' +
+			repr(self.filename) + ')')

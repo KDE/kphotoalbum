@@ -23,10 +23,10 @@ from datatypes import *
 #				Circle
 #				Rectangle
 #				Line
-#	blocklist
-#		block
 #	member-groups
 #		member
+#	blocklist
+#		block
 
 class XMLDatabase(DatabaseReader):
 	"""
@@ -48,29 +48,33 @@ class XMLDatabase(DatabaseReader):
 		if rootElem.tagName != u'KPhotoAlbum':
 			raise InvalidFile('File should be in '
 					  'KPhotoAlbum index.xml format.')
+		if rootElem.getAttribute('version') != '2':
+			raise UnsupportedFormat('Only version 2 is supported')
 		self.isCompressed = False
 		if rootElem.getAttribute('compressed') == '1':
 			self.isCompressed = True
 		self.ctgs = rootElem.getElementsByTagName('Categories')
 		self.imgs = rootElem.getElementsByTagName('images')
+		self.mgs = rootElem.getElementsByTagName('member-groups')
+		self.blks = rootElem.getElementsByTagName('blocklist')
 
 	def getCategories(self):
 		return CategoryIterator(self.ctgs)
 
-	def getImages(self):
+	def getMediaItems(self):
 		if self.isCompressed:
-			return ImageIterator(self.imgs, self.categories)
+			return MediaItemIterator(self.imgs, self.categories)
 		else:
-			return ImageIterator(self.imgs)
+			return MediaItemIterator(self.imgs)
 
 	def getMemberGroups(self):
-		return []
+		return MemberGroupIterator(self.mgs)
 
 	def getBlockItems(self):
-		return []
+		return BlockItemIterator(self.blks)
 
 	categories = property(getCategories)
-	images = property(getImages)
+	mediaItems = property(getMediaItems)
 	memberGroups = property(getMemberGroups)
 	blockItems = property(getBlockItems)
 
@@ -131,13 +135,13 @@ class CategoryIterator(object):
 		return ctg
 
 
-class ImageIterator(object):
+class MediaItemIterator(object):
 	"""
-	Iterates images in given DOM element.
+	Iterates media items in given DOM element.
 	"""
 	def __init__(self, imagesElems, categories=None):
 		"""
-		Initialize with images elements.
+		Initialize with list of images elements.
 
 		If categories is None, will not parse compressed
 		format.
@@ -150,9 +154,9 @@ class ImageIterator(object):
 	def __iter__(self):
 		for imgs in self.imagesElems:
 			for i in imgs.getElementsByTagName('image'):
-				yield self.__getImage(i)
+				yield self.__getMediaItem(i)
 
-	def __getImage(self, imgElem):
+	def __getMediaItem(self, imgElem):
 		a = [imgElem.getAttribute(x)
 		     for x in ['label', 'description', 'file', 'md5sum',
 			       'startDate', 'endDate',
@@ -166,7 +170,7 @@ class ImageIterator(object):
 		if a[7] == -1:
 			a[7] = None
 		a[8] = int(a[8])
-		img = Image(*a)
+		img = MediaItem(*a)
 
 		# Parse uncompressed category items
 		for opts in imgElem.getElementsByTagName('options'):
@@ -176,7 +180,7 @@ class ImageIterator(object):
 					continue
 				for ov in opt.getElementsByTagName('value'):
 					item = ov.getAttribute('value')
-					img.addTag((category, item))
+					img.addTag(Tag(category, item))
 
 		# Parse compressed category items
 		for category in self.categories:
@@ -189,7 +193,7 @@ class ImageIterator(object):
 				except:
 					continue
 				item = category.items[n]
-				img.addTag((category.name, item))
+				img.addTag(Tag(category.name, item))
 		# Parse drawings
 		for drws in imgElem.getElementsByTagName('drawings'):
 			for shape in ['Circle', 'Line', 'Rectangle']:
@@ -202,3 +206,56 @@ class ImageIterator(object):
 							       (x1, y1),
 							       (x2, y2)))
 		return img
+
+
+class MemberGroupIterator(object):
+	"""
+	Iterates member groups in given DOM element.
+	"""
+	def __init__(self, memberGroupsElems):
+		self.memberGroupsElems = memberGroupsElems
+
+	def __memberIter(self):
+		for mgs in self.memberGroupsElems:
+			for m in mgs.getElementsByTagName('member'):
+				yield m
+
+	def __iter__(self):
+		collected = []
+		while True:
+			memberIter = self.__memberIter()
+			try:
+				while True:
+					x = memberIter.next()
+					label = self.__getLabel(x)
+					if not label in collected:
+						break
+			except StopIteration:
+				return
+			mg = MemberGroup(*label)
+			mg.addMember(x.getAttribute('member'))
+			for x in memberIter:
+				if self.__getLabel(x) == label:
+					mg.addMember(x.getAttribute('member'))
+			collected += [label]
+			yield mg
+
+	def __getLabel(self, elem):
+		return (elem.getAttribute('category'),
+			elem.getAttribute('group-name'))
+
+
+class BlockItemIterator(object):
+	"""
+	Iterates block items in given DOM element.
+	"""
+	def __init__(self, blocklistElems):
+		self.blocklistElems = blocklistElems
+
+	def __iter__(self):
+		for blklst in self.blocklistElems:
+			for b in blklst.getElementsByTagName('block'):
+				yield self.__getBlockItem(b)
+
+	def __getBlockItem(self, blkNode):
+		return BlockItem(blkNode.getAttribute('file'))

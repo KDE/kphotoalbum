@@ -158,7 +158,8 @@ class MediaItemIterator(object):
 
 	def __getMediaItem(self, imgElem):
 		a = [imgElem.getAttribute(x)
-		     for x in ['label', 'description', 'file', 'md5sum',
+		     for x in ['file', 'md5sum',
+			       'label', 'description',
 			       'startDate', 'endDate',
 			       'width', 'height', 'angle']]
 		a[4] = stringToDatetime(a[4]) # startDate

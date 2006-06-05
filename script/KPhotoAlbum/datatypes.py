@@ -35,17 +35,17 @@ class MediaItem(object):
 	"""
 	Stores media item information.
 	"""
-	def __init__(self, label, description,
-		     filename, md5sum,
-		     startDate, endDate,
+	def __init__(self, filename, md5sum,
+		     label, description,
+		     startTime, endTime,
 		     width, height, angle,
 		     tags=None, drawings=None):
 		self.label = label
 		self.description = description
 		self.filename = filename
 		self.md5sum = md5sum
-		self.startDate = startDate
-		self.endDate = endDate
+		self.startTime = startTime
+		self.endTime = endTime
 		self.width = width
 		self.height = height
 		self.angle = angle
@@ -64,12 +64,12 @@ class MediaItem(object):
 
 	def __repr__(self):
 		s = (self.__class__.__name__ + '(' +
-		     repr(self.label) + ', ' +
-		     repr(self.description) + ', ' +
 		     repr(self.filename) + ', ' +
 		     repr(self.md5sum) + ', ' +
-		     repr(self.startDate) + ', ' +
-		     repr(self.endDate) + ', ' +
+		     repr(self.label) + ', ' +
+		     repr(self.description) + ', ' +
+		     repr(self.startTime) + ', ' +
+		     repr(self.endTime) + ', ' +
 		     repr(self.width) + ', ' +
 		     repr(self.height) + ', ' +
 		     repr(self.angle))

@@ -18,9 +18,9 @@ class MySQLDatabase(DatabaseWriter):
 	tableList = [
 		('media',
 		 'id SERIAL, '
-		 'label VARCHAR(255), description TEXT, '
 		 'filename VARCHAR(1024), md5sum CHAR(32), '
-		 'startDate DATETIME, endDate DATETIME, '
+		 'label VARCHAR(255), description TEXT, '
+		 'startTime DATETIME, endTime DATETIME, '
 		 'width INT, height INT, angle SMALLINT'),
 		('category',
 		 'id SERIAL, name VARCHAR(255), icon VARCHAR(255), '
@@ -131,14 +131,14 @@ class MySQLDatabase(DatabaseWriter):
 		miid = self.mediaItemMap.numFor(i.filename)
 		self.c.execute('DELETE FROM media WHERE id=%s',
 			       (miid,))
-		self.c.execute('INSERT INTO media(id, label, description, '
-			       'filename, md5sum, '
-			       'startDate, endDate, '
+		self.c.execute('INSERT INTO media(id, filename, md5sum, '
+			       'label, description, '
+			       'startTime, endTime, '
 			       'width, height, angle) '
 			       'values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-			       (miid, i.label, i.description,
-				i.filename, i.md5sum,
-				i.startDate, i.endDate,
+			       (miid, i.filename, i.md5sum,
+				i.label, i.description,
+				i.startTime, i.endTime,
 				i.width, i.height, i.angle))
 		for tag in i.tags:
 			tid = self.__insertTag(tag)

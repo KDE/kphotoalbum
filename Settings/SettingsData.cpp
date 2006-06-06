@@ -43,6 +43,7 @@
 #include "SettingsData.moc"
 #include "DB/MemberMap.h"
 #include <kdebug.h>
+#include <qpixmapcache.h>
 
 #define STR(x) QString::fromLatin1(x)
 
@@ -60,6 +61,7 @@ Settings::SettingsData* Settings::SettingsData::instance()
 Settings::SettingsData::SettingsData( const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
+    QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
 }
 
 bool Settings::SettingsData::trustTimeStamps()
@@ -217,10 +219,14 @@ void Settings::SettingsData::setCategoryImage( const QString& category, QString 
 }
 
 // PENDING(blackie) moved this function to Category
-// PENDING(blackie) Make this function return a QPixmap and use a QPixmap cache instead.
-QImage Settings::SettingsData::categoryImage( const QString& category, QString member, int size ) const
+QPixmap Settings::SettingsData::categoryImage( const QString& category, QString member, int size ) const
 {
+
     QString fileName = fileForCategoryImage( category, member );
+    QPixmap res;
+    if ( QPixmapCache::find( fileName, res ) )
+        return res;
+
     QImage img;
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
@@ -229,7 +235,10 @@ QImage Settings::SettingsData::categoryImage( const QString& category, QString m
         else
             img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
     }
-    return img.smoothScale( size, size, QImage::ScaleMin );
+    res = img.smoothScale( size, size, QImage::ScaleMin );
+
+    QPixmapCache::insert( fileName, res );
+    return res;
 }
 
 void Settings::SettingsData::setViewSortType( ViewSortType tp )
@@ -424,5 +433,26 @@ QString Settings::SettingsData::groupForDatabase( const QString& setting ) const
 }
 
 
+
+void Settings::SettingsData::setThumbnailCache( int value )
+{
+    QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
+    QPixmapCache::clear();
+    setValue( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbnailCache" ), value );
+}
+int Settings::SettingsData::thumbnailCache() const
+{
+    return value( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbnailCache" ), 5 );
+}
+
+void Settings::SettingsData::setThumbSize( int value )
+{
+    QPixmapCache::clear();
+    setValue( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbSize" ), value );
+}
+int Settings::SettingsData::thumbSize() const
+{
+    return value( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbSize" ), 128 );
+}
 
 #undef STR

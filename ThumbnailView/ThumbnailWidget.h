@@ -115,7 +115,6 @@ protected:
     void removeDropIndications();
 
     // Misc
-    QPixmapCache& pixmapCache();
     void updateGridSize();
     bool isMovementKey( int key );
     void selectItems( const Cell& start, const Cell& end );

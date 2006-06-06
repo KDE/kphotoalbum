@@ -87,8 +87,8 @@ void CategoryImageConfig::groupChanged()
 
 void CategoryImageConfig::memberChanged()
 {
-    QImage img = Settings::SettingsData::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
-    _current->setPixmap( img );
+    QPixmap pix = Settings::SettingsData::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
+    _current->setPixmap( pix );
 }
 
 void CategoryImageConfig::slotSet()

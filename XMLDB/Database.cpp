@@ -78,7 +78,7 @@ int XMLDB::Database::totalCount() const
  * realized that all the work is really done after the check for whether the given
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
- */o
+ */
 QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group, int type )
 {
     QMap<QString, int> map;

@@ -86,7 +86,7 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
 {
     QString fileName = fileNameInCell( row, col );
     if ( !fileName.isNull() ) {
-        QPixmap* pix = pixmapCache().find( fileNameInCell( row, col ) );
+        QPixmap* pix = QPixmapCache::find( fileNameInCell( row, col ) );
         if ( pix ) {
             QRect rect = iconGeometry( row, col );
             Q_ASSERT( !rect.isNull() );
@@ -202,7 +202,7 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
         return QRect();
 
     int size = Settings::SettingsData::instance()->thumbSize() + SPACE;
-    QPixmap* pix = const_cast<ThumbnailWidget*>(this)->pixmapCache().find( fileName );
+    QPixmap* pix = QPixmapCache::find( fileName );
     if ( !pix )
         return QRect( SPACE, SPACE, size, size );
 
@@ -232,22 +232,6 @@ QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 
 
 
-/**
- * Return a pixmap cache to use for caching the thumbnails.
- */
-QPixmapCache& ThumbnailView::ThumbnailWidget::pixmapCache()
-{
-    static QPixmapCache cache;
-    static int lastSize = -1;
-    cache.setCacheLimit( Settings::SettingsData::instance()->thumbnailCache() * 1024 );
-    int currentThumbSize = Settings::SettingsData::instance()->thumbSize();
-    if (lastSize != currentThumbSize) {
-        cache.clear();
-        lastSize = currentThumbSize;
-    }
-    return cache;
-}
-
 void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
                                                  const QImage& image, bool loadedOK )
 {
@@ -272,7 +256,7 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
     if ( fullSize.isValid() )
         imageInfo->setSize( fullSize );
 
-    pixmapCache().insert( fileName, pixmap );
+    QPixmapCache::insert( fileName, pixmap );
     updateCell( fileName );
 }
 
@@ -746,7 +730,7 @@ void ThumbnailView::ThumbnailWidget::selectAll()
 void ThumbnailView::ThumbnailWidget::reload(bool flushCache )
 {
     if ( flushCache )
-        pixmapCache().clear();
+        QPixmapCache::clear();
     _selectedFiles.clear();
     updateCellSize();
     repaintScreen();

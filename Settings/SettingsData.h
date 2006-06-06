@@ -83,12 +83,16 @@ public:
     void setHistogramSize( const QSize& size );
 
     // -------------------------------------------------- Thumbnails
-    intProperty( Thumbnails, thumbSize, setThumbSize, 128 );
     intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
     boolProperty( Thumbnails, displayLabels, setDisplayLabels, true );
     intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
-    intProperty( Thumbnails, thumbnailCache, setThumbnailCache, 5 );
     boolProperty( Thumbnails, showNewestThumbnailFirst, setShowNewestFirst, false );
+
+    void setThumbnailCache( int value );
+    int thumbnailCache() const;
+
+    void setThumbSize( int value );
+    int thumbSize() const;
 
     // -------------------------------------------------- Viewer
     sizeProperty( Viewer, viewerSize, setViewerSize, QSize( 800,600 ) );
@@ -124,7 +128,7 @@ public:
     // -------------------------------------------------- Categories
     QString fileForCategoryImage(  const QString& category, QString member ) const;
     void setCategoryImage( const QString& category, QString, const QImage& image );
-    QImage categoryImage( const QString& category,  QString, int size ) const;
+    QPixmap categoryImage( const QString& category,  QString, int size ) const;
     QString albumCategory() const;
     void setAlbumCategory(  const QString& category );
 

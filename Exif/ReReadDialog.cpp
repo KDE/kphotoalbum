@@ -43,7 +43,7 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
 
     _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
     lay1->addWidget( _exifDB );
-    if ( !Exif::Database::isAvailable() ) {
+    if ( !Exif::Database::instance()->isUsable() ) {
         _exifDB->hide();
     }
 

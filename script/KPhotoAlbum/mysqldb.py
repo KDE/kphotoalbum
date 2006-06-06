@@ -19,30 +19,35 @@ class MySQLDatabase(DatabaseWriter):
 		('media',
 		 'id SERIAL, '
 		 'filename VARCHAR(1024), md5sum CHAR(32), '
+		 'typeId SMALLINT UNSIGNED, '
+		 'place BIGINT UNSIGNED, '
 		 'label VARCHAR(255), description TEXT, '
 		 'startTime DATETIME, endTime DATETIME, '
 		 'width INT, height INT, angle SMALLINT'),
+		('mediaType',
+		 'id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, '
+		 'name VARCHAR(255)'),
 		('category',
 		 'id SERIAL, name VARCHAR(255), icon VARCHAR(255), '
 		 'visible BOOL, viewtype TINYINT, viewsize TINYINT'),
 		('tag',
 		 'id SERIAL, '
-		 'categoryId BIGINT(20) UNSIGNED NOT NULL,'
+		 'categoryId BIGINT UNSIGNED NOT NULL,'
 		 'name VARCHAR(255), isGroup BOOL DEFAULT 0'),
 		('media_tag',
-		 'mediaId BIGINT(20) UNSIGNED NOT NULL, '
-		 'tagId BIGINT(20) UNSIGNED NOT NULL, '
+		 'mediaId BIGINT UNSIGNED NOT NULL, '
+		 'tagId BIGINT UNSIGNED NOT NULL, '
 		 'UNIQUE KEY (mediaId, tagId)'),
 		('drawing',
-		 'id SERIAL, mediaId BIGINT(20) UNSIGNED NOT NULL, '
+		 'id SERIAL, mediaId BIGINT UNSIGNED NOT NULL, '
 		 'shape INT, x0 INT, y0 INT, x1 INT, y1 INT'),
 		('relationType',
 		 'id SERIAL, name VARCHAR(255)'),
 		('tag_relation',
-		 'relationTypeId BIGINT(20) UNSIGNED NOT NULL, '
-		 'toTagId BIGINT(20) UNSIGNED NOT NULL, '
-		 'fromTagId BIGINT(20) UNSIGNED NOT NULL, '
-		 'UNIQUE KEY(relationTypeId, toTagId, fromTagId)')]
+		 'typeId BIGINT UNSIGNED NOT NULL, '
+		 'toTagId BIGINT UNSIGNED NOT NULL, '
+		 'fromTagId BIGINT UNSIGNED NOT NULL, '
+		 'UNIQUE KEY(typeId, toTagId, fromTagId)')]
 
 	def __init__(self, mysqlDb):
 		"""
@@ -70,6 +75,9 @@ class MySQLDatabase(DatabaseWriter):
 		self.c.execute('SELECT id, filename FROM media')
 		for (i, f) in self.c:
 			self.mediaItemMap[self.__decodeString(f)] = i
+		self.c.execute('SELECT id, name FROM mediaType')
+		for (i, n) in self.c:
+			self.mediaTypeMap[self.__decodeString(n)] = i
 		self.c.execute('SELECT id, name FROM category')
 		for (i, n) in self.c:
 			self.categoryMap[self.__decodeString(n)] = i
@@ -82,6 +90,7 @@ class MySQLDatabase(DatabaseWriter):
 
 	def __clearIds(self):
 		self.mediaItemMap = ItemNumMap()
+		self.mediaTypeMap = ItemNumMap()
 		self.drawingMap = ItemNumMap()
 		self.categoryMap = ItemNumMap()
 		self.tagMap = ItemNumMap()
@@ -129,15 +138,16 @@ class MySQLDatabase(DatabaseWriter):
 
 	def insertMediaItem(self, i):
 		miid = self.mediaItemMap.numFor(i.filename)
+		mtid = self.__insertMediaType(i.mediatype)
 		self.c.execute('DELETE FROM media WHERE id=%s',
 			       (miid,))
 		self.c.execute('INSERT INTO media(id, filename, md5sum, '
-			       'label, description, '
+			       'typeId, place, label, description, '
 			       'startTime, endTime, '
 			       'width, height, angle) '
-			       'values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-			       (miid, i.filename, i.md5sum,
-				i.label, i.description,
+			       'values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+			       (miid, i.filename, i.md5sum, mtid,
+				miid, i.label, i.description,
 				i.startTime, i.endTime,
 				i.width, i.height, i.angle))
 		for tag in i.tags:
@@ -146,6 +156,13 @@ class MySQLDatabase(DatabaseWriter):
 		for drw in i.drawings:
 			self.__insertMediaDrawing(miid, drw)
 		return miid
+
+	def __insertMediaType(self, mt):
+		mtid = self.mediaTypeMap.numFor(mt)
+		if not self.__tableHasCol('mediaType', 'id', mtid):
+			self.c.execute('INSERT INTO mediaType(id, name) '
+				       'values(%s,%s)', (mtid, mt))
+		return mtid
 
 	def __insertMediaTag(self, miid, tid):
 		if self.c.execute('SELECT * FROM media_tag '
@@ -175,16 +192,19 @@ class MySQLDatabase(DatabaseWriter):
 		for member in m.members:
 			fid = self.__insertTag(Tag(m.category, member))
 			if self.c.execute('SELECT * FROM tag_relation '
-					  'WHERE relationTypeId=%s AND '
+					  'WHERE typeId=%s AND '
 					  'toTagId=%s AND fromTagId=%s',
 					  (0, tid, fid)) != 0:
 				continue
 			self.c.execute('INSERT INTO tag_relation'
-				       '(relationTypeId, toTagId, fromTagId) '
+				       '(typeId, toTagId, fromTagId) '
 				       'values(0,%s,%s)', (tid, fid))
 
 	def insertBlockItem(self, b):
-		pass
+		miid = self.mediaItemMap.numFor(b.filename)
+		self.c.execute('DELETE FROM media WHERE id=%s', (miid,))
+		self.c.execute('INSERT INTO media(id, place, filename) '
+			       'values(%s,%s,%s)', (miid, None, b.filename))
 
 	def clear(self):
 		for t in self.tableList:

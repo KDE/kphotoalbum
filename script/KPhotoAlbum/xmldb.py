@@ -158,19 +158,21 @@ class MediaItemIterator(object):
 
 	def __getMediaItem(self, imgElem):
 		a = [imgElem.getAttribute(x)
-		     for x in ['file', 'md5sum',
+		     for x in ['file', 'md5sum', 'mediatype',
 			       'label', 'description',
 			       'startDate', 'endDate',
 			       'width', 'height', 'angle']]
-		a[4] = stringToDatetime(a[4]) # startDate
-		a[5] = stringToDatetime(a[5]) # endDate
-		a[6] = int(a[6]) # width
-		if a[6] == -1:
-			a[6] = None
-		a[7] = int(a[7]) # height
+		if a[2] == '': # mediatype
+			a[2] = 'image'
+		a[5] = stringToDatetime(a[5]) # startDate
+		a[6] = stringToDatetime(a[6]) # endDate
+		a[7] = int(a[7]) # width
 		if a[7] == -1:
 			a[7] = None
-		a[8] = int(a[8])
+		a[8] = int(a[8]) # height
+		if a[8] == -1:
+			a[8] = None
+		a[9] = int(a[9]) # angle
 		img = MediaItem(*a)
 
 		# Parse uncompressed category items

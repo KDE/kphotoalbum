@@ -32,8 +32,8 @@
 #include "Exif/Database.h"
 #include <config.h>
 
-Browser::ContentFolder::ContentFolder( const QString& category, const QString& value, int count,
-                              const DB::ImageSearchInfo& info, BrowserWidget* parent )
+Browser::ContentFolder::ContentFolder( const QString& category, const QString& value, DB::MediaCount count,
+                                       const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category( category ), _value( value )
 {
     _info.addAnd( _category, _value );
@@ -87,7 +87,8 @@ void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 
 Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 {
-    bool loadImages = (DB::ImageDB::instance()->count( _info ) < Settings::SettingsData::instance()->autoShowThumbnailView());
+    DB::MediaCount counts = DB::ImageDB::instance()->count( _info );
+    bool loadImages = (  counts.total() < Settings::SettingsData::instance()->autoShowThumbnailView());
     if ( ctrlDown ) loadImages = !loadImages;
 
     if ( loadImages ) {
@@ -128,7 +129,12 @@ QString Browser::ContentFolderAction::title() const
     return i18n("Category");
 }
 
-QString Browser::ContentFolder::countLabel() const
+QString Browser::ContentFolder::imagesLabel() const
 {
-    return i18n("1 Image", "%n Images", _count);
+    return i18n("1 Image", "%n Images", _count.images());
+}
+
+QString Browser::ContentFolder::moviesLabel() const
+{
+    return i18n("1 Movie", "%n Movies", _count.movies());
 }

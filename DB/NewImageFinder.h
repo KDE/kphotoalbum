@@ -37,11 +37,11 @@ public:
 protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
-    ImageInfoPtr loadExtraFile( const QString& name, DB::FileType type );
+    ImageInfoPtr loadExtraFile( const QString& name, DB::MediaType type );
     QString MD5Sum( const QString& fileName );
 
 private:
-    typedef QValueList< QPair< QString, DB::FileType > > LoadList;
+    typedef QValueList< QPair< QString, DB::MediaType > > LoadList;
     LoadList _pendingLoad;
 };
 }

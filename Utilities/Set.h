@@ -15,10 +15,16 @@ public:
         }
     }
 
-
     void insert( TYPE key )
     {
         QMap<TYPE,TYPE>::insert( key, key );
+    }
+
+    void insert( const QValueList<TYPE>& list )
+    {
+        for( QValueListConstIterator<TYPE> it = list.begin(); it != list.end(); ++it ) {
+            insert( *it );
+        }
     }
 
     QValueList<TYPE> toList() const

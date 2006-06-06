@@ -55,7 +55,7 @@ void SQLDB::Database::renameCategory( const QString& oldName, const QString newN
         showError( query );
 }
 
-QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, const QString& category )
+QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, const QString& category, int /*type*/ )
 {
     bool allFiles = true;
     QValueList<int> includedFiles;

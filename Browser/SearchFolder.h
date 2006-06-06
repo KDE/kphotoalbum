@@ -30,8 +30,8 @@ public:
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
-    virtual QString countLabel() const;
-
+    virtual QString imagesLabel() const;
+    virtual QString moviesLabel() const;
 };
 
 }

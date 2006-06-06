@@ -32,6 +32,7 @@
 #include <qimage.h>
 #include <ksharedptr.h>
 #include "DB/CategoryCollection.h"
+#include "Utilities/Set.h"
 
 #define EXIFMODE_DATE          0x01
 #define EXIFMODE_ORIENTATION   0x02
@@ -49,21 +50,22 @@ namespace Plugins
 namespace DB
 {
 
-enum FileType { Image, Movie };
+enum MediaType { Image = 0x01, Movie = 0x10 };
 
 class ImageInfo :public KShared {
 
 public:
 
     ImageInfo();
-    ImageInfo( const QString& fileName, FileType type = Image );
+    ImageInfo( const QString& fileName, MediaType type = Image );
     ImageInfo( const QString& fileName,
                const QString& label,
                const QString& description,
                const ImageDate& date,
                int angle,
                const QString& md5sum,
-               const QSize& size );
+               const QSize& size,
+               MediaType type);
 
     QString fileName( bool relative = false ) const;
     void setFileName( const QString& relativeFileName );
@@ -119,13 +121,17 @@ public:
     void setMatched( const QString& category, const QString& value ) const;
     bool allMatched( const QString& category );
 
+    MediaType mediaType() const;
+
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;
     bool isJPEG( const QString& fileName ) const;
+    void setAbsoluteFileName();
 
 private:
     friend class Plugins::ImageInfo;
-    QString _fileName;
+    QString _relativeFileName;
+    QString _absoluteFileName;
     QString _label;
     QString _description;
     ImageDate _date;
@@ -137,13 +143,13 @@ private:
     QString _md5sum;
     bool _null;
     QSize _size;
-    FileType _type;
+    MediaType _type;
 
     // Cache information
     bool _locked;
 
     // Used during searching to make it possible to search for Jesper & None
-    mutable QMap<QString,QStringList> _matched;
+    mutable QMap<QString, Set<QString> > _matched;
 };
 
 }

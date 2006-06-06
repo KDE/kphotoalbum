@@ -27,10 +27,11 @@
 Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category ( category )
 {
-    QMap<QString, int> map = DB::ImageDB::instance()->classify( _info, _category );
-    int count = map.size();
+    QMap<QString, int> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
+    QMap<QString, int> movies = DB::ImageDB::instance()->classify( _info, _category, DB::Movie );
+    DB::MediaCount count( images.count(), movies.count() );
     setCount( count );
-    if ( count <= 1 )
+    if ( count.total() <= 1 )
         setEnabled( false );
 }
 
@@ -60,17 +61,26 @@ void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
     _browser->clear();
 
 
-    QMap<QString, int> map = DB::ImageDB::instance()->classify( _info, _category );
-    for( QMapIterator<QString,int> it= map.begin(); it != map.end(); ++it ) {
-        if ( it.key() != DB::ImageDB::NONE() ) {
-            factory->createItem( new ContentFolder( _category, it.key(), it.data(), _info, _browser ) );
+    QMap<QString, int> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
+    QMap<QString, int> movies = DB::ImageDB::instance()->classify( _info, _category, DB::Movie );
+
+    QStringList keys = images.keys() + movies.keys();
+    qHeapSort(keys);
+    QString prev;
+
+    for( QStringList::ConstIterator it = keys.begin(); it != keys.end(); ++it ) {
+        if ( *it != prev && *it != DB::ImageDB::NONE() ) {
+            factory->createItem( new ContentFolder( _category, *it, DB::MediaCount( images[*it], movies[*it] ), _info, _browser ) );
+            prev = *it;
         }
     }
 
     // Add the none option to the end
-    int i = map[DB::ImageDB::NONE()];
-    if ( i != 0 )
-        factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), i, _info, _browser ) );
+    int imageCount = images[DB::ImageDB::NONE()];
+    int movieCount = movies[DB::ImageDB::NONE()];
+    if ( imageCount + movieCount != 0 )
+        factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), DB::MediaCount( imageCount, movieCount ),
+                                                _info, _browser ) );
 }
 
 QString Browser::TypeFolderAction::title() const
@@ -83,9 +93,14 @@ QString Browser::TypeFolderAction::category() const
     return _category;
 }
 
-QString Browser::TypeFolder::countLabel() const
+QString Browser::TypeFolder::imagesLabel() const
 {
-    return i18n("1 Category", "%n Categories", _count);
+    return i18n("1 Category", "%n Categories", _count.images());
+}
+
+QString Browser::TypeFolder::moviesLabel() const
+{
+    return i18n("1 Category", "%n Categories", _count.movies());
 }
 
 bool Browser::TypeFolderAction::contentView() const

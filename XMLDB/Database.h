@@ -44,7 +44,7 @@ namespace XMLDB {
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
         virtual void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString,int> classify( const DB::ImageSearchInfo& info, const QString &group );
+        virtual QMap<QString,int> classify( const DB::ImageSearchInfo& info, const QString &group, int type );
         virtual DB::ImageInfoList& imageInfoList() { return _images; }
         virtual QStringList images();
         virtual void addImages( const DB::ImageInfoList& images );

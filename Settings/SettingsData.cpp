@@ -217,6 +217,7 @@ void Settings::SettingsData::setCategoryImage( const QString& category, QString 
 }
 
 // PENDING(blackie) moved this function to Category
+// PENDING(blackie) Make this function return a QPixmap and use a QPixmap cache instead.
 QImage Settings::SettingsData::categoryImage( const QString& category, QString member, int size ) const
 {
     QString fileName = fileForCategoryImage( category, member );

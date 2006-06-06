@@ -97,7 +97,7 @@ void NewImageFinder::loadExtraFiles()
 }
 
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::FileType type )
+ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::MediaType type )
 {
     QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
     QString sum = MD5Sum( absoluteNewFileName );

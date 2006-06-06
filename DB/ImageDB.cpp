@@ -11,6 +11,7 @@
 #include <kdebug.h>
 #include <config.h>
 #include "NewImageFinder.h"
+#include <DB/MediaCount.h>
 
 using namespace DB;
 
@@ -93,10 +94,19 @@ ImageDB::ImageDB()
 {
 }
 
-int ImageDB::count( const ImageSearchInfo& info )
+DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
-    int count = search( info ).count();
-    return count;
+    QStringList list = search( searchInfo );
+    int images = 0;
+    int movies = 0;
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        ImageInfoPtr inf = info( *it );
+        if ( inf->mediaType() == Image )
+            ++images;
+        else
+            ++movies;
+    }
+    return MediaCount( images, movies );
 }
 
 void ImageDB::convertBackend()

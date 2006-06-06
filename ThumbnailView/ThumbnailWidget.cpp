@@ -563,7 +563,7 @@ ThumbnailView::Cell ThumbnailView::ThumbnailWidget::positionForFileName( const Q
  *
  * If the user scrolls down through the view, a back log of thumbnail
  * request may build up, which will slow down scrolling a lot. Therefore
- * the \ref ImageManger has the capability to check whether a thumbnail
+ * the ImageManger has the capability to check whether a thumbnail
  * request is really needed, when it gets to load the given thumbnail.
  */
 bool ThumbnailView::ThumbnailWidget::thumbnailStillNeeded( const QString& fileName ) const

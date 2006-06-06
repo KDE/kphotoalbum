@@ -73,7 +73,13 @@ int XMLDB::Database::totalCount() const
     return _images.count();
 }
 
-QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group )
+/**
+ * I was considering merging the two calls to this method (one for images, one for movies), but then I
+ * realized that all the work is really done after the check for whether the given
+ * imageInfo is of the right type, and as a match can't be both, this really
+ * would buy me nothing.
+ */o
+QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group, int type )
 {
     QMap<QString, int> map;
     DB::GroupCounter counter( group );
@@ -88,7 +94,7 @@ QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, co
 
     // Iterate through the whole database of images.
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
-        bool match = !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+        bool match = ( (*it)->mediaType() & type ) && !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
         if ( match ) { // If the given image is currently matched.
 
             // Now iterate through all the categories the current image
@@ -881,7 +887,10 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
     QSize size = QSize( w,h );
 
-    DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size );
+    QString type = elm.attribute( QString::fromLatin1( "mediatype" ), QString::fromLatin1( "image" ) ).lower();
+    DB::MediaType mediaType = ( type == QString::fromLatin1( "movie" ) ? DB::Movie : DB::Image );
+
+    DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size, mediaType );
     DB::ImageInfoPtr result = info;
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
@@ -991,6 +1000,8 @@ QDomElement XMLDB::Database::save( QDomDocument doc, const DB::ImageInfoPtr& inf
     elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum() );
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
+    elm.setAttribute( QString::fromLatin1( "mediatype" ),
+                      info->mediaType() == DB::Movie ? QString::fromLatin1( "movie" ) : QString::fromLatin1( "image" ) );
 
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         writeCategoriesCompressed( elm, info );

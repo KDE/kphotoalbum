@@ -22,6 +22,7 @@
 #include "BrowserWidget.h"
 #include <qstring.h>
 #include "DB/ImageSearchInfo.h"
+#include "DB/MediaCount.h"
 
 namespace Browser
 {
@@ -35,12 +36,13 @@ public:
     Folder( const DB::ImageSearchInfo& info, BrowserWidget* browser );
     virtual ~Folder() {};
     virtual FolderAction* action( bool ctrlDown = false ) = 0;
-    void setCount( int count ) { _count = count; }
+    void setCount( DB::MediaCount count ) { _count = count; }
     virtual QPixmap pixmap() = 0;
     virtual QString text() const = 0;
-    virtual int count() { return _count; }
+    virtual DB::MediaCount count() { return _count; }
     virtual int compare( Folder* other, int col, bool asc ) const;
-    virtual QString countLabel() const = 0;
+    virtual QString imagesLabel() const = 0;
+    virtual QString moviesLabel() const = 0;
     void setEnabled( bool );
 
     friend class TypeFolder;
@@ -50,7 +52,7 @@ public:
 
     BrowserWidget* _browser;
     DB::ImageSearchInfo _info;
-    int _count;
+    DB::MediaCount _count;
     bool _enabled;
 };
 

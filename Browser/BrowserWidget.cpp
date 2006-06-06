@@ -57,6 +57,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent, const char* name )
 
     _listView->addColumn( i18n("What") );
     _listView->addColumn( i18n("Count") );
+    _listView->addColumn( i18n("Movies") );
 
     _listView->setSelectionMode( QListView::NoSelection );
     _iconView->setSelectionMode( QIconView::NoSelection );
@@ -214,7 +215,8 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     info.addAnd( category, value );
     FolderAction* a;
 
-    bool loadImages = DB::ImageDB::instance()->count( info ) < Settings::SettingsData::instance()->autoShowThumbnailView();
+    DB::MediaCount counts = DB::ImageDB::instance()->count( info );
+    bool loadImages = (counts.total() < Settings::SettingsData::instance()->autoShowThumbnailView());
     if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
 
     if ( loadImages )

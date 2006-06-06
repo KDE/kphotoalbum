@@ -9,7 +9,7 @@ namespace ThumbnailView {
  *
  * Tree event handlers exists:
  * \ref GridResizeInteraction - Resizing the grid
- * \ref DragInteraction - handling selection
+ * \ref SelectionInteraction - handling selection
  * \ref MouseTrackingInteraction - Mouse tracking emit current file under point, when mouse is not pressed down.
  */
 class MouseInteraction {

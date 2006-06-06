@@ -242,7 +242,7 @@ void MainWindow::Window::delayedInit()
 
 #ifdef HASEXIV2
     Exif::Database* exifDB = Exif::Database::instance(); // Load the database
-    if ( !exifDB || !exifDB->isOpen() ) {
+    if ( exifDB->isAvailable() && !exifDB->isOpen() ) {
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
         qApp->exit(1);
     }

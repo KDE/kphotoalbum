@@ -46,11 +46,11 @@ Browser::BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
     :QIconViewItem( view ), _folder(folder)
 {
     setPixmap( folder->pixmap() );
-    int count = folder->count();
-    if ( count == -1 )
+    DB::MediaCount count = folder->count();
+    if ( count.images() == -1 )
         setText( folder->text() );
     else
-        setText( QString::fromLatin1( "%1 (%2)" ).arg( folder->text() ).arg( count ) );
+        setText( QString::fromLatin1( "%1 (%2/%3)" ).arg( folder->text() ).arg( count.images() ).arg( count.movies() ));
 }
 
 Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
@@ -58,7 +58,8 @@ Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
 {
     setPixmap( 0, folder->pixmap() );
     setText( 0, folder->text() );
-    setText( 1, folder->countLabel() );
+    setText( 1, folder->imagesLabel() );
+    setText( 2, folder->moviesLabel() );
 }
 
 int Browser::BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const

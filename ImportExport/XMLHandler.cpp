@@ -4,7 +4,7 @@
 #include "DB/ImageDB.h"
 
 /**
- * \class XMLHandler
+ * \class ImportExport::XMLHandler
  * \brief Helper class for
  * reading and writting the index.xml file located in exported .kim file.
  * This class is a simple helper class which encapsulate the code needed for generating an index.xml for the export file.

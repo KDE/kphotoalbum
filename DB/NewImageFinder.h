@@ -23,6 +23,7 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include "DB/MD5Map.h"
+#include "ImageInfo.h"
 
 namespace DB
 {
@@ -36,11 +37,12 @@ public:
 protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
-    ImageInfoPtr loadExtraFile( const QString& name );
+    ImageInfoPtr loadExtraFile( const QString& name, DB::MediaType type );
     QString MD5Sum( const QString& fileName );
 
 private:
-    QStringList _pendingLoad;
+    typedef QValueList< QPair< QString, DB::MediaType > > LoadList;
+    LoadList _pendingLoad;
 };
 }
 

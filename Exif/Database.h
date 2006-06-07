@@ -33,6 +33,7 @@ public:
     static bool isAvailable();
 
     bool isOpen() const;
+    bool isUsable() const;
     void add( const QString& fileName );
     void remove( const QString& fileName );
     Set<QString> filesMatchingQuery( const QString& query );

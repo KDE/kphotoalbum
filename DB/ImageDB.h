@@ -32,6 +32,7 @@ class CategoryCollection;
 class Category;
 class MD5Map;
 class MemberMap;
+class MediaCount;
 
 class ImageDB  :public QObject {
     Q_OBJECT
@@ -47,7 +48,7 @@ public slots:
     void clearDateRange();
     virtual void slotRescan();
     virtual void slotRecalcCheckSums( QStringList selection );
-    virtual int count( const ImageSearchInfo& info );
+    virtual MediaCount count( const ImageSearchInfo& info );
     virtual void slotReread( const QStringList& list, int mode);
 
 protected:
@@ -72,7 +73,7 @@ public: // Methods that must be overriden
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
-    virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category ) = 0;
+    virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category, int type ) = 0;
     virtual ImageInfoList& imageInfoList() = 0; // PENDING(blackie) TO BE DELETED!
     virtual QStringList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;

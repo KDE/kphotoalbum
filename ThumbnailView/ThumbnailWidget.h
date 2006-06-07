@@ -57,6 +57,7 @@ protected slots:
 
 signals:
     void showImage( const QString& fileName );
+    void showSelection();
     void fileNameUnderCursorChanged( const QString& fileName );
     void currentDateChanged( const QDateTime& );
     void selectionChanged();
@@ -114,7 +115,6 @@ protected:
     void removeDropIndications();
 
     // Misc
-    QPixmapCache& pixmapCache();
     void updateGridSize();
     bool isMovementKey( int key );
     void selectItems( const Cell& start, const Cell& end );

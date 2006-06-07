@@ -618,3 +618,11 @@ bool operator<( const QPoint& p1, const QPoint& p2)
 {
     return p1.y() < p2.y() || ( p1.y() == p2.y() && p1.x() < p2.x() );
 }
+
+bool Utilities::isMovie( const QString& fileName )
+{
+    QFileInfo fi( fileName );
+    QString ext = fi.extension();
+    return ext == QString::fromLatin1("avi") || ext == QString::fromLatin1("mov") || ext == QString::fromLatin1( "rm" ) ||
+        ext == QString::fromLatin1( "wmv" ) || ext == QString::fromLatin1( "mpg" );
+}

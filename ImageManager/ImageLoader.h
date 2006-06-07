@@ -31,17 +31,17 @@ public:
     ImageLoader( QWaitCondition* sleeper );
     static QImage rotateAndScale( QImage, int width, int height, int angle );
     static void removeThumbnail( const QString& imageFile );
+    static QImage tryLoadThumbnail( ImageRequest* request, bool& ok );
+    static void writeThumbnail( ImageRequest* request, QImage image );
 
 protected:
     virtual void run();
-    QImage tryLoadThumbnail( ImageRequest* request, bool& ok );
     QImage loadImage( ImageRequest* request, bool& ok );
-    void writeThumbnail( ImageRequest* request, QImage image );
-    int calcLoadSize( ImageRequest* request );
+    static int calcLoadSize( ImageRequest* request );
     QImage scaleAndRotate( ImageRequest* request, QImage img );
-    QString thumbnailPath( ImageRequest* request );
-    QString thumbnailPath( QString uri, int dim );
-    QString requestURL( ImageRequest* request );
+    static QString thumbnailPath( ImageRequest* request );
+    static QString thumbnailPath( QString uri, int dim );
+    static QString requestURL( ImageRequest* request );
 
 private:
     QWaitCondition* _sleeper;

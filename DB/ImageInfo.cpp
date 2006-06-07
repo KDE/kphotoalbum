@@ -50,8 +50,8 @@ ImageInfo::ImageInfo() :_null( true ), _locked( false )
 {
 }
 
-ImageInfo::ImageInfo( const QString& fileName )
-    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _locked( false )
+ImageInfo::ImageInfo( const QString& fileName, MediaType type )
+    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ), _locked( false )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Settings::SettingsData::instance()->imageDirectory() + fileName );
@@ -129,16 +129,17 @@ void ImageInfo::renameItem( const QString& key, const QString& oldValue, const Q
 QString ImageInfo::fileName( bool relative ) const
 {
     if (relative)
-        return _fileName;
+        return _relativeFileName;
     else
-        return  Settings::SettingsData::instance()->imageDirectory() + _fileName;
+        return _absoluteFileName;
 }
 
 void ImageInfo::setFileName( const QString& relativeFileName )
 {
-    _fileName = relativeFileName;
+    _relativeFileName = relativeFileName;
+    setAbsoluteFileName();
     _imageOnDisk = Unchecked;
-    QString folderName = Utilities::relativeFolderName( _fileName );
+    QString folderName = Utilities::relativeFolderName( _relativeFileName );
     _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
     DB::ImageDB::instance()->categoryCollection()->categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
 }
@@ -184,7 +185,7 @@ bool ImageInfo::operator!=( const ImageInfo& other )
 bool ImageInfo::operator==( const ImageInfo& other )
 {
     bool changed =
-        ( _fileName != other._fileName ||
+        ( _relativeFileName != other._relativeFileName ||
           _label != other._label ||
           ( !_description.isEmpty() && !other._description.isEmpty() && _description != other._description ) || // one might be isNull.
           _date != other._date ||
@@ -269,22 +270,27 @@ void ImageInfo::clearMatched() const
 
 void ImageInfo::setMatched( const QString& category, const QString& value ) const
 {
-    _matched[category].append( value );
+    _matched[category].insert( value );
     const MemberMap& map = DB::ImageDB::instance()->memberMap();
     QStringList members = map.members( category, value, true );
-    _matched[category] += members;
+    _matched[category].insert( members );
 }
 
-// Returns whether all tokens for the given image are matches by the search
-// example: returns true if all people on an image is in the search, i.e.
-// it is only true if there are no persons on the image that are not explicit searched for.
+/**
+ * Returns whether all tokens for the given image are matches by the search
+ * example: returns true if all people on an image is in the search,
+ * i.e. it is only true if there are no persons on the image that are not
+ * explicit searched for.
+ * This is used when the search includes *None*
+ */
 bool ImageInfo::allMatched( const QString& category )
 {
-    QStringList list = itemsOfCategory( category );
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+    const QStringList list = itemsOfCategory( category );
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         if ( !_matched[category].contains( *it ) )
             return false;
     }
+
     return true;
 }
 
@@ -319,9 +325,11 @@ ImageInfo::ImageInfo( const QString& fileName,
                       const ImageDate& date,
                       int angle,
                       const QString& md5sum,
-                      const QSize& size )
+                      const QSize& size,
+                      MediaType type )
 {
-    _fileName = fileName;
+    _relativeFileName = fileName;
+    setAbsoluteFileName();
     _label =label;
     _description =description;
     _date = date;
@@ -331,11 +339,13 @@ ImageInfo::ImageInfo( const QString& fileName,
     _imageOnDisk = Unchecked;
     _locked = false;
     _null = false;
+    _type = type;
 }
 
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 {
-    _fileName = other._fileName;
+    _relativeFileName = other._relativeFileName;
+    setAbsoluteFileName();
     _label = other._label;
     _description = other._description;
     _date = other._date;
@@ -353,5 +363,21 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 void ImageInfo::addDrawing( const QDomElement& elm )
 {
     _drawList.load( elm );
+}
+
+MediaType DB::ImageInfo::mediaType() const
+{
+    return _type;
+}
+
+/**
+ * During profiling I found that it took almost 5% of the time during
+ * categorizing when browsing, simply to calculate the absolute filename, therefore it is
+ * now an instance variable rather than calculated dynamically in
+ * fileName().
+ */
+void DB::ImageInfo::setAbsoluteFileName()
+{
+    _absoluteFileName = Settings::SettingsData::instance()->imageDirectory() + _relativeFileName;
 }
 

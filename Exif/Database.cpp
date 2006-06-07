@@ -93,7 +93,7 @@ void Exif::Database::populateDatabase()
 
 void Exif::Database::add( const QString& fileName )
 {
-    if ( !isAvailable() )
+    if ( !isUsable() )
         return;
 
     try {
@@ -110,7 +110,7 @@ void Exif::Database::add( const QString& fileName )
 
 void Exif::Database::remove( const QString& fileName )
 {
-    if ( !isAvailable() )
+    if ( !isUsable() )
         return;
 
     QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
@@ -121,6 +121,9 @@ void Exif::Database::remove( const QString& fileName )
 
 void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
 {
+    if ( !isUsable() )
+        return;
+
     QStringList formalList;
     QValueList<DatabaseElement*> elms = elements();
     for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
@@ -158,6 +161,11 @@ bool Exif::Database::isAvailable()
     return QSqlDatabase::isDriverAvailable( QString::fromLatin1( "QSQLITE" ) );
 }
 
+bool Exif::Database::isUsable() const
+{
+    return (isAvailable() && isOpen());
+}
+
 QString Exif::Database::exifDBFile()
 {
     return Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
@@ -165,7 +173,7 @@ QString Exif::Database::exifDBFile()
 
 Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
 {
-    if ( !isAvailable() )
+    if ( !isUsable() )
         return Set<QString>();
 
     Set<QString> result;
@@ -199,6 +207,9 @@ QValueList< QPair<QString,QString> > Exif::Database::cameras() const
 {
     QValueList< QPair<QString,QString> > result;
 
+    if ( !isUsable() )
+        return result;
+
     QSqlQuery query( "SELECT DISTINCT Exif_Image_Make, Exif_Image_Model FROM exif", _db );
     if ( !query.exec() )
         showError( query );
@@ -221,13 +232,13 @@ void Exif::Database::init()
         return;
 
     bool dbExists = QFile::exists( exifDBFile() );
-    if ( !dbExists ) {
+    /*if ( !dbExists ) {
         bool copied = Utilities::copy( locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
         if ( !copied ) {
             qWarning( "Cannot initialize new EXIF database file: %s", exifDBFile().local8Bit().data() );
             return;
         }
-    }
+    }*/
 
     openDatabase();
 

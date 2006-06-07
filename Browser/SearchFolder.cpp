@@ -30,7 +30,7 @@
 Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )
 {
-    setCount(-1);
+    setCount( DB::MediaCount( -1, -1 ) );
 }
 
 QPixmap Browser::SearchFolder::pixmap()
@@ -52,7 +52,7 @@ Browser::FolderAction* Browser::SearchFolder::action( bool )
     if ( info.isNull() )
         return 0;
 
-    if ( DB::ImageDB::instance()->count( info ) == 0 ) {
+    if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
         KMessageBox::information( _browser, i18n( "Search did not match any images." ), i18n("Empty Search Result") );
         return 0;
     }
@@ -60,7 +60,11 @@ Browser::FolderAction* Browser::SearchFolder::action( bool )
     return new ContentFolderAction( QString::null, QString::null, info, _browser );
 }
 
-QString Browser::SearchFolder::countLabel() const
+QString Browser::SearchFolder::imagesLabel() const
+{
+    return QString::null;
+}
+QString Browser::SearchFolder::moviesLabel() const
 {
     return QString::null;
 }

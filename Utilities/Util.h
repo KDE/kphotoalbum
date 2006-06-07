@@ -43,6 +43,7 @@ bool runningDemo();
 void deleteDemo();
 QString setupDemo();
 bool canReadImage( const QString& fileName );
+bool isMovie( const QString& fileName );
 QString readInstalledFile( const QString& fileName );
 QString getThumbnailDir( const QString& imageFile );
 QString getThumbnailFile( const QString& imageFile, int width, int height, int angle );

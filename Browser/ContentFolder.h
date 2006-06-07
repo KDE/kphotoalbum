@@ -25,13 +25,14 @@ namespace Browser
 
 class ContentFolder :public Folder {
 public:
-    ContentFolder( const QString& category, const QString& value, int count,
+    ContentFolder( const QString& category, const QString& value, DB::MediaCount count,
                    const DB::ImageSearchInfo& info, BrowserWidget* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
     int compare( Folder* other, int col, bool asc ) const;
-    virtual QString countLabel() const;
+    virtual QString imagesLabel() const;
+    virtual QString moviesLabel() const;
 
 private:
     QString _category;

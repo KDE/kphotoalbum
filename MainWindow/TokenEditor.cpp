@@ -8,6 +8,7 @@
 #include "Settings/SettingsData.h"
 #include "DB/CategoryCollection.h"
 #include "DB/Category.h"
+#include "DB/ImageInfo.h"
 
 using namespace MainWindow;
 
@@ -75,7 +76,8 @@ void TokenEditor::selectNone()
 QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
-    QMap<QString,int> map = DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ) );
+    QMap<QString,int> map =
+        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ), DB::Image | DB::Movie );
     for( QMap<QString,int>::Iterator it = map.begin(); it != map.end(); ++it ) {
         if ( it.data() > 0 )
             res.append( it.key() );

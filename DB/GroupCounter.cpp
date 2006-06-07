@@ -26,13 +26,32 @@
 using namespace DB;
 
 
-// Examples:
-// groupToMemberMap = { USA |-> [Chicago, Santa Clara],
-//                      California |-> [Santa Clara, Los Angeles] }
-// _memberToGroup = { Chicago |-> [USA],
-//                    Sanata Clara |-> [ USA, California ],
-//                    Los Angeless |-> [ California ] }
-
+/**
+ * \class DB::GroupCounter
+ * \brief Utility class to help counting matches for member groups.
+ *
+ * This class is used to count the member group matches when
+ * categorizing. The class is instantiating with the category we currently
+ * are counting items for.
+ *
+ * The class builds the inverse member map, that is a map pointing from items
+ * to parent.
+ *
+ * As an example, imagine we have the following member map (stored in the
+ * variable groupToMemberMap in  the code):
+ * \code
+ *    { USA |-> [Chicago, Santa Clara],
+ *      California |-> [Santa Clara, Los Angeles] }
+ * \endcode
+ *
+ * The inverse map (stored in _memberToGroup in the code ) will then look
+ * like this:
+ * \code
+ *  { Chicago |-> [USA],
+ *    Sanata Clara |-> [ USA, California ],
+ *    Los Angeless |-> [ California ] }
+ * \endcode
+ */
 GroupCounter::GroupCounter( const QString& category )
 {
     MemberMap map = DB::ImageDB::instance()->memberMap();
@@ -68,21 +87,22 @@ GroupCounter::GroupCounter( const QString& category )
 
 }
 
-/** optionList is the selected options for one image, members may be Las Vegas, Chicago, and Los Angeles if the
-    category in question is Locations.
-    This function then increases _groupCount with 1 for each of the groups the relavant items belongs to
-    Las Vegas might increase the _groupCount[Nevada] by one.
-    The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
-    used for.
-*/
-void GroupCounter::count( const QStringList& optionList )
+/**
+ * categories is the selected categories for one image, members may be Las Vegas, Chicago, and Los Angeles if the
+ * category in question is Locations.
+ * This function then increases _groupCount with 1 for each of the groups the relavant items belongs to
+ * Las Vegas might increase the _groupCount[Nevada] by one.
+ * The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
+ * used for.
+ */
+void GroupCounter::count( const QStringList& categories )
 {
     // It takes quite some time to clear the dict with a large prime!
     static QDict<void> countedGroupDict( 97 /* a large, but not extreme prime */ );
 
     countedGroupDict.clear();
-    for( QStringList::ConstIterator optionIt = optionList.begin(); optionIt != optionList.end(); ++optionIt ) {
-        QStringList* groups = _memberToGroup[*optionIt];
+    for( QStringList::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+        QStringList* groups = _memberToGroup[*categoryIt];
         if ( groups ) {
             for( QStringList::Iterator groupsIt = (*groups).begin(); groupsIt != (*groups).end(); ++groupsIt ) {
                 if ( countedGroupDict.find( *groupsIt ) == 0 ) {
@@ -92,9 +112,9 @@ void GroupCounter::count( const QStringList& optionList )
             }
         }
         // The item Nevada should itself go into the group Nevada.
-        if ( countedGroupDict.find( *optionIt ) == 0 && _groupCount.find( *optionIt ) ) {
-             countedGroupDict.insert( *optionIt, (void*) 0x1 ); // value not used, must be different from 0.
-             (*_groupCount[*optionIt])++;
+        if ( countedGroupDict.find( *categoryIt ) == 0 && _groupCount.find( *categoryIt ) ) {
+             countedGroupDict.insert( *categoryIt, (void*) 0x1 ); // value not used, must be different from 0.
+             (*_groupCount[*categoryIt])++;
         }
     }
 }

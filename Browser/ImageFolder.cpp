@@ -31,7 +31,7 @@
 Browser::ImageFolder::ImageFolder( const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent )
 {
-    int count = DB::ImageDB::instance()->count( info );
+    DB::MediaCount count = DB::ImageDB::instance()->count( info );
     setCount( count );
 }
 
@@ -70,8 +70,13 @@ Browser::ImageFolderAction::ImageFolderAction( const QString& context, BrowserWi
 {
 }
 
-QString Browser::ImageFolder::countLabel() const
+QString Browser::ImageFolder::imagesLabel() const
 {
-    return i18n("1 image", "%n images", _count );
+    return i18n( "1 image", "%n images", _count.images() );
+}
+
+QString Browser::ImageFolder::moviesLabel() const
+{
+    return i18n( "1 movie", "%n movies", _count.movies() );
 }
 

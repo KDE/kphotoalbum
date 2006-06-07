@@ -137,7 +137,9 @@ QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
         ok = Utilities::loadJPEG(&img, request->fileName(),  &fullSize, dim);
         if (ok == true)
             request->setFullSize( fullSize );
-    } else {
+    }
+
+    else {
         ok = img.load( request->fileName() );
         if (ok)
             request->setFullSize( img.size() );

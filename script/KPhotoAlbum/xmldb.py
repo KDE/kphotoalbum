@@ -68,7 +68,10 @@ class XMLDatabase(DatabaseReader):
 			return MediaItemIterator(self.imgs)
 
 	def getMemberGroups(self):
-		return MemberGroupIterator(self.mgs)
+		if self.isCompressed:
+			return MemberGroupIterator(self.mgs, self.categories)
+		else:
+			return MemberGroupIterator(self.mgs)
 
 	def getBlockItems(self):
 		return BlockItemIterator(self.blks)
@@ -215,15 +218,37 @@ class MemberGroupIterator(object):
 	"""
 	Iterates member groups in given DOM element.
 	"""
-	def __init__(self, memberGroupsElems):
+	def __init__(self, memberGroupsElems, categories=None):
+		"""
+		Initialize with a list of member-groups elements.
+
+		If categories is None, will not parse compressed
+		format.
+		"""
 		self.memberGroupsElems = memberGroupsElems
+		self.categories = {}
+		if not categories is None:
+			for c in categories:
+				self.categories[c.name] = c.items
 
 	def __memberIter(self):
 		for mgs in self.memberGroupsElems:
 			for m in mgs.getElementsByTagName('member'):
 				yield m
 
-	def __iter__(self):
+	def __compressedIter(self):
+		for m in self.__memberIter():
+			mg = MemberGroup(*self.__getLabel(m))
+			items = self.categories[mg.category]
+			for s in m.getAttribute('members').split(','):
+				try:
+					n = int(s)
+				except:
+					continue
+				mg.addMember(items[n])
+			yield mg
+
+	def __NormalIter(self):
 		collected = []
 		while True:
 			memberIter = self.__memberIter()
@@ -242,6 +267,17 @@ class MemberGroupIterator(object):
 					mg.addMember(x.getAttribute('member'))
 			collected += [label]
 			yield mg
+
+	def __iter__(self):
+		mi = self.__memberIter()
+		try:
+			m = mi.next()
+		except StopIteration:
+			return
+		if m.hasAttribute('members'):
+			return self.__compressedIter()
+		else:
+			return self.__normalIter()
 
 	def __getLabel(self, elem):
 		return (elem.getAttribute('category'),

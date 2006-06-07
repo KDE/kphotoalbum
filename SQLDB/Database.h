@@ -16,8 +16,8 @@ the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 Boston, MA 02111-1307, USA.
 */
 
-#ifndef SQLDB_DATABSE_H
-#define SQLDB_DATABSE_H
+#ifndef SQLDB_DATABASE_H
+#define SQLDB_DATABASE_H
 
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
@@ -78,5 +78,5 @@ namespace SQLDB {
     };
 }
 
-#endif /* SQLDB_DATABSE_H */
+#endif /* SQLDB_DATABASE_H */
 

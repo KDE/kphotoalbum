@@ -9,6 +9,10 @@ namespace SQLDB {
         SQLImageInfo( const QString& relativeFileName );
         DB::ImageInfo& operator=( const DB::ImageInfo& other );
 
+    protected:
+        void load();
+        void save();
+
     private:
         int _fileId;
     };

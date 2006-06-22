@@ -2,12 +2,14 @@
 #include "QueryUtil.h"
 #include <qsqlquery.h>
 #include "Utilities/Util.h"
+#include "QueryHelper.h"
 
 const QString imageInfoAttributes = "label, description, startDate, endDate, angle, md5sum, width, height";
 
 SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     :DB::ImageInfo()
 {
+#ifndef HASKEXIDB
     QString relativeFileName = Utilities::stripImageDirectory( fileName );
     _fileId = idForFileName( relativeFileName );
 
@@ -50,10 +52,32 @@ SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
     while ( query.next() ) {
         addOption( categoryForId(query.value(0).toInt()), query.value(1).toString() );
     }
+#else
+    QString relativeFileName = Utilities::stripImageDirectory(fileName);
+    _fileId = QueryHelper::instance()->idForFilename(relativeFileName);
+    load();
+#endif
 }
+
+void SQLDB::SQLImageInfo::load()
+{
+    if (!QueryHelper::instance()->getMediaItem(_fileId, *this)) {
+        // TODO: error handling
+        qWarning("Internal Error: Did not find file %d in Database", _fileId);
+    }
+}
+
+void SQLDB::SQLImageInfo::save()
+{
+#ifdef HASKEXIDB
+    QueryHelper::instance()->updateMediaItem(_fileId, *this);
+#endif
+}
+
 
 DB::ImageInfo& SQLDB::SQLImageInfo::operator=( const DB::ImageInfo& other )
 {
+#ifndef HASKEXIDB
     QStringList queryList;
     QMap<QString, QVariant> map;
 
@@ -140,4 +164,9 @@ DB::ImageInfo& SQLDB::SQLImageInfo::operator=( const DB::ImageInfo& other )
     // PENDING(blackie) save draw list.
 
     return DB::ImageInfo::operator=( other );
+#else
+    DB::ImageInfo& tmp = DB::ImageInfo::operator=(other);
+    save();
+    return tmp;
+#endif
 }

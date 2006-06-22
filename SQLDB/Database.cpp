@@ -16,43 +16,352 @@
 #include "Browser/BrowserWidget.h"
 #include "SQLImageDateCollection.h"
 
+#ifdef HASKEXIDB
+#include "QueryHelper.h"
+
+#include <kexidb/driver.h>
+#include <kexidb/connection.h>
+#include <kexidb/drivermanager.h> // KexiDB::DriverManager
+#include <kexidb/connectiondata.h> // KexiDB::ConnectionData
+#include <kexidb/tableschema.h> // KexiDB::TableSchema
+#include <kexidb/indexschema.h> // KexiDB::IndexSchema
+#include <kexidb/transaction.h> // KexiDB::Transaction
+#include <kexidb/field.h> // KexiDB::Field
+#include <kexidb/cursor.h>
+#include <qvaluevector.h> // QValueVector, used by kexi enum
+
+#include <kexidb/parser.h>
+#include <kexidb/queryschema.h>
+
+using KexiDB::Field;
+#endif
+
+//TODO: error handling
+#include <stdlib.h>
+namespace
+{
+    void tellError(const QString& msg)
+    {
+        KMessageBox::sorry(0, msg);
+    }
+    void exitError(const QString& msg)
+    {
+        tellError(msg);
+        exit(-1);
+    }
+}
+
+
 SQLDB::Database::Database( const QString& username, const QString& password ) :_members( this )
 {
+#ifndef HASKEXIDB
     if ( !QSqlDatabase::isDriverAvailable( QString::fromLatin1("QMYSQL3") ) ) {
         // PENDING(blackie) better message
         KMessageBox::sorry( 0, i18n("The MySQL driver did not seem to be compiled into your Qt" ) );
         exit(-1);
     }
-
-    openDatabase(username, password);
+#else
+    KexiDB::DriverManager *manager = new KexiDB::DriverManager();
+    _driver = manager->driver("MySQL");
+    if (!_driver) {
+        // TODO: error handling (get from manager)
+        exitError(i18n("Kexi driver not found."));
+    }
+#endif
+    if (!openConnection(username, password)) {
+        exit(-1);
+    }
+    openDatabase();
+#ifdef HASKEXIDB
+    QueryHelper::setup(_connection);
+#endif
     loadMemberGroups();
 }
 
+void SQLDB::Database::createAndOpen()
+{
+#ifdef HASKEXIDB
+    qDebug("Creating db kphotoalbum");
+    if (!_connection->createDatabase("kphotoalbum")) {
+        qDebug("create failed: %s", _connection->errorMsg().latin1());
+        exit(-1);
+    }
+    else qDebug("create succeed");
+    if (!_connection->useDatabase("kphotoalbum")) {
+        exitError("Cannot use db kphotoalbum");
+    }
+    // TODO: use transaction
+//     bool useTransactions = driver->transactionsSupported();
+//     KexiDB::Transaction t;
+//     if (useTransactions) {
+//         _connection->setAutoCommit(false);
+//         t = _connection->beginTransaction();
+//         if (_connection->error()) {
+//             qDebug("transaction failed: %s",
+//                    _connection->errorMsg().latin1());
+//         }
+//     }
+
+    KexiDB::Field* f;
+
+    //TODO: Set NotNull flags where should
+    //TODO: error handling
+
+    // ==== media table ====
+    KexiDB::TableSchema* schema = new KexiDB::TableSchema("media");
+    schema->setCaption("media items");
+
+    f = new KexiDB::Field("id", Field::BigInteger,
+                          Field::PrimaryKey | Field::AutoInc,
+                          Field::Unsigned);
+    f->setCaption("id");
+    schema->addField(f);
+
+    f = new KexiDB::Field("place", Field::BigInteger,
+                          Field::Indexed, Field::Unsigned);
+    f->setCaption("place");
+    schema->addField(f);
+
+    f = new KexiDB::Field("filename", KexiDB::Field::Text,
+                          Field::NotNull, Field::NoOptions, 1023);
+    f->setCaption("filename");
+    schema->addField(f);
+
+    f = new KexiDB::Field("md5sum", KexiDB::Field::Text,
+                          Field::NoConstraints, Field::NoOptions, 32);
+    f->setCaption("md5sum");
+    schema->addField(f);
+
+    f = new KexiDB::Field("type", KexiDB::Field::ShortInteger,
+                          Field::NotNull, Field::Unsigned);
+    f->setCaption("type");
+    schema->addField(f);
+
+    f = new KexiDB::Field("label", KexiDB::Field::Text,
+                          Field::NoConstraints, Field::NoOptions, 255);
+    f->setCaption("label");
+    schema->addField(f);
+
+    f = new KexiDB::Field("description", KexiDB::Field::LongText);
+    f->setCaption("description");
+    schema->addField(f);
+
+    f = new KexiDB::Field("startTime", KexiDB::Field::DateTime);
+    f->setCaption("start time");
+    schema->addField(f);
+
+    f = new KexiDB::Field("endTime", KexiDB::Field::DateTime);
+    f->setCaption("end time");
+    schema->addField(f);
+
+    f = new KexiDB::Field("width", KexiDB::Field::Integer,
+                          Field::NoConstraints,
+                          Field::Unsigned);
+    f->setCaption("type");
+    schema->addField(f);
+
+    f = new KexiDB::Field("height", KexiDB::Field::Integer,
+                          Field::NoConstraints,
+                          Field::Unsigned);
+    f->setCaption("type");
+    schema->addField(f);
+
+    f = new KexiDB::Field("angle", KexiDB::Field::ShortInteger);
+    f->setCaption("type");
+    schema->addField(f);
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating media table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
+    // ==== category table ====
+    schema = new KexiDB::TableSchema("category");
+    schema->setCaption("categories");
+
+    f = new KexiDB::Field("id", Field::Integer,
+                          Field::PrimaryKey | Field::AutoInc,
+                          Field::Unsigned);
+    f->setCaption("id");
+    schema->addField(f);
+
+    f = new KexiDB::Field("name", Field::Text,
+                          Field::NotNull | Field::Unique,
+                          Field::NoOptions, 255);
+    f->setCaption("name");
+    schema->addField(f);
+
+    f = new KexiDB::Field("icon", Field::Text,
+                          Field::NoConstraints, Field::NoOptions, 1023);
+    f->setCaption("name");
+    schema->addField(f);
+
+    f = new KexiDB::Field("visible", KexiDB::Field::Boolean);
+    f->setCaption("is visible");
+    schema->addField(f);
+
+    f = new KexiDB::Field("viewtype", KexiDB::Field::ShortInteger);
+    f->setCaption("view type");
+    schema->addField(f);
+
+    f = new KexiDB::Field("viewsize", KexiDB::Field::ShortInteger);
+    f->setCaption("view size");
+    schema->addField(f);
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating category table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
+
+    // ==== tag table ====
+    schema = new KexiDB::TableSchema("tag");
+    schema->setCaption("tags");
+
+    f = new KexiDB::Field("id", Field::BigInteger,
+                          Field::PrimaryKey | Field::AutoInc,
+                          Field::Unsigned);
+    f->setCaption("id");
+    schema->addField(f);
+
+    f = new KexiDB::Field("place", Field::BigInteger,
+                          Field::Indexed, Field::Unsigned);
+    f->setCaption("place");
+    schema->addField(f);
+
+    f = new KexiDB::Field("categoryId", Field::Integer,
+                          Field::ForeignKey | Field::NotNull,
+                          Field::Unsigned);
+    f->setCaption("category id");
+    schema->addField(f);
+
+    f = new KexiDB::Field("name", Field::Text,
+                          Field::NoConstraints, Field::NoOptions, 255);
+    f->setCaption("name");
+    schema->addField(f);
+
+    f = new KexiDB::Field("isGroup", KexiDB::Field::Boolean,
+                          Field::NotNull);
+    f->setCaption("is member group");
+    f->setDefaultValue(QVariant(0));
+    schema->addField(f);
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating tag table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
+
+    // ==== media_tag table ====
+    schema = new KexiDB::TableSchema("media_tag");
+    schema->setCaption("media item tags");
+    // TODO: create index
+    //KexiDB::IndexSchema *indexSchema = new KexiDB::IndexSchema(schema);
+
+    f = new Field("mediaId", Field::BigInteger,
+                  Field::ForeignKey | Field::NotNull, Field::Unsigned);
+    f->setCaption("media item id");
+    schema->addField(f);
+    //indexSchema->addField(f);
+
+    f = new Field("tagId", Field::BigInteger,
+                  Field::ForeignKey | Field::NotNull, Field::Unsigned);
+    f->setCaption("tag id");
+    schema->addField(f);
+    //indexSchema->addField(f);
+
+    //schema->addIndex(indexSchema);
+    //schema->setPrimaryKey(indexSchema);
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating media_tag table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
+
+    // ==== tag_relation table ====
+    schema = new KexiDB::TableSchema("tag_relation");
+    schema->setCaption("tag relations");
+    // TODO: create index
+    //indexSchema = new KexiDB::IndexSchema(schema);
+
+    f = new Field("toTagId", Field::BigInteger,
+                  Field::ForeignKey | Field::NotNull, Field::Unsigned);
+    f->setCaption("media item id");
+    schema->addField(f);
+    //indexSchema->addField(f);
+
+    f = new Field("fromTagId", Field::BigInteger,
+                  Field::ForeignKey | Field::NotNull, Field::Unsigned);
+    f->setCaption("tag id");
+    schema->addField(f);
+    //indexSchema->addField(f);
+
+    //schema->addIndex(indexSchema);
+    //schema->setPrimaryKey(indexSchema);
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating tag_relation table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
+//     if (useTransactions) {
+//         _connection->setAutoCommit(false);
+//         if (!_connection->commitTransaction(t)) {
+//             qDebug("transaction commit failed: %s",
+//                    _connection->errorMsg().latin1());
+//         }
+//     }
+#endif
+}
+
+
 int SQLDB::Database::totalCount() const
 {
+#ifndef HASKEXIDB
     QString query = QString::fromLatin1( "SELECT COUNT(fileId) FROM sortorder" );
     return fetchItem( query ).toInt();
+#else
+    return QueryHelper::instance()->
+        executeQuery("SELECT COUNT(*) FROM media").firstItem().toInt();
+#endif
 }
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
 {
+    // TODO: on disk
     // PENDING(blackie) Handle on disk.
     QValueList<int> matches = filesMatchingQuery( info );
     QStringList result;
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
+#ifndef HASKEXIDB
         result.append( fileNameForId( *it, true ) );
+#else
+        result.append(QueryHelper::instance()->filenameForId(*it, true));
+#endif
     }
     return result;
 }
 
 void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
+#ifndef HASKEXIDB
     QSqlQuery query;
     query.prepare( "UPDATE imagecategoryinfo SET category=:newName WHERE category=:oldName" );
     query.bindValue( QString::fromLatin1( ":newName" ), newName );
     query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
     if ( !query.exec() )
         showError( query );
+#else
+    QueryHelper::instance()->
+        executeStatement("UPDATE category SET name=%s WHERE name=%s",
+                         QueryHelper::Bindings() << newName << oldName);
+#endif
 }
 
 QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, const QString& category, int /*type*/ )
@@ -68,7 +377,7 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
     DB::GroupCounter counter( category );
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
-
+#ifndef HASKEXIDB
     QSqlQuery query;
     query.prepare( "SELECT fileId, value from imagecategoryinfo WHERE categoryId=:categoryId" );
     query.bindValue( QString::fromLatin1( ":categoryId" ), idForCategory(category) );
@@ -82,6 +391,29 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
         if ( allFiles || includedFiles.contains( fileId ) )
             itemMap[fileId].append( item );
     }
+#else
+    KexiDB::Cursor* c = QueryHelper::instance()->
+        executeQuery("SELECT media_tag.mediaId, tag.name "
+                     "FROM media_tag, tag, category "
+                     "WHERE media_tag.tagId=tag.id AND "
+                     "tag.categoryId=category.id AND category.name=%s",
+                     QueryHelper::Bindings() << category).cursor();
+    if (!c) {
+        // TODO: error handling
+        Q_ASSERT(false);
+        return result;
+    }
+
+    QMap<int,QStringList> itemMap;
+    for (c->moveFirst(); !c->eof(); c->moveNext()) {
+        int fileId = c->value(0).toInt();
+        QString item = c->value(1).toString();
+        if (allFiles || includedFiles.contains(fileId))
+            itemMap[fileId].append(item);
+    }
+
+    _connection->deleteCursor(c);
+#endif
 
     // Count images that doesn't contain an item
     if ( allFiles )
@@ -118,6 +450,7 @@ DB::ImageInfoList& SQLDB::Database::imageInfoList()
 
 QStringList SQLDB::Database::imageList( bool withRelativePath )
 {
+#ifndef HASKEXIDB
     QSqlQuery query;
     if ( !query.exec( QString::fromLatin1( "SELECT fileId FROM sortorder" ) ) )
         showError( query );
@@ -125,6 +458,21 @@ QStringList SQLDB::Database::imageList( bool withRelativePath )
     while ( query.next() )
         result << fileNameForId( query.value(0).toInt(), withRelativePath );
     return result;
+#else
+    QueryHelper* qh = QueryHelper::instance();
+    if (withRelativePath) // optimization
+        return qh->executeQuery("SELECT filename FROM media "
+                                "ORDER BY place").asStringList();
+    QValueList<int> idList =
+        qh->executeQuery("SELECT id FROM media "
+                         "ORDER BY place").asIntegerList();
+    QStringList r;
+    for (QValueList<int>::const_iterator i = idList.begin();
+         i != idList.end(); ++i) {
+        r.append(qh->filenameForId(*i, !withRelativePath));
+    }
+    return r;
+#endif
 }
 
 
@@ -135,6 +483,7 @@ QStringList SQLDB::Database::images()
 
 void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 {
+#ifndef HASKEXIDB
     int idx = totalCount();
 
     QString imageQueryString = QString::fromLatin1( "INSERT INTO imageinfo set "
@@ -192,6 +541,14 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
             }
         }
     }
+#else
+    for(DB::ImageInfoListConstIterator it = images.constBegin();
+        it != images.constEnd(); ++it ) {
+        DB::ImageInfoPtr info = *it;
+
+        QueryHelper::instance()->insertMediaItem(*info);
+    }
+#endif
 
     emit totalChanged( totalCount() );
 }
@@ -209,6 +566,7 @@ bool SQLDB::Database::isBlocking( const QString& /*fileName*/ )
 
 void SQLDB::Database::deleteList( const QStringList& list )
 {
+#ifndef HASKEXIDB
     QStringList sortOrder = imageList( true );
     QSqlQuery imageInfoQuery, imageCategoryQuery;
     imageInfoQuery.prepare( "DELETE FROM imageinfo where fileId=:fileId" );
@@ -242,6 +600,10 @@ void SQLDB::Database::deleteList( const QStringList& list )
             showError( query );
     }
     emit totalChanged( totalCount() );
+#else
+    // TODO: this
+    Q_UNUSED(list);
+#endif
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const
@@ -276,6 +638,7 @@ void SQLDB::Database::sortAndMergeBackIn( const QStringList& /*fileList*/ )
 
 void SQLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
+#ifndef HASKEXIDB
     QSqlQuery query;
     query.prepare( QString::fromLatin1( "UPDATE imagecategoryinfo SET value = :newName "
                                         "WHERE category = :category and value = :oldName" ));
@@ -285,7 +648,14 @@ void SQLDB::Database::renameItem( DB::Category* category, const QString& oldName
 
     if ( !query.exec() )
         showError( query );
-
+#else
+    QueryHelper::instance()->
+        executeStatement("UPDATE tag SET name=%s "
+                         "WHERE name=%s AND "
+                         "categoryId=(SELECT id FROM category WHERE name=%s)",
+                         QueryHelper::Bindings() <<
+                         newName << oldName << category->name());
+#endif
 }
 
 void SQLDB::Database::deleteItem( DB::Category* /*category*/, const QString& /*option*/ )
@@ -299,11 +669,14 @@ void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
 }
 
 
-void SQLDB::Database::openDatabase( const QString& username, const QString& password )
+bool SQLDB::Database::openConnection(const QString& username,
+                                     const QString& password)
 {
+#ifndef HASKEXIDB
     QSqlDatabase* database = QSqlDatabase::addDatabase( "QMYSQL3" );
     if ( database == 0 ) {
         qFatal("What?!");
+        return false;
     }
 
     database->setDatabaseName( "kphotoalbum" );
@@ -312,12 +685,54 @@ void SQLDB::Database::openDatabase( const QString& username, const QString& pass
         if ( !password.isNull() )
             database->setPassword(password);
     }
-    if ( !database->open() )
+    if ( !database->open() ) {
         qFatal("Couldn't open db");
+        return false;
+    }
+    return true;
+#else
+    if (!_driver) {
+        qDebug("openConnection: Driver should be initialized first");
+        return false;
+    }
+    KexiDB::ConnectionData connData;
+    connData.userName = username;
+    connData.password = password;
+    _connection = _driver->createConnection(connData);
+    if (!_connection || _driver->error()) {
+        // TODO: error handling (get from manager)
+        tellError(QString::fromLatin1("cannot create connection or driver error"));
+        return false;
+    }
+    if (!_connection->connect()) {
+        tellError(QString::fromLatin1("connecting to db failed"));
+        return false;
+    }
+    return true;
+#endif
 }
+
+void SQLDB::Database::openDatabase()
+{
+#ifdef HASKEXIDB
+    if (!_connection->databaseExists("kphotoalbum")) {
+        createAndOpen();
+        return;
+    }
+    qDebug("Opening database with Kexi");
+    if (!_connection->useDatabase("kphotoalbum")) {
+        qDebug("cannot use db kphotoalbum: %s",
+               _connection->errorMsg().latin1());
+        exit(-1);
+    }
+    qDebug("Opened");
+#endif
+}
+
 
 void SQLDB::Database::loadMemberGroups()
 {
+#ifndef HASKEXIDB
     QSqlQuery membersQuery;
     if (!membersQuery.exec( "SELECT groupname, category, member FROM membergroup" ) )
         qFatal("Couldn't exec query");
@@ -328,6 +743,17 @@ void SQLDB::Database::loadMemberGroups()
         QString member = membersQuery.value(2).toString();
         _members.addMemberToGroup( category, group, member );
     }
+#else
+    QValueList<QString[3]> l = QueryHelper::instance()->
+        executeQuery("SELECT c.name, t.name, f.name "
+                     "FROM tag_relation tr, tag t, tag f, category c "
+                     "WHERE tr.toTagId=t.id AND "
+                     "tr.fromTagId=f.id AND "
+                     "t.categoryId=c.id").asString3List();
+    for (QValueList<QString[3]>::const_iterator i = l.begin();
+         i != l.end(); ++i)
+        _members.addMemberToGroup((*i)[0], (*i)[1], (*i)[2]);
+#endif
 }
 
 

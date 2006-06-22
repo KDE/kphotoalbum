@@ -26,6 +26,14 @@ Boston, MA 02111-1307, USA.
 #include "SQLCategoryCollection.h"
 class QSqlError;
 
+#ifdef HASKEXIDB
+namespace KexiDB {
+    class Driver;
+    class Connection;
+}
+#include <qguardedptr.h>
+#endif
+
 namespace SQLDB {
     class Database  :public DB::ImageDB {
         Q_OBJECT
@@ -67,7 +75,9 @@ namespace SQLDB {
         virtual void lockDB( bool lock, bool exclude );
 
     protected:
-        void openDatabase( const QString& username, const QString& password );
+        bool openConnection(const QString& username, const QString& password);
+        void openDatabase();
+        void createAndOpen();
         void loadMemberGroups();
         QStringList imageList( bool withRelativePath );
 
@@ -75,6 +85,10 @@ namespace SQLDB {
         SQLCategoryCollection _categoryCollection;
         DB::MemberMap _members;
         DB::MD5Map _md5map;
+#ifdef HASKEXIDB
+        QGuardedPtr<KexiDB::Driver> _driver;
+        KexiDB::Connection* _connection;
+#endif
     };
 }
 

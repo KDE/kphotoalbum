@@ -5,14 +5,27 @@
 #include <qsqlquery.h>
 #include "Settings/SettingsData.h"
 #include "QueryUtil.h"
+#include "QueryHelper.h"
 #include <kdebug.h>
+#include "config.h" // HASKEXIDB
 
 QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
 {
     QValueList< QValueList< DB::OptionSimpleMatcher*> > matches = info.query();
+    // matches is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
 
-    if ( matches.count() == 0 )
+    if ( matches.count() == 0 ) {
+#ifndef HASKEXIDB
         return allImages();
+#else
+        return QueryHelper::instance()->allMediaItemIds();
+#endif
+    }
+
+    // TODO: rest
+#ifdef HASKEXIDB
+    return QueryHelper::instance()->allMediaItemIds();
+#endif
 
     QValueList<int> result;
     for( QValueList< QValueList<DB::OptionSimpleMatcher*> >::Iterator it = matches.begin(); it != matches.end(); ++it ) {

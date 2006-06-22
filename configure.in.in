@@ -19,6 +19,18 @@ else
 fi
 AM_CONDITIONAL(compile_with_exiv2, test "$have_exif2" = "yes")
 
+
+# -------------------------------------------------- KexiDB Check
+KDE_CHECK_HEADER(kexidb/connection.h, have_kexidb=yes, have_kexidb=no)
+
+if test "$have_kexidb" = "no"; then
+  AC_MSG_WARN([Can't find KexiDB, compiling without]);
+else
+  AC_DEFINE(HASKEXIDB, 1, [Set to 1 if you have KexiDB installed])
+fi
+AM_CONDITIONAL(compile_with_kexidb, test "$have_kexidb" = "yes")
+
+
 dnl ============================================================
 dnl Check for sqldb
 dnl ============================================================

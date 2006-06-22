@@ -248,7 +248,7 @@ class MemberGroupIterator(object):
 				mg.addMember(items[n])
 			yield mg
 
-	def __NormalIter(self):
+	def __normalIter(self):
 		collected = []
 		while True:
 			memberIter = self.__memberIter()

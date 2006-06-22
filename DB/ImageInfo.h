@@ -122,6 +122,7 @@ public:
     bool allMatched( const QString& category );
 
     MediaType mediaType() const;
+    void setMediaType( MediaType type ) { _type = type; }
 
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;

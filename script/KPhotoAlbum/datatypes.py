@@ -88,6 +88,13 @@ class Tag(object):
 		self.category = category
 		self.name = name
 
+	def __eq__(self, other):
+		return (self.category == other.category and
+			self.name == other.name)
+
+	def __hash__(self):
+		return (((hash(self.category) & ((1 << 15) - 1)) << 16) |
+			(hash(self.name) & ((1 << 16) - 1)))
 
 	def __getitem__(self, i):
 		if i == 0:

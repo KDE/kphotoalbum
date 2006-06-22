@@ -288,6 +288,9 @@ QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
     if ( !_compiled )
         compile();
 
+    // Combine _optionMachers to one list of lists in Disjunctive
+    // Normal Form and return it.
+
     QValueList<CategoryMatcher*>::Iterator it  = _optionMatchers.begin();
     QValueList< QValueList<OptionSimpleMatcher*> > result;
     if ( it == _optionMatchers.end() )

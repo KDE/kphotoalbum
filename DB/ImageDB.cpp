@@ -37,6 +37,8 @@ void ImageDB::setupSQLDB( const QString& userName, const QString& password )
 {
 #ifdef SQLDB_SUPPORT
     _instance = new SQLDB::Database( userName, password );
+#else
+    qFatal("SQLDB not compiled in");
 #endif // SQLDB_SUPPORT
 
     connectSlots();

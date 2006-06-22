@@ -1,0 +1,46 @@
+Issues:
+
+#| digiKam			| KPhotoAlbum
+================================+========================================
+1| tags in a single tree	| tags in separate categories,
+ |    				| can be organized into graphs with
+ |				| member groups
+ |				|
+2| single datetime for image	| startDate and endDate for image
+ |      			|
+3| maps directorys as albums	| any category can be a "virtual album"
+ |    				|
+4| can't handle images in	| can
+ | base dir			|
+ |				|
+5| uses filename as label	| images can have any label
+ |				|
+6| has ranking for images	| doesn't
+ |				|
+7| doesn't have drawings	| has
+ |				|
+
+Solutions to make KPhotoAlbum more digiKam friendly:
+
+1: * Restrict KPA member maps to be trees.
+   * Make a digiKam rootlevel tag for each KPA category and for each
+     other digiKam rootlevel tag make a KPA tag in some special
+     category (e.g. "Various").
+   * Somethings has to be done for naming also:
+     KPA can't have two tags, which have same name in same category.
+     Trees can have two same named tags in different subtrees.
+
+2: Save KPA startDate to digiKam datetime field and endDate to
+   somewhere else. Or save (startDate+endDate)/2 to digiKam field and
+   endDate-startDate somewhere else.
+
+3: Allow only "Folder" category to be selected as virtual album in
+   KPA.
+
+4: Block images from base dir in KPA.
+
+5: Restrict image labels to filenames.
+
+6: Don't touch digiKam ranking fields in KPA.
+
+7: Save KPA drawings to some table not used in digiKam

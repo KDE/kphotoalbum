@@ -69,6 +69,7 @@ public:
     QValueList<int> allMediaItemIds();
     int insertTag(int categoryId, QString name);
     void insertMediaTag(int mediaId, int tagId);
+    int insertDir(QString path);
     bool getMediaItem(int id, DB::ImageInfo& info);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItem(const DB::ImageInfo& info);

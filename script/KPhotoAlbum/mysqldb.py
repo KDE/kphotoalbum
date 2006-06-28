@@ -23,6 +23,11 @@ Currently supports only storing. (no reading)
 from db import DatabaseWriter
 from datatypes import *
 
+def splitPath(fullname):
+	if not '/' in fullname:
+		return ('.', fullname)
+	return tuple(fullname.rsplit("/", 1))
+
 class MySQLDatabase(DatabaseWriter):
 	"""
 	Manages MySQL database stuff.
@@ -32,16 +37,21 @@ class MySQLDatabase(DatabaseWriter):
 	"""
 
 	tableList = [
+		('dir',
+		 'id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, '
+		 'path VARCHAR(511)'),
 		('media',
 		 'id SERIAL, '
 		 'place BIGINT UNSIGNED, '
-		 'filename VARCHAR(1023), md5sum CHAR(32), '
+		 'dirId INT UNSIGNED NOT NULL, '
+		 'filename VARCHAR(255) NOT NULL, md5sum CHAR(32), '
 		 'type SMALLINT UNSIGNED, '
 		 'label VARCHAR(255), description TEXT, '
 		 'startTime DATETIME, endTime DATETIME, '
 		 'width INT, height INT, angle SMALLINT'),
 		('blockItem',
-		 'filename VARCHAR(1023) NOT NULL'),
+		 'dirId INT UNSIGNED NOT NULL, '
+		 'filename VARCHAR(255) NOT NULL'),
 		('category',
 		 'id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, '
 		 'name VARCHAR(255), icon VARCHAR(1023), '
@@ -58,8 +68,6 @@ class MySQLDatabase(DatabaseWriter):
 		('drawing',
 		 'id SERIAL, mediaId BIGINT UNSIGNED NOT NULL, '
 		 'shape INT, x0 INT, y0 INT, x1 INT, y1 INT'),
-		('relationType',
-		 'id SERIAL, name VARCHAR(255)'),
 		('tag_relation',
 		 'toTagId BIGINT UNSIGNED NOT NULL, '
 		 'fromTagId BIGINT UNSIGNED NOT NULL, '
@@ -90,9 +98,12 @@ class MySQLDatabase(DatabaseWriter):
 
 	def __getIds(self):
 		self.__clearIds()
-		self.c.execute('SELECT id, filename FROM media')
-		for (i, f) in self.c:
-			self.mediaItemMap[self.__decodeString(f)] = i
+		self.c.execute('SELECT id, path FROM dir')
+		for (i, p) in self.c:
+			self.dirMap[self.__decodeString(p)] = i
+		self.c.execute('SELECT id, dirId, filename FROM media')
+		for (i, d, f) in self.c:
+			self.mediaItemMap[(d, self.__decodeString(f))] = i
 		self.c.execute('SELECT id, name FROM category')
 		for (i, n) in self.c:
 			self.categoryMap[self.__decodeString(n)] = i
@@ -104,6 +115,7 @@ class MySQLDatabase(DatabaseWriter):
 				     self.__decodeString(tn))] = i
 
 	def __clearIds(self):
+		self.dirMap = ItemNumMap()
 		self.mediaItemMap = ItemNumMap()
 		self.drawingMap = ItemNumMap()
 		self.categoryMap = ItemNumMap()
@@ -151,19 +163,33 @@ class MySQLDatabase(DatabaseWriter):
 				       (tid, tid, cid, tag.name))
 		return tid
 
+	def __insertDir(self, path):
+		"""
+		Insert path into dir table, if not already present.
+		"""
+		dirid = self.dirMap.numFor(path)
+		if not self.__tableHasCol('dir', 'id', dirid):
+			self.c.execute('INSERT INTO dir(id, path) '
+				       'values(%s,%s)',
+				       (dirid, path))
+		return dirid
+
 	def insertMediaItem(self, i):
-		miid = self.mediaItemMap.numFor(i.filename)
+		(path, filename) = splitPath(i.filename)
+		dirid = self.__insertDir(path)
+		miid = self.mediaItemMap.numFor((dirid, filename))
 		mtid = self.__getMediaTypeNum(i.mediatype)
 		self.c.execute('DELETE FROM media WHERE id=%s',
 			       (miid,))
 		self.c.execute('INSERT INTO media(id, place, '
-			       'filename, md5sum, type, '
+			       'dirId, filename, md5sum, type, '
 			       'label, description, '
 			       'startTime, endTime, '
 			       'width, height, angle) '
-			       'values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+			       'values(%s,%s,%s,%s,%s,%s,'
+			       '%s,%s,%s,%s,%s,%s,%s)',
 			       (miid, miid,
-				i.filename, i.md5sum, mtid,
+				dirid, filename, i.md5sum, mtid,
 				i.label, i.description,
 				i.startTime, i.endTime,
 				i.width, i.height, i.angle))
@@ -215,8 +241,10 @@ class MySQLDatabase(DatabaseWriter):
 	def insertBlockItem(self, b):
 		#self.c.execute('DELETE FROM media WHERE filename=%s',
 		#	       (b.filename,))
-		self.c.execute('INSERT INTO blockItem(filename) '
-			       'values(%s)', (b.filename))
+		(path, filename) = splitPath(b.filename)
+		dirid = self.__insertDir(path)
+		self.c.execute('INSERT INTO blockItem(dirId, filename) '
+			       'values(%s,%s)', (dirid, filename))
 
 	def clear(self):
 		for t in self.tableList:

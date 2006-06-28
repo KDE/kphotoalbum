@@ -103,12 +103,36 @@ void SQLDB::Database::createAndOpen()
 //     }
 
     KexiDB::Field* f;
+    KexiDB::TableSchema* schema;
 
     //TODO: Set NotNull flags where should
     //TODO: error handling
 
+    // ==== dir table ====
+    schema = new KexiDB::TableSchema("dir");
+    schema->setCaption("directories");
+
+    f = new KexiDB::Field("id", Field::Integer,
+                          Field::PrimaryKey | Field::AutoInc,
+                          Field::Unsigned);
+    f->setCaption("id");
+    schema->addField(f);
+
+    f = new KexiDB::Field("path", Field::Text,
+                          Field::NotNull /* | Field::Unique */,
+                          Field::NoOptions, 511);
+    f->setCaption("path");
+    schema->addField(f);
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating dir table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
+
     // ==== media table ====
-    KexiDB::TableSchema* schema = new KexiDB::TableSchema("media");
+    schema = new KexiDB::TableSchema("media");
     schema->setCaption("media items");
 
     f = new KexiDB::Field("id", Field::BigInteger,
@@ -122,8 +146,14 @@ void SQLDB::Database::createAndOpen()
     f->setCaption("place");
     schema->addField(f);
 
+    f = new KexiDB::Field("dirId", Field::Integer,
+                          Field::ForeignKey | Field::NotNull,
+                          Field::Unsigned);
+    f->setCaption("directory id");
+    schema->addField(f);
+
     f = new KexiDB::Field("filename", KexiDB::Field::Text,
-                          Field::NotNull, Field::NoOptions, 1023);
+                          Field::NotNull, Field::NoOptions, 255);
     f->setCaption("filename");
     schema->addField(f);
 
@@ -460,9 +490,6 @@ QStringList SQLDB::Database::imageList( bool withRelativePath )
     return result;
 #else
     QueryHelper* qh = QueryHelper::instance();
-    if (withRelativePath) // optimization
-        return qh->executeQuery("SELECT filename FROM media "
-                                "ORDER BY place").asStringList();
     QValueList<int> idList =
         qh->executeQuery("SELECT id FROM media "
                          "ORDER BY place").asIntegerList();

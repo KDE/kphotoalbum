@@ -233,18 +233,54 @@ Q_ULLONG QueryHelper::insert(QString tableName, QString aiFieldName,
 
 QString QueryHelper::filenameForId(int id, bool fullPath)
 {
-    QString fn = executeQuery("SELECT filename FROM media WHERE id=%s",
-                              Bindings() << id).firstItem().toString();
+    KexiDB::Cursor* c = executeQuery("SELECT dir.path, media.filename "
+                                     "FROM dir, media "
+                                     "WHERE dir.id=media.dirId AND "
+                                     "media.id=%s",
+                                     Bindings() << id).cursor();
+    if (!c)
+        return "";
+
+    c->moveFirst();
+    if (c->eof()) {
+        _connection->deleteCursor(c);
+        return "";
+    }
+    QString fn = c->value(0).toString() + "/" + c->value(1).toString();
+    _connection->deleteCursor(c);
+
     if (fullPath)
         return Settings::SettingsData::instance()->imageDirectory() + fn;
     else
         return fn;
 }
 
+namespace
+{
+void splitPath(const QString& fullname, QString& path, QString& filename)
+{
+    int i = fullname.findRev("/");
+    if (i == -1) {
+        path = ".";
+        filename = fullname;
+    }
+    else {
+        // FIXME: anything special needed if fullname is form "/foo.jpg"?
+        path = fullname.left(i);
+        filename = fullname.mid(i+1);
+    }
+}
+}
+
 int QueryHelper::idForFilename(const QString& relativePath)
 {
-    return executeQuery("SELECT id FROM media WHERE filename=%s",
-                        Bindings() << relativePath).firstItem().toInt();
+    QString path;
+    QString filename;
+    splitPath(relativePath, path, filename);
+    return executeQuery("SELECT media.id FROM media, dir "
+                        "WHERE media.dirId=dir.id AND "
+                        "dir.path=%s AND media.filename=%s",
+                        Bindings() << path << filename).firstItem().toInt();
 }
 
 
@@ -284,9 +320,12 @@ QValueList<int> QueryHelper::allMediaItemIds()
 bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
 {
     KexiDB::Cursor* c =
-        executeQuery("SELECT filename, md5sum, type, label, description, "
-                     "startTime, endTime, width, height, angle "
-                     "FROM media WHERE id=%s", Bindings() << id).cursor();
+        executeQuery("SELECT dir.path, m.filename, m.md5sum, m.type, "
+                     "m.label, m.description, "
+                     "m.startTime, m.endTime, m.width, m.height, m.angle "
+                     "FROM media m, dir "
+                     "WHERE m.dirId=dir.id AND "
+                     "m.id=%s", Bindings() << id).cursor();
     if (!c)
         return false;
 
@@ -296,18 +335,18 @@ bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
         return false;
     }
 
-    info.setFileName(c->value(0).toString());
-    info.setMD5Sum(c->value(1).toString());
-    info.setMediaType(static_cast<DB::MediaType>(c->value(2).toInt()));
-    info.setLabel(c->value(3).toString());
-    info.setDescription(c->value(4).toString());
-    QDateTime startDate = c->value(5).toDateTime();
-    QDateTime endDate = c->value(6).toDateTime();
+    info.setFileName(c->value(0).toString() + "/" + c->value(1).toString());
+    info.setMD5Sum(c->value(2).toString());
+    info.setMediaType(static_cast<DB::MediaType>(c->value(3).toInt()));
+    info.setLabel(c->value(4).toString());
+    info.setDescription(c->value(5).toString());
+    QDateTime startDate = c->value(6).toDateTime();
+    QDateTime endDate = c->value(7).toDateTime();
     info.setDate(DB::ImageDate(startDate, endDate));
-    int width = c->value(7).toInt(); // TODO: handle NULL
-    int height = c->value(8).toInt(); // TODO: handle NULL
+    int width = c->value(8).toInt(); // TODO: handle NULL
+    int height = c->value(9).toInt(); // TODO: handle NULL
     info.setSize(QSize(width, height));
-    info.setAngle(c->value(9).toInt());
+    info.setAngle(c->value(10).toInt());
 
     _connection->deleteCursor(c);
 
@@ -367,6 +406,17 @@ void QueryHelper::insertMediaItemTags(int mediaId, const DB::ImageInfo& info)
     }
 }
 
+int QueryHelper::insertDir(QString path)
+{
+    QVariant i = executeQuery("SELECT id FROM dir "
+                              "WHERE path=%s",
+                              Bindings() << path).firstItem();
+    if (!i.isNull())
+        return i.toInt();
+
+    return insert("dir", "id", QStringList() << "path", Bindings() << path);
+}
+
 void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
 {
     // TODO: remove debug
@@ -381,14 +431,17 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
     QVariant h =  info.size().height();
     if (h.toInt() == -1)
         h = QVariant();
-
+    QString path;
+    QString filename;
+    splitPath(info.fileName(true), path, filename);
+    int dirId = insertDir(path);
     Q_ULLONG mediaId = insert("media", "id", QStringList() <<
-                              "filename" << "md5sum" <<
+                              "dirId" << "filename" << "md5sum" <<
                               "type" << "label" <<
                               "description" <<
                               "startTime" << "endTime" <<
                               "width" << "height" << "angle",
-                              Bindings() << info.fileName(true) << md5 <<
+                              Bindings() << dirId << filename << md5 <<
                               info.mediaType() << info.label() <<
                               info.description() <<
                               info.date().start() << info.date().end() <<
@@ -411,11 +464,16 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
     if (h.toInt() == -1)
         h = QVariant();
 
-    executeStatement("UPDATE media SET filename=%s, md5sum=%s, "
+    QString path;
+    QString filename;
+    splitPath(info.fileName(true), path, filename);
+    int dirId = insertDir(path);
+
+    executeStatement("UPDATE media SET dirId=%s, filename=%s, md5sum=%s, "
                      "type=%s, label=%s, description=%s, "
                      "startTime=%s, endTime=%s, "
                      "width=%s, height=%s, angle=%s WHERE id=%s",
-                     Bindings() << info.fileName(true) << md5 <<
+                     Bindings() << dirId << filename << md5 <<
                      info.mediaType() << info.label() << info.description() <<
                      info.date().start() << info.date().end() <<
                      w << h << info.angle() << id);

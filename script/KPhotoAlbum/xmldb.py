@@ -183,6 +183,8 @@ class MediaItemIterator(object):
 			       'width', 'height', 'angle']]
 		if a[2] == '': # mediatype
 			a[2] = 'image'
+		elif a[2] == 'movie':
+			a[2] = 'video'
 		a[5] = stringToDatetime(a[5]) # startDate
 		a[6] = stringToDatetime(a[6]) # endDate
 		a[7] = int(a[7]) # width

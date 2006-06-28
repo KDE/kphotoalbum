@@ -128,6 +128,7 @@ protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;
     bool isJPEG( const QString& fileName ) const;
     void setAbsoluteFileName();
+    void setIsNull(bool b) { _null = b; }
 
 private:
     friend class Plugins::ImageInfo;

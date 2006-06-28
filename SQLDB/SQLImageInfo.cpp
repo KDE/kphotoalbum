@@ -55,6 +55,7 @@ SQLDB::SQLImageInfo::SQLImageInfo( const QString& fileName )
 #else
     QString relativeFileName = Utilities::stripImageDirectory(fileName);
     _fileId = QueryHelper::instance()->idForFilename(relativeFileName);
+    setIsNull(false);
     load();
 #endif
 }
@@ -70,6 +71,7 @@ void SQLDB::SQLImageInfo::load()
 void SQLDB::SQLImageInfo::save()
 {
 #ifdef HASKEXIDB
+    // TODO: update only media row only if changed
     QueryHelper::instance()->updateMediaItem(_fileId, *this);
 #endif
 }

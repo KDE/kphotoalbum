@@ -126,6 +126,21 @@ QueryHelper* QueryHelper::instance()
     return _instance;
 }
 
+QString QueryHelper::getSQLRepresentation(const QVariant& x)
+{
+    if (x.type() == QVariant::List) {
+        QStringList repr;
+        QValueList<QVariant> l = x.toList();
+        for (QValueList<QVariant>::const_iterator i = l.begin();
+             i != l.end(); ++i) {
+            repr << getSQLRepresentation(*i);
+        }
+        return repr.join(", ");
+    }
+    else
+        return _driver->valueToSQL(fieldTypeFor(x), x);
+}
+
 void QueryHelper::bindValues(QString &s, const Bindings& b)
 {
     int n = 0;
@@ -135,7 +150,7 @@ void QueryHelper::bindValues(QString &s, const Bindings& b)
         } while (n >= 1 && s.at(n - 1) == '%');
         if (n == -1)
             break;
-        s = s.replace(n, 2, _driver->valueToSQL(fieldTypeFor(*i), *i));
+        s = s.replace(n, 2, getSQLRepresentation(*i));
     }
 }
 
@@ -243,6 +258,14 @@ int QueryHelper::idForCategory(const QString& category)
 {
     return executeQuery("SELECT id FROM category WHERE name=%s",
                         Bindings() << category).firstItem().toInt();
+}
+
+QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category)
+{
+    return executeQuery("SELECT tag.id FROM tag,category "
+                        "WHERE tag.categoryId=category.id AND "
+                        "category.name=%s",
+                        Bindings() << category).asIntegerList();
 }
 
 QStringList QueryHelper::membersOfCategory(const QString& category)
@@ -398,6 +421,42 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
                      w << h << info.angle() << id);
 
     insertMediaItemTags(id, info);
+}
+
+QValueList<int> QueryHelper::getDirectMembers(int tagId)
+{
+    return executeQuery("SELECT fromTagId FROM tag_relation "
+                        "WHERE toTagId=%s", QueryHelper::Bindings() <<
+                        tagId).asIntegerList();
+}
+
+int QueryHelper::idForTag(QString category, QString item)
+{
+    return executeQuery("SELECT tag.id FROM tag,category "
+                        "WHERE tag.categoryId=category.id AND "
+                        "category.name=%s AND tag.name=%s",
+                        QueryHelper::Bindings() <<
+                        category << item).firstItem().toInt();
+}
+
+QValueList<int> QueryHelper::idListForTag(QString category, QString item)
+{
+    int tagId = idForTag(category, item);
+    QValueList<int> visited, queue;
+    visited << tagId;
+    queue << tagId;
+    while (queue.count() > 0) {
+        QValueList<int> adj = getDirectMembers(queue.first());
+        queue.pop_front();
+        for (QValueList<int>::const_iterator a = adj.begin();
+             a != adj.end(); ++a) {
+            if (!visited.contains(*a)) {
+                queue << *a;
+                visited << *a;
+            }
+        }
+    }
+    return visited;
 }
 
 #endif /* HASKEXIDB */

@@ -64,6 +64,7 @@ public:
     int idForFilename(const QString& relativePath);
     QString categoryForId(int id);
     int idForCategory(const QString& category);
+    QValueList<int> tagIdsOfCategory(const QString& category);
     QStringList membersOfCategory(const QString& category);
     QValueList<int> allMediaItemIds();
     int insertTag(int categoryId, QString name);
@@ -72,12 +73,16 @@ public:
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItem(const DB::ImageInfo& info);
     void updateMediaItem(int id, const DB::ImageInfo& info);
+    QValueList<int> getDirectMembers(int tagId);
+    int idForTag(QString category, QString item);
+    QValueList<int> idListForTag(QString category, QString item);
 
 protected:
     KexiDB::Connection *_connection;
     KexiDB::Driver *_driver;
 
     QueryHelper(KexiDB::Connection* connection);
+    QString getSQLRepresentation(const QVariant& x);
     void bindValues(QString &s, const Bindings& b);
     KexiDB::Cursor* runQuery(const QString& query);
     void showLastError();

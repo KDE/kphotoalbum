@@ -152,10 +152,16 @@ void SQLDB::Database::createAndOpen()
     f->setCaption("directory id");
     schema->addField(f);
 
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (dirId) REFERENCES dir(id)
+    // ON DELETE RESTRICT ON UPDATE RESTRICT
+
     f = new KexiDB::Field("filename", KexiDB::Field::Text,
                           Field::NotNull, Field::NoOptions, 255);
     f->setCaption("filename");
     schema->addField(f);
+
+    // TODO: UNIQUE(dirId, filename)
 
     f = new KexiDB::Field("md5sum", KexiDB::Field::Text,
                           Field::NoConstraints, Field::NoOptions, 32);
@@ -267,10 +273,16 @@ void SQLDB::Database::createAndOpen()
     f->setCaption("category id");
     schema->addField(f);
 
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (categoryId) REFERENCES category(id)
+    // ON DELETE CASCADE ON UPDATE RESTRICT
+
     f = new KexiDB::Field("name", Field::Text,
                           Field::NoConstraints, Field::NoOptions, 255);
     f->setCaption("name");
     schema->addField(f);
+
+    // TODO: UNIQUE(categoryId, name)
 
     f = new KexiDB::Field("isGroup", KexiDB::Field::Boolean,
                           Field::NotNull);
@@ -297,12 +309,21 @@ void SQLDB::Database::createAndOpen()
     schema->addField(f);
     //indexSchema->addField(f);
 
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (mediaId) REFERENCES media(id)
+    // ON DELETE CASCADE ON UPDATE RESTRICT
+
     f = new Field("tagId", Field::BigInteger,
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
     f->setCaption("tag id");
     schema->addField(f);
     //indexSchema->addField(f);
 
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (tagId) REFERENCES tag(id)
+    // ON DELETE CASCADE ON UPDATE RESTRICT
+
+    // TODO: UNIQUE(mediaId, tagId)
     //schema->addIndex(indexSchema);
     //schema->setPrimaryKey(indexSchema);
 
@@ -325,12 +346,21 @@ void SQLDB::Database::createAndOpen()
     schema->addField(f);
     //indexSchema->addField(f);
 
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (toTagId) REFERENCES tag(id)
+    // ON DELETE CASCADE ON UPDATE RESTRICT
+
     f = new Field("fromTagId", Field::BigInteger,
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
     f->setCaption("tag id");
     schema->addField(f);
     //indexSchema->addField(f);
 
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (fromTagId) REFERENCES tag(id)
+    // ON DELETE CASCADE ON UPDATE RESTRICT
+
+    // TODO: UNIQUE(toTagId, fromTagId)
     //schema->addIndex(indexSchema);
     //schema->setPrimaryKey(indexSchema);
 

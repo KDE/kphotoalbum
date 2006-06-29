@@ -33,7 +33,7 @@
 #include <kexidb/parser.h>
 #include <kexidb/queryschema.h>
 
-#include <qfile.h>
+#include <qfileinfo.h>
 
 using KexiDB::Field;
 #endif
@@ -404,7 +404,7 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
         result.append( fileNameForId( *it, true ) );
 #else
         QString fullPath = QueryHelper::instance()->filenameForId(*it, true);
-        if (requireOnDisk && !QFile(fullPath).exists())
+        if (requireOnDisk && !QFileInfo(fullPath).exists())
             continue;
         result.append(fullPath);
 #endif

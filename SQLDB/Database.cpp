@@ -33,6 +33,8 @@
 #include <kexidb/parser.h>
 #include <kexidb/queryschema.h>
 
+#include <qfile.h>
+
 using KexiDB::Field;
 #endif
 
@@ -392,9 +394,8 @@ int SQLDB::Database::totalCount() const
 #endif
 }
 
-QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
+QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    // TODO: on disk
     // PENDING(blackie) Handle on disk.
     QValueList<int> matches = filesMatchingQuery( info );
     QStringList result;
@@ -402,7 +403,10 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool /*req
 #ifndef HASKEXIDB
         result.append( fileNameForId( *it, true ) );
 #else
-        result.append(QueryHelper::instance()->filenameForId(*it, true));
+        QString fullPath = QueryHelper::instance()->filenameForId(*it, true);
+        if (requireOnDisk && !QFile(fullPath).exists())
+            continue;
+        result.append(fullPath);
 #endif
     }
     return result;

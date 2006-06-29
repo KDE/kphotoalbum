@@ -136,14 +136,12 @@ bool SQLDB::SQLCategory::doShow() const
 
 void SQLDB::SQLCategory::setSpecialCategory( bool /*b*/ )
 {
-    // TODO: this
-    qDebug("NYI: void SQLDB::SQLCategory::setSpecialCategory( bool b )" );
+    // Can't be special category, so do nothing
 }
 
 bool SQLDB::SQLCategory::isSpecialCategory() const
 {
-    // TODO: this
-    qDebug("NYI: bool SQLDB::SQLCategory::isSpecialCategory() const" );
+    // Special categories have their own classes, so return false here
     return false;
 }
 

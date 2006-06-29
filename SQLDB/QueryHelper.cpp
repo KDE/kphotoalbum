@@ -316,7 +316,7 @@ QStringList QueryHelper::membersOfCategory(int categoryId)
 {
     return executeQuery("SELECT name FROM tag "
                         "WHERE categoryId=%s ORDER BY place",
-                        QueryHelper::Bindings() << categoryId).asStringList();
+                        Bindings() << categoryId).asStringList();
 }
 
 QStringList QueryHelper::membersOfCategory(const QString& category)
@@ -506,9 +506,8 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
 
 QValueList<int> QueryHelper::getDirectMembers(int tagId)
 {
-    return executeQuery("SELECT fromTagId FROM tag_relation "
-                        "WHERE toTagId=%s", QueryHelper::Bindings() <<
-                        tagId).asIntegerList();
+    return executeQuery("SELECT fromTagId FROM tag_relation WHERE toTagId=%s",
+                        Bindings() << tagId).asIntegerList();
 }
 
 int QueryHelper::idForTag(QString category, QString item)
@@ -516,8 +515,7 @@ int QueryHelper::idForTag(QString category, QString item)
     return executeQuery("SELECT tag.id FROM tag,category "
                         "WHERE tag.categoryId=category.id AND "
                         "category.name=%s AND tag.name=%s",
-                        QueryHelper::Bindings() <<
-                        category << item).firstItem().toInt();
+                        Bindings() << category << item).firstItem().toInt();
 }
 
 QValueList<int> QueryHelper::idListForTag(QString category, QString item)
@@ -538,6 +536,37 @@ QValueList<int> QueryHelper::idListForTag(QString category, QString item)
         }
     }
     return visited;
+}
+
+void QueryHelper::addBlockItem(const QString& filename)
+{
+    QString path;
+    QString fn;
+    splitPath(filename, path, fn);
+    int dirId = insertDir(path);
+    if (executeQuery("SELECT COUNT(*) FROM blockitem "
+                     "WHERE dirId=%s AND filename=%s",
+                     Bindings() << dirId << fn).firstItem().asInt() == 0)
+        executeStatement("INSERT INTO blockitem(dirId, filename) "
+                         "VALUES(%s, %s)", Bindings() << dirId << fn);
+}
+
+void QueryHelper::addBlockItems(const QStringList& filenames)
+{
+    for (QStringList::const_iterator i = filenames.begin();
+         i != filenames.end(); ++i)
+        addBlockItem(*i);
+}
+
+bool QueryHelper::isBlocked(const QString& filename)
+{
+    QString path;
+    QString fn;
+    splitPath(filename, path, fn);
+    return executeQuery("SELECT COUNT(*) FROM blockitem, dir "
+                        "WHERE blockitem.dirId=dir.id AND "
+                        "dir.path=%s AND blockitem.filename=%s",
+                        Bindings() << path << fn).firstItem().toInt() > 0;
 }
 
 #endif /* HASKEXIDB */

@@ -79,6 +79,9 @@ public:
     QValueList<int> getDirectMembers(int tagId);
     int idForTag(QString category, QString item);
     QValueList<int> idListForTag(QString category, QString item);
+    void addBlockItem(const QString& filename);
+    void addBlockItems(const QStringList& filenames);
+    bool isBlocked(const QString& filename);
 
 protected:
     KexiDB::Connection *_connection;

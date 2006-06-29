@@ -214,6 +214,35 @@ void SQLDB::Database::createAndOpen()
         delete schema;
     }
 
+
+    // ==== blockItem table ====
+    schema = new KexiDB::TableSchema("blockitem");
+    schema->setCaption("block items");
+
+    f = new KexiDB::Field("dirId", Field::Integer,
+                          Field::ForeignKey | Field::NotNull,
+                          Field::Unsigned);
+    f->setCaption("directory id");
+    schema->addField(f);
+
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (dirId) REFERENCES dir(id)
+    // ON DELETE RESTRICT ON UPDATE RESTRICT
+
+    f = new KexiDB::Field("filename", KexiDB::Field::Text,
+                          Field::NotNull, Field::NoOptions, 255);
+    f->setCaption("filename");
+    schema->addField(f);
+
+    // TODO: UNIQUE(dirId, filename)
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating blockitem table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
+
     // ==== category table ====
     schema = new KexiDB::TableSchema("category");
     schema->setCaption("categories");
@@ -622,15 +651,15 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
     emit totalChanged( totalCount() );
 }
 
-void SQLDB::Database::addToBlockList( const QStringList& /*list*/ )
+void SQLDB::Database::addToBlockList(const QStringList& list)
 {
-    qDebug("NYI: void SQLDB::Database::addToBlockList( const QStringList& list )" );
+    QueryHelper::instance()->addBlockItems(list);
+    // TODO: remove from database, or done elsewhere?
 }
 
-bool SQLDB::Database::isBlocking( const QString& /*fileName*/ )
+bool SQLDB::Database::isBlocking(const QString& fileName)
 {
-    qDebug("NYI: bool SQLDB::Database::isBlocking( const QString& fileName )" );
-    return false;
+    return QueryHelper::instance()->isBlocked(fileName);
 }
 
 void SQLDB::Database::deleteList( const QStringList& list )

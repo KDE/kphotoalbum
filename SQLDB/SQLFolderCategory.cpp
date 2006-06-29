@@ -18,21 +18,26 @@
 */
 
 #include "SQLFolderCategory.h"
+#include "QueryHelper.h"
 
 using namespace SQLDB;
 
 SQLFolderCategory::SQLFolderCategory():
     _name("Folder"),
     _iconName("folder"),
-    _isSpecial(true)
+    _viewSize(Small),
+    _viewType(ListView),
+    _doShow(false),
+    _isSpecial(true),
+    _items()
 {
     readItems();
 }
 
 void SQLFolderCategory::readItems()
 {
-    // TODO: this
-    _items = QStringList() << "Folder1" << "Folder2";
+    _items = QueryHelper::instance()->
+        executeQuery("SELECT path FROM dir").asStringList();
 }
 
 QString SQLFolderCategory::name() const
@@ -104,23 +109,18 @@ void SQLFolderCategory::setItems(const QStringList& items)
 {
     Q_UNUSED(items);
     readItems();
-    //_items = items;
 }
 
 void SQLFolderCategory::addItem(const QString& item)
 {
     Q_UNUSED(item);
     readItems();
-    //if (_items.contains(item))
-    //    _items.remove(item);
-    //_items.prepend(item);
 }
 
 void SQLFolderCategory::removeItem(const QString& item)
 {
     Q_UNUSED(item);
     readItems();
-    //_items.remove(item);
 }
 
 void SQLFolderCategory::renameItem(const QString& oldValue, const QString& newValue)
@@ -128,6 +128,4 @@ void SQLFolderCategory::renameItem(const QString& oldValue, const QString& newVa
     Q_UNUSED(oldValue);
     Q_UNUSED(newValue);
     readItems();
-    //_items.remove(oldValue);
-    //addItem(newValue);
 }

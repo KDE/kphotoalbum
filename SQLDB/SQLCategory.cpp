@@ -205,15 +205,7 @@ void SQLDB::SQLCategory::addItem( const QString& item )
     if ( !query.exec() )
         showError( query );
 #else
-    QueryHelper::instance()->
-        executeStatement("INSERT INTO tag(categoryId, name) "
-                         "VALUES(%s, %s)",
-                         QueryHelper::Bindings() << _categoryId << item);
-    // TODO: FIXME: needs better way to set place
-    QueryHelper::instance()->
-        executeStatement("UPDATE tag SET place=id "
-                         "WHERE categoryId=%s AND name=%s",
-                         QueryHelper::Bindings() << _categoryId << item);
+    QueryHelper::instance()->insertTag(_categoryId, item);
 #endif
 }
 
@@ -225,9 +217,7 @@ QStringList SQLDB::SQLCategory::items() const
     map.insert( QString::fromLatin1( ":categoryId" ), _categoryId );
     return runAndReturnList( query, map );
 #else
-    return QueryHelper::instance()->
-        executeQuery("SELECT name FROM tag WHERE categoryId=%s ORDER BY place",
-                     QueryHelper::Bindings() << _categoryId).asStringList();
+    return QueryHelper::instance()->membersOfCategory(_categoryId);
 #endif
 }
 

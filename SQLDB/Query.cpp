@@ -32,10 +32,11 @@ QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
 
 namespace
 {
-QValueList<QVariant> intListToQVariantList(const QValueList<int>& l)
+template <class T>
+QValueList<QVariant> toVariantList(const T& l)
 {
     QValueList<QVariant> r;
-    for (QValueList<int>::const_iterator i = l.begin(); i != l.end(); ++i)
+    for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
         r << *i;
     return r;
 }
@@ -105,16 +106,26 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
     // Positive part of the query
     QStringList positiveQuery;
     QMap<QString, QValueList<int> > matchedTags;
+    QStringList matchedFolders;
     QueryHelper::Bindings binds;
     for (QValueList<DB::OptionSimpleMatcher*>::const_iterator
             i = possitiveList.begin(); i != possitiveList.end(); ++i) {
         DB::OptionValueMatcher* m = static_cast<DB::OptionValueMatcher*>(*i);
-        positiveQuery <<
-            "id IN (SELECT mediaId FROM media_tag WHERE tagId IN (%s))";
-        QValueList<int> tagIds = QueryHelper::instance()->
-            idListForTag(m->_category, m->_option);
-        binds << intListToQVariantList(tagIds);
-        matchedTags[m->_category] += tagIds;
+        if (m->_category == "Folder") {
+            positiveQuery <<
+                "id IN (SELECT media.id FROM media, dir "
+                "WHERE media.dirId=dir.id AND dir.path=%s)";
+            binds << m->_option;
+            matchedFolders += m->_option;
+        }
+        else {
+            positiveQuery <<
+                "id IN (SELECT mediaId FROM media_tag WHERE tagId IN (%s))";
+            QValueList<int> tagIds = QueryHelper::instance()->
+                idListForTag(m->_category, m->_option);
+            binds << toVariantList(tagIds);
+            matchedTags[m->_category] += tagIds;
+        }
     }
 
     // Negative query
@@ -125,24 +136,52 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
              i = negativeList.begin(); i != negativeList.end(); ++i) {
         DB::OptionValueMatcher* m = dynamic_cast<DB::OptionValueMatcher*>(*i);
         if (m) {
-            negativeQuery <<
-            "id NOT IN (SELECT mediaId FROM media_tag WHERE tagId IN (%s))";
-            binds << intListToQVariantList(QueryHelper::instance()->
-                                           idListForTag(m->_category,
-                                                        m->_option));
+            if (m->_category == "Folder") {
+                negativeQuery <<
+                    "id NOT IN (SELECT media.id FROM media, dir "
+                    "WHERE media.dirId=dir.id AND dir.path=%s)";
+                binds << m->_option;
+            }
+            else {
+                negativeQuery <<
+                    "id NOT IN (SELECT mediaId "
+                    "FROM media_tag WHERE tagId IN (%s))";
+                binds << toVariantList(QueryHelper::instance()->
+                                       idListForTag(m->_category, m->_option));
+            }
         }
         else {
-            QValueList<int> excludedTags;
-            if (matchedTags[(*i)->_category].count() > 0) {
-                excludedTags = matchedTags[(*i)->_category];
-            } else {
-                excludedTags =  QueryHelper::instance()->
-                    tagIdsOfCategory((*i)->_category);
+            if ((*i)->_category == "Folder") {
+                QStringList excludedFolders;
+                if (matchedFolders.count() > 0) {
+                    excludedFolders = matchedFolders;
+                }
+                else {
+                    excludedFolders = QueryHelper::instance()->
+                        executeQuery("SELECT path FROM dir").
+                        asStringList();
+                }
+                if (excludedFolders.count() > 0) {
+                    excludeQuery <<
+                        "id IN (SELECT media.id FROM media, dir "
+                        "WHERE media.dirId=dir.id AND dir.path IN (%s))";
+                    excBinds << toVariantList(excludedFolders);
+                }
             }
-            if (excludedTags.count() > 0) {
-                excludeQuery <<
-                    "id IN (SELECT mediaId FROM media_tag WHERE tagId IN (%s))";
-                excBinds << intListToQVariantList(excludedTags);
+            else {
+                QValueList<int> excludedTags;
+                if (matchedTags[(*i)->_category].count() > 0) {
+                    excludedTags = matchedTags[(*i)->_category];
+                } else {
+                    excludedTags =  QueryHelper::instance()->
+                        tagIdsOfCategory((*i)->_category);
+                }
+                if (excludedTags.count() > 0) {
+                    excludeQuery <<
+                        "id IN (SELECT mediaId "
+                        "FROM media_tag WHERE tagId IN (%s))";
+                    excBinds << toVariantList(excludedTags);
+                }
             }
         }
     }

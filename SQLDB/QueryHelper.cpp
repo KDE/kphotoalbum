@@ -231,30 +231,6 @@ Q_ULLONG QueryHelper::insert(QString tableName, QString aiFieldName,
         return 0;
 }
 
-QString QueryHelper::filenameForId(int id, bool fullPath)
-{
-    KexiDB::Cursor* c = executeQuery("SELECT dir.path, media.filename "
-                                     "FROM dir, media "
-                                     "WHERE dir.id=media.dirId AND "
-                                     "media.id=%s",
-                                     Bindings() << id).cursor();
-    if (!c)
-        return "";
-
-    c->moveFirst();
-    if (c->eof()) {
-        _connection->deleteCursor(c);
-        return "";
-    }
-    QString fn = c->value(0).toString() + "/" + c->value(1).toString();
-    _connection->deleteCursor(c);
-
-    if (fullPath)
-        return Settings::SettingsData::instance()->imageDirectory() + fn;
-    else
-        return fn;
-}
-
 namespace
 {
 void splitPath(const QString& fullname, QString& path, QString& filename)
@@ -270,6 +246,38 @@ void splitPath(const QString& fullname, QString& path, QString& filename)
         filename = fullname.mid(i+1);
     }
 }
+
+QString makeFullName(const QString& path, const QString& filename)
+{
+    if (path == ".")
+        return filename;
+    else
+        return path + "/" + filename;
+}
+}
+
+QString QueryHelper::filenameForId(int id, bool fullPath)
+{
+    KexiDB::Cursor* c = executeQuery("SELECT dir.path, media.filename "
+                                     "FROM dir, media "
+                                     "WHERE dir.id=media.dirId AND "
+                                     "media.id=%s",
+                                     Bindings() << id).cursor();
+    if (!c)
+        return "";
+
+    c->moveFirst();
+    if (c->eof()) {
+        _connection->deleteCursor(c);
+        return "";
+    }
+    QString fn = makeFullName(c->value(0).toString(), c->value(1).toString());
+    _connection->deleteCursor(c);
+
+    if (fullPath)
+        return Settings::SettingsData::instance()->imageDirectory() + fn;
+    else
+        return fn;
 }
 
 int QueryHelper::idForFilename(const QString& relativePath)
@@ -304,6 +312,13 @@ QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category)
                         Bindings() << category).asIntegerList();
 }
 
+QStringList QueryHelper::membersOfCategory(int categoryId)
+{
+    return executeQuery("SELECT name FROM tag "
+                        "WHERE categoryId=%s ORDER BY place",
+                        QueryHelper::Bindings() << categoryId).asStringList();
+}
+
 QStringList QueryHelper::membersOfCategory(const QString& category)
 {
     return executeQuery("SELECT tag.name FROM tag,category "
@@ -335,7 +350,8 @@ bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
         return false;
     }
 
-    info.setFileName(c->value(0).toString() + "/" + c->value(1).toString());
+    info.setFileName(makeFullName(c->value(0).toString(),
+                                  c->value(1).toString()));
     info.setMD5Sum(c->value(2).toString());
     info.setMediaType(static_cast<DB::MediaType>(c->value(3).toInt()));
     info.setLabel(c->value(4).toString());
@@ -373,6 +389,8 @@ int QueryHelper::insertTag(int categoryId, QString name)
                               Bindings() << categoryId << name).firstItem();
     if (!i.isNull())
         return i.toInt();
+
+    // TODO: set place
 
     return insert("tag", "id", QStringList() << "categoryId" << "name",
                   Bindings() << categoryId << name);

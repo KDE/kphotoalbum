@@ -65,6 +65,7 @@ public:
     QString categoryForId(int id);
     int idForCategory(const QString& category);
     QValueList<int> tagIdsOfCategory(const QString& category);
+    QStringList membersOfCategory(int categoryId);
     QStringList membersOfCategory(const QString& category);
     QValueList<int> allMediaItemIds();
     int insertTag(int categoryId, QString name);

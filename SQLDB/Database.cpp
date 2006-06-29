@@ -426,6 +426,8 @@ void SQLDB::Database::renameCategory( const QString& oldName, const QString newN
 
 QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, const QString& category, int /*type*/ )
 {
+    // TODO: handle type
+    qDebug("SQLDB::Database::classify: category=%s", category.local8Bit().data());
     bool allFiles = true;
     QValueList<int> includedFiles;
     if ( !info.isNull() ) {
@@ -452,12 +454,18 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
             itemMap[fileId].append( item );
     }
 #else
-    KexiDB::Cursor* c = QueryHelper::instance()->
-        executeQuery("SELECT media_tag.mediaId, tag.name "
-                     "FROM media_tag, tag, category "
-                     "WHERE media_tag.tagId=tag.id AND "
-                     "tag.categoryId=category.id AND category.name=%s",
-                     QueryHelper::Bindings() << category).cursor();
+    KexiDB::Cursor* c;
+    if (category == "Folder")
+        c = QueryHelper::instance()->
+            executeQuery("SELECT media.id, dir.path FROM media, dir "
+                         "WHERE media.dirId=dir.id").cursor();
+    else
+        c = QueryHelper::instance()->
+            executeQuery("SELECT media_tag.mediaId, tag.name "
+                         "FROM media_tag, tag, category "
+                         "WHERE media_tag.tagId=tag.id AND "
+                         "tag.categoryId=category.id AND category.name=%s",
+                         QueryHelper::Bindings() << category).cursor();
     if (!c) {
         // TODO: error handling
         Q_ASSERT(false);

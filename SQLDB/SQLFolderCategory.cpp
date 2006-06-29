@@ -36,8 +36,7 @@ SQLFolderCategory::SQLFolderCategory():
 
 void SQLFolderCategory::readItems()
 {
-    _items = QueryHelper::instance()->
-        executeQuery("SELECT path FROM dir").asStringList();
+    _items = QueryHelper::instance()->folders();
 }
 
 QString SQLFolderCategory::name() const

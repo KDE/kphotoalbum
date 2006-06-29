@@ -327,6 +327,11 @@ QStringList QueryHelper::membersOfCategory(const QString& category)
                         Bindings() << category).asStringList();
 }
 
+QStringList QueryHelper::folders()
+{
+    return executeQuery("SELECT path FROM dir").asStringList();
+}
+
 QValueList<int> QueryHelper::allMediaItemIds()
 {
     return executeQuery("SELECT id FROM media").asIntegerList();

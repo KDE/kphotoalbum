@@ -128,7 +128,7 @@ bool SQLDB::SQLCategory::doShow() const
     return  fetchItem( QString::fromLatin1( "SELECT showit FROM categorysetup WHERE categoryId = :categoryId" ), map ).toBool();
 #else
     return QueryHelper::instance()->
-        executeQuery("SELECT viewtype FROM category WHERE id=%s",
+        executeQuery("SELECT visible FROM category WHERE id=%s",
                      QueryHelper::Bindings() << _categoryId).
         firstItem().toInt();
 #endif

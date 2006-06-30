@@ -973,6 +973,8 @@ void ThumbnailView::ThumbnailWidget::ensureCurrentVisible()
 
 void ThumbnailView::ThumbnailWidget::ensureCurrentVisiblePart2()
 {
+    if (_currentItem.isNull())
+        return;
     Cell cur = positionForFileName(_currentItem);
     if ( cur.row() < firstVisibleRow( PartlyVisible ) )
         _currentItem = fileNameInCell( Cell( firstVisibleRow( FullyVisible ), cur.col() ) );

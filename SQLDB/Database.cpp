@@ -17,6 +17,7 @@
 #include "SQLImageDateCollection.h"
 
 #ifdef HASKEXIDB
+#include "DB/MediaCount.h"
 #include "QueryHelper.h"
 
 #include <kexidb/driver.h>
@@ -428,6 +429,31 @@ int SQLDB::Database::totalCount(int type) const
     return QueryHelper::instance()->
         executeQuery("SELECT COUNT(*) FROM media WHERE type=%s",
                      QueryHelper::Bindings() << type).firstItem().toInt();
+}
+
+DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
+{
+    QueryHelper::Bindings bindings;
+    QString rangeCond = "";
+    bool all = (searchInfo.query().count() == 0);
+    if (!all) {
+        QValueList<int> mediaIds = filesMatchingQuery(searchInfo);
+        if (mediaIds.count() > 0) {
+            rangeCond = " AND id IN (%s)";
+            bindings << toVariantList(mediaIds);
+        }
+    }
+
+    DB::MediaType types[] = {DB::Image, DB::Movie};
+    int count[2];
+    for (size_t i = 0; i < 2; ++i) {
+        count[i] = QueryHelper::instance()->
+            executeQuery("SELECT COUNT(*) FROM media "
+                         "WHERE type=%s" + rangeCond,
+                         (QueryHelper::Bindings() << types[i]) + bindings).
+            firstItem().asInt();
+    }
+    return DB::MediaCount(count[0], count[1]);
 }
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const

@@ -45,6 +45,7 @@ namespace SQLDB {
     public:
         virtual int totalCount() const;
         int totalCount(int type) const;
+        DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 
         virtual void renameCategory( const QString& oldName, const QString newName );

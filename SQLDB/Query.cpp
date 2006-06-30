@@ -58,20 +58,6 @@ QValueList<int> SQLDB::searchFilesOfType(DB::MediaType type,
     return r;
 }
 
-
-namespace
-{
-template <class T>
-QValueList<QVariant> toVariantList(const T& l)
-{
-    QValueList<QVariant> r;
-    for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
-        r << *i;
-    return r;
-}
-}
-
-
 QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> matches )
 {
     QValueList< DB::OptionSimpleMatcher*> possitiveList;

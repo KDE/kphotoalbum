@@ -390,6 +390,9 @@ bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
 
     _connection->deleteCursor(c);
 
+    // TODO: remove debug
+    qDebug("Read info of file %s (id %d)", info.fileName().local8Bit().data(), id);
+
     return true;
 }
 

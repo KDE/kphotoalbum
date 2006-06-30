@@ -423,6 +423,13 @@ int SQLDB::Database::totalCount() const
 #endif
 }
 
+int SQLDB::Database::totalCount(int type) const
+{
+    return QueryHelper::instance()->
+        executeQuery("SELECT COUNT(*) FROM media WHERE type=%s",
+                     QueryHelper::Bindings() << type).firstItem().toInt();
+}
+
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
     // PENDING(blackie) Handle on disk.
@@ -457,14 +464,15 @@ void SQLDB::Database::renameCategory( const QString& oldName, const QString newN
 #endif
 }
 
-QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, const QString& category, int /*type*/ )
+QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
+                                            const QString& category,
+                                            int type)
 {
-    // TODO: handle type
-    qDebug("SQLDB::Database::classify: category=%s", category.local8Bit().data());
     bool allFiles = true;
     QValueList<int> includedFiles;
     if ( !info.isNull() ) {
-        includedFiles = filesMatchingQuery( info );
+        includedFiles = searchFilesOfType(static_cast<DB::MediaType>(type),
+                                          info);
         allFiles = false;
     }
 
@@ -491,14 +499,17 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
     if (category == "Folder")
         c = QueryHelper::instance()->
             executeQuery("SELECT media.id, dir.path FROM media, dir "
-                         "WHERE media.dirId=dir.id").cursor();
+                         "WHERE media.dirId=dir.id AND media.type=%s",
+                         QueryHelper::Bindings() << type).cursor();
     else
         c = QueryHelper::instance()->
-            executeQuery("SELECT media_tag.mediaId, tag.name "
-                         "FROM media_tag, tag, category "
-                         "WHERE media_tag.tagId=tag.id AND "
-                         "tag.categoryId=category.id AND category.name=%s",
-                         QueryHelper::Bindings() << category).cursor();
+            executeQuery("SELECT media.id, tag.name "
+                         "FROM media, media_tag, tag, category "
+                         "WHERE media.id=media_tag.mediaId AND "
+                         "media_tag.tagId=tag.id AND "
+                         "tag.categoryId=category.id AND "
+                         "media.type=%s AND category.name=%s",
+                         QueryHelper::Bindings() << type << category).cursor();
     if (!c) {
         // TODO: error handling
         Q_ASSERT(false);
@@ -518,7 +529,7 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
 
     // Count images that doesn't contain an item
     if ( allFiles )
-        result[DB::ImageDB::NONE()] = totalCount() - itemMap.count();
+        result[DB::ImageDB::NONE()] = totalCount(type) - itemMap.count();
     else
         result[DB::ImageDB::NONE()] = includedFiles.count() - itemMap.count();
 

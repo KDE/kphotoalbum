@@ -337,6 +337,12 @@ QValueList<int> QueryHelper::allMediaItemIds()
     return executeQuery("SELECT id FROM media").asIntegerList();
 }
 
+QValueList<int> QueryHelper::allMediaItemIdsOfType(DB::MediaType type)
+{
+    return executeQuery("SELECT id FROM media WHERE type=%s",
+                        Bindings() << type).asIntegerList();
+}
+
 bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
 {
     KexiDB::Cursor* c =

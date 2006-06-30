@@ -9,6 +9,16 @@
 #include <kdebug.h>
 #include "config.h" // HASKEXIDB
 
+typedef QValueList<DB::OptionSimpleMatcher*> MathcerList;
+typedef QValueList<MathcerList> MathcerListList;
+
+namespace
+{
+QValueList<int> getMatchingFiles(MathcerList matches,
+                                 DB::MediaType type=DB::Image,
+                                 bool useType=false);
+}
+
 QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
 {
     QValueList< QValueList< DB::OptionSimpleMatcher*> > matches = info.query();
@@ -29,6 +39,25 @@ QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
 
     return result;
 }
+
+QValueList<int> SQLDB::searchFilesOfType(DB::MediaType type,
+                                         const DB::ImageSearchInfo& search)
+{
+    MathcerListList dnf = search.query();
+    // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
+
+    if (dnf.count() == 0) {
+        return QueryHelper::instance()->allMediaItemIdsOfType(type);
+    }
+
+    QValueList<int> r;
+    for(MathcerListList::const_iterator i = dnf.begin(); i != dnf.end(); ++i) {
+        r = mergeUniqly(r, getMatchingFiles(*i, type, true));
+    }
+
+    return r;
+}
+
 
 namespace
 {
@@ -92,7 +121,22 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
                                      .arg( buildQueryPrefix( negativeList.count(), 0 ) )
                                      .arg( negativeList.count() > 1 ? QString::fromLatin1( " AND " ) : QString::null )
                                      .arg( negativeQuery.join( QString::fromLatin1( " OR " ) ) ) );
+    return listSubstract( positive, negative );
 #else
+    return getMatchingFiles(matches);
+#endif
+}
+
+namespace
+{
+using namespace SQLDB;
+
+QValueList<int> getMatchingFiles(MathcerList matches,
+                                 DB::MediaType type, bool useType)
+{
+    MathcerList possitiveList;
+    MathcerList negativeList;
+    split(matches, possitiveList, negativeList);
 
     /*
     SELECT id FROM media
@@ -108,8 +152,8 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
     QMap<QString, QValueList<int> > matchedTags;
     QStringList matchedFolders;
     QueryHelper::Bindings binds;
-    for (QValueList<DB::OptionSimpleMatcher*>::const_iterator
-            i = possitiveList.begin(); i != possitiveList.end(); ++i) {
+    for (MathcerList::const_iterator i = possitiveList.begin();
+         i != possitiveList.end(); ++i) {
         DB::OptionValueMatcher* m = static_cast<DB::OptionValueMatcher*>(*i);
         if (m->_category == "Folder") {
             positiveQuery <<
@@ -132,8 +176,8 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
     QStringList negativeQuery;
     QStringList excludeQuery;
     QueryHelper::Bindings excBinds;
-    for (QValueList<DB::OptionSimpleMatcher*>::const_iterator
-             i = negativeList.begin(); i != negativeList.end(); ++i) {
+    for (MathcerList::const_iterator i = negativeList.begin();
+         i != negativeList.end(); ++i) {
         DB::OptionValueMatcher* m = dynamic_cast<DB::OptionValueMatcher*>(*i);
         if (m) {
             if (m->_category == "Folder") {
@@ -187,7 +231,13 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
     }
 
     QString select = "SELECT id FROM media";
-    QString cond = QStringList(positiveQuery + negativeQuery).join(" AND ");
+    QStringList condList = positiveQuery + negativeQuery;
+    if (useType) {
+        condList.prepend("media.type=%s");
+        binds.prepend(type);
+    }
+    QString cond = condList.join(" AND ");
+
     QString query = select;
     if (cond.length() > 0)
         query += " WHERE " + cond;
@@ -201,11 +251,10 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
     QValueList<int> negative = QueryHelper::instance()->
         executeQuery(select + " WHERE " + excludeQuery.join(" AND "),
                      excBinds).asIntegerList();
-#endif
 
-    return listSubstract( positive, negative );
+    return listSubstract(positive, negative);
 }
-
+}
 
 QString SQLDB::buildValue( const QString& category, const QStringList& vals, int idx, bool negate )
 {

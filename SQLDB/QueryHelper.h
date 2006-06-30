@@ -69,6 +69,7 @@ public:
     QStringList membersOfCategory(const QString& category);
     QStringList folders();
     QValueList<int> allMediaItemIds();
+    QValueList<int> allMediaItemIdsOfType(DB::MediaType type);
     int insertTag(int categoryId, QString name);
     void insertMediaTag(int mediaId, int tagId);
     int insertDir(QString path);

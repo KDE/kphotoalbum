@@ -551,7 +551,7 @@ void QueryHelper::addBlockItem(const QString& relativePath)
 {
     QString path;
     QString fn;
-    splitPath(filename, path, fn);
+    splitPath(relativePath, path, fn);
     int dirId = insertDir(path);
     if (executeQuery("SELECT COUNT(*) FROM blockitem "
                      "WHERE dirId=%s AND filename=%s",
@@ -562,8 +562,8 @@ void QueryHelper::addBlockItem(const QString& relativePath)
 
 void QueryHelper::addBlockItems(const QStringList& relativePaths)
 {
-    for (QStringList::const_iterator i = filenames.begin();
-         i != filenames.end(); ++i)
+    for (QStringList::const_iterator i = relativePaths.begin();
+         i != relativePaths.end(); ++i)
         addBlockItem(*i);
 }
 
@@ -571,7 +571,7 @@ bool QueryHelper::isBlocked(const QString& relativePath)
 {
     QString path;
     QString fn;
-    splitPath(filename, path, fn);
+    splitPath(relativePath, path, fn);
     return executeQuery("SELECT COUNT(*) FROM blockitem, dir "
                         "WHERE blockitem.dirId=dir.id AND "
                         "dir.path=%s AND blockitem.filename=%s",
@@ -582,7 +582,7 @@ void QueryHelper::removeMediaItem(const QString& relativePath)
 {
     QString path;
     QString fn;
-    splitPath(filename, path, fn);
+    splitPath(relativePath, path, fn);
     executeStatement("DELETE FROM media "
                      "WHERE dirId=(SELECT id FROM dir WHERE path=%s) "
                      "AND filename=%s", Bindings() << path << fn);

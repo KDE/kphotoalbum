@@ -97,9 +97,9 @@ public:
     QValueList<int> getDirectMembers(int tagId);
     int idForTag(QString category, QString item);
     QValueList<int> idListForTag(QString category, QString item);
-    void addBlockItem(const QString& filename);
-    void addBlockItems(const QStringList& filenames);
-    bool isBlocked(const QString& filename);
+    void addBlockItem(const QString& relativePath);
+    void addBlockItems(const QStringList& relativePaths);
+    bool isBlocked(const QString& relativePath);
     void removeMediaItem(const QString& relativePath);
 
 protected:

@@ -547,7 +547,7 @@ QValueList<int> QueryHelper::idListForTag(QString category, QString item)
     return visited;
 }
 
-void QueryHelper::addBlockItem(const QString& filename)
+void QueryHelper::addBlockItem(const QString& relativePath)
 {
     QString path;
     QString fn;
@@ -560,14 +560,14 @@ void QueryHelper::addBlockItem(const QString& filename)
                          "VALUES(%s, %s)", Bindings() << dirId << fn);
 }
 
-void QueryHelper::addBlockItems(const QStringList& filenames)
+void QueryHelper::addBlockItems(const QStringList& relativePaths)
 {
     for (QStringList::const_iterator i = filenames.begin();
          i != filenames.end(); ++i)
         addBlockItem(*i);
 }
 
-bool QueryHelper::isBlocked(const QString& filename)
+bool QueryHelper::isBlocked(const QString& relativePath)
 {
     QString path;
     QString fn;

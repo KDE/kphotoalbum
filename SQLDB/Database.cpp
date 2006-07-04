@@ -790,9 +790,10 @@ void SQLDB::Database::renameItem( DB::Category* category, const QString& oldName
 #endif
 }
 
-void SQLDB::Database::deleteItem( DB::Category* /*category*/, const QString& /*option*/ )
+void SQLDB::Database::deleteItem(DB::Category* category, const QString& option)
 {
-    qDebug("NYI: void SQLDB::Database::deleteItem( DB::Category* category, const QString& option )" );
+    if (category)
+        category->removeItem(option);
 }
 
 void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )

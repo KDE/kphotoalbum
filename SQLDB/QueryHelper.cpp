@@ -410,6 +410,19 @@ int QueryHelper::insertTag(int categoryId, QString name)
                   Bindings() << categoryId << name);
 }
 
+void QueryHelper::removeTag(int categoryId, const QString& name)
+{
+#ifndef USEFOREIGNCONSTRAINT
+    int tagId =
+        executeQuery("SELECT id FROM tag WHERE categoryId=%s AND name=%s",
+                     Bindings() << categoryId << name).firstItem().toInt();
+    executeStatement("DELETE FROM media_tag WHERE tagId=%s",
+                     Bindings() << tagId);
+#endif
+    executeStatement("DELETE FROM tag WHERE categoryId=%s AND name=%s",
+                     Bindings() << categoryId << name);
+}
+
 void QueryHelper::insertMediaTag(int mediaId, int tagId)
 {
     if (executeQuery("SELECT mediaId FROM media_tag "

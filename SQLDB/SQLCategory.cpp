@@ -179,9 +179,9 @@ void SQLDB::SQLCategory::setItems( const QStringList& items )
 #endif
 }
 
-void SQLDB::SQLCategory::removeItem( const QString& /*item*/ )
+void SQLDB::SQLCategory::removeItem(const QString& item)
 {
-    qDebug("NYI: void SQLDB::SQLCategory::removeItem( const QString& item )" );
+    QueryHelper::instance()->removeTag(_categoryId, item);
 }
 
 void SQLDB::SQLCategory::renameItem( const QString& /*oldValue*/, const QString& /*newValue*/ )

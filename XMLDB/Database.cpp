@@ -186,6 +186,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     }
     else if ( newImages.count() == 0 ) {
         // case 2: No images to merge in - that's easy ;-)
+        return;
     }
     else if ( newImages.first()->date().start() > _images.last()->date().start() ) {
         // case 2: The new list is later than the existsing

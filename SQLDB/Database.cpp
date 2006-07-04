@@ -344,6 +344,8 @@ void SQLDB::Database::createAndOpen()
     // TODO: foreign key constraint:
     // FOREIGN KEY (mediaId) REFERENCES media(id)
     // ON DELETE CASCADE ON UPDATE RESTRICT
+    // FOREIGN KEY (tagId) REFERENCES tag(id)
+    // ON DELETE CASCADE ON UPDATE RESTRICT
 
     f = new Field("tagId", Field::BigInteger,
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);

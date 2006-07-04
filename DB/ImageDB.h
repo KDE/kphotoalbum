@@ -74,7 +74,6 @@ public: // Methods that must be overriden
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category, int type ) = 0;
-    virtual ImageInfoList& imageInfoList() = 0; // PENDING(blackie) TO BE DELETED!
     virtual QStringList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
 

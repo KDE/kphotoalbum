@@ -581,13 +581,6 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     return result;
 }
 
-DB::ImageInfoList& SQLDB::Database::imageInfoList()
-{
-    qDebug("NYI: ImageInfoList& SQLDB::Database::imageInfoList()" );
-    static DB::ImageInfoList list;
-    return list;
-}
-
 QStringList SQLDB::Database::imageList( bool withRelativePath )
 {
 #ifndef HASKEXIDB

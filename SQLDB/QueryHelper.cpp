@@ -578,4 +578,14 @@ bool QueryHelper::isBlocked(const QString& filename)
                         Bindings() << path << fn).firstItem().toInt() > 0;
 }
 
+void QueryHelper::removeMediaItem(const QString& relativePath)
+{
+    QString path;
+    QString fn;
+    splitPath(filename, path, fn);
+    executeStatement("DELETE FROM media "
+                     "WHERE dirId=(SELECT id FROM dir WHERE path=%s) "
+                     "AND filename=%s", Bindings() << path << fn);
+}
+
 #endif /* HASKEXIDB */

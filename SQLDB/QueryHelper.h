@@ -100,6 +100,7 @@ public:
     void addBlockItem(const QString& filename);
     void addBlockItems(const QStringList& filenames);
     bool isBlocked(const QString& filename);
+    void removeMediaItem(const QString& relativePath);
 
 protected:
     KexiDB::Connection *_connection;

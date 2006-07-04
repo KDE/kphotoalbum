@@ -178,7 +178,7 @@ void QueryHelper::showLastError()
 }
 
 bool QueryHelper::executeStatement(const QString& statement,
-                                   Bindings bindings)
+                                   const Bindings& bindings)
 {
     QString s = statement;
     /*
@@ -196,7 +196,7 @@ bool QueryHelper::executeStatement(const QString& statement,
 }
 
 QueryHelper::Result QueryHelper::executeQuery(const QString& query,
-                                              Bindings bindings)
+                                              const Bindings& bindings)
 {
     QString q = query;
     /*
@@ -213,8 +213,10 @@ QueryHelper::Result QueryHelper::executeQuery(const QString& query,
     return Result(runQuery(q), _connection);
 }
 
-Q_ULLONG QueryHelper::insert(QString tableName, QString aiFieldName,
-                             QStringList fields, Bindings values)
+Q_ULLONG QueryHelper::insert(const QString& tableName,
+                             const QString& aiFieldName,
+                             const QStringList& fields,
+                             const Bindings& values)
 {
     Q_ASSERT(fields.count() == values.count());
 
@@ -396,7 +398,7 @@ bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
     return true;
 }
 
-int QueryHelper::insertTag(int categoryId, QString name)
+int QueryHelper::insertTag(int categoryId, const QString& name)
 {
     QVariant i = executeQuery("SELECT id FROM tag "
                               "WHERE categoryId=%s AND name=%s",
@@ -451,15 +453,16 @@ void QueryHelper::insertMediaItemTags(int mediaId, const DB::ImageInfo& info)
     }
 }
 
-int QueryHelper::insertDir(QString path)
+int QueryHelper::insertDir(const QString& relativePath)
 {
     QVariant i = executeQuery("SELECT id FROM dir "
                               "WHERE path=%s",
-                              Bindings() << path).firstItem();
+                              Bindings() << relativePath).firstItem();
     if (!i.isNull())
         return i.toInt();
 
-    return insert("dir", "id", QStringList() << "path", Bindings() << path);
+    return insert("dir", "id", QStringList() << "path",
+                  Bindings() << relativePath);
 }
 
 void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
@@ -532,7 +535,7 @@ QValueList<int> QueryHelper::getDirectMembers(int tagId)
                         Bindings() << tagId).asIntegerList();
 }
 
-int QueryHelper::idForTag(QString category, QString item)
+int QueryHelper::idForTag(const QString& category, const QString& item)
 {
     return executeQuery("SELECT tag.id FROM tag,category "
                         "WHERE tag.categoryId=category.id AND "
@@ -540,7 +543,7 @@ int QueryHelper::idForTag(QString category, QString item)
                         Bindings() << category << item).firstItem().toInt();
 }
 
-QValueList<int> QueryHelper::idListForTag(QString category, QString item)
+QValueList<int> QueryHelper::idListForTag(const QString& category, const QString& item)
 {
     int tagId = idForTag(category, item);
     QValueList<int> visited, queue;

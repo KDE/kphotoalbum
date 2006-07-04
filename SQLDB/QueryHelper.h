@@ -71,11 +71,11 @@ public:
     static QueryHelper* instance();
 
     bool executeStatement(const QString& statement,
-                          Bindings bindings=Bindings());
+                          const Bindings& bindings=Bindings());
     Result executeQuery(const QString& query,
-                        Bindings bindings=Bindings());
-    Q_ULLONG insert(QString tableName, QString aiFieldName,
-                    QStringList fields, Bindings values);
+                        const Bindings& bindings=Bindings());
+    Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
+                    const QStringList& fields, const Bindings& values);
 
     QString filenameForId(int id, bool fullPath=false);
     int idForFilename(const QString& relativePath);
@@ -87,17 +87,17 @@ public:
     QStringList folders();
     QValueList<int> allMediaItemIds();
     QValueList<int> allMediaItemIdsOfType(DB::MediaType type);
-    int insertTag(int categoryId, QString name);
+    int insertTag(int categoryId, const QString& name);
     void removeTag(int categoryId, const QString& name);
     void insertMediaTag(int mediaId, int tagId);
-    int insertDir(QString path);
+    int insertDir(const QString& relativePath);
     bool getMediaItem(int id, DB::ImageInfo& info);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItem(const DB::ImageInfo& info);
     void updateMediaItem(int id, const DB::ImageInfo& info);
     QValueList<int> getDirectMembers(int tagId);
-    int idForTag(QString category, QString item);
-    QValueList<int> idListForTag(QString category, QString item);
+    int idForTag(const QString& category, const QString& item);
+    QValueList<int> idListForTag(const QString& category, const QString& item);
     void addBlockItem(const QString& relativePath);
     void addBlockItems(const QStringList& relativePaths);
     bool isBlocked(const QString& relativePath);

@@ -691,7 +691,7 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 void SQLDB::Database::addToBlockList(const QStringList& list)
 {
     QueryHelper::instance()->addBlockItems(list);
-    // TODO: remove from database, or done elsewhere?
+    deleteList(list);
 }
 
 bool SQLDB::Database::isBlocking(const QString& fileName)
@@ -734,11 +734,13 @@ void SQLDB::Database::deleteList( const QStringList& list )
         if ( !query.exec() )
             showError( query );
     }
-    emit totalChanged( totalCount() );
 #else
-    // TODO: this
-    Q_UNUSED(list);
+    for (QStringList::const_iterator i = list.begin(); i != list.end(); ++i)
+        QueryHelper::instance()->
+            removeMediaItem(Utilities::stripImageDirectory(*i));
 #endif
+    if (list.count() != 0)
+        emit totalChanged(totalCount());
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const

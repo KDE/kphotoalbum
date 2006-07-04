@@ -216,7 +216,7 @@ void SQLDB::Database::createAndOpen()
     }
 
 
-    // ==== blockItem table ====
+    // ==== blockitem table ====
     schema = new KexiDB::TableSchema("blockitem");
     schema->setCaption("block items");
 

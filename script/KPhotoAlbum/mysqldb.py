@@ -49,7 +49,7 @@ class MySQLDatabase(DatabaseWriter):
 		 'label VARCHAR(255), description TEXT, '
 		 'startTime DATETIME, endTime DATETIME, '
 		 'width INT, height INT, angle SMALLINT'),
-		('blockItem',
+		('blockitem',
 		 'dirId INT UNSIGNED NOT NULL, '
 		 'filename VARCHAR(255) NOT NULL'),
 		('category',
@@ -243,7 +243,7 @@ class MySQLDatabase(DatabaseWriter):
 		#	       (b.filename,))
 		(path, filename) = splitPath(b.filename)
 		dirid = self.__insertDir(path)
-		self.c.execute('INSERT INTO blockItem(dirId, filename) '
+		self.c.execute('INSERT INTO blockitem(dirId, filename) '
 			       'values(%s,%s)', (dirid, filename))
 
 	def clear(self):

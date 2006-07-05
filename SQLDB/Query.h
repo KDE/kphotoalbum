@@ -43,7 +43,6 @@ namespace SQLDB {
     QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
     QStringList values( DB::OptionValueMatcher* matcher );
 
-    QValueList<int> mergeUniqly( QValueList<int>, QValueList<int> );
     QValueList<int> listSubstract( QValueList<int>, QValueList<int> );
 
 }

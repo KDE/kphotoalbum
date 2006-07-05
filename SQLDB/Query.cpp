@@ -17,6 +17,9 @@ namespace
 QValueList<int> getMatchingFiles(MathcerList matches,
                                  DB::MediaType type=DB::Image,
                                  bool useType=false);
+
+QValueList<int> mergeUniqly(const QValueList<int>& l1,
+                            const QValueList<int>& l2);
 }
 
 QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
@@ -311,6 +314,7 @@ QString SQLDB::buildQueryPrefix( int count, int firstId )
         .arg( matches.join( QString::fromLatin1( " and " ) ) );
 }
 
+/*
 QValueList<int> SQLDB::mergeUniqly( QValueList<int> l1, QValueList<int> l2)
 {
     QValueList<int> result;
@@ -330,7 +334,25 @@ QValueList<int> SQLDB::mergeUniqly( QValueList<int> l1, QValueList<int> l2)
     }
     return result;
 }
+*/
 
+namespace
+{
+QValueList<int> mergeUniqly(const QValueList<int>& l1,
+                            const QValueList<int>& l2)
+{
+    QValueList<int> r;
+    const QValueList<int>* l[2] = {&l1, &l2};
+    for (size_t n = 0; n < 2; ++n) {
+        for (QValueList<int>::const_iterator i = l[n]->begin();
+             i != l[n]->end(); ++i) {
+            if (!r.contains(*i))
+                r << *i;
+        }
+    }
+    return r;
+}
+}
 
 QValueList<int> SQLDB::listSubstract( QValueList<int> l1, QValueList<int> l2)
 {

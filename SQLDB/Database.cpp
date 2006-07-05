@@ -592,16 +592,18 @@ QStringList SQLDB::Database::imageList( bool withRelativePath )
         result << fileNameForId( query.value(0).toInt(), withRelativePath );
     return result;
 #else
-    QueryHelper* qh = QueryHelper::instance();
-    QValueList<int> idList =
-        qh->executeQuery("SELECT id FROM media "
-                         "ORDER BY place").asIntegerList();
-    QStringList r;
-    for (QValueList<int>::const_iterator i = idList.begin();
-         i != idList.end(); ++i) {
-        r.append(qh->filenameForId(*i, !withRelativePath));
+    QStringList relativePaths = QueryHelper::instance()->relativeFilenames();
+    if (withRelativePath)
+        return relativePaths;
+    else {
+        QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
+        QStringList absolutePaths;
+        for (QStringList::const_iterator i = relativePaths.begin();
+             i != relativePaths.end(); ++i) {
+            absolutePaths << imageRoot + (*i);
+        }
+        return absolutePaths;
     }
-    return r;
 #endif
 }
 

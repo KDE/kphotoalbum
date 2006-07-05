@@ -31,23 +31,37 @@ QStringList SQLDB::readStringsFromCursor(KexiDB::Cursor& cursor, int col)
     return l;
 }
 
+namespace
+{
+template <unsigned N>
+inline QValueList<QString[N]> readStringNsFromCursor(KexiDB::Cursor& cursor)
+{
+    QValueList<QString[N]> l;
+    QString v[N];
+    for (cursor.moveFirst(); !cursor.eof(); cursor.moveNext()) {
+        for (int i = 0; i < N; ++i)
+            v[i] = cursor.value(i).toString();
+        l.append(v);
+    }
+    return l;
+}
+}
+
+QValueList<QString[2]> SQLDB::readString2sFromCursor(KexiDB::Cursor& cursor)
+{
+    return readStringNsFromCursor<2>(cursor);
+}
+
+QValueList<QString[3]> SQLDB::readString3sFromCursor(KexiDB::Cursor& cursor)
+{
+    return readStringNsFromCursor<3>(cursor);
+}
+
 QValueList<int> SQLDB::readIntsFromCursor(KexiDB::Cursor& cursor, int col)
 {
     QValueList<int> l;
     for (cursor.moveFirst(); !cursor.eof(); cursor.moveNext())
         l.append(cursor.value(col).toInt());
-    return l;
-}
-
-QValueList<QString[3]> SQLDB::readString3sFromCursor(KexiDB::Cursor& cursor)
-{
-    QValueList<QString[3]> l;
-    QString v[3];
-    for (cursor.moveFirst(); !cursor.eof(); cursor.moveNext()) {
-        for (int i = 0; i < 3; ++i)
-            v[i] = cursor.value(i).toString();
-        l.append(v);
-    }
     return l;
 }
 

@@ -68,6 +68,16 @@ QStringList QueryHelper::Result::asStringList()
     return r;
 }
 
+QValueList<QString[2]> QueryHelper::Result::asString2List()
+{
+    QValueList<QString[2]> r;
+    if (_cursor) {
+        r = readString2sFromCursor(*_cursor);
+        destroy();
+    }
+    return r;
+}
+
 QValueList<QString[3]> QueryHelper::Result::asString3List()
 {
     QValueList<QString[3]> r;
@@ -256,6 +266,19 @@ QString makeFullName(const QString& path, const QString& filename)
     else
         return path + "/" + filename;
 }
+}
+
+QStringList QueryHelper::relativeFilenames()
+{
+    QValueList<QString[2]> dirFilePairs = QueryHelper::instance()->
+        executeQuery("SELECT dir.path, media.filename FROM dir, media "
+                     "WHERE media.dirId=dir.id").asString2List();
+    QStringList r;
+    for (QValueList<QString[2]>::const_iterator i = dirFilePairs.begin();
+         i != dirFilePairs.end(); ++i) {
+        r << makeFullName((*i)[0], (*i)[1]);
+    }
+    return r;
 }
 
 QString QueryHelper::filenameForId(int id, bool fullPath)

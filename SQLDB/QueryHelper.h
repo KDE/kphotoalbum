@@ -57,6 +57,7 @@ public:
         ~Result();
         bool destroy();
         QStringList asStringList();
+        QValueList<QString[2]> asString2List();
         QValueList<QString[3]> asString3List();
         QValueList<int> asIntegerList();
         QVariant firstItem();
@@ -77,6 +78,7 @@ public:
     Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
                     const QStringList& fields, const Bindings& values);
 
+    QStringList relativeFilenames();
     QString filenameForId(int id, bool fullPath=false);
     int idForFilename(const QString& relativePath);
     QString categoryForId(int id);

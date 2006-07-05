@@ -29,6 +29,7 @@ namespace SQLDB
 {
 
 QStringList readStringsFromCursor(KexiDB::Cursor& cursor, int col=0);
+QValueList<QString[2]> readString2sFromCursor(KexiDB::Cursor& cursor);
 QValueList<QString[3]> readString3sFromCursor(KexiDB::Cursor& cursor);
 QValueList<int> readIntsFromCursor(KexiDB::Cursor& cursor, int col=0);
 KexiDB::Field::Type fieldTypeFor(QVariant qv);

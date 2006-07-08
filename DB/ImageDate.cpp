@@ -142,7 +142,7 @@ bool ImageDate::operator==( const ImageDate& other ) const
     return _start == other._start && _end == other._end;
 }
 
-bool ImageDate::operator!=( const ImageDate& other )
+bool ImageDate::operator!=( const ImageDate& other ) const
 {
     return !(*this == other );
 }

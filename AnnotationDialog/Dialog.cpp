@@ -305,6 +305,7 @@ void AnnotationDialog::Dialog::slotOK()
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
             *(_origList[i]) = _editList[i];
+            _origList[i]->saveChanges();
         }
     }
     else if ( _setup == MULTIPLE ) {
@@ -336,6 +337,8 @@ void AnnotationDialog::Dialog::slotOK()
             if ( !_description->text().isEmpty() ) {
                 info->setDescription( _description->text() );
             }
+
+            info->saveChanges();
         }
     }
     _accept = QDialog::Accepted;

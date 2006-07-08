@@ -124,11 +124,27 @@ public:
     MediaType mediaType() const;
     void setMediaType( MediaType type ) { _type = type; }
 
+    /** Save changes to database.
+     *
+     * This should be called after calling setter functions, so the
+     * back-end can save multiple changes at a time.
+     *
+     * Example:
+     * \code
+     * info.setLabel("Hello");
+     * info.setDescription("Hello world");
+     * info.saveChanges();
+     * \endcode
+     */
+    virtual void saveChanges() {}
+
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;
     bool isJPEG( const QString& fileName ) const;
     void setAbsoluteFileName();
     void setIsNull(bool b) { _null = b; }
+    bool isDirty() const { return _dirty; }
+    void setIsDirty(bool b)  { _dirty = b; }
 
 private:
     friend class Plugins::ImageInfo;
@@ -149,6 +165,9 @@ private:
 
     // Cache information
     bool _locked;
+
+    // Will be set to true after every change
+    bool _dirty;
 
     // Used during searching to make it possible to search for Jesper & None
     mutable QMap<QString, Set<QString> > _matched;

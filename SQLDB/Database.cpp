@@ -742,7 +742,8 @@ void SQLDB::Database::deleteList( const QStringList& list )
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const
 {
-    return new SQLImageInfo( fileName );
+    return SQLImageInfo::
+        getImageInfoOf(Utilities::stripImageDirectory(fileName));
 }
 
 const DB::MemberMap& SQLDB::Database::memberMap()
@@ -758,6 +759,7 @@ void SQLDB::Database::setMemberMap( const DB::MemberMap& map )
 void SQLDB::Database::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
 {
     qDebug("NYI: void SQLDB::Database::save( const QString& fileName )" );
+    SQLImageInfo::clearCache();
 }
 
 DB::MD5Map* SQLDB::Database::md5Map()

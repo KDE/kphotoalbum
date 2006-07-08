@@ -114,6 +114,7 @@ protected:
     void bindValues(QString &s, const Bindings& b);
     KexiDB::Cursor* runQuery(const QString& query);
     void showLastError();
+    void throwLastError() const;
 
 private:
     static QueryHelper* _instance;

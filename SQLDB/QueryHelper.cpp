@@ -23,6 +23,7 @@
 
 #include "QueryHelper.h"
 #include "KexiHelpers.h"
+#include "QueryErrors.h"
 #include "Settings/SettingsData.h"
 #include <klocale.h>
 #include <qsize.h>
@@ -187,6 +188,11 @@ void QueryHelper::showLastError()
     qFatal("%s", msg.local8Bit().data());
 }
 
+void QueryHelper::throwLastError() const
+{
+    throw SQLError(_connection->recentSQLString(), _connection->errorMsg());
+}
+
 bool QueryHelper::executeStatement(const QString& statement,
                                    const Bindings& bindings)
 {
@@ -310,10 +316,15 @@ int QueryHelper::idForFilename(const QString& relativePath)
     QString path;
     QString filename;
     splitPath(relativePath, path, filename);
-    return executeQuery("SELECT media.id FROM media, dir "
-                        "WHERE media.dirId=dir.id AND "
-                        "dir.path=%s AND media.filename=%s",
-                        Bindings() << path << filename).firstItem().toInt();
+    QVariant id =
+        executeQuery("SELECT media.id FROM media, dir "
+                     "WHERE media.dirId=dir.id AND "
+                     "dir.path=%s AND media.filename=%s",
+                     Bindings() << path << filename).firstItem();
+    if (id.isNull())
+        throw NotFoundError(i18n("Media item for file %1 cannot be found "
+                                 "from the SQL database").arg(filename));
+    return id.toInt();
 }
 
 

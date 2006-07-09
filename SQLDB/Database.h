@@ -24,15 +24,10 @@ Boston, MA 02111-1307, USA.
 #include "DB/CategoryCollection.h"
 #include "DB/MD5Map.h"
 #include "SQLCategoryCollection.h"
-class QSqlError;
-
-namespace KexiDB {
-    class Driver;
-    class Connection;
-}
-#include <qguardedptr.h>
 
 namespace SQLDB {
+    class DatabaseHandler;
+
     class Database  :public DB::ImageDB {
         Q_OBJECT
 
@@ -41,6 +36,8 @@ namespace SQLDB {
         Database( const QString& username = QString::null, const QString& password = QString::null );
 
     public:
+        ~Database();
+
         virtual int totalCount() const;
         int totalCount(int type) const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
@@ -81,11 +78,10 @@ namespace SQLDB {
         QStringList imageList( bool withRelativePath );
 
     private:
+        DatabaseHandler* _dbhandler;
         SQLCategoryCollection _categoryCollection;
         DB::MemberMap _members;
         DB::MD5Map _md5map;
-        QGuardedPtr<KexiDB::Driver> _driver;
-        KexiDB::Connection* _connection;
     };
 }
 

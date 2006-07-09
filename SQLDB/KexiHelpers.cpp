@@ -17,10 +17,6 @@
   MA 02110-1301 USA.
 */
 
-#include "config.h" // HASKEXIDB
-
-#ifdef HASKEXIDB
-
 #include "KexiHelpers.h"
 
 QStringList SQLDB::readStringsFromCursor(KexiDB::Cursor& cursor, int col)
@@ -99,5 +95,3 @@ KexiDB::Field::Type SQLDB::fieldTypeFor(QVariant qv)
         return KexiDB::Field::InvalidType;
     }
 }
-
-#endif /* HASKEXIDB */

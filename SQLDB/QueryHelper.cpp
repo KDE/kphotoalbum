@@ -17,10 +17,6 @@
   MA 02110-1301 USA.
 */
 
-#include "config.h" // HASKEXIDB
-
-#ifdef HASKEXIDB
-
 #include "QueryHelper.h"
 #include "KexiHelpers.h"
 #include "QueryErrors.h"
@@ -637,5 +633,3 @@ void QueryHelper::removeMediaItem(const QString& relativePath)
                      "WHERE dirId=(SELECT id FROM dir WHERE path=%s) "
                      "AND filename=%s", Bindings() << path << fn);
 }
-
-#endif /* HASKEXIDB */

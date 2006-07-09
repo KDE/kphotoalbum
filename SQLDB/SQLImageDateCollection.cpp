@@ -1,9 +1,7 @@
 #include "SQLImageDateCollection.h"
 #include <qvariant.h>
 #include <qmap.h>
-#include "QueryUtil.h"
 #include "QueryHelper.h"
-#include "config.h" // HASKEXIDB
 
 using SQLDB::QueryHelper;
 
@@ -18,16 +16,6 @@ DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
     if ( cache.contains( range ) )
         return cache[range];
 
-#ifndef HASKEXIDB
-    QString queryStr = QString::fromLatin1( "SELECT count(*) from imageinfo WHERE startDate >= :startDate and endDate <= :endDate" );
-    QMap<QString,QVariant> map;
-    map.insert( QString::fromLatin1( ":startDate" ), range.start() );
-    map.insert( QString::fromLatin1( ":endDate" ), range.end() );
-    int exact = SQLDB::fetchItem( queryStr, map ).toInt();
-
-    queryStr = QString::fromLatin1( "SELECT count(*) from imageinfo WHERE endDate >= :startDate and startDate <= :endDate" );
-    int rng = SQLDB::fetchItem( queryStr, map ).toInt() - exact;
-#else
     int exact = QueryHelper::instance()->
         executeQuery("SELECT count(*) FROM media "
                      "WHERE %s<=startTime AND endTime<=%s",
@@ -38,7 +26,6 @@ DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
                      "WHERE %s<=endTime AND startTime<=%s",
                      QueryHelper::Bindings() << range.start() << range.end()).
         firstItem().toInt() - exact;
-#endif
     DB::ImageCount result( exact, rng );
     cache.insert( range, result );
     return result;

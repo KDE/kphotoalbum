@@ -7,7 +7,6 @@
 #include "DB/CategoryCollection.h"
 #include <qsqlerror.h>
 #include "Query.h"
-#include "QueryUtil.h"
 #include "DB/ImageInfo.h"
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
@@ -16,7 +15,6 @@
 #include "Browser/BrowserWidget.h"
 #include "SQLImageDateCollection.h"
 
-#ifdef HASKEXIDB
 #include "DB/MediaCount.h"
 #include "QueryHelper.h"
 
@@ -37,7 +35,6 @@
 #include <qfileinfo.h>
 
 using KexiDB::Field;
-#endif
 
 //TODO: error handling
 #include <stdlib.h>
@@ -57,33 +54,22 @@ namespace
 
 SQLDB::Database::Database( const QString& username, const QString& password ) :_members( this )
 {
-#ifndef HASKEXIDB
-    if ( !QSqlDatabase::isDriverAvailable( QString::fromLatin1("QMYSQL3") ) ) {
-        // PENDING(blackie) better message
-        KMessageBox::sorry( 0, i18n("The MySQL driver did not seem to be compiled into your Qt" ) );
-        exit(-1);
-    }
-#else
     KexiDB::DriverManager *manager = new KexiDB::DriverManager();
     _driver = manager->driver("MySQL");
     if (!_driver) {
         // TODO: error handling (get from manager)
         exitError(i18n("Kexi driver not found."));
     }
-#endif
     if (!openConnection(username, password)) {
         exit(-1);
     }
     openDatabase();
-#ifdef HASKEXIDB
     QueryHelper::setup(_connection);
-#endif
     loadMemberGroups();
 }
 
 void SQLDB::Database::createAndOpen()
 {
-#ifdef HASKEXIDB
     qDebug("Creating db kphotoalbum");
     if (!_connection->createDatabase("kphotoalbum")) {
         qDebug("create failed: %s", _connection->errorMsg().latin1());
@@ -411,19 +397,13 @@ void SQLDB::Database::createAndOpen()
 //                    _connection->errorMsg().latin1());
 //         }
 //     }
-#endif
 }
 
 
 int SQLDB::Database::totalCount() const
 {
-#ifndef HASKEXIDB
-    QString query = QString::fromLatin1( "SELECT COUNT(fileId) FROM sortorder" );
-    return fetchItem( query ).toInt();
-#else
     return QueryHelper::instance()->
         executeQuery("SELECT COUNT(*) FROM media").firstItem().toInt();
-#endif
 }
 
 int SQLDB::Database::totalCount(int type) const
@@ -460,36 +440,22 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    // PENDING(blackie) Handle on disk.
     QValueList<int> matches = filesMatchingQuery( info );
     QStringList result;
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
-#ifndef HASKEXIDB
-        result.append( fileNameForId( *it, true ) );
-#else
         QString fullPath = QueryHelper::instance()->filenameForId(*it, true);
         if (requireOnDisk && !QFileInfo(fullPath).exists())
             continue;
         result.append(fullPath);
-#endif
     }
     return result;
 }
 
 void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
-#ifndef HASKEXIDB
-    QSqlQuery query;
-    query.prepare( "UPDATE imagecategoryinfo SET category=:newName WHERE category=:oldName" );
-    query.bindValue( QString::fromLatin1( ":newName" ), newName );
-    query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
-    if ( !query.exec() )
-        showError( query );
-#else
     QueryHelper::instance()->
         executeStatement("UPDATE category SET name=%s WHERE name=%s",
                          QueryHelper::Bindings() << newName << oldName);
-#endif
 }
 
 QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
@@ -508,21 +474,6 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     DB::GroupCounter counter( category );
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
-#ifndef HASKEXIDB
-    QSqlQuery query;
-    query.prepare( "SELECT fileId, value from imagecategoryinfo WHERE categoryId=:categoryId" );
-    query.bindValue( QString::fromLatin1( ":categoryId" ), idForCategory(category) );
-    if ( !query.exec() )
-        showError( query );
-
-    QMap<int,QStringList> itemMap;
-    while ( query.next() ) {
-        int fileId = query.value(0).toInt();
-        QString item = query.value(1).toString();
-        if ( allFiles || includedFiles.contains( fileId ) )
-            itemMap[fileId].append( item );
-    }
-#else
     KexiDB::Cursor* c;
     if (category == "Folder")
         c = QueryHelper::instance()->
@@ -553,7 +504,6 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     }
 
     _connection->deleteCursor(c);
-#endif
 
     // Count images that doesn't contain an item
     if ( allFiles )
@@ -572,8 +522,6 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         counter.count( list );
     }
 
-
-
     QMap<QString,int> groups = counter.result();
     for( QMapIterator<QString,int> it= groups.begin(); it != groups.end(); ++it ) {
         result[it.key()] = it.data();
@@ -583,15 +531,6 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
 
 QStringList SQLDB::Database::imageList( bool withRelativePath )
 {
-#ifndef HASKEXIDB
-    QSqlQuery query;
-    if ( !query.exec( QString::fromLatin1( "SELECT fileId FROM sortorder" ) ) )
-        showError( query );
-    QStringList result;
-    while ( query.next() )
-        result << fileNameForId( query.value(0).toInt(), withRelativePath );
-    return result;
-#else
     QStringList relativePaths = QueryHelper::instance()->relativeFilenames();
     if (withRelativePath)
         return relativePaths;
@@ -604,7 +543,6 @@ QStringList SQLDB::Database::imageList( bool withRelativePath )
         }
         return absolutePaths;
     }
-#endif
 }
 
 
@@ -615,72 +553,12 @@ QStringList SQLDB::Database::images()
 
 void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 {
-#ifndef HASKEXIDB
-    int idx = totalCount();
-
-    QString imageQueryString = QString::fromLatin1( "INSERT INTO imageinfo set "
-                                                    "width = :width, height = :height, md5sum = :md5sum, fileId = :fileId, label = :label, "
-                                                    "angle = :angle, description = :description, startDate = :startDate, "
-                                                    "endDate = :endDate " );
-    QSqlQuery imageQuery;
-    imageQuery.prepare( imageQueryString );
-
-    QString categoryQueryString = QString::fromLatin1( "insert INTO imagecategoryinfo set fileId = :fileId, "
-                                                       "categoryId = :categoryId, value = :value" );
-    QSqlQuery categoryQuery;
-    categoryQuery.prepare( categoryQueryString );
-
-    QString sortOrderQueryString = QString::fromLatin1( "INSERT INTO sortorder SET idx=:idx, fileId=:fileId, fileName=:fileName" );
-    QSqlQuery sortOrderQuery;
-    sortOrderQuery.prepare( sortOrderQueryString );
-
-    int nextId = fetchItem( QString::fromLatin1( "SELECT MAX(fileId) FROM sortorder" ) ).toInt();
-    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        DB::ImageInfoPtr info = *it;
-        ++nextId;
-
-        imageQuery.bindValue( QString::fromLatin1( ":width" ),  info->size().width() );
-        imageQuery.bindValue( QString::fromLatin1( ":height" ),  info->size().height() );
-        imageQuery.bindValue( QString::fromLatin1( ":md5sum" ), info->MD5Sum() );
-        imageQuery.bindValue( QString::fromLatin1( ":fileId" ),  nextId );
-        imageQuery.bindValue( QString::fromLatin1( ":label" ),  info->label() );
-        imageQuery.bindValue( QString::fromLatin1( ":angle" ),  info->angle() );
-        imageQuery.bindValue( QString::fromLatin1( ":description" ),  info->description() );
-        imageQuery.bindValue( QString::fromLatin1( ":startDate" ), info->date().start() );
-        imageQuery.bindValue( QString::fromLatin1( ":endDate" ), info->date().end() );
-
-        if ( !imageQuery.exec() )
-            showError( imageQuery );
-
-        sortOrderQuery.bindValue( QString::fromLatin1( ":idx" ), idx++ );
-        sortOrderQuery.bindValue( QString::fromLatin1( ":fileId" ), nextId );
-        sortOrderQuery.bindValue( QString::fromLatin1( ":fileName" ), info->fileName( true ) );
-        if ( !sortOrderQuery.exec() )
-            showError( sortOrderQuery );
-
-
-        // Category info
-
-        QStringList categories = info->availableCategories();
-        categoryQuery.bindValue( QString::fromLatin1( ":fileId" ), nextId );
-        for( QStringList::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-            QStringList items = info->itemsOfCategory( *categoryIt );
-            categoryQuery.bindValue( QString::fromLatin1( ":categoryId" ), idForCategory(*categoryIt) );
-            for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-                categoryQuery.bindValue( QString::fromLatin1( ":value" ), *itemIt );
-                if ( !categoryQuery.exec() )
-                    showError( categoryQuery );
-            }
-        }
-    }
-#else
     for(DB::ImageInfoListConstIterator it = images.constBegin();
         it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
 
         QueryHelper::instance()->insertMediaItem(*info);
     }
-#endif
 
     emit totalChanged( totalCount() );
 }
@@ -698,44 +576,9 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
 
 void SQLDB::Database::deleteList( const QStringList& list )
 {
-#ifndef HASKEXIDB
-    QStringList sortOrder = imageList( true );
-    QSqlQuery imageInfoQuery, imageCategoryQuery;
-    imageInfoQuery.prepare( "DELETE FROM imageinfo where fileId=:fileId" );
-    imageCategoryQuery.prepare( "DELETE FROM imagecategoryinfo where fileId=:fileId" );
-
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        QString fileName = Utilities::stripImageDirectory( *it );
-        imageInfoQuery.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( fileName ) );
-        imageCategoryQuery.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( fileName ) );
-
-        if ( !imageInfoQuery.exec() )
-            showError( imageInfoQuery );
-
-        if ( !imageCategoryQuery.exec() )
-            showError( imageCategoryQuery );
-
-        sortOrder.remove( fileName );
-    }
-
-    QSqlQuery query;
-    if ( !query.exec( QString::fromLatin1( "DELETE FROM sortorder" ) ) )
-        showError( query );
-
-    // PENDING(blackie) We need to remember the original id's in a map for this.
-    int idx = 0;
-    query.prepare( QString::fromLatin1( "INSERT INTO sortorder SET idx=:idx, fileName=:fileName" ) );
-    for( QStringList::Iterator it = sortOrder.begin(); it != sortOrder.end(); ++it ) {
-        query.bindValue( QString::fromLatin1( ":idx" ), idx++ );
-        query.bindValue( QString::fromLatin1( ":fileName" ), *it );
-        if ( !query.exec() )
-            showError( query );
-    }
-#else
     for (QStringList::const_iterator i = list.begin(); i != list.end(); ++i)
         QueryHelper::instance()->
             removeMediaItem(Utilities::stripImageDirectory(*i));
-#endif
     if (list.count() != 0)
         emit totalChanged(totalCount());
 }
@@ -774,24 +617,12 @@ void SQLDB::Database::sortAndMergeBackIn( const QStringList& /*fileList*/ )
 
 void SQLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
-#ifndef HASKEXIDB
-    QSqlQuery query;
-    query.prepare( QString::fromLatin1( "UPDATE imagecategoryinfo SET value = :newName "
-                                        "WHERE category = :category and value = :oldName" ));
-    query.bindValue( QString::fromLatin1( ":newName" ), newName );
-    query.bindValue( QString::fromLatin1( ":category" ), category->name() );
-    query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
-
-    if ( !query.exec() )
-        showError( query );
-#else
     QueryHelper::instance()->
         executeStatement("UPDATE tag SET name=%s "
                          "WHERE name=%s AND "
                          "categoryId=(SELECT id FROM category WHERE name=%s)",
                          QueryHelper::Bindings() <<
                          newName << oldName << category->name());
-#endif
 }
 
 void SQLDB::Database::deleteItem(DB::Category* category, const QString& option)
@@ -809,25 +640,6 @@ void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
 bool SQLDB::Database::openConnection(const QString& username,
                                      const QString& password)
 {
-#ifndef HASKEXIDB
-    QSqlDatabase* database = QSqlDatabase::addDatabase( "QMYSQL3" );
-    if ( database == 0 ) {
-        qFatal("What?!");
-        return false;
-    }
-
-    database->setDatabaseName( "kphotoalbum" );
-    if ( !username.isNull() ) {
-        database->setUserName(username);
-        if ( !password.isNull() )
-            database->setPassword(password);
-    }
-    if ( !database->open() ) {
-        qFatal("Couldn't open db");
-        return false;
-    }
-    return true;
-#else
     if (!_driver) {
         qDebug("openConnection: Driver should be initialized first");
         return false;
@@ -846,12 +658,10 @@ bool SQLDB::Database::openConnection(const QString& username,
         return false;
     }
     return true;
-#endif
 }
 
 void SQLDB::Database::openDatabase()
 {
-#ifdef HASKEXIDB
     if (!_connection->databaseExists("kphotoalbum")) {
         createAndOpen();
         return;
@@ -863,24 +673,11 @@ void SQLDB::Database::openDatabase()
         exit(-1);
     }
     qDebug("Opened");
-#endif
 }
 
 
 void SQLDB::Database::loadMemberGroups()
 {
-#ifndef HASKEXIDB
-    QSqlQuery membersQuery;
-    if (!membersQuery.exec( "SELECT groupname, category, member FROM membergroup" ) )
-        qFatal("Couldn't exec query");
-
-    while ( membersQuery.next() ) {
-        QString group = membersQuery.value(0).toString();
-        QString category = membersQuery.value(1).toString();
-        QString member = membersQuery.value(2).toString();
-        _members.addMemberToGroup( category, group, member );
-    }
-#else
     QValueList<QString[3]> l = QueryHelper::instance()->
         executeQuery("SELECT c.name, t.name, f.name "
                      "FROM tag_relation tr, tag t, tag f, category c "
@@ -890,7 +687,6 @@ void SQLDB::Database::loadMemberGroups()
     for (QValueList<QString[3]>::const_iterator i = l.begin();
          i != l.end(); ++i)
         _members.addMemberToGroup((*i)[0], (*i)[1], (*i)[2]);
-#endif
 }
 
 

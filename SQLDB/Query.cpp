@@ -4,10 +4,8 @@
 #include "DB/ImageSearchInfo.h"
 #include <qsqlquery.h>
 #include "Settings/SettingsData.h"
-#include "QueryUtil.h"
 #include "QueryHelper.h"
 #include <kdebug.h>
-#include "config.h" // HASKEXIDB
 
 typedef QValueList<DB::OptionSimpleMatcher*> MathcerList;
 typedef QValueList<MathcerList> MathcerListList;
@@ -28,11 +26,7 @@ QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
     // matches is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
 
     if ( matches.count() == 0 ) {
-#ifndef HASKEXIDB
-        return allImages();
-#else
         return QueryHelper::instance()->allMediaItemIds();
-#endif
     }
 
     QValueList<int> result;
@@ -67,53 +61,7 @@ QValueList<int> SQLDB::runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> ma
     QValueList< DB::OptionSimpleMatcher*> negativeList;
     split( matches, possitiveList, negativeList );
 
-#ifndef HASKEXIDB
-    // Prefix: SELECT q0.fileId from imagecategoryinfo q0, imagecategoryinfo q1, ... WHERE q0.fileId = q1.fileId and q0.fileId = q1.fileId
-    // Query: q1.categoryId = 3 AND q1.value = "Jesper" and ...
-
-    // Positive part of the query
-    QStringList positiveQuery;
-    int idx = 0;
-    QMap<QString,QStringList> matchedValues;
-    for( QValueList<DB::OptionSimpleMatcher*>::Iterator it = possitiveList.begin(); it != possitiveList.end(); ++it, ++idx ) {
-        DB::OptionValueMatcher* valueMatcher = static_cast<DB::OptionValueMatcher*>( *it );
-        positiveQuery << buildValue( valueMatcher->_category, values( valueMatcher), idx, false );
-        matchedValues[valueMatcher->_category] += values( valueMatcher );
-    }
-
-
-    // Negative query
-    QStringList negativeQuery;
-    idx = 0;
-    for( QValueList<DB::OptionSimpleMatcher*>::Iterator it = negativeList.begin(); it != negativeList.end(); ++it, ++idx ) {
-        DB::OptionValueMatcher* valueMatcher;
-        if ( ( valueMatcher = dynamic_cast<DB::OptionValueMatcher*>( *it ) ) ) {
-            negativeQuery << buildValue( valueMatcher->_category, values( valueMatcher), idx, false );
-        }
-        else
-            negativeQuery << buildValue( (*it)->_category, matchedValues[(*it)->_category ], idx, true );
-    }
-
-    QValueList<int> positive;
-    QValueList<int> negative;
-
-    if ( possitiveList.count() > 0 )
-        positive = runAndReturnIntList( QString::fromLatin1( "%1 %2 %3" )
-                                     .arg( buildQueryPrefix( possitiveList.count(), 0 ) )
-                                     .arg( possitiveList.count() > 1 ? QString::fromLatin1( " AND " ) : QString::null )
-                                     .arg( positiveQuery.join( QString::fromLatin1( " AND " ) ) ) );
-    else
-        positive = allImages();
-
-    if ( negativeList.count() > 0 )
-        negative = runAndReturnIntList( QString::fromLatin1( "%1 %2 (%3)" )
-                                     .arg( buildQueryPrefix( negativeList.count(), 0 ) )
-                                     .arg( negativeList.count() > 1 ? QString::fromLatin1( " AND " ) : QString::null )
-                                     .arg( negativeQuery.join( QString::fromLatin1( " OR " ) ) ) );
-    return listSubstract( positive, negative );
-#else
     return getMatchingFiles(matches);
-#endif
 }
 
 namespace
@@ -245,6 +193,7 @@ QValueList<int> getMatchingFiles(MathcerList matches,
 }
 }
 
+/*
 QString SQLDB::buildValue( const QString& category, const QStringList& vals, int idx, bool negate )
 {
     QString expression;
@@ -269,6 +218,7 @@ QString SQLDB::buildValue( const QString& category, const QStringList& vals, int
     else
         return QString::fromLatin1( "%1categoryId = \"%2\" " ).arg(prefix).arg( idForCategory(category) );
 }
+*/
 
 QStringList SQLDB::values( DB::OptionValueMatcher* matcher )
 {

@@ -26,13 +26,11 @@ Boston, MA 02111-1307, USA.
 #include "SQLCategoryCollection.h"
 class QSqlError;
 
-#ifdef HASKEXIDB
 namespace KexiDB {
     class Driver;
     class Connection;
 }
 #include <qguardedptr.h>
-#endif
 
 namespace SQLDB {
     class Database  :public DB::ImageDB {
@@ -86,10 +84,8 @@ namespace SQLDB {
         SQLCategoryCollection _categoryCollection;
         DB::MemberMap _members;
         DB::MD5Map _md5map;
-#ifdef HASKEXIDB
         QGuardedPtr<KexiDB::Driver> _driver;
         KexiDB::Connection* _connection;
-#endif
     };
 }
 

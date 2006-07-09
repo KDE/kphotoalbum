@@ -29,13 +29,13 @@ QStringList SQLDB::readStringsFromCursor(KexiDB::Cursor& cursor, int col)
 
 namespace
 {
-template <unsigned N>
+template <size_t N>
 inline QValueList<QString[N]> readStringNsFromCursor(KexiDB::Cursor& cursor)
 {
     QValueList<QString[N]> l;
     QString v[N];
     for (cursor.moveFirst(); !cursor.eof(); cursor.moveNext()) {
-        for (int i = 0; i < N; ++i)
+        for (size_t i = 0; i < N; ++i)
             v[i] = cursor.value(i).toString();
         l.append(v);
     }

@@ -36,7 +36,7 @@ class DrawHandler :public DisplayAreaHandler {
     Q_OBJECT
 
 public:
-    DrawHandler( DisplayArea* display );
+    DrawHandler( ImageDisplay* display );
     virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
     virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
     virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );

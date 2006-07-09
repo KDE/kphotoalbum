@@ -16,28 +16,32 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VIEWHANDLER_H
-#define VIEWHANDLER_H
-#include "Viewer/DisplayAreaHandler.h"
-#include <qpoint.h>
+#ifndef VIEWER_DISPLAY_H
+#define VIEWER_DISPLAY_H
+
+#include <qstringlist.h>
+#include <qwidget.h>
+#include <DB/ImageInfoPtr.h>
 
 namespace Viewer
 {
+class DrawHandler;
 
-class ViewHandler :public DisplayAreaHandler {
+class Display :public QWidget
+{
+    Q_OBJECT
 
 public:
-    ViewHandler( ImageDisplay* display );
-    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-private:
-    bool _scale, _pan;
-    QPoint _start, _last;
-    double _errorX, _errorY;
+    Display( QWidget* parent, const char* name = 0 );
+    virtual void setImage( DB::ImageInfoPtr info, bool forward ) = 0;
+
+    virtual bool offersDrawOnImage() const { return false; }
+    virtual DrawHandler* drawHandler() { return 0; }
+    virtual void startDrawing() {}
+    virtual void stopDrawing() {}
 };
 
 }
 
-#endif /* VIEWHANDLER_H */
+#endif /* VIEWER_DISPLAY_H */
 

@@ -97,8 +97,6 @@
 #endif
 
 #include "FeatureDialog.h"
-#include "ViewerLauncher.h"
-#include <Video/Player.h>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -252,7 +250,7 @@ void MainWindow::Window::delayedInit()
 bool MainWindow::Window::slotExit()
 {
     if ( Utilities::runningDemo() ) {
-        QString txt = i18n("<qt><p><b>Delete Your Temporary Demo Database</b></p>"
+        QString txt = i18n("<fqt><p><b>Delete Your Temporary Demo Database</b></p>"
                            "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
                            "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
                            "on the other hand, if you want to come back and try the demo again, you "
@@ -441,7 +439,34 @@ QStringList MainWindow::Window::selectedOnDisk()
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 {
-    ViewerLauncher::launch( selectedOnDisk(), reuse, slideShow, random );
+    launchViewer( selectedOnDisk(), reuse, slideShow, random );
+}
+
+void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slideShow, bool random )
+{
+    if ( files.count() == 0 ) {
+        QMessageBox::warning( MainWindow::Window::theMainWindow(), i18n("No Images or Videos to Display"),
+                              i18n("None of the selected images or videos were available on disk.") );
+        return;
+    }
+
+    if (random)
+        files = Utilities::shuffle( files );
+
+    Viewer::ViewerWidget* viewer;
+    if ( reuse && Viewer::ViewerWidget::latest() ) {
+        viewer = Viewer::ViewerWidget::latest();
+        viewer->raise();
+        viewer->setActiveWindow();
+    }
+    else {
+        viewer = new Viewer::ViewerWidget( "viewer" );
+        QObject::connect( viewer, SIGNAL( dirty() ), MainWindow::Window::theMainWindow(), SLOT( markDirty() ) );
+    }
+    viewer->show( slideShow );
+
+    viewer->load( files );
+    viewer->raise();
 }
 
 void MainWindow::Window::slotSortByDateAndTime()
@@ -1312,7 +1337,7 @@ void MainWindow::Window::showFeatures()
 
 void MainWindow::Window::showImage( const QString& fileName )
 {
-    ViewerLauncher::launch( QStringList() << fileName, Utilities::ctrlKeyDown(), false, false );
+    launchViewer( QStringList() << fileName, Utilities::ctrlKeyDown(), false, false );
 }
 
 void MainWindow::Window::slotBuildThumbnails()

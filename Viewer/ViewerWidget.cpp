@@ -30,7 +30,7 @@
 #include <qcursor.h>
 #include <qpopupmenu.h>
 #include <qaction.h>
-#include "Viewer/DisplayArea.h"
+#include "DisplayArea.h"
 #include <qtoolbar.h>
 #include <ktoolbar.h>
 #include <kiconloader.h>
@@ -40,10 +40,10 @@
 #include <qsignalmapper.h>
 #include "ShowOptionAction.h"
 #include <qtimer.h>
-#include "Viewer/DrawHandler.h"
+#include "DrawHandler.h"
 #include <kwin.h>
 #include <kglobalsettings.h>
-#include "Viewer/SpeedDisplay.h"
+#include "SpeedDisplay.h"
 #include <qdesktopwidget.h>
 #include "MainWindow/Window.h"
 #include <qdatetime.h>
@@ -57,7 +57,24 @@
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 #include "InfoBox.h"
+#include <qwidgetstack.h>
+#include "VideoDisplay.h"
+#include "ViewerWidget.h"
 
+
+/**
+ * \namespace Viewer
+ * \brief Viewer used for displaying images and movies
+ *
+ * This class implements the viewer used to display images and movies.
+ *
+ * The class consists of these components:
+ * <ul>
+ * <li>\ref ViewerWidget - This is the topmost widget used as the viewer.
+ * <li>\ref ImageDisplay -
+ * // PENDING(blackie) Fill in the rest of the description.
+ * </ul>
+ */
 Viewer::ViewerWidget* Viewer::ViewerWidget::_latest = 0;
 
 Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
@@ -68,24 +85,29 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget( const char* name )
-    :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true )
+    :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
 {
     setWFlags( WDestructiveClose );
     _latest = this;
 
     QVBoxLayout* layout = new QVBoxLayout( this );
 
-    _display = new DisplayArea( this ); // Must be created before the toolbar.
-    connect( _display, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
+    _stack = new QWidgetStack( this, "stack" );
+
+    _display = _imageDisplay = new ImageDisplay( _stack ); // Must be created before the toolbar.
+    _videoDisplay = new VideoDisplay( _stack );
+    connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
+
+    connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
     createToolBar();
     _toolbar->hide();
 
 
     layout->addWidget( _toolbar );
-    layout->addWidget( _display );
+    layout->addWidget( _stack );
 
     // This must not be added to the layout, as it is standing on top of
-    // the DisplayArea
+    // the ImageDisplay
     _infoBox = new InfoBox( this );
     _infoBox->setShown( Settings::SettingsData::instance()->showInfoBox() );
 
@@ -134,6 +156,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 
     _popup->insertSeparator();
 
+    // PENDING(blackie) Only for image display?
     action = new KAction( i18n("Zoom In"), Key_Plus, _display, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
     action->plug( _popup );
 
@@ -165,6 +188,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
 
+    // PENDING(blackie) Only for image display
     taction = new KToggleAction( i18n("Show Drawing"), CTRL+Key_D, _actions, "viewer-show-drawing");
     connect( taction, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
     taction->plug( _popup );
@@ -242,6 +266,7 @@ void Viewer::ViewerWidget::setupContextMenu()
                           _actions, "viewer-edit-image-properties" );
     action->plug( _popup );
 
+    // PENDING(blackie) This should only be enabled for image displays.
     action = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
                           _actions, "viewer-show-category-editor" );
     action->plug( _popup );
@@ -254,7 +279,14 @@ void Viewer::ViewerWidget::setupContextMenu()
 void Viewer::ViewerWidget::load( const QStringList& list, int index )
 {
     _list = list;
-    _display->setImageList( list );
+
+    QStringList images;
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+        if ( !Utilities::isMovie( *it ) )
+            images << *it;
+    }
+    _imageDisplay->setImageList( list );
+
     _current = index;
     load();
 
@@ -266,7 +298,16 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    _display->drawHandler()->setDrawList( currentInfo()->drawList() );
+    bool isVideo = Utilities::isMovie( currentInfo()->fileName() );
+    if ( isVideo )
+        _display = _videoDisplay;
+    else
+        _display = _imageDisplay;
+
+    _stack->raiseWidget( _display );
+
+    if ( _display->offersDrawOnImage() )
+        _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     _display->setImage( currentInfo(), _forward );
     setCaption( QString::fromLatin1( "KPhotoAlbum - %1" ).arg( currentInfo()->fileName() ) );
     updateInfoBox();
@@ -275,9 +316,10 @@ void Viewer::ViewerWidget::load()
     _prevAction->setEnabled( _current > 0 );
     _firstAction->setEnabled( _current > 0 );
     _lastAction->setEnabled( _current +1 < (int) _list.count() );
-    updateCategoryConfig();
+    if ( isVideo )
+        updateCategoryConfig();
 
-    if (_slideShowTimer->isActive() )
+    if ( _isRunningSlideShow )
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
@@ -381,11 +423,13 @@ void Viewer::ViewerWidget::showLast()
 
 void Viewer::ViewerWidget::save()
 {
-    currentInfo()->setDrawList( _display->drawHandler()->drawList() );
+    if ( _display->offersDrawOnImage() )
+        currentInfo()->setDrawList( _display->drawHandler()->drawList() );
 }
 
 void Viewer::ViewerWidget::startDraw()
 {
+    Q_ASSERT( _display->offersDrawOnImage() );
     _display->startDrawing();
     _display->drawHandler()->slotSelect();
     _toolbar->show();
@@ -393,6 +437,7 @@ void Viewer::ViewerWidget::startDraw()
 
 void Viewer::ViewerWidget::stopDraw()
 {
+    Q_ASSERT( _display->offersDrawOnImage() );
     _display->stopDrawing();
     _toolbar->hide();
 }
@@ -443,6 +488,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
 {
     save();
     _slideShowTimer->stop();
+    _isRunningSlideShow = false;
     return QWidget::close( alsoDelete );
 }
 
@@ -557,6 +603,7 @@ void Viewer::ViewerWidget::createToolBar()
     KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this, "actions" );
     _toolbar = new KToolBar( this );
+#ifdef TEMPORARILY_REMOVED
     DrawHandler* handler = _display->drawHandler();
     _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
                          0, handler, SLOT( slotSelect() ),actions, "_select");
@@ -583,6 +630,7 @@ void Viewer::ViewerWidget::createToolBar()
 
     KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
     close->plug( _toolbar );
+#endif
 }
 
 void Viewer::ViewerWidget::toggleFullScreen()
@@ -592,12 +640,16 @@ void Viewer::ViewerWidget::toggleFullScreen()
 
 void Viewer::ViewerWidget::slotStartStopSlideShow()
 {
-    if (_slideShowTimer->isActive() ) {
+    bool wasRunningSlideShow = _isRunningSlideShow;
+    _isRunningSlideShow = !_isRunningSlideShow;
+
+    if ( wasRunningSlideShow ) {
         _slideShowTimer->stop();
         _speedDisplay->end();
     }
     else {
-        _slideShowTimer->start( _slideShowPause, true );
+        if ( currentInfo()->mediaType() != DB::Movie )
+            _slideShowTimer->start( _slideShowPause, true );
         _speedDisplay->start();
     }
 }
@@ -616,11 +668,14 @@ void Viewer::ViewerWidget::slotSlideShowNext()
     timer.start();
     load();
 
-    // ensure that there is a few milliseconds pause, so that an end slideshow keypress
-    // can get through immediately, we don't want it to queue up behind a bunch of timer events,
-    // which loaded a number of new images before the slideshow stops
-    int ms = QMAX( 200, _slideShowPause - timer.elapsed() );
-    _slideShowTimer->start( ms, true );
+    // If it is a movie, then don't schedule the next image, as this would make the video stop abruptly.
+    if ( currentInfo()->mediaType() != DB::Movie ) {
+        // ensure that there is a few milliseconds pause, so that an end slideshow keypress
+        // can get through immediately, we don't want it to queue up behind a bunch of timer events,
+        // which loaded a number of new images before the slideshow stops
+        int ms = QMAX( 200, _slideShowPause - timer.elapsed() );
+        _slideShowTimer->start( ms, true );
+    }
 }
 
 void Viewer::ViewerWidget::slotSlideShowFaster()
@@ -673,13 +728,13 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
 
 void Viewer::ViewerWidget::makeCategoryImage()
 {
-    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
+    CategoryImageConfig::instance()->setCurrentImage( _imageDisplay->currentViewAsThumbnail(), currentInfo() );
     CategoryImageConfig::instance()->show();
 }
 
 void Viewer::ViewerWidget::updateCategoryConfig()
 {
-    CategoryImageConfig::instance()->setCurrentImage( _display->currentViewAsThumbnail(), currentInfo() );
+    CategoryImageConfig::instance()->setCurrentImage( _imageDisplay->currentViewAsThumbnail(), currentInfo() );
 }
 
 
@@ -732,6 +787,13 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
         emit dirty();
     }
     QWidget::keyPressEvent( event );
+}
+
+void Viewer::ViewerWidget::videoStopped()
+{
+    qDebug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Video Stopped: %d", _isRunningSlideShow );
+    if ( _isRunningSlideShow )
+        slotSlideShowNext();
 }
 
 #include "ViewerWidget.moc"

@@ -23,7 +23,12 @@
 #include <qapplication.h>
 #include <qcursor.h>
 
-Viewer::ViewHandler::ViewHandler( DisplayArea* display )
+/**
+ * \class Viewer::ViewHandler
+ * \brief Mouse handler used during zooming and panning actions
+ */
+
+Viewer::ViewHandler::ViewHandler( ImageDisplay* display )
     :DisplayAreaHandler( display )
 {
 

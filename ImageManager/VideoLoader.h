@@ -1,34 +1,32 @@
-#ifndef VIDEO_MSNAPSHOT_H
-#define VIDEO_MSNAPSHOT_H
+#ifndef VIDEOLOADER_H
+#define VIDEOLOADER_H
 
 #include <kprocess.h>
 
-namespace ImageManager { class ImageRequest; }
-
-namespace Video
+namespace ImageManager
 {
-class MPlayer;
+class ImageRequest;
 
-class MSnapShot :public QObject
+class VideoLoader :QObject
 {
     Q_OBJECT
 
 public:
-    void load( ImageManager::ImageRequest* );
+    VideoLoader( ImageRequest* request );
+    void load( ImageRequest* );
 
 protected:
     QString tmpDir() const;
     void startNextLoad();
     bool tryLoadThumbnail( ImageManager::ImageRequest* );
     void sendAnswer( QImage image, ImageManager::ImageRequest* request );
+    QImage drawMovieClip( const QImage & );
 
 protected slots:
     void processDone();
 
 
 private:
-    friend class MPlayer;
-    MSnapShot();
     QValueList<ImageManager::ImageRequest*> _pendingRequest;
     ImageManager::ImageRequest* _current;
 
@@ -37,5 +35,6 @@ private:
 
 }
 
-#endif /* VIDEO_MSNAPSHOT_H */
+
+#endif /* VIDEOLOADER_H */
 

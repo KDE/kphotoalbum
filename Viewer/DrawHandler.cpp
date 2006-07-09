@@ -24,7 +24,15 @@
 #include "Viewer/LineDraw.h"
 #include "Viewer/RectDraw.h"
 #include "Viewer/CircleDraw.h"
-Viewer::DrawHandler::DrawHandler( DisplayArea* display )
+
+/**
+ * \class Viewer::DrawHandler
+ * \brief Mouse handler for drawing actions.
+ *
+ * This class implements the mouse actions when drawing on an image.
+ */
+
+Viewer::DrawHandler::DrawHandler( ImageDisplay* display )
     :DisplayAreaHandler( display ), _tool( None ), _activeTool( 0 )
 {
 

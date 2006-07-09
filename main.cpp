@@ -36,7 +36,7 @@ static const KCmdLineOptions options[] =
 };
 
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kphotoalbum", I18N_NOOP("KPhotoAlbum"), "2.2",
+    KAboutData aboutData( "kphotoalbum", I18N_NOOP("KPhotoAlbum"), "SVN",
                           I18N_NOOP("KDE Photo Album"), KAboutData::License_GPL,
                           0, 0, "http://www.kphotoalbum.org");
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );

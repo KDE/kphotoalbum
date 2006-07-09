@@ -24,7 +24,7 @@
 #include <qmutex.h>
 #include <qapplication.h>
 #include "Utilities/Util.h"
-#include "Video/Player.h"
+#include "VideoLoader.h"
 
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
 
@@ -56,36 +56,48 @@ void ImageManager::Manager::init()
 void ImageManager::Manager::load( ImageRequest* request )
 {
     if ( Utilities::isMovie( request->fileName() ) )
-        Video::Player::instance()->loadSnapshot( request );
+        loadVideo( request );
 
-    else {
-        QMutexLocker dummy( &_lock );
-        // PENDING(blackie) replace with ImageRequest::operator==
-        if ( _currentLoading && _currentLoading->fileName() == request->fileName() && _currentLoading->client() == request->client() &&
-             _currentLoading->width() == request->width() && _currentLoading->height() == request->height() ) {
-            return; // We are currently loading it, calm down and wait please ;-)
-        }
+    else
+        loadImage( request );
+}
 
-        // Delete other request for the same file from the same client
-        for( QValueList<ImageRequest*>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
-            if ( (*it)->fileName() == request->fileName() && (*it)->client() == request->client() &&
-                 (*it)->width() == request->width() && (*it)->height() == request->height()) {
-                return; // This image is already in the queue
-            }
-            else
-                ++it;
-        }
+void ImageManager::Manager::loadVideo( ImageRequest* request)
+{
+#ifdef TEMPORARILY_REMOVED
+    Video::Player::instance()->loadSnapshot( request );
+#endif
+    new VideoLoader( request );
+}
 
-        if ( request->priority() )
-            _loadList.prepend( request );
-        else
-            _loadList.append( request );
-
-        if ( request->client() )
-            _clientList.insert( request, (void*)0x01 /*something different from 0x0 */ );
-
-        _sleepers.wakeOne();
+void ImageManager::Manager::loadImage( ImageRequest* request )
+{
+    QMutexLocker dummy( &_lock );
+    // PENDING(blackie) replace with ImageRequest::operator==
+    if ( _currentLoading && _currentLoading->fileName() == request->fileName() && _currentLoading->client() == request->client() &&
+         _currentLoading->width() == request->width() && _currentLoading->height() == request->height() ) {
+        return; // We are currently loading it, calm down and wait please ;-)
     }
+
+    // Delete other request for the same file from the same client
+    for( QValueList<ImageRequest*>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
+        if ( (*it)->fileName() == request->fileName() && (*it)->client() == request->client() &&
+             (*it)->width() == request->width() && (*it)->height() == request->height()) {
+            return; // This image is already in the queue
+        }
+        else
+            ++it;
+    }
+
+    if ( request->priority() )
+        _loadList.prepend( request );
+    else
+        _loadList.append( request );
+
+    if ( request->client() )
+        _clientList.insert( request, (void*)0x01 /*something different from 0x0 */ );
+
+    _sleepers.wakeOne();
 }
 
 ImageManager::ImageRequest* ImageManager::Manager::next()

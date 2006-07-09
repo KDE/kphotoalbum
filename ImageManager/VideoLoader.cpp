@@ -1,4 +1,4 @@
-#include "MSnapShot.h"
+#include "VideoLoader.h"
 #include "ImageManager/ImageRequest.h"
 #include "ImageManager/ImageLoader.h"
 #include <qdir.h>
@@ -6,14 +6,17 @@
 #include <qimage.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include <qpainter.h>
+#include <kstandarddirs.h>
 
-Video::MSnapShot::MSnapShot()
-    : _current( 0 )
+ImageManager::VideoLoader::VideoLoader( ImageRequest* request ) : _current( 0 )
 {
+    load( request );
     connect( &_process, SIGNAL(processExited(KProcess *)), this, SLOT( processDone() ) );
 }
 
-void Video::MSnapShot::load( ImageManager::ImageRequest* request )
+
+void ImageManager::VideoLoader::load( ImageManager::ImageRequest* request )
 {
     if ( _current && *_current == *request )
         return; // We are currently loading it, calm down and wait please ;-)
@@ -34,12 +37,12 @@ void Video::MSnapShot::load( ImageManager::ImageRequest* request )
         startNextLoad();
 }
 
-QString Video::MSnapShot::tmpDir() const
+QString ImageManager::VideoLoader::tmpDir() const
 {
     return QString::fromLatin1( "/tmp/frameout" ); // PENDING(blackie) VIDEO do not hardcode
 }
 
-void Video::MSnapShot::processDone()
+void ImageManager::VideoLoader::processDone()
 {
     QDir dir( tmpDir() );
 
@@ -67,7 +70,7 @@ void Video::MSnapShot::processDone()
     startNextLoad();
 }
 
-void Video::MSnapShot::startNextLoad()
+void ImageManager::VideoLoader::startNextLoad()
 {
     if ( _pendingRequest.count() == 0 )
         return;
@@ -81,15 +84,11 @@ void Video::MSnapShot::startNextLoad()
              << QString::fromLatin1( "-frames" ) << QString::fromLatin1( "1" )
              << QString::fromLatin1( "-ao" ) << QString::fromLatin1( "null" )
              << _current->fileName();
-    qDebug( "%s", QString::fromLatin1("%1 %2 %3 %4 %5 %6 %7").arg(QString::fromLatin1( "mplayer" )).arg(QString::fromLatin1( "-vo" ))
-            .arg( QString::fromLatin1( "jpeg:outdir=%1" ).arg( tmpDir() ) )
-            .arg( QString::fromLatin1( "-frames" ) ).arg( QString::fromLatin1( "1" ) )
-            .arg( _current->fileName() ).latin1());
 
     _process.start();
 }
 
-bool Video::MSnapShot::tryLoadThumbnail( ImageManager::ImageRequest* request )
+bool ImageManager::VideoLoader::tryLoadThumbnail( ImageManager::ImageRequest* request )
 {
     bool ok;
     QImage image = ImageManager::ImageLoader::tryLoadThumbnail( request, ok );
@@ -102,14 +101,26 @@ bool Video::MSnapShot::tryLoadThumbnail( ImageManager::ImageRequest* request )
         return false;
 }
 
-void Video::MSnapShot::sendAnswer( QImage image, ImageManager::ImageRequest* request )
+void ImageManager::VideoLoader::sendAnswer( QImage image, ImageManager::ImageRequest* request )
 {
     QSize origSize = image.size();
 
     image = ImageManager::ImageLoader::rotateAndScale( image, request->width(), request->height(), request->angle() );
 
+    image = drawMovieClip( image );
     request->client()->pixmapLoaded( request->fileName(), QSize( request->width(), request->height() ), origSize,
                                       request->angle(), image, !image.isNull() );
 
 }
 
+QImage ImageManager::VideoLoader::drawMovieClip( const QImage & image)
+{
+    QPixmap pix( image );
+
+    QPainter painter( &pix );
+    QPixmap clip( locate("data", QString::fromLatin1("kphotoalbum/pics/movie-clip.png") ) );
+
+    painter.drawPixmap( image.width() - clip.width(), image.height() - clip.height(), clip );
+
+    return pix.convertToImage();
+}

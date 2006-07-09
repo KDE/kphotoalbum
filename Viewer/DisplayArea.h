@@ -28,6 +28,7 @@
 #include <qptrvector.h>
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfoPtr.h"
+#include "Display.h"
 
 namespace DB
 {
@@ -55,10 +56,10 @@ struct ViewPreloadInfo
     int angle;
 };
 
-class DisplayArea :public QWidget, public ImageManager::ImageClient {
+class ImageDisplay :public Viewer::Display, public ImageManager::ImageClient {
 Q_OBJECT
 public:
-    DisplayArea( QWidget* parent, const char* name = 0 );
+    ImageDisplay( QWidget* parent, const char* name = 0 );
     void startDrawing();
     void stopDrawing();
     void setImage( DB::ImageInfoPtr info, bool forward );
@@ -66,6 +67,7 @@ public:
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
     void setImageList( const QStringList& list );
+    virtual bool offersDrawOnImage() const { return true; }
 
 public slots:
     void toggleShowDrawings( bool );

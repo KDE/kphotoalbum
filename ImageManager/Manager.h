@@ -63,6 +63,8 @@ public:
 
 protected:
     virtual void customEvent( QCustomEvent* ev );
+    void loadVideo( ImageRequest* );
+    void loadImage( ImageRequest* );
 
 private:
     Manager();

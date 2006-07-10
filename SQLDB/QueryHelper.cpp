@@ -621,3 +621,22 @@ void QueryHelper::removeMediaItem(const QString& relativePath)
                      "WHERE dirId=(SELECT id FROM dir WHERE path=%s) "
                      "AND filename=%s", Bindings() << path << fn);
 }
+
+bool QueryHelper::containsMD5Sum(const QString& md5sum)
+{
+    return executeQuery("SELECT count(*) FROM media WHERE md5sum=%s",
+                        Bindings() << md5sum).firstItem().toInt();
+}
+
+QString QueryHelper::filenameForMD5Sum(const QString& md5sum)
+{
+    QValueList<QString[2]> rows =
+        executeQuery("SELECT dir.path, media.filename FROM dir, media "
+                     "WHERE dir.id=media.dirId AND media.md5sum=%s",
+                     Bindings() << md5sum).asString2List();
+    if (rows.count() == 0)
+        return QString::null;
+    else {
+        return makeFullName(rows[0][0], rows[0][1]);
+    }
+}

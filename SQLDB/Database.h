@@ -24,6 +24,7 @@ Boston, MA 02111-1307, USA.
 #include "DB/CategoryCollection.h"
 #include "DB/MD5Map.h"
 #include "SQLCategoryCollection.h"
+#include "SQLMD5Map.h"
 
 namespace SQLDB {
     class DatabaseHandler;
@@ -81,7 +82,7 @@ namespace SQLDB {
         DatabaseHandler* _dbhandler;
         SQLCategoryCollection _categoryCollection;
         DB::MemberMap _members;
-        DB::MD5Map _md5map;
+        SQLMD5Map _md5map;
     };
 }
 

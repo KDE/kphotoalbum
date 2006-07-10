@@ -103,6 +103,8 @@ public:
     void addBlockItems(const QStringList& relativePaths);
     bool isBlocked(const QString& relativePath);
     void removeMediaItem(const QString& relativePath);
+    bool containsMD5Sum(const QString& md5sum);
+    QString filenameForMD5Sum(const QString& md5sum);
 
 protected:
     KexiDB::Connection *_connection;

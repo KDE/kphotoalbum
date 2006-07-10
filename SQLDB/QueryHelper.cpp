@@ -35,7 +35,10 @@ QueryHelper::Result::Result(KexiDB::Cursor* cursor,
 
 QueryHelper::Result::~Result()
 {
-    destroy();
+    if (_cursor) {
+        _connection->deleteCursor(_cursor);
+        _cursor = 0;
+    }
 }
 
 KexiDB::Cursor* QueryHelper::Result::cursor()
@@ -45,22 +48,11 @@ KexiDB::Cursor* QueryHelper::Result::cursor()
     return tmp;
 }
 
-bool QueryHelper::Result::destroy()
-{
-    if (_cursor) {
-        _connection->deleteCursor(_cursor);
-        _cursor = 0;
-        return true;
-    }
-    return false;
-}
-
 QStringList QueryHelper::Result::asStringList()
 {
     QStringList r;
     if (_cursor) {
         r = readStringsFromCursor(*_cursor);
-        destroy();
     }
     return r;
 }
@@ -70,7 +62,6 @@ QValueList<QString[2]> QueryHelper::Result::asString2List()
     QValueList<QString[2]> r;
     if (_cursor) {
         r = readString2sFromCursor(*_cursor);
-        destroy();
     }
     return r;
 }
@@ -80,7 +71,6 @@ QValueList<QString[3]> QueryHelper::Result::asString3List()
     QValueList<QString[3]> r;
     if (_cursor) {
         r = readString3sFromCursor(*_cursor);
-        destroy();
     }
     return r;
 }
@@ -90,7 +80,6 @@ QValueList<int> QueryHelper::Result::asIntegerList()
     QValueList<int> r;
     if (_cursor) {
         r = readIntsFromCursor(*_cursor);
-        destroy();
     }
     return r;
 }
@@ -102,7 +91,6 @@ QVariant QueryHelper::Result::firstItem()
         _cursor->moveFirst();
         if (!_cursor->eof())
              r = _cursor->value(0);
-        destroy();
     }
     return r;
 }

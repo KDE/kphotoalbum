@@ -55,7 +55,6 @@ public:
     public:
         Result(KexiDB::Cursor* cursor, KexiDB::Connection* connection);
         ~Result();
-        bool destroy();
         QStringList asStringList();
         QValueList<QString[2]> asString2List();
         QValueList<QString[3]> asString3List();

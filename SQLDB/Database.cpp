@@ -45,7 +45,7 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
     QString rangeCond = "";
     bool all = (searchInfo.query().count() == 0);
     if (!all) {
-        QValueList<int> mediaIds = filesMatchingQuery(searchInfo);
+        QValueList<int> mediaIds = searchMediaItems(searchInfo);
         if (mediaIds.count() > 0) {
             rangeCond = " AND id IN (%s)";
             bindings << toVariantList(mediaIds);
@@ -66,7 +66,7 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    QValueList<int> matches = filesMatchingQuery( info );
+    QValueList<int> matches = searchMediaItems(info);
     QStringList result;
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
         QString fullPath = QueryHelper::instance()->filenameForId(*it, true);

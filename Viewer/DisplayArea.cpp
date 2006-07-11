@@ -97,8 +97,8 @@
    images are viewed in, which is the job of the instance variable _forward.
 */
 
-Viewer::DisplayArea::DisplayArea( QWidget* parent, const char* name )
-    :QWidget( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
+Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
+    :Display( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
 {
     setBackgroundMode( NoBackground );
 
@@ -114,7 +114,7 @@ Viewer::DisplayArea::DisplayArea( QWidget* parent, const char* name )
     connect( _drawHandler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
 }
 
-void Viewer::DisplayArea::mousePressEvent( QMouseEvent* event )
+void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio;
@@ -125,7 +125,7 @@ void Viewer::DisplayArea::mousePressEvent( QMouseEvent* event )
     update();
 }
 
-void Viewer::DisplayArea::mouseMoveEvent( QMouseEvent* event )
+void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio;
@@ -136,7 +136,7 @@ void Viewer::DisplayArea::mouseMoveEvent( QMouseEvent* event )
     update();
 }
 
-void Viewer::DisplayArea::mouseReleaseEvent( QMouseEvent* event )
+void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
 {
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
@@ -150,7 +150,7 @@ void Viewer::DisplayArea::mouseReleaseEvent( QMouseEvent* event )
     drawAll();
 }
 
-void Viewer::DisplayArea::drawAll()
+void Viewer::ImageDisplay::drawAll()
 {
     if ( _croppedAndScaledImg.isNull() )
         return;
@@ -166,25 +166,25 @@ void Viewer::DisplayArea::drawAll()
     repaint();
 }
 
-void Viewer::DisplayArea::startDrawing()
+void Viewer::ImageDisplay::startDrawing()
 {
     _currentHandler = _drawHandler;
 }
 
-void Viewer::DisplayArea::stopDrawing()
+void Viewer::ImageDisplay::stopDrawing()
 {
     _drawHandler->stopDrawing();
     _currentHandler = _viewHandler;
     drawAll();
 }
 
-void Viewer::DisplayArea::toggleShowDrawings( bool b )
+void Viewer::ImageDisplay::toggleShowDrawings( bool b )
 {
     Settings::SettingsData::instance()->setShowDrawings( b );
     drawAll();
 }
 
-void Viewer::DisplayArea::setImage( DB::ImageInfoPtr info, bool forward )
+void Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 {
     _info = info;
     _loadedImage = QImage();
@@ -216,7 +216,7 @@ void Viewer::DisplayArea::setImage( DB::ImageInfoPtr info, bool forward )
     updatePreload();
 }
 
-void Viewer::DisplayArea::resizeEvent( QResizeEvent* )
+void Viewer::ImageDisplay::resizeEvent( QResizeEvent* )
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::Manager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
@@ -231,12 +231,12 @@ void Viewer::DisplayArea::resizeEvent( QResizeEvent* )
     updatePreload();
 }
 
-Viewer::DrawHandler* Viewer::DisplayArea::drawHandler()
+Viewer::DrawHandler* Viewer::ImageDisplay::drawHandler()
 {
     return _drawHandler;
 }
 
-QPainter* Viewer::DisplayArea::painter()
+QPainter* Viewer::ImageDisplay::painter()
 {
     _viewPixmap = _drawingPixmap;
     QPainter* p = new QPainter( &_viewPixmap );
@@ -244,7 +244,7 @@ QPainter* Viewer::DisplayArea::painter()
     return p;
 }
 
-void Viewer::DisplayArea::paintEvent( QPaintEvent* )
+void Viewer::ImageDisplay::paintEvent( QPaintEvent* )
 {
     int x = ( width() - _viewPixmap.width() ) / 2;
     int y = ( height() - _viewPixmap.height() ) / 2;
@@ -256,7 +256,7 @@ void Viewer::DisplayArea::paintEvent( QPaintEvent* )
     p.fillRect( width()-x, 0, width()-x, height(), black ); // right
 }
 
-QPoint Viewer::DisplayArea::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
+QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
 {
     double rat = ((double)physicalWidth)/logicalWidth;
 
@@ -273,7 +273,7 @@ QPoint Viewer::DisplayArea::offset( int logicalWidth, int logicalHeight, int phy
 
 
 
-void Viewer::DisplayArea::zoom( QPoint p1, QPoint p2 )
+void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 {
     _cache.remove( _curIndex );
     normalize( p1, p2 );
@@ -328,7 +328,7 @@ void Viewer::DisplayArea::zoom( QPoint p1, QPoint p2 )
         cropAndScale();
 }
 
-QPoint Viewer::DisplayArea::mapPos( QPoint p )
+QPoint Viewer::ImageDisplay::mapPos( QPoint p )
 {
     QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
     p -= off;
@@ -339,7 +339,7 @@ QPoint Viewer::DisplayArea::mapPos( QPoint p )
 
 }
 
-void Viewer::DisplayArea::xformPainter( QPainter* p )
+void Viewer::ImageDisplay::xformPainter( QPainter* p )
 {
     QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
     double s = (width()-2*off.x())/QABS( (double)_zEnd.x()-_zStart.x());
@@ -347,7 +347,7 @@ void Viewer::DisplayArea::xformPainter( QPainter* p )
     p->translate( -_zStart.x(), -_zStart.y() );
 }
 
-void Viewer::DisplayArea::zoomIn()
+void Viewer::ImageDisplay::zoomIn()
 {
     QPoint size = (_zEnd-_zStart);
     QPoint p1 = _zStart + size*(0.2/2);
@@ -355,7 +355,7 @@ void Viewer::DisplayArea::zoomIn()
     zoom(p1, p2);
 }
 
-void Viewer::DisplayArea::zoomOut()
+void Viewer::ImageDisplay::zoomOut()
 {
     if ( _zStart == QPoint(0,0) && _zEnd == QPoint( _loadedImage.width(), _loadedImage.height() ) )
         return; // Bail out if we have zoomed all the way out, to avoid spending time in scaling
@@ -366,14 +366,14 @@ void Viewer::DisplayArea::zoomOut()
     zoom(p1,p2);
 }
 
-void Viewer::DisplayArea::zoomFull()
+void Viewer::ImageDisplay::zoomFull()
 {
     if ( !_cachedView ) // Cached views are always full views
         zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
 }
 
 
-void Viewer::DisplayArea::normalize( QPoint& p1, QPoint& p2 )
+void Viewer::ImageDisplay::normalize( QPoint& p1, QPoint& p2 )
 {
     int minx = QMIN( p1.x(), p2.x() );
     int miny = QMIN( p1.y(), p2.y() );
@@ -383,7 +383,7 @@ void Viewer::DisplayArea::normalize( QPoint& p1, QPoint& p2 )
     p2 = QPoint( maxx, maxy );
 }
 
-void Viewer::DisplayArea::pan( const QPoint& point )
+void Viewer::ImageDisplay::pan( const QPoint& point )
 {
     if ( _cachedView )
         return; // Cached views are always full screen, so no panning is available.
@@ -406,7 +406,7 @@ void Viewer::DisplayArea::pan( const QPoint& point )
     cropAndScale();
 }
 
-void Viewer::DisplayArea::cropAndScale()
+void Viewer::ImageDisplay::cropAndScale()
 {
     ViewPreloadInfo* info = _cache[_curIndex];
 
@@ -433,12 +433,12 @@ void Viewer::DisplayArea::cropAndScale()
     drawAll();
 }
 
-void Viewer::DisplayArea::doShowDrawings()
+void Viewer::ImageDisplay::doShowDrawings()
 {
     Settings::SettingsData::instance()->setShowDrawings( true );
 }
 
-QImage Viewer::DisplayArea::currentViewAsThumbnail() const
+QImage Viewer::ImageDisplay::currentViewAsThumbnail() const
 {
     if ( _croppedAndScaledImg.isNull() )
         return QImage();
@@ -446,7 +446,7 @@ QImage Viewer::DisplayArea::currentViewAsThumbnail() const
         return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
 }
 
-void Viewer::DisplayArea::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
+void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
 {
     if ( loadedOK && fileName == _info->fileName() ) {
         _loadedImage = img;
@@ -474,13 +474,13 @@ void Viewer::DisplayArea::pixmapLoaded( const QString& fileName, const QSize& im
     emit possibleChange();
 }
 
-void Viewer::DisplayArea::setImageList( const QStringList& list )
+void Viewer::ImageDisplay::setImageList( const QStringList& list )
 {
     _imageList = list;
     _cache.fill( 0, list.count() );
 }
 
-void Viewer::DisplayArea::updatePreload()
+void Viewer::ImageDisplay::updatePreload()
 {
     uint cacheSize = ( Settings::SettingsData::instance()->viewerCacheSize() * 1024 * 1024 ) / (width()*height()*4);
     bool cacheFull = (_cache.count() > cacheSize);
@@ -542,7 +542,7 @@ void Viewer::DisplayArea::updatePreload()
 }
 
 
-int Viewer::DisplayArea::indexOf( const QString& fileName )
+int Viewer::ImageDisplay::indexOf( const QString& fileName )
 {
     int i = 0;
     for( QStringList::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it ) {
@@ -553,14 +553,14 @@ int Viewer::DisplayArea::indexOf( const QString& fileName )
     return i;
 }
 
-void Viewer::DisplayArea::busy()
+void Viewer::ImageDisplay::busy()
 {
     if ( !_busy )
         qApp->setOverrideCursor( Qt::WaitCursor );
     _busy = true;
 }
 
-void Viewer::DisplayArea::unbusy()
+void Viewer::ImageDisplay::unbusy()
 {
     if ( _busy )
         qApp->restoreOverrideCursor();

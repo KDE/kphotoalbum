@@ -16,28 +16,42 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef VIEWHANDLER_H
-#define VIEWHANDLER_H
-#include "Viewer/DisplayAreaHandler.h"
-#include <qpoint.h>
+#ifndef VIEWER_VIDEODISPLAY_H
+#define VIEWER_VIDEODISPLAY_H
+
+#include "Display.h"
+#include <kparts/componentfactory.h>
+class QTimer;
+class QHBoxLayout;
 
 namespace Viewer
 {
 
-class ViewHandler :public DisplayAreaHandler {
+class VideoDisplay :public Viewer::Display
+{
+    Q_OBJECT
 
 public:
-    ViewHandler( ImageDisplay* display );
-    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    VideoDisplay( QWidget* parent );
+    virtual void setImage( DB::ImageInfoPtr info, bool forward );
+
+signals:
+    void stopped();
+
+protected slots:
+    void stateChanged( int );
+    // void checkState();
+
+
 private:
-    bool _scale, _pan;
-    QPoint _start, _last;
-    double _errorX, _errorY;
+    QHBoxLayout* _layout;
+    KParts::ReadOnlyPart* _playerPart;
+#ifdef TEMPORARILY_REMOVED
+    QTimer* _timer;
+#endif
 };
 
 }
 
-#endif /* VIEWHANDLER_H */
+#endif /* VIEWER_VIDEODISPLAY_H */
 

@@ -25,16 +25,26 @@ class QMouseEvent;
 namespace Viewer
 {
 
+/**
+ * \brief Mouse event handler for Viewer.
+ *
+ * Mouse actions in the viewer depends on the current actions, which is
+ * either drawing on an image or not. In the "not" case the mouse actions
+ * means zoom or scroll.
+ *
+ * To separate the code for the two separate cases, this class is an
+ * interface each case needs to implement for mouse handling.
+ */
 class DisplayAreaHandler :public QObject
 {
 public:
-    DisplayAreaHandler( DisplayArea* display ) : QObject( display, "display handler" ), _display( display ) {}
+    DisplayAreaHandler( ImageDisplay* display ) : QObject( display, "display handler" ), _display( display ) {}
     virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
     virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
     virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
 
 protected:
-    DisplayArea* _display;
+    ImageDisplay* _display;
 };
 
 }

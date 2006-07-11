@@ -152,6 +152,7 @@ protected:
     QStringList selectedOnDisk();
     void possibleRunSuvey();
     void setupPluginMenu();
+    void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
 
 private:
     static Window* _instance;

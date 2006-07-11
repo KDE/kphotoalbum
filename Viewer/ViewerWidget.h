@@ -26,6 +26,7 @@
 #include <qimage.h>
 #include "DB/ImageInfoList.h"
 
+class QWidgetStack;
 class QLabel;
 class QPopupMenu;
 class KAction;
@@ -36,7 +37,9 @@ namespace MainWindow { class ExternalPopup; }
 
 namespace Viewer
 {
-class DisplayArea;
+class VideoDisplay;
+class ImageDisplay;
+class Display;
 class SpeedDisplay;
 class InfoBox;
 
@@ -108,6 +111,7 @@ protected slots:
     void slotSetWallpaperS();
     void slotSetWallpaperCAF();
     void populateExternalPopup();
+    void videoStopped();
 
 
 private:
@@ -121,7 +125,11 @@ private:
     KAction* _slideShowRunFaster;
     KAction* _slideShowRunSlower;
 
-    DisplayArea* _display;
+    QWidgetStack* _stack;
+    Display* _display;
+    ImageDisplay* _imageDisplay;
+    VideoDisplay* _videoDisplay;
+
     QStringList _list;
     int _current;
     QRect _textRect;
@@ -142,12 +150,13 @@ private:
 
     bool _showingFullScreen;
 
-    QTimer* _slideShowTimer;
     int _slideShowPause;
     SpeedDisplay* _speedDisplay;
     KActionCollection* _actions;
     bool _sized;
     bool _forward;
+    QTimer* _slideShowTimer;
+    bool _isRunningSlideShow;
 };
 
 }

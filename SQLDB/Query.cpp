@@ -145,8 +145,10 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
 
     QString select = "SELECT id FROM media";
     QStringList condList = positiveQuery + negativeQuery;
-    condList.prepend("media.type&%s!=0");
-    binds.prepend(typemask);
+    if (typemask != DB::anyMediaType) {
+        condList.prepend("media.type&%s!=0");
+        binds.prepend(typemask);
+    }
     QString cond = condList.join(" AND ");
 
     QString query = select;

@@ -46,7 +46,9 @@ namespace SQLDB {
 
         virtual void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString,int> classify( const DB::ImageSearchInfo& info, const QString &group, int type );
+        virtual QMap<QString,int> classify(const DB::ImageSearchInfo& info,
+                                           const QString& category,
+                                           int typemask);
         virtual QStringList images();
         virtual void addImages( const DB::ImageInfoList& images );
 

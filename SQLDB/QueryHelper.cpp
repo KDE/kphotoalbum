@@ -357,10 +357,10 @@ QValueList<int> QueryHelper::allMediaItemIds()
     return executeQuery("SELECT id FROM media").asIntegerList();
 }
 
-QValueList<int> QueryHelper::allMediaItemIdsOfType(DB::MediaType type)
+QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
 {
-    return executeQuery("SELECT id FROM media WHERE type=%s",
-                        Bindings() << type).asIntegerList();
+    return executeQuery("SELECT id FROM media WHERE type&%s!=0",
+                        Bindings() << typemask).asIntegerList();
 }
 
 bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)

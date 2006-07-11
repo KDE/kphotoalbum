@@ -13,8 +13,7 @@ typedef QValueList<MathcerList> MathcerListList;
 namespace
 {
 QValueList<int> getMatchingFiles(MathcerList matches,
-                                 DB::MediaType type=DB::Image,
-                                 bool useType=false);
+                                 int typemask=DB::anyMediaType);
 
 QValueList<int> mergeUniqly(const QValueList<int>& l1,
                             const QValueList<int>& l2);
@@ -37,19 +36,19 @@ QValueList<int> SQLDB::filesMatchingQuery( const DB::ImageSearchInfo& info )
     return result;
 }
 
-QValueList<int> SQLDB::searchFilesOfType(DB::MediaType type,
-                                         const DB::ImageSearchInfo& search)
+QValueList<int> SQLDB::searchMediaItems(const DB::ImageSearchInfo& search,
+                                        int typemask)
 {
     MathcerListList dnf = search.query();
     // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
 
     if (dnf.count() == 0) {
-        return QueryHelper::instance()->allMediaItemIdsOfType(type);
+        return QueryHelper::instance()->allMediaItemIdsByType(typemask);
     }
 
     QValueList<int> r;
     for(MathcerListList::const_iterator i = dnf.begin(); i != dnf.end(); ++i) {
-        r = mergeUniqly(r, getMatchingFiles(*i, type, true));
+        r = mergeUniqly(r, getMatchingFiles(*i, typemask));
     }
 
     return r;
@@ -68,8 +67,7 @@ namespace
 {
 using namespace SQLDB;
 
-QValueList<int> getMatchingFiles(MathcerList matches,
-                                 DB::MediaType type, bool useType)
+QValueList<int> getMatchingFiles(MathcerList matches, int typemask)
 {
     MathcerList possitiveList;
     MathcerList negativeList;
@@ -169,10 +167,8 @@ QValueList<int> getMatchingFiles(MathcerList matches,
 
     QString select = "SELECT id FROM media";
     QStringList condList = positiveQuery + negativeQuery;
-    if (useType) {
-        condList.prepend("media.type=%s");
-        binds.prepend(type);
-    }
+    condList.prepend("media.type&%s!=0");
+    binds.prepend(typemask);
     QString cond = condList.join(" AND ");
 
     QString query = select;

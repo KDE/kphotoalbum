@@ -32,11 +32,11 @@ int SQLDB::Database::totalCount() const
         executeQuery("SELECT COUNT(*) FROM media").firstItem().toInt();
 }
 
-int SQLDB::Database::totalCount(int type) const
+int SQLDB::Database::totalCount(int typemask) const
 {
     return QueryHelper::instance()->
-        executeQuery("SELECT COUNT(*) FROM media WHERE type=%s",
-                     QueryHelper::Bindings() << type).firstItem().toInt();
+        executeQuery("SELECT COUNT(*) FROM media WHERE type&%s!=0",
+                     QueryHelper::Bindings() << typemask).firstItem().toInt();
 }
 
 DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
@@ -86,13 +86,12 @@ void SQLDB::Database::renameCategory( const QString& oldName, const QString newN
 
 QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
                                             const QString& category,
-                                            int type)
+                                            int typemask)
 {
     bool allFiles = true;
     QValueList<int> includedFiles;
     if ( !info.isNull() ) {
-        includedFiles = searchFilesOfType(static_cast<DB::MediaType>(type),
-                                          info);
+        includedFiles = searchMediaItems(info, typemask);
         allFiles = false;
     }
 
@@ -104,8 +103,8 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     if (category == "Folder")
         c = QueryHelper::instance()->
             executeQuery("SELECT media.id, dir.path FROM media, dir "
-                         "WHERE media.dirId=dir.id AND media.type=%s",
-                         QueryHelper::Bindings() << type).cursor();
+                         "WHERE media.dirId=dir.id AND media.type&%s!=0",
+                         QueryHelper::Bindings() << typemask).cursor();
     else
         c = QueryHelper::instance()->
             executeQuery("SELECT media.id, tag.name "
@@ -113,8 +112,8 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
                          "WHERE media.id=media_tag.mediaId AND "
                          "media_tag.tagId=tag.id AND "
                          "tag.categoryId=category.id AND "
-                         "media.type=%s AND category.name=%s",
-                         QueryHelper::Bindings() << type << category).cursor();
+                         "media.type&%s!=0 AND category.name=%s",
+                         QueryHelper::Bindings() << typemask << category).cursor();
     if (!c) {
         // TODO: error handling
         Q_ASSERT(false);
@@ -133,7 +132,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
 
     // Count images that doesn't contain an item
     if ( allFiles )
-        result[DB::ImageDB::NONE()] = totalCount(type) - itemMap.count();
+        result[DB::ImageDB::NONE()] = totalCount(typemask) - itemMap.count();
     else
         result[DB::ImageDB::NONE()] = includedFiles.count() - itemMap.count();
 

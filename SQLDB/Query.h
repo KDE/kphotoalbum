@@ -32,8 +32,8 @@ namespace DB
 
 namespace SQLDB {
     QValueList<int> filesMatchingQuery( const DB::ImageSearchInfo& info );
-    QValueList<int> searchFilesOfType(DB::MediaType type,
-                                      const DB::ImageSearchInfo& search);
+    QValueList<int> searchMediaItems(const DB::ImageSearchInfo& search,
+                                     int typemask=DB::anyMediaType);
     QValueList<int> runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> );
     void split( const QValueList<DB::OptionSimpleMatcher*>& input,
                 QValueList<DB::OptionSimpleMatcher*>& positiveList,

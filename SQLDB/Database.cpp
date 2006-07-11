@@ -34,6 +34,9 @@ int SQLDB::Database::totalCount() const
 
 int SQLDB::Database::totalCount(int typemask) const
 {
+    if (typemask == DB::anyMediaType)
+        return totalCount();
+
     return QueryHelper::instance()->
         executeQuery("SELECT COUNT(*) FROM media WHERE type&%s!=0",
                      QueryHelper::Bindings() << typemask).firstItem().toInt();

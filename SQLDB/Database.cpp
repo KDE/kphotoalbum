@@ -296,18 +296,18 @@ void SQLDB::Database::reorder( const QString& /*item*/, const QStringList& /*cut
 
 void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )
 {
-    qDebug("NYI: SQLDB::Database::cutToClipboard");
+    // Not used yet anywhere, so not implemented either. ;)
 }
 
 QStringList SQLDB::Database::pasteFromCliboard( const QString& /*afterFile*/ )
 {
-    qDebug("NYI: SQLDB::Database::pasteFromCliboard");
+    // Not implemented.
     return QStringList();
 }
 
 bool SQLDB::Database::isClipboardEmpty()
 {
-    qDebug("NYI: SQLDB::Database::isClipboardEmpty");
+    // Not implemented.
     return true;
 }
 

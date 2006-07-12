@@ -55,26 +55,27 @@ DatabaseHandler* DatabaseHandler::getMySQLHandler(const QString& username,
                                                   const QString& password,
                                                   const QString& hostname)
 {
-    KexiDB::Driver* driver = _driverManager->driver("MySQL");
-    if (!driver) {
-        // TODO: error handling (get from manager)
-        exitError(i18n("Kexi driver not found."));
-    }
-
     KexiDB::ConnectionData connectionData;
     connectionData.userName = username;
     connectionData.password = password;
     if (!hostname.isNull())
         connectionData.hostName = hostname;
 
-    return new DatabaseHandler(driver, connectionData);
+    return new DatabaseHandler("MySQL", connectionData);
 }
 
-DatabaseHandler::DatabaseHandler(KexiDB::Driver* driver,
+DatabaseHandler::DatabaseHandler(const QString& driverName,
                                  const KexiDB::ConnectionData& connectionData):
-    _driver(driver),
+    _driverName(driverName),
+    _driver(0),
     _connectionData(connectionData)
 {
+    _driver = _driverManager->driver(_driverName);
+    if (!_driver) {
+        // TODO: error handling (get from manager)
+        exitError(i18n("Kexi driver not found."));
+    }
+
     _connection = _driver->createConnection(_connectionData);
     if (!_connection || _driver->error()) {
         // TODO: error handling (get from driver)
@@ -126,17 +127,19 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         // TODO: error handling
         exitError(QString("Cannot use db %1").arg(name));
     }
-    // TODO: use transaction
-//     bool useTransactions = driver->transactionsSupported();
-//     KexiDB::Transaction t;
-//     if (useTransactions) {
-//         _connection->setAutoCommit(false);
-//         t = _connection->beginTransaction();
-//         if (_connection->error()) {
-//             qDebug("transaction failed: %s",
-//                    _connection->errorMsg().latin1());
-//         }
-//     }
+
+    bool useTransactions = _driver->transactionsSupported();
+    KexiDB::Transaction transaction;
+    if (useTransactions) {
+        _connection->setAutoCommit(false);
+        qDebug("beginTransaction");
+        transaction = _connection->beginTransaction();
+        if (_connection->error()) {
+            // TODO: error handling
+            qDebug("transaction failed: %s",
+                   _connection->errorMsg().latin1());
+        }
+    }
 
     KexiDB::Field* f;
     KexiDB::TableSchema* schema;
@@ -229,20 +232,39 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     f = new KexiDB::Field("width", KexiDB::Field::Integer,
                           Field::NoConstraints,
                           Field::Unsigned);
-    f->setCaption("type");
+    f->setCaption("width");
     schema->addField(f);
 
     f = new KexiDB::Field("height", KexiDB::Field::Integer,
                           Field::NoConstraints,
                           Field::Unsigned);
-    f->setCaption("type");
+    f->setCaption("height");
     schema->addField(f);
 
     f = new KexiDB::Field("angle", KexiDB::Field::ShortInteger);
-    f->setCaption("type");
+    f->setCaption("angle");
     schema->addField(f);
 
-    if (!_connection->createTable(schema)) {
+    // KexiDB PostgreSQL driver has a bug, which prevents creating
+    // table with DateTime fields with createTable, so use plain SQL
+    // instead.
+    if (_driverName == "PostgreSQL") {
+        _connection->executeSQL("CREATE TABLE media ("
+                                "id SERIAL PRIMARY KEY, "
+                                "place BIGINT, "
+                                "dirid INTEGER NOT NULL, "
+                                "filename CHARACTER VARYING(255) NOT NULL, "
+                                "md5sum CHARACTER VARYING(32), "
+                                "type SMALLINT NOT NULL, "
+                                "label CHARACTER VARYING(255), "
+                                "description TEXT, "
+                                "starttime TIMESTAMP, "
+                                "endtime TIMESTAMP, "
+                                "width INTEGER, "
+                                "height INTEGER, "
+                                "angle SMALLINT)");
+    }
+    else if (!_connection->createTable(schema)) {
         qDebug("creating media table failed: %s",
                _connection->errorMsg().latin1());
         delete schema;
@@ -437,11 +459,12 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         delete schema;
     }
 
-//     if (useTransactions) {
-//         _connection->setAutoCommit(false);
-//         if (!_connection->commitTransaction(t)) {
-//             qDebug("transaction commit failed: %s",
-//                    _connection->errorMsg().latin1());
-//         }
-//     }
+    if (useTransactions) {
+        _connection->setAutoCommit(false);
+        qDebug("commitTransaction");
+        if (!_connection->commitTransaction(transaction)) {
+            qDebug("transaction commit failed: %s",
+                   _connection->errorMsg().latin1());
+        }
+    }
 }

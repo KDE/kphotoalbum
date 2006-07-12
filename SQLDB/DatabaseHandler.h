@@ -39,12 +39,14 @@ namespace SQLDB
         ~DatabaseHandler();
 
     protected:
-        DatabaseHandler(KexiDB::Driver* driver,
+        DatabaseHandler(const QString& driverName,
                         const KexiDB::ConnectionData& connectionData);
         void createAndOpenDatabase(const QString& name);
 
     private:
         static KexiDB::DriverManager* _driverManager;
+
+        QString _driverName;
         KexiDB::Driver* _driver;
         KexiDB::ConnectionData _connectionData;
         KexiDB::Connection* _connection;

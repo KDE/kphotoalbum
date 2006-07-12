@@ -103,6 +103,7 @@ void DatabaseHandler::openDatabase(const QString& name)
 {
     if (!_connection->databaseExists(name)) {
         createAndOpenDatabase(name);
+        insertInitialData();
     }
     else {
         if (!_connection->useDatabase(name)) {
@@ -467,4 +468,14 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
                    _connection->errorMsg().latin1());
         }
     }
+}
+
+void DatabaseHandler::insertInitialData()
+{
+    _connection->executeSQL("INSERT INTO category "
+                            "(name, icon, visible, viewtype, viewsize) "
+                            "VALUES "
+                            "('Keywords', 'password', 1, 1, 1), "
+                            "('Locations', 'network', 1, 0, 0), "
+                            "('Persons', 'personal', 1, 0, 0)");
 }

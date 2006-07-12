@@ -42,6 +42,7 @@ namespace SQLDB
         DatabaseHandler(const QString& driverName,
                         const KexiDB::ConnectionData& connectionData);
         void createAndOpenDatabase(const QString& name);
+        void insertInitialData();
 
     private:
         static KexiDB::DriverManager* _driverManager;

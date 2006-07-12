@@ -193,7 +193,12 @@ void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 
 void SQLDB::Database::addToBlockList(const QStringList& list)
 {
-    QueryHelper::instance()->addBlockItems(list);
+    QStringList relativePaths = list;
+    for (QStringList::iterator i = relativePaths.begin();
+         i != relativePaths.end(); ++i) {
+        *i = Utilities::stripImageDirectory(*i);
+    }
+    QueryHelper::instance()->addBlockItems(relativePaths);
     deleteList(list);
 }
 

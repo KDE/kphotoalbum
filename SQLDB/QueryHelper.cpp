@@ -591,9 +591,13 @@ void QueryHelper::removeMediaItem(const QString& relativePath)
     QString path;
     QString fn;
     splitPath(relativePath, path, fn);
-    executeStatement("DELETE FROM media "
-                     "WHERE dirId=(SELECT id FROM dir WHERE path=%s) "
-                     "AND filename=%s", Bindings() << path << fn);
+    int id = executeQuery("SELECT id FROM media "
+                          "WHERE dirId=(SELECT id FROM dir WHERE path=%s) AND "
+                          "filename=%s",
+                          Bindings() << path << fn).firstItem().asInt();
+    executeStatement("DELETE FROM media_tag WHERE mediaId=%s",
+                     Bindings() << id);
+    executeStatement("DELETE FROM media WHERE id=%s", Bindings() << id);
 }
 
 bool QueryHelper::containsMD5Sum(const QString& md5sum)

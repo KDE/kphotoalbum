@@ -104,6 +104,8 @@ public:
     void removeMediaItem(const QString& relativePath);
     bool containsMD5Sum(const QString& md5sum);
     QString filenameForMD5Sum(const QString& md5sum);
+    QValueList< QPair<int, QString> >
+    getMediaIdTagPairs(const QString& category, int typemask);
 
 protected:
     KexiDB::Connection *_connection;

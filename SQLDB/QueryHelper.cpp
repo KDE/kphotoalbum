@@ -614,3 +614,21 @@ QString QueryHelper::filenameForMD5Sum(const QString& md5sum)
         return makeFullName(rows[0][0], rows[0][1]);
     }
 }
+
+QValueList< QPair<int, QString> >
+QueryHelper::getMediaIdTagPairs(const QString& category, int typemask)
+{
+    if (category == "Folder")
+        return executeQuery("SELECT media.id, dir.path FROM media, dir "
+                            "WHERE media.dirId=dir.id AND media.type&%s!=0",
+                            Bindings() << typemask).asIntegerStringPairs();
+    else
+        return executeQuery("SELECT media.id, tag.name "
+                            "FROM media, media_tag, tag, category "
+                            "WHERE media.id=media_tag.mediaId AND "
+                            "media_tag.tagId=tag.id AND "
+                            "tag.categoryId=category.id AND "
+                            "media.type&%s!=0 AND category.name=%s",
+                            Bindings() << typemask << category
+                            ).asIntegerStringPairs();
+}

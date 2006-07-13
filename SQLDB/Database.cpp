@@ -106,23 +106,8 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     DB::GroupCounter counter( category );
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
-    QValueList< QPair<int, QString> > mediaIdTagPairs;
-    if (category == "Folder")
-        mediaIdTagPairs = QueryHelper::instance()->
-            executeQuery("SELECT media.id, dir.path FROM media, dir "
-                         "WHERE media.dirId=dir.id AND media.type&%s!=0",
-                         QueryHelper::Bindings() <<
-                         typemask).asIntegerStringPairs();
-    else
-        mediaIdTagPairs = QueryHelper::instance()->
-            executeQuery("SELECT media.id, tag.name "
-                         "FROM media, media_tag, tag, category "
-                         "WHERE media.id=media_tag.mediaId AND "
-                         "media_tag.tagId=tag.id AND "
-                         "tag.categoryId=category.id AND "
-                         "media.type&%s!=0 AND category.name=%s",
-                         QueryHelper::Bindings() << typemask <<
-                         category).asIntegerStringPairs();
+    QValueList< QPair<int, QString> > mediaIdTagPairs =
+        QueryHelper::instance()->getMediaIdTagPairs(category, typemask);
 
     QMap<int,QStringList> itemMap;
     for (QValueList< QPair<int, QString> >::const_iterator
@@ -138,7 +123,6 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         result[DB::ImageDB::NONE()] = totalCount(typemask) - itemMap.count();
     else
         result[DB::ImageDB::NONE()] = includedFiles.count() - itemMap.count();
-
 
     for( QMap<int,QStringList>::Iterator mapIt = itemMap.begin(); mapIt != itemMap.end(); ++mapIt ) {
         QStringList list = mapIt.data();

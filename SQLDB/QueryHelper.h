@@ -53,29 +53,29 @@ public:
     class Result
     {
     public:
-        Result(KexiDB::Cursor* cursor, KexiDB::Connection* connection);
+        Result(KexiDB::Cursor* cursor);
         ~Result();
         QStringList asStringList();
         QValueList<QString[2]> asString2List();
         QValueList<QString[3]> asString3List();
         QValueList<int> asIntegerList();
         QVariant firstItem();
+        QValueList<QVariant> getRow(size_t n=0);
+
+        // TODO: make private
         KexiDB::Cursor* cursor(); // caller frees
 
     private:
         KexiDB::Cursor* _cursor;
-        KexiDB::Connection* _connection;
     };
 
-    static void setup(KexiDB::Connection* connection);
+    static void setup(KexiDB::Connection& connection);
     static QueryHelper* instance();
 
-    bool executeStatement(const QString& statement,
+    void executeStatement(const QString& statement,
                           const Bindings& bindings=Bindings());
     Result executeQuery(const QString& query,
                         const Bindings& bindings=Bindings());
-    Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
-                    const QStringList& fields, const Bindings& values);
 
     QStringList relativeFilenames();
     QString filenameForId(int id, bool fullPath=false);
@@ -92,7 +92,7 @@ public:
     void removeTag(int categoryId, const QString& name);
     void insertMediaTag(int mediaId, int tagId);
     int insertDir(const QString& relativePath);
-    bool getMediaItem(int id, DB::ImageInfo& info);
+    void getMediaItem(int id, DB::ImageInfo& info);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItem(const DB::ImageInfo& info);
     void updateMediaItem(int id, const DB::ImageInfo& info);
@@ -110,12 +110,12 @@ protected:
     KexiDB::Connection *_connection;
     KexiDB::Driver *_driver;
 
-    QueryHelper(KexiDB::Connection* connection);
+    QueryHelper(KexiDB::Connection& connection);
+
     QString getSQLRepresentation(const QVariant& x);
     void bindValues(QString &s, const Bindings& b);
-    KexiDB::Cursor* runQuery(const QString& query);
-    void showLastError();
-    void throwLastError() const;
+    Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
+                    const QStringList& fields, const Bindings& values);
 
 private:
     static QueryHelper* _instance;

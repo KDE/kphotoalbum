@@ -11,13 +11,17 @@
 #include "DB/MediaCount.h"
 #include "DatabaseHandler.h"
 #include "QueryHelper.h"
+#include "QueryErrors.h"
 #include <qfileinfo.h>
 
 SQLDB::Database::Database( const QString& username, const QString& password ) :_members( this )
 {
     _dbhandler = DatabaseHandler::getMySQLHandler(username, password);
     _dbhandler->openDatabase("kphotoalbum");
-    QueryHelper::setup(_dbhandler->connection());
+    KexiDB::Connection* connection = _dbhandler->connection();
+    if (!connection)
+        throw Error(/* TODO: message */);
+    QueryHelper::setup(*connection);
     loadMemberGroups();
 }
 

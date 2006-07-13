@@ -26,18 +26,21 @@
 
 using namespace SQLDB;
 
-QueryHelper::Result::Result(KexiDB::Cursor* cursor,
-                            KexiDB::Connection* connection):
-    _cursor(cursor),
-    _connection(connection)
+QueryHelper::Result::Result(KexiDB::Cursor* cursor):
+    _cursor(cursor)
 {
 }
 
 QueryHelper::Result::~Result()
 {
     if (_cursor) {
-        _connection->deleteCursor(_cursor);
-        _cursor = 0;
+        KexiDB::Connection* connection = _cursor->connection();
+        if (connection)
+            connection->deleteCursor(_cursor);
+        else {
+            _cursor->close();
+            delete _cursor;
+        }
     }
 }
 
@@ -95,18 +98,35 @@ QVariant QueryHelper::Result::firstItem()
     return r;
 }
 
-QueryHelper* QueryHelper::_instance = 0;
-
-QueryHelper::QueryHelper(KexiDB::Connection* connection):
-    _connection(connection),
-    _driver(0)
+QValueList<QVariant> QueryHelper::Result::getRow(uint n)
 {
-    if (_connection) {
-        _driver = _connection->driver();
+    QValueList<QVariant> r;
+    if (_cursor) {
+        _cursor->moveFirst();
+        for (uint i = 0; i < n; ++i) {
+            if (!_cursor->moveNext())
+                break;
+        }
+        if (!_cursor->eof()) {
+            for (uint i = 0; i < _cursor->fieldCount(); ++i) {
+                r << _cursor->value(i);
+            }
+        }
     }
+    return r;
 }
 
-void QueryHelper::setup(KexiDB::Connection* connection)
+QueryHelper* QueryHelper::_instance = 0;
+
+QueryHelper::QueryHelper(KexiDB::Connection& connection):
+    _connection(&connection),
+    _driver(connection.driver())
+{
+    if (!_driver)
+        throw Error(/* TODO: error type and message */);
+}
+
+void QueryHelper::setup(KexiDB::Connection& connection)
 {
     if (_instance)
         delete _instance;
@@ -130,9 +150,13 @@ QString QueryHelper::getSQLRepresentation(const QVariant& x)
              i != l.end(); ++i) {
             repr << getSQLRepresentation(*i);
         }
-        return repr.join(", ");
+        if (repr.count() == 0)
+            return "NULL";
+        else
+            return repr.join(", ");
     }
     else
+        // Escape and convert x to string
         return _driver->valueToSQL(fieldTypeFor(x), x);
 }
 
@@ -149,68 +173,35 @@ void QueryHelper::bindValues(QString &s, const Bindings& b)
     }
 }
 
-KexiDB::Cursor* QueryHelper::runQuery(const QString& query)
-{
-    KexiDB::Cursor* c;
-    c = _connection->executeQuery(query);
-    if (!c) {
-        showLastError();
-    }
-    return c;
-}
-
-void QueryHelper::showLastError()
-{
-    if (!_connection->error())
-        return;
-
-    QString msg =
-        i18n("Error running query: %1\nError was: %2")
-        .arg(_connection->recentSQLString())
-        .arg(_connection->errorMsg());
-    // TODO: better handling of errors
-    qFatal("%s", msg.local8Bit().data());
-}
-
-void QueryHelper::throwLastError() const
-{
-    throw SQLError(_connection->recentSQLString(), _connection->errorMsg());
-}
-
-bool QueryHelper::executeStatement(const QString& statement,
+void QueryHelper::executeStatement(const QString& statement,
                                    const Bindings& bindings)
 {
     QString s = statement;
-    /*
-    for (Bindings::const_iterator i = bindings.begin();
-         i != bindings.end(); ++i) {
-        s = s.arg(_driver->valueToSQL(fieldTypeFor(*i), *i));
-    }
-    */
     bindValues(s, bindings);
 
     //TODO: remove debug
     qDebug("Executing statement: %s", s.local8Bit().data());
 
-    return _connection->executeSQL(s);
+    if (!_connection->executeSQL(s))
+        throw SQLError(_connection->recentSQLString(),
+                       _connection->errorMsg());
 }
 
 QueryHelper::Result QueryHelper::executeQuery(const QString& query,
                                               const Bindings& bindings)
 {
     QString q = query;
-    /*
-    for (Bindings::const_iterator i = bindings.begin();
-         i != bindings.end(); ++i) {
-        q = q.arg(_driver->valueToSQL(fieldTypeFor(*i), *i));
-    }
-    */
     bindValues(q, bindings);
 
     //TODO: remove debug
     qDebug("Executing query: %s", q.local8Bit().data());
 
-    return Result(runQuery(q), _connection);
+    KexiDB::Cursor* c = _connection->executeQuery(q);
+    if (!c) {
+        throw SQLError(_connection->recentSQLString(),
+                       _connection->errorMsg());
+    }
+    return Result(c);
 }
 
 Q_ULLONG QueryHelper::insert(const QString& tableName,
@@ -227,10 +218,8 @@ Q_ULLONG QueryHelper::insert(const QString& tableName,
     for (Bindings::size_type i = 0; i < values.count(); ++i)
         l.append("%s");
     q = q.arg(l.join(", "));
-    if (executeStatement(q, values))
-        return _connection->lastInsertedAutoIncValue(aiFieldName, tableName);
-    else
-        return 0;
+    executeStatement(q, values);
+    return _connection->lastInsertedAutoIncValue(aiFieldName, tableName);
 }
 
 namespace
@@ -273,21 +262,14 @@ QStringList QueryHelper::relativeFilenames()
 
 QString QueryHelper::filenameForId(int id, bool fullPath)
 {
-    KexiDB::Cursor* c = executeQuery("SELECT dir.path, media.filename "
-                                     "FROM dir, media "
-                                     "WHERE dir.id=media.dirId AND "
-                                     "media.id=%s",
-                                     Bindings() << id).cursor();
-    if (!c)
-        return "";
+    QValueList<QString[2]> dirFilePairs =
+        executeQuery("SELECT dir.path, media.filename FROM dir, media "
+                     "WHERE dir.id=media.dirId AND media.id=%s",
+                     Bindings() << id).asString2List();
+    if (dirFilePairs.count() == 0)
+        throw NotFoundError(/* TODO: message */);
 
-    c->moveFirst();
-    if (c->eof()) {
-        _connection->deleteCursor(c);
-        return "";
-    }
-    QString fn = makeFullName(c->value(0).toString(), c->value(1).toString());
-    _connection->deleteCursor(c);
+    QString fn = makeFullName(dirFilePairs[0][0], dirFilePairs[0][1]);
 
     if (fullPath)
         return Settings::SettingsData::instance()->imageDirectory() + fn;
@@ -363,57 +345,45 @@ QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
                         Bindings() << typemask).asIntegerList();
 }
 
-bool QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
+void QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
 {
-    KexiDB::Cursor* c =
+    QValueList<QVariant> row =
         executeQuery("SELECT dir.path, m.filename, m.md5sum, m.type, "
                      "m.label, m.description, "
                      "m.startTime, m.endTime, m.width, m.height, m.angle "
                      "FROM media m, dir "
                      "WHERE m.dirId=dir.id AND "
-                     "m.id=%s", Bindings() << id).cursor();
-    if (!c)
-        return false;
+                     "m.id=%s", Bindings() << id).getRow();
 
-    c->moveFirst();
-    if (c->eof()) {
-        _connection->deleteCursor(c);
-        return false;
-    }
+    if (row.count() != 11)
+        throw Error(/* TODO: error type and message */);
 
-    info.setFileName(makeFullName(c->value(0).toString(),
-                                  c->value(1).toString()));
-    info.setMD5Sum(c->value(2).toString());
-    info.setMediaType(static_cast<DB::MediaType>(c->value(3).toInt()));
-    info.setLabel(c->value(4).toString());
-    info.setDescription(c->value(5).toString());
-    QDateTime startDate = c->value(6).toDateTime();
-    QDateTime endDate = c->value(7).toDateTime();
+    info.setFileName(makeFullName(row[0].toString(), row[1].toString()));
+    info.setMD5Sum(row[2].toString());
+    info.setMediaType(static_cast<DB::MediaType>(row[3].toInt()));
+    info.setLabel(row[4].toString());
+    info.setDescription(row[5].toString());
+    QDateTime startDate = row[6].toDateTime();
+    QDateTime endDate = row[7].toDateTime();
     info.setDate(DB::ImageDate(startDate, endDate));
-    int width = c->value(8).toInt(); // TODO: handle NULL
-    int height = c->value(9).toInt(); // TODO: handle NULL
+    int width = row[8].toInt(); // TODO: handle NULL
+    int height = row[9].toInt(); // TODO: handle NULL
     info.setSize(QSize(width, height));
-    info.setAngle(c->value(10).toInt());
+    info.setAngle(row[10].toInt());
 
-    _connection->deleteCursor(c);
-
-    c = executeQuery("SELECT category.name, tag.name "
+    QValueList<QString[2]> categoryTagPairs =
+        executeQuery("SELECT category.name, tag.name "
                      "FROM media_tag, category, tag "
                      "WHERE media_tag.tagId=tag.id AND "
                      "category.id=tag.categoryId AND "
-                     "media_tag.mediaId=%s", Bindings() << id).cursor();
-    if (!c)
-        return false;
+                     "media_tag.mediaId=%s", Bindings() << id).asString2List();
 
-    for (c->moveFirst(); !c->eof(); c->moveNext())
-        info.addOption(c->value(0).toString(), c->value(1).toString());
-
-    _connection->deleteCursor(c);
+    for (QValueList<QString[2]>::const_iterator i = categoryTagPairs.begin();
+         i != categoryTagPairs.end(); ++i)
+        info.addOption((*i)[0], (*i)[1]);
 
     // TODO: remove debug
     qDebug("Read info of file %s (id %d)", info.fileName().local8Bit().data(), id);
-
-    return true;
 }
 
 int QueryHelper::insertTag(int categoryId, const QString& name)

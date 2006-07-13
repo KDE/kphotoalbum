@@ -64,10 +64,7 @@ SQLDB::SQLImageInfo::SQLImageInfo(int fileId):
 
 void SQLDB::SQLImageInfo::load()
 {
-    if (!QueryHelper::instance()->getMediaItem(_fileId, *this)) {
-        // TODO: error handling
-        qWarning("Internal Error: Did not find file %d in Database", _fileId);
-    }
+    QueryHelper::instance()->getMediaItem(_fileId, *this);
     setIsNull(false);
     setIsDirty(false);
 }

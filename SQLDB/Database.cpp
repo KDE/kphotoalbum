@@ -106,36 +106,32 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     DB::GroupCounter counter( category );
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
-    KexiDB::Cursor* c;
+    QValueList< QPair<int, QString> > mediaIdTagPairs;
     if (category == "Folder")
-        c = QueryHelper::instance()->
+        mediaIdTagPairs = QueryHelper::instance()->
             executeQuery("SELECT media.id, dir.path FROM media, dir "
                          "WHERE media.dirId=dir.id AND media.type&%s!=0",
-                         QueryHelper::Bindings() << typemask).cursor();
+                         QueryHelper::Bindings() <<
+                         typemask).asIntegerStringPairs();
     else
-        c = QueryHelper::instance()->
+        mediaIdTagPairs = QueryHelper::instance()->
             executeQuery("SELECT media.id, tag.name "
                          "FROM media, media_tag, tag, category "
                          "WHERE media.id=media_tag.mediaId AND "
                          "media_tag.tagId=tag.id AND "
                          "tag.categoryId=category.id AND "
                          "media.type&%s!=0 AND category.name=%s",
-                         QueryHelper::Bindings() << typemask << category).cursor();
-    if (!c) {
-        // TODO: error handling
-        Q_ASSERT(false);
-        return result;
-    }
+                         QueryHelper::Bindings() << typemask <<
+                         category).asIntegerStringPairs();
 
     QMap<int,QStringList> itemMap;
-    for (c->moveFirst(); !c->eof(); c->moveNext()) {
-        int fileId = c->value(0).toInt();
-        QString item = c->value(1).toString();
+    for (QValueList< QPair<int, QString> >::const_iterator
+             i = mediaIdTagPairs.begin(); i != mediaIdTagPairs.end(); ++i) {
+        int fileId = (*i).first;
+        QString item = (*i).second;
         if (allFiles || includedFiles.contains(fileId))
             itemMap[fileId].append(item);
     }
-
-    _dbhandler->connection()->deleteCursor(c);
 
     // Count images that doesn't contain an item
     if ( allFiles )

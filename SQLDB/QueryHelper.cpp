@@ -44,13 +44,6 @@ QueryHelper::Result::~Result()
     }
 }
 
-KexiDB::Cursor* QueryHelper::Result::cursor()
-{
-    KexiDB::Cursor* tmp = _cursor;
-    _cursor = 0;
-    return tmp;
-}
-
 QStringList QueryHelper::Result::asStringList()
 {
     QStringList r;
@@ -83,6 +76,17 @@ QValueList<int> QueryHelper::Result::asIntegerList()
     QValueList<int> r;
     if (_cursor) {
         r = readIntsFromCursor(*_cursor);
+    }
+    return r;
+}
+
+QValueList< QPair<int, QString> > QueryHelper::Result::asIntegerStringPairs()
+{
+    QValueList< QPair<int, QString> > r;
+    if (_cursor) {
+        for (_cursor->moveFirst(); !_cursor->eof(); _cursor->moveNext())
+            r << QPair<int, QString>(_cursor->value(0).toInt(),
+                                     _cursor->value(1).toString());
     }
     return r;
 }

@@ -21,6 +21,7 @@
 #define QUERYHELPER_H
 
 #include <qstringlist.h>
+#include <qpair.h>
 #include <kexidb/connection.h>
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
@@ -59,11 +60,9 @@ public:
         QValueList<QString[2]> asString2List();
         QValueList<QString[3]> asString3List();
         QValueList<int> asIntegerList();
+        QValueList< QPair<int, QString> > asIntegerStringPairs();
         QVariant firstItem();
         QValueList<QVariant> getRow(size_t n=0);
-
-        // TODO: make private
-        KexiDB::Cursor* cursor(); // caller frees
 
     private:
         KexiDB::Cursor* _cursor;

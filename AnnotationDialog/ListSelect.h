@@ -23,11 +23,10 @@
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
 #include <qtoolbutton.h>
-class QListBox;
+class QListViewItem;
 class QLabel;
 class QCheckBox;
-class CompletableLineEdit;
-class QListBoxItem;
+class QListView;
 
 namespace DB
 {
@@ -36,6 +35,7 @@ namespace DB
 
 namespace AnnotationDialog
 {
+class CompletableLineEdit;
 
 class ListSelect :public QWidget {
     Q_OBJECT
@@ -56,13 +56,14 @@ public:
     void setMode( Mode );
 
     void populate();
+    void rePopulate();
 
 public slots:
     void slotReturn();
 
 protected slots:
-    void itemSelected( QListBoxItem* );
-    void showContextMenu( QListBoxItem*, const QPoint& );
+    void itemSelected( QListViewItem* );
+    void showContextMenu( QListViewItem*, const QPoint& );
     void setViewSortType( Settings::ViewSortType );
     void slotSortDate();
     void slotSortAlpha();
@@ -77,11 +78,13 @@ private:
     QLabel* _label;
     QString _category;
     CompletableLineEdit* _lineEdit;
-    QListBox* _listBox;
+    QListView* _listBox;
     QCheckBox* _checkBox;
     QCheckBox* _removeCheckBox;
     Mode _mode;
+#ifdef TEMPORARILY_REMOVED
     QListBoxItem* _none;
+#endif
     QToolButton* _alphaSort;
     QToolButton* _dateSort;
 };

@@ -26,10 +26,10 @@ using namespace DB;
 
 MemberMap::MemberMap( ImageDB* db) :QObject(0), _dirty( true )
 {
-    connect( db->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
-             this, SLOT( deleteItem( Category*, const QString& ) ) );
-    connect( db->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
-             this, SLOT( renameItem( Category*, const QString&, const QString& ) ) );
+    connect( db->categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
+             this, SLOT( deleteItem( DB::Category*, const QString& ) ) );
+    connect( db->categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
+             this, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
 }
 
 /**
@@ -166,7 +166,7 @@ MemberMap::MemberMap( const MemberMap& other )
 {
 }
 
-void MemberMap::deleteItem( Category* category, const QString& name)
+void MemberMap::deleteItem( DB::Category* category, const QString& name)
 {
     _dirty = true;
     QMap<QString, QStringList>& groupMap = _members[category->name()];
@@ -176,7 +176,7 @@ void MemberMap::deleteItem( Category* category, const QString& name)
     }
 }
 
-void MemberMap::renameItem( Category* category, const QString& oldName, const QString& newName )
+void MemberMap::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
     _dirty = true;
     QMap<QString, QStringList>& groupMap = _members[category->name()];

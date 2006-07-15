@@ -52,7 +52,7 @@ QString Browser::ExifFolder::imagesLabel() const
         return QString::null;
 }
 
-QString Browser::ExifFolder::moviesLabel() const
+QString Browser::ExifFolder::videosLabel() const
 {
         return QString::null;
 }

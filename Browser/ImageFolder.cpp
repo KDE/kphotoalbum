@@ -75,8 +75,8 @@ QString Browser::ImageFolder::imagesLabel() const
     return i18n( "1 image", "%n images", _count.images() );
 }
 
-QString Browser::ImageFolder::moviesLabel() const
+QString Browser::ImageFolder::videosLabel() const
 {
-    return i18n( "1 movie", "%n movies", _count.movies() );
+    return i18n( "1 video", "%n videos", _count.videos() );
 }
 

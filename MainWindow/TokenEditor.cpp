@@ -77,7 +77,7 @@ QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
     QMap<QString,int> map =
-        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ), DB::Image | DB::Movie );
+        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ), DB::Image | DB::Video );
     for( QMap<QString,int>::Iterator it = map.begin(); it != map.end(); ++it ) {
         if ( it.data() > 0 )
             res.append( it.key() );

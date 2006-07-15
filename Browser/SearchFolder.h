@@ -31,7 +31,7 @@ public:
     virtual QPixmap pixmap();
     virtual QString text() const;
     virtual QString imagesLabel() const;
-    virtual QString moviesLabel() const;
+    virtual QString videosLabel() const;
 };
 
 }

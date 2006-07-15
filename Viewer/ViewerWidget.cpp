@@ -64,9 +64,9 @@
 
 /**
  * \namespace Viewer
- * \brief Viewer used for displaying images and movies
+ * \brief Viewer used for displaying images and videos
  *
- * This class implements the viewer used to display images and movies.
+ * This class implements the viewer used to display images and videos.
  *
  * The class consists of these components:
  * <ul>
@@ -282,7 +282,7 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
     QStringList images;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        if ( !Utilities::isMovie( *it ) )
+        if ( !Utilities::isVideo( *it ) )
             images << *it;
     }
     _imageDisplay->setImageList( list );
@@ -298,7 +298,7 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    bool isVideo = Utilities::isMovie( currentInfo()->fileName() );
+    bool isVideo = Utilities::isVideo( currentInfo()->fileName() );
     if ( isVideo )
         _display = _videoDisplay;
     else
@@ -603,8 +603,7 @@ void Viewer::ViewerWidget::createToolBar()
     KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this, "actions" );
     _toolbar = new KToolBar( this );
-#ifdef TEMPORARILY_REMOVED
-    DrawHandler* handler = _display->drawHandler();
+    DrawHandler* handler = _imageDisplay->drawHandler();
     _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
                          0, handler, SLOT( slotSelect() ),actions, "_select");
     _select->plug( _toolbar );
@@ -630,7 +629,6 @@ void Viewer::ViewerWidget::createToolBar()
 
     KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
     close->plug( _toolbar );
-#endif
 }
 
 void Viewer::ViewerWidget::toggleFullScreen()
@@ -648,7 +646,7 @@ void Viewer::ViewerWidget::slotStartStopSlideShow()
         _speedDisplay->end();
     }
     else {
-        if ( currentInfo()->mediaType() != DB::Movie )
+        if ( currentInfo()->mediaType() != DB::Video )
             _slideShowTimer->start( _slideShowPause, true );
         _speedDisplay->start();
     }
@@ -668,8 +666,8 @@ void Viewer::ViewerWidget::slotSlideShowNext()
     timer.start();
     load();
 
-    // If it is a movie, then don't schedule the next image, as this would make the video stop abruptly.
-    if ( currentInfo()->mediaType() != DB::Movie ) {
+    // If it is a video, then don't schedule the next image, as this would make the video stop abruptly.
+    if ( currentInfo()->mediaType() != DB::Video ) {
         // ensure that there is a few milliseconds pause, so that an end slideshow keypress
         // can get through immediately, we don't want it to queue up behind a bunch of timer events,
         // which loaded a number of new images before the slideshow stops

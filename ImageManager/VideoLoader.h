@@ -20,7 +20,7 @@ protected:
     void startNextLoad();
     bool tryLoadThumbnail( ImageManager::ImageRequest* );
     void sendAnswer( QImage image, ImageManager::ImageRequest* request );
-    QImage drawMovieClip( const QImage & );
+    QImage drawVideoClip( const QImage & );
 
 protected slots:
     void processDone();

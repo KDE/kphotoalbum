@@ -188,7 +188,7 @@ protected:
 
 signals:
     void locked( bool lock, bool exclude );
-    void viewSortTypeChanged( ViewSortType );
+    void viewSortTypeChanged( Settings::ViewSortType );
     void histogramSizeChanged( const QSize& );
 
 private:

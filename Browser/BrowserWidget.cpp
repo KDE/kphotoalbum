@@ -57,7 +57,7 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent, const char* name )
 
     _listView->addColumn( i18n("What") );
     _listView->addColumn( i18n("Count") );
-    _listView->addColumn( i18n("Movies") );
+    _listView->addColumn( i18n("Videos") );
 
     _listView->setSelectionMode( QListView::NoSelection );
     _iconView->setSelectionMode( QIconView::NoSelection );

@@ -50,7 +50,7 @@ Browser::BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
     if ( count.images() == -1 )
         setText( folder->text() );
     else
-        setText( QString::fromLatin1( "%1 (%2/%3)" ).arg( folder->text() ).arg( count.images() ).arg( count.movies() ));
+        setText( QString::fromLatin1( "%1 (%2/%3)" ).arg( folder->text() ).arg( count.images() ).arg( count.videos() ));
 }
 
 Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
@@ -59,7 +59,7 @@ Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
     setPixmap( 0, folder->pixmap() );
     setText( 0, folder->text() );
     setText( 1, folder->imagesLabel() );
-    setText( 2, folder->moviesLabel() );
+    setText( 2, folder->videosLabel() );
 }
 
 int Browser::BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const

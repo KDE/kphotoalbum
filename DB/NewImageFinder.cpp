@@ -64,8 +64,8 @@ void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString 
             if ( ! DB::ImageDB::instance()->isBlocking( baseName ) ) {
                 if ( Utilities::canReadImage(fi.extension()) )
                     _pendingLoad.append( qMakePair( baseName, DB::Image ) );
-                else if ( Utilities::isMovie( file ) )
-                    _pendingLoad.append( qMakePair( baseName, DB::Movie ) );
+                else if ( Utilities::isVideo( file ) )
+                    _pendingLoad.append( qMakePair( baseName, DB::Video ) );
             }
         }
 

@@ -8,11 +8,11 @@ QString SQLDB::SQLCategory::name() const
     return QueryHelper::instance()->categoryForId(_categoryId);
 }
 
-void SQLDB::SQLCategory::setName( const QString& /*name*/ )
+void SQLDB::SQLCategory::setName(const QString& name)
 {
-    // TODO: this
-    // PENDING(blackie) do I need to update the DB?
-    kdDebug() << "What should I do here?!\n";
+    QueryHelper::instance()->
+        executeStatement("UPDATE category SET name=%s WHERE id=%s",
+                         QueryHelper::Bindings() << name << _categoryId);
 }
 
 QString SQLDB::SQLCategory::iconName() const

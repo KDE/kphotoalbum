@@ -35,11 +35,7 @@ void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
 
 void SQLDB::SQLCategoryCollection::rename( const QString& oldName, const QString& newName )
 {
-    if (oldName == "Folder")
-        return;
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET name=%s WHERE name=%s",
-                         QueryHelper::Bindings() << newName << oldName);
+    categoryForName(oldName)->setName(newName);
 }
 
 QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const

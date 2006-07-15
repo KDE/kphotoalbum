@@ -463,7 +463,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
     qDebug("Inserting info of file %s", info.fileName().local8Bit().data());
 
     QVariant md5 = info.MD5Sum();
-    if (md5.toString() == "")
+    if (md5.toString().isEmpty())
         md5 = QVariant();
     QVariant w = info.size().width();
     if (w.toInt() == -1)
@@ -495,7 +495,7 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
     qDebug("Updating info of file %s", info.fileName().local8Bit().data());
 
     QVariant md5 = info.MD5Sum();
-    if (md5.toString() == "")
+    if (md5.toString().isEmpty())
         md5 = QVariant();
     QVariant w = info.size().width();
     if (w.toInt() == -1)

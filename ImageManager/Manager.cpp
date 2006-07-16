@@ -55,7 +55,7 @@ void ImageManager::Manager::init()
 
 void ImageManager::Manager::load( ImageRequest* request )
 {
-    if ( Utilities::isMovie( request->fileName() ) )
+    if ( Utilities::isVideo( request->fileName() ) )
         loadVideo( request );
 
     else

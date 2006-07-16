@@ -50,8 +50,8 @@ namespace Plugins
 namespace DB
 {
 
-enum MediaType { Image = 0x01, Movie = 0x02 };
-const int anyMediaType = Image | Movie;
+enum MediaType { Image = 0x01, Video = 0x02 };
+const int anyMediaType = Image | Video;
 
 class ImageInfo :public KShared {
 

@@ -59,7 +59,7 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
         }
     }
 
-    DB::MediaType types[] = {DB::Image, DB::Movie};
+    DB::MediaType types[] = {DB::Image, DB::Video};
     int count[2];
     for (size_t i = 0; i < 2; ++i) {
         count[i] = QueryHelper::instance()->

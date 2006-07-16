@@ -42,7 +42,7 @@ public:
     virtual DB::MediaCount count() { return _count; }
     virtual int compare( Folder* other, int col, bool asc ) const;
     virtual QString imagesLabel() const = 0;
-    virtual QString moviesLabel() const = 0;
+    virtual QString videosLabel() const = 0;
     void setEnabled( bool );
 
     friend class TypeFolder;

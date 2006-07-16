@@ -94,6 +94,16 @@ Settings::TimeStampTrust Settings::SettingsData::tTimeStamps() const
     return (TimeStampTrust) value(  STR("General"), STR("trustTimeStamps"), (int) Always );
 }
 
+void Settings::SettingsData::setViewerStandardSize(StandardViewSize v)
+{
+    setValue( STR("Viewer"), STR("standardViewerSize"), (int) v );
+}
+
+Settings::StandardViewSize Settings::SettingsData::viewerStandardSize() const
+{
+    return (StandardViewSize) value(  STR("Viewer"), STR("standardViewerSize"), (int) FullSize );
+}
+
 QString Settings::SettingsData::imageDirectory() const
 {
     if ( !_imageDirectory.endsWith( STR( "/" ) ) )
@@ -235,7 +245,7 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
         else
             img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
     }
-    res = img.smoothScale( size, size, QImage::ScaleMin );
+    res = Utilities::scaleImage(img, size, size, QImage::ScaleMin);
 
     QPixmapCache::insert( fileName, res );
     return res;

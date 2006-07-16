@@ -22,6 +22,7 @@ Boston, MA 02110-1301, USA.
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qimage.h>
 #include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
 
@@ -43,7 +44,7 @@ bool runningDemo();
 void deleteDemo();
 QString setupDemo();
 bool canReadImage( const QString& fileName );
-bool isMovie( const QString& fileName );
+bool isVideo( const QString& fileName );
 QString readInstalledFile( const QString& fileName );
 QString getThumbnailDir( const QString& imageFile );
 QString getThumbnailFile( const QString& imageFile, int width, int height, int angle );
@@ -64,6 +65,9 @@ QString relativeFolderName( const QString& fileName);
 QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );
 QStringList diff( const QStringList& list1, const QStringList& list2 );
+
+QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QImage::ScaleFree );
+QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
 };
 
 bool operator>( const QPoint&, const QPoint& );

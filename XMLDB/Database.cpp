@@ -74,7 +74,7 @@ int XMLDB::Database::totalCount() const
 }
 
 /**
- * I was considering merging the two calls to this method (one for images, one for movies), but then I
+ * I was considering merging the two calls to this method (one for images, one for video), but then I
  * realized that all the work is really done after the check for whether the given
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
@@ -889,7 +889,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     QSize size = QSize( w,h );
 
     QString type = elm.attribute( QString::fromLatin1( "mediatype" ), QString::fromLatin1( "image" ) ).lower();
-    DB::MediaType mediaType = ( type == QString::fromLatin1( "movie" ) ? DB::Movie : DB::Image );
+    DB::MediaType mediaType = ( type == QString::fromLatin1( "video" ) ? DB::Video : DB::Image );
 
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size, mediaType );
     DB::ImageInfoPtr result = info;
@@ -1002,7 +1002,7 @@ QDomElement XMLDB::Database::save( QDomDocument doc, const DB::ImageInfoPtr& inf
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
     elm.setAttribute( QString::fromLatin1( "mediatype" ),
-                      info->mediaType() == DB::Movie ? QString::fromLatin1( "movie" ) : QString::fromLatin1( "image" ) );
+                      info->mediaType() == DB::Video ? QString::fromLatin1( "video" ) : QString::fromLatin1( "image" ) );
 
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         writeCategoriesCompressed( elm, info );

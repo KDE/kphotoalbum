@@ -32,7 +32,7 @@ public:
     virtual QString text() const;
     int compare( Folder* other, int col, bool asc ) const;
     virtual QString imagesLabel() const;
-    virtual QString moviesLabel() const;
+    virtual QString videosLabel() const;
 
 private:
     QString _category;

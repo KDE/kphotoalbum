@@ -373,7 +373,7 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     case Key_PageUp:
     {
         int rows = (event->key() == Key_PageDown) ? 1 : -1;
-        if ( event->state() & AltButton )
+        if ( event->state() & (AltButton | MetaButton) )
             rows *= numRows() / 20;
         else
             rows *= numRowsPerPage();
@@ -936,6 +936,7 @@ void ThumbnailView::ThumbnailWidget::updateCellSize()
     if ( Settings::SettingsData::instance()->displayLabels() )
         h += QFontMetrics( font() ).height() +2;
     setCellHeight( h );
+    updateGridSize();
 }
 
 void ThumbnailView::ThumbnailWidget::viewportPaintEvent( QPaintEvent* e )

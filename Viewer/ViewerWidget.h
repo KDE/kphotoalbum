@@ -56,6 +56,7 @@ public:
     void setShowFullScreen( bool on );
     void show( bool slideShow );
     KActionCollection* actions();
+    void updateInfoBox();
 
 public slots:
     virtual bool close(bool alsoDelete );
@@ -70,17 +71,26 @@ protected:
     void setAsWallpaper(int mode);
 
     void load();
-    void updateInfoBox();
     void setupContextMenu();
     DB::ImageInfoPtr currentInfo();
     friend class InfoBox;
+
+private:
+    void showNextN(int);
+    void showPrevN(int);
 
 signals:
     void dirty();
 
 protected slots:
     void showNext();
+    void showNext10();
+    void showNext100();
+    void showNext1000();
     void showPrev();
+    void showPrev10();
+    void showPrev100();
+    void showPrev1000();
     void showFirst();
     void showLast();
     void rotate90();
@@ -90,7 +100,9 @@ protected slots:
     void toggleShowDescription( bool );
     void toggleShowDate( bool );
     void toggleShowTime( bool );
+    void toggleShowFilename( bool );
     void toggleShowEXIF( bool );
+    void toggleShowImageSize( bool );
     void save();
     void startDraw();
     void stopDraw();
@@ -117,10 +129,9 @@ protected slots:
 private:
     static ViewerWidget* _latest;
 
-    KAction* _firstAction;
-    KAction* _lastAction;
-    KAction* _nextAction;
-    KAction* _prevAction;
+    QPtrList<KAction> _forwardActions;
+    QPtrList<KAction> _backwardActions;
+
     KAction* _startStopSlideShow;
     KAction* _slideShowRunFaster;
     KAction* _slideShowRunSlower;

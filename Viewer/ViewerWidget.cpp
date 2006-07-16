@@ -64,9 +64,9 @@
 
 /**
  * \namespace Viewer
- * \brief Viewer used for displaying images and movies
+ * \brief Viewer used for displaying images and videos
  *
- * This class implements the viewer used to display images and movies.
+ * This class implements the viewer used to display images and videos.
  *
  * The class consists of these components:
  * <ul>
@@ -95,6 +95,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     _stack = new QWidgetStack( this, "stack" );
 
     _display = _imageDisplay = new ImageDisplay( _stack ); // Must be created before the toolbar.
+    _imageDisplay->setParentViewer( this );
     _videoDisplay = new VideoDisplay( _stack );
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 
@@ -128,17 +129,45 @@ void Viewer::ViewerWidget::setupContextMenu()
     _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
     KAction* action;
 
-    _firstAction = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
-    _firstAction->plug( _popup );
+    action = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
+    action->plug( _popup );
+    _backwardActions.append(action);
 
-    _lastAction = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), _actions, "viewer-end" );
-    _lastAction->plug( _popup );
+    action = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), _actions, "viewer-end" );
+    action->plug( _popup );
+    _forwardActions.append(action);
 
-    _nextAction = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), _actions, "viewer-next" );
-    _nextAction->plug( _popup );
+    action = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), _actions, "viewer-next" );
+    action->plug( _popup );
+    _forwardActions.append(action);
 
-    _prevAction = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), _actions, "viewer-prev" );
-    _prevAction->plug( _popup );
+    action = new KAction( i18n("Skip 10 Forward"), CTRL+Key_PageDown, this, SLOT( showNext10() ), _actions, "viewer-next-10" );
+    action->plug( _popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Skip 100 Forward"), SHIFT+Key_PageDown, this, SLOT( showNext100() ), _actions, "viewer-next-100" );
+    action->plug( _popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Skip 1000 Forward"), CTRL+SHIFT+Key_PageDown, this, SLOT( showNext1000() ), _actions, "viewer-next-1000" );
+    action->plug( _popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), _actions, "viewer-prev" );
+    action->plug( _popup );
+    _backwardActions.append(action);
+
+    action = new KAction( i18n("Skip 10 Backward"), CTRL+Key_PageUp, this, SLOT( showPrev10() ), _actions, "viewer-prev-10" );
+    action->plug( _popup );
+    _backwardActions.append(action);
+
+    action = new KAction( i18n("Skip 100 Backward"), SHIFT+Key_PageUp, this, SLOT( showPrev100() ), _actions, "viewer-prev-100" );
+    action->plug( _popup );
+    _backwardActions.append(action);
+
+    action = new KAction( i18n("Skip 1000 Backward"), CTRL+SHIFT+Key_PageUp, this, SLOT( showPrev1000() ), _actions, "viewer-prev-1000" );
+    action->plug( _popup );
+    _backwardActions.append(action);
 
     _popup->insertSeparator();
 
@@ -164,6 +193,12 @@ void Viewer::ViewerWidget::setupContextMenu()
     action->plug( _popup );
 
     action = new KAction( i18n("Full View"), Key_Period, _display, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
+    action->plug( _popup );
+
+    action = new KAction( i18n("Pixel for Pixel View"), Key_Equal, _display, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
+    action->plug( _popup );
+
+    action = new KAction( i18n("Standard View"), Key_Slash, _display, SLOT( zoomStandard() ), _actions, "viewer-zoom-standard" );
     action->plug( _popup );
 
     action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
@@ -209,10 +244,21 @@ void Viewer::ViewerWidget::setupContextMenu()
     taction->plug( _popup );
     taction->setChecked( Settings::SettingsData::instance()->showTime() );
 
+    taction = new KToggleAction( i18n("Show Filename"), 0, _actions, "viewer-show-filename" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowFilename( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Settings::SettingsData::instance()->showFilename() );
+
     taction = new KToggleAction( i18n("Show EXIF"), 0, _actions, "viewer-show-exif" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowEXIF( bool ) ) );
     taction->plug( _popup );
     taction->setChecked( Settings::SettingsData::instance()->showEXIF() );
+
+    taction = new KToggleAction( i18n("Show Image Size"), 0, _actions, "viewer-show-imagesize" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowImageSize( bool ) ) );
+    taction->plug( _popup );
+    taction->setChecked( Settings::SettingsData::instance()->showImageSize() );
+
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
@@ -282,7 +328,7 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
     QStringList images;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        if ( !Utilities::isMovie( *it ) )
+        if ( !Utilities::isVideo( *it ) )
             images << *it;
     }
     _imageDisplay->setImageList( list );
@@ -298,7 +344,7 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    bool isVideo = Utilities::isMovie( currentInfo()->fileName() );
+    bool isVideo = Utilities::isVideo( currentInfo()->fileName() );
     if ( isVideo )
         _display = _videoDisplay;
     else
@@ -312,10 +358,11 @@ void Viewer::ViewerWidget::load()
     setCaption( QString::fromLatin1( "KPhotoAlbum - %1" ).arg( currentInfo()->fileName() ) );
     updateInfoBox();
 
-    _nextAction->setEnabled( _current +1 < (int) _list.count() );
-    _prevAction->setEnabled( _current > 0 );
-    _firstAction->setEnabled( _current > 0 );
-    _lastAction->setEnabled( _current +1 < (int) _list.count() );
+    // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
+    for( QPtrList<KAction>::const_iterator it = _forwardActions.begin(); it != _forwardActions.end(); ++it )
+      (*it)->setEnabled( _current +1 < (int) _list.count() );
+    for( QPtrList<KAction>::const_iterator it = _backwardActions.begin(); it != _forwardActions.end(); ++it )
+      (*it)->setEnabled( _current > 0 );
     if ( isVideo )
         updateCategoryConfig();
 
@@ -329,24 +376,68 @@ void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
     e->accept();
 }
 
-void Viewer::ViewerWidget::showNext()
+void Viewer::ViewerWidget::showNextN(int n)
 {
     save();
     if ( _current +1 < (int) _list.count() )  {
-        _current++;
+        _current += n;
+	if (_current >= (int) _list.count())
+	  _current = (int) _list.count() - 1;
         _forward = true;
+        load();
+    }
+}
+
+void Viewer::ViewerWidget::showNext()
+{
+    showNextN(1);
+}
+
+void Viewer::ViewerWidget::showNext10()
+{
+    showNextN(10);
+}
+
+void Viewer::ViewerWidget::showNext100()
+{
+    showNextN(100);
+}
+
+void Viewer::ViewerWidget::showNext1000()
+{
+    showNextN(100);
+}
+
+void Viewer::ViewerWidget::showPrevN(int n)
+{
+    save();
+    if ( _current > 0  )  {
+        _current -= n;
+	if (_current < 0)
+	  _current = 0;
+        _forward = false;
         load();
     }
 }
 
 void Viewer::ViewerWidget::showPrev()
 {
-    save();
-    if ( _current > 0  )  {
-        _current--;
-        _forward = false;
-        load();
-    }
+    showPrevN(1);
+}
+
+void Viewer::ViewerWidget::showPrev10()
+{
+    showPrevN(10);
+}
+
+void Viewer::ViewerWidget::showPrev100()
+{
+    showPrevN(100);
+}
+
+void Viewer::ViewerWidget::showPrev1000()
+{
+    showPrevN(1000);
 }
 
 void Viewer::ViewerWidget::rotate90()
@@ -386,6 +477,12 @@ void Viewer::ViewerWidget::toggleShowDate( bool b )
     updateInfoBox();
 }
 
+void Viewer::ViewerWidget::toggleShowFilename( bool b )
+{
+    Settings::SettingsData::instance()->setShowFilename( b );
+    updateInfoBox();
+}
+
 void Viewer::ViewerWidget::toggleShowTime( bool b )
 {
     Settings::SettingsData::instance()->setShowTime( b );
@@ -398,6 +495,12 @@ void Viewer::ViewerWidget::toggleShowEXIF( bool b )
     updateInfoBox();
 }
 
+void Viewer::ViewerWidget::toggleShowImageSize( bool b )
+{
+    Settings::SettingsData::instance()->setShowImageSize( b );
+    updateInfoBox();
+}
+
 
 void Viewer::ViewerWidget::toggleShowOption( const QString& category, bool b )
 {
@@ -407,18 +510,12 @@ void Viewer::ViewerWidget::toggleShowOption( const QString& category, bool b )
 
 void Viewer::ViewerWidget::showFirst()
 {
-    _forward = true;
-    save();
-    _current = 0;
-    load();
+    showPrevN(_list.count());
 }
 
 void Viewer::ViewerWidget::showLast()
 {
-    _forward = false;
-    save();
-     _current = _list.count() -1;
-     load();
+    showNextN(_list.count());
 }
 
 void Viewer::ViewerWidget::save()
@@ -603,8 +700,7 @@ void Viewer::ViewerWidget::createToolBar()
     KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this, "actions" );
     _toolbar = new KToolBar( this );
-#ifdef TEMPORARILY_REMOVED
-    DrawHandler* handler = _display->drawHandler();
+    DrawHandler* handler = _imageDisplay->drawHandler();
     _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
                          0, handler, SLOT( slotSelect() ),actions, "_select");
     _select->plug( _toolbar );
@@ -630,7 +726,6 @@ void Viewer::ViewerWidget::createToolBar()
 
     KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
     close->plug( _toolbar );
-#endif
 }
 
 void Viewer::ViewerWidget::toggleFullScreen()
@@ -648,7 +743,7 @@ void Viewer::ViewerWidget::slotStartStopSlideShow()
         _speedDisplay->end();
     }
     else {
-        if ( currentInfo()->mediaType() != DB::Movie )
+        if ( currentInfo()->mediaType() != DB::Video )
             _slideShowTimer->start( _slideShowPause, true );
         _speedDisplay->start();
     }
@@ -668,8 +763,8 @@ void Viewer::ViewerWidget::slotSlideShowNext()
     timer.start();
     load();
 
-    // If it is a movie, then don't schedule the next image, as this would make the video stop abruptly.
-    if ( currentInfo()->mediaType() != DB::Movie ) {
+    // If it is a video, then don't schedule the next image, as this would make the video stop abruptly.
+    if ( currentInfo()->mediaType() != DB::Video ) {
         // ensure that there is a few milliseconds pause, so that an end slideshow keypress
         // can get through immediately, we don't want it to queue up behind a bunch of timer events,
         // which loaded a number of new images before the slideshow stops

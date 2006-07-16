@@ -64,7 +64,7 @@ QString Browser::SearchFolder::imagesLabel() const
 {
     return QString::null;
 }
-QString Browser::SearchFolder::moviesLabel() const
+QString Browser::SearchFolder::videosLabel() const
 {
     return QString::null;
 }

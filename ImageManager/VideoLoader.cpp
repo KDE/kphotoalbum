@@ -107,13 +107,13 @@ void ImageManager::VideoLoader::sendAnswer( QImage image, ImageManager::ImageReq
 
     image = ImageManager::ImageLoader::rotateAndScale( image, request->width(), request->height(), request->angle() );
 
-    image = drawMovieClip( image );
+    image = drawVideoClip( image );
     request->client()->pixmapLoaded( request->fileName(), QSize( request->width(), request->height() ), origSize,
                                       request->angle(), image, !image.isNull() );
 
 }
 
-QImage ImageManager::VideoLoader::drawMovieClip( const QImage & image)
+QImage ImageManager::VideoLoader::drawVideoClip( const QImage & image)
 {
     QPixmap pix( image );
 

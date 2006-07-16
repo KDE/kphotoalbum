@@ -134,7 +134,7 @@ QString Browser::ContentFolder::imagesLabel() const
     return i18n("1 Image", "%n Images", _count.images());
 }
 
-QString Browser::ContentFolder::moviesLabel() const
+QString Browser::ContentFolder::videosLabel() const
 {
-    return i18n("1 Movie", "%n Movies", _count.movies());
+    return i18n("1 Movie", "%n Movies", _count.videos());
 }

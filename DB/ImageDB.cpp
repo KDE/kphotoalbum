@@ -46,10 +46,10 @@ void ImageDB::setupSQLDB( const QString& userName, const QString& password )
 
 void ImageDB::connectSlots()
 {
-    connect( _instance->categoryCollection(), SIGNAL( itemRemoved( Category*, const QString& ) ),
-             _instance, SLOT( deleteItem( Category*, const QString& ) ) );
-    connect( _instance->categoryCollection(), SIGNAL( itemRenamed( Category*, const QString&, const QString& ) ),
-             _instance, SLOT( renameItem( Category*, const QString&, const QString& ) ) );
+    connect( _instance->categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
+             _instance, SLOT( deleteItem( DB::Category*, const QString& ) ) );
+    connect( _instance->categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
+             _instance, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
     connect( Settings::SettingsData::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
 }
 
@@ -109,15 +109,15 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
     QStringList list = search( searchInfo );
     int images = 0;
-    int movies = 0;
+    int videos = 0;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageInfoPtr inf = info( *it );
         if ( inf->mediaType() == Image )
             ++images;
         else
-            ++movies;
+            ++videos;
     }
-    return MediaCount( images, movies );
+    return MediaCount( images, videos );
 }
 
 void ImageDB::convertBackend()

@@ -23,6 +23,7 @@
 #include "DB/ImageInfo.h"
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
+#include "Viewer/ViewerWidget.h"
 #include <qlabel.h>
 #include "ImageManager/Manager.h"
 #include <qcursor.h>
@@ -30,6 +31,8 @@
 #include <klocale.h>
 #include <math.h>
 #include "DB/ImageDB.h"
+#include "Utilities/Util.h"
+#include <kdebug.h>
 
 /**
    Area displaying the actual image in the viewer.
@@ -98,7 +101,7 @@
 */
 
 Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
-    :Display( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
+    :Display( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ), _viewer(0), _lastZoomType(ZoomNull)
 {
     setBackgroundMode( NoBackground );
 
@@ -112,6 +115,11 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
     // This is to ensure that people do see the drawing when they draw,
     // otherwise the drawing would disappear as soon as mouse was released.
     connect( _drawHandler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
+}
+
+void Viewer::ImageDisplay::setParentViewer( Viewer::ViewerWidget *viewer )
+{
+    _viewer = viewer;
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
@@ -202,12 +210,29 @@ void Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
         _loadedImage = found->img;
         _zStart = QPoint(0,0);
         _zEnd = QPoint( found->size.width(), found->size.height() );
-        cropAndScale();
+	cropAndScale();
         _cachedView = true;
+	switch (Settings::SettingsData::instance()->viewerStandardSize()) {
+	case Settings::NaturalSize:
+	  zoomPixelForPixel();
+	  break;
+	case Settings::NaturalSizeIfFits:
+	  if (_info->size().width() <= width() &&
+	      _info->size().height() <= height())
+	    zoomPixelForPixel();
+	  else
+	    cropAndScale();
+	  break;
+	case Settings::FullSize:
+	default:
+	  cropAndScale();
+	  break;
+	}
     }
     else {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( -1, -1 ), info->angle(), this );
         request->setPriority();
+	_loadMap.insert(info->fileName(), info);
         ImageManager::Manager::instance()->load( request );
         busy();
         _cachedView = false;
@@ -224,6 +249,7 @@ void Viewer::ImageDisplay::resizeEvent( QResizeEvent* )
         cropAndScale();
         if ( _cachedView ) {
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
+	    _loadMap.insert(_info->fileName(), _info);
             request->setPriority();
             ImageManager::Manager::instance()->load( request );
         }
@@ -282,10 +308,7 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
     QPoint off = offset( (p2-p1).x(), (p2-p1).y(), width(), height(), &ratio );
     off = off / ratio;
 
-    if ( p1.x() - off.x() > 0 )
-        p1.setX( p1.x() - off.x() );
-    else
-        p1.setX(0);
+    p1.setX( p1.x() - off.x() );
 
     int maxWidth;
     int maxHeight;
@@ -298,20 +321,11 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
         maxHeight = _loadedImage.height();
     }
 
-    if ( p2.x() + off.x() < maxWidth )
-        p2.setX( p2.x()+off.x() );
-    else
-        p2.setX( maxWidth );
+    p2.setX( p2.x()+off.x() );
 
-    if ( p1.y() - off.y() > 0 )
-        p1.setY( p1.y() - off.y() );
-    else
-        p1.setY(0);
+    p1.setY( p1.y() - off.y() );
 
-    if ( p2.y() + off.y() < maxHeight )
-        p2.setY( p2.y()+off.y() );
-    else
-        p2.setY( maxHeight );
+    p2.setY( p2.y()+off.y() );
 
     _zStart = p1;
     _zEnd = p2;
@@ -319,6 +333,7 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
         // This was a cached version, which means not full size, lets load
         // the real size now.
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
+	_loadMap.insert(_info->fileName(), _info);
         request->setPriority();
         ImageManager::Manager::instance()->load( request );
         busy();
@@ -347,29 +362,92 @@ void Viewer::ImageDisplay::xformPainter( QPainter* p )
     p->translate( -_zStart.x(), -_zStart.y() );
 }
 
+void Viewer::ImageDisplay::retryZoom()
+{
+  switch (_lastZoomType) {
+  case ZoomIn:
+    zoomIn();
+    break;
+  case ZoomOut:
+    zoomOut();
+    break;
+  case ZoomFull:
+    zoomFull();
+    break;
+  case ZoomPixelForPixel:
+    zoomPixelForPixel();
+    break;
+  case ZoomStandard:
+    zoomStandard();
+    break;
+  case ZoomNull:
+  default:
+    break;
+  }
+  _lastZoomType = ZoomNull;
+}
+
 void Viewer::ImageDisplay::zoomIn()
 {
     QPoint size = (_zEnd-_zStart);
     QPoint p1 = _zStart + size*(0.2/2);
     QPoint p2 = _zEnd - size*(0.2/2);
     zoom(p1, p2);
+    _lastZoomType = ZoomIn;
 }
 
 void Viewer::ImageDisplay::zoomOut()
 {
-    if ( _zStart == QPoint(0,0) && _zEnd == QPoint( _loadedImage.width(), _loadedImage.height() ) )
-        return; // Bail out if we have zoomed all the way out, to avoid spending time in scaling
+  //    if ( _zStart == QPoint(0,0) && _zEnd == QPoint( _loadedImage.width(), _loadedImage.height() ) )
+  //        return; // Bail out if we have zoomed all the way out, to avoid spending time in scaling
 
     QPoint size = (_zEnd-_zStart);
     QPoint p1 = _zStart - size*(0.25/2);
     QPoint p2 = _zEnd + size*(0.25/2);
     zoom(p1,p2);
+    _lastZoomType = ZoomOut;
 }
 
 void Viewer::ImageDisplay::zoomFull()
 {
     if ( !_cachedView ) // Cached views are always full views
         zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
+    _lastZoomType = ZoomFull;
+}
+
+void Viewer::ImageDisplay::zoomPixelForPixel()
+{
+  int x_start = 0;
+  int y_start = 0;
+  int x_end = _info->size().width();
+  int y_end = _info->size().height();
+  x_start = (x_end - width()) / 2;
+  x_end = x_start + width();
+  y_start = (y_end - height()) / 2;
+  y_end = y_start + height();
+  zoom( QPoint(x_start, y_start), QPoint(x_end, y_end));
+  _lastZoomType = ZoomPixelForPixel;
+}
+
+void Viewer::ImageDisplay::zoomStandard()
+{
+  switch (Settings::SettingsData::instance()->viewerStandardSize()) {
+  case Settings::NaturalSize:
+    zoomPixelForPixel();
+    break;
+  case Settings::NaturalSizeIfFits:
+    if (_info->size().width() <= width() &&
+	_info->size().height() <= height())
+      zoomPixelForPixel();
+    else
+      zoomFull();
+    break;
+  case Settings::FullSize:
+  default:
+    zoomFull();
+    break;
+  }
+  _lastZoomType = ZoomStandard;
 }
 
 
@@ -385,21 +463,96 @@ void Viewer::ImageDisplay::normalize( QPoint& p1, QPoint& p2 )
 
 void Viewer::ImageDisplay::pan( const QPoint& point )
 {
-    if ( _cachedView )
-        return; // Cached views are always full screen, so no panning is available.
 
     QPoint p = point;
-    if ( p.x() < 0 && _zStart.x() < -p.x() )
+#if 0
+    if ( _cachedView )
+        return; // Cached views are always full screen, so no panning is available.
+    if (_zEnd.x() - _zStart.x() >= _loadedImage.width() ||
+	(p.x() < 0 && _zStart.x() <= 0) ||
+	(p.x() > 0 && _zEnd.x() >= _loadedImage.width()))
+      p.setX(0);
+    if (_zEnd.y() - _zStart.y() >= _loadedImage.height() ||
+	(p.y() < 0 && _zStart.y() <= 0) ||
+	(p.y() > 0 && _zEnd.y() >= _loadedImage.height()))
+      p.setY(0);
+    if (p.x() == 0 && p.y() == 0)
+      return;
+    if ( p.x() < 0 && _zStart.x() > 0 && _zStart.x() < -p.x() )
         p.setX( -_zStart.x() );
 
-    if ( p.y() < 0 && _zStart.y() < -p.y() )
+    if ( p.y() < 0 && _zStart.y() > 0 &&  _zStart.y() < -p.y() )
         p.setY( -_zStart.y() );
 
-    if ( p.x() > 0 && p.x() + _zEnd.x() > _loadedImage.width() )
+    if ( p.x() > 0 && _zEnd.x() < _loadedImage.width() &&
+	 p.x() + _zEnd.x() > _loadedImage.width() )
         p.setX( _loadedImage.width() - _zEnd.x() );
 
-    if ( p.y() > 0 && p.y() + _zEnd.y() > _loadedImage.height() )
+    if ( p.y() > 0 && _zEnd.y() < _loadedImage.height() &&
+	 p.y() + _zEnd.y() > _loadedImage.height() )
         p.setY( _loadedImage.height() - _zEnd.y() );
+#else
+
+    if (p.x() < 0) {		// Pan right
+      if (_zEnd.x() - _zStart.x() > _loadedImage.width()) {
+	// Image is narrower than display
+	if (-p.x() > _zEnd.x() - _loadedImage.width()) {
+	  p.setX(_loadedImage.width() - _zEnd.x());
+	}
+      } else {
+	// Image is wider than display
+	if (p.x() < -_zStart.x()) {
+	  p.setX(-_zStart.x());
+	}
+      }
+    }
+
+    if (p.x() > 0) {		// Pan left
+      if (_zEnd.x() - _zStart.x() > _loadedImage.width()) {
+	// Image is narrower than display
+	if (p.x() > -_zStart.x()) {
+	  p.setX(-_zStart.x());
+	}
+      } else {
+	// Image is wider than display
+	if (p.x() > _loadedImage.width() - _zEnd.x()) {
+	  p.setX(_loadedImage.width() - _zEnd.x());
+	}
+      }
+    }
+
+
+    if (p.y() < 0) {		// Pan down
+      if (_zEnd.y() - _zStart.y() > _loadedImage.height()) {
+	// Image is shorter than display
+	if (-p.y() > _zEnd.y() - _loadedImage.height()) {
+	  p.setY(_loadedImage.height() - _zEnd.y());
+	}
+      } else {
+	// Image is taller than display
+	if (p.y() < -_zStart.y()) {
+	  p.setY(-_zStart.y());
+	}
+      }
+    }
+
+    if (p.y() > 0) {		// Pan up
+      if (_zEnd.y() - _zStart.y() > _loadedImage.height()) {
+	// Image is shorter than display
+	if (p.y() > -_zStart.y()) {
+	  p.setY(-_zStart.y());
+	}
+      } else {
+	// Image is taller than display
+	if (p.y() > _loadedImage.height() - _zEnd.y()) {
+	  p.setY(_loadedImage.height() - _zEnd.y());
+	}
+      }
+    }
+
+    if (p.x() == 0 && p.y() == 0)
+      return;
+#endif
 
     _zStart += p;
     _zEnd += p;
@@ -414,20 +567,72 @@ void Viewer::ImageDisplay::cropAndScale()
         _croppedAndScaledImg = info->img;
         _zEnd = QPoint( info->size.width(), info->size.height() );
         _cachedView = true;
-    }
-    else {
-        if ( _loadedImage.isNull() || _cachedView ) {
+    } else {
+        if ( _loadedImage.isNull() ) {
             return;
         }
+	QPoint zSpan = _zEnd - _zStart;
+	if (zSpan.x() > _loadedImage.width()) {	// Narrow image
+	  if (_zStart.x() > 0) {
+	    _zEnd.setX(_zEnd.x() - _zStart.x());
+	    _zStart.setX(0);
+	  } else if (_zEnd.x() < _loadedImage.width()) {
+	    _zStart.setX(_zStart.x() + _loadedImage.width() - _zEnd.x());
+	    _zEnd.setX(_loadedImage.width());
+	  }
+	} else {		// Wide image
+	  if (_zStart.x() < 0) {
+	    _zEnd.setX(_zEnd.x() - _zStart.x());
+	    _zStart.setX(0);
+	  } else if (_zEnd.x() > _loadedImage.width()) {
+	    _zStart.setX(_zStart.x() + _loadedImage.width() - _zEnd.x());
+	    _zEnd.setX(_loadedImage.width());
+	  }
+	}
+	if (zSpan.y() > _loadedImage.height()) { // Short image
+	  if (_zStart.y() > 0) {
+	    _zEnd.setY(_zEnd.y() - _zStart.y());
+	    _zStart.setY(0);
+	  } else if (_zEnd.y() < _loadedImage.height()) {
+	    _zStart.setY(_zStart.y() + _loadedImage.height() - _zEnd.y());
+	    _zEnd.setY(_loadedImage.height());
+	  }
+	} else {		// Tall image
+	  if (_zStart.y() < 0) {
+	    _zEnd.setY(_zEnd.y() - _zStart.y());
+	    _zStart.setY(0);
+	  } else if (_zEnd.y() > _loadedImage.height()) {
+	    _zStart.setY(_zStart.y() + _loadedImage.height() - _zEnd.y());
+	    _zEnd.setY(_loadedImage.height());
+	  }
+	}
 
         if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) ) {
-            _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
+	    if (zSpan.x() > width() && zSpan.y() > height() &&
+		zSpan.x() > _loadedImage.width() &&
+		zSpan.y() > _loadedImage.height()) {
+	      double wRatio = zSpan.x() / (double) width();
+	      double hRatio = zSpan.y() / (double) height();
+	      double ratio = wRatio > hRatio ? wRatio : hRatio;
+	      int dWidth = (int) (_loadedImage.width() / ratio);
+	      int dHeight = (int) (_loadedImage.height() / ratio);
+	      QImage tImage = Utilities::scaleImage(_loadedImage,
+						    dWidth, dHeight,
+						    QImage::ScaleMin);
+
+	      _croppedAndScaledImg = tImage.copy( (int) (_zStart.x() / ratio),
+						  (int) (_zStart.y() / ratio),
+						  (int) (zSpan.x() / ratio),
+						  (int) (zSpan.y() / ratio));
+	    } else {
+	      _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
+	    }
         }
         else
             _croppedAndScaledImg = _loadedImage;
 
-        if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
-            _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
+        if ( !_croppedAndScaledImg.isNull() )  // I don't know how this can happen, but it seems not to be dangerous.
+	    _croppedAndScaledImg = Utilities::scaleImage(_croppedAndScaledImg, width(), height(), QImage::ScaleMin);
     }
 
     drawAll();
@@ -448,12 +653,24 @@ QImage Viewer::ImageDisplay::currentViewAsThumbnail() const
 
 void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
 {
+    bool updatedSize = 0;
+    DB::ImageInfoPtr info = _loadMap[fileName];
+    if (info) {
+      if (info->size().width() < 0) {
+	info->setSize(fullSize);
+	updatedSize = 1;
+      }
+      _loadMap.remove(fileName);
+    }
     if ( loadedOK && fileName == _info->fileName() ) {
         _loadedImage = img;
         _cachedView = !( imgSize == fullSize || imgSize == QSize(-1,-1) );
+	if (_viewer && updatedSize) {
+	  _viewer->updateInfoBox();
+	  retryZoom();
+	}
         if ( !_reloadImageInProgress ) {
-            _zStart=QPoint( 0, 0 );
-            _zEnd=QPoint( img.width(), img.height() );
+	    zoomStandard();
         }
         else
             _reloadImageInProgress = false;
@@ -506,8 +723,9 @@ void Viewer::ImageDisplay::updatePreload()
             }
         }
         else {
-            ImageManager::ImageRequest* request =
+	    ImageManager::ImageRequest *request =
                 new ImageManager::ImageRequest( info->fileName(), QSize(width(), height()), info->angle(), this );
+	    _loadMap.insert(info->fileName(), info);
             ImageManager::Manager::instance()->load( request );
 
             if ( cacheFull ) {

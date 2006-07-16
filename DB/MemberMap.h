@@ -56,8 +56,8 @@ protected:
     QStringList calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group );
 
 protected slots:
-    void deleteItem( Category* category, const QString& name);
-    void renameItem( Category* category, const QString& oldName, const QString& newName );
+    void deleteItem( DB::Category* category, const QString& name);
+    void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
 
 private:
     friend class XMLDB::Database;

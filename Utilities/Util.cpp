@@ -73,12 +73,20 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 {
     Q_ASSERT( info );
     QString text;
+    if ( Settings::SettingsData::instance()->showFilename() )
+      text = i18n("<b>File Name: </b> ") + info->fileName() + QString::fromLatin1("<br>");
     if ( Settings::SettingsData::instance()->showDate() )  {
-        text = info->date().toString( true );
+        QString dateText = info->date().toString( true );
 
-        if ( !text.isEmpty() ) {
-            text = i18n("<b>Date: </b> ") + text + QString::fromLatin1("<br>");
+        if ( !dateText.isEmpty() ) {
+	    text += i18n("<b>Date: </b> ") + dateText + QString::fromLatin1("<br>");
         }
+    }
+    if ( Settings::SettingsData::instance()->showImageSize() )  {
+        QSize imageSize = info->size();
+	text += i18n("<b>Image Size: </b> ") +
+	  QString::number(imageSize.width()) + i18n("x") +
+	  QString::number(imageSize.height()) + QString::fromLatin1("<br>");
     }
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -619,10 +627,26 @@ bool operator<( const QPoint& p1, const QPoint& p2)
     return p1.y() < p2.y() || ( p1.y() == p2.y() && p1.x() < p2.x() );
 }
 
-bool Utilities::isMovie( const QString& fileName )
+bool Utilities::isVideo( const QString& fileName )
 {
     QFileInfo fi( fileName );
     QString ext = fi.extension();
     return ext == QString::fromLatin1("avi") || ext == QString::fromLatin1("mov") || ext == QString::fromLatin1( "rm" ) ||
         ext == QString::fromLatin1( "wmv" ) || ext == QString::fromLatin1( "mpg" );
+}
+
+QImage Utilities::scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode )
+{
+  if (Settings::SettingsData::instance()->smoothScale())
+    return image.smoothScale(w, h, mode);
+  else
+    return image.scale(w, h, mode);
+}
+
+QImage Utilities::scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode )
+{
+  if (Settings::SettingsData::instance()->smoothScale())
+    return image.smoothScale(s, mode);
+  else
+    return image.scale(s, mode);
 }

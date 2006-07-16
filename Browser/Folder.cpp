@@ -62,10 +62,10 @@ int Browser::Folder::compare( Folder* other, int col, bool asc ) const
             return ( _count.images() != o->_count.images() );
     }
     else if ( col == 2 ) {
-        if ( _count.movies() < o->_count.movies() )
+        if ( _count.videos() < o->_count.videos() )
             return -1;
         else
-            return ( _count.movies() != o->_count.movies() );
+            return ( _count.videos() != o->_count.videos() );
     }
     else
         Q_ASSERT( false );

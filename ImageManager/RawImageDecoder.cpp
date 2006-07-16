@@ -5,6 +5,7 @@
 #include <qimage.h>
 #include <qwmatrix.h>
 #include <cstdio>
+#include "Settings/SettingsData.h"
 
 /* Main entry point into raw parser */
 extern "C" {
@@ -52,9 +53,6 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
   return true;
 }
 
-/* TODO(steffen): What is the input for this function?
-   It seems that is is _not_ the full filename...
-*/
 bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 {
 	/* Known RAW file extensions. TODO: Complete */
@@ -72,6 +70,23 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 										  QString::fromLatin1("rdc"),
 										  QString::fromLatin1("x3f"),
 										  QString::null };
+	if (Settings::SettingsData::instance()->dontReadRawFilesWithOtherMatchingFile()) {
+            static const QString standardExtensions[] = {
+                QString::fromLatin1("jpg"),
+                QString::fromLatin1("JPG"),
+                QString::fromLatin1("tif"),
+                QString::fromLatin1("TIF"),
+                QString::fromLatin1("png"),
+                QString::fromLatin1("PNG"),
+                QString::null };
+            QString baseFileName = imageFile;
+            baseFileName.remove(baseFileName.length() - 3, 3);
+            for (int i = 0; !standardExtensions[i].isNull(); ++i) {
+                if (QFile::exists(baseFileName + standardExtensions[i]))
+                    return false;
+            }
+	}
+
 	for( int i = 0; !extensions[i].isNull(); ++i ) {
 		if( imageFile.endsWith( extensions[i], false ) ) return true;
 	}

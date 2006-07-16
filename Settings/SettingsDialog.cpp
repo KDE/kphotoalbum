@@ -101,6 +101,7 @@ void Settings::SettingsDialog::createGeneralPage()
 
     // Search for images on startup
     _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images on startup"), box );
+    _dontReadRawFilesWithOtherMatchingFile = new QCheckBox( i18n("Don't read RAW files if matching JPEG/TIFF file exists"), box );
 
     // Datebar size
     container = new QWidget( top );
@@ -185,6 +186,12 @@ void Settings::SettingsDialog::createGeneralPage()
                 "using <tt>Maintenance->Rescan for new images</tt></qt>");
     QWhatsThis::add( _searchForImagesOnStartup, txt );
 
+    txt = i18n( "<qt><p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
+		"Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
+		"This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
+		"If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p></qt>");
+    QWhatsThis::add( _dontReadRawFilesWithOtherMatchingFile, txt );
+
     txt = i18n("<qt><p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
                "KPhotoAlbum do not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
                "to the plugin system as if it did.</p>"
@@ -227,11 +234,18 @@ void Settings::SettingsDialog::createThumbNailPage()
     int row = 0;
 
     // Preview size
-    QLabel* previewSizeLabel = new QLabel( i18n("Preview image size:" ), top, "previewSizeLabel" );
+    QLabel* previewSizeLabel = new QLabel( i18n("Tooltip preview image size:" ), top, "previewSizeLabel" );
     _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
     _previewSize->setSpecialValueText( i18n("No Image Preview") );
     lay->addWidget( previewSizeLabel, row, 0 );
     lay->addWidget( _previewSize, row, 1 );
+
+    // Thumbnail size
+    ++row;
+    QLabel* thumbnailSizeLabel = new QLabel( i18n("Thumbnail image size:" ), top, "thumbnailSizeLabel" );
+    _thumbnailSize = new QSpinBox( 0, 512, 16, top, "_thumbnailSize" );
+    lay->addWidget( thumbnailSizeLabel, row, 0 );
+    lay->addWidget( _thumbnailSize, row, 1 );
 
     // Display Labels
     ++row;
@@ -265,6 +279,11 @@ void Settings::SettingsDialog::createThumbNailPage()
                 "This option configures the image size</p></qt>" );
     QWhatsThis::add( previewSizeLabel, txt );
     QWhatsThis::add( _previewSize, txt );
+
+
+    txt = i18n( "<qt><p>Thumbnail image size. You may also set the size simply by dragging the thumbnail view using the middle mouse button.</p></qt>" );
+    QWhatsThis::add( thumbnailSizeLabel, txt );
+    QWhatsThis::add( _thumbnailSize, txt );
 
 
     txt = i18n("<qt>Checking this option will show the base name for the file under "
@@ -383,10 +402,12 @@ void Settings::SettingsDialog::show()
 
     // General page
     _previewSize->setValue( opt->previewSize() );
+    _thumbnailSize->setValue( opt->thumbSize() );
     _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
+    _dontReadRawFilesWithOtherMatchingFile->setChecked( opt->dontReadRawFilesWithOtherMatchingFile() );
     _compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
     _autosave->setValue( opt->autoSave() );
     _barWidth->setValue( opt->histogramSize().width() );
@@ -407,7 +428,9 @@ void Settings::SettingsDialog::show()
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );
     _thumbnailCache->setValue( opt->thumbnailCache() );
+    _smoothScale->setChecked( opt->smoothScale() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
+    _viewerStandardSize->setCurrentItem( opt->viewerStandardSize() );
 
 #ifdef HASKIPI
     _delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
@@ -442,10 +465,12 @@ void Settings::SettingsDialog::slotMyOK()
 
     // General
     opt->setPreviewSize( _previewSize->value() );
+    opt->setThumbSize( _thumbnailSize->value() );
     opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
+    opt->setDontReadRawFilesWithOtherMatchingFile( _dontReadRawFilesWithOtherMatchingFile->isChecked() );
     opt->setBackupCount( _backupCount->value() );
     opt->setCompressBackup( _compressBackup->isChecked() );
     opt->setUseCompressedIndexXML( _compressedIndexXML->isChecked() );
@@ -461,10 +486,12 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );
     opt->setViewerCacheSize( _cacheSize->value() );
+    opt->setSmoothScale( _smoothScale->isChecked() );
     opt->setThumbnailCache( _thumbnailCache->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
     opt->setAutoShowThumbnailView( _autoShowThumbnailView->value() );
+    opt->setViewerStandardSize((StandardViewSize) _viewerStandardSize->currentItem());
 
     // ----------------------------------------------------------------------
     // Categories
@@ -838,6 +865,27 @@ void Settings::SettingsDialog::createViewerPage()
     _cacheSize = new QSpinBox( 0, 2000, 10, top, "_cacheSize" );
     _cacheSize->setSuffix( i18n(" Mbytes") );
     glay->addWidget( _cacheSize, 1, 1 );
+
+    QString txt;
+
+    QLabel* standardSizeLabel = new QLabel( i18n("Standard size in viewer:"), top );
+    _viewerStandardSize = new KComboBox( top );
+    _viewerStandardSize->insertStringList( QStringList() << i18n("Full Viewer Size") << i18n("Natural Image Size") << i18n("Natural Image Size If Possible") );
+    glay->addWidget( standardSizeLabel, 2, 0);
+    glay->addWidget( _viewerStandardSize, 2, 1 );
+
+    txt = i18n("<qt><p>Set the standard size for images to be displayed in the viewer.</p> "
+	       "<p><b>Full Viewer Size</b> indicates that the image will be stretched or shrunk to fill the viewer window.</p> "
+	       "<p><b>Natural Image Size</b> indicates that the image will be displayed pixel for pixel.</p> "
+	       "<p><b>Natural Image Size If Possible</b> indicates that the image will be displayed pixel for pixel if it would fit the window, "
+	       "otherwise it will be shrunk to fit the viewer.</p></qt>");
+    QWhatsThis::add(_viewerStandardSize, txt);
+
+    _smoothScale = new QCheckBox( i18n( "Use smooth scaling" ), top );
+    glay->addWidget( _smoothScale, 3, 0 );
+    txt = i18n("<qt><p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
+		       "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p></qt>");
+    QWhatsThis::add( _smoothScale, txt );
 }
 
 

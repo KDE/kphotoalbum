@@ -46,6 +46,7 @@ class Draw;
 class DrawHandler;
 class DisplayAreaHandler;
 class ViewHandler;
+class ViewerWidget;
 
 struct ViewPreloadInfo
 {
@@ -60,6 +61,7 @@ class ImageDisplay :public Viewer::Display, public ImageManager::ImageClient {
 Q_OBJECT
 public:
     ImageDisplay( QWidget* parent, const char* name = 0 );
+    void setParentViewer(Viewer::ViewerWidget *);
     void startDrawing();
     void stopDrawing();
     void setImage( DB::ImageInfoPtr info, bool forward );
@@ -74,6 +76,8 @@ public slots:
     void zoomIn();
     void zoomOut();
     void zoomFull();
+    void zoomPixelForPixel();
+    void zoomStandard();
 
 protected slots:
     void drawAll();
@@ -101,6 +105,7 @@ protected:
     void zoom( QPoint p1, QPoint p2 );
     void normalize( QPoint& p1, QPoint& p2 );
     void pan( const QPoint& );
+    void retryZoom();
     void busy();
     void unbusy();
 
@@ -119,11 +124,21 @@ private:
     QPoint _zEnd;
     QPtrVector<ViewPreloadInfo> _cache;
     QStringList _imageList;
+    QMap<QString, DB::ImageInfoPtr> _loadMap;
     bool _cachedView;
     bool _reloadImageInProgress;
     int _forward;
     int _curIndex;
     bool _busy;
+    ViewerWidget *_viewer;
+    enum ZoomType {
+      ZoomNull = 0,
+      ZoomIn,
+      ZoomOut,
+      ZoomFull,
+      ZoomPixelForPixel,
+      ZoomStandard
+    } _lastZoomType;
 };
 
 }

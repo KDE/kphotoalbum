@@ -61,6 +61,11 @@ namespace Settings
         Ask = 1,
         Never = 2
     };
+    enum StandardViewSize {
+        FullSize = 0,
+        NaturalSize = 1,
+        NaturalSizeIfFits = 2
+    };
     enum WindowType { MainWindow = 0, ConfigWindow = 1 };
 
 class SettingsData :public QObject {
@@ -74,6 +79,7 @@ public:
     boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
     boolProperty( General, useEXIFComments, setUseEXIFComments, true );
     boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
+    boolProperty( General, dontReadRawFilesWithOtherMatchingFile, setDontReadRawFilesWithOtherMatchingFile, false );
     boolProperty( General, useCompressedIndexXML, setUseCompressedIndexXML, false );
     intProperty( General, autoSave, setAutoSave, 5 );
     intProperty( General, backupCount, setBackupCount, 0 );
@@ -99,6 +105,7 @@ public:
     sizeProperty( Viewer, slideShowSize, setSlideShowSize, QSize( 800, 600 ) );
     boolProperty( Viewer, launchViewerFullScreen, setLaunchViewerFullScreen, false );
     boolProperty( Viewer, launchSlideShowFullScreen, setLaunchSlideShowFullScreen, false );
+    boolProperty( Viewer, smoothScale, setSmoothScale, true );
     intProperty( Viewer, slideShowInterval, setSlideShowInterval, 5 );
     intProperty( Viewer, viewerCacheSize, setViewerCacheSize, 25 );
 
@@ -106,8 +113,12 @@ public:
     boolProperty( Viewer, showDrawings, setShowDrawings, true );
     boolProperty( Viewer, showDescription, setShowDescription, true );
     boolProperty( Viewer, showDate, setShowDate, true );
+    boolProperty( Viewer, showImageSize, setShowImageSize, true );
     boolProperty( Viewer, showTime, setShowTime, true );
+    boolProperty( Viewer, showFilename, setShowFilename, false );
     boolProperty( Viewer, showEXIF, setShowEXIF, true );
+    void setViewerStandardSize(StandardViewSize);
+    StandardViewSize viewerStandardSize() const;
 
 
     // -------------------------------------------------- Miscellaneous

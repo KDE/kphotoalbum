@@ -91,7 +91,7 @@ QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int hei
         matrix.rotate( angle );
         img = img.xForm( matrix );
     }
-    img = img.smoothScale( width, height, QImage::ScaleMin );
+    img = Utilities::scaleImage(img, width, height, QImage::ScaleMin );
     return img;
 }
 
@@ -174,7 +174,7 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
             continue;
 
         QFileInfo fi( request->fileName() );
-        QImage scaledImg = img.smoothScale( *it, *it, QImage::ScaleMin );
+        QImage scaledImg = Utilities::scaleImage(img, *it, *it, QImage::ScaleMin );
         scaledImg.setText( "Software","en",QString::fromLatin1( "KPhotoAlbum" ) );
         scaledImg.setText( "Thumb::URI", "en", requestURL( request ) );
         scaledImg.setText( "Thumb::MTime", "en", QString::number( fi.lastModified().toTime_t() ) );
@@ -213,7 +213,7 @@ QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage 
 
     // If we are looking for a scaled version, then scale
     if ( request->width() != -1 )
-        img = img.smoothScale( request->width(), request->height(), QImage::ScaleMin );
+        img = Utilities::scaleImage(img, request->width(), request->height(), QImage::ScaleMin );
 
     return img;
 }

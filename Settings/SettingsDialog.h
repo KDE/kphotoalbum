@@ -92,9 +92,11 @@ private:
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
     QSpinBox* _previewSize;
+    QSpinBox* _thumbnailSize;
     QComboBox* _albumCategory;
     QCheckBox* _displayLabels;
     QCheckBox* _searchForImagesOnStartup;
+    QCheckBox* _dontReadRawFilesWithOtherMatchingFile;
     QSpinBox* _thumbnailCache;
     QSpinBox* _autoShowThumbnailView;
     QSpinBox* _barWidth;
@@ -126,8 +128,10 @@ private:
     // Viewer page
     ViewerSizeConfig* _slideShowSetup;
     ViewerSizeConfig* _viewImageSetup;
+    QCheckBox* _smoothScale;
     QSpinBox* _slideShowInterval;
     QSpinBox* _cacheSize;
+    KComboBox* _viewerStandardSize;
 
 #ifdef HASKIPI
     // Plugin config

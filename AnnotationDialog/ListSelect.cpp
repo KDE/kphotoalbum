@@ -80,16 +80,17 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
     _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(category).latin1() );
     layout->addWidget( _lineEdit );
 
-    _listBox = new QListView( this );
-    _listBox->setSorting( 1 );
-    _listBox->addColumn( QString::fromLatin1( "items" ) );
-    _listBox->header()->hide();
-    _listBox->setSelectionMode( QListView::Multi );
-    connect( _listBox, SIGNAL( clicked( QListViewItem*  ) ),  this,  SLOT( itemSelected( QListViewItem* ) ) );
-    connect( _listBox, SIGNAL( contextMenuRequested( QListViewItem*, const QPoint&, int ) ),
+    _listView = new QListView( this );
+    _listView->setSorting( 1 );
+    _listView->addColumn( QString::fromLatin1( "items" ) );
+    _listView->header()->setStretchEnabled( true );
+    _listView->header()->hide();
+    _listView->setSelectionMode( QListView::Multi );
+    connect( _listView, SIGNAL( clicked( QListViewItem*  ) ),  this,  SLOT( itemSelected( QListViewItem* ) ) );
+    connect( _listView, SIGNAL( contextMenuRequested( QListViewItem*, const QPoint&, int ) ),
              this, SLOT(showContextMenu( QListViewItem*, const QPoint& ) ) );
-    layout->addWidget( _listBox );
-    _listBox->viewport()->installEventFilter( this );
+    layout->addWidget( _listView );
+    _listView->viewport()->installEventFilter( this );
 
     // Merge CheckBox
     QHBoxLayout* lay2 = new QHBoxLayout( layout, 6 );
@@ -129,7 +130,7 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
     lay2->addWidget( _alphaSort );
     lay2->addWidget( _dateSort );
 
-    _lineEdit->setListView( _listBox );
+    _lineEdit->setListView( _listView );
 
     connect( _lineEdit, SIGNAL( returnPressed() ),  this,  SLOT( slotReturn() ) );
 
@@ -146,29 +147,29 @@ void ListSelect::slotReturn()
         if ( txt.isEmpty() )
             return;
 
-        QListViewItem* item = _listBox->findItem( txt, 0, ExactMatch );
+        QListViewItem* item = _listView->findItem( txt, 0, ExactMatch );
 
         if ( !item ) {
-            item = new QListViewItem( _listBox, txt, QString::fromLatin1("0") ); // PENDING(blackie) move to front
+            item = new QListViewItem( _listView, txt, QString::fromLatin1("0") ); // PENDING(blackie) move to front
         }
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( txt);
 
 #ifdef TEMPORARILY_REMOVED
         // move item to front
-        _listBox->takeItem( item );
+        _listView->takeItem( item );
         if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse ) {
-            _listBox->insertItem( item, 0 );
-            _listBox->setContentsPos( 0,0 );
+            _listView->insertItem( item, 0 );
+            _listView->setContentsPos( 0,0 );
         }
         else {
             QListBoxItem* lbi = 0;
-            for ( lbi = _listBox->firstItem(); lbi && lbi->text().lower() < txt.lower(); lbi = lbi->next() ) {};
+            for ( lbi = _listView->firstItem(); lbi && lbi->text().lower() < txt.lower(); lbi = lbi->next() ) {};
 
             if ( !lbi ) {
-                _listBox->insertItem( item );
+                _listView->insertItem( item );
             }
             else {
-                _listBox->insertItem( item, lbi->prev() );
+                _listView->insertItem( item, lbi->prev() );
             }
         }
 #endif
@@ -187,7 +188,7 @@ void ListSelect::setSelection( const QStringList& list )
 {
     // PENDING(blackie) change method to take a set
     Set<QString> selection( list );
-    for ( QListViewItemIterator itemIt( _listBox ); *itemIt; ++itemIt ) {
+    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         (*itemIt)->setSelected( selection.contains( (*itemIt)->text(0) ) );
     }
 
@@ -198,7 +199,7 @@ QStringList ListSelect::selection()
 {
     // PENDING(blackie) should this method return a set?
     QStringList list;
-    for ( QListViewItemIterator itemIt( _listBox ); *itemIt; ++itemIt ) {
+    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         if ( (*itemIt)->isSelected() )
             list.append( (*itemIt)->text(0) );
     }
@@ -235,7 +236,7 @@ void ListSelect::setMode( Mode mode )
     _lineEdit->setMode( mode );
     if ( mode == SEARCH) {
         // "0" below is sorting key which ensures that None is always at top.
-        new QListViewItem( _listBox, DB::ImageDB::NONE(), QString::fromLatin1("0") );
+        new QListViewItem( _listView, DB::ImageDB::NONE(), QString::fromLatin1("0") );
 	_checkBox->setText( i18n("AND") );
 	// OR is a better default choice (the browser can do AND but not OR)
 	_checkBox->setChecked( false );
@@ -273,7 +274,7 @@ QString ListSelect::text() const
 void ListSelect::setText( const QString& text )
 {
     _lineEdit->setText( text );
-    _listBox->clearSelection();
+    _listView->clearSelection();
 }
 
 void ListSelect::itemSelected( QListViewItem* item )
@@ -402,7 +403,7 @@ void ListSelect::showContextMenu( QListViewItem* item, const QPoint& pos )
                 DB::ImageDB::instance()->categoryCollection()->categoryForName( category() )->renameItem( oldStr, newStr );
                 bool sel = item->isSelected();
                 delete item;
-                QListViewItem* newItem = new QListViewItem( _listBox, newStr );
+                QListViewItem* newItem = new QListViewItem( _listView, newStr );
                 newItem->setSelected( sel );
 
                 // rename the category image too
@@ -442,12 +443,12 @@ void ListSelect::showContextMenu( QListViewItem* item, const QPoint& pos )
 void ListSelect::populate()
 {
     _label->setText( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
-    _listBox->clear();
+    _listView->clear();
     QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclGroups();
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
     for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         ++index;
-        new QListViewItem( _listBox, *itemIt, QString::number( index ) );
+        new QListViewItem( _listView, *itemIt, QString::number( index ) );
     }
 }
 
@@ -459,7 +460,7 @@ void ListSelect::populate()
 */
 bool ListSelect::eventFilter( QObject* object, QEvent* event )
 {
-    if ( object == _listBox->viewport() && event->type() == QEvent::MouseButtonPress &&
+    if ( object == _listView->viewport() && event->type() == QEvent::MouseButtonPress &&
          static_cast<QMouseEvent*>(event)->button() == Qt::RightButton )
         return true;
     return QWidget::eventFilter( object, event );

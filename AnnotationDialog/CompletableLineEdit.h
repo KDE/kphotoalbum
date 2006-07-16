@@ -23,7 +23,7 @@ protected:
     void selectItemAndUpdateLineEdit( QListViewItem* item, int itemStart, const QString& inputText );
 
 private:
-    QListView* _listbox;
+    QListView* _listView;
     ListSelect::Mode _mode;
     ListSelect* _listSelect;
 };

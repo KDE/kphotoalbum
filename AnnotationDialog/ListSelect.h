@@ -78,13 +78,10 @@ private:
     QLabel* _label;
     QString _category;
     CompletableLineEdit* _lineEdit;
-    QListView* _listBox;
+    QListView* _listView;
     QCheckBox* _checkBox;
     QCheckBox* _removeCheckBox;
     Mode _mode;
-#ifdef TEMPORARILY_REMOVED
-    QListBoxItem* _none;
-#endif
     QToolButton* _alphaSort;
     QToolButton* _dateSort;
 };

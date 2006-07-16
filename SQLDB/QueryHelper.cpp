@@ -320,8 +320,9 @@ QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category)
 
 QStringList QueryHelper::membersOfCategory(int categoryId)
 {
+    // Tags with larger place come first. (NULLs last)
     return executeQuery("SELECT name FROM tag "
-                        "WHERE categoryId=%s ORDER BY place",
+                        "WHERE categoryId=%s ORDER BY place DESC",
                         Bindings() << categoryId).asStringList();
 }
 
@@ -398,10 +399,35 @@ int QueryHelper::insertTag(int categoryId, const QString& name)
     if (!i.isNull())
         return i.toInt();
 
-    // TODO: set place
-
     return insert("tag", "id", QStringList() << "categoryId" << "name",
                   Bindings() << categoryId << name);
+}
+
+void QueryHelper::insertTagFirst(int categoryId, const QString& name)
+{
+    // See membersOfCategory() for tag ordering usage.
+
+    int id = insertTag(categoryId, name);
+    QVariant oldPlace = executeQuery("SELECT place FROM tag WHERE id=%s",
+                                     Bindings() << id).firstItem();
+
+    // Move tags from this to previous first tag one place towards end
+    if (!oldPlace.isNull()) {
+        executeStatement("UPDATE tag SET place=place-1 "
+                         "WHERE categoryId=%s AND place>%s",
+                         Bindings() << categoryId << oldPlace);
+    }
+
+    // MAX(place) could be NULL, but it'll be returned as 0 with
+    // toInt(), which is ok.
+    int newPlace = executeQuery("SELECT MAX(place) FROM tag "
+                                "WHERE categoryId=%s",
+                                Bindings() << categoryId
+                                ).firstItem().toInt() + 1;
+
+    // Put this tag first
+    executeStatement("UPDATE tag SET place=%s WHERE id=%s",
+                     Bindings() << newPlace << id);
 }
 
 void QueryHelper::removeTag(int categoryId, const QString& name)

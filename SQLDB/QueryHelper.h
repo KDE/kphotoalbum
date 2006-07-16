@@ -88,6 +88,7 @@ public:
     QValueList<int> allMediaItemIds();
     QValueList<int> allMediaItemIdsByType(int typemask);
     int insertTag(int categoryId, const QString& name);
+    void insertTagFirst(int categoryId, const QString& name);
     void removeTag(int categoryId, const QString& name);
     void insertMediaTag(int mediaId, int tagId);
     int insertDir(const QString& relativePath);

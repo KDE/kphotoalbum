@@ -94,13 +94,15 @@ void SQLDB::SQLCategory::setItems( const QStringList& items )
         executeStatement("DELETE FROM tag WHERE categoryId=%s",
                          QueryHelper::Bindings() << _categoryId);
 
-    // TODO: set place too
+    uint place = items.count();
     for(QStringList::const_iterator it = items.begin();
         it != items.end(); ++it ) {
         QueryHelper::instance()->
-            executeStatement("INSERT INTO tag(name, categoryId) "
-                             "VALUES(%s, %s)",
-                             QueryHelper::Bindings() << *it << _categoryId);
+            executeStatement("INSERT INTO tag(name, categoryId, place) "
+                             "VALUES(%s, %s, %s)",
+                             QueryHelper::Bindings() << *it <<
+                             _categoryId << place);
+        --place;
     }
 }
 
@@ -109,14 +111,16 @@ void SQLDB::SQLCategory::removeItem(const QString& item)
     QueryHelper::instance()->removeTag(_categoryId, item);
 }
 
-void SQLDB::SQLCategory::renameItem( const QString& /*oldValue*/, const QString& /*newValue*/ )
+void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newValue)
 {
-    qDebug("NYI: void SQLDB::SQLCategory::renameItem( const QString& oldValue, const QString& newValue )" );
+    QueryHelper::instance()->
+        executeStatement("UPDATE tag SET name=%s WHERE name=%s",
+                         QueryHelper::Bindings() << newValue << oldValue);
 }
 
 void SQLDB::SQLCategory::addItem( const QString& item )
 {
-    QueryHelper::instance()->insertTag(_categoryId, item);
+    QueryHelper::instance()->insertTagFirst(_categoryId, item);
 }
 
 QStringList SQLDB::SQLCategory::items() const

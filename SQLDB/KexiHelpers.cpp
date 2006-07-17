@@ -61,7 +61,7 @@ QValueList<int> SQLDB::readIntsFromCursor(KexiDB::Cursor& cursor, int col)
     return l;
 }
 
-KexiDB::Field::Type SQLDB::fieldTypeFor(QVariant qv)
+KexiDB::Field::Type SQLDB::fieldTypeFor(const QVariant& qv)
 {
     switch(qv.type()) {
     case QVariant::Bool:

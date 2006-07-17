@@ -561,17 +561,19 @@ int QueryHelper::idForTag(const QString& category, const QString& item)
                         Bindings() << category << item).firstItem().toInt();
 }
 
-QValueList<int> QueryHelper::idListForTag(const QString& category, const QString& item)
+QValueList<int> QueryHelper::idListForTag(const QString& category,
+                                          const QString& item)
 {
     int tagId = idForTag(category, item);
     QValueList<int> visited, queue;
     visited << tagId;
     queue << tagId;
-    while (queue.count() > 0) {
+    while (!queue.empty()) {
         QValueList<int> adj = getDirectMembers(queue.first());
         queue.pop_front();
-        for (QValueList<int>::const_iterator a = adj.begin();
-             a != adj.end(); ++a) {
+        QValueListConstIterator<int> adjEnd(adj.constEnd());
+        for (QValueList<int>::const_iterator a = adj.constBegin();
+             a != adjEnd; ++a) {
             if (!visited.contains(*a)) {
                 queue << *a;
                 visited << *a;

@@ -371,8 +371,8 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
     QDateTime startDate = row[6].toDateTime();
     QDateTime endDate = row[7].toDateTime();
     info.setDate(DB::ImageDate(startDate, endDate));
-    int width = row[8].toInt(); // TODO: handle NULL
-    int height = row[9].toInt(); // TODO: handle NULL
+    int width = row[8].isNull() ? -1 : row[8].toInt();
+    int height = row[9].isNull() ? -1 :row[9].toInt();
     info.setSize(QSize(width, height));
     info.setAngle(row[10].toInt());
 
@@ -483,10 +483,18 @@ int QueryHelper::insertDir(const QString& relativePath)
                   Bindings() << relativePath);
 }
 
-void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
+/** Get data from ImageInfo to Bindings list.
+ *
+ * Adds also image directory to database, if it's not already there.
+ *
+ * @return Bingings in following order:
+ *  dirId, filename, md5sum, type, label, description,
+ *  startTime, endTime, width, height, angle
+ */
+QueryHelper::Bindings
+QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
 {
-    // TODO: remove debug
-    qDebug("Inserting info of file %s", info.fileName().local8Bit().data());
+    //Q_ASSERT(bindings.isEmpty());
 
     QVariant md5 = info.MD5Sum();
     if (md5.toString().isEmpty())
@@ -500,49 +508,43 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
     QString path;
     QString filename;
     splitPath(info.fileName(true), path, filename);
+
     int dirId = insertDir(path);
+
+    return Bindings() <<
+        dirId << filename << md5 <<
+        info.mediaType() << info.label() <<
+        info.description() <<
+        info.date().start() << info.date().end() <<
+        w << h << info.angle();
+}
+
+void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
+{
+    // TODO: remove debug
+    qDebug("Inserting info of file %s", info.fileName().local8Bit().data());
+
     Q_ULLONG mediaId = insert("media", "id", QStringList() <<
                               "dirId" << "filename" << "md5sum" <<
                               "type" << "label" <<
                               "description" <<
                               "startTime" << "endTime" <<
                               "width" << "height" << "angle",
-                              Bindings() << dirId << filename << md5 <<
-                              info.mediaType() << info.label() <<
-                              info.description() <<
-                              info.date().start() << info.date().end() <<
-                              w << h << info.angle());
+                              imageInfoToBindings(info));
 
     insertMediaItemTags(mediaId, info);
 }
 
 void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
 {
+    // TODO: remove debug
     qDebug("Updating info of file %s", info.fileName().local8Bit().data());
-
-    QVariant md5 = info.MD5Sum();
-    if (md5.toString().isEmpty())
-        md5 = QVariant();
-    QVariant w = info.size().width();
-    if (w.toInt() == -1)
-        w = QVariant();
-    QVariant h =  info.size().height();
-    if (h.toInt() == -1)
-        h = QVariant();
-
-    QString path;
-    QString filename;
-    splitPath(info.fileName(true), path, filename);
-    int dirId = insertDir(path);
 
     executeStatement("UPDATE media SET dirId=%s, filename=%s, md5sum=%s, "
                      "type=%s, label=%s, description=%s, "
                      "startTime=%s, endTime=%s, "
                      "width=%s, height=%s, angle=%s WHERE id=%s",
-                     Bindings() << dirId << filename << md5 <<
-                     info.mediaType() << info.label() << info.description() <<
-                     info.date().start() << info.date().end() <<
-                     w << h << info.angle() << id);
+                     imageInfoToBindings(info) << id);
 
     insertMediaItemTags(id, info);
 }

@@ -118,6 +118,7 @@ protected:
     void bindValues(QString &s, const Bindings& b);
     Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
                     const QStringList& fields, const Bindings& values);
+    Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
 private:
     static QueryHelper* _instance;

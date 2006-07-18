@@ -46,3 +46,9 @@ void Viewer::Draw::readDrawAttr( QDomElement elm )
     _lastPos  = QPoint( elm.attribute( QString::fromLatin1("_lastPos.x"), QString::fromLatin1("0") ).toInt(),
                         elm.attribute( QString::fromLatin1("_lastPos.y"), QString::fromLatin1("0") ).toInt() );
 }
+
+void Viewer::Draw::setCoordinates(const QPoint& p0, const QPoint& p1)
+{
+    _startPos = p0;
+    _lastPos = p1;
+}

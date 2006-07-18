@@ -460,6 +460,50 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         delete schema;
     }
 
+    // ==== drawing table ====
+    schema = new KexiDB::TableSchema("drawing");
+    schema->setCaption("drawings");
+
+    f = new Field("mediaId", Field::BigInteger,
+                  Field::ForeignKey | Field::NotNull, Field::Unsigned);
+    f->setCaption("media item id");
+    schema->addField(f);
+
+    // TODO: foreign key constraint:
+    // FOREIGN KEY (mediaId) REFERENCES media(id)
+    // ON DELETE CASCADE ON UPDATE RESTRICT
+
+    f = new Field("shape", Field::ShortInteger,
+                  Field::NotNull, Field::Unsigned);
+    f->setCaption("shape type");
+    schema->addField(f);
+
+    f = new Field("x0", Field::Integer,
+                  Field::NotNull, Field::Unsigned);
+    f->setCaption("first point x coordinate");
+    schema->addField(f);
+
+    f = new Field("y0", Field::Integer,
+                  Field::NotNull, Field::Unsigned);
+    f->setCaption("first point y coordinate");
+    schema->addField(f);
+
+    f = new Field("x1", Field::Integer,
+                  Field::NotNull, Field::Unsigned);
+    f->setCaption("second point x coordinate");
+    schema->addField(f);
+
+    f = new Field("y1", Field::Integer,
+                  Field::NotNull, Field::Unsigned);
+    f->setCaption("second point y coordinate");
+    schema->addField(f);
+
+    if (!_connection->createTable(schema)) {
+        qDebug("creating drawing table failed: %s",
+               _connection->errorMsg().latin1());
+        delete schema;
+    }
+
     if (useTransactions) {
         _connection->setAutoCommit(false);
         qDebug("commitTransaction");

@@ -25,7 +25,8 @@
 #include <kexidb/connection.h>
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
-#include <DB/ImageInfo.h>
+#include "DB/ImageInfo.h"
+#include "Cursor.h"
 
 namespace SQLDB
 {
@@ -63,6 +64,7 @@ public:
         QValueList< QPair<int, QString> > asIntegerStringPairs();
         QVariant firstItem();
         QValueList<QVariant> getRow(size_t n=0);
+        Cursor cursor();
 
     private:
         KexiDB::Cursor* _cursor;
@@ -94,6 +96,7 @@ public:
     int insertDir(const QString& relativePath);
     void getMediaItem(int id, DB::ImageInfo& info);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
+    void insertMediaItemDrawings(int mediaId, const DB::ImageInfo& info);
     void insertMediaItem(const DB::ImageInfo& info);
     void updateMediaItem(int id, const DB::ImageInfo& info);
     QValueList<int> getDirectMembers(int tagId);

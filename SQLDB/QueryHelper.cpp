@@ -21,6 +21,9 @@
 #include "KexiHelpers.h"
 #include "QueryErrors.h"
 #include "Settings/SettingsData.h"
+#include "Viewer/CircleDraw.h"
+#include "Viewer/LineDraw.h"
+#include "Viewer/RectDraw.h"
 #include <klocale.h>
 #include <qsize.h>
 
@@ -119,6 +122,14 @@ QValueList<QVariant> QueryHelper::Result::getRow(uint n)
     }
     return r;
 }
+
+Cursor QueryHelper::Result::cursor()
+{
+    KexiDB::Cursor* c = _cursor;
+    _cursor = 0;
+    return Cursor(c);
+}
+
 
 QueryHelper* QueryHelper::_instance = 0;
 
@@ -387,6 +398,35 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
          i != categoryTagPairs.end(); ++i)
         info.addOption((*i)[0], (*i)[1]);
 
+    Viewer::DrawList drawList;
+    Cursor c = executeQuery("SELECT shape, x0, y0, x1, y1 "
+                            "FROM drawing WHERE mediaId=%s",
+                            Bindings() << id).cursor();
+    for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
+        RowData row;
+        c.getCurrentRow(row);
+        Viewer::Draw* drawing;
+        switch (row[0].toInt()) {
+        case 0:
+            drawing = new Viewer::CircleDraw();
+            break;
+        case 1:
+            drawing = new Viewer::LineDraw();
+            break;
+        case 2:
+            drawing = new Viewer::RectDraw();
+            break;
+        default:
+            continue;
+        }
+        drawing->setCoordinates(QPoint(row[1].toInt(),
+                                       row[2].toInt()),
+                                QPoint(row[3].toInt(),
+                                       row[4].toInt()));
+        drawList << drawing;
+    }
+    info.setDrawList(drawList);
+
     // TODO: remove debug
     qDebug("Read info of file %s (id %d)", info.fileName().local8Bit().data(), id);
 }
@@ -471,6 +511,38 @@ void QueryHelper::insertMediaItemTags(int mediaId, const DB::ImageInfo& info)
     }
 }
 
+void QueryHelper::insertMediaItemDrawings(int mediaId,
+                                          const DB::ImageInfo& info)
+{
+    executeStatement("DELETE FROM drawing WHERE mediaId=%s",
+                     Bindings() << mediaId);
+    Viewer::DrawList drawings = info.drawList();
+    for (Viewer::DrawList::const_iterator i = drawings.begin();
+        i != drawings.end(); ++i) {
+        int shape;
+        if (dynamic_cast<Viewer::CircleDraw*>(*i)) {
+            shape = 0;
+        }
+        else if (dynamic_cast<Viewer::LineDraw*>(*i)) {
+            shape = 1;
+        }
+        else if (dynamic_cast<Viewer::RectDraw*>(*i)) {
+            shape = 2;
+        }
+        else
+            continue;
+
+        QPoint p0 = (*i)->getStartPoint();
+        QPoint p1 = (*i)->getEndPoint();
+
+        executeStatement("INSERT INTO drawing "
+                         "(mediaId, shape, x0, y0, x1, y1) "
+                         "VALUES (%s, %s, %s, %s, %s, %s)",
+                         Bindings() << mediaId << shape <<
+                         p0.x() << p0.y() << p1.x() << p1.y());
+    }
+}
+
 int QueryHelper::insertDir(const QString& relativePath)
 {
     QVariant i = executeQuery("SELECT id FROM dir "
@@ -533,6 +605,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
                               imageInfoToBindings(info));
 
     insertMediaItemTags(mediaId, info);
+    insertMediaItemDrawings(mediaId, info);
 }
 
 void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
@@ -547,6 +620,7 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
                      imageInfoToBindings(info) << id);
 
     insertMediaItemTags(id, info);
+    insertMediaItemDrawings(id, info);
 }
 
 QValueList<int> QueryHelper::getDirectMembers(int tagId)

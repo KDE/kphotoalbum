@@ -108,7 +108,7 @@ public:
     static bool imageOnDisk( const QString& fileName );
 
     QString MD5Sum() const { return _md5sum; }
-    void setMD5Sum( const QString& sum ) { _md5sum = sum; }
+    void setMD5Sum( const QString& sum ) { if (sum != _md5sum) _dirty = true; _md5sum = sum; }
 
     void setLocked( bool );
     bool isLocked() const;
@@ -123,7 +123,7 @@ public:
     bool allMatched( const QString& category );
 
     MediaType mediaType() const;
-    void setMediaType( MediaType type ) { _type = type; }
+    void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; }
 
     /** Save changes to database.
      *

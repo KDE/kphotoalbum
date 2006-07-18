@@ -238,7 +238,8 @@ Viewer::DrawList ImageInfo::drawList() const
 void ImageInfo::setDrawList( const Viewer::DrawList& list )
 {
     // Can't check if really changed, because DrawList doesn't have operator==
-    _dirty = true;
+    if (!_drawList.empty() || !list.empty())
+        _dirty = true;
     _drawList = list;
 }
 

@@ -66,7 +66,7 @@ class MySQLDatabase(DatabaseWriter):
 		 'tagId BIGINT UNSIGNED NOT NULL, '
 		 'UNIQUE KEY (mediaId, tagId)'),
 		('drawing',
-		 'id SERIAL, mediaId BIGINT UNSIGNED NOT NULL, '
+		 'mediaId BIGINT UNSIGNED NOT NULL, '
 		 'shape INT, x0 INT, y0 INT, x1 INT, y1 INT'),
 		('tag_relation',
 		 'toTagId BIGINT UNSIGNED NOT NULL, '
@@ -117,7 +117,6 @@ class MySQLDatabase(DatabaseWriter):
 	def __clearIds(self):
 		self.dirMap = ItemNumMap()
 		self.mediaItemMap = ItemNumMap()
-		self.drawingMap = ItemNumMap()
 		self.categoryMap = ItemNumMap()
 		self.tagMap = ItemNumMap()
 
@@ -196,6 +195,7 @@ class MySQLDatabase(DatabaseWriter):
 		for tag in i.tags:
 			tid = self.__insertTag(tag)
 			self.__insertMediaTag(miid, tid)
+		self.__deleteMediaDrawings(miid)
 		for drw in i.drawings:
 			self.__insertMediaDrawing(miid, drw)
 		return miid
@@ -211,19 +211,20 @@ class MySQLDatabase(DatabaseWriter):
 				       'media_tag(mediaId, tagId) '
 				       'values(%s,%s)', (miid, tid))
 
+	def __deleteMediaDrawings(self, miid):
+		self.c.execute('DELETE FROM drawing WHERE mediaId=%s', (miid,))
+
 	def __insertMediaDrawing(self, miid, drw):
-		did = self.drawingMap.numFor((drw, miid))
-		if not self.__tableHasCol('drawing', 'id', did):
-			shapeid = {'circle': 0,
-				   'line': 1,
-				   'rectangle': 2}[drw.shape]
-			self.c.execute('INSERT INTO '
-				       'drawing(id, mediaId, shape, '
-				       'x0, y0, x1, y1) '
-				       'values(%s,%s,%s,%s,%s,%s,%s)',
-				       (did, miid, shapeid,
-					drw.point0[0], drw.point0[1],
-					drw.point1[0], drw.point1[1]))
+		shapeid = {'circle': 0,
+			   'line': 1,
+			   'rectangle': 2}[drw.shape]
+		self.c.execute('INSERT INTO '
+			       'drawing(mediaId, shape, '
+			       'x0, y0, x1, y1) '
+			       'values(%s,%s,%s,%s,%s,%s)',
+			       (miid, shapeid,
+				drw.point0[0], drw.point0[1],
+				drw.point1[0], drw.point1[1]))
 
 	def insertMemberGroup(self, m):
 		tid = self.__insertTag(m)

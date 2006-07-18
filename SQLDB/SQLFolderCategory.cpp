@@ -27,16 +27,8 @@ SQLFolderCategory::SQLFolderCategory():
     _iconName("folder"),
     _viewSize(Small),
     _viewType(ListView),
-    _doShow(false),
-    _isSpecial(true),
-    _items()
+    _doShow(false)
 {
-    readItems();
-}
-
-void SQLFolderCategory::readItems()
-{
-    _items = QueryHelper::instance()->folders();
 }
 
 QString SQLFolderCategory::name() const
@@ -91,40 +83,36 @@ void SQLFolderCategory::setDoShow(bool b)
 
 bool SQLFolderCategory::isSpecialCategory() const
 {
-    return _isSpecial;
+    return true;
 }
 
 void SQLFolderCategory::setSpecialCategory(bool b)
 {
-    _isSpecial = b;
+    Q_UNUSED(b);
 }
 
 QStringList SQLFolderCategory::items() const
 {
-    return _items;
+    return QueryHelper::instance()->folders();
 }
 
 void SQLFolderCategory::setItems(const QStringList& items)
 {
     Q_UNUSED(items);
-    readItems();
 }
 
 void SQLFolderCategory::addItem(const QString& item)
 {
     Q_UNUSED(item);
-    readItems();
 }
 
 void SQLFolderCategory::removeItem(const QString& item)
 {
     Q_UNUSED(item);
-    readItems();
 }
 
 void SQLFolderCategory::renameItem(const QString& oldValue, const QString& newValue)
 {
     Q_UNUSED(oldValue);
     Q_UNUSED(newValue);
-    readItems();
 }

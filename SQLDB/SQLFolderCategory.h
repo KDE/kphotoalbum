@@ -52,15 +52,11 @@ namespace SQLDB {
         virtual void renameItem(const QString& oldValue, const QString& newValue);
 
     private:
-        void readItems();
-
         QString _name;
         QString _iconName;
         ViewSize _viewSize;
         ViewType _viewType;
         bool _doShow;
-        bool _isSpecial;
-        QStringList _items;
     };
 }
 

@@ -5,7 +5,7 @@
 #include "DB/ImageInfo.h"
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
-#include "SQLImageInfo.h"
+#include "SQLImageInfoCollection.h"
 #include "Browser/BrowserWidget.h"
 #include "SQLImageDateCollection.h"
 #include "DB/MediaCount.h"
@@ -202,7 +202,7 @@ void SQLDB::Database::deleteList( const QStringList& list )
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const
 {
-    return SQLImageInfo::
+    return _infoCollection.
         getImageInfoOf(Utilities::stripImageDirectory(fileName));
 }
 
@@ -219,7 +219,7 @@ void SQLDB::Database::setMemberMap( const DB::MemberMap& map )
 void SQLDB::Database::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
 {
     qDebug("NYI: void SQLDB::Database::save( const QString& fileName )" );
-    SQLImageInfo::clearCache();
+    _infoCollection.clearCache();
 }
 
 DB::MD5Map* SQLDB::Database::md5Map()

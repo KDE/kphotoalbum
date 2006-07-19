@@ -279,6 +279,8 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
         setDescription( exifInfo.description() );
     }
 
+    saveChanges();
+
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
 #ifdef HASEXIV2

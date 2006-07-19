@@ -412,6 +412,10 @@ void Viewer::ImageDisplay::zoomFull()
 {
     if ( !_cachedView ) // Cached views are always full views
         zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
+    else {
+      _zStart = QPoint(0,0);
+      _zEnd = QPoint( _loadedImage.width(), _loadedImage.height() );
+    }
     _lastZoomType = ZoomFull;
 }
 

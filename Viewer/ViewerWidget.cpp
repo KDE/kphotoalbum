@@ -405,7 +405,7 @@ void Viewer::ViewerWidget::showNext100()
 
 void Viewer::ViewerWidget::showNext1000()
 {
-    showNextN(100);
+    showNextN(1000);
 }
 
 void Viewer::ViewerWidget::showPrevN(int n)

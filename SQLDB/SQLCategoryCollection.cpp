@@ -54,6 +54,9 @@ void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const Q
     if (category == "Folder")
         return;
     QueryHelper::instance()->
+        executeStatement("DELETE FROM category WHERE name=%s",
+                         QueryHelper::Bindings() << category);
+    QueryHelper::instance()->
         executeStatement("INSERT INTO category(name, icon, "
                          "visible, viewtype, viewsize) "
                          "VALUES(%s, %s, %s, %s, %s)",

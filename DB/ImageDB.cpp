@@ -160,6 +160,7 @@ void ImageDB::convertBackend()
         newCategories->categoryForName( (*it)->text() )->setItems( (*it)->items() );
     }
 
+    // TODO: convert member maps
     kdDebug() << "Also save membermaps" << endl;
 
     // Convert all images to the new back end
@@ -176,6 +177,8 @@ void ImageDB::convertBackend()
     }
     if ( list.count() != 0 )
         newBackend->addImages( list );
+
+    delete newBackend;
 #endif // SQLDB_SUPPORT
 }
 

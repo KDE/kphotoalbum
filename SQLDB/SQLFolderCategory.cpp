@@ -22,73 +22,9 @@
 
 using namespace SQLDB;
 
-SQLFolderCategory::SQLFolderCategory():
-    _name("Folder"),
-    _iconName("folder"),
-    _viewSize(Small),
-    _viewType(ListView),
-    _doShow(false)
+SQLFolderCategory::SQLFolderCategory(int categoryId):
+    SQLSpecialCategory(categoryId)
 {
-}
-
-QString SQLFolderCategory::name() const
-{
-    return _name;
-}
-
-void SQLFolderCategory::setName(const QString& name)
-{
-    _name = name;
-}
-
-QString SQLFolderCategory::iconName() const
-{
-    return _iconName;
-}
-
-void SQLFolderCategory::setIconName(const QString& name)
-{
-    _iconName = name;
-}
-
-SQLFolderCategory::ViewSize SQLFolderCategory::viewSize() const
-{
-    return _viewSize;
-}
-
-void SQLFolderCategory::setViewSize(ViewSize size)
-{
-    _viewSize = size;
-}
-
-SQLFolderCategory::ViewType SQLFolderCategory::viewType() const
-{
-    return _viewType;
-}
-
-void SQLFolderCategory::setViewType(ViewType type)
-{
-    _viewType = type;
-}
-
-bool SQLFolderCategory::doShow() const
-{
-    return _doShow;
-}
-
-void SQLFolderCategory::setDoShow(bool b)
-{
-    _doShow = b;
-}
-
-bool SQLFolderCategory::isSpecialCategory() const
-{
-    return true;
-}
-
-void SQLFolderCategory::setSpecialCategory(bool b)
-{
-    Q_UNUSED(b);
 }
 
 QStringList SQLFolderCategory::items() const

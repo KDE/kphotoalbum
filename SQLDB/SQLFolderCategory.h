@@ -20,43 +20,21 @@
 #ifndef SQLFOLDERCATEGORY_H
 #define SQLFOLDERCATEGORY_H
 
-#include "DB/Category.h"
+#include "SQLSpecialCategory.h"
 
 namespace SQLDB {
-    class SQLFolderCategory: public DB::Category
+    class SQLFolderCategory: public SQLSpecialCategory
     {
     public:
-        SQLFolderCategory();
-        virtual QString name() const;
-        virtual void setName(const QString& name);
-
-        virtual QString iconName() const;
-        virtual void setIconName(const QString& name);
-
-        virtual ViewSize viewSize() const;
-        virtual void setViewSize(ViewSize size);
-
-        virtual ViewType viewType() const;
-        virtual void setViewType(ViewType type);
-
-        virtual bool doShow() const;
-        virtual void setDoShow(bool b);
-
-        virtual bool isSpecialCategory() const;
-        virtual void setSpecialCategory(bool b);
-
         virtual QStringList items() const;
         virtual void setItems(const QStringList& items);
         virtual void addItem(const QString& item);
         virtual void removeItem(const QString& item);
         virtual void renameItem(const QString& oldValue, const QString& newValue);
 
-    private:
-        QString _name;
-        QString _iconName;
-        ViewSize _viewSize;
-        ViewType _viewType;
-        bool _doShow;
+    protected:
+        friend class SQLCategoryCollection;
+        SQLFolderCategory(int categoryId);
     };
 }
 

@@ -86,9 +86,7 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
 
 void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET name=%s WHERE name=%s",
-                         QueryHelper::Bindings() << newName << oldName);
+    _categoryCollection.rename(oldName, newName);
 }
 
 QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
@@ -232,14 +230,10 @@ void SQLDB::Database::sortAndMergeBackIn( const QStringList& /*fileList*/ )
     qDebug("NYI: void SQLDB::Database::sortAndMergeBackIn( const QStringList& fileList )" );
 }
 
-void SQLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
+void SQLDB::Database::renameItem(DB::Category* category, const QString& oldName, const QString& newName)
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE tag SET name=%s "
-                         "WHERE name=%s AND "
-                         "categoryId=(SELECT id FROM category WHERE name=%s)",
-                         QueryHelper::Bindings() <<
-                         newName << oldName << category->name());
+    if (category)
+        category->renameItem(oldName, newName);
 }
 
 void SQLDB::Database::deleteItem(DB::Category* category, const QString& option)
@@ -269,7 +263,6 @@ void SQLDB::Database::loadMemberGroups()
 
 DB::CategoryCollection* SQLDB::Database::categoryCollection()
 {
-    // PENDING(blackie) Implement something similar to XMLDB::createSpecialCategories()
     return &_categoryCollection;
 }
 

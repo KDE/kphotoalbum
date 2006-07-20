@@ -26,6 +26,7 @@ namespace SQLDB {
     class SQLSpecialCategory: public SQLCategory
     {
     public:
+        virtual void setName(const QString&) {}
         virtual void setSpecialCategory(bool) {}
         virtual bool isSpecialCategory() const { return true; }
 

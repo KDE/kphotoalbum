@@ -519,6 +519,8 @@ void DatabaseHandler::insertInitialData()
     _connection->executeSQL("INSERT INTO category "
                             "(name, icon, visible, viewtype, viewsize) "
                             "VALUES "
+                            "('Folder', 'folder', 0, 0, 0), "
+                            "('Tokens', 'cookie', 1, 1, 1), "
                             "('Keywords', 'password', 1, 1, 1), "
                             "('Locations', 'network', 1, 0, 0), "
                             "('Persons', 'personal', 1, 0, 0)");

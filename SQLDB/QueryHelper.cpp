@@ -311,14 +311,23 @@ int QueryHelper::idForFilename(const QString& relativePath)
 
 QString QueryHelper::categoryForId(int id)
 {
-    return executeQuery("SELECT name FROM category WHERE id=%s",
-                        Bindings() << id).firstItem().toString();
+    QVariant r = executeQuery("SELECT name FROM category WHERE id=%s",
+                              Bindings() << id).firstItem();
+
+    if (r.isNull())
+        throw NotFoundError(/* TODO: message */);
+    else
+        return r.toString();
 }
 
 int QueryHelper::idForCategory(const QString& category)
 {
-    return executeQuery("SELECT id FROM category WHERE name=%s",
-                        Bindings() << category).firstItem().toInt();
+    QVariant r = executeQuery("SELECT id FROM category WHERE name=%s",
+                              Bindings() << category).firstItem();
+    if (r.isNull())
+        throw NotFoundError(/* TODO: message */);
+    else
+        return r.toInt();
 }
 
 QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category)

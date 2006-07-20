@@ -36,9 +36,19 @@ QStringList SQLDB::SQLCategoryCollection::categoryNames() const
 
 void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
 {
+    int id;
+    try {
+        id = QueryHelper::instance()->idForCategory(name);
+    }
+    catch (NotFoundError&) {
+        return;
+    }
     QueryHelper::instance()->
-        executeStatement("DELETE FROM category WHERE name=%s",
-                         QueryHelper::Bindings() << name);
+        executeStatement("DELETE FROM tag WHERE categoryId=%s",
+                         QueryHelper::Bindings() << id);
+    QueryHelper::instance()->
+        executeStatement("DELETE FROM category WHERE id=%s",
+                         QueryHelper::Bindings() << id);
 }
 
 void SQLDB::SQLCategoryCollection::rename(const QString& oldName, const QString& newName)

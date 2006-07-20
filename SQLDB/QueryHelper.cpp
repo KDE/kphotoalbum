@@ -266,7 +266,8 @@ QStringList QueryHelper::relativeFilenames()
 {
     QValueList<QString[2]> dirFilePairs = QueryHelper::instance()->
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
-                     "WHERE media.dirId=dir.id").asString2List();
+                     "WHERE media.dirId=dir.id ORDER BY media.place"
+                     ).asString2List();
     QStringList r;
     for (QValueList<QString[2]>::const_iterator i = dirFilePairs.begin();
          i != dirFilePairs.end(); ++i) {
@@ -361,12 +362,12 @@ QStringList QueryHelper::folders()
 
 QValueList<int> QueryHelper::allMediaItemIds()
 {
-    return executeQuery("SELECT id FROM media").asIntegerList();
+    return executeQuery("SELECT id FROM media ORDER BY place").asIntegerList();
 }
 
 QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
 {
-    return executeQuery("SELECT id FROM media WHERE type&%s!=0",
+    return executeQuery("SELECT id FROM media WHERE type&%s!=0 ORDER BY place",
                         Bindings() << typemask).asIntegerList();
 }
 

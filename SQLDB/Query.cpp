@@ -155,6 +155,8 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
     if (cond.length() > 0)
         query += " WHERE " + cond;
 
+    query += " ORDER BY place";
+
     QValueList<int> positive = QueryHelper::instance()->
         executeQuery(query, binds).asIntegerList();
 

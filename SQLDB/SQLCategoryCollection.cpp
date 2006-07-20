@@ -3,15 +3,19 @@
 #include <qsqlquery.h>
 #include "QueryHelper.h"
 #include "SQLFolderCategory.h"
+#include "SQLSpecialCategory.h"
 
 DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {
     if (name == "Folder") {
         return DB::CategoryPtr(new SQLFolderCategory());
     }
+    int categoryId = QueryHelper::instance()->idForCategory(name);
+    if (name == "Tokens") {
+        return DB::CategoryPtr(new SQLSpecialCategory(categoryId));
+    }
     else {
-        return DB::CategoryPtr(new SQLCategory(QueryHelper::instance()->
-                                               idForCategory(name)));
+        return DB::CategoryPtr(new SQLCategory(categoryId));
     }
 }
 
@@ -20,7 +24,8 @@ QStringList SQLDB::SQLCategoryCollection::categoryNames() const
     QStringList l = QueryHelper::instance()->
         executeQuery("SELECT name FROM category").asStringList();
     l.prepend("Folder");
-    // TODO: Tokens
+    // Tokens is in category table
+    l.sort();
     return l;
 }
 
@@ -33,8 +38,12 @@ void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
                          QueryHelper::Bindings() << name);
 }
 
-void SQLDB::SQLCategoryCollection::rename( const QString& oldName, const QString& newName )
+void SQLDB::SQLCategoryCollection::rename(const QString& oldName, const QString& newName)
 {
+    if (oldName == "Folder" || oldName == "Tokens" ||
+        newName == "Folder" || newName == "Tokens")
+        return;
+
     categoryForName(oldName)->setName(newName);
 }
 
@@ -51,6 +60,7 @@ QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, DB::Category::ViewSize size,
                                                 DB::Category::ViewType type, bool showIt )
 {
+    // Tokens isn't special here.
     if (category == "Folder")
         return;
     QueryHelper::instance()->

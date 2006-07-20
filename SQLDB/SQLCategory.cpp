@@ -1,7 +1,10 @@
 #include "SQLCategory.h"
-#include <kdebug.h>
-#include <qsqlquery.h>
 #include "QueryHelper.h"
+
+SQLDB::SQLCategory::SQLCategory(int categoryId):
+    _categoryId(categoryId)
+{
+}
 
 QString SQLDB::SQLCategory::name() const
 {
@@ -114,8 +117,10 @@ void SQLDB::SQLCategory::removeItem(const QString& item)
 void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newValue)
 {
     QueryHelper::instance()->
-        executeStatement("UPDATE tag SET name=%s WHERE name=%s",
-                         QueryHelper::Bindings() << newValue << oldValue);
+        executeStatement("UPDATE tag SET name=%s "
+                         "WHERE name=%s AND categoryId=%s",
+                         QueryHelper::Bindings() <<
+                         newValue << oldValue << _categoryId);
 }
 
 void SQLDB::SQLCategory::addItem( const QString& item )
@@ -126,9 +131,4 @@ void SQLDB::SQLCategory::addItem( const QString& item )
 QStringList SQLDB::SQLCategory::items() const
 {
     return QueryHelper::instance()->membersOfCategory(_categoryId);
-}
-
-SQLDB::SQLCategory::SQLCategory( int categoryId )
-    : _categoryId( categoryId )
-{
 }

@@ -1,12 +1,12 @@
 #ifndef SQLCATEGORY_H
 #define SQLCATEGORY_H
+
 #include "DB/Category.h"
 
 namespace SQLDB {
     class SQLCategory :public DB::Category
     {
     public:
-        SQLCategory( int categoryId );
         virtual QString name() const;
         virtual void setName( const QString& name );
 
@@ -31,11 +31,13 @@ namespace SQLDB {
         virtual void addItem( const QString& item );
         virtual QStringList items() const;
 
+    protected:
+        friend class SQLCategoryCollection;
+        SQLCategory(int categoryId);
+
     private:
         int _categoryId;
     };
 }
 
-
 #endif /* SQLCATEGORY_H */
-

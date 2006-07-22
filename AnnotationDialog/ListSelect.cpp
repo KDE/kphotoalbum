@@ -42,32 +42,11 @@
 #include <Utilities/Set.h>
 #include "CompletableLineEdit.h"
 #include "DB/CategoryItem.h"
+#include "ListViewItemHider.h"
+#include "KeyClickListener.h"
+#include "ShowSelectionOnlyManager.h"
 
 using namespace AnnotationDialog;
-
-void AnnotationDialog::ListSelect::checkBoxStateChanged( int )
-{
-    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
-        _removeCheckBox->setChecked(false);
-}
-
-void AnnotationDialog::ListSelect::removeCheckBoxStateChanged( int )
-{
-    QString txt =
-        i18n("<qt><p>By checking this checkbox, any anotation you make will actually be removed from the images, "
-             "rather than added to them.</p>"
-             "<p>This is really just a tool for removing a tag that you by accicdent added to a number of images.</p>"
-             "<p>are you sure you want that?</p></qt>" );
-    if ( _removeCheckBox->isChecked() ) {
-        int ret = KMessageBox::warningContinueCancel( this, txt, i18n("Mass removal of tags"),KStdGuiItem::cont(),
-                                                      QString::fromLatin1("massremoval") );
-        if ( ret == KMessageBox::Cancel )
-            _removeCheckBox->setChecked( false );
-    }
-
-    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
-        _checkBox->setChecked(false);
-}
 
 AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* parent, const char* name )
     : QWidget( parent,  name ), _category( category )
@@ -82,7 +61,6 @@ AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* pare
     layout->addWidget( _lineEdit );
 
     _listView = new QListView( this );
-    _listView->setSorting( 1 );
     _listView->addColumn( QString::fromLatin1( "items" ) );
     _listView->header()->setStretchEnabled( true );
     _listView->header()->hide();
@@ -139,6 +117,42 @@ AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* pare
 
     connect( Settings::SettingsData::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
              this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
+
+    KeyClickListener* listener = new KeyClickListener( Key_Control, this );
+    connect( &ShowSelectionOnlyManager::instance(), SIGNAL( limitToSelected() ), this, SLOT(limitToSelection() ) );
+    connect( &ShowSelectionOnlyManager::instance(), SIGNAL( broaden() ), this, SLOT( showAllChildren() ) );
+    connect( listener, SIGNAL( keyClicked() ), &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
+
+    listener = new KeyClickListener( Key_Alt, this );
+    connect( listener, SIGNAL( keyClicked() ), this, SLOT( toggleSortType() ) );
+
+    listener = new KeyClickListener( Key_Meta, this );
+    connect( listener, SIGNAL( keyClicked() ), this, SLOT( toggleSortType() ) );
+
+}
+
+void AnnotationDialog::ListSelect::checkBoxStateChanged( int )
+{
+    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
+        _removeCheckBox->setChecked(false);
+}
+
+void AnnotationDialog::ListSelect::removeCheckBoxStateChanged( int )
+{
+    QString txt =
+        i18n("<qt><p>By checking this checkbox, any anotation you make will actually be removed from the images, "
+             "rather than added to them.</p>"
+             "<p>This is really just a tool for removing a tag that you by accicdent added to a number of images.</p>"
+             "<p>are you sure you want that?</p></qt>" );
+    if ( _removeCheckBox->isChecked() ) {
+        int ret = KMessageBox::warningContinueCancel( this, txt, i18n("Mass removal of tags"),KStdGuiItem::cont(),
+                                                      QString::fromLatin1("massremoval") );
+        if ( ret == KMessageBox::Cancel )
+            _removeCheckBox->setChecked( false );
+    }
+
+    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
+        _checkBox->setChecked(false);
 }
 
 void AnnotationDialog::ListSelect::slotReturn()
@@ -148,34 +162,13 @@ void AnnotationDialog::ListSelect::slotReturn()
         if ( txt.isEmpty() )
             return;
 
-        QListViewItem* item = _listView->findItem( txt, 0, ExactMatch );
-
-        if ( !item ) {
-            item = new QListViewItem( _listView, txt, QString::fromLatin1("0") ); // PENDING(blackie) move to front
-        }
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( txt);
 
-#ifdef TEMPORARILY_REMOVED
-        // move item to front
-        _listView->takeItem( item );
-        if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse ) {
-            _listView->insertItem( item, 0 );
-            _listView->setContentsPos( 0,0 );
-        }
-        else {
-            QListBoxItem* lbi = 0;
-            for ( lbi = _listView->firstItem(); lbi && lbi->text().lower() < txt.lower(); lbi = lbi->next() ) {};
+        QStringList sel = selection();
+        sel.append( txt );
+        populate();
+        setSelection(sel);
 
-            if ( !lbi ) {
-                _listView->insertItem( item );
-            }
-            else {
-                _listView->insertItem( item, lbi->prev() );
-            }
-        }
-#endif
-
-        item->setSelected( true );
         _lineEdit->clear();
     }
 }
@@ -319,6 +312,10 @@ void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
         }
         _lineEdit->setText( res );
     }
+    else {
+        _lineEdit->clear();
+        showAllChildren();
+    }
 }
 
 
@@ -441,18 +438,18 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
 }
 
 
-void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, QListViewItem* parent, int& index )
+void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, QListViewItem* parent )
 {
     for( QValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
         QListViewItem* newItem = 0;
 
         if ( parent == 0 )
-            newItem = new QListViewItem( _listView, (*subcategoryIt)->_name, QString::number( ++index ) );
+            newItem = new QListViewItem( _listView, (*subcategoryIt)->_name );
         else
-            newItem = new QListViewItem( parent, (*subcategoryIt)->_name, QString::number( ++index ) );
+            newItem = new QListViewItem( parent, (*subcategoryIt)->_name );
 
         newItem->setOpen( true );
-        insertItems( (*subcategoryIt), newItem, index );
+        insertItems( (*subcategoryIt), newItem );
     }
 }
 
@@ -462,32 +459,10 @@ void AnnotationDialog::ListSelect::populate()
     _label->setText( category->text() );
     _listView->clear();
 
-    DB::CategoryItem* item = category->itemsCategories();
-
-
-#ifdef TEMPORARILY_REMOVED
     if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
-        items.sort();
-#endif
-
-    int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
-    insertItems( item, 0, index );
-
-#ifdef TEMPORARILY_REMOVED
-    _label->setText( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
-    _listView->clear();
-    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclCategories();
-    DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsCategories()->print(0);
-
-    if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
-        items.sort();
-
-    int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
-    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-        ++index;
-        new QListViewItem( _listView, *itemIt, QString::number( index ) );
-    }
-#endif
+        populateAlphabetically();
+    else
+        populateMRU();
 }
 
 /**
@@ -519,6 +494,56 @@ void AnnotationDialog::ListSelect::rePopulate()
     const QStringList sel = selection();
     populate();
     setSelection( sel );
+}
+
+void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
+{
+    ListViewTextMatchHider dummy( text, _listView );
+    ShowSelectionOnlyManager::instance().unlimitFromSelection();
+}
+
+void AnnotationDialog::ListSelect::populateAlphabetically()
+{
+    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
+    DB::CategoryItem* item = category->itemsCategories();
+
+    insertItems( item, 0 );
+    _listView->setSorting( 0 );
+}
+
+void AnnotationDialog::ListSelect::populateMRU()
+{
+    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclCategories();
+
+    int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
+    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        ++index;
+        new QListViewItem( _listView, *itemIt, QString::number( index ) );
+    }
+
+    _listView->setSorting( 1 );
+}
+
+void AnnotationDialog::ListSelect::toggleSortType()
+{
+    Settings::SettingsData* data = Settings::SettingsData::instance();
+    if ( data->viewSortType() == Settings::SortLastUse )
+        data->setViewSortType( Settings::SortAlpha );
+    else
+        data->setViewSortType( Settings::SortLastUse );
+}
+
+void AnnotationDialog::ListSelect::limitToSelection()
+{
+    if ( _mode != ListSelect::INPUT )
+        return;
+
+    ListViewSelectionHider dummy( _listView );
+}
+
+void AnnotationDialog::ListSelect::showAllChildren()
+{
+    showOnlyItemsMatching( QString::null );
 }
 
 #include "ListSelect.moc"

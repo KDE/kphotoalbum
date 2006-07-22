@@ -3,7 +3,6 @@
 #include <qlistview.h>
 #include <qapplication.h>
 
-
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent, const char* name )
     :QLineEdit( parent, name )
 {
@@ -27,29 +26,27 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         return;
     }
 
-    if ( ev->key() == Key_Return ) {
-        QLineEdit::keyPressEvent( ev );
-        _listSelect->rePopulate();
-        showOnlyItemsMatching( QString::null ); // Show all again
-        return;
-    }
-
     if ( _mode == ListSelect::INPUT && isSpecialKey( ev ) )
         return; // Don't insert the special character.
+
+    if ( ev->key() == Key_Space && ev->state() & ControlButton ) {
+        mergePreviousImageSelection();
+        return;
+    }
 
     QString prevContent = text();
 
     if ( ev->text().isEmpty() || !ev->text()[0].isPrint() ) {
         QLineEdit::keyPressEvent( ev );
         if ( prevContent != text() )
-            showOnlyItemsMatching( text() );
+            _listSelect->showOnlyItemsMatching( text() );
         return;
     }
 
     // &,|, or ! should result in the current item being inserted
     if ( _mode == ListSelect::SEARCH && isSpecialKey( ev ) )  {
         handleSpecialKeysInSearch( ev );
-        showOnlyItemsMatching( QString::null ); // Show all again after a special caracter.
+        _listSelect->showOnlyItemsMatching( QString::null ); // Show all again after a special caracter.
         return;
     }
 
@@ -81,7 +78,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     if ( item )
         selectItemAndUpdateLineEdit( item, itemStart, input );
 
-    showOnlyItemsMatching( input );
+    _listSelect->showOnlyItemsMatching( input );
 }
 
 /**
@@ -130,28 +127,6 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent
     }
 }
 
-void AnnotationDialog::CompletableLineEdit::showOnlyItemsMatching( const QString& text )
-{
-    for ( QListViewItem* item = _listView->firstChild(); item; item = item->nextSibling() ) {
-        bool anyChildrenVisible = showOnlyItemsMatching( item, text );
-        item->setVisible( anyChildrenVisible || itemMatchesText( item, text ) );
-    }
-}
-
-bool AnnotationDialog::CompletableLineEdit::showOnlyItemsMatching( QListViewItem* parentItem, const QString& text )
-{
-    bool anyChildrenVisible = false;
-    for ( QListViewItem* item = parentItem->firstChild(); item; item = item->nextSibling() ) {
-        bool anySubChildrenVisible = showOnlyItemsMatching( item, text );
-        bool itemVisible = anySubChildrenVisible || itemMatchesText( item, text );
-        item->setVisible( itemVisible );
-        anyChildrenVisible |= itemVisible;
-    }
-    return anyChildrenVisible;
-}
-
-
-
 void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch( bool next )
 {
     int itemStart = text().findRev( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
@@ -180,6 +155,11 @@ void AnnotationDialog::CompletableLineEdit::selectItemAndUpdateLineEdit( QListVi
 
     setText( txt );
     setSelection( itemStart + inputText.length(), item->text(0).length() - inputText.length() );
+}
+
+void AnnotationDialog::CompletableLineEdit::mergePreviousImageSelection()
+{
+
 }
 
 

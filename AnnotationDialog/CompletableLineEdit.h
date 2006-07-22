@@ -7,7 +7,6 @@
 namespace AnnotationDialog
 {
 class CompletableLineEdit :public QLineEdit {
-    Q_OBJECT
 
 public:
     CompletableLineEdit( ListSelect* parent,  const char* name = 0 );
@@ -19,16 +18,16 @@ protected:
     QListViewItem* findItemInListView( const QString& startWith );
     bool isSpecialKey( QKeyEvent* );
     void handleSpecialKeysInSearch( QKeyEvent* );
-    void showOnlyItemsMatching( const QString& text );
-    bool showOnlyItemsMatching( QListViewItem* parentItem, const QString& text );
     bool itemMatchesText( QListViewItem* item, const QString& text );
     void selectPrevNextMatch( bool next );
     void selectItemAndUpdateLineEdit( QListViewItem* item, int itemStart, const QString& inputText );
+    void mergePreviousImageSelection();
 
 private:
     QListView* _listView;
     ListSelect::Mode _mode;
     ListSelect* _listSelect;
+    bool _showingSelectionOnly;
 };
 
 }

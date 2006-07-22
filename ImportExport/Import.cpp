@@ -205,7 +205,7 @@ void Import::setupPages()
     createIntroduction();
     createImagesPage();
     createDestination();
-    createOptionPages();
+    createCategoryPages();
     connect( this, SIGNAL( selected( const QString& ) ), this, SLOT( updateNextButtonState() ) );
     connect( finishButton(), SIGNAL( clicked() ), this, SLOT( slotFinish() ) );
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
@@ -370,22 +370,22 @@ void Import::updateNextButtonState()
     nextButton()->setEnabled( enabled );
 }
 
-void Import::createOptionPages()
+void Import::createCategoryPages()
 {
-    QStringList options;
+    QStringList categories;
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
-        QStringList opts = info->availableCategories();
-        for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
-            if ( !options.contains( *optsIt ) &&
-                 (*optsIt) != QString::fromLatin1( "Folder" ) &&
-                 (*optsIt) != QString::fromLatin1( "Tokens" ) )
-                options.append( *optsIt );
+        QStringList categoriesForImage = info->availableCategories();
+        for( QStringList::Iterator categoryIt = categoriesForImage.begin(); categoryIt != categoriesForImage.end(); ++categoryIt ) {
+            if ( !categories.contains( *categoryIt ) &&
+                 (*categoryIt) != QString::fromLatin1( "Folder" ) &&
+                 (*categoryIt) != QString::fromLatin1( "Tokens" ) )
+                categories.append( *categoryIt );
         }
     }
 
-    _categoryMatcher = new ImportMatcher( QString::null, QString::null, options, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
+    _categoryMatcher = new ImportMatcher( QString::null, QString::null, categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
                                           false, this, "import matcher" );
     addPage( _categoryMatcher, i18n("Match Categories") );
 
@@ -393,22 +393,24 @@ void Import::createOptionPages()
     addPage( _dummy, QString::null );
 }
 
-ImportMatcher* Import::createOptionPage( const QString& myOptionGroup, const QString& otherOptionGroup )
+ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QString& otherCategory )
 {
-    QStringList otherOptions;
+    QStringList otherItems;
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
-        QStringList opts = info->itemsOfCategory( otherOptionGroup );
-        for( QStringList::Iterator optsIt = opts.begin(); optsIt != opts.end(); ++optsIt ) {
-            if ( !otherOptions.contains( *optsIt ) )
-                otherOptions.append( *optsIt );
+        QStringList items = info->itemsOfCategory( otherCategory );
+        for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+            if ( !otherItems.contains( *itemIt ) )
+                otherItems.append( *itemIt );
         }
     }
 
-    QStringList myOptions = DB::ImageDB::instance()->categoryCollection()->categoryForName( myOptionGroup )->itemsInclGroups();
-    ImportMatcher* matcher = new ImportMatcher( otherOptionGroup, myOptionGroup, otherOptions, myOptions, true, this, "import matcher" );
-    addPage( matcher, myOptionGroup );
+    QStringList myItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( myCategory )->itemsInclCategories();
+    myItems.sort();
+
+    ImportMatcher* matcher = new ImportMatcher( otherCategory, myCategory, otherItems, myItems, true, this, "import matcher" );
+    addPage( matcher, myCategory );
     return matcher;
 }
 
@@ -435,13 +437,13 @@ void Import::next()
         delete _dummy;
 
         ImportMatcher* matcher = 0;
-        for( QValueList<OptionMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
+        for( QValueList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
              it != _categoryMatcher->_matchers.end();
              ++it )
         {
-            OptionMatch* match = *it;
+            CategoryMatch* match = *it;
             if ( match->_checkbox->isChecked() ) {
-                matcher = createOptionPage( match->_combobox->currentText(), match->_text );
+                matcher = createCategoryPage( match->_combobox->currentText(), match->_text );
                 _matchers.append( matcher );
             }
         }
@@ -578,12 +580,12 @@ void Import::updateDB()
 
         // Run though the categories
         for( QValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {
-            QString otherGrp = (*grpIt)->_otherOptionGroup;
-            QString myGrp = (*grpIt)->_myOptionGroup;
+            QString otherGrp = (*grpIt)->_otherCategory;
+            QString myGrp = (*grpIt)->_myCategory;
 
             // Run through each option
-            QValueList<OptionMatch*>& matcher = (*grpIt)->_matchers;
-            for( QValueList<OptionMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
+            QValueList<CategoryMatch*>& matcher = (*grpIt)->_matchers;
+            for( QValueList<CategoryMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
                 if ( !(*optionIt)->_checkbox->isChecked() )
                     continue;
                 QString otherOption = (*optionIt)->_text;

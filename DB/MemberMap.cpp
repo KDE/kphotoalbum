@@ -84,7 +84,7 @@ bool MemberMap::isGroup( const QString& category, const QString& item ) const
    return a map from groupName to list of items for category
    example: { USA |-> [Chicago, Grand Canyon, Santa Clara], Denmark |-> [Esbjerg, Odense] }
 */
-QMap<QString,QStringList> MemberMap::groupMap( const QString& category )
+QMap<QString,QStringList> MemberMap::groupMap( const QString& category ) const
 {
     if ( _dirty )
         calculate();
@@ -98,7 +98,7 @@ QMap<QString,QStringList> MemberMap::groupMap( const QString& category )
    Califonia consists of members San Fransisco and Los Angeless.
    This function then maps USA to include Califonia, San Fransisco and Los Angeless.
 */
-QStringList MemberMap::calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group )
+QStringList MemberMap::calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group ) const
 {
     resultSoFar[group] = QStringList(); // Prevent against cykles.
     QStringList members = _members[category][group];
@@ -126,11 +126,11 @@ QStringList MemberMap::calculateClosure( QMap<QString,QStringList>& resultSoFar,
    This methods create the map _closureMembers from _members
    This is simply to avoid finding the closure each and every time it is needed.
 */
-void MemberMap::calculate()
+void MemberMap::calculate() const
 {
     _closureMembers.clear();
     // run through all categories
-    for( QMapIterator< QString,QMap<QString,QStringList> > categoryIt= _members.begin(); categoryIt != _members.end(); ++categoryIt ) {
+    for( QMap< QString,QMap<QString,QStringList> >::ConstIterator categoryIt= _members.begin(); categoryIt != _members.end(); ++categoryIt ) {
         QString category = categoryIt.key();
         QMap<QString, QStringList> groupMap = categoryIt.data();
 
@@ -227,6 +227,21 @@ void MemberMap::renameCategory( const QString& oldName, const QString& newName )
 {
     _members[newName] = _members[oldName];
     _members.remove(oldName);
+}
+
+QMap<QString,QStringList> DB::MemberMap::inverseMap( const QString& category ) const
+{
+    QMap<QString,QStringList> res;
+    const QMap<QString,QStringList>& map =  _members[category];
+
+    for( QMap<QString,QStringList>::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
+        QString group = mapIt.key();
+        QStringList members = mapIt.data();
+        for( QStringList::Iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
+            res[*memberIt].append( group );
+        }
+    }
+    return res;
 }
 
 #include "MemberMap.moc"

@@ -72,6 +72,7 @@ protected slots:
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
+    void insertItems( DB::CategoryItem* item, QListViewItem* parent, int& index );
 
 private:
 

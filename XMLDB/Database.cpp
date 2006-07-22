@@ -688,6 +688,10 @@ void XMLDB::Database::saveCategories( QDomDocument doc, QDomElement top )
             continue;
 
         QStringList list = category->items();
+        list += _members.groups(name);
+        list = Utilities::removeDuplicates( list );
+
+
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
             val.setAttribute( QString::fromLatin1("value"), *it2 );

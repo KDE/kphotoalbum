@@ -2,6 +2,7 @@
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
+#include <DB/ImageDB.h>
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewSize size, ViewType type, bool show )
     : _name( name ), _icon( icon ), _show( show ), _size( size ), _type( type ), _isSpecial(false)
@@ -112,8 +113,13 @@ void XMLDB::XMLCategory::initIdMap()
     int i = 0;
     _idMap.clear();
     for( QStringList::Iterator it = _items.begin(); it != _items.end(); ++it ) {
-        _idMap.insert( *it, i );
-        ++i;
+        _idMap.insert( *it, ++i );
+    }
+
+    QStringList groups = DB::ImageDB::instance()->memberMap().groups(_name);
+    for( QStringList::ConstIterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+        if ( !_idMap.contains( *groupIt ) )
+            _idMap.insert( *groupIt, ++i );
     }
 }
 

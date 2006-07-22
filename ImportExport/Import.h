@@ -68,8 +68,8 @@ protected:
     void createIntroduction();
     void createImagesPage();
     void createDestination();
-    void createOptionPages();
-    ImportMatcher* createOptionPage( const QString& myOptionGroup, const QString& otherOptionGroup );
+    void createCategoryPages();
+    ImportMatcher* createCategoryPage( const QString& myCategory, const QString& otherCategory );
     bool copyFilesFromZipFile();
     void copyFromExternal();
     void copyNextFromExternal();

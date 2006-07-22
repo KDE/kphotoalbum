@@ -7,6 +7,8 @@
 namespace AnnotationDialog
 {
 class CompletableLineEdit :public QLineEdit {
+    Q_OBJECT
+
 public:
     CompletableLineEdit( ListSelect* parent,  const char* name = 0 );
     void setListView( QListView* );
@@ -18,6 +20,7 @@ protected:
     bool isSpecialKey( QKeyEvent* );
     void handleSpecialKeysInSearch( QKeyEvent* );
     void showOnlyItemsMatching( const QString& text );
+    bool showOnlyItemsMatching( QListViewItem* parentItem, const QString& text );
     bool itemMatchesText( QListViewItem* item, const QString& text );
     void selectPrevNextMatch( bool next );
     void selectItemAndUpdateLineEdit( QListViewItem* item, int itemStart, const QString& inputText );

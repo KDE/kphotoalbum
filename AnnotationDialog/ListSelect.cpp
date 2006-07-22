@@ -41,16 +41,17 @@
 #include <qheader.h>
 #include <Utilities/Set.h>
 #include "CompletableLineEdit.h"
+#include "DB/CategoryItem.h"
 
 using namespace AnnotationDialog;
 
-void ListSelect::checkBoxStateChanged( int )
+void AnnotationDialog::ListSelect::checkBoxStateChanged( int )
 {
     if (_checkBox->isChecked() && _removeCheckBox->isChecked())
         _removeCheckBox->setChecked(false);
 }
 
-void ListSelect::removeCheckBoxStateChanged( int )
+void AnnotationDialog::ListSelect::removeCheckBoxStateChanged( int )
 {
     QString txt =
         i18n("<qt><p>By checking this checkbox, any anotation you make will actually be removed from the images, "
@@ -68,7 +69,7 @@ void ListSelect::removeCheckBoxStateChanged( int )
         _checkBox->setChecked(false);
 }
 
-ListSelect::ListSelect( const QString& category, QWidget* parent, const char* name )
+AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* parent, const char* name )
     : QWidget( parent,  name ), _category( category )
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
@@ -140,7 +141,7 @@ ListSelect::ListSelect( const QString& category, QWidget* parent, const char* na
              this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
 }
 
-void ListSelect::slotReturn()
+void AnnotationDialog::ListSelect::slotReturn()
 {
     if ( _mode == INPUT )  {
         QString txt = _lineEdit->text();
@@ -179,12 +180,12 @@ void ListSelect::slotReturn()
     }
 }
 
-QString ListSelect::category() const
+QString AnnotationDialog::ListSelect::category() const
 {
     return _category;
 }
 
-void ListSelect::setSelection( const QStringList& list )
+void AnnotationDialog::ListSelect::setSelection( const QStringList& list )
 {
     // PENDING(blackie) change method to take a set
     Set<QString> selection( list );
@@ -195,7 +196,7 @@ void ListSelect::setSelection( const QStringList& list )
     _lineEdit->clear();
 }
 
-QStringList ListSelect::selection()
+QStringList AnnotationDialog::ListSelect::selection()
 {
     // PENDING(blackie) should this method return a set?
     QStringList list;
@@ -206,7 +207,7 @@ QStringList ListSelect::selection()
     return list;
 }
 
-void ListSelect::setShowMergeCheckbox( bool b )
+void AnnotationDialog::ListSelect::setShowMergeCheckbox( bool b )
 {
     // PENDING(blackie) 19 Mar. 2006 20:29 -- Jesper K. Pedersen
     // This is really a crual hack and should be removed after next release.
@@ -215,22 +216,22 @@ void ListSelect::setShowMergeCheckbox( bool b )
     _removeCheckBox->setEnabled( b );
 }
 
-bool ListSelect::doMerge() const
+bool AnnotationDialog::ListSelect::doMerge() const
 {
     return _checkBox->isChecked();
 }
 
-bool ListSelect::doRemove() const
+bool AnnotationDialog::ListSelect::doRemove() const
 {
     return _removeCheckBox->isChecked();
 }
 
-bool ListSelect::isAND() const
+bool AnnotationDialog::ListSelect::isAND() const
 {
     return _checkBox->isChecked();
 }
 
-void ListSelect::setMode( Mode mode )
+void AnnotationDialog::ListSelect::setMode( Mode mode )
 {
     _mode = mode;
     _lineEdit->setMode( mode );
@@ -251,7 +252,7 @@ void ListSelect::setMode( Mode mode )
 }
 
 
-void ListSelect::setViewSortType( Settings::ViewSortType tp )
+void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
 {
     // set sortType and redisplay with new sortType
     QString text = _lineEdit->text();
@@ -266,18 +267,18 @@ void ListSelect::setViewSortType( Settings::ViewSortType tp )
 }
 
 
-QString ListSelect::text() const
+QString AnnotationDialog::ListSelect::text() const
 {
     return _lineEdit->text();
 }
 
-void ListSelect::setText( const QString& text )
+void AnnotationDialog::ListSelect::setText( const QString& text )
 {
     _lineEdit->setText( text );
     _listView->clearSelection();
 }
 
-void ListSelect::itemSelected( QListViewItem* item )
+void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
 {
     if ( !item ) {
         // click outside any item
@@ -321,7 +322,7 @@ void ListSelect::itemSelected( QListViewItem* item )
 }
 
 
-void ListSelect::showContextMenu( QListViewItem* item, const QPoint& pos )
+void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const QPoint& pos )
 {
     QPopupMenu menu( this, "context popup menu" );
 
@@ -440,16 +441,53 @@ void ListSelect::showContextMenu( QListViewItem* item, const QPoint& pos )
 }
 
 
-void ListSelect::populate()
+void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, QListViewItem* parent, int& index )
 {
+    for( QValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
+        QListViewItem* newItem = 0;
+
+        if ( parent == 0 )
+            newItem = new QListViewItem( _listView, (*subcategoryIt)->_name, QString::number( ++index ) );
+        else
+            newItem = new QListViewItem( parent, (*subcategoryIt)->_name, QString::number( ++index ) );
+
+        newItem->setOpen( true );
+        insertItems( (*subcategoryIt), newItem, index );
+    }
+}
+
+void AnnotationDialog::ListSelect::populate()
+{
+    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
+    _label->setText( category->text() );
+    _listView->clear();
+
+    DB::CategoryItem* item = category->itemsCategories();
+
+
+#ifdef TEMPORARILY_REMOVED
+    if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
+        items.sort();
+#endif
+
+    int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
+    insertItems( item, 0, index );
+
+#ifdef TEMPORARILY_REMOVED
     _label->setText( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
     _listView->clear();
-    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclGroups();
+    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclCategories();
+    DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsCategories()->print(0);
+
+    if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
+        items.sort();
+
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
     for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         ++index;
         new QListViewItem( _listView, *itemIt, QString::number( index ) );
     }
+#endif
 }
 
 /**
@@ -458,7 +496,7 @@ void ListSelect::populate()
    which is indeed not his intention. Therefore this event filter will
    block the mouse press events when they come from a right mouse button.
 */
-bool ListSelect::eventFilter( QObject* object, QEvent* event )
+bool AnnotationDialog::ListSelect::eventFilter( QObject* object, QEvent* event )
 {
     if ( object == _listView->viewport() && event->type() == QEvent::MouseButtonPress &&
          static_cast<QMouseEvent*>(event)->button() == Qt::RightButton )
@@ -466,12 +504,12 @@ bool ListSelect::eventFilter( QObject* object, QEvent* event )
     return QWidget::eventFilter( object, event );
 }
 
-void ListSelect::slotSortDate()
+void AnnotationDialog::ListSelect::slotSortDate()
 {
     Settings::SettingsData::instance()->setViewSortType( Settings::SortLastUse );
 }
 
-void ListSelect::slotSortAlpha()
+void AnnotationDialog::ListSelect::slotSortAlpha()
 {
     Settings::SettingsData::instance()->setViewSortType( Settings::SortAlpha );
 }

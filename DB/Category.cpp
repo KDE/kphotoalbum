@@ -5,6 +5,7 @@
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
+#include "CategoryItem.h"
 
 QPixmap DB::Category::icon( int size ) const
 {
@@ -32,9 +33,9 @@ QString DB::Category::text() const
         return name();
 }
 
-QStringList DB::Category::itemsInclGroups() const
+QStringList DB::Category::itemsInclCategories() const
 {
-        // values including member groups
+    // values including member groups
 
     QStringList items = this->items();
 
@@ -45,9 +46,149 @@ QStringList DB::Category::itemsInclGroups() const
         if ( ! items.contains(  *it ) )
             items << *it ;
     };
-    if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
-        items.sort();
+
     return items;
 }
 
+#ifdef TEMPORARILY_REMOVED
+DB::CategoryItem* createParentItem( DB::CategoryItem* top, QMap<QString,DB::CategoryItem*>& parentMap,
+                                    const QMap<QString,QStringList>& inverseGroupMap, const QString& item )
+{
+    if ( parentMap.contains( item ) )
+        return parentMap[item];
+
+    QValueList<DB::CategoryItem*> parents;
+    if ( inverseGroupMap.contains( item ) ) {
+        QStringList parentNames = inverseGroupMap[item];
+        for( QStringList::ConstIterator parentIt = parentNames.begin(); parentIt != parentNames.end(); ++parentIt ) {
+            DB::CategoryItem* parentItem = createParentItem( top, parentMap, inverseGroupMap, *parentIt  );
+            parents.append( parentItem );
+        }
+    }
+    else
+        parents.append( top );
+
+    QValueList<DB::CategoryItem*> res;
+    for( QValueList<DB::CategoryItem*>::ConstIterator parentIt = parents.begin(); parentIt != parents.end(); ++parentIt ) {
+        DB::CategoryItem* child = new DB::CategoryItem(  );
+        parent->_subcategories.append( res );
+        parentMap.insert( item, res );
+        return res;
+    }
+}
+#endif
+
+
+QValueList<DB::CategoryItem*> createItems( const QString& name, DB::CategoryItem* top, const QMap<QString,QStringList>& inverseMap,
+                                           QMap<QString, QValueList<DB::CategoryItem*> >* parentMap )
+{
+    QValueList<DB::CategoryItem*> res;
+    if ( parentMap->contains( name ) )
+        return (*parentMap)[name];
+
+    if ( inverseMap.contains( name ) ) {
+        QStringList groups = inverseMap[name];
+        for( QStringList::ConstIterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+            QValueList<DB::CategoryItem*> parentList = createItems( *groupIt, top, inverseMap, parentMap );
+            for( QValueList<DB::CategoryItem*>::ConstIterator parentItemIt = parentList.begin(); parentItemIt != parentList.end(); ++parentItemIt ) {
+                DB::CategoryItem* child = new DB::CategoryItem( name );
+                (*parentItemIt)->_subcategories.append( child );
+                res.append( child );
+            }
+        }
+    }
+    else {
+        // No group contains this item as a member
+        DB::CategoryItem* child = new DB::CategoryItem( name );
+        top->_subcategories.append( child );
+        res.append( child );
+    }
+
+    (*parentMap)[name] += res;
+    return res;
+}
+
+DB::CategoryItem* DB::Category::itemsCategories() const
+{
+    CategoryItem* result = new CategoryItem( QString::fromLatin1("top") );
+    QStringList items = this->items();
+    QMap<QString,QStringList> inverseGroupMap = ImageDB::instance()->memberMap().inverseMap( name() );
+    QMap<QString, QValueList<DB::CategoryItem*> > parentMap;
+
+    for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
+        createItems( *itemIt, result, inverseGroupMap, &parentMap );
+
+
+#ifdef TEMPORARILY_REMOVED
+    QMap<QString,QStringList> inverseGroupMap = ImageDB::instance()->memberMap().inverseMap( name() );
+    QMap<QString, CategoryItem*> parentMap;
+    for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        if ( inverseGroupMap.contains( *itemIt ) ) {
+            QStringList groups = inverseGroupMap[*itemIt];
+            for( QStringList::ConstIterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+                CategoryItem* parentItem = createParentItem( result, parentMap, inverseGroupMap, *groupIt );
+                qDebug("Adding %s as child of %s", (*itemIt).latin1(), parentItem->_name.latin1());
+                parentItem->_subcategories.append( new CategoryItem( *itemIt ) );
+            }
+        }
+        else
+            result->_subcategories.append( new CategoryItem( *itemIt ) );
+    }
+#endif
+
+    return result;
+}
+
+#ifdef TEMPORARILY_REMOVED
+DB::CategoryItem* createParentItem( DB::CategoryItem* top, QMap<QString,DB::CategoryItem*>& parentMap,
+                                    const QMap<QString,QStringList>& inverseGroupMap, const QString& item )
+{
+    if ( parentMap.contains( item ) )
+        return parentMap[item];
+
+    QValueVector<DB::CategoryItem*> parents;
+    if ( inverseGroupMap.contains( item ) ) {
+        QStringList parentNames = inverseGroupMap[item];
+        for( QStringList::ConstIterator parentIt = parentNames.begin(); parentIt != parentNames.end(); ++parentIt ) {
+            DB::CategoryItem* parentItem = createParentItem( top, parentMap, inverseGroupMap, *parentIt  );
+            parents.append( parentItem );
+        }
+    }
+    else
+        parents.append( top );
+
+    QValueList<DB::CategoryItem*> res;
+    for( QValueList<DB::CategoryItem*>::ConstIterator parentIt = parents.begin(); parentIt != parents.end(); ++parentIt ) {
+        DB::CategoryItem* child = new DB::CategoryItem(  );
+        parent->_subcategories.append( res );
+        parentMap.insert( item, res );
+        return res;
+    }
+}
+
+DB::CategoryItem* DB::Category::itemsCategories() const
+{
+    CategoryItem* result = new CategoryItem( QString::fromLatin1("top") );
+    QStringList items = this->items();
+
+    QMap<QString,QStringList> inverseGroupMap = ImageDB::instance()->memberMap().inverseMap( name() );
+    QMap<QString, CategoryItem*> parentMap;
+    for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        if ( inverseGroupMap.contains( *itemIt ) ) {
+            QStringList groups = inverseGroupMap[*itemIt];
+            for( QStringList::ConstIterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+                CategoryItem* parentItem = createParentItem( result, parentMap, inverseGroupMap, *groupIt );
+                qDebug("Adding %s as child of %s", (*itemIt).latin1(), parentItem->_name.latin1());
+                parentItem->_subcategories.append( new CategoryItem( *itemIt ) );
+            }
+        }
+        else
+            result->_subcategories.append( new CategoryItem( *itemIt ) );
+    }
+
+    return result;
+}
+#endif
+
 #include "Category.moc"
+class QString;

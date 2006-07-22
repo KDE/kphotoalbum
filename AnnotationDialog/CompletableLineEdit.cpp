@@ -20,7 +20,6 @@ void AnnotationDialog::CompletableLineEdit::setMode( ListSelect::Mode mode )
     _mode = mode;
 }
 
-// Better hoope this monster works....
 void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 {
     if ( ev->key() == Key_Down || ev->key() == ev->Key_Up ) {
@@ -35,13 +34,15 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         return;
     }
 
+    if ( _mode == ListSelect::INPUT && isSpecialKey( ev ) )
+        return; // Don't insert the special character.
+
+    QString prevContent = text();
+
     if ( ev->text().isEmpty() || !ev->text()[0].isPrint() ) {
         QLineEdit::keyPressEvent( ev );
-        return;
-    }
-
-    // Don't insert the special character.
-    if ( _mode == ListSelect::INPUT && isSpecialKey( ev ) )  {
+        if ( prevContent != text() )
+            showOnlyItemsMatching( text() );
         return;
     }
 
@@ -52,7 +53,6 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         return;
     }
 
-    QString content = text();
     int cursorPos = cursorPosition();
     int selStart = selectionStart();
 
@@ -72,10 +72,10 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     QListViewItem* item = findItemInListView( input );
     if ( !item && _mode == ListSelect::SEARCH )  {
         // revert
-        setText( content );
+        setText( prevContent );
         setCursorPosition( cursorPos );
         item = findItemInListView( input );
-        setSelection( selStart, content.length() ); // Reset previous selection.
+        setSelection( selStart, prevContent.length() ); // Reset previous selection.
     }
 
     if ( item )
@@ -132,9 +132,25 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent
 
 void AnnotationDialog::CompletableLineEdit::showOnlyItemsMatching( const QString& text )
 {
-    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
-        (*itemIt)->setVisible( itemMatchesText( *itemIt, text ) );
+    for ( QListViewItem* item = _listView->firstChild(); item; item = item->nextSibling() ) {
+        bool anyChildrenVisible = showOnlyItemsMatching( item, text );
+        item->setVisible( anyChildrenVisible || itemMatchesText( item, text ) );
+    }
 }
+
+bool AnnotationDialog::CompletableLineEdit::showOnlyItemsMatching( QListViewItem* parentItem, const QString& text )
+{
+    bool anyChildrenVisible = false;
+    for ( QListViewItem* item = parentItem->firstChild(); item; item = item->nextSibling() ) {
+        bool anySubChildrenVisible = showOnlyItemsMatching( item, text );
+        bool itemVisible = anySubChildrenVisible || itemMatchesText( item, text );
+        item->setVisible( itemVisible );
+        anyChildrenVisible |= itemVisible;
+    }
+    return anyChildrenVisible;
+}
+
+
 
 void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch( bool next )
 {

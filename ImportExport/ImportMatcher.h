@@ -27,9 +27,9 @@ class QCheckBox;
 namespace ImportExport
 {
 
-class OptionMatch  {
+class CategoryMatch  {
 public:
-    OptionMatch( bool allowNew, const QString& optioin, QStringList myOptionList, QWidget* parent, QGridLayout* grid, int row );
+    CategoryMatch( bool allowNew, const QString& categort, QStringList items, QWidget* parent, QGridLayout* grid, int row );
     QCheckBox* _checkbox;
     QComboBox* _combobox;
     QString _text;
@@ -40,13 +40,13 @@ class ImportMatcher :public QScrollView {
     Q_OBJECT
 
 public:
-    ImportMatcher( const QString& otherOptionGroup, const QString& myOptionGroup,
-                   const QStringList& otherOptionList, const QStringList& myOptionList,
+    ImportMatcher( const QString& otherCategory, const QString& myCategory,
+                   const QStringList& otherItems, const QStringList& myItems,
                    bool allowNew, QWidget* parent, const char* name = 0 );
 
-    QString _otherOptionGroup;
-    QString _myOptionGroup;
-    QValueList<OptionMatch*> _matchers;
+    QString _otherCategory;
+    QString _myCategory;
+    QValueList<CategoryMatch*> _matchers;
 };
 
 }

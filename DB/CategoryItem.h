@@ -1,24 +1,21 @@
 #ifndef DB_CATEGORYITEMS_H
 #define DB_CATEGORYITEMS_H
 
-/**
-USA
-  Nevada
-    Las Vegas
-  California
-    San Fransisco
-    Los Angeless
-      Long Beach
-Esbjerg
-
-*/
+#include <ksharedptr.h>
 
 namespace DB
 {
-class CategoryItem
+class CategoryItem :public KShared
 {
 public:
     CategoryItem( const QString& name ) : _name( name ) {}
+    ~CategoryItem()
+    {
+        for( QValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+            delete *it;
+        }
+    }
+
     void print( int offset )
     {
         QString spaces;

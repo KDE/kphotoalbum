@@ -339,7 +339,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     QMap<int, QString> map;
     QPopupMenu* members = new QPopupMenu( &menu );
     members->setCheckable( true );
-    menu.insertItem( i18n( "Member Groups" ), members, 5 );
+    menu.insertItem( i18n( "Super Categories" ), members, 5 );
     if ( item ) {
         QStringList grps = memberMap.groups( _category );
 
@@ -353,8 +353,9 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
 
         if ( !grps.isEmpty() )
             members->insertSeparator();
-        members->insertItem( i18n("New Group..." ), 7 );
+        members->insertItem( i18n("New Category..." ), 7 );
     }
+    menu.insertItem( i18n( "Create Subcategory..." ), 8 );
 
     // -------------------------------------------------- sort
     QLabel* sortTitle = new QLabel( i18n("<qt><b>Sorting</b></qt>"), &menu );
@@ -418,12 +419,30 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         Settings::SettingsData::instance()->setViewSortType( Settings::SortAlpha );
     }
     else if ( which == 7 ) {
-        QString group = KInputDialog::getText( i18n("Member Group Name"), i18n("Member group name:") );
-        if ( group.isNull() )
+        QString superCategory = KInputDialog::getText( i18n("New Super Category"), i18n("New Super Category Name:") );
+        if ( superCategory.isNull() )
             return;
-        memberMap.addGroup( _category, group );
-        memberMap.addMemberToGroup( _category, group, item->text(0) );
+        memberMap.addGroup( _category, superCategory );
+        memberMap.addMemberToGroup( _category, superCategory, item->text(0) );
         DB::ImageDB::instance()->setMemberMap( memberMap );
+        rePopulate();
+    }
+    else if ( which == 8 ) {
+        QString subCategory = KInputDialog::getText( i18n("New Sub Category"), i18n("New Sub Category Name:") );
+        if ( subCategory.isNull() )
+            return;
+
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( subCategory );
+        memberMap.addGroup( _category, item->text(0) );
+        memberMap.addMemberToGroup( _category, item->text(0), subCategory );
+        DB::ImageDB::instance()->setMemberMap( memberMap );
+        if ( _mode == INPUT ) {
+            qDebug("OK adding %s", subCategory.latin1());
+            DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( subCategory );
+        }
+
+        // PENDING(blackie) select the newly added item
+        rePopulate();
     }
     else {
         if ( map.contains( which ) ) {
@@ -505,7 +524,7 @@ void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 void AnnotationDialog::ListSelect::populateAlphabetically()
 {
     DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
-    DB::CategoryItem* item = category->itemsCategories();
+    KSharedPtr<DB::CategoryItem> item = category->itemsCategories();
 
     insertItems( item, 0 );
     _listView->setSorting( 0 );

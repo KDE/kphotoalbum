@@ -49,7 +49,7 @@ public:
     virtual void addItem( const QString& item ) = 0;
     virtual QStringList items() const = 0;
     virtual QStringList itemsInclCategories() const;
-    CategoryItem* itemsCategories() const;
+    KSharedPtr<CategoryItem> itemsCategories() const;
 
 signals:
     void changed();

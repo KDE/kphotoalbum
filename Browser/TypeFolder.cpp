@@ -23,6 +23,7 @@
 #include <klocale.h>
 #include "BrowserItemFactory.h"
 #include "DB/CategoryCollection.h"
+#include <DB/CategoryItem.h>
 
 Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category ( category )
@@ -56,31 +57,52 @@ Browser::TypeFolderAction::TypeFolderAction( const QString& category, const DB::
 {
 }
 
+
+bool Browser::TypeFolderAction::populateBrowser( DB::CategoryItem* parentCategoryItem, const QMap<QString, int>& images,
+                                                 const QMap<QString, int>& videos, BrowserItemFactory* factory,
+                                                 BrowserItem* parentBrowserItem )
+{
+    QString name = parentCategoryItem->_name;
+    int imageCtn = images.contains(name) ? images[name] : 0;
+    int videoCtn = videos.contains(name) ? videos[name] : 0;
+
+    BrowserItem* item = 0;
+    if ( !parentCategoryItem->_isTop )
+        item = factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
+                                                                _info, _browser ), parentBrowserItem );
+
+    bool anyItems = imageCtn != 0 || videoCtn != 0;
+
+    for( QValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
+         subCategoryIt != parentCategoryItem->_subcategories.end(); ++subCategoryIt ) {
+        anyItems = populateBrowser( *subCategoryIt, images, videos, factory, item ) || anyItems;
+    }
+
+    if ( !anyItems ) {
+        delete item;
+    }
+
+    return anyItems;
+}
+
 void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
 
-
     QMap<QString, int> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
     QMap<QString, int> videos = DB::ImageDB::instance()->classify( _info, _category, DB::Video );
 
-    QStringList keys = images.keys() + videos.keys();
-    qHeapSort(keys);
-    QString prev;
+    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
+    KSharedPtr<DB::CategoryItem> item = category->itemsCategories();
 
-    for( QStringList::ConstIterator it = keys.begin(); it != keys.end(); ++it ) {
-        if ( *it != prev && *it != DB::ImageDB::NONE() ) {
-            factory->createItem( new ContentFolder( _category, *it, DB::MediaCount( images[*it], videos[*it] ), _info, _browser ) );
-            prev = *it;
-        }
-    }
+    populateBrowser( item, images, videos, factory, 0 );
 
     // Add the none option to the end
     int imageCount = images[DB::ImageDB::NONE()];
     int videoCount = videos[DB::ImageDB::NONE()];
     if ( imageCount + videoCount != 0 )
         factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), DB::MediaCount( imageCount, videoCount ),
-                                                _info, _browser ) );
+                                                _info, _browser ), 0 );
 }
 
 QString Browser::TypeFolderAction::title() const

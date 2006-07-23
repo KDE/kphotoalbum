@@ -110,7 +110,7 @@ QValueList<DB::CategoryItem*> createItems( const QString& name, DB::CategoryItem
 
 KSharedPtr<DB::CategoryItem> DB::Category::itemsCategories() const
 {
-    CategoryItem* result = new CategoryItem( QString::fromLatin1("top") );
+    CategoryItem* result = new CategoryItem( QString::fromLatin1("top"), true );
     QStringList items = this->items();
     QMap<QString,QStringList> inverseGroupMap = ImageDB::instance()->memberMap().inverseMap( name() );
     QMap<QString, QValueList<DB::CategoryItem*> > parentMap;

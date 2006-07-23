@@ -73,16 +73,16 @@ void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
     QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
 
     for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        factory->createItem( new TypeFolder( *it, _info, _browser ) );
+        factory->createItem( new TypeFolder( *it, _info, _browser ), 0 );
     }
 
     //-------------------------------------------------- Search,Exif, and Image Folder
-    factory->createItem( new SearchFolder( _info, _browser ) );
+    factory->createItem( new SearchFolder( _info, _browser), 0 );
 #ifdef HASEXIV2
     if ( Exif::Database::isAvailable() )
-        factory->createItem( new ExifFolder( _info, _browser ) );
+        factory->createItem( new ExifFolder( _info, _browser ), 0 );
 #endif
-    factory->createItem( new ImageFolder( _info, _browser ) );
+    factory->createItem( new ImageFolder( _info, _browser), 0 );
 }
 
 Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )

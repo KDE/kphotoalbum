@@ -23,9 +23,15 @@
 
 void AnnotationDialog::ListViewHider::setItemsVisible( QListView* listView )
 {
+    // It seems like a bug in Qt, but I need to make all item visible first, otherwise I see wrong items when I have items
+    // two layers deep (A->B->c). It only occours when I widen (types "je", now deletes the "e" to get to "j" ).
+    for ( QListViewItemIterator it( listView ); *it; ++it )
+        (*it)->setVisible( true );
+
     for ( QListViewItem* item = listView->firstChild(); item; item = item->nextSibling() ) {
         bool anyChildrenVisible = setItemsVisible( item );
-        item->setVisible( anyChildrenVisible || shouldItemBeShown( item ) );
+        bool visible = anyChildrenVisible || shouldItemBeShown( item );
+        item->setVisible( visible );
     }
 }
 

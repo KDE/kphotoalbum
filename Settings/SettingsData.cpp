@@ -226,15 +226,22 @@ void Settings::SettingsData::setCategoryImage( const QString& category, QString 
         QMessageBox::warning( 0, i18n("Error Saving Image"), i18n("Error when saving image '%1'.").arg(fileName), QMessageBox::Ok, 0 );
         return;
     }
+
+    // PENDING(blackie) HACK ALERT: Remove all images rather than just these resolutions.
+    QString key = QString::fromLatin1( "64-%2" ).arg(fileName);
+    QPixmapCache::remove( key );
+
+    key = QString::fromLatin1( "128-%2" ).arg(fileName);
+    QPixmapCache::remove( key );
 }
 
 // PENDING(blackie) moved this function to Category
 QPixmap Settings::SettingsData::categoryImage( const QString& category, QString member, int size ) const
 {
-
     QString fileName = fileForCategoryImage( category, member );
+    QString key = QString::fromLatin1( "%1-%2" ).arg(size).arg(fileName);
     QPixmap res;
-    if ( QPixmapCache::find( fileName, res ) )
+    if ( QPixmapCache::find( key, res ) )
         return res;
 
     QImage img;
@@ -247,7 +254,7 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
     }
     res = Utilities::scaleImage(img, size, size, QImage::ScaleMin);
 
-    QPixmapCache::insert( fileName, res );
+    QPixmapCache::insert( key, res );
     return res;
 }
 

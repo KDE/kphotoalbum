@@ -8,7 +8,7 @@ namespace DB
 class CategoryItem :public KShared
 {
 public:
-    CategoryItem( const QString& name ) : _name( name ) {}
+    CategoryItem( const QString& name, bool isTop = false ) : _name( name ), _isTop( isTop ) {}
     ~CategoryItem()
     {
         for( QValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
@@ -28,6 +28,7 @@ public:
 
     QString _name;
     QValueList< CategoryItem* > _subcategories;
+    bool _isTop;
 };
 
 }

@@ -33,6 +33,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include "DB/CategoryCollection.h"
+#include "AnnotationDialog/ListViewItemHider.h"
 
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
 
@@ -324,9 +325,12 @@ void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
         a->action( _currentFactory );
     }
     else {
+        AnnotationDialog::ListViewTextMatchHider dummy( str, _listView );
+#ifdef TEMPORARILY_REMOVED
         for ( QListViewItem* item = _listView->firstChild(); item; item = item->nextSibling() ) {
             item->setVisible( item->text(0).lower().contains( str.lower() ) );
         }
+#endif
     }
 }
 

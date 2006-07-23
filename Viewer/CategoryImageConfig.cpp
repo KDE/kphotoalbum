@@ -25,6 +25,8 @@
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
+#include "DB/MemberMap.h"
+#include "Utilities/Util.h"
 
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
@@ -75,7 +77,17 @@ void CategoryImageConfig::groupChanged()
 {
     QString currentText = _member->currentText();
     _member->clear();
-    QStringList list = _info->itemsOfCategory( currentGroup() );
+    QStringList directMembers = _info->itemsOfCategory( currentGroup() );
+
+    QStringList list = directMembers;
+    QMap<QString,QStringList> map = DB::ImageDB::instance()->memberMap().inverseMap( currentGroup() );
+    for( QStringList::ConstIterator directMembersIt = directMembers.begin();
+         directMembersIt != directMembers.end(); ++directMembersIt ) {
+        list += map[*directMembersIt];
+    }
+
+    list = Utilities::removeDuplicates( list );
+
     list.sort();
     _member->insertStringList( list );
     int index = list.findIndex( currentText );

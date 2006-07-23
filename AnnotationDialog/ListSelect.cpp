@@ -436,10 +436,8 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         memberMap.addGroup( _category, item->text(0) );
         memberMap.addMemberToGroup( _category, item->text(0), subCategory );
         DB::ImageDB::instance()->setMemberMap( memberMap );
-        if ( _mode == INPUT ) {
-            qDebug("OK adding %s", subCategory.latin1());
+        if ( _mode == INPUT )
             DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( subCategory );
-        }
 
         // PENDING(blackie) select the newly added item
         rePopulate();

@@ -128,7 +128,7 @@ private:
     // Viewer page
     ViewerSizeConfig* _slideShowSetup;
     ViewerSizeConfig* _viewImageSetup;
-    QCheckBox* _smoothScale;
+    QComboBox* _smoothScale;
     QSpinBox* _slideShowInterval;
     QSpinBox* _cacheSize;
     KComboBox* _viewerStandardSize;

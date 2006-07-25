@@ -428,7 +428,7 @@ void Settings::SettingsDialog::show()
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );
     _thumbnailCache->setValue( opt->thumbnailCache() );
-    _smoothScale->setChecked( opt->smoothScale() );
+    _smoothScale->setCurrentItem( opt->smoothScale() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
     _viewerStandardSize->setCurrentItem( opt->viewerStandardSize() );
 
@@ -486,7 +486,7 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );
     opt->setViewerCacheSize( _cacheSize->value() );
-    opt->setSmoothScale( _smoothScale->isChecked() );
+    opt->setSmoothScale( _smoothScale->currentItem() );
     opt->setThumbnailCache( _thumbnailCache->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
@@ -881,10 +881,15 @@ void Settings::SettingsDialog::createViewerPage()
 	       "otherwise it will be shrunk to fit the viewer.</p></qt>");
     QWhatsThis::add(_viewerStandardSize, txt);
 
-    _smoothScale = new QCheckBox( i18n( "Use smooth scaling" ), top );
-    glay->addWidget( _smoothScale, 3, 0 );
+    QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), top );
+    _smoothScale = new QComboBox( top );
+    _smoothScale->insertStringList( QStringList() << i18n("Fastest" ) << i18n("Best")  );
+
+    glay->addWidget( scalingLabel, 3, 0 );
+    glay->addWidget( _smoothScale, 3, 1 );
     txt = i18n("<qt><p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
 		       "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p></qt>");
+    QWhatsThis::add( scalingLabel, txt );
     QWhatsThis::add( _smoothScale, txt );
 }
 

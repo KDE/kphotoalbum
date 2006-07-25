@@ -127,153 +127,94 @@ void Viewer::ViewerWidget::setupContextMenu()
 {
     _popup = new QPopupMenu( this, "context popup menu" );
     _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
-    KAction* action;
 
-    action = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
-    action->plug( _popup );
-    _backwardActions.append(action);
+    createSlideShowMenu();
+    createZoomMenu();
+    createRotateMenu();
+    createSkipMenu();
+    createShowContextMenu();
+    createWallPaperMenu();
+    createInvokeExternalMenu();
 
-    action = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), _actions, "viewer-end" );
-    action->plug( _popup );
-    _forwardActions.append(action);
-
-    action = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), _actions, "viewer-next" );
-    action->plug( _popup );
-    _forwardActions.append(action);
-
-    action = new KAction( i18n("Skip 10 Forward"), CTRL+Key_PageDown, this, SLOT( showNext10() ), _actions, "viewer-next-10" );
-    action->plug( _popup );
-    _forwardActions.append(action);
-
-    action = new KAction( i18n("Skip 100 Forward"), SHIFT+Key_PageDown, this, SLOT( showNext100() ), _actions, "viewer-next-100" );
-    action->plug( _popup );
-    _forwardActions.append(action);
-
-    action = new KAction( i18n("Skip 1000 Forward"), CTRL+SHIFT+Key_PageDown, this, SLOT( showNext1000() ), _actions, "viewer-next-1000" );
-    action->plug( _popup );
-    _forwardActions.append(action);
-
-    action = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), _actions, "viewer-prev" );
-    action->plug( _popup );
-    _backwardActions.append(action);
-
-    action = new KAction( i18n("Skip 10 Backward"), CTRL+Key_PageUp, this, SLOT( showPrev10() ), _actions, "viewer-prev-10" );
-    action->plug( _popup );
-    _backwardActions.append(action);
-
-    action = new KAction( i18n("Skip 100 Backward"), SHIFT+Key_PageUp, this, SLOT( showPrev100() ), _actions, "viewer-prev-100" );
-    action->plug( _popup );
-    _backwardActions.append(action);
-
-    action = new KAction( i18n("Skip 1000 Backward"), CTRL+SHIFT+Key_PageUp, this, SLOT( showPrev1000() ), _actions, "viewer-prev-1000" );
-    action->plug( _popup );
-    _backwardActions.append(action);
-
-    _popup->insertSeparator();
-
-    _startStopSlideShow = new KAction( i18n("Run Slideshow"), CTRL+Key_R, this, SLOT( slotStartStopSlideShow() ),
-                                       _actions, "viewer-start-stop-slideshow" );
-    _startStopSlideShow->plug( _popup );
-
-    _slideShowRunFaster = new KAction( i18n("Run Faster"), CTRL + Key_Plus, this, SLOT( slotSlideShowFaster() ),
-                                       _actions, "viewer-run-faster" );
-    _slideShowRunFaster->plug( _popup );
-
-    _slideShowRunSlower = new KAction( i18n("Run Slower"), CTRL+Key_Minus, this, SLOT( slotSlideShowSlower() ),
-                                       _actions, "viewer-run-slower" );
-    _slideShowRunSlower->plug( _popup );
-
-    _popup->insertSeparator();
-
-    // PENDING(blackie) Only for image display?
-    action = new KAction( i18n("Zoom In"), Key_Plus, _display, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
+    KAction* action = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Zoom Out"), Key_Minus, _display, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
+    action = new KAction( i18n("Edit Image Properties..."),  CTRL+Key_1, this, SLOT( editImage() ),
+                          _actions, "viewer-edit-image-properties" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Full View"), Key_Period, _display, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
+    // PENDING(blackie) This should only be enabled for image displays.
+    action = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
+                          _actions, "viewer-show-category-editor" );
     action->plug( _popup );
 
-    action = new KAction( i18n("Pixel for Pixel View"), Key_Equal, _display, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
+    action = new KAction( i18n("Close"), Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
     action->plug( _popup );
+    _actions->readShortcutSettings();
+}
 
-    action = new KAction( i18n("Standard View"), Key_Slash, _display, SLOT( zoomStandard() ), _actions, "viewer-zoom-standard" );
-    action->plug( _popup );
+void Viewer::ViewerWidget::createShowContextMenu()
+{
+    QPopupMenu *showPopup = new QPopupMenu( _popup );
 
-    action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
-                          _actions, "viewer-toggle-fullscreen" );
-    action->plug( _popup );
-
-    _popup->insertSeparator();
-
-    action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
-    action->plug( _popup );
-
-    action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
-    action->plug( _popup );
-
-    action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
-    action->plug( _popup );
-
-    _popup->insertSeparator();
-
-    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Key_I, _actions, "viewer-show-infobox" );
+    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Key_I, showPopup, "viewer-show-infobox" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
 
     // PENDING(blackie) Only for image display
-    taction = new KToggleAction( i18n("Show Drawing"), CTRL+Key_D, _actions, "viewer-show-drawing");
+    taction = new KToggleAction( i18n("Show Drawing"), CTRL+Key_D, showPopup, "viewer-show-drawing");
     connect( taction, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
 
-    taction = new KToggleAction( i18n("Show Description"), 0, _actions, "viewer-show-description" );
+    taction = new KToggleAction( i18n("Show Description"), 0, showPopup, "viewer-show-description" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDescription() );
 
-    taction = new KToggleAction( i18n("Show Date"), 0, _actions, "viewer-show-date" );
+    taction = new KToggleAction( i18n("Show Date"), 0, showPopup, "viewer-show-date" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDate() );
 
-    taction = new KToggleAction( i18n("Show Time"), 0, _actions, "viewer-show-time" );
+    taction = new KToggleAction( i18n("Show Time"), 0, showPopup, "viewer-show-time" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowTime( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showTime() );
 
-    taction = new KToggleAction( i18n("Show Filename"), 0, _actions, "viewer-show-filename" );
+    taction = new KToggleAction( i18n("Show Filename"), 0, showPopup, "viewer-show-filename" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowFilename( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showFilename() );
 
-    taction = new KToggleAction( i18n("Show EXIF"), 0, _actions, "viewer-show-exif" );
+    taction = new KToggleAction( i18n("Show EXIF"), 0, showPopup, "viewer-show-exif" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowEXIF( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showEXIF() );
 
-    taction = new KToggleAction( i18n("Show Image Size"), 0, _actions, "viewer-show-imagesize" );
+    taction = new KToggleAction( i18n("Show Image Size"), 0, showPopup, "viewer-show-imagesize" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowImageSize( bool ) ) );
-    taction->plug( _popup );
+    taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showImageSize() );
 
+
+    _popup->insertItem( QIconSet(), i18n("Show"), showPopup );
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         ShowOptionAction* action = new ShowOptionAction( (*it)->name(), this );
-        action->plug( _popup );
+        action->plug( showPopup );
         connect( action, SIGNAL( toggled( const QString&, bool ) ),
                  this, SLOT( toggleShowOption( const QString&, bool ) ) );
     }
+}
 
-    _popup->insertSeparator();
-
-    // -------------------------------------------------- Wall paper
+void Viewer::ViewerWidget::createWallPaperMenu()
+{
     QPopupMenu *wallpaperPopup = new QPopupMenu( _popup, "context popup menu" );
 
-    action = new KAction( i18n("Centered"), 0, this, SLOT( slotSetWallpaperC() ), wallpaperPopup, "viewer-centered" );
+    KAction* action = new KAction( i18n("Centered"), 0, this, SLOT( slotSetWallpaperC() ), wallpaperPopup, "viewer-centered" );
     action->plug( wallpaperPopup );
 
     action = new KAction( i18n("Tiled"), 0, this, SLOT( slotSetWallpaperT() ), wallpaperPopup, "viewer-tiled" );
@@ -298,29 +239,125 @@ void Viewer::ViewerWidget::setupContextMenu()
     action->plug( wallpaperPopup );
 
     _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), wallpaperPopup );
+}
 
-    // -------------------------------------------------- Invoke external program
+void Viewer::ViewerWidget::createInvokeExternalMenu()
+{
     _externalPopup = new MainWindow::ExternalPopup( _popup );
     _popup->insertItem( QIconSet(), i18n("Invoke External Program"), _externalPopup );
     connect( _externalPopup, SIGNAL( aboutToShow() ), this, SLOT( populateExternalPopup() ) );
-
-
-    action = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
-    action->plug( _popup );
-
-    action = new KAction( i18n("Edit Image Properties..."),  CTRL+Key_1, this, SLOT( editImage() ),
-                          _actions, "viewer-edit-image-properties" );
-    action->plug( _popup );
-
-    // PENDING(blackie) This should only be enabled for image displays.
-    action = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
-                          _actions, "viewer-show-category-editor" );
-    action->plug( _popup );
-
-    action = new KAction( i18n("Close"), Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
-    action->plug( _popup );
-    _actions->readShortcutSettings();
 }
+
+void Viewer::ViewerWidget::createRotateMenu()
+{
+    QPopupMenu *popup = new QPopupMenu( _popup );
+
+    KAction* action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), popup, "viewer-rotate90" );
+    action->plug( popup );
+
+    action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), popup, "viewer-rotate180" );
+    action->plug( popup );
+
+    action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), popup, "viewer-rotare270" );
+    action->plug( popup );
+
+    _popup->insertItem( QIconSet(), i18n("Rotate"), popup );
+}
+
+void Viewer::ViewerWidget::createSkipMenu()
+{
+    QPopupMenu *popup = new QPopupMenu( _popup );
+
+    KAction* action = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), popup, "viewer-home" );
+    action->plug( popup );
+    _backwardActions.append(action);
+
+    action = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), popup, "viewer-end" );
+    action->plug( popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), popup, "viewer-next" );
+    action->plug( popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Skip 10 Forward"), CTRL+Key_PageDown, this, SLOT( showNext10() ), popup, "viewer-next-10" );
+    action->plug( popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Skip 100 Forward"), SHIFT+Key_PageDown, this, SLOT( showNext100() ), popup, "viewer-next-100" );
+    action->plug( popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Skip 1000 Forward"), CTRL+SHIFT+Key_PageDown, this, SLOT( showNext1000() ), popup, "viewer-next-1000" );
+    action->plug( popup );
+    _forwardActions.append(action);
+
+    action = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), popup, "viewer-prev" );
+    action->plug( popup );
+    _backwardActions.append(action);
+
+    action = new KAction( i18n("Skip 10 Backward"), CTRL+Key_PageUp, this, SLOT( showPrev10() ), popup, "viewer-prev-10" );
+    action->plug( popup );
+    _backwardActions.append(action);
+
+    action = new KAction( i18n("Skip 100 Backward"), SHIFT+Key_PageUp, this, SLOT( showPrev100() ), popup, "viewer-prev-100" );
+    action->plug( popup );
+    _backwardActions.append(action);
+
+    action = new KAction( i18n("Skip 1000 Backward"), CTRL+SHIFT+Key_PageUp, this, SLOT( showPrev1000() ), popup, "viewer-prev-1000" );
+    action->plug( popup );
+    _backwardActions.append(action);
+
+    _popup->insertItem( QIconSet(), i18n("Skip Images"), popup );
+}
+
+void Viewer::ViewerWidget::createZoomMenu()
+{
+    QPopupMenu *popup = new QPopupMenu( _popup );
+
+    // PENDING(blackie) Only for image display?
+    KAction* action = new KAction( i18n("Zoom In"), Key_Plus, _display, SLOT( zoomIn() ), popup, "viewer-zoom-in" );
+    action->plug( popup );
+
+    action = new KAction( i18n("Zoom Out"), Key_Minus, _display, SLOT( zoomOut() ), popup, "viewer-zoom-out" );
+    action->plug( popup );
+
+    action = new KAction( i18n("Full View"), Key_Period, _display, SLOT( zoomFull() ), popup, "viewer-zoom-full" );
+    action->plug( popup );
+
+    action = new KAction( i18n("Pixel for Pixel View"), Key_Equal, _display, SLOT( zoomPixelForPixel() ), popup, "viewer-zoom-pixel" );
+    action->plug( popup );
+
+    action = new KAction( i18n("Standard View"), Key_Slash, _display, SLOT( zoomStandard() ), popup, "viewer-zoom-standard" );
+    action->plug( popup );
+
+    action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
+                          popup, "viewer-toggle-fullscreen" );
+    action->plug( popup );
+
+    _popup->insertItem( QIconSet(), i18n("Zoom"), popup );
+}
+
+
+void Viewer::ViewerWidget::createSlideShowMenu()
+{
+    QPopupMenu *popup = new QPopupMenu( _popup );
+
+    _startStopSlideShow = new KAction( i18n("Run Slideshow"), CTRL+Key_R, this, SLOT( slotStartStopSlideShow() ),
+                                       popup, "viewer-start-stop-slideshow" );
+    _startStopSlideShow->plug( popup );
+
+    _slideShowRunFaster = new KAction( i18n("Run Faster"), CTRL + Key_Plus, this, SLOT( slotSlideShowFaster() ),
+                                       popup, "viewer-run-faster" );
+    _slideShowRunFaster->plug( popup );
+
+    _slideShowRunSlower = new KAction( i18n("Run Slower"), CTRL+Key_Minus, this, SLOT( slotSlideShowSlower() ),
+                                       popup, "viewer-run-slower" );
+    _slideShowRunSlower->plug( popup );
+
+    _popup->insertItem( QIconSet(), i18n("Slideshow"), popup );
+}
+
 
 void Viewer::ViewerWidget::load( const QStringList& list, int index )
 {
@@ -890,5 +927,7 @@ void Viewer::ViewerWidget::videoStopped()
     if ( _isRunningSlideShow )
         slotSlideShowNext();
 }
+
+
 
 #include "ViewerWidget.moc"

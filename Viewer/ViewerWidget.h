@@ -72,6 +72,14 @@ protected:
 
     void load();
     void setupContextMenu();
+    void createShowContextMenu();
+    void createWallPaperMenu();
+    void createInvokeExternalMenu();
+    void createRotateMenu();
+    void createSkipMenu();
+    void createZoomMenu();
+    void createSlideShowMenu();
+
     DB::ImageInfoPtr currentInfo();
     friend class InfoBox;
 

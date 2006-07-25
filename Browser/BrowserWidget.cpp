@@ -364,4 +364,17 @@ void Browser::BrowserWidget::slotInvokeSeleted()
 }
 
 
+void Browser::BrowserWidget::scrollLine( int direction )
+{
+    _iconView->scrollBy( 0, 10 * direction );
+    _listView->scrollBy( 0, 10 * direction );
+}
+
+void Browser::BrowserWidget::scrollPage( int direction )
+{
+    int dist = direction * (height()-100);
+    _iconView->scrollBy( 0, dist );
+    _listView->scrollBy( 0, dist );
+}
+
 #include "BrowserWidget.moc"

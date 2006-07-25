@@ -67,6 +67,8 @@ public slots:
     void slotLargeIconView();
     void slotLimitToMatch( const QString& );
     void slotInvokeSeleted();
+    void scrollLine( int direction );
+    void scrollPage( int direction );
 
 signals:
     void canGoBack( bool );

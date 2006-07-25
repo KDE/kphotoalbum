@@ -29,16 +29,38 @@ MainWindow::SearchBar::SearchBar( KMainWindow* parent, const char* name )
   insertWidget( -1, -1, label );
 
   _edit = new KLineEdit( this );
+  label->setBuddy( _edit );
+
   insertWidget( -1, -1, _edit );
   connect( _edit, SIGNAL( textChanged( const QString& ) ), this, SIGNAL( textChanged( const QString& ) ) );
   connect( _edit, SIGNAL( returnPressed() ), this, SIGNAL( returnPressed() ) );
 
   setStretchableWidget( _edit );
+  _edit->installEventFilter( this );
 }
 
 void MainWindow::SearchBar::reset()
 {
     _edit->clear();
+}
+
+bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
+{
+    if ( e->type() == QEvent::KeyPress ) {
+        QKeyEvent* ke = static_cast<QKeyEvent*>( e );
+        if ( ke->key() == Key_Up )
+            emit scrollLine( -1 );
+        else if ( ke->key() == Key_Down )
+            emit scrollLine( 1 );
+        else if ( ke->key() == Key_PageUp )
+            emit scrollPage( -1 );
+        else if ( ke->key() == Key_PageDown )
+            emit scrollPage( 1 );
+        else
+            return false;
+        return true;
+    }
+    return false;
 }
 
 #include "SearchBar.moc"

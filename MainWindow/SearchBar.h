@@ -16,12 +16,18 @@ public:
 protected slots:
     void reset();
 
+protected:
+    virtual bool eventFilter( QObject* watched, QEvent* e );
+
 signals:
     void textChanged( const QString& );
     void returnPressed();
+    void scrollLine( int direction );
+    void scrollPage( int direction );
 
 private:
     KLineEdit* _edit;
+    QWidget* _browser;
 };
 
 }

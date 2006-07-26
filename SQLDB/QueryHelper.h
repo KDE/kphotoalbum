@@ -26,6 +26,7 @@
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
 #include "DB/ImageInfo.h"
+#include "DB/ImageInfoPtr.h"
 #include "Cursor.h"
 
 namespace SQLDB
@@ -97,7 +98,8 @@ public:
     void getMediaItem(int id, DB::ImageInfo& info);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItemDrawings(int mediaId, const DB::ImageInfo& info);
-    void insertMediaItem(const DB::ImageInfo& info);
+    void insertMediaItem(const DB::ImageInfo& info, int place=0);
+    void insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items);
     void updateMediaItem(int id, const DB::ImageInfo& info);
     QValueList<int> getDirectMembers(int tagId);
     int idForTag(const QString& category, const QString& item);

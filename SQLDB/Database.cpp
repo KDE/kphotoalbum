@@ -163,14 +163,10 @@ QStringList SQLDB::Database::images()
 
 void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 {
-    for(DB::ImageInfoListConstIterator it = images.constBegin();
-        it != images.constEnd(); ++it ) {
-        DB::ImageInfoPtr info = *it;
-
-        QueryHelper::instance()->insertMediaItem(*info);
+    if (!images.isEmpty()) {
+        QueryHelper::instance()->insertMediaItemsLast(images);
+        emit totalChanged(totalCount());
     }
-
-    emit totalChanged( totalCount() );
 }
 
 void SQLDB::Database::addToBlockList(const QStringList& list)
@@ -191,11 +187,14 @@ bool SQLDB::Database::isBlocking(const QString& fileName)
 
 void SQLDB::Database::deleteList( const QStringList& list )
 {
-    for (QStringList::const_iterator i = list.begin(); i != list.end(); ++i)
-        QueryHelper::instance()->
-            removeMediaItem(Utilities::stripImageDirectory(*i));
-    if (list.count() != 0)
+    if (!list.isEmpty()) {
+        for (QStringList::const_iterator i = list.begin();
+             i != list.end(); ++i) {
+            QueryHelper::instance()->
+                removeMediaItem(Utilities::stripImageDirectory(*i));
+        }
         emit totalChanged(totalCount());
+    }
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const

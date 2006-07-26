@@ -601,21 +601,41 @@ QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
         w << h << info.angle();
 }
 
-void QueryHelper::insertMediaItem(const DB::ImageInfo& info)
+void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
 {
     // TODO: remove debug
     qDebug("Inserting info of file %s", info.fileName().local8Bit().data());
 
-    Q_ULLONG mediaId = insert("media", "id", QStringList() <<
-                              "dirId" << "filename" << "md5sum" <<
-                              "type" << "label" <<
-                              "description" <<
-                              "startTime" << "endTime" <<
-                              "width" << "height" << "angle",
-                              imageInfoToBindings(info));
+    QStringList fields;
+    Bindings bindings;
+    if (place != 0) {
+        fields << "place";
+        bindings << place;
+    }
+    fields <<
+        "dirId" << "filename" << "md5sum" <<
+        "type" << "label" <<
+        "description" <<
+        "startTime" << "endTime" <<
+        "width" << "height" << "angle";
+    bindings << imageInfoToBindings(info);
+
+    Q_ULLONG mediaId = insert("media", "id", fields, bindings);
 
     insertMediaItemTags(mediaId, info);
     insertMediaItemDrawings(mediaId, info);
+}
+
+void
+QueryHelper::insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items)
+{
+    int place =
+        executeQuery("SELECT MAX(place) FROM media").firstItem().toInt() + 1;
+
+    for (QValueList<DB::ImageInfoPtr>::const_iterator i = items.constBegin();
+         i != items.constEnd(); ++i) {
+        insertMediaItem(*(*i), place++);
+    }
 }
 
 void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)

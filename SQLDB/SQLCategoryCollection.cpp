@@ -1,6 +1,5 @@
 #include "SQLCategoryCollection.h"
 #include "SQLCategory.h"
-#include <qsqlquery.h>
 #include "QueryHelper.h"
 #include "SQLFolderCategory.h"
 #include "SQLSpecialCategory.h"

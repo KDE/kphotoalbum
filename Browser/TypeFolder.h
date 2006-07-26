@@ -22,6 +22,7 @@
 
 namespace Browser
 {
+class BrowserItem;
 
 class TypeFolder :public Folder {
 public:
@@ -44,6 +45,10 @@ public:
     virtual bool contentView() const;
     virtual QString title() const;
     virtual QString category() const;
+
+protected:
+    bool populateBrowser( DB::CategoryItem* parentCategoryItem, const QMap<QString, int>& images, const QMap<QString, int>& videos,
+                          BrowserItemFactory* factory, BrowserItem* parentBrowserItem );
 
 private:
     QString _category;

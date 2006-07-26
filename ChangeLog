@@ -1,6 +1,24 @@
+2006-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Make it possible to set a category image for sub categories.
+
+	* Show the category tree in the browser
+
+2006-07-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* A new menu item now exist in the annotation dialogs context
+	menu, namely "Add Sub Category"
+
+	* In the annotation dialog, you may now switch between sorted
+	category view and most recent view, by pressing and releasing the
+	alt key.
+
+	* In the annotation dialog, pressing and releasing the control
+	will toggle showing items selected, only.
+
 2006-07-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
-	* In the Annotation Dialog, it is now possible to scroll the list
+	* In the annotation dialog, it is now possible to scroll the list
 	of selected items, but pressing arrow up and down.
 
 	* While typing in the annotation dialog, hide items that does not

@@ -650,3 +650,16 @@ QImage Utilities::scaleImage(const QImage &image, const QSize& s, QImage::ScaleM
   else
     return image.scale(s, mode);
 }
+
+QStringList Utilities::removeDuplicates( const QStringList& items )
+{
+    Set<QString> seen;
+    QStringList res;
+    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        if ( !seen.contains( *itemIt ) ) {
+            res.append( *itemIt );
+            seen.insert( *itemIt );
+        }
+    }
+    return res;
+}

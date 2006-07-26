@@ -27,10 +27,10 @@
 #include <klocale.h>
 using namespace ImportExport;
 
-ImportMatcher::ImportMatcher( const QString& otherOptionGroup, const QString& myOptionGroup,
-                              const QStringList& otherOptionList, const QStringList& myOptionList,
+ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCategory,
+                              const QStringList& otherItems, const QStringList& myItems,
                               bool allowNew, QWidget* parent, const char* name )
-    : QScrollView( parent, name ), _otherOptionGroup( otherOptionGroup ), _myOptionGroup( myOptionGroup )
+    : QScrollView( parent, name ), _otherCategory( otherCategory ), _myCategory( myCategory )
 {
     setResizePolicy( AutoOneFit );
 
@@ -58,33 +58,33 @@ ImportMatcher::ImportMatcher( const QString& otherOptionGroup, const QString& my
     label->setAlignment( AlignCenter );
 
     int row = 1;
-    for( QStringList::ConstIterator it = otherOptionList.begin(); it != otherOptionList.end(); ++it ) {
-        OptionMatch* match = new OptionMatch( allowNew, *it, myOptionList, grid, gridLay, row++ );
+    for( QStringList::ConstIterator it = otherItems.begin(); it != otherItems.end(); ++it ) {
+        CategoryMatch* match = new CategoryMatch( allowNew, *it, myItems, grid, gridLay, row++ );
         _matchers.append( match );
     }
 }
 
-OptionMatch::OptionMatch( bool allowNew, const QString& option, QStringList options, QWidget* parent, QGridLayout* grid, int row )
+CategoryMatch::CategoryMatch( bool allowNew, const QString& category, QStringList items, QWidget* parent, QGridLayout* grid, int row )
 {
-    _checkbox = new QCheckBox( option, parent );
-    _text = option; // We can't just use QCheckBox::text() as Qt adds accelerators.
+    _checkbox = new QCheckBox( category, parent );
+    _text = category; // We can't just use QCheckBox::text() as Qt adds accelerators.
     _checkbox->setChecked( true );
     grid->addWidget( _checkbox, row, 0 );
 
     _combobox = new QComboBox( allowNew, parent, "combo box" );
 
-    options.sort();
-    _combobox->insertStringList( options );
+    items.sort();
+    _combobox->insertStringList( items );
     QObject::connect( _checkbox, SIGNAL( toggled( bool ) ), _combobox, SLOT( setEnabled( bool ) ) );
     grid->addWidget( _combobox, row, 1 );
 
-    if ( options.contains( option ) ) {
-        _combobox->setCurrentText( option );
+    if ( items.contains( category ) ) {
+        _combobox->setCurrentText( category );
     }
     else {
         QString match = QString::null;
-        for( QStringList::ConstIterator it = options.begin(); it != options.end(); ++it ) {
-            if ( (*it).contains( option ) || option.contains( *it ) ) {
+        for( QStringList::ConstIterator it = items.begin(); it != items.end(); ++it ) {
+            if ( (*it).contains( category ) || category.contains( *it ) ) {
                 if ( match == QString::null )
                     match = *it;
                 else {
@@ -98,7 +98,7 @@ OptionMatch::OptionMatch( bool allowNew, const QString& option, QStringList opti
         }
         else {
             if ( allowNew )
-                _combobox->setCurrentText( option );
+                _combobox->setCurrentText( category );
             else
                 _checkbox->setChecked( false );
         }

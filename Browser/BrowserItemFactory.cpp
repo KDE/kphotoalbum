@@ -25,10 +25,12 @@ Browser::BrowserIconViewItemFactory::BrowserIconViewItemFactory( QIconView* view
 {
 }
 
-void Browser::BrowserIconViewItemFactory::createItem( Folder* folder )
+Browser::BrowserItem* Browser::BrowserIconViewItemFactory::createItem( Folder* folder, BrowserItem* /*parent*/ )
 {
     if ( folder->text().lower().contains( _matchText.lower() ) )
-        new BrowserIconItem( _view, folder );
+        return new BrowserIconItem( _view, folder );
+    else
+        return 0;
 }
 
 Browser::BrowserListViewItemFactory::BrowserListViewItemFactory( QListView* view )
@@ -36,10 +38,15 @@ Browser::BrowserListViewItemFactory::BrowserListViewItemFactory( QListView* view
 {
 }
 
-void Browser::BrowserListViewItemFactory::createItem( Folder* folder )
+Browser::BrowserItem* Browser::BrowserListViewItemFactory::createItem( Folder* folder, BrowserItem* parent )
 {
-    BrowserListItem* item = new BrowserListItem( _view, folder );
+    BrowserListItem* item;
+    if ( parent )
+        item = new BrowserListItem( dynamic_cast<BrowserListItem*>( parent ), folder);
+    else
+        item = new BrowserListItem( _view, folder );
     item->setEnabled( folder->_enabled );
+    return item;
 }
 
 Browser::BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
@@ -60,7 +67,19 @@ Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
     setText( 0, folder->text() );
     setText( 1, folder->imagesLabel() );
     setText( 2, folder->videosLabel() );
+    setOpen( true );
 }
+
+Browser::BrowserListItem::BrowserListItem( QListViewItem* item, Folder* folder )
+     : QListViewItem( item ), _folder(folder)
+{
+    setPixmap( 0, folder->pixmap() );
+    setText( 0, folder->text() );
+    setText( 1, folder->imagesLabel() );
+    setText( 2, folder->videosLabel() );
+    setOpen( true );
+}
+
 
 int Browser::BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const
 {

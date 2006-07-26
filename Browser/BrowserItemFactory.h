@@ -25,7 +25,8 @@
 namespace Browser
 {
 class Folder;
-
+class BrowserItem;
+class BrowserListItem;
 
 /**
    The Browser can display the items either in an QIconView or a QListView.
@@ -53,7 +54,7 @@ class BrowserItemFactory
 public:
     BrowserItemFactory() {}
     virtual ~BrowserItemFactory() {}
-    virtual void createItem( Folder* ) = 0;
+    virtual BrowserItem* createItem( Folder*, BrowserItem* parentItem ) = 0;
 };
 
 
@@ -61,7 +62,7 @@ class BrowserIconViewItemFactory :public BrowserItemFactory
 {
 public:
     BrowserIconViewItemFactory( QIconView* view );
-    virtual void createItem( Folder* );
+    virtual BrowserItem* createItem( Folder*, BrowserItem* parentItem );
     void setMatchText( const QString& text );
 
 private:
@@ -74,13 +75,18 @@ class BrowserListViewItemFactory :public BrowserItemFactory
 {
 public:
     BrowserListViewItemFactory( QListView* view );
-    virtual void createItem( Folder* );
+    virtual BrowserItem* createItem( Folder*, BrowserItem* item );
 private:
     QListView* _view;
 };
 
+class BrowserItem
+{
+public:
+    virtual ~BrowserItem() {}
+};
 
-class BrowserIconItem :public QIconViewItem
+class BrowserIconItem :public QIconViewItem, public BrowserItem
 {
 public:
     BrowserIconItem( QIconView* view, Folder* folder );
@@ -89,14 +95,14 @@ public:
 };
 
 
-class BrowserListItem :public QListViewItem
+class BrowserListItem :public QListViewItem, public BrowserItem
 {
 public:
     BrowserListItem( QListView* view, Folder* folder );
+    BrowserListItem( QListViewItem* view, Folder* folder );
     ~BrowserListItem();
     Folder* _folder;
     virtual int compare( QListViewItem* other, int col, bool asc ) const;
-
 };
 
 }

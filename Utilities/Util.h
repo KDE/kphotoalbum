@@ -68,6 +68,7 @@ QStringList diff( const QStringList& list1, const QStringList& list2 );
 
 QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QImage::ScaleFree );
 QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
+QStringList removeDuplicates( const QStringList& items );
 };
 
 bool operator>( const QPoint&, const QPoint& );

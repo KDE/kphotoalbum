@@ -33,6 +33,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include "DB/CategoryCollection.h"
+#include "AnnotationDialog/ListViewItemHider.h"
 
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
 
@@ -324,9 +325,12 @@ void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
         a->action( _currentFactory );
     }
     else {
+        AnnotationDialog::ListViewTextMatchHider dummy( str, _listView );
+#ifdef TEMPORARILY_REMOVED
         for ( QListViewItem* item = _listView->firstChild(); item; item = item->nextSibling() ) {
             item->setVisible( item->text(0).lower().contains( str.lower() ) );
         }
+#endif
     }
 }
 
@@ -359,5 +363,18 @@ void Browser::BrowserWidget::slotInvokeSeleted()
     }
 }
 
+
+void Browser::BrowserWidget::scrollLine( int direction )
+{
+    _iconView->scrollBy( 0, 10 * direction );
+    _listView->scrollBy( 0, 10 * direction );
+}
+
+void Browser::BrowserWidget::scrollPage( int direction )
+{
+    int dist = direction * (height()-100);
+    _iconView->scrollBy( 0, dist );
+    _listView->scrollBy( 0, dist );
+}
 
 #include "BrowserWidget.moc"

@@ -43,7 +43,8 @@ public:
     void setMembers( const QString& category, const QString& memberGroup, const QStringList& members );
     bool isEmpty() const;
     bool isGroup( const QString& category, const QString& memberGroup ) const;
-    QMap<QString,QStringList> groupMap( const QString& category );
+    QMap<QString,QStringList> groupMap( const QString& category ) const;
+    QMap<QString,QStringList> inverseMap( const QString& category ) const;
     void renameGroup( const QString& category, const QString& oldName, const QString& newName );
     void renameCategory( const QString& oldName, const QString& newName );
 
@@ -52,8 +53,8 @@ public:
     void removeMemberFromGroup( const QString& category, const QString& group, const QString& item );
 
 protected:
-    void calculate();
-    QStringList calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group );
+    void calculate() const;
+    QStringList calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group ) const;
 
 protected slots:
     void deleteItem( DB::Category* category, const QString& name);
@@ -67,8 +68,8 @@ private:
 
     // These are the data structures used to develop closures, they are only
     // needed to speed up the program *SIGNIFICANTLY* ;-)
-    bool _dirty;
-    QMap<QString, QMap<QString,QStringList> > _closureMembers;
+    mutable bool _dirty;
+    mutable QMap<QString, QMap<QString,QStringList> > _closureMembers;
 
 };
 

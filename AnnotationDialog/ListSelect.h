@@ -58,6 +58,8 @@ public:
     void populate();
     void rePopulate();
 
+    void showOnlyItemsMatching( const QString& text );
+
 public slots:
     void slotReturn();
 
@@ -69,9 +71,15 @@ protected slots:
     void slotSortAlpha();
     void checkBoxStateChanged( int state );
     void removeCheckBoxStateChanged( int state );
+    void toggleSortType();
+    void limitToSelection();
+    void showAllChildren();
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
+    void insertItems( DB::CategoryItem* item, QListViewItem* parent );
+    void populateAlphabetically();
+    void populateMRU();
 
 private:
 

@@ -18,6 +18,8 @@
 */
 
 #include "QueryErrors.h"
+#include <kexidb/cursor.h>
+#include <qmap.h>
 
 namespace SQLDB
 {
@@ -30,11 +32,28 @@ namespace SQLDB
         {
             if (!_cursor)
                 throw Error(/* TODO: type and message */);
+            ++_references[_cursor];
+        }
+
+        Cursor(const Cursor& other):
+            _cursor(other._cursor)
+        {
+            ++_references[_cursor];
+        }
+
+        Cursor& operator=(const Cursor& other)
+        {
+            if (--_references[_cursor] == 0)
+                _cursor->connection()->deleteCursor(_cursor);
+            _cursor = other._cursor;
+            ++_references[_cursor];
+            return *this;
         }
 
         ~Cursor()
         {
-            _cursor->connection()->deleteCursor(_cursor);
+            if (--_references[_cursor] == 0)
+                _cursor->connection()->deleteCursor(_cursor);
         }
 
         inline
@@ -59,5 +78,6 @@ namespace SQLDB
 
     private:
         KexiDB::Cursor* _cursor;
+        static QMap<KexiDB::Cursor*, uint> _references;
     };
 }

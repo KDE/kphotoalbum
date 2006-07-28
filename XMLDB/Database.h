@@ -39,6 +39,7 @@ namespace XMLDB {
     class Database :public DB::ImageDB
     {
         Q_OBJECT
+
     public:
         virtual int totalCount() const;
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
@@ -64,50 +65,28 @@ namespace XMLDB {
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();
-#ifdef TEMPORARILY_REMOVED
-        int fileVersion();
-#endif
         static DB::ImageInfoPtr createImageInfo( const QString& fileName, const QDomElement& elm, Database* db = 0 );
         static void possibleLoadCompressedCategories( const QDomElement& , DB::ImageInfoPtr info, Database* db );
 
 
     protected:
         QStringList searchPrivate( const DB::ImageSearchInfo&, bool requireOnDisk, bool onlyItemsMatchingRange ) const;
-        DB::ImageInfoPtr load( const QString& filename, QDomElement elm );
-        void checkIfImagesAreSorted();
         bool rangeInclude( DB::ImageInfoPtr info ) const;
-        void checkIfAllImagesHasSizeAttributes();
 
-        QDomElement readConfigFile( const QString& configFile );
-        void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,
-                                          QDomElement* blockList, QDomElement* memberGroups );
-        void loadCategories( const QDomElement& elm );
-        void createSpecialCategories();
-        void loadImages( const QDomElement& images );
-        void loadBlockList( const QDomElement& blockList );
-        void loadMemberGroups( const QDomElement& memberGroups );
-
-        void saveImages( QDomDocument doc, QDomElement top );
-        void saveBlockList( QDomDocument doc, QDomElement top );
-        void saveMemberGroups( QDomDocument doc, QDomElement top );
-        void saveCategories( QDomDocument doc, QDomElement top );
         DB::ImageInfoList takeImagesFromSelection( const QStringList& list );
         QStringList insertList( const QString& fileName, const DB::ImageInfoList& list, bool after );
-        void add21CompatXML( QDomElement& top );
         static void readOptions( DB::ImageInfoPtr info, QDomElement elm );
-
-        QDomElement save( QDomDocument doc, const DB::ImageInfoPtr& info );
-        void writeCategories( QDomDocument doc,  QDomElement elm, const DB::ImageInfoPtr& info );
-        void writeCategoriesCompressed( QDomElement& elm, const DB::ImageInfoPtr& info );
 
     protected slots:
         void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
         void deleteItem( DB::Category* category, const QString& option );
         void lockDB( bool lock, bool exclude );
-        void checkAndWarnAboutVersionConflict();
 
     private:
         friend class DB::ImageDB;
+        friend class FileReader;
+        friend class FileWriter;
+
         Database( const QString& configFile );
 
         DB::ImageInfoList _images;
@@ -117,7 +96,6 @@ namespace XMLDB {
         DB::MemberMap _members;
         DB::MD5Map _md5map;
         DB::ImageInfoList _clipboard;
-        int _fileVersion;
 
         // used for checking if any images are without image attribute from the database.
         static bool _anyImageWithEmptySize;

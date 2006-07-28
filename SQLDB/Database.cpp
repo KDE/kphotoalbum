@@ -14,6 +14,19 @@
 #include "QueryErrors.h"
 #include <qfileinfo.h>
 
+namespace
+{
+    QStringList stripImageDirectoryFromList(const QStringList& absolutePaths)
+    {
+        QStringList relativePaths = absolutePaths;
+        for (QStringList::iterator i = relativePaths.begin();
+             i != relativePaths.end(); ++i) {
+        *i = Utilities::stripImageDirectory(*i);
+        }
+        return relativePaths;
+    }
+}
+
 SQLDB::Database::Database( const QString& username, const QString& password ) :_members( this )
 {
     _dbhandler = DatabaseHandler::getMySQLHandler(username, password);
@@ -270,9 +283,12 @@ KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
     return new SQLImageDateCollection( /*search( Browser::instance()->currentContext(), false ) */ );
 }
 
-void SQLDB::Database::reorder( const QString& /*item*/, const QStringList& /*cutList*/, bool /*after*/)
+void SQLDB::Database::reorder(const QString& item,
+                              const QStringList& selection, bool after)
 {
-    qDebug("Not Yet implemented SQLDB::Database::reorder");
+    QueryHelper::instance()->
+        moveMediaItems(stripImageDirectoryFromList(selection),
+                       Utilities::stripImageDirectory(item), after);
 }
 
 void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )

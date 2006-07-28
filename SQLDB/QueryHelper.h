@@ -64,7 +64,7 @@ public:
         QValueList<int> asIntegerList();
         QValueList< QPair<int, QString> > asIntegerStringPairs();
         QVariant firstItem();
-        QValueList<QVariant> getRow(size_t n=0);
+        RowData getRow(uint n=0);
         Cursor cursor();
 
     private:
@@ -112,6 +112,9 @@ public:
     QString filenameForMD5Sum(const QString& md5sum);
     QValueList< QPair<int, QString> >
     getMediaIdTagPairs(const QString& category, int typemask);
+    void moveMediaItems(const QStringList& sourceItems,
+                        const QString& destination, bool after);
+    int mediaPlaceByFilename(const QString& relativePath);
 
 protected:
     KexiDB::Connection *_connection;

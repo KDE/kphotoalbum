@@ -105,9 +105,8 @@ QVariant QueryHelper::Result::firstItem()
     return r;
 }
 
-QValueList<QVariant> QueryHelper::Result::getRow(uint n)
+RowData QueryHelper::Result::getRow(uint n)
 {
-    QValueList<QVariant> r;
     if (_cursor) {
         _cursor->moveFirst();
         for (uint i = 0; i < n; ++i) {
@@ -115,12 +114,12 @@ QValueList<QVariant> QueryHelper::Result::getRow(uint n)
                 break;
         }
         if (!_cursor->eof()) {
-            for (uint i = 0; i < _cursor->fieldCount(); ++i) {
-                r << _cursor->value(i);
-            }
+            RowData r(_cursor->fieldCount());
+            _cursor->storeCurrentRow(r);
+            return r;
         }
     }
-    return r;
+    throw Error(/* TODO: type and message */);
 }
 
 Cursor QueryHelper::Result::cursor()
@@ -373,7 +372,7 @@ QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
 
 void QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
 {
-    QValueList<QVariant> row =
+    RowData row =
         executeQuery("SELECT dir.path, m.filename, m.md5sum, m.type, "
                      "m.label, m.description, "
                      "m.startTime, m.endTime, m.width, m.height, m.angle "
@@ -769,4 +768,89 @@ QueryHelper::getMediaIdTagPairs(const QString& category, int typemask)
                             "media.type&%s!=0 AND category.name=%s",
                             Bindings() << typemask << category
                             ).asIntegerStringPairs();
+}
+
+int QueryHelper::mediaPlaceByFilename(const QString& relativePath)
+{
+    QString path;
+    QString filename;
+    splitPath(relativePath, path, filename);
+    QVariant place =
+        executeQuery("SELECT media.place FROM media, dir "
+                     "WHERE media.dirId=dir.id AND "
+                     "dir.path=%s AND media.filename=%s",
+                     Bindings() << path << filename).firstItem();
+    if (place.isNull())
+        throw NotFoundError(/* TODO: message */);
+    return place.toInt();
+}
+
+/** Move sourceItems after or before destination item.
+ */
+void QueryHelper::moveMediaItems(const QStringList& sourceItems,
+                                 const QString& destination, bool after)
+{
+    if (sourceItems.isEmpty())
+        return;
+
+    QValueList<int> srcIds;
+    for (QStringList::const_iterator i = sourceItems.constBegin();
+         i != sourceItems.constEnd(); ++i) {
+        srcIds << idForFilename(*i);
+    }
+
+    RowData minmax =
+        executeQuery("SELECT MIN(place), MAX(place) "
+                     "FROM media WHERE id IN (%s)",
+                     Bindings() << toVariantList(srcIds)).getRow();
+    int srcMin = minmax[0].toInt();
+    int srcMax = minmax[1].toInt();
+
+    // Move media items which are between srcIds just before first
+    // item in srcIds list.
+    QValueList<int> betweenList =
+        executeQuery("SELECT id FROM media "
+                     "WHERE %s <= place AND place <= %s AND id NOT IN (%s)",
+                     Bindings() << srcMin << srcMax << toVariantList(srcIds)
+                     ).asIntegerList();
+    int n = srcMin;
+    for (QValueList<int>::const_iterator i = betweenList.begin();
+         i != betweenList.end(); ++i) {
+        executeStatement("UPDATE media SET place=%s WHERE id=%s",
+                         Bindings() << n << *i);
+        ++n;
+    }
+
+    // Make items in srcIds continuous, so places of items are
+    // N, N+1, N+2, ..., N+n.
+    for (QValueList<int>::const_iterator i = srcIds.begin();
+         i != srcIds.end(); ++i) {
+        executeStatement("UPDATE media SET place=%s WHERE id=%s",
+                         Bindings() << n << *i);
+        ++n;
+    }
+
+    int destPlace =
+        mediaPlaceByFilename(destination) + (after ? 1 : 0);
+
+    if (srcMin <= destPlace && destPlace <= srcMax)
+        return;
+    int low = destPlace <= srcMin ? destPlace : srcMin;
+    int high = destPlace >= srcMax ? destPlace : srcMax;
+
+    Q_ASSERT(low == destPlace || high == destPlace);
+
+    uint N = srcIds.count();
+
+    if (low < destPlace)
+        executeStatement("UPDATE media SET place=place-%s "
+                         "WHERE %s <= place AND place <= %s",
+                         Bindings() << N << low << destPlace - 1);
+    else if (destPlace < high)
+        executeStatement("UPDATE media SET place=place+%s "
+                         "WHERE %s <= place AND place <= %s",
+                         Bindings() << N << destPlace << high - 1);
+
+    executeStatement("UPDATE media SET place=place+(%s) WHERE id IN (%s)",
+                     Bindings() << destPlace - srcMin << toVariantList(srcIds));
 }

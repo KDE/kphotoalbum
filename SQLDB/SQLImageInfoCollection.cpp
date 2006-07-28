@@ -34,9 +34,8 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
     try {
         fileId = QueryHelper::instance()->idForFilename(relativeFilename);
     }
-    catch (Error& e) {
-        // TODO: error handling
-        qFatal("Error: %s", e.getMessage().local8Bit().data());
+    catch (NotFoundError& e) {
+        return 0;
     }
 
     _mutex.lock();

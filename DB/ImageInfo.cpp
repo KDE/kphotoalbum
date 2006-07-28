@@ -158,8 +158,12 @@ void ImageInfo::setFileName( const QString& relativeFileName )
     _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
     DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->
         categoryForName(QString::fromLatin1("Folder"));
-    if (folderCategory)
+    if (folderCategory) {
+        DB::MemberMap map = DB::ImageDB::instance()->memberMap();
         folderCategory->addItem( folderName );
+        createFolderCategoryItem( folderCategory, map );
+        ImageDB::instance()->setMemberMap( map );
+    }
 }
 
 
@@ -419,5 +423,28 @@ MediaType DB::ImageInfo::mediaType() const
 void DB::ImageInfo::setAbsoluteFileName()
 {
     _absoluteFileName = Settings::SettingsData::instance()->imageDirectory() + _relativeFileName;
+}
+
+void DB::ImageInfo::createFolderCategoryItem( DB::Category* folderCategory, DB::MemberMap& memberMap )
+{
+    QString folderName = Utilities::relativeFolderName( _relativeFileName );
+    if ( folderName.isNull() )
+        return;
+
+    QStringList directories = QStringList::split( QString::fromLatin1( "/" ), folderName, true );
+
+    QString curPath;
+    for( QStringList::ConstIterator directoryIt = directories.begin(); directoryIt != directories.end(); ++directoryIt ) {
+        if ( curPath.isEmpty() )
+            curPath = *directoryIt;
+        else {
+            QString oldPath = curPath;
+            curPath = curPath + QString::fromLatin1( "/" ) + *directoryIt;
+            memberMap.addMemberToGroup( folderCategory->name(), oldPath, curPath );
+        }
+    }
+
+    _options.insert( folderCategory->name() , QStringList( folderName ) );
+    folderCategory->addItem( folderName );
 }
 

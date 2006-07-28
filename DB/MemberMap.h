@@ -22,8 +22,9 @@
 #include <qdom.h>
 #include <qmap.h>
 #include <qobject.h>
+#include "Utilities/Set.h"
 
-namespace XMLDB { class Database; }
+namespace XMLDB { class FileWriter; }
 
 namespace DB
 {
@@ -54,22 +55,22 @@ public:
 
 protected:
     void calculate() const;
-    QStringList calculateClosure( QMap<QString,QStringList>& resultSoFar, const QString& category, const QString& group ) const;
+    QStringList calculateClosure( QMap<QString,StringSet>& resultSoFar, const QString& category, const QString& group ) const;
 
 protected slots:
     void deleteItem( DB::Category* category, const QString& name);
     void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
 
 private:
-    friend class XMLDB::Database;
+    friend class XMLDB::FileWriter;
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)
-    QMap<QString, QMap<QString,QStringList> > _members;
+    QMap<QString, QMap<QString,StringSet> > _members;
 
     // These are the data structures used to develop closures, they are only
     // needed to speed up the program *SIGNIFICANTLY* ;-)
     mutable bool _dirty;
-    mutable QMap<QString, QMap<QString,QStringList> > _closureMembers;
+    mutable QMap<QString, QMap<QString,StringSet> > _closureMembers;
 
 };
 

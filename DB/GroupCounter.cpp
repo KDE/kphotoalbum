@@ -63,7 +63,9 @@ GroupCounter::GroupCounter( const QString& category )
 
     // Initialize _memberToGroup map.
     QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->items();
+
     items += map.groups( category );
+
     for( QStringList::Iterator it = items.begin(); it != items.end(); ++it ) {
         _memberToGroup.insert( *it, new QStringList );
     }
@@ -76,9 +78,11 @@ GroupCounter::GroupCounter( const QString& category )
 
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QStringList* item = _memberToGroup[*it2];
-            Q_ASSERT( item );
+            // Q_ASSERT( item );
             if ( item ) // better safe than sorry
                 *item->append( group );
+            else
+                qWarning("Unable to find item %s list was [%s] group was %s", (*it2).latin1(), list.join(QString::fromLatin1( "," )).latin1(), group.latin1());
         }
         int* intPtr = new int;
         *intPtr = 0;

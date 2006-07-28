@@ -44,11 +44,19 @@ public:
         return (this->count() == other.count());
     }
 
+    void operator+=( const Set<TYPE>& other )
+    {
+        for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
+            insert( *it );
+    }
+
     bool operator!=( const Set<TYPE>& other )
     {
         return !(operator==(other));
     }
 };
+
+typedef Set<QString> StringSet;
 
 
 #endif /* SET_H */

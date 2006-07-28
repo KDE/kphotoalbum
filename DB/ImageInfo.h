@@ -49,6 +49,7 @@ namespace Plugins
 
 namespace DB
 {
+class MemberMap;
 
 enum MediaType { Image = 0x01, Video = 0x02 };
 const int anyMediaType = Image | Video;
@@ -124,6 +125,8 @@ public:
 
     MediaType mediaType() const;
     void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; }
+
+    void createFolderCategoryItem( DB::Category*, DB::MemberMap& memberMap );
 
     /** Save changes to database.
      *

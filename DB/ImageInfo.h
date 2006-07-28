@@ -49,6 +49,7 @@ namespace Plugins
 
 namespace DB
 {
+class MemberMap;
 
 enum MediaType { Image = 0x01, Video = 0x10 };
 
@@ -122,6 +123,8 @@ public:
     bool allMatched( const QString& category );
 
     MediaType mediaType() const;
+    void createFolderCategoryItem( DB::Category*, DB::MemberMap& memberMap );
+
 
 protected:
     bool loadJPEG(QImage* image, const QString& fileName ) const;

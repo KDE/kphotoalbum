@@ -540,10 +540,7 @@ void XMLDB::Database::loadImages( const QDomElement& images )
 DB::ImageInfoPtr XMLDB::Database::load( const QString& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = createImageInfo( fileName, elm, this );
-    // This is for compatibility with KimDaBa 2.1 where this info was not saved.
-    QString folderName = Utilities::relativeFolderName( fileName );
-    info->setOption( QString::fromLatin1( "Folder") , QStringList( folderName ) );
-    _categoryCollection.categoryForName(QString::fromLatin1("Folder"))->addItem( folderName );
+    info->createFolderCategoryItem( _categoryCollection.categoryForName(QString::fromLatin1("Folder")), _members );
     return info;
 }
 
@@ -581,6 +578,7 @@ void XMLDB::Database::loadMemberGroups( const QDomElement& memberGroups )
                     DB::CategoryPtr catPtr = _categoryCollection.categoryForName( category );
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
                     QString member = cat->nameForId( (*membersIt).toInt() );
+                    Q_ASSERT( !member.isNull() );
                     _members.addMemberToGroup( category, group, member );
                 }
             }
@@ -626,16 +624,16 @@ void XMLDB::Database::saveMemberGroups( QDomDocument doc, QDomElement top )
         return;
 
     QDomElement memberNode = doc.createElement( QString::fromLatin1( "member-groups" ) );
-    for( QMapIterator< QString,QMap<QString,QStringList> > it1= _members._members.begin(); it1 != _members._members.end(); ++it1 ) {
-        QMap<QString,QStringList> map = it1.data();
-        for( QMapIterator<QString,QStringList> it2= map.begin(); it2 != map.end(); ++it2 ) {
-            QStringList list = it2.data();
+    for( QMapIterator< QString,QMap<QString,StringSet> > it1= _members._members.begin(); it1 != _members._members.end(); ++it1 ) {
+        QMap<QString,StringSet> map = it1.data();
+        for( QMapIterator<QString,StringSet> it2= map.begin(); it2 != map.end(); ++it2 ) {
+            StringSet list = it2.data();
             if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" )) {
                 QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                 elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), it2.key() );
                 QStringList idList;
-                for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+                for( StringSet::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
                     DB::CategoryPtr catPtr = _categoryCollection.categoryForName( it1.key() );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     idList.append( QString::number( category->idForName( *listIt ) ) );
@@ -644,7 +642,7 @@ void XMLDB::Database::saveMemberGroups( QDomDocument doc, QDomElement top )
                 memberNode.appendChild( elm );
             }
             else {
-                for( QStringList::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
+                for( StringSet::Iterator it3 = list.begin(); it3 != list.end(); ++it3 ) {
                     QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                     memberNode.appendChild( elm );
                     elm.setAttribute( QString::fromLatin1( "category" ), it1.key() );
@@ -813,11 +811,6 @@ QStringList XMLDB::Database::pasteFromCliboard( const QString& afterFile )
 bool XMLDB::Database::isClipboardEmpty()
 {
     return _clipboard.isEmpty();
-}
-
-int XMLDB::Database::fileVersion()
-{
-    return _fileVersion;
 }
 
 void XMLDB::Database::checkAndWarnAboutVersionConflict()

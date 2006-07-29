@@ -191,7 +191,6 @@ void ImageInfo::setFileName( const QString& relativeFileName )
         categoryForName(QString::fromLatin1("Folder"));
     if (folderCategory) {
         DB::MemberMap map = DB::ImageDB::instance()->memberMap();
-        folderCategory->addItem( folderName );
         createFolderCategoryItem( folderCategory, map );
         ImageDB::instance()->setMemberMap( map );
     }

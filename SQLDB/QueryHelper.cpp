@@ -523,8 +523,6 @@ void QueryHelper::insertMediaItemTags(int mediaId, const DB::ImageInfo& info)
 void QueryHelper::insertMediaItemDrawings(int mediaId,
                                           const DB::ImageInfo& info)
 {
-    executeStatement("DELETE FROM drawing WHERE mediaId=%s",
-                     Bindings() << mediaId);
     Viewer::DrawList drawings = info.drawList();
     for (Viewer::DrawList::const_iterator i = drawings.begin();
         i != drawings.end(); ++i) {
@@ -648,7 +646,12 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
                      "width=%s, height=%s, angle=%s WHERE id=%s",
                      imageInfoToBindings(info) << id);
 
+    executeStatement("DELETE FROM media_tag WHERE mediaId=%s",
+                     Bindings() << id);
     insertMediaItemTags(id, info);
+
+    executeStatement("DELETE FROM drawing WHERE mediaId=%s",
+                     Bindings() << id);
     insertMediaItemDrawings(id, info);
 }
 

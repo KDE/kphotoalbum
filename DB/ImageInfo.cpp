@@ -132,9 +132,9 @@ void ImageInfo::addOption( const QString& key, const QStringList& value )
         if (! _options[key].contains( *it ) ) {
             _dirty = true;
             _options[key] += *it;
-            saveChangesIfNotDelayed();
         }
     }
+    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::removeOption( const QString& key, const QStringList& value )
@@ -143,9 +143,9 @@ void ImageInfo::removeOption( const QString& key, const QStringList& value )
         if ( _options[key].contains( *it ) ) {
             _dirty = true;
             _options[key].remove(*it);
-            saveChangesIfNotDelayed();
         }
     }
+    saveChangesIfNotDelayed();
 }
 
 bool ImageInfo::hasOption( const QString& key, const QString& value )

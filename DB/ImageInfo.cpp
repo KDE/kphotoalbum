@@ -185,8 +185,6 @@ void ImageInfo::setFileName( const QString& relativeFileName )
     _relativeFileName = relativeFileName;
     setAbsoluteFileName();
     _imageOnDisk = Unchecked;
-    QString folderName = Utilities::relativeFolderName( _relativeFileName );
-    _options.insert( QString::fromLatin1( "Folder") , QStringList( folderName ) );
     DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->
         categoryForName(QString::fromLatin1("Folder"));
     if (folderCategory) {

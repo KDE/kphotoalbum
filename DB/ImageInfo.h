@@ -68,6 +68,7 @@ public:
                const QString& md5sum,
                const QSize& size,
                MediaType type);
+    virtual ~ImageInfo() { saveChanges(); }
 
     QString fileName( bool relative = false ) const;
     void setFileName( const QString& relativeFileName );
@@ -109,7 +110,7 @@ public:
     static bool imageOnDisk( const QString& fileName );
 
     QString MD5Sum() const { return _md5sum; }
-    void setMD5Sum( const QString& sum ) { if (sum != _md5sum) _dirty = true; _md5sum = sum; }
+    void setMD5Sum( const QString& sum ) { if (sum != _md5sum) _dirty = true; _md5sum = sum; saveChangesIfNotDelayed(); }
 
     void setLocked( bool );
     bool isLocked() const;
@@ -124,25 +125,22 @@ public:
     bool allMatched( const QString& category );
 
     MediaType mediaType() const;
-    void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; }
+    void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; saveChangesIfNotDelayed(); }
 
     void createFolderCategoryItem( DB::Category*, DB::MemberMap& memberMap );
 
+    void delaySavingChanges(bool b=true);
+
+protected:
     /** Save changes to database.
      *
-     * This should be called after calling setter functions, so the
-     * back-end can save multiple changes at a time.
-     *
-     * Example:
-     * \code
-     * info.setLabel("Hello");
-     * info.setDescription("Hello world");
-     * info.saveChanges();
-     * \endcode
+     * Back-ends, which need changes to be instantly in database,
+     * should override this.
      */
     virtual void saveChanges() {}
 
-protected:
+    void saveChangesIfNotDelayed() { if (!_delaySaving) saveChanges(); }
+
     bool loadJPEG(QImage* image, const QString& fileName ) const;
     bool isJPEG( const QString& fileName ) const;
     void setAbsoluteFileName();
@@ -172,6 +170,8 @@ private:
 
     // Will be set to true after every change
     bool _dirty;
+
+    bool _delaySaving;
 
     // Used during searching to make it possible to search for Jesper & None
     mutable QMap<QString, Set<QString> > _matched;

@@ -40,10 +40,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
 
     _mutex.lock();
     DB::ImageInfoPtr p = _infoPointers[fileId];
-    if (p) {
-        p->saveChanges();
-    }
-    else {
+    if (!p) {
         p = new SQLImageInfo(fileId);
         _infoPointers.insert(fileId, p);
     }

@@ -4,19 +4,13 @@
 #include "DB/ImageInfo.h"
 
 namespace SQLDB {
-    class SQLImageInfoCollection;
-
     class SQLImageInfo :public DB::ImageInfo
     {
-    public:
-        virtual ~SQLImageInfo();
-        DB::ImageInfo& operator=( const DB::ImageInfo& other );
-        void saveChanges();
-
     protected:
         friend class SQLImageInfoCollection;
         SQLImageInfo(int fileId);
         void load();
+        void saveChanges();
 
     private:
         int _fileId;

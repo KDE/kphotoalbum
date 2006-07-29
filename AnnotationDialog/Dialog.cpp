@@ -305,7 +305,6 @@ void AnnotationDialog::Dialog::slotOK()
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
             *(_origList[i]) = _editList[i];
-            _origList[i]->saveChanges();
         }
     }
     else if ( _setup == MULTIPLE ) {
@@ -315,6 +314,7 @@ void AnnotationDialog::Dialog::slotOK()
 
         for( DB::ImageInfoListConstIterator it = _origList.constBegin(); it != _origList.constEnd(); ++it ) {
             DB::ImageInfoPtr info = *it;
+            info->delaySavingChanges(true);
             info->rotate( _preview->angle() );
             if ( !_startDate->date().isNull() )
                 info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
@@ -338,7 +338,7 @@ void AnnotationDialog::Dialog::slotOK()
                 info->setDescription( _description->text() );
             }
 
-            info->saveChanges();
+            info->delaySavingChanges(false);
         }
     }
     _accept = QDialog::Accepted;

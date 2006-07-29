@@ -383,6 +383,8 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
     if (row.count() != 11)
         throw Error(/* TODO: error type and message */);
 
+    info.delaySavingChanges(true);
+
     info.setFileName(makeFullName(row[0].toString(), row[1].toString()));
     info.setMD5Sum(row[2].toString());
     info.setMediaType(static_cast<DB::MediaType>(row[3].toInt()));

@@ -3,11 +3,6 @@
 
 using namespace SQLDB;
 
-SQLDB::SQLImageInfo::~SQLImageInfo()
-{
-    saveChanges();
-}
-
 SQLDB::SQLImageInfo::SQLImageInfo(int fileId):
     DB::ImageInfo(),
     _fileId(fileId)
@@ -20,6 +15,7 @@ void SQLDB::SQLImageInfo::load()
     QueryHelper::instance()->getMediaItem(_fileId, *this);
     setIsNull(false);
     setIsDirty(false);
+    delaySavingChanges(false); // Doesn't save because isDirty() == false
 }
 
 void SQLDB::SQLImageInfo::saveChanges()
@@ -28,11 +24,4 @@ void SQLDB::SQLImageInfo::saveChanges()
         QueryHelper::instance()->updateMediaItem(_fileId, *this);
         setIsDirty(false);
     }
-}
-
-DB::ImageInfo& SQLDB::SQLImageInfo::operator=( const DB::ImageInfo& other )
-{
-    DB::ImageInfo& tmp = DB::ImageInfo::operator=(other);
-    saveChanges();
-    return tmp;
 }

@@ -112,6 +112,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
             if ( !info )
                 qWarning("How did that happen? We couldn't find info for the images %s", relativeMatchedFileName.latin1());
             else {
+                info->delaySavingChanges(true);
                 fi = QFileInfo ( relativeMatchedFileName );
                 if ( info->label() == fi.baseName(true) ) {
                     fi = QFileInfo( relativeNewFileName );
@@ -119,6 +120,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 }
 
                 info->setFileName( relativeNewFileName );
+                info->delaySavingChanges(false);
 
                 // We need to insert the new name into the MD5 map,
                 // as it is a map, the value for the moved file will automatically be deleted.

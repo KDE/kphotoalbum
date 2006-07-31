@@ -76,11 +76,6 @@ protected:
     void deleteMatchers() const;
 
     QValueList<OptionSimpleMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
-
-    /** Convert matcher to Disjunctive Normal Form.
-     *
-     * @return OR-list of AND-lists. (e.g. OR(AND(a,b),AND(c,d)))
-     */
     QValueList< QValueList<OptionSimpleMatcher*> > convertMatcher( CategoryMatcher* ) const;
 
 private:

@@ -115,6 +115,11 @@ public:
     void moveMediaItems(const QStringList& sourceItems,
                         const QString& destination, bool after);
     int mediaPlaceByFilename(const QString& relativePath);
+    QString findFirstFileInTimeRange(const DB::ImageDate& range,
+                                     bool includeRanges);
+    QString findFirstFileInTimeRange(const DB::ImageDate& range,
+                                     bool includeRanges,
+                                     const QValueList<int>& idList);
 
 protected:
     KexiDB::Connection *_connection;
@@ -127,6 +132,10 @@ protected:
     Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
                     const QStringList& fields, const Bindings& values);
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
+
+    QString findFirstFileInTimeRange(const DB::ImageDate& range,
+                                     bool includeRanges,
+                                     const QValueList<int>* idList);
 
 private:
     static QueryHelper* _instance;

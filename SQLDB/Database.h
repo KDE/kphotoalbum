@@ -65,6 +65,10 @@ namespace SQLDB {
         virtual DB::CategoryCollection* categoryCollection();
         virtual KSharedPtr<DB::ImageDateCollection> rangeCollection();
         virtual void reorder( const QString& item, const QStringList& cutList, bool after );
+        virtual QString
+        findFirstItemInRange(const DB::ImageDate& range,
+                             bool includeRanges,
+                             const QValueVector<QString>& images) const;
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();

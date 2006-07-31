@@ -795,6 +795,10 @@ int QueryHelper::mediaPlaceByFilename(const QString& relativePath)
 void QueryHelper::moveMediaItems(const QStringList& sourceItems,
                                  const QString& destination, bool after)
 {
+
+    // TODO: make this function work!
+
+
     if (sourceItems.isEmpty())
         return;
 
@@ -858,4 +862,51 @@ void QueryHelper::moveMediaItems(const QStringList& sourceItems,
 
     executeStatement("UPDATE media SET place=place+(%s) WHERE id IN (%s)",
                      Bindings() << destPlace - srcMin << toVariantList(srcIds));
+}
+
+QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
+                                              bool includeRanges)
+{
+    return findFirstFileInTimeRange(range, includeRanges, 0);
+}
+
+QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
+                                              bool includeRanges,
+                                              const QValueList<int>& idList)
+{
+    return findFirstFileInTimeRange(range, includeRanges, &idList);
+}
+
+QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
+                                              bool includeRanges,
+                                              const QValueList<int>* idList)
+{
+    QString query =
+        "SELECT dir.path, media.filename FROM media, dir "
+        "WHERE dir.id=media.dirId AND ";
+    Bindings bindings;
+
+    if (idList) {
+        query += "media.id IN (%s) AND ";
+        bindings << toVariantList(*idList);
+    }
+
+    if (!includeRanges) {
+        query += "%s <= media.startTime AND media.endTime <= %s";
+    }
+    else {
+        query += "%s <= media.endTime AND media.startTime <= %s";
+    }
+    bindings << range.start() << range.end();
+
+    query += " ORDER BY media.startTime LIMIT 1";
+
+    QValueList<QString[2]> dirFilenamePairs =
+        executeQuery(query, bindings).asString2List();
+
+    if (dirFilenamePairs.isEmpty())
+        return QString::null;
+    else {
+        return makeFullName(dirFilenamePairs[0][0], dirFilenamePairs[0][1]);
+    }
 }

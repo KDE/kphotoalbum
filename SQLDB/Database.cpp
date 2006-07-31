@@ -291,6 +291,30 @@ void SQLDB::Database::reorder(const QString& item,
                        Utilities::stripImageDirectory(item), after);
 }
 
+QString
+SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
+                                      bool includeRanges,
+                                      const QValueVector<QString>& images) const
+{
+    if (images.count() == static_cast<uint>(totalCount())) {
+        return Settings::SettingsData::instance()->imageDirectory() +
+            QueryHelper::instance()->
+            findFirstFileInTimeRange(range, includeRanges);
+    }
+    else {
+        QValueList<int> idList;
+        for (QValueVector<QString>::const_iterator i = images.begin();
+             i != images.end(); ++i) {
+            idList << QueryHelper::instance()->
+                idForFilename(Utilities::stripImageDirectory(*i));
+        }
+        return Settings::SettingsData::instance()->imageDirectory() +
+            QueryHelper::instance()->
+            findFirstFileInTimeRange(range, includeRanges, idList);
+    }
+}
+
+
 void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )
 {
     // Not used yet anywhere, so not implemented either. ;)

@@ -24,6 +24,7 @@
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"
+#include <qvaluevector.h>
 
 namespace DB
 {
@@ -66,6 +67,11 @@ protected:
 public:
     static QString NONE();
     QStringList currentScope( bool requireOnDisk ) const;
+
+    virtual QString
+    findFirstItemInRange(const ImageDate& range,
+                         bool includeRanges,
+                         const QValueVector<QString>& images) const;
 
 public: // Methods that must be overriden
     virtual int totalCount() const = 0;

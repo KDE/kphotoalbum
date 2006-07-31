@@ -207,4 +207,28 @@ void ImageDB::slotReread( const QStringList& list, int mode)
 
 }
 
+QString
+ImageDB::findFirstItemInRange(const ImageDate& range,
+                              bool includeRanges,
+                              const QValueVector<QString>& images) const
+{
+    QString candidate;
+    QDateTime candidateDateStart;
+    for (QValueVector<QString>::const_iterator i = images.begin();
+         i != images.end(); ++i) {
+        ImageInfoPtr iInfo = info(*i);
+
+        ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
+        if (match == DB::ImageDate::ExactMatch ||
+            (includeRanges && match == DB::ImageDate::RangeMatch)) {
+            if (candidate.isNull() ||
+                iInfo->date().start() < candidateDateStart) {
+                candidate = *i;
+                candidateDateStart = info(candidate)->date().start();
+            }
+        }
+    }
+    return candidate;
+}
+
 #include "ImageDB.moc"

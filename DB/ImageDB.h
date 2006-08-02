@@ -24,6 +24,7 @@
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"
+#include <qvaluevector.h>
 
 namespace DB
 {
@@ -39,7 +40,8 @@ class ImageDB  :public QObject {
 
 public:
     static ImageDB* instance();
-    static void setup( const QString& backEnd, const QString& configFile );
+    static void setupXMLDB( const QString& configFile );
+    static void setupSQLDB( const QString& userName, const QString& password );
     void convertBackend();
 
 public slots:
@@ -56,6 +58,7 @@ protected:
     ImageInfoList _clipboard;
 
 private:
+    static void connectSlots();
     static ImageDB* _instance;
 
 protected:
@@ -65,6 +68,11 @@ public:
     static QString NONE();
     QStringList currentScope( bool requireOnDisk ) const;
 
+    virtual QString
+    findFirstItemInRange(const ImageDate& range,
+                         bool includeRanges,
+                         const QValueVector<QString>& images) const;
+
 public: // Methods that must be overriden
     virtual int totalCount() const = 0;
     virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
@@ -72,7 +80,6 @@ public: // Methods that must be overriden
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
     virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category, int type ) = 0;
-    virtual ImageInfoList& imageInfoList() = 0; // PENDING(blackie) TO BE DELETED!
     virtual QStringList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
 

@@ -46,12 +46,12 @@ extern "C" {
 
 using namespace DB;
 
-ImageInfo::ImageInfo() :_null( true ), _locked( false )
+ImageInfo::ImageInfo() :_null( true ), _locked( false ), _dirty( false ), _delaySaving( false )
 {
 }
 
 ImageInfo::ImageInfo( const QString& fileName, MediaType type )
-    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ), _locked( false )
+    :  _imageOnDisk( YesOnDisk ), _null( false ), _size( -1, -1 ), _type( type ), _locked( false ), _delaySaving( true )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Settings::SettingsData::instance()->imageDirectory() + fileName );
@@ -62,11 +62,41 @@ ImageInfo::ImageInfo( const QString& fileName, MediaType type )
 
     // Read EXIF information
     readExif(fullPath, EXIFMODE_INIT);
+
+    _dirty = false;
+    _delaySaving = false;
+}
+
+/** Change delaying of saving changes.
+ *
+ * Will save changes when set to false.
+ *
+ * Use this method to set multiple attributes with only one
+ * database operation.
+ *
+ * Example:
+ * \code
+ * info.delaySavingChanges(true);
+ * info.setLabel("Hello");
+ * info.setDescription("Hello world");
+ * info.delaySavingChanges(false);
+ * \endcode
+ *
+ * \see saveChanges()
+ */
+void ImageInfo::delaySavingChanges(bool b)
+{
+    _delaySaving = b;
+    if (!b)
+        saveChanges();
 }
 
 void ImageInfo::setLabel( const QString& desc )
 {
+    if (desc != _label)
+        _dirty = true;
     _label = desc;
+    saveChangesIfNotDelayed();
 }
 
 QString ImageInfo::label() const
@@ -76,7 +106,10 @@ QString ImageInfo::label() const
 
 void ImageInfo::setDescription( const QString& desc )
 {
+    if (desc != _description)
+        _dirty = true;
     _description = desc;
+    saveChangesIfNotDelayed();
 }
 
 QString ImageInfo::description() const
@@ -87,23 +120,32 @@ QString ImageInfo::description() const
 
 void ImageInfo::setOption( const QString& key, const QStringList& value )
 {
+    // Don't check if really changed, because it's too slow.
+    _dirty = true;
     _options[key] = value;
+    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::addOption( const QString& key, const QStringList& value )
 {
     for( QStringList::ConstIterator it = value.begin(); it != value.end(); ++it ) {
-        if (! _options[key].contains( *it ) )
+        if (! _options[key].contains( *it ) ) {
+            _dirty = true;
             _options[key] += *it;
+        }
     }
+    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::removeOption( const QString& key, const QStringList& value )
 {
     for( QStringList::ConstIterator it = value.begin(); it != value.end(); ++it ) {
-        if ( _options[key].contains( *it ) )
+        if ( _options[key].contains( *it ) ) {
+            _dirty = true;
             _options[key].remove(*it);
+        }
     }
+    saveChangesIfNotDelayed();
 }
 
 bool ImageInfo::hasOption( const QString& key, const QString& value )
@@ -121,8 +163,10 @@ void ImageInfo::renameItem( const QString& key, const QString& oldValue, const Q
     QStringList& list = _options[key];
     QStringList::Iterator it = list.find( oldValue );
     if ( it != list.end() ) {
+        _dirty = true;
         list.remove( it );
         list.append( newValue );
+        saveChangesIfNotDelayed();
     }
 }
 
@@ -136,19 +180,29 @@ QString ImageInfo::fileName( bool relative ) const
 
 void ImageInfo::setFileName( const QString& relativeFileName )
 {
+    if (relativeFileName != _relativeFileName)
+        _dirty = true;
     _relativeFileName = relativeFileName;
     setAbsoluteFileName();
     _imageOnDisk = Unchecked;
-    DB::MemberMap map = DB::ImageDB::instance()->memberMap();
-    createFolderCategoryItem( DB::ImageDB::instance()->categoryCollection()->categoryForName(QString::fromLatin1("Folder")), map );
-    ImageDB::instance()->setMemberMap( map );
+    DB::CategoryPtr folderCategory = DB::ImageDB::instance()->categoryCollection()->
+        categoryForName(QString::fromLatin1("Folder"));
+    if (folderCategory) {
+        DB::MemberMap map = DB::ImageDB::instance()->memberMap();
+        createFolderCategoryItem( folderCategory, map );
+        ImageDB::instance()->setMemberMap( map );
+    }
+    saveChangesIfNotDelayed();
 }
 
 
 void ImageInfo::rotate( int degrees )
 {
+    if (degrees != 0)
+        _dirty = true;
     _angle += degrees + 360;
     _angle = _angle % 360;
+    saveChangesIfNotDelayed();
 }
 
 int ImageInfo::angle() const
@@ -158,13 +212,19 @@ int ImageInfo::angle() const
 
 void ImageInfo::setAngle( int angle )
 {
+    if (angle != _angle)
+        _dirty = true;
     _angle = angle;
+    saveChangesIfNotDelayed();
 }
 
 
 void ImageInfo::setDate( const ImageDate& date )
 {
+    if (date != _date)
+        _dirty = true;
     _date = date;
+    saveChangesIfNotDelayed();
 }
 
 ImageDate& ImageInfo::date()
@@ -204,7 +264,10 @@ bool ImageInfo::operator==( const ImageInfo& other )
 
 void ImageInfo::removeOption( const QString& key, const QString& value )
 {
+    if (_options[key].contains(value))
+        _dirty = true;
     _options[key].remove( value );
+    saveChangesIfNotDelayed();
 }
 
 Viewer::DrawList ImageInfo::drawList() const
@@ -214,13 +277,19 @@ Viewer::DrawList ImageInfo::drawList() const
 
 void ImageInfo::setDrawList( const Viewer::DrawList& list )
 {
+    // Can't check if really changed, because DrawList doesn't have operator==
+    if (!_drawList.empty() || !list.empty())
+        _dirty = true;
     _drawList = list;
+    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
 {
+    _dirty = true;
     _options[newName] = _options[oldName];
     _options.erase(oldName);
+    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::setLocked( bool locked )
@@ -237,17 +306,26 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
 {
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath );
 
+    bool oldDelaySaving = _delaySaving;
+    delaySavingChanges(true);
+
     // Date
-    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::SettingsData::instance()->trustTimeStamps() ) )
-        _date = exifInfo.dateTime();
+    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::SettingsData::instance()->trustTimeStamps() ) ) {
+        setDate( exifInfo.dateTime() );
+    }
 
     // Orientation
-    if ( (mode & EXIFMODE_ORIENTATION) && Settings::SettingsData::instance()->useEXIFRotate() )
-        _angle = exifInfo.angle();
+    if ( (mode & EXIFMODE_ORIENTATION) && Settings::SettingsData::instance()->useEXIFRotate() ) {
+        setAngle( exifInfo.angle() );
+    }
 
     // Description
-    if ( (mode & EXIFMODE_DESCRIPTION) && Settings::SettingsData::instance()->useEXIFComments() )
-        _description = exifInfo.description();
+    if ( (mode & EXIFMODE_DESCRIPTION) && Settings::SettingsData::instance()->useEXIFComments() ) {
+        setDescription( exifInfo.description() );
+    }
+
+    delaySavingChanges(false);
+    _delaySaving = oldDelaySaving;
 
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
@@ -310,7 +388,10 @@ QSize ImageInfo::size() const
 
 void ImageInfo::setSize( const QSize& size )
 {
+    if (size != _size)
+        _dirty = true;
     _size = size;
+    saveChangesIfNotDelayed();
 }
 
 bool ImageInfo::imageOnDisk( const QString& fileName )
@@ -328,6 +409,7 @@ ImageInfo::ImageInfo( const QString& fileName,
                       const QSize& size,
                       MediaType type )
 {
+    _delaySaving = true;
     _relativeFileName = fileName;
     setAbsoluteFileName();
     _label =label;
@@ -340,6 +422,8 @@ ImageInfo::ImageInfo( const QString& fileName,
     _locked = false;
     _null = false;
     _type = type;
+    _dirty = true;
+    delaySavingChanges(false);
 }
 
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
@@ -356,13 +440,18 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _md5sum = other._md5sum;
     _null = other._null;
     _size = other._size;
+    _dirty = other._dirty;
+
+    delaySavingChanges(false);
 
     return *this;
 }
 
 void ImageInfo::addDrawing( const QDomElement& elm )
 {
+    _dirty = true;
     _drawList.load( elm );
+    saveChangesIfNotDelayed();
 }
 
 MediaType DB::ImageInfo::mediaType() const

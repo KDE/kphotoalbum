@@ -1,66 +1,115 @@
 #include "Database.h"
 #include "DB/MemberMap.h"
-#include <qsqldatabase.h>
-#include <kmessagebox.h>
-#include <klocale.h>
-#include <stdlib.h>
 #include "DB/CategoryCollection.h"
-#include <qsqlerror.h>
 #include "Query.h"
-#include "QueryUtil.h"
 #include "DB/ImageInfo.h"
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
-#include <kdebug.h>
-#include "SQLImageInfo.h"
+#include "SQLImageInfoCollection.h"
 #include "Browser/BrowserWidget.h"
 #include "SQLImageDateCollection.h"
+#include "DB/MediaCount.h"
+#include "DatabaseHandler.h"
+#include "QueryHelper.h"
+#include "QueryErrors.h"
+#include <qfileinfo.h>
 
-SQLDB::Database::Database() :_members( this )
+namespace
 {
-    if ( !QSqlDatabase::isDriverAvailable( QString::fromLatin1("QMYSQL3") ) ) {
-        // PENDING(blackie) better message
-        KMessageBox::sorry( 0, i18n("The MySQL driver did not seem to be compiled into your Qt" ) );
-        exit(-1);
+    QStringList stripImageDirectoryFromList(const QStringList& absolutePaths)
+    {
+        QStringList relativePaths = absolutePaths;
+        for (QStringList::iterator i = relativePaths.begin();
+             i != relativePaths.end(); ++i) {
+        *i = Utilities::stripImageDirectory(*i);
+        }
+        return relativePaths;
     }
+}
 
-    openDatabase();
+SQLDB::Database::Database( const QString& username, const QString& password ) :_members( this )
+{
+    _dbhandler = DatabaseHandler::getMySQLHandler(username, password);
+    _dbhandler->openDatabase("kphotoalbum");
+    KexiDB::Connection* connection = _dbhandler->connection();
+    if (!connection)
+        throw Error(/* TODO: message */);
+    QueryHelper::setup(*connection);
     loadMemberGroups();
+}
+
+SQLDB::Database::~Database()
+{
+    delete _dbhandler;
 }
 
 int SQLDB::Database::totalCount() const
 {
-    QString query = QString::fromLatin1( "SELECT COUNT(fileId) FROM sortorder" );
-    return fetchItem( query ).toInt();
+    return QueryHelper::instance()->
+        executeQuery("SELECT COUNT(*) FROM media").firstItem().toInt();
 }
 
-QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool /*requireOnDisk*/ ) const
+int SQLDB::Database::totalCount(int typemask) const
 {
-    // PENDING(blackie) Handle on disk.
-    QValueList<int> matches = filesMatchingQuery( info );
+    if (typemask == DB::anyMediaType)
+        return totalCount();
+
+    return QueryHelper::instance()->
+        executeQuery("SELECT COUNT(*) FROM media WHERE type&%s!=0",
+                     QueryHelper::Bindings() << typemask).firstItem().toInt();
+}
+
+DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
+{
+    QueryHelper::Bindings bindings;
+    QString rangeCond = "";
+    bool all = (searchInfo.query().count() == 0);
+    if (!all) {
+        QValueList<int> mediaIds = searchMediaItems(searchInfo);
+        if (mediaIds.count() > 0) {
+            rangeCond = " AND id IN (%s)";
+            bindings << toVariantList(mediaIds);
+        }
+    }
+
+    DB::MediaType types[] = {DB::Image, DB::Video};
+    int count[2];
+    for (size_t i = 0; i < 2; ++i) {
+        count[i] = QueryHelper::instance()->
+            executeQuery("SELECT COUNT(*) FROM media "
+                         "WHERE type=%s" + rangeCond,
+                         (QueryHelper::Bindings() << types[i]) + bindings).
+            firstItem().asInt();
+    }
+    return DB::MediaCount(count[0], count[1]);
+}
+
+QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
+{
+    QValueList<int> matches = searchMediaItems(info);
     QStringList result;
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
-        result.append( fileNameForId( *it, true ) );
+        QString fullPath = QueryHelper::instance()->filenameForId(*it, true);
+        if (requireOnDisk && !QFileInfo(fullPath).exists())
+            continue;
+        result.append(fullPath);
     }
     return result;
 }
 
 void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
-    QSqlQuery query;
-    query.prepare( "UPDATE imagecategoryinfo SET category=:newName WHERE category=:oldName" );
-    query.bindValue( QString::fromLatin1( ":newName" ), newName );
-    query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
-    if ( !query.exec() )
-        showError( query );
+    _categoryCollection.rename(oldName, newName);
 }
 
-QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, const QString& category, int /*type*/ )
+QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
+                                            const QString& category,
+                                            int typemask)
 {
     bool allFiles = true;
     QValueList<int> includedFiles;
     if ( !info.isNull() ) {
-        includedFiles = filesMatchingQuery( info );
+        includedFiles = searchMediaItems(info, typemask);
         allFiles = false;
     }
 
@@ -68,27 +117,23 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
     DB::GroupCounter counter( category );
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
-
-    QSqlQuery query;
-    query.prepare( "SELECT fileId, value from imagecategoryinfo WHERE categoryId=:categoryId" );
-    query.bindValue( QString::fromLatin1( ":categoryId" ), idForCategory(category) );
-    if ( !query.exec() )
-        showError( query );
+    QValueList< QPair<int, QString> > mediaIdTagPairs =
+        QueryHelper::instance()->getMediaIdTagPairs(category, typemask);
 
     QMap<int,QStringList> itemMap;
-    while ( query.next() ) {
-        int fileId = query.value(0).toInt();
-        QString item = query.value(1).toString();
-        if ( allFiles || includedFiles.contains( fileId ) )
-            itemMap[fileId].append( item );
+    for (QValueList< QPair<int, QString> >::const_iterator
+             i = mediaIdTagPairs.begin(); i != mediaIdTagPairs.end(); ++i) {
+        int fileId = (*i).first;
+        QString item = (*i).second;
+        if (allFiles || includedFiles.contains(fileId))
+            itemMap[fileId].append(item);
     }
 
     // Count images that doesn't contain an item
     if ( allFiles )
-        result[DB::ImageDB::NONE()] = totalCount() - itemMap.count();
+        result[DB::ImageDB::NONE()] = totalCount(typemask) - itemMap.count();
     else
         result[DB::ImageDB::NONE()] = includedFiles.count() - itemMap.count();
-
 
     for( QMap<int,QStringList>::Iterator mapIt = itemMap.begin(); mapIt != itemMap.end(); ++mapIt ) {
         QStringList list = mapIt.data();
@@ -100,8 +145,6 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
         counter.count( list );
     }
 
-
-
     QMap<QString,int> groups = counter.result();
     for( QMapIterator<QString,int> it= groups.begin(); it != groups.end(); ++it ) {
         result[it.key()] = it.data();
@@ -109,22 +152,20 @@ QMap<QString,int> SQLDB::Database::classify( const DB::ImageSearchInfo& info, co
     return result;
 }
 
-DB::ImageInfoList& SQLDB::Database::imageInfoList()
-{
-    qDebug("NYI: ImageInfoList& SQLDB::Database::imageInfoList()" );
-    static DB::ImageInfoList list;
-    return list;
-}
-
 QStringList SQLDB::Database::imageList( bool withRelativePath )
 {
-    QSqlQuery query;
-    if ( !query.exec( QString::fromLatin1( "SELECT fileId FROM sortorder" ) ) )
-        showError( query );
-    QStringList result;
-    while ( query.next() )
-        result << fileNameForId( query.value(0).toInt(), withRelativePath );
-    return result;
+    QStringList relativePaths = QueryHelper::instance()->relativeFilenames();
+    if (withRelativePath)
+        return relativePaths;
+    else {
+        QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
+        QStringList absolutePaths;
+        for (QStringList::const_iterator i = relativePaths.begin();
+             i != relativePaths.end(); ++i) {
+            absolutePaths << imageRoot + (*i);
+        }
+        return absolutePaths;
+    }
 }
 
 
@@ -135,118 +176,44 @@ QStringList SQLDB::Database::images()
 
 void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 {
-    int idx = totalCount();
-
-    QString imageQueryString = QString::fromLatin1( "INSERT INTO imageinfo set "
-                                                    "width = :width, height = :height, md5sum = :md5sum, fileId = :fileId, label = :label, "
-                                                    "angle = :angle, description = :description, startDate = :startDate, "
-                                                    "endDate = :endDate " );
-    QSqlQuery imageQuery;
-    imageQuery.prepare( imageQueryString );
-
-    QString categoryQueryString = QString::fromLatin1( "insert INTO imagecategoryinfo set fileId = :fileId, "
-                                                       "categoryId = :categoryId, value = :value" );
-    QSqlQuery categoryQuery;
-    categoryQuery.prepare( categoryQueryString );
-
-    QString sortOrderQueryString = QString::fromLatin1( "INSERT INTO sortorder SET idx=:idx, fileId=:fileId, fileName=:fileName" );
-    QSqlQuery sortOrderQuery;
-    sortOrderQuery.prepare( sortOrderQueryString );
-
-    int nextId = fetchItem( QString::fromLatin1( "SELECT MAX(fileId) FROM sortorder" ) ).toInt();
-    for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        DB::ImageInfoPtr info = *it;
-        ++nextId;
-
-        imageQuery.bindValue( QString::fromLatin1( ":width" ),  info->size().width() );
-        imageQuery.bindValue( QString::fromLatin1( ":height" ),  info->size().height() );
-        imageQuery.bindValue( QString::fromLatin1( ":md5sum" ), info->MD5Sum() );
-        imageQuery.bindValue( QString::fromLatin1( ":fileId" ),  nextId );
-        imageQuery.bindValue( QString::fromLatin1( ":label" ),  info->label() );
-        imageQuery.bindValue( QString::fromLatin1( ":angle" ),  info->angle() );
-        imageQuery.bindValue( QString::fromLatin1( ":description" ),  info->description() );
-        imageQuery.bindValue( QString::fromLatin1( ":startDate" ), info->date().start() );
-        imageQuery.bindValue( QString::fromLatin1( ":endDate" ), info->date().end() );
-
-        if ( !imageQuery.exec() )
-            showError( imageQuery );
-
-        sortOrderQuery.bindValue( QString::fromLatin1( ":idx" ), idx++ );
-        sortOrderQuery.bindValue( QString::fromLatin1( ":fileId" ), nextId );
-        sortOrderQuery.bindValue( QString::fromLatin1( ":fileName" ), info->fileName( true ) );
-        if ( !sortOrderQuery.exec() )
-            showError( sortOrderQuery );
-
-
-        // Category info
-
-        QStringList categories = info->availableCategories();
-        categoryQuery.bindValue( QString::fromLatin1( ":fileId" ), nextId );
-        for( QStringList::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-            QStringList items = info->itemsOfCategory( *categoryIt );
-            categoryQuery.bindValue( QString::fromLatin1( ":categoryId" ), idForCategory(*categoryIt) );
-            for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-                categoryQuery.bindValue( QString::fromLatin1( ":value" ), *itemIt );
-                if ( !categoryQuery.exec() )
-                    showError( categoryQuery );
-            }
-        }
+    if (!images.isEmpty()) {
+        QueryHelper::instance()->insertMediaItemsLast(images);
+        emit totalChanged(totalCount());
     }
-
-    emit totalChanged( totalCount() );
 }
 
-void SQLDB::Database::addToBlockList( const QStringList& /*list*/ )
+void SQLDB::Database::addToBlockList(const QStringList& list)
 {
-    qDebug("NYI: void SQLDB::Database::addToBlockList( const QStringList& list )" );
+    QStringList relativePaths = list;
+    for (QStringList::iterator i = relativePaths.begin();
+         i != relativePaths.end(); ++i) {
+        *i = Utilities::stripImageDirectory(*i);
+    }
+    QueryHelper::instance()->addBlockItems(relativePaths);
+    deleteList(list);
 }
 
-bool SQLDB::Database::isBlocking( const QString& /*fileName*/ )
+bool SQLDB::Database::isBlocking(const QString& fileName)
 {
-    qDebug("NYI: bool SQLDB::Database::isBlocking( const QString& fileName )" );
-    return false;
+    return QueryHelper::instance()->isBlocked(fileName);
 }
 
 void SQLDB::Database::deleteList( const QStringList& list )
 {
-    QStringList sortOrder = imageList( true );
-    QSqlQuery imageInfoQuery, imageCategoryQuery;
-    imageInfoQuery.prepare( "DELETE FROM imageinfo where fileId=:fileId" );
-    imageCategoryQuery.prepare( "DELETE FROM imagecategoryinfo where fileId=:fileId" );
-
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        QString fileName = Utilities::stripImageDirectory( *it );
-        imageInfoQuery.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( fileName ) );
-        imageCategoryQuery.bindValue( QString::fromLatin1( ":fileId" ), idForFileName( fileName ) );
-
-        if ( !imageInfoQuery.exec() )
-            showError( imageInfoQuery );
-
-        if ( !imageCategoryQuery.exec() )
-            showError( imageCategoryQuery );
-
-        sortOrder.remove( fileName );
+    if (!list.isEmpty()) {
+        for (QStringList::const_iterator i = list.begin();
+             i != list.end(); ++i) {
+            QueryHelper::instance()->
+                removeMediaItem(Utilities::stripImageDirectory(*i));
+        }
+        emit totalChanged(totalCount());
     }
-
-    QSqlQuery query;
-    if ( !query.exec( QString::fromLatin1( "DELETE FROM sortorder" ) ) )
-        showError( query );
-
-    // PENDING(blackie) We need to remember the original id's in a map for this.
-    int idx = 0;
-    query.prepare( QString::fromLatin1( "INSERT INTO sortorder SET idx=:idx, fileName=:fileName" ) );
-    for( QStringList::Iterator it = sortOrder.begin(); it != sortOrder.end(); ++it ) {
-        query.bindValue( QString::fromLatin1( ":idx" ), idx++ );
-        query.bindValue( QString::fromLatin1( ":fileName" ), *it );
-        if ( !query.exec() )
-            showError( query );
-    }
-    emit totalChanged( totalCount() );
 }
 
 DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const
 {
-    return new SQLImageInfo( fileName );
+    return _infoCollection.
+        getImageInfoOf(Utilities::stripImageDirectory(fileName));
 }
 
 const DB::MemberMap& SQLDB::Database::memberMap()
@@ -262,6 +229,7 @@ void SQLDB::Database::setMemberMap( const DB::MemberMap& map )
 void SQLDB::Database::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
 {
     qDebug("NYI: void SQLDB::Database::save( const QString& fileName )" );
+    _infoCollection.clearCache();
 }
 
 DB::MD5Map* SQLDB::Database::md5Map()
@@ -269,28 +237,16 @@ DB::MD5Map* SQLDB::Database::md5Map()
     return &_md5map;
 }
 
-void SQLDB::Database::sortAndMergeBackIn( const QStringList& /*fileList*/ )
+void SQLDB::Database::renameItem(DB::Category* category, const QString& oldName, const QString& newName)
 {
-    qDebug("NYI: void SQLDB::Database::sortAndMergeBackIn( const QStringList& fileList )" );
+    if (category)
+        category->renameItem(oldName, newName);
 }
 
-void SQLDB::Database::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
+void SQLDB::Database::deleteItem(DB::Category* category, const QString& option)
 {
-    QSqlQuery query;
-    query.prepare( QString::fromLatin1( "UPDATE imagecategoryinfo SET value = :newName "
-                                        "WHERE category = :category and value = :oldName" ));
-    query.bindValue( QString::fromLatin1( ":newName" ), newName );
-    query.bindValue( QString::fromLatin1( ":category" ), category->name() );
-    query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
-
-    if ( !query.exec() )
-        showError( query );
-
-}
-
-void SQLDB::Database::deleteItem( DB::Category* /*category*/, const QString& /*option*/ )
-{
-    qDebug("NYI: void SQLDB::Database::deleteItem( DB::Category* category, const QString& option )" );
+    if (category)
+        category->removeItem(option);
 }
 
 void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
@@ -298,38 +254,22 @@ void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
     qDebug("NYI: void SQLDB::Database::lockDB( bool lock, bool exclude )" );
 }
 
-
-void SQLDB::Database::openDatabase()
-{
-    QSqlDatabase* database = QSqlDatabase::addDatabase( "QMYSQL3" );
-    if ( database == 0 ) {
-        qFatal("What?!");
-    }
-
-    database->setDatabaseName( "kphotoalbum" );
-    database->setUserName("root"); // PENDING(blackie) change
-    if ( !database->open() )
-        qFatal("Couldn't open db");
-}
-
 void SQLDB::Database::loadMemberGroups()
 {
-    QSqlQuery membersQuery;
-    if (!membersQuery.exec( "SELECT groupname, category, member FROM membergroup" ) )
-        qFatal("Couldn't exec query");
-
-    while ( membersQuery.next() ) {
-        QString group = membersQuery.value(0).toString();
-        QString category = membersQuery.value(1).toString();
-        QString member = membersQuery.value(2).toString();
-        _members.addMemberToGroup( category, group, member );
-    }
+    QValueList<QString[3]> l = QueryHelper::instance()->
+        executeQuery("SELECT c.name, t.name, f.name "
+                     "FROM tag_relation tr, tag t, tag f, category c "
+                     "WHERE tr.toTagId=t.id AND "
+                     "tr.fromTagId=f.id AND "
+                     "t.categoryId=c.id").asString3List();
+    for (QValueList<QString[3]>::const_iterator i = l.begin();
+         i != l.end(); ++i)
+        _members.addMemberToGroup((*i)[0], (*i)[1], (*i)[2]);
 }
 
 
 DB::CategoryCollection* SQLDB::Database::categoryCollection()
 {
-    // PENDING(blackie) Implement something similar to XMLDB::createSpecialCategories()
     return &_categoryCollection;
 }
 
@@ -338,25 +278,58 @@ KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
     return new SQLImageDateCollection( /*search( Browser::instance()->currentContext(), false ) */ );
 }
 
-void SQLDB::Database::reorder( const QString& /*item*/, const QStringList& /*cutList*/, bool /*after*/)
+void SQLDB::Database::reorder(const QString& item,
+                              const QStringList& selection, bool after)
 {
-    qDebug("Not Yet implemented SQLDB::Database::reorder");
+    QueryHelper::instance()->
+        moveMediaItems(stripImageDirectoryFromList(selection),
+                       Utilities::stripImageDirectory(item), after);
 }
+
+void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
+{
+    QueryHelper::instance()->
+        sortMediaItems(stripImageDirectoryFromList(fileList));
+}
+
+QString
+SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
+                                      bool includeRanges,
+                                      const QValueVector<QString>& images) const
+{
+    if (images.count() == static_cast<uint>(totalCount())) {
+        return Settings::SettingsData::instance()->imageDirectory() +
+            QueryHelper::instance()->
+            findFirstFileInTimeRange(range, includeRanges);
+    }
+    else {
+        QValueList<int> idList;
+        for (QValueVector<QString>::const_iterator i = images.begin();
+             i != images.end(); ++i) {
+            idList << QueryHelper::instance()->
+                idForFilename(Utilities::stripImageDirectory(*i));
+        }
+        return Settings::SettingsData::instance()->imageDirectory() +
+            QueryHelper::instance()->
+            findFirstFileInTimeRange(range, includeRanges, idList);
+    }
+}
+
 
 void SQLDB::Database::cutToClipboard( const QStringList& /*list*/ )
 {
-    qDebug("NYI: SQLDB::Database::cutToClipboard");
+    // Not used yet anywhere, so not implemented either. ;)
 }
 
 QStringList SQLDB::Database::pasteFromCliboard( const QString& /*afterFile*/ )
 {
-    qDebug("NYI: SQLDB::Database::pasteFromCliboard");
+    // Not implemented.
     return QStringList();
 }
 
 bool SQLDB::Database::isClipboardEmpty()
 {
-    qDebug("NYI: SQLDB::Database::isClipboardEmpty");
+    // Not implemented.
     return true;
 }
 

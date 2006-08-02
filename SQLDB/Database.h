@@ -24,24 +24,32 @@ Boston, MA 02111-1307, USA.
 #include "DB/CategoryCollection.h"
 #include "DB/MD5Map.h"
 #include "SQLCategoryCollection.h"
-class QSqlError;
+#include "SQLImageInfoCollection.h"
+#include "SQLMD5Map.h"
 
 namespace SQLDB {
+    class DatabaseHandler;
+
     class Database  :public DB::ImageDB {
         Q_OBJECT
 
     protected:
         friend class DB::ImageDB;
-        Database();
+        Database( const QString& username = QString::null, const QString& password = QString::null );
 
     public:
+        ~Database();
+
         virtual int totalCount() const;
+        int totalCount(int type) const;
+        DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 
         virtual void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString,int> classify( const DB::ImageSearchInfo& info, const QString &group, int type );
-        virtual DB::ImageInfoList& imageInfoList();
+        virtual QMap<QString,int> classify(const DB::ImageSearchInfo& info,
+                                           const QString& category,
+                                           int typemask);
         virtual QStringList images();
         virtual void addImages( const DB::ImageInfoList& images );
 
@@ -57,6 +65,10 @@ namespace SQLDB {
         virtual DB::CategoryCollection* categoryCollection();
         virtual KSharedPtr<DB::ImageDateCollection> rangeCollection();
         virtual void reorder( const QString& item, const QStringList& cutList, bool after );
+        virtual QString
+        findFirstItemInRange(const DB::ImageDate& range,
+                             bool includeRanges,
+                             const QValueVector<QString>& images) const;
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();
@@ -67,14 +79,18 @@ namespace SQLDB {
         virtual void lockDB( bool lock, bool exclude );
 
     protected:
+        bool openConnection(const QString& username, const QString& password);
         void openDatabase();
+        void createAndOpen();
         void loadMemberGroups();
         QStringList imageList( bool withRelativePath );
 
     private:
+        DatabaseHandler* _dbhandler;
         SQLCategoryCollection _categoryCollection;
+        SQLImageInfoCollection _infoCollection;
         DB::MemberMap _members;
-        DB::MD5Map _md5map;
+        SQLMD5Map _md5map;
     };
 }
 

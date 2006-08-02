@@ -41,7 +41,7 @@ public:
     bool operator<( const ImageDate& other ) const;
     bool operator<=( const ImageDate& other ) const;
     bool operator==( const ImageDate& other ) const;
-    bool operator!=( const ImageDate& other );
+    bool operator!=( const ImageDate& other ) const;
 
     bool isValid() const { return !isNull(); }
     bool isNull() const;

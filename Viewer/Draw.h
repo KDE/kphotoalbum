@@ -39,6 +39,9 @@ public:
     virtual PointList anchorPoints() = 0;
     virtual Draw* clone() = 0;
     virtual QDomElement save( QDomDocument doc ) = 0;
+    void setCoordinates(const QPoint& p0, const QPoint& p1);
+    QPoint getStartPoint() const { return _startPos; }
+    QPoint getEndPoint() const { return _lastPos; }
 
 protected:
     QPoint _startPos;

@@ -752,12 +752,28 @@ bool MainWindow::Window::load()
     QString configFile = QString::null;
     QString backEnd = QString::null;
 
+    if ( args->isSet( "e" ) ) {
+        backEnd = args->getOption( "e" );
+        if ( backEnd == QString::fromLatin1("sql") ) {
+#ifndef SQLDB_SUPPORT
+            qWarning( "SQL database support not compiled in. Using default." );
+            backEnd = QString::null;
+#endif
+        }
+        else if ( backEnd == QString::fromLatin1("xml") ) {
+        }
+        else {
+            qWarning( "Invalid database engine. Using default." );
+            backEnd = QString::null;
+        }
+    }
+
+    // Default back-end is XML
+    if (backEnd.isNull())
+        backEnd = QString::fromLatin1("xml");
+
     if ( args->isSet( "c" ) ) {
         configFile = args->getOption( "c" );
-        if ( configFile.find( QString::fromLatin1("sql:") ) != -1 ) {
-            backEnd = QString::fromLatin1( "sql" );
-            configFile = configFile.mid(4);
-        }
     }
     else if ( args->isSet( "demo" ) )
         configFile = Utilities::setupDemo();
@@ -785,16 +801,70 @@ bool MainWindow::Window::load()
         if ( showWelcome ) {
             SplashScreen::instance()->hide();
             configFile = welcome();
-            if ( !configFile )
-                return false;
         }
     }
+    if ( configFile.isNull() )
+        return false;
 
     if (configFile.startsWith( QString::fromLatin1( "~" ) ) )
         configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
     Settings::SettingsData::setup( QFileInfo( configFile ).dirPath( true ) );
-    DB::ImageDB::setup( backEnd, configFile );
+
+
+    // Initialize correct back-end
+    if ( backEnd == QString::fromLatin1("sql") ) {
+        // SQL back-end needs some extra configuration first
+
+        QString sqlDBMS = QString::fromLatin1("MySQL");
+        QString sqlDbName = QString::fromLatin1("kphotoalbum");
+        QString sqlHost = QString::null;
+        QString sqlUser = QString::null;
+        QString sqlPassword = QString::null;
+
+        KConfig* config = kapp->config();
+        config->setGroup(QString::fromLatin1("SQLDB"));
+
+        if ( config->hasKey( QString::fromLatin1("dbms") ) ) {
+            sqlDBMS = config->readEntry( QString::fromLatin1("dbms") );
+        }
+
+        if ( config->hasKey( QString::fromLatin1("database") ) ) {
+            // Could be database name for network based DBMSs, or
+            // filename for file based DBMSs
+            sqlDbName = config->readEntry( QString::fromLatin1("database") );
+        }
+
+        if (sqlDBMS == QString::fromLatin1("MySQL") ||
+            sqlDBMS == QString::fromLatin1("PostgreSQL")) {
+            if ( config->hasKey( QString::fromLatin1("host") ) ) {
+                sqlHost = config->readEntry( QString::fromLatin1("host") );
+            }
+            if ( config->hasKey( QString::fromLatin1("username") ) ) {
+                sqlUser = config->readEntry( QString::fromLatin1("username") );
+            }
+            if ( config->hasKey( QString::fromLatin1("password") ) ) {
+                sqlPassword = config->readEntry( QString::fromLatin1("password") );
+            }
+        }
+
+        // Initialize SQLDB with the paramaters
+        if (sqlDBMS == QString::fromLatin1("MySQL")) {
+            // TODO: pass all parameters (dbname, host, user, passwd)
+            DB::ImageDB::setupSQLDB( sqlUser, sqlPassword );
+        }
+        else if (0) {
+            // TODO: other DBMSs.
+        }
+        else {
+            qFatal( "Unknow SQLDB/dbms setting in config file." );
+        }
+    }
+    else {
+        Q_ASSERT( backEnd == QString::fromLatin1("xml") );
+
+        DB::ImageDB::setupXMLDB( configFile );
+    }
     return true;
 }
 

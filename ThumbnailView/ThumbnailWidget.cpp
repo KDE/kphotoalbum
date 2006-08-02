@@ -504,20 +504,8 @@ void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )
 void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool includeRanges )
 {
     _isSettingDate = true;
-    QString candidate;
-    for( QValueVector<QString>::Iterator imageIt = _imageList.begin(); imageIt != _imageList.end(); ++imageIt ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt );
-
-        DB::ImageDate::MatchType match = info->date().isIncludedIn( date );
-        if ( match == DB::ImageDate::ExactMatch || ( match == DB::ImageDate::RangeMatch && includeRanges ) ) {
-            if ( !candidate.isNull() ) {
-                if ( info->date().start() < DB::ImageDB::instance()->info(candidate)->date().start() )
-                    candidate = *imageIt;
-            }
-            else
-                candidate = *imageIt;
-        }
-    }
+    QString candidate = DB::ImageDB::instance()->
+        findFirstItemInRange(date, includeRanges, _imageList);
     if ( !candidate.isNull() ) {
         Cell pos = positionForFileName( candidate );
         QRect contentsRect = cellGeometry( pos.row(), pos.col() );
@@ -974,6 +962,8 @@ void ThumbnailView::ThumbnailWidget::ensureCurrentVisible()
 
 void ThumbnailView::ThumbnailWidget::ensureCurrentVisiblePart2()
 {
+    if (_currentItem.isNull())
+        return;
     Cell cur = positionForFileName(_currentItem);
     if ( cur.row() < firstVisibleRow( PartlyVisible ) )
         _currentItem = fileNameInCell( Cell( firstVisibleRow( FullyVisible ), cur.col() ) );

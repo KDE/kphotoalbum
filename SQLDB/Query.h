@@ -18,10 +18,10 @@
 
 #ifndef SQLDB_QUERY_H
 #define SQLDB_QUERY_H
+
 #include "DB/CategoryMatcher.h"
-#include <qvariant.h>
-class QSqlQuery;
-class QSqlError;
+#include "DB/ImageInfo.h" // DB::MediaType
+#include <qvaluelist.h>
 
 namespace DB
 {
@@ -30,20 +30,8 @@ namespace DB
 
 
 namespace SQLDB {
-    QValueList<int> filesMatchingQuery( const DB::ImageSearchInfo& info );
-    QValueList<int> runCategoryQuery( QValueList<DB::OptionSimpleMatcher*> );
-    void split( const QValueList<DB::OptionSimpleMatcher*>& input,
-                QValueList<DB::OptionSimpleMatcher*>& positiveList,
-                QValueList<DB::OptionSimpleMatcher*>& negativeList );
-    QString buildQueryPrefix( int count, int firstId );
-
-    QString buildValue( const QString& category, const QStringList& values, int idx, bool negate );
-    QStringList values( DB::OptionValueMatcher* matcher );
-
-    QValueList<int> mergeUniqly( QValueList<int>, QValueList<int> );
-    QValueList<int> listSubstract( QValueList<int>, QValueList<int> );
-
+    QValueList<int> searchMediaItems(const DB::ImageSearchInfo& search,
+                                     int typemask=DB::anyMediaType);
 }
 
 #endif /* SQLDB_QUERY_H */
-

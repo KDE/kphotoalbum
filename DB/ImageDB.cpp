@@ -1,5 +1,7 @@
 #include "ImageDB.h"
 #include "XMLDB/Database.h"
+#include <kinputdialog.h>
+#include <kpassdlg.h>
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "Browser/BrowserWidget.h"
@@ -25,16 +27,25 @@ ImageDB* DB::ImageDB::instance()
     return _instance;
 }
 
-void ImageDB::setup( const QString& backend, const QString& configFile )
+void ImageDB::setupXMLDB( const QString& configFile )
+{
+    _instance = new XMLDB::Database( configFile );
+    connectSlots();
+}
+
+void ImageDB::setupSQLDB( const QString& userName, const QString& password )
 {
 #ifdef SQLDB_SUPPORT
-    if ( backend == QString::fromLatin1( "sql" ) )
-        _instance = new SQLDB::Database;
-    else
+    _instance = new SQLDB::Database( userName, password );
 #else
-        Q_UNUSED( backend );
+    qFatal("SQLDB not compiled in");
 #endif // SQLDB_SUPPORT
-    _instance = new XMLDB::Database( configFile );
+
+    connectSlots();
+}
+
+void ImageDB::connectSlots()
+{
     connect( _instance->categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
              _instance, SLOT( deleteItem( DB::Category*, const QString& ) ) );
     connect( _instance->categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
@@ -114,10 +125,30 @@ void ImageDB::convertBackend()
 #ifdef SQLDB_SUPPORT
     QStringList allImages = images();
 
+    QString userName = QString::null;
+    QString password = QString::null;
+    bool ok = false;
+    userName = KInputDialog::getText( i18n("SQL database username"),
+                                      i18n("Username:"), QString::null, &ok );
+    if (!ok)
+        return;
+    if (userName.isEmpty()) {
+        userName = QString::null;
+    }
+    else {
+        QCString passwd;
+        if ( KPasswordDialog::getPassword(passwd, i18n("Password for SQL database"))
+             == KPasswordDialog::Accepted ) {
+            password = passwd;
+        }
+        else
+            return;
+    }
+
     QProgressDialog dialog( 0 );
     dialog.setLabelText( i18n( "Converting Backend" ) );
     dialog.setTotalSteps( allImages.count() );
-    SQLDB::Database* newBackend = new SQLDB::Database;
+    SQLDB::Database* newBackend = new SQLDB::Database(userName, password);
 
     // Convert the Category info
     CategoryCollection* origCategories = categoryCollection();
@@ -129,6 +160,7 @@ void ImageDB::convertBackend()
         newCategories->categoryForName( (*it)->text() )->setItems( (*it)->items() );
     }
 
+    // TODO: convert member maps
     kdDebug() << "Also save membermaps" << endl;
 
     // Convert all images to the new back end
@@ -145,6 +177,8 @@ void ImageDB::convertBackend()
     }
     if ( list.count() != 0 )
         newBackend->addImages( list );
+
+    delete newBackend;
 #endif // SQLDB_SUPPORT
 }
 
@@ -171,6 +205,30 @@ void ImageDB::slotReread( const QStringList& list, int mode)
         emit dirty();
     }
 
+}
+
+QString
+ImageDB::findFirstItemInRange(const ImageDate& range,
+                              bool includeRanges,
+                              const QValueVector<QString>& images) const
+{
+    QString candidate;
+    QDateTime candidateDateStart;
+    for (QValueVector<QString>::const_iterator i = images.begin();
+         i != images.end(); ++i) {
+        ImageInfoPtr iInfo = info(*i);
+
+        ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
+        if (match == DB::ImageDate::ExactMatch ||
+            (includeRanges && match == DB::ImageDate::RangeMatch)) {
+            if (candidate.isNull() ||
+                iInfo->date().start() < candidateDateStart) {
+                candidate = *i;
+                candidateDateStart = info(candidate)->date().start();
+            }
+        }
+    }
+    return candidate;
 }
 
 #include "ImageDB.moc"

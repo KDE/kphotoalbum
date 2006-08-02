@@ -1,34 +1,58 @@
 #include "SQLCategoryCollection.h"
 #include "SQLCategory.h"
-#include "QueryUtil.h"
-#include <qsqlquery.h>
+#include "QueryHelper.h"
+#include "SQLFolderCategory.h"
+#include "SQLSpecialCategory.h"
+
 DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {
-    return KSharedPtr<DB::Category>( new SQLCategory( idForCategory(name) ) );
+    int categoryId;
+    try {
+        categoryId = QueryHelper::instance()->idForCategory(name);
+    }
+    catch (NotFoundError&) {
+        return 0;
+    }
+
+    if (name == "Folder") {
+        return DB::CategoryPtr(new SQLFolderCategory(categoryId));
+    }
+    else if (name == "Tokens") {
+        return DB::CategoryPtr(new SQLSpecialCategory(categoryId));
+    }
+    else {
+        return DB::CategoryPtr(new SQLCategory(categoryId));
+    }
 }
 
 QStringList SQLDB::SQLCategoryCollection::categoryNames() const
 {
-    return runAndReturnList( "SELECT distinct category FROM categorysetup" );
+    QStringList l = QueryHelper::instance()->
+        executeQuery("SELECT name FROM category").asStringList();
+    l.sort();
+    return l;
 }
 
 void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
 {
-    QSqlQuery query;
-    query.prepare( "DELETE FROM categorysetup WHERE category = :category" );
-    query.bindValue( QString::fromLatin1( ":catgory" ), name );
-    if ( !query.exec() )
-        showError( query );
+    int id;
+    try {
+        id = QueryHelper::instance()->idForCategory(name);
+    }
+    catch (NotFoundError&) {
+        return;
+    }
+    QueryHelper::instance()->
+        executeStatement("DELETE FROM tag WHERE categoryId=%s",
+                         QueryHelper::Bindings() << id);
+    QueryHelper::instance()->
+        executeStatement("DELETE FROM category WHERE id=%s",
+                         QueryHelper::Bindings() << id);
 }
 
-void SQLDB::SQLCategoryCollection::rename( const QString& oldName, const QString& newName )
+void SQLDB::SQLCategoryCollection::rename(const QString& oldName, const QString& newName)
 {
-    QSqlQuery query;
-    query.prepare( "UPDATE categorysetup SET category = :newName WHERE category = :oldName" );
-    query.bindValue( QString::fromLatin1( ":oldName" ), oldName );
-    query.bindValue( QString::fromLatin1( ":newName" ), newName );
-    if ( !query.exec() )
-        showError( query );
+    categoryForName(oldName)->setName(newName);
 }
 
 QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
@@ -44,20 +68,15 @@ QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, DB::Category::ViewSize size,
                                                 DB::Category::ViewType type, bool showIt )
 {
-    QString queryStr = QString::fromLatin1( "SELECT MAX(categoryId) FROM categorysetup" );
-    int idx = fetchItem( queryStr ).toInt() + 1;
-
-    QSqlQuery query;
-    query.prepare( QString::fromLatin1( "INSERT into categorysetup set category=:category, viewtype=:viewtype,"
-                                        "viewsize=:viewsize, icon=:icon, showIt=:showIt" ) );
-    query.bindValue( ":category", category );
-    query.bindValue( ":icon", icon );
-    query.bindValue( ":viewsize", size );
-    query.bindValue( ":viewtype", type );
-    query.bindValue( ":showIt", showIt );
-    query.bindValue( ":categoryId", idx );
-    if ( !query.exec() )
-        showError( query );
+    QueryHelper::instance()->
+        executeStatement("DELETE FROM category WHERE name=%s",
+                         QueryHelper::Bindings() << category);
+    QueryHelper::instance()->
+        executeStatement("INSERT INTO category(name, icon, "
+                         "visible, viewtype, viewsize) "
+                         "VALUES(%s, %s, %s, %s, %s)",
+                         QueryHelper::Bindings() << category << icon <<
+                         size << type << showIt);
 }
 
 #include "SQLCategoryCollection.moc"

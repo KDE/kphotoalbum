@@ -9,6 +9,9 @@
 #include <qfile.h>
 #include <kstandarddirs.h>
 #include <qregexp.h>
+#ifdef HAVE_STDLIB_H
+#  include <stdlib.h>
+#endif
 
 void XMLDB::FileReader::read( const QString& configFile )
 {

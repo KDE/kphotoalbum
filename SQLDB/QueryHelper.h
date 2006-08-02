@@ -82,6 +82,7 @@ public:
     QStringList relativeFilenames();
     QString filenameForId(int id, bool fullPath=false);
     int idForFilename(const QString& relativePath);
+    QValueList<int> idsForFilenames(const QStringList& relativePaths);
     QString categoryForId(int id);
     int idForCategory(const QString& category);
     QValueList<int> tagIdsOfCategory(const QString& category);
@@ -114,6 +115,7 @@ public:
     getMediaIdTagPairs(const QString& category, int typemask);
     void moveMediaItems(const QStringList& sourceItems,
                         const QString& destination, bool after);
+    void sortMediaItems(const QStringList& relativePaths);
     int mediaPlaceByFilename(const QString& relativePath);
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges);

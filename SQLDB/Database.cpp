@@ -237,11 +237,6 @@ DB::MD5Map* SQLDB::Database::md5Map()
     return &_md5map;
 }
 
-void SQLDB::Database::sortAndMergeBackIn( const QStringList& /*fileList*/ )
-{
-    qDebug("NYI: void SQLDB::Database::sortAndMergeBackIn( const QStringList& fileList )" );
-}
-
 void SQLDB::Database::renameItem(DB::Category* category, const QString& oldName, const QString& newName)
 {
     if (category)
@@ -289,6 +284,12 @@ void SQLDB::Database::reorder(const QString& item,
     QueryHelper::instance()->
         moveMediaItems(stripImageDirectoryFromList(selection),
                        Utilities::stripImageDirectory(item), after);
+}
+
+void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
+{
+    QueryHelper::instance()->
+        sortMediaItems(stripImageDirectoryFromList(fileList));
 }
 
 QString

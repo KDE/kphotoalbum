@@ -308,6 +308,56 @@ int QueryHelper::idForFilename(const QString& relativePath)
     return id.toInt();
 }
 
+QValueList<int> QueryHelper::idsForFilenames(const QStringList& relativePaths)
+{
+#if 1
+    QStringList paths;
+    QStringList filenames;
+    QMap<QString, int> pathIdMap;
+    for (QStringList::const_iterator i = relativePaths.begin();
+         i != relativePaths.end(); ++i) {
+        QString path;
+        QString filename;
+        splitPath(*i, path, filename);
+        paths << path;
+        filenames << filename;
+        if (!pathIdMap.contains(path)) {
+            pathIdMap.insert(path, executeQuery("SELECT id FROM dir "
+                                                "WHERE path=%s",
+                                                Bindings() << path
+                                                ).firstItem().toInt());
+        }
+    }
+    QValueList<int> idList;
+    QStringList::const_iterator pathIt = paths.begin();
+    QStringList::const_iterator filenameIt = filenames.begin();
+    while (pathIt != paths.end()) {
+        QVariant id =
+            executeQuery("SELECT id FROM media WHERE dirId=%s AND filename=%s",
+                         Bindings() << pathIdMap[*pathIt] << *filenameIt
+                         ).firstItem();
+        /*
+        if (id.isNull())
+            throw NotFoundError(i18n("Media item for file %1 cannot be found "
+                                     "from the SQL database").arg(*filenameIt));
+        */
+        idList << id.toInt();
+        ++pathIt;
+        ++filenameIt;
+    }
+    return idList;
+#else
+    // Uses CONCAT function, which is MySQL specific.
+
+    QStringList adjustedPaths = relativePaths;
+    for (QStringList::iterator i = adjustedPaths.begin(); i != adjustedPaths.end(); ++i) {
+        if ((*i).find('/') == -1) {
+            *i = QString::fromLatin1("./") + *i;
+        }
+    }
+    executeQuery("SELECT id FROM media, dir WHERE CONCAT(dir.path, '/', media.filename) IN (%s)");
+#endif
+}
 
 QString QueryHelper::categoryForId(int id)
 {
@@ -796,6 +846,7 @@ void QueryHelper::moveMediaItems(const QStringList& sourceItems,
                                  const QString& destination, bool after)
 {
 
+    // BROKEN!
     // TODO: make this function work!
 
 
@@ -862,6 +913,38 @@ void QueryHelper::moveMediaItems(const QStringList& sourceItems,
 
     executeStatement("UPDATE media SET place=place+(%s) WHERE id IN (%s)",
                      Bindings() << destPlace - srcMin << toVariantList(srcIds));
+}
+
+void QueryHelper::sortMediaItems(const QStringList& relativePaths)
+{
+    // TODO: use transaction
+
+    QValueList<int> idList = idsForFilenames(relativePaths);
+
+    executeStatement("CREATE TABLE sorttmp "
+                     "SELECT id, place, startTime "
+                     "FROM media WHERE id IN (%s)",
+                     Bindings() << toVariantList(idList));
+
+    idList =
+        executeQuery("SELECT id FROM sorttmp "
+                     "ORDER BY startTime").asIntegerList();
+    QValueList<int> placeList =
+        executeQuery("SELECT place FROM sorttmp "
+                     "ORDER BY place").asIntegerList();
+
+    QValueList<int>::const_iterator idIt = idList.begin();
+    QValueList<int>::const_iterator placeIt = placeList.begin();
+    for (; idIt != idList.end(); ++idIt, ++placeIt) {
+        executeStatement("UPDATE sorttmp SET place=%s WHERE id=%s",
+                         Bindings() << *placeIt << *idIt);
+
+    }
+
+    executeStatement("UPDATE media, sorttmp t "
+                     "SET media.place=t.place WHERE media.id=t.id");
+
+    executeStatement("DROP TABLE sorttmp");
 }
 
 QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,

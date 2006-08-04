@@ -84,6 +84,7 @@ class MySQLDatabase(DatabaseWriter):
 		"""
 		super(MySQLDatabase, self).__init__()
 		self.db = mysqlDb
+		self.db.autocommit(True)
 		self.c = self.db.cursor()
 		self.__createTables()
 

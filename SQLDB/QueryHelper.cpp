@@ -24,6 +24,7 @@
 #include "Viewer/CircleDraw.h"
 #include "Viewer/LineDraw.h"
 #include "Viewer/RectDraw.h"
+#include <kexidb/transaction.h>
 #include <klocale.h>
 #include <qsize.h>
 
@@ -915,13 +916,46 @@ void QueryHelper::moveMediaItems(const QStringList& sourceItems,
                      Bindings() << destPlace - srcMin << toVariantList(srcIds));
 }
 
+void QueryHelper::makeMediaPlacesContinuous()
+{
+    executeStatement("UPDATE media, "
+                     "(SELECT a.id AS id, COUNT(*) AS n "
+                     "FROM media a, media b "
+                     "WHERE "
+                     "(CASE b.place "
+                     "WHEN a.place THEN b.id "
+                     "ELSE b.place END) "
+                     "<= "
+                     "(CASE b.place "
+                     "WHEN a.place THEN a.id "
+                     "ELSE a.place END) "
+                     "GROUP BY a.id) x "
+                     "SET media.place=x.n WHERE media.id=x.id");
+}
+
 void QueryHelper::sortMediaItems(const QStringList& relativePaths)
 {
-    // TODO: use transaction
+    KexiDB::TransactionGuard transaction(*_connection);
 
     QValueList<int> idList = idsForFilenames(relativePaths);
 
-    executeStatement("CREATE TABLE sorttmp "
+#if 0
+    QValueList<QVariant> x = toVariantList(idList);
+
+    executeStatement("UPDATE media, "
+                     "(SELECT a.place AS place, COUNT(*) AS n "
+                     " FROM media a, media b "
+                     " WHERE a.id IN (%s) AND b.id IN (%s) AND "
+                     " b.place <= a.place GROUP BY a.id) byplace, "
+                     "(SELECT a.id AS id, COUNT(*) AS n "
+                     " FROM media a, media b "
+                     " WHERE a.id IN (%s) AND b.id IN (%s) AND "
+                     " b.startTime <= a.startTime GROUP BY a.id) bytime "
+                     "SET media.place=byplace.place "
+                     "WHERE media.id=bytime.id AND byplace.n=bytime.n",
+                     Bindings() << x << x << x << x);
+#else
+    executeStatement("CREATE TEMPORARY TABLE sorttmp "
                      "SELECT id, place, startTime "
                      "FROM media WHERE id IN (%s)",
                      Bindings() << toVariantList(idList));
@@ -945,6 +979,9 @@ void QueryHelper::sortMediaItems(const QStringList& relativePaths)
                      "SET media.place=t.place WHERE media.id=t.id");
 
     executeStatement("DROP TABLE sorttmp");
+#endif
+
+    transaction.commit();
 }
 
 QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,

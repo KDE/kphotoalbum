@@ -138,6 +138,7 @@ protected:
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
                                      const QValueList<int>* idList);
+    void makeMediaPlacesContinuous();
 
 private:
     static QueryHelper* _instance;

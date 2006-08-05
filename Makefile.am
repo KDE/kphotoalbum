@@ -48,7 +48,7 @@ mimetypeapplicationdata_DATA = x-vnd.kde.kphotoalbum-import.desktop
 
 messages: rc.cpp
 	$(PREPARETIPS) > tips.cc
-	$(XGETTEXT) *.cpp *.h *.cc -o $(podir)/kphotoalbum.pot
+	$(XGETTEXT) `find . -name \*.cpp -o -name \*.cc -o -name \*.h` -o $(podir)/kphotoalbum.pot
 	rm -f tips.cc 
 
 kde_conf_DATA = kphotoalbumrc

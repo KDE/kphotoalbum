@@ -1,3 +1,6 @@
+#ifndef RAWIMAGEDECODER_H
+#define RAWIMAGEDECODER_H
+
 #include "ImageDecoder.h"
 
 #include <qimage.h>
@@ -16,3 +19,5 @@ public:
 };
 
 }
+
+#endif /* RAWIMAGEDECODER_H */

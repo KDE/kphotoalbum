@@ -168,7 +168,7 @@ bool Exif::Database::isUsable() const
 
 QString Exif::Database::exifDBFile()
 {
-    return Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
+    return ::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
 Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )

@@ -64,12 +64,12 @@ Set<QString> Info::availableKeys()
 
 QMap<QString, QString> Info::infoForViewer( const QString& fileName )
 {
-    return info( fileName, Settings::SettingsData::instance()->exifForViewer(), false );
+    return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(), false );
 }
 
 QMap<QString, QString> Info::infoForDialog( const QString& fileName )
 {
-    return info( fileName, Settings::SettingsData::instance()->exifForDialog(), true);
+    return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true);
 }
 
 Set<QString> Info::standardKeys()

@@ -1,3 +1,23 @@
+/*
+  Copyright (C) 2005-2006 Jesper K. Pedersen <blackie@kde.org>
+  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program (see the file COPYING); if not, write to the
+  Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+  MA 02110-1301 USA.
+*/
+
 #include "SQLCategory.h"
 #include "QueryHelper.h"
 
@@ -16,21 +36,23 @@ void SQLDB::SQLCategory::setName(const QString& name)
     QueryHelper::instance()->
         executeStatement("UPDATE category SET name=%s WHERE id=%s",
                          QueryHelper::Bindings() << name << _categoryId);
+    emit changed();
 }
 
 QString SQLDB::SQLCategory::iconName() const
 {
     return QueryHelper::instance()->
         executeQuery("SELECT icon FROM category WHERE id=%s",
-                     QueryHelper::Bindings() << _categoryId).
-        firstItem().toString();
+                     QueryHelper::Bindings() << _categoryId
+                     ).firstItem().toString();
 }
 
-void SQLDB::SQLCategory::setIconName( const QString& name )
+void SQLDB::SQLCategory::setIconName(const QString& name)
 {
     QueryHelper::instance()->
         executeStatement("UPDATE category SET icon=%s WHERE id=%s",
                          QueryHelper::Bindings() << name << _categoryId);
+    emit changed();
 }
 
 DB::Category::ViewSize SQLDB::SQLCategory::viewSize() const
@@ -38,22 +60,16 @@ DB::Category::ViewSize SQLDB::SQLCategory::viewSize() const
     return static_cast<DB::Category::ViewSize>
         (QueryHelper::instance()->
          executeQuery("SELECT viewsize FROM category WHERE id=%s",
-                      QueryHelper::Bindings() << _categoryId).
-         firstItem().toInt());
+                      QueryHelper::Bindings() << _categoryId
+                      ).firstItem().toInt());
 }
 
-void SQLDB::SQLCategory::setViewSize( ViewSize size )
+void SQLDB::SQLCategory::setViewSize(ViewSize size)
 {
     QueryHelper::instance()->
         executeStatement("UPDATE category SET viewsize=%s WHERE id=%s",
                          QueryHelper::Bindings() << size << _categoryId);
-}
-
-void SQLDB::SQLCategory::setViewType( ViewType type )
-{
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET viewtype=%s WHERE id=%s",
-                         QueryHelper::Bindings() << type << _categoryId);
+    emit changed();
 }
 
 DB::Category::ViewType SQLDB::SQLCategory::viewType() const
@@ -61,28 +77,32 @@ DB::Category::ViewType SQLDB::SQLCategory::viewType() const
     return static_cast<DB::Category::ViewType>
         (QueryHelper::instance()->
          executeQuery("SELECT viewtype FROM category WHERE id=%s",
-                      QueryHelper::Bindings() << _categoryId).
-         firstItem().toInt());
+                      QueryHelper::Bindings() << _categoryId
+                      ).firstItem().toInt());
 }
 
-void SQLDB::SQLCategory::setDoShow( bool b )
+void SQLDB::SQLCategory::setViewType(ViewType type)
 {
     QueryHelper::instance()->
-        executeStatement("UPDATE category SET visible=%s WHERE id=%s",
-                         QueryHelper::Bindings() << b << _categoryId);
+        executeStatement("UPDATE category SET viewtype=%s WHERE id=%s",
+                         QueryHelper::Bindings() << type << _categoryId);
+    emit changed();
 }
 
 bool SQLDB::SQLCategory::doShow() const
 {
     return QueryHelper::instance()->
         executeQuery("SELECT visible FROM category WHERE id=%s",
-                     QueryHelper::Bindings() << _categoryId).
-        firstItem().toInt();
+                     QueryHelper::Bindings() << _categoryId
+                     ).firstItem().toInt();
 }
 
-void SQLDB::SQLCategory::setSpecialCategory( bool /*b*/ )
+void SQLDB::SQLCategory::setDoShow(bool b)
 {
-    // Can't be special category, so do nothing
+    QueryHelper::instance()->
+        executeStatement("UPDATE category SET visible=%s WHERE id=%s",
+                         QueryHelper::Bindings() << b << _categoryId);
+    emit changed();
 }
 
 bool SQLDB::SQLCategory::isSpecialCategory() const
@@ -91,7 +111,18 @@ bool SQLDB::SQLCategory::isSpecialCategory() const
     return false;
 }
 
-void SQLDB::SQLCategory::setItems( const QStringList& items )
+void SQLDB::SQLCategory::setSpecialCategory(bool b)
+{
+    // Can't be special category, so do nothing
+    Q_UNUSED(b);
+}
+
+QStringList SQLDB::SQLCategory::items() const
+{
+    return QueryHelper::instance()->membersOfCategory(_categoryId);
+}
+
+void SQLDB::SQLCategory::setItems(const QStringList& items)
 {
     QueryHelper::instance()->
         executeStatement("DELETE FROM tag WHERE categoryId=%s",
@@ -109,9 +140,15 @@ void SQLDB::SQLCategory::setItems( const QStringList& items )
     }
 }
 
+void SQLDB::SQLCategory::addItem(const QString& item)
+{
+    QueryHelper::instance()->insertTagFirst(_categoryId, item);
+}
+
 void SQLDB::SQLCategory::removeItem(const QString& item)
 {
     QueryHelper::instance()->removeTag(_categoryId, item);
+    emit itemRemoved(item);
 }
 
 void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newValue)
@@ -121,14 +158,7 @@ void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newV
                          "WHERE name=%s AND categoryId=%s",
                          QueryHelper::Bindings() <<
                          newValue << oldValue << _categoryId);
+    emit itemRenamed(oldValue, newValue);
 }
 
-void SQLDB::SQLCategory::addItem( const QString& item )
-{
-    QueryHelper::instance()->insertTagFirst(_categoryId, item);
-}
-
-QStringList SQLDB::SQLCategory::items() const
-{
-    return QueryHelper::instance()->membersOfCategory(_categoryId);
-}
+#include "SQLCategory.moc"

@@ -19,10 +19,10 @@
 
 #include "KexiHelpers.h"
 
-QStringList SQLDB::readStringsFromCursor(KexiDB::Cursor& cursor, int col)
+QStringList SQLDB::readStringsFromCursor(Cursor& cursor, int col)
 {
     QStringList l;
-    for (cursor.moveFirst(); !cursor.eof(); cursor.moveNext())
+    for (cursor.selectFirstRow(); cursor.rowExists(); cursor.selectNextRow())
         l.append(cursor.value(col).toString());
     return l;
 }
@@ -30,11 +30,11 @@ QStringList SQLDB::readStringsFromCursor(KexiDB::Cursor& cursor, int col)
 namespace
 {
 template <size_t N>
-inline QValueList<QString[N]> readStringNsFromCursor(KexiDB::Cursor& cursor)
+inline QValueList<QString[N]> readStringNsFromCursor(SQLDB::Cursor& cursor)
 {
     QValueList<QString[N]> l;
     QString v[N];
-    for (cursor.moveFirst(); !cursor.eof(); cursor.moveNext()) {
+    for (cursor.selectFirstRow(); cursor.rowExists(); cursor.selectNextRow()) {
         for (size_t i = 0; i < N; ++i)
             v[i] = cursor.value(i).toString();
         l.append(v);
@@ -43,20 +43,20 @@ inline QValueList<QString[N]> readStringNsFromCursor(KexiDB::Cursor& cursor)
 }
 }
 
-QValueList<QString[2]> SQLDB::readString2sFromCursor(KexiDB::Cursor& cursor)
+QValueList<QString[2]> SQLDB::readString2sFromCursor(Cursor& cursor)
 {
     return readStringNsFromCursor<2>(cursor);
 }
 
-QValueList<QString[3]> SQLDB::readString3sFromCursor(KexiDB::Cursor& cursor)
+QValueList<QString[3]> SQLDB::readString3sFromCursor(Cursor& cursor)
 {
     return readStringNsFromCursor<3>(cursor);
 }
 
-QValueList<int> SQLDB::readIntsFromCursor(KexiDB::Cursor& cursor, int col)
+QValueList<int> SQLDB::readIntsFromCursor(Cursor& cursor, int col)
 {
     QValueList<int> l;
-    for (cursor.moveFirst(); !cursor.eof(); cursor.moveNext())
+    for (cursor.selectFirstRow(); cursor.rowExists(); cursor.selectNextRow())
         l.append(cursor.value(col).toInt());
     return l;
 }

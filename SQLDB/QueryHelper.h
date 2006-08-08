@@ -57,7 +57,6 @@ public:
     {
     public:
         Result(KexiDB::Cursor* cursor);
-        ~Result();
         QStringList asStringList();
         QValueList<QString[2]> asString2List();
         QValueList<QString[3]> asString3List();
@@ -68,7 +67,7 @@ public:
         Cursor cursor();
 
     private:
-        KexiDB::Cursor* _cursor;
+        Cursor _cursor;
     };
 
     static void setup(KexiDB::Connection& connection);

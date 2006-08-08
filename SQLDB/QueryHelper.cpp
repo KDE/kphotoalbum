@@ -35,24 +35,11 @@ QueryHelper::Result::Result(KexiDB::Cursor* cursor):
 {
 }
 
-QueryHelper::Result::~Result()
-{
-    if (_cursor) {
-        KexiDB::Connection* connection = _cursor->connection();
-        if (connection)
-            connection->deleteCursor(_cursor);
-        else {
-            _cursor->close();
-            delete _cursor;
-        }
-    }
-}
-
 QStringList QueryHelper::Result::asStringList()
 {
     QStringList r;
     if (_cursor) {
-        r = readStringsFromCursor(*_cursor);
+        r = readStringsFromCursor(_cursor);
     }
     return r;
 }
@@ -61,7 +48,7 @@ QValueList<QString[2]> QueryHelper::Result::asString2List()
 {
     QValueList<QString[2]> r;
     if (_cursor) {
-        r = readString2sFromCursor(*_cursor);
+        r = readString2sFromCursor(_cursor);
     }
     return r;
 }
@@ -70,7 +57,7 @@ QValueList<QString[3]> QueryHelper::Result::asString3List()
 {
     QValueList<QString[3]> r;
     if (_cursor) {
-        r = readString3sFromCursor(*_cursor);
+        r = readString3sFromCursor(_cursor);
     }
     return r;
 }
@@ -79,7 +66,7 @@ QValueList<int> QueryHelper::Result::asIntegerList()
 {
     QValueList<int> r;
     if (_cursor) {
-        r = readIntsFromCursor(*_cursor);
+        r = readIntsFromCursor(_cursor);
     }
     return r;
 }
@@ -88,9 +75,10 @@ QValueList< QPair<int, QString> > QueryHelper::Result::asIntegerStringPairs()
 {
     QValueList< QPair<int, QString> > r;
     if (_cursor) {
-        for (_cursor->moveFirst(); !_cursor->eof(); _cursor->moveNext())
-            r << QPair<int, QString>(_cursor->value(0).toInt(),
-                                     _cursor->value(1).toString());
+        for (_cursor.selectFirstRow(); _cursor.rowExists();
+             _cursor.selectNextRow())
+            r << QPair<int, QString>(_cursor.value(0).toInt(),
+                                     _cursor.value(1).toString());
     }
     return r;
 }
@@ -99,9 +87,9 @@ QVariant QueryHelper::Result::firstItem()
 {
     QVariant r;
     if (_cursor) {
-        _cursor->moveFirst();
-        if (!_cursor->eof())
-             r = _cursor->value(0);
+        _cursor.selectFirstRow();
+        if (_cursor.rowExists())
+             r = _cursor.value(0);
     }
     return r;
 }
@@ -109,15 +97,13 @@ QVariant QueryHelper::Result::firstItem()
 RowData QueryHelper::Result::getRow(uint n)
 {
     if (_cursor) {
-        _cursor->moveFirst();
+        _cursor.selectFirstRow();
         for (uint i = 0; i < n; ++i) {
-            if (!_cursor->moveNext())
+            if (!_cursor.selectNextRow())
                 break;
         }
-        if (!_cursor->eof()) {
-            RowData r(_cursor->fieldCount());
-            _cursor->storeCurrentRow(r);
-            return r;
+        if (_cursor.rowExists()) {
+            return _cursor.getCurrentRow();
         }
     }
     throw Error(/* TODO: type and message */);
@@ -125,9 +111,7 @@ RowData QueryHelper::Result::getRow(uint n)
 
 Cursor QueryHelper::Result::cursor()
 {
-    KexiDB::Cursor* c = _cursor;
-    _cursor = 0;
-    return Cursor(c);
+    return _cursor;
 }
 
 

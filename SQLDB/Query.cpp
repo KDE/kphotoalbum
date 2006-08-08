@@ -1,5 +1,6 @@
 #include "Query.h"
 #include "DB/ImageSearchInfo.h"
+#include "DB/CategoryMatcher.h"
 #include "QueryHelper.h"
 
 typedef QValueList<DB::OptionSimpleMatcher*> MatcherList;

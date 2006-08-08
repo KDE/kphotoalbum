@@ -3,6 +3,7 @@
 #include "QueryHelper.h"
 #include "SQLFolderCategory.h"
 #include "SQLSpecialCategory.h"
+#include "QueryErrors.h"
 
 DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {

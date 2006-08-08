@@ -20,6 +20,7 @@
 #include "SQLImageInfoCollection.h"
 #include "SQLImageInfo.h"
 #include "QueryHelper.h"
+#include "QueryErrors.h"
 
 using namespace SQLDB;
 

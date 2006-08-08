@@ -19,6 +19,7 @@
 #ifndef SQLDB_QUERY_H
 #define SQLDB_QUERY_H
 
+#include "DB/ImageInfo.h" // DB::anyMediaType
 #include <qvaluelist.h>
 
 namespace DB

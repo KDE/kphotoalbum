@@ -99,7 +99,6 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
 
 void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
-    _categoryCollection.rename(oldName, newName);
 }
 
 QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
@@ -235,18 +234,6 @@ void SQLDB::Database::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
 DB::MD5Map* SQLDB::Database::md5Map()
 {
     return &_md5map;
-}
-
-void SQLDB::Database::renameItem(DB::Category* category, const QString& oldName, const QString& newName)
-{
-    if (category)
-        category->renameItem(oldName, newName);
-}
-
-void SQLDB::Database::deleteItem(DB::Category* category, const QString& option)
-{
-    if (category)
-        category->removeItem(option);
 }
 
 void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )

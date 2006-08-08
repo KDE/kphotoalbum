@@ -101,8 +101,6 @@ public: // Methods that must be overriden
     virtual bool isClipboardEmpty() = 0;
 
 protected slots:
-    virtual void renameItem( Category* category, const QString& oldName, const QString& newName ) = 0;
-    virtual void deleteItem( Category* category, const QString& option ) = 0;
     virtual void lockDB( bool lock, bool exclude ) = 0;
 
 

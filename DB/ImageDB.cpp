@@ -46,10 +46,6 @@ void ImageDB::setupSQLDB( const QString& userName, const QString& password )
 
 void ImageDB::connectSlots()
 {
-    connect( _instance->categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
-             _instance, SLOT( deleteItem( DB::Category*, const QString& ) ) );
-    connect( _instance->categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
-             _instance, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
     connect( Settings::SettingsData::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );
 }
 
@@ -230,5 +226,9 @@ ImageDB::findFirstItemInRange(const ImageDate& range,
     }
     return candidate;
 }
+
+/** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )
+ * \brief Rename category in media items stored in database.
+ */
 
 #include "ImageDB.moc"

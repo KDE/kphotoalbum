@@ -54,6 +54,11 @@ XMLDB::Database::Database( const QString& configFile ) : _members( DB::MemberMap
     Utilities::checkForBackupFile( configFile );
     FileReader reader( this );
     reader.read( configFile );
+
+    connect( categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
+             this, SLOT( deleteItem( DB::Category*, const QString& ) ) );
+    connect( categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
+             this, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
 }
 
 int XMLDB::Database::totalCount() const

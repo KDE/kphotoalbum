@@ -74,8 +74,6 @@ namespace SQLDB {
         virtual bool isClipboardEmpty();
 
     protected slots:
-        virtual void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
-        virtual void deleteItem( DB::Category* category, const QString& option );
         virtual void lockDB( bool lock, bool exclude );
 
     protected:

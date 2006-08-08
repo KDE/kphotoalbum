@@ -25,6 +25,8 @@
 namespace SQLDB {
     class SQLSpecialCategory: public SQLCategory
     {
+        Q_OBJECT
+
     public:
         virtual void setName(const QString&) {}
         virtual void setSpecialCategory(bool) {}

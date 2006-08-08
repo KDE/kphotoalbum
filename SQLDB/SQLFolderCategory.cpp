@@ -52,3 +52,5 @@ void SQLFolderCategory::renameItem(const QString& oldValue, const QString& newVa
     Q_UNUSED(oldValue);
     Q_UNUSED(newValue);
 }
+
+#include "SQLFolderCategory.moc"

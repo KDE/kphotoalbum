@@ -25,6 +25,8 @@
 namespace SQLDB {
     class SQLFolderCategory: public SQLSpecialCategory
     {
+        Q_OBJECT
+
     public:
         virtual QStringList items() const;
         virtual void setItems(const QStringList& items);

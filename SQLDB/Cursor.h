@@ -17,8 +17,10 @@
   MA 02110-1301 USA.
 */
 
+#ifndef SQLDB_CURSOR_H
+#define SQLDB_CURSOR_H
+
 #include <kexidb/cursor.h>
-#include <qmap.h>
 
 namespace SQLDB
 {
@@ -27,56 +29,68 @@ namespace SQLDB
     class Cursor
     {
     public:
-        Cursor(KexiDB::Cursor* cursor): _cursor(cursor)
-        {
-            if (!_cursor)
-                throw Error(/* TODO: type and message */);
-            ++_references[_cursor];
-        }
+        Cursor(KexiDB::Cursor* cursor): _cursor(cursor), _copies(0) {}
 
         Cursor(const Cursor& other):
-            _cursor(other._cursor)
+            _cursor(other._cursor),
+            _copies(other._copies)
         {
-            ++_references[_cursor];
+            if (!_copies) {
+                _copies = other._copies = new QValueList<const Cursor*>();
+                _copies->append(&other);
+            }
+            _copies->append(this);
         }
 
         Cursor& operator=(const Cursor& other)
         {
-            if (--_references[_cursor] == 0)
-                _cursor->connection()->deleteCursor(_cursor);
-            _cursor = other._cursor;
-            ++_references[_cursor];
+            if (&other != this) {
+                this->~Cursor();
+                _cursor = other._cursor;
+                _copies = other._copies;
+                if (!_copies) {
+                    _copies = other._copies = new QValueList<const Cursor*>();
+                    _copies->append(&other);
+                }
+                _copies->append(this);
+            }
             return *this;
         }
 
         ~Cursor()
         {
-            if (--_references[_cursor] == 0)
+            if (_copies) {
+                _copies->remove(this);
+                if (_copies->count() == 0) {
+                    delete _copies;
+                    _copies = 0;
+                }
+            }
+            if (_cursor && !_copies)
                 _cursor->connection()->deleteCursor(_cursor);
         }
 
-        inline
+        bool isNull() const { return !_cursor; }
+        operator bool() const { return _cursor; }
+
+        // Do not call these if isNull()
         void selectFirstRow() { _cursor->moveFirst(); }
-
-        inline
-        void selectNextRow() { _cursor->moveNext(); }
-
-        inline
+        bool selectNextRow() { return _cursor->moveNext(); }
         bool rowExists() const { return !_cursor->eof(); }
-
-        inline
         void getCurrentRow(RowData& data) { _cursor->storeCurrentRow(data); }
-
-        inline
         RowData getCurrentRow()
         {
-            RowData data;
+            RowData data(_cursor->fieldCount());
             _cursor->storeCurrentRow(data);
             return data;
         }
+        QVariant value(uint i) { return _cursor->value(i); }
+        uint fieldCount() const { return _cursor->fieldCount(); }
 
     private:
         KexiDB::Cursor* _cursor;
-        static QMap<KexiDB::Cursor*, uint> _references;
+        mutable QValueList<const Cursor*>* _copies;
     };
 }
+
+#endif /* SQLDB_CURSOR_H */

@@ -18,7 +18,3 @@
 */
 
 #include "Cursor.h"
-
-using namespace SQLDB;
-
-QMap<KexiDB::Cursor*, uint> Cursor::_references;

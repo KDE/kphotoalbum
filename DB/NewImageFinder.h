@@ -19,9 +19,7 @@
 #ifndef NEWIMAGEFINDER_H
 #define NEWIMAGEFINDER_H
 #include <qdict.h>
-#include "DB/ImageInfoList.h"
 #include <qstringlist.h>
-#include <qmap.h>
 #include "DB/MD5Map.h"
 #include "ImageInfo.h"
 

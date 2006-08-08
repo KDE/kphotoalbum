@@ -19,9 +19,7 @@
 #ifndef XMLDB_DATABSE_H
 #define XMLDB_DATABSE_H
 #include "DB/ImageSearchInfo.h"
-#include <qdict.h>
 #include "DB/ImageInfoList.h"
-#include <qobject.h>
 #include <qstringlist.h>
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"

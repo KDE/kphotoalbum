@@ -2,7 +2,6 @@
 #define EXIFSEARCHDIALOG_H
 
 #include <kdialogbase.h>
-#include <qvaluelist.h>
 #include "Exif/SearchInfo.h"
 #include "Exif/SearchDialogSettings.h"
 #include "Exif/RangeWidget.h"

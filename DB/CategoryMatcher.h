@@ -19,7 +19,6 @@
 #ifndef OPTIONMATCHER_H
 #define OPTIONMATCHER_H
 #include <qvaluelist.h>
-#include <qstringlist.h>
 #include "DB/ImageInfoPtr.h"
 
 namespace DB

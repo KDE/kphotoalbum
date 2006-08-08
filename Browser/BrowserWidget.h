@@ -21,7 +21,6 @@
 #include <qlistview.h>
 #include <qiconview.h>
 #include "Settings/SettingsData.h"
-#include "DB/ImageInfoPtr.h"
 
 class QListViewItem;
 class QWidgetStack;

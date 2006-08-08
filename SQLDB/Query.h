@@ -19,8 +19,6 @@
 #ifndef SQLDB_QUERY_H
 #define SQLDB_QUERY_H
 
-#include "DB/CategoryMatcher.h"
-#include "DB/ImageInfo.h" // DB::MediaType
 #include <qvaluelist.h>
 
 namespace DB

@@ -19,7 +19,6 @@
 #ifndef INFOPAGE_H
 #define INFOPAGE_H
 #include <qwidget.h>
-#include <qstring.h>
 
 namespace Survey {
     class InfoPage : public QWidget {

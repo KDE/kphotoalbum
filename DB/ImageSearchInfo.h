@@ -19,9 +19,7 @@
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
 #include "DB/ImageDate.h"
-#include <qdom.h>
 #include <qmap.h>
-#include <qstringlist.h>
 #include <qdict.h>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"

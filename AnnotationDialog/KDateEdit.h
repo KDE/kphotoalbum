@@ -17,7 +17,6 @@
 #define ANNOTATIONDIALOG_KDATEEDIT_H
 
 #include <qvbox.h>
-#include <qdatetime.h>
 #include <qcombobox.h>
 #include <qmap.h>
 #include "DB/ImageDate.h"

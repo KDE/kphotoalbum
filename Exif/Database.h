@@ -4,7 +4,6 @@
 #include <qstring.h>
 #include <qvaluelist.h>
 #include <qpair.h>
-#include <qstringlist.h>
 #include "Utilities/Set.h"
 
 class QSqlDatabase;

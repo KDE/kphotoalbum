@@ -2,7 +2,6 @@
 #define THUMBNAILVIEW_H
 
 #include <qgridview.h>
-#include <qvaluelist.h>
 #include "ImageManager/ImageClient.h"
 #include "Utilities/Set.h"
 #include "ThumbnailToolTip.h"

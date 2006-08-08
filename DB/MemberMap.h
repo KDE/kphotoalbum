@@ -19,7 +19,6 @@
 #ifndef MEMBERMAP_H
 #define MEMBERMAP_H
 #include <qstringlist.h>
-#include <qdom.h>
 #include <qmap.h>
 #include <qobject.h>
 #include "Utilities/Set.h"

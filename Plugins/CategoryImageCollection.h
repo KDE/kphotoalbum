@@ -19,7 +19,6 @@
 #ifndef CATEGORYIMAGECOLLECTION_H
 #define CATEGORYIMAGECOLLECTION_H
 
-#include <config.h>
 #ifdef HASKIPI
 #include "Plugins/ImageCollection.h"
 #include "DB/ImageSearchInfo.h"

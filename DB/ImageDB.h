@@ -20,7 +20,6 @@
 #define IMAGEDB_H
 
 #include "DB/ImageSearchInfo.h"
-#include <qobject.h>
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"

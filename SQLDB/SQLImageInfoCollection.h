@@ -23,7 +23,6 @@
 #include "DB/ImageInfoPtr.h"
 #include <qmap.h>
 #include <qmutex.h>
-#include <qstring.h>
 
 namespace SQLDB {
     class SQLImageInfoCollection

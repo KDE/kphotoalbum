@@ -20,8 +20,6 @@
 #define THUMBNAILTOOLTIP_H
 #include <qtimer.h>
 #include <qlabel.h>
-#include <qdialog.h>
-#include <qdict.h>
 #include "ImageManager/ImageClient.h"
 namespace DB { class ImageInfo; }
 

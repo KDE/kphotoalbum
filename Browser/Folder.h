@@ -18,7 +18,6 @@
 
 #ifndef FOLDER_H
 #define FOLDER_H
-#include <qiconview.h>
 #include "BrowserWidget.h"
 #include <qstring.h>
 #include "DB/ImageSearchInfo.h"

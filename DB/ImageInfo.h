@@ -22,15 +22,10 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qmap.h>
-#include <qvaluelist.h>
-#include <qpixmap.h>
 #include <qdom.h>
-#include <qobject.h>
-#include <qdeepcopy.h>
 #include "ImageDate.h"
 #include "Viewer/DrawList.h"
 #include <qimage.h>
-#include <ksharedptr.h>
 #include "DB/CategoryCollection.h"
 #include "Utilities/Set.h"
 

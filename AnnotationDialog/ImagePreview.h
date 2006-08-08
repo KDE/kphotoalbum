@@ -21,7 +21,6 @@
 #include <qlabel.h>
 #include "DB/ImageInfo.h"
 #include "ImageManager/ImageClient.h"
-#include <qimage.h>
 
 namespace AnnotationDialog
 {

@@ -17,7 +17,6 @@
   MA 02110-1301 USA.
 */
 
-#include "QueryErrors.h"
 #include <kexidb/cursor.h>
 #include <qmap.h>
 

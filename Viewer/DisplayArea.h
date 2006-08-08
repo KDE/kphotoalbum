@@ -18,15 +18,10 @@
 
 #ifndef DISPLAYAREA_H
 #define DISPLAYAREA_H
-#include <qlabel.h>
 #include <qpixmap.h>
-#include <qptrlist.h>
-#include "Viewer/DrawList.h"
 #include "ImageManager/ImageClient.h"
 #include <qimage.h>
-#include <qcache.h>
 #include <qptrvector.h>
-#include "DB/ImageInfoList.h"
 #include "DB/ImageInfoPtr.h"
 #include "Display.h"
 

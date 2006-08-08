@@ -3,10 +3,6 @@
 
 #include "ImageDecoder.h"
 
-#include <qimage.h>
-#include <qstring.h>
-#include <qsize.h>
-
 namespace ImageManager
 {
 

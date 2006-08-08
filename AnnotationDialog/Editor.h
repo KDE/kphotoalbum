@@ -18,8 +18,6 @@
 
 #ifndef EDITOR_H
 #define EDITOR_H
-#include <qstring.h>
-#include <qwidget.h>
 #include <qtextedit.h>
 
 class KDictSpellingHighlighter;

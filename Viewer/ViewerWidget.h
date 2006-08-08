@@ -20,11 +20,9 @@
 #define VIEWER_H
 
 #include "Settings/SettingsData.h"
-#include <kxmlguiclient.h>
 #include <kaction.h>
 #include <qdialog.h>
 #include <qimage.h>
-#include "DB/ImageInfoList.h"
 
 class QWidgetStack;
 class QLabel;

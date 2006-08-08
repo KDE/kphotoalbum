@@ -19,7 +19,6 @@
 #ifndef KPHOTOALBUM_PLUGININTERFACE_H
 #define KPHOTOALBUM_PLUGININTERFACE_H
 
-#include <config.h>
 #ifdef HASKIPI
 #include <libkipi/interface.h>
 #include <qvaluelist.h>

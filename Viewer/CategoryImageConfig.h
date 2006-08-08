@@ -22,7 +22,6 @@
 #include <kdialogbase.h>
 #include <qimage.h>
 #include "DB/ImageInfoPtr.h"
-#include "DB/ImageInfo.h"
 
 class QComboBox;
 class QLabel;

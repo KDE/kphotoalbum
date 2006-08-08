@@ -18,18 +18,13 @@
 
 #ifndef SETTINGS_SETTINGS_H
 #define SETTINGS_SETTINGS_H
-#include <qstringlist.h>
-#include <qmap.h>
 #include <qpixmap.h>
-#include <qobject.h>
-#include <qdom.h>
 #include "DB/ImageSearchInfo.h"
 #include "DB/Category.h"
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
 #include "Utilities/Set.h"
-#include <config.h>
 
 #define property__( type, group, prop, setFunction, defaultValue ) \
     void setFunction( type val )                                     \

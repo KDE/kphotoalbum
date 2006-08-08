@@ -18,15 +18,9 @@
 
 #ifndef IMAGEMANAGER_H
 #define IMAGEMANAGER_H
-#include "ImageManager/ImageLoader.h"
-#include <qptrlist.h>
 #include <qwaitcondition.h>
 #include <qvaluelist.h>
 #include <qevent.h>
-#include <qdeepcopy.h>
-#include <qstring.h>
-#include <qpixmap.h>
-#include <qcache.h>
 #include "ImageManager/ImageRequest.h"
 #include <qmutex.h>
 #include <qptrdict.h>

@@ -19,7 +19,6 @@
 #ifndef QUESTION_H
 #define QUESTION_H
 
-#include <qstring.h>
 #include <qwidget.h>
 class QDomElement;
 

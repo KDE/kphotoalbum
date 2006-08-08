@@ -19,8 +19,6 @@
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
 #include <kdialogbase.h>
-#include "DB/ImageInfoList.h"
-#include <config.h>
 class QLabel;
 class QCheckBox;
 class QRadioButton;

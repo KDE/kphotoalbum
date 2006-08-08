@@ -20,7 +20,6 @@
 #define DRAWHANDLER_H
 
 #include "Viewer/DisplayAreaHandler.h"
-#include <qobject.h>
 #include "Viewer/DrawList.h"
 
 class QMouseEvent;

@@ -19,7 +19,6 @@
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
 
-#include <qwidget.h>
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
 #include <qtoolbutton.h>

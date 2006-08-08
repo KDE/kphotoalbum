@@ -19,7 +19,6 @@
 #ifndef VIEWER_DISPLAY_H
 #define VIEWER_DISPLAY_H
 
-#include <qstringlist.h>
 #include <qwidget.h>
 #include <DB/ImageInfoPtr.h>
 

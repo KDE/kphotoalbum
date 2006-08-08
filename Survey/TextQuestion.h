@@ -16,10 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Question.h"
-class QTextEdit;
 #ifndef TEXTQUESTION_H
 #define TEXTQUESTION_H
+
+#include "Question.h"
+class QTextEdit;
 
 namespace Survey {
 

@@ -14,15 +14,24 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
         return 0;
     }
 
+    DB::CategoryPtr p;
     if (name == "Folder") {
-        return DB::CategoryPtr(new SQLFolderCategory(categoryId));
+        p = new SQLFolderCategory(categoryId);
     }
     else if (name == "Tokens") {
-        return DB::CategoryPtr(new SQLSpecialCategory(categoryId));
+        p = new SQLSpecialCategory(categoryId);
     }
     else {
-        return DB::CategoryPtr(new SQLCategory(categoryId));
+        p = new SQLCategory(categoryId);
     }
+
+    connect(p, SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()));
+    connect(p, SIGNAL(itemRemoved(const QString&)),
+            this, SLOT(itemRemoved(const QString&)));
+    connect(p, SIGNAL(itemRenamed(const QString&, const QString&)),
+            this, SLOT(itemRenamed(const QString&, const QString&)));
+
+    return p;
 }
 
 QStringList SQLDB::SQLCategoryCollection::categoryNames() const
@@ -48,6 +57,8 @@ void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
     QueryHelper::instance()->
         executeStatement("DELETE FROM category WHERE id=%s",
                          QueryHelper::Bindings() << id);
+
+    emit categoryCollectionChanged();
 }
 
 void SQLDB::SQLCategoryCollection::rename(const QString& oldName, const QString& newName)
@@ -77,6 +88,8 @@ void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const Q
                          "VALUES(%s, %s, %s, %s, %s)",
                          QueryHelper::Bindings() << category << icon <<
                          size << type << showIt);
+
+    emit categoryCollectionChanged();
 }
 
 #include "SQLCategoryCollection.moc"

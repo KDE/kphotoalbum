@@ -27,7 +27,7 @@ namespace
     }
 }
 
-SQLDB::Database::Database( const QString& username, const QString& password ) :_members( this )
+SQLDB::Database::Database(const QString& username, const QString& password)
 {
     _dbhandler = DatabaseHandler::getMySQLHandler(username, password);
     _dbhandler->openDatabase("kphotoalbum");

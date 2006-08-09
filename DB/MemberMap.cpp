@@ -24,12 +24,8 @@
 
 using namespace DB;
 
-MemberMap::MemberMap( ImageDB* db) :QObject(0), _dirty( true )
+MemberMap::MemberMap() :QObject(0), _dirty( true )
 {
-    connect( db->categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
-             this, SLOT( deleteItem( DB::Category*, const QString& ) ) );
-    connect( db->categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
-             this, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
 }
 
 /**

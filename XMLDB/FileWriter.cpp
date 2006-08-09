@@ -132,7 +132,7 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
         return;
 
     QDomElement memberNode = doc.createElement( QString::fromLatin1( "member-groups" ) );
-    for( QMapIterator< QString,QMap<QString,StringSet> > it1= _db->_members._members.begin(); it1 != _db->_members._members.end(); ++it1 ) {
+    for( QMapConstIterator< QString,QMap<QString,StringSet> > it1= _db->_members.memberMap().begin(); it1 != _db->_members.memberMap().end(); ++it1 ) {
         QMap<QString,StringSet> map = it1.data();
         for( QMapIterator<QString,StringSet> it2= map.begin(); it2 != map.end(); ++it2 ) {
             StringSet list = it2.data();

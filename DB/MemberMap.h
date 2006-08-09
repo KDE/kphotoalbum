@@ -23,17 +23,14 @@
 #include <qobject.h>
 #include "Utilities/Set.h"
 
-namespace XMLDB { class FileWriter; }
-
 namespace DB
 {
-class ImageDB;
 class Category;
 
 class MemberMap :public QObject {
     Q_OBJECT
 public:
-    MemberMap( ImageDB* db );
+    MemberMap();
     MemberMap( const MemberMap& );
     MemberMap& operator=( const MemberMap& );
 
@@ -52,16 +49,17 @@ public:
     void addMemberToGroup( const QString& category, const QString& group, const QString& item );
     void removeMemberFromGroup( const QString& category, const QString& group, const QString& item );
 
+    const QMap<QString, QMap<QString,StringSet> >& memberMap() const { return _members; }
+
 protected:
     void calculate() const;
     QStringList calculateClosure( QMap<QString,StringSet>& resultSoFar, const QString& category, const QString& group ) const;
 
-protected slots:
+public slots:
     void deleteItem( DB::Category* category, const QString& name);
     void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
 
 private:
-    friend class XMLDB::FileWriter;
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)
     QMap<QString, QMap<QString,StringSet> > _members;

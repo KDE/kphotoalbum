@@ -49,7 +49,7 @@
 #include "FileWriter.h"
 
 bool XMLDB::Database::_anyImageWithEmptySize = false;
-XMLDB::Database::Database( const QString& configFile ) : _members( DB::MemberMap( this ) )
+XMLDB::Database::Database( const QString& configFile )
 {
     Utilities::checkForBackupFile( configFile );
     FileReader reader( this );
@@ -59,6 +59,8 @@ XMLDB::Database::Database( const QString& configFile ) : _members( DB::MemberMap
              this, SLOT( deleteItem( DB::Category*, const QString& ) ) );
     connect( categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
              this, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
+
+    setMemberMap( _members );
 }
 
 int XMLDB::Database::totalCount() const
@@ -234,7 +236,14 @@ const DB::MemberMap& XMLDB::Database::memberMap()
 
 void XMLDB::Database::setMemberMap( const DB::MemberMap& members )
 {
+    disconnect( categoryCollection(), 0, &_members, 0 );
+
     _members = members;
+
+    connect( categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
+             &_members, SLOT( deleteItem( DB::Category*, const QString& ) ) );
+    connect( categoryCollection(), SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
+             &_members, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
 }
 
 

@@ -59,7 +59,7 @@
 #include <config.h>
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _memberMap( DB::MemberMap( DB::ImageDB::instance() ) ), _currentCategory( QString::null ), _currentGroup( QString::null )
+    :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createThumbNailPage();
@@ -672,6 +672,12 @@ void Settings::SettingsDialog::createGroupConfig()
 
     // Setup the actions
     _memberMap = DB::ImageDB::instance()->memberMap();
+    connect( DB::ImageDB::instance()->categoryCollection(),
+             SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
+             &_memberMap, SLOT( deleteItem( DB::Category*, const QString& ) ) );
+    connect( DB::ImageDB::instance()->categoryCollection(),
+             SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
+             &_memberMap, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
     connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
     connect( _groups, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
     connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );

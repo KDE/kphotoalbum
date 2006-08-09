@@ -17,10 +17,7 @@
 */
 
 #include "MemberMap.h"
-#include "Settings/SettingsData.h"
-#include <qtimer.h>
-#include "CategoryCollection.h"
-#include "ImageDB.h"
+#include "DB/Category.h"
 
 using namespace DB;
 
@@ -167,7 +164,6 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
             list.insert( newName );
         }
     }
-    DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->renameItem( oldName, newName );
 }
 
 MemberMap::MemberMap( const MemberMap& other )

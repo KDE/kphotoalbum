@@ -21,8 +21,6 @@ Boston, MA 02111-1307, USA.
 
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
-#include "DB/CategoryCollection.h"
-#include "DB/MD5Map.h"
 #include "SQLCategoryCollection.h"
 #include "SQLImageInfoCollection.h"
 #include "SQLMD5Map.h"

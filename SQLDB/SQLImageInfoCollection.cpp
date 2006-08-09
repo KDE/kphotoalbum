@@ -28,6 +28,11 @@ SQLImageInfoCollection::SQLImageInfoCollection(/* DatabaseConnection* connection
 {
 }
 
+SQLImageInfoCollection::~SQLImageInfoCollection()
+{
+    clearCache();
+}
+
 DB::ImageInfoPtr
 SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
 {
@@ -39,19 +44,18 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
         return 0;
     }
 
-    _mutex.lock();
+    // QMutexLocker locker(&_mutex);
     DB::ImageInfoPtr p = _infoPointers[fileId];
     if (!p) {
         p = new SQLImageInfo(fileId);
         _infoPointers.insert(fileId, p);
     }
-    _mutex.unlock();
     return p;
 }
 
 void SQLImageInfoCollection::clearCache()
 {
-    _mutex.lock();
+    // QMutexLocker locker(&_mutex);
     for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
          i != _infoPointers.end(); ++i) {
 
@@ -62,5 +66,29 @@ void SQLImageInfoCollection::clearCache()
             _infoPointers.remove(i);
         }
     }
-    _mutex.unlock();
 }
+
+void SQLImageInfoCollection::deleteTag(DB::Category* category,
+                                       const QString& item)
+{
+    if (category) {
+        // QMutexLocker locker(&_mutex);
+        for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
+             i != _infoPointers.end(); ++i)
+            (*i)->removeOption(category->name(), item);
+    }
+}
+
+void SQLImageInfoCollection::renameTag(DB::Category* category,
+                                       const QString& oldName,
+                                       const QString& newName)
+{
+    if (category) {
+        // QMutexLocker locker(&_mutex);
+        for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
+             i != _infoPointers.end(); ++i)
+            (*i)->renameItem(category->name(), oldName, newName);
+    }
+}
+
+#include "SQLImageInfoCollection.moc"

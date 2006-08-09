@@ -36,6 +36,15 @@ SQLDB::Database::Database( const QString& username, const QString& password ) :_
         throw Error(/* TODO: message */);
     QueryHelper::setup(*connection);
     loadMemberGroups();
+
+    connect(categoryCollection(),
+            SIGNAL(itemRemoved(DB::Category*, const QString&)),
+            &_infoCollection,
+            SLOT(deleteTag(DB::Category*, const QString&)));
+    connect(categoryCollection(),
+            SIGNAL(itemRenamed(DB::Category*, const QString&, const QString&)),
+            &_infoCollection,
+            SLOT(renameTag(DB::Category*, const QString&, const QString&)));
 }
 
 SQLDB::Database::~Database()
@@ -99,6 +108,7 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
 
 void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
 {
+    // TODO: this
 }
 
 QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,

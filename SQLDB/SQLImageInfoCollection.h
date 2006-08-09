@@ -21,23 +21,32 @@
 #define SQLIMAGEINFOCOLLECTION_H
 
 #include "DB/ImageInfoPtr.h"
+#include <qobject.h>
 #include <qmap.h>
-#include <qmutex.h>
+//#include <qmutex.h>
+namespace DB { class Category; }
 
 namespace SQLDB {
-    class SQLImageInfoCollection
+    class SQLImageInfoCollection: public QObject
     {
+        Q_OBJECT
+
     public:
         SQLImageInfoCollection(/* DatabaseConnection* connection */);
+        ~SQLImageInfoCollection();
         DB::ImageInfoPtr getImageInfoOf(const QString& relativeFilename) const;
         void clearCache();
+
+    public slots:
+        void deleteTag(DB::Category* category, const QString& item);
+        void renameTag(DB::Category* category,
+                       const QString& oldName, const QString& newName);
 
     private:
         /* DatabaseConnection* connection; */
         mutable QMap<int, DB::ImageInfoPtr> _infoPointers;
-        mutable QMutex _mutex;
+        // mutable QMutex _mutex;
     };
 }
-
 
 #endif /* SQLIMAGEINFOCOLLECTION_H */

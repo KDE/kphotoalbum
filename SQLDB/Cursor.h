@@ -35,11 +35,9 @@ namespace SQLDB
             _cursor(other._cursor),
             _copies(other._copies)
         {
-            if (!_copies) {
-                _copies = other._copies = new QValueList<const Cursor*>();
-                _copies->append(&other);
-            }
-            _copies->append(this);
+            if (!_copies)
+                _copies = other._copies = new uint(1);
+            ++*_copies;
         }
 
         Cursor& operator=(const Cursor& other)
@@ -47,12 +45,11 @@ namespace SQLDB
             if (&other != this) {
                 this->~Cursor();
                 _cursor = other._cursor;
-                _copies = other._copies;
-                if (!_copies) {
-                    _copies = other._copies = new QValueList<const Cursor*>();
-                    _copies->append(&other);
-                }
-                _copies->append(this);
+                if (!other._copies)
+                    _copies = other._copies = new uint(1);
+                else
+                    _copies = other._copies;
+                ++*_copies;
             }
             return *this;
         }
@@ -60,8 +57,8 @@ namespace SQLDB
         ~Cursor()
         {
             if (_copies) {
-                _copies->remove(this);
-                if (_copies->count() == 0) {
+                --*_copies;
+                if (*_copies == 0) {
                     delete _copies;
                     _copies = 0;
                 }
@@ -89,7 +86,7 @@ namespace SQLDB
 
     private:
         KexiDB::Cursor* _cursor;
-        mutable QValueList<const Cursor*>* _copies;
+        mutable uint* _copies;
     };
 }
 

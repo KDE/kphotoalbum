@@ -25,12 +25,22 @@
 #include <kexidb/connection.h>
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
+#include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 #include "Cursor.h"
+namespace DB {
+    class ImageDate;
+    class ImageSearchInfo;
+    class OptionSimpleMatcher;
+}
 
 namespace SQLDB
 {
+
+typedef QValueList<DB::OptionSimpleMatcher*> MatcherList;
+typedef QValueList<MatcherList> MatcherListList;
+
 
 /** Copy some list to QValueList of QVariants.
  *
@@ -131,6 +141,9 @@ public:
     void moveMediaItems(const QStringList& sourceItems,
                         const QString& destination, bool after);
 
+    QValueList<int> searchMediaItems(const DB::ImageSearchInfo& search,
+                                     int typemask=DB::anyMediaType);
+
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges);
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
@@ -162,6 +175,8 @@ protected:
     void addBlockItem(const QString& relativePath);
     int mediaPlaceByFilename(const QString& relativePath);
     void makeMediaPlacesContinuous();
+    QValueList<int> getMatchingFiles(MatcherList matches,
+                                     int typemask=DB::anyMediaType);
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
                                      const QValueList<int>* idList);

@@ -1,7 +1,6 @@
 #include "Database.h"
 #include "DB/MemberMap.h"
 #include "DB/CategoryCollection.h"
-#include "Query.h"
 #include "DB/ImageInfo.h"
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
@@ -68,7 +67,7 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
     QValueList<int>* scope = 0;
     bool all = (searchInfo.query().count() == 0);
     if (!all) {
-        mediaIds = searchMediaItems(searchInfo);
+        mediaIds = QueryHelper::instance()->searchMediaItems(searchInfo);
         scope = &mediaIds;
     }
 
@@ -80,7 +79,7 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    QValueList<int> matches = searchMediaItems(info);
+    QValueList<int> matches = QueryHelper::instance()->searchMediaItems(info);
     QStringList result;
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
         QString fullPath = QueryHelper::instance()->filenameForId(*it, true);
@@ -103,7 +102,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     bool allFiles = true;
     QValueList<int> includedFiles;
     if ( !info.isNull() ) {
-        includedFiles = searchMediaItems(info, typemask);
+        includedFiles = QueryHelper::instance()->searchMediaItems(info, typemask);
         allFiles = false;
     }
 

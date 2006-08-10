@@ -1,52 +1,53 @@
-#include "Query.h"
+#include "QueryHelper.h"
 #include "DB/ImageSearchInfo.h"
 #include "DB/CategoryMatcher.h"
-#include "QueryHelper.h"
+#include "Utilities/List.h"
 
-typedef QValueList<DB::OptionSimpleMatcher*> MatcherList;
-typedef QValueList<MatcherList> MatcherListList;
+using namespace SQLDB;
+using Utilities::mergeListsUniqly;
+using Utilities::listSubtract;
 
 namespace
 {
-QValueList<int> getMatchingFiles(MatcherList matches,
-                                 int typemask=DB::anyMediaType);
-
-QValueList<int> mergeUniqly(const QValueList<int>& l1,
-                            const QValueList<int>& l2);
-
-QValueList<int> listSubstract(const QValueList<int>& l1,
-                              const QValueList<int>& l2);
-
-void split(const QValueList<DB::OptionSimpleMatcher*>& input,
-           QValueList<DB::OptionSimpleMatcher*>& positiveList,
-           QValueList<DB::OptionSimpleMatcher*>& negativeList);
-
+    void split(const MatcherList& input,
+               MatcherList& positiveList, MatcherList& negativeList)
+    {
+        for (MatcherList::const_iterator it = input.constBegin();
+             it != input.constEnd(); ++it) {
+            DB::OptionValueMatcher* valueMatcher;
+            valueMatcher = dynamic_cast<DB::OptionValueMatcher*>(*it);
+            if (valueMatcher) {
+                if (valueMatcher->_sign)
+                    positiveList.append(valueMatcher);
+                else
+                    negativeList.append(valueMatcher);
+            }
+            else
+                negativeList.append(*it);
+        }
+    }
 }
 
-QValueList<int> SQLDB::searchMediaItems(const DB::ImageSearchInfo& search,
-                                        int typemask)
+QValueList<int>
+QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search, int typemask)
 {
     MatcherListList dnf = search.query();
     // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
 
     if (dnf.count() == 0) {
-        return QueryHelper::instance()->allMediaItemIdsByType(typemask);
+        return allMediaItemIdsByType(typemask);
     }
 
     QValueList<int> r;
     for(MatcherListList::const_iterator i = dnf.begin(); i != dnf.end(); ++i) {
-        r = mergeUniqly(r, getMatchingFiles(*i, typemask));
+        r = mergeListsUniqly(r, getMatchingFiles(*i, typemask));
     }
 
     return r;
 }
 
-namespace
-{
-
-using namespace SQLDB;
-
-QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
+QValueList<int>
+QueryHelper::getMatchingFiles(MatcherList matches, int typemask)
 {
     MatcherList positiveList;
     MatcherList negativeList;
@@ -65,7 +66,7 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
     QStringList positiveQuery;
     QMap<QString, QValueList<int> > matchedTags;
     QStringList matchedFolders;
-    QueryHelper::Bindings binds;
+    Bindings binds;
     for (MatcherList::const_iterator i = positiveList.begin();
          i != positiveList.end(); ++i) {
         DB::OptionValueMatcher* m = static_cast<DB::OptionValueMatcher*>(*i);
@@ -79,8 +80,7 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
         else {
             positiveQuery <<
                 "id IN (SELECT mediaId FROM media_tag WHERE tagId IN (%s))";
-            QValueList<int> tagIds = QueryHelper::instance()->
-                idListForTag(m->_category, m->_option);
+            QValueList<int> tagIds = idListForTag(m->_category, m->_option);
             binds << toVariantList(tagIds);
             matchedTags[m->_category] += tagIds;
         }
@@ -89,7 +89,7 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
     // Negative query
     QStringList negativeQuery;
     QStringList excludeQuery;
-    QueryHelper::Bindings excBinds;
+    Bindings excBinds;
     for (MatcherList::const_iterator i = negativeList.begin();
          i != negativeList.end(); ++i) {
         DB::OptionValueMatcher* m = dynamic_cast<DB::OptionValueMatcher*>(*i);
@@ -104,8 +104,7 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
                 negativeQuery <<
                     "id NOT IN (SELECT mediaId "
                     "FROM media_tag WHERE tagId IN (%s))";
-                binds << toVariantList(QueryHelper::instance()->
-                                       idListForTag(m->_category, m->_option));
+                binds << toVariantList(idListForTag(m->_category, m->_option));
             }
         }
         else {
@@ -115,8 +114,7 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
                     excludedFolders = matchedFolders;
                 }
                 else {
-                    excludedFolders = QueryHelper::instance()->
-                        executeQuery("SELECT path FROM dir").
+                    excludedFolders = executeQuery("SELECT path FROM dir").
                         asStringList();
                 }
                 if (excludedFolders.count() > 0) {
@@ -131,8 +129,7 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
                 if (matchedTags[(*i)->_category].count() > 0) {
                     excludedTags = matchedTags[(*i)->_category];
                 } else {
-                    excludedTags =  QueryHelper::instance()->
-                        tagIdsOfCategory((*i)->_category);
+                    excludedTags = tagIdsOfCategory((*i)->_category);
                 }
                 if (excludedTags.count() > 0) {
                     excludeQuery <<
@@ -158,60 +155,15 @@ QValueList<int> getMatchingFiles(MatcherList matches, int typemask)
 
     query += " ORDER BY place";
 
-    QValueList<int> positive = QueryHelper::instance()->
-        executeQuery(query, binds).asIntegerList();
+    QValueList<int> positive = executeQuery(query, binds).asIntegerList();
 
     if (excludeQuery.count() == 0)
         return positive;
 
-    QValueList<int> negative = QueryHelper::instance()->
+    QValueList<int> negative =
         executeQuery(select + " WHERE " + excludeQuery.join(" AND "),
                      excBinds).asIntegerList();
 
-    return listSubstract(positive, negative);
+    return listSubtract(positive, negative);
 }
 
-
-void split(const QValueList<DB::OptionSimpleMatcher*>& input,
-           QValueList<DB::OptionSimpleMatcher*>& positiveList,
-           QValueList<DB::OptionSimpleMatcher*>& negativeList)
-{
-    for( QValueList<DB::OptionSimpleMatcher*>::ConstIterator it = input.constBegin(); it != input.constEnd(); ++it ) {
-        DB::OptionValueMatcher* valueMatcher;
-        if ( ( valueMatcher = dynamic_cast<DB::OptionValueMatcher*>( *it ) ) ) {
-            if ( valueMatcher->_sign )
-                positiveList.append( valueMatcher );
-            else
-                negativeList.append( valueMatcher );
-        }
-        else
-            negativeList.append( *it );
-    }
-}
-
-QValueList<int> mergeUniqly(const QValueList<int>& l1,
-                            const QValueList<int>& l2)
-{
-    QValueList<int> r;
-    const QValueList<int>* l[2] = {&l1, &l2};
-    for (size_t n = 0; n < 2; ++n) {
-        for (QValueList<int>::const_iterator i = l[n]->begin();
-             i != l[n]->end(); ++i) {
-            if (!r.contains(*i))
-                r << *i;
-        }
-    }
-    return r;
-}
-
-QValueList<int> listSubstract(const QValueList<int>& l1,
-                              const QValueList<int>& l2)
-{
-    QValueList<int> r = l1;
-    for (QValueList<int>::const_iterator i = l2.begin(); i != l2.end(); ++i) {
-        r.remove(*i);
-    }
-    return r;
-}
-
-}

@@ -18,14 +18,12 @@
 
 #include "SearchFolder.h"
 #include <klocale.h>
-#include <kstandarddirs.h>
 #include <kiconloader.h>
 #include "AnnotationDialog/Dialog.h"
 #include "ContentFolder.h"
 #include "DB/ImageDB.h"
 #include <kmessagebox.h>
 #include <kglobal.h>
-#include "DB/ImageInfo.h"
 
 Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )

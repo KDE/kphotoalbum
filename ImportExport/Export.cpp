@@ -36,7 +36,6 @@
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
 #include <kimageio.h>
-#include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include <qbuffer.h>
 #include "XMLHandler.h"

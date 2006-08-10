@@ -18,7 +18,6 @@
 
 #include "Viewer/LineDraw.h"
 #include <qpainter.h>
-#include <qevent.h>
 #include <math.h>
 
 void Viewer::LineDraw::draw( QPainter* painter, QMouseEvent* event )

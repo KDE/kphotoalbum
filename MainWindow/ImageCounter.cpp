@@ -18,7 +18,6 @@
 
 #include "ImageCounter.h"
 #include <klocale.h>
-#include <qlayout.h>
 
 MainWindow::ImageCounter::ImageCounter( QWidget* parent, const char* name )
     :QLabel( parent, name )

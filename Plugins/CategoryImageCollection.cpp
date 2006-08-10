@@ -18,7 +18,6 @@
 
 #include <config.h>
 #ifdef HASKIPI
-#include "DB/ImageInfo.h"
 #include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>
 #include "DB/ImageDB.h"

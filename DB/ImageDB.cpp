@@ -1,7 +1,6 @@
 #include "ImageDB.h"
 #include "XMLDB/Database.h"
 #include <kinputdialog.h>
-#include <kpassdlg.h>
 #include <klocale.h>
 #include <qfileinfo.h>
 #include "Browser/BrowserWidget.h"
@@ -10,7 +9,6 @@
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
-#include <kdebug.h>
 #include <config.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>

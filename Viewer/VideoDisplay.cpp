@@ -17,7 +17,6 @@
 */
 
 #include "VideoDisplay.h"
-#include <qimage.h>
 #include <kmimetype.h>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
@@ -25,8 +24,6 @@
 #include <kmediaplayer/player.h>
 #include <kmimetype.h>
 #include <kuserprofile.h>
-#include <kxmlguibuilder.h>
-#include <kxmlguifactory.h>
 #include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>

@@ -19,47 +19,27 @@
 #include <kdeversion.h>
 #include "Viewer/ViewerWidget.h"
 #include <qlayout.h>
-#include <qlabel.h>
-#include "DB/ImageInfo.h"
-#include "ImageManager/Manager.h"
-#include <qsizepolicy.h>
-#include <qsimplerichtext.h>
-#include <qapplication.h>
-#include <qpainter.h>
-#include <qrect.h>
 #include <qcursor.h>
 #include <qpopupmenu.h>
-#include <qaction.h>
-#include "DisplayArea.h"
-#include <qtoolbar.h>
 #include <ktoolbar.h>
 #include <kiconloader.h>
 #include <kaction.h>
 #include <klocale.h>
 #include "Utilities/Util.h"
-#include <qsignalmapper.h>
 #include "ShowOptionAction.h"
 #include <qtimer.h>
 #include "DrawHandler.h"
 #include <kwin.h>
-#include <kglobalsettings.h>
 #include "SpeedDisplay.h"
-#include <qdesktopwidget.h>
 #include "MainWindow/Window.h"
-#include <qdatetime.h>
 #include "CategoryImageConfig.h"
 #include <dcopref.h>
 #include "MainWindow/ExternalPopup.h"
-#include <kaccel.h>
-#include <kkeydialog.h>
-#include <kapplication.h>
-#include <kglobal.h>
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 #include "InfoBox.h"
 #include <qwidgetstack.h>
 #include "VideoDisplay.h"
-#include "ViewerWidget.h"
 
 
 /**

@@ -18,7 +18,6 @@
 
 #include "SurveyDialog.h"
 #include <qlayout.h>
-#include <qvgroupbox.h>
 #include <qlabel.h>
 #include <qvaluelist.h>
 #include "Question.h"

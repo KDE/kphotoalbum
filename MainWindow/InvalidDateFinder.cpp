@@ -31,7 +31,6 @@
 #include <qeventloop.h>
 #include "Utilities/ShowBusyCursor.h"
 #include <qtextedit.h>
-#include <kdebug.h>
 
 using namespace MainWindow;
 

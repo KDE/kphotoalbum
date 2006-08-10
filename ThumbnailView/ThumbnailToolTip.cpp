@@ -18,13 +18,11 @@
 
 #include "ThumbnailToolTip.h"
 #include <qcursor.h>
-#include <qlayout.h>
 #include "Utilities/Util.h"
 #include <qtooltip.h>
 #include "Settings/SettingsData.h"
 #include <qmime.h>
 #include <qapplication.h>
-#include <qdesktopwidget.h>
 #include "ImageManager/Manager.h"
 #include "DB/ImageInfo.h"
 #include "ThumbnailWidget.h"

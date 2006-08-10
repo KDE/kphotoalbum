@@ -23,7 +23,6 @@
 #include <klineedit.h>
 #include <qlabel.h>
 #include <qspinbox.h>
-#include <qdir.h>
 #include <qfile.h>
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -31,11 +30,8 @@
 #include <qcheckbox.h>
 #include <kfiledialog.h>
 #include <qpushbutton.h>
-#include <qmessagebox.h>
 #include "Settings/SettingsData.h"
 #include <qprogressdialog.h>
-#include <qslider.h>
-#include <qlcdnumber.h>
 #include <qhgroupbox.h>
 #include <kstandarddirs.h>
 #include <krun.h>
@@ -44,9 +40,7 @@
 #include <kmessagebox.h>
 #include <kfileitem.h>
 #include <kio/netaccess.h>
-#include <kio/jobclasses.h>
 #include <qtextedit.h>
-#include <qregexp.h>
 #include <unistd.h>
 #include "Utilities/Util.h"
 #include <kdebug.h>

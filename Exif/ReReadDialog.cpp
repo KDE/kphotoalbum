@@ -20,14 +20,9 @@
 #include <klocale.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include <qradiobutton.h>
 #include <qlayout.h>
-#include <qbuttongroup.h>
-#include <qfile.h>
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "Utilities/Util.h"
 #include "Exif/Database.h"
 
 

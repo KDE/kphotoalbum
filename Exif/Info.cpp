@@ -3,9 +3,6 @@
 #include "exiv2/exif.hpp"
 #include "Utilities/Set.h"
 #include "Settings/SettingsData.h"
-#include <qsqlquery.h>
-#include <iostream>
-#include <sstream>
 #include "Info.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"

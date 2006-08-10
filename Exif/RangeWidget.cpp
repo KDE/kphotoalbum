@@ -1,8 +1,6 @@
 #include "RangeWidget.h"
-#include <qlayout.h>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <math.h> // for NAN
 #include <qgrid.h>
 
 Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QGrid* parent )

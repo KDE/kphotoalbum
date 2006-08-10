@@ -17,7 +17,6 @@
 */
 
 #include "XMLImageDateCollection.h"
-#include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 
 XMLImageDateCollection::XMLImageDateCollection()

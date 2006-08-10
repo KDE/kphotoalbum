@@ -21,8 +21,6 @@
 #include <qlayout.h>
 #include <qstringlist.h>
 #include <qcombobox.h>
-#include "Settings/SettingsData.h"
-#include <qgrid.h>
 #include <qlabel.h>
 #include <klocale.h>
 using namespace ImportExport;

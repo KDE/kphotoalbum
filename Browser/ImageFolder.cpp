@@ -20,8 +20,6 @@
 #include <klocale.h>
 #include "DB/ImageDB.h"
 #include "DB/ImageSearchInfo.h"
-#include "Settings/SettingsData.h"
-#include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "ThumbnailView/ThumbnailWidget.h"

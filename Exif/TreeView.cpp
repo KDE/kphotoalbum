@@ -2,7 +2,6 @@
 #include "Utilities/Set.h"
 #include <qmap.h>
 #include <qstringlist.h>
-#include <klocale.h>
 #include "Exif/Info.h"
 
 Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )

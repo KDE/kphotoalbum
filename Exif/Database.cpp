@@ -9,8 +9,6 @@
 #include "Exif/DatabaseElement.h"
 #include "Database.h"
 #include <qfile.h>
-#include "Utilities/Util.h"
-#include <kstandarddirs.h>
 #include "MainWindow/Window.h"
 #include <kmessagebox.h>
 #include <klocale.h>

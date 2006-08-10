@@ -20,16 +20,13 @@
 #include <klocale.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
-#include <qradiobutton.h>
 #include <qlayout.h>
-#include <qbuttongroup.h>
 #include <qfile.h>
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include "DB/ImageInfo.h"
 #include "Utilities/ShowBusyCursor.h"
-#include <qapplication.h>
 
 using namespace MainWindow;
 

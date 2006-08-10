@@ -7,9 +7,7 @@
 #include "ImageManager/Manager.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageDB.h"
-#include "Utilities/Util.h"
 #include <qcursor.h>
-#include <qapplication.h>
 #include "ThumbnailToolTip.h"
 #include "Browser/BrowserWidget.h"
 #include <klocale.h>

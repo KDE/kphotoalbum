@@ -32,17 +32,13 @@
 #include "Settings/SettingsData.h"
 #include "ImportMatcher.h"
 #include <qcheckbox.h>
-#include <qcombobox.h>
 #include "Utilities/Util.h"
 #include "DB/ImageDB.h"
 #include <qimage.h>
-#include <qwmatrix.h>
 #include "Browser/BrowserWidget.h"
-#include <qdir.h>
 #include <kstandarddirs.h>
 #include <ktempfile.h>
 #include <kurl.h>
-#include <kio/job.h>
 #include <qprogressdialog.h>
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
@@ -51,7 +47,6 @@
 #include "DB/ImageInfo.h"
 #include "MiniViewer.h"
 #include "XMLDB/Database.h"
-#include <kdebug.h>
 
 class KPushButton;
 using namespace ImportExport;

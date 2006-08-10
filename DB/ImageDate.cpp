@@ -17,11 +17,8 @@
 */
 
 #include "ImageDate.h"
-#include <qstringlist.h>
 #include <klocale.h>
-#include "Settings/SettingsData.h"
 #include <qregexp.h>
-#include <kdebug.h>
 
 using namespace DB;
 

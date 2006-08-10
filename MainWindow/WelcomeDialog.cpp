@@ -25,7 +25,6 @@
 #include <kstandarddirs.h>
 #include "Utilities/Util.h"
 #include <klineedit.h>
-#include <ksimpleconfig.h>
 #include <kmessagebox.h>
 #include "kshell.h"
 #include <kapplication.h>

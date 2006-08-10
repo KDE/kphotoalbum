@@ -23,10 +23,7 @@
 #include "ThumbnailView/ThumbnailBuilder.h"
 #include "AnnotationDialog/Dialog.h"
 #include <qdir.h>
-#include <qfile.h>
-#include <qtextstream.h>
 #include <qmessagebox.h>
-#include <qdict.h>
 #include "Viewer/ViewerWidget.h"
 #include "WelcomeDialog.h"
 #include <qcursor.h>
@@ -34,7 +31,6 @@
 #include <klocale.h>
 #include <qhbox.h>
 #include <qwidgetstack.h>
-#include <kstandarddirs.h>
 #include "HtmlExportDialog.h"
 #include <kstatusbar.h>
 #include "ImageCounter.h"
@@ -50,12 +46,10 @@
 #include "DeleteDialog.h"
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
-#include <qregexp.h>
 #include <qpopupmenu.h>
 #include <kiconloader.h>
 #include <kpassdlg.h>
 #include <kkeydialog.h>
-#include <kpopupmenu.h>
 #include <kdebug.h>
 #include "ExternalPopup.h"
 #include "DonateDialog.h"
@@ -64,6 +58,7 @@
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
 #include "ImportExport/Import.h"
+#include <config.h>
 #ifdef HASKIPI
 #  include "Plugins/Interface.h"
 #  include <libkipi/pluginloader.h>
@@ -75,8 +70,6 @@
 #include "ImageManager/ImageLoader.h"
 #include "SplashScreen.h"
 #include <qobjectlist.h>
-#include <qmenubar.h>
-#include <kmenubar.h>
 #include <SearchBar.h>
 #include "TokenEditor.h"
 #include "DB/CategoryCollection.h"
@@ -86,7 +79,6 @@
 #include "InvalidDateFinder.h"
 #include "DB/ImageInfo.h"
 #include "Survey/MySurvey.h"
-#include <config.h>
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #endif

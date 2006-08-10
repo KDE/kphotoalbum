@@ -38,25 +38,20 @@
 #include <qhbox.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
+#include <config.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
-#include <kdebug.h>
-#include <kcolorbutton.h>
 #include "DB/CategoryCollection.h"
 #include "Utilities/ShowBusyCursor.h"
 #include "SettingsDialog.moc"
 #include <kapplication.h>
-#include <kconfig.h>
 #include "MainWindow/Window.h"
 
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #  include "Exif/TreeView.h"
 #endif
-
-#include <qlistview.h>
-#include <config.h>
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )

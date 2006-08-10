@@ -1,11 +1,9 @@
 #include "FeatureDialog.h"
+#include <config.h>
 #include <klocale.h>
 #include <qlayout.h>
-#include <qtextbrowser.h>
 #include <kapplication.h>
-#include <qfeatures.h>
 #include "Exif/Database.h"
-#include <config.h>
 
 using namespace MainWindow;
 

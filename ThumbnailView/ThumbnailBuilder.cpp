@@ -20,8 +20,6 @@
 #include "ImageManager/Manager.h"
 #include "DB/ImageDB.h"
 #include <klocale.h>
-#include "Settings/SettingsData.h"
-#include <qimage.h>
 #include "DB/ImageInfo.h"
 
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )

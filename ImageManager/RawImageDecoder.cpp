@@ -4,7 +4,6 @@
 #include <qfile.h>
 #include <qimage.h>
 #include <qwmatrix.h>
-#include <cstdio>
 #include "Settings/SettingsData.h"
 
 /* Main entry point into raw parser */

@@ -17,12 +17,9 @@
 */
 
 #include "ViewHandler.h"
-#include <qobject.h>
 #include <math.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kapplication.h>
-#include "Utilities/Util.h"
 
 using namespace DateBar;
 

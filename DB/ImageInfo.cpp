@@ -25,22 +25,14 @@ extern "C" {
 
 #include "ImageInfo.h"
 #include <qfileinfo.h>
-#include <qimage.h>
 #include <qdom.h>
 #include "Settings/SettingsData.h"
 #include "Utilities/Util.h"
-#include <kdebug.h>
-#include <qwmatrix.h>
-#include <qvariant.h>
-#include <kmessagebox.h>
-#include <klocale.h>
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
 #include "FileInfo.h"
 #include <qstringlist.h>
 #include "DB/MemberMap.h"
-#include <kcmdlineargs.h>
-#include "XMLDB/XMLCategory.h"
 #include <config.h>
 #include "Exif/Database.h"
 

@@ -3,13 +3,8 @@
 #include <kmainwindow.h>
 #include <qlabel.h>
 #include <klocale.h>
-#include <qlayout.h>
-#include <qtoolbutton.h>
-#include <kglobal.h>
-#include <kiconloader.h>
 #include <kaction.h>
 #include <qapplication.h>
-#include <kstdaction.h>
 #include <kactioncollection.h>
 
 MainWindow::SearchBar::SearchBar( KMainWindow* parent, const char* name )

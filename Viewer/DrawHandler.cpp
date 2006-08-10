@@ -18,8 +18,6 @@
 
 #include "Viewer/DrawHandler.h"
 #include "Settings/SettingsData.h"
-#include "Viewer/Draw.h"
-#include "Viewer/DisplayArea.h"
 #include <qpainter.h>
 #include "Viewer/LineDraw.h"
 #include "Viewer/RectDraw.h"

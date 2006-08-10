@@ -19,21 +19,16 @@
 #include "DateBarWidget.h"
 #include <qdatetime.h>
 #include <qpainter.h>
-#include <qpalette.h>
-#include <qwmatrix.h>
 #include <qfontmetrics.h>
 #include "ViewHandler.h"
 #include <qtoolbutton.h>
 #include <qpopupmenu.h>
 #include <qaction.h>
-#include <qtimer.h>
-#include <qcursor.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <math.h>
 #include <klocale.h>
 #include "Settings/SettingsData.h"
-#include <qapplication.h>
 
 const int borderAboveHistogram = 4;
 const int borderArroundWidget = 0;

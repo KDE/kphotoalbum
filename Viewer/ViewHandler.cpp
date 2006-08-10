@@ -17,9 +17,7 @@
 */
 
 #include "Viewer/ViewHandler.h"
-#include <qevent.h>
 #include <qpainter.h>
-#include "Viewer/DisplayArea.h"
 #include <qapplication.h>
 #include <qcursor.h>
 

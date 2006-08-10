@@ -17,14 +17,12 @@
 */
 
 #include "Settings/SettingsData.h"
-#include <qdir.h>
 #include "MainWindow/Window.h"
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <kimageio.h>
 #include "MainWindow/SplashScreen.h"
-#include <qdatetime.h>
 
 static const KCmdLineOptions options[] =
 {

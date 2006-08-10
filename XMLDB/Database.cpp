@@ -17,34 +17,19 @@
 */
 
 #include "Database.h"
-#include "Utilities/ShowBusyCursor.h"
 #include "Settings/SettingsData.h"
-#include <qfileinfo.h>
-#include <qfile.h>
-#include <qdir.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
-#include <qprogressdialog.h>
-#include <qapplication.h>
-#include <qeventloop.h>
 #include "Browser/BrowserWidget.h"
-#include <qdict.h>
-#include "MainWindow/Window.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 #include "DB/CategoryCollection.h"
 #include "Database.moc"
-#include <kstandarddirs.h>
-#include <qregexp.h>
-#include <stdlib.h>
 #include "XMLCategory.h"
 #include <ksharedptr.h>
 #include "XMLImageDateCollection.h"
-#include <kcmdlineargs.h>
-#include <kdebug.h>
-#include "NumberedBackup.h"
 #include "FileReader.h"
 #include "FileWriter.h"
 

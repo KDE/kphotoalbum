@@ -1,7 +1,6 @@
 #include "CompletableLineEdit.h"
 #include <qregexp.h>
 #include <qlistview.h>
-#include <qapplication.h>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent, const char* name )
     :QLineEdit( parent, name )

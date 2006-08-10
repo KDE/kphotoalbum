@@ -1,6 +1,5 @@
 #include "XMLCategory.h"
 #include "DB/ImageDB.h"
-#include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
 #include <DB/ImageDB.h>
 

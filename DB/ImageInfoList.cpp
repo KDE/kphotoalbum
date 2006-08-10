@@ -3,7 +3,6 @@
 #include <qdatetime.h>
 #include <qvaluelist.h>
 #include "ImageInfo.h"
-#include "ImageDate.h"
 #include <kmessagebox.h>
 #include <klocale.h>
 

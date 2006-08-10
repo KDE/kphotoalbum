@@ -1,8 +1,6 @@
 #include "FileWriter.h"
 #include "Database.h"
-#include "DB/MemberMap.h"
 #include "XMLCategory.h"
-#include "DB/MD5Map.h"
 #include <kmessagebox.h>
 #include "MainWindow/Window.h"
 #include <klocale.h>

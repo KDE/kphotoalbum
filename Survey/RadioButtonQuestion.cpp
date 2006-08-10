@@ -17,7 +17,6 @@
 */
 
 #include "radiobuttonquestion.h"
-#include <qlayout.h>
 #include <qlabel.h>
 #include <qbuttongroup.h>
 #include <qradiobutton.h>

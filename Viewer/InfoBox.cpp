@@ -17,10 +17,7 @@
 */
 
 #include "InfoBox.h"
-#include <qurl.h>
-#include "Viewer/ViewerWidget.h"
 #include "Browser/BrowserWidget.h"
-#include <qfontmetrics.h>
 #include <qapplication.h>
 #include <qtoolbutton.h>
 #include <kglobal.h>

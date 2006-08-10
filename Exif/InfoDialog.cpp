@@ -3,8 +3,6 @@
 #include "Exif/Info.h"
 #include <qlayout.h>
 #include <qpainter.h>
-#include <qtable.h>
-#include <qevent.h>
 #include <qtimer.h>
 #include <qlabel.h>
 #include "ImageManager/Manager.h"

@@ -17,9 +17,6 @@
 */
 
 #include "SettingsData.h"
-#include <qdom.h>
-#include <qfile.h>
-#include <qfileinfo.h>
 #include <qdir.h>
 #include "Utilities/Util.h"
 #include <stdlib.h>
@@ -27,22 +24,17 @@
 #include <klocale.h>
 #include <qapplication.h>
 #include <qcursor.h>
-#include <kstandarddirs.h>
 #include <kiconloader.h>
 #include <kglobal.h>
 #include "DB/ImageDB.h"
-#include <qtextstream.h>
-#include <qregexp.h>
 #include <qmessagebox.h>
 #include "DB/CategoryCollection.h"
 #include <qdatetime.h>
-#include <qnamespace.h>
 #include "DB/ImageInfo.h"
 #include <kapplication.h>
 #include <kconfig.h>
 #include "SettingsData.moc"
 #include "DB/MemberMap.h"
-#include <kdebug.h>
 #include <qpixmapcache.h>
 
 #define STR(x) QString::fromLatin1(x)

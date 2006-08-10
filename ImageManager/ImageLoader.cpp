@@ -24,7 +24,6 @@ Boston, MA 02110-1301, USA.
 #include "Utilities/Util.h"
 #include <qfileinfo.h>
 #include <qapplication.h>
-#include "Settings/SettingsData.h"
 #include <qdir.h>
 
 extern "C" {
@@ -42,7 +41,6 @@ extern "C" {
 
 #include <qwmatrix.h>
 #include <kurl.h>
-#include <kdebug.h>
 #include <kmdcodec.h>
 
 namespace ImageManager

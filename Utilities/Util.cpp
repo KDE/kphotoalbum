@@ -23,10 +23,7 @@ Boston, MA 02110-1301, USA.
 #include <klocale.h>
 #include <qfileinfo.h>
 #include <kmessagebox.h>
-#include <qurl.h>
 #include <kapplication.h>
-#include <unistd.h>
-#include <qmutex.h>
 #include <qdir.h>
 #include <kstandarddirs.h>
 #include <stdlib.h>
@@ -52,12 +49,12 @@ extern "C" {
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 
+#include <config.h>
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
 
 #include <kdebug.h>
-#include <config.h>
 
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the

@@ -31,7 +31,6 @@
 #include "BrowserItemFactory.h"
 #include <qwidgetstack.h>
 #include <qlayout.h>
-#include <qlabel.h>
 #include "DB/CategoryCollection.h"
 #include "AnnotationDialog/ListViewItemHider.h"
 

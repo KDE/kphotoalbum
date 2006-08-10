@@ -2,7 +2,6 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "Utilities/Util.h"
-#include "Utilities/Set.h"
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif

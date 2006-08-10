@@ -20,19 +20,15 @@
 #include "Viewer/DisplayArea.h"
 #include <qpainter.h>
 #include "Settings/SettingsData.h"
-#include "DB/ImageInfo.h"
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
 #include "Viewer/ViewerWidget.h"
-#include <qlabel.h>
 #include "ImageManager/Manager.h"
 #include <qcursor.h>
 #include <qapplication.h>
-#include <klocale.h>
 #include <math.h>
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
-#include <kdebug.h>
 
 /**
    Area displaying the actual image in the viewer.

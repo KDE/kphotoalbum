@@ -3,7 +3,6 @@
 #include <kzip.h>
 #include <kmessagebox.h>
 #include <klocale.h>
-#include <kdebug.h>
 #include <qregexp.h>
 #include <qdir.h>
 #include "Utilities/Util.h"

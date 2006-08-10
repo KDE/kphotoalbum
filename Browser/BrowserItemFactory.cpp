@@ -18,7 +18,6 @@
 
 #include "BrowserItemFactory.h"
 #include "Folder.h"
-#include <klocale.h>
 
 Browser::BrowserIconViewItemFactory::BrowserIconViewItemFactory( QIconView* view )
     :BrowserItemFactory(), _view( view )

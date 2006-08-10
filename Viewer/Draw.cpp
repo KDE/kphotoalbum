@@ -18,7 +18,6 @@
 
 #include "Viewer/Draw.h"
 #include <qevent.h>
-#include <qwidget.h>
 void Viewer::Draw::startDraw( QMouseEvent* event )
 {
     _startPos = event->pos();

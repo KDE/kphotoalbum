@@ -18,23 +18,16 @@
 
 #include "Dialog.h"
 #include "ListSelect.h"
-#include <qspinbox.h>
-#include <qcombobox.h>
-#include <qtextedit.h>
 #include <qpushbutton.h>
-#include <qlineedit.h>
 #include <qlabel.h>
 #include "Settings/SettingsData.h"
 #include "ImagePreview.h"
-#include <qregexp.h>
-#include <qtabwidget.h>
 #include "Viewer/ViewerWidget.h"
 #include <qaccel.h>
 #include <kstandarddirs.h>
 #include "Editor.h"
 #include <klocale.h>
 #include <qlayout.h>
-#include <qsplitter.h>
 #include <kpushbutton.h>
 #include <klineedit.h>
 #include <qpopupmenu.h>
@@ -51,14 +44,12 @@
 #include "KDateEdit.h"
 #include "MainWindow/DeleteDialog.h"
 #include <kguiitem.h>
-#include <kapplication.h>
 #include <qobjectlist.h>
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include <kconfig.h>
 #include "Utilities/Util.h"
 #include "DB/ImageDB.h"
-#include <kdebug.h>
 #include <qfile.h>
 #include <qfileinfo.h>
 

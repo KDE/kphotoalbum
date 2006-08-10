@@ -17,7 +17,6 @@
 */
 
 #include "TypeFolder.h"
-#include "Settings/SettingsData.h"
 #include "DB/ImageDB.h"
 #include "ContentFolder.h"
 #include <klocale.h>

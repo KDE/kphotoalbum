@@ -2,7 +2,6 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qspinbox.h>
-#include <qlineedit.h>
 #include <klocale.h>
 #include "DB/ImageDB.h"
 

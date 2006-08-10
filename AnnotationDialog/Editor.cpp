@@ -17,26 +17,14 @@
 */
 
 #include "Editor.h"
-#include <qlayout.h>
 #include <qtextedit.h>
-#include <ktrader.h>
-#include <kmessagebox.h>
 #include <klocale.h>
-#include <klibloader.h>
-#include <ktexteditor/editinterface.h>
-
-#include <kparts/componentfactory.h>
-#include <qevent.h>
-#include <qapplication.h>
-#include <qtextedit.h>
 #include <ksyntaxhighlighter.h>
 #include <qpopupmenu.h>
 #include <qregexp.h>
 #include <kpopupmenu.h>
 #include <ksconfig.h>
-#include <qlabel.h>
 #include <qcombobox.h>
-#include <qfocusdata.h>
 
 using namespace AnnotationDialog;
 

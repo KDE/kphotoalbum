@@ -18,17 +18,13 @@
 
 #include "ListSelect.h"
 #include <qlayout.h>
-#include <qlineedit.h>
-#include <qlistbox.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qvalidator.h>
-#include "DB/ImageInfo.h"
 #include <qpopupmenu.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
-#include <qapplication.h>
 #include "DB/ImageDB.h"
 #include <kio/job.h>
 #include <qtoolbutton.h>
@@ -36,7 +32,6 @@
 #include <qbuttongroup.h>
 #include "DB/CategoryCollection.h"
 #include "DB/MemberMap.h"
-#include <qinputdialog.h>
 #include <qlistview.h>
 #include <qheader.h>
 #include <Utilities/Set.h>

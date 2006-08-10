@@ -14,6 +14,8 @@
  * @author Jesper Pedersen <blackie@kde.org>
  */
 
+#include "KDateEdit.h"
+
 #include <qevent.h>
 #include <qlineedit.h>
 #include <qapplication.h>
@@ -22,13 +24,10 @@
 #include <kdatepicker.h>
 #include <knotifyclient.h>
 #include <kglobalsettings.h>
-#include <kdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kcalendarsystem.h>
 
-#include "KDateEdit.h"
-#include <qvalidator.h>
 #include "KDateEdit.moc"
 
 

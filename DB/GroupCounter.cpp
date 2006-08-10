@@ -17,8 +17,6 @@
 */
 
 #include "GroupCounter.h"
-#include <qmap.h>
-#include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"

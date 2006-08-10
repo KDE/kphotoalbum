@@ -18,11 +18,7 @@
 
 #include "Manager.h"
 #include "ImageLoader.h"
-#include "Settings/SettingsData.h"
 #include "ImageManager/ImageClient.h"
-#include <qdatetime.h>
-#include <qmutex.h>
-#include <qapplication.h>
 #include "Utilities/Util.h"
 #include "VideoLoader.h"
 

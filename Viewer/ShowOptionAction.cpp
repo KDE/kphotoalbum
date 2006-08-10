@@ -17,7 +17,6 @@
 */
 
 #include "ShowOptionAction.h"
-#include "Settings/SettingsData.h"
 #include <klocale.h>
 #include "DB/ImageDB.h"
 

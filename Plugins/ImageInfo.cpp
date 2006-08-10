@@ -21,7 +21,6 @@
 #include "Plugins/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
-#include <kdebug.h>
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {

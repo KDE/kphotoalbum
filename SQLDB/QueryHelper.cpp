@@ -40,7 +40,7 @@ QueryHelper::Result::Result(KexiDB::Cursor* cursor):
 {
 }
 
-QStringList QueryHelper::Result::asStringList()
+QStringList QueryHelper::Result::asStringList() const
 {
     QStringList r;
     if (_cursor) {
@@ -49,7 +49,7 @@ QStringList QueryHelper::Result::asStringList()
     return r;
 }
 
-QValueList<QString[2]> QueryHelper::Result::asString2List()
+QValueList<QString[2]> QueryHelper::Result::asString2List() const
 {
     QValueList<QString[2]> r;
     if (_cursor) {
@@ -58,7 +58,7 @@ QValueList<QString[2]> QueryHelper::Result::asString2List()
     return r;
 }
 
-QValueList<QString[3]> QueryHelper::Result::asString3List()
+QValueList<QString[3]> QueryHelper::Result::asString3List() const
 {
     QValueList<QString[3]> r;
     if (_cursor) {
@@ -67,7 +67,7 @@ QValueList<QString[3]> QueryHelper::Result::asString3List()
     return r;
 }
 
-QValueList<int> QueryHelper::Result::asIntegerList()
+QValueList<int> QueryHelper::Result::asIntegerList() const
 {
     QValueList<int> r;
     if (_cursor) {
@@ -76,7 +76,8 @@ QValueList<int> QueryHelper::Result::asIntegerList()
     return r;
 }
 
-QValueList< QPair<int, QString> > QueryHelper::Result::asIntegerStringPairs()
+QValueList< QPair<int, QString> >
+QueryHelper::Result::asIntegerStringPairs() const
 {
     QValueList< QPair<int, QString> > r;
     if (_cursor) {
@@ -88,7 +89,7 @@ QValueList< QPair<int, QString> > QueryHelper::Result::asIntegerStringPairs()
     return r;
 }
 
-QVariant QueryHelper::Result::firstItem()
+QVariant QueryHelper::Result::firstItem() const
 {
     QVariant r;
     if (_cursor) {
@@ -99,7 +100,7 @@ QVariant QueryHelper::Result::firstItem()
     return r;
 }
 
-RowData QueryHelper::Result::getRow(uint n)
+RowData QueryHelper::Result::getRow(uint n) const
 {
     if (_cursor) {
         _cursor.selectFirstRow();
@@ -112,11 +113,6 @@ RowData QueryHelper::Result::getRow(uint n)
         }
     }
     throw Error(/* TODO: type and message */);
-}
-
-Cursor QueryHelper::Result::cursor()
-{
-    return _cursor;
 }
 
 
@@ -251,7 +247,7 @@ QString makeFullName(const QString& path, const QString& filename)
 }
 }
 
-QStringList QueryHelper::relativeFilenames()
+QStringList QueryHelper::relativeFilenames() const
 {
     QValueList<QString[2]> dirFilePairs = QueryHelper::instance()->
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
@@ -265,7 +261,7 @@ QStringList QueryHelper::relativeFilenames()
     return r;
 }
 
-QString QueryHelper::filenameForId(int id, bool fullPath)
+QString QueryHelper::filenameForId(int id, bool fullPath) const
 {
     QValueList<QString[2]> dirFilePairs =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
@@ -282,7 +278,7 @@ QString QueryHelper::filenameForId(int id, bool fullPath)
         return fn;
 }
 
-int QueryHelper::idForFilename(const QString& relativePath)
+int QueryHelper::idForFilename(const QString& relativePath) const
 {
     QString path;
     QString filename;
@@ -298,7 +294,8 @@ int QueryHelper::idForFilename(const QString& relativePath)
     return id.toInt();
 }
 
-QValueList<int> QueryHelper::idsForFilenames(const QStringList& relativePaths)
+QValueList<int>
+QueryHelper::idsForFilenames(const QStringList& relativePaths) const
 {
 #if 1
     QStringList paths;
@@ -354,7 +351,7 @@ QStringList QueryHelper::categoryNames() const
     return executeQuery("SELECT name FROM category").asStringList();
 }
 
-QString QueryHelper::categoryForId(int id)
+QString QueryHelper::categoryForId(int id) const
 {
     QVariant r = executeQuery("SELECT name FROM category WHERE id=%s",
                               Bindings() << id).firstItem();
@@ -365,7 +362,7 @@ QString QueryHelper::categoryForId(int id)
         return r.toString();
 }
 
-int QueryHelper::idForCategory(const QString& category)
+int QueryHelper::idForCategory(const QString& category) const
 {
     QVariant r = executeQuery("SELECT id FROM category WHERE name=%s",
                               Bindings() << category).firstItem();
@@ -375,7 +372,7 @@ int QueryHelper::idForCategory(const QString& category)
         return r.toInt();
 }
 
-QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category)
+QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category) const
 {
     return executeQuery("SELECT tag.id FROM tag,category "
                         "WHERE tag.categoryId=category.id AND "
@@ -383,7 +380,7 @@ QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category)
                         Bindings() << category).asIntegerList();
 }
 
-QStringList QueryHelper::tagNamesOfCategory(int categoryId)
+QStringList QueryHelper::tagNamesOfCategory(int categoryId) const
 {
     // Tags with larger place come first. (NULLs last)
     return executeQuery("SELECT name FROM tag "
@@ -391,12 +388,12 @@ QStringList QueryHelper::tagNamesOfCategory(int categoryId)
                         Bindings() << categoryId).asStringList();
 }
 
-QStringList QueryHelper::folders()
+QStringList QueryHelper::folders() const
 {
     return executeQuery("SELECT path FROM dir").asStringList();
 }
 
-uint QueryHelper::mediaItemCount(int typemask, QValueList<int>* scope)
+uint QueryHelper::mediaItemCount(int typemask, QValueList<int>* scope) const
 {
     if (!scope) {
         if (typemask == DB::anyMediaType)
@@ -417,7 +414,7 @@ uint QueryHelper::mediaItemCount(int typemask, QValueList<int>* scope)
     }
 }
 
-QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
+QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask) const
 {
     if (typemask == DB::anyMediaType)
         return executeQuery("SELECT id FROM media ORDER BY place"
@@ -428,7 +425,7 @@ QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
                             Bindings() << typemask).asIntegerList();
 }
 
-void QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
+void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
 {
     RowData row =
         executeQuery("SELECT dir.path, m.filename, m.md5sum, m.type, "
@@ -715,13 +712,13 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
     insertMediaItemDrawings(id, info);
 }
 
-QValueList<int> QueryHelper::directMembers(int tagId)
+QValueList<int> QueryHelper::directMembers(int tagId) const
 {
     return executeQuery("SELECT fromTagId FROM tag_relation WHERE toTagId=%s",
                         Bindings() << tagId).asIntegerList();
 }
 
-int QueryHelper::idForTag(const QString& category, const QString& item)
+int QueryHelper::idForTag(const QString& category, const QString& item) const
 {
     return executeQuery("SELECT tag.id FROM tag,category "
                         "WHERE tag.categoryId=category.id AND "
@@ -730,7 +727,7 @@ int QueryHelper::idForTag(const QString& category, const QString& item)
 }
 
 QValueList<int> QueryHelper::idListForTag(const QString& category,
-                                          const QString& item)
+                                          const QString& item) const
 {
     int tagId = idForTag(category, item);
     QValueList<int> visited, queue;
@@ -780,7 +777,7 @@ void QueryHelper::addBlockItems(const QStringList& relativePaths)
         addBlockItem(*i);
 }
 
-bool QueryHelper::isBlocked(const QString& relativePath)
+bool QueryHelper::isBlocked(const QString& relativePath) const
 {
     QString path;
     QString fn;
@@ -852,13 +849,13 @@ void QueryHelper::changeCategoryViewSize(int id, DB::Category::ViewSize size)
                      Bindings() << size << id);
 }
 
-bool QueryHelper::containsMD5Sum(const QString& md5sum)
+bool QueryHelper::containsMD5Sum(const QString& md5sum) const
 {
     return executeQuery("SELECT count(*) FROM media WHERE md5sum=%s",
                         Bindings() << md5sum).firstItem().toInt();
 }
 
-QString QueryHelper::filenameForMD5Sum(const QString& md5sum)
+QString QueryHelper::filenameForMD5Sum(const QString& md5sum) const
 {
     QValueList<QString[2]> rows =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
@@ -872,7 +869,7 @@ QString QueryHelper::filenameForMD5Sum(const QString& md5sum)
 }
 
 QValueList< QPair<int, QString> >
-QueryHelper::mediaIdTagPairs(const QString& category, int typemask)
+QueryHelper::mediaIdTagPairs(const QString& category, int typemask) const
 {
     if (category == "Folder")
         return executeQuery("SELECT media.id, dir.path FROM media, dir "
@@ -889,7 +886,7 @@ QueryHelper::mediaIdTagPairs(const QString& category, int typemask)
                             ).asIntegerStringPairs();
 }
 
-int QueryHelper::mediaPlaceByFilename(const QString& relativePath)
+int QueryHelper::mediaPlaceByFilename(const QString& relativePath) const
 {
     QString path;
     QString filename;
@@ -1048,21 +1045,23 @@ void QueryHelper::sortMediaItems(const QStringList& relativePaths)
 }
 
 QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
-                                              bool includeRanges)
+                                              bool includeRanges) const
 {
     return findFirstFileInTimeRange(range, includeRanges, 0);
 }
 
-QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
-                                              bool includeRanges,
-                                              const QValueList<int>& idList)
+QString
+QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
+                                      bool includeRanges,
+                                      const QValueList<int>& idList) const
 {
     return findFirstFileInTimeRange(range, includeRanges, &idList);
 }
 
-QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
-                                              bool includeRanges,
-                                              const QValueList<int>* idList)
+QString
+QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
+                                      bool includeRanges,
+                                      const QValueList<int>* idList) const
 {
     QString query =
         "SELECT dir.path, media.filename FROM media, dir "
@@ -1116,7 +1115,7 @@ namespace
 }
 
 QValueList<int>
-QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search, int typemask)
+QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search, int typemask) const
 {
     MatcherListList dnf = search.query();
     // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
@@ -1134,7 +1133,7 @@ QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search, int typemask)
 }
 
 QValueList<int>
-QueryHelper::getMatchingFiles(MatcherList matches, int typemask)
+QueryHelper::getMatchingFiles(MatcherList matches, int typemask) const
 {
     MatcherList positiveList;
     MatcherList negativeList;

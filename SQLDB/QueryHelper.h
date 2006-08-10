@@ -67,17 +67,17 @@ public:
     {
     public:
         Result(KexiDB::Cursor* cursor);
-        QStringList asStringList();
-        QValueList<QString[2]> asString2List();
-        QValueList<QString[3]> asString3List();
-        QValueList<int> asIntegerList();
-        QValueList< QPair<int, QString> > asIntegerStringPairs();
-        QVariant firstItem();
-        RowData getRow(uint n=0);
-        Cursor cursor();
+        QStringList asStringList() const;
+        QValueList<QString[2]> asString2List() const;
+        QValueList<QString[3]> asString3List() const;
+        QValueList<int> asIntegerList() const;
+        QValueList< QPair<int, QString> > asIntegerStringPairs() const;
+        QVariant firstItem() const;
+        RowData getRow(uint n=0) const;
+        Cursor cursor() const { return _cursor; }
 
     private:
-        Cursor _cursor;
+        mutable Cursor _cursor;
     };
 
     static void setup(KexiDB::Connection& connection);
@@ -89,31 +89,32 @@ public:
                         const Bindings& bindings=Bindings()) const;
 
     uint mediaItemCount(int typemask=DB::anyMediaType,
-                        QValueList<int>* scope=0);
-    QValueList<int> allMediaItemIdsByType(int typemask);
-    QStringList relativeFilenames();
+                        QValueList<int>* scope=0) const;
+    QValueList<int> allMediaItemIdsByType(int typemask) const;
+    QStringList relativeFilenames() const;
 
-    int idForFilename(const QString& relativePath);
-    QString filenameForId(int id, bool fullPath=false);
+    int idForFilename(const QString& relativePath) const;
+    QString filenameForId(int id, bool fullPath=false) const;
 
     QStringList categoryNames() const;
 
-    int idForCategory(const QString& category);
-    QString categoryForId(int id);
+    int idForCategory(const QString& category) const;
+    QString categoryForId(int id) const;
 
-    QValueList<int> tagIdsOfCategory(const QString& category);
-    QStringList tagNamesOfCategory(int categoryId);
+    QValueList<int> tagIdsOfCategory(const QString& category) const;
+    QStringList tagNamesOfCategory(int categoryId) const;
 
-    QStringList folders();
+    QStringList folders() const;
 
-    QValueList<int> idListForTag(const QString& category, const QString& item);
+    QValueList<int> idListForTag(const QString& category,
+                                 const QString& item) const;
 
     QValueList<QString[3]> memberGroupConfiguration() const;
 
     QValueList< QPair<int, QString> > mediaIdTagPairs(const QString& category,
-                                                      int typemask);
+                                                      int typemask) const;
 
-    void getMediaItem(int id, DB::ImageInfo& info);
+    void getMediaItem(int id, DB::ImageInfo& info) const;
     void insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items);
     void updateMediaItem(int id, const DB::ImageInfo& info);
     void removeMediaItem(const QString& relativePath);
@@ -131,24 +132,24 @@ public:
     void insertTagFirst(int categoryId, const QString& name);
     void removeTag(int categoryId, const QString& name);
 
-    bool isBlocked(const QString& relativePath);
+    bool isBlocked(const QString& relativePath) const;
     void addBlockItems(const QStringList& relativePaths);
 
-    bool containsMD5Sum(const QString& md5sum);
-    QString filenameForMD5Sum(const QString& md5sum);
+    bool containsMD5Sum(const QString& md5sum) const;
+    QString filenameForMD5Sum(const QString& md5sum) const;
 
     void sortMediaItems(const QStringList& relativePaths);
     void moveMediaItems(const QStringList& sourceItems,
                         const QString& destination, bool after);
 
     QValueList<int> searchMediaItems(const DB::ImageSearchInfo& search,
-                                     int typemask=DB::anyMediaType);
+                                     int typemask=DB::anyMediaType) const;
 
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
-                                     bool includeRanges);
+                                     bool includeRanges) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const QValueList<int>& idList);
+                                     const QValueList<int>& idList) const;
 
 protected:
     KexiDB::Connection *_connection;
@@ -163,23 +164,23 @@ protected:
 
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
-    QValueList<int> idsForFilenames(const QStringList& relativePaths);
-    int idForTag(const QString& category, const QString& item);
+    QValueList<int> idsForFilenames(const QStringList& relativePaths) const;
+    int idForTag(const QString& category, const QString& item) const;
     int insertTag(int categoryId, const QString& name);
     int insertDir(const QString& relativePath);
     void insertMediaItem(const DB::ImageInfo& info, int place=0);
     void insertMediaTag(int mediaId, int tagId);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItemDrawings(int mediaId, const DB::ImageInfo& info);
-    QValueList<int> directMembers(int tagId);
+    QValueList<int> directMembers(int tagId) const;
     void addBlockItem(const QString& relativePath);
-    int mediaPlaceByFilename(const QString& relativePath);
+    int mediaPlaceByFilename(const QString& relativePath) const;
     void makeMediaPlacesContinuous();
     QValueList<int> getMatchingFiles(MatcherList matches,
-                                     int typemask=DB::anyMediaType);
+                                     int typemask=DB::anyMediaType) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const QValueList<int>* idList);
+                                     const QValueList<int>* idList) const;
 
 private:
     static QueryHelper* _instance;

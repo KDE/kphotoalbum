@@ -895,6 +895,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             currentInfo()->removeOption( QString::fromLatin1("Tokens"), token );
         else
             currentInfo()->addOption( QString::fromLatin1("Tokens"), token );
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
         updateInfoBox();
         emit dirty();
     }

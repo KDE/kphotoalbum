@@ -89,7 +89,6 @@ void XMLDB::FileReader::createSpecialCategories()
 
 void XMLDB::FileReader::loadCategories( const QDomElement& elm )
 {
-    createSpecialCategories();
     // options is for KimDaBa 2.1 compatibility
     Q_ASSERT( elm.tagName().lower() == QString::fromLatin1( "categories" ) || elm.tagName().lower() == QString::fromLatin1( "options" ) );
 
@@ -113,14 +112,9 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
                                                         QString::fromLatin1( "1" ) ).toInt();
 
                 DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( name );
-                if ( !cat ) {
-                    // Special categories are already created so they
-                    // should not be created here. Besides they are not
-                    // configurable (they were in previous versions, but
-                    // that is just too much trouble for too litle gain)
-                    cat = new XMLCategory( name, icon, size, type, show );
-                    _db->_categoryCollection.addCategory( cat );
-                }
+                Q_ASSERT ( !cat );
+                cat = new XMLCategory( name, icon, size, type, show );
+                _db->_categoryCollection.addCategory( cat );
 
                 // Read values
                 QStringList items;
@@ -141,6 +135,8 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
             }
         }
     }
+
+    createSpecialCategories();
 }
 
 void XMLDB::FileReader::loadImages( const QDomElement& images )
@@ -189,6 +185,7 @@ void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
             QString category = elm.attribute( QString::fromLatin1( "category" ) );
             if ( category.isNull() )
                 category = elm.attribute( QString::fromLatin1( "option-group" ) ); // compatible with KimDaBa 2.0
+
             QString group = elm.attribute( QString::fromLatin1( "group-name" ) );
             if ( elm.hasAttribute( QString::fromLatin1( "member" ) ) ) {
                 QString member = elm.attribute( QString::fromLatin1( "member" ) );
@@ -272,10 +269,10 @@ void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
 DB::ImageInfoPtr XMLDB::FileReader::load( const QString& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
-    info->createFolderCategoryItem( _db->_categoryCollection.categoryForName(QString::fromLatin1("Folder")), _db->_members );
+    if ( _fileVersion <= 2 )  // The folders changed in file version 3 (KPhotoAlbum post 2.2), so we just regenerate them.
+        info->createFolderCategoryItem( _db->_categoryCollection.categoryForName(QString::fromLatin1("Folder")), _db->_members );
     return info;
 }
-
 
 QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
 {

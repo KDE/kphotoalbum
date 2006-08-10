@@ -24,7 +24,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     }
     else {
         top = doc.createElement( QString::fromLatin1("KPhotoAlbum") );
-        top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "2" ) );
+        top.setAttribute( QString::fromLatin1( "version" ), QString::fromLatin1( "3" ) );
         top.setAttribute( QString::fromLatin1( "compressed" ), Settings::SettingsData::instance()->useCompressedIndexXML() );
     }
     doc.appendChild( top );
@@ -74,13 +74,9 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
         opt.setAttribute( QString::fromLatin1( "viewsize" ), category->viewSize() );
         opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
 
-        if ( category->isSpecialCategory() )
-            continue;
-
         QStringList list = category->items();
         list += _db->_members.groups(name);
         list = Utilities::removeDuplicates( list );
-
 
         for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );

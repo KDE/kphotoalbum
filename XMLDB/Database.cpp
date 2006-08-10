@@ -448,8 +448,6 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, QDomElement elm )
             // option is for KimDaBa 2.1 compatibility
             Q_ASSERT( elmOption.tagName() == QString::fromLatin1("category") || elmOption.tagName() == QString::fromLatin1("option") );
             QString name = elmOption.attribute( QString::fromLatin1("name") );
-            if ( name == QString::fromLatin1( "Folder" ) )
-                continue; // KimDaBa 2.0 save this to the file, that was a mistake.
 
             if ( !name.isNull() )  {
                 // Read values

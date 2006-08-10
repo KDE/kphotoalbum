@@ -479,22 +479,22 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     schema->addField(f);
 
     f = new Field("x0", Field::Integer,
-                  Field::NotNull, Field::Unsigned);
+                  Field::NotNull);
     f->setCaption("first point x coordinate");
     schema->addField(f);
 
     f = new Field("y0", Field::Integer,
-                  Field::NotNull, Field::Unsigned);
+                  Field::NotNull);
     f->setCaption("first point y coordinate");
     schema->addField(f);
 
     f = new Field("x1", Field::Integer,
-                  Field::NotNull, Field::Unsigned);
+                  Field::NotNull);
     f->setCaption("second point x coordinate");
     schema->addField(f);
 
     f = new Field("y1", Field::Integer,
-                  Field::NotNull, Field::Unsigned);
+                  Field::NotNull);
     f->setCaption("second point y coordinate");
     schema->addField(f);
 

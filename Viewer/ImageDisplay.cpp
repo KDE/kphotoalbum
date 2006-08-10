@@ -17,7 +17,7 @@
 */
 
 
-#include "Viewer/DisplayArea.h"
+#include "Viewer/ImageDisplay.h"
 #include <qpainter.h>
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
@@ -785,4 +785,4 @@ void Viewer::ImageDisplay::unbusy()
     _busy = false;
 }
 
-#include "DisplayArea.moc"
+#include "ImageDisplay.moc"

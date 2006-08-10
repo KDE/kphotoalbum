@@ -12,6 +12,8 @@
 #include <config.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>
+#include <kpassdlg.h>
+#include <kdebug.h>
 
 using namespace DB;
 

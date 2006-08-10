@@ -20,7 +20,7 @@
 #define DISPLAYAREAHANDLER_H
 class QMouseEvent;
 #include <qobject.h>
-#include "Viewer/DisplayArea.h"
+#include "Viewer/ImageDisplay.h"
 
 namespace Viewer
 {

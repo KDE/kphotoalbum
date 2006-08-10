@@ -54,43 +54,28 @@ SQLDB::Database::~Database()
 
 int SQLDB::Database::totalCount() const
 {
-    return QueryHelper::instance()->
-        executeQuery("SELECT COUNT(*) FROM media").firstItem().toInt();
+    return QueryHelper::instance()->mediaItemCount();
 }
 
 int SQLDB::Database::totalCount(int typemask) const
 {
-    if (typemask == DB::anyMediaType)
-        return totalCount();
-
-    return QueryHelper::instance()->
-        executeQuery("SELECT COUNT(*) FROM media WHERE type&%s!=0",
-                     QueryHelper::Bindings() << typemask).firstItem().toInt();
+    return QueryHelper::instance()->mediaItemCount(typemask);
 }
 
 DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 {
-    QueryHelper::Bindings bindings;
-    QString rangeCond = "";
+    QValueList<int> mediaIds;
+    QValueList<int>* scope = 0;
     bool all = (searchInfo.query().count() == 0);
     if (!all) {
-        QValueList<int> mediaIds = searchMediaItems(searchInfo);
-        if (mediaIds.count() > 0) {
-            rangeCond = " AND id IN (%s)";
-            bindings << toVariantList(mediaIds);
-        }
+        mediaIds = searchMediaItems(searchInfo);
+        scope = &mediaIds;
     }
 
-    DB::MediaType types[] = {DB::Image, DB::Video};
-    int count[2];
-    for (size_t i = 0; i < 2; ++i) {
-        count[i] = QueryHelper::instance()->
-            executeQuery("SELECT COUNT(*) FROM media "
-                         "WHERE type=%s" + rangeCond,
-                         (QueryHelper::Bindings() << types[i]) + bindings).
-            firstItem().asInt();
-    }
-    return DB::MediaCount(count[0], count[1]);
+    return DB::MediaCount(QueryHelper::instance()->
+                          mediaItemCount(DB::Image, scope),
+                          QueryHelper::instance()->
+                          mediaItemCount(DB::Video, scope));
 }
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
@@ -253,12 +238,8 @@ void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
 
 void SQLDB::Database::loadMemberGroups()
 {
-    QValueList<QString[3]> l = QueryHelper::instance()->
-        executeQuery("SELECT c.name, t.name, f.name "
-                     "FROM tag_relation tr, tag t, tag f, category c "
-                     "WHERE tr.toTagId=t.id AND "
-                     "tr.fromTagId=f.id AND "
-                     "t.categoryId=c.id").asString3List();
+    QValueList<QString[3]> l =
+        QueryHelper::instance()->memberGroupConfiguration();
     for (QValueList<QString[3]>::const_iterator i = l.begin();
          i != l.end(); ++i)
         _members.addMemberToGroup((*i)[0], (*i)[1], (*i)[2]);

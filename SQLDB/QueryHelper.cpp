@@ -140,7 +140,7 @@ QueryHelper* QueryHelper::instance()
     return _instance;
 }
 
-QString QueryHelper::sqlRepresentation(const QVariant& x)
+QString QueryHelper::sqlRepresentation(const QVariant& x) const
 {
     if (x.type() == QVariant::List) {
         QStringList repr;
@@ -159,7 +159,7 @@ QString QueryHelper::sqlRepresentation(const QVariant& x)
         return _driver->valueToSQL(fieldTypeFor(x), x);
 }
 
-void QueryHelper::bindValues(QString &s, const Bindings& b)
+void QueryHelper::bindValues(QString &s, const Bindings& b) const
 {
     int n = 0;
     for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
@@ -187,7 +187,7 @@ void QueryHelper::executeStatement(const QString& statement,
 }
 
 QueryHelper::Result QueryHelper::executeQuery(const QString& query,
-                                              const Bindings& bindings)
+                                              const Bindings& bindings) const
 {
     QString q = query;
     bindValues(q, bindings);
@@ -344,6 +344,11 @@ QValueList<int> QueryHelper::idsForFilenames(const QStringList& relativePaths)
 #endif
 }
 
+QStringList QueryHelper::categoryNames() const
+{
+    return executeQuery("SELECT name FROM category").asStringList();
+}
+
 QString QueryHelper::categoryForId(int id)
 {
     QVariant r = executeQuery("SELECT name FROM category WHERE id=%s",
@@ -384,6 +389,27 @@ QStringList QueryHelper::tagNamesOfCategory(int categoryId)
 QStringList QueryHelper::folders()
 {
     return executeQuery("SELECT path FROM dir").asStringList();
+}
+
+uint QueryHelper::mediaItemCount(int typemask, QValueList<int>* scope)
+{
+    if (!scope) {
+        if (typemask == DB::anyMediaType)
+            return executeQuery("SELECT COUNT(*) FROM media"
+                                ).firstItem().toUInt();
+        else
+            return executeQuery("SELECT COUNT(*) FROM media WHERE type&%s!=0",
+                                Bindings() << typemask).firstItem().toUInt();
+    }
+    else {
+        if (scope->count() == 0)
+            return 0; // Empty scope contains no media items
+        else
+            return executeQuery("SELECT COUNT(*) FROM media "
+                                "WHERE type&%s!=0 AND id IN (%s)",
+                                Bindings() << typemask << toVariantList(*scope)
+                                ).firstItem().toUInt();
+    }
 }
 
 QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
@@ -720,6 +746,15 @@ QValueList<int> QueryHelper::idListForTag(const QString& category,
     return visited;
 }
 
+QValueList<QString[3]> QueryHelper::memberGroupConfiguration() const
+{
+    return executeQuery("SELECT c.name, t.name, f.name "
+                        "FROM tag_relation tr, tag t, tag f, category c "
+                        "WHERE tr.toTagId=t.id AND "
+                        "tr.fromTagId=f.id AND "
+                        "t.categoryId=c.id").asString3List();
+}
+
 void QueryHelper::addBlockItem(const QString& relativePath)
 {
     QString path;
@@ -763,6 +798,53 @@ void QueryHelper::removeMediaItem(const QString& relativePath)
     executeStatement("DELETE FROM media_tag WHERE mediaId=%s",
                      Bindings() << id);
     executeStatement("DELETE FROM media WHERE id=%s", Bindings() << id);
+}
+
+void QueryHelper::insertCategory(const QString& name,
+                                 const QString& icon, bool visible,
+                                 DB::Category::ViewType type,
+                                 DB::Category::ViewSize size)
+{
+    executeStatement("INSERT INTO category (name, icon, visible, "
+                     "viewtype, viewsize) VALUES(%s, %s, %s, %s, %s)",
+                     Bindings() << name << icon << visible << type << size);
+}
+
+void QueryHelper::removeCategory(const QString& name)
+{
+    int id = idForCategory(name);
+    executeStatement("DELETE FROM tag WHERE categoryId=%s", Bindings() << id);
+    executeStatement("DELETE FROM category WHERE id=%s", Bindings() << id);
+}
+
+void QueryHelper::changeCategoryName(int id, const QString& newName)
+{
+    executeStatement("UPDATE category SET name=%s WHERE id=%s",
+                     Bindings() << newName << id);
+}
+
+void QueryHelper::changeCategoryIcon(int id, const QString& icon)
+{
+    executeStatement("UPDATE category SET icon=%s WHERE id=%s",
+                     Bindings() << icon << id);
+}
+
+void QueryHelper::changeCategoryVisible(int id, bool visible)
+{
+    executeStatement("UPDATE category SET visible=%s WHERE id=%s",
+                     Bindings() << visible << id);
+}
+
+void QueryHelper::changeCategoryViewType(int id, DB::Category::ViewType type)
+{
+    executeStatement("UPDATE category SET viewtype=%s WHERE id=%s",
+                     Bindings() << type << id);
+}
+
+void QueryHelper::changeCategoryViewSize(int id, DB::Category::ViewSize size)
+{
+    executeStatement("UPDATE category SET viewsize=%s WHERE id=%s",
+                     Bindings() << size << id);
 }
 
 bool QueryHelper::containsMD5Sum(const QString& md5sum)

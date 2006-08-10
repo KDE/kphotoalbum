@@ -33,9 +33,7 @@ QString SQLDB::SQLCategory::name() const
 
 void SQLDB::SQLCategory::setName(const QString& name)
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET name=%s WHERE id=%s",
-                         QueryHelper::Bindings() << name << _categoryId);
+    QueryHelper::instance()->changeCategoryName(_categoryId, name);
     emit changed();
 }
 
@@ -49,9 +47,7 @@ QString SQLDB::SQLCategory::iconName() const
 
 void SQLDB::SQLCategory::setIconName(const QString& name)
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET icon=%s WHERE id=%s",
-                         QueryHelper::Bindings() << name << _categoryId);
+    QueryHelper::instance()->changeCategoryIcon(_categoryId, name);
     emit changed();
 }
 
@@ -66,9 +62,7 @@ DB::Category::ViewSize SQLDB::SQLCategory::viewSize() const
 
 void SQLDB::SQLCategory::setViewSize(ViewSize size)
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET viewsize=%s WHERE id=%s",
-                         QueryHelper::Bindings() << size << _categoryId);
+    QueryHelper::instance()->changeCategoryViewSize(_categoryId, size);
     emit changed();
 }
 
@@ -83,9 +77,7 @@ DB::Category::ViewType SQLDB::SQLCategory::viewType() const
 
 void SQLDB::SQLCategory::setViewType(ViewType type)
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET viewtype=%s WHERE id=%s",
-                         QueryHelper::Bindings() << type << _categoryId);
+    QueryHelper::instance()->changeCategoryViewType(_categoryId, type);
     emit changed();
 }
 
@@ -99,9 +91,7 @@ bool SQLDB::SQLCategory::doShow() const
 
 void SQLDB::SQLCategory::setDoShow(bool b)
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE category SET visible=%s WHERE id=%s",
-                         QueryHelper::Bindings() << b << _categoryId);
+    QueryHelper::instance()->changeCategoryVisible(_categoryId, b);
     emit changed();
 }
 

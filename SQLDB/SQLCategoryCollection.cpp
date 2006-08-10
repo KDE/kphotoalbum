@@ -37,27 +37,17 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
 
 QStringList SQLDB::SQLCategoryCollection::categoryNames() const
 {
-    QStringList l = QueryHelper::instance()->
-        executeQuery("SELECT name FROM category").asStringList();
-    l.sort();
-    return l;
+    return QueryHelper::instance()->categoryNames();
 }
 
 void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
 {
-    int id;
     try {
-        id = QueryHelper::instance()->idForCategory(name);
+        QueryHelper::instance()->removeCategory(name);
     }
     catch (NotFoundError&) {
         return;
     }
-    QueryHelper::instance()->
-        executeStatement("DELETE FROM tag WHERE categoryId=%s",
-                         QueryHelper::Bindings() << id);
-    QueryHelper::instance()->
-        executeStatement("DELETE FROM category WHERE id=%s",
-                         QueryHelper::Bindings() << id);
 
     emit categoryCollectionChanged();
 }
@@ -80,16 +70,20 @@ QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, DB::Category::ViewSize size,
                                                 DB::Category::ViewType type, bool showIt )
 {
-    QueryHelper::instance()->
-        executeStatement("DELETE FROM category WHERE name=%s",
-                         QueryHelper::Bindings() << category);
-    QueryHelper::instance()->
-        executeStatement("INSERT INTO category(name, icon, "
-                         "visible, viewtype, viewsize) "
-                         "VALUES(%s, %s, %s, %s, %s)",
-                         QueryHelper::Bindings() << category << icon <<
-                         size << type << showIt);
-
+    try {
+        QueryHelper::instance()->
+            insertCategory(category, icon, showIt, type, size);
+    }
+    catch (SQLError& e) {
+        // Check if error occured, because category already exists
+        try {
+            QueryHelper::instance()->idForCategory(category);
+        }
+        catch (Error&) {
+            throw e; // Throw the original error
+        }
+        return; // Don't overwrite existing category
+    }
     emit categoryCollectionChanged();
 }
 

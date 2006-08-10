@@ -1,3 +1,8 @@
+2006-08-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* In the viewer it is now possible to use mouse wheel to scroll to
+	the next/prev image. (Thanks to Christoph Moseler for a patch).
+
 2006-07-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Make it possible to set a category image for sub categories.

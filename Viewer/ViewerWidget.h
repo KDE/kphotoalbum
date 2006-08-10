@@ -63,6 +63,7 @@ protected:
     virtual void contextMenuEvent ( QContextMenuEvent * e );
     virtual void resizeEvent( QResizeEvent* );
     virtual void keyPressEvent( QKeyEvent* );
+    virtual void wheelEvent( QWheelEvent* event );
 
     void moveInfoBox();
     void createToolBar();

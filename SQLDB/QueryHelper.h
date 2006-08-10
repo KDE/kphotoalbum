@@ -94,7 +94,7 @@ public:
     QStringList relativeFilenames() const;
 
     int idForFilename(const QString& relativePath) const;
-    QString filenameForId(int id, bool fullPath=false) const;
+    QString filenameForId(int id) const;
 
     QStringList categoryNames() const;
 

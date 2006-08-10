@@ -20,7 +20,6 @@
 #include "QueryHelper.h"
 #include "KexiHelpers.h"
 #include "QueryErrors.h"
-#include "Settings/SettingsData.h"
 #include "Viewer/CircleDraw.h"
 #include "Viewer/LineDraw.h"
 #include "Viewer/RectDraw.h"
@@ -261,7 +260,7 @@ QStringList QueryHelper::relativeFilenames() const
     return r;
 }
 
-QString QueryHelper::filenameForId(int id, bool fullPath) const
+QString QueryHelper::filenameForId(int id) const
 {
     QValueList<QString[2]> dirFilePairs =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
@@ -270,12 +269,7 @@ QString QueryHelper::filenameForId(int id, bool fullPath) const
     if (dirFilePairs.count() == 0)
         throw NotFoundError(/* TODO: message */);
 
-    QString fn = makeFullName(dirFilePairs[0][0], dirFilePairs[0][1]);
-
-    if (fullPath)
-        return Settings::SettingsData::instance()->imageDirectory() + fn;
-    else
-        return fn;
+    return makeFullName(dirFilePairs[0][0], dirFilePairs[0][1]);
 }
 
 int QueryHelper::idForFilename(const QString& relativePath) const

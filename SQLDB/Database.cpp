@@ -127,7 +127,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
     QValueList< QPair<int, QString> > mediaIdTagPairs =
-        QueryHelper::instance()->getMediaIdTagPairs(category, typemask);
+        QueryHelper::instance()->mediaIdTagPairs(category, typemask);
 
     QMap<int,QStringList> itemMap;
     for (QValueList< QPair<int, QString> >::const_iterator

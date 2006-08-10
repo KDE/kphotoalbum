@@ -119,7 +119,7 @@ void SQLDB::SQLCategory::setSpecialCategory(bool b)
 
 QStringList SQLDB::SQLCategory::items() const
 {
-    return QueryHelper::instance()->membersOfCategory(_categoryId);
+    return QueryHelper::instance()->tagNamesOfCategory(_categoryId);
 }
 
 void SQLDB::SQLCategory::setItems(const QStringList& items)

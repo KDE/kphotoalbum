@@ -140,14 +140,14 @@ QueryHelper* QueryHelper::instance()
     return _instance;
 }
 
-QString QueryHelper::getSQLRepresentation(const QVariant& x)
+QString QueryHelper::sqlRepresentation(const QVariant& x)
 {
     if (x.type() == QVariant::List) {
         QStringList repr;
         QValueList<QVariant> l = x.toList();
         for (QValueList<QVariant>::const_iterator i = l.begin();
              i != l.end(); ++i) {
-            repr << getSQLRepresentation(*i);
+            repr << sqlRepresentation(*i);
         }
         if (repr.count() == 0)
             return "NULL";
@@ -168,7 +168,7 @@ void QueryHelper::bindValues(QString &s, const Bindings& b)
         } while (n >= 1 && s.at(n - 1) == '%');
         if (n == -1)
             break;
-        s = s.replace(n, 2, getSQLRepresentation(*i));
+        s = s.replace(n, 2, sqlRepresentation(*i));
     }
 }
 
@@ -373,7 +373,7 @@ QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category)
                         Bindings() << category).asIntegerList();
 }
 
-QStringList QueryHelper::membersOfCategory(int categoryId)
+QStringList QueryHelper::tagNamesOfCategory(int categoryId)
 {
     // Tags with larger place come first. (NULLs last)
     return executeQuery("SELECT name FROM tag "
@@ -381,28 +381,20 @@ QStringList QueryHelper::membersOfCategory(int categoryId)
                         Bindings() << categoryId).asStringList();
 }
 
-QStringList QueryHelper::membersOfCategory(const QString& category)
-{
-    return executeQuery("SELECT tag.name FROM tag,category "
-                        "WHERE tag.categoryId=category.id AND "
-                        "category.name=%s",
-                        Bindings() << category).asStringList();
-}
-
 QStringList QueryHelper::folders()
 {
     return executeQuery("SELECT path FROM dir").asStringList();
 }
 
-QValueList<int> QueryHelper::allMediaItemIds()
-{
-    return executeQuery("SELECT id FROM media ORDER BY place").asIntegerList();
-}
-
 QValueList<int> QueryHelper::allMediaItemIdsByType(int typemask)
 {
-    return executeQuery("SELECT id FROM media WHERE type&%s!=0 ORDER BY place",
-                        Bindings() << typemask).asIntegerList();
+    if (typemask == DB::anyMediaType)
+        return executeQuery("SELECT id FROM media ORDER BY place"
+                            ).asIntegerList();
+    else
+        return executeQuery("SELECT id FROM media "
+                            "WHERE type&%s!=0 ORDER BY place",
+                            Bindings() << typemask).asIntegerList();
 }
 
 void QueryHelper::getMediaItem(int id, DB::ImageInfo& info)
@@ -692,7 +684,7 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
     insertMediaItemDrawings(id, info);
 }
 
-QValueList<int> QueryHelper::getDirectMembers(int tagId)
+QValueList<int> QueryHelper::directMembers(int tagId)
 {
     return executeQuery("SELECT fromTagId FROM tag_relation WHERE toTagId=%s",
                         Bindings() << tagId).asIntegerList();
@@ -714,7 +706,7 @@ QValueList<int> QueryHelper::idListForTag(const QString& category,
     visited << tagId;
     queue << tagId;
     while (!queue.empty()) {
-        QValueList<int> adj = getDirectMembers(queue.first());
+        QValueList<int> adj = directMembers(queue.first());
         queue.pop_front();
         QValueListConstIterator<int> adjEnd(adj.constEnd());
         for (QValueList<int>::const_iterator a = adj.constBegin();
@@ -793,7 +785,7 @@ QString QueryHelper::filenameForMD5Sum(const QString& md5sum)
 }
 
 QValueList< QPair<int, QString> >
-QueryHelper::getMediaIdTagPairs(const QString& category, int typemask)
+QueryHelper::mediaIdTagPairs(const QString& category, int typemask)
 {
     if (category == "Folder")
         return executeQuery("SELECT media.id, dir.path FROM media, dir "

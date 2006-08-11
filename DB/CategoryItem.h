@@ -16,11 +16,11 @@ public:
         }
     }
 
-    CategoryItem* clone()
+    CategoryItem* clone() const
     {
         CategoryItem* result = new CategoryItem( _name );
         for( QValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
-            _subcategories.append( (*it)->clone() );
+            result->_subcategories.append( (*it)->clone() );
         }
         return result;
     }

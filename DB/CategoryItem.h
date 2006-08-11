@@ -16,6 +16,16 @@ public:
         }
     }
 
+    CategoryItem* clone()
+    {
+        CategoryItem* result = new CategoryItem( _name );
+        for( QValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+            _subcategories.append( (*it)->clone() );
+        }
+        return result;
+    }
+
+
     void print( int offset )
     {
         QString spaces;

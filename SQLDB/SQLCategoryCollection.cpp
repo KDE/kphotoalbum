@@ -9,7 +9,7 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
 {
     int categoryId;
     try {
-        categoryId = QueryHelper::instance()->idForCategory(name);
+        categoryId = QueryHelper::instance()->categoryId(name);
     }
     catch (NotFoundError&) {
         return 0;
@@ -77,7 +77,7 @@ void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const Q
     catch (SQLError& e) {
         // Check if error occured, because category already exists
         try {
-            QueryHelper::instance()->idForCategory(category);
+            QueryHelper::instance()->categoryId(category);
         }
         catch (Error&) {
             throw e; // Throw the original error

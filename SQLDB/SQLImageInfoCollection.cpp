@@ -38,7 +38,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
 {
     int fileId;
     try {
-        fileId = QueryHelper::instance()->idForFilename(relativeFilename);
+        fileId = QueryHelper::instance()->mediaItemId(relativeFilename);
     }
     catch (NotFoundError& e) {
         return 0;

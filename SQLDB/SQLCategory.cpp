@@ -28,7 +28,7 @@ SQLDB::SQLCategory::SQLCategory(int categoryId):
 
 QString SQLDB::SQLCategory::name() const
 {
-    return QueryHelper::instance()->categoryForId(_categoryId);
+    return QueryHelper::instance()->categoryName(_categoryId);
 }
 
 void SQLDB::SQLCategory::setName(const QString& name)
@@ -39,10 +39,7 @@ void SQLDB::SQLCategory::setName(const QString& name)
 
 QString SQLDB::SQLCategory::iconName() const
 {
-    return QueryHelper::instance()->
-        executeQuery("SELECT icon FROM category WHERE id=%s",
-                     QueryHelper::Bindings() << _categoryId
-                     ).firstItem().toString();
+    return QueryHelper::instance()->categoryIcon(_categoryId);
 }
 
 void SQLDB::SQLCategory::setIconName(const QString& name)
@@ -53,11 +50,7 @@ void SQLDB::SQLCategory::setIconName(const QString& name)
 
 DB::Category::ViewSize SQLDB::SQLCategory::viewSize() const
 {
-    return static_cast<DB::Category::ViewSize>
-        (QueryHelper::instance()->
-         executeQuery("SELECT viewsize FROM category WHERE id=%s",
-                      QueryHelper::Bindings() << _categoryId
-                      ).firstItem().toInt());
+    return QueryHelper::instance()->categoryViewSize(_categoryId);
 }
 
 void SQLDB::SQLCategory::setViewSize(ViewSize size)
@@ -68,11 +61,7 @@ void SQLDB::SQLCategory::setViewSize(ViewSize size)
 
 DB::Category::ViewType SQLDB::SQLCategory::viewType() const
 {
-    return static_cast<DB::Category::ViewType>
-        (QueryHelper::instance()->
-         executeQuery("SELECT viewtype FROM category WHERE id=%s",
-                      QueryHelper::Bindings() << _categoryId
-                      ).firstItem().toInt());
+    return QueryHelper::instance()->categoryViewType(_categoryId);
 }
 
 void SQLDB::SQLCategory::setViewType(ViewType type)
@@ -83,10 +72,7 @@ void SQLDB::SQLCategory::setViewType(ViewType type)
 
 bool SQLDB::SQLCategory::doShow() const
 {
-    return QueryHelper::instance()->
-        executeQuery("SELECT visible FROM category WHERE id=%s",
-                     QueryHelper::Bindings() << _categoryId
-                     ).firstItem().toInt();
+    return QueryHelper::instance()->categoryVisible(_categoryId);
 }
 
 void SQLDB::SQLCategory::setDoShow(bool b)
@@ -119,7 +105,7 @@ void SQLDB::SQLCategory::setItems(const QStringList& items)
                          QueryHelper::Bindings() << _categoryId);
 
     uint place = items.count();
-    for(QStringList::const_iterator it = items.begin();
+    for (QStringList::const_iterator it = items.begin();
         it != items.end(); ++it ) {
         QueryHelper::instance()->
             executeStatement("INSERT INTO tag(name, categoryId, place) "

@@ -83,7 +83,7 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
     QStringList result;
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
-        QString fullPath = imageRoot + QueryHelper::instance()->filenameForId(*it);
+        QString fullPath = imageRoot + QueryHelper::instance()->mediaItemFilename(*it);
         if (requireOnDisk && !QFileInfo(fullPath).exists())
             continue;
         result.append(fullPath);
@@ -148,7 +148,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
 
 QStringList SQLDB::Database::imageList( bool withRelativePath )
 {
-    QStringList relativePaths = QueryHelper::instance()->relativeFilenames();
+    QStringList relativePaths = QueryHelper::instance()->filenames();
     if (withRelativePath)
         return relativePaths;
     else {
@@ -285,7 +285,7 @@ SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
         for (QValueVector<QString>::const_iterator i = images.begin();
              i != images.end(); ++i) {
             idList << QueryHelper::instance()->
-                idForFilename(Utilities::stripImageDirectory(*i));
+                mediaItemId(Utilities::stripImageDirectory(*i));
         }
         return Settings::SettingsData::instance()->imageDirectory() +
             QueryHelper::instance()->

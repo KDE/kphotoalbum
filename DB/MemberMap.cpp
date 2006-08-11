@@ -73,25 +73,16 @@ bool MemberMap::isGroup( const QString& category, const QString& item ) const
 }
 
 
-QMap<QString,QStringList> convert( const QMap<QString,StringSet>& map )
-{
-    QMap<QString,QStringList> res;
-    for( QMap<QString,StringSet>::ConstIterator it = map.begin(); it != map.end(); ++it ) {
-        res.insert( it.key(), it.data().toList() );
-    }
-    return res;
-}
-
 /**
    return a map from groupName to list of items for category
    example: { USA |-> [Chicago, Grand Canyon, Santa Clara], Denmark |-> [Esbjerg, Odense] }
 */
-QMap<QString,QStringList> MemberMap::groupMap( const QString& category ) const
+QMap<QString,StringSet> MemberMap::groupMap( const QString& category ) const
 {
     if ( _dirty )
         calculate();
 
-    return convert( _closureMembers[category] );
+    return _closureMembers[category];
 }
 
 /**
@@ -114,16 +105,6 @@ QStringList MemberMap::calculateClosure( QMap<QString,StringSet>& resultSoFar, c
         }
     }
 
-#ifdef TEMPORARILY_REMOVED
-    StringSet uniq;
-    for( StringSet::Iterator it = result.begin(); it != result.end(); ++it ) {
-        if ( !uniq.contains(*it) )
-            uniq*it;
-    }
-    resultSoFar[group] = uniq;
-    return uniq;
-#endif
-
     resultSoFar[group] = result;
     return result.toList();
 }
@@ -136,7 +117,9 @@ void MemberMap::calculate() const
 {
     _closureMembers.clear();
     // run through all categories
-    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator categoryIt= _members.begin(); categoryIt != _members.end(); ++categoryIt ) {
+    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator categoryIt= _members.begin();
+         categoryIt != _members.end(); ++categoryIt ) {
+
         QString category = categoryIt.key();
         QMap<QString, StringSet> groupMap = categoryIt.data();
 

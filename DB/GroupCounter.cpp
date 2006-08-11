@@ -53,7 +53,7 @@ using namespace DB;
 GroupCounter::GroupCounter( const QString& category )
 {
     const MemberMap map = DB::ImageDB::instance()->memberMap();
-    QMap<QString,QStringList> groupToMemberMap = map.groupMap(category);
+    QMap<QString,StringSet> groupToMemberMap = map.groupMap(category);
 
     _memberToGroup.resize( 2729 /* A large prime */ );
     _groupCount.resize( 2729 /* A large prime */ );
@@ -61,15 +61,17 @@ GroupCounter::GroupCounter( const QString& category )
     _groupCount.setAutoDelete( true );
 
     // Populate the _memberToGroup map
-    for( QMapIterator<QString,QStringList> it= groupToMemberMap.begin(); it != groupToMemberMap.end(); ++it ) {
-        QStringList list = it.data();
-        QString group = it.key();
+    for( QMapIterator<QString,StringSet> groupToMemberIt= groupToMemberMap.begin();
+         groupToMemberIt != groupToMemberMap.end(); ++groupToMemberIt ) {
 
-        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            QStringList* item = _memberToGroup[*it2];
+        StringSet members = groupToMemberIt.data();
+        QString group = groupToMemberIt.key();
+
+        for( StringSet::Iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
+            QStringList* item = _memberToGroup[*memberIt];
             if ( !item ) {
                 item = new QStringList;
-                _memberToGroup.insert(*it2, item );
+                _memberToGroup.insert(*memberIt, item );
             }
 
             *item->append( group );

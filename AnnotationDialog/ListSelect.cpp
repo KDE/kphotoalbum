@@ -38,7 +38,6 @@
 #include "CompletableLineEdit.h"
 #include "DB/CategoryItem.h"
 #include "ListViewItemHider.h"
-#include "KeyClickListener.h"
 #include "ShowSelectionOnlyManager.h"
 
 using namespace AnnotationDialog;
@@ -113,17 +112,8 @@ AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* pare
     connect( Settings::SettingsData::instance(), SIGNAL( viewSortTypeChanged( Settings::ViewSortType ) ),
              this, SLOT( setViewSortType( Settings::ViewSortType ) ) );
 
-    KeyClickListener* listener = new KeyClickListener( Key_Control, this );
     connect( &ShowSelectionOnlyManager::instance(), SIGNAL( limitToSelected() ), this, SLOT(limitToSelection() ) );
     connect( &ShowSelectionOnlyManager::instance(), SIGNAL( broaden() ), this, SLOT( showAllChildren() ) );
-    connect( listener, SIGNAL( keyClicked() ), &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
-
-    listener = new KeyClickListener( Key_Alt, this );
-    connect( listener, SIGNAL( keyClicked() ), this, SLOT( toggleSortType() ) );
-
-    listener = new KeyClickListener( Key_Meta, this );
-    connect( listener, SIGNAL( keyClicked() ), this, SLOT( toggleSortType() ) );
-
 }
 
 void AnnotationDialog::ListSelect::checkBoxStateChanged( int )

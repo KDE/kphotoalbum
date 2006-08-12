@@ -52,6 +52,7 @@
 #include "DB/ImageDB.h"
 #include <qfile.h>
 #include <qfileinfo.h>
+#include "ShowSelectionOnlyManager.h"
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -226,17 +227,6 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     clearBut->setAutoDefault( false );
     optionsBut->setAutoDefault( false );
 
-    // Connect PageUp/PageDown to prev/next
-    QAccel* accel = new QAccel( this, "accel for AnnotationDialog" );
-    accel->connectItem( accel->insertItem( Key_PageDown ), this, SLOT( slotNext() ) );
-    accel->connectItem( accel->insertItem( Key_PageUp ), this, SLOT( slotPrev() ) );
-    accel->connectItem( accel->insertItem( CTRL+Key_PageDown ), this, SLOT( slotNext() ) );
-    accel->connectItem( accel->insertItem( CTRL+Key_PageUp ), this, SLOT( slotPrev() ) );
-    accel->connectItem( accel->insertItem( CTRL+Key_Return ), this, SLOT( slotOK() ) );
-    accel->connectItem( accel->insertItem( CTRL+Key_Delete ), this, SLOT( slotDeleteImage() ) );
-    connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
-    connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
-
     _optionList.setAutoDelete( true );
     loadWindowLayout();
 
@@ -244,6 +234,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     _dockWindow->show();
 
     setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::ConfigWindow ) );
+
+    setupActions();
 }
 
 
@@ -901,6 +893,43 @@ void AnnotationDialog::Dialog::loadWindowLayout()
     doc.setContent( &file );
     QDomElement elm = doc.documentElement();
     _dockWindow->readDockConfig( elm );
+}
+
+void AnnotationDialog::Dialog::setupActions()
+{
+    _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
+
+    new KAction( i18n("Sort Alphabetically"), 0, _optionList.at(0), SLOT( slotSortAlpha() ),
+                 _actions, "annotationdialog-sort-alpha" );
+
+    new KAction( i18n("Sort Numerically"), 0, _optionList.at(0), SLOT( slotSortDate() ),
+                 _actions, "annotationdialog-sort-numerically" );
+
+    new KAction( i18n("Toggle Sorting"), CTRL+Key_T, _optionList.at(0), SLOT( toggleSortType() ),
+                 _actions, "annotationdialog-toggle-sort" );
+
+    new KAction( i18n("Toggle Showing Selected Items Only"), CTRL+Key_S, &ShowSelectionOnlyManager::instance(), SLOT( toggle() ),
+                 _actions, "annotationdialog-toggle-showing-selected-only" );
+
+    new KAction( i18n("Annotate Next Image"), Key_PageDown, this, SLOT( slotNext() ),
+                 _actions, "annotationdialog-next-image" );
+
+    new KAction( i18n("Annotate Previous Image"), Key_PageUp, this, SLOT( slotPrev() ),
+                 _actions, "annotationdialog-prev-image" );
+
+    new KAction( i18n("OK dialog"), CTRL+Key_Return, this, SLOT( slotOK() ),
+                 _actions, "annotationdialog-OK-dialog" );
+
+    new KAction( i18n("Delete Image"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
+                 _actions, "annotationdialog-delete-image" );
+
+    connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
+    connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
+}
+
+KActionCollection* AnnotationDialog::Dialog::actions()
+{
+    return _actions;
 }
 
 #include "Dialog.moc"

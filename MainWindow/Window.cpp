@@ -1018,6 +1018,9 @@ void MainWindow::Window::slotConfigureKeyBindings()
     }
 #endif
 
+    createAnnotationDialog();
+    dialog->insert( _annotationDialog->actions(), i18n("Annotation Dialog" ) );
+
     dialog->configure();
 
     delete dialog;

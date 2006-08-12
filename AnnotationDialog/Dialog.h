@@ -56,6 +56,7 @@ public:
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;
+    KActionCollection* actions();
 
 signals:
     void changed();
@@ -99,6 +100,7 @@ protected:
     void setupFocus();
     void closeDialog();
     void loadWindowLayout();
+    void setupActions();
 
 private:
     DB::ImageInfoList _origList;
@@ -131,6 +133,8 @@ private:
     Editor* _description;
     KTimeWidget* _time;
     QPushButton* _addTime;
+
+    KActionCollection* _actions;
 };
 
 }

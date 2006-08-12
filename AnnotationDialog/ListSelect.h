@@ -61,16 +61,16 @@ public:
 
 public slots:
     void slotReturn();
+    void slotSortDate();
+    void slotSortAlpha();
+    void toggleSortType();
 
 protected slots:
     void itemSelected( QListViewItem* );
     void showContextMenu( QListViewItem*, const QPoint& );
     void setViewSortType( Settings::ViewSortType );
-    void slotSortDate();
-    void slotSortAlpha();
     void checkBoxStateChanged( int state );
     void removeCheckBoxStateChanged( int state );
-    void toggleSortType();
     void limitToSelection();
     void showAllChildren();
 

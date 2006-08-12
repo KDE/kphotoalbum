@@ -902,8 +902,8 @@ void AnnotationDialog::Dialog::setupActions()
     new KAction( i18n("Sort Alphabetically"), 0, _optionList.at(0), SLOT( slotSortAlpha() ),
                  _actions, "annotationdialog-sort-alpha" );
 
-    new KAction( i18n("Sort Numerically"), 0, _optionList.at(0), SLOT( slotSortDate() ),
-                 _actions, "annotationdialog-sort-numerically" );
+    new KAction( i18n("Sort Most Recently Used"), 0, _optionList.at(0), SLOT( slotSortDate() ),
+                 _actions, "annotationdialog-sort-MRU" );
 
     new KAction( i18n("Toggle Sorting"), CTRL+Key_T, _optionList.at(0), SLOT( toggleSortType() ),
                  _actions, "annotationdialog-toggle-sort" );

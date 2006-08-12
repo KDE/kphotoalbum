@@ -424,8 +424,14 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         if ( _mode == INPUT )
             DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( subCategory );
 
-        // PENDING(blackie) select the newly added item
         rePopulate();
+        if ( _mode == INPUT ) {
+            QListViewItem* item = _listView->findItem( subCategory, 0 );
+            if ( item )
+                item->setSelected( true );
+            else
+                Q_ASSERT( false );
+        }
     }
     else {
         if ( map.contains( which ) ) {

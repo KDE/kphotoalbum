@@ -1,3 +1,11 @@
+#------------------------------------------------------------
+# create kphotoalbum_top_srcdir and kphotoalbum_top_builddir
+#------------------------------------------------------------
+kphotoalbum_top_srcdir='$(top_srcdir)/kphotoalbum'
+AC_SUBST(kphotoalbum_top_srcdir)
+kphotoalbum_top_builddir='$(top_builddir)/kphotoalbum'
+AC_SUBST(kphotoalbum_top_builddir)
+
 # -------------------------------------------------- KIPI Check
 KDE_CHECK_HEADER(libkipi/interface.h,  have_kipi=yes,  have_kipi=no)
 

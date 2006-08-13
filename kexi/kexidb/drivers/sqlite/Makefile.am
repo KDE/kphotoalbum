@@ -18,7 +18,7 @@ kexidb_sqlite3driver_la_LIBADD = $(LIB_KPARTS) $(LIB_QT) \
 kexidb_sqlite3driver_la_LDFLAGS = $(all_libraries) -module $(KDE_PLUGIN) $(VER_INFO) 
 
 
-kde_services_DATA = kexidb_sqlite3driver.desktop
+kde_services_DATA = kphotoalbum_kexidb_sqlite3driver.desktop
 
 
 KDE_CXXFLAGS += -DKEXIDB_SQLITE_DRIVER_EXPORT= -D__KEXIDB__= \

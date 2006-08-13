@@ -30,7 +30,7 @@ libkexidb_la_LIBADD = $(LIB_QT) $(LIB_KDECORE) $(LIB_KIO) \
 	 $(kphotoalbum_top_builddir)/kexi/kexiutils/libkexiutils.la
 libkexidb_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
-kde_servicetypes_DATA = kexidb_driver.desktop
+kde_servicetypes_DATA = kphotoalbum_kexidb_driver.desktop
 
 
 KDE_CXXFLAGS += -D__KEXIDB__= -include $(kphotoalbum_top_srcdir)/kexi/kexidb/global.h

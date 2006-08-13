@@ -14,7 +14,7 @@ kexidb_pqxxsqldriver_la_LIBADD = $(LIB_KPARTS) $(LIB_QT) -lpqxx ../../libkexidb.
 kexidb_pqxxsqldriver_la_LDFLAGS = $(all_libraries) -module $(KDE_PLUGIN) \
 	-L$(PQXX_LIBDIR) -L$(PG_LIBDIR) $(VER_INFO) -no-undefined
 
-kde_services_DATA = kexidb_pqxxsqldriver.desktop
+kde_services_DATA = kphotoalbum_kexidb_pqxxsqldriver.desktop
 
 noinst_HEADERS =  pqxxconnection.h pqxxconnection_p.h
 

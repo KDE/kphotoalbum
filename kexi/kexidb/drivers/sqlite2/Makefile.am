@@ -26,7 +26,7 @@ kexidb_sqlite2driver_la_LDFLAGS = $(all_libraries) -module $(KDE_PLUGIN) $(VER_I
 sqliteconnection.lo: ../sqlite/sqliteconnection.moc
 sqlitedriver.lo: ../sqlite/sqlitedriver.moc
 
-kde_services_DATA = kexidb_sqlite2driver.desktop
+kde_services_DATA = kphotoalbum_kexidb_sqlite2driver.desktop
 
 
 KDE_CXXFLAGS += -DKEXIDB_SQLITE_DRIVER_EXPORT= -D__KEXIDB__= \

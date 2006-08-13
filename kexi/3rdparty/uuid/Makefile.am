@@ -1,4 +1,4 @@
-include $(top_srcdir)/kexi/Makefile.global
+include $(kphotoalbum_top_srcdir)/kexi/Makefile.global
 
 noinst_LTLIBRARIES = libkexiuuid.la
 

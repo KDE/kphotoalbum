@@ -1,6 +1,6 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../../../Makefile.global
 
-kde_module_LTLIBRARIES = kexidb_pqxxsqldriver.la
+noinst_LTLIBRARIES = kexidb_pqxxsqldriver.la
 
 INCLUDES = -I$(srcdir)/../../.. $(all_includes) -I$(PG_INCDIR) -I$(PQXX_INCDIR)
 
@@ -19,4 +19,4 @@ kde_services_DATA = kexidb_pqxxsqldriver.desktop
 noinst_HEADERS =  pqxxconnection.h pqxxconnection_p.h
 
 KDE_CXXFLAGS += -DKEXIDB_PGSQL_DRIVER_EXPORT= -D__KEXIDB__= \
-	-include $(top_srcdir)/kexi/kexidb/global.h
+	-include $(kphotoalbum_top_srcdir)/kexi/kexidb/global.h

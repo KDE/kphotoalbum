@@ -1,4 +1,4 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../../Makefile.global
 
 noinst_LTLIBRARIES = libkexikolibs.la
 
@@ -24,6 +24,6 @@ SUBDIRS = .
 
 # set the include path for X, qt and KDE
 
-INCLUDES= -I$(top_srcdir)/kexi $(all_includes)
+INCLUDES= -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
 
 KDE_CXXFLAGS += -DSIMPLE_KOLIBS -DKOFFICECORE_EXPORT= -DKOFFICEUI_EXPORT=

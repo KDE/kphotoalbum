@@ -1,8 +1,8 @@
-include $(top_srcdir)/kexi/Makefile.global
+include $(kphotoalbum_top_srcdir)/kexi/Makefile.global
 
-lib_LTLIBRARIES = libkexisql2.la
+noinst_LTLIBRARIES = libkexisql2.la
 
-bin_PROGRAMS = ksqlite2
+#bin_PROGRAMS = ksqlite2
 
 INCLUDES = $(all_includes)
 

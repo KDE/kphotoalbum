@@ -1,12 +1,11 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../Makefile.global
 
-lib_LTLIBRARIES = libkexiutils.la
+noinst_LTLIBRARIES = libkexiutils.la
 libkexiutils_la_SOURCES = identifier.cpp validator.cpp utils.cpp
 
 libkexiutilsincludedir=$(includedir)/kexiutils
-libkexiutilsinclude_HEADERS = tristate.h identifier.h validator.h utils.h kexiutils_export.h
 
-noinst_HEADERS = utils_p.h
+noinst_HEADERS = tristate.h identifier.h validator.h utils.h kexiutils_export.h utils_p.h
 
 libkexiutils_la_LDFLAGS = \
   $(KDE_RPATH) $(all_libraries) \
@@ -14,6 +13,6 @@ libkexiutils_la_LDFLAGS = \
 
 libkexiutils_la_LIBADD = $(LIB_QT) $(LIB_KDEUI) $(LIB_KIO) 
 
-INCLUDES = -I$(top_srcdir)/kexi $(all_includes)
+INCLUDES = -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
 
 METASOURCES = AUTO

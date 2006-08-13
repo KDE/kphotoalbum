@@ -1,6 +1,6 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../../Makefile.global
 
-kde_module_LTLIBRARIES = keximigrate_txtmigrate.la
+noinst_LTLIBRARIES = keximigrate_txtmigrate.la
 
 INCLUDES = -I$(srcdir)/../../.. -I$(top_srcdir)/kexi $(all_includes)
 

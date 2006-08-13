@@ -1,9 +1,9 @@
 include ../../Makefile.global
 
-noinst_LTLIBRARIES = libkexidbparser.la
-libkexidbparser_la_SOURCES = sqlscanner.cpp sqlparser.cpp parser.cpp parser_p.cpp
-libkexidbparser_la_LIBADD = $(LIB_KPARTS) $(LIB_KDEUI) ../libkexidb.la
-libkexidbparser_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
+lib_LTLIBRARIES = libkphotoalbumkexidbparser.la
+libkphotoalbumkexidbparser_la_SOURCES = sqlscanner.cpp sqlparser.cpp parser.cpp parser_p.cpp
+libkphotoalbumkexidbparser_la_LIBADD = $(LIB_KPARTS) $(LIB_KDEUI) ../libkphotoalbumkexidb.la
+libkphotoalbumkexidbparser_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
 
 noinst_HEADERS = parser_p.h
 

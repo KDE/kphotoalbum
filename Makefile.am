@@ -1,7 +1,7 @@
 if compile_sqldb
   LIBKPHOTOALBUM_SQLDB=SQLDB/libsqldb.la
   SQLDB=SQLDB
-  LIBKPHOTOALBUM_KEXIDB=kexi/kexidb/libkexidb.la kexi/kexiutils/libkexiutils.la kexi/kexidb/parser/libkexidbparser.la
+  LIBKPHOTOALBUM_KEXIDB=kexi/kexidb/libkphotoalbumkexidb.la kexi/kexiutils/libkphotoalbumkexiutils.la kexi/kexidb/parser/libkphotoalbumkexidbparser.la
   KEXI_DIR=kexi
 endif
 

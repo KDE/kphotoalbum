@@ -1,14 +1,14 @@
 include ../../../Makefile.global
 
-noinst_LTLIBRARIES = kexidb_mysqldriver.la
+kde_module_LTLIBRARIES = kphotoalbum_kexidb_mysqldriver.la
 
 INCLUDES = -I$(MYSQL_INC) -I$(srcdir)/../../.. \
   -I$(srcdir)/../..  \
   -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
 
-kexidb_mysqldriver_la_METASOURCES = AUTO
+kphotoalbum_kexidb_mysqldriver_la_METASOURCES = AUTO
 
-kexidb_mysqldriver_la_SOURCES = \
+kphotoalbum_kexidb_mysqldriver_la_SOURCES = \
   mysqldriver.cpp \
   mysqlconnection.cpp \
   mysqlconnection_p.cpp \
@@ -16,13 +16,13 @@ kexidb_mysqldriver_la_SOURCES = \
   mysqlkeywords.cpp \
   mysqlpreparedstatement.cpp
 
-kexidb_mysqldriver_la_LIBADD = $(LIB_KPARTS) \
+kphotoalbum_kexidb_mysqldriver_la_LIBADD = $(LIB_KPARTS) \
   $(LIB_QT) \
   $(MYSQL_LIBS) \
   -lmysqlclient \
-  ../../libkexidb.la
+  ../../libkphotoalbumkexidb.la
 
-kexidb_mysqldriver_la_LDFLAGS = $(all_libraries) -module $(KDE_PLUGIN) $(VER_INFO) -no-undefined
+kphotoalbum_kexidb_mysqldriver_la_LDFLAGS = $(all_libraries) -module $(KDE_PLUGIN) $(VER_INFO) -no-undefined
 
 
 kde_services_DATA = kphotoalbum_kexidb_mysqldriver.desktop

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=MySQL
-X-KDE-Library=kexidb_mysqldriver
+X-KDE-Library=kphotoalbum_kexidb_mysqldriver
 ServiceTypes=Kexi/DBDriver
 Type=Service
 InitialPreference=8

@@ -1,14 +1,14 @@
 include ../Makefile.global
 
-noinst_LTLIBRARIES = libkexidb.la
+lib_LTLIBRARIES = libkphotoalbumkexidb.la
 
 INCLUDES = -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
 
 SUBDIRS = . parser drivers
 
-libkexidb_la_METASOURCES = AUTO
+libkphotoalbumkexidb_la_METASOURCES = AUTO
 
-libkexidb_la_SOURCES = drivermanager.cpp driver.cpp driver_p.cpp connection.cpp \
+libkphotoalbumkexidb_la_SOURCES = drivermanager.cpp driver.cpp driver_p.cpp connection.cpp \
  keywords.cpp object.cpp field.cpp utils.cpp expression.cpp \
  connectiondata.cpp fieldlist.cpp tableschema.cpp cursor.cpp transaction.cpp  \
  indexschema.cpp queryschema.cpp schemadata.cpp global.cpp relationship.cpp \
@@ -26,9 +26,9 @@ noinst_HEADERS += connection.h connectiondata.h cursor.h \
   relationship.h parser/parser.h transaction.h preparedstatement.h \
   kexidb_export.h
 
-libkexidb_la_LIBADD = $(LIB_QT) $(LIB_KDECORE) $(LIB_KIO) \
-	 $(kphotoalbum_top_builddir)/kexi/kexiutils/libkexiutils.la
-libkexidb_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
+libkphotoalbumkexidb_la_LIBADD = $(LIB_QT) $(LIB_KDECORE) $(LIB_KIO) \
+	 $(kphotoalbum_top_builddir)/kexi/kexiutils/libkphotoalbumkexiutils.la
+libkphotoalbumkexidb_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
 kde_servicetypes_DATA = kphotoalbum_kexidb_driver.desktop
 

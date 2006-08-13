@@ -40,15 +40,10 @@ signals:
 
 protected slots:
     void stateChanged( int );
-    // void checkState();
-
 
 private:
     QHBoxLayout* _layout;
     KParts::ReadOnlyPart* _playerPart;
-#ifdef TEMPORARILY_REMOVED
-    QTimer* _timer;
-#endif
 };
 
 }

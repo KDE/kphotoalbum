@@ -33,10 +33,6 @@ Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     :Viewer::Display( parent, "VideoDisplay" ), _playerPart( 0 )
 {
     _layout = new QHBoxLayout( this );
-#ifdef TEMPORARILY_REMOVED
-    _timer = new QTimer( this );
-    connect( _timer, SIGNAL( timeout() ), this, SLOT( checkState() ) );
-#endif
 }
 
 void Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
@@ -69,28 +65,12 @@ void Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         player->play();
     }
 
-#ifdef TEMPORARILY_REMOVED
     connect( player, SIGNAL( stateChanged( int ) ), this, SLOT( stateChanged( int ) ) );
-    qDebug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>OK");
-    _timer->start( 500 );
-#endif
 }
 
 void Viewer::VideoDisplay::stateChanged( int state)
 {
-    qDebug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> State changed to %d, stopped=%d", state, KMediaPlayer::Player::Stop );
     if ( state == KMediaPlayer::Player::Stop )
         emit stopped();
 }
 
-#ifdef TEMPORARILY_REMOVED
-// This was an attempt at a workarround for the missing stateChanged signal, but this didn't work either.
-void Viewer::VideoDisplay::checkState()
-{
-    qDebug(". %ld %ld", dynamic_cast<KMediaPlayer::Player *>(_playerPart)->position(), dynamic_cast<KMediaPlayer::Player *>(_playerPart)->length());
-    if ( dynamic_cast<KMediaPlayer::Player *>(_playerPart)->state() == KMediaPlayer::Player::Stop ) {
-        emit stopped();
-        _timer->stop();
-    }
-}
-#endif

@@ -20,7 +20,7 @@
 #include "ImageLoader.h"
 #include "ImageManager/ImageClient.h"
 #include "Utilities/Util.h"
-#include "VideoLoader.h"
+#include "VideoManager.h"
 
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
 
@@ -60,10 +60,7 @@ void ImageManager::Manager::load( ImageRequest* request )
 
 void ImageManager::Manager::loadVideo( ImageRequest* request)
 {
-#ifdef TEMPORARILY_REMOVED
-    Video::Player::instance()->loadSnapshot( request );
-#endif
-    new VideoLoader( request );
+    VideoManager::instance().request( request );
 }
 
 void ImageManager::Manager::loadImage( ImageRequest* request )

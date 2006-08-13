@@ -83,9 +83,11 @@ KSharedPtr<DB::CategoryItem> DB::Category::itemsCategories() const
     QMap<QString, DB::CategoryItem*> potentialToplevelItems;
 
     for( QStringList::ConstIterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
-        StringSet handledItems;
-        DB::CategoryItem* child = createItem( name(), *groupIt, handledItems, categoryItems, potentialToplevelItems );
-        potentialToplevelItems.insert( *groupIt, child );
+        if ( !categoryItems.contains( *groupIt ) ) {
+            StringSet handledItems;
+            DB::CategoryItem* child = createItem( name(), *groupIt, handledItems, categoryItems, potentialToplevelItems );
+            potentialToplevelItems.insert( *groupIt, child );
+        }
     }
 
 

@@ -1,7 +1,6 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=PostgreSQL
-Name[hi]=पोस्टग्रे-एसक्यूएल
 X-KDE-Library=kphotoalbum_kexidb_pqxxsqldriver
 ServiceTypes=Kexi/DBDriver
 Type=Service

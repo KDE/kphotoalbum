@@ -239,7 +239,7 @@ void Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 
 void Viewer::ImageDisplay::resizeEvent( QResizeEvent* )
 {
-    ImageManager::Manager::instance()->stop( this, ImageManager::Manager::StopOnlyNonPriorityLoads );
+    ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
     if ( _info ) {
         cropAndScale();

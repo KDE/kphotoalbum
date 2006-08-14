@@ -6,6 +6,7 @@ class KFileItem;
 
 #include <qvaluelist.h>
 #include <qobject.h>
+#include "Manager.h"
 
 namespace ImageManager
 {
@@ -18,6 +19,7 @@ class VideoManager :public QObject
 public:
     static VideoManager& instance();
     void request( ImageRequest* request );
+    void stop( ImageClient*, StopAction action );
 
 protected:
     void load( ImageRequest* request );
@@ -29,7 +31,7 @@ protected slots:
 
 private:
     VideoManager();
-    QValueList<ImageRequest*> _pending;
+    RequestQueue _pending;
     ImageRequest* _currentRequest;
 };
 

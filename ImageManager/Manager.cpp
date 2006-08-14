@@ -38,7 +38,6 @@ ImageManager::Manager* ImageManager::Manager::_instance = 0;
 */
 ImageManager::Manager::Manager() :_currentLoading(0)
 {
-    _clientList.resize( 9973 /* a large prime */ );
 }
 
 // We need this as a separate method as the _instance variable will otherwise not be initialized
@@ -66,29 +65,11 @@ void ImageManager::Manager::loadVideo( ImageRequest* request)
 void ImageManager::Manager::loadImage( ImageRequest* request )
 {
     QMutexLocker dummy( &_lock );
-    // PENDING(blackie) replace with ImageRequest::operator==
-    if ( _currentLoading && _currentLoading->fileName() == request->fileName() && _currentLoading->client() == request->client() &&
-         _currentLoading->width() == request->width() && _currentLoading->height() == request->height() ) {
+    if ( _currentLoading && *_currentLoading == *request ) {
         return; // We are currently loading it, calm down and wait please ;-)
     }
 
-    // Delete other request for the same file from the same client
-    for( QValueList<ImageRequest*>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
-        if ( (*it)->fileName() == request->fileName() && (*it)->client() == request->client() &&
-             (*it)->width() == request->width() && (*it)->height() == request->height()) {
-            return; // This image is already in the queue
-        }
-        else
-            ++it;
-    }
-
-    if ( request->priority() )
-        _loadList.prepend( request );
-    else
-        _loadList.append( request );
-
-    if ( request->client() )
-        _clientList.insert( request, (void*)0x01 /*something different from 0x0 */ );
+    _loadList.addRequest( request );
 
     _sleepers.wakeOne();
 }
@@ -96,22 +77,8 @@ void ImageManager::Manager::loadImage( ImageRequest* request )
 ImageManager::ImageRequest* ImageManager::Manager::next()
 {
     QMutexLocker dummy(&_lock );
-    ImageRequest* request = 0;
-    while ( _loadList.count() != 0 ) {
-        request = _loadList.first();
-        _loadList.pop_front();
-        // qApp->lock(); // stillNeeded are likely to do a GUI operation - this is on a thread, lock qApp!
-        if ( !request->stillNeeded() ) {
-            _clientList.remove( request );
-            delete request;
-            request = 0;
-        }
-        else
-            break;
-        // qApp->unlock();
-    }
-    _currentLoading = request;
-    return request;
+    _currentLoading = _loadList.popNext();
+    return _currentLoading;
 }
 
 void ImageManager::Manager::customEvent( QCustomEvent* ev )
@@ -134,7 +101,7 @@ void ImageManager::Manager::customEvent( QCustomEvent* ev )
         bool loadedOK;
 
         _lock.lock();
-        if ( _clientList.find( request ) != 0 )  {
+        if ( _loadList.isRequestStillValid( request ) )  {
             // If it is not in the map, then it has been canceled (though ::stop) since the request.
             client = request->client();
             fileName = request->fileName();
@@ -143,7 +110,7 @@ void ImageManager::Manager::customEvent( QCustomEvent* ev )
             angle = request->angle();
             loadedOK = request->loadedOK();
 
-            _clientList.remove(request);
+            _loadList.removeRequest(request);
             if ( _currentLoading == request )
                 _currentLoading = 0;
             delete request;
@@ -180,23 +147,12 @@ ImageManager::Manager* ImageManager::Manager::instance()
 
 void ImageManager::Manager::stop( ImageClient* client, StopAction action )
 {
-    // remove from active map
-    for( QPtrDictIterator<void> it(_clientList); it.current(); ) {
-        ImageRequest* request = static_cast<ImageRequest*>(it.currentKey());
-        ++it; // We need to increase it before removing the element.
-        if ( client == request->client() && ( action == StopAll || !request->priority() ) )
-            _clientList.remove( request );
-    }
-
     // remove from pending map.
     _lock.lock();
-    for( QValueList<ImageRequest*>::Iterator it = _loadList.begin(); it != _loadList.end(); ) {
-        ImageRequest* request = *it;
-        ++it;
-        if ( request->client() == client && ( action == StopAll || !request->priority() ) )
-            _loadList.remove( request );
-    }
+    _loadList.cancelRequests( client, action );
     _lock.unlock();
+
+    VideoManager::instance().stop( client, action );
 }
 
 QImage ImageManager::ImageEvent::image()

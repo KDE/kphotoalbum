@@ -4,6 +4,8 @@
 #include <kio/previewjob.h>
 #include <Settings/SettingsData.h>
 #include <qimage.h>
+#include <kglobal.h>
+#include <kiconloader.h>
 
 ImageManager::VideoManager::VideoManager()
     :_currentRequest(0)
@@ -18,10 +20,10 @@ ImageManager::VideoManager& ImageManager::VideoManager::instance()
 
 void ImageManager::VideoManager::request( ImageRequest* request )
 {
+    _pending.addRequest( request );
+
     if ( _currentRequest == 0 )
-        load( request );
-    else
-        _pending.append( request );
+        requestLoadNext();
 }
 
 void ImageManager::VideoManager::load( ImageRequest* request )
@@ -40,25 +42,38 @@ void ImageManager::VideoManager::load( ImageRequest* request )
 
 void ImageManager::VideoManager::slotGotPreview(const KFileItem*, const QPixmap& pixmap )
 {
-    _currentRequest->setLoadedOK( true );
-    QImage img = pixmap.convertToImage();
-    _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), pixmap.size(), 0, img, !pixmap.isNull() );
+    if ( _pending.isRequestStillValid(_currentRequest) ) {
+        _currentRequest->setLoadedOK( true );
+        QImage img = pixmap.convertToImage();
+        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), pixmap.size(), 0, img, !pixmap.isNull() );
+    }
 
     requestLoadNext();
 }
 
 void ImageManager::VideoManager::previewFailed()
 {
-    qDebug("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOPS");
+    if ( _pending.isRequestStillValid(_currentRequest) ) {
+        QPixmap pix = KGlobal::iconLoader()->loadIcon( QString::fromLatin1("video"), KIcon::Desktop,
+                                                       Settings::SettingsData::instance()->thumbSize() );
+        _currentRequest->setLoadedOK( false );
+        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.convertToImage(), true );
+    }
+
+    requestLoadNext();
 }
 
 void ImageManager::VideoManager::requestLoadNext()
 {
-    _currentRequest = 0;
-    if ( _pending.isEmpty() )
-        return;
+    if ( _currentRequest )
+        _pending.removeRequest( _currentRequest );
+    _currentRequest = _pending.popNext();
+    if ( _currentRequest )
+        load( _currentRequest );
+}
 
-    request( _pending.front() );
-    _pending.pop_front();
+void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
+{
+    _pending.cancelRequests( client, action );
 }
 

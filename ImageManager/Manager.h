@@ -26,6 +26,9 @@
 #include <qptrdict.h>
 #include <qimage.h>
 #include <qobject.h>
+#include <Utilities/Set.h>
+#include "RequestQueue.h"
+#include "StopAction.h"
 
 namespace ImageManager
 {
@@ -48,7 +51,6 @@ class Manager :public QObject {
     Q_OBJECT
 
 public:
-    enum StopAction { StopAll, StopOnlyNonPriorityLoads };
 
     void load( ImageRequest* request );
     ImageRequest* next();
@@ -65,10 +67,9 @@ private:
     void init();
     static Manager* _instance;
 
-    QValueList<ImageRequest*> _loadList;
+    RequestQueue _loadList;
     QWaitCondition _sleepers;
     QMutex _lock;
-    QPtrDict<void> _clientList;
     ImageRequest* _currentLoading;
 };
 

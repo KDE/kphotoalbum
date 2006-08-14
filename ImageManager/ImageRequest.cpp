@@ -53,7 +53,8 @@ bool ImageManager::ImageRequest::operator==( const ImageRequest& other ) const
     // Compare all atributes but the pixmap.
     return ( _null == other._null && fileName() == other.fileName() &&
              _width == other._width && _height == other._height &&
-             _angle == other._angle );
+             _angle == other._angle & _client == other._client &&
+             _priority == other._priority );
 }
 
 

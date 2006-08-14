@@ -89,6 +89,8 @@
 #endif
 
 #include "FeatureDialog.h"
+#include "ImageManager/ImageRequest.h"
+#include "ImageManager/Manager.h"
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -639,6 +641,7 @@ void MainWindow::Window::setupMenuBar()
 #ifdef HASEXIV2
     _showExifDialog = new KAction( i18n("Show Exif Info"), 0, this, SLOT( slotShowExifInfo() ), actionCollection(), "showExifInfo" );
 #endif
+    _recreateThumbnails = new KAction( i18n("Recreate Selected Thumbnails"), 0, this, SLOT( slotRecreateThumbnail() ), actionCollection(), "recreateThumbnails" );
 
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     connect( _thumbNailViewOLD, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
@@ -873,6 +876,8 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 #endif
 
         menu.insertSeparator();
+        _recreateThumbnails->plug( &menu );
+        menu.insertSeparator();
 
         _view->plug( &menu );
         _viewInNewWindow->plug( &menu );
@@ -1039,6 +1044,7 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
     _configAllSimultaniously->setEnabled(selection.count() > 1 );
     _configOneAtATime->setEnabled(selection.count() >= 1 );
     _sortByDateAndTime->setEnabled(selection.count() > 1 );
+    _recreateThumbnails->setEnabled( selection.count() >= 1 );
 }
 
 void MainWindow::Window::reloadThumbnails(bool flushCache)
@@ -1421,6 +1427,20 @@ void MainWindow::Window::slotOrderIncr()
 void MainWindow::Window::slotOrderDecr()
 {
     _thumbnailView->setSortDirection( ThumbnailView::NewestFirst );
+}
+
+void MainWindow::Window::slotRecreateThumbnail()
+{
+    QStringList selected = selectedOnDisk();
+    for( QStringList::ConstIterator imageIt = selected.begin(); imageIt != selected.end(); ++imageIt ) {
+        ImageManager::ImageLoader::removeThumbnail( *imageIt );
+
+        int size = Settings::SettingsData::instance()->previewSize();
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *imageIt, QSize(size,size), info->angle(), _thumbnailView );
+        ImageManager::Manager::instance()->load( request );
+    }
+
 }
 
 #include "Window.moc"

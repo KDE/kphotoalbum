@@ -42,6 +42,7 @@ extern "C" {
 #include <qwmatrix.h>
 #include <kurl.h>
 #include <kmdcodec.h>
+#include <qpixmapcache.h>
 
 namespace ImageManager
 {
@@ -95,13 +96,11 @@ QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int hei
 
 void ImageManager::ImageLoader::removeThumbnail( const QString& imageFile )
 {
-    QFileInfo fi( imageFile );
-    QString tnPattern = QString::fromLatin1( "*-%2.%3" ).arg(fi.baseName()).arg(fi.extension());
-    QDir dir( QString::fromLatin1( "%1/ThumbNails" ).arg( fi.dirPath() ) );
-    QStringList files = dir.entryList( tnPattern );
-    for( QStringList::ConstIterator it = files.begin(); it != files.end(); ++it ) {
-        dir.remove( *it );
-    }
+    KURL url;
+    url.setPath( imageFile );
+    QFile::remove( thumbnailPath( url.url(), 256 ) );
+    QFile::remove( thumbnailPath( url.url(), 128 ) );
+    QPixmapCache::remove( imageFile );
 }
 
 QImage ImageManager::ImageLoader::tryLoadThumbnail( ImageRequest* request, bool& ok )

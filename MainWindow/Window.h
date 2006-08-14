@@ -131,6 +131,7 @@ protected slots:
     void showImage( const QString& fileName );
     void slotOrderIncr();
     void slotOrderDecr();
+    void slotRecreateThumbnail();
 
 protected:
     void configureImages( bool oneAtATime );
@@ -193,10 +194,10 @@ private:
     KAction* _runRandomSlideShow;
     Plugins::Interface* _pluginInterface;
     KAction* _showExifDialog;
-
 #ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
 #endif
+    KAction* _recreateThumbnails;
     TokenEditor* _tokenEditor;
     DateBar::DateBarWidget* _dateBar;
     bool _hasLoadedPlugins;

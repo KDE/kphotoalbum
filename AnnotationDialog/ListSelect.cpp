@@ -52,6 +52,7 @@ AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* pare
     layout->addWidget( _label );
 
     _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(category).latin1() );
+    _label->setBuddy( _lineEdit );
     layout->addWidget( _lineEdit );
 
     _listView = new QListView( this );

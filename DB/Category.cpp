@@ -62,10 +62,10 @@ DB::CategoryItem* createItem( const QString& categoryName, const QString& itemNa
             DB::CategoryItem* child;
             if ( categoryItems.contains( *memberIt ) )
                 child = categoryItems[*memberIt]->clone();
-            else {
+            else
                 child = createItem( categoryName, *memberIt, handledItems, categoryItems, potentialToplevelItems );
-                potentialToplevelItems.remove( *memberIt );
-            }
+
+            potentialToplevelItems.remove( *memberIt );
             result->_subcategories.append( child );
         }
     }
@@ -100,7 +100,7 @@ KSharedPtr<DB::CategoryItem> DB::Category::itemsCategories() const
     QStringList elms = items();
     for( QStringList::ConstIterator elmIt = elms.begin(); elmIt != elms.end(); ++elmIt ) {
         if ( !categoryItems.contains( *elmIt ) )
-             result->_subcategories.append( new DB::CategoryItem( *elmIt ) );
+            result->_subcategories.append( new DB::CategoryItem( *elmIt ) );
     }
 
     return result;

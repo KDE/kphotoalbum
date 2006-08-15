@@ -169,6 +169,7 @@ void AnnotationDialog::ListSelect::setSelection( const QStringList& list )
     Set<QString> selection( list );
     for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         (*itemIt)->setSelected( selection.contains( (*itemIt)->text(0) ) );
+        _listView->repaintItem(*itemIt);
     }
 
     _lineEdit->clear();

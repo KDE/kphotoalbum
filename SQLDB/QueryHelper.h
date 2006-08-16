@@ -22,7 +22,7 @@
 
 #include <qstringlist.h>
 #include <qpair.h>
-#include <kexidb/connection.h>
+#include "Connection.h"
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
 #include "DB/Category.h"
@@ -80,8 +80,7 @@ public:
         mutable Cursor _cursor;
     };
 
-    static void setup(KexiDB::Connection& connection);
-    static QueryHelper* instance();
+    explicit QueryHelper(Connection& connection);
 
     void executeStatement(const QString& statement,
                           const Bindings& bindings=Bindings());
@@ -109,6 +108,8 @@ public:
                               const QString& item) const;
 
     QValueList<QString[3]> memberGroupConfiguration() const;
+    QValueList<QString[2]>
+    QueryHelper::memberGroupConfiguration(const QString& category) const;
 
     QValueList< QPair<int, QString> > mediaIdTagPairs(const QString& category,
                                                       int typemask) const;
@@ -156,11 +157,6 @@ public:
                                      const QValueList<int>& idList) const;
 
 protected:
-    KexiDB::Connection *_connection;
-    KexiDB::Driver *_driver;
-
-    QueryHelper(KexiDB::Connection& connection);
-
     QString sqlRepresentation(const QVariant& x) const;
     void bindValues(QString &s, const Bindings& b) const;
     Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
@@ -187,7 +183,8 @@ protected:
                                      const QValueList<int>* idList) const;
 
 private:
-    static QueryHelper* _instance;
+    Connection* _connection;
+    KexiDB::Driver* _driver;
 
     // Copying is not allowed
     QueryHelper(const QueryHelper&);

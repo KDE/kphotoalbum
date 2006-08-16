@@ -34,7 +34,8 @@ namespace SQLDB {
 
     protected:
         friend class SQLCategoryCollection;
-        SQLSpecialCategory(int categoryId): SQLCategory(categoryId) {}
+        SQLSpecialCategory(QueryHelper* queryHelper, int categoryId):
+            SQLCategory(queryHelper, categoryId) {}
     };
 }
 

@@ -25,6 +25,11 @@
 #include "DB/ImageDateCollection.h"
 #include <qvaluevector.h>
 
+#ifdef SQLDB_SUPPORT
+namespace KexiDB { class ConnectionData; }
+namespace SQLDB { class DatabaseHandler; }
+#endif
+
 namespace DB
 {
 
@@ -40,7 +45,9 @@ class ImageDB  :public QObject {
 public:
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
-    static void setupSQLDB( const QString& userName, const QString& password );
+#ifdef SQLDB_SUPPORT
+    static void setupSQLDB( const KexiDB::ConnectionData& connectionData, const QString& databaseName );
+#endif
     void convertBackend();
 
 public slots:
@@ -59,6 +66,9 @@ protected:
 private:
     static void connectSlots();
     static ImageDB* _instance;
+#ifdef SQLDB_SUPPORT
+    static SQLDB::DatabaseHandler* _dbHandler;
+#endif
 
 protected:
     ImageDB();

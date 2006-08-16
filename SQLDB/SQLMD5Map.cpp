@@ -22,18 +22,23 @@
 
 using namespace SQLDB;
 
+SQLMD5Map::SQLMD5Map(Connection& connection):
+    _qh(connection)
+{
+}
+
 void SQLMD5Map::insert(const QString&, const QString&)
 {
 }
 
 QString SQLMD5Map::lookup(const QString& md5sum)
 {
-    return QueryHelper::instance()->filenameForMD5Sum(md5sum);
+    return _qh.filenameForMD5Sum(md5sum);
 }
 
 bool SQLMD5Map::contains(const QString& md5sum)
 {
-    return QueryHelper::instance()->containsMD5Sum(md5sum);
+    return _qh.containsMD5Sum(md5sum);
 }
 
 void SQLMD5Map::clear()

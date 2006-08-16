@@ -92,6 +92,12 @@
 #include "ImageManager/ImageRequest.h"
 #include "ImageManager/Manager.h"
 
+#ifdef SQLDB_SUPPORT
+#include "SQLDB/ConfigFileHandler.h"
+#include <kexidb/kexidb_export.h>
+#include <kexidb/connectiondata.h>
+#endif
+
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
 MainWindow::Window::Window( QWidget* parent, const char* name )
@@ -809,51 +815,19 @@ bool MainWindow::Window::load()
 
     // Initialize correct back-end
     if ( backEnd == QString::fromLatin1("sql") ) {
+#ifdef SQLDB_SUPPORT
         // SQL back-end needs some extra configuration first
-
-        QString sqlDBMS = QString::fromLatin1("MySQL");
-        QString sqlDbName = QString::fromLatin1("kphotoalbum");
-        QString sqlHost = QString::null;
-        QString sqlUser = QString::null;
-        QString sqlPassword = QString::null;
-
         KConfig* config = kapp->config();
         config->setGroup(QString::fromLatin1("SQLDB"));
-
-        if ( config->hasKey( QString::fromLatin1("dbms") ) ) {
-            sqlDBMS = config->readEntry( QString::fromLatin1("dbms") );
-        }
-
-        if ( config->hasKey( QString::fromLatin1("database") ) ) {
-            // Could be database name for network based DBMSs, or
-            // filename for file based DBMSs
-            sqlDbName = config->readEntry( QString::fromLatin1("database") );
-        }
-
-        if (sqlDBMS == QString::fromLatin1("MySQL") ||
-            sqlDBMS == QString::fromLatin1("PostgreSQL")) {
-            if ( config->hasKey( QString::fromLatin1("host") ) ) {
-                sqlHost = config->readEntry( QString::fromLatin1("host") );
-            }
-            if ( config->hasKey( QString::fromLatin1("username") ) ) {
-                sqlUser = config->readEntry( QString::fromLatin1("username") );
-            }
-            if ( config->hasKey( QString::fromLatin1("password") ) ) {
-                sqlPassword = config->readEntry( QString::fromLatin1("password") );
-            }
-        }
+        KexiDB::ConnectionData connectionData;
+        QString databaseName;
+        SQLDB::readConnectionParameters(*config, connectionData, databaseName);
 
         // Initialize SQLDB with the paramaters
-        if (sqlDBMS == QString::fromLatin1("MySQL")) {
-            // TODO: pass all parameters (dbname, host, user, passwd)
-            DB::ImageDB::setupSQLDB( sqlUser, sqlPassword );
-        }
-        else if (0) {
-            // TODO: other DBMSs.
-        }
-        else {
-            qFatal( "Unknow SQLDB/dbms setting in config file." );
-        }
+        DB::ImageDB::setupSQLDB(connectionData, databaseName);
+#else
+        qFatal( "SQL database support not compiled in." );
+#endif
     }
     else {
         Q_ASSERT( backEnd == QString::fromLatin1("xml") );

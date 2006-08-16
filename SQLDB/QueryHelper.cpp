@@ -115,9 +115,7 @@ RowData QueryHelper::Result::getRow(uint n) const
 }
 
 
-QueryHelper* QueryHelper::_instance = 0;
-
-QueryHelper::QueryHelper(KexiDB::Connection& connection):
+QueryHelper::QueryHelper(Connection& connection):
     _connection(&connection),
     _driver(connection.driver())
 {
@@ -125,20 +123,13 @@ QueryHelper::QueryHelper(KexiDB::Connection& connection):
         throw Error(/* TODO: error type and message */);
 }
 
-void QueryHelper::setup(KexiDB::Connection& connection)
+/*
+QueryHelper::QueryHelper(const QueryHelper& other):
+    _connection(other._connection),
+    _driver(other._driver)
 {
-    if (_instance)
-        delete _instance;
-    _instance = new QueryHelper(connection);
 }
-
-QueryHelper* QueryHelper::instance()
-{
-    if (!_instance)
-        // TODO: error handling
-        qFatal("QueryHelper::instance() called before setup");
-    return _instance;
-}
+*/
 
 QString QueryHelper::sqlRepresentation(const QVariant& x) const
 {
@@ -248,7 +239,7 @@ QString makeFullName(const QString& path, const QString& basename)
 
 QStringList QueryHelper::filenames() const
 {
-    QValueList<QString[2]> dirFilePairs = QueryHelper::instance()->
+    QValueList<QString[2]> dirFilePairs =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
                      "WHERE media.dirId=dir.id ORDER BY media.place"
                      ).asString2List();
@@ -739,6 +730,17 @@ QValueList<QString[3]> QueryHelper::memberGroupConfiguration() const
                         "WHERE tr.toTagId=t.id AND "
                         "tr.fromTagId=f.id AND "
                         "t.categoryId=c.id").asString3List();
+}
+
+QValueList<QString[2]>
+QueryHelper::memberGroupConfiguration(const QString& category) const
+{
+    return executeQuery("SELECT t.name, f.name "
+                        "FROM tag_relation tr, tag t, tag f, category c "
+                        "WHERE tr.toTagId=t.id AND "
+                        "tr.fromTagId=f.id AND "
+                        "t.categoryId=c.id AND c.name=%s",
+                        Bindings() << category).asString2List();
 }
 
 void QueryHelper::addBlockItem(const QString& filename)

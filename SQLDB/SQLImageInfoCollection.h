@@ -21,6 +21,8 @@
 #define SQLIMAGEINFOCOLLECTION_H
 
 #include "DB/ImageInfoPtr.h"
+#include "Connection.h"
+#include "QueryHelper.h"
 #include <qobject.h>
 #include <qmap.h>
 //#include <qmutex.h>
@@ -32,7 +34,7 @@ namespace SQLDB {
         Q_OBJECT
 
     public:
-        SQLImageInfoCollection(/* DatabaseConnection* connection */);
+        explicit SQLImageInfoCollection(Connection& connection);
         ~SQLImageInfoCollection();
         DB::ImageInfoPtr getImageInfoOf(const QString& relativeFilename) const;
         void clearCache();
@@ -42,8 +44,10 @@ namespace SQLDB {
         void renameTag(DB::Category* category,
                        const QString& oldName, const QString& newName);
 
+    protected:
+        QueryHelper _qh;
+
     private:
-        /* DatabaseConnection* connection; */
         mutable QMap<int, DB::ImageInfoPtr> _infoPointers;
         // mutable QMutex _mutex;
     };

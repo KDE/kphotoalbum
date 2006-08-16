@@ -22,14 +22,14 @@
 
 using namespace SQLDB;
 
-SQLFolderCategory::SQLFolderCategory(int categoryId):
-    SQLSpecialCategory(categoryId)
+SQLFolderCategory::SQLFolderCategory(QueryHelper* queryHelper, int categoryId):
+    SQLSpecialCategory(queryHelper, categoryId)
 {
 }
 
 QStringList SQLFolderCategory::items() const
 {
-    return QueryHelper::instance()->folders();
+    return _qh->folders();
 }
 
 void SQLFolderCategory::setItems(const QStringList& items)

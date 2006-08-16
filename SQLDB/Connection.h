@@ -17,27 +17,19 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLFOLDERCATEGORY_H
-#define SQLFOLDERCATEGORY_H
+#ifndef SQLDB_CONNECTION_H
+#define SQLDB_CONNECTION_H
 
-#include "SQLSpecialCategory.h"
+/** \file
+ * Wrapper for KexiDB::Connection.
+ * Makes back-end less dependent of Kexi.
+ */
 
-namespace SQLDB {
-    class SQLFolderCategory: public SQLSpecialCategory
-    {
-        Q_OBJECT
+#include <kexidb/connection.h>
 
-    public:
-        virtual QStringList items() const;
-        virtual void setItems(const QStringList& items);
-        virtual void addItem(const QString& item);
-        virtual void removeItem(const QString& item);
-        virtual void renameItem(const QString& oldValue, const QString& newValue);
-
-    protected:
-        friend class SQLCategoryCollection;
-        SQLFolderCategory(QueryHelper* queryHelper, int categoryId);
-    };
+namespace SQLDB
+{
+    using KexiDB::Connection;
 }
 
-#endif /* SQLFOLDERCATEGORY_H */
+#endif /* SQLDB_CONNECTION_H */

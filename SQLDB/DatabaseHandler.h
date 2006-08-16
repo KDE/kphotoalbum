@@ -29,27 +29,23 @@ namespace SQLDB
     class DatabaseHandler
     {
     public:
-        static DatabaseHandler* getSQLiteHandler();
-        static DatabaseHandler* getMySQLHandler(const QString& username,
-                                                const QString& password,
-                                                const QString& hostname=
-                                                QString::null);
-        KexiDB::Connection* connection();
-        void openDatabase(const QString& name);
+        DatabaseHandler(const KexiDB::ConnectionData& connectionData);
         ~DatabaseHandler();
 
+        KexiDB::Connection* connection();
+        void openDatabase(const QString& name);
+        void reconnect();
+
     protected:
-        DatabaseHandler(const QString& driverName,
-                        const KexiDB::ConnectionData& connectionData);
+        void connect();
         void createAndOpenDatabase(const QString& name);
         void insertInitialData();
 
     private:
         static KexiDB::DriverManager* _driverManager;
 
-        QString _driverName;
-        KexiDB::Driver* _driver;
         KexiDB::ConnectionData _connectionData;
+        KexiDB::Driver* _driver;
         KexiDB::Connection* _connection;
     };
 }

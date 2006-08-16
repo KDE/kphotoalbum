@@ -5,7 +5,6 @@
 #include <qfileinfo.h>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include "SQLDB/Database.h"
 #include <qprogressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -14,10 +13,19 @@
 #include <DB/MediaCount.h>
 #include <kpassdlg.h>
 #include <kdebug.h>
+#ifdef SQLDB_SUPPORT
+#include "SQLDB/Database.h"
+#include "SQLDB/DatabaseHandler.h"
+#include <kexidb/kexidb_export.h>
+#include <kexidb/connectiondata.h>
+#endif
 
 using namespace DB;
 
 ImageDB* ImageDB::_instance = 0;
+#ifdef SQLDB_SUPPORT
+SQLDB::DatabaseHandler* ImageDB::_dbHandler = 0;
+#endif
 
 
 ImageDB* DB::ImageDB::instance()
@@ -29,20 +37,24 @@ ImageDB* DB::ImageDB::instance()
 
 void ImageDB::setupXMLDB( const QString& configFile )
 {
+    if (_instance)
+        qFatal("ImageDB::setupXMLDB: Setup must be called only once.");
     _instance = new XMLDB::Database( configFile );
     connectSlots();
 }
 
-void ImageDB::setupSQLDB( const QString& userName, const QString& password )
-{
 #ifdef SQLDB_SUPPORT
-    _instance = new SQLDB::Database( userName, password );
-#else
-    qFatal("SQLDB not compiled in");
-#endif // SQLDB_SUPPORT
+void ImageDB::setupSQLDB( const KexiDB::ConnectionData& connectionData, const QString& databaseName )
+{
+    if (_instance)
+        qFatal("ImageDB::setupSQLDB: Setup must be called only once.");
+    _dbHandler = new SQLDB::DatabaseHandler(connectionData);
+    _dbHandler->openDatabase(databaseName);
+    _instance = new SQLDB::Database(*_dbHandler->connection());
 
     connectSlots();
 }
+#endif /* SQLDB_SUPPORT */
 
 void ImageDB::connectSlots()
 {
@@ -144,7 +156,14 @@ void ImageDB::convertBackend()
     QProgressDialog dialog( 0 );
     dialog.setLabelText( i18n( "Converting Backend" ) );
     dialog.setTotalSteps( allImages.count() );
-    SQLDB::Database* newBackend = new SQLDB::Database(userName, password);
+    KexiDB::ConnectionData connectionData;
+    connectionData.userName = userName;
+    connectionData.password = password;
+
+    SQLDB::DatabaseHandler dbh(connectionData);
+    dbh.openDatabase(QString::fromLatin1("kphotoalbum")); // TODO: read from config
+
+    SQLDB::Database* newBackend = new SQLDB::Database(*dbh.connection());
 
     // Convert the Category info
     CategoryCollection* origCategories = categoryCollection();

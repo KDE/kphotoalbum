@@ -3,8 +3,9 @@
 
 using namespace SQLDB;
 
-SQLDB::SQLImageInfo::SQLImageInfo(int fileId):
+SQLDB::SQLImageInfo::SQLImageInfo(QueryHelper* queryHelper, int fileId):
     DB::ImageInfo(),
+    _qh(queryHelper),
     _fileId(fileId)
 {
     load();
@@ -12,7 +13,7 @@ SQLDB::SQLImageInfo::SQLImageInfo(int fileId):
 
 void SQLDB::SQLImageInfo::load()
 {
-    QueryHelper::instance()->getMediaItem(_fileId, *this);
+    _qh->getMediaItem(_fileId, *this);
     setIsNull(false);
     setIsDirty(false);
     delaySavingChanges(false); // Doesn't save because isDirty() == false
@@ -21,7 +22,7 @@ void SQLDB::SQLImageInfo::load()
 void SQLDB::SQLImageInfo::saveChanges()
 {
     if (!isNull() && isDirty()) {
-        QueryHelper::instance()->updateMediaItem(_fileId, *this);
+        _qh->updateMediaItem(_fileId, *this);
         setIsDirty(false);
     }
 }

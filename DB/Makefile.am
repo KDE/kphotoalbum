@@ -1,6 +1,10 @@
 noinst_LTLIBRARIES = libDB.la
 
+if compile_sqldb
+INCLUDES = -I$(srcdir)/../kexi -I$(srcdir)/.. $(all_includes)
+else
 INCLUDES = -I$(srcdir)/.. $(all_includes)
+endif
 
 libDB_la_SOURCES = ImageInfo.cpp Category.cpp CategoryCollection.cpp ImageDate.cpp MD5Map.cpp MemberMap.cpp \
 		     ImageInfoList.cpp ImageDB.cpp FileInfo.cpp NewImageFinder.cpp GroupCounter.cpp CategoryMatcher.cpp \

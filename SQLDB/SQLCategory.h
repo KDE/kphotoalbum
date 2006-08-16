@@ -22,6 +22,8 @@
 #define SQLCATEGORY_H
 
 #include "DB/Category.h"
+#include "Connection.h"
+#include "QueryHelper.h"
 
 namespace SQLDB {
     class SQLCategory: public DB::Category
@@ -56,7 +58,8 @@ namespace SQLDB {
 
     protected:
         friend class SQLCategoryCollection;
-        SQLCategory(int categoryId);
+        SQLCategory(QueryHelper* queryHelper, int categoryId);
+        QueryHelper* _qh;
 
     private:
         int _categoryId;

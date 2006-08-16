@@ -3,7 +3,12 @@
 #include <qmap.h>
 #include "QueryHelper.h"
 
-using SQLDB::QueryHelper;
+using namespace SQLDB;
+
+SQLImageDateCollection::SQLImageDateCollection(Connection& connection):
+    _qh(connection)
+{
+}
 
 DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
 {
@@ -16,16 +21,18 @@ DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
     if ( cache.contains( range ) )
         return cache[range];
 
-    int exact = QueryHelper::instance()->
-        executeQuery("SELECT count(*) FROM media "
-                     "WHERE %s<=startTime AND endTime<=%s",
-                     QueryHelper::Bindings() << range.start() << range.end()).
-        firstItem().toInt();
-    int rng = QueryHelper::instance()->
-        executeQuery("SELECT count(*) FROM media "
-                     "WHERE %s<=endTime AND startTime<=%s",
-                     QueryHelper::Bindings() << range.start() << range.end()).
-        firstItem().toInt() - exact;
+    int exact =
+        _qh.executeQuery("SELECT count(*) FROM media "
+                         "WHERE %s<=startTime AND endTime<=%s",
+                         QueryHelper::Bindings() <<
+                         range.start() << range.end()
+                         ).firstItem().toInt();
+    int rng =
+        _qh.executeQuery("SELECT count(*) FROM media "
+                         "WHERE %s<=endTime AND startTime<=%s",
+                         QueryHelper::Bindings() <<
+                         range.start() << range.end()
+                         ).firstItem().toInt() - exact;
     DB::ImageCount result( exact, rng );
     cache.insert( range, result );
     return result;
@@ -35,9 +42,8 @@ QDateTime SQLImageDateCollection::lowerLimit() const
 {
     static QDateTime cachedLower;
     if (cachedLower.isNull())
-        cachedLower = QueryHelper::instance()->
-            executeQuery("SELECT min(startTime) FROM media").
-            firstItem().toDateTime();
+        cachedLower = _qh.executeQuery("SELECT min(startTime) FROM media"
+                                       ).firstItem().toDateTime();
     return cachedLower;
 }
 
@@ -45,8 +51,7 @@ QDateTime SQLImageDateCollection::upperLimit() const
 {
     static QDateTime cachedUpper;
     if (cachedUpper.isNull())
-        cachedUpper = QueryHelper::instance()->
-            executeQuery("SELECT max(endTime) FROM media").
-            firstItem().toDateTime();
+        cachedUpper = _qh.executeQuery("SELECT max(endTime) FROM media"
+                                       ).firstItem().toDateTime();
     return cachedUpper;
 }

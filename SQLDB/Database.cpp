@@ -9,7 +9,6 @@
 #include "SQLImageDateCollection.h"
 #include "DB/MediaCount.h"
 #include "DatabaseHandler.h"
-#include "QueryHelper.h"
 #include "QueryErrors.h"
 #include <qfileinfo.h>
 
@@ -26,16 +25,14 @@ namespace
     }
 }
 
-SQLDB::Database::Database(const QString& username, const QString& password)
+SQLDB::Database::Database(Connection& connection):
+    _connection(&connection),
+    _qh(connection),
+    _categoryCollection(connection),
+    _members(),
+    _infoCollection(connection),
+    _md5map(connection)
 {
-    _dbhandler = DatabaseHandler::getMySQLHandler(username, password);
-    _dbhandler->openDatabase("kphotoalbum");
-    KexiDB::Connection* connection = _dbhandler->connection();
-    if (!connection)
-        throw Error(/* TODO: message */);
-    QueryHelper::setup(*connection);
-    loadMemberGroups();
-
     connect(categoryCollection(),
             SIGNAL(itemRemoved(DB::Category*, const QString&)),
             &_infoCollection,
@@ -48,17 +45,17 @@ SQLDB::Database::Database(const QString& username, const QString& password)
 
 SQLDB::Database::~Database()
 {
-    delete _dbhandler;
+    _connection->disconnect();
 }
 
 int SQLDB::Database::totalCount() const
 {
-    return QueryHelper::instance()->mediaItemCount();
+    return _qh.mediaItemCount();
 }
 
 int SQLDB::Database::totalCount(int typemask) const
 {
-    return QueryHelper::instance()->mediaItemCount(typemask);
+    return _qh.mediaItemCount(typemask);
 }
 
 DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
@@ -67,23 +64,21 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
     QValueList<int>* scope = 0;
     bool all = (searchInfo.query().count() == 0);
     if (!all) {
-        mediaIds = QueryHelper::instance()->searchMediaItems(searchInfo);
+        mediaIds = _qh.searchMediaItems(searchInfo);
         scope = &mediaIds;
     }
 
-    return DB::MediaCount(QueryHelper::instance()->
-                          mediaItemCount(DB::Image, scope),
-                          QueryHelper::instance()->
-                          mediaItemCount(DB::Video, scope));
+    return DB::MediaCount(_qh.mediaItemCount(DB::Image, scope),
+                          _qh.mediaItemCount(DB::Video, scope));
 }
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    QValueList<int> matches = QueryHelper::instance()->searchMediaItems(info);
+    QValueList<int> matches = _qh.searchMediaItems(info);
     QStringList result;
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
-        QString fullPath = imageRoot + QueryHelper::instance()->mediaItemFilename(*it);
+        QString fullPath = imageRoot + _qh.mediaItemFilename(*it);
         if (requireOnDisk && !QFileInfo(fullPath).exists())
             continue;
         result.append(fullPath);
@@ -103,7 +98,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     bool allFiles = true;
     QValueList<int> includedFiles;
     if ( !info.isNull() ) {
-        includedFiles = QueryHelper::instance()->searchMediaItems(info, typemask);
+        includedFiles = _qh.searchMediaItems(info, typemask);
         allFiles = false;
     }
 
@@ -112,7 +107,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
     QValueList< QPair<int, QString> > mediaIdTagPairs =
-        QueryHelper::instance()->mediaIdTagPairs(category, typemask);
+        _qh.mediaIdTagPairs(category, typemask);
 
     QMap<int,QStringList> itemMap;
     for (QValueList< QPair<int, QString> >::const_iterator
@@ -148,7 +143,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
 
 QStringList SQLDB::Database::imageList( bool withRelativePath )
 {
-    QStringList relativePaths = QueryHelper::instance()->filenames();
+    QStringList relativePaths = _qh.filenames();
     if (withRelativePath)
         return relativePaths;
     else {
@@ -171,7 +166,7 @@ QStringList SQLDB::Database::images()
 void SQLDB::Database::addImages( const DB::ImageInfoList& images )
 {
     if (!images.isEmpty()) {
-        QueryHelper::instance()->insertMediaItemsLast(images);
+        _qh.insertMediaItemsLast(images);
         emit totalChanged(totalCount());
     }
 }
@@ -183,13 +178,13 @@ void SQLDB::Database::addToBlockList(const QStringList& list)
          i != relativePaths.end(); ++i) {
         *i = Utilities::stripImageDirectory(*i);
     }
-    QueryHelper::instance()->addBlockItems(relativePaths);
+    _qh.addBlockItems(relativePaths);
     deleteList(list);
 }
 
 bool SQLDB::Database::isBlocking(const QString& fileName)
 {
-    return QueryHelper::instance()->isBlocked(fileName);
+    return _qh.isBlocked(fileName);
 }
 
 void SQLDB::Database::deleteList( const QStringList& list )
@@ -197,8 +192,7 @@ void SQLDB::Database::deleteList( const QStringList& list )
     if (!list.isEmpty()) {
         for (QStringList::const_iterator i = list.begin();
              i != list.end(); ++i) {
-            QueryHelper::instance()->
-                removeMediaItem(Utilities::stripImageDirectory(*i));
+            _qh.removeMediaItem(Utilities::stripImageDirectory(*i));
         }
         emit totalChanged(totalCount());
     }
@@ -236,16 +230,6 @@ void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
     qDebug("NYI: void SQLDB::Database::lockDB( bool lock, bool exclude )" );
 }
 
-void SQLDB::Database::loadMemberGroups()
-{
-    QValueList<QString[3]> l =
-        QueryHelper::instance()->memberGroupConfiguration();
-    for (QValueList<QString[3]>::const_iterator i = l.begin();
-         i != l.end(); ++i)
-        _members.addMemberToGroup((*i)[0], (*i)[1], (*i)[2]);
-}
-
-
 DB::CategoryCollection* SQLDB::Database::categoryCollection()
 {
     return &_categoryCollection;
@@ -253,21 +237,20 @@ DB::CategoryCollection* SQLDB::Database::categoryCollection()
 
 KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
 {
-    return new SQLImageDateCollection( /*search( Browser::instance()->currentContext(), false ) */ );
+    return new SQLImageDateCollection(*_connection
+                                      /*, search(Browser::instance()->currentContext(), false)*/);
 }
 
 void SQLDB::Database::reorder(const QString& item,
                               const QStringList& selection, bool after)
 {
-    QueryHelper::instance()->
-        moveMediaItems(stripImageDirectoryFromList(selection),
+    _qh.moveMediaItems(stripImageDirectoryFromList(selection),
                        Utilities::stripImageDirectory(item), after);
 }
 
 void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
 {
-    QueryHelper::instance()->
-        sortMediaItems(stripImageDirectoryFromList(fileList));
+    _qh.sortMediaItems(stripImageDirectoryFromList(fileList));
 }
 
 QString
@@ -277,19 +260,16 @@ SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
 {
     if (images.count() == static_cast<uint>(totalCount())) {
         return Settings::SettingsData::instance()->imageDirectory() +
-            QueryHelper::instance()->
-            findFirstFileInTimeRange(range, includeRanges);
+            _qh.findFirstFileInTimeRange(range, includeRanges);
     }
     else {
         QValueList<int> idList;
         for (QValueVector<QString>::const_iterator i = images.begin();
              i != images.end(); ++i) {
-            idList << QueryHelper::instance()->
-                mediaItemId(Utilities::stripImageDirectory(*i));
+            idList << _qh.mediaItemId(Utilities::stripImageDirectory(*i));
         }
         return Settings::SettingsData::instance()->imageDirectory() +
-            QueryHelper::instance()->
-            findFirstFileInTimeRange(range, includeRanges, idList);
+            _qh.findFirstFileInTimeRange(range, includeRanges, idList);
     }
 }
 

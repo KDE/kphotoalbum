@@ -21,63 +21,64 @@
 #include "SQLCategory.h"
 #include "QueryHelper.h"
 
-SQLDB::SQLCategory::SQLCategory(int categoryId):
+SQLDB::SQLCategory::SQLCategory(QueryHelper* queryHelper, int categoryId):
+    _qh(queryHelper),
     _categoryId(categoryId)
 {
 }
 
 QString SQLDB::SQLCategory::name() const
 {
-    return QueryHelper::instance()->categoryName(_categoryId);
+    return _qh->categoryName(_categoryId);
 }
 
 void SQLDB::SQLCategory::setName(const QString& name)
 {
-    QueryHelper::instance()->changeCategoryName(_categoryId, name);
+    _qh->changeCategoryName(_categoryId, name);
     emit changed();
 }
 
 QString SQLDB::SQLCategory::iconName() const
 {
-    return QueryHelper::instance()->categoryIcon(_categoryId);
+    return _qh->categoryIcon(_categoryId);
 }
 
 void SQLDB::SQLCategory::setIconName(const QString& name)
 {
-    QueryHelper::instance()->changeCategoryIcon(_categoryId, name);
+    _qh->changeCategoryIcon(_categoryId, name);
     emit changed();
 }
 
 DB::Category::ViewSize SQLDB::SQLCategory::viewSize() const
 {
-    return QueryHelper::instance()->categoryViewSize(_categoryId);
+    return _qh->categoryViewSize(_categoryId);
 }
 
 void SQLDB::SQLCategory::setViewSize(ViewSize size)
 {
-    QueryHelper::instance()->changeCategoryViewSize(_categoryId, size);
+    _qh->changeCategoryViewSize(_categoryId, size);
     emit changed();
 }
 
 DB::Category::ViewType SQLDB::SQLCategory::viewType() const
 {
-    return QueryHelper::instance()->categoryViewType(_categoryId);
+    return _qh->categoryViewType(_categoryId);
 }
 
 void SQLDB::SQLCategory::setViewType(ViewType type)
 {
-    QueryHelper::instance()->changeCategoryViewType(_categoryId, type);
+    _qh->changeCategoryViewType(_categoryId, type);
     emit changed();
 }
 
 bool SQLDB::SQLCategory::doShow() const
 {
-    return QueryHelper::instance()->categoryVisible(_categoryId);
+    return _qh->categoryVisible(_categoryId);
 }
 
 void SQLDB::SQLCategory::setDoShow(bool b)
 {
-    QueryHelper::instance()->changeCategoryVisible(_categoryId, b);
+    _qh->changeCategoryVisible(_categoryId, b);
     emit changed();
 }
 
@@ -95,42 +96,39 @@ void SQLDB::SQLCategory::setSpecialCategory(bool b)
 
 QStringList SQLDB::SQLCategory::items() const
 {
-    return QueryHelper::instance()->tagNamesOfCategory(_categoryId);
+    return _qh->tagNamesOfCategory(_categoryId);
 }
 
 void SQLDB::SQLCategory::setItems(const QStringList& items)
 {
-    QueryHelper::instance()->
-        executeStatement("DELETE FROM tag WHERE categoryId=%s",
+    _qh->executeStatement("DELETE FROM tag WHERE categoryId=%s",
                          QueryHelper::Bindings() << _categoryId);
 
     uint place = items.count();
     for (QStringList::const_iterator it = items.begin();
         it != items.end(); ++it ) {
-        QueryHelper::instance()->
-            executeStatement("INSERT INTO tag(name, categoryId, place) "
-                             "VALUES(%s, %s, %s)",
-                             QueryHelper::Bindings() << *it <<
-                             _categoryId << place);
+        _qh->executeStatement("INSERT INTO tag(name, categoryId, place) "
+                              "VALUES(%s, %s, %s)",
+                              QueryHelper::Bindings() << *it <<
+                              _categoryId << place);
         --place;
     }
 }
 
 void SQLDB::SQLCategory::addItem(const QString& item)
 {
-    QueryHelper::instance()->insertTagFirst(_categoryId, item);
+    _qh->insertTagFirst(_categoryId, item);
 }
 
 void SQLDB::SQLCategory::removeItem(const QString& item)
 {
-    QueryHelper::instance()->removeTag(_categoryId, item);
+    _qh->removeTag(_categoryId, item);
     emit itemRemoved(item);
 }
 
 void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newValue)
 {
-    QueryHelper::instance()->
-        executeStatement("UPDATE tag SET name=%s "
+    _qh->executeStatement("UPDATE tag SET name=%s "
                          "WHERE name=%s AND categoryId=%s",
                          QueryHelper::Bindings() <<
                          newValue << oldValue << _categoryId);

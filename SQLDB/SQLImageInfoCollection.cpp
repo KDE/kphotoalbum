@@ -19,12 +19,12 @@
 
 #include "SQLImageInfoCollection.h"
 #include "SQLImageInfo.h"
-#include "QueryHelper.h"
 #include "QueryErrors.h"
 
 using namespace SQLDB;
 
-SQLImageInfoCollection::SQLImageInfoCollection(/* DatabaseConnection* connection */)
+SQLImageInfoCollection::SQLImageInfoCollection(Connection& connection):
+    _qh(connection)
 {
 }
 
@@ -38,7 +38,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
 {
     int fileId;
     try {
-        fileId = QueryHelper::instance()->mediaItemId(relativeFilename);
+        fileId = _qh.mediaItemId(relativeFilename);
     }
     catch (NotFoundError& e) {
         return 0;
@@ -47,7 +47,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
     // QMutexLocker locker(&_mutex);
     DB::ImageInfoPtr p = _infoPointers[fileId];
     if (!p) {
-        p = new SQLImageInfo(fileId);
+        p = new SQLImageInfo(const_cast<QueryHelper*>(&_qh), fileId);
         _infoPointers.insert(fileId, p);
     }
     return p;

@@ -24,16 +24,16 @@ Boston, MA 02111-1307, USA.
 #include "SQLCategoryCollection.h"
 #include "SQLImageInfoCollection.h"
 #include "SQLMD5Map.h"
+#include "Connection.h"
+#include "QueryHelper.h"
 
 namespace SQLDB {
-    class DatabaseHandler;
-
     class Database  :public DB::ImageDB {
         Q_OBJECT
 
     protected:
         friend class DB::ImageDB;
-        Database( const QString& username = QString::null, const QString& password = QString::null );
+        explicit Database(Connection& connection);
 
     public:
         ~Database();
@@ -75,17 +75,15 @@ namespace SQLDB {
         virtual void lockDB( bool lock, bool exclude );
 
     protected:
-        bool openConnection(const QString& username, const QString& password);
-        void openDatabase();
-        void createAndOpen();
-        void loadMemberGroups();
         QStringList imageList( bool withRelativePath );
 
+        Connection* _connection;
+        QueryHelper _qh;
+
     private:
-        DatabaseHandler* _dbhandler;
         SQLCategoryCollection _categoryCollection;
-        SQLImageInfoCollection _infoCollection;
         DB::MemberMap _members;
+        SQLImageInfoCollection _infoCollection;
         SQLMD5Map _md5map;
     };
 }

@@ -1,6 +1,10 @@
 noinst_LTLIBRARIES = libMainWindow.la
 
+if compile_sqldb
+INCLUDES = -I$(srcdir)/../kexi -I$(srcdir)/.. $(all_includes)
+else
 INCLUDES = -I$(srcdir)/.. $(all_includes)
+endif
 
 libMainWindow_la_SOURCES = DeleteDialog.cpp DeleteThumbnailsDialog.cpp DonateDialog.cpp FeatureDialog.cpp \
                         HtmlExportDialog.cpp InvalidDateFinder.cpp TokenEditor.cpp WelcomeDialog.cpp \

@@ -21,16 +21,23 @@
 #define SQLMD5MAP_H
 
 #include "DB/MD5Map.h"
+#include "Connection.h"
+#include "QueryHelper.h"
 
 namespace SQLDB
 {
     class SQLMD5Map : public DB::MD5Map
     {
     public:
+        explicit SQLMD5Map(Connection& connection);
+
         void insert(const QString& md5sum, const QString& fileName);
         QString lookup(const QString& md5sum);
         bool contains(const QString& md5sum);
         void clear();
+
+    protected:
+        QueryHelper _qh;
     };
 }
 

@@ -5,11 +5,18 @@
 #include "SQLSpecialCategory.h"
 #include "QueryErrors.h"
 
+SQLDB::SQLCategoryCollection::SQLCategoryCollection(Connection& connection):
+    _connection(&connection),
+    _qh(connection)
+{
+}
+
+
 DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {
     int categoryId;
     try {
-        categoryId = QueryHelper::instance()->categoryId(name);
+        categoryId = _qh.categoryId(name);
     }
     catch (NotFoundError&) {
         return 0;
@@ -17,13 +24,13 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
 
     DB::CategoryPtr p;
     if (name == "Folder") {
-        p = new SQLFolderCategory(categoryId);
+        p = new SQLFolderCategory(const_cast<QueryHelper*>(&_qh), categoryId);
     }
     else if (name == "Tokens") {
-        p = new SQLSpecialCategory(categoryId);
+        p = new SQLSpecialCategory(const_cast<QueryHelper*>(&_qh), categoryId);
     }
     else {
-        p = new SQLCategory(categoryId);
+        p = new SQLCategory(const_cast<QueryHelper*>(&_qh), categoryId);
     }
 
     connect(p, SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()));
@@ -37,13 +44,13 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
 
 QStringList SQLDB::SQLCategoryCollection::categoryNames() const
 {
-    return QueryHelper::instance()->categoryNames();
+    return _qh.categoryNames();
 }
 
 void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
 {
     try {
-        QueryHelper::instance()->removeCategory(name);
+        _qh.removeCategory(name);
     }
     catch (NotFoundError&) {
         return;
@@ -71,13 +78,12 @@ void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const Q
                                                 DB::Category::ViewType type, bool showIt )
 {
     try {
-        QueryHelper::instance()->
-            insertCategory(category, icon, showIt, type, size);
+        _qh.insertCategory(category, icon, showIt, type, size);
     }
     catch (SQLError& e) {
         // Check if error occured, because category already exists
         try {
-            QueryHelper::instance()->categoryId(category);
+            _qh.categoryId(category);
         }
         catch (Error&) {
             throw e; // Throw the original error

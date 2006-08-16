@@ -26,6 +26,7 @@
 #include <kexidb/transaction.h>
 #include <kexidb/field.h>
 #include "DatabaseHandler.h"
+#include "QueryErrors.h"
 
 using namespace SQLDB;
 using KexiDB::Field;
@@ -50,48 +51,45 @@ namespace
     }
 }
 
-
-DatabaseHandler* DatabaseHandler::getMySQLHandler(const QString& username,
-                                                  const QString& password,
-                                                  const QString& hostname)
+DatabaseHandler::DatabaseHandler(const KexiDB::ConnectionData& connectionData):
+    _connectionData(connectionData),
+    _driver(_driverManager->driver(connectionData.driverName))
 {
-    KexiDB::ConnectionData connectionData;
-    connectionData.userName = username;
-    connectionData.password = password;
-    if (!hostname.isNull())
-        connectionData.hostName = hostname;
-
-    return new DatabaseHandler("MySQL", connectionData);
-}
-
-DatabaseHandler::DatabaseHandler(const QString& driverName,
-                                 const KexiDB::ConnectionData& connectionData):
-    _driverName(driverName),
-    _driver(0),
-    _connectionData(connectionData)
-{
-    _driver = _driverManager->driver(_driverName);
-    if (!_driver) {
-        // TODO: error handling (get from manager)
-        exitError(i18n("Kexi driver not found."));
-    }
+    if (!_driver)
+        throw Error(_driverManager->errorMsg());
 
     _connection = _driver->createConnection(_connectionData);
-    if (!_connection || _driver->error()) {
-        // TODO: error handling (get from driver)
-        exitError(QString::fromLatin1("cannot create connection or driver error"));
-    }
+    if (!_connection)
+        throw Error(_driver->errorMsg());
 
-    if (!_connection->connect()) {
-        // TODO: error handling
-        exitError(QString::fromLatin1("connecting to db failed"));
-    }
+    connect();
 }
 
 DatabaseHandler::~DatabaseHandler()
 {
     delete _connection;
     delete _driver;
+}
+
+void DatabaseHandler::connect()
+{
+    bool success = _connection->connect();
+    if (!success)
+        throw Error(_connection->errorMsg());
+}
+
+void DatabaseHandler::reconnect()
+{
+    QString usedDatabase;
+    if (_connection->isConnected()) {
+        usedDatabase = _connection->currentDatabase();
+        bool success = _connection->disconnect();
+        if (!success)
+            throw Error(_connection->errorMsg());
+    }
+    connect();
+    if (!usedDatabase.isEmpty())
+        openDatabase(usedDatabase);
 }
 
 KexiDB::Connection* DatabaseHandler::connection()
@@ -249,7 +247,7 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     // KexiDB PostgreSQL driver has a bug, which prevents creating
     // table with DateTime fields with createTable, so use plain SQL
     // instead.
-    if (_driverName == "PostgreSQL") {
+    if (_connectionData.driverName == "PostgreSQL") {
         _connection->executeSQL("CREATE TABLE media ("
                                 "id SERIAL PRIMARY KEY, "
                                 "place BIGINT, "

@@ -1,4 +1,4 @@
-include $(kphotoalbum_top_srcdir)/kexi/Makefile.global
+include ../../../Makefile.global
 
 noinst_LTLIBRARIES = libkexisql3.la
 

@@ -230,7 +230,7 @@ class KEXI_DB_EXPORT Driver : public QObject, public KexiDB::Object
 		*/
 //old			const QDateTime dt( v.toDateTime() );
 //old			return QString("\'")+dt.date().toString(Qt::ISODate)+" "+dt.time().toString(Qt::ISODate)+"\'";
-			return QString("\'")+v.toString(Qt::ISODate)+"\'";
+			return QString(QString::fromLatin1("\'"))+v.toString(Qt::ISODate)+QString::fromLatin1("\'");
 		}
 
 		/*! Driver-specific SQL string escaping.

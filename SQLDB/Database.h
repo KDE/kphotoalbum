@@ -31,11 +31,8 @@ namespace SQLDB {
     class Database  :public DB::ImageDB {
         Q_OBJECT
 
-    protected:
-        friend class DB::ImageDB;
-        explicit Database(Connection& connection);
-
     public:
+        explicit Database(Connection& connection);
         ~Database();
 
         virtual int totalCount() const;

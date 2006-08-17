@@ -93,6 +93,8 @@
 #include "ImageManager/Manager.h"
 
 #ifdef SQLDB_SUPPORT
+#include "SQLDB/Database.h"
+#include "SQLDB/DatabaseHandler.h"
 #include "SQLDB/ConfigFileHandler.h"
 #include <kexidb/kexidb_export.h>
 #include <kexidb/connectiondata.h>
@@ -1358,7 +1360,22 @@ void MainWindow::Window::showThumbNails( const QStringList& list )
 
 void MainWindow::Window::convertBackend()
 {
-    DB::ImageDB::instance()->convertBackend();
+#ifdef SQLDB_SUPPORT
+    KConfig* config = kapp->config();
+    config->setGroup(QString::fromLatin1("SQLDB"));
+    KexiDB::ConnectionData connectionData;
+    QString databaseName;
+    SQLDB::readConnectionParameters(*config, connectionData, databaseName);
+
+    SQLDB::DatabaseHandler dbh(connectionData);
+    dbh.openDatabase(databaseName);
+
+    SQLDB::Database* sqlBackend = new SQLDB::Database(*dbh.connection());
+
+    DB::ImageDB::instance()->convertBackend(sqlBackend);
+
+    delete sqlBackend;
+#endif
 }
 
 void MainWindow::Window::slotRecalcCheckSums()

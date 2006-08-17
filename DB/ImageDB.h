@@ -48,7 +48,7 @@ public:
 #ifdef SQLDB_SUPPORT
     static void setupSQLDB( const KexiDB::ConnectionData& connectionData, const QString& databaseName );
 #endif
-    void convertBackend();
+    void convertBackend(ImageDB* newBackend);
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );

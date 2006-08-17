@@ -128,42 +128,13 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
     return MediaCount( images, videos );
 }
 
-void ImageDB::convertBackend()
+void ImageDB::convertBackend(ImageDB* newBackend)
 {
-#ifdef SQLDB_SUPPORT
     QStringList allImages = images();
-
-    QString userName = QString::null;
-    QString password = QString::null;
-    bool ok = false;
-    userName = KInputDialog::getText( i18n("SQL database username"),
-                                      i18n("Username:"), QString::null, &ok );
-    if (!ok)
-        return;
-    if (userName.isEmpty()) {
-        userName = QString::null;
-    }
-    else {
-        QCString passwd;
-        if ( KPasswordDialog::getPassword(passwd, i18n("Password for SQL database"))
-             == KPasswordDialog::Accepted ) {
-            password = passwd;
-        }
-        else
-            return;
-    }
 
     QProgressDialog dialog( 0 );
     dialog.setLabelText( i18n( "Converting Backend" ) );
     dialog.setTotalSteps( allImages.count() );
-    KexiDB::ConnectionData connectionData;
-    connectionData.userName = userName;
-    connectionData.password = password;
-
-    SQLDB::DatabaseHandler dbh(connectionData);
-    dbh.openDatabase(QString::fromLatin1("kphotoalbum")); // TODO: read from config
-
-    SQLDB::Database* newBackend = new SQLDB::Database(*dbh.connection());
 
     // Convert the Category info
     CategoryCollection* origCategories = categoryCollection();
@@ -192,9 +163,6 @@ void ImageDB::convertBackend()
     }
     if ( list.count() != 0 )
         newBackend->addImages( list );
-
-    delete newBackend;
-#endif // SQLDB_SUPPORT
 }
 
 void ImageDB::slotReread( const QStringList& list, int mode)

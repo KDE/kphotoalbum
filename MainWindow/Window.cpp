@@ -31,7 +31,7 @@
 #include <klocale.h>
 #include <qhbox.h>
 #include <qwidgetstack.h>
-#include "HtmlExportDialog.h"
+#include "HTMLGenerator/HTMLDialog.h"
 #include <kstatusbar.h>
 #include "ImageCounter.h"
 #include <qtimer.h>
@@ -662,7 +662,7 @@ void MainWindow::Window::slotExportToHTML()
         list = DB::ImageDB::instance()->currentScope( true );
 
     if ( ! _htmlDialog )
-        _htmlDialog = new HTMLExportDialog( this, "htmlExportDialog" );
+        _htmlDialog = new HTMLGenerator::HTMLDialog( this, "htmlExportDialog" );
     _htmlDialog->exec( list );
 }
 

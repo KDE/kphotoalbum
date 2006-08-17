@@ -7,7 +7,7 @@ INCLUDES = -I$(srcdir)/.. $(all_includes)
 endif
 
 libMainWindow_la_SOURCES = DeleteDialog.cpp DeleteThumbnailsDialog.cpp DonateDialog.cpp FeatureDialog.cpp \
-                        HtmlExportDialog.cpp InvalidDateFinder.cpp TokenEditor.cpp WelcomeDialog.cpp \
+                        InvalidDateFinder.cpp TokenEditor.cpp WelcomeDialog.cpp \
 			Window.cpp SplashScreen.cpp ExternalPopup.cpp SearchBar.cpp ImageCounter.cpp 
 
 

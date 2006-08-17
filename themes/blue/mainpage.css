@@ -1,5 +1,5 @@
 BODY { background-color: #7ba5c1 !important; color: black; }
-img { border: 1px solid white; }
+#img { border: 1px solid white; }
 table.thumbnail-table,table.image-table { width: 100%; color: white; text-align:center; }
 td.thumbnail-col,td.image { height:150px; text-align: center; vertical-align: middle; border: 1px solid black; background-color:#5a91bd }
 table.controlinfo,td.navbar { width:100%; background-color: #5a91bd; color:white; border: 1px solid black; }

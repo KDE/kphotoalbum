@@ -31,7 +31,7 @@ void ImageManager::VideoManager::load( ImageRequest* request )
     _currentRequest = request;
     KURL::List list;
     list.append( request->fileName() );
-    KIO::PreviewJob* job=KIO::filePreview(list, Settings::SettingsData::instance()->thumbSize() );
+    KIO::PreviewJob* job=KIO::filePreview(list, request->width() );
     job->setIgnoreMaximumSize( true );
 
     connect(job, SIGNAL(gotPreview(const KFileItem*, const QPixmap&)),

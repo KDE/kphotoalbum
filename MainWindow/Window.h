@@ -40,11 +40,11 @@ namespace Browser{ class BrowserWidget; }
 namespace AnnotationDialog { class Dialog; }
 namespace Settings { class SettingsDialog; }
 namespace DateBar { class DateBarWidget; }
+namespace HTMLGenerator { class HTMLDialog; }
 
 namespace MainWindow
 {
 class DeleteDialog;
-class HTMLExportDialog;
 class TokenEditor;
 class ImageCounter;
 
@@ -173,7 +173,7 @@ private:
     KAction* _setDefaultPos;
     KAction* _setDefaultNeg;
     KAction* _jumpToContext;
-    HTMLExportDialog* _htmlDialog;
+    HTMLGenerator::HTMLDialog* _htmlDialog;
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;
     KAction* _view;

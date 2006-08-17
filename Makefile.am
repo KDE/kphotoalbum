@@ -19,7 +19,7 @@ endif
 #endif
 
 SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer Browser ImportExport \
-          AnnotationDialog MainWindow Settings Utilities ImageManager DB $(KEXI_DIR)
+          AnnotationDialog MainWindow Settings Utilities ImageManager DB $(KEXI_DIR) HTMLGenerator
 
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
@@ -32,7 +32,7 @@ kphotoalbum_LDADD =  MainWindow/libMainWindow.la Survey/libsurvey.la ImportExpor
 		     AnnotationDialog/libAnnotationDialog.la Settings/libSettings.la \
 		     Utilities/libUtilities.la ImageManager/libImageManager.la DB/libDB.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) $(KPHOTOALBUM_KEXI_LIBS) \
-                     $(LIBKPHOTOALBUM_KEXIDB) \
+                     $(LIBKPHOTOALBUM_KEXIDB) HTMLGenerator/libHTMLGenerator.la\
 	             $(KPHOTOALBUM_EXIV2_LIBS) -lkmediaplayer
 
 METASOURCES = AUTO

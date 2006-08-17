@@ -26,8 +26,10 @@
 #include <kconfig.h>
 #include <qfileinfo.h>
 
-#define DEFAULT_DRIVER QString::fromLatin1("SQLite")
+#define DEFAULT_DRIVER QString::fromLatin1("SQLite3")
 #define DEFAULT_DATABASE QString::fromLatin1("kphotoalbum")
+#define DATABASE_FILE_EXTENSION QString::fromLatin1(".db")
+#define DATABASE_FILE_ROOT Settings::SettingsData::instance()->imageDirectory()
 
 using namespace KexiDB;
 
@@ -42,19 +44,28 @@ void SQLDB::readConnectionParameters(const KConfig& config,
     if (driverInfo.name.isEmpty())
         throw Error(dm.errorMsg());
 
-    // Could be database name for network based DBMSs
-    // or filename (without path) for file based DBMSs
-    databaseName =
-        config.readEntry(QString::fromLatin1("database"), DEFAULT_DATABASE);
-    if (databaseName.isEmpty())
+    // Could be database name for network based DBMSs or filename
+    // (relative to image root or absolute) for file based DBMSs
+    databaseName = QString::null;
+    if (config.hasKey(QString::fromLatin1("database")))
+        databaseName = config.readEntry(QString::fromLatin1("database"));
+
+    // Check if config file has empty database name or no database
+    // name at all
+    if (databaseName.isEmpty()) {
         databaseName = DEFAULT_DATABASE;
+        if (driverInfo.fileBased)
+            databaseName += DATABASE_FILE_EXTENSION;
+    }
 
     if (driverInfo.fileBased) {
-        // Remove path to restrict overwriting of files in other directories
+        // Add image root if path is relative
         QFileInfo fi(databaseName);
-        databaseName = fi.fileName();
-        data.setFileName(Settings::SettingsData::instance()->imageDirectory() +
-                         databaseName);
+        if (fi.isRelative())
+            databaseName = DATABASE_FILE_ROOT + fi.filePath();
+        else
+            databaseName = fi.filePath();
+        data.setFileName(databaseName);
     }
     else {
         if (config.hasKey(QString::fromLatin1("host")))

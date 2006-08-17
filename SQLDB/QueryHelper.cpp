@@ -646,7 +646,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
         "description" <<
         "startTime" << "endTime" <<
         "width" << "height" << "angle";
-    bindings << imageInfoToBindings(info);
+    bindings += imageInfoToBindings(info);
 
     Q_ULLONG mediaId = insert("media", "id", fields, bindings);
 

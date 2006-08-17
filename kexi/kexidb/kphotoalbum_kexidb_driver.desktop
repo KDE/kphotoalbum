@@ -3,6 +3,13 @@ Encoding=UTF-8
 Type=ServiceType
 X-KDE-ServiceType=Kexi/DBDriver
 Comment=Kexi SQL-Driver plugin
+Comment[br]=Lugent SQL-Driver evit Kexi
+Comment[el]=Πρόσθετο Kexi οδηγού SQL
+Comment[hr]=Kexi dodatak za SQL upravljački program
+Comment[it]=Estensione al driver SQL di Kexi
+Comment[ja]=Kexi SQL ドライバ プラグイン
+Comment[pt]='Plugin' do Controlador de SQL do Kexi
+Comment[pt_BR]='Plugin' do Controlador de SQL do Kexi
 Comment[sr]=Прикључак SQL драјвера за Kexi
 
 [PropertyDef::X-Kexi-FileDBDriverMime]

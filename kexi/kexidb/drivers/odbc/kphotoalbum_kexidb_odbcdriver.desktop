@@ -2,6 +2,12 @@
 Encoding=UTF-8
 Name=ODBC
 Comment=Kexi Open Database Connectivity Driver
+Comment[el]=Οδηγός σύνδεσης ανοιχτής βάσης δεδομένων Kexi
+Comment[hr]=Kexi upravljački program za otvoreno povezivanje baza podataka
+Comment[it]=Driver per la connettività alle banche dati aperte di Kexi
+Comment[ja]=Kexi ODBC (Open Database Connectivity) ドライバ
+Comment[pt]=Controlador de ODBC do Kexi
+Comment[pt_BR]=Controlador de ODBC do Kexi
 Comment[sr]=Драјвер за Kexi за повезивање са ODB-ом
 X-KDE-Library=kexidb_odbcdriver
 ServiceTypes=Kexi/DBDriver

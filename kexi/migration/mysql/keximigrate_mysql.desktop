@@ -2,6 +2,12 @@
 Encoding=UTF-8
 Name=MySQL
 Comment=MySQL Migration Driver for Kexi
+Comment[el]=Οδηγός μεταφοράς MySQL του Kexi
+Comment[hr]=MySQL-ov upravljački program migracije podataka za Kexi
+Comment[it]=Driver di migrazione MySQL di Kexi
+Comment[ja]=Kexi MySQL データ移行ドライバ
+Comment[pt]=Controlador de Migração de MySQL do Kexi
+Comment[pt_BR]=Controlador de Migração de MySQL do Kexi
 X-KDE-Library=keximigrate_mysql
 ServiceTypes=Kexi/MigrationDriver
 Type=Service

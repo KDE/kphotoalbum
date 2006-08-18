@@ -7,7 +7,7 @@
 struct X: public Y\
 {\
     X(const QString& message=QString::null): Y(message) {}\
-    QString name() const { return QString::fromLatin1("X"); }\
+    QString name() const { return QString::fromLatin1(#X); }\
 }
 
 #define ERROR_CLASS2(X,Y) \
@@ -15,7 +15,7 @@ struct X: public Y\
 {\
     X(const QString& queryLine=QString::null,\
       const QString& message=QString::null): Y(message, queryLine) {}\
-    QString name() const { return QString::fromLatin1("X"); }\
+    QString name() const { return QString::fromLatin1(#X); }\
 }
 
 namespace SQLDB

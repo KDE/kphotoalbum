@@ -609,7 +609,8 @@ QPixmap Import::loadThumbnail( QString fileName )
 
     const KArchiveDirectory* thumbnailDir = static_cast<const KArchiveDirectory*>( thumbnails );
 
-    fileName = QFileInfo( fileName ).fileName();
+    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( fileName ).extension();
+    fileName = QString::fromLatin1("%1.%2").arg( Utilities::stripSlash( QFileInfo( fileName ).baseName() ) ).arg(ext);
     const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
     if ( fileEntry == 0 || !fileEntry->isFile() ) {
         KMessageBox::error( this, i18n("No thumbnail existed in export file for %1").arg( fileName ) );

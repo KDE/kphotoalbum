@@ -236,7 +236,7 @@ void Export::copyImages( const QStringList& list )
         QString file = *it;
         QString zippedName = _nameMap[file];
 
-        if ( _maxSize == -1 ) {
+        if ( _maxSize == -1 || Utilities::isVideo( file ) ) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
@@ -261,12 +261,7 @@ void Export::copyImages( const QStringList& list )
         // Test if the cancel button was pressed.
         qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
-#if QT_VERSION < 0x030104
-        bool canceled = _progressDialog->wasCancelled();
-#else
-        bool canceled =  _progressDialog->wasCanceled();
-#endif
-        if ( canceled ) {
+        if ( _progressDialog->wasCanceled() ) {
             _ok = false;
             return;
         }
@@ -281,9 +276,12 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
 {
     if ( !loadedOK )
         return;
+
+    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( _nameMap[fileName] ).extension();
+
     // Add the file to the zip archive
-    QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripSlash(_subdir)).arg(QFileInfo( _nameMap[fileName] ).baseName())
-                          .arg(QFileInfo( _nameMap[fileName] ).extension() );
+    QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripSlash(_subdir))
+                          .arg(QFileInfo( _nameMap[fileName] ).baseName()).arg( ext );
     QByteArray data;
     QBuffer buffer( data );
     buffer.open( IO_WriteOnly );
@@ -304,11 +302,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
 
     qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
-#if QT_VERSION < 0x030104
-    bool canceled = (!_ok || _progressDialog->wasCancelled());
-#else
     bool canceled = (!_ok ||  _progressDialog->wasCanceled());
-#endif
 
     if ( canceled ) {
         _ok = false;
@@ -321,7 +315,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     _filesRemaining--;
     _progressDialog->setProgress( _steps );
 
-    if ( _filesRemaining == 0 )
+    if ( _filesRemaining == 0 && _loopEntered )
         qApp->eventLoop()->exitLoop();
 }
 

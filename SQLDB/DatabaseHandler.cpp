@@ -26,6 +26,7 @@
 #include <kexidb/transaction.h>
 #include <kexidb/field.h>
 #include "DatabaseHandler.h"
+#include "QueryHelper.h"
 #include "QueryErrors.h"
 
 using namespace SQLDB;
@@ -514,12 +515,32 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
 
 void DatabaseHandler::insertInitialData()
 {
-    _connection->executeSQL("INSERT INTO category "
-                            "(name, icon, visible, viewtype, viewsize) "
-                            "VALUES "
-                            "('Folder', 'folder', 0, 0, 0), "
-                            "('Tokens', 'cookie', 1, 1, 1), "
-                            "('Keywords', 'password', 1, 1, 1), "
-                            "('Locations', 'network', 1, 0, 0), "
-                            "('Persons', 'personal', 1, 0, 0)");
+    struct
+    {
+        const char* name;
+        const char* icon;
+        bool visible;
+        DB::Category::ViewType viewtype;
+        DB::Category::ViewSize viewsize;
+    } entry[] = {
+        { "Folder", "folder",
+          false, DB::Category::ListView, DB::Category::Small },
+        { "Tokens", "cookie",
+          true, DB::Category::IconView, DB::Category::Large },
+        { "Keywords", "password",
+          true, DB::Category::IconView, DB::Category::Large },
+        { "Locations", "network",
+          true, DB::Category::ListView, DB::Category::Small },
+        { "Persons", "personal",
+          true, DB::Category::ListView, DB::Category::Small },
+        { 0, 0, false, DB::Category::ListView, DB::Category::Small }
+    };
+
+    QueryHelper qh(*_connection);
+
+    for (int i = 0; entry[i].name != 0; ++i)
+        qh.insertCategory(QString::fromLatin1(entry[i].name),
+                          QString::fromLatin1(entry[i].icon),
+                          entry[i].visible,
+                          entry[i].viewtype, entry[i].viewsize);
 }

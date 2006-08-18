@@ -96,6 +96,7 @@
 #include "SQLDB/Database.h"
 #include "SQLDB/DatabaseHandler.h"
 #include "SQLDB/ConfigFileHandler.h"
+#include "SQLDB/QueryErrors.h"
 #include <kexidb/kexidb_export.h>
 #include <kexidb/connectiondata.h>
 #endif
@@ -1363,18 +1364,23 @@ void MainWindow::Window::convertBackend()
 #ifdef SQLDB_SUPPORT
     KConfig* config = kapp->config();
     config->setGroup(QString::fromLatin1("SQLDB"));
-    KexiDB::ConnectionData connectionData;
-    QString databaseName;
-    SQLDB::readConnectionParameters(*config, connectionData, databaseName);
+    try {
+        KexiDB::ConnectionData connectionData;
+        QString databaseName;
+        SQLDB::readConnectionParameters(*config, connectionData, databaseName);
 
-    SQLDB::DatabaseHandler dbh(connectionData);
-    dbh.openDatabase(databaseName);
+        SQLDB::DatabaseHandler dbh(connectionData);
+        dbh.openDatabase(databaseName);
 
-    SQLDB::Database* sqlBackend = new SQLDB::Database(*dbh.connection());
+        SQLDB::Database* sqlBackend = new SQLDB::Database(*dbh.connection());
 
-    DB::ImageDB::instance()->convertBackend(sqlBackend);
+        DB::ImageDB::instance()->convertBackend(sqlBackend);
 
-    delete sqlBackend;
+        delete sqlBackend;
+    }
+    catch (SQLDB::Error& e) {
+        KMessageBox::sorry(this, i18n("Cannot convert the database, because following error occured:\n%1").arg(e.message()));
+    }
 #endif
 }
 

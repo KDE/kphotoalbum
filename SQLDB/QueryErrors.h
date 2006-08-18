@@ -5,34 +5,32 @@
 
 namespace SQLDB
 {
+    class Error
+    {
+    public:
+        Error(const QString& message=QString::null);
+        const QString& getMessage() const;
 
-class Error
-{
-public:
-    Error(const QString& message=QString::null);
-    const QString& getMessage() const;
+    private:
+        QString _message;
+    };
 
-private:
-    QString _message;
-};
+    class NotFoundError: public Error
+    {
+    public:
+        NotFoundError(const QString& message=QString::null);
+    };
 
-class NotFoundError : public Error
-{
-public:
-    NotFoundError(const QString& message=QString::null);
-};
+    class SQLError: public Error
+    {
+    public:
+        SQLError();
+        SQLError(const QString& query, const QString& message=QString::null);
+        const QString& getQuery() const;
 
-class SQLError : public Error
-{
-public:
-    SQLError();
-    SQLError(const QString& query, const QString& message=QString::null);
-    const QString& getQuery() const;
-
-private:
-    QString _query;
-};
-
+    private:
+        QString _query;
+    };
 }
 
 #endif /* SQLDB_QUERYERRORS_H */

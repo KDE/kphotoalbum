@@ -42,7 +42,7 @@ void SQLDB::readConnectionParameters(const KConfig& config,
     DriverManager dm;
     Driver::Info driverInfo = dm.driverInfo(data.driverName);
     if (driverInfo.name.isEmpty())
-        throw Error(dm.errorMsg());
+        throw DriverNotFoundError(dm.errorMsg());
 
     // Could be database name for network based DBMSs or filename
     // (relative to image root or absolute) for file based DBMSs

@@ -35,23 +35,6 @@ using KexiDB::Field;
 KexiDB::DriverManager* DatabaseHandler::_driverManager =
     new KexiDB::DriverManager();
 
-//TODO: error handling
-#include <stdlib.h>
-#include <kmessagebox.h>
-#include <klocale.h>
-namespace
-{
-    void tellError(const QString& msg)
-    {
-        KMessageBox::sorry(0, msg);
-    }
-    void exitError(const QString& msg)
-    {
-        tellError(msg);
-        exit(-1);
-    }
-}
-
 DatabaseHandler::DatabaseHandler(const KexiDB::ConnectionData& connectionData):
     _connectionData(connectionData),
     _driver(_driverManager->driver(connectionData.driverName))
@@ -134,7 +117,6 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     KexiDB::TableSchema* schema;
 
     //TODO: Set NotNull flags where should
-    //TODO: error handling
 
     // ==== dir table ====
     schema = new KexiDB::TableSchema("dir");

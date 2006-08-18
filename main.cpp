@@ -66,21 +66,23 @@ int main( int argc, char** argv ) {
 
     KImageIO::registerFormats();
     try {
-    MainWindow::Window* view = new MainWindow::Window( 0, "view" );
+        MainWindow::Window* view = new MainWindow::Window( 0, "view" );
 
-    // qApp->setMainWidget( view );
-    view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
+        // qApp->setMainWidget( view );
+        view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
-    int code = app.exec();
+        int code = app.exec();
 
-    return code;
-    } // try
+        return code;
+    }
 #ifdef SQLDB_SUPPORT
     catch (SQLDB::Error& e) {
-        qFatal("SQLDB error occured: %s", e.message().local8Bit().data());
+        qFatal("Exception SQLDB::%s occured with message: %s",
+               e.name().local8Bit().data(),
+               e.message().local8Bit().data());
     }
 #endif
-    catch(...) {
+    catch (...) {
         qFatal("Unknown exception caught");
     }
 }

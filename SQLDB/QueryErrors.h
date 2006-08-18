@@ -3,34 +3,73 @@
 
 #include <qstring.h>
 
+#define ERROR_CLASS(X,Y) \
+struct X: public Y\
+{\
+    X(const QString& message=QString::null): Y(message) {}\
+    QString name() const { return QString::fromLatin1("X"); }\
+}
+
+#define ERROR_CLASS2(X,Y) \
+struct X: public Y\
+{\
+    X(const QString& queryLine=QString::null,\
+      const QString& message=QString::null): Y(message, queryLine) {}\
+    QString name() const { return QString::fromLatin1("X"); }\
+}
+
 namespace SQLDB
 {
     class Error
     {
     public:
-        Error(const QString& message=QString::null);
-        const QString& getMessage() const;
+        Error(const QString& message=QString::null): _message(message) {}
+        const QString& message() const { return _message; }
+        virtual QString name() const { return QString::fromLatin1("Error"); }
 
     private:
         QString _message;
     };
 
-    class NotFoundError: public Error
-    {
-    public:
-        NotFoundError(const QString& message=QString::null);
-    };
+    ERROR_CLASS(NotFoundError, Error);
+    ERROR_CLASS(DriverNotFoundError, NotFoundError);
+    ERROR_CLASS(DataNotFoundError, NotFoundError);
+    ERROR_CLASS(RowNotFoundError, DataNotFoundError);
+    ERROR_CLASS(EntryNotFoundError, DataNotFoundError);
+
+    ERROR_CLASS(InitializationError, Error);
+    ERROR_CLASS(DriverLoadError, InitializationError);
+
+    ERROR_CLASS(ConnectionError, Error);
+    ERROR_CLASS(ConnectionCreateError, ConnectionError);
+    ERROR_CLASS(ConnectionOpenError, ConnectionError);
+    ERROR_CLASS(ConnectionCloseError, ConnectionError);
+
+    ERROR_CLASS(DatabaseError, Error);
+    ERROR_CLASS(DatabaseCreateError, DatabaseError);
+    ERROR_CLASS(DatabaseOpenError, DatabaseError);
+
+    ERROR_CLASS(TableCreateError, Error);
+
+    ERROR_CLASS(TransactionError, Error);
+    ERROR_CLASS(TransactionCreateError, TransactionError);
+    ERROR_CLASS(TransactionCommitError, TransactionError);
 
     class SQLError: public Error
     {
     public:
-        SQLError();
-        SQLError(const QString& query, const QString& message=QString::null);
-        const QString& getQuery() const;
+        SQLError(const QString& queryLine=QString::null,
+                 const QString& message=QString::null):
+            Error(message), _queryLine(queryLine) {}
+        const QString& queryLine() const { return _queryLine; }
+        QString name() const { return QString::fromLatin1("SQLError"); }
 
     private:
-        QString _query;
+        QString _queryLine;
     };
+
+    ERROR_CLASS2(QueryError, SQLError);
+    ERROR_CLASS2(StatementError, SQLError);
 }
 
 #endif /* SQLDB_QUERYERRORS_H */

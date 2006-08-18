@@ -6,6 +6,7 @@ Comment[el]=Οδηγός μεταφοράς PostgreSQL του Kexi
 Comment[hr]=PostgreSQL-ov upravljački program migracije podataka za Kexi
 Comment[it]=Driver di migrazione PostgreSQL di Kexi
 Comment[ja]=Kexi PostgreSQL データ移行ドライバ
+Comment[nl]=PostgreSQL-migratiestuurprogramma voor Kexi
 Comment[pt]=Controlador de Migração de PostgreSQL do Kexi
 Comment[pt_BR]=Controlador de Migração de PostgreSQL do Kexi
 X-KDE-Library=keximigrate_pqxx

@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=PostgreSQL
 X-KDE-Library=kphotoalbum_kexidb_pqxxsqldriver
-ServiceTypes=Kexi/DBDriver
+ServiceTypes=KPAKexi/DBDriver
 Type=Service
 InitialPreference=8
 X-Kexi-DriverName=PostgreSQL

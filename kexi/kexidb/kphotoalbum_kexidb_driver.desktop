@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Type=ServiceType
-X-KDE-ServiceType=Kexi/DBDriver
+X-KDE-ServiceType=KPAKexi/DBDriver
 Comment=Kexi SQL-Driver plugin
 Comment[br]=Lugent SQL-Driver evit Kexi
 Comment[el]=Πρόσθετο Kexi οδηγού SQL

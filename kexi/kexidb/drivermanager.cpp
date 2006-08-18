@@ -97,7 +97,7 @@ bool DriverManagerInternal::lookupDrivers()
 
 	lookupDriversNeeded = false;
 	clearError();
-	KTrader::OfferList tlist = KTrader::self()->query("Kexi/DBDriver");
+	KTrader::OfferList tlist = KTrader::self()->query("KPAKexi/DBDriver");
 	KTrader::OfferList::ConstIterator it(tlist.constBegin());
 	for(; it != tlist.constEnd(); ++it)
 	{

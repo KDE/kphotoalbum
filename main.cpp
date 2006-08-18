@@ -23,6 +23,9 @@
 #include <kaboutdata.h>
 #include <kimageio.h>
 #include "MainWindow/SplashScreen.h"
+#ifdef SQLDB_SUPPORT
+#include "SQLDB/QueryErrors.h"
+#endif
 
 static const KCmdLineOptions options[] =
 {
@@ -62,6 +65,7 @@ int main( int argc, char** argv ) {
     splash->show();
 
     KImageIO::registerFormats();
+    try {
     MainWindow::Window* view = new MainWindow::Window( 0, "view" );
 
     // qApp->setMainWidget( view );
@@ -70,4 +74,13 @@ int main( int argc, char** argv ) {
     int code = app.exec();
 
     return code;
+    } // try
+#ifdef SQLDB_SUPPORT
+    catch (SQLDB::Error& e) {
+        qFatal("SQLDB error occured: %s", e.message().local8Bit().data());
+    }
+#endif
+    catch(...) {
+        qFatal("Unknown exception caught");
+    }
 }

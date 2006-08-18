@@ -74,3 +74,5 @@ void Viewer::VideoDisplay::stateChanged( int state)
         emit stopped();
 }
 
+
+#include "VideoDisplay.moc"

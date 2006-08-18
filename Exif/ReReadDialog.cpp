@@ -119,3 +119,5 @@ void Exif::ReReadDialog::warnAboutDates( bool b )
     if ( ret == KMessageBox::No )
         _date->setChecked( false );
 }
+
+#include "ReReadDialog.moc"

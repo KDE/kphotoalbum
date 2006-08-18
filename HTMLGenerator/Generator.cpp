@@ -530,3 +530,5 @@ void HTMLGenerator::Generator::showBrowser()
     qApp->eventLoop()->exitLoop();
 }
 
+
+#include "Generator.moc"

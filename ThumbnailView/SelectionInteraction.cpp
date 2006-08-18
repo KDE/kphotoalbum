@@ -211,3 +211,5 @@ QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, C
 
     return iconRect;
 }
+
+#include "SelectionInteraction.moc"

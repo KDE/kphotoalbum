@@ -308,3 +308,5 @@ void Exif::SearchDialog::toFocalLengthChanged( int val )
         _fromFocalLength->setValue( val );
 }
 
+
+#include "SearchDialog.moc"

@@ -74,3 +74,5 @@ void Exif::TreeView::reload()
     if ( QListViewItem* item = firstChild() )
         item->setOpen( true );
 }
+
+#include "TreeView.moc"

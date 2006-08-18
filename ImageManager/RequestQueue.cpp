@@ -77,3 +77,5 @@ ImageManager::RequestQueue::RequestQueue()
 #endif
 }
 
+
+#include "RequestQueue.moc"

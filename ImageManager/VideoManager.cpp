@@ -77,3 +77,5 @@ void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
     _pending.cancelRequests( client, action );
 }
 
+
+#include "VideoManager.moc"

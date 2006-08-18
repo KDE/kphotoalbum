@@ -226,3 +226,5 @@ void Exif::InfoDialog::pixmapLoaded( const QString& , const QSize& , const QSize
     if ( loadedOK )
         _pix->setPixmap( img );
 }
+
+#include "InfoDialog.moc"

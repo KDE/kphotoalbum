@@ -63,3 +63,5 @@ Exif::SearchInfo::Range Exif::RangeWidget::range() const
 
     return result;
 }
+
+#include "RangeWidget.moc"

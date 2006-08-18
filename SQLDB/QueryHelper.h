@@ -134,6 +134,7 @@ public:
     void changeCategoryViewType(int id, DB::Category::ViewType type);
     void changeCategoryViewSize(int id, DB::Category::ViewSize size);
 
+    int tagId(const QString& category, const QString& item) const;
     void insertTagFirst(int categoryId, const QString& name);
     void removeTag(int categoryId, const QString& name);
 
@@ -165,7 +166,6 @@ protected:
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
     QValueList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
-    int tagId(const QString& category, const QString& item) const;
     int insertTag(int categoryId, const QString& name);
     int insertDir(const QString& dirname);
     void insertMediaItem(const DB::ImageInfo& info, int place=0);

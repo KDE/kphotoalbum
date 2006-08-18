@@ -1,44 +1,22 @@
 #include "Generator.h"
-#include "HTMLDialog.h"
 #include "kdeversion.h"
-#include "HTMLDialog.h"
 #include <klocale.h>
-#include <qlayout.h>
-#include <klineedit.h>
-#include <qlabel.h>
-#include <qspinbox.h>
 #include <qfile.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include "ImageManager/Manager.h"
-#include <qcheckbox.h>
 #include <kfiledialog.h>
-#include <qpushbutton.h>
-#include "Settings/SettingsData.h"
-#include <qprogressdialog.h>
-#include <qhgroupbox.h>
 #include <kstandarddirs.h>
 #include <krun.h>
 #include <kio/job.h>
 #include <kmessagebox.h>
-#include <kfileitem.h>
-#include <kio/netaccess.h>
-#include <qtextedit.h>
-#include <unistd.h>
 #include "Utilities/Util.h"
 #include <kdebug.h>
 #include <qdir.h>
-#include <ksimpleconfig.h>
-#include <qvgroupbox.h>
-#include <kglobal.h>
-#include <kiconloader.h>
 #include "ImportExport/Export.h"
-#include "MainWindow/Window.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
-#include <config.h>
-#include "Generator.h"
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
@@ -47,12 +25,12 @@
 #include "Setup.h"
 
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
-    : QProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), 0, parent )
+    : QProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), 0, parent ), _hasEnteredLoop( false )
 {
     _setup = setup;
 }
 
-bool HTMLGenerator::Generator::generate()
+void HTMLGenerator::Generator::generate()
 {
     _tempDir = KTempDir().name();
 
@@ -65,7 +43,7 @@ bool HTMLGenerator::Generator::generate()
 
         ImportExport::Export exp( _setup.imageList(), kimFileName( false ), false, -1, ImportExport::ManualCopy, destURL, ok, true );
         if ( !ok )
-            return false;
+            return;
     }
 
     // prepare the progress dialog
@@ -82,7 +60,7 @@ bool HTMLGenerator::Generator::generate()
 
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
-            return false;
+            return;
         for ( uint index = 0; index < _setup.imageList().count(); ++index ) {
             QString current = _setup.imageList()[index];
             QString prev;
@@ -93,25 +71,32 @@ bool HTMLGenerator::Generator::generate()
                 next = _setup.imageList()[index+1];
             ok = generateContentPage( (*sizeIt)->width(), (*sizeIt)->height(), prev, current, next );
             if (!ok)
-                return false;
+                return;
         }
     }
 
     // Now generate the thumbnail images
     for( QStringList::ConstIterator it = _setup.imageList().begin(); it != _setup.imageList().end(); ++it ) {
         if ( wasCanceled() )
-            return false;
+            return;
 
         createImage( *it, _setup.thumbSize() );
     }
 
+    if ( wasCanceled() )
+        return;
 
-    if ( _waitCounter > 0 )
+    if ( _waitCounter > 0 ) {
+        _hasEnteredLoop = true;
         qApp->eventLoop()->enterLoop();
+    }
+
+    if ( wasCanceled() )
+        return;
 
     bool ok = linkIndexFile();
     if ( !ok )
-        return false;
+        return;
 
     // Copy over the mainpage.css, imagepage.css
     QString themeDir, themeAuthor, themeName;
@@ -130,7 +115,7 @@ bool HTMLGenerator::Generator::generate()
         ok = Utilities::copy( from, to );
         if ( !ok ) {
             KMessageBox::error( this, i18n("Error copying %1 to %2").arg( from ).arg( to ) );
-            return false;
+            return;
         }
     }
 
@@ -140,8 +125,9 @@ bool HTMLGenerator::Generator::generate()
     KIO::CopyJob* job = KIO::move( KURL(_tempDir), KURL(outputDir) );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
 
+    qDebug("ENTE LOOP 2");
     qApp->eventLoop()->enterLoop();
-    return true;
+    return;
 }
 
 bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
@@ -400,8 +386,8 @@ QString HTMLGenerator::Generator::createImage( const QString& fileName, int size
 
 QString HTMLGenerator::Generator::createVideo( const QString& fileName )
 {
-    if ( _setup.inlineMovies() )
-        _waitCounter--; // OK so this one did not require a image load request.
+    setProgress( _total - _waitCounter );
+    qApp->processEvents();
 
     QString baseName = QFileInfo(fileName).fileName();
     QString destName = _tempDir+QString::fromLatin1("/") + baseName;
@@ -469,6 +455,8 @@ void HTMLGenerator::Generator::slotCancelGenerate()
 {
     ImageManager::Manager::instance()->stop( this );
     _waitCounter = 0;
+    if ( _hasEnteredLoop )
+        qApp->eventLoop()->exitLoop();
 }
 
 void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSize& imgSize,
@@ -491,11 +479,17 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
     }
 
 #ifdef HASEXIV2
-    if ( !Utilities::isVideo( fileName ) )
-        Exif::Info::instance()->writeInfoToFile( fileName, file );
+    if ( !Utilities::isVideo( fileName ) ) {
+        try {
+            Exif::Info::instance()->writeInfoToFile( fileName, file );
+        }
+        catch (...)
+        {
+        }
+    }
 #endif
 
-    if ( _waitCounter == 0 ) {
+    if ( _waitCounter == 0 && _hasEnteredLoop) {
         qApp->eventLoop()->exitLoop();
     }
 }

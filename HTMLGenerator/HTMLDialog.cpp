@@ -23,41 +23,24 @@
 #include <klineedit.h>
 #include <qlabel.h>
 #include <qspinbox.h>
-#include <qfile.h>
-#include <qapplication.h>
-#include <qeventloop.h>
-#include "ImageManager/Manager.h"
 #include <qcheckbox.h>
 #include <kfiledialog.h>
 #include <qpushbutton.h>
 #include "Settings/SettingsData.h"
-#include <qprogressdialog.h>
 #include <qhgroupbox.h>
 #include <kstandarddirs.h>
-#include <krun.h>
-#include <kio/job.h>
 #include <kmessagebox.h>
 #include <kfileitem.h>
 #include <kio/netaccess.h>
 #include <qtextedit.h>
-#include <unistd.h>
-#include "Utilities/Util.h"
 #include <kdebug.h>
-#include <qdir.h>
-#include <ksimpleconfig.h>
 #include <qvgroupbox.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "ImportExport/Export.h"
 #include "MainWindow/Window.h"
 #include "DB/CategoryCollection.h"
-#include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
-#include <config.h>
 #include "Generator.h"
-#ifdef HASEXIV2
-#  include "Exif/Info.h"
-#endif
 #include "ImageSizeCheckBox.h"
 using namespace HTMLGenerator;
 
@@ -250,16 +233,14 @@ void HTMLDialog::slotOk()
         return;
     }
 
-    hide();
+    accept();
+
+    Settings::SettingsData::instance()->setHTMLBaseDir( _baseDir->text() );
+    Settings::SettingsData::instance()->setHTMLBaseURL( _baseURL->text() );
+    Settings::SettingsData::instance()->setHTMLDestURL( _destURL->text() );
 
     Generator generator( setup(), this );
-    bool ok = generator.generate();
-    if ( ok ) {
-        Settings::SettingsData::instance()->setHTMLBaseDir( _baseDir->text() );
-        Settings::SettingsData::instance()->setHTMLBaseURL( _baseURL->text() );
-        Settings::SettingsData::instance()->setHTMLDestURL( _destURL->text() );
-        accept();
-    }
+    generator.generate();
 }
 
 void HTMLDialog::selectDir()

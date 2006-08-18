@@ -16,7 +16,7 @@ class Generator :public QProgressDialog, private ImageManager::ImageClient
 
 public:
     Generator( const Setup& setup,  QWidget* parent );
-    bool generate();
+    void generate();
 
 protected slots:
     void slotCancelGenerate();
@@ -53,6 +53,7 @@ private:
     Utilities::UniqNameMap _nameMap;
     Set< QPair<QString,int> > _generatedFiles;
     StringSet _copiedVideos;
+    bool _hasEnteredLoop;
 };
 
 };

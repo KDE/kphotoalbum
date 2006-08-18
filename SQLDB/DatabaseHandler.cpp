@@ -57,11 +57,11 @@ DatabaseHandler::DatabaseHandler(const KexiDB::ConnectionData& connectionData):
     _driver(_driverManager->driver(connectionData.driverName))
 {
     if (!_driver)
-        throw Error(_driverManager->errorMsg());
+        throw DriverLoadError(_driverManager->errorMsg());
 
     _connection = _driver->createConnection(_connectionData);
     if (!_connection)
-        throw Error(_driver->errorMsg());
+        throw ConnectionCreateError(_driver->errorMsg());
 
     connect();
 }
@@ -76,7 +76,7 @@ void DatabaseHandler::connect()
 {
     bool success = _connection->connect();
     if (!success)
-        throw Error(_connection->errorMsg());
+        throw ConnectionOpenError(_connection->errorMsg());
 }
 
 void DatabaseHandler::reconnect()
@@ -86,7 +86,7 @@ void DatabaseHandler::reconnect()
         usedDatabase = _connection->currentDatabase();
         bool success = _connection->disconnect();
         if (!success)
-            throw Error(_connection->errorMsg());
+            throw ConnectionCloseError(_connection->errorMsg());
     }
     connect();
     if (!usedDatabase.isEmpty())
@@ -105,28 +105,17 @@ void DatabaseHandler::openDatabase(const QString& name)
         insertInitialData();
     }
     else {
-        if (!_connection->useDatabase(name)) {
-            // TODO: error handling
-            qDebug("cannot use db kphotoalbum: %s",
-                   _connection->errorMsg().latin1());
-            exit(-1);
-        }
+        if (!_connection->useDatabase(name))
+            throw DatabaseOpenError(_connection->errorMsg());
     }
 }
 
 void DatabaseHandler::createAndOpenDatabase(const QString& name)
 {
-    qDebug("Creating db %s", name.latin1());
-    if (!_connection->createDatabase(name)) {
-        // TODO: error handling
-        qDebug("create failed: %s", _connection->errorMsg().latin1());
-        exit(-1);
-    }
-    else qDebug("create succeed");
-    if (!_connection->useDatabase(name)) {
-        // TODO: error handling
-        exitError(QString("Cannot use db %1").arg(name));
-    }
+    if (!_connection->createDatabase(name))
+        throw DatabaseCreateError(_connection->errorMsg());
+    if (!_connection->useDatabase(name))
+        throw DatabaseOpenError(_connection->errorMsg());
 
     bool useTransactions = _driver->transactionsSupported();
     KexiDB::Transaction transaction;
@@ -164,9 +153,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     schema->addField(f);
 
     if (!_connection->createTable(schema)) {
-        qDebug("creating dir table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
 
@@ -265,9 +253,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
                                 "angle SMALLINT)");
     }
     else if (!_connection->createTable(schema)) {
-        qDebug("creating media table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
 
@@ -293,9 +280,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     // TODO: UNIQUE(dirId, filename)
 
     if (!_connection->createTable(schema)) {
-        qDebug("creating blockitem table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
 
@@ -333,9 +319,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     schema->addField(f);
 
     if (!_connection->createTable(schema)) {
-        qDebug("creating category table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
 
@@ -378,9 +363,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     schema->addField(f);
 
     if (!_connection->createTable(schema)) {
-        qDebug("creating tag table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
 
@@ -417,9 +401,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     //schema->setPrimaryKey(indexSchema);
 
     if (!_connection->createTable(schema)) {
-        qDebug("creating media_tag table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
 
@@ -454,9 +437,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     //schema->setPrimaryKey(indexSchema);
 
     if (!_connection->createTable(schema)) {
-        qDebug("creating tag_relation table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
     // ==== drawing table ====
@@ -498,9 +480,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     schema->addField(f);
 
     if (!_connection->createTable(schema)) {
-        qDebug("creating drawing table failed: %s",
-               _connection->errorMsg().latin1());
         delete schema;
+        throw TableCreateError(_connection->errorMsg());
     }
 
     if (useTransactions) {

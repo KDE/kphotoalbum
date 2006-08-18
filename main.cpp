@@ -76,6 +76,12 @@ int main( int argc, char** argv ) {
         return code;
     }
 #ifdef SQLDB_SUPPORT
+    catch (SQLDB::SQLError& e) {
+        qFatal("Exception SQLDB::%s occured when running query: %s\nError message: %s",
+               e.name().local8Bit().data(),
+               e.queryLine().local8Bit().data(),
+               e.message().local8Bit().data());
+    }
     catch (SQLDB::Error& e) {
         qFatal("Exception SQLDB::%s occured with message: %s",
                e.name().local8Bit().data(),

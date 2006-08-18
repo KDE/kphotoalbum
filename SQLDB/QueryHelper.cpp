@@ -111,7 +111,7 @@ RowData QueryHelper::Result::getRow(uint n) const
             return _cursor.getCurrentRow();
         }
     }
-    throw Error(/* TODO: type and message */);
+    throw RowNotFoundError();
 }
 
 
@@ -120,16 +120,8 @@ QueryHelper::QueryHelper(Connection& connection):
     _driver(connection.driver())
 {
     if (!_driver)
-        throw Error(/* TODO: error type and message */);
+        throw InitializationError();
 }
-
-/*
-QueryHelper::QueryHelper(const QueryHelper& other):
-    _connection(other._connection),
-    _driver(other._driver)
-{
-}
-*/
 
 QString QueryHelper::sqlRepresentation(const QVariant& x) const
 {
@@ -173,8 +165,8 @@ void QueryHelper::executeStatement(const QString& statement,
     qDebug("Executing statement: %s", s.local8Bit().data());
 
     if (!_connection->executeSQL(s))
-        throw SQLError(_connection->recentSQLString(),
-                       _connection->errorMsg());
+        throw StatementError(_connection->recentSQLString(),
+                             _connection->errorMsg());
 }
 
 QueryHelper::Result QueryHelper::executeQuery(const QString& query,
@@ -188,8 +180,8 @@ QueryHelper::Result QueryHelper::executeQuery(const QString& query,
 
     KexiDB::Cursor* c = _connection->executeQuery(q);
     if (!c) {
-        throw SQLError(_connection->recentSQLString(),
-                       _connection->errorMsg());
+        throw QueryError(_connection->recentSQLString(),
+                         _connection->errorMsg());
     }
     return Result(c);
 }
@@ -258,7 +250,7 @@ QString QueryHelper::mediaItemFilename(int id) const
                      "WHERE dir.id=media.dirId AND media.id=%s",
                      Bindings() << id).asString2List();
     if (dirFilePairs.count() == 0)
-        throw NotFoundError(/* TODO: message */);
+        throw EntryNotFoundError();
 
     return makeFullName(dirFilePairs[0][0], dirFilePairs[0][1]);
 }
@@ -274,8 +266,7 @@ int QueryHelper::mediaItemId(const QString& filename) const
                      "dir.path=%s AND media.filename=%s",
                      Bindings() << path << basename).firstItem();
     if (id.isNull())
-        throw NotFoundError(i18n("Media item for file %1 cannot be found "
-                                 "from the SQL database").arg(filename));
+        throw EntryNotFoundError();
     return id.toInt();
 }
 
@@ -310,8 +301,7 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
                          ).firstItem();
         /*
         if (id.isNull())
-            throw NotFoundError(i18n("Media item for file %1 cannot be found "
-                                     "from the SQL database").arg(*basenameIt));
+            throw EntryNotFoundError();
         */
         if (!id.isNull())
             idList << id.toInt();
@@ -342,14 +332,14 @@ int QueryHelper::categoryId(const QString& category) const
     QVariant r = executeQuery("SELECT id FROM category WHERE name=%s",
                               Bindings() << category).firstItem();
     if (r.isNull())
-        throw NotFoundError(/* TODO: message */);
+        throw EntryNotFoundError();
     else
         return r.toInt();
 }
 
 QValueList<int> QueryHelper::tagIdsOfCategory(const QString& category) const
 {
-    return executeQuery("SELECT tag.id FROM tag,category "
+    return executeQuery("SELECT tag.id FROM tag, category "
                         "WHERE tag.categoryId=category.id AND "
                         "category.name=%s",
                         Bindings() << category).asIntegerList();
@@ -402,16 +392,21 @@ QValueList<int> QueryHelper::mediaItemIds(int typemask) const
 
 void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
 {
-    RowData row =
-        executeQuery("SELECT dir.path, m.filename, m.md5sum, m.type, "
-                     "m.label, m.description, "
-                     "m.startTime, m.endTime, m.width, m.height, m.angle "
-                     "FROM media m, dir "
-                     "WHERE m.dirId=dir.id AND "
-                     "m.id=%s", Bindings() << id).getRow();
+    RowData row;
+    try {
+        row =
+            executeQuery("SELECT dir.path, m.filename, m.md5sum, m.type, "
+                         "m.label, m.description, "
+                         "m.startTime, m.endTime, m.width, m.height, m.angle "
+                         "FROM media m, dir "
+                         "WHERE m.dirId=dir.id AND "
+                         "m.id=%s", Bindings() << id).getRow();
+    }
+    catch (RowNotFoundError&) {
+        throw EntryNotFoundError();
+    }
 
-    if (row.count() != 11)
-        throw Error(/* TODO: error type and message */);
+    Q_ASSERT(row.count() == 11);
 
     info.delaySavingChanges(true);
 
@@ -694,10 +689,15 @@ QValueList<int> QueryHelper::directMembers(int tagId) const
 
 int QueryHelper::tagId(const QString& category, const QString& item) const
 {
-    return executeQuery("SELECT tag.id FROM tag,category "
-                        "WHERE tag.categoryId=category.id AND "
-                        "category.name=%s AND tag.name=%s",
-                        Bindings() << category << item).firstItem().toInt();
+    QVariant id =
+        executeQuery("SELECT tag.id FROM tag,category "
+                     "WHERE tag.categoryId=category.id AND "
+                     "category.name=%s AND tag.name=%s",
+                     Bindings() << category << item).firstItem();
+    if (id.isNull())
+        throw EntryNotFoundError();
+    else
+        return id.toInt();
 }
 
 QValueList<int> QueryHelper::tagIdList(const QString& category,
@@ -806,7 +806,7 @@ QString QueryHelper::categoryName(int id) const
                               Bindings() << id).firstItem();
 
     if (r.isNull())
-        throw NotFoundError(/* TODO: message */);
+        throw EntryNotFoundError();
     else
         return r.toString();
 }
@@ -915,7 +915,7 @@ int QueryHelper::mediaPlaceByFilename(const QString& filename) const
                      "dir.path=%s AND media.filename=%s",
                      Bindings() << path << basename).firstItem();
     if (place.isNull())
-        throw NotFoundError(/* TODO: message */);
+        throw EntryNotFoundError();
     return place.toInt();
 }
 

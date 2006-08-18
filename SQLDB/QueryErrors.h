@@ -14,7 +14,7 @@ struct X: public Y\
 struct X: public Y\
 {\
     X(const QString& queryLine=QString::null,\
-      const QString& message=QString::null): Y(message, queryLine) {}\
+      const QString& message=QString::null): Y(queryLine, message) {}\
     QString name() const { return QString::fromLatin1(#X); }\
 }
 

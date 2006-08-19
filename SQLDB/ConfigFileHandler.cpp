@@ -79,3 +79,21 @@ void SQLDB::readConnectionParameters(const KConfig& config,
             data.password = config.readEntry(QString::fromLatin1("password"));
     }
 }
+
+void SQLDB::writeConnectionParameters(const KexiDB::ConnectionData& data,
+                                      const QString& databaseName,
+                                      KConfig& config)
+{
+    config.writeEntry(QString::fromLatin1("dbms"), data.driverName);
+    config.writeEntry(QString::fromLatin1("database"), databaseName);
+
+    if (!data.hostName.isEmpty())
+        config.writeEntry(QString::fromLatin1("host"), data.hostName);
+    if (data.port != 0)
+        config.writeEntry(QString::fromLatin1("port"), data.port);
+
+    if (!data.userName.isEmpty())
+        config.writeEntry(QString::fromLatin1("username"), data.userName);
+    if (!data.password.isEmpty())
+        config.writeEntry(QString::fromLatin1("password"), data.password);
+}

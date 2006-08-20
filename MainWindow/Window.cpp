@@ -99,6 +99,7 @@
 #include "SQLDB/QueryErrors.h"
 #include <kexidb/kexidb_export.h>
 #include <kexidb/connectiondata.h>
+#include <kprogress.h>
 #endif
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
@@ -1362,25 +1363,51 @@ void MainWindow::Window::showThumbNails( const QStringList& list )
 void MainWindow::Window::convertBackend()
 {
 #ifdef SQLDB_SUPPORT
+    // Converting from SQLDB to the same SQLDB will not work and there
+    // is currently no way to check if two SQL back-ends use the same
+    // database. So this is my current workaround for it.
+    if (dynamic_cast<SQLDB::Database*>(DB::ImageDB::instance())) {
+        KMessageBox::sorry(this, i18n("Database conversion from SQL database is not yet supported."));
+        return;
+    }
+
     KConfig* config = kapp->config();
+    if (!config->hasGroup(QString::fromLatin1("SQLDB"))) {
+        // TODO: pop up a message and back-end configuration dialog
+    }
     config->setGroup(QString::fromLatin1("SQLDB"));
+    SQLDB::DatabaseHandler* dbh = 0;
     try {
         KexiDB::ConnectionData connectionData;
         QString databaseName;
         SQLDB::readConnectionParameters(*config, connectionData, databaseName);
 
-        SQLDB::DatabaseHandler dbh(connectionData);
-        dbh.openDatabase(databaseName);
+        dbh = new SQLDB::DatabaseHandler(connectionData);
+        dbh->openDatabase(databaseName);
 
-        SQLDB::Database* sqlBackend = new SQLDB::Database(*dbh.connection());
+        SQLDB::Database sqlBackend(*dbh->connection());
 
-        DB::ImageDB::instance()->convertBackend(sqlBackend);
+        KProgressDialog dialog(this);
+        dialog.setModal(true);
+        dialog.setCaption(i18n("Converting database"));
+        dialog.setLabel(QString::fromLatin1("<qt><p><b><nobr>%1</nobr></b></p><p>%2</p></qt>")
+                        .arg(i18n("Converting database to SQL."))
+                        .arg(i18n("Please wait.")));
+        dialog.setAllowCancel(false);
+        dialog.setAutoClose(true);
+        dialog.setFixedSize(dialog.sizeHint());
+        dialog.setMinimumDuration(0);
+        qApp->processEvents();
 
-        delete sqlBackend;
+        DB::ImageDB::instance()->convertBackend(&sqlBackend, dialog.progressBar());
+
+        KMessageBox::information(this, i18n("Database conversion is ready."));
     }
     catch (SQLDB::Error& e) {
-        KMessageBox::sorry(this, i18n("Cannot convert the database, because following error occured:\n%1").arg(e.message()));
+        KMessageBox::error(this, i18n("Database conversion failed, because following error occured:\n%1").arg(e.message()));
     }
+    if (dbh)
+        delete dbh;
 #endif
 }
 

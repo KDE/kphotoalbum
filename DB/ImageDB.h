@@ -30,6 +30,8 @@ namespace KexiDB { class ConnectionData; }
 namespace SQLDB { class DatabaseHandler; }
 #endif
 
+class QProgressBar;
+
 namespace DB
 {
 
@@ -48,7 +50,7 @@ public:
 #ifdef SQLDB_SUPPORT
     static void setupSQLDB( const KexiDB::ConnectionData& connectionData, const QString& databaseName );
 #endif
-    void convertBackend(ImageDB* newBackend);
+    void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );

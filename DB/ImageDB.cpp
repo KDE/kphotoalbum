@@ -11,7 +11,6 @@
 #include <config.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>
-#include <kpassdlg.h>
 #include <kdebug.h>
 #ifdef SQLDB_SUPPORT
 #include "SQLDB/Database.h"
@@ -128,41 +127,53 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
     return MediaCount( images, videos );
 }
 
-void ImageDB::convertBackend(ImageDB* newBackend)
+void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
 {
     QStringList allImages = images();
 
-    QProgressDialog dialog( 0 );
-    dialog.setLabelText( i18n( "Converting Backend" ) );
-    dialog.setTotalSteps( allImages.count() );
-
-    // Convert the Category info
     CategoryCollection* origCategories = categoryCollection();
     CategoryCollection* newCategories = newBackend->categoryCollection();
 
     QValueList<CategoryPtr> categories = origCategories->categories();
+
+    if (progressBar) {
+        progressBar->setTotalSteps(categories.count() + allImages.count());
+        progressBar->setProgress(0);
+    }
+
+    uint n = 0;
+
+    // Convert the Category info
     for( QValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
         newCategories->addCategory( (*it)->text(), (*it)->iconName(), (*it)->viewSize(), (*it)->viewType(), (*it)->doShow() );
         newCategories->categoryForName( (*it)->text() )->setItems( (*it)->items() );
+
+        if (progressBar) {
+            progressBar->setProgress(n++);
+            qApp->processEvents();
+        }
     }
 
-    // TODO: convert member maps
-    kdDebug() << "Also save membermaps" << endl;
+    // Convert member map
+    newBackend->setMemberMap(memberMap());
 
     // Convert all images to the new back end
     int count = 0;
     ImageInfoList list;
     for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
-        dialog.setProgress( count++ );
-        qApp->processEvents();
         list.append( info(*it) );
-        if ( count % 1000 == 0 ) {
+        if (++count % 100 == 0) {
             newBackend->addImages( list );
             list.clear();
         }
+        if (progressBar) {
+            progressBar->setProgress(n++);
+            qApp->processEvents();
+        }
     }
-    if ( list.count() != 0 )
-        newBackend->addImages( list );
+    newBackend->addImages(list);
+    if (progressBar)
+        progressBar->setProgress(n);
 }
 
 void ImageDB::slotReread( const QStringList& list, int mode)

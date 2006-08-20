@@ -12,6 +12,7 @@ Comment[nl]=Kexi SQL-stuurprogramma-plugin
 Comment[pt]='Plugin' do Controlador de SQL do Kexi
 Comment[pt_BR]='Plugin' do Controlador de SQL do Kexi
 Comment[sr]=Прикључак SQL драјвера за Kexi
+Comment[sv]=Kexi SQL-insticksdrivrutin
 
 [PropertyDef::X-Kexi-FileDBDriverMime]
 Type=QString

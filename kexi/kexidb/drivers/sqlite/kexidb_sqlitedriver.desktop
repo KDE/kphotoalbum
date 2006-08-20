@@ -11,6 +11,7 @@ Comment[nl]=SQLite is de standaard SQL-database voor Kexi
 Comment[pt]=SQLite é o motor embebido de SQL do Kexi
 Comment[pt_BR]=SQLite é o motor embebido de SQL do Kexi
 Comment[sr]=SQLite је подразумевани SQL мотор за Kexi
+Comment[sv]=Sqlite är inbyggd SQL-standarddatabas i Kexi
 X-KDE-Library=kphotoalbum_kexidb_sqlitedriver
 ServiceTypes=Kexi/DBDriver
 Type=Service

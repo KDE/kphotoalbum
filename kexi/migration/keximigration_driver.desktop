@@ -10,6 +10,7 @@ Comment[ja]=Kexi データ移行ドライバ
 Comment[nl]=Kexi Datamigratie Stuurprogramma
 Comment[pt]=Controlador de Migração de Dados do Kexi
 Comment[pt_BR]=Controlador de Migração de Dados do Kexi
+Comment[sv]=Kexi dataövergångsdrivrutin
 
 [PropertyDef::X-Kexi-FileMigrationDriverMime]
 Type=QString

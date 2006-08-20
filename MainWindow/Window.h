@@ -151,6 +151,7 @@ protected:
     void possibleRunSuvey();
     void setupPluginMenu();
     void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
+    void tellPeopleAboutTheVideos();
 
 private:
     static Window* _instance;

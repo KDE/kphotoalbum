@@ -93,14 +93,15 @@
 #include "ImageManager/Manager.h"
 
 #ifdef SQLDB_SUPPORT
-#include "SQLDB/Database.h"
-#include "SQLDB/DatabaseHandler.h"
-#include "SQLDB/ConfigFileHandler.h"
-#include "SQLDB/QueryErrors.h"
-#include <kexidb/kexidb_export.h>
-#include <kexidb/connectiondata.h>
-#include <kprogress.h>
+#  include "SQLDB/Database.h"
+#  include "SQLDB/DatabaseHandler.h"
+#  include "SQLDB/ConfigFileHandler.h"
+#  include "SQLDB/QueryErrors.h"
+#  include <kexidb/kexidb_export.h>
+#  include <kexidb/connectiondata.h>
 #endif
+#include <kprogress.h>
+#include <krun.h>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -251,6 +252,8 @@ void MainWindow::Window::delayedInit()
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
     }
 #endif
+
+    tellPeopleAboutTheVideos();
 }
 
 
@@ -1465,6 +1468,23 @@ void MainWindow::Window::slotRecreateThumbnail()
         ImageManager::Manager::instance()->load( request );
     }
 
+}
+
+void MainWindow::Window::tellPeopleAboutTheVideos()
+{
+    QString id = QString::fromLatin1( "KPhotoAlbumQuickStart" );
+    KMessageBox::ButtonCode dummy;
+    if ( !KMessageBox::shouldBeShownYesNo( id, dummy ) )
+        return;
+
+    int ret = KMessageBox::questionYesNo(this, i18n("<p>To get a quick start with KPhotoAlbum, "
+                                                    "it might be worthwhile to spent 10 minutes "
+                                                    "watching a few introduction videos.</p>" ),
+                                         i18n( "KPhotoAlbum quick start" ),
+                                         i18n( "Show Videos" ), i18n("Don't Show Videos"),
+                                         id );
+    if ( ret == KMessageBox::Yes )
+        KRun::runURL(KURL(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ) );
 }
 
 #include "Window.moc"

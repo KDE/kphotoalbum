@@ -1,3 +1,10 @@
+2006-08-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Added an info box which suggest people to see the introduction
+	videos.
+
+	* KPhotoAlbum is now capable of also managing videos.
+
 2006-08-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* The list boxes in the AnnotationDialog now has an accelerator.

@@ -1459,7 +1459,7 @@ void MainWindow::Window::slotRecreateThumbnail()
     for( QStringList::ConstIterator imageIt = selected.begin(); imageIt != selected.end(); ++imageIt ) {
         ImageManager::ImageLoader::removeThumbnail( *imageIt );
 
-        int size = Settings::SettingsData::instance()->previewSize();
+        int size = Settings::SettingsData::instance()->thumbSize();
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info( *imageIt );
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( *imageIt, QSize(size,size), info->angle(), _thumbnailView );
         ImageManager::Manager::instance()->load( request );

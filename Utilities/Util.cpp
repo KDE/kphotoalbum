@@ -566,15 +566,6 @@ QString Utilities::relativeFolderName( const QString& fileName)
         return QString::null;
     else
         return fileName.left( index );
-
-#ifdef TEMPORARILY_REMOVED
-    QString root = i18n("Root as in root directory", "Root" );
-
-    if (index == -1)
-        return root;
-    else
-        return root + QString::fromLatin1( "/" ) + fileName.left( index );
-#endif
 }
 
 bool Utilities::runningDemo()

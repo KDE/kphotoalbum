@@ -25,19 +25,19 @@
 #include <kurl.h>
 #include <krun.h>
 #include <klocale.h>
+#include <kfileitem.h>
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStringList& imageList )
 {
     _list = imageList;
     _currentInfo = current;
     clear();
-    KTrader::OfferList offers = KTrader::self()->query( QString::fromLatin1("image/jpeg"), QString::fromLatin1("Type == 'Application'"));
+    _indexOfFirstSelectionForMultipleImages = -1;
 
     QStringList list = QStringList() << i18n("Current Image") << i18n("All Images in Viewer");
-
     bool first = true;
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        QLabel* label = new QLabel( *it, this );
+    for ( int which = 0; which < 2; ++which ) {
+        QLabel* label = new QLabel( list[which], this );
         label->setAlignment( Qt::AlignHCenter );
         label->setLineWidth(2);
         label->setFrameStyle( QFrame::Raised | QFrame::StyledPanel );
@@ -47,8 +47,18 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 
         int id = insertItem( label );
         setItemEnabled( id, enabled );
-        for(KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it) {
-            id = insertItem( (*it)->pixmap(KIcon::Toolbar), (*it)->name() );
+
+        OfferType offers;
+        if ( which == 0 )
+            offers = appInfos( QStringList() << current->fileName() );
+        else
+            offers = appInfos( imageList );
+
+        for ( OfferType::ConstIterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt ) {
+            id = insertItem( (*offerIt).second, (*offerIt).first );
+            if ( _indexOfFirstSelectionForMultipleImages == -1 && which == 1 )
+                _indexOfFirstSelectionForMultipleImages = indexOf(id);
+
             setItemEnabled( id, enabled );
         }
         first = false;
@@ -58,13 +68,14 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 void MainWindow::ExternalPopup::slotExecuteService( int id )
 {
     QString name = text( id );
-    KTrader::OfferList offers = KTrader::self()->query( QString::fromLatin1("image/jpeg"), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
+    KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
     Q_ASSERT( offers.count() == 1 );
     KService::Ptr ptr = offers.first();
     KURL::List lst;
-    if ( (uint) indexOf(id) > count() / 2 ) {
+    if ( indexOf(id) >= _indexOfFirstSelectionForMultipleImages ) {
         for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
-            lst.append( KURL::fromPathOrURL(*it) );
+            if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
+                lst.append( KURL::fromPathOrURL(*it) );
         }
     }
     else {
@@ -79,5 +90,39 @@ MainWindow::ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
 {
     connect( this, SIGNAL( activated( int ) ), this, SLOT( slotExecuteService( int ) ) );
 }
+
+QString MainWindow::ExternalPopup::mimeType( const QString& file )
+{
+    return KFileItem( KFileItem::Unknown, KFileItem::Unknown, KURL(file) ).mimetype();
+}
+
+StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )
+{
+    StringSet res;
+    for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
+        res.insert( mimeType( *fileIt ) );
+    }
+    return res;
+}
+
+MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const QStringList& files )
+{
+    StringSet types = mimeTypes( files );
+    OfferType res;
+    for ( StringSet::ConstIterator mimeTypeIt = types.begin(); mimeTypeIt != types.end(); ++mimeTypeIt ) {
+        KTrader::OfferList offers = KTrader::self()->query( *mimeTypeIt, QString::fromLatin1("Type == 'Application'"));
+        for(KTrader::OfferList::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
+            res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->pixmap(KIcon::Toolbar) ) );
+            _appToMimeTypeMap[(*offerIt)->name()].insert( *mimeTypeIt );
+        }
+    }
+    return res;
+}
+
+bool operator<( const QPair<QString,QPixmap>& a, const QPair<QString,QPixmap>& b )
+{
+    return a.first < b.first;
+}
+
 
 #include "ExternalPopup.moc"

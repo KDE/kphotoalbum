@@ -20,6 +20,8 @@
 #define EXTERNALPOPUP_H
 #include <qpopupmenu.h>
 #include "DB/ImageInfoList.h"
+#include <Utilities/Set.h>
+#include <qpair.h>
 
 namespace DB
 {
@@ -28,6 +30,7 @@ namespace DB
 
 namespace MainWindow
 {
+typedef Set< QPair<QString,QPixmap> > OfferType;
 
 class ExternalPopup :public QPopupMenu {
     Q_OBJECT
@@ -39,13 +42,21 @@ public:
 protected slots:
     void slotExecuteService( int );
 
+protected:
+    QString mimeType( const QString& file );
+    StringSet mimeTypes( const QStringList& files );
+    OfferType appInfos( const QStringList& files );
+
 private:
     QStringList _list;
     DB::ImageInfoPtr _currentInfo;
+    QMap<QString,StringSet> _appToMimeTypeMap;
+    int _indexOfFirstSelectionForMultipleImages;
 };
 
 }
 
+bool operator<( const QPair<QString,QPixmap>& a, const QPair<QString,QPixmap>& b );
 
 #endif /* EXTERNALPOPUP_H */
 

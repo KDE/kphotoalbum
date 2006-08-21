@@ -75,8 +75,9 @@ QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 }
 
 void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, DB::Category::ViewSize size,
-                                                DB::Category::ViewType type, bool showIt )
+                                                DB::Category::ViewType type, int thumbnailSize, bool showIt )
 {
+    // PENDING(blackie) Tuomas, you might want to do something with the thumbnail size
     try {
         _qh.insertCategory(category, icon, showIt, type, size);
     }

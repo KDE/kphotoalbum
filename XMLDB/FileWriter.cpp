@@ -73,6 +73,7 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
         opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
         opt.setAttribute( QString::fromLatin1( "viewsize" ), category->viewSize() );
         opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
+        opt.setAttribute( QString::fromLatin1( "thumbnailsize" ), category->thumbnailSize() );
 
         QStringList list = category->items();
         list += _db->_members.groups(name);

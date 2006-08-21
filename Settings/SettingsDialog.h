@@ -29,7 +29,6 @@ class QLineEdit;
 class QListBox;
 class KIconButton;
 class KPushButton;
-class OptionGroupItem;
 class QCheckBox;
 class QComboBox;
 namespace KIPI
@@ -43,6 +42,7 @@ namespace Exif{
 namespace Settings
 {
 class ViewerSizeConfig;
+class CategoryItem;
 
 class SettingsDialog :public KDialogBase {
     Q_OBJECT
@@ -69,6 +69,7 @@ protected slots:
     void slotDelGroup();
     void slotRenameGroup();
     void slotPageChange();
+    void thumbnailSizeChanged( int );
 
 protected:
     void createGeneralPage();
@@ -106,13 +107,18 @@ private:
 
     // Categories page
     QListBox* _categories;
+    QLabel* _labelLabel;
     QLineEdit* _text;
+    QLabel* _iconLabel;
     KIconButton* _icon;
+    QLabel* _thumbnailSizeInCategoryLabel;
+    QSpinBox* _thumbnailSizeInCategory;
+
     QLabel* _preferredViewLabel;
     QComboBox* _preferredView;
     KPushButton* _delItem;
-    OptionGroupItem* _current;
-    QValueList<OptionGroupItem*> _deleted;
+    CategoryItem* _current;
+    QValueList<CategoryItem*> _deleted;
 
     // Member Groups page
     QComboBox* _category;

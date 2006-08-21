@@ -53,6 +53,8 @@
 #  include "Exif/TreeView.h"
 #endif
 
+#include "CategoryItem.h"
+
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
@@ -299,39 +301,6 @@ void Settings::SettingsDialog::createThumbNailPage()
 }
 
 
-class OptionGroupItem :public QListBoxText
-{
-public:
-    OptionGroupItem( const QString& category, const QString& text, const QString& icon,
-                     DB::Category::ViewSize size, DB::Category::ViewType type, QListBox* parent );
-    void setLabel( const QString& label );
-
-    QString _categoryOrig, _textOrig, _iconOrig;
-    QString _text, _icon;
-    DB::Category::ViewSize _size, _sizeOrig;
-    DB::Category::ViewType _type, _typeOrig;
-};
-
-OptionGroupItem::OptionGroupItem( const QString& category, const QString& text, const QString& icon,
-                                  DB::Category::ViewSize size, DB::Category::ViewType type, QListBox* parent )
-    :QListBoxText( parent, text ),
-     _categoryOrig( category ), _textOrig( text ), _iconOrig( icon ),
-     _text( text ), _icon( icon ), _size( size ), _sizeOrig( size ), _type( type ), _typeOrig( type )
-{
-}
-
-void OptionGroupItem::setLabel( const QString& label )
-{
-    setText( label );
-    _text = label;
-
-    // unfortunately setText do not call updateItem, so we need to force it with this hack.
-    bool b = listBox()->isSelected( this );
-    listBox()->setSelected( this, !b );
-    listBox()->setSelected( this, b );
-}
-
-
 void Settings::SettingsDialog::createOptionGroupsPage()
 {
     QWidget* top = addPage( i18n("Categories"), i18n("Categories"),
@@ -345,33 +314,47 @@ void Settings::SettingsDialog::createOptionGroupsPage()
     connect( _categories, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( edit( QListBoxItem* ) ) );
     lay2->addWidget( _categories );
 
-    QVBoxLayout* lay3 = new QVBoxLayout( lay2, 6 );
-    QLabel* label = new QLabel( i18n( "Label:" ), top );
-    lay3->addWidget( label );
+
+    QGridLayout* lay3 = new QGridLayout( lay2, 6 );
+
+    _labelLabel = new QLabel( i18n( "Label:" ), top );
+    lay3->addWidget( _labelLabel, 0, 0 );
 
     _text = new QLineEdit( top );
     connect( _text, SIGNAL( textChanged( const QString& ) ),
              this, SLOT( slotLabelChanged( const QString& ) ) );
 
-    lay3->addWidget( _text );
+    lay3->addWidget( _text, 0, 1 );
+
+
+    // Icon
+    _iconLabel = new QLabel( i18n("Icon:" ), top );
+    lay3->addWidget( _iconLabel, 1, 0 );
 
     _icon = new KIconButton(  top );
-    QHBoxLayout* lay5 = new QHBoxLayout( lay3 );
-    lay5->addWidget( _icon );
-    lay5->addStretch(1);
+    lay3->addWidget( _icon, 1, 1 );
     _icon->setIconSize(32);
     _icon->setIcon( QString::fromLatin1( "personsIcon" ) );
     connect( _icon, SIGNAL( iconChanged( QString ) ), this, SLOT( slotIconChanged( QString ) ) );
-    lay3->addStretch(1);
+
+
+    // Thumbnail size
+    _thumbnailSizeInCategoryLabel = new QLabel( i18n( "Thumbnail Size: " ), top );
+    lay3->addWidget( _thumbnailSizeInCategoryLabel, 2, 0 );
+
+    _thumbnailSizeInCategory = new QSpinBox( 32, 512, 32, top );
+    lay3->addWidget( _thumbnailSizeInCategory, 2, 1 );
+    connect( _thumbnailSizeInCategory, SIGNAL( valueChanged( int ) ), this, SLOT( thumbnailSizeChanged( int ) ) );
+
 
     // Prefered View
     _preferredViewLabel = new QLabel( i18n("Preferred view:"), top );
-    lay3->addWidget( _preferredViewLabel );
+    lay3->addWidget( _preferredViewLabel, 3, 0 );
 
     _preferredView = new QComboBox( top );
-    lay3->addWidget( _preferredView );
+    lay3->addWidget( _preferredView, 3, 1 );
     QStringList list;
-    list << i18n("Small List View") << i18n("Large List View") << i18n("Small Icon View") << i18n("Large Icon View");
+    list << i18n("List View") << i18n("List View with Custom Thumbnails") << i18n("Icon View") << i18n("Icon View with Custom Thumbnails");
     _preferredView->insertStringList( list );
     connect( _preferredView, SIGNAL( activated( int ) ), this, SLOT( slotPreferredViewChanged( int ) ) );
 
@@ -436,7 +419,7 @@ void Settings::SettingsDialog::show()
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
-            new OptionGroupItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(),_categories );
+            new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
         }
     }
 
@@ -492,7 +475,7 @@ void Settings::SettingsDialog::slotMyOK()
     // Categories
 
     // Delete items
-    for( QValueList<OptionGroupItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
+    for( QValueList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
         if ( !(*it)->_categoryOrig.isNull() ) {
             // the Settings instance knows about the item.
             DB::ImageDB::instance()->categoryCollection()->removeCategory( (*it)->_categoryOrig );
@@ -501,26 +484,30 @@ void Settings::SettingsDialog::slotMyOK()
 
     // Created or Modified items
     for ( QListBoxItem* i = _categories->firstItem(); i; i = i->next() ) {
-        OptionGroupItem* item = static_cast<OptionGroupItem*>( i );
+        CategoryItem* item = static_cast<CategoryItem*>( i );
         if ( item->_categoryOrig.isNull() ) {
             // New Item
-            DB::ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon, item->_size, item->_type  );
+            DB::ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon, item->_size,
+                                                                        item->_type, item->_thumbnailSize, true );
         }
         else {
+            DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig );
             if ( item->_text != item->_textOrig ) {
                 DB::ImageDB::instance()->categoryCollection()->rename(  item->_categoryOrig, item->_text );
                 _memberMap.renameCategory(  item->_categoryOrig, item->_text );
                 item->_categoryOrig =item->_text;
             }
-            if ( item->_icon != item->_iconOrig ) {
-                DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setIconName( item->_icon );
-            }
-            if ( item->_size != item->_sizeOrig ) {
-                DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewSize( item->_size );
-            }
-            if ( item->_type != item->_typeOrig ) {
-                DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig )->setViewType( item->_type );
-            }
+            if ( item->_icon != item->_iconOrig )
+                category->setIconName( item->_icon );
+
+            if ( item->_size != item->_sizeOrig )
+                category->setViewSize( item->_size );
+
+            if ( item->_type != item->_typeOrig )
+                category->setViewType( item->_type );
+
+            if ( item->_thumbnailSize != item->_thumbnailSizeOrig )
+                category->setThumbnailSize( item->_thumbnailSize );
         }
     }
 
@@ -549,10 +536,11 @@ void Settings::SettingsDialog::edit( QListBoxItem* i )
     if ( i == 0 )
         return;
 
-    OptionGroupItem* item = static_cast<OptionGroupItem*>(i);
+    CategoryItem* item = static_cast<CategoryItem*>(i);
     _current = item;
     _text->setText( item->_text );
     _icon->setIcon( item->_icon );
+    _thumbnailSizeInCategory->setValue( item->_thumbnailSize );
     _preferredView->setCurrentItem( (int) item->_size + 2 * (int) item->_type );
     enableDisable( true );
 }
@@ -581,6 +569,11 @@ void Settings::SettingsDialog::slotPreferredViewChanged( int i )
     }
 }
 
+void Settings::SettingsDialog::thumbnailSizeChanged( int size )
+{
+    _current->_thumbnailSize = size;
+}
+
 
 
 void Settings::SettingsDialog::slotIconChanged( QString icon )
@@ -591,9 +584,10 @@ void Settings::SettingsDialog::slotIconChanged( QString icon )
 
 void Settings::SettingsDialog::slotNewItem()
 {
-    _current = new OptionGroupItem( QString::null, QString::null, QString::null, DB::Category::Small, DB::Category::ListView, _categories );
+    _current = new CategoryItem( QString::null, QString::null, QString::null, DB::Category::Small, DB::Category::ListView, 64, _categories );
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
+    _thumbnailSizeInCategory->setValue( 64 );
     enableDisable( true );
     _categories->setSelected( _current, true );
     _text->setFocus();
@@ -611,14 +605,19 @@ void Settings::SettingsDialog::slotDeleteCurrent()
     _current = 0;
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
+    _thumbnailSizeInCategory->setValue(64);
     enableDisable(false);
 }
 
 void Settings::SettingsDialog::enableDisable( bool b )
 {
     _delItem->setEnabled( b );
+    _labelLabel->setEnabled( b );
     _text->setEnabled( b );
     _icon->setEnabled( b );
+    _iconLabel->setEnabled( b );
+    _thumbnailSizeInCategoryLabel->setEnabled( b );
+    _thumbnailSizeInCategory->setEnabled( b );
     _preferredViewLabel->setEnabled( b );
     _preferredView->setEnabled( b );
 }

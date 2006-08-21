@@ -42,15 +42,18 @@ Browser::ContentFolder::ContentFolder( const QString& category, const QString& v
 
 QPixmap Browser::ContentFolder::pixmap()
 {
-    if ( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->viewSize() == DB::Category::Small ) {
+    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
+    int size = category->thumbnailSize();
+
+    if ( category->viewSize() == DB::Category::Small ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category, _value ) )
-            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
+            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, size );
         else {
-            return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
+            return category->icon();
         }
     }
     else
-        return Settings::SettingsData::instance()->categoryImage( _category, _value, 64 );
+        return Settings::SettingsData::instance()->categoryImage( _category, _value, size );
 }
 
 QString Browser::ContentFolder::text() const

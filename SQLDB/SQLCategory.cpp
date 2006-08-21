@@ -135,4 +135,15 @@ void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newV
     emit itemRenamed(oldValue, newValue);
 }
 
+void SQLDB::SQLCategory::setThumbnailSize( int )
+{
+    // PENDING(blackie) Tuomas please implement this
+}
+
+int SQLDB::SQLCategory::thumbnailSize() const
+{
+    // PENDING(blackie) Tuomas please implement this
+    return 42;
+}
+
 #include "SQLCategory.moc"

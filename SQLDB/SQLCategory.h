@@ -56,6 +56,9 @@ namespace SQLDB {
         virtual void renameItem(const QString& oldValue,
                                 const QString& newValue);
 
+        virtual void setThumbnailSize( int );
+        virtual int thumbnailSize() const;
+
     protected:
         friend class SQLCategoryCollection;
         SQLCategory(QueryHelper* queryHelper, int categoryId);

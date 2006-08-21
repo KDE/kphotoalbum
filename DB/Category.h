@@ -38,6 +38,9 @@ public:
     virtual void setViewType( ViewType type ) = 0;
     virtual ViewType viewType() const = 0;
 
+    virtual void setThumbnailSize( int ) = 0;
+    virtual int thumbnailSize() const = 0;
+
     virtual void setDoShow( bool b ) = 0;
     virtual bool doShow() const = 0;
 

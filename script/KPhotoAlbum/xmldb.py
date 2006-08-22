@@ -141,11 +141,11 @@ class CategoryIterator(object):
 
 	def __getCategory(self, ctgNode):
 		a = [ctgNode.getAttribute(x)
-		     for x in ['name', 'icon',
-			       'show', 'viewtype', 'viewsize']]
+		     for x in ['name', 'icon', 'show',
+			       'viewtype', 'thumbnailsize']]
 		a[2] = bool(int(a[2])) # show
 		a[3] = int(a[3]) # viewtype
-		a[4] = int(a[4]) # viewsize
+		a[4] = int(a[4]) # thumbsize
 		ctg = Category(*a)
 		for valElem in ctgNode.getElementsByTagName('value'):
 			name = valElem.getAttribute('value')

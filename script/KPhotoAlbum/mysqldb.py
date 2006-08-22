@@ -55,7 +55,7 @@ class MySQLDatabase(DatabaseWriter):
 		('category',
 		 'id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, '
 		 'name VARCHAR(255), icon VARCHAR(1023), '
-		 'visible BOOL, viewtype TINYINT, viewsize TINYINT'),
+		 'visible BOOL, viewtype TINYINT, thumbsize TINYINT'),
 		('tag',
 		 'id SERIAL, '
 		 'place BIGINT UNSIGNED, '
@@ -135,10 +135,10 @@ class MySQLDatabase(DatabaseWriter):
 		cid = self.categoryMap.numFor(c.name)
 		self.c.execute('DELETE FROM category WHERE id=%s', (cid,))
 		self.c.execute('INSERT INTO category(id, name, icon, '
-			       'visible, viewtype, viewsize) '
+			       'visible, viewtype, thumbsize) '
 			       'values(%s,%s,%s,%s,%s,%s)',
 			       (cid, c.name, c.icon,
-				int(c.visible), c.viewtype, c.viewsize))
+				int(c.visible), c.viewtype, c.thumbsize))
 		for item in c.items.itervalues():
 			self.__insertTag(Tag(c.name, item))
 		return cid

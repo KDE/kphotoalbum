@@ -19,14 +19,14 @@ class Category(object):
 	"""
 	Stores category information.
 	"""
-	def __init__(self, name, icon,
-		     visible, viewtype, viewsize,
+	def __init__(self, name, icon, visible,
+		     viewtype, thumbsize,
 		     items=None):
 		self.name = name
 		self.icon = icon
 		self.visible = visible
 		self.viewtype = viewtype
-		self.viewsize = viewsize
+		self.thumbsize = thumbsize
 		self.items = items
 		if self.items is None:
 			self.items = {}
@@ -41,7 +41,7 @@ class Category(object):
 		     repr(self.icon) + ', ' +
 		     repr(self.visible) + ', ' +
 		     repr(self.viewtype) + ', ' +
-		     repr(self.viewsize))
+		     repr(self.thumbsize))
 		if len(self.items) > 0:
 			s += ', ' + repr(self.items)
 		s += ')'

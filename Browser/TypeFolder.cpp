@@ -94,8 +94,9 @@ void Browser::TypeFolderAction::populateBrowserWithoutHierachy( const QMap<QStri
         QString name = *itemIt;
         int imageCtn = images.contains(name) ? images[name] : 0;
         int videoCtn = videos.contains(name) ? videos[name] : 0;
-        factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
-                                                         _info, _browser ), 0 );
+        if ( imageCtn + videoCtn > 0 )
+            factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
+                                                             _info, _browser ), 0 );
     }
 }
 

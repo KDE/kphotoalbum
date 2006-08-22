@@ -135,6 +135,7 @@ QString XMLDB::XMLCategory::nameForId( int id ) const
 void XMLDB::XMLCategory::setThumbnailSize( int size )
 {
     _thumbnailSize = size;
+    emit changed();
 }
 
 int XMLDB::XMLCategory::thumbnailSize() const

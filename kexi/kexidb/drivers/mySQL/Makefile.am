@@ -4,7 +4,7 @@ kde_module_LTLIBRARIES = kphotoalbum_kexidb_mysqldriver.la
 
 INCLUDES = -I$(MYSQL_INC) -I$(srcdir)/../../.. \
   -I$(srcdir)/../..  \
-  -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
+  -I$(srcdir)/../../.. $(all_includes)
 
 kphotoalbum_kexidb_mysqldriver_la_METASOURCES = AUTO
 
@@ -29,5 +29,5 @@ kde_services_DATA = kphotoalbum_kexidb_mysqldriver.desktop
 
 
 KDE_CXXFLAGS += -DKEXIDB_MYSQL_DRIVER_EXPORT= -D__KEXIDB__= \
-	-include $(kphotoalbum_top_srcdir)/kexi/kexidb/global.h
+	-include $(srcdir)/../../global.h
 

@@ -24,6 +24,6 @@ SUBDIRS = .
 
 # set the include path for X, qt and KDE
 
-INCLUDES= -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
+INCLUDES= -I$(srcdir)/../.. $(all_includes)
 
 KDE_CXXFLAGS += -DSIMPLE_KOLIBS -DKOFFICECORE_EXPORT= -DKOFFICEUI_EXPORT=

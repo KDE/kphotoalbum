@@ -13,6 +13,6 @@ libkphotoalbumkexiutils_la_LDFLAGS = \
 
 libkphotoalbumkexiutils_la_LIBADD = $(LIB_QT) $(LIB_KDEUI) $(LIB_KIO) 
 
-INCLUDES = -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
+INCLUDES = -I$(srcdir)/.. $(all_includes)
 
 METASOURCES = AUTO

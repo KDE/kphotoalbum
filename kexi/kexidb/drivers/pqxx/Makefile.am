@@ -19,4 +19,4 @@ kde_services_DATA = kphotoalbum_kexidb_pqxxsqldriver.desktop
 noinst_HEADERS =  pqxxconnection.h pqxxconnection_p.h
 
 KDE_CXXFLAGS += -DKEXIDB_PGSQL_DRIVER_EXPORT= -D__KEXIDB__= \
-	-include $(kphotoalbum_top_srcdir)/kexi/kexidb/global.h
+	-include $(srcdir)/../../global.h

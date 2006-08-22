@@ -7,7 +7,7 @@ libkphotoalbumkexidbparser_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO
 
 noinst_HEADERS = parser_p.h
 
-INCLUDES = -I$(kphotoalbum_top_srcdir)/kexi -I$(kphotoalbum_top_srcdir)/kexi/kexidb $(all_includes)
+INCLUDES = -I$(srcdir)/../.. -I$(srcdir)/.. $(all_includes)
 METASOURCES = AUTO
 
 parser:

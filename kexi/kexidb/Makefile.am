@@ -2,7 +2,7 @@ include ../Makefile.global
 
 lib_LTLIBRARIES = libkphotoalbumkexidb.la
 
-INCLUDES = -I$(kphotoalbum_top_srcdir)/kexi $(all_includes)
+INCLUDES = -I$(srcdir)/.. $(all_includes)
 
 SUBDIRS = . parser drivers
 
@@ -27,11 +27,11 @@ noinst_HEADERS += connection.h connectiondata.h cursor.h \
   kexidb_export.h
 
 libkphotoalbumkexidb_la_LIBADD = $(LIB_QT) $(LIB_KDECORE) $(LIB_KIO) \
-	 $(kphotoalbum_top_builddir)/kexi/kexiutils/libkphotoalbumkexiutils.la
+	 ../kexiutils/libkphotoalbumkexiutils.la
 libkphotoalbumkexidb_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
 kde_servicetypes_DATA = kphotoalbum_kexidb_driver.desktop
 
 
-KDE_CXXFLAGS += -D__KEXIDB__= -include $(kphotoalbum_top_srcdir)/kexi/kexidb/global.h
+KDE_CXXFLAGS += -D__KEXIDB__= -include $(srcdir)/global.h
 

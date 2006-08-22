@@ -50,10 +50,6 @@ public slots:
     void selectAll();
     void showToolTipsOnImages( bool b );
 
-protected slots:
-    void ensureCurrentVisible();
-    void ensureCurrentVisiblePart2();
-
 signals:
     void showImage( const QString& fileName );
     void showSelection();

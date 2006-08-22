@@ -57,8 +57,6 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent, const char* na
 
     viewport()->setBackgroundMode( NoBackground );
 
-    connect( this, SIGNAL( contentsMoving( int, int ) ), this, SLOT( ensureCurrentVisible() ) );
-
     setVScrollBarMode( AlwaysOn );
     setHScrollBarMode( AlwaysOff );
 }
@@ -342,6 +340,15 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     if ( !_currentItem.isNull() )
         currentPos = positionForFileName( _currentItem );
 
+    // Update current position if it is outside view and we do not have any modifiers
+    // that is if we just scroll arround.
+    if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) ) {
+        if ( currentPos.row() < firstVisibleRow( PartlyVisible ) )
+            currentPos = Cell( firstVisibleRow( FullyVisible ), currentPos.col() );
+        else if ( currentPos.row() > lastVisibleRow( PartlyVisible ) )
+            currentPos = Cell( lastVisibleRow( FullyVisible ), currentPos.col() );
+    }
+
     Cell newPos;
     switch (event->key() ) {
     case Key_Left:
@@ -403,6 +410,7 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
         updateCell( currentPos.row(), currentPos.col() );
     }
     _currentItem = fileNameInCell( newPos );
+
     if ( !( event->state() & ShiftButton ) || startPossition.isEmpty() )
         startPossition = _currentItem;
 
@@ -748,6 +756,7 @@ void ThumbnailView::ThumbnailWidget::setCurrentItem( const QString& fileName )
 {
     Cell cell = positionForFileName( fileName );
     _currentItem = fileName;
+
     _selectedFiles.clear();
     _selectedFiles.insert( fileName );
     updateCell( fileName );
@@ -950,22 +959,3 @@ void ThumbnailView::ThumbnailWidget::updateIndexCache()
         _fileNameMap.insert( *it, index );
     }
 }
-
-void ThumbnailView::ThumbnailWidget::ensureCurrentVisible()
-{
-    // We need a single shot timer to ensure to be processed way after event processing for keyboard.
-    QTimer::singleShot( 0, this, SLOT( ensureCurrentVisiblePart2() ) );
-}
-
-
-void ThumbnailView::ThumbnailWidget::ensureCurrentVisiblePart2()
-{
-    if (_currentItem.isNull())
-        return;
-    Cell cur = positionForFileName(_currentItem);
-    if ( cur.row() < firstVisibleRow( PartlyVisible ) )
-        _currentItem = fileNameInCell( Cell( firstVisibleRow( FullyVisible ), cur.col() ) );
-    else if ( cur.row() > lastVisibleRow( PartlyVisible ) )
-        _currentItem = fileNameInCell( Cell( lastVisibleRow( FullyVisible ), cur.col() ) );
-}
-

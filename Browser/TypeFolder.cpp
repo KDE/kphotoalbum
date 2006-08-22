@@ -57,7 +57,7 @@ Browser::TypeFolderAction::TypeFolderAction( const QString& category, const DB::
 }
 
 
-bool Browser::TypeFolderAction::populateBrowser( DB::CategoryItem* parentCategoryItem, const QMap<QString, int>& images,
+bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, int>& images,
                                                  const QMap<QString, int>& videos, BrowserItemFactory* factory,
                                                  BrowserItem* parentBrowserItem )
 {
@@ -74,7 +74,7 @@ bool Browser::TypeFolderAction::populateBrowser( DB::CategoryItem* parentCategor
 
     for( QValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
          subCategoryIt != parentCategoryItem->_subcategories.end(); ++subCategoryIt ) {
-        anyItems = populateBrowser( *subCategoryIt, images, videos, factory, item ) || anyItems;
+        anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, factory, item ) || anyItems;
     }
 
     if ( !anyItems ) {
@@ -83,6 +83,23 @@ bool Browser::TypeFolderAction::populateBrowser( DB::CategoryItem* parentCategor
 
     return anyItems;
 }
+
+void Browser::TypeFolderAction::populateBrowserWithoutHierachy( const QMap<QString, int>& images,
+                                                                const QMap<QString, int>& videos, BrowserItemFactory* factory )
+{
+    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclCategories();
+    items.sort();
+
+    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        QString name = *itemIt;
+        int imageCtn = images.contains(name) ? images[name] : 0;
+        int videoCtn = videos.contains(name) ? videos[name] : 0;
+        factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
+                                                         _info, _browser ), 0 );
+    }
+}
+
+
 
 void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
 {
@@ -94,14 +111,17 @@ void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
     DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
     KSharedPtr<DB::CategoryItem> item = category->itemsCategories();
 
-    populateBrowser( item, images, videos, factory, 0 );
-
     // Add the none option to the end
     int imageCount = images[DB::ImageDB::NONE()];
     int videoCount = videos[DB::ImageDB::NONE()];
     if ( imageCount + videoCount != 0 )
         factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), DB::MediaCount( imageCount, videoCount ),
                                                 _info, _browser ), 0 );
+
+    if ( factory->supportsHierarchy() )
+        populateBrowserWithHierachy( item, images, videos, factory, 0 );
+    else
+        populateBrowserWithoutHierachy( images, videos, factory );
 }
 
 QString Browser::TypeFolderAction::title() const
@@ -128,6 +148,4 @@ bool Browser::TypeFolderAction::contentView() const
 {
     return ( !DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->isSpecialCategory() );
 }
-
-
 

@@ -55,6 +55,7 @@ public:
     BrowserItemFactory() {}
     virtual ~BrowserItemFactory() {}
     virtual BrowserItem* createItem( Folder*, BrowserItem* parentItem ) = 0;
+    virtual bool supportsHierarchy() const = 0;
 };
 
 
@@ -64,6 +65,7 @@ public:
     BrowserIconViewItemFactory( QIconView* view );
     virtual BrowserItem* createItem( Folder*, BrowserItem* parentItem );
     void setMatchText( const QString& text );
+    virtual bool supportsHierarchy() const;
 
 private:
     QIconView* _view;
@@ -76,6 +78,7 @@ class BrowserListViewItemFactory :public BrowserItemFactory
 public:
     BrowserListViewItemFactory( QListView* view );
     virtual BrowserItem* createItem( Folder*, BrowserItem* item );
+    virtual bool supportsHierarchy() const;
 private:
     QListView* _view;
 };

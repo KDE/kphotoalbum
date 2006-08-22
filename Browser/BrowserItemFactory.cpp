@@ -100,3 +100,13 @@ void Browser::BrowserIconViewItemFactory::setMatchText( const QString& text )
     _matchText = text;
 }
 
+bool Browser::BrowserIconViewItemFactory::supportsHierarchy() const
+{
+    return false;
+}
+
+bool Browser::BrowserListViewItemFactory::supportsHierarchy() const
+{
+    return true;
+}
+

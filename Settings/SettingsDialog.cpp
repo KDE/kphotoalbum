@@ -419,7 +419,7 @@ void Settings::SettingsDialog::show()
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
-            new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewSize(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
+            new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
         }
     }
 
@@ -487,7 +487,7 @@ void Settings::SettingsDialog::slotMyOK()
         CategoryItem* item = static_cast<CategoryItem*>( i );
         if ( item->_categoryOrig.isNull() ) {
             // New Item
-            DB::ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon, item->_size,
+            DB::ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon,
                                                                         item->_type, item->_thumbnailSize, true );
         }
         else {
@@ -499,9 +499,6 @@ void Settings::SettingsDialog::slotMyOK()
             }
             if ( item->_icon != item->_iconOrig )
                 category->setIconName( item->_icon );
-
-            if ( item->_size != item->_sizeOrig )
-                category->setViewSize( item->_size );
 
             if ( item->_type != item->_typeOrig )
                 category->setViewType( item->_type );
@@ -541,7 +538,7 @@ void Settings::SettingsDialog::edit( QListBoxItem* i )
     _text->setText( item->_text );
     _icon->setIcon( item->_icon );
     _thumbnailSizeInCategory->setValue( item->_thumbnailSize );
-    _preferredView->setCurrentItem( (int) item->_size + 2 * (int) item->_type );
+    _preferredView->setCurrentItem( static_cast<int>(item->_type) );
     enableDisable( true );
 }
 
@@ -557,15 +554,7 @@ void Settings::SettingsDialog::slotLabelChanged( const QString& label)
 void Settings::SettingsDialog::slotPreferredViewChanged( int i )
 {
     if ( _current ) {
-        if ( i < 2 )
-            _current->_type = DB::Category::ListView;
-        else
-            _current->_type = DB::Category::IconView;
-
-        if ( i % 2 == 1 )
-            _current->_size = DB::Category::Large;
-        else
-            _current->_size = DB::Category::Small;
+        _current->_type = static_cast<DB::Category::ViewType>(i);
     }
 }
 
@@ -584,7 +573,7 @@ void Settings::SettingsDialog::slotIconChanged( QString icon )
 
 void Settings::SettingsDialog::slotNewItem()
 {
-    _current = new CategoryItem( QString::null, QString::null, QString::null, DB::Category::Small, DB::Category::ListView, 64, _categories );
+    _current = new CategoryItem( QString::null, QString::null, QString::null, DB::Category::ListView, 64, _categories );
     _text->setText( QString::fromLatin1( "" ) );
     _icon->setIcon( QString::null );
     _thumbnailSizeInCategory->setValue( 64 );

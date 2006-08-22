@@ -3,8 +3,8 @@
 #include "DB/MemberMap.h"
 #include <DB/ImageDB.h>
 
-XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewSize size, ViewType type, int thumbnailSize, bool show )
-    : _name( name ), _icon( icon ), _show( show ), _size( size ), _type( type ), _thumbnailSize( thumbnailSize ), _isSpecial(false)
+XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show )
+    : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _isSpecial(false)
 {
 }
 
@@ -29,21 +29,10 @@ void XMLDB::XMLCategory::setIconName( const QString& name )
     emit changed();
 }
 
-void XMLDB::XMLCategory::setViewSize( ViewSize size )
-{
-    _size = size;
-    emit changed();
-}
-
 void XMLDB::XMLCategory::setViewType( ViewType type )
 {
     _type = type;
     emit changed();
-}
-
-XMLDB::XMLCategory::ViewSize XMLDB::XMLCategory::viewSize() const
-{
-    return _size;
 }
 
 XMLDB::XMLCategory::ViewType XMLDB::XMLCategory::viewType() const

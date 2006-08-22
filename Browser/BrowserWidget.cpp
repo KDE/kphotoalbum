@@ -179,9 +179,8 @@ void Browser::BrowserWidget::emitSignals()
     if ( a->contentView() && _list.size() > 0 ) {
         QString grp = a->category();
         Q_ASSERT( !grp.isNull() );
-        DB::Category::ViewSize size = DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewSize();
         DB::Category::ViewType type = DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewType();
-        emit currentSizeAndTypeChanged( size, type );
+        emit currentViewTypeChanged( type );
     }
 }
 
@@ -242,25 +241,25 @@ DB::ImageSearchInfo Browser::BrowserWidget::currentContext()
 
 void Browser::BrowserWidget::slotSmallListView()
 {
-    setSizeAndType( DB::Category::ListView,DB::Category::Small );
+    setViewType( DB::Category::ListView );
 }
 
 void Browser::BrowserWidget::slotLargeListView()
 {
-    setSizeAndType( DB::Category::ListView,DB::Category::Large );
+    setViewType( DB::Category::ThumbedListView );
 }
 
 void Browser::BrowserWidget::slotSmallIconView()
 {
-    setSizeAndType( DB::Category::IconView,DB::Category::Small );
+    setViewType( DB::Category::IconView );
 }
 
 void Browser::BrowserWidget::slotLargeIconView()
 {
-    setSizeAndType( DB::Category::IconView,DB::Category::Large );
+    setViewType( DB::Category::ThumbedIconView );
 }
 
-void Browser::BrowserWidget::setSizeAndType( DB::Category::ViewType type, DB::Category::ViewSize size )
+void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
 {
     Q_ASSERT( _list.size() > 0 );
 
@@ -269,7 +268,6 @@ void Browser::BrowserWidget::setSizeAndType( DB::Category::ViewType type, DB::Ca
     Q_ASSERT( !grp.isNull() );
 
     DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewType( type );
-    DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewSize( size );
     reload();
 }
 
@@ -291,7 +289,7 @@ void Browser::BrowserWidget::setupFactory()
     if ( !category.isNull() )
         type = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->viewType();
 
-    if ( type == DB::Category::ListView ) {
+    if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
         _currentFactory = _listViewFactory;
         _stack->raiseWidget( _listView );
     }

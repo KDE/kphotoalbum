@@ -37,9 +37,6 @@ namespace SQLDB {
         virtual QString iconName() const;
         virtual void setIconName(const QString& name);
 
-        virtual ViewSize viewSize() const;
-        virtual void setViewSize(ViewSize size);
-
         virtual ViewType viewType() const;
         virtual void setViewType(ViewType type);
 
@@ -56,8 +53,8 @@ namespace SQLDB {
         virtual void renameItem(const QString& oldValue,
                                 const QString& newValue);
 
-        virtual void setThumbnailSize( int );
         virtual int thumbnailSize() const;
+        virtual void setThumbnailSize(int size);
 
     protected:
         friend class SQLCategoryCollection;

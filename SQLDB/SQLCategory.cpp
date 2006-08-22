@@ -49,17 +49,6 @@ void SQLDB::SQLCategory::setIconName(const QString& name)
     emit changed();
 }
 
-DB::Category::ViewSize SQLDB::SQLCategory::viewSize() const
-{
-    return _qh->categoryViewSize(_categoryId);
-}
-
-void SQLDB::SQLCategory::setViewSize(ViewSize size)
-{
-    _qh->changeCategoryViewSize(_categoryId, size);
-    emit changed();
-}
-
 DB::Category::ViewType SQLDB::SQLCategory::viewType() const
 {
     return _qh->categoryViewType(_categoryId);
@@ -135,15 +124,17 @@ void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newV
     emit itemRenamed(oldValue, newValue);
 }
 
-void SQLDB::SQLCategory::setThumbnailSize( int )
-{
-    // PENDING(blackie) Tuomas please implement this
-}
-
 int SQLDB::SQLCategory::thumbnailSize() const
 {
-    // PENDING(blackie) Tuomas please implement this
-    return 42;
+    return _qh->executeQuery("SELECT thumbsize FROM category WHERE id=%s",
+                             QueryHelper::Bindings() <<
+                             _categoryId).firstItem().toInt();
+}
+
+void SQLDB::SQLCategory::setThumbnailSize(int size)
+{
+    _qh->executeStatement("UPDATE category SET thumbsize=%s WHERE id=%s",
+                          QueryHelper::Bindings() << size << _categoryId);
 }
 
 #include "SQLCategory.moc"

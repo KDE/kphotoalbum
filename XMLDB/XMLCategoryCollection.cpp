@@ -55,10 +55,10 @@ QValueList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
     return _categories;
 }
 
-void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QString& icon, DB::Category::ViewSize size,
+void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QString& icon,
                                                 DB::Category::ViewType type, int thumbnailSize, bool show )
 {
-    addCategory( new XMLCategory( text, icon, size, type, thumbnailSize, show ) );
+    addCategory( new XMLCategory( text, icon, type, thumbnailSize, show ) );
 }
 
 void XMLDB::XMLCategoryCollection::initIdMap()

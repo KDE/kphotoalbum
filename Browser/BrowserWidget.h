@@ -75,7 +75,7 @@ signals:
     void showingOverview();
     void pathChanged( const QString& );
     void showsContentView( bool );
-    void currentSizeAndTypeChanged( DB::Category::ViewSize, DB::Category::ViewType );
+    void currentViewTypeChanged( DB::Category::ViewType );
     void viewChanged();
 
 protected slots:
@@ -89,7 +89,7 @@ protected:
     void addItem( FolderAction* );
     void emitSignals();
     void setupFactory();
-    void setSizeAndType( DB::Category::ViewType type, DB::Category::ViewSize size );
+    void setViewType( DB::Category::ViewType type );
 
 private:
     static BrowserWidget* _instance;

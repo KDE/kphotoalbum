@@ -296,8 +296,8 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     f->setCaption("view type");
     schema->addField(f);
 
-    f = new KexiDB::Field("viewsize", KexiDB::Field::ShortInteger);
-    f->setCaption("view size");
+    f = new KexiDB::Field("thumbsize", KexiDB::Field::ShortInteger);
+    f->setCaption("thumbnail size");
     schema->addField(f);
 
     if (!_connection->createTable(schema)) {
@@ -484,19 +484,19 @@ void DatabaseHandler::insertInitialData()
         const char* icon;
         bool visible;
         DB::Category::ViewType viewtype;
-        DB::Category::ViewSize viewsize;
+        int thumbnailSize;
     } entry[] = {
         { "Folder", "folder",
-          false, DB::Category::ListView, DB::Category::Small },
+          false, DB::Category::ListView, 32 },
         { "Tokens", "cookie",
-          true, DB::Category::IconView, DB::Category::Large },
+          true, DB::Category::IconView, 32 },
         { "Keywords", "password",
-          true, DB::Category::IconView, DB::Category::Large },
+          true, DB::Category::IconView, 32 },
         { "Locations", "network",
-          true, DB::Category::ListView, DB::Category::Small },
+          true, DB::Category::ListView, 32 },
         { "Persons", "personal",
-          true, DB::Category::ListView, DB::Category::Small },
-        { 0, 0, false, DB::Category::ListView, DB::Category::Small }
+          true, DB::Category::ThumbedListView, 96 },
+        { 0, 0, false, DB::Category::ListView, 0 }
     };
 
     QueryHelper qh(*_connection);
@@ -505,5 +505,5 @@ void DatabaseHandler::insertInitialData()
         qh.insertCategory(QString::fromLatin1(entry[i].name),
                           QString::fromLatin1(entry[i].icon),
                           entry[i].visible,
-                          entry[i].viewtype, entry[i].viewsize);
+                          entry[i].viewtype, entry[i].thumbnailSize);
 }

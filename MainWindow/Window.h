@@ -97,7 +97,7 @@ protected slots:
     void slotThumbNailSelectionChanged();
     void reloadThumbnails(bool flushCache);
     void reloadThumbnailsAndFlushCache();
-    void slotUpdateViewMenu( DB::Category::ViewSize, DB::Category::ViewType );
+    void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
     void markDirty();
     void donateMoney();

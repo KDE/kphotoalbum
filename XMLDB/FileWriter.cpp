@@ -71,7 +71,6 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
 
         opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
         opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
-        opt.setAttribute( QString::fromLatin1( "viewsize" ), category->viewSize() );
         opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
         opt.setAttribute( QString::fromLatin1( "thumbnailsize" ), category->thumbnailSize() );
 

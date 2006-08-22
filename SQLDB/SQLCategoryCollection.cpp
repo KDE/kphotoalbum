@@ -74,12 +74,13 @@ QValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
     return result;
 }
 
-void SQLDB::SQLCategoryCollection::addCategory( const QString& category, const QString& icon, DB::Category::ViewSize size,
-                                                DB::Category::ViewType type, int thumbnailSize, bool showIt )
+void SQLDB::SQLCategoryCollection::addCategory(const QString& category,
+                                               const QString& icon,
+                                               DB::Category::ViewType type,
+                                               int thumbnailSize, bool showIt)
 {
-    // PENDING(blackie) Tuomas, you might want to do something with the thumbnail size
     try {
-        _qh.insertCategory(category, icon, showIt, type, size);
+        _qh.insertCategory(category, icon, showIt, type, thumbnailSize);
     }
     catch (SQLError& e) {
         // Check if error occured, because category already exists

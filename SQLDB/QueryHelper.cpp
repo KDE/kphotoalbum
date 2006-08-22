@@ -786,11 +786,12 @@ void QueryHelper::removeMediaItem(const QString& filename)
 void QueryHelper::insertCategory(const QString& name,
                                  const QString& icon, bool visible,
                                  DB::Category::ViewType type,
-                                 DB::Category::ViewSize size)
+                                 int thumbnailSize)
 {
     executeStatement("INSERT INTO category (name, icon, visible, "
-                     "viewtype, viewsize) VALUES(%s, %s, %s, %s, %s)",
-                     Bindings() << name << icon << visible << type << size);
+                     "viewtype, thumbsize) VALUES (%s, %s, %s, %s, %s)",
+                     Bindings() << name << icon << visible << type <<
+                     thumbnailSize);
 }
 
 void QueryHelper::removeCategory(const QString& name)
@@ -830,13 +831,6 @@ DB::Category::ViewType QueryHelper::categoryViewType(int id) const
                       Bindings() << id).firstItem().toUInt());
 }
 
-DB::Category::ViewSize QueryHelper::categoryViewSize(int id) const
-{
-    return static_cast<DB::Category::ViewSize>
-        (executeQuery("SELECT viewsize FROM category WHERE id=%s",
-                      Bindings() << id).firstItem().toUInt());
-}
-
 void QueryHelper::changeCategoryName(int id, const QString& newName)
 {
     executeStatement("UPDATE category SET name=%s WHERE id=%s",
@@ -859,12 +853,6 @@ void QueryHelper::changeCategoryViewType(int id, DB::Category::ViewType type)
 {
     executeStatement("UPDATE category SET viewtype=%s WHERE id=%s",
                      Bindings() << type << id);
-}
-
-void QueryHelper::changeCategoryViewSize(int id, DB::Category::ViewSize size)
-{
-    executeStatement("UPDATE category SET viewsize=%s WHERE id=%s",
-                     Bindings() << size << id);
 }
 
 bool QueryHelper::containsMD5Sum(const QString& md5sum) const

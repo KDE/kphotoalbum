@@ -639,8 +639,8 @@ void MainWindow::Window::setupMenuBar()
     _largeIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
 
-    connect( _browser, SIGNAL( currentSizeAndTypeChanged( DB::Category::ViewSize, DB::Category::ViewType ) ),
-             this, SLOT( slotUpdateViewMenu( DB::Category::ViewSize, DB::Category::ViewType ) ) );
+    connect( _browser, SIGNAL( currentViewTypeChanged( DB::Category::ViewType ) ),
+             this, SLOT( slotUpdateViewMenu( DB::Category::ViewType ) ) );
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
@@ -1039,15 +1039,15 @@ void MainWindow::Window::reloadThumbnailsAndFlushCache()
     reloadThumbnails(true);
 }
 
-void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewSize size, DB::Category::ViewType type )
+void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 {
-    if ( size == DB::Category::Small && type == DB::Category::ListView )
+    if ( type == DB::Category::ListView )
         _smallListView->setChecked( true );
-    else if ( size == DB::Category::Large && type == DB::Category::ListView )
+    else if ( type == DB::Category::ThumbedListView )
         _largeListView->setChecked( true );
-    else if ( size == DB::Category::Small && type == DB::Category::IconView )
+    else if ( type == DB::Category::IconView )
         _smallIconView->setChecked( true );
-    else if ( size == DB::Category::Large && type == DB::Category::IconView )
+    else if ( type == DB::Category::ThumbedIconView )
         _largeIconView->setChecked( true );
 }
 

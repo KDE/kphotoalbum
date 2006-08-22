@@ -121,18 +121,16 @@ public:
 
     void insertCategory(const QString& name, const QString& icon, bool visible,
                         DB::Category::ViewType type,
-                        DB::Category::ViewSize size);
+                        int thumbnailSize);
     void removeCategory(const QString& name);
     QString categoryName(int id) const;
     QString categoryIcon(int id) const;
     bool categoryVisible(int id) const;
     DB::Category::ViewType categoryViewType(int id) const;
-    DB::Category::ViewSize categoryViewSize(int id) const;
     void changeCategoryName(int id, const QString& newName);
     void changeCategoryIcon(int id, const QString& icon);
     void changeCategoryVisible(int id, bool visible);
     void changeCategoryViewType(int id, DB::Category::ViewType type);
-    void changeCategoryViewSize(int id, DB::Category::ViewSize size);
 
     int tagId(const QString& category, const QString& item) const;
     void insertTagFirst(int categoryId, const QString& name);

@@ -27,7 +27,7 @@ public:
     virtual void removeCategory( const QString& name ) = 0;
     virtual void rename( const QString& oldName, const QString& newName ) = 0;
     virtual QValueList<CategoryPtr> categories() const = 0;
-    virtual void addCategory( const QString& text, const QString& icon, Category::ViewSize size, Category::ViewType type,
+    virtual void addCategory( const QString& text, const QString& icon, Category::ViewType type,
                               int thumbnailSize, bool show ) = 0;
 
     QString nameForText( const QString& text );

@@ -72,7 +72,7 @@ void XMLDB::FileReader::createSpecialCategories()
     DB::CategoryPtr folderCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
     if( folderCat == 0 ) {
         folderCat = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
-                                     DB::Category::Small, DB::Category::ListView, 32, false );
+                                     DB::Category::ListView, 32, false );
         _db->_categoryCollection.addCategory( folderCat );
     }
     folderCat->setSpecialCategory( true );
@@ -81,7 +81,7 @@ void XMLDB::FileReader::createSpecialCategories()
     DB::CategoryPtr tokenCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
         tokenCat = new XMLCategory( QString::fromLatin1("Tokens"), QString::fromLatin1("cookie"),
-                                    DB::Category::Small, DB::Category::ListView, 32, true );
+                                    DB::Category::ListView, 32, true );
         _db->_categoryCollection.addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
@@ -104,8 +104,6 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
             if ( !name.isNull() )  {
                 // Read Category info
                 QString icon= elmOption.attribute( QString::fromLatin1("icon") );
-                DB::Category::ViewSize size =
-                    (DB::Category::ViewSize) elmOption.attribute( QString::fromLatin1("viewsize"), QString::fromLatin1( "0" ) ).toInt();
                 DB::Category::ViewType type =
                     (DB::Category::ViewType) elmOption.attribute( QString::fromLatin1("viewtype"), QString::fromLatin1( "0" ) ).toInt();
                 bool show = (bool) elmOption.attribute( QString::fromLatin1( "show" ),
@@ -114,7 +112,7 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
 
                 DB::CategoryPtr cat = _db->_categoryCollection.categoryForName( name );
                 Q_ASSERT ( !cat );
-                cat = new XMLCategory( name, icon, size, type, thumbnailSize, show );
+                cat = new XMLCategory( name, icon, type, thumbnailSize, show );
                 _db->_categoryCollection.addCategory( cat );
 
                 // Read values

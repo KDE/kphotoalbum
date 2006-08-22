@@ -18,8 +18,9 @@ namespace SQLDB {
         virtual void removeCategory( const QString& name );
         virtual void rename( const QString& oldName, const QString& newName );
         virtual QValueList<DB::CategoryPtr> categories() const;
-        virtual void addCategory( const QString& text, const QString& icon, DB::Category::ViewSize size, DB::Category::ViewType type,
-                                  int thumbnailSize, bool show );
+        virtual void addCategory(const QString& text, const QString& icon,
+                                 DB::Category::ViewType type,
+                                 int thumbnailSize, bool show );
 
     protected:
         Connection* _connection;

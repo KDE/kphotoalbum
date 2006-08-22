@@ -20,8 +20,7 @@ class Category :public QObject, public KShared
     Q_OBJECT
 
 public:
-    enum ViewSize { Small, Large };
-    enum ViewType { ListView, IconView };
+    enum ViewType { ListView, ThumbedListView, IconView, ThumbedIconView };
 
     virtual QString name() const = 0;
     virtual void setName( const QString& name ) = 0;
@@ -31,9 +30,6 @@ public:
     virtual QString iconName() const = 0;
     virtual void setIconName( const QString& name ) = 0;
     virtual QPixmap icon( int size = 22 ) const;
-
-    virtual ViewSize viewSize() const = 0;
-    virtual void setViewSize( ViewSize size ) = 0;
 
     virtual void setViewType( ViewType type ) = 0;
     virtual ViewType viewType() const = 0;

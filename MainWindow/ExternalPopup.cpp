@@ -35,15 +35,17 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
     _indexOfFirstSelectionForMultipleImages = -1;
 
     QStringList list = QStringList() << i18n("Current Image") << i18n("All Images in Viewer");
-    bool first = true;
     for ( int which = 0; which < 2; ++which ) {
+        if ( which == 0 && !current )
+            continue;
+
         QLabel* label = new QLabel( list[which], this );
         label->setAlignment( Qt::AlignHCenter );
         label->setLineWidth(2);
         label->setFrameStyle( QFrame::Raised | QFrame::StyledPanel );
 
         bool multiple = (_list.count() > 1);
-        bool enabled = (first && _currentInfo ) || (!first && multiple);
+        bool enabled = (which == 0 && _currentInfo ) || (which == 1 && multiple);
 
         int id = insertItem( label );
         setItemEnabled( id, enabled );
@@ -51,6 +53,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         OfferType offers;
         if ( which == 0 )
             offers = appInfos( QStringList() << current->fileName() );
+
         else
             offers = appInfos( imageList );
 
@@ -61,7 +64,6 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 
             setItemEnabled( id, enabled );
         }
-        first = false;
     }
 }
 

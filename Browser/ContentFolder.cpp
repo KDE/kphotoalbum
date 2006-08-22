@@ -47,7 +47,7 @@ QPixmap Browser::ContentFolder::pixmap()
 
     if ( category->viewSize() == DB::Category::Small ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category, _value ) )
-            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, size );
+            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
             return category->icon();
         }

@@ -1,3 +1,9 @@
+2006-08-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Bugfix: holding control down in the browser when selecting an
+	item (say a person), should jump directly to the images rather
+	than going back to main browser window. This did not work.
+
 2006-08-20  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* now it is possible to specify the icon size in used in the

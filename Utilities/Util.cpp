@@ -166,7 +166,7 @@ void Utilities::checkForBackupFile( const QString& fileName )
 bool Utilities::ctrlKeyDown()
 {
 #if KDE_IS_VERSION( 3, 4, 0 )
-    return KApplication::keyboardMouseState() & ControlMask;
+    return KApplication::keyboardMouseState() & Qt::ControlButton;
 #else
     return KApplication::keyboardModifiers() & KApplication::ControlModifier;
 #endif

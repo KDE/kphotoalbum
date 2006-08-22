@@ -64,8 +64,8 @@ class XMLDatabase(DatabaseReader):
 		if rootElem.tagName != u'KPhotoAlbum':
 			raise InvalidFile('File should be in '
 					  'KPhotoAlbum index.xml format.')
-		if rootElem.getAttribute('version') != '2':
-			raise UnsupportedFormat('Only version 2 is supported')
+		if not rootElem.getAttribute('version') in ['2', '3']:
+			raise UnsupportedFormat('Only versions 2 and 3 are supported')
 		self.isCompressed = False
 		if rootElem.getAttribute('compressed') == '1':
 			self.isCompressed = True

@@ -1,5 +1,10 @@
 2006-08-21  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Bugfix: Pressing the mouse down on a selected image in the
+	thumbnail viewer now deselect all other images if control or shift
+	is not pressed. This was an inconsistent behavior compared to
+	similar browsers.
+
 	* Bugfix: holding control down in the browser when selecting an
 	item (say a person), should jump directly to the images rather
 	than going back to main browser window. This did not work.

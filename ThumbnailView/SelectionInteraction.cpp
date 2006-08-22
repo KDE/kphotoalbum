@@ -20,8 +20,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
     _mousePressPos = _view->viewportToContents( event->pos() );
 
     QString fileNameAtPos = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
-    bool wasIconUnderMouseSelected = !fileNameAtPos.isNull() && _view->_selectedFiles.contains( fileNameAtPos );
-    if ( !( event->state() & ControlButton ) && !( event->state() & ShiftButton ) && !wasIconUnderMouseSelected) {
+    if ( !( event->state() & ControlButton ) && !( event->state() & ShiftButton ) ) {
         // Unselect every thing
         Set<QString> oldSelection = _view->_selectedFiles;
         _view->_selectedFiles.clear();

@@ -1,10 +1,12 @@
 #------------------------------------------------------------
 # create kphotoalbum_top_srcdir and kphotoalbum_top_builddir
 #------------------------------------------------------------
-kphotoalbum_top_srcdir='$(top_srcdir)/kphotoalbum'
+if test -e $top_srcdir/src/MainWindow/Window.cpp; then
+  kphotoalbum_top_srcdir='$(top_srcdir)/src'
+else
+  kphotoalbum_top_srcdir='$(top_srcdir)/kphotoalbum'
+fi
 AC_SUBST(kphotoalbum_top_srcdir)
-kphotoalbum_top_builddir='$(top_builddir)/kphotoalbum'
-AC_SUBST(kphotoalbum_top_builddir)
 
 # -------------------------------------------------- KIPI Check
 KDE_CHECK_HEADER(libkipi/interface.h,  have_kipi=yes,  have_kipi=no)

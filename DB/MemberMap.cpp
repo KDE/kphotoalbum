@@ -150,7 +150,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
 }
 
 MemberMap::MemberMap( const MemberMap& other )
-    : QObject( 0 ), _members( other._members ), _dirty( true )
+    : QObject( 0 ), _members( other.memberMap() ), _dirty( true )
 {
 }
 
@@ -181,7 +181,7 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
 MemberMap& MemberMap::operator=( const MemberMap& other )
 {
     if ( this != &other ) {
-        _members = other._members;
+        _members = other.memberMap();
         _dirty = true;
     }
     return *this;

@@ -32,32 +32,32 @@ class MemberMap :public QObject {
 public:
     MemberMap();
     MemberMap( const MemberMap& );
-    MemberMap& operator=( const MemberMap& );
+    virtual MemberMap& operator=( const MemberMap& );
 
-    QStringList groups( const QString& category ) const;
-    void deleteGroup( const QString& category, const QString& name );
-    QStringList members( const QString& category, const QString& memberGroup, bool closure ) const;
-    void setMembers( const QString& category, const QString& memberGroup, const QStringList& members );
-    bool isEmpty() const;
-    bool isGroup( const QString& category, const QString& memberGroup ) const;
-    QMap<QString,StringSet> groupMap( const QString& category ) const;
-    QMap<QString,QStringList> inverseMap( const QString& category ) const;
-    void renameGroup( const QString& category, const QString& oldName, const QString& newName );
-    void renameCategory( const QString& oldName, const QString& newName );
+    virtual QStringList groups( const QString& category ) const;
+    virtual void deleteGroup( const QString& category, const QString& name );
+    virtual QStringList members( const QString& category, const QString& memberGroup, bool closure ) const;
+    virtual void setMembers( const QString& category, const QString& memberGroup, const QStringList& members );
+    virtual bool isEmpty() const;
+    virtual bool isGroup( const QString& category, const QString& memberGroup ) const;
+    virtual QMap<QString,StringSet> groupMap( const QString& category ) const;
+    virtual QMap<QString,QStringList> inverseMap( const QString& category ) const;
+    virtual void renameGroup( const QString& category, const QString& oldName, const QString& newName );
+    virtual void renameCategory( const QString& oldName, const QString& newName );
 
-    void addGroup( const QString& category, const QString& group );
-    void addMemberToGroup( const QString& category, const QString& group, const QString& item );
-    void removeMemberFromGroup( const QString& category, const QString& group, const QString& item );
+    virtual void addGroup( const QString& category, const QString& group );
+    virtual void addMemberToGroup( const QString& category, const QString& group, const QString& item );
+    virtual void removeMemberFromGroup( const QString& category, const QString& group, const QString& item );
 
-    const QMap<QString, QMap<QString,StringSet> >& memberMap() const { return _members; }
+    virtual const QMap<QString, QMap<QString,StringSet> >& memberMap() const { return _members; }
 
 protected:
     void calculate() const;
     QStringList calculateClosure( QMap<QString,StringSet>& resultSoFar, const QString& category, const QString& group ) const;
 
 public slots:
-    void deleteItem( DB::Category* category, const QString& name);
-    void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
+    virtual void deleteItem( DB::Category* category, const QString& name);
+    virtual void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
 
 private:
     // This is the primary data structure

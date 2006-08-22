@@ -1,7 +1,7 @@
 #------------------------------------------------------------
 # create kphotoalbum_top_srcdir and kphotoalbum_top_builddir
 #------------------------------------------------------------
-if test -e $top_srcdir/src/MainWindow/Window.cpp; then
+if test -e $srcdir/src/MainWindow/Window.cpp; then
   kphotoalbum_top_srcdir='$(top_srcdir)/src'
 else
   kphotoalbum_top_srcdir='$(top_srcdir)/kphotoalbum'

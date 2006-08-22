@@ -27,6 +27,13 @@ public:
         }
     }
 
+    void insert( const Set& other )
+    {
+        for( QValueListConstIterator<TYPE> it = other.keys().begin(); it != other.keys().end(); ++it) {
+            insert( *it );
+        }
+    }
+
     QValueList<TYPE> toList() const
     {
         return QMap<TYPE,TYPE>::keys();

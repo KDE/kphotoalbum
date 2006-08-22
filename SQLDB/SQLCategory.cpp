@@ -91,7 +91,7 @@ QStringList SQLDB::SQLCategory::items() const
 void SQLDB::SQLCategory::setItems(const QStringList& items)
 {
     _qh->executeStatement("DELETE FROM tag WHERE categoryId=%s",
-                         QueryHelper::Bindings() << _categoryId);
+                          QueryHelper::Bindings() << _categoryId);
 
     uint place = items.count();
     for (QStringList::const_iterator it = items.begin();
@@ -118,9 +118,9 @@ void SQLDB::SQLCategory::removeItem(const QString& item)
 void SQLDB::SQLCategory::renameItem(const QString& oldValue, const QString& newValue)
 {
     _qh->executeStatement("UPDATE tag SET name=%s "
-                         "WHERE name=%s AND categoryId=%s",
-                         QueryHelper::Bindings() <<
-                         newValue << oldValue << _categoryId);
+                          "WHERE name=%s AND categoryId=%s",
+                          QueryHelper::Bindings() <<
+                          newValue << oldValue << _categoryId);
     emit itemRenamed(oldValue, newValue);
 }
 

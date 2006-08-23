@@ -36,6 +36,10 @@
 #include "SettingsData.moc"
 #include "DB/MemberMap.h"
 #include <qpixmapcache.h>
+#ifdef SQLDB_SUPPORT
+#  include "SQLDB/ConfigFileHandler.h"
+#  include "SQLDB/QueryErrors.h"
+#endif
 
 #define STR(x) QString::fromLatin1(x)
 
@@ -463,5 +467,26 @@ int Settings::SettingsData::thumbSize() const
 {
     return value( QString::fromLatin1( "Thumbnails" ), QString::fromLatin1( "thumbSize" ), 128 );
 }
+
+#ifdef SQLDB_SUPPORT
+void Settings::SettingsData::setSQLParameters(const KexiDB::ConnectionData& connectionData,
+                                              const QString& databaseName)
+{
+    KConfig* config = kapp->config();
+    config->setGroup(QString::fromLatin1("SQLDB"));
+    SQLDB::writeConnectionParameters(connectionData, databaseName, *config);
+}
+
+void Settings::SettingsData::getSQLParameters(KexiDB::ConnectionData& connectionData,
+                                              QString& databaseName)
+{
+    KConfig* config = kapp->config();
+    config->setGroup(QString::fromLatin1("SQLDB"));
+    try {
+        SQLDB::readConnectionParameters(*config, connectionData, databaseName);
+    }
+    catch (SQLDB::DriverNotFoundError&) {}
+}
+#endif /* SQLDB_SUPPORT */
 
 #undef STR

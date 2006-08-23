@@ -24,6 +24,8 @@
 #include <kcombobox.h>
 #include <kpushbutton.h>
 #include <qspinbox.h>
+#include <qbuttongroup.h>
+#include <qradiobutton.h>
 #include "Settings/SettingsData.h"
 #include <kicondialog.h>
 #include <qlistbox.h>
@@ -53,6 +55,12 @@
 #  include "Exif/TreeView.h"
 #endif
 
+#ifdef SQLDB_SUPPORT
+#  include "SQLDB/SQLSettingsWidget.h"
+#  include <kexidb/kexidb_export.h>
+#  include <kexidb/connectiondata.h>
+#endif
+
 #include "CategoryItem.h"
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
@@ -65,6 +73,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     createViewerPage();
     createPluginPage();
     createEXIFPage();
+    createDatabaseBackendPage();
 
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
     connect( this, SIGNAL( applyClicked() ), this, SLOT( slotMyOK() ) );
@@ -429,6 +438,20 @@ void Settings::SettingsDialog::show()
     _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
     _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
 #endif
+
+#ifdef SQLDB_SUPPORT
+    QString backend = Settings::SettingsData::instance()->backend();
+    if (backend == QString::fromLatin1("xml"))
+        _backendButtons->setButton(0);
+    else if (backend == QString::fromLatin1("sql"))
+        _backendButtons->setButton(1);
+
+    KexiDB::ConnectionData connectionData;
+    QString databaseName;
+    Settings::SettingsData::instance()->getSQLParameters(connectionData, databaseName);
+    _sqlSettings->setSettings(connectionData, databaseName);
+#endif
+
     enableDisable( false );
     KDialogBase::show();
 }
@@ -442,6 +465,13 @@ void Settings::SettingsDialog::slotMyOK()
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     // General
+#ifdef SQLDB_SUPPORT
+    const char* backendNames[] = { "xml", "sql" };
+    int backendIndex = _backendButtons->selectedId();
+    if (backendIndex < 0 || backendIndex >= 2)
+        backendIndex = 0;
+    opt->setBackend(QString::fromLatin1(backendNames[backendIndex]));
+#endif
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );
@@ -521,6 +551,16 @@ void Settings::SettingsDialog::slotMyOK()
 #ifdef HASEXIV2
     opt->setExifForViewer( _exifForViewer->selected() ) ;
     opt->setExifForDialog( _exifForDialog->selected() ) ;
+#endif
+
+    // SQLDB
+#ifdef SQLDB_SUPPORT
+    if (_sqlSettings->hasSettings()) {
+        KexiDB::ConnectionData connectionData;
+        QString databaseName;
+        _sqlSettings->getSettings(connectionData, databaseName);
+        opt->setSQLParameters(connectionData, databaseName);
+    }
 #endif
 
     emit changed();
@@ -689,6 +729,8 @@ void Settings::SettingsDialog::slotCategoryChanged( const QString& name, bool sa
 
     _groups->clear();
     _currentCategory = name;
+    if (name.isNull())
+        return;
     QStringList groupList = _memberMap.groups( name );
     _groups->insertStringList( groupList );
 
@@ -920,3 +962,47 @@ void Settings::SettingsDialog::createEXIFPage()
 #endif
 }
 
+void Settings::SettingsDialog::showBackendPage()
+{
+#ifdef SQLDB_SUPPORT
+    // TODO: adjust this number, with HASKIPI and HASEXIV2
+    showPage(7);
+#endif
+}
+
+void Settings::SettingsDialog::createDatabaseBackendPage()
+{
+#ifdef SQLDB_SUPPORT
+    // TODO: add notification: New backend will take effect only after restart
+    QWidget* top = addPage(i18n("Database backend"),
+                           i18n("Database backend"),
+                           KGlobal::iconLoader()->loadIcon(QString::fromLatin1("kfm"),
+                                                           KIcon::Desktop, 32));
+    QVBoxLayout* lay1 = new QVBoxLayout(top, 6);
+
+    _backendButtons = new QButtonGroup(1, Qt::Horizontal,
+                                       i18n("Database backend to use"), top);
+    lay1->addWidget(_backendButtons);
+
+    new QRadioButton(i18n("XML backend (recommended)"), _backendButtons);
+    //QRadioButton* sqlButton =
+    new QRadioButton(i18n("SQL backend (experimental)"), _backendButtons);
+
+    QVGroupBox* sqlBox = new QVGroupBox(i18n("SQL Database Settings"), top);
+    //sqlBox->setEnabled(false);
+    lay1->addWidget(sqlBox);
+
+    _sqlSettings = new SQLDB::SQLSettingsWidget(sqlBox);
+
+    QLabel* passwordWarning =
+        new QLabel(i18n("Warning! The password is saved as plain text to the configuration file."), top);
+    passwordWarning->hide();
+    lay1->addWidget(passwordWarning);
+
+    QSpacerItem* spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    lay1->addItem(spacer);
+
+    //connect(sqlButton, SIGNAL(toggled(bool)), sqlBox, SLOT(setEnabled(bool)));
+    connect(_sqlSettings, SIGNAL(passwordChanged(const QString&)), passwordWarning, SLOT(show()));
+#endif /* SQLDB_SUPPORT */
+}

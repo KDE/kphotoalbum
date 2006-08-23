@@ -758,27 +758,6 @@ bool MainWindow::Window::load()
     // Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile = QString::null;
-    QString backEnd = QString::null;
-
-    if ( args->isSet( "e" ) ) {
-        backEnd = args->getOption( "e" );
-        if ( backEnd == QString::fromLatin1("sql") ) {
-#ifndef SQLDB_SUPPORT
-            qWarning( "SQL database support not compiled in. Using default." );
-            backEnd = QString::null;
-#endif
-        }
-        else if ( backEnd == QString::fromLatin1("xml") ) {
-        }
-        else {
-            qWarning( "Invalid database engine. Using default." );
-            backEnd = QString::null;
-        }
-    }
-
-    // Default back-end is XML
-    if (backEnd.isNull())
-        backEnd = QString::fromLatin1("xml");
 
     if ( args->isSet( "c" ) ) {
         configFile = args->getOption( "c" );
@@ -820,6 +799,12 @@ bool MainWindow::Window::load()
     Settings::SettingsData::setup( QFileInfo( configFile ).dirPath( true ) );
 
 
+    // Choose backend
+    QString backEnd = Settings::SettingsData::instance()->backend();
+    // Command line override for backend
+    if ( args->isSet( "e" ) )
+        backEnd = args->getOption( "e" );
+
     // Initialize correct back-end
     if ( backEnd == QString::fromLatin1("sql") ) {
 #ifdef SQLDB_SUPPORT
@@ -828,19 +813,35 @@ bool MainWindow::Window::load()
         config->setGroup(QString::fromLatin1("SQLDB"));
         KexiDB::ConnectionData connectionData;
         QString databaseName;
-        SQLDB::readConnectionParameters(*config, connectionData, databaseName);
+        try {
+            SQLDB::readConnectionParameters(*config, connectionData, databaseName);
 
-        // Initialize SQLDB with the paramaters
-        DB::ImageDB::setupSQLDB(connectionData, databaseName);
+            // Initialize SQLDB with the paramaters
+            DB::ImageDB::setupSQLDB(connectionData, databaseName);
+            return true;
+        }
+        catch (SQLDB::Error& e){
+            KMessageBox::error(this, i18n("SQL backend initialization failed, "
+                                          "because following error occurred:\n%1").arg(e.message()));
+        }
 #else
-        qFatal( "SQL database support not compiled in." );
+        KMessageBox::error(this, i18n("SQL database support is not compiled in."));
 #endif
     }
+    else if ( backEnd == QString::fromLatin1("xml") );
     else {
-        Q_ASSERT( backEnd == QString::fromLatin1("xml") );
-
-        DB::ImageDB::setupXMLDB( configFile );
+        KMessageBox::error(this, i18n("Invalid database backend: %1").arg(backEnd));
     }
+
+    if (backEnd != QString::fromLatin1("xml")) {
+        int answer =
+            KMessageBox::questionYesNo(this, i18n("Do you want to use XML backend instead?"));
+        if (answer != KMessageBox::Yes)
+            return false;
+    }
+
+    DB::ImageDB::setupXMLDB( configFile );
+
     return true;
 }
 
@@ -1376,7 +1377,17 @@ void MainWindow::Window::convertBackend()
 
     KConfig* config = kapp->config();
     if (!config->hasGroup(QString::fromLatin1("SQLDB"))) {
-        // TODO: pop up a message and back-end configuration dialog
+        int ret =
+            KMessageBox::questionYesNo(this, i18n("You should set SQL database settings before the conversion. "
+                                                  "Do you want to do this now?"));
+        if (ret != KMessageBox::Yes)
+            return;
+        if (!_optionsDialog)
+            _optionsDialog = new Settings::SettingsDialog(this);
+        _optionsDialog->showBackendPage();
+        ret = _optionsDialog->exec();
+        if (ret != Settings::SettingsDialog::Accepted)
+            return;
     }
     config->setGroup(QString::fromLatin1("SQLDB"));
     SQLDB::DatabaseHandler* dbh = 0;
@@ -1389,6 +1400,8 @@ void MainWindow::Window::convertBackend()
         dbh->openDatabase(databaseName);
 
         SQLDB::Database sqlBackend(*dbh->connection());
+
+        // TODO: ask if old database should be flushed first
 
         KProgressDialog dialog(this);
         dialog.setModal(true);
@@ -1407,7 +1420,7 @@ void MainWindow::Window::convertBackend()
         KMessageBox::information(this, i18n("Database conversion is ready."));
     }
     catch (SQLDB::Error& e) {
-        KMessageBox::error(this, i18n("Database conversion failed, because following error occured:\n%1").arg(e.message()));
+        KMessageBox::error(this, i18n("Database conversion failed, because following error occurred:\n%1").arg(e.message()));
     }
     if (dbh)
         delete dbh;

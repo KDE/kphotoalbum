@@ -31,6 +31,8 @@ class KIconButton;
 class KPushButton;
 class QCheckBox;
 class QComboBox;
+class QButtonGroup;
+
 namespace KIPI
 {
     class ConfigWidget;
@@ -38,6 +40,9 @@ namespace KIPI
 namespace Exif{
     class TreeView;
 }
+#ifdef SQLDB_SUPPORT
+namespace SQLDB { class SQLSettingsWidget; }
+#endif
 
 namespace Settings
 {
@@ -51,6 +56,9 @@ public:
     SettingsDialog( QWidget* parent, const char* name = 0 );
     virtual void show();
     int exec();
+
+public slots:
+    void showBackendPage();
 
 signals:
     void changed();
@@ -84,6 +92,7 @@ protected:
     void createViewerPage();
     void createPluginPage();
     void createEXIFPage();
+    void createDatabaseBackendPage();
 
 private:
     // General page
@@ -147,6 +156,13 @@ private:
     // Exif viewer
     Exif::TreeView* _exifForViewer;
     Exif::TreeView* _exifForDialog;
+
+#ifdef SQLDB_SUPPORT
+    // SQL backend
+    QButtonGroup* _backendButtons;
+    SQLDB::SQLSettingsWidget* _sqlSettings;
+#endif
+
 };
 
 }

@@ -25,6 +25,9 @@
 #  include "Exif/Info.h"
 #endif
 #include "Utilities/Set.h"
+#ifdef SQLDB_SUPPORT
+namespace KexiDB { class ConnectionData; }
+#endif
 
 #define property__( type, group, prop, setFunction, defaultValue ) \
     void setFunction( type val )                                     \
@@ -40,6 +43,7 @@
 #define boolProperty( group, prop, setFunction, defaultValue ) property__( bool, group, prop, setFunction, defaultValue )
 #define colorProperty( group, prop, setFunction, defaultValue ) property__( QColor, group, prop, setFunction, defaultValue )
 #define sizeProperty(  group, prop, setFunction, defaultValue ) property__( QSize, group, prop, setFunction, defaultValue )
+#define stringProperty(  group, prop, setFunction, defaultValue ) property__( QString, group, prop, setFunction, defaultValue )
 #define stringSetProperty( group, prop, setFunction, defaultValue ) property__( Set<QString>, group, prop, setFunction, defaultValue )
 
 namespace DB
@@ -144,7 +148,17 @@ public:
     stringSetProperty( EXIF, exifForDialog, setExifForDialog, Exif::Info::instance()->standardKeys() );
 #endif
 
+    // -------------------------------------------------- SQLDB
+#ifdef SQLDB_SUPPORT
+    void setSQLParameters(const KexiDB::ConnectionData& connectionData,
+                          const QString& databaseName);
+    void getSQLParameters(KexiDB::ConnectionData& connectionData,
+                          QString& databaseName);
+#endif
+
     // -------------------------------------------------- misc
+
+    stringProperty( General, backend, setBackend, QString::fromLatin1("xml") );
 
     bool trustTimeStamps();
     void setTTimeStamps( TimeStampTrust );

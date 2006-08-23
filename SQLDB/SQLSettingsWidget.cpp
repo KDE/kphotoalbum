@@ -37,18 +37,22 @@
 #include <kfiledialog.h>
 #include <kpassdlg.h>
 #include <klocale.h>
+#include <kexidb/drivermanager.h>
 #include <kexidb/connectiondata.h>
 
-SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags fl):
-    QWidget(parent, name, fl)
-{
-    QBoxLayout* topLayout = new QVBoxLayout(this, 6);
+using namespace SQLDB;
 
-    QHBoxLayout* drvSelLayout = new QHBoxLayout(topLayout, 6);
+SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags fl):
+    QWidget(parent, name, fl),
+    _driverManager(new KexiDB::DriverManager),
+    _lastErrorType(NoDrivers)
+{
+    QBoxLayout* topLayout = new QVBoxLayout(this, 0, 6);
+
+    QHBoxLayout* drvSelLayout = new QHBoxLayout(topLayout);
     _driverLabel = new QLabel(this);
     drvSelLayout->addWidget(_driverLabel);
     _driverCombo = new QComboBox(false, this);
-    reloadDriverList();
     drvSelLayout->addWidget(_driverCombo);
     QSpacerItem* spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,
                                           QSizePolicy::Minimum);
@@ -56,7 +60,6 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags f
 
 
     _widgetStack = new QWidgetStack(this);
-    _widgetStack->setMargin(0);
 
 
     // Page 0, error information
@@ -103,34 +106,31 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags f
 
     _hostLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_hostLabel, 0, 0);
-
     _hostLine = new KLineEdit(stackPage);
     stackPage2Layout->addWidget(_hostLine, 0, 1);
 
     _portLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_portLabel, 1, 0);
-
+    QHBoxLayout* portLayout = new QHBoxLayout(stackPage2Layout);
     _portSpin = new QSpinBox(stackPage);
-    _portSpin->setSizePolicy(QSizePolicy(QSizePolicy::Maximum,
-                                           QSizePolicy::Fixed));
     _portSpin->setMaxValue(65535);
-    stackPage2Layout->addWidget(_portSpin, 1, 1);
+    portLayout->addWidget(_portSpin, 1, 1);
+    spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,
+                             QSizePolicy::Minimum);
+    portLayout->addItem(spacer);
 
     _dbNameLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_dbNameLabel, 2, 0);
-
     _dbNameLine = new KLineEdit(stackPage);
     stackPage2Layout->addWidget(_dbNameLine, 2, 1);
 
     _usernameLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_usernameLabel, 3, 0);
-
     _usernameLine = new KLineEdit(stackPage);
     stackPage2Layout->addWidget(_usernameLine, 3, 1);
 
     _passwordLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_passwordLabel, 4, 0);
-
     _passwordLine = new KPasswordEdit(stackPage);
     stackPage2Layout->addWidget(_passwordLine, 4, 1);
 
@@ -144,53 +144,35 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags f
 
     resize(sizeHint());
 
+    reloadDriverList();
+
+    // Try to select the default driver
+    selectDriver(QString::fromLatin1("SQLite3"));
+
     showOptionsOfSelectedDriver();
 
     connect(_driverCombo, SIGNAL(activated(int)),
             this, SLOT(showOptionsOfSelectedDriver()));
+    connect(_driverCombo, SIGNAL(activated(const QString&)),
+            this, SIGNAL(driverSelectionChanged(const QString&)));
+    connect(_passwordLine, SIGNAL(textChanged(const QString&)),
+            this, SIGNAL(passwordChanged(const QString&)));
 }
 
 SQLSettingsWidget::~SQLSettingsWidget()
 {
+    delete _driverManager;
 }
 
 QStringList SQLSettingsWidget::SQLSettingsWidget::availableDrivers() const
 {
-    return _driverManager.driverNames();
+    return _driverManager->driverNames();
 }
-
-bool SQLSettingsWidget::setDriver(const QString& driver)
-{
-    for (int i = 0; i < _driverCombo->count(); ++i) {
-        if (_driverCombo->text(i) == driver) {
-            _driverCombo->setCurrentItem(i);
-            showOptionsOfSelectedDriver();
-            return true;
-        }
-    }
-    return false;
-}
-
-void SQLSettingsWidget::setFile(const QString& filename)
-{
-    _fileLine->setURL(filename);
-}
-
-void SQLSettingsWidget::setServerParameters(const QString& host, uint port,
-                                            const QString& database,
-                                            const QString& username)
-{
-    _hostLine->setText(host);
-    _portSpin->setValue(port);
-    _dbNameLine->setText(database);
-    _usernameLine->setText(username);
-}
-
 
 bool SQLSettingsWidget::hasSettings() const
 {
     KexiDB::Driver::Info driverInfo =
-        _driverManager.driverInfo(_driverCombo->currentText());
+        _driverManager->driverInfo(_driverCombo->currentText());
     if (driverInfo.name.isEmpty())
         return false;
     if (driverInfo.fileBased)
@@ -203,7 +185,7 @@ void SQLSettingsWidget::getSettings(KexiDB::ConnectionData& connectionData,
                                     QString& databaseName) const
 {
     KexiDB::Driver::Info driverInfo =
-        _driverManager.driverInfo(_driverCombo->currentText());
+        _driverManager->driverInfo(_driverCombo->currentText());
     if (driverInfo.name.isEmpty())
         return;
     connectionData.driverName = _driverCombo->currentText();
@@ -216,8 +198,22 @@ void SQLSettingsWidget::getSettings(KexiDB::ConnectionData& connectionData,
         connectionData.port = _portSpin->value();
         databaseName = _dbNameLine->text();
         connectionData.userName = _usernameLine->text();
-        connectionData.password = _passwordLine->text();
+        connectionData.password = QString::fromLocal8Bit(_passwordLine->password());
     }
+}
+
+void
+SQLSettingsWidget::setSettings(const KexiDB::ConnectionData& connectionData,
+                               const QString& databaseName)
+{
+    selectDriver(connectionData.driverName);
+    showOptionsOfSelectedDriver();
+    _fileLine->setURL(connectionData.fileName());
+    _hostLine->setText(connectionData.hostName);
+    _portSpin->setValue(connectionData.port);
+    _dbNameLine->setText(databaseName);
+    _usernameLine->setText(connectionData.userName);
+    _passwordLine->setText(connectionData.password);
 }
 
 void SQLSettingsWidget::reloadDriverList()
@@ -227,11 +223,22 @@ void SQLSettingsWidget::reloadDriverList()
     for (QStringList::const_iterator i = drivers.begin();
          i != drivers.end(); ++i) {
         // SQLite2 is not supported
-        if (*i != QString::fromLatin1("SQLite2")) {
-            _driverCombo->insertItem(*i);
-            // SQLite3 is the default driver, so select it
-            if (*i == QString::fromLatin1("SQLite3"))
-                _driverCombo->setCurrentItem(_driverCombo->count() - 1);
+        if (*i == QString::fromLatin1("SQLite2"))
+            continue;
+
+        _driverCombo->insertItem(*i);
+    }
+    if (_driverCombo->count() == 0)
+        _driverCombo->setEnabled(false);
+}
+
+void SQLSettingsWidget::selectDriver(const QString& driver)
+{
+    for (int i = 0; i < _driverCombo->count(); ++i) {
+        if (_driverCombo->text(i) == driver) {
+            _driverCombo->setCurrentItem(i);
+            showOptionsOfSelectedDriver();
+            break;
         }
     }
 }
@@ -239,7 +246,7 @@ void SQLSettingsWidget::reloadDriverList()
 void SQLSettingsWidget::languageChange()
 {
     setCaption(i18n("SQL Database Settings"));
-    _errorLabel->setText(i18n("No SQL database drivers found."));
+    setError(_lastErrorType);
     _driverLabel->setText(i18n("Database driver:"));
     _fileLabel->setText(i18n("Database file:"));
     _fileLine->setFilter("*.db|" + i18n("KPhotoAlbum database files (*.db)"));
@@ -253,13 +260,37 @@ void SQLSettingsWidget::languageChange()
 
 void SQLSettingsWidget::showOptionsOfSelectedDriver()
 {
-    KexiDB::Driver::Info driverInfo =
-        _driverManager.driverInfo(_driverCombo->currentText());
-    if (driverInfo.name.isEmpty())
+    QString driver = _driverCombo->currentText();
+
+    if (driver.isEmpty()) {
+        setError(NoDrivers);
         _widgetStack->raiseWidget(ErrorPage);
+        return;
+    }
+
+    KexiDB::Driver::Info driverInfo = _driverManager->driverInfo(driver);
+
+    if (driverInfo.name.isEmpty()) {
+        setError(InvalidDriver);
+        _widgetStack->raiseWidget(ErrorPage);
+        return;
+    }
+
+    if (driverInfo.fileBased)
+        _widgetStack->raiseWidget(FileSettingsPage);
     else
-        if (driverInfo.fileBased)
-            _widgetStack->raiseWidget(FileSettingsPage);
-        else
-            _widgetStack->raiseWidget(ServerSettingsPage);
+        _widgetStack->raiseWidget(ServerSettingsPage);
 }
+
+void SQLSettingsWidget::setError(ErrorType errorType)
+{
+    switch (errorType) {
+    case NoDrivers:
+        _errorLabel->setText(i18n("No SQL database drivers found."));
+    case InvalidDriver:
+        _errorLabel->setText(i18n("Invalid driver."));
+    }
+    _lastErrorType = errorType;
+}
+
+#include "SQLSettingsWidget.moc"

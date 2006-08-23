@@ -21,8 +21,8 @@
 #define SQLSETTINGSWIDGET_H
 
 #include <qwidget.h>
-#include <kexidb/drivermanager.h>
 
+namespace KexiDB { class DriverManager; }
 namespace KexiDB { class ConnectionData; }
 class QLabel;
 class QComboBox;
@@ -32,6 +32,8 @@ class KURLRequester;
 class KLineEdit;
 class KPasswordEdit;
 
+namespace SQLDB
+{
 
 class SQLSettingsWidget: public QWidget
 {
@@ -42,17 +44,19 @@ public:
     ~SQLSettingsWidget();
 
     QStringList availableDrivers() const;
-    bool setDriver(const QString& driver);
-    void setFile(const QString& filename);
-    void setServerParameters(const QString& host, uint port,
-                             const QString& database,
-                             const QString& username);
     bool hasSettings() const;
     void getSettings(KexiDB::ConnectionData& connectionData,
                      QString& databaseName) const;
+    void setSettings(const KexiDB::ConnectionData& connectionData,
+                     const QString& databaseName);
 
 public slots:
     void reloadDriverList();
+    void selectDriver(const QString& driver);
+
+signals:
+    void driverSelectionChanged(const QString& newDriver);
+    void passwordChanged(const QString& newPassword);
 
 protected:
     QLabel* _errorLabel;
@@ -72,7 +76,7 @@ protected:
     QLabel* _passwordLabel;
     KPasswordEdit* _passwordLine;
 
-    mutable KexiDB::DriverManager _driverManager;
+    mutable KexiDB::DriverManager* _driverManager;
 
 protected slots:
     virtual void languageChange();
@@ -80,6 +84,12 @@ protected slots:
 
 private:
     enum StackPage { ErrorPage, FileSettingsPage, ServerSettingsPage };
+    enum ErrorType { NoDrivers, InvalidDriver };
+    ErrorType _lastErrorType;
+
+    void setError(ErrorType errorType);
 };
+
+}
 
 #endif /* SQLSETTINGSWIDGET_H */

@@ -33,18 +33,18 @@ MainWindow::SplashScreen::SplashScreen()
     resize( pix->size() );
     QPainter painter( pix );
     QFont fnt = font();
-    fnt.setPixelSize( 24 );
+    fnt.setPixelSize( 16 );
     fnt.setItalic( true );
     painter.setFont( fnt );
-    QPen pen( white );
+    QPen pen( QColor( 0, 4, 174 ) );
     painter.setPen( pen );
     QString txt;
     QString version = KGlobal::instance()->aboutData()->version();
     if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
-        txt = i18n( "KPhotoAlbum version %1" ).arg( version );
+        txt = i18n( "Version %1" ).arg( version );
     else
-        txt = i18n( "KPhotoAlbum %1" ).arg( version );
-    painter.drawText( QRect( QPoint(10, 400), QPoint( 630, 470 )), AlignRight | AlignBottom, txt );
+        txt = i18n( "Version: %1" ).arg( version );
+    painter.drawText( QRect( QPoint(120, 298), QPoint( 380, 314 )), AlignRight | AlignBottom, txt );
 }
 
 MainWindow::SplashScreen* MainWindow::SplashScreen::instance()

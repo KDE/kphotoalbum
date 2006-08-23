@@ -110,13 +110,13 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
      _deleteDialog( 0 ), _dirtyIndicator(0),
      _htmlDialog(0), _tokenEditor( 0 )
 {
-    SplashScreen::instance()->message( i18n("Loading Database") );
+    SplashScreen::instance()->message( i18n("Loading Database"), AlignRight );
     _instance = this;
 
     bool gotConfigFile = load();
     if ( !gotConfigFile )
         exit(0);
-    SplashScreen::instance()->message( i18n("Loading Main Window") );
+    SplashScreen::instance()->message( i18n("Loading Main Window"), AlignRight );
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Options, and where the main thread crates an instance, we better get it created now.
@@ -223,7 +223,7 @@ void MainWindow::Window::delayedInit()
     setupPluginMenu();
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStartup() ) {
-        splash->message( i18n("Searching for New Images") );
+        splash->message( i18n("Searching for New Images"), AlignRight );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
     }

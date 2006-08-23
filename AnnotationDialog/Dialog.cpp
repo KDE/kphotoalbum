@@ -149,13 +149,11 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     lay6->addWidget( _rotateLeft );
     _rotateLeft->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), KIcon::Desktop, 22 ) );
     _rotateLeft->setFixedWidth( 40 );
-    connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
 
     _rotateRight = new QPushButton( top2 );
     lay6->addWidget( _rotateRight );
     _rotateRight->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
     _rotateRight->setFixedWidth( 40 );
-    connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
 
     lay6->addStretch( 1 );
     _delBut = new QPushButton( top2 );
@@ -923,8 +921,13 @@ void AnnotationDialog::Dialog::setupActions()
     new KAction( i18n("Delete Image"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
                  _actions, "annotationdialog-delete-image" );
 
+    new KAction( i18n("Rotate Left"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );
+    new KAction( i18n("Rotate Right"), 0, this, SLOT( rotateRight() ), _actions, "annotationdialog-rotate-right" );
+
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
+    connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
+    connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
 }
 
 KActionCollection* AnnotationDialog::Dialog::actions()

@@ -159,6 +159,7 @@ private:
 
 #ifdef SQLDB_SUPPORT
     // SQL backend
+    int _backendPageIndex;
     QButtonGroup* _backendButtons;
     SQLDB::SQLSettingsWidget* _sqlSettings;
 #endif

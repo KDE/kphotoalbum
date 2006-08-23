@@ -965,8 +965,7 @@ void Settings::SettingsDialog::createEXIFPage()
 void Settings::SettingsDialog::showBackendPage()
 {
 #ifdef SQLDB_SUPPORT
-    // TODO: adjust this number, with HASKIPI and HASEXIV2
-    showPage(7);
+    showPage(_backendPageIndex);
 #endif
 }
 
@@ -978,6 +977,8 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
                            i18n("Database backend"),
                            KGlobal::iconLoader()->loadIcon(QString::fromLatin1("kfm"),
                                                            KIcon::Desktop, 32));
+    _backendPageIndex = pageIndex(top);
+
     QVBoxLayout* lay1 = new QVBoxLayout(top, 6);
 
     _backendButtons = new QButtonGroup(1, Qt::Horizontal,

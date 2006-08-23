@@ -406,12 +406,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     QSize size = QSize( w,h );
 
     QString type = elm.attribute( QString::fromLatin1( "mediatype" ), QString::fromLatin1( "image" ) ).lower();
-
-#ifdef RELOAD_MEDIA_TYPES // At some point my file got currupted, so lets keep this arround for a while.
     DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
-#else
-    DB::MediaType mediaType = ( type == QString::fromLatin1( "video" ) ? DB::Video : DB::Image );
-#endif
 
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size, mediaType );
     DB::ImageInfoPtr result = info;
@@ -433,6 +428,9 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     }
 
     possibleLoadCompressedCategories( elm, result, db );
+
+    info->addOption( QString::fromLatin1( "MediaTypes" ),
+                     info->mediaType() == DB::Image ? QString::fromLatin1( "Images" ) : QString::fromLatin1( "Videos" ) );
 
     return result;
 }

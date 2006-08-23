@@ -85,6 +85,18 @@ void XMLDB::FileReader::createSpecialCategories()
         _db->_categoryCollection.addCategory( tokenCat );
     }
     tokenCat->setSpecialCategory( true );
+
+
+    DB::CategoryPtr mediaCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "MediaTypes" ) );
+    if ( !mediaCat ) {
+        mediaCat = new XMLCategory( QString::fromLatin1("MediaTypes"), QString::fromLatin1("video"),
+                                    DB::Category::ListView, 32, true );
+        mediaCat->addItem( QString::fromLatin1( "Images" ) );
+        mediaCat->addItem( QString::fromLatin1( "Videos" ) );
+
+        _db->_categoryCollection.addCategory( mediaCat );
+    }
+    mediaCat->setSpecialCategory( true );
 }
 
 void XMLDB::FileReader::loadCategories( const QDomElement& elm )

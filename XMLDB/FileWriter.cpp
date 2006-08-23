@@ -207,8 +207,6 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
     elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum() );
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
-    elm.setAttribute( QString::fromLatin1( "mediatype" ),
-                      info->mediaType() == DB::Video ? QString::fromLatin1( "video" ) : QString::fromLatin1( "image" ) );
 
     if ( Settings::SettingsData::instance()->useCompressedIndexXML() && !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         writeCategoriesCompressed( elm, info );

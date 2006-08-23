@@ -544,11 +544,11 @@ void Settings::SettingsDialog::edit( QListBoxItem* i )
 
 void Settings::SettingsDialog::slotLabelChanged( const QString& label)
 {
-    if ( _currentCategory == _current->_text )
-        _currentCategory = label;
-
-    if( _current )
+    if( _current ) {
+        if ( _currentCategory == _current->_text )
+            _currentCategory = label;
         _current->setLabel( label );
+    }
 }
 
 void Settings::SettingsDialog::slotPreferredViewChanged( int i )
@@ -560,7 +560,8 @@ void Settings::SettingsDialog::slotPreferredViewChanged( int i )
 
 void Settings::SettingsDialog::thumbnailSizeChanged( int size )
 {
-    _current->_thumbnailSize = size;
+    if ( _current )
+        _current->_thumbnailSize = size;
 }
 
 

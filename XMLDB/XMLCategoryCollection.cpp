@@ -34,7 +34,6 @@ void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
     for( QValueList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it ) {
         if ( (*it)->name() == name ) {
             _categories.remove(it);
-            delete *it;
             emit categoryCollectionChanged();
             return;
         }

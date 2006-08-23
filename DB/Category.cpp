@@ -28,8 +28,8 @@ QString DB::Category::text() const
         return i18n("Folder");
     else if ( name() == QString::fromLatin1( "Tokens" ) )
         return i18n("Tokens");
-    else if ( name() == QString::fromLatin1( "Media Types" ) )
-        return i18n("Media Types");
+    else if ( name() == QString::fromLatin1( "Media Type" ) )
+        return i18n("Media Type");
     else
         return name();
 }

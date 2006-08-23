@@ -87,12 +87,12 @@ void XMLDB::FileReader::createSpecialCategories()
     tokenCat->setSpecialCategory( true );
 
 
-    DB::CategoryPtr mediaCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "MediaTypes" ) );
+    DB::CategoryPtr mediaCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Media Type" ) );
     if ( !mediaCat ) {
-        mediaCat = new XMLCategory( QString::fromLatin1("MediaTypes"), QString::fromLatin1("video"),
+        mediaCat = new XMLCategory( QString::fromLatin1("Media Type"), QString::fromLatin1("video"),
                                     DB::Category::ListView, 32, true );
-        mediaCat->addItem( QString::fromLatin1( "Images" ) );
-        mediaCat->addItem( QString::fromLatin1( "Videos" ) );
+        mediaCat->addItem( QString::fromLatin1( "Image" ) );
+        mediaCat->addItem( QString::fromLatin1( "Video" ) );
 
         _db->_categoryCollection.addCategory( mediaCat );
     }

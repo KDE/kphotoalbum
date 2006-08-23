@@ -429,8 +429,8 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
 
     possibleLoadCompressedCategories( elm, result, db );
 
-    info->addOption( QString::fromLatin1( "MediaTypes" ),
-                     info->mediaType() == DB::Image ? QString::fromLatin1( "Images" ) : QString::fromLatin1( "Videos" ) );
+    info->addOption( QString::fromLatin1( "Media Type" ),
+                     info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
 
     return result;
 }

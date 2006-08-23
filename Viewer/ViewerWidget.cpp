@@ -51,8 +51,11 @@
  * The class consists of these components:
  * <ul>
  * <li>\ref ViewerWidget - This is the topmost widget used as the viewer.
- * <li>\ref ImageDisplay -
- * // PENDING(blackie) Fill in the rest of the description.
+ * <li>\ref Display, \ref ImageDisplay, and \ref VideoDisplay - Widgets hierarchy which takes care of the actual displaying of content.
+ * <li> \ref DisplayAreaHandler, \ref DrawHandler, and \ref ViewHandler - Class Hierarchy which interprets mouse gestures.
+ * <li> \ref Draw, \ref LineDraw, \ref CircleDraw, and \ref RectDraw - Class Hierarchy containing information about drawing on images.
+ * <li> \ref InfoBox - Widget implementing the informatiom box
+ * <li> \ref SpeedDisplay - Widget implementing the toplevel display used when adjusting slideshow speed.
  * </ul>
  */
 Viewer::ViewerWidget* Viewer::ViewerWidget::_latest = 0;

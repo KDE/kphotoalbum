@@ -1451,7 +1451,7 @@ void MainWindow::Window::showFeatures()
 
 void MainWindow::Window::showImage( const QString& fileName )
 {
-    launchViewer( QStringList() << fileName, Utilities::ctrlKeyDown(), false, false );
+    launchViewer( QStringList() << fileName, true, false, false );
 }
 
 void MainWindow::Window::slotBuildThumbnails()

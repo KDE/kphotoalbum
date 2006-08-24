@@ -35,6 +35,7 @@ namespace SQLDB {
         explicit Database(Connection& connection);
         ~Database();
 
+        virtual bool operator==(const DB::ImageDB& other) const;
         virtual int totalCount() const;
         int totalCount(int type) const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);

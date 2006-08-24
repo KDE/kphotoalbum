@@ -48,6 +48,17 @@ SQLDB::Database::~Database()
     _connection->disconnect();
 }
 
+bool SQLDB::Database::operator==(const DB::ImageDB& other) const
+{
+    const SQLDB::Database* sqlOther =
+        dynamic_cast<const SQLDB::Database*>(&other);
+    if (!sqlOther)
+        return false;
+
+    // TODO: real checking
+    return true;
+}
+
 int SQLDB::Database::totalCount() const
 {
     return _qh.mediaItemCount();

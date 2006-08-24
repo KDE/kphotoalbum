@@ -51,6 +51,8 @@ public:
     static void setupSQLDB( const KexiDB::ConnectionData& connectionData, const QString& databaseName );
 #endif
     void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
+    virtual bool operator==(const ImageDB& other) const = 0;
+    bool operator!=(const ImageDB& other) const { return !operator==(other); }
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );

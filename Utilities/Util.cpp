@@ -551,6 +551,22 @@ Utilities::UniqNameMap Utilities::createUniqNameMap( const QStringList& images, 
     return map;
 }
 
+QString Utilities::normalizedFileName( const QString& fileName )
+{
+    return QFileInfo(fileName).absFilePath();
+}
+
+QString Utilities::dereferenceSymLinks( const QString& fileName )
+{
+    QFileInfo fi(fileName);
+    int rounds = 256;
+    while (fi.isSymLink() && --rounds > 0)
+        fi = QFileInfo(fi.readLink());
+    if (rounds == 0)
+        return QString::null;
+    return fi.filePath();
+}
+
 QString Utilities::stripSlash( const QString& fileName )
 {
     if ( fileName.endsWith( QString::fromLatin1( "/" ) ) )

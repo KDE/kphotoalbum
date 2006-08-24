@@ -39,6 +39,7 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
+        virtual bool operator==(const DB::ImageDB& other) const;
         virtual int totalCount() const;
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
         virtual void renameCategory( const QString& oldName, const QString newName );
@@ -86,6 +87,7 @@ namespace XMLDB {
 
         Database( const QString& configFile );
 
+        QString _fileName;
         DB::ImageInfoList _images;
         QStringList _blockList;
         DB::ImageInfoList _missingTimes;

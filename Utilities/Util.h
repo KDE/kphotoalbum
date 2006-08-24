@@ -59,6 +59,8 @@ QStringList shuffle( const QStringList& list );
 typedef QMap<QString, QString> UniqNameMap;
 UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
 
+QString normalizedFileName( const QString& fileName );
+QString dereferenceSymLinks( const QString& fileName );
 QString stripSlash( const QString& fileName );
 QString absoluteImageFileName( const QString& relativeName );
 QString relativeFolderName( const QString& fileName);

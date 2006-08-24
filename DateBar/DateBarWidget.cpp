@@ -419,12 +419,19 @@ void DateBar::DateBarWidget::mousePressEvent( QMouseEvent* event )
 
 void DateBar::DateBarWidget::mouseReleaseEvent( QMouseEvent* )
 {
+    if ( _currentMouseHandler == 0 )
+        return;
+
     _currentMouseHandler->endAutoScroll();
     _currentMouseHandler->mouseReleaseEvent();
+    _currentMouseHandler = 0;
 }
 
 void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
 {
+    if ( _currentMouseHandler == 0)
+        return;
+
     showStatusBarTip( event->pos() );
 
     if ( (event->state() & LeftButton) == 0 )

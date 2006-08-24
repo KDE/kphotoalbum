@@ -104,7 +104,6 @@ public:
     sizeProperty( Viewer, slideShowSize, setSlideShowSize, QSize( 800, 600 ) );
     boolProperty( Viewer, launchViewerFullScreen, setLaunchViewerFullScreen, false );
     boolProperty( Viewer, launchSlideShowFullScreen, setLaunchSlideShowFullScreen, false );
-    boolProperty( Viewer, smoothScale, setSmoothScale, true );
     intProperty( Viewer, slideShowInterval, setSlideShowInterval, 5 );
     intProperty( Viewer, viewerCacheSize, setViewerCacheSize, 25 );
 
@@ -119,6 +118,8 @@ public:
     void setViewerStandardSize(StandardViewSize);
     StandardViewSize viewerStandardSize() const;
 
+    static bool smoothScale();
+    void setSmoothScale( bool );
 
     // -------------------------------------------------- Miscellaneous
     boolProperty( Plug-ins, delayLoadingPlugins, setDelayLoadingPlugins, true );

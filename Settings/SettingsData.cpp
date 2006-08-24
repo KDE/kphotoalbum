@@ -43,6 +43,12 @@
 
 #define STR(x) QString::fromLatin1(x)
 
+/**
+ * smoothScale() is called from the image loading thread, therefore we need
+ * to cache it this way, rather than going to KConfig.
+ */
+static bool _smoothScale = true;
+
 using namespace Settings;
 
 Settings::SettingsData* Settings::SettingsData::_instance = 0;
@@ -58,6 +64,18 @@ Settings::SettingsData::SettingsData( const QString& imageDirectory )
     : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
 {
     QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
+    _smoothScale = value( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), true );
+}
+
+bool Settings::SettingsData::smoothScale()
+{
+    return _smoothScale;
+}
+
+void Settings::SettingsData::setSmoothScale( bool b )
+{
+    _smoothScale = b;
+    setValue( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), b );
 }
 
 bool Settings::SettingsData::trustTimeStamps()

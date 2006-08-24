@@ -634,10 +634,10 @@ bool Utilities::isVideo( const QString& fileName )
 
 QImage Utilities::scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode )
 {
-  if (Settings::SettingsData::instance()->smoothScale())
-    return image.smoothScale(w, h, mode);
-  else
-    return image.scale(w, h, mode);
+    if (Settings::SettingsData::smoothScale())
+        return image.smoothScale(w, h, mode);
+    else
+        return image.scale(w, h, mode);
 }
 
 QImage Utilities::scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode )

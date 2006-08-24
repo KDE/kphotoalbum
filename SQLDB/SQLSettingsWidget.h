@@ -34,62 +34,60 @@ class KPasswordEdit;
 
 namespace SQLDB
 {
+    class SQLSettingsWidget: public QWidget
+    {
+        Q_OBJECT
 
-class SQLSettingsWidget: public QWidget
-{
-    Q_OBJECT
+    public:
+        SQLSettingsWidget(QWidget* parent=0, const char* name=0, WFlags fl=0);
+        ~SQLSettingsWidget();
 
-public:
-    SQLSettingsWidget(QWidget* parent=0, const char* name=0, WFlags fl=0);
-    ~SQLSettingsWidget();
+        QStringList availableDrivers() const;
+        bool hasSettings() const;
+        void getSettings(KexiDB::ConnectionData& connectionData,
+                         QString& databaseName) const;
+        void setSettings(const KexiDB::ConnectionData& connectionData,
+                         const QString& databaseName);
 
-    QStringList availableDrivers() const;
-    bool hasSettings() const;
-    void getSettings(KexiDB::ConnectionData& connectionData,
-                     QString& databaseName) const;
-    void setSettings(const KexiDB::ConnectionData& connectionData,
-                     const QString& databaseName);
+    public slots:
+        void reloadDriverList();
+        void selectDriver(const QString& driver);
 
-public slots:
-    void reloadDriverList();
-    void selectDriver(const QString& driver);
+    signals:
+        void driverSelectionChanged(const QString& newDriver);
+        void passwordChanged(const QString& newPassword);
 
-signals:
-    void driverSelectionChanged(const QString& newDriver);
-    void passwordChanged(const QString& newPassword);
+    protected:
+        QLabel* _errorLabel;
+        QLabel* _driverLabel;
+        QComboBox* _driverCombo;
+        QWidgetStack* _widgetStack;
+        QLabel* _fileLabel;
+        KURLRequester* _fileLine;
+        QLabel* _hostLabel;
+        KLineEdit* _hostLine;
+        QLabel* _portLabel;
+        QSpinBox* _portSpin;
+        QLabel* _dbNameLabel;
+        KLineEdit* _dbNameLine;
+        QLabel* _usernameLabel;
+        KLineEdit* _usernameLine;
+        QLabel* _passwordLabel;
+        KPasswordEdit* _passwordLine;
 
-protected:
-    QLabel* _errorLabel;
-    QLabel* _driverLabel;
-    QComboBox* _driverCombo;
-    QWidgetStack* _widgetStack;
-    QLabel* _fileLabel;
-    KURLRequester* _fileLine;
-    QLabel* _hostLabel;
-    KLineEdit* _hostLine;
-    QLabel* _portLabel;
-    QSpinBox* _portSpin;
-    QLabel* _dbNameLabel;
-    KLineEdit* _dbNameLine;
-    QLabel* _usernameLabel;
-    KLineEdit* _usernameLine;
-    QLabel* _passwordLabel;
-    KPasswordEdit* _passwordLine;
+        mutable KexiDB::DriverManager* _driverManager;
 
-    mutable KexiDB::DriverManager* _driverManager;
+    protected slots:
+        virtual void languageChange();
+        void showOptionsOfSelectedDriver();
 
-protected slots:
-    virtual void languageChange();
-    void showOptionsOfSelectedDriver();
+    private:
+        enum StackPage { ErrorPage, FileSettingsPage, ServerSettingsPage };
+        enum ErrorType { NoDrivers, InvalidDriver };
+        ErrorType _lastErrorType;
 
-private:
-    enum StackPage { ErrorPage, FileSettingsPage, ServerSettingsPage };
-    enum ErrorType { NoDrivers, InvalidDriver };
-    ErrorType _lastErrorType;
-
-    void setError(ErrorType errorType);
-};
-
+        void setError(ErrorType errorType);
+    };
 }
 
 #endif /* SQLSETTINGSWIDGET_H */

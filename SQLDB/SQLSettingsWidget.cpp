@@ -260,15 +260,14 @@ void SQLSettingsWidget::languageChange()
 
 void SQLSettingsWidget::showOptionsOfSelectedDriver()
 {
-    QString driver = _driverCombo->currentText();
-
-    if (driver.isEmpty()) {
+    if (_driverCombo->count() == 0) {
         setError(NoDrivers);
         _widgetStack->raiseWidget(ErrorPage);
         return;
     }
 
-    KexiDB::Driver::Info driverInfo = _driverManager->driverInfo(driver);
+    KexiDB::Driver::Info driverInfo =
+        _driverManager->driverInfo(_driverCombo->currentText());
 
     if (driverInfo.name.isEmpty()) {
         setError(InvalidDriver);
@@ -287,8 +286,11 @@ void SQLSettingsWidget::setError(ErrorType errorType)
     switch (errorType) {
     case NoDrivers:
         _errorLabel->setText(i18n("No SQL database drivers found."));
+        break;
+
     case InvalidDriver:
         _errorLabel->setText(i18n("Invalid driver."));
+        break;
     }
     _lastErrorType = errorType;
 }

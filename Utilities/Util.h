@@ -61,6 +61,7 @@ UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const Q
 
 QString normalizedFileName( const QString& fileName );
 QString dereferenceSymLinks( const QString& fileName );
+bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripSlash( const QString& fileName );
 QString absoluteImageFileName( const QString& relativeName );
 QString relativeFolderName( const QString& fileName);

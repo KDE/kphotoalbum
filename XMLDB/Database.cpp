@@ -59,21 +59,11 @@ int XMLDB::Database::totalCount() const
 
 bool XMLDB::Database::operator==(const DB::ImageDB& other) const
 {
-    using Utilities::normalizedFileName;
-    using Utilities::dereferenceSymLinks;
-
     const XMLDB::Database* xmlOther =
         dynamic_cast<const XMLDB::Database*>(&other);
     if (!xmlOther)
         return false;
-    if (_fileName == xmlOther->_fileName)
-        return true;
-
-    // If filenames are symbolic links, relative or contain more than
-    // one consecutive slashes, above test won't work, so try with
-    // normalized filenames.
-    return (normalizedFileName(dereferenceSymLinks(_fileName)) ==
-            normalizedFileName(dereferenceSymLinks(xmlOther->_fileName)));
+    return Utilities::areSameFile(_fileName, xmlOther->_fileName);
 }
 
 /**

@@ -10,7 +10,6 @@
 #include "DB/MediaCount.h"
 #include "DatabaseHandler.h"
 #include "QueryErrors.h"
-#include <qfileinfo.h>
 
 namespace
 {
@@ -98,7 +97,7 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
         QString fullPath = imageRoot + _infoCollection->filenameForId(*it);
-        if (requireOnDisk && !QFileInfo(fullPath).exists())
+        if (requireOnDisk && !DB::ImageInfo::imageOnDisk(fullPath))
             continue;
         result.append(fullPath);
     }

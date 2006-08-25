@@ -364,15 +364,6 @@ bool ImageInfo::allMatched( const QString& category )
     return true;
 }
 
-bool ImageInfo::imageOnDisk() const
-{
-    if ( _imageOnDisk == Unchecked ) {
-        QFileInfo fi( fileName() );
-        _imageOnDisk = (fi.exists() ? YesOnDisk : NoNotOnDisk);
-    }
-    return _imageOnDisk == YesOnDisk;
-}
-
 QSize ImageInfo::size() const
 {
     return _size;

@@ -240,7 +240,7 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
 
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName );
 
-    if ( !loadedOK || !imageInfo->imageOnDisk() ) {
+    if ( !loadedOK || !DB::ImageInfo::imageOnDisk( fileName ) ) {
         QPainter p( pixmap );
         p.setBrush( palette().active().base() );
         p.setWindow( 0, 0, 100, 100 );

@@ -278,7 +278,7 @@ QStringList XMLDB::Database::searchPrivate( const DB::ImageSearchInfo& info, boo
     QStringList result;
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
         bool match = !(*it)->isLocked() && info.match( *it ) && ( !onlyItemsMatchingRange || rangeInclude( *it ));
-        match &= !requireOnDisk || (*it)->imageOnDisk();
+        match &= !requireOnDisk || DB::ImageInfo::imageOnDisk( (*it)->fileName() );
 
         if (match)
             result.append((*it)->fileName());

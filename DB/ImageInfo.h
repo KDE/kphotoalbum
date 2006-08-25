@@ -101,7 +101,6 @@ public:
     void setDrawList( const Viewer::DrawList& );
     void addDrawing( const QDomElement& );
 
-    bool imageOnDisk() const;
     static bool imageOnDisk( const QString& fileName );
 
     QString MD5Sum() const { return _md5sum; }

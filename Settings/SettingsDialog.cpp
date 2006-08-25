@@ -56,9 +56,8 @@
 #endif
 
 #ifdef SQLDB_SUPPORT
+#  include "SQLDB/DatabaseAddress.h"
 #  include "SQLDB/SQLSettingsWidget.h"
-#  include <kexidb/kexidb_export.h>
-#  include <kexidb/connectiondata.h>
 #endif
 
 #include "CategoryItem.h"
@@ -446,10 +445,7 @@ void Settings::SettingsDialog::show()
     else if (backend == QString::fromLatin1("sql"))
         _backendButtons->setButton(1);
 
-    KexiDB::ConnectionData connectionData;
-    QString databaseName;
-    Settings::SettingsData::instance()->getSQLParameters(connectionData, databaseName);
-    _sqlSettings->setSettings(connectionData, databaseName);
+    _sqlSettings->setSettings(Settings::SettingsData::instance()->getSQLParameters());
 #endif
 
     enableDisable( false );
@@ -555,12 +551,8 @@ void Settings::SettingsDialog::slotMyOK()
 
     // SQLDB
 #ifdef SQLDB_SUPPORT
-    if (_sqlSettings->hasSettings()) {
-        KexiDB::ConnectionData connectionData;
-        QString databaseName;
-        _sqlSettings->getSettings(connectionData, databaseName);
-        opt->setSQLParameters(connectionData, databaseName);
-    }
+    if (_sqlSettings->hasSettings())
+        opt->setSQLParameters(_sqlSettings->getSettings());
 #endif
 
     emit changed();

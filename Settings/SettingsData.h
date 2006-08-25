@@ -26,7 +26,7 @@
 #endif
 #include "Utilities/Set.h"
 #ifdef SQLDB_SUPPORT
-namespace KexiDB { class ConnectionData; }
+namespace SQLDB { class DatabaseAddress; }
 #endif
 
 #define property__( type, group, prop, setFunction, defaultValue ) \
@@ -151,10 +151,8 @@ public:
 
     // -------------------------------------------------- SQLDB
 #ifdef SQLDB_SUPPORT
-    void setSQLParameters(const KexiDB::ConnectionData& connectionData,
-                          const QString& databaseName);
-    void getSQLParameters(KexiDB::ConnectionData& connectionData,
-                          QString& databaseName);
+    void setSQLParameters(const SQLDB::DatabaseAddress& other);
+    SQLDB::DatabaseAddress getSQLParameters() const;
 #endif
 
     // -------------------------------------------------- misc

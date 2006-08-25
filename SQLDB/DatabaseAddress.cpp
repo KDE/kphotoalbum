@@ -17,20 +17,31 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLDB_CONFIGFILEHANDLER_H
-#define SQLDB_CONFIGFILEHANDLER_H
+#include "DatabaseAddress.h"
+#include "Utilities/Util.h"
+#include <kexidb/drivermanager.h>
 
-#include <qstring.h>
-class KConfig;
-namespace KexiDB { class ConnectionData; }
-namespace SQLDB { class DatabaseAddress; }
 
-namespace SQLDB
+bool SQLDB::DatabaseAddress::operator==(const DatabaseAddress& other) const
 {
-    DatabaseAddress readConnectionParameters(const KConfig& config);
+    if (_cd.driverName.lower() != other._cd.driverName.lower())
+        return false;
 
-    void writeConnectionParameters(const DatabaseAddress& address,
-                                   KConfig& config);
+    KexiDB::Driver::Info info =
+        KexiDB::DriverManager().driverInfo(_cd.driverName);
+
+    if (info.fileBased)
+        return Utilities::areSameFile(_cd.fileName(), other._cd.fileName());
+
+    if (_db != other._db)
+        return false;
+
+    if (_cd.useLocalSocketFile != other._cd.useLocalSocketFile)
+        return false;
+
+    if (_cd.useLocalSocketFile)
+        return _cd.localSocketFileName == other._cd.localSocketFileName;
+
+    return (_cd.hostName == other._cd.hostName &&
+            _cd.port == other._cd.port);
 }
-
-#endif /* SQLDB_CONFIGFILEHANDLER_H */

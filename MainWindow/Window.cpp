@@ -811,13 +811,11 @@ bool MainWindow::Window::load()
         // SQL back-end needs some extra configuration first
         KConfig* config = kapp->config();
         config->setGroup(QString::fromLatin1("SQLDB"));
-        KexiDB::ConnectionData connectionData;
-        QString databaseName;
         try {
-            SQLDB::readConnectionParameters(*config, connectionData, databaseName);
+            SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(*config);
 
             // Initialize SQLDB with the paramaters
-            DB::ImageDB::setupSQLDB(connectionData, databaseName);
+            DB::ImageDB::setupSQLDB(address);
             return true;
         }
         catch (SQLDB::Error& e){
@@ -1392,14 +1390,9 @@ void MainWindow::Window::convertBackend()
     config->setGroup(QString::fromLatin1("SQLDB"));
     SQLDB::DatabaseHandler* dbh = 0;
     try {
-        KexiDB::ConnectionData connectionData;
-        QString databaseName;
-        SQLDB::readConnectionParameters(*config, connectionData, databaseName);
+        SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(*config);
 
-        dbh = new SQLDB::DatabaseHandler(connectionData);
-        dbh->openDatabase(databaseName);
-
-        SQLDB::Database sqlBackend(*dbh->connection());
+        SQLDB::Database sqlBackend(address);
 
         // TODO: ask if old database should be flushed first
 

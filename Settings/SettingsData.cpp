@@ -38,6 +38,7 @@
 #include <qpixmapcache.h>
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/ConfigFileHandler.h"
+#  include "SQLDB/DatabaseAddress.h"
 #  include "SQLDB/QueryErrors.h"
 #endif
 
@@ -487,23 +488,22 @@ int Settings::SettingsData::thumbSize() const
 }
 
 #ifdef SQLDB_SUPPORT
-void Settings::SettingsData::setSQLParameters(const KexiDB::ConnectionData& connectionData,
-                                              const QString& databaseName)
+void Settings::SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
 {
     KConfig* config = kapp->config();
     config->setGroup(QString::fromLatin1("SQLDB"));
-    SQLDB::writeConnectionParameters(connectionData, databaseName, *config);
+    SQLDB::writeConnectionParameters(address, *config);
 }
 
-void Settings::SettingsData::getSQLParameters(KexiDB::ConnectionData& connectionData,
-                                              QString& databaseName)
+SQLDB::DatabaseAddress Settings::SettingsData::getSQLParameters() const
 {
     KConfig* config = kapp->config();
     config->setGroup(QString::fromLatin1("SQLDB"));
     try {
-        SQLDB::readConnectionParameters(*config, connectionData, databaseName);
+        return SQLDB::readConnectionParameters(*config);
     }
     catch (SQLDB::DriverNotFoundError&) {}
+    return SQLDB::DatabaseAddress();
 }
 #endif /* SQLDB_SUPPORT */
 

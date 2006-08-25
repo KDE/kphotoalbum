@@ -17,20 +17,31 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLDB_CONFIGFILEHANDLER_H
-#define SQLDB_CONFIGFILEHANDLER_H
+#ifndef SQLDB_DATABASE_ADDRESS_H
+#define SQLDB_DATABASE_ADDRESS_H
 
-#include <qstring.h>
-class KConfig;
-namespace KexiDB { class ConnectionData; }
-namespace SQLDB { class DatabaseAddress; }
+#include <kexidb/kexidb_export.h>
+#include <kexidb/connectiondata.h>
 
 namespace SQLDB
 {
-    DatabaseAddress readConnectionParameters(const KConfig& config);
+    /** Stores connection parameters and database name.
+     */
+    class DatabaseAddress
+    {
+    public:
+        DatabaseAddress() {}
+        DatabaseAddress(const KexiDB::ConnectionData& connectionData,
+                        const QString& databaseName):
+            _cd(connectionData), _db(databaseName) {}
+        bool operator==(const DatabaseAddress& other) const;
+        const KexiDB::ConnectionData& connectionData() const { return _cd; }
+        const QString& databaseName() const { return _db; }
 
-    void writeConnectionParameters(const DatabaseAddress& address,
-                                   KConfig& config);
+    private:
+        KexiDB::ConnectionData _cd;
+        QString _db;
+    };
 }
 
-#endif /* SQLDB_CONFIGFILEHANDLER_H */
+#endif /* SQLDB_DATABASE_ADDRESS_H */

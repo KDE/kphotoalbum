@@ -22,6 +22,7 @@
 
 #include <qwidget.h>
 
+namespace SQLDB { class DatabaseAddress; }
 namespace KexiDB { class DriverManager; }
 namespace KexiDB { class ConnectionData; }
 class QLabel;
@@ -44,10 +45,8 @@ namespace SQLDB
 
         QStringList availableDrivers() const;
         bool hasSettings() const;
-        void getSettings(KexiDB::ConnectionData& connectionData,
-                         QString& databaseName) const;
-        void setSettings(const KexiDB::ConnectionData& connectionData,
-                         const QString& databaseName);
+        DatabaseAddress getSettings() const;
+        void setSettings(const DatabaseAddress& address);
 
     public slots:
         void reloadDriverList();

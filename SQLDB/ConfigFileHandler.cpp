@@ -18,6 +18,7 @@
 */
 
 #include "ConfigFileHandler.h"
+#include "DatabaseAddress.h"
 #include "QueryErrors.h"
 #include "Settings/SettingsData.h"
 #include <kexidb/kexidb_export.h> // Should be in connectiondata.h
@@ -33,10 +34,11 @@
 
 using namespace KexiDB;
 
-void SQLDB::readConnectionParameters(const KConfig& config,
-                                     KexiDB::ConnectionData& data,
-                                     QString& databaseName)
+SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
 {
+    KexiDB::ConnectionData data;
+    QString databaseName;
+
     data.driverName =
         config.readEntry(QString::fromLatin1("dbms"), DEFAULT_DRIVER);
     DriverManager dm;
@@ -78,12 +80,15 @@ void SQLDB::readConnectionParameters(const KConfig& config,
         if (config.hasKey(QString::fromLatin1("password")))
             data.password = config.readEntry(QString::fromLatin1("password"));
     }
+
+    return DatabaseAddress(data, databaseName);
 }
 
-void SQLDB::writeConnectionParameters(const KexiDB::ConnectionData& data,
-                                      const QString& databaseName,
+void SQLDB::writeConnectionParameters(const DatabaseAddress& address,
                                       KConfig& config)
 {
+    const KexiDB::ConnectionData& data = address.connectionData();
+    const QString& databaseName = address.databaseName();
     config.writeEntry(QString::fromLatin1("dbms"), data.driverName);
     config.writeEntry(QString::fromLatin1("database"), databaseName);
 

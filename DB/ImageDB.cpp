@@ -14,18 +14,12 @@
 #include <kdebug.h>
 #ifdef SQLDB_SUPPORT
 #include "SQLDB/Database.h"
-#include "SQLDB/DatabaseHandler.h"
-#include <kexidb/kexidb_export.h>
-#include <kexidb/connectiondata.h>
+#include "SQLDB/DatabaseAddress.h"
 #endif
 
 using namespace DB;
 
 ImageDB* ImageDB::_instance = 0;
-#ifdef SQLDB_SUPPORT
-SQLDB::DatabaseHandler* ImageDB::_dbHandler = 0;
-#endif
-
 
 ImageDB* DB::ImageDB::instance()
 {
@@ -43,13 +37,11 @@ void ImageDB::setupXMLDB( const QString& configFile )
 }
 
 #ifdef SQLDB_SUPPORT
-void ImageDB::setupSQLDB( const KexiDB::ConnectionData& connectionData, const QString& databaseName )
+void ImageDB::setupSQLDB( const SQLDB::DatabaseAddress& address )
 {
     if (_instance)
         qFatal("ImageDB::setupSQLDB: Setup must be called only once.");
-    _dbHandler = new SQLDB::DatabaseHandler(connectionData);
-    _dbHandler->openDatabase(databaseName);
-    _instance = new SQLDB::Database(*_dbHandler->connection());
+    _instance = new SQLDB::Database(address);
 
     connectSlots();
 }

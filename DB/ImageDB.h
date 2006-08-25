@@ -26,8 +26,7 @@
 #include <qvaluevector.h>
 
 #ifdef SQLDB_SUPPORT
-namespace KexiDB { class ConnectionData; }
-namespace SQLDB { class DatabaseHandler; }
+namespace SQLDB { class DatabaseAddress; }
 #endif
 
 class QProgressBar;
@@ -48,7 +47,7 @@ public:
     static ImageDB* instance();
     static void setupXMLDB( const QString& configFile );
 #ifdef SQLDB_SUPPORT
-    static void setupSQLDB( const KexiDB::ConnectionData& connectionData, const QString& databaseName );
+    static void setupSQLDB( const SQLDB::DatabaseAddress& address );
 #endif
     void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
     virtual bool operator==(const ImageDB& other) const = 0;
@@ -70,9 +69,6 @@ protected:
 private:
     static void connectSlots();
     static ImageDB* _instance;
-#ifdef SQLDB_SUPPORT
-    static SQLDB::DatabaseHandler* _dbHandler;
-#endif
 
 protected:
     ImageDB();

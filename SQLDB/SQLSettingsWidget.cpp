@@ -19,6 +19,7 @@
 
 #include "SQLSettingsWidget.h"
 
+#include "SQLDB/DatabaseAddress.h"
 #include <qpushbutton.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
@@ -181,13 +182,15 @@ bool SQLSettingsWidget::hasSettings() const
         return !_dbNameLabel->text().isEmpty();
 }
 
-void SQLSettingsWidget::getSettings(KexiDB::ConnectionData& connectionData,
-                                    QString& databaseName) const
+DatabaseAddress SQLSettingsWidget::getSettings() const
 {
+    KexiDB::ConnectionData connectionData;
+    QString databaseName;
+
     KexiDB::Driver::Info driverInfo =
         _driverManager->driverInfo(_driverCombo->currentText());
     if (driverInfo.name.isEmpty())
-        return;
+        return DatabaseAddress();
     connectionData.driverName = _driverCombo->currentText();
     if (driverInfo.fileBased) {
         databaseName = _fileLine->url();
@@ -200,12 +203,15 @@ void SQLSettingsWidget::getSettings(KexiDB::ConnectionData& connectionData,
         connectionData.userName = _usernameLine->text();
         connectionData.password = QString::fromLocal8Bit(_passwordLine->password());
     }
+
+    return DatabaseAddress(connectionData, databaseName);
 }
 
-void
-SQLSettingsWidget::setSettings(const KexiDB::ConnectionData& connectionData,
-                               const QString& databaseName)
+void SQLSettingsWidget::setSettings(const DatabaseAddress& address)
 {
+    const KexiDB::ConnectionData& connectionData = address.connectionData();
+    const QString& databaseName = address.databaseName();
+
     selectDriver(connectionData.driverName);
     showOptionsOfSelectedDriver();
     _fileLine->setURL(connectionData.fileName());

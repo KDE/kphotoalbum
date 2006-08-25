@@ -20,6 +20,8 @@ Boston, MA 02111-1307, USA.
 #define SQLDB_DATABASE_H
 
 #include "DB/ImageDB.h"
+#include "DatabaseAddress.h"
+#include "DatabaseHandler.h"
 #include "DB/MemberMap.h"
 #include "SQLCategoryCollection.h"
 #include "SQLImageInfoCollection.h"
@@ -32,7 +34,7 @@ namespace SQLDB {
         Q_OBJECT
 
     public:
-        explicit Database(Connection& connection);
+        explicit Database(const DatabaseAddress& address);
         ~Database();
 
         virtual bool operator==(const DB::ImageDB& other) const;
@@ -76,13 +78,19 @@ namespace SQLDB {
         QStringList imageList( bool withRelativePath );
 
         Connection* _connection;
-        QueryHelper _qh;
+        QueryHelper* _qh;
 
     private:
-        SQLCategoryCollection _categoryCollection;
-        DB::MemberMap _members;
-        SQLImageInfoCollection _infoCollection;
-        SQLMD5Map _md5map;
+        DatabaseAddress _address;
+        DatabaseHandler _handler;
+        SQLCategoryCollection* _categoryCollection;
+        DB::MemberMap* _members;
+        SQLImageInfoCollection* _infoCollection;
+        SQLMD5Map* _md5map;
+
+        // No copying or assignment
+        Database(const Database&);
+        Database& operator=(const Database&);
     };
 }
 

@@ -93,6 +93,7 @@ public:
     QStringList filenames() const;
 
     int mediaItemId(const QString& filename) const;
+    QValueList< QPair<int, QString> > mediaItemIdFileMap() const;
     QString mediaItemFilename(int id) const;
 
     QStringList categoryNames() const;

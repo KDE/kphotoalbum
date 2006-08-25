@@ -37,6 +37,7 @@ namespace SQLDB {
         explicit SQLImageInfoCollection(Connection& connection);
         ~SQLImageInfoCollection();
         DB::ImageInfoPtr getImageInfoOf(const QString& relativeFilename) const;
+        QString filenameForId(int id) const;
         void clearCache();
 
     public slots:
@@ -48,6 +49,8 @@ namespace SQLDB {
         QueryHelper _qh;
 
     private:
+        mutable QMap<QString, int> _filenameIdMap;
+        mutable QMap<int, QString> _idFilenameMap;
         mutable QMap<int, DB::ImageInfoPtr> _infoPointers;
         // mutable QMutex _mutex;
     };

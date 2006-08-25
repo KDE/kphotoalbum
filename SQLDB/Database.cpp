@@ -97,7 +97,7 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
     QStringList result;
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
     for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
-        QString fullPath = imageRoot + _qh->mediaItemFilename(*it);
+        QString fullPath = imageRoot + _infoCollection->filenameForId(*it);
         if (requireOnDisk && !QFileInfo(fullPath).exists())
             continue;
         result.append(fullPath);

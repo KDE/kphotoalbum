@@ -26,6 +26,12 @@ using namespace SQLDB;
 SQLImageInfoCollection::SQLImageInfoCollection(Connection& connection):
     _qh(connection)
 {
+    QValueList< QPair<int, QString> > l = _qh.mediaItemIdFileMap();
+    for (QValueList< QPair<int, QString> >::const_iterator i = l.begin();
+         i != l.end(); ++i) {
+        _filenameIdMap.insert((*i).second, (*i).first);
+        _idFilenameMap.insert((*i).first, (*i).second);
+    }
 }
 
 SQLImageInfoCollection::~SQLImageInfoCollection()
@@ -36,12 +42,15 @@ SQLImageInfoCollection::~SQLImageInfoCollection()
 DB::ImageInfoPtr
 SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
 {
-    int fileId;
-    try {
-        fileId = _qh.mediaItemId(relativeFilename);
-    }
-    catch (NotFoundError& e) {
-        return 0;
+    int fileId = _filenameIdMap[relativeFilename];
+    if (!fileId) {
+        try {
+            fileId = _qh.mediaItemId(relativeFilename);
+        }
+        catch (NotFoundError& e) {
+            return 0;
+        }
+        _filenameIdMap.insert(relativeFilename, fileId);
     }
 
     // QMutexLocker locker(&_mutex);
@@ -51,6 +60,21 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
         _infoPointers.insert(fileId, p);
     }
     return p;
+}
+
+QString SQLImageInfoCollection::filenameForId(int id) const
+{
+    QString filename = _idFilenameMap[id];
+    if (filename.isNull()) {
+        try {
+             filename = _qh.mediaItemFilename(id);
+        }
+        catch (NotFoundError& e) {
+            return QString::null;
+        }
+        _idFilenameMap.insert(id, filename);
+    }
+    return filename;
 }
 
 void SQLImageInfoCollection::clearCache()

@@ -270,6 +270,25 @@ int QueryHelper::mediaItemId(const QString& filename) const
     return id.toInt();
 }
 
+QValueList< QPair<int, QString> > QueryHelper::mediaItemIdFileMap() const
+{
+    Cursor c = executeQuery("SELECT media.id, dir.path, media.filename "
+                            "FROM media, dir "
+                            "WHERE media.dirId=dir.id").cursor();
+    QValueList< QPair<int, QString> > r;
+
+    if (c.isNull())
+        return r;
+
+    for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
+        QPair<int, QString> x;
+        x.first = c.value(0).toInt();
+        x.second = makeFullName(c.value(1).toString(), c.value(2).toString());
+        r << x;
+    }
+    return r;
+}
+
 QValueList<int>
 QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
 {

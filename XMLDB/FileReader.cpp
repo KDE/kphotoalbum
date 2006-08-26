@@ -76,7 +76,7 @@ void XMLDB::FileReader::createSpecialCategories()
         _db->_categoryCollection.addCategory( folderCat );
     }
     folderCat->setSpecialCategory( true );
-
+    dynamic_cast<XMLCategory*>( folderCat.data() )->setShouldSave( false );
 
     DB::CategoryPtr tokenCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Tokens" ) );
     if ( !tokenCat ) {
@@ -97,6 +97,7 @@ void XMLDB::FileReader::createSpecialCategories()
         _db->_categoryCollection.addCategory( mediaCat );
     }
     mediaCat->setSpecialCategory( true );
+    dynamic_cast<XMLCategory*>( mediaCat.data() )->setShouldSave( false );
 }
 
 void XMLDB::FileReader::loadCategories( const QDomElement& elm )
@@ -280,8 +281,7 @@ void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
 DB::ImageInfoPtr XMLDB::FileReader::load( const QString& fileName, QDomElement elm )
 {
     DB::ImageInfoPtr info = XMLDB::Database::createImageInfo( fileName, elm, _db );
-    if ( _fileVersion <= 2 )  // The folders changed in file version 3 (KPhotoAlbum post 2.2), so we just regenerate them.
-        info->createFolderCategoryItem( _db->_categoryCollection.categoryForName(QString::fromLatin1("Folder")), _db->_members );
+    info->createFolderCategoryItem( _db->_categoryCollection.categoryForName(QString::fromLatin1("Folder")), _db->_members );
     return info;
 }
 

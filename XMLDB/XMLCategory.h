@@ -39,6 +39,9 @@ namespace XMLDB {
         void setIdMapping( const QString& name, int id );
         QString nameForId( int id ) const;
 
+        bool shouldSave();
+        void setShouldSave( bool b);
+
     private:
         QString _name;
         QString _icon;
@@ -50,6 +53,8 @@ namespace XMLDB {
         QStringList _items;
         QMap<QString,int> _idMap;
         QMap<int,QString> _nameMap;
+
+        bool _shouldSave;
     };
 }
 

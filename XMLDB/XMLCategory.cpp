@@ -4,7 +4,7 @@
 #include <DB/ImageDB.h>
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show )
-    : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _isSpecial(false)
+    : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _isSpecial(false), _shouldSave( true )
 {
 }
 
@@ -130,6 +130,16 @@ void XMLDB::XMLCategory::setThumbnailSize( int size )
 int XMLDB::XMLCategory::thumbnailSize() const
 {
     return _thumbnailSize;
+}
+
+bool XMLDB::XMLCategory::shouldSave()
+{
+    return _shouldSave;
+}
+
+void XMLDB::XMLCategory::setShouldSave( bool b)
+{
+    _shouldSave = b;
 }
 
 #include "XMLCategory.moc"

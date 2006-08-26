@@ -24,7 +24,7 @@ protected:
     QDomElement save( QDomDocument doc, const DB::ImageInfoPtr& info );
     void writeCategories( QDomDocument doc,  QDomElement elm, const DB::ImageInfoPtr& info );
     void writeCategoriesCompressed( QDomElement& elm, const DB::ImageInfoPtr& info );
-
+    bool shouldSaveCategory( const QString& categoryName ) const;
 
 private:
     Database* _db;

@@ -211,7 +211,6 @@ void MemberMap::removeMemberFromGroup( const QString& category, const QString& g
 
 void MemberMap::addGroup( const QString& category, const QString& group )
 {
-    Q_ASSERT( _members.contains(category) );
     if ( ! _members[category].contains( group ) ) {
         _members[category].insert( group, QStringList() );
     }

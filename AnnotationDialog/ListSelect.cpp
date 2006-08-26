@@ -443,6 +443,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
             else
                 memberMap.removeMemberFromGroup( _category, checkedItem, item->text(0) );
             DB::ImageDB::instance()->setMemberMap( memberMap );
+            rePopulate();
         }
     }
 }

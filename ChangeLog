@@ -1,5 +1,7 @@
 2006-08-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Improved set of file names recognized as videos.
+
 	* BUGFIX: deselect all images when right clicking on an image that
 	is currently not selected.
 

@@ -657,10 +657,34 @@ bool operator<( const QPoint& p1, const QPoint& p2)
 
 bool Utilities::isVideo( const QString& fileName )
 {
+    static StringSet videoExtensions;
+    if ( videoExtensions.isEmpty() ) {
+        videoExtensions.insert( QString::fromLatin1( "3gp" ) );
+        videoExtensions.insert( QString::fromLatin1( "avi" ) );
+        videoExtensions.insert( QString::fromLatin1( "mp4" ) );
+        videoExtensions.insert( QString::fromLatin1( "m4v" ) );
+        videoExtensions.insert( QString::fromLatin1( "mpeg" ) );
+        videoExtensions.insert( QString::fromLatin1( "mpg" ) );
+        videoExtensions.insert( QString::fromLatin1( "qt" ) );
+        videoExtensions.insert( QString::fromLatin1( "mov" ) );
+        videoExtensions.insert( QString::fromLatin1( "moov" ) );
+        videoExtensions.insert( QString::fromLatin1( "qtvr" ) );
+        videoExtensions.insert( QString::fromLatin1( "rv" ) );
+        videoExtensions.insert( QString::fromLatin1( "3g2" ) );
+        videoExtensions.insert( QString::fromLatin1( "fli" ) );
+        videoExtensions.insert( QString::fromLatin1( "flc" ) );
+        videoExtensions.insert( QString::fromLatin1( "mkv" ) );
+        videoExtensions.insert( QString::fromLatin1( "mng" ) );
+        videoExtensions.insert( QString::fromLatin1( "asf" ) );
+        videoExtensions.insert( QString::fromLatin1( "asx" ) );
+        videoExtensions.insert( QString::fromLatin1( "wmp" ) );
+        videoExtensions.insert( QString::fromLatin1( "wmv" ) );
+        videoExtensions.insert( QString::fromLatin1( "ogm" ) );
+    }
+
     QFileInfo fi( fileName );
-    QString ext = fi.extension();
-    return ext == QString::fromLatin1("avi") || ext == QString::fromLatin1("mov") || ext == QString::fromLatin1( "rm" ) ||
-        ext == QString::fromLatin1( "wmv" ) || ext == QString::fromLatin1( "mpg" );
+    QString ext = fi.extension().lower();
+    return videoExtensions.contains( ext );
 }
 
 QImage Utilities::scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode )

@@ -14,6 +14,7 @@ class FileWriter
 public:
     FileWriter( Database* db ) :_db(db) {}
     void save( const QString& fileName, bool isAutoSave );
+    static QString escape( const QString& );
 
 protected:
     void saveCategories( QDomDocument doc, QDomElement top );

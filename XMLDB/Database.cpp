@@ -456,7 +456,7 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, QDomElement elm )
             QDomElement elmOption = nodeOption.toElement();
             // option is for KimDaBa 2.1 compatibility
             Q_ASSERT( elmOption.tagName() == QString::fromLatin1("category") || elmOption.tagName() == QString::fromLatin1("option") );
-            QString name = elmOption.attribute( QString::fromLatin1("name") );
+            QString name = FileReader::unescape( elmOption.attribute( QString::fromLatin1("name") ) );
 
             if ( !name.isNull() )  {
                 // Read values
@@ -484,7 +484,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
     QValueList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
     for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
-        QString str = elm.attribute( categoryName );
+        QString str = elm.attribute( FileWriter::escape( categoryName ) );
         if ( !str.isEmpty() ) {
             QStringList list = QStringList::split( QString::fromLatin1( "," ), str);
             for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {

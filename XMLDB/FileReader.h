@@ -14,6 +14,7 @@ class FileReader
 public:
     FileReader( Database* db ) : _db( db ) {}
     void read( const QString& configFile );
+    static QString unescape( const QString& );
 
 protected:
     void readTopNodeInConfigDocument( const QString& configFile, QDomElement top, QDomElement* options, QDomElement* images,

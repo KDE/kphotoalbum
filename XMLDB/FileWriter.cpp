@@ -48,9 +48,10 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     }
 }
 
+#include "FileWriter.h"
 void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
 {
-    QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
+    QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     QDomElement options;
     if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
         options = doc.createElement( QString::fromLatin1("options") );
@@ -59,8 +60,8 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
     top.appendChild( options );
 
 
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        QString name = *it;
+    for( QStringList::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+        const QString name = *categoryIt;
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
 
         if ( !shouldSaveCategory( name ) )
@@ -71,7 +72,7 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
             opt = doc.createElement( QString::fromLatin1("option") );
         else
             opt = doc.createElement( QString::fromLatin1("Category") );
-        opt.setAttribute( QString::fromLatin1("name"),  name );
+        opt.setAttribute( QString::fromLatin1("name"), escape( name ) );
 
         opt.setAttribute( QString::fromLatin1( "icon" ), category->iconName() );
         opt.setAttribute( QString::fromLatin1( "show" ), category->doShow() );
@@ -240,7 +241,7 @@ void XMLDB::FileWriter::writeCategories( QDomDocument doc, QDomElement top, cons
             continue;
 
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
-        opt.setAttribute( QString::fromLatin1("name"),  name );
+        opt.setAttribute( QString::fromLatin1("name"),  escape( name ) );
 
         QStringList list = info->itemsOfCategory(*categoryIt);
         bool any = false;
@@ -275,7 +276,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::I
                 int id = static_cast<XMLCategory*>((*categoryIt).data())->idForName( *itemIt );
                 idList.append( QString::number( id ) );
             }
-            elm.setAttribute( categoryName, idList.join( QString::fromLatin1( "," ) ) );
+            elm.setAttribute( escape( categoryName ), idList.join( QString::fromLatin1( "," ) ) );
         }
     }
 }
@@ -284,3 +285,11 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 {
     return dynamic_cast<XMLCategory*>( _db->_categoryCollection.categoryForName( categoryName ).data() )->shouldSave();
 }
+
+QString XMLDB::FileWriter::escape( const QString& str )
+{
+    QString tmp( str );
+    tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
+    return tmp;
+}
+

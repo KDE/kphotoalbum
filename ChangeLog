@@ -1,5 +1,7 @@
 2006-08-25  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: It is now possible to have spaces in category names.
+
 	* Fixed bug in last snapshot where the compressed index.xml didn't
 	work.
 

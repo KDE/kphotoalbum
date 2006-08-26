@@ -112,7 +112,7 @@ void XMLDB::FileReader::loadCategories( const QDomElement& elm )
             // option is for KimDaBa 2.1 compatibility
             Q_ASSERT( elmOption.tagName().lower() == QString::fromLatin1("category") ||
                       elmOption.tagName() == QString::fromLatin1("option").lower() );
-            QString name = elmOption.attribute( QString::fromLatin1("name") );
+            QString name = unescape( elmOption.attribute( QString::fromLatin1("name") ) );
 
             if ( !name.isNull() )  {
                 // Read Category info
@@ -346,6 +346,13 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
 
     file.close();
     return top;
+}
+
+QString XMLDB::FileReader::unescape( const QString& str )
+{
+    QString tmp( str );
+    tmp.replace( QString::fromLatin1( "_" ), QString::fromLatin1( " " ) );
+    return tmp;
 }
 
 

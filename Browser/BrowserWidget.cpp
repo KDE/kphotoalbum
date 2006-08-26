@@ -321,14 +321,8 @@ void Browser::BrowserWidget::slotLimitToMatch( const QString& str )
         FolderAction* a = _list[_current-1];
         a->action( _currentFactory );
     }
-    else {
-        AnnotationDialog::ListViewTextMatchHider dummy( str, _listView );
-#ifdef TEMPORARILY_REMOVED
-        for ( QListViewItem* item = _listView->firstChild(); item; item = item->nextSibling() ) {
-            item->setVisible( item->text(0).lower().contains( str.lower() ) );
-        }
-#endif
-    }
+    else
+        AnnotationDialog::ListViewTextMatchHider dummy( str, false, _listView );
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()

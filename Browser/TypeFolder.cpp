@@ -147,6 +147,6 @@ QString Browser::TypeFolder::videosLabel() const
 
 bool Browser::TypeFolderAction::contentView() const
 {
-    return ( !DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->isSpecialCategory() );
+    return true;
 }
 

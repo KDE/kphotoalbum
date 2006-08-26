@@ -47,15 +47,18 @@ bool AnnotationDialog::ListViewHider::setItemsVisible( QListViewItem* parentItem
     return anyChildrenVisible;
 }
 
-AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString& text, QListView* listView )
-    :_text( text )
+AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString& text, bool anchorAtStart, QListView* listView )
+    :_text( text ), _anchorAtStart( anchorAtStart )
 {
     setItemsVisible( listView );
 }
 
 bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( QListViewItem* item )
 {
-    return item->text(0).lower().startsWith( _text.lower() );
+    if ( _anchorAtStart )
+        return item->text(0).lower().startsWith( _text.lower() );
+    else
+        return item->text(0).lower().contains( _text.lower() );
 }
 
 bool AnnotationDialog::ListViewSelectionHider::shouldItemBeShown( QListViewItem* item )

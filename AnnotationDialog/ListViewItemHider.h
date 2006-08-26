@@ -17,13 +17,14 @@ protected:
 class ListViewTextMatchHider :public ListViewHider
 {
 public:
-    ListViewTextMatchHider( const QString& text, QListView* listView );
+    ListViewTextMatchHider( const QString& text, bool anchorAtStart, QListView* listView );
 
 protected:
     virtual bool shouldItemBeShown( QListViewItem* );
 
 private:
     QString _text;
+    bool _anchorAtStart;
 };
 
 class ListViewSelectionHider :public ListViewHider

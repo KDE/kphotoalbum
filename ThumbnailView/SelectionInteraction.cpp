@@ -20,7 +20,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
     _mousePressPos = _view->viewportToContents( event->pos() );
 
     QString fileNameAtPos = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
-    if ( !( event->state() & ControlButton ) && !( event->state() & ShiftButton ) && !( event->button() & RightButton )) {
+    if ( deselectSelection( event ) ) {
         // Unselect every thing
         Set<QString> oldSelection = _view->_selectedFiles;
         _view->_selectedFiles.clear();
@@ -209,6 +209,21 @@ QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, C
     iconRect.moveBy( cellRect.x(), cellRect.y() );
 
     return iconRect;
+}
+
+bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* event ) const
+{
+    // If control or shift is pressed down then do not deselect.
+    if  ( event->state() & (ControlButton | ShiftButton) )
+        return false;
+
+    // right mouse button on a selected image should not clear.
+    if ( event->button() & RightButton &&
+         _view->_selectedFiles.contains( _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates ) ) )
+        return false;
+
+    // otherwise deselect
+    return true;
 }
 
 #include "SelectionInteraction.moc"

@@ -28,6 +28,7 @@ protected:
     Cell prevCell( const Cell& cell );
     Cell nextCell( const Cell& cell );
     QRect iconRect( const QPoint& pos, CoordinateSystem ) const;
+    bool deselectSelection( const QMouseEvent* ) const;
 
 protected slots:
     void handleDragSelection();

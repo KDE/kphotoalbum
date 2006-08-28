@@ -39,8 +39,11 @@
 #include "DB/CategoryItem.h"
 #include "ListViewItemHider.h"
 #include "ShowSelectionOnlyManager.h"
+#include "CategoryListView/DragableListView.h"
+#include "CategoryListView/CheckDropItem.h"
 
 using namespace AnnotationDialog;
+using CategoryListView::CheckDropItem;
 
 AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* parent, const char* name )
     : QWidget( parent,  name ), _category( category )
@@ -55,14 +58,17 @@ AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* pare
     _label->setBuddy( _lineEdit );
     layout->addWidget( _lineEdit );
 
-    _listView = new QListView( this );
+    _listView = new CategoryListView::DragableListView( _category, this );
+    _listView->viewport()->setAcceptDrops( true );
     _listView->addColumn( QString::fromLatin1( "items" ) );
     _listView->header()->setStretchEnabled( true );
     _listView->header()->hide();
-    _listView->setSelectionMode( QListView::Multi );
+    _listView->setSelectionMode( QListView::Extended );
     connect( _listView, SIGNAL( clicked( QListViewItem*  ) ),  this,  SLOT( itemSelected( QListViewItem* ) ) );
     connect( _listView, SIGNAL( contextMenuRequested( QListViewItem*, const QPoint&, int ) ),
              this, SLOT(showContextMenu( QListViewItem*, const QPoint& ) ) );
+    connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
+
     layout->addWidget( _listView );
     _listView->viewport()->installEventFilter( this );
 
@@ -169,7 +175,7 @@ void AnnotationDialog::ListSelect::setSelection( const QStringList& list )
     // PENDING(blackie) change method to take a set
     Set<QString> selection( list );
     for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        (*itemIt)->setSelected( selection.contains( (*itemIt)->text(0) ) );
+        static_cast<QCheckListItem*>(*itemIt)->setOn( selection.contains( (*itemIt)->text(0) ) );
         _listView->repaintItem(*itemIt);
     }
 
@@ -181,7 +187,7 @@ QStringList AnnotationDialog::ListSelect::selection()
     // PENDING(blackie) should this method return a set?
     QStringList list;
     for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        if ( (*itemIt)->isSelected() )
+        if ( static_cast<QCheckListItem*>(*itemIt)->isOn() )
             list.append( (*itemIt)->text(0) );
     }
     return list;
@@ -217,7 +223,9 @@ void AnnotationDialog::ListSelect::setMode( Mode mode )
     _lineEdit->setMode( mode );
     if ( mode == SEARCH) {
         // "0" below is sorting key which ensures that None is always at top.
-        new QListViewItem( _listView, DB::ImageDB::NONE(), QString::fromLatin1("0") );
+        CheckDropItem* item = new CheckDropItem( _listView, DB::ImageDB::NONE(), QString::fromLatin1("0") );
+        item->setDNDEnabled( isDNDAllowed() );
+
 	_checkBox->setText( i18n("AND") );
 	// OR is a better default choice (the browser can do AND but not OR)
 	_checkBox->setChecked( false );
@@ -270,7 +278,11 @@ void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
         QString res;
         QRegExp regEnd( QString::fromLatin1("\\s*[&|!]\\s*$") );
         QRegExp regStart( QString::fromLatin1("^\\s*[&|!]\\s*") );
-        if ( item->isSelected() )  {
+        if ( static_cast<QCheckListItem*>(item)->isOn() )  {
+            int matchPos = _lineEdit->text().find( txt );
+            if ( matchPos != -1 )
+                return;
+
             int index = _lineEdit->cursorPosition();
             QString start = _lineEdit->text().left(index);
             QString end =  _lineEdit->text().mid(index);
@@ -387,10 +399,11 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text(0);
                 DB::ImageDB::instance()->categoryCollection()->categoryForName( category() )->renameItem( oldStr, newStr );
-                bool sel = item->isSelected();
+                bool sel = static_cast<QCheckListItem*>(item)->isOn();
                 delete item;
-                QListViewItem* newItem = new QListViewItem( _listView, newStr );
-                newItem->setSelected( sel );
+                CheckDropItem* newItem = new CheckDropItem( _listView, newStr, QString::null );
+                newItem->setOn( sel );
+                newItem->setDNDEnabled( isDNDAllowed() );
 
                 // rename the category image too
                 QString oldFile = Settings::SettingsData::instance()->fileForCategoryImage( category(), oldStr );
@@ -430,7 +443,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         if ( _mode == INPUT ) {
             QListViewItem* item = _listView->findItem( subCategory, 0 );
             if ( item )
-                item->setSelected( true );
+                static_cast<QCheckListItem*>(item)->setOn( true );
             else
                 Q_ASSERT( false );
         }
@@ -452,14 +465,16 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
 void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, QListViewItem* parent )
 {
     for( QValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
-        QListViewItem* newItem = 0;
+        CheckDropItem* newItem = 0;
 
         if ( parent == 0 )
-            newItem = new QListViewItem( _listView, (*subcategoryIt)->_name );
+            newItem = new CheckDropItem( _listView, (*subcategoryIt)->_name, QString::null );
         else
-            newItem = new QListViewItem( parent, (*subcategoryIt)->_name );
+            newItem = new CheckDropItem( _listView, parent, (*subcategoryIt)->_name, QString::null );
 
         newItem->setOpen( true );
+        newItem->setDNDEnabled( isDNDAllowed() );
+
         insertItems( (*subcategoryIt), newItem );
     }
 }
@@ -502,9 +517,14 @@ void AnnotationDialog::ListSelect::slotSortAlpha()
 
 void AnnotationDialog::ListSelect::rePopulate()
 {
+    const int x = _listView->contentsX();
+    const int y = _listView->contentsY();
+
     const QStringList sel = selection();
     populate();
     setSelection( sel );
+
+    _listView->setContentsPos( x, y );
 }
 
 void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
@@ -529,7 +549,8 @@ void AnnotationDialog::ListSelect::populateMRU()
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
     for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         ++index;
-        new QListViewItem( _listView, *itemIt, QString::number( index ) );
+        CheckDropItem* item = new CheckDropItem( _listView, *itemIt, QString::number( index ) );
+        item->setDNDEnabled( isDNDAllowed() );
     }
 
     _listView->setSorting( 1 );
@@ -555,6 +576,11 @@ void AnnotationDialog::ListSelect::limitToSelection()
 void AnnotationDialog::ListSelect::showAllChildren()
 {
     showOnlyItemsMatching( QString::null );
+}
+
+bool AnnotationDialog::ListSelect::isDNDAllowed() const
+{
+    return Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha;
 }
 
 #include "ListSelect.moc"

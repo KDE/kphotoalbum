@@ -27,10 +27,8 @@ class QLabel;
 class QCheckBox;
 class QListView;
 
-namespace DB
-{
-    class ImageInfo;
-}
+namespace DB { class ImageInfo; }
+namespace CategoryListView { class DragableListView; }
 
 namespace AnnotationDialog
 {
@@ -55,7 +53,6 @@ public:
     void setMode( Mode );
 
     void populate();
-    void rePopulate();
 
     void showOnlyItemsMatching( const QString& text );
 
@@ -64,6 +61,7 @@ public slots:
     void slotSortDate();
     void slotSortAlpha();
     void toggleSortType();
+    void rePopulate();
 
 protected slots:
     void itemSelected( QListViewItem* );
@@ -73,6 +71,7 @@ protected slots:
     void removeCheckBoxStateChanged( int state );
     void limitToSelection();
     void showAllChildren();
+    bool isDNDAllowed() const;
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
@@ -85,7 +84,7 @@ private:
     QLabel* _label;
     QString _category;
     CompletableLineEdit* _lineEdit;
-    QListView* _listView;
+    CategoryListView::DragableListView* _listView;
     QCheckBox* _checkBox;
     QCheckBox* _removeCheckBox;
     Mode _mode;

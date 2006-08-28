@@ -1,3 +1,8 @@
+2006-08-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* It is now possible to set up sub categories in the annotation
+	dialog, simply by dragging items onto other items.
+
 2006-08-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* The listbox in the annotation dialog is now updated when an item is added as a sub item to another.

@@ -63,6 +63,29 @@ public:
     }
 };
 
+template <class TYPE>
+QDataStream& operator<<( QDataStream& stream, const Set<TYPE>& data )
+{
+    stream << data.count();
+    for ( typename Set<TYPE>::ConstIterator itemIt = data.begin(); itemIt != data.end(); ++itemIt ) {
+        stream << *itemIt;
+    }
+    return stream;
+}
+
+template <class TYPE>
+QDataStream& operator>>( QDataStream& stream, Set<TYPE>& data )
+{
+    int count;
+    stream >> count;
+    for ( int i = 0; i < count; ++i ) {
+        TYPE item;
+        stream >> item;
+        data.insert( item );
+    }
+    return stream;
+}
+
 typedef Set<QString> StringSet;
 
 

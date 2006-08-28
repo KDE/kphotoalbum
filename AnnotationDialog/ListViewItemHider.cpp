@@ -63,7 +63,7 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( QListViewItem*
 
 bool AnnotationDialog::ListViewSelectionHider::shouldItemBeShown( QListViewItem* item )
 {
-    return item->isSelected();
+    return static_cast<QCheckListItem*>(item)->isOn();
 }
 
 AnnotationDialog::ListViewSelectionHider::ListViewSelectionHider( QListView* listView )

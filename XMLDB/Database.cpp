@@ -193,6 +193,13 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
         // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
         _images.appendList( newImages );
     }
+
+    for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
+        DB::ImageInfo* info = *imageIt;
+        info->addOption( QString::fromLatin1( "Media Type" ),
+                         info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
+    }
+
     emit totalChanged( _images.count() );
     emit dirty();
 }
@@ -415,7 +422,6 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     int h = elm.attribute( QString::fromLatin1( "height" ), QString::fromLatin1( "-1" ) ).toInt();
     QSize size = QSize( w,h );
 
-    QString type = elm.attribute( QString::fromLatin1( "mediatype" ), QString::fromLatin1( "image" ) ).lower();
     DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
 
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size, mediaType );

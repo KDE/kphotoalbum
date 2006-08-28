@@ -1,5 +1,7 @@
 2006-08-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: Media Type Category was not filled correctly when finding new images.
+
 	* It is now possible to set up sub categories in the annotation
 	dialog, simply by dragging items onto other items.
 

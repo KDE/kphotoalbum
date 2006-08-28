@@ -809,8 +809,9 @@ void QueryHelper::insertCategory(const QString& name,
 {
     executeStatement("INSERT INTO category (name, icon, visible, "
                      "viewtype, thumbsize) VALUES (%s, %s, %s, %s, %s)",
-                     Bindings() << name << icon << visible << type <<
-                     thumbnailSize);
+                     Bindings() << name << icon <<
+                     QVariant(visible, 0 /* dummy, to make it bool */) <<
+                     type << thumbnailSize);
 }
 
 void QueryHelper::removeCategory(const QString& name)
@@ -865,7 +866,7 @@ void QueryHelper::changeCategoryIcon(int id, const QString& icon)
 void QueryHelper::changeCategoryVisible(int id, bool visible)
 {
     executeStatement("UPDATE category SET visible=%s WHERE id=%s",
-                     Bindings() << visible << id);
+                     Bindings() << QVariant(visible, 0) << id);
 }
 
 void QueryHelper::changeCategoryViewType(int id, DB::Category::ViewType type)

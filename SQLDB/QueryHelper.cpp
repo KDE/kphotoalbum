@@ -1270,7 +1270,7 @@ QueryHelper::getMatchingFiles(MatcherList matches, int typemask) const
         return positive;
 
     QValueList<int> negative =
-        executeQuery(select + " WHERE " + excludeQuery.join(" AND "),
+        executeQuery(select + " WHERE " + excludeQuery.join(" OR "),
                      excBinds).asIntegerList();
 
     return listSubtract(positive, negative);

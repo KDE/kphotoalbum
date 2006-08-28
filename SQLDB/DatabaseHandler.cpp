@@ -232,26 +232,7 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     f->setCaption("angle");
     schema->addField(f);
 
-    // KexiDB PostgreSQL driver has a bug, which prevents creating
-    // table with DateTime fields with createTable, so use plain SQL
-    // instead.
-    if (_connectionData.driverName == "PostgreSQL") {
-        _connection->executeSQL("CREATE TABLE media ("
-                                "id SERIAL PRIMARY KEY, "
-                                "place BIGINT, "
-                                "dirid INTEGER NOT NULL, "
-                                "filename CHARACTER VARYING(255) NOT NULL, "
-                                "md5sum CHARACTER VARYING(32), "
-                                "type SMALLINT NOT NULL, "
-                                "label CHARACTER VARYING(255), "
-                                "description TEXT, "
-                                "starttime TIMESTAMP, "
-                                "endtime TIMESTAMP, "
-                                "width INTEGER, "
-                                "height INTEGER, "
-                                "angle SMALLINT)");
-    }
-    else if (!_connection->createTable(schema)) {
+    if (!_connection->createTable(schema)) {
         delete schema;
         throw TableCreateError(_connection->errorMsg());
     }

@@ -671,6 +671,8 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
 void
 QueryHelper::insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items)
 {
+    KexiDB::TransactionGuard transaction(*_connection);
+
     int place =
         executeQuery("SELECT MAX(place) FROM media").firstItem().toInt() + 1;
 
@@ -678,6 +680,8 @@ QueryHelper::insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items)
          i != items.constEnd(); ++i) {
         insertMediaItem(*(*i), place++);
     }
+
+    transaction.commit();
 }
 
 void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)

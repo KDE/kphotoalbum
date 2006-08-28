@@ -132,7 +132,7 @@ QString QueryHelper::sqlRepresentation(const QVariant& x) const
              i != l.end(); ++i) {
             repr << sqlRepresentation(*i);
         }
-        if (repr.count() == 0)
+        if (repr.isEmpty())
             return "NULL";
         else
             return repr.join(", ");
@@ -249,7 +249,7 @@ QString QueryHelper::mediaItemFilename(int id) const
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
                      "WHERE dir.id=media.dirId AND media.id=%s",
                      Bindings() << id).asString2List();
-    if (dirFilePairs.count() == 0)
+    if (dirFilePairs.isEmpty())
         throw EntryNotFoundError();
 
     return makeFullName(dirFilePairs[0][0], dirFilePairs[0][1]);
@@ -388,7 +388,7 @@ uint QueryHelper::mediaItemCount(int typemask, QValueList<int>* scope) const
                                 Bindings() << typemask).firstItem().toUInt();
     }
     else {
-        if (scope->count() == 0)
+        if (scope->isEmpty())
             return 0; // Empty scope contains no media items
         else
             return executeQuery("SELECT COUNT(*) FROM media "
@@ -891,7 +891,7 @@ QString QueryHelper::filenameForMD5Sum(const QString& md5sum) const
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
                      "WHERE dir.id=media.dirId AND media.md5sum=%s",
                      Bindings() << md5sum).asString2List();
-    if (rows.count() == 0)
+    if (rows.isEmpty())
         return QString::null;
     else {
         return makeFullName(rows[0][0], rows[0][1]);
@@ -1143,7 +1143,7 @@ QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search, int typemask) c
     MatcherListList dnf = search.query();
     // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
 
-    if (dnf.count() == 0)
+    if (dnf.isEmpty())
         return mediaItemIds(typemask);
 
     QValueList<int> r;
@@ -1219,14 +1219,14 @@ QueryHelper::getMatchingFiles(MatcherList matches, int typemask) const
         else {
             if ((*i)->_category == "Folder") {
                 QStringList excludedFolders;
-                if (matchedFolders.count() > 0) {
+                if (!matchedFolders.isEmpty()) {
                     excludedFolders = matchedFolders;
                 }
                 else {
                     excludedFolders = executeQuery("SELECT path FROM dir").
                         asStringList();
                 }
-                if (excludedFolders.count() > 0) {
+                if (!excludedFolders.isEmpty()) {
                     excludeQuery <<
                         "id IN (SELECT media.id FROM media, dir "
                         "WHERE media.dirId=dir.id AND dir.path IN (%s))";
@@ -1235,12 +1235,12 @@ QueryHelper::getMatchingFiles(MatcherList matches, int typemask) const
             }
             else {
                 QValueList<int> excludedTags;
-                if (matchedTags[(*i)->_category].count() > 0) {
+                if (!matchedTags[(*i)->_category].isEmpty()) {
                     excludedTags = matchedTags[(*i)->_category];
                 } else {
                     excludedTags = tagIdsOfCategory((*i)->_category);
                 }
-                if (excludedTags.count() > 0) {
+                if (!excludedTags.isEmpty()) {
                     excludeQuery <<
                         "id IN (SELECT mediaId "
                         "FROM media_tag WHERE tagId IN (%s))";
@@ -1266,7 +1266,7 @@ QueryHelper::getMatchingFiles(MatcherList matches, int typemask) const
 
     QValueList<int> positive = executeQuery(query, binds).asIntegerList();
 
-    if (excludeQuery.count() == 0)
+    if (excludeQuery.isEmpty())
         return positive;
 
     QValueList<int> negative =

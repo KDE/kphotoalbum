@@ -22,7 +22,6 @@
 #include <kexidb/connectiondata.h>
 #include <kexidb/connection.h>
 #include <kexidb/tableschema.h>
-#include <kexidb/indexschema.h>
 #include <kexidb/transaction.h>
 #include <kexidb/field.h>
 #include <kexidb/dbproperties.h>
@@ -35,8 +34,8 @@
 #define SCHEMA_VERSION_MAJOR 1
 
 // Update these every time the database schema changes
-#define SCHEMA_VERSION_MINOR 0
-#define SCHEMA_DATE "2006-08-11"
+#define SCHEMA_VERSION_MINOR 1
+#define SCHEMA_DATE "2006-08-28"
 
 
 using namespace SQLDB;
@@ -133,7 +132,7 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     KexiDB::Field* f;
     KexiDB::TableSchema* schema;
 
-    //TODO: Set NotNull flags where should
+    // TODO: Use KexiDB to create indices, when it supports that (IndexSchema)
 
     // ==== dir table ====
     schema = new KexiDB::TableSchema("dir");
@@ -187,8 +186,6 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     f->setCaption("filename");
     schema->addField(f);
 
-    // TODO: UNIQUE(dirId, filename)
-
     f = new KexiDB::Field("md5sum", KexiDB::Field::Text,
                           Field::NoConstraints, Field::NoOptions, 32);
     f->setCaption("md5sum");
@@ -237,6 +234,9 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         throw TableCreateError(_connection->errorMsg());
     }
 
+    _connection->executeSQL("CREATE UNIQUE INDEX dirfileidx "
+                            "ON media (dirId, filename)");
+
 
     // ==== blockitem table ====
     schema = new KexiDB::TableSchema("blockitem");
@@ -257,12 +257,13 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     f->setCaption("filename");
     schema->addField(f);
 
-    // TODO: UNIQUE(dirId, filename)
-
     if (!_connection->createTable(schema)) {
         delete schema;
         throw TableCreateError(_connection->errorMsg());
     }
+
+    _connection->executeSQL("CREATE UNIQUE INDEX blockdirfileidx "
+                            "ON blockitem (dirId, filename)");
 
 
     // ==== category table ====
@@ -330,11 +331,9 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
     // ON DELETE CASCADE ON UPDATE RESTRICT
 
     f = new KexiDB::Field("name", Field::Text,
-                          Field::NoConstraints, Field::NoOptions, 255);
+                          Field::NotNull, Field::NoOptions, 255);
     f->setCaption("name");
     schema->addField(f);
-
-    // TODO: UNIQUE(categoryId, name)
 
     f = new KexiDB::Field("isGroup", KexiDB::Field::Boolean,
                           Field::NotNull);
@@ -347,18 +346,17 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         throw TableCreateError(_connection->errorMsg());
     }
 
+    _connection->executeSQL("CREATE UNIQUE INDEX tagctgrynameidx "
+                            "ON tag (categoryId, name)");
 
     // ==== media_tag table ====
     schema = new KexiDB::TableSchema("media_tag");
     schema->setCaption("media item tags");
-    // TODO: create index
-    //KexiDB::IndexSchema *indexSchema = new KexiDB::IndexSchema(schema);
 
     f = new Field("mediaId", Field::BigInteger,
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
     f->setCaption("media item id");
     schema->addField(f);
-    //indexSchema->addField(f);
 
     // TODO: foreign key constraint:
     // FOREIGN KEY (mediaId) REFERENCES media(id)
@@ -370,33 +368,30 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
     f->setCaption("tag id");
     schema->addField(f);
-    //indexSchema->addField(f);
 
     // TODO: foreign key constraint:
     // FOREIGN KEY (tagId) REFERENCES tag(id)
     // ON DELETE CASCADE ON UPDATE RESTRICT
-
-    // TODO: UNIQUE(mediaId, tagId)
-    //schema->addIndex(indexSchema);
-    //schema->setPrimaryKey(indexSchema);
 
     if (!_connection->createTable(schema)) {
         delete schema;
         throw TableCreateError(_connection->errorMsg());
     }
 
+    _connection->executeSQL("CREATE UNIQUE INDEX mediatagidx "
+                            "ON media_tag (mediaId, tagId)");
+    _connection->executeSQL("CREATE INDEX tagmediaidx "
+                            "ON media_tag (tagId, mediaId)");
+
 
     // ==== tag_relation table ====
     schema = new KexiDB::TableSchema("tag_relation");
     schema->setCaption("tag relations");
-    // TODO: create index
-    //indexSchema = new KexiDB::IndexSchema(schema);
 
     f = new Field("toTagId", Field::BigInteger,
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
     f->setCaption("media item id");
     schema->addField(f);
-    //indexSchema->addField(f);
 
     // TODO: foreign key constraint:
     // FOREIGN KEY (toTagId) REFERENCES tag(id)
@@ -406,20 +401,19 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
     f->setCaption("tag id");
     schema->addField(f);
-    //indexSchema->addField(f);
 
     // TODO: foreign key constraint:
     // FOREIGN KEY (fromTagId) REFERENCES tag(id)
     // ON DELETE CASCADE ON UPDATE RESTRICT
 
-    // TODO: UNIQUE(toTagId, fromTagId)
-    //schema->addIndex(indexSchema);
-    //schema->setPrimaryKey(indexSchema);
-
     if (!_connection->createTable(schema)) {
         delete schema;
         throw TableCreateError(_connection->errorMsg());
     }
+
+    _connection->executeSQL("CREATE INDEX relationidx "
+                            "ON tag_relation (toTagId, fromTagId)");
+
 
     // ==== drawing table ====
     schema = new KexiDB::TableSchema("drawing");
@@ -464,10 +458,12 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         throw TableCreateError(_connection->errorMsg());
     }
 
+
     KexiDB::DatabaseProperties& properties = _connection->databaseProperties();
     properties.setValue("schema version major", SCHEMA_VERSION_MAJOR);
     properties.setValue("schema version minor", SCHEMA_VERSION_MINOR);
     properties.setValue("schema date", SCHEMA_DATE);
+
 
     if (useTransactions) {
         _connection->setAutoCommit(false);

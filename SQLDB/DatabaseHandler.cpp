@@ -25,9 +25,19 @@
 #include <kexidb/indexschema.h>
 #include <kexidb/transaction.h>
 #include <kexidb/field.h>
+#include <kexidb/dbproperties.h>
+#include <klocale.h>
 #include "DatabaseHandler.h"
 #include "QueryHelper.h"
 #include "QueryErrors.h"
+
+// Update this when making incompatible schema change
+#define SCHEMA_VERSION_MAJOR 1
+
+// Update these every time the database schema changes
+#define SCHEMA_VERSION_MINOR 0
+#define SCHEMA_DATE "2006-08-11"
+
 
 using namespace SQLDB;
 using KexiDB::Field;
@@ -90,6 +100,13 @@ void DatabaseHandler::openDatabase(const QString& name)
     else {
         if (!_connection->useDatabase(name))
             throw DatabaseOpenError(_connection->errorMsg());
+
+        QVariant version =
+            _connection->databaseProperties().value("schema version major");
+        if (version.isNull())
+            throw DatabaseSchemaError(i18n("Database schema is incompatible."));
+        if (version.toUInt() != SCHEMA_VERSION_MAJOR)
+            throw DatabaseSchemaError(i18n("Database version is incompatible."));
     }
 }
 
@@ -465,6 +482,11 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         delete schema;
         throw TableCreateError(_connection->errorMsg());
     }
+
+    KexiDB::DatabaseProperties& properties = _connection->databaseProperties();
+    properties.setValue("schema version major", SCHEMA_VERSION_MAJOR);
+    properties.setValue("schema version minor", SCHEMA_VERSION_MINOR);
+    properties.setValue("schema date", SCHEMA_DATE);
 
     if (useTransactions) {
         _connection->setAutoCommit(false);

@@ -48,6 +48,7 @@ namespace SQLDB
     ERROR_CLASS(DatabaseError, Error);
     ERROR_CLASS(DatabaseCreateError, DatabaseError);
     ERROR_CLASS(DatabaseOpenError, DatabaseError);
+    ERROR_CLASS(DatabaseSchemaError, DatabaseOpenError);
 
     ERROR_CLASS(TableCreateError, Error);
 
@@ -71,5 +72,8 @@ namespace SQLDB
     ERROR_CLASS2(QueryError, SQLError);
     ERROR_CLASS2(StatementError, SQLError);
 }
+
+#undef ERROR_CLASS
+#undef ERROR_CLASS2
 
 #endif /* SQLDB_QUERYERRORS_H */

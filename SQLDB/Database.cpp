@@ -113,50 +113,16 @@ QMap<QString, uint> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
                                               const QString& category,
                                               DB::MediaType typemask)
 {
-    bool allFiles = true;
+    QValueList<int>* scope;
     QValueList<int> includedFiles;
-    if ( !info.isNull() ) {
+    if (info.isNull())
+        scope = 0;
+    else {
         includedFiles = _qh->searchMediaItems(info, typemask);
-        allFiles = false;
+        scope = &includedFiles;
     }
 
-    QMap<QString, uint> result;
-    DB::GroupCounter counter( category );
-    QDict<void> alreadyMatched = info.findAlreadyMatched( category );
-
-    QValueList< QPair<int, QString> > mediaIdTagPairs =
-        _qh->mediaIdTagPairs(category, typemask);
-
-    QMap<int,QStringList> itemMap;
-    for (QValueList< QPair<int, QString> >::const_iterator
-             i = mediaIdTagPairs.begin(); i != mediaIdTagPairs.end(); ++i) {
-        int fileId = (*i).first;
-        QString item = (*i).second;
-        if (allFiles || includedFiles.contains(fileId))
-            itemMap[fileId].append(item);
-    }
-
-    // Count images that doesn't contain an item
-    if ( allFiles )
-        result[DB::ImageDB::NONE()] = totalCount(typemask) - itemMap.count();
-    else
-        result[DB::ImageDB::NONE()] = includedFiles.count() - itemMap.count();
-
-    for( QMap<int,QStringList>::Iterator mapIt = itemMap.begin(); mapIt != itemMap.end(); ++mapIt ) {
-        QStringList list = mapIt.data();
-        for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
-            if ( !alreadyMatched[ *listIt ] ) { // We do not want to match "Jesper & Jesper"
-                result[ *listIt ]++;
-            }
-        }
-        counter.count( list );
-    }
-
-    QMap<QString,uint> groups = counter.result();
-    for( QMapIterator<QString,uint> it= groups.begin(); it != groups.end(); ++it ) {
-        result[it.key()] = it.data();
-    }
-    return result;
+    return _qh->classify(category, typemask, scope);
 }
 
 QStringList SQLDB::Database::imageList( bool withRelativePath )

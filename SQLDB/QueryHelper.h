@@ -156,6 +156,9 @@ public:
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
                                      const QValueList<int>& idList) const;
+    QMap<QString, uint> classify(const QString& category,
+                                 DB::MediaType typemask=DB::anyMediaType,
+                                 QValueList<int>* scope=0) const;
 
 protected:
     QString sqlRepresentation(const QVariant& x) const;

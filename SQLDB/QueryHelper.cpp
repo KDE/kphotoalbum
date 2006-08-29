@@ -1307,3 +1307,50 @@ QueryHelper::getMatchingFiles(MatcherList matches,
 
     return listSubtract(positive, negative);
 }
+
+// TODO: remove dependencies to these two
+#include "DB/ImageDB.h"
+#include "DB/GroupCounter.h"
+
+
+QMap<QString, uint>
+QueryHelper::classify(const QString& category,
+                      DB::MediaType typemask,
+                      QValueList<int>* scope) const
+{
+    QMap<QString, uint> result;
+    DB::GroupCounter counter( category );
+
+    QValueList< QPair<int, QString> > idTagPairs =
+        mediaIdTagPairs(category, typemask);
+
+    QMap<int,QStringList> itemMap;
+    for (QValueList< QPair<int, QString> >::const_iterator
+             i = idTagPairs.begin(); i != idTagPairs.end(); ++i) {
+        int fileId = (*i).first;
+        QString item = (*i).second;
+        if (!scope || scope->contains(fileId))
+            itemMap[fileId].append(item);
+    }
+
+    // Count images that doesn't contain an item
+    if (!scope)
+        result[DB::ImageDB::NONE()] = mediaItemCount(typemask) - itemMap.count();
+    else
+        result[DB::ImageDB::NONE()] = scope->count() - itemMap.count();
+
+    for( QMap<int,QStringList>::Iterator mapIt = itemMap.begin(); mapIt != itemMap.end(); ++mapIt ) {
+        QStringList list = mapIt.data();
+        for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+            //if ( !alreadyMatched[ *listIt ] ) // We do not want to match "Jesper & Jesper"
+                result[ *listIt ]++;
+        }
+        counter.count( list );
+    }
+
+    QMap<QString,uint> groups = counter.result();
+    for( QMapIterator<QString,uint> it= groups.begin(); it != groups.end(); ++it ) {
+        result[it.key()] = it.data();
+    }
+    return result;
+}

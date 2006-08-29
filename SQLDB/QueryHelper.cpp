@@ -1291,7 +1291,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
     QString cond = condList.join(" AND ");
 
     QString query = select;
-    if (cond.length() > 0)
+    if (!cond.isEmpty())
         query += " WHERE " + cond;
 
     query += " ORDER BY place";

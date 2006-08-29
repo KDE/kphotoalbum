@@ -34,8 +34,8 @@
 #define SCHEMA_VERSION_MAJOR 1
 
 // Update these every time the database schema changes
-#define SCHEMA_VERSION_MINOR 1
-#define SCHEMA_DATE "2006-08-28"
+#define SCHEMA_VERSION_MINOR 2
+#define SCHEMA_DATE "2006-08-29"
 
 
 using namespace SQLDB;
@@ -236,6 +236,10 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
 
     _connection->executeSQL("CREATE UNIQUE INDEX dirfileidx "
                             "ON media (dirId, filename)");
+    _connection->executeSQL("CREATE INDEX timeidx1 "
+                            "ON media (startTime, endTime, id)");
+    _connection->executeSQL("CREATE INDEX timeidx2 "
+                            "ON media (endTime, startTime, id)");
 
 
     // ==== blockitem table ====

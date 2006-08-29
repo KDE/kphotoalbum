@@ -227,6 +227,22 @@ QString makeFullName(const QString& path, const QString& basename)
     else
         return path + "/" + basename;
 }
+
+QString typeCondition(const QString& fieldName, DB::MediaType typemask)
+{
+    if (typemask == DB::Image ||
+        typemask == DB::Video)
+        return fieldName + "=" + QString::number(typemask);
+    else if (typemask == DB::anyMediaType)
+        return "1=1";
+    else {
+        QStringList typeList;
+        for (uint t = 1; t < DB::anyMediaType; t <<= 1)
+            if (typemask & t)
+                typeList.append(fieldName + "=" + QString::number(t));
+        return "(" + typeList.join(" OR ") + ")";
+    }
+}
 }
 
 QStringList QueryHelper::filenames() const
@@ -385,17 +401,28 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
             return executeQuery("SELECT COUNT(*) FROM media"
                                 ).firstItem().toUInt();
         else
-            return executeQuery("SELECT COUNT(*) FROM media WHERE type&%s!=0",
-                                Bindings() << typemask).firstItem().toUInt();
+            return executeQuery("SELECT COUNT(*) FROM media WHERE " +
+                                typeCondition("type", typemask)
+                                ).firstItem().toUInt();
     }
     else {
         if (scope->isEmpty())
             return 0; // Empty scope contains no media items
-        else
-            return executeQuery("SELECT COUNT(*) FROM media "
-                                "WHERE type&%s!=0 AND id IN (%s)",
-                                Bindings() << typemask << toVariantList(*scope)
-                                ).firstItem().toUInt();
+        else {
+            if (typemask == DB::anyMediaType) {
+                return executeQuery("SELECT COUNT(*) FROM media "
+                                    "WHERE id IN (%s)",
+                                    Bindings() << toVariantList(*scope)
+                                    ).firstItem().toUInt();
+            }
+            else {
+                return executeQuery("SELECT COUNT(*) FROM media WHERE " +
+                                    typeCondition("type", typemask) +
+                                    " AND id IN (%s)",
+                                    Bindings() << toVariantList(*scope)
+                                    ).firstItem().toUInt();
+            }
+        }
     }
 }
 
@@ -406,8 +433,8 @@ QValueList<int> QueryHelper::mediaItemIds(DB::MediaType typemask) const
                             ).asIntegerList();
     else
         return executeQuery("SELECT id FROM media "
-                            "WHERE type&%s!=0 ORDER BY place",
-                            Bindings() << typemask).asIntegerList();
+                            "WHERE " + typeCondition("type", typemask) +
+                            " ORDER BY place").asIntegerList();
 }
 
 void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
@@ -905,17 +932,18 @@ QueryHelper::mediaIdTagPairs(const QString& category,
 {
     if (category == "Folder")
         return executeQuery("SELECT media.id, dir.path FROM media, dir "
-                            "WHERE media.dirId=dir.id AND media.type&%s!=0",
-                            Bindings() << typemask).asIntegerStringPairs();
+                            "WHERE media.dirId=dir.id AND " +
+                            typeCondition("media.type", typemask)
+                            ).asIntegerStringPairs();
     else
         return executeQuery("SELECT media.id, tag.name "
                             "FROM media, media_tag, tag, category "
                             "WHERE media.id=media_tag.mediaId AND "
                             "media_tag.tagId=tag.id AND "
-                            "tag.categoryId=category.id AND "
-                            "media.type&%s!=0 AND category.name=%s",
-                            Bindings() << typemask << category
-                            ).asIntegerStringPairs();
+                            "tag.categoryId=category.id AND " +
+                            typeCondition("media.type", typemask) +
+                            " AND category.name=%s",
+                            Bindings() << category).asIntegerStringPairs();
 }
 
 int QueryHelper::mediaPlaceByFilename(const QString& filename) const
@@ -1256,10 +1284,10 @@ QueryHelper::getMatchingFiles(MatcherList matches,
 
     QString select = "SELECT id FROM media";
     QStringList condList = positiveQuery + negativeQuery;
-    if (typemask != DB::anyMediaType) {
-        condList.prepend("media.type&%s!=0");
-        binds.prepend(typemask);
-    }
+
+    if (typemask != DB::anyMediaType)
+        condList.prepend(typeCondition("type", typemask));
+
     QString cond = condList.join(" AND ");
 
     QString query = select;

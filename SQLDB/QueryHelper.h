@@ -87,9 +87,9 @@ public:
     Result executeQuery(const QString& query,
                         const Bindings& bindings=Bindings()) const;
 
-    uint mediaItemCount(int typemask=DB::anyMediaType,
+    uint mediaItemCount(DB::MediaType typemask=DB::anyMediaType,
                         QValueList<int>* scope=0) const;
-    QValueList<int> mediaItemIds(int typemask) const;
+    QValueList<int> mediaItemIds(DB::MediaType typemask) const;
     QStringList filenames() const;
 
     int mediaItemId(const QString& filename) const;
@@ -112,8 +112,8 @@ public:
     QValueList<QString[2]>
     QueryHelper::memberGroupConfiguration(const QString& category) const;
 
-    QValueList< QPair<int, QString> > mediaIdTagPairs(const QString& category,
-                                                      int typemask) const;
+    QValueList< QPair<int, QString> >
+    mediaIdTagPairs(const QString& category, DB::MediaType typemask) const;
 
     void getMediaItem(int id, DB::ImageInfo& info) const;
     void insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items);
@@ -147,8 +147,9 @@ public:
     void moveMediaItems(const QStringList& filenames,
                         const QString& destinationFilename, bool after);
 
-    QValueList<int> searchMediaItems(const DB::ImageSearchInfo& search,
-                                     int typemask=DB::anyMediaType) const;
+    QValueList<int>
+    searchMediaItems(const DB::ImageSearchInfo& search,
+                     DB::MediaType typemask=DB::anyMediaType) const;
 
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges) const;
@@ -175,8 +176,9 @@ protected:
     void addBlockItem(const QString& filename);
     int mediaPlaceByFilename(const QString& filename) const;
     void makeMediaPlacesContinuous();
-    QValueList<int> getMatchingFiles(MatcherList matches,
-                                     int typemask=DB::anyMediaType) const;
+    QValueList<int>
+    getMatchingFiles(MatcherList matches,
+                     DB::MediaType typemask=DB::anyMediaType) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
                                      const QValueList<int>* idList) const;

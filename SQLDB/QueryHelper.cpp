@@ -377,7 +377,8 @@ QStringList QueryHelper::folders() const
     return executeQuery("SELECT path FROM dir").asStringList();
 }
 
-uint QueryHelper::mediaItemCount(int typemask, QValueList<int>* scope) const
+uint QueryHelper::mediaItemCount(DB::MediaType typemask,
+                                 QValueList<int>* scope) const
 {
     if (!scope) {
         if (typemask == DB::anyMediaType)
@@ -398,7 +399,7 @@ uint QueryHelper::mediaItemCount(int typemask, QValueList<int>* scope) const
     }
 }
 
-QValueList<int> QueryHelper::mediaItemIds(int typemask) const
+QValueList<int> QueryHelper::mediaItemIds(DB::MediaType typemask) const
 {
     if (typemask == DB::anyMediaType)
         return executeQuery("SELECT id FROM media ORDER BY place"
@@ -899,7 +900,8 @@ QString QueryHelper::filenameForMD5Sum(const QString& md5sum) const
 }
 
 QValueList< QPair<int, QString> >
-QueryHelper::mediaIdTagPairs(const QString& category, int typemask) const
+QueryHelper::mediaIdTagPairs(const QString& category,
+                             DB::MediaType typemask) const
 {
     if (category == "Folder")
         return executeQuery("SELECT media.id, dir.path FROM media, dir "
@@ -1138,7 +1140,8 @@ namespace
 }
 
 QValueList<int>
-QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search, int typemask) const
+QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search,
+                              DB::MediaType typemask) const
 {
     MatcherListList dnf = search.query();
     // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
@@ -1156,7 +1159,8 @@ QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search, int typemask) c
 }
 
 QValueList<int>
-QueryHelper::getMatchingFiles(MatcherList matches, int typemask) const
+QueryHelper::getMatchingFiles(MatcherList matches,
+                              DB::MediaType typemask) const
 {
     MatcherList positiveList;
     MatcherList negativeList;

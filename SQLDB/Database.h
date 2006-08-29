@@ -39,7 +39,7 @@ namespace SQLDB {
 
         virtual bool operator==(const DB::ImageDB& other) const;
         virtual int totalCount() const;
-        int totalCount(int type) const;
+        int totalCount(DB::MediaType typemask) const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 
@@ -47,7 +47,7 @@ namespace SQLDB {
 
         virtual QMap<QString,int> classify(const DB::ImageSearchInfo& info,
                                            const QString& category,
-                                           int typemask);
+                                           DB::MediaType typemask);
         virtual QStringList images();
         virtual void addImages( const DB::ImageInfoList& images );
 

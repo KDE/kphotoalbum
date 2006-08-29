@@ -71,7 +71,7 @@ int SQLDB::Database::totalCount() const
     return _qh->mediaItemCount();
 }
 
-int SQLDB::Database::totalCount(int typemask) const
+int SQLDB::Database::totalCount(DB::MediaType typemask) const
 {
     return _qh->mediaItemCount(typemask);
 }
@@ -111,7 +111,7 @@ void SQLDB::Database::renameCategory( const QString& oldName, const QString newN
 
 QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
                                             const QString& category,
-                                            int typemask)
+                                            DB::MediaType typemask)
 {
     bool allFiles = true;
     QValueList<int> includedFiles;

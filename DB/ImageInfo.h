@@ -47,7 +47,7 @@ namespace DB
 class MemberMap;
 
 enum MediaType { Image = 0x01, Video = 0x02 };
-const int anyMediaType = Image | Video;
+const MediaType anyMediaType = MediaType(Image | Video);
 
 class ImageInfo :public KShared {
 

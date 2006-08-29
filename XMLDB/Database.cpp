@@ -72,7 +72,7 @@ bool XMLDB::Database::operator==(const DB::ImageDB& other) const
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
  */
-QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group, int type )
+QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask )
 {
     QMap<QString, int> map;
     DB::GroupCounter counter( group );
@@ -87,7 +87,7 @@ QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, co
 
     // Iterate through the whole database of images.
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
-        bool match = ( (*it)->mediaType() & type ) && !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+        bool match = ( (*it)->mediaType() & typemask ) && !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
         if ( match ) { // If the given image is currently matched.
 
             // Now iterate through all the categories the current image

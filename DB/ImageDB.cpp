@@ -107,8 +107,8 @@ ImageDB::ImageDB()
 DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 {
     QStringList list = search( searchInfo );
-    int images = 0;
-    int videos = 0;
+    uint images = 0;
+    uint videos = 0;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         ImageInfoPtr inf = info( *it );
         if ( inf->mediaType() == Image )
@@ -151,7 +151,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     newBackend->setMemberMap(memberMap());
 
     // Convert all images to the new back end
-    int count = 0;
+    uint count = 0;
     ImageInfoList list;
     for( QStringList::ConstIterator it = allImages.begin(); it != allImages.end(); ++it ) {
         list.append( info(*it) );
@@ -175,7 +175,7 @@ void ImageDB::slotReread( const QStringList& list, int mode)
     QProgressDialog  dialog( i18n("Loading information from images"),
                              i18n("Cancel"), list.count(), 0, "progress dialog", true );
 
-    int count=0;
+    uint count=0;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
         if ( count % 10 == 0 ) {
             dialog.setProgress( count ); // ensure to call setProgress(0)

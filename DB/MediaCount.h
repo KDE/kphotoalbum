@@ -6,15 +6,17 @@ namespace DB
 class MediaCount
 {
 public:
-    MediaCount() : _images(0), _videos(0) {}
-    MediaCount( int images, int videos ) : _images( images ), _videos( videos ) {}
-    int images() const { return _images; }
-    int videos() const { return _videos; }
-    int total() const { return _images + _videos; }
+    MediaCount() : _null(true), _images(0), _videos(0)  {}
+    MediaCount( uint images, uint videos ) : _null(false), _images( images ), _videos( videos ) {}
+    bool isNull() const { return _null; }
+    uint images() const { return _images; }
+    uint videos() const { return _videos; }
+    uint total() const { return _images + _videos; }
 
 private:
-    int _images;
-    int _videos;
+    bool _null;
+    uint _images;
+    uint _videos;
 };
 
 }

@@ -40,11 +40,11 @@ namespace XMLDB {
 
     public:
         virtual bool operator==(const DB::ImageDB& other) const;
-        virtual int totalCount() const;
+        virtual uint totalCount() const;
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
         virtual void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString,int> classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask );
+        virtual QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask );
         virtual QStringList images();
         virtual void addImages( const DB::ImageInfoList& images );
 

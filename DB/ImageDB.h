@@ -83,12 +83,12 @@ public:
                          const QValueVector<QString>& images) const;
 
 public: // Methods that must be overriden
-    virtual int totalCount() const = 0;
+    virtual uint totalCount() const = 0;
     virtual QStringList search( const ImageSearchInfo&, bool requireOnDisk = false ) const = 0;
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
-    virtual QMap<QString,int> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
+    virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
     virtual QStringList images() = 0; // PENDING(blackie) TO BE REPLACED WITH URL's
     virtual void addImages( const ImageInfoList& images ) = 0;
 
@@ -114,7 +114,7 @@ protected slots:
 
 
 signals:
-    void totalChanged( int );
+    void totalChanged( uint );
     void dirty();
 };
 

@@ -38,16 +38,16 @@ namespace SQLDB {
         ~Database();
 
         virtual bool operator==(const DB::ImageDB& other) const;
-        virtual int totalCount() const;
-        int totalCount(DB::MediaType typemask) const;
+        virtual uint totalCount() const;
+        uint totalCount(DB::MediaType typemask) const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 
         virtual void renameCategory( const QString& oldName, const QString newName );
 
-        virtual QMap<QString,int> classify(const DB::ImageSearchInfo& info,
-                                           const QString& category,
-                                           DB::MediaType typemask);
+        virtual QMap<QString, uint> classify(const DB::ImageSearchInfo& info,
+                                             const QString& category,
+                                             DB::MediaType typemask);
         virtual QStringList images();
         virtual void addImages( const DB::ImageInfoList& images );
 

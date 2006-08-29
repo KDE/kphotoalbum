@@ -26,12 +26,12 @@ MainWindow::ImageCounter::ImageCounter( QWidget* parent, const char* name )
     setMargin( 5 );
 }
 
-void MainWindow::ImageCounter::setMatchCount( int matches )
+void MainWindow::ImageCounter::setMatchCount( uint matches )
 {
     setText( i18n( "Showing 1 image", "Showing %n images", matches ) );
 }
 
-void MainWindow::ImageCounter::setTotal( int c )
+void MainWindow::ImageCounter::setTotal( uint c )
 {
     setText( i18n( "Total: %1" ).arg(c) );
 }

@@ -53,7 +53,7 @@ Browser::BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
 {
     setPixmap( folder->pixmap() );
     DB::MediaCount count = folder->count();
-    if ( count.images() == -1 )
+    if ( count.isNull() )
         setText( folder->text() );
     else
         setText( QString::fromLatin1( "%1 (%2/%3)" ).arg( folder->text() ).arg( count.images() ).arg( count.videos() ));

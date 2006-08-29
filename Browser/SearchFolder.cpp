@@ -28,7 +28,6 @@
 Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )
 {
-    setCount( DB::MediaCount( -1, -1 ) );
 }
 
 QPixmap Browser::SearchFolder::pixmap()

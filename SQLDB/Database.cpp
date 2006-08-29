@@ -66,12 +66,12 @@ bool SQLDB::Database::operator==(const DB::ImageDB& other) const
     return _address == sqlOther->_address;
 }
 
-int SQLDB::Database::totalCount() const
+uint SQLDB::Database::totalCount() const
 {
     return _qh->mediaItemCount();
 }
 
-int SQLDB::Database::totalCount(DB::MediaType typemask) const
+uint SQLDB::Database::totalCount(DB::MediaType typemask) const
 {
     return _qh->mediaItemCount(typemask);
 }
@@ -109,9 +109,9 @@ void SQLDB::Database::renameCategory( const QString& oldName, const QString newN
     // TODO: this
 }
 
-QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
-                                            const QString& category,
-                                            DB::MediaType typemask)
+QMap<QString, uint> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
+                                              const QString& category,
+                                              DB::MediaType typemask)
 {
     bool allFiles = true;
     QValueList<int> includedFiles;
@@ -120,7 +120,7 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         allFiles = false;
     }
 
-    QMap<QString,int> result;
+    QMap<QString, uint> result;
     DB::GroupCounter counter( category );
     QDict<void> alreadyMatched = info.findAlreadyMatched( category );
 
@@ -152,8 +152,8 @@ QMap<QString,int> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
         counter.count( list );
     }
 
-    QMap<QString,int> groups = counter.result();
-    for( QMapIterator<QString,int> it= groups.begin(); it != groups.end(); ++it ) {
+    QMap<QString,uint> groups = counter.result();
+    for( QMapIterator<QString,uint> it= groups.begin(); it != groups.end(); ++it ) {
         result[it.key()] = it.data();
     }
     return result;
@@ -276,7 +276,7 @@ SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
                                       bool includeRanges,
                                       const QValueVector<QString>& images) const
 {
-    if (images.count() == static_cast<uint>(totalCount())) {
+    if (images.count() == totalCount()) {
         return Settings::SettingsData::instance()->imageDirectory() +
             _qh->findFirstFileInTimeRange(range, includeRanges);
     }

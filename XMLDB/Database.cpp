@@ -52,7 +52,7 @@ XMLDB::Database::Database( const QString& configFile ):
              &_members, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
 }
 
-int XMLDB::Database::totalCount() const
+uint XMLDB::Database::totalCount() const
 {
     return _images.count();
 }
@@ -72,9 +72,9 @@ bool XMLDB::Database::operator==(const DB::ImageDB& other) const
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
  */
-QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask )
+QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &group, DB::MediaType typemask )
 {
-    QMap<QString, int> map;
+    QMap<QString, uint> map;
     DB::GroupCounter counter( group );
     QDict<void> alreadyMatched = info.findAlreadyMatched( group );
 
@@ -106,8 +106,8 @@ QMap<QString,int> XMLDB::Database::classify( const DB::ImageSearchInfo& info, co
         }
     }
 
-    QMap<QString,int> groups = counter.result();
-    for( QMapIterator<QString,int> it= groups.begin(); it != groups.end(); ++it ) {
+    QMap<QString,uint> groups = counter.result();
+    for( QMapIterator<QString,uint> it= groups.begin(); it != groups.end(); ++it ) {
         map[it.key()] = it.data();
     }
 

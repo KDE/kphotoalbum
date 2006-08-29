@@ -76,7 +76,7 @@ GroupCounter::GroupCounter( const QString& category )
 
             *item->append( group );
         }
-        int* intPtr = new int;
+        uint* intPtr = new uint;
         *intPtr = 0;
         _groupCount.insert( group, intPtr );
     }
@@ -115,11 +115,11 @@ void GroupCounter::count( const QStringList& categories )
     }
 }
 
-QMap<QString,int> GroupCounter::result()
+QMap<QString,uint> GroupCounter::result()
 {
-    QMap<QString,int> res;
+    QMap<QString,uint> res;
 
-    for( QDictIterator<int> it(_groupCount); *it; ++it ) {
+    for( QDictIterator<uint> it(_groupCount); *it; ++it ) {
         if ( *(*it) != 0 )
             res.insert( it.currentKey(), *(*it) );
     }

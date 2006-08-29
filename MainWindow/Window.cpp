@@ -201,9 +201,9 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     connect( _autoSaveTimer, SIGNAL( timeout() ), this, SLOT( slotAutoSave() ) );
     startAutoSaveTimer();
 
-    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( int ) ), total, SLOT( setTotal( int ) ) );
-    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( int ) ), this, SLOT( updateDateBar() ) );
-    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( int ) ), _browser, SLOT( home() ) );
+    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), total, SLOT( setTotal( uint ) ) );
+    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), this, SLOT( updateDateBar() ) );
+    connect( DB::ImageDB::instance(), SIGNAL( totalChanged( uint ) ), _browser, SLOT( home() ) );
     connect( _browser, SIGNAL( showingOverview() ), _partial, SLOT( showingOverview() ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );

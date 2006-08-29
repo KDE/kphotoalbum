@@ -74,9 +74,9 @@ void TokenEditor::selectNone()
 QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
-    QMap<QString,int> map =
+    QMap<QString,uint> map =
         DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ), DB::anyMediaType );
-    for( QMap<QString,int>::Iterator it = map.begin(); it != map.end(); ++it ) {
+    for( QMap<QString,uint>::Iterator it = map.begin(); it != map.end(); ++it ) {
         if ( it.data() > 0 )
             res.append( it.key() );
     }

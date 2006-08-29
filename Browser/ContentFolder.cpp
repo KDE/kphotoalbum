@@ -91,7 +91,7 @@ void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 {
     DB::MediaCount counts = DB::ImageDB::instance()->count( _info );
-    bool loadImages = (  counts.total() < Settings::SettingsData::instance()->autoShowThumbnailView());
+    bool loadImages = (  counts.total() < static_cast<uint>(Settings::SettingsData::instance()->autoShowThumbnailView()));
     if ( ctrlDown ) loadImages = !loadImages;
 
     if ( loadImages ) {

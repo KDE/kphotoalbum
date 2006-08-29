@@ -29,11 +29,11 @@ class GroupCounter
 public:
     GroupCounter( const QString& category );
     void count(const QStringList& );
-    QMap<QString,int> result();
+    QMap<QString,uint> result();
 
 private:
     QDict<QStringList> _memberToGroup;
-    QDict<int> _groupCount;
+    QDict<uint> _groupCount;
 
 };
 

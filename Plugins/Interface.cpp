@@ -57,9 +57,9 @@ QValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     if ( category.isNull() )
         category = Settings::SettingsData::instance()->albumCategory();
 
-    QMap<QString,int> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
+    QMap<QString,uint> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
 
-    for( QMapIterator<QString,int> it = categories.begin(); it != categories.end(); ++it ) {
+    for( QMapIterator<QString,uint> it = categories.begin(); it != categories.end(); ++it ) {
         CategoryImageCollection* col = new CategoryImageCollection( context, category, it.key() );
         result.append( KIPI::ImageCollection( col ) );
     }

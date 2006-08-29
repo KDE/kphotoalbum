@@ -47,10 +47,10 @@ public:
     virtual QString category() const;
 
 protected:
-    bool populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, int>& images,
-                                      const QMap<QString, int>& videos, BrowserItemFactory* factory, BrowserItem* parentBrowserItem );
-    void populateBrowserWithoutHierachy( const QMap<QString, int>& images,
-                                         const QMap<QString, int>& videos, BrowserItemFactory* factory );
+    bool populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
+                                      const QMap<QString, uint>& videos, BrowserItemFactory* factory, BrowserItem* parentBrowserItem );
+    void populateBrowserWithoutHierachy( const QMap<QString, uint>& images,
+                                         const QMap<QString, uint>& videos, BrowserItemFactory* factory );
 
 private:
     QString _category;

@@ -27,8 +27,8 @@
 Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category ( category )
 {
-    QMap<QString, int> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
-    QMap<QString, int> videos = DB::ImageDB::instance()->classify( _info, _category, DB::Video );
+    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
+    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category, DB::Video );
     DB::MediaCount count( images.count(), videos.count() );
     setCount( count );
     if ( count.total() <= 1 )
@@ -57,13 +57,13 @@ Browser::TypeFolderAction::TypeFolderAction( const QString& category, const DB::
 }
 
 
-bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, int>& images,
-                                                 const QMap<QString, int>& videos, BrowserItemFactory* factory,
+bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
+                                                 const QMap<QString, uint>& videos, BrowserItemFactory* factory,
                                                  BrowserItem* parentBrowserItem )
 {
     QString name = parentCategoryItem->_name;
-    int imageCtn = images.contains(name) ? images[name] : 0;
-    int videoCtn = videos.contains(name) ? videos[name] : 0;
+    uint imageCtn = images.contains(name) ? images[name] : 0;
+    uint videoCtn = videos.contains(name) ? videos[name] : 0;
 
     BrowserItem* item = 0;
     if ( !parentCategoryItem->_isTop )
@@ -84,16 +84,16 @@ bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* p
     return anyItems;
 }
 
-void Browser::TypeFolderAction::populateBrowserWithoutHierachy( const QMap<QString, int>& images,
-                                                                const QMap<QString, int>& videos, BrowserItemFactory* factory )
+void Browser::TypeFolderAction::populateBrowserWithoutHierachy( const QMap<QString, uint>& images,
+                                                                const QMap<QString, uint>& videos, BrowserItemFactory* factory )
 {
     QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclCategories();
     items.sort();
 
     for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         QString name = *itemIt;
-        int imageCtn = images.contains(name) ? images[name] : 0;
-        int videoCtn = videos.contains(name) ? videos[name] : 0;
+        uint imageCtn = images.contains(name) ? images[name] : 0;
+        uint videoCtn = videos.contains(name) ? videos[name] : 0;
         if ( imageCtn + videoCtn > 0 )
             factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
                                                              _info, _browser ), 0 );
@@ -106,15 +106,15 @@ void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
 
-    QMap<QString, int> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
-    QMap<QString, int> videos = DB::ImageDB::instance()->classify( _info, _category, DB::Video );
+    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
+    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category, DB::Video );
 
     DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
     KSharedPtr<DB::CategoryItem> item = category->itemsCategories();
 
     // Add the none option to the end
-    int imageCount = images[DB::ImageDB::NONE()];
-    int videoCount = videos[DB::ImageDB::NONE()];
+    uint imageCount = images[DB::ImageDB::NONE()];
+    uint videoCount = videos[DB::ImageDB::NONE()];
     if ( imageCount + videoCount != 0 )
         factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), DB::MediaCount( imageCount, videoCount ),
                                                 _info, _browser ), 0 );

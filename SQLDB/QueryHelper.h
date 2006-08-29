@@ -110,7 +110,7 @@ public:
 
     QValueList<QString[3]> memberGroupConfiguration() const;
     QValueList<QString[2]>
-    QueryHelper::memberGroupConfiguration(const QString& category) const;
+    memberGroupConfiguration(const QString& category) const;
 
     QValueList< QPair<int, QString> >
     mediaIdTagPairs(const QString& category, DB::MediaType typemask) const;

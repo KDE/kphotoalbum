@@ -234,16 +234,10 @@ bool XMLDB::Database::rangeInclude( DB::ImageInfoPtr info ) const
 }
 
 
-const DB::MemberMap& XMLDB::Database::memberMap()
+DB::MemberMap& XMLDB::Database::memberMap()
 {
     return _members;
 }
-
-void XMLDB::Database::setMemberMap( const DB::MemberMap& members )
-{
-    _members = members;
-}
-
 
 
 void XMLDB::Database::save( const QString& fileName, bool isAutoSave )

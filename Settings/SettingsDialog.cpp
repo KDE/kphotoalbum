@@ -535,7 +535,7 @@ void Settings::SettingsDialog::slotMyOK()
     }
 
     saveOldGroup();
-    DB::ImageDB::instance()->setMemberMap( _memberMap );
+    DB::ImageDB::instance()->memberMap() = _memberMap;
 
     // misc stuff
 #ifdef HASKIPI

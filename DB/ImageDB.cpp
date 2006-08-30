@@ -148,7 +148,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     }
 
     // Convert member map
-    newBackend->setMemberMap(memberMap());
+    newBackend->memberMap() = memberMap();
 
     // Convert all images to the new back end
     uint count = 0;

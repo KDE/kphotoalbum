@@ -334,7 +334,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     menu.insertItem( i18n("Rename..."), 2 );
 
     // -------------------------------------------------- Add/Remove member group
-    DB::MemberMap memberMap = DB::ImageDB::instance()->memberMap();
+    DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
     QMap<int, QString> map;
     QPopupMenu* members = new QPopupMenu( &menu );
     members->setCheckable( true );
@@ -424,7 +424,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
             return;
         memberMap.addGroup( _category->name(), superCategory );
         memberMap.addMemberToGroup( _category->name(), superCategory, item->text(0) );
-        DB::ImageDB::instance()->setMemberMap( memberMap );
+        //DB::ImageDB::instance()->setMemberMap( memberMap );
         rePopulate();
     }
     else if ( which == 8 ) {
@@ -435,7 +435,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
          _category->addItem( subCategory );
          memberMap.addGroup( _category->name(), item->text(0) );
          memberMap.addMemberToGroup( _category->name(), item->text(0), subCategory );
-        DB::ImageDB::instance()->setMemberMap( memberMap );
+         //DB::ImageDB::instance()->setMemberMap( memberMap );
         if ( _mode == INPUT )
             _category->addItem( subCategory );
 
@@ -455,7 +455,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
                 memberMap.addMemberToGroup( _category->name(), checkedItem, item->text(0) );
             else
                 memberMap.removeMemberFromGroup( _category->name(), checkedItem, item->text(0) );
-            DB::ImageDB::instance()->setMemberMap( memberMap );
+            //DB::ImageDB::instance()->setMemberMap( memberMap );
             rePopulate();
         }
     }

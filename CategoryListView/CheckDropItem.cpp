@@ -53,7 +53,7 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
     if ( !verifyDropWasIntended( newParent, items ) )
         return;
 
-    DB::MemberMap memberMap = DB::ImageDB::instance()->memberMap();
+    DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
     memberMap.addGroup( _listView->category()->name(), newParent );
 
     for( DragItemInfoSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
@@ -66,7 +66,7 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
             memberMap.removeMemberFromGroup( _listView->category()->name(), oldParent, child );
     }
 
-    DB::ImageDB::instance()->setMemberMap( memberMap );
+    //DB::ImageDB::instance()->setMemberMap( memberMap );
 
     _listView->emitItemsChanged();
 }

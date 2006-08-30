@@ -22,7 +22,7 @@ Boston, MA 02111-1307, USA.
 #include "DB/ImageDB.h"
 #include "DatabaseAddress.h"
 #include "DatabaseHandler.h"
-#include "DB/MemberMap.h"
+#include "SQLMemberMap.h"
 #include "SQLCategoryCollection.h"
 #include "SQLImageInfoCollection.h"
 #include "SQLMD5Map.h"
@@ -55,8 +55,7 @@ namespace SQLDB {
         virtual bool isBlocking( const QString& fileName );
         virtual void deleteList( const QStringList& list );
         virtual DB::ImageInfoPtr info( const QString& fileName ) const;
-        virtual const DB::MemberMap& memberMap();
-        virtual void setMemberMap( const DB::MemberMap& members );
+        virtual DB::MemberMap& memberMap();
         virtual void save( const QString& fileName, bool isAutoSave );
         virtual DB::MD5Map* md5Map();
         virtual void sortAndMergeBackIn( const QStringList& fileList );
@@ -84,7 +83,7 @@ namespace SQLDB {
         DatabaseAddress _address;
         DatabaseHandler _handler;
         SQLCategoryCollection* _categoryCollection;
-        DB::MemberMap* _members;
+        SQLMemberMap* _members;
         SQLImageInfoCollection* _infoCollection;
         SQLMD5Map* _md5map;
 

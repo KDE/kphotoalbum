@@ -1,5 +1,4 @@
 #include "Database.h"
-#include "DB/MemberMap.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "Utilities/Util.h"
@@ -32,7 +31,7 @@ SQLDB::Database::Database(const DatabaseAddress& address):
     _connection = _handler.connection();
     _qh = new QueryHelper(*_connection);
     _categoryCollection = new SQLCategoryCollection(*_connection);
-    _members = new DB::MemberMap();
+    _members = new SQLMemberMap(_qh);
     _infoCollection = new SQLImageInfoCollection(*_connection);
     _md5map = new SQLMD5Map(*_connection);
 
@@ -188,14 +187,9 @@ DB::ImageInfoPtr SQLDB::Database::info( const QString& fileName ) const
         getImageInfoOf(Utilities::stripImageDirectory(fileName));
 }
 
-const DB::MemberMap& SQLDB::Database::memberMap()
+DB::MemberMap& SQLDB::Database::memberMap()
 {
     return *_members;
-}
-
-void SQLDB::Database::setMemberMap( const DB::MemberMap& map )
-{
-    *_members = map;
 }
 
 void SQLDB::Database::save( const QString& /*fileName*/, bool /*isAutoSave*/ )

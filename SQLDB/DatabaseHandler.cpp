@@ -52,10 +52,19 @@ DatabaseHandler::DatabaseHandler(const KexiDB::ConnectionData& connectionData):
         throw DriverLoadError(_driverManager->errorMsg());
 
     _connection = _driver->createConnection(_connectionData);
-    if (!_connection)
+    if (!_connection) {
+        delete _driver;
         throw ConnectionCreateError(_driver->errorMsg());
+    }
 
-    connect();
+    try {
+        connect();
+    }
+    catch (...) {
+        delete _connection;
+        delete _driver;
+        throw;
+    }
 }
 
 DatabaseHandler::~DatabaseHandler()

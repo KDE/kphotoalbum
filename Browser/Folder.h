@@ -66,7 +66,7 @@ public:
     QString path() const;
     virtual bool allowSort() const;
     virtual QString title() const;
-    virtual QString category() const;
+    virtual DB::Category::ViewType viewType() const;
 
 protected:
     friend class BrowserWidget;

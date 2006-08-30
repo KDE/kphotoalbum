@@ -19,6 +19,7 @@
 #ifndef TYPEFOLDER_H
 #define TYPEFOLDER_H
 #include "Folder.h"
+#include "DB/Category.h"
 
 namespace Browser
 {
@@ -26,35 +27,17 @@ class BrowserItem;
 
 class TypeFolder :public Folder {
 public:
-    TypeFolder( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent );
+    TypeFolder( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
     virtual QString text() const;
     virtual QString imagesLabel() const;
     virtual QString videosLabel() const;
-private:
-    QString _category;
-};
-
-class TypeFolderAction :public FolderAction {
-
-public:
-    TypeFolderAction( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent  );
-    virtual void action( BrowserItemFactory* factory );
-    virtual bool showsImages() const { return false; }
-    virtual bool contentView() const;
-    virtual QString title() const;
-    virtual QString category() const;
-
-protected:
-    bool populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
-                                      const QMap<QString, uint>& videos, BrowserItemFactory* factory, BrowserItem* parentBrowserItem );
-    void populateBrowserWithoutHierachy( const QMap<QString, uint>& images,
-                                         const QMap<QString, uint>& videos, BrowserItemFactory* factory );
 
 private:
-    QString _category;
+    const DB::CategoryPtr _category;
 };
+
 
 }
 

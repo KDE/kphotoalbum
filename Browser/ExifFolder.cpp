@@ -6,6 +6,7 @@
 #include "ContentFolder.h"
 #include "DB/ImageDB.h"
 #include <kmessagebox.h>
+#include "ContentFolderAction.h"
 
 Browser::ExifFolder::ExifFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )
@@ -30,7 +31,7 @@ Browser::FolderAction* Browser::ExifFolder::action( bool /* ctrlDown */ )
         return 0;
     }
 
-    return new ContentFolderAction( QString::null, QString::null, info, _browser );
+    return new ContentFolderAction( info, _browser );
 }
 
 

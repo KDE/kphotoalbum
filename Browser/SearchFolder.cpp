@@ -24,6 +24,7 @@
 #include "DB/ImageDB.h"
 #include <kmessagebox.h>
 #include <kglobal.h>
+#include "ContentFolderAction.h"
 
 Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )
@@ -54,7 +55,7 @@ Browser::FolderAction* Browser::SearchFolder::action( bool )
         return 0;
     }
 
-    return new ContentFolderAction( QString::null, QString::null, info, _browser );
+    return new ContentFolderAction( info, _browser );
 }
 
 QString Browser::SearchFolder::imagesLabel() const

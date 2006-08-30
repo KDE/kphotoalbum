@@ -33,6 +33,8 @@
 #include <qlayout.h>
 #include "DB/CategoryCollection.h"
 #include "AnnotationDialog/ListViewItemHider.h"
+#include "TypeFolderAction.h"
+#include "ContentFolderAction.h"
 
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
 
@@ -81,7 +83,7 @@ Browser::BrowserWidget::~BrowserWidget()
 
 void Browser::BrowserWidget::init()
 {
-    FolderAction* action = new ContentFolderAction( QString::null, QString::null, DB::ImageSearchInfo(), this );
+    FolderAction* action = new ContentFolderAction( DB::ImageSearchInfo(), this );
     _list.append( action );
     forward();
 }
@@ -176,17 +178,13 @@ void Browser::BrowserWidget::emitSignals()
     _listView->setColumnText( 0, a->title() );
     emit showsContentView( a->contentView() );
 
-    if ( a->contentView() && _list.size() > 0 ) {
-        QString grp = a->category();
-        Q_ASSERT( !grp.isNull() );
-        DB::Category::ViewType type = DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->viewType();
-        emit currentViewTypeChanged( type );
-    }
+    if ( a->contentView() && _list.size() > 0 )
+        emit currentViewTypeChanged( a->viewType() );
 }
 
 void Browser::BrowserWidget::home()
 {
-    FolderAction* action = new ContentFolderAction( QString::null, QString::null, DB::ImageSearchInfo(), this );
+    FolderAction* action = new ContentFolderAction( DB::ImageSearchInfo(), this );
     addItem( action );
     go();
 }
@@ -221,7 +219,7 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     if ( loadImages )
         a = new ImageFolderAction( info, this );
     else
-        a = new ContentFolderAction( category, value, info, this );
+        a = new ContentFolderAction( info, this );
 
     addItem( a );
     a->action( _currentFactory );
@@ -263,11 +261,9 @@ void Browser::BrowserWidget::setViewType( DB::Category::ViewType type )
 {
     Q_ASSERT( _list.size() > 0 );
 
-    FolderAction* a = _list[_current-1];
-    QString grp = a->category();
-    Q_ASSERT( !grp.isNull() );
-
-    DB::ImageDB::instance()->categoryCollection()->categoryForName( grp )->setViewType( type );
+    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( currentCategory() );
+    Q_ASSERT( category.data() );
+    category->setViewType( type );
     reload();
 }
 
@@ -279,15 +275,11 @@ void Browser::BrowserWidget::clear()
 
 void Browser::BrowserWidget::setupFactory()
 {
-    DB::Category::ViewType type = DB::Category::ListView;
     if ( _list.size() == 0 )
         return;
 
     FolderAction* a = _list[_current-1];
-    QString category = a->category();
-
-    if ( !category.isNull() )
-        type = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->viewType();
+    DB::Category::ViewType type = a->viewType();
 
     if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
         _currentFactory = _listViewFactory;
@@ -308,7 +300,10 @@ void Browser::BrowserWidget::setFocus()
 QString Browser::BrowserWidget::currentCategory() const
 {
     FolderAction* a = _list[_current-1];
-    return a->category();
+    if ( TypeFolderAction* action = dynamic_cast<TypeFolderAction*>( a ) )
+        return action->category()->name();
+    else
+        return QString::null;
 }
 
 void Browser::BrowserWidget::slotLimitToMatch( const QString& str )

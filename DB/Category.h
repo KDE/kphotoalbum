@@ -57,6 +57,8 @@ signals:
     void itemRemoved( const QString& name );
 };
 
+typedef KSharedPtr<Category> CategoryPtr;
+
 }
 
 #endif /* CATEGORY_H */

@@ -23,12 +23,13 @@
 #include "BrowserItemFactory.h"
 #include "DB/CategoryCollection.h"
 #include <DB/CategoryItem.h>
+#include "TypeFolderAction.h"
 
-Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )
+Browser::TypeFolder::TypeFolder( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category ( category )
 {
-    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
-    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category, DB::Video );
+    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Image );
+    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Video );
     DB::MediaCount count( images.count(), videos.count() );
     setCount( count );
     if ( count.total() <= 1 )
@@ -37,102 +38,17 @@ Browser::TypeFolder::TypeFolder( const QString& category, const DB::ImageSearchI
 
 QPixmap Browser::TypeFolder::pixmap()
 {
-    return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->icon();
+    return _category->icon();
 }
 
 QString Browser::TypeFolder::text() const
 {
-    return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
+    return _category->text();
 }
 
 Browser::FolderAction* Browser::TypeFolder::action( bool /* ctrlDown */ )
 {
     return new TypeFolderAction( _category, _info, _browser );
-}
-
-Browser::TypeFolderAction::TypeFolderAction( const QString& category, const DB::ImageSearchInfo& info,
-                                    BrowserWidget* browser )
-    :FolderAction( info, browser ), _category( category )
-{
-}
-
-
-bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
-                                                 const QMap<QString, uint>& videos, BrowserItemFactory* factory,
-                                                 BrowserItem* parentBrowserItem )
-{
-    QString name = parentCategoryItem->_name;
-    uint imageCtn = images.contains(name) ? images[name] : 0;
-    uint videoCtn = videos.contains(name) ? videos[name] : 0;
-
-    BrowserItem* item = 0;
-    if ( !parentCategoryItem->_isTop )
-        item = factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
-                                                                _info, _browser ), parentBrowserItem );
-
-    bool anyItems = imageCtn != 0 || videoCtn != 0;
-
-    for( QValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
-         subCategoryIt != parentCategoryItem->_subcategories.end(); ++subCategoryIt ) {
-        anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, factory, item ) || anyItems;
-    }
-
-    if ( !anyItems ) {
-        delete item;
-    }
-
-    return anyItems;
-}
-
-void Browser::TypeFolderAction::populateBrowserWithoutHierachy( const QMap<QString, uint>& images,
-                                                                const QMap<QString, uint>& videos, BrowserItemFactory* factory )
-{
-    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclCategories();
-    items.sort();
-
-    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-        QString name = *itemIt;
-        uint imageCtn = images.contains(name) ? images[name] : 0;
-        uint videoCtn = videos.contains(name) ? videos[name] : 0;
-        if ( imageCtn + videoCtn > 0 )
-            factory->createItem( new Browser::ContentFolder( _category, name, DB::MediaCount( imageCtn, videoCtn ),
-                                                             _info, _browser ), 0 );
-    }
-}
-
-
-
-void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
-{
-    _browser->clear();
-
-    QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category, DB::Image );
-    QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category, DB::Video );
-
-    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
-    KSharedPtr<DB::CategoryItem> item = category->itemsCategories();
-
-    // Add the none option to the end
-    uint imageCount = images[DB::ImageDB::NONE()];
-    uint videoCount = videos[DB::ImageDB::NONE()];
-    if ( imageCount + videoCount != 0 )
-        factory->createItem( new ContentFolder( _category, DB::ImageDB::NONE(), DB::MediaCount( imageCount, videoCount ),
-                                                _info, _browser ), 0 );
-
-    if ( factory->supportsHierarchy() )
-        populateBrowserWithHierachy( item, images, videos, factory, 0 );
-    else
-        populateBrowserWithoutHierachy( images, videos, factory );
-}
-
-QString Browser::TypeFolderAction::title() const
-{
-    return DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text();
-}
-
-QString Browser::TypeFolderAction::category() const
-{
-    return _category;
 }
 
 QString Browser::TypeFolder::imagesLabel() const
@@ -143,10 +59,5 @@ QString Browser::TypeFolder::imagesLabel() const
 QString Browser::TypeFolder::videosLabel() const
 {
     return i18n("1 Category", "%n Categories", _count.videos());
-}
-
-bool Browser::TypeFolderAction::contentView() const
-{
-    return true;
 }
 

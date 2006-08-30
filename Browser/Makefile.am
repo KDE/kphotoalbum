@@ -7,7 +7,9 @@ if compile_with_exiv2
 endif
 
 libBrowser_la_SOURCES = BrowserWidget.cpp ContentFolder.cpp Folder.cpp SearchFolder.cpp \
-			BrowserItemFactory.cpp ImageFolder.cpp TypeFolder.cpp $(EXIF_SOURCES)
+			BrowserItemFactory.cpp ImageFolder.cpp TypeFolder.cpp \
+			TypeFolderAction.cpp ContentFolderAction.cpp \
+		        $(EXIF_SOURCES)
 
 
 

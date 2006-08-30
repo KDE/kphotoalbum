@@ -45,16 +45,16 @@
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
 
-AnnotationDialog::ListSelect::ListSelect( const QString& category, QWidget* parent, const char* name )
+AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidget* parent, const char* name )
     : QWidget( parent,  name ), _category( category )
 {
     QVBoxLayout* layout = new QVBoxLayout( this,  6 );
 
-    _label = new QLabel( DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->text(), this );
+    _label = new QLabel( _category->text(), this );
     _label->setAlignment( AlignCenter );
     layout->addWidget( _label );
 
-    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(category).latin1() );
+    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(_category->name()).latin1() );
     _label->setBuddy( _lineEdit );
     layout->addWidget( _lineEdit );
 
@@ -154,7 +154,7 @@ void AnnotationDialog::ListSelect::slotReturn()
         if ( txt.isEmpty() )
             return;
 
-        DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( txt);
+        _category->addItem( txt);
 
         QStringList sel = selection();
         sel.append( txt );
@@ -167,7 +167,7 @@ void AnnotationDialog::ListSelect::slotReturn()
 
 QString AnnotationDialog::ListSelect::category() const
 {
-    return _category;
+    return _category->name();
 }
 
 void AnnotationDialog::ListSelect::setSelection( const QStringList& list )
@@ -340,14 +340,14 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     members->setCheckable( true );
     menu.insertItem( i18n( "Super Categories" ), members, 5 );
     if ( item ) {
-        QStringList grps = memberMap.groups( _category );
+        QStringList grps = memberMap.groups( _category->name() );
 
         int index = 10;
 
         for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
             members->insertItem( *it, ++index );
             map.insert( index, *it );
-            members->setItemChecked( index, (bool) memberMap.members( _category, *it, true ).contains( item->text(0) ) );
+            members->setItemChecked( index, (bool) memberMap.members( _category->name(), *it, true ).contains( item->text(0) ) );
         }
 
         if ( !grps.isEmpty() )
@@ -381,7 +381,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
                                                .arg(item->text(0)),
                                                i18n("Really Delete %1?").arg(item->text(0)), KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
-            DB::ImageDB::instance()->categoryCollection()->categoryForName(category())->removeItem( item->text(0) );
+            _category->removeItem( item->text(0) );
             delete item;
         }
     }
@@ -398,7 +398,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
                                                i18n("Really Rename %1?").arg(item->text(0)) );
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text(0);
-                DB::ImageDB::instance()->categoryCollection()->categoryForName( category() )->renameItem( oldStr, newStr );
+                _category->renameItem( oldStr, newStr );
                 bool sel = static_cast<QCheckListItem*>(item)->isOn();
                 delete item;
                 CheckDropItem* newItem = new CheckDropItem( _listView, newStr, QString::null );
@@ -422,8 +422,8 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         QString superCategory = KInputDialog::getText( i18n("New Super Category"), i18n("New Super Category Name:") );
         if ( superCategory.isNull() )
             return;
-        memberMap.addGroup( _category, superCategory );
-        memberMap.addMemberToGroup( _category, superCategory, item->text(0) );
+        memberMap.addGroup( _category->name(), superCategory );
+        memberMap.addMemberToGroup( _category->name(), superCategory, item->text(0) );
         DB::ImageDB::instance()->setMemberMap( memberMap );
         rePopulate();
     }
@@ -432,12 +432,12 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         if ( subCategory.isNull() )
             return;
 
-        DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( subCategory );
-        memberMap.addGroup( _category, item->text(0) );
-        memberMap.addMemberToGroup( _category, item->text(0), subCategory );
+         _category->addItem( subCategory );
+         memberMap.addGroup( _category->name(), item->text(0) );
+         memberMap.addMemberToGroup( _category->name(), item->text(0), subCategory );
         DB::ImageDB::instance()->setMemberMap( memberMap );
         if ( _mode == INPUT )
-            DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->addItem( subCategory );
+            _category->addItem( subCategory );
 
         rePopulate();
         if ( _mode == INPUT ) {
@@ -452,9 +452,9 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         if ( map.contains( which ) ) {
             QString checkedItem = map[which];
             if ( !members->isItemChecked( which ) ) // chosing the item doesn't check it, so this is the value before.
-                memberMap.addMemberToGroup( _category, checkedItem, item->text(0) );
+                memberMap.addMemberToGroup( _category->name(), checkedItem, item->text(0) );
             else
-                memberMap.removeMemberFromGroup( _category, checkedItem, item->text(0) );
+                memberMap.removeMemberFromGroup( _category->name(), checkedItem, item->text(0) );
             DB::ImageDB::instance()->setMemberMap( memberMap );
             rePopulate();
         }
@@ -481,8 +481,7 @@ void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, QListVie
 
 void AnnotationDialog::ListSelect::populate()
 {
-    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
-    _label->setText( category->text() );
+    _label->setText( _category->text() );
     _listView->clear();
 
     if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )
@@ -535,8 +534,7 @@ void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 
 void AnnotationDialog::ListSelect::populateAlphabetically()
 {
-    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
-    KSharedPtr<DB::CategoryItem> item = category->itemsCategories();
+    KSharedPtr<DB::CategoryItem> item = _category->itemsCategories();
 
     insertItems( item, 0 );
     _listView->setSorting( 0 );
@@ -544,7 +542,7 @@ void AnnotationDialog::ListSelect::populateAlphabetically()
 
 void AnnotationDialog::ListSelect::populateMRU()
 {
-    QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->itemsInclCategories();
+    QStringList items = _category->itemsInclCategories();
 
     int index = 100000; // This counter will be converted to a string, and compared, and we don't want "1111" to be less than "2"
     for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {

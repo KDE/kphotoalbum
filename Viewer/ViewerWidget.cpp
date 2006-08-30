@@ -907,7 +907,6 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 
 void Viewer::ViewerWidget::videoStopped()
 {
-    qDebug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Video Stopped: %d", _isRunningSlideShow );
     if ( _isRunningSlideShow )
         slotSlideShowNext();
 }

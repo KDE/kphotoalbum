@@ -22,6 +22,8 @@
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
 #include <qtoolbutton.h>
+#include "DB/Category.h"
+
 class QListViewItem;
 class QLabel;
 class QCheckBox;
@@ -38,7 +40,7 @@ class ListSelect :public QWidget {
     Q_OBJECT
 
 public:
-    ListSelect( const QString& category, QWidget* parent,  const char* name = 0 );
+    ListSelect( const DB::CategoryPtr& category, QWidget* parent,  const char* name = 0 );
     QString category() const;
     QString text() const;
     void setText( const QString& );
@@ -82,7 +84,7 @@ protected:
 private:
 
     QLabel* _label;
-    QString _category;
+    DB::CategoryPtr _category;
     CompletableLineEdit* _lineEdit;
     CategoryListView::DragableListView* _listView;
     QCheckBox* _checkBox;

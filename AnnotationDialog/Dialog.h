@@ -25,6 +25,7 @@
 #include <qdialog.h>
 #include <ktimewidget.h>
 #include "DB/ImageInfoList.h"
+#include "DB/Category.h"
 
 class QSplitter;
 class QPushButton;
@@ -92,7 +93,7 @@ protected:
     void showTornOfWindows();
     void hideTornOfWindows();
     virtual bool eventFilter( QObject*, QEvent* );
-    KDockWidget* createListSel( const QString& category );
+    KDockWidget* createListSel( const DB::CategoryPtr& category );
     bool hasChanges();
     void showHelpDialog( SetupType );
     virtual void resizeEvent( QResizeEvent* );

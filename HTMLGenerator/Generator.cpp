@@ -125,7 +125,6 @@ void HTMLGenerator::Generator::generate()
     KIO::CopyJob* job = KIO::move( KURL(_tempDir), KURL(outputDir) );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
 
-    qDebug("ENTE LOOP 2");
     qApp->eventLoop()->enterLoop();
     return;
 }

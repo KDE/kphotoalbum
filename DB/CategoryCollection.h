@@ -16,7 +16,6 @@ namespace DB
    This class is the collection of categories. It is the basic anchor point to categories.
 */
 
-typedef KSharedPtr<Category> CategoryPtr;
 class CategoryCollection :public QObject
 {
     Q_OBJECT

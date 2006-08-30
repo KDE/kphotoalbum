@@ -19,13 +19,14 @@
 #ifndef CONTENTFOLDER_H
 #define CONTENTFOLDER_H
 #include "Folder.h"
+#include "DB/Category.h"
 
 namespace Browser
 {
 
 class ContentFolder :public Folder {
 public:
-    ContentFolder( const QString& category, const QString& value, DB::MediaCount count,
+    ContentFolder( const DB::CategoryPtr& category, const QString& value, DB::MediaCount count,
                    const DB::ImageSearchInfo& info, BrowserWidget* parent );
     virtual FolderAction* action( bool ctrlDown = false );
     virtual QPixmap pixmap();
@@ -35,25 +36,10 @@ public:
     virtual QString videosLabel() const;
 
 private:
-    QString _category;
+    DB::CategoryPtr _category;
     QString _value;
 };
 
-class ContentFolderAction :public FolderAction {
-
-public:
-    ContentFolderAction( const QString& category, const QString& value,
-                         const DB::ImageSearchInfo& info, BrowserWidget* parent );
-    virtual void action( BrowserItemFactory* factory );
-    virtual bool showsImages() const { return false; }
-    virtual bool contentView() const { return false; }
-    virtual bool allowSort() const;
-    virtual QString title() const;
-
-private:
-    QString _category;
-    QString _value;
-};
 
 }
 

@@ -179,10 +179,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     KDockWidget* last = descriptionDock;
     KDockWidget::DockPosition pos = KDockWidget::DockBottom;
 
-    QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( *it );
-        KDockWidget* dockWidget = createListSel( *it );
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+        KDockWidget* dockWidget = createListSel( *categoryIt );
         dockWidget->manualDock( last, pos );
         last = dockWidget;
         pos = KDockWidget::DockRight;
@@ -632,12 +631,9 @@ bool AnnotationDialog::Dialog::eventFilter( QObject* watched, QEvent* event )
 }
 
 
-KDockWidget* AnnotationDialog::Dialog::createListSel( const QString& category )
+KDockWidget* AnnotationDialog::Dialog::createListSel( const DB::CategoryPtr& category )
 {
-    KDockWidget* dockWidget = _dockWindow->createDockWidget( category,
-                                                             DB::ImageDB::instance()->categoryCollection()->categoryForName( category)->icon(),
-                                                             _dockWindow,
-                                                             DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->text() );
+    KDockWidget* dockWidget = _dockWindow->createDockWidget( category->text(), category->icon(), _dockWindow, category->text() );
     _dockWidgets.append( dockWidget );
     ListSelect* sel = new ListSelect( category, dockWidget );
     _optionList.append( sel );

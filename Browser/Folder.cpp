@@ -79,12 +79,12 @@ QString Browser::FolderAction::title() const
     return QString::fromLatin1( "" );
 }
 
-QString Browser::FolderAction::category() const
-{
-    return QString::null;
-}
-
 void Browser::Folder::setEnabled( bool b )
 {
     _enabled = b;
+}
+
+DB::Category::ViewType Browser::FolderAction::viewType() const
+{
+    return DB::Category::ListView;
 }

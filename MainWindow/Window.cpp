@@ -712,7 +712,6 @@ void MainWindow::Window::showBrowser()
 
 void MainWindow::Window::slotOptionGroupChanged()
 {
-    Q_ASSERT( !_annotationDialog || !_annotationDialog->isShown() );
     delete _annotationDialog;
     _annotationDialog = 0;
     setDirty( true );

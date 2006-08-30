@@ -31,38 +31,38 @@
 #include "ExifFolder.h"
 #include "Exif/Database.h"
 #include <config.h>
+#include "ContentFolderAction.h"
 
-Browser::ContentFolder::ContentFolder( const QString& category, const QString& value, DB::MediaCount count,
+Browser::ContentFolder::ContentFolder( const DB::CategoryPtr& category, const QString& value, DB::MediaCount count,
                                        const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category( category ), _value( value )
 {
-    _info.addAnd( _category, _value );
+    _info.addAnd( _category->name(), _value );
     setCount( count );
 }
 
 QPixmap Browser::ContentFolder::pixmap()
 {
-    DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _category );
-    int size = category->thumbnailSize();
+    int size = _category->thumbnailSize();
 
-    if ( category->viewType() == DB::Category::ListView || category->viewType() == DB::Category::IconView ) {
-        if ( DB::ImageDB::instance()->memberMap().isGroup( _category, _value ) )
+    if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
+        if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), _value ) )
             return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
         else {
-            return category->icon();
+            return _category->icon();
         }
     }
     else
-        return Settings::SettingsData::instance()->categoryImage( _category, _value, size );
+        return Settings::SettingsData::instance()->categoryImage( _category->name(), _value, size );
 }
 
 QString Browser::ContentFolder::text() const
 {
     if ( _value == DB::ImageDB::NONE() ) {
-        if ( _info.option(_category) == DB::ImageDB::NONE() )
-            return i18n( "No %1" ).arg( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
+        if ( _info.option(_category->name()) == DB::ImageDB::NONE() )
+            return i18n( "No %1" ).arg( _category->text() );
         else
-            return i18n( "No other %1" ).arg( DB::ImageDB::instance()->categoryCollection()->categoryForName( _category )->text() );
+            return i18n( "No other %1" ).arg( _category->text() );
     }
     else {
         return _value;
@@ -70,23 +70,6 @@ QString Browser::ContentFolder::text() const
 }
 
 
-void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
-{
-    _browser->clear();
-    QStringList grps = DB::ImageDB::instance()->categoryCollection()->categoryNames();
-
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
-        factory->createItem( new TypeFolder( *it, _info, _browser ), 0 );
-    }
-
-    //-------------------------------------------------- Search,Exif, and Image Folder
-    factory->createItem( new SearchFolder( _info, _browser), 0 );
-#ifdef HASEXIV2
-    if ( Exif::Database::isAvailable() )
-        factory->createItem( new ExifFolder( _info, _browser ), 0 );
-#endif
-    factory->createItem( new ImageFolder( _info, _browser), 0 );
-}
 
 Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
 {
@@ -99,14 +82,9 @@ Browser::FolderAction* Browser::ContentFolder::action( bool ctrlDown )
         return new ImageFolderAction( info, _browser );
     }
 
-    return new ContentFolderAction( _category, _value, _info, _browser );
+    return new ContentFolderAction( _info, _browser );
 }
 
-Browser::ContentFolderAction::ContentFolderAction( const QString& category, const QString& value,
-                                          const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    :FolderAction( info, browser ), _category( category ), _value( value )
-{
-}
 
 int Browser::ContentFolder::compare( Folder* other, int col, bool asc ) const
 {
@@ -119,17 +97,6 @@ int Browser::ContentFolder::compare( Folder* other, int col, bool asc ) const
     }
 
     return Folder::compare( other, col, asc );
-}
-
-bool Browser::ContentFolderAction::allowSort() const
-{
-    return false;
-}
-
-
-QString Browser::ContentFolderAction::title() const
-{
-    return i18n("Category");
 }
 
 QString Browser::ContentFolder::imagesLabel() const

@@ -42,7 +42,7 @@ QStringList SQLMemberMap::groups(const QString& category) const
     return
         _qh->executeQuery("SELECT tag.name FROM tag, category "
                           "WHERE tag.categoryId=category.id AND "
-                          "tag.isGroup!=0 AND category.name=%s",
+                          "tag.isGroup AND category.name=%s",
                           QueryHelper::Bindings() << category).asStringList();
 }
 
@@ -53,7 +53,7 @@ void SQLMemberMap::deleteGroup(const QString& category, const QString& name)
                           "WHERE tag.categoryId=category.id AND "
                           "category.name=%s AND tag.name=%s)",
                           QueryHelper::Bindings() << category << name);
-    _qh->executeStatement("UPDATE tag, category SET tag.isGroup=0 "
+    _qh->executeStatement("UPDATE tag, category SET tag.isGroup='0' "
                           "WHERE tag.categoryId=category.id AND "
                           "category.name=%s AND tag.name=%s",
                           QueryHelper::Bindings() << category << name);
@@ -90,7 +90,7 @@ void SQLMemberMap::setMembers(const QString& category,
         return;
 
     int groupId = _qh->tagId(category, memberGroup);
-    _qh->executeStatement("UPDATE tag SET isGroup=1 WHERE id=%s",
+    _qh->executeStatement("UPDATE tag SET isGroup='1' WHERE id=%s",
                           QueryHelper::Bindings() << groupId);
     _qh->executeStatement("DELETE FROM tag_relation WHERE toTagId=%s",
                           QueryHelper::Bindings() << groupId);
@@ -105,7 +105,7 @@ void SQLMemberMap::setMembers(const QString& category,
 
 bool SQLMemberMap::isEmpty() const
 {
-    return _qh->executeQuery("SELECT COUNT(*) FROM tag WHERE isGroup!=0"
+    return _qh->executeQuery("SELECT COUNT(*) FROM tag WHERE isGroup"
                              ).firstItem().toUInt() == 0;
 }
 
@@ -115,7 +115,7 @@ bool SQLMemberMap::isGroup(const QString& category,
     return
         _qh->executeQuery("SELECT COUNT(*) FROM tag, category "
                           "WHERE tag.categoryId=category.id AND "
-                          "tag.isGroup!=0 AND "
+                          "tag.isGroup AND "
                           "tag.name=%s AND category.name=%s",
                           QueryHelper::Bindings() << memberGroup << category
                           ).firstItem().toUInt() > 0;
@@ -169,12 +169,12 @@ void SQLMemberMap::addGroup(const QString& category, const QString& group)
 
     if (_qh->executeQuery("SELECT COUNT(*) FROM tag, category "
                           "WHERE tag.categoryId=category.id AND "
-                          "category.name=%s AND tag.name=%sid=%s",
+                          "category.name=%s AND tag.name=%s",
                           QueryHelper::Bindings() << category << group
                           ).firstItem().toUInt() == 0)
         _qh->insertTagFirst(_qh->categoryId(category), group);
 
-    _qh->executeStatement("UPDATE tag, category SET tag.isGroup=1 "
+    _qh->executeStatement("UPDATE tag, category SET tag.isGroup='1' "
                           "WHERE tag.categoryId=category.id AND "
                           "category.name=%s AND tag.name=%s",
                           QueryHelper::Bindings() << category << group);
@@ -278,7 +278,7 @@ void SQLMemberMap::overwriteWithMemberMap(const MemberMapping& map)
                 qDebug("NYI: blaa blaa blaa");
                 continue;
             }
-            _qh->executeStatement("UPDATE tag SET isGroup=1 WHERE id=%s",
+            _qh->executeStatement("UPDATE tag SET isGroup='1' WHERE id=%s",
                                   QueryHelper::Bindings() << groupId);
             for (StringSet::const_iterator k = members.begin();
                  k != members.end(); ++k) {

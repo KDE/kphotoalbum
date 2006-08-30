@@ -20,30 +20,32 @@
 #ifndef DATABASEHANDLER_H
 #define DATABASEHANDLER_H
 
+#include "DatabaseAddress.h"
+#include "Connection.h"
 #include <kexidb/driver.h>
 #include <kexidb/connectiondata.h>
-#include <kexidb/connection.h>
 
 namespace SQLDB
 {
     class DatabaseHandler
     {
     public:
-        DatabaseHandler(const KexiDB::ConnectionData& connectionData);
+        DatabaseHandler(const DatabaseAddress& address);
         ~DatabaseHandler();
 
-        KexiDB::Connection* connection();
-        void openDatabase(const QString& name);
+        Connection* connection();
         void reconnect();
 
     protected:
         void connect();
+        void openDatabase(const QString& name);
         void createAndOpenDatabase(const QString& name);
         void insertInitialData();
 
     private:
         static KexiDB::DriverManager* _driverManager;
 
+        QString _databaseName;
         KexiDB::ConnectionData _connectionData;
         KexiDB::Driver* _driver;
         KexiDB::Connection* _connection;

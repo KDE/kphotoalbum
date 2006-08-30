@@ -44,9 +44,10 @@ using KexiDB::Field;
 KexiDB::DriverManager* DatabaseHandler::_driverManager =
     new KexiDB::DriverManager();
 
-DatabaseHandler::DatabaseHandler(const KexiDB::ConnectionData& connectionData):
-    _connectionData(connectionData),
-    _driver(_driverManager->driver(connectionData.driverName))
+DatabaseHandler::DatabaseHandler(const DatabaseAddress& address):
+    _databaseName(address.databaseName()),
+    _connectionData(address.connectionData()),
+    _driver(_driverManager->driver(_connectionData.driverName))
 {
     if (!_driver)
         throw DriverLoadError(_driverManager->errorMsg());
@@ -59,6 +60,7 @@ DatabaseHandler::DatabaseHandler(const KexiDB::ConnectionData& connectionData):
 
     try {
         connect();
+        openDatabase(_databaseName);
     }
     catch (...) {
         delete _connection;
@@ -82,19 +84,16 @@ void DatabaseHandler::connect()
 
 void DatabaseHandler::reconnect()
 {
-    QString usedDatabase;
     if (_connection->isConnected()) {
-        usedDatabase = _connection->currentDatabase();
         bool success = _connection->disconnect();
         if (!success)
             throw ConnectionCloseError(_connection->errorMsg());
     }
     connect();
-    if (!usedDatabase.isEmpty())
-        openDatabase(usedDatabase);
+    openDatabase(_databaseName);
 }
 
-KexiDB::Connection* DatabaseHandler::connection()
+Connection* DatabaseHandler::connection()
 {
     return _connection;
 }

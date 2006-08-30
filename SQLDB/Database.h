@@ -76,16 +76,16 @@ namespace SQLDB {
     protected:
         QStringList imageList( bool withRelativePath );
 
-        Connection* _connection;
-        QueryHelper* _qh;
 
     private:
         DatabaseAddress _address;
         DatabaseHandler _handler;
-        SQLCategoryCollection* _categoryCollection;
-        SQLMemberMap* _members;
-        SQLImageInfoCollection* _infoCollection;
-        SQLMD5Map* _md5map;
+        Connection* _connection;
+        QueryHelper _qh;
+        SQLCategoryCollection _categoryCollection;
+        SQLMemberMap _members;
+        SQLImageInfoCollection _infoCollection;
+        SQLMD5Map _md5map;
 
         // No copying or assignment
         Database(const Database&);

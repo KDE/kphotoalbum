@@ -31,7 +31,7 @@ namespace SQLDB
     QValueList<QString[2]> readString2sFromCursor(Cursor& cursor);
     QValueList<QString[3]> readString3sFromCursor(Cursor& cursor);
     QValueList<int> readIntsFromCursor(Cursor& cursor, int col=0);
-    KexiDB::Field::Type fieldTypeFor(const QVariant& qv);
+    KexiDB::Field::Type fieldTypeFor(QVariant::Type type);
 }
 
 #endif /* KEXIHELPERS_H */

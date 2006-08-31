@@ -139,7 +139,7 @@ QString QueryHelper::sqlRepresentation(const QVariant& x) const
     }
     else
         // Escape and convert x to string
-        return _driver->valueToSQL(fieldTypeFor(x), x);
+        return _driver->valueToSQL(fieldTypeFor(x.type()), x);
 }
 
 void QueryHelper::bindValues(QString &s, const Bindings& b) const

@@ -35,8 +35,10 @@ namespace SQLDB
             _cursor(other._cursor),
             _copies(other._copies)
         {
-            if (!_copies)
-                _copies = other._copies = new uint(1);
+            if (!_copies) {
+                _copies = new uint(1);
+                other._copies = _copies;
+            }
             ++*_copies;
         }
 

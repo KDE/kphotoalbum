@@ -34,87 +34,6 @@ using namespace SQLDB;
 using Utilities::mergeListsUniqly;
 using Utilities::listSubtract;
 
-QueryHelper::Result::Result(KexiDB::Cursor* cursor):
-    _cursor(cursor)
-{
-}
-
-QStringList QueryHelper::Result::asStringList() const
-{
-    QStringList r;
-    if (_cursor) {
-        r = readStringsFromCursor(_cursor);
-    }
-    return r;
-}
-
-QValueList<QString[2]> QueryHelper::Result::asString2List() const
-{
-    QValueList<QString[2]> r;
-    if (_cursor) {
-        r = readString2sFromCursor(_cursor);
-    }
-    return r;
-}
-
-QValueList<QString[3]> QueryHelper::Result::asString3List() const
-{
-    QValueList<QString[3]> r;
-    if (_cursor) {
-        r = readString3sFromCursor(_cursor);
-    }
-    return r;
-}
-
-QValueList<int> QueryHelper::Result::asIntegerList() const
-{
-    QValueList<int> r;
-    if (_cursor) {
-        r = readIntsFromCursor(_cursor);
-    }
-    return r;
-}
-
-QValueList< QPair<int, QString> >
-QueryHelper::Result::asIntegerStringPairs() const
-{
-    QValueList< QPair<int, QString> > r;
-    if (_cursor) {
-        for (_cursor.selectFirstRow(); _cursor.rowExists();
-             _cursor.selectNextRow())
-            r << QPair<int, QString>(_cursor.value(0).toInt(),
-                                     _cursor.value(1).toString());
-    }
-    return r;
-}
-
-QVariant QueryHelper::Result::firstItem() const
-{
-    QVariant r;
-    if (_cursor) {
-        _cursor.selectFirstRow();
-        if (_cursor.rowExists())
-             r = _cursor.value(0);
-    }
-    return r;
-}
-
-RowData QueryHelper::Result::getRow(uint n) const
-{
-    if (_cursor) {
-        _cursor.selectFirstRow();
-        for (uint i = 0; i < n; ++i) {
-            if (!_cursor.selectNextRow())
-                break;
-        }
-        if (_cursor.rowExists()) {
-            return _cursor.getCurrentRow();
-        }
-    }
-    throw RowNotFoundError();
-}
-
-
 QueryHelper::QueryHelper(Connection& connection):
     _connection(&connection),
     _driver(connection.driver())
@@ -169,8 +88,8 @@ void QueryHelper::executeStatement(const QString& statement,
                              _connection->errorMsg());
 }
 
-QueryHelper::Result QueryHelper::executeQuery(const QString& query,
-                                              const Bindings& bindings) const
+QueryResult QueryHelper::executeQuery(const QString& query,
+                                      const Bindings& bindings) const
 {
     QString q = query;
     bindValues(q, bindings);
@@ -183,7 +102,7 @@ QueryHelper::Result QueryHelper::executeQuery(const QString& query,
         throw QueryError(_connection->recentSQLString(),
                          _connection->errorMsg());
     }
-    return Result(c);
+    return QueryResult(c);
 }
 
 Q_ULLONG QueryHelper::insert(const QString& tableName,

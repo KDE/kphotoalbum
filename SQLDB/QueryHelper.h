@@ -28,6 +28,7 @@
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
+#include "QueryResult.h"
 #include "Cursor.h"
 namespace DB {
     class ImageDate;
@@ -63,29 +64,13 @@ class QueryHelper
 {
 public:
     typedef QValueList<QVariant> Bindings;
-    class Result
-    {
-    public:
-        Result(KexiDB::Cursor* cursor);
-        QStringList asStringList() const;
-        QValueList<QString[2]> asString2List() const;
-        QValueList<QString[3]> asString3List() const;
-        QValueList<int> asIntegerList() const;
-        QValueList< QPair<int, QString> > asIntegerStringPairs() const;
-        QVariant firstItem() const;
-        RowData getRow(uint n=0) const;
-        Cursor cursor() const { return _cursor; }
-
-    private:
-        mutable Cursor _cursor;
-    };
 
     explicit QueryHelper(Connection& connection);
 
     void executeStatement(const QString& statement,
                           const Bindings& bindings=Bindings());
-    Result executeQuery(const QString& query,
-                        const Bindings& bindings=Bindings()) const;
+    QueryResult executeQuery(const QString& query,
+                             const Bindings& bindings=Bindings()) const;
 
     uint mediaItemCount(DB::MediaType typemask=DB::anyMediaType,
                         QValueList<int>* scope=0) const;

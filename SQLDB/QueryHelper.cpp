@@ -18,7 +18,6 @@
 */
 
 #include "QueryHelper.h"
-#include "KexiHelpers.h"
 #include "QueryErrors.h"
 #include "Viewer/CircleDraw.h"
 #include "Viewer/LineDraw.h"
@@ -40,6 +39,44 @@ QueryHelper::QueryHelper(Connection& connection):
 {
     if (!_driver)
         throw InitializationError();
+}
+
+namespace
+{
+    KexiDB::Field::Type fieldTypeFor(QVariant::Type type)
+    {
+        switch (type) {
+        case QVariant::Bool:
+            return KexiDB::Field::Boolean;
+
+        case QVariant::Int:
+        case QVariant::UInt:
+            return KexiDB::Field::Integer;
+
+        case QVariant::LongLong:
+        case QVariant::ULongLong:
+            return KexiDB::Field::BigInteger;
+
+        case QVariant::Double:
+            return KexiDB::Field::Double;
+
+        case QVariant::Date:
+            return KexiDB::Field::Date;
+
+        case QVariant::Time:
+            return KexiDB::Field::Time;
+
+        case QVariant::DateTime:
+            return KexiDB::Field::DateTime;
+
+        case QVariant::String:
+        case QVariant::CString:
+            return KexiDB::Field::Text;
+
+        default:
+            return KexiDB::Field::InvalidType;
+        }
+    }
 }
 
 QString QueryHelper::sqlRepresentation(const QVariant& x) const

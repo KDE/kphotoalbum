@@ -18,7 +18,6 @@
 */
 
 #include "QueryResult.h"
-#include "KexiHelpers.h"
 #include "QueryErrors.h"
 
 using namespace SQLDB;
@@ -27,16 +26,35 @@ QStringList QueryResult::asStringList() const
 {
     QStringList r;
     if (_cursor) {
-        r = readStringsFromCursor(_cursor);
+        for (_cursor.selectFirstRow();
+             _cursor.rowExists(); _cursor.selectNextRow())
+            r.append(_cursor.value(0).toString());
     }
     return r;
+}
+
+namespace
+{
+    template <size_t N>
+    inline QValueList<QString[N]> readStringNsFromCursor(SQLDB::Cursor& cursor)
+    {
+        QValueList<QString[N]> l;
+        for (cursor.selectFirstRow();
+             cursor.rowExists(); cursor.selectNextRow()) {
+            QString v[N];
+            for (size_t i = 0; i < N; ++i)
+                v[i] = cursor.value(i).toString();
+            l.append(v);
+        }
+        return l;
+    }
 }
 
 QValueList<QString[2]> QueryResult::asString2List() const
 {
     QValueList<QString[2]> r;
     if (_cursor) {
-        r = readString2sFromCursor(_cursor);
+        r = readStringNsFromCursor<2>(_cursor);
     }
     return r;
 }
@@ -45,7 +63,7 @@ QValueList<QString[3]> QueryResult::asString3List() const
 {
     QValueList<QString[3]> r;
     if (_cursor) {
-        r = readString3sFromCursor(_cursor);
+        r = readStringNsFromCursor<3>(_cursor);
     }
     return r;
 }
@@ -54,7 +72,9 @@ QValueList<int> QueryResult::asIntegerList() const
 {
     QValueList<int> r;
     if (_cursor) {
-        r = readIntsFromCursor(_cursor);
+        for (_cursor.selectFirstRow();
+             _cursor.rowExists(); _cursor.selectNextRow())
+            r.append(_cursor.value(0).toInt());
     }
     return r;
 }

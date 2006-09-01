@@ -4,6 +4,7 @@ Name=ODBC
 Comment=Kexi Open Database Connectivity Driver
 Comment[de]="Open Database Connectivity"-Treiber von Kexi
 Comment[el]=Οδηγός σύνδεσης ανοιχτής βάσης δεδομένων Kexi
+Comment[et]=Kexi ODBC draiver
 Comment[gl]=Controlador ODBC de Kexi
 Comment[hr]=Kexi upravljački program za otvoreno povezivanje baza podataka
 Comment[it]=Driver per la connettività alle banche dati aperte di Kexi

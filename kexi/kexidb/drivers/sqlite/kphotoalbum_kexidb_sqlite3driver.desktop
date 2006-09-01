@@ -4,6 +4,7 @@ Name=SQLite3
 Comment=SQLite is default Kexi embedded SQL engine
 Comment[de]=SQLite ist das in Kexi integrierte und voreingestellte Datenbanksystem
 Comment[el]=Η SQLite είναι η προκαθορισμένη μηχανή SQL του Kexi
+Comment[et]=SQLite on Kexi vaikimisi põimitud SQL-mootor
 Comment[gl]=SQLite é o motor SQL incorporado por omisión en Kexi
 Comment[hr]=SQLite je zadani Kexi ugrađeni pogon za SQL
 Comment[it]=SQLite è il motore SQL predefinito incorporato in Kexi

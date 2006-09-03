@@ -95,7 +95,7 @@ QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requi
     return result;
 }
 
-void SQLDB::Database::renameCategory( const QString& oldName, const QString newName )
+void SQLDB::Database::renameCategory(const QString& /*oldName*/, const QString /*newName*/)
 {
     // TODO: this
 }

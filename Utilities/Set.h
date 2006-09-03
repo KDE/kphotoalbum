@@ -73,7 +73,7 @@ public:
     const Set<TYPE> operator-=( const Set<TYPE>& other )
     {
         for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
-            remove( *it );
+            this->remove( *it );
         return *this;
     }
 

@@ -5,14 +5,11 @@
 #include <klocale.h>
 #include "DB/ImageDB.h"
 #include "SearchFolder.h"
-#include <kglobal.h>
-#include <kiconloader.h>
 #include "BrowserItemFactory.h"
 #include "DB/CategoryCollection.h"
-#include "DB/MemberMap.h"
 #include "ExifFolder.h"
 #include "Exif/Database.h"
-#include <config.h>
+#include <config.h> // for HASEXIV2
 
 void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 {

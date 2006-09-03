@@ -25,12 +25,7 @@
 #include "SearchFolder.h"
 #include <kglobal.h>
 #include <kiconloader.h>
-#include "BrowserItemFactory.h"
-#include "DB/CategoryCollection.h"
 #include "DB/MemberMap.h"
-#include "ExifFolder.h"
-#include "Exif/Database.h"
-#include <config.h>
 #include "ContentFolderAction.h"
 
 Browser::ContentFolder::ContentFolder( const DB::CategoryPtr& category, const QString& value, DB::MediaCount count,

@@ -19,7 +19,6 @@
 #include "TypeFolderAction.h"
 #include "DB/ImageDB.h"
 #include "ContentFolder.h"
-#include <klocale.h>
 #include "BrowserItemFactory.h"
 #include "DB/Category.h"
 #include <DB/CategoryItem.h>

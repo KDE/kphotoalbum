@@ -18,11 +18,7 @@
 
 #include "TypeFolder.h"
 #include "DB/ImageDB.h"
-#include "ContentFolder.h"
 #include <klocale.h>
-#include "BrowserItemFactory.h"
-#include "DB/CategoryCollection.h"
-#include <DB/CategoryItem.h>
 #include "TypeFolderAction.h"
 
 Browser::TypeFolder::TypeFolder( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )

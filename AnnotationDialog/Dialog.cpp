@@ -684,11 +684,11 @@ bool AnnotationDialog::Dialog::hasChanges()
         changed |= ( !_startDate->date().isNull() );
         changed |= ( !_endDate->date().isNull() );
 
-#ifdef TEMPORARILY_REMOVED
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-            changed |= ( (*it)->selection().count() != 0 );
+            QPair<StringSet, StringSet> origSelection = selectionForMultiSelect( *it, _origList );
+            changed |= origSelection.first != (*it)->itemsOn();
+            changed |= origSelection.second != (*it)->itemsUnchanged();
         }
-#endif
 
         changed |= ( !_imageLabel->text().isEmpty() );
         changed |= ( !_description->text().isEmpty() );
@@ -926,6 +926,12 @@ KActionCollection* AnnotationDialog::Dialog::actions()
 
 void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection( ListSelect* listSel, const DB::ImageInfoList& images )
 {
+    QPair<StringSet,StringSet> selection = selectionForMultiSelect( listSel, images );
+    listSel->setSelection( selection.first, selection.second );
+}
+
+QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( ListSelect* listSel, const DB::ImageInfoList& images )
+{
     const QString category = listSel->category();
     const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->itemsInclCategories();
     StringSet itemsNotSelectedOnAllImages;
@@ -939,7 +945,7 @@ void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection( ListS
 
     const StringSet itemsOnAllImages = allItems - itemsNotSelectedOnAllImages;
 
-    listSel->setSelection( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
+    return qMakePair( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
 }
 
 #include "Dialog.moc"

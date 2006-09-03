@@ -103,6 +103,7 @@ protected:
     void loadWindowLayout();
     void setupActions();
     void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
+    QPair<StringSet,StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
 
 private:
     DB::ImageInfoList _origList;

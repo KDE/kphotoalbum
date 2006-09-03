@@ -89,13 +89,13 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
     for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        QString categoryName = (*categoryIt)->name();
+        const QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
-            QStringList items = info->itemsOfCategory( categoryName );
+            const StringSet items = info->itemsOfCategory( categoryName );
             if (items.count() != 0 ) {
                 text += QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
                 bool first = true;
-                for( QStringList::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
+                for( StringSet::ConstIterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;
                     if ( first )
                         first = false;

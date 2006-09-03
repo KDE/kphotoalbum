@@ -33,13 +33,13 @@ OptionValueMatcher::OptionValueMatcher( const QString& category, const QString& 
 bool OptionValueMatcher::eval( ImageInfoPtr info )
 {
     info->setMatched( _category, _option );
-    if ( info->hasOption( _category, _option ) ) {
+    if ( info->hasCategoryInfo( _category, _option ) ) {
         return _sign;
     }
 
     QStringList list = DB::ImageDB::instance()->memberMap().members( _category, _option, true );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        if ( info->hasOption( _category, *it ) )
+        if ( info->hasCategoryInfo( _category, *it ) )
             return _sign;
     }
 

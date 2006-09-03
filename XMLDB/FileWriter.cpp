@@ -243,9 +243,9 @@ void XMLDB::FileWriter::writeCategories( QDomDocument doc, QDomElement top, cons
         QDomElement opt = doc.createElement( QString::fromLatin1("option") );
         opt.setAttribute( QString::fromLatin1("name"),  escape( name ) );
 
-        QStringList list = info->itemsOfCategory(*categoryIt);
+        StringSet items = info->itemsOfCategory(*categoryIt);
         bool any = false;
-        for( QStringList::Iterator itemIt = list.begin(); itemIt != list.end(); ++itemIt ) {
+        for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
             val.setAttribute( QString::fromLatin1("value"), *itemIt );
             opt.appendChild( val );
@@ -269,10 +269,10 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::I
         if ( !shouldSaveCategory( categoryName ) )
             continue;
 
-        QStringList items = info->itemsOfCategory(categoryName);
+        StringSet items = info->itemsOfCategory(categoryName);
         if ( !items.isEmpty() ) {
             QStringList idList;
-            for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+            for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
                 int id = static_cast<XMLCategory*>((*categoryIt).data())->idForName( *itemIt );
                 idList.append( QString::number( id ) );
             }

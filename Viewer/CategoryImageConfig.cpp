@@ -73,11 +73,12 @@ CategoryImageConfig::CategoryImageConfig()
 
 }
 
+// PENDING(blackie) convert this code to using StringSet instead.
 void CategoryImageConfig::groupChanged()
 {
     QString currentText = _member->currentText();
     _member->clear();
-    QStringList directMembers = _info->itemsOfCategory( currentGroup() );
+    QStringList directMembers = _info->itemsOfCategory( currentGroup() ).toList();
 
     QStringList list = directMembers;
     QMap<QString,QStringList> map = DB::ImageDB::instance()->memberMap().inverseMap( currentGroup() );

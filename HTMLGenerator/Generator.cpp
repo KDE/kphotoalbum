@@ -327,7 +327,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
 
         QString name = (*it)->name();
         if ( info->itemsOfCategory( name ).count() != 0 && _setup.includeCategory(name) ) {
-            QString val = info->itemsOfCategory( name ).join( QString::fromLatin1(", ") );
+            QString val = QStringList(info->itemsOfCategory( name ).toList()).join( QString::fromLatin1(", ") );
             description += QString::fromLatin1("  <li> <b>%1:</b> %2\n").arg( name ).arg( val );
         }
     }

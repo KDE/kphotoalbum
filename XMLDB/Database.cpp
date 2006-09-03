@@ -93,9 +93,9 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
             // Now iterate through all the categories the current image
             // contains, and increase them in the map mapping from category
             // to count.
-            QStringList list = (*it)->itemsOfCategory(group);
-            counter.count( list );
-            for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+            StringSet items = (*it)->itemsOfCategory(group);
+            counter.count( items );
+            for( StringSet::ConstIterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                 if ( !alreadyMatched[*it2] ) // We do not want to match "Jesper & Jesper"
                     map[*it2]++;
             }
@@ -147,10 +147,10 @@ void XMLDB::Database::renameItem( DB::Category* category, const QString& oldName
     }
 }
 
-void XMLDB::Database::deleteItem( DB::Category* category, const QString& option )
+void XMLDB::Database::deleteItem( DB::Category* category, const QString& value )
 {
     for( DB::ImageInfoListIterator it = _images.begin(); it != _images.end(); ++it ) {
-        (*it)->removeOption( category->name(), option );
+        (*it)->removeCategoryInfo( category->name(), value );
     }
 }
 
@@ -196,8 +196,8 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
 
     for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
         DB::ImageInfo* info = *imageIt;
-        info->addOption( QString::fromLatin1( "Media Type" ),
-                         info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
+        info->addCategoryInfo( QString::fromLatin1( "Media Type" ),
+                               info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
     }
 
     emit totalChanged( _images.count() );
@@ -439,7 +439,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
 
     possibleLoadCompressedCategories( elm, result, db );
 
-    info->addOption( QString::fromLatin1( "Media Type" ),
+    info->addCategoryInfo( QString::fromLatin1( "Media Type" ),
                      info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
 
     return result;
@@ -467,7 +467,7 @@ void XMLDB::Database::readOptions( DB::ImageInfoPtr info, QDomElement elm )
                         Q_ASSERT( elmValue.tagName() == QString::fromLatin1("value") );
                         QString value = elmValue.attribute( QString::fromLatin1("value") );
                         if ( !value.isNull() )  {
-                            info->addOption( name, value );
+                            info->addCategoryInfo( name, value );
                         }
                     }
                 }
@@ -490,7 +490,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
             for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
                 int id = (*listIt).toInt();
                 QString name = static_cast<XMLCategory*>((*categoryIt).data())->nameForId(id);
-                info->addOption( categoryName, name );
+                info->addCategoryInfo( categoryName, name );
             }
         }
     }

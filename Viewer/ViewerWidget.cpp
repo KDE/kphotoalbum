@@ -894,10 +894,10 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 {
     if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
         QString token = event->text().upper().left(1);
-        if ( currentInfo()->hasOption( QString::fromLatin1("Tokens"), token ) )
-            currentInfo()->removeOption( QString::fromLatin1("Tokens"), token );
+        if ( currentInfo()->hasCategoryInfo( QString::fromLatin1("Tokens"), token ) )
+            currentInfo()->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
         else
-            currentInfo()->addOption( QString::fromLatin1("Tokens"), token );
+            currentInfo()->addCategoryInfo( QString::fromLatin1("Tokens"), token );
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
         updateInfoBox();
         emit dirty();

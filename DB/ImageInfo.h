@@ -83,15 +83,15 @@ public:
     int angle() const;
     void setAngle( int angle );
 
-    void setOption( const QString& key,  const QStringList& value );
-    void addOption( const QString& key,  const QStringList& value );
-    void add( const QString& category, const StringSet& values );
-    void remove( const QString& category, const StringSet& values );
-    void removeOption( const QString& key, const QStringList& value );
-    void removeOption( const QString& key, const QString& value );
-    bool hasOption( const QString& key,  const QString& value );
+    void setCategoryInfo( const QString& key,  const StringSet& value );
+    void addCategoryInfo( const QString& category, const StringSet& values );
+    void addCategoryInfo( const QString& category, const QString& value );
+    void removeCategoryInfo( const QString& category, const StringSet& values );
+    void removeCategoryInfo( const QString& category, const QString& value );
+
+    bool hasCategoryInfo( const QString& key,  const QString& value );
     QStringList availableCategories() const;
-    QStringList itemsOfCategory( const QString& category ) const;
+    StringSet itemsOfCategory( const QString& category ) const;
     void renameItem( const QString& key, const QString& oldValue, const QString& newValue );
     void renameCategory( const QString& oldName, const QString& newName );
 
@@ -151,7 +151,7 @@ private:
     QString _label;
     QString _description;
     ImageDate _date;
-    QMap<QString, QStringList> _options;
+    QMap<QString, StringSet> _categoryInfomation;
     int _angle;
     Viewer::DrawList _drawList;
     enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };

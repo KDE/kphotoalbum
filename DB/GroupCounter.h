@@ -28,7 +28,7 @@ class GroupCounter
 {
 public:
     GroupCounter( const QString& category );
-    void count(const QStringList& );
+    void count(const StringSet& );
     QMap<QString,uint> result();
 
 private:

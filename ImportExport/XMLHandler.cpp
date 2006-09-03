@@ -83,9 +83,9 @@ void ImportExport::XMLHandler::writeCategories( QDomDocument doc, QDomElement ro
         QString name = *categoryIt;
         opt.setAttribute( QString::fromLatin1("name"),  name );
 
-        QStringList list = info->itemsOfCategory(*categoryIt);
+        StringSet items = info->itemsOfCategory(*categoryIt);
         bool any = false;
-        for( QStringList::Iterator itemIt = list.begin(); itemIt != list.end(); ++itemIt ) {
+        for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
             val.setAttribute( QString::fromLatin1("value"), *itemIt );
             opt.appendChild( val );

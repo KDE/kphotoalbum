@@ -435,7 +435,7 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
 
     for (QValueList<QString[2]>::const_iterator i = categoryTagPairs.begin();
          i != categoryTagPairs.end(); ++i)
-        info.addOption((*i)[0], (*i)[1]);
+        info.addCategoryInfo((*i)[0], (*i)[1]);
 
     Viewer::DrawList drawList;
     Cursor c = executeQuery("SELECT shape, x0, y0, x1, y1 "
@@ -540,8 +540,8 @@ void QueryHelper::insertMediaItemTags(int mediaId, const DB::ImageInfo& info)
         if (*categoryIt == "Folder")
             continue;
         int cid = categoryId(*categoryIt);
-        QStringList items = info.itemsOfCategory(*categoryIt);
-        for (QStringList::const_iterator itemIt = items.begin();
+        StringSet items = info.itemsOfCategory(*categoryIt);
+        for (StringSet::const_iterator itemIt = items.begin();
              itemIt != items.end(); ++itemIt) {
             Q_ULLONG tagId = insertTag(cid, *itemIt);
             insertMediaTag(mediaId, tagId);

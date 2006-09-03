@@ -301,8 +301,8 @@ void AnnotationDialog::Dialog::slotOK()
                 info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-                info->add( (*it)->category(), (*it)->itemsOn() );
-                info->remove( (*it)->category(), (*it)->itemsOff() );
+                info->addCategoryInfo( (*it)->category(), (*it)->itemsOn() );
+                info->removeCategoryInfo( (*it)->category(), (*it)->itemsOff() );
             }
 
             if ( !_imageLabel->text().isEmpty() ) {
@@ -381,7 +381,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->text() );
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        info.setOption( (*it)->category(), (*it)->itemsOn().toList() );
+        info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
     }
 }
 
@@ -638,10 +638,10 @@ KDockWidget* AnnotationDialog::Dialog::createListSel( const DB::CategoryPtr& cat
     return dockWidget;
 }
 
-void AnnotationDialog::Dialog::slotDeleteOption( DB::Category* category, const QString& which)
+void AnnotationDialog::Dialog::slotDeleteOption( DB::Category* category, const QString& value )
 {
     for( QValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
-        (*it).removeOption( category->name(), which );
+        (*it).removeCategoryInfo( category->name(), value );
     }
 }
 

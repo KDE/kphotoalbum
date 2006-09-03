@@ -47,8 +47,8 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 {
     QMap<QString,QVariant> res;
     if ( _info ) {
-        for( QMapIterator<QString,QStringList> it = _info->_options.begin(); it != _info->_options.end(); ++it ) {
-            res.insert( it.key(), QVariant( it.data() ) );
+        for( QMapIterator<QString,StringSet> it = _info->_categoryInfomation.begin(); it != _info->_categoryInfomation.end(); ++it ) {
+            res.insert( it.key(), QVariant( QStringList( it.data().toList() ) ) );
         }
     }
     return res;
@@ -68,7 +68,7 @@ void Plugins::ImageInfo::setDescription( const QString& description )
 
 void Plugins::ImageInfo::clearAttributes()
 {
-    _info->_options.clear();
+    _info->_categoryInfomation.clear();
 }
 
 void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
@@ -76,7 +76,7 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
     if ( _info ) {
         for( QMapConstIterator<QString,QVariant> it = map.begin(); it != map.end(); ++it ) {
             QStringList list = it.data().toStringList();
-            _info->addOption( it.key(), list );
+            _info->addCategoryInfo( it.key(), list );
         }
     }
 }

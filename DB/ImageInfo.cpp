@@ -110,54 +110,32 @@ QString ImageInfo::description() const
 }
 
 
-void ImageInfo::setOption( const QString& key, const QStringList& value )
+void ImageInfo::setCategoryInfo( const QString& key, const StringSet& value )
 {
     // Don't check if really changed, because it's too slow.
     _dirty = true;
-    _options[key] = value;
+    _categoryInfomation[key] = value;
     saveChangesIfNotDelayed();
 }
 
-void ImageInfo::addOption( const QString& key, const QStringList& value )
+bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value )
 {
-    for( QStringList::ConstIterator it = value.begin(); it != value.end(); ++it ) {
-        if (! _options[key].contains( *it ) ) {
-            _dirty = true;
-            _options[key] += *it;
-        }
-    }
-    saveChangesIfNotDelayed();
+    return _categoryInfomation[key].contains(value);
 }
 
-void ImageInfo::removeOption( const QString& key, const QStringList& value )
+StringSet ImageInfo::itemsOfCategory( const QString& key ) const
 {
-    for( QStringList::ConstIterator it = value.begin(); it != value.end(); ++it ) {
-        if ( _options[key].contains( *it ) ) {
-            _dirty = true;
-            _options[key].remove(*it);
-        }
-    }
-    saveChangesIfNotDelayed();
-}
-
-bool ImageInfo::hasOption( const QString& key, const QString& value )
-{
-    return _options[key].contains(value);
-}
-
-QStringList ImageInfo::itemsOfCategory( const QString& key ) const
-{
-    return _options[key];
+    return QStringList(_categoryInfomation[key].toList());
 }
 
 void ImageInfo::renameItem( const QString& key, const QString& oldValue, const QString& newValue )
 {
-    QStringList& list = _options[key];
-    QStringList::Iterator it = list.find( oldValue );
-    if ( it != list.end() ) {
+    StringSet& set = _categoryInfomation[key];
+    StringSet::Iterator it = set.find( oldValue );
+    if ( it != set.end() ) {
         _dirty = true;
-        list.remove( it );
-        list.append( newValue );
+        set.remove( it );
+        set.insert( newValue );
         saveChangesIfNotDelayed();
     }
 }
@@ -244,22 +222,10 @@ bool ImageInfo::operator==( const ImageInfo& other )
           _angle != other._angle);
     if ( !changed ) {
         QStringList keys = DB::ImageDB::instance()->categoryCollection()->categoryNames();
-        for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it ) {
-            _options[*it].sort();
-            QStringList otherList = other._options[*it];
-            otherList.sort();
-            changed |= _options[*it] != otherList;
-        }
+        for( QStringList::Iterator it = keys.begin(); it != keys.end(); ++it )
+            changed |= _categoryInfomation[*it] != other._categoryInfomation[*it];
     }
     return !changed;
-}
-
-void ImageInfo::removeOption( const QString& key, const QString& value )
-{
-    if (_options[key].contains(value))
-        _dirty = true;
-    _options[key].remove( value );
-    saveChangesIfNotDelayed();
 }
 
 Viewer::DrawList ImageInfo::drawList() const
@@ -279,8 +245,8 @@ void ImageInfo::setDrawList( const Viewer::DrawList& list )
 void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
 {
     _dirty = true;
-    _options[newName] = _options[oldName];
-    _options.erase(oldName);
+    _categoryInfomation[newName] = _categoryInfomation[oldName];
+    _categoryInfomation.erase(oldName);
     saveChangesIfNotDelayed();
 }
 
@@ -330,7 +296,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
 
 QStringList ImageInfo::availableCategories() const
 {
-    return _options.keys();
+    return _categoryInfomation.keys();
 }
 
 void ImageInfo::clearMatched() const
@@ -355,8 +321,8 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
  */
 bool ImageInfo::allMatched( const QString& category )
 {
-    const QStringList list = itemsOfCategory( category );
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+    const StringSet items = itemsOfCategory( category );
+    for( StringSet::ConstIterator it = items.begin(); it != items.end(); ++it ) {
         if ( !_matched[category].contains( *it ) )
             return false;
     }
@@ -416,7 +382,7 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _label = other._label;
     _description = other._description;
     _date = other._date;
-    _options = other._options;
+    _categoryInfomation = other._categoryInfomation;
     _angle = other._angle;
     _drawList = other._drawList;
     _imageOnDisk = other._imageOnDisk;
@@ -472,19 +438,47 @@ void DB::ImageInfo::createFolderCategoryItem( DB::Category* folderCategory, DB::
         }
     }
 
-    _options.insert( folderCategory->name() , QStringList( folderName ) );
+    _categoryInfomation.insert( folderCategory->name() , QStringList( folderName ) );
     folderCategory->addItem( folderName );
 }
 
-void DB::ImageInfo::add( const QString& category, const StringSet& values )
+void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& values )
 {
-    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt )
-        addOption( category, *valueIt );
+    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
+        if (! _categoryInfomation[category].contains( *valueIt ) ) {
+            _dirty = true;
+            _categoryInfomation[category].insert( *valueIt );
+        }
+    }
+    saveChangesIfNotDelayed();
 }
 
-void DB::ImageInfo::remove( const QString& category, const StringSet& values )
+void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet& values )
 {
-    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt )
-        removeOption( category, *valueIt );
+    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
+        if ( _categoryInfomation[category].contains( *valueIt ) ) {
+            _dirty = true;
+            _categoryInfomation[category].remove(*valueIt);
+        }
+    }
+    saveChangesIfNotDelayed();
+}
+
+void DB::ImageInfo::addCategoryInfo( const QString& category, const QString& value )
+{
+    if (! _categoryInfomation[category].contains( value ) ) {
+        _dirty = true;
+        _categoryInfomation[category].insert( value );
+    }
+    saveChangesIfNotDelayed();
+}
+
+void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& value )
+{
+    if ( _categoryInfomation[category].contains( value ) ) {
+        _dirty = true;
+        _categoryInfomation[category].remove( value );
+    }
+    saveChangesIfNotDelayed();
 }
 

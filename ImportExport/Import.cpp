@@ -394,11 +394,9 @@ ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QStr
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
-        QStringList items = info->itemsOfCategory( otherCategory );
-        for( QStringList::Iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-            if ( !otherItems.contains( *itemIt ) )
-                otherItems.append( *itemIt );
-        }
+        StringSet items = info->itemsOfCategory( otherCategory );
+        for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
+            otherItems.append( *itemIt );
     }
 
     QStringList myItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( myCategory )->itemsInclCategories();
@@ -586,8 +584,8 @@ void Import::updateDB()
                 QString otherOption = (*optionIt)->_text;
                 QString myOption = (*optionIt)->_combobox->currentText();
 
-                if ( info->hasOption( otherGrp, otherOption ) ) {
-                    newInfo->addOption( myGrp, myOption );
+                if ( info->hasCategoryInfo( otherGrp, otherOption ) ) {
+                    newInfo->addCategoryInfo( myGrp, myOption );
                     DB::ImageDB::instance()->categoryCollection()->categoryForName( myGrp )->addItem( myOption );
                 }
 

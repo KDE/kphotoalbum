@@ -91,13 +91,13 @@ GroupCounter::GroupCounter( const QString& category )
  * The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
  * used for.
  */
-void GroupCounter::count( const QStringList& categories )
+void GroupCounter::count( const StringSet& categories )
 {
     // It takes quite some time to clear the dict with a large prime!
     static QDict<void> countedGroupDict( 97 /* a large, but not extreme prime */ );
 
     countedGroupDict.clear();
-    for( QStringList::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    for( StringSet::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         QStringList* groups = _memberToGroup[*categoryIt];
         if ( groups ) {
             for( QStringList::Iterator groupsIt = (*groups).begin(); groupsIt != (*groups).end(); ++groupsIt ) {

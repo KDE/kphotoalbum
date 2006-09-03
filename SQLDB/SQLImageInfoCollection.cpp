@@ -99,7 +99,7 @@ void SQLImageInfoCollection::deleteTag(DB::Category* category,
         // QMutexLocker locker(&_mutex);
         for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
              i != _infoPointers.end(); ++i)
-            (*i)->removeOption(category->name(), item);
+            (*i)->removeCategoryInfo(category->name(), item);
     }
 }
 

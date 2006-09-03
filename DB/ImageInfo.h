@@ -85,6 +85,8 @@ public:
 
     void setOption( const QString& key,  const QStringList& value );
     void addOption( const QString& key,  const QStringList& value );
+    void add( const QString& category, const StringSet& values );
+    void remove( const QString& category, const StringSet& values );
     void removeOption( const QString& key, const QStringList& value );
     void removeOption( const QString& key, const QString& value );
     bool hasOption( const QString& key,  const QString& value );

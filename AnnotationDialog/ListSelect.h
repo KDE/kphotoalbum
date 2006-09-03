@@ -23,14 +23,15 @@
 #include "Settings/SettingsData.h"
 #include <qtoolbutton.h>
 #include "DB/Category.h"
+#include <qlistview.h>
 
-class QListViewItem;
+class QRadioButton;
 class QLabel;
 class QCheckBox;
-class QListView;
 
 namespace DB { class ImageInfo; }
 namespace CategoryListView { class DragableListView; }
+namespace CategoryListView { class CheckDropItem; }
 
 namespace AnnotationDialog
 {
@@ -44,14 +45,15 @@ public:
     QString category() const;
     QString text() const;
     void setText( const QString& );
-    void setSelection( const QStringList& list );
-    QStringList selection();
-    void setShowMergeCheckbox( bool b );
-    bool doMerge() const;
-    bool doRemove() const;
+    void setSelection( const QStringList& on, const StringSet& partiallyOn = StringSet() );
+    void setSelection( const StringSet& on, const StringSet& partiallyOn = StringSet() );
+    StringSet itemsOn() const;
+    StringSet itemsOff() const;
+    StringSet itemsUnchanged() const;
+
     bool isAND() const;
 
-    enum Mode {INPUT, SEARCH};
+    enum Mode { InputSingleImageConfigMode, InputMultiImageConfigMode, SearchMode };
     void setMode( Mode );
 
     void populate();
@@ -69,17 +71,17 @@ protected slots:
     void itemSelected( QListViewItem* );
     void showContextMenu( QListViewItem*, const QPoint& );
     void setViewSortType( Settings::ViewSortType );
-    void checkBoxStateChanged( int state );
-    void removeCheckBoxStateChanged( int state );
     void limitToSelection();
     void showAllChildren();
-    bool isDNDAllowed() const;
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
     void insertItems( DB::CategoryItem* item, QListViewItem* parent );
     void populateAlphabetically();
     void populateMRU();
+    void configureItem( CategoryListView::CheckDropItem* item );
+    bool isInputMode() const;
+    StringSet itemsOfState( QCheckListItem::ToggleState state ) const;
 
 private:
 
@@ -87,8 +89,8 @@ private:
     DB::CategoryPtr _category;
     CompletableLineEdit* _lineEdit;
     CategoryListView::DragableListView* _listView;
-    QCheckBox* _checkBox;
-    QCheckBox* _removeCheckBox;
+    QRadioButton* _or;
+    QRadioButton* _and;
     Mode _mode;
     QToolButton* _alphaSort;
     QToolButton* _dateSort;

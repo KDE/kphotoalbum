@@ -1,3 +1,15 @@
+2006-09-01  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* The checkboxes in the annotation dialog are now tristate, which
+	means that there are no need for the "merge" and "remove"
+	checkboxes.
+	Also the "and" checkbox has been replaced with an "and" and a "or"
+	radio button to make their meaning more understandable.
+
+	* BUGFIX: Solved this crash: edit a category name in the settings
+	dialog, press Apply and press OK. (thanks to Christoph Moseler
+	<forums@moseler.net> for finding this.
+
 ====================== Snapshot Sunday 27/8-2006 ===================================	
 
 2006-08-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

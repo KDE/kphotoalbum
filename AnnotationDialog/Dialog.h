@@ -102,6 +102,7 @@ protected:
     void closeDialog();
     void loadWindowLayout();
     void setupActions();
+    void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
 
 private:
     DB::ImageInfoList _origList;

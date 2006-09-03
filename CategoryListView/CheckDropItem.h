@@ -23,6 +23,7 @@ protected:
     bool isSelfDrop( const QString& parent, const DragItemInfoSet& children ) const;
     bool verifyDropWasIntended( const QString& parent, const DragItemInfoSet& children );
     DragItemInfoSet extractData( const QMimeSource* ) const;
+    virtual void activate();
 
 private:
     DragableListView* _listView;

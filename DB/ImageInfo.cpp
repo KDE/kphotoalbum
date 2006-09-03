@@ -476,3 +476,15 @@ void DB::ImageInfo::createFolderCategoryItem( DB::Category* folderCategory, DB::
     folderCategory->addItem( folderName );
 }
 
+void DB::ImageInfo::add( const QString& category, const StringSet& values )
+{
+    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt )
+        addOption( category, *valueIt );
+}
+
+void DB::ImageInfo::remove( const QString& category, const StringSet& values )
+{
+    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt )
+        removeOption( category, *valueIt );
+}
+

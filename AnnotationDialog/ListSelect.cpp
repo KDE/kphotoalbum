@@ -41,6 +41,7 @@
 #include "ShowSelectionOnlyManager.h"
 #include "CategoryListView/DragableListView.h"
 #include "CategoryListView/CheckDropItem.h"
+#include <qradiobutton.h>
 
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
@@ -74,17 +75,14 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
 
     // Merge CheckBox
     QHBoxLayout* lay2 = new QHBoxLayout( layout, 6 );
-    _checkBox = new QCheckBox( QString(),  this );
-    connect( _checkBox, SIGNAL( stateChanged( int ) ), this,
-            SLOT(checkBoxStateChanged(int) ) );
-    lay2->addWidget( _checkBox );
-    lay2->addStretch(1);
-
-    // Merge CheckBox
-    _removeCheckBox = new QCheckBox( QString(),  this );
-    connect( _removeCheckBox, SIGNAL( stateChanged( int ) ), this,
-            SLOT(removeCheckBoxStateChanged(int) ) );
-    lay2->addWidget( _removeCheckBox );
+    QButtonGroup* group = new QButtonGroup( this );
+    group->hide();
+    _or = new QRadioButton( i18n("or"), this );
+    _and = new QRadioButton( i18n("and"), this );
+    group->insert( _and );
+    group->insert( _or );
+    lay2->addWidget( _or );
+    lay2->addWidget( _and );
     lay2->addStretch(1);
 
     // Sorting tool button
@@ -123,43 +121,21 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     connect( &ShowSelectionOnlyManager::instance(), SIGNAL( broaden() ), this, SLOT( showAllChildren() ) );
 }
 
-void AnnotationDialog::ListSelect::checkBoxStateChanged( int )
-{
-    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
-        _removeCheckBox->setChecked(false);
-}
-
-void AnnotationDialog::ListSelect::removeCheckBoxStateChanged( int )
-{
-    QString txt =
-        i18n("<qt><p>By checking this checkbox, any anotation you make will actually be removed from the images, "
-             "rather than added to them.</p>"
-             "<p>This is really just a tool for removing a tag that you by accicdent added to a number of images.</p>"
-             "<p>are you sure you want that?</p></qt>" );
-    if ( _removeCheckBox->isChecked() ) {
-        int ret = KMessageBox::warningContinueCancel( this, txt, i18n("Mass removal of tags"),KStdGuiItem::cont(),
-                                                      QString::fromLatin1("massremoval") );
-        if ( ret == KMessageBox::Cancel )
-            _removeCheckBox->setChecked( false );
-    }
-
-    if (_checkBox->isChecked() && _removeCheckBox->isChecked())
-        _checkBox->setChecked(false);
-}
-
 void AnnotationDialog::ListSelect::slotReturn()
 {
-    if ( _mode == INPUT )  {
+    if ( isInputMode() )  {
         QString txt = _lineEdit->text();
         if ( txt.isEmpty() )
             return;
 
         _category->addItem( txt);
 
-        QStringList sel = selection();
-        sel.append( txt );
-        populate();
-        setSelection(sel);
+        QListViewItem* item = _listView->findItem( txt, 0 );
+        if ( item )
+            static_cast<QCheckListItem*>(item)->setOn( true );
+        else
+            Q_ASSERT( false );
+
 
         _lineEdit->clear();
     }
@@ -170,73 +146,50 @@ QString AnnotationDialog::ListSelect::category() const
     return _category->name();
 }
 
-void AnnotationDialog::ListSelect::setSelection( const QStringList& list )
+void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const StringSet& partiallyOn )
 {
-    // PENDING(blackie) change method to take a set
-    Set<QString> selection( list );
     for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        static_cast<QCheckListItem*>(*itemIt)->setOn( selection.contains( (*itemIt)->text(0) ) );
+        QCheckListItem* item = static_cast<QCheckListItem*>(*itemIt);
+        if ( partiallyOn.contains( item->text(0) ) )
+            item->setState( QCheckListItem::NoChange );
+        else
+            item->setOn( on.contains( item->text(0) ) );
+
+        // static_cast<QCheckListItem*>(*itemIt)->setOn( selection.contains( (*itemIt)->text(0) ) );
+        // static_cast<QCheckListItem*>(*itemIt)->setState( QCheckListItem::NoChange );
         _listView->repaintItem(*itemIt);
     }
 
     _lineEdit->clear();
 }
 
-QStringList AnnotationDialog::ListSelect::selection()
+void AnnotationDialog::ListSelect::setSelection( const QStringList& onSelection, const StringSet& partiallyOn )
 {
-    // PENDING(blackie) should this method return a set?
-    QStringList list;
-    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        if ( static_cast<QCheckListItem*>(*itemIt)->isOn() )
-            list.append( (*itemIt)->text(0) );
-    }
-    return list;
-}
-
-void AnnotationDialog::ListSelect::setShowMergeCheckbox( bool b )
-{
-    // PENDING(blackie) 19 Mar. 2006 20:29 -- Jesper K. Pedersen
-    // This is really a crual hack and should be removed after next release.
-    // We should instead extend the Mode enum to say InputSingleConfig/InputMultiConfig/Search
-    _checkBox->setEnabled( b );
-    _removeCheckBox->setEnabled( b );
-}
-
-bool AnnotationDialog::ListSelect::doMerge() const
-{
-    return _checkBox->isChecked();
-}
-
-bool AnnotationDialog::ListSelect::doRemove() const
-{
-    return _removeCheckBox->isChecked();
+    setSelection( StringSet( onSelection ), partiallyOn );
 }
 
 bool AnnotationDialog::ListSelect::isAND() const
 {
-    return _checkBox->isChecked();
+    return _and->isChecked();
 }
 
 void AnnotationDialog::ListSelect::setMode( Mode mode )
 {
     _mode = mode;
     _lineEdit->setMode( mode );
-    if ( mode == SEARCH) {
+    if ( mode == SearchMode ) {
         // "0" below is sorting key which ensures that None is always at top.
         CheckDropItem* item = new CheckDropItem( _listView, DB::ImageDB::NONE(), QString::fromLatin1("0") );
-        item->setDNDEnabled( isDNDAllowed() );
-
-	_checkBox->setText( i18n("AND") );
-	// OR is a better default choice (the browser can do AND but not OR)
-	_checkBox->setChecked( false );
-        _removeCheckBox->hide();
+        configureItem( item );
+        _and->show();
+        _or->show();
+        _or->setChecked( true );
     } else {
-	_checkBox->setText( i18n("Merge") );
-	_checkBox->setChecked( true );
-        _removeCheckBox->setText( i18n("Mass Remove") );
-        _removeCheckBox->setChecked( false );
-        _removeCheckBox->show();
+	_and->hide();
+        _or->hide();
     }
+    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
+        configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
 }
 
 
@@ -244,9 +197,7 @@ void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
 {
     // set sortType and redisplay with new sortType
     QString text = _lineEdit->text();
-    QStringList list = selection();
-    populate();
-    setSelection( list );
+    rePopulate();
     _lineEdit->setText( text );
     setMode( _mode );	// generate the ***NONE*** entry if in search mode
 
@@ -273,7 +224,7 @@ void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
         return;
     }
 
-    if ( _mode == SEARCH )  {
+    if ( _mode == SearchMode )  {
         QString txt = item->text(0);
         QString res;
         QRegExp regEnd( QString::fromLatin1("\\s*[&|!]\\s*$") );
@@ -403,7 +354,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
                 delete item;
                 CheckDropItem* newItem = new CheckDropItem( _listView, newStr, QString::null );
                 newItem->setOn( sel );
-                newItem->setDNDEnabled( isDNDAllowed() );
+                configureItem( newItem );
 
                 // rename the category image too
                 QString oldFile = Settings::SettingsData::instance()->fileForCategoryImage( category(), oldStr );
@@ -436,11 +387,11 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
          memberMap.addGroup( _category->name(), item->text(0) );
          memberMap.addMemberToGroup( _category->name(), item->text(0), subCategory );
          //DB::ImageDB::instance()->setMemberMap( memberMap );
-        if ( _mode == INPUT )
+        if ( isInputMode() )
             _category->addItem( subCategory );
 
         rePopulate();
-        if ( _mode == INPUT ) {
+        if ( isInputMode() ) {
             QListViewItem* item = _listView->findItem( subCategory, 0 );
             if ( item )
                 static_cast<QCheckListItem*>(item)->setOn( true );
@@ -473,7 +424,7 @@ void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, QListVie
             newItem = new CheckDropItem( _listView, parent, (*subcategoryIt)->_name, QString::null );
 
         newItem->setOpen( true );
-        newItem->setDNDEnabled( isDNDAllowed() );
+        configureItem( newItem );
 
         insertItems( (*subcategoryIt), newItem );
     }
@@ -519,9 +470,10 @@ void AnnotationDialog::ListSelect::rePopulate()
     const int x = _listView->contentsX();
     const int y = _listView->contentsY();
 
-    const QStringList sel = selection();
+    const StringSet on = itemsOn();
+    const StringSet noChange = itemsUnchanged();
     populate();
-    setSelection( sel );
+    setSelection( on, noChange );
 
     _listView->setContentsPos( x, y );
 }
@@ -548,7 +500,7 @@ void AnnotationDialog::ListSelect::populateMRU()
     for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         ++index;
         CheckDropItem* item = new CheckDropItem( _listView, *itemIt, QString::number( index ) );
-        item->setDNDEnabled( isDNDAllowed() );
+        configureItem( item );
     }
 
     _listView->setSorting( 1 );
@@ -565,7 +517,7 @@ void AnnotationDialog::ListSelect::toggleSortType()
 
 void AnnotationDialog::ListSelect::limitToSelection()
 {
-    if ( _mode != ListSelect::INPUT )
+    if ( !isInputMode() )
         return;
 
     ListViewSelectionHider dummy( _listView );
@@ -576,9 +528,42 @@ void AnnotationDialog::ListSelect::showAllChildren()
     showOnlyItemsMatching( QString::null );
 }
 
-bool AnnotationDialog::ListSelect::isDNDAllowed() const
+
+void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropItem* item )
 {
-    return Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha;
+    bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha;
+    item->setDNDEnabled( isDNDAllowed );
+    item->setTristate( _mode == InputMultiImageConfigMode );
+}
+
+bool AnnotationDialog::ListSelect::isInputMode() const
+{
+    return _mode != SearchMode;
+}
+
+StringSet AnnotationDialog::ListSelect::itemsOn() const
+{
+    return itemsOfState( QCheckListItem::On );
+}
+
+StringSet AnnotationDialog::ListSelect::itemsOff() const
+{
+    return itemsOfState( QCheckListItem::Off );
+}
+
+StringSet AnnotationDialog::ListSelect::itemsOfState( QCheckListItem::ToggleState state ) const
+{
+    StringSet res;
+    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+        if ( static_cast<QCheckListItem*>(*itemIt)->state() == state )
+            res.insert( (*itemIt)->text(0) );
+    }
+    return res;
+}
+
+StringSet AnnotationDialog::ListSelect::itemsUnchanged() const
+{
+    return itemsOfState( QCheckListItem::NoChange );
 }
 
 #include "ListSelect.moc"

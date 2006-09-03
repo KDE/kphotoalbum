@@ -502,36 +502,13 @@ void Settings::SettingsDialog::slotMyOK()
 
     // Delete items
     for( QValueList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
-        if ( !(*it)->_categoryOrig.isNull() ) {
-            // the Settings instance knows about the item.
-            DB::ImageDB::instance()->categoryCollection()->removeCategory( (*it)->_categoryOrig );
-        }
+        (*it)->removeFromDatabase();
     }
 
     // Created or Modified items
     for ( QListBoxItem* i = _categories->firstItem(); i; i = i->next() ) {
         CategoryItem* item = static_cast<CategoryItem*>( i );
-        if ( item->_categoryOrig.isNull() ) {
-            // New Item
-            DB::ImageDB::instance()->categoryCollection()->addCategory( item->_text, item->_icon,
-                                                                        item->_type, item->_thumbnailSize, true );
-        }
-        else {
-            DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( item->_categoryOrig );
-            if ( item->_text != item->_textOrig ) {
-                DB::ImageDB::instance()->categoryCollection()->rename(  item->_categoryOrig, item->_text );
-                _memberMap.renameCategory(  item->_categoryOrig, item->_text );
-                item->_categoryOrig =item->_text;
-            }
-            if ( item->_icon != item->_iconOrig )
-                category->setIconName( item->_icon );
-
-            if ( item->_type != item->_typeOrig )
-                category->setViewType( item->_type );
-
-            if ( item->_thumbnailSize != item->_thumbnailSizeOrig )
-                category->setThumbnailSize( item->_thumbnailSize );
-        }
+        item->submit( &_memberMap );
     }
 
     saveOldGroup();
@@ -567,17 +544,17 @@ void Settings::SettingsDialog::edit( QListBoxItem* i )
 
     CategoryItem* item = static_cast<CategoryItem*>(i);
     _current = item;
-    _text->setText( item->_text );
-    _icon->setIcon( item->_icon );
-    _thumbnailSizeInCategory->setValue( item->_thumbnailSize );
-    _preferredView->setCurrentItem( static_cast<int>(item->_type) );
+    _text->setText( item->text() );
+    _icon->setIcon( item->icon() );
+    _thumbnailSizeInCategory->setValue( item->thumbnailSize() );
+    _preferredView->setCurrentItem( static_cast<int>(item->viewType()) );
     enableDisable( true );
 }
 
 void Settings::SettingsDialog::slotLabelChanged( const QString& label)
 {
     if( _current ) {
-        if ( _currentCategory == _current->_text )
+        if ( _currentCategory == _current->text() )
             _currentCategory = label;
         _current->setLabel( label );
     }
@@ -586,14 +563,14 @@ void Settings::SettingsDialog::slotLabelChanged( const QString& label)
 void Settings::SettingsDialog::slotPreferredViewChanged( int i )
 {
     if ( _current ) {
-        _current->_type = static_cast<DB::Category::ViewType>(i);
+        _current->setViewType( static_cast<DB::Category::ViewType>(i) );
     }
 }
 
 void Settings::SettingsDialog::thumbnailSizeChanged( int size )
 {
     if ( _current )
-        _current->_thumbnailSize = size;
+        _current->setThumbnailSize( size );
 }
 
 
@@ -601,7 +578,7 @@ void Settings::SettingsDialog::thumbnailSizeChanged( int size )
 void Settings::SettingsDialog::slotIconChanged( QString icon )
 {
     if( _current )
-        _current->_icon = icon;
+        _current->setIcon( icon );
 }
 
 void Settings::SettingsDialog::slotNewItem()
@@ -618,7 +595,7 @@ void Settings::SettingsDialog::slotNewItem()
 void Settings::SettingsDialog::slotDeleteCurrent()
 {
     int answer = KMessageBox::Yes;
-    KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->_text) );
+    KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->text()) );
     if ( answer == KMessageBox::No )
         return;
 

@@ -51,16 +51,38 @@ public:
         return (this->count() == other.count());
     }
 
-    void operator+=( const Set<TYPE>& other )
+    const Set<TYPE> operator+=( const Set<TYPE>& other )
     {
         for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
             insert( *it );
+
+        return *this;
+    }
+
+    const Set<TYPE> operator+( const Set<TYPE>& other ) const
+    {
+        Set<TYPE> res( *this );
+        return res+=( other );
     }
 
     bool operator!=( const Set<TYPE>& other )
     {
         return !(operator==(other));
     }
+
+    const Set<TYPE> operator-=( const Set<TYPE>& other )
+    {
+        for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
+            remove( *it );
+        return *this;
+    }
+
+    const Set<TYPE> operator-( const Set<TYPE>& other ) const
+    {
+        Set<TYPE> res(*this);
+        return res.operator-=( other );
+    }
+
 };
 
 template <class TYPE>

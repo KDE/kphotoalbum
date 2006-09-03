@@ -300,14 +300,8 @@ void AnnotationDialog::Dialog::slotOK()
                 info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
             for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-                if ( (*it)->selection().count() != 0 )  {
-                    if ( (*it)->doMerge() )
-                        info->addOption( (*it)->category(),  (*it)->selection() );
-                    else if ( (*it)->doRemove() )
-                        info->removeOption( (*it)->category(),  (*it)->selection() );
-                    else
-                        info->setOption( (*it)->category(),  (*it)->selection() );
-                }
+                info->add( (*it)->category(), (*it)->itemsOn() );
+                info->remove( (*it)->category(), (*it)->itemsOff() );
             }
 
             if ( !_imageLabel->text().isEmpty() ) {
@@ -386,7 +380,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->text() );
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        info.setOption( (*it)->category(), (*it)->selection() );
+        info.setOption( (*it)->category(), (*it)->itemsOn().toList() );
     }
 }
 
@@ -418,9 +412,8 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _addTime->show();
 
 
-        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-            (*it)->setSelection( QStringList() );
-        }
+        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it )
+            setUpCategoryListBoxForMultiImageSelection( *it, list );
 
         _imageLabel->setText( QString::fromLatin1("") );
         _description->setText( QString::fromLatin1("") );
@@ -470,7 +463,7 @@ void AnnotationDialog::Dialog::setup()
     if ( _setup == SEARCH )  {
         _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
         _revertBut->hide();
-        mode = ListSelect::SEARCH;
+        mode = ListSelect::SearchMode;
         setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
         _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/search.jpg") ) );
@@ -483,7 +476,7 @@ void AnnotationDialog::Dialog::setup()
         _okBut->setGuiItem( KStdGuiItem::ok() );
         _revertBut->setEnabled( _setup == SINGLE );
         _revertBut->show();
-        mode = ListSelect::INPUT;
+        mode = (_setup == MULTIPLE) ? ListSelect::InputMultiImageConfigMode : ListSelect::InputSingleImageConfigMode;
         setCaption( i18n("Image Configuration") );
         if ( _setup == MULTIPLE ) {
             _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/multiconfig.jpg") ) );
@@ -494,10 +487,8 @@ void AnnotationDialog::Dialog::setup()
 
     _delBut->setEnabled( _setup == SINGLE );
 
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setShowMergeCheckbox( _setup == MULTIPLE || _setup == SEARCH );
+    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it )
         (*it)->setMode( mode );
-    }
 }
 
 
@@ -693,9 +684,11 @@ bool AnnotationDialog::Dialog::hasChanges()
         changed |= ( !_startDate->date().isNull() );
         changed |= ( !_endDate->date().isNull() );
 
+#ifdef TEMPORARILY_REMOVED
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             changed |= ( (*it)->selection().count() != 0 );
         }
+#endif
 
         changed |= ( !_imageLabel->text().isEmpty() );
         changed |= ( !_description->text().isEmpty() );
@@ -929,6 +922,24 @@ void AnnotationDialog::Dialog::setupActions()
 KActionCollection* AnnotationDialog::Dialog::actions()
 {
     return _actions;
+}
+
+void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection( ListSelect* listSel, const DB::ImageInfoList& images )
+{
+    const QString category = listSel->category();
+    const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->itemsInclCategories();
+    StringSet itemsNotSelectedOnAllImages;
+    StringSet itemsOnSomeImages;
+
+    for ( DB::ImageInfoList::ConstIterator imageIt = images.begin(); imageIt != images.end(); ++ imageIt ) {
+        const StringSet itemsOnThisImage = (*imageIt)->itemsOfCategory( category );
+        itemsNotSelectedOnAllImages += ( allItems - itemsOnThisImage );
+        itemsOnSomeImages += itemsOnThisImage;
+    }
+
+    const StringSet itemsOnAllImages = allItems - itemsNotSelectedOnAllImages;
+
+    listSel->setSelection( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
 }
 
 #include "Dialog.moc"

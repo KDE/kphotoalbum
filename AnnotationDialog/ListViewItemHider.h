@@ -27,10 +27,10 @@ private:
     bool _anchorAtStart;
 };
 
-class ListViewSelectionHider :public ListViewHider
+class ListViewCheckedHider :public ListViewHider
 {
 public:
-    ListViewSelectionHider( QListView* );
+    ListViewCheckedHider( QListView* );
 
 protected:
     virtual bool shouldItemBeShown( QListViewItem* );

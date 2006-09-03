@@ -17,7 +17,7 @@
  */
 
 /**
- * \class AnnotationDialog::ListViewSelectionHider
+ * \class AnnotationDialog::ListViewCheckedHider
  * \brief Helper class for only showing items that are selected.
  */
 
@@ -61,12 +61,12 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( QListViewItem*
         return item->text(0).lower().contains( _text.lower() );
 }
 
-bool AnnotationDialog::ListViewSelectionHider::shouldItemBeShown( QListViewItem* item )
+bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( QListViewItem* item )
 {
     return static_cast<QCheckListItem*>(item)->isOn();
 }
 
-AnnotationDialog::ListViewSelectionHider::ListViewSelectionHider( QListView* listView )
+AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider( QListView* listView )
 {
     setItemsVisible( listView );
 }

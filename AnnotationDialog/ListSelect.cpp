@@ -515,7 +515,7 @@ void AnnotationDialog::ListSelect::limitToSelection()
     if ( !isInputMode() )
         return;
 
-    ListViewSelectionHider dummy( _listView );
+    ListViewCheckedHider dummy( _listView );
 }
 
 void AnnotationDialog::ListSelect::showAllChildren()

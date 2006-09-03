@@ -53,6 +53,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include "ShowSelectionOnlyManager.h"
+#include "enums.h"
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -238,13 +239,13 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
 
 void AnnotationDialog::Dialog::slotRevert()
 {
-    if ( _setup == SINGLE )
+    if ( _setup == InputSingleImageConfigMode )
         load();
 }
 
 void AnnotationDialog::Dialog::slotPrev()
 {
-    if ( _setup != SINGLE )
+    if ( _setup != InputSingleImageConfigMode )
         return;
 
     writeToInfo();
@@ -252,14 +253,14 @@ void AnnotationDialog::Dialog::slotPrev()
         return;
 
     _current--;
-    if ( _setup == SINGLE && _current != 0 )
+    if ( _setup == InputSingleImageConfigMode && _current != 0 )
         _preview->anticipate(_editList[ _current-1 ]);
     load();
 }
 
 void AnnotationDialog::Dialog::slotNext()
 {
-    if ( _setup != SINGLE )
+    if ( _setup != InputSingleImageConfigMode )
         return;
 
     if ( _current != -1 ) {
@@ -269,25 +270,25 @@ void AnnotationDialog::Dialog::slotNext()
         return;
 
     _current++;
-    if ( _setup == SINGLE && _current != (int)_origList.count()-1 )
+    if ( _setup == InputSingleImageConfigMode && _current != (int)_origList.count()-1 )
         _preview->anticipate(_editList[ _current+1 ]);
     load();
 }
 
 void AnnotationDialog::Dialog::slotOK()
 {
-    // I need to emit the changes first, as the case for _setup == SINGLE, saves to the _origList,
+    // I need to emit the changes first, as the case for _setup == InputSingleImageConfigMode, saves to the _origList,
     // and we can thus not check for changes anymore
     if ( hasChanges() )
         emit changed();
 
-    if ( _setup == SINGLE )  {
+    if ( _setup == InputSingleImageConfigMode )  {
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
             *(_origList[i]) = _editList[i];
         }
     }
-    else if ( _setup == MULTIPLE ) {
+    else if ( _setup == InputMultiImageConfigMode ) {
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->slotReturn();
         }
@@ -354,7 +355,7 @@ void AnnotationDialog::Dialog::load()
     if ( _viewer )
         _viewer->load( Utilities::infoListToStringList(_origList), _current );
 
-    if ( _setup == SINGLE )
+    if ( _setup == InputSingleImageConfigMode )
         setCaption( i18n("KPhotoAlbum Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
 }
 
@@ -388,9 +389,9 @@ void AnnotationDialog::Dialog::writeToInfo()
 int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime )
 {
     if ( oneAtATime )
-        _setup = SINGLE;
+        _setup = InputSingleImageConfigMode;
     else
-        _setup = MULTIPLE;
+        _setup = InputMultiImageConfigMode;
 
     _origList = list;
     _editList.clear();
@@ -424,18 +425,18 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
     _thumbnailShouldReload = false;
 
-    showHelpDialog( oneAtATime ? SINGLE : MULTIPLE );
+    showHelpDialog( oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode );
     return exec();
 }
 
 DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* search  )
 {
-    _setup = SEARCH;
+    _setup = SearchMode;
     if ( search )
         _oldSearch = *search;
 
     setup();
-    showHelpDialog( SEARCH );
+    showHelpDialog( SearchMode );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
         _oldSearch = DB::ImageSearchInfo( DB::ImageDate( _startDate->date(), _endDate->date() ),
@@ -459,11 +460,11 @@ void AnnotationDialog::Dialog::setup()
         (*it)->populate();
     }
 
-    ListSelect::Mode mode;
-    if ( _setup == SEARCH )  {
+    UsageMode mode;
+    if ( _setup == SearchMode )  {
         _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
         _revertBut->hide();
-        mode = ListSelect::SearchMode;
+        mode = SearchMode;
         setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
         _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/search.jpg") ) );
@@ -474,18 +475,17 @@ void AnnotationDialog::Dialog::setup()
     }
     else {
         _okBut->setGuiItem( KStdGuiItem::ok() );
-        _revertBut->setEnabled( _setup == SINGLE );
+        _revertBut->setEnabled( _setup == InputSingleImageConfigMode );
         _revertBut->show();
-        mode = (_setup == MULTIPLE) ? ListSelect::InputMultiImageConfigMode : ListSelect::InputSingleImageConfigMode;
         setCaption( i18n("Image Configuration") );
-        if ( _setup == MULTIPLE ) {
+        if ( _setup == InputMultiImageConfigMode ) {
             _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/multiconfig.jpg") ) );
         }
         _rotateLeft->setEnabled( true );
         _rotateRight->setEnabled( true );
     }
 
-    _delBut->setEnabled( _setup == SINGLE );
+    _delBut->setEnabled( _setup == InputSingleImageConfigMode );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it )
         (*it)->setMode( mode );
@@ -672,7 +672,7 @@ void AnnotationDialog::Dialog::closeDialog()
 bool AnnotationDialog::Dialog::hasChanges()
 {
     bool changed = false;
-    if ( _setup == SINGLE )  {
+    if ( _setup == InputSingleImageConfigMode )  {
         // PENDING(blackie) how about description and label?
         writeToInfo();
         for ( uint i = 0; i < _editList.count(); ++i )  {
@@ -680,7 +680,7 @@ bool AnnotationDialog::Dialog::hasChanges()
         }
     }
 
-    else if ( _setup == MULTIPLE ) {
+    else if ( _setup == InputMultiImageConfigMode ) {
         changed |= ( !_startDate->date().isNull() );
         changed |= ( !_endDate->date().isNull() );
 
@@ -709,7 +709,7 @@ void AnnotationDialog::Dialog::rotateRight()
 void AnnotationDialog::Dialog::rotate( int angle )
 {
     _thumbnailShouldReload = true;
-    if ( _setup == MULTIPLE ) {
+    if ( _setup == InputMultiImageConfigMode ) {
         // In slotOK the preview will be queried for its angle.
     }
     else {
@@ -732,7 +732,7 @@ void AnnotationDialog::Dialog::slotAddTimeInfo()
 
 void AnnotationDialog::Dialog::slotDeleteImage()
 {
-    Q_ASSERT( _setup != SEARCH );
+    Q_ASSERT( _setup != SearchMode );
 
     MainWindow::DeleteDialog dialog( this );
     DB::ImageInfoPtr info = _origList[_current];
@@ -757,11 +757,11 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     load();
 }
 
-void AnnotationDialog::Dialog::showHelpDialog( SetupType type )
+void AnnotationDialog::Dialog::showHelpDialog( UsageMode type )
 {
     QString doNotShowKey;
     QString txt;
-    if ( type == SEARCH ) {
+    if ( type == SearchMode ) {
         doNotShowKey = QString::fromLatin1( "image_config_search_show_help" );
         txt = i18n( "<qt><p>You have just opened the advanced search dialog; to get the most out of it, "
                     "it is suggested that you read the section in the manual on <a href=\"help:/kphotoalbum/sect-general-image-searches.html\">"

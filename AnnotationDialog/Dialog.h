@@ -26,6 +26,7 @@
 #include <ktimewidget.h>
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
+#include "enums.h"
 
 class QSplitter;
 class QPushButton;
@@ -83,7 +84,6 @@ protected slots:
     void slotStartDateChanged( const DB::ImageDate& );
 
 protected:
-    enum SetupType { SINGLE, MULTIPLE, SEARCH };
     void load();
     void writeToInfo();
     void setup();
@@ -95,7 +95,7 @@ protected:
     virtual bool eventFilter( QObject*, QEvent* );
     KDockWidget* createListSel( const DB::CategoryPtr& category );
     bool hasChanges();
-    void showHelpDialog( SetupType );
+    void showHelpDialog( UsageMode );
     virtual void resizeEvent( QResizeEvent* );
     virtual void moveEvent ( QMoveEvent * );
     void setupFocus();
@@ -109,7 +109,7 @@ private:
     DB::ImageInfoList _origList;
     QValueList<DB::ImageInfo> _editList;
     int _current;
-    SetupType _setup;
+    UsageMode _setup;
     QPtrList< ListSelect > _optionList;
     DB::ImageSearchInfo _oldSearch;
     QSplitter* _splitter;

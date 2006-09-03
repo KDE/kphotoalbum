@@ -13,7 +13,7 @@ void AnnotationDialog::CompletableLineEdit::setListView( QListView* listView )
     _listView = listView;
 }
 
-void AnnotationDialog::CompletableLineEdit::setMode( ListSelect::Mode mode )
+void AnnotationDialog::CompletableLineEdit::setMode( UsageMode mode )
 {
     _mode = mode;
 }
@@ -25,7 +25,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         return;
     }
 
-    if ( _mode != ListSelect::SearchMode && isSpecialKey( ev ) )
+    if ( _mode != SearchMode && isSpecialKey( ev ) )
         return; // Don't insert the special character.
 
     if ( ev->key() == Key_Space && ev->state() & ControlButton ) {
@@ -43,7 +43,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     }
 
     // &,|, or ! should result in the current item being inserted
-    if ( _mode == ListSelect::SearchMode && isSpecialKey( ev ) )  {
+    if ( _mode == SearchMode && isSpecialKey( ev ) )  {
         handleSpecialKeysInSearch( ev );
         _listSelect->showOnlyItemsMatching( QString::null ); // Show all again after a special caracter.
         return;
@@ -58,7 +58,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     // Find the text of the current item
     int itemStart = 0;
     QString input = text();
-    if ( _mode == ListSelect::SearchMode )  {
+    if ( _mode == SearchMode )  {
         input = input.left( cursorPosition() );
         itemStart = input.findRev( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
         input = input.mid( itemStart );
@@ -66,7 +66,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 
     // Find the text in the listView
     QListViewItem* item = findItemInListView( input );
-    if ( !item && _mode == ListSelect::SearchMode )  {
+    if ( !item && _mode == SearchMode )  {
         // revert
         setText( prevContent );
         setCursorPosition( cursorPos );

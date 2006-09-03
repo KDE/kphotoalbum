@@ -24,6 +24,7 @@
 #include <qtoolbutton.h>
 #include "DB/Category.h"
 #include <qlistview.h>
+#include "enums.h"
 
 class QRadioButton;
 class QLabel;
@@ -45,16 +46,13 @@ public:
     QString category() const;
     QString text() const;
     void setText( const QString& );
-    void setSelection( const QStringList& on, const StringSet& partiallyOn = StringSet() );
     void setSelection( const StringSet& on, const StringSet& partiallyOn = StringSet() );
     StringSet itemsOn() const;
     StringSet itemsOff() const;
     StringSet itemsUnchanged() const;
 
     bool isAND() const;
-
-    enum Mode { InputSingleImageConfigMode, InputMultiImageConfigMode, SearchMode };
-    void setMode( Mode );
+    void setMode( UsageMode );
 
     void populate();
 
@@ -91,7 +89,7 @@ private:
     CategoryListView::DragableListView* _listView;
     QRadioButton* _or;
     QRadioButton* _and;
-    Mode _mode;
+    UsageMode _mode;
     QToolButton* _alphaSort;
     QToolButton* _dateSort;
 };

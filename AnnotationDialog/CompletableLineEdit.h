@@ -11,7 +11,7 @@ class CompletableLineEdit :public QLineEdit {
 public:
     CompletableLineEdit( ListSelect* parent,  const char* name = 0 );
     void setListView( QListView* );
-    void setMode( ListSelect::Mode mode );
+    void setMode( UsageMode mode );
 
 protected:
     virtual void keyPressEvent( QKeyEvent* ev );
@@ -25,7 +25,7 @@ protected:
 
 private:
     QListView* _listView;
-    ListSelect::Mode _mode;
+    UsageMode _mode;
     ListSelect* _listSelect;
     bool _showingSelectionOnly;
 };

@@ -163,17 +163,12 @@ void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const Stri
     _lineEdit->clear();
 }
 
-void AnnotationDialog::ListSelect::setSelection( const QStringList& onSelection, const StringSet& partiallyOn )
-{
-    setSelection( StringSet( onSelection ), partiallyOn );
-}
-
 bool AnnotationDialog::ListSelect::isAND() const
 {
     return _and->isChecked();
 }
 
-void AnnotationDialog::ListSelect::setMode( Mode mode )
+void AnnotationDialog::ListSelect::setMode( UsageMode mode )
 {
     _mode = mode;
     _lineEdit->setMode( mode );

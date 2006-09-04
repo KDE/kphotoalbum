@@ -195,9 +195,13 @@ DB::MD5Map* SQLDB::Database::md5Map()
     return &_md5map;
 }
 
-void SQLDB::Database::lockDB( bool /*lock*/, bool /*exclude*/ )
+void SQLDB::Database::lockDB(bool lock, bool exclude)
 {
-    qDebug("NYI: void SQLDB::Database::lockDB( bool lock, bool exclude )" );
+    if (lock)
+        _infoCollection.setLock(Settings::SettingsData::instance()->
+                                currentLock(), !exclude);
+    else
+        _infoCollection.unsetLock();
 }
 
 DB::CategoryCollection* SQLDB::Database::categoryCollection()

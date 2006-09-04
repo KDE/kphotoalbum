@@ -38,6 +38,8 @@ namespace SQLDB {
         ~SQLImageInfoCollection();
         DB::ImageInfoPtr getImageInfoOf(const QString& relativeFilename) const;
         QString filenameForId(int id) const;
+        void setLock(const DB::ImageSearchInfo& scope, bool invert=false);
+        void unsetLock();
         void clearCache();
 
     public slots:
@@ -46,6 +48,8 @@ namespace SQLDB {
                        const QString& oldName, const QString& newName);
 
     protected:
+        void setLocking(DB::ImageInfoPtr p) const;
+        void updateLockingInfo() const;
         QueryHelper _qh;
 
     private:
@@ -53,6 +57,8 @@ namespace SQLDB {
         mutable QMap<int, QString> _idFilenameMap;
         mutable QMap<int, DB::ImageInfoPtr> _infoPointers;
         // mutable QMutex _mutex;
+        DB::ImageSearchInfo* _lockingScope;
+        bool _invertLock;
     };
 }
 

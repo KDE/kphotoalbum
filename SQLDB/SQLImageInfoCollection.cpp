@@ -24,7 +24,8 @@
 using namespace SQLDB;
 
 SQLImageInfoCollection::SQLImageInfoCollection(Connection& connection):
-    _qh(connection)
+    _qh(connection),
+    _lockingScope(0)
 {
     QValueList< QPair<int, QString> > l = _qh.mediaItemIdFileMap();
     for (QValueList< QPair<int, QString> >::const_iterator i = l.begin();
@@ -36,6 +37,9 @@ SQLImageInfoCollection::SQLImageInfoCollection(Connection& connection):
 
 SQLImageInfoCollection::~SQLImageInfoCollection()
 {
+    unsetLock();
+
+    // FIXME: shouldn't be needed?
     clearCache();
 }
 
@@ -58,6 +62,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
     if (!p) {
         p = new SQLImageInfo(const_cast<QueryHelper*>(&_qh), fileId);
         _infoPointers.insert(fileId, p);
+        setLocking(p);
     }
     return p;
 }
@@ -75,6 +80,25 @@ QString SQLImageInfoCollection::filenameForId(int id) const
         _idFilenameMap.insert(id, filename);
     }
     return filename;
+}
+
+void SQLImageInfoCollection::setLock(const DB::ImageSearchInfo& scope, bool invert)
+{
+    unsetLock();
+    _lockingScope = new DB::ImageSearchInfo(scope);
+    _invertLock = invert;
+    updateLockingInfo();
+
+    // TODO: some other way to prevent locked images to show up in searches
+}
+
+void SQLImageInfoCollection::unsetLock()
+{
+    if (_lockingScope) {
+        delete _lockingScope;
+        _lockingScope = 0;
+        updateLockingInfo();
+    }
 }
 
 void SQLImageInfoCollection::clearCache()
@@ -113,6 +137,21 @@ void SQLImageInfoCollection::renameTag(DB::Category* category,
              i != _infoPointers.end(); ++i)
             (*i)->renameItem(category->name(), oldName, newName);
     }
+}
+
+void SQLImageInfoCollection::setLocking(DB::ImageInfoPtr p) const
+{
+    if (_lockingScope)
+        p->setLocked(_lockingScope->match(p) ^ _invertLock);
+    else
+        p->setLocked(false);
+}
+
+void SQLImageInfoCollection::updateLockingInfo() const
+{
+    for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
+         i != _infoPointers.end(); ++i)
+        setLocking(*i);
 }
 
 #include "SQLImageInfoCollection.moc"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI xmlns:UML="http://schema.omg.org/spec/UML/1.3" verified="false" timestamp="2006-07-18T13:45:59" xmi.version="1.2" >
+<XMI xmlns:UML="http://schema.omg.org/spec/UML/1.3" verified="false" timestamp="2006-09-04T22:34:19" xmi.version="1.2" >
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://uml.sf.net</XMI.exporter>
@@ -65,14 +65,14 @@
     <UML:Entity isSpecification="false" isLeaf="false" visibility="public" namespace="m1" xmi.id="46" isRoot="false" isAbstract="false" name="category" >
      <UML:EntityAttribute attributes="unsigned" values="" dbindex_type="1101" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="46" auto_increment="1" xmi.id="68" isRoot="false" initialValue="" type="114" isAbstract="false" name="id" />
      <UML:EntityAttribute attributes="" values="255" dbindex_type="1100" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="69" isRoot="false" initialValue="" type="22" isAbstract="false" name="name" />
-     <UML:EntityAttribute attributes="" values="255" dbindex_type="1100" isSpecification="false" allow_null="1" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="72" isRoot="false" initialValue="" type="22" isAbstract="false" name="icon" />
+     <UML:EntityAttribute attributes="" values="1023" dbindex_type="1100" isSpecification="false" allow_null="1" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="72" isRoot="false" initialValue="" type="22" isAbstract="false" name="icon" />
      <UML:EntityAttribute attributes="" values="" dbindex_type="1100" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="71" isRoot="false" initialValue="0" type="102" isAbstract="false" name="visible" />
-     <UML:EntityAttribute attributes="" values="" dbindex_type="1100" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="73" isRoot="false" initialValue="" type="74" isAbstract="false" name="viewtype" />
-     <UML:EntityAttribute attributes="" values="" dbindex_type="1100" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="75" isRoot="false" initialValue="" type="74" isAbstract="false" name="viewsize" />
+     <UML:EntityAttribute attributes="" values="" dbindex_type="1100" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="73" isRoot="false" initialValue="" type="94" isAbstract="false" name="viewtype" />
+     <UML:EntityAttribute attributes="" values="" dbindex_type="1100" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="46" auto_increment="0" xmi.id="75" isRoot="false" initialValue="" type="94" isAbstract="false" name="thumbsize" />
     </UML:Entity>
-    <UML:Entity isSpecification="false" isLeaf="false" visibility="public" namespace="m1" xmi.id="50" isRoot="false" isAbstract="false" name="tag_relation" >
-     <UML:EntityAttribute attributes="unsigned" values="" dbindex_type="1101" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="50" auto_increment="0" xmi.id="64" isRoot="false" initialValue="" type="20" isAbstract="false" name="toTagId" />
-     <UML:EntityAttribute attributes="unsigned" values="" dbindex_type="1101" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="50" auto_increment="0" xmi.id="63" isRoot="false" initialValue="" type="20" isAbstract="false" name="fromTagId" />
+    <UML:Entity isSpecification="false" isLeaf="false" visibility="public" namespace="m1" xmi.id="50" isRoot="false" isAbstract="false" name="membergroup" >
+     <UML:EntityAttribute attributes="unsigned" values="" dbindex_type="1101" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="50" auto_increment="0" xmi.id="64" isRoot="false" initialValue="" type="20" isAbstract="false" name="groupTag" />
+     <UML:EntityAttribute attributes="unsigned" values="" dbindex_type="1101" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="50" auto_increment="0" xmi.id="63" isRoot="false" initialValue="" type="20" isAbstract="false" name="memberTag" />
     </UML:Entity>
     <UML:Entity isSpecification="false" isLeaf="false" visibility="public" namespace="m1" xmi.id="57" isRoot="false" isAbstract="false" name="relationType" >
      <UML:EntityAttribute attributes="unsigned" values="" dbindex_type="1101" isSpecification="false" allow_null="0" isLeaf="false" visibility="private" namespace="57" auto_increment="1" xmi.id="66" isRoot="false" initialValue="" type="20" isAbstract="false" name="id" />
@@ -160,16 +160,16 @@
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello" >
-  <docsettings viewid="17" documentation="" uniqueid="136" />
+  <docsettings viewid="17" documentation="" uniqueid="137" />
   <diagrams>
    <diagram snapgrid="1" showattsig="1" fillcolor="#f0f0f0" linewidth="0" zoom="100" showgrid="1" showopsig="1" usefillcolor="1" snapx="10" canvaswidth="806" snapy="10" showatts="1" xmi.id="17" documentation="" type="408" showops="1" showpackage="0" name="KPhotoAlbum SQL database" localid="900000" showstereotype="0" showscope="1" snapcsgrid="1" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" canvasheight="714" >
     <widgets>
      <entitywidget usesdiagramfillcolour="0" width="100" usesdiagramusefillcolour="0" x="160" y="45" linewidth="none" fillcolour="#f0f0f0" height="310" usefillcolor="1" isinstance="0" xmi.id="18" showstereotype="1" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" />
      <entitywidget usesdiagramfillcolour="0" width="100" usesdiagramusefillcolour="0" x="510" y="130" linewidth="none" fillcolour="#f0f0f0" height="140" usefillcolor="1" isinstance="0" xmi.id="24" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" />
      <entitywidget usesdiagramfillcolour="0" width="110" usesdiagramusefillcolour="0" x="335" y="165" linewidth="none" fillcolour="#f0f0f0" height="70" usefillcolor="1" isinstance="0" xmi.id="30" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" />
-     <entitywidget usesdiagramfillcolour="0" width="90" usesdiagramusefillcolour="0" x="165" y="420" linewidth="none" fillcolour="#f0f0f0" height="160" usefillcolor="1" isinstance="0" xmi.id="42" showstereotype="1" font="Verdana,12,-1,5,75,1,0,0,0,0" linecolor="#000000" />
-     <entitywidget usesdiagramfillcolour="0" width="100" usesdiagramusefillcolour="0" x="670" y="120" linewidth="none" fillcolour="#f0f0f0" height="160" usefillcolor="1" isinstance="0" xmi.id="46" showstereotype="1" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" />
-     <entitywidget usesdiagramfillcolour="0" width="130" usesdiagramusefillcolour="0" x="495" y="335" linewidth="none" fillcolour="#f0f0f0" height="70" usefillcolor="1" isinstance="0" xmi.id="50" showstereotype="1" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" />
+     <entitywidget usesdiagramfillcolour="0" width="90" usesdiagramusefillcolour="0" x="165" y="420" linewidth="none" fillcolour="#f0f0f0" height="160" usefillcolor="1" isinstance="0" xmi.id="42" showstereotype="1" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" />
+     <entitywidget usesdiagramfillcolour="0" width="100" usesdiagramusefillcolour="0" x="670" y="120" linewidth="none" fillcolour="#f0f0f0" height="160" usefillcolor="1" isinstance="0" xmi.id="46" showstereotype="1" font="Verdana,12,-1,5,75,1,0,0,0,0" linecolor="#000000" />
+     <entitywidget usesdiagramfillcolour="0" width="140" usesdiagramusefillcolour="0" x="490" y="335" linewidth="none" fillcolour="#f0f0f0" height="70" usefillcolor="1" isinstance="0" xmi.id="50" showstereotype="1" font="Verdana,12,-1,5,75,1,0,0,0,0" linecolor="#000000" />
      <entitywidget usesdiagramfillcolour="0" width="110" usesdiagramusefillcolour="0" x="25" y="45" linewidth="none" fillcolour="#f0f0f0" height="70" usefillcolor="1" isinstance="0" xmi.id="116" showstereotype="1" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="#000000" />
      <entitywidget usesdiagramfillcolour="1" width="50" usesdiagramusefillcolour="1" x="55" y="165" linewidth="none" fillcolour="none" height="70" usefillcolor="1" isinstance="0" xmi.id="122" showstereotype="1" font="Verdana,12,-1,5,50,0,0,0,0,0" linecolor="none" />
     </widgets>

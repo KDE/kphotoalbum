@@ -31,11 +31,11 @@
 #include "QueryErrors.h"
 
 // Update this when making incompatible schema change
-#define SCHEMA_VERSION_MAJOR 1
+#define SCHEMA_VERSION_MAJOR 2
 
 // Update these every time the database schema changes
-#define SCHEMA_VERSION_MINOR 2
-#define SCHEMA_DATE "2006-08-29"
+#define SCHEMA_VERSION_MINOR 0
+#define SCHEMA_DATE "2006-09-04"
 
 
 using namespace SQLDB;
@@ -396,35 +396,37 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
                             "ON media_tag (tagId, mediaId)");
 
 
-    // ==== tag_relation table ====
-    schema = new KexiDB::TableSchema("tag_relation");
-    schema->setCaption("tag relations");
+    // ==== membergroup table ====
+    schema = new KexiDB::TableSchema("membergroup");
+    schema->setCaption("member group configuration");
 
-    f = new Field("toTagId", Field::BigInteger,
+    f = new Field("groupTag", Field::BigInteger,
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
-    f->setCaption("media item id");
+    f->setCaption("tag id of the group");
     schema->addField(f);
 
     // TODO: foreign key constraint:
-    // FOREIGN KEY (toTagId) REFERENCES tag(id)
+    // FOREIGN KEY (groupTag) REFERENCES tag(id)
     // ON DELETE CASCADE ON UPDATE RESTRICT
 
-    f = new Field("fromTagId", Field::BigInteger,
+    f = new Field("memberTag", Field::BigInteger,
                   Field::ForeignKey | Field::NotNull, Field::Unsigned);
-    f->setCaption("tag id");
+    f->setCaption("tag id of the member of the group");
     schema->addField(f);
 
     // TODO: foreign key constraint:
-    // FOREIGN KEY (fromTagId) REFERENCES tag(id)
+    // FOREIGN KEY (memberTag) REFERENCES tag(id)
     // ON DELETE CASCADE ON UPDATE RESTRICT
+
+    // groupTag and memberTag should be in same category
 
     if (!_connection->createTable(schema)) {
         delete schema;
         throw TableCreateError(_connection->errorMsg());
     }
 
-    _connection->executeSQL("CREATE INDEX relationidx "
-                            "ON tag_relation (toTagId, fromTagId)");
+    _connection->executeSQL("CREATE INDEX membergroupidx "
+                            "ON membergroup (groupTag, memberTag)");
 
 
     // ==== drawing table ====

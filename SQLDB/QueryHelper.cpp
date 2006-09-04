@@ -517,6 +517,9 @@ void QueryHelper::removeTag(int categoryId, const QString& name)
                      Bindings() << categoryId << name).firstItem().toInt();
     executeStatement("DELETE FROM media_tag WHERE tagId=%s",
                      Bindings() << tagId);
+    executeStatement("DELETE FROM membergroup "
+                     "WHERE groupTag=%s OR memberTag=%s",
+                     Bindings() << tagId << tagId);
 #endif
     executeStatement("DELETE FROM tag WHERE categoryId=%s AND name=%s",
                      Bindings() << categoryId << name);
@@ -690,7 +693,7 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
 
 QValueList<int> QueryHelper::directMembers(int tagId) const
 {
-    return executeQuery("SELECT fromTagId FROM tag_relation WHERE toTagId=%s",
+    return executeQuery("SELECT memberTag FROM membergroup WHERE groupTag=%s",
                         Bindings() << tagId).asIntegerList();
 }
 
@@ -732,21 +735,21 @@ QValueList<int> QueryHelper::tagIdList(const QString& category,
 
 QValueList<QString[3]> QueryHelper::memberGroupConfiguration() const
 {
-    return executeQuery("SELECT c.name, t.name, f.name "
-                        "FROM tag_relation tr, tag t, tag f, category c "
-                        "WHERE tr.toTagId=t.id AND "
-                        "tr.fromTagId=f.id AND "
-                        "t.categoryId=c.id").asString3List();
+    return executeQuery("SELECT c.name, g.name, m.name "
+                        "FROM membergroup mg, tag g, tag m, category c "
+                        "WHERE mg.groupTag=g.id AND "
+                        "mg.memberTag=m.id AND "
+                        "g.categoryId=c.id").asString3List();
 }
 
 QValueList<QString[2]>
 QueryHelper::memberGroupConfiguration(const QString& category) const
 {
-    return executeQuery("SELECT t.name, f.name "
-                        "FROM tag_relation tr, tag t, tag f, category c "
-                        "WHERE tr.toTagId=t.id AND "
-                        "tr.fromTagId=f.id AND "
-                        "t.categoryId=c.id AND c.name=%s",
+    return executeQuery("SELECT g.name, m.name "
+                        "FROM membergroup mg, tag g, tag m, category c "
+                        "WHERE mg.groupTag=g.id AND "
+                        "mg.memberTag=m.id AND "
+                        "g.categoryId=c.id AND c.name=%s",
                         Bindings() << category).asString2List();
 }
 
@@ -805,6 +808,15 @@ void QueryHelper::insertCategory(const QString& name,
 void QueryHelper::removeCategory(const QString& name)
 {
     int id = categoryId(name);
+    Cursor c = executeQuery("SELECT id FROM tag WHERE categoryId=%s").cursor();
+    for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
+        QVariant tagId = c.value(0);
+        executeStatement("DELETE FROM media_tag WHERE tagId=%s",
+                         Bindings() << tagId);
+        executeStatement("DELETE FROM membergroup "
+                         "WHERE groupTag=%s OR memberTag=%s",
+                         Bindings() << tagId << tagId);
+    }
     executeStatement("DELETE FROM tag WHERE categoryId=%s", Bindings() << id);
     executeStatement("DELETE FROM category WHERE id=%s", Bindings() << id);
 }

@@ -48,8 +48,8 @@ QStringList SQLMemberMap::groups(const QString& category) const
 
 void SQLMemberMap::deleteGroup(const QString& category, const QString& name)
 {
-    _qh->executeStatement("DELETE FROM tag_relation "
-                          "WHERE toTagId=(SELECT tag.id FROM tag, category "
+    _qh->executeStatement("DELETE FROM membergroup "
+                          "WHERE groupTag=(SELECT tag.id FROM tag, category "
                           "WHERE tag.categoryId=category.id AND "
                           "category.name=%s AND tag.name=%s)",
                           QueryHelper::Bindings() << category << name);
@@ -73,11 +73,11 @@ QStringList SQLMemberMap::members(const QString& category,
     }
     else
         return
-            _qh->executeQuery("SELECT f.name "
-                              "FROM tag f, tag t, tag_relation r, category c "
-                              "WHERE f.id=r.fromTagId AND t.id=r.toTagId AND "
-                              "f.categoryId=c.id AND t.categoryId=c.id AND "
-                              "c.name=%s AND t.name=%s",
+            _qh->executeQuery("SELECT m.name "
+                              "FROM tag m, tag g, membergroup mg, category c "
+                              "WHERE m.id=mg.memberTag AND "
+                              "g.id=mg.groupTag AND "
+                              "g.categoryId=c.id AND c.name=%s AND g.name=%s",
                               QueryHelper::Bindings() <<
                               category << memberGroup).asStringList();
 }
@@ -92,14 +92,14 @@ void SQLMemberMap::setMembers(const QString& category,
     int groupId = _qh->tagId(category, memberGroup);
     _qh->executeStatement("UPDATE tag SET isGroup='1' WHERE id=%s",
                           QueryHelper::Bindings() << groupId);
-    _qh->executeStatement("DELETE FROM tag_relation WHERE toTagId=%s",
+    _qh->executeStatement("DELETE FROM membergroup WHERE groupTag=%s",
                           QueryHelper::Bindings() << groupId);
     for (QStringList::const_iterator i = members.begin();
          i != members.end(); ++i) {
         int memberId = _qh->tagId(category, *i);
-        _qh->executeStatement("INSERT INTO tag_relation (fromTagId, toTagId) "
+        _qh->executeStatement("INSERT INTO membergroup (groupTag, memberTag) "
                               "VALUES (%s, %s)",
-                              QueryHelper::Bindings() << memberId << groupId);
+                              QueryHelper::Bindings() << groupId << memberId);
     }
  }
 
@@ -202,13 +202,13 @@ void SQLMemberMap::addMemberToGroup(const QString& category,
         _qh->insertTagFirst(_qh->categoryId(category), item);
         memberId = _qh->tagId(category, item);
     }
-    if (_qh->executeQuery("SELECT COUNT(*) FROM tag_relation "
-                          "WHERE fromTagId=%s AND toTagId=%s",
+    if (_qh->executeQuery("SELECT COUNT(*) FROM membergroup "
+                          "WHERE memberTag=%s AND groupTag=%s",
                           QueryHelper::Bindings() << memberId << groupId
                           ).firstItem().toUInt() == 0)
-        _qh->executeStatement("INSERT INTO tag_relation (fromTagId, toTagId) "
+        _qh->executeStatement("INSERT INTO membergroup (groupTag, memberTag) "
                               "VALUES (%s, %s)", QueryHelper::Bindings() <<
-                              memberId << groupId);
+                              groupId << memberId);
 }
 
 void SQLMemberMap::removeMemberFromGroup(const QString& category,
@@ -220,9 +220,9 @@ void SQLMemberMap::removeMemberFromGroup(const QString& category,
 
     int groupId = _qh->tagId(category, group);
     int memberId = _qh->tagId(category, item);
-    _qh->executeStatement("DELETE FROM tag_relation"
-                          "WHERE fromTagId=%s AND toTagId=%s",
-                          QueryHelper::Bindings() << memberId << groupId);
+    _qh->executeStatement("DELETE FROM membergroup"
+                          "WHERE groupTag=%s AND memberTag=%s",
+                          QueryHelper::Bindings() << groupId << memberId);
 }
 
 const SQLMemberMap::MemberMapping& SQLMemberMap::memberMap() const
@@ -256,7 +256,7 @@ void SQLMemberMap::renameItem(DB::Category* category,
 
 void SQLMemberMap::overwriteWithMemberMap(const MemberMapping& map)
 {
-    _qh->executeStatement("DELETE FROM tag_relation");
+    _qh->executeStatement("DELETE FROM membergroup");
 
     for (MemberMapping::const_iterator i = map.begin(); i != map.end(); ++i) {
         QString category = i.key();
@@ -291,10 +291,10 @@ void SQLMemberMap::overwriteWithMemberMap(const MemberMapping& map)
                     qDebug("NYI: blee bloo blee");
                     continue;
                 }
-                _qh->executeStatement("INSERT INTO tag_relation "
-                                      "(fromTagId, toTagId) VALUES (%s, %s)",
+                _qh->executeStatement("INSERT INTO membergroup "
+                                      "(groupTag, memberTag) VALUES (%s, %s)",
                                       QueryHelper::Bindings() <<
-                                      memberId << groupId);
+                                      groupId << memberId);
             }
         }
     }

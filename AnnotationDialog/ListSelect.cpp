@@ -129,6 +129,7 @@ void AnnotationDialog::ListSelect::slotReturn()
             return;
 
         _category->addItem( txt);
+        rePopulate();
 
         QListViewItem* item = _listView->findItem( txt, 0 );
         if ( item )
@@ -154,9 +155,6 @@ void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const Stri
             item->setState( QCheckListItem::NoChange );
         else
             item->setOn( on.contains( item->text(0) ) );
-
-        // static_cast<QCheckListItem*>(*itemIt)->setOn( selection.contains( (*itemIt)->text(0) ) );
-        // static_cast<QCheckListItem*>(*itemIt)->setState( QCheckListItem::NoChange );
         _listView->repaintItem(*itemIt);
     }
 

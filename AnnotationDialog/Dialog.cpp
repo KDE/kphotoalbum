@@ -300,9 +300,9 @@ void AnnotationDialog::Dialog::slotOK()
             if ( !_startDate->date().isNull() )
                 info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
-            for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-                info->addCategoryInfo( (*it)->category(), (*it)->itemsOn() );
-                info->removeCategoryInfo( (*it)->category(), (*it)->itemsOff() );
+            for( QPtrListIterator<ListSelect> listSelectIt( _optionList ); *listSelectIt; ++listSelectIt ) {
+                info->addCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOn() );
+                info->removeCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOff() );
             }
 
             if ( !_imageLabel->text().isEmpty() ) {
@@ -460,11 +460,9 @@ void AnnotationDialog::Dialog::setup()
         (*it)->populate();
     }
 
-    UsageMode mode;
     if ( _setup == SearchMode )  {
         _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
         _revertBut->hide();
-        mode = SearchMode;
         setCaption( i18n("Image Search") );
         loadInfo( _oldSearch );
         _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/search.jpg") ) );
@@ -488,7 +486,7 @@ void AnnotationDialog::Dialog::setup()
     _delBut->setEnabled( _setup == InputSingleImageConfigMode );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it )
-        (*it)->setMode( mode );
+        (*it)->setMode( _setup );
 }
 
 

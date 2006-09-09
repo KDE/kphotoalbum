@@ -27,7 +27,7 @@ class ShowOptionAction :public KToggleAction {
     Q_OBJECT
 
 public:
-    ShowOptionAction( const QString& category, QObject* parent, const char* name = 0 );
+    ShowOptionAction( const QString& category, QObject* parent );
 
 protected slots:
     void slotToggled( bool b );

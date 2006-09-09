@@ -22,8 +22,8 @@
 
 using namespace Viewer;
 
-ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent, const char* name )
-    :KToggleAction( parent, name ), _category( category )
+ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent )
+    :KToggleAction( parent, QString::fromLatin1( "Show %1" ).arg( category ).latin1() ), _category( category )
 {
     setText( i18n( "Show %1" ).arg( category ) );
     connect( this, SIGNAL( toggled(bool) ), this, SLOT( slotToggled( bool ) ) );

@@ -90,16 +90,29 @@ QStringList SQLDB::SQLCategory::items() const
 
 void SQLDB::SQLCategory::setItems(const QStringList& items)
 {
-    _qh->executeStatement("DELETE FROM tag WHERE categoryId=%s",
-                          QueryHelper::Bindings() << _categoryId);
+    _qh->executeStatement("DELETE FROM tag "
+                          "WHERE categoryId=%s AND name NOT IN (%s)",
+                          QueryHelper::Bindings() <<
+                          _categoryId << toVariantList(items));
 
     uint place = items.count();
     for (QStringList::const_iterator it = items.begin();
         it != items.end(); ++it ) {
-        _qh->executeStatement("INSERT INTO tag(name, categoryId, place) "
-                              "VALUES(%s, %s, %s)",
-                              QueryHelper::Bindings() << *it <<
-                              _categoryId << place);
+        if (_qh->executeQuery("SELECT COUNT(*) FROM tag "
+                              "WHERE categoryId=%s AND name=%s",
+                              QueryHelper::Bindings() << _categoryId << *it
+                              ).firstItem().toUInt() == 0) {
+            _qh->executeStatement("INSERT INTO tag (name, categoryId, place) "
+                                  "VALUES (%s, %s, %s)",
+                                  QueryHelper::Bindings() << *it <<
+                                  _categoryId << place);
+        }
+        else {
+            _qh->executeStatement("UPDATE tag SET place=%s "
+                                  "WHERE name=%s AND categoryId=%s",
+                                  QueryHelper::Bindings() <<
+                                  *it << _categoryId);
+        }
         --place;
     }
 }

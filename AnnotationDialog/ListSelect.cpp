@@ -271,11 +271,15 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     if ( item )
         title = item->text(0);
 
-    QLabel* label = new QLabel( QString::fromLatin1("<qt><b>%1</b></qt>").arg(title), &menu );
+    QLabel* label = new QLabel( QString::fromLatin1("<b>%1</b>").arg(title), &menu );
     label->setAlignment( Qt::AlignCenter );
     menu.insertItem( label );
     menu.insertItem( SmallIcon(QString::fromLatin1("editdelete")), i18n("Delete"), 1 );
     menu.insertItem( i18n("Rename..."), 2 );
+
+    QLabel* categoryTitle = new QLabel( i18n("<b>Sub Categories</b>"), &menu );
+    categoryTitle->setAlignment( Qt::AlignCenter );
+    menu.insertItem( categoryTitle );
 
     // -------------------------------------------------- Add/Remove member group
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
@@ -300,8 +304,13 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     }
     menu.insertItem( i18n( "Create Subcategory..." ), 8 );
 
+    // -------------------------------------------------- Take item out of category
+    QListViewItem* parent = item->parent();
+    if ( parent )
+        menu.insertItem( i18n( "Take item out of category %1" ).arg( parent->text(0) ), 9 );
+
     // -------------------------------------------------- sort
-    QLabel* sortTitle = new QLabel( i18n("<qt><b>Sorting</b></qt>"), &menu );
+    QLabel* sortTitle = new QLabel( i18n("<b>Sorting</b>"), &menu );
     sortTitle->setAlignment( Qt::AlignCenter );
     menu.insertItem( sortTitle );
     menu.insertItem( i18n("Usage"), 3 );
@@ -392,6 +401,10 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
             else
                 Q_ASSERT( false );
         }
+    }
+    else if ( which == 9 ) {
+        memberMap.removeMemberFromGroup( _category->name(), parent->text(0), item->text(0) );
+        rePopulate();
     }
     else {
         if ( map.contains( which ) ) {

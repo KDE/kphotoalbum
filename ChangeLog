@@ -1,5 +1,8 @@
 2006-09-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Added "remove item from parent category" to the list box in the
+	annotation dialog, to allow the user to make a sub item top level.
+
 	* Ensure every action's keybinding in the viewer is configurable
 	(Thanks to Kimball Robinson for bringing it to my attention that
 	they were not)

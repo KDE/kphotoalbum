@@ -632,6 +632,14 @@ QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
 
 void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
 {
+    Bindings infoValues = imageInfoToBindings(info);
+
+    if (executeQuery("SELECT COUNT(*) FROM media "
+                     "WHERE dirId=%s AND filename=%s",
+                     Bindings() << infoValues[0] << infoValues[1]
+                     ).firstItem().toUInt() != 0)
+        return;
+
     // TODO: remove debug
     qDebug("Inserting info of file %s", info.fileName().local8Bit().data());
 
@@ -647,7 +655,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
         "description" <<
         "startTime" << "endTime" <<
         "width" << "height" << "angle";
-    bindings += imageInfoToBindings(info);
+    bindings += infoValues;
 
     Q_ULLONG mediaId = insert("media", "id", fields, bindings);
 

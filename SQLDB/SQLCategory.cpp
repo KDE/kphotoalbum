@@ -94,7 +94,11 @@ void SQLDB::SQLCategory::setItems(const QStringList& items)
                           "WHERE categoryId=%s AND name NOT IN (%s)",
                           QueryHelper::Bindings() <<
                           _categoryId << toVariantList(items));
+    addOrReorderItems(items);
+}
 
+void SQLDB::SQLCategory::addOrReorderItems(const QStringList& items)
+{
     uint place = items.count();
     for (QStringList::const_iterator it = items.begin();
         it != items.end(); ++it ) {
@@ -111,7 +115,7 @@ void SQLDB::SQLCategory::setItems(const QStringList& items)
             _qh->executeStatement("UPDATE tag SET place=%s "
                                   "WHERE name=%s AND categoryId=%s",
                                   QueryHelper::Bindings() <<
-                                  *it << _categoryId);
+                                  place << *it << _categoryId);
         }
         --place;
     }

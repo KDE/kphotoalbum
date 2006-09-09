@@ -48,6 +48,7 @@ namespace SQLDB {
 
         virtual QStringList items() const;
         virtual void setItems(const QStringList& items);
+        virtual void addOrReorderItems(const QStringList& items);
         virtual void addItem(const QString& item);
         virtual void removeItem(const QString& item);
         virtual void renameItem(const QString& oldValue,

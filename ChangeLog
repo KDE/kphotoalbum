@@ -1,5 +1,8 @@
 2006-09-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* BUGFIX: delete and rename of item in the annotation dialog
+	didn't work if the item was not top level or it had sub items.
+
 	* Added "remove item from parent category" to the list box in the
 	annotation dialog, to allow the user to make a sub item top level.
 

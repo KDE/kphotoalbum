@@ -330,13 +330,14 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     int which = menu.exec( pos );
     if ( which == 1 ) {
         int code = KMessageBox::warningContinueCancel( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
-                                                          "Deleting the item will remove any information about "
-                                                          "about it from any image containing the item.</qt>")
-                                               .arg(item->text(0)),
-                                               i18n("Really Delete %1?").arg(item->text(0)), KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
+                                                                  "Deleting the item will remove any information "
+                                                                  "about it from any image containing the item.</qt>")
+                                                       .arg(item->text(0)),
+                                                       i18n("Really Delete %1?").arg(item->text(0)),
+                                                       KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
             _category->removeItem( item->text(0) );
-            delete item;
+            rePopulate();
         }
     }
     else if ( which == 2 ) {
@@ -353,11 +354,10 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text(0);
                 _category->renameItem( oldStr, newStr );
-                bool sel = static_cast<QCheckListItem*>(item)->isOn();
-                delete item;
-                CheckDropItem* newItem = new CheckDropItem( _listView, newStr, QString::null );
-                newItem->setOn( sel );
-                configureItem( newItem );
+                bool checked = static_cast<QCheckListItem*>(item)->isOn();
+                rePopulate();
+                // rePopuldate doesn't ask the backend if the item should be checked, so we need to do that.
+                checkItem( newStr, checked );
 
                 // rename the category image too
                 QString oldFile = Settings::SettingsData::instance()->fileForCategoryImage( category(), oldStr );
@@ -394,13 +394,8 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
             _category->addItem( subCategory );
 
         rePopulate();
-        if ( isInputMode() ) {
-            QListViewItem* item = _listView->findItem( subCategory, 0 );
-            if ( item )
-                static_cast<QCheckListItem*>(item)->setOn( true );
-            else
-                Q_ASSERT( false );
-        }
+        if ( isInputMode() )
+            checkItem( subCategory, true );
     }
     else if ( which == 9 ) {
         memberMap.removeMemberFromGroup( _category->name(), parent->text(0), item->text(0) );
@@ -571,6 +566,15 @@ StringSet AnnotationDialog::ListSelect::itemsOfState( QCheckListItem::ToggleStat
 StringSet AnnotationDialog::ListSelect::itemsUnchanged() const
 {
     return itemsOfState( QCheckListItem::NoChange );
+}
+
+void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
+{
+    QListViewItem* item = _listView->findItem( itemText, 0 );
+    if ( item )
+        static_cast<QCheckListItem*>(item)->setOn( b );
+    else
+        Q_ASSERT( false );
 }
 
 #include "ListSelect.moc"

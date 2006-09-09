@@ -80,9 +80,9 @@ protected:
     void configureItem( CategoryListView::CheckDropItem* item );
     bool isInputMode() const;
     StringSet itemsOfState( QCheckListItem::ToggleState state ) const;
+    void checkItem( const QString itemText, bool );
 
 private:
-
     QLabel* _label;
     DB::CategoryPtr _category;
     CompletableLineEdit* _lineEdit;

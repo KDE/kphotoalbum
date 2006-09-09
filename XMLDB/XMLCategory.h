@@ -29,6 +29,7 @@ namespace XMLDB {
         virtual void setSpecialCategory( bool b );
         virtual bool isSpecialCategory() const;
 
+        virtual void addOrReorderItems( const QStringList& items );
         virtual void setItems( const QStringList& items );
         virtual void removeItem( const QString& item );
         virtual void renameItem( const QString& oldValue, const QString& newValue );

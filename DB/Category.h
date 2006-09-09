@@ -43,6 +43,7 @@ public:
     virtual void setSpecialCategory( bool b ) = 0;
     virtual bool isSpecialCategory() const = 0;
 
+    virtual void addOrReorderItems( const QStringList& items ) = 0;
     virtual void setItems( const QStringList& items ) = 0;
     virtual void removeItem( const QString& item ) = 0;
     virtual void renameItem( const QString& oldValue, const QString& newValue ) = 0;

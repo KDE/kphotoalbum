@@ -2,6 +2,7 @@
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
 #include <DB/ImageDB.h>
+#include "Utilities/List.h"
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show )
     : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _isSpecial(false), _shouldSave( true )
@@ -59,6 +60,11 @@ void XMLDB::XMLCategory::setSpecialCategory( bool b )
 bool XMLDB::XMLCategory::isSpecialCategory() const
 {
     return _isSpecial;
+}
+
+void XMLDB::XMLCategory::addOrReorderItems( const QStringList& items )
+{
+    _items = items + Utilities::listSubtract(_items, items);
 }
 
 void XMLDB::XMLCategory::setItems( const QStringList& items )

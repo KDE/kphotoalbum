@@ -314,6 +314,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         menu.setItemEnabled( 2, false );
         menu.setItemEnabled( 5, false );
         menu.setItemEnabled( 6, false );
+        menu.setItemEnabled( 8, false );
     }
 
     // -------------------------------------------------- exec

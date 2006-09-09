@@ -139,7 +139,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     for( QValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
         newCategories->addCategory( (*it)->text(), (*it)->iconName(), (*it)->viewType(),
                                     (*it)->thumbnailSize(), (*it)->doShow() );
-        newCategories->categoryForName( (*it)->name() )->setItems( (*it)->items() );
+        newCategories->categoryForName( (*it)->name() )->addOrReorderItems( (*it)->items() );
 
         if (progressBar) {
             progressBar->setProgress(n++);

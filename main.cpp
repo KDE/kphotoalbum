@@ -55,8 +55,6 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KPhotoAlbum again and again.", "rlk@alum.mit.edu" );
     aboutData.addCredit( "Christoph Moseler", "Numerous patches for lots of bugs.", " forums@moseler.net" );
 
-    aboutData.setHomepage( "http://www.kphotoalbum.org/" );
-
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );
 

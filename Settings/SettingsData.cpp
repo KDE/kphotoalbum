@@ -392,7 +392,9 @@ Set<QString> Settings::SettingsData::value(const QString& group, const QString& 
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
-    return config->readListEntry( option.latin1(), QStringList( defaultValue.toList() ) );
+    if ( !config->hasKey( option.latin1() ) )
+        return defaultValue;
+    return config->readListEntry( option );
 }
 
 void Settings::SettingsData::setValue( const QString& group, const QString& option, int value )

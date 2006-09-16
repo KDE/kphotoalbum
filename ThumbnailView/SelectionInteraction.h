@@ -29,6 +29,8 @@ protected:
     Cell nextCell( const Cell& cell );
     QRect iconRect( const QPoint& pos, CoordinateSystem ) const;
     bool deselectSelection( const QMouseEvent* ) const;
+    bool toggleSelectionOfFile( const QMouseEvent* ) const;
+    void clearSelection();
 
 protected slots:
     void handleDragSelection();
@@ -46,12 +48,9 @@ private:
      */
     bool _mousePressWasOnIcon;
 
-    Set<QString> _originalSelectionBeforeDragStart ;
-
+    Set<QString> _originalSelectionBeforeDragStart;
     ThumbnailWidget* _view;
-
     QTimer* _dragTimer;
-
     bool _dragInProgress;
 };
 

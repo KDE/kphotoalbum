@@ -1,3 +1,9 @@
+2006-09-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Yet another fix to the selection code in the thumbnail
+	viewer. What was broken in the latest snapshot was that you where
+	not able to select a number of images, and drag them.
+
 2006-09-09  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: delete and rename of item in the annotation dialog

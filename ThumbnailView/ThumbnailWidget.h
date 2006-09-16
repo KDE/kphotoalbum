@@ -43,6 +43,7 @@ public:
     static ThumbnailWidget* theThumbnailView();
     void setCurrentItem( const QString& fileName );
     void setSortDirection( SortDirection );
+    void repaintScreen();
 
 
 public slots:
@@ -64,7 +65,6 @@ protected:
     void paintCellBackground( QPainter*, int row, int col );
     void paintCellPixmap( QPainter*, int row, int col );
     void paintCellText( QPainter*, int row, int col );
-    void repaintScreen();
     virtual void viewportPaintEvent( QPaintEvent* );
 
     // Cell handling methods.

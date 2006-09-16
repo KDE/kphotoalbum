@@ -497,6 +497,7 @@ QString MainWindow::Window::welcome()
 void MainWindow::Window::slotChanges()
 {
     setDirty( true );
+    _thumbnailView->repaintScreen();
 }
 
 void MainWindow::Window::closeEvent( QCloseEvent* e )

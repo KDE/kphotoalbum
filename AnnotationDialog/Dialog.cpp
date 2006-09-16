@@ -277,10 +277,9 @@ void AnnotationDialog::Dialog::slotNext()
 
 void AnnotationDialog::Dialog::slotOK()
 {
-    // I need to emit the changes first, as the case for _setup == InputSingleImageConfigMode, saves to the _origList,
+    // I need to check for the changes first, as the case for _setup == InputSingleImageConfigMode, saves to the _origList,
     // and we can thus not check for changes anymore
-    if ( hasChanges() )
-        emit changed();
+    const bool anyChanges = hasChanges();
 
     if ( _setup == InputSingleImageConfigMode )  {
         writeToInfo();
@@ -318,6 +317,10 @@ void AnnotationDialog::Dialog::slotOK()
     }
     _accept = QDialog::Accepted;
     qApp->eventLoop()->exitLoop();
+
+    // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
+    if ( anyChanges )
+        emit changed();
 }
 
 void AnnotationDialog::Dialog::load()

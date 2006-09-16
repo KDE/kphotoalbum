@@ -81,6 +81,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     QLabel* label = new QLabel( i18n("Label: " ), top, "label" );
     lay3->addWidget( label );
     _imageLabel = new KLineEdit( top, "label line edit" );
+    label->setBuddy( _imageLabel );
     lay3->addWidget( _imageLabel );
 
 
@@ -93,6 +94,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     _startDate = new ::AnnotationDialog::KDateEdit( true, top, "date config" );
     lay4->addWidget( _startDate, 1 );
     connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
+    label->setBuddy( _startDate );
 
     label = new QLabel( QString::fromLatin1( "-" ), top );
     lay4->addWidget( label );

@@ -305,7 +305,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     menu.insertItem( i18n( "Create Subcategory..." ), 8 );
 
     // -------------------------------------------------- Take item out of category
-    QListViewItem* parent = item->parent();
+    QListViewItem* parent = item ? item->parent() : 0;
     if ( parent )
         menu.insertItem( i18n( "Take item out of category %1" ).arg( parent->text(0) ), 9 );
 

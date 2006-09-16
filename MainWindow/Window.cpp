@@ -186,7 +186,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     setDirty( _dirty ); // Might already have been made dirty by load above
 
     _lockedIndicator = new QLabel( indicators, "_lockedIndicator" );
-    setLocked( Settings::SettingsData::instance()->isLocked() );
+    setLocked( Settings::SettingsData::instance()->isLocked(), true );
 
     statusBar()->addWidget( indicators, 0, true );
 
@@ -927,7 +927,7 @@ void MainWindow::Window::lockToDefaultScope()
     if ( i == KMessageBox::Cancel )
         return;
 
-    setLocked( true );
+    setLocked( true, false );
 
 }
 
@@ -944,10 +944,10 @@ void MainWindow::Window::unlockFromDefaultScope()
         if ( !OK )
             KMessageBox::sorry( this, i18n("Invalid password.") );
     }
-    setLocked( false );
+    setLocked( false, false );
 }
 
-void MainWindow::Window::setLocked( bool locked )
+void MainWindow::Window::setLocked( bool locked, bool force )
 {
     static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "key" ) ) );
     _lockedIndicator->setFixedWidth( lockedPix->width() );
@@ -957,7 +957,7 @@ void MainWindow::Window::setLocked( bool locked )
     else
         _lockedIndicator->setPixmap( QPixmap() );
 
-    Settings::SettingsData::instance()->setLocked( locked );
+    Settings::SettingsData::instance()->setLocked( locked, force );
 
     _lock->setEnabled( !locked );
     _unlock->setEnabled( locked );

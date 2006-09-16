@@ -185,11 +185,11 @@ DB::ImageSearchInfo Settings::SettingsData::currentLock() const
     return DB::ImageSearchInfo::loadLock();
 }
 
-void Settings::SettingsData::setLocked( bool lock )
+void Settings::SettingsData::setLocked( bool lock, bool force )
 {
     bool changed = ( lock != isLocked() );
     setValue( groupForDatabase( STR("Privacy Settings") ), STR("locked"), lock );
-    if (changed)
+    if (changed || force )
         emit locked( lock, lockExcludes() );
 }
 

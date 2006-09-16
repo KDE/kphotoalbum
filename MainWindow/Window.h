@@ -144,7 +144,7 @@ protected:
     bool load();
     virtual void contextMenuEvent( QContextMenuEvent* e );
     void setDirty( bool b );
-    void setLocked( bool b );
+    void setLocked( bool b, bool force );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
     QStringList selectedOnDisk();

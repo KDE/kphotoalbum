@@ -86,6 +86,8 @@ QDateTime FileInfo::fetchDate( const char* key )
     catch (...)
     {
     }
+#else
+    Q_UNUSED( key );
 #endif
     return QDateTime();
 }

@@ -177,7 +177,7 @@ public:
     void setCurrentLock( const DB::ImageSearchInfo&, bool exclude );
     DB::ImageSearchInfo currentLock() const;
 
-    void setLocked( bool );
+    void setLocked( bool locked, bool force );
     bool isLocked() const;
     bool lockExcludes() const;
 

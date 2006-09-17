@@ -25,6 +25,9 @@ public:
     void setThumbnailSize( int size );
     void setViewType( DB::Category::ViewType type );
 
+protected:
+    void renameCategory(DB::MemberMap* memberMap);
+
 private:
     QString _categoryOrig, _textOrig, _iconOrig;
     QString _category, _text, _icon;

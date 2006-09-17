@@ -283,6 +283,12 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::I
 
 bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 {
+    // A few bugs has shown up, where an invalid category name has crashed KPA. I therefore checks for sauch invalid names here.
+    if ( !_db->_categoryCollection.categoryForName( categoryName ) ) {
+        qWarning("Invalid category name: %s", categoryName.latin1());
+        return false;
+    }
+
     return dynamic_cast<XMLCategory*>( _db->_categoryCollection.categoryForName( categoryName ).data() )->shouldSave();
 }
 

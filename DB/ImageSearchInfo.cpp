@@ -401,3 +401,10 @@ void ImageSearchInfo::addExifSearchInfo( const Exif::SearchInfo info )
     _isNull = false;
 }
 #endif
+
+void DB::ImageSearchInfo::renameCategory( const QString& oldName, const QString& newName )
+{
+    _options[newName] = _options[oldName];
+    _options.remove( oldName );
+    _compiled = false;
+}

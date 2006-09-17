@@ -1,3 +1,12 @@
+2006-09-17  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* BUGFIX: Fixed a crash happening when saving after a category had
+	been renamed, and that category was included in the privacy
+	settings.
+	
+	* BUGFIX: When renaming a category also rename the category
+	thumbnails. (Thanks to Christoph Moseler for finding this)
+
 2006-09-16  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* BUGFIX: The last snapshot had a bug where KPA would crash if you

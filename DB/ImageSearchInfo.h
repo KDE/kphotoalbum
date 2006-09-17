@@ -47,6 +47,7 @@ public:
 
     QString option( const QString& name ) const;
     void setOption( const QString& name, const QString& value );
+    void renameCategory( const QString& oldName, const QString& newName );
 
     QString label() const;
     QString description() const;

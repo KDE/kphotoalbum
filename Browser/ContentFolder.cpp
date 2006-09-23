@@ -38,17 +38,10 @@ Browser::ContentFolder::ContentFolder( const DB::CategoryPtr& category, const QS
 
 QPixmap Browser::ContentFolder::pixmap()
 {
-    int size = _category->thumbnailSize();
-
-    if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
-        if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), _value ) )
-            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ), KIcon::Desktop, 22 );
-        else {
-            return _category->icon();
-        }
-    }
+    if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView )
+        return _category->icon();
     else
-        return Settings::SettingsData::instance()->categoryImage( _category->name(), _value, size );
+        return Settings::SettingsData::instance()->categoryImage( _category->name(), _value, _category->thumbnailSize() );
 }
 
 QString Browser::ContentFolder::text() const

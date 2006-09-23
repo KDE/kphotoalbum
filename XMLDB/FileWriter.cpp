@@ -191,7 +191,8 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
     QDomElement elm = doc.createElement( QString::fromLatin1("image") );
     elm.setAttribute( QString::fromLatin1("file"),  info->fileName( true ) );
     elm.setAttribute( QString::fromLatin1("label"),  info->label() );
-    elm.setAttribute( QString::fromLatin1("description"), info->description() );
+    if ( !info->description().isEmpty() )
+        elm.setAttribute( QString::fromLatin1("description"), info->description() );
 
     DB::ImageDate date = info->date();
     QDateTime start = date.start();

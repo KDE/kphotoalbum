@@ -534,7 +534,7 @@ void AnnotationDialog::ListSelect::showAllChildren()
 void AnnotationDialog::ListSelect::configureItem( CategoryListView::CheckDropItem* item )
 {
     bool isDNDAllowed = Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha;
-    item->setDNDEnabled( isDNDAllowed );
+    item->setDNDEnabled( isDNDAllowed && ! _category->isSpecialCategory() );
     item->setTristate( _mode == InputMultiImageConfigMode );
 }
 

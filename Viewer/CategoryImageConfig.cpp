@@ -133,16 +133,18 @@ CategoryImageConfig* CategoryImageConfig::instance()
 
 void CategoryImageConfig::show()
 {
-    QString current = _group->currentText();
+    QString currentCategory = _group->currentText();
     _group->clear();
-    QStringList list = DB::ImageDB::instance()->categoryCollection()->categoryNames();
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int index = 0;
     int currentIndex = -1;
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        _group->insertItem( DB::ImageDB::instance()->categoryCollection()->categoryForName( *it )->text() );
-        if ( *it == current )
-            currentIndex = index;
-        ++index;
+    for ( QValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+        if ( !(*categoryIt)->isSpecialCategory() ) {
+            _group->insertItem( (*categoryIt)->text() );
+            if ( (*categoryIt)->text() == currentCategory )
+                currentIndex = index;
+            ++index;
+        }
     }
 
     if ( currentIndex != -1 )

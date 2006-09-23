@@ -375,7 +375,9 @@ bool XMLDB::Database::isClipboardEmpty()
 DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, const QDomElement& elm, Database* db )
 {
     QString label = elm.attribute( QString::fromLatin1("label") );
-    QString description = elm.attribute( QString::fromLatin1("description") );
+    QString description;
+    if ( elm.hasAttribute( QString::fromLatin1( "description" ) ) )
+         description = elm.attribute( QString::fromLatin1("description") );
 
     DB::ImageDate date;
     if ( elm.hasAttribute( QString::fromLatin1( "startDate" ) ) ) {

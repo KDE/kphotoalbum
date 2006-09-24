@@ -623,8 +623,8 @@ void Settings::SettingsDialog::enableDisable( bool b )
 
 void Settings::SettingsDialog::createGroupConfig()
 {
-    QWidget* top = addPage( i18n("Member Groups" ), i18n("Member Groups" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kuser" ),
+    QWidget* top = addPage( i18n("Subcategories" ), i18n("Subcategories" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "editcopy" ),
                                                              KIcon::Desktop, 32 ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
@@ -640,14 +640,14 @@ void Settings::SettingsDialog::createGroupConfig()
 
     // Groups
     QVBoxLayout* lay4 = new QVBoxLayout( lay3, 6 );
-    label = new QLabel( i18n( "Groups:" ), top );
+    label = new QLabel( i18n( "Super Categories:" ), top );
     lay4->addWidget( label );
     _groups = new QListBox( top );
     lay4->addWidget( _groups );
 
     // Members
     QVBoxLayout* lay5 = new QVBoxLayout( lay3, 6 );
-    label = new QLabel( i18n( "Members:" ), top );
+    label = new QLabel( i18n( "Items of Category:" ), top );
     lay5->addWidget( label );
     _members = new QListBox( top );
     lay5->addWidget( _members );
@@ -656,12 +656,16 @@ void Settings::SettingsDialog::createGroupConfig()
     QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
     lay6->addStretch(1);
 
-    QPushButton* add = new QPushButton( i18n("Add Group..." ), top );
+    QPushButton* add = new QPushButton( i18n("Add Super Category..." ), top );
     lay6->addWidget( add );
-    _rename = new QPushButton( i18n( "Rename Group..."), top );
+    _rename = new QPushButton( i18n( "Rename Super Category..."), top );
     lay6->addWidget( _rename );
-    _del = new QPushButton( i18n("Delete Group" ), top );
+    _del = new QPushButton( i18n("Delete Super Category" ), top );
     lay6->addWidget( _del );
+
+    // Notice
+    QLabel* notice = new QLabel( i18n("<b>Notice:</b> It is also possible to set up subcategories in the annotation dialog, simply by dragging items." ), top );
+    lay1->addWidget( notice );
 
     // Setup the actions
     _memberMap = DB::ImageDB::instance()->memberMap();

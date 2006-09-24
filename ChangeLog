@@ -1,3 +1,19 @@
+====================== Snapshot Sunday 24/9-2006  ===================================	
+
+2006-09-24  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Warn the user at start up if not all features are installed.
+
+	* Fix up the sub category page in the annotation dialog.
+
+	* Programmers point of view: The whole setup of marking the
+	database dirty have been reworked. Now we just have a
+	MainWindow::DirtyIndicator::markDirty(). This makes it easier to
+	mark the DB dirty.
+	Users point of view: Now drawing on images, and changing sub
+	categories marks the DB dirty.
+	
+
 2006-09-23  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Only write description element to the database if there is a description.

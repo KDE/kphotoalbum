@@ -86,9 +86,6 @@ private:
     void showNextN(int);
     void showPrevN(int);
 
-signals:
-    void dirty();
-
 protected slots:
     void showNext();
     void showNext10();

@@ -60,9 +60,6 @@ public:
     bool thumbnailShouldReload() const;
     KActionCollection* actions();
 
-signals:
-    void changed();
-
 protected slots:
     void slotRevert();
     void slotPrev();

@@ -47,6 +47,7 @@ namespace MainWindow
 class DeleteDialog;
 class TokenEditor;
 class ImageCounter;
+class DirtyIndicator;
 
 class Window :public KMainWindow
 {
@@ -77,7 +78,6 @@ protected slots:
     void slotView( bool reuse = false, bool slideShow = false, bool random = false );
     void slotViewNewWindow();
     void slotSortByDateAndTime();
-    void slotChanges();
     void slotLimitToSelected();
     void slotExportToHTML();
     void slotAutoSave();
@@ -99,7 +99,6 @@ protected slots:
     void reloadThumbnailsAndFlushCache();
     void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
-    void markDirty();
     void donateMoney();
     void slotRemoveAllThumbnails();
     void slotBuildThumbnails();
@@ -143,7 +142,6 @@ protected:
     void createAnnotationDialog();
     bool load();
     virtual void contextMenuEvent( QContextMenuEvent* e );
-    void setDirty( bool b );
     void setLocked( bool b, bool force );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
@@ -152,6 +150,7 @@ protected:
     void setupPluginMenu();
     void launchViewer( QStringList files, bool reuse, bool slideShow, bool random );
     void tellPeopleAboutTheVideos();
+    void checkIfAllFeaturesAreInstalled();
 
 private:
     static Window* _instance;
@@ -159,15 +158,13 @@ private:
     ThumbnailView::ThumbnailWidget* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;
     QGuardedPtr<AnnotationDialog::Dialog> _annotationDialog;
-    bool _dirty;
-    bool _autoSaveDirty; // We do not want to continue autosaving the same date
     QWidgetStack* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;
     Browser::BrowserWidget* _browser;
     KTipDialog* _tipDialog;
     DeleteDialog* _deleteDialog;
-    QLabel* _dirtyIndicator;
+    DirtyIndicator* _dirtyIndicator;
     QLabel* _lockedIndicator;
     KAction* _lock;
     KAction* _unlock;

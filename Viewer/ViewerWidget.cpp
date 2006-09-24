@@ -40,7 +40,7 @@
 #include "InfoBox.h"
 #include <qwidgetstack.h>
 #include "VideoDisplay.h"
-
+#include "MainWindow/DirtyIndicator.h"
 
 /**
  * \namespace Viewer
@@ -900,7 +900,7 @@ void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
             currentInfo()->addCategoryInfo( QString::fromLatin1("Tokens"), token );
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
         updateInfoBox();
-        emit dirty();
+        MainWindow::DirtyIndicator::markDirty();
     }
     QWidget::keyPressEvent( event );
 }

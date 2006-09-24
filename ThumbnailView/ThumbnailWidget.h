@@ -43,13 +43,13 @@ public:
     static ThumbnailWidget* theThumbnailView();
     void setCurrentItem( const QString& fileName );
     void setSortDirection( SortDirection );
-    void repaintScreen();
 
 
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
     void showToolTipsOnImages( bool b );
+    void repaintScreen();
 
 signals:
     void showImage( const QString& fileName );

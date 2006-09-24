@@ -18,10 +18,11 @@
 
 #include "MemberMap.h"
 #include "DB/Category.h"
+#include "MainWindow/DirtyIndicator.h"
 
 using namespace DB;
 
-MemberMap::MemberMap() :QObject(0), _dirty( true )
+MemberMap::MemberMap() :QObject(0), _dirty( true ), _loading( false )
 {
 }
 
@@ -37,6 +38,8 @@ void MemberMap::deleteGroup( const QString& category, const QString& name )
 {
     _members[category].remove(name);
     _dirty = true;
+    if ( !_loading )
+        MainWindow::DirtyIndicator::markDirty();
 }
 
 /**
@@ -57,6 +60,8 @@ void MemberMap::setMembers( const QString& category, const QString& memberGroup,
 {
     _members[category][memberGroup] = members;
     _dirty = true;
+    if ( !_loading )
+        MainWindow::DirtyIndicator::markDirty();
 }
 
 bool MemberMap::isEmpty() const
@@ -137,6 +142,8 @@ void MemberMap::calculate() const
 void MemberMap::renameGroup( const QString& category, const QString& oldName, const QString& newName )
 {
     _dirty = true;
+    if ( !_loading )
+        MainWindow::DirtyIndicator::markDirty();
     QMap<QString, StringSet>& groupMap = _members[category];
     groupMap.insert(newName,_members[category][oldName] );
     groupMap.remove( oldName );
@@ -150,13 +157,15 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
 }
 
 MemberMap::MemberMap( const MemberMap& other )
-    : QObject( 0 ), _members( other.memberMap() ), _dirty( true )
+    : QObject( 0 ), _members( other.memberMap() ), _dirty( true ), _loading( false )
 {
 }
 
 void MemberMap::deleteItem( DB::Category* category, const QString& name)
 {
     _dirty = true;
+    if ( !_loading )
+        MainWindow::DirtyIndicator::markDirty();
     QMap<QString, StringSet>& groupMap = _members[category->name()];
     for( QMapIterator<QString,StringSet> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.data();
@@ -168,6 +177,8 @@ void MemberMap::deleteItem( DB::Category* category, const QString& name)
 void MemberMap::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
     _dirty = true;
+    if ( !_loading )
+        MainWindow::DirtyIndicator::markDirty();
     QMap<QString, StringSet>& groupMap = _members[category->name()];
     for( QMapIterator<QString,StringSet> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.data();
@@ -204,6 +215,8 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
 
     _members[category][group].insert( item );
     _dirty = true;
+    if ( !_loading )
+        MainWindow::DirtyIndicator::markDirty();
 }
 
 void MemberMap::removeMemberFromGroup( const QString& category, const QString& group, const QString& item )
@@ -212,6 +225,8 @@ void MemberMap::removeMemberFromGroup( const QString& category, const QString& g
     if ( _members[category].contains( group ) )
         _members[category][group].remove( item );
     _dirty = true;
+    if ( !_loading )
+        MainWindow::DirtyIndicator::markDirty();
 }
 
 void MemberMap::addGroup( const QString& category, const QString& group )
@@ -240,6 +255,11 @@ QMap<QString,QStringList> DB::MemberMap::inverseMap( const QString& category ) c
         }
     }
     return res;
+}
+
+void DB::MemberMap::setLoading( bool b )
+{
+    _loading = b;
 }
 
 #include "MemberMap.moc"

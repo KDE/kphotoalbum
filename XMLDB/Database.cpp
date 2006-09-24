@@ -32,6 +32,7 @@
 #include "XMLImageDateCollection.h"
 #include "FileReader.h"
 #include "FileWriter.h"
+#include "MainWindow/DirtyIndicator.h"
 
 bool XMLDB::Database::_anyImageWithEmptySize = false;
 XMLDB::Database::Database( const QString& configFile ):
@@ -201,7 +202,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 
     emit totalChanged( _images.count() );
-    emit dirty();
+    MainWindow::DirtyIndicator::markDirty();
 }
 
 DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName ) const
@@ -349,7 +350,7 @@ QStringList XMLDB::Database::insertList( const QString& fileName, const DB::Imag
         _images.insert( imageIt, *it );
         result << (*it)->fileName();
     }
-    emit dirty();
+    MainWindow::DirtyIndicator::markDirty();
     return result;
 }
 

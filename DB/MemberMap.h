@@ -58,6 +58,7 @@ protected:
 public slots:
     virtual void deleteItem( DB::Category* category, const QString& name);
     virtual void renameItem( DB::Category* category, const QString& oldName, const QString& newName );
+    void setLoading( bool b );
 
 private:
     // This is the primary data structure
@@ -69,6 +70,7 @@ private:
     mutable bool _dirty;
     mutable QMap<QString, QMap<QString,StringSet> > _closureMembers;
 
+    bool _loading;
 };
 
 }

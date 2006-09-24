@@ -11,6 +11,15 @@ class FeatureDialog : public KDialogBase {
 
 public:
     FeatureDialog( QWidget* parent, const char* name = 0 );
+    static bool hasAllFeaturesAvailable();
+    static QString featureString();
+
+protected:
+    static bool hasKIPISupport();
+    static bool hasSQLDBSupport();
+    static bool hasEXIV2Support();
+    static bool hasEXIV2DBSupport();
+    static bool hasVideoSupport( const QString& mimeType );
 };
 
 class HelpBrowser :public QTextBrowser

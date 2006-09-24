@@ -4,6 +4,7 @@
 #include <qlayout.h>
 #include <kapplication.h>
 #include "Exif/Database.h"
+#include <kuserprofile.h>
 
 using namespace MainWindow;
 
@@ -16,44 +17,9 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     HelpBrowser* edit = new HelpBrowser( top );
     layout->addWidget( edit );
 
-    QString yes = QString::fromLatin1( "<b>%1</b>" ).arg(i18n("Yes"));
-    QString no = QString::fromLatin1( "<b><font color=\"red\">%1</font></b>" ).arg( i18n("No") );
-
-    QString hasKipi = no;
-#ifdef HASKIPI
-    hasKipi = yes;
-#endif
-
-    QString hasEXIV2 = no;
-    QString hasExifDatabase = QString::fromLatin1( "<b><font color=\"red\">%1</b></font>" ).arg( i18n("untested - missing EXIF support") );
-
-#ifdef HASEXIV2
-    hasEXIV2 = yes;
-    hasExifDatabase = Exif::Database::isAvailable() ? yes : no;
-#endif
-
-    QString hasDatabaseSupport = yes;
-#ifdef QT_NO_SQL
-    hasDatabaseSupport = no;
-#endif
-
-
-    QString text =
-        i18n("<h1>Overview</h1>"
-             "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
-
-             "<p><table>"
-             "<tr><td><a href=\"#kipi\">Plug-ins available</a></td><td>%1</tr></tr>"
-             "<tr><td><a href=\"#exiv2\">EXIF info supported</a></td><td>%2</td></tr>"
-             "<tr><td><a href=\"#database\">SQL Database Support</a></td><td>%3</td></tr>"
-             "<tr><td><a href=\"#database\">Sqlite Database Support</a></td><td>%4</td></tr>"
-             "</table></p>" )
-        .arg( hasKipi )
-        .arg( hasEXIV2 )
-        .arg( hasDatabaseSupport )
-        .arg( hasExifDatabase );
-
-
+    QString text = i18n("<h1>Overview</h1>"
+                        "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
+                        "%1" ).arg( featureString() );
     text += i18n( "<h1>What can I do if I miss a feature?</h1>"
 
                   "<p>If you compiled KPhotoAlbum yourself, then please review the sections below to learn what to install "
@@ -115,6 +81,88 @@ void HelpBrowser::setSource( const QString& name )
         QTextBrowser::setSource( name );
     else
         kapp->invokeBrowser( name );
+}
+
+bool MainWindow::FeatureDialog::hasKIPISupport()
+{
+#ifdef HASKIPI
+    return true;
+#else
+    return false;
+#endif
+}
+
+bool MainWindow::FeatureDialog::hasSQLDBSupport()
+{
+#ifdef QT_NO_SQL
+    return false;
+#else
+    return true;
+#endif
+
+}
+
+bool MainWindow::FeatureDialog::hasEXIV2Support()
+{
+#ifdef HASEXIV2
+    return true;
+#else
+    return false;
+#endif
+}
+
+bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
+{
+#ifdef HASEXIV2
+    return Exif::Database::isAvailable();
+#else
+    return false;
+#endif
+}
+
+bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
+{
+    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport();
+}
+
+QString MainWindow::FeatureDialog::featureString()
+{
+    QString yes = QString::fromLatin1( "<b>%1</b>" ).arg(i18n("Yes"));
+    QString no = QString::fromLatin1( "<b><font color=\"red\">%1</font></b>" ).arg( i18n("No") );
+
+    QString hasKipi = hasKIPISupport() ? yes : no;
+    QString hasDatabaseSupport = hasSQLDBSupport() ? yes : no;
+    QString hasEXIV2 = hasEXIV2Support() ? yes : no;
+    QString hasExifDatabase = QString::fromLatin1( "<b><font color=\"red\">%1</b></font>" )
+                              .arg( i18n("untested - missing EXIF support") );
+    if ( hasEXIV2Support() )
+        hasExifDatabase = hasEXIV2DBSupport() ? yes : no;
+    QString mpegSupport = hasVideoSupport( QString::fromLatin1("video/mpeg") ) ? yes : no;
+    QString rpSupport = hasVideoSupport( QString::fromLatin1("video/real") ) ? yes : no;
+
+
+    QString result = QString::fromLatin1( "<p><table>"
+                           "<tr><td><a href=\"#kipi\">%1</a></td><td>%1</tr></tr>"
+                           "<tr><td><a href=\"#exiv2\">%1</a></td><td>%1</td></tr>"
+                           "<tr><td><a href=\"#database\">%1</a></td><td>%1</td></tr>"
+                           "<tr><td><a href=\"#database\">%1</a></td><td>%1</td></tr>"
+                           "<tr><td><a href=\"#mpeg\">%1</a></td><td>%1</td></tr>"
+                           "<tr><td><a href=\"#rp\">%1</a></td><td>%1</td></tr>"
+                           "</table></p>")
+                     .arg( i18n("Plug-ins available") ).arg( hasKipi )
+                     .arg( i18n("EXIF info supported") ).arg( hasEXIV2 )
+                     .arg( i18n("SQL Database Support") ).arg( hasDatabaseSupport )
+                     .arg( i18n( "Sqlite Database Support (used for EXIF searches)" ) ).arg( hasExifDatabase )
+                     .arg( i18n( "Inline MPEG video support" ) ).arg( mpegSupport )
+                     .arg( i18n( "Inline Real Player video support" ) ).arg( rpSupport );
+
+    return result;
+}
+
+bool MainWindow::FeatureDialog::hasVideoSupport( const QString& mimeType )
+{
+    KService::Ptr service = KServiceTypeProfile::preferredService( mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
+    return service.data();
 }
 
 #include "FeatureDialog.moc"

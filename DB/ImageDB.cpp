@@ -16,6 +16,7 @@
 #include "SQLDB/Database.h"
 #include "SQLDB/DatabaseAddress.h"
 #endif
+#include "MainWindow/DirtyIndicator.h"
 
 using namespace DB;
 
@@ -77,7 +78,7 @@ void ImageDB::slotRescan()
 {
     bool newImages = NewImageFinder().findImages();
     if ( newImages )
-        emit dirty();
+        MainWindow::DirtyIndicator::markDirty();
 
     emit totalChanged( totalCount() );
 }
@@ -91,7 +92,7 @@ void ImageDB::slotRecalcCheckSums( QStringList list )
 
     bool d = NewImageFinder().calculateMD5sums( list );
     if ( d )
-        emit dirty();
+        MainWindow::DirtyIndicator::markDirty();
 
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
@@ -189,7 +190,7 @@ void ImageDB::slotReread( const QStringList& list, int mode)
 
         if (fi.exists())
             info(*it)->readExif(*it, mode);
-        emit dirty();
+        MainWindow::DirtyIndicator::markDirty();
     }
 
 }

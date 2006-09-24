@@ -54,6 +54,7 @@
 #include <qfileinfo.h>
 #include "ShowSelectionOnlyManager.h"
 #include "enums.h"
+#include "MainWindow/DirtyIndicator.h"
 
 AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
@@ -322,7 +323,7 @@ void AnnotationDialog::Dialog::slotOK()
 
     // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
     if ( anyChanges )
-        emit changed();
+        MainWindow::DirtyIndicator::markDirty();
 }
 
 void AnnotationDialog::Dialog::load()
@@ -749,7 +750,7 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     _origList.remove( info );
     _editList.remove( _editList.at( _current ) );
     _thumbnailShouldReload = true;
-    emit changed();
+    MainWindow::DirtyIndicator::markDirty();
     if ( _origList.count() == 0 ) {
         slotOK();
         return;

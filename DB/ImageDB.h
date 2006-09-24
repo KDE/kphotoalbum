@@ -114,7 +114,6 @@ protected slots:
 
 signals:
     void totalChanged( uint );
-    void dirty();
 };
 
 }

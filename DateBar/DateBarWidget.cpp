@@ -29,6 +29,7 @@
 #include <math.h>
 #include <klocale.h>
 #include "Settings/SettingsData.h"
+#include <qtooltip.h>
 
 const int borderAboveHistogram = 4;
 const int borderArroundWidget = 0;
@@ -79,6 +80,7 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
     _cancelSelection->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "cancel" ), KIcon::Toolbar, 16 ) );
     connect( _cancelSelection, SIGNAL( clicked() ), this, SLOT( clearSelection() ) );
     _cancelSelection->setEnabled( false );
+    QToolTip::add( _cancelSelection, i18n("Widen selection to include all images again") );
 
     placeAndSizeButtons();
 
@@ -740,6 +742,7 @@ void DateBar::DateBarWidget::clearSelection()
         emit dateRangeCleared();
         redraw();
     }
+    _cancelSelection->setEnabled( false );
 }
 
 void DateBar::DateBarWidget::emitRangeSelection( const DB::ImageDate&  range )

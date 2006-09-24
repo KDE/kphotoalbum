@@ -102,13 +102,13 @@
 #endif
 #include <kprogress.h>
 #include <krun.h>
+#include "DirtyIndicator.h"
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
 MainWindow::Window::Window( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _annotationDialog(0), _dirty( false ), _autoSaveDirty( false ),
-     _deleteDialog( 0 ), _dirtyIndicator(0),
-     _htmlDialog(0), _tokenEditor( 0 )
+    :KMainWindow( parent,  name ), _annotationDialog(0),
+     _deleteDialog( 0 ), _htmlDialog(0), _tokenEditor( 0 )
 {
     SplashScreen::instance()->message( i18n("Loading Database"), AlignRight );
     _instance = this;
@@ -182,8 +182,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     statusBar()->setFont( f );
 
     QHBox* indicators = new QHBox( statusBar(), "indicator" );
-    _dirtyIndicator = new QLabel( indicators, "_dirtyIndicator" );
-    setDirty( _dirty ); // Might already have been made dirty by load above
+    _dirtyIndicator = new DirtyIndicator( indicators );
 
     _lockedIndicator = new QLabel( indicators, "_lockedIndicator" );
     setLocked( Settings::SettingsData::instance()->isLocked(), true );
@@ -208,7 +207,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( slotOptionGroupChanged() ) );
     connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotThumbNailSelectionChanged() ) );
 
-    connect( DB::ImageDB::instance(), SIGNAL( dirty() ), this, SLOT( markDirty() ) );
+    connect( _dirtyIndicator, SIGNAL( dirty() ), _thumbnailView, SLOT(repaintScreen() ) );
 
     total->setTotal( DB::ImageDB::instance()->totalCount() );
     statusBar()->message(i18n("Welcome to KPhotoAlbum"), 5000 );
@@ -254,6 +253,7 @@ void MainWindow::Window::delayedInit()
 #endif
 
     tellPeopleAboutTheVideos();
+    checkIfAllFeaturesAreInstalled();
 }
 
 
@@ -279,7 +279,7 @@ bool MainWindow::Window::slotExit()
         }
     }
 
-    if ( _dirty || !DB::ImageDB::instance()->isClipboardEmpty() ) {
+    if ( _dirtyIndicator->isSaveDirty() || !DB::ImageDB::instance()->isClipboardEmpty() ) {
         int ret = KMessageBox::warningYesNoCancel( this, i18n("Do you want to save the changes?"),
                                                    i18n("Save Changes?") );
         if ( ret == KMessageBox::Cancel )
@@ -366,7 +366,6 @@ void MainWindow::Window::createAnnotationDialog()
         return;
 
     _annotationDialog = new AnnotationDialog::Dialog( this,  "_annotationDialog" );
-    connect( _annotationDialog, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 }
 
 void MainWindow::Window::deleteAnnotationDialog()
@@ -380,7 +379,7 @@ void MainWindow::Window::slotSave()
     Utilities::ShowBusyCursor dummy;
     statusBar()->message(i18n("Saving..."), 5000 );
     DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
-    setDirty( false );
+    _dirtyIndicator->saved();
     QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
@@ -393,7 +392,7 @@ void MainWindow::Window::slotDeleteSelected()
         return;
 
     Utilities::ShowBusyCursor dummy;
-    setDirty( true );
+    DirtyIndicator::markDirty();
 
     QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
     Set<QString> allImages( DB::ImageDB::instance()->images() );
@@ -414,7 +413,7 @@ void MainWindow::Window::slotReReadExifInfo()
     if ( ! dialog )
         dialog = new Exif::ReReadDialog( this );
     if ( dialog->exec( files ) == QDialog::Accepted )
-        setDirty( true );
+            DirtyIndicator::markDirty();
 #endif
 }
 
@@ -469,10 +468,9 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         viewer->raise();
         viewer->setActiveWindow();
     }
-    else {
+    else
         viewer = new Viewer::ViewerWidget( "viewer" );
-        QObject::connect( viewer, SIGNAL( dirty() ), MainWindow::Window::theMainWindow(), SLOT( markDirty() ) );
-    }
+
     viewer->show( slideShow );
 
     viewer->load( files );
@@ -483,7 +481,7 @@ void MainWindow::Window::slotSortByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn( selected( true /* sort with oldest first */ ) );
     showThumbNails( DB::ImageDB::instance()->search( Browser::BrowserWidget::instance()->currentContext() ) );
-    markDirty();
+    DirtyIndicator::markDirty();
 }
 
 
@@ -492,12 +490,6 @@ QString MainWindow::Window::welcome()
     WelComeDialog dialog( this );
     dialog.exec();
     return dialog.configFileName();
-}
-
-void MainWindow::Window::slotChanges()
-{
-    setDirty( true );
-    _thumbnailView->repaintScreen();
 }
 
 void MainWindow::Window::closeEvent( QCloseEvent* e )
@@ -685,12 +677,12 @@ void MainWindow::Window::startAutoSaveTimer()
 
 void MainWindow::Window::slotAutoSave()
 {
-    if ( _autoSaveDirty ) {
+    if ( _dirtyIndicator->isAutoSaveDirty() ) {
         Utilities::ShowBusyCursor dummy;
         statusBar()->message(i18n("Auto saving...."));
         DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
         statusBar()->message(i18n("Auto saving.... Done"), 5000);
-        _autoSaveDirty = false;
+        _dirtyIndicator->autoSaved();
     }
 }
 
@@ -715,7 +707,7 @@ void MainWindow::Window::slotOptionGroupChanged()
 {
     delete _annotationDialog;
     _annotationDialog = 0;
-    setDirty( true );
+    DirtyIndicator::markDirty();
 }
 
 void MainWindow::Window::showTipOfDay()
@@ -880,29 +872,6 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
     e->consume();
 }
 
-void MainWindow::Window::markDirty()
-{
-    setDirty( true );
-}
-
-void MainWindow::Window::setDirty( bool dirty )
-{
-    static QPixmap* dirtyPix = new QPixmap( SmallIcon( QString::fromLatin1( "3floppy_unmount" ) ) );
-
-    if ( _dirtyIndicator ) {
-        // Might not yet have been created.
-
-        _dirtyIndicator->setFixedWidth( dirtyPix->width() );
-        if ( dirty )
-            _dirtyIndicator->setPixmap( *dirtyPix );
-        else
-            _dirtyIndicator->setPixmap( QPixmap() );
-    }
-
-    _dirty = dirty;
-    _autoSaveDirty = dirty;
-}
-
 void MainWindow::Window::setDefaultScopePositive()
 {
     Settings::SettingsData::instance()->setCurrentLock( _browser->currentContext(), false );
@@ -919,8 +888,8 @@ void MainWindow::Window::lockToDefaultScope()
                                                 i18n( "<qt><p>The password protection is only a means of allowing your little sister "
                                                       "to look in your images, without getting to those embarrassing images from "
                                                       "your last party.</p>"
-                                                      "<p>In other words, anyone with access to the index.xml file can easily circumvent "
-                                                      "this password.</b></p>"),
+                                                      "<p>In other words, anyone with access to the index.xml file can easily "
+                                                      "circumvent this password.</b></p>"),
                                                 i18n("Password Protection"),
                                                 KStdGuiItem::cont(),
                                                 QString::fromLatin1( "lockPassWordIsNotEncruption" ) );
@@ -1491,6 +1460,19 @@ void MainWindow::Window::tellPeopleAboutTheVideos()
                                          id );
     if ( ret == KMessageBox::Yes )
         KRun::runURL(KURL(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ) );
+}
+
+void MainWindow::Window::checkIfAllFeaturesAreInstalled()
+{
+    if ( !FeatureDialog::hasAllFeaturesAvailable() ) {
+        const QString msg =
+            i18n("<p>KPhotoAlbum does not seem to be build with support for all its features. The following is a list "
+                 "indicating to you what you may miss:<ul>%1</ul></p>"
+                 "<p>For details on how to solve this problem, please choose <b>Help</b>|<b>KPhotoAlbum Feature Status</b> "
+                 "from the menus.</p>" )
+            .arg( FeatureDialog::featureString() );
+        KMessageBox::information( this, msg, i18n("Feature Check"), QString::fromLatin1( "InitialFeatureCheck" ) );
+    }
 }
 
 #include "Window.moc"

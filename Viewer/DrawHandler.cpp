@@ -22,6 +22,7 @@
 #include "Viewer/LineDraw.h"
 #include "Viewer/RectDraw.h"
 #include "Viewer/CircleDraw.h"
+#include "MainWindow/DirtyIndicator.h"
 
 /**
  * \class Viewer::DrawHandler
@@ -50,6 +51,7 @@ bool Viewer::DrawHandler::mousePressEvent( QMouseEvent* event, const QPoint& /*u
     else {
         _activeTool = createTool();
         _activeTool->startDraw( event );
+        MainWindow::DirtyIndicator::markDirty();
         emit active();
     }
     return true;

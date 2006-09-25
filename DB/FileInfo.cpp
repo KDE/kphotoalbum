@@ -5,89 +5,125 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
+#include <kfilemetainfo.h>
 
 using namespace DB;
 
 FileInfo FileInfo::read( const QString& fileName )
 {
-    FileInfo fi;
-    fi._fullPath = fileName;
-
-#ifdef HASEXIV2
-    fi._map = Exif::Info::instance()->exifData( fileName );
-#endif
-
-    return fi;
+    return FileInfo( fileName );
 }
 
-int FileInfo::angle()
+DB::FileInfo::FileInfo( const QString& fileName )
+    : _angle(0)
 {
 #ifdef HASEXIV2
-    if ( _map.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != _map.end() ) {
-        const Exiv2::Exifdatum& datum = _map["Exif.Image.Orientation"];
+    parseEXIV2( fileName );
+#else
+    parseKFileMetaInfo( fileName );
+#endif
+
+    if ( !_date.isValid() && Settings::SettingsData::instance()->trustTimeStamps() )
+        _date = QFileInfo( fileName ).lastModified();
+}
+
+#ifdef HASEXIV2
+void DB::FileInfo::parseEXIV2( const QString& fileName )
+{
+    Exiv2::ExifData map = Exif::Info::instance()->exifData( fileName );
+
+    // Date
+    _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );
+    if ( !_date.isValid() ) {
+        _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeDigitized" );
+        if ( !_date.isValid() )
+            _date = fetchEXIV2Date( map, "Exif.Image.DateTime" );
+    }
+
+    // Angle
+    if ( map.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != map.end() ) {
+        const Exiv2::Exifdatum& datum = map["Exif.Image.Orientation"];
 
         int orientation =  datum.toLong();
-        if ( orientation == 1 || orientation == 2 )
-            return 0;
-        else if ( orientation == 3 || orientation == 4 )
-            return 180;
-        else if ( orientation == 5 || orientation == 8 )
-            return 270;
-        else if ( orientation == 6 || orientation == 7 )
-            return 90;
+        _angle = orientationToAngle( orientation );
     }
-#endif
-    return 0;
-}
 
-QString FileInfo::description()
-{
-#ifdef HASEXIV2
-    if( _map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != _map.end() ) {
-        const Exiv2::Exifdatum& datum = _map["Exif.Image.ImageDescription"];
-        return QString::fromLatin1( datum.toString().c_str() );
+    // Description
+    if( map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != map.end() ) {
+        const Exiv2::Exifdatum& datum = map["Exif.Image.ImageDescription"];
+        _description = QString::fromLocal8Bit( datum.toString().c_str() );
     }
-#endif
-    return QString::null;
 }
 
-QDateTime FileInfo::dateTime()
+QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
 {
-#ifdef HASEXIV2
-    QDateTime date = fetchDate( "Exif.Photo.DateTimeOriginal" );
-    if ( date.isValid() )
-        return date;
-
-    date = fetchDate( "Exif.Photo.DateTimeDigitized" );
-    if ( date.isValid() )
-        return date;
-
-    date = fetchDate( "Exif.Image.DateTime" );
-    if ( date.isValid() )
-        return date;
-
-#endif
-    if ( Settings::SettingsData::instance()->trustTimeStamps() )
-        return QFileInfo( _fullPath ).lastModified();
-    else
-        return QDateTime();
-}
-
-QDateTime FileInfo::fetchDate( const char* key )
-{
-#ifdef HASEXIV2
     try
     {
-        if ( _map.findKey( Exiv2::ExifKey( key ) ) != _map.end() ) {
-            const Exiv2::Exifdatum& datum = _map[key ];
+        if ( map.findKey( Exiv2::ExifKey( key ) ) != map.end() ) {
+            const Exiv2::Exifdatum& datum = map[key ];
             return QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate );
         }
     }
     catch (...)
     {
     }
-#else
-    Q_UNUSED( key );
-#endif
+
     return QDateTime();
+}
+#endif
+
+void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
+{
+    QString tempFileName( fileName );
+#ifdef TEMPORARILY_REMOVED
+    if ( Util::isCRW( fileName ) ) {
+      QString dirName = QFileInfo( fileName ).dirPath();
+      QString baseName = QFileInfo( fileName ).baseName();
+      tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
+      QFileInfo tempFile (tempFileName);
+      if ( !tempFile.exists() )
+          tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".THM" );
+    }
+#endif
+
+    KFileMetaInfo metainfo( tempFileName );
+    if ( metainfo.isEmpty() )
+        return;
+
+    // Date.
+    if ( metainfo.contains( QString::fromLatin1( "CreationDate" ) ) ) {
+        QDate date = metainfo.value( QString::fromLatin1( "CreationDate" )).toDate();
+        if ( date.isValid() ) {
+            _date.setDate( date );
+
+            if ( metainfo.contains( QString::fromLatin1( "CreationTime" ) ) ) {
+                QTime time = metainfo.value(QString::fromLatin1( "CreationTime" )).toTime();
+                if ( time.isValid() )
+                    _date.setTime( time );
+            }
+        }
+    }
+
+    // Angle
+    if ( metainfo.contains( QString::fromLatin1( "Orientation" ) ) )
+        _angle = orientationToAngle( metainfo.value( QString::fromLatin1( "Orientation" ) ).toInt() );
+
+    // Description
+    qDebug("%s", metainfo.value( QString::fromLatin1( "Comment" ) ).toString().latin1());
+    if ( metainfo.contains( QString::fromLatin1( "Comment" ) ) )
+        _description = metainfo.value( QString::fromLatin1( "Comment" ) ).toString();
+}
+
+int DB::FileInfo::orientationToAngle( int orientation )
+{
+    if ( orientation == 1 || orientation == 2 )
+        return 0;
+    else if ( orientation == 3 || orientation == 4 )
+        return 180;
+    else if ( orientation == 5 || orientation == 8 )
+        return 270;
+    else if ( orientation == 6 || orientation == 7 )
+        return 90;
+
+    return 0;
 }

@@ -22,6 +22,7 @@
 #include <qstring.h>
 #include <qvariant.h>
 #include <config.h>
+#include <qdatetime.h>
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
@@ -33,18 +34,24 @@ class FileInfo
 {
 public:
     static FileInfo read( const QString& fileName );
-    QDateTime dateTime();
-    int angle();
-    QString description();
+    QDateTime dateTime() { return _date; }
+    int angle() { return _angle; };
+    QString description() {return _description; }
 
 protected:
-    QDateTime fetchDate( const char* key );
+#ifdef HASEXIV2
+    void parseEXIV2( const QString& fileName );
+    QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
+#endif
+
+    void parseKFileMetaInfo( const QString& fileName );
+    int orientationToAngle( int orientation );
 
 private:
-#ifdef HASEXIV2
-    Exiv2::ExifData _map;
-#endif
-    QString _fullPath;
+    FileInfo( const QString& fileName );
+    QDateTime _date;
+    int _angle;
+    QString _description;
 };
 
 }

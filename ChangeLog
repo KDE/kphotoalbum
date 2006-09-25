@@ -1,3 +1,7 @@
+2006-09-25  Jesper K. Pederse  <blackie@klaralvdalens-datakonsult.se>
+
+	* Use alternate EXIF reading code in case EXIV2 is not installed.
+
 ====================== Snapshot Sunday 24/9-2006  ===================================	
 
 2006-09-24  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>

@@ -10,3 +10,16 @@ if test x$have_kipi = xno; then
     echo ""
     echo ""
 fi
+
+if test x$have_exif2 == xno; then
+    echo ""
+    echo ""
+    echo "------------------------------------------"
+    echo "           W A R N I N G                  "
+    echo "------------------------------------------"
+    echo ""
+	echo "You are missing the EXIV2 header files. KPhotoAlbum will "
+    echo "therefore not support displaying Exif information."
+    echo ""
+    echo ""
+fi

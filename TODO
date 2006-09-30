@@ -1,8 +1,6 @@
 =================
 TODO UTTERLY SOON
 =================
-- Add a tooltip for the new button removing the selection from the date
-bar would be nice.
 - The person, location and keywords window are hidden by the main window
 (if torn off) when the mouse moves over the main window (the main window is risen).
 - Its impossible to do multiple selection as part of the same selection in

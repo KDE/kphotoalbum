@@ -122,6 +122,10 @@ void Settings::SettingsDialog::createGeneralPage()
     hlay->addWidget( _barHeight );
     hlay->addStretch( 1 );
 
+    // Show splash screen
+    _showSplashScreen = new QCheckBox( i18n("Show splash screen"), top );
+    lay1->addWidget( _showSplashScreen );
+
     // Compressed index.xml
     _compressedIndexXML = new QCheckBox( i18n("Use compressed index.xml file"), top );
     lay1->addWidget( _compressedIndexXML );
@@ -226,6 +230,9 @@ void Settings::SettingsDialog::createGeneralPage()
                 "a long time to read this file. You may cut down this time by approaximately a factor of 2 by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</qt>");
     QWhatsThis::add( _compressedIndexXML, txt );
+
+    txt = i18n( "Show the KPhotoAlbum splash screen on start up" );
+    QWhatsThis::add( _showSplashScreen, txt );
 }
 
 void Settings::SettingsDialog::createThumbNailPage()
@@ -395,6 +402,7 @@ void Settings::SettingsDialog::show()
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
     _dontReadRawFilesWithOtherMatchingFile->setChecked( opt->dontReadRawFilesWithOtherMatchingFile() );
     _compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
+    _showSplashScreen->setChecked( opt->showSplashScreen() );
     _autosave->setValue( opt->autoSave() );
     _barWidth->setValue( opt->histogramSize().width() );
     _barHeight->setValue( opt->histogramSize().height() );
@@ -478,6 +486,7 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setBackupCount( _backupCount->value() );
     opt->setCompressBackup( _compressBackup->isChecked() );
     opt->setUseCompressedIndexXML( _compressedIndexXML->isChecked() );
+    opt->setShowSplashScreen( _showSplashScreen->isChecked() );
     opt->setAutoSave( _autosave->value() );
     QString name = DB::ImageDB::instance()->categoryCollection()->nameForText( _albumCategory->currentText() );
     if ( name.isNull() )

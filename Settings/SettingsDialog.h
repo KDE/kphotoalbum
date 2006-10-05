@@ -113,6 +113,7 @@ private:
     QSpinBox* _backupCount;
     QCheckBox* _compressBackup;
     QCheckBox* _compressedIndexXML;
+    QCheckBox* _showSplashScreen;
 
     // Categories page
     QListBox* _categories;

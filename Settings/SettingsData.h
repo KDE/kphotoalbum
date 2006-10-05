@@ -83,6 +83,7 @@ public:
     intProperty( General, autoSave, setAutoSave, 5 );
     intProperty( General, backupCount, setBackupCount, 0 );
     boolProperty( General, compressBackup, setCompressBackup, true );
+    boolProperty( General, showSplashScreen, setShowSplashScreen, true );
 
     QSize histogramSize() const;
     void setHistogramSize( const QSize& size );

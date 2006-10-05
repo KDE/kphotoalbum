@@ -26,6 +26,7 @@
 #ifdef SQLDB_SUPPORT
 #include "SQLDB/QueryErrors.h"
 #endif
+#include "Settings/SettingsData.h"
 
 static const KCmdLineOptions options[] =
 {
@@ -60,8 +61,7 @@ int main( int argc, char** argv ) {
 
     KApplication app;
 
-    MainWindow::SplashScreen* splash = new MainWindow::SplashScreen();
-    splash->show();
+    new MainWindow::SplashScreen();
 
     KImageIO::registerFormats();
     try {

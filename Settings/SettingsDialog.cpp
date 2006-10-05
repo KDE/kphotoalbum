@@ -126,37 +126,14 @@ void Settings::SettingsDialog::createGeneralPage()
     _showSplashScreen = new QCheckBox( i18n("Show splash screen"), top );
     lay1->addWidget( _showSplashScreen );
 
-    // Compressed index.xml
-    _compressedIndexXML = new QCheckBox( i18n("Use compressed index.xml file"), top );
-    lay1->addWidget( _compressedIndexXML );
-
-    // Auto save
-    QLabel* label = new QLabel( i18n("Auto save every:"), top );
-    _autosave = new QSpinBox( 1, 120, 1, top );
-    _autosave->setSuffix( i18n( "min." ) );
-    QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
-    lay6->addWidget( label );
-    lay6->addWidget( _autosave );
-    lay6->addStretch( 1 );
-
-    // Backup
-    hlay = new QHBoxLayout( lay1 );
-    QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep" ), top );
-    hlay->addWidget( backupLabel );
-
-    _backupCount = new QSpinBox( -1, 100, 1, top );
-    _backupCount->setSpecialValueText( i18n( "Infinite" ) );
-    hlay->addWidget( _backupCount );
-
-    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), top );
-    lay1->addWidget( _compressBackup );
-
     // Album Category
     QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), top, "albumCategoryLabel" );
     _albumCategory = new QComboBox( top, "_albumCategory" );
     QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
+    lay7->addStretch(1);
+
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         _albumCategory->insertItem( (*it)->text() );
@@ -216,20 +193,6 @@ void Settings::SettingsDialog::createGeneralPage()
                "<p>Most users would probably want to specify Keywords here.</p></qt>");
     QWhatsThis::add( albumCategoryLabel, txt );
     QWhatsThis::add( _albumCategory, txt );
-
-    txt = i18n("<qt><p>KPhotoAlbum has the possibility to back up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc."
-               "using the spinbox specify the amount of backup files to keep - KPhotoAlbum will delete the oldest backup file when it reaches "
-               "the maximum amount of backup files.</p>"
-               "<p>The index.xml file may grow large if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
-               "the backup files to preserve disk space.</p></qt>" );
-    QWhatsThis::add( backupLabel, txt );
-    QWhatsThis::add( _backupCount, txt );
-    QWhatsThis::add( _compressBackup, txt );
-
-    txt = i18n( "<qt>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
-                "a long time to read this file. You may cut down this time by approaximately a factor of 2 by checking this check box. "
-                "The disadvantage is that the index.xml file is less readable by human eyes.</qt>");
-    QWhatsThis::add( _compressedIndexXML, txt );
 
     txt = i18n( "Show the KPhotoAlbum splash screen on start up" );
     QWhatsThis::add( _showSplashScreen, txt );
@@ -953,7 +916,6 @@ void Settings::SettingsDialog::showBackendPage()
 
 void Settings::SettingsDialog::createDatabaseBackendPage()
 {
-#ifdef SQLDB_SUPPORT
     // TODO: add notification: New backend will take effect only after restart
     QWidget* top = addPage(i18n("Database backend"),
                            i18n("Database backend"),
@@ -971,6 +933,56 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     //QRadioButton* sqlButton =
     new QRadioButton(i18n("SQL backend (experimental)"), _backendButtons);
 
+
+    // XML Backend
+    QVGroupBox* xmlBox = new QVGroupBox( i18n("XML Database Setting"), top );
+    lay1->addWidget( xmlBox );
+
+    // Compressed index.xml
+    _compressedIndexXML = new QCheckBox( i18n("Choose speed over readability for index.xml file"), xmlBox );
+    _compressBackup = new QCheckBox( i18n( "Compress backup file" ), xmlBox );
+
+    // Auto save
+    QWidget* box = new QWidget( xmlBox );
+    QLabel* label = new QLabel( i18n("Auto save every:"), box );
+    _autosave = new QSpinBox( 1, 120, 1, box );
+    _autosave->setSuffix( i18n( "min." ) );
+
+    QHBoxLayout* lay = new QHBoxLayout( box, 6 );
+    lay->addWidget( label );
+    lay->addWidget( _autosave );
+    lay->addStretch( 1 );
+
+    // Backup
+    box = new QWidget( xmlBox );
+    lay = new QHBoxLayout( box, 6 );
+    QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), box );
+    lay->addWidget( backupLabel );
+
+    _backupCount = new QSpinBox( -1, 100, 1, box );
+    _backupCount->setSpecialValueText( i18n( "Infinite" ) );
+    lay->addWidget( _backupCount );
+    lay->addStretch( 1 );
+
+    QString txt;
+    txt = i18n("<qt><p>KPhotoAlbum has the possibility to back up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc."
+               "using the spinbox specify the amount of backup files to keep - KPhotoAlbum will delete the oldest backup file when it reaches "
+               "the maximum amount of backup files.</p>"
+               "<p>The index.xml file may grow large if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
+               "the backup files to preserve disk space.</p></qt>" );
+    QWhatsThis::add( backupLabel, txt );
+    QWhatsThis::add( _backupCount, txt );
+    QWhatsThis::add( _compressBackup, txt );
+
+    txt = i18n( "<qt>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
+                "a long time to read this file. You may cut down this time by approaximately a factor of 2 by checking this check box. "
+                "The disadvantage is that the index.xml file is less readable by human eyes.</qt>");
+    QWhatsThis::add( _compressedIndexXML, txt );
+
+
+
+    // SQL Backend
+#ifdef SQLDB_SUPPORT
     QVGroupBox* sqlBox = new QVGroupBox(i18n("SQL Database Settings"), top);
     //sqlBox->setEnabled(false);
     lay1->addWidget(sqlBox);

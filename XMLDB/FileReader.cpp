@@ -22,10 +22,12 @@ void XMLDB::FileReader::read( const QString& configFile )
     QDomElement blockList;
     QDomElement memberGroups;
     readTopNodeInConfigDocument( configFile, top, &categories, &images, &blockList, &memberGroups );
+    _db->_members.setLoading( true );
     loadCategories( categories );
     loadImages( images );
     loadBlockList( blockList );
     loadMemberGroups( memberGroups );
+    _db->_members.setLoading( false );
 
     checkIfImagesAreSorted();
     checkIfAllImagesHasSizeAttributes();
@@ -195,7 +197,6 @@ void XMLDB::FileReader::loadBlockList( const QDomElement& blockList )
 
 void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
 {
-    _db->_members.setLoading( true );
     for ( QDomNode node = memberGroups.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
             QDomElement elm = node.toElement();
@@ -220,7 +221,6 @@ void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
             }
         }
     }
-    _db->_members.setLoading( false );
 }
 
 void XMLDB::FileReader::checkIfImagesAreSorted()

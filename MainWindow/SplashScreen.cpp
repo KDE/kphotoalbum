@@ -29,22 +29,6 @@ MainWindow::SplashScreen::SplashScreen()
     :KSplashScreen( locate("data", QString::fromLatin1("kphotoalbum/pics/splash-large.png") ) )
 {
     _instance = this;
-    QPixmap* pix = pixmap();
-    resize( pix->size() );
-    QPainter painter( pix );
-    QFont fnt = font();
-    fnt.setPixelSize( 16 );
-    fnt.setItalic( true );
-    painter.setFont( fnt );
-    QPen pen( QColor( 0, 4, 174 ) );
-    painter.setPen( pen );
-    QString txt;
-    QString version = KGlobal::instance()->aboutData()->version();
-    if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
-        txt = i18n( "Version %1" ).arg( version );
-    else
-        txt = i18n( "Version: %1" ).arg( version );
-    painter.drawText( QRect( QPoint(120, 298), QPoint( 380, 314 )), AlignRight | AlignBottom, txt );
 }
 
 MainWindow::SplashScreen* MainWindow::SplashScreen::instance()
@@ -56,6 +40,27 @@ void MainWindow::SplashScreen::done()
 {
     _instance = 0;
     (void) close( true );
+}
+
+void MainWindow::SplashScreen::message( const QString& message )
+{
+    _message = message;
+    repaint();
+}
+
+void MainWindow::SplashScreen::drawContents( QPainter * painter )
+{
+    // Version String
+    QString txt;
+    QString version = KGlobal::instance()->aboutData()->version();
+    if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
+        txt = i18n( "Version %1" ).arg( version );
+    else
+        txt = i18n( "Version: %1" ).arg( version );
+    painter->drawText( QRect( QPoint(230, 265), QSize( 150, 20 )), AlignRight | AlignTop, txt );
+
+    // Message
+    painter->drawText( QRect( QPoint(20, 265), QSize( 200, 20 )), AlignLeft | AlignTop, _message );
 }
 
 #include "SplashScreen.moc"

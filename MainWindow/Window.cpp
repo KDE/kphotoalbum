@@ -110,13 +110,13 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     :KMainWindow( parent,  name ), _annotationDialog(0),
      _deleteDialog( 0 ), _htmlDialog(0), _tokenEditor( 0 )
 {
-    SplashScreen::instance()->message( i18n("Loading Database"), AlignRight );
+    SplashScreen::instance()->message( i18n("Loading Database") );
     _instance = this;
 
     bool gotConfigFile = load();
     if ( !gotConfigFile )
         exit(0);
-    SplashScreen::instance()->message( i18n("Loading Main Window"), AlignRight );
+    SplashScreen::instance()->message( i18n("Loading Main Window") );
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Options, and where the main thread crates an instance, we better get it created now.
@@ -222,9 +222,14 @@ void MainWindow::Window::delayedInit()
     setupPluginMenu();
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStartup() ) {
-        splash->message( i18n("Searching for New Images"), AlignRight );
+        splash->message( i18n("Searching for New Images") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
+    }
+
+    if ( !Settings::SettingsData::instance()->delayLoadingPlugins() ) {
+        splash->message( i18n( "Loading Plug-ins" ) );
+        loadPlugins();
     }
 
     splash->done();
@@ -241,9 +246,6 @@ void MainWindow::Window::delayedInit()
 
         possibleRunSuvey();
     }
-
-    if ( !Settings::SettingsData::instance()->delayLoadingPlugins() )
-        loadPlugins();
 
 #ifdef HASEXIV2
     Exif::Database* exifDB = Exif::Database::instance(); // Load the database

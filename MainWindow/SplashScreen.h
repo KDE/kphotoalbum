@@ -30,9 +30,14 @@ public:
     SplashScreen();
     static SplashScreen* instance();
     void done();
+    void message( const QString& message );
+
+protected:
+    void drawContents ( QPainter * painter );
 
 private:
     static SplashScreen* _instance;
+    QString _message;
 };
 
 }

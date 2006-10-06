@@ -158,10 +158,10 @@ private:
     Exif::TreeView* _exifForViewer;
     Exif::TreeView* _exifForDialog;
 
-#ifdef SQLDB_SUPPORT
-    // SQL backend
     int _backendPageIndex;
     QButtonGroup* _backendButtons;
+#ifdef SQLDB_SUPPORT
+    // SQL backend
     SQLDB::SQLSettingsWidget* _sqlSettings;
 #endif
 

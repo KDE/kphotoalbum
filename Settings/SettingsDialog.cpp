@@ -909,9 +909,7 @@ void Settings::SettingsDialog::createEXIFPage()
 
 void Settings::SettingsDialog::showBackendPage()
 {
-#ifdef SQLDB_SUPPORT
     showPage(_backendPageIndex);
-#endif
 }
 
 void Settings::SettingsDialog::createDatabaseBackendPage()
@@ -930,8 +928,10 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     lay1->addWidget(_backendButtons);
 
     new QRadioButton(i18n("XML backend (recommended)"), _backendButtons);
+#ifdef SQLDB_SUPPORT
     //QRadioButton* sqlButton =
     new QRadioButton(i18n("SQL backend (experimental)"), _backendButtons);
+#endif
 
 
     // XML Backend

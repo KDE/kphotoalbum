@@ -49,3 +49,5 @@ bool MainWindow::DirtyIndicator::isAutoSaveDirty() const
     return _autoSaveDirty;
 }
 
+
+#include "DirtyIndicator.moc"

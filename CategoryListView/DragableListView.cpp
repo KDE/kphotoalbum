@@ -28,3 +28,5 @@ void CategoryListView::DragableListView::emitItemsChanged()
 {
     emit itemsChanged();
 }
+
+#include "DragableListView.moc"

@@ -409,10 +409,10 @@ void Settings::SettingsDialog::show()
     _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
 #endif
 
-#ifdef SQLDB_SUPPORT
     QString backend = Settings::SettingsData::instance()->backend();
     if (backend == QString::fromLatin1("xml"))
         _backendButtons->setButton(0);
+#ifdef SQLDB_SUPPORT
     else if (backend == QString::fromLatin1("sql"))
         _backendButtons->setButton(1);
 
@@ -432,13 +432,12 @@ void Settings::SettingsDialog::slotMyOK()
     Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     // General
-#ifdef SQLDB_SUPPORT
     const char* backendNames[] = { "xml", "sql" };
     int backendIndex = _backendButtons->selectedId();
     if (backendIndex < 0 || backendIndex >= 2)
         backendIndex = 0;
     opt->setBackend(QString::fromLatin1(backendNames[backendIndex]));
-#endif
+
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );

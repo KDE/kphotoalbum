@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config.h>
+
 #include <kdeversion.h>
 #include "Viewer/ViewerWidget.h"
 #include <qlayout.h>
@@ -41,6 +43,11 @@
 #include <qwidgetstack.h>
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
+#include "ViewerWidget.h"
+
+#ifdef HASEXIV2
+#  include "Exif/InfoDialog.h"
+#endif
 
 /**
  * \namespace Viewer
@@ -130,6 +137,12 @@ void Viewer::ViewerWidget::setupContextMenu()
     action = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
                           _actions, "viewer-show-category-editor" );
     action->plug( _popup );
+
+#ifdef HASEXIV2
+    action = new KAction( i18n("Show EXIF Viewer"), 0, this, SLOT( showExifViewer() ),
+                          _actions, "viewer-show-exif-viewer" );
+    action->plug( _popup );
+#endif
 
     action = new KAction( i18n("Close"), Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
     action->plug( _popup );
@@ -919,6 +932,15 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
    } else {
      showPrev();
    }
+}
+
+void Viewer::ViewerWidget::showExifViewer()
+{
+#ifdef HASEXIV2
+    Exif::InfoDialog* exifDialog = new Exif::InfoDialog( currentInfo()->fileName(), this );
+    exifDialog->show();
+#endif
+
 }
 
 #include "ViewerWidget.moc"

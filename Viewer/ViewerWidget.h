@@ -128,7 +128,7 @@ protected slots:
     void slotSetWallpaperCAF();
     void populateExternalPopup();
     void videoStopped();
-
+    void showExifViewer();
 
 private:
     static ViewerWidget* _latest;

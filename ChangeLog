@@ -1,5 +1,9 @@
 2006-10-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Bugfix: The numbered backup had by accident included the
+	extension .zip for the index.xml file inside the zip file. (Thanks
+	to Baptiste MATHUS for reporting).
+
 	* Bugfix: Translated version of KPA would display image dates in
 	English, but expect month input in the translated language. This
 	has now been fixed so it expected input in English too.

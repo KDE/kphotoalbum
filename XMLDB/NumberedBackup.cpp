@@ -15,9 +15,9 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
     QString fileName;
     fileName.sprintf( "index.xml~%04d~", max+1 );
     if ( Settings::SettingsData::instance()->compressBackup() ) {
-        fileName += QString::fromLatin1( ".zip" );
+        QString fileNameWithExt = fileName + QString::fromLatin1( ".zip" );
 
-        QString fileAndDir = QString::fromLatin1( "%1/%2" ).arg(Settings::SettingsData::instance()->imageDirectory() ).arg(fileName);
+        QString fileAndDir = QString::fromLatin1( "%1/%2" ).arg(Settings::SettingsData::instance()->imageDirectory() ).arg(fileNameWithExt);
         KZip zip( fileAndDir );
         if ( ! zip.open( IO_WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error creating zip file %1").arg(fileAndDir) );

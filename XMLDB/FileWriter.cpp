@@ -48,7 +48,6 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     }
 }
 
-#include "FileWriter.h"
 void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
 {
     QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();

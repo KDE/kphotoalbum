@@ -26,6 +26,7 @@ public:
     virtual void setName( const QString& name ) = 0;
 
     virtual QString text() const;
+    static QMap<QString,QString> standardCategories();
 
     virtual QString iconName() const = 0;
     virtual void setIconName( const QString& name ) = 0;

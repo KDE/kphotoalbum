@@ -880,8 +880,13 @@ void AnnotationDialog::Dialog::loadWindowLayout()
 
     QFile file( fileName );
     file.open( IO_ReadOnly );
+    QString content = file.readAll();
+    QMap<QString,QString> map = DB::Category::standardCategories();
+    for ( QMap<QString,QString>::ConstIterator it = map.begin(); it != map.end(); ++it )
+        content.replace( it.key(), it.data() );
+
     QDomDocument doc;
-    doc.setContent( &file );
+    doc.setContent( content );
     QDomElement elm = doc.documentElement();
     _dockWindow->readDockConfig( elm );
 }

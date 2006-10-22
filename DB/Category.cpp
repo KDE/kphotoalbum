@@ -18,18 +18,8 @@ QPixmap DB::Category::icon( int size ) const
 */
 QString DB::Category::text() const
 {
-    if ( name() == QString::fromLatin1( "Persons" ) )
-        return i18n("Persons");
-    else if ( name() == QString::fromLatin1( "Locations" ) )
-        return i18n("Locations");
-    else if ( name() == QString::fromLatin1( "Keywords" ) )
-        return i18n("Keywords");
-    else if ( name() == QString::fromLatin1( "Folder" ) )
-        return i18n("Folder");
-    else if ( name() == QString::fromLatin1( "Tokens" ) )
-        return i18n("Tokens");
-    else if ( name() == QString::fromLatin1( "Media Type" ) )
-        return i18n("Media Type");
+    if (standardCategories().contains( name() ) )
+        return standardCategories()[name()];
     else
         return name();
 }
@@ -106,6 +96,20 @@ KSharedPtr<DB::CategoryItem> DB::Category::itemsCategories() const
     }
 
     return result;
+}
+
+QMap<QString,QString> DB::Category::standardCategories()
+{
+    static QMap<QString,QString> map;
+    if ( map.isEmpty() ) {
+        map.insert( QString::fromLatin1( "Persons" ), i18n("Persons") );
+        map.insert( QString::fromLatin1( "Locations" ), i18n("Locations") );
+        map.insert( QString::fromLatin1( "Keywords" ),  i18n("Keywords") );
+        map.insert( QString::fromLatin1( "Folder" ),  i18n("Folder") );
+        map.insert( QString::fromLatin1( "Tokens" ),  i18n("Tokens") );
+        map.insert( QString::fromLatin1( "Media Type" ),  i18n("Media Type") );
+    }
+    return map;
 }
 
 #include "Category.moc"

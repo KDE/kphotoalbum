@@ -149,8 +149,10 @@ QString ImageDate::formatRegexp()
     static QString str;
     if ( str.isNull() ) {
         str = QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((" );
-        for ( int i = 1; i <= 12; ++i )
-            str += QString::fromLatin1("%1|").arg(monthName(i).lower() );
+        QStringList months = monthNames();
+        for( QStringList::ConstIterator monthIt = months.begin(); monthIt != months.end(); ++monthIt )
+            str += QString::fromLatin1("%1|").arg((*monthIt).lower() );
+
         str += QString::fromLatin1("\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
     }
     return str;
@@ -171,25 +173,6 @@ bool ImageDate::operator<( const ImageDate& other ) const
     return start() < other.start() || start() == other.start() && end() < other.end();
 }
 
-QString ImageDate::monthName( int month )
-{
-    switch ( month ) {
-    case 1: return i18n("Jan");
-    case 2: return i18n("Feb");
-    case 3: return i18n("Mar");
-    case 4: return i18n("Apr");
-    case 5: return i18n("May");
-    case 6: return i18n("Jun");
-    case 7: return i18n("Jul");
-    case 8: return i18n("Aug");
-    case 9: return i18n("Sep");
-    case 10: return i18n("Oct");
-    case 11: return i18n("Nov");
-    case 12: return i18n("Dec");
-    }
-    qWarning("monthName invoked with invalid name");
-    return QString::fromLatin1("");
-}
 
 ImageDate::ImageDate( const QDateTime& start, const QDateTime& end )
 {
@@ -281,30 +264,9 @@ QDate ImageDate::parseDate( const QString& date, bool startDate )
                 year += 1900;
         }
         if ( monthStr.length() != 0 ) {
-            if ( monthStr == monthName(1).lower() )
-                month = 1;
-            else if ( monthStr == monthName(2).lower() )
-                month = 2;
-            else if ( monthStr == monthName(3).lower() )
-                month = 3;
-            else if ( monthStr == monthName(4).lower() )
-                month = 4;
-            else if ( monthStr == monthName(5).lower() )
-                month = 5;
-            else if ( monthStr == monthName(6).lower() )
-                month = 6;
-            else if ( monthStr == monthName(7).lower() )
-                month = 7;
-            else if ( monthStr == monthName(8).lower() )
-                month = 8;
-            else if ( monthStr == monthName(9).lower() )
-                month = 9;
-            else if ( monthStr == monthName(10).lower() )
-                month = 10;
-            else if ( monthStr == monthName(11).lower() )
-                month = 11;
-            else if ( monthStr == monthName(12).lower() )
-                month = 12;
+            int index = monthNames().findIndex( monthStr );
+            if ( index != -1 )
+                month = (index%12)+1;
             else
                 month = monthStr.toInt();
         }
@@ -366,5 +328,18 @@ ImageDate::MatchType ImageDate::isIncludedIn( const ImageDate& searchRange )
 bool ImageDate::includes( const QDateTime& date )
 {
     return ImageDate( date ).isIncludedIn( *this ) == ExactMatch;
+}
+
+QStringList DB::ImageDate::monthNames()
+{
+    static QValueList<QString> res;
+    if ( res.isEmpty() ) {
+        res << QString::fromLatin1("jan") << QString::fromLatin1("feb") << QString::fromLatin1("mar") << QString::fromLatin1("apr")
+            << QString::fromLatin1("may") << QString::fromLatin1("jun") << QString::fromLatin1("jul") << QString::fromLatin1("aug")
+            << QString::fromLatin1("sep") << QString::fromLatin1("oct") << QString::fromLatin1("nov") << QString::fromLatin1("dec")
+            << i18n("jan") << i18n("feb") << i18n("mar") << i18n("apr") << i18n("may") << i18n("jun")
+            << i18n("jul") << i18n("aug") << i18n("sep") << i18n("oct") << i18n("nov") << i18n("dec");
+    }
+    return res;
 }
 

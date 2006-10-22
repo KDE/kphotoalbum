@@ -1,5 +1,9 @@
 2006-10-22  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Bugfix: Translated version of KPA would display image dates in
+	English, but expect month input in the translated language. This
+	has now been fixed so it expected input in English too.
+
 	* Bugfix: The panes in the annotation dialog would not show up correctly
 	in translated version of KPhotoAlbum.
 

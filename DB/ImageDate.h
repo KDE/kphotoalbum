@@ -20,6 +20,7 @@
 #define IMAGEDATE_H
 #include <qstring.h>
 #include <qdatetime.h>
+#include <qstringlist.h>
 
 namespace DB
 {
@@ -53,7 +54,7 @@ public:
     bool includes( const QDateTime& date );
 
 protected:
-    static QString monthName( int month );
+    static QStringList monthNames();
     static QString formatRegexp();
 
 private:

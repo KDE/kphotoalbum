@@ -49,7 +49,11 @@ void Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     }
 
     QString library=service->library();
-    Q_ASSERT(!library.isNull());
+    if ( library.isNull() ) {
+        kdWarning() << "The library returned from the service was null, indicating we could not display videos." << endl;
+        return;
+    }
+
     _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this, 0, this, 0);
     if (!_playerPart) {
         kdWarning() << "Failed to instantiate KPart from library " << library << endl;

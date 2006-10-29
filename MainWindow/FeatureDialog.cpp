@@ -72,7 +72,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
                  "<p>KPhotoAlbum ask the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
                  "If this test fails, then you need to go hunnting for packages for your system that contains the name <t>mplayer</t> "
-                 "or <t>xine</t>.</p>"
+                 "or <t>xine</t>. Some systems has the support in a package called <tt>libarts1-xine</tt></p>"
                  "<p>For an even better thumbnail support, please try out "
                  "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a></p>");
     edit->setText( text );

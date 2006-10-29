@@ -60,8 +60,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "This time stamp might be wrong in case you moved the image arround for example.</p>"
 
                   "<p>KPhotoAlbum uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
-                  "for reading EXIF information from images</p>"
-        );
+                  "for reading EXIF information from images</p>" );
 
 
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"
@@ -69,9 +68,16 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "needs a Sqlite database. Unfortunately, for this to work, you need to run Sqlite version 2.8.16, "
                   "so please make sure this is the right version installed on your system.</p>" );
 
+    text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
+                 "<p>KPhotoAlbum relies on the KDE plug-in subsystem for support for displaying videos. If this feature is not enabled for you "
+                 "you should go and search for a package that might add this support for you. Candidates for your search are "
+                 "<tt>kmplayer</tt>, <tt>kaboodle</tt>, and <tt>kaffeine</tt>. Installing these package are, however, often not enough "
+                 "you also need codecs, which most distributions do not ship by default due to licenses problems. "
+                 "A suggestion for a search here may be <tt>avi</tt>, <tt>RealMedia</tt>, and <tt>codecs</tt></p>");
+
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
                  "<p>KPhotoAlbum ask the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
-                 "If this test fails, then you need to go hunnting for packages for your system that contains the name <t>mplayer</t> "
+                 "If this test fails, then you need to go hunting for packages for your system that contains the name <t>mplayer</t> "
                  "or <t>xine</t>. Some systems has the support in a package called <tt>libarts1-xine</tt></p>"
                  "<p>For an even better thumbnail support, please try out "
                  "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a></p>");
@@ -156,8 +162,8 @@ QString MainWindow::FeatureDialog::featureString()
     features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
-    features << Data( i18n( "Inline MPEG video support" ), QString::fromLatin1("#mpeg"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
-    features << Data( i18n( "Inline Real Player video support" ), QString::fromLatin1("#rp"), hasVideoSupport( QString::fromLatin1("video/real") ) );
+    features << Data( i18n( "Inline MPEG video support" ), QString::fromLatin1("#video"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
+    features << Data( i18n( "Inline Real Player video support" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/real") ) );
     features << Data( i18n( "Video Thumbnails support" ), QString::fromLatin1("#thumbnails"),
                       ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
 

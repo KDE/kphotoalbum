@@ -39,6 +39,7 @@ QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> 
 void checkForBackupFile( const QString& fileName );
 bool ctrlKeyDown();
 bool copy( const QString& from, const QString& to );
+void copyList( const QStringList& from, const QString& directoryTo );
 bool makeHardLink( const QString& from, const QString& to );
 bool runningDemo();
 void deleteDemo();

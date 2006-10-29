@@ -172,6 +172,20 @@ bool Utilities::ctrlKeyDown()
 #endif
 }
 
+void Utilities::copyList( const QStringList& from, const QString& directoryTo )
+{
+    for( QStringList::ConstIterator it = from.begin(); it != from.end(); ++it ) {
+        QString destFile = directoryTo + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
+        if ( ! QFileInfo( destFile ).exists() ) {
+            const bool ok = copy( *it, destFile );
+            if ( !ok ) {
+                KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'.").arg( *it ).arg( destFile ), i18n("Error Running Demo") );
+                exit(-1);
+            }
+        }
+    }
+}
+
 QString Utilities::setupDemo()
 {
     QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
@@ -183,8 +197,6 @@ QString Utilities::setupDemo()
             exit(-1);
         }
     }
-
-    bool ok;
 
     // index.xml
     QString str = readInstalledFile( QString::fromLatin1( "demo/index.xml" ) );
@@ -213,18 +225,8 @@ QString Utilities::setupDemo()
 
 
     // Images
-    QStringList files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.jpg" ) );
-    for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-        QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
-        if ( ! QFileInfo( destFile ).exists() ) {
-            ok = copy( *it, destFile );
-            if ( !ok ) {
-                KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'.").arg( *it ).arg( destFile ), i18n("Error Running Demo") );
-                exit(-1);
-            }
-        }
-
-    }
+    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.jpg" ) ), dir );
+    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.avi" ) ), dir );
 
     // CategoryImages
     dir = dir + QString::fromLatin1("/CategoryImages");
@@ -237,18 +239,7 @@ QString Utilities::setupDemo()
         }
     }
 
-    // Category images.
-    files = KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/CategoryImages/*.jpg" ) );
-    for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
-        QString destFile = dir + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
-        if ( ! QFileInfo( destFile ).exists() ) {
-            ok = copy( *it, destFile );
-            if ( !ok ) {
-                KMessageBox::error( 0, i18n("Unable to make symlink from '%1' to '%2'.").arg( *it ).arg( destFile ), i18n("Error Running Demo") );
-                exit(-1);
-            }
-        }
-    }
+    copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/CategoryImages/*.jpg" ) ), dir );
 
     return configFile;
 }
@@ -715,3 +706,4 @@ QStringList Utilities::removeDuplicates( const QStringList& items )
     }
     return res;
 }
+

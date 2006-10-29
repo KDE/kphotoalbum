@@ -5,6 +5,9 @@
 #include <kapplication.h>
 #include "Exif/Database.h"
 #include <kuserprofile.h>
+#include <ImageManager/VideoManager.h>
+#include <kmediaplayer/player.h>
+#include <kparts/componentfactory.h>
 
 using namespace MainWindow;
 
@@ -62,9 +65,16 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
 
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"
-                  "KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
+                  "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs a Sqlite database. Unfortunately, for this to work, you need to run Sqlite version 2.8.16, "
-                  "so please make sure this is the right version installed on your system." );
+                  "so please make sure this is the right version installed on your system.</p>" );
+
+    text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
+                 "<p>KPhotoAlbum ask the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
+                 "If this test fails, then you need to go hunnting for packages for your system that contains the name <t>mplayer</t> "
+                 "or <t>xine</t>.</p>"
+                 "<p>For an even better thumbnail support, please try out "
+                 "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a></p>");
     edit->setText( text );
 
     resize( 800, 600 );
@@ -122,39 +132,43 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
-    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport();
+    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport() &&
+        hasVideoSupport( QString::fromLatin1("video/mpeg") ) &&
+        hasVideoSupport( QString::fromLatin1("video/real") ) &&
+        ImageManager::VideoManager::instance().hasVideoThumbnailSupport();
 }
+
+struct Data
+{
+    Data() {}
+    Data( const QString& title, const QString tag, bool featureFound )
+        : title( title ), tag( tag ), featureFound( featureFound ) {}
+    QString title;
+    QString tag;
+    bool featureFound;
+};
 
 QString MainWindow::FeatureDialog::featureString()
 {
-    QString yes = QString::fromLatin1( "<b>%1</b>" ).arg(i18n("Yes"));
-    QString no = QString::fromLatin1( "<b><font color=\"red\">%1</font></b>" ).arg( i18n("No") );
+    QValueList<Data> features;
+    features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
+    features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasKIPISupport() );
+    features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
+    features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
+                      hasEXIV2Support() && hasEXIV2DBSupport() );
+    features << Data( i18n( "Inline MPEG video support" ), QString::fromLatin1("#mpeg"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
+    features << Data( i18n( "Inline Real Player video support" ), QString::fromLatin1("#rp"), hasVideoSupport( QString::fromLatin1("video/real") ) );
+    features << Data( i18n( "Video Thumbnails support" ), QString::fromLatin1("#thumbnails"),
+                      ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
 
-    QString hasKipi = hasKIPISupport() ? yes : no;
-    QString hasDatabaseSupport = hasSQLDBSupport() ? yes : no;
-    QString hasEXIV2 = hasEXIV2Support() ? yes : no;
-    QString hasExifDatabase = QString::fromLatin1( "<b><font color=\"red\">%1</b></font>" )
-                              .arg( i18n("untested - missing EXIF support") );
-    if ( hasEXIV2Support() )
-        hasExifDatabase = hasEXIV2DBSupport() ? yes : no;
-    QString mpegSupport = hasVideoSupport( QString::fromLatin1("video/mpeg") ) ? yes : no;
-    QString rpSupport = hasVideoSupport( QString::fromLatin1("video/real") ) ? yes : no;
-
-
-    QString result = QString::fromLatin1( "<p><table>"
-                           "<tr><td><a href=\"#kipi\">%1</a></td><td>%1</tr></tr>"
-                           "<tr><td><a href=\"#exiv2\">%1</a></td><td>%1</td></tr>"
-                           "<tr><td><a href=\"#database\">%1</a></td><td>%1</td></tr>"
-                           "<tr><td><a href=\"#database\">%1</a></td><td>%1</td></tr>"
-                           "<tr><td><a href=\"#mpeg\">%1</a></td><td>%1</td></tr>"
-                           "<tr><td><a href=\"#rp\">%1</a></td><td>%1</td></tr>"
-                           "</table></p>")
-                     .arg( i18n("Plug-ins available") ).arg( hasKipi )
-                     .arg( i18n("EXIF info supported") ).arg( hasEXIV2 )
-                     .arg( i18n("SQL Database Support") ).arg( hasDatabaseSupport )
-                     .arg( i18n( "Sqlite Database Support (used for EXIF searches)" ) ).arg( hasExifDatabase )
-                     .arg( i18n( "Inline MPEG video support" ) ).arg( mpegSupport )
-                     .arg( i18n( "Inline Real Player video support" ) ).arg( rpSupport );
+    QString result = QString::fromLatin1("<p><table>");
+    const QString yes = i18n("Yes");
+    const QString no =  QString::fromLatin1("<font color=\"red\">%1</font>").arg( i18n("No") );
+    for( QValueList<Data>::ConstIterator featureIt = features.begin(); featureIt != features.end(); ++featureIt ) {
+        result += QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" )
+                  .arg( (*featureIt).tag ).arg( (*featureIt).title ).arg( (*featureIt).featureFound ? yes : no  );
+    }
+    result += QString::fromLatin1( "</table></p>" );
 
     return result;
 }
@@ -162,7 +176,19 @@ QString MainWindow::FeatureDialog::featureString()
 bool MainWindow::FeatureDialog::hasVideoSupport( const QString& mimeType )
 {
     KService::Ptr service = KServiceTypeProfile::preferredService( mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
-    return service.data();
+    if ( !service.data() )
+        return false;
+
+    QString library=service->library();
+    if ( library.isNull() )
+        return false;
+
+    KParts::ReadOnlyPart* part = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service);
+    delete part;
+    if ( !part )
+        return false;
+
+    return true;
 }
 
 #include "FeatureDialog.moc"

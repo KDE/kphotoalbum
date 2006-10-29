@@ -6,6 +6,9 @@
 #include <qimage.h>
 #include <kglobal.h>
 #include <kiconloader.h>
+#include <qapplication.h>
+#include <qeventloop.h>
+#include <kstandarddirs.h>
 
 ImageManager::VideoManager::VideoManager()
     :_currentRequest(0)
@@ -77,5 +80,33 @@ void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
     _pending.cancelRequests( client, action );
 }
 
+
+bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
+{
+    KURL::List list;
+    list.append( locate( "data", QString::fromLatin1( "kphotoalbum/demo/movie.avi" ) ) );
+    KIO::PreviewJob* job=KIO::filePreview(list, 64 );
+    job->setIgnoreMaximumSize( true );
+
+    connect(job, SIGNAL(gotPreview(const KFileItem*, const QPixmap&)),
+            this, SLOT(testGotPreview(const KFileItem*, const QPixmap&)) );
+    connect(job, SIGNAL(failed(const KFileItem*)),
+            this, SLOT(testPreviewFailed()) );
+
+    qApp->eventLoop()->enterLoop();
+    return _hasVideoSupport;
+}
+
+void ImageManager::VideoManager::testGotPreview(const KFileItem*, const QPixmap& pixmap )
+{
+    _hasVideoSupport = !pixmap.isNull();
+    qApp->eventLoop()->exitLoop();
+}
+
+void ImageManager::VideoManager::testPreviewFailed()
+{
+    _hasVideoSupport = false;
+    qApp->eventLoop()->exitLoop();
+}
 
 #include "VideoManager.moc"

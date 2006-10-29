@@ -20,6 +20,7 @@ public:
     static VideoManager& instance();
     void request( ImageRequest* request );
     void stop( ImageClient*, StopAction action );
+    bool hasVideoThumbnailSupport() const;
 
 protected:
     void load( ImageRequest* request );
@@ -29,10 +30,14 @@ protected slots:
     void slotGotPreview(const KFileItem*, const QPixmap& pixmap );
     void previewFailed();
 
+    void testGotPreview(const KFileItem*, const QPixmap& pixmap );
+    void testPreviewFailed();
+
 private:
     VideoManager();
     RequestQueue _pending;
     ImageRequest* _currentRequest;
+    bool _hasVideoSupport;
 };
 
 }

@@ -43,7 +43,7 @@ void Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
     QString mimeType=KMimeType::findByURL(info->fileName())->name();
     KService::Ptr service = KServiceTypeProfile::preferredService(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
-    if (!service) {
+    if (!service.data()) {
         kdWarning() << "Couldn't find a KPart for " << mimeType << endl;
         return;
     }

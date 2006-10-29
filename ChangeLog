@@ -1,5 +1,7 @@
 2006-10-29  Jesper K. Pederse  <blackie@klaralvdalens-datakonsult.se>
 
+	* More video format tests.
+
 	* The feature dialog now test if we can show video thumbnails.
 
 	* The feature dialog now tests better to see if we can show

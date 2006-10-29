@@ -138,10 +138,8 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
-    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport() &&
-        hasVideoSupport( QString::fromLatin1("video/mpeg") ) &&
-        hasVideoSupport( QString::fromLatin1("video/real") ) &&
-        ImageManager::VideoManager::instance().hasVideoThumbnailSupport();
+    // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
+    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport();
 }
 
 struct Data
@@ -162,8 +160,10 @@ QString MainWindow::FeatureDialog::featureString()
     features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );
-    features << Data( i18n( "Inline MPEG video support" ), QString::fromLatin1("#video"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
-    features << Data( i18n( "Inline Real Player video support" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/real") ) );
+    features << Data( i18n( "MPEG video support" ), QString::fromLatin1("#video"),  hasVideoSupport( QString::fromLatin1("video/mpeg") ) );
+    features << Data( i18n( "Quicktime video support (aka mov)" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/quicktime") ) );
+    features << Data( i18n( "AVI video support" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-msvideo") ) );
+    features << Data( i18n( "ASF video support (aka wmv)" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-ms-asf") ) );
     features << Data( i18n( "Video Thumbnails support" ), QString::fromLatin1("#thumbnails"),
                       ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
 

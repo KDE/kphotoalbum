@@ -31,12 +31,7 @@ namespace SQLDB {
         virtual void setName(const QString&) {}
         virtual void setSpecialCategory(bool) {}
         virtual bool isSpecialCategory() const { return true; }
-
-    protected:
-        friend class SQLCategoryCollection;
-        SQLSpecialCategory(QueryHelper* queryHelper, int categoryId):
-            SQLCategory(queryHelper, categoryId) {}
     };
 }
 
-#endif /* SQLTOKENSCATEGORY_H */
+#endif /* SQLSPECIALCATEGORY_H */

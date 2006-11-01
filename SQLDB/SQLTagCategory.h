@@ -1,4 +1,5 @@
 /*
+  Copyright (C) 2005-2006 Jesper K. Pedersen <blackie@kde.org>
   Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
@@ -17,47 +18,50 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLFOLDERCATEGORY_H
-#define SQLFOLDERCATEGORY_H
+#ifndef SQLTAGCATEGORY_H
+#define SQLTAGCATEGORY_H
 
-#include "SQLSpecialCategory.h"
+#include "SQLCategory.h"
+#include "Connection.h"
 #include "QueryHelper.h"
 
 namespace SQLDB {
-    class SQLFolderCategory: public SQLSpecialCategory
+    class SQLTagCategory: public SQLCategory
     {
         Q_OBJECT
 
     public:
-        virtual QString name() const { return "Folder"; }
+        virtual QString name() const;
 
-        virtual QString iconName() const
-        { return QString::fromLatin1("folder"); }
-        virtual void setIconName(const QString&) {}
+        virtual QString iconName() const;
+        virtual void setIconName(const QString& name);
 
-        virtual ViewType viewType() const { return ListView; }
-        virtual void setViewType(ViewType) {}
+        virtual ViewType viewType() const;
+        virtual void setViewType(ViewType type);
 
-        virtual bool doShow() const { return false; }
-        virtual void setDoShow(bool) {}
-
-        virtual int thumbnailSize() const { return 32; }
-        virtual void setThumbnailSize(int) {}
+        virtual bool doShow() const;
+        virtual void setDoShow(bool b);
 
         virtual QStringList items() const;
         virtual void setItems(const QStringList& items);
         virtual void addOrReorderItems(const QStringList& items);
         virtual void addItem(const QString& item);
         virtual void removeItem(const QString& item);
-        virtual void renameItem(const QString& oldValue, const QString& newValue);
+        virtual void renameItem(const QString& oldValue,
+                                const QString& newValue);
+
+        virtual int thumbnailSize() const;
+        virtual void setThumbnailSize(int size);
+
         virtual QMap<QString, uint> classify(const DB::ImageSearchInfo& scope,
                                              DB::MediaType typemask) const;
 
     protected:
         friend class SQLCategoryCollection;
-        SQLFolderCategory(QueryHelper* queryHelper);
+        SQLTagCategory(QueryHelper* queryHelper, int categoryId);
         QueryHelper* _qh;
+        int _categoryId;
     };
 }
 
-#endif /* SQLFOLDERCATEGORY_H */
+#endif /* SQLTAGCATEGORY_H */

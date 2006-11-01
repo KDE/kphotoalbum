@@ -1,5 +1,4 @@
 /*
-  Copyright (C) 2005-2006 Jesper K. Pedersen <blackie@kde.org>
   Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
@@ -18,22 +17,26 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLCATEGORY_H
-#define SQLCATEGORY_H
+#ifndef SQLNORMALCATEGORY_H
+#define SQLNORMALCATEGORY_H
 
-#include "DB/Category.h"
-#include "DB/ImageSearchInfo.h"
-#include "DB/ImageInfo.h" // DB::MediaType
+#include "SQLTagCategory.h"
 
 namespace SQLDB {
-    class SQLCategory: public DB::Category
+    class SQLNormalCategory: public SQLTagCategory
     {
         Q_OBJECT
 
     public:
-        virtual QMap<QString, uint> classify(const DB::ImageSearchInfo& scope,
-                                             DB::MediaType typemask) const = 0;
+        virtual void setName(const QString&);
+        virtual void setSpecialCategory(bool) {}
+        virtual bool isSpecialCategory() const { return false; }
+
+    protected:
+        friend class SQLCategoryCollection;
+        SQLNormalCategory(QueryHelper* queryHelper, int categoryId):
+            SQLTagCategory(queryHelper, categoryId) {}
     };
 }
 
-#endif /* SQLCATEGORY_H */
+#endif /* SQLNORMALCATEGORY_H */

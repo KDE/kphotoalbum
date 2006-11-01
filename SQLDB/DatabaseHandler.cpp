@@ -34,8 +34,8 @@
 #define SCHEMA_VERSION_MAJOR 2
 
 // Update these every time the database schema changes
-#define SCHEMA_VERSION_MINOR 0
-#define SCHEMA_DATE "2006-09-04"
+#define SCHEMA_VERSION_MINOR 1
+#define SCHEMA_DATE "2006-11-01"
 
 
 using namespace SQLDB;
@@ -499,8 +499,6 @@ void DatabaseHandler::insertInitialData()
         DB::Category::ViewType viewtype;
         int thumbnailSize;
     } entry[] = {
-        { "Folder", "folder",
-          false, DB::Category::ListView, 32 },
         { "Tokens", "cookie",
           true, DB::Category::IconView, 32 },
         { "Keywords", "password",

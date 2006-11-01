@@ -25,6 +25,9 @@ namespace SQLDB {
     protected:
         Connection* _connection;
         QueryHelper _qh;
+
+    private:
+        QStringList _specialCategoryNames;
     };
 }
 

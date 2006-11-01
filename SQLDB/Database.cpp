@@ -1,5 +1,5 @@
 #include "Database.h"
-#include "DB/CategoryCollection.h"
+#include "SQLCategory.h"
 #include "DB/ImageInfo.h"
 #include "Utilities/Util.h"
 #include "DB/GroupCounter.h"
@@ -104,16 +104,12 @@ QMap<QString, uint> SQLDB::Database::classify(const DB::ImageSearchInfo& info,
                                               const QString& category,
                                               DB::MediaType typemask)
 {
-    QValueList<int>* scope;
-    QValueList<int> includedFiles;
-    if (info.isNull())
-        scope = 0;
-    else {
-        includedFiles = _qh.searchMediaItems(info, typemask);
-        scope = &includedFiles;
-    }
-
-    return _qh.classify(category, typemask, scope);
+    DB::CategoryPtr catptr = categoryCollection()->categoryForName(category);
+    SQLCategory* sqlcatptr = static_cast<SQLCategory*>(catptr.data());
+    if (sqlcatptr)
+        return sqlcatptr->classify(info, typemask);
+    else
+        return QMap<QString, uint>();
 }
 
 QStringList SQLDB::Database::imageList( bool withRelativePath )

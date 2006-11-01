@@ -22,8 +22,8 @@
 
 using namespace SQLDB;
 
-SQLFolderCategory::SQLFolderCategory(QueryHelper* queryHelper, int categoryId):
-    SQLSpecialCategory(queryHelper, categoryId)
+SQLFolderCategory::SQLFolderCategory(QueryHelper* queryHelper):
+    _qh(queryHelper)
 {
 }
 
@@ -33,6 +33,11 @@ QStringList SQLFolderCategory::items() const
 }
 
 void SQLFolderCategory::setItems(const QStringList& items)
+{
+    Q_UNUSED(items);
+}
+
+void SQLFolderCategory::addOrReorderItems(const QStringList& items)
 {
     Q_UNUSED(items);
 }
@@ -47,10 +52,28 @@ void SQLFolderCategory::removeItem(const QString& item)
     Q_UNUSED(item);
 }
 
-void SQLFolderCategory::renameItem(const QString& oldValue, const QString& newValue)
+void SQLFolderCategory::renameItem(const QString& oldValue,
+                                   const QString& newValue)
 {
     Q_UNUSED(oldValue);
     Q_UNUSED(newValue);
+}
+
+QMap<QString, uint>
+SQLFolderCategory::classify(const DB::ImageSearchInfo& scope,
+                            DB::MediaType typemask) const
+{
+    // TODO: this
+    QValueList<int>* scopePointer;
+    QValueList<int> includedFiles;
+    if (scope.isNull())
+        scopePointer = 0;
+    else {
+        includedFiles = _qh->searchMediaItems(scope, typemask);
+        scopePointer = &includedFiles;
+    }
+
+    return _qh->classify(name(), typemask, scopePointer);
 }
 
 #include "SQLFolderCategory.moc"

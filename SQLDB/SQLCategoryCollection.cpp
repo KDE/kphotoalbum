@@ -1,36 +1,40 @@
 #include "SQLCategoryCollection.h"
-#include "SQLCategory.h"
 #include "QueryHelper.h"
+#include "SQLNormalCategory.h"
+#include "SQLTokensCategory.h"
 #include "SQLFolderCategory.h"
-#include "SQLSpecialCategory.h"
 #include "QueryErrors.h"
 
 SQLDB::SQLCategoryCollection::SQLCategoryCollection(Connection& connection):
     _connection(&connection),
     _qh(connection)
 {
+    // Categories, which should not have an entry in category table.
+    _specialCategoryNames << "Folder";
 }
 
 
 DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& name ) const
 {
-    int categoryId;
-    try {
-        categoryId = _qh.categoryId(name);
-    }
-    catch (NotFoundError&) {
-        return 0;
-    }
-
     DB::CategoryPtr p;
+
     if (name == "Folder") {
-        p = new SQLFolderCategory(const_cast<QueryHelper*>(&_qh), categoryId);
-    }
-    else if (name == "Tokens") {
-        p = new SQLSpecialCategory(const_cast<QueryHelper*>(&_qh), categoryId);
+        p = new SQLFolderCategory(const_cast<QueryHelper*>(&_qh));
     }
     else {
-        p = new SQLCategory(const_cast<QueryHelper*>(&_qh), categoryId);
+        int categoryId;
+        try {
+            categoryId = _qh.categoryId(name);
+        }
+        catch (NotFoundError&) {
+            return 0;
+        }
+        if (name == "Tokens") {
+            p = new SQLTokensCategory(const_cast<QueryHelper*>(&_qh), categoryId);
+        }
+        else {
+            p = new SQLNormalCategory(const_cast<QueryHelper*>(&_qh), categoryId);
+        }
     }
 
     connect(p, SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()));
@@ -44,11 +48,14 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
 
 QStringList SQLDB::SQLCategoryCollection::categoryNames() const
 {
-    return _qh.categoryNames();
+    return _specialCategoryNames + _qh.categoryNames();
 }
 
 void SQLDB::SQLCategoryCollection::removeCategory( const QString& name )
 {
+    if (_specialCategoryNames.contains(name))
+        return;
+
     try {
         _qh.removeCategory(name);
     }
@@ -79,6 +86,9 @@ void SQLDB::SQLCategoryCollection::addCategory(const QString& category,
                                                DB::Category::ViewType type,
                                                int thumbnailSize, bool showIt)
 {
+    if (_specialCategoryNames.contains(category))
+        return;
+
     try {
         _qh.insertCategory(category, icon, showIt, type, thumbnailSize);
     }

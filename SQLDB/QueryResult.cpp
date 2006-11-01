@@ -79,6 +79,18 @@ QValueList<int> QueryResult::asIntegerList() const
     return r;
 }
 
+QValueList< QPair<int, int> > QueryResult::asInteger2List() const
+{
+    QValueList< QPair<int, int> > r;
+    if (_cursor) {
+        for (_cursor.selectFirstRow();
+             _cursor.rowExists(); _cursor.selectNextRow())
+            r.append(QPair<int, int>(_cursor.value(0).toInt(),
+                                     _cursor.value(1).toInt()));
+    }
+    return r;
+}
+
 QValueList< QPair<int, QString> > QueryResult::asIntegerStringPairs() const
 {
     QValueList< QPair<int, QString> > r;
@@ -90,6 +102,18 @@ QValueList< QPair<int, QString> > QueryResult::asIntegerStringPairs() const
     }
     return r;
 }
+
+QMap<int, QString> QueryResult::asIntegerStringMap() const
+{
+    QMap<int, QString> r;
+    if (_cursor) {
+        for (_cursor.selectFirstRow(); _cursor.rowExists();
+             _cursor.selectNextRow())
+            r[_cursor.value(0).toInt()] = _cursor.value(1).toString();
+    }
+    return r;
+}
+
 
 QVariant QueryResult::firstItem() const
 {

@@ -1,5 +1,7 @@
 2006-11-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Zooming now works with video display.
+
 	* Improved info when videos can't be loaded.
 
 2006-10-29  Jesper K. Pederse  <blackie@klaralvdalens-datakonsult.se>

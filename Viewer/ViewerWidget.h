@@ -129,6 +129,11 @@ protected slots:
     void populateExternalPopup();
     void videoStopped();
     void showExifViewer();
+    void zoomIn();
+    void zoomOut();
+    void zoomFull();
+    void zoomPixelForPixel();
+    void zoomStandard();
 
 private:
     static ViewerWidget* _latest;

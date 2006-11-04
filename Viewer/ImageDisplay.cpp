@@ -97,7 +97,7 @@
 */
 
 Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
-    :Display( parent, name ), _info( 0 ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ), _viewer(0), _lastZoomType(ZoomNull)
+    :Display( parent, name ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ), _viewer(0), _lastZoomType(ZoomNull)
 {
     setBackgroundMode( NoBackground );
 
@@ -433,23 +433,8 @@ void Viewer::ImageDisplay::zoomPixelForPixel()
 
 void Viewer::ImageDisplay::zoomStandard()
 {
-  switch (Settings::SettingsData::instance()->viewerStandardSize()) {
-  case Settings::NaturalSize:
-    zoomPixelForPixel();
-    break;
-  case Settings::NaturalSizeIfFits:
-    if (_info->size().width() <= width() &&
-	_info->size().height() <= height())
-      zoomPixelForPixel();
-    else
-      zoomFull();
-    break;
-  case Settings::FullSize:
-  default:
-    zoomFull();
-    break;
-  }
-  _lastZoomType = ZoomStandard;
+    Display::zoomStandard();
+    _lastZoomType = ZoomStandard;
 }
 
 

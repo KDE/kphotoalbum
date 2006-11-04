@@ -36,11 +36,11 @@
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     :Viewer::Display( parent, "VideoDisplay" ), _playerPart( 0 )
 {
-    _layout = new QHBoxLayout( this );
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
+    _info = info;
     // This code is inspired by similar code in Gwenview.
     delete _playerPart;
     _playerPart = 0;
@@ -68,7 +68,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         return false;
     }
 
-    _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this, 0, this, 0);
+    _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this );
     if (!_playerPart) {
         showError( NoPartInstance, info->fileName(), mimeType );
         kdWarning() << "Failed to instantiate KPart from library " << library << endl;
@@ -81,7 +81,6 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         return false;
     }
 
-    _layout->addWidget(widget);
     _playerPart->openURL(info->fileName());
 
     // If the part implements the KMediaPlayer::Player interface, start
@@ -92,6 +91,8 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     }
 
     connect( player, SIGNAL( stateChanged( int ) ), this, SLOT( stateChanged( int ) ) );
+
+    zoomStandard();
     return true;
 }
 
@@ -134,6 +135,66 @@ void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileN
     int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ).arg(fileName ), i18n("Show More Help"), i18n("Close") );
     if ( ret == KMessageBox::Yes )
         kapp->invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
+}
+
+void Viewer::VideoDisplay::zoomIn()
+{
+    resize( 1.25 );
+}
+
+void Viewer::VideoDisplay::zoomOut()
+{
+    resize( 0.8 );
+}
+
+void Viewer::VideoDisplay::zoomFull()
+{
+    QWidget* widget = _playerPart->widget();
+    if ( !widget )
+        return;
+
+    widget->resize( size() );
+    widget->move(0,0);
+}
+
+void Viewer::VideoDisplay::zoomPixelForPixel()
+{
+    QWidget* widget = _playerPart->widget();
+    if ( !widget )
+        return;
+
+    const QSize size = _info->size();
+    widget->resize( size );
+    widget->move( (width() - size.width())/2, (height() - size.height())/2 );
+}
+
+void Viewer::VideoDisplay::resize( const float factor )
+{
+    QWidget* widget = _playerPart->widget();
+    if ( !widget )
+        return;
+
+    const QSize size( static_cast<int>( factor * widget->width() ) , static_cast<int>( factor * widget->width() ) );
+    widget->resize( size );
+    widget->move( (width() - size.width())/2, (height() - size.height())/2 );
+}
+
+void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
+{
+    Display::resizeEvent( event );
+
+    if ( !_playerPart )
+        return;
+
+    QWidget* widget = _playerPart->widget();
+    if ( !widget )
+        return;
+
+    if ( widget->width() == event->oldSize().width() || widget->height() == event->oldSize().height() )
+        widget->resize( size() );
+    else
+        widget->resize( QMIN( widget->width(), width() ), QMIN( widget->height(), height() ) );
+    widget->move( (width() - widget->width())/2, (height() - widget->height())/2 );
 }
 
 #include "VideoDisplay.moc"

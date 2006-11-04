@@ -109,7 +109,6 @@ private:
     QImage _croppedAndScaledImg;
     QPixmap _drawingPixmap;
     QPixmap _viewPixmap;
-    DB::ImageInfoPtr _info;
 
     ViewHandler* _viewHandler;
     DrawHandler* _drawHandler;

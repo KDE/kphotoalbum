@@ -78,6 +78,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
 {
     setWFlags( WDestructiveClose );
+    setPaletteBackgroundColor( black );
     _latest = this;
 
     QVBoxLayout* layout = new QVBoxLayout( this );
@@ -312,19 +313,19 @@ void Viewer::ViewerWidget::createZoomMenu()
     QPopupMenu *popup = new QPopupMenu( _popup );
 
     // PENDING(blackie) Only for image display?
-    KAction* action = new KAction( i18n("Zoom In"), Key_Plus, _display, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
+    KAction* action = new KAction( i18n("Zoom In"), Key_Plus, this, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
     action->plug( popup );
 
-    action = new KAction( i18n("Zoom Out"), Key_Minus, _display, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
+    action = new KAction( i18n("Zoom Out"), Key_Minus, this, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
     action->plug( popup );
 
-    action = new KAction( i18n("Full View"), Key_Period, _display, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
+    action = new KAction( i18n("Full View"), Key_Period, this, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
     action->plug( popup );
 
-    action = new KAction( i18n("Pixel for Pixel View"), Key_Equal, _display, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
+    action = new KAction( i18n("Pixel for Pixel View"), Key_Equal, this, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
     action->plug( popup );
 
-    action = new KAction( i18n("Standard View"), Key_Slash, _display, SLOT( zoomStandard() ), _actions, "viewer-zoom-standard" );
+    action = new KAction( i18n("Standard View"), Key_Slash, this, SLOT( zoomStandard() ), _actions, "viewer-zoom-standard" );
     action->plug( popup );
 
     action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
@@ -946,6 +947,31 @@ void Viewer::ViewerWidget::showExifViewer()
     exifDialog->show();
 #endif
 
+}
+
+void Viewer::ViewerWidget::zoomIn()
+{
+    _display->zoomIn();
+}
+
+void Viewer::ViewerWidget::zoomOut()
+{
+    _display->zoomOut();
+}
+
+void Viewer::ViewerWidget::zoomFull()
+{
+    _display->zoomFull();
+}
+
+void Viewer::ViewerWidget::zoomPixelForPixel()
+{
+    _display->zoomPixelForPixel();
+}
+
+void Viewer::ViewerWidget::zoomStandard()
+{
+    _display->zoomStandard();
 }
 
 #include "ViewerWidget.moc"

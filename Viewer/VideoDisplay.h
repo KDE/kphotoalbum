@@ -38,6 +38,12 @@ public:
 signals:
     void stopped();
 
+public slots:
+    void zoomIn();
+    void zoomOut();
+    void zoomFull();
+    void zoomPixelForPixel();
+
 protected slots:
     void stateChanged( int );
 
@@ -45,9 +51,10 @@ protected:
     enum ErrorType { NoMimeType, NoKPart, NoLibrary, NoPartInstance,NoWidget };
     QString mimeTypeForFileName( const QString& fileName ) const;
     void showError( ErrorType, const QString& fileName, const QString& mimeType );
+    void resize( float factor );
+    virtual void resizeEvent( QResizeEvent* );
 
 private:
-    QHBoxLayout* _layout;
     KParts::ReadOnlyPart* _playerPart;
 };
 

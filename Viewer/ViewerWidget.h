@@ -134,6 +134,7 @@ protected slots:
     void zoomFull();
     void zoomPixelForPixel();
     void zoomStandard();
+    void toggleShowDrawings( bool );
 
 private:
     static ViewerWidget* _latest;
@@ -154,16 +155,23 @@ private:
     int _current;
     QRect _textRect;
     QPopupMenu* _popup;
+    QPopupMenu* _rotateMenu;
+    QPopupMenu* _wallpaperMenu;
     MainWindow::ExternalPopup* _externalPopup;
     int _width, _height;
     QPixmap _pixmap;
 
     KToolBar* _toolbar;
+    KAction* _drawOnImages;
     KToggleAction* _select;
     KToggleAction* _line;
     KToggleAction* _rect;
     KToggleAction* _circle;
     KAction* _delete;
+    KAction* _categoryEditor;
+#ifdef HASEXIV2
+    KAction* _showExifViewer;
+#endif
 
     InfoBox* _infoBox;
     QImage _currentImage;

@@ -1,5 +1,8 @@
 2006-11-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Enabling/Disabling the right items in the context menu in the
+	viewer depending on image vs. video.
+
 	* Zooming now works with video display.
 
 	* Improved info when videos can't be loaded.

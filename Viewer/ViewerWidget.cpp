@@ -127,22 +127,22 @@ void Viewer::ViewerWidget::setupContextMenu()
     createWallPaperMenu();
     createInvokeExternalMenu();
 
-    KAction* action = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
-    action->plug( _popup );
+    _drawOnImages = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
+    _drawOnImages->plug( _popup );
 
-    action = new KAction( i18n("Edit Image Properties..."),  CTRL+Key_1, this, SLOT( editImage() ),
+    KAction* action = new KAction( i18n("Edit Image Properties..."),  CTRL+Key_1, this, SLOT( editImage() ),
                           _actions, "viewer-edit-image-properties" );
     action->plug( _popup );
 
     // PENDING(blackie) This should only be enabled for image displays.
-    action = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
-                          _actions, "viewer-show-category-editor" );
-    action->plug( _popup );
+    _categoryEditor = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
+                                   _actions, "viewer-show-category-editor" );
+    _categoryEditor->plug( _popup );
 
 #ifdef HASEXIV2
-    action = new KAction( i18n("Show EXIF Viewer"), 0, this, SLOT( showExifViewer() ),
+    _showExifViewer = new KAction( i18n("Show EXIF Viewer"), 0, this, SLOT( showExifViewer() ),
                           _actions, "viewer-show-exif-viewer" );
-    action->plug( _popup );
+    _showExifViewer->plug( _popup );
 #endif
 
     action = new KAction( i18n("Close"), Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
@@ -161,7 +161,7 @@ void Viewer::ViewerWidget::createShowContextMenu()
 
     // PENDING(blackie) Only for image display
     taction = new KToggleAction( i18n("Show Drawing"), CTRL+Key_D, _actions, "viewer-show-drawing");
-    connect( taction, SIGNAL( toggled( bool ) ), _display, SLOT( toggleShowDrawings( bool ) ) );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDrawings( bool ) ) );
     taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
 
@@ -209,33 +209,33 @@ void Viewer::ViewerWidget::createShowContextMenu()
 
 void Viewer::ViewerWidget::createWallPaperMenu()
 {
-    QPopupMenu *wallpaperPopup = new QPopupMenu( _popup, "context popup menu" );
+    _wallpaperMenu = new QPopupMenu( _popup, "context popup menu" );
 
     KAction* action = new KAction( i18n("Centered"), 0, this, SLOT( slotSetWallpaperC() ), _actions, "viewer-centered" );
-    action->plug( wallpaperPopup );
+    action->plug( _wallpaperMenu );
 
     action = new KAction( i18n("Tiled"), 0, this, SLOT( slotSetWallpaperT() ), _actions, "viewer-tiled" );
-    action->plug( wallpaperPopup );
+    action->plug( _wallpaperMenu );
 
     action = new KAction( i18n("Center Tiled"), 0, this, SLOT( slotSetWallpaperCT() ), _actions, "viewer-center-tiled" );
-    action->plug( wallpaperPopup );
+    action->plug( _wallpaperMenu );
 
     action = new KAction( i18n("Centered Maxpect"), 0, this, SLOT( slotSetWallpaperCM() ),
                           _actions, "viewer-centered-maxspect" );
-    action->plug( wallpaperPopup );
+    action->plug( _wallpaperMenu );
 
     action = new KAction( i18n("Tiled Maxpect"), 0, this, SLOT( slotSetWallpaperTM() ),
                           _actions, "viewer-tiled-maxpect" );
-    action->plug( wallpaperPopup );
+    action->plug( _wallpaperMenu );
 
     action = new KAction( i18n("Scaled"), 0, this, SLOT( slotSetWallpaperS() ), _actions, "viewer-scaled" );
-    action->plug( wallpaperPopup );
+    action->plug( _wallpaperMenu );
 
     action = new KAction( i18n("Centered Auto Fit"), 0, this, SLOT( slotSetWallpaperCAF() ),
                           _actions, "viewer-centered-auto-fit" );
-    action->plug( wallpaperPopup );
+    action->plug( _wallpaperMenu );
 
-    _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), wallpaperPopup );
+    _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), _wallpaperMenu );
 }
 
 void Viewer::ViewerWidget::createInvokeExternalMenu()
@@ -247,18 +247,18 @@ void Viewer::ViewerWidget::createInvokeExternalMenu()
 
 void Viewer::ViewerWidget::createRotateMenu()
 {
-    QPopupMenu *popup = new QPopupMenu( _popup );
+    _rotateMenu = new QPopupMenu( _popup );
 
     KAction* action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
-    action->plug( popup );
+    action->plug( _rotateMenu );
 
     action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
-    action->plug( popup );
+    action->plug( _rotateMenu );
 
     action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
-    action->plug( popup );
+    action->plug( _rotateMenu );
 
-    _popup->insertItem( QIconSet(), i18n("Rotate"), popup );
+    _popup->insertItem( QIconSet(), i18n("Rotate"), _rotateMenu );
 }
 
 void Viewer::ViewerWidget::createSkipMenu()
@@ -386,6 +386,13 @@ void Viewer::ViewerWidget::load()
 
     _stack->raiseWidget( _display );
 
+    _drawOnImages->setEnabled( !isVideo );
+    _rotateMenu->setEnabled( !isVideo );
+    _wallpaperMenu->setEnabled( !isVideo );
+    _categoryEditor->setEnabled( !isVideo );
+#ifdef HASEXIV2
+    _showExifViewer->setEnabled( !isVideo );
+#endif
     if ( _display->offersDrawOnImage() )
         _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     bool ok = _display->setImage( currentInfo(), _forward );
@@ -972,6 +979,12 @@ void Viewer::ViewerWidget::zoomPixelForPixel()
 void Viewer::ViewerWidget::zoomStandard()
 {
     _display->zoomStandard();
+}
+
+void Viewer::ViewerWidget::toggleShowDrawings( bool b )
+{
+    if ( _display == _imageDisplay )
+        _imageDisplay->toggleShowDrawings( b );
 }
 
 #include "ViewerWidget.moc"

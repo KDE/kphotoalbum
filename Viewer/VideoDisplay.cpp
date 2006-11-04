@@ -27,6 +27,10 @@
 #include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>
+#include <MainWindow/FeatureDialog.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kapplication.h>
 
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
@@ -35,31 +39,49 @@ Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     _layout = new QHBoxLayout( this );
 }
 
-void Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
+bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
     // This code is inspired by similar code in Gwenview.
     delete _playerPart;
     _playerPart = 0;
 
-    QString mimeType=KMimeType::findByURL(info->fileName())->name();
+    // Figure out the mime type associated to the file file name
+    QString mimeType= mimeTypeForFileName(info->fileName());
+    if ( mimeType.isEmpty() ) {
+        showError( NoMimeType, info->fileName(), mimeType );
+        return false;
+    }
+
+
+    // Ask for a part for this mime type
     KService::Ptr service = KServiceTypeProfile::preferredService(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
     if (!service.data()) {
+        showError( NoKPart, info->fileName(), mimeType );
         kdWarning() << "Couldn't find a KPart for " << mimeType << endl;
-        return;
+        return false;
     }
 
     QString library=service->library();
     if ( library.isNull() ) {
+        showError( NoLibrary, info->fileName(), mimeType );
         kdWarning() << "The library returned from the service was null, indicating we could not display videos." << endl;
-        return;
+        return false;
     }
 
     _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this, 0, this, 0);
     if (!_playerPart) {
+        showError( NoPartInstance, info->fileName(), mimeType );
         kdWarning() << "Failed to instantiate KPart from library " << library << endl;
-        return;
+        return false;
     }
-    _layout->addWidget(_playerPart->widget());
+
+    QWidget* widget = _playerPart->widget();
+    if ( !widget ) {
+        showError(NoWidget, info->fileName(), mimeType );
+        return false;
+    }
+
+    _layout->addWidget(widget);
     _playerPart->openURL(info->fileName());
 
     // If the part implements the KMediaPlayer::Player interface, start
@@ -70,6 +92,7 @@ void Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     }
 
     connect( player, SIGNAL( stateChanged( int ) ), this, SLOT( stateChanged( int ) ) );
+    return true;
 }
 
 void Viewer::VideoDisplay::stateChanged( int state)
@@ -78,5 +101,39 @@ void Viewer::VideoDisplay::stateChanged( int state)
         emit stopped();
 }
 
+
+QString Viewer::VideoDisplay::mimeTypeForFileName( const QString& fileName ) const
+{
+    QString res = KMimeType::findByURL(fileName)->name();
+    if ( res == QString::fromLatin1("application/vnd.rn-realmedia") && !MainWindow::FeatureDialog::hasVideoSupport( res ) )
+        res = QString::fromLatin1( "video/vnd.rn-realvideo" );
+
+    return res;
+}
+
+void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileName, const QString& mimeType )
+{
+    const QString failed = QString::fromLatin1( "<font color=\"red\"><b>%1</b></font>" ).arg( i18n("Failed") );
+    const QString OK = QString::fromLatin1( "<font color=\"green\"><b>%1</b></font>" ).arg( i18n("OK") );
+    const QString untested = QString::fromLatin1( "<b>%1</b>" ).arg( i18n("Untested") );
+
+    QString msg = i18n("<h1><b>Error Loading Video</font></b></h1>");
+    msg += QString::fromLatin1( "<table cols=\"2\">" );
+    msg += i18n("<tr><td>Finding mime type for file</td><td>%1</td><tr>").arg( type == NoMimeType ? failed :
+                                                                                QString::fromLatin1("<font color=\"green\"><b>%1</b></font>")
+                                                                                .arg(mimeType ) );
+
+    msg += i18n("<tr><td>Getting a KPart for the mime type</td><td>%1</td></tr>").arg( type < NoKPart ? untested : ( type == NoKPart ? failed : OK ) );
+    msg += i18n("<tr><td>Getting a library for the part</tr><td>%1</td></tr>")
+           .arg( type < NoLibrary ? untested : ( type == NoLibrary ? failed : OK ) );
+    msg += i18n("<tr><td>Instantiating Part</td><td>%1</td></tr>").arg( type < NoPartInstance ? untested : (type == NoPartInstance ? failed : OK ) );
+    msg += i18n("<tr><td>Fetching Widget from part</td><td>%1</td></tr>")
+           .arg( type < NoWidget ? untested : (type == NoWidget ? failed : OK ) );
+    msg += QString::fromLatin1( "</table>" );
+
+    int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ).arg(fileName ), i18n("Show More Help"), i18n("Close") );
+    if ( ret == KMessageBox::Yes )
+        kapp->invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
+}
 
 #include "VideoDisplay.moc"

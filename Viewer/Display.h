@@ -32,7 +32,7 @@ class Display :public QWidget
 
 public:
     Display( QWidget* parent, const char* name = 0 );
-    virtual void setImage( DB::ImageInfoPtr info, bool forward ) = 0;
+    virtual bool setImage( DB::ImageInfoPtr info, bool forward ) = 0;
 
     virtual bool offersDrawOnImage() const { return false; }
     virtual DrawHandler* drawHandler() { return 0; }

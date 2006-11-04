@@ -33,13 +33,18 @@ class VideoDisplay :public Viewer::Display
 
 public:
     VideoDisplay( QWidget* parent );
-    virtual void setImage( DB::ImageInfoPtr info, bool forward );
+    virtual bool setImage( DB::ImageInfoPtr info, bool forward );
 
 signals:
     void stopped();
 
 protected slots:
     void stateChanged( int );
+
+protected:
+    enum ErrorType { NoMimeType, NoKPart, NoLibrary, NoPartInstance,NoWidget };
+    QString mimeTypeForFileName( const QString& fileName ) const;
+    void showError( ErrorType, const QString& fileName, const QString& mimeType );
 
 private:
     QHBoxLayout* _layout;

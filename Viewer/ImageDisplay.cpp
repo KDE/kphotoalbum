@@ -188,7 +188,7 @@ void Viewer::ImageDisplay::toggleShowDrawings( bool b )
     drawAll();
 }
 
-void Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
+bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 {
     _info = info;
     _loadedImage = QImage();
@@ -235,6 +235,8 @@ void Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
     }
     _forward = forward;
     updatePreload();
+
+    return true;
 }
 
 void Viewer::ImageDisplay::resizeEvent( QResizeEvent* )

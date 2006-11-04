@@ -59,7 +59,7 @@ public:
     void setParentViewer(Viewer::ViewerWidget *);
     void startDrawing();
     void stopDrawing();
-    void setImage( DB::ImageInfoPtr info, bool forward );
+    bool setImage( DB::ImageInfoPtr info, bool forward );
     DrawHandler* drawHandler();
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );

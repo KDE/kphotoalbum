@@ -70,10 +70,8 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
     text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
                  "<p>KPhotoAlbum relies on the KDE plug-in subsystem for support for displaying videos. If this feature is not enabled for you "
-                 "you should go and search for a package that might add this support for you. Candidates for your search are "
-                 "<tt>kmplayer</tt>, <tt>kaboodle</tt>, and <tt>kaffeine</tt>. Installing these package are, however, often not enough "
-                 "you also need codecs, which most distributions do not ship by default due to licenses problems. "
-                 "A suggestion for a search here may be <tt>avi</tt>, <tt>RealMedia</tt>, and <tt>codecs</tt></p>");
+                 "have a look at the "
+                 "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>");
 
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
                  "<p>KPhotoAlbum ask the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
@@ -164,6 +162,9 @@ QString MainWindow::FeatureDialog::featureString()
     features << Data( i18n( "Quicktime video support (aka mov)" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/quicktime") ) );
     features << Data( i18n( "AVI video support" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-msvideo") ) );
     features << Data( i18n( "ASF video support (aka wmv)" ), QString::fromLatin1("#video"), hasVideoSupport( QString::fromLatin1("video/x-ms-asf") ) );
+    features << Data( i18n( "Real Media"), QString::fromLatin1( "#video" ),
+                      hasVideoSupport( QString::fromLatin1( "application/vnd.rn-realmedia" ) )||
+                      hasVideoSupport( QString::fromLatin1( "video/vnd.rn-realvideo" ) ) );
     features << Data( i18n( "Video Thumbnails support" ), QString::fromLatin1("#thumbnails"),
                       ImageManager::VideoManager::instance().hasVideoThumbnailSupport() );
 
@@ -181,19 +182,30 @@ QString MainWindow::FeatureDialog::featureString()
 
 bool MainWindow::FeatureDialog::hasVideoSupport( const QString& mimeType )
 {
+    static QMap<QString, bool> cache;
+    if ( cache.contains( mimeType ) )
+        return cache[mimeType];
+
     KService::Ptr service = KServiceTypeProfile::preferredService( mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
-    if ( !service.data() )
+    if ( !service.data() ) {
+        cache[mimeType] = false;
         return false;
+    }
 
     QString library=service->library();
-    if ( library.isNull() )
+    if ( library.isNull() ) {
+        cache[mimeType] = false;
         return false;
+    }
 
     KParts::ReadOnlyPart* part = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service);
     delete part;
-    if ( !part )
+    if ( !part ) {
+        cache[mimeType] = false;
         return false;
+    }
 
+    cache[mimeType] = true;
     return true;
 }
 

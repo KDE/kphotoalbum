@@ -387,7 +387,12 @@ void Viewer::ViewerWidget::load()
 
     if ( _display->offersDrawOnImage() )
         _display->drawHandler()->setDrawList( currentInfo()->drawList() );
-    _display->setImage( currentInfo(), _forward );
+    bool ok = _display->setImage( currentInfo(), _forward );
+    if ( !ok ) {
+        close( false );
+        return;
+    }
+
     setCaption( QString::fromLatin1( "KPhotoAlbum - %1" ).arg( currentInfo()->fileName() ) );
     updateInfoBox();
 

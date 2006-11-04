@@ -13,13 +13,13 @@ public:
     FeatureDialog( QWidget* parent, const char* name = 0 );
     static bool hasAllFeaturesAvailable();
     static QString featureString();
+    static bool hasVideoSupport( const QString& mimeType );
 
 protected:
     static bool hasKIPISupport();
     static bool hasSQLDBSupport();
     static bool hasEXIV2Support();
     static bool hasEXIV2DBSupport();
-    static bool hasVideoSupport( const QString& mimeType );
 };
 
 class HelpBrowser :public QTextBrowser

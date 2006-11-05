@@ -834,6 +834,7 @@ void Settings::SettingsDialog::createViewerPage()
     _slideShowInterval = new QSpinBox( 1, INT_MAX, 1, top );
     glay->addWidget( _slideShowInterval, 0, 1 );
     _slideShowInterval->setSuffix( i18n( " sec" ) );
+    label->setBuddy( _slideShowInterval );
 
     label = new QLabel( i18n("Image cache:"), top );
     glay->addWidget( label, 1, 0 );
@@ -841,6 +842,7 @@ void Settings::SettingsDialog::createViewerPage()
     _cacheSize = new QSpinBox( 0, 2000, 10, top, "_cacheSize" );
     _cacheSize->setSuffix( i18n(" Mbytes") );
     glay->addWidget( _cacheSize, 1, 1 );
+    label->setBuddy( _cacheSize );
 
     QString txt;
 
@@ -849,6 +851,7 @@ void Settings::SettingsDialog::createViewerPage()
     _viewerStandardSize->insertStringList( QStringList() << i18n("Full Viewer Size") << i18n("Natural Image Size") << i18n("Natural Image Size If Possible") );
     glay->addWidget( standardSizeLabel, 2, 0);
     glay->addWidget( _viewerStandardSize, 2, 1 );
+    standardSizeLabel->setBuddy( _viewerStandardSize );
 
     txt = i18n("<qt><p>Set the standard size for images to be displayed in the viewer.</p> "
 	       "<p><b>Full Viewer Size</b> indicates that the image will be stretched or shrunk to fill the viewer window.</p> "
@@ -860,6 +863,7 @@ void Settings::SettingsDialog::createViewerPage()
     QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), top );
     _smoothScale = new QComboBox( top );
     _smoothScale->insertStringList( QStringList() << i18n("Fastest" ) << i18n("Best")  );
+    scalingLabel->setBuddy( _smoothScale );
 
     glay->addWidget( scalingLabel, 3, 0 );
     glay->addWidget( _smoothScale, 3, 1 );

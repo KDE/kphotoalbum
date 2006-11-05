@@ -1,5 +1,7 @@
 2006-11-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Right clicking on an image should select it.
+
 	* Stop slideshow when we hit a video, so we don't advance in the
 	middle of the video.
 

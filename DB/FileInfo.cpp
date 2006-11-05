@@ -109,7 +109,6 @@ void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
         _angle = orientationToAngle( metainfo.value( QString::fromLatin1( "Orientation" ) ).toInt() );
 
     // Description
-    qDebug("%s", metainfo.value( QString::fromLatin1( "Comment" ) ).toString().latin1());
     if ( metainfo.contains( QString::fromLatin1( "Comment" ) ) )
         _description = metainfo.value( QString::fromLatin1( "Comment" ) ).toString();
 }

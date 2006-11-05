@@ -115,6 +115,7 @@ protected slots:
     void toggleFullScreen();
     void slotStartStopSlideShow();
     void slotSlideShowNext();
+    void slotSlideShowNextFromTimer();
     void slotSlideShowFaster();
     void slotSlideShowSlower();
     void editImage();

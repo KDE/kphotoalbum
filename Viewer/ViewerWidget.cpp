@@ -107,7 +107,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
 
     _slideShowTimer = new QTimer( this );
     _slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
-    connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNext() ) );
+    connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNextFromTimer() ) );
     _speedDisplay = new SpeedDisplay( this );
 
     setFocusPolicy( StrongFocus );
@@ -810,6 +810,21 @@ void Viewer::ViewerWidget::slotStartStopSlideShow()
     }
 }
 
+void Viewer::ViewerWidget::slotSlideShowNextFromTimer()
+{
+    // Load the next images.
+    QTime timer;
+    timer.start();
+    if ( _display == _imageDisplay )
+        slotSlideShowNext();
+
+    // ensure that there is a few milliseconds pause, so that an end slideshow keypress
+    // can get through immediately, we don't want it to queue up behind a bunch of timer events,
+    // which loaded a number of new images before the slideshow stops
+    int ms = QMAX( 200, _slideShowPause - timer.elapsed() );
+    _slideShowTimer->start( ms, true );
+}
+
 void Viewer::ViewerWidget::slotSlideShowNext()
 {
     _forward = true;
@@ -819,19 +834,7 @@ void Viewer::ViewerWidget::slotSlideShowNext()
     else
         _current = 0;
 
-    // Load the next images.
-    QTime timer;
-    timer.start();
     load();
-
-    // If it is a video, then don't schedule the next image, as this would make the video stop abruptly.
-    if ( currentInfo()->mediaType() != DB::Video ) {
-        // ensure that there is a few milliseconds pause, so that an end slideshow keypress
-        // can get through immediately, we don't want it to queue up behind a bunch of timer events,
-        // which loaded a number of new images before the slideshow stops
-        int ms = QMAX( 200, _slideShowPause - timer.elapsed() );
-        _slideShowTimer->start( ms, true );
-    }
 }
 
 void Viewer::ViewerWidget::slotSlideShowFaster()

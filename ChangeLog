@@ -1,5 +1,8 @@
 2006-11-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Stop slideshow when we hit a video, so we don't advance in the
+	middle of the video.
+
 	* Implemented Play/Pause/Stop/Restart for videos
 
 	* Now Video playback also works with kaffein and kaboodle

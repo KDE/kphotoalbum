@@ -153,8 +153,9 @@ return true;
 
 void Viewer::VideoDisplay::stateChanged( int state)
 {
-    if ( state == KMediaPlayer::Player::Stop )
+    if ( state == KMediaPlayer::Player::Stop ) {
         emit stopped();
+    }
 }
 
 

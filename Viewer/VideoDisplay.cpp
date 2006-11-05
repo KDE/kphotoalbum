@@ -31,6 +31,51 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kapplication.h>
+#include <ktoolbar.h>
+#include <kxmlguiclient.h>
+#include <kxmlguibuilder.h>
+#include <kxmlguifactory.h>
+#include <kpopupmenu.h>
+#include <kaction.h>
+
+#ifdef TEMPORARILY_REMOVED
+// This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
+class MyGUIBuilder :public KXMLGUIBuilder
+{
+public:
+    MyGUIBuilder( KPopupMenu* menu ) : KXMLGUIBuilder( menu ), _menu(menu)
+    {
+    }
+
+    virtual QWidget* createContainer (QWidget */*parent*/, int /*index*/, const QDomElement &element, int &/*id*/)
+    {
+        if ( element.tagName().lower() == QString::fromLatin1( "menubar" ) ) {
+            for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
+                if ( itemNode.toElement().tagName().lower() == QString::fromLatin1("menu") )
+                    insertMenu( itemNode.toElement(), _menu );
+            }
+        }
+        return 0;
+    }
+
+    void insertMenu( const QDomElement& element, KPopupMenu* menu )
+    {
+        for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
+            const QDomElement elm = itemNode.toElement();
+            if ( elm.tagName().lower() == QString::fromLatin1( "action" ) ) {
+                KAction* action = builderClient()->action( elm.attribute( QString::fromLatin1( "name" ) ).latin1() );
+                action->plug( menu );
+                qDebug(">>>>>>%s<<<<<<<", elm.attribute( QString::fromLatin1( "name" ) ).latin1());
+            }
+            else
+                qDebug(">>>>>>>>>>>>>>>>>%s<<<<<<<<<<<<<", itemNode.toElement().tagName().latin1());
+        }
+    }
+
+private:
+    KPopupMenu* _menu;
+};
+#endif
 
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
@@ -80,20 +125,30 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         showError(NoWidget, info->fileName(), mimeType );
         return false;
     }
+    widget->show();
 
     _playerPart->openURL(info->fileName());
 
     // If the part implements the KMediaPlayer::Player interface, start
     // playing (needed for Kaboodle)
-    KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart);
-    if (player) {
+    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
         player->play();
-    }
 
-    connect( player, SIGNAL( stateChanged( int ) ), this, SLOT( stateChanged( int ) ) );
+    connect( _playerPart, SIGNAL( stateChanged( int ) ), this, SLOT( stateChanged( int ) ) );
 
     zoomStandard();
-    return true;
+
+
+#ifdef TEMPORARILY_REMOVED
+    // This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
+    KPopupMenu* menu = new KPopupMenu(0);
+    menu->show();
+    MyGUIBuilder* mBuilder=new MyGUIBuilder(menu);
+	KXMLGUIFactory* factory=new KXMLGUIFactory(mBuilder, this);
+    factory->addClient( _playerPart );
+#endif
+
+return true;
 }
 
 void Viewer::VideoDisplay::stateChanged( int state)
@@ -159,13 +214,8 @@ void Viewer::VideoDisplay::zoomFull()
 
 void Viewer::VideoDisplay::zoomPixelForPixel()
 {
-    QWidget* widget = _playerPart->widget();
-    if ( !widget )
-        return;
-
-    const QSize size = _info->size();
-    widget->resize( size );
-    widget->move( (width() - size.width())/2, (height() - size.height())/2 );
+    // unfortunately we have no way to ask for the image size.
+    zoomFull();
 }
 
 void Viewer::VideoDisplay::resize( const float factor )
@@ -195,6 +245,50 @@ void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
     else
         widget->resize( QMIN( widget->width(), width() ), QMIN( widget->height(), height() ) );
     widget->move( (width() - widget->width())/2, (height() - widget->height())/2 );
+}
+
+
+void Viewer::VideoDisplay::play()
+{
+    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
+        player->play();
+    else
+        invokeKaffeineAction( "player_play" );
+}
+
+void Viewer::VideoDisplay::stop()
+{
+    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
+        player->stop();
+    else
+        invokeKaffeineAction( "player_stop" );
+}
+
+void Viewer::VideoDisplay::pause()
+{
+    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
+        player->pause();
+    else
+        invokeKaffeineAction( "player_pause" );
+}
+
+/**
+ * Kafein does not implement the KMediaPlayer::Player interface, so I have to invoke the actions by their name.
+ */
+void Viewer::VideoDisplay::invokeKaffeineAction( const char* actionName )
+{
+        KAction* action = _playerPart->action( actionName );
+        if ( action )
+            action->activate();
+
+}
+
+void Viewer::VideoDisplay::restart()
+{
+    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
+        player->seek(0);
+    else
+        invokeKaffeineAction( "player_play");
 }
 
 #include "VideoDisplay.moc"

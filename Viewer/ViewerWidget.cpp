@@ -148,6 +148,8 @@ void Viewer::ViewerWidget::setupContextMenu()
     action = new KAction( i18n("Close"), Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
     action->plug( _popup );
     _actions->readShortcutSettings();
+
+    createVideoActions();
 }
 
 void Viewer::ViewerWidget::createShowContextMenu()
@@ -393,6 +395,19 @@ void Viewer::ViewerWidget::load()
 #ifdef HASEXIV2
     _showExifViewer->setEnabled( !isVideo );
 #endif
+
+    _popup->setItemVisible( _videoSeperatorId, isVideo );
+    _play->unplug( _popup );
+    _stop->unplug( _popup );
+    _pause->unplug( _popup );
+    _restart->unplug( _popup );
+    if ( isVideo ) {
+        _play->plug( _popup );
+        _stop->plug( _popup );
+        _pause->plug( _popup );
+        _restart->plug( _popup );
+    }
+
     if ( _display->offersDrawOnImage() )
         _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     bool ok = _display->setImage( currentInfo(), _forward );
@@ -985,6 +1000,36 @@ void Viewer::ViewerWidget::toggleShowDrawings( bool b )
 {
     if ( _display == _imageDisplay )
         _imageDisplay->toggleShowDrawings( b );
+}
+
+void Viewer::ViewerWidget::createVideoActions()
+{
+    _videoSeperatorId = _popup->insertSeparator();
+
+    _play = new KAction( i18n("Play"), 0, this, SLOT( play() ), _actions, "viewer-video-play" );
+    _stop = new KAction( i18n("Stop"), 0, this, SLOT( stop() ), _actions, "viewer-video-stop" );
+    _pause = new KAction( i18n("Pause"), 0, this, SLOT( pause() ), _actions, "viewer-video-pause" );
+    _restart = new KAction( i18n("Restart"), 0, this, SLOT( restart() ), _actions, "viewer-video-restart" );
+}
+
+void Viewer::ViewerWidget::play()
+{
+    _videoDisplay->play();
+}
+
+void Viewer::ViewerWidget::stop()
+{
+    _videoDisplay->stop();
+}
+
+void Viewer::ViewerWidget::pause()
+{
+    _videoDisplay->pause();
+}
+
+void Viewer::ViewerWidget::restart()
+{
+    _videoDisplay->restart();
 }
 
 #include "ViewerWidget.moc"

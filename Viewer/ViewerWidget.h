@@ -78,6 +78,7 @@ protected:
     void createSkipMenu();
     void createZoomMenu();
     void createSlideShowMenu();
+    void createVideoActions();
 
     DB::ImageInfoPtr currentInfo();
     friend class InfoBox;
@@ -135,6 +136,10 @@ protected slots:
     void zoomPixelForPixel();
     void zoomStandard();
     void toggleShowDrawings( bool );
+    void play();
+    void stop();
+    void pause();
+    void restart();
 
 private:
     static ViewerWidget* _latest;
@@ -185,6 +190,12 @@ private:
     bool _forward;
     QTimer* _slideShowTimer;
     bool _isRunningSlideShow;
+
+    int _videoSeperatorId;
+    KAction* _play;
+    KAction* _stop;
+    KAction* _pause;
+    KAction* _restart;
 };
 
 }

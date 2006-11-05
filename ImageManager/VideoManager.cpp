@@ -48,7 +48,7 @@ void ImageManager::VideoManager::slotGotPreview(const KFileItem*, const QPixmap&
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         _currentRequest->setLoadedOK( true );
         QImage img = pixmap.convertToImage();
-        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), pixmap.size(), 0, img, !pixmap.isNull() );
+        _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pixmap.size(), QSize(-1,-1), 0, img, !pixmap.isNull() );
     }
 
     requestLoadNext();

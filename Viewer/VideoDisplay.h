@@ -43,6 +43,10 @@ public slots:
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
+    void play();
+    void stop();
+    void pause();
+    void restart();
 
 protected slots:
     void stateChanged( int );
@@ -53,6 +57,7 @@ protected:
     void showError( ErrorType, const QString& fileName, const QString& mimeType );
     void resize( float factor );
     virtual void resizeEvent( QResizeEvent* );
+    void invokeKaffeineAction( const char* name );
 
 private:
     KParts::ReadOnlyPart* _playerPart;

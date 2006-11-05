@@ -15,6 +15,7 @@ Comment[nl]=MySQL-migratiestuurprogramma voor Kexi
 Comment[pt]=Controlador de Migração de MySQL do Kexi
 Comment[pt_BR]=Driver para migração para MySQL do Kexi
 Comment[sv]=MySQL-övergångsdrivrutin för Kexi
+Comment[tr]=Kexi için MySQL Aktarma Sürücüsü
 X-KDE-Library=keximigrate_mysql
 ServiceTypes=Kexi/MigrationDriver
 Type=Service

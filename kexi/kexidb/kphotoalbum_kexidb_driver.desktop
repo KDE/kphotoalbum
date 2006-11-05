@@ -19,6 +19,7 @@ Comment[pt_BR]=Plugin para driver SQL do Kexi
 Comment[sr]=Прикључак SQL драјвера за Kexi
 Comment[sv]=Kexi SQL-insticksdrivrutin
 Comment[ta]=Kexi SQL-Driver சொருகுப்பொருள்
+Comment[tr]=Kexi SQL-Sürücüsü eklentisi
 Comment[zh_CN]=Kexi SQL 驱动程序插件
 
 [PropertyDef::X-Kexi-FileDBDriverMime]

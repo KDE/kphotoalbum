@@ -15,6 +15,7 @@ Comment[nl]=PostgreSQL-migratiestuurprogramma voor Kexi
 Comment[pt]=Controlador de Migração de PostgreSQL do Kexi
 Comment[pt_BR]=Driver para migração para PostgreSQL do Kexi
 Comment[sv]=PostgreSQL-övergångsdrivrutin för Kexi
+Comment[tr]=Kexi için PostgreSQL Aktarma Sürücüsü
 X-KDE-Library=keximigrate_pqxx
 ServiceTypes=Kexi/MigrationDriver
 Type=Service

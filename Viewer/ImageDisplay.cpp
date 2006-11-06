@@ -198,16 +198,14 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
     ViewPreloadInfo* found = _cache[_curIndex];
     if ( found && found->angle == info->angle() ) {
         _loadedImage = found->img;
-        updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(),  found->size );
+        updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), found->img.size() );
         cropAndScale();
-        _cachedView = true;
     }
     else {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( -1, -1 ), info->angle(), this );
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), size(), info->angle(), this );
         request->setPriority();
         ImageManager::Manager::instance()->load( request );
         busy();
-        _cachedView = false;
     }
     _forward = forward;
     updatePreload();
@@ -215,17 +213,14 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
     return true;
 }
 
-void Viewer::ImageDisplay::resizeEvent( QResizeEvent* )
+void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
 {
     ImageManager::Manager::instance()->stop( this, ImageManager::StopOnlyNonPriorityLoads );
     _cache.fill(0); // Clear the cache
     if ( _info ) {
         cropAndScale();
-        if ( _cachedView ) {
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
-            request->setPriority();
-            ImageManager::Manager::instance()->load( request );
-        }
+        if ( event->size().width() > 1.5*event->oldSize().width() || event->size().height() > 1.5*event->oldSize().height() )
+            potentialyLoadFullSize(); // Only do if we scale much bigger.
     }
     updatePreload();
 }
@@ -281,17 +276,6 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
     QPoint off = offset( (p2-p1).x(), (p2-p1).y(), width(), height(), &ratio );
     off = off / ratio;
 
-    int maxWidth;
-    int maxHeight;
-    if ( _cachedView ) {
-        maxWidth = _zEnd.x();
-        maxHeight = _zEnd.y();
-    }
-    else {
-        maxWidth = _loadedImage.width();
-        maxHeight = _loadedImage.height();
-    }
-
     p1.setX( p1.x() - off.x() );
     p1.setY( p1.y() - off.y() );
     p2.setX( p2.x()+off.x() );
@@ -299,17 +283,8 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 
     _zStart = p1;
     _zEnd = p2;
-    if ( _cachedView ) {
-        // This was a cached version, which means not full size, lets load
-        // the real size now.
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
-        request->setPriority();
-        ImageManager::Manager::instance()->load( request );
-        busy();
-        _reloadImageInProgress = true;
-    }
-    else
-        cropAndScale();
+    potentialyLoadFullSize();
+    cropAndScale();
 }
 
 QPoint Viewer::ImageDisplay::mapPos( QPoint p )
@@ -367,51 +342,25 @@ void Viewer::ImageDisplay::normalize( QPoint& p1, QPoint& p2 )
 
 void Viewer::ImageDisplay::pan( const QPoint& point )
 {
-    if ( _cachedView )
-        return; // Cached views are always full screen, so no panning is available.
-
-    QPoint p = point;
-#ifdef TEMPORARILY_REMOVED
-    if ( p.x() < 0 && _zStart.x() < -p.x() )
-        p.setX( -_zStart.x() );
-
-    if ( p.y() < 0 && _zStart.y() < -p.y() )
-        p.setY( -_zStart.y() );
-
-    if ( p.x() > 0 && p.x() + _zEnd.x() > _loadedImage.width() )
-        p.setX( _loadedImage.width() - _zEnd.x() );
-
-    if ( p.y() > 0 && p.y() + _zEnd.y() > _loadedImage.height() )
-        p.setY( _loadedImage.height() - _zEnd.y() );
-#endif
-
-    _zStart += p;
-    _zEnd += p;
+    _zStart += point;
+    _zEnd += point;
     cropAndScale();
 }
 
 void Viewer::ImageDisplay::cropAndScale()
 {
-    ViewPreloadInfo* info = _cache[_curIndex];
-
-    if ( info && info->angle == _info->angle() ) {
-        _croppedAndScaledImg = info->img;
-        _cachedView = true;
+    if ( _loadedImage.isNull() ) {
+        return;
     }
-    else {
-        if ( _loadedImage.isNull() || _cachedView ) {
-            return;
-        }
 
-        if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) ) {
-            _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
-        }
-        else
-            _croppedAndScaledImg = _loadedImage;
-
-        if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
-            _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
+    if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) ) {
+        _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
     }
+    else
+        _croppedAndScaledImg = _loadedImage;
+
+    if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
+        _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
 
     drawAll();
 }
@@ -442,16 +391,23 @@ bool Viewer::ImageDisplay::isImageZoomed( const Settings::StandardViewSize type,
     return false;
 }
 
-void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
+void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle,
+                                         const QImage& img, bool loadedOK )
 {
     if ( loadedOK && fileName == _info->fileName() ) {
-        _loadedImage = img;
-        _cachedView = !( imgSize == fullSize || imgSize == QSize(-1,-1) );
         if ( !_reloadImageInProgress )
-            updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), fullSize );
-        else
-            _reloadImageInProgress = false;
+            updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), img.size() );
+        else {
+            double ratio;
+            (void) offset( _loadedImage.width(), _loadedImage.height(), _info->size().width(), _info->size().height(), &ratio );
 
+            _zStart *= ratio;
+            _zEnd *= ratio;
+
+            _reloadImageInProgress = false;
+        }
+
+        _loadedImage = img;
         cropAndScale();
     }
     else {
@@ -569,7 +525,13 @@ void Viewer::ImageDisplay::unbusy()
 void Viewer::ImageDisplay::zoomPixelForPixel()
 {
     updateZoomPoints( Settings::NaturalSize, _info->size() );
+    double ratio;
+    (void) offset( _loadedImage.width(), _loadedImage.height(), _info->size().width(), _info->size().height(), &ratio );
+
+    _zStart /= ratio;
+    _zEnd /= ratio;
     cropAndScale();
+    potentialyLoadFullSize();
 }
 
 void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize )
@@ -584,6 +546,17 @@ void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize ty
     else {
         _zStart = QPoint( - ( width()-iw ) / 2, -(height()-ih)/2);
         _zEnd = QPoint( iw + (width()-iw)/2, ih+(height()-ih)/2);
+    }
+}
+
+void Viewer::ImageDisplay::potentialyLoadFullSize()
+{
+    if ( _info->size() != _loadedImage.size() ) {
+        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
+        request->setPriority();
+        ImageManager::Manager::instance()->load( request );
+        busy();
+        _reloadImageInProgress = true;
     }
 }
 

@@ -104,6 +104,7 @@ protected:
     void unbusy();
     bool isImageZoomed( const Settings::StandardViewSize type, const QSize& imgSize );
     void updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize );
+    void potentialyLoadFullSize();
 
 private:
     QImage _loadedImage;
@@ -122,7 +123,6 @@ private:
     QPtrVector<ViewPreloadInfo> _cache;
     QStringList _imageList;
     QMap<QString, DB::ImageInfoPtr> _loadMap;
-    bool _cachedView;
     bool _reloadImageInProgress;
     int _forward;
     int _curIndex;

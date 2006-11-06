@@ -1,19 +1,19 @@
 /* Copyright (C) 2003-2005 Jesper K. Pedersen <blackie@kde.org>
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public
-License as published by the Free Software Foundation; either
-version 2 of the License, or (at your option) any later version.
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; see the file COPYING.  If not, write to
-the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
-Boston, MA 02110-1301, USA.
+   You should have received a copy of the GNU General Public License
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 
@@ -22,13 +22,12 @@ Boston, MA 02110-1301, USA.
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
-#include "Viewer/ViewerWidget.h"
 #include "ImageManager/Manager.h"
 #include <qcursor.h>
 #include <qapplication.h>
 #include <math.h>
 #include "DB/ImageDB.h"
-#include "Utilities/Util.h"
+#include "ImageDisplay.h"
 
 /**
    Area displaying the actual image in the viewer.
@@ -39,26 +38,26 @@ Boston, MA 02110-1301, USA.
    This class is quite complicated as it had to both be fast and memory
    efficient. The following are dead end tried:
    1) Initially QPainter::setWindow was used for zooming the images, but
-   this had the effect that if you zoom to 100x100 from a 2300x1700
-   image on a 800x600 display, then Qt would internally create a pixmap
-   with the size (2300/100)*800, (1700/100)*600, which takes up 1.4Gb of
-   memory!
+      this had the effect that if you zoom to 100x100 from a 2300x1700
+      image on a 800x600 display, then Qt would internally create a pixmap
+      with the size (2300/100)*800, (1700/100)*600, which takes up 1.4Gb of
+      memory!
    2) I tried doing all scaling and cropping using QPixmap's as that would
-   allow me to keep all transformations on the X Server site (making
-   resizing fast - or I beleived so). Unfortunately it showed up that
-   this was much slower than doing it using QImage, and the result was
-   thus that the looking at a series of images was slow.
+      allow me to keep all transformations on the X Server site (making
+      resizing fast - or I beleived so). Unfortunately it showed up that
+      this was much slower than doing it using QImage, and the result was
+      thus that the looking at a series of images was slow.
 
    The process is as follows:
    - The image loaded from disk is rotated and stored in _loadedImage. This
-   image is as large as the image on disk.
+     image is as large as the image on disk.
    - Then _loadedImage is cropped and scaled to _croppedAndScaledImg. This
-   image is the size of the display. Resizing the window thus needs to
-   start from this step.
+     image is the size of the display. Resizing the window thus needs to
+     start from this step.
    - Then _croppedAndScaledImg is converted to _drawingPixmap. Completed
-   drawings are drawn into _loadedPixmap
+     drawings are drawn into _loadedPixmap
    - When the user draws a new shape, then for each mouse movement
-   _loadedPixmap is copied to _viewPixmap, in which the drawing are made.
+     _loadedPixmap is copied to _viewPixmap, in which the drawing are made.
    - Finally in paintEvent _viewPixmap is bitBlt'ed to the screen.
 
    The scaling process and the drawing process is both implemented by
@@ -97,7 +96,7 @@ Boston, MA 02110-1301, USA.
 */
 
 Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
-    :Display( parent, name ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ), _viewer(0), _lastZoomType(ZoomNull)
+    :Display( parent, name ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
 {
     setBackgroundMode( NoBackground );
 
@@ -111,11 +110,6 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
     // This is to ensure that people do see the drawing when they draw,
     // otherwise the drawing would disappear as soon as mouse was released.
     connect( _drawHandler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
-}
-
-void Viewer::ImageDisplay::setParentViewer( Viewer::ViewerWidget *viewer )
-{
-    _viewer = viewer;
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
@@ -204,31 +198,13 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
     ViewPreloadInfo* found = _cache[_curIndex];
     if ( found && found->angle == info->angle() ) {
         _loadedImage = found->img;
-        _zStart = QPoint(0,0);
-        _zEnd = QPoint( found->size.width(), found->size.height() );
+        updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(),  found->size );
         cropAndScale();
         _cachedView = true;
-        switch (Settings::SettingsData::instance()->viewerStandardSize()) {
-        case Settings::NaturalSize:
-            zoomPixelForPixel();
-            break;
-        case Settings::NaturalSizeIfFits:
-            if (_info->size().width() <= width() &&
-                _info->size().height() <= height())
-                zoomPixelForPixel();
-            else
-                cropAndScale();
-            break;
-        case Settings::FullSize:
-        default:
-            cropAndScale();
-            break;
-        }
     }
     else {
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), QSize( -1, -1 ), info->angle(), this );
         request->setPriority();
-        _loadMap.insert(info->fileName(), info);
         ImageManager::Manager::instance()->load( request );
         busy();
         _cachedView = false;
@@ -247,7 +223,6 @@ void Viewer::ImageDisplay::resizeEvent( QResizeEvent* )
         cropAndScale();
         if ( _cachedView ) {
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(),QSize(-1,-1), _info->angle(),  this );
-            _loadMap.insert(_info->fileName(), _info);
             request->setPriority();
             ImageManager::Manager::instance()->load( request );
         }
@@ -306,8 +281,6 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
     QPoint off = offset( (p2-p1).x(), (p2-p1).y(), width(), height(), &ratio );
     off = off / ratio;
 
-    p1.setX( p1.x() - off.x() );
-
     int maxWidth;
     int maxHeight;
     if ( _cachedView ) {
@@ -319,10 +292,9 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
         maxHeight = _loadedImage.height();
     }
 
-    p2.setX( p2.x()+off.x() );
-
+    p1.setX( p1.x() - off.x() );
     p1.setY( p1.y() - off.y() );
-
+    p2.setX( p2.x()+off.x() );
     p2.setY( p2.y()+off.y() );
 
     _zStart = p1;
@@ -331,7 +303,6 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
         // This was a cached version, which means not full size, lets load
         // the real size now.
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info->fileName(), QSize(-1,-1), _info->angle(), this );
-        _loadMap.insert(_info->fileName(), _info);
         request->setPriority();
         ImageManager::Manager::instance()->load( request );
         busy();
@@ -360,81 +331,27 @@ void Viewer::ImageDisplay::xformPainter( QPainter* p )
     p->translate( -_zStart.x(), -_zStart.y() );
 }
 
-void Viewer::ImageDisplay::retryZoom()
-{
-    switch (_lastZoomType) {
-    case ZoomIn:
-        zoomIn();
-        break;
-    case ZoomOut:
-        zoomOut();
-        break;
-    case ZoomFull:
-        zoomFull();
-        break;
-    case ZoomPixelForPixel:
-        zoomPixelForPixel();
-        break;
-    case ZoomStandard:
-        zoomStandard();
-        break;
-    case ZoomNull:
-    default:
-        break;
-    }
-    _lastZoomType = ZoomNull;
-}
-
 void Viewer::ImageDisplay::zoomIn()
 {
     QPoint size = (_zEnd-_zStart);
     QPoint p1 = _zStart + size*(0.2/2);
     QPoint p2 = _zEnd - size*(0.2/2);
     zoom(p1, p2);
-    _lastZoomType = ZoomIn;
 }
 
 void Viewer::ImageDisplay::zoomOut()
 {
-    //    if ( _zStart == QPoint(0,0) && _zEnd == QPoint( _loadedImage.width(), _loadedImage.height() ) )
-    //        return; // Bail out if we have zoomed all the way out, to avoid spending time in scaling
-
     QPoint size = (_zEnd-_zStart);
     QPoint p1 = _zStart - size*(0.25/2);
     QPoint p2 = _zEnd + size*(0.25/2);
     zoom(p1,p2);
-    _lastZoomType = ZoomOut;
 }
 
 void Viewer::ImageDisplay::zoomFull()
 {
-    if ( !_cachedView ) // Cached views are always full views
-        zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
-    else {
-        _zStart = QPoint(0,0);
-        _zEnd = QPoint( _loadedImage.width(), _loadedImage.height() );
-    }
-    _lastZoomType = ZoomFull;
-}
-
-void Viewer::ImageDisplay::zoomPixelForPixel()
-{
-    int x_start = 0;
-    int y_start = 0;
-    int x_end = _info->size().width();
-    int y_end = _info->size().height();
-    x_start = (x_end - width()) / 2;
-    x_end = x_start + width();
-    y_start = (y_end - height()) / 2;
-    y_end = y_start + height();
-    zoom( QPoint(x_start, y_start), QPoint(x_end, y_end));
-    _lastZoomType = ZoomPixelForPixel;
-}
-
-void Viewer::ImageDisplay::zoomStandard()
-{
-    Display::zoomStandard();
-    _lastZoomType = ZoomStandard;
+    _zStart = QPoint(0,0);
+    _zEnd = QPoint( _loadedImage.width(), _loadedImage.height() );
+    zoom( QPoint(0,0), QPoint( _loadedImage.width(), _loadedImage.height() ) );
 }
 
 
@@ -450,95 +367,22 @@ void Viewer::ImageDisplay::normalize( QPoint& p1, QPoint& p2 )
 
 void Viewer::ImageDisplay::pan( const QPoint& point )
 {
-
-    QPoint p = point;
-#if 0
     if ( _cachedView )
         return; // Cached views are always full screen, so no panning is available.
-    if (_zEnd.x() - _zStart.x() >= _loadedImage.width() ||
-        (p.x() < 0 && _zStart.x() <= 0) ||
-        (p.x() > 0 && _zEnd.x() >= _loadedImage.width()))
-        p.setX(0);
-    if (_zEnd.y() - _zStart.y() >= _loadedImage.height() ||
-        (p.y() < 0 && _zStart.y() <= 0) ||
-        (p.y() > 0 && _zEnd.y() >= _loadedImage.height()))
-        p.setY(0);
-    if (p.x() == 0 && p.y() == 0)
-        return;
-    if ( p.x() < 0 && _zStart.x() > 0 && _zStart.x() < -p.x() )
+
+    QPoint p = point;
+#ifdef TEMPORARILY_REMOVED
+    if ( p.x() < 0 && _zStart.x() < -p.x() )
         p.setX( -_zStart.x() );
 
-    if ( p.y() < 0 && _zStart.y() > 0 &&  _zStart.y() < -p.y() )
+    if ( p.y() < 0 && _zStart.y() < -p.y() )
         p.setY( -_zStart.y() );
 
-    if ( p.x() > 0 && _zEnd.x() < _loadedImage.width() &&
-         p.x() + _zEnd.x() > _loadedImage.width() )
+    if ( p.x() > 0 && p.x() + _zEnd.x() > _loadedImage.width() )
         p.setX( _loadedImage.width() - _zEnd.x() );
 
-    if ( p.y() > 0 && _zEnd.y() < _loadedImage.height() &&
-         p.y() + _zEnd.y() > _loadedImage.height() )
+    if ( p.y() > 0 && p.y() + _zEnd.y() > _loadedImage.height() )
         p.setY( _loadedImage.height() - _zEnd.y() );
-#else
-
-    if (p.x() < 0) {		// Pan right
-        if (_zEnd.x() - _zStart.x() > _loadedImage.width()) {
-            // Image is narrower than display
-            if (-p.x() > _zEnd.x() - _loadedImage.width()) {
-                p.setX(_loadedImage.width() - _zEnd.x());
-            }
-        } else {
-            // Image is wider than display
-            if (p.x() < -_zStart.x()) {
-                p.setX(-_zStart.x());
-            }
-        }
-    }
-
-    if (p.x() > 0) {		// Pan left
-        if (_zEnd.x() - _zStart.x() > _loadedImage.width()) {
-            // Image is narrower than display
-            if (p.x() > -_zStart.x()) {
-                p.setX(-_zStart.x());
-            }
-        } else {
-            // Image is wider than display
-            if (p.x() > _loadedImage.width() - _zEnd.x()) {
-                p.setX(_loadedImage.width() - _zEnd.x());
-            }
-        }
-    }
-
-
-    if (p.y() < 0) {		// Pan down
-        if (_zEnd.y() - _zStart.y() > _loadedImage.height()) {
-            // Image is shorter than display
-            if (-p.y() > _zEnd.y() - _loadedImage.height()) {
-                p.setY(_loadedImage.height() - _zEnd.y());
-            }
-        } else {
-            // Image is taller than display
-            if (p.y() < -_zStart.y()) {
-                p.setY(-_zStart.y());
-            }
-        }
-    }
-
-    if (p.y() > 0) {		// Pan up
-        if (_zEnd.y() - _zStart.y() > _loadedImage.height()) {
-            // Image is shorter than display
-            if (p.y() > -_zStart.y()) {
-                p.setY(-_zStart.y());
-            }
-        } else {
-            // Image is taller than display
-            if (p.y() > _loadedImage.height() - _zEnd.y()) {
-                p.setY(_loadedImage.height() - _zEnd.y());
-            }
-        }
-    }
-
-    if (p.x() == 0 && p.y() == 0)
-        return;
 #endif
 
     _zStart += p;
@@ -552,74 +396,21 @@ void Viewer::ImageDisplay::cropAndScale()
 
     if ( info && info->angle == _info->angle() ) {
         _croppedAndScaledImg = info->img;
-        _zEnd = QPoint( info->size.width(), info->size.height() );
         _cachedView = true;
-    } else {
-        if ( _loadedImage.isNull() ) {
+    }
+    else {
+        if ( _loadedImage.isNull() || _cachedView ) {
             return;
-        }
-        QPoint zSpan = _zEnd - _zStart;
-        if (zSpan.x() > _loadedImage.width()) {	// Narrow image
-            if (_zStart.x() > 0) {
-                _zEnd.setX(_zEnd.x() - _zStart.x());
-                _zStart.setX(0);
-            } else if (_zEnd.x() < _loadedImage.width()) {
-                _zStart.setX(_zStart.x() + _loadedImage.width() - _zEnd.x());
-                _zEnd.setX(_loadedImage.width());
-            }
-        } else {		// Wide image
-            if (_zStart.x() < 0) {
-                _zEnd.setX(_zEnd.x() - _zStart.x());
-                _zStart.setX(0);
-            } else if (_zEnd.x() > _loadedImage.width()) {
-                _zStart.setX(_zStart.x() + _loadedImage.width() - _zEnd.x());
-                _zEnd.setX(_loadedImage.width());
-            }
-        }
-        if (zSpan.y() > _loadedImage.height()) { // Short image
-            if (_zStart.y() > 0) {
-                _zEnd.setY(_zEnd.y() - _zStart.y());
-                _zStart.setY(0);
-            } else if (_zEnd.y() < _loadedImage.height()) {
-                _zStart.setY(_zStart.y() + _loadedImage.height() - _zEnd.y());
-                _zEnd.setY(_loadedImage.height());
-            }
-        } else {		// Tall image
-            if (_zStart.y() < 0) {
-                _zEnd.setY(_zEnd.y() - _zStart.y());
-                _zStart.setY(0);
-            } else if (_zEnd.y() > _loadedImage.height()) {
-                _zStart.setY(_zStart.y() + _loadedImage.height() - _zEnd.y());
-                _zEnd.setY(_loadedImage.height());
-            }
         }
 
         if ( _zStart != QPoint(0,0) || _zEnd != QPoint( _loadedImage.width(), _loadedImage.height() ) ) {
-            if (zSpan.x() > width() && zSpan.y() > height() &&
-                zSpan.x() > _loadedImage.width() &&
-                zSpan.y() > _loadedImage.height()) {
-                double wRatio = zSpan.x() / (double) width();
-                double hRatio = zSpan.y() / (double) height();
-                double ratio = wRatio > hRatio ? wRatio : hRatio;
-                int dWidth = (int) (_loadedImage.width() / ratio);
-                int dHeight = (int) (_loadedImage.height() / ratio);
-                QImage tImage = Utilities::scaleImage(_loadedImage,
-                                                      dWidth, dHeight,
-                                                      QImage::ScaleMin);
-
-                _croppedAndScaledImg = tImage.copy( (int) (_zStart.x() / ratio),
-                                                    (int) (_zStart.y() / ratio),
-                                                    (int) (zSpan.x() / ratio),
-                                                    (int) (zSpan.y() / ratio));
-            } else {
-                _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
-            }
+            _croppedAndScaledImg = _loadedImage.copy( _zStart.x(), _zStart.y(), _zEnd.x() - _zStart.x(), _zEnd.y() - _zStart.y() );
         }
         else
             _croppedAndScaledImg = _loadedImage;
 
-        if ( !_croppedAndScaledImg.isNull() )  // I don't know how this can happen, but it seems not to be dangerous.
-            _croppedAndScaledImg = Utilities::scaleImage(_croppedAndScaledImg, width(), height(), QImage::ScaleMin);
+        if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
+            _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
     }
 
     drawAll();
@@ -638,27 +429,26 @@ QImage Viewer::ImageDisplay::currentViewAsThumbnail() const
         return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
 }
 
+
+bool Viewer::ImageDisplay::isImageZoomed( const Settings::StandardViewSize type, const QSize& imgSize )
+{
+    if (type == Settings::FullSize)
+        return true;
+
+    if ( type == Settings::NaturalSizeIfFits ) {
+        return !(imgSize.width() < width() && imgSize.height() < height() );
+    }
+
+    return false;
+}
+
 void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& imgSize, const QSize& fullSize, int angle, const QImage& img, bool loadedOK )
 {
-    bool updatedSize = 0;
-    DB::ImageInfoPtr info = _loadMap[fileName];
-    if (info) {
-        if (info->size().width() < 0) {
-            info->setSize(fullSize);
-            updatedSize = 1;
-        }
-        _loadMap.remove(fileName);
-    }
     if ( loadedOK && fileName == _info->fileName() ) {
         _loadedImage = img;
         _cachedView = !( imgSize == fullSize || imgSize == QSize(-1,-1) );
-        if (_viewer && updatedSize) {
-            _viewer->updateInfoBox();
-            retryZoom();
-        }
-        if ( !_reloadImageInProgress ) {
-            zoomStandard();
-        }
+        if ( !_reloadImageInProgress )
+            updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), fullSize );
         else
             _reloadImageInProgress = false;
 
@@ -710,9 +500,13 @@ void Viewer::ImageDisplay::updatePreload()
             }
         }
         else {
-            ImageManager::ImageRequest *request =
-                new ImageManager::ImageRequest( info->fileName(), QSize(width(), height()), info->angle(), this );
-            _loadMap.insert(info->fileName(), info);
+            Settings::StandardViewSize viewSize = Settings::SettingsData::instance()->viewerStandardSize();
+            QSize s = size();
+            if ( viewSize == Settings::NaturalSize )
+                s = QSize(-1,-1);
+
+            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), s, info->angle(), this );
+            request->setUpScale( viewSize == Settings::FullSize );
             ImageManager::Manager::instance()->load( request );
 
             if ( cacheFull ) {
@@ -770,6 +564,27 @@ void Viewer::ImageDisplay::unbusy()
     if ( _busy )
         qApp->restoreOverrideCursor();
     _busy = false;
+}
+
+void Viewer::ImageDisplay::zoomPixelForPixel()
+{
+    updateZoomPoints( Settings::NaturalSize, _info->size() );
+    cropAndScale();
+}
+
+void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize )
+{
+    const int iw = imgSize.width();
+    const int ih = imgSize.height();
+
+    if ( isImageZoomed( type,  imgSize ) ) {
+        _zStart=QPoint( 0, 0 );
+        _zEnd=QPoint(  iw, ih );
+    }
+    else {
+        _zStart = QPoint( - ( width()-iw ) / 2, -(height()-ih)/2);
+        _zEnd = QPoint( iw + (width()-iw)/2, ih+(height()-ih)/2);
+    }
 }
 
 #include "ImageDisplay.moc"

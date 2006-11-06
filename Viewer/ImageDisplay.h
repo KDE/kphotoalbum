@@ -24,6 +24,7 @@
 #include <qptrvector.h>
 #include "DB/ImageInfoPtr.h"
 #include "Display.h"
+#include "Settings/SettingsData.h"
 
 namespace DB
 {
@@ -56,7 +57,6 @@ class ImageDisplay :public Viewer::Display, public ImageManager::ImageClient {
 Q_OBJECT
 public:
     ImageDisplay( QWidget* parent, const char* name = 0 );
-    void setParentViewer(Viewer::ViewerWidget *);
     void startDrawing();
     void stopDrawing();
     bool setImage( DB::ImageInfoPtr info, bool forward );
@@ -72,7 +72,6 @@ public slots:
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
-    void zoomStandard();
 
 protected slots:
     void drawAll();
@@ -103,6 +102,8 @@ protected:
     void retryZoom();
     void busy();
     void unbusy();
+    bool isImageZoomed( const Settings::StandardViewSize type, const QSize& imgSize );
+    void updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize );
 
 private:
     QImage _loadedImage;
@@ -114,8 +115,10 @@ private:
     DrawHandler* _drawHandler;
     DisplayAreaHandler* _currentHandler;
 
-    QPoint _zStart; // Stands for zoom start
+    // zoom points in the coordinate system of the image.
+    QPoint _zStart;
     QPoint _zEnd;
+
     QPtrVector<ViewPreloadInfo> _cache;
     QStringList _imageList;
     QMap<QString, DB::ImageInfoPtr> _loadMap;
@@ -125,14 +128,6 @@ private:
     int _curIndex;
     bool _busy;
     ViewerWidget *_viewer;
-    enum ZoomType {
-      ZoomNull = 0,
-      ZoomIn,
-      ZoomOut,
-      ZoomFull,
-      ZoomPixelForPixel,
-      ZoomStandard
-    } _lastZoomType;
 };
 
 }

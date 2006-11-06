@@ -42,6 +42,7 @@ protected:
     static QString thumbnailPath( ImageRequest* request );
     static QString thumbnailPath( QString uri, int dim );
     static QString requestURL( ImageRequest* request );
+    bool shouldImageBeScale( const QImage& img, ImageRequest* request );
 
 private:
     QWaitCondition* _sleeper;

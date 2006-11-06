@@ -44,7 +44,6 @@ public slots:
     virtual void zoomOut() = 0;
     virtual void zoomFull() = 0;
     virtual void zoomPixelForPixel() = 0;
-    virtual void zoomStandard();
 
 protected:
     DB::ImageInfoPtr _info;

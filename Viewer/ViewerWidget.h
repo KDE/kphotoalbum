@@ -135,7 +135,6 @@ protected slots:
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
-    void zoomStandard();
     void toggleShowDrawings( bool );
     void play();
     void stop();

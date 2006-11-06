@@ -86,7 +86,6 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     _stack = new QWidgetStack( this, "stack" );
 
     _display = _imageDisplay = new ImageDisplay( _stack ); // Must be created before the toolbar.
-    _imageDisplay->setParentViewer( this );
     _videoDisplay = new VideoDisplay( _stack );
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 
@@ -325,9 +324,6 @@ void Viewer::ViewerWidget::createZoomMenu()
     action->plug( popup );
 
     action = new KAction( i18n("Pixel for Pixel View"), Key_Equal, this, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
-    action->plug( popup );
-
-    action = new KAction( i18n("Standard View"), Key_Slash, this, SLOT( zoomStandard() ), _actions, "viewer-zoom-standard" );
     action->plug( popup );
 
     action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
@@ -992,11 +988,6 @@ void Viewer::ViewerWidget::zoomFull()
 void Viewer::ViewerWidget::zoomPixelForPixel()
 {
     _display->zoomPixelForPixel();
-}
-
-void Viewer::ViewerWidget::zoomStandard()
-{
-    _display->zoomStandard();
 }
 
 void Viewer::ViewerWidget::toggleShowDrawings( bool b )

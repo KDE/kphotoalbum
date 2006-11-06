@@ -136,7 +136,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
     connect( _playerPart, SIGNAL( stateChanged( int ) ), this, SLOT( stateChanged( int ) ) );
 
-    zoomStandard();
+    zoomFull();
 
 
 #ifdef TEMPORARILY_REMOVED

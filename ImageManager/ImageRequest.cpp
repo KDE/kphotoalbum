@@ -5,7 +5,7 @@ ImageManager::ImageRequest::ImageRequest() : _null( true ),  _cache( true ),  _c
 
 ImageManager::ImageRequest::ImageRequest( const QString& fileName, const QSize& size, int angle, ImageManager::ImageClient* client )
     : _null( false ),  _fileName( fileName ),  _width( size.width() ),  _height( size.height() ),
-      _cache( false ),  _client( client ),  _angle( angle ), _priority( false ), _loadedOK( false )
+      _cache( false ),  _client( client ),  _angle( angle ), _priority( false ), _loadedOK( false ), _dontUpScale( false )
 {
 }
 
@@ -106,4 +106,14 @@ void ImageManager::ImageRequest::setPriority( bool b )
 bool ImageManager::ImageRequest::stillNeeded() const
 {
     return true;
+}
+
+bool ImageManager::ImageRequest::doUpScale() const
+{
+    return !_dontUpScale;
+}
+
+void ImageManager::ImageRequest::setUpScale( bool b )
+{
+    _dontUpScale = !b;
 }

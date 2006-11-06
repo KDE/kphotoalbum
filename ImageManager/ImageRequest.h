@@ -45,6 +45,9 @@ public:
 
     virtual bool stillNeeded() const;
 
+    bool doUpScale() const;
+    void setUpScale( bool b );
+
 private:
     bool _null;
     mutable QDeepCopy<QString> _fileName;
@@ -58,6 +61,7 @@ private:
     QSize _fullSize;
     bool _priority;
     bool _loadedOK;
+    bool _dontUpScale;
 };
 
 }

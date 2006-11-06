@@ -209,7 +209,7 @@ QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage 
     }
 
     // If we are looking for a scaled version, then scale
-    if ( request->width() != -1 )
+    if ( shouldImageBeScale( img, request ) )
         img = Utilities::scaleImage(img, request->width(), request->height(), QImage::ScaleMin );
 
     return img;
@@ -239,4 +239,18 @@ QString ImageManager::ImageLoader::requestURL( ImageRequest* request )
     KURL url;
     url.setPath( request->fileName() );
     return url.url();
+}
+
+bool ImageManager::ImageLoader::shouldImageBeScale( const QImage& img, ImageRequest* request )
+{
+    // No size specified, meaning we want it full size.
+    if ( request->width() == -1 )
+        return false;
+
+    if ( img.width() < request->width() && img.height() < request->height() ) {
+        // The image is smaller than the requets.
+        return request->doUpScale();
+    }
+
+    return true;
 }

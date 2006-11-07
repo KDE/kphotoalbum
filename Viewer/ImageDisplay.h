@@ -105,6 +105,7 @@ protected:
     bool isImageZoomed( const Settings::StandardViewSize type, const QSize& imgSize );
     void updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize );
     void potentialyLoadFullSize();
+    double sizeRatio( const QSize& baseSize, const QSize& newSize ) const;
 
 private:
     QImage _loadedImage;

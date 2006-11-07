@@ -1,3 +1,16 @@
+2006-11-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Reworked the pixel by pixel zoom, so it doesn't flicker the real
+	sized image first.I beleive that pixel by pixel zoom now works in
+	the reworked version. 
+
+	As an added bonus, I no longer loads the first image in full size, but
+	only in viewer size. This has given a significant boost in
+	starting up the viewer. If the user ever zooms, then the real
+	sized image is loaded in the background and put in place when it
+	is available - until then the user just sees the viewer sized
+	version he was original looking at. 
+
 2006-11-05  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Right clicking on an image should select it.

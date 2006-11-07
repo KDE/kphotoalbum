@@ -49,8 +49,10 @@
       thus that the looking at a series of images was slow.
 
    The process is as follows:
-   - The image loaded from disk is rotated and stored in _loadedImage. This
-     image is as large as the image on disk.
+   - The image loaded from disk is rotated and stored in _loadedImage.
+     Initially this image is as large as the view, until the
+     user starts zooming, at which time the image is reloaded to the size
+     as it is on disk.
    - Then _loadedImage is cropped and scaled to _croppedAndScaledImg. This
      image is the size of the display. Resizing the window thus needs to
      start from this step.
@@ -73,23 +75,6 @@
    These handlers draw on _viewPixmap, but to do so, the painters need to
    be set up with transformation, as the pixmap is no longer the size of
    the original image, but rather the size of the display.
-
-
-
-   To make viewing faster, preloading of images is done. However,
-   preloading is not done of the full size images, as each image easily is
-   approximate 20Mb large (5Mega pixels of each 4 bytes), which would fill
-   the preloading cache with just a few images. Instead preloads of images
-   in the view size are stored. This unfortunately complicated the code
-   quite a bit.
-
-   For the zooming and drawing to work, we need the total size of
-   the images, even when it is scaled down in size. For that the preload
-   info struct keeps this information, together with the image itself.
-
-   Whenever zooming or rotation is performed, we need to load the real
-   image, which is why we need the instance variable _cachedView and
-   _reloadImageInProgress.
 
    To propagate the cache, we need to know which direction the
    images are viewed in, which is the job of the instance variable _forward.
@@ -115,8 +100,7 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
-    double ratio;
-    (void) offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), &ratio );
+    double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mousePressEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mousePressEvent( event );
@@ -126,8 +110,7 @@ void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 {
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
-    double ratio;
-    (void) offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), &ratio );
+    double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mouseMoveEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mousePressEvent( event );
@@ -138,8 +121,7 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
 {
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
-    double ratio;
-    (void) offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), &ratio );
+    double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mouseReleaseEvent( &e, event->pos(), ratio );
     if ( !block ) {
         QWidget::mouseReleaseEvent( event );
@@ -252,11 +234,7 @@ void Viewer::ImageDisplay::paintEvent( QPaintEvent* )
 
 QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
 {
-    double rat = ((double)physicalWidth)/logicalWidth;
-
-    if ( rat * logicalHeight > physicalHeight ) {
-        rat = ((double)physicalHeight)/logicalHeight;
-    }
+    double rat = sizeRatio( QSize( logicalWidth, logicalHeight ), QSize( physicalWidth, physicalHeight ) );
 
     int ox = (int) (physicalWidth - logicalWidth*rat)/2;
     int oy = (int) (physicalHeight - logicalHeight*rat)/2;
@@ -398,8 +376,11 @@ void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& i
         if ( !_reloadImageInProgress )
             updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), img.size() );
         else {
-            double ratio;
-            (void) offset( _loadedImage.width(), _loadedImage.height(), _info->size().width(), _info->size().height(), &ratio );
+            // See documentation for zoomPixelForPixel for details.
+            // We just loaded a likel much larger image, so the zoom points
+            // need to be scaled. Notice _loadedImage is the size of the
+            // old image.
+            double ratio = sizeRatio( _loadedImage.size(), _info->size() );
 
             _zStart *= ratio;
             _zEnd *= ratio;
@@ -524,10 +505,20 @@ void Viewer::ImageDisplay::unbusy()
 
 void Viewer::ImageDisplay::zoomPixelForPixel()
 {
+    // This is rather tricky.
+    // We want to zoom to a pixel level for the real image, which we might
+    // or might not have loaded yet.
+    //
+    // First we ask for zoom points as they would look like had we had the
+    // real image loaded now. (We need to ask for them, for the real image,
+    // otherwise we would just zoom to the pixel level of the view size
+    // image)
     updateZoomPoints( Settings::NaturalSize, _info->size() );
-    double ratio;
-    (void) offset( _loadedImage.width(), _loadedImage.height(), _info->size().width(), _info->size().height(), &ratio );
 
+    // The points now, however might not match the current visible image -
+    // as this image might be be only view size large. We therefore need
+    // to scale the coordinates.
+    double ratio = sizeRatio( _loadedImage.size(), _info->size() );
     _zStart /= ratio;
     _zEnd /= ratio;
     cropAndScale();
@@ -558,6 +549,19 @@ void Viewer::ImageDisplay::potentialyLoadFullSize()
         busy();
         _reloadImageInProgress = true;
     }
+}
+
+/**
+ * return the ratio of the two sizes. That is  newSize/baseSize.
+ */
+double Viewer::ImageDisplay::sizeRatio( const QSize& baseSize, const QSize& newSize ) const
+{
+    double res = ((double)newSize.width())/baseSize.width();
+
+    if ( res * baseSize.height() > newSize.height() ) {
+        res = ((double)newSize.height())/baseSize.height();
+    }
+    return res;
 }
 
 #include "ImageDisplay.moc"

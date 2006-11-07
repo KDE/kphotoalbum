@@ -184,9 +184,7 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
         cropAndScale();
     }
     else {
-        ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), size(), info->angle(), this );
-        request->setPriority();
-        ImageManager::Manager::instance()->load( request );
+        requestImage( info );
         busy();
     }
     _forward = forward;
@@ -362,9 +360,8 @@ bool Viewer::ImageDisplay::isImageZoomed( const Settings::StandardViewSize type,
     if (type == Settings::FullSize)
         return true;
 
-    if ( type == Settings::NaturalSizeIfFits ) {
+    if ( type == Settings::NaturalSizeIfFits )
         return !(imgSize.width() < width() && imgSize.height() < height() );
-    }
 
     return false;
 }
@@ -373,6 +370,9 @@ void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& i
                                          const QImage& img, bool loadedOK )
 {
     if ( loadedOK && fileName == _info->fileName() ) {
+    if ( fullSize.isValid() && !_info->size().isValid() )
+       _info->setSize( fullSize );
+
         if ( !_reloadImageInProgress )
             updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), img.size() );
         else {
@@ -437,14 +437,7 @@ void Viewer::ImageDisplay::updatePreload()
             }
         }
         else {
-            Settings::StandardViewSize viewSize = Settings::SettingsData::instance()->viewerStandardSize();
-            QSize s = size();
-            if ( viewSize == Settings::NaturalSize )
-                s = QSize(-1,-1);
-
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), s, info->angle(), this );
-            request->setUpScale( viewSize == Settings::FullSize );
-            ImageManager::Manager::instance()->load( request );
+            requestImage( info );
 
             if ( cacheFull ) {
                 // The cache was full, we need to delete an item from the cache.
@@ -562,6 +555,18 @@ double Viewer::ImageDisplay::sizeRatio( const QSize& baseSize, const QSize& newS
         res = ((double)newSize.height())/baseSize.height();
     }
     return res;
+}
+
+void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info )
+{
+    Settings::StandardViewSize viewSize = Settings::SettingsData::instance()->viewerStandardSize();
+    QSize s = size();
+    if ( viewSize == Settings::NaturalSize )
+        s = QSize(-1,-1);
+
+    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), s, info->angle(), this );
+    request->setUpScale( viewSize == Settings::FullSize );
+    ImageManager::Manager::instance()->load( request );
 }
 
 #include "ImageDisplay.moc"

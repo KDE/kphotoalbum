@@ -92,6 +92,7 @@ protected:
     void cropAndScale();
     void updatePreload();
     int indexOf( const QString& fileName );
+    void requestImage( const DB::ImageInfoPtr& info );
 
     friend class DrawHandler;
     friend class ViewHandler;

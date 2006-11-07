@@ -33,6 +33,9 @@
 
 2006-10-29  Jesper K. Pederse  <blackie@klaralvdalens-datakonsult.se>
 
+	* Show splash screen during database loading phase (thx to
+	Christoph Moseler for finding this)
+
 	* More video format tests.
 
 	* The feature dialog now test if we can show video thumbnails.

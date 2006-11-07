@@ -792,8 +792,10 @@ bool MainWindow::Window::load()
 
     Settings::SettingsData::setup( QFileInfo( configFile ).dirPath( true ) );
 
-    if ( Settings::SettingsData::instance()->showSplashScreen() )
+    if ( Settings::SettingsData::instance()->showSplashScreen() ) {
         SplashScreen::instance()->show();
+        qApp->processEvents();
+    }
 
     // Choose backend
     QString backEnd = Settings::SettingsData::instance()->backend();

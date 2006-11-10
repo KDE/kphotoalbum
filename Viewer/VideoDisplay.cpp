@@ -97,36 +97,48 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         return false;
     }
 
+    KServiceTypeProfile::OfferList services = KServiceTypeProfile::offers(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
 
-    // Ask for a part for this mime type
-    KService::Ptr service = KServiceTypeProfile::preferredService(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
-    if (!service.data()) {
-        showError( NoKPart, info->fileName(), mimeType );
-        kdWarning() << "Couldn't find a KPart for " << mimeType << endl;
-        return false;
+    ErrorType etype = NoError;
+    
+    for( KServiceTypeProfile::OfferList::Iterator it = services.begin(); it != services.end(); ++it ) {
+
+       // Ask for a part for this mime type
+       KService::Ptr service = (*it).service();
+
+       if (!service.data()) {
+           etype = NoKPart;
+           kdWarning() << "Couldn't find a KPart for " << mimeType << endl;
+           continue;
+       }
+
+       QString library=service->library();
+       if ( library.isNull() ) {
+           etype = NoLibrary;
+           kdWarning() << "The library returned from the service was null, indicating we could not display videos." << endl;
+           continue;
+      }
+
+       _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this );
+       if (!_playerPart) {
+           etype = NoPartInstance;
+           kdWarning() << "Failed to instantiate KPart from library " << library << endl;
+           continue;
+       }
+
+       QWidget* widget = _playerPart->widget();
+       if ( !widget ) {
+           etype = NoWidget;
+           continue;
+       }
+       etype = NoError;
+       widget->show();
+       break;
     }
-
-    QString library=service->library();
-    if ( library.isNull() ) {
-        showError( NoLibrary, info->fileName(), mimeType );
-        kdWarning() << "The library returned from the service was null, indicating we could not display videos." << endl;
-        return false;
+    if (etype != NoError) {
+       showError(NoWidget, info->fileName(), mimeType );
+       return false;
     }
-
-    _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this );
-    if (!_playerPart) {
-        showError( NoPartInstance, info->fileName(), mimeType );
-        kdWarning() << "Failed to instantiate KPart from library " << library << endl;
-        return false;
-    }
-
-    QWidget* widget = _playerPart->widget();
-    if ( !widget ) {
-        showError(NoWidget, info->fileName(), mimeType );
-        return false;
-    }
-    widget->show();
-
     _playerPart->openURL(info->fileName());
 
     // If the part implements the KMediaPlayer::Player interface, start

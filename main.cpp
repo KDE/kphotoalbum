@@ -54,7 +54,7 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( "Marco Caldarelli", "Patch for making it possible to reread EXIF info using a nice dialog.", "caldarel@yahoo.it" );
     aboutData.addCredit( "Jean-Michel FAYARD", "(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page.", "jmfayard@gmail.com" );
     aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KPhotoAlbum again and again.", "rlk@alum.mit.edu" );
-    aboutData.addCredit( "Christoph Moseler", "Numerous patches for lots of bugs.", " forums@moseler.net" );
+    aboutData.addCredit( "Christoph Moseler", "Numerous patches for lots of bugs plus patches for a few new features", " forums@moseler.net" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

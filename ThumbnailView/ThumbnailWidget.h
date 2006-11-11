@@ -64,6 +64,7 @@ protected:
     void updateCell( int row, int col );
     void paintCellBackground( QPainter*, int row, int col );
     void paintCellPixmap( QPainter*, int row, int col );
+    QString thumbnailText( const QString& fileName ) const;
     void paintCellText( QPainter*, int row, int col );
     virtual void viewportPaintEvent( QPaintEvent* );
 
@@ -79,6 +80,7 @@ protected:
     int lastVisibleRow( VisibleState ) const;
     int numRowsPerPage() const;
     QRect iconGeometry( int row, int col ) const;
+    int textHeight() const;
     QRect cellTextGeometry( int row, int col ) const;
     bool isFocusAtFirstCell() const;
     bool isFocusAtLastCell() const;

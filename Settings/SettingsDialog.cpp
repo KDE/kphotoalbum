@@ -227,6 +227,11 @@ void Settings::SettingsDialog::createThumbNailPage()
     _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
     lay->addMultiCellWidget( _displayLabels, row, row, 0, 1 );
 
+    // Display Categories
+    ++row;
+    _displayCategories = new QCheckBox( i18n("Display categories in thumbnail view" ), top, "displayCategories" );
+    lay->addMultiCellWidget( _displayCategories, row, row, 0, 1 );
+
     // Auto Show Thumbnail view
     ++row;
     QLabel* autoShowLabel = new QLabel( i18n("Auto display limit: "), top );
@@ -264,6 +269,10 @@ void Settings::SettingsDialog::createThumbNailPage()
     txt = i18n("<qt>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view</qt>");
     QWhatsThis::add( _displayLabels, txt );
+
+    txt = i18n("<qt>Checking this option will show the Categories for the file under "
+        "thumbnails in the thumbnail view</qt>");
+    QWhatsThis::add( _displayCategories, txt );
 
     txt = i18n("<qt><p>When you are browsing the images, and the count gets below the value specified here, "
                "the thumbnails will be shown automatically. The alternative is to continue showing the "
@@ -378,6 +387,7 @@ void Settings::SettingsDialog::show()
     _albumCategory->setCurrentText( cat->text() );
 
     _displayLabels->setChecked( opt->displayLabels() );
+    _displayCategories->setChecked( opt->displayCategories() );
     _viewImageSetup->setSize( opt->viewerSize() );
     _viewImageSetup->setLaunchFullScreen( opt->launchViewerFullScreen() );
     _slideShowSetup->setSize( opt->slideShowSize() );
@@ -457,6 +467,7 @@ void Settings::SettingsDialog::slotMyOK()
 
     opt->setAlbumCategory( name );
     opt->setDisplayLabels( _displayLabels->isChecked() );
+    opt->setDisplayCategories( _displayCategories->isChecked() );
     opt->setViewerSize( _viewImageSetup->size() );
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );

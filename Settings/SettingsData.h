@@ -91,6 +91,7 @@ public:
     // -------------------------------------------------- Thumbnails
     intProperty( Thumbnails, previewSize, setPreviewSize, 256 );
     boolProperty( Thumbnails, displayLabels, setDisplayLabels, true );
+    boolProperty( Thumbnails, displayCategories, setDisplayCategories, false );
     intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
     boolProperty( Thumbnails, showNewestThumbnailFirst, setShowNewestFirst, false );
 

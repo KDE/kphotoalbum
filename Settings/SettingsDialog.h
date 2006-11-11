@@ -104,6 +104,7 @@ private:
     QSpinBox* _thumbnailSize;
     QComboBox* _albumCategory;
     QCheckBox* _displayLabels;
+    QCheckBox* _displayCategories;
     QCheckBox* _searchForImagesOnStartup;
     QCheckBox* _dontReadRawFilesWithOtherMatchingFile;
     QSpinBox* _thumbnailCache;

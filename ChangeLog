@@ -1,5 +1,9 @@
 2006-11-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* New option to show categories in the thumbnail view. Now it is
+	also possible to set tokens directly in the thumbnail view. Thanks
+	to (Thanks to Christoph Moseler)
+
 	* Bugfix: Searching for description did not work (Thx to Christoph
 	Moseler for finding the bug)
 

@@ -14,6 +14,7 @@
 #include <kmessagebox.h>
 #include <qfontmetrics.h>
 #include "ThumbnailWidget.moc"
+#include "MainWindow/DirtyIndicator.h"
 
 /**
  * \namespace ThumbnailView
@@ -108,24 +109,69 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
 }
 
 /**
+ * Returns the text under the thumbnails
+ */
+QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName ) const
+{
+    QString text, line;
+
+    int thumbnailSize = Settings::SettingsData::instance()->thumbSize();
+    int maxCharacters = thumbnailSize / QFontMetrics( font() ).maxWidth() * 2;
+
+    if ( Settings::SettingsData::instance()->displayLabels()) {
+        text += DB::ImageDB::instance()->info( fileName )->label();;
+        text += QString::fromLatin1("\n");
+    }
+
+    if ( Settings::SettingsData::instance()->displayCategories()) {
+        QStringList grps = DB::ImageDB::instance()->info( fileName )->availableCategories();
+        for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+            QString category = *it;
+            if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
+                StringSet items = DB::ImageDB::instance()->info( fileName )->itemsOfCategory( category );
+                if (items.count() != 0 ) {
+                    line = QString::fromLatin1( "%1: " )
+                           .arg( category );
+                    bool first = true;
+                    for( StringSet::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
+                        QString item = *it2;
+                        if ( first )
+                            first = false;
+                        else
+                            line += QString::fromLatin1( ", " );
+                        line += item;
+                    }
+                    if ( QFontMetrics( font() ).width( line ) > thumbnailSize ) {
+                        line = line.left( maxCharacters );
+                        line += QString::fromLatin1( " ..." );
+                    }
+                    text += line + QString::fromLatin1( "\n" );
+                }
+            }
+        }
+    }
+
+    if(text.isEmpty())
+        text = QString::fromLatin1( "" );
+
+    return text;
+}
+
+/**
  * Draw the title under the thumbnail
  */
 void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, int col )
 {
-    if ( !Settings::SettingsData::instance()->displayLabels() )
-        return;
-
     QString fileName = fileNameInCell( row, col );
     if ( fileName.isNull() )
         return;
 
-    QString title = DB::ImageDB::instance()->info( fileName )->label();
+    QString title = thumbnailText( fileName );
     QRect rect = cellTextGeometry( row, col );
     painter->setPen( palette().active().text() );
 
-    int align = (QFontMetrics( font() ).width( title ) > rect.width()) ? Qt::AlignLeft : Qt::AlignCenter;
-
-    painter->drawText( rect, align, title );
+    //Qt::WordBreak just in case, if the text's width is wider than the cell's width
+    painter->drawText( rect, Qt::AlignCenter | Qt::WordBreak, title );
 }
 
 
@@ -204,22 +250,37 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
 
     int xoff = 1 + (size - pix->width())/2; // 1 is for the border at the left
     int yoff = (size - pix->height() );
-    if ( !Settings::SettingsData::instance()->displayLabels() )
+    if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories())
         yoff /= 2; // we wil center the images if we do not show the label, otherwise we will align it to the bottom
     return QRect( xoff, yoff, pix->width(), pix->height() );
 }
 
+/**
+ * Return the height of the text under the thumbnails.
+ */
+int ThumbnailView::ThumbnailWidget::textHeight() const
+{
+    int h = 0;
+    if ( Settings::SettingsData::instance()->displayLabels() )
+        h += QFontMetrics( font() ).height() +2;
+    if ( Settings::SettingsData::instance()->displayCategories()) {
+        h += QFontMetrics( font() ).height() * ( DB::ImageDB::instance()->categoryCollection()->categoryNames().count() - 2 ) +2;
+    }
+    return h;
+}
+
+
 QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 {
-    if ( !Settings::SettingsData::instance()->displayLabels() )
+    if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories() )
         return QRect();
 
     QString fileName = fileNameInCell( row, col );
     if ( fileName.isNull() ) // empty cell
         return QRect();
 
+    int h = textHeight();
 
-    int h = QFontMetrics(font()).height();
     QRect iconRect = iconGeometry( row, col );
     QRect cellRect = const_cast<ThumbnailWidget*>(this)->cellGeometry( row, col );
 
@@ -229,7 +290,7 @@ QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 
 
 void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
-                                                 const QImage& image, bool loadedOK )
+                                                   const QImage& image, bool loadedOK )
 {
     QPixmap* pixmap = new QPixmap( size );
     if ( loadedOK && !image.isNull() )
@@ -315,6 +376,29 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
 
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
+    if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
+        QString token = event->text().upper().left(1);
+        bool firstHasToken = false;
+        bool firstTime     = true;
+
+        for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
+            if ( firstTime ) {
+                firstHasToken = DB::ImageDB::instance()->info( *it )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
+                firstTime = false;
+            }
+
+            if ( firstHasToken )
+                DB::ImageDB::instance()->info( *it )->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
+            else
+                DB::ImageDB::instance()->info( *it )->addCategoryInfo( QString::fromLatin1("Tokens"), token );
+
+            updateCell( *it );
+        }
+
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
+        MainWindow::DirtyIndicator::markDirty();
+    }
+
     if ( isMovementKey( event->key() ) )
         keyboardMoveEvent( event );
 
@@ -511,7 +595,7 @@ void ThumbnailView::ThumbnailWidget::gotoDate( const DB::ImageDate& date, bool i
 {
     _isSettingDate = true;
     QString candidate = DB::ImageDB::instance()->
-        findFirstItemInRange(date, includeRanges, _imageList);
+                        findFirstItemInRange(date, includeRanges, _imageList);
     if ( !candidate.isNull() ) {
         Cell pos = positionForFileName( candidate );
         QRect contentsRect = cellGeometry( pos.row(), pos.col() );
@@ -927,9 +1011,7 @@ void ThumbnailView::ThumbnailWidget::updateCellSize()
     int size = Settings::SettingsData::instance()->thumbSize() + SPACE;
     setCellWidth( size );
 
-    int h = size +2;
-    if ( Settings::SettingsData::instance()->displayLabels() )
-        h += QFontMetrics( font() ).height() +2;
+    int h = size +2 + textHeight();
     setCellHeight( h );
     updateGridSize();
 }

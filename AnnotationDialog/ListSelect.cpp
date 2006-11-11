@@ -258,6 +258,7 @@ void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
     else {
         _lineEdit->clear();
         showAllChildren();
+        ensureAllInstancesAreStateChanged( item );
     }
 }
 
@@ -575,6 +576,19 @@ void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
         static_cast<QCheckListItem*>(item)->setOn( b );
     else
         Q_ASSERT( false );
+}
+
+/**
+ * An item may be member of a number of categories. Mike may be a member of coworkers and friends.
+ * Selecting the item in one subcategory, should select him in all.
+ */
+void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged( QListViewItem* item )
+{
+    bool on = static_cast<QCheckListItem*>(item)->isOn();
+    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+        if ( (*itemIt) != item && (*itemIt)->text(0) == item->text(0) )
+            static_cast<QCheckListItem*>(*itemIt)->setOn( on );
+    }
 }
 
 #include "ListSelect.moc"

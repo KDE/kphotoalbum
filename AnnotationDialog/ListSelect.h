@@ -81,6 +81,7 @@ protected:
     bool isInputMode() const;
     StringSet itemsOfState( QCheckListItem::ToggleState state ) const;
     void checkItem( const QString itemText, bool );
+    void ensureAllInstancesAreStateChanged( QListViewItem* item );
 
 private:
     QLabel* _label;

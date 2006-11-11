@@ -1,5 +1,9 @@
 2006-11-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* An item may be member of a number of categories. Mike may be a member of coworkers and friends.
+	Selecting the item in one subcategory, should select him in
+	all.
+
 	* New option to show categories in the thumbnail view. Now it is
 	also possible to set tokens directly in the thumbnail view. Thanks
 	to (Thanks to Christoph Moseler)

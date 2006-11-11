@@ -79,6 +79,7 @@ protected:
     void createZoomMenu();
     void createSlideShowMenu();
     void createVideoActions();
+    void changeSlideShowInterval( int delta );
 
     DB::ImageInfoPtr currentInfo();
     friend class InfoBox;

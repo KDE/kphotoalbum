@@ -465,6 +465,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         files = Utilities::shuffle( files );
 
     Viewer::ViewerWidget* viewer;
+    qDebug("Reuse =%d, latest = %p", reuse, Viewer::ViewerWidget::latest() );
     if ( reuse && Viewer::ViewerWidget::latest() ) {
         viewer = Viewer::ViewerWidget::latest();
         viewer->raise();

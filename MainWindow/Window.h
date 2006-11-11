@@ -75,7 +75,7 @@ protected slots:
     void slotDeleteSelected();
     void slotReReadExifInfo();
     void slotSearch();
-    void slotView( bool reuse = false, bool slideShow = false, bool random = false );
+    void slotView( bool reuse = true, bool slideShow = false, bool random = false );
     void slotViewNewWindow();
     void slotSortByDateAndTime();
     void slotLimitToSelected();

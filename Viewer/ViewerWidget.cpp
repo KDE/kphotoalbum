@@ -793,11 +793,12 @@ void Viewer::ViewerWidget::toggleFullScreen()
 void Viewer::ViewerWidget::slotStartStopSlideShow()
 {
     bool wasRunningSlideShow = _isRunningSlideShow;
-    _isRunningSlideShow = !_isRunningSlideShow;
+    _isRunningSlideShow = !_isRunningSlideShow && _list.count() != 1;
 
     if ( wasRunningSlideShow ) {
         _slideShowTimer->stop();
-        _speedDisplay->end();
+        if ( _list.count() != 1 )
+            _speedDisplay->end();
     }
     else {
         if ( currentInfo()->mediaType() != DB::Video )
@@ -835,21 +836,26 @@ void Viewer::ViewerWidget::slotSlideShowNext()
 
 void Viewer::ViewerWidget::slotSlideShowFaster()
 {
-    _slideShowPause -= 500;
-    if ( _slideShowPause < 500 )
-        _slideShowPause = 500;
+    changeSlideShowInterval(-500);
+}
+
+void Viewer::ViewerWidget::slotSlideShowSlower()
+{
+    changeSlideShowInterval(+500);
+}
+
+void Viewer::ViewerWidget::changeSlideShowInterval( int delta )
+{
+    if ( _list.count() == 1 )
+        return;
+
+    _slideShowPause += delta;
+    _slideShowPause = QMAX( _slideShowPause, 500 );
     _speedDisplay->display( _slideShowPause );
     if (_slideShowTimer->isActive() )
         _slideShowTimer->changeInterval( _slideShowPause );
 }
 
-void Viewer::ViewerWidget::slotSlideShowSlower()
-{
-    _slideShowPause += 500;
-    _speedDisplay->display( _slideShowPause );
-    if (_slideShowTimer->isActive() )
-        _slideShowTimer->changeInterval( _slideShowPause );
-}
 
 void Viewer::ViewerWidget::editImage()
 {
@@ -917,11 +923,12 @@ void Viewer::ViewerWidget::show( bool slideShow )
         resize( size );
 
     QWidget::show();
-    if ( slideShow ) {
+    if ( slideShow != _isRunningSlideShow) {
         // The info dialog will show up at the wrong place if we call this function directly
         // don't ask me why -  4 Sep. 2004 15:13 -- Jesper K. Pedersen
         QTimer::singleShot(0, this, SLOT(slotStartStopSlideShow()) );
     }
+
     _sized = !fullScreen;
 }
 
@@ -1025,5 +1032,6 @@ void Viewer::ViewerWidget::restart()
 {
     _videoDisplay->restart();
 }
+
 
 #include "ViewerWidget.moc"

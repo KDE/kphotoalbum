@@ -1,3 +1,12 @@
+2006-11-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Somehow running the viewer always forced it to show in a new
+	window, that was definitely against the design.
+
+	* Don't try and run a slide show if only one image is
+	selected. Doing so will change zoom preference each time we try to
+	go to the next image.
+
 2006-11-08  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Improved video backend detection. Thanks to  Robert L Krawitz

@@ -370,8 +370,8 @@ void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& i
                                          const QImage& img, bool loadedOK )
 {
     if ( loadedOK && fileName == _info->fileName() ) {
-    if ( fullSize.isValid() && !_info->size().isValid() )
-       _info->setSize( fullSize );
+        if ( fullSize.isValid() && !_info->size().isValid() )
+            _info->setSize( fullSize );
 
         if ( !_reloadImageInProgress )
             updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), img.size() );

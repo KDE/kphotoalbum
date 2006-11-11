@@ -44,6 +44,8 @@
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "ViewerWidget.h"
+#include <qapplication.h>
+#include <qeventloop.h>
 
 #ifdef HASEXIV2
 #  include "Exif/InfoDialog.h"
@@ -871,6 +873,8 @@ bool Viewer::ViewerWidget::showingFullScreen() const
 
 void Viewer::ViewerWidget::setShowFullScreen( bool on )
 {
+    // To avoid that the image is first loaded in a small size and the reloaded when scaled up, we need to resize the window right away.
+    resize( qApp->desktop()->screenGeometry().size() );
     if ( on ) {
         KWin::setState( winId(), NET::FullScreen );
         moveInfoBox();
@@ -930,6 +934,7 @@ void Viewer::ViewerWidget::show( bool slideShow )
     }
 
     _sized = !fullScreen;
+
 }
 
 KActionCollection* Viewer::ViewerWidget::actions()

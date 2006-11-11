@@ -1,5 +1,10 @@
 2006-11-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Bugfix: Full screen viewer no longer worked very well after the
+	change to loading only the size as needed. The reason for this was
+	a race condition where the image was loaded before the window had
+	sized it self.
+
 	* Somehow running the viewer always forced it to show in a new
 	window, that was definitely against the design.
 

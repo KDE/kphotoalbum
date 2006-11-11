@@ -766,6 +766,13 @@ void DateBar::DateBarWidget::emitDateSelected()
 
 void DateBar::DateBarWidget::wheelEvent( QWheelEvent * e )
 {
+    if ( e->state() & ControlButton ) {
+        if ( e->delta() > 0 )
+            zoomIn();
+        else
+            zoomOut();
+        return;
+    }
     if ( e->delta() > 0 )
         scroll(1);
     else

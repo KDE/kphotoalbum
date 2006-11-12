@@ -26,6 +26,7 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "DB/MemberMap.h"
+#include "qregexp.h"
 #include "ContentFolderAction.h"
 
 Browser::ContentFolder::ContentFolder( const DB::CategoryPtr& category, const QString& value, DB::MediaCount count,
@@ -38,8 +39,13 @@ Browser::ContentFolder::ContentFolder( const DB::CategoryPtr& category, const QS
 
 QPixmap Browser::ContentFolder::pixmap()
 {
-    if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView )
-        return _category->icon();
+    if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
+        if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), _value ) )
+            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "folder_image" ), KIcon::Desktop, 22 );
+        else {
+            return _category->icon();
+        }
+    }
     else
         return Settings::SettingsData::instance()->categoryImage( _category->name(), _value, _category->thumbnailSize() );
 }
@@ -53,7 +59,14 @@ QString Browser::ContentFolder::text() const
             return i18n( "No other %1" ).arg( _category->text() );
     }
     else {
+      if ( _category->name() == QString::fromLatin1( "Folder" ) ) {
+        QRegExp rx( QString::fromLatin1( "(.*/)(.*)$") );
+        QString value = _value;
+        value.replace( rx, QString::fromLatin1("\\2") );
+        return value;
+      } else {
         return _value;
+      }
     }
 }
 

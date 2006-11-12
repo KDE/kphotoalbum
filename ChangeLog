@@ -1,5 +1,8 @@
 2006-11-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Directories only show the filename part now in the browser
+	category directories. (Thanks to Christoph Moseler)
+
 	* BUGFIX: Finally nailed down the bug where the annotation dialog
 	did not show the first image preview.
 

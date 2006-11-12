@@ -65,12 +65,13 @@ void ImageManager::Manager::loadVideo( ImageRequest* request)
 void ImageManager::Manager::loadImage( ImageRequest* request )
 {
     QMutexLocker dummy( &_lock );
-    if ( _currentLoading && *_currentLoading == *request ) {
+    if ( _currentLoading && *_currentLoading == *request && _loadList.isRequestStillValid( request )) {
+        // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
+        // at startup request the same image numerous time (likely from resize event).
         return; // We are currently loading it, calm down and wait please ;-)
     }
 
     _loadList.addRequest( request );
-
     _sleepers.wakeOne();
 }
 

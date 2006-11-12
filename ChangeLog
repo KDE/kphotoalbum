@@ -1,3 +1,8 @@
+2006-11-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Improved support for the flickr plug-in. Now tags are correctly
+	uploaded. Thanks to Mark Jaroski for a patch.
+
 2006-11-11  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* An item may be member of a number of categories. Mike may be a member of coworkers and friends.

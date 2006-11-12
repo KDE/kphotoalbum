@@ -21,6 +21,7 @@
 #include "Plugins/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
+#include "DB/Category.h"
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {
@@ -51,6 +52,22 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
             res.insert( it.key(), QVariant( QStringList( it.data().toList() ) ) );
         }
     }
+
+    // Flickr plug-in expects the item tags, so we better give them.
+    QString text;
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    QStringList tags;
+    for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+        QString categoryName = (*categoryIt)->name();
+        if ( (*categoryIt)->doShow() ) {
+            StringSet items = _info->itemsOfCategory( categoryName );
+            for( StringSet::Iterator it = items.begin(); it != items.end(); ++it ) {
+                tags.append( *it );
+            }
+        }
+    }
+    QString key = QString::fromLatin1( "tags" );
+    res.insert( key, QVariant( tags ) );
     return res;
 }
 

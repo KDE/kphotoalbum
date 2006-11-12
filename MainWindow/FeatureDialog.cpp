@@ -27,7 +27,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
                   "<p>If you compiled KPhotoAlbum yourself, then please review the sections below to learn what to install "
                   "to get the feature in question. If on the other hand you installed KPhotoAlbum from a binary package, please tell "
-                  "whoever made the package about this defeact, eventually including the information from the section below.<p>"
+                  "whoever made the package about this defect, eventually including the information from the section below.<p>"
 
                   "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
                   "It really isn't that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
@@ -42,7 +42,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     text += i18n( "<h1><a name=\"kipi\">Plug-ins Support</a></h1>"
                  "<p>KPhotoAlbum has a plug-in system with lots of extensions. You may among other things find plug-ins for:"
                   "<ul>"
-                  "<li>Writting images to cds or dvd's"
+                  "<li>Writing images to cds or dvd's"
                   "<li>Adjusting timestamps on your images"
                   "<li>Making a calender with your images in it"
                   "<li>Uploading your images to flickr"
@@ -57,7 +57,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
                   "<p>If you do not care about focal length, ISO speed, etc, then you might well live without these features in KPhotoAlbum, "
                   "be, however, aware that KPhotoAlbum will then use the time stamp of the image files to identify when the image was taken. "
-                  "This time stamp might be wrong in case you moved the image arround for example.</p>"
+                  "This time stamp might be wrong in case you moved the image around for example.</p>"
 
                   "<p>KPhotoAlbum uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
                   "for reading EXIF information from images</p>" );
@@ -66,7 +66,8 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
                   "needs a Sqlite database. Unfortunately, for this to work, you need to run Sqlite version 2.8.16, "
-                  "so please make sure this is the right version installed on your system.</p>" );
+                  "so please make sure the right version is installed on your system."
+                  "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
 
     text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
                  "<p>KPhotoAlbum relies on the KDE plug-in subsystem for support for displaying videos. If this feature is not enabled for you "

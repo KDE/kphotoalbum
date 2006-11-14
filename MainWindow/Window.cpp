@@ -1249,13 +1249,13 @@ void MainWindow::Window::slotSelectionChanged()
 
 void MainWindow::Window::resizeEvent( QResizeEvent* )
 {
-    if ( Settings::SettingsData::ready() )
+    if ( Settings::SettingsData::ready() && isVisible() )
         Settings::SettingsData::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
 }
 
 void MainWindow::Window::moveEvent( QMoveEvent * )
 {
-    if ( Settings::SettingsData::ready() )
+    if ( Settings::SettingsData::ready() && isVisible() )
         Settings::SettingsData::instance()->setWindowGeometry( Settings::MainWindow, geometry() );
 }
 

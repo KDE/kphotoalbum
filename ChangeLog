@@ -1,3 +1,8 @@
+2006-11-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Bugfix: Recent added code to ensure that the splash screen would
+	update timely broke the size of the main dialog.
+
 2006-11-12  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Directories only show the filename part now in the browser

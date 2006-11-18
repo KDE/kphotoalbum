@@ -40,7 +40,7 @@ QPixmap Browser::ImageFolder::pixmap()
 
 QString Browser::ImageFolder::text() const
 {
-    return i18n( "View Images" );
+    return i18n( "Show Thumbnails" );
 }
 
 

@@ -1,3 +1,10 @@
+2006-11-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Fixed problem with windows layout not being read correctly if
+	any category name contains non-latin1 character
+
+====================== Snapshot Wednesday 15/11-2006  ===================================	
+	
 2006-11-14  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Bugfix: Recent added code to ensure that the splash screen would
@@ -46,7 +53,7 @@
 
 	* Improved video backend detection. Thanks to  Robert L Krawitz
 
-====================== Snapshot Tuesdag 7/11-2006  ===================================	
+====================== Snapshot Tuesday 7/11-2006  ===================================	
 
 2006-11-06  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 

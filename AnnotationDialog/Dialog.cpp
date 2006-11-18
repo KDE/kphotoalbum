@@ -560,6 +560,7 @@ int AnnotationDialog::Dialog::exec()
 void AnnotationDialog::Dialog::slotSaveWindowSetup()
 {
     QDomDocument doc;
+    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
     QDomElement top = doc.createElement( QString::fromLatin1( "WindowLayout" ) );
     doc.appendChild( top );
 
@@ -880,7 +881,10 @@ void AnnotationDialog::Dialog::loadWindowLayout()
 
     QFile file( fileName );
     file.open( IO_ReadOnly );
-    QString content = file.readAll();
+    QTextStream stream( &file );
+    stream.setEncoding( QTextStream::UnicodeUTF8 );
+    QString content = stream.read();
+
     QMap<QString,QString> map = DB::Category::standardCategories();
     for ( QMap<QString,QString>::ConstIterator it = map.begin(); it != map.end(); ++it )
         content.replace( it.key(), it.data() );

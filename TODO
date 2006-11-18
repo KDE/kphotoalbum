@@ -1,6 +1,10 @@
 =================
 TODO UTTERLY SOON
 =================
+- Now that we have videos in KPA calculating md5 for the whole file takes a
+long time. Instead I should just do for parts of the file, say the first
+1k, then 10th 1k the 100th 1k etc
+- Also MD5 sum calculation should be done on a thread.
 - The person, location and keywords window are hidden by the main window
 (if torn off) when the mouse moves over the main window (the main window is risen).
 - Its impossible to do multiple selection as part of the same selection in
@@ -40,10 +44,10 @@ Features I like, and wish I would have time to look at some day.
   requiring backup.
 - Choose a default category image, as Jean-Michel suggest (for category
   image of Anne Helene):
-  Pick the first picture with ONLY Anne Helene (itÂ´s likely to be more
+  Pick the first picture with ONLY Anne Helene (it´s likely to be more
   specific to recognize Anne Helene)
-  If it doesnÂ´t work, pick the first picture with Ann Helen
-  If it doesnÂ´t work, the default KDE icon, just like today.
+  If it doesn´t work, pick the first picture with Ann Helen
+  If it doesn´t work, the default KDE icon, just like today.
   The problem here is speed. Currently it is not possible to load these images
   using the image manager, so say 300 images would take approx 1 minute to load.
 -  When no selection is active, pgup/pgdn in the viewer work as if all

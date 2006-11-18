@@ -69,21 +69,30 @@ extern "C" {
 QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
 {
     Q_ASSERT( info );
+
+    const QString linebreak = QString::fromLatin1( "<br/>" );
+
     QString text;
     if ( Settings::SettingsData::instance()->showFilename() )
-      text = i18n("<b>File Name: </b> ") + info->fileName() + QString::fromLatin1("<br>");
+        text = i18n("<b>File Name: </b> ") + info->fileName() + linebreak;
+
     if ( Settings::SettingsData::instance()->showDate() )  {
-        QString dateText = info->date().toString( true );
+        const QString dateText = info->date().toString( true );
 
         if ( !dateText.isEmpty() ) {
-	    text += i18n("<b>Date: </b> ") + dateText + QString::fromLatin1("<br>");
+            text += i18n("<b>Date: </b> ") + dateText + linebreak;
         }
     }
+
     if ( Settings::SettingsData::instance()->showImageSize() )  {
-        QSize imageSize = info->size();
+        const QSize imageSize = info->size();
+	const double megapix = imageSize.width() * imageSize.height() / 1000000.0;
 	text += i18n("<b>Image Size: </b> ") +
-	  QString::number(imageSize.width()) + i18n("x") +
-	  QString::number(imageSize.height()) + QString::fromLatin1("<br>");
+            QString::number(imageSize.width()) + i18n("x") +
+            QString::number(imageSize.height()) +
+            QString::fromLatin1(" (") + QString::number(megapix, 'f', 1) +
+            i18n("MP") + QString::fromLatin1(")") +
+            linebreak;
     }
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -110,14 +119,14 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                     else
                         text += item;
                 }
-                text += QString::fromLatin1( "<br>" );
+                text += linebreak;
             }
         }
     }
 
     if ( Settings::SettingsData::instance()->showDescription() && !info->description().isEmpty())  {
         if ( !text.isEmpty() )
-            text += i18n("<b>Description: </b> ") +  info->description() + QString::fromLatin1("<br>");
+            text += i18n("<b>Description: </b> ") +  info->description() + linebreak;
     }
 
 #ifdef HASEXIV2

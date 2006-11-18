@@ -1,5 +1,7 @@
 2006-11-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Show mega pixel in info box, and zoom factor in viewer, thx to Henner Zeller
+
 	* Fixed problem with windows layout not being read correctly if
 	any category name contains non-latin1 character
 

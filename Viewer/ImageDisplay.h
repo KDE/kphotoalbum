@@ -79,6 +79,7 @@ protected slots:
 
 signals:
     void possibleChange();
+    void setCaptionInfo(const QString& info);
 
 protected:
     virtual void mousePressEvent( QMouseEvent* event );
@@ -93,6 +94,9 @@ protected:
     void updatePreload();
     int indexOf( const QString& fileName );
     void requestImage( const DB::ImageInfoPtr& info );
+
+    /** display zoom factor in title of display window */
+    void updateZoomCaption();
 
     friend class DrawHandler;
     friend class ViewHandler;

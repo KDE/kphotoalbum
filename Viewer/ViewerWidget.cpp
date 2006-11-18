@@ -92,6 +92,8 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
+    connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ), 
+             this, SLOT( setCaptionWithDetail(const QString&) ) );
     createToolBar();
     _toolbar->hide();
 
@@ -414,7 +416,7 @@ void Viewer::ViewerWidget::load()
         return;
     }
 
-    setCaption( QString::fromLatin1( "KPhotoAlbum - %1" ).arg( currentInfo()->fileName() ) );
+    setCaptionWithDetail( QString() );
     updateInfoBox();
 
     // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
@@ -427,6 +429,12 @@ void Viewer::ViewerWidget::load()
 
     if ( _isRunningSlideShow )
         _slideShowTimer->changeInterval( _slideShowPause );
+}
+
+void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
+    setCaption( QString::fromLatin1( "KPhotoAlbum - %1 %2" )
+                .arg( currentInfo()->fileName() ) 
+                .arg( detail ) );
 }
 
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )

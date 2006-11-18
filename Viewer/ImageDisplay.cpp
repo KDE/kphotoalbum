@@ -19,6 +19,7 @@
 
 #include "Viewer/ImageDisplay.h"
 #include <qpainter.h>
+#include <klocale.h>
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
 #include "Viewer/DrawHandler.h"
@@ -335,10 +336,25 @@ void Viewer::ImageDisplay::cropAndScale()
     else
         _croppedAndScaledImg = _loadedImage;
 
+    updateZoomCaption();
+
     if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
         _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
 
     drawAll();
+}
+
+void Viewer::ImageDisplay::updateZoomCaption() {
+    const QSize imgSize = _loadedImage.size();
+    // similar to sizeRatio(), but we take the _highest_ factor.
+    double ratio = ((double)imgSize.width())/(_zEnd.x()-_zStart.x());
+    if ( ratio * (_zEnd.y()-_zStart.y()) < imgSize.height() ) {
+        ratio = ((double)imgSize.height())/(_zEnd.y()-_zStart.y());
+    }
+    
+    emit setCaptionInfo((ratio > 1.05)
+                        ? i18n("[ zoom x%1 ]").arg(ratio, 0, 'f', 1)
+                        : QString());
 }
 
 void Viewer::ImageDisplay::doShowDrawings()

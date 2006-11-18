@@ -142,6 +142,9 @@ protected slots:
     void pause();
     void restart();
 
+    /** Set the current window title (filename) and add the given detail */
+    void setCaptionWithDetail( const QString& detail );
+
 private:
     static ViewerWidget* _latest;
 

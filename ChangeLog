@@ -1,3 +1,8 @@
+2006-11-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Do not show image size for videos (currently there are not way
+	to get that information from the KDE video subsystem)
+
 2006-11-18  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Show mega pixel in info box, and zoom factor in viewer, thx to Henner Zeller

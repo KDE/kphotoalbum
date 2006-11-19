@@ -576,8 +576,7 @@ void Settings::SettingsDialog::slotNewItem()
 
 void Settings::SettingsDialog::slotDeleteCurrent()
 {
-    int answer = KMessageBox::Yes;
-    KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->text()) );
+    int answer = KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->text()) );
     if ( answer == KMessageBox::No )
         return;
 

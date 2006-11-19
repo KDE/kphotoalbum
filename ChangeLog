@@ -1,5 +1,9 @@
 2006-11-19  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Bugfix: In the settings dialog you were asked if you really
+	wanted to delete a category. Despite your answer it would be
+	deleted nevertheless. (Thanks to Baptiste Mathus for finding this).
+
 	* Do not show image size for videos (currently there are not way
 	to get that information from the KDE video subsystem)
 

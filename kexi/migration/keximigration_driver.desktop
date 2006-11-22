@@ -17,6 +17,7 @@ Comment[pt]=Controlador de Migração de Dados do Kexi
 Comment[pt_BR]=Driver para migração de dados do Kexi
 Comment[sv]=Kexi dataövergångsdrivrutin
 Comment[tr]=Kexi Veri Aktarma Sürücüsü
+Comment[uk]=Драйвер міграції даних для Kexi
 
 [PropertyDef::X-Kexi-FileMigrationDriverMime]
 Type=QString

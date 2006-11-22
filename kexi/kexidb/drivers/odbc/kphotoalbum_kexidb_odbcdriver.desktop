@@ -17,6 +17,7 @@ Comment[sr]=Драјвер за Kexi за повезивање са ODB-ом
 Comment[sv]=Kexi-drivrutin för öppen databasanslutning
 Comment[ta]=Kexi திறக்கும் தரவுத்தள இணைப்பு இயக்கி
 Comment[tr]=Kexi Açık Veritabanı Bağlantı Sürücüsü
+Comment[uk]=Драйвер Open Database Connectivity для Kexi
 X-KDE-Library=kexidb_odbcdriver
 ServiceTypes=Kexi/DBDriver
 Type=Service

@@ -54,9 +54,9 @@ QString Browser::ContentFolder::text() const
 {
     if ( _value == DB::ImageDB::NONE() ) {
         if ( _info.option(_category->name()) == DB::ImageDB::NONE() )
-            return i18n( "No %1" ).arg( _category->text() );
+            return i18n( "None" );
         else
-            return i18n( "No other %1" ).arg( _category->text() );
+            return i18n( "No other" );
     }
     else {
       if ( _category->name() == QString::fromLatin1( "Folder" ) ) {

@@ -123,7 +123,7 @@ void KexiDB::getHTMLErrorMesage(Object* obj, QString& msg, QString &details)
 	//lower level message is added to the details, if there is alread message specified
 	if (!obj->msgTitle().isEmpty())
 		msg += "<p>" + obj->msgTitle();
-	
+
 	if (msg.isEmpty())
 		msg = "<p>" + obj->errorMsg();
 	else
@@ -145,17 +145,17 @@ void KexiDB::getHTMLErrorMesage(Object* obj, QString& msg, QString &details)
 	}
 	if (!serverResultName.isEmpty())
 		details += (QString("<p><b><nobr>")+i18n("Server result name:")+"</nobr></b><br>"+serverResultName);
-	if (!details.isEmpty() 
+	if (!details.isEmpty()
 		&& (!obj->serverErrorMsg().isEmpty() || !obj->recentSQLString().isEmpty() || !serverResultName.isEmpty() || serverResult!=0) )
 	{
 		details += (QString("<p><b><nobr>")+i18n("Server result number:")+"</nobr></b><br>"+QString::number(serverResult));
 	}
 
-	if (!details.isEmpty() && !details.startsWith("<qt>")) {
+	if (!details.isEmpty() && !details.startsWith("<p>")) {
 		if (details.startsWith("<p>"))
-			details = QString::fromLatin1("<qt>")+details;
+			details = QString::fromLatin1("<p>")+details;
 		else
-			details = QString::fromLatin1("<qt><p>")+details;
+			details = QString::fromLatin1("<p>")+details;
 	}
 }
 
@@ -209,7 +209,7 @@ TableOrQuerySchema::TableOrQuerySchema(Connection *conn, int id)
 	m_table = conn->tableSchema(id);
 	m_query = m_table ? 0 : conn->querySchema(id);
 	if (!m_table && !m_query)
-		kdWarning() << "TableOrQuery(Connection *conn, int id) : no table or query found for id==" 
+		kdWarning() << "TableOrQuery(Connection *conn, int id) : no table or query found for id=="
 			<< id << "!" << endl;
 }
 
@@ -233,7 +233,7 @@ const QueryColumnInfo::Vector TableOrQuerySchema::columns(bool unique)
 {
 	if (m_table)
 		return m_table->query()->fieldsExpanded();
-	
+
 	if (m_query)
 		return m_query->fieldsExpanded(unique);
 
@@ -272,7 +272,7 @@ QueryColumnInfo* TableOrQuerySchema::columnInfo(const QString& name)
 {
 	if (m_table)
 		return m_table->query()->columnInfo(name);
-	
+
 	if (m_query)
 		return m_query->columnInfo(name);
 
@@ -345,7 +345,7 @@ void ConnectionTestThread::run()
 		delete conn;
 		return;
 	}
-	// SQL database backends like PostgreSQL require executing "USE database" 
+	// SQL database backends like PostgreSQL require executing "USE database"
 	// if we really want to know connection to the server succeeded.
 	QString tmpDbName;
 	if (!conn->useTemporaryDatabaseIfNeeded( tmpDbName )) {
@@ -357,11 +357,11 @@ void ConnectionTestThread::run()
 	m_dlg->error(0);
 }
 
-ConnectionTestDialog::ConnectionTestDialog(QWidget* parent, 
+ConnectionTestDialog::ConnectionTestDialog(QWidget* parent,
 	const KexiDB::ConnectionData& data,
 	KexiDB::MessageHandler& msgHandler)
  : KProgressDialog(parent, "testconn_dlg",
-	i18n("Test Connection"), i18n("<qt>Testing connection to <b>%1</b> database server...</qt>")
+	i18n("Test Connection"), i18n("<p>Testing connection to <b>%1</b> database server...</p>")
 	.arg(data.serverInfoString(true)), true /*modal*/)
  , m_thread(new ConnectionTestThread(this, data))
  , m_connData(data)
@@ -414,14 +414,14 @@ void ConnectionTestDialog::slotTimeout()
 			m_errorObj = 0;
 		}
 		else if (notResponding) {
-			KMessageBox::sorry(0, 
-				i18n("<qt>Test connection to <b>%1</b> database server failed. The server is not responding.</qt>")
+			KMessageBox::sorry(0,
+				i18n("<p>Test connection to <b>%1</b> database server failed. The server is not responding.</p>")
 					.arg(m_connData.serverInfoString(true)),
 				i18n("Test Connection"));
 		}
 		else {
-			KMessageBox::information(0, 
-				i18n("<qt>Test connection to <b>%1</b> database server established successfully.</qt>")
+			KMessageBox::information(0,
+				i18n("<p>Test connection to <b>%1</b> database server established successfully.</p>")
 					.arg(m_connData.serverInfoString(true)),
 				i18n("Test Connection"));
 		}
@@ -458,7 +458,7 @@ void ConnectionTestDialog::slotCancel()
 	KProgressDialog::slotCancel();
 }
 
-void KexiDB::connectionTestDialog(QWidget* parent, const KexiDB::ConnectionData& data, 
+void KexiDB::connectionTestDialog(QWidget* parent, const KexiDB::ConnectionData& data,
 	KexiDB::MessageHandler& msgHandler)
 {
 	ConnectionTestDialog dlg(parent, data, msgHandler);
@@ -474,8 +474,8 @@ int KexiDB::rowCount(const KexiDB::TableSchema& tableSchema)
 	}
 	int count = -1; //will be changed only on success of querySingleNumber()
 	tableSchema.connection()->querySingleNumber(
-		QString::fromLatin1("SELECT COUNT() FROM ") 
-		+ tableSchema.connection()->driver()->escapeIdentifier(tableSchema.name()), 
+		QString::fromLatin1("SELECT COUNT() FROM ")
+		+ tableSchema.connection()->driver()->escapeIdentifier(tableSchema.name()),
 		count
 	);
 	return count;
@@ -490,7 +490,7 @@ int KexiDB::rowCount(KexiDB::QuerySchema& querySchema)
 	}
 	int count = -1; //will be changed only on success of querySingleNumber()
 	querySchema.connection()->querySingleNumber(
-		QString::fromLatin1("SELECT COUNT() FROM (") 
+		QString::fromLatin1("SELECT COUNT() FROM (")
 		+ querySchema.connection()->selectStatement(querySchema) + ")",
 		count
 	);
@@ -547,7 +547,7 @@ void KexiDB::fromMap( const QMap<QString,QString>& map, ConnectionData& data )
 	data.setFileName(map["fileName"]);
 }
 
-bool KexiDB::splitToTableAndFieldParts(const QString& string, 
+bool KexiDB::splitToTableAndFieldParts(const QString& string,
 	QString& tableName, QString& fieldName,
 	SetFieldNameIfNoTableNameOptions option)
 {

@@ -81,8 +81,8 @@ void Viewer::DrawList::load( QDomElement elm )
             append( new CircleDraw( child ) );
         }
         else {
-            KMessageBox::error( 0, i18n("<qt><p>Unexpected element in configuration file: %1</p>"
-                                        "<p>Expected one of: Line, Rectangle, Circle as sub element to Drawings</p></qt>" )
+            KMessageBox::error( 0, i18n("<p>Unexpected element in configuration file: %1</p>"
+                                        "<p>Expected one of: Line, Rectangle, Circle as sub element to Drawings</p>" )
                                 .arg(tag) );
         }
     }

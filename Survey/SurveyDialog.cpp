@@ -127,7 +127,7 @@ QWidget* Survey::SurveyDialog::createStackItem( Question* question, int count )
     // Title
     QVBoxLayout* vlay = new QVBoxLayout( w, 6 );
     QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
-    QLabel* title = new QLabel( QString::fromLatin1("<qt><h1>%1</h1></qt>").arg(question->title()), w );
+    QLabel* title = new QLabel( QString::fromLatin1("<h1>%1</h1>").arg(question->title()), w );
     hlay->addWidget( title, 1 );
 
     // Progress

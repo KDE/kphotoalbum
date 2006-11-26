@@ -330,9 +330,9 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     // -------------------------------------------------- exec
     int which = menu.exec( pos );
     if ( which == 1 ) {
-        int code = KMessageBox::warningContinueCancel( this, i18n("<qt>Do you really want to delete \"%1\"?<br>"
+        int code = KMessageBox::warningContinueCancel( this, i18n("<p>Do you really want to delete \"%1\"?<br>"
                                                                   "Deleting the item will remove any information "
-                                                                  "about it from any image containing the item.</qt>")
+                                                                  "about it from any image containing the item.</p>")
                                                        .arg(item->text(0)),
                                                        i18n("Really Delete %1?").arg(item->text(0)),
                                                        KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
@@ -347,9 +347,9 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
                                                 item->text(0), &ok, this );
 
         if ( ok && newStr != item->text(0) ) {
-            int code = KMessageBox::questionYesNo( this, i18n("<qt>Do you really want to rename \"%1\" to \"%2\"?<br>"
+            int code = KMessageBox::questionYesNo( this, i18n("<p>Do you really want to rename \"%1\" to \"%2\"?<br>"
                                                               "Doing so will rename \"%3\" "
-                                                              "on any image containing it.</qt>")
+                                                              "on any image containing it.</p>")
                                                .arg(item->text(0)).arg(newStr).arg(item->text(0)),
                                                i18n("Really Rename %1?").arg(item->text(0)) );
             if ( code == KMessageBox::Yes ) {

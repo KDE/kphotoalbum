@@ -258,19 +258,19 @@ bool HTMLDialog::checkVars()
     // Ensure base dir is specified
     QString baseDir = _baseDir->text();
     if ( baseDir.isEmpty() ) {
-        KMessageBox::error( this, i18n("<qt>You did not specify a base directory. "
+        KMessageBox::error( this, i18n("<p>You did not specify a base directory. "
                                        "This is the topmost directory for your images. "
                                        "Under this directory you will find each generated collection "
-                                       "in separate directories.</qt>"),
+                                       "in separate directories.</p>"),
                             i18n("No Base Directory Specified") );
         return false;
     }
 
     // ensure output directory is specified
     if ( _outputDir->text().isEmpty() ) {
-        KMessageBox::error( this, i18n("<qt>You did not specify an output directory. "
+        KMessageBox::error( this, i18n("<p>You did not specify an output directory. "
                                        "This is a directory containing the actual images. "
-                                       "The directory will be in the base directory specified above.</qt>"),
+                                       "The directory will be in the base directory specified above.</p>"),
                             i18n("No Output Directory Specified") );
         return false;
     }
@@ -283,16 +283,16 @@ bool HTMLDialog::checkVars()
     bool ok = KIO::NetAccess::stat( KURL(baseDir), result );
 #endif
     if ( !ok ) {
-        KMessageBox::error( this, i18n("<qt>Error while reading information about %1. "
-                                       "This is most likely because the directory does not exist.</qt>")
+        KMessageBox::error( this, i18n("<p>Error while reading information about %1. "
+                                       "This is most likely because the directory does not exist.</p>")
                             .arg( baseDir ) );
         return false;
     }
 
     KFileItem fileInfo( result, KURL(baseDir) );
     if ( !fileInfo.isDir() ) {
-        KMessageBox::error( this, i18n("<qt>%1 does not exist, is not a directory or "
-                                       "cannot be written to.</qt>").arg( baseDir ) );
+        KMessageBox::error( this, i18n("<p>%1 does not exist, is not a directory or "
+                                       "cannot be written to.</p>").arg( baseDir ) );
         return false;
     }
 
@@ -305,9 +305,9 @@ bool HTMLDialog::checkVars()
 #endif
     if ( exists ) {
         int answer = KMessageBox::warningYesNo( this,
-                                                i18n("<qt><p>Output directory %1 already exists. "
+                                                i18n("<p>Output directory %1 already exists. "
                                                      "Usually you should specify a new directory.</p>"
-                                                     "Should I delete %2 first?</qt>").arg( outputDir ).arg( outputDir ),
+                                                     "<p>Should I delete %2 first?</p>").arg( outputDir ).arg( outputDir ),
                                                 i18n("Directory Exists"), KStdGuiItem::yes(), KStdGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {

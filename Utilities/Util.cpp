@@ -291,7 +291,7 @@ QString Utilities::readInstalledFile( const QString& fileName )
 {
     QString inFileName = locate( "data", QString::fromLatin1( "kphotoalbum/%1" ).arg( fileName ) );
     if ( inFileName.isEmpty() ) {
-        KMessageBox::error( 0, i18n("<qt>Unable to find kphotoalbum/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</qt>").arg( fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
+        KMessageBox::error( 0, i18n("<p>Unable to find kphotoalbum/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</p>").arg( fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
         return QString::null;
     }
 
@@ -348,7 +348,7 @@ bool Utilities::canReadImage( const QString& fileName )
 QString Utilities::readFile( const QString& fileName )
 {
     if ( fileName.isEmpty() ) {
-        KMessageBox::error( 0, i18n("<qt>Unable to find file %1</qt>").arg( fileName ) );
+        KMessageBox::error( 0, i18n("<p>Unable to find file %1</p>").arg( fileName ) );
         return QString::null;
     }
 

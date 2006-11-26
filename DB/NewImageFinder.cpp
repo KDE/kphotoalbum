@@ -77,9 +77,9 @@ void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString 
 
 void NewImageFinder::loadExtraFiles()
 {
-    QProgressDialog  dialog( i18n("<qt><p><b>Loading information from images</b></p>"
+    QProgressDialog  dialog( i18n("<p><b>Loading information from images</b></p>"
                                   "<p>Depending on the number of images, this may take some time.<br/>"
-                                  "However, there is only a delay when new images are found.</p></qt>"),
+                                  "However, there is only a delay when new images are found.</p>"),
                              i18n("&Cancel"), _pendingLoad.count() );
     int count = 0;
     ImageInfoList newImages;
@@ -147,9 +147,9 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
 bool  NewImageFinder::calculateMD5sums( const QStringList& list )
 {
-    QProgressDialog dialog( i18n("<qt><p><b>Calculating checksum for %1 images<b></p>"
+    QProgressDialog dialog( i18n("<p><b>Calculating checksum for %1 images<b></p>"
                                  "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
-                                 "even when you have moved them on the disk.</p></qt>").arg( list.count() ), i18n("&Cancel"), list.count() );
+                                 "even when you have moved them on the disk.</p>").arg( list.count() ), i18n("&Cancel"), list.count() );
 
     int count = 0;
     bool dirty = false;

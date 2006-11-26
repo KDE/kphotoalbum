@@ -434,8 +434,8 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
                 result->addDrawing( childElm );
             }
             else {
-                KMessageBox::error( 0, i18n("<qt><p>Unknown tag %1, while reading configuration file.</p>"
-                                            "<p>Expected one of: Options, Drawings</p></qt>" ).arg( childElm.tagName() ) );
+                KMessageBox::error( 0, i18n("<p>Unknown tag %1, while reading configuration file.</p>"
+                                            "<p>Expected one of: Options, Drawings</p>" ).arg( childElm.tagName() ) );
             }
         }
     }

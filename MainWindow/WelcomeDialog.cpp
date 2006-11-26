@@ -51,7 +51,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
                                "then simply choose the <b>Load Demo</b> "
                                "button. You may get to this demo at a later time from the <b>Help</b> menu.</p>"
                                "<p>Alternatively you may start making you own database of images, simply by pressing the "
-                               "<b>Create my own database</b> button") );
+                               "<b>Create my own database</b> button.") );
 
     QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
     lay3->addStretch( 1 );
@@ -88,10 +88,10 @@ QString WelComeDialog::configFileName() const
 FileDialog::FileDialog( QWidget* parent, const char* name ) :QDialog( parent, name, true )
 {
     QVBoxLayout* lay1 = new QVBoxLayout( this, 6 );
-    QLabel* label = new QLabel( i18n("<qt><p>KPhotoAlbum requires that all your images are stored with a common root directory. "
+    QLabel* label = new QLabel( i18n("<p>KPhotoAlbum requires that all your images are stored with a common root directory. "
                                      "You are allowed to store your images in a directory tree under this directory. "
                                      "KPhotoAlbum will not modify or edit any of your images, so you can simply point KPhotoAlbum to the "
-                                     "directory where you already have all your images located.</p></qt>" ), this );
+                                     "directory where you already have all your images located.</p>" ), this );
     lay1->addWidget( label );
 
     QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );

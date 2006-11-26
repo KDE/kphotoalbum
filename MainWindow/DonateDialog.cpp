@@ -38,7 +38,7 @@ DonateDialog::DonateDialog( QWidget* parent, const char* name )
     image->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
     layout->addWidget( image );
 
-    QString txt = i18n("<qt><p><center><b>Donate Money</b></center></p>"
+    QString txt = i18n("<p><center><b>Donate Money</b></center></p>"
 
                        "<p>KPhotoAlbum is in the order of magniture 2 man years of work in my spare time. "
                        "This work is completely unpaid, and I do it just for the fun of it. "
@@ -46,7 +46,7 @@ DonateDialog::DonateDialog( QWidget* parent, const char* name )
                        "<p>The money is likely used for one of these things:"
                        "<ul><li>Buying something cool for my camera (which makes me want to "
                        "adapt KPhotoAlbum to using that new feature (EXIF support and video support are two good examples of this)."
-                       "<li>KPhotoAlbum PR (the splashscreen contest is a good example of that).</ul></p></qt>");
+                       "<li>KPhotoAlbum PR (the splashscreen contest is a good example of that).</ul></p>");
     QLabel* label = new QLabel( txt, top );
     layout->addWidget( label );
     setButtonText( User1, i18n("Donate") );

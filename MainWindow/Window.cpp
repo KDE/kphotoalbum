@@ -262,11 +262,11 @@ void MainWindow::Window::delayedInit()
 bool MainWindow::Window::slotExit()
 {
     if ( Utilities::runningDemo() ) {
-        QString txt = i18n("<fqt><p><b>Delete Your Temporary Demo Database</b></p>"
+        QString txt = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
                            "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
                            "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
                            "on the other hand, if you want to come back and try the demo again, you "
-                           "might want to keep it around with the changes you made through this session.</p></qt>" );
+                           "might want to keep it around with the changes you made through this session.</p>" );
         int ret = KMessageBox::questionYesNoCancel( this, txt, i18n("Delete Demo Database"),
                                                     KStdGuiItem::yes(), KStdGuiItem::no(),
                                                     QString::fromLatin1("deleteDemoDatabase") );
@@ -890,7 +890,7 @@ void MainWindow::Window::setDefaultScopeNegative()
 void MainWindow::Window::lockToDefaultScope()
 {
     int i = KMessageBox::warningContinueCancel( this,
-                                                i18n( "<qt><p>The password protection is only a means of allowing your little sister "
+                                                i18n( "<p>The password protection is only a means of allowing your little sister "
                                                       "to look in your images, without getting to those embarrassing images from "
                                                       "your last party.</p>"
                                                       "<p>In other words, anyone with access to the index.xml file can easily "
@@ -1111,8 +1111,8 @@ void MainWindow::Window::slotExport()
 
 void MainWindow::Window::slotReenableMessages()
 {
-    int ret = KMessageBox::questionYesNo( this, i18n("<qt><p>Really enable all messageboxes where you previously "
-                                                     "checked the do-not-show-again check box?</p></qt>" ) );
+    int ret = KMessageBox::questionYesNo( this, i18n("<p>Really enable all messageboxes where you previously "
+                                                     "checked the do-not-show-again check box?</p>" ) );
     if ( ret == KMessageBox::Yes )
         KMessageBox::enableAllMessages();
 
@@ -1373,7 +1373,7 @@ void MainWindow::Window::convertBackend()
         KProgressDialog dialog(this);
         dialog.setModal(true);
         dialog.setCaption(i18n("Converting database"));
-        dialog.setLabel(QString::fromLatin1("<qt><p><b><nobr>%1</nobr></b></p><p>%2</p></qt>")
+        dialog.setLabel(QString::fromLatin1("<p><b><nobr>%1</nobr></b></p><p>%2</p>")
                         .arg(i18n("Converting database to SQL."))
                         .arg(i18n("Please wait.")));
         dialog.setAllowCancel(false);

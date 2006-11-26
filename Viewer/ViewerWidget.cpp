@@ -92,7 +92,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
-    connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ), 
+    connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ),
              this, SLOT( setCaptionWithDetail(const QString&) ) );
     createToolBar();
     _toolbar->hide();
@@ -433,7 +433,7 @@ void Viewer::ViewerWidget::load()
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
     setCaption( QString::fromLatin1( "KPhotoAlbum - %1 %2" )
-                .arg( currentInfo()->fileName() ) 
+                .arg( currentInfo()->fileName() )
                 .arg( detail ) );
 }
 
@@ -744,7 +744,7 @@ void Viewer::ViewerWidget::updateInfoBox()
     if ( currentInfo() ) {
         QMap<int, QPair<QString,QString> > map;
         QString origText = Utilities::createInfoText( currentInfo(), &map );
-        QString text = QString::fromLatin1("<qt>") + origText + QString::fromLatin1("</qt>");
+        QString text = QString::fromLatin1("<p>") + origText + QString::fromLatin1("</p>");
         if ( Settings::SettingsData::instance()->showInfoBox() && !origText.isNull() ) {
             _infoBox->setInfo( text, map );
             _infoBox->show();

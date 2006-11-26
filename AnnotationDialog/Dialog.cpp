@@ -660,7 +660,7 @@ void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const Q
 void AnnotationDialog::Dialog::reject()
 {
     if ( hasChanges() ) {
-        int code =  KMessageBox::questionYesNo( this, i18n("<qt>Changes made to image info, really cancel?</qt>") );
+        int code =  KMessageBox::questionYesNo( this, i18n("<p>Changes made to image info, really cancel?</p>") );
         if ( code == KMessageBox::No )
             return;
     }
@@ -768,20 +768,20 @@ void AnnotationDialog::Dialog::showHelpDialog( UsageMode type )
     QString txt;
     if ( type == SearchMode ) {
         doNotShowKey = QString::fromLatin1( "image_config_search_show_help" );
-        txt = i18n( "<qt><p>You have just opened the advanced search dialog; to get the most out of it, "
+        txt = i18n( "<p>You have just opened the advanced search dialog; to get the most out of it, "
                     "it is suggested that you read the section in the manual on <a href=\"help:/kphotoalbum/sect-general-image-searches.html\">"
                     "advanced searching</a>.</p>"
                     "<p>This dialog is also used for typing in information about images; you can find "
                     "extra tips on its usage by reading about "
-                    "<a href=\"help:/kphotoalbum/chp-typingIn.html\">typing in</a>.</p></qt>" );
+                    "<a href=\"help:/kphotoalbum/chp-typingIn.html\">typing in</a>.</p>" );
     }
     else {
         doNotShowKey = QString::fromLatin1( "image_config_typein_show_help" );
-        txt = i18n("<qt><p>You have just opened one of the most important windows in KPhotoAlbum; "
+        txt = i18n("<p>You have just opened one of the most important windows in KPhotoAlbum; "
                    "it contains lots of functionality which has been optimized for fast usage.<p>"
                    "<p>It is strongly recommended that you take 5 minutes to read the "
                    "<a href=\"help:/kphotoalbum/chp-typingIn.html\">documentation for this "
-                   "dialog</a></p></qt>" );
+                   "dialog</a></p>" );
     }
 
 

@@ -17,12 +17,12 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     yesNoList << i18n("Yes") << i18n("No");
 
     QString txt
-        = i18n("<qt><p>This is the KPhotoAlbum survey, its intention is to make KPhotoAlbum fit the need <i>you</i> may have.</p>"
+        = i18n("<p>This is the KPhotoAlbum survey, its intention is to make KPhotoAlbum fit the need <i>you</i> may have.</p>"
                "I have spent most of my sparetime on KPhotoAlbum the last three and a half year, so I'd be really happy if you "
                "could spent the next five to ten minute telling me what you think about it, and giving me some "
                "feedback on which part of the application you are using.</p>"
                "<p>At any time you may quit the survey and get back to it later, it will remember your answers</p>"
-               "<p align=\"right\">Thanks in advance - Jesper</p></qt>");
+               "<p align=\"right\">Thanks in advance - Jesper</p>");
 
     Survey::InfoPage* front = new Survey::InfoPage( QString::fromLatin1("KPhotoAlbum"), txt, Survey::InfoPage::Front, this );
     setFrontPage( front );
@@ -104,16 +104,16 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
 
     new Survey::TextQuestion( QString::fromLatin1( "Comment" ),
                               i18n("General Comments"),
-                              i18n("<qt>If you have any comments that you would like to make, here would be a good place. "
+                              i18n("<p>If you have any comments that you would like to make, here would be a good place. "
                                    "comments like <i>This is really an awesome piece of software, how did I live without</i> "
                                    "is of course very welcome, but I'd also like to know if you see a feature missing that "
-                                   "would prevent you from getting your best friend using KPhotoAlbum.</qt>"), this );
+                                   "would prevent you from getting your best friend using KPhotoAlbum.</p>"), this );
 
-    txt = i18n("<qt><p>Thank you very much for your time, I hope you will continue using KPhotoAlbum for many years to come, "
+    txt = i18n("<p>Thank you very much for your time, I hope you will continue using KPhotoAlbum for many years to come, "
                "and that future versions will fit your purpose even better than it does today.</p>"
                "Finally, allow me to ask you to consider giving a donation. "
                "See the Help->Donation menu on how to make a donation.</p>"
-               "<p align=\"right\">Once again thanks for filling out this survey - Jesper</p></qt>");
+               "<p align=\"right\">Once again thanks for filling out this survey - Jesper</p>");
 
     Survey::InfoPage* back = new Survey::InfoPage( QString::fromLatin1("KPhotoAlbum"), txt, Survey::InfoPage::Back, this );
     setBackPage( back );

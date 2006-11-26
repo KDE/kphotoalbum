@@ -51,7 +51,7 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
 
 int DeleteDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<qt><b><center><font size=\"+3\">Delete Images<br>%1 selected</font></center></b></qt>").arg( list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images<br>%1 selected</font></center></b></p>").arg( list.count() ) );
 
     _deleteFromDisk->setChecked( true );
     _block->setChecked( false );

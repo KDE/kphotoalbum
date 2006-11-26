@@ -29,9 +29,9 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
     QVBoxLayout* vlay = new QVBoxLayout( this, 6 );
     QLabel* title;
     if ( location == Front )
-        title = new QLabel( i18n( "<qt><h1>%1 Survey</h1></qt>" ).arg( appName ), this );
+        title = new QLabel( i18n( "<h1>%1 Survey</h1>" ).arg( appName ), this );
     else
-        title = new QLabel( i18n( "<qt><h1>%1 Survey Completed</h1></qt>" ).arg( appName ), this );
+        title = new QLabel( i18n( "<h1>%1 Survey Completed</h1>" ).arg( appName ), this );
     title->setSizePolicy( QSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed ) );
     vlay->addWidget( title );
 

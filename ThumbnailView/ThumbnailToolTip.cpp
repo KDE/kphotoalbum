@@ -68,12 +68,12 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
             setText( QString::null );
             int size = Settings::SettingsData::instance()->previewSize();
             if ( size != 0 ) {
-                setText( QString::fromLatin1("<qt><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></qt>")
+                setText( QString::fromLatin1("<p><table cols=\"2\"><tr><td><img src=\"%1\"></td><td>%2</td></tr></p>")
                          .arg(fileName).
                          arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             else {
-                setText( QString::fromLatin1("<qt>%1</qt>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
+                setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
         }
 

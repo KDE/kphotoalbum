@@ -62,7 +62,7 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
 
 int Exif::ReReadDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<qt><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></qt>").arg( list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></p>").arg( list.count() ) );
 
     _exifDB->setChecked( true);
     _date->setChecked( false );
@@ -98,8 +98,8 @@ void Exif::ReReadDialog::readInfo()
 void Exif::ReReadDialog::showFileList()
 {
     int i = KMessageBox::warningContinueCancelList( this,
-                                                    i18n( "<qt><b>%1 files</b> are affected by this operation, their filenames "
-                                                          "can be seen in the list below.</p></qt>").arg(_list.count()), _list,
+                                                    i18n( "<p><b>%1 files</b> are affected by this operation, their filenames "
+                                                          "can be seen in the list below.</p>").arg(_list.count()), _list,
                                                     i18n("Files affected"),
                                                     KStdGuiItem::cont(),
                                                     QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
@@ -112,9 +112,9 @@ void Exif::ReReadDialog::warnAboutDates( bool b )
     if ( !b )
         return;
 
-    int ret = KMessageBox::warningYesNo( this, i18n("<qt><p>Be aware that setting the data from EXIF may "
+    int ret = KMessageBox::warningYesNo( this, i18n("<p>Be aware that setting the data from EXIF may "
                                                     "<b>overwrite</b> data you have previously entered "
-                                                    "manually using the image configuration dialog.</p></qt>" ),
+                                                    "manually using the image configuration dialog.</p>" ),
                                          i18n( "Override image dates" ) );
     if ( ret == KMessageBox::No )
         _date->setChecked( false );

@@ -44,7 +44,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "<ul>"
                   "<li>Writing images to cds or dvd's"
                   "<li>Adjusting timestamps on your images"
-                  "<li>Making a calender with your images in it"
+                  "<li>Making a calender featuring your images"
                   "<li>Uploading your images to flickr"
                   "</ul></p>"
 
@@ -52,15 +52,11 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "<a href=\"http://extragear.kde.org/apps/kipi/\">KIPI Home page</a></p>" );
 
     text += i18n( "<h1><a name=\"exiv2\">EXIF support</a></h1>"
-                  "<p>Images store information like date image was shot, angle it was shot with, focal length, and shutter time "
+                  "<p>Images store information like the date the image was shot, the shooting angle, focal length, and shutter-speed "
                   "in what is know as EXIF information.</p>"
 
-                  "<p>If you do not care about focal length, ISO speed, etc, then you might well live without these features in KPhotoAlbum, "
-                  "be, however, aware that KPhotoAlbum will then use the time stamp of the image files to identify when the image was taken. "
-                  "This time stamp might be wrong in case you moved the image around for example.</p>"
-
                   "<p>KPhotoAlbum uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
-                  "for reading EXIF information from images</p>" );
+                  "to read EXIF information from images</p>" );
 
 
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"

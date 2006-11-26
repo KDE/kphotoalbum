@@ -191,7 +191,7 @@ Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
 void Exif::Database::offerInitialize()
 {
     int ret = KMessageBox::questionYesNo( MainWindow::Window::theMainWindow(),
-                                          i18n("<qt><p>Congratulation, your KPhotoAlbum version now supports searching "
+                                          i18n("<p>Congratulation, your KPhotoAlbum version now supports searching "
                                                "for EXIF information.</p>"
                                                "<p>For this to work, KPhotoAlbum needs to rescan your images. "
                                                "Do you want this to happen now?</p>"),

@@ -171,8 +171,8 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
     // Read source
     QString source = top.attribute( QString::fromLatin1( "location" ) ).lower();
     if ( source != QString::fromLatin1( "inline" ) && source != QString::fromLatin1( "external" ) ) {
-        KMessageBox::error( this, i18n("<qt>XML file did not specify the source of the images, "
-                                       "this is a strong indication that the file is corrupted</qt>" ) );
+        KMessageBox::error( this, i18n("<p>XML file did not specify the source of the images, "
+                                       "this is a strong indication that the file is corrupted</p>" ) );
         return false;
     }
 
@@ -208,7 +208,7 @@ void Import::setupPages()
 
 void Import::createIntroduction()
 {
-    QString txt = i18n( "<qt><h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>"
+    QString txt = i18n( "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>"
                         "This wizard will take you through the steps of an import operation, The steps are: "
                         "<ul><li>First you must select which images you want to import from the export file. "
                         "You do so by selecting the checkbox next to the image.</li>"
@@ -224,7 +224,7 @@ void Import::createIntroduction()
                         "in my image database, while you want to call me by my full name, namely <tt>Jesper K. Pedersen</tt>. "
                         "In this step non matches will be highlighted in red, so you can see which tokens was not found in your "
                         "database, or which tokens was only a partial match.</li>"
-                        "</p></qt>" );
+                        "</p>" );
 
     QLabel* intro = new QLabel( txt, this );
     addPage( intro, i18n("Introduction") );
@@ -270,7 +270,7 @@ void Import::createImagesPage()
             lay3->addWidget( label, row, 1 );
         }
 
-        QLabel* label = new QLabel( QString::fromLatin1("<qt>%1</qt>").arg(info->description()), container, "description" );
+        QLabel* label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(info->description()), container, "description" );
         lay3->addWidget( label, row, 2 );
         _imagesSelect.append( ir );
     }

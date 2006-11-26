@@ -112,7 +112,7 @@ void Settings::SettingsDialog::createGeneralPage()
     container = new QWidget( top );
     lay1->addWidget( container );
     hlay = new QHBoxLayout( container, 0, 6 );
-    QLabel* datebarSize = new QLabel( i18n("Size of histogram boxes in datebar:"), container );
+    QLabel* datebarSize = new QLabel( i18n("Size of histogram columns in datebar:"), container );
     hlay->addWidget( datebarSize );
     _barWidth = new QSpinBox( 1, 100, 1, container );
     hlay->addWidget( _barWidth );
@@ -145,41 +145,41 @@ void Settings::SettingsDialog::createGeneralPage()
     // Whats This
     QString txt;
 
-    txt = i18n( "<qt><p>KPhotoAlbum will try to read the image date from EXIF information in the image. "
+    txt = i18n( "<p>KPhotoAlbum will try to read the image date from EXIF information in the image. "
                 "If that fails it will try to get the date from the file's time stamp.</p>"
                 "<p>However, this information will be wrong if the image was scanned in (you want the date the image "
                 "was taken, not the date of the scan).</p>"
                 "<p>If you only scan images, in contrast to sometimes using "
                 "a digital camera, you should reply <b>no</b>. If you never scan images, you should reply <b>yes</b>, "
                 "otherwise reply <b>ask</b>. This will allow you to decide whether the images are from "
-                "the scanner or the camera, from session to session.</p></qt>" );
+                "the scanner or the camera, from session to session.</p>" );
     QWhatsThis::add( timeStampLabel, txt );
     QWhatsThis::add( _trustTimeStamps, txt );
 
-    txt = i18n( "<qt><p>JPEG images may contain information about rotation. "
+    txt = i18n( "<p>JPEG images may contain information about rotation. "
                 "If you have a reason for not using this information to get a default rotation of "
                 "your images, uncheck this check box.</p>"
-                "<p>Note: Your digital camera may not write this information into the images at all.</p></qt>" );
+                "<p>Note: Your digital camera may not write this information into the images at all.</p>" );
     QWhatsThis::add( _useEXIFRotate, txt );
 
-    txt = i18n( "<qt><p>JPEG images may contain a description."
-               "Using this checkbox you specify if you want to use this as a "
-               "default description for your images.</p></qt>" );
+    txt = i18n( "<p>JPEG images may contain a description. "
+               "Check this checkbox to specify if you want to use this as a "
+               "default description for your images.</p>" );
     QWhatsThis::add( _useEXIFComments, txt );
 
-    txt = i18n( "<qt><p>KPhotoAlbum is capable of searching for new images itself when started, this does, "
+    txt = i18n( "<p>KPhotoAlbum is capable of searching for new images itself when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
-                "using <tt>Maintenance->Rescan for new images</tt></qt>");
+                "using <tt>Maintenance->Rescan for new images</tt></p>");
     QWhatsThis::add( _searchForImagesOnStartup, txt );
 
-    txt = i18n( "<qt><p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
+    txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
 		"Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
 		"This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
-		"If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p></qt>");
+		"If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
     QWhatsThis::add( _dontReadRawFilesWithOtherMatchingFile, txt );
 
-    txt = i18n("<qt><p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
-               "KPhotoAlbum do not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
+    txt = i18n("<p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
+               "KPhotoAlbum does not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
                "to the plugin system as if it did.</p>"
                "<p>KPhotoAlbum does this by defining the current album to be the current view - that is, all the images the "
                "browser offers to display.</p>"
@@ -190,7 +190,7 @@ void Settings::SettingsDialog::createGeneralPage()
                "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify People "
                "with this option, then KPhotoAlbum will act as if you had just chosen to display people and then invoke "
                "the plugin which needs to know about all albums.</p>"
-               "<p>Most users would probably want to specify Keywords here.</p></qt>");
+               "<p>Most users would probably want to specify Keywords here.</p>");
     QWhatsThis::add( albumCategoryLabel, txt );
     QWhatsThis::add( _albumCategory, txt );
 
@@ -254,35 +254,33 @@ void Settings::SettingsDialog::createThumbNailPage()
     // Whats This
     QString txt;
 
-    txt = i18n( "<qt><p>If you select <tt>Settings|Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
+    txt = i18n( "<p>If you select <tt>Settings -&gt; Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
                 "displaying information about the thumbnails. This window includes a small preview image. "
-                "This option configures the image size</p></qt>" );
+                "This option configures the image size.</p>" );
     QWhatsThis::add( previewSizeLabel, txt );
     QWhatsThis::add( _previewSize, txt );
 
 
-    txt = i18n( "<qt><p>Thumbnail image size. You may also set the size simply by dragging the thumbnail view using the middle mouse button.</p></qt>" );
+    txt = i18n( "<p>Thumbnail image size. You may also set the size simply by dragging the thumbnail view using the middle mouse button.</p>" );
     QWhatsThis::add( thumbnailSizeLabel, txt );
     QWhatsThis::add( _thumbnailSize, txt );
 
 
-    txt = i18n("<qt>Checking this option will show the base name for the file under "
-               "thumbnails in the thumbnail view</qt>");
+    txt = i18n("<p>Checking this option will show the base name for the file under "
+               "thumbnails in the thumbnail view.</p>");
     QWhatsThis::add( _displayLabels, txt );
 
-    txt = i18n("<qt>Checking this option will show the Categories for the file under "
-        "thumbnails in the thumbnail view</qt>");
+    txt = i18n("<p>Checking this option will show the Categories for the file under "
+        "thumbnails in the thumbnail view</p>");
     QWhatsThis::add( _displayCategories, txt );
 
-    txt = i18n("<qt><p>When you are browsing the images, and the count gets below the value specified here, "
+    txt = i18n("<p>When you are browsing the images, and the count gets below the value specified here, "
                "the thumbnails will be shown automatically. The alternative is to continue showing the "
-               "browser until you press <i>Show Images</i>.<p>"
-               "<p>With this option on, you can choose to see the browser by pressing ctrl+mouse button.<br>"
-               "With this option off, you can choose to see the images by pressing ctrl+mouse button.</p></qt>");
+               "browser until you press <i>Show Images</i></p>");
     QWhatsThis::add( _autoShowThumbnailView, txt );
     QWhatsThis::add( autoShowLabel, txt );
 
-    txt = i18n("<qt><p>Specify the size of the cache used to hold thumbnails.</p></qt>");
+    txt = i18n("<p>Specify the size of the cache used to hold thumbnails.</p>");
     QWhatsThis::add( cacheLabel, txt );
     QWhatsThis::add( _thumbnailCache, txt );
 }
@@ -576,7 +574,7 @@ void Settings::SettingsDialog::slotNewItem()
 
 void Settings::SettingsDialog::slotDeleteCurrent()
 {
-    int answer = KMessageBox::questionYesNo( this, i18n("<qt>Really delete cateory '%1'?").arg( _current->text()) );
+    int answer = KMessageBox::questionYesNo( this, i18n("<p>Really delete cateory '%1'?</p>").arg( _current->text()) );
     if ( answer == KMessageBox::No )
         return;
 
@@ -863,11 +861,11 @@ void Settings::SettingsDialog::createViewerPage()
     glay->addWidget( _viewerStandardSize, 2, 1 );
     standardSizeLabel->setBuddy( _viewerStandardSize );
 
-    txt = i18n("<qt><p>Set the standard size for images to be displayed in the viewer.</p> "
+    txt = i18n("<p>Set the standard size for images to be displayed in the viewer.</p> "
 	       "<p><b>Full Viewer Size</b> indicates that the image will be stretched or shrunk to fill the viewer window.</p> "
 	       "<p><b>Natural Image Size</b> indicates that the image will be displayed pixel for pixel.</p> "
 	       "<p><b>Natural Image Size If Possible</b> indicates that the image will be displayed pixel for pixel if it would fit the window, "
-	       "otherwise it will be shrunk to fit the viewer.</p></qt>");
+	       "otherwise it will be shrunk to fit the viewer.</p>");
     QWhatsThis::add(_viewerStandardSize, txt);
 
     QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), top );
@@ -877,8 +875,8 @@ void Settings::SettingsDialog::createViewerPage()
 
     glay->addWidget( scalingLabel, 3, 0 );
     glay->addWidget( _smoothScale, 3, 1 );
-    txt = i18n("<qt><p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
-		       "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p></qt>");
+    txt = i18n("<p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
+		       "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p>");
     QWhatsThis::add( scalingLabel, txt );
     QWhatsThis::add( _smoothScale, txt );
 }
@@ -907,7 +905,7 @@ void Settings::SettingsDialog::createPluginPage()
 void Settings::SettingsDialog::createEXIFPage()
 {
 #ifdef HASEXIV2
-    QWidget* top = addPage( i18n("EXIF Information" ), i18n("Exif Information" ),
+    QWidget* top = addPage( i18n("EXIF Information" ), i18n("EXIF Information" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "contents" ),
                                                              KIcon::Desktop, 32 ) );
     QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
@@ -978,18 +976,19 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     lay->addStretch( 1 );
 
     QString txt;
-    txt = i18n("<qt><p>KPhotoAlbum has the possibility to back up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc."
-               "using the spinbox specify the amount of backup files to keep - KPhotoAlbum will delete the oldest backup file when it reaches "
-               "the maximum amount of backup files.</p>"
-               "<p>The index.xml file may grow large if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
-               "the backup files to preserve disk space.</p></qt>" );
+    txt = i18n("<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc. "
+               "and you can use the spinbox to specify the number of backup files to keep. "
+               "KPhotoAlbum will delete the oldest backup file when it reaches "
+               "the maximum number of backup files.</p>"
+               "<p>The index.xml file may grow substantially if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
+               "the backup files to preserve disk space.</p>" );
     QWhatsThis::add( backupLabel, txt );
     QWhatsThis::add( _backupCount, txt );
     QWhatsThis::add( _compressBackup, txt );
 
-    txt = i18n( "<qt>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
-                "a long time to read this file. You may cut down this time by approaximately a factor of 2 by checking this check box. "
-                "The disadvantage is that the index.xml file is less readable by human eyes.</qt>");
+    txt = i18n( "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
+                "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
+                "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
     QWhatsThis::add( _compressedIndexXML, txt );
 
 

@@ -238,7 +238,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     if ( wrongOrder ) {
         KMessageBox::information( MainWindow::Window::theMainWindow(),
-                                  i18n("<qt><p>Your images are not sorted, which means that navigating using the date bar "
+                                  i18n("<p>Your images are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
                                        "which you can use to find the images that are missing date information.</p>"
@@ -246,7 +246,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
                                        "in either their EXIF data or on the file, and execute <b>Maintainance->Read EXIF Info</b> "
                                        "to reread the information.</p>"
                                        "<p>Finally, once all images have their dates set, you can execute "
-                                       "<b>Images->Sort Selected by Date & Time</b> to sort them in the database.</p></qt>"),
+                                       "<b>Images->Sort Selected by Date & Time</b> to sort them in the database.</p>"),
                                   i18n("Images Are Not Sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }
@@ -262,11 +262,11 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
 
     if ( _db->_anyImageWithEmptySize ) {
         KMessageBox::information( MainWindow::Window::theMainWindow(),
-                                  i18n("<qt><p>Not all the images in the database have information about image sizes; this is needed to "
+                                  i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
                                        "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
                                        "choose <tt>Remove All Thumbnails</tt>, and after that choose <tt>Build Thumbnails</tt>.</p>"
                                        "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
-                                       "there is no urgency in doing it.</p></qt>"),
+                                       "there is no urgency in doing it.</p>"),
                                   i18n("Not All Images Have Size Information"),
                                   QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) );
     }
@@ -299,14 +299,14 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         // Load a default setup
         QFile file( locate( "data", QString::fromLatin1( "kphotoalbum/default-setup" ) ) );
         if ( !file.open( IO_ReadOnly ) ) {
-            KMessageBox::information( 0, i18n( "<qt><p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
+            KMessageBox::information( 0, i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                                                "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
                                                "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
                                                "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
                                                "environment variable setup (this example is for Bash and compatible shells):</p>"
                                                "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
                                                "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
-                                               "environment variable</p></qt>"), i18n("No default setup file found") );
+                                               "environment variable</p>"), i18n("No default setup file found") );
         }
         else {
             QTextStream stream( &file );

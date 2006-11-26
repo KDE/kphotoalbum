@@ -185,10 +185,10 @@ void Settings::SettingsDialog::createGeneralPage()
                "browser offers to display.</p>"
                "<p>In addition to the current album, KPhotoAlbum must also be able to give a list of all albums; "
                "the list of all albums is defined in the following way:"
-               "<ul><li>When KPhotoAlbum's browser displays the content of a category, say all Persons, then each item in this category "
+               "<ul><li>When KPhotoAlbum's browser displays the content of a category, say all People, then each item in this category "
                "will look like an album to the plugin."
-               "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify Persons "
-               "with this option, then KPhotoAlbum will act as if you had just chosen to display persons and then invoke "
+               "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify People "
+               "with this option, then KPhotoAlbum will act as if you had just chosen to display people and then invoke "
                "the plugin which needs to know about all albums.</p>"
                "<p>Most users would probably want to specify Keywords here.</p></qt>");
     QWhatsThis::add( albumCategoryLabel, txt );

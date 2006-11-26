@@ -2,8 +2,8 @@
 <KPhotoAlbum version="2" compressed="1" >
  <Categories>
   <Category viewtype="0" viewsize="0" icon="password" name="Keywords" show="1" />
-  <Category viewtype="0" viewsize="0" icon="network" name="Locations" show="1" />
-  <Category viewtype="0" viewsize="0" icon="personal" name="Persons" show="1" />
+  <Category viewtype="0" viewsize="0" icon="network" name="Places" show="1" />
+  <Category viewtype="0" viewsize="0" icon="personal" name="People" show="1" />
  </Categories>
  <images/>
 </KPhotoAlbum>

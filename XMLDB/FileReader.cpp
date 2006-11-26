@@ -312,8 +312,8 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
             QTextStream stream( &file );
             stream.setEncoding( QTextStream::UnicodeUTF8 );
             QString str = stream.read();
-            str = str.replace( QString::fromLatin1( "Persons" ), i18n( "Persons" ) );
-            str = str.replace( QString::fromLatin1( "Locations" ), i18n( "Locations" ) );
+            str = str.replace( QString::fromLatin1( "People" ), i18n( "People" ) );
+            str = str.replace( QString::fromLatin1( "Places" ), i18n( "Places" ) );
             str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );
             str = str.replace( QRegExp( QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1("") );
             str = str.replace( QRegExp( QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1("") );

@@ -503,9 +503,9 @@ void DatabaseHandler::insertInitialData()
           true, DB::Category::IconView, 32 },
         { "Keywords", "password",
           true, DB::Category::IconView, 32 },
-        { "Locations", "network",
+        { "Places", "network",
           true, DB::Category::ListView, 32 },
-        { "Persons", "personal",
+        { "People", "personal",
           true, DB::Category::ThumbedListView, 96 },
         { 0, 0, false, DB::Category::ListView, 0 }
     };

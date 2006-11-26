@@ -31,7 +31,7 @@ Plugins::CategoryImageCollection::CategoryImageCollection( const DB::ImageSearch
 QString Plugins::CategoryImageCollection::name()
 {
     if ( _value == QString::fromLatin1( "**NONE**" ) )
-        return i18n( "Example: No Persons", "No %1" ).arg( _category );
+        return i18n( "None" );
     else
         return _value;
 }

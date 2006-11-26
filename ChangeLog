@@ -1,5 +1,9 @@
 2006-11-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Renamed Persons to People and Locations to Places. A huge thank
+	you to Clytie Siddall clytie AT riverland DOT net DOT au for
+	bringing this and numerous other language errors to my attention.
+
 	* Instead of showing "No other Persons" show "None". Translated
 	versions had problems as the "No other" part depended on the category.
 

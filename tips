@@ -40,7 +40,7 @@ fish.</p>
 <tip category="KPhotoAlbum">
 <html>
 <p>When you bring new images to your collection, you might not have time
-right away to categorize them (i.e. specify Persons, Locations,
+right away to categorize them (i.e. specify People, Places,
 etc.). Therefore, you might later want to find those images which have not
 yet been categorized. Here is what I do:</p> 
 <p>I use the <tt>keyword</tt> <tt>OK</tt>, which I set on images, once I've
@@ -73,7 +73,7 @@ http://www.kphotoalbum.org/support.htm.
 
 <tip category="KPhotoAlbum">
 <html>
-<p>It's possible to associate images with categories. That way when browsing, say persons, you
+<p>It's possible to associate images with categories. That way when browsing, say people, you
 may get a small icon for each person with e.g. the person's face.</p>
 <p>To specify an icon for a person, load the person in the viewer, zoom to
 the part which you want to make into an icon, and choose
@@ -86,7 +86,7 @@ find the person, and set the image.
 <tip category="KPhotoAlbum">
 <html>
 <p>You may close the image annotation dialog (the one where you specify
-persons, location, etc for the images) by pressing Ctrl+Enter.
+people, places, etc for the images) by pressing Ctrl+Enter.
 </p>
 </html>
 </tip>

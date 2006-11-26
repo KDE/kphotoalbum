@@ -215,7 +215,7 @@ void Import::createIntroduction()
                         "<li>Next you must tell KPhotoAlbum in which directory to put the images. This directory must "
                         "of course be below the directory root KPhotoAlbum uses for images. "
                         "KPhotoAlbum will take care to avoid name clashes</li>"
-                        "<li>The next step is to specify which categories you want to import (Persons, Locations, ... ) "
+                        "<li>The next step is to specify which categories you want to import (People, Places, ... ) "
                         "and also tell KPhotoAlbum how to match the categories from the file to your categories. "
                         "Imagine you load from a file, where a category is called <tt>Blomst</tt> (which is the "
                         "Danish word for flower), then you would likely want to match this with your category, which might be "

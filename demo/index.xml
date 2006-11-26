@@ -8,7 +8,7 @@
    <value value="new wave" id="4" />
    <value value="fun" id="5" />
   </Category>
-  <Category viewtype="0" icon="network" thumbnailsize="32" name="Locations" show="1" >
+  <Category viewtype="0" icon="network" thumbnailsize="32" name="Places" show="1" >
    <value value="Grand Canyon" id="1" />
    <value value="Esbjerg" id="2" />
    <value value="Las Vegas" id="3" />
@@ -20,7 +20,7 @@
    <value value="Denmark" id="9" />
    <value value="USA" id="10" />
   </Category>
-  <Category viewtype="3" icon="personal" thumbnailsize="128" name="Persons" show="1" >
+  <Category viewtype="3" icon="personal" thumbnailsize="128" name="People" show="1" >
    <value value="Pets" id="1" />
    <value value="Jesper" id="2" />
    <value value="Jim" id="3" />
@@ -65,10 +65,10 @@
      <value value="new wave" />
      <value value="scanned in" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Esbjerg" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
@@ -80,10 +80,10 @@
      <value value="new wave" />
      <value value="scanned in" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Denmark" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
@@ -93,10 +93,10 @@
     <option name="Keywords" >
      <value value="scanned in" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Odense" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Blackie" />
     </option>
    </options>
@@ -107,10 +107,10 @@
      <value value="fun" />
      <value value="scanned in" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Odense" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Spiff" />
     </option>
    </options>
@@ -120,10 +120,10 @@
     <option name="Keywords" >
      <value value="scanned in" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Odense" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Spiff" />
     </option>
    </options>
@@ -136,10 +136,10 @@ The tattoo is the Qt logo. " >
     <option name="Keywords" >
      <value value="scanned in" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Las Vegas" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
      <value value="Jim" />
      <value value="Wayne" />
@@ -152,10 +152,10 @@ The tattoo is the Qt logo. " >
      <value value="scanned in" />
      <value value="scenic" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Grand Canyon" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Anne Helene" />
      <value value="Jesper" />
     </option>
@@ -163,10 +163,10 @@ The tattoo is the Qt logo. " >
   </image>
   <image width="800" startDate="2003-01-02T14:48:54" height="600" endDate="2003-01-02T14:48:54" md5sum="185bfe1bf4972b52fed3341335cb9ef3" file="grand_canyon_2.jpg" label="grand_canyon" angle="0" >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Grand Canyon" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
@@ -176,17 +176,17 @@ The tattoo is the Qt logo. " >
     <option name="Keywords" >
      <value value="scenic" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Grand Canyon" />
     </option>
    </options>
   </image>
   <image width="800" startDate="2003-05-18T17:01:01" height="600" endDate="2003-05-18T17:01:01" md5sum="1401b6a7e7f268b2cd256f1935970c3b" file="donna_2.jpg" label="donna" angle="0" >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Esbjerg" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Donna" />
     </option>
    </options>
@@ -194,10 +194,10 @@ The tattoo is the Qt logo. " >
   <image width="600" startDate="2003-11-15T20:51:59" height="800" endDate="2003-11-15T20:51:59" md5sum="be157a21c1dd8f8e28238bd813837bcf" file="wayne.jpg" label="wayne" angle="90" description="Wayne and Jim lives in Las Vegas. I visit them everytime I'm in the neighborhood :-)
 One would expect that I spent a lot of money gambling when going to Las Vegas, but all my money is spent on beer and pool :-)" >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Las Vegas" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jim" />
      <value value="Wayne" />
     </option>
@@ -205,14 +205,14 @@ One would expect that I spent a lot of money gambling when going to Las Vegas, b
   </image>
   <image width="600" startDate="2005-02-05T00:00:00" height="800" endDate="2005-02-05T23:59:59" md5sum="5c336824571bf536460fd428a68a6619" file="pool_2.jpg" label="pool" angle="270" >
    <options>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
   </image>
   <image width="800" startDate="2005-05-17T21:52:37" height="600" endDate="2005-05-17T21:52:37" md5sum="2e38f252b40a898adb9bd01f55a9b4f5" file="pool.jpg" label="pool" angle="0" >
    <options>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
@@ -222,7 +222,7 @@ One would expect that I spent a lot of money gambling when going to Las Vegas, b
     <option name="Keywords" >
      <value value="scenic" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Skagen" />
     </option>
    </options>
@@ -233,17 +233,17 @@ One would expect that I spent a lot of money gambling when going to Las Vegas, b
      <value value="desktop" />
      <value value="scenic" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Skagen" />
     </option>
    </options>
   </image>
   <image width="400" startDate="2005-07-28T11:18:48" height="600" endDate="2005-07-28T11:18:48" md5sum="90653303e5579daa012dfc525323ffac" file="anne_helene.jpg" label="anne_helene" angle="0" description="May I introduce Anne Helene, my girlfriend for more than 10 years." >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Skagen" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Anne Helene" />
     </option>
    </options>
@@ -251,13 +251,13 @@ One would expect that I spent a lot of money gambling when going to Las Vegas, b
   <image width="800" startDate="2005-07-28T12:01:56" height="533" endDate="2005-07-28T12:01:56" md5sum="d5947475ae0595a989af38276f7ed8b8" file="cold_water.jpg" label="cold_water" angle="0" description="The interesting thing about skagen is that you may stand with a foot in Skagerrak and a foot in Kattegat.
 Besides the waters being named different on each side, waves actually also meet from each side which looks really cool.
 
-If you've never been then, you should really go (Honk the horn when you drive by HjÃ¸rring, where I currently lives :-)
+If you've never been then, you should really go (Honk the horn when you drive by Hjørring, where I currently lives :-)
 Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Skagen" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
@@ -268,14 +268,14 @@ Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" >
      <value value="desktop" />
      <value value="scenic" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Bridgeport" />
     </option>
    </options>
   </image>
   <image width="800" startDate="2005-12-21T16:44:31" height="532" endDate="2005-12-21T16:44:31" md5sum="f1d93b16bfebdd1c34a0539283ccae66" file="jesper_2.jpg" label="jesper" angle="0" >
    <options>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
@@ -285,24 +285,24 @@ Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" >
     <option name="Keywords" >
      <value value="desktop" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Donna" />
     </option>
    </options>
   </image>
   <image width="800" startDate="2005-12-29T17:45:22" height="533" endDate="2005-12-29T17:45:22" md5sum="37b87706b2f0e256ea9ca7f75dbd81ab" file="jesper.jpg" label="jesper" angle="0" >
    <options>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
   </image>
   <image width="800" startDate="2006-02-10T21:33:29" height="600" endDate="2006-02-10T21:33:29" md5sum="6e54f8727945a5b132bf991be6c50d00" file="bar55_2.jpg" label="bar55" angle="0" >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="New York" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Anne Helene" />
      <value value="Jesper" />
     </option>
@@ -310,10 +310,10 @@ Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" >
   </image>
   <image width="800" startDate="2006-02-10T22:22:11" height="600" endDate="2006-02-10T22:22:11" md5sum="261e9e97b97771f62f170ac45a0cf85a" file="bar55.jpg" label="bar55" angle="0" >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="New York" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Anne Helene" />
      <value value="Jesper" />
     </option>
@@ -324,33 +324,33 @@ Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" >
     <option name="Keywords" >
      <value value="desktop" />
     </option>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Newark" />
     </option>
    </options>
   </image>
   <image width="97" startDate="2006-10-29T19:53:58" height="72" endDate="2006-10-29T19:53:58" md5sum="89704e0ca8c7ec91d487d76f8b9c4c92" file="movie.avi" label="movie" angle="0" description="In the very early days when installing your sounds card under Linux, you would hear Linus Torvalds say &quot;Hi my name is Linus, and I pronounce it Linus&quot;. So what better phrase to use for demoing KPhotoAlbums video support? :-) " >
    <options>
-    <option name="Locations" >
+    <option name="Places" >
      <value value="Denmark" />
     </option>
-    <option name="Persons" >
+    <option name="People" >
      <value value="Jesper" />
     </option>
    </options>
   </image>
  </images>
  <member-groups>
-  <member group-name="Denmark" category="Locations" member="Esbjerg" />
-  <member group-name="Denmark" category="Locations" member="Odense" />
-  <member group-name="Denmark" category="Locations" member="Skagen" />
-  <member group-name="USA" category="Locations" member="Bridgeport" />
-  <member group-name="USA" category="Locations" member="Grand Canyon" />
-  <member group-name="USA" category="Locations" member="Las Vegas" />
-  <member group-name="USA" category="Locations" member="New York" />
-  <member group-name="USA" category="Locations" member="Newark" />
-  <member group-name="Pets" category="Persons" member="Blackie" />
-  <member group-name="Pets" category="Persons" member="Donna" />
-  <member group-name="Pets" category="Persons" member="Spiff" />
+  <member group-name="Denmark" category="Places" member="Esbjerg" />
+  <member group-name="Denmark" category="Places" member="Odense" />
+  <member group-name="Denmark" category="Places" member="Skagen" />
+  <member group-name="USA" category="Places" member="Bridgeport" />
+  <member group-name="USA" category="Places" member="Grand Canyon" />
+  <member group-name="USA" category="Places" member="Las Vegas" />
+  <member group-name="USA" category="Places" member="New York" />
+  <member group-name="USA" category="Places" member="Newark" />
+  <member group-name="Pets" category="People" member="Blackie" />
+  <member group-name="Pets" category="People" member="Donna" />
+  <member group-name="Pets" category="People" member="Spiff" />
  </member-groups>
 </KPhotoAlbum>

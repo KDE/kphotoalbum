@@ -42,7 +42,7 @@ DonateDialog::DonateDialog( QWidget* parent, const char* name )
 
                        "<p>KPhotoAlbum is in the order of magniture 2 man years of work in my spare time. "
                        "This work is completely unpaid, and I do it just for the fun of it. "
-                       "Having said that, I would be more than happy for any donation you might want to offer small or big.<7p>"
+                       "Having said that, I would be more than happy for any donation you might want to offer small or big.</p>"
                        "<p>The money is likely used for one of these things:"
                        "<ul><li>Buying something cool for my camera (which makes me want to "
                        "adapt KPhotoAlbum to using that new feature (EXIF support and video support are two good examples of this)."

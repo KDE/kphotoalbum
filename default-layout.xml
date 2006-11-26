@@ -60,16 +60,16 @@
   <dragEnabled>true</dragEnabled>
  </dock>
  <dock>
-  <tabCaption>Locations</tabCaption>
+  <tabCaption>Places</tabCaption>
   <tabToolTip></tabToolTip>
-  <name>Locations</name>
+  <name>Places</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </dock>
  <dock>
-  <tabCaption>Persons</tabCaption>
+  <tabCaption>People</tabCaption>
   <tabToolTip></tabToolTip>
-  <name>Persons</name>
+  <name>People</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </dock>
@@ -92,33 +92,33 @@
   <dragEnabled>true</dragEnabled>
  </splitGroup>
  <splitGroup>
-  <firstName>Locations</firstName>
+  <firstName>Places</firstName>
   <secondName>Keywords</secondName>
   <orientation>1</orientation>
   <separatorPos>50</separatorPos>
-  <name>Locations,Keywords</name>
+  <name>Places,Keywords</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </splitGroup>
  <splitGroup>
-  <firstName>Persons</firstName>
-  <secondName>Locations,Keywords</secondName>
+  <firstName>People</firstName>
+  <secondName>Places,Keywords</secondName>
   <orientation>1</orientation>
   <separatorPos>33</separatorPos>
-  <name>Persons,Locations,Keywords</name>
+  <name>People,Places,Keywords</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </splitGroup>
  <splitGroup>
   <firstName>Label and Dates,Description,Image Preview</firstName>
-  <secondName>Persons,Locations,Keywords</secondName>
+  <secondName>People,Places,Keywords</secondName>
   <orientation>0</orientation>
   <separatorPos>42</separatorPos>
-  <name>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</name>
+  <name>Label and Dates,Description,Image Preview,People,Places,Keywords</name>
   <hasParent>true</hasParent>
   <dragEnabled>true</dragEnabled>
  </splitGroup>
- <centralWidget>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</centralWidget>
+ <centralWidget>Label and Dates,Description,Image Preview,People,Places,Keywords</centralWidget>
  <mainDockWidget></mainDockWidget>
  <geometry>
   <x>6</x>

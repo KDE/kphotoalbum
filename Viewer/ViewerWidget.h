@@ -190,7 +190,6 @@ private:
     int _slideShowPause;
     SpeedDisplay* _speedDisplay;
     KActionCollection* _actions;
-    bool _sized;
     bool _forward;
     QTimer* _slideShowTimer;
     bool _isRunningSlideShow;

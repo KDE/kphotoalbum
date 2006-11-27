@@ -881,9 +881,12 @@ bool Viewer::ViewerWidget::showingFullScreen() const
 
 void Viewer::ViewerWidget::setShowFullScreen( bool on )
 {
-    // To avoid that the image is first loaded in a small size and the reloaded when scaled up, we need to resize the window right away.
-    resize( qApp->desktop()->screenGeometry().size() );
     if ( on ) {
+        // To avoid that the image is first loaded in a small size and the reloaded when scaled up, we need to resize the window right away.
+        // (this results in odd behaviour (the image
+        // 'jumps' because fullscreen > fullwindow) and should be
+        // reconsidered. Henner.)
+        resize( qApp->desktop()->screenGeometry().size() );
         KWin::setState( winId(), NET::FullScreen );
         moveInfoBox();
     }
@@ -891,10 +894,7 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
         // We need to size the image when going out of full screen, in case we started directly in full screen
         //
         KWin::clearState( winId(), NET::FullScreen );
-        if ( !_sized ) {
-            resize( Settings::SettingsData::instance()->viewerSize() );
-            _sized = true;
-        }
+        resize( Settings::SettingsData::instance()->viewerSize() );
     }
     _showingFullScreen = on;
 }
@@ -940,9 +940,6 @@ void Viewer::ViewerWidget::show( bool slideShow )
         // don't ask me why -  4 Sep. 2004 15:13 -- Jesper K. Pedersen
         QTimer::singleShot(0, this, SLOT(slotStartStopSlideShow()) );
     }
-
-    _sized = !fullScreen;
-
 }
 
 KActionCollection* Viewer::ViewerWidget::actions()

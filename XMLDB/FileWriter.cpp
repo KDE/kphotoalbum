@@ -63,9 +63,6 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
         const QString name = *categoryIt;
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( name );
 
-        if ( !shouldSaveCategory( name ) )
-            continue;
-
         QDomElement opt;
         if ( KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" ) )
             opt = doc.createElement( QString::fromLatin1("option") );
@@ -78,15 +75,17 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
         opt.setAttribute( QString::fromLatin1( "viewtype" ), category->viewType() );
         opt.setAttribute( QString::fromLatin1( "thumbnailsize" ), category->thumbnailSize() );
 
-        QStringList list = category->items();
-        list += _db->_members.groups(name);
-        list = Utilities::removeDuplicates( list );
+        if ( shouldSaveCategory( name ) ) {
+            QStringList list = category->items();
+            list += _db->_members.groups(name);
+            list = Utilities::removeDuplicates( list );
 
-        for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
-            QDomElement val = doc.createElement( QString::fromLatin1("value") );
-            val.setAttribute( QString::fromLatin1("value"), *it2 );
-            val.setAttribute( QString::fromLatin1( "id" ), static_cast<XMLCategory*>( category.data() )->idForName( *it2 ) );
-            opt.appendChild( val );
+            for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
+                QDomElement val = doc.createElement( QString::fromLatin1("value") );
+                val.setAttribute( QString::fromLatin1("value"), *it2 );
+                val.setAttribute( QString::fromLatin1( "id" ), static_cast<XMLCategory*>( category.data() )->idForName( *it2 ) );
+                opt.appendChild( val );
+            }
         }
         options.appendChild( opt );
     }

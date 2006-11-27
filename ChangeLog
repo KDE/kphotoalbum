@@ -1,5 +1,8 @@
 2006-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
+	* Save configurations of special categories (should they be shown
+	in the viewer etc) (Thanks to Christoph Moseler)
+
 	* Bugfix: when going out of full screen mode, resize to the
 	configured size. (Thanks to Henner Zeller)
 

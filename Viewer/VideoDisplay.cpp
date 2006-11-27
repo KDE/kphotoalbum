@@ -99,7 +99,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
     KServiceTypeProfile::OfferList services = KServiceTypeProfile::offers(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
 
-    ErrorType etype = NoError;
+    ErrorType etype = NoKPart;
     
     for( KServiceTypeProfile::OfferList::Iterator it = services.begin(); it != services.end(); ++it ) {
 
@@ -136,7 +136,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
        break;
     }
     if (etype != NoError) {
-       showError(NoWidget, info->fileName(), mimeType );
+       showError(etype, info->fileName(), mimeType );
        return false;
     }
     _playerPart->openURL(info->fileName());

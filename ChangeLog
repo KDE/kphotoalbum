@@ -1,3 +1,7 @@
+2006-11-27  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Bugfix: better error handling for video loading (thx to Henner Zeller)
+
 2006-11-26  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Renamed Persons to People and Locations to Places. A huge thank

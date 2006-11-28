@@ -40,7 +40,7 @@ DonateDialog::DonateDialog( QWidget* parent, const char* name )
 
     QString txt = i18n("<p><center><b>Donate Money</b></center></p>"
 
-                       "<p>KPhotoAlbum is in the order of magniture 2 man years of work in my spare time. "
+                       "<p>KPhotoAlbum is in the order of magnitude 2 man years of work in my spare time. "
                        "This work is completely unpaid, and I do it just for the fun of it. "
                        "Having said that, I would be more than happy for any donation you might want to offer small or big.</p>"
                        "<p>The money is likely used for one of these things:"

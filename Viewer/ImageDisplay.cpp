@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2005 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -351,7 +351,7 @@ void Viewer::ImageDisplay::updateZoomCaption() {
     if ( ratio * (_zEnd.y()-_zStart.y()) < imgSize.height() ) {
         ratio = ((double)imgSize.height())/(_zEnd.y()-_zStart.y());
     }
-    
+
     emit setCaptionInfo((ratio > 1.05)
                         ? i18n("[ zoom x%1 ]").arg(ratio, 0, 'f', 1)
                         : QString());

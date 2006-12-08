@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2005 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -100,7 +100,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     KServiceTypeProfile::OfferList services = KServiceTypeProfile::offers(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
 
     ErrorType etype = NoKPart;
-    
+
     for( KServiceTypeProfile::OfferList::Iterator it = services.begin(); it != services.end(); ++it ) {
 
        // Ask for a part for this mime type

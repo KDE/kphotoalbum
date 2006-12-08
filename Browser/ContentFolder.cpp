@@ -58,6 +58,11 @@ QString Browser::ContentFolder::text() const
         else
             return i18n( "No other" );
     }
+    else if ( _value == QString::fromLatin1( "Video" ) )
+        return i18n("Video");
+    else if ( _value == QString::fromLatin1( "Image" ) )
+        return i18n("Image");
+
     else {
       if ( _category->name() == QString::fromLatin1( "Folder" ) ) {
         QRegExp rx( QString::fromLatin1( "(.*/)(.*)$") );

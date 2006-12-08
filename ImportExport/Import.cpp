@@ -209,22 +209,21 @@ void Import::setupPages()
 void Import::createIntroduction()
 {
     QString txt = i18n( "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>"
-                        "This wizard will take you through the steps of an import operation, The steps are: "
-                        "<ul><li>First you must select which images you want to import from the export file. "
+                        "This wizard will take you through the steps of an import operation. The steps are: "
+                        "<ol><li>First you must select which images you want to import from the export file. "
                         "You do so by selecting the checkbox next to the image.</li>"
                         "<li>Next you must tell KPhotoAlbum in which directory to put the images. This directory must "
                         "of course be below the directory root KPhotoAlbum uses for images. "
                         "KPhotoAlbum will take care to avoid name clashes</li>"
                         "<li>The next step is to specify which categories you want to import (People, Places, ... ) "
                         "and also tell KPhotoAlbum how to match the categories from the file to your categories. "
-                        "Imagine you load from a file, where a category is called <tt>Blomst</tt> (which is the "
+                        "Imagine you load from a file, where a category is called <b>Blomst</b> (which is the "
                         "Danish word for flower), then you would likely want to match this with your category, which might be "
-                        "called <tt>Blume</tt> (which is the German word for flower) - of course given you are German.</li>"
-                        "<li>The final steps, is matching the individual tokens from the categories. I may call myself <tt>Jesper</tt> "
-                        "in my image database, while you want to call me by my full name, namely <tt>Jesper K. Pedersen</tt>. "
+                        "called <b>Blume</b> (which is the German word for flower) - of course given you are German.</li>"
+                        "<li>The final steps, is matching the individual tokens from the categories. I may call myself <b>Jesper</b> "
+                        "in my image database, while you want to call me by my full name, namely <b>Jesper K. Pedersen</b>. "
                         "In this step non matches will be highlighted in red, so you can see which tokens was not found in your "
-                        "database, or which tokens was only a partial match.</li>"
-                        "</p>" );
+                        "database, or which tokens was only a partial match.</li></ol>");
 
     QLabel* intro = new QLabel( txt, this );
     addPage( intro, i18n("Introduction") );

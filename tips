@@ -9,7 +9,7 @@ different KPhotoAlbum features.</p>
 <html>
 <p>It is possible to create new categories - that are alternatives
 to <b>Person</b>, <b>Location</b>, and <b>Keywords</b> - in the image
-property page. Simply go to the <tt>Settings->Configure KPhotoAlbum</tt> dialog to add your own, or
+property page. Simply go to the <b>Settings->Configure KPhotoAlbum</b> dialog to add your own, or
 delete one of the existing ones.</p>
 </html>
 </tip>
@@ -43,13 +43,13 @@ fish.</p>
 right away to categorize them (i.e. specify People, Places,
 etc.). Therefore, you might later want to find those images which have not
 yet been categorized. Here is what I do.</p> 
-<p>I use the <tt>keyword</tt> <tt>OK</tt>, which I set on images, once I've
-categorized them (i.e. just like you may have a keyword for <tt>Summer
-Party</tt> or <tt>Interrail trip 1990</tt>, you now have a keyword
-<tt>OK</tt>). To find uncategorized images, I choose the
-<tt>Search</tt> item from the browser, and in the keywords field, I
-type <tt>!OK</tt>. This will find all images which do <b>not</b> have the
-<tt>OK</tt> item.
+<p>I use the <b>keyword</b> <b>OK</b>, which I set on images, once I've
+categorized them (i.e. just like you may have a keyword for <b>Summer
+Party</b> or <b>Interrail trip 1990</b>, you now have a keyword
+<b>OK</b>). To find uncategorized images, I choose the
+<b>Search</b> item from the browser, and in the keywords field, I
+type <b>!OK</b>. This will find all images which do <b>not</b> have the
+<b>OK</b> item.
 </html>
 </tip>
 
@@ -66,7 +66,6 @@ the images.</p>
 <p>If you like KPhotoAlbum, and it adds value to your daily life, please
 consider donating money to the KPhotoAlbum developer as a courtesy. See
 http://www.kphotoalbum.org/support.htm.
-</pre>
 </p>
 </html>
 </tip>
@@ -77,7 +76,7 @@ http://www.kphotoalbum.org/support.htm.
 may get a small icon for each person with e.g. the person's face.</p>
 <p>To specify an icon for a person, load the person in the viewer, zoom to
 the part which you want to make into an icon, and choose
-<tt>Show Category Editor</tt>. This will bring up a dialog where you can
+<b>Show Category Editor</b>. This will bring up a dialog where you can
 find the person, and set the image.
 </p>
 </html>
@@ -95,7 +94,7 @@ people, places, etc. for the images) by pressing Ctrl+Enter.
 <html>
 <p>KPhotoAlbum has an mailing list at
 http://klaralvdalens-datakonsult.se/mailman/listinfo/kphotoalbum, and an IRC
-channel named <tt>#kphotoalbum</tt> on <tt>irc.kde.org</tt>.</p>
+channel named <b>#kphotoalbum</b> on <b>irc.kde.org</b>.</p>
 </html>
 </tip>
 

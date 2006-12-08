@@ -49,7 +49,7 @@ ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCat
     label->setPaletteForegroundColor( col );
     label->setAlignment( AlignCenter );
 
-    label = new QLabel( i18n("Key in your data base"), grid );
+    label = new QLabel( i18n("Key in your database"), grid );
     gridLay->addWidget( label, 0, 1 );
     label->setPaletteBackgroundColor( label->paletteForegroundColor() );
     label->setPaletteForegroundColor( col );

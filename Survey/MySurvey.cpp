@@ -17,12 +17,13 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     yesNoList << i18n("Yes") << i18n("No");
 
     QString txt
-        = i18n("<p>This is the KPhotoAlbum survey, its intention is to make KPhotoAlbum fit the need <i>you</i> may have.</p>"
-               "I have spent most of my sparetime on KPhotoAlbum the last three and a half year, so I'd be really happy if you "
-               "could spent the next five to ten minute telling me what you think about it, and giving me some "
-               "feedback on which part of the application you are using.</p>"
-               "<p>At any time you may quit the survey and get back to it later, it will remember your answers</p>"
-               "<p align=\"right\">Thanks in advance - Jesper</p>");
+        = i18n("<p>This is the KPhotoAlbum survey. Its goal is to collect the "
+               "information needed to make KPhotoAlbum meet the needs of users like "
+               "<i>you</i>.</p><p>Spend a couple of minutes and share your experience "
+               "of using KPhotoAlbum..</p>"
+               "<p>At any time, you can quit the survey and return to "
+               "it later on; it will remember your previous answers.</p>"
+               "<p align=\"right\">Thanks in advance! Jesper</p>");
 
     Survey::InfoPage* front = new Survey::InfoPage( QString::fromLatin1("KPhotoAlbum"), txt, Survey::InfoPage::Front, this );
     setFrontPage( front );
@@ -38,14 +39,14 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                              i18n("Image Count"),
                              this );
 
-    new Survey::AlternativeQuestion( QString::fromLatin1( "WhoAreYou" ), i18n("Who Are You"),
-                                     i18n("I'd like you know what kind of people are using KPhotoAlbum, please let me know which "
-                                          "of these categories (if any) you feel you fit in" ),
+    new Survey::AlternativeQuestion( QString::fromLatin1( "WhoAreYou" ), i18n("User demographics"),
+                                     i18n("In designing the software, it's important to know who uses it. "
+                                          "You can choose any number of categories from the list below." ),
                                      i18n("Which of these categories (if any) do you fit in?"),
                                      QStringList()
                                      << i18n( "I'm a professional software developer" )
                                      << i18n( "I'm a professional photographer" )
-                                     << i18n( "I'm a C++ programer" )
+                                     << i18n( "I'm a C++ programmer" )
                                      << i18n( "I'm a student studying software development" )
                                      << i18n( "I'm a student studying something else" ), 0, Survey::AlternativeQuestion::CheckBox, this );
 
@@ -62,12 +63,12 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                      kphotoalbumUsage, 2, Survey::AlternativeQuestion::CheckBox, this );
 
     new Survey::RadioButtonQuestion( QString::fromLatin1( "WhoAreYouTake2" ),
-                                     i18n( "Your Approach to Digital Images" ),
+                                     i18n( "What is your main motivation in using a digital camera?" ),
                                      i18n( "I don't really care much about shutter speed, aperture value etc, I just take pictures, "
                                            "and enjoy looking at them afterwards. In other words, only few of my pictures are of "
                                            "fancy flowers in the right light, while most are pictures from holidays, parties, "
                                            "and other such events. How about you?"),
-                                     i18n( "How are you using your camera?"),
+                                     i18n( "What is your main motivation in using a digital camera?"),
                                      QStringList() << i18n("I'm mostly interested in techniques of photographing.")
                                      << i18n( "I take pictures to remember and enjoy given events (say a holiday).")
                                      << i18n( "I can't really answer, a bit of both I guess." ), this );
@@ -79,12 +80,12 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
                                      i18n("How often are you using Import/Export?"),
                                      QStringList() << i18n("Never I didn't know it existed")
                                      << i18n("Never, I don't know any other KPhotoAlbum users")
-                                     << i18n("Seldomly")
+                                     << i18n("Seldom")
                                      << i18n("From time to time")
                                      << i18n("Often"), this );
 
     new Survey::RadioButtonQuestion( QString::fromLatin1( "KIPI" ), i18n("KIPI"),
-                                     i18n("KPhotoAlbum supports KIPI, a set of plug-ins shared among a number of imageing application."
+                                     i18n("KPhotoAlbum supports KIPI, a set of plug-ins shared among a number of imaging application."
                                          "All the features in the Plugins menu are from KIPI."),
                                      i18n("How often are you using KIPI features?"),
                                      QStringList() << i18n( "Never, I don't have a Plugins menu item" )
@@ -105,7 +106,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     new Survey::TextQuestion( QString::fromLatin1( "Comment" ),
                               i18n("General Comments"),
                               i18n("<p>If you have any comments that you would like to make, here would be a good place. "
-                                   "comments like <i>This is really an awesome piece of software, how did I live without</i> "
+                                   "Comments like <i>This is really an awesome piece of software! How did I live without</i> "
                                    "is of course very welcome, but I'd also like to know if you see a feature missing that "
                                    "would prevent you from getting your best friend using KPhotoAlbum.</p>"), this );
 

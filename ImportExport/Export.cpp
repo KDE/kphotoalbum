@@ -94,7 +94,7 @@ ExportConfig::ExportConfig()
 
     // Enforece max size
     QHBoxLayout* hlay = new QHBoxLayout( lay1, 6 );
-    _enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimension to: " ), top, "_enforeMaxSize" );
+    _enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimensions to: " ), top, "_enforeMaxSize" );
     hlay->addWidget( _enforeMaxSize );
 
     _maxSize = new QSpinBox( 100, 4000, 50, top, "_maxSize" );
@@ -120,15 +120,20 @@ ExportConfig::ExportConfig()
     QWhatsThis::add( _enforeMaxSize, txt );
     QWhatsThis::add( _maxSize, txt );
 
-    txt = i18n( "<p>When exporting images, there are two things the person importing images needs:<br>"
-                "1) meta information (who is on the images etc.)<br>"
-                "2) the images themselves.<p>"
+    txt = i18n("<p>When exporting images, bear in mind that there are two things the "
+               "person importing these images again will need:<br>"
+               "1) meta information (image content, date etc.)<br>"
+               "2) the images themselves.</p>"
 
-                "<p>The images themselves can either be placed next to the .kim file, or copied into the .kim file. "
-                "Copying the images into the .kim file might be the right solution if you want to mail the images to someone "
-                "who likely wants all images; on the other hand, if you put the images on the web, and a lot of people will "
-                "see them but likely only download a few of them, then it is better to place the images next to the .kim "
-                "file to avoid everyone having to download all the images (which is the case when they are in one big file.)</p>" );
+               "<p>The images themselves can either be placed next to the .kim file, "
+               "or copied into the .kim file. Copying the images into the .kim file works well "
+               "for a recipient who wants all, or most of those images, for example "
+               "when emailing a whole group of images. However, when you place the "
+               "images on the Web, a lot of people will see them but most likely only "
+               "download a few of them. It works better in this kind of case, to "
+               "separate the images and the .kim file, by place them next to each "
+               "other, so the user can access the images s/he wants.</p>");
+
     QWhatsThis::add( grp, txt );
     QWhatsThis::add( _include, txt );
     QWhatsThis::add( _manually, txt );
@@ -322,11 +327,11 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
 void Export::showUsageDialog()
 {
     QString txt =
-        i18n( "<p>Other KPhotoAlbum users may now load the import file into their database, by choosing <tt>import</tt> in "
+        i18n( "<p>Other KPhotoAlbum users may now load the import file into their database, by choosing <b>import</b> in "
               "the file menu.</p>"
               "<p>If they find it on a web site, and the web server is correctly configured, all they need to do is simply "
               "to click it from within konqueror. To enable this, your web server needs to be configured for KPhotoAlbum. You do so by adding "
-              "the following line to <tt>/etc/httpd/mime.types</tt> or similar:"
+              "the following line to <b>/etc/httpd/mime.types</b> or similar:"
               "<pre>application/vnd.kde.kphotoalbum-import kim</pre>"
               "This will make your web server tell konqueror that it is a KPhotoAlbum fill when clicking on the link, "
               "otherwise the web server will just tell konqueror that it is a plain text file.</p>" );

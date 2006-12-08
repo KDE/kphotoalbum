@@ -262,8 +262,8 @@ void XMLDB::FileReader::checkIfAllImagesHasSizeAttributes()
     if ( _db->_anyImageWithEmptySize ) {
         KMessageBox::information( MainWindow::Window::theMainWindow(),
                                   i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
-                                       "get the best result in the thumbnail view. To fix this, simply go to the <tt>Maintainance</tt> menu, and first "
-                                       "choose <tt>Remove All Thumbnails</tt>, and after that choose <tt>Build Thumbnails</tt>.</p>"
+                                       "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintainance</b> menu, "
+                                       "and first choose <b>Remove All Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p>"
                                        "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
                                        "there is no urgency in doing it.</p>"),
                                   i18n("Not All Images Have Size Information"),
@@ -278,7 +278,7 @@ void XMLDB::FileReader::checkAndWarnAboutVersionConflict()
         KMessageBox::information( 0, i18n( "<p>The index.xml file read was from an older version of KPhotoAlbum. "
                                            "KPhotoAlbum read the old format without problems, but to be able to convert back to "
                                            "KimDaBa 2.1 format, you need to run the current KPhotoAlbum using the flag "
-                                           "<tt>export-in-2.1-format</tt>, and then save.</p>"),
+                                           "<b>export-in-2.1-format</b>, and then save.</p>"),
                                   i18n("Old File Format read"), QString::fromLatin1( "version1FileFormatRead" ) );
     }
 }
@@ -301,7 +301,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
             KMessageBox::information( 0, i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                                                "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
                                                "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                               "<p>If you for example ran configure with <tt>--prefix=/usr/local/kde</tt>, then you must use the following "
+                                               "<p>If you for example ran configure with <b>--prefix=/usr/local/kde</b>, then you must use the following "
                                                "environment variable setup (this example is for Bash and compatible shells):</p>"
                                                "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
                                                "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "

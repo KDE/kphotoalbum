@@ -169,7 +169,7 @@ void Settings::SettingsDialog::createGeneralPage()
 
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images itself when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
-                "using <tt>Maintenance->Rescan for new images</tt></p>");
+                "using <b>Maintenance->Rescan for new images</b></p>");
     QWhatsThis::add( _searchForImagesOnStartup, txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
@@ -254,7 +254,7 @@ void Settings::SettingsDialog::createThumbNailPage()
     // Whats This
     QString txt;
 
-    txt = i18n( "<p>If you select <tt>Settings -&gt; Show Tooltips</tt> in the thumbnail view, then you will see a small tool tip window "
+    txt = i18n( "<p>If you select <b>Settings -&gt; Show Tooltips</b> in the thumbnail view, then you will see a small tool tip window "
                 "displaying information about the thumbnails. This window includes a small preview image. "
                 "This option configures the image size.</p>" );
     QWhatsThis::add( previewSizeLabel, txt );

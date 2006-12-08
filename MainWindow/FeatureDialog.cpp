@@ -53,7 +53,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 
     text += i18n( "<h1><a name=\"exiv2\">EXIF support</a></h1>"
                   "<p>Images store information like the date the image was shot, the shooting angle, focal length, and shutter-speed "
-                  "in what is know as EXIF information.</p>"
+                  "in what is known as EXIF information.</p>"
 
                   "<p>KPhotoAlbum uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
                   "to read EXIF information from images</p>" );
@@ -66,16 +66,16 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
 
     text += i18n("<h1><a name=\"video\">Video Support</a></h1>"
-                 "<p>KPhotoAlbum relies on the KDE plug-in subsystem for support for displaying videos. If this feature is not enabled for you "
+                 "<p>KPhotoAlbum relies on the KDE plug-in subsystem for support for displaying videos. If this feature is not enabled for you, "
                  "have a look at the "
-                 "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>");
+                 "<a href=\"http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article on video support</a>.</p>");
 
     text += i18n("<h1><a name=\"thumbnails\">Video Thumbnails Support</a></h1>"
-                 "<p>KPhotoAlbum ask the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
-                 "If this test fails, then you need to go hunting for packages for your system that contains the name <t>mplayer</t> "
-                 "or <t>xine</t>. Some systems has the support in a package called <tt>libarts1-xine</tt></p>"
-                 "<p>For an even better thumbnail support, please try out "
-                 "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a></p>");
+                 "<p>KPhotoAlbum asks the KDE plug-in system for help when it needs to generate a thumbnail for videos. "
+                 "If this test fails, then you need to go hunting for packages for your system that contains the name <tt>mplayer</tt> "
+                 "or <tt>xine</tt>. Some systems provides the support in a package called <b>libarts1-xine</b></p>"
+                 "<p>For even better thumbnail support, please try out "
+                 "<a href=\"http://www.kde-apps.org/content/show.php?content=41180\">MPlayerThumbs</a>.</p>");
     edit->setText( text );
 
     resize( 800, 600 );

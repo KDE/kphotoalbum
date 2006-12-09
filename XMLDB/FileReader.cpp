@@ -75,7 +75,7 @@ QDomElement* blockList, QDomElement* memberGroups )
                 *memberGroups = elm;
             else {
                 KMessageBox::error( MainWindow::Window::theMainWindow(),
-                                    i18n("Error in file %1: unexpected element: '%2*").arg( configFile ).arg( tag ) );
+                                    i18n("Error in file %1: unexpected element: '%2'").arg( configFile ).arg( tag ) );
             }
         }
     }

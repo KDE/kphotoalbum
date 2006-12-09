@@ -105,7 +105,7 @@ void Settings::SettingsDialog::createGeneralPage()
     _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
 
     // Search for images on startup
-    _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images on startup"), box );
+    _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images and videos on startup"), box );
     _dontReadRawFilesWithOtherMatchingFile = new QCheckBox( i18n("Don't read RAW files if matching JPEG/TIFF file exists"), box );
 
     // Datebar size
@@ -167,7 +167,7 @@ void Settings::SettingsDialog::createGeneralPage()
                "default description for your images.</p>" );
     QWhatsThis::add( _useEXIFComments, txt );
 
-    txt = i18n( "<p>KPhotoAlbum is capable of searching for new images itself when started, this does, "
+    txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
                 "using <b>Maintenance->Rescan for new images</b></p>");
     QWhatsThis::add( _searchForImagesOnStartup, txt );
@@ -274,7 +274,7 @@ void Settings::SettingsDialog::createThumbNailPage()
         "thumbnails in the thumbnail view</p>");
     QWhatsThis::add( _displayCategories, txt );
 
-    txt = i18n("<p>When you are browsing the images, and the count gets below the value specified here, "
+    txt = i18n("<p>When you are browsing, and the count gets below the value specified here, "
                "the thumbnails will be shown automatically. The alternative is to continue showing the "
                "browser until you press <i>Show Images</i></p>");
     QWhatsThis::add( _autoShowThumbnailView, txt );
@@ -831,7 +831,7 @@ void Settings::SettingsDialog::createViewerPage()
     _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), top, "_slideShowSetup" );
     lay1->addWidget( _slideShowSetup );
 
-    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images From Thumbnail View" ), top, "_viewImageSetup" );
+    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images/Videos From Thumbnail View" ), top, "_viewImageSetup" );
     lay1->addWidget( _viewImageSetup );
 
     QGridLayout* glay = new QGridLayout( lay1, 2, 2, 6 );

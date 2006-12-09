@@ -222,7 +222,7 @@ void MainWindow::Window::delayedInit()
     setupPluginMenu();
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStartup() ) {
-        splash->message( i18n("Searching for New Images") );
+        splash->message( i18n("Searching for New Images and Videos") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
     }
@@ -543,9 +543,9 @@ void MainWindow::Window::setupMenuBar()
     _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
     new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
-    _configOneAtATime = new KAction( i18n( "Set Properties for Individual Images" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+    _configOneAtATime = new KAction( i18n( "Annotate Individual Items" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
-    _configAllSimultaniously = new KAction( i18n( "Set Properties for Multiple Images at a Time" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+    _configAllSimultaniously = new KAction( i18n( "Annotate Multiple Items at a Time" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
 
     // The Images menu
@@ -558,9 +558,9 @@ void MainWindow::Window::setupMenuBar()
                                  actionCollection(), "runSlideShow" );
     _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), 0, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );
-    KToggleAction* incr = new KToggleAction( i18n("Show &Oldest Image First"), 0, this,
+    KToggleAction* incr = new KToggleAction( i18n("Show &Oldest First"), 0, this,
                                              SLOT( slotOrderIncr() ), actionCollection(), "orderIncr" );
-    KToggleAction* decr = new KToggleAction( i18n("Show &Newest Image First"), 0, this,
+    KToggleAction* decr = new KToggleAction( i18n("Show &Newest First"), 0, this,
                                              SLOT( slotOrderDecr() ), actionCollection(), "orderDecr" );
     incr->setExclusiveGroup( QString::fromLatin1( "Sort Direction") );
     decr->setExclusiveGroup(QString::fromLatin1( "Sort Direction") );
@@ -580,16 +580,16 @@ void MainWindow::Window::setupMenuBar()
     new KAction( i18n("Change Password..."), 0, this, SLOT( changePassword() ),
                  actionCollection(), "changeScopePasswd" );
 
-    _setDefaultPos = new KAction( i18n("Lock Away All Other Images"), 0, this, SLOT( setDefaultScopePositive() ),
+    _setDefaultPos = new KAction( i18n("Lock Away All Other Items"), 0, this, SLOT( setDefaultScopePositive() ),
                                   actionCollection(), "setDefaultScopePositive" );
-    _setDefaultNeg = new KAction( i18n("Lock Away Current Set of Images"), 0, this, SLOT( setDefaultScopeNegative() ),
+    _setDefaultNeg = new KAction( i18n("Lock Away Current Set of Items"), 0, this, SLOT( setDefaultScopeNegative() ),
                                   actionCollection(), "setDefaultScopeNegative" );
 
     // Maintenance
-    new KAction( i18n("Display Images Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
-    new KAction( i18n("Display Images with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
+    new KAction( i18n("Display Images and Videos Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
+    new KAction( i18n("Display Images and Videos with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
     new KAction( i18n("Recalculate Checksum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
-    new KAction( i18n("Rescan for Images"), 0, DB::ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
+    new KAction( i18n("Rescan for Images and Videos"), 0, DB::ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
 #ifdef HASEXIV2
     new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
 #endif
@@ -637,7 +637,7 @@ void MainWindow::Window::setupMenuBar()
              this, SLOT( slotUpdateViewMenu( DB::Category::ViewType ) ) );
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
-    KToggleAction* taction = new KToggleAction( i18n("Show Tooltips on Images"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
+    KToggleAction* taction = new KToggleAction( i18n("Show Tooltips in Thumbnails Window"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
     connect( taction, SIGNAL( toggled( bool ) ), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
     new KAction( i18n("Run KPhotoAlbum Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
     new KAction( i18n("Answer KPhotoAlbum Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
@@ -1103,7 +1103,7 @@ void MainWindow::Window::slotExport()
 {
     QStringList list = selectedOnDisk();
     if ( list.count() == 0 ) {
-        KMessageBox::sorry( this, i18n("No images to export.") );
+        KMessageBox::sorry( this, i18n("Nothing to export.") );
     }
     else
         ImportExport::Export::imageExport( list );

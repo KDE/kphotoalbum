@@ -254,7 +254,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     if ( wrongOrder ) {
         KMessageBox::information( MainWindow::Window::theMainWindow(),
-                                  i18n("<p>Your images are not sorted, which means that navigating using the date bar "
+                                  i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
                                        "which you can use to find the images that are missing date information.</p>"
@@ -263,7 +263,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
                                        "to reread the information.</p>"
                                        "<p>Finally, once all images have their dates set, you can execute "
                                        "<b>Images->Sort Selected by Date & Time</b> to sort them in the database.</p>"),
-                                  i18n("Images Are Not Sorted"),
+                                  i18n("Images/Videos Are Not Sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }
 

@@ -31,8 +31,8 @@
 using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Delete Images"), Cancel|User1, User1, parent, name,
-                  true, false, KGuiItem(i18n("Delete Images"),QString::fromLatin1("editdelete")))
+    :KDialogBase( Plain, i18n("Delete Images/Videos"), Cancel|User1, User1, parent, name,
+                  true, false, KGuiItem(i18n("Delete Images/Videos"),QString::fromLatin1("editdelete")))
 {
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
@@ -40,7 +40,7 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     _label = new QLabel( top );
     lay1->addWidget( _label );
 
-    _deleteFromDisk = new QCheckBox( i18n( "Delete images from disk and database" ), top );
+    _deleteFromDisk = new QCheckBox( i18n( "Delete images/videos from disk and database" ), top );
     lay1->addWidget( _deleteFromDisk );
 
     _block = new QCheckBox( i18n( "Block from database" ), top );
@@ -51,7 +51,7 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
 
 int DeleteDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images<br>%1 selected</font></center></b></p>").arg( list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos<br>%1 selected</font></center></b></p>").arg( list.count() ) );
 
     _deleteFromDisk->setChecked( true );
     _block->setChecked( false );

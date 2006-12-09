@@ -44,7 +44,7 @@ Browser::FolderAction* Browser::ExifFolder::action( bool /* ctrlDown */ )
     info.addExifSearchInfo( dialog.info() );
 
     if ( DB::ImageDB::instance()->count( info ).total() == 0 ) {
-        KMessageBox::information( _browser, i18n( "Search did not match any images." ), i18n("Empty Search Result") );
+        KMessageBox::information( _browser, i18n( "Search did not match any images or videos." ), i18n("Empty Search Result") );
         return 0;
     }
 

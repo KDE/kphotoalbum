@@ -34,7 +34,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
     clear();
     _indexOfFirstSelectionForMultipleImages = -1;
 
-    QStringList list = QStringList() << i18n("Current Image") << i18n("All Images in Viewer");
+    QStringList list = QStringList() << i18n("Current Image/Video") << i18n("All Images/Videos in Viewer");
     for ( int which = 0; which < 2; ++which ) {
         if ( which == 0 && !current )
             continue;

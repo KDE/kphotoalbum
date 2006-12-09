@@ -195,7 +195,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     // -------------------------------------------------- The buttons.
     QHBoxLayout* lay1 = new QHBoxLayout( layout, 6 );
 
-    _revertBut = new QPushButton( i18n("Revert This Image"), this );
+    _revertBut = new QPushButton( i18n("Revert This Item"), this );
     lay1->addWidget( _revertBut );
 
     QPushButton* clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::reverseLayout()
@@ -362,7 +362,7 @@ void AnnotationDialog::Dialog::load()
         _viewer->load( Utilities::infoListToStringList(_origList), _current );
 
     if ( _setup == InputSingleImageConfigMode )
-        setCaption( i18n("KPhotoAlbum Image Configuration (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
+        setCaption( i18n("KPhotoAlbum Annotations (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
 }
 
 void AnnotationDialog::Dialog::writeToInfo()
@@ -469,7 +469,7 @@ void AnnotationDialog::Dialog::setup()
     if ( _setup == SearchMode )  {
         _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
         _revertBut->hide();
-        setCaption( i18n("Image Search") );
+        setCaption( i18n("Search") );
         loadInfo( _oldSearch );
         _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/search.jpg") ) );
         _nextBut->setEnabled( false );
@@ -481,7 +481,7 @@ void AnnotationDialog::Dialog::setup()
         _okBut->setGuiItem( KStdGuiItem::ok() );
         _revertBut->setEnabled( _setup == InputSingleImageConfigMode );
         _revertBut->show();
-        setCaption( i18n("Image Configuration") );
+        setCaption( i18n("Annotations") );
         if ( _setup == InputMultiImageConfigMode ) {
             _preview->setImage( locate("data", QString::fromLatin1("kphotoalbum/pics/multiconfig.jpg") ) );
         }
@@ -660,7 +660,7 @@ void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const Q
 void AnnotationDialog::Dialog::reject()
 {
     if ( hasChanges() ) {
-        int code =  KMessageBox::questionYesNo( this, i18n("<p>Changes made to image info, really cancel?</p>") );
+        int code =  KMessageBox::questionYesNo( this, i18n("<p>Changes made to current item, really cancel?</p>") );
         if ( code == KMessageBox::No )
             return;
     }
@@ -911,16 +911,16 @@ void AnnotationDialog::Dialog::setupActions()
     new KAction( i18n("Toggle Showing Selected Items Only"), CTRL+Key_S, &ShowSelectionOnlyManager::instance(), SLOT( toggle() ),
                  _actions, "annotationdialog-toggle-showing-selected-only" );
 
-    new KAction( i18n("Annotate Next Image"), Key_PageDown, this, SLOT( slotNext() ),
+    new KAction( i18n("Annotate Next Item"), Key_PageDown, this, SLOT( slotNext() ),
                  _actions, "annotationdialog-next-image" );
 
-    new KAction( i18n("Annotate Previous Image"), Key_PageUp, this, SLOT( slotPrev() ),
+    new KAction( i18n("Annotate Previous Item"), Key_PageUp, this, SLOT( slotPrev() ),
                  _actions, "annotationdialog-prev-image" );
 
     new KAction( i18n("OK dialog"), CTRL+Key_Return, this, SLOT( slotOK() ),
                  _actions, "annotationdialog-OK-dialog" );
 
-    new KAction( i18n("Delete Image"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
+    new KAction( i18n("Delete Image/Video"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
                  _actions, "annotationdialog-delete-image" );
 
     new KAction( i18n("Rotate Left"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );

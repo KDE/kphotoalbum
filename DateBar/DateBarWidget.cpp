@@ -80,7 +80,7 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
     _cancelSelection->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "cancel" ), KIcon::Toolbar, 16 ) );
     connect( _cancelSelection, SIGNAL( clicked() ), this, SLOT( clearSelection() ) );
     _cancelSelection->setEnabled( false );
-    QToolTip::add( _cancelSelection, i18n("Widen selection to include all images again") );
+    QToolTip::add( _cancelSelection, i18n("Widen selection to include all images/videos again") );
 
     placeAndSizeButtons();
 
@@ -494,7 +494,7 @@ void DateBar::DateBarWidget::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_contextMenu ) {
         _contextMenu = new QPopupMenu( this );
-        QAction* action = new QAction( i18n("Show Image Ranges"), 0, this );
+        QAction* action = new QAction( i18n("Show Ranges"), 0, this );
         action->setToggleAction( true );
         action->addTo( _contextMenu );
         action->setOn( _includeFuzzyCounts );
@@ -619,9 +619,9 @@ void DateBar::DateBarWidget::showStatusBarTip( const QPoint& pos )
 
     QString cnt;
     if ( count._rangeMatch != 0 && includeFuzzyCounts())
-        cnt = i18n("%1 exact + %2 ranges = %3 images").arg( count._exact ).arg( count._rangeMatch ).arg( count._exact + count._rangeMatch );
+        cnt = i18n("%1 exact + %2 ranges = %3 total").arg( count._exact ).arg( count._rangeMatch ).arg( count._exact + count._rangeMatch );
     else
-        cnt = i18n("%1 images").arg( count._exact );
+        cnt = i18n("%1 images/videos").arg( count._exact );
 
     QString res = i18n("%1 to %2  %3").arg(range.start().toString()).arg(range.end().toString())
                   .arg(cnt);

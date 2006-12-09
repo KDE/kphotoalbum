@@ -133,7 +133,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     _drawOnImages = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
     _drawOnImages->plug( _popup );
 
-    KAction* action = new KAction( i18n("Edit Image Properties..."),  CTRL+Key_1, this, SLOT( editImage() ),
+    KAction* action = new KAction( i18n("Annotate..."),  CTRL+Key_1, this, SLOT( editImage() ),
                           _actions, "viewer-edit-image-properties" );
     action->plug( _popup );
 
@@ -310,7 +310,7 @@ void Viewer::ViewerWidget::createSkipMenu()
     action->plug( popup );
     _backwardActions.append(action);
 
-    _popup->insertItem( QIconSet(), i18n("Skip Images"), popup );
+    _popup->insertItem( QIconSet(), i18n("Skip"), popup );
 }
 
 void Viewer::ViewerWidget::createZoomMenu()

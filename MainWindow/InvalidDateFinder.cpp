@@ -35,17 +35,17 @@
 using namespace MainWindow;
 
 InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Search for Images with Missing Dates" ), Cancel | Ok, Ok, parent, name )
+    :KDialogBase( Plain, i18n("Search for Images/Videos with Missing Dates" ), Cancel | Ok, Ok, parent, name )
 {
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
-    QVButtonGroup* grp = new QVButtonGroup( i18n("Which Images to Display"), top, "grp" );
+    QVButtonGroup* grp = new QVButtonGroup( i18n("Which Images/Videos to Display"), top, "grp" );
     lay1->addWidget( grp );
 
-    _dateNotTime = new QRadioButton( i18n( "Search for images with a valid date but an invalid time stamp"), grp );
-    _missingDate = new QRadioButton( i18n( "Search for images missing date and time" ), grp );
-    _partialDate = new QRadioButton( i18n( "Search for images with only partial dates (like 1971 vs. 11/7-1971)"), grp );
+    _dateNotTime = new QRadioButton( i18n( "Search for images/videos with a valid date but an invalid time stamp"), grp );
+    _missingDate = new QRadioButton( i18n( "Search for images/videos missing date and time" ), grp );
+    _partialDate = new QRadioButton( i18n( "Search for images/videos with only partial dates (like 1971 vs. 11/7-1971)"), grp );
     _dateNotTime->setChecked( true );
 }
 
@@ -59,7 +59,7 @@ void InvalidDateFinder::slotOk()
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
     QTextEdit* edit = new QTextEdit( top );
     lay1->addWidget( edit );
-    edit->setText( i18n("<h1>Here you may see the image date changes for the displayed images.</h1>") );
+    edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
     QStringList list = DB::ImageDB::instance()->images();

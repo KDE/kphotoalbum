@@ -33,7 +33,7 @@ TokenEditor::TokenEditor( QWidget* parent, const char* name )
     QWidget* top = plainPage();
     QVBoxLayout* vlay = new QVBoxLayout( top, 10 );
 
-    QLabel* label = new QLabel( i18n("Select tokens to remove from all images:"), top );
+    QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:"), top );
     vlay->addWidget( label );
 
     QGridLayout* grid = new QGridLayout( vlay, 6, 5, 10 );

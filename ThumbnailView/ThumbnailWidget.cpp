@@ -922,13 +922,13 @@ void ThumbnailView::ThumbnailWidget::contentsDropEvent( QDropEvent* )
 void ThumbnailView::ThumbnailWidget::realDropEvent()
 {
     QString msg =
-        i18n( "<p><b>Really reorder images?</b></p>"
+        i18n( "<p><b>Really reorder thumbnails?</b></p>"
               "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
               "This is very useful in case you don't know the exact date for the images. On the other hand, "
               "if the images themself have valid timestamps, you should use "
               "<b>Images -&gt; Sort Selected By Date and Time</b></p>" );
 
-    if ( KMessageBox::questionYesNo( this, msg, i18n("Reorder Images") , KStdGuiItem::yes(), KStdGuiItem::no(),
+    if ( KMessageBox::questionYesNo( this, msg, i18n("Reorder Thumbnails") , KStdGuiItem::yes(), KStdGuiItem::no(),
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {
 
         // protect against self drop

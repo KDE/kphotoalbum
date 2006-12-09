@@ -39,13 +39,13 @@ to be the current view - that is, all the images the browser currently offers to
 
 <itemizedlist>
   <listitem><para>When &kphotoalbum;'s browser displays the content of a
-    category, say all Persons, then each item in this category will look like
+    category, say people, then each item in this category will look like
     an album to the plugin.</para></listitem> 
   <listitem><para>Otherwise, the
     category you specify for <guilabel>Category for virtual albums</guilabel>
 in the options dialog, will be used; e.g. if you specify
-    Persons with this option, then &kphotoalbum; will act as if you had just chosen
-    to display persons and then invoke the plugin which needs to know about
+    People with this option, then &kphotoalbum; will act as if you had just chosen
+    to display people and then invoke the plugin which needs to know about
     all albums.</para></listitem>
 </itemizedlist>
 

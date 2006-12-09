@@ -50,8 +50,8 @@ display the date of the images currently displayed.</para>
 <para>You may also drag out a range in the data bar. You do so by pressing
 and dragging the mouse in the ruler part of the date bar, i.e. on the
 time stamps. When you select a range, the thumbnail viewer will display
-only images from that range. You cancel a selection by pressing on the bar
-part of the date bar.</para>
+only images from that range. You cancel a selection by pressing the cancel
+button at the left side of the datebar.</para>
 
 </chapter>
 

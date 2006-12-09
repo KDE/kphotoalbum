@@ -33,7 +33,7 @@
     </authorgroup>
     
     <copyright>
-      <year>2003-2004</year>
+      <year>2003-2007</year>
       <holder>Jesper K. Pedersen</holder>
       
     </copyright>
@@ -48,12 +48,12 @@
       <keyword>Image Database</keyword>
     </keywordset>
     <abstract><para>
-  This is the user manual for &kphotoalbum; - The &kde; Image Database. If you are
+  This is the user manual for &kphotoalbum;. If you are
   not the type who likes reading documentation, but rather just want to try
   out things, here are a few alternatives:
   <itemizedlist>
-          <listitem><para>Go to the <ulink url="http://ktown.kde.org/kphotoalbum/">&kphotoalbum; Homepage</ulink>, and look at
-    the quick overview plus screen dumps.</para></listitem>
+          <listitem><para>Go to the <ulink url="http://www.kphotoalbum.org/">&kphotoalbum; Homepage</ulink>, and look at
+    the quick overview, screen shoots, and introduction videos.</para></listitem>
           <listitem><para>Start &kphotoalbum;, and accepts its offer for a demo (If
 this is your first time you start it), or go to <guimenu>Help</guimenu>
 menu and select <guimenuitem>Run &kphotoalbum; demo</guimenuitem>. That will load
@@ -62,7 +62,7 @@ menu and select <guimenuitem>Run &kphotoalbum; demo</guimenuitem>. That will loa
 
    <para>If you prefer to print out this document, then you may find it as
 on long HTML document at <ulink
-url="http://ktown.kde.org/kphotoalbum/">&kphotoalbum;'s Homepage</ulink></para>
+url="http://www.kphotoalbum.org/">&kphotoalbum;'s Homepage</ulink></para>
 </abstract>
   </bookinfo>
   

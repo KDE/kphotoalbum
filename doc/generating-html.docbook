@@ -20,7 +20,7 @@
 
       <para>First you specify the title of the overview pages, plus a
         description generated on these pages. See <ulink
-          url="http://ktown.kde.org/kphotoalbum/rounded-theme/index.html">&kphotoalbum; example HTML pages</ulink> 
+          url="http://www.kphotoalbum.org/rounded-theme/index.html">&kphotoalbum; example HTML pages</ulink> 
         to see an example of this.</para>
 
       <para>Next you specify whether a &kphotoalbum; export file should be

@@ -2,8 +2,9 @@
   <title>The Viewer</title>
   <para>The reason for you to put all your images into &kphotoalbum;, and
 spending hours after hours describing them, is of course that you at some
-point want to look at them. For that purpose &kphotoalbum; has an image view,
-which you can get to from the thumbnail overview, as described in <xref
+point want to look at them. For that purpose &kphotoalbum; has an viewer
+capable of showing your images and videos. You open the viewer from the
+thumbnail view as described in <xref
       linkend="chp-thumbnail-view"/>.</para>
   
   <para>The viewer can be seen in <xref linkend="fig-viewer"/>. The viewer
@@ -21,9 +22,9 @@ you the information you specified for each image, including, who is on the
     </mediaobject>
   </figure>
   
-  <para>In case the box is located on top of part of the images you actually
+  <para>In case the info box is located on top of part of the images you actually
 want to see, you can simply grab it with the mouse, and move it elsewhere
-on the image. It is also possible to configure what should be shown in the
+on the image. It is possible to configure what should be shown in the
 info box, and of course whether it should be shown at all. All these
 options are available by right clicking your mouse on the viewer. The
 context menu can be seen in <xref linkend="fig-viewer-contextmenu"/>
@@ -42,7 +43,7 @@ below.</para>
 mouse on one of these words the browser (see <xref linkend="chp-browsing"/>)
 will go into scope of that item. Thus if you click on <literal>Anne
 Helene</literal> the browser will show you all images of Anne Helene, just
-as it would have done if you selected <literal>Persons</literal> from the
+as it would have done if you selected <literal>People</literal> from the
 root of the browser, and next selected <literal>Anne
 Helene</literal>.</para>
   
@@ -80,9 +81,14 @@ dragging out a rectangle with the mouse. Pressing the minus key will zoom
 out again. Pressing the plus key will zoom in at the center of the image. <xref
       linkend="fig-marking-zoom-rectangle"/> below shows how a zoom
 rectangle is marked, and <xref linkend="fig-zoomed-view"/> shows the result of
-the zoom. Finally pressing the period key, lets you reset zooming, so the
-image is shown unzoomed.
-</para>
+the zoom.</para>
+
+<para>Pressing the period key, lets you reset zooming, so the
+image is shown unzoomed. Pressing the equal sign will set the zoom level so
+each pixel on the screen correspond to a pixel in the image.</para>
+
+<para>Notice, for technical the only zooming operation that works when watching videos are  zoom in and out
+(the plus and minus key).</para>
   
   <figure id="fig-marking-zoom-rectangle">
     <title>Zooming in the viewer</title>
@@ -105,9 +111,8 @@ image is shown unzoomed.
   </figure>
     
   <para>Choosing the rotate operations from the context menu, you may
-rotate the image. You can set properties for
-the current image, simply by choosing <guimenuitem>Edit Image 
-Properties</guimenuitem> in the context menu.</para>
+rotate the image (Does not work for videos). You can annotate the current
+image, simply by choosing <guimenuitem>Annotate</guimenuitem> in the context menu.</para>
 
 
 
@@ -145,7 +150,7 @@ you may see an image where the tokens A, B and C are set.</para>
 regular browsing in the browser, as can be seen in <xref
 linkend="fig-tokens-in-browser"/>. So when you've marked images that
 needs to be edited, printed, or whatever, simply browse to the images, and
-set image properties on all images at a time (as described in <xref
+annotate all images at a time (as described in <xref
 linkend="sect-specifying-properties-for-all-images-simultaneously"/>), use
 a plugin to copy the selected images to a CD, or whatever you need to do.</para>
 
@@ -159,6 +164,23 @@ a plugin to copy the selected images to a CD, or whatever you need to do.</para>
     </mediaobject>
   </figure>
 
+<para>Categories (and esp tokens) may be displayed in the thumbnail
+viewer. When Showing the categories in the thumbnail viewer, you may also
+add tokens to images, simply by pressing the letter for the token when the
+image is selected, this can be seen in
+<xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title>Tokens seen in the Thumbnail Viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
 
 </sect1>
 
@@ -170,8 +192,7 @@ a plugin to copy the selected images to a CD, or whatever you need to do.</para>
     <title>Drawing on Images</title>
     <para>Sometimes it might not be obvious what you want to show with a
 given image, for that purpose &kphotoalbum; allows you to draw on the
-images. Currently the drawing operations are pretty limited, but future
-version of &kphotoalbum; is expected to have a larger set available.</para>
+images. </para>
 
 <para>The actual drawing is not saved to the image, but rather to the
 database, that way you can undo your drawing at a later point.</para>

@@ -1,14 +1,14 @@
 <chapter id="chp-browsing">
   <title>Browsing</title>
-  <para>Once you have    specified properties for your images, &kphotoalbum; is ready to let you
+  <para>Once you have annotated your images and videos, &kphotoalbum; is ready to let you
     browse through your images, see <xref
       linkend="fig-browser-with-images"/>. If you compare that to <xref
       linkend="fig-empty-browser-window"/> , you will see that there now is
-    items available in each of the categories for <literal>Persons</literal>,
-    <literal>Locations</literal>, and <literal>Keywords</literal>.</para>
+    items available in each of the categories for <literal>People</literal>,
+    <literal>Places</literal>, and <literal>Keywords</literal>.</para>
   
   <figure id="fig-browser-with-images">
-    <title>Browser when properties has been specified</title>
+    <title>Browser when images and videos have been annotated</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="browser-with-images.png"
@@ -18,18 +18,17 @@
   </figure>
   
   <para>In the browser window you can see the categories you typed
-information into when setting properties for the images, these categories are
-<literal>Keywords</literal>, <literal>Locations</literal>, and
-<literal>Persons</literal>. After them there is an item for browsing by
-date, an item for general searches, and finally an item for
-getting to the actual images. Lets describe each item in turn.</para>
+information into when annotating your images and videos. In addition there
+are items for searching based on EXIF information on images, browsing the
+folder structure of your hard disk, and of course showing the actual
+thumbnails. Lets describe each item in turn.</para> 
   
   <para>Pressing the mouse on
-<literal>Persons</literal>, the browser window will change, as you can see
+<literal>People</literal>, the browser window will change, as you can see
 in <xref linkend="fig-browser-for-persons"/>.</para>
   
   <figure id="fig-browser-for-persons">
-    <title>Browser window when Persons was selected.</title>
+    <title>Browser window when People was selected.</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="browser-for-persons.png"
@@ -38,20 +37,20 @@ in <xref linkend="fig-browser-for-persons"/>.</para>
     </mediaobject>
   </figure>
   
-  <para>The browser is now populated with the persons you specified for
-    your images <footnote><para>You may notice that the item
+  <para>The browser is now populated with the people you specified for
+    your images and videos <footnote><para>You may notice that the item
     <literal>Pets</literal> has a special icon. For details about that, see
     <xref linkend="sec-specifying-categories"/>.</para></footnote>,
     selecting a person will bring you back to the original state for the
     browser, as we saw in <xref linkend="fig-browser-with-images"/>, this
     time, however, we are <emphasis>in the scope</emphasis> of the person
-    we selected. That means that we only shows information about images
-    containing that person. See <xref linkend="fig-browser-for-jesper"/>
+    we selected. That means that we only shows information about images and
+    videos containing that person. See <xref linkend="fig-browser-for-jesper"/>
     below, which is the result of us selecting the Person <literal>Jesper</literal>, you can see an
     indication of that in the bottom of the window. Please compare <xref
       linkend="fig-browser-with-images"/> with <xref
       linkend="fig-browser-for-jesper"/>, where you will see that the number
-    of available images has gone down from 24 to 10, and the amount of
+    of available images and videos has gone down from 25 to 12, and the amount of
     items for the different categories have also changed.</para>
   
   <figure id="fig-browser-for-jesper">
@@ -65,12 +64,12 @@ in <xref linkend="fig-browser-for-persons"/>.</para>
   </figure>
   
   <para>If we now continue selecting a new person, then we will get to
-the images containing both persons. Continuing that way you can narrow the
+the images containing both people. Continuing that way you can narrow the
 set of images that you have in mind down to a few images from a set of
 thousands.</para>
   
   <para>When you are done limiting the scope of images, you may select
-the <guilabel>View Images</guilabel> icon, to see exactly those images
+the <guilabel>View Thumbnails</guilabel> icon, to see exactly those images
 matching your current scope.</para>
 
 
@@ -85,7 +84,7 @@ matching your current scope.</para>
   <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
 that each person has the same icon in front of his name. &kphotoalbum; is actual
 capable of showing a preview image for each individual person <footnote><para>This of
-course also applies to locations, keywords, and other categories you
+course also applies to places, keywords, and other categories you
 have defined yourself.</para></footnote> as can be seen in  <xref
 linkend="fig-imagesForPersons"/>.</para>
 
@@ -102,7 +101,7 @@ linkend="fig-imagesForPersons"/>.</para>
 button to the very right of the toolbar, that will bring up a popup menu,
 where you can chose which view you want to use for the given
 category. Notice views must be configured for each category - that way you
-may for example use an icon view with images of persons, but a plain list view for
+may for example use an icon view for people, but a plain list view for
 keywords (in case you can't come up with good images for your
 keywords).</para>  
 

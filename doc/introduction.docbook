@@ -1,12 +1,10 @@
 <chapter id="introduction">
   <title>Introduction</title>
-  <para>&kphotoalbum; stands for KDE Image Database.</para>
-  
-  <para>If you are like me you have hundreds or even thousands of images
+  <para>If you are like me you have thousands of images
 ever since you got your first camera, some taken with a normal camera other
 with a digital camera. Through all the years you believed that until
 eternity you would be able to remember the story behind every single
-picture, you would be able to remember the names of all the persons on your
+picture, you would be able to remember the names of all the people on your
 images, and you would be able to remember the exact date of every single
 image. I personally realized that this was not possible anymore, and
 especially for my digital images - but also for my paper images - I needed
@@ -16,22 +14,23 @@ images. This is exactly what &kphotoalbum; is all about.</para>
   
   <para>&kphotoalbum; focuses on three key points: 
 <itemizedlist>
-      <listitem><para>It must be easy to describe a number of images at a
+      <listitem><para>It must be easy to annotate a number of images at a
 time. It must for example not take more than a few mouse clicks to mark all
 your images from your holiday as being from Italy, 1992. &kphotoalbum; offers two
 ways of describing images: <guilabel>one at a time</guilabel>, which is
 useful for writing text about images, and <guilabel>All
 Simultaneously</guilabel>, which is useful for selecting a 
-number of images, and setting properties like location, persons on images,
+number of images, and setting properties like location, people on images,
 and date of image.</para></listitem>
       
       <listitem><para>It must be easy to search for images. &kphotoalbum; offers to
-describe images with a number of properties. These includes date, persons
-on image, location of image, plus a keyword field the user can use for
-custom keywords like <emphasis>Album 7</emphasis> or <emphasis>Holiday trip
-to Italy</emphasis>. With &kphotoalbum; you can 
-search for images in each of the categories - e.g. find all the images with Jesper on
-them from the holiday in Italy.</para></listitem>
+describe images with a number of properties. These includes date, people,
+places, plus a keyword field the user can use for custom keywords like
+<emphasis>Album 7</emphasis> or <emphasis>Holiday trip to
+Italy</emphasis>. With &kphotoalbum; you can  search for images in each of
+the categories - e.g. find all the images with Jesper on them from the
+holiday in Italy. It is of course possible to create your own categories,
+much more on that later.</para></listitem> 
       
       <listitem><para>It must be easy to browse and View the images. When viewing
 images, your focus often changes - one moment you are looking at images
@@ -40,13 +39,19 @@ spent that holiday with, you focus suddenly changes, so you want to see all
 images of that friend.</para></listitem>
     </itemizedlist></para>
   
-  
   <!-- ====================================================================== -->
   <sect1 id="sect-overview-of-manual">
     <title>Overview of the manual</title>
-    <para>In this manual I will take you through the steps of (1) specifying
-information about your images, (2) browsing and viewing images and (3)
+    <para>In this manual I will take you through the steps of (1)
+annotating your images, (2) browsing and viewing images and (3)
 advanced topics and customization.</para>
+
+<para>KPhotoAlbum started out as an application for managing your images,
+but since then it has been extended, so it today also takes care of your
+videos. In many places in this manual I will talk about images, but just as
+often the discussion does include videos.</para>
+  
+
   </sect1>
   
   
@@ -65,7 +70,7 @@ write protected.</para>
     
     <para>&kphotoalbum; will save all its information in the file
 <filename>index.xml</filename> in your topmost image directory. This file
-is a simple XML file, so you can easily back it up using what ever tools
+is a simple XML file, so you can easily back it up using whatever tools
 you prefer, including normal backup utilities, copying the file to a
 floppy disk, or keeping revisions using CVS.</para>
     

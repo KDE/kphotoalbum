@@ -47,7 +47,7 @@ cursor on the option in general.</para>
   <title>Categories</title>
   <para>In <xref linkend="chp-typingIn"/> it was described how you could
 specify different properties for each image, these included
-<literal>Persons</literal>, <literal>Locations</literal> and
+<literal>People</literal>, <literal>Places</literal> and
 <literal>Keywords</literal>. It is possible to specify your own categories, so
 if you prefer you could get an <literal>Items</literal>, a
 <literal>Animals</literal>, or a <literal>Albums</literal> category your self.</para>
@@ -70,10 +70,10 @@ label and an icon.</para>
 
 
 <sect1 id="sec-member-groups-in-options-dialog">
-<title>Member Groups</title>
+<title>Sub-categories</title>
 
-<para>In <xref linkend="sec-member-groups-in-property-editor"/> we discussed member
-groups. From the options dialog, it is possible to configure entire member
+<para>In <xref linkend="sec-member-groups-in-property-editor"/> we
+discussed sub categories. From the settings dialog, it is possible to configure entire member
 groups, i.e. configure all members of a group in one go rather than
 configure all groups for a member as was the situation in <xref
 linkend="sec-member-groups-in-property-editor"/>.</para>
@@ -81,8 +81,8 @@ linkend="sec-member-groups-in-property-editor"/>.</para>
 <para>In <xref linkend="fig-options-member"/> you can see the configuration
 page for specifying member groups. At the top there is a combo box, where
 you can specify which category you are currently configuring. On the
-left side you see a list box with the current member groups, and on the
-right side you see a list box with the members of that member group.</para>
+left side you see a list box with the current category, and on the
+right side you see a list box with the sub categories.</para>
 
 <figure id="fig-options-member">
 <title>Configuring Member Groups</title>
@@ -92,13 +92,6 @@ right side you see a list box with the members of that member group.</para>
 </imageobject>
 </mediaobject>
 </figure>
-
-<para>To add a new group, simply press the <guibutton>Add Group</guibutton>
-button at the bottom of the dialog.</para>
-
-<para>As in the example above, member groups may contain member groups
-them self, so the member group USA may contain the member group
-California.</para>
 
 </sect1>
 

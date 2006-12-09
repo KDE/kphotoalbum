@@ -85,7 +85,7 @@ linkend="chp-importExport"/>.</para>
 images you want to import. Next you must specify in which directory to put
 the imported images.</para>
 
-<para>Chances are that you call the persons category
+<para>Chances are that you call the people category
 <emphasis>personen</emphasis> (if you are German), while I in Danish might
 call this category <emphasis>personer</emphasis>. In the third step of the
 import dialog, you must specify which category from the import file to
@@ -96,7 +96,7 @@ while in your database I'm called Jesper K. Pedersen. Step four let you set
 up matching for each of the imported categories. This can be see in <xref linkend="fig-import-dialog"/>.</para>
 
 <figure id="fig-import-dialog">
-<title>Matching Persons in the Import Dialog </title>
+<title>Matching People in the Import Dialog </title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="import-dialog.png" format="PNG"/>

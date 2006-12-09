@@ -1,12 +1,11 @@
 <chapter id="chp-thumbnail-view">
   <title>Thumbnail viewer</title>
-  <para>Selecting <guilabel>View Images</guilabel> in the browser, you get to
+  <para>Selecting <guilabel>View Thumbnails</guilabel> in the browser, you get to
 a thumbnail overview of the images currently in scope (or all images if no
 scope have been selected). An example of this can be seen in <xref
       linkend="fig-thumbnailview"/> below. The size of the thumbnails can be
-configure from the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure
-KPhotoAlbum</guimenuitem></menuchoice> menu as
-described in <xref linkend="chp-options"/>.</para>
+configure simply by dragging the mouse with the middle mouse button down
+(try it is really cool).</para>
 
   <figure id="fig-thumbnailview">
     <title>Thumbnail View</title>
@@ -18,13 +17,13 @@ described in <xref linkend="chp-options"/>.</para>
   </figure>
 
   <para>In the thumbnail overview you can reorder your pictures by dragging
-them around with the mouse, or cut and paste them using the keyboard. For
+them around with the mouse. For
 the date bar to work properly you should, however, aim at keeping your
 images sorted at all time. Sorting you images can be done by selecting all
 images, and choosing <menuchoice><guimenu>Images</guimenu><guimenuitem>Sort Selected by
 Date &amp; Time</guimenuitem></menuchoice>. The sorting will not reorder images which has
-the same date and time, so if you have say 100 images from 1992, you can
-move them around, and their individual order will stay unchanged after a sort.</para>
+the same date and time, so if you have say 100 images with the date 1992
+(i.e. no month, no day, only year), then you may move them around, and their individual order will stay unchanged after a sort.</para>
 
 <para>Dragging an image from the viewer to the background will set
 the image as the background image of your desktop.</para>
@@ -101,38 +100,16 @@ finding all needed images on the disk.</para>
 </figure>
 
 <para>Images which has the corner cut of (that is image 1-9) are not
-available on disk. Thumb nails are, however, available for images 5-9,
+available on disk. Thumbnails are, however, available for images 5-9,
 therefore &kphotoalbum; can show you the thumbnails for these images. You can,
 however, still not display these images in the viewer.</para>
 
 <para>As you can see, this feature requires you to copy files in and out of
-your directories, &kphotoalbum; do currently not have any support for asking you to
+your directories, &kphotoalbum; does not have any support for asking you to
 insert the CD you labeled blah blah. Thus please forget about this feature
 if you are the kind of person who do not like messing with files etc, and
 instead simply ensure to buy hard disks that is large enough to always
 store all your images.</para>
-
-<para>For the rest of you, here comes the setup that I - the author of
-&kphotoalbum; - uses myself, merely as inspiration.</para>
-
-<para>I store all images in subdirectories called cd1, cd2, etc. (Where each
-top-level directory correspond to a CD with the images, for backup
-purposes). When I go abroad and bring my laptop, I copy the images I want
-to the laptop, and for the remaining I create the directory structure which
-exists under each top level directory (e.g. cd1/holiday2003,
-cd1/birthday-party etc). In these directory structures I copy in all the
-<emphasis>thumbnail</emphasis> directories, and for the actual images, I
-create symlinks to the CD drive. That way I can simply mount a given CD to
-view its images, and at any time I can see the thumbnails for any
-image.</para>
-
-<para>The CD a given image is store on is specified as a keyword for the
-image, that way I can easily figure out which CD to mount.</para>
-
-<para>Currently I have
-to restart &kphotoalbum; to get it to recognize that the availability of images
-has changed. If you use this feature, please let me know at
-blackie@kde.org, and I'll consider polishing it a bit more.</para>
 
 </sect1>
 

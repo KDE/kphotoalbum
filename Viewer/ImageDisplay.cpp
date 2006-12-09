@@ -114,7 +114,7 @@ void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mouseMoveEvent( &e, event->pos(), ratio );
     if ( !block )
-        QWidget::mousePressEvent( event );
+        QWidget::mouseMoveEvent( event );
     update();
 }
 

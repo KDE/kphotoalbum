@@ -31,8 +31,8 @@
 using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Delete Images/Videos"), Cancel|User1, User1, parent, name,
-                  true, false, KGuiItem(i18n("Delete Images/Videos"),QString::fromLatin1("editdelete")))
+    :KDialogBase( Plain, i18n("Delete"), Cancel|User1, User1, parent, name,
+                  true, false, KGuiItem(i18n("Delete"),QString::fromLatin1("editdelete")))
 {
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );

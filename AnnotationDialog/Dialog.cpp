@@ -911,16 +911,16 @@ void AnnotationDialog::Dialog::setupActions()
     new KAction( i18n("Toggle Showing Selected Items Only"), CTRL+Key_S, &ShowSelectionOnlyManager::instance(), SLOT( toggle() ),
                  _actions, "annotationdialog-toggle-showing-selected-only" );
 
-    new KAction( i18n("Annotate Next Item"), Key_PageDown, this, SLOT( slotNext() ),
+    new KAction( i18n("Annotate Next"), Key_PageDown, this, SLOT( slotNext() ),
                  _actions, "annotationdialog-next-image" );
 
-    new KAction( i18n("Annotate Previous Item"), Key_PageUp, this, SLOT( slotPrev() ),
+    new KAction( i18n("Annotate Previous"), Key_PageUp, this, SLOT( slotPrev() ),
                  _actions, "annotationdialog-prev-image" );
 
     new KAction( i18n("OK dialog"), CTRL+Key_Return, this, SLOT( slotOK() ),
                  _actions, "annotationdialog-OK-dialog" );
 
-    new KAction( i18n("Delete Image/Video"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
+    new KAction( i18n("Delete"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
                  _actions, "annotationdialog-delete-image" );
 
     new KAction( i18n("Rotate Left"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );

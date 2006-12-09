@@ -831,7 +831,7 @@ void Settings::SettingsDialog::createViewerPage()
     _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), top, "_slideShowSetup" );
     lay1->addWidget( _slideShowSetup );
 
-    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images/Videos From Thumbnail View" ), top, "_viewImageSetup" );
+    _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images and Videos From Thumbnail View" ), top, "_viewImageSetup" );
     lay1->addWidget( _viewImageSetup );
 
     QGridLayout* glay = new QGridLayout( lay1, 2, 2, 6 );

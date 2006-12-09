@@ -80,7 +80,7 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
     _cancelSelection->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "cancel" ), KIcon::Toolbar, 16 ) );
     connect( _cancelSelection, SIGNAL( clicked() ), this, SLOT( clearSelection() ) );
     _cancelSelection->setEnabled( false );
-    QToolTip::add( _cancelSelection, i18n("Widen selection to include all images/videos again") );
+    QToolTip::add( _cancelSelection, i18n("Widen selection to include all images and videos again") );
 
     placeAndSizeButtons();
 

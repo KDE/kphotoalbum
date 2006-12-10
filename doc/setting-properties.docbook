@@ -78,7 +78,7 @@ may see these annotations when viewing the items in the build-in viewer.</para>
     
     
     
-    <sect2 id="sect-specifying-options">
+    <sect1 id="sect-specifying-options">
       <title>Categories</title>
       <para>In <xref linkend="fig-image-config-window"/> there are three
 list boxes combined with a line edits for specifying people, places and
@@ -105,25 +105,25 @@ you have typed in their name the first time.</para>
 
      <para>If you prefer to have the list alphabetically sorted instead,
 simply press the icon for sorting under the list box.</para>
-    </sect2>
+    </sect1>
     
     
-    <sect2 id="sect-specifying-properties-for-one-image-at-a-time">
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
       <title>Annotating one item at a time</title>
       <para>When you specify properties for one image at a time, you may
 still of course select a number of images, and say, <emphasis>I want to
 annotate these images</emphasis>. In this situation, you will
 find a next and previous button under the image in the topmost rightmost
 corner. </para>
-    </sect2>
+    </sect1>
     
-    <sect2 id="sect-specifying-properties-for-all-images-simultaneously">
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
       <title>Annotating multiple items at a time</title>
       <para>If you have several images with, say the same person, then it
 might be more convenient to select those images, and specify that this
 person is on all images using the <emphasis>Annotate Multiple Items at a Time</emphasis>.</para>
       
-    </sect2>
+    </sect1>
 
 
 <sect1 id="sec-member-groups-in-property-editor">

@@ -333,7 +333,7 @@ void Export::showUsageDialog()
               "to click it from within konqueror. To enable this, your web server needs to be configured for KPhotoAlbum. You do so by adding "
               "the following line to <b>/etc/httpd/mime.types</b> or similar:"
               "<pre>application/vnd.kde.kphotoalbum-import kim</pre>"
-              "This will make your web server tell konqueror that it is a KPhotoAlbum fill when clicking on the link, "
+              "This will make your web server tell konqueror that it is a KPhotoAlbum file when clicking on the link, "
               "otherwise the web server will just tell konqueror that it is a plain text file.</p>" );
 
     KMessageBox::information( 0, txt, i18n("How to Use the Export File"), QString::fromLatin1("export_how_to_use_the_export_file") );

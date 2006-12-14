@@ -36,7 +36,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
     QString txt
         = i18n("<p>This is the KPhotoAlbum survey. Its goal is to collect the "
                "information needed to make KPhotoAlbum meet the needs of users like you.</p>"
-               "<p>Spend a couple of minutes and share your experience of using KPhotoAlbum..</p>"
+               "<p>Spend a couple of minutes and share your experience of using KPhotoAlbum.</p>"
                "<p>At any time, you can quit the survey and return to "
                "it later on; it will remember your previous answers.</p>"
                "<p align=\"right\">Thanks in advance! Jesper</p>");

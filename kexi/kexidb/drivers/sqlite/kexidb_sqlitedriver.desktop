@@ -3,6 +3,7 @@ Encoding=UTF-8
 Hidden=true
 Name=SQLite
 Comment=SQLite is default Kexi embedded SQL engine
+Comment[ar]=SQLite هو محرك الــ SQL المضمّن لِــ Kexi
 Comment[ca]=SQLite és el motor SQL encastat i per defecte del Kexi
 Comment[da]=Sqlite er indbygget SQL-standarddatabase i Kexi
 Comment[de]=SQLite ist das in Kexi integrierte und voreingestellte Datenbanksystem

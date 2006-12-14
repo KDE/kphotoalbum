@@ -6,6 +6,7 @@ Name[sv]=Kfotoalbum
 Name[xx]=xxKPhotoAlbumxx
 Exec=kphotoalbum
 GenericName=Photo Album
+GenericName[ar]=دفتر الصور
 GenericName[br]=Albom foto
 GenericName[ca]=Àlbum de fotografies
 GenericName[cs]=Fotoalbum

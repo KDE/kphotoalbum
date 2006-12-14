@@ -2,6 +2,7 @@
 Encoding=UTF-8
 Name=MySQL
 Comment=MySQL Migration Driver for Kexi
+Comment[ar]=سائق النزوح MySQL لِــ Kexi
 Comment[ca]=Controlador de migració de MySQL pel Kexi
 Comment[da]=MySQL-overførselsdrivere for Kexi
 Comment[de]=MySQL Migrationstreiber für Kexi

@@ -20,9 +20,7 @@
 #include <klocale.h>
 #include "DB/ImageDB.h"
 
-using namespace Viewer;
-
-ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent )
+Viewer::ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent )
     :KToggleAction( parent, QString::fromLatin1( "Show %1" ).arg( category ).latin1() ), _category( category )
 {
     setText( i18n( "Show %1" ).arg( category ) );
@@ -30,7 +28,7 @@ ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent )
     setChecked( DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow() );
 }
 
-void ShowOptionAction::slotToggled( bool b )
+void Viewer::ShowOptionAction::slotToggled( bool b )
 {
     emit toggled( _category, b );
 }

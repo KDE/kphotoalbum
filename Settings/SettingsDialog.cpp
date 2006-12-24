@@ -781,9 +781,25 @@ void Settings::SettingsDialog::saveOldGroup()
 
 void Settings::SettingsDialog::selectMembers( const QString& group )
 {
-    _currentGroup = group;
+    if( _currentGroup == group )
+    {
+        return;
+    }
     QStringList list = _memberMap.members(_currentCategory,group, false );
+
+    if( !_currentGroup.isEmpty() && _members->findItem(_currentGroup,Qt::ExactMatch) == 0)
+    {
+        _members->insertItem(_currentGroup);
+        _members->sort();
+    }
+   _currentGroup = group;
     for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+        QString currentText = item->text();
+        if(currentText == group )
+        {
+            _members->removeItem(_members->index(item));
+            continue;
+        }
         _members->setSelected( item, list.contains( item->text() ) );
     }
     setButtonStates();

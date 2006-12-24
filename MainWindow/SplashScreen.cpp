@@ -50,6 +50,11 @@ void MainWindow::SplashScreen::message( const QString& message )
 
 void MainWindow::SplashScreen::drawContents( QPainter * painter )
 {
+    painter->save();
+    QFont font = painter->font();
+    font.setPointSize( 10 );
+    painter->setFont( font );
+
     // Version String
     QString txt;
     QString version = KGlobal::instance()->aboutData()->version();
@@ -60,7 +65,8 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
     painter->drawText( QRect( QPoint(230, 265), QSize( 150, 20 )), AlignRight | AlignTop, txt );
 
     // Message
-    painter->drawText( QRect( QPoint(20, 265), QSize( 200, 20 )), AlignLeft | AlignTop, _message );
+    painter->drawText( QRect( QPoint(20, 265), QSize( 300, 20 )), AlignLeft | AlignTop, _message );
+    painter->restore();
 }
 
 #include "SplashScreen.moc"

@@ -901,7 +901,7 @@ void Settings::SettingsDialog::createViewerPage()
 void Settings::SettingsDialog::createPluginPage()
 {
 #ifdef HASKIPI
-    MainWindow::Window::theMainWindow()->loadPlugins();
+    ::MainWindow::Window::theMainWindow()->loadPlugins();
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
                                                              KIcon::Desktop, 32 ) );

@@ -122,7 +122,7 @@ void Settings::CategoryItem::renameCategory( DB::MemberMap* memberMap )
                        "step save the database.</p>" );
 
 
-    if ( KMessageBox::warningContinueCancel( MainWindow::Window::theMainWindow(), txt ) == QMessageBox::Cancel )
+    if ( KMessageBox::warningContinueCancel( ::MainWindow::Window::theMainWindow(), txt ) == QMessageBox::Cancel )
         return;
 
     QDir dir( QString::fromLatin1("%1/CategoryImages" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );

@@ -9,59 +9,68 @@ fi
 AC_SUBST(kphotoalbum_top_srcdir)
 
 # -------------------------------------------------- KIPI Check
-KDE_CHECK_HEADER(libkipi/interface.h,  have_kipi=yes,  have_kipi=no)
-
-if test "$have_kipi" = "no"; then
-  AC_MSG_WARN([Can't find KIPI (KDE Image Plugin Interface), compiling without]);  
-else
-  AC_DEFINE( HASKIPI, 1, [Set to 1 if you have KIPI installed])
-fi
-AM_CONDITIONAL(compile_with_kipi, test "$have_kipi" = "yes")
-
-
-# -------------------------------------------------- EXIV2 Check
-KDE_CHECK_HEADER(exiv2/exif.hpp,  have_exif2=yes, have_exif2=no)
-
-if test "$have_exif2" = "no"; then
-  AC_MSG_WARN([Can't find exif2, compiling without]);  
-else
-  AC_DEFINE( HASEXIV2, 1, [Set to 1 if you have Exiv2 installed])
-fi
-AM_CONDITIONAL(compile_with_exiv2, test "$have_exif2" = "yes")
-
-
-# -------------------------------------------------- KexiDB Check
-#KDE_CHECK_HEADER(kexidb/connection.h, have_kexidb=yes, have_kexidb=no)
-
-#if test "$have_kexidb" = "yes"; then
-#  AC_DEFINE(HASKEXIDB, 1, [Set to 1 if you have KexiDB installed])
-#fi
-#AM_CONDITIONAL(compile_with_kexidb, test "$have_kexidb" = "yes")
-
-
-dnl ============================================================
-dnl Check for sqldb
-dnl ============================================================
-AC_MSG_CHECKING([whether to compile the SQL support])
-AC_ARG_ENABLE(sqldb,
-[AC_HELP_STRING([--enable-sqldb],
-                [Whether to compile the SQL support for kphotoalbum - only do so if you develop KPhotoAlbum, this is unfinished code!])],
+enable_kipi_support="yes"
+AC_MSG_CHECKING([whether support for KIPI should be compiled in])
+AC_ARG_ENABLE(kipi,
+[AC_HELP_STRING([--enable-kipi],
+                [Whether to compile the KIPI support into kphotoalbum - only disable this if you can't get it working - without KPhotoAlbum have no plug-in support and lots of features will be missing!])],
 [case "${enableval}" in
         yes)
                 AC_MSG_RESULT([yes])
-                AC_DEFINE(SQLDB_SUPPORT, 1, [Define to 1 if you want SQL support in kphotoalbum])
-                enable_sqldb_support="yes"
-                #if test x$have_kexidb != xyes; then
-                #        AC_MSG_ERROR([SQL support cannot be enabled without KexiDB.])
-                #fi
                 ;;
         no)
                 AC_MSG_RESULT([no])
+                enable_kipi_support="no"
                 ;;
         *)
-                AC_MSG_ERROR([bad value ${enableval} for --enable-sqldb])
+                AC_MSG_ERROR([bad value ${enableval} for --enable-kipi])
                 ;;
 esac
-], [AC_MSG_RESULT([no])])
+], [AC_MSG_RESULT([yes])])
 
-AM_CONDITIONAL(compile_sqldb, test "$enable_sqldb_support" = "yes")
+if test "$enable_kipi_support" = "yes"; then
+  KDE_CHECK_HEADER(libkipi/interface.h,  have_kipi=yes,  have_kipi=no)
+
+  if test "$have_kipi" = "no"; then
+    AC_MSG_ERROR([Can't find KIPI (KDE Image Plugin Interface) configure using --diable-kipi to compile without, but be warned that you will miss a lot of features in KPhotoAlbum if you do so.]);  
+  else
+    AC_DEFINE( HASKIPI, 1, [Set to 1 if you have KIPI installed])
+  fi
+  AM_CONDITIONAL(compile_with_kipi, true)
+else
+  AM_CONDITIONAL(compile_with_kipi, false)
+fi
+
+# -------------------------------------------------- EXIV2 Check
+enable_exiv2_support="yes"
+AC_MSG_CHECKING([whether support for EXIV2 should be compiled in])
+AC_ARG_ENABLE(exiv2,
+[AC_HELP_STRING([--enable-exiv2],
+                [Whether to compile the EXIV2 support into kphotoalbum - only disable this if you can't get it working - without KPhotoAlbum have no EXIV support!])],
+[case "${enableval}" in
+        yes)
+                AC_MSG_RESULT([yes])
+                ;;
+        no)
+                AC_MSG_RESULT([no])
+                enable_exiv2_support="no"
+                ;;
+        *)
+                AC_MSG_ERROR([bad value ${enableval} for --enable-exiv2])
+                ;;
+esac
+], [AC_MSG_RESULT([yes])])
+
+if test "$enable_exiv2_support" = "yes"; then
+  KDE_CHECK_HEADER(exiv2/exif.hpp,  have_exif2=yes, have_exif2=no)
+
+  if test "$have_exif2" = "no"; then
+    AC_MSG_ERROR([Can't find exif2 run configure with --disable-exiv2 if you do not want it, but be warned there will be no EXIF support in the app then. ]);  
+  else
+    AC_DEFINE( HASEXIV2, 1, [Set to 1 if you have Exiv2 installed])
+  fi
+  AM_CONDITIONAL(compile_with_exiv2, true)
+else
+  AM_CONDITIONAL(compile_with_exiv2, false)
+fi
+

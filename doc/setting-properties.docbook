@@ -97,7 +97,7 @@ simply press enter to select this item in the listbox. The item will now be
 moved to the top of the view, so next time you need the given item it is
 even easier to find.</para> 
       
-      <para>The idea behind moving images to the top when they have been
+      <para>The idea behind moving items to the top when they have been
 selected is, that when going to, say a family party, you will get perhaps
 50 images all with the same 5-10 people. When typing in information about these
 50 images you will have the 5-10 people at the top of the listbox as soon as

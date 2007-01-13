@@ -61,7 +61,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "<ul>"
                   "<li>Writing images to cds or dvd's"
                   "<li>Adjusting timestamps on your images"
-                  "<li>Making a calender featuring your images"
+                  "<li>Making a calendar featuring your images"
                   "<li>Uploading your images to flickr"
                   "</ul></p>"
 

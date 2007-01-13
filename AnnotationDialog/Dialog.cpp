@@ -322,8 +322,10 @@ void AnnotationDialog::Dialog::slotOK()
     qApp->eventLoop()->exitLoop();
 
     // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
-    if ( anyChanges )
+    if ( anyChanges ) {
         MainWindow::DirtyIndicator::markDirty();
+        _thumbnailShouldReload = true;
+    }
 }
 
 void AnnotationDialog::Dialog::load()

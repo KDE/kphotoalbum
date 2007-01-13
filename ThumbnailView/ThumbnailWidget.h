@@ -97,7 +97,8 @@ protected:
     int lastVisibleRow( VisibleState ) const;
     int numRowsPerPage() const;
     QRect iconGeometry( int row, int col ) const;
-    int textHeight() const;
+    int noOfCategoriesForImage( const QString& image ) const;
+    int textHeight( bool reCalc ) const;
     QRect cellTextGeometry( int row, int col ) const;
     bool isFocusAtFirstCell() const;
     bool isFocusAtLastCell() const;

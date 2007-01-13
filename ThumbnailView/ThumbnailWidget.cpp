@@ -273,15 +273,48 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
 }
 
 /**
+ * Returns the max. count of categories of an image with number of groups > 0
+ */
+int ThumbnailView::ThumbnailWidget::noOfCategoriesForImage(const QString& image ) const
+{
+    int catsInText = 0;
+    QStringList grps = DB::ImageDB::instance()->info( image )->availableCategories();
+    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        QString category = *it;
+        if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
+            StringSet items = DB::ImageDB::instance()->info( image )->itemsOfCategory( category );
+            if (items.count() != 0 ) {
+                catsInText++;
+            }
+        }
+    }
+    return catsInText;
+}
+
+/**
  * Return the height of the text under the thumbnails.
  */
-int ThumbnailView::ThumbnailWidget::textHeight() const
+int ThumbnailView::ThumbnailWidget::textHeight( bool reCalc ) const
 {
     int h = 0;
+    static int maxCatsInText = 0;
+
     if ( Settings::SettingsData::instance()->displayLabels() )
         h += QFontMetrics( font() ).height() +2;
     if ( Settings::SettingsData::instance()->displayCategories()) {
-        h += QFontMetrics( font() ).height() * ( DB::ImageDB::instance()->categoryCollection()->categoryNames().count() - 2 ) +2;
+        if ( reCalc ) {
+            if ( _selectedFiles.count() > 0 ) {
+                for( Set<QString>::ConstIterator itImg = _selectedFiles.begin(); itImg != _selectedFiles.end(); ++itImg ) {
+                    maxCatsInText = QMAX( noOfCategoriesForImage( *itImg ), maxCatsInText );
+                }
+            } else {
+                maxCatsInText = 0;
+                for( QValueVector<QString>::ConstIterator itImg = _imageList.begin(); itImg != _imageList.end(); ++itImg ) {
+                    maxCatsInText = QMAX( noOfCategoriesForImage( *itImg ), maxCatsInText );
+                }
+            }
+        }
+        h += QFontMetrics( font() ).height() * ( maxCatsInText ) +5;
     }
     return h;
 }
@@ -296,7 +329,7 @@ QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
     if ( fileName.isNull() ) // empty cell
         return QRect();
 
-    int h = textHeight();
+    int h = textHeight( false );
 
     QRect iconRect = iconGeometry( row, col );
     QRect cellRect = const_cast<ThumbnailWidget*>(this)->cellGeometry( row, col );
@@ -395,22 +428,25 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
     if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
         QString token = event->text().upper().left(1);
-        bool firstHasToken = false;
-        bool firstTime     = true;
+        bool mustRemoveToken = false;
+        bool hadHit          = false;
 
         for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
-            if ( firstTime ) {
-                firstHasToken = DB::ImageDB::instance()->info( *it )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
-                firstTime = false;
+            if ( ! hadHit ) {
+                mustRemoveToken = DB::ImageDB::instance()->info( *it )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
+                hadHit = true;
             }
 
-            if ( firstHasToken )
+            if ( mustRemoveToken )
                 DB::ImageDB::instance()->info( *it )->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
             else
                 DB::ImageDB::instance()->info( *it )->addCategoryInfo( QString::fromLatin1("Tokens"), token );
 
             updateCell( *it );
         }
+
+        if ( hadHit )
+            updateCellSize();
 
         DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1("Tokens") )->addItem( token );
         MainWindow::DirtyIndicator::markDirty();
@@ -1028,9 +1064,14 @@ void ThumbnailView::ThumbnailWidget::updateCellSize()
     int size = Settings::SettingsData::instance()->thumbSize() + SPACE;
     setCellWidth( size );
 
-    int h = size +2 + textHeight();
-    setCellHeight( h );
+    const int oldHeight = cellHeight();
+    const int height = size +2 + textHeight( true );
+    setCellHeight( height );
     updateGridSize();
+    if ( height != oldHeight && ! _currentItem.isNull() ) {
+        const Cell c = positionForFileName(_currentItem);
+        ensureCellVisible( c.row(), c.col() );
+    }
 }
 
 void ThumbnailView::ThumbnailWidget::viewportPaintEvent( QPaintEvent* e )

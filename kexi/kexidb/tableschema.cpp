@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2003 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2003-2004 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -18,12 +18,12 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#include <kexidb/tableschema.h>
-#include <kexidb/driver.h>
-#include <kexidb/connection.h>
+#include "tableschema.h"
+#include "driver.h"
+#include "connection.h"
+#include "lookupfieldschema.h"
 
 #include <assert.h>
-
 #include <kdebug.h>
 
 namespace KexiDB {
@@ -36,7 +36,23 @@ public:
 	{
 	}
 
+	~Private()
+	{
+		clearLookupFields();
+	}
+
+	void clearLookupFields()
+	{
+		for (QMap<const Field*, LookupFieldSchema*>::ConstIterator it = lookupFields.constBegin(); 
+			it!=lookupFields.constEnd(); ++it)
+		{
+			delete it.data();
+		}
+		lookupFields.clear();
+	}
+
 	Field *anyNonPKField;
+	QMap<const Field*, LookupFieldSchema*> lookupFields;
 };
 }
 //-------------------------------------
@@ -72,7 +88,7 @@ TableSchema::TableSchema()
 	init();
 }
 
-TableSchema::TableSchema(const TableSchema& ts)
+TableSchema::TableSchema(const TableSchema& ts, bool copyId)
 	: FieldList(static_cast<const FieldList&>(ts))
 	, SchemaData(static_cast<const SchemaData&>(ts))
 	, m_conn( ts.m_conn )
@@ -83,6 +99,8 @@ TableSchema::TableSchema(const TableSchema& ts)
 	m_name = ts.m_name;
 	m_indices.setAutoDelete( true );
 	m_pkey = 0; //will be copied
+	if (!copyId)
+		m_id = -1;
 
 	//deep copy all members
 	IndexSchema::ListIterator idx_it(ts.m_indices);
@@ -194,6 +212,8 @@ void TableSchema::removeField(KexiDB::Field *field)
 {
 	if (d->anyNonPKField && field == d->anyNonPKField) //d->anyNonPKField will be removed!
 		d->anyNonPKField = 0;
+	delete d->lookupFields[field];
+	d->lookupFields.remove(field);
 	FieldList::removeField(field);
 }
 
@@ -237,6 +257,7 @@ KexiDB::FieldList& TableSchema::addField(KexiDB::Field* field)
 void TableSchema::clear()
 {
 	m_indices.clear();
+	d->clearLookupFields();
 	FieldList::clear();
 	SchemaData::clear();
 	m_conn = 0;
@@ -290,7 +311,23 @@ unsigned int TableSchema::fieldCount() const
 
 QString TableSchema::debugString()
 {
-	return QString("TABLE ") + schemaDataDebugString() + "\n" + FieldList::debugString();
+	return debugString(true);
+}
+
+QString TableSchema::debugString(bool includeTableName)
+{
+	QString s;
+	if (includeTableName)
+		s = QString("TABLE ") + schemaDataDebugString() + "\n";
+	s.append( FieldList::debugString() );
+
+	Field *f;
+	for (Field::ListIterator it(m_fields); (f = it.current()); ++it) {
+		LookupFieldSchema *lookupSchema = lookupFieldSchema( *f );
+		if (lookupSchema)
+			s.append( QString("\n") + lookupSchema->debugString() );
+	}
+	return s;
 }
 
 void TableSchema::setKexiDBSystem(bool set)
@@ -303,7 +340,7 @@ void TableSchema::setKexiDBSystem(bool set)
 void TableSchema::setNative(bool set)
 {
 	if (m_isKexiDBSystem && !set) {
-		KexiDBDbg << "TableSchema::setNative(): cannot set native off"
+		KexiDBWarn << "TableSchema::setNative(): cannot set native off"
 			" when KexiDB system flag is set on!" << endl;
 		return;
 	}
@@ -331,6 +368,36 @@ Field* TableSchema::anyNonPKField()
 		d->anyNonPKField = f;
 	}
 	return d->anyNonPKField;
+}
+
+bool TableSchema::setLookupFieldSchema( const QString& fieldName, LookupFieldSchema *lookupFieldSchema )
+{
+	Field *f = field(fieldName);
+	if (!f) {
+		KexiDBWarn << "TableSchema::setLookupFieldSchema(): no such field '" << fieldName 
+			<< "' in table " << name() << endl;
+		return false;
+	}
+	if (lookupFieldSchema)
+		d->lookupFields.replace( f, lookupFieldSchema );
+	else {
+		delete d->lookupFields[f];
+		d->lookupFields.remove( f );
+	}
+	return true;
+}
+
+LookupFieldSchema *TableSchema::lookupFieldSchema( const Field& field ) const
+{
+	return d->lookupFields[ &field ];
+}
+
+LookupFieldSchema *TableSchema::lookupFieldSchema( const QString& fieldName )
+{
+	Field *f = TableSchema::field(fieldName);
+	if (!f)
+		return 0;
+	return lookupFieldSchema( *f );
 }
 
 //--------------------------------------

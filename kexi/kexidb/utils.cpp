@@ -17,17 +17,22 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#include <kexidb/utils.h>
-#include <kexidb/cursor.h>
-#include <kexidb/drivermanager.h>
+#include "utils.h"
+#include "cursor.h"
+#include "drivermanager.h"
 
 #include <qmap.h>
 #include <qthread.h>
+#include <qdom.h>
+#include <qintdict.h>
+#include <qbuffer.h>
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <kstaticdeleter.h>
 #include <kmessagebox.h>
+#include <klocale.h>
+#include <kiconloader.h>
 
 #include "utils_p.h"
 
@@ -69,7 +74,7 @@ static void initList()
 	KexiDB_typeCache->def_tlist[ Field::InvalidGroup ] = Field::InvalidType;
 	KexiDB_typeCache->def_tlist[ Field::TextGroup ] = Field::Text;
 	KexiDB_typeCache->def_tlist[ Field::IntegerGroup ] = Field::Integer;
-	KexiDB_typeCache->def_tlist[ Field::FloatGroup ] = Field::Float;
+	KexiDB_typeCache->def_tlist[ Field::FloatGroup ] = Field::Double;
 	KexiDB_typeCache->def_tlist[ Field::BooleanGroup ] = Field::Boolean;
 	KexiDB_typeCache->def_tlist[ Field::DateTimeGroup ] = Field::Date;
 	KexiDB_typeCache->def_tlist[ Field::BLOBGroup ] = Field::BLOB;
@@ -123,7 +128,7 @@ void KexiDB::getHTMLErrorMesage(Object* obj, QString& msg, QString &details)
 	//lower level message is added to the details, if there is alread message specified
 	if (!obj->msgTitle().isEmpty())
 		msg += "<p>" + obj->msgTitle();
-
+	
 	if (msg.isEmpty())
 		msg = "<p>" + obj->errorMsg();
 	else
@@ -145,17 +150,17 @@ void KexiDB::getHTMLErrorMesage(Object* obj, QString& msg, QString &details)
 	}
 	if (!serverResultName.isEmpty())
 		details += (QString("<p><b><nobr>")+i18n("Server result name:")+"</nobr></b><br>"+serverResultName);
-	if (!details.isEmpty()
+	if (!details.isEmpty() 
 		&& (!obj->serverErrorMsg().isEmpty() || !obj->recentSQLString().isEmpty() || !serverResultName.isEmpty() || serverResult!=0) )
 	{
 		details += (QString("<p><b><nobr>")+i18n("Server result number:")+"</nobr></b><br>"+QString::number(serverResult));
 	}
 
-	if (!details.isEmpty() && !details.startsWith("<p>")) {
+	if (!details.isEmpty() && !details.startsWith("<qt>")) {
 		if (details.startsWith("<p>"))
-			details = QString::fromLatin1("<p>")+details;
+			details = QString::fromLatin1("<qt>")+details;
 		else
-			details = QString::fromLatin1("<p>")+details;
+			details = QString::fromLatin1("<qt><p>")+details;
 	}
 }
 
@@ -182,16 +187,26 @@ int KexiDB::idForObjectName( Connection &conn, const QString& objName, int objTy
 
 //-----------------------------------------
 
+TableOrQuerySchema::TableOrQuerySchema(Connection *conn, const QCString& name)
+ : m_name(name)
+{
+	m_table = conn->tableSchema(QString(name));
+	m_query = m_table ? 0 : conn->querySchema(QString(name));
+	if (!m_table && !m_query)
+		KexiDBWarn << "TableOrQuery(FieldList &tableOrQuery) : "
+			" tableOrQuery is neither table nor query!" << endl;
+}
+
 TableOrQuerySchema::TableOrQuerySchema(Connection *conn, const QCString& name, bool table)
  : m_name(name)
  , m_table(table ? conn->tableSchema(QString(name)) : 0)
  , m_query(table ? 0 : conn->querySchema(QString(name)))
 {
 	if (table && !m_table)
-		kdWarning() << "TableOrQuery(Connection *conn, const QCString& name, bool table) : "
+		KexiDBWarn << "TableOrQuery(Connection *conn, const QCString& name, bool table) : "
 			"no table specified!" << endl;
 	if (!table && !m_query)
-		kdWarning() << "TableOrQuery(Connection *conn, const QCString& name, bool table) : "
+		KexiDBWarn << "TableOrQuery(Connection *conn, const QCString& name, bool table) : "
 			"no query specified!" << endl;
 }
 
@@ -200,7 +215,7 @@ TableOrQuerySchema::TableOrQuerySchema(FieldList &tableOrQuery)
  , m_query(dynamic_cast<QuerySchema*>(&tableOrQuery))
 {
 	if (!m_table && !m_query)
-		kdWarning() << "TableOrQuery(FieldList &tableOrQuery) : "
+		KexiDBWarn << "TableOrQuery(FieldList &tableOrQuery) : "
 			" tableOrQuery is nether table nor query!" << endl;
 }
 
@@ -209,7 +224,7 @@ TableOrQuerySchema::TableOrQuerySchema(Connection *conn, int id)
 	m_table = conn->tableSchema(id);
 	m_query = m_table ? 0 : conn->querySchema(id);
 	if (!m_table && !m_query)
-		kdWarning() << "TableOrQuery(Connection *conn, int id) : no table or query found for id=="
+		KexiDBWarn << "TableOrQuery(Connection *conn, int id) : no table or query found for id==" 
 			<< id << "!" << endl;
 }
 
@@ -218,7 +233,7 @@ TableOrQuerySchema::TableOrQuerySchema(TableSchema* table)
  , m_query(0)
 {
 	if (!m_table)
-		kdWarning() << "TableOrQuery(TableSchema* table) : no table specified!" << endl;
+		KexiDBWarn << "TableOrQuery(TableSchema* table) : no table specified!" << endl;
 }
 
 TableOrQuerySchema::TableOrQuerySchema(QuerySchema* query)
@@ -226,18 +241,18 @@ TableOrQuerySchema::TableOrQuerySchema(QuerySchema* query)
  , m_query(query)
 {
 	if (!m_query)
-		kdWarning() << "TableOrQuery(QuerySchema* query) : no query specified!" << endl;
+		KexiDBWarn << "TableOrQuery(QuerySchema* query) : no query specified!" << endl;
 }
 
 const QueryColumnInfo::Vector TableOrQuerySchema::columns(bool unique)
 {
 	if (m_table)
-		return m_table->query()->fieldsExpanded();
-
+		return m_table->query()->fieldsExpanded(unique ? QuerySchema::Unique : QuerySchema::Default);
+	
 	if (m_query)
-		return m_query->fieldsExpanded(unique);
+		return m_query->fieldsExpanded(unique ? QuerySchema::Unique : QuerySchema::Default);
 
-	kdWarning() << "TableOrQuery::fields() : no query or table specified!" << endl;
+	KexiDBWarn << "TableOrQuerySchema::column() : no query or table specified!" << endl;
 	return QueryColumnInfo::Vector();
 }
 
@@ -272,7 +287,7 @@ QueryColumnInfo* TableOrQuerySchema::columnInfo(const QString& name)
 {
 	if (m_table)
 		return m_table->query()->columnInfo(name);
-
+	
 	if (m_query)
 		return m_query->columnInfo(name);
 
@@ -345,7 +360,7 @@ void ConnectionTestThread::run()
 		delete conn;
 		return;
 	}
-	// SQL database backends like PostgreSQL require executing "USE database"
+	// SQL database backends like PostgreSQL require executing "USE database" 
 	// if we really want to know connection to the server succeeded.
 	QString tmpDbName;
 	if (!conn->useTemporaryDatabaseIfNeeded( tmpDbName )) {
@@ -357,11 +372,11 @@ void ConnectionTestThread::run()
 	m_dlg->error(0);
 }
 
-ConnectionTestDialog::ConnectionTestDialog(QWidget* parent,
+ConnectionTestDialog::ConnectionTestDialog(QWidget* parent, 
 	const KexiDB::ConnectionData& data,
 	KexiDB::MessageHandler& msgHandler)
  : KProgressDialog(parent, "testconn_dlg",
-	i18n("Test Connection"), i18n("<p>Testing connection to <b>%1</b> database server...</p>")
+	i18n("Test Connection"), i18n("<qt>Testing connection to <b>%1</b> database server...</qt>")
 	.arg(data.serverInfoString(true)), true /*modal*/)
  , m_thread(new ConnectionTestThread(this, data))
  , m_connData(data)
@@ -414,14 +429,14 @@ void ConnectionTestDialog::slotTimeout()
 			m_errorObj = 0;
 		}
 		else if (notResponding) {
-			KMessageBox::sorry(0,
-				i18n("<p>Test connection to <b>%1</b> database server failed. The server is not responding.</p>")
+			KMessageBox::sorry(0, 
+				i18n("<qt>Test connection to <b>%1</b> database server failed. The server is not responding.</qt>")
 					.arg(m_connData.serverInfoString(true)),
 				i18n("Test Connection"));
 		}
 		else {
-			KMessageBox::information(0,
-				i18n("<p>Test connection to <b>%1</b> database server established successfully.</p>")
+			KMessageBox::information(0, 
+				i18n("<qt>Test connection to <b>%1</b> database server established successfully.</qt>")
 					.arg(m_connData.serverInfoString(true)),
 				i18n("Test Connection"));
 		}
@@ -458,7 +473,7 @@ void ConnectionTestDialog::slotCancel()
 	KProgressDialog::slotCancel();
 }
 
-void KexiDB::connectionTestDialog(QWidget* parent, const KexiDB::ConnectionData& data,
+void KexiDB::connectionTestDialog(QWidget* parent, const KexiDB::ConnectionData& data, 
 	KexiDB::MessageHandler& msgHandler)
 {
 	ConnectionTestDialog dlg(parent, data, msgHandler);
@@ -474,8 +489,8 @@ int KexiDB::rowCount(const KexiDB::TableSchema& tableSchema)
 	}
 	int count = -1; //will be changed only on success of querySingleNumber()
 	tableSchema.connection()->querySingleNumber(
-		QString::fromLatin1("SELECT COUNT() FROM ")
-		+ tableSchema.connection()->driver()->escapeIdentifier(tableSchema.name()),
+		QString::fromLatin1("SELECT COUNT(*) FROM ") 
+		+ tableSchema.connection()->driver()->escapeIdentifier(tableSchema.name()), 
 		count
 	);
 	return count;
@@ -490,7 +505,7 @@ int KexiDB::rowCount(KexiDB::QuerySchema& querySchema)
 	}
 	int count = -1; //will be changed only on success of querySingleNumber()
 	querySchema.connection()->querySingleNumber(
-		QString::fromLatin1("SELECT COUNT() FROM (")
+		QString::fromLatin1("SELECT COUNT() FROM (") 
 		+ querySchema.connection()->selectStatement(querySchema) + ")",
 		count
 	);
@@ -547,21 +562,592 @@ void KexiDB::fromMap( const QMap<QString,QString>& map, ConnectionData& data )
 	data.setFileName(map["fileName"]);
 }
 
-bool KexiDB::splitToTableAndFieldParts(const QString& string,
+bool KexiDB::splitToTableAndFieldParts(const QString& string, 
 	QString& tableName, QString& fieldName,
-	SetFieldNameIfNoTableNameOptions option)
+	SplitToTableAndFieldPartsOptions option)
 {
 	const int id = string.find('.');
 	if (option & SetFieldNameIfNoTableName && id==-1) {
 		tableName = QString::null;
 		fieldName = string;
-		return true;
+		return !fieldName.isEmpty();
 	}
 	if (id<=0 || id==int(string.length()-1))
 		return false;
 	tableName = string.left(id);
 	fieldName = string.mid(id+1);
+	return !tableName.isEmpty() && !fieldName.isEmpty();
+}
+
+bool KexiDB::supportsVisibleDecimalPlacesProperty(Field::Type type)
+{
+//! @todo add check for decimal type as well
+	return Field::isFPNumericType(type);
+}
+
+QString KexiDB::formatNumberForVisibleDecimalPlaces(double value, int decimalPlaces)
+{
+//! @todo round?
+	if (decimalPlaces < 0) {
+		QString s = QString::number(value, 'f', 10 /*reasonable precision*/);
+		uint i = s.length()-1;
+		while (i>0 && s[i]=='0')
+			i--;
+		if (s[i]=='.') //remove '.'
+			i--;
+		s = s.left(i+1).replace('.', KGlobal::locale()->decimalSymbol());
+		return s;
+	}
+	if (decimalPlaces == 0)
+		return QString::number((int)value);
+	return KGlobal::locale()->formatNumber(value, decimalPlaces);
+}
+
+KexiDB::Field::Type KexiDB::intToFieldType( int type )
+{
+	if (type<(int)KexiDB::Field::InvalidType || type>(int)KexiDB::Field::LastType) {
+		KexiDBWarn << "KexiDB::intToFieldType(): invalid type " << type << endl;
+		return KexiDB::Field::InvalidType;
+	}
+	return (KexiDB::Field::Type)type;
+}
+
+static bool setIntToFieldType( Field& field, const QVariant& value )
+{
+	bool ok;
+	const int intType = value.toInt(&ok);
+	if (!ok || KexiDB::Field::InvalidType == intToFieldType(intType)) {//for sanity
+		KexiDBWarn << "KexiDB::setFieldProperties(): invalid type" << endl;
+		return false;
+	}
+	field.setType((KexiDB::Field::Type)intType);
 	return true;
+}
+
+//! for KexiDB::isBuiltinTableFieldProperty()
+static KStaticDeleter< QAsciiDict<char> > KexiDB_builtinFieldPropertiesDeleter;
+//! for KexiDB::isBuiltinTableFieldProperty()
+QAsciiDict<char>* KexiDB_builtinFieldProperties = 0;
+
+bool KexiDB::isBuiltinTableFieldProperty( const QCString& propertyName )
+{
+	if (!KexiDB_builtinFieldProperties) {
+		KexiDB_builtinFieldPropertiesDeleter.setObject( KexiDB_builtinFieldProperties, new QAsciiDict<char>(499) );
+#define ADD(name) KexiDB_builtinFieldProperties->insert(name, (char*)1)
+		ADD("type");
+		ADD("primaryKey");
+		ADD("indexed");
+		ADD("autoIncrement");
+		ADD("unique");
+		ADD("notNull");
+		ADD("allowEmpty");
+		ADD("unsigned");
+		ADD("name");
+		ADD("caption");
+		ADD("description");
+		ADD("length");
+		ADD("precision");
+		ADD("defaultValue");
+		ADD("width");
+		ADD("visibleDecimalPlaces");
+//! @todo always update this when new builtins appear!
+#undef ADD
+	}
+	return KexiDB_builtinFieldProperties->find( propertyName );
+}
+
+bool KexiDB::setFieldProperties( Field& field, const QMap<QCString, QVariant>& values )
+{
+	QMapConstIterator<QCString, QVariant> it;
+	if ( (it = values.find("type")) != values.constEnd() ) {
+		if (!setIntToFieldType(field, *it))
+			return false;
+	}
+
+#define SET_BOOLEAN_FLAG(flag, value) { \
+		constraints |= KexiDB::Field::flag; \
+		if (!value) \
+			constraints ^= KexiDB::Field::flag; \
+	}
+	
+	uint constraints = field.constraints();
+	bool ok = true;
+	if ( (it = values.find("primaryKey")) != values.constEnd() )
+		SET_BOOLEAN_FLAG(PrimaryKey, (*it).toBool());
+	if ( (it = values.find("indexed")) != values.constEnd() )
+		SET_BOOLEAN_FLAG(Indexed, (*it).toBool());
+	if ( (it = values.find("autoIncrement")) != values.constEnd() 
+		&& KexiDB::Field::isAutoIncrementAllowed(field.type()) )
+		SET_BOOLEAN_FLAG(AutoInc, (*it).toBool());
+	if ( (it = values.find("unique")) != values.constEnd() )
+		SET_BOOLEAN_FLAG(Unique, (*it).toBool());
+	if ( (it = values.find("notNull")) != values.constEnd() )
+		SET_BOOLEAN_FLAG(NotNull, (*it).toBool());
+	if ( (it = values.find("allowEmpty")) != values.constEnd() )
+		SET_BOOLEAN_FLAG(NotEmpty, !(*it).toBool());
+	field.setConstraints( constraints );
+
+	uint options = 0;
+	if ( (it = values.find("unsigned")) != values.constEnd()) {
+		options |= KexiDB::Field::Unsigned;
+		if (!(*it).toBool())
+			options ^= KexiDB::Field::Unsigned;
+	}
+	field.setOptions( options );
+
+	if ( (it = values.find("name")) != values.constEnd())
+		field.setName( (*it).toString() );
+	if ( (it = values.find("caption")) != values.constEnd())
+		field.setCaption( (*it).toString() );
+	if ( (it = values.find("description")) != values.constEnd())
+		field.setDescription( (*it).toString() );
+	if ( (it = values.find("length")) != values.constEnd())
+		field.setLength( (*it).isNull() ? 0/*default*/ : (*it).toUInt(&ok) );
+	if (!ok)
+		return false;
+	if ( (it = values.find("precision")) != values.constEnd())
+		field.setPrecision( (*it).isNull() ? 0/*default*/ : (*it).toUInt(&ok) );
+	if (!ok)
+		return false;
+	if ( (it = values.find("defaultValue")) != values.constEnd())
+		field.setDefaultValue( *it );
+	if ( (it = values.find("width")) != values.constEnd())
+		field.setWidth( (*it).isNull() ? 0/*default*/ : (*it).toUInt(&ok) );
+	if (!ok)
+		return false;
+	if ( (it = values.find("visibleDecimalPlaces")) != values.constEnd() 
+	  && KexiDB::supportsVisibleDecimalPlacesProperty(field.type()) )
+		field.setVisibleDecimalPlaces( (*it).isNull() ? -1/*default*/ : (*it).toInt(&ok) );
+	if (!ok)
+		return false;
+
+	// set custom properties
+	typedef QMap<QCString, QVariant> PropertiesMap;
+	foreach( PropertiesMap::ConstIterator, it, values ) {
+		if (!isBuiltinTableFieldProperty( it.key() ) && !isExtendedTableFieldProperty( it.key() )) {
+			field.setCustomProperty( it.key(), it.data() );
+		}
+	}
+	return true;
+#undef SET_BOOLEAN_FLAG
+}
+
+//! for KexiDB::isExtendedTableFieldProperty()
+static KStaticDeleter< QAsciiDict<char> > KexiDB_extendedPropertiesDeleter;
+//! for KexiDB::isExtendedTableFieldProperty()
+QAsciiDict<char>* KexiDB_extendedProperties = 0;
+
+bool KexiDB::isExtendedTableFieldProperty( const QCString& propertyName )
+{
+	if (!KexiDB_extendedProperties) {
+		KexiDB_extendedPropertiesDeleter.setObject( KexiDB_extendedProperties, new QAsciiDict<char>(499) );
+#define ADD(name) KexiDB_extendedProperties->insert(name, (char*)1)
+		ADD("visibleDecimalPlaces");
+#undef ADD
+	}
+	return KexiDB_extendedProperties->find( propertyName );
+}
+
+bool KexiDB::setFieldProperty( Field& field, const QCString& propertyName, const QVariant& value )
+{
+#define SET_BOOLEAN_FLAG(flag, value) { \
+			constraints |= KexiDB::Field::flag; \
+			if (!value) \
+				constraints ^= KexiDB::Field::flag; \
+			field.setConstraints( constraints ); \
+			return true; \
+		}
+#define GET_INT(method) { \
+			const uint ival = value.toUInt(&ok); \
+			if (!ok) \
+				return false; \
+			field.method( ival ); \
+			return true; \
+		}
+	if (propertyName.isEmpty())
+		return false;
+
+	bool ok;
+	if (KexiDB::isExtendedTableFieldProperty(propertyName)) {
+		//a little speedup: identify extended property in O(1)
+		if ( "visibleDecimalPlaces" == propertyName
+		  && KexiDB::supportsVisibleDecimalPlacesProperty(field.type()) )
+			GET_INT( setVisibleDecimalPlaces );
+	}
+	else {//non-extended
+		if ( "type" == propertyName )
+			return setIntToFieldType(field, value);
+	
+		uint constraints = field.constraints();
+		if ( "primaryKey" == propertyName )
+			SET_BOOLEAN_FLAG(PrimaryKey, value.toBool());
+		if ( "indexed" == propertyName )
+			SET_BOOLEAN_FLAG(Indexed, value.toBool());
+		if ( "autoIncrement" == propertyName
+			&& KexiDB::Field::isAutoIncrementAllowed(field.type()) )
+			SET_BOOLEAN_FLAG(AutoInc, value.toBool());
+		if ( "unique" == propertyName )
+			SET_BOOLEAN_FLAG(Unique, value.toBool());
+		if ( "notNull" == propertyName )
+			SET_BOOLEAN_FLAG(NotNull, value.toBool());
+		if ( "allowEmpty" == propertyName )
+			SET_BOOLEAN_FLAG(NotEmpty, !value.toBool());
+
+		uint options = 0;
+		if ( "unsigned" == propertyName ) {
+			options |= KexiDB::Field::Unsigned;
+			if (!value.toBool())
+				options ^= KexiDB::Field::Unsigned;
+			field.setOptions( options );
+			return true;
+		}
+
+		if ( "name" == propertyName ) {
+			if (value.toString().isEmpty())
+				return false;
+			field.setName( value.toString() );
+			return true;
+		}
+		if ( "caption" == propertyName ) {
+			field.setCaption( value.toString() );
+			return true;
+		}
+		if ( "description" == propertyName ) {
+			field.setDescription( value.toString() );
+			return true;
+		}
+		if ( "length" == propertyName )
+			GET_INT( setLength );
+		if ( "precision" == propertyName )
+			GET_INT( setPrecision );
+		if ( "defaultValue" == propertyName ) {
+			field.setDefaultValue( value );
+			return true;
+		}
+		if ( "width" == propertyName )
+			GET_INT( setWidth );
+
+		// last chance that never fails: custom field property
+		field.setCustomProperty(propertyName, value);
+	}
+
+	KexiDBWarn << "KexiDB::setFieldProperty() property \"" << propertyName << "\" not found!" << endl;
+	return false;
+#undef SET_BOOLEAN_FLAG
+#undef GET_INT
+}
+
+int KexiDB::loadIntPropertyValueFromDom( const QDomNode& node, bool* ok )
+{
+	QCString valueType = node.nodeName().latin1();
+	if (valueType.isEmpty() || valueType!="number") {
+		if (ok)
+			*ok = false;
+		return 0;
+	}
+	const QString text( QDomNode(node).toElement().text() );
+	int val = text.toInt(ok);
+	return val;
+}
+
+QString KexiDB::loadStringPropertyValueFromDom( const QDomNode& node, bool* ok )
+{
+	QCString valueType = node.nodeName().latin1();
+	if (valueType!="string") {
+		if (ok)
+			*ok = false;
+		return 0;
+	}
+	return QDomNode(node).toElement().text();
+}
+
+QVariant KexiDB::loadPropertyValueFromDom( const QDomNode& node )
+{
+	QCString valueType = node.nodeName().latin1();
+	if (valueType.isEmpty())
+		return QVariant();
+	const QString text( QDomNode(node).toElement().text() );
+	bool ok;
+	if (valueType == "string") {
+		return text;
+	}
+	else if (valueType == "cstring") {
+		return QCString(text.latin1());
+	}
+	else if (valueType == "number") { // integer or double
+		if (text.find('.')!=-1) {
+			double val = text.toDouble(&ok);
+			if (ok)
+				return val;
+		}
+		else {
+			const int val = text.toInt(&ok);
+			if (ok)
+				return val;
+			const Q_LLONG valLong = text.toLongLong(&ok);
+			if (ok)
+				return valLong;
+		}
+	}
+	else if (valueType == "bool") {
+		return QVariant(text.lower()=="true" || text=="1", 1);
+	}
+//! @todo add more QVariant types
+	KexiDBWarn << "loadPropertyValueFromDom(): unknown type '" << valueType << "'" << endl;
+	return QVariant();
+}
+
+QDomElement KexiDB::saveNumberElementToDom(QDomDocument& doc, QDomElement& parentEl, 
+	const QString& elementName, int value)
+{
+	QDomElement el( doc.createElement(elementName) );
+	parentEl.appendChild( el );
+	QDomElement numberEl( doc.createElement("number") );
+	el.appendChild( numberEl );
+	numberEl.appendChild( doc.createTextNode( QString::number(value) ) );
+	return el;
+}
+
+QDomElement KexiDB::saveBooleanElementToDom(QDomDocument& doc, QDomElement& parentEl, 
+	const QString& elementName, bool value)
+{
+	QDomElement el( doc.createElement(elementName) );
+	parentEl.appendChild( el );
+	QDomElement boolEl( doc.createElement("bool") );
+	el.appendChild( boolEl );
+	boolEl.appendChild( doc.createTextNode( value ? "true" : "false" ) );
+	return el;
+}
+
+//! Used in KexiDB::emptyValueForType()
+static KStaticDeleter< QValueVector<QVariant> > KexiDB_emptyValueForTypeCacheDeleter;
+QValueVector<QVariant> *KexiDB_emptyValueForTypeCache = 0;
+
+QVariant KexiDB::emptyValueForType( KexiDB::Field::Type type )
+{
+	if (!KexiDB_emptyValueForTypeCache) {
+		KexiDB_emptyValueForTypeCacheDeleter.setObject( KexiDB_emptyValueForTypeCache, 
+			new QValueVector<QVariant>(int(Field::LastType)+1) );
+#define ADD(t, value) (*KexiDB_emptyValueForTypeCache)[t]=value;
+		ADD(Field::Byte, 0);
+		ADD(Field::ShortInteger, 0);
+		ADD(Field::Integer, 0);
+		ADD(Field::BigInteger, 0);
+		ADD(Field::Boolean, QVariant(false, 0));
+		ADD(Field::Float, 0.0);
+		ADD(Field::Double, 0.0);
+//! @ok? we have no better defaults
+		ADD(Field::Text, QString(" "));
+		ADD(Field::LongText, QString(" "));
+		ADD(Field::BLOB, QByteArray());
+#undef ADD
+	}
+	const QVariant val( KexiDB_emptyValueForTypeCache->at(
+		(type<=Field::LastType) ? type : Field::InvalidType) );
+	if (!val.isNull())
+		return val;
+	else { //special cases
+		if (type==Field::Date)
+			return QDate::currentDate();
+		if (type==Field::DateTime)
+			return QDateTime::currentDateTime();
+		if (type==Field::Time)
+			return QTime::currentTime();
+	}
+	KexiDBWarn << "KexiDB::emptyValueForType() no value for type " 
+		<< Field::typeName(type) << endl;
+	return QVariant();
+}
+
+//! Used in KexiDB::notEmptyValueForType()
+static KStaticDeleter< QValueVector<QVariant> > KexiDB_notEmptyValueForTypeCacheDeleter;
+QValueVector<QVariant> *KexiDB_notEmptyValueForTypeCache = 0;
+
+QVariant KexiDB::notEmptyValueForType( KexiDB::Field::Type type )
+{
+	if (!KexiDB_notEmptyValueForTypeCache) {
+		KexiDB_notEmptyValueForTypeCacheDeleter.setObject( KexiDB_notEmptyValueForTypeCache, 
+			new QValueVector<QVariant>(int(Field::LastType)+1) );
+#define ADD(t, value) (*KexiDB_notEmptyValueForTypeCache)[t]=value;
+		// copy most of the values
+		for (int i = int(Field::InvalidType) + 1; i<=Field::LastType; i++) {
+			if (i==Field::Date || i==Field::DateTime || i==Field::Time)
+				continue; //'current' value will be returned
+			if (i==Field::Text || i==Field::LongText) {
+				ADD(i, QVariant(QString("")));
+				continue;
+			}
+			if (i==Field::BLOB) {
+//! @todo blobs will contain other mime types too
+				QByteArray ba;
+				QBuffer buffer( ba );
+				buffer.open( IO_WriteOnly );
+				QPixmap pm(SmallIcon("filenew"));
+				pm.save( &buffer, "PNG"/*! @todo default? */ );
+				ADD(i, ba);
+				continue;
+			}
+			ADD(i, KexiDB::emptyValueForType((Field::Type)i));
+		}
+#undef ADD
+	}
+	const QVariant val( KexiDB_notEmptyValueForTypeCache->at(
+		(type<=Field::LastType) ? type : Field::InvalidType) );
+	if (!val.isNull())
+		return val;
+	else { //special cases
+		if (type==Field::Date)
+			return QDate::currentDate();
+		if (type==Field::DateTime)
+			return QDateTime::currentDateTime();
+		if (type==Field::Time)
+			return QTime::currentTime();
+	}
+	KexiDBWarn << "KexiDB::notEmptyValueForType() no value for type " 
+		<< Field::typeName(type) << endl;
+	return QVariant();
+}
+
+QString KexiDB::escapeBLOB(const QByteArray& array, BLOBEscapingType type)
+{
+	const int size = array.size();
+	if (size==0)
+		return QString::null;
+	int escaped_length = size*2;
+	if (type == BLOBEscape0xHex || type == BLOBEscapeOctal)
+		escaped_length += 2/*0x or X'*/;
+	else if (type == BLOBEscapeXHex)
+		escaped_length += 3; //X' + '
+	QString str;
+	str.reserve(escaped_length);
+	if (str.capacity() < (uint)escaped_length) {
+		KexiDBWarn << "KexiDB::Driver::escapeBLOB(): no enough memory (cannot allocate "<< 
+			escaped_length<<" chars)" << endl;
+		return QString::null;
+	}
+	if (type == BLOBEscapeXHex)
+		str = QString::fromLatin1("X'");
+	else if (type == BLOBEscape0xHex)
+		str = QString::fromLatin1("0x");
+	else if (type == BLOBEscapeOctal)
+		str = QString::fromLatin1("'");
+	
+	int new_length = str.length(); //after X' or 0x, etc.
+	if (type == BLOBEscapeOctal) {
+		// only escape nonprintable characters as in Table 8-7:
+		// http://www.postgresql.org/docs/8.1/interactive/datatype-binary.html
+		// i.e. escape for bytes: < 32, >= 127, 39 ('), 92(\). 
+		for (int i = 0; i < size; i++) {
+			const unsigned char val = array[i];
+			if (val<32 || val>=127 || val==39 || val==92) {
+				str[new_length++] = '\\';
+				str[new_length++] = '\\';
+				str[new_length++] = '0' + val/64;
+				str[new_length++] = '0' + (val % 64) / 8;
+				str[new_length++] = '0' + val % 8;
+			}
+			else {
+				str[new_length++] = val;
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < size; i++) {
+			const unsigned char val = array[i];
+			str[new_length++] = (val/16) < 10 ? ('0'+(val/16)) : ('A'+(val/16)-10);
+			str[new_length++] = (val%16) < 10 ? ('0'+(val%16)) : ('A'+(val%16)-10);
+		}
+	}
+	if (type == BLOBEscapeXHex || type == BLOBEscapeOctal)
+		str[new_length++] = '\'';
+	return str;
+}
+
+QString KexiDB::variantToString( const QVariant& v )
+{
+	if (v.type()==QVariant::ByteArray)
+		return KexiDB::escapeBLOB(v.toByteArray(), KexiDB::BLOBEscapeHex);
+	return v.toString();
+}
+
+QVariant KexiDB::stringToVariant( const QString& s, QVariant::Type type, bool &ok )
+{
+	if (s.isNull()) {
+		ok = true;
+		return QVariant();
+	}
+	if (QVariant::Invalid==type) {
+		ok = false;
+		return QVariant();
+	}
+	if (type==QVariant::ByteArray) {//special case: hex string
+		const uint len = s.length();
+		QByteArray ba(len/2 + len%2);
+		for (uint i=0; i<(len-1); i+=2) {
+			int c = s.mid(i,2).toInt(&ok, 16);
+			if (!ok) {
+				KexiDBWarn << "KexiDB::stringToVariant(): Error in digit " << i << endl;
+				return QVariant();
+			}
+			ba[i/2] = (char)c;
+		}
+		ok = true;
+		return ba;
+	}
+	QVariant result(s);
+	if (!result.cast( type )) {
+		ok = false;
+		return QVariant();
+	}
+	ok = true;
+	return result;
+}
+
+bool KexiDB::isDefaultValueAllowed( KexiDB::Field* field )
+{
+	return field && !field->isUniqueKey();
+}
+
+void KexiDB::getLimitsForType(Field::Type type, int &minValue, int &maxValue)
+{
+	switch (type) {
+	case Field::Byte:
+//! @todo always ok?
+		minValue = 0;
+		maxValue = 255;
+		break;
+	case Field::ShortInteger:
+		minValue = -32768;
+		maxValue = 32767;
+		break;
+	case Field::Integer:
+	case Field::BigInteger: //cannot return anything larger
+	default:
+		minValue = (int)-0x07FFFFFFF;
+		maxValue = (int)(0x080000000-1);
+	}
+}
+
+void KexiDB::debugRowData(const RowData& rowData)
+{
+	KexiDBDbg << QString("ROW DATA (%1 columns):").arg(rowData.count()) << endl;
+	foreach(RowData::ConstIterator, it, rowData)
+		KexiDBDbg << "- " << (*it) << endl;
+}
+
+Field::Type KexiDB::maximumForIntegerTypes(Field::Type t1, Field::Type t2)
+{
+	if (!Field::isIntegerType(t1) || !Field::isIntegerType(t2))
+		return Field::InvalidType;
+	if (t1==t2)
+		return t2;
+	if (t1==Field::ShortInteger && t2!=Field::Integer && t2!=Field::BigInteger)
+		return t1;
+	if (t1==Field::Integer && t2!=Field::BigInteger)
+		return t1;
+	if (t1==Field::BigInteger)
+		return t1;
+	return KexiDB::maximumForIntegerTypes(t2, t1); //swap
 }
 
 #include "utils_p.moc"

@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003-2004 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -24,6 +24,7 @@
 #include <qdatetime.h>
 #include <qdict.h>
 
+#include <kexidb/global.h>
 #include <kexidb/object.h>
 #include <kexidb/field.h>
 
@@ -31,6 +32,7 @@ class KService;
 
 namespace KexiDB {
 
+class AdminTools;
 class Connection;
 class ConnectionData;
 class ConnectionInternal;
@@ -69,29 +71,36 @@ class KEXI_DB_EXPORT Driver : public QObject, public KexiDB::Object
 		 KexiDB::DriverManager::driversInfo() without loading driver libraries. */
 		class Info {
 			public:
-			Info() : fileBased(false) {}
+			Info();
 			QString name, caption, comment, fileDBMimeType;
+			//! true is the driver is for file-based database backend
 			bool fileBased : 1;
+			/*! true is the driver is for a backend that allows importing.
+			 Defined by X-Kexi-DoNotAllowProjectImportingTo in "kexidb_driver" service type.
+			 Used for migration. */
+			bool allowImportingTo : 1;
 		};
 		typedef QMap<QString,Info> InfoMap;
 		
 		/*! Features supported by driver (sum of few Features enum items). */
 		enum Features {
 			NoFeatures = 0,
-			//! if single trasactions are only supported
+			//! single trasactions are only supported
 			SingleTransactions = 1,   
-			//! if multiple concurent trasactions are supported
+			//! multiple concurent trasactions are supported
 			//! (this implies !SingleTransactions)
 			MultipleTransactions = 2, 
 //(js) NOT YET IN USE:
-			/*! if nested trasactions are supported
+			/*! nested trasactions are supported
 			 (this should imply !SingleTransactions and MultipleTransactions) */
 			NestedTransactions = 4,
-			/*! if forward moving is supported for cursors
+			/*! forward moving is supported for cursors
 			 (if not available, no cursors available at all) */
 			CursorForward = 8, 
-			/*! if backward moving is supported for cursors (this implies CursorForward) */
+			/*! backward moving is supported for cursors (this implies CursorForward) */
 			CursorBackward = (CursorForward+16),
+			/*! compacting database supported (aka VACUUM) */
+			CompactingDatabaseSupported = 32,
 			//-- temporary options: can be removed later, use at your own risk --
 			/*! If set, actions related to transactions will be silently bypassed
 			 with success. Set this if your driver does not support transactions at all
@@ -181,7 +190,12 @@ class KEXI_DB_EXPORT Driver : public QObject, public KexiDB::Object
 		/*! \return true if transaction are supported (single or 
 		 multiple). */
 		bool transactionsSupported() const;
-		
+
+		/*! \return admin tools object providing a number of database administration 
+		 tools for the driver. Tools availablility varies from driver to driver. 
+		 You can check it using features().  */
+		AdminTools& adminTools() const;
+
 		/*! SQL-implementation-dependent name of given type */
 		virtual QString sqlTypeName(int id_t, int p=0) const;
 
@@ -195,11 +209,10 @@ class KEXI_DB_EXPORT Driver : public QObject, public KexiDB::Object
 		 and proper error message is set properly on any error. */
 		virtual bool isValid();
 	
-		/*! Driver's static version information, it is automatically defined
-		 in implementation using KEXIDB_DRIVER macro (see driver_p.h) */
-		virtual int versionMajor() const = 0;
-
-		virtual int versionMinor() const = 0;
+		/*! Driver's static version information (major part), it is automatically defined
+		 in implementation by KEXIDB_DRIVER macro (see driver_p.h) 
+		 It's usually compared to drivers' and KexiDB library version. */
+		virtual DatabaseVersionInfo version() const = 0;
 
 		/*! Escapes and converts value \a v (for type \a ftype) 
 		 to string representation required by SQL commands.
@@ -230,7 +243,7 @@ class KEXI_DB_EXPORT Driver : public QObject, public KexiDB::Object
 		*/
 //old			const QDateTime dt( v.toDateTime() );
 //old			return QString("\'")+dt.date().toString(Qt::ISODate)+" "+dt.time().toString(Qt::ISODate)+"\'";
-			return QString(QString::fromLatin1("\'"))+v.toString(Qt::ISODate)+QString::fromLatin1("\'");
+			return QString::fromLatin1("\'")+v.toString(Qt::ISODate)+QString::fromLatin1("\'");
 		}
 
 		/*! Driver-specific SQL string escaping.
@@ -320,19 +333,20 @@ class KEXI_DB_EXPORT Driver : public QObject, public KexiDB::Object
 		 a given driver implementation. For implementation.*/
 		virtual bool drv_isSystemFieldName( const QString& n ) const = 0;
 		
+		/* Creates admin tools object providing a number of database administration 
+		 tools for the driver. This is called once per driver.
+
+		 Note for driver developers: Reimplement this method by returning 
+		 KexiDB::AdminTools-derived object. Default implementation creates 
+		 empty admin tools. 
+		 @see adminTools() */
+		virtual AdminTools* drv_createAdminTools() const;
+
 		/*! \return connection \a conn , do not deletes it nor affect.
 		 Returns 0 if \a conn is not owned by this driver.
 		 After this, you are owner of \a conn object, so you should
 		 eventually delete it. Better use Connection destructor. */
 		Connection* removeConnection( Connection *conn );
-
-		/*! Helper, used in escapeBLOB(). 
-		 * use \a type == BLOB_ESCAPING_TYPE_USE_X to get escaping like X'ABCD0' (used by sqlite)
-		 * use \a type == BLOB_ESCAPING_TYPE_USE_0x to get escaping like 0xABCD0 (used by mysql)
-		 * use \a type == BLOB_ESCAPING_TYPE_USE_OCTAL to get escaping like '\\253\\315\\000' 
-		     (used by pgsql)
-		*/
-		QString escapeBLOBInternal(const QByteArray& array, int type) const;
 
 	friend class Connection;
 	friend class Cursor;
@@ -355,8 +369,7 @@ class KEXI_DB_EXPORT Driver : public QObject, public KexiDB::Object
  Put this into driver class declaration just like Q_OBJECT macro. */
 #define KEXIDB_DRIVER \
 	public: \
-	virtual int versionMajor() const; \
-	virtual int versionMinor() const;
+	virtual DatabaseVersionInfo version() const;
 
 #endif
 

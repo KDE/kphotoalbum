@@ -25,6 +25,7 @@
 #include "drivermanager.h"
 #include "connection.h"
 #include "connectiondata.h"
+#include "admin.h"
 
 #include <qfileinfo.h>
 
@@ -56,7 +57,14 @@ DriverBehaviour::DriverBehaviour()
 	, SELECT_1_SUBQUERY_SUPPORTED(false)
 	, SQL_KEYWORDS(0)
 {
+}
 
+//---------------------------------------------
+
+Driver::Info::Info()
+ : fileBased(false)
+ , allowImportingTo(true)
+{
 }
 
 //---------------------------------------------
@@ -93,14 +101,14 @@ Driver::~Driver()
 bool Driver::isValid()
 {
 	clearError();
-	if (KexiDB::versionMajor() != versionMajor()
-		|| KexiDB::versionMinor() != versionMinor())
+	if (KexiDB::version().major != version().major
+		|| KexiDB::version().minor != version().minor)
 	{
 		setError(ERR_INCOMPAT_DRIVER_VERSION,
 		i18n("Incompatible database driver's \"%1\" version: found version %2, expected version %3.")
 		.arg(name())
-		.arg(QString("%1.%2").arg(versionMajor()).arg(versionMinor()))
-		.arg(QString("%1.%2").arg(KexiDB::versionMajor()).arg(KexiDB::versionMinor())));
+		.arg(QString("%1.%2").arg(version().major).arg(version().minor))
+		.arg(QString("%1.%2").arg(KexiDB::version().major).arg(KexiDB::version().minor)));
 		return false;
 	}
 
@@ -147,6 +155,18 @@ int Driver::features() const
 bool Driver::transactionsSupported() const
 { return d->features & (SingleTransactions | MultipleTransactions); }
 
+AdminTools& Driver::adminTools() const
+{
+	if (!d->adminTools)
+		d->adminTools = drv_createAdminTools();
+	return *d->adminTools;
+}
+
+AdminTools* Driver::drv_createAdminTools() const
+{
+	return new AdminTools(); //empty impl.
+}
+
 QString Driver::sqlTypeName(int id_t, int /*p*/) const
 {
 	if (id_t > Field::InvalidType && id_t <= Field::LastType)
@@ -185,10 +205,11 @@ Connection* Driver::removeConnection( Connection *conn )
 
 QString Driver::defaultSQLTypeName(int id_t)
 {
-	if (id_t==Field::Null)
+	if (id_t>=Field::Null)
 		return "Null";
 	if (dflt_typeNames.isEmpty()) {
 		dflt_typeNames.resize(Field::LastType + 1);
+		dflt_typeNames[Field::InvalidType]="InvalidType";
 		dflt_typeNames[Field::Byte]="Byte";
 		dflt_typeNames[Field::ShortInteger]="ShortInteger";
 		dflt_typeNames[Field::Integer]="Integer";
@@ -200,7 +221,7 @@ QString Driver::defaultSQLTypeName(int id_t)
 		dflt_typeNames[Field::Float]="Float";
 		dflt_typeNames[Field::Double]="Double";
 		dflt_typeNames[Field::Text]="Text";
-		dflt_typeNames[Field::LongText]="Text";
+		dflt_typeNames[Field::LongText]="LongText";
 		dflt_typeNames[Field::BLOB]="BLOB";
 	}
 	return dflt_typeNames[id_t];
@@ -244,7 +265,7 @@ QString Driver::valueToSQL( uint ftype, const QVariant& v ) const
 		case Field::Float:
 		case Field::Double: {
 			if (v.type()==QVariant::String) {
-				//workaround for values stored as string but should be casted to floating-point
+				//workaround for values stored as string that should be casted to floating-point
 				QString s(v.toString());
 				return s.replace(',', ".");
 			}
@@ -260,6 +281,8 @@ QString Driver::valueToSQL( uint ftype, const QVariant& v ) const
 		case Field::DateTime:
 			return dateTimeToSQL( v.toDateTime() );
 		case Field::BLOB: {
+			if (v.toByteArray().isEmpty())
+				return QString::fromLatin1("NULL");
 			if (v.type()==QVariant::String)
 				return escapeBLOB(v.toString().utf8());
 			return escapeBLOB(v.toByteArray());
@@ -341,60 +364,4 @@ void Driver::initSQLKeywords(int hashSize) {
 	}
 }
 
-#define BLOB_ESCAPING_TYPE_USE_X     0 //!< escaping like X'abcd0', used by sqlite
-#define BLOB_ESCAPING_TYPE_USE_0x    1 //!< escaping like 0xabcd0, used by mysql
-#define BLOB_ESCAPING_TYPE_USE_OCTAL 2 //!< escaping like 'abcd\\000', used by pgsql
-
-QString Driver::escapeBLOBInternal(const QByteArray& array, int type) const
-{
-	const int size = array.size();
-	int escaped_length = size*2 + 2/*0x or X'*/;
-	if (type == BLOB_ESCAPING_TYPE_USE_X)
-		escaped_length += 1; //last char: '
-	QString str;
-	str.reserve(escaped_length);
-	if (str.capacity() < (uint)escaped_length) {
-		KexiDBWarn << "KexiDB::Driver::escapeBLOB(): no enough memory (cannot allocate "<< \
-			escaped_length<<" chars)" << endl;
-		return QString::fromLatin1("NULL");
-	}
-	if (type == BLOB_ESCAPING_TYPE_USE_X)
-		str = QString::fromLatin1("X'");
-	else if (type == BLOB_ESCAPING_TYPE_USE_0x)
-		str = QString::fromLatin1("0x");
-	else if (type == BLOB_ESCAPING_TYPE_USE_OCTAL)
-		str = QString::fromLatin1("'");
-	
-	int new_length = str.length(); //after X' or 0x, etc.
-	if (type == BLOB_ESCAPING_TYPE_USE_OCTAL) {
-		// only escape nonprintable characters as in Table 8-7:
-		// http://www.postgresql.org/docs/8.1/interactive/datatype-binary.html
-		// i.e. escape for bytes: < 32, >= 127, 39 ('), 92(\). 
-		for (int i = 0; i < size; i++) {
-			const unsigned char val = array[i];
-			if (val<32 || val>=127 || val==39 || val==92) {
-				str[new_length++] = '\\';
-				str[new_length++] = '\\';
-				str[new_length++] = '0' + val/64;
-				str[new_length++] = '0' + (val % 64) / 8;
-				str[new_length++] = '0' + val % 8;
-			}
-			else {
-				str[new_length++] = val;
-			}
-		}
-	}
-	else {
-		for (int i = 0; i < size; i++) {
-			const unsigned char val = array[i];
-			str[new_length++] = (val/16) < 10 ? ('0'+(val/16)) : ('A'+(val/16)-10);
-			str[new_length++] = (val%16) < 10 ? ('0'+(val%16)) : ('A'+(val%16)-10);
-		}
-	}
-	if (type == BLOB_ESCAPING_TYPE_USE_X || type == BLOB_ESCAPING_TYPE_USE_OCTAL)
-		str[new_length++] = '\'';
-	return str;
-}
-
 #include "driver.moc"
-

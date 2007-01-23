@@ -55,7 +55,7 @@ class SQLiteConnection : public Connection
 		/*! Used by driver */
 		SQLiteConnection( Driver *driver, ConnectionData &conn_data );
 
-		virtual bool drv_connect();
+		virtual bool drv_connect(KexiDB::ServerVersionInfo& version);
 		virtual bool drv_disconnect();
 		virtual bool drv_getDatabasesList( QStringList &list );
 
@@ -95,6 +95,24 @@ class SQLiteConnection : public Connection
 		virtual QString serverResultName();
 		virtual QString serverErrorMsg();
 		virtual void drv_clearServerResult();
+		virtual tristate drv_changeFieldProperty(TableSchema &table, Field& field, 
+			const QString& propertyName, const QVariant& value);
+
+#ifdef SQLITE2
+		/*! Alters table's described \a tableSchema name to \a newName. 
+		 This implementation is ineffective but works.
+		 - creates a copy of the table
+		 - copies all rows
+		 - drops old table.
+		 All the above should be performed within single transaction. 
+		 \return true on success.
+		 More advanced server backends implement this using "ALTER TABLE .. RENAME TO". 
+		*/
+		virtual bool drv_alterTableName(TableSchema& tableSchema, const QString& newName, bool replace = false);
+#endif
+
+		//! for drv_changeFieldProperty()
+		tristate changeFieldType(TableSchema &table, Field& field, Field::Type type);
 
 		SQLiteConnectionInternal* d;
 

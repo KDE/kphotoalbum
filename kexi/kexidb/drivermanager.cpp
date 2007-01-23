@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
-   Daniel Molkentin <molkentin@kde.org>
-   Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2003-2005 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003 Daniel Molkentin <molkentin@kde.org>
+   Copyright (C) 2003 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -123,7 +123,7 @@ bool DriverManagerInternal::lookupDrivers()
 
 		QString srv_ver_str = ptr->property("X-Kexi-KexiDBVersion").toString();
 		QStringList lst( QStringList::split(".", srv_ver_str) );
-		int minor_ver, major_ver;
+		uint minor_ver, major_ver;
 		bool ok = (lst.count() == 2);
 		if (ok)
 			major_ver = lst[0].toUInt(&ok);
@@ -134,15 +134,15 @@ bool DriverManagerInternal::lookupDrivers()
 			<< srv_name.lower() << "' driver's version -- skipping it!" << endl;
 			continue;
 		}
-		if (major_ver != KexiDB::versionMajor() || minor_ver != KexiDB::versionMinor()) {
+		if (major_ver != KexiDB::version().major || minor_ver != KexiDB::version().minor) {
 			KexiDBWarn << QString("DriverManagerInternal::lookupDrivers(): '%1' driver" 
 				" has version '%2' but required KexiDB driver version is '%3.%4'\n"
 				" -- skipping this driver!").arg(srv_name.lower()).arg(srv_ver_str)
-				.arg(KexiDB::versionMajor()).arg(KexiDB::versionMinor()) << endl;
+				.arg(KexiDB::version().major).arg(KexiDB::version().minor) << endl;
 			possibleProblems += QString("\"%1\" database driver has version \"%2\" "
 				"but required driver version is \"%3.%4\"")
 				.arg(srv_name.lower()).arg(srv_ver_str)
-				.arg(KexiDB::versionMajor()).arg(KexiDB::versionMinor());
+				.arg(KexiDB::version().major).arg(KexiDB::version().minor);
 			continue;
 		}
 
@@ -238,7 +238,7 @@ Driver* DriverManagerInternal::driver(const QString& name)
 //	KexiDBDbg << "drv="<<(long)drv <<endl;
 
 //	drv->setName(srv_name.latin1());
-	drv->d->service = ptr; //store info
+	drv->d->service = ptr.data(); //store info
 	drv->d->fileDBDriverMimeType = ptr->property("X-Kexi-FileDBDriverMime").toString();
 	drv->d->initInternalProperties();
 
@@ -330,6 +330,8 @@ const KexiDB::Driver::InfoMap DriverManager::driversInfo()
 		info.fileBased = (ptr->property("X-Kexi-DriverType").toString().lower()=="file");
 		if (info.fileBased)
 			info.fileDBMimeType = ptr->property("X-Kexi-FileDBDriverMime").toString().lower();
+		QVariant v = ptr->property("X-Kexi-DoNotAllowProjectImportingTo");
+		info.allowImportingTo = v.isNull() ? true : !v.toBool();
 		d_int->m_driversInfo.insert(info.name.lower(), info);
 	}
 	return d_int->m_driversInfo;

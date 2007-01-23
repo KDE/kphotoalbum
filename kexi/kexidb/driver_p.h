@@ -31,7 +31,9 @@
 #include <qasciidict.h>
 #include <qvaluevector.h>
 #include <kgenericfactory.h>
+
 #include "connection.h"
+#include "admin.h"
 
 class KService;
 
@@ -161,7 +163,7 @@ class DriverPrivate
 		/*! Internal constant flag: Set this in subclass if driver is a file driver */
 		bool isFileDriver : 1;
 
-		/*! Internal constant flag: Set this in subclass if after successfull
+		/*! Internal constant flag: Set this in subclass if after successful
 		 drv_createDatabased() database is in opened state (as after useDatabase()). 
 		 For most engines this is not true. */
 		bool isDBOpenedAfterCreate : 1;
@@ -195,6 +197,9 @@ class DriverPrivate
 		 to set predefined properties' caption in driver implementation 
 		 -it's done automatically. */
 		QMap<QCString,QString> propertyCaptions;
+
+		/*! Provides a number of database administration tools for the driver. */
+		AdminTools *adminTools;
 
 	/*! Kexi SQL keywords that need to be escaped if used as an identifier (e.g.
 	    for a table or column name).  These keywords will be escaped by the
@@ -239,13 +244,19 @@ class DriverPrivate
 #define BLOB_ESCAPING_TYPE_USE_0x    1 //!< escaping like 0xabcd0, used by mysql
 #define BLOB_ESCAPING_TYPE_USE_OCTAL 2 //!< escaping like 'abcd\\000', used by pgsql
 
+class KEXI_DB_EXPORT AdminTools::Private
+{
+	public:
+		Private();
+		~Private();
+};
+
 }
 
 //! Driver's static version information (implementation), 
 //! with KLibFactory symbol declaration.
 #define KEXIDB_DRIVER_INFO( class_name, internal_name ) \
-	int class_name::versionMajor() const { return KEXIDB_VERSION_MAJOR; } \
-	int class_name::versionMinor() const { return KEXIDB_VERSION_MINOR; } \
+	DatabaseVersionInfo class_name::version() const { return KEXIDB_VERSION; } \
 	K_EXPORT_COMPONENT_FACTORY(kphotoalbum_kexidb_ ## internal_name ## driver, KGenericFactory<KexiDB::class_name>( "kexidb_" #internal_name ))
 
 #endif

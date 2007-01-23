@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003-2005 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -52,14 +52,31 @@ namespace KexiUtils
 		return static_cast<type*>(o);
 	}
 
+	//! Const version of findParent()
+	template<class type>
+	inline type* findParentConst(const QObject* const o, const char* className)
+	{
+		const QObject * obj = o;
+		if (!obj || !className || className[0]=='\0')
+			return 0;
+		while ( ((obj=obj->parent())) && !obj->inherits(className) )
+			;
+		return static_cast<type*>(obj);
+	}
+
+	/*! \return first found child of \a o, that inherit \a className.
+	 If objName is 0 (the default), all object names match. 
+	 Returned pointer type is casted. */
+
 	//! \return first found child of \a o, that inherit \a className.
+	//! If objName is 0 (the default), all object names match. 
 	//! Returned pointer type is casted.
 	template<class type>
-	type* findFirstChild(QObject *o, const char* className)
+	type* findFirstChild(QObject *o, const char* className, const char* objName = 0)
 	{
 		if (!o || !className || className[0]=='\0')
 			return 0;
-		QObjectList *l = o->queryList( className );
+		QObjectList *l = o->queryList( className, objName );
 		QObjectListIt it( *l );
 		return static_cast<type*>(it.current());
 	}
@@ -74,26 +91,43 @@ namespace KexiUtils
 	}
 
 	/*! Sets "wait" cursor with 1 second delay (or 0 seconds if noDelay is true).
-	 Does nothing if GUI is not GUI-aware. (see KApplication::guiEnabled()) */
+	 Does nothing if the application has no GUI enabled. (see KApplication::guiEnabled()) */
 	KEXIUTILS_EXPORT void setWaitCursor(bool noDelay = false);
 
 	/*! Remove "wait" cursor previously set with \a setWaitCursor(), 
 	 even if it's not yet visible.
-	 Does nothing if GUI is not GUI-aware. (see KApplication::guiEnabled()) */
+	 Does nothing if the application has no GUI enabled. (see KApplication::guiEnabled()) */
 	KEXIUTILS_EXPORT void removeWaitCursor();
 
-	/*! Helper class. Allocate it in yor code block as follows:
+	/*! Helper class. Allocate it in your code block as follows:
 	 <code>
 	 KexiUtils::WaitCursor wait;
 	 </code>
-	 .. and wait cursor will be visible (with a delay) until you're in this block. without 
+	 .. and wait cursor will be visible (with one second delay) until you're in this block, without 
 	 a need to call removeWaitCursor() before exiting the block.
-	 Does nothing if GUI is not GUI-aware. (see KApplication::guiEnabled()) */
+	 Does nothing if the application has no GUI enabled. (see KApplication::guiEnabled()) */
 	class KEXIUTILS_EXPORT WaitCursor
 	{
 		public:
 			WaitCursor(bool noDelay = false);
 			~WaitCursor();
+	};
+
+	/*! Helper class. Allocate it in your code block as follows:
+	 <code>
+	 KexiUtils::WaitCursorRemover remover;
+	 </code>
+	 .. and the wait cursor will be hidden unless you leave this block, without 
+	 a need to call setWaitCursor() before exiting the block. After leaving the codee block,
+	 the cursor will be visible again, if it was visible before creating the WaitCursorRemover object.
+	 Does nothing if the application has no GUI enabled. (see KApplication::guiEnabled()) */
+	class KEXIUTILS_EXPORT WaitCursorRemover
+	{
+		public:
+			WaitCursorRemover();
+			~WaitCursorRemover();
+		private:
+			bool m_reactivateCursor : 1;
 	};
 
 	/*! \return filter string in QFileDialog format for a mime type pointed by \a mime
@@ -125,9 +159,15 @@ namespace KexiUtils
 	 For black color the result is dark gray rather than black. */
 	KEXIUTILS_EXPORT QColor bleachedColor(const QColor& c, int factor);
 
+	/*! \return icon set computed as a result of colorizing \a icon pixmap with "buttonText" 
+	 color of \a palette palette. This function is useful for displaying monochromed icons 
+	 on the list view or table view header, to avoid bloat, but still have the color compatible 
+	 with accessibility settings. */
+	KEXIUTILS_EXPORT QIconSet colorizeIconToTextColor(const QPixmap& icon, const QPalette& palette);
+
 	/*! Serializes \a map to \a array.
 	 KexiUtils::deserializeMap() can be used to deserialize this array back to map. */
-	KEXIUTILS_EXPORT void serializeMap(const QMap<QString,QString>& map, QByteArray& array);
+	KEXIUTILS_EXPORT void serializeMap(const QMap<QString,QString>& map, const QByteArray& array);
 	KEXIUTILS_EXPORT void serializeMap(const QMap<QString,QString>& map, QString& string);
 
 	/*! \return a map deserialized from a byte array \a array.
@@ -144,17 +184,56 @@ namespace KexiUtils
 	 Do not pass full paths here, but only filename strings. */
 	KEXIUTILS_EXPORT QString stringToFileName(const QString& string);
 
-	/*! Performs a simple \a string  encrypttion using rot47-like algorithm. 
+	/*! Performs a simple \a string  encryption using rot47-like algorithm. 
 	 Each character's unicode value is increased by 47 + i (where i is index of the character). 
 	 The resulting string still contains redable characters.
 	 Do not use this for data that can be accessed by attackers! */
 	KEXIUTILS_EXPORT void simpleCrypt(QString& string);
 
-	/*! Performs a simple \a string decrypttion using rot47-like algorithm, 
+	/*! Performs a simple \a string decryption using rot47-like algorithm, 
 	 using opposite operations to KexiUtils::simpleCrypt(). */
 	KEXIUTILS_EXPORT void simpleDecrypt(QString& string);
-}
 
+#ifdef KEXI_DEBUG_GUI
+	//! Creates debug window for convenient debugging output
+	KEXIUTILS_EXPORT QWidget *createDebugWindow(QWidget *parent);
+
+	//! Adds debug line for for KexiDB database
+	KEXIUTILS_EXPORT void addKexiDBDebug(const QString& text);
+
+	//! Adds debug line for for Table Designer (Alter Table actions)
+	KEXIUTILS_EXPORT void addAlterTableActionDebug(const QString& text, int nestingLevel = 0);
+
+	//! Connects push button action to \a receiver and its \a slot. This allows to execute debug-related actions
+	//! using buttons displayed in the debug window.
+	KEXIUTILS_EXPORT void connectPushButtonActionForDebugWindow(const char* actionName, 
+		const QObject *receiver, const char* slot);
+#endif
+
+	//! Draws pixmap on painter \a p using predefined parameters.
+	//! Used in KexiDBImageBox and KexiBlobTableEdit.
+	KEXIUTILS_EXPORT void drawPixmap( QPainter& p, int lineWidth, const QRect& rect,
+		const QPixmap& pixmap, int alignment, bool scaledContents, bool keepAspectRatio);
+
+	//! @internal
+	KEXIUTILS_EXPORT QString ptrToStringInternal(void* ptr, uint size);
+	//! @internal
+	KEXIUTILS_EXPORT void* stringToPtrInternal(const QString& str, uint size);
+
+	//! \return a pointer \a ptr safely serialized to string
+	template<class type>
+	QString ptrToString(type *ptr)
+	{
+		return ptrToStringInternal(ptr, sizeof(type*));
+	}
+	
+	//! \return a pointer of type \a type safely deserialized from \a str
+	template<class type>
+	type* stringToPtr(const QString& str)
+	{
+		return static_cast<type*>( stringToPtrInternal(str, sizeof(type*)) );
+	}
+}
 
 //! sometimes we leave a space in the form of empty QFrame and want to insert here
 //! a widget that must be instantiated by hand.

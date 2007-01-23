@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -23,6 +23,7 @@
 #include <kexidb/driver_p.h>
 #include <kexidb/error.h>
 #include <kexidb/roweditbuffer.h>
+#include <kexiutils/utils.h>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -32,6 +33,9 @@
 
 using namespace KexiDB;
 
+#ifdef KEXI_DEBUG_GUI
+
+#endif
 
 Cursor::Cursor(Connection* conn, const QString& statement, uint options)
 	: QObject()
@@ -40,6 +44,9 @@ Cursor::Cursor(Connection* conn, const QString& statement, uint options)
 	, m_rawStatement(statement)
 	, m_options(options)
 {
+#ifdef KEXI_DEBUG_GUI
+	KexiUtils::addKexiDBDebug(QString("Create cursor: ")+statement);
+#endif
 	init();
 }
 
@@ -49,6 +56,9 @@ Cursor::Cursor(Connection* conn, QuerySchema& query, uint options )
 	, m_query(&query)
 	, m_options(options)
 {
+#ifdef KEXI_DEBUG_GUI
+	KexiUtils::addKexiDBDebug(QString("Create cursor for query \"%1\": ").arg(query.name())+query.debugString());
+#endif
 	init();
 }
 
@@ -74,23 +84,34 @@ void Cursor::init()
 	m_at_buffer = false;
 	m_result = -1;
 
+	m_containsROWIDInfo = (m_query && m_query->masterTable()) 
+		&& m_conn->driver()->beh->ROW_ID_FIELD_RETURNS_LAST_AUTOINCREMENTED_VALUE == false;
+
 	if (m_query) {
 		//get list of all fields
 		m_fieldsExpanded = new QueryColumnInfo::Vector();
-		*m_fieldsExpanded = m_query->fieldsExpanded();//&m_detailedVisibility);
+		*m_fieldsExpanded = m_query->fieldsExpanded(
+			m_containsROWIDInfo ? QuerySchema::WithInternalFieldsAndRowID : QuerySchema::WithInternalFields);
+		m_logicalFieldCount = m_fieldsExpanded->count() 
+			- m_query->internalFields().count() - (m_containsROWIDInfo?1:0);
 		m_fieldCount = m_fieldsExpanded->count();
 	} else {
 		m_fieldsExpanded = 0;
+		m_logicalFieldCount = 0;
 		m_fieldCount = 0;
 	}
 	m_orderByColumnList = 0;
-
-	m_containsROWIDInfo = (m_query && m_query->masterTable()) 
-		&& m_conn->m_driver->beh->ROW_ID_FIELD_RETURNS_LAST_AUTOINCREMENTED_VALUE == false;
+	m_queryParameters = 0;
 }
 
 Cursor::~Cursor()
 {
+#ifdef KEXI_DEBUG_GUI
+	if (m_query)
+		KexiUtils::addKexiDBDebug(QString("~ Delete cursor for query"));
+	else
+		KexiUtils::addKexiDBDebug(QString("~ Delete cursor: ")+m_rawStatement);
+#endif
 /*	if (!m_query)
 		KexiDBDbg << "Cursor::~Cursor() '" << m_rawStatement.latin1() << "'" << endl;
 	else
@@ -104,6 +125,7 @@ Cursor::~Cursor()
 		exit(1);
 	}
 	delete m_fieldsExpanded;
+	delete m_queryParameters;
 }
 
 bool Cursor::open()
@@ -120,7 +142,11 @@ bool Cursor::open()
 			setError(ERR_SQL_EXECUTION_ERROR, i18n("No query statement or schema defined."));
 			return false;
 		}
-		m_conn->m_sql = m_conn->selectStatement( *m_query, m_containsROWIDInfo /*get ROWID if needed*/ );
+		Connection::SelectStatementOptions options;
+		options.alsoRetrieveROWID = m_containsROWIDInfo; /*get ROWID if needed*/
+		m_conn->m_sql = m_queryParameters 
+			? m_conn->selectStatement( *m_query, *m_queryParameters, options )
+			: m_conn->selectStatement( *m_query, options );
 		if (m_conn->m_sql.isEmpty()) {
 			KexiDBDbg << "Cursor::open(): empty statement!" << endl;
 			setError(ERR_SQL_EXECUTION_ERROR, i18n("Query statement is empty."));
@@ -162,6 +188,7 @@ bool Cursor::close()
 	m_afterLast = false;
 	m_readAhead = false;
 	m_fieldCount = 0;
+	m_logicalFieldCount = 0;
 	m_at = -1;
 
 //	KexiDBDbg<<"Cursor::close() == "<<ret<<endl;
@@ -342,7 +369,7 @@ void Cursor::setBuffered(bool buffered)
 
 void Cursor::clearBuffer()
 {
-	if ( !isBuffered() || !m_fieldCount)
+	if ( !isBuffered() || m_fieldCount==0)
 		return;
 	
 	drv_clearBuffer();
@@ -433,7 +460,7 @@ bool Cursor::getNextRecord()
 
 bool Cursor::updateRow(RowData& data, RowEditBuffer& buf, bool useROWID)
 {
-//TODO: doesn't update cursor's buffer YET!
+//! @todo doesn't update cursor's buffer YET!
 	clearError();
 	if (!m_query)
 		return false;
@@ -442,7 +469,7 @@ bool Cursor::updateRow(RowData& data, RowEditBuffer& buf, bool useROWID)
 
 bool Cursor::insertRow(RowData& data, RowEditBuffer& buf, bool getROWID)
 {
-//TODO: doesn't update cursor's buffer YET!
+//! @todo doesn't update cursor's buffer YET!
 	clearError();
 	if (!m_query)
 		return false;
@@ -451,7 +478,7 @@ bool Cursor::insertRow(RowData& data, RowEditBuffer& buf, bool getROWID)
 
 bool Cursor::deleteRow(RowData& data, bool useROWID)
 {
-//TODO: doesn't update cursor's buffer YET!
+//! @todo doesn't update cursor's buffer YET!
 	clearError();
 	if (!m_query)
 		return false;
@@ -460,7 +487,7 @@ bool Cursor::deleteRow(RowData& data, bool useROWID)
 
 bool Cursor::deleteAllRows()
 {
-//TODO: doesn't update cursor's buffer YET!
+//! @todo doesn't update cursor's buffer YET!
 	clearError();
 	if (!m_query)
 		return false;
@@ -526,6 +553,19 @@ void Cursor::setOrderByColumnList(const QString& column1, const QString& column2
 QueryColumnInfo::Vector Cursor::orderByColumnList() const
 {
 	return m_orderByColumnList ? *m_orderByColumnList: QueryColumnInfo::Vector();
+}
+
+QValueList<QVariant> Cursor::queryParameters() const
+{
+	return m_queryParameters ? *m_queryParameters : QValueList<QVariant>();
+}
+
+void Cursor::setQueryParameters(const QValueList<QVariant>& params)
+{
+	if (!m_queryParameters)
+		m_queryParameters = new QValueList<QVariant>(params);
+	else
+		*m_queryParameters = params;
 }
 
 #include "cursor.moc"

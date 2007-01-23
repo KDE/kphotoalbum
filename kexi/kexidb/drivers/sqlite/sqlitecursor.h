@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003-2004 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -56,7 +56,8 @@ class SQLiteCursor : public Cursor
 		SQLiteCursor(Connection* conn, const QString& statement, uint options = NoOptions );
 
 		/*! Cursor will operate on \a conn, \a query schema will be used to execute query. */
-		SQLiteCursor(Connection* conn, QuerySchema& query, uint options = NoOptions );
+		SQLiteCursor(Connection* conn, QuerySchema& query, 
+			uint options = NoOptions );
 
 		virtual bool drv_open();
 

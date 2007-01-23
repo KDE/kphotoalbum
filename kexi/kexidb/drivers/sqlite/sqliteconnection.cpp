@@ -31,9 +31,11 @@
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
 #include <kexidb/error.h>
+#include <kexiutils/utils.h>
 
 #include <qfile.h>
 #include <qdir.h>
+#include <qregexp.h>
 
 #include <kgenericfactory.h>
 #include <kdebug.h>
@@ -98,9 +100,16 @@ SQLiteConnection::~SQLiteConnection()
 	KexiDBDrvDbg << "SQLiteConnection::~SQLiteConnection() ok" << endl;
 }
 
-bool SQLiteConnection::drv_connect()
+bool SQLiteConnection::drv_connect(KexiDB::ServerVersionInfo& version)
 {
 	KexiDBDrvDbg << "SQLiteConnection::connect()" << endl;
+	version.string = QString(SQLITE_VERSION); //defined in sqlite3.h
+	QRegExp re("(\\d+)\\.(\\d+)\\.(\\d+)");
+	if (re.exactMatch(version.string)) {
+		version.major = re.cap(1).toUInt();
+		version.minor = re.cap(2).toUInt();
+		version.release = re.cap(3).toUInt();
+	}
 	return true;
 }
 
@@ -113,7 +122,7 @@ bool SQLiteConnection::drv_disconnect()
 bool SQLiteConnection::drv_getDatabasesList( QStringList &list )
 {
 	//this is one-db-per-file database
-	list.append( m_data->fileName() ); //more consistent than dbFileName() ?
+	list.append( data()->fileName() ); //more consistent than dbFileName() ?
 	return true;
 }
 
@@ -150,7 +159,7 @@ bool SQLiteConnection::drv_createDatabase( const QString &dbName )
 	// SQLite creates a new db is it does not exist
 	return drv_useDatabase(dbName);
 #if 0
-	d->data = sqlite_open( QFile::encodeName( m_data->fileName() ), 0/*mode: unused*/, 
+	d->data = sqlite_open( QFile::encodeName( data()->fileName() ), 0/*mode: unused*/, 
 		&d->errmsg_p );
 	d->storeResult();
 	return d->data != 0;
@@ -161,13 +170,11 @@ bool SQLiteConnection::drv_useDatabase( const QString &dbName, bool *cancelled,
 	MessageHandler* msgHandler )
 {
 	Q_UNUSED(dbName);
-#ifndef KEXI_FUTURE_FEATURES
+//	KexiDBDrvDbg << "drv_useDatabase(): " << data()->fileName() << endl;
+#ifdef SQLITE2
 	Q_UNUSED(cancelled);
 	Q_UNUSED(msgHandler);
-#endif
-//	KexiDBDrvDbg << "drv_useDatabase(): " << m_data->fileName() << endl;
-#ifdef SQLITE2
-	d->data = sqlite_open( QFile::encodeName( m_data->fileName() ), 0/*mode: unused*/, 
+	d->data = sqlite_open( QFile::encodeName( data()->fileName() ), 0/*mode: unused*/, 
 		&d->errmsg_p );
 	d->storeResult();
 	return d->data != 0;
@@ -177,31 +184,28 @@ bool SQLiteConnection::drv_useDatabase( const QString &dbName, bool *cancelled,
 	int exclusiveFlag = Connection::isReadOnly() ? SQLITE_OPEN_READONLY : SQLITE_OPEN_WRITE_LOCKED; // <-- shared read + (if !r/o): exclusive write
 //! @todo add option
 	int allowReadonly = 1;
-# ifdef KEXI_FUTURE_FEATURES
 	const bool wasReadOnly = Connection::isReadOnly();
-# endif
 
 	d->res = sqlite3_open( 
-		//m_data->fileName().ucs2(), //utf16
-		QFile::encodeName( m_data->fileName() ), 
+		//QFile::encodeName( data()->fileName() ), 
+		data()->fileName().utf8(), /* unicode expected since SQLite 3.1 */
 		&d->data,
 		exclusiveFlag,
 		allowReadonly /* If 1 and locking fails, try opening in read-only mode */
 	);
 	d->storeResult();
 
-#ifdef KEXI_FUTURE_FEATURES
 	if (d->res == SQLITE_OK && cancelled && !wasReadOnly && allowReadonly && isReadOnly()) {
 		//opened as read only, ask
 		if (KMessageBox::Continue != 
 			askQuestion( 
-			futureI18n("Do you want to open file \"%1\" as read-only?")
-				.arg(QDir::convertSeparators(m_data->fileName()))
+			i18n("Do you want to open file \"%1\" as read-only?")
+				.arg(QDir::convertSeparators(data()->fileName()))
 			+ "\n\n"
 			+ i18n("The file is probably already open on this or another computer.") + " "
 			+ i18n("Could not gain exclusive access for writing the file."),
 			KMessageBox::WarningContinueCancel, KMessageBox::Continue, 
-			KGuiItem(futureI18n("Open As Read-Only"), "fileopen"), KStdGuiItem::cancel(),
+			KGuiItem(i18n("Open As Read-Only"), "fileopen"), KStdGuiItem::cancel(),
 			"askBeforeOpeningFileReadOnly", KMessageBox::Notify, msgHandler ))
 		{
 			clearError();
@@ -211,7 +215,6 @@ bool SQLiteConnection::drv_useDatabase( const QString &dbName, bool *cancelled,
 			return false;
 		}
 	}
-#endif
 
 	if (d->res == SQLITE_CANTOPEN_WITH_LOCKED_READWRITE) {
 		setError(ERR_ACCESS_RIGHTS, 
@@ -245,7 +248,11 @@ bool SQLiteConnection::drv_closeDatabase()
 		return true;
 	}
 	if (SQLITE_BUSY==res) {
-		setError(ERR_OTHER);
+#if 0 //this is ANNOYING, needs fixing (by closing cursors or waiting)
+		setError(ERR_CLOSE_FAILED, i18n("Could not close busy database."));
+#else
+		return true;
+#endif
 	}
 	return false;
 #endif
@@ -253,9 +260,11 @@ bool SQLiteConnection::drv_closeDatabase()
 
 bool SQLiteConnection::drv_dropDatabase( const QString &dbName )
 {
-	if (QFile(m_data->fileName()).exists() && !QDir().remove(m_data->fileName())) {
+	Q_UNUSED(dbName); // Each database is one single SQLite file.
+	const QString filename = data()->fileName();
+	if (QFile(filename).exists() && !QDir().remove(filename)) {
 		setError(ERR_ACCESS_RIGHTS, i18n("Could not remove file \"%1\".")
-			.arg(QDir::convertSeparators(dbName)) + " "
+			.arg(QDir::convertSeparators(filename)) + " "
 			+ i18n("Check the file's permissions and whether it is already opened and locked by another application."));
 		return false;
 	}
@@ -284,6 +293,10 @@ bool SQLiteConnection::drv_executeSQL( const QString& statement )
 	d->temp_st = statement.local8Bit(); //latin1 only
 #endif
 
+#ifdef KEXI_DEBUG_GUI
+	KexiUtils::addKexiDBDebug(QString("ExecuteSQL (SQLite): ")+statement);
+#endif
+
 	d->res = sqlite_exec( 
 		d->data, 
 		(const char*)d->temp_st, 
@@ -291,6 +304,9 @@ bool SQLiteConnection::drv_executeSQL( const QString& statement )
 		0,
 		&d->errmsg_p );
 	d->storeResult();
+#ifdef KEXI_DEBUG_GUI
+	KexiUtils::addKexiDBDebug(d->res==SQLITE_OK ? "  Success" : "  Failure");
+#endif
 	return d->res==SQLITE_OK;
 }
 
@@ -348,5 +364,51 @@ bool SQLiteConnection::isReadOnly() const
 	return d->data ? sqlite3_is_readonly(d->data) : false;
 #endif
 }
+
+#ifdef SQLITE2
+bool SQLiteConnection::drv_alterTableName(TableSchema& tableSchema, const QString& newName, bool replace)
+{
+	const QString oldTableName = tableSchema.name();
+	const bool destTableExists = this->tableSchema( newName ) != 0;
+
+	//1. drop the table
+	if (destTableExists) {
+		if (!replace)
+			return false;
+		if (!drv_dropTable( newName ))
+			return false;
+	}
+
+	//2. create a copy of the table
+//TODO: move this code to drv_copyTable()
+	tableSchema.setName(newName);
+
+//helper:
+#define drv_alterTableName_ERR \
+		tableSchema.setName(oldTableName) //restore old name
+
+	if (!drv_createTable( tableSchema )) {
+		drv_alterTableName_ERR;
+		return false;
+	}
+
+//TODO indices, etc.???
+
+	// 3. copy all rows to the new table
+	if (!executeSQL(QString::fromLatin1("INSERT INTO %1 SELECT * FROM %2")
+		.arg(escapeIdentifier(tableSchema.name())).arg(escapeIdentifier(oldTableName))))
+	{
+		drv_alterTableName_ERR;
+		return false;
+	}
+
+	// 4. drop old table.
+	if (!drv_dropTable( oldTableName )) {
+		drv_alterTableName_ERR;
+		return false;
+	}
+	return true;
+}
+#endif
 
 #include "sqliteconnection.moc"

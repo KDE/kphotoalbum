@@ -38,12 +38,12 @@ class QVButtonGroup;
 class KComboBox;
 class KListView;
 class KLineEdit;
-class KActiveLabel;
 class KexiConnSelectorWidget;
 class KexiProjectSelectorWidget;
 class KexiProjectSet;
 class KexiDBTitlePage;
 class KexiDBDriverComboBox;
+class KexiPrjTypeSelector;
 
 namespace Kexi
 {
@@ -124,14 +124,14 @@ private:
 	KexiDBTitlePage* m_dstTitlePage;
 
 	KComboBox *m_srcTypeCombo;
-	KexiDBDriverComboBox *m_dstTypeCombo;
+	KexiDBDriverComboBox *m_dstServerTypeCombo;
+	KexiPrjTypeSelector *m_dstPrjTypeSelector;
 
 	KexiConnSelectorWidget *m_srcConn, *m_dstConn;
 	KLineEdit *m_dstNewDBNameLineEdit;
 	KexiProjectSelectorWidget *m_srcDBName;
 
-	QLabel *m_lblImportingTxt;
-	KActiveLabel *m_lblImportingErrTxt, *m_finishLbl;
+	QLabel *m_lblImportingTxt, *m_lblImportingErrTxt, *m_finishLbl;
 	QCheckBox *m_openImportedProjectCheckBox;
 	bool m_fileBasedDstWasPresented, m_setupFileBasedSrcNeeded, 
 		m_importExecuted; //!< used in import()

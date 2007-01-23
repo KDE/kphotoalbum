@@ -369,29 +369,30 @@ bool parseData(KexiDB::Parser *p, const char *data);
      USER = 578,
      IDENTIFIER = 579,
      IDENTIFIER_DOT_ASTERISK = 580,
-     USING = 581,
-     VALUE = 582,
-     VALUES = 583,
-     VARBINARY = 584,
-     VARCHAR = 585,
-     VARYING = 586,
-     VENDOR = 587,
-     VIEW = 588,
-     WEEK = 589,
-     WHEN = 590,
-     WHENEVER = 591,
-     WHERE = 592,
-     WHERE_CURRENT_OF = 593,
-     WITH = 594,
-     WORD_WRAPPED = 595,
-     WORK = 596,
-     WRAPPED = 597,
-     XOR = 598,
-     YEAR = 599,
-     YEARS_BETWEEN = 600,
-     SCAN_ERROR = 601,
-     __LAST_TOKEN = 602,
-     ILIKE = 603
+     QUERY_PARAMETER = 581,
+     USING = 582,
+     VALUE = 583,
+     VALUES = 584,
+     VARBINARY = 585,
+     VARCHAR = 586,
+     VARYING = 587,
+     VENDOR = 588,
+     VIEW = 589,
+     WEEK = 590,
+     WHEN = 591,
+     WHENEVER = 592,
+     WHERE = 593,
+     WHERE_CURRENT_OF = 594,
+     WITH = 595,
+     WORD_WRAPPED = 596,
+     WORK = 597,
+     WRAPPED = 598,
+     XOR = 599,
+     YEAR = 600,
+     YEARS_BETWEEN = 601,
+     SCAN_ERROR = 602,
+     __LAST_TOKEN = 603,
+     ILIKE = 604
    };
 #endif
 /* Tokens.  */
@@ -718,39 +719,41 @@ bool parseData(KexiDB::Parser *p, const char *data);
 #define USER 578
 #define IDENTIFIER 579
 #define IDENTIFIER_DOT_ASTERISK 580
-#define USING 581
-#define VALUE 582
-#define VALUES 583
-#define VARBINARY 584
-#define VARCHAR 585
-#define VARYING 586
-#define VENDOR 587
-#define VIEW 588
-#define WEEK 589
-#define WHEN 590
-#define WHENEVER 591
-#define WHERE 592
-#define WHERE_CURRENT_OF 593
-#define WITH 594
-#define WORD_WRAPPED 595
-#define WORK 596
-#define WRAPPED 597
-#define XOR 598
-#define YEAR 599
-#define YEARS_BETWEEN 600
-#define SCAN_ERROR 601
-#define __LAST_TOKEN 602
-#define ILIKE 603
+#define QUERY_PARAMETER 581
+#define USING 582
+#define VALUE 583
+#define VALUES 584
+#define VARBINARY 585
+#define VARCHAR 586
+#define VARYING 587
+#define VENDOR 588
+#define VIEW 589
+#define WEEK 590
+#define WHEN 591
+#define WHENEVER 592
+#define WHERE 593
+#define WHERE_CURRENT_OF 594
+#define WITH 595
+#define WORD_WRAPPED 596
+#define WORK 597
+#define WRAPPED 598
+#define XOR 599
+#define YEAR 600
+#define YEARS_BETWEEN 601
+#define SCAN_ERROR 602
+#define __LAST_TOKEN 603
+#define ILIKE 604
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 503 "sqlparser.y"
+#line 511 "sqlparser.y"
 {
-	char stringValue[255];
+	QString* stringValue;
 	Q_LLONG integerValue;
+	bool booleanValue;
 	struct realType realValue;
 	KexiDB::Field::Type colType;
 	KexiDB::Field *field;
@@ -758,9 +761,12 @@ typedef union YYSTYPE
 	KexiDB::NArgExpr *exprList;
 	KexiDB::ConstExpr *constExpr;
 	KexiDB::QuerySchema *querySchema;
+	SelectOptionsInternal *selectOptions;
+	OrderByColumnInternal::List *orderByColumns;
+	QVariant *variantValue;
 }
 /* Line 1528 of yacc.c.  */
-#line 757 "sqlparser.tab.h"
+#line 763 "sqlparser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

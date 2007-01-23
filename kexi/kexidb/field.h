@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2002 Lucijan Busch <lucijan@gmx.at>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2003-2004 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -86,7 +86,6 @@ class KEXI_DB_EXPORT Field
 			ShortInteger = 2,/*!< 2 bytes, signed or unsigned */
 			Integer = 3,     /*!< 4 bytes, signed or unsigned */
 			BigInteger = 4,  /*!< 8 bytes, signed or unsigned */
-//			AutoIncrement,/* 4 bytes, like LongInteger, used for keys */
 			Boolean = 5,     /*!< 0 or 1 */
 			Date = 6,        /*!< */
 			DateTime = 7,	   /*!< */
@@ -126,6 +125,7 @@ class KEXI_DB_EXPORT Field
 			LastTypeGroup = 6 // This line should be at the end of the enum!
 		};
 
+		/*! Possible constraints defined for a field. */
 		enum Constraints
 		{
 			NoConstraints = 0,
@@ -138,16 +138,22 @@ class KEXI_DB_EXPORT Field
 			Indexed = 64
 		};
 
+		/*! Possible options defined for a field. */
 		enum Options
 		{
 			NoOptions = 0,
 			Unsigned = 1
 		};
 
+		/*! Creates a database field as a child of \a tableSchema table
+		 No other properties are set (even the name), so these should be set later. */
 		Field(TableSchema *tableSchema);
-		Field(QuerySchema *querySchema, BaseExpr* expr = 0);
+
+		/*! Creates a database field without any properties set. 
+		 These should be set later. */
 		Field();
 
+		/*! Creates a database field with specified properties. */
 		Field(const QString& name, Type ctype,
 			uint cconst=NoConstraints,
 			uint options = NoOptions,
@@ -162,7 +168,7 @@ class KEXI_DB_EXPORT Field
 
 		virtual ~Field();
 
-		//! Converts field \a type to QVariant equivalent as accurate as possible
+		//! Converts type \a type to QVariant equivalent as accurate as possible
 		static QVariant::Type variantType(uint type);
 
 		/*! \return a i18n'd type name for \a type (\a type has to be an element from Field::Type, 
@@ -175,10 +181,10 @@ class KEXI_DB_EXPORT Field
 		static QString typeString(uint type);
 
 		/*! \return type for a given \a typeString */
-		static Type typeForString(const QString typeString);
+		static Type typeForString(const QString& typeString);
 
 		/*! \return type group for a given \a typeGroupString */
-		static TypeGroup typeGroupForString(const QString typeGroupString);
+		static TypeGroup typeGroupForString(const QString& typeGroupString);
 
 		/*! \return group for \a type */
 		static TypeGroup typeGroup(uint type);
@@ -281,36 +287,46 @@ class KEXI_DB_EXPORT Field
 
 		void setOptions(uint options) { m_options = options; }
 
+		//! Converts field's type to QVariant equivalent as accurate as possible
 		inline QVariant::Type variantType() const { return variantType(type()); }
 
-		/*! Return a type for this field. If there's expression assigned,
+		/*! \return a type for this field. If there's expression assigned,
 		 type of the expression is returned instead. */
 		Type type() const;
 
+		//! \return a i18n'd type name for this field 
 		inline QString typeName() const { return Field::typeName(type()); }
 
+		//! \return type group for this field
 		inline TypeGroup typeGroup() const { return Field::typeGroup(type()); }
 
+		//! \return a i18n'd type group name for this field
 		inline QString typeGroupName() const { return Field::typeGroupName(type()); }
 
+		//! \return a type string for this field, 
+		//! for example "Integer" string for Field::Integer type.
 		inline QString typeString() const { return Field::typeString(type()); }
 
+		//! \return a type group string for this field, 
+		//! for example "Integer" string for Field::IntegerGroup.
 		inline QString typeGroupString() const { return Field::typeGroupString(type()); }
 
 		/*! \return (optional) subtype for this field. 
 		 Subtype is a string providing additional hint for field's type. 
 		 E.g. for BLOB type, it can be a MIME type or certain QVariant type name, 
-		 for example: "QPixmap", "QColor" or "QFont"
-		 */
+		 for example: "QPixmap", "QColor" or "QFont" */
 		inline QString subType() const { return m_subType; }
 
 		/*! Sets (optional) subtype for this field. 
 		 \sa subType() */
 		inline void setSubType(const QString& subType) { m_subType = subType; }
 
+		//! \return default value for this field. Null value means there 
+		//! is no default value declared. The variant value is compatible with field's type.
 		inline QVariant defaultValue() const { return m_defaultValue; }
 		
-		/*! \return length of text, only meaningful if the field type is text. */
+		/*! \return length of text, only meaningful if the field type is text. 
+		 0 means "default length". */
 		inline uint length() const { return m_length; }
 
 		/*! \return precision for numeric and other fields that have both length (scale)
@@ -325,6 +341,24 @@ class KEXI_DB_EXPORT Field
 		 to both sides of the decimal point. So the number 23.5141 has a precision 
 		 of 6 and a scale of 4. Integers can be considered to have a scale of zero. */
 		inline uint scale() const { return m_length; }
+
+//! @todo should we keep extended properties here or move them to a QVariant dictionary?
+		/*! \return number of decimal places that should be visible to the user, 
+		 e.g. within table view widget, form or printout. 
+		 Only meaningful if the field type is floating point or (in the future: decimal or currency).
+
+		 - Any value less than 0 (-1 is the default) means that there should be displayed all digits
+		   of the fractional part, except the ending zeros. This is known as "auto" mode.
+		   For example, 12.345000 becomes 12.345.
+
+		 - Value of 0 means that all the fractional part should be hidden (as well as the dot or comma). 
+		   For example, 12.345000 becomes 12.
+
+		 - Value N > 0 means that the fractional part should take exactly N digits. 
+		   If the fractional part is shorter than N, additional zeros are appended. 
+		   For example, "12.345" becomes "12.345000" if N=6.
+		*/
+		inline int visibleDecimalPlaces() const { return m_visibleDecimalPlaces; }
 
 		/*! \return the constraints defined for this field. */
 		inline uint constraints() const { return m_constraints; }
@@ -348,8 +382,6 @@ class KEXI_DB_EXPORT Field
 		
 		//! if the type has the unsigned attribute
 		inline bool isUnsigned() const { return m_options & Unsigned; }
-
-//		virtual bool isBinary() const;
 
 		/*! \return true if this field has EMPTY property (i.e. it is of type
 		string or is a BLOB). */
@@ -380,19 +412,26 @@ class KEXI_DB_EXPORT Field
 		 enforced as well (see setIndexed()). */
 		void setConstraints(uint c);
 
-		/*! Sets length for this field. Only works for Text Type (even not LongText!). */
+		/*! Sets length for this field. Only works for Text Type (even not LongText!). 
+		 0 means "default length". @see length() */
 		void setLength(uint l);
 
-		/*! Sets scale for this field. Only works for floating-point types. */
+		/*! Sets scale for this field. Only works for floating-point types. 
+		 @see scale() */
 		void setScale(uint s);
+
+		/*! Sets number of decimal places that should be visible to the user. 
+		 @see visibleDecimalPlaces() */
+		void setVisibleDecimalPlaces(int p);
 
 		/*! Sets scale for this field. Only works for floating-point types. */
 		void setPrecision(uint p);
 
+		/*! Sets unsigned flag for this field. Only works for integer types. */
 		void setUnsigned(bool u);
 
-//		void setBinary(bool b);
-
+		/*! Sets default value for this field. Setting null value removes the default value. 
+		 @see defaultValue() */
 		void setDefaultValue(const QVariant& def);
 
 		/*! Sets default value decoded from QCString. 
@@ -407,7 +446,6 @@ class KEXI_DB_EXPORT Field
 
 		/*! Specifies whether the field is single-field primary key or not 
 		 (KexiDB::PrimeryKey item). 
-
 		 Use this with caution. Setting this to true implies setting:
 		 - setUniqueKey(true)
 		 - setNotNull(true)
@@ -451,10 +489,14 @@ class KEXI_DB_EXPORT Field
 		 do setIndexed(true) for the same reason. */
 		void setIndexed(bool s);
 
+		/*! Sets caption for this field to \a caption. */
 		void setCaption(const QString& caption) { m_caption=caption; }
 
+		/*! Sets description for this field to \a description. */
 		void setDescription(const QString& description) { m_desc=description; }
 		
+		/*! Sets visible width for this field to \a w 
+		 (usually in pixels or points). 0 means there is no hint for the width. */
 		void setWidth(uint w) { m_width=w; }
 
 		/*! There can be added asterisks (QueryAsterisk objects) 
@@ -465,16 +507,16 @@ class KEXI_DB_EXPORT Field
 		 Every QueryAsterisk object returns true here,
 		 and every Field object returns false.
 		*/
-		inline bool isQueryAsterisk() const { return type() == Asterisk; }
+		bool isQueryAsterisk() const;
 		
 		/*! \return string for debugging purposes. */
-		virtual QString debugString();
+		virtual QString debugString() const;
 
 		/*! Shows debug information about this field. */
 		void debug();
 
 		/*! \return KexiDB::BaseExpr object if the field value is an
-		 expression.  Unless the expression is set with setExpresion(), it is null.
+		 expression.  Unless the expression is set with setExpression(), it is null.
 		*/
 		inline KexiDB::BaseExpr *expression() { return m_expr; }
 
@@ -502,7 +544,29 @@ class KEXI_DB_EXPORT Field
 		void setEnumHints(const QValueVector<QString> &l) { m_hints = l; }
 //</TMP>
 
+		/*! \return custom property \a propertyName.
+		 If there is no such a property, \a defaultValue is returned. */
+		QVariant customProperty(const QCString& propertyName,
+			const QVariant& defaultValue = QVariant()) const;
+
+		//! Sets value \a value for custom property \a propertyName
+		void setCustomProperty(const QCString& propertyName, const QVariant& value);
+
+		//! A data type used for handling custom properties of a field
+		typedef QMap<QCString,QVariant> CustomPropertiesMap;
+
+		//! \return all custom properties
+		inline const CustomPropertiesMap customProperties() const {
+			return m_customProperties ? *m_customProperties : CustomPropertiesMap(); }
+
 	protected:
+		/*! Creates a database field as a child of \a querySchema table
+		 Assigns \a expr expression to this field, if present.
+		 Used internally by query schemas, e.g. to declare asterisks or 
+		 to add expression columns.
+		 No other properties are set, so these should be set later. */
+		Field(QuerySchema *querySchema, BaseExpr* expr = 0);
+
 		/*! @internal Used by constructors. */
 		void init();
 
@@ -513,6 +577,7 @@ class KEXI_DB_EXPORT Field
 		uint m_constraints;
 		uint m_length; //!< also used for storing scale for floating point types
 		uint m_precision;
+		int m_visibleDecimalPlaces; //!< used in visibleDecimalPlaces()
 		uint m_options;
 		QVariant m_defaultValue;
 		int m_order;
@@ -522,7 +587,9 @@ class KEXI_DB_EXPORT Field
 		QValueVector<QString> m_hints;
 
 		KexiDB::BaseExpr *m_expr;
+		CustomPropertiesMap* m_customProperties;
 
+		//! @internal Used in m_typeNames member to handle i18n'd type names
 		class KEXI_DB_EXPORT FieldTypeNames : public QValueVector<QString> {
 			public:
 				FieldTypeNames();
@@ -531,6 +598,8 @@ class KEXI_DB_EXPORT Field
 			protected:
 				bool m_initialized : 1;
 		};
+
+		//! @internal Used in m_typeGroupNames member to handle i18n'd type group names
 		class KEXI_DB_EXPORT FieldTypeGroupNames : public QValueVector<QString> {
 			public: 
 				FieldTypeGroupNames();

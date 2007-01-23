@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
    Copyright (C) 2002 Lucijan Busch <lucijan@gmx.at>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2003-2004 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -19,10 +19,11 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#include <kexidb/field.h>
-#include <kexidb/connection.h>
-#include <kexidb/driver.h>
-#include <kexidb/expression.h>
+#include "field.h"
+#include "connection.h"
+#include "driver.h"
+#include "expression.h"
+#include "utils.h"
 
 // we use here i18n() but this depends on kde libs: TODO: add #ifdefs
 #include <kdebug.h>
@@ -70,6 +71,7 @@ Field::Field(const QString& name, Type ctype,
 	,m_name(name.lower())
 	,m_length(length)
 	,m_precision(precision)
+	,m_visibleDecimalPlaces(-1)
 	,m_options(options)
 	,m_defaultValue(defaultValue)
 	,m_order(-1)
@@ -77,6 +79,7 @@ Field::Field(const QString& name, Type ctype,
 	,m_desc(description)
 	,m_width(width)
 	,m_expr(0)
+	,m_customProperties(0)
 	,m_type(ctype)
 {
 	setConstraints(cconst);
@@ -90,7 +93,10 @@ Field::Field(const QString& name, Type ctype,
 Field::Field(const Field& f)
 {
 	(*this) = f;
-	if (f.m_expr) {//deep copy the expresion
+	if (f.m_customProperties)
+		m_customProperties = new CustomPropertiesMap( f.customProperties() );
+
+	if (f.m_expr) {//deep copy the expression
 //TODO		m_expr = new BaseExpr(*f.m_expr);
 
 //		m_expr->m_field = this;
@@ -101,6 +107,7 @@ Field::Field(const Field& f)
 Field::~Field()
 {
 	delete m_expr;
+	delete m_customProperties;
 }
 
 void Field::init()
@@ -110,11 +117,13 @@ void Field::init()
 	m_type = InvalidType;
 	m_length = 0;
 	m_precision = 0;
+	m_visibleDecimalPlaces = -1;
 	m_options = NoOptions;
 	m_defaultValue = QVariant(QString::null);
 	m_order = -1;
 	m_width = 0;
 	m_expr = 0;
+	m_customProperties = 0;
 }
 
 Field::Type Field::type() const
@@ -132,7 +141,6 @@ QVariant::Type Field::variantType(uint type)
 		case ShortInteger:
 		case Integer:
 		case BigInteger:
-//		case AutoIncrement:
 			return QVariant::Int;
 		case Boolean:
 			return QVariant::Bool;
@@ -181,20 +189,22 @@ QString Field::typeGroupString(uint typeGroup)
 	return (typeGroup <= LastTypeGroup) ? m_typeGroupNames.at((int)LastTypeGroup+1 + typeGroup) : QString("TypeGroup%1").arg(typeGroup);
 }
 
-Field::Type Field::typeForString(const QString typeString)
+Field::Type Field::typeForString(const QString& typeString)
 {
 	m_typeNames.init();
-	if (m_typeNames.str2num.find(typeString)==m_typeNames.str2num.end())
+	QMap<QString,Type>::ConstIterator it = m_typeNames.str2num.find(typeString.lower());
+	if (it==m_typeNames.str2num.end())
 		return InvalidType;
-	return m_typeNames.str2num[typeString];
+	return it.data();
 }
 
-Field::TypeGroup Field::typeGroupForString(const QString typeGroupString)
+Field::TypeGroup Field::typeGroupForString(const QString& typeGroupString)
 {
 	m_typeGroupNames.init();
-	if (m_typeGroupNames.str2num.find(typeGroupString)==m_typeGroupNames.str2num.end())
+	QMap<QString,TypeGroup>::ConstIterator it = m_typeGroupNames.str2num.find(typeGroupString.lower());
+	if (it==m_typeGroupNames.str2num.end())
 		return InvalidGroup;
-	return m_typeGroupNames.str2num[typeGroupString];
+	return it.data();
 }
 
 bool Field::isIntegerType( uint type )
@@ -251,6 +261,11 @@ bool Field::isTextType( uint type )
 	default:;
 	}
 	return false;
+}
+
+bool Field::isQueryAsterisk() const
+{
+	return dynamic_cast<QueryAsterisk const *>(this);
 }
 
 bool Field::hasEmptyProperty(uint type)
@@ -363,6 +378,14 @@ Field::setScale(uint s)
 }
 
 void
+Field::setVisibleDecimalPlaces(int p)
+{
+	if (!KexiDB::supportsVisibleDecimalPlacesProperty(type()))
+		return;
+	m_visibleDecimalPlaces = p < 0 ? -1 : p;
+}
+
+void
 Field::setUnsigned(bool u)
 {
 	m_options |= Unsigned;
@@ -395,7 +418,7 @@ Field::setDefaultValue(const QCString& def)
 			break;
 		}case ShortInteger: {
 			int v = def.toInt(&ok);
-			if (!ok || (!(m_options & Unsigned) && (v < -32768 || v > 32768)) || ((m_options & Unsigned) && (v < 0 || v > 65535)))
+			if (!ok || (!(m_options & Unsigned) && (v < -32768 || v > 32767)) || ((m_options & Unsigned) && (v < 0 || v > 65535)))
 				m_defaultValue = QVariant();
 			else
 				m_defaultValue = QVariant(v);
@@ -557,7 +580,7 @@ void Field::setIndexed(bool s)
 }
 
 
-QString Field::debugString()
+QString Field::debugString() const
 {
 	KexiDB::Connection *conn = table() ? table()->connection() : 0;
 	QString dbg = (m_name.isEmpty() ? "<NONAME> " : m_name + " ");
@@ -584,8 +607,21 @@ QString Field::debugString()
 		dbg += " NOTNULL";
 	if (m_constraints & Field::NotEmpty)
 		dbg += " NOTEMPTY";
+	if (!m_defaultValue.isNull())
+		dbg += QString(" DEFAULT=[%1]").arg(m_defaultValue.typeName()) + KexiDB::variantToString(m_defaultValue);
 	if (m_expr)
 		dbg += " EXPRESSION=" + m_expr->debugString();
+	if (m_customProperties && !m_customProperties->isEmpty()) {
+		dbg += QString(" CUSTOM PROPERTIES (%1): ").arg(m_customProperties->count());
+		bool first = true;
+		foreach (CustomPropertiesMap::ConstIterator, it, *m_customProperties) {
+			if (first)
+				first = false;
+			else
+				dbg += ", ";
+			dbg += QString("%1 = %2 (%3)").arg(it.key()).arg(it.data().toString()).arg(it.data().typeName());
+		}
+	}
 	return dbg;
 }
 
@@ -605,13 +641,33 @@ void Field::setExpression(KexiDB::BaseExpr *expr)
 	m_expr = expr;
 }
 
+QVariant Field::customProperty(const QCString& propertyName,
+	const QVariant& defaultValue) const
+{
+	if (!m_customProperties)
+		return defaultValue;
+	CustomPropertiesMap::ConstIterator it(m_customProperties->find(propertyName));
+	if (it==m_customProperties->constEnd())
+		return defaultValue;
+	return it.data();
+}
+
+void Field::setCustomProperty(const QCString& propertyName, const QVariant& value)
+{
+	if (propertyName.isEmpty())
+		return;
+	if (!m_customProperties)
+		m_customProperties = new CustomPropertiesMap();
+	m_customProperties->insert(propertyName, value);
+}
+
 //-------------------------------------------------------
 #define ADDTYPE(type, i18, str) this->at(Field::type) = i18; \
 	this->at(Field::type+Field::LastType+1) = str; \
-	str2num.insert(str, type)
+	str2num.insert(QString::fromLatin1(str).lower(), type)
 #define ADDGROUP(type, i18, str) this->at(Field::type) = i18; \
 	this->at(Field::type+Field::LastTypeGroup+1) = str; \
-	str2num.insert(str, type)
+	str2num.insert(QString::fromLatin1(str).lower(), type)
 
 Field::FieldTypeNames::FieldTypeNames()
  : QValueVector<QString>()

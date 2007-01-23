@@ -41,11 +41,11 @@
 
 /*! a shortcut for iterating over lists or maps, eg. QMap, QValueList */
 #define foreach(_class, _variable, _list) \
-	for (_class _variable = _list.constBegin(); _variable!=_list.constEnd(); ++_variable)
+	for (_class _variable = (_list).constBegin(); _variable!=(_list).constEnd(); ++_variable)
 
 /*! nonconst version of foreach iterator */
 #define foreach_nonconst(_class, _variable, _list) \
-	for (_class _variable = _list.begin(); _variable!=_list.end(); ++_variable)
+	for (_class _variable = (_list).begin(); _variable!=(_list).end(); ++_variable)
 
 /*! a shortcut for iterating over QPtrList and QPtrDict */
 #define foreach_list(_class, _variable, _list) \
@@ -54,7 +54,17 @@
 #define foreach_dict(_class, _variable, _list) foreach_list(_class, _variable, _list)
 
 #ifndef futureI18n
-# define futureI18n QString
+# ifdef USE_FUTURE_I18N
+#  define futureI18n(a) QObject::tr(a)
+#  define futureI18n2(a,b) QObject::tr(b)
+# else
+#  define futureI18n(a) QString(a)
+#  define futureI18n2(a,b) QString(b)
+# endif
+#endif
+
+#ifndef FUTURE_I18N_NOOP
+# define FUTURE_I18N_NOOP(x) (x)
 #endif
 
 #endif /* _KEXI_GLOBAL_ */

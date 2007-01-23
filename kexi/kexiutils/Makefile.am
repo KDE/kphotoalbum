@@ -1,11 +1,13 @@
 include ../Makefile.global
 
 lib_LTLIBRARIES = libkphotoalbumkexiutils.la
-libkphotoalbumkexiutils_la_SOURCES = identifier.cpp validator.cpp utils.cpp
+libkphotoalbumkexiutils_la_SOURCES = identifier.cpp validator.cpp utils.cpp debuggui.cpp \
+  styleproxy.cpp longlongvalidator.cpp
 
 libkexiutilsincludedir=$(includedir)/kexiutils
 
-noinst_HEADERS = tristate.h identifier.h validator.h utils.h kexiutils_export.h utils_p.h
+noinst_HEADERS = tristate.h identifier.h validator.h utils.h kexiutils_export.h \
+	styleproxy.h longlongvalidator.h utils_p.h
 
 libkphotoalbumkexiutils_la_LDFLAGS = \
   $(KDE_RPATH) $(all_libraries) \

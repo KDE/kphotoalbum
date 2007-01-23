@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -21,12 +21,35 @@
 
 using namespace KexiDB;
 
-int KexiDB::versionMajor()
+DatabaseVersionInfo::DatabaseVersionInfo()
 {
-	return KEXIDB_VERSION_MAJOR;
+	major = 0;
+	minor = 0;
 }
 
-int KexiDB::versionMinor()
+DatabaseVersionInfo::DatabaseVersionInfo(uint majorVersion, uint minorVersion)
 {
-	return KEXIDB_VERSION_MINOR;
+	major = majorVersion;
+	minor = minorVersion;
 }
+
+//------------------------
+
+ServerVersionInfo::ServerVersionInfo()
+{
+	major = 0;
+	minor = 0;
+	release = 0;
+}
+
+void ServerVersionInfo::clear()
+{
+	major = 0;
+	minor = 0;
+	release = 0;
+	string = QString::null;
+}
+
+//------------------------
+
+DatabaseVersionInfo KexiDB::version() { return KEXIDB_VERSION; }

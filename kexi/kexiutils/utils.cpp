@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003-2005 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -21,20 +21,31 @@
 #include "utils_p.h"
 
 #include <qregexp.h>
+#include <qpainter.h>
+#include <qimage.h>
+#include <qwmatrix.h>
+#include <qiconset.h>
 
 #include <kdebug.h>
 #include <kcursor.h>
 #include <kapplication.h>
+#include <kpixmap.h>
+#include <kiconeffect.h>
+#include <kpixmapeffect.h>
 
 using namespace KexiUtils;
 
-DelayedCursorHandler::DelayedCursorHandler() {
+DelayedCursorHandler::DelayedCursorHandler() 
+ : startedOrActive(false)
+{
 	connect(&timer, SIGNAL(timeout()), this, SLOT(show()));
 }
 void DelayedCursorHandler::start(bool noDelay) {
+	startedOrActive = true;
 	timer.start(noDelay ? 0 : 1000, true);
 }
 void DelayedCursorHandler::stop() {
+	startedOrActive = false;
 	timer.stop();
 	QApplication::restoreOverrideCursor();
 }
@@ -61,6 +72,17 @@ WaitCursor::WaitCursor(bool noDelay)
 WaitCursor::~WaitCursor()
 {
 	removeWaitCursor();
+}
+
+WaitCursorRemover::WaitCursorRemover()
+{
+	m_reactivateCursor = _delayedCursorHandler.startedOrActive;
+	_delayedCursorHandler.stop();
+}
+
+WaitCursorRemover::~WaitCursorRemover()
+{
+	_delayedCursorHandler.start(true);
 }
 
 //--------------------------------------------------------------------------------
@@ -144,7 +166,17 @@ QColor KexiUtils::bleachedColor(const QColor& c, int factor)
 	return c2;
 }
 
-void KexiUtils::serializeMap(const QMap<QString,QString>& map, QByteArray& array)
+QIconSet KexiUtils::colorizeIconToTextColor(const QPixmap& icon, const QPalette& palette)
+{
+	QPixmap pm(
+		KIconEffect().apply( icon, KIconEffect::Colorize, 1.0f, palette.active().buttonText(), false ) );
+
+	KPixmap kpm(pm);
+	return QIconSet(
+		KPixmapEffect::fade( kpm, 0.33, palette.active().button() ) );
+}
+
+void KexiUtils::serializeMap(const QMap<QString,QString>& map, const QByteArray& array)
 {
 	QDataStream ds(array, IO_WriteOnly);
 	ds << map;
@@ -203,6 +235,124 @@ void KexiUtils::simpleDecrypt(QString& string)
 {
 	for (uint i=0; i<string.length(); i++)
 		string[i] = QChar( string[i].unicode() - 47 - i );
+}
+
+void KexiUtils::drawPixmap( QPainter& p, int lineWidth, const QRect& rect, 
+	const QPixmap& pixmap, int alignment, bool scaledContents, bool keepAspectRatio)
+{
+	if (pixmap.isNull())
+		return;
+
+	const bool fast = pixmap.width()>1000 && pixmap.height()>800; //fast drawing needed
+	const int w = rect.width()-lineWidth-lineWidth;
+	const int h = rect.height()-lineWidth-lineWidth;
+//! @todo we can optimize drawing by drawing rescaled pixmap here 
+//! and performing detailed painting later (using QTimer)
+	QPixmap pixmapBuffer;
+	QPainter p2;
+	QPainter *target;
+	if (fast) {
+		target = &p;
+	}
+	else {
+//moved		pixmapBuffer.resize(rect.size()-QSize(lineWidth, lineWidth));
+//moved		p2.begin(&pm, p.device());
+		target = &p2;
+	}
+//! @todo only create buffered pixmap of the minimum size and then do not fillRect()
+//	target->fillRect(0,0,rect.width(),rect.height(), backgroundColor);
+
+	QPoint pos;
+	if (scaledContents) {
+		if (keepAspectRatio) {
+			QImage img(pixmap.convertToImage());
+			img = img.smoothScale(w, h, QImage::ScaleMin);
+			pos = rect.topLeft(); //0, 0);
+			if (img.width() < w) {
+				int hAlign = QApplication::horizontalAlignment( alignment );
+				if ( hAlign & Qt::AlignRight )
+					pos.setX(pos.x() + w-img.width());
+				else if ( hAlign & Qt::AlignHCenter )
+					pos.setX(pos.x() + w/2-img.width()/2);
+			}
+			else if (img.height() < h) {
+				if ( alignment & Qt::AlignBottom )
+					pos.setY(pos.y() + h-img.height());
+				else if ( alignment & Qt::AlignVCenter )
+					pos.setY(pos.y() + h/2-img.height()/2);
+			}
+			pixmapBuffer.convertFromImage(img);
+			if (!fast) {
+				p2.begin(&pixmapBuffer, p.device());
+			}
+			else
+				target->drawPixmap(pos, pixmapBuffer);
+		}
+		else {
+			if (!fast) {
+				pixmapBuffer.resize(rect.size()-QSize(lineWidth, lineWidth));
+				p2.begin(&pixmapBuffer, p.device());
+				p2.drawPixmap(QRect(rect.x(), rect.y(), w, h), pixmap);
+			}
+			else
+				target->drawPixmap(QRect(rect.x() + lineWidth, rect.y() + lineWidth, w, h), pixmap);
+		}
+	}
+	else {
+		int hAlign = QApplication::horizontalAlignment( alignment );
+		if ( hAlign & Qt::AlignRight )
+			pos.setX(pos.x() + w-pixmap.width());
+		else if ( hAlign & Qt::AlignHCenter )
+			pos.setX(pos.x() + w/2-pixmap.width()/2);
+		else //left, etc.
+			pos.setX(pos.x());
+
+		if ( alignment & Qt::AlignBottom )
+			pos.setY(pos.y() + h-pixmap.height());
+		else if ( alignment & Qt::AlignVCenter )
+			pos.setY(pos.y() + h/2-pixmap.height()/2);
+		else //top, etc. 
+			pos.setY(pos.y());
+//		target->drawPixmap(pos, pixmap);
+//		if (!fast)
+//			p2.begin(&pixmapBuffer, p.device());
+		p.drawPixmap(lineWidth, lineWidth, pixmap);
+	}
+	if (scaledContents && !fast && p.isActive()) {
+		p2.end();
+		bitBlt( p.device(), 
+//			pos.x(), 
+//			pos.y(), 
+			(int)p.worldMatrix().dx() + rect.x() + lineWidth + pos.x(), 
+			(int)p.worldMatrix().dy() + rect.y() + lineWidth + pos.y(), 
+			&pixmapBuffer);
+	}
+}
+
+QString KexiUtils::ptrToStringInternal(void* ptr, uint size)
+{
+	QString str;
+	unsigned char* cstr_ptr = (unsigned char*)&ptr;
+	for (uint i=0; i<size; i++) {
+		QString s;
+		s.sprintf("%2.2x", cstr_ptr[i]);
+		str.append( s );
+	}
+	return str;
+}
+
+void* KexiUtils::stringToPtrInternal(const QString& str, uint size)
+{
+	QByteArray array(size);
+	if ((str.length()/2)<size)
+		return 0;
+	bool ok;
+	for (uint i=0; i<size; i++) {
+		array[i]=(unsigned char)(str.mid(i*2, 2).toUInt(&ok, 16));
+		if (!ok)
+			return 0;
+	}
+	return *(void**)(array.data());
 }
 
 #include "utils_p.moc"

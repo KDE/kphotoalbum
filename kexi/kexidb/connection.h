@@ -34,6 +34,7 @@
 #include <kexidb/connectiondata.h>
 #include <kexidb/tableschema.h>
 #include <kexidb/queryschema.h>
+#include <kexidb/queryschemaparameter.h>
 #include <kexidb/transaction.h>
 #include <kexidb/driver.h>
 #include <kexidb/preparedstatement.h>
@@ -49,6 +50,7 @@ class Cursor;
 class ConnectionPrivate;
 class RowEditBuffer;
 class DatabaseProperties;
+class AlterTableHandler;
 
 /*! @short Provides database connection, allowing queries and data modification.
 
@@ -69,14 +71,14 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		virtual ~Connection();
 
 		/*! \return parameters that were used to create this connection. */
-		ConnectionData* data() const { return m_data; }
+		ConnectionData* data() const;
 
 		/*! \return the driver used for this connection. */
-		Driver* driver() const { return m_driver; }
+		inline Driver* driver() const { return m_driver; }
 
 		/*! 
 		\brief Connects to driver with given parameters. 
-		\return true if successfull. */
+		\return true if successful. */
 		bool connect();
 
 		/*! \return true, if connection is properly established. */
@@ -151,7 +153,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		
 		\return name of currently used database for this connection or empty string
 			if there is no used database */
-		QString currentDatabase() { return m_usedDatabase; }
+		QString currentDatabase() const;
 
 		/*! \brief Drops database with name \a dbName.
 		
@@ -184,12 +186,17 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 to build the database. */
 		static const QStringList& kexiDBSystemTableNames();
 
-		//! Version information for this connection. Only valid when database is used.
-		//! It's usually compared to drivers' and KexiDB library version.
-		int versionMajor() const;
-		int versionMinor() const;
+		/*! \return server version information for this connection. 
+		 If database is not connected (i.e. isConnected() is false) 0 is returned. */
+		KexiDB::ServerVersionInfo* serverVersion() const;
 
-		/*! \return DatabaseProperties obejct allowing to read and write global database properties 
+		/*! \return version information for this connection. 
+		 If database is not used (i.e. isDatabaseUsed() is false) 0 is returned. 
+		 It can be compared to drivers' and KexiDB library version to maintain 
+		 backward/upward compatiblility. */
+		KexiDB::DatabaseVersionInfo* databaseVersion() const;
+
+		/*! \return DatabaseProperties object allowing to read and write global database properties 
 		 for this connection. */
 		DatabaseProperties& databaseProperties();
 
@@ -232,7 +239,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 If default is not present, false is returned (when ignore_inactive is 
 		 false, the default), or true is returned (when ignore_inactive is true).
 		 
-		 On successfull commit, \a trans object will be destroyed.
+		 On successful commit, \a trans object will be destroyed.
 		 If this was default transaction, there is no default transaction for now.
 		*/
 		bool commitTransaction( Transaction trans = Transaction::null,
@@ -246,7 +253,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 
 		 or any error occured, false is returned.
 			
-		 On successfull rollback, \a trans object will be destroyed.
+		 On successful rollback, \a trans object will be destroyed.
 		 If this was default transaction, there is no default transaction for now.
 		*/
 		bool rollbackTransaction( Transaction trans = Transaction::null,
@@ -284,7 +291,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 every sql functional statement (statement that changes 
 		 data in the database implicitly starts a new transaction. 
 		 This transaction is automatically commited 
-		 after successfull statement execution or rolled back on error.
+		 after successful statement execution or rolled back on error.
 		 
 		 For drivers that do not support transactions (see Driver::features())
 		 this method shouldn't be called because it does nothing ans always returns false.
@@ -330,19 +337,22 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		virtual Cursor* prepareQuery( const QString& statement, uint cursor_options = 0) = 0;
 
 		/*! \overload prepareQuery( const QString& statement = QString::null, uint cursor_options = 0)
-		 Prepares query described by \a query schema. 
+		 Prepares query described by \a query schema. \a params are values of parameters that
+		 will be inserted into places marked with [] before execution of the query.
 
 		 Note for driver developers: you should initialize cursor engine-specific 
 		 resources and return Cursor subclass' object 
 		 (passing \a query and \a cursor_options to it's constructor).
 		 Kexi SQL and driver-specific escaping is performed on table names.
 		*/
-		virtual Cursor* prepareQuery( QuerySchema& query, uint cursor_options = 0 ) = 0;
+		Cursor* prepareQuery( QuerySchema& query, const QValueList<QVariant>& params, 
+			uint cursor_options = 0 );
 
-		/*! \overload prepareQuery( const QString& statement = QString::null, uint cursor_options = 0)
-		 Statement is build from data provided by \a query schema.
+		/*! \overload prepareQuery( QuerySchema& query, const QValueList<QVariant>& params, 
+			uint cursor_options = 0 )
+		 Prepares query described by \a query schema without parameters.
 		*/
-//		Cursor* prepareQuery( QuerySchema& query, uint cursor_options = 0);
+		virtual Cursor* prepareQuery( QuerySchema& query, uint cursor_options = 0 ) = 0;
 
 		/*! \overload prepareQuery( const QString& statement = QString::null, uint cursor_options = 0)
 		 Statement is build from data provided by \a table schema, 
@@ -360,11 +370,20 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		Cursor* executeQuery( const QString& statement, uint cursor_options = 0 );
 
 		/*! \overload executeQuery( const QString& statement, uint cursor_options = 0 )
+		 \a params are values of parameters that
+		 will be inserted into places marked with [] before execution of the query.
+
 		 Statement is build from data provided by \a query schema. 
 		 Kexi SQL and driver-specific escaping is performed on table names. */
+		Cursor* executeQuery( QuerySchema& query, const QValueList<QVariant>& params, 
+			uint cursor_options = 0 );
+
+		/*! \overload executeQuery( QuerySchema& query, const QValueList<QVariant>& params, 
+			uint cursor_options = 0 ) */
 		Cursor* executeQuery( QuerySchema& query, uint cursor_options = 0 );
 
 		/*! \overload executeQuery( const QString& statement, uint cursor_options = 0 )
+		 Executes query described by \a query schema without parameters.
 		 Statement is build from data provided by \a table schema, 
 		 it is like "select * from table_name".*/
 		Cursor* executeQuery( TableSchema& table, uint cursor_options = 0 );
@@ -412,30 +431,35 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		/*! Executes \a sql query and stores first record's data inside \a data.
 		 This is convenient method when we need only first record from query result,
 		 or when we know that query result has only one record.
-		 Adds a LIMIT clause to the query, \a sql should not include one already.
+		 If \a addLimitTo1 is true (the default), adds a LIMIT clause to the query, 
+		 so \a sql should not include one already.
 		 \return true if query was successfully executed and first record has been found,
 		 false on data retrieving failure, and cancelled if there's no single record available. */
-		tristate querySingleRecord(const QString& sql, RowData &data);
+		tristate querySingleRecord(const QString& sql, RowData &data, bool addLimitTo1 = true);
 
 		/*! Like tristate querySingleRecord(const QString& sql, RowData &data)
-		 but uses QuerySchema object. */
-		tristate querySingleRecord(QuerySchema& query, RowData &data);
+		 but uses QuerySchema object. 
+		 If \a addLimitTo1 is true (the default), adds a LIMIT clause to the query. */
+		tristate querySingleRecord(QuerySchema& query, RowData &data, bool addLimitTo1 = true);
 
 		/*! Executes \a sql query and stores first record's field's (number \a column) string value 
 		 inside \a value. For efficiency it's recommended that a query defined by \a sql
 		 should have just one field (SELECT one_field FROM ....). 
-		 Adds a LIMIT clause to the query, so \a sql should not include one already.
+		 If \a addLimitTo1 is true (the default), adds a LIMIT clause to the query,
+		 so \a sql should not include one already.
 		 \return true if query was successfully executed and first record has been found,
 		 false on data retrieving failure, and cancelled if there's no single record available.
 		 \sa queryStringList() */
-		tristate querySingleString(const QString& sql, QString &value, uint column = 0);
+		tristate querySingleString(const QString& sql, QString &value, uint column = 0, 
+			bool addLimitTo1 = true);
 
 		/*! Convenience function: executes \a sql query and stores first 
 		 record's field's (number \a column) value inside \a number. \sa querySingleString(). 
-		 Note: "LIMIT 1" is appended to \a sql statement 
+		 Note: "LIMIT 1" is appended to \a sql statement if \a addLimitTo1 is true (the default).
 		 \return true if query was successfully executed and first record has been found,
 		 false on data retrieving failure, and cancelled if there's no single record available. */
-		tristate querySingleNumber(const QString& sql, int &number, uint column = 0);
+		tristate querySingleNumber(const QString& sql, int &number, uint column = 0, 
+			bool addLimitTo1 = true);
 
 		/*! Executes \a sql query and stores first record's first field's string value 
 		 inside \a list. The list is initially cleared.
@@ -450,8 +474,9 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 Does not fetch any records. \a success will be set to false 
 		 on query execution errors (true otherwise), so you can see a difference between 
 		 "no results" and "query execution error" states. 
-		 Note: real executed query is: "SELECT 1 FROM (\a sql) LIMIT 1" */
-		bool resultExists(const QString& sql, bool &success);
+		 Note: real executed query is: "SELECT 1 FROM (\a sql) LIMIT 1"
+		 if \a addLimitTo1 is true (the default). */
+		bool resultExists(const QString& sql, bool &success, bool addLimitTo1 = true);
 
 		/*! \return true if there is at least one record in \a table. */
 		bool isEmpty( TableSchema& table, bool &success );
@@ -530,11 +555,15 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 //! @todo (js): update any structure (e.g. query) that depend on this table!
 		tristate alterTable( TableSchema& tableSchema, TableSchema& newTableSchema);
 
-		/*! Alters table's described \a tableSchema name to \a newName. 
-		 If \a replace is true, destination table is replaced, if present.
+		/*! Alters name of table described by \a tableSchema to \a newName. 
+		 If \a replace is true, destination table is completely dropped and replaced 
+		 by \a tableSchema, if present. In this case, identifier of 
+		 \a tableSchema becomes equal to the dropped table's id, what can be useful
+		 if \a tableSchema was created with a temporary name and ID (used in AlterTableHandler).
+
 		 If \a replace is false (the default) and destination table is present 
 		 -- false is returned and ERR_OBJECT_EXISTS error is set.
-		 \a tableSchema is updated on success.
+		 The schema of \a tableSchema is updated on success.
 		 \return true on success. */
 		bool alterTableName(TableSchema& tableSchema, const QString& newName, bool replace = false);
 
@@ -637,16 +666,35 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 Only use this method if you really need. */
 		bool executeSQL( const QString& statement );
 
-		/*! \return "SELECT ..." statement's string needed for executing query 
-		 defined by \a querySchema.
-
-		 Note: The statement string can be specific for this connection's driver database, 
-		 and thus not reusable in general.
-		*/
-		inline QString selectStatement( QuerySchema& querySchema, 
-			int idEscaping = Driver::EscapeDriver|Driver::EscapeAsNecessary ) const
+		//! @short options used in selectStatement()
+		class KEXI_DB_EXPORT SelectStatementOptions
 		{
-			return selectStatement(querySchema, false, idEscaping);
+			public:
+				SelectStatementOptions();
+				~SelectStatementOptions();
+
+				//! A mode for escaping identifier, Driver::EscapeDriver|Driver::EscapeAsNecessary by default
+				int identifierEscaping;
+
+				//! True if ROWID should be also retrieved. False by default.
+				bool alsoRetrieveROWID : 1;
+		};
+
+		/*! \return "SELECT ..." statement's string needed for executing query 
+		 defined by \a querySchema and \a params. */
+		QString selectStatement( QuerySchema& querySchema, 
+			const QValueList<QVariant>& params, 
+			const SelectStatementOptions& options = SelectStatementOptions() ) const;
+
+		/*! \overload QString selectStatement( QuerySchema& querySchema, 
+			QValueList<QVariant> params = QValueList<QVariant>(), 
+			const SelectStatementOptions& options = SelectStatementOptions() ) const;
+		 \return "SELECT ..." statement's string needed for executing query 
+		 defined by \a querySchema. */
+		inline QString selectStatement( QuerySchema& querySchema, 
+			const SelectStatementOptions& options = SelectStatementOptions() ) const
+		{
+			return selectStatement(querySchema, QValueList<QVariant>(), options);
 		}
 
 		/*! Stores object's schema data (id, name, caption, help text)
@@ -672,9 +720,9 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 
 		/*! Loads (potentially large) data block (e.g. xml form's representation), referenced by objectID
 		 and puts it to \a dataString. The can be block indexed with optional \a dataID.
-		 \return true on success
+		 \return true on success, false on failure and cancelled when there is no such data block
 		 \sa storeDataBlock(). */
-		bool loadDataBlock( int objectID, QString &dataString, const QString& dataID );
+		tristate loadDataBlock( int objectID, QString &dataString, const QString& dataID );
 
 		/*! Stores (potentially large) data block \a dataString (e.g. xml form's representation), 
 		 referenced by objectID. Block will be stored in "kexi__objectdata" table and 
@@ -705,7 +753,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 				QString listenerInfoString;
 		};
 //TMP// TODO: will be more generic
-		/** Register \a listener for receiving (listening) informations about changes 
+		/** Register \a listener for receiving (listening) information about changes 
 		 in TableSchema object. Changes could be: altering and removing. */
 		void registerForTableSchemaChanges(TableSchemaChangeListenerInterface& listener, 
 			TableSchema& schema);
@@ -749,7 +797,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 */
 		virtual bool drv_createTable( const TableSchema& tableSchema );
 
-		/*! */
+		/*! Prepare a SQL statement and return a \a PreparedStatement instance. */
 		virtual PreparedStatement::Ptr prepareStatement(PreparedStatement::StatementType type, 
 			FieldList& fields) = 0;
 
@@ -770,9 +818,10 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 the original table schema (even if it is no longer points to any real data). */
 		tristate dropTable( KexiDB::TableSchema* tableSchema, bool alsoRemoveSchema);
 
-		/*! For reimplemenation: connects to database
+		/*! For reimplemenation: connects to database. \a version should be set to real
+		 server's version.
 			\return true on success. */
-		virtual bool drv_connect() = 0;
+		virtual bool drv_connect(KexiDB::ServerVersionInfo& version) = 0;
 
 		/*! For reimplemenation: disconnects database
 			\return true on success. */
@@ -860,12 +909,8 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 Note: The statement string can be specific for this connection's driver database, 
 		 and thus not reusable in general.
 		*/
-		QString selectStatement( TableSchema& tableSchema ) const;
-
-		/*! Like selectStatement( QuerySchema& querySchema, int idEscaping = Driver::EscapeDriver|Driver::EscapeAsNecessary ) const
-		 but also retrieves ROWID information, if \a alsoRetrieveROWID is true.
-		 Used by cursors. */
-		QString selectStatement( QuerySchema& querySchema, bool alsoRetrieveROWID, int idEscaping = Driver::EscapeDriver|Driver::EscapeAsNecessary ) const;
+		QString selectStatement( TableSchema& tableSchema,
+			const SelectStatementOptions& options = SelectStatementOptions() ) const;
 
 		/*! 
 		 Creates table named by \a tableSchemaName. Schema object must be on
@@ -941,15 +986,13 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		virtual bool drv_dropTable( const QString& name );
 
 		/*! Alters table's described \a tableSchema name to \a newName. 
-		 Default implementation is ineffective: 
-		 - creates a copy of the table
-		 - copies all rows
-		 - drops old table.
-		 All this is performed within single transaction. This is how SQLite driver work.
-		 \return true on success.
-		 More advanced server backends should reinplement this using "ALTER TABLE". 
-		*/
-		virtual bool drv_alterTableName(TableSchema& tableSchema, const QString& newName, bool replace = false);
+		 This is the default implementation, using "ALTER TABLE <oldname> RENAME TO <newname>",
+		 what's supported by SQLite >= 3.2, PostgreSQL, MySQL.
+		 Backends lacking ALTER TABLE, for example SQLite2, reimplement this with by an inefficient 
+		 data copying to a new table. In any case, renaming is performed at the backend.
+		 It's good idea to keep the operation within a transaction. 
+		 \return true on success. */
+		virtual bool drv_alterTableName(TableSchema& tableSchema, const QString& newName);
 
 		/*! Internal, for handling autocommited transactions:
 		 begins transaction if one is supported.
@@ -1017,12 +1060,13 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 Used internally by querySchema() methods. */
 		QuerySchema* setupQuerySchema( const RowData &data );
 
+		/*! Update a row. */
 		bool updateRow(QuerySchema &query, RowData& data, RowEditBuffer& buf, bool useROWID = false);
-
+		/*! Insert a new row. */
 		bool insertRow(QuerySchema &query, RowData& data, RowEditBuffer& buf, bool getROWID = false);
-
+		/*! Delete an existing row. */
 		bool deleteRow(QuerySchema &query, RowData& data, bool useROWID = false);
-
+		/*! Delete all existing rows. */
 		bool deleteAllRows(QuerySchema &query);
 
 		/*! Allocates all needed table KexiDB system objects for kexi__* KexiDB liblary's
@@ -1053,7 +1097,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		*/
 		inline QString escapeIdentifier(const QString& id, 
 			int drvEscaping = Driver::EscapeDriver|Driver::EscapeAsNecessary ) const {
-			return m_driver->escapeIdentifier(id, drvEscaping);
+				return m_driver->escapeIdentifier(id, drvEscaping);
 		}
 		
 		/*! Called by TableSchema -- signals destruction to Connection object
@@ -1065,39 +1109,62 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 else, sets appropriate error with a message and returns false. */
 		bool checkIfColumnExists(Cursor *cursor, uint column);
 
-		/*! @internal used by querySingleRecord() methods. */
-		tristate querySingleRecordInternal(RowData &data, const QString* sql, QuerySchema* query);
+		/*! @internal used by querySingleRecord() methods.
+		 Note: "LIMIT 1" is appended to \a sql statement if \a addLimitTo1 is true (the default). */
+		tristate querySingleRecordInternal(RowData &data, const QString* sql, 
+			QuerySchema* query, bool addLimitTo1 = true);
 
 		/*! @internal used by Driver::createConnection(). 
 		 Only works if connection is not yet established. */
 		void setReadOnly(bool set);
 
-		QGuardedPtr<ConnectionData> m_data;
-		QString m_name;
-		QString m_usedDatabase; //!< database name that is opened now
+		/*! Loads extended schema information for table \a tableSchema, 
+		 if present (see ExtendedTableSchemaInformation in Kexi Wiki). 
+		 \return true on success */
+		bool loadExtendedTableSchemaData(TableSchema& tableSchema);
 
-		//! Table schemas retrieved on demand with tableSchema()
-		QIntDict<TableSchema> m_tables;
-		QDict<TableSchema> m_tables_byname;
-		QIntDict<QuerySchema> m_queries;
-		QDict<QuerySchema> m_queries_byname;
+		/*! Stores extended schema information for table \a tableSchema, 
+		 (see ExtendedTableSchemaInformation in Kexi Wiki). 
+		 The action is performed within the current transaction, 
+		 so it's up to you to commit. 
+		 Used, e.g. by createTable(), within its transaction.
+		 \return true on success */
+		bool storeExtendedTableSchemaData(TableSchema& tableSchema);
 
-		//! used just for removing system TableSchema objects on db close.
-		QPtrDict<TableSchema> m_kexiDBSystemTables;
+		/*! @internal
+		 Stores main field's schema information for field \a field.
+		 Used in table altering code when information in kexi__fields has to be updated. 
+		 \return true on success and false on failure. */
+		bool storeMainFieldSchema(Field *field);
+
+		//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		/*! This is a part of alter table interface implementing lower-level operations 
+		 used to perform table schema altering. Used by AlterTableHandler.
+		
+		 Changes value of field property.
+		 \return true on success, false on failure, cancelled if the action has been cancelled.
+
+		 Note for driver developers: implement this if the driver has to support the altering. */
+		virtual tristate drv_changeFieldProperty(TableSchema &table, Field& field, 
+			const QString& propertyName, const QVariant& value) {
+			Q_UNUSED(table); Q_UNUSED(field); Q_UNUSED(propertyName); Q_UNUSED(value);
+			return cancelled; }
 
 		//! cursors created for this connection
 		QPtrDict<KexiDB::Cursor> m_cursors;
+
+	private:
+		ConnectionPrivate* d; //!< @internal d-pointer class.
+		Driver* const m_driver; //!< The driver this \a Connection instance uses.
+		bool m_destructor_started : 1; //!< helper: true if destructor is started.
 
 	friend class KexiDB::Driver;
 	friend class KexiDB::Cursor;
 	friend class KexiDB::TableSchema; //!< for removeMe()
 	friend class KexiDB::DatabaseProperties; //!< for setError()
 	friend class ConnectionPrivate;
-
-		ConnectionPrivate *d;
-	private:
-		Driver *m_driver;
-		bool m_destructor_started : 1; //!< helper: true if destructor is started
+	friend class KexiDB::AlterTableHandler;
 };
 
 } //namespace KexiDB

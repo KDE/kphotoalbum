@@ -27,6 +27,10 @@
 #include <kexidb/connection.h>
 #include <kexidb/driver.h>
 
+class QDomNode;
+class QDomElement;
+class QDomDocument;
+
 namespace KexiDB
 {
 	//! for convenience
@@ -73,29 +77,32 @@ namespace KexiDB
 	{
 		if (!table || !KexiDB::deleteRow(conn, table, keyname, keyval))
 			return false;
-		return conn.executeSQL("INSERT INTO " + table->name() + " (" + keyname + "," + valname + ") VALUES (" + conn.driver()->valueToSQL( Field::Text, QVariant(keyval) ) + "," + conn.driver()->valueToSQL( ftype, val) + ")");
+		return conn.executeSQL("INSERT INTO " + table->name() 
+			+ " (" + keyname + "," + valname + ") VALUES (" 
+			+ conn.driver()->valueToSQL( Field::Text, QVariant(keyval) ) + "," 
+			+ conn.driver()->valueToSQL( ftype, val) + ")");
 	}
 
 	typedef QValueList<uint> TypeGroupList;
 
 	/*! \return list of types for type group \a typeGroup. */
-	KEXI_DB_EXPORT const TypeGroupList typesForGroup(KexiDB::Field::TypeGroup typeGroup);
+	KEXI_DB_EXPORT const TypeGroupList typesForGroup(Field::TypeGroup typeGroup);
 
 	/*! \return list of i18n'd type names for type group \a typeGroup. */
-	KEXI_DB_EXPORT QStringList typeNamesForGroup(KexiDB::Field::TypeGroup typeGroup);
+	KEXI_DB_EXPORT QStringList typeNamesForGroup(Field::TypeGroup typeGroup);
 
 	/*! \return list of (not-i18n'd) type names for type group \a typeGroup. */
-	KEXI_DB_EXPORT QStringList typeStringsForGroup(KexiDB::Field::TypeGroup typeGroup);
+	KEXI_DB_EXPORT QStringList typeStringsForGroup(Field::TypeGroup typeGroup);
 
 	/*! \return default field type for type group \a typeGroup,
 	 for example, Field::Integer for Field::IntegerGroup.
 	 It is used e.g. in KexiAlterTableDialog, to properly fill 
 	 'type' property when user selects type group for a field. */
-	KEXI_DB_EXPORT KexiDB::Field::Type defaultTypeForGroup(KexiDB::Field::TypeGroup typeGroup);
+	KEXI_DB_EXPORT Field::Type defaultTypeForGroup(Field::TypeGroup typeGroup);
 
 	/*! \return true if \a v represents an empty (but not null) value.
 	 Values of some types (as for strings) can be both empty and not null. */
-	inline bool isEmptyValue(KexiDB::Field *f, const QVariant &v) {
+	inline bool isEmptyValue(Field *f, const QVariant &v) {
 		if (f->hasEmptyProperty() && v.toString().isEmpty() && !v.toString().isNull())
 			return true;
 		return v.isNull();
@@ -120,7 +127,7 @@ namespace KexiDB
 	Constructs an sql string like "fielname = value" for specific \a drv driver,
 	 field type \a t, \a fieldName and \a value. If \a value is null, "fieldname is NULL" 
 	 string is returned. */
-	inline KEXI_DB_EXPORT QString sqlWhere(KexiDB::Driver *drv, KexiDB::Field::Type t, 
+	inline KEXI_DB_EXPORT QString sqlWhere(Driver *drv, Field::Type t, 
 		const QString fieldName, const QVariant value)
 	{
 		if (value.isNull())
@@ -135,19 +142,38 @@ namespace KexiDB
 	/*! Variant class providing a pointer to table or query. */
 	class KEXI_DB_EXPORT TableOrQuerySchema {
 		public:
-			//! Creates a new TableOrQuerySchema variant object, retrieving table or query schema
-			//! using \a conn connection and \a name.
+			/*! Creates a new TableOrQuerySchema variant object, retrieving table or query schema
+			 using \a conn connection and \a name. If both table and query exists for \a name,
+			 table has priority over query. 
+			 You should check whether a query or table has been found by testing 
+			 (query() || table()) expression. */
+			TableOrQuerySchema(Connection *conn, const QCString& name);
+
+			/*! Creates a new TableOrQuerySchema variant object, retrieving table or query schema
+			 using \a conn connection and \a name. If \a table is true, \a name is assumed 
+			 to be a table name, otherwise \a name is assumed to be a query name. 
+			 You should check whether a query or table has been found by testing 
+			 (query() || table()) expression. */
 			TableOrQuerySchema(Connection *conn, const QCString& name, bool table);
 
-			//! Creates a new TableOrQuerySchema variant object. \a tableOrQuery must be of 
-			//! class TableSchema or QuerySchema.
+			/*! Creates a new TableOrQuerySchema variant object. \a tableOrQuery must be of 
+			 class TableSchema or QuerySchema.
+			 You should check whether a query or table has been found by testing 
+			 (query() || table()) expression. */
 			TableOrQuerySchema(FieldList &tableOrQuery);
 			
-			//! Creates a new TableOrQuerySchema variant object, retrieving table or query schema
-			//! using \a conn connection and \a id.
+			/*! Creates a new TableOrQuerySchema variant object, retrieving table or query schema
+			 using \a conn connection and \a id.
+			 You should check whether a query or table has been found by testing 
+			 (query() || table()) expression. */
 			TableOrQuerySchema(Connection *conn, int id);
 
+			/*! Creates a new TableOrQuerySchema variant object, keeping a pointer so \a table 
+			 object. */
 			TableOrQuerySchema(TableSchema* table);
+
+			/*! Creates a new TableOrQuerySchema variant object, keeping a pointer so \a query 
+			 object. */
 			TableOrQuerySchema(QuerySchema* query);
 
 			//! \return a pointer to the query if it's provided
@@ -213,8 +239,8 @@ namespace KexiDB
 	 (within a second thread).
 	 \a data is used to perform a (temporary) test connection. \a msgHandler is used to display errors.
 	 On successful connecting, a message is displayed. After testing, temporary connection is closed. */
-	KEXI_DB_EXPORT void connectionTestDialog(QWidget* parent, const KexiDB::ConnectionData& data, 
-		KexiDB::MessageHandler& msgHandler);
+	KEXI_DB_EXPORT void connectionTestDialog(QWidget* parent, const ConnectionData& data, 
+		MessageHandler& msgHandler);
 
 	/*! Saves connection data \a data into \a map. */
 	KEXI_DB_EXPORT QMap<QString,QString> toMap( const ConnectionData& data );
@@ -223,7 +249,7 @@ namespace KexiDB
 	KEXI_DB_EXPORT void fromMap( const QMap<QString,QString>& map, ConnectionData& data );
 
 	//! Used in splitToTableAndFieldParts().
-	enum SetFieldNameIfNoTableNameOptions {
+	enum SplitToTableAndFieldPartsOptions {
 		FailIfNoTableOrFieldName = 0, //!< default value for splitToTableAndFieldParts()
 		SetFieldNameIfNoTableName = 1 //!< @see splitToTableAndFieldParts()
 	};
@@ -245,7 +271,150 @@ namespace KexiDB
 	 \return true on success. */
 	KEXI_DB_EXPORT bool splitToTableAndFieldParts(const QString& string, 
 		QString& tableName, QString& fieldName, 
-		SetFieldNameIfNoTableNameOptions option = FailIfNoTableOrFieldName);
+		SplitToTableAndFieldPartsOptions option = FailIfNoTableOrFieldName);
+
+	/*! \return true if \a type supports "visibleDecimalPlaces" property. */
+	KEXI_DB_EXPORT bool supportsVisibleDecimalPlacesProperty(Field::Type type);
+
+	/*! \return string constructed by converting \a value. 
+	 * If \a decimalPlaces is < 0, all meaningful fractional digits are returned.
+	 * If \a automatically is 0, just integer part is returned. 
+	 * If \a automatically is > 0, fractional part should take exactly 
+	   N digits: if the fractional part is shorter than N, additional zeros are appended. 
+	   For example, "12.345" becomes "12.345000" if N=6.
+
+	 No rounding is actually performed.
+	 KLocale::formatNumber() and KLocale::decimalSymbol() are used to get locale settings.
+
+	 @see KexiDB::Field::visibleDecimalPlaces() */
+	KEXI_DB_EXPORT QString formatNumberForVisibleDecimalPlaces(double value, int decimalPlaces);
+
+	//! \return true if \a propertyName is a builtin field property.
+	KEXI_DB_EXPORT bool isBuiltinTableFieldProperty( const QCString& propertyName );
+
+	//! \return true if \a propertyName is an extended field property.
+	KEXI_DB_EXPORT bool isExtendedTableFieldProperty( const QCString& propertyName );
+
+	/*! \return type of field for integer value \a type. 
+	 If \a type cannot be casted to KexiDB::Field::Type, KexiDB::Field::InvalidType is returned.
+	 This can be used when type information is deserialized from a string or QVariant. */
+	KEXI_DB_EXPORT Field::Type intToFieldType( int type );
+
+	/*! Sets property values for \a field. \return true if all the values are valid and allowed.
+	 On failure contents of \a field is undefined.
+	 Properties coming from extended schema are also supported.
+	 This function is used e.g. by AlterTableHandler when property information comes in form of text.
+	 */
+	KEXI_DB_EXPORT bool setFieldProperties( Field& field, const QMap<QCString, QVariant>& values );
+
+	/*! Sets property value for \a field. \return true if the property has been found and 
+	 the value is valid for this property. On failure contents of \a field is undefined.
+	 Properties coming from extended schema are also supported as well as
+	 		QVariant customProperty(const QString& propertyName) const;
+
+	 This function is used e.g. by AlterTableHandler when property information comes in form of text.
+	 */
+	KEXI_DB_EXPORT bool setFieldProperty(Field& field, const QCString& propertyName, 
+		const QVariant& value);
+
+	/*! @return property value loaded from a DOM \a node, written in a QtDesigner-like
+	 notation: <number>int</number> or <bool>bool</bool>, etc. Supported types are
+	 "string", "cstring", "bool", "number". For invalid values null QVariant is returned.
+	 You can check the validity of the returned value using QVariant::type(). */
+	KEXI_DB_EXPORT QVariant loadPropertyValueFromDom( const QDomNode& node );
+
+	/*! Convenience version of loadPropertyValueFromDom(). \return int value. */
+	KEXI_DB_EXPORT int loadIntPropertyValueFromDom( const QDomNode& node, bool* ok );
+
+	/*! Convenience version of loadPropertyValueFromDom(). \return QString value. */
+	KEXI_DB_EXPORT QString loadStringPropertyValueFromDom( const QDomNode& node, bool* ok );
+
+	/*! Saves integer element for value \a value to \a doc document within parent element
+	 \a parentEl. The value will be enclosed in "number" element and "elementName" element.
+	 Example: saveNumberElementToDom(doc, parentEl, "height", 15) will create 
+	 \code
+	  <height><number>15</number></height>
+	 \endcode
+	 \return the reference to element created with tag elementName. */
+	QDomElement saveNumberElementToDom(QDomDocument& doc, QDomElement& parentEl, 
+		const QString& elementName, int value);
+
+	/*! Saves boolean element for value \a value to \a doc document within parent element
+	 \a parentEl. Like saveNumberElementToDom() but creates "bool" tags. True/false values will be
+	 saved as "true"/"false" strings. 
+	 \return the reference to element created with tag elementName. */
+	QDomElement saveBooleanElementToDom(QDomDocument& doc, QDomElement& parentEl, 
+		const QString& elementName, bool value);
+
+	/*! \return an empty value that can be set for a database field of type \a type having 
+	 "null" property set. Empty string is returned for text type, 0 for integer 
+	 or floating-point types, false for boolean type, empty null byte array for BLOB type.
+	 For date, time and date/time types current date, time, date+time is returned, respectively.
+	 Returns null QVariant for unsupported values like KexiDB::Field::InvalidType.
+	 This function is efficient (uses a cache) and is heavily used by the AlterTableHandler
+	 for filling new columns. */
+	KEXI_DB_EXPORT QVariant emptyValueForType( Field::Type type );
+
+	/*! \return a value that can be set for a database field of type \a type having 
+	 "notEmpty" property set. It works in a similar way as 
+	 @ref QVariant emptyValueForType( KexiDB::Field::Type type ) with the following differences:
+	 - " " string (a single space) is returned for Text and LongText types
+	 - a byte array with saved "filenew" PNG image (icon) for BLOB type
+	 Returns null QVariant for unsupported values like KexiDB::Field::InvalidType. 
+	 This function is efficient (uses a cache) and is heavily used by the AlterTableHandler
+	 for filling new columns. */
+	KEXI_DB_EXPORT QVariant notEmptyValueForType( Field::Type type );
+
+	//! Escaping types used in escapeBLOB().
+	enum BLOBEscapingType {
+		BLOBEscapeXHex = 1,        //!< escaping like X'1FAD', used by sqlite (hex numbers)
+		BLOBEscape0xHex,           //!< escaping like 0x1FAD, used by mysql (hex numbers)
+		BLOBEscapeHex,              //!< escaping like 1FAD without quotes or prefixes
+		BLOBEscapeOctal           //!< escaping like 'zk\\000$x', used by pgsql 
+		                           //!< (only non-printable characters are escaped using octal numbers)
+		                           //!< See http://www.postgresql.org/docs/8.1/interactive/datatype-binary.html
+	};
+
+//! @todo reverse function for BLOBEscapeOctal is available: processBinaryData() in pqxxcursor.cpp - move it here
+	/*! \return a string containing escaped, printable representation of \a array.
+	 Escaping is controlled by \a type. For empty array QString::null is returned, 
+	 so if you want to use this function in an SQL statement, empty arrays should be 
+	 detected and "NULL" string should be put instead.
+	 This is helper, used in Driver::escapeBLOB() and KexiDB::variantToString(). */
+	KEXI_DB_EXPORT QString escapeBLOB(const QByteArray& array, BLOBEscapingType type);
+
+	/*! \return string value serialized from a variant value \a v.
+	 This functions works like QVariant::toString() except the case when \a v is of type ByteArray.
+	 In this case KexiDB::escapeBLOB(v.toByteArray(), KexiDB::BLOBEscapeHex) is used. 
+	 This function is needed for handling values of random type, for example "defaultValue" 
+	 property of table fields can contain value of any type. 
+	 Note: the returned string is an unescaped string. */
+	KEXI_DB_EXPORT QString variantToString( const QVariant& v );
+
+	/*! \return variant value of type \a type for a string \a s that was previously serialized using 
+	 \ref variantToString( const QVariant& v ) function.
+	 \a ok is set to the result of the operation. */
+	KEXI_DB_EXPORT QVariant stringToVariant( const QString& s, QVariant::Type type, bool &ok );
+
+	/*! \return true if setting default value for \a field field is allowed. Fields with unique 
+	 (and thus primary key) flags set do not accept  default values. 
+	 False is returned aslo if \a field is 0. */
+	KEXI_DB_EXPORT bool isDefaultValueAllowed( Field* field );
+
+	/*! Gets limits for values of type \a type. The result is put into \a minValue and \a maxValue.
+	 Supported types are Byte, ShortInteger, Integer and BigInteger
+	 Results for BigInteger or non-integer types are the same as for Integer due 
+	 to limitation of int type.
+	 Signed integers are assumed. */
+//! @todo add support for unsigned flag
+	KEXI_DB_EXPORT void getLimitsForType(Field::Type type, int &minValue, int &maxValue);
+
+	/*! Shows debug information about \a rowData row data. */
+	KEXI_DB_EXPORT void debugRowData(const RowData& rowData);
+
+	/*! \return type that's maximum of two integer types \a t1 and \a t2, e.g. Integer for (Byte, Integer). 
+	 If one of the types is not of the integer group, Field::InvalidType is returned. */
+	KEXI_DB_EXPORT Field::Type maximumForIntegerTypes(Field::Type t1, Field::Type t2);
 }
 
 #endif

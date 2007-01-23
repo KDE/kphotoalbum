@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
    Copyright (C) 2003 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2003-2004 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -34,6 +34,7 @@
 namespace KexiDB {
 
 class Connection;
+class LookupFieldSchema;
 
 /*! KexiDB::TableSchema provides information about native database table 
 	that can be stored using SQL database engine. 
@@ -49,8 +50,10 @@ class KEXI_DB_EXPORT TableSchema : public FieldList, public SchemaData
 		TableSchema(const SchemaData& sdata);
 		TableSchema();
 
-		/*! Copy constructor. */
-		TableSchema(const TableSchema& ts);
+		/*! Copy constructor. 
+		 if \a copyId is true, it's copied as well, otherwise the table id becomes -1. 
+		 This is usable when we want to store the copy as an independent table. */
+		TableSchema(const TableSchema& ts, bool copyId = true);
 		
 		virtual ~TableSchema();
 		
@@ -88,7 +91,12 @@ class KEXI_DB_EXPORT TableSchema : public FieldList, public SchemaData
 			\sa FieldList::clear() */
 		virtual void clear();
 
-		/*! \return String for debugging purposes. */
+		/*! \return String for debugging purposes, if \a includeTableName is true,
+		 table name, caption, etc. is prepended, else only debug string for 
+		 the fields are returned. */
+		QString debugString(bool includeTableName);
+
+		/*! \return String for debugging purposes. Equal to debugString(true). */
 		virtual QString debugString();
 
 		/*! \return connection object if table was created/retrieved using a connection, 
@@ -132,6 +140,19 @@ class KEXI_DB_EXPORT TableSchema : public FieldList, public SchemaData
 		/*! \return any field not being a part of primary key of this table.
 		 If there is no such field, returns 0. */
 		Field* anyNonPKField();
+
+		/*! Sets lookup field schema \a lookupFieldSchema for \a fieldName. 
+		 Passing null \a lookupFieldSchema will remove the previously set lookup field.  
+		 \return true if \a lookupFieldSchema has been added, 
+		 or false if there is no such field \a fieldName. */
+		bool setLookupFieldSchema( const QString& fieldName, LookupFieldSchema *lookupFieldSchema );
+
+		/*! \return lookup field schema for \a field. 
+		 0 is returned if there is no such field in the table or this field has no lookup schema. */
+		LookupFieldSchema *lookupFieldSchema( const Field& field ) const;
+
+		/*! \overload LookupFieldSchema *TableSchema::lookupFieldSchema( Field& field ) const */
+		LookupFieldSchema *lookupFieldSchema( const QString& fieldName );
 
 	protected:
 		/*! Automatically retrieves table schema via connection. */

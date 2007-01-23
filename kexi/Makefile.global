@@ -8,7 +8,7 @@ $(USE_EXCEPTIONS) $(KEXI_OPTIONS)
 KDE_CXXFLAGS += -include $(kphotoalbum_top_srcdir)/kexi/kexi_global.h
 
 # temporary:
-KDE_CXXFLAGS += -DKEXI_NO_AUTOFIELD_WIDGET
+##KDE_CXXFLAGS += -DKEXI_NO_AUTOFIELD_WIDGET
 
 # temporary unless cursor works properly in the Designer
 KDE_CXXFLAGS += -DKEXI_NO_CURSOR_PROPERTY
@@ -16,6 +16,12 @@ KDE_CXXFLAGS += -DKEXI_NO_CURSOR_PROPERTY
 # temporary: turn off processEvents() to avoid possible crashes
 # KDE_CXXFLAGS += -DKEXI_NO_PROCESS_EVENTS
 
-KDE_CXXFLAGS += -DKEXI_NO_CTXT_HELP -DKEXI_NO_SUBFORM
+# temp: turn off advanced alter table
+##KDE_CXXFLAGS += -DKEXI_NO_UNDOREDO_ALTERTABLE
 
-VER_INFO = -version-info 1:0:0
+KDE_CXXFLAGS += -DKEXI_NO_CTXT_HELP -DKEXI_NO_SUBFORM -DKEXI_DB_COMBOBOX_WIDGET
+
+# TODO: undefine this before release!
+KDE_CXXFLAGS += -DKEXI_DEBUG_GUI
+
+VER_INFO = -version-info 2:0:0

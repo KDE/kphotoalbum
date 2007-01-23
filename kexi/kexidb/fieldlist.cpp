@@ -71,7 +71,7 @@ FieldList& FieldList::insertField(uint index, KexiDB::Field *field)
 	if (!field)
 		return *this;
 	if (index>m_fields.count()) {
-		kdWarning() << "FieldList::insertField(): index (" << index << ") out of range" << endl;
+		KexiDBFatal << "FieldList::insertField(): index (" << index << ") out of range" << endl;
 		return *this;
 	}
 	if (!m_fields.insert(index, field))
@@ -81,6 +81,24 @@ FieldList& FieldList::insertField(uint index, KexiDB::Field *field)
 	m_sqlFields = QString::null;
 	return *this;
 }
+
+void FieldList::renameField(const QString& oldName, const QString& newName)
+{
+	renameField( m_fields_by_name[ oldName ], newName );
+}
+
+void FieldList::renameField(KexiDB::Field *field, const QString& newName)
+{
+	if (!field || field != m_fields_by_name[ field->name() ]) {
+		KexiDBFatal << "FieldList::renameField() no field found " 
+			<< (field ? QString("\"%1\"").arg(field->name()) : QString::null) << endl;
+		return;
+	}
+	m_fields_by_name.take( field->name() );
+	field->setName( newName );
+	m_fields_by_name.insert( field->name(), field );
+}
+
 
 FieldList& FieldList::addField(KexiDB::Field *field)
 {

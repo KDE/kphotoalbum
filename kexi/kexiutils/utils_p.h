@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2004 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2004,2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -22,6 +22,7 @@
 
 #include <qtimer.h>
 #include <qapplication.h>
+#include <qdialog.h>
 
 /*! @internal */
 class DelayedCursorHandler : public QObject
@@ -31,10 +32,22 @@ class DelayedCursorHandler : public QObject
 		DelayedCursorHandler();
 		void start(bool noDelay);
 		void stop();
+		bool startedOrActive : 1; //! true if ounting started or the cursor is active
 	protected slots:
 		void show();
 	protected:
 		QTimer timer;
+};
+
+/*! @internal */
+class DebugWindowDialog : public QDialog
+{
+	public:
+		explicit DebugWindowDialog( QWidget * parent )
+		 : QDialog(parent, 0, false, Qt::WType_Dialog|Qt::WStyle_MinMax|Qt::WStyle_StaysOnTop)
+		{
+			setWindowState( Qt::WindowMinimized );
+		}
 };
 
 #endif

@@ -9,11 +9,15 @@ noinst_LTLIBRARIES = libkexisql3.la
 INCLUDES = $(all_includes)
 
 libkexisql3_la_SOURCES = \
+  alter.c \
+  analyze.c \
   attach.c \
   auth.c \
   btree.c \
   btree.h \
   build.c \
+  callback.c \
+  complete.c \
   date.c \
   delete.c \
   expr.c \
@@ -23,12 +27,11 @@ libkexisql3_la_SOURCES = \
   legacy.c \
   main.c \
   opcodes.c \
-  os_mac.c \
   os_unix.c \
-  os_win.c \
   pager.c \
   parse.c \
   pragma.c \
+  prepare.c \
   printf.c \
   random.c \
   select.c \
@@ -42,6 +45,7 @@ libkexisql3_la_SOURCES = \
   vdbe.c \
   vdbeapi.c \
   vdbeaux.c \
+  vdbefifo.c \
   vdbemem.c \
   where.c
 
@@ -53,5 +57,5 @@ AM_CFLAGS = -DNO_TCL=1
 #ksqlite_LDADD = libkexisql3.la $(LIBREADLINE)
 
 libkexisql3_la_LIBADD =
-libkexisql3_la_LDFLAGS = -version-info 3:0 $(all_libraries) --no-undefined
+libkexisql3_la_LDFLAGS = -version-info 3:2 $(all_libraries) --no-undefined
 

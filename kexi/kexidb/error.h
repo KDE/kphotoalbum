@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003-2005 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
    Copyright (C) 2003 Joseph Wenninger <jowenn@kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -35,7 +35,8 @@
 #define ERR_ALREADY_CONNECTED 30
 #define ERR_NO_CONNECTION 40 //!< when opened connection was expected using KexiDB::Connection
 #define ERR_CONNECTION_FAILED 41 //!< when connection has failed
-#define ERR_NO_DB_USED 41 //!< when used database was expected in KexiDB::Connection
+#define ERR_CLOSE_FAILED 42 //!< when closing has failed
+#define ERR_NO_DB_USED 43 //!< when used database was expected in KexiDB::Connection
 #define ERR_OBJECT_EXISTS 50
 #define ERR_OBJECT_THE_SAME 51
 #define ERR_OBJECT_NOT_FOUND 60
@@ -112,16 +113,21 @@ class KEXI_DB_EXPORT ResultInfo
 		ResultInfo()
 		{
 			success = true;
+			allowToDiscardChanges = false;
 			column = -1;
 		}
-		/*! Clears informatiuon to default values. */
+		/*! Sets information to default values. */
 		void clear() {
 			success = true;
+			allowToDiscardChanges = false;
 			column = -1;
 			msg = QString::null;
 			desc = QString::null;
 		}
-	bool success; //!< result of the operation, true by default
+	bool success : 1; //!< result of the operation, true by default
+	bool allowToDiscardChanges : 1; //!< True if changes can be discarded, false by default
+	                                //!< If true, additional "Discard changes" messagebox 
+	                                //!< button can be displayed.
 	QString msg, desc; //!< error message and detailed description, both empty by default
 	int column; //!< faulty column, -1 (the default) means: there is no faulty column
 };

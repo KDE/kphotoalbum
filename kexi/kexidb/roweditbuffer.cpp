@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003,2006 Jaroslaw Staniek <js@iidea.pl>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -17,7 +17,8 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#include <kexidb/roweditbuffer.h>
+#include "roweditbuffer.h"
+#include "utils.h"
 
 #include <kdebug.h>
 
@@ -28,7 +29,9 @@ RowEditBuffer::RowEditBuffer(bool dbAwareBuffer)
 : m_simpleBuffer(dbAwareBuffer ? 0 : new SimpleMap())
 , m_simpleBufferIt(dbAwareBuffer ? 0 : new SimpleMap::ConstIterator())
 , m_dbBuffer(dbAwareBuffer ? new DBMap() : 0)
-, m_dbBufferIt(dbAwareBuffer ? new DBMap::ConstIterator() : 0)
+, m_dbBufferIt(dbAwareBuffer ? new DBMap::Iterator() : 0)
+, m_defaultValuesDbBuffer(dbAwareBuffer ? new QMap<QueryColumnInfo*,bool>() : 0)
+, m_defaultValuesDbBufferIt(dbAwareBuffer ? new QMap<QueryColumnInfo*,bool>::ConstIterator() : 0)
 {
 }
 
@@ -37,19 +40,32 @@ RowEditBuffer::~RowEditBuffer()
 	delete m_simpleBuffer;
 	delete m_simpleBufferIt;
 	delete m_dbBuffer;
+	delete m_defaultValuesDbBuffer;
 	delete m_dbBufferIt;
 }
 
-const QVariant* RowEditBuffer::at( QueryColumnInfo& fi ) const
-{ 
+const QVariant* RowEditBuffer::at( QueryColumnInfo& ci, bool useDefaultValueIfPossible ) const
+{
 	if (!m_dbBuffer) {
 		KexiDBWarn << "RowEditBuffer::at(QueryColumnInfo&): not db-aware buffer!" << endl;
 		return 0;
 	}
-	*m_dbBufferIt = m_dbBuffer->find( &fi );
-	if (*m_dbBufferIt==m_dbBuffer->constEnd())
-		return 0;
-	return &(*m_dbBufferIt).data();
+	*m_dbBufferIt = m_dbBuffer->find( &ci );
+	QVariant* result = 0;
+	if (*m_dbBufferIt!=m_dbBuffer->end())
+		result = &(*m_dbBufferIt).data();
+	if ( useDefaultValueIfPossible 
+		&& (!result || result->isNull()) 
+		&& ci.field && !ci.field->defaultValue().isNull() && KexiDB::isDefaultValueAllowed(ci.field)
+		&& !hasDefaultValueAt(ci) )
+	{
+		//no buffered or stored value: try to get a default value declared in a field, so user can modify it
+		if (!result)
+			m_dbBuffer->insert(&ci, ci.field->defaultValue() );
+		result = &(*m_dbBuffer)[ &ci ];
+		m_defaultValuesDbBuffer->insert(&ci, true);
+	}
+	return (const QVariant*)result;
 }
 
 const QVariant* RowEditBuffer::at( Field& f ) const
@@ -77,8 +93,10 @@ const QVariant* RowEditBuffer::at( const QString& fname ) const
 }
 
 void RowEditBuffer::clear() {
-	if (m_dbBuffer)
+	if (m_dbBuffer) {
 		m_dbBuffer->clear(); 
+		m_defaultValuesDbBuffer->clear();
+	}
 	if (m_simpleBuffer)
 		m_simpleBuffer->clear();
 }
@@ -95,16 +113,17 @@ bool RowEditBuffer::isEmpty() const
 void RowEditBuffer::debug()
 {
 	if (isDBAware()) {
-		kdDebug() << "RowEditBuffer type=DB-AWARE, " << m_dbBuffer->count() <<" items"<< endl;
+		KexiDBDbg << "RowEditBuffer type=DB-AWARE, " << m_dbBuffer->count() <<" items"<< endl;
 		for (DBMap::ConstIterator it = m_dbBuffer->constBegin(); it!=m_dbBuffer->constEnd(); ++it) {
-			kdDebug() << "* field name=" <<it.key()->field->name()<<" val="
-				<< (it.data().isNull() ? QString("<NULL>") : it.data().toString()) <<endl;
+			KexiDBDbg << "* field name=" <<it.key()->field->name()<<" val="
+				<< (it.data().isNull() ? QString("<NULL>") : it.data().toString()) 
+				<< (hasDefaultValueAt(*it.key()) ? " DEFAULT" : "") <<endl;
 		}
 		return;
 	}
-	kdDebug() << "RowEditBuffer type=SIMPLE, " << m_simpleBuffer->count() <<" items"<< endl;
+	KexiDBDbg << "RowEditBuffer type=SIMPLE, " << m_simpleBuffer->count() <<" items"<< endl;
 	for (SimpleMap::ConstIterator it = m_simpleBuffer->constBegin(); it!=m_simpleBuffer->constEnd(); ++it) {
-		kdDebug() << "* field name=" <<it.key()<<" val="
+		KexiDBDbg << "* field name=" <<it.key()<<" val="
 			<< (it.data().isNull() ? QString("<NULL>") : it.data().toString()) <<endl;
 	}
 }

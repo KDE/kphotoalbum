@@ -42,6 +42,7 @@ DriverPrivate::DriverPrivate()
 {
 	kexiSQLDict = 0;
 	driverSQLDict = 0;
+	adminTools = 0;
 
 	properties["client_library_version"] = "";
 	propertyCaptions["client_library_version"] =
@@ -84,13 +85,15 @@ void DriverPrivate::initInternalProperties()
 	propertyCaptions["transaction_nested"] = i18n("Nested transactions support");
 
 	properties["kexidb_driver_version"] =
-	  QString("%1.%2").arg(versionMajor()).arg(versionMinor());
+	  QString("%1.%2").arg(version().major).arg(version().minor);
 	propertyCaptions["kexidb_driver_version"] =
 	  i18n("KexiDB driver version");
 }
 
-DriverPrivate::~DriverPrivate() {
+DriverPrivate::~DriverPrivate()
+{
 	delete driverSQLDict;
+	delete adminTools;
 }
 
 
@@ -117,3 +120,10 @@ void DriverPrivate::initKeywords(const char* keywords[],
 	}
 }
 
+AdminTools::Private::Private()
+{
+}
+
+AdminTools::Private::~Private()
+{
+}

@@ -8,7 +8,8 @@ INCLUDES = -I$(srcdir)/../../../3rdparty/kexisql3/src -I$(srcdir)/../..  \
 kphotoalbum_kexidb_sqlite3driver_la_METASOURCES = AUTO
 
 kphotoalbum_kexidb_sqlite3driver_la_SOURCES = sqliteconnection.cpp sqlitedriver.cpp sqlitecursor.cpp \
-sqlitekeywords.cpp sqlitepreparedstatement.cpp
+sqlitekeywords.cpp sqlitepreparedstatement.cpp sqlitevacuum.cpp sqliteadmin.cpp \
+sqlitealter.cpp
 
 kphotoalbum_kexidb_sqlite3driver_la_LIBADD = $(LIB_KPARTS) $(LIB_QT) \
  ../../../3rdparty/kexisql3/src/libkexisql3.la \

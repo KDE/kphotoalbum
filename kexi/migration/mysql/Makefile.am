@@ -12,7 +12,7 @@ keximigrate_mysql_la_LIBADD = $(LIB_KPARTS) $(LIB_QT) ../libkeximigrate.la $(MYS
 
 keximigrate_mysql_la_LDFLAGS = $(all_libraries) -module $(KDE_PLUGIN) $(VER_INFO) -no-undefined
 
-kde_services_DATA = keximigrate_mysql.desktop
+#kde_services_DATA = keximigrate_mysql.desktop
 
 noinst_HEADERS =  mysqlmigrate.h
 

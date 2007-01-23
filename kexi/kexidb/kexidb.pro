@@ -16,6 +16,7 @@ object.cpp \
 drivermanager.cpp \
 driver.cpp \
 driver_p.cpp \
+admin.cpp \
 connectiondata.cpp \
 connection.cpp \
 utils.cpp \
@@ -23,6 +24,7 @@ field.cpp \
 schemadata.cpp \
 tableschema.cpp \
 queryschema.cpp \
+queryschemaparameter.cpp \
 transaction.cpp \
 indexschema.cpp \
 cursor.cpp \
@@ -32,6 +34,7 @@ relationship.cpp \
 roweditbuffer.cpp \
 msghandler.cpp \
 dbobjectnamevalidator.cpp \
+fieldvalidator.cpp \
 dbproperties.cpp \
 \
 parser/parser.cpp \
@@ -40,6 +43,9 @@ parser/sqlparser.cpp \
 parser/sqlscanner.cpp \
 expression.cpp \
 keywords.cpp \
-preparedstatement.cpp
+preparedstatement.cpp \
+alter.cpp \
+lookupfieldschema.cpp \
+simplecommandlineapp.cpp
 
 #HEADERS =

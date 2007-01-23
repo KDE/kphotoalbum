@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright (C) 2003-2005 Jaroslaw Staniek <js@iidea.pl>
+   Copyright (C) 2003-2006 Jaroslaw Staniek <js@iidea.pl>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -21,22 +21,27 @@
 #define KEXIDB_GLOBAL_H
 
 #include <kexidb/kexidb_export.h>
+#include <qstring.h>
 
 //global public definitions
 
 /*! KexiDB implementation version. 
- It is altered after every change: 
+ It is altered after every API change: 
  - major number is increased after KexiDB storage format change, 
  - minor is increased after adding binary-incompatible change.
  In external code: do not use this to get library version information:
  use KexiDB::versionMajor() and KexiDB::versionMinor() instead to get real version.
 */
 #define KEXIDB_VERSION_MAJOR 1
-#define KEXIDB_VERSION_MINOR 7
+#define KEXIDB_VERSION_MINOR 8
 
+/*! KexiDB implementation version. @see KEXIDB_VERSION_MAJOR, KEXIDB_VERSION_MINOR */
+#define KEXIDB_VERSION KexiDB::DatabaseVersionInfo(KEXIDB_VERSION_MAJOR, KEXIDB_VERSION_MINOR)
 
 /*! \namespace KexiDB 
-\brief Kexi database backend drivers.
+\brief High-level database connectivity library with database backend drivers
+
+@author Jaroslaw Staniek <js@iidea.pl>
 
 \section Framework
 DriverManager 
@@ -96,12 +101,47 @@ namespace KexiDB {
 #define KexiDBDrvDbg kdDebug(44001) //! Debug area for KexiDB's drivers implementation code
 #define KexiDBWarn  kdWarning(44000)
 #define KexiDBDrvWarn kdWarning(44001)
+#define KexiDBFatal kdFatal(44000)
 
-//! \return KexiDB version info (most significant part)
-KEXI_DB_EXPORT int versionMajor();
+/*! @short Contains database version information about a Kexi-compatible database. 
+ The version is stored as internal database properties. */
+class KEXI_DB_EXPORT DatabaseVersionInfo
+{
+	public:
+		DatabaseVersionInfo();
+		DatabaseVersionInfo(uint majorVersion, uint minorVersion);
 
-//! \return KexiDB version info (least significant part)
-KEXI_DB_EXPORT int versionMinor();
+		//! Major version number, e.g. 1 for 1.8
+		uint major;
+
+		//! Minor version number, e.g. 8 for 1.8
+		uint minor;
+};
+
+//! \return KexiDB version info
+KEXI_DB_EXPORT DatabaseVersionInfo version();
+
+/*! @short Contains version information about a database backend. */
+class KEXI_DB_EXPORT ServerVersionInfo
+{
+	public:
+		ServerVersionInfo();
+
+		//! Clears the information - integers will be set to 0 and string to null
+		void clear();
+
+		//! Major version number, e.g. 1 for 1.2.3
+		uint major;
+
+		//! Minor version number, e.g. 2 for 1.2.3
+		uint minor;
+
+		//! Release version number, e.g. 3 for 1.2.3
+		uint release;
+
+		//! Version string, as returned by the server
+		QString string;
+};
 
 /*! Object types set like table or query. */
 enum ObjectTypes {
@@ -119,5 +159,13 @@ enum ObjectTypes {
 
 }
 
+#ifndef futureI18n
+# define futureI18n QString
+# define futureI18n2(a,b) QString(b)
 #endif
 
+#ifndef FUTURE_I18N_NOOP
+# define FUTURE_I18N_NOOP(x) (x)
+#endif
+
+#endif

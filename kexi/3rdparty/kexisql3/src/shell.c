@@ -12,6 +12,7 @@
 ** This file contains code to implement the "sqlite" command line
 ** utility for accessing SQLite databases.
 **
+** $Id$
 */
 #include <stdlib.h>
 #include <string.h>
@@ -79,7 +80,6 @@ static char *Argv0;
 */
 static char mainPrompt[20];     /* First line prompt. default: "sqlite> "*/
 static char continuePrompt[20]; /* Continuation prompt. default: "   ...> " */
-
 
 /*
 ** Determines if a string is a number of not.
@@ -199,7 +199,9 @@ static char *one_input_line(const char *zPrior, FILE *in){
     zPrompt = mainPrompt;
   }
   zResult = readline(zPrompt);
+#if defined(HAVE_READLINE) && HAVE_READLINE==1
   if( zResult ) add_history(zResult);
+#endif
   return zResult;
 }
 
@@ -245,7 +247,8 @@ struct callback_data {
 #define MODE_Html     4  /* Generate an XHTML table */
 #define MODE_Insert   5  /* Generate SQL "insert" statements */
 #define MODE_Tcl      6  /* Generate ANSI-C or TCL quoted elements */
-#define MODE_NUM_OF   7  /* The number of modes (not a mode itself) */
+#define MODE_Csv      7  /* Quote strings, numbers are plain */
+#define MODE_NUM_OF   8  /* The number of modes (not a mode itself) */
 
 char *modeDescr[MODE_NUM_OF] = {
   "line",
@@ -255,6 +258,7 @@ char *modeDescr[MODE_NUM_OF] = {
   "html",
   "insert",
   "tcl",
+  "csv",
 };
 
 /*
@@ -312,7 +316,7 @@ static void output_c_string(FILE *out, const char *z){
       fputc('\\', out);
       fputc('r', out);
     }else if( !isprint(c) ){
-      fprintf(out, "\\%03o", c);
+      fprintf(out, "\\%03o", c&0xff);
     }else{
       fputc(c, out);
     }
@@ -343,12 +347,33 @@ static void output_html_string(FILE *out, const char *z){
 }
 
 /*
+** Output a single term of CSV.  Actually, p->separator is used for
+** the separator, which may or may not be a comma.  p->nullvalue is
+** the null value.  Strings are quoted using ANSI-C rules.  Numbers
+** appear outside of quotes.
+*/
+static void output_csv(struct callback_data *p, const char *z, int bSep){
+  if( z==0 ){
+    fprintf(p->out,"%s",p->nullvalue);
+  }else if( isNumber(z, 0) ){
+    fprintf(p->out,"%s",z);
+  }else{
+    output_c_string(p->out, z);
+  }
+  if( bSep ){
+    fprintf(p->out, p->separator);
+  }
+}
+
+#ifdef SIGINT
+/*
 ** This routine runs when the user presses Ctrl-C
 */
 static void interrupt_handler(int NotUsed){
   seenInterrupt = 1;
   if( db ) sqlite3_interrupt(db);
 }
+#endif
 
 /*
 ** This is the callback routine that the SQLite library
@@ -473,6 +498,20 @@ static int callback(void *pArg, int nArg, char **azArg, char **azCol){
       for(i=0; i<nArg; i++){
         output_c_string(p->out, azArg[i] ? azArg[i] : p->nullvalue);
         fprintf(p->out, "%s", p->separator);
+      }
+      fprintf(p->out,"\n");
+      break;
+    }
+    case MODE_Csv: {
+      if( p->cnt++==0 && p->showHeader ){
+        for(i=0; i<nArg; i++){
+          output_csv(p, azCol[i], i<nArg-1);
+        }
+        fprintf(p->out,"\n");
+      }
+      if( azArg==0 ) break;
+      for(i=0; i<nArg; i++){
+        output_csv(p, azArg[i], i<nArg-1);
       }
       fprintf(p->out,"\n");
       break;
@@ -620,7 +659,15 @@ static int dump_callback(void *pArg, int nArg, char **azArg, char **azCol){
   zType = azArg[1];
   zSql = azArg[2];
   
-  fprintf(p->out, "%s;\n", zSql);
+  if( strcmp(zTable, "sqlite_sequence")==0 ){
+    fprintf(p->out, "DELETE FROM sqlite_sequence;\n");
+  }else if( strcmp(zTable, "sqlite_stat1")==0 ){
+    fprintf(p->out, "ANALYZE sqlite_master;\n");
+  }else if( strncmp(zTable, "sqlite_", 7)==0 ){
+    return 0;
+  }else{
+    fprintf(p->out, "%s;\n", zSql);
+  }
 
   if( strcmp(zType, "table")==0 ){
     sqlite3_stmt *pTableInfo = 0;
@@ -714,8 +761,8 @@ static char zHelp[] =
   ".help                  Show this message\n"
   ".import FILE TABLE     Import data from FILE into TABLE\n"
   ".indices TABLE         Show names of all indices on TABLE\n"
-  ".mode MODE ?TABLE?     Set output mode where MODE is on of:\n"
-  "                         cvs      Comma-separated values\n"
+  ".mode MODE ?TABLE?     Set output mode where MODE is one of:\n"
+  "                         csv      Comma-separated values\n"
   "                         column   Left-aligned columns.  (See .width)\n"
   "                         html     HTML <table> code\n"
   "                         insert   SQL insert statements for TABLE\n"
@@ -850,6 +897,7 @@ static int do_meta_command(char *zLine, struct callback_data *p){
     data.colWidth[0] = 3;
     data.colWidth[1] = 15;
     data.colWidth[2] = 58;
+    data.cnt = 0;
     sqlite3_exec(p->db, "PRAGMA database_list; ", callback, &data, &zErrMsg);
     if( zErrMsg ){
       fprintf(stderr,"Error: %s\n", zErrMsg);
@@ -943,10 +991,10 @@ static int do_meta_command(char *zLine, struct callback_data *p){
       p->showHeader = 1;
       memset(p->colWidth,0,ArraySize(p->colWidth));
       p->colWidth[0] = 4;
-      p->colWidth[1] = 12;
+      p->colWidth[1] = 14;
       p->colWidth[2] = 10;
       p->colWidth[3] = 10;
-      p->colWidth[4] = 35;
+      p->colWidth[4] = 33;
     }else if (p->explainPrev.valid) {
       p->explainPrev.valid = 0;
       p->mode = p->explainPrev.mode;
@@ -1042,7 +1090,7 @@ static int do_meta_command(char *zLine, struct callback_data *p){
       i = 0;
       lineno++;
       azCol[0] = zLine;
-      for(i=0, z=zLine; *z; z++){
+      for(i=0, z=zLine; *z && *z!='\n' && *z!='\r'; z++){
         if( *z==p->separator[0] && strncmp(z, p->separator, nSep)==0 ){
           *z = 0;
           i++;
@@ -1052,6 +1100,7 @@ static int do_meta_command(char *zLine, struct callback_data *p){
           }
         }
       }
+      *z = 0;
       if( i+1!=nCol ){
         fprintf(stderr,"%s line %d: expected %d columns of data but found %d\n",
            zFile, lineno, nCol, i+1);
@@ -1117,7 +1166,7 @@ static int do_meta_command(char *zLine, struct callback_data *p){
     }else if( strncmp(azArg[1],"tcl",n2)==0 ){
       p->mode = MODE_Tcl;
     }else if( strncmp(azArg[1],"csv",n2)==0 ){
-      p->mode = MODE_List;
+      p->mode = MODE_Csv;
       strcpy(p->separator, ",");
     }else if( strncmp(azArg[1],"tabs",n2)==0 ){
       p->mode = MODE_List;
@@ -1248,7 +1297,7 @@ static int do_meta_command(char *zLine, struct callback_data *p){
          "SELECT sql FROM "
          "  (SELECT * FROM sqlite_master UNION ALL"
          "   SELECT * FROM sqlite_temp_master) "
-         "WHERE type!='meta' AND sql NOTNULL "
+         "WHERE type!='meta' AND sql NOTNULL AND name NOT LIKE 'sqlite_%'"
          "ORDER BY substr(type,2,1), name",
          callback, &data, &zErrMsg
       );
@@ -1292,7 +1341,7 @@ static int do_meta_command(char *zLine, struct callback_data *p){
     if( nArg==1 ){
       rc = sqlite3_get_table(p->db,
         "SELECT name FROM sqlite_master "
-        "WHERE type IN ('table','view') "
+        "WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%'"
         "UNION ALL "
         "SELECT name FROM sqlite_temp_master "
         "WHERE type IN ('table','view') "
@@ -1580,6 +1629,9 @@ static const char zOptions[] =
   "   -list                set output mode to 'list'\n"
   "   -separator 'x'       set output field separator (|)\n"
   "   -nullvalue 'text'    set text string for NULL values\n"
+  "   -verbose-vacuum      set VACUUM to verbose, interactive mode\n"
+  "                         so it is possible to get progress info\n"
+  "                         and abort the process\n"
   "   -version             show SQLite version\n"
   "   -help                show this text, also show dot-commands\n"
 ;
@@ -1645,12 +1697,23 @@ int main(int argc, char **argv){
   if( i<argc ){
     data.zDbFilename = argv[i++];
   }else{
+#ifndef SQLITE_OMIT_MEMORYDB
     data.zDbFilename = ":memory:";
+#else
+    data.zDbFilename = 0;
+#endif
   }
   if( i<argc ){
     zFirstCmd = argv[i++];
   }
   data.out = stdout;
+
+#ifdef SQLITE_OMIT_MEMORYDB
+  if( data.zDbFilename==0 ){
+    fprintf(stderr,"%s: no database filename specified\n", argv[0]);
+    exit(1);
+  }
+#endif
 
   /* Go ahead and open the database file if it already exists.  If the
   ** file does not exist, delay opening it.  This prevents empty database
@@ -1696,6 +1759,8 @@ int main(int argc, char **argv){
       data.showHeader = 0;
     }else if( strcmp(z,"-echo")==0 ){
       data.echoOn = 1;
+    }else if( strcmp(z,"-verbose-vacuum")==0 ){ /*(jstaniek)*/
+      sqlite_set_verbose_vacuum(1);
     }else if( strcmp(z,"-version")==0 ){
       printf("%s\n", sqlite3_libversion());
       return 1;
@@ -1730,7 +1795,7 @@ int main(int argc, char **argv){
       char *zHome;
       char *zHistory = 0;
       printf(
-        "SQLite version %s (bundled with Kexi)\n"
+        "SQLite version %s (customized, bundled with Kexi)\n"
         "Enter \".help\" for instructions\n",
         sqlite3_libversion()
       );
@@ -1738,7 +1803,9 @@ int main(int argc, char **argv){
       if( zHome && (zHistory = malloc(strlen(zHome)+20))!=0 ){
         sprintf(zHistory,"%s/.sqlite_history", zHome);
       }
+#if defined(HAVE_READLINE) && HAVE_READLINE==1
       if( zHistory ) read_history(zHistory);
+#endif
       process_input(&data, 0);
       if( zHistory ){
         stifle_history(100);

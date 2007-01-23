@@ -20,11 +20,13 @@
 #include <kexidb/connection.h>
 #include <kexidb/drivermanager.h>
 #include <kexidb/driver_p.h>
+#include <kexidb/utils.h>
 
 #include "sqlite.h"
 #include "sqlitedriver.h"
 #include "sqliteconnection.h"
 #include "sqliteconnection_p.h"
+#include "sqliteadmin.h"
 
 #include <kdebug.h>
 
@@ -53,7 +55,11 @@ SQLiteDriver::SQLiteDriver( QObject *parent, const char *name, const QStringList
 {
 	d->isFileDriver = true;
 	d->isDBOpenedAfterCreate = true;
-	d->features = SingleTransactions | CursorForward;
+	d->features = SingleTransactions | CursorForward
+#ifndef SQLITE2
+		| CompactingDatabaseSupported;
+#endif
+	;
 	
 	//special method for autoincrement definition
 	beh->SPECIAL_AUTO_INCREMENT_DEF = true;
@@ -82,9 +88,9 @@ SQLiteDriver::SQLiteDriver( QObject *parent, const char *name, const QStringList
 	d->typeNames[Field::Integer]="Integer";
 	d->typeNames[Field::BigInteger]="BigInteger";
 	d->typeNames[Field::Boolean]="Boolean";
-	d->typeNames[Field::Date]="Date";
-	d->typeNames[Field::DateTime]="DateTime";
-	d->typeNames[Field::Time]="Time";
+	d->typeNames[Field::Date]="Date";         // In fact date/time types could be declared as datetext etc. 
+	d->typeNames[Field::DateTime]="DateTime"; // to force text affinity..., see http://sqlite.org/datatype3.html
+	d->typeNames[Field::Time]="Time";         //
 	d->typeNames[Field::Float]="Float";
 	d->typeNames[Field::Double]="Double";
 	d->typeNames[Field::Text]="Text";
@@ -128,7 +134,7 @@ QCString SQLiteDriver::escapeString(const QCString& str) const
 
 QString SQLiteDriver::escapeBLOB(const QByteArray& array) const
 {
-	return escapeBLOBInternal(array, BLOB_ESCAPING_TYPE_USE_X);
+	return KexiDB::escapeBLOB(array, KexiDB::BLOBEscapeXHex);
 }
 
 QString SQLiteDriver::drv_escapeIdentifier( const QString& str) const
@@ -139,6 +145,15 @@ QString SQLiteDriver::drv_escapeIdentifier( const QString& str) const
 QCString SQLiteDriver::drv_escapeIdentifier( const QCString& str) const
 {
 	return QCString(str).replace( '"', "\"\"" );
+}
+
+AdminTools* SQLiteDriver::drv_createAdminTools() const
+{
+#ifdef SQLITE2
+	return new AdminTools(); //empty impl.
+#else
+	return new SQLiteAdminTools();
+#endif
 }
 
 #include "sqlitedriver.moc"

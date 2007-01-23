@@ -99,7 +99,7 @@ pqxxSqlCursor::pqxxSqlCursor(KexiDB::Connection* conn, const QString& statement,
 	Cursor(conn,statement, options)
 {
 //	KexiDBDrvDbg << "PQXXSQLCURSOR: constructor for query statement" << endl;
-	my_conn = static_cast<pqxxSqlConnection*>(conn)->d->m_pqxxsql;
+	my_conn = static_cast<pqxxSqlConnection*>(conn)->d->pqxxsql;
 	m_options = Buffered;
 	m_res = 0;
 //	m_tran = 0;
@@ -112,7 +112,7 @@ pqxxSqlCursor::pqxxSqlCursor(Connection* conn, QuerySchema& query, uint options 
 	: Cursor( conn, query, options )
 {
 //	KexiDBDrvDbg << "PQXXSQLCURSOR: constructor for query schema" << endl;
-	my_conn = static_cast<pqxxSqlConnection*>(conn)->d->m_pqxxsql;
+	my_conn = static_cast<pqxxSqlConnection*>(conn)->d->pqxxsql;
 	m_options = Buffered;
 	m_res = 0;
 //	m_tran = 0;
@@ -291,10 +291,6 @@ QVariant pqxxSqlCursor::pValue(uint pos)const
 		{
 			return QVariant((*m_res)[at()][pos].as(double()));
 		}
-		else if (f->type() == KexiDB::Field::Boolean)
-		{
-			return QVariant((*m_res)[at()][pos].as(bool()));
-		}
 		else if (f->typeGroup() == Field::BLOBGroup)
 		{
 //			pqxx::result::field r = (*m_res)[at()][pos];
@@ -308,7 +304,7 @@ QVariant pqxxSqlCursor::pValue(uint pos)const
 		switch((*m_res)[at()][pos].type())
 		{
 			case BOOLOID:
-				return QVariant((*m_res)[at()][pos].as(bool()));
+				return QVariant((*m_res)[at()][pos].c_str()); //TODO check formatting
 			case INT2OID:
 			case INT4OID:
 			case INT8OID:

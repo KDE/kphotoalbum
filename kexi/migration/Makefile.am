@@ -6,6 +6,7 @@ INCLUDES = \
 	-I$(top_srcdir)/kexi \
 	-I$(top_srcdir)/kexi/core \
 	-I$(top_srcdir)/kexi/widget \
+	-I$(top_builddir)/kexi/widget \
 	-I$(top_srcdir)/kexi/main/startup \
 	-I$(top_builddir)/kexi/main/startup \
 	$(all_includes)
@@ -38,7 +39,7 @@ noinst_HEADERS = importwizard.h migratemanager_p.h keximigrate.h keximigratedata
 
 keximigrateincludedir=$(includedir)/kexidb
 
-kde_servicetypes_DATA = keximigration_driver.desktop
+#kde_servicetypes_DATA = keximigration_driver.desktop
 
 KDE_OPTIONS=nofinal
 noinst_PROGRAMS = keximigratetest

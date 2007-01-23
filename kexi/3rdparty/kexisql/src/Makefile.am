@@ -1,8 +1,8 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../../../Makefile.global
 
-lib_LTLIBRARIES = libkexisql2.la
+noinst_LTLIBRARIES = libkexisql2.la
 
-bin_PROGRAMS = ksqlite2
+#bin_PROGRAMS = ksqlite2
 
 INCLUDES = $(all_includes)
 
@@ -12,8 +12,8 @@ table.c tokenize.c trigger.c update.c util.c vacuum.c vdbe.c vdbeaux.c where.c o
 
 AM_CFLAGS = -DNO_TCL=1
 
-ksqlite2_SOURCES = shell.c
-ksqlite2_LDADD = libkexisql2.la $(LIBREADLINE)
+#ksqlite2_SOURCES = shell.c
+#ksqlite2_LDADD = libkexisql2.la $(LIBREADLINE)
 
 libkexisql2_la_LIBADD =
 libkexisql2_la_LDFLAGS = -version-info 2:8 $(all_libraries) --no-undefined

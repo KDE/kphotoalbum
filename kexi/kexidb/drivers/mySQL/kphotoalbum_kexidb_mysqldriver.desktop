@@ -2,8 +2,8 @@
 Encoding=UTF-8
 Name=MySQL
 Name[sk]=mySQL
-X-KDE-Library=kexidb_mysqldriver
-ServiceTypes=Kexi/DBDriver
+X-KDE-Library=kphotoalbum_kexidb_mysqldriver
+ServiceTypes=KPAKexi/DBDriver
 Type=Service
 InitialPreference=8
 X-Kexi-DriverName=MySQL

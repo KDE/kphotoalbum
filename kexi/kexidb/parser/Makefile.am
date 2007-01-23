@@ -1,13 +1,13 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../../Makefile.global
 
-lib_LTLIBRARIES = libkexidbparser.la
-libkexidbparser_la_SOURCES = sqlscanner.cpp sqlparser.cpp parser.cpp parser_p.cpp
-libkexidbparser_la_LIBADD = $(LIB_KPARTS) $(LIB_KDEUI) ../libkexidb.la
-libkexidbparser_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
+lib_LTLIBRARIES = libkphotoalbumkexidbparser.la
+libkphotoalbumkexidbparser_la_SOURCES = sqlscanner.cpp sqlparser.cpp parser.cpp parser_p.cpp
+libkphotoalbumkexidbparser_la_LIBADD = $(LIB_KPARTS) $(LIB_KDEUI) ../libkphotoalbumkexidb.la
+libkphotoalbumkexidbparser_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
 
 noinst_HEADERS = parser_p.h
 
-INCLUDES = -I$(top_srcdir)/kexi -I$(top_srcdir)/kexi/kexidb $(all_includes)
+INCLUDES = -I$(srcdir)/../.. -I$(srcdir)/.. $(all_includes)
 METASOURCES = AUTO
 
 parser:

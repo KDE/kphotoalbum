@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=SQLite2
-Name[sv]=Sqlite 2
+Name=SQLite3
+Name[sv]=Sqlite 3
 Comment=SQLite is default Kexi embedded SQL engine
 Comment[bg]=SQLite е малка и бърза СУБД, която е вградена в Kexi
 Comment[ca]=SQLite és el motor SQL encastat i per defecte de Kexi
@@ -41,12 +41,11 @@ Comment[tr]=SQlite Kexi'ye gömülü varsayılan  SQL motorudur
 Comment[uk]=SQLite - це типовий рушій SQL вбудований в Kexi
 Comment[zh_CN]=SQLite 是嵌入 Kexi 的默认 SQL 引擎
 Comment[zh_TW]=SQLite 是 Kexi 預設內建的 SQL 引擎
-X-KDE-Library=kexidb_sqlite2driver
-ServiceTypes=Kexi/DBDriver
+X-KDE-Library=kphotoalbum_kexidb_sqlite3driver
+ServiceTypes=KPAKexi/DBDriver
 Type=Service
 InitialPreference=8
-X-Kexi-DriverName=SQLite2
+X-Kexi-DriverName=SQLite3
 X-Kexi-DriverType=File
-X-Kexi-FileDBDriverMimeList=application/x-sqlite2,application/x-kexiproject-sqlite2,application/x-kexiproject-sqlite,application/x-hk_classes-sqlite2
+X-Kexi-FileDBDriverMimeList=application/x-sqlite3,application/x-kexiproject-sqlite3,application/x-hk_classes-sqlite3
 X-Kexi-KexiDBVersion=1.8
-X-Kexi-DoNotAllowProjectImportingTo=true

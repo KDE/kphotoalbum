@@ -1,14 +1,14 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../Makefile.global
 
-lib_LTLIBRARIES = libkexidb.la
+lib_LTLIBRARIES = libkphotoalbumkexidb.la
 
-INCLUDES = -I$(top_srcdir)/kexi $(all_includes)
+INCLUDES = -I$(srcdir)/.. $(all_includes)
 
 SUBDIRS = . parser drivers
 
-libkexidb_la_METASOURCES = AUTO
+libkphotoalbumkexidb_la_METASOURCES = AUTO
 
-libkexidb_la_SOURCES = drivermanager.cpp driver.cpp driver_p.cpp connection.cpp \
+libkphotoalbumkexidb_la_SOURCES = drivermanager.cpp driver.cpp driver_p.cpp connection.cpp \
  keywords.cpp object.cpp field.cpp utils.cpp expression.cpp \
  connectiondata.cpp fieldlist.cpp tableschema.cpp cursor.cpp transaction.cpp  \
  indexschema.cpp queryschemaparameter.cpp queryschema.cpp schemadata.cpp global.cpp \
@@ -19,19 +19,19 @@ libkexidb_la_SOURCES = drivermanager.cpp driver.cpp driver_p.cpp connection.cpp 
 noinst_HEADERS = drivermanager_p.h utils_p.h
 
 kexidbincludedir=$(includedir)/kexidb
-kexidbinclude_HEADERS=connection.h connectiondata.h cursor.h \
+noinst_HEADERS += connection.h connectiondata.h cursor.h \
   driver.h drivermanager.h \
   error.h expression.h field.h fieldlist.h global.h object.h \
   schemadata.h tableschema.h queryschema.h queryschemaparameter.h indexschema.h \
   relationship.h parser/parser.h transaction.h preparedstatement.h \
   kexidb_export.h
 
-libkexidb_la_LIBADD = $(LIB_QT) $(LIB_KDECORE) $(LIB_KIO) \
-	 $(top_builddir)/kexi/kexiutils/libkexiutils.la
-libkexidb_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
+libkphotoalbumkexidb_la_LIBADD = $(LIB_QT) $(LIB_KDECORE) $(LIB_KIO) \
+	 ../kexiutils/libkphotoalbumkexiutils.la
+libkphotoalbumkexidb_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
 
-kde_servicetypes_DATA = kexidb_driver.desktop
+kde_servicetypes_DATA = kphotoalbum_kexidb_driver.desktop
 
 
-KDE_CXXFLAGS += -D__KEXIDB__= -include $(top_srcdir)/kexi/kexidb/global.h
+KDE_CXXFLAGS += -D__KEXIDB__= -include $(srcdir)/global.h
 

@@ -1,15 +1,11 @@
 KEXI_OPTIONS =
 
-if compile_kross
-  SCRIPTINGDEFINES=-DKEXI_SCRIPTS_SUPPORT
-endif
-
 AM_CPPFLAGS=$(SCRIPTINGDEFINES)
 
 KDE_CXXFLAGS = \
 $(USE_EXCEPTIONS) $(KEXI_OPTIONS)
 
-KDE_CXXFLAGS += -include $(top_srcdir)/kexi/kexi_global.h
+KDE_CXXFLAGS += -include $(kphotoalbum_top_srcdir)/kexi/kexi_global.h
 
 # temporary:
 ##KDE_CXXFLAGS += -DKEXI_NO_AUTOFIELD_WIDGET

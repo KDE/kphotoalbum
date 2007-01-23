@@ -1,10 +1,10 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../../../Makefile.global
 
-lib_LTLIBRARIES = libkexisql3.la
+noinst_LTLIBRARIES = libkexisql3.la
 
-bin_PROGRAMS = ksqlite
+#bin_PROGRAMS = ksqlite
 
-bin_SCRIPTS = ./ksqlite2to3
+#bin_SCRIPTS = ./ksqlite2to3
 
 INCLUDES = $(all_includes)
 
@@ -53,8 +53,8 @@ libkexisql3_la_SOURCES = \
 
 AM_CFLAGS = -DNO_TCL=1
 
-ksqlite_SOURCES = shell.c
-ksqlite_LDADD = libkexisql3.la $(LIBREADLINE)
+#ksqlite_SOURCES = shell.c
+#ksqlite_LDADD = libkexisql3.la $(LIBREADLINE)
 
 libkexisql3_la_LIBADD =
 libkexisql3_la_LDFLAGS = -version-info 3:2 $(all_libraries) --no-undefined

@@ -97,15 +97,15 @@ bool DriverManagerInternal::lookupDrivers()
 
 	lookupDriversNeeded = false;
 	clearError();
-	KTrader::OfferList tlist = KTrader::self()->query("Kexi/DBDriver");
+	KTrader::OfferList tlist = KTrader::self()->query("KPAKexi/DBDriver");
 	KTrader::OfferList::ConstIterator it(tlist.constBegin());
 	for(; it != tlist.constEnd(); ++it)
 	{
 		KService::Ptr ptr = (*it);
-		if (!ptr->property("Library").toString().startsWith("kexidb_")) {
+		if (!ptr->property("Library").toString().startsWith("kphotoalbum_kexidb_")) {
 			KexiDBWarn << "DriverManagerInternal::lookupDrivers():"
 				" X-KDE-Library == " << ptr->property("Library").toString()
-				<< ": no \"kexidb_\" prefix -- skipped to avoid potential conflicts!" << endl;
+				<< ": no \"kphotoalbum_kexidb_\" prefix -- skipped to avoid potential conflicts!" << endl;
 			continue;
 		}
 		QString srv_name = ptr->property("X-Kexi-DriverName").toString();

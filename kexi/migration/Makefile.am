@@ -1,6 +1,6 @@
-include $(top_srcdir)/kexi/Makefile.global
+include ../Makefile.global
 
-lib_LTLIBRARIES = libkeximigrate.la
+noinst_LTLIBRARIES = libkeximigrate.la
 
 INCLUDES = \
 	-I$(top_srcdir)/kexi \
@@ -35,12 +35,11 @@ libkeximigrate_la_LIBADD = \
 
 libkeximigrate_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
 
-noinst_HEADERS = importwizard.h migratemanager_p.h
+noinst_HEADERS = importwizard.h migratemanager_p.h keximigrate.h keximigratedata.h migratemanager.h
 
 keximigrateincludedir=$(includedir)/kexidb
-keximigrateinclude_HEADERS=keximigrate.h keximigratedata.h migratemanager.h
 
-kde_servicetypes_DATA = keximigration_driver.desktop
+#kde_servicetypes_DATA = keximigration_driver.desktop
 
 KDE_OPTIONS=nofinal
 noinst_PROGRAMS = keximigratetest

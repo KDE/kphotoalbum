@@ -1,3 +1,8 @@
+2007-02-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* It is now possible to search for images with changed MD5 sum -
+	very useful for searching for corrupted image files.
+
 2007-01-13  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* Limit extra space in thumbnail viewer when showing categories

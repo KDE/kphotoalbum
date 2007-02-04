@@ -25,12 +25,12 @@ void MD5Map::insert( const QString& md5sum, const QString& fileName )
     _map.insert( md5sum, fileName );
 }
 
-QString MD5Map::lookup( const QString& md5sum )
+QString MD5Map::lookup( const QString& md5sum ) const
 {
     return _map[md5sum];
 }
 
-bool MD5Map::contains( const QString& md5sum )
+bool MD5Map::contains( const QString& md5sum ) const
 {
     return _map.contains( md5sum );
 }
@@ -38,4 +38,16 @@ bool MD5Map::contains( const QString& md5sum )
 void MD5Map::clear()
 {
     _map.clear();
+}
+
+StringSet DB::MD5Map::diff( const MD5Map& other ) const
+{
+    StringSet res;
+
+    for( QMap<QString,QString>::ConstIterator it = _map.begin(); it != _map.end(); ++it ) {
+        if ( other.lookup( it.key() ) != it.data() )
+            res.insert( it.data() );
+    }
+
+    return res;
 }

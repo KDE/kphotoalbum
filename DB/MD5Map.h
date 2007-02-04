@@ -20,6 +20,7 @@
 #define MD5MAP_H
 #include <qstring.h>
 #include <qmap.h>
+#include "Utilities/Set.h"
 
 namespace DB
 {
@@ -32,9 +33,10 @@ class MD5Map
 {
 public:
     virtual void insert( const QString& md5sum, const QString& fileName );
-    virtual QString lookup( const QString& md5sum );
-    virtual bool contains( const QString& md5sum );
+    virtual QString lookup( const QString& md5sum ) const;
+    virtual bool contains( const QString& md5sum ) const;
     virtual void clear();
+    virtual StringSet diff( const MD5Map& other ) const;
 
 private:
     QMap<QString,QString> _map;

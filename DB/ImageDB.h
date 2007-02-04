@@ -52,6 +52,7 @@ public:
     void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
     virtual bool operator==(const ImageDB& other) const = 0;
     bool operator!=(const ImageDB& other) const { return !operator==(other); }
+    StringSet imagesWithMD5Changed();
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );

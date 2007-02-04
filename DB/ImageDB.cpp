@@ -107,7 +107,7 @@ void ImageDB::slotRecalcCheckSums( QStringList list )
         md5Map()->clear();
     }
 
-    bool d = NewImageFinder().calculateMD5sums( list );
+    bool d = NewImageFinder().calculateMD5sums( list, md5Map() );
     if ( d )
         MainWindow::DirtyIndicator::markDirty();
 
@@ -117,6 +117,24 @@ void ImageDB::slotRecalcCheckSums( QStringList list )
 
     emit totalChanged( totalCount() );
 }
+
+StringSet DB::ImageDB::imagesWithMD5Changed()
+{
+    MD5Map map;
+    bool wasCanceled;
+    QStringList imageList = images();
+    (void) NewImageFinder().calculateMD5sums( imageList, &map, &wasCanceled );
+    if ( wasCanceled )
+        return StringSet();
+
+    StringSet changes =  md5Map()->diff( map );
+    StringSet res;
+    for ( StringSet::ConstIterator it = changes.begin(); it != changes.end(); ++it )
+        res.insert( Settings::SettingsData::instance()->imageDirectory() + *it );
+    return res;
+
+}
+
 
 ImageDB::ImageDB()
 {

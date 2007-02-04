@@ -117,6 +117,7 @@ protected slots:
     void updateDateBar( const QString& );
     void updateDateBar();
     void slotShowImagesWithInvalidDate();
+    void slotShowImagesWithChangedMD5Sum();
     void showDateBarTip( const QString& );
     void slotJumpToContext();
     void setDateRange( const DB::ImageDate& );

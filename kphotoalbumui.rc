@@ -41,6 +41,8 @@
       <text>&amp;Maintenance</text>
       <Action name="findUnavailableImages"/>
       <Action name="findImagesWithInvalidDate"/>
+      <Action name="findImagesWithChangedMD5Sum"/>
+      <separator/>
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
       <Action name="reReadExifInfo" />

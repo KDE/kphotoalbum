@@ -103,6 +103,7 @@
 #include <kprogress.h>
 #include <krun.h>
 #include "DirtyIndicator.h"
+#include "Utilities/ShowBusyCursor.h"
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -588,6 +589,8 @@ void MainWindow::Window::setupMenuBar()
     // Maintenance
     new KAction( i18n("Display Images and Videos Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
     new KAction( i18n("Display Images and Videos with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
+    new KAction( i18n("Display Images and Videos with Changed MD5 Sum"), 0, this, SLOT( slotShowImagesWithChangedMD5Sum() ), actionCollection(), "findImagesWithChangedMD5Sum" );
+
     new KAction( i18n("Recalculate Checksum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images and Videos"), 0, DB::ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
 #ifdef HASEXIV2
@@ -1036,6 +1039,14 @@ void MainWindow::Window::slotShowNotOnDisk()
     }
 
     showThumbNails( notOnDisk );
+}
+
+
+void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
+{
+    Utilities::ShowBusyCursor dummy;
+    StringSet changed = DB::ImageDB::instance()->imagesWithMD5Changed();
+    showThumbNails( changed.toList() );
 }
 
 

@@ -162,7 +162,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     return info;
 }
 
-bool  NewImageFinder::calculateMD5sums( const QStringList& list )
+bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5Map, bool* wasCanceled )
 {
     QProgressDialog dialog( i18n("<p><b>Calculating checksum for %1 files<b></p>"
                                  "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
@@ -177,8 +177,11 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list )
             dialog.setProgress( count ); // ensure to call setProgress(0)
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
-            if ( dialog.wasCanceled() )
+            if ( dialog.wasCanceled() ) {
                 return dirty;
+                if ( wasCanceled )
+                    *wasCanceled = true;
+            }
         }
         QString md5 = MD5Sum( *it );
         QString orig = info->MD5Sum();
@@ -188,8 +191,10 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list )
             Utilities::removeThumbNail( *it );
         }
 
-        DB::ImageDB::instance()->md5Map()->insert( md5, info->fileName(true) );
+        md5Map->insert( md5, info->fileName(true) );
     }
+    if ( wasCanceled )
+        *wasCanceled = false;
     return dirty;
 }
 

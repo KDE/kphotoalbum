@@ -30,7 +30,7 @@ class NewImageFinder
 {
 public:
     bool findImages();
-    bool calculateMD5sums( const QStringList& list );
+    bool calculateMD5sums( const QStringList& list, DB::MD5Map* map, bool* wasCanceled = 0 );
 
 protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );

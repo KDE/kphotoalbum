@@ -214,7 +214,6 @@ DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName ) const
     else {
         fileMap.clear();
         for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {
-            qDebug("[%s]", (*it)->fileName().latin1());
             fileMap.insert( (*it)->fileName(), *it );
         }
         if ( fileMap.contains( fileName ) )

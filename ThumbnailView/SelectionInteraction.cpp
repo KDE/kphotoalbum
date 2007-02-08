@@ -44,10 +44,15 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
             _view->selectAllCellsBetween( _view->positionForFileName( _view->_currentItem ),
                                           _view->cellAtCoordinate( event->pos(), ViewportCoordinates ) );
 
-        if ( (event->button() & RightButton) != 0 )
-            _view->_selectedFiles.insert( file );
         _originalSelectionBeforeDragStart = _view->_selectedFiles;
-        _view->_currentItem = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
+
+        // When control is pressed selection of the file should be
+        // toggled. This is done in the release event, not here.
+        if ( !( event->state() & ControlButton ) )
+            // Otherwise add file to selected files.
+            _view->_selectedFiles.insert( file );
+
+        _view->_currentItem = file;
         _view->updateCell( file );
     }
     _view->possibleEmitSelectionChanged();
@@ -78,7 +83,7 @@ void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event )
 {
     QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
-    if ( toggleSelectionOfFile( event ) ) {
+    if ( event->state() & ControlButton ) { // toggle selection of file
         if ( _view->_selectedFiles.contains( file ) && (event->button() & LeftButton) )
             _view->_selectedFiles.remove( file);
         else
@@ -230,8 +235,8 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
     if  ( event->state() & (ControlButton | ShiftButton) )
         return false;
 
-    // right mouse button on a selected image should not clear, left mouse button should clear at release.
-    if ( _view->_selectedFiles.contains( _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates ) ) )
+    // right mouse button on a selected image should not clear
+    if ( (event->button() & RightButton) && _view->_selectedFiles.contains( _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates ) ) )
         return false;
 
     // otherwise deselect
@@ -247,24 +252,6 @@ void ThumbnailView::SelectionInteraction::clearSelection()
     for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         _view->updateCell( *it );
     }
-}
-
-bool ThumbnailView::SelectionInteraction::toggleSelectionOfFile( const QMouseEvent* event ) const
-{
-    // If I didn't press on an icon, then this doesn't apply
-    if ( !_mousePressWasOnIcon )
-        return false;
-
-    // if it was the right mouse button, then we should of course not toggle selection
-    if ( (event->button() & RightButton) != 0 )
-        return false;
-
-    // when Shift is down, we should not toggle selection as other code already have selected the item.
-    if  ( event->state() & ShiftButton )
-        return false;
-
-    return true;
-
 }
 
 #include "SelectionInteraction.moc"

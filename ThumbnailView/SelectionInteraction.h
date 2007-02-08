@@ -46,7 +46,6 @@ protected:
     Cell nextCell( const Cell& cell );
     QRect iconRect( const QPoint& pos, CoordinateSystem ) const;
     bool deselectSelection( const QMouseEvent* ) const;
-    bool toggleSelectionOfFile( const QMouseEvent* ) const;
     void clearSelection();
 
 protected slots:

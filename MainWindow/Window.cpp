@@ -1160,6 +1160,11 @@ void MainWindow::Window::loadPlugins()
     // Setup signals
     connect( _thumbnailView, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
     _hasLoadedPlugins = true;
+
+    // Make sure selection is updated also when plugin loading is
+    // delayed. This is needed, because selection might already be
+    // non-empty when loading the plugins.
+    slotSelectionChanged();
 #endif // HASKIPI
 }
 

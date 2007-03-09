@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Comment=KPhotoAlbum import
+Comment[el]=Εισαγωγή KPhotoAlbum
 Icon=kphotoalbum
 Type=MimeType
 MimeType=application/vnd.kde.kphotoalbum-import

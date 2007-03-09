@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=KPhotoAlbum
 Exec=kphotoalbum
 GenericName=Photo Album
+GenericName[el]=Φωτογραφικό άλμπουμ
 Terminal=false
 Type=Application
 X-KDE-StartupNotify=true

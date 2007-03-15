@@ -36,7 +36,8 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
     _mousePressWasOnIcon = isMouseOverIcon( event->pos() );
     _mousePressPos = _view->viewportToContents( event->pos() );
     QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
-    if ( deselectSelection( event ) )
+
+    if ( deselectSelection( event ) && !_view->_selectedFiles.contains( file ) )
         clearSelection();
 
     if ( !file.isNull() ) {
@@ -89,6 +90,20 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
         else
             _view->_selectedFiles.insert( file );
         _view->updateCell( file );
+    }
+    else {
+        if ( deselectSelection( event ) && _view->_selectedFiles.contains( file ) ) {
+            // Unselect everything but the file
+            Set<QString> oldSelection = _view->_selectedFiles;
+            oldSelection.remove( file );
+            _view->_selectedFiles.clear();
+            _view->_selectedFiles.insert( file );
+            _originalSelectionBeforeDragStart.clear();
+            _originalSelectionBeforeDragStart.insert( file );
+            for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+                _view->updateCell( *it );
+            }
+        }
     }
 
     _dragTimer->stop();

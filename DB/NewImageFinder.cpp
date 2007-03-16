@@ -178,9 +178,9 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
             qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
 
             if ( dialog.wasCanceled() ) {
-                return dirty;
                 if ( wasCanceled )
                     *wasCanceled = true;
+                return dirty;
             }
         }
         QString md5 = MD5Sum( *it );

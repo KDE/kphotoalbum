@@ -37,9 +37,12 @@ namespace SQLDB
         QValueList<QString[2]> asString2List() const;
         QValueList<QString[3]> asString3List() const;
         QValueList<int> asIntegerList() const;
+        QValueList<uint> asUIntegerList() const;
         QValueList< QPair<int, int> > asInteger2List() const;
         QValueList< QPair<int, QString> > asIntegerStringPairs() const;
         QMap<int, QString> asIntegerStringMap() const;
+        QMap<QString, uint> asStringUIntegerMap() const;
+        QValueList<QVariant> asVariantList() const;
         QVariant firstItem() const;
         RowData getRow(uint n=0) const;
         Cursor cursor() const { return _cursor; }

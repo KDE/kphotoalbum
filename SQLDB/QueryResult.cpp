@@ -79,6 +79,17 @@ QValueList<int> QueryResult::asIntegerList() const
     return r;
 }
 
+QValueList<uint> QueryResult::asUIntegerList() const
+{
+    QValueList<uint> r;
+    if (_cursor) {
+        for (_cursor.selectFirstRow();
+             _cursor.rowExists(); _cursor.selectNextRow())
+            r.append(_cursor.value(0).toUInt());
+    }
+    return r;
+}
+
 QValueList< QPair<int, int> > QueryResult::asInteger2List() const
 {
     QValueList< QPair<int, int> > r;
@@ -114,6 +125,27 @@ QMap<int, QString> QueryResult::asIntegerStringMap() const
     return r;
 }
 
+QMap<QString, uint> QueryResult::asStringUIntegerMap() const
+{
+    QMap<QString, uint> r;
+    if (_cursor) {
+        for (_cursor.selectFirstRow(); _cursor.rowExists();
+             _cursor.selectNextRow())
+            r[_cursor.value(0).toString()] = _cursor.value(1).toUInt();
+    }
+    return r;
+}
+
+QValueList<QVariant> QueryResult::asVariantList() const
+{
+    QValueList<QVariant> r;
+    if (_cursor) {
+        for (_cursor.selectFirstRow();
+             _cursor.rowExists(); _cursor.selectNextRow())
+            r.append(_cursor.value(0));
+    }
+    return r;
+}
 
 QVariant QueryResult::firstItem() const
 {

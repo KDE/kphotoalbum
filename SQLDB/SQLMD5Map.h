@@ -29,7 +29,7 @@ namespace SQLDB
     class SQLMD5Map : public DB::MD5Map
     {
     public:
-        explicit SQLMD5Map(Connection& connection);
+        explicit SQLMD5Map(QueryHelper& queryHelper);
 
         void insert(const QString& md5sum, const QString& fileName);
         QString lookup(const QString& md5sum);
@@ -37,7 +37,7 @@ namespace SQLDB
         void clear();
 
     protected:
-        QueryHelper _qh;
+        QueryHelper& _qh;
     };
 }
 

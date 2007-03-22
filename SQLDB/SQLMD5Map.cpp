@@ -22,8 +22,8 @@
 
 using namespace SQLDB;
 
-SQLMD5Map::SQLMD5Map(Connection& connection):
-    _qh(connection)
+SQLMD5Map::SQLMD5Map(QueryHelper& queryHelper):
+    _qh(queryHelper)
 {
 }
 

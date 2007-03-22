@@ -23,9 +23,8 @@
 #include "SQLFolderCategory.h"
 #include "QueryErrors.h"
 
-SQLDB::SQLCategoryCollection::SQLCategoryCollection(Connection& connection):
-    _connection(&connection),
-    _qh(connection)
+SQLDB::SQLCategoryCollection::SQLCategoryCollection(QueryHelper& queryHelper):
+    _qh(queryHelper)
 {
     // Categories, which should not have an entry in category table.
     _specialCategoryNames << "Folder";

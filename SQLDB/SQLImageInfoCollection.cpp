@@ -23,8 +23,8 @@
 
 using namespace SQLDB;
 
-SQLImageInfoCollection::SQLImageInfoCollection(Connection& connection):
-    _qh(connection),
+SQLImageInfoCollection::SQLImageInfoCollection(QueryHelper& queryHelper):
+    _qh(queryHelper),
     _lockingScope(0)
 {
     QValueList< QPair<int, QString> > l = _qh.mediaItemIdFileMap();

@@ -29,7 +29,7 @@ namespace SQLDB {
         Q_OBJECT
 
     public:
-        explicit SQLCategoryCollection(Connection& connection);
+        explicit SQLCategoryCollection(QueryHelper& queryHelper);
 
         virtual DB::CategoryPtr categoryForName(const QString& name) const;
         virtual QStringList categoryNames() const;
@@ -41,8 +41,7 @@ namespace SQLDB {
                                  int thumbnailSize, bool show );
 
     protected:
-        Connection* _connection;
-        QueryHelper _qh;
+        QueryHelper& _qh;
 
     private:
         QStringList _specialCategoryNames;

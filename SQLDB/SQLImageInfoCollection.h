@@ -34,7 +34,7 @@ namespace SQLDB {
         Q_OBJECT
 
     public:
-        explicit SQLImageInfoCollection(Connection& connection);
+        explicit SQLImageInfoCollection(QueryHelper& queryHelper);
         ~SQLImageInfoCollection();
         DB::ImageInfoPtr getImageInfoOf(const QString& relativeFilename) const;
         QString filenameForId(int id) const;
@@ -50,7 +50,7 @@ namespace SQLDB {
     protected:
         void setLocking(DB::ImageInfoPtr p) const;
         void updateLockingInfo() const;
-        QueryHelper _qh;
+        QueryHelper& _qh;
 
     private:
         mutable QMap<QString, int> _filenameIdMap;

@@ -38,7 +38,7 @@ namespace SQLDB {
         /** Map from category name to its member group definitions. */
         typedef QMap<QString, CategoryGroups> MemberMapping;
 
-        explicit SQLMemberMap(QueryHelper* queryHelper);
+        explicit SQLMemberMap(QueryHelper& queryHelper);
         DB::MemberMap& operator=(const DB::MemberMap& other);
 
         QStringList groups(const QString& category) const;
@@ -73,7 +73,7 @@ namespace SQLDB {
                         const QString& oldName, const QString& newName);
 
     protected:
-        QueryHelper* _qh;
+        QueryHelper& _qh;
 
     private:
         void overwriteWithMemberMap(const MemberMapping& map);

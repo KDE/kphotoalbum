@@ -47,7 +47,7 @@ SQLDB::Database::Database(const DatabaseAddress& address):
     _connection(_handler.connection()),
     _qh(*_connection),
     _categoryCollection(_qh),
-    _members(&_qh),
+    _members(_qh),
     _infoCollection(_qh),
     _md5map(_qh)
 {

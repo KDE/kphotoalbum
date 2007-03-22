@@ -21,7 +21,6 @@
 #define SQLIMAGEINFOCOLLECTION_H
 
 #include "DB/ImageInfoPtr.h"
-#include "Connection.h"
 #include "QueryHelper.h"
 #include <qobject.h>
 #include <qmap.h>

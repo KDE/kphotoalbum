@@ -21,7 +21,6 @@
 #define SQLMD5MAP_H
 
 #include "DB/MD5Map.h"
-#include "Connection.h"
 #include "QueryHelper.h"
 
 namespace SQLDB

@@ -30,7 +30,9 @@ SQLDB::SQLTagCategory::SQLTagCategory(QueryHelper* queryHelper,
 
 QString SQLDB::SQLTagCategory::name() const
 {
-    return _qh->categoryName(_categoryId);
+    if (!_name)
+        _name = _qh->categoryName(_categoryId);
+    return _name;
 }
 
 QString SQLDB::SQLTagCategory::iconName() const

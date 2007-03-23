@@ -61,6 +61,9 @@ namespace SQLDB {
         SQLTagCategory(QueryHelper* queryHelper, int categoryId);
         QueryHelper* _qh;
         int _categoryId;
+
+    private:
+        mutable QString _name;
     };
 }
 

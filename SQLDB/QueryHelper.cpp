@@ -134,11 +134,27 @@ QueryResult QueryHelper::executeQuery(const QString& query,
     //TODO: remove debug
     qDebug("Executing query: %s", q.local8Bit().data());
 
+#ifdef DEBUG_QUERY_TIMES
+    QTime t;
+    t.start();
+#endif
+
     KexiDB::Cursor* c = _connection->executeQuery(q);
     if (!c) {
         throw QueryError(_connection->recentSQLString(),
                          _connection->errorMsg());
     }
+
+#ifdef DEBUG_QUERY_TIMES
+    int te = t.elapsed();
+    if (te > 100) {
+        {
+            queryTimes.push_back(QPair<QString, uint>(q, te));
+        }
+    }
+    qDebug("Time elapsed: %d ms", te);
+#endif
+
     return QueryResult(c);
 }
 

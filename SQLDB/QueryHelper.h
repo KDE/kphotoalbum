@@ -145,6 +145,10 @@ public:
                                  DB::MediaType typemask=DB::anyMediaType,
                                  QValueList<int>* scope=0) const;
 
+#ifdef DEBUG_QUERY_TIMES
+    mutable QValueList<QPair<QString, uint> > queryTimes;
+#endif
+
 protected:
     QString sqlRepresentation(const QVariant& x) const;
     void bindValues(QString &s, const Bindings& b) const;

@@ -198,10 +198,32 @@ DB::MemberMap& SQLDB::Database::memberMap()
     return _members;
 }
 
-void SQLDB::Database::save( const QString& /*fileName*/, bool /*isAutoSave*/ )
+void SQLDB::Database::save(const QString& /*fileName*/, bool isAutoSave)
 {
     qDebug("NYI: void SQLDB::Database::save( const QString& fileName )" );
     _infoCollection.clearCache();
+
+#ifndef DEBUG_QUERY_TIMES
+    Q_UNUSED(isAutoSave)
+#else
+    if (isAutoSave)
+        return;
+
+    QStringList timeQueryList;
+
+    for (QValueList< QPair<QString, uint> >::const_iterator i =
+             _qh.queryTimes.begin(); i != _qh.queryTimes.end(); ++i) {
+        timeQueryList <<
+            QString::number((*i).second).rightJustify(8) +
+            QString::fromLatin1(" ") + (*i).first;
+    }
+
+    timeQueryList.sort();
+
+    for (QStringList::const_iterator i = timeQueryList.begin();
+         i != timeQueryList.end(); ++i)
+        qDebug("%s", (*i).local8Bit().data());
+#endif
 }
 
 DB::MD5Map* SQLDB::Database::md5Map()

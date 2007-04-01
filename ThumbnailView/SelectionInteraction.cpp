@@ -24,7 +24,7 @@
 #include <kurldrag.h>
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailWidget* view )
-    :_view( view ), _dragInProgress( false )
+    :_view( view ), _dragInProgress( false ), _dragSelectionInProgress( false )
 {
     _dragTimer = new QTimer( this );
     connect( _dragTimer, SIGNAL( timeout() ), this, SLOT( handleDragSelection() ) );
@@ -92,7 +92,8 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
         _view->updateCell( file );
     }
     else {
-        if ( deselectSelection( event ) && _view->_selectedFiles.contains( file ) ) {
+        if ( !_dragSelectionInProgress &&
+             deselectSelection( event ) && _view->_selectedFiles.contains( file ) ) {
             // Unselect everything but the file
             Set<QString> oldSelection = _view->_selectedFiles;
             oldSelection.remove( file );
@@ -106,12 +107,16 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
         }
     }
 
+    _dragSelectionInProgress = false;
+
     _dragTimer->stop();
 }
 
 
 void ThumbnailView::SelectionInteraction::handleDragSelection()
 {
+    _dragSelectionInProgress = true;
+
     Cell pos1;
     Cell pos2;
     calculateSelection( &pos1, &pos2 );

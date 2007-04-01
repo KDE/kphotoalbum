@@ -68,6 +68,7 @@ private:
     ThumbnailWidget* _view;
     QTimer* _dragTimer;
     bool _dragInProgress;
+    bool _dragSelectionInProgress;
 };
 
 }

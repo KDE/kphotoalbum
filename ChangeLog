@@ -1,3 +1,20 @@
+2007-04-01 Tuomas Suutari <thsuut@utu.fi>
+
+	* Selecting thumbnails with a mouse made more logical and fixed a
+	bug that sometimes prevented a selected thumbnail to be added into
+	internal selection list.
+
+2007-03-31 Tuomas Suutari <thsuut@utu.fi>
+
+	* Bugfix: In member group tab of the configuration dialog, when
+	changing category from the dropdown list, items from a different
+	category were sometimes added to members listbox.
+
+2007-02-28 Tuomas Suutari <thsuut@utu.fi>
+
+	* Bugfix: Selection was ignored in the first press of the Plugins
+	menu item, if plugin loading was delayed.
+
 2007-02-04  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 
 	* It is now possible to search for images with changed MD5 sum -

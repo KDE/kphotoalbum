@@ -655,7 +655,7 @@ void Settings::SettingsDialog::createGroupConfig()
              SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
              &_memberMap, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
     connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
-    connect( _groups, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
+    connect( _groups, SIGNAL( currentChanged( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
     connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
     connect( add, SIGNAL( clicked() ), this, SLOT( slotAddGroup() ) );
     connect( _del, SIGNAL( clicked() ), this, SLOT( slotDelGroup() ) );
@@ -679,12 +679,18 @@ void Settings::SettingsDialog::slotCategoryChanged( const QString& name, bool sa
         saveOldGroup();
     }
 
+    _groups->blockSignals(true);
     _groups->clear();
+    _groups->blockSignals(false);
+
     _currentCategory = name;
     if (name.isNull())
         return;
     QStringList groupList = _memberMap.groups( name );
+
+    _groups->blockSignals(true);
     _groups->insertStringList( groupList );
+    _groups->blockSignals(false);
 
     _members->clear();
     QStringList list = DB::ImageDB::instance()->categoryCollection()->categoryForName(name)->items();
@@ -698,12 +704,10 @@ void Settings::SettingsDialog::slotCategoryChanged( const QString& name, bool sa
     uniq.sort();
     _members->insertStringList( uniq );
 
-    if ( !groupList.isEmpty() ) {
-        _groups->setSelected( 0, true );
-        selectMembers( _groups->text(0) );
-    }
-    else
-        _currentGroup = QString::null;
+    _currentGroup = QString::null;
+
+    _members->clearSelection();
+    _members->setEnabled(false);
 
     setButtonStates();
 }
@@ -721,12 +725,12 @@ void Settings::SettingsDialog::slotAddGroup()
     QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), QString::null, &ok );
     if ( ok ) {
         saveOldGroup();
-        QListBoxItem* item = new QListBoxText( _groups, text );
-        _groups->setCurrentItem( item );
-        selectMembers( text );
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
-        _memberMap.setMembers(_currentCategory, text, QStringList() );
+        _memberMap.addGroup(_currentCategory, text);
         slotCategoryChanged( _currentCategory, false );
+        QListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
+        _groups->setCurrentItem( item ); // also emits currentChanged()
+        // selectMembers() is called automatically by slotGroupSelected()
     }
 }
 
@@ -734,14 +738,14 @@ void Settings::SettingsDialog::slotRenameGroup()
 {
     Q_ASSERT( !_currentGroup.isNull() );
     bool ok;
-    QListBoxItem* item = _groups->item( _groups->currentItem() );
-    QString currentValue = item->text();
-    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), currentValue, &ok );
+    QString text = KInputDialog::getText( i18n( "New Group" ), i18n("Group name:"), _currentGroup, &ok );
     if ( ok ) {
         saveOldGroup();
-        _memberMap.renameGroup( _currentCategory, currentValue, text );
-        DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( currentValue, text );
+        _memberMap.renameGroup( _currentCategory, _currentGroup, text );
+        DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( _currentGroup, text );
         slotCategoryChanged( _currentCategory, false );
+        QListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
+        _groups->setCurrentItem( item );
     }
 }
 
@@ -752,17 +756,10 @@ void Settings::SettingsDialog::slotDelGroup()
     if ( res == KMessageBox::Cancel )
         return;
 
-    saveOldGroup();
-
-    QListBoxItem* item = _groups->findItem( _currentGroup );
-    delete item;
-
     _memberMap.deleteGroup( _currentCategory, _currentGroup );
     DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->removeItem( _currentGroup );
-    _currentGroup = _groups->text(0);
+    _currentGroup = QString::null;
     slotCategoryChanged( _currentCategory, false );
-    selectMembers( _currentGroup );
-    setButtonStates();
 }
 
 void Settings::SettingsDialog::saveOldGroup()
@@ -781,27 +778,23 @@ void Settings::SettingsDialog::saveOldGroup()
 
 void Settings::SettingsDialog::selectMembers( const QString& group )
 {
-    if( _currentGroup == group )
-    {
-        return;
-    }
+    _currentGroup = group;
+
     QStringList list = _memberMap.members(_currentCategory,group, false );
 
-    if( !_currentGroup.isEmpty() && _members->findItem(_currentGroup,Qt::ExactMatch) == 0)
-    {
-        _members->insertItem(_currentGroup);
-        _members->sort();
-    }
-   _currentGroup = group;
     for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
-        QString currentText = item->text();
-        if(currentText == group )
-        {
-            _members->removeItem(_members->index(item));
-            continue;
+        if (item->text() == group) {
+            _members->setSelected(item, false);
+            item->setSelectable(false);
         }
-        _members->setSelected( item, list.contains( item->text() ) );
+        else {
+            item->setSelectable(true);
+            _members->setSelected(item, list.contains(item->text()));
+        }
     }
+
+    _members->setEnabled(true);
+
     setButtonStates();
 }
 

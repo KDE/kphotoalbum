@@ -51,21 +51,6 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 
   if( fullSize ) *fullSize = img->size();
 
-  if(orientation) {
-	QWMatrix M;
-	QWMatrix flip= QWMatrix(-1,0,0,1,0,0);
-	switch(orientation+1) {  // notice intentional fallthroughs
-	case 2: M = flip; break;
-	case 4: M = flip;
-	case 3: M.rotate(180); break;
-	case 5: M = flip;
-	case 6: M.rotate(90); break;
-	case 7: M = flip;
-	case 8: M.rotate(270); break;
-	default: break; // should never happen
-	}
-	*img = img->xForm(M);
-  }
   return true;
 }
 

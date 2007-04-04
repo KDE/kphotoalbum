@@ -1,3 +1,8 @@
+2007-04-04 Tuomas Suutari <thsuut@utu.fi>
+
+	* Apply Michael J Gruber's patch to fix rotating raw files (or
+	their thumbnails) twice.
+
 2007-04-01 Tuomas Suutari <thsuut@utu.fi>
 
 	* Selecting thumbnails with a mouse made more logical and fixed a

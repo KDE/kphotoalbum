@@ -294,9 +294,11 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
         int index = 10;
 
         for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+            if (!memberMap.canAddMemberToGroup(_category->name(), *it, item->text(0)))
+                continue;
             members->insertItem( *it, ++index );
             map.insert( index, *it );
-            members->setItemChecked( index, (bool) memberMap.members( _category->name(), *it, true ).contains( item->text(0) ) );
+            members->setItemChecked( index, (bool) memberMap.members( _category->name(), *it, false ).contains( item->text(0) ) );
         }
 
         if ( !grps.isEmpty() )

@@ -184,7 +184,7 @@ QString MonthViewHandler::text( int unit )
         printedLast = true;
     QString str;
     if ( !printedLast )
-        str=KGlobal::locale()->formatDate( date(unit).date(), true );
+        str=KGlobal::locale()->formatDate( date(unit).date(), KLocale::ShortDate );
     printedLast = !printedLast;
     lastunit = unit;
     return str;
@@ -215,7 +215,7 @@ bool WeekViewHandler::isMajorUnit( int unit )
 
 QString WeekViewHandler::text( int unit )
 {
-    return KGlobal::locale()->formatDate(date(unit).date(), true);
+    return KGlobal::locale()->formatDate(date(unit).date(), KLocale::ShortDate);
 }
 
 QDateTime WeekViewHandler::date(int unit, QDateTime reference )
@@ -256,7 +256,7 @@ bool DayViewHandler::isMidUnit( int unit )
 QString DayViewHandler::text( int unit )
 {
     if (  date(unit).time().hour() == 0 )
-        return KGlobal::locale()->formatDate(date(unit).date(), true);
+        return KGlobal::locale()->formatDate(date(unit).date(), KLocale::ShortDate);
     else
         return date(unit).toString( QString::fromLatin1( "h:00" ) );
 }

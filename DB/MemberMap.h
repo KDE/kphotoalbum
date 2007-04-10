@@ -46,10 +46,18 @@ public:
     virtual void renameCategory( const QString& oldName, const QString& newName );
 
     virtual void addGroup( const QString& category, const QString& group );
+    bool canAddMemberToGroup( const QString& category, const QString& group, const QString& item ) const
+    {
+        // If there already is a path from item to group then adding the
+        // item to group would create a cycle, which we don't want.
+        return !hasPath(category, item, group);
+    }
     virtual void addMemberToGroup( const QString& category, const QString& group, const QString& item );
     virtual void removeMemberFromGroup( const QString& category, const QString& group, const QString& item );
 
     virtual const QMap<QString, QMap<QString,StringSet> >& memberMap() const { return _members; }
+
+    virtual bool hasPath( const QString& category, const QString& from, const QString& to ) const;
 
 protected:
     void calculate() const;

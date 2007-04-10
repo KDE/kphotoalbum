@@ -1,3 +1,7 @@
+2007-04-05  Tuomas Suutari  <thsuut@utu.fi>
+
+	* Deny cycles in member group configuration.
+
 2007-04-04  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Apply Michael J Gruber's patch to fix rotating raw files (or

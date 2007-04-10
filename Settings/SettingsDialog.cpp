@@ -783,7 +783,7 @@ void Settings::SettingsDialog::selectMembers( const QString& group )
     QStringList list = _memberMap.members(_currentCategory,group, false );
 
     for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
-        if (item->text() == group) {
+        if (!_memberMap.canAddMemberToGroup(_currentCategory, group, item->text())) {
             _members->setSelected(item, false);
             item->setSelectable(false);
         }

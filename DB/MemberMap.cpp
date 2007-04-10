@@ -49,7 +49,7 @@ QStringList MemberMap::members( const QString& category, const QString& memberGr
 {
     if ( closure ) {
         if ( _dirty )
-            const_cast<MemberMap*>(this)->calculate();
+            calculate();
         return _closureMembers[category][memberGroup].toList();
     }
     else
@@ -58,7 +58,13 @@ QStringList MemberMap::members( const QString& category, const QString& memberGr
 
 void MemberMap::setMembers( const QString& category, const QString& memberGroup, const QStringList& members )
 {
-    _members[category][memberGroup] = members;
+    QStringList allowedMembers(members);
+
+    for (QStringList::const_iterator i = members.begin(); i != members.end(); ++i)
+        if (!canAddMemberToGroup(category, memberGroup, *i))
+            allowedMembers.remove(*i);
+
+    _members[category][memberGroup] = allowedMembers;
     _dirty = true;
     if ( !_loading )
         MainWindow::DirtyIndicator::markDirty();
@@ -141,6 +147,10 @@ void MemberMap::calculate() const
 
 void MemberMap::renameGroup( const QString& category, const QString& oldName, const QString& newName )
 {
+    // Don't allow overwriting to avoid creating cycles
+    if (_members[category].contains(newName))
+        return;
+
     _dirty = true;
     if ( !_loading )
         MainWindow::DirtyIndicator::markDirty();
@@ -176,6 +186,9 @@ void MemberMap::deleteItem( DB::Category* category, const QString& name)
 
 void MemberMap::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
 {
+    if (oldName == newName)
+        return;
+
     _dirty = true;
     if ( !_loading )
         MainWindow::DirtyIndicator::markDirty();
@@ -207,6 +220,9 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
 
 void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
 {
+    if (!canAddMemberToGroup(category, group, item))
+        return;
+
     if ( item.isNull() ) {
         qWarning( "Null item tried inserted into group %s", group.latin1());
         return;
@@ -238,8 +254,12 @@ void MemberMap::addGroup( const QString& category, const QString& group )
 
 void MemberMap::renameCategory( const QString& oldName, const QString& newName )
 {
+    if (oldName == newName)
+        return;
     _members[newName] = _members[oldName];
     _members.remove(oldName);
+    _closureMembers[newName] = _closureMembers[oldName];
+    _closureMembers.remove(oldName);
 }
 
 QMap<QString,QStringList> DB::MemberMap::inverseMap( const QString& category ) const
@@ -255,6 +275,18 @@ QMap<QString,QStringList> DB::MemberMap::inverseMap( const QString& category ) c
         }
     }
     return res;
+}
+
+bool DB::MemberMap::hasPath( const QString& category, const QString& from, const QString& to ) const
+{
+    if (from == to)
+        return true;
+    else {
+        // return members(category, from, true).contains(to);
+        if ( _dirty )
+            calculate();
+        return _closureMembers[category][from].contains(to);
+    }
 }
 
 void DB::MemberMap::setLoading( bool b )

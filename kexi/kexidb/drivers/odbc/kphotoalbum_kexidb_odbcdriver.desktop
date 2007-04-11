@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=ODBC
 Comment=Kexi Open Database Connectivity Driver
 Comment[ar]=سائق الربط الشبكي لقاعدة البيانات المفتوحة Kexi
+Comment[bg]=Приставка Kexi за свързване с ODBC
 Comment[ca]=Controlador de connectivitat de base de dades oberta pel Kexi
 Comment[da]=Kexi-drivere for åben databaseforbindelse
 Comment[de]="Open Database Connectivity"-Treiber von Kexi

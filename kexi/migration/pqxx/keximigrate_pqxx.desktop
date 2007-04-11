@@ -3,6 +3,7 @@ Encoding=UTF-8
 Name=PostgreSQL
 Comment=PostgreSQL Migration Driver for Kexi
 Comment[ar]=سائق النزوح PostgreSQL لِــ Kexi
+Comment[bg]=Приставка на Kexi за прехвърляне на данни с PostgreSQL
 Comment[ca]=Controlador de migració de PostgreSQL pel Kexi
 Comment[da]=PostgreSQL-overførselsdrivere for Kexi
 Comment[de]=PostgreSQL Migrationstreiber für Kexi

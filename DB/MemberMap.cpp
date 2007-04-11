@@ -281,6 +281,9 @@ bool DB::MemberMap::hasPath( const QString& category, const QString& from, const
 {
     if (from == to)
         return true;
+    else if (!_members[category].contains(from))
+        // Try to avoid calculate(), which is quite time consuming.
+        return false;
     else {
         // return members(category, from, true).contains(to);
         if ( _dirty )

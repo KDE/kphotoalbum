@@ -230,7 +230,16 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
 
 
     _members[category][group].insert( item );
-    _dirty = true;
+
+    if (!_dirty) {
+        // Update _closureMembers to avoid marking it dirty
+        _closureMembers[category][group].insert(item);
+        QMap<QString, StringSet>::const_iterator
+            closureOfItem = _closureMembers[category].find(item);
+        if (closureOfItem != _closureMembers[category].end())
+            _closureMembers[category][group] += *closureOfItem;
+    }
+
     if ( !_loading )
         MainWindow::DirtyIndicator::markDirty();
 }

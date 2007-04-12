@@ -57,7 +57,7 @@ QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map)
             queue.pop_front();
 
             if (calculated[x]) { // optimization
-                closure_i.insert(closure[x]);
+                closure_i += closure[x];
                 continue;
             }
 

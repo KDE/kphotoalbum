@@ -220,7 +220,8 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
 
 void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
 {
-    if (!canAddMemberToGroup(category, group, item))
+    // Only test for cycles after database is already loaded
+    if (!_loading && !canAddMemberToGroup(category, group, item))
         return;
 
     if ( item.isNull() ) {
@@ -231,7 +232,9 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
 
     _members[category][group].insert( item );
 
-    if (!_dirty) {
+    if (_loading)
+        _dirty = true;
+    else if (!_dirty) {
         // Update _closureMembers to avoid marking it dirty
 
         QMap<QString, StringSet>& categoryClosure = _closureMembers[category];
@@ -318,6 +321,9 @@ bool DB::MemberMap::hasPath( const QString& category, const QString& from, const
 
 void DB::MemberMap::setLoading( bool b )
 {
+    if (_loading && !b) {
+        // TODO: Remove possible loaded cycles.
+    }
     _loading = b;
 }
 

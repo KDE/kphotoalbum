@@ -55,7 +55,8 @@ bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1
 bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const QString& fileName );
 
-QStringList shuffle( const QStringList& list );
+template<class T>
+QValueList<T> shuffle(const QValueList<T>& list);
 
 typedef QMap<QString, QString> UniqNameMap;
 UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );

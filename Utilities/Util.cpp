@@ -33,6 +33,7 @@
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
 #include "X11/X.h"
+#include <algorithm>
 
 extern "C" {
 #define XMD_H // prevent INT32 clash from jpeglib
@@ -482,9 +483,9 @@ bool Utilities::isJPEG( const QString& fileName )
     return format == QString::fromLocal8Bit( "JPEG" );
 }
 
-QStringList Utilities::shuffle( const QStringList& input )
+template<class T>
+QValueList<T> Utilities::shuffle(const QValueList<T>& list)
 {
-    QStringList list = input;
     static bool init = false;
     if ( !init ) {
         QTime midnight( 0, 0, 0 );
@@ -492,15 +493,35 @@ QStringList Utilities::shuffle( const QStringList& input )
         init = true;
     }
 
-    QStringList result;
-
-    while ( list.count() != 0 ) {
-        int index = (int) ( (double)list.count()* rand()/((double)RAND_MAX) );
-        result.append( list[index] );
-        list.remove( list[index] );
+    // Take pointers from input list to an array for shuffling
+    uint N = list.size();
+    const T** deck = new const T*[N];
+    const T** p = deck;
+    for (QStringList::const_iterator i = list.begin();
+         i != list.end(); ++i) {
+        *p = &(*i);
+        ++p;
     }
+
+    // Shuffle the array of pointers
+    for (uint i = 0; i < N; i++) {
+        uint r = i + static_cast<uint>(static_cast<double>(N - i) * rand() /
+                                       static_cast<double>(RAND_MAX));
+        std::swap(deck[r], deck[i]);
+    }
+
+    // Create new list from the array
+    QValueList<T> result;
+    for (p = deck; p != deck + N; ++p)
+        result.push_back(**p);
+
+    delete[] deck;
+
     return result;
 }
+
+template
+QValueList<QString> Utilities::shuffle(const QValueList<QString>& list);
 
 /**
    Create a maping from original name with path to uniq name without:

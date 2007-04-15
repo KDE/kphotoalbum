@@ -1,3 +1,5 @@
+====================== KPhotoAlbum 3.0.2 ===================================
+
 2007-04-12  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Speed up member map loading by building member map closure on

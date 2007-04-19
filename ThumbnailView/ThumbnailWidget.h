@@ -54,7 +54,7 @@ public:
 
     enum Order { ViewOrder, SortedOrder };
     QStringList imageList( Order ) const;
-    void reload( bool flushCache );
+    void reload( bool flushCache, bool clearSelection=true );
     QString fileNameUnderCursor() const;
     QString currentItem() const;
     static ThumbnailWidget* theThumbnailView();

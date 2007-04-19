@@ -324,7 +324,7 @@ void AnnotationDialog::Dialog::slotOK()
     // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
     if ( anyChanges ) {
         MainWindow::DirtyIndicator::markDirty();
-        _thumbnailShouldReload = true;
+        _thumbnailTextShouldReload = true;
     }
 }
 
@@ -432,6 +432,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
     }
 
     _thumbnailShouldReload = false;
+    _thumbnailTextShouldReload = false;
 
     showHelpDialog( oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode );
     return exec();
@@ -729,6 +730,11 @@ void AnnotationDialog::Dialog::rotate( int angle )
 bool AnnotationDialog::Dialog::thumbnailShouldReload() const
 {
     return _thumbnailShouldReload;
+}
+
+bool AnnotationDialog::Dialog::thumbnailTextShouldReload() const
+{
+    return _thumbnailTextShouldReload;
 }
 
 void AnnotationDialog::Dialog::slotAddTimeInfo()

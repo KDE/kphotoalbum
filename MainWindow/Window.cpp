@@ -351,6 +351,8 @@ void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAt
     _annotationDialog->configure( list,  oneAtATime );
     if ( _annotationDialog->thumbnailShouldReload() )
         reloadThumbnails(true);
+    else if ( _annotationDialog->thumbnailTextShouldReload() )
+        _thumbnailView->reload(false, false);
 }
 
 

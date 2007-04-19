@@ -858,11 +858,12 @@ void ThumbnailView::ThumbnailWidget::selectAll()
     repaintScreen();
 }
 
-void ThumbnailView::ThumbnailWidget::reload(bool flushCache )
+void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection)
 {
     if ( flushCache )
         QPixmapCache::clear();
-    _selectedFiles.clear();
+    if ( clearSelection )
+        _selectedFiles.clear();
     updateCellSize();
     repaintScreen();
 }

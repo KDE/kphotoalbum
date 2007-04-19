@@ -58,6 +58,7 @@ public:
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;
+    bool thumbnailTextShouldReload() const;
     KActionCollection* actions();
 
 protected slots:
@@ -115,6 +116,7 @@ private:
     QValueList<KDockWidget*> _dockWidgets;
     QValueList<KDockWidget*> _tornOfWindows;
     bool _thumbnailShouldReload;
+    bool _thumbnailTextShouldReload;
 
     // Widgets
     KDockMainWindow* _dockWindow;

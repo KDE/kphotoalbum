@@ -483,6 +483,20 @@ bool Utilities::isJPEG( const QString& fileName )
     return format == QString::fromLocal8Bit( "JPEG" );
 }
 
+namespace
+{
+    template <class T>
+    class AutoArray
+    {
+    public:
+        AutoArray(uint size): _ptr(new T[size]) {}
+        operator T*() const { return _ptr; }
+        ~AutoArray() { delete[] _ptr; }
+    private:
+        T* _ptr;
+    };
+}
+
 template<class T>
 QValueList<T> Utilities::shuffle(const QValueList<T>& list)
 {
@@ -495,7 +509,7 @@ QValueList<T> Utilities::shuffle(const QValueList<T>& list)
 
     // Take pointers from input list to an array for shuffling
     uint N = list.size();
-    const T** deck = new const T*[N];
+    AutoArray<const T*> deck(N);
     const T** p = deck;
     for (QStringList::const_iterator i = list.begin();
          i != list.end(); ++i) {
@@ -512,10 +526,9 @@ QValueList<T> Utilities::shuffle(const QValueList<T>& list)
 
     // Create new list from the array
     QValueList<T> result;
-    for (p = deck; p != deck + N; ++p)
+    const T** const onePastLast = deck + N;
+    for (p = deck; p != onePastLast; ++p)
         result.push_back(**p);
-
-    delete[] deck;
 
     return result;
 }

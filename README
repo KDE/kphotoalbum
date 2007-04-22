@@ -1,23 +1,32 @@
 Installation Instructions
 =========================
-For instalation instructions see the INSTALL file.
-For a list of changes, see the ChangeLog file
+
+For installation instructions see the INSTALL file.  For a list of
+changes, see the ChangeLog file
 
 Home Page
 =========
-For information about KPhotoAlbum, see the home page at 
+
+For information about KPhotoAlbum, see the home page at
 http://www.kphotoalbum.org/
 
 Mailing List
 ============
+
 KPhotoAlbum has a mailing list at
-http://klaralvdalens-datakonsult.se/mailman/listinfo/KPhotoAlbum where you
-might find answers to common questions, plus get information about KPhotoAlbum
-development, plus of course ask questions.
+
+    http://klaralvdalens-datakonsult.se/mailman/listinfo/KPhotoAlbum 
+
+where you might find answers to common questions, plus get information
+about KPhotoAlbum development, plus of course ask questions.
 
 WIKI
 ====
-KPhotoAlbum has a wiki at http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum
+
+KPhotoAlbum has a wiki at
+
+    http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum
 
 Kind Regards
-Jesper Pedersen <blackie@kde.org>
+
+  Jesper Pedersen <blackie@kde.org>

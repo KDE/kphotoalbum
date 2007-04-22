@@ -1,3 +1,7 @@
+2007-04-14  Tuomas Suutari  <thsuut@utu.fi>
+
+	* Speed up shuffling of the images in random slideshow.
+
 2007-04-12  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Speed up member map loading by building member map closure on

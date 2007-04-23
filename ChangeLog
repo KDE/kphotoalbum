@@ -1,3 +1,8 @@
+2007-04-23  Shawn Willden <shawn@willden.org>
+
+	* Apply Henner Zeller's patch to disply correct size in image
+	viewier's info box.
+
 2007-04-14  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Speed up shuffling of the images in random slideshow.

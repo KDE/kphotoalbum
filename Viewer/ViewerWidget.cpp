@@ -92,6 +92,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 
     connect( _imageDisplay, SIGNAL( possibleChange() ), this, SLOT( updateCategoryConfig() ) );
+    connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
     connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ),
              this, SLOT( setCaptionWithDetail(const QString&) ) );
     createToolBar();
@@ -104,7 +105,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     // This must not be added to the layout, as it is standing on top of
     // the ImageDisplay
     _infoBox = new InfoBox( this );
-    _infoBox->setShown( Settings::SettingsData::instance()->showInfoBox() );
+    _infoBox->hide();
 
     setupContextMenu();
 
@@ -417,7 +418,6 @@ void Viewer::ViewerWidget::load()
     }
 
     setCaptionWithDetail( QString() );
-    updateInfoBox();
 
     // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
     for( QPtrList<KAction>::const_iterator it = _forwardActions.begin(); it != _forwardActions.end(); ++it )
@@ -656,7 +656,7 @@ bool Viewer::ViewerWidget::close( bool alsoDelete)
     return QWidget::close( alsoDelete );
 }
 
-DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo()
+DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
     return DB::ImageDB::instance()->info(_list[ _current]); // PENDING(blackie) can we postpone this lookup?
 }

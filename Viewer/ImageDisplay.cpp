@@ -183,6 +183,8 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
         _loadedImage = found->img;
         updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), found->img.size() );
         cropAndScale();
+        info->setSize( found->size );
+        emit imageReady();
     }
     else {
         requestImage( info );
@@ -406,6 +408,7 @@ void Viewer::ImageDisplay::pixmapLoaded( const QString& fileName, const QSize& i
 
         _loadedImage = img;
         cropAndScale();
+        emit imageReady();
     }
     else {
         if ( imgSize != size() )

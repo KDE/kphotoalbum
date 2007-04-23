@@ -54,10 +54,10 @@ public:
     void setShowFullScreen( bool on );
     void show( bool slideShow );
     KActionCollection* actions();
-    void updateInfoBox();
 
 public slots:
     virtual bool close(bool alsoDelete );
+    void updateInfoBox();
 
 protected:
     virtual void contextMenuEvent ( QContextMenuEvent * e );
@@ -81,7 +81,7 @@ protected:
     void createVideoActions();
     void changeSlideShowInterval( int delta );
 
-    DB::ImageInfoPtr currentInfo();
+    DB::ImageInfoPtr currentInfo() const;
     friend class InfoBox;
 
 private:

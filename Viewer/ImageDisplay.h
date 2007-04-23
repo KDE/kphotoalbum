@@ -79,6 +79,7 @@ protected slots:
 
 signals:
     void possibleChange();
+    void imageReady();
     void setCaptionInfo(const QString& info);
 
 protected:

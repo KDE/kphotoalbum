@@ -48,6 +48,18 @@ def main(argv):
 		me = 'kpaxml2mysql.py'
 		argv = [me]
 
+	print('*** Warning! ***\n'
+	      '\n'
+	      'This script was for testing purposes only and is outdated.\n'
+	      '\n'
+	      'Only purpose this is still in the source tree is that other\n'
+	      'developers can get parts of code from this.\n'
+	      '\n'
+	      'Use KPhotoAlbum\'s internal database conversion function\n'
+	      '(currently in Maintenance -> Convert backend) for conversion.\n'
+	      '\n'
+	      '****************\n\n')
+
 	# Parse command line parameters
 	if len(argv) < 3 or len(argv) > 5:
 		print('Usage: ' + me +

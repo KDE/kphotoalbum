@@ -1,4 +1,4 @@
-2007-04-23  Shawn Willden <shawn@willden.org>
+2007-04-23  Shawn Willden  <shawn@willden.org>
 
 	* Apply Henner Zeller's patch to disply correct size in image
 	viewer's info box.

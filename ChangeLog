@@ -1,3 +1,8 @@
+2007-04-29  Tuomas Suutari  <thsuut@utu.fi>
+
+	* Apply Henner Zeller's patch to show SizeAllCursor when pressing
+	info box with mouse.
+
 2007-04-23  Shawn Willden  <shawn@willden.org>
 
 	* Apply Henner Zeller's patch to disply correct size in image

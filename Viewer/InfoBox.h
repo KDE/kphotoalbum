@@ -35,15 +35,20 @@ public:
 
 protected slots:
     void jumpToContext();
+    void linkHovered(const QString&);
 
 protected:
     virtual void contentsMouseMoveEvent( QMouseEvent* );
+    virtual void contentsMousePressEvent( QMouseEvent* );
+    virtual void contentsMouseReleaseEvent( QMouseEvent* );
+
     void showBrowser();
 
 private:
     QMap<int, QPair<QString,QString> > _linkMap;
     ViewerWidget* _viewer;
     QToolButton* _jumpToContext;
+    bool _hoveringOverLink;
 };
 
 }

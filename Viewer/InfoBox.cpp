@@ -20,13 +20,14 @@
 #include "Browser/BrowserWidget.h"
 #include <qapplication.h>
 #include <qtoolbutton.h>
+#include <qcursor.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "MainWindow/Window.h"
 #include "DB/ImageInfo.h"
 
 Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer, const char* name )
-    :QTextBrowser( viewer, name ), _viewer( viewer )
+    :QTextBrowser( viewer, name ), _viewer( viewer ), _hoveringOverLink( false )
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
@@ -36,6 +37,8 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer, const char* name )
     _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Desktop, 16 ) );
     _jumpToContext->setFixedSize( 16, 16 );
     connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
+    connect( this, SIGNAL( highlighted(const QString&) ),
+             SLOT( linkHovered(const QString&) ));
 }
 
 void Viewer::InfoBox::setSource( const QString& which )
@@ -99,6 +102,22 @@ void Viewer::InfoBox::setSize()
 
 }
 
+void Viewer::InfoBox::contentsMousePressEvent( QMouseEvent* e )
+{
+    // if we are just over a link, don't change the cursor to 'movement':
+    // that would be irritating
+    if (!_hoveringOverLink)
+        viewport()->setCursor( Qt::SizeAllCursor );
+    QTextBrowser::contentsMousePressEvent(e);
+}
+
+void Viewer::InfoBox::contentsMouseReleaseEvent( QMouseEvent* e )
+{
+    if (!_hoveringOverLink)
+        viewport()->unsetCursor();
+    QTextBrowser::contentsMouseReleaseEvent(e);
+}
+
 void Viewer::InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
 {
     if ( e->state() & LeftButton ) {
@@ -107,6 +126,11 @@ void Viewer::InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
     }
     else
         QTextBrowser::contentsMouseMoveEvent( e );
+}
+
+void Viewer::InfoBox::linkHovered( const QString& linkName )
+{
+    _hoveringOverLink = !linkName.isNull();
 }
 
 void Viewer::InfoBox::jumpToContext()

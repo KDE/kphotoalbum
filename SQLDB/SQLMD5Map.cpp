@@ -27,16 +27,16 @@ SQLMD5Map::SQLMD5Map(QueryHelper& queryHelper):
 {
 }
 
-void SQLMD5Map::insert(const QString&, const QString&)
+void SQLMD5Map::insert(const DB::MD5&, const QString&)
 {
 }
 
-QString SQLMD5Map::lookup(const QString& md5sum)
+QString SQLMD5Map::lookup(const DB::MD5& md5sum)
 {
     return _qh.filenameForMD5Sum(md5sum);
 }
 
-bool SQLMD5Map::contains(const QString& md5sum)
+bool SQLMD5Map::contains(const DB::MD5& md5sum)
 {
     return _qh.containsMD5Sum(md5sum);
 }

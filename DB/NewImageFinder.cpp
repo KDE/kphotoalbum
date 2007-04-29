@@ -117,7 +117,7 @@ void NewImageFinder::loadExtraFiles()
 ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::MediaType type )
 {
     QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
-    QString sum = MD5Sum( absoluteNewFileName );
+    MD5 sum = MD5Sum( absoluteNewFileName );
     if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
         QString relativeMatchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
         QString absoluteMatchedFileName = Utilities::absoluteImageFileName( relativeMatchedFileName );
@@ -183,8 +183,8 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
                 return dirty;
             }
         }
-        QString md5 = MD5Sum( *it );
-        QString orig = info->MD5Sum();
+        MD5 md5 = MD5Sum( *it );
+        const MD5& orig = info->MD5Sum();
         info->setMD5Sum( md5 );
         if  ( orig != md5 ) {
             dirty = true;
@@ -198,18 +198,17 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
     return dirty;
 }
 
-QString NewImageFinder::MD5Sum( const QString& fileName )
+MD5 NewImageFinder::MD5Sum( const QString& fileName )
 {
     QFile file( fileName );
     if ( !file.open( IO_ReadOnly ) ) {
         if ( KMessageBox::warningContinueCancel( 0, i18n("Could not open %1").arg( fileName ) ) == KMessageBox::No )
-            return QString::null;
+            return MD5();
     }
 
     KMD5 md5calculator( 0 /* char* */);
     md5calculator.reset();
     md5calculator.update( file );
-    QString md5 = md5calculator.hexDigest();
-    return md5;
+    return MD5(md5calculator.hexDigest());
 }
 

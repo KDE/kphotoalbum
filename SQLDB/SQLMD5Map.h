@@ -30,9 +30,9 @@ namespace SQLDB
     public:
         explicit SQLMD5Map(QueryHelper& queryHelper);
 
-        void insert(const QString& md5sum, const QString& fileName);
-        QString lookup(const QString& md5sum);
-        bool contains(const QString& md5sum);
+        void insert(const DB::MD5& md5sum, const QString& fileName);
+        QString lookup(const DB::MD5& md5sum);
+        bool contains(const DB::MD5& md5sum);
         void clear();
 
     protected:

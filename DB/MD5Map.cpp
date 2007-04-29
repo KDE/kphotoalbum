@@ -20,17 +20,17 @@
 
 using namespace DB;
 
-void MD5Map::insert( const QString& md5sum, const QString& fileName )
+void MD5Map::insert( const MD5& md5sum, const QString& fileName )
 {
     _map.insert( md5sum, fileName );
 }
 
-QString MD5Map::lookup( const QString& md5sum ) const
+QString MD5Map::lookup( const MD5& md5sum ) const
 {
     return _map[md5sum];
 }
 
-bool MD5Map::contains( const QString& md5sum ) const
+bool MD5Map::contains( const MD5& md5sum ) const
 {
     return _map.contains( md5sum );
 }
@@ -44,7 +44,7 @@ StringSet DB::MD5Map::diff( const MD5Map& other ) const
 {
     StringSet res;
 
-    for( QMap<QString,QString>::ConstIterator it = _map.begin(); it != _map.end(); ++it ) {
+    for( QMap<MD5, QString>::ConstIterator it = _map.begin(); it != _map.end(); ++it ) {
         if ( other.lookup( it.key() ) != it.data() )
             res.insert( it.data() );
     }

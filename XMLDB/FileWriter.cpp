@@ -232,7 +232,7 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
     }
 
     elm.setAttribute( QString::fromLatin1("angle"),  info->angle() );
-    elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum() );
+    elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum().toHexString() );
     elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
 

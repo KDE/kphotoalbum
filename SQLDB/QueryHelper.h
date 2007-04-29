@@ -125,8 +125,8 @@ public:
     bool isBlocked(const QString& filename) const;
     void addBlockItems(const QStringList& filenames);
 
-    bool containsMD5Sum(const QString& md5sum) const;
-    QString filenameForMD5Sum(const QString& md5sum) const;
+    bool containsMD5Sum(const DB::MD5& md5sum) const;
+    QString filenameForMD5Sum(const DB::MD5& md5sum) const;
 
     void sortMediaItems(const QStringList& filenames);
     void moveMediaItems(const QStringList& filenames,

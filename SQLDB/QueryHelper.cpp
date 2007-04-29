@@ -430,7 +430,7 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
     info.delaySavingChanges(true);
 
     info.setFileName(makeFullName(row[0].toString(), row[1].toString()));
-    info.setMD5Sum(row[2].toString());
+    info.setMD5Sum(DB::MD5(row[2].toString()));
     info.setMediaType(static_cast<DB::MediaType>(row[3].toInt()));
     info.setLabel(row[4].toString());
     info.setDescription(row[5].toString());
@@ -623,9 +623,9 @@ QueryHelper::imageInfoToBindings(const DB::ImageInfo& info)
 {
     //Q_ASSERT(bindings.isEmpty());
 
-    QVariant md5 = info.MD5Sum();
-    if (md5.toString().isEmpty())
-        md5 = QVariant();
+    QVariant md5;
+    if (!info.MD5Sum().isNull())
+        md5 = info.MD5Sum().toHexString();
     QVariant w = info.size().width();
     if (w.toInt() == -1)
         w = QVariant();
@@ -899,18 +899,20 @@ void QueryHelper::changeCategoryViewType(int id, DB::Category::ViewType type)
                      Bindings() << type << id);
 }
 
-bool QueryHelper::containsMD5Sum(const QString& md5sum) const
+bool QueryHelper::containsMD5Sum(const DB::MD5& md5sum) const
 {
     return executeQuery("SELECT COUNT(*) FROM media WHERE md5sum=%s",
-                        Bindings() << md5sum).firstItem().toUInt() > 0;
+                        Bindings() << md5sum.toHexString()
+                        ).firstItem().toUInt() > 0;
 }
 
-QString QueryHelper::filenameForMD5Sum(const QString& md5sum) const
+QString QueryHelper::filenameForMD5Sum(const DB::MD5& md5sum) const
 {
     QValueList<QString[2]> rows =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
                      "WHERE dir.id=media.dirId AND media.md5sum=%s",
-                     Bindings() << md5sum).asString2List();
+                     Bindings() << md5sum.toHexString()
+                     ).asString2List();
     if (rows.isEmpty())
         return QString::null;
     else {

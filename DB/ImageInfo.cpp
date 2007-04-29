@@ -354,7 +354,7 @@ ImageInfo::ImageInfo( const QString& fileName,
                       const QString& description,
                       const ImageDate& date,
                       int angle,
-                      const QString& md5sum,
+                      const MD5& md5sum,
                       const QSize& size,
                       MediaType type )
 {

@@ -28,6 +28,7 @@
 #include <qimage.h>
 #include "DB/CategoryCollection.h"
 #include "Utilities/Set.h"
+#include "MD5.h"
 
 #define EXIFMODE_DATE          0x01
 #define EXIFMODE_ORIENTATION   0x02
@@ -60,7 +61,7 @@ public:
                const QString& description,
                const ImageDate& date,
                int angle,
-               const QString& md5sum,
+               const MD5& md5sum,
                const QSize& size,
                MediaType type);
     virtual ~ImageInfo() { saveChanges(); }
@@ -105,8 +106,8 @@ public:
 
     static bool imageOnDisk( const QString& fileName );
 
-    QString MD5Sum() const { return _md5sum; }
-    void setMD5Sum( const QString& sum ) { if (sum != _md5sum) _dirty = true; _md5sum = sum; saveChangesIfNotDelayed(); }
+    const MD5& MD5Sum() const { return _md5sum; }
+    void setMD5Sum( const MD5& sum ) { if (sum != _md5sum) _dirty = true; _md5sum = sum; saveChangesIfNotDelayed(); }
 
     void setLocked( bool );
     bool isLocked() const;
@@ -156,7 +157,7 @@ private:
     Viewer::DrawList _drawList;
     enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
     mutable OnDisk _imageOnDisk;
-    QString _md5sum;
+    MD5 _md5sum;
     bool _null;
     QSize _size;
     MediaType _type;

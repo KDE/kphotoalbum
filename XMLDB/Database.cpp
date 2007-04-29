@@ -411,7 +411,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     }
 
     int angle = elm.attribute( QString::fromLatin1("angle"), QString::fromLatin1("0") ).toInt();
-    QString md5sum = elm.attribute( QString::fromLatin1( "md5sum" ) );
+    DB::MD5 md5sum(elm.attribute( QString::fromLatin1( "md5sum" ) ));
 
     _anyImageWithEmptySize |= !elm.hasAttribute( QString::fromLatin1( "width" ) );
 

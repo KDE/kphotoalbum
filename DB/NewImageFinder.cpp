@@ -184,9 +184,8 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
             }
         }
         MD5 md5 = MD5Sum( *it );
-        const MD5& orig = info->MD5Sum();
-        info->setMD5Sum( md5 );
-        if  ( orig != md5 ) {
+        if  ( info->MD5Sum() != md5 ) {
+            info->setMD5Sum( md5 );
             dirty = true;
             Utilities::removeThumbNail( *it );
         }

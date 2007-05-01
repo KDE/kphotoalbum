@@ -51,14 +51,18 @@ public:
 
     bool operator==( const Set<TYPE>& other )
     {
+        if ( this->count() != other.count() )
+            return false;
+
         for( typename Set<TYPE>::Iterator it = this->begin(); it != this->end(); ++it ) {
             if ( ! other.contains( *it ) )
                 return false;
         }
 
-        // The other set has the same elements as this one have, so if the number of elements are the same then
-        // we can conclude the other set doesn't have any extra elements.
-        return (this->count() == other.count());
+        // The other set contains every element from this one and the
+        // number of elements is the same. We can conclude the sets
+        // are the same.
+        return true;
     }
 
     const Set<TYPE> operator+=( const Set<TYPE>& other )

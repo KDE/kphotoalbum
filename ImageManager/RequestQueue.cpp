@@ -18,12 +18,15 @@
 #include "RequestQueue.h"
 #include "ImageRequest.h"
 #include <qtimer.h>
+
 void ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
     for( QValueList<ImageRequest*>::ConstIterator pendingIt = _pendingRequests.begin();
          pendingIt != _pendingRequests.end(); ++pendingIt ) {
-        if ( *request == *(*pendingIt) )
+        if ( *request == *(*pendingIt) ) {
+            delete request;
             return;
+        }
     }
 
     if ( request->priority() )
@@ -58,15 +61,21 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
     for( Set<ImageRequest*>::Iterator it = _activeRequests.begin(); it != _activeRequests.end(); ) {
         ImageRequest* request = *it;
         ++it; // We need to increase it before removing the element.
-        if ( client == request->client() && ( action == StopAll || !request->priority() ) )
+        if ( client == request->client() && ( action == StopAll || !request->priority() ) ) {
             _activeRequests.remove( request );
+            // active requests are not deleted - they might already have been
+            // popNext()ed and are being processed. They will be deleted
+            // in Manger::customEvent().
+        }
     }
 
     for( QValueList<ImageRequest*>::Iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ) {
         ImageRequest* request = *it;
         ++it;
-        if ( request->client() == client && ( action == StopAll || !request->priority() ) )
+        if ( request->client() == client && ( action == StopAll || !request->priority() ) ) {
             _pendingRequests.remove( request );
+            delete request;
+        }
     }
 }
 

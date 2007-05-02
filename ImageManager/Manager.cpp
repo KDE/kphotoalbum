@@ -24,6 +24,18 @@
 
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
 
+// -- Manager --
+
+ImageManager::Manager* ImageManager::Manager::instance()
+{
+    if ( !_instance )  {
+        _instance = new Manager;
+        _instance->init();
+    }
+
+    return _instance;
+}
+
 /**
    This class is responsible for loading icons in a separate thread.
    I tried replacing this with KIO:PreviewJob, but it had a fwe drawbacks:
@@ -52,7 +64,6 @@ void ImageManager::Manager::load( ImageRequest* request )
 {
     if ( Utilities::isVideo( request->fileName() ) )
         loadVideo( request );
-
     else
         loadImage( request );
 }
@@ -65,14 +76,27 @@ void ImageManager::Manager::loadVideo( ImageRequest* request)
 void ImageManager::Manager::loadImage( ImageRequest* request )
 {
     QMutexLocker dummy( &_lock );
-    if ( _currentLoading && *_currentLoading == *request && _loadList.isRequestStillValid( request )) {
+    if ( _currentLoading && *_currentLoading == *request && _loadList.isRequestStillValid( _currentLoading )) {
         // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
         // at startup request the same image numerous time (likely from resize event).
+        Q_ASSERT (_currentLoading != request);
+        delete request;
+
         return; // We are currently loading it, calm down and wait please ;-)
     }
 
     _loadList.addRequest( request );
     _sleepers.wakeOne();
+}
+
+void ImageManager::Manager::stop( ImageClient* client, StopAction action )
+{
+    // remove from pending map.
+    _lock.lock();
+    _loadList.cancelRequests( client, action );
+    _lock.unlock();
+
+    VideoManager::instance().stop( client, action );
 }
 
 ImageManager::ImageRequest* ImageManager::Manager::next()
@@ -110,17 +134,20 @@ void ImageManager::Manager::customEvent( QCustomEvent* ev )
             fullSize = request->fullSize();
             angle = request->angle();
             loadedOK = request->loadedOK();
-
-            _loadList.removeRequest(request);
-            if ( _currentLoading == request )
-                _currentLoading = 0;
-            delete request;
         }
+
+        _loadList.removeRequest(request);
+        if ( _currentLoading == request )
+            _currentLoading = 0;
+        delete request;
+
         _lock.unlock();
         if ( client )
             client->pixmapLoaded( fileName, size, fullSize, angle, image, loadedOK );
     }
 }
+
+// -- ImageEvent --
 
 ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
     : QCustomEvent( 1001 ), _request( request ),  _image( image )
@@ -134,26 +161,6 @@ ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image
 ImageManager::ImageRequest* ImageManager::ImageEvent::loadInfo()
 {
     return _request;
-}
-
-ImageManager::Manager* ImageManager::Manager::instance()
-{
-    if ( !_instance )  {
-        _instance = new Manager;
-        _instance->init();
-    }
-
-    return _instance;
-}
-
-void ImageManager::Manager::stop( ImageClient* client, StopAction action )
-{
-    // remove from pending map.
-    _lock.lock();
-    _loadList.cancelRequests( client, action );
-    _lock.unlock();
-
-    VideoManager::instance().stop( client, action );
 }
 
 QImage ImageManager::ImageEvent::image()

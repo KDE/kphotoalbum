@@ -34,6 +34,7 @@ namespace ImageManager
 {
 
 class ImageClient;
+class ImageLoader;
 
 class ImageEvent :public QCustomEvent {
 public:
@@ -51,10 +52,13 @@ class Manager :public QObject {
     Q_OBJECT
 
 public:
-
-    void load( ImageRequest* request );
-    ImageRequest* next();
     static Manager* instance();
+
+    // Request to load an image. The Manager takes over the ownership of
+    // the request.
+    void load( ImageRequest* request );
+
+    // Stop loading all images requested by the given client.
     void stop( ImageClient*, StopAction action = StopAll );
 
 protected:
@@ -63,8 +67,12 @@ protected:
     void loadImage( ImageRequest* );
 
 private:
+    friend class ImageLoader;  // may call 'next()'
     Manager();
     void init();
+
+    ImageRequest* next();
+
     static Manager* _instance;
 
     RequestQueue _loadList;

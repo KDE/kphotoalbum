@@ -1,3 +1,8 @@
+2007-05-02  Tuomas Suutari  <thsuut@utu.fi>
+
+	* Apply Henner Zeller's patch to fix some ImageRequest memory
+	leaks.
+
 2007-04-29  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Apply Henner Zeller's patch to show SizeAllCursor when pressing

@@ -27,9 +27,7 @@ public:
     Set() {}
     Set( const QValueList<TYPE>& list )
     {
-        for( QValueListConstIterator<TYPE> it = list.begin(); it != list.end(); ++it ) {
-            insert( *it );
-        }
+        insert( list );
     }
 
     void insert( TYPE key )
@@ -49,12 +47,12 @@ public:
         return QMap<TYPE,TYPE>::keys();
     }
 
-    bool operator==( const Set<TYPE>& other )
+    bool operator==( const Set<TYPE>& other ) const
     {
         if ( this->count() != other.count() )
             return false;
 
-        for( typename Set<TYPE>::Iterator it = this->begin(); it != this->end(); ++it ) {
+        for( typename Set<TYPE>::ConstIterator it = this->begin(); it != this->end(); ++it ) {
             if ( ! other.contains( *it ) )
                 return false;
         }
@@ -79,7 +77,7 @@ public:
         return res+=( other );
     }
 
-    bool operator!=( const Set<TYPE>& other )
+    bool operator!=( const Set<TYPE>& other ) const
     {
         return !(operator==(other));
     }

@@ -100,21 +100,24 @@ private:
     QSpinBox* _autosave;
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;
-    QSpinBox* _previewSize;
-    QSpinBox* _thumbnailSize;
     QComboBox* _albumCategory;
-    QCheckBox* _displayLabels;
-    QCheckBox* _displayCategories;
     QCheckBox* _searchForImagesOnStartup;
     QCheckBox* _dontReadRawFilesWithOtherMatchingFile;
-    QSpinBox* _thumbnailCache;
-    QSpinBox* _autoShowThumbnailView;
     QSpinBox* _barWidth;
     QSpinBox* _barHeight;
     QSpinBox* _backupCount;
     QCheckBox* _compressBackup;
     QCheckBox* _compressedIndexXML;
     QCheckBox* _showSplashScreen;
+
+    // Thumbnail Page
+    QSpinBox* _previewSize;
+    QSpinBox* _thumbnailSize;
+    QCheckBox* _thumbnailDarkBackground;
+    QCheckBox* _displayLabels;
+    QCheckBox* _displayCategories;
+    QSpinBox* _autoShowThumbnailView;
+    QSpinBox* _thumbnailCache;
 
     // Categories page
     QListBox* _categories;

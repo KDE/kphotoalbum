@@ -45,6 +45,7 @@ namespace SQLDB { class DatabaseAddress; }
 #define sizeProperty(  group, prop, setFunction, defaultValue ) property__( QSize, group, prop, setFunction, defaultValue )
 #define stringProperty(  group, prop, setFunction, defaultValue ) property__( QString, group, prop, setFunction, defaultValue )
 #define stringSetProperty( group, prop, setFunction, defaultValue ) property__( Set<QString>, group, prop, setFunction, defaultValue )
+// Adding a new type? Don't forget to #undef these macros at the end.
 
 namespace DB
 {
@@ -94,6 +95,7 @@ public:
     boolProperty( Thumbnails, displayCategories, setDisplayCategories, false );
     intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
     boolProperty( Thumbnails, showNewestThumbnailFirst, setShowNewestFirst, false );
+    boolProperty( Thumbnails, thumbnailDarkBackground, setThumbnailDarkBackground, false );
 
     void setThumbnailCache( int value );
     int thumbnailCache() const;
@@ -224,6 +226,10 @@ private:
 
 #undef intProperty
 #undef boolProperty
+#undef colorProperty
+#undef sizeProperty
+#undef stringProperty
+#undef stringSetProperty
 #undef property__
 
 

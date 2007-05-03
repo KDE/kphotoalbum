@@ -419,8 +419,6 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
     // bottom line
     if ( row != numRows() -1 ) {
         p->drawLine( rect.left(), rect.bottom() -1, rect.right(), rect.bottom()-1 );
-        p->setPen( palette().active().light() );
-        p->drawLine( rect.left(), rect.bottom() -2, rect.right(), rect.bottom()-2 );
     }
 }
 
@@ -870,6 +868,14 @@ void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection
 
 void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
+    if ( Settings::SettingsData::instance()->thumbnailDarkBackground() ) {
+        setPaletteBackgroundColor( Qt::black );
+        setPaletteForegroundColor( Qt::white );
+    }
+    else {
+        unsetPalette();  // fallback to default.
+    }
+
     for ( int row = firstVisibleRow( PartlyVisible ); row <= lastVisibleRow( PartlyVisible ); ++row )
         for ( int col = 0; col < numCols(); ++col )
             QGridView::repaintCell( row, col );

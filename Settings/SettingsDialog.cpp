@@ -222,6 +222,11 @@ void Settings::SettingsDialog::createThumbNailPage()
     lay->addWidget( thumbnailSizeLabel, row, 0 );
     lay->addWidget( _thumbnailSize, row, 1 );
 
+    // Display dark background
+    ++row;
+    _thumbnailDarkBackground = new QCheckBox( i18n("Show thumbnails on dark background" ), top, "thumbnailDarkBackground");
+    lay->addMultiCellWidget( _thumbnailDarkBackground, row, row, 0, 1 );
+
     // Display Labels
     ++row;
     _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
@@ -265,6 +270,10 @@ void Settings::SettingsDialog::createThumbNailPage()
     QWhatsThis::add( thumbnailSizeLabel, txt );
     QWhatsThis::add( _thumbnailSize, txt );
 
+    txt = i18n("<p>The background color in the thumbnail view is "
+               "the systems' default background; by checking this option, "
+               "you can set it to be dark instead.</p>");
+    QWhatsThis::add( _thumbnailDarkBackground, txt );
 
     txt = i18n("<p>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view.</p>");
@@ -384,6 +393,7 @@ void Settings::SettingsDialog::show()
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
     _albumCategory->setCurrentText( cat->text() );
 
+    _thumbnailDarkBackground->setChecked( opt->thumbnailDarkBackground() );
     _displayLabels->setChecked( opt->displayLabels() );
     _displayCategories->setChecked( opt->displayCategories() );
     _viewImageSetup->setSize( opt->viewerSize() );
@@ -464,6 +474,7 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setHistogramSize( QSize( _barWidth->value(), _barHeight->value() ) );
 
     opt->setAlbumCategory( name );
+    opt->setThumbnailDarkBackground( _thumbnailDarkBackground->isChecked() );
     opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setDisplayCategories( _displayCategories->isChecked() );
     opt->setViewerSize( _viewImageSetup->size() );

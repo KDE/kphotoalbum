@@ -1,3 +1,8 @@
+2007-05-04  Tuomas Suutari  <thsuut@utu.fi>
+
+	* Apply Henner Zeller's patch to allow changing background color
+	of the thumbnail view black.
+
 2007-05-02  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Apply Henner Zeller's patch to fix some ImageRequest memory

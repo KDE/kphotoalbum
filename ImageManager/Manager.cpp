@@ -122,8 +122,8 @@ void ImageManager::Manager::customEvent( QCustomEvent* ev )
         QString fileName;
         QSize size;
         QSize fullSize;
-        int angle;
-        bool loadedOK;
+        int angle = 0;
+        bool loadedOK = false;
 
         _lock.lock();
         if ( _loadList.isRequestStillValid( request ) )  {

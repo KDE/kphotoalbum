@@ -100,13 +100,13 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
 {
     QString fileName = fileNameInCell( row, col );
     if ( !fileName.isNull() ) {
-        QPixmap* pix = QPixmapCache::find( fileNameInCell( row, col ) );
+        QPixmap* pix = QPixmapCache::find( fileName );
         if ( pix ) {
             QRect rect = iconGeometry( row, col );
             Q_ASSERT( !rect.isNull() );
             painter->drawPixmap( rect, *pix );
             if ( _selectedFiles.contains( fileName ) )
-                painter->fillRect( rect, QBrush( palette().active().highlight(), Dense4Pattern ) );
+                painter->fillRect( rect, QBrush( palette().active().highlight(), Dense6Pattern ) );
 
             rect = QRect( 0, 0, cellWidth(), cellHeight() );
             if ( _leftDrop == fileName )
@@ -409,7 +409,10 @@ void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
 void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, int col )
 {
     QRect rect = cellRect();
-    p->fillRect( rect, palette().active().base() );
+    if (_selectedFiles.contains(fileNameInCell(row, col)))
+        p->fillRect( rect, palette().active().highlight() );
+    else
+        p->fillRect( rect, palette().active().base() );
 
     p->setPen( palette().active().dark() );
     // left of frame

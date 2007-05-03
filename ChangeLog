@@ -1,5 +1,7 @@
 2007-05-04  Tuomas Suutari  <thsuut@utu.fi>
 
+	* Make selection more visible in thumbnail view.
+
 	* Apply Henner Zeller's patch to allow changing background color
 	of the thumbnail view black.
 

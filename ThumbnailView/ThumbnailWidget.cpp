@@ -105,8 +105,6 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
             QRect rect = iconGeometry( row, col );
             Q_ASSERT( !rect.isNull() );
             painter->drawPixmap( rect, *pix );
-            if ( _selectedFiles.contains( fileName ) )
-                painter->fillRect( rect, QBrush( palette().active().highlight(), Dense6Pattern ) );
 
             rect = QRect( 0, 0, cellWidth(), cellHeight() );
             if ( _leftDrop == fileName )

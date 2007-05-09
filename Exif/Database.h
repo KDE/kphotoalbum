@@ -65,6 +65,7 @@ protected:
 
 private:
     bool _isOpen;
+    bool _doUTF8Conversion;
     Database();
     void init();
     static Database* _instance;

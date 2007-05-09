@@ -19,6 +19,7 @@
 #undef QT_CAST_NO_ASCII
 #include "Exif/Database.h"
 #include <qsqldatabase.h>
+#include <qsqldriver.h>
 #include "Settings/SettingsData.h"
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
@@ -85,6 +86,11 @@ void Exif::Database::openDatabase()
         qWarning("Couldn't open db %s", _db->lastError().text().latin1());
     else
         _isOpen = true;
+
+    // If SQLite in Qt has Unicode feature, it will convert querys to
+    // UTF-8 automatically. Otherwise we should do the conversion to
+    // be able to store any Unicode character.
+    _doUTF8Conversion = !_db->driver()->hasFeature(QSqlDriver::Unicode);
 }
 
 bool Exif::Database::isOpen() const
@@ -129,7 +135,7 @@ void Exif::Database::remove( const QString& fileName )
         return;
 
     QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
-    query.bindValue( 0, fileName );
+    query.bindValue( 0, _doUTF8Conversion ? fileName.utf8() : fileName );
     if ( !query.exec() )
         showError( query );
 }
@@ -146,7 +152,7 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
-    query.bindValue(  0, filename );
+    query.bindValue(  0, _doUTF8Conversion ? filename.utf8() : filename );
     int i = 1;
     for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );
@@ -198,8 +204,12 @@ Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
         showError( query );
 
     else {
-        while ( query.next() )
-            result.insert( query.value(0).toString() );
+        if ( _doUTF8Conversion )
+            while ( query.next() )
+                result.insert( QString::fromUtf8( query.value(0).toCString() ) );
+        else
+            while ( query.next() )
+                result.insert( query.value(0).toString() );
     }
 
     return result;

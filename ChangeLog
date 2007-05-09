@@ -1,3 +1,8 @@
+2007-05-09  Tuomas Suutari  <thsuut@utu.fi>
+
+	* Store filenames in Exif database using UTF-8 encoding. Thanks
+	to Jan Kundrát for a patch.
+
 2007-05-04  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Make selection more visible in thumbnail view.

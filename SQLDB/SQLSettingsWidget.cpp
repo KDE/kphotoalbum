@@ -32,11 +32,8 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
-#include <kurlrequester.h>
-#include <klineedit.h>
 #include <kpushbutton.h>
 #include <kfiledialog.h>
-#include <kpassdlg.h>
 #include <klocale.h>
 #include <kexidb/drivermanager.h>
 #include <kexidb/connectiondata.h>

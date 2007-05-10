@@ -109,6 +109,15 @@ Settings::TimeStampTrust Settings::SettingsData::tTimeStamps() const
     return (TimeStampTrust) value(  STR("General"), STR("trustTimeStamps"), (int) Always );
 }
 
+void Settings::SettingsData::setThumbnailAspectRatio( Settings::ThumbnailAspectRatio aspect )
+{
+    setValue( STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) aspect);
+}
+Settings::ThumbnailAspectRatio Settings::SettingsData::thumbnailAspectRatio() const
+{
+    return (ThumbnailAspectRatio) value(  STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) Aspect_4_3);
+}
+
 void Settings::SettingsData::setViewerStandardSize(StandardViewSize v)
 {
     setValue( STR("Viewer"), STR("standardViewerSize"), (int) v );

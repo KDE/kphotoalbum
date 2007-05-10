@@ -1,7 +1,12 @@
+2007-05-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
+
+	* Make it possible to configure the aspect ratio in the thumbnail
+	viewer - thanks to Jan Kundrat
+
 2007-05-09  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Store filenames in Exif database using UTF-8 encoding. Thanks
-	to Jan Kundrát for a patch.
+	to Jan Kundrat for a patch.
 
 2007-05-04  Tuomas Suutari  <thsuut@utu.fi>
 

@@ -222,10 +222,32 @@ void Settings::SettingsDialog::createThumbNailPage()
     lay->addWidget( thumbnailSizeLabel, row, 0 );
     lay->addWidget( _thumbnailSize, row, 1 );
 
+    // Thumbnail aspect ratio
+    ++row;
+    QLabel* thumbnailAspectRatioLabel = new QLabel( i18n("Thumbnail table cells aspect ratio"), top, "thumbnailAspectRatioLabel");
+    _thumbnailAspectRatio = new KComboBox( top );
+    _thumbnailAspectRatio->insertStringList( QStringList() << i18n("1:1") << i18n("4:3")
+        << i18n("3:2") << i18n("16:9") << i18n("3:4") << i18n("2:3") << i18n("9:16"));
+    lay->addWidget( thumbnailAspectRatioLabel, row, 0 );
+    lay->addWidget( _thumbnailAspectRatio, row, 1 );
+
+    // Space around cells
+    ++row;
+    QLabel* thumbnailSpaceLabel = new QLabel( i18n("Space around cells"), top, "thumbnailSpaceLabel");
+    _thumbnailSpace = new QSpinBox( 0, 20, 1, top );
+    lay->addWidget( thumbnailSpaceLabel, row, 0 );
+    lay->addWidget( _thumbnailSpace, row, 1 );
+
     // Display dark background
     ++row;
     _thumbnailDarkBackground = new QCheckBox( i18n("Show thumbnails on dark background" ), top, "thumbnailDarkBackground");
     lay->addMultiCellWidget( _thumbnailDarkBackground, row, row, 0, 1 );
+
+    // Display grid lines in the thumbnail view
+    ++row;
+    _thumbnailDisplayGrid = new QCheckBox( i18n("Display grid around thumbnails" ),
+                                           top, "_thumbnailDisplayGrid");
+    lay->addMultiCellWidget( _thumbnailDisplayGrid, row, row, 0, 1 );
 
     // Display Labels
     ++row;
@@ -270,10 +292,20 @@ void Settings::SettingsDialog::createThumbNailPage()
     QWhatsThis::add( thumbnailSizeLabel, txt );
     QWhatsThis::add( _thumbnailSize, txt );
 
+    txt = i18n("<p>Choose what aspect ratio the cells holding thumbnails should have.</p>");
+    QWhatsThis::add( _thumbnailAspectRatio, txt );
+
+    txt = i18n("<p>How thick the cell padding should be.</p>");
+    QWhatsThis::add( thumbnailSpaceLabel, txt );
+
     txt = i18n("<p>The background color in the thumbnail view is "
                "the systems' default background; by checking this option, "
                "you can set it to be dark instead.</p>");
     QWhatsThis::add( _thumbnailDarkBackground, txt );
+
+    txt = i18n("<p>If you want to see grid around your thumbnail images, "
+               "select this option.</p>");
+    QWhatsThis::add( _thumbnailDisplayGrid, txt );
 
     txt = i18n("<p>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view.</p>");
@@ -394,6 +426,9 @@ void Settings::SettingsDialog::show()
     _albumCategory->setCurrentText( cat->text() );
 
     _thumbnailDarkBackground->setChecked( opt->thumbnailDarkBackground() );
+    _thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
+    _thumbnailAspectRatio->setCurrentItem( opt->thumbnailAspectRatio() );
+    _thumbnailSpace->setValue( opt->thumbnailSpace() );
     _displayLabels->setChecked( opt->displayLabels() );
     _displayCategories->setChecked( opt->displayCategories() );
     _viewImageSetup->setSize( opt->viewerSize() );
@@ -459,6 +494,7 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );
+    opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
@@ -475,6 +511,8 @@ void Settings::SettingsDialog::slotMyOK()
 
     opt->setAlbumCategory( name );
     opt->setThumbnailDarkBackground( _thumbnailDarkBackground->isChecked() );
+    opt->setThumbnailDisplayGrid( _thumbnailDisplayGrid->isChecked() );
+    opt->setThumbnailSpace( _thumbnailSpace->value() );
     opt->setDisplayLabels( _displayLabels->isChecked() );
     opt->setDisplayCategories( _displayCategories->isChecked() );
     opt->setViewerSize( _viewImageSetup->size() );

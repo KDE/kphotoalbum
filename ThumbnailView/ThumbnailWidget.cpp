@@ -114,9 +114,12 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
 
         }
         else {
-            int size = Settings::SettingsData::instance()->thumbSize();
+            QRect dimensions = cellDimensions();
             int angle = DB::ImageDB::instance()->info( fileName )->angle();
-            ThumbnailRequest* request = new ThumbnailRequest( fileName, QSize( size, size ), angle, this );
+            ThumbnailRequest* request = new ThumbnailRequest(
+                fileName, QSize( dimensions.width() - 2 * Settings::SettingsData::instance()->thumbnailSpace(),
+                                 dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace() ),
+                angle, this );
             request->setCache();
             ImageManager::Manager::instance()->load( request );
         }
@@ -130,8 +133,10 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
 {
     QString text, line;
 
-    int thumbnailSize = Settings::SettingsData::instance()->thumbSize();
-    int maxCharacters = thumbnailSize / QFontMetrics( font() ).maxWidth() * 2;
+    QRect dimensions = cellDimensions();
+    int thumbnailHeight = dimensions.height() - 2 * Settings::SettingsData::instance()->thumbnailSpace();
+    int thumbnailWidth = dimensions.width(); // no substracting here
+    int maxCharacters = thumbnailHeight / QFontMetrics( font() ).maxWidth() * 2;
 
     if ( Settings::SettingsData::instance()->displayLabels()) {
         text += DB::ImageDB::instance()->info( fileName )->label();;
@@ -156,7 +161,7 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
                             line += QString::fromLatin1( ", " );
                         line += item;
                     }
-                    if ( QFontMetrics( font() ).width( line ) > thumbnailSize ) {
+                    if ( QFontMetrics( font() ).width( line ) > thumbnailWidth ) {
                         line = line.left( maxCharacters );
                         line += QString::fromLatin1( " ..." );
                     }
@@ -250,6 +255,40 @@ QString ThumbnailView::ThumbnailWidget::fileNameAtCoordinate( const QPoint& coor
 }
 
 /**
+ * Return desired size of the whole cell
+ */
+QRect ThumbnailView::ThumbnailWidget::cellDimensions() const
+{
+    int width = Settings::SettingsData::instance()->thumbSize();
+    int height = width;
+
+    switch (Settings::SettingsData::instance()->thumbnailAspectRatio()) {
+        case Settings::Aspect_16_9:
+	    height = (int) (height * 9.0 / 16);
+	    break;
+        case Settings::Aspect_4_3:
+	    height = (int) (height * 3.0 / 4);
+	    break;
+        case Settings::Aspect_3_2:
+	    height = (int) (height * 2.0 / 3);
+	    break;
+        case Settings::Aspect_9_16:
+	    width = (int) (width * 9.0 / 16);
+	    break;
+        case Settings::Aspect_3_4:
+	    width = (int) (width * 3.0 / 4);
+	    break;
+        case Settings::Aspect_2_3:
+	    width = (int) (width * 2.0 / 3);
+	    break;
+	case Settings::Aspect_1_1:
+	    // nothing
+	    ;
+    }
+    return QRect(0, 0, width, height);
+}
+
+/**
  * Return the geometry for the icon in the cell (row,col). The returned coordinates are local to the cell.
  */
 QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
@@ -258,15 +297,18 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
     if ( fileName.isNull() ) // empty cell
         return QRect();
 
-    int size = Settings::SettingsData::instance()->thumbSize() + SPACE;
+    QRect dimensions = cellDimensions();
+    const int space = Settings::SettingsData::instance()->thumbnailSpace();
+    int width = dimensions.width() - 2 * space;
+    int height = dimensions.height() - 2 * space;
+
     QPixmap* pix = QPixmapCache::find( fileName );
     if ( !pix )
-        return QRect( SPACE, SPACE, size, size );
+        return QRect( space, space, width, height );
 
-    int xoff = 1 + (size - pix->width())/2; // 1 is for the border at the left
-    int yoff = (size - pix->height() );
-    if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories())
-        yoff /= 2; // we wil center the images if we do not show the label, otherwise we will align it to the bottom
+    int xoff = space + (width - pix->width()) / 2;
+    int yoff = space + (height - pix->height()) / 2;
+
     return QRect( xoff, yoff, pix->width(), pix->height() );
 }
 
@@ -412,14 +454,17 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
     else
         p->fillRect( rect, palette().active().base() );
 
-    p->setPen( palette().active().dark() );
-    // left of frame
-    if ( col != 0 )
-        p->drawLine( rect.left(), rect.top(), rect.left(), rect.bottom() );
+    if (_mouseHandler->isResizingGrid() ||
+        Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
+        p->setPen( palette().active().dark() );
+        // left of frame
+        if ( col != 0 )
+            p->drawLine( rect.left(), rect.top(), rect.left(), rect.bottom() );
 
-    // bottom line
-    if ( row != numRows() -1 ) {
-        p->drawLine( rect.left(), rect.bottom() -1, rect.right(), rect.bottom()-1 );
+        // bottom line
+        if ( row != numRows() -1 ) {
+            p->drawLine( rect.left(), rect.bottom() -1, rect.right(), rect.bottom()-1 );
+        }
     }
 }
 
@@ -590,7 +635,8 @@ int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
 
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
-    if (event->button() & MidButton )
+    if ( (event->button() & MidButton) ||
+         ((event->state() & Qt::ControlButton) && (event->state() & Qt::ShiftButton)) )
         _mouseHandler = &_gridResizeInteraction;
     else
         _mouseHandler = &_selectionInteraction;
@@ -1069,11 +1115,11 @@ QValueVector<QString> ThumbnailView::ThumbnailWidget::reverseVector( const QValu
 
 void ThumbnailView::ThumbnailWidget::updateCellSize()
 {
-    int size = Settings::SettingsData::instance()->thumbSize() + SPACE;
-    setCellWidth( size );
+    QRect dimensions = cellDimensions();
+    setCellWidth( dimensions.width() );
 
     const int oldHeight = cellHeight();
-    const int height = size +2 + textHeight( true );
+    const int height = dimensions.height() + 2 + textHeight( true );
     setCellHeight( height );
     updateGridSize();
     if ( height != oldHeight && ! _currentItem.isNull() ) {

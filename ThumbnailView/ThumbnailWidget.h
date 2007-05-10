@@ -41,8 +41,6 @@ enum SortDirection {NewestFirst, OldestFirst};
 class ThumbnailWidget : public QGridView, public ImageManager::ImageClient {
     Q_OBJECT
 
-    static const int SPACE = 3;
-
 public:
     ThumbnailWidget( QWidget* parent, const char* name = 0 );
     void setImageList( const QStringList& list );
@@ -97,6 +95,7 @@ protected:
     int lastVisibleRow( VisibleState ) const;
     int numRowsPerPage() const;
     QRect iconGeometry( int row, int col ) const;
+    QRect cellDimensions() const;
     int noOfCategoriesForImage( const QString& image ) const;
     int textHeight( bool reCalc ) const;
     QRect cellTextGeometry( int row, int col ) const;

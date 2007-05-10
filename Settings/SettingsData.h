@@ -66,6 +66,15 @@ namespace Settings
         NaturalSize = 1,
         NaturalSizeIfFits = 2
     };
+    enum ThumbnailAspectRatio {
+    	Aspect_1_1 = 0,
+	Aspect_4_3 = 1,
+	Aspect_3_2 = 2,
+	Aspect_16_9 = 3,
+	Aspect_3_4 = 4,
+	Aspect_2_3 = 5,
+	Aspect_9_16 = 6
+    };
     enum WindowType { MainWindow = 0, ConfigWindow = 1 };
 
 class SettingsData :public QObject {
@@ -95,7 +104,9 @@ public:
     boolProperty( Thumbnails, displayCategories, setDisplayCategories, false );
     intProperty( Thumbnails, autoShowThumbnailView, setAutoShowThumbnailView, 0 );
     boolProperty( Thumbnails, showNewestThumbnailFirst, setShowNewestFirst, false );
-    boolProperty( Thumbnails, thumbnailDarkBackground, setThumbnailDarkBackground, false );
+    boolProperty( Thumbnails, thumbnailDarkBackground, setThumbnailDarkBackground, true );
+    boolProperty( Thumbnails, thumbnailDisplayGrid, setThumbnailDisplayGrid, false );
+    intProperty( Thumbnails, thumbnailSpace, setThumbnailSpace, 1);
 
     void setThumbnailCache( int value );
     int thumbnailCache() const;
@@ -166,6 +177,9 @@ public:
     bool trustTimeStamps();
     void setTTimeStamps( TimeStampTrust );
     TimeStampTrust tTimeStamps() const;
+
+    void setThumbnailAspectRatio(ThumbnailAspectRatio);
+    ThumbnailAspectRatio thumbnailAspectRatio() const;
 
     QString imageDirectory() const;
 

@@ -116,8 +116,11 @@ private:
     QCheckBox* _thumbnailDarkBackground;
     QCheckBox* _displayLabels;
     QCheckBox* _displayCategories;
+    QCheckBox* _thumbnailDisplayGrid;
     QSpinBox* _autoShowThumbnailView;
     QSpinBox* _thumbnailCache;
+    KComboBox* _thumbnailAspectRatio;
+    QSpinBox* _thumbnailSpace;
 
     // Categories page
     QListBox* _categories;

@@ -636,7 +636,7 @@ int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
     if ( (event->button() & MidButton) ||
-         ((event->state() & Qt::ControlButton) && (event->state() & Qt::ShiftButton)) )
+         ((event->state() & Qt::ControlButton) && (event->state() & Qt::AltButton)) )
         _mouseHandler = &_gridResizeInteraction;
     else
         _mouseHandler = &_selectionInteraction;

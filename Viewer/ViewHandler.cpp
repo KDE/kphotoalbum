@@ -38,23 +38,30 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     _scale = false;
 
     if ( (e->button() & Qt::LeftButton ) ) {
-        // scaling
-        _scale = true;
-        _start = e->pos();
-        return true;
+        if ( (e->state() & Qt::ControlButton ) ) {
+            _pan = true;
+        } else {
+            _scale = true;
+        }
+    }
+    else if ( e->button() & Qt::MidButton ) {
+        _pan = true;
     }
 
-    else if ( e->button() & Qt::MidButton ) {
-        // panning
-        _pan = true;
+    if (_pan) {
+         // panning
         _last = unTranslatedPos;
         qApp->setOverrideCursor( SizeAllCursor  );
         _errorX = 0;
         _errorY = 0;
+        return true;       
+    } else if (_scale) {
+        // scaling
+        _start = e->pos();
+        return true;
+    } else {
         return true;
     }
-    else
-        return true;
 }
 
 bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )

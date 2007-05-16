@@ -84,7 +84,8 @@ void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event )
 {
     QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
-    if ( event->state() & ControlButton ) { // toggle selection of file
+    if ( (event->state() & ControlButton) &&
+         !(event->state() & ShiftButton) ) { // toggle selection of file
         if ( _view->_selectedFiles.contains( file ) && (event->button() & LeftButton) )
             _view->_selectedFiles.remove( file);
         else

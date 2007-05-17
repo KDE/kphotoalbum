@@ -105,11 +105,13 @@ protected:
 
     // event handlers
     virtual void keyPressEvent( QKeyEvent* );
+    virtual void keyReleaseEvent( QKeyEvent* );
     virtual void showEvent( QShowEvent* );
     virtual void mousePressEvent( QMouseEvent* );
     virtual void mouseMoveEvent( QMouseEvent* );
     virtual void mouseReleaseEvent( QMouseEvent* );
     virtual void mouseDoubleClickEvent ( QMouseEvent* );
+    virtual void wheelEvent( QWheelEvent* );
     virtual void resizeEvent( QResizeEvent* );
     void keyboardMoveEvent( QKeyEvent* );
     virtual void dimensionChange ( int oldNumRows, int oldNumCols );
@@ -188,6 +190,7 @@ private:
     ThumbnailToolTip* _toolTip;
 
     GridResizeInteraction _gridResizeInteraction;
+    bool _wheelResizing;
     SelectionInteraction _selectionInteraction;
     MouseTrackingInteraction _mouseTrackingHandler;
     MouseInteraction* _mouseHandler;

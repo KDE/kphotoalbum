@@ -51,6 +51,7 @@ ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailWidget::_instance = 0;
 ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent, const char* name )
     :QGridView( parent, name ),
      _gridResizeInteraction( this ),
+     _wheelResizing( false ),
      _selectionInteraction( this ),
      _mouseTrackingHandler( this ),
      _mouseHandler( &_mouseTrackingHandler ),
@@ -85,7 +86,7 @@ void ThumbnailView::ThumbnailWidget::paintCell( QPainter * p, int row, int col )
     QPixmap doubleBuffer( cellRect().size() );
     QPainter painter( &doubleBuffer );
     paintCellBackground( &painter, row, col );
-    if ( !_mouseHandler->isResizingGrid() ) {
+    if ( !_mouseHandler->isResizingGrid() && !_wheelResizing ) {
         paintCellPixmap( &painter, row, col );
         paintCellText( &painter, row, col );
     }
@@ -454,7 +455,7 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
     else
         p->fillRect( rect, palette().active().base() );
 
-    if (_mouseHandler->isResizingGrid() ||
+    if (_mouseHandler->isResizingGrid() || _wheelResizing ||
         Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
         p->setPen( palette().active().dark() );
         // left of frame
@@ -506,6 +507,16 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
         toggleSelection( _currentItem );
 
     possibleEmitSelectionChanged();
+}
+
+void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
+{
+    if ( _wheelResizing && event->key() == Qt::Key_Control ) {
+        _wheelResizing = false;
+        repaintScreen();
+    }
+    else
+        QGridView::keyReleaseEvent(event);
 }
 
 void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
@@ -664,6 +675,22 @@ void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event 
     }
 }
 
+void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
+{
+    if ( event->state() & ControlButton ) {
+        event->accept();
+
+        _wheelResizing = true;
+
+        int delta = event->delta() / 20;
+
+        Settings::SettingsData::instance()->setThumbSize( QMAX( 32, cellWidth() + delta ) );
+
+        updateCellSize();
+    }
+    else
+        QGridView::wheelEvent(event);
+}
 
 
 void ThumbnailView::ThumbnailWidget::emitDateChange( int x, int y )

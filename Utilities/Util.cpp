@@ -715,6 +715,7 @@ bool Utilities::isVideo( const QString& fileName )
         videoExtensions.insert( QString::fromLatin1( "wmv" ) );
         videoExtensions.insert( QString::fromLatin1( "ogm" ) );
         videoExtensions.insert( QString::fromLatin1( "rm" ) );
+        videoExtensions.insert( QString::fromLatin1( "flv" ) );
     }
 
     QFileInfo fi( fileName );

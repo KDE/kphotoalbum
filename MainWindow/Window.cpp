@@ -458,10 +458,25 @@ void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 
 void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slideShow, bool random )
 {
+    int seek = -1;
     if ( files.count() == 0 ) {
         QMessageBox::warning( MainWindow::Window::theMainWindow(), i18n("No Images or Videos to Display"),
                               i18n("None of the selected images or videos were available on disk.") );
         return;
+    } else if ( files.count() == 1 ) {
+        // we fake it so it appears the user has selected all images
+        // and magically scrolls to the originally selected one
+        const QString fileName = ((const QStringList&)files).first();
+        files = DB::ImageDB::instance()->currentScope(  true );
+        int index = 0;
+
+        for( QStringList::const_iterator it = files.constBegin(); it != files.constEnd(); ++it, ++index ) {
+            if ( *it == fileName ) {
+                seek = index;
+                break;
+            }
+        }
+
     }
 
     if (random)
@@ -478,6 +493,9 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
 
     viewer->show( slideShow );
     viewer->load( files );
+    if (seek != -1) {
+        viewer->seekTo( seek );
+    }
     viewer->raise();
 }
 

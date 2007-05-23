@@ -443,15 +443,6 @@ void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
     e->accept();
 }
 
-void Viewer::ViewerWidget::seekTo(int position)
-{
-    if ( ( position < (int) _list.count() ) && ( position >= 0 ) ) {
-        save();
-	_current = position;
-	load();
-    }
-}
-
 void Viewer::ViewerWidget::showNextN(int n)
 {
     save();

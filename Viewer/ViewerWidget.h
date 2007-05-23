@@ -53,7 +53,6 @@ public:
     bool showingFullScreen() const;
     void setShowFullScreen( bool on );
     void show( bool slideShow );
-    void seekTo( int position );
     KActionCollection* actions();
 
 public slots:

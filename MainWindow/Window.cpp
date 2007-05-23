@@ -468,15 +468,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         // and magically scrolls to the originally selected one
         const QString fileName = ((const QStringList&)files).first();
         files = DB::ImageDB::instance()->currentScope(  true );
-        int index = 0;
-
-        for( QStringList::const_iterator it = files.constBegin(); it != files.constEnd(); ++it, ++index ) {
-            if ( *it == fileName ) {
-                seek = index;
-                break;
-            }
-        }
-
+        seek = files.findIndex(fileName);
     }
 
     if (random)
@@ -492,10 +484,9 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         viewer = new Viewer::ViewerWidget( "viewer" );
 
     viewer->show( slideShow );
-    viewer->load( files );
-    if (seek != -1) {
-        viewer->seekTo( seek );
-    }
+    if (seek == -1)
+        seek = 0;
+    viewer->load( files, seek );
     viewer->raise();
 }
 

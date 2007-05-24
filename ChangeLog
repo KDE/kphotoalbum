@@ -1,15 +1,17 @@
 2007-05-23  Jan Kundrat <jkt@gentoo.org>
+
 	* Make "show this image" fast again.
 
 2007-05-19  Jan Kundrat <jkt@gentoo.org>
+
 	* Recognize .flv and .erf files -- Fixes bugs 145366 and 141877.
 
 2007-05-19  Jan Kundrat <jkt@gentoo.org>
+
 	* Make "show this image" load all images in current view, thus making
 	pressing Ctrl+A optional.  Thanks to Shawn Willden for nice comments
 	and Baptiste Mathus for review.
 	Fixes bug 145309.
-
 
 2007-05-10  Jesper K. Pedersen  <blackie@klaralvdalens-datakonsult.se>
 

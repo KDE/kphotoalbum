@@ -146,7 +146,7 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
 
     if ( Settings::SettingsData::instance()->displayCategories()) {
         QStringList grps = DB::ImageDB::instance()->info( fileName )->availableCategories();
-        for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+        for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
             QString category = *it;
             if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
                 StringSet items = DB::ImageDB::instance()->info( fileName )->itemsOfCategory( category );
@@ -154,7 +154,7 @@ QString ThumbnailView::ThumbnailWidget::thumbnailText( const QString& fileName )
                     line = QString::fromLatin1( "%1: " )
                            .arg( category );
                     bool first = true;
-                    for( StringSet::Iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
+                    for( StringSet::const_iterator it2 = items.constBegin(); it2 != items.constEnd(); ++it2 ) {
                         QString item = *it2;
                         if ( first )
                             first = false;
@@ -320,7 +320,7 @@ int ThumbnailView::ThumbnailWidget::noOfCategoriesForImage(const QString& image 
 {
     int catsInText = 0;
     QStringList grps = DB::ImageDB::instance()->info( image )->availableCategories();
-    for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
+    for( QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it ) {
         QString category = *it;
         if ( category != QString::fromLatin1( "Folder" ) && category != QString::fromLatin1( "Media Type" ) ) {
             StringSet items = DB::ImageDB::instance()->info( image )->itemsOfCategory( category );
@@ -476,7 +476,7 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
         bool mustRemoveToken = false;
         bool hadHit          = false;
 
-        for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
+        for( Set<QString>::const_iterator it = _selectedFiles.constBegin(); it != _selectedFiles.constEnd(); ++it ) {
             if ( ! hadHit ) {
                 mustRemoveToken = DB::ImageDB::instance()->info( *it )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
                 hadHit = true;
@@ -625,12 +625,12 @@ void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell&
 
     selectAllCellsBetween( start, end, false );
 
-    for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+    for( Set<QString>::const_iterator it = oldSelection.constBegin(); it != oldSelection.constEnd(); ++it ) {
         if ( !_selectedFiles.contains( *it ) )
             updateCell( *it );
     }
 
-    for( Set<QString>::Iterator it = _selectedFiles.begin(); it != _selectedFiles.end(); ++it ) {
+    for( Set<QString>::const_iterator it = _selectedFiles.constBegin(); it != _selectedFiles.constEnd(); ++it ) {
         if ( !oldSelection.contains( *it ) )
             updateCell( *it );
     }
@@ -842,7 +842,7 @@ void ThumbnailView::ThumbnailWidget::clearSelection()
 {
     Set<QString> oldSelection = _selectedFiles;
     _selectedFiles.clear();
-    for( Set<QString>::Iterator fileIt = oldSelection.begin(); fileIt != oldSelection.end(); ++fileIt ) {
+    for( Set<QString>::const_iterator fileIt = oldSelection.constBegin(); fileIt != oldSelection.constEnd(); ++fileIt ) {
         updateCell( *fileIt );
     }
 }
@@ -1089,7 +1089,7 @@ void ThumbnailView::ThumbnailWidget::slotRepaint()
     if ( (int) _pendingRepaint.count() > numCols() * numRowsPerPage() / 2 )
         repaintScreen();
     else {
-        for( Set<QString>::Iterator it = _pendingRepaint.begin(); it != _pendingRepaint.end(); ++it ) {
+        for( Set<QString>::const_iterator it = _pendingRepaint.constBegin(); it != _pendingRepaint.constEnd(); ++it ) {
             Cell cell = positionForFileName( *it );
             QGridView::repaintCell( cell.row(), cell.col() );
         }

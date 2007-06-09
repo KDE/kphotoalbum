@@ -1,3 +1,8 @@
+2007-06-10  Jan Kundrat <jkt@gentoo.org>
+
+	* Allow re-using of tags from the previously tagged image in the
+	annotation dialog (first part of bug #145158)
+
 2007-05-23  Jan Kundrat <jkt@gentoo.org>
 
 	* Make "show this image" fast again.

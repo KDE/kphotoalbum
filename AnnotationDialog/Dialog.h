@@ -80,6 +80,7 @@ protected slots:
     void slotDeleteImage();
     void slotResetLayout();
     void slotStartDateChanged( const DB::ImageDate& );
+    void slotCopyPrevious();
 
 protected:
     void load();
@@ -132,6 +133,7 @@ private:
     QPushButton* _rotateLeft;
     QPushButton* _rotateRight;
     QPushButton* _delBut;
+    QPushButton* _copyPreviousBut;
     Editor* _description;
     KTimeWidget* _time;
     QPushButton* _addTime;

@@ -159,6 +159,12 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     _rotateRight->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
     _rotateRight->setFixedWidth( 40 );
 
+    _copyPreviousBut = new QPushButton( top2 );
+    lay6->addWidget( _copyPreviousBut );
+    _copyPreviousBut->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "legalmoves" ), KIcon::Desktop, 22 ) );
+    _copyPreviousBut->setFixedWidth( 40 );
+    connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
+    
     lay6->addStretch( 1 );
     _delBut = new QPushButton( top2 );
     _delBut->setPixmap( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "editdelete" ), KIcon::Desktop, 22 ) );
@@ -328,6 +334,24 @@ void AnnotationDialog::Dialog::slotOK()
     }
 }
 
+/*
+ * Copy tags (only tags/categories, not description/label/...) from previous image to the currently showed one
+ */
+void AnnotationDialog::Dialog::slotCopyPrevious()
+{
+    if ( _setup != InputSingleImageConfigMode )
+        return;
+    if ( _current < 1 )
+        return;
+
+    // FIXME: it would be better to compute the "previous image" in a better way, but let's stick with this for now...
+    DB::ImageInfo& old_info = _editList[ _current - 1 ];
+
+    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        (*it)->setSelection( old_info.itemsOfCategory( (*it)->category() ) );
+    }
+}
+
 void AnnotationDialog::Dialog::load()
 {
     DB::ImageInfo& info = _editList[ _current ];
@@ -357,6 +381,7 @@ void AnnotationDialog::Dialog::load()
 
     _nextBut->setEnabled( _current != (int)_origList.count()-1 );
     _prevBut->setEnabled( _current != 0 );
+    _copyPreviousBut->setEnabled( _current != 0 );
 
     _preview->setImage( info );
 
@@ -429,6 +454,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
         _prevBut->setEnabled( false );
         _nextBut->setEnabled( false );
+        _copyPreviousBut->setEnabled( false );
     }
 
     _thumbnailShouldReload = false;
@@ -493,6 +519,7 @@ void AnnotationDialog::Dialog::setup()
     }
 
     _delBut->setEnabled( _setup == InputSingleImageConfigMode );
+    _copyPreviousBut->setEnabled( _setup == InputSingleImageConfigMode );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it )
         (*it)->setMode( _setup );
@@ -930,6 +957,9 @@ void AnnotationDialog::Dialog::setupActions()
 
     new KAction( i18n("Delete"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
                  _actions, "annotationdialog-delete-image" );
+
+    new KAction( i18n("Copy tags from previous image"), CTRL+Key_Insert, this, SLOT( slotCopyPrevious() ),
+                 _actions, "annotationdialog-copy-previous");
 
     new KAction( i18n("Rotate Left"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );
     new KAction( i18n("Rotate Right"), 0, this, SLOT( rotateRight() ), _actions, "annotationdialog-rotate-right" );

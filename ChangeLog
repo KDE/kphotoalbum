@@ -1,5 +1,8 @@
 2007-06-10  Jan Kundrat <jkt@gentoo.org>
 
+	* Use another dialog for deleting files. Patch submited by Christoph
+	Moseler <forums@moseler.net>.
+
 	* Allow re-using of tags from the previously tagged image in the
 	annotation dialog (first part of bug #145158)
 

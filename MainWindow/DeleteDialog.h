@@ -39,8 +39,7 @@ protected slots:
 private:
     QStringList _list;
     QLabel* _label;
-    QCheckBox* _deleteFromDisk;
-    QCheckBox* _block;
+    QCheckBox* _delete_file;
 
 };
 

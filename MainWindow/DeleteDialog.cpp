@@ -31,7 +31,7 @@
 using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Delete"), Cancel|User1, User1, parent, name,
+    :KDialogBase( Plain, i18n("Delete from database"), Cancel|User1, User1, parent, name,
                   true, false, KGuiItem(i18n("Delete"),QString::fromLatin1("editdelete")))
 {
     QWidget* top = plainPage();
@@ -40,21 +40,17 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     _label = new QLabel( top );
     lay1->addWidget( _label );
 
-    _deleteFromDisk = new QCheckBox( i18n( "Delete images/videos from disk and database" ), top );
-    lay1->addWidget( _deleteFromDisk );
-
-    _block = new QCheckBox( i18n( "Block from database" ), top );
-    lay1->addWidget( _block );
+    _delete_file = new QCheckBox( i18n( "Delete file from disk as well" ), top );
+    lay1->addWidget( _delete_file );
 
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
 }
 
 int DeleteDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos<br>%1 selected</font></center></b></p>").arg( list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos from database<br>%1 selected</font></center></b></p>").arg( list.count() ) );
 
-    _deleteFromDisk->setChecked( true );
-    _block->setChecked( false );
+    _delete_file->setChecked( true );
     _list = list;
 
     return KDialogBase::exec();
@@ -64,26 +60,42 @@ void DeleteDialog::deleteImages()
 {
     Utilities::ShowBusyCursor dummy;
 
-    if ( _deleteFromDisk->isChecked() ) {
-        for( QStringList::ConstIterator it = _list.begin(); it != _list.end(); ++it ) {
-            Utilities::removeThumbNail( *it );
-            if ( DB::ImageInfo::imageOnDisk(*it) ) {
-                bool ok = !(QFile( *it ).exists()) ||  QFile( *it ).remove();
-                if ( !ok ) {
-                    KMessageBox::error( this, i18n("Unable to delete file '%1'.").arg(*it),
-                                        i18n("Error Deleting Files") );
-                }
+    QStringList listToDelete;
+    QStringList listCouldNotDelete;
+
+    for( QStringList::const_iterator it = _list.constBegin(); it != _list.constEnd(); ++it ) {
+        if ( DB::ImageInfo::imageOnDisk(*it) ) {
+            bool ok = !(QFile( *it ).exists()) ||  QFile( *it ).remove();
+            if ( !ok ) {
+                listCouldNotDelete.append (*it );
+            } else {
+                listToDelete.append( *it );
+                Utilities::removeThumbNail( *it );
             }
+        } else {
+            listCouldNotDelete.append( *it );
         }
     }
 
-    if ( _block->isChecked() )
-        DB::ImageDB::instance()->addToBlockList( _list );
+    if( ! listCouldNotDelete.isEmpty()) {
+        KMessageBox::errorList( this, i18n("<p><b>Unable to physically delete %1 file(s). Do you have permission to delete these files?</b></p>").arg(listCouldNotDelete.count()), listCouldNotDelete, 
+                            i18n("Error Deleting Files") );
+    }
 
-    if ( _deleteFromDisk->isChecked() )
-        DB::ImageDB::instance()->deleteList( _list );
+    if( ! listToDelete.isEmpty()) {
+        if ( _delete_file->isChecked() )
+            DB::ImageDB::instance()->deleteList( listToDelete );
+        else
+            DB::ImageDB::instance()->addToBlockList( listToDelete );
 
-    accept();
+        accept();
+
+    } else {
+
+        reject();
+
+    }
+
 }
 
 #include "DeleteDialog.moc"

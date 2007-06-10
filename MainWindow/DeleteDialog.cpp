@@ -65,8 +65,7 @@ void DeleteDialog::deleteImages()
 
     for( QStringList::const_iterator it = _list.constBegin(); it != _list.constEnd(); ++it ) {
         if ( DB::ImageInfo::imageOnDisk(*it) ) {
-            bool ok = !(QFile( *it ).exists()) ||  QFile( *it ).remove();
-            if ( !ok ) {
+            if ( _delete_file->isChecked() && ( !QFile( *it ).exists() || !QFile( *it ).remove() ) ) {
                 listCouldNotDelete.append (*it );
             } else {
                 listToDelete.append( *it );

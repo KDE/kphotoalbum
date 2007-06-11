@@ -1,3 +1,8 @@
+2007-06-11  Tuomas Suutari  <thsuut@utu.fi>
+
+	* Do not show -1 x -1 image sizes at all. And as suggested by
+	Henner Zeller do not show mega pixel number if it is 0.0.
+
 2007-06-10  Jan Kundrat <jkt@gentoo.org>
 
 	* Use another dialog for deleting files. Patch submited by Christoph

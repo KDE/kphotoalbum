@@ -87,13 +87,19 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 
     if ( Settings::SettingsData::instance()->showImageSize() && info->mediaType() == DB::Image)  {
         const QSize imageSize = info->size();
-        const double megapix = imageSize.width() * imageSize.height() / 1000000.0;
-        text += i18n("<b>Image Size: </b> ") +
+        // Do not add -1 x -1 text
+        if (imageSize.width() >= 0 && imageSize.height() >= 0) {
+            const double megapix = imageSize.width() * imageSize.height() / 1000000.0;
+            text += i18n("<b>Image Size: </b> ") +
                 QString::number(imageSize.width()) + i18n("x") +
-                QString::number(imageSize.height()) +
-                QString::fromLatin1(" (") + QString::number(megapix, 'f', 1) +
-                i18n("MP") + QString::fromLatin1(")") +
-                linebreak;
+                QString::number(imageSize.height());
+            if (megapix > 0.05) {
+                text +=
+                    QString::fromLatin1(" (") + QString::number(megapix, 'f', 1) +
+                    i18n("Short for Mega Pixels", "MP") + QString::fromLatin1(")");
+            }
+            text += linebreak;
+        }
     }
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();

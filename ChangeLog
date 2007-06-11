@@ -3,7 +3,7 @@
 	* Do not show -1 x -1 image sizes at all. And as suggested by
 	Henner Zeller do not show mega pixel number if it is 0.0.
 
-2007-06-10  Jan Kundrat <jkt@gentoo.org>
+2007-06-10  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use another dialog for deleting files. Patch submited by Christoph
 	Moseler <forums@moseler.net>.
@@ -11,15 +11,15 @@
 	* Allow re-using of tags from the previously tagged image in the
 	annotation dialog (first part of bug #145158)
 
-2007-05-23  Jan Kundrat <jkt@gentoo.org>
+2007-05-23  Jan Kundrat  <jkt@gentoo.org>
 
 	* Make "show this image" fast again.
 
-2007-05-19  Jan Kundrat <jkt@gentoo.org>
+2007-05-19  Jan Kundrat  <jkt@gentoo.org>
 
 	* Recognize .flv and .erf files -- Fixes bugs 145366 and 141877.
 
-2007-05-19  Jan Kundrat <jkt@gentoo.org>
+2007-05-19  Jan Kundrat  <jkt@gentoo.org>
 
 	* Make "show this image" load all images in current view, thus making
 	pressing Ctrl+A optional.  Thanks to Shawn Willden for nice comments

@@ -945,6 +945,18 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
     if ( Settings::SettingsData::instance()->thumbnailDarkBackground() ) {
         setPaletteBackgroundColor( Qt::black );
         setPaletteForegroundColor( Qt::white );
+
+        QPalette p(palette());
+        QColor c = p.color(QPalette::Active, QColorGroup::Highlight);
+        if ((c.red() < 0x30 && c.green() < 0x30 && c.blue() < 0x30) ||
+            (c.red() > 0xd0 && c.green() > 0xd0 && c.blue() > 0xd0)) {
+            // Not enough contrast to bg or fg. Use light blue instead.
+            static QColor highlightColor(0x67, 0x8d, 0xb2);
+            p.setColor(QPalette::Active, QColorGroup::Highlight, highlightColor);
+            p.setColor(QPalette::Inactive, QColorGroup::Highlight, highlightColor);
+            p.setColor(QPalette::Disabled, QColorGroup::Highlight, highlightColor);
+            setPalette(p);
+        }
     }
     else {
         unsetPalette();  // fallback to default.

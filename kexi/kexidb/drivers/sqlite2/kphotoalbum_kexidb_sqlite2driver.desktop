@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=SQLite2
+Name[xx]=xxSQLite2xx
 Comment=SQLite is default Kexi embedded SQL engine
 Comment[ar]=SQLite هو محرك الــ SQL المضمّن لِــ Kexi
 Comment[bg]=SQLite е подразбиращата се приставка на Kexi за SQL
@@ -25,6 +26,7 @@ Comment[ta]=SQLite என்பது ஒரு முன்னிருப்�
 Comment[tr]=SQLite, Kexi için öntanımlı gömülü SQL motorudur
 Comment[uk]=SQLite - це типовий вбудований SQL-рушій Kexi
 Comment[vi]=SQLite là cơ chế SQL nhúng Kexi mặc định
+Comment[xx]=xxSQLite is default Kexi embedded SQL enginexx
 X-KDE-Library=kphotoalbum_kexidb_sqlite2driver
 ServiceTypes=KPAKexi/DBDriver
 Type=Service

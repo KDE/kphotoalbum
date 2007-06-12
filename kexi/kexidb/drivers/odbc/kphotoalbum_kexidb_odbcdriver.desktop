@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=ODBC
+Name[xx]=xxODBCxx
 Comment=Kexi Open Database Connectivity Driver
 Comment[ar]=سائق الربط الشبكي لقاعدة البيانات المفتوحة Kexi
 Comment[bg]=Приставка Kexi за свързване с ODBC
@@ -24,6 +25,7 @@ Comment[ta]=Kexi திறக்கும் தரவுத்தள இணை�
 Comment[tr]=Kexi Açık Veritabanı Bağlantı Sürücüsü
 Comment[uk]=Драйвер Open Database Connectivity для Kexi
 Comment[vi]=Trình điều khiển khả năng kết nối cơ sở dữ liệu mở Kexi
+Comment[xx]=xxKexi Open Database Connectivity Driverxx
 X-KDE-Library=kphotoalbum_kexidb_odbcdriver
 ServiceTypes=KPAKexi/DBDriver
 Type=Service

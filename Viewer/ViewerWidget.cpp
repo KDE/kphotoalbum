@@ -362,14 +362,7 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 void Viewer::ViewerWidget::load( const QStringList& list, int index )
 {
     _list = list;
-
-    QStringList images;
-    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        if ( !Utilities::isVideo( *it ) )
-            images << *it;
-    }
     _imageDisplay->setImageList( list );
-
     _current = index;
     load();
 

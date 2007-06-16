@@ -378,8 +378,8 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 
 void Viewer::ViewerWidget::load()
 {
-    bool isVideo = Utilities::isVideo( currentInfo()->fileName() );
     bool isReadable = QFileInfo( currentInfo()->fileName() ).isReadable();
+    bool isVideo = isReadable && Utilities::isVideo( currentInfo()->fileName() );
 
     if ( isReadable ) {
         if ( isVideo )
@@ -450,7 +450,7 @@ void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 
 void Viewer::ViewerWidget::showNextN(int n)
 {
-    if (Utilities::isVideo( currentInfo()->fileName() ) )
+    if ( _display == _videoDisplay )
         _videoDisplay->stop();
 
     save();
@@ -485,7 +485,7 @@ void Viewer::ViewerWidget::showNext1000()
 
 void Viewer::ViewerWidget::showPrevN(int n)
 {
-    if (Utilities::isVideo( currentInfo()->fileName() ) )
+    if ( _display == _videoDisplay )
         _videoDisplay->stop();
 
     save();

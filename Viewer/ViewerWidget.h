@@ -37,6 +37,7 @@ namespace Viewer
 {
 class VideoDisplay;
 class ImageDisplay;
+class TextDisplay;
 class Display;
 class SpeedDisplay;
 class InfoBox;
@@ -159,6 +160,7 @@ private:
     Display* _display;
     ImageDisplay* _imageDisplay;
     VideoDisplay* _videoDisplay;
+    TextDisplay* _textDisplay;
 
     QStringList _list;
     int _current;

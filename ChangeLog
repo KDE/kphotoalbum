@@ -1,3 +1,10 @@
+2007-06-16  Jan Kundrat  <jkt@gentoo.org>
+
+	* Display a warning instead of black screen when current image can't
+	be shown in the Viewer
+
+	* Stop video playback before seeking to another image
+
 2007-06-11  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Do not show -1 x -1 image sizes at all. And as suggested by

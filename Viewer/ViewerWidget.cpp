@@ -46,6 +46,8 @@
 #include "ViewerWidget.h"
 #include <qapplication.h>
 #include <qeventloop.h>
+#include <qfileinfo.h>
+#include <TextDisplay.h>
 
 #ifdef HASEXIV2
 #  include "Exif/InfoDialog.h"
@@ -88,6 +90,8 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     _stack = new QWidgetStack( this, "stack" );
 
     _display = _imageDisplay = new ImageDisplay( _stack ); // Must be created before the toolbar.
+    _textDisplay = new TextDisplay( _stack );
+    _stack->addWidget( _textDisplay );
     _videoDisplay = new VideoDisplay( _stack );
     connect( _videoDisplay, SIGNAL( stopped() ), this, SLOT( videoStopped() ) );
 
@@ -375,10 +379,18 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
 void Viewer::ViewerWidget::load()
 {
     bool isVideo = Utilities::isVideo( currentInfo()->fileName() );
-    if ( isVideo )
-        _display = _videoDisplay;
-    else
-        _display = _imageDisplay;
+    bool isReadable = QFileInfo( currentInfo()->fileName() ).isReadable();
+
+    if ( isReadable ) {
+        if ( isVideo )
+            _display = _videoDisplay;
+        else
+            _display = _imageDisplay;
+    } else {
+        _display = _textDisplay;
+        _textDisplay->setText( i18n("File not available") );
+        _infoBox->hide();
+    }
 
     _stack->raiseWidget( _display );
 
@@ -438,6 +450,9 @@ void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 
 void Viewer::ViewerWidget::showNextN(int n)
 {
+    if (Utilities::isVideo( currentInfo()->fileName() ) )
+        _videoDisplay->stop();
+
     save();
     if ( _current +1 < (int) _list.count() )  {
         _current += n;
@@ -470,6 +485,9 @@ void Viewer::ViewerWidget::showNext1000()
 
 void Viewer::ViewerWidget::showPrevN(int n)
 {
+    if (Utilities::isVideo( currentInfo()->fileName() ) )
+        _videoDisplay->stop();
+
     save();
     if ( _current > 0  )  {
         _current -= n;

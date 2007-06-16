@@ -5,6 +5,10 @@
 
 	* Stop video playback before seeking to another image
 
+	* Changed MainWindow::Window::selectedOnDisk() to return list of
+	images available in current view if selection is empty and reworked
+	Viewer not to check for file availability before it's really needed
+
 2007-06-11  Tuomas Suutari  <thsuut@utu.fi>
 
 	* Do not show -1 x -1 image sizes at all. And as suggested by

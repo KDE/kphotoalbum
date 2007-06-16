@@ -436,14 +436,18 @@ void MainWindow::Window::slotViewNewWindow()
     slotView( false, false );
 }
 
+/*
+ * Returns a list of files that are both selected and on disk. If there are no
+ * selected files, returns all files form current context that are on disk.
+ * */
 QStringList MainWindow::Window::selectedOnDisk()
 {
-    QStringList listOnDisk;
     QStringList list = selected();
     if ( list.count() == 0 )
-        list = DB::ImageDB::instance()->currentScope(  true );
+        return DB::ImageDB::instance()->currentScope( true );
 
-    for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
+    QStringList listOnDisk;
+    for( QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it ) {
         if ( DB::ImageInfo::imageOnDisk( *it ) )
             listOnDisk.append( *it );
     }
@@ -453,7 +457,7 @@ QStringList MainWindow::Window::selectedOnDisk()
 
 void MainWindow::Window::slotView( bool reuse, bool slideShow, bool random )
 {
-    launchViewer( selectedOnDisk(), reuse, slideShow, random );
+    launchViewer( selected(), reuse, slideShow, random );
 }
 
 void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slideShow, bool random )
@@ -467,7 +471,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one
         const QString fileName = ((const QStringList&)files).first();
-        files = DB::ImageDB::instance()->currentScope(  true );
+        files = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
         seek = files.findIndex(fileName);
     }
 
@@ -672,13 +676,9 @@ void MainWindow::Window::setupMenuBar()
 
 void MainWindow::Window::slotExportToHTML()
 {
-    QStringList list = selectedOnDisk();
-    if ( list.count() == 0 )
-        list = DB::ImageDB::instance()->currentScope( true );
-
     if ( ! _htmlDialog )
         _htmlDialog = new HTMLGenerator::HTMLDialog( this, "htmlExportDialog" );
-    _htmlDialog->exec( list );
+    _htmlDialog->exec( selectedOnDisk() );
 }
 
 void MainWindow::Window::startAutoSaveTimer()
@@ -1123,12 +1123,7 @@ void MainWindow::Window::slotImport()
 
 void MainWindow::Window::slotExport()
 {
-    QStringList list = selectedOnDisk();
-    if ( list.count() == 0 ) {
-        KMessageBox::sorry( this, i18n("Nothing to export.") );
-    }
-    else
-        ImportExport::Export::imageExport( list );
+    ImportExport::Export::imageExport( selectedOnDisk() );
 }
 
 void MainWindow::Window::slotReenableMessages()

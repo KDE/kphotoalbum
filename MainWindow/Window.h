@@ -132,6 +132,9 @@ protected slots:
     void slotOrderIncr();
     void slotOrderDecr();
     void slotRecreateThumbnail();
+    void slotRotateSelectedLeft();
+    void slotRotateSelectedRight();
+    void rotateSelected( int angle );
 
 protected:
     void configureImages( bool oneAtATime );
@@ -176,6 +179,8 @@ private:
     KAction* _configOneAtATime;
     KAction* _configAllSimultaniously;
     KAction* _view;
+    KAction* _rotLeft;
+    KAction* _rotRight;
     KAction* _sortByDateAndTime;
     KAction* _viewInNewWindow;
     KActionMenu* _viewMenu;

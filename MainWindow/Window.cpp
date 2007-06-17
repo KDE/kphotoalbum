@@ -563,6 +563,8 @@ void MainWindow::Window::setupMenuBar()
                                      actionCollection(), "oneProp" );
     _configAllSimultaniously = new KAction( i18n( "Annotate Multiple Items at a Time" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
+    _rotLeft = new KAction( i18n( "Rotate Left" ), 0, this, SLOT( slotRotateSelectedLeft() ), actionCollection(), "rotateLeft" );
+    _rotRight = new KAction( i18n( "Rotate Right" ), 0, this, SLOT( slotRotateSelectedRight() ), actionCollection(), "rotateRight" );
 
     // The Images menu
     _view = new KAction( i18n("View"), CTRL+Key_I, this, SLOT( slotView() ),
@@ -867,6 +869,8 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 #endif
 
         menu.insertSeparator();
+        _rotLeft->plug( &menu );
+        _rotRight->plug( &menu );
         _recreateThumbnails->plug( &menu );
         menu.insertSeparator();
 
@@ -1013,6 +1017,32 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
     _configOneAtATime->setEnabled(selection.count() >= 1 );
     _sortByDateAndTime->setEnabled(selection.count() > 1 );
     _recreateThumbnails->setEnabled( selection.count() >= 1 );
+    _rotLeft->setEnabled( selection.count() >= 1 );
+    _rotRight->setEnabled( selection.count() >= 1 );
+}
+
+void MainWindow::Window::rotateSelected( int angle )
+{
+    QStringList list = selected();
+    if ( list.count() == 0 )  {
+        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
+    } else {
+        for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
+            DB::ImageDB::instance()->info( *it )->rotate( angle );
+        }
+        _dirtyIndicator->markDirty();
+        reloadThumbnailsAndFlushCache();
+    }
+}
+
+void MainWindow::Window::slotRotateSelectedLeft()
+{
+    rotateSelected( -90 );
+}
+
+void MainWindow::Window::slotRotateSelectedRight()
+{
+    rotateSelected( 90 );
 }
 
 void MainWindow::Window::reloadThumbnails(bool flushCache)

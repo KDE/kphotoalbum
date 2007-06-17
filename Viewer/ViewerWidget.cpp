@@ -820,11 +820,13 @@ void Viewer::ViewerWidget::slotStartStopSlideShow()
     _isRunningSlideShow = !_isRunningSlideShow && _list.count() != 1;
 
     if ( wasRunningSlideShow ) {
+        _startStopSlideShow->setText( i18n("Run Slideshow") );
         _slideShowTimer->stop();
         if ( _list.count() != 1 )
             _speedDisplay->end();
     }
     else {
+        _startStopSlideShow->setText( i18n("Stop Slideshow") );
         if ( currentInfo()->mediaType() != DB::Video )
             _slideShowTimer->start( _slideShowPause, true );
         _speedDisplay->start();

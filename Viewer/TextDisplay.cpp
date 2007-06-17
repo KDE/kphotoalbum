@@ -31,13 +31,8 @@ Viewer::TextDisplay::TextDisplay( QWidget* parent, const char* name )
     QVBoxLayout *lay = new QVBoxLayout( this );
     _text = new QLabel( this );
     lay->addWidget( _text );
-
-    //_text->setText( QString::fromLatin1("TextDisplay") );
     _text->setAlignment( Qt::AlignCenter );
-
-    QColor whiteColor;
-    whiteColor.setRgb( 255, 255, 255 );
-    _text->setPaletteForegroundColor( whiteColor );
+    _text->setPaletteForegroundColor( Qt::white );
 }
 
 bool Viewer::TextDisplay::setImage( DB::ImageInfoPtr info, bool forward )

@@ -389,7 +389,7 @@ void Viewer::ViewerWidget::load()
     } else {
         _display = _textDisplay;
         _textDisplay->setText( i18n("File not available") );
-        _infoBox->hide();
+        updateInfoBox();
     }
 
     _stack->raiseWidget( _display );
@@ -434,6 +434,9 @@ void Viewer::ViewerWidget::load()
 
     if ( _isRunningSlideShow )
         _slideShowTimer->changeInterval( _slideShowPause );
+
+    if ( _display == _textDisplay )
+        updateInfoBox();
 }
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {

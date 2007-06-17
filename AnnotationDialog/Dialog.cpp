@@ -697,7 +697,7 @@ void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const Q
 void AnnotationDialog::Dialog::reject()
 {
     if ( hasChanges() ) {
-        int code =  KMessageBox::questionYesNo( this, i18n("<p>Some items were changed. Do you really want to undo all recent edits for each affected image?</p>") );
+        int code =  KMessageBox::questionYesNo( this, i18n("<p>Some changes are made to annotations. Do you really want to cancel all recent changes for each affected file?</p>") );
         if ( code == KMessageBox::No )
             return;
     }

@@ -67,13 +67,13 @@ namespace Settings
         NaturalSizeIfFits = 2
     };
     enum ThumbnailAspectRatio {
-    	Aspect_1_1 = 0,
-	Aspect_4_3 = 1,
-	Aspect_3_2 = 2,
-	Aspect_16_9 = 3,
-	Aspect_3_4 = 4,
-	Aspect_2_3 = 5,
-	Aspect_9_16 = 6
+        Aspect_1_1 = 0,
+        Aspect_4_3 = 1,
+        Aspect_3_2 = 2,
+        Aspect_16_9 = 3,
+        Aspect_3_4 = 4,
+        Aspect_2_3 = 5,
+        Aspect_9_16 = 6
     };
     enum WindowType { MainWindow = 0, ConfigWindow = 1 };
 

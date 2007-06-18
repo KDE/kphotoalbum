@@ -227,10 +227,10 @@ void Viewer::ImageDisplay::paintEvent( QPaintEvent* )
     int y = ( height() - _viewPixmap.height() ) / 2;
     bitBlt( this, x, y, &_viewPixmap );
     QPainter p( this );
-    p.fillRect( 0,0, width(), y, black ); // top
-    p.fillRect( 0,height()-y, width(), height()-y, black ); // bottom
-    p.fillRect( 0,0, x, height(), black ); // left
-    p.fillRect( width()-x, 0, width()-x, height(), black ); // right
+    p.fillRect( 0, 0, width(), y, black ); // top
+    p.fillRect( 0, height()-y-1, width(), height()-y, black ); // bottom
+    p.fillRect( 0, 0, x, height(), black ); // left
+    p.fillRect( width()-x-1, 0, width()-x, height(), black ); // right
 }
 
 QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )

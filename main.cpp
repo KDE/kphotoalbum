@@ -43,6 +43,7 @@ int main( int argc, char** argv ) {
                           I18N_NOOP("KDE Photo Album"), KAboutData::License_GPL,
                           0, 0, "http://www.kphotoalbum.org");
     aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
+    aboutData.addAuthor( "Tuomas Suutari", "SQL backend and numerous features", "thsuut@utu.fi" );
 
     aboutData.addCredit( "Will Stephenson", "Developing an Icon for KPhotoAlbum", "will@stevello.free-online.co.uk" );
     aboutData.addCredit( "Teemu Rytilahti",

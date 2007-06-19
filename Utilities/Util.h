@@ -23,7 +23,6 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qimage.h>
-#include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
 
 namespace DB
@@ -34,6 +33,8 @@ namespace DB
 
 namespace Utilities
 {
+
+enum IptcCharset { CharsetUtf8 = 0, CharsetLocal8Bit = 1, CharsetIso88592 = 2, CharsetCp1250 = 3 };
 
 QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
 void checkForBackupFile( const QString& fileName );
@@ -74,6 +75,10 @@ QStringList diff( const QStringList& list1, const QStringList& list2 );
 QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QImage::ScaleFree );
 QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
 QStringList removeDuplicates( const QStringList& items );
+
+QString cStringWithEncoding( const char *c_str, IptcCharset charset );
+QStringList iptcHumanReadableCharsetList();
+
 };
 
 bool operator>( const QPoint&, const QPoint& );

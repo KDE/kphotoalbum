@@ -21,6 +21,8 @@
 #include <qgridview.h>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClient.h"
+#include <kcombobox.h>
+#include "Utilities/Util.h"
 class QTable;
 
 namespace Exif
@@ -40,6 +42,7 @@ protected slots:
 private:
     QLabel* _searchLabel;
     QLabel* _pix;
+    KComboBox* _iptcCharset;
 };
 
 class Grid :public QGridView
@@ -47,7 +50,7 @@ class Grid :public QGridView
     Q_OBJECT
 
 public:
-    Grid( const QString& fileName, QWidget* parent, const char* name = 0 );
+    Grid( const QString& fileName, QWidget* parent, const char* name = 0, Utilities::IptcCharset charset = Utilities::CharsetUtf8 );
 
 signals:
     QString searchStringChanged( const QString& text );
@@ -65,12 +68,14 @@ protected:
 
 protected slots:
     void updateGrid();
+    void slotCharsetChange( int charset );
 
 private:
     QMap<int, QPair<QString,QString> > _texts;
     Set<int> _headers;
     int _maxKeyWidth;
     QString _search;
+    QString _fileName;
 };
 
 }

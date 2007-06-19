@@ -20,6 +20,7 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include "Exif/Info.h"
+#include <klocale.h>
 
 Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
     :QListView( parent, name )
@@ -67,9 +68,11 @@ void Exif::TreeView::reload()
 
     QMap<QString, QCheckListItem*> tree;
 
+    QCheckListItem* root = new QCheckListItem( this, i18n( "Metadata" ), QCheckListItem::CheckBox );
+
     for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
-        QCheckListItem* parent = 0;
+        QCheckListItem* parent = root;
         QString path = QString::null;
         for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
             if ( !path.isNull() )

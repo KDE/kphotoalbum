@@ -25,6 +25,7 @@
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
+#include "Settings/SettingsData.h"
 
 Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
@@ -49,7 +50,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     ImageManager::Manager::instance()->load( new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), DB::ImageDB::instance()->info(fileName)->angle(), this ) );
 
     // -------------------------------------------------- Exif Grid
-    Exif::Grid* grid = new Exif::Grid( fileName, top );
+    Exif::Grid* grid = new Exif::Grid( fileName, top, 0, ::Settings::SettingsData::instance()->iptcCharset() );
     vlay->addWidget( grid );
     grid->setFocus();
 
@@ -67,7 +68,15 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     hlay->addWidget( _searchLabel );
     hlay->addStretch( 1 );
 
+    QLabel* _iptcLabel = new QLabel( i18n("IPTC character set:"), top );
+    _iptcCharset = new KComboBox( top );
+    _iptcCharset->insertStringList( Utilities::iptcHumanReadableCharsetList() );
+    _iptcCharset->setCurrentItem( static_cast<int>(::Settings::SettingsData::instance()->iptcCharset() ) );
+    hlay->addWidget( _iptcLabel );
+    hlay->addWidget( _iptcCharset );
+
     connect( grid, SIGNAL( searchStringChanged( const QString& ) ), this, SLOT( updateSearchString( const QString& ) ) );
+    connect( _iptcCharset, SIGNAL( activated( int ) ), grid, SLOT( slotCharsetChange( int ) ) );
     updateSearchString( QString::null );
 }
 
@@ -80,13 +89,23 @@ void Exif::InfoDialog::updateSearchString( const QString& txt )
 }
 
 
-Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
-    :QGridView( parent, name )
+Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name, Utilities::IptcCharset charset )
+    :QGridView( parent, name ),
+    _fileName( fileName )
 {
-    QMap<QString,QString> map = Exif::Info::instance()->infoForDialog( fileName );
-    calculateMaxKeyWidth( map );
     setFocusPolicy( WheelFocus );
     setHScrollBarMode( AlwaysOff );
+
+    slotCharsetChange( charset );
+}
+
+void Exif::Grid::slotCharsetChange( int charset )
+{
+    _texts.clear();
+    _headers.clear();
+
+    QMap<QString,QString> map = Exif::Info::instance()->infoForDialog( _fileName, static_cast<Utilities::IptcCharset>(charset) );
+    calculateMaxKeyWidth( map );
 
     Set<QString> groups = exifGroups( map );
     int index = 0;
@@ -116,6 +135,10 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
     setNumCols( 2 );
     setCellWidth( 200 );
     setCellHeight( QFontMetrics( font() ).height() );
+
+    // without this, grid is only partially drawn
+    QResizeEvent re( size(), size() );
+    resizeEvent( &re );
 }
 
 void Exif::Grid::paintCell( QPainter * p, int row, int col )

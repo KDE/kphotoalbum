@@ -113,6 +113,7 @@ void Settings::SettingsData::setThumbnailAspectRatio( Settings::ThumbnailAspectR
 {
     setValue( STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) aspect);
 }
+
 Settings::ThumbnailAspectRatio Settings::SettingsData::thumbnailAspectRatio() const
 {
     return (ThumbnailAspectRatio) value(  STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) Aspect_4_3);
@@ -475,7 +476,15 @@ QString Settings::SettingsData::groupForDatabase( const QString& setting ) const
     return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
 
+void Settings::SettingsData::setIptcCharset( Utilities::IptcCharset charset )
+{
+    setValue( STR("EXIF/IPTC"), STR("iptcCharset"), (int) charset);
+}
 
+Utilities::IptcCharset Settings::SettingsData::iptcCharset() const
+{
+    return static_cast<Utilities::IptcCharset>( value(  STR("EXIF/IPTC"), STR("iptcCharset"), static_cast<int>(Utilities::CharsetUtf8)) );
+}
 
 void Settings::SettingsData::setThumbnailCache( int value )
 {

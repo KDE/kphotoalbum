@@ -25,6 +25,7 @@
 #  include "Exif/Info.h"
 #endif
 #include "Utilities/Set.h"
+#include "Utilities/Util.h"
 #ifdef SQLDB_SUPPORT
 namespace SQLDB { class DatabaseAddress; }
 #endif
@@ -178,8 +179,11 @@ public:
     void setTTimeStamps( TimeStampTrust );
     TimeStampTrust tTimeStamps() const;
 
-    void setThumbnailAspectRatio(ThumbnailAspectRatio);
+    void setThumbnailAspectRatio( ThumbnailAspectRatio );
     ThumbnailAspectRatio thumbnailAspectRatio() const;
+
+    void setIptcCharset( Utilities::IptcCharset );
+    Utilities::IptcCharset iptcCharset() const;
 
     QString imageDirectory() const;
 

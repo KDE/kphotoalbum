@@ -164,6 +164,7 @@ private:
     // Exif viewer
     Exif::TreeView* _exifForViewer;
     Exif::TreeView* _exifForDialog;
+    KComboBox* _iptcCharset;
 
     int _backendPageIndex;
     QButtonGroup* _backendButtons;

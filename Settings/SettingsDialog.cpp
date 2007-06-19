@@ -460,6 +460,7 @@ void Settings::SettingsDialog::show()
     _exifForDialog->reload();
     _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
     _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
+    _iptcCharset->setCurrentItem( opt->iptcCharset() );
 #endif
 
     QString backend = Settings::SettingsData::instance()->backend();
@@ -553,6 +554,7 @@ void Settings::SettingsDialog::slotMyOK()
 #ifdef HASEXIV2
     opt->setExifForViewer( _exifForViewer->selected() ) ;
     opt->setExifForDialog( _exifForDialog->selected() ) ;
+    opt->setIptcCharset( static_cast<Utilities::IptcCharset>(_iptcCharset->currentItem()) );
 #endif
 
     // SQLDB
@@ -963,16 +965,31 @@ void Settings::SettingsDialog::createPluginPage()
 void Settings::SettingsDialog::createEXIFPage()
 {
 #ifdef HASEXIV2
-    QWidget* top = addPage( i18n("EXIF Information" ), i18n("EXIF Information" ),
+    QWidget* top = addPage( i18n("EXIF View" ), i18n("EXIF/IPTC Information" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "contents" ),
                                                              KIcon::Desktop, 32 ) );
-    QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
+    QVBoxLayout* vlay = new QVBoxLayout( top );
+    QHBoxLayout* hlay1 = new QHBoxLayout( vlay );
+    QHBoxLayout* hlay2 = new QHBoxLayout( vlay );
+    hlay1->setSpacing( 6 );
+    vlay->setSpacing( 6 );
+    hlay2->setSpacing( 6 );
 
-    _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );
-    lay1->addWidget( _exifForViewer );
+    _exifForViewer = new Exif::TreeView( i18n( "EXIF/IPTC info to show in the Viewer" ), top );
+    hlay1->addWidget( _exifForViewer );
 
-    _exifForDialog = new Exif::TreeView( i18n("EXIF info to show in the EXIF dialog"), top );
-    lay1->addWidget( _exifForDialog );
+    _exifForDialog = new Exif::TreeView( i18n("EXIF/IPTC info to show in the EXIF dialog"), top );
+    hlay1->addWidget( _exifForDialog );
+
+    QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for IPTC data:"), top, "iptcCharsetLabel" );
+    _iptcCharset = new KComboBox( top );
+    _iptcCharset->insertStringList( QStringList() << i18n("UTF-8") << i18n("Local 8-bit") << i18n("ISO 8859-2") << i18n("CP 1250") );
+    QWhatsThis::add( _iptcCharset, i18n("<p>Which character set to use for reading/writing of IPTC data</p>") );
+
+    hlay2->addStretch( 1 );
+    hlay2->addWidget( _iptcCharsetLabel );
+    hlay2->addWidget( _iptcCharset );
+
 #endif
 }
 

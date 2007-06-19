@@ -56,6 +56,7 @@ extern "C" {
 #endif
 
 #include <kdebug.h>
+#include <qtextcodec.h>
 
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the
@@ -139,9 +140,27 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 #ifdef HASEXIV2
     QString exifText;
     if ( Settings::SettingsData::instance()->showEXIF() ) {
-        QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
+        QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), true );
+        // at first, put there only EXIF data
         for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
-            exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
+            if ( exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
+                exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( 
+                        QStringList::split( QString::fromLatin1("."), exifIt.key() ).last()
+                    ).arg( exifIt.data() );
+        }
+
+        QString iptcText;
+        for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+            if ( !exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
+                iptcText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( 
+                        QStringList::split( QString::fromLatin1("."), exifIt.key() ).last()
+                    ).arg( exifIt.data() );
+        }
+        if ( !iptcText.isEmpty() ) {
+            if ( exifText.isEmpty() )
+                exifText = iptcText;
+            else
+                exifText += QString::fromLatin1( "<hr>" ) + iptcText;
         }
     }
 
@@ -758,3 +777,37 @@ QStringList Utilities::removeDuplicates( const QStringList& items )
     return res;
 }
 
+/**
+ * Convert a weird C string in some ugly encoding to a cute unicode QString
+ */
+QString Utilities::cStringWithEncoding( const char *c_str, IptcCharset charset )
+{
+    QTextCodec* codec;
+    switch ( charset ) {
+        case CharsetLocal8Bit:
+            return QString::fromLocal8Bit( c_str );
+
+        case CharsetIso88592:
+            codec = QTextCodec::codecForName("iso8859-2");
+            if (codec)
+                return codec->toUnicode( c_str );
+            else
+                return QString::fromLatin1( c_str );
+
+        case CharsetCp1250:
+            codec = QTextCodec::codecForName("cp1250");
+            if (codec)
+                return codec->toUnicode( c_str );
+            else
+                return QString::fromLatin1( c_str );
+
+        case CharsetUtf8:
+            // fall through
+        default:
+            return QString::fromUtf8( c_str );
+    }
+}
+
+QStringList Utilities::iptcHumanReadableCharsetList() {
+    return QStringList() << i18n("UTF-8") << i18n("Local 8-bit") << i18n("ISO 8859-2") << i18n("CP 1250");
+}

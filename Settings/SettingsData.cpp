@@ -227,6 +227,7 @@ QString Settings::SettingsData::fileForCategoryImage( const QString& category, Q
 {
     QString dir = imageDirectory() + STR("CategoryImages" );
     member.replace( ' ', '_' );
+    member.replace( '/', '_' );
     QString fileName = dir + STR("/%1-%2.jpg").arg( category ).arg( member );
     return fileName;
 }

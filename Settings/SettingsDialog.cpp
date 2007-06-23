@@ -36,7 +36,7 @@
 #include <qwhatsthis.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include <qvgroupbox.h>
+#include <qhgroupbox.h>
 #include <qhbox.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
@@ -61,6 +61,7 @@
 #endif
 
 #include "CategoryItem.h"
+#include "Exif/SyncWidget.h"
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -72,6 +73,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     createViewerPage();
     createPluginPage();
     createEXIFPage();
+    createSyncPage();
     createDatabaseBackendPage();
 
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
@@ -991,6 +993,30 @@ void Settings::SettingsDialog::createEXIFPage()
     hlay2->addWidget( _iptcCharset );
 
 #endif
+}
+
+void Settings::SettingsDialog::createSyncPage()
+{
+    QWidget* top = addPage( i18n("Synchronization" ), i18n("Metadata Synchronization" ),
+                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
+                                                             KIcon::Desktop, 32 ) );
+
+    QVBoxLayout* lay = new QVBoxLayout( top, 6 );
+    QHGroupBox* hbox;
+
+    QCheckBox* rotation = new QCheckBox( i18n("Image orientation"), top );
+    QWhatsThis::add( rotation, i18n("<p>Image orientation and the <code>Exif.Image.Orientation</code> tag</p>") );
+    lay->addWidget( rotation );
+
+    hbox = new QHGroupBox( i18n("Label"), top );
+    QValueList<Exif::Syncable::Kind> _labelItems;
+    _labelItems << Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::EXIF_USER_COMMENT;
+    Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, _labelItems );
+    hbox->addSpace( 10 );
+    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, QValueList<Exif::Syncable::Kind>() );
+    lay->addWidget( hbox );
+
+    lay->addStretch( 1 );
 }
 
 void Settings::SettingsDialog::showBackendPage()

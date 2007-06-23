@@ -92,6 +92,7 @@ protected:
     void createViewerPage();
     void createPluginPage();
     void createEXIFPage();
+    void createSyncPage();
     void createDatabaseBackendPage();
 
 private:

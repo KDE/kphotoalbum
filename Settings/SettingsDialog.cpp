@@ -1010,10 +1010,10 @@ void Settings::SettingsDialog::createSyncPage()
 
     hbox = new QHGroupBox( i18n("Label"), top );
     QValueList<Exif::Syncable::Kind> _labelItems;
-    _labelItems << Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::EXIF_USER_COMMENT;
+    _labelItems << Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::STOP;
     Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, _labelItems );
     hbox->addSpace( 10 );
-    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, QValueList<Exif::Syncable::Kind>() );
+    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, QValueList<Exif::Syncable::Kind>() << Exif::Syncable::STOP );
     lay->addWidget( hbox );
 
     lay->addStretch( 1 );

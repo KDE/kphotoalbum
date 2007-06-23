@@ -44,7 +44,7 @@ SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<
             --it;
             if ( _header.contains( *it ) ) {
                 _items.append( *it );
-                new QListViewItem( _list, _visibleName[*it] );
+                new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
             }
         } while ( it != items.begin() );
 
@@ -55,7 +55,72 @@ SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<
     _downBut = new QPushButton( vbox );
     _downBut->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "down" ), KIcon::Desktop, 22 ) );
     spacer = new QWidget( vbox );
+
+    slotHandleDisabling();
+
+    connect( _upBut, SIGNAL( clicked() ), this, SLOT( slotMoveSelectedUp() ) );
+    connect( _downBut, SIGNAL( clicked() ), this, SLOT( slotMoveSelectedDown() ) );
+    connect( _list, SIGNAL( selectionChanged() ), this, SLOT( slotHandleDisabling() ) );
 }
+
+void SyncWidget::slotMoveSelectedDown()
+{
+    QListViewItem* item = _list->selectedItem();
+    if ( !item )
+        return;
+    QListViewItem* other = item->itemBelow();
+    if ( other ) {
+        Syncable::Kind kind = static_cast<Syncable::Kind>( item->text( 1 ).toInt() );
+        QValueList<Syncable::Kind>::iterator current, next;
+        next = current = _items.find( kind );
+        Q_ASSERT( current != _items.end() );
+        --next;
+        *current = *next;
+        *next = kind;
+
+        item->moveItem( other );
+
+        slotHandleDisabling();
+    }
+}
+
+void SyncWidget::slotMoveSelectedUp() {
+    QListViewItem* item = _list->selectedItem();
+    if ( !item )
+        return;
+    QListViewItem* other = item->itemAbove();
+    if ( other ) {
+        // remember, _items are reversed
+        Syncable::Kind kind = static_cast<Syncable::Kind>( item->text( 1 ).toInt() );
+        QValueList<Syncable::Kind>::iterator current, next;
+        next = current = _items.find( kind );
+        ++next;
+        Q_ASSERT( ( current != _items.end() ) && ( next != _items.end() ) );
+        *current = *next;
+        *next = kind;
+
+        other->moveItem( item );
+
+        slotHandleDisabling();
+    }
+}
+
+void SyncWidget::slotHandleDisabling()
+{
+    _upBut->setDisabled( true );
+    _downBut->setDisabled( true );
+
+    QListViewItem* item = _list->selectedItem();
+    if ( !item )
+        return;
+    QListViewItem* other = item->itemAbove();
+    if ( other )
+        _upBut->setEnabled( true );
+    other = item->itemBelow();
+    if ( other )
+        _downBut->setEnabled( true );
+}
+
 
 QValueList<Syncable::Kind> SyncWidget::items() const
 {

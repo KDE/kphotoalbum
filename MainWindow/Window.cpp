@@ -464,9 +464,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
 {
     int seek = -1;
     if ( files.count() == 0 ) {
-        QMessageBox::warning( MainWindow::Window::theMainWindow(), i18n("No Images or Videos to Display"),
-                              i18n("None of the selected images or videos were available on disk.") );
-        return;
+        files = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
     } else if ( files.count() == 1 ) {
         // we fake it so it appears the user has selected all images
         // and magically scrolls to the originally selected one

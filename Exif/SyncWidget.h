@@ -40,7 +40,7 @@ enum Kind {
     // stuff from Windows XP
     EXIF_XPTITLE, EXIF_XPCOMMENT, EXIF_XPKEYWORDS, EXIF_XPSUBJECT,
     // standard IPTC label/description
-    IPTC_HEADLINE, IPTC_CAPTION,
+    IPTC_HEADLINE, IPTC_CAPTION, IPTC_OBJECT_NAME,
     // IPTC categories
     IPTC_SUPP_CAT,
     // file modification time

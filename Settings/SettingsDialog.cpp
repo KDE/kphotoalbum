@@ -1004,16 +1004,18 @@ void Settings::SettingsDialog::createSyncPage()
     QVBoxLayout* lay = new QVBoxLayout( top, 6 );
     QHGroupBox* hbox;
 
-    QCheckBox* rotation = new QCheckBox( i18n("Image orientation"), top );
+    hbox = new QHGroupBox( i18n("Image orientation"), top );
+    QCheckBox* rotation = new QCheckBox( i18n("Use EXIF"), hbox );
     QWhatsThis::add( rotation, i18n("<p>Image orientation and the <code>Exif.Image.Orientation</code> tag</p>") );
-    lay->addWidget( rotation );
+    lay->addWidget( hbox );
 
     hbox = new QHGroupBox( i18n("Label"), top );
     Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, 
             QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_HEADLINE <<
             Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
             Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
-            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::STOP );
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
+            Exif::Syncable::STOP );
     hbox->addSpace( 10 );
     Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, 
             QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_HEADLINE <<
@@ -1027,7 +1029,8 @@ void Settings::SettingsDialog::createSyncPage()
             QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION <<
             Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
             Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPCOMMENT <<
-            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::STOP );
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
+            Exif::Syncable::STOP );
     hbox->addSpace( 10 );
     Exif::SyncWidget* _descWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, 
             QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION <<

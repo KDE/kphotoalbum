@@ -161,6 +161,7 @@ void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleN
     I(EXIF_XPSUBJECT, EXIF, Exif.Image.XPSubject);
     I(IPTC_CAPTION, IPTC, Iptc.Application2.Caption);
     I(IPTC_HEADLINE, IPTC, Iptc.Application2.Headline);
+    I(IPTC_OBJECT_NAME, IPTC, Iptc.Application2.ObjectName);
     I(IPTC_SUPP_CAT, IPTC, Iptc.Application2.SuppCategory);
     II(FILE_CTIME, FILE, CTime, "File creation time");
     II(FILE_MTIME, FILE, MTime, "File last modification time");

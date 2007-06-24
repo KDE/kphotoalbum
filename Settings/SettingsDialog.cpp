@@ -1009,11 +1009,31 @@ void Settings::SettingsDialog::createSyncPage()
     lay->addWidget( rotation );
 
     hbox = new QHGroupBox( i18n("Label"), top );
-    QValueList<Exif::Syncable::Kind> _labelItems;
-    _labelItems << Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::STOP;
-    Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, _labelItems );
+    Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, 
+            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
+            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::STOP );
     hbox->addSpace( 10 );
-    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, QValueList<Exif::Syncable::Kind>() << Exif::Syncable::STOP );
+    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, 
+            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
+            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
+            Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT );
+    lay->addWidget( hbox );
+
+    hbox = new QHGroupBox( i18n("Description"), top );
+    Exif::SyncWidget* _descRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, 
+            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION <<
+            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
+            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPCOMMENT <<
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::STOP );
+    hbox->addSpace( 10 );
+    Exif::SyncWidget* _descWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, 
+            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION <<
+            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
+            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
+            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT );
     lay->addWidget( hbox );
 
     lay->addStretch( 1 );

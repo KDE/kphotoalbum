@@ -28,9 +28,9 @@ namespace Exif {
 SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<Syncable::Kind>& items, const char* name )
     :QHBox( parent, name )
 {
-    QMap<Syncable::Kind,QString> _fieldName, _visibleName, _whatsThis;
+    QMap<Syncable::Kind,QString> _fieldName, _visibleName;
     QMap<Syncable::Kind,Syncable::Header> _header;
-    Syncable::createTables( _fieldName, _visibleName, _whatsThis, _header);
+    Syncable::createTables( _fieldName, _visibleName, _header);
 
     setSpacing( 6 );
     _list = new QListView( this, name );
@@ -44,7 +44,7 @@ SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<
             --it;
             if ( _header.contains( *it ) ) {
                 _items.append( *it );
-                new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
+                QListViewItem* item = new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
             }
         } while ( it != items.begin() );
 
@@ -84,7 +84,8 @@ void SyncWidget::slotMoveSelectedDown()
     }
 }
 
-void SyncWidget::slotMoveSelectedUp() {
+void SyncWidget::slotMoveSelectedUp()
+{
     QListViewItem* item = _list->selectedItem();
     if ( !item )
         return;
@@ -137,26 +138,39 @@ QValueList<Syncable::Kind> SyncWidget::items() const
 
 namespace Syncable {
 
-void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,QString>& _whatsThis, QMap<Kind,Header>& _header)
+void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header)
 {
-#define I(X,HEADER,FIELD,VISIBLE,WHATS) \
+#define II(X,HEADER,FIELD,VISIBLE) \
      _header[X] = HEADER; \
      _fieldName[X] = #FIELD; \
-     _visibleName[X] = VISIBLE ? i18n(VISIBLE) : QString::fromAscii(#FIELD); \
-     _whatsThis[X] = WHATS ? i18n(WHATS) : QString::null;
+     _visibleName[X] = i18n(VISIBLE);
+#define I(X,HEADER,FIELD) \
+     _header[X] = HEADER; \
+     _fieldName[X] = #FIELD; \
+     _visibleName[X] = QString::fromAscii(#FIELD);
 
-    I(STOP, NONE, NONE, "-- stop --", 0);
-    I(JPEG_COMMENT, JPEG, comment, "JPEG Comment", 0);
-    I(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation, 0, 0);
-    I(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription, 0, 0);
-    I(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment, 0, 0);
-    I(IPTC_CAPTION, IPTC, Iptc.Application2.Caption, 0, 0);
-    I(IPTC_HEADLINE, IPTC, Iptc.Application2.Headline, 0, 0);
+
+    II(STOP, NONE, NONE, "-- stop --");
+    II(JPEG_COMMENT, JPEG, Comment, "JPEG Comment");
+    I(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation);
+    I(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription);
+    I(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment);
+    I(EXIF_XPTITLE, EXIF, Exif.Image.XPTitle);
+    I(EXIF_XPCOMMENT, EXIF, Exif.Image.XPComment);
+    I(EXIF_XPKEYWORDS, EXIF, Exif.Image.XPKeywords);
+    I(EXIF_XPSUBJECT, EXIF, Exif.Image.XPSubject);
+    I(IPTC_CAPTION, IPTC, Iptc.Application2.Caption);
+    I(IPTC_HEADLINE, IPTC, Iptc.Application2.Headline);
+    I(IPTC_SUPP_CAT, IPTC, Iptc.Application2.SuppCategory);
+    II(FILE_CTIME, FILE, CTime, "File creation time");
+    II(FILE_MTIME, FILE, MTime, "File last modification time");
 
 #undef I
+#undef II
 }
 
 }
+
 }
 
 #include "SyncWidget.moc"

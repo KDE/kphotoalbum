@@ -26,12 +26,28 @@ namespace Exif{
 
 namespace Syncable {
 
-enum Header { NONE, JPEG, EXIF, IPTC };
+enum Header { NONE, FILE, JPEG, EXIF, IPTC };
 
-enum Kind { STOP, JPEG_COMMENT, EXIF_ORIENTATION, EXIF_DESCRIPTION,
-    EXIF_USER_COMMENT, IPTC_HEADLINE, IPTC_CAPTION };
+enum Kind { 
+    // delimiter for the "don't proccess more records" position
+    STOP,
+    // JPEG header
+    JPEG_COMMENT,
+    // image orientation
+    EXIF_ORIENTATION, 
+    // standard EXIF fields for description/label
+    EXIF_DESCRIPTION, EXIF_USER_COMMENT,
+    // stuff from Windows XP
+    EXIF_XPTITLE, EXIF_XPCOMMENT, EXIF_XPKEYWORDS, EXIF_XPSUBJECT,
+    // standard IPTC label/description
+    IPTC_HEADLINE, IPTC_CAPTION,
+    // IPTC categories
+    IPTC_SUPP_CAT,
+    // file modification time
+    FILE_CTIME, FILE_MTIME
+};
 
-void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,QString>& _whatsThis, QMap<Kind,Header>& _header);
+void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header);
 
 }
 

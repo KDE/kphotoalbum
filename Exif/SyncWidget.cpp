@@ -127,7 +127,6 @@ void SyncWidget::slotHandleDisabling()
         _downBut->setEnabled( true );
 }
 
-
 QValueList<Syncable::Kind> SyncWidget::items() const
 {
     // _items are reversed, so we have to reverse them again here
@@ -140,6 +139,7 @@ QValueList<Syncable::Kind> SyncWidget::items() const
         } while ( it != _items.begin() );
     return items;
 }
+
 
 namespace Syncable {
 

@@ -1046,17 +1046,26 @@ void Settings::SettingsDialog::createSyncPage()
     _tabs->setMargin( 6 );
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     QVBox* _boxForCategories;
-    QPtrList< QPair<Exif::SyncWidget*,Exif::SyncWidget*> > _categoryList;
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
-            _boxForCategories = new QVBox( top );
+            _boxForCategories = new QVBox( hbox );
             _boxForCategories->setSpacing( 6 );
-            QHBox* _boxForCategoriesSyncWidget = new QHBox( _boxForCategories );
-            QValueList<Exif::Syncable::Kind> categoryKinds(QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION );
-            _categoryList.append( new QPair<Exif::SyncWidget*,Exif::SyncWidget*>::QPair(
-                        new Exif::SyncWidget( i18n("Fields to get value from"), _boxForCategoriesSyncWidget, categoryKinds ),
-                        new Exif::SyncWidget( i18n("Fields to write value to"), _boxForCategoriesSyncWidget, categoryKinds )
-                        ) );
+            QHBox* hbox2 = new QHBox( _boxForCategories );
+            hbox2->setSpacing( 6 );
+            QValueList<Exif::Syncable::Kind> categoryKinds(QValueList<Exif::Syncable::Kind>() << 
+                    Exif::Syncable::IPTC_CAPTION << Exif::Syncable::STOP );
+            new Exif::SyncWidget( i18n("Fields to get value from"), hbox2, categoryKinds );
+            new Exif::SyncWidget( i18n("Fields to write value to"), hbox2, categoryKinds );
+            QGroupBox* box = new QGroupBox( 3, Horizontal, i18n("Super categories"), _boxForCategories );
+            box->setFlat( true );
+            new QRadioButton( i18n("Multiple fields, plain value"), box );
+            new QRadioButton( i18n("Multiple fields, full values"), box );
+            new QRadioButton( i18n("One field, full value"), box );
+            box->addSpace( 0 );
+            QLabel* separatorLabel = new QLabel( i18n("Separator: "), box );
+            separatorLabel->setAlignment( AlignRight );
+            KComboBox* combo = new KComboBox( box );
+            combo->insertStringList( QStringList() << QString::fromAscii("/") << QString::fromAscii(", ") );
             _tabs->addTab( _boxForCategories, (*it)->name() );
         }
     }
@@ -1069,6 +1078,7 @@ void Settings::SettingsDialog::createSyncPage()
     QCheckBox* _dateMTimeWrite = new QCheckBox( i18n("Set file's last modification time"), box );
     QCheckBox* _dateCTimeRead = new QCheckBox( i18n("Read from file's creation time"), box );
     QCheckBox* _dateCTimeWrite = new QCheckBox( i18n("Set file's creation time"), box );
+    QWhatsThis::add( box, i18n("<p>When importing metadata, KPhotoAlbum will use maximal value of checked items.</p><p>When writing, only selected records will be updated.</p>") );
     lay->addWidget( box );
 
     lay->addStretch( 1 );

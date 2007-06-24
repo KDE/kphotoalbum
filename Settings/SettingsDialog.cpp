@@ -38,6 +38,8 @@
 #include <kiconloader.h>
 #include <qhgroupbox.h>
 #include <qhbox.h>
+#include <qvbox.h>
+#include <qtabwidget.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
 #include <config.h>
@@ -1038,6 +1040,36 @@ void Settings::SettingsDialog::createSyncPage()
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
             Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT );
     lay->addWidget( hbox );
+
+    hbox = new QHGroupBox( i18n("Categories"), top );
+    QTabWidget* _tabs = new QTabWidget( hbox );
+    _tabs->setMargin( 6 );
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    QVBox* _boxForCategories;
+    QPtrList< QPair<Exif::SyncWidget*,Exif::SyncWidget*> > _categoryList;
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+        if( !(*it)->isSpecialCategory() ) {
+            _boxForCategories = new QVBox( top );
+            _boxForCategories->setSpacing( 6 );
+            QHBox* _boxForCategoriesSyncWidget = new QHBox( _boxForCategories );
+            QValueList<Exif::Syncable::Kind> categoryKinds(QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION );
+            _categoryList.append( new QPair<Exif::SyncWidget*,Exif::SyncWidget*>::QPair(
+                        new Exif::SyncWidget( i18n("Fields to get value from"), _boxForCategoriesSyncWidget, categoryKinds ),
+                        new Exif::SyncWidget( i18n("Fields to write value to"), _boxForCategoriesSyncWidget, categoryKinds )
+                        ) );
+            _tabs->addTab( _boxForCategories, (*it)->name() );
+        }
+    }
+    lay->addWidget( hbox );
+
+    QGroupBox* box = new QGroupBox( 2, Horizontal, i18n("Dates"), top );
+    QCheckBox* _dateExifRead = new QCheckBox( i18n("Read from Exif"), box );
+    QCheckBox* _dateExifWrite = new QCheckBox( i18n("Write to Exif"), box );
+    QCheckBox* _dateMTimeRead = new QCheckBox( i18n("Read from file's last modification time"), box );
+    QCheckBox* _dateMTimeWrite = new QCheckBox( i18n("Set file's last modification time"), box );
+    QCheckBox* _dateCTimeRead = new QCheckBox( i18n("Read from file's creation time"), box );
+    QCheckBox* _dateCTimeWrite = new QCheckBox( i18n("Set file's creation time"), box );
+    lay->addWidget( box );
 
     lay->addStretch( 1 );
 }

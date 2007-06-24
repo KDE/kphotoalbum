@@ -30,9 +30,9 @@ using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedKeys, bool returnFullExifName, Utilities::IptcCharset charset )
+QMap<QString, QStringList> Info::info( const QString& fileName, Set<QString> wantedKeys, bool returnFullExifName, Utilities::IptcCharset charset )
 {
-    QMap<QString, QString> result;
+    QMap<QString, QStringList> result;
 
     try {
         Exiv2::ExifData data = exifData( fileName );
@@ -72,11 +72,13 @@ QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedK
                     if ( !returnFullExifName )
                         text = QStringList::split( QString::fromLatin1("."), key ).last();
 
-                    std::string str;
                     std::ostringstream stream;
                     stream << *i;
-                    str = stream.str();
-                    result.insert( text, Utilities::cStringWithEncoding( str.c_str(), charset ) );
+                    QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                    if ( result.contains( text ) )
+                        result[ text ] += str;
+                    else
+                        result.insert( text, str );
                 }
             }
         }
@@ -100,13 +102,13 @@ Set<QString> Info::availableKeys()
     return _keys;
 }
 
-QMap<QString, QString> Info::infoForViewer( const QString& fileName, bool returnFullExifName )
+QMap<QString, QStringList> Info::infoForViewer( const QString& fileName, bool returnFullExifName )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(),
     		 returnFullExifName, ::Settings::SettingsData::instance()->iptcCharset() );
 }
 
-QMap<QString, QString> Info::infoForDialog( const QString& fileName, Utilities::IptcCharset charset )
+QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, Utilities::IptcCharset charset )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset);
 }

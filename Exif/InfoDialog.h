@@ -60,18 +60,18 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     virtual void keyPressEvent( QKeyEvent* );
 
-    Set<QString> exifGroups( const QMap<QString, QString>& exifInfo );
-    QMap<QString,QString> itemsForGroup( const QString& group, const QMap<QString, QString>& exifInfo );
+    Set<QString> exifGroups( const QMap<QString, QStringList>& exifInfo );
+    QMap<QString,QStringList> itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo );
     QString groupName( const QString& exifName );
     QString exifNameNoGroup( const QString& fullName );
-    void calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo );
+    void calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo );
 
 protected slots:
     void updateGrid();
     void slotCharsetChange( int charset );
 
 private:
-    QMap<int, QPair<QString,QString> > _texts;
+    QMap<int, QPair<QString,QStringList> > _texts;
     Set<int> _headers;
     int _maxKeyWidth;
     QString _search;

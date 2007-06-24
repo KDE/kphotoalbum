@@ -104,7 +104,7 @@ void Exif::Grid::slotCharsetChange( int charset )
     _texts.clear();
     _headers.clear();
 
-    QMap<QString,QString> map = Exif::Info::instance()->infoForDialog( _fileName, static_cast<Utilities::IptcCharset>(charset) );
+    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( _fileName, static_cast<Utilities::IptcCharset>(charset) );
     calculateMaxKeyWidth( map );
 
     Set<QString> groups = exifGroups( map );
@@ -115,14 +115,14 @@ void Exif::Grid::slotCharsetChange( int charset )
 
         // Header for group.
         QStringList list = QStringList::split( QString::fromLatin1( "." ), *groupIt );
-        _texts[index] = qMakePair( list[0], QString::null );
+        _texts[index] = qMakePair( list[0], QStringList() );
         list.pop_front();
-        _texts[index+1] = qMakePair( QString::fromLatin1( "." ) + list.join( QString::fromLatin1( "." ) ), QString::null );
+        _texts[index+1] = qMakePair( QString::fromLatin1( "." ) + list.join( QString::fromLatin1( "." ) ), QStringList() );
         _headers.insert( index );
         index += 2;
 
         // Items of group
-        QMap<QString,QString> items = itemsForGroup( *groupIt, map );
+        QMap<QString,QStringList> items = itemsForGroup( *groupIt, map );
         QStringList sorted = items.keys();
         sorted.sort();
         for( QStringList::Iterator exifIt = sorted.begin(); exifIt != sorted.end(); ++exifIt ) {
@@ -131,7 +131,7 @@ void Exif::Grid::slotCharsetChange( int charset )
         }
     }
 
-    setNumRows( _texts.count() / 2 + _texts.count() % 2);
+    setNumRows( index / 2 + index % 2 );
     setNumCols( 2 );
     setCellWidth( 200 );
     setCellHeight( QFontMetrics( font() ).height() );
@@ -166,7 +166,7 @@ void Exif::Grid::paintCell( QPainter * p, int row, int col )
         p->drawText( cellRect(), AlignLeft, text);
         QRect rect = cellRect();
         rect.setX( _maxKeyWidth + 10 );
-        p->drawText( rect, AlignLeft, _texts[index].second );
+        p->drawText( rect, AlignLeft, _texts[index].second.join( QString::fromAscii(", ") ) );
     }
 }
 
@@ -176,19 +176,19 @@ QSize Exif::InfoDialog::sizeHint() const
     return QSize( 800, 400 );
 }
 
-Set<QString> Exif::Grid::exifGroups( const QMap<QString,QString>& exifInfo )
+Set<QString> Exif::Grid::exifGroups( const QMap<QString,QStringList>& exifInfo )
 {
     Set<QString> result;
-    for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
+    for( QMap<QString,QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
         result.insert( groupName( it.key() ) );
     }
     return result;
 }
 
-QMap<QString,QString> Exif::Grid::itemsForGroup( const QString& group, const QMap<QString, QString>& exifInfo )
+QMap<QString,QStringList> Exif::Grid::itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo )
 {
-    QMap<QString,QString> result;
-    for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
+    QMap<QString,QStringList> result;
+    for( QMap<QString,QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
         if ( groupName( it.key() ) == group )
             result.insert( it.key(), it.data() );
     }
@@ -217,13 +217,13 @@ void Exif::Grid::updateGrid()
     setCellWidth( clipper()->width() / 2 );
 }
 
-void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo )
+void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo )
 {
     QFont f = font();
     f.setWeight( QFont::Bold );
     QFontMetrics metrics( f );
     _maxKeyWidth = 0;
-    for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
+    for( QMap<QString,QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
         _maxKeyWidth = QMAX( _maxKeyWidth, metrics.width( exifNameNoGroup( it.key() ) ) );
     }
 }

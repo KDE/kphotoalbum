@@ -19,6 +19,7 @@
 #include <qvbox.h>
 #include <qlayout.h>
 #include <qmap.h>
+#include <qwhatsthis.h>
 #include <kiconloader.h>
 #include <kicontheme.h>
 #include "Exif/SyncWidget.h"
@@ -44,7 +45,7 @@ SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<
             --it;
             if ( _header.contains( *it ) ) {
                 _items.append( *it );
-                QListViewItem* item = new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
+                new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
             }
         } while ( it != items.begin() );
 
@@ -55,6 +56,10 @@ SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<
     _downBut = new QPushButton( vbox );
     _downBut->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "down" ), KIcon::Desktop, 22 ) );
     spacer = new QWidget( vbox );
+
+    QWhatsThis::add( this, i18n("<p>Use the \"Up\" and \"Down\" buttons to change the order of various fields. "
+                "Items are processed from the top of this list and the iteration stops when it hits the "
+                "<code>-- stop --</code> field.</p>") );
 
     slotHandleDisabling();
 

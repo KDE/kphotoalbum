@@ -160,16 +160,33 @@ void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleN
     I(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation);
     I(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription);
     I(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment);
+
     I(EXIF_XPTITLE, EXIF, Exif.Image.XPTitle);
     I(EXIF_XPCOMMENT, EXIF, Exif.Image.XPComment);
     I(EXIF_XPKEYWORDS, EXIF, Exif.Image.XPKeywords);
     I(EXIF_XPSUBJECT, EXIF, Exif.Image.XPSubject);
-    I(IPTC_CAPTION, IPTC, Iptc.Application2.Caption);
+
     I(IPTC_HEADLINE, IPTC, Iptc.Application2.Headline);
+    I(IPTC_CAPTION, IPTC, Iptc.Application2.Caption);
     I(IPTC_OBJECT_NAME, IPTC, Iptc.Application2.ObjectName);
+    I(IPTC_SUBJECT, IPTC, Iptc.Application2.Subject);
+
     I(IPTC_SUPP_CAT, IPTC, Iptc.Application2.SuppCategory);
+    I(IPTC_KEYWORDS, IPTC, Iptc.Application2.Keywords);
+
+    I(IPTC_LOCATION_CODE, IPTC, Iptc.Application2.LocationCode);
+    I(IPTC_LOCATION_NAME, IPTC, Iptc.Application2.LocationName);
+    I(IPTC_CITY, IPTC, Iptc.Application2.City);
+    I(IPTC_SUB_LOCATION, IPTC, Iptc.Application2.SubLocation);
+    I(IPTC_PROVINCE_STATE, IPTC, Iptc.Application2.ProvinceState);
+    I(IPTC_COUNTRY_CODE, IPTC, Iptc.Application2.CountryCode);
+    I(IPTC_COUNTRY_NAME, IPTC, Iptc.Application2.CountryName);
+
     II(FILE_CTIME, FILE, CTime, "File creation time");
     II(FILE_MTIME, FILE, MTime, "File last modification time");
+    I(EXIF_DATETIME, EXIF, Exif.Image.DateTime);
+    I(EXIF_DATETIME_ORIGINAL, EXIF, Exif.Photo.DateTimeOriginal);
+    I(EXIF_DATETIME_DIGITIZED, EXIF, Exif.Photo.DateTimeDigitized);
 
 #undef I
 #undef II

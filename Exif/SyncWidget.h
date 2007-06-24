@@ -40,11 +40,14 @@ enum Kind {
     // stuff from Windows XP
     EXIF_XPTITLE, EXIF_XPCOMMENT, EXIF_XPKEYWORDS, EXIF_XPSUBJECT,
     // standard IPTC label/description
-    IPTC_HEADLINE, IPTC_CAPTION, IPTC_OBJECT_NAME,
+    IPTC_HEADLINE, IPTC_CAPTION, IPTC_OBJECT_NAME, IPTC_SUBJECT,
     // IPTC categories
-    IPTC_SUPP_CAT,
+    IPTC_SUPP_CAT, IPTC_KEYWORDS,
+    // geographic stuff
+    IPTC_LOCATION_CODE, IPTC_LOCATION_NAME, IPTC_CITY,
+    IPTC_SUB_LOCATION, IPTC_PROVINCE_STATE, IPTC_COUNTRY_CODE, IPTC_COUNTRY_NAME,
     // file modification time
-    FILE_CTIME, FILE_MTIME
+    FILE_CTIME, FILE_MTIME, EXIF_DATETIME, EXIF_DATETIME_ORIGINAL, EXIF_DATETIME_DIGITIZED
 };
 
 void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header);

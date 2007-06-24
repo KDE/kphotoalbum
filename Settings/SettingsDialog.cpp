@@ -39,6 +39,8 @@
 #include <qhgroupbox.h>
 #include <qhbox.h>
 #include <qvbox.h>
+#include <qgrid.h>
+#include <qvbuttongroup.h>
 #include <qtabwidget.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
@@ -1003,85 +1005,115 @@ void Settings::SettingsDialog::createSyncPage()
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
                                                              KIcon::Desktop, 32 ) );
 
-    QVBoxLayout* lay = new QVBoxLayout( top, 6 );
-    QHGroupBox* hbox;
+    QVBoxLayout* _lay = new QVBoxLayout( top );
+    QTabWidget* _tabs = new QTabWidget( top );
+    _tabs->setMargin( 6 );
+    QHBox* hbox;
+    QValueList< Exif::Syncable::Kind > rValues, wValues;
 
-    hbox = new QHGroupBox( i18n("Image orientation"), top );
-    QCheckBox* rotation = new QCheckBox( i18n("Use EXIF"), hbox );
-    QWhatsThis::add( rotation, i18n("<p>Image orientation and the <code>Exif.Image.Orientation</code> tag</p>") );
-    lay->addWidget( hbox );
+    hbox = new QHBox( top );
+    hbox->setSpacing( 6 );
+    rValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
+    wValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
+    Exif::SyncWidget* _orientationRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    Exif::SyncWidget* _orientationWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _tabs->addTab( hbox, i18n("Image orientation") );
 
-    hbox = new QHGroupBox( i18n("Label"), top );
-    Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, 
-            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_HEADLINE <<
+    hbox = new QHBox( top );
+    hbox->setSpacing( 6 );
+    rValues.clear(); wValues.clear();
+    rValues << Exif::Syncable::IPTC_HEADLINE <<
             Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
             Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
             Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
-            Exif::Syncable::STOP );
-    hbox->addSpace( 10 );
-    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, 
-            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::STOP << Exif::Syncable::IPTC_CAPTION;
+    wValues << Exif::Syncable::IPTC_HEADLINE <<
             Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
-            Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT );
-    lay->addWidget( hbox );
+            Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT <<
+            Exif::Syncable::IPTC_CAPTION;
+    Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _tabs->addTab( hbox, i18n("Label") );
 
-    hbox = new QHGroupBox( i18n("Description"), top );
-    Exif::SyncWidget* _descRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, 
-            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION <<
+    hbox = new QHBox( top );
+    hbox->setSpacing( 6 );
+    rValues.clear(); wValues.clear();
+    rValues << Exif::Syncable::IPTC_CAPTION <<
             Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
             Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPCOMMENT <<
             Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
-            Exif::Syncable::STOP );
-    hbox->addSpace( 10 );
-    Exif::SyncWidget* _descWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, 
-            QValueList<Exif::Syncable::Kind>() << Exif::Syncable::IPTC_CAPTION <<
+            Exif::Syncable::STOP << Exif::Syncable::IPTC_HEADLINE;
+    wValues << Exif::Syncable::IPTC_CAPTION <<
             Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
-            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT );
-    lay->addWidget( hbox );
+            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT <<
+            Exif::Syncable::IPTC_HEADLINE;
+    Exif::SyncWidget* _descRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    Exif::SyncWidget* _descWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _tabs->addTab( hbox, i18n("Description") );
 
-    hbox = new QHGroupBox( i18n("Categories"), top );
-    QTabWidget* _tabs = new QTabWidget( hbox );
-    _tabs->setMargin( 6 );
+    hbox = new QHBox( top );
+    hbox->setSpacing( 6 );
+    rValues.clear(); wValues.clear();
+    rValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
+        Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_MTIME <<
+        Exif::Syncable::FILE_CTIME << Exif::Syncable::STOP;
+    wValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::FILE_MTIME <<
+        Exif::Syncable::STOP << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
+        Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_CTIME;
+
+    Exif::SyncWidget* _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    Exif::SyncWidget* _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _tabs->addTab( hbox, i18n("Date") );
+
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    QVBox* _boxForCategories;
-    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it )
         if( !(*it)->isSpecialCategory() ) {
-            _boxForCategories = new QVBox( hbox );
-            _boxForCategories->setSpacing( 6 );
-            QHBox* hbox2 = new QHBox( _boxForCategories );
-            hbox2->setSpacing( 6 );
-            QValueList<Exif::Syncable::Kind> categoryKinds(QValueList<Exif::Syncable::Kind>() << 
-                    Exif::Syncable::IPTC_CAPTION << Exif::Syncable::STOP );
-            new Exif::SyncWidget( i18n("Fields to get value from"), hbox2, categoryKinds );
-            new Exif::SyncWidget( i18n("Fields to write value to"), hbox2, categoryKinds );
-            QGroupBox* box = new QGroupBox( 3, Horizontal, i18n("Super categories"), _boxForCategories );
-            box->setFlat( true );
-            new QRadioButton( i18n("Multiple fields, plain value"), box );
-            new QRadioButton( i18n("Multiple fields, full values"), box );
-            new QRadioButton( i18n("One field, full value"), box );
-            box->addSpace( 0 );
-            QLabel* separatorLabel = new QLabel( i18n("Separator: "), box );
-            separatorLabel->setAlignment( AlignRight );
+            QGrid* box = new QGrid( 2, Horizontal, top );
+            box->setSpacing( 6 );
+            rValues.clear(); wValues.clear();
+            if ( (*it)->standardCategories()[ QString::fromLatin1("Keywords") ] == (*it)->name() ) {
+                rValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
+                    Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+                wValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
+                    Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
+            } else if ( (*it)->standardCategories()[ QString::fromLatin1("Places") ] == (*it)->name() ) {
+                rValues << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
+                    Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+                    Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+                    Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+                wValues << Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::STOP <<
+                    Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+                    Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+                    Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_SUPP_CAT;
+            } else {
+                rValues << Exif::Syncable::STOP << Exif::Syncable::EXIF_DESCRIPTION <<
+                    Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
+                    Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPKEYWORDS <<
+                    Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_HEADLINE <<
+                    Exif::Syncable::IPTC_CAPTION << Exif::Syncable::IPTC_OBJECT_NAME <<
+                    Exif::Syncable::IPTC_SUBJECT << Exif::Syncable::IPTC_SUPP_CAT <<
+                    Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::IPTC_LOCATION_CODE <<
+                    Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::IPTC_CITY <<
+                    Exif::Syncable::IPTC_SUB_LOCATION << Exif::Syncable::IPTC_PROVINCE_STATE <<
+                    Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_COUNTRY_NAME;
+                wValues = rValues;
+            }
+            Exif::SyncWidget* _catRead = new Exif::SyncWidget( i18n("Fields to get value from"), box, rValues );
+            Exif::SyncWidget* _catWrite = new Exif::SyncWidget( i18n("Fields to write value to"), box, wValues );
+            QLabel* lbl = new QLabel( i18n("Supercategories"), box );
+            lbl->setAlignment( AlignRight | AlignVCenter );
             KComboBox* combo = new KComboBox( box );
-            combo->insertStringList( QStringList() << QString::fromAscii("/") << QString::fromAscii(", ") );
-            _tabs->addTab( _boxForCategories, (*it)->name() );
+            combo->insertStringList( QStringList() << i18n("Multiple fields, one level for each") <<
+                    i18n("Multiple fields, comma separated values") << i18n("Multiple fields, slash separated values") <<
+                    i18n("One field, comma separated") << i18n("One field, slash separated") );
+
+            _tabs->addTab( box, (*it)->name() );
         }
-    }
-    lay->addWidget( hbox );
 
-    QGroupBox* box = new QGroupBox( 2, Horizontal, i18n("Dates"), top );
-    QCheckBox* _dateExifRead = new QCheckBox( i18n("Read from Exif"), box );
-    QCheckBox* _dateExifWrite = new QCheckBox( i18n("Write to Exif"), box );
-    QCheckBox* _dateMTimeRead = new QCheckBox( i18n("Read from file's last modification time"), box );
-    QCheckBox* _dateMTimeWrite = new QCheckBox( i18n("Set file's last modification time"), box );
-    QCheckBox* _dateCTimeRead = new QCheckBox( i18n("Read from file's creation time"), box );
-    QCheckBox* _dateCTimeWrite = new QCheckBox( i18n("Set file's creation time"), box );
-    QWhatsThis::add( box, i18n("<p>When importing metadata, KPhotoAlbum will use maximal value of checked items.</p><p>When writing, only selected records will be updated.</p>") );
-    lay->addWidget( box );
-
-    lay->addStretch( 1 );
+    _lay->addWidget( _tabs );
+    _lay->addStretch( 0 );
 }
 
 void Settings::SettingsDialog::showBackendPage()

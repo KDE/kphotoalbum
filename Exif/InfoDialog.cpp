@@ -112,7 +112,7 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
         }
     }
 
-    setNumRows( _texts.count() / 2 + _texts.count() % 2);
+    setNumRows( index / 2 + index % 2);
     setNumCols( 2 );
     setCellWidth( 200 );
     setCellHeight( QFontMetrics( font() ).height() );

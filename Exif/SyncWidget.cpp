@@ -31,7 +31,7 @@ SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<
 {
     QMap<Syncable::Kind,QString> _fieldName, _visibleName;
     QMap<Syncable::Kind,Syncable::Header> _header;
-    Syncable::createTables( _fieldName, _visibleName, _header);
+    Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
 
     setSpacing( 6 );
     _list = new QListView( this, name );
@@ -143,7 +143,7 @@ QValueList<Syncable::Kind> SyncWidget::items() const
 
 namespace Syncable {
 
-void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header)
+void fillTranslationTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header)
 {
 #define II(X,HEADER,FIELD,VISIBLE) \
      _header[X] = HEADER; \
@@ -157,22 +157,22 @@ void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleN
 
     II(STOP, NONE, NONE, "-- stop --");
     II(JPEG_COMMENT, JPEG, Comment, "JPEG Comment");
-    I(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation);
-    I(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription);
-    I(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment);
+    II(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation, "EXIF Image Orientation");
+    II(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription, "EXIF Image Description");
+    II(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment, "EXIF User Comment");
 
     I(EXIF_XPTITLE, EXIF, Exif.Image.XPTitle);
     I(EXIF_XPCOMMENT, EXIF, Exif.Image.XPComment);
     I(EXIF_XPKEYWORDS, EXIF, Exif.Image.XPKeywords);
     I(EXIF_XPSUBJECT, EXIF, Exif.Image.XPSubject);
 
-    I(IPTC_HEADLINE, IPTC, Iptc.Application2.Headline);
-    I(IPTC_CAPTION, IPTC, Iptc.Application2.Caption);
+    II(IPTC_HEADLINE, IPTC, Iptc.Application2.Headline, "IPTC Headline");
+    II(IPTC_CAPTION, IPTC, Iptc.Application2.Caption, "IPTC Caption");
     I(IPTC_OBJECT_NAME, IPTC, Iptc.Application2.ObjectName);
-    I(IPTC_SUBJECT, IPTC, Iptc.Application2.Subject);
+    II(IPTC_SUBJECT, IPTC, Iptc.Application2.Subject, "IPTC Subject");
 
-    I(IPTC_SUPP_CAT, IPTC, Iptc.Application2.SuppCategory);
-    I(IPTC_KEYWORDS, IPTC, Iptc.Application2.Keywords);
+    II(IPTC_SUPP_CAT, IPTC, Iptc.Application2.SuppCategory, "IPTC Supplemental Categories");
+    II(IPTC_KEYWORDS, IPTC, Iptc.Application2.Keywords, "IPTC Keywords");
 
     I(IPTC_LOCATION_CODE, IPTC, Iptc.Application2.LocationCode);
     I(IPTC_LOCATION_NAME, IPTC, Iptc.Application2.LocationName);
@@ -184,7 +184,7 @@ void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleN
 
     II(FILE_CTIME, FILE, CTime, "File creation time");
     II(FILE_MTIME, FILE, MTime, "File last modification time");
-    I(EXIF_DATETIME, EXIF, Exif.Image.DateTime);
+    II(EXIF_DATETIME, EXIF, Exif.Image.DateTime, "EXIF Date");
     I(EXIF_DATETIME_ORIGINAL, EXIF, Exif.Photo.DateTimeOriginal);
     I(EXIF_DATETIME_DIGITIZED, EXIF, Exif.Photo.DateTimeDigitized);
 

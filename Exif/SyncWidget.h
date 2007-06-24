@@ -50,7 +50,7 @@ enum Kind {
     FILE_CTIME, FILE_MTIME, EXIF_DATETIME, EXIF_DATETIME_ORIGINAL, EXIF_DATETIME_DIGITIZED
 };
 
-void createTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header);
+void fillTranslationTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header);
 
 }
 

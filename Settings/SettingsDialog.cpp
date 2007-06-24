@@ -1073,12 +1073,14 @@ void Settings::SettingsDialog::createSyncPage()
             QGrid* box = new QGrid( 2, Horizontal, top );
             box->setSpacing( 6 );
             rValues.clear(); wValues.clear();
-            if ( (*it)->standardCategories()[ QString::fromLatin1("Keywords") ] == (*it)->name() ) {
+            if ( ( (*it)->name() == QString::fromLatin1("Keywords") ) ||
+                    ( (*it)->standardCategories()[ QString::fromLatin1("Keywords") ] == (*it)->name() ) ) {
                 rValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
                     Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
                 wValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
                     Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
-            } else if ( (*it)->standardCategories()[ QString::fromLatin1("Places") ] == (*it)->name() ) {
+            } else if ( ( (*it)->name() == QString::fromLatin1("Places") ) ||
+                    ( (*it)->standardCategories()[ QString::fromLatin1("Places") ] == (*it)->name() ) ) {
                 rValues << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
                     Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
                     Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
@@ -1113,7 +1115,6 @@ void Settings::SettingsDialog::createSyncPage()
         }
 
     _lay->addWidget( _tabs );
-    _lay->addStretch( 0 );
 }
 
 void Settings::SettingsDialog::showBackendPage()

@@ -71,6 +71,7 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 										  QString::fromLatin1("rdc"),
 										  QString::fromLatin1("x3f"),
 										  QString::fromLatin1("erf"),
+										  QString::fromLatin1("pef"),
 										  QString::null };
 	if (Settings::SettingsData::instance()->dontReadRawFilesWithOtherMatchingFile()) {
             static const QString standardExtensions[] = {

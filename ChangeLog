@@ -1,3 +1,7 @@
+2007-06-26  Jan Kundrat  <jkt@gentoo.org>
+
+	* Support PEF, a raw format from Pentax' DSLRs.
+
 2007-06-16  Jan Kundrat  <jkt@gentoo.org>
 
 	* Display a warning instead of black screen when current image can't

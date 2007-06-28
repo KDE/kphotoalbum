@@ -80,7 +80,6 @@ add_subdirectory( images )
 add_subdirectory( icons )
 add_subdirectory( demo )
 add_subdirectory( themes )
-add_subdirectory( Survey )
 add_subdirectory( Browser )
 add_subdirectory( ImportExport )
 add_subdirectory( AnnotationDialog )
@@ -104,7 +103,7 @@ kde4_automoc(${kphotoalbum_SRCS})
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} MainWindow ImportExport Browser AnnotationDialog Utilities ImageManager DB  ${KDE4_KIO_LIBS} jpeg kmediaplayer )
+target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} MainWindow ImportExport Browser AnnotationDialog ImageManager DB  ${KDE4_KIO_LIBS} jpeg kmediaplayer )
 
 install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 

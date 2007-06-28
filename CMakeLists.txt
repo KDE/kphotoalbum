@@ -8,21 +8,70 @@ macro_optional_find_package(Exiv2)
 
 include(ConvenienceLibs.cmake)
 
+set(libdatebar_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/ViewHandler.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/MouseHandler.cpp)
+
+set(libSettings_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsData.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsDialog.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp)
+
+set(libsurvey_SRCS
+       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/Question.cpp 
+       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/SurveyDialog.cpp 
+       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/TextQuestion.cpp
+       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/InfoPage.cpp 
+       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/AlternativeQuestion.cpp 
+       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/MySurvey.cpp 
+       ${CMAKE_CURRENT_SOURCE_DIR}/Survey/SurveyCount.cpp)
+
+
+set(libxmldb_SRCS
+  	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/Database.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLCategoryCollection.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLCategory.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XMLImageDateCollection.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/NumberedBackup.cpp
+  	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp )
+
+set(libThumbnailView_SRCS 
+        ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailRequest.cpp  
+	${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailToolTip.cpp  
+	${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailWidget.cpp 
+        ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/GridResizeInteraction.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/SelectionInteraction.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/MouseTrackingInteraction.cpp 
+        ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailBuilder.cpp)
+set(libPlugins_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageInfo.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollection.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Interface.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Plugins/CategoryImageCollection.cpp )
+set(libViewer_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Draw.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CircleDraw.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/RectDraw.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/LineDraw.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/DrawList.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewerWidget.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/DrawHandler.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ImageDisplay.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewHandler.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SpeedDisplay.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ShowOptionAction.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBox.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CategoryImageConfig.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Display.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoDisplay.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TextDisplay.cpp)
+
+
 add_subdirectory( images )
 add_subdirectory( icons )
 add_subdirectory( demo )
 add_subdirectory( themes )
 add_subdirectory( Survey )
-add_subdirectory( XMLDB )
-add_subdirectory( DateBar )
-add_subdirectory( ThumbnailView )
-add_subdirectory( Plugins )
-add_subdirectory( Viewer )
 add_subdirectory( Browser )
 add_subdirectory( ImportExport )
 add_subdirectory( AnnotationDialog )
 add_subdirectory( MainWindow )
-add_subdirectory( Settings )
 add_subdirectory( Utilities )
 add_subdirectory( ImageManager )
 add_subdirectory( DB )
@@ -39,13 +88,13 @@ endif(KIPI_FOUND)
 
 ########### next target ###############
 
-set(kphotoalbum_SRCS main.cpp )
+set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS})
 
 kde4_automoc(${kphotoalbum_SRCS})
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} MainWindow survey ImportExport xmldb datebar Browser Plugins Viewer ThumbnailView AnnotationDialog Settings Utilities ImageManager DB CategoryListView ${KDE4_KIO_LIBS} jpeg HTMLGenerator kmediaplayer )
+target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} MainWindow ImportExport Browser AnnotationDialog Utilities ImageManager DB CategoryListView ${KDE4_KIO_LIBS} jpeg HTMLGenerator kmediaplayer )
 
 install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 

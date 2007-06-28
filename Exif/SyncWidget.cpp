@@ -155,8 +155,8 @@ void fillTranslationTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& 
      _visibleName[X] = QString::fromAscii(#FIELD);
 
 
-    II(STOP, NONE, NONE, "-- stop --");
-    II(JPEG_COMMENT, JPEG, Comment, "JPEG Comment");
+    II(STOP, NONE, STOP, "-- stop --");
+    II(JPEG_COMMENT, JPEG, JPEG.Comment, "JPEG Comment");
     II(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation, "EXIF Image Orientation");
     II(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription, "EXIF Image Description");
     II(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment, "EXIF User Comment");
@@ -182,8 +182,8 @@ void fillTranslationTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& 
     I(IPTC_COUNTRY_CODE, IPTC, Iptc.Application2.CountryCode);
     I(IPTC_COUNTRY_NAME, IPTC, Iptc.Application2.CountryName);
 
-    II(FILE_CTIME, FILE, CTime, "File creation time");
-    II(FILE_MTIME, FILE, MTime, "File last modification time");
+    II(FILE_CTIME, FILE, File.CTime, "File creation time");
+    II(FILE_MTIME, FILE, File.MTime, "File last modification time");
     II(EXIF_DATETIME, EXIF, Exif.Image.DateTime, "EXIF Date");
     I(EXIF_DATETIME_ORIGINAL, EXIF, Exif.Photo.DateTimeOriginal);
     I(EXIF_DATETIME_DIGITIZED, EXIF, Exif.Photo.DateTimeDigitized);

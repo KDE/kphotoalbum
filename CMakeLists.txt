@@ -76,6 +76,22 @@ set(libUtilities_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ShowBusyCursor.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp)
 
+set(libMainWindow_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DeleteDialog.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DeleteThumbnailsDialog.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DonateDialog.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/FeatureDialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/InvalidDateFinder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/TokenEditor.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/WelcomeDialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/Window.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/SplashScreen.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/ExternalPopup.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/SearchBar.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/ImageCounter.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DirtyIndicator.cpp )
+
+
 add_subdirectory( images )
 add_subdirectory( icons )
 add_subdirectory( demo )
@@ -83,7 +99,6 @@ add_subdirectory( themes )
 add_subdirectory( Browser )
 add_subdirectory( ImportExport )
 add_subdirectory( AnnotationDialog )
-add_subdirectory( MainWindow )
 add_subdirectory( ImageManager )
 add_subdirectory( DB )
 
@@ -97,13 +112,13 @@ endif(KIPI_FOUND)
 
 ########### next target ###############
 
-set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libUtilities_SRCS}) 
+set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libUtilities_SRCS} ${libMainWindow_SRCS}) 
 
 kde4_automoc(${kphotoalbum_SRCS})
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} MainWindow ImportExport Browser AnnotationDialog ImageManager DB  ${KDE4_KIO_LIBS} jpeg kmediaplayer )
+target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} ImportExport Browser AnnotationDialog ImageManager DB  ${KDE4_KIO_LIBS} jpeg kmediaplayer )
 
 install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 

@@ -62,6 +62,19 @@ set(libViewer_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoDisplay.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TextDisplay.cpp)
 
+set(libCategoryListView_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragableListView.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragObject.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/CheckDropItem.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/DragItemInfo.cpp )
+
+set(libHTMLGenerator_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/HTMLDialog.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Generator.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/HTMLGenerator/Setup.cpp)
+set(libUtilities_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ShowBusyCursor.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp)
 
 add_subdirectory( images )
 add_subdirectory( icons )
@@ -72,11 +85,8 @@ add_subdirectory( Browser )
 add_subdirectory( ImportExport )
 add_subdirectory( AnnotationDialog )
 add_subdirectory( MainWindow )
-add_subdirectory( Utilities )
 add_subdirectory( ImageManager )
 add_subdirectory( DB )
-add_subdirectory( HTMLGenerator )
-add_subdirectory( CategoryListView )
 
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(SQLDB)")
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(EXIF_DIR)")
@@ -88,13 +98,13 @@ endif(KIPI_FOUND)
 
 ########### next target ###############
 
-set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS})
+set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libUtilities_SRCS}) 
 
 kde4_automoc(${kphotoalbum_SRCS})
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} MainWindow ImportExport Browser AnnotationDialog Utilities ImageManager DB CategoryListView ${KDE4_KIO_LIBS} jpeg HTMLGenerator kmediaplayer )
+target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} MainWindow ImportExport Browser AnnotationDialog Utilities ImageManager DB  ${KDE4_KIO_LIBS} jpeg kmediaplayer )
 
 install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 

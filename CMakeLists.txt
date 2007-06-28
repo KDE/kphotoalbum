@@ -1,17 +1,12 @@
 
 find_package(KDE4 REQUIRED)
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
-
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
-link_directories(${KDE4_LIB_DIR})
+macro_optional_find_package(Kipi)
+macro_optional_find_package(Exiv2)
 
 include(ConvenienceLibs.cmake)
-
-include(ManualStuff.cmake)
-
-include(ConfigureChecks.cmake)
 
 add_subdirectory( images )
 add_subdirectory( icons )
@@ -37,7 +32,9 @@ add_subdirectory( CategoryListView )
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(SQLDB)")
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(EXIF_DIR)")
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(KEXI_DIR)")
-include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES}  )
+if(KIPI_FOUND)
+	#TODO
+endif(KIPI_FOUND)
 
 
 ########### next target ###############

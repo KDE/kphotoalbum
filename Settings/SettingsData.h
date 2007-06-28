@@ -24,7 +24,7 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
-#include "Exif/SyncWidget.h"
+#include "Exif/Syncable.h"
 #include "Utilities/Set.h"
 #include "Utilities/Util.h"
 #ifdef SQLDB_SUPPORT

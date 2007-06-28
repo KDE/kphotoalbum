@@ -1,0 +1,62 @@
+
+include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES}  )
+
+
+########### next target ###############
+
+set(kphotoalbum_kexidb_sqlite2driver_PART_SRCS 
+   sqliteconnection.cpp 
+   sqlitedriver.cpp 
+   sqlitecursor.cpp 
+   sqlitepreparedstatement.cpp 
+   sqliteadmin.cpp 
+   sqlitealter.cpp )
+
+kde4_automoc(${kphotoalbum_kexidb_sqlite2driver_PART_SRCS})
+
+kde4_add_plugin(kphotoalbum_kexidb_sqlite2driver ${kphotoalbum_kexidb_sqlite2driver_PART_SRCS})
+
+target_link_libraries(kphotoalbum_kexidb_sqlite2driver  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} kexisql2 kphotoalbumkexidb kphotoalbumkexidbparser )
+
+install(TARGETS kphotoalbum_kexidb_sqlite2driver DESTINATION ${PLUGIN_INSTALL_DIR} )
+
+
+########### install files ###############
+
+install( FILES  kphotoalbum_kexidb_sqlite2driver.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
+
+
+
+#original Makefile.am contents follow:
+
+#include ../../../Makefile.global
+#
+#kde_module_LTLIBRARIES = kphotoalbum_kexidb_sqlite2driver.la
+#
+#INCLUDES = -I$(srcdir)/../../.. \
+#	-I$(srcdir)/../.. \
+#	-I$(srcdir)/../../../3rdparty/kexisql/src \
+#	-I$(srcdir)/../sqlite \
+#	-I$(srcdir)/../sqlite/moc \
+#	-I../sqlite \
+#	$(all_includes)
+#
+#kphotoalbum_kexidb_sqlite2driver_la_METASOURCES = AUTO
+#
+#kphotoalbum_kexidb_sqlite2driver_la_SOURCES = sqliteconnection.cpp sqlitedriver.cpp sqlitecursor.cpp \
+#	sqlitepreparedstatement.cpp sqliteadmin.cpp sqlitealter.cpp
+#
+#kphotoalbum_kexidb_sqlite2driver_la_LIBADD = $(LIB_KPARTS) $(LIB_QT) \
+# ../../../3rdparty/kexisql/src/libkexisql2.la \
+# ../../libkphotoalbumkexidb.la \
+# ../../parser/libkphotoalbumkexidbparser.la
+#
+#kphotoalbum_kexidb_sqlite2driver_la_LDFLAGS = $(all_libraries) -module $(KDE_PLUGIN) $(VER_INFO) 
+#
+#
+#kde_services_DATA = kphotoalbum_kexidb_sqlite2driver.desktop
+#
+#
+#KDE_CXXFLAGS += -DKEXIDB_SQLITE_DRIVER_EXPORT= -D__KEXIDB__= \
+#	-DSQLITE2= -include $(srcdir)/../../global.h
+#

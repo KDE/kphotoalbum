@@ -1,0 +1,25 @@
+
+include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES}  )
+
+
+########### next target ###############
+
+
+########### install files ###############
+
+
+
+
+#original Makefile.am contents follow:
+
+#noinst_LTLIBRARIES = libViewer.la
+#
+#INCLUDES =  -I$(srcdir)/.. $(all_includes)
+#
+#libViewer_la_SOURCES = Draw.cpp CircleDraw.cpp RectDraw.cpp LineDraw.cpp DrawList.cpp ViewerWidget.cpp DrawHandler.cpp ImageDisplay.cpp \
+#                       ViewHandler.cpp SpeedDisplay.cpp ShowOptionAction.cpp InfoBox.cpp CategoryImageConfig.cpp Display.cpp \
+#		       VideoDisplay.cpp TextDisplay.cpp
+#
+#KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
+#
+#METASOURCES = AUTO

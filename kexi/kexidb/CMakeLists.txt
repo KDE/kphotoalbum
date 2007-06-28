@@ -1,0 +1,97 @@
+
+add_subdirectory( parser )
+add_subdirectory( drivers )
+
+include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES}  )
+
+
+########### next target ###############
+
+set(kphotoalbumkexidb_LIB_SRCS 
+   drivermanager.cpp 
+   driver.cpp 
+   driver_p.cpp 
+   connection.cpp 
+   keywords.cpp 
+   object.cpp 
+   field.cpp 
+   utils.cpp 
+   expression.cpp 
+   connectiondata.cpp 
+   fieldlist.cpp 
+   tableschema.cpp 
+   cursor.cpp 
+   transaction.cpp 
+   indexschema.cpp 
+   queryschemaparameter.cpp 
+   queryschema.cpp 
+   schemadata.cpp 
+   global.cpp 
+   relationship.cpp 
+   roweditbuffer.cpp 
+   msghandler.cpp 
+   dbobjectnamevalidator.cpp 
+   fieldvalidator.cpp 
+   preparedstatement.cpp 
+   dbproperties.cpp 
+   admin.cpp 
+   alter.cpp 
+   lookupfieldschema.cpp 
+   simplecommandlineapp.cpp )
+
+kde4_automoc(${kphotoalbumkexidb_LIB_SRCS})
+
+kde4_add_library(kphotoalbumkexidb SHARED ${kphotoalbumkexidb_LIB_SRCS})
+
+target_link_libraries(kphotoalbumkexidb  ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} kphotoalbumkexiutils )
+
+set_target_properties(kphotoalbumkexidb PROPERTIES VERSION 1.0.0 SOVERSION 1 )
+install(TARGETS kphotoalbumkexidb DESTINATION ${LIB_INSTALL_DIR} )
+
+
+########### install files ###############
+
+install( FILES  DESTINATION ${INCLUDE_INSTALL_DIR}/kexidb )
+install( FILES  kphotoalbum_kexidb_driver.desktop DESTINATION ${SERVICETYPES_INSTALL_DIR} )
+
+
+
+#original Makefile.am contents follow:
+
+#include ../Makefile.global
+#
+#lib_LTLIBRARIES = libkphotoalbumkexidb.la
+#
+#INCLUDES = -I$(srcdir)/.. $(all_includes)
+#
+#SUBDIRS = . parser drivers
+#
+#libkphotoalbumkexidb_la_METASOURCES = AUTO
+#
+#libkphotoalbumkexidb_la_SOURCES = drivermanager.cpp driver.cpp driver_p.cpp connection.cpp \
+# keywords.cpp object.cpp field.cpp utils.cpp expression.cpp \
+# connectiondata.cpp fieldlist.cpp tableschema.cpp cursor.cpp transaction.cpp  \
+# indexschema.cpp queryschemaparameter.cpp queryschema.cpp schemadata.cpp global.cpp \
+# relationship.cpp roweditbuffer.cpp msghandler.cpp \
+# dbobjectnamevalidator.cpp fieldvalidator.cpp preparedstatement.cpp \
+# dbproperties.cpp admin.cpp alter.cpp lookupfieldschema.cpp simplecommandlineapp.cpp
+#
+#noinst_HEADERS = drivermanager_p.h utils_p.h
+#
+#kexidbincludedir=$(includedir)/kexidb
+#noinst_HEADERS += connection.h connectiondata.h cursor.h \
+#  driver.h drivermanager.h \
+#  error.h expression.h field.h fieldlist.h global.h object.h \
+#  schemadata.h tableschema.h queryschema.h queryschemaparameter.h indexschema.h \
+#  relationship.h parser/parser.h transaction.h preparedstatement.h \
+#  kexidb_export.h
+#
+#libkphotoalbumkexidb_la_LIBADD = $(LIB_QT) $(LIB_KDECORE) $(LIB_KIO) \
+#	 ../kexiutils/libkphotoalbumkexiutils.la
+#libkphotoalbumkexidb_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
+#
+#kde_servicetypes_DATA = kphotoalbum_kexidb_driver.desktop
+#
+#
+#KDE_CXXFLAGS += -D__KEXIDB__= -include $(srcdir)/global.h
+#

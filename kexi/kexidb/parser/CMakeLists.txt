@@ -1,0 +1,67 @@
+
+include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES}  )
+
+
+########### next target ###############
+
+set(kphotoalbumkexidbparser_LIB_SRCS 
+   sqlscanner.cpp 
+   sqlparser.cpp 
+   parser.cpp 
+   parser_p.cpp )
+
+kde4_automoc(${kphotoalbumkexidbparser_LIB_SRCS})
+
+kde4_add_library(kphotoalbumkexidbparser SHARED ${kphotoalbumkexidbparser_LIB_SRCS})
+
+target_link_libraries(kphotoalbumkexidbparser  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KDEUI_LIBS} kphotoalbumkexidb )
+
+set_target_properties(kphotoalbumkexidbparser PROPERTIES VERSION 1.0.0 SOVERSION 1 )
+install(TARGETS kphotoalbumkexidbparser DESTINATION ${LIB_INSTALL_DIR} )
+
+
+########### install files ###############
+
+
+
+
+#original Makefile.am contents follow:
+
+#include ../../Makefile.global
+#
+#lib_LTLIBRARIES = libkphotoalbumkexidbparser.la
+#libkphotoalbumkexidbparser_la_SOURCES = sqlscanner.cpp sqlparser.cpp parser.cpp parser_p.cpp
+#libkphotoalbumkexidbparser_la_LIBADD = $(LIB_KPARTS) $(LIB_KDEUI) ../libkphotoalbumkexidb.la
+#libkphotoalbumkexidbparser_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(VER_INFO)
+#
+#noinst_HEADERS = parser_p.h
+#
+#INCLUDES = -I$(srcdir)/../.. -I$(srcdir)/.. $(all_includes)
+#METASOURCES = AUTO
+#
+#parser:
+#	cd $(srcdir); \
+#	lex -osqlscanner.cpp sqlscanner.l; \
+#	bison -dv sqlparser.y; \
+#	echo '#ifndef _SQLPARSER_H_' > sqlparser.h; \
+#	echo '#define _SQLPARSER_H_' >> sqlparser.h; \
+#	echo '#include "field.h"' >> sqlparser.h; \
+#	echo '#include "parser.h"' >> sqlparser.h; \
+#	echo '#include "sqltypes.h"' >> sqlparser.h; \
+#	echo '' >> sqlparser.h; \
+#	echo 'bool parseData(KexiDB::Parser *p, const char *data);' >> sqlparser.h; \
+#	cat sqlparser.tab.h >> sqlparser.h; \
+#	echo '#endif' >> sqlparser.h; \
+#	cat sqlparser.tab.c > sqlparser.cpp; \
+#	echo "const char * const tname(int offset) { return yytname[offset]; }" >> sqlparser.cpp; \
+#	./extract_tokens.sh > tokens.cpp; \
+#	rm -f sqlparser.tab.h sqlparser.tab.c
+#
+#coffie:
+#	echo 'making coffie...'
+#	sleep 5
+#
+#KDE_OPTIONS=nofinal
+#KDE_CXXFLAGS += -DYYERROR_VERBOSE=1
+#
+#.PHONY: parser	coffie

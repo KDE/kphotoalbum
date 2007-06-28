@@ -1107,10 +1107,13 @@ void Settings::SettingsDialog::createSyncPage()
             QLabel* lbl = new QLabel( i18n("Supercategories"), box );
             lbl->setAlignment( AlignRight | AlignVCenter );
             KComboBox* combo = new KComboBox( box );
-            combo->insertStringList( QStringList() << i18n("Multiple fields, one level for each") <<
-                    i18n("Multiple fields, comma separated values") << i18n("Multiple fields, slash separated values") <<
-                    i18n("One field, comma separated") << i18n("One field, slash separated") );
-
+            combo->insertStringList( QStringList() << i18n("New tag for each level, one level per tag") <<
+                    i18n("Multiple fields, slash separated values") << i18n("Multiple fields, comma separated values") <<
+                    i18n("One field, slash separated") << i18n("One field, comma separated") );
+            lbl = new QLabel( i18n("Multiple values"), box );
+            lbl->setAlignment( AlignRight | AlignVCenter );
+            combo = new KComboBox( box );
+            combo->insertStringList( QStringList() << i18n("Repeat field") << i18n("Comma separated values") << i18n("Slash separated values") );
             _tabs->addTab( box, (*it)->name() );
         }
 

@@ -50,6 +50,30 @@ enum Kind {
     FILE_CTIME, FILE_MTIME, EXIF_DATETIME, EXIF_DATETIME_ORIGINAL, EXIF_DATETIME_DIGITIZED
 };
 
+enum SuperGroupHandling {
+    // selected field will be written multiple times, each of them will contain
+    // only one level of hierarchy
+    ForEach,
+    // selected field will be written multiple times, each level will contain
+    // slash-separated information about all its ancestors
+    CumulateSlash,
+    // see CumulateSlash, but separated by commas
+    CumulateComma,
+    // one record for any information, comma separated
+    OneSlash,
+    // one record for any information, slash separated
+    OneComma
+};
+
+enum MultiValueHandling {
+    // repeat the requested field multiple times
+    Repeat,
+    // separate all values with commas
+    SeparateComma,
+    // separate by semicolon
+    SeparateSemicolon
+};
+
 void fillTranslationTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header);
 
 }

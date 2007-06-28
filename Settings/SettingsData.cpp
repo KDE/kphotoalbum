@@ -479,12 +479,104 @@ QString Settings::SettingsData::groupForDatabase( const QString& setting ) const
 
 void Settings::SettingsData::setIptcCharset( Utilities::IptcCharset charset )
 {
-    setValue( STR("EXIF/IPTC"), STR("iptcCharset"), (int) charset);
+    setValue( STR("EXIF/IPTC"), STR("iptcCharset"), static_cast<int>( charset ));
 }
 
 Utilities::IptcCharset Settings::SettingsData::iptcCharset() const
 {
     return static_cast<Utilities::IptcCharset>( value(  STR("EXIF/IPTC"), STR("iptcCharset"), static_cast<int>(Utilities::CharsetUtf8)) );
+}
+
+void Settings::SettingsData::setCategorySyncingFields( const QString& category, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( QString::fromAscii("category_%1").arg( category ), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::categorySyncingFields( const QString& category ) const
+{
+    return _syncing( QString::fromAscii("category_%1").arg( category ) );
+}
+
+void Settings::SettingsData::setCategorySyncingSuperGroups( const QString& category, const Exif::Syncable::SuperGroupHandling how )
+{
+    setValue( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>( how ) );
+}
+
+Exif::Syncable::SuperGroupHandling Settings::SettingsData::categorySyncingSuperGroups( const QString& category ) const
+{
+    return static_cast<Exif::Syncable::SuperGroupHandling>( 
+            value( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>(Exif::Syncable::ForEach) ) );
+}
+
+void Settings::SettingsData::setCategorySyncingMultiValue( const QString& category, const Exif::Syncable::MultiValueHandling how )
+{
+    setValue( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>( how ) );
+}
+
+Exif::Syncable::MultiValueHandling Settings::SettingsData::categorySyncingMultiValue( const QString& category ) const
+{
+    return static_cast<Exif::Syncable::MultiValueHandling>( 
+            value( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>(Exif::Syncable::Repeat) ) );
+}
+
+void Settings::SettingsData::_setSyncing( const QString& identifier, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    QStringList list;
+    for (QValueList<Exif::Syncable::Kind>::const_iterator it = fields.begin(); it != fields.end(); ++it) {
+        list << QString::number( static_cast<int>( *it ) );
+    }
+    setValue( STR("MetadataSyncing"), STR("syncFields_%1").arg( identifier ), list.join( QString::fromAscii(";") ) );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::_syncing( const QString& identifier ) const
+{
+    QValueList<Exif::Syncable::Kind> list;
+    QStringList split = QStringList::split( QString::fromAscii(";"),
+            value( STR("MetadataSyncing"), STR("syncFields_%1").arg( identifier ), QString::null ) );
+    for (QStringList::const_iterator it = split.begin(); it != split.end(); ++it) {
+        list << static_cast<Exif::Syncable::Kind>( (*it).toInt() );
+    }
+    return list;
+}
+
+void Settings::SettingsData::setLabelSyncing( const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( QString::fromAscii("label"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::labelSyncing() const
+{
+    return _syncing( QString::fromAscii("label") );
+}
+
+void Settings::SettingsData::setDescriptionSyncing( const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( QString::fromAscii("description"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::descriptionSyncing() const
+{
+    return _syncing( QString::fromAscii("description") );
+}
+
+void Settings::SettingsData::setOrientationSyncing( const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( QString::fromAscii("orientation"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::orientationSyncing() const
+{
+    return _syncing( QString::fromAscii("orientation") );
+}
+
+void Settings::SettingsData::setDateSyncing( const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( QString::fromAscii("date"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::dateSyncing() const
+{
+    return _syncing( QString::fromAscii("date") );
 }
 
 void Settings::SettingsData::setThumbnailCache( int value )

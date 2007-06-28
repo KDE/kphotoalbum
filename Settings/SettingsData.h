@@ -24,6 +24,7 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
+#include "Exif/SyncWidget.h"
 #include "Utilities/Set.h"
 #include "Utilities/Util.h"
 #ifdef SQLDB_SUPPORT
@@ -185,6 +186,22 @@ public:
     void setIptcCharset( Utilities::IptcCharset );
     Utilities::IptcCharset iptcCharset() const;
 
+    void setCategorySyncingFields( const QString& category, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> categorySyncingFields( const QString& category ) const;
+    void setCategorySyncingSuperGroups( const QString& category, const Exif::Syncable::SuperGroupHandling how );
+    Exif::Syncable::SuperGroupHandling categorySyncingSuperGroups( const QString& category ) const;
+    void setCategorySyncingMultiValue( const QString& category, const Exif::Syncable::MultiValueHandling how );
+    Exif::Syncable::MultiValueHandling categorySyncingMultiValue( const QString& category ) const;
+
+    void setLabelSyncing( const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> labelSyncing() const;
+    void setDescriptionSyncing( const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> descriptionSyncing() const;
+    void setOrientationSyncing( const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> orientationSyncing() const;
+    void setDateSyncing( const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> dateSyncing() const;
+
     QString imageDirectory() const;
 
     QString HTMLBaseDir() const;
@@ -238,6 +255,10 @@ private:
     bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class DB::CategoryCollection;
     QString _imageDirectory;
+
+    // helpers for metadata synchronization
+    void _setSyncing( const QString& identifier, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> _syncing( const QString& identifier ) const;
 };
 } // end of namespace
 

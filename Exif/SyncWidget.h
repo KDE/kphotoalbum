@@ -31,6 +31,7 @@ class SyncWidget : public QHBox {
 public:
     SyncWidget( const QString& title, QWidget* parent, const QValueList<Syncable::Kind>& items, const char* name = 0 );
     QValueList<Syncable::Kind> items() const;
+    void updatePreferred( const QValueList<Syncable::Kind>& items );
 
 protected slots:
     void slotMoveSelectedDown();

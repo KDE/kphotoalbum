@@ -24,8 +24,20 @@
 #include <kicontheme.h>
 #include "Exif/SyncWidget.h"
 
+/*
+ * SyncWidget is a ListView-like container with two buttons for moving selected
+ * item up and down in a hierarchy. It isn't important what items are selected,
+ * but the order in which they appear.
+ * Implementation of moving is pretty simple and suitable only for a relatively
+ * small amount of available items. Typical usage doesn't contain more than
+ * twenty of those, so it's usable without any troubles.
+ */
+
 namespace Exif {
 
+/*
+ * Constructor. Argument "items" is a list of supported item types.
+ */
 SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<Syncable::Kind>& items, const char* name )
     :QHBox( parent, name )
 {
@@ -68,6 +80,9 @@ SyncWidget::SyncWidget( const QString& title, QWidget* parent, const QValueList<
     connect( _list, SIGNAL( selectionChanged() ), this, SLOT( slotHandleDisabling() ) );
 }
 
+/*
+ * Move currently selected item one step down
+ */
 void SyncWidget::slotMoveSelectedDown()
 {
     QListViewItem* item = _list->selectedItem();
@@ -89,6 +104,9 @@ void SyncWidget::slotMoveSelectedDown()
     }
 }
 
+/* 
+ * Move currently selected item one step up
+ */
 void SyncWidget::slotMoveSelectedUp()
 {
     QListViewItem* item = _list->selectedItem();
@@ -111,6 +129,10 @@ void SyncWidget::slotMoveSelectedUp()
     }
 }
 
+/*
+ * Enable/Disable up and down buttons based on whether currently selected item
+ * is movable
+ */
 void SyncWidget::slotHandleDisabling()
 {
     _upBut->setDisabled( true );
@@ -127,6 +149,9 @@ void SyncWidget::slotHandleDisabling()
         _downBut->setEnabled( true );
 }
 
+/*
+ * Find out order of preferences for various fields
+ */
 QValueList<Syncable::Kind> SyncWidget::items() const
 {
     // _items are reversed, so we have to reverse them again here
@@ -140,58 +165,13 @@ QValueList<Syncable::Kind> SyncWidget::items() const
     return items;
 }
 
-
-namespace Syncable {
-
-void fillTranslationTables( QMap<Kind,QString>& _fieldName, QMap<Kind,QString>& _visibleName, QMap<Kind,Header>& _header)
+/*
+ * Update current preferences so that first items are those passed to this
+ * function *and* set in constructor like "supported" ones.
+ */
+void SyncWidget::updatePreferred( const QValueList<Syncable::Kind>& items )
 {
-#define II(X,HEADER,FIELD,VISIBLE) \
-     _header[X] = HEADER; \
-     _fieldName[X] = #FIELD; \
-     _visibleName[X] = i18n(VISIBLE);
-#define I(X,HEADER,FIELD) \
-     _header[X] = HEADER; \
-     _fieldName[X] = #FIELD; \
-     _visibleName[X] = QString::fromAscii(#FIELD);
-
-
-    II(STOP, NONE, STOP, "-- stop --");
-    II(JPEG_COMMENT, JPEG, JPEG.Comment, "JPEG Comment");
-    II(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation, "EXIF Image Orientation");
-    II(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription, "EXIF Image Description");
-    II(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment, "EXIF User Comment");
-
-    I(EXIF_XPTITLE, EXIF, Exif.Image.XPTitle);
-    I(EXIF_XPCOMMENT, EXIF, Exif.Image.XPComment);
-    I(EXIF_XPKEYWORDS, EXIF, Exif.Image.XPKeywords);
-    I(EXIF_XPSUBJECT, EXIF, Exif.Image.XPSubject);
-
-    II(IPTC_HEADLINE, IPTC, Iptc.Application2.Headline, "IPTC Headline");
-    II(IPTC_CAPTION, IPTC, Iptc.Application2.Caption, "IPTC Caption");
-    I(IPTC_OBJECT_NAME, IPTC, Iptc.Application2.ObjectName);
-    II(IPTC_SUBJECT, IPTC, Iptc.Application2.Subject, "IPTC Subject");
-
-    II(IPTC_SUPP_CAT, IPTC, Iptc.Application2.SuppCategory, "IPTC Supplemental Categories");
-    II(IPTC_KEYWORDS, IPTC, Iptc.Application2.Keywords, "IPTC Keywords");
-
-    I(IPTC_LOCATION_CODE, IPTC, Iptc.Application2.LocationCode);
-    I(IPTC_LOCATION_NAME, IPTC, Iptc.Application2.LocationName);
-    I(IPTC_CITY, IPTC, Iptc.Application2.City);
-    I(IPTC_SUB_LOCATION, IPTC, Iptc.Application2.SubLocation);
-    I(IPTC_PROVINCE_STATE, IPTC, Iptc.Application2.ProvinceState);
-    I(IPTC_COUNTRY_CODE, IPTC, Iptc.Application2.CountryCode);
-    I(IPTC_COUNTRY_NAME, IPTC, Iptc.Application2.CountryName);
-
-    II(FILE_CTIME, FILE, File.CTime, "File creation time");
-    II(FILE_MTIME, FILE, File.MTime, "File last modification time");
-    II(EXIF_DATETIME, EXIF, Exif.Image.DateTime, "EXIF Date");
-    I(EXIF_DATETIME_ORIGINAL, EXIF, Exif.Photo.DateTimeOriginal);
-    I(EXIF_DATETIME_DIGITIZED, EXIF, Exif.Photo.DateTimeDigitized);
-
-#undef I
-#undef II
-}
-
+    // FIXME: actual code :)
 }
 
 }

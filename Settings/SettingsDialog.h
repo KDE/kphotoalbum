@@ -21,6 +21,7 @@
 #include <kdialogbase.h>
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
+#include "Exif/SyncWidget.h"
 class QListView;
 class KColorButton;
 class QSpinBox;
@@ -166,6 +167,10 @@ private:
     Exif::TreeView* _exifForViewer;
     Exif::TreeView* _exifForDialog;
     KComboBox* _iptcCharset;
+
+    // Synchronization
+    Exif::SyncWidget *_labelRead, *_labelWrite, *_descriptionRead, *_descriptionWrite,
+        *_orientationRead, *_orientationWrite, *_dateRead, *_dateWrite;
 
     int _backendPageIndex;
     QButtonGroup* _backendButtons;

@@ -469,6 +469,16 @@ void Settings::SettingsDialog::show()
     _iptcCharset->setCurrentItem( opt->iptcCharset() );
 #endif
 
+    // Synchronization page
+    _orientationRead->updatePreferred( Settings::SettingsData::instance()->orientationSyncing( false ) );
+    _orientationWrite->updatePreferred( Settings::SettingsData::instance()->orientationSyncing( true ) );
+    _labelRead->updatePreferred( Settings::SettingsData::instance()->labelSyncing( false ) );
+    _labelWrite->updatePreferred( Settings::SettingsData::instance()->labelSyncing( true ) );
+    _descriptionRead->updatePreferred( Settings::SettingsData::instance()->descriptionSyncing( false ) );
+    _descriptionWrite->updatePreferred( Settings::SettingsData::instance()->descriptionSyncing( true ) );
+    _dateRead->updatePreferred( Settings::SettingsData::instance()->dateSyncing( false ) );
+    _dateWrite->updatePreferred( Settings::SettingsData::instance()->dateSyncing( true ) );
+
     QString backend = Settings::SettingsData::instance()->backend();
     if (backend == QString::fromLatin1("xml"))
         _backendButtons->setButton(0);
@@ -562,6 +572,16 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setExifForDialog( _exifForDialog->selected() ) ;
     opt->setIptcCharset( static_cast<Utilities::IptcCharset>(_iptcCharset->currentItem()) );
 #endif
+
+    // Synchronization
+    opt->setOrientationSyncing( false, _orientationRead->items() );
+    opt->setOrientationSyncing( true, _orientationWrite->items() );
+    opt->setLabelSyncing( false, _labelRead->items() );
+    opt->setLabelSyncing( true, _labelWrite->items() );
+    opt->setDescriptionSyncing( false, _descriptionRead->items() );
+    opt->setDescriptionSyncing( true, _descriptionWrite->items() );
+    opt->setDateSyncing( false, _dateRead->items() );
+    opt->setDateSyncing( true, _dateWrite->items() );
 
     // SQLDB
 #ifdef SQLDB_SUPPORT
@@ -1015,8 +1035,8 @@ void Settings::SettingsDialog::createSyncPage()
     hbox->setSpacing( 6 );
     rValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
     wValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
-    Exif::SyncWidget* _orientationRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    Exif::SyncWidget* _orientationWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _orientationRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _orientationWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
     _tabs->addTab( hbox, i18n("Image orientation") );
 
     hbox = new QHBox( top );
@@ -1032,8 +1052,8 @@ void Settings::SettingsDialog::createSyncPage()
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
             Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT <<
             Exif::Syncable::IPTC_CAPTION;
-    Exif::SyncWidget* _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    Exif::SyncWidget* _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
     _tabs->addTab( hbox, i18n("Label") );
 
     hbox = new QHBox( top );
@@ -1049,8 +1069,8 @@ void Settings::SettingsDialog::createSyncPage()
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
             Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT <<
             Exif::Syncable::IPTC_HEADLINE;
-    Exif::SyncWidget* _descRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    Exif::SyncWidget* _descWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _descriptionRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _descriptionWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
     _tabs->addTab( hbox, i18n("Description") );
 
     hbox = new QHBox( top );
@@ -1063,8 +1083,8 @@ void Settings::SettingsDialog::createSyncPage()
         Exif::Syncable::STOP << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
         Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_CTIME;
 
-    Exif::SyncWidget* _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    Exif::SyncWidget* _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
     _tabs->addTab( hbox, i18n("Date") );
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();

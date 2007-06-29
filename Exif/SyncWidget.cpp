@@ -167,11 +167,47 @@ QValueList<Syncable::Kind> SyncWidget::items() const
 
 /*
  * Update current preferences so that first items are those passed to this
- * function *and* set in constructor like "supported" ones.
+ * function *and* set in constructor like "supported" ones. The order of items
+ * in the "items" variable is the intuitive one, ie. the preferred items should
+ * be placed near the begin of the list.
  */
 void SyncWidget::updatePreferred( const QValueList<Syncable::Kind>& items )
 {
-    // FIXME: actual code :)
+    QValueList<Syncable::Kind> copyOfItems( _items );
+    _list->clear();
+    _items.clear();
+
+    QMap<Syncable::Kind,QString> _fieldName, _visibleName;
+    QMap<Syncable::Kind,Syncable::Header> _header;
+    Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
+
+    /*
+     * Records in QListView has to be created in reversed order, so we take a
+     * bit hackish way.
+     *
+     * Here we create all items that user isn't interested in (and in correct
+     * order)
+     */
+    for (QValueList<Syncable::Kind>::const_iterator it = copyOfItems.begin();
+            it != copyOfItems.end(); ++it )
+        if ( !items.contains( *it ) ) {
+            _items.append( *it );
+            new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
+        }
+    /*
+     * Now we go through the user-supplied fields from the end, adding items on
+     * the fly if they are allowed here
+     */
+    QValueList<Syncable::Kind>::const_iterator it = items.end();
+    if ( it != items.begin() )
+        do {
+            --it;
+            if ( copyOfItems.contains( *it ) ) {
+                _items.append( *it );
+                new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
+            }
+        } while ( it != items.begin() );
+    slotHandleDisabling();
 }
 
 }

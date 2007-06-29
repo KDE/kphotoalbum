@@ -202,7 +202,7 @@ void SyncWidget::updatePreferred( const QValueList<Syncable::Kind>& items )
     if ( it != items.begin() )
         do {
             --it;
-            if ( copyOfItems.contains( *it ) ) {
+            if ( copyOfItems.contains( *it ) && !_items.contains( *it ) ) {
                 _items.append( *it );
                 new QListViewItem( _list, _visibleName[*it], QString::number( static_cast<int>( *it ) ) );
             }

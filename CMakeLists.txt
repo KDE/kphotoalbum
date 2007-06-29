@@ -5,6 +5,7 @@ add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
 macro_optional_find_package(Kipi)
 macro_optional_find_package(Exiv2)
+macro_optional_find_package(JPEG)
 
 include(ConvenienceLibs.cmake)
 
@@ -91,16 +92,67 @@ set(libMainWindow_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/ImageCounter.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DirtyIndicator.cpp )
 
+set(libImageManager_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageLoader.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/Manager.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageRequest.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageClient.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageDecoder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RawImageDecoder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/parse.c 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoManager.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp )
+
+set(libDB_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfo.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/Category.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryCollection.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageDate.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/MD5Map.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/MemberMap.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageInfoList.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageDB.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/FileInfo.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/NewImageFinder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/GroupCounter.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryMatcher.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageSearchInfo.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryItem.cpp )
+
+set(libImportExport_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/Export.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/Import.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/ImportMatcher.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/XMLHandler.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportExport/MiniViewer.cpp )
+
+set(libAnnotationDialog_SRCS  
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/Dialog.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/Editor.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ListSelect.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ImagePreview.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/KDateEdit.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/CompletableLineEdit.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ListViewItemHider.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/ShowSelectionOnlyManager.cpp )
+
+set(libBrowser_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserWidget.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ContentFolder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/Folder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/SearchFolder.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/BrowserItemFactory.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ImageFolder.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/TypeFolder.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/TypeFolderAction.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Browser/ContentFolderAction.cpp
+	)
+
 
 add_subdirectory( images )
 add_subdirectory( icons )
 add_subdirectory( demo )
 add_subdirectory( themes )
-add_subdirectory( Browser )
-add_subdirectory( ImportExport )
-add_subdirectory( AnnotationDialog )
-add_subdirectory( ImageManager )
-add_subdirectory( DB )
 
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(SQLDB)")
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(EXIF_DIR)")
@@ -109,16 +161,20 @@ if(KIPI_FOUND)
 	#TODO
 endif(KIPI_FOUND)
 
+set(EXIV2_SRCS)
+if(EXIV2_FOUND)
+	set(EXIV2_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp)
+endif(EXIV2_FOUND)
 
 ########### next target ###############
 
-set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libUtilities_SRCS} ${libMainWindow_SRCS}) 
+set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey_SRCS} ${libxmldb_SRCS} ${libThumbnailView_SRCS} ${libPlugins_SRCS} ${libViewer_SRCS} ${libCategoryListView_SRCS} ${libHTMLGenerator_SRCS} ${libUtilities_SRCS} ${libMainWindow_SRCS} ${libImageManager_SRCS} ${libDB_SRCS} ${libImportExport_SRCS} ${libAnnotationDialog_SRCS} ${EXIV2_SRCS} ${libBrowser_SRCS}) 
 
 kde4_automoc(${kphotoalbum_SRCS})
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-target_link_libraries(kphotoalbum  ${KDE4_KDECORE_LIBS} ImportExport Browser AnnotationDialog ImageManager DB  ${KDE4_KIO_LIBS} jpeg kmediaplayer )
+target_link_libraries(kphotoalbum  ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
 
 install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 

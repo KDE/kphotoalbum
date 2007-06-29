@@ -79,6 +79,9 @@ protected slots:
     void slotRenameGroup();
     void slotPageChange();
     void thumbnailSizeChanged( int );
+    void slotCategoryAdded( const DB::CategoryPtr& category );
+    void slotCategoryRemoved( const QString& name );
+    void slotCategoryRenamed( const QString& oldName, const DB::CategoryPtr& newCategory );
 
 protected:
     void createGeneralPage();
@@ -169,8 +172,12 @@ private:
     KComboBox* _iptcCharset;
 
     // Synchronization
+    QTabWidget* _syncTabs;
+    QWidget* _syncPage;
     Exif::SyncWidget *_labelRead, *_labelWrite, *_descriptionRead, *_descriptionWrite,
         *_orientationRead, *_orientationWrite, *_dateRead, *_dateWrite;
+    QDict<Exif::SyncWidget> _catFieldsRead, _catFieldsWrite;
+    QDict<KComboBox> _catSuper, _catMulti;
 
     int _backendPageIndex;
     QButtonGroup* _backendButtons;

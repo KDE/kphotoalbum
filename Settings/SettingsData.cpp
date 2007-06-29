@@ -497,30 +497,26 @@ QValueList<Exif::Syncable::Kind> Settings::SettingsData::categorySyncingFields( 
     return _syncing( writing, QString::fromAscii("category_%1").arg( category ) );
 }
 
-void Settings::SettingsData::setCategorySyncingSuperGroups( const bool writing, const QString& category, const Exif::Syncable::SuperGroupHandling how )
+void Settings::SettingsData::setCategorySyncingSuperGroups( const QString& category, const Exif::Syncable::SuperGroupHandling how )
 {
-    QString mode = writing ? QString::fromAscii("_W") : QString::fromAscii("_R");
-    setValue( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ) + mode, static_cast<int>( how ) );
+    setValue( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>( how ) );
 }
 
-Exif::Syncable::SuperGroupHandling Settings::SettingsData::categorySyncingSuperGroups( const bool writing, const QString& category ) const
+Exif::Syncable::SuperGroupHandling Settings::SettingsData::categorySyncingSuperGroups( const QString& category ) const
 {
-    QString mode = writing ? QString::fromAscii("_W") : QString::fromAscii("_R");
     return static_cast<Exif::Syncable::SuperGroupHandling>( 
-            value( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ) + mode, static_cast<int>(Exif::Syncable::ForEach) ) );
+            value( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>(Exif::Syncable::ForEach) ) );
 }
 
-void Settings::SettingsData::setCategorySyncingMultiValue( const bool writing, const QString& category, const Exif::Syncable::MultiValueHandling how )
+void Settings::SettingsData::setCategorySyncingMultiValue(const QString& category, const Exif::Syncable::MultiValueHandling how )
 {
-    QString mode = writing ? QString::fromAscii("_W") : QString::fromAscii("_R");
     setValue( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>( how ) );
 }
 
-Exif::Syncable::MultiValueHandling Settings::SettingsData::categorySyncingMultiValue( const bool writing, const QString& category ) const
+Exif::Syncable::MultiValueHandling Settings::SettingsData::categorySyncingMultiValue( const QString& category ) const
 {
-    QString mode = writing ? QString::fromAscii("_W") : QString::fromAscii("_R");
     return static_cast<Exif::Syncable::MultiValueHandling>( 
-            value( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ) + mode, static_cast<int>(Exif::Syncable::Repeat) ) );
+            value( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>(Exif::Syncable::Repeat) ) );
 }
 
 void Settings::SettingsData::_setSyncing( const bool writing, const QString& identifier, const QValueList<Exif::Syncable::Kind>& fields )

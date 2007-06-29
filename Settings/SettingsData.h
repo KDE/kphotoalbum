@@ -188,10 +188,10 @@ public:
 
     void setCategorySyncingFields( const bool writing, const QString& category, const QValueList<Exif::Syncable::Kind>& fields );
     QValueList<Exif::Syncable::Kind> categorySyncingFields( const bool writing, const QString& category ) const;
-    void setCategorySyncingSuperGroups( const bool writing, const QString& category, const Exif::Syncable::SuperGroupHandling how );
-    Exif::Syncable::SuperGroupHandling categorySyncingSuperGroups( const bool writing, const QString& category ) const;
-    void setCategorySyncingMultiValue( const bool writing, const QString& category, const Exif::Syncable::MultiValueHandling how );
-    Exif::Syncable::MultiValueHandling categorySyncingMultiValue( const bool writing, const QString& category ) const;
+    void setCategorySyncingSuperGroups( const QString& category, const Exif::Syncable::SuperGroupHandling how );
+    Exif::Syncable::SuperGroupHandling categorySyncingSuperGroups( const QString& category ) const;
+    void setCategorySyncingMultiValue( const QString& category, const Exif::Syncable::MultiValueHandling how );
+    Exif::Syncable::MultiValueHandling categorySyncingMultiValue( const QString& category ) const;
 
     void setLabelSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields );
     QValueList<Exif::Syncable::Kind> labelSyncing( const bool writing ) const;

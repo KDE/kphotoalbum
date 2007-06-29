@@ -478,6 +478,18 @@ void Settings::SettingsDialog::show()
     _descriptionWrite->updatePreferred( Settings::SettingsData::instance()->descriptionSyncing( true ) );
     _dateRead->updatePreferred( Settings::SettingsData::instance()->dateSyncing( false ) );
     _dateWrite->updatePreferred( Settings::SettingsData::instance()->dateSyncing( true ) );
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it )
+        if( !(*it)->isSpecialCategory() ) {
+            /*
+             * FIXME: this is unsafe. If user creates a new category, we
+             * dereference a null pointer here. Sync page should be fixed for
+             * this to work...
+             */
+            _catFieldsRead[ (*it)->name() ]->updatePreferred( Settings::SettingsData::instance()->categorySyncingFields( false, (*it)->name() ) );
+            _catFieldsWrite[ (*it)->name() ]->updatePreferred( Settings::SettingsData::instance()->categorySyncingFields( true, (*it)->name() ) );
+            _catSuper[ (*it)->name() ]->setCurrentItem( opt->categorySyncingSuperGroups( (*it)->name() ) );
+            _catMulti[ (*it)->name() ]->setCurrentItem( opt->categorySyncingMultiValue( (*it)->name() ) );
+        }
 
     QString backend = Settings::SettingsData::instance()->backend();
     if (backend == QString::fromLatin1("xml"))
@@ -582,6 +594,18 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setDescriptionSyncing( true, _descriptionWrite->items() );
     opt->setDateSyncing( false, _dateRead->items() );
     opt->setDateSyncing( true, _dateWrite->items() );
+    for (QDictIterator<Exif::SyncWidget> it( _catFieldsRead ); it.current(); ++it ) {
+        opt->setCategorySyncingFields( false, it.currentKey(), it.current()->items() );
+    }
+    for (QDictIterator<Exif::SyncWidget> it( _catFieldsWrite ); it.current(); ++it ) {
+        opt->setCategorySyncingFields( true, it.currentKey(), it.current()->items() );
+    }
+    for (QDictIterator<KComboBox> it( _catSuper ); it.current(); ++it ) {
+        opt->setCategorySyncingSuperGroups( it.currentKey(), static_cast<Exif::Syncable::SuperGroupHandling>( it.current()->currentItem() ) );
+    }
+    for (QDictIterator<KComboBox> it( _catMulti ); it.current(); ++it ) {
+        opt->setCategorySyncingMultiValue( it.currentKey(), static_cast<Exif::Syncable::MultiValueHandling>( it.current()->currentItem() ) );
+    }
 
     // SQLDB
 #ifdef SQLDB_SUPPORT
@@ -1021,25 +1045,25 @@ void Settings::SettingsDialog::createEXIFPage()
 
 void Settings::SettingsDialog::createSyncPage()
 {
-    QWidget* top = addPage( i18n("Synchronization" ), i18n("Metadata Synchronization" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
-                                                             KIcon::Desktop, 32 ) );
+    _syncPage = addPage( i18n("Synchronization" ), i18n("Metadata Synchronization" ),
+                        KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
+                                                         KIcon::Desktop, 32 ) );
 
-    QVBoxLayout* _lay = new QVBoxLayout( top );
-    QTabWidget* _tabs = new QTabWidget( top );
-    _tabs->setMargin( 6 );
+    QVBoxLayout* _lay = new QVBoxLayout( _syncPage );
+    _syncTabs = new QTabWidget( _syncPage );
+    _syncTabs->setMargin( 6 );
     QHBox* hbox;
     QValueList< Exif::Syncable::Kind > rValues, wValues;
 
-    hbox = new QHBox( top );
+    hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
     rValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
     wValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
     _orientationRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
     _orientationWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
-    _tabs->addTab( hbox, i18n("Image orientation") );
+    _syncTabs->addTab( hbox, i18n("Image orientation") );
 
-    hbox = new QHBox( top );
+    hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
     rValues.clear(); wValues.clear();
     rValues << Exif::Syncable::IPTC_HEADLINE <<
@@ -1054,9 +1078,9 @@ void Settings::SettingsDialog::createSyncPage()
             Exif::Syncable::IPTC_CAPTION;
     _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
     _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
-    _tabs->addTab( hbox, i18n("Label") );
+    _syncTabs->addTab( hbox, i18n("Label") );
 
-    hbox = new QHBox( top );
+    hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
     rValues.clear(); wValues.clear();
     rValues << Exif::Syncable::IPTC_CAPTION <<
@@ -1071,73 +1095,106 @@ void Settings::SettingsDialog::createSyncPage()
             Exif::Syncable::IPTC_HEADLINE;
     _descriptionRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
     _descriptionWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
-    _tabs->addTab( hbox, i18n("Description") );
+    _syncTabs->addTab( hbox, i18n("Description") );
 
-    hbox = new QHBox( top );
+    hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
     rValues.clear(); wValues.clear();
     rValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
         Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_MTIME <<
         Exif::Syncable::FILE_CTIME << Exif::Syncable::STOP;
-    wValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::FILE_MTIME <<
-        Exif::Syncable::STOP << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
+    wValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::STOP <<
+        Exif::Syncable::FILE_MTIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
         Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_CTIME;
 
     _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
     _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
-    _tabs->addTab( hbox, i18n("Date") );
+    _syncTabs->addTab( hbox, i18n("Date") );
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it )
-        if( !(*it)->isSpecialCategory() ) {
-            QGrid* box = new QGrid( 2, Horizontal, top );
-            box->setSpacing( 6 );
-            rValues.clear(); wValues.clear();
-            if ( ( (*it)->name() == QString::fromLatin1("Keywords") ) ||
-                    ( (*it)->standardCategories()[ QString::fromLatin1("Keywords") ] == (*it)->name() ) ) {
-                rValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
-                    Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
-                wValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
-                    Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
-            } else if ( ( (*it)->name() == QString::fromLatin1("Places") ) ||
-                    ( (*it)->standardCategories()[ QString::fromLatin1("Places") ] == (*it)->name() ) ) {
-                rValues << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
-                    Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
-                    Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
-                    Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
-                wValues << Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::STOP <<
-                    Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
-                    Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
-                    Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_SUPP_CAT;
-            } else {
-                rValues << Exif::Syncable::STOP << Exif::Syncable::EXIF_DESCRIPTION <<
-                    Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
-                    Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPKEYWORDS <<
-                    Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_HEADLINE <<
-                    Exif::Syncable::IPTC_CAPTION << Exif::Syncable::IPTC_OBJECT_NAME <<
-                    Exif::Syncable::IPTC_SUBJECT << Exif::Syncable::IPTC_SUPP_CAT <<
-                    Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::IPTC_LOCATION_CODE <<
-                    Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::IPTC_CITY <<
-                    Exif::Syncable::IPTC_SUB_LOCATION << Exif::Syncable::IPTC_PROVINCE_STATE <<
-                    Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_COUNTRY_NAME;
-                wValues = rValues;
-            }
-            Exif::SyncWidget* _catRead = new Exif::SyncWidget( i18n("Fields to get value from"), box, rValues );
-            Exif::SyncWidget* _catWrite = new Exif::SyncWidget( i18n("Fields to write value to"), box, wValues );
-            QLabel* lbl = new QLabel( i18n("Supercategories"), box );
-            lbl->setAlignment( AlignRight | AlignVCenter );
-            KComboBox* combo = new KComboBox( box );
-            combo->insertStringList( QStringList() << i18n("New tag for each level, one level per tag") <<
-                    i18n("Multiple fields, slash separated values") << i18n("Multiple fields, comma separated values") <<
-                    i18n("One field, slash separated") << i18n("One field, comma separated") );
-            lbl = new QLabel( i18n("Multiple values"), box );
-            lbl->setAlignment( AlignRight | AlignVCenter );
-            combo = new KComboBox( box );
-            combo->insertStringList( QStringList() << i18n("Repeat field") << i18n("Comma separated values") << i18n("Slash separated values") );
-            _tabs->addTab( box, (*it)->name() );
-        }
+        slotCategoryAdded( *it );
 
-    _lay->addWidget( _tabs );
+    _lay->addWidget( _syncTabs );
+}
+
+void Settings::SettingsDialog::slotCategoryAdded( const DB::CategoryPtr& category )
+{
+    for (int i = 0; _syncTabs->label( i ) != QString::null; ++i )
+        if ( _syncTabs->label( i ) == category->name() )
+            qFatal("Added category that already exists? Weird...");
+
+    if( !category->isSpecialCategory() ) {
+        QValueList< Exif::Syncable::Kind > rValues, wValues;
+        QGrid* box = new QGrid( 2, Horizontal, _syncPage );
+        box->setSpacing( 6 );
+        rValues.clear(); wValues.clear();
+        if ( ( category->name() == QString::fromLatin1("Keywords") ) ||
+                ( category->standardCategories()[ QString::fromLatin1("Keywords") ] == category->name() ) ) {
+            rValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
+                Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+            wValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
+                Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
+        } else if ( ( category->name() == QString::fromLatin1("Places") ) ||
+                ( category->standardCategories()[ QString::fromLatin1("Places") ] == category->name() ) ) {
+            rValues << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
+                Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+                Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+            wValues << Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::STOP <<
+                Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+                Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_SUPP_CAT;
+        } else {
+            rValues << Exif::Syncable::STOP << Exif::Syncable::EXIF_DESCRIPTION <<
+                Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
+                Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPKEYWORDS <<
+                Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_HEADLINE <<
+                Exif::Syncable::IPTC_CAPTION << Exif::Syncable::IPTC_OBJECT_NAME <<
+                Exif::Syncable::IPTC_SUBJECT << Exif::Syncable::IPTC_SUPP_CAT <<
+                Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::IPTC_LOCATION_CODE <<
+                Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::IPTC_CITY <<
+                Exif::Syncable::IPTC_SUB_LOCATION << Exif::Syncable::IPTC_PROVINCE_STATE <<
+                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_COUNTRY_NAME;
+            wValues = rValues;
+        }
+        _catFieldsRead.replace( category->name(), new Exif::SyncWidget( i18n("Fields to get value from"), box, rValues ) );
+        _catFieldsWrite.replace( category->name(), new Exif::SyncWidget( i18n("Fields to write value to"), box, wValues ) );
+        QLabel* lbl = new QLabel( i18n("Supercategories"), box );
+        lbl->setAlignment( AlignRight | AlignVCenter );
+        _catSuper.replace( category->name(), new KComboBox( box ) );
+        _catSuper[ category->name() ]->insertStringList( QStringList() <<
+                i18n("New tag for each level, one level per tag") <<
+                i18n("Multiple fields, slash separated values") << i18n("Multiple fields, comma separated values") <<
+                i18n("One field, slash separated") << i18n("One field, comma separated") );
+        lbl = new QLabel( i18n("Multiple values"), box );
+        lbl->setAlignment( AlignRight | AlignVCenter );
+        _catMulti.replace( category->name(), new KComboBox( box ) );
+        _catMulti[ category->name() ]->insertStringList( QStringList() <<
+                i18n("Repeat field") << i18n("Comma separated values") << i18n("Slash separated values") );
+        _syncTabs->addTab( box, category->name() );
+    }
+}
+
+void Settings::SettingsDialog::slotCategoryRemoved( const QString& name )
+{
+    for (int i = 0; _syncTabs->page( i ); ++i )
+        if ( _syncTabs->label( i ) == name ) {
+            _catFieldsRead.remove( name );
+            _catFieldsWrite.remove( name );
+            _catMulti.remove( name );
+            _catSuper.remove( name );
+            QWidget* tab = _syncTabs->page( i );
+            _syncTabs->removePage( tab );
+            delete tab;
+            break;
+        }
+}
+
+void Settings::SettingsDialog::slotCategoryRenamed( const QString& oldName, const DB::CategoryPtr& newCategory )
+{
+    slotCategoryRemoved( oldName );
+    slotCategoryAdded( newCategory );
 }
 
 void Settings::SettingsDialog::showBackendPage()

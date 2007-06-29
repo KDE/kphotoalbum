@@ -149,6 +149,18 @@ set(libBrowser_SRCS
 	)
 
 
+set(libexif_SRCS 
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/Database.cpp  
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/InfoDialog.cpp  
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchDialog.cpp  
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchInfo.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/TreeView.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/Info.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/RangeWidget.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/DatabaseElement.cpp 
+	${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp )
+
+
 add_subdirectory( images )
 add_subdirectory( icons )
 add_subdirectory( demo )

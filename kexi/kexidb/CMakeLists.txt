@@ -43,7 +43,7 @@ kde4_automoc(${kphotoalbumkexidb_LIB_SRCS})
 
 kde4_add_library(kphotoalbumkexidb SHARED ${kphotoalbumkexidb_LIB_SRCS})
 
-target_link_libraries(kphotoalbumkexidb  ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} kphotoalbumkexiutils )
+target_link_libraries(kphotoalbumkexidb  ${KDE4_KIO_LIBS} kphotoalbumkexiutils )
 
 set_target_properties(kphotoalbumkexidb PROPERTIES VERSION 1.0.0 SOVERSION 1 )
 install(TARGETS kphotoalbumkexidb DESTINATION ${LIB_INSTALL_DIR} )

@@ -33,8 +33,8 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
-    _label = new QLabel( top );
-    lay1->addWidget( _label );
+    _title = new QLabel( top );
+    lay1->addWidget( _title );
 
     _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
     lay1->addWidget( _exifDB );
@@ -42,34 +42,34 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
         _exifDB->hide();
     }
 
-    _date = new QCheckBox( i18n( "Update image date" ), top );
-    lay1->addWidget( _date );
+    _label = new QCheckBox( i18n( "Update label" ), top );
+    lay1->addWidget( _label );
 
-    _force_date = new QCheckBox( i18n( "Use modification date if EXIF not found" ), top );
-    lay1->addWidget( _force_date );
+    _description = new QCheckBox( i18n( "Update description" ), top );
+    lay1->addWidget( _description );
 
-    _orientation = new QCheckBox( i18n( "Update image orientation from EXIF information" ), top );
+    _orientation = new QCheckBox( i18n( "Update image orientation" ), top );
     lay1->addWidget( _orientation );
 
-    _description = new QCheckBox( i18n( "Update image description from EXIF information" ), top );
-    lay1->addWidget( _description );
+    _date = new QCheckBox( i18n( "Update date and time" ), top );
+    lay1->addWidget( _date );
+
+    _categories = new QCheckBox( i18n( "Import tags" ), top );
+    lay1->addWidget( _categories );
 
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( readInfo() ) );
     connect( this, SIGNAL( user2Clicked() ), this, SLOT( showFileList() ) );
-    connect( _date, SIGNAL( toggled( bool ) ), _force_date, SLOT( setEnabled( bool ) ) );
-    connect( _date, SIGNAL( toggled( bool ) ), this, SLOT( warnAboutDates( bool ) ) );
 }
 
 int Exif::ReReadDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></p>").arg( list.count() ) );
+    _title->setText( i18n("<p><b><center><font size=\"+3\">Read File Info</font><br>%1 selected</center></b></p>").arg( list.count() ) );
 
     _exifDB->setChecked( true);
     _date->setChecked( false );
-    _force_date->setChecked( true );
-    _force_date->setEnabled( false );
     _orientation->setChecked( false );
     _description->setChecked( false );
+    _label->setChecked( false );
     _list = list;
 
     return KDialogBase::exec();
@@ -77,19 +77,24 @@ int Exif::ReReadDialog::exec( const QStringList& list )
 
 void Exif::ReReadDialog::readInfo()
 {
-    int mode = EXIFMODE_FORCE;
+    int mode = 0;
 
     if ( _exifDB->isChecked() )
         mode |= EXIFMODE_DATABASE_UPDATE;
 
     if ( _date->isChecked() )
             mode |= EXIFMODE_DATE;
-    if ( _force_date->isChecked() )
-            mode |= EXIFMODE_FORCE_DATE;
     if ( _orientation->isChecked() )
             mode |= EXIFMODE_ORIENTATION;
     if ( _description->isChecked() )
             mode |= EXIFMODE_DESCRIPTION;
+    if ( _label->isChecked() )
+            mode |= EXIFMODE_LABEL;
+    if ( _categories->isChecked() )
+            mode |= EXIFMODE_CATEGORIES;
+
+    if ( ( mode & ~EXIFMODE_DATABASE_UPDATE ) && !warnAboutChanges() )
+        return;
 
     accept();
     DB::ImageDB::instance()->slotReread(_list, mode);
@@ -107,17 +112,17 @@ void Exif::ReReadDialog::showFileList()
         return;
 }
 
-void Exif::ReReadDialog::warnAboutDates( bool b )
+/*
+ * Warn user that this might overwrite data she had entered. Return true if she
+ * wants to proceed anyway.
+ */
+bool Exif::ReReadDialog::warnAboutChanges()
 {
-    if ( !b )
-        return;
-
     int ret = KMessageBox::warningYesNo( this, i18n("<p>Be aware that setting the data from EXIF may "
                                                     "<b>overwrite</b> data you have previously entered "
                                                     "manually using the image configuration dialog.</p>" ),
                                          i18n( "Override image dates" ) );
-    if ( ret == KMessageBox::No )
-        _date->setChecked( false );
+    return ret == KMessageBox::Yes;
 }
 
 #include "ReReadDialog.moc"

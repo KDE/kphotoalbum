@@ -262,13 +262,15 @@ bool ImageInfo::isLocked() const
 
 void ImageInfo::readExif(const QString& fullPath, int mode)
 {
+    // FIXME: well, IPTC support should be here :)
+
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath );
 
     bool oldDelaySaving = _delaySaving;
     delaySavingChanges(true);
 
     // Date
-    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::SettingsData::instance()->trustTimeStamps() ) ) {
+    if ( (mode & EXIFMODE_DATE) && Settings::SettingsData::instance()->trustTimeStamps() ) {
         setDate( exifInfo.dateTime() );
     }
 

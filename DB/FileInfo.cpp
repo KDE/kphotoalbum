@@ -48,6 +48,8 @@ DB::FileInfo::FileInfo( const QString& fileName )
 #ifdef HASEXIV2
 void DB::FileInfo::parseEXIV2( const QString& fileName )
 {
+    // another place for that mighty IPTC FIXME
+
     Exiv2::ExifData map = Exif::Info::instance()->exifData( fileName );
 
     // Date

@@ -56,6 +56,14 @@ int DeleteDialog::exec( const QStringList& list )
     return KDialogBase::exec();
 }
 
+/*
+ * Delete selected images from disk. Supports two modes:
+ *
+ * a) Deleting physical files, files that can't be removed (no permission, not
+ * available right now,...) are left untouched.
+ * b) Blocking from database -- we don't care whether the real file is
+ * availabel, we just punt it from the database.
+ */
 void DeleteDialog::deleteImages()
 {
     Utilities::ShowBusyCursor dummy;
@@ -64,15 +72,16 @@ void DeleteDialog::deleteImages()
     QStringList listCouldNotDelete;
 
     for( QStringList::const_iterator it = _list.constBegin(); it != _list.constEnd(); ++it ) {
-        if ( DB::ImageInfo::imageOnDisk(*it) ) {
-            if ( _delete_file->isChecked() && ( !QFile( *it ).exists() || !QFile( *it ).remove() ) ) {
-                listCouldNotDelete.append (*it );
-            } else {
+        if ( _delete_file->isChecked() )
+            if ( DB::ImageInfo::imageOnDisk(*it) && QFile( *it ).exists() && QFile( *it ).remove() ) {
                 listToDelete.append( *it );
                 Utilities::removeThumbNail( *it );
+            } else {
+                listCouldNotDelete.append( *it );
             }
-        } else {
-            listCouldNotDelete.append( *it );
+        else {
+            listToDelete.append( *it );
+            Utilities::removeThumbNail( *it );
         }
     }
 

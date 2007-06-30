@@ -46,7 +46,7 @@ void Settings::CategoryItem::setLabel( const QString& label )
 
 void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
 {
-    if ( _categoryOrig.isNull() ) {
+    if ( _categoryOrig.isNull() || !DB::ImageDB::instance()->categoryCollection()->categoryForName( _categoryOrig ) ) {
         // New Item
         if ( !DB::ImageDB::instance()->categoryCollection()->categoryForName( _text ) ) {
             DB::ImageDB::instance()->categoryCollection()->addCategory( _text, _icon, _type, _thumbnailSize, true );

@@ -25,7 +25,8 @@
 
 Settings::CategoryItem::CategoryItem( const QString& category, const QString& text, const QString& icon,
                                       DB::Category::ViewType type, int thumbnailSize, QListBox* parent )
-    :QListBoxText( parent, text ),
+    :QObject( parent ),
+     QListBoxText( parent, text ),
      _categoryOrig( category ), _textOrig( text ), _iconOrig( icon ),
      _category( category ), _text( text ), _icon( icon ), _type( type ), _typeOrig( type ),
      _thumbnailSize( thumbnailSize ), _thumbnailSizeOrig( thumbnailSize )
@@ -48,6 +49,7 @@ void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
     if ( _categoryOrig.isNull() ) {
         // New Item
         DB::ImageDB::instance()->categoryCollection()->addCategory( _text, _icon, _type, _thumbnailSize, true );
+        emit categoryAdded( _text );
     }
     else {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _categoryOrig );
@@ -77,6 +79,7 @@ void Settings::CategoryItem::removeFromDatabase()
         // the database knows about the item.
         DB::ImageDB::instance()->categoryCollection()->removeCategory( _categoryOrig );
     }
+    emit categoryRemoved( _text );
 }
 
 QString Settings::CategoryItem::text() const
@@ -141,6 +144,7 @@ void Settings::CategoryItem::renameCategory( DB::MemberMap* memberMap )
     DB::ImageDB::instance()->categoryCollection()->rename(  _categoryOrig, _text );
     memberMap->renameCategory(  _categoryOrig, _text );
     _categoryOrig =_text;
+    emit categoryRenamed( _textOrig, _text );
 }
 
-
+#include "CategoryItem.moc"

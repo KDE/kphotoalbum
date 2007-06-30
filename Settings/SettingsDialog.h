@@ -79,9 +79,9 @@ protected slots:
     void slotRenameGroup();
     void slotPageChange();
     void thumbnailSizeChanged( int );
-    void slotCategoryAdded( const DB::CategoryPtr& category );
+    void slotCategoryAdded( const QString& name );
     void slotCategoryRemoved( const QString& name );
-    void slotCategoryRenamed( const QString& oldName, const DB::CategoryPtr& newCategory );
+    void slotCategoryRenamed( const QString& oldName, const QString& newName );
 
 protected:
     void createGeneralPage();

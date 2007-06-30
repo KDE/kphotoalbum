@@ -48,8 +48,10 @@ void Settings::CategoryItem::submit( DB::MemberMap* memberMap )
 {
     if ( _categoryOrig.isNull() ) {
         // New Item
-        DB::ImageDB::instance()->categoryCollection()->addCategory( _text, _icon, _type, _thumbnailSize, true );
-        emit categoryAdded( _text );
+        if ( !DB::ImageDB::instance()->categoryCollection()->categoryForName( _text ) ) {
+            DB::ImageDB::instance()->categoryCollection()->addCategory( _text, _icon, _type, _thumbnailSize, true );
+            emit categoryAdded( _text );
+        }
     }
     else {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName( _categoryOrig );

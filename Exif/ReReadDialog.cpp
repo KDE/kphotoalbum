@@ -103,7 +103,7 @@ void Exif::ReReadDialog::showFileList()
                                                     i18n( "<p><b>%1 files</b> are affected by this operation, their filenames "
                                                           "can be seen in the list below.</p>").arg(_list.count()), _list,
                                                     i18n("Files affected"),
-                                                    KStdGuiItem::cont(),
+                                                    KStandardGuiItem::cont(),
                                                     QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
     if ( i == KMessageBox::Cancel )
         return;

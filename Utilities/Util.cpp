@@ -268,11 +268,11 @@ bool Utilities::copy( const QString& from, const QString& to )
     QFile out( to );
 
     if ( !in.open(QIODevice::ReadOnly) ) {
-        kdWarning() << "Couldn't open " << from << " for reading\n";
+        kWarning() << "Couldn't open " << from << " for reading\n";
         return false;
     }
     if ( !out.open(QIODevice::WriteOnly) ) {
-        kdWarning() << "Couldn't open " << to << " for writing\n";
+        kWarning() << "Couldn't open " << to << " for writing\n";
         in.close();
         return false;
     }
@@ -388,7 +388,7 @@ extern "C"
 
         char buffer[JMSG_LENGTH_MAX];
         (*cinfo->err->format_message)(cinfo, buffer);
-        //kdWarning() << buffer << endl;
+        //kWarning() << buffer << endl;
         longjmp(myerr->setjmp_buffer, 1);
     }
 }
@@ -650,7 +650,7 @@ bool Utilities::runningDemo()
 void Utilities::deleteDemo()
 {
     QString dir = QString::fromLatin1( "/tmp/kphotoalbum-demo-" ) + QString::fromLocal8Bit( getenv( "LOGNAME" ) );
-    KURL url;
+    KUrl url;
     url.setPath( dir );
     (void) KIO::NetAccess::del( dir, MainWindow::Window::theMainWindow() );
 }

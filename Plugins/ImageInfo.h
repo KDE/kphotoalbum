@@ -35,7 +35,7 @@ namespace Plugins
 class KDE_EXPORT ImageInfo :public KIPI::ImageInfoShared
 {
 public:
-    ImageInfo( KIPI::Interface* interface, const KURL& url );
+    ImageInfo( KIPI::Interface* interface, const KUrl& url );
     virtual QString title();
     virtual void setTitle( const QString& );
 

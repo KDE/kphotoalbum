@@ -97,11 +97,11 @@ to the database backend.
 */
 namespace KexiDB {
 
-#define KexiDBDbg  kdDebug(44000)   //! Debug area for core KexiDB code
-#define KexiDBDrvDbg kdDebug(44001) //! Debug area for KexiDB's drivers implementation code
-#define KexiDBWarn  kdWarning(44000)
-#define KexiDBDrvWarn kdWarning(44001)
-#define KexiDBFatal kdFatal(44000)
+#define KexiDBDbg  kDebug(44000)   //! Debug area for core KexiDB code
+#define KexiDBDrvDbg kDebug(44001) //! Debug area for KexiDB's drivers implementation code
+#define KexiDBWarn  kWarning(44000)
+#define KexiDBDrvWarn kWarning(44001)
+#define KexiDBFatal kFatal(44000)
 
 /*! @short Contains database version information about a Kexi-compatible database. 
  The version is stored as internal database properties. */

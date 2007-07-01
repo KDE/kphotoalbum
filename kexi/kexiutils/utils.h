@@ -88,7 +88,7 @@ namespace KexiUtils
 	{
 		if (s.isEmpty())
 			return QDateTime();
-	//		kdDebug() << QDateTime( QDate(0,1,2), QTime::fromString( s, Qt::ISODate ) ).toString(Qt::ISODate) << endl;;
+	//		kDebug() << QDateTime( QDate(0,1,2), QTime::fromString( s, Qt::ISODate ) ).toString(Qt::ISODate) << endl;;
 		return QDateTime( QDate(0,1,2), QTime::fromString( s, Qt::ISODate ) );
 	}
 

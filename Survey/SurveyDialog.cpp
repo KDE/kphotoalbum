@@ -36,6 +36,7 @@
 #include <kglobal.h>
 #include <kaboutdata.h>
 #include <q3progressbar.h>
+#include <ktoolinvocation.h>
 
 class SurveyPrivate
 {
@@ -227,7 +228,7 @@ void Survey::SurveyDialog::slotDone()
     saveConfig( xml );
 
     if ( lastPage() ) {
-        kapp->invokeMailer( d->emailAddress, QString::null, QString::null,
+        KToolInvocation::invokeMailer( d->emailAddress, QString::null, QString::null,
                             QString::fromLatin1( "%1 survey" ).arg(kapp->instanceName() ), xml );
     }
 

@@ -40,7 +40,7 @@ class Q3HBoxLayout;
 class Q3VBoxLayout;
 class Q3VButtonGroup;
 class KComboBox;
-class KListView;
+class K3ListView;
 class KLineEdit;
 class KexiConnSelectorWidget;
 class KexiProjectSelectorWidget;

@@ -27,7 +27,7 @@
 #include <Q3VBoxLayout>
 
 #include <ktabwidget.h>
-#include <klistview.h>
+#include <k3listview.h>
 #include <kiconloader.h>
 #include <kdialogbase.h>
 #include <kpushbutton.h>
@@ -37,8 +37,8 @@
 
 static DebugWindowDialog* debugWindow = 0;
 static KTabWidget* debugWindowTab = 0;
-static KListView* kexiDBDebugPage = 0;
-static KListView* kexiAlterTableActionDebugPage = 0;
+static K3ListView* kexiDBDebugPage = 0;
+static K3ListView* kexiAlterTableActionDebugPage = 0;
 
 QWidget *KexiUtils::createDebugWindow(QWidget *parent)
 {
@@ -69,7 +69,7 @@ void KexiUtils::addKexiDBDebug(const QString& text)
 		KPushButton *btn_clear = new KPushButton(KGuiItem("Clear", "clear_left"), page);
 		hbox->addWidget(btn_clear);
 
-		kexiDBDebugPage = new KListView(page, "kexiDbDebugPage");
+		kexiDBDebugPage = new K3ListView(page, "kexiDbDebugPage");
 		QObject::connect(btn_clear, SIGNAL(clicked()), kexiDBDebugPage, SLOT(clear()));
 		vbox->addWidget(kexiDBDebugPage);
 		kexiDBDebugPage->addColumn("");
@@ -85,7 +85,7 @@ void KexiUtils::addKexiDBDebug(const QString& text)
 	//add \n after (about) every 30 characters
 //TODO	QString realText
 
-	KListViewItem * li = new KListViewItem( kexiDBDebugPage, kexiDBDebugPage->lastItem(), text );
+	K3ListViewItem * li = new K3ListViewItem( kexiDBDebugPage, kexiDBDebugPage->lastItem(), text );
 	li->setMultiLinesEnabled( true );
 }
 
@@ -109,7 +109,7 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 		btn_sim->setName("simulateAlterTableExecution");
 		hbox->addWidget(btn_sim);
 
-		kexiAlterTableActionDebugPage = new KListView(page, "kexiAlterTableActionDebugPage");
+		kexiAlterTableActionDebugPage = new K3ListView(page, "kexiAlterTableActionDebugPage");
 		QObject::connect(btn_clear, SIGNAL(clicked()), kexiAlterTableActionDebugPage, SLOT(clear()));
 		vbox->addWidget(kexiAlterTableActionDebugPage);
 		kexiAlterTableActionDebugPage->addColumn("");
@@ -124,16 +124,16 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 	}
 	if (text.isEmpty()) //don't move up!
 		return;
-	KListViewItem * li;
+	K3ListViewItem * li;
 	int availableNestingLevels = 0;
 	// compute availableNestingLevels
 	Q3ListViewItem * lastItem = kexiAlterTableActionDebugPage->lastItem();
-	//kdDebug() << "lastItem: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
+	//kDebug() << "lastItem: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
 	while (lastItem) {
 		lastItem = lastItem->parent();
 		availableNestingLevels++;
 	}
-	//kdDebug() << "availableNestingLevels: " << availableNestingLevels << endl;
+	//kDebug() << "availableNestingLevels: " << availableNestingLevels << endl;
 	//go up (availableNestingLevels-levelsToGoUp) levels
 	lastItem = kexiAlterTableActionDebugPage->lastItem();
 	int levelsToGoUp = availableNestingLevels - nestingLevel;
@@ -141,22 +141,22 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 		lastItem = lastItem->parent();
 		levelsToGoUp--;
 	}
-	//kdDebug() << "lastItem2: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
+	//kDebug() << "lastItem2: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
 	if (lastItem) {
 		Q3ListViewItem *after = lastItem->firstChild(); //find last child so we can insert a new item after it
 		while (after && after->nextSibling())
 			after = after->nextSibling();
 		if (after)
-			li = new KListViewItem( lastItem, after, text ); //child, after
+			li = new K3ListViewItem( lastItem, after, text ); //child, after
 		else
-			li = new KListViewItem( lastItem, text ); //1st child
+			li = new K3ListViewItem( lastItem, text ); //1st child
 	}
 	else {
 		lastItem = kexiAlterTableActionDebugPage->lastItem();
 		while (lastItem && lastItem->parent())
 			lastItem = lastItem->parent();
-		//kdDebug() << "lastItem2: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
-		li = new KListViewItem( kexiAlterTableActionDebugPage, lastItem, text ); //after
+		//kDebug() << "lastItem2: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
+		li = new K3ListViewItem( kexiAlterTableActionDebugPage, lastItem, text ); //after
 	}
 	li->setOpen(true);
 	li->setMultiLinesEnabled( true );

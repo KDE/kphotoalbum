@@ -35,15 +35,15 @@ public:
     ImageCollection( Type tp );
     virtual QString name();
     virtual QString comment();
-    virtual KURL::List images();
-    virtual KURL path();
-    virtual KURL uploadPath();
-    virtual KURL uploadRoot();
+    virtual KUrl::List images();
+    virtual KUrl path();
+    virtual KUrl uploadPath();
+    virtual KUrl uploadRoot();
 
 protected:
-    KURL::List imageListToUrlList( const DB::ImageInfoList& list );
-    KURL::List stringListToUrlList( const QStringList& list );
-    KURL commonRoot();
+    KUrl::List imageListToUrlList( const DB::ImageInfoList& list );
+    KUrl::List stringListToUrlList( const QStringList& list );
+    KUrl commonRoot();
 
 private:
     Type _tp;

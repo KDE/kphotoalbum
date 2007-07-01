@@ -43,7 +43,7 @@ extern "C" {
 
 #include <qmatrix.h>
 #include <kurl.h>
-#include <kmdcodec.h>
+#include <kcodecs.h>
 #include <qpixmapcache.h>
 
 namespace ImageManager
@@ -98,7 +98,7 @@ QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int hei
 
 void ImageManager::ImageLoader::removeThumbnail( const QString& imageFile )
 {
-    KURL url;
+    KUrl url;
     url.setPath( imageFile );
     QFile::remove( thumbnailPath( url.url(), 256 ) );
     QFile::remove( thumbnailPath( url.url(), 128 ) );
@@ -238,7 +238,7 @@ QString ImageManager::ImageLoader::thumbnailPath( QString uri, int dim )
 
 QString ImageManager::ImageLoader::requestURL( ImageRequest* request )
 {
-    KURL url;
+    KUrl url;
     url.setPath( request->fileName() );
     return url.url();
 }

@@ -175,7 +175,7 @@ double KoUnit::parseValue( QString value, double defaultVal )
         return fromUserValue( val * 10.0, U_DM );
     else if( unit == "km" )
         return fromUserValue( val * 10000.0, U_DM );
-    kdWarning() << "KoUnit::parseValue: Unit " << unit << " is not supported, please report." << endl;
+    kWarning() << "KoUnit::parseValue: Unit " << unit << " is not supported, please report." << endl;
 
     // TODO : add support for mi/ft ?
     return defaultVal;

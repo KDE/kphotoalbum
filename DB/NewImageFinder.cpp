@@ -27,7 +27,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kmessagebox.h>
-#include <kmdcodec.h>
+#include <kcodecs.h>
 #include <config.h>
 #ifdef HASEXIV2
 #  include "Exif/Database.h"

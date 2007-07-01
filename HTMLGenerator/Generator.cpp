@@ -124,7 +124,7 @@ void HTMLGenerator::Generator::generate()
     QDir dir( themeDir );
     QStringList files = dir.entryList( QDir::Files );
     if( files.count() < 1 )
-        kdDebug() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir ) << endl;
+        kDebug() << QString::fromLatin1("theme '%1' doesn't have enough files to be a theme").arg( themeDir ) << endl;
 
     for( QStringList::Iterator it = files.begin(); it != files.end(); ++it ) {
         if( *it == QString::fromLatin1("kphotoalbum.theme") ||
@@ -142,7 +142,7 @@ void HTMLGenerator::Generator::generate()
 
     // Copy files over to destination.
     QString outputDir = _setup.baseDir() + QString::fromLatin1( "/" ) + _setup.outputDir();
-    KIO::CopyJob* job = KIO::move( KURL(_tempDir), KURL(outputDir) );
+    KIO::CopyJob* job = KIO::move( KUrl(_tempDir), KUrl(outputDir) );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
 
     qApp->eventLoop()->enterLoop();
@@ -544,7 +544,7 @@ void HTMLGenerator::Generator::showBrowser()
         ImportExport::Export::showUsageDialog();
 
     if ( ! _setup.baseURL().isEmpty() )
-        new KRun( KURL(QString::fromLatin1( "%1/%2/index.html" ).arg( _setup.baseURL() ).arg( _setup.outputDir()) ) );
+        new KRun( KUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( _setup.baseURL() ).arg( _setup.outputDir()) ) );
 
     qApp->eventLoop()->exitLoop();
 }

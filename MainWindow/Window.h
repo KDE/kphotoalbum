@@ -116,7 +116,7 @@ protected slots:
     void slotExport();
     void delayedInit();
     void slotReenableMessages();
-    void slotImagesChanged( const KURL::List& );
+    void slotImagesChanged( const KUrl::List& );
     void slotSelectionChanged();
     void plug();
     void slotRemoveTokens();

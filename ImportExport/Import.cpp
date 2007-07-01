@@ -50,6 +50,7 @@
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
 #include <kapplication.h>
+#include <ktoolinvocation.h>
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "MiniViewer.h"
@@ -60,13 +61,13 @@ using namespace ImportExport;
 
 void Import::imageImport()
 {
-    KURL url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ), 0 );
+    KUrl url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ), 0 );
     if ( url.isEmpty() )
         return;
     imageImport( url );
 }
 
-void Import::imageImport( const KURL& url )
+void Import::imageImport( const KUrl& url )
 {
     bool ok;
     if ( !url.isLocalFile() ) {
@@ -83,7 +84,7 @@ void Import::imageImport( const KURL& url )
     }
 }
 
-Import::Import( const KURL& url, QWidget* parent, const char* name )
+Import::Import( const KUrl& url, QWidget* parent, const char* name )
     :KWizard( parent, name, false ), _zip( 0 ), _hasFilled( false )
 {
     _kimFile = url;
@@ -91,7 +92,7 @@ Import::Import( const KURL& url, QWidget* parent, const char* name )
     QString path = _tmp->name();
     _tmp->setAutoDelete( true );
 
-    KURL dest;
+    KUrl dest;
     dest.setPath( path );
     KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, true );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
@@ -294,11 +295,11 @@ ImageRow::ImageRow( DB::ImageInfoPtr info, Import* import, QWidget* parent )
 void ImageRow::showImage()
 {
     if ( _import->_externalSource ) {
-        KURL src1 =_import->_kimFile;
-        KURL src2 = _import->_baseUrl + QString::fromLatin1( "/" );
+        KUrl src1 =_import->_kimFile;
+        KUrl src2 = _import->_baseUrl + QString::fromLatin1( "/" );
         for ( int i = 0; i < 2; ++i ) {
             // First try next to the .kim file, then the external URL
-            KURL src = src1;
+            KUrl src = src1;
             if ( i == 1 )
                 src = src2;
             src.setFileName( _info->fileName( true ) );
@@ -496,16 +497,16 @@ void Import::copyNextFromExternal()
     DB::ImageInfoPtr info = _pendingCopies[0];
     _pendingCopies.pop_front();
     QString fileName = info->fileName( true );
-    KURL src1 = _kimFile;
-    KURL src2 = _baseUrl + QString::fromLatin1( "/" );
+    KUrl src1 = _kimFile;
+    KUrl src2 = _baseUrl + QString::fromLatin1( "/" );
     for ( int i = 0; i < 2; ++i ) {
-        KURL src = src1;
+        KUrl src = src1;
         if ( i == 1 )
             src = src2;
 
         src.setFileName( fileName );
         if ( KIO::NetAccess::exists( src, true, MainWindow::Window::theMainWindow() ) ) {
-            KURL dest;
+            KUrl dest;
             dest.setPath( Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName] );
             _job = KIO::file_copy( src, dest, -1, false, false, false );
             connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
@@ -691,7 +692,7 @@ void Import::closeEvent( QCloseEvent* e )
 
 void Import::slotHelp()
 {
-    kapp->invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
+    KToolInvocation::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
 
 #include "Import.moc"

@@ -20,7 +20,7 @@
 #define IMAGECONFIG_H
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"
-#include <kdockwidget.h>
+#include <k3dockwidget.h>
 #include "Editor.h"
 #include <qdialog.h>
 //Added by qt3to4:

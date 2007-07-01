@@ -65,7 +65,7 @@ int main( int argc, char** argv ) {
 
     new MainWindow::SplashScreen();
 
-    KImageIO::registerFormats();
+    
     try {
         MainWindow::Window* view = new MainWindow::Window( 0, "view" );
 

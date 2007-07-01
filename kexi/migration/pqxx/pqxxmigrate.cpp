@@ -106,7 +106,7 @@ bool PqxxMigrate::drv_readTableSchema(
            /*m_f->setScale(0);
            m_f->setPrecision(0);*/
 
-           kdDebug() << "Added field [" << f->name() << "] type [" << f->typeName() 
+           kDebug() << "Added field [" << f->name() << "] type [" << f->typeName() 
            	<< "]" << endl;
         }
         return true;
@@ -184,7 +184,7 @@ KexiDB::Field::Type PqxxMigrate::type(int t, const QString& fname)
 //Connect to the db backend
 bool PqxxMigrate::drv_connect()
 {
-    kdDebug() << "drv_connect: " << m_migrateData->sourceName << endl;
+    kDebug() << "drv_connect: " << m_migrateData->sourceName << endl;
 
     QString conninfo;
     QString socket;
@@ -227,11 +227,11 @@ bool PqxxMigrate::drv_connect()
     }
     catch(const std::exception &e)
     {
-        kdDebug() << "PqxxMigrate::drv_connect:exception - " << e.what() << endl;
+        kDebug() << "PqxxMigrate::drv_connect:exception - " << e.what() << endl;
     }
     catch(...)
     {
-        kdDebug() << "PqxxMigrate::drv_connect:exception(...)??" << endl;
+        kDebug() << "PqxxMigrate::drv_connect:exception(...)??" << endl;
     }
     return false;
 }
@@ -252,7 +252,7 @@ bool PqxxMigrate::drv_disconnect()
 //Perform a query on the database and store result in m_res
 bool PqxxMigrate::query (const QString& statement)
 {
-    kdDebug() << "query: " << statement.latin1() << endl;
+    kDebug() << "query: " << statement.latin1() << endl;
 
     Q_ASSERT (m_conn);
 
@@ -273,12 +273,12 @@ bool PqxxMigrate::query (const QString& statement)
     catch (const std::exception &e)
     {
         //If an error ocurred then put the error description into _dbError
-        kdDebug() << "pqxxImport::query:exception - " << e.what() << endl;
+        kDebug() << "pqxxImport::query:exception - " << e.what() << endl;
         return false;
     }
     catch(...)
     {
-        kdDebug() << "PqxxMigrate::query:exception(...)??" << endl;
+        kDebug() << "PqxxMigrate::query:exception(...)??" << endl;
     }
     return true;
 }
@@ -308,7 +308,7 @@ pqxx::oid PqxxMigrate::tableOid(const QString& table)
     //Some simple result caching
     if (table == otable)
     {
-        kdDebug() << "Returning table OID from cache..." << endl;
+        kDebug() << "Returning table OID from cache..." << endl;
         return toid;
     }
     else
@@ -338,13 +338,13 @@ pqxx::oid PqxxMigrate::tableOid(const QString& table)
     }
     catch(const std::exception &e)
     {
-        kdDebug() << "pqxxSqlDB::tableOid:exception - " << e.what() << endl;
-        kdDebug() << "pqxxSqlDB::tableOid:failed statement - " << statement << endl;
+        kDebug() << "pqxxSqlDB::tableOid:exception - " << e.what() << endl;
+        kDebug() << "pqxxSqlDB::tableOid:failed statement - " << statement << endl;
         toid = 0;
     }
     catch(...)
     {
-        kdDebug() << "PqxxMigrate::tableOid:exception(...)??" << endl;
+        kDebug() << "PqxxMigrate::tableOid:exception(...)??" << endl;
     }
     delete tmpres;
 	tmpres = 0;
@@ -352,7 +352,7 @@ pqxx::oid PqxxMigrate::tableOid(const QString& table)
 	delete tran;
 	tran = 0;
 
-    kdDebug() << "OID for table [" << table << "] is [" << toid << "]" << endl;
+    kDebug() << "OID for table [" << table << "] is [" << toid << "]" << endl;
     return toid;
 }
 
@@ -383,24 +383,24 @@ bool PqxxMigrate::primaryKey(pqxx::oid table_uid, int col) const
             if (keyf-1 == col) //-1 because pg counts from 1 and we count from 0
             {
                 pkey = true;
-                kdDebug() << "Field is pkey" << endl;
+                kDebug() << "Field is pkey" << endl;
             }
             else
             {
                 pkey = false;
-                kdDebug() << "Field is NOT pkey" << endl;
+                kDebug() << "Field is NOT pkey" << endl;
             }
         }
         else
         {
             pkey = false;
-            kdDebug() << "Field is NOT pkey" << endl;
+            kDebug() << "Field is NOT pkey" << endl;
         }
     }
     catch(const std::exception &e)
     {
-        kdDebug() << "pqxxSqlDB::primaryKey:exception - " << e.what() << endl;
-        kdDebug() << "pqxxSqlDB::primaryKey:failed statement - " << statement << endl;
+        kDebug() << "pqxxSqlDB::primaryKey:exception - " << e.what() << endl;
+        kDebug() << "pqxxSqlDB::primaryKey:failed statement - " << statement << endl;
         pkey = false;
     }
     delete tmpres;
@@ -471,24 +471,24 @@ bool PqxxMigrate::uniqueKey(pqxx::oid table_uid, int col) const
             if (keyf-1 == col) //-1 because pg counts from 1 and we count from 0
             {
                 ukey = true;
-                kdDebug() << "Field is unique" << endl;
+                kDebug() << "Field is unique" << endl;
             }
             else
             {
                 ukey = false;
-                kdDebug() << "Field is NOT unique" << endl;
+                kDebug() << "Field is NOT unique" << endl;
             }
         }
         else
         {
             ukey = false;
-            kdDebug() << "Field is NOT unique" << endl;
+            kDebug() << "Field is NOT unique" << endl;
         }
     }
     catch(const std::exception &e)
     {
-        kdDebug() << "uniqueKey:exception - " << e.what() << endl;
-        kdDebug() << "uniqueKey:failed statement - " << statement << endl;
+        kDebug() << "uniqueKey:exception - " << e.what() << endl;
+        kDebug() << "uniqueKey:failed statement - " << statement << endl;
         ukey = false;
     }
     

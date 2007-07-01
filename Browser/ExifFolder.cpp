@@ -57,7 +57,7 @@ Browser::FolderAction* Browser::ExifFolder::action( bool /* ctrlDown */ )
 QPixmap Browser::ExifFolder::pixmap()
 {
     KIconLoader loader;
-    return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "contents" ), KIcon::Desktop, 22 );
+    return KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ), KIcon::Desktop, 22 );
 }
 
 

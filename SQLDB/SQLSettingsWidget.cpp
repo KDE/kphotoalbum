@@ -32,7 +32,7 @@
 #include <kurlrequester.h>
 #include <qspinbox.h>
 #include <klineedit.h>
-#include <kpassdlg.h>
+#include <kpassworddialog.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <q3whatsthis.h>
@@ -89,7 +89,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
     Q3HBoxLayout* fileLayout = new Q3HBoxLayout(stackPage1Layout, 6);
     _fileLabel = new QLabel(stackPage);
     fileLayout->addWidget(_fileLabel);
-    _fileLine = new KURLRequester(stackPage);
+    _fileLine = new KUrlRequester(stackPage);
     _fileLine->setMinimumWidth(250);
     _fileLine->setMode(KFile::File | KFile::LocalOnly);
     _fileLine->fileDialog()->setOperationMode(KFileDialog::Saving);

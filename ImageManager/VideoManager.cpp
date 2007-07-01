@@ -51,7 +51,7 @@ void ImageManager::VideoManager::request( ImageRequest* request )
 void ImageManager::VideoManager::load( ImageRequest* request )
 {
     _currentRequest = request;
-    KURL::List list;
+    KUrl::List list;
     list.append( request->fileName() );
     KIO::PreviewJob* job=KIO::filePreview(list, request->width() );
     job->setIgnoreMaximumSize( true );
@@ -76,7 +76,7 @@ void ImageManager::VideoManager::slotGotPreview(const KFileItem*, const QPixmap&
 void ImageManager::VideoManager::previewFailed()
 {
     if ( _pending.isRequestStillValid(_currentRequest) ) {
-        QPixmap pix = KGlobal::iconLoader()->loadIcon( QString::fromLatin1("video"), KIcon::Desktop,
+        QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), KIcon::Desktop,
                                                        Settings::SettingsData::instance()->thumbSize() );
         _currentRequest->setLoadedOK( false );
         _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.convertToImage(), true );
@@ -102,7 +102,7 @@ void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
 
 bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
 {
-    KURL::List list;
+    KUrl::List list;
     list.append( locate( "data", QString::fromLatin1( "kphotoalbum/demo/movie.avi" ) ) );
     KIO::PreviewJob* job=KIO::filePreview(list, 64 );
     job->setIgnoreMaximumSize( true );

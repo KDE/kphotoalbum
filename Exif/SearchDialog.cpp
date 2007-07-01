@@ -78,7 +78,7 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     vlay->addStretch( 1 );
 
     // ------------------------------------------------------------ Camera
-    Q3VBox* camera = addVBoxPage( i18n("Camera") );
+    KVBox* camera = addVBoxPage( i18n("Camera") );
     makeCamera( camera );
 
     // ------------------------------------------------------------ Misc

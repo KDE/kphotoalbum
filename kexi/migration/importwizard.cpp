@@ -38,7 +38,7 @@
 #include <kdebug.h>
 #include <klineedit.h>
 #include <kiconloader.h>
-#include <kbuttonbox.h>
+#include <k3buttonbox.h>
 
 #include <kexidb/drivermanager.h>
 #include <kexidb/driver.h>
@@ -354,7 +354,7 @@ void ImportWizard::setupImporting()
 	vbox->addWidget( m_lblImportingErrTxt );
 	vbox->addStretch(1);
 
-	KButtonBox *optionsBox = new KButtonBox(m_importingPage);
+	K3ButtonBox *optionsBox = new K3ButtonBox(m_importingPage);
 	vbox->addWidget( optionsBox );
 	m_importOptionsButton = optionsBox->addButton(i18n("Advanced Options"), this, SLOT(slotOptionsButtonClicked()));
 	m_importOptionsButton->setIconSet(SmallIconSet("configure"));
@@ -465,7 +465,7 @@ void ImportWizard::arriveSrcDBPage()
 	}
 	else if (!m_srcDBName) {
 		m_srcDBPage->hide();
-		kdDebug() << "Looks like we need a project selector widget!" << endl;
+		kDebug() << "Looks like we need a project selector widget!" << endl;
 
 		KexiDB::ConnectionData* condata = m_srcConn->selectedConnectionData();
 		if(condata) {
@@ -583,7 +583,7 @@ bool ImportWizard::fileBasedSrcSelected() const
 	if (m_predefinedConnectionData)
 		return false;
 
-//	kdDebug() << (m_srcConn->selectedConnectionType()==KexiConnSelectorWidget::FileBased) << endl;
+//	kDebug() << (m_srcConn->selectedConnectionType()==KexiConnSelectorWidget::FileBased) << endl;
 	return m_srcConn->selectedConnectionType()==KexiConnSelectorWidget::FileBased;
 }
 
@@ -660,7 +660,7 @@ KexiMigrate* ImportWizard::prepareImport(Kexi::ObjectStatus& result)
 	// Start with a driver manager
 	KexiDB::DriverManager manager;
 
-	kdDebug() << "Creating destination driver..." << endl;
+	kDebug() << "Creating destination driver..." << endl;
 
 	// Get a driver to the destination database
 	KexiDB::Driver *destDriver = manager.driver(
@@ -671,7 +671,7 @@ KexiMigrate* ImportWizard::prepareImport(Kexi::ObjectStatus& result)
 	if (!destDriver || manager.error())
 	{
 		result.setStatus(&manager);
-		kdDebug() << "Manager error..." << endl;
+		kDebug() << "Manager error..." << endl;
 		manager.debugError();
 		result.setStatus(&manager);
 	}
@@ -685,21 +685,21 @@ KexiMigrate* ImportWizard::prepareImport(Kexi::ObjectStatus& result)
 		if (m_dstConn->selectedConnectionData())
 		{
 			//server-based project
-			kdDebug() << "Server destination..." << endl;
+			kDebug() << "Server destination..." << endl;
 			cdata = m_dstConn->selectedConnectionData();
 			dbname = m_dstNewDBNameLineEdit->text();
 		}
 		else // if (m_dstTypeCombo->currentText().lower() == KexiDB::Driver::defaultFileBasedDriverName()) 
 		{
 			//file-based project
-			kdDebug() << "File Destination..." << endl;
+			kDebug() << "File Destination..." << endl;
 			cdata = new KexiDB::ConnectionData();
 			cdataOwned = true;
 			cdata->caption = m_dstNewDBNameLineEdit->text();
 			cdata->driverName = KexiDB::Driver::defaultFileBasedDriverName();
 			dbname = m_dstConn->selectedFileName();
 			cdata->setFileName( dbname );
-			kdDebug() << "Current file name: " << dbname << endl;
+			kDebug() << "Current file name: " << dbname << endl;
 		}
 /*		else
 		{
@@ -726,7 +726,7 @@ KexiMigrate* ImportWizard::prepareImport(Kexi::ObjectStatus& result)
 	{
 		sourceDriver = m_migrateManager.driver( sourceDriverName );
 		if(!sourceDriver || m_migrateManager.error()) {
-			kdDebug() << "Import migrate driver error..." << endl;
+			kDebug() << "Import migrate driver error..." << endl;
 			result.setStatus(&m_migrateManager);
 		}
 	}
@@ -749,17 +749,17 @@ KexiMigrate* ImportWizard::prepareImport(Kexi::ObjectStatus& result)
 		bool keepData;
 		if (m_importTypeButtonGroup->selectedId() == 0)
 		{
-			kdDebug() << "Structure and data selected" << endl;
+			kDebug() << "Structure and data selected" << endl;
 			keepData = true;
 		}
 		else if (m_importTypeButtonGroup->selectedId() == 1)
 		{
-			kdDebug() << "structure only selected" << endl;
+			kDebug() << "structure only selected" << endl;
 			keepData = false;
 		}
 		else
 		{
-			kdDebug() << "Neither radio button is selected (not possible?) presume keep data" << endl;
+			kDebug() << "Neither radio button is selected (not possible?) presume keep data" << endl;
 			keepData = true;
 		}
 		
@@ -811,12 +811,12 @@ tristate ImportWizard::import()
 		}
 
 		if (!sourceDriver->checkIfDestinationDatabaseOverwritingNeedsAccepting(&result, acceptingNeeded)) {
-			kdDebug() << "Abort import cause checkIfDestinationDatabaseOverwritingNeedsAccepting returned false." << endl;
+			kDebug() << "Abort import cause checkIfDestinationDatabaseOverwritingNeedsAccepting returned false." << endl;
 			return false;
 		}
 
-		kdDebug() << sourceDriver->data()->destination->databaseName() << endl;
-		kdDebug() << "Performing import..." << endl;
+		kDebug() << sourceDriver->data()->destination->databaseName() << endl;
+		kDebug() << "Performing import..." << endl;
 	}
 
 	if (!result.error() && acceptingNeeded) { // ok, the destination-db already exists...
@@ -860,7 +860,7 @@ tristate ImportWizard::import()
 		KexiTextMessageHandler handler(msg, details);
 		handler.showErrorMessage(&result);
 
-		kdDebug() << msg << "\n" << details << endl;
+		kDebug() << msg << "\n" << details << endl;
 		setTitle(m_finishPage, i18n("Failure"));
 		m_finishLbl->setText(	
 			i18n("<p>Import failed.</p>%1<p>%2</p><p>You can click \"Back\" button and try again.</p>")
@@ -882,7 +882,7 @@ void ImportWizard::next()
 {
 	if (currentPage() == m_srcConnPage) {
 		if (fileBasedSrcSelected()
-			&& /*! @todo use KURL? */!QFileInfo(m_srcConn->selectedFileName()).isFile()) {
+			&& /*! @todo use KUrl? */!QFileInfo(m_srcConn->selectedFileName()).isFile()) {
 
 			KMessageBox::sorry(this,i18n("Select source database filename."));
 			return;

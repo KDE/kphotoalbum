@@ -28,6 +28,7 @@
 #include <ImageManager/VideoManager.h>
 #include <kmediaplayer/player.h>
 #include <kparts/componentfactory.h>
+#include <ktoolinvocation.h>
 
 using namespace MainWindow;
 
@@ -111,7 +112,7 @@ void HelpBrowser::setSource( const QString& name )
     if ( name.startsWith( QString::fromLatin1( "#" ) ) )
         Q3TextBrowser::setSource( name );
     else
-        kapp->invokeBrowser( name );
+        KToolInvocation::invokeBrowser( name );
 }
 
 bool MainWindow::FeatureDialog::hasKIPISupport()

@@ -371,7 +371,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
                 // rename the category image too
                 QString oldFile = Settings::SettingsData::instance()->fileForCategoryImage( category(), oldStr );
                 QString newFile = Settings::SettingsData::instance()->fileForCategoryImage( category(), newStr );
-                KIO::move( KURL(oldFile), KURL(newFile) );
+                KIO::move( KUrl(oldFile), KUrl(newFile) );
             }
         }
     }

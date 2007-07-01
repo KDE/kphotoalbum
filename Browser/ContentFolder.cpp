@@ -43,7 +43,7 @@ QPixmap Browser::ContentFolder::pixmap()
 {
     if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), _value ) )
-            return KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "folder_image" ), KIcon::Desktop, 22 );
+            return KIconLoader::global()->loadIcon( QString::fromLatin1( "folder_image" ), KIcon::Desktop, 22 );
         else {
             return _category->icon();
         }

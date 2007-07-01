@@ -37,15 +37,16 @@
 #include <kxmlguiclient.h>
 #include <kxmlguibuilder.h>
 #include <kxmlguifactory.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <kaction.h>
+#include <ktoolinvocation.h>
 
 #ifdef TEMPORARILY_REMOVED
 // This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
 class MyGUIBuilder :public KXMLGUIBuilder
 {
 public:
-    MyGUIBuilder( KPopupMenu* menu ) : KXMLGUIBuilder( menu ), _menu(menu)
+    MyGUIBuilder( KMenu* menu ) : KXMLGUIBuilder( menu ), _menu(menu)
     {
     }
 
@@ -60,7 +61,7 @@ public:
         return 0;
     }
 
-    void insertMenu( const QDomElement& element, KPopupMenu* menu )
+    void insertMenu( const QDomElement& element, KMenu* menu )
     {
         for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
             const QDomElement elm = itemNode.toElement();
@@ -75,7 +76,7 @@ public:
     }
 
 private:
-    KPopupMenu* _menu;
+    KMenu* _menu;
 };
 #endif
 
@@ -110,21 +111,21 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
        if (!service.data()) {
            etype = NoKPart;
-           kdWarning() << "Couldn't find a KPart for " << mimeType << endl;
+           kWarning() << "Couldn't find a KPart for " << mimeType << endl;
            continue;
        }
 
        QString library=service->library();
        if ( library.isNull() ) {
            etype = NoLibrary;
-           kdWarning() << "The library returned from the service was null, indicating we could not display videos." << endl;
+           kWarning() << "The library returned from the service was null, indicating we could not display videos." << endl;
            continue;
       }
 
        _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this );
        if (!_playerPart) {
            etype = NoPartInstance;
-           kdWarning() << "Failed to instantiate KPart from library " << library << endl;
+           kWarning() << "Failed to instantiate KPart from library " << library << endl;
            continue;
        }
 
@@ -155,7 +156,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
 #ifdef TEMPORARILY_REMOVED
     // This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
-    KPopupMenu* menu = new KPopupMenu(0);
+    KMenu* menu = new KMenu(0);
     menu->show();
     MyGUIBuilder* mBuilder=new MyGUIBuilder(menu);
 	KXMLGUIFactory* factory=new KXMLGUIFactory(mBuilder, this);
@@ -204,7 +205,7 @@ void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileN
 
     int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ).arg(fileName ), i18n("Show More Help"), i18n("Close") );
     if ( ret == KMessageBox::Yes )
-        kapp->invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
+        KToolInvocation::invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
 }
 
 void Viewer::VideoDisplay::zoomIn()

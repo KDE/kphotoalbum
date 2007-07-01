@@ -27,7 +27,7 @@
 
 QPixmap DB::Category::icon( int size ) const
 {
-    return KGlobal::iconLoader()->loadIcon( iconName(), KIcon::Desktop, size );
+    return KIconLoader::global()->loadIcon( iconName(), KIcon::Desktop, size );
 }
 
 

@@ -78,8 +78,8 @@ OptionsDialog::OptionsDialog( const QString& databaseFile, const QString& select
 	lyr->addItem( new QSpacerItem( 121, 20, QSizePolicy::Expanding, QSizePolicy::Minimum ), 1, 2 );
 
 	//read config
-	kapp->config()->setGroup("ImportExport");
-	QString defaultEncodingForMSAccessFiles = kapp->config()->readEntry("DefaultEncodingForMSAccessFiles");
+	KGlobal::config()->setGroup("ImportExport");
+	QString defaultEncodingForMSAccessFiles = KGlobal::config()->readEntry("DefaultEncodingForMSAccessFiles");
 	if (!defaultEncodingForMSAccessFiles.isEmpty()) {
 		m_encodingComboBox->setSelectedEncoding(defaultEncodingForMSAccessFiles);
 		m_chkAlwaysUseThisEncoding->setChecked(true);
@@ -100,12 +100,12 @@ KexiCharacterEncodingComboBox* OptionsDialog::encodingComboBox() const
 
 void OptionsDialog::accept()
 {
-	kapp->config()->setGroup("ImportExport");
+	KGlobal::config()->setGroup("ImportExport");
 	if (m_chkAlwaysUseThisEncoding->isChecked())
-		kapp->config()->writeEntry("defaultEncodingForMSAccessFiles", 
+		KGlobal::config()->writeEntry("defaultEncodingForMSAccessFiles", 
 			m_encodingComboBox->selectedEncoding());
 	else
-		kapp->config()->deleteEntry("defaultEncodingForMSAccessFiles");
+		KGlobal::config()->deleteEntry("defaultEncodingForMSAccessFiles");
 
 	KDialogBase::accept();
 }

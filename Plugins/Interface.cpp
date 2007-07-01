@@ -69,12 +69,12 @@ Q3ValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     return result;
 }
 
-KIPI::ImageInfo Plugins::Interface::info( const KURL& url )
+KIPI::ImageInfo Plugins::Interface::info( const KUrl& url )
 {
     return KIPI::ImageInfo( new Plugins::ImageInfo( this, url ) );
 }
 
-void Plugins::Interface::refreshImages( const KURL::List& urls )
+void Plugins::Interface::refreshImages( const KUrl::List& urls )
 {
     emit imagesChanged( urls );
 }
@@ -89,7 +89,7 @@ int Plugins::Interface::features() const
         KIPI::ImageTitlesWritable;
 }
 
-bool Plugins::Interface::addImage( const KURL& url, QString& errmsg )
+bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
 {
     QString dir = url.path();
     QString root = Settings::SettingsData::instance()->imageDirectory();
@@ -107,7 +107,7 @@ bool Plugins::Interface::addImage( const KURL& url, QString& errmsg )
     return true;
 }
 
-void Plugins::Interface::delImage( const KURL& url )
+void Plugins::Interface::delImage( const KUrl& url )
 {
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( url.path() );
     if ( info ) {

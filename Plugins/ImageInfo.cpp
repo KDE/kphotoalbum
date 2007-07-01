@@ -24,7 +24,7 @@
 #include "DB/Category.h"
 //Added by qt3to4:
 #include <Q3ValueList>
-Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
+Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )
 {
     _info = DB::ImageDB::instance()->info( _url.path() );

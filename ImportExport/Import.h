@@ -62,7 +62,7 @@ class Import :public KWizard {
 
 public:
     static void imageImport();
-    static void imageImport( const KURL& url );
+    static void imageImport( const KUrl& url );
 
 protected:
     friend class ImageRow;
@@ -99,7 +99,7 @@ protected slots:
 
 private:
     Import( const QString& file, bool* ok, QWidget* parent, const char* name = 0 );
-    Import( const KURL& url, QWidget* parent, const char* name = 0 );
+    Import( const KUrl& url, QWidget* parent, const char* name = 0 );
     ~Import();
 
     QString _zipFile;
@@ -114,7 +114,7 @@ private:
     Q3ValueList< ImageRow* > _imagesSelect;
     KTempFile* _tmp;
     bool _externalSource;
-    KURL _kimFile;
+    KUrl _kimFile;
     Utilities::UniqNameMap _nameMap;
     bool _finishedPressed;
     int _totalCopied;

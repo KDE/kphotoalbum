@@ -39,10 +39,10 @@ public:
     virtual KIPI::ImageCollection currentAlbum();
     virtual KIPI::ImageCollection currentSelection();
     virtual Q3ValueList<KIPI::ImageCollection> allAlbums();
-    virtual KIPI::ImageInfo info( const KURL& );
-    virtual bool addImage( const KURL&, QString& errmsg );
-    virtual void delImage( const KURL& );
-    virtual void refreshImages( const KURL::List& urls );
+    virtual KIPI::ImageInfo info( const KUrl& );
+    virtual bool addImage( const KUrl&, QString& errmsg );
+    virtual void delImage( const KUrl& );
+    virtual void refreshImages( const KUrl::List& urls );
     virtual int features() const;
 
 public slots:
@@ -50,7 +50,7 @@ public slots:
     void pathChanged( const QString& path );
 
 signals:
-    void imagesChanged( const KURL::List& );
+    void imagesChanged( const KUrl::List& );
 };
 
 }

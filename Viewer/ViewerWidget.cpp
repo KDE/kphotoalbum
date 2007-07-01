@@ -39,7 +39,7 @@
 #include "ShowOptionAction.h"
 #include <qtimer.h>
 #include "DrawHandler.h"
-#include <kwin.h>
+#include <kwindowsystem.h>
 #include "SpeedDisplay.h"
 #include "MainWindow/Window.h"
 #include "CategoryImageConfig.h"
@@ -810,10 +810,10 @@ void Viewer::ViewerWidget::createToolBar()
     _circle->plug( _toolbar );
     _circle->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
-    _delete = KStdAction::cut( handler, SLOT( cut() ), actions, "cutAction" );
+    _delete = KStandardAction::cut( handler, SLOT( cut() ), actions, "cutAction" );
     _delete->plug( _toolbar );
 
-    KAction* close = KStdAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
+    KAction* close = KStandardAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
     close->plug( _toolbar );
 }
 
@@ -911,13 +911,13 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
         // 'jumps' because fullscreen > fullwindow) and should be
         // reconsidered. Henner.)
         resize( qApp->desktop()->screenGeometry().size() );
-        KWin::setState( winId(), NET::FullScreen );
+        KWindowSystem::setState( winId(), NET::FullScreen );
         moveInfoBox();
     }
     else {
         // We need to size the image when going out of full screen, in case we started directly in full screen
         //
-        KWin::clearState( winId(), NET::FullScreen );
+        KWindowSystem::clearState( winId(), NET::FullScreen );
         resize( Settings::SettingsData::instance()->viewerSize() );
     }
     _showingFullScreen = on;

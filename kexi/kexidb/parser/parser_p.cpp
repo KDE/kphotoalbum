@@ -571,7 +571,7 @@ QuerySchema* buildSelectQuery(
 					setError(i18n("Invalid column alias definition")); //ok?
 					return 0;
 				}
-				kdDebug() << "ALIAS \"" << aliasVariable->name << "\" set for column " 
+				kDebug() << "ALIAS \"" << aliasVariable->name << "\" set for column " 
 					<< columnNum << endl;
 				querySchema->setColumnAlias(columnNum, aliasVariable->name.latin1());
 			}*/

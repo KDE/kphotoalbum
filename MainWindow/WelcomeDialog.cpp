@@ -31,6 +31,7 @@
 #include <kmessagebox.h>
 #include "kshell.h"
 #include <kapplication.h>
+#include <kglobal.h>
 
 using namespace MainWindow;
 
@@ -152,7 +153,7 @@ QString FileDialog::getFileName()
     }
 
     QString file = dir + QString::fromLatin1("/index.xml");
-    kapp->config()->writeEntry( QString::fromLatin1("configfile"), file );
+    KGlobal::config()->writeEntry( QString::fromLatin1("configfile"), file );
 
     return file;
 }

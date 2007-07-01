@@ -29,6 +29,7 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <config.h>
+#include <kglobal.h>
 
 using namespace DB;
 
@@ -180,14 +181,14 @@ QString ImageSearchInfo::toString() const
 void ImageSearchInfo::debug()
 {
     for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
-        kdDebug() << it.key() << ", " << it.data() << endl;
+        kDebug() << it.key() << ", " << it.data() << endl;
     }
 }
 
 // PENDING(blackie) move this into the Options class instead of having it here.
 void ImageSearchInfo::saveLock() const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
     config->writeEntry( QString::fromLatin1("label"), _label );
     config->writeEntry( QString::fromLatin1("description"), _description );
@@ -199,7 +200,7 @@ void ImageSearchInfo::saveLock() const
 
 ImageSearchInfo ImageSearchInfo::loadLock()
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
     ImageSearchInfo info;
     info._label = config->readEntry( "label" );

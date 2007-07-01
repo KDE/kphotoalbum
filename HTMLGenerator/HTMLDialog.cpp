@@ -53,7 +53,7 @@ using namespace HTMLGenerator;
 HTMLDialog::HTMLDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n("HTML Export"), Ok|Cancel|Help, Ok, parent, name )
 {
-    enableButtonOK( false );
+    enableButtonOk( false );
     createContentPage();
     createLayoutPage();
     createDestinationPage();
@@ -63,7 +63,7 @@ HTMLDialog::HTMLDialog( QWidget* parent, const char* name )
 void HTMLDialog::createContentPage()
 {
     QWidget* contentPage = addPage( i18n("Content" ), i18n("Content" ),
-                                    KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "edit" ),
+                                    KIconLoader::global()->loadIcon( QString::fromLatin1( "edit" ),
                                                                      KIcon::Desktop, 32 ));
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( contentPage, 6 );
     Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
@@ -111,7 +111,7 @@ void HTMLDialog::createContentPage()
 void HTMLDialog::createLayoutPage()
 {
     QWidget* layoutPage = addPage( i18n("Layout" ), i18n("Layout" ),
-                                   KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "matrix" ),
+                                   KIconLoader::global()->loadIcon( QString::fromLatin1( "matrix" ),
                                                                     KIcon::Desktop, 32 ));
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( layoutPage, 6 );
     Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2, 2, 6 );
@@ -176,7 +176,7 @@ void HTMLDialog::createLayoutPage()
 void HTMLDialog::createDestinationPage()
 {
     QWidget* destinationPage = addPage( i18n("Destination" ), i18n("Destination" ),
-                                        KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
+                                        KIconLoader::global()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
                                                                          KIcon::Desktop, 32 ));
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( destinationPage, 6 );
     Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
@@ -250,7 +250,7 @@ void HTMLDialog::slotOk()
 
 void HTMLDialog::selectDir()
 {
-    KURL dir = KFileDialog::getExistingURL( _baseDir->text(), this );
+    KUrl dir = KFileDialog::getExistingURL( _baseDir->text(), this );
     if ( !dir.url().isNull() )
         _baseDir->setText( dir.url() );
 }
@@ -283,9 +283,9 @@ bool HTMLDialog::checkVars()
     // ensure base dir exists
     KIO::UDSEntry result;
 #if KDE_IS_VERSION( 3,1,90 )
-    bool ok = KIO::NetAccess::stat( KURL(baseDir), result, this );
+    bool ok = KIO::NetAccess::stat( KUrl(baseDir), result, this );
 #else
-    bool ok = KIO::NetAccess::stat( KURL(baseDir), result );
+    bool ok = KIO::NetAccess::stat( KUrl(baseDir), result );
 #endif
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Error while reading information about %1. "
@@ -294,7 +294,7 @@ bool HTMLDialog::checkVars()
         return false;
     }
 
-    KFileItem fileInfo( result, KURL(baseDir) );
+    KFileItem fileInfo( result, KUrl(baseDir) );
     if ( !fileInfo.isDir() ) {
         KMessageBox::error( this, i18n("<p>%1 does not exist, is not a directory or "
                                        "cannot be written to.</p>").arg( baseDir ) );
@@ -304,19 +304,19 @@ bool HTMLDialog::checkVars()
 
     // test if destination directory exists.
 #if KDE_IS_VERSION( 3, 1, 90 )
-    bool exists = KIO::NetAccess::exists( KURL(outputDir), false, MainWindow::Window::theMainWindow() );
+    bool exists = KIO::NetAccess::exists( KUrl(outputDir), false, MainWindow::Window::theMainWindow() );
 #else
-    bool exists = KIO::NetAccess::exists( KURL(outputDir) );
+    bool exists = KIO::NetAccess::exists( KUrl(outputDir) );
 #endif
     if ( exists ) {
         int answer = KMessageBox::warningYesNo( this,
                                                 i18n("<p>Output directory %1 already exists. "
                                                      "Usually you should specify a new directory.</p>"
                                                      "<p>Should I delete %2 first?</p>").arg( outputDir ).arg( outputDir ),
-                                                i18n("Directory Exists"), KStdGuiItem::yes(), KStdGuiItem::no(),
+                                                i18n("Directory Exists"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                                 QString::fromLatin1("html_export_delete_original_directory") );
         if ( answer == KMessageBox::Yes ) {
-            KIO::NetAccess::del( KURL(outputDir), MainWindow::Window::theMainWindow() );
+            KIO::NetAccess::del( KUrl(outputDir), MainWindow::Window::theMainWindow() );
         }
         else
             return false;
@@ -347,7 +347,7 @@ void HTMLDialog::populateThemesCombo()
 
             KSimpleConfig themeConfig( QString::fromLatin1( "%1kphotoalbum.theme" ).arg( themePath ), true );
             if( !themeConfig.hasGroup( QString::fromLatin1( "theme" ) ) ) {
-                kdDebug() << QString::fromLatin1("invalid theme: %1 (missing theme section)").arg( *it )
+                kDebug() << QString::fromLatin1("invalid theme: %1 (missing theme section)").arg( *it )
                           << endl;
                 continue;
             }
@@ -355,7 +355,7 @@ void HTMLDialog::populateThemesCombo()
             QString themeName = themeConfig.readEntry( "Name" );
             QString themeAuthor = themeConfig.readEntry( "Author" );
 
-            enableButtonOK( true );
+            enableButtonOk( true );
             _themeBox->insertItem( i18n( "%1 (by %2)" ).arg( themeName ).arg( themeAuthor ), i );
             _themes.insert( i, themePath );
             i++;

@@ -53,7 +53,7 @@ void DelayedCursorHandler::stop() {
 	QApplication::restoreOverrideCursor();
 }
 void DelayedCursorHandler::show() {
-	QApplication::setOverrideCursor( KCursor::waitCursor() );
+	QApplication::setOverrideCursor( Qt::WaitCursor );
 }
 
 DelayedCursorHandler _delayedCursorHandler;
@@ -190,7 +190,7 @@ void KexiUtils::serializeMap(const QMap<QString,QString>& map, QString& string)
 	QByteArray array;
 	QDataStream ds(array, QIODevice::WriteOnly);
 	ds << map;
-	kdDebug() << array[3] << " " << array[4] << " " << array[5] << endl;
+	kDebug() << array[3] << " " << array[4] << " " << array[5] << endl;
 	const uint size = array.size();
 	string = QString::null;
 	string.reserve(size);

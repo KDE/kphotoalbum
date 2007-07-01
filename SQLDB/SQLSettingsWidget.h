@@ -31,7 +31,7 @@ class QLabel;
 class QComboBox;
 class Q3WidgetStack;
 class QSpinBox;
-class KURLRequester;
+class KUrlRequester;
 class KLineEdit;
 class KPasswordEdit;
 
@@ -64,7 +64,7 @@ namespace SQLDB
         QComboBox* _driverCombo;
         Q3WidgetStack* _widgetStack;
         QLabel* _fileLabel;
-        KURLRequester* _fileLine;
+        KUrlRequester* _fileLine;
         QLabel* _hostLabel;
         KLineEdit* _hostLine;
         QLabel* _portLabel;

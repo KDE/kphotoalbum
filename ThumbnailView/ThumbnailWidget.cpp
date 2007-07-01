@@ -1069,7 +1069,7 @@ void ThumbnailView::ThumbnailWidget::realDropEvent()
               "if the images themself have valid timestamps, you should use "
               "<b>Images -&gt; Sort Selected By Date and Time</b></p>" );
 
-    if ( KMessageBox::questionYesNo( this, msg, i18n("Reorder Thumbnails") , KStdGuiItem::yes(), KStdGuiItem::no(),
+    if ( KMessageBox::questionYesNo( this, msg, i18n("Reorder Thumbnails") , KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                      QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes ) {
 
         // protect against self drop

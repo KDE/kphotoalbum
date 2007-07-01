@@ -161,10 +161,10 @@ bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewpor
 void ThumbnailView::SelectionInteraction::startDrag()
 {
     _dragInProgress = true;
-    KURL::List l;
+    KUrl::List l;
     QStringList selected = _view->selection();
     for( QStringList::Iterator fileIt = selected.begin(); fileIt != selected.end(); ++fileIt ) {
-        l.append( KURL(*fileIt) );
+        l.append( KUrl(*fileIt) );
     }
     KURLDrag* drag = new KURLDrag( l, _view, "drag" );
     drag->dragCopy();

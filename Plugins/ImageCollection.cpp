@@ -43,7 +43,7 @@ QString Plugins::ImageCollection::comment()
     return QString::null;
 }
 
-KURL::List Plugins::ImageCollection::images()
+KUrl::List Plugins::ImageCollection::images()
 {
     switch ( _tp ) {
     case CurrentAlbum:
@@ -54,48 +54,48 @@ KURL::List Plugins::ImageCollection::images()
 
     case SubClass:
         qFatal( "The subclass should implement images()" );
-        return KURL::List();
+        return KUrl::List();
     }
-    return KURL::List();
+    return KUrl::List();
 }
 
-KURL::List Plugins::ImageCollection::imageListToUrlList( const DB::ImageInfoList& imageList )
+KUrl::List Plugins::ImageCollection::imageListToUrlList( const DB::ImageInfoList& imageList )
 {
-    KURL::List urlList;
+    KUrl::List urlList;
     for( DB::ImageInfoListConstIterator it = imageList.constBegin(); it != imageList.constEnd(); ++it ) {
-        KURL url;
+        KUrl url;
         url.setPath( (*it)->fileName() );
         urlList.append( url );
     }
     return urlList;
 }
 
-KURL::List Plugins::ImageCollection::stringListToUrlList( const QStringList& list )
+KUrl::List Plugins::ImageCollection::stringListToUrlList( const QStringList& list )
 {
-    KURL::List urlList;
+    KUrl::List urlList;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
-        KURL url;
+        KUrl url;
         url.setPath( *it );
         urlList.append( url );
     }
     return urlList;
 }
 
-KURL Plugins::ImageCollection::path()
+KUrl Plugins::ImageCollection::path()
 {
     return commonRoot();
 }
 
-KURL Plugins::ImageCollection::commonRoot()
+KUrl Plugins::ImageCollection::commonRoot()
 {
     QString imgRoot = Settings::SettingsData::instance()->imageDirectory();
-    const KURL::List imgs = images();
+    const KUrl::List imgs = images();
     if ( imgs.count() == 0 )
         return imgRoot;
 
     QStringList res = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( imgs[0].path() ).dirPath(true), true );
 
-    for( KURL::List::ConstIterator it = imgs.begin(); it != imgs.end(); ++it ) {
+    for( KUrl::List::ConstIterator it = imgs.begin(); it != imgs.end(); ++it ) {
         QStringList newRes;
 
         QStringList path = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( (*it).path() ).dirPath( true ), true );
@@ -114,19 +114,19 @@ KURL Plugins::ImageCollection::commonRoot()
         result = imgRoot;
     }
 
-    KURL url;
+    KUrl url;
     url.setPath( result );
     return url;
 }
 
-KURL Plugins::ImageCollection::uploadPath()
+KUrl Plugins::ImageCollection::uploadPath()
 {
     return commonRoot();
 }
 
-KURL Plugins::ImageCollection::uploadRoot()
+KUrl Plugins::ImageCollection::uploadRoot()
 {
-    KURL url;
+    KUrl url;
     url.setPath( Settings::SettingsData::instance()->imageDirectory() );
     return url;
 }

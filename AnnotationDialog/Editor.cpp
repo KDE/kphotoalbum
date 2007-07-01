@@ -25,7 +25,7 @@
 #include <ksyntaxhighlighter.h>
 #include <q3popupmenu.h>
 #include <qregexp.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 #include <ksconfig.h>
 #include <qcombobox.h>
 
@@ -78,7 +78,7 @@ Q3PopupMenu* Editor::replacementMenu( const QString& word  )
 {
     _currentWord = word;
 
-    KPopupMenu* menu = new KPopupMenu( this );
+    KMenu* menu = new KMenu( this );
     menu->insertTitle( i18n("Replacements") );
     QStringList list = _replacements[word];
 

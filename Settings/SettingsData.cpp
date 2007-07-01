@@ -275,7 +275,7 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
-            img = KGlobal::iconLoader()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
+            img = KIconLoader::global()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
         else
             img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
     }
@@ -347,14 +347,14 @@ void Settings::SettingsData::setAlbumCategory( const QString& category )
 
 void Settings::SettingsData::setWindowGeometry( WindowType win, const QRect& geometry )
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( "Window Geometry" );
     config->writeEntry( windowTypeToString( win ), geometry );
 }
 
 QRect Settings::SettingsData::windowGeometry( WindowType win ) const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( "Window Geometry" );
     QRect rect( 0,0, 800, 600 );
     return config->readRectEntry( windowTypeToString( win ), &rect );
@@ -367,42 +367,42 @@ bool Settings::SettingsData::ready()
 
 int Settings::SettingsData::value( const QString& group, const QString& option, int defaultValue ) const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     return config->readNumEntry( option, defaultValue );
 }
 
 QString Settings::SettingsData::value( const QString& group, const QString& option, const QString& defaultValue ) const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     return config->readEntry( option, defaultValue );
 }
 
 bool Settings::SettingsData::value( const QString& group, const QString& option, bool defaultValue ) const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     return config->readBoolEntry( option, defaultValue );
 }
 
 QColor Settings::SettingsData::value( const QString& group, const QString& option, const QColor& defaultValue ) const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     return config->readColorEntry( option, &defaultValue );
 }
 
 QSize Settings::SettingsData::value( const QString& group, const QString& option, const QSize& defaultValue ) const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     return config->readSizeEntry( option, &defaultValue );
 }
 
 Set<QString> Settings::SettingsData::value(const QString& group, const QString& option, const Set<QString>& defaultValue ) const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     if ( !config->hasKey( option.latin1() ) )
         return defaultValue;
@@ -411,42 +411,42 @@ Set<QString> Settings::SettingsData::value(const QString& group, const QString& 
 
 void Settings::SettingsData::setValue( const QString& group, const QString& option, int value )
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
 void Settings::SettingsData::setValue( const QString& group, const QString& option, const QString& value )
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
 void Settings::SettingsData::setValue( const QString& group, const QString& option, bool value )
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
 void Settings::SettingsData::setValue( const QString& group, const QString& option, const QColor& value )
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
 void Settings::SettingsData::setValue( const QString& group, const QString& option, const QSize& value )
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     config->writeEntry( option, value );
 }
 
 void Settings::SettingsData::setValue( const QString& group, const QString& option, const Set<QString>& value )
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup( group );
     config->writeEntry( option, value.toList() );
 }
@@ -504,14 +504,14 @@ int Settings::SettingsData::thumbSize() const
 #ifdef SQLDB_SUPPORT
 void Settings::SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup(QString::fromLatin1("SQLDB"));
     SQLDB::writeConnectionParameters(address, *config);
 }
 
 SQLDB::DatabaseAddress Settings::SettingsData::getSQLParameters() const
 {
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     config->setGroup(QString::fromLatin1("SQLDB"));
     try {
         return SQLDB::readConnectionParameters(*config);

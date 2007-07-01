@@ -87,7 +87,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
 void Settings::SettingsDialog::createGeneralPage()
 {
     QWidget* top = addPage( i18n("General" ), i18n("General" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
+                            KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
                                                              KIcon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
@@ -206,7 +206,7 @@ void Settings::SettingsDialog::createGeneralPage()
 void Settings::SettingsDialog::createThumbNailPage()
 {
     QWidget* top = addPage( i18n("Thumbnail View" ), i18n("Thumbnail View" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_icon" ),
+                            KIconLoader::global()->loadIcon( QString::fromLatin1( "view_icon" ),
                                                              KIcon::Desktop, 32 ) );
 
     Q3GridLayout* lay = new Q3GridLayout( top );
@@ -335,7 +335,7 @@ void Settings::SettingsDialog::createThumbNailPage()
 void Settings::SettingsDialog::createOptionGroupsPage()
 {
     QWidget* top = addPage( i18n("Categories"), i18n("Categories"),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "identity" ),
+                            KIconLoader::global()->loadIcon( QString::fromLatin1( "identity" ),
                                                              KIcon::Desktop, 32 ) );
 
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
@@ -567,7 +567,7 @@ void Settings::SettingsDialog::slotMyOK()
 #endif
 
     emit changed();
-    kapp->config()->sync();
+    KGlobal::config()->sync();
 }
 
 
@@ -657,7 +657,7 @@ void Settings::SettingsDialog::enableDisable( bool b )
 void Settings::SettingsDialog::createGroupConfig()
 {
     QWidget* top = addPage( i18n("Subcategories" ), i18n("Subcategories" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "editcopy" ),
+                            KIconLoader::global()->loadIcon( QString::fromLatin1( "editcopy" ),
                                                              KIcon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
@@ -887,7 +887,7 @@ void Settings::SettingsDialog::slotPageChange()
 void Settings::SettingsDialog::createViewerPage()
 {
     QWidget* top = addPage( i18n("Viewer" ), i18n("Viewer" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag" ),
+                            KIconLoader::global()->loadIcon( QString::fromLatin1( "viewmag" ),
                                                              KIcon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
@@ -950,7 +950,7 @@ void Settings::SettingsDialog::createPluginPage()
 #ifdef HASKIPI
     ::MainWindow::Window::theMainWindow()->loadPlugins();
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
+                            KIconLoader::global()->loadIcon( QString::fromLatin1( "share" ),
                                                              KIcon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
@@ -969,7 +969,7 @@ void Settings::SettingsDialog::createEXIFPage()
 {
 #ifdef HASEXIV2
     QWidget* top = addPage( i18n("EXIF Information" ), i18n("EXIF Information" ),
-                            KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "contents" ),
+                            KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ),
                                                              KIcon::Desktop, 32 ) );
     Q3HBoxLayout* lay1 = new Q3HBoxLayout( top, 6 );
 
@@ -991,7 +991,7 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     // TODO: add notification: New backend will take effect only after restart
     QWidget* top = addPage(i18n("Database backend"),
                            i18n("Database backend"),
-                           KGlobal::iconLoader()->loadIcon(QString::fromLatin1("kfm"),
+                           KIconLoader::global()->loadIcon(QString::fromLatin1("kfm"),
                                                            KIcon::Desktop, 32));
     _backendPageIndex = pageIndex(top);
 

@@ -77,15 +77,15 @@ void MainWindow::ExternalPopup::slotExecuteService( int id )
     KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
     Q_ASSERT( offers.count() == 1 );
     KService::Ptr ptr = offers.first();
-    KURL::List lst;
+    KUrl::List lst;
     if ( indexOf(id) >= _indexOfFirstSelectionForMultipleImages ) {
         for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
             if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
-                lst.append( KURL::fromPathOrURL(*it) );
+                lst.append( KUrl::fromPathOrUrl(*it) );
         }
     }
     else {
-        lst.append( KURL::fromPathOrURL(_currentInfo->fileName()));
+        lst.append( KUrl::fromPathOrUrl(_currentInfo->fileName()));
     }
 
     KRun::run(*ptr, lst);
@@ -99,7 +99,7 @@ MainWindow::ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
 
 QString MainWindow::ExternalPopup::mimeType( const QString& file )
 {
-    return KFileItem( KFileItem::Unknown, KFileItem::Unknown, KURL(file) ).mimetype();
+    return KFileItem( KFileItem::Unknown, KFileItem::Unknown, KUrl(file) ).mimetype();
 }
 
 StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )

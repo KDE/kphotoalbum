@@ -57,7 +57,7 @@ DonateDialog::DonateDialog( QWidget* parent, const char* name )
 
 void DonateDialog::slotDonate()
 {
-    KRun::runURL(KURL(QString::fromLatin1("https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa")),
+    KRun::runURL(KUrl(QString::fromLatin1("https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa")),
                  QString::fromLatin1( "text/html" ) );
 }
 

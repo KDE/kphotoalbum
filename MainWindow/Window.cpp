@@ -53,18 +53,18 @@
 #include "Utilities/Util.h"
 #include <kapplication.h>
 #include <ktip.h>
-#include <kprocess.h>
+#include <k3process.h>
 #include "DeleteDialog.h"
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
 #include <q3popupmenu.h>
 #include <kiconloader.h>
-#include <kpassdlg.h>
+#include <kpassworddialog.h>
 #include <kkeydialog.h>
 #include <kdebug.h>
 #include "ExternalPopup.h"
 #include "DonateDialog.h"
-#include <kstdaction.h>
+#include <kstandardaction.h>
 #include "DeleteThumbnailsDialog.h"
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
@@ -113,6 +113,7 @@
 #endif
 #include <kprogress.h>
 #include <krun.h>
+#include <kglobal.h>
 #include "DirtyIndicator.h"
 #include "Utilities/ShowBusyCursor.h"
 
@@ -280,7 +281,7 @@ bool MainWindow::Window::slotExit()
                            "on the other hand, if you want to come back and try the demo again, you "
                            "might want to keep it around with the changes you made through this session.</p>" );
         int ret = KMessageBox::questionYesNoCancel( this, txt, i18n("Delete Demo Database"),
-                                                    KStdGuiItem::yes(), KStdGuiItem::no(),
+                                                    KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                                     QString::fromLatin1("deleteDemoDatabase") );
         if ( ret == KMessageBox::Cancel )
             return false;
@@ -539,8 +540,8 @@ void MainWindow::Window::slotLimitToSelected()
 void MainWindow::Window::setupMenuBar()
 {
     // File menu
-    KStdAction::save( this, SLOT( slotSave() ), actionCollection() );
-    KStdAction::quit( this, SLOT( slotExit() ), actionCollection() );
+    KStandardAction::save( this, SLOT( slotSave() ), actionCollection() );
+    KStandardAction::quit( this, SLOT( slotExit() ), actionCollection() );
     _generateHtml = new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
 
     new KAction( i18n( "Import..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
@@ -548,23 +549,23 @@ void MainWindow::Window::setupMenuBar()
 
 
     // Go menu
-    KAction* a = KStdAction::back( _browser, SLOT( back() ), actionCollection() );
+    KAction* a = KStandardAction::back( _browser, SLOT( back() ), actionCollection() );
     connect( _browser, SIGNAL( canGoBack( bool ) ), a, SLOT( setEnabled( bool ) ) );
     a->setEnabled( false );
 
-    a = KStdAction::forward( _browser, SLOT( forward() ), actionCollection() );
+    a = KStandardAction::forward( _browser, SLOT( forward() ), actionCollection() );
     connect( _browser, SIGNAL( canGoForward( bool ) ), a, SLOT( setEnabled( bool ) ) );
     a->setEnabled( false );
 
-    a = KStdAction::home( _browser, SLOT( home() ), actionCollection() );
+    a = KStandardAction::home( _browser, SLOT( home() ), actionCollection() );
 
     // The Edit menu
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
-    _cut = KStdAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
-    _paste = KStdAction::paste( _thumbNailViewOLD, SLOT( slotPaste() ), actionCollection() );
+    _cut = KStandardAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
+    _paste = KStandardAction::paste( _thumbNailViewOLD, SLOT( slotPaste() ), actionCollection() );
 #endif
-    _selectAll = KStdAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
-    KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
+    _selectAll = KStandardAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
+    KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
     _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Qt::Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
     new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
@@ -598,7 +599,7 @@ void MainWindow::Window::setupMenuBar()
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
     _jumpToContext = new KAction( i18n("Jump to Context"), CTRL+Qt::Key_J, this, SLOT( slotJumpToContext() ), actionCollection(), "jumpToContext" );
-    _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Small ) );
+    _jumpToContext->setIconSet( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Small ) );
 
     _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
                          actionCollection(), "lockToDefaultScope" );
@@ -632,9 +633,9 @@ void MainWindow::Window::setupMenuBar()
     new KAction( i18n("Remove All KimDaBa 2.1 Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
 
     // Settings
-    KStdAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
-    KStdAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
-    KStdAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
+    KStandardAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
+    KStandardAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
+    KStandardAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
     new KAction( i18n("Enable All Messages"), 0, this, SLOT( slotReenableMessages() ), actionCollection(), "readdAllMessages" );
 
     _viewMenu = new KActionMenu( i18n("Configure View"), QString::fromLatin1( "view_choose" ),
@@ -665,7 +666,7 @@ void MainWindow::Window::setupMenuBar()
     connect( _browser, SIGNAL( currentViewTypeChanged( DB::Category::ViewType ) ),
              this, SLOT( slotUpdateViewMenu( DB::Category::ViewType ) ) );
     // The help menu
-    KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
+    KStandardAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
     KToggleAction* taction = new KToggleAction( i18n("Show Tooltips in Thumbnails Window"), CTRL+Qt::Key_T, actionCollection(), "showToolTipOnImages" );
     connect( taction, SIGNAL( toggled( bool ) ), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
     new KAction( i18n("Run KPhotoAlbum Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
@@ -766,7 +767,7 @@ void MainWindow::Window::pathChanged( const QString& path )
 
 void MainWindow::Window::runDemo()
 {
-    KProcess* process = new KProcess;
+    K3Process* process = new K3Process;
     *process << "kphotoalbum" << "-demo";
     process->start();
 }
@@ -784,7 +785,7 @@ bool MainWindow::Window::load()
         configFile = Utilities::setupDemo();
     else {
         bool showWelcome = false;
-        KConfig* config = kapp->config();
+        KConfig* config = KGlobal::config();
         if ( config->hasKey( QString::fromLatin1("configfile") ) ) {
             configFile = config->readEntry( QString::fromLatin1("configfile") );
             if ( !QFileInfo( configFile ).exists() )
@@ -797,7 +798,7 @@ bool MainWindow::Window::load()
                 configFile = oldConfig.readEntry( QString::fromLatin1("configfile") );
                 if ( !QFileInfo( configFile ).exists() )
                     showWelcome = true;
-                kapp->config()->writeEntry( QString::fromLatin1("configfile"), configFile );
+                KGlobal::config()->writeEntry( QString::fromLatin1("configfile"), configFile );
             }
             else
                 showWelcome = true;
@@ -831,7 +832,7 @@ bool MainWindow::Window::load()
     if ( backEnd == QString::fromLatin1("sql") ) {
 #ifdef SQLDB_SUPPORT
         // SQL back-end needs some extra configuration first
-        KConfig* config = kapp->config();
+        KConfig* config = KGlobal::config();
         config->setGroup(QString::fromLatin1("SQLDB"));
         try {
             SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(*config);
@@ -923,7 +924,7 @@ void MainWindow::Window::lockToDefaultScope()
                                                       "<p>In other words, anyone with access to the index.xml file can easily "
                                                       "circumvent this password.</b></p>"),
                                                 i18n("Password Protection"),
-                                                KStdGuiItem::cont(),
+                                                KStandardGuiItem::cont(),
                                                 QString::fromLatin1( "lockPassWordIsNotEncruption" ) );
     if ( i == KMessageBox::Cancel )
         return;
@@ -1142,7 +1143,7 @@ MainWindow::Window* MainWindow::Window::theMainWindow()
 void MainWindow::Window::slotConfigureToolbars()
 {
     saveMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
-    KEditToolbar dlg(actionCollection());
+    KEditToolBar dlg(actionCollection());
     connect(&dlg, SIGNAL( newToolbarConfig() ),
                   SLOT( slotNewToolbarConfig() ));
     dlg.exec();
@@ -1203,7 +1204,7 @@ void MainWindow::Window::loadPlugins()
         return;
 
     _pluginInterface = new Plugins::Interface( this, "demo interface" );
-    connect( _pluginInterface, SIGNAL( imagesChanged( const KURL::List& ) ), this, SLOT( slotImagesChanged( const KURL::List& ) ) );
+    connect( _pluginInterface, SIGNAL( imagesChanged( const KUrl::List& ) ), this, SLOT( slotImagesChanged( const KUrl::List& ) ) );
 
     QStringList ignores;
     ignores << QString::fromLatin1( "CommentsEditor" )
@@ -1267,7 +1268,7 @@ void MainWindow::Window::plug()
                 batchActions.append( *it );
 
             else {
-                kdDebug() << "Unknow category\n";
+                kDebug() << "Unknow category\n";
             }
         }
         plugin->actionCollection()->readShortcutSettings();
@@ -1283,9 +1284,9 @@ void MainWindow::Window::plug()
 }
 
 
-void MainWindow::Window::slotImagesChanged( const KURL::List& urls )
+void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
 {
-    for( KURL::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
+    for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
         ImageManager::ImageLoader::removeThumbnail( (*it).path() );
     }
     reloadThumbnails(true);
@@ -1408,7 +1409,7 @@ void MainWindow::Window::convertBackend()
         return;
     }
 
-    KConfig* config = kapp->config();
+    KConfig* config = KGlobal::config();
     if (!config->hasGroup(QString::fromLatin1("SQLDB"))) {
         int ret =
             KMessageBox::questionYesNo(this, i18n("You should set SQL database settings before the conversion. "
@@ -1525,7 +1526,7 @@ void MainWindow::Window::tellPeopleAboutTheVideos()
                                          i18n( "Show Videos" ), i18n("Don't Show Videos"),
                                          id );
     if ( ret == KMessageBox::Yes )
-        KRun::runURL(KURL(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ) );
+        KRun::runURL(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ) );
 }
 
 void MainWindow::Window::checkIfAllFeaturesAreInstalled()

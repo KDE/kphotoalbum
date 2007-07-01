@@ -88,7 +88,7 @@ QByteArray processBinaryData(const pqxx::result::field r)
 QByteArray pqxxSqlCursor::processBinaryData(pqxx::binarystring *bs) const
 {
 	QByteArray ba;
-	kdDebug() << "pqxxSqlCursor::processBinaryData(): bs->data()=="<<(int)bs->data()[0]
+	kDebug() << "pqxxSqlCursor::processBinaryData(): bs->data()=="<<(int)bs->data()[0]
 	 <<" "<<(int)bs->data()[1]<<" bs->size()=="<<bs->size()<<endl;
 	ba.setRawData((const char *)(bs->data()), bs->size());
 	ba.detach();
@@ -296,7 +296,7 @@ QVariant pqxxSqlCursor::pValue(uint pos)const
 		else if (f->typeGroup() == Field::BLOBGroup)
 		{
 //			pqxx::result::field r = (*m_res)[at()][pos];
-//			kdDebug() << r.name() << ", " << r.c_str() << ", " << r.type() << ", " << r.size() << endl;
+//			kDebug() << r.name() << ", " << r.c_str() << ", " << r.type() << ", " << r.size() << endl;
 			return QVariant(processBinaryData( (*m_res)[at()][pos] ));
 		}
 	}

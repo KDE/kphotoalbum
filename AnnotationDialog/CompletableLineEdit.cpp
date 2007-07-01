@@ -39,15 +39,15 @@ void AnnotationDialog::CompletableLineEdit::setMode( UsageMode mode )
 
 void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 {
-    if ( ev->key() == Key_Down || ev->key() == ev->Key_Up ) {
-        selectPrevNextMatch( ev->key() == Key_Down );
+    if ( ev->key() == Qt::Key_Down || ev->key() == ev->Qt::Key_Up ) {
+        selectPrevNextMatch( ev->key() == Qt::Key_Down );
         return;
     }
 
     if ( _mode != SearchMode && isSpecialKey( ev ) )
         return; // Don't insert the special character.
 
-    if ( ev->key() == Key_Space && ev->state() & ControlButton ) {
+    if ( ev->key() == Qt::Key_Space && ev->state() & ControlButton ) {
         mergePreviousImageSelection();
         return;
     }

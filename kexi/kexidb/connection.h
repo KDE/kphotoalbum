@@ -483,7 +483,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		/*! \return true if there is at least one record in \a table. */
 		bool isEmpty( TableSchema& table, bool &success );
 
-//! @todo perhaps use Q_ULLONG here?
+//! @todo perhaps use quint64 here?
 		/*! \return number of records in \a sql query.
 		 Does not fetch any records. -1 is returned on query execution errors (>0 otherwise).
 		 Note: real executed query is: "SELECT COUNT() FROM (\a sql) LIMIT 1" 
@@ -649,7 +649,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 Simply, method internally fetches last inserted record and returns selected 
 		 field's value. Requirements: field must be of integer type, there must be a
 		 record inserted in current database session (whatever this means).
-		 On error (Q_ULLONG)-1 is returned.
+		 On error (quint64)-1 is returned.
 		 Last inserted record is identified by magical row identifier, usually called 
 		 ROWID (PostgreSQL has it as well as SQLite; 
 		 see DriverBehaviour::ROW_ID_FIELD_RETURNS_LAST_AUTOINCREMENTED_VALUE). 
@@ -658,7 +658,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		qulonglong lastInsertedAutoIncValue(const QString& aiFieldName, const QString& tableName, 
 			qulonglong* ROWID = 0);
 		
-		/*! \overload int lastInsertedAutoIncValue(const QString&, const QString&, Q_ULLONG*)
+		/*! \overload int lastInsertedAutoIncValue(const QString&, const QString&, quint64*)
 		*/
 		qulonglong lastInsertedAutoIncValue(const QString& aiFieldName, 
 			const TableSchema& table, qulonglong* ROWID = 0);

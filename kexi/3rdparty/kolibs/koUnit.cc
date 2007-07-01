@@ -149,7 +149,7 @@ double KoUnit::fromUserValue( const QString& value, Unit unit, bool* ok )
 
 double KoUnit::parseValue( QString value, double defaultVal )
 {
-    value.simplifyWhiteSpace();
+    value.simplified();
     value.remove( ' ' );
 
     if( value.isEmpty() )

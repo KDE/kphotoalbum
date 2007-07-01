@@ -66,7 +66,7 @@ void NewImageFinder::searchForNewFiles( const Q3Dict<void>& loadedFiles, QString
         imageDir = imageDir.mid( 0, imageDir.length()-1 );
 
     QDir dir( directory );
-    QStringList dirList = dir.entryList( QDir::All );
+    QStringList dirList = dir.entryList( QDir::TypeMask );
     for( QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it ) {
         QString file = directory + QString::fromLatin1("/") + *it;
         QFileInfo fi( file );

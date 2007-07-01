@@ -57,7 +57,7 @@ int XMLDB::NumberedBackup::getMaxId() const
     int max = 0;
     for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
         bool OK;
-        max = QMAX( max, idForFile( *fileIt, OK ) );
+        max = qMax( max, idForFile( *fileIt, OK ) );
     }
     return max;
 }

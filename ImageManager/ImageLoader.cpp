@@ -155,7 +155,7 @@ QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
 
 void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage img )
 {
-    QDir dir(QDir::homeDirPath());
+    QDir dir(QDir::homePath());
     dir.mkdir( QString::fromLatin1( ".thumbnails" ) );
     dir.cd( QString::fromLatin1( ".thumbnails" ) );
     dir.mkdir( QString::fromLatin1( "normal" ) );
@@ -189,7 +189,7 @@ int ImageManager::ImageLoader::calcLoadSize( ImageRequest* request )
     if ( request->width() == -1 )
         return -1;
 
-    int max = QMAX( request->width(), request->height() );
+    int max = qMax( request->width(), request->height() );
     if ( max > 256 )
         return max;
     else if ( max > 128 )
@@ -233,7 +233,7 @@ QString ImageManager::ImageLoader::thumbnailPath( QString uri, int dim )
         return QString::null;
 
     KMD5 md5( uri.utf8() );
-    return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homeDirPath()).arg(dir).arg(md5.hexDigest());
+    return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homePath()).arg(dir).arg(md5.hexDigest());
 }
 
 QString ImageManager::ImageLoader::requestURL( ImageRequest* request )

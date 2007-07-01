@@ -132,8 +132,8 @@ void DateBar::FocusItemDragHandler::mouseMoveEvent( int x )
     }
 
     _dateBar->_currentDate = _dateBar->dateForUnit( _dateBar->_currentUnit );
-    _dateBar->_currentUnit = QMAX( _dateBar->_currentUnit, 0 );
-    _dateBar->_currentUnit = QMIN( _dateBar->_currentUnit, _dateBar->numberOfUnits() );
+    _dateBar->_currentUnit = qMax( _dateBar->_currentUnit, 0 );
+    _dateBar->_currentUnit = qMin( _dateBar->_currentUnit, _dateBar->numberOfUnits() );
     _dateBar->redraw();
     _dateBar->emitDateSelected();
 }

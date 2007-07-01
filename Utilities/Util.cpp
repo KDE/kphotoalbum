@@ -184,7 +184,7 @@ void Utilities::checkForBackupFile( const QString& fileName )
 bool Utilities::ctrlKeyDown()
 {
 #if KDE_IS_VERSION( 3, 4, 0 )
-    return KApplication::keyboardMouseState() & Qt::ControlButton;
+    return KApplication::keyboardMouseState() & Qt::ControlModifier;
 #else
     return KApplication::keyboardModifiers() & KApplication::ControlModifier;
 #endif
@@ -422,7 +422,7 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
     jpeg_read_header(&cinfo, TRUE);
     *fullSize = QSize( cinfo.image_width, cinfo.image_height );
 
-    int imgSize = QMAX(cinfo.image_width, cinfo.image_height);
+    int imgSize = qMax(cinfo.image_width, cinfo.image_height);
 
     //libjpeg supports a sort of scale-while-decoding which speeds up decoding
     int scale=1;
@@ -475,7 +475,7 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
         }
     }
 
-    /*int newMax = QMAX(cinfo.output_width, cinfo.output_height);
+    /*int newMax = qMax(cinfo.output_width, cinfo.output_height);
       int newx = size_*cinfo.output_width / newMax;
       int newy = size_*cinfo.output_height / newMax;*/
 
@@ -595,7 +595,7 @@ Utilities::UniqNameMap Utilities::createUniqNameMap( const QStringList& images, 
 
 QString Utilities::normalizedFileName( const QString& fileName )
 {
-    return QFileInfo(fileName).absFilePath();
+    return QFileInfo(fileName).absoluteFilePath();
 }
 
 QString Utilities::dereferenceSymLinks( const QString& fileName )

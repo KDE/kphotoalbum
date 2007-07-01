@@ -50,7 +50,7 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
     changeItem(QString::fromLatin1( "" ), 0);
     setMinimumSize(sizeHint());
 
-    mDateFrame = new Q3VBox(0,0,WType_Popup);
+    mDateFrame = new Q3VBox(0,0,Qt::WType_Popup);
     mDateFrame->setFrameStyle(Q3Frame::PopupPanel | Q3Frame::Raised);
     mDateFrame->setLineWidth(3);
     mDateFrame->hide();

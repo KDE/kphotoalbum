@@ -716,7 +716,7 @@ bool Connection::dropDatabase( const QString &dbName )
 			dbToDrop = d->usedDatabase;
 		} else {
 			if (m_driver->isFileDriver()) //lets get full path
-				dbToDrop = QFileInfo(dbName).absFilePath();
+				dbToDrop = QFileInfo(dbName).absoluteFilePath();
 			else
 				dbToDrop = dbName;
 		}
@@ -1691,8 +1691,8 @@ bool Connection::alterTableName(TableSchema& tableSchema, const QString& newName
 		return false;
 	}
 	const QString oldTableName = tableSchema.name();
-	const QString newTableName = newName.lower().stripWhiteSpace();
-	if (oldTableName.lower().stripWhiteSpace() == newTableName) {
+	const QString newTableName = newName.lower().trimmed();
+	if (oldTableName.lower().trimmed() == newTableName) {
 		setError(ERR_OBJECT_THE_SAME, i18n("Could rename table \"%1\" using the same name.")
 			.arg(newTableName));
 		return false;
@@ -2683,7 +2683,7 @@ KexiDB::TableSchema* Connection::setupTableSchema( const RowData &data )
 		if (!ok)
 			break;
 		Field::Type f_type = (Field::Type)f_int_type;
-		int f_len = QMAX( 0, cursor->value(3).toInt(&ok) );
+		int f_len = qMax( 0, cursor->value(3).toInt(&ok) );
 		if (!ok)
 			break;
 		int f_prec = cursor->value(4).toInt(&ok);

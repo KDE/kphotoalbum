@@ -64,7 +64,7 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
 {
     setBackgroundMode( NoBackground );
     setMouseTracking( true );
-    setFocusPolicy( StrongFocus );
+    setFocusPolicy( Qt::StrongFocus );
 
     _barWidth = Settings::SettingsData::instance()->histogramSize().width();
     _barHeight = Settings::SettingsData::instance()->histogramSize().height();
@@ -100,14 +100,14 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
 
 QSize DateBar::DateBarWidget::sizeHint() const
 {
-    int height = QMAX( dateAreaGeometry().bottom() + borderArroundWidget,
+    int height = qMax( dateAreaGeometry().bottom() + borderArroundWidget,
                        _barHeight+ buttonWidth + 2* borderArroundWidget + 7 );
     return QSize( 800, height );
 }
 
 QSize DateBar::DateBarWidget::minimumSizeHint() const
 {
-     int height = QMAX( dateAreaGeometry().bottom() + borderArroundWidget,
+     int height = qMax( dateAreaGeometry().bottom() + borderArroundWidget,
                         _barHeight + buttonWidth + 2* borderArroundWidget + 7 );
      return QSize( 200, height );
 }
@@ -199,7 +199,7 @@ void DateBar::DateBarWidget::drawTickMarks( QPainter& p, const QRect& textRect )
             int w = fm.width( text );
             p.setFont( f );
             if ( textRect.right() >  x + w/2 && textRect.left() < x - w/2)
-                p.drawText( x - w/2, textRect.top(), w, fontHeight, Qt::SingleLine, text );
+                p.drawText( x - w/2, textRect.top(), w, fontHeight, Qt::TextSingleLine, text );
         }
         else if ( _currentHandler->isMidUnit( unit ) )
             h = (int) ( 2.0/3*rect.height());
@@ -263,7 +263,7 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
         int cnt = count._exact;
         if ( _includeFuzzyCounts )
             cnt += count._rangeMatch;
-        max = QMAX( max, cnt  );
+        max = qMax( max, cnt  );
     }
 
     unit = 0;
@@ -559,7 +559,7 @@ void DateBar::DateBarWidget::drawResolutionIndicator( QPainter& p, int* leftEdge
 
     // draw text
     QFontMetrics fm( font() );
-    p.drawText( endUnitPos + arrowLength + 3, rect.top(), fm.width(text), fm.height(), Qt::SingleLine, text );
+    p.drawText( endUnitPos + arrowLength + 3, rect.top(), fm.width(text), fm.height(), Qt::TextSingleLine, text );
     p.restore();
 
     *leftEdge = startUnitPos - arrowLength - 3;
@@ -665,24 +665,24 @@ void DateBar::DateBarWidget::placeAndSizeButtons()
 void DateBar::DateBarWidget::keyPressEvent( QKeyEvent* event )
 {
     int offset = 0;
-    if ( event->key() == Key_Plus ) {
+    if ( event->key() == Qt::Key_Plus ) {
         if ( _tp != HourView )
             zoom(1);
         return;
     }
-    if ( event->key() == Key_Minus ) {
+    if ( event->key() == Qt::Key_Minus ) {
         if ( _tp != DecadeView )
             zoom( -1 );
         return;
     }
 
-    if ( event->key() == Key_Left )
+    if ( event->key() == Qt::Key_Left )
         offset = -1;
-    else if ( event->key() == Key_Right )
+    else if ( event->key() == Qt::Key_Right )
         offset = 1;
-    else if ( event->key() == Key_PageDown )
+    else if ( event->key() == Qt::Key_PageDown )
         offset = -10;
-    else if ( event->key() == Key_PageUp )
+    else if ( event->key() == Qt::Key_PageUp )
         offset = 10;
     else
         return;

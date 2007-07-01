@@ -152,7 +152,7 @@ class QuerySchemaPrivate
 		{
 			columnAliases.replace(position, new Q3CString(alias));
 			columnPositionsForAliases.replace(alias, new int(position));
-			maxIndexWithAlias = QMAX( maxIndexWithAlias, (int)position );
+			maxIndexWithAlias = qMax( maxIndexWithAlias, (int)position );
 		}
 
 		void setColumnAlias(uint position, const Q3CString& alias)
@@ -929,7 +929,7 @@ void QuerySchema::setColumnAlias(uint position, const Q3CString& alias)
 			<< ") out of range!" << endl;
 		return;
 	}
-	Q3CString fixedAlias = alias.stripWhiteSpace();
+	Q3CString fixedAlias = alias.trimmed();
 	Field *f = FieldList::field(position);
 	if (f->captionOrName().isEmpty() && fixedAlias.isEmpty()) {
 		KexiDBWarn << "QuerySchema::setColumnAlias(): position ("  << position 
@@ -996,7 +996,7 @@ void QuerySchema::setTableAlias(uint position, const Q3CString& alias)
 			<< ") out of range!" << endl;
 		return;
 	}
-	Q3CString fixedAlias = alias.stripWhiteSpace();
+	Q3CString fixedAlias = alias.trimmed();
 	if (fixedAlias.isEmpty()) {
 		Q3CString *oldAlias = d->tableAliases.take(position);
 		if (oldAlias) {
@@ -1008,7 +1008,7 @@ void QuerySchema::setTableAlias(uint position, const Q3CString& alias)
 	else {
 		d->tableAliases.replace(position, new Q3CString(fixedAlias));
 		d->tablePositionsForAliases.replace(fixedAlias, new int(position));
-//		d->maxIndexWithTableAlias = QMAX( d->maxIndexWithTableAlias, (int)index );
+//		d->maxIndexWithTableAlias = qMax( d->maxIndexWithTableAlias, (int)index );
 	}
 }
 

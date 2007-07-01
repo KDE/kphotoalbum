@@ -63,10 +63,10 @@ namespace DB
         QString toHexString() const
         {
             QString res;
-            res += QString::number(_v0, 16).rightJustify(8, '0');
-            res += QString::number(_v1, 16).rightJustify(8, '0');
-            res += QString::number(_v2, 16).rightJustify(8, '0');
-            res += QString::number(_v3, 16).rightJustify(8, '0');
+            res += QString::number(_v0, 16).rightJustified(8, '0');
+            res += QString::number(_v1, 16).rightJustified(8, '0');
+            res += QString::number(_v2, 16).rightJustified(8, '0');
+            res += QString::number(_v3, 16).rightJustified(8, '0');
             return res;
         }
 

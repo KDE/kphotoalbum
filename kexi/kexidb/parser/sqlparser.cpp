@@ -3016,7 +3016,7 @@ YYACCEPT;
 		val = (qlonglong)(yyvsp[(1) - (1)].integerValue);
 
 //	if ($1 < ULLONG_MAX)
-//		val = (Q_ULLONG)$1;
+//		val = (quint64)$1;
 //TODO ok?
 
 	(yyval.expr) = new ConstExpr( INTEGER_CONST, val );

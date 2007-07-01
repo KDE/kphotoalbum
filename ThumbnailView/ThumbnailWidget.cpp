@@ -203,8 +203,8 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
     QRect rect = cellTextGeometry( row, col );
     painter->setPen( palette().active().text() );
 
-    //Qt::WordBreak just in case, if the text's width is wider than the cell's width
-    painter->drawText( rect, Qt::AlignCenter | Qt::WordBreak, title );
+    //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
+    painter->drawText( rect, Qt::AlignCenter | Qt::TextWordWrap, title );
 }
 
 
@@ -358,12 +358,12 @@ int ThumbnailView::ThumbnailWidget::textHeight( bool reCalc ) const
         if ( reCalc ) {
             if ( _selectedFiles.count() > 0 ) {
                 for( Set<QString>::ConstIterator itImg = _selectedFiles.begin(); itImg != _selectedFiles.end(); ++itImg ) {
-                    maxCatsInText = QMAX( noOfCategoriesForImage( *itImg ), maxCatsInText );
+                    maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
                 }
             } else {
                 maxCatsInText = 0;
                 for( Q3ValueVector<QString>::ConstIterator itImg = _imageList.begin(); itImg != _imageList.end(); ++itImg ) {
-                    maxCatsInText = QMAX( noOfCategoriesForImage( *itImg ), maxCatsInText );
+                    maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
                 }
             }
         }
@@ -448,7 +448,7 @@ void ThumbnailView::ThumbnailWidget::updateGridSize()
     int thumbnailsPerRow = width() / cellWidth();
     int numRowsPerPage = height() / cellHeight();
     setNumCols( thumbnailsPerRow );
-    setNumRows( QMAX( numRowsPerPage, (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow ) ) );
+    setNumRows( qMax( numRowsPerPage, (int) ceil( 1.0 * _imageList.size() / thumbnailsPerRow ) ) );
 }
 
 void ThumbnailView::ThumbnailWidget::showEvent( QShowEvent* )
@@ -483,7 +483,7 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
 
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
-    if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
+    if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
         QString token = event->text().upper().left(1);
         bool mustRemoveToken = false;
         bool hadHit          = false;
@@ -512,10 +512,10 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
     if ( isMovementKey( event->key() ) )
         keyboardMoveEvent( event );
 
-    if ( event->key() == Key_Return )
+    if ( event->key() == Qt::Key_Return )
         emit showSelection();
 
-    if ( event->key() == Key_Space )
+    if ( event->key() == Qt::Key_Space )
         toggleSelection( _currentItem );
 
     possibleEmitSelectionChanged();
@@ -555,7 +555,7 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 
     Cell newPos;
     switch (event->key() ) {
-    case Key_Left:
+    case Qt::Key_Left:
         newPos = currentPos;
         newPos.col()--;
 
@@ -563,25 +563,25 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
             newPos = Cell( newPos.row()-1, numCols()-1 );
         break;
 
-    case Key_Right:
+    case Qt::Key_Right:
         newPos = currentPos;
         newPos.col()++;
         if ( newPos.col() == numCols() )
             newPos = Cell( newPos.row()+1, 0 );
         break;
 
-    case Key_Down:
+    case Qt::Key_Down:
         newPos = Cell( currentPos.row()+1, currentPos.col() );
         break;
 
-    case Key_Up:
+    case Qt::Key_Up:
         newPos = Cell( currentPos.row()-1, currentPos.col() );
         break;
 
-    case Key_PageDown:
-    case Key_PageUp:
+    case Qt::Key_PageDown:
+    case Qt::Key_PageUp:
     {
-        int rows = (event->key() == Key_PageDown) ? 1 : -1;
+        int rows = (event->key() == Qt::Key_PageDown) ? 1 : -1;
         if ( event->state() & (AltButton | MetaButton) )
             rows *= numRows() / 20;
         else
@@ -590,11 +590,11 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
         newPos = Cell( currentPos.row() + rows, currentPos.col() );
         break;
     }
-    case Key_Home:
+    case Qt::Key_Home:
         newPos = Cell( 0, 0 );
         break;
 
-    case Key_End:
+    case Qt::Key_End:
         newPos = lastCell();
         break;
     }
@@ -659,7 +659,7 @@ int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
     if ( (event->button() & MidButton) ||
-         ((event->state() & Qt::ControlButton) && (event->state() & Qt::AltButton)) )
+         ((event->state() & Qt::ControlModifier) && (event->state() & Qt::AltModifier)) )
         _mouseHandler = &_gridResizeInteraction;
     else
         _mouseHandler = &_selectionInteraction;
@@ -696,7 +696,7 @@ void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 
         int delta = event->delta() / 20;
 
-        Settings::SettingsData::instance()->setThumbSize( QMAX( 32, cellWidth() + delta ) );
+        Settings::SettingsData::instance()->setThumbSize( qMax( 32, cellWidth() + delta ) );
 
         updateCellSize();
     }
@@ -885,8 +885,8 @@ ThumbnailView::Cell ThumbnailView::ThumbnailWidget::lastCell() const
 
 bool ThumbnailView::ThumbnailWidget::isMovementKey( int key )
 {
-    return ( key == Key_Up || key == Key_Down || key == Key_Left || key == Key_Right ||
-             key == Key_Home || key == Key_End || key == Key_PageUp || key == Key_PageDown );
+    return ( key == Qt::Key_Up || key == Qt::Key_Down || key == Qt::Key_Left || key == Qt::Key_Right ||
+             key == Qt::Key_Home || key == Qt::Key_End || key == Qt::Key_PageUp || key == Qt::Key_PageDown );
 }
 
 void ThumbnailView::ThumbnailWidget::toggleSelection( const QString& fileName )

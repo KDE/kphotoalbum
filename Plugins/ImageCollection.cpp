@@ -100,7 +100,7 @@ KURL Plugins::ImageCollection::commonRoot()
 
         QStringList path = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( (*it).path() ).dirPath( true ), true );
         uint i = 0;
-        for ( ; i < QMIN( path.size(), res.size() ); ++i ) {
+        for ( ; i < qMin( path.size(), res.size() ); ++i ) {
             if ( path[i] == res[i] )
                 newRes.append( res[i] );
             else

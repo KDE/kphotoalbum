@@ -347,7 +347,7 @@ void  Import::slotEditDestination()
 {
     QString file = KFileDialog::getExistingDirectory( _destinationEdit->text(), this );
     if ( !file.isNull() ) {
-        if ( ! QFileInfo(file).absFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) ) {
+        if ( ! QFileInfo(file).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) ) {
             KMessageBox::error( this, i18n("The directory must be a subdirectory of %1").arg( Settings::SettingsData::instance()->imageDirectory() ) );
         }
         else {
@@ -364,7 +364,7 @@ void Import::updateNextButtonState()
         QString dest = _destinationEdit->text();
         if ( QFileInfo( dest ).isFile() )
             enabled = false;
-        else if ( ! QFileInfo(dest).absFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) )
+        else if ( ! QFileInfo(dest).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) )
             enabled = false;
     }
 

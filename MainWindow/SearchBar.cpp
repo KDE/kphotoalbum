@@ -63,13 +63,13 @@ bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
 {
     if ( e->type() == QEvent::KeyPress ) {
         QKeyEvent* ke = static_cast<QKeyEvent*>( e );
-        if ( ke->key() == Key_Up )
+        if ( ke->key() == Qt::Key_Up )
             emit scrollLine( -1 );
-        else if ( ke->key() == Key_Down )
+        else if ( ke->key() == Qt::Key_Down )
             emit scrollLine( 1 );
-        else if ( ke->key() == Key_PageUp )
+        else if ( ke->key() == Qt::Key_PageUp )
             emit scrollPage( -1 );
-        else if ( ke->key() == Key_PageDown )
+        else if ( ke->key() == Qt::Key_PageDown )
             emit scrollPage( 1 );
         else
             return false;

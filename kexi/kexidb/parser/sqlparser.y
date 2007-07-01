@@ -510,7 +510,7 @@ using namespace KexiDB;
 
 %union {
 	QString* stringValue;
-	Q_LLONG integerValue;
+	qint64 integerValue;
 	bool booleanValue;
 	struct realType realValue;
 	KexiDB::Field::Type colType;
@@ -1070,11 +1070,11 @@ aExpr9:
 		val = (int)$1;
 	else if ($1 <= UINT_MAX && $1 >= 0)
 		val = (uint)$1;
-	else if ($1 <= (Q_LLONG)LLONG_MAX && $1 >= (Q_LLONG)LLONG_MIN)
-		val = (Q_LLONG)$1;
+	else if ($1 <= (qint64)LLONG_MAX && $1 >= (qint64)LLONG_MIN)
+		val = (qint64)$1;
 
 //	if ($1 < ULLONG_MAX)
-//		val = (Q_ULLONG)$1;
+//		val = (quint64)$1;
 //TODO ok?
 
 	$$ = new ConstExpr( INTEGER_CONST, val );

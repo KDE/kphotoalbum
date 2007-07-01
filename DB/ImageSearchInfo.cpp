@@ -170,7 +170,7 @@ QString ImageSearchInfo::toString() const
                                                 "I do realize that translators may have problem with this, "
                                                 "but I need some how to indicate the category, and users may create their own categories, so this is "
                                                 "the best I can do - Jesper.", "No other %1" ).arg( it.key() ) );
-            txt.simplifyWhiteSpace();
+            txt.simplified();
             res += txt;
         }
     }
@@ -256,7 +256,7 @@ void ImageSearchInfo::compile() const
                     negate = true;
                     str = regexp.cap(1);
                 }
-                str = str.stripWhiteSpace();
+                str = str.trimmed();
                 CategoryMatcher* valueMatcher;
                 if ( str == ImageDB::NONE() )
                     valueMatcher = new OptionEmptyMatcher( category, !negate );
@@ -336,7 +336,7 @@ Q3Dict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
 
     QStringList list = QStringList::split( QString::fromLatin1( "&" ), str );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-        QString nm = (*it).stripWhiteSpace();
+        QString nm = (*it).trimmed();
         if (! nm.contains( QString::fromLatin1( "!" ) ) )
             map.insert( nm, (void*) 0x1 /* something different from 0x0 */ );
     }

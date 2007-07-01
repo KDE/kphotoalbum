@@ -58,7 +58,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     Q3VBoxLayout* layout = new Q3VBoxLayout( this,  6 );
 
     _label = new QLabel( _category->text(), this );
-    _label->setAlignment( AlignCenter );
+    _label->setAlignment( Qt::AlignCenter );
     layout->addWidget( _label );
 
     _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(_category->name()).latin1() );

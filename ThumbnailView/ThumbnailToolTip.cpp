@@ -41,10 +41,10 @@
 */
 
 ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view, const char* name )
-    : QLabel( view, name, WStyle_Customize | WStyle_NoBorder | WType_TopLevel | WX11BypassWM | WStyle_Tool ), _view( view ),
+    : QLabel( view, name, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_TopLevel | WX11BypassWM | Qt::WStyle_Tool ), _view( view ),
       _widthInverse( false ), _heightInverse( false )
 {
-	setAlignment( AlignAuto | AlignTop );
+	setAlignment( AlignAuto | Qt::AlignTop );
     setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
     setLineWidth(1);
     setMargin(1);

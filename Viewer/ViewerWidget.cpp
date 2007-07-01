@@ -87,7 +87,7 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget( const char* name )
-    :QWidget( 0,  name, WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
+    :QWidget( 0,  name, Qt::WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
 {
     setWFlags( WDestructiveClose );
     setPaletteBackgroundColor( black );
@@ -126,7 +126,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNextFromTimer() ) );
     _speedDisplay = new SpeedDisplay( this );
 
-    setFocusPolicy( StrongFocus );
+    setFocusPolicy( Qt::StrongFocus );
 }
 
 
@@ -146,7 +146,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     _drawOnImages = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
     _drawOnImages->plug( _popup );
 
-    KAction* action = new KAction( i18n("Annotate..."),  CTRL+Key_1, this, SLOT( editImage() ),
+    KAction* action = new KAction( i18n("Annotate..."),  CTRL+Qt::Key_1, this, SLOT( editImage() ),
                           _actions, "viewer-edit-image-properties" );
     action->plug( _popup );
 
@@ -161,7 +161,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     _showExifViewer->plug( _popup );
 #endif
 
-    action = new KAction( i18n("Close"), Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
+    action = new KAction( i18n("Close"), Qt::Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
     action->plug( _popup );
     _actions->readShortcutSettings();
 
@@ -172,13 +172,13 @@ void Viewer::ViewerWidget::createShowContextMenu()
 {
     Q3PopupMenu *showPopup = new Q3PopupMenu( _popup );
 
-    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Key_I, _actions, "viewer-show-infobox" );
+    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Qt::Key_I, _actions, "viewer-show-infobox" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
 
     // PENDING(blackie) Only for image display
-    taction = new KToggleAction( i18n("Show Drawing"), CTRL+Key_D, _actions, "viewer-show-drawing");
+    taction = new KToggleAction( i18n("Show Drawing"), CTRL+Qt::Key_D, _actions, "viewer-show-drawing");
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDrawings( bool ) ) );
     taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
@@ -267,13 +267,13 @@ void Viewer::ViewerWidget::createRotateMenu()
 {
     _rotateMenu = new Q3PopupMenu( _popup );
 
-    KAction* action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
+    KAction* action = new KAction( i18n("Rotate 90 Degrees"), Qt::Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
     action->plug( _rotateMenu );
 
-    action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
+    action = new KAction( i18n("Rotate 180 Degrees"), Qt::Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
     action->plug( _rotateMenu );
 
-    action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
+    action = new KAction( i18n("Rotate 270 Degrees"), Qt::Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
     action->plug( _rotateMenu );
 
     _popup->insertItem( QIcon(), i18n("Rotate"), _rotateMenu );
@@ -283,43 +283,43 @@ void Viewer::ViewerWidget::createSkipMenu()
 {
     Q3PopupMenu *popup = new Q3PopupMenu( _popup );
 
-    KAction* action = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
+    KAction* action = new KAction( i18n("First"), Qt::Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
     action->plug( popup );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Last"), Key_End, this, SLOT( showLast() ), _actions, "viewer-end" );
+    action = new KAction( i18n("Last"), Qt::Key_End, this, SLOT( showLast() ), _actions, "viewer-end" );
     action->plug( popup );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Show Next"), Key_PageDown, this, SLOT( showNext() ), _actions, "viewer-next" );
+    action = new KAction( i18n("Show Next"), Qt::Key_PageDown, this, SLOT( showNext() ), _actions, "viewer-next" );
     action->plug( popup );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Skip 10 Forward"), CTRL+Key_PageDown, this, SLOT( showNext10() ), _actions, "viewer-next-10" );
+    action = new KAction( i18n("Skip 10 Forward"), CTRL+Qt::Key_PageDown, this, SLOT( showNext10() ), _actions, "viewer-next-10" );
     action->plug( popup );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Skip 100 Forward"), SHIFT+Key_PageDown, this, SLOT( showNext100() ), _actions, "viewer-next-100" );
+    action = new KAction( i18n("Skip 100 Forward"), SHIFT+Qt::Key_PageDown, this, SLOT( showNext100() ), _actions, "viewer-next-100" );
     action->plug( popup );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Skip 1000 Forward"), CTRL+SHIFT+Key_PageDown, this, SLOT( showNext1000() ), _actions, "viewer-next-1000" );
+    action = new KAction( i18n("Skip 1000 Forward"), CTRL+SHIFT+Qt::Key_PageDown, this, SLOT( showNext1000() ), _actions, "viewer-next-1000" );
     action->plug( popup );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Show Previous"), Key_PageUp, this, SLOT( showPrev() ), _actions, "viewer-prev" );
+    action = new KAction( i18n("Show Previous"), Qt::Key_PageUp, this, SLOT( showPrev() ), _actions, "viewer-prev" );
     action->plug( popup );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Skip 10 Backward"), CTRL+Key_PageUp, this, SLOT( showPrev10() ), _actions, "viewer-prev-10" );
+    action = new KAction( i18n("Skip 10 Backward"), CTRL+Qt::Key_PageUp, this, SLOT( showPrev10() ), _actions, "viewer-prev-10" );
     action->plug( popup );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Skip 100 Backward"), SHIFT+Key_PageUp, this, SLOT( showPrev100() ), _actions, "viewer-prev-100" );
+    action = new KAction( i18n("Skip 100 Backward"), SHIFT+Qt::Key_PageUp, this, SLOT( showPrev100() ), _actions, "viewer-prev-100" );
     action->plug( popup );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Skip 1000 Backward"), CTRL+SHIFT+Key_PageUp, this, SLOT( showPrev1000() ), _actions, "viewer-prev-1000" );
+    action = new KAction( i18n("Skip 1000 Backward"), CTRL+SHIFT+Qt::Key_PageUp, this, SLOT( showPrev1000() ), _actions, "viewer-prev-1000" );
     action->plug( popup );
     _backwardActions.append(action);
 
@@ -331,19 +331,19 @@ void Viewer::ViewerWidget::createZoomMenu()
     Q3PopupMenu *popup = new Q3PopupMenu( _popup );
 
     // PENDING(blackie) Only for image display?
-    KAction* action = new KAction( i18n("Zoom In"), Key_Plus, this, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
+    KAction* action = new KAction( i18n("Zoom In"), Qt::Key_Plus, this, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
     action->plug( popup );
 
-    action = new KAction( i18n("Zoom Out"), Key_Minus, this, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
+    action = new KAction( i18n("Zoom Out"), Qt::Key_Minus, this, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
     action->plug( popup );
 
-    action = new KAction( i18n("Full View"), Key_Period, this, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
+    action = new KAction( i18n("Full View"), Qt::Key_Period, this, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
     action->plug( popup );
 
-    action = new KAction( i18n("Pixel for Pixel View"), Key_Equal, this, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
+    action = new KAction( i18n("Pixel for Pixel View"), Qt::Key_Equal, this, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
     action->plug( popup );
 
-    action = new KAction( i18n("Toggle Full Screen"), Key_Return, this, SLOT( toggleFullScreen() ),
+    action = new KAction( i18n("Toggle Full Screen"), Qt::Key_Return, this, SLOT( toggleFullScreen() ),
                           _actions, "viewer-toggle-fullscreen" );
     action->plug( popup );
 
@@ -355,15 +355,15 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 {
     Q3PopupMenu *popup = new Q3PopupMenu( _popup );
 
-    _startStopSlideShow = new KAction( i18n("Run Slideshow"), CTRL+Key_R, this, SLOT( slotStartStopSlideShow() ),
+    _startStopSlideShow = new KAction( i18n("Run Slideshow"), CTRL+Qt::Key_R, this, SLOT( slotStartStopSlideShow() ),
                                        _actions, "viewer-start-stop-slideshow" );
     _startStopSlideShow->plug( popup );
 
-    _slideShowRunFaster = new KAction( i18n("Run Faster"), CTRL + Key_Plus, this, SLOT( slotSlideShowFaster() ),
+    _slideShowRunFaster = new KAction( i18n("Run Faster"), CTRL + Qt::Key_Plus, this, SLOT( slotSlideShowFaster() ),
                                        _actions, "viewer-run-faster" );
     _slideShowRunFaster->plug( popup );
 
-    _slideShowRunSlower = new KAction( i18n("Run Slower"), CTRL+Key_Minus, this, SLOT( slotSlideShowSlower() ),
+    _slideShowRunSlower = new KAction( i18n("Run Slower"), CTRL+Qt::Key_Minus, this, SLOT( slotSlideShowSlower() ),
                                        _actions, "viewer-run-slower" );
     _slideShowRunSlower->plug( popup );
 
@@ -852,7 +852,7 @@ void Viewer::ViewerWidget::slotSlideShowNextFromTimer()
     // ensure that there is a few milliseconds pause, so that an end slideshow keypress
     // can get through immediately, we don't want it to queue up behind a bunch of timer events,
     // which loaded a number of new images before the slideshow stops
-    int ms = QMAX( 200, _slideShowPause - timer.elapsed() );
+    int ms = qMax( 200, _slideShowPause - timer.elapsed() );
     _slideShowTimer->start( ms, true );
 }
 
@@ -884,7 +884,7 @@ void Viewer::ViewerWidget::changeSlideShowInterval( int delta )
         return;
 
     _slideShowPause += delta;
-    _slideShowPause = QMAX( _slideShowPause, 500 );
+    _slideShowPause = qMax( _slideShowPause, 500 );
     _speedDisplay->display( _slideShowPause );
     if (_slideShowTimer->isActive() )
         _slideShowTimer->changeInterval( _slideShowPause );
@@ -973,7 +973,7 @@ KActionCollection* Viewer::ViewerWidget::actions()
 
 void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 {
-    if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Key_A && event->key() <= Key_Z ) ) {
+    if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
         QString token = event->text().upper().left(1);
         if ( currentInfo()->hasCategoryInfo( QString::fromLatin1("Tokens"), token ) )
             currentInfo()->removeCategoryInfo( QString::fromLatin1("Tokens"), token );

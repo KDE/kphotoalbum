@@ -46,7 +46,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     fnt.setPointSize( (int) (fnt.pointSize() * 1.2) );
     fnt.setWeight( QFont::Bold );
     label->setFont( fnt );
-    label->setAlignment( AlignCenter );
+    label->setAlignment( Qt::AlignCenter );
     hlay->addWidget( label, 1 );
 
     _pix = new QLabel( top );
@@ -136,7 +136,7 @@ void Exif::Grid::paintCell( QPainter * p, int row, int col )
     p->fillRect( cellRect(), background );
 
     if ( isHeader ) {
-        p->drawText( cellRect(), ((index % 2) ? AlignLeft : AlignRight ), _texts[index].first );
+        p->drawText( cellRect(), ((index % 2) ? Qt::AlignLeft : Qt::AlignRight ), _texts[index].first );
     }
     else {
         QString text = _texts[index].first;
@@ -145,10 +145,10 @@ void Exif::Grid::paintCell( QPainter * p, int row, int col )
         f.setWeight( match ? QFont::Bold : QFont::Normal );
         p->setFont( f );
         p->setPen( match ? red : black );
-        p->drawText( cellRect(), AlignLeft, text);
+        p->drawText( cellRect(), Qt::AlignLeft, text);
         QRect rect = cellRect();
         rect.setX( _maxKeyWidth + 10 );
-        p->drawText( rect, AlignLeft, _texts[index].second );
+        p->drawText( rect, Qt::AlignLeft, _texts[index].second );
     }
 }
 
@@ -206,31 +206,31 @@ void Exif::Grid::calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo )
     QFontMetrics metrics( f );
     _maxKeyWidth = 0;
     for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
-        _maxKeyWidth = QMAX( _maxKeyWidth, metrics.width( exifNameNoGroup( it.key() ) ) );
+        _maxKeyWidth = qMax( _maxKeyWidth, metrics.width( exifNameNoGroup( it.key() ) ) );
     }
 }
 
 void Exif::Grid::keyPressEvent( QKeyEvent* e )
 {
     switch ( e->key() ) {
-    case Key_Down:
+    case Qt::Key_Down:
         scrollBy( 0, cellHeight() );
         return;
-    case Key_Up:
+    case Qt::Key_Up:
         scrollBy( 0, -cellHeight() );
         return;
-    case Key_PageDown:
+    case Qt::Key_PageDown:
         scrollBy( 0, (clipper()->height() - cellHeight() ));
         return;
-    case Key_PageUp:
+    case Qt::Key_PageUp:
         scrollBy( 0, -(clipper()->height() - cellHeight()) );
         return;
-    case Key_Backspace:
+    case Qt::Key_Backspace:
         _search.remove( _search.length()-1, 1 );
         emit searchStringChanged( _search );
         updateContents();
         return;
-    case Key_Escape:
+    case Qt::Key_Escape:
         Q3GridView::keyPressEvent( e ); // Propagate to close dialog.
         return;
     }

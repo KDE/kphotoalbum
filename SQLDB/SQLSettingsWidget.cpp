@@ -44,7 +44,7 @@
 
 using namespace SQLDB;
 
-SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags fl):
+SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFlags fl):
     QWidget(parent, name, fl),
     _driverManager(new KexiDB::DriverManager),
     _lastErrorType(NoDrivers)

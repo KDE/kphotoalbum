@@ -102,7 +102,7 @@ MySurvey::MySurvey( QWidget* parent, const char* name )
 QSize MySurvey::sizeHint() const
 {
     QSize size = Survey::SurveyDialog::sizeHint();
-    return QSize( QMAX( size.width(), 800 ), size.height() );
+    return QSize( qMax( size.width(), 800 ), size.height() );
 }
 
 #include "MySurvey.moc"

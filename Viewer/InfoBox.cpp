@@ -69,7 +69,7 @@ void Viewer::InfoBox::setSize()
         width +=10;
         height = heightForWidth( width );
     } while ( height > width && width < _viewer->width()/3 );
-    height = QMIN( height, _viewer->height()/3 );
+    height = qMin( height, _viewer->height()/3 );
 
 
     // make the box smaller in width till it fits

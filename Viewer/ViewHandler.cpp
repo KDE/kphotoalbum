@@ -40,7 +40,7 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     _scale = false;
 
     if ( (e->button() & Qt::LeftButton ) ) {
-        if ( (e->state() & Qt::ControlButton ) ) {
+        if ( (e->state() & Qt::ControlModifier ) ) {
             _pan = true;
         } else {
             _scale = true;

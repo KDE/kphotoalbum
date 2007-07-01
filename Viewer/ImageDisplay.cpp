@@ -272,7 +272,7 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 
 QPoint Viewer::ImageDisplay::mapPos( QPoint p )
 {
-    QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
+    QPoint off = offset( qAbs( _zEnd.x()-_zStart.x() ), qAbs( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
     p -= off;
     int x = (int) (_zStart.x() + (_zEnd.x()-_zStart.x())*((double)p.x()/ (width()-2*off.x())));
     int y = (int) (_zStart.y() + (_zEnd.y()-_zStart.y())*((double)p.y()/ (height()-2*off.y())));
@@ -283,8 +283,8 @@ QPoint Viewer::ImageDisplay::mapPos( QPoint p )
 
 void Viewer::ImageDisplay::xformPainter( QPainter* p )
 {
-    QPoint off = offset( QABS( _zEnd.x()-_zStart.x() ), QABS( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
-    double s = (width()-2*off.x())/QABS( (double)_zEnd.x()-_zStart.x());
+    QPoint off = offset( qAbs( _zEnd.x()-_zStart.x() ), qAbs( _zEnd.y()-_zStart.y() ), width(), height(), 0 );
+    double s = (width()-2*off.x())/qAbs( (double)_zEnd.x()-_zStart.x());
     p->scale( s, s );
     p->translate( -_zStart.x(), -_zStart.y() );
 }
@@ -315,10 +315,10 @@ void Viewer::ImageDisplay::zoomFull()
 
 void Viewer::ImageDisplay::normalize( QPoint& p1, QPoint& p2 )
 {
-    int minx = QMIN( p1.x(), p2.x() );
-    int miny = QMIN( p1.y(), p2.y() );
-    int maxx = QMAX( p1.x(), p2.x() );
-    int maxy = QMAX( p1.y(), p2.y() );
+    int minx = qMin( p1.x(), p2.x() );
+    int miny = qMin( p1.y(), p2.y() );
+    int maxx = qMax( p1.x(), p2.x() );
+    int maxy = qMax( p1.y(), p2.y() );
     p1 = QPoint( minx, miny );
     p2 = QPoint( maxx, maxy );
 }

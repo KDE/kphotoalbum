@@ -27,7 +27,7 @@
 #include <klocale.h>
 
 Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
-    :QDialog( parent, name, false, WStyle_Customize | WStyle_NoBorder | WX11BypassWM| WStyle_StaysOnTop )
+    :QDialog( parent, name, false, Qt::WStyle_Customize | Qt::WStyle_NoBorder | WX11BypassWM| Qt::WStyle_StaysOnTop )
 {
     _label = new QLabel( this );
     _layout = new Q3HBoxLayout( this );

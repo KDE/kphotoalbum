@@ -74,7 +74,7 @@ void KoPagePreview::setPageLayout( const KoPageLayout &layout )
 
     double zh = 110.0 / m_pageHeight;
     double zw = 110.0 / m_pageWidth;
-    double z = QMIN( zw, zh );
+    double z = qMin( zw, zh );
 
     m_pageWidth *= z;
     m_pageHeight *= z;
@@ -148,7 +148,7 @@ KoPageLayoutDia::KoPageLayoutDia( QWidget* parent, const char* name,
     if ( tabs & FORMAT_AND_BORDERS ) setupTab1( true );
     if ( tabs & HEADER_AND_FOOTER ) setupTab2( hf );
 
-    setFocusPolicy( QWidget::StrongFocus );
+    setFocusPolicy( Qt::StrongFocus );
     setFocus();
 }
 
@@ -176,7 +176,7 @@ KoPageLayoutDia::KoPageLayoutDia( QWidget* parent, const char* name,
     if ( tabs & COLUMNS ) setupTab3();
     if ( tabs & KW_HEADER_AND_FOOTER ) setupTab4(kwhf);
 
-    setFocusPolicy( QWidget::StrongFocus );
+    setFocusPolicy( Qt::StrongFocus );
     setFocus();
 }
 

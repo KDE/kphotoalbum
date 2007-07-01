@@ -39,7 +39,7 @@ void ThumbnailView::GridResizeInteraction::mouseMoveEvent( QMouseEvent* event )
 {
     QPoint dist = event->pos() - _mousePressPos;
 
-    Settings::SettingsData::instance()->setThumbSize( QMAX( 32, _origSize.width() + dist.x() ) );
+    Settings::SettingsData::instance()->setThumbSize( qMax( 32, _origSize.width() + dist.x() ) );
     _view->updateCellSize();
 }
 

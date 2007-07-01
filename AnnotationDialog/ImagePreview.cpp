@@ -28,7 +28,7 @@ using namespace AnnotationDialog;
 ImagePreview::ImagePreview( QWidget* parent, const char* name )
     : QLabel( parent, name )
 {
-    setAlignment( AlignCenter );
+    setAlignment( Qt::AlignCenter );
     setMinimumSize( 64, 64 );
 }
 

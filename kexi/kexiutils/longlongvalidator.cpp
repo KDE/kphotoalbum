@@ -49,7 +49,7 @@ QValidator::State LongLongValidator::validate( QString &str, int & ) const
 	qlonglong val = 0;
 	QString newStr;
 
-	newStr = str.stripWhiteSpace();
+	newStr = str.trimmed();
 	if (m_base > 10)
 		newStr = newStr.upper();
 

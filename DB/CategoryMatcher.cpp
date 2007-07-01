@@ -127,5 +127,5 @@ void OptionContainerMatcher::debug( int level ) const
 
 QString CategoryMatcher::spaces(int level ) const
 {
-    return QString::fromLatin1("").rightJustify(level*3 );
+    return QString::fromLatin1("").rightJustified(level*3 );
 }

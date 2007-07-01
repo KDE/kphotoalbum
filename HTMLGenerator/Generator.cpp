@@ -533,7 +533,7 @@ int HTMLGenerator::Generator::maxImageSize()
     int res = 0;
     for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _setup.activeResolutions().begin();
          sizeIt != _setup.activeResolutions().end(); ++sizeIt ) {
-        res = QMAX( res, (*sizeIt)->width() );
+        res = qMax( res, (*sizeIt)->width() );
     }
     return res;
 }

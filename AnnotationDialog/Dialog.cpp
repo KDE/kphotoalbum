@@ -859,7 +859,7 @@ void AnnotationDialog::Dialog::setupFocus()
         return;
     initialized = true;
 
-    QObjectList* list = queryList( "QWidget" );
+    QObjectList list = queryList( "QWidget" );
     Q3ValueList<QWidget*> orderedList;
 
     // Iterate through all widgets in our dialog.
@@ -957,25 +957,25 @@ void AnnotationDialog::Dialog::setupActions()
     new KAction( i18n("Sort Most Recently Used"), 0, _optionList.at(0), SLOT( slotSortDate() ),
                  _actions, "annotationdialog-sort-MRU" );
 
-    new KAction( i18n("Toggle Sorting"), CTRL+Key_T, _optionList.at(0), SLOT( toggleSortType() ),
+    new KAction( i18n("Toggle Sorting"), CTRL+Qt::Key_T, _optionList.at(0), SLOT( toggleSortType() ),
                  _actions, "annotationdialog-toggle-sort" );
 
-    new KAction( i18n("Toggle Showing Selected Items Only"), CTRL+Key_S, &ShowSelectionOnlyManager::instance(), SLOT( toggle() ),
+    new KAction( i18n("Toggle Showing Selected Items Only"), CTRL+Qt::Key_S, &ShowSelectionOnlyManager::instance(), SLOT( toggle() ),
                  _actions, "annotationdialog-toggle-showing-selected-only" );
 
-    new KAction( i18n("Annotate Next"), Key_PageDown, this, SLOT( slotNext() ),
+    new KAction( i18n("Annotate Next"), Qt::Key_PageDown, this, SLOT( slotNext() ),
                  _actions, "annotationdialog-next-image" );
 
-    new KAction( i18n("Annotate Previous"), Key_PageUp, this, SLOT( slotPrev() ),
+    new KAction( i18n("Annotate Previous"), Qt::Key_PageUp, this, SLOT( slotPrev() ),
                  _actions, "annotationdialog-prev-image" );
 
-    new KAction( i18n("OK dialog"), CTRL+Key_Return, this, SLOT( slotOK() ),
+    new KAction( i18n("OK dialog"), CTRL+Qt::Key_Return, this, SLOT( slotOK() ),
                  _actions, "annotationdialog-OK-dialog" );
 
-    new KAction( i18n("Delete"), CTRL+Key_Delete, this, SLOT( slotDeleteImage() ),
+    new KAction( i18n("Delete"), CTRL+Qt::Key_Delete, this, SLOT( slotDeleteImage() ),
                  _actions, "annotationdialog-delete-image" );
 
-    new KAction( i18n("Copy tags from previous image"), CTRL+Key_Insert, this, SLOT( slotCopyPrevious() ),
+    new KAction( i18n("Copy tags from previous image"), CTRL+Qt::Key_Insert, this, SLOT( slotCopyPrevious() ),
                  _actions, "annotationdialog-copy-previous");
 
     new KAction( i18n("Rotate Left"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );

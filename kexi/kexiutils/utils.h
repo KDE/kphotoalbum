@@ -78,7 +78,7 @@ namespace KexiUtils
 	{
 		if (!o || !className || className[0]=='\0')
 			return 0;
-		QObjectList *l = o->queryList( className, objName );
+		QObjectListl = o->queryList( className, objName );
 		QObjectListIt it( *l );
 		return static_cast<type*>(it.current());
 	}
@@ -182,7 +182,7 @@ namespace KexiUtils
 
 	/*! \return a valid filename converted from \a string by:
 	 - replacing \\, /, :, *, ?, ", <, >, |, \n \t characters with a space
-	 - simplifing whitespace by removing redundant space characters using QString::simplifyWhiteSpace()
+	 - simplifing whitespace by removing redundant space characters using QString::simplified()
 	 Do not pass full paths here, but only filename strings. */
 	KEXIUTILS_EXPORT QString stringToFileName(const QString& string);
 

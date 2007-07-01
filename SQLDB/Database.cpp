@@ -216,7 +216,7 @@ void SQLDB::Database::save(const QString& /*fileName*/, bool isAutoSave)
     for (Q3ValueList< QPair<QString, uint> >::const_iterator i =
              _qh.queryTimes.begin(); i != _qh.queryTimes.end(); ++i) {
         timeQueryList <<
-            QString::number((*i).second).rightJustify(8) +
+            QString::number((*i).second).rightJustified(8) +
             QString::fromLatin1(" ") + (*i).first;
     }
 

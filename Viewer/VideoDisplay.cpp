@@ -258,7 +258,7 @@ void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
     if ( widget->width() == event->oldSize().width() || widget->height() == event->oldSize().height() )
         widget->resize( size() );
     else
-        widget->resize( QMIN( widget->width(), width() ), QMIN( widget->height(), height() ) );
+        widget->resize( qMin( widget->width(), width() ), qMin( widget->height(), height() ) );
     widget->move( (width() - widget->width())/2, (height() - widget->height())/2 );
 }
 

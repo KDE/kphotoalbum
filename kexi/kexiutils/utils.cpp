@@ -162,10 +162,10 @@ QColor KexiUtils::bleachedColor(const QColor& c, int factor)
 	if (factor < 100)
 		factor = 100;
 	if (s>=250 && v>=250) //for colors like cyan or red, make the result more white
-		s = QMAX(0, s - factor - 50);
+		s = qMax(0, s - factor - 50);
 	else if (s<=5 && s<=5)
 		v += factor-50;
-	c2.setHsv(h, s, QMIN(255,v + factor-100));
+	c2.setHsv(h, s, qMin(255,v + factor-100));
 	return c2;
 }
 
@@ -225,7 +225,7 @@ QString KexiUtils::stringToFileName(const QString& string)
 {
 	QString _string(string);
 	_string.replace(QRegExp("[\\\\/:\\*?\"<>|]"), " ");
-	return _string.simplifyWhiteSpace();
+	return _string.simplified();
 }
 
 void KexiUtils::simpleCrypt(QString& string)

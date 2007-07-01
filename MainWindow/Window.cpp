@@ -565,23 +565,23 @@ void MainWindow::Window::setupMenuBar()
 #endif
     _selectAll = KStdAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
-    _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Key_Delete, this, SLOT( slotDeleteSelected() ),
+    _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Qt::Key_Delete, this, SLOT( slotDeleteSelected() ),
                                    actionCollection(), "deleteSelected" );
     new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
-    _configOneAtATime = new KAction( i18n( "Annotate Individual Items" ), CTRL+Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
+    _configOneAtATime = new KAction( i18n( "Annotate Individual Items" ), CTRL+Qt::Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
                                      actionCollection(), "oneProp" );
-    _configAllSimultaniously = new KAction( i18n( "Annotate Multiple Items at a Time" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
+    _configAllSimultaniously = new KAction( i18n( "Annotate Multiple Items at a Time" ), CTRL+Qt::Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
     _rotLeft = new KAction( i18n( "Rotate Left" ), 0, this, SLOT( slotRotateSelectedLeft() ), actionCollection(), "rotateLeft" );
     _rotRight = new KAction( i18n( "Rotate Right" ), 0, this, SLOT( slotRotateSelectedRight() ), actionCollection(), "rotateRight" );
 
     // The Images menu
-    _view = new KAction( i18n("View"), CTRL+Key_I, this, SLOT( slotView() ),
+    _view = new KAction( i18n("View"), CTRL+Qt::Key_I, this, SLOT( slotView() ),
                                  actionCollection(), "viewImages" );
 
     _viewInNewWindow = new KAction( i18n("View (In New Window)"), 0, this, SLOT( slotViewNewWindow() ),
                                            actionCollection(), "viewImagesNewWindow" );
-    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("video"), CTRL+Key_R, this, SLOT( slotRunSlideShow() ),
+    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("video"), CTRL+Qt::Key_R, this, SLOT( slotRunSlideShow() ),
                                  actionCollection(), "runSlideShow" );
     _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), 0, this, SLOT( slotRunRandomizedSlideShow() ),
                                        actionCollection(), "runRandomizedSlideShow" );
@@ -597,7 +597,7 @@ void MainWindow::Window::setupMenuBar()
     _sortByDateAndTime = new KAction( i18n("Sort Selected by Date && Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
     _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
                                   actionCollection(), "limitToMarked" );
-    _jumpToContext = new KAction( i18n("Jump to Context"), CTRL+Key_J, this, SLOT( slotJumpToContext() ), actionCollection(), "jumpToContext" );
+    _jumpToContext = new KAction( i18n("Jump to Context"), CTRL+Qt::Key_J, this, SLOT( slotJumpToContext() ), actionCollection(), "jumpToContext" );
     _jumpToContext->setIconSet( KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Small ) );
 
     _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
@@ -666,7 +666,7 @@ void MainWindow::Window::setupMenuBar()
              this, SLOT( slotUpdateViewMenu( DB::Category::ViewType ) ) );
     // The help menu
     KStdAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
-    KToggleAction* taction = new KToggleAction( i18n("Show Tooltips in Thumbnails Window"), CTRL+Key_T, actionCollection(), "showToolTipOnImages" );
+    KToggleAction* taction = new KToggleAction( i18n("Show Tooltips in Thumbnails Window"), CTRL+Qt::Key_T, actionCollection(), "showToolTipOnImages" );
     connect( taction, SIGNAL( toggled( bool ) ), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
     new KAction( i18n("Run KPhotoAlbum Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
     new KAction( i18n("Answer KPhotoAlbum Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
@@ -1176,7 +1176,7 @@ void MainWindow::Window::slotReenableMessages()
 
 void MainWindow::Window::setupPluginMenu()
 {
-    QObjectList *l = queryList( "QPopupMenu", "plugins" );
+    QObjectListl = queryList( "QPopupMenu", "plugins" );
     QObject *obj;
     Q3PopupMenu* menu = NULL;
     for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {

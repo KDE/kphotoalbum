@@ -151,7 +151,7 @@ void ImportWizard::setupIntro()
 	Q3VBoxLayout *vbox = new Q3VBoxLayout(m_introPage, KDialog::marginHint());
 	
 	QLabel *lblIntro = new QLabel(m_introPage);
-	lblIntro->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::WordBreak );
+	lblIntro->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::TextWordWrap );
 	QString msg;
 	if (m_predefinedConnectionData) { //predefined import: server source
 		msg = i18n("<qt>Database Importing wizard is about to import \"%1\" database "
@@ -342,10 +342,10 @@ void ImportWizard::setupImporting()
 	m_importingPage->hide();
 	Q3VBoxLayout *vbox = new Q3VBoxLayout(m_importingPage, KDialog::marginHint());
 	m_lblImportingTxt = new QLabel(m_importingPage);
-	m_lblImportingTxt->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::WordBreak );
+	m_lblImportingTxt->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::TextWordWrap );
 
 	m_lblImportingErrTxt = new QLabel(m_importingPage);
-	m_lblImportingErrTxt->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::WordBreak );
+	m_lblImportingErrTxt->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::TextWordWrap );
 
 	m_progressBar = new KProgress(100, m_importingPage);
 	m_progressBar->hide();
@@ -377,7 +377,7 @@ void ImportWizard::setupFinish()
 	m_finishPage->hide();
 	Q3VBoxLayout *vbox = new Q3VBoxLayout(m_finishPage, KDialog::marginHint());
 	m_finishLbl = new QLabel(m_finishPage);
-	m_finishLbl->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::WordBreak );
+	m_finishLbl->setAlignment( Qt::AlignTop | Qt::AlignLeft | Qt::TextWordWrap );
 
 	vbox->addWidget( m_finishLbl );
 	m_openImportedProjectCheckBox = new QCheckBox(i18n("Open imported project"), 

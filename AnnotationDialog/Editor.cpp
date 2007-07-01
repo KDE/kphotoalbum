@@ -179,7 +179,7 @@ void Editor::createHighlighter()
 
 void Editor::keyPressEvent( QKeyEvent* event )
 {
-    if ( event->key() == Key_Tab ) {
+    if ( event->key() == Qt::Key_Tab ) {
         // disable tab key in text edit, and instead give focus on like normal.
         QWidget::keyPressEvent( event );
     }

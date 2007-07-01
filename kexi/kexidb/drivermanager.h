@@ -23,9 +23,9 @@
 #define KEXIDB_DRIVER_MNGR_H
 
 #include <qobject.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qmap.h>
-#include <qdict.h>
+#include <q3dict.h>
 
 #include <klibloader.h>
 #include <kservice.h>

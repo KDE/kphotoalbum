@@ -22,7 +22,9 @@
 #include "Viewer/CircleDraw.h"
 #include <kmessagebox.h>
 #include <klocale.h>
-Viewer::DrawList::DrawList() : QValueList<Viewer::Draw*>()
+//Added by qt3to4:
+#include <Q3ValueList>
+Viewer::DrawList::DrawList() : Q3ValueList<Viewer::Draw*>()
 {
 }
 
@@ -32,7 +34,7 @@ Viewer::DrawList& Viewer::DrawList::operator=( const Viewer::DrawList& other )
         return *this;
     deleteItems();
 
-    for( QValueList<Viewer::Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
+    for( Q3ValueList<Viewer::Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
         append( (*it)->clone() );
     }
     return *this;
@@ -45,7 +47,7 @@ Viewer::DrawList::~DrawList()
 
 void Viewer::DrawList::deleteItems()
 {
-    for( QValueList<Draw*>::ConstIterator it = begin(); it != end();  ) {
+    for( Q3ValueList<Draw*>::ConstIterator it = begin(); it != end();  ) {
         Draw* item = *it;
         ++it;
         delete item;
@@ -54,9 +56,9 @@ void Viewer::DrawList::deleteItems()
 }
 
 Viewer::DrawList::DrawList( const Viewer::DrawList& other )
-    : QValueList<Draw*>()
+    : Q3ValueList<Draw*>()
 {
-    for( QValueList<Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
+    for( Q3ValueList<Draw*>::ConstIterator it = other.begin(); it != other.end(); ++it ) {
         append( (*it)->clone() );
     }
 }
@@ -100,7 +102,7 @@ void Viewer::DrawList::save( QDomDocument doc, QDomElement top )
     QDomElement elm = doc.createElement( QString::fromLatin1( "drawings" ) );
     top.appendChild( elm );
 
-    for( QValueList<Draw*>::iterator it = begin(); it != end(); ++it ) {
+    for( Q3ValueList<Draw*>::iterator it = begin(); it != end(); ++it ) {
         elm.appendChild( (*it)->save( doc ) );
     }
 }

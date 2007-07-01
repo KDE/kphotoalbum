@@ -21,6 +21,8 @@
 #define KEXIDB_QUERYSCHEMAPARAMETER_H
 
 #include "queryschema.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 namespace KexiDB
 {
@@ -38,9 +40,9 @@ class KEXI_DB_EXPORT QuerySchemaParameter
 		QString message; //!< A user-visible message that will be displayed to ask for value of the parameter
 };
 
-typedef QValueList<QuerySchemaParameter> QuerySchemaParameterList;
-typedef QValueList<QuerySchemaParameter>::Iterator QuerySchemaParameterListIterator;
-typedef QValueList<QuerySchemaParameter>::ConstIterator QuerySchemaParameterListConstIterator;
+typedef Q3ValueList<QuerySchemaParameter> QuerySchemaParameterList;
+typedef Q3ValueList<QuerySchemaParameter>::Iterator QuerySchemaParameterListIterator;
+typedef Q3ValueList<QuerySchemaParameter>::ConstIterator QuerySchemaParameterListConstIterator;
 
 //! Shows debug information for \a list
 KEXI_DB_EXPORT void debug(const QuerySchemaParameterList& list);
@@ -51,7 +53,7 @@ KEXI_DB_EXPORT void debug(const QuerySchemaParameterList& list);
 class KEXI_DB_EXPORT QuerySchemaParameterValueListIterator
 {
 	public:
-		QuerySchemaParameterValueListIterator(const Driver& driver, const QValueList<QVariant>& params);
+		QuerySchemaParameterValueListIterator(const Driver& driver, const Q3ValueList<QVariant>& params);
 		~QuerySchemaParameterValueListIterator();
 
 		//! \return previous value

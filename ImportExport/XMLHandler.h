@@ -17,7 +17,7 @@
 */
 #ifndef XMLHANDLER_H
 #define XMLHANDLER_H
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qstringlist.h>
 #include <qstring.h>
 #include "Export.h"
@@ -30,7 +30,7 @@ namespace ImportExport
 class XMLHandler
 {
 public:
-    QCString createIndexXML( const QStringList& images, const QString& baseUrl, ImageFileLocation location,
+    Q3CString createIndexXML( const QStringList& images, const QString& baseUrl, ImageFileLocation location,
                              const Utilities::UniqNameMap& nameMap );
 
 protected:

@@ -20,7 +20,7 @@
 #ifndef KEXIDB_LOOKUPFIELDSCHEMA_H
 #define KEXIDB_LOOKUPFIELDSCHEMA_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qstringlist.h>
 
 class QDomElement;
@@ -143,10 +143,10 @@ class KEXI_DB_EXPORT LookupFieldSchema
 
 		/*! @return a number of ordered integers specifying column widths;
 		 -1 means 'default width' for a given column. */
-		const QValueList<int> columnWidths() const { return m_columnWidths; }
+		const Q3ValueList<int> columnWidths() const { return m_columnWidths; }
 
 		/*! Sets column widths. @see columnWidths */
-		void setColumnWidths(const QValueList<int>& widths) { m_columnWidths = widths; }
+		void setColumnWidths(const Q3ValueList<int>& widths) { m_columnWidths = widths; }
 
 		/*! @return true if column headers are visible in the associated 
 		 combo box popup or the list view. The default is false. */
@@ -204,7 +204,7 @@ class KEXI_DB_EXPORT LookupFieldSchema
 	protected:
 		RowSource m_rowSource;
 		int m_boundColumn, m_visibleColumn;
-		QValueList<int> m_columnWidths;
+		Q3ValueList<int> m_columnWidths;
 		uint m_maximumListRows;
 		DisplayWidget m_displayWidget;
 		bool m_columnHeadersVisible : 1;

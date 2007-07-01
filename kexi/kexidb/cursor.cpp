@@ -30,6 +30,8 @@
 
 #include <assert.h>
 #include <stdlib.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 using namespace KexiDB;
 
@@ -346,7 +348,7 @@ bool Cursor::bof() const
 	return m_at==0;
 }
 
-Q_LLONG Cursor::at() const
+qlonglong Cursor::at() const
 {
 	if (m_readAhead)
 		return 0;
@@ -555,15 +557,15 @@ QueryColumnInfo::Vector Cursor::orderByColumnList() const
 	return m_orderByColumnList ? *m_orderByColumnList: QueryColumnInfo::Vector();
 }
 
-QValueList<QVariant> Cursor::queryParameters() const
+Q3ValueList<QVariant> Cursor::queryParameters() const
 {
-	return m_queryParameters ? *m_queryParameters : QValueList<QVariant>();
+	return m_queryParameters ? *m_queryParameters : Q3ValueList<QVariant>();
 }
 
-void Cursor::setQueryParameters(const QValueList<QVariant>& params)
+void Cursor::setQueryParameters(const Q3ValueList<QVariant>& params)
 {
 	if (!m_queryParameters)
-		m_queryParameters = new QValueList<QVariant>(params);
+		m_queryParameters = new Q3ValueList<QVariant>(params);
 	else
 		*m_queryParameters = params;
 }

@@ -18,6 +18,8 @@
 
 #include "XMLImageDateCollection.h"
 #include "DB/ImageDB.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 XMLImageDateCollection::XMLImageDateCollection()
     : _dirtyLower( false ), _dirtyUpper( false )
@@ -37,7 +39,7 @@ DB::ImageCount XMLImageDateCollection::count( const DB::ImageDate& range )
         return _cache[range];
 
     int exact = 0, rangeMatch = 0;
-    for( QValueList<DB::ImageDate>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
+    for( Q3ValueList<DB::ImageDate>::Iterator it = _dates.begin(); it != _dates.end(); ++it ) {
         DB::ImageDate::MatchType tp = (*it).isIncludedIn( range );
         switch (tp) {
         case DB::ImageDate::ExactMatch: exact++;break;
@@ -56,7 +58,7 @@ QDateTime XMLImageDateCollection::lowerLimit() const
     static QDateTime _lower = QDateTime( QDate( 1900, 1, 1 ) );
     if ( _dirtyLower && _dates.count() != 0 ) {
         bool first = true;
-        for( QValueList<DB::ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
+        for( Q3ValueList<DB::ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
             if ( first ) {
                 _lower = (*it).start();
                 first = false;
@@ -74,7 +76,7 @@ QDateTime XMLImageDateCollection::upperLimit() const
     static QDateTime _upper = QDateTime( QDate( 2100, 1, 1 ) );
     if ( _dirtyUpper && _dates.count() != 0 ) {
         bool first = true;
-        for( QValueList<DB::ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
+        for( Q3ValueList<DB::ImageDate>::ConstIterator it = _dates.begin(); it != _dates.end(); ++it ) {
             if ( first ) {
                 _upper = (*it).end();
                 first = false;

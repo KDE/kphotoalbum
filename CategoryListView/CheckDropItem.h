@@ -18,7 +18,9 @@
 #ifndef CATEGORYLISTVIEW_CHECKDROPITEM_H
 #define CATEGORYLISTVIEW_CHECKDROPITEM_H
 
-#include <qlistview.h>
+#include <q3listview.h>
+//Added by qt3to4:
+#include <QDropEvent>
 #include "DragItemInfo.h"
 #include "DB/CategoryItem.h"
 #include <ksharedptr.h>
@@ -27,11 +29,11 @@ namespace CategoryListView
 {
 class DragableListView;
 
-class CheckDropItem :public QCheckListItem
+class CheckDropItem :public Q3CheckListItem
 {
 public:
     CheckDropItem( DragableListView* listview, const QString& column1, const QString& column2 );
-    CheckDropItem( DragableListView* listview, QListViewItem* parent, const QString& column1, const QString& column2 );
+    CheckDropItem( DragableListView* listview, Q3ListViewItem* parent, const QString& column1, const QString& column2 );
     virtual bool acceptDrop( const QMimeSource* mime ) const;
     void setDNDEnabled( bool );
 

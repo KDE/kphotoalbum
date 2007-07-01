@@ -27,6 +27,8 @@
 #include <kiconloader.h>
 #include "DB/MemberMap.h"
 #include "qregexp.h"
+//Added by qt3to4:
+#include <QPixmap>
 #include "ContentFolderAction.h"
 
 Browser::ContentFolder::ContentFolder( const DB::CategoryPtr& category, const QString& value, DB::MediaCount count,

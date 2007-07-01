@@ -21,13 +21,15 @@
 #define SQLSETTINGSWIDGET_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QLabel>
 
 namespace SQLDB { class DatabaseAddress; }
 namespace KexiDB { class DriverManager; }
 namespace KexiDB { class ConnectionData; }
 class QLabel;
 class QComboBox;
-class QWidgetStack;
+class Q3WidgetStack;
 class QSpinBox;
 class KURLRequester;
 class KLineEdit;
@@ -60,7 +62,7 @@ namespace SQLDB
         QLabel* _errorLabel;
         QLabel* _driverLabel;
         QComboBox* _driverCombo;
-        QWidgetStack* _widgetStack;
+        Q3WidgetStack* _widgetStack;
         QLabel* _fileLabel;
         KURLRequester* _fileLine;
         QLabel* _hostLabel;

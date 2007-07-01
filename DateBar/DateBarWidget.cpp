@@ -20,9 +20,17 @@
 #include <qdatetime.h>
 #include <qpainter.h>
 #include <qfontmetrics.h>
+//Added by qt3to4:
+#include <QContextMenuEvent>
+#include <QKeyEvent>
+#include <QResizeEvent>
+#include <QFocusEvent>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QWheelEvent>
 #include "ViewHandler.h"
 #include <qtoolbutton.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qaction.h>
 #include <kglobal.h>
 #include <kiconloader.h>
@@ -493,7 +501,7 @@ bool DateBar::DateBarWidget::includeFuzzyCounts() const
 void DateBar::DateBarWidget::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_contextMenu ) {
-        _contextMenu = new QPopupMenu( this );
+        _contextMenu = new Q3PopupMenu( this );
         QAction* action = new QAction( i18n("Show Ranges"), 0, this );
         action->setToggleAction( true );
         action->addTo( _contextMenu );

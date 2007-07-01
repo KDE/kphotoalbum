@@ -20,6 +20,8 @@
 #include "simplecommandlineapp.h"
 
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <kcmdlineargs.h>
 #include <kdebug.h>
@@ -74,7 +76,7 @@ public:
 	KCmdLineOptions *allOptions;
 	KInstance* instance;
 	ConnectionData connData;
-	QGuardedPtr<Connection> conn;
+	QPointer<Connection> conn;
 };
 
 //-----------------------------------------
@@ -89,7 +91,7 @@ SimpleCommandLineApp::SimpleCommandLineApp(
  , d( new Private() )
 {
 	QFileInfo fi(argv[0]);
-	QCString appName( fi.baseName().latin1() );
+	Q3CString appName( fi.baseName().latin1() );
 	KCmdLineArgs::init(argc, argv, 
 		new KAboutData( appName, programName,
 			version, shortDescription, licenseType, copyrightStatement, text, 
@@ -139,10 +141,10 @@ SimpleCommandLineApp::SimpleCommandLineApp(
 		if (!d->connData.userName.isEmpty())
 			userAtHost += "@";
 		userAtHost += (d->connData.hostName.isEmpty() ? "localhost" : d->connData.hostName);
-		QTextStream cout(stdout,IO_WriteOnly);
+		Q3TextStream cout(stdout,QIODevice::WriteOnly);
 		cout << i18n("Enter password for %1: ").arg(userAtHost);
 //! @todo make use of pty/tty here! (and care about portability)
-		QTextStream cin(stdin,IO_ReadOnly);
+		Q3TextStream cin(stdin,QIODevice::ReadOnly);
 		cin >> d->connData.password;
 		KexiDBDbg << d->connData.password << endl;
 	}

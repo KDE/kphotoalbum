@@ -23,7 +23,7 @@
 #include "DB/ImageInfo.h"
 
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
-    :QProgressDialog( parent, name )
+    :Q3ProgressDialog( parent, name )
 {
     _images = DB::ImageDB::instance()->images();
     setTotalSteps( _images.count() );

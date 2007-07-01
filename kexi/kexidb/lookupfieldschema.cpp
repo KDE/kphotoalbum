@@ -22,6 +22,8 @@
 
 #include <qdom.h>
 #include <qvariant.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include <kdebug.h>
 
 using namespace KexiDB;
@@ -129,7 +131,7 @@ QString LookupFieldSchema::debugString() const
 {
 	QString columnWidthsStr;
 	bool first=true;
-	foreach (QValueList<int>::ConstIterator, it, m_columnWidths) {
+	foreach (Q3ValueList<int>::ConstIterator, it, m_columnWidths) {
 		if (first)
 			first = false;
 		else
@@ -202,7 +204,7 @@ LookupFieldSchema *LookupFieldSchema::loadFromDom(const QDomElement& lookupEl)
 			    <number>int</number>
 			   </column-widths> */
 			QVariant val;
-			QValueList<int> columnWidths;
+			Q3ValueList<int> columnWidths;
 			for (el = el.firstChild().toElement(); !el.isNull(); el=el.nextSibling().toElement()) {
 				QVariant val = KexiDB::loadPropertyValueFromDom( el );
 				if (val.type()==QVariant::Int)
@@ -277,11 +279,11 @@ void LookupFieldSchema::saveToDom(LookupFieldSchema& lookupSchema, QDomDocument&
 	if (lookupSchema.visibleColumn()>=0)
 		KexiDB::saveNumberElementToDom(doc, lookupColumnEl, "visible-column", lookupSchema.visibleColumn()); //can be -1
 
-	const QValueList<int> columnWidths = lookupSchema.columnWidths();
+	const Q3ValueList<int> columnWidths = lookupSchema.columnWidths();
 	if (!columnWidths.isEmpty()) {
 		QDomElement columnWidthsEl( doc.createElement("column-widths") );
 		lookupColumnEl.appendChild( columnWidthsEl );
-		for (QValueList<int>::ConstIterator it = columnWidths.constBegin(); it!=columnWidths.constEnd(); ++it) {
+		for (Q3ValueList<int>::ConstIterator it = columnWidths.constBegin(); it!=columnWidths.constEnd(); ++it) {
 			QDomElement columnWidthEl( doc.createElement("number") );
 			columnWidthsEl.appendChild( columnWidthEl );
 			columnWidthEl.appendChild( doc.createTextNode( QString::number(*it) ) );

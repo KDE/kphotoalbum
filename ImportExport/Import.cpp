@@ -19,6 +19,13 @@
 #include "Import.h"
 #include <kfiledialog.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
+#include <QCloseEvent>
 #include <klocale.h>
 #include <qpushbutton.h>
 #include <qdom.h>
@@ -39,7 +46,7 @@
 #include <kstandarddirs.h>
 #include <ktempfile.h>
 #include <kurl.h>
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
 #include <kapplication.h>
@@ -114,7 +121,7 @@ bool Import::init( const QString& fileName )
 {
     _finishedPressed = false;
     _zip = new KZip( fileName );
-    if ( !_zip->open( IO_ReadOnly ) ) {
+    if ( !_zip->open( QIODevice::ReadOnly ) ) {
         KMessageBox::error( this, i18n("Unable to open '%1' for reading.").arg( fileName ), i18n("Error Importing Data") );
         _zip =0;
         return false;
@@ -231,15 +238,15 @@ void Import::createIntroduction()
 
 void Import::createImagesPage()
 {
-    QScrollView* top = new QScrollView( this );
-    top->setResizePolicy( QScrollView::AutoOneFit );
+    Q3ScrollView* top = new Q3ScrollView( this );
+    top->setResizePolicy( Q3ScrollView::AutoOneFit );
 
     QWidget* container = new QWidget( this );
-    QVBoxLayout* lay1 = new QVBoxLayout( container, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( container, 6 );
     top->addChild( container );
 
     // Select all and Deselect All buttons
-    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
     QPushButton* selectAll = new QPushButton( i18n("Select All"), container );
     lay2->addWidget( selectAll );
     QPushButton* selectNone = new QPushButton( i18n("Deselect All"), container );
@@ -248,7 +255,7 @@ void Import::createImagesPage()
     connect( selectAll, SIGNAL( clicked() ), this, SLOT( slotSelectAll() ) );
     connect( selectNone, SIGNAL( clicked() ), this, SLOT( slotSelectNone() ) );
 
-    QGridLayout* lay3 = new QGridLayout( lay1, _images.count(), 3, 6 );
+    Q3GridLayout* lay3 = new Q3GridLayout( lay1, _images.count(), 3, 6 );
     lay3->setColStretch( 2, 1 );
 
     int row = 0;
@@ -315,8 +322,8 @@ void Import::createDestination()
 {
     QWidget* top = new QWidget( this );
     _destinationPage = top;
-    QVBoxLayout* topLay = new QVBoxLayout( top, 6 );
-    QHBoxLayout* lay = new QHBoxLayout( topLay, 6 );
+    Q3VBoxLayout* topLay = new Q3VBoxLayout( top, 6 );
+    Q3HBoxLayout* lay = new Q3HBoxLayout( topLay, 6 );
     topLay->addStretch( 1 );
 
     QLabel* label = new QLabel( i18n( "Destination of images: " ), top );
@@ -429,7 +436,7 @@ void Import::next()
         delete _dummy;
 
         ImportMatcher* matcher = 0;
-        for( QValueList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
+        for( Q3ValueList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
              it != _categoryMatcher->_matchers.end();
              ++it )
         {
@@ -445,7 +452,7 @@ void Import::next()
             setFinishEnabled( _categoryMatcher, true );
     }
 
-    QWizard::next();
+    Q3Wizard::next();
 }
 
 bool Import::copyFilesFromZipFile()
@@ -463,7 +470,7 @@ bool Import::copyFilesFromZipFile()
             relativeName= relativeName.mid(1);
 
         QFile out( newName );
-        if ( !out.open( IO_WriteOnly ) ) {
+        if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( this, i18n("Error when writing image %s").arg( newName ) );
             return false;
         }
@@ -477,7 +484,7 @@ void Import::copyFromExternal()
 {
     _pendingCopies = selectedImages();
     _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), _pendingCopies.count(), 0, "_progress", true );
+    _progress = new Q3ProgressDialog( i18n("Copying Images"), i18n("&Cancel"), _pendingCopies.count(), 0, "_progress", true );
     _progress->setProgress( 0 );
     _progress->show();
     connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
@@ -571,13 +578,13 @@ void Import::updateDB()
         DB::ImageDB::instance()->addImages( list );
 
         // Run though the categories
-        for( QValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {
+        for( Q3ValueList<ImportMatcher*>::Iterator grpIt = _matchers.begin(); grpIt != _matchers.end(); ++grpIt ) {
             QString otherGrp = (*grpIt)->_otherCategory;
             QString myGrp = (*grpIt)->_myCategory;
 
             // Run through each option
-            QValueList<CategoryMatch*>& matcher = (*grpIt)->_matchers;
-            for( QValueList<CategoryMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
+            Q3ValueList<CategoryMatch*>& matcher = (*grpIt)->_matchers;
+            for( Q3ValueList<CategoryMatch*>::Iterator optionIt = matcher.begin(); optionIt != matcher.end(); ++optionIt ) {
                 if ( !(*optionIt)->_checkbox->isChecked() )
                     continue;
                 QString otherOption = (*optionIt)->_text;
@@ -631,7 +638,7 @@ void Import::slotSelectNone()
 
 void Import::selectImage( bool on )
 {
-    for( QValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+    for( Q3ValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
         (*it)->_checkbox->setChecked( on );
     }
 }
@@ -665,7 +672,7 @@ QByteArray Import::loadImage( const QString& fileName )
 DB::ImageInfoList Import::selectedImages()
 {
     DB::ImageInfoList res;
-    for( QValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
+    for( Q3ValueList<ImageRow*>::Iterator it = _imagesSelect.begin(); it != _imagesSelect.end(); ++it ) {
         if ( (*it)->_checkbox->isChecked() )
             res.append( (*it)->_info );
     }

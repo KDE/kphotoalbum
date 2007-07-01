@@ -22,6 +22,8 @@
 #include "ImageManager/ImageDecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include <kmessagebox.h>
 #include <kapplication.h>
 #include <qdir.h>
@@ -102,9 +104,9 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         }
     }
 
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
-    for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    for( Q3ValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         const QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
             const StringSet items = info->itemsOfCategory( categoryName );
@@ -167,9 +169,9 @@ void Utilities::checkForBackupFile( const QString& fileName )
                                            i18n("Found Backup File") );
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );
-        if ( in.open( IO_ReadOnly ) ) {
+        if ( in.open( QIODevice::ReadOnly ) ) {
             QFile out( fileName );
-            if (out.open( IO_WriteOnly ) ) {
+            if (out.open( QIODevice::WriteOnly ) ) {
                 char data[1024];
                 int len;
                 while ( (len = in.readBlock( data, 1024 ) ) )
@@ -226,11 +228,11 @@ QString Utilities::setupDemo()
     QString configFile = dir + QString::fromLatin1( "/index.xml" );
     if ( ! QFileInfo( configFile ).exists() ) {
         QFile out( configFile );
-        if ( !out.open( IO_WriteOnly ) ) {
+        if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Unable to open '%1' for writing.").arg( configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
-        QTextStream( &out ) << str;
+        Q3TextStream( &out ) << str;
         out.close();
     }
 
@@ -265,11 +267,11 @@ bool Utilities::copy( const QString& from, const QString& to )
     QFile in( from );
     QFile out( to );
 
-    if ( !in.open(IO_ReadOnly) ) {
+    if ( !in.open(QIODevice::ReadOnly) ) {
         kdWarning() << "Couldn't open " << from << " for reading\n";
         return false;
     }
-    if ( !out.open(IO_WriteOnly) ) {
+    if ( !out.open(QIODevice::WriteOnly) ) {
         kdWarning() << "Couldn't open " << to << " for writing\n";
         in.close();
         return false;
@@ -303,12 +305,12 @@ QString Utilities::readInstalledFile( const QString& fileName )
     }
 
     QFile file( inFileName );
-    if ( !file.open( IO_ReadOnly ) ) {
+    if ( !file.open( QIODevice::ReadOnly ) ) {
         KMessageBox::error( 0, i18n("Could not open file %1.").arg( inFileName ) );
         return QString::null;
     }
 
-    QTextStream stream( &file );
+    Q3TextStream stream( &file );
     QString content = stream.read();
     file.close();
 
@@ -360,12 +362,12 @@ QString Utilities::readFile( const QString& fileName )
     }
 
     QFile file( fileName );
-    if ( !file.open( IO_ReadOnly ) ) {
+    if ( !file.open( QIODevice::ReadOnly ) ) {
         //KMessageBox::error( 0, i18n("Could not open file %1").arg( fileName ) );
         return QString::null;
     }
 
-    QTextStream stream( &file );
+    Q3TextStream stream( &file );
     QString content = stream.read();
     file.close();
 
@@ -504,7 +506,7 @@ namespace
 }
 
 template<class T>
-QValueList<T> Utilities::shuffle(const QValueList<T>& list)
+Q3ValueList<T> Utilities::shuffle(const Q3ValueList<T>& list)
 {
     static bool init = false;
     if ( !init ) {
@@ -531,7 +533,7 @@ QValueList<T> Utilities::shuffle(const QValueList<T>& list)
     }
 
     // Create new list from the array
-    QValueList<T> result;
+    Q3ValueList<T> result;
     const T** const onePastLast = deck + N;
     for (p = deck; p != onePastLast; ++p)
         result.push_back(**p);
@@ -540,7 +542,7 @@ QValueList<T> Utilities::shuffle(const QValueList<T>& list)
 }
 
 template
-QValueList<QString> Utilities::shuffle(const QValueList<QString>& list);
+Q3ValueList<QString> Utilities::shuffle(const Q3ValueList<QString>& list);
 
 /**
    Create a maping from original name with path to uniq name without:

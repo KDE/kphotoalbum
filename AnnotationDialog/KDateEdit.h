@@ -16,9 +16,12 @@
 #ifndef ANNOTATIONDIALOG_KDATEEDIT_H
 #define ANNOTATIONDIALOG_KDATEEDIT_H
 
-#include <qvbox.h>
+#include <q3vbox.h>
 #include <qcombobox.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <QMouseEvent>
 #include "DB/ImageDate.h"
 
 class QEvent;
@@ -122,7 +125,7 @@ private:
     bool mHandleInvalid;
 
     KDatePicker *mDatePicker;
-    QVBox *mDateFrame;
+    Q3VBox *mDateFrame;
     QDate  defaultValue;
     QDate  value;
     bool   mReadOnly;

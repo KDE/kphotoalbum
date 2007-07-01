@@ -29,6 +29,8 @@
 #include "sqliteadmin.h"
 
 #include <kdebug.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 using namespace KexiDB;
 
@@ -127,9 +129,9 @@ QString SQLiteDriver::escapeString(const QString& str) const
 	return QString("'")+QString(str).replace( '\'', "''" ) + "'";
 }
 
-QCString SQLiteDriver::escapeString(const QCString& str) const
+Q3CString SQLiteDriver::escapeString(const Q3CString& str) const
 {
-	return QCString("'")+QCString(str).replace( '\'', "''" )+"'";
+	return Q3CString("'")+Q3CString(str).replace( '\'', "''" )+"'";
 }
 
 QString SQLiteDriver::escapeBLOB(const QByteArray& array) const
@@ -142,9 +144,9 @@ QString SQLiteDriver::drv_escapeIdentifier( const QString& str) const
 	return QString(str).replace( '"', "\"\"" );
 }
 
-QCString SQLiteDriver::drv_escapeIdentifier( const QCString& str) const
+Q3CString SQLiteDriver::drv_escapeIdentifier( const Q3CString& str) const
 {
-	return QCString(str).replace( '"', "\"\"" );
+	return Q3CString(str).replace( '"', "\"\"" );
 }
 
 AdminTools* SQLiteDriver::drv_createAdminTools() const

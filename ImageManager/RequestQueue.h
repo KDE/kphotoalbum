@@ -19,7 +19,7 @@
 #define REQUESTQUEUE_H
 
 #include "StopAction.h"
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <Utilities/Set.h>
 #include <qobject.h>
 
@@ -45,7 +45,7 @@ protected slots:
     void print();
 
 private:
-    QValueList<ImageRequest*> _pendingRequests;
+    Q3ValueList<ImageRequest*> _pendingRequests;
     Set<ImageRequest*> _activeRequests;
 };
 

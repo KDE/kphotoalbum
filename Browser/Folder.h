@@ -20,6 +20,8 @@
 #define FOLDER_H
 #include "BrowserWidget.h"
 #include <qstring.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include "DB/ImageSearchInfo.h"
 #include "DB/MediaCount.h"
 

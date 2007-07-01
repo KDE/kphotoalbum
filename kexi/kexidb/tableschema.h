@@ -21,10 +21,10 @@
 #ifndef KEXIDB_TABLE_H
 #define KEXIDB_TABLE_H
 
-#include <qvaluelist.h>
-#include <qptrlist.h>
+#include <q3valuelist.h>
+#include <q3ptrlist.h>
 #include <qstring.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 #include <kexidb/fieldlist.h>
 #include <kexidb/schemadata.h>
@@ -43,8 +43,8 @@ class LookupFieldSchema;
 class KEXI_DB_EXPORT TableSchema : public FieldList, public SchemaData
 {
 	public:
-		typedef QPtrList<TableSchema> List; //!< Type of tables list
-		typedef QPtrListIterator<TableSchema> ListIterator; //!< Iterator for tables list
+		typedef Q3PtrList<TableSchema> List; //!< Type of tables list
+		typedef Q3PtrListIterator<TableSchema> ListIterator; //!< Iterator for tables list
 
 		TableSchema(const QString & name);
 		TableSchema(const SchemaData& sdata);
@@ -162,7 +162,7 @@ class KEXI_DB_EXPORT TableSchema : public FieldList, public SchemaData
 
 		IndexSchema::List m_indices;
 
-		QGuardedPtr<Connection> m_conn;
+		QPointer<Connection> m_conn;
 		
 		IndexSchema *m_pkey;
 

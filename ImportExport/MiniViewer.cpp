@@ -18,12 +18,16 @@
 
 #include "MiniViewer.h"
 #include <qpushbutton.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <QCloseEvent>
+#include <Q3HBoxLayout>
 #include <klocale.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qimage.h>
 #include "DB/ImageInfo.h"
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
 using namespace ImportExport;
 
@@ -35,7 +39,7 @@ void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
         _instance = new MiniViewer();
 
     if ( info->angle() != 0 ) {
-        QWMatrix matrix;
+        QMatrix matrix;
         matrix.rotate( info->angle() );
         img = img.xForm( matrix );
     }
@@ -60,10 +64,10 @@ void MiniViewer::slotClose()
 
 MiniViewer::MiniViewer()
 {
-    QVBoxLayout* vlay = new QVBoxLayout( this, 6 );
+    Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
     _pixmap = new QLabel( this );
     vlay->addWidget( _pixmap );
-    QHBoxLayout* hlay = new QHBoxLayout( vlay );
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay );
     hlay->addStretch(1);
     QPushButton* but = new QPushButton( i18n("Close"), this );
     connect( but, SIGNAL( clicked() ), this, SLOT( slotClose() ) );

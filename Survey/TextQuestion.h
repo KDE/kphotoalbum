@@ -20,7 +20,7 @@
 #define TEXTQUESTION_H
 
 #include "Question.h"
-class QTextEdit;
+class Q3TextEdit;
 
 namespace Survey {
 
@@ -34,7 +34,7 @@ namespace Survey {
         virtual void load( QDomElement& doc );
 
     private:
-        QTextEdit* _edit;
+        Q3TextEdit* _edit;
     };
 }
 

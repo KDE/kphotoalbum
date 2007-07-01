@@ -18,10 +18,14 @@
 #ifndef EXIFDIALOG_H
 #define EXIFDIALOG_H
 #include <kdialogbase.h>
-#include <qgridview.h>
+#include <q3gridview.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QKeyEvent>
+#include <QLabel>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClient.h"
-class QTable;
+class Q3Table;
 
 namespace Exif
 {
@@ -42,7 +46,7 @@ private:
     QLabel* _pix;
 };
 
-class Grid :public QGridView
+class Grid :public Q3GridView
 {
     Q_OBJECT
 

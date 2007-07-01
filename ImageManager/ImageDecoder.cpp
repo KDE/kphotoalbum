@@ -16,10 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageDecoder.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
-QPtrList<ImageManager::ImageDecoder>* ImageManager::ImageDecoder::decoders()
+Q3PtrList<ImageManager::ImageDecoder>* ImageManager::ImageDecoder::decoders()
 {
-	static QPtrList<ImageDecoder> s_decoders;
+	static Q3PtrList<ImageDecoder> s_decoders;
 	return &s_decoders;
 }
 
@@ -35,8 +37,8 @@ ImageManager::ImageDecoder::~ImageDecoder()
 
 bool ImageManager::ImageDecoder::decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
-	QPtrList<ImageDecoder>* lst = decoders();
-	for( QPtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
+	Q3PtrList<ImageDecoder>* lst = decoders();
+	for( Q3PtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
 		if( (*it)->_decode(img,imageFile,fullSize,dim) ) return true;
 	}
 	return false;
@@ -44,8 +46,8 @@ bool ImageManager::ImageDecoder::decode(QImage *img, const QString& imageFile, Q
 
 bool ImageManager::ImageDecoder::mightDecode( const QString& imageFile )
 {
-	QPtrList<ImageDecoder>* lst = decoders();
-	for( QPtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
+	Q3PtrList<ImageDecoder>* lst = decoders();
+	for( Q3PtrList<ImageDecoder>::const_iterator it = lst->begin(); it != lst->end(); ++it ) {
 		if( (*it)->_mightDecode(imageFile) ) return true;
 	}
 	return false;

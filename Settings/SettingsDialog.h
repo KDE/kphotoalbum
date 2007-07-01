@@ -21,17 +21,20 @@
 #include <kdialogbase.h>
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
-class QListView;
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QLabel>
+class Q3ListView;
 class KColorButton;
 class QSpinBox;
 class KComboBox;
 class QLineEdit;
-class QListBox;
+class Q3ListBox;
 class KIconButton;
 class KPushButton;
 class QCheckBox;
 class QComboBox;
-class QButtonGroup;
+class Q3ButtonGroup;
 
 namespace KIPI
 {
@@ -65,14 +68,14 @@ signals:
 
 protected slots:
     void slotMyOK();
-    void edit( QListBoxItem* );
+    void edit( Q3ListBoxItem* );
     void slotLabelChanged( const QString& );
     void slotPreferredViewChanged( int );
     void slotIconChanged( QString );
     void slotNewItem();
     void slotDeleteCurrent();
     void slotCategoryChanged( const QString& );
-    void slotGroupSelected( QListBoxItem* );
+    void slotGroupSelected( Q3ListBoxItem* );
     void slotAddGroup();
     void slotDelGroup();
     void slotRenameGroup();
@@ -123,7 +126,7 @@ private:
     QSpinBox* _thumbnailSpace;
 
     // Categories page
-    QListBox* _categories;
+    Q3ListBox* _categories;
     QLabel* _labelLabel;
     QLineEdit* _text;
     QLabel* _iconLabel;
@@ -135,12 +138,12 @@ private:
     QComboBox* _preferredView;
     KPushButton* _delItem;
     CategoryItem* _current;
-    QValueList<CategoryItem*> _deleted;
+    Q3ValueList<CategoryItem*> _deleted;
 
     // Member Groups page
     QComboBox* _category;
-    QListBox* _groups;
-    QListBox* _members;
+    Q3ListBox* _groups;
+    Q3ListBox* _members;
     DB::MemberMap _memberMap;
     QString _currentCategory;
     QString _currentGroup;
@@ -166,7 +169,7 @@ private:
     Exif::TreeView* _exifForDialog;
 
     int _backendPageIndex;
-    QButtonGroup* _backendButtons;
+    Q3ButtonGroup* _backendButtons;
 #ifdef SQLDB_SUPPORT
     // SQL backend
     SQLDB::SQLSettingsWidget* _sqlSettings;

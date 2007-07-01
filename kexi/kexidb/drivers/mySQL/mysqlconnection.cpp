@@ -22,7 +22,7 @@ the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 
 #include <qvariant.h>
 #include <qfile.h>
-#include <qdict.h>
+#include <q3dict.h>
 #include <qregexp.h>
 
 #include <kgenericfactory.h>
@@ -143,10 +143,10 @@ bool MySqlConnection::drv_executeSQL( const QString& statement ) {
   return d->executeSQL(statement);
 }
 
-Q_ULLONG MySqlConnection::drv_lastInsertRowID()
+qulonglong MySqlConnection::drv_lastInsertRowID()
 {
 	//! @todo
-	return (Q_ULLONG)mysql_insert_id(d->mysql);
+	return (qulonglong)mysql_insert_id(d->mysql);
 }
 
 int MySqlConnection::serverResult()

@@ -314,7 +314,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
     if ( !file.exists() ) {
         // Load a default setup
         QFile file( locate( "data", QString::fromLatin1( "kphotoalbum/default-setup" ) ) );
-        if ( !file.open( IO_ReadOnly ) ) {
+        if ( !file.open( QIODevice::ReadOnly ) ) {
             KMessageBox::information( 0, i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                                                "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
                                                "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
@@ -325,8 +325,8 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
                                                "environment variable</p>"), i18n("No default setup file found") );
         }
         else {
-            QTextStream stream( &file );
-            stream.setEncoding( QTextStream::UnicodeUTF8 );
+            Q3TextStream stream( &file );
+            stream.setEncoding( Q3TextStream::UnicodeUTF8 );
             QString str = stream.read();
             str = str.replace( QString::fromLatin1( "People" ), i18n( "People" ) );
             str = str.replace( QString::fromLatin1( "Places" ), i18n( "Places" ) );
@@ -338,7 +338,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         }
     }
     else {
-        if ( !file.open( IO_ReadOnly ) ) {
+        if ( !file.open( QIODevice::ReadOnly ) ) {
             KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
             exit(-1);
         }

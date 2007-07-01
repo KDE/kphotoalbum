@@ -65,7 +65,7 @@ namespace SQLDB {
         virtual QString
         findFirstItemInRange(const DB::ImageDate& range,
                              bool includeRanges,
-                             const QValueVector<QString>& images) const;
+                             const Q3ValueVector<QString>& images) const;
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();

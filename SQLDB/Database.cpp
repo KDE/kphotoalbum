@@ -27,6 +27,8 @@
 #include "DB/MediaCount.h"
 #include "DatabaseHandler.h"
 #include "QueryErrors.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 namespace
 {
@@ -87,8 +89,8 @@ uint SQLDB::Database::totalCount(DB::MediaType typemask) const
 
 DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 {
-    QValueList<int> mediaIds;
-    QValueList<int>* scope = 0;
+    Q3ValueList<int> mediaIds;
+    Q3ValueList<int>* scope = 0;
     bool all = (searchInfo.query().count() == 0);
     if (!all) {
         mediaIds = _qh.searchMediaItems(searchInfo);
@@ -101,10 +103,10 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    QValueList<int> matches = _qh.searchMediaItems(info);
+    Q3ValueList<int> matches = _qh.searchMediaItems(info);
     QStringList result;
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
-    for( QValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
+    for( Q3ValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
         QString fullPath = imageRoot + _infoCollection.filenameForId(*it);
         if (requireOnDisk && !DB::ImageInfo::imageOnDisk(fullPath))
             continue;
@@ -211,7 +213,7 @@ void SQLDB::Database::save(const QString& /*fileName*/, bool isAutoSave)
 
     QStringList timeQueryList;
 
-    for (QValueList< QPair<QString, uint> >::const_iterator i =
+    for (Q3ValueList< QPair<QString, uint> >::const_iterator i =
              _qh.queryTimes.begin(); i != _qh.queryTimes.end(); ++i) {
         timeQueryList <<
             QString::number((*i).second).rightJustify(8) +
@@ -266,15 +268,15 @@ void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
 QString
 SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
                                       bool includeRanges,
-                                      const QValueVector<QString>& images) const
+                                      const Q3ValueVector<QString>& images) const
 {
     if (images.count() == totalCount()) {
         return Settings::SettingsData::instance()->imageDirectory() +
             _qh.findFirstFileInTimeRange(range, includeRanges);
     }
     else {
-        QValueList<int> idList;
-        for (QValueVector<QString>::const_iterator i = images.begin();
+        Q3ValueList<int> idList;
+        for (Q3ValueVector<QString>::const_iterator i = images.begin();
              i != images.end(); ++i) {
             idList << _qh.mediaItemId(Utilities::stripImageDirectory(*i));
         }

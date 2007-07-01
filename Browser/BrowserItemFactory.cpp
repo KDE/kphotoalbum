@@ -19,7 +19,7 @@
 #include "BrowserItemFactory.h"
 #include "Folder.h"
 
-Browser::BrowserIconViewItemFactory::BrowserIconViewItemFactory( QIconView* view )
+Browser::BrowserIconViewItemFactory::BrowserIconViewItemFactory( Q3IconView* view )
     :BrowserItemFactory(), _view( view )
 {
 }
@@ -32,7 +32,7 @@ Browser::BrowserItem* Browser::BrowserIconViewItemFactory::createItem( Folder* f
         return 0;
 }
 
-Browser::BrowserListViewItemFactory::BrowserListViewItemFactory( QListView* view )
+Browser::BrowserListViewItemFactory::BrowserListViewItemFactory( Q3ListView* view )
     :BrowserItemFactory(), _view( view )
 {
 }
@@ -48,8 +48,8 @@ Browser::BrowserItem* Browser::BrowserListViewItemFactory::createItem( Folder* f
     return item;
 }
 
-Browser::BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
-    :QIconViewItem( view ), _folder(folder)
+Browser::BrowserIconItem::BrowserIconItem( Q3IconView* view, Folder* folder )
+    :Q3IconViewItem( view ), _folder(folder)
 {
     setPixmap( folder->pixmap() );
     DB::MediaCount count = folder->count();
@@ -59,8 +59,8 @@ Browser::BrowserIconItem::BrowserIconItem( QIconView* view, Folder* folder )
         setText( QString::fromLatin1( "%1 (%2/%3)" ).arg( folder->text() ).arg( count.images() ).arg( count.videos() ));
 }
 
-Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
-     : QListViewItem( view ), _folder(folder)
+Browser::BrowserListItem::BrowserListItem( Q3ListView* view, Folder* folder )
+     : Q3ListViewItem( view ), _folder(folder)
 {
     setPixmap( 0, folder->pixmap() );
     setText( 0, folder->text() );
@@ -69,8 +69,8 @@ Browser::BrowserListItem::BrowserListItem( QListView* view, Folder* folder )
     setOpen( true );
 }
 
-Browser::BrowserListItem::BrowserListItem( QListViewItem* item, Folder* folder )
-     : QListViewItem( item ), _folder(folder)
+Browser::BrowserListItem::BrowserListItem( Q3ListViewItem* item, Folder* folder )
+     : Q3ListViewItem( item ), _folder(folder)
 {
     setPixmap( 0, folder->pixmap() );
     setText( 0, folder->text() );
@@ -80,7 +80,7 @@ Browser::BrowserListItem::BrowserListItem( QListViewItem* item, Folder* folder )
 }
 
 
-int Browser::BrowserListItem::compare( QListViewItem* other, int col, bool asc ) const
+int Browser::BrowserListItem::compare( Q3ListViewItem* other, int col, bool asc ) const
 {
     return _folder->compare( static_cast<BrowserListItem*>(other)->_folder, col, asc );
 }

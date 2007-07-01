@@ -17,6 +17,9 @@
 */
 
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <Q3VBoxLayout>
 #include "TextDisplay.h"
 #include "ImageDisplay.h"
 #include "DB/ImageDB.h"
@@ -28,7 +31,7 @@
 Viewer::TextDisplay::TextDisplay( QWidget* parent, const char* name )
     :Display( parent, name )
 {
-    QVBoxLayout *lay = new QVBoxLayout( this );
+    Q3VBoxLayout *lay = new Q3VBoxLayout( this );
     _text = new QLabel( this );
     lay->addWidget( _text );
     _text->setAlignment( Qt::AlignCenter );

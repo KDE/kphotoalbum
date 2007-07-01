@@ -26,7 +26,7 @@ the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 
 #include <kexidb/connection.h>
 #include "mysqlcursor.h"
-#include <qdict.h>
+#include <q3dict.h>
 
 namespace KexiDB {
 
@@ -64,7 +64,7 @@ class MySqlConnection : public Connection
 		virtual bool drv_closeDatabase();
 		virtual bool drv_dropDatabase( const QString &dbName = QString::null );
 		virtual bool drv_executeSQL( const QString& statement );
-		virtual Q_ULLONG drv_lastInsertRowID();
+		virtual qulonglong drv_lastInsertRowID();
 
 		virtual int serverResult();
 		virtual QString serverResultName();

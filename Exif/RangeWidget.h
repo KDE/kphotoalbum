@@ -19,8 +19,10 @@
 #define RANGEWIDGET_H
 
 #include <qobject.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "Exif/SearchInfo.h"
-class QGrid;
+class Q3Grid;
 class QComboBox;
 
 namespace Exif{
@@ -38,9 +40,9 @@ public:
         QString text;
     };
 
-    typedef QValueList<Value> ValueList ;
+    typedef Q3ValueList<Value> ValueList ;
 
-    RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QGrid* parent);
+    RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, Q3Grid* parent);
     Exif::SearchInfo::Range range() const;
 
 protected slots:

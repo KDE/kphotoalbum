@@ -19,6 +19,8 @@
 #ifndef IMAGEFOLDER_H
 #define IMAGEFOLDER_H
 #include "Folder.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 namespace Browser
 {

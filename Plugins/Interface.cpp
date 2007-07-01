@@ -29,6 +29,8 @@
 #include <klocale.h>
 #include "DB/ImageInfo.h"
 #include "Browser/BrowserWidget.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 Plugins::Interface::Interface( QObject *parent, const char *name )
     :KIPI::Interface( parent, name )
@@ -49,9 +51,9 @@ KIPI::ImageCollection Plugins::Interface::currentSelection()
         return KIPI::ImageCollection(0);
 }
 
-QValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
+Q3ValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 {
-    QValueList<KIPI::ImageCollection> result;
+    Q3ValueList<KIPI::ImageCollection> result;
     DB::ImageSearchInfo context = MainWindow::Window::theMainWindow()->currentContext();
     QString category = MainWindow::Window::theMainWindow()->currentBrowseCategory();
     if ( category.isNull() )

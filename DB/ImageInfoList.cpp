@@ -18,7 +18,7 @@
 #include "ImageInfoList.h"
 #include <qmap.h>
 #include <qdatetime.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "ImageInfo.h"
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -27,15 +27,15 @@ using namespace DB;
 
 ImageInfoList ImageInfoList::sort() const
 {
-    QMap<QDateTime, QValueList<ImageInfoPtr> > map;
+    QMap<QDateTime, Q3ValueList<ImageInfoPtr> > map;
     for( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
         map[(*it)->date().start()].append( *it );
     }
 
     ImageInfoList res;
-    for( QMap<QDateTime, QValueList<ImageInfoPtr> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
-        QValueList<ImageInfoPtr> list = mapIt.data();
-        for( QValueList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
+    for( QMap<QDateTime, Q3ValueList<ImageInfoPtr> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
+        Q3ValueList<ImageInfoPtr> list = mapIt.data();
+        for( Q3ValueList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
             res.append( *listIt );
         }
     }
@@ -142,7 +142,7 @@ void ImageInfoList::remove( ImageInfoPtr info )
 {
     for( ImageInfoListIterator it = begin(); it != end(); ++it ) {
         if ( (*(*it)) == *info ) {
-            QValueList<ImageInfoPtr>::remove(it);
+            Q3ValueList<ImageInfoPtr>::remove(it);
             return;
         }
     }

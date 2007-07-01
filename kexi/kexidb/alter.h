@@ -22,8 +22,10 @@
 
 #include "connection.h"
 
-#include <qvaluelist.h>
-#include <qasciidict.h>
+#include <q3valuelist.h>
+#include <q3asciidict.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 #include <kdebug.h>
 
@@ -141,17 +143,17 @@ class KEXI_DB_EXPORT AlterTableHandler : public Object
 		};
 
 		class ActionBase;
-		typedef QAsciiDict<ActionBase> ActionDict; //!< for collecting actions related to a single field
-		typedef QIntDict<ActionDict> ActionDictDict; //!< for collecting groups of actions by field UID
-		typedef QAsciiDictIterator<ActionBase> ActionDictIterator;
-		typedef QIntDictIterator<ActionDict> ActionDictDictIterator;
-		typedef QPtrVector<ActionBase> ActionVector; //!< for collecting actions related to a single field
+		typedef Q3AsciiDict<ActionBase> ActionDict; //!< for collecting actions related to a single field
+		typedef Q3IntDict<ActionDict> ActionDictDict; //!< for collecting groups of actions by field UID
+		typedef Q3AsciiDictIterator<ActionBase> ActionDictIterator;
+		typedef Q3IntDictIterator<ActionDict> ActionDictDictIterator;
+		typedef Q3PtrVector<ActionBase> ActionVector; //!< for collecting actions related to a single field
 
 		//! Defines a type for action list.
-		typedef QPtrList<ActionBase> ActionList;
+		typedef Q3PtrList<ActionBase> ActionList;
 
 		//! Defines a type for action list's iterator.
-		typedef QPtrListIterator<ActionBase> ActionListIterator;
+		typedef Q3PtrListIterator<ActionBase> ActionListIterator;
 
 		//! Abstract base class used for implementing all the AlterTable actions.
 		class KEXI_DB_EXPORT ActionBase {

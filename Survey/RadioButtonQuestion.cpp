@@ -18,33 +18,37 @@
 
 #include "radiobuttonquestion.h"
 #include <qlabel.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3Frame>
+#include <Q3HBoxLayout>
 Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QString& title, const QString& text,
                                                           const QString& question, const QStringList& questions, SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    QHBoxLayout* hlay = new QHBoxLayout( this, 6 );
-    QVBoxLayout* vlay;
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( this, 6 );
+    Q3VBoxLayout* vlay;
     QLabel* label;
 
     if ( !text.isNull() ) {
-        vlay = new QVBoxLayout( hlay, 6 );
+        vlay = new Q3VBoxLayout( hlay, 6 );
         label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(text), this );
         vlay->addWidget( label );
         vlay->addStretch( 1 );
 
-        QFrame* frame = new QFrame( this );
-        frame->setFrameStyle( QFrame::VLine | QFrame::Plain );
+        Q3Frame* frame = new Q3Frame( this );
+        frame->setFrameStyle( Q3Frame::VLine | Q3Frame::Plain );
         hlay->addWidget( frame );
     }
 
-    vlay = new QVBoxLayout( hlay, 6 );
+    vlay = new Q3VBoxLayout( hlay, 6 );
     label = new QLabel( QString::fromLatin1("<h3>%1</h3>").arg(question), this );
     vlay->addWidget( label );
 
-    _answers = new QButtonGroup( this );
+    _answers = new Q3ButtonGroup( this );
     _answers->hide();
 
     for( QStringList::ConstIterator it = questions.begin(); it != questions.end(); ++it ) {

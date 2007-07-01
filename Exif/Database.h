@@ -19,8 +19,10 @@
 #define EXIFDATABASE_H
 
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qpair.h>
+//Added by qt3to4:
+#include <QSqlQuery>
 #include "Utilities/Set.h"
 
 class QSqlDatabase;
@@ -31,7 +33,7 @@ class ExifData;
 }
 
 typedef QPair<int,int> Rational;
-typedef QValueList<Rational> RationalList;
+typedef Q3ValueList<Rational> RationalList;
 
 namespace Exif
 {
@@ -53,7 +55,7 @@ public:
     void add( const QString& fileName );
     void remove( const QString& fileName );
     Set<QString> filesMatchingQuery( const QString& query );
-    QValueList< QPair<QString,QString> > cameras() const;
+    Q3ValueList< QPair<QString,QString> > cameras() const;
 
 protected:
     static QString exifDBFile();

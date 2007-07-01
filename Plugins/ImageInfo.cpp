@@ -22,6 +22,8 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {
@@ -55,9 +57,9 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 
     // Flickr plug-in expects the item tags, so we better give them.
     QString text;
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     QStringList tags;
-    for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    for( Q3ValueList<DB::CategoryPtr>::Iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
             StringSet items = _info->itemsOfCategory( categoryName );

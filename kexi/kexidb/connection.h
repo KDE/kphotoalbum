@@ -22,13 +22,15 @@
 
 #include <qobject.h>
 #include <qstringlist.h>
-#include <qintdict.h>
-#include <qdict.h>
-#include <qptrdict.h>
-#include <qvaluevector.h>
-#include <qvaluelist.h>
+#include <q3intdict.h>
+#include <q3dict.h>
+#include <q3ptrdict.h>
+#include <q3valuevector.h>
+#include <q3valuelist.h>
 #include <qvariant.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 #include <kexidb/object.h>
 #include <kexidb/connectiondata.h>
@@ -44,7 +46,7 @@
 namespace KexiDB {
 
 //! structure for storing single record with type information
-typedef QValueVector<QVariant> RowData; 
+typedef Q3ValueVector<QVariant> RowData; 
 
 class Cursor;
 class ConnectionPrivate;
@@ -206,16 +208,16 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 If \a also_system_tables is true, 
 		 Internal KexiDB system tables (kexi__*) are not available here 
 		 because these have no identifiers assigned (more formally: id=-1). */
-		QValueList<int> tableIds();
+		Q3ValueList<int> tableIds();
 
 		/*! \return ids of all database query schemas stored in currently 
 		 used database. These ids can be later used as argument for querySchema().
 		 This is a shortcut for objectIds(TableObjectType). */
-		QValueList<int> queryIds();
+		Q3ValueList<int> queryIds();
 
 		/*! \return names of all schemas of object with \a objType type 
 		 that are stored in currently used database. */
-		QValueList<int> objectIds(int objType);
+		Q3ValueList<int> objectIds(int objType);
 
 		/*! \brief Creates new transaction handle and starts a new transaction.
 		 \return KexiDB::Transaction object if transaction has been started 
@@ -283,7 +285,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 Use Transaction::active() to check that. Inactive transaction 
 		 handle is useless and can be safely dropped.
 		*/
-		const QValueList<Transaction>& transactions();
+		const Q3ValueList<Transaction>& transactions();
 
 		/*! \return true if "auto commit" option is on. 
 
@@ -345,7 +347,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 (passing \a query and \a cursor_options to it's constructor).
 		 Kexi SQL and driver-specific escaping is performed on table names.
 		*/
-		Cursor* prepareQuery( QuerySchema& query, const QValueList<QVariant>& params, 
+		Cursor* prepareQuery( QuerySchema& query, const Q3ValueList<QVariant>& params, 
 			uint cursor_options = 0 );
 
 		/*! \overload prepareQuery( QuerySchema& query, const QValueList<QVariant>& params, 
@@ -375,7 +377,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 
 		 Statement is build from data provided by \a query schema. 
 		 Kexi SQL and driver-specific escaping is performed on table names. */
-		Cursor* executeQuery( QuerySchema& query, const QValueList<QVariant>& params, 
+		Cursor* executeQuery( QuerySchema& query, const Q3ValueList<QVariant>& params, 
 			uint cursor_options = 0 );
 
 		/*! \overload executeQuery( QuerySchema& query, const QValueList<QVariant>& params, 
@@ -510,9 +512,9 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		#undef H_INS_REC
 		#undef A
 		
-		bool insertRecord(TableSchema &tableSchema, QValueList<QVariant>& values);
+		bool insertRecord(TableSchema &tableSchema, Q3ValueList<QVariant>& values);
 		
-		bool insertRecord(FieldList& fields, QValueList<QVariant>& values);
+		bool insertRecord(FieldList& fields, Q3ValueList<QVariant>& values);
 
 		/*! Creates table defined by \a tableSchema.
 		 Schema information is also added into kexi system tables, for later reuse.
@@ -653,13 +655,13 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 see DriverBehaviour::ROW_ID_FIELD_RETURNS_LAST_AUTOINCREMENTED_VALUE). 
 		 ROWID's value will be assigned back to \a ROWID if this pointer is not null.
 		*/
-		Q_ULLONG lastInsertedAutoIncValue(const QString& aiFieldName, const QString& tableName, 
-			Q_ULLONG* ROWID = 0);
+		qulonglong lastInsertedAutoIncValue(const QString& aiFieldName, const QString& tableName, 
+			qulonglong* ROWID = 0);
 		
 		/*! \overload int lastInsertedAutoIncValue(const QString&, const QString&, Q_ULLONG*)
 		*/
-		Q_ULLONG lastInsertedAutoIncValue(const QString& aiFieldName, 
-			const TableSchema& table, Q_ULLONG* ROWID = 0);
+		qulonglong lastInsertedAutoIncValue(const QString& aiFieldName, 
+			const TableSchema& table, qulonglong* ROWID = 0);
 
 		/*! Executes query \a statement, but without returning resulting 
 		 rows (used mostly for functional queries). 
@@ -683,7 +685,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		/*! \return "SELECT ..." statement's string needed for executing query 
 		 defined by \a querySchema and \a params. */
 		QString selectStatement( QuerySchema& querySchema, 
-			const QValueList<QVariant>& params, 
+			const Q3ValueList<QVariant>& params, 
 			const SelectStatementOptions& options = SelectStatementOptions() ) const;
 
 		/*! \overload QString selectStatement( QuerySchema& querySchema, 
@@ -694,7 +696,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		inline QString selectStatement( QuerySchema& querySchema, 
 			const SelectStatementOptions& options = SelectStatementOptions() ) const
 		{
-			return selectStatement(querySchema, QValueList<QVariant>(), options);
+			return selectStatement(querySchema, Q3ValueList<QVariant>(), options);
 		}
 
 		/*! Stores object's schema data (id, name, caption, help text)
@@ -763,7 +765,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 
 		void unregisterForTablesSchemaChanges(TableSchemaChangeListenerInterface& listener);
 
-		QPtrList<Connection::TableSchemaChangeListenerInterface>*
+		Q3PtrList<Connection::TableSchemaChangeListenerInterface>*
 			tableSchemaChangeListeners(TableSchema& tableSchema) const;
 
 		tristate closeAllTableSchemaChangeListeners(TableSchema& tableSchema);
@@ -931,7 +933,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 		 just inserted row.
 		 Note for driver developers: contact js (at) iidea.pl 
 		 if your engine do not offers this information. */
-		virtual Q_ULLONG drv_lastInsertRowID() = 0;
+		virtual qulonglong drv_lastInsertRowID() = 0;
 
 		/*! Note for driver developers: begins new transaction
 		 and returns handle to it. Default implementation just
@@ -1152,7 +1154,7 @@ class KEXI_DB_EXPORT Connection : public QObject, public KexiDB::Object
 			return cancelled; }
 
 		//! cursors created for this connection
-		QPtrDict<KexiDB::Cursor> m_cursors;
+		Q3PtrDict<KexiDB::Cursor> m_cursors;
 
 	private:
 		ConnectionPrivate* d; //!< @internal d-pointer class.

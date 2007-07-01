@@ -1,3 +1,5 @@
+//Added by qt3to4:
+#include <Q3ValueList>
 /*
   Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
 
@@ -23,12 +25,12 @@
 namespace Utilities
 {
     template <class T>
-    QValueList<T> mergeListsUniqly(const QValueList<T>& l1,
-                                   const QValueList<T>& l2);
+    Q3ValueList<T> mergeListsUniqly(const Q3ValueList<T>& l1,
+                                   const Q3ValueList<T>& l2);
 
     template <class T>
-    QValueList<T> listSubtract(const QValueList<T>& l1,
-                               const QValueList<T>& l2);
+    Q3ValueList<T> listSubtract(const Q3ValueList<T>& l1,
+                               const Q3ValueList<T>& l2);
 
 
 
@@ -37,13 +39,13 @@ namespace Utilities
     // Could be optimized later, but no need for that yet.
 
     template <class T>
-    QValueList<T> mergeListsUniqly(const QValueList<T>& l1,
-                                   const QValueList<T>& l2)
+    Q3ValueList<T> mergeListsUniqly(const Q3ValueList<T>& l1,
+                                   const Q3ValueList<T>& l2)
     {
-        QValueList<T> r;
-        const QValueList<T>* l[2] = {&l1, &l2};
+        Q3ValueList<T> r;
+        const Q3ValueList<T>* l[2] = {&l1, &l2};
         for (int n = 0; n < 2; ++n)
-            for (typename QValueList<T>::const_iterator i = l[n]->begin();
+            for (typename Q3ValueList<T>::const_iterator i = l[n]->begin();
                  i != l[n]->end(); ++i)
                 if (!r.contains(*i))
                     r.append(*i);
@@ -51,11 +53,11 @@ namespace Utilities
     }
 
     template <class T>
-    QValueList<T> listSubtract(const QValueList<T>& l1,
-                               const QValueList<T>& l2)
+    Q3ValueList<T> listSubtract(const Q3ValueList<T>& l1,
+                               const Q3ValueList<T>& l2)
     {
-        QValueList<T> r = l1;
-        for (typename QValueList<T>::const_iterator i = l2.begin();
+        Q3ValueList<T> r = l1;
+        for (typename Q3ValueList<T>::const_iterator i = l2.begin();
              i != l2.end(); ++i) {
             r.remove(*i);
         }

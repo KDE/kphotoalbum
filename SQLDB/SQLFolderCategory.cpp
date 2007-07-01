@@ -19,6 +19,8 @@
 
 #include "SQLFolderCategory.h"
 #include "QueryHelper.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 using namespace SQLDB;
 
@@ -64,8 +66,8 @@ SQLFolderCategory::classify(const DB::ImageSearchInfo& scope,
                             DB::MediaType typemask) const
 {
     // TODO: this
-    QValueList<int>* scopePointer;
-    QValueList<int> includedFiles;
+    Q3ValueList<int>* scopePointer;
+    Q3ValueList<int> includedFiles;
     if (scope.isNull())
         scopePointer = 0;
     else {

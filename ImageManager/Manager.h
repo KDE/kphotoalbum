@@ -19,11 +19,13 @@
 #ifndef IMAGEMANAGER_H
 #define IMAGEMANAGER_H
 #include <qwaitcondition.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qevent.h>
+//Added by qt3to4:
+#include <QCustomEvent>
 #include "ImageManager/ImageRequest.h"
 #include <qmutex.h>
-#include <qptrdict.h>
+#include <q3ptrdict.h>
 #include <qimage.h>
 #include <qobject.h>
 #include <Utilities/Set.h>

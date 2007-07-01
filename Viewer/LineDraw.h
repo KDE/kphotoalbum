@@ -19,6 +19,8 @@
 #ifndef LINEDRAW_H
 #define LINEDRAW_H
 #include "Viewer/Draw.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 
 namespace Viewer

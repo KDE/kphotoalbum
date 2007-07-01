@@ -25,6 +25,8 @@
 #include <kmessagebox.h>
 #include <kglobal.h>
 #include "ContentFolderAction.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )

@@ -19,9 +19,14 @@
 #include "SurveyDialog.h"
 #include <qlayout.h>
 #include <qlabel.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "Question.h"
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3CString>
+#include <Q3Frame>
+#include <Q3VBoxLayout>
 #include <klocale.h>
 #include <qpushbutton.h>
 #include <qdom.h>
@@ -30,13 +35,13 @@
 #include <kapplication.h>
 #include <kglobal.h>
 #include <kaboutdata.h>
-#include <qprogressbar.h>
+#include <q3progressbar.h>
 
 class SurveyPrivate
 {
 public:
-    QWidgetStack* stack;
-    QValueList<Survey::Question*> questions;
+    Q3WidgetStack* stack;
+    Q3ValueList<Survey::Question*> questions;
     int current;
     QPushButton* done;
     QPushButton* next;
@@ -76,16 +81,16 @@ void Survey::SurveyDialog::addQuestion( Question* question )
 void Survey::SurveyDialog::exec()
 {
     if ( !d->stack ) {
-        QVBoxLayout* vlay = new QVBoxLayout( this, 6 );
+        Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
 
         // Widget Stack
-        d->stack = new QWidgetStack( this );
+        d->stack = new Q3WidgetStack( this );
         vlay->addWidget( d->stack );
 
         setupFrontPage();
 
         int count = 0;
-        for ( QValueList<Question*>::ConstIterator questionIt = d->questions.begin(); questionIt != d->questions.end();
+        for ( Q3ValueList<Question*>::ConstIterator questionIt = d->questions.begin(); questionIt != d->questions.end();
               ++questionIt, ++count ) {
             d->stack->addWidget( createStackItem( *questionIt, count ), count+1 );
         }
@@ -93,7 +98,7 @@ void Survey::SurveyDialog::exec()
 
         setupBackPage(count);
 
-        QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
+        Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
         hlay->addStretch( 1 );
 
         d->prev = new QPushButton( i18n("<< Prev"), this );
@@ -125,13 +130,13 @@ QWidget* Survey::SurveyDialog::createStackItem( Question* question, int count )
     QWidget* w = new QWidget( d->stack );
 
     // Title
-    QVBoxLayout* vlay = new QVBoxLayout( w, 6 );
-    QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
+    Q3VBoxLayout* vlay = new Q3VBoxLayout( w, 6 );
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
     QLabel* title = new QLabel( QString::fromLatin1("<h1>%1</h1>").arg(question->title()), w );
     hlay->addWidget( title, 1 );
 
     // Progress
-    QProgressBar* progress = new QProgressBar( d->questions.count(), w );
+    Q3ProgressBar* progress = new Q3ProgressBar( d->questions.count(), w );
     progress->setFixedWidth( 200 );
     hlay->addWidget( progress );
     progress->setProgress( count+1 );
@@ -139,16 +144,16 @@ QWidget* Survey::SurveyDialog::createStackItem( Question* question, int count )
     hlay->addWidget( label );
 
     // Line
-    QFrame* frame = new QFrame( w );
-    frame->setFrameStyle( QFrame::HLine | QFrame::Plain );
+    Q3Frame* frame = new Q3Frame( w );
+    frame->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
     vlay->addWidget( frame );
 
     question->reparent( w, 0, QPoint(0,0), true );
     vlay->addWidget( question );
 
     // Line
-    frame = new QFrame( w );
-    frame->setFrameStyle( QFrame::HLine | QFrame::Plain );
+    frame = new Q3Frame( w );
+    frame->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
     vlay->addWidget( frame );
     return w;
 }
@@ -217,7 +222,7 @@ void Survey::SurveyDialog::slotDone()
     if ( lastPage() )
         d->surveyVersionCompleted = d->surveyVersionMajor;
 
-    QCString xml = configAsXML();
+    Q3CString xml = configAsXML();
 
     saveConfig( xml );
 
@@ -237,7 +242,7 @@ bool Survey::SurveyDialog::lastPage() const
 void Survey::SurveyDialog::readConfig()
 {
     QFile in( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
-    if ( in.open( IO_ReadOnly ) ) {
+    if ( in.open( QIODevice::ReadOnly ) ) {
         QDomDocument doc;
         doc.setContent(&in );
         QDomElement top = doc.documentElement();
@@ -257,10 +262,10 @@ void Survey::SurveyDialog::readConfig()
     saveConfig( configAsXML() ); // Save right away to increace invocation count
 }
 
-void Survey::SurveyDialog::saveConfig( const QCString& xml )
+void Survey::SurveyDialog::saveConfig( const Q3CString& xml )
 {
     QFile out( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
-    if ( !out.open( IO_WriteOnly ) ) {
+    if ( !out.open( QIODevice::WriteOnly ) ) {
         Q_ASSERT( false );
     }
     else {
@@ -290,7 +295,7 @@ void Survey::SurveyDialog::possibleExecSurvey( int minInvocations, int remindCou
         exec();
 }
 
-QCString Survey::SurveyDialog::configAsXML()
+Q3CString Survey::SurveyDialog::configAsXML()
 {
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
@@ -303,7 +308,7 @@ QCString Survey::SurveyDialog::configAsXML()
     top.setAttribute( QString::fromLatin1( "surveyVersionCompleted" ), d->surveyVersionCompleted );
 
     doc.appendChild( top );
-    for ( QValueList<Question*>::ConstIterator questionIt = d->questions.begin(); questionIt != d->questions.end();
+    for ( Q3ValueList<Question*>::ConstIterator questionIt = d->questions.begin(); questionIt != d->questions.end();
           ++questionIt ) {
         QDomElement elm = doc.createElement( (*questionIt)->id() );
         (*questionIt)->save( elm );

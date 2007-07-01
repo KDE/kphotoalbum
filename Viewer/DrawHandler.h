@@ -21,6 +21,9 @@
 
 #include "Viewer/DisplayAreaHandler.h"
 #include "Viewer/DrawList.h"
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <QPixmap>
 
 class QMouseEvent;
 class QPixmap;

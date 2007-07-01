@@ -1,3 +1,5 @@
+//Added by qt3to4:
+#include <QMouseEvent>
 /* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -22,11 +24,11 @@ class QMouseEvent;
 class QPainter;
 class QWidget;
 #include <qpoint.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qdom.h>
 
-typedef QValueList<QPoint> PointList;
-typedef QValueList<QPoint>::Iterator PointListIterator;
+typedef Q3ValueList<QPoint> PointList;
+typedef Q3ValueList<QPoint>::Iterator PointListIterator;
 
 namespace Viewer
 {

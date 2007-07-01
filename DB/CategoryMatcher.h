@@ -18,7 +18,7 @@
 
 #ifndef OPTIONMATCHER_H
 #define OPTIONMATCHER_H
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "DB/ImageInfoPtr.h"
 
 namespace DB
@@ -72,7 +72,7 @@ public:
     ~OptionContainerMatcher();
     virtual void debug( int level ) const;
 
-    QValueList<CategoryMatcher*> _elements;
+    Q3ValueList<CategoryMatcher*> _elements;
 };
 
 class OptionAndMatcher :public OptionContainerMatcher

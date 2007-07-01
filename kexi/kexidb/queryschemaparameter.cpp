@@ -18,10 +18,12 @@
 */
 
 #include "queryschemaparameter.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "driver.h"
 
 #include <kdebug.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 
 using namespace KexiDB;
 
@@ -51,7 +53,7 @@ void KexiDB::debug(const QuerySchemaParameterList& list)
 class QuerySchemaParameterValueListIterator::Private
 {
 	public:
-		Private(const Driver& aDriver, const QValueList<QVariant>& aParams)
+		Private(const Driver& aDriver, const Q3ValueList<QVariant>& aParams)
 		 : driver(&aDriver)
 		 , params(aParams)
 		{
@@ -59,14 +61,14 @@ class QuerySchemaParameterValueListIterator::Private
 			paramsIt = params.fromLast(); //constBegin();
 			paramsItPosition = params.count();
 		}
-		QGuardedPtr<const Driver> driver;
-		const QValueList<QVariant> params;
-		QValueList<QVariant>::ConstIterator paramsIt;
+		QPointer<const Driver> driver;
+		const Q3ValueList<QVariant> params;
+		Q3ValueList<QVariant>::ConstIterator paramsIt;
 		uint paramsItPosition;
 };
 
 QuerySchemaParameterValueListIterator::QuerySchemaParameterValueListIterator(
-	const Driver& driver, const QValueList<QVariant>& params)
+	const Driver& driver, const Q3ValueList<QVariant>& params)
  : d( new Private(driver, params) )
 {
 }

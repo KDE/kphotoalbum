@@ -19,6 +19,8 @@
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
 #include <kdialogbase.h>
+//Added by qt3to4:
+#include <QLabel>
 class QLabel;
 class QCheckBox;
 class QRadioButton;

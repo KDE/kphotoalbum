@@ -17,6 +17,11 @@
 */
 #include "TokenEditor.h"
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <Q3ValueList>
 #include <klocale.h>
 #include <kpushbutton.h>
 #include <qcheckbox.h>
@@ -31,12 +36,12 @@ TokenEditor::TokenEditor( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n( "Remove Tokens" ), Cancel | Ok, Ok, parent, name )
 {
     QWidget* top = plainPage();
-    QVBoxLayout* vlay = new QVBoxLayout( top, 10 );
+    Q3VBoxLayout* vlay = new Q3VBoxLayout( top, 10 );
 
     QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:"), top );
     vlay->addWidget( label );
 
-    QGridLayout* grid = new QGridLayout( vlay, 6, 5, 10 );
+    Q3GridLayout* grid = new Q3GridLayout( vlay, 6, 5, 10 );
 
     int index = 0;
     for ( int ch = 'A'; ch <= 'Z'; ch++, index++ ) {
@@ -46,7 +51,7 @@ TokenEditor::TokenEditor( QWidget* parent, const char* name )
         _cbs.append( box );
     }
 
-    QHBoxLayout* hlay = new QHBoxLayout( vlay, 10 );
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 10 );
     hlay->addStretch( 1 );
     KPushButton* selectAll = new KPushButton( i18n("Select All"), top );
     KPushButton* selectNone = new KPushButton( i18n("Select None"), top );
@@ -61,7 +66,7 @@ void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
 
-    for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( false );
         (*it)->setEnabled( tokens.contains( (*it)->text() ) );
     }
@@ -70,14 +75,14 @@ void TokenEditor::show()
 
 void TokenEditor::selectAll()
 {
-    for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( true );
     }
 }
 
 void TokenEditor::selectNone()
 {
-    for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         (*it)->setChecked( false );
     }
 }
@@ -102,7 +107,7 @@ QStringList TokenEditor::tokensInUse()
 
 void TokenEditor::slotOk()
 {
-    for( QValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
+    for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
             DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );

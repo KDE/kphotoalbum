@@ -20,6 +20,8 @@
 #include "SQLImageInfoCollection.h"
 #include "SQLImageInfo.h"
 #include "QueryErrors.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 using namespace SQLDB;
 
@@ -27,8 +29,8 @@ SQLImageInfoCollection::SQLImageInfoCollection(QueryHelper& queryHelper):
     _qh(queryHelper),
     _lockingScope(0)
 {
-    QValueList< QPair<int, QString> > l = _qh.mediaItemIdFileMap();
-    for (QValueList< QPair<int, QString> >::const_iterator i = l.begin();
+    Q3ValueList< QPair<int, QString> > l = _qh.mediaItemIdFileMap();
+    for (Q3ValueList< QPair<int, QString> >::const_iterator i = l.begin();
          i != l.end(); ++i) {
         _filenameIdMap.insert((*i).second, (*i).first);
         _idFilenameMap.insert((*i).first, (*i).second);

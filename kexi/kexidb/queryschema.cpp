@@ -27,18 +27,20 @@
 
 #include <assert.h>
 
-#include <qvaluelist.h>
-#include <qasciidict.h>
-#include <qptrdict.h>
-#include <qintdict.h>
+#include <q3valuelist.h>
+#include <q3asciidict.h>
+#include <q3ptrdict.h>
+#include <q3intdict.h>
 #include <qbitarray.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <kdebug.h>
 #include <klocale.h>
 
 using namespace KexiDB;
 
-QueryColumnInfo::QueryColumnInfo(Field *f, QCString _alias, bool _visible)
+QueryColumnInfo::QueryColumnInfo(Field *f, Q3CString _alias, bool _visible)
  : field(f), alias(_alias), visible(_visible), m_indexForVisibleLookupValue(-1)
 {
 }
@@ -119,7 +121,7 @@ class QuerySchemaPrivate
 			delete pkeyFieldsOrder;
 			pkeyFieldsOrder=0;
 			visibility.fill(false);
-			tablesBoundToColumns = QValueVector<int>(64,-1);
+			tablesBoundToColumns = Q3ValueVector<int>(64,-1);
 			tablePositionsForAliases.clear();
 			columnPositionsForAliases.clear();
 		}
@@ -146,16 +148,16 @@ class QuerySchemaPrivate
 			}
 		}
 
-		void setColumnAliasInternal(uint position, const QCString& alias)
+		void setColumnAliasInternal(uint position, const Q3CString& alias)
 		{
-			columnAliases.replace(position, new QCString(alias));
+			columnAliases.replace(position, new Q3CString(alias));
 			columnPositionsForAliases.replace(alias, new int(position));
 			maxIndexWithAlias = QMAX( maxIndexWithAlias, (int)position );
 		}
 
-		void setColumnAlias(uint position, const QCString& alias)
+		void setColumnAlias(uint position, const Q3CString& alias)
 		{
-			QCString *oldAlias = columnAliases.take(position);
+			Q3CString *oldAlias = columnAliases.take(position);
 			if (oldAlias) {
 				tablePositionsForAliases.remove(*oldAlias);
 				delete oldAlias;
@@ -174,7 +176,7 @@ class QuerySchemaPrivate
 			return !columnAliases.isEmpty();
 		}
 
-		QCString* columnAlias(uint position)
+		Q3CString* columnAlias(uint position)
 		{
 			tryRegenerateExprAliases();
 			return columnAliases[position];
@@ -202,7 +204,7 @@ class QuerySchemaPrivate
 			Field *f;
 			uint p=0;
 			uint colNum=0; //used to generate a name
-			QCString columnAlias;
+			Q3CString columnAlias;
 			for (Field::ListIterator it(query->fieldsIterator()); (f = it.current()); ++it, p++) {
 				if (f->isExpression() && !columnAliases[p]) {
 					//missing
@@ -220,11 +222,11 @@ class QuerySchemaPrivate
 		}
 
 		/*! Used to mapping columns to its aliases for this query */
-		QIntDict<QCString> columnAliases;
+		Q3IntDict<Q3CString> columnAliases;
 
 	public:
 		/*! Used to mapping tables to its aliases for this query */
-		QIntDict<QCString> tableAliases;
+		Q3IntDict<Q3CString> tableAliases;
 		
 		/*! Helper used with aliases */
 		int maxIndexWithAlias;
@@ -261,7 +263,7 @@ class QuerySchemaPrivate
 		
 		/*! A cache for autoIncrementSQLFieldsList(). */
 		QString autoIncrementSQLFieldsList;
-		QGuardedPtr<Driver> lastUsedDriverForAutoIncrementSQLFieldsList;
+		QPointer<Driver> lastUsedDriverForAutoIncrementSQLFieldsList;
 
 		/*! A map for fast lookup of query columns' order (unexpanded version). */
 		QMap<QueryColumnInfo*,int> *columnsOrder;
@@ -277,7 +279,7 @@ class QuerySchemaPrivate
 //		QValueList<bool> detailedVisibility;
 
 		/*! order of PKEY fields (e.g. for updateRow() ) */
-		QValueVector<int> *pkeyFieldsOrder;
+		Q3ValueVector<int> *pkeyFieldsOrder;
 
 		/*! number of PKEY fields within the query */
 		uint pkeyFieldsCount;
@@ -303,20 +305,20 @@ class QuerySchemaPrivate
 		 - second coulmn is not specially bound (othertable.x isn't ambiguous)
 		 - third column is bound to table 1 "t2"
 		*/
-		QValueVector<int> tablesBoundToColumns;
+		Q3ValueVector<int> tablesBoundToColumns;
 		
 		/*! Collects table positions for aliases: used in tablePositionForAlias(). */
-		QAsciiDict<int> tablePositionsForAliases;
+		Q3AsciiDict<int> tablePositionsForAliases;
 
 		/*! Collects column positions for aliases: used in columnPositionForAlias(). */
-		QAsciiDict<int> columnPositionsForAliases;
+		Q3AsciiDict<int> columnPositionsForAliases;
 
 		/*! WHERE expression */
 		BaseExpr *whereExpr;
 
-		QDict<QueryColumnInfo> columnInfosByNameExpanded;
+		Q3Dict<QueryColumnInfo> columnInfosByNameExpanded;
 
-		QDict<QueryColumnInfo> columnInfosByName; //!< Same as columnInfosByNameExpanded but asterisks are skipped
+		Q3Dict<QueryColumnInfo> columnInfosByName; //!< Same as columnInfosByNameExpanded but asterisks are skipped
 
 		/*! Set by insertField(): true, if aliases for expression columns should 
 		 be generated on next columnAlias() call. */
@@ -738,7 +740,7 @@ QString QuerySchema::debugString()
 	for (uint i = 0; i<fieldCount(); i++) {
 		int tablePos = tableBoundToColumn(i);
 		if (tablePos>=0) {
-			QCString tAlias = tableAlias(tablePos);
+			Q3CString tAlias = tableAlias(tablePos);
 			if (!tAlias.isEmpty()) {
 				dbg2 += (QString::fromLatin1(" field \"") + FieldList::field(i)->name() 
 					+ "\" uses alias \"" + QString(tAlias) + "\" of table \""
@@ -769,7 +771,7 @@ QString QuerySchema::debugString()
 	else {
 		Field::ListIterator it( m_fields );
 		for (int i=0; it.current(); ++it, i++) {
-			QCString *alias = d->columnAlias(i);
+			Q3CString *alias = d->columnAlias(i);
 			if (alias)
 				aliases += (QString("field #%1: ").arg(i) 
 					+ (it.current()->name().isEmpty() ? "<noname>" : it.current()->name())
@@ -784,7 +786,7 @@ QString QuerySchema::debugString()
 		aliases = "";
 		TableSchema::ListIterator t_it(d->tables);
 		for (int i=0; t_it.current(); ++t_it, i++) {
-			QCString *alias = d->tableAliases[i];
+			Q3CString *alias = d->tableAliases[i];
 			if (alias)
 				aliases += (QString("table #%1: ").arg(i) 
 					+ (t_it.current()->name().isEmpty() ? "<noname>" : t_it.current()->name())
@@ -832,7 +834,7 @@ TableSchema::List* QuerySchema::tables() const
 	return &d->tables;
 }
 
-void QuerySchema::addTable(TableSchema *table, const QCString& alias)
+void QuerySchema::addTable(TableSchema *table, const Q3CString& alias)
 {
 	KexiDBDbg << "QuerySchema::addTable() " << (void *)table 
 		<< " alias=" << alias << endl;
@@ -909,10 +911,10 @@ Field* QuerySchema::findTableField(const QString &tableOrTableAndFieldName) cons
 	return tableSchema->field(fieldName);
 }
 
-QCString QuerySchema::columnAlias(uint position) const
+Q3CString QuerySchema::columnAlias(uint position) const
 {
-	QCString *a = d->columnAlias(position);
-	return a ? *a : QCString();
+	Q3CString *a = d->columnAlias(position);
+	return a ? *a : Q3CString();
 }
 
 bool QuerySchema::hasColumnAlias(uint position) const
@@ -920,14 +922,14 @@ bool QuerySchema::hasColumnAlias(uint position) const
 	return d->columnAlias(position)!=0;
 }
 
-void QuerySchema::setColumnAlias(uint position, const QCString& alias)
+void QuerySchema::setColumnAlias(uint position, const Q3CString& alias)
 {
 	if (position >= m_fields.count()) {
 		KexiDBWarn << "QuerySchema::setColumnAlias(): position ("  << position 
 			<< ") out of range!" << endl;
 		return;
 	}
-	QCString fixedAlias = alias.stripWhiteSpace();
+	Q3CString fixedAlias = alias.stripWhiteSpace();
 	Field *f = FieldList::field(position);
 	if (f->captionOrName().isEmpty() && fixedAlias.isEmpty()) {
 		KexiDBWarn << "QuerySchema::setColumnAlias(): position ("  << position 
@@ -937,13 +939,13 @@ void QuerySchema::setColumnAlias(uint position, const QCString& alias)
 	d->setColumnAlias(position, fixedAlias);
 }
 
-QCString QuerySchema::tableAlias(uint position) const
+Q3CString QuerySchema::tableAlias(uint position) const
 {
-	QCString *a = d->tableAliases[position];
-	return a ? *a : QCString();
+	Q3CString *a = d->tableAliases[position];
+	return a ? *a : Q3CString();
 }
 
-int QuerySchema::tablePositionForAlias(const QCString& name) const
+int QuerySchema::tablePositionForAlias(const Q3CString& name) const
 {
 	int *num = d->tablePositionsForAliases[name];
 	if (!num)
@@ -961,10 +963,10 @@ int QuerySchema::tablePosition(const QString& tableName) const
 	return -1;
 }
 
-QValueList<int> QuerySchema::tablePositions(const QString& tableName) const
+Q3ValueList<int> QuerySchema::tablePositions(const QString& tableName) const
 {
 	int num = 0;
-	QValueList<int> result;
+	Q3ValueList<int> result;
 	const QString& tableNameLower = tableName.lower();
 	for (TableSchema::ListIterator it(d->tables); it.current(); ++it, num++) {
 		if (it.current()->name().lower()==tableNameLower) {
@@ -979,7 +981,7 @@ bool QuerySchema::hasTableAlias(uint position) const
 	return d->tableAliases[position]!=0;
 }
 
-int QuerySchema::columnPositionForAlias(const QCString& name) const
+int QuerySchema::columnPositionForAlias(const Q3CString& name) const
 {
 	int *num = d->columnPositionsForAliases[name];
 	if (!num)
@@ -987,16 +989,16 @@ int QuerySchema::columnPositionForAlias(const QCString& name) const
 	return *num;
 }
 
-void QuerySchema::setTableAlias(uint position, const QCString& alias)
+void QuerySchema::setTableAlias(uint position, const Q3CString& alias)
 {
 	if (position >= d->tables.count()) {
 		KexiDBWarn << "QuerySchema::setTableAlias(): position ("  << position 
 			<< ") out of range!" << endl;
 		return;
 	}
-	QCString fixedAlias = alias.stripWhiteSpace();
+	Q3CString fixedAlias = alias.stripWhiteSpace();
 	if (fixedAlias.isEmpty()) {
-		QCString *oldAlias = d->tableAliases.take(position);
+		Q3CString *oldAlias = d->tableAliases.take(position);
 		if (oldAlias) {
 			d->tablePositionsForAliases.remove(*oldAlias);
 			delete oldAlias;
@@ -1004,7 +1006,7 @@ void QuerySchema::setTableAlias(uint position, const QCString& alias)
 //			d->maxIndexWithTableAlias = -1;
 	}
 	else {
-		d->tableAliases.replace(position, new QCString(fixedAlias));
+		d->tableAliases.replace(position, new Q3CString(fixedAlias));
 		d->tablePositionsForAliases.replace(fixedAlias, new int(position));
 //		d->maxIndexWithTableAlias = QMAX( d->maxIndexWithTableAlias, (int)index );
 	}
@@ -1068,7 +1070,7 @@ QueryColumnInfo::Vector QuerySchema::fieldsExpanded(FieldsExpandedOptions option
 			if (options == WithInternalFieldsAndRowID) {
 				if (!d->fakeRowIDField) {
 					d->fakeRowIDField = new Field("rowID", Field::BigInteger);
-					d->fakeRowIDCol = new QueryColumnInfo(d->fakeRowIDField, QCString(), true);
+					d->fakeRowIDCol = new QueryColumnInfo(d->fakeRowIDField, Q3CString(), true);
 				}
 				tmpFieldsExpandedWithInternal->insert( 
 					fieldsExpandedVectorSize + internalFieldsCount, d->fakeRowIDCol );
@@ -1081,7 +1083,7 @@ QueryColumnInfo::Vector QuerySchema::fieldsExpanded(FieldsExpandedOptions option
 		return *d->fieldsExpanded;
 
 	//options == Unique:
-	QDict<char> columnsAlreadyFound;
+	Q3Dict<char> columnsAlreadyFound;
 	QueryColumnInfo::Vector result( d->fieldsExpanded->count() ); //initial size is set
 //	QMapConstIterator<QueryColumnInfo*, bool> columnsAlreadyFoundIt;
 	//compute unique list
@@ -1138,7 +1140,7 @@ void QuerySchema::computeFieldsExpanded()
 				Field::List *ast_fields = static_cast<QueryAsterisk*>(f)->table()->fields();
 				for (Field *ast_f = ast_fields->first(); ast_f; ast_f=ast_fields->next()) {
 //					d->detailedVisibility += isFieldVisible(fieldPosition);
-					QueryColumnInfo *ci = new QueryColumnInfo(ast_f, QCString()/*no field for asterisk!*/,
+					QueryColumnInfo *ci = new QueryColumnInfo(ast_f, Q3CString()/*no field for asterisk!*/,
 						isColumnVisible(fieldPosition));
 					list.append( ci );
 					KexiDBDbg << "QuerySchema::computeFieldsExpanded(): caching (unexpanded) columns order: "
@@ -1155,7 +1157,7 @@ void QuerySchema::computeFieldsExpanded()
 //! \todo (js): perhaps not all fields should be appended here
 //						d->detailedVisibility += isFieldVisible(fieldPosition);
 //						list.append(tab_f);
-						QueryColumnInfo *ci = new QueryColumnInfo(tab_f, QCString()/*no field for asterisk!*/,
+						QueryColumnInfo *ci = new QueryColumnInfo(tab_f, Q3CString()/*no field for asterisk!*/,
 							isColumnVisible(fieldPosition));
 						list.append( ci );
 						KexiDBDbg << "QuerySchema::computeFieldsExpanded(): caching (unexpanded) columns order: "
@@ -1193,7 +1195,7 @@ void QuerySchema::computeFieldsExpanded()
 						&& (visibleField = lookupTable->field( lookupFieldSchema->visibleColumn()))
 						&& (boundField = lookupTable->field( lookupFieldSchema->boundColumn() )))
 					{
-						lookup_list.append( new QueryColumnInfo(visibleField, QCString(), true/*visible*/) );
+						lookup_list.append( new QueryColumnInfo(visibleField, Q3CString(), true/*visible*/) );
 /*
 						//add visibleField to the list of SELECTed fields if it is not yes present there
 						if (!findTableField( visibleField->table()->name()+"."+visibleField->name() )) {
@@ -1271,7 +1273,7 @@ void QuerySchema::computeFieldsExpanded()
 	}
 
 	//remove duplicates for lookup fields
-	QDict<uint> lookup_dict; //used to fight duplicates and to update QueryColumnInfo::indexForVisibleLookupValue()
+	Q3Dict<uint> lookup_dict; //used to fight duplicates and to update QueryColumnInfo::indexForVisibleLookupValue()
 	                         // (a mapping from table.name string to uint* lookupFieldIndex
 	lookup_dict.setAutoDelete(true);
 	i=0;
@@ -1345,18 +1347,18 @@ QMap<QueryColumnInfo*,int> QuerySchema::columnsOrder(ColumnsOrderOptions options
 	return *d->columnsOrderExpanded;
 }
 
-QValueVector<int> QuerySchema::pkeyFieldsOrder()
+Q3ValueVector<int> QuerySchema::pkeyFieldsOrder()
 {
 	if (d->pkeyFieldsOrder)
 		return *d->pkeyFieldsOrder;
 
 	TableSchema *tbl = masterTable();
 	if (!tbl || !tbl->primaryKey())
-		return QValueVector<int>();
+		return Q3ValueVector<int>();
 
 	//get order of PKEY fields (e.g. for rows updating or inserting )
 	IndexSchema *pkey = tbl->primaryKey();
-	d->pkeyFieldsOrder = new QValueVector<int>( pkey->fieldCount(), -1 );
+	d->pkeyFieldsOrder = new Q3ValueVector<int>( pkey->fieldCount(), -1 );
 
 	const uint fCount = fieldsExpanded().count();
 	d->pkeyFieldsCount = 0;

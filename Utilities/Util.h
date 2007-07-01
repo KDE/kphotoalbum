@@ -23,6 +23,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
 
@@ -56,7 +58,7 @@ bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const QString& fileName );
 
 template<class T>
-QValueList<T> shuffle(const QValueList<T>& list);
+Q3ValueList<T> shuffle(const Q3ValueList<T>& list);
 
 typedef QMap<QString, QString> UniqNameMap;
 UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );

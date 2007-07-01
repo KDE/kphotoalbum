@@ -18,17 +18,17 @@
 #ifndef SETTINGS_CATEGORYITEM_H
 #define SETTINGS_CATEGORYITEM_H
 
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <DB/Category.h>
 namespace DB { class MemberMap; }
 
 namespace Settings
 {
-class CategoryItem :public QListBoxText
+class CategoryItem :public Q3ListBoxText
 {
 public:
     CategoryItem( const QString& category, const QString& text, const QString& icon,
-                  DB::Category::ViewType type, int thumbnailSize, QListBox* parent );
+                  DB::Category::ViewType type, int thumbnailSize, Q3ListBox* parent );
     void setLabel( const QString& label );
     void submit( DB::MemberMap* memberMap );
     void removeFromDatabase();

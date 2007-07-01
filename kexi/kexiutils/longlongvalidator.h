@@ -39,7 +39,7 @@ class KEXIUTILS_EXPORT LongLongValidator : public QValidator
 {
 	public:
 		LongLongValidator( QWidget * parent, int base = 10, const char * name = 0 );
-		LongLongValidator( Q_LLONG bottom, Q_LLONG top, QWidget * parent, int base = 10, const char * name = 0 );
+		LongLongValidator( qlonglong bottom, qlonglong top, QWidget * parent, int base = 10, const char * name = 0 );
 		virtual ~LongLongValidator();
 
 		//! Validates the text, and returns the result.  Does not modify the parameters.
@@ -49,24 +49,24 @@ class KEXIUTILS_EXPORT LongLongValidator : public QValidator
 		virtual void fixup( QString & ) const;
 
 		//! Sets the minimum and maximum values allowed.
-		 virtual void setRange( Q_LLONG bottom, Q_LLONG top );
+		 virtual void setRange( qlonglong bottom, qlonglong top );
 
 		//! Sets the numeric base value.
 		virtual void setBase( int base );
 
 		//! \return the current minimum value allowed
-		virtual Q_LLONG bottom() const;
+		virtual qlonglong bottom() const;
 
 		//! \return the current maximum value allowed
-		virtual Q_LLONG top() const;
+		virtual qlonglong top() const;
 
 		//! \return the current numeric base
 		virtual int base () const;
 
 	private:
-		Q_LLONG m_base;
-		Q_LLONG m_min;
-		Q_LLONG m_max;
+		qlonglong m_base;
+		qlonglong m_min;
+		qlonglong m_max;
 };
 
 }

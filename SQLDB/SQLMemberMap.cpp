@@ -20,6 +20,8 @@
 #include "SQLMemberMap.h"
 #include "QueryHelper.h"
 #include "QueryErrors.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "Utilities/Graph.h"
 
 using namespace SQLDB;
@@ -64,7 +66,7 @@ QStringList SQLMemberMap::members(const QString& category,
                                   bool closure) const
 {
     if (closure) {
-        QValueList<int> idList = _qh.tagIdList(category, memberGroup);
+        Q3ValueList<int> idList = _qh.tagIdList(category, memberGroup);
         idList.pop_front(); // the tag itself
         return
             _qh.executeQuery("SELECT name FROM tag WHERE id IN (%s)",
@@ -132,10 +134,10 @@ SQLMemberMap::inverseMap(const QString& category) const
 {
     QMap<QString, QStringList> r;
 
-    const QValueList<QString[2]> pairs =
+    const Q3ValueList<QString[2]> pairs =
         _qh.memberGroupConfiguration(category);
 
-    for (QValueList<QString[2]>::const_iterator i = pairs.begin();
+    for (Q3ValueList<QString[2]>::const_iterator i = pairs.begin();
          i != pairs.end(); ++i)
         r[(*i)[1]].append((*i)[0]);
 
@@ -234,8 +236,8 @@ const SQLMemberMap::MemberMapping& SQLMemberMap::memberMap() const
 void SQLMemberMap::updateMemberMapCache() const
 {
     _memberMapCache.clear();
-    QValueList<QString[3]> l = _qh.memberGroupConfiguration();
-    for (QValueList<QString[3]>::const_iterator i = l.begin();
+    Q3ValueList<QString[3]> l = _qh.memberGroupConfiguration();
+    for (Q3ValueList<QString[3]>::const_iterator i = l.begin();
          i != l.end(); ++i)
         _memberMapCache[(*i)[0]][(*i)[1]].insert((*i)[2]);
 }

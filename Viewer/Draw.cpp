@@ -18,6 +18,8 @@
 
 #include "Viewer/Draw.h"
 #include <qevent.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 void Viewer::Draw::startDraw( QMouseEvent* event )
 {
     _startPos = event->pos();

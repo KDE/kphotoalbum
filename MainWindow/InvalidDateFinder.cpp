@@ -19,6 +19,8 @@
 #include "InvalidDateFinder.h"
 #include <qlayout.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 #include <klocale.h>
 #include <qvbuttongroup.h>
 #include "DB/ImageInfo.h"
@@ -30,7 +32,7 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include "Utilities/ShowBusyCursor.h"
-#include <qtextedit.h>
+#include <q3textedit.h>
 
 using namespace MainWindow;
 
@@ -38,9 +40,9 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Search for Images and Videos with Missing Dates" ), Cancel | Ok, Ok, parent, name )
 {
     QWidget* top = plainPage();
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
-    QVButtonGroup* grp = new QVButtonGroup( i18n("Which Images and Videos to Display"), top, "grp" );
+    Q3VButtonGroup* grp = new Q3VButtonGroup( i18n("Which Images and Videos to Display"), top, "grp" );
     lay1->addWidget( grp );
 
     _dateNotTime = new QRadioButton( i18n( "Search for images and videos with a valid date but an invalid time stamp"), grp );
@@ -56,8 +58,8 @@ void InvalidDateFinder::slotOk()
     // create the info dialog
     KDialogBase* info = new KDialogBase(  Plain, i18n("Image Info" ), Ok, Ok, 0, "infobox", false );
     QWidget* top = info->plainPage();
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
-    QTextEdit* edit = new QTextEdit( top );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    Q3TextEdit* edit = new Q3TextEdit( top );
     lay1->addWidget( edit );
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 

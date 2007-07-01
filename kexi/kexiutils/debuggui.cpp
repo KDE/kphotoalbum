@@ -20,8 +20,11 @@
 #include "utils.h"
 #include "utils_p.h"
 
-#include <qheader.h>
+#include <q3header.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
 #include <ktabwidget.h>
 #include <klistview.h>
@@ -42,7 +45,7 @@ QWidget *KexiUtils::createDebugWindow(QWidget *parent)
 	// (this is internal code - do not use i18n() here)
 	debugWindow = new DebugWindowDialog(parent);
 	debugWindow->setSizeGripEnabled( true );
-	QBoxLayout *lyr = new QVBoxLayout(debugWindow, KDialogBase::marginHint());
+	Q3BoxLayout *lyr = new Q3VBoxLayout(debugWindow, KDialogBase::marginHint());
 	debugWindowTab = new KTabWidget(debugWindow, "debugWindowTab");
 	lyr->addWidget( debugWindowTab );
 	debugWindow->resize(900, 600);
@@ -59,8 +62,8 @@ void KexiUtils::addKexiDBDebug(const QString& text)
 		return;
 	if (!kexiDBDebugPage) {
 		QWidget *page = new QWidget(debugWindowTab);
-		QVBoxLayout *vbox = new QVBoxLayout(page);
-		QHBoxLayout *hbox = new QHBoxLayout(page);
+		Q3VBoxLayout *vbox = new Q3VBoxLayout(page);
+		Q3HBoxLayout *hbox = new Q3HBoxLayout(page);
 		vbox->addLayout(hbox);
 		hbox->addStretch(1);
 		KPushButton *btn_clear = new KPushButton(KGuiItem("Clear", "clear_left"), page);
@@ -73,7 +76,7 @@ void KexiUtils::addKexiDBDebug(const QString& text)
 		kexiDBDebugPage->header()->hide();
 		kexiDBDebugPage->setSorting(-1);
 		kexiDBDebugPage->setAllColumnsShowFocus ( true );
-		kexiDBDebugPage->setColumnWidthMode( 0, QListView::Maximum );
+		kexiDBDebugPage->setColumnWidthMode( 0, Q3ListView::Maximum );
 		kexiDBDebugPage->setRootIsDecorated( true );
 		debugWindowTab->addTab( page, "KexiDB" );
 		debugWindowTab->showPage(page);
@@ -93,8 +96,8 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 		return;
 	if (!kexiAlterTableActionDebugPage) {
 		QWidget *page = new QWidget(debugWindowTab);
-		QVBoxLayout *vbox = new QVBoxLayout(page);
-		QHBoxLayout *hbox = new QHBoxLayout(page);
+		Q3VBoxLayout *vbox = new Q3VBoxLayout(page);
+		Q3HBoxLayout *hbox = new Q3HBoxLayout(page);
 		vbox->addLayout(hbox);
 		hbox->addStretch(1);
 		KPushButton *btn_exec = new KPushButton(KGuiItem("Real Alter Table", "filesave"), page);
@@ -113,7 +116,7 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 		kexiAlterTableActionDebugPage->header()->hide();
 		kexiAlterTableActionDebugPage->setSorting(-1);
 		kexiAlterTableActionDebugPage->setAllColumnsShowFocus ( true );
-		kexiAlterTableActionDebugPage->setColumnWidthMode( 0, QListView::Maximum );
+		kexiAlterTableActionDebugPage->setColumnWidthMode( 0, Q3ListView::Maximum );
 		kexiAlterTableActionDebugPage->setRootIsDecorated( true );
 		debugWindowTab->addTab( page, "AlterTable Actions" );
 		debugWindowTab->showPage(page);
@@ -124,7 +127,7 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 	KListViewItem * li;
 	int availableNestingLevels = 0;
 	// compute availableNestingLevels
-	QListViewItem * lastItem = kexiAlterTableActionDebugPage->lastItem();
+	Q3ListViewItem * lastItem = kexiAlterTableActionDebugPage->lastItem();
 	//kdDebug() << "lastItem: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
 	while (lastItem) {
 		lastItem = lastItem->parent();
@@ -140,7 +143,7 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 	}
 	//kdDebug() << "lastItem2: " << (lastItem ? lastItem->text(0) : QString::null) << endl;
 	if (lastItem) {
-		QListViewItem *after = lastItem->firstChild(); //find last child so we can insert a new item after it
+		Q3ListViewItem *after = lastItem->firstChild(); //find last child so we can insert a new item after it
 		while (after && after->nextSibling())
 			after = after->nextSibling();
 		if (after)

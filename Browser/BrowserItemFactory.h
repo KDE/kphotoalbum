@@ -19,8 +19,8 @@
 #ifndef BROWSERITEMFACTORY_H
 #define BROWSERITEMFACTORY_H
 
-#include <qlistview.h>
-#include <qiconview.h>
+#include <q3listview.h>
+#include <q3iconview.h>
 
 namespace Browser
 {
@@ -62,13 +62,13 @@ public:
 class BrowserIconViewItemFactory :public BrowserItemFactory
 {
 public:
-    BrowserIconViewItemFactory( QIconView* view );
+    BrowserIconViewItemFactory( Q3IconView* view );
     virtual BrowserItem* createItem( Folder*, BrowserItem* parentItem );
     void setMatchText( const QString& text );
     virtual bool supportsHierarchy() const;
 
 private:
-    QIconView* _view;
+    Q3IconView* _view;
     QString _matchText;
 };
 
@@ -76,11 +76,11 @@ private:
 class BrowserListViewItemFactory :public BrowserItemFactory
 {
 public:
-    BrowserListViewItemFactory( QListView* view );
+    BrowserListViewItemFactory( Q3ListView* view );
     virtual BrowserItem* createItem( Folder*, BrowserItem* item );
     virtual bool supportsHierarchy() const;
 private:
-    QListView* _view;
+    Q3ListView* _view;
 };
 
 class BrowserItem
@@ -89,23 +89,23 @@ public:
     virtual ~BrowserItem() {}
 };
 
-class BrowserIconItem :public QIconViewItem, public BrowserItem
+class BrowserIconItem :public Q3IconViewItem, public BrowserItem
 {
 public:
-    BrowserIconItem( QIconView* view, Folder* folder );
+    BrowserIconItem( Q3IconView* view, Folder* folder );
     ~BrowserIconItem();
     Folder* _folder;
 };
 
 
-class BrowserListItem :public QListViewItem, public BrowserItem
+class BrowserListItem :public Q3ListViewItem, public BrowserItem
 {
 public:
-    BrowserListItem( QListView* view, Folder* folder );
-    BrowserListItem( QListViewItem* view, Folder* folder );
+    BrowserListItem( Q3ListView* view, Folder* folder );
+    BrowserListItem( Q3ListViewItem* view, Folder* folder );
     ~BrowserListItem();
     Folder* _folder;
-    virtual int compare( QListViewItem* other, int col, bool asc ) const;
+    virtual int compare( Q3ListViewItem* other, int col, bool asc ) const;
 };
 
 }

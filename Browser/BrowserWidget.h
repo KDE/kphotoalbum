@@ -18,12 +18,14 @@
 
 #ifndef BROWSER_H
 #define BROWSER_H
-#include <qlistview.h>
-#include <qiconview.h>
+#include <q3listview.h>
+#include <q3iconview.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "Settings/SettingsData.h"
 
-class QListViewItem;
-class QWidgetStack;
+class Q3ListViewItem;
+class Q3WidgetStack;
 
 namespace DB
 {
@@ -80,8 +82,8 @@ signals:
 
 protected slots:
     void init();
-    void select( QListViewItem* item );
-    void select( QIconViewItem* item );
+    void select( Q3ListViewItem* item );
+    void select( Q3IconViewItem* item );
     void select( FolderAction* action );
     void resetIconViewSearch();
 
@@ -93,14 +95,14 @@ protected:
 
 private:
     static BrowserWidget* _instance;
-    QValueList<FolderAction*> _list;
+    Q3ValueList<FolderAction*> _list;
     int _current;
     BrowserItemFactory* _listViewFactory;
     BrowserIconViewItemFactory* _iconViewFactory;
     BrowserItemFactory* _currentFactory;
-    QWidgetStack* _stack;
-    QIconView* _iconView;
-    QListView* _listView;
+    Q3WidgetStack* _stack;
+    Q3IconView* _iconView;
+    Q3ListView* _listView;
 };
 
 }

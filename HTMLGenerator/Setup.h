@@ -21,7 +21,7 @@
 #include <qstring.h>
 #include <qmap.h>
 #include "ImageSizeCheckBox.h"
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 namespace HTMLGenerator
 {
@@ -61,8 +61,8 @@ public:
     void setIncludeCategory( const QString& category, bool include );
     bool includeCategory( const QString& category ) const;
 
-    void setResolutions( const QValueList<ImageSizeCheckBox*>& sizes );
-    const QValueList<HTMLGenerator::ImageSizeCheckBox*>& activeResolutions() const;
+    void setResolutions( const Q3ValueList<ImageSizeCheckBox*>& sizes );
+    const Q3ValueList<HTMLGenerator::ImageSizeCheckBox*>& activeResolutions() const;
 
     void setImageList( const QStringList& files );
     const QStringList& imageList() const;
@@ -83,7 +83,7 @@ private:
     bool _generateKimFile;
     QString _theme;
     QMap<QString,bool> _includeCategory;
-    QValueList<ImageSizeCheckBox*> _resolutions;
+    Q3ValueList<ImageSizeCheckBox*> _resolutions;
     QStringList _images;
     bool _inlineMovies;
 };

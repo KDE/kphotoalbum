@@ -18,7 +18,9 @@
 
 #ifndef EXTERNALPOPUP_H
 #define EXTERNALPOPUP_H
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include "DB/ImageInfoList.h"
 #include <Utilities/Set.h>
 #include <qpair.h>
@@ -32,7 +34,7 @@ namespace MainWindow
 {
 typedef Set< QPair<QString,QPixmap> > OfferType;
 
-class ExternalPopup :public QPopupMenu {
+class ExternalPopup :public Q3PopupMenu {
     Q_OBJECT
 
 public:

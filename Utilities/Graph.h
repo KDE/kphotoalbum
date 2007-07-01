@@ -21,19 +21,21 @@
 #define UTILITIES_GRAPH_H
 
 #include "Set.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 template <class T>
-QMap< T, Set<T> > pairsToMap(const QValueList<T[2]>& pairs);
+QMap< T, Set<T> > pairsToMap(const Q3ValueList<T[2]>& pairs);
 template <class T>
 QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map);
 
 
 template <class T>
-QMap< T, Set<T> > pairsToMap(const QValueList<T[2]>& pairs)
+QMap< T, Set<T> > pairsToMap(const Q3ValueList<T[2]>& pairs)
 {
     QMap< T, Set<T> > map;
-    typename QValueList<T[2]>::const_iterator end = pairs.end();
-    for (typename QValueList<T[2]>::const_iterator i = pairs.begin();
+    typename Q3ValueList<T[2]>::const_iterator end = pairs.end();
+    for (typename Q3ValueList<T[2]>::const_iterator i = pairs.begin();
          i != end; ++i)
         map[(*i)[0]].insert((*i)[1]);
     return map;
@@ -44,11 +46,11 @@ QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map)
 {
     QMap< T, Set<T> > closure;
     QMap<T, bool> calculated;
-    const QValueList<T> keys = map.keys();
-    typename QValueList<T>::const_iterator keysEnd = keys.end();
-    for (typename QValueList<T>::const_iterator i = keys.begin();
+    const Q3ValueList<T> keys = map.keys();
+    typename Q3ValueList<T>::const_iterator keysEnd = keys.end();
+    for (typename Q3ValueList<T>::const_iterator i = keys.begin();
          i != keysEnd; ++i) {
-        QValueList<T> queue;
+        Q3ValueList<T> queue;
         //closure[*i].insert(*i);
         queue.append(*i);
         Set<T> closure_i = closure[*i];

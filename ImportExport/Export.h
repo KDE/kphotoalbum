@@ -26,7 +26,7 @@ class QRadioButton;
 class QSpinBox;
 class QCheckBox;
 class KZip;
-class QProgressDialog;
+class Q3ProgressDialog;
 
 namespace ImportExport
 {
@@ -49,7 +49,7 @@ protected:
 private:
     int _filesRemaining;
     int _steps;
-    QProgressDialog* _progressDialog;
+    Q3ProgressDialog* _progressDialog;
     bool& _ok;
     KZip* _zip;
     int _maxSize;

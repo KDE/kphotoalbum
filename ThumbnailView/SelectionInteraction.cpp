@@ -17,6 +17,8 @@
 */
 #include "SelectionInteraction.h"
 #include <qtimer.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 #include "ThumbnailWidget.h"
 #include <qcursor.h>
 #include <qapplication.h>

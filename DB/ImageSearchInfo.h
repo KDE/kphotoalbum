@@ -20,7 +20,9 @@
 #define IMAGESEARCHINFO_H
 #include "DB/ImageDate.h"
 #include <qmap.h>
-#include <qdict.h>
+#include <q3dict.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
 #include <config.h>
@@ -54,7 +56,7 @@ public:
 
     bool isNull() const;
     bool match( ImageInfoPtr ) const;
-    QValueList< QValueList<OptionSimpleMatcher*> > query() const;
+    Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > query() const;
 
     void addAnd( const QString& category, const QString& value );
     QString toString() const;
@@ -64,7 +66,7 @@ public:
 
     void debug();
     void debugMatcher() const;
-    QDict<void> findAlreadyMatched( const QString &group ) const;
+    Q3Dict<void> findAlreadyMatched( const QString &group ) const;
 
 #ifdef HASEXIV2
     void addExifSearchInfo( const Exif::SearchInfo info );
@@ -74,8 +76,8 @@ protected:
     void compile() const;
     void deleteMatchers() const;
 
-    QValueList<OptionSimpleMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
-    QValueList< QValueList<OptionSimpleMatcher*> > convertMatcher( CategoryMatcher* ) const;
+    Q3ValueList<OptionSimpleMatcher*> extractAndMatcher( CategoryMatcher* andMatcher ) const;
+    Q3ValueList< Q3ValueList<OptionSimpleMatcher*> > convertMatcher( CategoryMatcher* ) const;
 
 private:
     ImageDate _date;
@@ -84,7 +86,7 @@ private:
     QString _description;
     bool _isNull;
     mutable bool _compiled;
-    mutable QValueList<CategoryMatcher*> _optionMatchers;
+    mutable Q3ValueList<CategoryMatcher*> _optionMatchers;
 
 #ifdef HASEXIV2
     Exif::SearchInfo _exifSearchInfo;

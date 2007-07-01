@@ -18,12 +18,12 @@
 #ifndef CATEGORYLISTVIEW_DRAGABLELISTVIEW_H
 #define CATEGORYLISTVIEW_DRAGABLELISTVIEW_H
 
-#include <qlistview.h>
+#include <q3listview.h>
 #include "DB/Category.h"
 
 namespace CategoryListView
 {
-class DragableListView :public QListView
+class DragableListView :public Q3ListView
 {
     Q_OBJECT
 
@@ -36,7 +36,7 @@ signals:
     void itemsChanged();
 
 protected:
-    virtual QDragObject* dragObject();
+    virtual Q3DragObject* dragObject();
 
 private:
     const DB::CategoryPtr _category;

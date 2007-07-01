@@ -752,7 +752,7 @@ typedef union YYSTYPE
 #line 511 "sqlparser.y"
 {
 	QString* stringValue;
-	Q_LLONG integerValue;
+	qlonglong integerValue;
 	bool booleanValue;
 	struct realType realValue;
 	KexiDB::Field::Type colType;

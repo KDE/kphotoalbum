@@ -18,10 +18,12 @@
 #include "RequestQueue.h"
 #include "ImageRequest.h"
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 void ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
-    for( QValueList<ImageRequest*>::ConstIterator pendingIt = _pendingRequests.begin();
+    for( Q3ValueList<ImageRequest*>::ConstIterator pendingIt = _pendingRequests.begin();
          pendingIt != _pendingRequests.end(); ++pendingIt ) {
         if ( *request == *(*pendingIt) ) {
             delete request;
@@ -69,7 +71,7 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
         }
     }
 
-    for( QValueList<ImageRequest*>::Iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ) {
+    for( Q3ValueList<ImageRequest*>::Iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ) {
         ImageRequest* request = *it;
         ++it;
         if ( request->client() == client && ( action == StopAll || !request->priority() ) ) {

@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CategoryCollection.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 using namespace DB;
 
@@ -34,8 +36,8 @@ void CategoryCollection::itemRemoved( const QString& item )
 */
 QString CategoryCollection::nameForText( const QString& text )
 {
-    QValueList<CategoryPtr> list = categories();
-    for( QValueList<CategoryPtr>::Iterator it = list.begin(); it != list.end(); ++it ) {
+    Q3ValueList<CategoryPtr> list = categories();
+    for( Q3ValueList<CategoryPtr>::Iterator it = list.begin(); it != list.end(); ++it ) {
         if ( (*it)->text() == text )
             return (*it)->name();
     }

@@ -17,6 +17,9 @@
 */
 #include "DirtyIndicator.h"
 #include <kiconloader.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QLabel>
 
 static MainWindow::DirtyIndicator* _instance = 0;
 bool MainWindow::DirtyIndicator::_autoSaveDirty = false;

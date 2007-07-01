@@ -38,24 +38,24 @@
  * \brief Helper class for only showing items that are selected.
  */
 
-void AnnotationDialog::ListViewHider::setItemsVisible( QListView* listView )
+void AnnotationDialog::ListViewHider::setItemsVisible( Q3ListView* listView )
 {
     // It seems like a bug in Qt, but I need to make all item visible first, otherwise I see wrong items when I have items
     // two layers deep (A->B->c). It only occours when I widen (types "je", now deletes the "e" to get to "j" ).
-    for ( QListViewItemIterator it( listView ); *it; ++it )
+    for ( Q3ListViewItemIterator it( listView ); *it; ++it )
         (*it)->setVisible( true );
 
-    for ( QListViewItem* item = listView->firstChild(); item; item = item->nextSibling() ) {
+    for ( Q3ListViewItem* item = listView->firstChild(); item; item = item->nextSibling() ) {
         bool anyChildrenVisible = setItemsVisible( item );
         bool visible = anyChildrenVisible || shouldItemBeShown( item );
         item->setVisible( visible );
     }
 }
 
-bool AnnotationDialog::ListViewHider::setItemsVisible( QListViewItem* parentItem )
+bool AnnotationDialog::ListViewHider::setItemsVisible( Q3ListViewItem* parentItem )
 {
     bool anyChildrenVisible = false;
-    for ( QListViewItem* item = parentItem->firstChild(); item; item = item->nextSibling() ) {
+    for ( Q3ListViewItem* item = parentItem->firstChild(); item; item = item->nextSibling() ) {
         bool anySubChildrenVisible = setItemsVisible( item );
         bool itemVisible = anySubChildrenVisible || shouldItemBeShown( item );
         item->setVisible( itemVisible );
@@ -64,13 +64,13 @@ bool AnnotationDialog::ListViewHider::setItemsVisible( QListViewItem* parentItem
     return anyChildrenVisible;
 }
 
-AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString& text, bool anchorAtStart, QListView* listView )
+AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString& text, bool anchorAtStart, Q3ListView* listView )
     :_text( text ), _anchorAtStart( anchorAtStart )
 {
     setItemsVisible( listView );
 }
 
-bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( QListViewItem* item )
+bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( Q3ListViewItem* item )
 {
     if ( _anchorAtStart )
         return item->text(0).lower().startsWith( _text.lower() );
@@ -78,12 +78,12 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( QListViewItem*
         return item->text(0).lower().contains( _text.lower() );
 }
 
-bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( QListViewItem* item )
+bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( Q3ListViewItem* item )
 {
-    return static_cast<QCheckListItem*>(item)->isOn();
+    return static_cast<Q3CheckListItem*>(item)->isOn();
 }
 
-AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider( QListView* listView )
+AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider( Q3ListView* listView )
 {
     setItemsVisible( listView );
 }

@@ -17,7 +17,7 @@
 */
 #ifndef LISTVIEWITEMHIDER_H
 #define LISTVIEWITEMHIDER_H
-#include <qlistview.h>
+#include <q3listview.h>
 
 namespace AnnotationDialog {
 
@@ -25,19 +25,19 @@ class ListViewHider
 {
 protected:
     ListViewHider() {}
-    void setItemsVisible( QListView* );
-    bool setItemsVisible( QListViewItem* parentItem );
-    virtual bool shouldItemBeShown( QListViewItem* ) = 0;
+    void setItemsVisible( Q3ListView* );
+    bool setItemsVisible( Q3ListViewItem* parentItem );
+    virtual bool shouldItemBeShown( Q3ListViewItem* ) = 0;
 };
 
 
 class ListViewTextMatchHider :public ListViewHider
 {
 public:
-    ListViewTextMatchHider( const QString& text, bool anchorAtStart, QListView* listView );
+    ListViewTextMatchHider( const QString& text, bool anchorAtStart, Q3ListView* listView );
 
 protected:
-    virtual bool shouldItemBeShown( QListViewItem* );
+    virtual bool shouldItemBeShown( Q3ListViewItem* );
 
 private:
     QString _text;
@@ -47,10 +47,10 @@ private:
 class ListViewCheckedHider :public ListViewHider
 {
 public:
-    ListViewCheckedHider( QListView* );
+    ListViewCheckedHider( Q3ListView* );
 
 protected:
-    virtual bool shouldItemBeShown( QListViewItem* );
+    virtual bool shouldItemBeShown( Q3ListViewItem* );
 };
 
 }

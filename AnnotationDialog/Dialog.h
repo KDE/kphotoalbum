@@ -23,6 +23,13 @@
 #include <kdockwidget.h>
 #include "Editor.h"
 #include <qdialog.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QEvent>
+#include <QMoveEvent>
+#include <Q3ValueList>
+#include <QCloseEvent>
+#include <Q3PtrList>
 #include <ktimewidget.h>
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
@@ -106,16 +113,16 @@ protected:
 
 private:
     DB::ImageInfoList _origList;
-    QValueList<DB::ImageInfo> _editList;
+    Q3ValueList<DB::ImageInfo> _editList;
     int _current;
     UsageMode _setup;
-    QPtrList< ListSelect > _optionList;
+    Q3PtrList< ListSelect > _optionList;
     DB::ImageSearchInfo _oldSearch;
     QSplitter* _splitter;
     Viewer::ViewerWidget* _viewer;
     int _accept;
-    QValueList<KDockWidget*> _dockWidgets;
-    QValueList<KDockWidget*> _tornOfWindows;
+    Q3ValueList<KDockWidget*> _dockWidgets;
+    Q3ValueList<KDockWidget*> _tornOfWindows;
     bool _thumbnailShouldReload;
     bool _thumbnailTextShouldReload;
 

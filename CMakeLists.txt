@@ -3,7 +3,7 @@ find_package(KDE4 REQUIRED)
 
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
-macro_optional_find_package(Kipi)
+#PENDING macro_optional_find_package(Kipi)
 macro_optional_find_package(Exiv2)
 macro_optional_find_package(JPEG)
 

@@ -1,3 +1,5 @@
+//Added by qt3to4:
+#include <QPixmap>
 /* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -21,7 +23,7 @@
 class QPixmap;
 class KFileItem;
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qobject.h>
 #include "Manager.h"
 

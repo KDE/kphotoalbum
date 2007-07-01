@@ -22,6 +22,8 @@
 #include <kexidb/connection.h>
 #include <kexidb/connection_p.h>
 #include <kdebug.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 using namespace KexiDB;
 
@@ -42,9 +44,9 @@ PreparedStatement::~PreparedStatement()
 	delete m_whereFields;
 }
 
-QCString PreparedStatement::generateStatementString()
+Q3CString PreparedStatement::generateStatementString()
 {
-	QCString s(1024);
+	Q3CString s(1024);
 	if (m_type == SelectStatement) {
 //! @todo only tables and trivial queries supported for select...
 		s = "SELECT ";
@@ -86,7 +88,7 @@ QCString PreparedStatement::generateStatementString()
 		if (!table)
 			return ""; //err
 
-		QCString namesList;
+		Q3CString namesList;
 		bool first = true;
 		const bool allTableFieldsUsed = dynamic_cast<TableSchema*>(m_fields); //we are using a selection of fields only
 		Field::ListIterator it = m_fields->fieldsIterator();
@@ -99,12 +101,12 @@ QCString PreparedStatement::generateStatementString()
 			} else {
 				s.append( ",?" );
 				if (!allTableFieldsUsed)
-					namesList.append(QCString(", ")+it.current()->name().latin1());
+					namesList.append(Q3CString(", ")+it.current()->name().latin1());
 			}
 		}
 		s.append(")");
-		s.prepend(QCString("INSERT INTO ") + table->name().latin1()
-			+ (allTableFieldsUsed ? QCString() : (" (" + namesList + ")"))
+		s.prepend(Q3CString("INSERT INTO ") + table->name().latin1()
+			+ (allTableFieldsUsed ? Q3CString() : (" (" + namesList + ")"))
 			+ " VALUES (");
 	}
 	return s;

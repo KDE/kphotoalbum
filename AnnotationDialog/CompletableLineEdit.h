@@ -19,6 +19,8 @@
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
 #include <qlineedit.h>
+//Added by qt3to4:
+#include <QKeyEvent>
 #include "ListSelect.h"
 
 namespace AnnotationDialog
@@ -27,21 +29,21 @@ class CompletableLineEdit :public QLineEdit {
 
 public:
     CompletableLineEdit( ListSelect* parent,  const char* name = 0 );
-    void setListView( QListView* );
+    void setListView( Q3ListView* );
     void setMode( UsageMode mode );
 
 protected:
     virtual void keyPressEvent( QKeyEvent* ev );
-    QListViewItem* findItemInListView( const QString& startWith );
+    Q3ListViewItem* findItemInListView( const QString& startWith );
     bool isSpecialKey( QKeyEvent* );
     void handleSpecialKeysInSearch( QKeyEvent* );
-    bool itemMatchesText( QListViewItem* item, const QString& text );
+    bool itemMatchesText( Q3ListViewItem* item, const QString& text );
     void selectPrevNextMatch( bool next );
-    void selectItemAndUpdateLineEdit( QListViewItem* item, int itemStart, const QString& inputText );
+    void selectItemAndUpdateLineEdit( Q3ListViewItem* item, int itemStart, const QString& inputText );
     void mergePreviousImageSelection();
 
 private:
-    QListView* _listView;
+    Q3ListView* _listView;
     UsageMode _mode;
     ListSelect* _listSelect;
     bool _showingSelectionOnly;

@@ -19,14 +19,14 @@
 #ifndef VIEWERSIZECONFIG_H
 #define VIEWERSIZECONFIG_H
 
-#include <qvgroupbox.h>
+#include <q3vgroupbox.h>
 class QCheckBox;
 class QSpinBox;
 
 namespace Settings
 {
 
-class ViewerSizeConfig :public QVGroupBox {
+class ViewerSizeConfig :public Q3VGroupBox {
     Q_OBJECT
 
 public:

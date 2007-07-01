@@ -25,7 +25,7 @@
 
 #include <kexiutils/tristate.h>
 
-class QProcess;
+class Q3Process;
 class KTempFile;
 class KProgressDialog;
 
@@ -61,7 +61,7 @@ class SQLiteVacuum : public QObject
 
 	protected:
 		QString m_filePath;
-		QProcess *m_process;
+		Q3Process *m_process;
 		KProgressDialog* m_dlg;
 		int m_percent;
 		tristate m_result;

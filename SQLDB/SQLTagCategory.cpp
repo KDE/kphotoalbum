@@ -20,6 +20,8 @@
 
 #include "SQLTagCategory.h"
 #include "QueryHelper.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 SQLDB::SQLTagCategory::SQLTagCategory(QueryHelper* queryHelper,
                                       int categoryId):
@@ -144,8 +146,8 @@ QMap<QString, uint>
 SQLDB::SQLTagCategory::classify(const DB::ImageSearchInfo& scope,
                                 DB::MediaType typemask) const
 {
-    QValueList<int>* scopePointer;
-    QValueList<int> includedFiles;
+    Q3ValueList<int>* scopePointer;
+    Q3ValueList<int> includedFiles;
     if (scope.isNull())
         scopePointer = 0;
     else {

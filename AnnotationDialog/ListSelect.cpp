@@ -21,7 +21,13 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qvalidator.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
+#include <QMouseEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
@@ -29,11 +35,11 @@
 #include <kio/job.h>
 #include <qtoolbutton.h>
 #include <kiconloader.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include "DB/CategoryCollection.h"
 #include "DB/MemberMap.h"
-#include <qlistview.h>
-#include <qheader.h>
+#include <q3listview.h>
+#include <q3header.h>
 #include <Utilities/Set.h>
 #include "CompletableLineEdit.h"
 #include "DB/CategoryItem.h"
@@ -49,7 +55,7 @@ using CategoryListView::CheckDropItem;
 AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidget* parent, const char* name )
     : QWidget( parent,  name ), _category( category )
 {
-    QVBoxLayout* layout = new QVBoxLayout( this,  6 );
+    Q3VBoxLayout* layout = new Q3VBoxLayout( this,  6 );
 
     _label = new QLabel( _category->text(), this );
     _label->setAlignment( AlignCenter );
@@ -64,18 +70,18 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _listView->addColumn( QString::fromLatin1( "items" ) );
     _listView->header()->setStretchEnabled( true );
     _listView->header()->hide();
-    _listView->setSelectionMode( QListView::Extended );
-    connect( _listView, SIGNAL( clicked( QListViewItem*  ) ),  this,  SLOT( itemSelected( QListViewItem* ) ) );
-    connect( _listView, SIGNAL( contextMenuRequested( QListViewItem*, const QPoint&, int ) ),
-             this, SLOT(showContextMenu( QListViewItem*, const QPoint& ) ) );
+    _listView->setSelectionMode( Q3ListView::Extended );
+    connect( _listView, SIGNAL( clicked( Q3ListViewItem*  ) ),  this,  SLOT( itemSelected( Q3ListViewItem* ) ) );
+    connect( _listView, SIGNAL( contextMenuRequested( Q3ListViewItem*, const QPoint&, int ) ),
+             this, SLOT(showContextMenu( Q3ListViewItem*, const QPoint& ) ) );
     connect( _listView, SIGNAL( itemsChanged() ), this, SLOT( rePopulate() ) );
 
     layout->addWidget( _listView );
     _listView->viewport()->installEventFilter( this );
 
     // Merge CheckBox
-    QHBoxLayout* lay2 = new QHBoxLayout( layout, 6 );
-    QButtonGroup* group = new QButtonGroup( this );
+    Q3HBoxLayout* lay2 = new Q3HBoxLayout( layout, 6 );
+    Q3ButtonGroup* group = new Q3ButtonGroup( this );
     group->hide();
     _or = new QRadioButton( i18n("or"), this );
     _and = new QRadioButton( i18n("and"), this );
@@ -86,7 +92,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     lay2->addStretch(1);
 
     // Sorting tool button
-    QButtonGroup* grp = new QButtonGroup( this );
+    Q3ButtonGroup* grp = new Q3ButtonGroup( this );
     grp->setExclusive( true );
     grp->hide();
 
@@ -131,9 +137,9 @@ void AnnotationDialog::ListSelect::slotReturn()
         _category->addItem( txt);
         rePopulate();
 
-        QListViewItem* item = _listView->findItem( txt, 0 );
+        Q3ListViewItem* item = _listView->findItem( txt, 0 );
         if ( item )
-            static_cast<QCheckListItem*>(item)->setOn( true );
+            static_cast<Q3CheckListItem*>(item)->setOn( true );
         else
             Q_ASSERT( false );
 
@@ -149,10 +155,10 @@ QString AnnotationDialog::ListSelect::category() const
 
 void AnnotationDialog::ListSelect::setSelection( const StringSet& on, const StringSet& partiallyOn )
 {
-    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        QCheckListItem* item = static_cast<QCheckListItem*>(*itemIt);
+    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+        Q3CheckListItem* item = static_cast<Q3CheckListItem*>(*itemIt);
         if ( partiallyOn.contains( item->text(0) ) )
-            item->setState( QCheckListItem::NoChange );
+            item->setState( Q3CheckListItem::NoChange );
         else
             item->setOn( on.contains( item->text(0) ) );
         _listView->repaintItem(*itemIt);
@@ -181,7 +187,7 @@ void AnnotationDialog::ListSelect::setMode( UsageMode mode )
 	_and->hide();
         _or->hide();
     }
-    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
+    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt )
         configureItem( dynamic_cast<CategoryListView::CheckDropItem*>(*itemIt) );
 }
 
@@ -210,7 +216,7 @@ void AnnotationDialog::ListSelect::setText( const QString& text )
     _listView->clearSelection();
 }
 
-void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
+void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
 {
     if ( !item ) {
         // click outside any item
@@ -222,7 +228,7 @@ void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
         QString res;
         QRegExp regEnd( QString::fromLatin1("\\s*[&|!]\\s*$") );
         QRegExp regStart( QString::fromLatin1("^\\s*[&|!]\\s*") );
-        if ( static_cast<QCheckListItem*>(item)->isOn() )  {
+        if ( static_cast<Q3CheckListItem*>(item)->isOn() )  {
             int matchPos = _lineEdit->text().find( txt );
             if ( matchPos != -1 )
                 return;
@@ -263,9 +269,9 @@ void AnnotationDialog::ListSelect::itemSelected( QListViewItem* item )
 }
 
 
-void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const QPoint& pos )
+void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const QPoint& pos )
 {
-    QPopupMenu menu( this, "context popup menu" );
+    Q3PopupMenu menu( this, "context popup menu" );
 
     // click on any item
     QString title = i18n("No Item Selected");
@@ -285,7 +291,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     // -------------------------------------------------- Add/Remove member group
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
     QMap<int, QString> map;
-    QPopupMenu* members = new QPopupMenu( &menu );
+    Q3PopupMenu* members = new Q3PopupMenu( &menu );
     members->setCheckable( true );
     menu.insertItem( i18n( "Super Categories" ), members, 5 );
     if ( item ) {
@@ -308,7 +314,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
     menu.insertItem( i18n( "Create Subcategory..." ), 8 );
 
     // -------------------------------------------------- Take item out of category
-    QListViewItem* parent = item ? item->parent() : 0;
+    Q3ListViewItem* parent = item ? item->parent() : 0;
     if ( parent )
         menu.insertItem( i18n( "Take item out of category %1" ).arg( parent->text(0) ), 9 );
 
@@ -357,7 +363,7 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text(0);
                 _category->renameItem( oldStr, newStr );
-                bool checked = static_cast<QCheckListItem*>(item)->isOn();
+                bool checked = static_cast<Q3CheckListItem*>(item)->isOn();
                 rePopulate();
                 // rePopuldate doesn't ask the backend if the item should be checked, so we need to do that.
                 checkItem( newStr, checked );
@@ -418,9 +424,9 @@ void AnnotationDialog::ListSelect::showContextMenu( QListViewItem* item, const Q
 }
 
 
-void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, QListViewItem* parent )
+void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, Q3ListViewItem* parent )
 {
-    for( QValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
+    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
         CheckDropItem* newItem = 0;
 
         if ( parent == 0 )
@@ -548,19 +554,19 @@ bool AnnotationDialog::ListSelect::isInputMode() const
 
 StringSet AnnotationDialog::ListSelect::itemsOn() const
 {
-    return itemsOfState( QCheckListItem::On );
+    return itemsOfState( Q3CheckListItem::On );
 }
 
 StringSet AnnotationDialog::ListSelect::itemsOff() const
 {
-    return itemsOfState( QCheckListItem::Off );
+    return itemsOfState( Q3CheckListItem::Off );
 }
 
-StringSet AnnotationDialog::ListSelect::itemsOfState( QCheckListItem::ToggleState state ) const
+StringSet AnnotationDialog::ListSelect::itemsOfState( Q3CheckListItem::ToggleState state ) const
 {
     StringSet res;
-    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
-        if ( static_cast<QCheckListItem*>(*itemIt)->state() == state )
+    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+        if ( static_cast<Q3CheckListItem*>(*itemIt)->state() == state )
             res.insert( (*itemIt)->text(0) );
     }
     return res;
@@ -568,14 +574,14 @@ StringSet AnnotationDialog::ListSelect::itemsOfState( QCheckListItem::ToggleStat
 
 StringSet AnnotationDialog::ListSelect::itemsUnchanged() const
 {
-    return itemsOfState( QCheckListItem::NoChange );
+    return itemsOfState( Q3CheckListItem::NoChange );
 }
 
 void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
 {
-    QListViewItem* item = _listView->findItem( itemText, 0 );
+    Q3ListViewItem* item = _listView->findItem( itemText, 0 );
     if ( item )
-        static_cast<QCheckListItem*>(item)->setOn( b );
+        static_cast<Q3CheckListItem*>(item)->setOn( b );
     else
         Q_ASSERT( false );
 }
@@ -584,12 +590,12 @@ void AnnotationDialog::ListSelect::checkItem( const QString itemText, bool b )
  * An item may be member of a number of categories. Mike may be a member of coworkers and friends.
  * Selecting the item in one subcategory, should select him in all.
  */
-void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged( QListViewItem* item )
+void AnnotationDialog::ListSelect::ensureAllInstancesAreStateChanged( Q3ListViewItem* item )
 {
-    bool on = static_cast<QCheckListItem*>(item)->isOn();
-    for ( QListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
+    bool on = static_cast<Q3CheckListItem*>(item)->isOn();
+    for ( Q3ListViewItemIterator itemIt( _listView ); *itemIt; ++itemIt ) {
         if ( (*itemIt) != item && (*itemIt)->text(0) == item->text(0) )
-            static_cast<QCheckListItem*>(*itemIt)->setOn( on );
+            static_cast<Q3CheckListItem*>(*itemIt)->setOn( on );
     }
 }
 

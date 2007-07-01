@@ -19,7 +19,7 @@
 #ifndef GROUPCOUNTER_H
 #define GROUPCOUNTER_H
 #include "Settings/SettingsData.h"
-#include <qdict.h>
+#include <q3dict.h>
 
 namespace DB
 {
@@ -32,8 +32,8 @@ public:
     QMap<QString,uint> result();
 
 private:
-    QDict<QStringList> _memberToGroup;
-    QDict<uint> _groupCount;
+    Q3Dict<QStringList> _memberToGroup;
+    Q3Dict<uint> _groupCount;
 
 };
 

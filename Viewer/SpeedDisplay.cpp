@@ -20,6 +20,9 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <Q3HBoxLayout>
 
 #include <klocale.h>
 
@@ -27,13 +30,13 @@ Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
     :QDialog( parent, name, false, WStyle_Customize | WStyle_NoBorder | WX11BypassWM| WStyle_StaysOnTop )
 {
     _label = new QLabel( this );
-    _layout = new QHBoxLayout( this );
+    _layout = new Q3HBoxLayout( this );
     _layout->addWidget( _label );
     _timer = new QTimer( this );
     connect( _timer, SIGNAL( timeout() ), this, SLOT( hide() ) );
 
     _label->setPaletteBackgroundColor( yellow );
-    _label->setFrameStyle( QFrame::Box | QFrame::Plain );
+    _label->setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
 }
 
 void Viewer::SpeedDisplay::display( int i )

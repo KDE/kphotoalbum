@@ -27,12 +27,12 @@ const char* CategoryListView::DragObject::format( int i ) const
 QByteArray CategoryListView::DragObject::encodedData( const char* ) const
 {
     QByteArray res;
-    QDataStream stream( res, IO_WriteOnly );
+    QDataStream stream( res, QIODevice::WriteOnly );
     stream << _items;
     return res;
 }
 
 CategoryListView::DragObject::DragObject( const CategoryListView::DragItemInfoSet& items, QWidget* dragSource )
-    :QDragObject( dragSource ), _items( items )
+    :Q3DragObject( dragSource ), _items( items )
 {
 }

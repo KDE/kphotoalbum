@@ -18,8 +18,10 @@
 
 #ifndef NEWIMAGEFINDER_H
 #define NEWIMAGEFINDER_H
-#include <qdict.h>
+#include <q3dict.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "DB/MD5Map.h"
 #include "ImageInfo.h"
 
@@ -33,13 +35,13 @@ public:
     bool calculateMD5sums( const QStringList& list, DB::MD5Map* map, bool* wasCanceled = 0 );
 
 protected:
-    void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
+    void searchForNewFiles( const Q3Dict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
     ImageInfoPtr loadExtraFile( const QString& name, DB::MediaType type );
     MD5 MD5Sum( const QString& fileName );
 
 private:
-    typedef QValueList< QPair< QString, DB::MediaType > > LoadList;
+    typedef Q3ValueList< QPair< QString, DB::MediaType > > LoadList;
     LoadList _pendingLoad;
 };
 }

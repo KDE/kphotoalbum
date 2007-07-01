@@ -19,7 +19,7 @@
 #ifndef RADIOBUTTONQUESTION_H
 #define RADIOBUTTONQUESTION_H
 #include <question.h>
-class QButtonGroup;
+class Q3ButtonGroup;
 
 namespace Survey {
 
@@ -34,7 +34,7 @@ namespace Survey {
         virtual void load( QDomElement& );
 
     private:
-        QButtonGroup* _answers;
+        Q3ButtonGroup* _answers;
     };
 }
 

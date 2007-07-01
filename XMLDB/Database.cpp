@@ -33,6 +33,8 @@
 #include "FileReader.h"
 #include "FileWriter.h"
 #include "MainWindow/DirtyIndicator.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 bool XMLDB::Database::_anyImageWithEmptySize = false;
 XMLDB::Database::Database( const QString& configFile ):
@@ -77,7 +79,7 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
 {
     QMap<QString, uint> map;
     DB::GroupCounter counter( group );
-    QDict<void> alreadyMatched = info.findAlreadyMatched( group );
+    Q3Dict<void> alreadyMatched = info.findAlreadyMatched( group );
 
     DB::ImageSearchInfo noMatchInfo = info;
     QString currentMatchTxt = noMatchInfo.option( group );
@@ -484,8 +486,8 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
     if ( db == 0 )
         return;
 
-    QValueList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
-    for( QValueList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
+    Q3ValueList<DB::CategoryPtr> categoryList = db->_categoryCollection.categories();
+    for( Q3ValueList<DB::CategoryPtr>::Iterator categoryIt = categoryList.begin(); categoryIt != categoryList.end(); ++categoryIt ) {
         QString categoryName = (*categoryIt)->name();
         QString str = elm.attribute( FileWriter::escape( categoryName ) );
         if ( !str.isEmpty() ) {

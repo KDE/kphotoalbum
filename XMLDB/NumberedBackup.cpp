@@ -36,7 +36,7 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
 
         QString fileAndDir = QString::fromLatin1( "%1/%2" ).arg(Settings::SettingsData::instance()->imageDirectory() ).arg(fileNameWithExt);
         KZip zip( fileAndDir );
-        if ( ! zip.open( IO_WriteOnly ) ) {
+        if ( ! zip.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error creating zip file %1").arg(fileAndDir) );
             return;
         }

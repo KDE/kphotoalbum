@@ -1,3 +1,9 @@
+//Added by qt3to4:
+#include <QContextMenuEvent>
+#include <QMoveEvent>
+#include <QCloseEvent>
+#include <QResizeEvent>
+#include <QLabel>
 /* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -18,7 +24,7 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
-class QWidgetStack;
+class Q3WidgetStack;
 class QTimer;
 class KTipDialog;
 class ReadInfoDialog;
@@ -161,8 +167,8 @@ private:
 
     ThumbnailView::ThumbnailWidget* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;
-    QGuardedPtr<AnnotationDialog::Dialog> _annotationDialog;
-    QWidgetStack* _stack;
+    QPointer<AnnotationDialog::Dialog> _annotationDialog;
+    Q3WidgetStack* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;
     Browser::BrowserWidget* _browser;

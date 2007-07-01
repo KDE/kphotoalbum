@@ -24,12 +24,14 @@
 #include "ContentFolder.h"
 #include "ImageFolder.h"
 #include <qtimer.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
-#include <qlistview.h>
+#include <q3listview.h>
 #include "Utilities/ShowBusyCursor.h"
 #include "BrowserItemFactory.h"
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include <qlayout.h>
 #include "DB/CategoryCollection.h"
 #include "AnnotationDialog/ListViewItemHider.h"
@@ -44,14 +46,14 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent, const char* name )
     Q_ASSERT( !_instance );
     _instance = this;
 
-    _stack = new QWidgetStack( this, "_stack" );
-    QHBoxLayout* layout = new QHBoxLayout( this );
+    _stack = new Q3WidgetStack( this, "_stack" );
+    Q3HBoxLayout* layout = new Q3HBoxLayout( this );
     layout->addWidget( _stack );
 
-    _listView = new QListView ( _stack, "_listView" );
+    _listView = new Q3ListView ( _stack, "_listView" );
     _stack->addWidget( _listView );
 
-    _iconView = new QIconView( _stack, "_iconView" );
+    _iconView = new Q3IconView( _stack, "_iconView" );
     _stack->addWidget( _iconView );
 
     _listViewFactory = new BrowserListViewItemFactory( _listView );
@@ -61,12 +63,12 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent, const char* name )
     _listView->addColumn( i18n("Images") );
     _listView->addColumn( i18n("Videos") );
 
-    _listView->setSelectionMode( QListView::NoSelection );
-    _iconView->setSelectionMode( QIconView::NoSelection );
-    connect( _listView, SIGNAL( clicked( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
-    connect( _listView, SIGNAL( returnPressed( QListViewItem* ) ), this, SLOT( select( QListViewItem* ) ) );
-    connect( _iconView, SIGNAL( clicked( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
-    connect( _iconView, SIGNAL( returnPressed( QIconViewItem* ) ), this, SLOT( select( QIconViewItem* ) ) );
+    _listView->setSelectionMode( Q3ListView::NoSelection );
+    _iconView->setSelectionMode( Q3IconView::NoSelection );
+    connect( _listView, SIGNAL( clicked( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );
+    connect( _listView, SIGNAL( returnPressed( Q3ListViewItem* ) ), this, SLOT( select( Q3ListViewItem* ) ) );
+    connect( _iconView, SIGNAL( clicked( Q3IconViewItem* ) ), this, SLOT( select( Q3IconViewItem* ) ) );
+    connect( _iconView, SIGNAL( returnPressed( Q3IconViewItem* ) ), this, SLOT( select( Q3IconViewItem* ) ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( categoryCollectionChanged() ), this, SLOT( reload() ) );
     connect( this, SIGNAL( viewChanged() ), this, SLOT( resetIconViewSearch() ) );
 
@@ -88,7 +90,7 @@ void Browser::BrowserWidget::init()
     forward();
 }
 
-void Browser::BrowserWidget::select( QListViewItem* item )
+void Browser::BrowserWidget::select( Q3ListViewItem* item )
 {
     if ( !item )
         return;
@@ -98,7 +100,7 @@ void Browser::BrowserWidget::select( QListViewItem* item )
     select( action );
 }
 
-void Browser::BrowserWidget::select( QIconViewItem* item )
+void Browser::BrowserWidget::select( Q3IconViewItem* item )
 {
     if ( !item )
         return;
@@ -328,7 +330,7 @@ void Browser::BrowserWidget::resetIconViewSearch()
 void Browser::BrowserWidget::slotInvokeSeleted()
 {
     if ( _currentFactory == _iconViewFactory ) {
-        QIconViewItem* item = _iconView->currentItem();
+        Q3IconViewItem* item = _iconView->currentItem();
         if ( !item )
             item = _iconView->firstItem();
 
@@ -336,9 +338,9 @@ void Browser::BrowserWidget::slotInvokeSeleted()
     }
 
     else {
-        QListViewItem* item = _listView->currentItem();
+        Q3ListViewItem* item = _listView->currentItem();
         if ( !item || !item->isVisible() ) {
-            for ( QListViewItem* it = _listView->firstChild(); it; it = it->nextSibling() ) {
+            for ( Q3ListViewItem* it = _listView->firstChild(); it; it = it->nextSibling() ) {
                 if ( it->isVisible() ) {
                     item = it;
                     break;

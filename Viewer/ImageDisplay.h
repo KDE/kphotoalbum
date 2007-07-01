@@ -19,9 +19,13 @@
 #ifndef DISPLAYAREA_H
 #define DISPLAYAREA_H
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <QMouseEvent>
+#include <QPaintEvent>
 #include "ImageManager/ImageClient.h"
 #include <qimage.h>
-#include <qptrvector.h>
+#include <q3ptrvector.h>
 #include "DB/ImageInfoPtr.h"
 #include "Display.h"
 #include "Settings/SettingsData.h"
@@ -127,7 +131,7 @@ private:
     QPoint _zStart;
     QPoint _zEnd;
 
-    QPtrVector<ViewPreloadInfo> _cache;
+    Q3PtrVector<ViewPreloadInfo> _cache;
     QStringList _imageList;
     QMap<QString, DB::ImageInfoPtr> _loadMap;
     bool _reloadImageInProgress;

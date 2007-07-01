@@ -23,8 +23,12 @@
 #include <kurl.h>
 #include <kio/job.h>
 #include "Utilities/Util.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
+#include <QCloseEvent>
 
-class QProgressDialog;
+class Q3ProgressDialog;
 class KTempFile;
 class QCheckBox;
 class KArchiveDirectory;
@@ -104,10 +108,10 @@ private:
     QWidget* _destinationPage;
     QWidget* _dummy;
     ImportMatcher* _categoryMatcher;
-    QValueList<ImportMatcher*> _matchers;
+    Q3ValueList<ImportMatcher*> _matchers;
     KZip* _zip;
     const KArchiveDirectory* _dir;
-    QValueList< ImageRow* > _imagesSelect;
+    Q3ValueList< ImageRow* > _imagesSelect;
     KTempFile* _tmp;
     bool _externalSource;
     KURL _kimFile;
@@ -115,7 +119,7 @@ private:
     bool _finishedPressed;
     int _totalCopied;
     DB::ImageInfoList _pendingCopies;
-    QProgressDialog* _progress;
+    Q3ProgressDialog* _progress;
     KIO::FileCopyJob* _job;
     bool _hasFilled;
     QString _baseUrl;

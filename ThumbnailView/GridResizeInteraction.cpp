@@ -18,6 +18,8 @@
 #include "GridResizeInteraction.h"
 #include "ThumbnailWidget.h"
 #include "Settings/SettingsData.h"
+//Added by qt3to4:
+#include <QMouseEvent>
 
 ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailWidget* view )
     : _view( view )

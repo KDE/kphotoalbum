@@ -18,6 +18,10 @@
 
 #include "ThumbnailToolTip.h"
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <QLabel>
+#include <Q3Frame>
 #include "Utilities/Util.h"
 #include <qtooltip.h>
 #include "Settings/SettingsData.h"
@@ -41,7 +45,7 @@ ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view, const 
       _widthInverse( false ), _heightInverse( false )
 {
 	setAlignment( AlignAuto | AlignTop );
-    setFrameStyle( QFrame::Box | QFrame::Plain );
+    setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
     setLineWidth(1);
     setMargin(1);
     setPalette( QToolTip::palette() );
@@ -146,7 +150,7 @@ void ThumbnailView::ThumbnailToolTip::clear()
 {
     // I can't find any better way to remove the images from the cache.
     for( QStringList::Iterator it = _loadedImages.begin(); it != _loadedImages.end(); ++it ) {
-        QMimeSourceFactory::defaultFactory()->setImage( *it, QImage() );
+        Q3MimeSourceFactory::defaultFactory()->setImage( *it, QImage() );
     }
     _loadedImages.clear();
 }
@@ -162,7 +166,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
             request->setCache();
             request->setPriority();
             ImageManager::Manager::instance()->load( request );
-            QMimeSourceFactory::defaultFactory()->setImage( fileName, QImage() );
+            Q3MimeSourceFactory::defaultFactory()->setImage( fileName, QImage() );
             _loadedImages.append( fileName );
             return false;
         }
@@ -173,7 +177,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool /*loadedOK*/ )
 {
-    QMimeSourceFactory::defaultFactory()->setImage( fileName, image );
+    Q3MimeSourceFactory::defaultFactory()->setImage( fileName, image );
     if ( fileName == _currentFileName )
         showToolTips(true);
 }

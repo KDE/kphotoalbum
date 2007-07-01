@@ -20,7 +20,7 @@
 
 #include <ksharedptr.h>
 #include <qstring.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 namespace DB
 {
@@ -38,7 +38,7 @@ protected:
 
 public:
     QString _name;
-    QValueList< CategoryItem* > _subcategories;
+    Q3ValueList< CategoryItem* > _subcategories;
     bool _isTop;
 };
 

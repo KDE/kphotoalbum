@@ -310,9 +310,9 @@ bool SQLiteConnection::drv_executeSQL( const QString& statement )
 	return d->res==SQLITE_OK;
 }
 
-Q_ULLONG SQLiteConnection::drv_lastInsertRowID()
+qulonglong SQLiteConnection::drv_lastInsertRowID()
 {
-	return (Q_ULLONG)sqlite_last_insert_rowid(d->data);
+	return (qulonglong)sqlite_last_insert_rowid(d->data);
 }
 
 int SQLiteConnection::serverResult()

@@ -21,13 +21,15 @@
 #include <qapplication.h>
 #include <qtoolbutton.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "MainWindow/Window.h"
 #include "DB/ImageInfo.h"
 
 Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer, const char* name )
-    :QTextBrowser( viewer, name ), _viewer( viewer ), _hoveringOverLink( false )
+    :Q3TextBrowser( viewer, name ), _viewer( viewer ), _hoveringOverLink( false )
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
@@ -108,14 +110,14 @@ void Viewer::InfoBox::contentsMousePressEvent( QMouseEvent* e )
     // that would be irritating
     if (!_hoveringOverLink)
         viewport()->setCursor( Qt::SizeAllCursor );
-    QTextBrowser::contentsMousePressEvent(e);
+    Q3TextBrowser::contentsMousePressEvent(e);
 }
 
 void Viewer::InfoBox::contentsMouseReleaseEvent( QMouseEvent* e )
 {
     if (!_hoveringOverLink)
         viewport()->unsetCursor();
-    QTextBrowser::contentsMouseReleaseEvent(e);
+    Q3TextBrowser::contentsMouseReleaseEvent(e);
 }
 
 void Viewer::InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
@@ -125,7 +127,7 @@ void Viewer::InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
         // Do not tell QTextBrowser about the mouse movement, as this will just start a selection.
     }
     else
-        QTextBrowser::contentsMouseMoveEvent( e );
+        Q3TextBrowser::contentsMouseMoveEvent( e );
 }
 
 void Viewer::InfoBox::linkHovered( const QString& linkName )

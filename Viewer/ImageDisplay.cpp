@@ -19,6 +19,10 @@
 
 #include "Viewer/ImageDisplay.h"
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <QMouseEvent>
 #include <klocale.h>
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"

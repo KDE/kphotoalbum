@@ -20,9 +20,11 @@
 #include <kinputdialog.h>
 #include <klocale.h>
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <config.h>
@@ -155,14 +157,14 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
     return MediaCount( images, videos );
 }
 
-void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
+void ImageDB::convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar)
 {
     QStringList allImages = images();
 
     CategoryCollection* origCategories = categoryCollection();
     CategoryCollection* newCategories = newBackend->categoryCollection();
 
-    QValueList<CategoryPtr> categories = origCategories->categories();
+    Q3ValueList<CategoryPtr> categories = origCategories->categories();
 
     if (progressBar) {
         progressBar->setTotalSteps(categories.count() + allImages.count());
@@ -172,7 +174,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
     uint n = 0;
 
     // Convert the Category info
-    for( QValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
+    for( Q3ValueList<CategoryPtr>::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
         newCategories->addCategory( (*it)->name(), (*it)->iconName(), (*it)->viewType(),
                                     (*it)->thumbnailSize(), (*it)->doShow() );
         newCategories->categoryForName( (*it)->name() )->addOrReorderItems( (*it)->items() );
@@ -208,7 +210,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
 void ImageDB::slotReread( const QStringList& list, int mode)
 {
     // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
-    QProgressDialog  dialog( i18n("Loading information from images"),
+    Q3ProgressDialog  dialog( i18n("Loading information from images"),
                              i18n("Cancel"), list.count(), 0, "progress dialog", true );
 
     uint count=0;
@@ -233,11 +235,11 @@ void ImageDB::slotReread( const QStringList& list, int mode)
 QString
 ImageDB::findFirstItemInRange(const ImageDate& range,
                               bool includeRanges,
-                              const QValueVector<QString>& images) const
+                              const Q3ValueVector<QString>& images) const
 {
     QString candidate;
     QDateTime candidateDateStart;
-    for (QValueVector<QString>::const_iterator i = images.begin();
+    for (Q3ValueVector<QString>::const_iterator i = images.begin();
          i != images.end(); ++i) {
         ImageInfoPtr iInfo = info(*i);
 

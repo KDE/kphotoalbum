@@ -21,13 +21,13 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <ImageManager/ImageClient.h>
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include "Utilities/Util.h"
 #include "Setup.h"
 
 namespace HTMLGenerator
 {
-class Generator :public QProgressDialog, private ImageManager::ImageClient
+class Generator :public Q3ProgressDialog, private ImageManager::ImageClient
 {
     Q_OBJECT
 

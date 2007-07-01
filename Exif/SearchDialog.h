@@ -37,15 +37,15 @@ public:
     Exif::SearchInfo info();
 
 protected:
-    void makeISO( QGrid* parent );
+    void makeISO( Q3Grid* parent );
     QWidget* makeExposureProgram( QWidget* parent );
     QWidget* makeOrientation( QWidget* parent );
     QWidget* makeMeteringMode( QWidget* parent );
     QWidget* makeContrast( QWidget* parent );
     QWidget* makeSharpness( QWidget* parent );
     QWidget* makeSaturation( QWidget* parent );
-    void makeExposureTime( QGrid* parent );
-    RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, QGrid* parent );
+    void makeExposureTime( Q3Grid* parent );
+    RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, Q3Grid* parent );
     QWidget* makeCamera( QWidget* parent );
     QStringList availableCameras();
 

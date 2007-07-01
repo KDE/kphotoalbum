@@ -1,3 +1,5 @@
+//Added by qt3to4:
+#include <Q3CString>
 /* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -45,9 +47,9 @@ namespace Survey {
         void setupFrontPage();
         void setupBackPage( int count );
         bool lastPage() const;
-        void saveConfig( const QCString& xml );
+        void saveConfig( const Q3CString& xml );
         void readConfig();
-        QCString configAsXML();
+        Q3CString configAsXML();
 
     private:
         friend class Question;

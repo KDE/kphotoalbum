@@ -23,13 +23,13 @@
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 #ifdef SQLDB_SUPPORT
 namespace SQLDB { class DatabaseAddress; }
 #endif
 
-class QProgressBar;
+class Q3ProgressBar;
 
 namespace DB
 {
@@ -49,7 +49,7 @@ public:
 #ifdef SQLDB_SUPPORT
     static void setupSQLDB( const SQLDB::DatabaseAddress& address );
 #endif
-    void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
+    void convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar);
     virtual bool operator==(const ImageDB& other) const = 0;
     bool operator!=(const ImageDB& other) const { return !operator==(other); }
     StringSet imagesWithMD5Changed();
@@ -81,7 +81,7 @@ public:
     virtual QString
     findFirstItemInRange(const ImageDate& range,
                          bool includeRanges,
-                         const QValueVector<QString>& images) const;
+                         const Q3ValueVector<QString>& images) const;
 
 public: // Methods that must be overriden
     virtual uint totalCount() const = 0;

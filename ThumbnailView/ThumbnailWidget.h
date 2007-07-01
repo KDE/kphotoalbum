@@ -18,7 +18,17 @@
 #ifndef THUMBNAILVIEW_H
 #define THUMBNAILVIEW_H
 
-#include <qgridview.h>
+#include <q3gridview.h>
+//Added by qt3to4:
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QDragLeaveEvent>
+#include <QShowEvent>
+#include <QWheelEvent>
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <QMouseEvent>
+#include <QKeyEvent>
 #include "ImageManager/ImageClient.h"
 #include "Utilities/Set.h"
 #include "ThumbnailToolTip.h"
@@ -26,7 +36,7 @@
 #include "SelectionInteraction.h"
 #include "MouseTrackingInteraction.h"
 #include "Cell.h"
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 #include "DB/ImageDate.h"
 
 class QTimer;
@@ -38,7 +48,7 @@ namespace ThumbnailView
 {
 enum SortDirection {NewestFirst, OldestFirst};
 
-class ThumbnailWidget : public QGridView, public ImageManager::ImageClient {
+class ThumbnailWidget : public Q3GridView, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
@@ -136,9 +146,9 @@ protected:
     void selectItems( const Cell& start, const Cell& end );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
     QStringList reverseList( const QStringList& ) const;
-    QValueVector<QString> reverseVector( const QValueVector<QString>& ) const;
+    Q3ValueVector<QString> reverseVector( const Q3ValueVector<QString>& ) const;
     void updateCellSize();
-    QStringList vectorToList( const QValueVector<QString>& ) const;
+    QStringList vectorToList( const Q3ValueVector<QString>& ) const;
     void updateIndexCache();
 
 protected slots:
@@ -150,7 +160,7 @@ private:
     /**
      * The list of images shown
      */
-    QValueVector<QString> _imageList;
+    Q3ValueVector<QString> _imageList;
 
     /**
      * A map mapping from filename to its index in _imageList.

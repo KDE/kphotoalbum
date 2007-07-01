@@ -18,9 +18,9 @@
 #include "RangeWidget.h"
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <qgrid.h>
+#include <q3grid.h>
 
-Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QGrid* parent )
+Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, Q3Grid* parent )
     : QObject( parent ),_searchTag ( searchTag ), _list( list )
 {
     QLabel* label = new QLabel( text, parent );

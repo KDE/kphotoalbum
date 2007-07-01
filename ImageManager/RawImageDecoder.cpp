@@ -20,7 +20,7 @@
 #include <ktempfile.h>
 #include <qfile.h>
 #include <qimage.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include "Settings/SettingsData.h"
 
 /* Main entry point into raw parser */

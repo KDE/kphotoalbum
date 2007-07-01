@@ -18,7 +18,7 @@
 #ifndef CATEGORYCOLLECTION_H
 #define CATEGORYCOLLECTION_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "Settings/SettingsData.h"
 #include <ksharedptr.h>
 #include "DB/Category.h"
@@ -42,7 +42,7 @@ public:
     virtual QStringList categoryNames() const = 0;
     virtual void removeCategory( const QString& name ) = 0;
     virtual void rename( const QString& oldName, const QString& newName ) = 0;
-    virtual QValueList<CategoryPtr> categories() const = 0;
+    virtual Q3ValueList<CategoryPtr> categories() const = 0;
     virtual void addCategory( const QString& text, const QString& icon, Category::ViewType type,
                               int thumbnailSize, bool show ) = 0;
 

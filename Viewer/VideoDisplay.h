@@ -21,8 +21,11 @@
 
 #include "Display.h"
 #include <kparts/componentfactory.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <Q3HBoxLayout>
 class QTimer;
-class QHBoxLayout;
+class Q3HBoxLayout;
 
 namespace Viewer
 {

@@ -24,8 +24,11 @@
 #include <qmap.h>
 #include <qthread.h>
 #include <qdom.h>
-#include <qintdict.h>
+#include <q3intdict.h>
 #include <qbuffer.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <QPixmap>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -187,7 +190,7 @@ int KexiDB::idForObjectName( Connection &conn, const QString& objName, int objTy
 
 //-----------------------------------------
 
-TableOrQuerySchema::TableOrQuerySchema(Connection *conn, const QCString& name)
+TableOrQuerySchema::TableOrQuerySchema(Connection *conn, const Q3CString& name)
  : m_name(name)
 {
 	m_table = conn->tableSchema(QString(name));
@@ -197,7 +200,7 @@ TableOrQuerySchema::TableOrQuerySchema(Connection *conn, const QCString& name)
 			" tableOrQuery is neither table nor query!" << endl;
 }
 
-TableOrQuerySchema::TableOrQuerySchema(Connection *conn, const QCString& name, bool table)
+TableOrQuerySchema::TableOrQuerySchema(Connection *conn, const Q3CString& name, bool table)
  : m_name(name)
  , m_table(table ? conn->tableSchema(QString(name)) : 0)
  , m_query(table ? 0 : conn->querySchema(QString(name)))
@@ -256,7 +259,7 @@ const QueryColumnInfo::Vector TableOrQuerySchema::columns(bool unique)
 	return QueryColumnInfo::Vector();
 }
 
-QCString TableOrQuerySchema::name() const
+Q3CString TableOrQuerySchema::name() const
 {
 	if (m_table)
 		return m_table->name().latin1();
@@ -625,14 +628,14 @@ static bool setIntToFieldType( Field& field, const QVariant& value )
 }
 
 //! for KexiDB::isBuiltinTableFieldProperty()
-static KStaticDeleter< QAsciiDict<char> > KexiDB_builtinFieldPropertiesDeleter;
+static KStaticDeleter< Q3AsciiDict<char> > KexiDB_builtinFieldPropertiesDeleter;
 //! for KexiDB::isBuiltinTableFieldProperty()
-QAsciiDict<char>* KexiDB_builtinFieldProperties = 0;
+Q3AsciiDict<char>* KexiDB_builtinFieldProperties = 0;
 
-bool KexiDB::isBuiltinTableFieldProperty( const QCString& propertyName )
+bool KexiDB::isBuiltinTableFieldProperty( const Q3CString& propertyName )
 {
 	if (!KexiDB_builtinFieldProperties) {
-		KexiDB_builtinFieldPropertiesDeleter.setObject( KexiDB_builtinFieldProperties, new QAsciiDict<char>(499) );
+		KexiDB_builtinFieldPropertiesDeleter.setObject( KexiDB_builtinFieldProperties, new Q3AsciiDict<char>(499) );
 #define ADD(name) KexiDB_builtinFieldProperties->insert(name, (char*)1)
 		ADD("type");
 		ADD("primaryKey");
@@ -656,9 +659,9 @@ bool KexiDB::isBuiltinTableFieldProperty( const QCString& propertyName )
 	return KexiDB_builtinFieldProperties->find( propertyName );
 }
 
-bool KexiDB::setFieldProperties( Field& field, const QMap<QCString, QVariant>& values )
+bool KexiDB::setFieldProperties( Field& field, const QMap<Q3CString, QVariant>& values )
 {
-	QMapConstIterator<QCString, QVariant> it;
+	QMapConstIterator<Q3CString, QVariant> it;
 	if ( (it = values.find("type")) != values.constEnd() ) {
 		if (!setIntToFieldType(field, *it))
 			return false;
@@ -722,7 +725,7 @@ bool KexiDB::setFieldProperties( Field& field, const QMap<QCString, QVariant>& v
 		return false;
 
 	// set custom properties
-	typedef QMap<QCString, QVariant> PropertiesMap;
+	typedef QMap<Q3CString, QVariant> PropertiesMap;
 	foreach( PropertiesMap::ConstIterator, it, values ) {
 		if (!isBuiltinTableFieldProperty( it.key() ) && !isExtendedTableFieldProperty( it.key() )) {
 			field.setCustomProperty( it.key(), it.data() );
@@ -733,14 +736,14 @@ bool KexiDB::setFieldProperties( Field& field, const QMap<QCString, QVariant>& v
 }
 
 //! for KexiDB::isExtendedTableFieldProperty()
-static KStaticDeleter< QAsciiDict<char> > KexiDB_extendedPropertiesDeleter;
+static KStaticDeleter< Q3AsciiDict<char> > KexiDB_extendedPropertiesDeleter;
 //! for KexiDB::isExtendedTableFieldProperty()
-QAsciiDict<char>* KexiDB_extendedProperties = 0;
+Q3AsciiDict<char>* KexiDB_extendedProperties = 0;
 
-bool KexiDB::isExtendedTableFieldProperty( const QCString& propertyName )
+bool KexiDB::isExtendedTableFieldProperty( const Q3CString& propertyName )
 {
 	if (!KexiDB_extendedProperties) {
-		KexiDB_extendedPropertiesDeleter.setObject( KexiDB_extendedProperties, new QAsciiDict<char>(499) );
+		KexiDB_extendedPropertiesDeleter.setObject( KexiDB_extendedProperties, new Q3AsciiDict<char>(499) );
 #define ADD(name) KexiDB_extendedProperties->insert(name, (char*)1)
 		ADD("visibleDecimalPlaces");
 #undef ADD
@@ -748,7 +751,7 @@ bool KexiDB::isExtendedTableFieldProperty( const QCString& propertyName )
 	return KexiDB_extendedProperties->find( propertyName );
 }
 
-bool KexiDB::setFieldProperty( Field& field, const QCString& propertyName, const QVariant& value )
+bool KexiDB::setFieldProperty( Field& field, const Q3CString& propertyName, const QVariant& value )
 {
 #define SET_BOOLEAN_FLAG(flag, value) { \
 			constraints |= KexiDB::Field::flag; \
@@ -839,7 +842,7 @@ bool KexiDB::setFieldProperty( Field& field, const QCString& propertyName, const
 
 int KexiDB::loadIntPropertyValueFromDom( const QDomNode& node, bool* ok )
 {
-	QCString valueType = node.nodeName().latin1();
+	Q3CString valueType = node.nodeName().latin1();
 	if (valueType.isEmpty() || valueType!="number") {
 		if (ok)
 			*ok = false;
@@ -852,7 +855,7 @@ int KexiDB::loadIntPropertyValueFromDom( const QDomNode& node, bool* ok )
 
 QString KexiDB::loadStringPropertyValueFromDom( const QDomNode& node, bool* ok )
 {
-	QCString valueType = node.nodeName().latin1();
+	Q3CString valueType = node.nodeName().latin1();
 	if (valueType!="string") {
 		if (ok)
 			*ok = false;
@@ -863,7 +866,7 @@ QString KexiDB::loadStringPropertyValueFromDom( const QDomNode& node, bool* ok )
 
 QVariant KexiDB::loadPropertyValueFromDom( const QDomNode& node )
 {
-	QCString valueType = node.nodeName().latin1();
+	Q3CString valueType = node.nodeName().latin1();
 	if (valueType.isEmpty())
 		return QVariant();
 	const QString text( QDomNode(node).toElement().text() );
@@ -872,7 +875,7 @@ QVariant KexiDB::loadPropertyValueFromDom( const QDomNode& node )
 		return text;
 	}
 	else if (valueType == "cstring") {
-		return QCString(text.latin1());
+		return Q3CString(text.latin1());
 	}
 	else if (valueType == "number") { // integer or double
 		if (text.find('.')!=-1) {
@@ -884,7 +887,7 @@ QVariant KexiDB::loadPropertyValueFromDom( const QDomNode& node )
 			const int val = text.toInt(&ok);
 			if (ok)
 				return val;
-			const Q_LLONG valLong = text.toLongLong(&ok);
+			const qlonglong valLong = text.toLongLong(&ok);
 			if (ok)
 				return valLong;
 		}
@@ -920,14 +923,14 @@ QDomElement KexiDB::saveBooleanElementToDom(QDomDocument& doc, QDomElement& pare
 }
 
 //! Used in KexiDB::emptyValueForType()
-static KStaticDeleter< QValueVector<QVariant> > KexiDB_emptyValueForTypeCacheDeleter;
-QValueVector<QVariant> *KexiDB_emptyValueForTypeCache = 0;
+static KStaticDeleter< Q3ValueVector<QVariant> > KexiDB_emptyValueForTypeCacheDeleter;
+Q3ValueVector<QVariant> *KexiDB_emptyValueForTypeCache = 0;
 
 QVariant KexiDB::emptyValueForType( KexiDB::Field::Type type )
 {
 	if (!KexiDB_emptyValueForTypeCache) {
 		KexiDB_emptyValueForTypeCacheDeleter.setObject( KexiDB_emptyValueForTypeCache, 
-			new QValueVector<QVariant>(int(Field::LastType)+1) );
+			new Q3ValueVector<QVariant>(int(Field::LastType)+1) );
 #define ADD(t, value) (*KexiDB_emptyValueForTypeCache)[t]=value;
 		ADD(Field::Byte, 0);
 		ADD(Field::ShortInteger, 0);
@@ -960,14 +963,14 @@ QVariant KexiDB::emptyValueForType( KexiDB::Field::Type type )
 }
 
 //! Used in KexiDB::notEmptyValueForType()
-static KStaticDeleter< QValueVector<QVariant> > KexiDB_notEmptyValueForTypeCacheDeleter;
-QValueVector<QVariant> *KexiDB_notEmptyValueForTypeCache = 0;
+static KStaticDeleter< Q3ValueVector<QVariant> > KexiDB_notEmptyValueForTypeCacheDeleter;
+Q3ValueVector<QVariant> *KexiDB_notEmptyValueForTypeCache = 0;
 
 QVariant KexiDB::notEmptyValueForType( KexiDB::Field::Type type )
 {
 	if (!KexiDB_notEmptyValueForTypeCache) {
 		KexiDB_notEmptyValueForTypeCacheDeleter.setObject( KexiDB_notEmptyValueForTypeCache, 
-			new QValueVector<QVariant>(int(Field::LastType)+1) );
+			new Q3ValueVector<QVariant>(int(Field::LastType)+1) );
 #define ADD(t, value) (*KexiDB_notEmptyValueForTypeCache)[t]=value;
 		// copy most of the values
 		for (int i = int(Field::InvalidType) + 1; i<=Field::LastType; i++) {
@@ -981,7 +984,7 @@ QVariant KexiDB::notEmptyValueForType( KexiDB::Field::Type type )
 //! @todo blobs will contain other mime types too
 				QByteArray ba;
 				QBuffer buffer( ba );
-				buffer.open( IO_WriteOnly );
+				buffer.open( QIODevice::WriteOnly );
 				QPixmap pm(SmallIcon("filenew"));
 				pm.save( &buffer, "PNG"/*! @todo default? */ );
 				ADD(i, ba);

@@ -23,8 +23,11 @@
 #include <qregexp.h>
 #include <qpainter.h>
 #include <qimage.h>
-#include <qwmatrix.h>
-#include <qiconset.h>
+#include <qmatrix.h>
+#include <qicon.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <QPixmap>
 
 #include <kdebug.h>
 #include <kcursor.h>
@@ -166,26 +169,26 @@ QColor KexiUtils::bleachedColor(const QColor& c, int factor)
 	return c2;
 }
 
-QIconSet KexiUtils::colorizeIconToTextColor(const QPixmap& icon, const QPalette& palette)
+QIcon KexiUtils::colorizeIconToTextColor(const QPixmap& icon, const QPalette& palette)
 {
 	QPixmap pm(
 		KIconEffect().apply( icon, KIconEffect::Colorize, 1.0f, palette.active().buttonText(), false ) );
 
 	KPixmap kpm(pm);
-	return QIconSet(
+	return QIcon(
 		KPixmapEffect::fade( kpm, 0.33, palette.active().button() ) );
 }
 
 void KexiUtils::serializeMap(const QMap<QString,QString>& map, const QByteArray& array)
 {
-	QDataStream ds(array, IO_WriteOnly);
+	QDataStream ds(array, QIODevice::WriteOnly);
 	ds << map;
 }
 
 void KexiUtils::serializeMap(const QMap<QString,QString>& map, QString& string)
 {
 	QByteArray array;
-	QDataStream ds(array, IO_WriteOnly);
+	QDataStream ds(array, QIODevice::WriteOnly);
 	ds << map;
 	kdDebug() << array[3] << " " << array[4] << " " << array[5] << endl;
 	const uint size = array.size();
@@ -199,7 +202,7 @@ void KexiUtils::serializeMap(const QMap<QString,QString>& map, QString& string)
 QMap<QString,QString> KexiUtils::deserializeMap(const QByteArray& array)
 {
 	QMap<QString,QString> map;
-	QDataStream ds(array, IO_ReadOnly);
+	QDataStream ds(array, QIODevice::ReadOnly);
 	ds >> map;
 	return map;
 }
@@ -207,13 +210,13 @@ QMap<QString,QString> KexiUtils::deserializeMap(const QByteArray& array)
 QMap<QString,QString> KexiUtils::deserializeMap(const QString& string)
 {
 	const uint size = string.length();
-	QCString cstr(string.latin1());
+	Q3CString cstr(string.latin1());
 	QByteArray array( size );
 	for (uint i=0; i<size; i++) {
 		array[i] = char(string[i].unicode()-1);
 	}
 	QMap<QString,QString> map;
-	QDataStream ds(array, IO_ReadOnly);
+	QDataStream ds(array, QIODevice::ReadOnly);
 	ds >> map;
 	return map;
 }

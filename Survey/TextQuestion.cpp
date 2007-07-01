@@ -19,16 +19,18 @@
 #include "TextQuestion.h"
 #include <qlayout.h>
 #include <qlabel.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 Survey::TextQuestion::TextQuestion( const QString& id, const QString& title, const QString& question, SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    QVBoxLayout* vlay = new QVBoxLayout( this, 6 );
+    Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
     QLabel* label = new QLabel( question, this );
     vlay->addWidget( label );
 
-    _edit = new QTextEdit( this );
+    _edit = new Q3TextEdit( this );
     vlay->addWidget( _edit );
 }
 

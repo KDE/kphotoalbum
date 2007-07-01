@@ -31,7 +31,7 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qapplication.h>
-#include <qprocess.h>
+#include <q3process.h>
 #include <qcursor.h>
 
 #include <unistd.h>
@@ -69,7 +69,7 @@ tristate SQLiteVacuum::run()
 
 	QStringList args;
 	args << ksqlite_app << "-verbose-vacuum" << m_filePath << "vacuum";
-	m_process = new QProcess(args, this, "process");
+	m_process = new Q3Process(args, this, "process");
 	m_process->setWorkingDirectory( QFileInfo(m_filePath).dir(true) );
 	connect( m_process, SIGNAL(readyReadStdout()), this, SLOT(readFromStdout()) );
 	connect( m_process, SIGNAL(processExited()), this, SLOT(processExited()) );

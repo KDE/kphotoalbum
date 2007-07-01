@@ -18,10 +18,12 @@
 #include "DB/ImageDB.h"
 #include "XMLCategoryCollection.h"
 #include "XMLCategory.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const
 {
-    for( QValueList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( Q3ValueList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
         if ( (*it)->name() == name )
             return *it;
     }
@@ -40,7 +42,7 @@ void XMLDB::XMLCategoryCollection::addCategory( DB::Category* category )
 QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 {
     QStringList res;
-    for( QValueList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( Q3ValueList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
         res.append( (*it)->name() );
     }
     return res;
@@ -48,7 +50,7 @@ QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 
 void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
 {
-    for( QValueList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( Q3ValueList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it ) {
         if ( (*it)->name() == name ) {
             _categories.remove(it);
             emit categoryCollectionChanged();
@@ -66,7 +68,7 @@ void XMLDB::XMLCategoryCollection::rename( const QString& oldName, const QString
 
 }
 
-QValueList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
+Q3ValueList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
 {
     return _categories;
 }
@@ -79,7 +81,7 @@ void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QStri
 
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
-    for( QValueList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it )
+    for( Q3ValueList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it )
         static_cast<XMLCategory*>((*it).data())->initIdMap();
 }
 

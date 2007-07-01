@@ -21,11 +21,20 @@
 #include <qwidget.h>
 #include <qpixmap.h>
 #include <qdatetime.h>
+//Added by qt3to4:
+#include <QContextMenuEvent>
+#include <QWheelEvent>
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <QFocusEvent>
+#include <QMouseEvent>
+#include <Q3PopupMenu>
+#include <QKeyEvent>
 #include "DB/ImageDateCollection.h"
 #include "DateBar/ViewHandler.h"
 #include "DateBar/MouseHandler.h"
 #include <ksharedptr.h>
-class QPopupMenu;
+class Q3PopupMenu;
 class QToolButton;
 
 namespace DateBar
@@ -139,7 +148,7 @@ private:
     int _barWidth;
     int _barHeight;
     bool _includeFuzzyCounts;
-    QPopupMenu* _contextMenu;
+    Q3PopupMenu* _contextMenu;
     bool _showResolutionIndicator;
 };
 

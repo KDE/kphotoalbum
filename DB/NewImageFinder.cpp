@@ -22,7 +22,7 @@
 #include "Browser/BrowserWidget.h"
 #include <qdir.h>
 #include "Utilities/Util.h"
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <klocale.h>
 #include <qapplication.h>
 #include <qeventloop.h>
@@ -38,7 +38,7 @@ using namespace DB;
 bool NewImageFinder::findImages()
 {
     // Load the information from the XML file.
-    QDict<void> loadedFiles( 6301 /* a large prime */ );
+    Q3Dict<void> loadedFiles( 6301 /* a large prime */ );
 
     QStringList images = DB::ImageDB::instance()->images();
     for( QStringList::ConstIterator it = images.begin(); it != images.end(); ++it ) {
@@ -56,7 +56,7 @@ bool NewImageFinder::findImages()
     return (!_pendingLoad.isEmpty()); // returns if new images was found.
 }
 
-void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString directory )
+void NewImageFinder::searchForNewFiles( const Q3Dict<void>& loadedFiles, QString directory )
 {
     if ( directory.endsWith( QString::fromLatin1("/") ) )
         directory = directory.mid( 0, directory.length()-1 );
@@ -94,7 +94,7 @@ void NewImageFinder::searchForNewFiles( const QDict<void>& loadedFiles, QString 
 
 void NewImageFinder::loadExtraFiles()
 {
-    QProgressDialog  dialog( i18n("<p><b>Loading information from new files</b></p>"
+    Q3ProgressDialog  dialog( i18n("<p><b>Loading information from new files</b></p>"
                                   "<p>Depending on the number of images, this may take some time.<br/>"
                                   "However, there is only a delay when new images are found.</p>"),
                              i18n("&Cancel"), _pendingLoad.count() );
@@ -164,7 +164,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
 bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5Map, bool* wasCanceled )
 {
-    QProgressDialog dialog( i18n("<p><b>Calculating checksum for %1 files<b></p>"
+    Q3ProgressDialog dialog( i18n("<p><b>Calculating checksum for %1 files<b></p>"
                                  "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
                                  "even when you have moved them on the disk.</p>").arg( list.count() ), i18n("&Cancel"), list.count() );
 
@@ -200,7 +200,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
 MD5 NewImageFinder::MD5Sum( const QString& fileName )
 {
     QFile file( fileName );
-    if ( !file.open( IO_ReadOnly ) ) {
+    if ( !file.open( QIODevice::ReadOnly ) ) {
         if ( KMessageBox::warningContinueCancel( 0, i18n("Could not open %1").arg( fileName ) ) == KMessageBox::No )
             return MD5();
     }

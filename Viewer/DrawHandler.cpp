@@ -19,6 +19,9 @@
 #include "Viewer/DrawHandler.h"
 #include "Settings/SettingsData.h"
 #include <qpainter.h>
+//Added by qt3to4:
+#include <QMouseEvent>
+#include <Q3ValueList>
 #include "Viewer/LineDraw.h"
 #include "Viewer/RectDraw.h"
 #include "Viewer/CircleDraw.h"
@@ -136,7 +139,7 @@ Viewer::Draw* Viewer::DrawHandler::createTool()
 void Viewer::DrawHandler::drawAll( QPainter& painter )
 {
     if ( Settings::SettingsData::instance()->showDrawings() || _tool != None ) {
-        for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
+        for( Q3ValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
             painter.save();
             setupPainter( &painter );
             (*it)->draw( &painter, 0 );
@@ -167,7 +170,7 @@ void Viewer::DrawHandler::drawAll( QPainter& painter )
 Viewer::Draw* Viewer::DrawHandler::findShape( const QPoint& pos)
 {
     QPainter* painter = _display->painter();
-    for( QValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
+    for( Q3ValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
         PointList list = (*it)->anchorPoints();
         for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QPoint point = *it2;

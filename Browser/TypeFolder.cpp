@@ -20,6 +20,8 @@
 #include "DB/ImageDB.h"
 #include <klocale.h>
 #include "TypeFolderAction.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 Browser::TypeFolder::TypeFolder( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* parent )
     :Folder( info, parent ), _category ( category )

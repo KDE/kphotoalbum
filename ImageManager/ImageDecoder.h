@@ -18,7 +18,7 @@
 #ifndef IMAGEDECODER_H
 #define IMAGEDECODER_H
 
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qimage.h>
 
 namespace ImageManager
@@ -37,7 +37,7 @@ protected:
 	virtual bool _mightDecode( const QString& imageFile ) = 0;
 
 private:
-	static QPtrList<ImageDecoder>* decoders();
+	static Q3PtrList<ImageDecoder>* decoders();
 };
 }
 

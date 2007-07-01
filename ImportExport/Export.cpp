@@ -20,9 +20,13 @@
 #include <kfiledialog.h>
 #include <kzip.h>
 #include <qfileinfo.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3CString>
+#include <Q3VBoxLayout>
 #include <time.h>
 #include "Utilities/Util.h"
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qeventloop.h>
 #include <klocale.h>
 #include "ImageManager/Manager.h"
@@ -32,7 +36,7 @@
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
 #include <kimageio.h>
@@ -72,10 +76,10 @@ ExportConfig::ExportConfig()
                    KDialogBase::Ok, 0, "export config" )
 {
     QWidget* top = plainPage();
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     // Include images
-    QVButtonGroup* grp = new QVButtonGroup( i18n("How to Handle Images"), top );
+    Q3VButtonGroup* grp = new Q3VButtonGroup( i18n("How to Handle Images"), top );
     lay1->addWidget( grp );
     _include = new QRadioButton( i18n("Include in .kim file"), grp );
     _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
@@ -93,7 +97,7 @@ ExportConfig::ExportConfig()
     lay1->addWidget( _generateThumbnails );
 
     // Enforece max size
-    QHBoxLayout* hlay = new QHBoxLayout( lay1, 6 );
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( lay1, 6 );
     _enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimensions to: " ), top, "_enforeMaxSize" );
     hlay->addWidget( _enforeMaxSize );
 
@@ -108,17 +112,17 @@ ExportConfig::ExportConfig()
                         "otherwise, this just wastes time during import and export operations.</p>"
                         "<p>In other words, do not check this if your images are stored in jpg, png or gif; but do check this "
                         "if your images are stored in tiff.</p>" );
-    QWhatsThis::add( _compress, txt );
+    Q3WhatsThis::add( _compress, txt );
 
     txt = i18n( "<p>Generate thumbnail images</p>" );
-    QWhatsThis::add( _generateThumbnails, txt );
+    Q3WhatsThis::add( _generateThumbnails, txt );
 
     txt = i18n( "<p>With this option you may limit the maximum dimensions (width and height) of your images. "
                 "Doing so will make the resulting export file smaller, but will of course also make the quality "
                 "worse if someone wants to see the exported images with larger dimensions.</p>" );
 
-    QWhatsThis::add( _enforeMaxSize, txt );
-    QWhatsThis::add( _maxSize, txt );
+    Q3WhatsThis::add( _enforeMaxSize, txt );
+    Q3WhatsThis::add( _maxSize, txt );
 
     txt = i18n("<p>When exporting images, bear in mind that there are two things the "
                "person importing these images again will need:<br>"
@@ -134,11 +138,11 @@ ExportConfig::ExportConfig()
                "separate the images and the .kim file, by place them next to each "
                "other, so the user can access the images s/he wants.</p>");
 
-    QWhatsThis::add( grp, txt );
-    QWhatsThis::add( _include, txt );
-    QWhatsThis::add( _manually, txt );
-    QWhatsThis::add( _link, txt );
-    QWhatsThis::add( _auto, txt );
+    Q3WhatsThis::add( grp, txt );
+    Q3WhatsThis::add( _include, txt );
+    Q3WhatsThis::add( _manually, txt );
+    Q3WhatsThis::add( _link, txt );
+    Q3WhatsThis::add( _auto, txt );
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
 
@@ -163,7 +167,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
     _destdir = QFileInfo( zipFile ).dirPath();
     _zip = new KZip( zipFile );
     _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
-    if ( ! _zip->open( IO_WriteOnly ) ) {
+    if ( ! _zip->open( QIODevice::WriteOnly ) ) {
         KMessageBox::error( 0, i18n("Error creating zip file") );
         ok = false;
         return;
@@ -177,7 +181,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
       total += list.count();
 
     _steps = 0;
-    _progressDialog = new QProgressDialog( QString::null, i18n("&Cancel"), total, 0, "progress dialog", true );
+    _progressDialog = new Q3ProgressDialog( QString::null, i18n("&Cancel"), total, 0, "progress dialog", true );
     _progressDialog->setProgress( 0 );
     _progressDialog->show();
 
@@ -197,7 +201,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
     if ( _ok ) {
         // Create the index.xml file
         _progressDialog->setLabelText(i18n("Creating index file"));
-        QCString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, _nameMap );
+        Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, _nameMap );
         time_t t;
         time(&t);
         _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.size()-1,
@@ -289,7 +293,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
                           .arg(QFileInfo( _nameMap[fileName] ).baseName()).arg( ext );
     QByteArray data;
     QBuffer buffer( data );
-    buffer.open( IO_WriteOnly );
+    buffer.open( QIODevice::WriteOnly );
     image.save( &buffer, QFile::encodeName( KImageIO::type( zipFileName ) ) );
 
     if ( _location == Inline || !_copyingFiles )
@@ -297,7 +301,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     else {
         QString file = _destdir + QString::fromLatin1( "/" ) + _nameMap[fileName];
         QFile out( file );
-        if ( !out.open( IO_WriteOnly ) ) {
+        if ( !out.open( QIODevice::WriteOnly ) ) {
             KMessageBox::error( 0, i18n("Error writing file %1").arg( file ) );
             _ok = false;
         }

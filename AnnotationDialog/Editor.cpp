@@ -17,10 +17,13 @@
 */
 
 #include "Editor.h"
-#include <qtextedit.h>
+#include <q3textedit.h>
+//Added by qt3to4:
+#include <QContextMenuEvent>
+#include <QKeyEvent>
 #include <klocale.h>
 #include <ksyntaxhighlighter.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qregexp.h>
 #include <kpopupmenu.h>
 #include <ksconfig.h>
@@ -29,7 +32,7 @@
 using namespace AnnotationDialog;
 
 Editor::Editor( QWidget* parent, const char* name )
-    :QTextEdit( parent, name )
+    :Q3TextEdit( parent, name )
 {
     _config = new KSpellConfig( this );
     _config->hide();
@@ -43,9 +46,9 @@ void Editor::addSuggestion(const QString& text, const QStringList& lst, unsigned
     _replacements[text] = lst;
 }
 
-QPopupMenu * Editor::createPopupMenu( const QPoint & pos )
+Q3PopupMenu * Editor::createPopupMenu( const QPoint & pos )
 {
-    QPopupMenu* menu = QTextEdit::createPopupMenu( pos );
+    Q3PopupMenu* menu = Q3TextEdit::createPopupMenu( pos );
     connect( menu, SIGNAL( activated( int ) ), this, SLOT( itemSelected( int ) ) );
 
     menu->insertSeparator();
@@ -71,7 +74,7 @@ QString Editor::wordAtPos( const QPoint& pos )
     return text(para).mid( firstSpace, lastSpace - firstSpace );
 }
 
-QPopupMenu* Editor::replacementMenu( const QString& word  )
+Q3PopupMenu* Editor::replacementMenu( const QString& word  )
 {
     _currentWord = word;
 
@@ -94,11 +97,11 @@ void Editor::contentsContextMenuEvent( QContextMenuEvent *e )
     QPoint pos = viewportToContents(e->pos());
     QString word = wordAtPos( pos );
     if ( word.isEmpty() || !_replacements.contains( word ) ) {
-        QTextEdit::contentsContextMenuEvent( e );
+        Q3TextEdit::contentsContextMenuEvent( e );
         return;
     }
 
-    QPopupMenu* menu = replacementMenu( word );
+    Q3PopupMenu* menu = replacementMenu( word );
     int id = menu->exec( e->globalPos() );
     if ( id == -1 || (int) _replacements[_currentWord].count() == 0 )
         return;
@@ -181,7 +184,7 @@ void Editor::keyPressEvent( QKeyEvent* event )
         QWidget::keyPressEvent( event );
     }
     else
-        QTextEdit::keyPressEvent( event );
+        Q3TextEdit::keyPressEvent( event );
 }
 
 #include "Editor.moc"

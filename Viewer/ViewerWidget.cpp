@@ -22,7 +22,15 @@
 #include "Viewer/ViewerWidget.h"
 #include <qlayout.h>
 #include <qcursor.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QContextMenuEvent>
+#include <QKeyEvent>
+#include <Q3ValueList>
+#include <Q3PtrList>
+#include <QResizeEvent>
+#include <Q3VBoxLayout>
+#include <QWheelEvent>
 #include <ktoolbar.h>
 #include <kiconloader.h>
 #include <kaction.h>
@@ -40,7 +48,7 @@
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 #include "InfoBox.h"
-#include <qwidgetstack.h>
+#include <q3widgetstack.h>
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "ViewerWidget.h"
@@ -85,9 +93,9 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     setPaletteBackgroundColor( black );
     _latest = this;
 
-    QVBoxLayout* layout = new QVBoxLayout( this );
+    Q3VBoxLayout* layout = new Q3VBoxLayout( this );
 
-    _stack = new QWidgetStack( this, "stack" );
+    _stack = new Q3WidgetStack( this, "stack" );
 
     _display = _imageDisplay = new ImageDisplay( _stack ); // Must be created before the toolbar.
     _textDisplay = new TextDisplay( _stack );
@@ -124,7 +132,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
 
 void Viewer::ViewerWidget::setupContextMenu()
 {
-    _popup = new QPopupMenu( this, "context popup menu" );
+    _popup = new Q3PopupMenu( this, "context popup menu" );
     _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
 
     createSlideShowMenu();
@@ -162,7 +170,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 
 void Viewer::ViewerWidget::createShowContextMenu()
 {
-    QPopupMenu *showPopup = new QPopupMenu( _popup );
+    Q3PopupMenu *showPopup = new Q3PopupMenu( _popup );
 
     KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Key_I, _actions, "viewer-show-infobox" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
@@ -206,10 +214,10 @@ void Viewer::ViewerWidget::createShowContextMenu()
     taction->setChecked( Settings::SettingsData::instance()->showImageSize() );
 
 
-    _popup->insertItem( QIconSet(), i18n("Show"), showPopup );
+    _popup->insertItem( QIcon(), i18n("Show"), showPopup );
 
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         ShowOptionAction* action = new ShowOptionAction( (*it)->name(), _actions );
         action->plug( showPopup );
         connect( action, SIGNAL( toggled( const QString&, bool ) ),
@@ -219,7 +227,7 @@ void Viewer::ViewerWidget::createShowContextMenu()
 
 void Viewer::ViewerWidget::createWallPaperMenu()
 {
-    _wallpaperMenu = new QPopupMenu( _popup, "context popup menu" );
+    _wallpaperMenu = new Q3PopupMenu( _popup, "context popup menu" );
 
     KAction* action = new KAction( i18n("Centered"), 0, this, SLOT( slotSetWallpaperC() ), _actions, "viewer-centered" );
     action->plug( _wallpaperMenu );
@@ -245,19 +253,19 @@ void Viewer::ViewerWidget::createWallPaperMenu()
                           _actions, "viewer-centered-auto-fit" );
     action->plug( _wallpaperMenu );
 
-    _popup->insertItem( QIconSet(), i18n("Set as Wallpaper"), _wallpaperMenu );
+    _popup->insertItem( QIcon(), i18n("Set as Wallpaper"), _wallpaperMenu );
 }
 
 void Viewer::ViewerWidget::createInvokeExternalMenu()
 {
     _externalPopup = new MainWindow::ExternalPopup( _popup );
-    _popup->insertItem( QIconSet(), i18n("Invoke External Program"), _externalPopup );
+    _popup->insertItem( QIcon(), i18n("Invoke External Program"), _externalPopup );
     connect( _externalPopup, SIGNAL( aboutToShow() ), this, SLOT( populateExternalPopup() ) );
 }
 
 void Viewer::ViewerWidget::createRotateMenu()
 {
-    _rotateMenu = new QPopupMenu( _popup );
+    _rotateMenu = new Q3PopupMenu( _popup );
 
     KAction* action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
     action->plug( _rotateMenu );
@@ -268,12 +276,12 @@ void Viewer::ViewerWidget::createRotateMenu()
     action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
     action->plug( _rotateMenu );
 
-    _popup->insertItem( QIconSet(), i18n("Rotate"), _rotateMenu );
+    _popup->insertItem( QIcon(), i18n("Rotate"), _rotateMenu );
 }
 
 void Viewer::ViewerWidget::createSkipMenu()
 {
-    QPopupMenu *popup = new QPopupMenu( _popup );
+    Q3PopupMenu *popup = new Q3PopupMenu( _popup );
 
     KAction* action = new KAction( i18n("First"), Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
     action->plug( popup );
@@ -315,12 +323,12 @@ void Viewer::ViewerWidget::createSkipMenu()
     action->plug( popup );
     _backwardActions.append(action);
 
-    _popup->insertItem( QIconSet(), i18n("Skip"), popup );
+    _popup->insertItem( QIcon(), i18n("Skip"), popup );
 }
 
 void Viewer::ViewerWidget::createZoomMenu()
 {
-    QPopupMenu *popup = new QPopupMenu( _popup );
+    Q3PopupMenu *popup = new Q3PopupMenu( _popup );
 
     // PENDING(blackie) Only for image display?
     KAction* action = new KAction( i18n("Zoom In"), Key_Plus, this, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
@@ -339,13 +347,13 @@ void Viewer::ViewerWidget::createZoomMenu()
                           _actions, "viewer-toggle-fullscreen" );
     action->plug( popup );
 
-    _popup->insertItem( QIconSet(), i18n("Zoom"), popup );
+    _popup->insertItem( QIcon(), i18n("Zoom"), popup );
 }
 
 
 void Viewer::ViewerWidget::createSlideShowMenu()
 {
-    QPopupMenu *popup = new QPopupMenu( _popup );
+    Q3PopupMenu *popup = new Q3PopupMenu( _popup );
 
     _startStopSlideShow = new KAction( i18n("Run Slideshow"), CTRL+Key_R, this, SLOT( slotStartStopSlideShow() ),
                                        _actions, "viewer-start-stop-slideshow" );
@@ -359,7 +367,7 @@ void Viewer::ViewerWidget::createSlideShowMenu()
                                        _actions, "viewer-run-slower" );
     _slideShowRunSlower->plug( popup );
 
-    _popup->insertItem( QIconSet(), i18n("Slideshow"), popup );
+    _popup->insertItem( QIcon(), i18n("Slideshow"), popup );
 }
 
 
@@ -425,9 +433,9 @@ void Viewer::ViewerWidget::load()
     setCaptionWithDetail( QString() );
 
     // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
-    for( QPtrList<KAction>::const_iterator it = _forwardActions.begin(); it != _forwardActions.end(); ++it )
+    for( Q3PtrList<KAction>::const_iterator it = _forwardActions.begin(); it != _forwardActions.end(); ++it )
       (*it)->setEnabled( _current +1 < (int) _list.count() );
-    for( QPtrList<KAction>::const_iterator it = _backwardActions.begin(); it != _forwardActions.end(); ++it )
+    for( Q3PtrList<KAction>::const_iterator it = _backwardActions.begin(); it != _forwardActions.end(); ++it )
       (*it)->setEnabled( _current > 0 );
     if ( isVideo )
         updateCategoryConfig();

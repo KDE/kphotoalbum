@@ -23,10 +23,19 @@
 #include <kaction.h>
 #include <qdialog.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <QContextMenuEvent>
+#include <QWheelEvent>
+#include <QResizeEvent>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3PtrList>
+#include <Q3PopupMenu>
+#include <QKeyEvent>
 
-class QWidgetStack;
+class Q3WidgetStack;
 class QLabel;
-class QPopupMenu;
+class Q3PopupMenu;
 class KAction;
 class CategoryImageConfig;
 
@@ -149,14 +158,14 @@ protected slots:
 private:
     static ViewerWidget* _latest;
 
-    QPtrList<KAction> _forwardActions;
-    QPtrList<KAction> _backwardActions;
+    Q3PtrList<KAction> _forwardActions;
+    Q3PtrList<KAction> _backwardActions;
 
     KAction* _startStopSlideShow;
     KAction* _slideShowRunFaster;
     KAction* _slideShowRunSlower;
 
-    QWidgetStack* _stack;
+    Q3WidgetStack* _stack;
     Display* _display;
     ImageDisplay* _imageDisplay;
     VideoDisplay* _videoDisplay;
@@ -165,9 +174,9 @@ private:
     QStringList _list;
     int _current;
     QRect _textRect;
-    QPopupMenu* _popup;
-    QPopupMenu* _rotateMenu;
-    QPopupMenu* _wallpaperMenu;
+    Q3PopupMenu* _popup;
+    Q3PopupMenu* _rotateMenu;
+    Q3PopupMenu* _wallpaperMenu;
     MainWindow::ExternalPopup* _externalPopup;
     int _width, _height;
     QPixmap _pixmap;

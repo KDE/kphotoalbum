@@ -22,8 +22,10 @@
 
 #include <qstring.h>
 #include <qvariant.h>
-#include <qptrvector.h>
-#include <qvaluevector.h>
+#include <q3ptrvector.h>
+#include <q3valuevector.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 #include <kexidb/connection.h>
 #include <kexidb/object.h>
@@ -103,10 +105,10 @@ class KEXI_DB_EXPORT Cursor: public QObject, public Object
 		inline QuerySchema *query() const { return m_query; }
 
 		//! \return query parameters assigned to this cursor
-		QValueList<QVariant> queryParameters() const;
+		Q3ValueList<QVariant> queryParameters() const;
 
 		//! Sets query parameters \a params for this cursor.
-		void setQueryParameters(const QValueList<QVariant>& params);
+		void setQueryParameters(const Q3ValueList<QVariant>& params);
 
 		/*! \return raw query statement used to define this cursor
 		 or null string if raw statement instead (but QuerySchema is defined instead). */
@@ -157,7 +159,7 @@ class KEXI_DB_EXPORT Cursor: public QObject, public Object
 		 Value -1 means that cursor does not point to any valid record
 		 (this happens eg. after open(), close(), 
 		 and after moving after last record or before first one. */
-		Q_LLONG at() const;
+		qlonglong at() const;
 
 		/*! \return number of fields available for this cursor. 
 		 This never includes ROWID column or other internal coluns (e.g. lookup). */
@@ -299,7 +301,7 @@ class KEXI_DB_EXPORT Cursor: public QObject, public Object
 		virtual void drv_bufferMovePointerPrev() = 0;
 		/*! Moves pointer (that points to the buffer) to a new place: \a at.
 		*/
-		virtual void drv_bufferMovePointerTo(Q_LLONG at) = 0;
+		virtual void drv_bufferMovePointerTo(qlonglong at) = 0;
 
 		/*DISABLED: ! This is called only once in open(), after successful drv_open().
 			Reimplement this if you need (or not) to do get the first record after drv_open(),
@@ -318,7 +320,7 @@ class KEXI_DB_EXPORT Cursor: public QObject, public Object
 		 the same that is returend by serverResult(). */
 		virtual void drv_clearServerResult() = 0;
 
-		QGuardedPtr<Connection> m_conn;
+		QPointer<Connection> m_conn;
 		QuerySchema *m_query;
 //		CursorData *m_data;
 		QString m_rawStatement;
@@ -329,7 +331,7 @@ class KEXI_DB_EXPORT Cursor: public QObject, public Object
 //		bool m_atLast;
 		bool m_validRecord : 1; //!< true if valid record is currently retrieved @ current position
 		bool m_containsROWIDInfo : 1;
-		Q_LLONG m_at;
+		qlonglong m_at;
 		uint m_fieldCount; //!< cached field count information
 		uint m_logicalFieldCount;  //!< logical field count, i.e. without intrernal values like ROWID or lookup
 		uint m_options; //!< cursor options that describes its behaviour
@@ -346,7 +348,7 @@ class KEXI_DB_EXPORT Cursor: public QObject, public Object
 		//! Used by setOrderByColumnList()
 		QueryColumnInfo::Vector* m_orderByColumnList;
 
-		QValueList<QVariant>* m_queryParameters;
+		Q3ValueList<QVariant>* m_queryParameters;
 
 	private:
 		bool m_readAhead : 1;

@@ -20,6 +20,11 @@
 #include "HTMLDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3ValueList>
+#include <Q3VBoxLayout>
 #include <klineedit.h>
 #include <qlabel.h>
 #include <qspinbox.h>
@@ -27,14 +32,14 @@
 #include <kfiledialog.h>
 #include <qpushbutton.h>
 #include "Settings/SettingsData.h"
-#include <qhgroupbox.h>
+#include <q3hgroupbox.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kfileitem.h>
 #include <kio/netaccess.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <kdebug.h>
-#include <qvgroupbox.h>
+#include <q3vgroupbox.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "MainWindow/Window.h"
@@ -60,8 +65,8 @@ void HTMLDialog::createContentPage()
     QWidget* contentPage = addPage( i18n("Content" ), i18n("Content" ),
                                     KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "edit" ),
                                                                      KIcon::Desktop, 32 ));
-    QVBoxLayout* lay1 = new QVBoxLayout( contentPage, 6 );
-    QGridLayout* lay2 = new QGridLayout( lay1, 2 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( contentPage, 6 );
+    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
 
     QLabel* label = new QLabel( i18n("Page title:"), contentPage );
     lay2->addWidget( label, 0, 0 );
@@ -73,7 +78,7 @@ void HTMLDialog::createContentPage()
     label = new QLabel( i18n("Description:"), contentPage );
     label->setAlignment( Qt::AlignTop );
     lay2->addWidget( label, 1, 0 );
-    _description = new QTextEdit( contentPage );
+    _description = new Q3TextEdit( contentPage );
     label->setBuddy( _description );
     lay2->addWidget( _description, 1, 1 );
 
@@ -86,14 +91,14 @@ void HTMLDialog::createContentPage()
     lay1->addWidget( _inlineMovies );
 
     // What to include
-    QVGroupBox* whatToInclude = new QVGroupBox( i18n( "What to Include" ), contentPage );
+    Q3VGroupBox* whatToInclude = new Q3VGroupBox( i18n( "What to Include" ), contentPage );
     lay1->addWidget( whatToInclude );
     QWidget* w = new QWidget( whatToInclude );
-    QGridLayout* lay3 = new QGridLayout( w, 1, 2, 6 );
+    Q3GridLayout* lay3 = new Q3GridLayout( w, 1, 2, 6 );
     lay3->setAutoAdd( true );
 
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
             QCheckBox* cb = new QCheckBox( (*it)->text(), w );
             _whatToIncludeMap.insert( (*it)->name(), cb );
@@ -108,14 +113,14 @@ void HTMLDialog::createLayoutPage()
     QWidget* layoutPage = addPage( i18n("Layout" ), i18n("Layout" ),
                                    KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "matrix" ),
                                                                     KIcon::Desktop, 32 ));
-    QVBoxLayout* lay1 = new QVBoxLayout( layoutPage, 6 );
-    QGridLayout* lay2 = new QGridLayout( lay1, 2, 2, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( layoutPage, 6 );
+    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2, 2, 6 );
 
     // Thumbnail size
     QLabel* label = new QLabel( i18n("Thumbnail size:"), layoutPage );
     lay2->addWidget( label, 0, 0 );
 
-    QHBoxLayout* lay3 = new QHBoxLayout( 0 );
+    Q3HBoxLayout* lay3 = new Q3HBoxLayout( 0 );
     lay2->addLayout( lay3, 0, 1 );
 
     _thumbSize = new QSpinBox( 16, 256, 1, layoutPage );
@@ -128,7 +133,7 @@ void HTMLDialog::createLayoutPage()
     label = new QLabel( i18n("Number of columns:"), layoutPage );
     lay2->addWidget( label, 1, 0 );
 
-    QHBoxLayout* lay4 = new QHBoxLayout( 0 );
+    Q3HBoxLayout* lay4 = new Q3HBoxLayout( 0 );
     lay2->addLayout( lay4, 1, 1 );
     _numOfCols = new QSpinBox( 1, 10, 1, layoutPage );
     label->setBuddy( _numOfCols);
@@ -140,7 +145,7 @@ void HTMLDialog::createLayoutPage()
     // Theme box
     label = new QLabel( i18n("Theme:"), layoutPage );
     lay2->addWidget( label, 2, 0 );
-    lay4 = new QHBoxLayout( 0 );
+    lay4 = new Q3HBoxLayout( 0 );
     lay2->addLayout( lay4, 2, 1 );
     _themeBox = new QComboBox( layoutPage, "theme_combobox" );
     label->setBuddy( _themeBox );
@@ -149,10 +154,10 @@ void HTMLDialog::createLayoutPage()
     populateThemesCombo();
 
     // Image sizes
-    QHGroupBox* sizes = new QHGroupBox( i18n("Image Sizes"), layoutPage );
+    Q3HGroupBox* sizes = new Q3HGroupBox( i18n("Image Sizes"), layoutPage );
     lay1->addWidget( sizes );
     QWidget* content = new QWidget( sizes );
-    QGridLayout* lay5 = new QGridLayout( content, 2, 4 );
+    Q3GridLayout* lay5 = new Q3GridLayout( content, 2, 4 );
     lay5->setAutoAdd( true );
     ImageSizeCheckBox* size320  = new ImageSizeCheckBox( 320, 200, content );
     ImageSizeCheckBox* size640  = new ImageSizeCheckBox( 640, 480, content );
@@ -173,14 +178,14 @@ void HTMLDialog::createDestinationPage()
     QWidget* destinationPage = addPage( i18n("Destination" ), i18n("Destination" ),
                                         KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
                                                                          KIcon::Desktop, 32 ));
-    QVBoxLayout* lay1 = new QVBoxLayout( destinationPage, 6 );
-    QGridLayout* lay2 = new QGridLayout( lay1, 2 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( destinationPage, 6 );
+    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
 
     // Base Directory
     QLabel* label = new QLabel( i18n("Base directory:"), destinationPage );
     lay2->addWidget( label, 0, 0 );
 
-    QHBoxLayout* lay3 = new QHBoxLayout( (QWidget*)0, 0, 6 );
+    Q3HBoxLayout* lay3 = new Q3HBoxLayout( (QWidget*)0, 0, 6 );
     lay2->addLayout( lay3, 0, 1 );
 
     _baseDir = new KLineEdit( destinationPage );
@@ -319,10 +324,10 @@ bool HTMLDialog::checkVars()
     return true;
 }
 
-QValueList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
+Q3ValueList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
 {
-    QValueList<ImageSizeCheckBox*> res;
-    for( QValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
+    Q3ValueList<ImageSizeCheckBox*> res;
+    for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
         if ( (*sizeIt)->isChecked() )
             res << *sizeIt;
     }

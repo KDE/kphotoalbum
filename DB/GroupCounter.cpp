@@ -94,7 +94,7 @@ GroupCounter::GroupCounter( const QString& category )
 void GroupCounter::count( const StringSet& categories )
 {
     // It takes quite some time to clear the dict with a large prime!
-    static QDict<void> countedGroupDict( 97 /* a large, but not extreme prime */ );
+    static Q3Dict<void> countedGroupDict( 97 /* a large, but not extreme prime */ );
 
     countedGroupDict.clear();
     for( StringSet::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
@@ -119,7 +119,7 @@ QMap<QString,uint> GroupCounter::result()
 {
     QMap<QString,uint> res;
 
-    for( QDictIterator<uint> it(_groupCount); *it; ++it ) {
+    for( Q3DictIterator<uint> it(_groupCount); *it; ++it ) {
         if ( *(*it) != 0 )
             res.insert( it.currentKey(), *(*it) );
     }

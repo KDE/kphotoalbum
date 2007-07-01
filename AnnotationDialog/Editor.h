@@ -18,17 +18,21 @@
 
 #ifndef EDITOR_H
 #define EDITOR_H
-#include <qtextedit.h>
+#include <q3textedit.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <QKeyEvent>
+#include <QContextMenuEvent>
 
 class KDictSpellingHighlighter;
 class KSpellConfig;
 class QPoint;
-class QPopupMenu;
+class Q3PopupMenu;
 
 namespace AnnotationDialog
 {
 
-class Editor :public QTextEdit
+class Editor :public Q3TextEdit
 {
     Q_OBJECT
 
@@ -36,9 +40,9 @@ public:
     Editor( QWidget* parent, const char* name = 0 );
 
 protected:
-    virtual QPopupMenu* createPopupMenu( const QPoint & pos );
+    virtual Q3PopupMenu* createPopupMenu( const QPoint & pos );
     QString wordAtPos( const QPoint& pos );
-    QPopupMenu* replacementMenu( const QString& word );
+    Q3PopupMenu* replacementMenu( const QString& word );
     virtual void contentsContextMenuEvent( QContextMenuEvent *e );
     void replaceWord( const QPoint& pos, const QString& replacement );
     bool wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* end );

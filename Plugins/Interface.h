@@ -21,7 +21,7 @@
 
 #ifdef HASKIPI
 #include <libkipi/interface.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <libkipi/imagecollection.h>
 #include <libkipi/imageinfo.h>
 #include <kurl.h>
@@ -38,7 +38,7 @@ public:
     Interface( QObject *parent, const char *name=0);
     virtual KIPI::ImageCollection currentAlbum();
     virtual KIPI::ImageCollection currentSelection();
-    virtual QValueList<KIPI::ImageCollection> allAlbums();
+    virtual Q3ValueList<KIPI::ImageCollection> allAlbums();
     virtual KIPI::ImageInfo info( const KURL& );
     virtual bool addImage( const KURL&, QString& errmsg );
     virtual void delImage( const KURL& );

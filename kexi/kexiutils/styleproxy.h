@@ -23,6 +23,8 @@
 #include <qstyle.h>
 #include <qstylefactory.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
 
 #include "kexiutils_export.h"
 
@@ -65,7 +67,7 @@ class KEXIUTILS_EXPORT StyleProxy : public QStyle
 
 		virtual void polish( QPalette &p ) { m_style->polish(p); };
 
-		virtual void polishPopupMenu( QPopupMenu* p ) { m_style->polishPopupMenu(p); }
+		virtual void polishPopupMenu( Q3PopupMenu* p ) { m_style->polishPopupMenu(p); }
 
 		virtual QRect itemRect( QPainter *p, const QRect &r,
 			int flags, bool enabled, const QPixmap *pixmap, const QString &text, int len = -1 ) const

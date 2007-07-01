@@ -16,9 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CategoryItem.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 DB::CategoryItem::~CategoryItem()
 {
-    for( QValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+    for( Q3ValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         delete *it;
     }
 }
@@ -26,7 +28,7 @@ DB::CategoryItem::~CategoryItem()
 DB::CategoryItem* DB::CategoryItem::clone() const
 {
     CategoryItem* result = new CategoryItem( _name );
-    for( QValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+    for( Q3ValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         result->_subcategories.append( (*it)->clone() );
     }
     return result;
@@ -37,14 +39,14 @@ void DB::CategoryItem::print( int offset )
     QString spaces;
     spaces.fill( ' ', offset );
     qDebug( "%s%s", spaces.latin1(), _name.latin1() );
-    for( QValueList< CategoryItem* >::Iterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+    for( Q3ValueList< CategoryItem* >::Iterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         (*it)->print( offset + 2 );
     }
 }
 
 bool DB::CategoryItem::isDescendentOf( const QString& child, const QString& parent ) const
 {
-   for( QValueList< CategoryItem* >::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+   for( Q3ValueList< CategoryItem* >::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         if ( _name == parent ) {
             if ( (*it)->hasChild( child ) )
                 return true;
@@ -62,7 +64,7 @@ bool DB::CategoryItem::hasChild( const QString& child )
     if ( _name == child )
         return true;
 
-    for( QValueList< CategoryItem* >::Iterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
+    for( Q3ValueList< CategoryItem* >::Iterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         if ( (*it)->hasChild( child ) )
             return true;
     }

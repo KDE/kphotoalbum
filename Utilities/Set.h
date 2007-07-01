@@ -18,14 +18,14 @@
 #ifndef SET_H
 #define SET_H
 #include <qmap.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 template <class TYPE>
 class Set :public QMap<TYPE, TYPE>
 {
 public:
     Set() {}
-    Set( const QValueList<TYPE>& list )
+    Set( const Q3ValueList<TYPE>& list )
     {
         insert( list );
     }
@@ -35,14 +35,14 @@ public:
         QMap<TYPE,TYPE>::insert( key, key );
     }
 
-    void insert( const QValueList<TYPE>& list )
+    void insert( const Q3ValueList<TYPE>& list )
     {
-        for( QValueListConstIterator<TYPE> it = list.begin(); it != list.end(); ++it ) {
+        for( Q3ValueListConstIterator<TYPE> it = list.begin(); it != list.end(); ++it ) {
             insert( *it );
         }
     }
 
-    QValueList<TYPE> toList() const
+    Q3ValueList<TYPE> toList() const
     {
         return QMap<TYPE,TYPE>::keys();
     }

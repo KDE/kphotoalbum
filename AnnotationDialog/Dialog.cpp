@@ -20,17 +20,27 @@
 #include "ListSelect.h"
 #include <qpushbutton.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
+#include <Q3CString>
+#include <QPixmap>
+#include <QResizeEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
+#include <QMoveEvent>
+#include <QCloseEvent>
 #include "Settings/SettingsData.h"
 #include "ImagePreview.h"
 #include "Viewer/ViewerWidget.h"
-#include <qaccel.h>
+#include <q3accel.h>
 #include <kstandarddirs.h>
 #include "Editor.h"
 #include <klocale.h>
 #include <qlayout.h>
 #include <kpushbutton.h>
 #include <klineedit.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qpoint.h>
 #include <qcursor.h>
 #include <qapplication.h>
@@ -44,7 +54,7 @@
 #include "KDateEdit.h"
 #include "MainWindow/DeleteDialog.h"
 #include <kguiitem.h>
-#include <qobjectlist.h>
+#include <qobject.h>
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include <kconfig.h>
@@ -61,7 +71,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     : QDialog( parent, name ), _viewer(0)
 {
     Utilities::ShowBusyCursor dummy;
-    QVBoxLayout* layout = new QVBoxLayout( this, 6 );
+    Q3VBoxLayout* layout = new Q3VBoxLayout( this, 6 );
     _dockWindow = new KDockMainWindow( 0 );
 
     _dockWindow->reparent( this, false, QPoint( 0,0 ) );
@@ -75,11 +85,11 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
 
     _dockWidgets.append( dateDock );
     QWidget* top = new QWidget( dateDock );
-    QVBoxLayout* lay2 = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay2 = new Q3VBoxLayout( top, 6 );
     dateDock->setWidget( top );
 
     // Image Label
-    QHBoxLayout* lay3 = new QHBoxLayout( lay2, 6 );
+    Q3HBoxLayout* lay3 = new Q3HBoxLayout( lay2, 6 );
     QLabel* label = new QLabel( i18n("Label: " ), top, "label" );
     lay3->addWidget( label );
     _imageLabel = new KLineEdit( top, "label line edit" );
@@ -88,7 +98,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
 
 
     // Date
-    QHBoxLayout* lay4 = new QHBoxLayout( lay2, 6 );
+    Q3HBoxLayout* lay4 = new Q3HBoxLayout( lay2, 6 );
 
     label = new QLabel( i18n("Date: "), top, "date label" );
     lay4->addWidget( label );
@@ -105,7 +115,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     lay4->addWidget( _endDate, 1 );
 
     // Time
-    QHBoxLayout* lay7 = new QHBoxLayout( lay2, 6 );
+    Q3HBoxLayout* lay7 = new Q3HBoxLayout( lay2, 6 );
     label = new QLabel( i18n("Time: "), top);
     lay7->addWidget( label );
 
@@ -129,13 +139,13 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
                                          _dockWindow, i18n("Image Preview") );
     _dockWidgets.append( previewDock );
     QWidget* top2 = new QWidget( previewDock );
-    QVBoxLayout* lay5 = new QVBoxLayout( top2, 6 );
+    Q3VBoxLayout* lay5 = new Q3VBoxLayout( top2, 6 );
     previewDock->setWidget( top2 );
 
     _preview = new ImagePreview( top2 );
     lay5->addWidget( _preview );
 
-    QHBoxLayout* lay6 = new QHBoxLayout( lay5 );
+    Q3HBoxLayout* lay6 = new Q3HBoxLayout( lay5 );
     lay6->addStretch(1);
 
     _prevBut = new QPushButton( top2 );
@@ -196,8 +206,8 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     KDockWidget* last = descriptionDock;
     KDockWidget::DockPosition pos = KDockWidget::DockBottom;
 
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         KDockWidget* dockWidget = createListSel( *categoryIt );
         dockWidget->manualDock( last, pos );
         last = dockWidget;
@@ -206,7 +216,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
 
 
     // -------------------------------------------------- The buttons.
-    QHBoxLayout* lay1 = new QHBoxLayout( layout, 6 );
+    Q3HBoxLayout* lay1 = new Q3HBoxLayout( layout, 6 );
 
     _revertBut = new QPushButton( i18n("Revert This Item"), this );
     lay1->addWidget( _revertBut );
@@ -304,7 +314,7 @@ void AnnotationDialog::Dialog::slotOK()
         }
     }
     else if ( _setup == InputMultiImageConfigMode ) {
-        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             (*it)->slotReturn();
         }
 
@@ -315,7 +325,7 @@ void AnnotationDialog::Dialog::slotOK()
             if ( !_startDate->date().isNull() )
                 info->setDate( DB::ImageDate( _startDate->date(), _endDate->date(), _time->time() ) );
 
-            for( QPtrListIterator<ListSelect> listSelectIt( _optionList ); *listSelectIt; ++listSelectIt ) {
+            for( Q3PtrListIterator<ListSelect> listSelectIt( _optionList ); *listSelectIt; ++listSelectIt ) {
                 info->addCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOn() );
                 info->removeCategoryInfo( (*listSelectIt)->category(), (*listSelectIt)->itemsOff() );
             }
@@ -354,7 +364,7 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     // FIXME: it would be better to compute the "previous image" in a better way, but let's stick with this for now...
     DB::ImageInfo& old_info = _editList[ _current - 1 ];
 
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setSelection( old_info.itemsOfCategory( (*it)->category() ) );
     }
 }
@@ -382,7 +392,7 @@ void AnnotationDialog::Dialog::load()
     _imageLabel->setText( info.label() );
     _description->setText( info.description() );
 
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setSelection( info.itemsOfCategory( (*it)->category() ) );
     }
 
@@ -401,7 +411,7 @@ void AnnotationDialog::Dialog::load()
 
 void AnnotationDialog::Dialog::writeToInfo()
 {
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->slotReturn();
     }
 
@@ -420,7 +430,7 @@ void AnnotationDialog::Dialog::writeToInfo()
 
     info.setLabel( _imageLabel->text() );
     info.setDescription( _description->text() );
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
     }
 }
@@ -453,7 +463,7 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
         _addTime->show();
 
 
-        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it )
+        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
             setUpCategoryListBoxForMultiImageSelection( *it, list );
 
         _imageLabel->setText( QString::fromLatin1("") );
@@ -484,7 +494,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
         _oldSearch = DB::ImageSearchInfo( DB::ImageDate( _startDate->date(), _endDate->date() ),
                                       _imageLabel->text(), _description->text() );
 
-        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             _oldSearch.setOption( (*it)->category(), (*it)->text() );
         }
 
@@ -498,7 +508,7 @@ void AnnotationDialog::Dialog::setup()
 {
 // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->populate();
     }
 
@@ -528,7 +538,7 @@ void AnnotationDialog::Dialog::setup()
     _delBut->setEnabled( _setup == InputSingleImageConfigMode );
     _copyPreviousBut->setEnabled( _setup == InputSingleImageConfigMode );
 
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it )
+    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
         (*it)->setMode( _setup );
 }
 
@@ -543,7 +553,7 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
     _startDate->setDate( info.date().start().date() );
     _endDate->setDate( info.date().end().date() );
 
-    for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+    for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->setText( info.option( (*it)->category() ) );
     }
 
@@ -558,7 +568,7 @@ void AnnotationDialog::Dialog::viewerDestroyed()
 
 void AnnotationDialog::Dialog::slotOptions()
 {
-    QPopupMenu menu( this, "context popup menu");
+    Q3PopupMenu menu( this, "context popup menu");
     menu.insertItem( i18n("Show/Hide Windows"),  _dockWindow->dockHideShowMenu());
     menu.insertItem( i18n("Save Current Window Setup"), 1 );
     menu.insertItem( i18n( "Reset layout" ), 2 );
@@ -602,9 +612,9 @@ void AnnotationDialog::Dialog::slotSaveWindowSetup()
     doc.appendChild( top );
 
     _dockWindow->writeDockConfig( top );
-    QCString xml = doc.toCString();
+    Q3CString xml = doc.toCString();
     QFile file( QString::fromLatin1( "%1/layout.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
-    file.open( IO_WriteOnly );
+    file.open( QIODevice::WriteOnly );
     file.writeBlock( xml.data(), xml.size()-1 );
     file.close();
 }
@@ -618,7 +628,7 @@ void AnnotationDialog::Dialog::closeEvent( QCloseEvent* e )
 void AnnotationDialog::Dialog::hideTornOfWindows()
 {
     _tornOfWindows.clear();
-    for( QValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
+    for( Q3ValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
         if ( (*it)->isTopLevel() && (*it)->isShown() ) {
             (*it)->hide();
             _tornOfWindows.append( *it );
@@ -628,7 +638,7 @@ void AnnotationDialog::Dialog::hideTornOfWindows()
 
 void AnnotationDialog::Dialog::showTornOfWindows()
 {
-    for( QValueList<KDockWidget*>::Iterator it = _tornOfWindows.begin(); it != _tornOfWindows.end(); ++it ) {
+    for( Q3ValueList<KDockWidget*>::Iterator it = _tornOfWindows.begin(); it != _tornOfWindows.end(); ++it ) {
         (*it)->show();
     }
 }
@@ -653,7 +663,7 @@ bool AnnotationDialog::Dialog::eventFilter( QObject* watched, QEvent* event )
         return false;
 
     // Initially I used an allow list, but combo boxes pop up menu's did for example not work then.
-    if ( w->topLevelWidget()->className() == QCString( "MainWindow" ) || w->topLevelWidget()->className() == QCString( "Viewer" )) {
+    if ( w->topLevelWidget()->className() == Q3CString( "MainWindow" ) || w->topLevelWidget()->className() == Q3CString( "Viewer" )) {
         if ( isMinimized() )
             showNormal();
         raise();
@@ -682,14 +692,14 @@ KDockWidget* AnnotationDialog::Dialog::createListSel( const DB::CategoryPtr& cat
 
 void AnnotationDialog::Dialog::slotDeleteOption( DB::Category* category, const QString& value )
 {
-    for( QValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+    for( Q3ValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).removeCategoryInfo( category->name(), value );
     }
 }
 
 void AnnotationDialog::Dialog::slotRenameOption( DB::Category* category, const QString& oldValue, const QString& newValue )
 {
-    for( QValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
+    for( Q3ValueListIterator<DB::ImageInfo> it = _editList.begin(); it != _editList.end(); ++it ) {
         (*it).renameItem( category->name(), oldValue, newValue );
     }
 }
@@ -726,7 +736,7 @@ bool AnnotationDialog::Dialog::hasChanges()
         changed |= ( !_startDate->date().isNull() );
         changed |= ( !_endDate->date().isNull() );
 
-        for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
+        for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             QPair<StringSet, StringSet> origSelection = selectionForMultiSelect( *it, _origList );
             changed |= origSelection.first != (*it)->itemsOn();
             changed |= origSelection.second != (*it)->itemsUnchanged();
@@ -850,7 +860,7 @@ void AnnotationDialog::Dialog::setupFocus()
     initialized = true;
 
     QObjectList* list = queryList( "QWidget" );
-    QValueList<QWidget*> orderedList;
+    Q3ValueList<QWidget*> orderedList;
 
     // Iterate through all widgets in our dialog.
     for ( QObjectListIt inputIt( *list ); *inputIt; ++inputIt ) {
@@ -862,7 +872,7 @@ void AnnotationDialog::Dialog::setupFocus()
 
         bool inserted = false;
         // Iterate through the ordered list of widgets, and insert the current one, so it is in the right position in the tab chain.
-        for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+        for( Q3ValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
             QWidget* w = *orderedIt;
             int wx = w->mapToGlobal( QPoint(0,0) ).x();
             int wy = w->mapToGlobal( QPoint(0,0) ).y();
@@ -880,7 +890,7 @@ void AnnotationDialog::Dialog::setupFocus()
 
     // Now setup tab order.
     QWidget* prev = 0;
-    for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+    for( Q3ValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
         if ( prev )
             setTabOrder( prev, *orderedIt );
 
@@ -889,7 +899,7 @@ void AnnotationDialog::Dialog::setupFocus()
     delete list;
 
     // Finally set focus on the first list select
-    for( QValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
+    for( Q3ValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
         if ( QString::fromLatin1((*orderedIt)->name()).startsWith( QString::fromLatin1("line edit for") ) ) {
             (*orderedIt)->setFocus();
             break;
@@ -922,9 +932,9 @@ void AnnotationDialog::Dialog::loadWindowLayout()
         fileName =locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
 
     QFile file( fileName );
-    file.open( IO_ReadOnly );
-    QTextStream stream( &file );
-    stream.setEncoding( QTextStream::UnicodeUTF8 );
+    file.open( QIODevice::ReadOnly );
+    Q3TextStream stream( &file );
+    stream.setEncoding( Q3TextStream::UnicodeUTF8 );
     QString content = stream.read();
 
     QMap<QString,QString> map = DB::Category::standardCategories();

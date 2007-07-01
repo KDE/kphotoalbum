@@ -27,13 +27,15 @@
 #include "ExifFolder.h"
 #include "Exif/Database.h"
 #include <config.h> // for HASEXIV2
+//Added by qt3to4:
+#include <Q3ValueList>
 
 void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 {
     _browser->clear();
 
-    const QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    const Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         factory->createItem( new TypeFolder( *categoryIt, _info, _browser ), 0 );
     }
 

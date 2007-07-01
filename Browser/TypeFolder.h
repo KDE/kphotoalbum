@@ -20,6 +20,8 @@
 #define TYPEFOLDER_H
 #include "Folder.h"
 #include "DB/Category.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 namespace Browser
 {

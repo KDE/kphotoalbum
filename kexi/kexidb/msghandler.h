@@ -21,7 +21,7 @@
 #define KEXIDB_MSGHANDLER_H
 
 #include <kexidb/object.h>
-#include <qguardedptr.h>
+#include <qpointer.h>
 #include <qwidget.h>
 
 namespace KexiDB {
@@ -89,7 +89,7 @@ class KEXI_DB_EXPORT MessageHandler
 			int options = KMessageBox::Notify );
 
 	protected:
-		QGuardedPtr<QWidget> m_messageHandlerParentWidget;
+		QPointer<QWidget> m_messageHandlerParentWidget;
 		bool m_enableMessages : 1;
 };
 

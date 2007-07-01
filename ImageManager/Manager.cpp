@@ -21,6 +21,8 @@
 #include "ImageManager/ImageClient.h"
 #include "Utilities/Util.h"
 #include "VideoManager.h"
+//Added by qt3to4:
+#include <QCustomEvent>
 
 ImageManager::Manager* ImageManager::Manager::_instance = 0;
 

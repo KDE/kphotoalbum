@@ -31,6 +31,9 @@
 #include <klocale.h>
 
 #include <qdatetime.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3ValueList>
 
 KEXI_DB_EXPORT QString KexiDB::exprClassName(int c)
 {
@@ -451,7 +454,7 @@ Field::Type ConstExpr::type()
 //TODO ok?
 //TODO: add sign info?
 		if (value.type() == QVariant::Int || value.type() == QVariant::UInt) {
-			Q_LLONG v = value.toInt();
+			qlonglong v = value.toInt();
 			if (v <= 0xff && v > -0x80)
 				return Field::Byte;
 			if (v <= 0xffff && v > -0x8000)
@@ -669,9 +672,9 @@ bool VariableExpr::validate(ParseInfo& parseInfo)
 	TableSchema *ts = parseInfo.querySchema->table( tableName );
 	if (ts) {//table.fieldname
 		//check if "table" is covered by an alias
-		const QValueList<int> tPositions = parseInfo.querySchema->tablePositions(tableName);
-		QValueList<int>::ConstIterator it = tPositions.constBegin();
-		QCString tableAlias;
+		const Q3ValueList<int> tPositions = parseInfo.querySchema->tablePositions(tableName);
+		Q3ValueList<int>::ConstIterator it = tPositions.constBegin();
+		Q3CString tableAlias;
 		bool covered = true;
 		for (; it!=tPositions.constEnd() && covered; ++it) {
 			tableAlias = parseInfo.querySchema->tableAlias(*it);
@@ -705,7 +708,7 @@ bool VariableExpr::validate(ParseInfo& parseInfo)
 		return false;
 	}
 
-	QValueList<int> *positionsList = parseInfo.repeatedTablesAndAliases[ tableName ];
+	Q3ValueList<int> *positionsList = parseInfo.repeatedTablesAndAliases[ tableName ];
 	if (!positionsList) { //for sanity
 		IMPL_ERROR(tableName + "." + fieldName + ", !positionsList ");
 		return false;
@@ -735,7 +738,7 @@ bool VariableExpr::validate(ParseInfo& parseInfo)
 	// check if table or alias is used twice and both have the same column
 	// (so the column is ambiguous)
 	int numberOfTheSameFields = 0;
-	for (QValueList<int>::iterator it = positionsList->begin();
+	for (Q3ValueList<int>::iterator it = positionsList->begin();
 		it!=positionsList->end();++it)
 	{
 		TableSchema *otherTS = parseInfo.querySchema->tables()->at(*it);
@@ -757,11 +760,11 @@ bool VariableExpr::validate(ParseInfo& parseInfo)
 }
 
 //=========================================
-static QValueList<QCString> FunctionExpr_builtIns;
+static Q3ValueList<Q3CString> FunctionExpr_builtIns;
 static const char* FunctionExpr_builtIns_[] = 
 {"SUM", "MIN", "MAX", "AVG", "COUNT", "STD", "STDDEV", "VARIANCE", 0 };
 
-QValueList<QCString> FunctionExpr::builtInAggregates()
+Q3ValueList<Q3CString> FunctionExpr::builtInAggregates()
 {
 	if (FunctionExpr_builtIns.isEmpty()) {
 		for (const char **p = FunctionExpr_builtIns_; *p; p++)
@@ -822,7 +825,7 @@ bool FunctionExpr::validate(ParseInfo& parseInfo)
 	return args ? args->validate(parseInfo) : true;
 }
 
-bool FunctionExpr::isBuiltInAggregate(const QCString& fname)
+bool FunctionExpr::isBuiltInAggregate(const Q3CString& fname)
 {
 	return builtInAggregates().find(fname.upper())!=FunctionExpr_builtIns.end();
 }

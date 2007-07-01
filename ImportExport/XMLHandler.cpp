@@ -17,6 +17,8 @@
 */
 #include "XMLHandler.h"
 #include <qdom.h>
+//Added by qt3to4:
+#include <Q3CString>
 #include "Utilities/Util.h"
 #include "DB/ImageDB.h"
 
@@ -33,7 +35,7 @@
  * (2) To ensure that the .kim files are compatible both forth and back between versions, I'd rather keep that code
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
-QCString ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
+Q3CString ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
                                                    ImageFileLocation location, const Utilities::UniqNameMap& nameMap )
 {
     QDomDocument doc;

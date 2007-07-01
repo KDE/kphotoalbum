@@ -18,6 +18,8 @@
 #ifndef XMLIMAGEDATERANGECOLLECTION_H
 #define XMLIMAGEDATERANGECOLLECTION_H
 #include "DB/ImageDateCollection.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 class XMLImageDateCollection :public DB::ImageDateCollection
 {
@@ -33,7 +35,7 @@ public:
 private:
     void append( const DB::ImageDate& );
 
-    QValueList<DB::ImageDate> _dates;
+    Q3ValueList<DB::ImageDate> _dates;
     QMap<DB::ImageDate,DB::ImageCount> _cache;
     mutable bool _dirtyLower, _dirtyUpper;
 };

@@ -21,6 +21,8 @@
 #include <kio/previewjob.h>
 #include <Settings/SettingsData.h>
 #include <qimage.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <qapplication.h>

@@ -19,6 +19,9 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
 #include <klocale.h>
 #include "DB/ImageDB.h"
 
@@ -27,8 +30,8 @@ using namespace Survey;
 SurveyCountQuestion::SurveyCountQuestion( const QString& id, const QString& title, Survey::SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    QVBoxLayout* vbox = new QVBoxLayout( this, 6 );
-    QGridLayout* lay = new QGridLayout( vbox, 2, 2, 6 );
+    Q3VBoxLayout* vbox = new Q3VBoxLayout( this, 6 );
+    Q3GridLayout* lay = new Q3GridLayout( vbox, 2, 2, 6 );
     QLabel* label = new QLabel( i18n("How many images are in your database:"), this );
     _imageCount = new QSpinBox( 0, 1000000, 100, this );
     lay->addWidget( label, 0, 0 );

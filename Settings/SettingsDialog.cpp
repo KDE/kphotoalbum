@@ -21,23 +21,28 @@
 #include <klocale.h>
 #include <qlayout.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 #include <kcombobox.h>
 #include <kpushbutton.h>
 #include <qspinbox.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include "Settings/SettingsData.h"
 #include <kicondialog.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"
 #include <qcheckbox.h>
 #include <kinputdialog.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include <qvgroupbox.h>
-#include <qhbox.h>
+#include <q3vgroupbox.h>
+#include <q3hbox.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
 #include <config.h>
@@ -84,9 +89,9 @@ void Settings::SettingsDialog::createGeneralPage()
     QWidget* top = addPage( i18n("General" ), i18n("General" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
                                                              KIcon::Desktop, 32 ) );
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
-    QVGroupBox* box = new QVGroupBox( i18n( "New Images" ), top );
+    Q3VGroupBox* box = new Q3VGroupBox( i18n( "New Images" ), top );
     lay1->addWidget( box );
 
     // Thrust time stamps
@@ -94,7 +99,7 @@ void Settings::SettingsDialog::createGeneralPage()
     QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), container );
     _trustTimeStamps = new KComboBox( container );
     _trustTimeStamps->insertStringList( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
-    QHBoxLayout* hlay = new QHBoxLayout( container, 0, 6 );
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( container, 0, 6 );
     hlay->addWidget( timeStampLabel );
     hlay->addWidget( _trustTimeStamps );
     hlay->addStretch( 1 );
@@ -111,7 +116,7 @@ void Settings::SettingsDialog::createGeneralPage()
     // Datebar size
     container = new QWidget( top );
     lay1->addWidget( container );
-    hlay = new QHBoxLayout( container, 0, 6 );
+    hlay = new Q3HBoxLayout( container, 0, 6 );
     QLabel* datebarSize = new QLabel( i18n("Size of histogram columns in datebar:"), container );
     hlay->addWidget( datebarSize );
     _barWidth = new QSpinBox( 1, 100, 1, container );
@@ -129,13 +134,13 @@ void Settings::SettingsDialog::createGeneralPage()
     // Album Category
     QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), top, "albumCategoryLabel" );
     _albumCategory = new QComboBox( top, "_albumCategory" );
-    QHBoxLayout* lay7 = new QHBoxLayout( lay1, 6 );
+    Q3HBoxLayout* lay7 = new Q3HBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
     lay7->addStretch(1);
 
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         _albumCategory->insertItem( (*it)->text() );
     }
 
@@ -153,30 +158,30 @@ void Settings::SettingsDialog::createGeneralPage()
                 "a digital camera, you should reply <b>no</b>. If you never scan images, you should reply <b>yes</b>, "
                 "otherwise reply <b>ask</b>. This will allow you to decide whether the images are from "
                 "the scanner or the camera, from session to session.</p>" );
-    QWhatsThis::add( timeStampLabel, txt );
-    QWhatsThis::add( _trustTimeStamps, txt );
+    Q3WhatsThis::add( timeStampLabel, txt );
+    Q3WhatsThis::add( _trustTimeStamps, txt );
 
     txt = i18n( "<p>JPEG images may contain information about rotation. "
                 "If you have a reason for not using this information to get a default rotation of "
                 "your images, uncheck this check box.</p>"
                 "<p>Note: Your digital camera may not write this information into the images at all.</p>" );
-    QWhatsThis::add( _useEXIFRotate, txt );
+    Q3WhatsThis::add( _useEXIFRotate, txt );
 
     txt = i18n( "<p>JPEG images may contain a description. "
                "Check this checkbox to specify if you want to use this as a "
                "default description for your images.</p>" );
-    QWhatsThis::add( _useEXIFComments, txt );
+    Q3WhatsThis::add( _useEXIFComments, txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
                 "using <b>Maintenance->Rescan for new images</b></p>");
-    QWhatsThis::add( _searchForImagesOnStartup, txt );
+    Q3WhatsThis::add( _searchForImagesOnStartup, txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
 		"Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
 		"This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
 		"If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
-    QWhatsThis::add( _dontReadRawFilesWithOtherMatchingFile, txt );
+    Q3WhatsThis::add( _dontReadRawFilesWithOtherMatchingFile, txt );
 
     txt = i18n("<p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
                "KPhotoAlbum does not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
@@ -191,11 +196,11 @@ void Settings::SettingsDialog::createGeneralPage()
                "with this option, then KPhotoAlbum will act as if you had just chosen to display people and then invoke "
                "the plugin which needs to know about all albums.</p>"
                "<p>Most users would probably want to specify Keywords here.</p>");
-    QWhatsThis::add( albumCategoryLabel, txt );
-    QWhatsThis::add( _albumCategory, txt );
+    Q3WhatsThis::add( albumCategoryLabel, txt );
+    Q3WhatsThis::add( _albumCategory, txt );
 
     txt = i18n( "Show the KPhotoAlbum splash screen on start up" );
-    QWhatsThis::add( _showSplashScreen, txt );
+    Q3WhatsThis::add( _showSplashScreen, txt );
 }
 
 void Settings::SettingsDialog::createThumbNailPage()
@@ -204,7 +209,7 @@ void Settings::SettingsDialog::createThumbNailPage()
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "view_icon" ),
                                                              KIcon::Desktop, 32 ) );
 
-    QGridLayout* lay = new QGridLayout( top );
+    Q3GridLayout* lay = new Q3GridLayout( top );
     lay->setSpacing( 6 );
     int row = 0;
 
@@ -284,46 +289,46 @@ void Settings::SettingsDialog::createThumbNailPage()
     txt = i18n( "<p>If you select <b>Settings -&gt; Show Tooltips</b> in the thumbnail view, then you will see a small tool tip window "
                 "displaying information about the thumbnails. This window includes a small preview image. "
                 "This option configures the image size.</p>" );
-    QWhatsThis::add( previewSizeLabel, txt );
-    QWhatsThis::add( _previewSize, txt );
+    Q3WhatsThis::add( previewSizeLabel, txt );
+    Q3WhatsThis::add( _previewSize, txt );
 
 
     txt = i18n( "<p>Thumbnail image size. You may also set the size simply by dragging the thumbnail view using the middle mouse button.</p>" );
-    QWhatsThis::add( thumbnailSizeLabel, txt );
-    QWhatsThis::add( _thumbnailSize, txt );
+    Q3WhatsThis::add( thumbnailSizeLabel, txt );
+    Q3WhatsThis::add( _thumbnailSize, txt );
 
     txt = i18n("<p>Choose what aspect ratio the cells holding thumbnails should have.</p>");
-    QWhatsThis::add( _thumbnailAspectRatio, txt );
+    Q3WhatsThis::add( _thumbnailAspectRatio, txt );
 
     txt = i18n("<p>How thick the cell padding should be.</p>");
-    QWhatsThis::add( thumbnailSpaceLabel, txt );
+    Q3WhatsThis::add( thumbnailSpaceLabel, txt );
 
     txt = i18n("<p>The background color in the thumbnail view is "
                "the systems' default background; by checking this option, "
                "you can set it to be dark instead.</p>");
-    QWhatsThis::add( _thumbnailDarkBackground, txt );
+    Q3WhatsThis::add( _thumbnailDarkBackground, txt );
 
     txt = i18n("<p>If you want to see grid around your thumbnail images, "
                "select this option.</p>");
-    QWhatsThis::add( _thumbnailDisplayGrid, txt );
+    Q3WhatsThis::add( _thumbnailDisplayGrid, txt );
 
     txt = i18n("<p>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view.</p>");
-    QWhatsThis::add( _displayLabels, txt );
+    Q3WhatsThis::add( _displayLabels, txt );
 
     txt = i18n("<p>Checking this option will show the Categories for the file under "
         "thumbnails in the thumbnail view</p>");
-    QWhatsThis::add( _displayCategories, txt );
+    Q3WhatsThis::add( _displayCategories, txt );
 
     txt = i18n("<p>When you are browsing, and the count gets below the value specified here, "
                "the thumbnails will be shown automatically. The alternative is to continue showing the "
                "browser until you press <i>Show Images</i></p>");
-    QWhatsThis::add( _autoShowThumbnailView, txt );
-    QWhatsThis::add( autoShowLabel, txt );
+    Q3WhatsThis::add( _autoShowThumbnailView, txt );
+    Q3WhatsThis::add( autoShowLabel, txt );
 
     txt = i18n("<p>Specify the size of the cache used to hold thumbnails.</p>");
-    QWhatsThis::add( cacheLabel, txt );
-    QWhatsThis::add( _thumbnailCache, txt );
+    Q3WhatsThis::add( cacheLabel, txt );
+    Q3WhatsThis::add( _thumbnailCache, txt );
 }
 
 
@@ -333,15 +338,15 @@ void Settings::SettingsDialog::createOptionGroupsPage()
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "identity" ),
                                                              KIcon::Desktop, 32 ) );
 
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
-    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
 
-    _categories = new QListBox( top );
-    connect( _categories, SIGNAL( clicked( QListBoxItem* ) ), this, SLOT( edit( QListBoxItem* ) ) );
+    _categories = new Q3ListBox( top );
+    connect( _categories, SIGNAL( clicked( Q3ListBoxItem* ) ), this, SLOT( edit( Q3ListBoxItem* ) ) );
     lay2->addWidget( _categories );
 
 
-    QGridLayout* lay3 = new QGridLayout( lay2, 6 );
+    Q3GridLayout* lay3 = new Q3GridLayout( lay2, 6 );
 
     _labelLabel = new QLabel( i18n( "Label:" ), top );
     lay3->addWidget( _labelLabel, 0, 0 );
@@ -384,7 +389,7 @@ void Settings::SettingsDialog::createOptionGroupsPage()
     _preferredView->insertStringList( list );
     connect( _preferredView, SIGNAL( activated( int ) ), this, SLOT( slotPreferredViewChanged( int ) ) );
 
-    QHBoxLayout* lay4 = new QHBoxLayout( lay1, 6 );
+    Q3HBoxLayout* lay4 = new Q3HBoxLayout( lay1, 6 );
     KPushButton* newItem = new KPushButton( i18n("New"), top );
     connect( newItem, SIGNAL( clicked() ), this, SLOT( slotNewItem() ) );
 
@@ -448,8 +453,8 @@ void Settings::SettingsDialog::show()
 
     // Config Groups page
     _categories->clear();
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
             new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
         }
@@ -530,12 +535,12 @@ void Settings::SettingsDialog::slotMyOK()
     // Categories
 
     // Delete items
-    for( QValueList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
+    for( Q3ValueList<CategoryItem*>::Iterator it = _deleted.begin(); it != _deleted.end(); ++it ) {
         (*it)->removeFromDatabase();
     }
 
     // Created or Modified items
-    for ( QListBoxItem* i = _categories->firstItem(); i; i = i->next() ) {
+    for ( Q3ListBoxItem* i = _categories->firstItem(); i; i = i->next() ) {
         CategoryItem* item = static_cast<CategoryItem*>( i );
         item->submit( &_memberMap );
     }
@@ -566,7 +571,7 @@ void Settings::SettingsDialog::slotMyOK()
 }
 
 
-void Settings::SettingsDialog::edit( QListBoxItem* i )
+void Settings::SettingsDialog::edit( Q3ListBoxItem* i )
 {
     if ( i == 0 )
         return;
@@ -654,34 +659,34 @@ void Settings::SettingsDialog::createGroupConfig()
     QWidget* top = addPage( i18n("Subcategories" ), i18n("Subcategories" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "editcopy" ),
                                                              KIcon::Desktop, 32 ) );
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     // Category
-    QHBoxLayout* lay2 = new QHBoxLayout( lay1, 6 );
+    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
     QLabel* label = new QLabel( i18n( "Category:" ), top );
     lay2->addWidget( label );
     _category = new QComboBox( top );
     lay2->addWidget( _category );
     lay2->addStretch(1);
 
-    QHBoxLayout* lay3 = new QHBoxLayout( lay1, 6 );
+    Q3HBoxLayout* lay3 = new Q3HBoxLayout( lay1, 6 );
 
     // Groups
-    QVBoxLayout* lay4 = new QVBoxLayout( lay3, 6 );
+    Q3VBoxLayout* lay4 = new Q3VBoxLayout( lay3, 6 );
     label = new QLabel( i18n( "Super Categories:" ), top );
     lay4->addWidget( label );
-    _groups = new QListBox( top );
+    _groups = new Q3ListBox( top );
     lay4->addWidget( _groups );
 
     // Members
-    QVBoxLayout* lay5 = new QVBoxLayout( lay3, 6 );
+    Q3VBoxLayout* lay5 = new Q3VBoxLayout( lay3, 6 );
     label = new QLabel( i18n( "Items of Category:" ), top );
     lay5->addWidget( label );
-    _members = new QListBox( top );
+    _members = new Q3ListBox( top );
     lay5->addWidget( _members );
 
     // Buttons
-    QHBoxLayout* lay6 = new QHBoxLayout( lay1, 6 );
+    Q3HBoxLayout* lay6 = new Q3HBoxLayout( lay1, 6 );
     lay6->addStretch(1);
 
     QPushButton* add = new QPushButton( i18n("Add Super Category..." ), top );
@@ -704,12 +709,12 @@ void Settings::SettingsDialog::createGroupConfig()
              SIGNAL( itemRenamed( DB::Category*, const QString&, const QString& ) ),
              &_memberMap, SLOT( renameItem( DB::Category*, const QString&, const QString& ) ) );
     connect( _category, SIGNAL( activated( const QString& ) ), this, SLOT( slotCategoryChanged( const QString& ) ) );
-    connect( _groups, SIGNAL( currentChanged( QListBoxItem* ) ), this, SLOT( slotGroupSelected( QListBoxItem* ) ) );
+    connect( _groups, SIGNAL( currentChanged( Q3ListBoxItem* ) ), this, SLOT( slotGroupSelected( Q3ListBoxItem* ) ) );
     connect( _rename, SIGNAL( clicked() ), this, SLOT( slotRenameGroup() ) );
     connect( add, SIGNAL( clicked() ), this, SLOT( slotAddGroup() ) );
     connect( _del, SIGNAL( clicked() ), this, SLOT( slotDelGroup() ) );
 
-    _members->setSelectionMode( QListBox::Multi );
+    _members->setSelectionMode( Q3ListBox::Multi );
 }
 
 /**
@@ -761,7 +766,7 @@ void Settings::SettingsDialog::slotCategoryChanged( const QString& name, bool sa
     setButtonStates();
 }
 
-void Settings::SettingsDialog::slotGroupSelected( QListBoxItem* item )
+void Settings::SettingsDialog::slotGroupSelected( Q3ListBoxItem* item )
 {
     saveOldGroup();
     if ( item )
@@ -777,7 +782,7 @@ void Settings::SettingsDialog::slotAddGroup()
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
         _memberMap.addGroup(_currentCategory, text);
         slotCategoryChanged( _currentCategory, false );
-        QListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
+        Q3ListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
         _groups->setCurrentItem( item ); // also emits currentChanged()
         // selectMembers() is called automatically by slotGroupSelected()
     }
@@ -793,7 +798,7 @@ void Settings::SettingsDialog::slotRenameGroup()
         _memberMap.renameGroup( _currentCategory, _currentGroup, text );
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( _currentGroup, text );
         slotCategoryChanged( _currentCategory, false );
-        QListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
+        Q3ListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
         _groups->setCurrentItem( item );
     }
 }
@@ -817,7 +822,7 @@ void Settings::SettingsDialog::saveOldGroup()
         return;
 
     QStringList list;
-    for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+    for( Q3ListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
         if ( item->isSelected() )
             list << item->text();
     }
@@ -831,7 +836,7 @@ void Settings::SettingsDialog::selectMembers( const QString& group )
 
     QStringList list = _memberMap.members(_currentCategory,group, false );
 
-    for( QListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
+    for( Q3ListBoxItem* item = _members->firstItem(); item; item = item->next() ) {
         if (!_memberMap.canAddMemberToGroup(_currentCategory, group, item->text())) {
             _members->setSelected(item, false);
             item->setSelectable(false);
@@ -865,8 +870,8 @@ void Settings::SettingsDialog::setButtonStates()
 void Settings::SettingsDialog::slotPageChange()
 {
     _category->clear();
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( !(*it)->isSpecialCategory() )
             _category->insertItem( (*it)->text() );
     }
@@ -884,7 +889,7 @@ void Settings::SettingsDialog::createViewerPage()
     QWidget* top = addPage( i18n("Viewer" ), i18n("Viewer" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "viewmag" ),
                                                              KIcon::Desktop, 32 ) );
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), top, "_slideShowSetup" );
     lay1->addWidget( _slideShowSetup );
@@ -892,7 +897,7 @@ void Settings::SettingsDialog::createViewerPage()
     _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images and Videos From Thumbnail View" ), top, "_viewImageSetup" );
     lay1->addWidget( _viewImageSetup );
 
-    QGridLayout* glay = new QGridLayout( lay1, 2, 2, 6 );
+    Q3GridLayout* glay = new Q3GridLayout( lay1, 2, 2, 6 );
 
     QLabel* label = new QLabel( i18n("Slideshow interval:" ), top );
     glay->addWidget( label, 0, 0 );
@@ -924,7 +929,7 @@ void Settings::SettingsDialog::createViewerPage()
 	       "<p><b>Natural Image Size</b> indicates that the image will be displayed pixel for pixel.</p> "
 	       "<p><b>Natural Image Size If Possible</b> indicates that the image will be displayed pixel for pixel if it would fit the window, "
 	       "otherwise it will be shrunk to fit the viewer.</p>");
-    QWhatsThis::add(_viewerStandardSize, txt);
+    Q3WhatsThis::add(_viewerStandardSize, txt);
 
     QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), top );
     _smoothScale = new QComboBox( top );
@@ -935,8 +940,8 @@ void Settings::SettingsDialog::createViewerPage()
     glay->addWidget( _smoothScale, 3, 1 );
     txt = i18n("<p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
 		       "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p>");
-    QWhatsThis::add( scalingLabel, txt );
-    QWhatsThis::add( _smoothScale, txt );
+    Q3WhatsThis::add( scalingLabel, txt );
+    Q3WhatsThis::add( _smoothScale, txt );
 }
 
 
@@ -947,7 +952,7 @@ void Settings::SettingsDialog::createPluginPage()
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "share" ),
                                                              KIcon::Desktop, 32 ) );
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), top );
     lay1->addWidget( label );
@@ -966,7 +971,7 @@ void Settings::SettingsDialog::createEXIFPage()
     QWidget* top = addPage( i18n("EXIF Information" ), i18n("EXIF Information" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "contents" ),
                                                              KIcon::Desktop, 32 ) );
-    QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
+    Q3HBoxLayout* lay1 = new Q3HBoxLayout( top, 6 );
 
     _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );
     lay1->addWidget( _exifForViewer );
@@ -990,9 +995,9 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
                                                            KIcon::Desktop, 32));
     _backendPageIndex = pageIndex(top);
 
-    QVBoxLayout* lay1 = new QVBoxLayout(top, 6);
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout(top, 6);
 
-    _backendButtons = new QButtonGroup(1, Qt::Horizontal,
+    _backendButtons = new Q3ButtonGroup(1, Qt::Horizontal,
                                        i18n("Database backend to use"), top);
     lay1->addWidget(_backendButtons);
 
@@ -1004,7 +1009,7 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
 
 
     // XML Backend
-    QVGroupBox* xmlBox = new QVGroupBox( i18n("XML Database Setting"), top );
+    Q3VGroupBox* xmlBox = new Q3VGroupBox( i18n("XML Database Setting"), top );
     lay1->addWidget( xmlBox );
 
     // Compressed index.xml
@@ -1017,14 +1022,14 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     _autosave = new QSpinBox( 1, 120, 1, box );
     _autosave->setSuffix( i18n( "min." ) );
 
-    QHBoxLayout* lay = new QHBoxLayout( box, 6 );
+    Q3HBoxLayout* lay = new Q3HBoxLayout( box, 6 );
     lay->addWidget( label );
     lay->addWidget( _autosave );
     lay->addStretch( 1 );
 
     // Backup
     box = new QWidget( xmlBox );
-    lay = new QHBoxLayout( box, 6 );
+    lay = new Q3HBoxLayout( box, 6 );
     QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), box );
     lay->addWidget( backupLabel );
 
@@ -1040,20 +1045,20 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
                "the maximum number of backup files.</p>"
                "<p>The index.xml file may grow substantially if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
                "the backup files to preserve disk space.</p>" );
-    QWhatsThis::add( backupLabel, txt );
-    QWhatsThis::add( _backupCount, txt );
-    QWhatsThis::add( _compressBackup, txt );
+    Q3WhatsThis::add( backupLabel, txt );
+    Q3WhatsThis::add( _backupCount, txt );
+    Q3WhatsThis::add( _compressBackup, txt );
 
     txt = i18n( "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
                 "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
-    QWhatsThis::add( _compressedIndexXML, txt );
+    Q3WhatsThis::add( _compressedIndexXML, txt );
 
 
 
     // SQL Backend
 #ifdef SQLDB_SUPPORT
-    QVGroupBox* sqlBox = new QVGroupBox(i18n("SQL Database Settings"), top);
+    Q3VGroupBox* sqlBox = new Q3VGroupBox(i18n("SQL Database Settings"), top);
     //sqlBox->setEnabled(false);
     lay1->addWidget(sqlBox);
 

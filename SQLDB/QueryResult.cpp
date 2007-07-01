@@ -19,6 +19,8 @@
 
 #include "QueryResult.h"
 #include "QueryErrors.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 using namespace SQLDB;
 
@@ -36,9 +38,9 @@ QStringList QueryResult::asStringList() const
 namespace
 {
     template <size_t N>
-    inline QValueList<QString[N]> readStringNsFromCursor(SQLDB::Cursor& cursor)
+    inline Q3ValueList<QString[N]> readStringNsFromCursor(SQLDB::Cursor& cursor)
     {
-        QValueList<QString[N]> l;
+        Q3ValueList<QString[N]> l;
         for (cursor.selectFirstRow();
              cursor.rowExists(); cursor.selectNextRow()) {
             QString v[N];
@@ -50,27 +52,27 @@ namespace
     }
 }
 
-QValueList<QString[2]> QueryResult::asString2List() const
+Q3ValueList<QString[2]> QueryResult::asString2List() const
 {
-    QValueList<QString[2]> r;
+    Q3ValueList<QString[2]> r;
     if (_cursor) {
         r = readStringNsFromCursor<2>(_cursor);
     }
     return r;
 }
 
-QValueList<QString[3]> QueryResult::asString3List() const
+Q3ValueList<QString[3]> QueryResult::asString3List() const
 {
-    QValueList<QString[3]> r;
+    Q3ValueList<QString[3]> r;
     if (_cursor) {
         r = readStringNsFromCursor<3>(_cursor);
     }
     return r;
 }
 
-QValueList<int> QueryResult::asIntegerList() const
+Q3ValueList<int> QueryResult::asIntegerList() const
 {
-    QValueList<int> r;
+    Q3ValueList<int> r;
     if (_cursor) {
         for (_cursor.selectFirstRow();
              _cursor.rowExists(); _cursor.selectNextRow())
@@ -79,9 +81,9 @@ QValueList<int> QueryResult::asIntegerList() const
     return r;
 }
 
-QValueList<uint> QueryResult::asUIntegerList() const
+Q3ValueList<uint> QueryResult::asUIntegerList() const
 {
-    QValueList<uint> r;
+    Q3ValueList<uint> r;
     if (_cursor) {
         for (_cursor.selectFirstRow();
              _cursor.rowExists(); _cursor.selectNextRow())
@@ -90,9 +92,9 @@ QValueList<uint> QueryResult::asUIntegerList() const
     return r;
 }
 
-QValueList< QPair<int, int> > QueryResult::asInteger2List() const
+Q3ValueList< QPair<int, int> > QueryResult::asInteger2List() const
 {
-    QValueList< QPair<int, int> > r;
+    Q3ValueList< QPair<int, int> > r;
     if (_cursor) {
         for (_cursor.selectFirstRow();
              _cursor.rowExists(); _cursor.selectNextRow())
@@ -102,9 +104,9 @@ QValueList< QPair<int, int> > QueryResult::asInteger2List() const
     return r;
 }
 
-QValueList< QPair<int, QString> > QueryResult::asIntegerStringPairs() const
+Q3ValueList< QPair<int, QString> > QueryResult::asIntegerStringPairs() const
 {
-    QValueList< QPair<int, QString> > r;
+    Q3ValueList< QPair<int, QString> > r;
     if (_cursor) {
         for (_cursor.selectFirstRow(); _cursor.rowExists();
              _cursor.selectNextRow())
@@ -136,9 +138,9 @@ QMap<QString, uint> QueryResult::asStringUIntegerMap() const
     return r;
 }
 
-QValueList<QVariant> QueryResult::asVariantList() const
+Q3ValueList<QVariant> QueryResult::asVariantList() const
 {
-    QValueList<QVariant> r;
+    Q3ValueList<QVariant> r;
     if (_cursor) {
         for (_cursor.selectFirstRow();
              _cursor.rowExists(); _cursor.selectNextRow())

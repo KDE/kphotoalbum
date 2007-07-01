@@ -19,7 +19,7 @@
 #define EXIFSEARCHINFO_H
 
 #include <qstringlist.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qpair.h>
 #include "Utilities/Set.h"
 
@@ -38,9 +38,9 @@ public:
         QString key;
     };
 
-    void addSearchKey( const QString& key, const QValueList<int> values );
+    void addSearchKey( const QString& key, const Q3ValueList<int> values );
     void addRangeKey( const Range& range );
-    void addCamara( const QValueList< QPair<QString, QString> >& );
+    void addCamara( const Q3ValueList< QPair<QString, QString> >& );
 
     void search() const;
     bool matches( const QString& fileName ) const;
@@ -53,10 +53,10 @@ protected:
     QString sqlForOneRangeItem( const Range& ) const;
 
 private:
-    typedef QValueList< QPair<QString, QValueList<int> > > IntKeyList;
+    typedef Q3ValueList< QPair<QString, Q3ValueList<int> > > IntKeyList;
     IntKeyList _intKeys;
-    QValueList<Range> _rangeKeys;
-    QValueList< QPair<QString,QString> > _cameras;
+    Q3ValueList<Range> _rangeKeys;
+    Q3ValueList< QPair<QString,QString> > _cameras;
     mutable Set<QString> _matches;
     mutable bool _emptyQuery;
 };

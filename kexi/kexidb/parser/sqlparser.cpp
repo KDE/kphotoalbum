@@ -801,8 +801,8 @@
 #include <qobject.h>
 #include <kdebug.h>
 #include <klocale.h>
-#include <qptrlist.h>
-#include <qcstring.h>
+#include <q3ptrlist.h>
+#include <q3cstring.h>
 #include <qvariant.h>
 
 #include <connection.h>
@@ -865,7 +865,7 @@ typedef union YYSTYPE
 #line 511 "sqlparser.y"
 {
 	QString* stringValue;
-	Q_LLONG integerValue;
+	qlonglong integerValue;
 	bool booleanValue;
 	struct realType realValue;
 	KexiDB::Field::Type colType;
@@ -3012,8 +3012,8 @@ YYACCEPT;
 		val = (int)(yyvsp[(1) - (1)].integerValue);
 	else if ((yyvsp[(1) - (1)].integerValue) <= UINT_MAX && (yyvsp[(1) - (1)].integerValue) >= 0)
 		val = (uint)(yyvsp[(1) - (1)].integerValue);
-	else if ((yyvsp[(1) - (1)].integerValue) <= (Q_LLONG)LLONG_MAX && (yyvsp[(1) - (1)].integerValue) >= (Q_LLONG)LLONG_MIN)
-		val = (Q_LLONG)(yyvsp[(1) - (1)].integerValue);
+	else if ((yyvsp[(1) - (1)].integerValue) <= (qlonglong)LLONG_MAX && (yyvsp[(1) - (1)].integerValue) >= (qlonglong)LLONG_MIN)
+		val = (qlonglong)(yyvsp[(1) - (1)].integerValue);
 
 //	if ($1 < ULLONG_MAX)
 //		val = (Q_ULLONG)$1;

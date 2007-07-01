@@ -21,6 +21,8 @@
 #define SQLTYPES_H
 
 #include <qvariant.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 extern int current;
 extern QString ctoken;
@@ -41,8 +43,8 @@ struct realType
 //! @internal
 struct OrderByColumnInternal
 {
-	typedef QValueList<OrderByColumnInternal> List;
-	typedef QValueListConstIterator<OrderByColumnInternal> ListConstIterator;
+	typedef Q3ValueList<OrderByColumnInternal> List;
+	typedef Q3ValueListConstIterator<OrderByColumnInternal> ListConstIterator;
 	OrderByColumnInternal()
 	 : columnNumber(-1)
 	 , ascending(true)

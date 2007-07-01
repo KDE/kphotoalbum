@@ -22,23 +22,26 @@
 #include <qstringlist.h>
 #include <qcombobox.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 #include <klocale.h>
 using namespace ImportExport;
 
 ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCategory,
                               const QStringList& otherItems, const QStringList& myItems,
                               bool allowNew, QWidget* parent, const char* name )
-    : QScrollView( parent, name ), _otherCategory( otherCategory ), _myCategory( myCategory )
+    : Q3ScrollView( parent, name ), _otherCategory( otherCategory ), _myCategory( myCategory )
 {
     setResizePolicy( AutoOneFit );
 
     QWidget* top = new QWidget( viewport() );
-    QVBoxLayout* layout = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* layout = new Q3VBoxLayout( top, 6 );
     QWidget* grid = new QWidget( top, "grid" );
     layout->addWidget( grid );
     layout->addStretch(1);
 
-    QGridLayout* gridLay = new QGridLayout( grid, 2, 1, 0, 6 );
+    Q3GridLayout* gridLay = new Q3GridLayout( grid, 2, 1, 0, 6 );
     gridLay->setColStretch( 1, 1 );
     addChild( top );
 
@@ -62,7 +65,7 @@ ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCat
     }
 }
 
-CategoryMatch::CategoryMatch( bool allowNew, const QString& category, QStringList items, QWidget* parent, QGridLayout* grid, int row )
+CategoryMatch::CategoryMatch( bool allowNew, const QString& category, QStringList items, QWidget* parent, Q3GridLayout* grid, int row )
 {
     _checkbox = new QCheckBox( category, parent );
     _text = category; // We can't just use QCheckBox::text() as Qt adds accelerators.

@@ -19,6 +19,8 @@
 #include "DonateDialog.h"
 #include <qlayout.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 #include <krun.h>
 #include <kurl.h>
 #include <klocale.h>
@@ -30,7 +32,7 @@ DonateDialog::DonateDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("Donate Money"), Close | User1, Close, parent, name )
 {
     QWidget* top = plainPage();
-    QHBoxLayout* layout = new QHBoxLayout( top, 10 );
+    Q3HBoxLayout* layout = new Q3HBoxLayout( top, 10 );
 
     QLabel* image = new QLabel( top, "image" );
     image->setMinimumSize( QSize( 273, 204 ) );

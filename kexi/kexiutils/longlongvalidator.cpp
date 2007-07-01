@@ -32,7 +32,7 @@ LongLongValidator::LongLongValidator( QWidget * parent, int base, const char * n
 	setBase(base);
 }
 
-LongLongValidator::LongLongValidator( Q_LLONG bottom, Q_LLONG top, QWidget * parent, int base, const char * name )
+LongLongValidator::LongLongValidator( qlonglong bottom, qlonglong top, QWidget * parent, int base, const char * name )
   : QValidator(parent, name)
 {
 	setBase(base);
@@ -46,7 +46,7 @@ LongLongValidator::~LongLongValidator()
 QValidator::State LongLongValidator::validate( QString &str, int & ) const
 {
 	bool ok;
-	Q_LLONG val = 0;
+	qlonglong val = 0;
 	QString newStr;
 
 	newStr = str.stripWhiteSpace();
@@ -81,7 +81,7 @@ QValidator::State LongLongValidator::validate( QString &str, int & ) const
 void LongLongValidator::fixup( QString &str ) const
 {
 	int dummy;
-	Q_LLONG val;
+	qlonglong val;
 	QValidator::State state;
 
 	state = validate(str, dummy);
@@ -102,7 +102,7 @@ void LongLongValidator::fixup( QString &str ) const
 	str.setNum(val, m_base);
 }
 
-void LongLongValidator::setRange( Q_LLONG bottom, Q_LLONG top )
+void LongLongValidator::setRange( qlonglong bottom, qlonglong top )
 {
 	m_min = bottom;
 	m_max = top;
@@ -120,12 +120,12 @@ void LongLongValidator::setBase( int base )
 		m_base = 36;
 }
 
-Q_LLONG LongLongValidator::bottom() const
+qlonglong LongLongValidator::bottom() const
 {
 	return m_min;
 }
 
-Q_LLONG LongLongValidator::top() const
+qlonglong LongLongValidator::top() const
 {
 	return m_max;
 }

@@ -20,6 +20,8 @@
 #include "Exif/Database.h"
 #include <qsqldatabase.h>
 #include <qsqldriver.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "Settings/SettingsData.h"
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
@@ -34,9 +36,9 @@
 
 using namespace Exif;
 
-static QValueList<DatabaseElement*> elements()
+static Q3ValueList<DatabaseElement*> elements()
 {
-    static QValueList<DatabaseElement*> elms;
+    static Q3ValueList<DatabaseElement*> elms;
 
     if ( elms.count() == 0 ) {
         elms.append( new RationalExifElement( "Exif.Photo.FocalLength" ) );
@@ -101,8 +103,8 @@ bool Exif::Database::isOpen() const
 void Exif::Database::populateDatabase()
 {
     QStringList attributes;
-    QValueList<DatabaseElement*> elms = elements();
-    for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    Q3ValueList<DatabaseElement*> elms = elements();
+    for( Q3ValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         attributes.append( (*tagIt)->createString() );
     }
 
@@ -146,15 +148,15 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
         return;
 
     QStringList formalList;
-    QValueList<DatabaseElement*> elms = elements();
-    for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    Q3ValueList<DatabaseElement*> elms = elements();
+    for( Q3ValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         formalList.append( (*tagIt)->queryString() );
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
     query.bindValue(  0, _doUTF8Conversion ? filename.utf8() : filename );
     int i = 1;
-    for( QValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
+    for( Q3ValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );
     }
 
@@ -228,9 +230,9 @@ void Exif::Database::offerInitialize()
 
 }
 
-QValueList< QPair<QString,QString> > Exif::Database::cameras() const
+Q3ValueList< QPair<QString,QString> > Exif::Database::cameras() const
 {
-    QValueList< QPair<QString,QString> > result;
+    Q3ValueList< QPair<QString,QString> > result;
 
     if ( !isUsable() )
         return result;

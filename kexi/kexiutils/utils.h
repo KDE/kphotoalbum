@@ -22,8 +22,10 @@
 
 #include "kexiutils_export.h"
 
-#include <qguardedptr.h>
-#include <qobjectlist.h>
+#include <qpointer.h>
+#include <qobject.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include <kmimetype.h>
 class QColor;
 
@@ -163,7 +165,7 @@ namespace KexiUtils
 	 color of \a palette palette. This function is useful for displaying monochromed icons 
 	 on the list view or table view header, to avoid bloat, but still have the color compatible 
 	 with accessibility settings. */
-	KEXIUTILS_EXPORT QIconSet colorizeIconToTextColor(const QPixmap& icon, const QPalette& palette);
+	KEXIUTILS_EXPORT QIcon colorizeIconToTextColor(const QPixmap& icon, const QPalette& palette);
 
 	/*! Serializes \a map to \a array.
 	 KexiUtils::deserializeMap() can be used to deserialize this array back to map. */
@@ -239,7 +241,7 @@ namespace KexiUtils
 //! a widget that must be instantiated by hand.
 //! This macro inserts a widget \a what into a frame \a where.
 #define GLUE_WIDGET(what, where) \
-	{ QVBoxLayout *lyr = new QVBoxLayout(where); \
+	{ Q3VBoxLayout *lyr = new Q3VBoxLayout(where); \
 	  lyr->addWidget(what); }
 
 

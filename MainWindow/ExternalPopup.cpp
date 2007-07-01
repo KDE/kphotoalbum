@@ -21,6 +21,10 @@
 #include <ktrader.h>
 #include <qstringlist.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3Frame>
+#include <Q3PopupMenu>
 #include <kservice.h>
 #include <kurl.h>
 #include <krun.h>
@@ -42,7 +46,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         QLabel* label = new QLabel( list[which], this );
         label->setAlignment( Qt::AlignHCenter );
         label->setLineWidth(2);
-        label->setFrameStyle( QFrame::Raised | QFrame::StyledPanel );
+        label->setFrameStyle( Q3Frame::Raised | Q3Frame::StyledPanel );
 
         bool multiple = (_list.count() > 1);
         bool enabled = (which == 0 && _currentInfo ) || (which == 1 && multiple);
@@ -88,7 +92,7 @@ void MainWindow::ExternalPopup::slotExecuteService( int id )
 }
 
 MainWindow::ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
-    :QPopupMenu( parent, name )
+    :Q3PopupMenu( parent, name )
 {
     connect( this, SIGNAL( activated( int ) ), this, SLOT( slotExecuteService( int ) ) );
 }

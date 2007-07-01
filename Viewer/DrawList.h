@@ -19,14 +19,14 @@
 #ifndef DRAWLIST_H
 #define DRAWLIST_H
 class QWidget;
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qdom.h>
 
 namespace Viewer
 {
 class Draw;
 
-class DrawList :public QValueList<Draw*>
+class DrawList :public Q3ValueList<Draw*>
 {
 public:
     DrawList();

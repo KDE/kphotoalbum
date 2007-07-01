@@ -22,22 +22,22 @@
 #include "Exif/Info.h"
 
 Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
-    :QListView( parent, name )
+    :Q3ListView( parent, name )
 {
     addColumn( title );
     reload();
-    connect( this, SIGNAL( clicked( QListViewItem* ) ), this, SLOT( toggleChildren( QListViewItem* ) ) );
+    connect( this, SIGNAL( clicked( Q3ListViewItem* ) ), this, SLOT( toggleChildren( Q3ListViewItem* ) ) );
 }
 
-void Exif::TreeView::toggleChildren( QListViewItem* parent )
+void Exif::TreeView::toggleChildren( Q3ListViewItem* parent )
 {
     if ( !parent )
         return;
 
-    QCheckListItem* par = static_cast<QCheckListItem*>( parent );
+    Q3CheckListItem* par = static_cast<Q3CheckListItem*>( parent );
     bool on = par->isOn();
-    for ( QListViewItem* child = parent->firstChild(); child; child = child->nextSibling() ) {
-        static_cast<QCheckListItem*>(child)->setOn( on );
+    for ( Q3ListViewItem* child = parent->firstChild(); child; child = child->nextSibling() ) {
+        static_cast<Q3CheckListItem*>(child)->setOn( on );
         toggleChildren( child );
     }
 }
@@ -45,8 +45,8 @@ void Exif::TreeView::toggleChildren( QListViewItem* parent )
 Set<QString> Exif::TreeView::selected()
 {
     Set<QString> result;
-    for ( QListViewItemIterator it( this ); *it; ++it ) {
-        if ( static_cast<QCheckListItem*>( *it )->isOn() )
+    for ( Q3ListViewItemIterator it( this ); *it; ++it ) {
+        if ( static_cast<Q3CheckListItem*>( *it )->isOn() )
             result.insert( (*it)->text( 1 ) );
     }
     return result;
@@ -54,9 +54,9 @@ Set<QString> Exif::TreeView::selected()
 
 void Exif::TreeView::setSelected( const Set<QString>& selected )
 {
-    for ( QListViewItemIterator it( this ); *it; ++it ) {
+    for ( Q3ListViewItemIterator it( this ); *it; ++it ) {
         bool on = selected.contains( (*it)->text(1) );
-        static_cast<QCheckListItem*>(*it)->setOn( on );
+        static_cast<Q3CheckListItem*>(*it)->setOn( on );
     }
 }
 
@@ -65,11 +65,11 @@ void Exif::TreeView::reload()
     clear();
     Set<QString> keys = Exif::Info::instance()->availableKeys();
 
-    QMap<QString, QCheckListItem*> tree;
+    QMap<QString, Q3CheckListItem*> tree;
 
     for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
-        QCheckListItem* parent = 0;
+        Q3CheckListItem* parent = 0;
         QString path = QString::null;
         for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {
             if ( !path.isNull() )
@@ -79,16 +79,16 @@ void Exif::TreeView::reload()
                 parent = tree[path];
             else {
                 if ( parent == 0 )
-                    parent = new QCheckListItem( this, *subKeyIt, QCheckListItem::CheckBox );
+                    parent = new Q3CheckListItem( this, *subKeyIt, Q3CheckListItem::CheckBox );
                 else
-                    parent = new QCheckListItem( parent, *subKeyIt, QCheckListItem::CheckBox );
+                    parent = new Q3CheckListItem( parent, *subKeyIt, Q3CheckListItem::CheckBox );
                 parent->setText( 1, path ); // This is simply to make the implementation of selected easier.
                 tree.insert( path, parent );
             }
         }
     }
 
-    if ( QListViewItem* item = firstChild() )
+    if ( Q3ListViewItem* item = firstChild() )
         item->setOpen( true );
 }
 

@@ -25,6 +25,8 @@
 #include <qvariant.h>
 #include <qpair.h>
 #include <qmap.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 namespace SQLDB
 {
@@ -34,15 +36,15 @@ namespace SQLDB
         QueryResult(KexiDB::Cursor* cursor): _cursor(cursor) {}
 
         QStringList asStringList() const;
-        QValueList<QString[2]> asString2List() const;
-        QValueList<QString[3]> asString3List() const;
-        QValueList<int> asIntegerList() const;
-        QValueList<uint> asUIntegerList() const;
-        QValueList< QPair<int, int> > asInteger2List() const;
-        QValueList< QPair<int, QString> > asIntegerStringPairs() const;
+        Q3ValueList<QString[2]> asString2List() const;
+        Q3ValueList<QString[3]> asString3List() const;
+        Q3ValueList<int> asIntegerList() const;
+        Q3ValueList<uint> asUIntegerList() const;
+        Q3ValueList< QPair<int, int> > asInteger2List() const;
+        Q3ValueList< QPair<int, QString> > asIntegerStringPairs() const;
         QMap<int, QString> asIntegerStringMap() const;
         QMap<QString, uint> asStringUIntegerMap() const;
-        QValueList<QVariant> asVariantList() const;
+        Q3ValueList<QVariant> asVariantList() const;
         QVariant firstItem() const;
         RowData getRow(uint n=0) const;
         Cursor cursor() const { return _cursor; }

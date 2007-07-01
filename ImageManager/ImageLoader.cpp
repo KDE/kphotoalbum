@@ -18,6 +18,8 @@
 
 #include "ImageLoader.h"
 #include <qwaitcondition.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "ImageDecoder.h"
 #include "RawImageDecoder.h"
 #include "Manager.h"
@@ -39,7 +41,7 @@ extern "C" {
 #include <sys/types.h>
 }
 
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <kurl.h>
 #include <kmdcodec.h>
 #include <qpixmapcache.h>
@@ -86,7 +88,7 @@ void ImageManager::ImageLoader::run()
 QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int height, int angle )
 {
     if ( angle != 0 )  {
-        QWMatrix matrix;
+        QMatrix matrix;
         matrix.rotate( angle );
         img = img.xForm( matrix );
     }
@@ -160,12 +162,12 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
     dir.mkdir( QString::fromLatin1( "large" ) );
 
     int dim = calcLoadSize( request );
-    QValueList<int> list;
+    Q3ValueList<int> list;
     list << 128;
     if ( dim == 256 )
         list << 256;
 
-    for( QValueList<int>::Iterator it = list.begin(); it != list.end(); ++it ) {
+    for( Q3ValueList<int>::Iterator it = list.begin(); it != list.end(); ++it ) {
         QString path = thumbnailPath( requestURL( request ), *it );
         if ( path.isNull() )
             continue;
@@ -199,7 +201,7 @@ int ImageManager::ImageLoader::calcLoadSize( ImageRequest* request )
 QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage img )
 {
     if ( request->angle() != 0 )  {
-        QWMatrix matrix;
+        QMatrix matrix;
         matrix.rotate( request->angle() );
         img = img.xForm( matrix );
         int angle = (request->angle() + 360)%360;

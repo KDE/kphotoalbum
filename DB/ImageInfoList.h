@@ -17,13 +17,13 @@
 */
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include "DB/ImageInfoPtr.h"
 
 namespace DB
 {
 
-class ImageInfoList :public QValueList<ImageInfoPtr>
+class ImageInfoList :public Q3ValueList<ImageInfoPtr>
 {
 public:
     ~ImageInfoList();
@@ -39,8 +39,8 @@ private:
     bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );
 };
 
-typedef QValueList<ImageInfoPtr>::Iterator ImageInfoListIterator;
-typedef QValueList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
+typedef Q3ValueList<ImageInfoPtr>::Iterator ImageInfoListIterator;
+typedef Q3ValueList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
 
 }
 

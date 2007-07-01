@@ -22,6 +22,8 @@
 #include <kexiutils/utils.h>
 
 #include <qmap.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <kstaticdeleter.h>
 
@@ -36,7 +38,7 @@ class AlterTableHandler::Private
 		~Private()
 		{}
 		ActionList actions;
-		QGuardedPtr<Connection> conn;
+		QPointer<Connection> conn;
 };
 }
 
@@ -115,22 +117,22 @@ AlterTableHandler::FieldActionBase::~FieldActionBase()
 
 //--------------------------------------------------------
 
-static KStaticDeleter< QMap<QCString,int> > KexiDB_alteringTypeForProperty_deleter;
-QMap<QCString,int> *KexiDB_alteringTypeForProperty = 0;
+static KStaticDeleter< QMap<Q3CString,int> > KexiDB_alteringTypeForProperty_deleter;
+QMap<Q3CString,int> *KexiDB_alteringTypeForProperty = 0;
 
 //! @internal
-static int alteringTypeForProperty(const QCString& propertyName)
+static int alteringTypeForProperty(const Q3CString& propertyName)
 {
 	if (!KexiDB_alteringTypeForProperty) {
 		KexiDB_alteringTypeForProperty_deleter.setObject( KexiDB_alteringTypeForProperty, 
-			new QMap<QCString,int>() );
+			new QMap<Q3CString,int>() );
 #define I(name, type) \
-	KexiDB_alteringTypeForProperty->insert(QCString(name).lower(), (int)AlterTableHandler::type)
+	KexiDB_alteringTypeForProperty->insert(Q3CString(name).lower(), (int)AlterTableHandler::type)
 #define I2(name, type1, type2) \
 	flag = (int)AlterTableHandler::type1|(int)AlterTableHandler::type2; \
 	if (flag & AlterTableHandler::PhysicalAlteringRequired) \
 		flag |= AlterTableHandler::MainSchemaAlteringRequired; \
-	KexiDB_alteringTypeForProperty->insert(QCString(name).lower(), flag)
+	KexiDB_alteringTypeForProperty->insert(Q3CString(name).lower(), flag)
 
 	/* useful links: 
 		http://dev.mysql.com/doc/refman/5.0/en/create-table.html
@@ -592,7 +594,7 @@ void AlterTableHandler::InsertFieldAction::simplifyActions(ActionDictDict &field
 	}
 	if (actionsForThisField) {
 		//collect property values that have to be changed in this field
-		QMap<QCString, QVariant> values;
+		QMap<Q3CString, QVariant> values;
 		for (ActionDictIterator it(*actionsForThisField); it.current();) {
 			ChangeFieldPropertyAction* changePropertyAction = dynamic_cast<ChangeFieldPropertyAction*>(it.current());
 			if (changePropertyAction) {
@@ -834,7 +836,7 @@ TableSchema* AlterTableHandler::executeInternal(const QString& tableName, trista
 	ActionVector actionsVector(allActionsCount);
 	int currentActionsCount = 0; //some actions may be removed
 	int requirements = 0;
-	QDict<char> fieldsWithChangedMainSchema(997); // Used to collect fields with changed main schema.
+	Q3Dict<char> fieldsWithChangedMainSchema(997); // Used to collect fields with changed main schema.
 	                                              // This will be used when recreateTable is false to update kexi__fields
 	for (ActionDictDictIterator it(fieldActions); it.current(); ++it) {
 		for (AlterTableHandler::ActionDictIterator it2(*it.current());it2.current(); ++it2, currentActionsCount++) {
@@ -1048,7 +1050,7 @@ TableSchema* AlterTableHandler::executeInternal(const QString& tableName, trista
 	if (!recreateTable) {
 		if ((MainSchemaAlteringRequired & requirements) && !fieldsWithChangedMainSchema.isEmpty()) {
 			//update main schema (kexi__fields) for changed fields
-			foreach_list(QDictIterator<char>, it, fieldsWithChangedMainSchema) {
+			foreach_list(Q3DictIterator<char>, it, fieldsWithChangedMainSchema) {
 				Field *f = newTable->field( it.currentKey() );
 				if (f) {
 					if (!d->conn->storeMainFieldSchema(f)) {

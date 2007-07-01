@@ -18,15 +18,15 @@
 #ifndef CATEGORYLISTVIEW_DRAGOBJECT_H
 #define CATEGORYLISTVIEW_DRAGOBJECT_H
 
-#include <qdragobject.h>
+#include <q3dragobject.h>
 #include <qstringlist.h>
 #include "DragItemInfo.h"
 
-class QListViewItem;
+class Q3ListViewItem;
 
 namespace CategoryListView
 {
-class DragObject :public QDragObject
+class DragObject :public Q3DragObject
 {
 public:
     DragObject( const DragItemInfoSet&, QWidget* dragSource );

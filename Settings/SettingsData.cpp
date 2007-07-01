@@ -18,6 +18,8 @@
 
 #include "SettingsData.h"
 #include <qdir.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include "Utilities/Util.h"
 #include <stdlib.h>
 #include <kmessagebox.h>

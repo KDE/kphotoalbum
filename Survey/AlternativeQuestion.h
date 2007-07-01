@@ -20,10 +20,10 @@
 #define ALTERNATIVEQUESTION_H
 
 #include "Question.h"
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 class QLineEdit;
 class QButton;
-class QButtonGroup;
+class Q3ButtonGroup;
 
 namespace Survey {
 
@@ -40,8 +40,8 @@ namespace Survey {
         virtual void load( QDomElement& );
 
     private:
-        QValueList<QButton*> _buttons;
-        QValueList<QLineEdit*> _edits;
+        Q3ValueList<QButton*> _buttons;
+        Q3ValueList<QLineEdit*> _edits;
     };
 
     class RadioButtonQuestion :public AlternativeQuestion

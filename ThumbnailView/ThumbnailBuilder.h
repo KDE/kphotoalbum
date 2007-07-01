@@ -20,7 +20,7 @@
 #define THUMBNAILBUILDER_H
 
 #include "ImageManager/ImageClient.h"
-#include <qprogressdialog.h>
+#include <q3progressdialog.h>
 #include <qimage.h>
 #include "DB/ImageInfoList.h"
 
@@ -28,7 +28,7 @@
 namespace ThumbnailView
 {
 
-class ThumbnailBuilder :public QProgressDialog, public ImageManager::ImageClient {
+class ThumbnailBuilder :public Q3ProgressDialog, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:

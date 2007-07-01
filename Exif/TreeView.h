@@ -18,12 +18,12 @@
 #ifndef EXIFTREEVIEW_H
 #define EXIFTREEVIEW_H
 
-#include <qlistview.h>
+#include <q3listview.h>
 #include "Utilities/Set.h"
 
 namespace Exif{
 
-class TreeView : public QListView {
+class TreeView : public Q3ListView {
     Q_OBJECT
 
 public:
@@ -33,7 +33,7 @@ public:
     void reload();
 
 protected slots:
-    void toggleChildren( QListViewItem* );
+    void toggleChildren( Q3ListViewItem* );
 };
 
 }

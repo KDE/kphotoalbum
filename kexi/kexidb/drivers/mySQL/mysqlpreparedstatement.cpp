@@ -143,7 +143,7 @@ bool MySqlPreparedStatement::execute()
 	else
 		assert(0); //impl. error
 
-	for (QValueListConstIterator<QVariant> it = m_args.constBegin(); 
+	for (Q3ValueListConstIterator<QVariant> it = m_args.constBegin(); 
 		(field = itFields.current()) && arg < m_realParamCount; ++it, ++itFields, arg++)
 	{
 		if (it==m_args.constEnd() || (*it).isNull()) {//no value to bind or the value is null: bind NULL
@@ -201,7 +201,7 @@ m_stringBuffer[ 1024 ]; ???
 		{
 //! @todo what about unsigned > LLONG_MAX ?
 			bool ok;
-			Q_LLONG value = (*it).toLongLong(&ok);
+			qlonglong value = (*it).toLongLong(&ok);
 			if (ok) {
 				res = sqlite3_bind_int64(prepared_st_handle, arg, value);
 				if (SQLITE_OK != res) {

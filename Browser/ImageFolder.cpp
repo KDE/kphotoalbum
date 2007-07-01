@@ -24,6 +24,8 @@
 #include <kiconloader.h>
 #include "ThumbnailView/ThumbnailWidget.h"
 #include "MainWindow/Window.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 // PENDING(blackie) cleanup, we don't need from and to anymore
 Browser::ImageFolder::ImageFolder( const DB::ImageSearchInfo& info, BrowserWidget* parent )

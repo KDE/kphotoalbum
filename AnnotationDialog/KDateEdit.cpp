@@ -19,7 +19,11 @@
 #include <qevent.h>
 #include <qlineedit.h>
 #include <qapplication.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <QMouseEvent>
+#include <QKeyEvent>
 
 #include <kdatepicker.h>
 #include <knotifyclient.h>
@@ -46,8 +50,8 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
     changeItem(QString::fromLatin1( "" ), 0);
     setMinimumSize(sizeHint());
 
-    mDateFrame = new QVBox(0,0,WType_Popup);
-    mDateFrame->setFrameStyle(QFrame::PopupPanel | QFrame::Raised);
+    mDateFrame = new Q3VBox(0,0,WType_Popup);
+    mDateFrame->setFrameStyle(Q3Frame::PopupPanel | Q3Frame::Raised);
     mDateFrame->setLineWidth(3);
     mDateFrame->hide();
     mDateFrame->installEventFilter(this);
@@ -177,7 +181,7 @@ void AnnotationDialog::KDateEdit::popup()
 
     // The combo box is now shown pressed. Make it show not pressed again
     // by causing its (invisible) list box to emit a 'selected' signal.
-    QListBox *lb = listBox();
+    Q3ListBox *lb = listBox();
     if (lb) {
         lb->setCurrentItem(0);
         QKeyEvent* keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_Enter, 0, 0);

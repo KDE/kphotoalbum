@@ -20,6 +20,8 @@
 #define VIEWHANDLER_H
 #include "Viewer/DisplayAreaHandler.h"
 #include <qpoint.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 
 namespace Viewer
 {

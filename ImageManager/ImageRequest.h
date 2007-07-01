@@ -19,7 +19,7 @@
 #define IMAGEREQUEST_H
 #include <qstring.h>
 #include "ImageManager/ImageClient.h"
-#include <qdeepcopy.h>
+#include <q3deepcopy.h>
 #include <qsize.h>
 #include <qmutex.h>
 
@@ -67,7 +67,7 @@ public:
 
 private:
     bool _null;
-    mutable QDeepCopy<QString> _fileName;
+    mutable Q3DeepCopy<QString> _fileName;
     mutable QMutex _fileNameLock;
 
     int _width;

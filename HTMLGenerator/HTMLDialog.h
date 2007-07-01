@@ -22,9 +22,9 @@
 class KLineEdit;
 class QSpinBox;
 class QCheckBox;
-class QProgressDialog;
-class QTextEdit;
-#include <qvaluelist.h>
+class Q3ProgressDialog;
+class Q3TextEdit;
+#include <q3valuelist.h>
 #include <qcombobox.h>
 #include "Utilities/Util.h"
 
@@ -48,7 +48,7 @@ protected slots:
 protected:
     bool checkVars();
     Setup setup() const;
-    QValueList<ImageSizeCheckBox*> activeResolutions() const;
+    Q3ValueList<ImageSizeCheckBox*> activeResolutions() const;
     void populateThemesCombo();
     void createContentPage();
     void createLayoutPage();
@@ -61,14 +61,14 @@ private:
     KLineEdit* _destURL;
     KLineEdit* _outputDir;
     QSpinBox* _thumbSize;
-    QTextEdit* _description;
+    Q3TextEdit* _description;
     QSpinBox* _numOfCols;
     QCheckBox* _generateKimFile;
     QCheckBox* _inlineMovies;
     QMap<int,QString> _themes;
     QComboBox *_themeBox;
     QMap< QString, QCheckBox* > _whatToIncludeMap;
-    QValueList<ImageSizeCheckBox*> _cbs;
+    Q3ValueList<ImageSizeCheckBox*> _cbs;
     QStringList _list;
 };
 

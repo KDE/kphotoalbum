@@ -19,9 +19,13 @@
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qlabel.h>
-#include <qframe.h>
-#include <qbuttongroup.h>
+#include <q3frame.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <Q3ValueList>
 #include <klocale.h>
 #include <qlineedit.h>
 #include <qdom.h>
@@ -30,26 +34,26 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
                                                   Type tp, SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    QHBoxLayout* hlay = new QHBoxLayout( this, 6 );
-    QVBoxLayout* vlay;
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( this, 6 );
+    Q3VBoxLayout* vlay;
     QLabel* label;
 
     if ( !text.isNull() ) {
-        vlay = new QVBoxLayout( hlay, 6 );
+        vlay = new Q3VBoxLayout( hlay, 6 );
         label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(text), this );
         vlay->addWidget( label );
         vlay->addStretch( 1 );
 
-        QFrame* frame = new QFrame( this );
-        frame->setFrameStyle( QFrame::VLine | QFrame::Plain );
+        Q3Frame* frame = new Q3Frame( this );
+        frame->setFrameStyle( Q3Frame::VLine | Q3Frame::Plain );
         hlay->addWidget( frame );
     }
 
-    vlay = new QVBoxLayout( hlay, 6 );
+    vlay = new Q3VBoxLayout( hlay, 6 );
     label = new QLabel( QString::fromLatin1("<h3>%1</h3>").arg(question), this );
     vlay->addWidget( label );
 
-    QButtonGroup* answers = new QButtonGroup( this );
+    Q3ButtonGroup* answers = new Q3ButtonGroup( this );
     answers->hide();
 
     int index = 0;
@@ -65,7 +69,7 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
     }
 
     for ( int i = 0; i < otherCounts; ++i ) {
-        hlay = new QHBoxLayout( vlay, 6 );
+        hlay = new Q3HBoxLayout( vlay, 6 );
         QLabel* label = new QLabel( i18n("Other: "), this );
         hlay->addWidget( label );
         QLineEdit* edit = new QLineEdit( this );
@@ -78,7 +82,7 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
 
 void Survey::AlternativeQuestion::save( QDomElement& top )
 {
-    for( QValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
+    for( Q3ValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
         bool checked = false;
         QCheckBox* cb;
         QRadioButton* rb;
@@ -95,7 +99,7 @@ void Survey::AlternativeQuestion::save( QDomElement& top )
         }
     }
 
-    for( QValueList<QLineEdit*>::Iterator editIt = _edits.begin(); editIt != _edits.end(); ++editIt ) {
+    for( Q3ValueList<QLineEdit*>::Iterator editIt = _edits.begin(); editIt != _edits.end(); ++editIt ) {
         if ( !(*editIt)->text().isEmpty() ) {
             QDomElement elm = top.ownerDocument().createElement( QString::fromLatin1("EditAnswer") );
             elm.setAttribute( QString::fromLatin1( "text" ), (*editIt)->text() );
@@ -106,14 +110,14 @@ void Survey::AlternativeQuestion::save( QDomElement& top )
 
 void Survey::AlternativeQuestion::load( QDomElement& top )
 {
-    QValueList<QLineEdit*>::Iterator editIt = _edits.begin();
+    Q3ValueList<QLineEdit*>::Iterator editIt = _edits.begin();
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
             QDomElement elm = node.toElement();
             QString tag = elm.tagName();
             if ( tag == QString::fromLatin1( "ButtonAnswer" ) ) {
                 QString index = elm.attribute( QString::fromLatin1( "index" ) );
-                for( QValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
+                for( Q3ValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
                     if ( QString::fromLocal8Bit( (*buttonIt)->name() ) == index ) {
                         QCheckBox* cb;
                         QRadioButton* rb;

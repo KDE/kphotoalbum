@@ -20,6 +20,8 @@
 #include "DB/ImageInfo.h"
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 using namespace DB;
 
@@ -68,7 +70,7 @@ void OptionContainerMatcher::addElement( CategoryMatcher* element )
 
 bool OptionAndMatcher::eval( ImageInfoPtr info )
 {
-    for( QValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+    for( Q3ValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( !(*it)->eval( info ) )
             return false;
     }
@@ -79,7 +81,7 @@ bool OptionAndMatcher::eval( ImageInfoPtr info )
 
 bool OptionOrMatcher::eval( ImageInfoPtr info )
 {
-    for( QValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
+    for( Q3ValueList<CategoryMatcher*>::Iterator it = _elements.begin(); it != _elements.end(); ++it ) {
         if ( (*it)->eval( info ) )
             return true;
     }
@@ -118,7 +120,7 @@ void OptionOrMatcher::debug( int level ) const
 
 void OptionContainerMatcher::debug( int level ) const
 {
-    for( QValueList<CategoryMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
+    for( Q3ValueList<CategoryMatcher*>::ConstIterator it = _elements.begin(); it != _elements.end(); ++it ) {
         (*it)->debug( level );
     }
 }

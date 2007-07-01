@@ -19,6 +19,8 @@
 #include "ImageDate.h"
 #include <klocale.h>
 #include <qregexp.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 using namespace DB;
 
@@ -332,7 +334,7 @@ bool ImageDate::includes( const QDateTime& date )
 
 QStringList DB::ImageDate::monthNames()
 {
-    static QValueList<QString> res;
+    static Q3ValueList<QString> res;
     if ( res.isEmpty() ) {
         for ( int i = 1; i <= 12; ++i ) {
             res << QDate::shortMonthName( i );

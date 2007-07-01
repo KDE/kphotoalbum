@@ -20,10 +20,13 @@
 #define LISTSELECT_H
 
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QEvent>
+#include <QLabel>
 #include "Settings/SettingsData.h"
 #include <qtoolbutton.h>
 #include "DB/Category.h"
-#include <qlistview.h>
+#include <q3listview.h>
 #include "enums.h"
 
 class QRadioButton;
@@ -66,22 +69,22 @@ public slots:
     void rePopulate();
 
 protected slots:
-    void itemSelected( QListViewItem* );
-    void showContextMenu( QListViewItem*, const QPoint& );
+    void itemSelected( Q3ListViewItem* );
+    void showContextMenu( Q3ListViewItem*, const QPoint& );
     void setViewSortType( Settings::ViewSortType );
     void limitToSelection();
     void showAllChildren();
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
-    void insertItems( DB::CategoryItem* item, QListViewItem* parent );
+    void insertItems( DB::CategoryItem* item, Q3ListViewItem* parent );
     void populateAlphabetically();
     void populateMRU();
     void configureItem( CategoryListView::CheckDropItem* item );
     bool isInputMode() const;
-    StringSet itemsOfState( QCheckListItem::ToggleState state ) const;
+    StringSet itemsOfState( Q3CheckListItem::ToggleState state ) const;
     void checkItem( const QString itemText, bool );
-    void ensureAllInstancesAreStateChanged( QListViewItem* item );
+    void ensureAllInstancesAreStateChanged( Q3ListViewItem* item );
 
 private:
     QLabel* _label;

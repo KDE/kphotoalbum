@@ -19,6 +19,17 @@
 #include "Window.h"
 #include "Settings/SettingsDialog.h"
 #include <qapplication.h>
+//Added by qt3to4:
+#include <QMoveEvent>
+#include <QResizeEvent>
+#include <QContextMenuEvent>
+#include <QLabel>
+#include <QPixmap>
+#include <QCloseEvent>
+#include <Q3VBoxLayout>
+#include <Q3Frame>
+#include <Q3CString>
+#include <Q3PtrList>
 #include "ThumbnailView/ThumbnailWidget.h"
 #include "ThumbnailView/ThumbnailBuilder.h"
 #include "AnnotationDialog/Dialog.h"
@@ -29,8 +40,8 @@
 #include <qcursor.h>
 #include "Utilities/ShowBusyCursor.h"
 #include <klocale.h>
-#include <qhbox.h>
-#include <qwidgetstack.h>
+#include <q3hbox.h>
+#include <q3widgetstack.h>
 #include "HTMLGenerator/HTMLDialog.h"
 #include <kstatusbar.h>
 #include "ImageCounter.h"
@@ -46,7 +57,7 @@
 #include "DeleteDialog.h"
 #include <ksimpleconfig.h>
 #include <kcmdlineargs.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <kiconloader.h>
 #include <kpassdlg.h>
 #include <kkeydialog.h>
@@ -69,7 +80,7 @@
 #endif
 #include "ImageManager/ImageLoader.h"
 #include "SplashScreen.h"
-#include <qobjectlist.h>
+#include <qobject.h>
 #include <SearchBar.h>
 #include "TokenEditor.h"
 #include "DB/CategoryCollection.h"
@@ -124,17 +135,17 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     Settings::SettingsData::instance();
 
     QWidget* top = new QWidget( this, "top" );
-    QVBoxLayout* lay = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* lay = new Q3VBoxLayout( top, 6 );
     setCentralWidget( top );
 
-    _stack = new QWidgetStack( top, "_stack" );
+    _stack = new Q3WidgetStack( top, "_stack" );
     lay->addWidget( _stack, 1 );
 
     _dateBar = new DateBar::DateBarWidget( top, "datebar" );
     lay->addWidget( _dateBar );
 
-    QFrame* line = new QFrame( top );
-    line->setFrameStyle( QFrame::HLine | QFrame::Plain );
+    Q3Frame* line = new Q3Frame( top );
+    line->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
     line->setLineWidth(1);
     lay->addWidget( line );
 
@@ -182,7 +193,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     f.setBold( true );
     statusBar()->setFont( f );
 
-    QHBox* indicators = new QHBox( statusBar(), "indicator" );
+    Q3HBox* indicators = new Q3HBox( statusBar(), "indicator" );
     _dirtyIndicator = new DirtyIndicator( indicators );
 
     _lockedIndicator = new QLabel( indicators, "_lockedIndicator" );
@@ -857,7 +868,7 @@ bool MainWindow::Window::load()
 void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 {
     if ( _stack->visibleWidget() == _thumbnailView ) {
-        QPopupMenu menu( this, "context popup menu");
+        Q3PopupMenu menu( this, "context popup menu");
         _configOneAtATime->plug( &menu );
         _configAllSimultaniously->plug( &menu );
         _runSlideShow->plug( &menu );
@@ -923,7 +934,7 @@ void MainWindow::Window::lockToDefaultScope()
 
 void MainWindow::Window::unlockFromDefaultScope()
 {
-    QCString passwd;
+    Q3CString passwd;
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
     while ( !OK ) {
         int code = KPasswordDialog::getPassword( passwd, i18n("Type in Password to Unlock"));
@@ -958,7 +969,7 @@ void MainWindow::Window::setLocked( bool locked, bool force )
 
 void MainWindow::Window::changePassword()
 {
-    QCString passwd;
+    Q3CString passwd;
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
 
     while ( !OK ) {
@@ -1167,10 +1178,10 @@ void MainWindow::Window::setupPluginMenu()
 {
     QObjectList *l = queryList( "QPopupMenu", "plugins" );
     QObject *obj;
-    QPopupMenu* menu = NULL;
+    Q3PopupMenu* menu = NULL;
     for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {
         ++it;
-        menu = static_cast<QPopupMenu*>( obj );
+        menu = static_cast<Q3PopupMenu*>( obj );
         break;
     }
     delete l; // delete the list, not the objects
@@ -1223,11 +1234,11 @@ void MainWindow::Window::plug()
     unplugActionList( QString::fromLatin1("tool_actions") );
     unplugActionList( QString::fromLatin1("batch_actions") );
 
-    QPtrList<KAction> importActions;
-    QPtrList<KAction> exportActions;
-    QPtrList<KAction> imageActions;
-    QPtrList<KAction> toolsActions;
-    QPtrList<KAction> batchActions;
+    Q3PtrList<KAction> importActions;
+    Q3PtrList<KAction> exportActions;
+    Q3PtrList<KAction> imageActions;
+    Q3PtrList<KAction> toolsActions;
+    Q3PtrList<KAction> batchActions;
 
     KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {

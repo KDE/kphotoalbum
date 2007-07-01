@@ -21,8 +21,10 @@
 #include <klocale.h>
 #include <qlayout.h>
 #include <qlabel.h>
-#include <qtextedit.h>
+#include <q3textedit.h>
 #include <qfile.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 #include "Settings/SettingsData.h"
 #include <qdir.h>
 
@@ -32,12 +34,12 @@ DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* nam
     :KDialogBase( Plain, i18n("Delete Thumbnails" ), Cancel | User1, Cancel, parent, name )
 {
     QWidget* top = plainPage();
-    QVBoxLayout* layout = new QVBoxLayout( top, 10 );
+    Q3VBoxLayout* layout = new Q3VBoxLayout( top, 10 );
 
     QLabel* label = new QLabel( i18n("Files about to be deleted: " ), top );
     layout->addWidget( label );
 
-    QTextEdit* edit = new QTextEdit( top, "edit" );
+    Q3TextEdit* edit = new Q3TextEdit( top, "edit" );
     edit->setReadOnly( true );
     layout->addWidget( edit );
 

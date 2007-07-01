@@ -22,6 +22,11 @@
 #include <qpainter.h>
 #include <qtimer.h>
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QResizeEvent>
+#include <QKeyEvent>
+#include <Q3VBoxLayout>
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
@@ -32,10 +37,10 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     setWFlags( WDestructiveClose | getWFlags() );
 
     QWidget* top = plainPage();
-    QVBoxLayout* vlay = new QVBoxLayout( top, 6 );
+    Q3VBoxLayout* vlay = new Q3VBoxLayout( top, 6 );
 
     // -------------------------------------------------- File name and pixmap
-    QHBoxLayout* hlay = new QHBoxLayout( vlay, 6 );
+    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
     QLabel* label = new QLabel( fileName, top );
     QFont fnt = font();
     fnt.setPointSize( (int) (fnt.pointSize() * 1.2) );
@@ -54,7 +59,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     grid->setFocus();
 
     // -------------------------------------------------- Current Search
-    hlay = new QHBoxLayout( vlay, 6 );
+    hlay = new Q3HBoxLayout( vlay, 6 );
     label = new QLabel( i18n( "Current EXIF Label Search: "), top );
     hlay->addWidget( label );
 
@@ -81,7 +86,7 @@ void Exif::InfoDialog::updateSearchString( const QString& txt )
 
 
 Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
-    :QGridView( parent, name )
+    :Q3GridView( parent, name )
 {
     QMap<QString,QString> map = Exif::Info::instance()->infoForDialog( fileName );
     calculateMaxKeyWidth( map );
@@ -226,7 +231,7 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
         updateContents();
         return;
     case Key_Escape:
-        QGridView::keyPressEvent( e ); // Propagate to close dialog.
+        Q3GridView::keyPressEvent( e ); // Propagate to close dialog.
         return;
     }
 

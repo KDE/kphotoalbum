@@ -21,8 +21,10 @@
 #ifndef KEXIDB_UTILS_H
 #define KEXIDB_UTILS_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qvariant.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <kexidb/connection.h>
 #include <kexidb/driver.h>
@@ -83,7 +85,7 @@ namespace KexiDB
 			+ conn.driver()->valueToSQL( ftype, val) + ")");
 	}
 
-	typedef QValueList<uint> TypeGroupList;
+	typedef Q3ValueList<uint> TypeGroupList;
 
 	/*! \return list of types for type group \a typeGroup. */
 	KEXI_DB_EXPORT const TypeGroupList typesForGroup(Field::TypeGroup typeGroup);
@@ -147,14 +149,14 @@ namespace KexiDB
 			 table has priority over query. 
 			 You should check whether a query or table has been found by testing 
 			 (query() || table()) expression. */
-			TableOrQuerySchema(Connection *conn, const QCString& name);
+			TableOrQuerySchema(Connection *conn, const Q3CString& name);
 
 			/*! Creates a new TableOrQuerySchema variant object, retrieving table or query schema
 			 using \a conn connection and \a name. If \a table is true, \a name is assumed 
 			 to be a table name, otherwise \a name is assumed to be a query name. 
 			 You should check whether a query or table has been found by testing 
 			 (query() || table()) expression. */
-			TableOrQuerySchema(Connection *conn, const QCString& name, bool table);
+			TableOrQuerySchema(Connection *conn, const Q3CString& name, bool table);
 
 			/*! Creates a new TableOrQuerySchema variant object. \a tableOrQuery must be of 
 			 class TableSchema or QuerySchema.
@@ -183,7 +185,7 @@ namespace KexiDB
 			TableSchema* table() const { return m_table; }
 
 			//! \return name of a query or table
-			QCString name() const;
+			Q3CString name() const;
 
 			//! \return caption (if present) or name of the table/query
 			QString captionOrName() const;
@@ -209,7 +211,7 @@ namespace KexiDB
 			void debug();
 
 		protected:
-			QCString m_name; //!< the name is kept here because m_table and m_table can be 0
+			Q3CString m_name; //!< the name is kept here because m_table and m_table can be 0
 			                 //! and we still want name() and acptionOrName() work.
 			TableSchema* m_table;
 			QuerySchema* m_query;
@@ -290,10 +292,10 @@ namespace KexiDB
 	KEXI_DB_EXPORT QString formatNumberForVisibleDecimalPlaces(double value, int decimalPlaces);
 
 	//! \return true if \a propertyName is a builtin field property.
-	KEXI_DB_EXPORT bool isBuiltinTableFieldProperty( const QCString& propertyName );
+	KEXI_DB_EXPORT bool isBuiltinTableFieldProperty( const Q3CString& propertyName );
 
 	//! \return true if \a propertyName is an extended field property.
-	KEXI_DB_EXPORT bool isExtendedTableFieldProperty( const QCString& propertyName );
+	KEXI_DB_EXPORT bool isExtendedTableFieldProperty( const Q3CString& propertyName );
 
 	/*! \return type of field for integer value \a type. 
 	 If \a type cannot be casted to KexiDB::Field::Type, KexiDB::Field::InvalidType is returned.
@@ -305,7 +307,7 @@ namespace KexiDB
 	 Properties coming from extended schema are also supported.
 	 This function is used e.g. by AlterTableHandler when property information comes in form of text.
 	 */
-	KEXI_DB_EXPORT bool setFieldProperties( Field& field, const QMap<QCString, QVariant>& values );
+	KEXI_DB_EXPORT bool setFieldProperties( Field& field, const QMap<Q3CString, QVariant>& values );
 
 	/*! Sets property value for \a field. \return true if the property has been found and 
 	 the value is valid for this property. On failure contents of \a field is undefined.
@@ -314,7 +316,7 @@ namespace KexiDB
 
 	 This function is used e.g. by AlterTableHandler when property information comes in form of text.
 	 */
-	KEXI_DB_EXPORT bool setFieldProperty(Field& field, const QCString& propertyName, 
+	KEXI_DB_EXPORT bool setFieldProperty(Field& field, const Q3CString& propertyName, 
 		const QVariant& value);
 
 	/*! @return property value loaded from a DOM \a node, written in a QtDesigner-like

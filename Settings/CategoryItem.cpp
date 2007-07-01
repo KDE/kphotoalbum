@@ -24,8 +24,8 @@
 #include "MainWindow/Window.h"
 
 Settings::CategoryItem::CategoryItem( const QString& category, const QString& text, const QString& icon,
-                                      DB::Category::ViewType type, int thumbnailSize, QListBox* parent )
-    :QListBoxText( parent, text ),
+                                      DB::Category::ViewType type, int thumbnailSize, Q3ListBox* parent )
+    :Q3ListBoxText( parent, text ),
      _categoryOrig( category ), _textOrig( text ), _iconOrig( icon ),
      _category( category ), _text( text ), _icon( icon ), _type( type ), _typeOrig( type ),
      _thumbnailSize( thumbnailSize ), _thumbnailSizeOrig( thumbnailSize )

@@ -23,17 +23,19 @@
 #include "DragItemInfo.h"
 #include <klocale.h>
 #include <kmessagebox.h>
+//Added by qt3to4:
+#include <QDropEvent>
 
 CategoryListView::CheckDropItem::CheckDropItem( DragableListView* parent, const QString& column1,
                                                 const QString& column2 )
-    : QCheckListItem( parent, column1, QCheckListItem::CheckBox ), _listView( parent )
+    : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( parent )
 {
     setText( 1, column2 );
 }
 
-CategoryListView::CheckDropItem::CheckDropItem( DragableListView* listView, QListViewItem* parent, const QString& column1,
+CategoryListView::CheckDropItem::CheckDropItem( DragableListView* listView, Q3ListViewItem* parent, const QString& column1,
                                                 const QString& column2 )
-    : QCheckListItem( parent, column1, QCheckListItem::CheckBox ), _listView( listView )
+    : Q3CheckListItem( parent, column1, Q3CheckListItem::CheckBox ), _listView( listView )
 {
     setText( 1, column2 );
 }
@@ -57,7 +59,7 @@ CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( 
 {
     DragItemInfoSet items;
     const QByteArray data = e->encodedData( "x-kphotoalbum/x-category-drag" );
-    QDataStream stream( data, IO_ReadOnly );
+    QDataStream stream( data, QIODevice::ReadOnly );
     stream >> items;
 
     return items;

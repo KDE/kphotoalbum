@@ -20,16 +20,18 @@
 #include <qcheckbox.h>
 #include <qlayout.h>
 #include <qspinbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 #include <klocale.h>
 #include <qlabel.h>
 
 Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* parent, const char* name )
-    :QVGroupBox( title, parent, name )
+    :Q3VGroupBox( title, parent, name )
 {
     _fullScreen = new QCheckBox( i18n("Launch in full screen" ), this );
 
     QWidget* sizeBox = new QWidget( this );
-    QHBoxLayout* lay = new QHBoxLayout( sizeBox, 0, 6 );
+    Q3HBoxLayout* lay = new Q3HBoxLayout( sizeBox, 0, 6 );
 
     QLabel* label = new QLabel( i18n("Size:"), sizeBox );
     lay->addWidget( label );

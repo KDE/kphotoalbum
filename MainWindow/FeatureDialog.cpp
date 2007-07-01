@@ -19,6 +19,9 @@
 #include <config.h>
 #include <klocale.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3ValueList>
 #include <kapplication.h>
 #include "Exif/Database.h"
 #include <kuserprofile.h>
@@ -32,7 +35,7 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("KPhotoAlbum Feature Status"), Close, Close, parent, name )
 {
     QWidget* top = plainPage();
-    QHBoxLayout* layout = new QHBoxLayout( top, 10 );
+    Q3HBoxLayout* layout = new Q3HBoxLayout( top, 10 );
 
     HelpBrowser* edit = new HelpBrowser( top );
     layout->addWidget( edit );
@@ -99,14 +102,14 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, const char* name )
-    :QTextBrowser( parent, name )
+    :Q3TextBrowser( parent, name )
 {
 }
 
 void HelpBrowser::setSource( const QString& name )
 {
     if ( name.startsWith( QString::fromLatin1( "#" ) ) )
-        QTextBrowser::setSource( name );
+        Q3TextBrowser::setSource( name );
     else
         kapp->invokeBrowser( name );
 }
@@ -166,7 +169,7 @@ struct Data
 
 QString MainWindow::FeatureDialog::featureString()
 {
-    QValueList<Data> features;
+    Q3ValueList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
     features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
@@ -185,7 +188,7 @@ QString MainWindow::FeatureDialog::featureString()
     QString result = QString::fromLatin1("<p><table>");
     const QString yes = i18n("Yes");
     const QString no =  QString::fromLatin1("<font color=\"red\">%1</font>").arg( i18n("No") );
-    for( QValueList<Data>::ConstIterator featureIt = features.begin(); featureIt != features.end(); ++featureIt ) {
+    for( Q3ValueList<Data>::ConstIterator featureIt = features.begin(); featureIt != features.end(); ++featureIt ) {
         result += QString::fromLatin1( "<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>" )
                   .arg( (*featureIt).tag ).arg( (*featureIt).title ).arg( (*featureIt).featureFound ? yes : no  );
     }

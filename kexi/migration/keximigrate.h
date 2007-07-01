@@ -28,6 +28,10 @@
 
 #include <kgenericfactory.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3ValueList>
+#include <Q3PtrList>
 
 class KexiProject;
 namespace Kexi
@@ -118,19 +122,19 @@ class KEXIMIGR_EXPORT KexiMigrate : public QObject, public KexiDB::Object
 //! @todo This is copied from KexiDB::Driver. One day it will be merged with KexiDB.
 		//! \return property value for \a propeName available for this driver. 
 		//! If there's no such property defined for driver, Null QVariant value is returned.
-		virtual QVariant propertyValue( const QCString& propName );
+		virtual QVariant propertyValue( const Q3CString& propName );
 
 //! @todo This is copied from KexiDB::Driver. One day it will be merged with KexiDB.
-		void setPropertyValue( const QCString& propName, const QVariant& value );
+		void setPropertyValue( const Q3CString& propName, const QVariant& value );
 
 //! @todo This is copied from KexiDB::Driver. One day it will be merged with KexiDB.
 		//! \return translated property caption for \a propeName. 
 		//! If there's no such property defined for driver, empty string value is returned.
-		QString propertyCaption( const QCString& propName ) const;
+		QString propertyCaption( const Q3CString& propName ) const;
 
 //! @todo This is copied from KexiDB::Driver. One day it will be merged with KexiDB.
 		//! \return a list of property names available for this driver.
-		QValueList<QCString> propertyNames() const;
+		Q3ValueList<Q3CString> propertyNames() const;
 
 		/*! \return true is driver is valid. Checks if KexiMigrate::versionMajor() 
 		 and KexiMigrate::versionMinor() are matching. 
@@ -179,10 +183,10 @@ class KEXIMIGR_EXPORT KexiMigrate : public QObject, public KexiDB::Object
 
 			\return size of the specified table
 		*/
-		virtual bool drv_getTableSize(const QString&, Q_ULLONG&)
+		virtual bool drv_getTableSize(const QString&, qulonglong&)
 		{ return false; }
 
-		void updateProgress(Q_ULLONG step = 1ULL);
+		void updateProgress(qulonglong step = 1ULL);
 
 //! @todo user should be asked ONCE using a convenient wizard's page, not a popup dialog
 		//! Prompt user to select a field type for unrecognized fields
@@ -198,12 +202,12 @@ class KEXIMIGR_EXPORT KexiMigrate : public QObject, public KexiDB::Object
 		/*! Driver properties dictionary (indexed by name), 
 		 useful for presenting properties to the user. 
 		 Set available properties here in driver implementation. */
-		QMap<QCString,QVariant> m_properties;
+		QMap<Q3CString,QVariant> m_properties;
 
 		/*! i18n'd captions for properties. You do not need 
 		 to set predefined properties' caption in driver implementation 
 		 -it's done automatically. */
-		QMap<QCString,QString> m_propertyCaptions;
+		QMap<Q3CString,QString> m_propertyCaptions;
 
 	private:
 		//! Get the list of tables
@@ -217,7 +221,7 @@ class KEXIMIGR_EXPORT KexiMigrate : public QObject, public KexiDB::Object
 //		bool m_keepData;
 
 		//! Table schemas from source DB
-		QPtrList<KexiDB::TableSchema> m_tableSchemas;
+		Q3PtrList<KexiDB::TableSchema> m_tableSchemas;
 
 		//! Estimate size of migration job
 		/*! Calls drv_getTableSize for each table to be copied.
@@ -228,11 +232,11 @@ class KEXIMIGR_EXPORT KexiMigrate : public QObject, public KexiDB::Object
 		KexiProject *m_destPrj;
 
 		//! Size of migration job
-		Q_ULLONG m_progressTotal;
+		qulonglong m_progressTotal;
 		//! Amount of migration job complete
-		Q_ULLONG m_progressDone;
+		qulonglong m_progressDone;
 		//! Don't recalculate progress done until this value is reached.
-		Q_ULLONG m_progressNextReport;
+		qulonglong m_progressNextReport;
 
 		friend class MigrateManager;
 };

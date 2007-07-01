@@ -30,6 +30,8 @@
 #include <klocale.h>
 
 #include <qdatetime.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <assert.h>
 
@@ -399,7 +401,7 @@ Field::setDefaultValue(const QVariant& def)
 }
 
 bool
-Field::setDefaultValue(const QCString& def)
+Field::setDefaultValue(const Q3CString& def)
 {
 	if (def.isNull()) {
 		m_defaultValue = QVariant();
@@ -429,7 +431,7 @@ Field::setDefaultValue(const QCString& def)
 			if (!ok || (!(m_options & Unsigned) && (-v > (int)0x07FFFFFFF || v > (int)(0x080000000-1))))
 				m_defaultValue = QVariant();
 			else
-				m_defaultValue = QVariant((Q_LLONG)v);
+				m_defaultValue = QVariant((qlonglong)v);
 			break;
 		}case BigInteger: {//8 bytes
 //! @todo BigInteger support
@@ -641,7 +643,7 @@ void Field::setExpression(KexiDB::BaseExpr *expr)
 	m_expr = expr;
 }
 
-QVariant Field::customProperty(const QCString& propertyName,
+QVariant Field::customProperty(const Q3CString& propertyName,
 	const QVariant& defaultValue) const
 {
 	if (!m_customProperties)
@@ -652,7 +654,7 @@ QVariant Field::customProperty(const QCString& propertyName,
 	return it.data();
 }
 
-void Field::setCustomProperty(const QCString& propertyName, const QVariant& value)
+void Field::setCustomProperty(const Q3CString& propertyName, const QVariant& value)
 {
 	if (propertyName.isEmpty())
 		return;
@@ -670,7 +672,7 @@ void Field::setCustomProperty(const QCString& propertyName, const QVariant& valu
 	str2num.insert(QString::fromLatin1(str).lower(), type)
 
 Field::FieldTypeNames::FieldTypeNames()
- : QValueVector<QString>()
+ : Q3ValueVector<QString>()
  , m_initialized(false)
 {
 }
@@ -701,7 +703,7 @@ void Field::FieldTypeNames::init()
 //-------------------------------------------------------
 
 Field::FieldTypeGroupNames::FieldTypeGroupNames()
- : QValueVector<QString>()
+ : Q3ValueVector<QString>()
  , m_initialized(false)
 {
 }

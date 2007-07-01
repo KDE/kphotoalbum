@@ -27,6 +27,8 @@
 #include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>
+//Added by qt3to4:
+#include <QResizeEvent>
 #include <MainWindow/FeatureDialog.h>
 #include <klocale.h>
 #include <kmessagebox.h>

@@ -22,6 +22,8 @@
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
 #include "CategoryItem.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 QPixmap DB::Category::icon( int size ) const
 {

@@ -22,6 +22,8 @@
 #include "BrowserItemFactory.h"
 #include "DB/Category.h"
 #include <DB/CategoryItem.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 Browser::TypeFolderAction::TypeFolderAction( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info,
                                              BrowserWidget* browser )
@@ -45,7 +47,7 @@ bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* p
 
     bool anyItems = imageCtn != 0 || videoCtn != 0;
 
-    for( QValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
+    for( Q3ValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
          subCategoryIt != parentCategoryItem->_subcategories.end(); ++subCategoryIt ) {
         anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, factory, item ) || anyItems;
     }

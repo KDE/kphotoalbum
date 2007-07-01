@@ -24,6 +24,8 @@
 #include "DB/ImageDB.h"
 #include <kmessagebox.h>
 #include "ContentFolderAction.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 Browser::ExifFolder::ExifFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser )
     :Folder( info, browser )

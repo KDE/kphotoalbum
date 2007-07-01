@@ -19,6 +19,11 @@
 #include "CategoryImageConfig.h"
 #include <qlabel.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
+#include <Q3ValueList>
 #include <klocale.h>
 #include <qcombobox.h>
 #include "Settings/SettingsData.h"
@@ -35,8 +40,8 @@ CategoryImageConfig::CategoryImageConfig()
      _image( QImage() )
 {
     QWidget* top = plainPage();
-    QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
-    QGridLayout* lay2 = new QGridLayout( lay1, 2, 2 );
+    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2, 2 );
 
     // Group
     QLabel* label = new QLabel( i18n("Group:" ), top );
@@ -53,7 +58,7 @@ CategoryImageConfig::CategoryImageConfig()
     connect( _member, SIGNAL( activated( int ) ), this, SLOT( memberChanged() ) );
 
     // Current Value
-    QGridLayout* lay3 = new QGridLayout( lay1, 2, 2 );
+    Q3GridLayout* lay3 = new Q3GridLayout( lay1, 2, 2 );
     label = new QLabel( i18n("Current image:"), top );
     lay3->addWidget( label, 0, 0 );
 
@@ -135,10 +140,10 @@ void CategoryImageConfig::show()
 {
     QString currentCategory = _group->currentText();
     _group->clear();
-    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int index = 0;
     int currentIndex = -1;
-    for ( QValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    for ( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( !(*categoryIt)->isSpecialCategory() ) {
             _group->insertItem( (*categoryIt)->text() );
             if ( (*categoryIt)->text() == currentCategory )

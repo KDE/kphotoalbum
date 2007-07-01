@@ -18,16 +18,16 @@
 #include "DragableListView.h"
 #include "DragObject.h"
 CategoryListView::DragableListView::DragableListView( const DB::CategoryPtr& category, QWidget* parent, const char* name )
-    :QListView( parent, name ), _category( category )
+    :Q3ListView( parent, name ), _category( category )
 {
 }
 
-QDragObject* CategoryListView::DragableListView::dragObject()
+Q3DragObject* CategoryListView::DragableListView::dragObject()
 {
     CategoryListView::DragItemInfoSet selected;
-    for ( QListViewItemIterator itemIt( this ); *itemIt; ++itemIt ) {
+    for ( Q3ListViewItemIterator itemIt( this ); *itemIt; ++itemIt ) {
         if ( (*itemIt)->isSelected() ) {
-            QListViewItem* parent = (*itemIt)->parent();
+            Q3ListViewItem* parent = (*itemIt)->parent();
             QString parentText = parent ? parent->text(0) : QString::null;
             selected.insert( CategoryListView::DragItemInfo( parentText, (*itemIt)->text(0) ) );
         }

@@ -22,6 +22,8 @@
 
 #include <qstringlist.h>
 #include <qpair.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 #include "Connection.h"
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
@@ -39,8 +41,8 @@ namespace DB {
 namespace SQLDB
 {
 
-typedef QValueList<DB::OptionSimpleMatcher*> MatcherList;
-typedef QValueList<MatcherList> MatcherListList;
+typedef Q3ValueList<DB::OptionSimpleMatcher*> MatcherList;
+typedef Q3ValueList<MatcherList> MatcherListList;
 
 
 /** Copy some list to QValueList of QVariants.
@@ -52,9 +54,9 @@ typedef QValueList<MatcherList> MatcherListList;
  * @return list which contains elements of l in same order, but as QVariants
  */
 template <class T>
-QValueList<QVariant> toVariantList(const T& l)
+Q3ValueList<QVariant> toVariantList(const T& l)
 {
-    QValueList<QVariant> r;
+    Q3ValueList<QVariant> r;
     for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
         r << *i;
     return r;
@@ -63,7 +65,7 @@ QValueList<QVariant> toVariantList(const T& l)
 class QueryHelper
 {
 public:
-    typedef QValueList<QVariant> Bindings;
+    typedef Q3ValueList<QVariant> Bindings;
 
     explicit QueryHelper(Connection& connection);
 
@@ -73,35 +75,35 @@ public:
                              const Bindings& bindings=Bindings()) const;
 
     uint mediaItemCount(DB::MediaType typemask=DB::anyMediaType,
-                        QValueList<int>* scope=0) const;
-    QValueList<int> mediaItemIds(DB::MediaType typemask) const;
+                        Q3ValueList<int>* scope=0) const;
+    Q3ValueList<int> mediaItemIds(DB::MediaType typemask) const;
     QStringList filenames() const;
 
     int mediaItemId(const QString& filename) const;
-    QValueList< QPair<int, QString> > mediaItemIdFileMap() const;
+    Q3ValueList< QPair<int, QString> > mediaItemIdFileMap() const;
     QString mediaItemFilename(int id) const;
 
     QStringList categoryNames() const;
 
     int categoryId(const QString& category) const;
 
-    QValueList<int> tagIdsOfCategory(const QString& category) const;
+    Q3ValueList<int> tagIdsOfCategory(const QString& category) const;
     QStringList tagNamesOfCategory(int categoryId) const;
 
     QStringList folders() const;
 
-    QValueList<int> tagIdList(const QString& category,
+    Q3ValueList<int> tagIdList(const QString& category,
                               const QString& item) const;
 
-    QValueList<QString[3]> memberGroupConfiguration() const;
-    QValueList<QString[2]>
+    Q3ValueList<QString[3]> memberGroupConfiguration() const;
+    Q3ValueList<QString[2]>
     memberGroupConfiguration(const QString& category) const;
 
-    QValueList< QPair<int, QString> >
+    Q3ValueList< QPair<int, QString> >
     mediaIdTagPairs(const QString& category, DB::MediaType typemask) const;
 
     void getMediaItem(int id, DB::ImageInfo& info) const;
-    void insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items);
+    void insertMediaItemsLast(const Q3ValueList<DB::ImageInfoPtr>& items);
     void updateMediaItem(int id, const DB::ImageInfo& info);
     void removeMediaItem(const QString& filename);
 
@@ -132,7 +134,7 @@ public:
     void moveMediaItems(const QStringList& filenames,
                         const QString& destinationFilename, bool after);
 
-    QValueList<int>
+    Q3ValueList<int>
     searchMediaItems(const DB::ImageSearchInfo& search,
                      DB::MediaType typemask=DB::anyMediaType) const;
 
@@ -140,40 +142,40 @@ public:
                                      bool includeRanges) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const QValueList<int>& idList) const;
+                                     const Q3ValueList<int>& idList) const;
     QMap<QString, uint> classify(const QString& category,
                                  DB::MediaType typemask=DB::anyMediaType,
-                                 QValueList<int>* scope=0) const;
+                                 Q3ValueList<int>* scope=0) const;
 
 #ifdef DEBUG_QUERY_TIMES
-    mutable QValueList<QPair<QString, uint> > queryTimes;
+    mutable Q3ValueList<QPair<QString, uint> > queryTimes;
 #endif
 
 protected:
     QString sqlRepresentation(const QVariant& x) const;
     void bindValues(QString &s, const Bindings& b) const;
-    Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
+    qulonglong insert(const QString& tableName, const QString& aiFieldName,
                     const QStringList& fields, const Bindings& values);
 
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
-    QValueList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
+    Q3ValueList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
     int insertTag(int categoryId, const QString& name);
     int insertDir(const QString& dirname);
     void insertMediaItem(const DB::ImageInfo& info, int place=0);
     void insertMediaTag(int mediaId, int tagId);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItemDrawings(int mediaId, const DB::ImageInfo& info);
-    QValueList<int> directMembers(int tagId) const;
+    Q3ValueList<int> directMembers(int tagId) const;
     void addBlockItem(const QString& filename);
     int mediaPlaceByFilename(const QString& filename) const;
     void makeMediaPlacesContinuous();
-    QValueList<int>
+    Q3ValueList<int>
     getMatchingFiles(MatcherList matches,
                      DB::MediaType typemask=DB::anyMediaType) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const QValueList<int>* idList) const;
+                                     const Q3ValueList<int>* idList) const;
 
 private:
     Connection* _connection;

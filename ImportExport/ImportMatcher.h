@@ -19,8 +19,11 @@
 #ifndef IMPORTMATCHER_H
 #define IMPORTMATCHER_H
 
-#include <qscrollview.h>
-class QGridLayout;
+#include <q3scrollview.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3ValueList>
+class Q3GridLayout;
 class QComboBox;
 class QCheckBox;
 
@@ -29,14 +32,14 @@ namespace ImportExport
 
 class CategoryMatch  {
 public:
-    CategoryMatch( bool allowNew, const QString& categort, QStringList items, QWidget* parent, QGridLayout* grid, int row );
+    CategoryMatch( bool allowNew, const QString& categort, QStringList items, QWidget* parent, Q3GridLayout* grid, int row );
     QCheckBox* _checkbox;
     QComboBox* _combobox;
     QString _text;
 };
 
 
-class ImportMatcher :public QScrollView {
+class ImportMatcher :public Q3ScrollView {
     Q_OBJECT
 
 public:
@@ -46,7 +49,7 @@ public:
 
     QString _otherCategory;
     QString _myCategory;
-    QValueList<CategoryMatch*> _matchers;
+    Q3ValueList<CategoryMatch*> _matchers;
 };
 
 }

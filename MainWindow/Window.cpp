@@ -40,7 +40,7 @@
 #include <qcursor.h>
 #include "Utilities/ShowBusyCursor.h"
 #include <klocale.h>
-#include <q3hbox.h>
+
 #include <q3widgetstack.h>
 #include "HTMLGenerator/HTMLDialog.h"
 #include <kstatusbar.h>
@@ -114,6 +114,7 @@
 #include <kprogress.h>
 #include <krun.h>
 #include <kglobal.h>
+#include <kvbox.h>
 #include "DirtyIndicator.h"
 #include "Utilities/ShowBusyCursor.h"
 
@@ -194,7 +195,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     f.setBold( true );
     statusBar()->setFont( f );
 
-    Q3HBox* indicators = new Q3HBox( statusBar(), "indicator" );
+    KHBox* indicators = new KHBox( statusBar(), "indicator" );
     _dirtyIndicator = new DirtyIndicator( indicators );
 
     _lockedIndicator = new QLabel( indicators, "_lockedIndicator" );

@@ -27,9 +27,10 @@
 #include "Exif/Database.h"
 #include <q3grid.h>
 #include "SearchDialog.h"
-#include <q3vbox.h>
+
 #include <qlabel.h>
 #include <qspinbox.h>
+#include <kvbox.h>
 
 using namespace Exif;
 
@@ -303,7 +304,7 @@ QWidget* Exif::SearchDialog::makeCamera( QWidget* parent )
     Q3ScrollView* view = new Q3ScrollView( parent );
     // view->setFrameStyle( QFrame::NoFrame );
     view->setResizePolicy( Q3ScrollView::AutoOneFit );
-    Q3VBox* w = new Q3VBox( view->viewport() );
+    KVBox* w = new KVBox( view->viewport() );
     view->addChild( w );
 
 

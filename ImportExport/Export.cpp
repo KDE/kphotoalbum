@@ -36,7 +36,7 @@
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
-#include <q3whatsthis.h>
+
 #include <qvbuttongroup.h>
 #include <qradiobutton.h>
 #include <kimageio.h>
@@ -112,17 +112,17 @@ ExportConfig::ExportConfig()
                         "otherwise, this just wastes time during import and export operations.</p>"
                         "<p>In other words, do not check this if your images are stored in jpg, png or gif; but do check this "
                         "if your images are stored in tiff.</p>" );
-    Q3WhatsThis::add( _compress, txt );
+    _compress->setWhatsThis( txt );
 
     txt = i18n( "<p>Generate thumbnail images</p>" );
-    Q3WhatsThis::add( _generateThumbnails, txt );
+    _generateThumbnails->setWhatsThis( txt );
 
     txt = i18n( "<p>With this option you may limit the maximum dimensions (width and height) of your images. "
                 "Doing so will make the resulting export file smaller, but will of course also make the quality "
                 "worse if someone wants to see the exported images with larger dimensions.</p>" );
 
-    Q3WhatsThis::add( _enforeMaxSize, txt );
-    Q3WhatsThis::add( _maxSize, txt );
+    _enforeMaxSize->setWhatsThis( txt );
+    _maxSize->setWhatsThis( txt );
 
     txt = i18n("<p>When exporting images, bear in mind that there are two things the "
                "person importing these images again will need:<br>"
@@ -138,11 +138,11 @@ ExportConfig::ExportConfig()
                "separate the images and the .kim file, by place them next to each "
                "other, so the user can access the images s/he wants.</p>");
 
-    Q3WhatsThis::add( grp, txt );
-    Q3WhatsThis::add( _include, txt );
-    Q3WhatsThis::add( _manually, txt );
-    Q3WhatsThis::add( _link, txt );
-    Q3WhatsThis::add( _auto, txt );
+    grp->setWhatsThis( txt );
+    _include->setWhatsThis( txt );
+    _manually->setWhatsThis( txt );
+    _link->setWhatsThis( txt );
+    _auto->setWhatsThis( txt );
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
 }
 

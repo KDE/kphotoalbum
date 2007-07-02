@@ -152,13 +152,13 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     _prevBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1leftarrow" ), KIcon::Desktop, 22 ) );
     _prevBut->setFixedWidth( 40 );
     lay6->addWidget( _prevBut );
-    QToolTip::add( _prevBut, i18n("Annotate previous image") );
+    _prevBut->setToolTip( i18n("Annotate previous image") );
 
     _nextBut = new QPushButton( top2 );
     _nextBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1rightarrow" ), KIcon::Desktop, 22 ) );
     _nextBut->setFixedWidth( 40 );
     lay6->addWidget( _nextBut );
-    QToolTip::add( _nextBut, i18n("Annotate next image") );
+    _nextBut->setToolTip( i18n("Annotate next image") );
 
     lay6->addStretch(1);
 
@@ -166,27 +166,27 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     lay6->addWidget( _rotateLeft );
     _rotateLeft->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), KIcon::Desktop, 22 ) );
     _rotateLeft->setFixedWidth( 40 );
-    QToolTip::add( _rotateLeft, i18n("Rotate contra-clockwise (to the left)") );
+    _rotateLeft->setToolTip( i18n("Rotate contra-clockwise (to the left)") );
 
     _rotateRight = new QPushButton( top2 );
     lay6->addWidget( _rotateRight );
     _rotateRight->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
     _rotateRight->setFixedWidth( 40 );
-    QToolTip::add( _rotateRight, i18n("Rotate clockwise (to the right)") );
+    _rotateRight->setToolTip( i18n("Rotate clockwise (to the right)") );
 
     _copyPreviousBut = new QPushButton( top2 );
     lay6->addWidget( _copyPreviousBut );
     _copyPreviousBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "legalmoves" ), KIcon::Desktop, 22 ) );
     _copyPreviousBut->setFixedWidth( 40 );
     connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
-    QToolTip::add( _copyPreviousBut, i18n("Copy tags from previously tagged image") );
+    _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
     
     lay6->addStretch( 1 );
     _delBut = new QPushButton( top2 );
     _delBut->setPixmap( KIconLoader::global()->loadIcon( QString::fromLatin1( "editdelete" ), KIcon::Desktop, 22 ) );
     lay6->addWidget( _delBut );
     connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
-    QToolTip::add( _delBut, i18n("Delete image") );
+    _delBut->setToolTip( i18n("Delete image") );
 
     lay6->addStretch(1);
 

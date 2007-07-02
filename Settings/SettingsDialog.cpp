@@ -38,7 +38,7 @@
 #include "DB/ImageDB.h"
 #include <qcheckbox.h>
 #include <kinputdialog.h>
-#include <q3whatsthis.h>
+
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <q3vgroupbox.h>
@@ -158,30 +158,30 @@ void Settings::SettingsDialog::createGeneralPage()
                 "a digital camera, you should reply <b>no</b>. If you never scan images, you should reply <b>yes</b>, "
                 "otherwise reply <b>ask</b>. This will allow you to decide whether the images are from "
                 "the scanner or the camera, from session to session.</p>" );
-    Q3WhatsThis::add( timeStampLabel, txt );
-    Q3WhatsThis::add( _trustTimeStamps, txt );
+    timeStampLabel->setWhatsThis( txt );
+    _trustTimeStamps->setWhatsThis( txt );
 
     txt = i18n( "<p>JPEG images may contain information about rotation. "
                 "If you have a reason for not using this information to get a default rotation of "
                 "your images, uncheck this check box.</p>"
                 "<p>Note: Your digital camera may not write this information into the images at all.</p>" );
-    Q3WhatsThis::add( _useEXIFRotate, txt );
+    _useEXIFRotate->setWhatsThis( txt );
 
     txt = i18n( "<p>JPEG images may contain a description. "
                "Check this checkbox to specify if you want to use this as a "
                "default description for your images.</p>" );
-    Q3WhatsThis::add( _useEXIFComments, txt );
+    _useEXIFComments->setWhatsThis( txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
                 "using <b>Maintenance->Rescan for new images</b></p>");
-    Q3WhatsThis::add( _searchForImagesOnStartup, txt );
+    _searchForImagesOnStartup->setWhatsThis( txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  "
 		"Some cameras store both a RAW image and a matching JPEG or TIFF image.  "
 		"This causes duplicate images to be stored in KPhotoAlbum, which may be undesirable.  "
 		"If this option is checked, KPhotoAlbum will not read RAW files for which matching image files also exist.</p>");
-    Q3WhatsThis::add( _dontReadRawFilesWithOtherMatchingFile, txt );
+    _dontReadRawFilesWithOtherMatchingFile->setWhatsThis( txt );
 
     txt = i18n("<p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
                "KPhotoAlbum does not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
@@ -196,11 +196,11 @@ void Settings::SettingsDialog::createGeneralPage()
                "with this option, then KPhotoAlbum will act as if you had just chosen to display people and then invoke "
                "the plugin which needs to know about all albums.</p>"
                "<p>Most users would probably want to specify Keywords here.</p>");
-    Q3WhatsThis::add( albumCategoryLabel, txt );
-    Q3WhatsThis::add( _albumCategory, txt );
+    albumCategoryLabel->setWhatsThis( txt );
+    _albumCategory->setWhatsThis( txt );
 
     txt = i18n( "Show the KPhotoAlbum splash screen on start up" );
-    Q3WhatsThis::add( _showSplashScreen, txt );
+    _showSplashScreen->setWhatsThis( txt );
 }
 
 void Settings::SettingsDialog::createThumbNailPage()
@@ -289,46 +289,46 @@ void Settings::SettingsDialog::createThumbNailPage()
     txt = i18n( "<p>If you select <b>Settings -&gt; Show Tooltips</b> in the thumbnail view, then you will see a small tool tip window "
                 "displaying information about the thumbnails. This window includes a small preview image. "
                 "This option configures the image size.</p>" );
-    Q3WhatsThis::add( previewSizeLabel, txt );
-    Q3WhatsThis::add( _previewSize, txt );
+    previewSizeLabel->setWhatsThis( txt );
+    _previewSize->setWhatsThis( txt );
 
 
     txt = i18n( "<p>Thumbnail image size. You may also set the size simply by dragging the thumbnail view using the middle mouse button.</p>" );
-    Q3WhatsThis::add( thumbnailSizeLabel, txt );
-    Q3WhatsThis::add( _thumbnailSize, txt );
+    thumbnailSizeLabel->setWhatsThis( txt );
+    _thumbnailSize->setWhatsThis( txt );
 
     txt = i18n("<p>Choose what aspect ratio the cells holding thumbnails should have.</p>");
-    Q3WhatsThis::add( _thumbnailAspectRatio, txt );
+    _thumbnailAspectRatio->setWhatsThis( txt );
 
     txt = i18n("<p>How thick the cell padding should be.</p>");
-    Q3WhatsThis::add( thumbnailSpaceLabel, txt );
+    thumbnailSpaceLabel->setWhatsThis( txt );
 
     txt = i18n("<p>The background color in the thumbnail view is "
                "the systems' default background; by checking this option, "
                "you can set it to be dark instead.</p>");
-    Q3WhatsThis::add( _thumbnailDarkBackground, txt );
+    _thumbnailDarkBackground->setWhatsThis( txt );
 
     txt = i18n("<p>If you want to see grid around your thumbnail images, "
                "select this option.</p>");
-    Q3WhatsThis::add( _thumbnailDisplayGrid, txt );
+    _thumbnailDisplayGrid->setWhatsThis( txt );
 
     txt = i18n("<p>Checking this option will show the base name for the file under "
                "thumbnails in the thumbnail view.</p>");
-    Q3WhatsThis::add( _displayLabels, txt );
+    _displayLabels->setWhatsThis( txt );
 
     txt = i18n("<p>Checking this option will show the Categories for the file under "
         "thumbnails in the thumbnail view</p>");
-    Q3WhatsThis::add( _displayCategories, txt );
+    _displayCategories->setWhatsThis( txt );
 
     txt = i18n("<p>When you are browsing, and the count gets below the value specified here, "
                "the thumbnails will be shown automatically. The alternative is to continue showing the "
                "browser until you press <i>Show Images</i></p>");
-    Q3WhatsThis::add( _autoShowThumbnailView, txt );
-    Q3WhatsThis::add( autoShowLabel, txt );
+    _autoShowThumbnailView->setWhatsThis( txt );
+    autoShowLabel->setWhatsThis( txt );
 
     txt = i18n("<p>Specify the size of the cache used to hold thumbnails.</p>");
-    Q3WhatsThis::add( cacheLabel, txt );
-    Q3WhatsThis::add( _thumbnailCache, txt );
+    cacheLabel->setWhatsThis( txt );
+    _thumbnailCache->setWhatsThis( txt );
 }
 
 
@@ -929,7 +929,7 @@ void Settings::SettingsDialog::createViewerPage()
 	       "<p><b>Natural Image Size</b> indicates that the image will be displayed pixel for pixel.</p> "
 	       "<p><b>Natural Image Size If Possible</b> indicates that the image will be displayed pixel for pixel if it would fit the window, "
 	       "otherwise it will be shrunk to fit the viewer.</p>");
-    Q3WhatsThis::add(_viewerStandardSize, txt);
+    _viewerStandardSize->setWhatsThis( txt);
 
     QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), top );
     _smoothScale = new QComboBox( top );
@@ -940,8 +940,8 @@ void Settings::SettingsDialog::createViewerPage()
     glay->addWidget( _smoothScale, 3, 1 );
     txt = i18n("<p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
 		       "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p>");
-    Q3WhatsThis::add( scalingLabel, txt );
-    Q3WhatsThis::add( _smoothScale, txt );
+    scalingLabel->setWhatsThis( txt );
+    _smoothScale->setWhatsThis( txt );
 }
 
 
@@ -1045,14 +1045,14 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
                "the maximum number of backup files.</p>"
                "<p>The index.xml file may grow substantially if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
                "the backup files to preserve disk space.</p>" );
-    Q3WhatsThis::add( backupLabel, txt );
-    Q3WhatsThis::add( _backupCount, txt );
-    Q3WhatsThis::add( _compressBackup, txt );
+    backupLabel->setWhatsThis( txt );
+    _backupCount->setWhatsThis( txt );
+    _compressBackup->setWhatsThis( txt );
 
     txt = i18n( "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
                 "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
                 "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
-    Q3WhatsThis::add( _compressedIndexXML, txt );
+    _compressedIndexXML->setWhatsThis( txt );
 
 
 

@@ -16,7 +16,7 @@ kde4_automoc(${kphotoalbumkexiutils_LIB_SRCS})
 
 kde4_add_library(kphotoalbumkexiutils SHARED ${kphotoalbumkexiutils_LIB_SRCS})
 
-target_link_libraries(kphotoalbumkexiutils  ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} )
+target_link_libraries(kphotoalbumkexiutils ${KDE4_KIO_LIBS} )
 
 set_target_properties(kphotoalbumkexiutils PROPERTIES VERSION 1.0.0 SOVERSION 1 )
 install(TARGETS kphotoalbumkexiutils DESTINATION ${LIB_INSTALL_DIR} )

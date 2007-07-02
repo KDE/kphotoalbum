@@ -167,7 +167,6 @@ add_subdirectory( demo )
 add_subdirectory( themes )
 
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(SQLDB)")
-message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(EXIF_DIR)")
 message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(KEXI_DIR)")
 if(KIPI_FOUND)
 	#TODO
@@ -187,6 +186,11 @@ kde4_automoc(${kphotoalbum_SRCS})
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
 target_link_libraries(kphotoalbum  ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
+
+if(EXIV2_FOUND)
+ 	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )
+endif(EXIV2_FOUND)
+
 
 install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 

@@ -127,7 +127,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
             ImageInfoPtr info = DB::ImageDB::instance()->info( Settings::SettingsData::instance()->imageDirectory() + relativeMatchedFileName );
             if ( !info )
-                qWarning("How did that happen? We couldn't find info for the images %s", relativeMatchedFileName.latin1());
+                qWarning("How did that happen? We couldn't find info for the images %s", relativeMatchedFileName.toLatin1());
             else {
                 info->delaySavingChanges(true);
                 fi = QFileInfo ( relativeMatchedFileName );

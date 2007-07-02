@@ -90,7 +90,7 @@ QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int hei
     if ( angle != 0 )  {
         QMatrix matrix;
         matrix.rotate( angle );
-        img = img.xForm( matrix );
+        img = img.transformed( matrix );
     }
     img = Utilities::scaleImage(img, width, height, QImage::ScaleMin );
     return img;
@@ -203,7 +203,7 @@ QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage 
     if ( request->angle() != 0 )  {
         QMatrix matrix;
         matrix.rotate( request->angle() );
-        img = img.xForm( matrix );
+        img = img.transformed( matrix );
         int angle = (request->angle() + 360)%360;
         Q_ASSERT( angle >= 0 && angle <= 360 );
         if ( angle == 90 || angle == 270 )

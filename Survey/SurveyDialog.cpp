@@ -270,7 +270,7 @@ void Survey::SurveyDialog::saveConfig( const Q3CString& xml )
         Q_ASSERT( false );
     }
     else {
-        out.writeBlock( xml.data(), xml.size()-1 );
+        out.write( xml.data(), xml.size()-1 );
         out.close();
     }
 }

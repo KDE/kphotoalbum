@@ -61,7 +61,7 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _label->setAlignment( Qt::AlignCenter );
     layout->addWidget( _label );
 
-    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(_category->name()).latin1() );
+    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(_category->name()).toLatin1() );
     _label->setBuddy( _lineEdit );
     layout->addWidget( _lineEdit );
 

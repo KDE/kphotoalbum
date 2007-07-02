@@ -98,7 +98,7 @@ void ImageInfoList::appendList( ImageInfoList& list )
 void ImageInfoList::printItems()
 {
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        qDebug("%s", (*it)->fileName().latin1() );
+        qDebug("%s", (*it)->fileName().toLatin1() );
     }
 }
 

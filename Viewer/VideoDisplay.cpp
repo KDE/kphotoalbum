@@ -52,9 +52,9 @@ public:
 
     virtual QWidget* createContainer (QWidget */*parent*/, int /*index*/, const QDomElement &element, int &/*id*/)
     {
-        if ( element.tagName().lower() == QString::fromLatin1( "menubar" ) ) {
+        if ( element.tagName().toLower() == QString::fromLatin1( "menubar" ) ) {
             for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
-                if ( itemNode.toElement().tagName().lower() == QString::fromLatin1("menu") )
+                if ( itemNode.toElement().tagName().toLower() == QString::fromLatin1("menu") )
                     insertMenu( itemNode.toElement(), _menu );
             }
         }
@@ -65,13 +65,13 @@ public:
     {
         for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
             const QDomElement elm = itemNode.toElement();
-            if ( elm.tagName().lower() == QString::fromLatin1( "action" ) ) {
-                KAction* action = builderClient()->action( elm.attribute( QString::fromLatin1( "name" ) ).latin1() );
+            if ( elm.tagName().toLower() == QString::fromLatin1( "action" ) ) {
+                KAction* action = builderClient()->action( elm.attribute( QString::fromLatin1( "name" ) ).toLatin1() );
                 action->plug( menu );
-                qDebug(">>>>>>%s<<<<<<<", elm.attribute( QString::fromLatin1( "name" ) ).latin1());
+                qDebug(">>>>>>%s<<<<<<<", elm.attribute( QString::fromLatin1( "name" ) ).toLatin1());
             }
             else
-                qDebug(">>>>>>>>>>>>>>>>>%s<<<<<<<<<<<<<", itemNode.toElement().tagName().latin1());
+                qDebug(">>>>>>>>>>>>>>>>>%s<<<<<<<<<<<<<", itemNode.toElement().tagName().toLatin1());
         }
     }
 

@@ -169,15 +169,15 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
     }
 
     QDomElement top = doc.documentElement();
-    if ( top.tagName().lower() != QString::fromLatin1( "kimdaba-export" ) &&
-        top.tagName().lower() != QString::fromLatin1( "kphotoalbum-export" ) ) {
+    if ( top.tagName().toLower() != QString::fromLatin1( "kimdaba-export" ) &&
+        top.tagName().toLower() != QString::fromLatin1( "kphotoalbum-export" ) ) {
         KMessageBox::error( this, i18n("Unexpected top element while reading file %1. Expected KPhotoAlbum-export found %2")
                             .arg( fileName ).arg( top.tagName() ) );
         return false;
     }
 
     // Read source
-    QString source = top.attribute( QString::fromLatin1( "location" ) ).lower();
+    QString source = top.attribute( QString::fromLatin1( "location" ) ).toLower();
     if ( source != QString::fromLatin1( "inline" ) && source != QString::fromLatin1( "external" ) ) {
         KMessageBox::error( this, i18n("<p>XML file did not specify the source of the images, "
                                        "this is a strong indication that the file is corrupted</p>" ) );
@@ -190,7 +190,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
     _baseUrl = top.attribute( QString::fromLatin1( "baseurl" ) );
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
-        if ( !node.isElement() || ! (node.toElement().tagName().lower() == QString::fromLatin1( "image" ) ) ) {
+        if ( !node.isElement() || ! (node.toElement().tagName().toLower() == QString::fromLatin1( "image" ) ) ) {
             KMessageBox::error( this, i18n("Unknown element while reading %1, expected image.").arg( fileName ) );
             return false;
         }
@@ -348,7 +348,7 @@ void  Import::slotEditDestination()
 {
     QString file = KFileDialog::getExistingDirectory( _destinationEdit->text(), this );
     if ( !file.isNull() ) {
-        if ( ! QFileInfo(file).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) ) {
+        if ( ! QFileInfo(file).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath()) ) {
             KMessageBox::error( this, i18n("The directory must be a subdirectory of %1").arg( Settings::SettingsData::instance()->imageDirectory() ) );
         }
         else {
@@ -365,7 +365,7 @@ void Import::updateNextButtonState()
         QString dest = _destinationEdit->text();
         if ( QFileInfo( dest ).isFile() )
             enabled = false;
-        else if ( ! QFileInfo(dest).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absFilePath()) )
+        else if ( ! QFileInfo(dest).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath()) )
             enabled = false;
     }
 
@@ -475,7 +475,7 @@ bool Import::copyFilesFromZipFile()
             KMessageBox::error( this, i18n("Error when writing image %s").arg( newName ) );
             return false;
         }
-        out.writeBlock( data, data.size() );
+        out.write( data, data.size() );
         out.close();
     }
     return true;

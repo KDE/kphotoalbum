@@ -157,7 +157,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 
 void Utilities::checkForBackupFile( const QString& fileName )
 {
-    QString backupName = QFileInfo( fileName ).dirPath( true ) + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
+    QString backupName = QFileInfo( fileName ).absolutePath() + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
     QFileInfo backUpFile( backupName);
     QFileInfo indexFile( fileName );
     if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() )
@@ -174,8 +174,8 @@ void Utilities::checkForBackupFile( const QString& fileName )
             if (out.open( QIODevice::WriteOnly ) ) {
                 char data[1024];
                 int len;
-                while ( (len = in.readBlock( data, 1024 ) ) )
-                    out.writeBlock( data, len );
+                while ( (len = in.read( data, 1024 ) ) )
+                    out.write( data, len );
             }
         }
     }
@@ -279,8 +279,8 @@ bool Utilities::copy( const QString& from, const QString& to )
 
     char buf[4096];
     while( !in.atEnd() ) {
-        unsigned long int len = in.readBlock( buf, sizeof(buf));
-        out.writeBlock( buf, len );
+        unsigned long int len = in.read( buf, sizeof(buf));
+        out.write( buf, len );
     }
 
     in.close();
@@ -318,7 +318,7 @@ QString Utilities::readInstalledFile( const QString& fileName )
 }
 
 QString Utilities::getThumbnailDir( const QString& imageFile ) {
-    return QFileInfo( imageFile ).dirPath() + QString::fromLatin1("/ThumbNails");
+    return QFileInfo( imageFile ).path() + QString::fromLatin1("/ThumbNails");
 }
 
 QString Utilities::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
@@ -326,7 +326,7 @@ QString Utilities::getThumbnailFile( const QString& imageFile, int width, int he
     while (angle < 0)
         angle += 360;
     angle %= 360;
-    return info.dirPath() + QString::fromLatin1("/ThumbNails")+
+    return info.path() + QString::fromLatin1("/ThumbNails")+
         QString::fromLatin1("/%1x%2-%3-%4")
         .arg(width)
         .arg(height)
@@ -337,7 +337,7 @@ QString Utilities::getThumbnailFile( const QString& imageFile, int width, int he
 void Utilities::removeThumbNail( const QString& imageFile )
 {
     QFileInfo fi( imageFile );
-    QString path = fi.dirPath(true);
+    QString path = fi.absolutePath();
 
     QDir dir( QString::fromLatin1( "%1/ThumbNails" ).arg( path ) );
     QStringList matches = dir.entryList( QString::fromLatin1( "*-%1" ).arg( fi.fileName() ) );
@@ -727,7 +727,7 @@ bool Utilities::isVideo( const QString& fileName )
     }
 
     QFileInfo fi( fileName );
-    QString ext = fi.extension().lower();
+    QString ext = fi.extension().toLower();
     return videoExtensions.contains( ext );
 }
 

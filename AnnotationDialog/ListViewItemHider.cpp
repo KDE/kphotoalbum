@@ -73,9 +73,9 @@ AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider( const QString&
 bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown( Q3ListViewItem* item )
 {
     if ( _anchorAtStart )
-        return item->text(0).lower().startsWith( _text.lower() );
+        return item->text(0).toLower().startsWith( _text.toLower() );
     else
-        return item->text(0).lower().contains( _text.lower() );
+        return item->text(0).toLower().contains( _text.toLower() );
 }
 
 bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown( Q3ListViewItem* item )

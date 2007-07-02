@@ -31,7 +31,7 @@ MainWindow::SearchBar::SearchBar( KMainWindow* parent, const char* name )
     : KToolBar( parent, DockTop, false, name, true )
 {
     KAction *resetQuickSearch = new KAction( i18n( "Reset Quick Search" ),
-                                             QApplication::reverseLayout()
+                                             QApplication::isRightToLeft()
                                              ? QString::fromLatin1("clear_left")
                                              : QString::fromLatin1("locationbar_erase"),
                                              0, this,

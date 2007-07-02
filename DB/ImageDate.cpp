@@ -153,7 +153,7 @@ QString ImageDate::formatRegexp()
         str = QString::fromLatin1( "^((\\d\\d?)([-. /]+|$))?((" );
         QStringList months = monthNames();
         for( QStringList::ConstIterator monthIt = months.begin(); monthIt != months.end(); ++monthIt )
-            str += QString::fromLatin1("%1|").arg((*monthIt).lower() );
+            str += QString::fromLatin1("%1|").arg((*monthIt).toLower() );
 
         str += QString::fromLatin1("\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$" );
     }
@@ -252,7 +252,7 @@ QDate ImageDate::parseDate( const QString& date, bool startDate )
 
     if ( regexp.exactMatch( date ) ) {
         QString dayStr = regexp.cap(2);
-        QString monthStr = regexp.cap(5).lower();
+        QString monthStr = regexp.cap(5).toLower();
         QString yearStr= regexp.cap(7);
 
         if ( dayStr.length() != 0 )

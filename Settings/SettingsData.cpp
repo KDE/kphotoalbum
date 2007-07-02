@@ -404,7 +404,7 @@ Set<QString> Settings::SettingsData::value(const QString& group, const QString& 
 {
     KConfig* config = KGlobal::config();
     config->setGroup( group );
-    if ( !config->hasKey( option.latin1() ) )
+    if ( !config->hasKey( option.toLatin1() ) )
         return defaultValue;
     return config->readListEntry( option );
 }

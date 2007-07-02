@@ -164,7 +164,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
     : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
     ok = true;
-    _destdir = QFileInfo( zipFile ).dirPath();
+    _destdir = QFileInfo( zipFile ).path();
     _zip = new KZip( zipFile );
     _zip->setCompression( compress ? KZip::DeflateCompression : KZip::NoCompression );
     if ( ! _zip->open( QIODevice::WriteOnly ) ) {
@@ -305,7 +305,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
             KMessageBox::error( 0, i18n("Error writing file %1").arg( file ) );
             _ok = false;
         }
-        out.writeBlock( data, data.size() );
+        out.write( data, data.size() );
         out.close();
     }
 

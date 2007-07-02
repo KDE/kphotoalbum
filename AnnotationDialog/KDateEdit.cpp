@@ -74,7 +74,7 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
     QString dayName;
     for (int i = 1; i <= 7; ++i)
     {
-        dayName = KGlobal::locale()->calendar()->weekDayName(i).lower();
+        dayName = KGlobal::locale()->calendar()->weekDayName(i).toLower();
         mKeywordMap[dayName] = i + 100;
     }
     lineEdit()->installEventFilter(this);   // handle keyword entry
@@ -246,10 +246,10 @@ bool AnnotationDialog::KDateEdit::readDate(QDate& result, QDate* end) const
     if (text.isEmpty()) {
         result = QDate();
     }
-    else if (mKeywordMap.contains(text.lower()))
+    else if (mKeywordMap.contains(text.toLower()))
     {
         QDate today = QDate::currentDate();
-        int i = mKeywordMap[text.lower()];
+        int i = mKeywordMap[text.toLower()];
         if (i >= 100)
         {
             /* A day name has been entered. Convert to offset from today.

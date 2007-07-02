@@ -816,7 +816,7 @@ bool MainWindow::Window::load()
     if (configFile.startsWith( QString::fromLatin1( "~" ) ) )
         configFile = QDir::home().path() + QString::fromLatin1( "/" ) + configFile.mid(1);
 
-    Settings::SettingsData::setup( QFileInfo( configFile ).dirPath( true ) );
+    Settings::SettingsData::setup( QFileInfo( configFile ).absolutePath() );
 
     if ( Settings::SettingsData::instance()->showSplashScreen() ) {
         SplashScreen::instance()->show();

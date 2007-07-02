@@ -133,7 +133,7 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         if (_connection->error()) {
             // TODO: error handling
             qDebug("transaction failed: %s",
-                   _connection->errorMsg().latin1());
+                   _connection->errorMsg().toLatin1());
         }
     }
 
@@ -484,7 +484,7 @@ void DatabaseHandler::createAndOpenDatabase(const QString& name)
         qDebug("commitTransaction");
         if (!_connection->commitTransaction(transaction)) {
             qDebug("transaction commit failed: %s",
-                   _connection->errorMsg().latin1());
+                   _connection->errorMsg().toLatin1());
         }
     }
 }

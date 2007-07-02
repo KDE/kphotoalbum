@@ -113,7 +113,7 @@ Q3ListViewItem* AnnotationDialog::CompletableLineEdit::findItemInListView( const
 
 bool AnnotationDialog::CompletableLineEdit::itemMatchesText( Q3ListViewItem* item, const QString& text )
 {
-    return item->text(0).lower().startsWith( text.lower() );
+    return item->text(0).toLower().startsWith( text.toLower() );
 }
 
 bool AnnotationDialog::CompletableLineEdit::isSpecialKey( QKeyEvent* ev )

@@ -58,7 +58,7 @@ QDomElement* blockList, QDomElement* memberGroups )
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
             QDomElement elm = node.toElement();
-            QString tag = elm.tagName().lower();
+            QString tag = elm.tagName().toLower();
             if ( tag == QString::fromLatin1( "config" ) )
                 ; // Skip for compatibility with 2.1 and older
             else if ( tag == QString::fromLatin1( "categories" ) || tag == QString::fromLatin1( "options" ) ) {
@@ -125,15 +125,15 @@ void XMLDB::FileReader::createSpecialCategories()
 void XMLDB::FileReader::loadCategories( const QDomElement& elm )
 {
     // options is for KimDaBa 2.1 compatibility
-    Q_ASSERT( elm.tagName().lower() == QString::fromLatin1( "categories" ) || elm.tagName().lower() == QString::fromLatin1( "options" ) );
+    Q_ASSERT( elm.tagName().toLower() == QString::fromLatin1( "categories" ) || elm.tagName().toLower() == QString::fromLatin1( "options" ) );
 
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
 
         if ( nodeOption.isElement() )  {
             QDomElement elmOption = nodeOption.toElement();
             // option is for KimDaBa 2.1 compatibility
-            Q_ASSERT( elmOption.tagName().lower() == QString::fromLatin1("category") ||
-                      elmOption.tagName() == QString::fromLatin1("option").lower() );
+            Q_ASSERT( elmOption.tagName().toLower() == QString::fromLatin1("category") ||
+                      elmOption.tagName() == QString::fromLatin1("option").toLower() );
             QString name = unescape( elmOption.attribute( QString::fromLatin1("name") ) );
 
             if ( !name.isNull() )  {
@@ -360,8 +360,8 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         exit(-1);
     }
 
-    if ( top.tagName().lower() != QString::fromLatin1( "kphotoalbum" ) &&
-         top.tagName().lower() != QString::fromLatin1( "kimdaba" ) ) { // KimDaBa compatibility
+    if ( top.tagName().toLower() != QString::fromLatin1( "kphotoalbum" ) &&
+         top.tagName().toLower() != QString::fromLatin1( "kimdaba" ) ) { // KimDaBa compatibility
         KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
         exit(-1);
     }

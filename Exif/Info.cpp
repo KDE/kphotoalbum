@@ -405,7 +405,7 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
  */
 QString Exif::Info::exifInfoFile( const QString& fileName )
 {
-    QString dirName = QFileInfo( fileName ).dirPath();
+    QString dirName = QFileInfo( fileName ).path();
     QString baseName = QFileInfo( fileName ).baseName();
     QString name = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
     if ( QFileInfo(name).exists() )

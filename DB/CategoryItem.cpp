@@ -38,7 +38,7 @@ void DB::CategoryItem::print( int offset )
 {
     QString spaces;
     spaces.fill( ' ', offset );
-    qDebug( "%s%s", spaces.latin1(), _name.latin1() );
+    qDebug( "%s%s", spaces.toLatin1(), _name.toLatin1() );
     for( Q3ValueList< CategoryItem* >::Iterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         (*it)->print( offset + 2 );
     }

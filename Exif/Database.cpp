@@ -68,7 +68,7 @@ Exif::Database* Exif::Database::_instance = 0;
 
 static void showError( QSqlQuery& query )
 {
-    qWarning( "Error running query: %s\nError was: %s", query.executedQuery().latin1(), query.lastError().text().latin1());
+    qWarning( "Error running query: %s\nError was: %s", query.executedQuery().toLatin1(), query.lastError().text().toLatin1());
 }
 
 Exif::Database::Database()
@@ -85,7 +85,7 @@ void Exif::Database::openDatabase()
     _db->setDatabaseName( exifDBFile() );
 
     if ( !_db->open() )
-        qWarning("Couldn't open db %s", _db->lastError().text().latin1());
+        qWarning("Couldn't open db %s", _db->lastError().text().toLatin1());
     else
         _isOpen = true;
 

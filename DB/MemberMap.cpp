@@ -225,7 +225,7 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
         return;
 
     if ( item.isNull() ) {
-        qWarning( "Null item tried inserted into group %s", group.latin1());
+        qWarning( "Null item tried inserted into group %s", group.toLatin1());
         return;
     }
 

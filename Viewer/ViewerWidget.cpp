@@ -441,7 +441,7 @@ void Viewer::ViewerWidget::load()
         updateCategoryConfig();
 
     if ( _isRunningSlideShow )
-        _slideShowTimer->changeInterval( _slideShowPause );
+        _slideShowTimer->start( _slideShowPause );
 
     if ( _display == _textDisplay )
         updateInfoBox();
@@ -887,7 +887,7 @@ void Viewer::ViewerWidget::changeSlideShowInterval( int delta )
     _slideShowPause = qMax( _slideShowPause, 500 );
     _speedDisplay->display( _slideShowPause );
     if (_slideShowTimer->isActive() )
-        _slideShowTimer->changeInterval( _slideShowPause );
+        _slideShowTimer->start( _slideShowPause );
 }
 
 
@@ -974,7 +974,7 @@ KActionCollection* Viewer::ViewerWidget::actions()
 void Viewer::ViewerWidget::keyPressEvent( QKeyEvent* event )
 {
     if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
-        QString token = event->text().upper().left(1);
+        QString token = event->text().toUpper().left(1);
         if ( currentInfo()->hasCategoryInfo( QString::fromLatin1("Tokens"), token ) )
             currentInfo()->removeCategoryInfo( QString::fromLatin1("Tokens"), token );
         else

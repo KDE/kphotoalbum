@@ -63,7 +63,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n( "Could not open file '%1'." ).arg( fileName ) );
     else {
         Q3CString s = doc.toCString();
-        out.writeBlock( s.data(), s.size()-1 );
+        out.write( s.data(), s.size()-1 );
         out.close();
     }
 }
@@ -304,7 +304,7 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 {
     // A few bugs has shown up, where an invalid category name has crashed KPA. I therefore checks for sauch invalid names here.
     if ( !_db->_categoryCollection.categoryForName( categoryName ) ) {
-        qWarning("Invalid category name: %s", categoryName.latin1());
+        qWarning("Invalid category name: %s", categoryName.toLatin1());
         return false;
     }
 

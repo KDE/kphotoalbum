@@ -26,7 +26,7 @@ Browser::BrowserIconViewItemFactory::BrowserIconViewItemFactory( Q3IconView* vie
 
 Browser::BrowserItem* Browser::BrowserIconViewItemFactory::createItem( Folder* folder, BrowserItem* /*parent*/ )
 {
-    if ( folder->text().lower().contains( _matchText.lower() ) )
+    if ( folder->text().toLower().contains( _matchText.toLower() ) )
         return new BrowserIconItem( _view, folder );
     else
         return 0;

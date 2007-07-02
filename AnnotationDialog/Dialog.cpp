@@ -221,7 +221,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     _revertBut = new QPushButton( i18n("Revert This Item"), this );
     lay1->addWidget( _revertBut );
 
-    QPushButton* clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::reverseLayout()
+    QPushButton* clearBut = new KPushButton( KGuiItem(i18n("Clear Form"),QApplication::isRightToLeft()
                                              ? QString::fromLatin1("clear_left")
                                              : QString::fromLatin1("locationbar_erase")), this );
     lay1->addWidget( clearBut );
@@ -615,7 +615,7 @@ void AnnotationDialog::Dialog::slotSaveWindowSetup()
     Q3CString xml = doc.toCString();
     QFile file( QString::fromLatin1( "%1/layout.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
     file.open( QIODevice::WriteOnly );
-    file.writeBlock( xml.data(), xml.size()-1 );
+    file.write( xml.data(), xml.size()-1 );
     file.close();
 }
 

@@ -94,7 +94,7 @@ void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
     QString tempFileName( fileName );
 #ifdef TEMPORARILY_REMOVED
     if ( Util::isCRW( fileName ) ) {
-      QString dirName = QFileInfo( fileName ).dirPath();
+      QString dirName = QFileInfo( fileName ).path();
       QString baseName = QFileInfo( fileName ).baseName();
       tempFileName = dirName + QString::fromLatin1("/") + baseName + QString::fromLatin1( ".thm" );
       QFileInfo tempFile (tempFileName);

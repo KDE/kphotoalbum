@@ -41,7 +41,7 @@ void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
     if ( info->angle() != 0 ) {
         QMatrix matrix;
         matrix.rotate( info->angle() );
-        img = img.xForm( matrix );
+        img = img.transformed( matrix );
     }
     if ( img.width() > 800 || img.height() > 600 )
         img = img.scale( 800, 600, QImage::ScaleMin );

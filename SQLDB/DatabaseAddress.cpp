@@ -24,7 +24,7 @@
 
 bool SQLDB::DatabaseAddress::operator==(const DatabaseAddress& other) const
 {
-    if (_cd.driverName.lower() != other._cd.driverName.lower())
+    if (_cd.driverName.toLower() != other._cd.driverName.toLower())
         return false;
 
     KexiDB::Driver::Info info =

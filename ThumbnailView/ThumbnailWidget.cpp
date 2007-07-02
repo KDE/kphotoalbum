@@ -484,7 +484,7 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
     if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
-        QString token = event->text().upper().left(1);
+        QString token = event->text().toUpper().left(1);
         bool mustRemoveToken = false;
         bool hadHit          = false;
 

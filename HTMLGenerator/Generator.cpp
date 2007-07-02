@@ -435,7 +435,7 @@ bool HTMLGenerator::Generator::writeToFile( const QString& fileName, const QStri
     }
 
     Q3CString cstr = translateToHTML(str).utf8();
-    file.writeBlock( cstr.data(), cstr.size() - 1);
+    file.write( cstr.data(), cstr.size() - 1);
     file.close();
     return true;
 }
@@ -460,7 +460,7 @@ bool HTMLGenerator::Generator::linkIndexFile()
     QString fromFile = QString::fromLatin1("index-%1.html" )
                        .arg(resolution->text(true));
     QString destFile = _tempDir + QString::fromLatin1("/index.html");
-    bool ok = Utilities::copy( QFileInfo(destFile).dirPath() + fromFile, destFile );
+    bool ok = Utilities::copy( QFileInfo(destFile).path() + fromFile, destFile );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>")
                             .arg( fromFile ).arg( destFile ) );

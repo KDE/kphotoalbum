@@ -98,23 +98,23 @@ OptionContainerMatcher::~OptionContainerMatcher()
 
 void OptionValueMatcher::debug(int level) const
 {
-    qDebug("%s%s: %s", spaces(level).latin1(), _category.latin1(), _option.latin1());
+    qDebug("%s%s: %s", spaces(level).toLatin1(), _category.toLatin1(), _option.toLatin1());
 }
 
 void OptionEmptyMatcher::debug( int level ) const
 {
-    qDebug("%s%s:EMPTY", spaces(level).latin1(), _category.latin1() );
+    qDebug("%s%s:EMPTY", spaces(level).toLatin1(), _category.toLatin1() );
 }
 
 void OptionAndMatcher::debug( int level ) const
 {
-    qDebug("%sAND:", spaces(level).latin1() );
+    qDebug("%sAND:", spaces(level).toLatin1() );
     OptionContainerMatcher::debug( level + 1 );
 }
 
 void OptionOrMatcher::debug( int level ) const
 {
-    qDebug("%sOR:", spaces(level).latin1() );
+    qDebug("%sOR:", spaces(level).toLatin1() );
     OptionContainerMatcher::debug( level + 1 );
 }
 

@@ -60,9 +60,9 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
     for( QStringList::ConstIterator it = questions.begin(); it != questions.end(); ++it, ++index ) {
         QButton* w;
         if (tp == RadioButton )
-            w = new QRadioButton( *it, this, QString::number(index).latin1() );
+            w = new QRadioButton( *it, this, QString::number(index).toLatin1() );
         else
-            w = new QCheckBox( *it, this, QString::number(index).latin1() );
+            w = new QCheckBox( *it, this, QString::number(index).toLatin1() );
         vlay->addWidget( w );
         answers->insert( w );
         _buttons.append( w );

@@ -47,7 +47,7 @@ namespace KexiDB
 	{
 		public:
 			SimpleCommandLineApp(
-				int argc, char** argv, KCmdLineOptions *options, const char *programName, 
+				int argc, char** argv, const KCmdLineOptions &options, const char *programName, 
 				const char *version, const char *shortDescription=0, 
 				int licenseType=KAboutData::License_Unknown, 
 				const char *copyrightStatement=0, const char *text=0, 

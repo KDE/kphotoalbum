@@ -28,38 +28,35 @@
 #endif
 #include "Settings/SettingsData.h"
 
-static const KCmdLineOptions options[] =
-{
-	{ "c ", I18N_NOOP("Config file"), 0 },
-	{ "e ", I18N_NOOP("Database engine to use"), 0 },
-        { "demo", I18N_NOOP( "Starts KPhotoAlbum with a prebuilt set of demo images" ), 0 },
-        { "import ", I18N_NOOP( "Import file" ), 0 },
-        { "export-in-2.1-format", I18N_NOOP( "This will make an attempt at saving in a format understandable by KimDaBa 2.1" ), 0 },
-	{ 0, 0, 0}
-};
-
 int main( int argc, char** argv ) {
-    KAboutData aboutData( "kphotoalbum", I18N_NOOP("KPhotoAlbum"), "SVN",
-                          I18N_NOOP("KDE Photo Album"), KAboutData::License_GPL,
-                          0, 0, "http://www.kphotoalbum.org");
-    aboutData.addAuthor( "Jesper K. Pedersen", I18N_NOOP("Development"), "blackie@kde.org" );
-    aboutData.addAuthor( "Tuomas Suutari", "SQL backend and numerous features", "thsuut@utu.fi" );
+    KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), "SVN",
+                          ki18n("KDE Photo Album"), KAboutData::License_GPL,
+                          KLocalizedString(), KLocalizedString(), "http://www.kphotoalbum.org");
+    aboutData.addAuthor( ki18n("Jesper K. Pedersen"), ki18n("Development"), "blackie@kde.org" );
+    aboutData.addAuthor( ki18n("Tuomas Suutari"), ki18n("SQL backend and numerous features"), "thsuut@utu.fi" );
 
-    aboutData.addCredit( "Will Stephenson", "Developing an Icon for KPhotoAlbum", "will@stevello.free-online.co.uk" );
-    aboutData.addCredit( "Teemu Rytilahti",
-                         "Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
-                         "(.) Theme support for HTML generation", "teemu.rytilahti@kde-fi.org" );
-    aboutData.addCredit( "Reimar Imhof", "Patch to sort items in option listboxes", "Reimar.Imhof@netCologne.de" );
-    aboutData.addCredit( "Thomas Schwarzgruber", "Patch to sort images in the thumbnail view, plus reading time info out of EXIF images for existing images", "possebaer@gmx.at" );
-    aboutData.addCredit( "Marcel Wiesweg", "Patch which speed up loading of thumbnails plus preview in image property dialog.", "marcel.wiesweg@gmx.de" );
-    aboutData.addCredit( "Marco Caldarelli", "Patch for making it possible to reread EXIF info using a nice dialog.", "caldarel@yahoo.it" );
-    aboutData.addCredit( "Jean-Michel FAYARD", "(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page.", "jmfayard@gmail.com" );
-    aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KPhotoAlbum again and again.", "rlk@alum.mit.edu" );
-    aboutData.addCredit( "Christoph Moseler", "Numerous patches for lots of bugs plus patches for a few new features", "forums@moseler.net" );
-    aboutData.addCredit( "Clytie Siddall", "Tremendous help with the english text in the application.", "clytie@riverland.net.au" );
+    aboutData.addCredit( ki18n("Will Stephenson"), ki18n("Developing an Icon for KPhotoAlbum"), "will@stevello.free-online.co.uk" );
+    aboutData.addCredit( ki18n("Teemu Rytilahti"),
+                         ki18n("Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
+                         "(.) Theme support for HTML generation"), "teemu.rytilahti@kde-fi.org" );
+    aboutData.addCredit( ki18n("Reimar Imhof"), ki18n("Patch to sort items in option listboxes"), "Reimar.Imhof@netCologne.de" );
+    aboutData.addCredit( ki18n("Thomas Schwarzgruber"), ki18n("Patch to sort images in the thumbnail view, plus reading time info out of EXIF images for existing images"), "possebaer@gmx.at" );
+    aboutData.addCredit( ki18n("Marcel Wiesweg"), ki18n("Patch which speed up loading of thumbnails plus preview in image property dialog."), "marcel.wiesweg@gmx.de" );
+    aboutData.addCredit( ki18n("Marco Caldarelli"), ki18n("Patch for making it possible to reread EXIF info using a nice dialog."), "caldarel@yahoo.it" );
+    aboutData.addCredit( ki18n("Jean-Michel FAYARD"), ki18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), "jmfayard@gmail.com" );
+    aboutData.addCredit( ki18n("Robert L Krawitz"), ki18n("Numerous patches plus profiling KPhotoAlbum again and again."), "rlk@alum.mit.edu" );
+    aboutData.addCredit( ki18n("Christoph Moseler"), ki18n("Numerous patches for lots of bugs plus patches for a few new features"), "forums@moseler.net" );
+    aboutData.addCredit( ki18n("Clytie Siddall"), ki18n("Tremendous help with the english text in the application."), "clytie@riverland.net.au" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
-	KCmdLineArgs::addCmdLineOptions( options );
+
+    KCmdLineOptions options;
+    options.add("c ", ki18n("Config file"));
+    options.add("e ", ki18n("Database engine to use"));
+    options.add("demo", ki18n( "Starts KPhotoAlbum with a prebuilt set of demo images" ));
+    options.add("import ", ki18n( "Import file" ));
+    options.add("export-in-2.1-format", ki18n( "This will make an attempt at saving in a format understandable by KimDaBa 2.1" ));
+    KCmdLineArgs::addCmdLineOptions( options );
 
     KApplication app;
 

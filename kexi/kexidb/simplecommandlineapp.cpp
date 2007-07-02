@@ -31,22 +31,6 @@
 
 using namespace KexiDB;
 
-static KCmdLineOptions predefinedOptions[] =
-{
-	{ "drv", 0, 0 },
-	{ "driver <name>", I18N_NOOP("Database driver name"), 0 },
-	{ "u", 0, 0 },
-	{ "user <name>", I18N_NOOP("Database user name"), 0 },
-	{ "p", 0, 0 },
-	{ "password", I18N_NOOP("Prompt for password"), 0 },
-	{ "h", 0, 0 },
-	{ "host <name>", I18N_NOOP("Host (server) name"), 0 },
-	{ "port <number>", I18N_NOOP("Server's port number"), 0 },
-	{ "s", 0, 0 },
-	{ "local-socket <filename>", I18N_NOOP("Server's local socket filename"), 0 },
-	KCmdLineLastOption
-};
-
 //-----------------------------------------
 
 //! @internal used for SimpleCommandLineApp
@@ -63,17 +47,9 @@ public:
 			delete (Connection*)conn;
 		}
 		delete instance;
-
-		for (KCmdLineOptions *optionsPtr = allOptions; optionsPtr->name; optionsPtr++) {
-			delete optionsPtr->name;
-			delete optionsPtr->description;
-			delete optionsPtr->def;
-		}
-		delete allOptions;
 	}
 
 	KexiDB::DriverManager manager;
-	KCmdLineOptions *allOptions;
 	KInstance* instance;
 	ConnectionData connData;
 	QPointer<Connection> conn;
@@ -82,7 +58,7 @@ public:
 //-----------------------------------------
 
 SimpleCommandLineApp::SimpleCommandLineApp(
-	int argc, char** argv, KCmdLineOptions *options,
+	int argc, char** argv, const KCmdLineOptions &options,
 	const char *programName, const char *version, 
 	const char *shortDescription, int licenseType, 
 	const char *copyrightStatement, const char *text, 
@@ -93,39 +69,29 @@ SimpleCommandLineApp::SimpleCommandLineApp(
 	QFileInfo fi(argv[0]);
 	Q3CString appName( fi.baseName().latin1() );
 	KCmdLineArgs::init(argc, argv, 
-		new KAboutData( appName, programName,
-			version, shortDescription, licenseType, copyrightStatement, text, 
+		new KAboutData( appName, 0, ki18n(programName),
+			version, ki18n(shortDescription), licenseType, ki18n(copyrightStatement), ki18n(text), 
 			homePageAddress, bugsEmailAddress));
-
-	int predefinedOptionsCount = 0;
-	for (KCmdLineOptions *optionsPtr = predefinedOptions; optionsPtr->name; optionsPtr++, predefinedOptionsCount++)
-		;
-	int userOptionsCount = 0;
-	for (KCmdLineOptions *optionsPtr = options; optionsPtr->name; optionsPtr++, userOptionsCount++)
-		;
 
 	d->instance = new KInstance(appName);
 
-	// join the predefined options and user options
-	d->allOptions = new KCmdLineOptions[predefinedOptionsCount + userOptionsCount + 1];
-	KCmdLineOptions *allOptionsPtr = d->allOptions;
-	for (KCmdLineOptions *optionsPtr = predefinedOptions; optionsPtr->name; optionsPtr++, allOptionsPtr++) {
-		allOptionsPtr->name = qstrdup(optionsPtr->name);
-		allOptionsPtr->description = qstrdup(optionsPtr->description);
-		if (optionsPtr == predefinedOptions) //first row == drv
-			allOptionsPtr->def = qstrdup(KexiDB::Driver::defaultFileBasedDriverName().latin1());
-		else
-			allOptionsPtr->def = qstrdup(optionsPtr->def);
-	}
-	for (KCmdLineOptions *optionsPtr = options; optionsPtr->name; optionsPtr++, allOptionsPtr++) {
-		allOptionsPtr->name = qstrdup(optionsPtr->name);
-		allOptionsPtr->description = qstrdup(optionsPtr->description);
-		allOptionsPtr->def = qstrdup(optionsPtr->def);
-	}
-	allOptionsPtr->name = 0; //end
-	allOptionsPtr->description = 0;
-	allOptionsPtr->def = 0;
-	KCmdLineArgs::addCmdLineOptions( d->allOptions );
+	// add the predefined options
+	KCmdLineOptions allOptions;
+	allOptions.add("drv");
+	allOptions.add("driver <name>", ki18n("Database driver name"));
+	allOptions.add("u");
+	allOptions.add("user <name>", ki18n("Database user name"));
+	allOptions.add("p");
+	allOptions.add("password", ki18n("Prompt for password"));
+	allOptions.add("h");
+	allOptions.add("host <name>", ki18n("Host (server) name"));
+	allOptions.add("port <number>", ki18n("Server's port number"));
+	allOptions.add("s");
+	allOptions.add("local-socket <filename>", ki18n("Server's local socket filename"));
+	// add user options
+	allOptions.add(options);
+
+	KCmdLineArgs::addCmdLineOptions( allOptions );
 
 	KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 

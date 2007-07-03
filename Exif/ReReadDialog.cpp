@@ -36,6 +36,8 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
     _title = new QLabel( top );
     lay1->addWidget( _title );
 
+    lay1->addWidget( new QLabel( i18n("Be sure to configure synchronization in the settings dialog."), top ) );
+
     _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
     lay1->addWidget( _exifDB );
     if ( !Exif::Database::instance()->isUsable() ) {
@@ -66,10 +68,11 @@ int Exif::ReReadDialog::exec( const QStringList& list )
     _title->setText( i18n("<p><b><center><font size=\"+3\">Read File Info</font><br>%1 selected</center></b></p>").arg( list.count() ) );
 
     _exifDB->setChecked( true);
-    _date->setChecked( false );
-    _orientation->setChecked( false );
-    _description->setChecked( false );
-    _label->setChecked( false );
+    _label->setChecked( true );
+    _description->setChecked( true );
+    _orientation->setChecked( true );
+    _date->setChecked( true );
+    _categories->setChecked( false );
     _list = list;
 
     return KDialogBase::exec();

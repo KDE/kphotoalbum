@@ -23,6 +23,7 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
+#include "Exif/Syncable.h"
 #include <kfilemetainfo.h>
 
 using namespace DB;
@@ -33,7 +34,7 @@ FileInfo FileInfo::read( const QString& fileName )
 }
 
 DB::FileInfo::FileInfo( const QString& fileName )
-    : _angle(0)
+    :_angle(0)
 {
 #ifdef HASEXIV2
     parseEXIV2( fileName );
@@ -48,10 +49,50 @@ DB::FileInfo::FileInfo( const QString& fileName )
 #ifdef HASEXIV2
 void DB::FileInfo::parseEXIV2( const QString& fileName )
 {
-    // another place for that mighty IPTC FIXME
+    QMap<Exif::Syncable::Kind,QString> _fieldName, _visibleName;
+    QMap<Exif::Syncable::Kind,Exif::Syncable::Header> _header;
+    Exif::Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
 
-    Exiv2::ExifData map = Exif::Info::instance()->exifData( fileName );
+    Exiv2::ExifData exifMap = Exif::Info::instance()->exifData( fileName );
+    Exiv2::IptcData iptcMap = Exif::Info::instance()->iptcData( fileName );
 
+    // Orientation
+    QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->orientationSyncing( false );
+    for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+        switch ( *it ) {
+            case Exif::Syncable::EXIF_ORIENTATION:
+                if ( exifMap.findKey( Exiv2::ExifKey( std::string( _fieldName[ *it ].ascii() ) ) ) != exifMap.end() ) {
+                    const Exiv2::Exifdatum& datum = exifMap[ _fieldName[ *it ].ascii() ];
+
+                    int orientation =  datum.toLong();
+                    _angle = orientationToAngle( orientation );
+                }
+                break;
+            default:
+                qDebug("Unknown field: %d", *it );
+        }
+    }
+
+    // Label
+    items = Settings::SettingsData::instance()->labelSyncing( false );
+    for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+        switch ( _header[ *it ] ) {
+            case Exif::Syncable::EXIF:
+                qDebug("Can't read EXIF value %s, not implemented yet", _fieldName[ *it ].ascii() );
+                break;
+            case Exif::Syncable::IPTC:
+                qDebug("Can't read IPTC value %s, not implemented yet", _fieldName[ *it ].ascii() );
+                break;
+            case Exif::Syncable::JPEG:
+                qDebug("Can't read JPEG value %s, not implemented yet", _fieldName[ *it ].ascii() );
+                break;
+            default:
+                qDebug("Unknown header for label: %s", _fieldName[ *it ].ascii() );
+        }
+    }
+
+
+    /*
     // Date
     _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );
     if ( !_date.isValid() ) {
@@ -60,19 +101,12 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             _date = fetchEXIV2Date( map, "Exif.Image.DateTime" );
     }
 
-    // Angle
-    if ( map.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != map.end() ) {
-        const Exiv2::Exifdatum& datum = map["Exif.Image.Orientation"];
-
-        int orientation =  datum.toLong();
-        _angle = orientationToAngle( orientation );
-    }
-
     // Description
     if( map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != map.end() ) {
         const Exiv2::Exifdatum& datum = map["Exif.Image.ImageDescription"];
         _description = QString::fromLocal8Bit( datum.toString().c_str() );
     }
+    */
 }
 
 QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )

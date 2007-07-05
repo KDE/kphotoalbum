@@ -42,6 +42,7 @@ public:
     bool _isTop;
 };
 
+typedef KSharedPtr<CategoryItem> CategoryItemPtr;
 }
 
 

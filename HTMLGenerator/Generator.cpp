@@ -45,13 +45,16 @@
 #include "Setup.h"
 
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
+#ifdef TEMPORARILY_REMOVED
     : Q3ProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), 0, parent ), _hasEnteredLoop( false )
+#endif
 {
     _setup = setup;
 }
 
 void HTMLGenerator::Generator::generate()
 {
+#ifdef TEMPORARILY_REMOVED
     _tempDir = KTempDir().name();
 
     // Generate .kim file
@@ -147,10 +150,14 @@ void HTMLGenerator::Generator::generate()
 
     qApp->eventLoop()->enterLoop();
     return;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 {
+#ifdef TEMPORARILY_REMOVED
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
     QString content = Utilities::readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
@@ -248,6 +255,9 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         return false;
 
     return true;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool HTMLGenerator::Generator::generateContentPage( int width, int height, const QString& prev, const QString& current,
@@ -373,14 +383,14 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height, const
 QString HTMLGenerator::Generator::namePage( int width, int height, const QString& fileName )
 {
     QString name = _nameMap[fileName];
-    QString base = QFileInfo( name ).baseName(true);
+    QString base = QFileInfo( name ).completeBaseName();
     return QString::fromLatin1( "%1-%2.html" ).arg( base ).arg( ImageSizeCheckBox::text(width,height,true) );
 }
 
 QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
 {
     QString name = _nameMap[fileName];
-    QString base = QFileInfo( name ).baseName(true);
+    QString base = QFileInfo( name ).completeBaseName();
     if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
         return name;
     else
@@ -472,15 +482,20 @@ bool HTMLGenerator::Generator::linkIndexFile()
 
 void HTMLGenerator::Generator::slotCancelGenerate()
 {
+#ifdef TEMPORARILY_REMOVED
     ImageManager::Manager::instance()->stop( this );
     _waitCounter = 0;
     if ( _hasEnteredLoop )
         qApp->eventLoop()->exitLoop();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSize& imgSize,
                                      const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
 {
+#ifdef TEMPORARILY_REMOVED
     setProgress( _total - _waitCounter );
 
     _waitCounter--;
@@ -511,6 +526,9 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
     if ( _waitCounter == 0 && _hasEnteredLoop) {
         qApp->eventLoop()->exitLoop();
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 int HTMLGenerator::Generator::calculateSteps()
@@ -521,11 +539,15 @@ int HTMLGenerator::Generator::calculateSteps()
 
 void HTMLGenerator::Generator::getThemeInfo( QString* baseDir, QString* name, QString* author )
 {
+#ifdef TEMPORARILY_REMOVED
     *baseDir = _setup.themePath();
     KSimpleConfig themeConfig( QString::fromLatin1( "%1kphotoalbum.theme" ).arg( *baseDir ), true );
     themeConfig.setGroup( QString::fromLatin1( "theme" ) );
     *name = themeConfig.readEntry( "Name" );
     *author = themeConfig.readEntry( "Author" );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 int HTMLGenerator::Generator::maxImageSize()
@@ -540,6 +562,7 @@ int HTMLGenerator::Generator::maxImageSize()
 
 void HTMLGenerator::Generator::showBrowser()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( _setup.generateKimFile() )
         ImportExport::Export::showUsageDialog();
 
@@ -547,6 +570,9 @@ void HTMLGenerator::Generator::showBrowser()
         new KRun( KUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( _setup.baseURL() ).arg( _setup.outputDir()) ) );
 
     qApp->eventLoop()->exitLoop();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 

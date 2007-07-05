@@ -31,6 +31,7 @@
 #include "DB/ImageInfo.h"
 #include "ThumbnailWidget.h"
 #include "DB/ImageDB.h"
+#include <kdebug.h>
 
 /**
    \class ThumbnailToolTip
@@ -41,10 +42,16 @@
 */
 
 ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view, const char* name )
-    : QLabel( view, name, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_TopLevel | WX11BypassWM | Qt::WStyle_Tool ), _view( view ),
+    : QLabel( view, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_TopLevel
+#ifdef TEMPORARILY_REMOVED
+              | WX11BypassWM
+#endif
+              | Qt::WStyle_Tool ), _view( view ),
       _widthInverse( false ), _heightInverse( false )
 {
-	setAlignment( AlignAuto | Qt::AlignTop );
+#ifdef TEMPORARILY_REMOVED
+    setAlignment( AlignAuto | Qt::AlignTop );
+#endif
     setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
     setLineWidth(1);
     setMargin(1);
@@ -106,7 +113,8 @@ void ThumbnailView::ThumbnailToolTip::setActive( bool b )
 
 void ThumbnailView::ThumbnailToolTip::placeWindow()
 {
-    // First try to set the position.
+#ifdef TEMPORARILY_REMOVED
+// First try to set the position.
     QPoint pos = QCursor::pos() + QPoint( 20, 20 );
     if ( _widthInverse )
         pos.setX( pos.x() - 30 - width() );
@@ -144,20 +152,28 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
 
     move( pos );
 
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ThumbnailView::ThumbnailToolTip::clear()
 {
-    // I can't find any better way to remove the images from the cache.
+#ifdef TEMPORARILY_REMOVED
+// I can't find any better way to remove the images from the cache.
     for( QStringList::Iterator it = _loadedImages.begin(); it != _loadedImages.end(); ++it ) {
         Q3MimeSourceFactory::defaultFactory()->setImage( *it, QImage() );
     }
     _loadedImages.clear();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
 bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 {
+#ifdef TEMPORARILY_REMOVED
     int size = Settings::SettingsData::instance()->previewSize();
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
@@ -172,14 +188,21 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
         }
     }
     return true;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool /*loadedOK*/ )
 {
+#ifdef TEMPORARILY_REMOVED
     Q3MimeSourceFactory::defaultFactory()->setImage( fileName, image );
     if ( fileName == _currentFileName )
         showToolTips(true);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 #include "ThumbnailToolTip.moc"

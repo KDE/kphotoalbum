@@ -26,6 +26,7 @@
 #include "Viewer/RectDraw.h"
 #include "Viewer/CircleDraw.h"
 #include "MainWindow/DirtyIndicator.h"
+#include <kdebug.h>
 
 /**
  * \class Viewer::DrawHandler
@@ -156,7 +157,11 @@ void Viewer::DrawHandler::drawAll( QPainter& painter )
                     // This part is tricky. The painter is transformed, but nevertheless the
                     // transformation I wsant a 8x8 rect on screen.
                     QPoint point = *it2;
+#ifdef TEMPORARILY_REMOVED
                     point = painter.transformed( point );
+#else
+                    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
                     QRect rect( point.x()-4, point.y()-4, 8, 8 );
                     rect = painter.xFormDev( rect );
                     painter.drawRect( rect );
@@ -174,7 +179,11 @@ Viewer::Draw* Viewer::DrawHandler::findShape( const QPoint& pos)
         PointList list = (*it)->anchorPoints();
         for( PointListIterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
             QPoint point = *it2;
+#ifdef TEMPORARILY_REMOVED
             point = painter->transformed( point );
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
             QRect rect( point.x()-4, point.y()-4, 8, 8 );
             rect = painter->xFormDev( rect );
             if ( rect.contains( pos ) ) {

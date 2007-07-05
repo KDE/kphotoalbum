@@ -45,6 +45,7 @@ extern "C" {
 #include <kurl.h>
 #include <kcodecs.h>
 #include <qpixmapcache.h>
+#include <kdebug.h>
 
 namespace ImageManager
 {
@@ -53,8 +54,7 @@ namespace ImageManager
 }
 
 
-ImageManager::ImageLoader::ImageLoader( QWaitCondition* sleeper )
-    : _sleeper( sleeper )
+ImageManager::ImageLoader::ImageLoader()
 {
 }
 
@@ -62,26 +62,22 @@ void ImageManager::ImageLoader::run()
 {
     while ( true ) {
         ImageRequest* request = Manager::instance()->next();
-
-        if ( request ) {
-            bool ok;
-            QImage img = tryLoadThumbnail( request, ok );
-            if ( ! ok ) {
-                img = loadImage( request, ok );
-                if ( ok ) {
-                    writeThumbnail( request, img );
-                }
+        Q_ASSERT( request );
+        bool ok;
+        QImage img = tryLoadThumbnail( request, ok );
+        if ( ! ok ) {
+            img = loadImage( request, ok );
+            if ( ok ) {
+                writeThumbnail( request, img );
             }
-
-            if ( ok )
-                img = scaleAndRotate( request, img );
-
-            request->setLoadedOK( ok );
-            ImageEvent* iew = new ImageEvent( request, img );
-            QApplication::postEvent( Manager::instance(),  iew );
         }
-        else
-            _sleeper->wait();
+
+        if ( ok )
+            img = scaleAndRotate( request, img );
+
+        request->setLoadedOK( ok );
+        ImageEvent* iew = new ImageEvent( request, img );
+        QApplication::postEvent( Manager::instance(),  iew );
     }
 }
 
@@ -92,7 +88,7 @@ QImage ImageManager::ImageLoader::rotateAndScale( QImage img, int width, int hei
         matrix.rotate( angle );
         img = img.transformed( matrix );
     }
-    img = Utilities::scaleImage(img, width, height, QImage::ScaleMin );
+    img = Utilities::scaleImage(img, width, height, Qt::KeepAspectRatio );
     return img;
 }
 
@@ -173,7 +169,7 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
             continue;
 
         QFileInfo fi( request->fileName() );
-        QImage scaledImg = Utilities::scaleImage(img, *it, *it, QImage::ScaleMin );
+        QImage scaledImg = Utilities::scaleImage(img, *it, *it, Qt::KeepAspectRatio );
         scaledImg.setText( "Software","en",QString::fromLatin1( "KPhotoAlbum" ) );
         scaledImg.setText( "Thumb::URI", "en", requestURL( request ) );
         scaledImg.setText( "Thumb::MTime", "en", QString::number( fi.lastModified().toTime_t() ) );
@@ -212,7 +208,7 @@ QImage ImageManager::ImageLoader::scaleAndRotate( ImageRequest* request, QImage 
 
     // If we are looking for a scaled version, then scale
     if ( shouldImageBeScale( img, request ) )
-        img = Utilities::scaleImage(img, request->width(), request->height(), QImage::ScaleMin );
+        img = Utilities::scaleImage(img, request->width(), request->height(), Qt::KeepAspectRatio );
 
     return img;
 }
@@ -233,7 +229,7 @@ QString ImageManager::ImageLoader::thumbnailPath( QString uri, int dim )
         return QString::null;
 
     KMD5 md5( uri.utf8() );
-    return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homePath()).arg(dir).arg(md5.hexDigest());
+    return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homePath()).arg(dir).arg(QString::fromUtf8(md5.hexDigest()));
 }
 
 QString ImageManager::ImageLoader::requestURL( ImageRequest* request )

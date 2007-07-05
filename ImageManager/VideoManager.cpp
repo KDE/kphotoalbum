@@ -75,14 +75,18 @@ void ImageManager::VideoManager::slotGotPreview(const KFileItem*, const QPixmap&
 
 void ImageManager::VideoManager::previewFailed()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( _pending.isRequestStillValid(_currentRequest) ) {
-        QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), KIcon::Desktop,
+        QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), K3Icon::Desktop,
                                                        Settings::SettingsData::instance()->thumbSize() );
         _currentRequest->setLoadedOK( false );
         _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.convertToImage(), true );
     }
 
     requestLoadNext();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ImageManager::VideoManager::requestLoadNext()
@@ -102,8 +106,9 @@ void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
 
 bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
 {
+#ifdef TEMPORARILY_REMOVED
     KUrl::List list;
-    list.append( locate( "data", QString::fromLatin1( "kphotoalbum/demo/movie.avi" ) ) );
+    list.append( KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/demo/movie.avi" ) ) );
     KIO::PreviewJob* job=KIO::filePreview(list, 64 );
     job->setIgnoreMaximumSize( true );
 
@@ -114,18 +119,29 @@ bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
 
     qApp->eventLoop()->enterLoop();
     return _hasVideoSupport;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ImageManager::VideoManager::testGotPreview(const KFileItem*, const QPixmap& pixmap )
 {
+#ifdef TEMPORARILY_REMOVED
     _hasVideoSupport = !pixmap.isNull();
     qApp->eventLoop()->exitLoop();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ImageManager::VideoManager::testPreviewFailed()
 {
+#ifdef TEMPORARILY_REMOVED
     _hasVideoSupport = false;
     qApp->eventLoop()->exitLoop();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 #include "VideoManager.moc"

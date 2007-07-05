@@ -38,7 +38,7 @@
 
 using namespace KexiUtils;
 
-DelayedCursorHandler::DelayedCursorHandler() 
+DelayedCursorHandler::DelayedCursorHandler()
  : startedOrActive(false)
 {
 	connect(&timer, SIGNAL(timeout()), this, SLOT(show()));
@@ -240,7 +240,7 @@ void KexiUtils::simpleDecrypt(QString& string)
 		string[i] = QChar( string[i].unicode() - 47 - i );
 }
 
-void KexiUtils::drawPixmap( QPainter& p, int lineWidth, const QRect& rect, 
+void KexiUtils::drawPixmap( QPainter& p, int lineWidth, const QRect& rect,
 	const QPixmap& pixmap, int alignment, bool scaledContents, bool keepAspectRatio)
 {
 	if (pixmap.isNull())
@@ -249,7 +249,7 @@ void KexiUtils::drawPixmap( QPainter& p, int lineWidth, const QRect& rect,
 	const bool fast = pixmap.width()>1000 && pixmap.height()>800; //fast drawing needed
 	const int w = rect.width()-lineWidth-lineWidth;
 	const int h = rect.height()-lineWidth-lineWidth;
-//! @todo we can optimize drawing by drawing rescaled pixmap here 
+//! @todo we can optimize drawing by drawing rescaled pixmap here
 //! and performing detailed painting later (using QTimer)
 	QPixmap pixmapBuffer;
 	QPainter p2;
@@ -269,7 +269,7 @@ void KexiUtils::drawPixmap( QPainter& p, int lineWidth, const QRect& rect,
 	if (scaledContents) {
 		if (keepAspectRatio) {
 			QImage img(pixmap.convertToImage());
-			img = img.smoothScale(w, h, QImage::ScaleMin);
+			img = img.smoothScale(w, h, Qt::KeepAspectRatio);
 			pos = rect.topLeft(); //0, 0);
 			if (img.width() < w) {
 				int hAlign = QApplication::horizontalAlignment( alignment );
@@ -314,7 +314,7 @@ void KexiUtils::drawPixmap( QPainter& p, int lineWidth, const QRect& rect,
 			pos.setY(pos.y() + h-pixmap.height());
 		else if ( alignment & Qt::AlignVCenter )
 			pos.setY(pos.y() + h/2-pixmap.height()/2);
-		else //top, etc. 
+		else //top, etc.
 			pos.setY(pos.y());
 //		target->drawPixmap(pos, pixmap);
 //		if (!fast)
@@ -323,11 +323,11 @@ void KexiUtils::drawPixmap( QPainter& p, int lineWidth, const QRect& rect,
 	}
 	if (scaledContents && !fast && p.isActive()) {
 		p2.end();
-		bitBlt( p.device(), 
-//			pos.x(), 
-//			pos.y(), 
-			(int)p.worldMatrix().dx() + rect.x() + lineWidth + pos.x(), 
-			(int)p.worldMatrix().dy() + rect.y() + lineWidth + pos.y(), 
+		bitBlt( p.device(),
+//			pos.x(),
+//			pos.y(),
+			(int)p.worldMatrix().dx() + rect.x() + lineWidth + pos.x(),
+			(int)p.worldMatrix().dy() + rect.y() + lineWidth + pos.y(),
 			&pixmapBuffer);
 	}
 }

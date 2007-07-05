@@ -45,7 +45,9 @@
 #include <q3hbox.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -67,8 +69,9 @@
 
 #include "CategoryItem.h"
 
+#ifdef TEMPORARILY_REMOVED
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
+    :KDialog( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
     createGeneralPage();
     createThumbNailPage();
@@ -88,7 +91,7 @@ void Settings::SettingsDialog::createGeneralPage()
 {
     QWidget* top = addPage( i18n("General" ), i18n("General" ),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
-                                                             KIcon::Desktop, 32 ) );
+                                                             K3Icon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     Q3VGroupBox* box = new Q3VGroupBox( i18n( "New Images" ), top );
@@ -207,7 +210,7 @@ void Settings::SettingsDialog::createThumbNailPage()
 {
     QWidget* top = addPage( i18n("Thumbnail View" ), i18n("Thumbnail View" ),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "view_icon" ),
-                                                             KIcon::Desktop, 32 ) );
+                                                             K3Icon::Desktop, 32 ) );
 
     Q3GridLayout* lay = new Q3GridLayout( top );
     lay->setSpacing( 6 );
@@ -336,7 +339,7 @@ void Settings::SettingsDialog::createOptionGroupsPage()
 {
     QWidget* top = addPage( i18n("Categories"), i18n("Categories"),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "identity" ),
-                                                             KIcon::Desktop, 32 ) );
+                                                             K3Icon::Desktop, 32 ) );
 
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
     Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
@@ -478,12 +481,12 @@ void Settings::SettingsDialog::show()
 #endif
 
     enableDisable( false );
-    KDialogBase::show();
+    KDialog::show();
 }
 
 
 
-// KDialogBase has a slotOK which we do not want to override.
+// KDialog has a slotOK which we do not want to override.
 void Settings::SettingsDialog::slotMyOK()
 {
     Utilities::ShowBusyCursor dummy;
@@ -658,7 +661,7 @@ void Settings::SettingsDialog::createGroupConfig()
 {
     QWidget* top = addPage( i18n("Subcategories" ), i18n("Subcategories" ),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "editcopy" ),
-                                                             KIcon::Desktop, 32 ) );
+                                                             K3Icon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     // Category
@@ -856,7 +859,7 @@ void Settings::SettingsDialog::selectMembers( const QString& group )
 int Settings::SettingsDialog::exec()
 {
     slotCategoryChanged( _currentCategory, false );
-    return KDialogBase::exec();
+    return KDialog::exec();
 }
 
 void Settings::SettingsDialog::setButtonStates()
@@ -888,7 +891,7 @@ void Settings::SettingsDialog::createViewerPage()
 {
     QWidget* top = addPage( i18n("Viewer" ), i18n("Viewer" ),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "viewmag" ),
-                                                             KIcon::Desktop, 32 ) );
+                                                             K3Icon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), top, "_slideShowSetup" );
@@ -951,7 +954,7 @@ void Settings::SettingsDialog::createPluginPage()
     ::MainWindow::Window::theMainWindow()->loadPlugins();
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "share" ),
-                                                             KIcon::Desktop, 32 ) );
+                                                             K3Icon::Desktop, 32 ) );
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), top );
@@ -970,7 +973,7 @@ void Settings::SettingsDialog::createEXIFPage()
 #ifdef HASEXIV2
     QWidget* top = addPage( i18n("EXIF Information" ), i18n("EXIF Information" ),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ),
-                                                             KIcon::Desktop, 32 ) );
+                                                             K3Icon::Desktop, 32 ) );
     Q3HBoxLayout* lay1 = new Q3HBoxLayout( top, 6 );
 
     _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );
@@ -992,7 +995,7 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     QWidget* top = addPage(i18n("Database backend"),
                            i18n("Database backend"),
                            KIconLoader::global()->loadIcon(QString::fromLatin1("kfm"),
-                                                           KIcon::Desktop, 32));
+                                                           K3Icon::Desktop, 32));
     _backendPageIndex = pageIndex(top);
 
     Q3VBoxLayout* lay1 = new Q3VBoxLayout(top, 6);
@@ -1076,3 +1079,4 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     connect(_sqlSettings, SIGNAL(passwordChanged(const QString&)), passwordWarning, SLOT(show()));
 #endif /* SQLDB_SUPPORT */
 }
+#endif

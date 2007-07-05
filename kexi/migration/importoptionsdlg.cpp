@@ -39,25 +39,25 @@
 using namespace KexiMigration;
 
 OptionsDialog::OptionsDialog( const QString& databaseFile, const QString& selectedEncoding, QWidget* parent )
- : KDialogBase( 
-	KDialogBase::Plain, 
+ : KDialogBase(
+	KDialogBase::Plain,
 	i18n( "Advanced Import Options" ),
-	Ok|Cancel, 
+	Ok|Cancel,
 	Ok,
-	parent, 
-	"KexiMigration::OptionsDialog", 
-	true, 
+	parent,
+	"KexiMigration::OptionsDialog",
+	true,
 	false
  )
 {
 	setIcon(DesktopIcon("configure"));
-	Q3GridLayout *lyr = new Q3GridLayout( plainPage(), 4, 3, KDialogBase::marginHint(), 
-		KDialogBase::spacingHint());
+	Q3GridLayout *lyr = new Q3GridLayout( plainPage(), 4, 3, KDialogBase::marginHint(),
+		KDialog::spacingHint());
 
 	m_encodingComboBox = new KexiCharacterEncodingComboBox(plainPage(), selectedEncoding);
 	m_encodingComboBox->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	lyr->addWidget( m_encodingComboBox, 1, 1 );
-	QLabel* lbl = new QLabel( 
+	QLabel* lbl = new QLabel(
 		i18n("<h3>Text encoding for Microsoft Access database</h3>\n"
 		"<p>Database file \"%1\" appears to be created by a version of Microsoft Access older than 2000.</p>"
 		"<p>In order to properly import national characters, you may need to choose a proper text encoding "
@@ -102,12 +102,12 @@ void OptionsDialog::accept()
 {
 	KGlobal::config()->setGroup("ImportExport");
 	if (m_chkAlwaysUseThisEncoding->isChecked())
-		KGlobal::config()->writeEntry("defaultEncodingForMSAccessFiles", 
+		KGlobal::config()->writeEntry("defaultEncodingForMSAccessFiles",
 			m_encodingComboBox->selectedEncoding());
 	else
 		KGlobal::config()->deleteEntry("defaultEncodingForMSAccessFiles");
 
-	KDialogBase::accept();
+	KDialog::accept();
 }
 
 #include "importoptionsdlg.moc"

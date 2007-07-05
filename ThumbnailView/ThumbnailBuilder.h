@@ -39,7 +39,9 @@ public:
 private:
     QStringList _images;
     uint _index;
+#ifdef TEMPORARILY_REMOVED
     QMap<QString, DB::ImageInfoPtr> _infoMap;
+#endif
 };
 
 }

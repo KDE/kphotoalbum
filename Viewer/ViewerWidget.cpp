@@ -16,7 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 
 #include <kdeversion.h>
 #include "Viewer/ViewerWidget.h"
@@ -43,7 +45,9 @@
 #include "SpeedDisplay.h"
 #include "MainWindow/Window.h"
 #include "CategoryImageConfig.h"
+#ifdef TEMPORARILY_REMOVED
 #include <dcopref.h>
+#endif
 #include "MainWindow/ExternalPopup.h"
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
@@ -55,7 +59,9 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <qfileinfo.h>
-#include <TextDisplay.h>
+#include "TextDisplay.h"
+#include <kdebug.h>
+#include <KActionCollection>
 
 #ifdef HASEXIV2
 #  include "Exif/InfoDialog.h"
@@ -86,11 +92,15 @@ Viewer::ViewerWidget* Viewer::ViewerWidget::latest()
 
 
 // Notice the parent is zero to allow other windows to come on top of it.
-Viewer::ViewerWidget::ViewerWidget( const char* name )
-    :QWidget( 0,  name, Qt::WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
+Viewer::ViewerWidget::ViewerWidget()
+    :QWidget( 0, Qt::WType_TopLevel ), _current(0), _popup(0), _showingFullScreen( false ), _forward( true ), _isRunningSlideShow( false )
 {
-    setWFlags( WDestructiveClose );
-    setPaletteBackgroundColor( black );
+#ifdef TEMPORARILY_REMOVED
+    setWFlags( Qt::WDestructiveClose );
+    setPaletteBackgroundColor( Qt::black );
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
     _latest = this;
 
     Q3VBoxLayout* layout = new Q3VBoxLayout( this );
@@ -108,10 +118,14 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ),
              this, SLOT( setCaptionWithDetail(const QString&) ) );
     createToolBar();
+#ifdef TEMPORARILY_REMOVED
     _toolbar->hide();
-
-
     layout->addWidget( _toolbar );
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
+
+
     layout->addWidget( _stack );
 
     // This must not be added to the layout, as it is standing on top of
@@ -132,8 +146,11 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
 
 void Viewer::ViewerWidget::setupContextMenu()
 {
-    _popup = new Q3PopupMenu( this, "context popup menu" );
+    _popup = new QMenu( this );
+#ifdef OLD_CODE
     _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
+#endif
+    _actions = new KActionCollection( this );
 
     createSlideShowMenu();
     createZoomMenu();
@@ -143,76 +160,90 @@ void Viewer::ViewerWidget::setupContextMenu()
     createWallPaperMenu();
     createInvokeExternalMenu();
 
-    _drawOnImages = new KAction( i18n("Draw on Image"),  0, this, SLOT( startDraw() ), this, "viewer-draw-on-image" );
-    _drawOnImages->plug( _popup );
+    _drawOnImages = _actions->addAction( "viewer-draw-on-image", this, SLOT( startDraw() ) );
+    _drawOnImages->setText( i18n("Draw on Image") );
+    _popup->addAction(_drawOnImages);
 
-    KAction* action = new KAction( i18n("Annotate..."),  CTRL+Qt::Key_1, this, SLOT( editImage() ),
-                          _actions, "viewer-edit-image-properties" );
-    action->plug( _popup );
+    QAction* action = _actions->addAction( "viewer-edit-image-properties", this, SLOT( editImage() ) );
+    action->setText( i18n("Annotate...") );
+    action->setShortcut( Qt::CTRL+Qt::Key_1 );
+    _popup->addAction( action );
 
     // PENDING(blackie) This should only be enabled for image displays.
-    _categoryEditor = new KAction( i18n("Show Category Editor"), 0, this, SLOT( makeCategoryImage() ),
-                                   _actions, "viewer-show-category-editor" );
-    _categoryEditor->plug( _popup );
+    _categoryEditor = _actions->addAction( "viewer-show-category-editor", this, SLOT( makeCategoryImage() ) );
+    _categoryEditor->setText( i18n("Show Category Editor") );
+    _popup->addAction(_categoryEditor);
 
 #ifdef HASEXIV2
-    _showExifViewer = new KAction( i18n("Show EXIF Viewer"), 0, this, SLOT( showExifViewer() ),
-                          _actions, "viewer-show-exif-viewer" );
-    _showExifViewer->plug( _popup );
+    _showExifViewer = _actions->addAction( "viewer-show-exif-viewer", this, SLOT( showExifViewer() ) );
+    _showExifViewer->setText( i18n("Show EXIF Viewer") );
+    _popup->addAction( _showExifViewer );
 #endif
 
-    action = new KAction( i18n("Close"), Qt::Key_Escape, this, SLOT( close() ), _actions, "viewer-close" );
-    action->plug( _popup );
+    action = _actions->addAction( "viewer-close", this, SLOT( close() ) );
+    action->setText( i18n("Close") );
+    action->setShortcut( Qt::Key_Escape );
+
+    _popup->addAction( action );
+#ifdef TEMPORARILY_REMOVED
     _actions->readShortcutSettings();
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
 
     createVideoActions();
 }
 
 void Viewer::ViewerWidget::createShowContextMenu()
 {
-    Q3PopupMenu *showPopup = new Q3PopupMenu( _popup );
+    QMenu *showPopup = new QMenu( _popup );
 
-    KToggleAction* taction = new KToggleAction( i18n("Show Info Box"), CTRL+Qt::Key_I, _actions, "viewer-show-infobox" );
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowInfoBox( bool ) ) );
-    taction->plug( showPopup );
+    KToggleAction* taction = 0;
+
+    taction = _actions->add<KToggleAction>( "viewer-show-infobox", this, SLOT( toggleShowInfoBox( bool ) ) );
+    taction->setText( i18n("Show Info Box") );
+    taction->setShortcut( Qt::CTRL+Qt::Key_I );
+    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
+#ifdef TEMPORARILY_REMOVED
 
     // PENDING(blackie) Only for image display
-    taction = new KToggleAction( i18n("Show Drawing"), CTRL+Qt::Key_D, _actions, "viewer-show-drawing");
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDrawings( bool ) ) );
-    taction->plug( showPopup );
+    taction = _actions->add<KToggleAction>( "viewer-show-drawing", this, SLOT( toggleShowDrawings( bool ) ) );
+    taction->setText( i18n("Show Drawing") );
+    taction->setShortcut( Qt::CTRL+Qt::Key_D );
+    taction->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
 
-    taction = new KToggleAction( i18n("Show Description"), 0, _actions, "viewer-show-description" );
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
-    taction->plug( showPopup );
+    taction = _actions->add<KToggleAction>( "viewer-show-description", this, SLOT( toggleShowDescription( bool ) ) );
+    taction->setText( i18n("Show Description") );
+    taction->setShortcut( 0 );
+    taction->addAction( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDescription() );
 
-    taction = new KToggleAction( i18n("Show Date"), 0, _actions, "viewer-show-date" );
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDate( bool ) ) );
-    taction->plug( showPopup );
+    taction = _actions<->addKToggleAction>("viewer-show-date", this, SLOT( toggleShowDate( bool ) ) );
+    taction->setText( i18n("Show Date") );
+    taction->addAction( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDate() );
 
-    taction = new KToggleAction( i18n("Show Time"), 0, _actions, "viewer-show-time" );
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowTime( bool ) ) );
-    taction->plug( showPopup );
+    taction = _actions<->addKToggleAction>("viewer-show-time", this, SLOT( toggleShowTime( bool ) ) );
+    taction->setText( i18n("Show Time") );
+    taction->addAction( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showTime() );
 
-    taction = new KToggleAction( i18n("Show Filename"), 0, _actions, "viewer-show-filename" );
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowFilename( bool ) ) );
-    taction->plug( showPopup );
+    taction = _actions<->addKToggleAction>("viewer-show-filename", this, SLOT( toggleShowFilename( bool ) ) );
+    taction->setText( i18n("Show Filename") );
+    taction->addAction( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showFilename() );
 
-    taction = new KToggleAction( i18n("Show EXIF"), 0, _actions, "viewer-show-exif" );
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowEXIF( bool ) ) );
-    taction->plug( showPopup );
+    taction = _actions<->addKToggleAction>("viewer-show-exif", this, SLOT( toggleShowEXIF( bool ) ) );
+    taction->setText( i18n("Show EXIF") );
+    taction->addAction( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showEXIF() );
 
-    taction = new KToggleAction( i18n("Show Image Size"), 0, _actions, "viewer-show-imagesize" );
-    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowImageSize( bool ) ) );
-    taction->plug( showPopup );
+    taction = _actions<->addKToggleAction>("viewer-show-imagesize", this, SLOT( toggleShowImageSize( bool ) ) );
+    taction->setText( i18n("Show Image Size") );
+    taction->addAction( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showImageSize() );
-
 
     _popup->insertItem( QIcon(), i18n("Show"), showPopup );
 
@@ -223,37 +254,48 @@ void Viewer::ViewerWidget::createShowContextMenu()
         connect( action, SIGNAL( toggled( const QString&, bool ) ),
                  this, SLOT( toggleShowOption( const QString&, bool ) ) );
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::ViewerWidget::createWallPaperMenu()
 {
-    _wallpaperMenu = new Q3PopupMenu( _popup, "context popup menu" );
+#ifdef TEMPORARILY_REMOVED
+    _wallpaperMenu = new QMenu( _popup, "context popup menu" );
 
-    KAction* action = new KAction( i18n("Centered"), 0, this, SLOT( slotSetWallpaperC() ), _actions, "viewer-centered" );
-    action->plug( _wallpaperMenu );
+    KAction* action = _actions->addAction( "viewer-centered", this, SLOT( slotSetWallpaperC() ) );
+    KAction->setText( i18n("Centered") );
+    _wallpaperMenu->addAction(action);
 
-    action = new KAction( i18n("Tiled"), 0, this, SLOT( slotSetWallpaperT() ), _actions, "viewer-tiled" );
-    action->plug( _wallpaperMenu );
+    action = _actions->addAction( "viewer-tiled", this, SLOT( slotSetWallpaperT() ) );
+    action->setText( i18n("Tiled") );
+    _wallpaperMenu->addAction( action );
 
-    action = new KAction( i18n("Center Tiled"), 0, this, SLOT( slotSetWallpaperCT() ), _actions, "viewer-center-tiled" );
-    action->plug( _wallpaperMenu );
+    action = _actions->addAction( "viewer-center-tiled", this, SLOT( slotSetWallpaperCT() ) );
+    action->setText( i18n("Center Tiled") );
+    _wallpaperMenu->addAction( action );
 
-    action = new KAction( i18n("Centered Maxpect"), 0, this, SLOT( slotSetWallpaperCM() ),
-                          _actions, "viewer-centered-maxspect" );
-    action->plug( _wallpaperMenu );
+    action = _actions->addAction( "viewer-centered-maxspect", this, SLOT( slotSetWallpaperCM() ) );
+    action->setText( i18n("Centered Maxpect") );
+    _wallpaperMenu->addAction( action );
 
-    action = new KAction( i18n("Tiled Maxpect"), 0, this, SLOT( slotSetWallpaperTM() ),
-                          _actions, "viewer-tiled-maxpect" );
-    action->plug( _wallpaperMenu );
+    action = _actions->addAction( "viewer-tiled-maxpect", this, SLOT( slotSetWallpaperTM() ) );
+    action->setText( i18n("Tiled Maxpect") );
+    _wallpaperMenu->addAction( action );
 
-    action = new KAction( i18n("Scaled"), 0, this, SLOT( slotSetWallpaperS() ), _actions, "viewer-scaled" );
-    action->plug( _wallpaperMenu );
+    action = _actions->addAction( "viewer-scaled", this, SLOT( slotSetWallpaperS() ) );
+    action->setText( i18n("Scaled") );
+    _wallpaperMenu->addAction( action );
 
-    action = new KAction( i18n("Centered Auto Fit"), 0, this, SLOT( slotSetWallpaperCAF() ),
-                          _actions, "viewer-centered-auto-fit" );
-    action->plug( _wallpaperMenu );
+    action = _actions->addAction( "viewer-centered-auto-fit", this, SLOT( slotSetWallpaperCAF() ) );
+    action->setText( i18n("Centered Auto Fit") );
+    _wallpaperMenu->addAction( action );
 
     _popup->insertItem( QIcon(), i18n("Set as Wallpaper"), _wallpaperMenu );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::ViewerWidget::createInvokeExternalMenu()
@@ -265,109 +307,163 @@ void Viewer::ViewerWidget::createInvokeExternalMenu()
 
 void Viewer::ViewerWidget::createRotateMenu()
 {
-    _rotateMenu = new Q3PopupMenu( _popup );
+#ifdef TEMPORARILY_REMOVED
+    _rotateMenu = new QMenu( _popup );
 
-    KAction* action = new KAction( i18n("Rotate 90 Degrees"), Qt::Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
-    action->plug( _rotateMenu );
+    KAction* action = _actions->addAction( "viewer-rotate90", this, SLOT( rotate90() ) );
+    KAction->setText( i18n("Rotate 90 Degrees") );
+    KAction->setIcon( Qt::Key_9 );
+    _rotateMenu->addAction( action );
 
-    action = new KAction( i18n("Rotate 180 Degrees"), Qt::Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
-    action->plug( _rotateMenu );
+    action = _actions->addAction( "viewer-rotate180", this, SLOT( rotate180() ) );
+    action->setText( i18n("Rotate 180 Degrees") );
+    action->setIcon( Qt::Key_8 );
+    _rotateMenu->addAction( action );
 
-    action = new KAction( i18n("Rotate 270 Degrees"), Qt::Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
-    action->plug( _rotateMenu );
+    action = _actions->addAction( "viewer-rotare270", this, SLOT( rotate270() ) );
+    action->setText( i18n("Rotate 270 Degrees") );
+    action->setIcon( Qt::Key_7 );
+    _rotateMenu->addAction( action );
 
     _popup->insertItem( QIcon(), i18n("Rotate"), _rotateMenu );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::ViewerWidget::createSkipMenu()
 {
-    Q3PopupMenu *popup = new Q3PopupMenu( _popup );
+#ifdef TEMPORARILY_REMOVED
+    QMenu *popup = new QMenu( _popup );
 
-    KAction* action = new KAction( i18n("First"), Qt::Key_Home, this, SLOT( showFirst() ), _actions, "viewer-home" );
-    action->plug( popup );
+    KAction* action = _actions->addAction( "viewer-home", this, SLOT( showFirst() ) );
+    KAction->setText( i18n("First") );
+    KAction->setIcon( Qt::Key_Home );
+    popup->addAction( action );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Last"), Qt::Key_End, this, SLOT( showLast() ), _actions, "viewer-end" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-end", this, SLOT( showLast() ) );
+    action->setText( i18n("Last") );
+    action->setIcon( Qt::Key_End );
+    popup->addAction( action );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Show Next"), Qt::Key_PageDown, this, SLOT( showNext() ), _actions, "viewer-next" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-next", this, SLOT( showNext() ) );
+    action->setText( i18n("Show Next") );
+    action->setIcon( Qt::Key_PageDown );
+    popup->addAction( action );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Skip 10 Forward"), CTRL+Qt::Key_PageDown, this, SLOT( showNext10() ), _actions, "viewer-next-10" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-next-10", this, SLOT( showNext10() ) );
+    action->setText( i18n("Skip 10 Forward") );
+    action->setIcon( Qt::CTRL+Qt::Key_PageDown );
+    popup->addAction( action );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Skip 100 Forward"), SHIFT+Qt::Key_PageDown, this, SLOT( showNext100() ), _actions, "viewer-next-100" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-next-100", this, SLOT( showNext100() ) );
+    action->setText( i18n("Skip 100 Forward") );
+    action->setIcon( SHIFT+Qt::Key_PageDown );
+    popup->addAction( action );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Skip 1000 Forward"), CTRL+SHIFT+Qt::Key_PageDown, this, SLOT( showNext1000() ), _actions, "viewer-next-1000" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-next-1000", this, SLOT( showNext1000() ) );
+    action->setText( i18n("Skip 1000 Forward") );
+    action->setIcon( Qt::CTRL+SHIFT+Qt::Key_PageDown );
+    popup->addAction( action );
     _forwardActions.append(action);
 
-    action = new KAction( i18n("Show Previous"), Qt::Key_PageUp, this, SLOT( showPrev() ), _actions, "viewer-prev" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-prev", this, SLOT( showPrev() ) );
+    action->setText( i18n("Show Previous") );
+    action->setIcon( Qt::Key_PageUp );
+    popup->addAction( action );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Skip 10 Backward"), CTRL+Qt::Key_PageUp, this, SLOT( showPrev10() ), _actions, "viewer-prev-10" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-prev-10", this, SLOT( showPrev10() ) );
+    action->setText( i18n("Skip 10 Backward") );
+    action->setIcon( Qt::CTRL+Qt::Key_PageUp );
+    popup->addAction( action );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Skip 100 Backward"), SHIFT+Qt::Key_PageUp, this, SLOT( showPrev100() ), _actions, "viewer-prev-100" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-prev-100", this, SLOT( showPrev100() ) );
+    action->setText( i18n("Skip 100 Backward") );
+    action->setIcon( SHIFT+Qt::Key_PageUp );
+    popup->addAction( action );
     _backwardActions.append(action);
 
-    action = new KAction( i18n("Skip 1000 Backward"), CTRL+SHIFT+Qt::Key_PageUp, this, SLOT( showPrev1000() ), _actions, "viewer-prev-1000" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-prev-1000", this, SLOT( showPrev1000() ) );
+    action->setText( i18n("Skip 1000 Backward") );
+    action->setIcon( Qt::CTRL+SHIFT+Qt::Key_PageUp );
+    popup->addAction( action );
     _backwardActions.append(action);
 
     _popup->insertItem( QIcon(), i18n("Skip"), popup );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::ViewerWidget::createZoomMenu()
 {
-    Q3PopupMenu *popup = new Q3PopupMenu( _popup );
+#ifdef TEMPORARILY_REMOVED
+    QMenu *popup = new QMenu( _popup );
 
     // PENDING(blackie) Only for image display?
-    KAction* action = new KAction( i18n("Zoom In"), Qt::Key_Plus, this, SLOT( zoomIn() ), _actions, "viewer-zoom-in" );
-    action->plug( popup );
+    KAction* action = _actions->addAction( "viewer-zoom-in", this, SLOT( zoomIn() ) );
+    KAction->setText( i18n("Zoom In") );
+    KAction->setIcon( Qt::Key_Plus );
+    popup->addAction( action );
 
-    action = new KAction( i18n("Zoom Out"), Qt::Key_Minus, this, SLOT( zoomOut() ), _actions, "viewer-zoom-out" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-zoom-out", this, SLOT( zoomOut() ) );
+    action->setText( i18n("Zoom Out") );
+    action->setIcon( Qt::Key_Minus );
+    popup->addAction( action );
 
-    action = new KAction( i18n("Full View"), Qt::Key_Period, this, SLOT( zoomFull() ), _actions, "viewer-zoom-full" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-zoom-full", this, SLOT( zoomFull() ) );
+    action->setText( i18n("Full View") );
+    action->setIcon( Qt::Key_Period );
+    popup->addAction( action );
 
-    action = new KAction( i18n("Pixel for Pixel View"), Qt::Key_Equal, this, SLOT( zoomPixelForPixel() ), _actions, "viewer-zoom-pixel" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-zoom-pixel", this, SLOT( zoomPixelForPixel() ) );
+    action->setText( i18n("Pixel for Pixel View") );
+    action->setIcon( Qt::Key_Equal );
+    popup->addAction( action );
 
-    action = new KAction( i18n("Toggle Full Screen"), Qt::Key_Return, this, SLOT( toggleFullScreen() ),
-                          _actions, "viewer-toggle-fullscreen" );
-    action->plug( popup );
+    action = _actions->addAction( "viewer-toggle-fullscreen", this, SLOT( toggleFullScreen() ) );
+    action->setText( i18n("Toggle Full Screen") );
+    action->setIcon( Qt::Key_Return );
+    popup->addAction( action );
 
     _popup->insertItem( QIcon(), i18n("Zoom"), popup );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
 void Viewer::ViewerWidget::createSlideShowMenu()
 {
-    Q3PopupMenu *popup = new Q3PopupMenu( _popup );
+#ifdef TEMPORARILY_REMOVED
+    QMenu *popup = new QMenu( _popup );
 
-    _startStopSlideShow = new KAction( i18n("Run Slideshow"), CTRL+Qt::Key_R, this, SLOT( slotStartStopSlideShow() ),
-                                       _actions, "viewer-start-stop-slideshow" );
-    _startStopSlideShow->plug( popup );
+    _startStopSlideShow = _actions->addAction( "viewer-start-stop-slideshow", this, SLOT( slotStartStopSlideShow() ) );
+    _startStopSlideShow->setText( i18n("Run Slideshow") );
+    _startStopSlideShow->setIcon( Qt::CTRL+Qt::Key_R );
+    popup->addAction( _startStopSlideShow );
 
-    _slideShowRunFaster = new KAction( i18n("Run Faster"), CTRL + Qt::Key_Plus, this, SLOT( slotSlideShowFaster() ),
-                                       _actions, "viewer-run-faster" );
-    _slideShowRunFaster->plug( popup );
+    _slideShowRunFaster = _actions->addAction( "viewer-run-faster", this, SLOT( slotSlideShowFaster() ) );
+    _slideShowRunFaster->setText( i18n("Run Faster") );
+    _slideShowRunFaster->setIcon( Qt::CTRL + Qt::Key_Plus );
+    popup->addAction( _slideShowRunFaster );
 
-    _slideShowRunSlower = new KAction( i18n("Run Slower"), CTRL+Qt::Key_Minus, this, SLOT( slotSlideShowSlower() ),
-                                       _actions, "viewer-run-slower" );
-    _slideShowRunSlower->plug( popup );
+    _slideShowRunSlower = _actions->addAction( "viewer-run-slower", this, SLOT( slotSlideShowSlower() ) );
+    _slideShowRunSlower->setText( i18n("Run Slower") );
+    _slideShowRunSlower->setIcon( Qt::CTRL+Qt::Key_Minus );
+    popup->addAction( _slideShowRunSlower );
 
     _popup->insertItem( QIcon(), i18n("Slideshow"), popup );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
@@ -379,9 +475,13 @@ void Viewer::ViewerWidget::load( const QStringList& list, int index )
     load();
 
     bool on = ( list.count() > 1 );
+#ifdef TEMPORARILY_REMOVED
     _startStopSlideShow->setEnabled(on);
     _slideShowRunFaster->setEnabled(on);
     _slideShowRunSlower->setEnabled(on);
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::ViewerWidget::load()
@@ -402,6 +502,7 @@ void Viewer::ViewerWidget::load()
 
     _stack->raiseWidget( _display );
 
+#ifdef TEMPORARILY_REMOVED
     _drawOnImages->setEnabled( !isVideo );
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );
@@ -421,6 +522,9 @@ void Viewer::ViewerWidget::load()
         _pause->plug( _popup );
         _restart->plug( _popup );
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
 
     if ( _display->offersDrawOnImage() )
         _display->drawHandler()->setDrawList( currentInfo()->drawList() );
@@ -433,9 +537,9 @@ void Viewer::ViewerWidget::load()
     setCaptionWithDetail( QString() );
 
     // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
-    for( Q3PtrList<KAction>::const_iterator it = _forwardActions.begin(); it != _forwardActions.end(); ++it )
+    for( Q3PtrList<QAction>::const_iterator it = _forwardActions.begin(); it != _forwardActions.end(); ++it )
       (*it)->setEnabled( _current +1 < (int) _list.count() );
-    for( Q3PtrList<KAction>::const_iterator it = _backwardActions.begin(); it != _forwardActions.end(); ++it )
+    for( Q3PtrList<QAction>::const_iterator it = _backwardActions.begin(); it != _forwardActions.end(); ++it )
       (*it)->setEnabled( _current > 0 );
     if ( isVideo )
         updateCategoryConfig();
@@ -665,9 +769,13 @@ void Viewer::ViewerWidget::slotSetWallpaperCAF()
 
 void Viewer::ViewerWidget::setAsWallpaper(int mode)
 {
+#ifdef TEMPORARILY_REMOVED
     if(mode>7 || mode<1) return;
     DCOPRef kdesktop("kdesktop","KBackgroundIface");
     kdesktop.send("setWallpaper(QString,int)",currentInfo()->fileName(0),mode);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool Viewer::ViewerWidget::close( bool alsoDelete)
@@ -786,35 +894,44 @@ Viewer::ViewerWidget::~ViewerWidget()
 
 void Viewer::ViewerWidget::createToolBar()
 {
+#ifdef TEMPORARILY_REMOVED
     KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this, "actions" );
     _toolbar = new KToolBar( this );
     DrawHandler* handler = _imageDisplay->drawHandler();
-    _select = new KToggleAction( i18n("Select"), loader.loadIcon(QString::fromLatin1("selecttool"), KIcon::Toolbar),
-                         0, handler, SLOT( slotSelect() ),actions, "_select");
-    _select->plug( _toolbar );
+{
+    _select = actions->add<KToggleAction>( "_select", handler, SLOT( slotSelect() ));
+    _select->setText( i18n("Select") );
+    _select->setIcon( loader.loadIcon(QString::fromLatin1("selecttool"), K3Icon::Toolbar) );
+    _toolbar->addAction( _select );
     _select->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
-    _line = new KToggleAction( i18n("Line"), loader.loadIcon(QString::fromLatin1("linetool"), KIcon::Toolbar),
-                         0, handler, SLOT( slotLine() ),actions, "_line");
-    _line->plug( _toolbar );
+    _line = actions->add<KToggleAction>( "_line", handler, SLOT( slotLine() ) );
+    _line->setText( i18n("Line") );
+    _line->setIcon( loader.loadIcon(QString::fromLatin1("linetool"), K3Icon::Toolbar) );
+    _toolbar->addAction( _line );
     _line->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
-    _rect = new KToggleAction( i18n("Rectangle"), loader.loadIcon(QString::fromLatin1("recttool"), KIcon::Toolbar),
-                         0, handler, SLOT( slotRectangle() ),actions, "_rect");
-    _rect->plug( _toolbar );
+    _rect = actions->add<KToggleAction>( "_rect", handler, SLOT( slotRectangle() ) );
+    _rect->setText( i18n("Rectangle") );
+    _rect->setIcon( loader.loadIcon(QString::fromLatin1("recttool"), K3Icon::Toolbar) );
+    _toolbar->addAction( _rect );
     _rect->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
-    _circle = new KToggleAction( i18n("Circle"), loader.loadIcon(QString::fromLatin1("ellipsetool"), KIcon::Toolbar),
-                           0, handler, SLOT( slotCircle() ),actions, "_circle");
-    _circle->plug( _toolbar );
+    _circle = actions->add<KToggleAction>( "_circle", handler, SLOT( slotCircle() ) );
+    _circle->setText( i18n("Circle") );
+    _circle->setIcon( loader.loadIcon(QString::fromLatin1("ellipsetool"), K3Icon::Toolbar) );
+    _toolbar->addAction( _circle );
     _circle->setExclusiveGroup( QString::fromLatin1("ViewerTools") );
 
     _delete = KStandardAction::cut( handler, SLOT( cut() ), actions, "cutAction" );
-    _delete->plug( _toolbar );
+    _toolbar->addAction( _delete );
 
     KAction* close = KStandardAction::close( this,  SLOT( stopDraw() ),  actions,  "stopDraw" );
-    close->plug( _toolbar );
+    _toolbar->addAction( close );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::ViewerWidget::toggleFullScreen()
@@ -905,6 +1022,7 @@ bool Viewer::ViewerWidget::showingFullScreen() const
 
 void Viewer::ViewerWidget::setShowFullScreen( bool on )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( on ) {
         // To avoid that the image is first loaded in a small size and the reloaded when scaled up, we need to resize the window right away.
         // (this results in odd behaviour (the image
@@ -921,6 +1039,9 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
         resize( Settings::SettingsData::instance()->viewerSize() );
     }
     _showingFullScreen = on;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::ViewerWidget::makeCategoryImage()
@@ -1041,10 +1162,17 @@ void Viewer::ViewerWidget::createVideoActions()
 {
     _videoSeperatorId = _popup->insertSeparator();
 
-    _play = new KAction( i18n("Play"), 0, this, SLOT( play() ), _actions, "viewer-video-play" );
-    _stop = new KAction( i18n("Stop"), 0, this, SLOT( stop() ), _actions, "viewer-video-stop" );
-    _pause = new KAction( i18n("Pause"), 0, this, SLOT( pause() ), _actions, "viewer-video-pause" );
-    _restart = new KAction( i18n("Restart"), 0, this, SLOT( restart() ), _actions, "viewer-video-restart" );
+    _play = _actions->addAction( "viewer-video-play", this, SLOT( play() ) );
+    _play->setText( i18n("Play") );
+
+    _stop = _actions->addAction( "viewer-video-stop", this, SLOT( stop() ) );
+    _stop->setText( i18n("Stop") );
+
+    _pause = _actions->addAction( "viewer-video-pause", this, SLOT( pause() ) );
+    _pause->setText( i18n("Pause") );
+
+    _restart = _actions->addAction( "viewer-video-restart", this, SLOT( restart() ) );
+    _restart->setText( i18n("Restart") );
 }
 
 void Viewer::ViewerWidget::play()

@@ -51,7 +51,7 @@ public:
      * so this is the centralization of the KConfig object so that the file is
      * parsed only once
      */
-    static KConfig* kofficeConfig() {
+    static KSharedConfigPtr kofficeConfig() {
         return self()->_kofficeConfig();
     }
 
@@ -87,13 +87,13 @@ private:
     QFont _defaultFont();
     QStringList _listOfLanguages();
     QStringList _listOfLanguageTags();
-    KConfig* _kofficeConfig();
+    KSharedConfigPtr _kofficeConfig();
     void createListOfLanguages();
 
     int m_pointSize;
     typedef QMap<QString, QString> LanguageMap;
     LanguageMap m_langMap; // display-name -> language tag
-    KConfig* m_kofficeConfig;
+    KSharedConfigPtr m_kofficeConfig;
     int m_dpiX;
     int m_dpiY;
     // No BC problem here, constructor is private, feel free to add members

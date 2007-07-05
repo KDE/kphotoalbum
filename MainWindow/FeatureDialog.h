@@ -17,17 +17,17 @@
 */
 #ifndef FEATUREDIALOG_H
 #define FEATUREDIALOG_H
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <q3textbrowser.h>
 
 namespace MainWindow
 {
 
-class FeatureDialog : public KDialogBase {
+class FeatureDialog : public KDialog {
     Q_OBJECT
 
 public:
-    FeatureDialog( QWidget* parent, const char* name = 0 );
+    FeatureDialog( QWidget* parent );
     static bool hasAllFeaturesAvailable();
     static QString featureString();
     static bool hasVideoSupport( const QString& mimeType );

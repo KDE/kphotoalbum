@@ -64,7 +64,7 @@ public:
     void stop( ImageClient*, StopAction action = StopAll );
 
 protected:
-    virtual void customEvent( QCustomEvent* ev );
+    virtual void customEvent( QEvent* ev );
     void loadVideo( ImageRequest* );
     void loadImage( ImageRequest* );
 

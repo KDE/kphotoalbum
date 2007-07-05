@@ -23,7 +23,7 @@
 #include <q3groupbox.h>
 #include <KoGlobal.h>
 #include <KoUnit.h>
-#include <kdialogbase.h>
+#include <KDialog>
 #include <KoPageLayout.h>
 #include <KoPageLayoutDia.h>
 

@@ -23,7 +23,10 @@
 #include <qcursor.h>
 #include <qapplication.h>
 #include <kurl.h>
+#ifdef TEMPORARILY_REMOVED
 #include <kurldrag.h>
+#endif
+#include <kdebug.h>
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailWidget* view )
     :_view( view ), _dragInProgress( false ), _dragSelectionInProgress( false )
@@ -43,7 +46,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
         clearSelection();
 
     if ( !file.isNull() ) {
-        if ( event->state() & ShiftButton )
+        if ( event->modifiers() & Qt::ShiftModifier )
             _view->selectAllCellsBetween( _view->positionForFileName( _view->_currentItem ),
                                           _view->cellAtCoordinate( event->pos(), ViewportCoordinates ) );
 
@@ -51,7 +54,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 
         // When control is pressed selection of the file should be
         // toggled. This is done in the release event, not here.
-        if ( !( event->state() & ControlButton ) )
+        if ( !( event->modifiers() & Qt::ControlModifier ) )
             // Otherwise add file to selected files.
             _view->_selectedFiles.insert( file );
 
@@ -65,7 +68,7 @@ void ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
 
 void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( !(event->state() & LeftButton ) )
+    if ( !(event->buttons() & Qt::LeftButton ) )
         return;
 
     if ( _mousePressWasOnIcon &&
@@ -86,9 +89,9 @@ void ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
 void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event )
 {
     QString file = _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates );
-    if ( (event->state() & ControlButton) &&
-         !(event->state() & ShiftButton) ) { // toggle selection of file
-        if ( _view->_selectedFiles.contains( file ) && (event->button() & LeftButton) )
+    if ( (event->modifiers() & Qt::ControlModifier) &&
+         !(event->modifiers() & Qt::ShiftModifier) ) { // toggle selection of file
+        if ( _view->_selectedFiles.contains( file ) && (event->button() & Qt::LeftButton) )
             _view->_selectedFiles.remove( file);
         else
             _view->_selectedFiles.insert( file );
@@ -160,6 +163,7 @@ bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewpor
 
 void ThumbnailView::SelectionInteraction::startDrag()
 {
+#ifdef TEMPORARILY_REMOVED
     _dragInProgress = true;
     KUrl::List l;
     QStringList selected = _view->selection();
@@ -171,6 +175,9 @@ void ThumbnailView::SelectionInteraction::startDrag()
 
     _view->_mouseHandler = &(_view->_mouseTrackingHandler);
     _dragInProgress = false;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool ThumbnailView::SelectionInteraction::isDragging() const
@@ -247,15 +254,16 @@ QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, C
     QRect iconRect = _view->iconGeometry( pos.row(), pos.col() );
 
     // map iconRect from local coordinates within the cell to the coordinates requires
-    iconRect.moveBy( cellRect.x(), cellRect.y() );
+    iconRect.translate( cellRect.x(), cellRect.y() );
 
     return iconRect;
 }
 
 bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* event ) const
 {
-    // If control or shift is pressed down then do not deselect.
-    if  ( event->state() & (ControlButton | ShiftButton) )
+#ifdef TEMPORARILY_REMOVED
+// If control or shift is pressed down then do not deselect.
+    if  ( event->modifiers() & (Qt::ControlModifier | Qt::ShiftModifier) )
         return false;
 
     // right mouse button on a selected image should not clear
@@ -264,6 +272,9 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
 
     // otherwise deselect
     return true;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ThumbnailView::SelectionInteraction::clearSelection()

@@ -37,7 +37,7 @@ Browser::ImageFolder::ImageFolder( const DB::ImageSearchInfo& info, BrowserWidge
 
 QPixmap Browser::ImageFolder::pixmap()
 {
-    return KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Desktop, 22 );
+    return KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Desktop, 22 );
 }
 
 QString Browser::ImageFolder::text() const
@@ -72,11 +72,11 @@ Browser::ImageFolderAction::ImageFolderAction( const QString& context, BrowserWi
 
 QString Browser::ImageFolder::imagesLabel() const
 {
-    return i18n( "1 image", "%n images", _count.images() );
+    return i18np( "1 image", "%1 images", _count.images() );
 }
 
 QString Browser::ImageFolder::videosLabel() const
 {
-    return i18n( "1 video", "%n videos", _count.videos() );
+    return i18np( "1 video", "%1 videos", _count.videos() );
 }
 

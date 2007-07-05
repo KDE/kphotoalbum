@@ -27,31 +27,30 @@
 #include <qapplication.h>
 #include <kactioncollection.h>
 
-MainWindow::SearchBar::SearchBar( KMainWindow* parent, const char* name )
-    : KToolBar( parent, DockTop, false, name, true )
+MainWindow::SearchBar::SearchBar( KMainWindow* parent )
+    : KToolBar( parent )
 {
-    KAction *resetQuickSearch = new KAction( i18n( "Reset Quick Search" ),
-                                             QApplication::isRightToLeft()
-                                             ? QString::fromLatin1("clear_left")
-                                             : QString::fromLatin1("locationbar_erase"),
-                                             0, this,
-                                             SLOT( reset() ),
-                                             new KActionCollection(this),
-                                             "reset_quicksearch" );
-  resetQuickSearch->plug( this );
+    KAction *resetQuickSearch = new KAction( i18n( "Reset Quick Search" ), this );
+    resetQuickSearch->setIcon( QApplication::layoutDirection() == Qt::RightToLeft
+                               ? KIcon( QString::fromLatin1("clear_left") )
+                               : KIcon( QString::fromLatin1("locationbar_erase") ) );
+    connect( resetQuickSearch, SIGNAL( triggered() ), this, SLOT( reset() ) );
+    addAction( resetQuickSearch );
 
-  QLabel* label = new QLabel( i18n("Search:") + QString::fromLatin1(" "), this );
-  insertWidget( -1, -1, label );
+    QLabel* label = new QLabel( i18n("Search:") + QString::fromLatin1(" "), this );
+    addWidget( label );
 
-  _edit = new KLineEdit( this );
-  label->setBuddy( _edit );
+    _edit = new KLineEdit( this );
+    label->setBuddy( _edit );
 
-  insertWidget( -1, -1, _edit );
-  connect( _edit, SIGNAL( textChanged( const QString& ) ), this, SIGNAL( textChanged( const QString& ) ) );
-  connect( _edit, SIGNAL( returnPressed() ), this, SIGNAL( returnPressed() ) );
+    addWidget( _edit );
+    connect( _edit, SIGNAL( textChanged( const QString& ) ), this, SIGNAL( textChanged( const QString& ) ) );
+    connect( _edit, SIGNAL( returnPressed() ), this, SIGNAL( returnPressed() ) );
 
-  setStretchableWidget( _edit );
-  _edit->installEventFilter( this );
+#ifdef TEMPORARILY_REMOVED
+    setStretchableWidget( _edit );
+#endif
+    _edit->installEventFilter( this );
 }
 
 void MainWindow::SearchBar::reset()

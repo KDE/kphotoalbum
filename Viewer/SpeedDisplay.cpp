@@ -27,7 +27,11 @@
 #include <klocale.h>
 
 Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
-    :QDialog( parent, name, false, Qt::WStyle_Customize | Qt::WStyle_NoBorder | WX11BypassWM| Qt::WStyle_StaysOnTop )
+    :QDialog( parent, name, false, Qt::WStyle_Customize | Qt::WStyle_NoBorder
+#ifdef TEMPORARILY_REMOVED
+              | WX11BypassWM
+#endif
+              | Qt::WStyle_StaysOnTop )
 {
     _label = new QLabel( this );
     _layout = new Q3HBoxLayout( this );
@@ -35,7 +39,7 @@ Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
     _timer = new QTimer( this );
     connect( _timer, SIGNAL( timeout() ), this, SLOT( hide() ) );
 
-    _label->setPaletteBackgroundColor( yellow );
+    _label->setPaletteBackgroundColor( Qt::yellow );
     _label->setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
 }
 

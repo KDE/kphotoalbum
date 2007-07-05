@@ -111,12 +111,12 @@ bool DriverManagerInternal::lookupDrivers()
 		QString srv_name = ptr->property("X-Kexi-DriverName").toString();
 		if (srv_name.isEmpty()) {
 			KexiDBWarn << "DriverManagerInternal::lookupDrivers():"
-				" X-Kexi-DriverName must be set for KexiDB driver \"" 
+				" X-Kexi-DriverName must be set for KexiDB driver \""
 				<< ptr->property("Name").toString() << "\" service!\n -- skipped!" << endl;
 			continue;
 		}
 		if (m_services_lcase.contains(srv_name.lower())) {
-			KexiDBWarn << "DriverManagerInternal::lookupDrivers(): more than one driver named '" 
+			KexiDBWarn << "DriverManagerInternal::lookupDrivers(): more than one driver named '"
 				<< srv_name.lower() << "'\n -- skipping this one!" << endl;
 			continue;
 		}
@@ -135,7 +135,7 @@ bool DriverManagerInternal::lookupDrivers()
 			continue;
 		}
 		if (major_ver != KexiDB::version().major || minor_ver != KexiDB::version().minor) {
-			KexiDBWarn << QString("DriverManagerInternal::lookupDrivers(): '%1' driver" 
+			KexiDBWarn << QString("DriverManagerInternal::lookupDrivers(): '%1' driver"
 				" has version '%2' but required KexiDB driver version is '%3.%4'\n"
 				" -- skipping this driver!").arg(srv_name.lower()).arg(srv_ver_str)
 				.arg(KexiDB::version().major).arg(KexiDB::version().minor) << endl;
@@ -164,7 +164,7 @@ bool DriverManagerInternal::lookupDrivers()
 					m_services_by_mimetype.insert(mime, ptr);
 				}
 				else {
-					KexiDBWarn << "DriverManagerInternal::lookupDrivers(): more than one driver for '" 
+					KexiDBWarn << "DriverManagerInternal::lookupDrivers(): more than one driver for '"
 					<< mime << "' mime type!" << endl;
 				}
 			}
@@ -201,7 +201,7 @@ Driver* DriverManagerInternal::driver(const QString& name)
 {
 	if (!lookupDrivers())
 		return 0;
-	
+
 	clearError();
 	KexiDBDbg << "DriverManager::driver(): loading " << name << endl;
 
@@ -315,7 +315,7 @@ const KexiDB::Driver::InfoMap DriverManager::driversInfo()
 {
 	if (!d_int->lookupDrivers())
 		return KexiDB::Driver::InfoMap();
-	
+
 	if (!d_int->m_driversInfo.isEmpty())
 		return d_int->m_driversInfo;
 	ServicesMap::ConstIterator it;
@@ -341,7 +341,7 @@ const QStringList DriverManager::driverNames()
 {
 	if (!d_int->lookupDrivers())
 		return QStringList();
-	
+
 	if (d_int->m_services.isEmpty() && d_int->error())
 		return QStringList();
 	return d_int->m_services.keys();
@@ -362,7 +362,7 @@ KService::Ptr DriverManager::serviceInfo(const QString &name)
 		setError(d_int);
 		return KService::Ptr();
 	}
-	
+
 	clearError();
 	if (d_int->m_services_lcase.contains(name.lower())) {
 		return *d_int->m_services_lcase.find(name.lower());
@@ -375,7 +375,7 @@ KService::Ptr DriverManager::serviceInfo(const QString &name)
 const DriverManager::ServicesMap& DriverManager::services()
 {
 	d_int->lookupDrivers();
-	
+
 	return d_int->m_services;
 }
 
@@ -385,8 +385,8 @@ QString DriverManager::lookupByMime(const QString &mimeType)
 		setError(d_int);
 		return 0;
 	}
-	
-	KService::Ptr ptr = d_int->m_services_by_mimetype[mimeType.lower()];
+
+	KService::Ptr ptr = d_int->m_services_by_mimetype[mimeType.toLower()];
 	if (!ptr)
 		return QString::null;
 	return ptr->property("X-Kexi-DriverName").toString();

@@ -24,6 +24,7 @@
 #include <DB/CategoryItem.h>
 //Added by qt3to4:
 #include <Q3ValueList>
+#include <kdebug.h>
 
 Browser::TypeFolderAction::TypeFolderAction( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info,
                                              BrowserWidget* browser )
@@ -32,7 +33,7 @@ Browser::TypeFolderAction::TypeFolderAction( const DB::CategoryPtr& category, co
 {
 }
 
-bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
+bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItemPtr parentCategoryItem, const QMap<QString, uint>& images,
                                                  const QMap<QString, uint>& videos, BrowserItemFactory* factory,
                                                  BrowserItem* parentBrowserItem )
 {
@@ -49,7 +50,7 @@ bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* p
 
     for( Q3ValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
          subCategoryIt != parentCategoryItem->_subcategories.end(); ++subCategoryIt ) {
-        anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, factory, item ) || anyItems;
+        anyItems = populateBrowserWithHierachy( DB::CategoryItemPtr(*subCategoryIt), images, videos, factory, item ) || anyItems;
     }
 
     if ( !anyItems ) {
@@ -82,7 +83,7 @@ void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
     QMap<QString, uint> images = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Image );
     QMap<QString, uint> videos = DB::ImageDB::instance()->classify( _info, _category->name(), DB::Video );
 
-    KSharedPtr<DB::CategoryItem> item = _category->itemsCategories();
+    DB::CategoryItemPtr item = _category->itemsCategories();
 
     // Add the none option to the end
     int imageCount = images[DB::ImageDB::NONE()];

@@ -1,8 +1,17 @@
 
 find_package(KDE4 REQUIRED)
+include( KDE4Defaults)
 
-add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+ADD_DEFINITIONS(${QT_DEFINITIONS} 
+                ${KDE4_DEFINITIONS}
+                -DQT3_SUPPORT 
+                -DQT3_SUPPORT_WARNINGS
+                ${KDE4_ENABLE_EXCEPTIONS}
+               )
 
+INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
+                    ${QT_INCLUDES}
+                   )
 #PENDING macro_optional_find_package(Kipi)
 macro_optional_find_package(Exiv2)
 macro_optional_find_package(JPEG)
@@ -173,9 +182,9 @@ if(KIPI_FOUND)
 endif(KIPI_FOUND)
 
 set(EXIV2_SRCS)
-if(EXIV2_FOUND)
-	set(EXIV2_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp)
-endif(EXIV2_FOUND)
+#PENDING if(EXIV2_FOUND)
+#PENDING 	set(EXIV2_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp)
+#PENDING endif(EXIV2_FOUND)
 
 ########### next target ###############
 
@@ -185,7 +194,7 @@ kde4_automoc(${kphotoalbum_SRCS})
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-target_link_libraries(kphotoalbum  ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
+target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
 
 if(EXIV2_FOUND)
  	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )

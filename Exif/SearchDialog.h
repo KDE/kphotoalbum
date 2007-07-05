@@ -18,7 +18,7 @@
 #ifndef EXIFSEARCHDIALOG_H
 #define EXIFSEARCHDIALOG_H
 
-#include <kdialogbase.h>
+#include <KDialog>
 #include "Exif/SearchInfo.h"
 #include "Exif/SearchDialogSettings.h"
 #include "Exif/RangeWidget.h"
@@ -29,7 +29,7 @@ class QCheckBox;
 namespace Exif
 {
 
-class SearchDialog : public KDialogBase {
+class SearchDialog : public KDialog {
     Q_OBJECT
 
 public:

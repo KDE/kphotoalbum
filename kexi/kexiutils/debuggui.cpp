@@ -29,7 +29,7 @@
 #include <ktabwidget.h>
 #include <k3listview.h>
 #include <kiconloader.h>
-#include <kdialogbase.h>
+#include <KDialog>
 #include <kpushbutton.h>
 #include <kguiitem.h>
 
@@ -45,7 +45,7 @@ QWidget *KexiUtils::createDebugWindow(QWidget *parent)
 	// (this is internal code - do not use i18n() here)
 	debugWindow = new DebugWindowDialog(parent);
 	debugWindow->setSizeGripEnabled( true );
-	Q3BoxLayout *lyr = new Q3VBoxLayout(debugWindow, KDialogBase::marginHint());
+	Q3BoxLayout *lyr = new Q3VBoxLayout(debugWindow, KDialog::marginHint());
 	debugWindowTab = new KTabWidget(debugWindow, "debugWindowTab");
 	lyr->addWidget( debugWindowTab );
 	debugWindow->resize(900, 600);
@@ -162,7 +162,7 @@ void KexiUtils::addAlterTableActionDebug(const QString& text, int nestingLevel)
 	li->setMultiLinesEnabled( true );
 }
 
-void KexiUtils::connectPushButtonActionForDebugWindow(const char* actionName, 
+void KexiUtils::connectPushButtonActionForDebugWindow(const char* actionName,
 	const QObject *receiver, const char* slot)
 {
 	if (debugWindow) {

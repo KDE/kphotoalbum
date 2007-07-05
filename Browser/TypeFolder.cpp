@@ -51,11 +51,11 @@ Browser::FolderAction* Browser::TypeFolder::action( bool /* ctrlDown */ )
 
 QString Browser::TypeFolder::imagesLabel() const
 {
-    return i18n("1 Category", "%n Categories", _count.images());
+    return i18np("1 Category", "%1 Categories", _count.images());
 }
 
 QString Browser::TypeFolder::videosLabel() const
 {
-    return i18n("1 Category", "%n Categories", _count.videos());
+    return i18np("1 Category", "%1 Categories", _count.videos());
 }
 

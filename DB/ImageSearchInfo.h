@@ -25,7 +25,9 @@
 #include <Q3ValueList>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 
 namespace DB
 {

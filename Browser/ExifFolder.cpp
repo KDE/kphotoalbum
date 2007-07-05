@@ -51,13 +51,12 @@ Browser::FolderAction* Browser::ExifFolder::action( bool /* ctrlDown */ )
     }
 
     return new ContentFolderAction( info, _browser );
-}
 
 
 QPixmap Browser::ExifFolder::pixmap()
 {
     KIconLoader loader;
-    return KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ), KIcon::Desktop, 22 );
+    return KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ), K3Icon::Desktop, 22 );
 }
 
 

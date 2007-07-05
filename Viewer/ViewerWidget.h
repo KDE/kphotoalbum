@@ -30,13 +30,16 @@
 #include <QPixmap>
 #include <QLabel>
 #include <Q3PtrList>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <QKeyEvent>
 
+class KActionCollection;
+class KToggleAction;
+class KToolBar;
 class Q3WidgetStack;
 class QLabel;
-class Q3PopupMenu;
-class KAction;
+class QMenu;
+class QAction;
 class CategoryImageConfig;
 
 namespace DB { class ImageInfo; }
@@ -55,7 +58,7 @@ class ViewerWidget :public QWidget
 {
     Q_OBJECT
 public:
-    ViewerWidget( const char* name = 0 );
+    ViewerWidget();
     ~ViewerWidget();
     static ViewerWidget* latest();
     void load( const QStringList& list, int index = 0 );
@@ -158,12 +161,12 @@ protected slots:
 private:
     static ViewerWidget* _latest;
 
-    Q3PtrList<KAction> _forwardActions;
-    Q3PtrList<KAction> _backwardActions;
+    Q3PtrList<QAction> _forwardActions;
+    Q3PtrList<QAction> _backwardActions;
 
-    KAction* _startStopSlideShow;
-    KAction* _slideShowRunFaster;
-    KAction* _slideShowRunSlower;
+    QAction* _startStopSlideShow;
+    QAction* _slideShowRunFaster;
+    QAction* _slideShowRunSlower;
 
     Q3WidgetStack* _stack;
     Display* _display;
@@ -174,23 +177,23 @@ private:
     QStringList _list;
     int _current;
     QRect _textRect;
-    Q3PopupMenu* _popup;
-    Q3PopupMenu* _rotateMenu;
-    Q3PopupMenu* _wallpaperMenu;
+    QMenu* _popup;
+    QMenu* _rotateMenu;
+    QMenu* _wallpaperMenu;
     MainWindow::ExternalPopup* _externalPopup;
     int _width, _height;
     QPixmap _pixmap;
 
     KToolBar* _toolbar;
-    KAction* _drawOnImages;
+    QAction* _drawOnImages;
     KToggleAction* _select;
     KToggleAction* _line;
     KToggleAction* _rect;
     KToggleAction* _circle;
-    KAction* _delete;
-    KAction* _categoryEditor;
+    QAction* _delete;
+    QAction* _categoryEditor;
 #ifdef HASEXIV2
-    KAction* _showExifViewer;
+    QAction* _showExifViewer;
 #endif
 
     InfoBox* _infoBox;
@@ -206,10 +209,10 @@ private:
     bool _isRunningSlideShow;
 
     int _videoSeperatorId;
-    KAction* _play;
-    KAction* _stop;
-    KAction* _pause;
-    KAction* _restart;
+    QAction* _play;
+    QAction* _stop;
+    QAction* _pause;
+    QAction* _restart;
 };
 
 }

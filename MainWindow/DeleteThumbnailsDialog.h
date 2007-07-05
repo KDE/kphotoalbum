@@ -19,13 +19,13 @@
 #ifndef DELETEFILELISTDIALOG_H
 #define DELETEFILELISTDIALOG_H
 
-#include <kdialogbase.h>
+#include <KDialog>
 #include <qstringlist.h>
 
 namespace MainWindow
 {
 
-class DeleteThumbnailsDialog :public KDialogBase {
+class DeleteThumbnailsDialog :public KDialog {
     Q_OBJECT
 
 public:

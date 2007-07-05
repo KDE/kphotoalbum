@@ -21,8 +21,8 @@
 //Added by qt3to4:
 #include <QLabel>
 
-MainWindow::ImageCounter::ImageCounter( QWidget* parent, const char* name )
-    :QLabel( parent, name )
+MainWindow::ImageCounter::ImageCounter( QWidget* parent )
+    :QLabel( parent  )
 {
     setText( QString::fromLatin1( "---" ) );
     setMargin( 5 );
@@ -30,12 +30,12 @@ MainWindow::ImageCounter::ImageCounter( QWidget* parent, const char* name )
 
 void MainWindow::ImageCounter::setMatchCount( uint matches )
 {
-    setText( i18n( "Showing 1 thumbnail", "Showing %n thumbnails", matches ) );
+    setText( i18np( "Showing 1 thumbnail", "Showing %n thumbnails", matches ) );
 }
 
 void MainWindow::ImageCounter::setTotal( uint c )
 {
-    setText( i18n( "Total: %1" ).arg(c) );
+    setText( i18n( "Total: %1", c) );
 }
 
 void MainWindow::ImageCounter::showingOverview()

@@ -33,8 +33,11 @@
 using namespace MainWindow;
 
 TokenEditor::TokenEditor( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n( "Remove Tokens" ), Cancel | Ok, Ok, parent, name )
+#ifdef TEMPORARILY_REMOVED
+    :KDialog( Plain, i18n( "Remove Tokens" ), Cancel | Ok, Ok, parent, name )
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* top = plainPage();
     Q3VBoxLayout* vlay = new Q3VBoxLayout( top, 10 );
 
@@ -60,6 +63,9 @@ TokenEditor::TokenEditor( QWidget* parent, const char* name )
 
     connect( selectAll, SIGNAL( clicked() ), this, SLOT( selectAll() ) );
     connect( selectNone, SIGNAL( clicked() ), this, SLOT( selectNone() ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void TokenEditor::show()
@@ -70,7 +76,7 @@ void TokenEditor::show()
         (*it)->setChecked( false );
         (*it)->setEnabled( tokens.contains( (*it)->text() ) );
     }
-    KDialogBase::show();
+    KDialog::show();
 }
 
 void TokenEditor::selectAll()
@@ -107,13 +113,17 @@ QStringList TokenEditor::tokensInUse()
 
 void TokenEditor::slotOk()
 {
+#ifdef TEMPORARILY_REMOVED
     for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
             DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
         }
     }
-    KDialogBase::slotOk();
+    KDialog::slotOk();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 #include "TokenEditor.moc"

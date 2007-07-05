@@ -20,6 +20,7 @@
 #include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
+#include <kdebug.h>
 
 using namespace DB;
 
@@ -61,10 +62,10 @@ GroupCounter::GroupCounter( const QString& category )
     _groupCount.setAutoDelete( true );
 
     // Populate the _memberToGroup map
-    for( QMapIterator<QString,StringSet> groupToMemberIt= groupToMemberMap.begin();
+    for( QMap<QString,StringSet>::Iterator groupToMemberIt= groupToMemberMap.begin();
          groupToMemberIt != groupToMemberMap.end(); ++groupToMemberIt ) {
 
-        StringSet members = groupToMemberIt.data();
+        StringSet members = groupToMemberIt.value();
         QString group = groupToMemberIt.key();
 
         for( StringSet::Iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
@@ -74,13 +75,12 @@ GroupCounter::GroupCounter( const QString& category )
                 _memberToGroup.insert(*memberIt, item );
             }
 
-            *item->append( group );
+            item->append( group );
         }
         uint* intPtr = new uint;
         *intPtr = 0;
         _groupCount.insert( group, intPtr );
     }
-
 }
 
 /**

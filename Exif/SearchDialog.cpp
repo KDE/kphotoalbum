@@ -35,7 +35,7 @@
 using namespace Exif;
 
 Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
-    : KDialogBase( Tabbed, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
+    : KDialog( Tabbed, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
 {
     QWidget* settings = addPage( i18n( "Settings" ) );
     Q3VBoxLayout* vlay = new Q3VBoxLayout( settings, 6 );
@@ -64,7 +64,7 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     _toFocalLength = new QSpinBox( 0, 10000, 10, grid );
 
     _toFocalLength->setValue( 10000 );
-    QString suffix = i18n( "This is milimeter for focal length, like 35mm", "mm" );
+    QString suffix = i18nc( "This is milimeter for focal length, like 35mm", "mm" );
     _fromFocalLength->setSuffix( suffix );
     _toFocalLength->setSuffix( suffix );
 
@@ -108,7 +108,7 @@ void Exif::SearchDialog::makeISO( Q3Grid* parent )
 
 void Exif::SearchDialog::makeExposureTime( Q3Grid* parent )
 {
-    QString secs = i18n( "Example 1.6 secs (as in seconds)", "secs." );
+    QString secs = i18nc( "Example 1.6 secs (as in seconds)", "secs." );
     Exif::RangeWidget::ValueList list;
     list
         << Exif::RangeWidget::Value( 1.0/4000, QString::fromLatin1( "1/4000" ) )

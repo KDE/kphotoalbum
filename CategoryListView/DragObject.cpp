@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DragObject.h"
+#include <kdebug.h>
 const char* CategoryListView::DragObject::format( int i ) const
 {
     if ( i == 0 )
@@ -26,10 +27,14 @@ const char* CategoryListView::DragObject::format( int i ) const
 
 QByteArray CategoryListView::DragObject::encodedData( const char* ) const
 {
+#ifdef TEMPORARILY_REMOVED
     QByteArray res;
     QDataStream stream( res, QIODevice::WriteOnly );
     stream << _items;
     return res;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 CategoryListView::DragObject::DragObject( const CategoryListView::DragItemInfoSet& items, QWidget* dragSource )

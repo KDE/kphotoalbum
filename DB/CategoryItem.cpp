@@ -18,11 +18,17 @@
 #include "CategoryItem.h"
 //Added by qt3to4:
 #include <Q3ValueList>
+#include <kdebug.h>
+
 DB::CategoryItem::~CategoryItem()
 {
+#ifdef TEMPORARILY_REMOVED
     for( Q3ValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         delete *it;
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 DB::CategoryItem* DB::CategoryItem::clone() const

@@ -17,11 +17,14 @@
 */
 #include "RawImageDecoder.h"
 
+#ifdef TEMPORARILY_REMOVED
 #include <ktempfile.h>
+#endif
 #include <qfile.h>
 #include <qimage.h>
 #include <qmatrix.h>
 #include "Settings/SettingsData.h"
+#include <kdebug.h>
 
 /* Main entry point into raw parser */
 extern "C" {
@@ -33,7 +36,8 @@ namespace ImageManager
 
 bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
-  /* width and height seem to be only hints, ignore */
+#ifdef TEMPORARILY_REMOVED
+/* width and height seem to be only hints, ignore */
   Q_UNUSED( dim );
   /* Open file and extract thumbnail */
   FILE* input = fopen( QFile::encodeName(imageFile), "rb" );
@@ -52,6 +56,9 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
   if( fullSize ) *fullSize = img->size();
 
   return true;
+#else
+  kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool RAWImageDecoder::_mightDecode( const QString& imageFile )

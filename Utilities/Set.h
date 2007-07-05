@@ -17,15 +17,15 @@
 */
 #ifndef SET_H
 #define SET_H
-#include <qmap.h>
-#include <q3valuelist.h>
+#include <QMap>
+#include <QList>
 
 template <class TYPE>
 class Set :public QMap<TYPE, TYPE>
 {
 public:
     Set() {}
-    Set( const Q3ValueList<TYPE>& list )
+    Set( const QList<TYPE>& list )
     {
         insert( list );
     }
@@ -35,14 +35,13 @@ public:
         QMap<TYPE,TYPE>::insert( key, key );
     }
 
-    void insert( const Q3ValueList<TYPE>& list )
+    void insert( const QList<TYPE>& list )
     {
-        for( Q3ValueListConstIterator<TYPE> it = list.begin(); it != list.end(); ++it ) {
-            insert( *it );
-        }
+        Q_FOREACH( const TYPE& val, list )
+            insert( val );
     }
 
-    Q3ValueList<TYPE> toList() const
+    QList<TYPE> toList() const
     {
         return QMap<TYPE,TYPE>::keys();
     }
@@ -97,6 +96,7 @@ public:
 
 };
 
+#ifdef TEMPORARILY_REMOVED
 template <class TYPE>
 QDataStream& operator<<( QDataStream& stream, const Set<TYPE>& data )
 {
@@ -119,6 +119,7 @@ QDataStream& operator>>( QDataStream& stream, Set<TYPE>& data )
     }
     return stream;
 }
+#endif
 
 typedef Set<QString> StringSet;
 

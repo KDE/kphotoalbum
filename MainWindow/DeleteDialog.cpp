@@ -33,9 +33,12 @@
 using namespace MainWindow;
 
 DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Delete from database"), Cancel|User1, User1, parent, name,
+#ifdef TEMPORARILY_REMOVED
+    :KDialog( Plain, i18n("Delete from database"), Cancel|User1, User1, parent, name,
                   true, false, KGuiItem(i18n("Delete"),QString::fromLatin1("editdelete")))
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* top = plainPage();
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
@@ -46,6 +49,9 @@ DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
     lay1->addWidget( _delete_file );
 
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 int DeleteDialog::exec( const QStringList& list )
@@ -55,7 +61,7 @@ int DeleteDialog::exec( const QStringList& list )
     _delete_file->setChecked( true );
     _list = list;
 
-    return KDialogBase::exec();
+    return KDialog::exec();
 }
 
 void DeleteDialog::deleteImages()
@@ -79,7 +85,7 @@ void DeleteDialog::deleteImages()
     }
 
     if( ! listCouldNotDelete.isEmpty()) {
-        KMessageBox::errorList( this, i18n("<p><b>Unable to physically delete %1 file(s). Do you have permission to delete these files?</b></p>").arg(listCouldNotDelete.count()), listCouldNotDelete, 
+        KMessageBox::errorList( this, i18n("<p><b>Unable to physically delete %1 file(s). Do you have permission to delete these files?</b></p>").arg(listCouldNotDelete.count()), listCouldNotDelete,
                             i18n("Error Deleting Files") );
     }
 

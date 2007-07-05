@@ -54,7 +54,7 @@ KoUnitDoubleValidator::validate( QString &s, int &pos ) const
 
     // ### TODO: are all the QString::trimmed really necessary?
     const QString number ( s.left( res ).trimmed() );
-    const QString unitName ( regexp.cap( 1 ).trimmed().lower() );
+    const QString unitName ( regexp.cap( 1 ).trimmed().toLower() );
 
     kDebug(30004) << "Split:" << number << ":" << unitName << ":" << endl;
 
@@ -132,12 +132,12 @@ KoUnitDoubleSpinBox::KoUnitDoubleSpinBox( QWidget *parent, const char *name )
 }
 
 
-KoUnitDoubleSpinBox::KoUnitDoubleSpinBox( QWidget *parent, 
+KoUnitDoubleSpinBox::KoUnitDoubleSpinBox( QWidget *parent,
 						    double lower, double upper,
-						    double step, 
-						    double value, 
-						    KoUnit::Unit unit, 
-						    unsigned int precision, 
+						    double step,
+						    double value,
+						    KoUnit::Unit unit,
+						    unsigned int precision,
 						    const char *name )
     : KDoubleSpinBox( lower, upper, step, value, precision, parent, name ),
       KoUnitDoubleBase( unit, precision ),

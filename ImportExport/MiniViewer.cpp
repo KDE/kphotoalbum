@@ -35,6 +35,7 @@ MiniViewer* MiniViewer::_instance = 0;
 
 void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( !_instance )
         _instance = new MiniViewer();
 
@@ -44,11 +45,14 @@ void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
         img = img.transformed( matrix );
     }
     if ( img.width() > 800 || img.height() > 600 )
-        img = img.scale( 800, 600, QImage::ScaleMin );
+        img = img.scale( 800, 600, Qt::KeepAspectRatio );
 
     _instance->_pixmap->setPixmap( img );
     _instance->QDialog::show();
     _instance->raise();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MiniViewer::closeEvent( QCloseEvent* )

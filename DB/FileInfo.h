@@ -21,7 +21,9 @@
 
 #include <qstring.h>
 #include <qvariant.h>
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #include <qdatetime.h>
 #ifdef HASEXIV2
 #  include "Exif/Info.h"

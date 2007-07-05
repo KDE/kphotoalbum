@@ -33,6 +33,7 @@ namespace DB
 class MD5Map
 {
 public:
+    virtual ~MD5Map() {}
     virtual void insert( const MD5& md5sum, const QString& fileName );
     virtual QString lookup( const MD5& md5sum ) const;
     virtual bool contains( const MD5& md5sum ) const;

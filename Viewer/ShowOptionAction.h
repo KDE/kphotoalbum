@@ -19,6 +19,7 @@
 #ifndef SHOWOPTIONACTION_H
 #define SHOWOPTIONACTION_H
 #include <kaction.h>
+#include <KToggleAction>
 
 namespace Viewer
 {

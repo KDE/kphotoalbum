@@ -31,8 +31,11 @@
 using namespace MainWindow;
 
 DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Delete Thumbnails" ), Cancel | User1, Cancel, parent, name )
+#ifdef TEMPORARILY_REMOVED
+    :KDialog( Plain, i18n("Delete Thumbnails" ), Cancel | User1, Cancel, parent, name )
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* top = plainPage();
     Q3VBoxLayout* layout = new Q3VBoxLayout( top, 10 );
 
@@ -55,6 +58,9 @@ DeleteThumbnailsDialog::DeleteThumbnailsDialog( QWidget* parent, const char* nam
 
     findThumbnails( Settings::SettingsData::instance()->imageDirectory() );
     edit->setText( _files.join( QString::fromLatin1("\n" ) ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void DeleteThumbnailsDialog::slotDeleteFiles()

@@ -50,7 +50,7 @@ KoGlobal::KoGlobal()
     // Install the libkoffice* translations
     KGlobal::locale()->insertCatalog("koffice");
 
-    
+
 
     // Tell KStandardDirs about the koffice prefix
     KGlobal::dirs()->addPrefix(PREFIX);
@@ -185,7 +185,7 @@ QString KoGlobal::languageFromTag( const QString &langTag )
     return langTag;
 }
 
-KConfig* KoGlobal::_kofficeConfig()
+KSharedConfigPtr KoGlobal::_kofficeConfig()
 {
     if ( !m_kofficeConfig ) {
         m_kofficeConfig = new KConfig( "kofficerc" );

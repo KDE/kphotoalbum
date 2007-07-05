@@ -43,7 +43,7 @@ QPixmap Browser::ContentFolder::pixmap()
 {
     if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), _value ) )
-            return KIconLoader::global()->loadIcon( QString::fromLatin1( "folder_image" ), KIcon::Desktop, 22 );
+            return KIconLoader::global()->loadIcon( QString::fromLatin1( "folder_image" ), K3Icon::Desktop, 22 );
         else {
             return _category->icon();
         }
@@ -109,10 +109,10 @@ int Browser::ContentFolder::compare( Folder* other, int col, bool asc ) const
 
 QString Browser::ContentFolder::imagesLabel() const
 {
-    return i18n("1 Image", "%n Images", _count.images());
+    return i18np("1 Image", "%n Images", _count.images());
 }
 
 QString Browser::ContentFolder::videosLabel() const
 {
-    return i18n("1 Movie", "%n Movies", _count.videos());
+    return i18np("1 Movie", "%1 Movies", _count.videos());
 }

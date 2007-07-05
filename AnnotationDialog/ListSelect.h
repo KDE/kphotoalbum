@@ -45,7 +45,7 @@ class ListSelect :public QWidget {
     Q_OBJECT
 
 public:
-    ListSelect( const DB::CategoryPtr& category, QWidget* parent,  const char* name = 0 );
+    ListSelect( const DB::CategoryPtr& category, QWidget* parent );
     QString category() const;
     QString text() const;
     void setText( const QString& );

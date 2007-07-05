@@ -22,13 +22,15 @@
 #include "Browser/BrowserWidget.h"
 #include <qdir.h>
 #include "Utilities/Util.h"
-#include <q3progressdialog.h>
+#include <QProgressDialog>
 #include <klocale.h>
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kmessagebox.h>
 #include <kcodecs.h>
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #ifdef HASEXIV2
 #  include "Exif/Database.h"
 #endif
@@ -94,15 +96,17 @@ void NewImageFinder::searchForNewFiles( const Q3Dict<void>& loadedFiles, QString
 
 void NewImageFinder::loadExtraFiles()
 {
-    Q3ProgressDialog  dialog( i18n("<p><b>Loading information from new files</b></p>"
-                                  "<p>Depending on the number of images, this may take some time.<br/>"
-                                  "However, there is only a delay when new images are found.</p>"),
-                             i18n("&Cancel"), _pendingLoad.count() );
+    QProgressDialog dialog;
+    dialog.setLabelText( i18n("<p><b>Loading information from new files</b></p>"
+                              "<p>Depending on the number of images, this may take some time.<br/>"
+                              "However, there is only a delay when new images are found.</p>") );
+    dialog.setMaximum( _pendingLoad.count() );
+
     int count = 0;
     ImageInfoList newImages;
     for( LoadList::Iterator it = _pendingLoad.begin(); it != _pendingLoad.end(); ++it, ++count ) {
-        dialog.setProgress( count ); // ensure to call setProgress(0)
-        qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+        dialog.setValue( count ); // ensure to call setProgress(0)
+        qApp->processEvents( QEventLoop::AllEvents );
 
         if ( dialog.wasCanceled() )
             return;
@@ -127,13 +131,13 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
             // The file we had a collapse with didn't exists anymore so it is likely moved to this new name
             ImageInfoPtr info = DB::ImageDB::instance()->info( Settings::SettingsData::instance()->imageDirectory() + relativeMatchedFileName );
             if ( !info )
-                qWarning("How did that happen? We couldn't find info for the images %s", relativeMatchedFileName.toLatin1());
+                qWarning("How did that happen? We couldn't find info for the images %s", qPrintable(relativeMatchedFileName));
             else {
                 info->delaySavingChanges(true);
                 fi = QFileInfo ( relativeMatchedFileName );
-                if ( info->label() == fi.baseName(true) ) {
+                if ( info->label() == fi.completeBaseName() ) {
                     fi = QFileInfo( relativeNewFileName );
-                    info->setLabel( fi.baseName(true) );
+                    info->setLabel( fi.completeBaseName() );
                 }
 
                 info->setFileName( relativeNewFileName );
@@ -147,12 +151,12 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 Exif::Database::instance()->remove( absoluteMatchedFileName );
                 Exif::Database::instance()->add( absoluteNewFileName );
 #endif
-                return 0;
+                return DB::ImageInfoPtr();
             }
         }
     }
 
-    ImageInfoPtr info = new ImageInfo( relativeNewFileName, type );
+    ImageInfoPtr info = ImageInfoPtr( new ImageInfo( relativeNewFileName, type ) );
     info->setMD5Sum(sum);
     DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
 #ifdef HASEXIV2
@@ -164,9 +168,11 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
 
 bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5Map, bool* wasCanceled )
 {
-    Q3ProgressDialog dialog( i18n("<p><b>Calculating checksum for %1 files<b></p>"
-                                 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
-                                 "even when you have moved them on the disk.</p>").arg( list.count() ), i18n("&Cancel"), list.count() );
+    QProgressDialog dialog;
+    dialog.setLabelText( i18n("<p><b>Calculating checksum for %1 files<b></p>"
+                              "<p>By storing a checksum for each image KPhotoAlbum is capable of finding images "
+                              "even when you have moved them on the disk.</p>").arg( list.count() ) );
+    dialog.setMaximum( list.count() );
 
     int count = 0;
     bool dirty = false;
@@ -174,8 +180,8 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count ) {
         ImageInfoPtr info = DB::ImageDB::instance()->info( *it );
         if ( count % 10 == 0 ) {
-            dialog.setProgress( count ); // ensure to call setProgress(0)
-            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+            dialog.setValue( count ); // ensure to call setProgress(0)
+            qApp->processEvents( QEventLoop::AllEvents );
 
             if ( dialog.wasCanceled() ) {
                 if ( wasCanceled )

@@ -23,10 +23,10 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qimage.h>
-//Added by qt3to4:
 #include <Q3ValueList>
 #include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
+#include <stdio.h>
 
 namespace DB
 {
@@ -36,7 +36,6 @@ namespace DB
 
 namespace Utilities
 {
-
 QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
 void checkForBackupFile( const QString& fileName );
 bool ctrlKeyDown();
@@ -57,8 +56,7 @@ bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1
 bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const QString& fileName );
 
-template<class T>
-Q3ValueList<T> shuffle(const Q3ValueList<T>& list);
+QStringList shuffle(const QStringList& list);
 
 typedef QMap<QString, QString> UniqNameMap;
 UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
@@ -73,8 +71,9 @@ QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );
 QStringList diff( const QStringList& list1, const QStringList& list2 );
 
-QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QImage::ScaleFree );
-QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
+QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
+QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
+
 QStringList removeDuplicates( const QStringList& items );
 };
 

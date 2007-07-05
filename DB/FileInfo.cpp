@@ -23,6 +23,7 @@
 #  include "Exif/Info.h"
 #endif
 #include <kfilemetainfo.h>
+#include <kdebug.h>
 
 using namespace DB;
 
@@ -91,8 +92,9 @@ QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
 
 void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
 {
-    QString tempFileName( fileName );
 #ifdef TEMPORARILY_REMOVED
+    QString tempFileName( fileName );
+#ifdef REMOVED_FOR_SOME_REASON_ALSO_IN_KDE3
     if ( Util::isCRW( fileName ) ) {
       QString dirName = QFileInfo( fileName ).path();
       QString baseName = QFileInfo( fileName ).baseName();
@@ -128,6 +130,9 @@ void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
     // Description
     if ( metainfo.contains( QString::fromLatin1( "Comment" ) ) )
         _description = metainfo.value( QString::fromLatin1( "Comment" ) ).toString();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 int DB::FileInfo::orientationToAngle( int orientation )

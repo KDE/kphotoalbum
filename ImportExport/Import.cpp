@@ -44,7 +44,9 @@
 #include <qimage.h>
 #include "Browser/BrowserWidget.h"
 #include <kstandarddirs.h>
+#ifdef TEMPORARILY_REMOVED
 #include <ktempfile.h>
+#endif
 #include <kurl.h>
 #include <q3progressdialog.h>
 #include <kio/netaccess.h>
@@ -58,13 +60,18 @@
 
 class KPushButton;
 using namespace ImportExport;
+#ifdef TEMPORARILY_REMOVED
 
 void Import::imageImport()
 {
+#ifdef TEMPORARILY_REMOVED
     KUrl url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ), 0 );
     if ( url.isEmpty() )
         return;
     imageImport( url );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Import::imageImport( const KUrl& url )
@@ -285,6 +292,7 @@ void Import::createImagesPage()
     addPage( top, i18n("Select Which Images to Import") );
 }
 
+#endif
 ImageRow::ImageRow( DB::ImageInfoPtr info, Import* import, QWidget* parent )
     : QObject( parent ), _info( info ), _import( import )
 {
@@ -294,6 +302,7 @@ ImageRow::ImageRow( DB::ImageInfoPtr info, Import* import, QWidget* parent )
 
 void ImageRow::showImage()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( _import->_externalSource ) {
         KUrl src1 =_import->_kimFile;
         KUrl src2 = _import->_baseUrl + QString::fromLatin1( "/" );
@@ -317,7 +326,11 @@ void ImageRow::showImage()
         QImage img = QImage( _import->loadImage( _info->fileName(true) ) );
         MiniViewer::show( img, _info );
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
+#ifdef TEMPORARILY_REMOVED
 
 void Import::createDestination()
 {
@@ -694,5 +707,6 @@ void Import::slotHelp()
 {
     KToolInvocation::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
+#endif
 
 #include "Import.moc"

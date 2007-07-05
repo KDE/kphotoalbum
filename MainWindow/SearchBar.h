@@ -30,7 +30,7 @@ class SearchBar :public KToolBar {
     Q_OBJECT
 
 public:
-    SearchBar( KMainWindow* parent, const char* name = 0 );
+    SearchBar( KMainWindow* parent );
 
 protected slots:
     void reset();

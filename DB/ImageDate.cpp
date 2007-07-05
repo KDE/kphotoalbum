@@ -26,8 +26,12 @@ using namespace DB;
 
 ImageDate::ImageDate( const QDate& date )
 {
+#ifdef TEMPORARILY_REMOVED
     _start = date;
     _end = date;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 ImageDate::ImageDate( const QDateTime& date)
@@ -334,6 +338,7 @@ bool ImageDate::includes( const QDateTime& date )
 
 QStringList DB::ImageDate::monthNames()
 {
+#ifdef TEMPORARILY_REMOVED
     static Q3ValueList<QString> res;
     if ( res.isEmpty() ) {
         for ( int i = 1; i <= 12; ++i ) {
@@ -350,5 +355,8 @@ QStringList DB::ImageDate::monthNames()
         }
     }
     return res;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 

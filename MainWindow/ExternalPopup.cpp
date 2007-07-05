@@ -33,6 +33,7 @@
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStringList& imageList )
 {
+#ifdef TEMPORARILY_REMOVED
     _list = imageList;
     _currentInfo = current;
     clear();
@@ -69,10 +70,14 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
             setItemEnabled( id, enabled );
         }
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::ExternalPopup::slotExecuteService( int id )
 {
+#ifdef TEMPORARILY_REMOVED
     QString name = text( id );
     KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
     Q_ASSERT( offers.count() == 1 );
@@ -89,6 +94,9 @@ void MainWindow::ExternalPopup::slotExecuteService( int id )
     }
 
     KRun::run(*ptr, lst);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 MainWindow::ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
@@ -113,16 +121,20 @@ StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )
 
 MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const QStringList& files )
 {
+#ifdef TEMPORARILY_REMOVED
     StringSet types = mimeTypes( files );
     OfferType res;
     for ( StringSet::ConstIterator mimeTypeIt = types.begin(); mimeTypeIt != types.end(); ++mimeTypeIt ) {
         KTrader::OfferList offers = KTrader::self()->query( *mimeTypeIt, QString::fromLatin1("Type == 'Application'"));
         for(KTrader::OfferList::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
-            res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->pixmap(KIcon::Toolbar) ) );
+            res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->pixmap(K3Icon::Toolbar) ) );
             _appToMimeTypeMap[(*offerIt)->name()].insert( *mimeTypeIt );
         }
     }
     return res;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool operator<( const QPair<QString,QPixmap>& a, const QPair<QString,QPixmap>& b )

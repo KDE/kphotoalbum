@@ -18,7 +18,7 @@
 
 #ifndef HTMLGENERATOR_HTMLDIALOG_H
 #define HTMLGENERATOR_HTMLDIALOG_H
-#include <kdialogbase.h>
+#include <KDialog>
 class KLineEdit;
 class QSpinBox;
 class QCheckBox;
@@ -34,7 +34,7 @@ class ImageSizeCheckBox;
 class Generator;
 class Setup;
 
-class HTMLDialog :public KDialogBase {
+class HTMLDialog :public KDialog {
     Q_OBJECT
 
 public:

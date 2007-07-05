@@ -89,7 +89,7 @@ QDomElement* blockList, QDomElement* memberGroups )
 void XMLDB::FileReader::createSpecialCategories()
 {
     DB::CategoryPtr folderCat = _db->_categoryCollection.categoryForName( QString::fromLatin1( "Folder" ) );
-    if( folderCat == 0 ) {
+    if( folderCat.isNull() ) {
         folderCat = new XMLCategory( QString::fromLatin1("Folder"), QString::fromLatin1("folder"),
                                      DB::Category::ListView, 32, false );
         _db->_categoryCollection.addCategory( folderCat );
@@ -124,7 +124,7 @@ void XMLDB::FileReader::createSpecialCategories()
 
 void XMLDB::FileReader::loadCategories( const QDomElement& elm )
 {
-    // options is for KimDaBa 2.1 compatibility
+// options is for KimDaBa 2.1 compatibility
     Q_ASSERT( elm.tagName().toLower() == QString::fromLatin1( "categories" ) || elm.tagName().toLower() == QString::fromLatin1( "options" ) );
 
     for ( QDomNode nodeOption = elm.firstChild(); !nodeOption.isNull(); nodeOption = nodeOption.nextSibling() )  {
@@ -226,7 +226,7 @@ void XMLDB::FileReader::loadMemberGroups( const QDomElement& memberGroups )
                 _db->_members.addMemberToGroup( category, group, member );
             }
             else {
-                QStringList members = QStringList::split( QString::fromLatin1( "," ), elm.attribute( QString::fromLatin1( "members" ) ) );
+                QStringList members = elm.attribute( QString::fromLatin1( "members" ) ).split( QString::fromLatin1( "," ) );
                 for( QStringList::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( category );
                     XMLCategory* cat = static_cast<XMLCategory*>( catPtr.data() );
@@ -313,7 +313,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
     QFile file( configFile );
     if ( !file.exists() ) {
         // Load a default setup
-        QFile file( locate( "data", QString::fromLatin1( "kphotoalbum/default-setup" ) ) );
+        QFile file( KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/default-setup" ) ) );
         if ( !file.open( QIODevice::ReadOnly ) ) {
             KMessageBox::information( 0, i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                                                "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
@@ -325,9 +325,9 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
                                                "environment variable</p>"), i18n("No default setup file found") );
         }
         else {
-            Q3TextStream stream( &file );
-            stream.setEncoding( Q3TextStream::UnicodeUTF8 );
-            QString str = stream.read();
+            QTextStream stream( &file );
+            stream.setCodec( QTextCodec::codecForName("UTF-8") );
+            QString str = stream.readAll();
             str = str.replace( QString::fromLatin1( "People" ), i18n( "People" ) );
             str = str.replace( QString::fromLatin1( "Places" ), i18n( "Places" ) );
             str = str.replace( QString::fromLatin1( "Keywords" ), i18n( "Keywords" ) );

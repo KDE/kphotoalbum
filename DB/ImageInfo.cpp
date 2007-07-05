@@ -33,8 +33,11 @@ extern "C" {
 #include "FileInfo.h"
 #include <qstringlist.h>
 #include "DB/MemberMap.h"
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #include "Exif/Database.h"
+#include <kdebug.h>
 
 using namespace DB;
 
@@ -47,7 +50,7 @@ ImageInfo::ImageInfo( const QString& fileName, MediaType type )
 {
     QString fullPath = Settings::SettingsData::instance()->imageDirectory()+ fileName;
     QFileInfo fi( Settings::SettingsData::instance()->imageDirectory() + fileName );
-    _label = fi.baseName( true );
+    _label = fi.completeBaseName();
     _angle = 0;
 
     setFileName( fileName);
@@ -134,7 +137,7 @@ void ImageInfo::renameItem( const QString& key, const QString& oldValue, const Q
     StringSet::Iterator it = set.find( oldValue );
     if ( it != set.end() ) {
         _dirty = true;
-        set.remove( it );
+        set.erase( it );
         set.insert( newValue );
         saveChangesIfNotDelayed();
     }
@@ -246,7 +249,7 @@ void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
 {
     _dirty = true;
     _categoryInfomation[newName] = _categoryInfomation[oldName];
-    _categoryInfomation.erase(oldName);
+    _categoryInfomation.remove(oldName);
     saveChangesIfNotDelayed();
 }
 
@@ -419,13 +422,13 @@ void DB::ImageInfo::setAbsoluteFileName()
     _absoluteFileName = Settings::SettingsData::instance()->imageDirectory() + _relativeFileName;
 }
 
-void DB::ImageInfo::createFolderCategoryItem( DB::Category* folderCategory, DB::MemberMap& memberMap )
+void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB::MemberMap& memberMap )
 {
     QString folderName = Utilities::relativeFolderName( _relativeFileName );
     if ( folderName.isNull() )
         return;
 
-    QStringList directories = QStringList::split( QString::fromLatin1( "/" ), folderName, true );
+    QStringList directories = folderName.split(QString::fromLatin1( "/" ) );
 
     QString curPath;
     for( QStringList::ConstIterator directoryIt = directories.begin(); directoryIt != directories.end(); ++directoryIt ) {

@@ -57,12 +57,16 @@ bool CategoryListView::CheckDropItem::acceptDrop( const QMimeSource* mime ) cons
 
 CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeSource* e) const
 {
+#ifdef TEMPORARILY_REMOVED
     DragItemInfoSet items;
     const QByteArray data = e->encodedData( "x-kphotoalbum/x-category-drag" );
     QDataStream stream( data, QIODevice::ReadOnly );
     stream >> items;
 
     return items;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
@@ -92,7 +96,7 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
 
 bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, const DragItemInfoSet& children ) const
 {
-    const KSharedPtr<DB::CategoryItem> categoryInfo = _listView->category()->itemsCategories();
+    const DB::CategoryItemPtr categoryInfo = _listView->category()->itemsCategories();
 
     for( DragItemInfoSet::ConstIterator childIt = children.begin(); childIt != children.end(); ++childIt ) {
         if ( newParent == (*childIt).child() || categoryInfo->isDescendentOf( newParent, (*childIt).child() ) )
@@ -103,6 +107,7 @@ bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, cons
 
 bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& parent, const DragItemInfoSet& items )
 {
+#ifdef TEMPORARILY_REMOVED
     QStringList children;
     for( DragItemInfoSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         children.append( (*itemIt).child() );
@@ -119,6 +124,9 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
     const int answer = KMessageBox::warningContinueCancel( 0, msg, i18n("Move Items"), KStandardGuiItem::cont(),
                                                            QString::fromLatin1( "DoYouReallyWantToMessWithMemberGroups" ) );
     return answer == KMessageBox::Continue;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )

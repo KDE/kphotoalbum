@@ -18,7 +18,7 @@
 
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
-#include <kdialogbase.h>
+#include <KDialog>
 //Added by qt3to4:
 #include <QLabel>
 class QLabel;
@@ -28,7 +28,7 @@ class QRadioButton;
 namespace Exif
 {
 
-class ReReadDialog :public KDialogBase {
+class ReReadDialog :public KDialog {
     Q_OBJECT
 
 public:

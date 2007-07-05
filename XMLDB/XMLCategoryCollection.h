@@ -19,8 +19,7 @@
 #define XMLCATEGORYCOLLECTION_H
 
 #include "DB/CategoryCollection.h"
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 namespace XMLDB {
 
@@ -30,18 +29,18 @@ namespace XMLDB {
 
     public:
         virtual DB::CategoryPtr categoryForName( const QString& name ) const;
-        void addCategory( DB::Category* );
+        void addCategory( DB::CategoryPtr );
         virtual QStringList categoryNames() const;
         virtual void removeCategory( const QString& name );
         virtual void rename( const QString& oldName, const QString& newName );
-        virtual Q3ValueList<DB::CategoryPtr> categories() const;
+        virtual QList<DB::CategoryPtr> categories() const;
         virtual void addCategory( const QString& text, const QString& icon, DB::Category::ViewType type,
                                   int thumbnailSize, bool show );
 
         void initIdMap();
 
     private:
-        Q3ValueList<DB::CategoryPtr> _categories;
+        QList<DB::CategoryPtr> _categories;
     };
 }
 

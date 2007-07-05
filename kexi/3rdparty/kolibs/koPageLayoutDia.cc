@@ -113,7 +113,7 @@ void KoPagePreview::drawContents( QPainter *painter )
 
     painter->setBrush( QBrush( black, HorPattern ) );
     if ( m_textFrameWidth == m_pageWidth || m_textFrameHeight == m_pageHeight )
-        painter->setPen( NoPen );
+        painter->setPen( Qt::NoPen );
     else
         painter->setPen( lightGray );
 
@@ -132,8 +132,8 @@ KoPageLayoutDia::KoPageLayoutDia( QWidget* parent, const char* name,
                                   const KoPageLayout& layout,
                                   const KoHeadFoot& hf, int tabs,
                                   KoUnit::Unit unit, bool modal )
-    : KDialogBase( KDialogBase::Tabbed, i18n("Page Layout"), KDialogBase::Ok | KDialogBase::Cancel,
-                   KDialogBase::Ok, parent, name, modal)
+    : KDialog( KDialog::Tabbed, i18n("Page Layout"), KDialog::Ok | KDialog::Cancel,
+                   KDialog::Ok, parent, name, modal)
 {
 
     flags = tabs;
@@ -159,8 +159,8 @@ KoPageLayoutDia::KoPageLayoutDia( QWidget* parent, const char* name,
                   const KoColumns& columns,
                   const KoKWHeaderFooter& kwhf,
                   int tabs, KoUnit::Unit unit )
-    : KDialogBase( KDialogBase::Tabbed, i18n("Page Layout"), KDialogBase::Ok | KDialogBase::Cancel,
-                   KDialogBase::Ok, parent, name, true)
+    : KDialog( KDialog::Tabbed, i18n("Page Layout"), KDialog::Ok | KDialog::Cancel,
+                   KDialog::Ok, parent, name, true)
 {
     flags = tabs;
 
@@ -396,7 +396,7 @@ void KoPageLayoutDia::slotOk()
 {
     if( m_pageSizeTab )
         m_pageSizeTab->queryClose();
-    KDialogBase::slotOk(); // accept
+    KDialog::slotOk(); // accept
 }
 
 #include <koPageLayoutDia.moc>

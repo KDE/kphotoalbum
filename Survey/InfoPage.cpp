@@ -29,6 +29,7 @@
 Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Location location, QWidget* parent, const char* name )
     :QWidget( parent, name )
 {
+#ifdef TEMPORARILY_REMOVED
     Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
     QLabel* title;
     if ( location == Front )
@@ -46,9 +47,9 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
 
     QLabel* pict = new QLabel( this );
     if ( location == Front )
-        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark-flipped.png")) );
+        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark-flipped.png")) );
     else
-        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
+        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
     hlay->addWidget( pict );
 
     QLabel* desc = new QLabel( text, this );
@@ -56,13 +57,16 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
 
     pict = new QLabel( this );
     if ( location == Front )
-        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark.png")) );
+        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark.png")) );
     else
-        pict->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
+        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
     hlay->addWidget( pict );
 
     frame = new Q3Frame( this );
     frame->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
     vlay->addWidget( frame );
 
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }

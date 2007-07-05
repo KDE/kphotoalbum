@@ -20,7 +20,7 @@
 #define IMPORTEXPORT_H
 
 #include "ImageManager/ImageClient.h"
-#include <kdialogbase.h>
+#include <KDialog>
 #include "Utilities/Util.h"
 class QRadioButton;
 class QSpinBox;
@@ -61,7 +61,7 @@ private:
     QString _destdir;
 };
 
-class ExportConfig :public KDialogBase {
+class ExportConfig :public KDialog {
     Q_OBJECT
 
 public:

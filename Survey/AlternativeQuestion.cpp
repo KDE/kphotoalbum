@@ -34,6 +34,7 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
                                                   Type tp, SurveyDialog* parent )
     :Question( id, title, parent )
 {
+#ifdef TEMPORARILY_REMOVED
     Q3HBoxLayout* hlay = new Q3HBoxLayout( this, 6 );
     Q3VBoxLayout* vlay;
     QLabel* label;
@@ -78,10 +79,14 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
     }
 
     vlay->addStretch( 1 );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Survey::AlternativeQuestion::save( QDomElement& top )
 {
+#ifdef TEMPORARILY_REMOVED
     for( Q3ValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
         bool checked = false;
         QCheckBox* cb;
@@ -106,10 +111,14 @@ void Survey::AlternativeQuestion::save( QDomElement& top )
             top.appendChild( elm );
         }
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Survey::AlternativeQuestion::load( QDomElement& top )
 {
+#ifdef TEMPORARILY_REMOVED
     Q3ValueList<QLineEdit*>::Iterator editIt = _edits.begin();
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -136,6 +145,9 @@ void Survey::AlternativeQuestion::load( QDomElement& top )
             }
         }
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QString& title, const QString& text,

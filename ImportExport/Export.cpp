@@ -32,12 +32,11 @@
 #include "ImageManager/Manager.h"
 #include <qapplication.h>
 #include <kmessagebox.h>
-#include <kdialogbase.h>
+#include <KDialog>
 #include <qlayout.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
 
-#include <qvbuttongroup.h>
 #include <qradiobutton.h>
 #include <kimageio.h>
 #include "DB/ImageDB.h"
@@ -48,6 +47,7 @@ using namespace ImportExport;
 
 void Export::imageExport( const QStringList& list )
 {
+#ifdef TEMPORARILY_REMOVED
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
         return;
@@ -68,13 +68,19 @@ void Export::imageExport( const QStringList& list )
 
     if ( ok )
         showUsageDialog();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
 ExportConfig::ExportConfig()
-    : KDialogBase( KDialogBase::Plain, i18n("Export Configuration"), KDialogBase::Ok | KDialogBase::Cancel | KDialogBase::Help,
-                   KDialogBase::Ok, 0, "export config" )
+#ifdef TEMPORARILY_REMOVED
+    : KDialog( KDialog::Plain, i18n("Export Configuration"), KDialog::Ok | KDialog::Cancel | KDialog::Help,
+                   KDialog::Ok, 0, "export config" )
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* top = plainPage();
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
@@ -144,6 +150,9 @@ ExportConfig::ExportConfig()
     _link->setWhatsThis( txt );
     _auto->setWhatsThis( txt );
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 ImageFileLocation ExportConfig::imageFileLocation() const
@@ -163,6 +172,7 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
                 const QString& baseUrl, bool& ok, bool doGenerateThumbnails )
     : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
+#ifdef TEMPORARILY_REMOVED
     ok = true;
     _destdir = QFileInfo( zipFile ).path();
     _zip = new KZip( zipFile );
@@ -211,11 +221,15 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
        _progressDialog->setProgress( _steps );
         _zip->close();
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
 void Export::generateThumbnails( const QStringList& list )
 {
+#ifdef TEMPORARILY_REMOVED
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Thumbnails/" );
@@ -229,10 +243,14 @@ void Export::generateThumbnails( const QStringList& list )
         _loopEntered = true;
         qApp->eventLoop()->enterLoop();
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Export::copyImages( const QStringList& list )
 {
+#ifdef TEMPORARILY_REMOVED
     Q_ASSERT( _location != ManualCopy );
 
     _loopEntered = false;
@@ -279,10 +297,14 @@ void Export::copyImages( const QStringList& list )
         _loopEntered = true;
         qApp->eventLoop()->enterLoop();
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( !loadedOK )
         return;
 
@@ -324,8 +346,12 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     _filesRemaining--;
     _progressDialog->setProgress( _steps );
 
-    if ( _filesRemaining == 0 && _loopEntered )
+
+        if ( _filesRemaining == 0 && _loopEntered )
         qApp->eventLoop()->exitLoop();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Export::showUsageDialog()

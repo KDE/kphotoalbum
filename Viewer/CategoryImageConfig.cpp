@@ -36,9 +36,12 @@
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
 CategoryImageConfig::CategoryImageConfig()
-    :KDialogBase( Plain, i18n("Configure Category Image"), User1 | Close, User1, 0, "", false, false, i18n("Set") ),
+#ifdef TEMPORARILY_REMOVED
+    :KDialog( Plain, i18n("Configure Category Image"), User1 | Close, User1, 0, "", false, false, i18n("Set") ),
      _image( QImage() )
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* top = plainPage();
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
     Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2, 2 );
@@ -76,11 +79,15 @@ CategoryImageConfig::CategoryImageConfig()
 
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotSet() ) );
 
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 // PENDING(blackie) convert this code to using StringSet instead.
 void CategoryImageConfig::groupChanged()
 {
+#ifdef TEMPORARILY_REMOVED
     QString currentText = _member->currentText();
     _member->clear();
     QStringList directMembers = _info->itemsOfCategory( currentGroup() ).toList();
@@ -101,6 +108,9 @@ void CategoryImageConfig::groupChanged()
         _member->setCurrentItem( index );
 
     memberChanged();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void CategoryImageConfig::memberChanged()
@@ -123,10 +133,14 @@ QString CategoryImageConfig::currentGroup()
 
 void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info )
 {
+#ifdef TEMPORARILY_REMOVED
     _image = image;
     _imageLabel->setPixmap( image );
     _info = info;
     groupChanged();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 CategoryImageConfig* CategoryImageConfig::instance()
@@ -157,7 +171,7 @@ void CategoryImageConfig::show()
     groupChanged();
 
 
-    KDialogBase::show();
+    KDialog::show();
 }
 
 #include "CategoryImageConfig.moc"

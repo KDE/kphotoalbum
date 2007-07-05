@@ -58,7 +58,7 @@ ImageManager::Manager::Manager() :_currentLoading(0)
 // corrected before the thread starts.
 void ImageManager::Manager::init()
 {
-    ImageLoader* imageLoader = new ImageLoader( &_sleepers );
+    ImageLoader* imageLoader = new ImageLoader();
     imageLoader->start();
 }
 
@@ -104,11 +104,13 @@ void ImageManager::Manager::stop( ImageClient* client, StopAction action )
 ImageManager::ImageRequest* ImageManager::Manager::next()
 {
     QMutexLocker dummy(&_lock );
-    _currentLoading = _loadList.popNext();
+    while ( !(_currentLoading = _loadList.popNext() ) )
+        _sleepers.wait( &_lock );
+
     return _currentLoading;
 }
 
-void ImageManager::Manager::customEvent( QCustomEvent* ev )
+void ImageManager::Manager::customEvent( QEvent* ev )
 {
     if ( ev->type() == 1001 )  {
         ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );

@@ -22,11 +22,16 @@
 #include <kaboutdata.h>
 #include <qpainter.h>
 #include <qregexp.h>
+#include <kdebug.h>
 
 MainWindow::SplashScreen* MainWindow::SplashScreen::_instance = 0;
 
 MainWindow::SplashScreen::SplashScreen()
-    :KSplashScreen( locate("data", QString::fromLatin1("kphotoalbum/pics/splash-large.png") ) )
+#ifdef TEMPORARILY_REMOVED
+    :KSplashScreen( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/splash-large.png") ) )
+#else
+        :KSplashScreen( QPixmap() )
+#endif
 {
     _instance = this;
 }
@@ -50,6 +55,7 @@ void MainWindow::SplashScreen::message( const QString& message )
 
 void MainWindow::SplashScreen::drawContents( QPainter * painter )
 {
+#ifdef TEMPORARILY_REMOVED
     painter->save();
     QFont font = painter->font();
     font.setPointSize( 10 );
@@ -67,6 +73,9 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
     // Message
     painter->drawText( QRect( QPoint(20, 265), QSize( 300, 20 )), Qt::AlignLeft | Qt::AlignTop, _message );
     painter->restore();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 #include "SplashScreen.moc"

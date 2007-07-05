@@ -20,6 +20,7 @@
 #include "DB/MemberMap.h"
 #include <DB/ImageDB.h>
 #include "Utilities/List.h"
+#include <kdebug.h>
 
 XMLDB::XMLCategory::XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show )
     : _name( name ), _icon( icon ), _show( show ), _type( type ), _thumbnailSize( thumbnailSize ), _isSpecial(false), _shouldSave( true )
@@ -81,7 +82,11 @@ bool XMLDB::XMLCategory::isSpecialCategory() const
 
 void XMLDB::XMLCategory::addOrReorderItems( const QStringList& items )
 {
+#ifdef TEMPORARILY_REMOVED
     _items = items + Utilities::listSubtract(_items, items);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void XMLDB::XMLCategory::setItems( const QStringList& items )

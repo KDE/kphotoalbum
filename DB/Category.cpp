@@ -27,7 +27,7 @@
 
 QPixmap DB::Category::icon( int size ) const
 {
-    return KIconLoader::global()->loadIcon( iconName(), KIcon::Desktop, size );
+    return KIconLoader::global()->loadIcon( iconName(), K3Icon::Desktop, size );
 }
 
 
@@ -85,7 +85,7 @@ DB::CategoryItem* createItem( const QString& categoryName, const QString& itemNa
     return result;
 }
 
-KSharedPtr<DB::CategoryItem> DB::Category::itemsCategories() const
+DB::CategoryItemPtr DB::Category::itemsCategories() const
 {
     const MemberMap& map = ImageDB::instance()->memberMap();
     const QStringList groups = map.groups( name() );
@@ -114,7 +114,7 @@ KSharedPtr<DB::CategoryItem> DB::Category::itemsCategories() const
             result->_subcategories.append( new DB::CategoryItem( *elmIt ) );
     }
 
-    return result;
+    return CategoryItemPtr( result );
 }
 
 QMap<QString,QString> DB::Category::standardCategories()

@@ -19,14 +19,14 @@
 #ifndef INVALIDDATEFINDER_H
 #define INVALIDDATEFINDER_H
 
-#include <kdialogbase.h>
+#include <KDialog>
 class QRadioButton;
 
 
 namespace MainWindow
 {
 
-class InvalidDateFinder :public KDialogBase {
+class InvalidDateFinder :public KDialog {
     Q_OBJECT
 
 public:

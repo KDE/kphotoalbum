@@ -16,34 +16,33 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FeatureDialog.h"
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #include <klocale.h>
 #include <qlayout.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
 #include <Q3ValueList>
 #include <kapplication.h>
 #include "Exif/Database.h"
-#include <kuserprofile.h>
 #include <ImageManager/VideoManager.h>
 #include <kmediaplayer/player.h>
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
+#include <KServiceTypeProfile>
 
 using namespace MainWindow;
 
-FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("KPhotoAlbum Feature Status"), Close, Close, parent, name )
+FeatureDialog::FeatureDialog( QWidget* parent )
+    :KDialog( parent )
 {
-    QWidget* top = plainPage();
-    Q3HBoxLayout* layout = new Q3HBoxLayout( top, 10 );
+    setWindowTitle( makeStandardCaption( i18n("Feature Status"), this ) );
 
-    HelpBrowser* edit = new HelpBrowser( top );
-    layout->addWidget( edit );
+    HelpBrowser* edit = new HelpBrowser( this );
+    setMainWidget( edit );
 
     QString text = i18n("<h1>Overview</h1>"
                         "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
-                        "%1" ).arg( featureString() );
+                        "%1", featureString() );
     text += i18n( "<h1>What can I do if I miss a feature?</h1>"
 
                   "<p>If you compiled KPhotoAlbum yourself, then please review the sections below to learn what to install "
@@ -200,11 +199,12 @@ QString MainWindow::FeatureDialog::featureString()
 
 bool MainWindow::FeatureDialog::hasVideoSupport( const QString& mimeType )
 {
+// PENDING(blackie) PORT: this function does seem to work
     static QMap<QString, bool> cache;
     if ( cache.contains( mimeType ) )
         return cache[mimeType];
 
-    KService::Ptr service = KServiceTypeProfile::preferredService( mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
+    KService::Ptr service = KMimeTypeTrader::self()->preferredService( mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
     if ( !service.data() ) {
         cache[mimeType] = false;
         return false;

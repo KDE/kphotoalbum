@@ -88,8 +88,6 @@
 Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
     :Display( parent, name ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
 {
-    setBackgroundMode( NoBackground );
-
     _viewHandler = new ViewHandler( this );
     _drawHandler = new DrawHandler( this );
     _currentHandler = _viewHandler;
@@ -229,12 +227,10 @@ void Viewer::ImageDisplay::paintEvent( QPaintEvent* )
 {
     int x = ( width() - _viewPixmap.width() ) / 2;
     int y = ( height() - _viewPixmap.height() ) / 2;
-    bitBlt( this, x, y, &_viewPixmap );
-    QPainter p( this );
-    p.fillRect( 0, 0, width(), y, black ); // top
-    p.fillRect( 0, height()-y-1, width(), height()-y, black ); // bottom
-    p.fillRect( 0, 0, x, height(), black ); // left
-    p.fillRect( width()-x-1, 0, width()-x, height(), black ); // right
+
+    QPainter painter( this );
+    painter.fillRect( 0,0, width(), height(), Qt::black );
+    painter.drawPixmap( x,y, _viewPixmap );
 }
 
 QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
@@ -345,7 +341,7 @@ void Viewer::ImageDisplay::cropAndScale()
     updateZoomCaption();
 
     if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
-        _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), QImage::ScaleMin );
+        _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), Qt::KeepAspectRatio );
 
     drawAll();
 }
@@ -373,7 +369,7 @@ QImage Viewer::ImageDisplay::currentViewAsThumbnail() const
     if ( _croppedAndScaledImg.isNull() )
         return QImage();
     else
-        return _croppedAndScaledImg.smoothScale( 128, 128, QImage::ScaleMin );
+        return _croppedAndScaledImg.smoothScale( 128, 128, Qt::KeepAspectRatio );
 }
 
 

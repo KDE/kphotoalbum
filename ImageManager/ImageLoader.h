@@ -19,6 +19,7 @@
 #ifndef IMAGELOADER_H
 #define IMAGELOADER_H
 #include <qthread.h>
+#include <QImage>
 class QWaitCondition;
 
 namespace ImageManager
@@ -28,7 +29,7 @@ class ImageRequest;
 
 class ImageLoader :public QThread {
 public:
-    ImageLoader( QWaitCondition* sleeper );
+    ImageLoader();
     static QImage rotateAndScale( QImage, int width, int height, int angle );
     static void removeThumbnail( const QString& imageFile );
     static QImage tryLoadThumbnail( ImageRequest* request, bool& ok );
@@ -43,9 +44,6 @@ protected:
     static QString thumbnailPath( QString uri, int dim );
     static QString requestURL( ImageRequest* request );
     bool shouldImageBeScale( const QImage& img, ImageRequest* request );
-
-private:
-    QWaitCondition* _sleeper;
 };
 
 }

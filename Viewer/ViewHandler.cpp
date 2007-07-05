@@ -22,6 +22,7 @@
 #include <qcursor.h>
 //Added by qt3to4:
 #include <QMouseEvent>
+#include <kdebug.h>
 
 /**
  * \class Viewer::ViewHandler
@@ -36,11 +37,12 @@ Viewer::ViewHandler::ViewHandler( ImageDisplay* display )
 
 bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTranslatedPos, double /*scaleFactor*/ )
 {
+#ifdef TEMPORARILY_REMOVED
     _pan = false;
     _scale = false;
 
     if ( (e->button() & Qt::LeftButton ) ) {
-        if ( (e->state() & Qt::ControlModifier ) ) {
+        if ( (e->modifiers() & Qt::ControlModifier ) ) {
             _pan = true;
         } else {
             _scale = true;
@@ -56,7 +58,7 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
         qApp->setOverrideCursor( SizeAllCursor  );
         _errorX = 0;
         _errorY = 0;
-        return true;       
+        return true;
     } else if (_scale) {
         // scaling
         _start = e->pos();
@@ -64,6 +66,9 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     } else {
         return true;
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )

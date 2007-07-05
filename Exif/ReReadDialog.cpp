@@ -29,7 +29,7 @@
 
 
 Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Read File Info"), Cancel|User1|User2, User1, parent, name,
+    :KDialog( Plain, i18n("Read File Info"), Cancel|User1|User2, User1, parent, name,
                   true, false, i18n("Read File Info"), i18n("Show File List") )
 {
     QWidget* top = plainPage();
@@ -74,7 +74,7 @@ int Exif::ReReadDialog::exec( const QStringList& list )
     _description->setChecked( false );
     _list = list;
 
-    return KDialogBase::exec();
+    return KDialog::exec();
 }
 
 void Exif::ReReadDialog::readInfo()

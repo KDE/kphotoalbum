@@ -18,12 +18,12 @@
 
 #ifndef DONATE_H
 #define DONATE_H
-#include <kdialogbase.h>
+#include <KDialog>
 
 namespace MainWindow
 {
 
-class DonateDialog :public KDialogBase
+class DonateDialog :public KDialog
 {
     Q_OBJECT
 public:

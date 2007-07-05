@@ -16,7 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 
 #ifdef HASKIPI
 #include "Plugins/ImageCollection.h"
@@ -98,7 +100,7 @@ KUrl Plugins::ImageCollection::commonRoot()
     for( KUrl::List::ConstIterator it = imgs.begin(); it != imgs.end(); ++it ) {
         QStringList newRes;
 
-        QStringList path = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( (*it).path() ).absolutePath(), true );
+        QStringList path = QFileInfo( (*it).path() ).dirPath( true ), true ).split( QString::fromLatin1( "/" ) );
         uint i = 0;
         for ( ; i < qMin( path.size(), res.size() ); ++i ) {
             if ( path[i] == res[i] )

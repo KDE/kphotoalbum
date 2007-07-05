@@ -52,8 +52,8 @@
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
 
-AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidget* parent, const char* name )
-    : QWidget( parent,  name ), _category( category )
+AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidget* parent )
+    : QWidget( parent ), _category( category )
 {
     Q3VBoxLayout* layout = new Q3VBoxLayout( this,  6 );
 
@@ -61,7 +61,8 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _label->setAlignment( Qt::AlignCenter );
     layout->addWidget( _label );
 
-    _lineEdit = new CompletableLineEdit( this, QString::fromLatin1( "line edit for %1").arg(_category->name()).toLatin1() );
+    _lineEdit = new CompletableLineEdit( this );
+    _lineEdit->setName( QString::fromLatin1( "line edit for %1").arg(_category->name()).latin1() );
     _label->setBuddy( _lineEdit );
     layout->addWidget( _lineEdit );
 
@@ -271,6 +272,7 @@ void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
 
 void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const QPoint& pos )
 {
+#ifdef TEMPORARILY_REMOVED
     Q3PopupMenu menu( this, "context popup menu" );
 
     // click on any item
@@ -421,11 +423,15 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
             rePopulate();
         }
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
 void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, Q3ListViewItem* parent )
 {
+#ifdef TEMPORARILY_REMOVED
     for( Q3ValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
         CheckDropItem* newItem = 0;
 
@@ -439,6 +445,9 @@ void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, Q3ListVi
 
         insertItems( (*subcategoryIt), newItem );
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void AnnotationDialog::ListSelect::populate()
@@ -497,10 +506,14 @@ void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 
 void AnnotationDialog::ListSelect::populateAlphabetically()
 {
-    KSharedPtr<DB::CategoryItem> item = _category->itemsCategories();
+#ifdef TEMPORARILY_REMOVED
+    DB::CategoryItemPtr item = _category->itemsCategories();
 
     insertItems( item, 0 );
     _listView->setSorting( 0 );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void AnnotationDialog::ListSelect::populateMRU()

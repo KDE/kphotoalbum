@@ -25,7 +25,7 @@
 #include <q3groupbox.h>
 #include <KoGlobal.h>
 #include <KoUnit.h>
-#include <kdialogbase.h>
+#include <KDialog>
 #include <KoPageLayout.h>
 
 class Q3ButtonGroup;
@@ -79,7 +79,7 @@ class KoPageLayoutDiaPrivate;
 /**
  *  With this dialog the user can specify the layout of the paper during printing.
  */
-class KOFFICEUI_EXPORT KoPageLayoutDia : public KDialogBase
+class KOFFICEUI_EXPORT KoPageLayoutDia : public KDialog
 {
     Q_OBJECT
 

@@ -70,7 +70,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent, const char* na
      _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
 {
     _instance = this;
-    setFocusPolicy( WheelFocus );
+    setFocusPolicy( Qt::WheelFocus );
     updateCellSize();
 
     // It beats me why I need to set mouse tracking on both, but without it doesn't work.
@@ -84,9 +84,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent, const char* na
     viewport()->setAcceptDrops( true );
 
     _repaintTimer = new QTimer( this );
+    _repaintTimer->setSingleShot(true);
     connect( _repaintTimer, SIGNAL( timeout() ), this, SLOT( slotRepaint() ) );
-
-    viewport()->setBackgroundMode( NoBackground );
 
     setVScrollBarMode( AlwaysOn );
     setHScrollBarMode( AlwaysOff );
@@ -121,9 +120,9 @@ void ThumbnailView::ThumbnailWidget::paintCellPixmap( QPainter* painter, int row
 
             rect = QRect( 0, 0, cellWidth(), cellHeight() );
             if ( _leftDrop == fileName )
-                painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( red ) );
+                painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
             else if ( _rightDrop == fileName )
-                painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( red ) );
+                painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
 
         }
         else {
@@ -259,7 +258,7 @@ QString ThumbnailView::ThumbnailWidget::fileNameAtCoordinate( const QPoint& coor
     QRect iconRect = iconGeometry( row, col );
 
     // map iconRect from local coordinates within the cell to contents coordinates
-    iconRect.moveBy( cellRect.x(), cellRect.y() );
+    iconRect.translate( cellRect.x(), cellRect.y() );
 
     if ( iconRect.contains( contentsPos ) )
         return fileNameInCell( row, col );
@@ -395,17 +394,17 @@ QRect ThumbnailView::ThumbnailWidget::cellTextGeometry( int row, int col ) const
 void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int,
                                                    const QImage& image, bool loadedOK )
 {
-    QPixmap* pixmap = new QPixmap( size );
+    QPixmap pixmap( size );
     if ( loadedOK && !image.isNull() )
-        pixmap->convertFromImage( image );
+        pixmap.convertFromImage( image );
 
     else if ( !loadedOK)
-        pixmap->fill( palette().active().dark());
+        pixmap.fill( palette().active().dark());
 
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName );
 
     if ( !loadedOK || !DB::ImageInfo::imageOnDisk( fileName ) ) {
-        QPainter p( pixmap );
+        QPainter p( &pixmap );
         p.setBrush( palette().active().base() );
         p.setWindow( 0, 0, 100, 100 );
         Q3PointArray pts;
@@ -431,7 +430,7 @@ void ThumbnailView::ThumbnailWidget::updateCell( const QString& fileName )
         return;
 
     _pendingRepaint.insert( fileName );
-    _repaintTimer->start( 0, true );
+    _repaintTimer->start( 0 );
 }
 
 void ThumbnailView::ThumbnailWidget::updateCell( int row, int col )
@@ -535,7 +534,7 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 {
     static QString startPossition;
 
-    if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) ) {
+    if ( !( event->modifiers()& Qt::ShiftModifier ) && !( event->modifiers() &  Qt::ControlModifier ) ) {
         clearSelection();
     }
 
@@ -546,7 +545,7 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 
     // Update current position if it is outside view and we do not have any modifiers
     // that is if we just scroll arround.
-    if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) ) {
+    if ( !( event->modifiers()& Qt::ShiftModifier ) && !( event->modifiers() &  Qt::ControlModifier ) ) {
         if ( currentPos.row() < firstVisibleRow( PartlyVisible ) )
             currentPos = Cell( firstVisibleRow( FullyVisible ), currentPos.col() );
         else if ( currentPos.row() > lastVisibleRow( PartlyVisible ) )
@@ -582,7 +581,7 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     case Qt::Key_PageUp:
     {
         int rows = (event->key() == Qt::Key_PageDown) ? 1 : -1;
-        if ( event->state() & (AltButton | MetaButton) )
+        if ( event->modifiers() & (Qt::AltModifier | Qt::MetaModifier) )
             rows *= numRows() / 20;
         else
             rows *= numRowsPerPage();
@@ -606,16 +605,16 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
         newPos = Cell(0,0);
 
     // Update focus cell, and set selection
-    if ( (event->state() & ShiftButton) && !startPossition.isEmpty() )
+    if ( (event->modifiers() & Qt::ShiftModifier) && !startPossition.isEmpty() )
         selectItems( positionForFileName( startPossition ), newPos );
 
-    if ( ! (event->state() & ControlButton ) ) {
+    if ( ! (event->modifiers() & Qt::ControlModifier ) ) {
         selectCell( newPos );
         updateCell( currentPos.row(), currentPos.col() );
     }
     _currentItem = fileNameInCell( newPos );
 
-    if ( !( event->state() & ShiftButton ) || startPossition.isEmpty() )
+    if ( !( event->modifiers() & Qt::ShiftModifier ) || startPossition.isEmpty() )
         startPossition = _currentItem;
 
     // Scroll if necesary
@@ -658,8 +657,8 @@ int ThumbnailView::ThumbnailWidget::numRowsPerPage() const
 
 void ThumbnailView::ThumbnailWidget::mousePressEvent( QMouseEvent* event )
 {
-    if ( (event->button() & MidButton) ||
-         ((event->state() & Qt::ControlModifier) && (event->state() & Qt::AltModifier)) )
+    if ( (event->button() & Qt::MidButton) ||
+         ((event->modifiers() & Qt::ControlModifier) && (event->modifiers() & Qt::AltModifier)) )
         _mouseHandler = &_gridResizeInteraction;
     else
         _mouseHandler = &_selectionInteraction;
@@ -680,7 +679,7 @@ void ThumbnailView::ThumbnailWidget::mouseReleaseEvent( QMouseEvent* event )
 
 void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event )
 {
-    if ( !( event->state() & ControlButton ) ) {
+    if ( !( event->modifiers() & Qt::ControlModifier ) ) {
         QString fileName = fileNameAtCoordinate( event->pos(), ViewportCoordinates );
         if ( !fileName.isNull() )
             emit showImage( fileName );
@@ -689,7 +688,7 @@ void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event 
 
 void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 {
-    if ( event->state() & ControlButton ) {
+    if ( event->modifiers() & Qt::ControlModifier ) {
         event->accept();
 
         _wheelResizing = true;

@@ -18,31 +18,31 @@
 #include "DB/ImageDB.h"
 #include "XMLCategoryCollection.h"
 #include "XMLCategory.h"
-//Added by qt3to4:
 #include <Q3ValueList>
+#include <kdebug.h>
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const
 {
-    for( Q3ValueList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
         if ( (*it)->name() == name )
             return *it;
     }
-    return 0;
+    return DB::CategoryPtr();
 }
 
-void XMLDB::XMLCategoryCollection::addCategory( DB::Category* category )
+void XMLDB::XMLCategoryCollection::addCategory( DB::CategoryPtr category )
 {
     _categories.append( category );
-    connect( category, SIGNAL( changed() ), this, SIGNAL( categoryCollectionChanged() ) );
-    connect( category, SIGNAL( itemRemoved( const QString& ) ), this, SLOT( itemRemoved( const QString& ) ) );
-    connect( category, SIGNAL( itemRenamed( const QString&, const QString& ) ), this, SLOT( itemRenamed( const QString&, const QString& ) ) );
+    connect( category.data(), SIGNAL( changed() ), this, SIGNAL( categoryCollectionChanged() ) );
+    connect( category.data(), SIGNAL( itemRemoved( const QString& ) ), this, SLOT( itemRemoved( const QString& ) ) );
+    connect( category.data(), SIGNAL( itemRenamed( const QString&, const QString& ) ), this, SLOT( itemRenamed( const QString&, const QString& ) ) );
     emit categoryCollectionChanged();
 }
 
 QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 {
     QStringList res;
-    for( Q3ValueList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::ConstIterator it = _categories.begin(); it != _categories.end(); ++it ) {
         res.append( (*it)->name() );
     }
     return res;
@@ -50,9 +50,9 @@ QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 
 void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
 {
-    for( Q3ValueList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it ) {
+    for( QList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it ) {
         if ( (*it)->name() == name ) {
-            _categories.remove(it);
+            _categories.erase(it);
             emit categoryCollectionChanged();
             return;
         }
@@ -68,7 +68,7 @@ void XMLDB::XMLCategoryCollection::rename( const QString& oldName, const QString
 
 }
 
-Q3ValueList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
+QList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
 {
     return _categories;
 }
@@ -76,12 +76,12 @@ Q3ValueList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
 void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QString& icon,
                                                 DB::Category::ViewType type, int thumbnailSize, bool show )
 {
-    addCategory( new XMLCategory( text, icon, type, thumbnailSize, show ) );
+    addCategory( DB::CategoryPtr( new XMLCategory( text, icon, type, thumbnailSize, show ) ) );
 }
 
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
-    for( Q3ValueList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it )
+    for( QList<DB::CategoryPtr>::Iterator it = _categories.begin(); it != _categories.end(); ++it )
         static_cast<XMLCategory*>((*it).data())->initIdMap();
 }
 

@@ -220,6 +220,7 @@ void Survey::SurveyDialog::setupBackPage( int count )
 
 void Survey::SurveyDialog::slotDone()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( lastPage() )
         d->surveyVersionCompleted = d->surveyVersionMajor;
 
@@ -233,6 +234,9 @@ void Survey::SurveyDialog::slotDone()
     }
 
     close();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool Survey::SurveyDialog::lastPage() const
@@ -242,6 +246,7 @@ bool Survey::SurveyDialog::lastPage() const
 
 void Survey::SurveyDialog::readConfig()
 {
+#ifdef TEMPORARILY_REMOVED
     QFile in( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
     if ( in.open( QIODevice::ReadOnly ) ) {
         QDomDocument doc;
@@ -261,10 +266,14 @@ void Survey::SurveyDialog::readConfig()
     }
 
     saveConfig( configAsXML() ); // Save right away to increace invocation count
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Survey::SurveyDialog::saveConfig( const Q3CString& xml )
 {
+#ifdef TEMPORARILY_REMOVED
     QFile out( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
     if ( !out.open( QIODevice::WriteOnly ) ) {
         Q_ASSERT( false );
@@ -273,6 +282,9 @@ void Survey::SurveyDialog::saveConfig( const Q3CString& xml )
         out.write( xml.data(), xml.size()-1 );
         out.close();
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Survey::SurveyDialog::setReceiver( const QString& emailAddress )
@@ -298,6 +310,7 @@ void Survey::SurveyDialog::possibleExecSurvey( int minInvocations, int remindCou
 
 Q3CString Survey::SurveyDialog::configAsXML()
 {
+#ifdef TEMPORARILY_REMOVED
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
                                                       QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
@@ -317,6 +330,9 @@ Q3CString Survey::SurveyDialog::configAsXML()
     }
 
     return doc.toCString();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 #include "SurveyDialog.moc"

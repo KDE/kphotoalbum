@@ -124,7 +124,7 @@ public:
     MediaType mediaType() const;
     void setMediaType( MediaType type ) { if (type != _type) _dirty = true; _type = type; saveChangesIfNotDelayed(); }
 
-    void createFolderCategoryItem( DB::Category*, DB::MemberMap& memberMap );
+    void createFolderCategoryItem( DB::CategoryPtr, DB::MemberMap& memberMap );
 
     void delaySavingChanges(bool b=true);
 

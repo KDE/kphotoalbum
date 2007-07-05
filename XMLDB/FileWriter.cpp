@@ -31,6 +31,7 @@
 
 void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( !isAutoSave )
         NumberedBackup().makeNumberedBackup();
 
@@ -66,6 +67,9 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
         out.write( s.data(), s.size()-1 );
         out.close();
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
@@ -145,6 +149,7 @@ void XMLDB::FileWriter::saveBlockList( QDomDocument doc, QDomElement top )
 
 void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( _db->_members.isEmpty() )
         return;
 
@@ -186,6 +191,9 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
     }
 
     top.appendChild( memberNode );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 // This function will save an empty config element and a valid configWindowSetup element in the XML file.

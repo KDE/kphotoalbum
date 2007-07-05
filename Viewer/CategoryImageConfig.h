@@ -19,7 +19,7 @@
 #ifndef CATEGORYIMAGECONFIG_H
 #define CATEGORYIMAGECONFIG_H
 
-#include <kdialogbase.h>
+#include <kdialog.h>
 #include <qimage.h>
 //Added by qt3to4:
 #include <QLabel>
@@ -33,7 +33,7 @@ namespace DB
     class ImageInfo;
 }
 
-class CategoryImageConfig :public KDialogBase {
+class CategoryImageConfig :public KDialog {
     Q_OBJECT
 
 public:

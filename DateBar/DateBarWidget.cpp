@@ -38,6 +38,7 @@
 #include <klocale.h>
 #include "Settings/SettingsData.h"
 #include <qtooltip.h>
+#include <KIcon>
 
 const int borderAboveHistogram = 4;
 const int borderArroundWidget = 0;
@@ -58,34 +59,38 @@ const int arrowLength = 20;
  */
 
 DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
-    :QWidget( parent, name ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(0),
+    :QWidget( parent ), _currentHandler( &_yearViewHandler ),_tp(YearView), _currentMouseHandler(0),
      _currentDate( QDateTime::currentDateTime() ),_includeFuzzyCounts( true ), _contextMenu(0),
      _showResolutionIndicator( true )
 {
-    setBackgroundMode( NoBackground );
+    setObjectName( name );
+
     setMouseTracking( true );
     setFocusPolicy( Qt::StrongFocus );
 
     _barWidth = Settings::SettingsData::instance()->histogramSize().width();
     _barHeight = Settings::SettingsData::instance()->histogramSize().height();
-    _rightArrow = new QToolButton( RightArrow, this );
+    _rightArrow = new QToolButton( this );
+    _rightArrow->setArrowType( Qt::RightArrow );
     connect( _rightArrow, SIGNAL( clicked() ), this, SLOT( scrollRight() ) );
 
-    _leftArrow = new QToolButton( LeftArrow, this );
+    _leftArrow = new QToolButton( this );
+    _leftArrow->setArrowType( Qt::LeftArrow );
+
     connect( _leftArrow, SIGNAL( clicked() ), this, SLOT( scrollLeft() ) );
 
     _zoomIn = new QToolButton( this );
-    _zoomIn->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "viewmag+" ), KIcon::Toolbar, 16 ) );
+    _zoomIn->setIcon( KIcon( QString::fromLatin1( "viewmag+" ) ) );
     connect( _zoomIn, SIGNAL( clicked() ), this, SLOT( zoomIn() ) );
     connect( this, SIGNAL(canZoomIn(bool)), _zoomIn, SLOT( setEnabled( bool ) ) );
 
     _zoomOut = new QToolButton( this );
-    _zoomOut->setIconSet(  KIconLoader::global()->loadIconSet( QString::fromLatin1( "viewmag-" ), KIcon::Toolbar, 16 ) );
+    _zoomOut->setIcon(  KIcon( QString::fromLatin1( "viewmag-" ) ) );
     connect( _zoomOut, SIGNAL( clicked() ), this, SLOT( zoomOut() ) );
     connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT( setEnabled( bool ) ) );
 
     _cancelSelection = new QToolButton( this );
-    _cancelSelection->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "cancel" ), KIcon::Toolbar, 16 ) );
+    _cancelSelection->setIcon( KIcon( QString::fromLatin1( "cancel" ) ) );
     connect( _cancelSelection, SIGNAL( clicked() ), this, SLOT( clearSelection() ) );
     _cancelSelection->setEnabled( false );
     _cancelSelection->setToolTip( i18n("Widen selection to include all images and videos again") );
@@ -114,7 +119,8 @@ QSize DateBar::DateBarWidget::minimumSizeHint() const
 
 void DateBar::DateBarWidget::paintEvent( QPaintEvent* /*event*/ )
 {
-    bitBlt( this, 0,0, &_buffer );
+    QPainter painter( this );
+    painter.drawPixmap( 0,0, _buffer );
 }
 
 void DateBar::DateBarWidget::redraw()
@@ -122,24 +128,24 @@ void DateBar::DateBarWidget::redraw()
     if ( _buffer.isNull() )
         return;
 
-    if (_dates == 0 )
+    if (_dates.isNull() )
         return;
 
     QPainter p( &_buffer );
+    p.setRenderHint( QPainter::Antialiasing );
     p.setFont( font() );
-    QColorGroup grp = palette().active();
 
     // Fill with background pixels
     p.save();
-    p.setPen( NoPen );
-    p.setBrush( grp.background() );
+    p.setPen( Qt::NoPen );
+    p.setBrush( palette().brush( QPalette::Background ) );
     p.drawRect( rect() );
 
     // Draw the area with histograms
     QRect barArea = barAreaGeometry();
 
-    p.setPen( grp.dark() );
-    p.setBrush( grp.base() );
+    p.setPen( palette().color( QPalette::Dark ) );
+    p.setBrush( palette().brush( QPalette::Base ) );
     p.drawRect( barArea );
     p.restore();
 
@@ -161,7 +167,7 @@ void DateBar::DateBarWidget::redraw()
 void DateBar::DateBarWidget::resizeEvent( QResizeEvent* event )
 {
     placeAndSizeButtons();
-    _buffer.resize( event->size() );
+    _buffer = QPixmap( event->size() );
     _currentUnit = numberOfUnits()/2;
     redraw();
 }
@@ -170,7 +176,7 @@ void DateBar::DateBarWidget::drawTickMarks( QPainter& p, const QRect& textRect )
 {
     QRect rect = tickMarkGeometry();
     p.save();
-    p.setPen( QPen( palette().active().text(), 1 ) );
+    p.setPen( QPen( palette().color( QPalette::Text) , 1 ) );
 
     QFont f( font() );
     QFontMetrics fm(f);
@@ -185,8 +191,8 @@ void DateBar::DateBarWidget::drawTickMarks( QPainter& p, const QRect& textRect )
     for ( int x = rect.x(); x < rect.right(); x+=_barWidth, unit += 1 ) {
         // draw selection indication
         p.save();
-        p.setPen( NoPen );
-        p.setBrush( palette().active().highlight() );
+        p.setPen( Qt::NoPen );
+        p.setBrush( palette().brush( QPalette::Highlight ) );
         QDateTime date = dateForUnit( unit );
         if ( isUnitSelected( unit ) )
             p.drawRect( QRect( x, rect.top(), _barWidth, rect.height() ) );
@@ -254,7 +260,7 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
     p.save();
     p.setClipping( true );
     p.setClipRect( rect );
-    p.setPen( NoPen );
+    p.setPen( Qt::NoPen );
 
     int unit = 0;
     int max = 0;
@@ -276,13 +282,13 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
         if ( _includeFuzzyCounts && max != 0 )
             range = (int) ((double) (rect.height()-2) * count._rangeMatch / max );
 
-        BrushStyle style = SolidPattern;
+        Qt::BrushStyle style = Qt::SolidPattern;
         if ( !isUnitSelected( unit ) && hasSelection() )
-            style= Dense5Pattern;
+            style= Qt::Dense5Pattern;
 
-        p.setBrush( QBrush( yellow, style ) );
+        p.setBrush( QBrush( Qt::yellow, style ) );
         p.drawRect( x+1, rect.bottom()-range, _barWidth-2, range );
-        p.setBrush( QBrush( green, style ) );
+        p.setBrush( QBrush( Qt::green, style ) );
         p.drawRect( x+1, rect.bottom()-range-exact, _barWidth-2, exact );
 
         // calculate the font size for the largest number.
@@ -340,12 +346,12 @@ void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
     QRect inner( QPoint(x-1, borderAboveHistogram),
                  QPoint( x + _barWidth, borderAboveHistogram + _barHeight - 1 ) );
 
-    p.setPen( QPen( palette().active().dark(), 1 ) );
+    p.setPen( QPen( palette().color( QPalette::Dark ), 1 ) );
 
     // Inner rect
     p.drawRect( inner );
     QRect outer = inner;
-    outer.addCoords( -2, -2, 2, 2 );
+    outer.adjust( -2, -2, 2, 2 );
 
     // Outer rect
     QRegion region = outer;
@@ -353,9 +359,9 @@ void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
     p.setClipping( true );
     p.setClipRegion( region );
 
-    QColor col = gray;
+    QColor col = Qt::gray;
     if ( !hasFocus() )
-        col = white;
+        col = Qt::white;
 
     p.setBrush( col );
     p.setPen( col );
@@ -363,19 +369,19 @@ void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
 
     // Shadow below
     QRect shadow = outer;
-    shadow.addCoords( -1,-1, 1, 1 );
+    shadow.adjust( -1,-1, 1, 1 );
     region = shadow;
     region -= outer;
-    p.setPen( palette().active().shadow() );
+    p.setPen( palette().color( QPalette::Shadow ) );
     p.setClipRegion( region );
     p.drawRect( shadow );
 
     // Light above
     QRect hide = shadow;
-    hide.moveBy( 1, 1 );
+    hide.translate( 1, 1 );
     region = shadow;
     region -= hide;
-    p.setPen( palette().active().light() );
+    p.setPen( palette().color( QPalette::Light ) );
     p.setClipRegion( region );
     p.drawRect( shadow );
 
@@ -406,10 +412,10 @@ void DateBar::DateBarWidget::zoom( int factor )
 
 void DateBar::DateBarWidget::mousePressEvent( QMouseEvent* event )
 {
-    if ( (event->button() & LeftButton) == 0 ||  event->x() > barAreaGeometry().right() || event->x() < barAreaGeometry().left() )
+    if ( (event->button() & Qt::LeftButton) == 0 ||  event->x() > barAreaGeometry().right() || event->x() < barAreaGeometry().left() )
         return;
 
-    if ( event->state() & ControlButton ) {
+    if ( event->modifiers() & Qt::ControlModifier ) {
         _currentMouseHandler = _barDragHandler;
     }
     else {
@@ -444,7 +450,7 @@ void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
 
     showStatusBarTip( event->pos() );
 
-    if ( (event->state() & LeftButton) == 0 )
+    if ( (event->buttons() & Qt::LeftButton) == 0 )
         return;
 
     _currentMouseHandler->endAutoScroll();
@@ -501,17 +507,17 @@ bool DateBar::DateBarWidget::includeFuzzyCounts() const
 void DateBar::DateBarWidget::contextMenuEvent( QContextMenuEvent* event )
 {
     if ( !_contextMenu ) {
-        _contextMenu = new Q3PopupMenu( this );
-        QAction* action = new QAction( i18n("Show Ranges"), 0, this );
-        action->setToggleAction( true );
-        action->addTo( _contextMenu );
-        action->setOn( _includeFuzzyCounts );
+        _contextMenu = new QMenu( this );
+        QAction* action = new QAction( i18n("Show Ranges"), this );
+        action->setCheckable( true );
+        _contextMenu->addAction(action);
+        action->setChecked( _includeFuzzyCounts );
         connect( action, SIGNAL( toggled( bool ) ), this, SLOT( setIncludeFuzzyCounts( bool ) ) );
 
-        action = new QAction( i18n("Show Resolution Indicator"), 0, this );
-        action->setToggleAction( true );
-        action->addTo( _contextMenu );
-        action->setOn( _showResolutionIndicator );
+        action = new QAction( i18n("Show Resolution Indicator"), this );
+        action->setCheckable( true );
+        _contextMenu->addAction(action);
+        action->setChecked( _showResolutionIndicator );
         connect( action, SIGNAL( toggled( bool ) ), this, SLOT( setShowResolutionIndicator( bool ) ) );
     }
 
@@ -549,7 +555,7 @@ void DateBar::DateBarWidget::drawResolutionIndicator( QPainter& p, int* leftEdge
     int midLine = rect.top() + height / 2;
 
     p.save();
-    p.setPen( red );
+    p.setPen( Qt::red );
 
     // draw arrows
     drawArrow( p, QPoint( startUnitPos - arrowLength, midLine ), QPoint( startUnitPos, midLine ) );
@@ -774,7 +780,7 @@ void DateBar::DateBarWidget::emitDateSelected()
 
 void DateBar::DateBarWidget::wheelEvent( QWheelEvent * e )
 {
-    if ( e->state() & ControlButton ) {
+    if ( e->modifiers() & Qt::ControlModifier ) {
         if ( e->delta() > 0 )
             zoomIn();
         else

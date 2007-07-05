@@ -28,7 +28,9 @@
 #include "ImageInfo.h"
 #include <kapplication.h>
 #include <kconfig.h>
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #include <kglobal.h>
 
 using namespace DB;
@@ -146,7 +148,7 @@ QString ImageSearchInfo::toString() const
 {
     QString res;
     bool first = true;
-    for( QMapConstIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+    for( QMap<QString,QString>::ConstIterator it= _options.begin(); it != _options.end(); ++it ) {
         if ( ! it.data().isEmpty() ) {
             if ( first )
                 first = false;
@@ -154,10 +156,12 @@ QString ImageSearchInfo::toString() const
                 res += QString::fromLatin1( " / " );
 
             QString txt = it.data();
+#ifdef TEMPORARILY_REMOVED
             if ( txt == ImageDB::NONE() )
                 txt = i18n( "As in No persons, no locations etc. I do realize that translators may have problem with this, "
                             "but I need some how to indicate the category, and users may create their own categories, so this is "
                             "the best I can do - Jesper.", "No %1" ).arg( it.key() );
+#endif
 
             if ( txt.contains( QString::fromLatin1("|") ) )
                 txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " %1 " ).arg( i18n("and") ) );
@@ -167,10 +171,12 @@ QString ImageSearchInfo::toString() const
 
             txt.replace( QString::fromLatin1( "|" ), QString::fromLatin1( " %1 " ).arg( i18n("or") ) );
             txt.replace( QString::fromLatin1( "!" ), QString::fromLatin1( " %1 " ).arg( i18n("not") ) );
+#ifdef TEMPORARILY_REMOVED
             txt.replace( ImageDB::NONE(), i18n( "As in no other persons, or no other locations. "
                                                 "I do realize that translators may have problem with this, "
                                                 "but I need some how to indicate the category, and users may create their own categories, so this is "
                                                 "the best I can do - Jesper.", "No other %1" ).arg( it.key() ) );
+#endif
             txt.simplified();
             res += txt;
         }
@@ -180,34 +186,38 @@ QString ImageSearchInfo::toString() const
 
 void ImageSearchInfo::debug()
 {
+#ifdef TEMPORARILY_REMOVED
     for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
         kDebug() << it.key() << ", " << it.data() << endl;
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 // PENDING(blackie) move this into the Options class instead of having it here.
 void ImageSearchInfo::saveLock() const
 {
-    KConfig* config = KGlobal::config();
+    KSharedConfigPtr config = KGlobal::config();
     config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
     config->writeEntry( QString::fromLatin1("label"), _label );
     config->writeEntry( QString::fromLatin1("description"), _description );
     config->writeEntry( QString::fromLatin1("categories"), _options.keys() );
-    for( QMapConstIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+    for( QMap<QString,QString>::ConstIterator it= _options.begin(); it != _options.end(); ++it ) {
         config->writeEntry( it.key(), it.data() );
     }
 }
 
 ImageSearchInfo ImageSearchInfo::loadLock()
 {
-    KConfig* config = KGlobal::config();
+    KSharedConfigPtr config = KGlobal::config();
     config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
     ImageSearchInfo info;
     info._label = config->readEntry( "label" );
     info._description = config->readEntry( "description" );
     QStringList categories = config->readListEntry( "categories" );
     for( QStringList::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
-        info.setOption( *it, config->readEntry( *it ) );
+        info.setOption( *it, config->readEntry<QString>( *it, QString() ) );
     }
     return info;
 }
@@ -232,7 +242,7 @@ void ImageSearchInfo::compile() const
 #endif
     deleteMatchers();
 
-    for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
+    for( QMap<QString,QString>::ConstIterator it = _options.begin(); it != _options.end(); ++it ) {
         QString category = it.key();
         QString matchText = it.data();
 

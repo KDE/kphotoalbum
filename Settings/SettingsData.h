@@ -18,7 +18,7 @@
 
 #ifndef SETTINGS_SETTINGS_H
 #define SETTINGS_SETTINGS_H
-#include <qpixmap.h>
+#include <QPixmap>
 #include "DB/ImageSearchInfo.h"
 #include "DB/Category.h"
 #ifdef HASEXIV2

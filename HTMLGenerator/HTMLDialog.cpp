@@ -51,20 +51,27 @@ using namespace HTMLGenerator;
 
 
 HTMLDialog::HTMLDialog( QWidget* parent, const char* name )
-    :KDialogBase( IconList, i18n("HTML Export"), Ok|Cancel|Help, Ok, parent, name )
+#ifdef TEMPORARILY_REMOVED
+    :KDialog( IconList, i18n("HTML Export"), Ok|Cancel|Help, Ok, parent, name )
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
     enableButtonOk( false );
     createContentPage();
     createLayoutPage();
     createDestinationPage();
     setHelp( QString::fromLatin1( "chp-generating-html" ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void HTMLDialog::createContentPage()
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* contentPage = addPage( i18n("Content" ), i18n("Content" ),
                                     KIconLoader::global()->loadIcon( QString::fromLatin1( "edit" ),
-                                                                     KIcon::Desktop, 32 ));
+                                                                     K3Icon::Desktop, 32 ));
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( contentPage, 6 );
     Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
 
@@ -106,13 +113,17 @@ void HTMLDialog::createContentPage()
     }
     QCheckBox* cb = new QCheckBox( i18n("Description"), w );
     _whatToIncludeMap.insert( QString::fromLatin1("**DESCRIPTION**"), cb );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void HTMLDialog::createLayoutPage()
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* layoutPage = addPage( i18n("Layout" ), i18n("Layout" ),
                                    KIconLoader::global()->loadIcon( QString::fromLatin1( "matrix" ),
-                                                                    KIcon::Desktop, 32 ));
+                                                                    K3Icon::Desktop, 32 ));
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( layoutPage, 6 );
     Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2, 2, 6 );
 
@@ -171,13 +182,17 @@ void HTMLDialog::createLayoutPage()
     _cbs << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
     lay1->addStretch(1);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void HTMLDialog::createDestinationPage()
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* destinationPage = addPage( i18n("Destination" ), i18n("Destination" ),
                                         KIconLoader::global()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
-                                                                         KIcon::Desktop, 32 ));
+                                                                         K3Icon::Desktop, 32 ));
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( destinationPage, 6 );
     Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
 
@@ -226,10 +241,14 @@ void HTMLDialog::createDestinationPage()
     label = new QLabel( i18n("<b>Hint: Press the help button for descriptions of the fields</b>"), destinationPage );
     lay1->addWidget( label );
     lay1->addStretch( 1 );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void HTMLDialog::slotOk()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( !checkVars() )
         return;
 
@@ -246,17 +265,25 @@ void HTMLDialog::slotOk()
 
     Generator generator( setup(), this );
     generator.generate();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void HTMLDialog::selectDir()
 {
+#ifdef TEMPORARILY_REMOVED
     KUrl dir = KFileDialog::getExistingURL( _baseDir->text(), this );
     if ( !dir.url().isNull() )
         _baseDir->setText( dir.url() );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 bool HTMLDialog::checkVars()
 {
+#ifdef TEMPORARILY_REMOVED
     QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
 
 
@@ -322,6 +349,9 @@ bool HTMLDialog::checkVars()
             return false;
     }
     return true;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 Q3ValueList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
@@ -336,6 +366,7 @@ Q3ValueList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
 
 void HTMLDialog::populateThemesCombo()
 {
+#ifdef TEMPORARILY_REMOVED
     QStringList dirs = KGlobal::dirs()->findDirs( "data", QString::fromLocal8Bit("kphotoalbum/themes/") );
     int i = 0;
     for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
@@ -364,12 +395,15 @@ void HTMLDialog::populateThemesCombo()
     if(_themeBox->count() < 1) {
         KMessageBox::error( this, i18n("Could not find any themes - this is very likely an installation error" ) );
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 int HTMLDialog::exec( const QStringList& list )
 {
     _list = list;
-    return KDialogBase::exec();
+    return KDialog::exec();
 }
 
 

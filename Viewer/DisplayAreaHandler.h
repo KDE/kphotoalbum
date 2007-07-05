@@ -40,7 +40,7 @@ namespace Viewer
 class DisplayAreaHandler :public QObject
 {
 public:
-    DisplayAreaHandler( ImageDisplay* display ) : QObject( display, "display handler" ), _display( display ) {}
+    DisplayAreaHandler( ImageDisplay* display ) : QObject( display ), _display( display ) {}
     virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
     virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;
     virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& /*unTranslatedPos*/, double scaleFactor ) = 0;

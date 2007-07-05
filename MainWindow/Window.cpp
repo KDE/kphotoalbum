@@ -60,7 +60,7 @@
 #include <q3popupmenu.h>
 #include <kiconloader.h>
 #include <kpassworddialog.h>
-#include <kkeydialog.h>
+#include <KShortcutsDialog>
 #include <kdebug.h>
 #include "ExternalPopup.h"
 #include "DonateDialog.h"
@@ -69,7 +69,9 @@
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
 #include "ImportExport/Import.h"
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #ifdef HASKIPI
 #  include "Plugins/Interface.h"
 #  include <libkipi/pluginloader.h>
@@ -81,7 +83,7 @@
 #include "ImageManager/ImageLoader.h"
 #include "SplashScreen.h"
 #include <qobject.h>
-#include <SearchBar.h>
+#include "SearchBar.h"
 #include "TokenEditor.h"
 #include "DB/CategoryCollection.h"
 #include <qlayout.h>
@@ -111,17 +113,26 @@
 #  include <kexidb/kexidb_export.h>
 #  include <kexidb/connectiondata.h>
 #endif
+#ifdef TEMPORARILY_REMOVED
 #include <kprogress.h>
+#endif
 #include <krun.h>
 #include <kglobal.h>
 #include <kvbox.h>
 #include "DirtyIndicator.h"
 #include "Utilities/ShowBusyCursor.h"
+#include <KToggleAction>
+#include <KActionMenu>
+#include <KActionCollection>
+#include <Q3HBox>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
-MainWindow::Window::Window( QWidget* parent, const char* name )
-    :KMainWindow( parent,  name ), _annotationDialog(0),
+MainWindow::Window::Window( QWidget* parent )
+    :KXmlGuiWindow( parent ),
+#ifdef TEMPORARILY_REMOVED
+    _annotationDialog(0),
+#endif
      _deleteDialog( 0 ), _htmlDialog(0), _tokenEditor( 0 )
 {
     SplashScreen::instance()->message( i18n("Loading Database") );
@@ -136,7 +147,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     // Options, and where the main thread crates an instance, we better get it created now.
     Settings::SettingsData::instance();
 
-    QWidget* top = new QWidget( this, "top" );
+    QWidget* top = new QWidget( this );
     Q3VBoxLayout* lay = new Q3VBoxLayout( top, 6 );
     setCentralWidget( top );
 
@@ -195,19 +206,19 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     f.setBold( true );
     statusBar()->setFont( f );
 
-    KHBox* indicators = new KHBox( statusBar(), "indicator" );
+    Q3HBox* indicators = new Q3HBox( statusBar(), "indicator" );
     _dirtyIndicator = new DirtyIndicator( indicators );
 
-    _lockedIndicator = new QLabel( indicators, "_lockedIndicator" );
+    _lockedIndicator = new QLabel( indicators );
     setLocked( Settings::SettingsData::instance()->isLocked(), true );
 
-    statusBar()->addWidget( indicators, 0, true );
+    statusBar()->addPermanentWidget( indicators, 0 );
 
-    _partial = new ImageCounter( statusBar(), "partial image counter" );
-    statusBar()->addWidget( _partial, 0, true );
+    _partial = new ImageCounter( statusBar() );
+    statusBar()->addPermanentWidget( _partial, 0 );
 
-    ImageCounter* total = new ImageCounter( statusBar(), "total image counter" );
-    statusBar()->addWidget( total, 0, true );
+    ImageCounter* total = new ImageCounter( statusBar() );
+    statusBar()->addPermanentWidget( total, 0 );
 
     // Misc
     _autoSaveTimer = new QTimer( this );
@@ -224,7 +235,7 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     connect( _dirtyIndicator, SIGNAL( dirty() ), _thumbnailView, SLOT(repaintScreen() ) );
 
     total->setTotal( DB::ImageDB::instance()->totalCount() );
-    statusBar()->message(i18n("Welcome to KPhotoAlbum"), 5000 );
+    statusBar()->showMessage(i18n("Welcome to KPhotoAlbum"), 5000 );
 
     QTimer::singleShot( 0, this, SLOT( delayedInit() ) );
     slotThumbNailSelectionChanged();
@@ -252,7 +263,11 @@ void MainWindow::Window::delayedInit()
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "import" ) ) {
         // I need to do this in delayed init to get the import window on top of the normal window
+#ifdef TEMPORARILY_REMOVED
         ImportExport::Import::imageImport( KCmdLineArgs::makeURL( args->getOption("import") ) );
+#else
+        kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
     }
     else {
         // I need to postpone this otherwise the tip dialog will not get focus on start up
@@ -275,6 +290,7 @@ void MainWindow::Window::delayedInit()
 
 bool MainWindow::Window::slotExit()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( Utilities::runningDemo() ) {
         QString txt = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
                            "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
@@ -311,16 +327,23 @@ bool MainWindow::Window::slotExit()
  doQuit:
     qApp->quit();
     return true;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotOptions()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( ! _optionsDialog ) {
         _optionsDialog = new Settings::SettingsDialog( this );
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnailsAndFlushCache() ) );
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
     }
     _optionsDialog->show();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
@@ -360,46 +383,62 @@ void MainWindow::Window::configureImages( const DB::ImageInfoList& list, bool on
 
 void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAtATime )
 {
+#ifdef TEMPORARILY_REMOVED
     createAnnotationDialog();
     _annotationDialog->configure( list,  oneAtATime );
     if ( _annotationDialog->thumbnailShouldReload() )
         reloadThumbnails(true);
     else if ( _annotationDialog->thumbnailTextShouldReload() )
         _thumbnailView->reload(false, false);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
 void MainWindow::Window::slotSearch()
 {
+#ifdef TEMPORARILY_REMOVED
     createAnnotationDialog();
     DB::ImageSearchInfo searchInfo = _annotationDialog->search();
     if ( !searchInfo.isNull() )
         _browser->addSearch( searchInfo );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::createAnnotationDialog()
 {
+#ifdef TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
     if ( !_annotationDialog.isNull() )
         return;
 
     _annotationDialog = new AnnotationDialog::Dialog( this,  "_annotationDialog" );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::deleteAnnotationDialog()
 {
+#ifdef TEMPORARILY_REMOVED
     _annotationDialog->deleteLater();
     _annotationDialog = 0;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotSave()
 {
     Utilities::ShowBusyCursor dummy;
-    statusBar()->message(i18n("Saving..."), 5000 );
+    statusBar()->showMessage(i18n("Saving..."), 5000 );
     DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
     _dirtyIndicator->saved();
     QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
-    statusBar()->message(i18n("Saving... Done"), 5000 );
+    statusBar()->showMessage(i18n("Saving... Done"), 5000 );
 }
 
 void MainWindow::Window::slotDeleteSelected()
@@ -496,7 +535,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         viewer->setActiveWindow();
     }
     else
-        viewer = new Viewer::ViewerWidget( "viewer" );
+        viewer = new Viewer::ViewerWidget;
 
     viewer->show( slideShow );
     if (seek == -1)
@@ -540,13 +579,17 @@ void MainWindow::Window::slotLimitToSelected()
 
 void MainWindow::Window::setupMenuBar()
 {
-    // File menu
+// File menu
     KStandardAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStandardAction::quit( this, SLOT( slotExit() ), actionCollection() );
-    _generateHtml = new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
+    _generateHtml = new KAction( i18n("Generate HTML..."), actionCollection() );
+    connect( _generateHtml, SIGNAL(triggered()), this, SLOT( slotExportToHTML() ) );
 
-    new KAction( i18n( "Import..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
-    new KAction( i18n( "Export..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
+    QAction* action = new KAction( i18n( "Import..."), actionCollection() );
+    connect( action, SIGNAL( triggered() ), this, SLOT( slotImport() ) );
+
+    action = new KAction( i18n( "Export..."), actionCollection() );
+    connect( action, SIGNAL( triggered() ), this, SLOT( slotExport() ) );
 
 
     // Go menu
@@ -567,124 +610,194 @@ void MainWindow::Window::setupMenuBar()
 #endif
     _selectAll = KStandardAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
-    _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Qt::Key_Delete, this, SLOT( slotDeleteSelected() ),
-                                   actionCollection(), "deleteSelected" );
-    new KAction( i18n("Remove Tokens"), 0, this, SLOT( slotRemoveTokens() ), actionCollection(), "removeTokens" );
-    _configOneAtATime = new KAction( i18n( "Annotate Individual Items" ), CTRL+Qt::Key_1, this, SLOT( slotConfigureImagesOneAtATime() ),
-                                     actionCollection(), "oneProp" );
-    _configAllSimultaniously = new KAction( i18n( "Annotate Multiple Items at a Time" ), CTRL+Qt::Key_2, this, SLOT( slotConfigureAllImages() ),
-                                            actionCollection(), "allProp" );
-    _rotLeft = new KAction( i18n( "Rotate Left" ), 0, this, SLOT( slotRotateSelectedLeft() ), actionCollection(), "rotateLeft" );
-    _rotRight = new KAction( i18n( "Rotate Right" ), 0, this, SLOT( slotRotateSelectedRight() ), actionCollection(), "rotateRight" );
+
+    _deleteSelected = actionCollection()->addAction("deleteSelected");
+    _deleteSelected->setText( i18n( "Delete Selected" ) );
+    _deleteSelected->setIcon( KIcon( QString::fromLatin1("editdelete") ) );
+    _deleteSelected->setShortcut( Qt::Key_Delete );
+    connect( _deleteSelected, SIGNAL( triggered() ), this, SLOT( slotDeleteSelected() ) );
+
+    action = actionCollection()->addAction("removeTokens", this, SLOT( slotRemoveTokens() ));
+    action->setText( i18n("Remove Tokens") );
+
+
+    _configOneAtATime = actionCollection()->addAction( "oneProp", this, SLOT( slotConfigureImagesOneAtATime() ) );
+    _configOneAtATime->setText( i18n( "Annotate Individual Items" ) );
+    _configOneAtATime->setShortcut(  Qt::CTRL+Qt::Key_1 );
+
+    _configAllSimultaniously = actionCollection()->addAction( "allProp", this, SLOT( slotConfigureAllImages() ) );
+    _configAllSimultaniously->setText( i18n( "Annotate Multiple Items at a Time" ) );
+    _configAllSimultaniously->setShortcut(  Qt::CTRL+Qt::Key_2 );
+
+    _rotLeft = actionCollection()->addAction( "rotateLeft", this, SLOT( slotRotateSelectedLeft() ) );
+    _rotLeft->setText( i18n( "Rotate Left" ) );
+    _rotLeft->setShortcut(  0 );
+
+
+    _rotRight = actionCollection()->addAction( "rotateRight", this, SLOT( slotRotateSelectedRight() ) );
+    _rotRight->setText( i18n( "Rotate Right" ) );
+
 
     // The Images menu
-    _view = new KAction( i18n("View"), CTRL+Qt::Key_I, this, SLOT( slotView() ),
-                                 actionCollection(), "viewImages" );
+    _view = actionCollection()->addAction( "viewImages", this, SLOT( slotView() ) );
+    _view->setText( i18n("View") );
+    _view->setShortcut(  Qt::CTRL+Qt::Key_I );
 
-    _viewInNewWindow = new KAction( i18n("View (In New Window)"), 0, this, SLOT( slotViewNewWindow() ),
-                                           actionCollection(), "viewImagesNewWindow" );
-    _runSlideShow = new KAction( i18n("Run Slide Show"), QString::fromLatin1("video"), CTRL+Qt::Key_R, this, SLOT( slotRunSlideShow() ),
-                                 actionCollection(), "runSlideShow" );
-    _runRandomSlideShow = new KAction( i18n( "Run Randomized Slide Show" ), 0, this, SLOT( slotRunRandomizedSlideShow() ),
-                                       actionCollection(), "runRandomizedSlideShow" );
-    KToggleAction* incr = new KToggleAction( i18n("Show &Oldest First"), 0, this,
-                                             SLOT( slotOrderIncr() ), actionCollection(), "orderIncr" );
-    KToggleAction* decr = new KToggleAction( i18n("Show &Newest First"), 0, this,
-                                             SLOT( slotOrderDecr() ), actionCollection(), "orderDecr" );
-    incr->setExclusiveGroup( QString::fromLatin1( "Sort Direction") );
-    decr->setExclusiveGroup(QString::fromLatin1( "Sort Direction") );
+    _viewInNewWindow = actionCollection()->addAction( "viewImagesNewWindow", this, SLOT( slotViewNewWindow() ) );
+    _viewInNewWindow->setText( i18n("View (In New Window)") );
+
+    _runSlideShow = actionCollection()->addAction( "runSlideShow", this, SLOT( slotRunSlideShow() ) );
+    _runSlideShow->setText( i18n("Run Slide Show") );
+    _runSlideShow->setIcon(  QIcon( QString::fromLatin1("video") ) );
+    _runSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
+
+    _runRandomSlideShow = actionCollection()->addAction( "runRandomizedSlideShow", this, SLOT( slotRunRandomizedSlideShow() ) );
+    _runRandomSlideShow->setText( i18n( "Run Randomized Slide Show" ) );
+
+    KToggleAction* incr = actionCollection()->add<KToggleAction>( "orderIncr", this, SLOT( slotOrderIncr() ) );
+    incr->setText( i18n("Show &Oldest First") ) ;
+
+    KToggleAction* decr = actionCollection()->add<KToggleAction>( "orderDecr", this, SLOT( slotOrderDecr() ) );
+    decr->setText( i18n("Show &Newest First") );
+
+    QActionGroup* grp = new QActionGroup( this );
+    incr->setActionGroup(grp);
+    decr->setActionGroup(grp);
     incr->setChecked( !Settings::SettingsData::instance()->showNewestThumbnailFirst() );
     decr->setChecked( Settings::SettingsData::instance()->showNewestThumbnailFirst() );
 
-    _sortByDateAndTime = new KAction( i18n("Sort Selected by Date && Time"), 0, this, SLOT( slotSortByDateAndTime() ), actionCollection(), "sortImages" );
-    _limitToMarked = new KAction( i18n("Limit View to Marked"), 0, this, SLOT( slotLimitToSelected() ),
-                                  actionCollection(), "limitToMarked" );
-    _jumpToContext = new KAction( i18n("Jump to Context"), CTRL+Qt::Key_J, this, SLOT( slotJumpToContext() ), actionCollection(), "jumpToContext" );
-    _jumpToContext->setIconSet( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Small ) );
+    _sortByDateAndTime = actionCollection()->addAction( "sortImages", this, SLOT( slotSortByDateAndTime() ) );
+    _sortByDateAndTime->setText( i18n("Sort Selected by Date && Time") );
 
-    _lock = new KAction( i18n("Lock Images"), 0, this, SLOT( lockToDefaultScope() ),
-                         actionCollection(), "lockToDefaultScope" );
-    _unlock = new KAction( i18n("Unlock"), 0, this, SLOT( unlockFromDefaultScope() ),
-                           actionCollection(), "unlockFromDefaultScope" );
-    new KAction( i18n("Change Password..."), 0, this, SLOT( changePassword() ),
-                 actionCollection(), "changeScopePasswd" );
+    _limitToMarked = actionCollection()->addAction( "limitToMarked", this, SLOT( slotLimitToSelected() ) );
+    _limitToMarked->setText( i18n("Limit View to Marked") );
 
-    _setDefaultPos = new KAction( i18n("Lock Away All Other Items"), 0, this, SLOT( setDefaultScopePositive() ),
-                                  actionCollection(), "setDefaultScopePositive" );
-    _setDefaultNeg = new KAction( i18n("Lock Away Current Set of Items"), 0, this, SLOT( setDefaultScopeNegative() ),
-                                  actionCollection(), "setDefaultScopeNegative" );
+    _jumpToContext = actionCollection()->addAction( "jumpToContext", this, SLOT( slotJumpToContext() ) );
+    _jumpToContext->setText( i18n("Jump to Context") );
+    _jumpToContext->setShortcut(  Qt::CTRL+Qt::Key_J );
+    _jumpToContext->setIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Small ) );
+
+    _lock = actionCollection()->addAction( "lockToDefaultScope", this, SLOT( lockToDefaultScope() ) );
+    _lock->setText( i18n("Lock Images") );
+
+    _unlock = actionCollection()->addAction( "unlockFromDefaultScope", this, SLOT( unlockFromDefaultScope() ) );
+    _unlock->setText( i18n("Unlock") );
+
+    action = actionCollection()->addAction( "changeScopePasswd", this, SLOT( changePassword() ) );
+    action->setText( i18n("Change Password...") );
+    action->setShortcut(  0 );
+
+    _setDefaultPos = actionCollection()->addAction( "setDefaultScopePositive", this, SLOT( setDefaultScopePositive() ) );
+    _setDefaultPos->setText( i18n("Lock Away All Other Items") );
+
+    _setDefaultNeg = actionCollection()->addAction( "setDefaultScopeNegative", this, SLOT( setDefaultScopeNegative() ) );
+    _setDefaultNeg->setText( i18n("Lock Away Current Set of Items") );
 
     // Maintenance
-    new KAction( i18n("Display Images and Videos Not on Disk"), 0, this, SLOT( slotShowNotOnDisk() ), actionCollection(), "findUnavailableImages" );
-    new KAction( i18n("Display Images and Videos with Incomplete Dates..."), 0, this, SLOT( slotShowImagesWithInvalidDate() ), actionCollection(), "findImagesWithInvalidDate" );
-    new KAction( i18n("Display Images and Videos with Changed MD5 Sum"), 0, this, SLOT( slotShowImagesWithChangedMD5Sum() ), actionCollection(), "findImagesWithChangedMD5Sum" );
+    action = actionCollection()->addAction( "findUnavailableImages", this, SLOT( slotShowNotOnDisk() ) );
+    action->setText( i18n("Display Images and Videos Not on Disk") );
 
-    new KAction( i18n("Recalculate Checksum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
-    new KAction( i18n("Rescan for Images and Videos"), 0, DB::ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
+    action = actionCollection()->addAction( "findImagesWithInvalidDate", this, SLOT( slotShowImagesWithInvalidDate() ) );
+    action->setText( i18n("Display Images and Videos with Incomplete Dates...") );
+
+    action = actionCollection()->addAction( "findImagesWithChangedMD5Sum", this, SLOT( slotShowImagesWithChangedMD5Sum() ) );
+    action->setText( i18n("Display Images and Videos with Changed MD5 Sum") );
+
+    action = actionCollection()->addAction( "rebuildMD5s", this, SLOT( slotRecalcCheckSums() ) );
+    action->setText( i18n("Recalculate Checksum") );
+
+    action = actionCollection()->addAction( "rescan", this, SLOT( slotRescan() ) );
+    action->setText( i18n("Rescan for Images and Videos") );
+
 #ifdef HASEXIV2
-    new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
+    action = actionCollection()->addAction( "reReadExifInfo", this, SLOT( slotReReadExifInfo() ) );
+    action->setText( i18n("Read EXIF Info From Files...") );
 #endif
 
 #ifdef SQLDB_SUPPORT
-    new KAction( i18n("Convert Backend...(Experimental!)" ), 0, this, SLOT( convertBackend() ), actionCollection(), "convertBackend" );
+    action = actionCollection()->addAction( "convertBackend", this, SLOT( convertBackend() ) );
+    action->setText( i18n("Convert Backend...(Experimental!)" ) );
 #endif
 
 
-    new KAction( i18n("Build Thumbnails"), 0, this, SLOT( slotBuildThumbnails() ), actionCollection(), "buildThumbs" );
-    new KAction( i18n("Remove All KimDaBa 2.1 Thumbnails"), 0, this, SLOT( slotRemoveAllThumbnails() ), actionCollection(), "removeAllThumbs" );
+    action = actionCollection()->addAction( "buildThumbs", this, SLOT( slotBuildThumbnails() ) );
+    action->setText( i18n("Build Thumbnails") );
+
+    action = actionCollection()->addAction( "removeAllThumbs", this, SLOT( slotRemoveAllThumbnails() ) );
+    action->setText( i18n("Remove All KimDaBa 2.1 Thumbnails") );
 
     // Settings
     KStandardAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStandardAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
     KStandardAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
-    new KAction( i18n("Enable All Messages"), 0, this, SLOT( slotReenableMessages() ), actionCollection(), "readdAllMessages" );
 
-    _viewMenu = new KActionMenu( i18n("Configure View"), QString::fromLatin1( "view_choose" ),
-                                         actionCollection(), "configureView" );
+    action = actionCollection()->addAction( "readdAllMessages", this, SLOT( slotReenableMessages() ) );
+    action->setText( i18n("Enable All Messages") );
+
+    _viewMenu = actionCollection()->add<KActionMenu>( "configureView" );
+    _viewMenu->setText( i18n("Configure View") );
+
+    _viewMenu->setIcon( KIcon( QString::fromLatin1( "view_choose" ) ) );
     _viewMenu->setDelayed( false );
     connect( _browser, SIGNAL( showsContentView( bool ) ), _viewMenu, SLOT( setEnabled( bool ) ) );
-    _smallListView = new KRadioAction( i18n("List View"), KShortcut(), _browser, SLOT( slotSmallListView() ),
-                                                    _viewMenu );
-    _viewMenu->insert( _smallListView );
-    _smallListView->setExclusiveGroup( QString::fromLatin1("configureview") );
 
-    _largeListView = new KRadioAction( i18n("List View with Custom Icons"), KShortcut(), _browser, SLOT( slotLargeListView() ),
-                                                    _viewMenu );
-    _viewMenu->insert( _largeListView );
-    _largeListView->setExclusiveGroup( QString::fromLatin1("configureview") );
+    QActionGroup* viewGrp = new QActionGroup( this );
+    viewGrp->setExclusive( true );
 
-    _smallIconView = new KRadioAction( i18n("Icon View"), KShortcut(), _browser, SLOT( slotSmallIconView() ),
-                                                    _viewMenu );
-    _viewMenu->insert( _smallIconView );
-    _smallIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
+    _smallListView = actionCollection()->add<KToggleAction>( "smallListView", _browser, SLOT( slotSmallListView() ) );
+    _smallListView->setText( i18n("List View") );
+    _viewMenu->addAction( _smallListView );
+    _smallListView->setActionGroup( viewGrp );
 
-    _largeIconView = new KRadioAction( i18n("Icon View with Custom Icons"), KShortcut(), _browser, SLOT( slotLargeIconView() ),
-                                                    _viewMenu );
-    _viewMenu->insert( _largeIconView );
-    _largeIconView->setExclusiveGroup( QString::fromLatin1("configureview") );
+    _largeListView = actionCollection()->add<KToggleAction>( "largelistview", _browser, SLOT( slotLargeListView() ) );
+    _largeListView->setText( i18n("List View with Custom Icons") );
+    _viewMenu->addAction( _largeListView );
+    _largeListView->setActionGroup( viewGrp );
 
+    _smallIconView = actionCollection()->add<KToggleAction>( "smalliconview",  _browser, SLOT( slotSmallIconView() ) );
+    _smallIconView->setText( i18n("Icon View") );
+    _viewMenu->addAction( _smallIconView );
+    _smallIconView->setActionGroup( viewGrp );
+
+    _largeIconView = actionCollection()->add<KToggleAction>(  "largeiconview", _browser, SLOT( slotLargeIconView() ) );
+    _largeIconView->setText( i18n("Icon View with Custom Icons") );
+    _viewMenu->addAction( _largeIconView );
+    _largeIconView->setActionGroup( viewGrp );
 
     connect( _browser, SIGNAL( currentViewTypeChanged( DB::Category::ViewType ) ),
              this, SLOT( slotUpdateViewMenu( DB::Category::ViewType ) ) );
     // The help menu
     KStandardAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
-    KToggleAction* taction = new KToggleAction( i18n("Show Tooltips in Thumbnails Window"), CTRL+Qt::Key_T, actionCollection(), "showToolTipOnImages" );
-    connect( taction, SIGNAL( toggled( bool ) ), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
-    new KAction( i18n("Run KPhotoAlbum Demo"), 0, this, SLOT( runDemo() ), actionCollection(), "runDemo" );
-    new KAction( i18n("Answer KPhotoAlbum Survey..."), 0, this, SLOT( runSurvey() ), actionCollection(), "runSurvey" );
-    new KAction( i18n("Donate Money..."), 0, this, SLOT( donateMoney() ), actionCollection(), "donate" );
-    new KAction( i18n("KPhotoAlbum Feature Status"), 0, this, SLOT( showFeatures() ), actionCollection(), "features" );
+
+    KToggleAction* taction = actionCollection()->add<KToggleAction>( "showToolTipOnImages",
+                                                                     _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
+    taction->setText( i18n("Show Tooltips in Thumbnails Window") );
+    taction->setShortcut( Qt::CTRL+Qt::Key_T );
+
+    action = actionCollection()->addAction( "runDemo", this, SLOT( runDemo() ) );
+    action->setText( i18n("Run KPhotoAlbum Demo") );
+
+    action = actionCollection()->addAction( "runSurvey", this, SLOT( runSurvey() ) );
+    action->setText( i18n("Answer KPhotoAlbum Survey...") );
+
+    action = actionCollection()->addAction( "donate", this, SLOT( donateMoney() ) );
+    action->setText( i18n("Donate Money...") );
+
+    action = actionCollection()->addAction( "features", this, SLOT( showFeatures() ) );
+    action->setText( i18n("KPhotoAlbum Feature Status") );
 
     // Context menu actions
 #ifdef HASEXIV2
-    _showExifDialog = new KAction( i18n("Show Exif Info"), 0, this, SLOT( slotShowExifInfo() ), actionCollection(), "showExifInfo" );
+    _showExifDialog = actionCollection()->addAction( "showExifInfo", this, SLOT( slotShowExifInfo() ) );
+    _showExifDialog->setText( i18n("Show Exif Info") );
 #endif
-    _recreateThumbnails = new KAction( i18n("Recreate Selected Thumbnails"), 0, this, SLOT( slotRecreateThumbnail() ), actionCollection(), "recreateThumbnails" );
+    _recreateThumbnails = actionCollection()->addAction( "recreateThumbnails", this, SLOT( slotRecreateThumbnail() ) );
+    _recreateThumbnails->setText( i18n("Recreate Selected Thumbnails") );
 
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     connect( _thumbNailViewOLD, SIGNAL( changed() ), this, SLOT( slotChanges() ) );
 #endif
-    createGUI( QString::fromLatin1( "kphotoalbumui.rc" ), false );
+    createGUI( QString::fromLatin1( "kphotoalbumui.rc" ) );
 }
 
 void MainWindow::Window::slotExportToHTML()
@@ -707,9 +820,9 @@ void MainWindow::Window::slotAutoSave()
 {
     if ( _dirtyIndicator->isAutoSaveDirty() ) {
         Utilities::ShowBusyCursor dummy;
-        statusBar()->message(i18n("Auto saving...."));
+        statusBar()->showMessage(i18n("Auto saving...."));
         DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
-        statusBar()->message(i18n("Auto saving.... Done"), 5000);
+        statusBar()->showMessage(i18n("Auto saving.... Done"), 5000);
         _dirtyIndicator->autoSaved();
     }
 }
@@ -733,9 +846,13 @@ void MainWindow::Window::showBrowser()
 
 void MainWindow::Window::slotOptionGroupChanged()
 {
+#ifdef TEMPORARILY_REMOVED
     delete _annotationDialog;
     _annotationDialog = 0;
     DirtyIndicator::markDirty();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::showTipOfDay()
@@ -775,7 +892,7 @@ void MainWindow::Window::runDemo()
 
 bool MainWindow::Window::load()
 {
-    // Let first try to find a config file.
+// Let first try to find a config file.
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     QString configFile = QString::null;
 
@@ -786,17 +903,17 @@ bool MainWindow::Window::load()
         configFile = Utilities::setupDemo();
     else {
         bool showWelcome = false;
-        KConfig* config = KGlobal::config();
+        KSharedConfigPtr config = KGlobal::config();
         if ( config->hasKey( QString::fromLatin1("configfile") ) ) {
-            configFile = config->readEntry( QString::fromLatin1("configfile") );
+            configFile = config->readEntry<QString>( QString::fromLatin1("configfile"), QString() );
             if ( !QFileInfo( configFile ).exists() )
                 showWelcome = true;
         }
         else {
             // KimDaBa compatibility
-            KSimpleConfig oldConfig( QString::fromLatin1("kimdaba") );
+            KConfig oldConfig( QString::fromLatin1("kimdaba") );
             if ( oldConfig.hasKey( QString::fromLatin1("configfile") ) ) {
-                configFile = oldConfig.readEntry( QString::fromLatin1("configfile") );
+                configFile = oldConfig.readEntry<QString>( QString::fromLatin1("configfile"),QString() );
                 if ( !QFileInfo( configFile ).exists() )
                     showWelcome = true;
                 KGlobal::config()->writeEntry( QString::fromLatin1("configfile"), configFile );
@@ -833,7 +950,7 @@ bool MainWindow::Window::load()
     if ( backEnd == QString::fromLatin1("sql") ) {
 #ifdef SQLDB_SUPPORT
         // SQL back-end needs some extra configuration first
-        KConfig* config = KGlobal::config();
+        KSharedConfigPtr config = KGlobal::config();
         config->setGroup(QString::fromLatin1("SQLDB"));
         try {
             SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(*config);
@@ -869,6 +986,7 @@ bool MainWindow::Window::load()
 
 void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( _stack->visibleWidget() == _thumbnailView ) {
         Q3PopupMenu menu( this, "context popup menu");
         _configOneAtATime->plug( &menu );
@@ -904,6 +1022,9 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         delete externalCommands;
     }
     e->consume();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::setDefaultScopePositive()
@@ -918,6 +1039,7 @@ void MainWindow::Window::setDefaultScopeNegative()
 
 void MainWindow::Window::lockToDefaultScope()
 {
+#ifdef TEMPORARILY_REMOVED
     int i = KMessageBox::warningContinueCancel( this,
                                                 i18n( "<p>The password protection is only a means of allowing your little sister "
                                                       "to look in your images, without getting to those embarrassing images from "
@@ -932,10 +1054,14 @@ void MainWindow::Window::lockToDefaultScope()
 
     setLocked( true, false );
 
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::unlockFromDefaultScope()
 {
+#ifdef TEMPORARILY_REMOVED
     Q3CString passwd;
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
     while ( !OK ) {
@@ -948,6 +1074,9 @@ void MainWindow::Window::unlockFromDefaultScope()
             KMessageBox::sorry( this, i18n("Invalid password.") );
     }
     setLocked( false, false );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::setLocked( bool locked, bool force )
@@ -962,15 +1091,18 @@ void MainWindow::Window::setLocked( bool locked, bool force )
 
     Settings::SettingsData::instance()->setLocked( locked, force );
 
+#ifdef TEMPORARILY_REMOVED
     _lock->setEnabled( !locked );
     _unlock->setEnabled( locked );
     _setDefaultPos->setEnabled( !locked );
     _setDefaultNeg->setEnabled( !locked );
+#endif
     _browser->reload();
 }
 
 void MainWindow::Window::changePassword()
 {
+#ifdef TEMPORARILY_REMOVED
     Q3CString passwd;
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
 
@@ -987,14 +1119,17 @@ void MainWindow::Window::changePassword()
     int code = KPasswordDialog::getNewPassword( passwd, i18n("Type in New Password"));
     if ( code == QDialog::Accepted )
         Settings::SettingsData::instance()->setPassword( passwd );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotConfigureKeyBindings()
 {
-    Viewer::ViewerWidget* viewer = new Viewer::ViewerWidget( "viewer" ); // Do not show, this is only used to get a key configuration
-    KKeyDialog* dialog = new KKeyDialog();
-    dialog->insert( actionCollection(), i18n( "General" ) );
-    dialog->insert( viewer->actions(), i18n("Viewer") );
+    Viewer::ViewerWidget* viewer = new Viewer::ViewerWidget; // Do not show, this is only used to get a key configuration
+    KShortcutsDialog* dialog = new KShortcutsDialog();
+    dialog->addCollection( actionCollection(), i18n( "General" ) );
+    dialog->addCollection( viewer->actions(), i18n("Viewer") );
 
 #ifdef HASKIPI
     loadPlugins();
@@ -1002,12 +1137,16 @@ void MainWindow::Window::slotConfigureKeyBindings()
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
         KIPI::Plugin* plugin = (*it)->plugin();
         if ( plugin )
-            dialog->insert( plugin->actionCollection(), (*it)->comment() );
+            dialog->addCollection( plugin->actionCollection(), (*it)->comment() );
     }
 #endif
 
     createAnnotationDialog();
-    dialog->insert( _annotationDialog->actions(), i18n("Annotation Dialog" ) );
+#ifdef TEMPORARILY_REMOVED
+    dialog->addCollection( _annotationDialog->actions(), i18n("Annotation Dialog" ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 
     dialog->configure();
 
@@ -1017,11 +1156,12 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
 void MainWindow::Window::slotSetFileName( const QString& fileName )
 {
-    statusBar()->message( fileName, 4000 );
+    statusBar()->showMessage( fileName, 4000 );
 }
 
 void MainWindow::Window::slotThumbNailSelectionChanged()
 {
+#ifdef TEMPORARILY_REMOVED
     QStringList selection = _thumbnailView->selection();
 
     _configAllSimultaniously->setEnabled(selection.count() > 1 );
@@ -1030,6 +1170,7 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
     _recreateThumbnails->setEnabled( selection.count() >= 1 );
     _rotLeft->setEnabled( selection.count() >= 1 );
     _rotRight->setEnabled( selection.count() >= 1 );
+#endif
 }
 
 void MainWindow::Window::rotateSelected( int angle )
@@ -1069,6 +1210,7 @@ void MainWindow::Window::reloadThumbnailsAndFlushCache()
 
 void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( type == DB::Category::ListView )
         _smallListView->setChecked( true );
     else if ( type == DB::Category::ThumbedListView )
@@ -1077,6 +1219,9 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
         _smallIconView->setChecked( true );
     else if ( type == DB::Category::ThumbedIconView )
         _largeIconView->setChecked( true );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotShowNotOnDisk()
@@ -1096,9 +1241,13 @@ void MainWindow::Window::slotShowNotOnDisk()
 
 void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
 {
+#ifdef TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
     StringSet changed = DB::ImageDB::instance()->imagesWithMD5Changed();
     showThumbNails( changed.toList() );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 
@@ -1110,6 +1259,7 @@ void MainWindow::Window::donateMoney()
 
 void MainWindow::Window::updateStates( bool thumbNailView )
 {
+#ifdef TEMPORARILY_REMOVED
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     _cut->setEnabled( thumbNailView );
     _paste->setEnabled( thumbNailView );
@@ -1117,6 +1267,7 @@ void MainWindow::Window::updateStates( bool thumbNailView )
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
+#endif
 }
 
 void MainWindow::Window::slotRemoveAllThumbnails()
@@ -1143,28 +1294,44 @@ MainWindow::Window* MainWindow::Window::theMainWindow()
 
 void MainWindow::Window::slotConfigureToolbars()
 {
+#ifdef TEMPORARILY_REMOVED
     saveMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
     KEditToolBar dlg(actionCollection());
     connect(&dlg, SIGNAL( newToolbarConfig() ),
                   SLOT( slotNewToolbarConfig() ));
     dlg.exec();
 
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotNewToolbarConfig()
 {
+#ifdef TEMPORARILY_REMOVED
     createGUI();
     applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotImport()
 {
+#ifdef TEMPORARILY_REMOVED
     ImportExport::Import::imageImport();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotExport()
 {
+#ifdef TEMPORARILY_REMOVED
     ImportExport::Export::imageExport( selectedOnDisk() );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void MainWindow::Window::slotReenableMessages()
@@ -1178,7 +1345,8 @@ void MainWindow::Window::slotReenableMessages()
 
 void MainWindow::Window::setupPluginMenu()
 {
-    QObjectListl = queryList( "QPopupMenu", "plugins" );
+#ifdef TEMPORARILY_REMOVED
+    QObjectList l = queryList( "QPopupMenu", "plugins" );
     QObject *obj;
     Q3PopupMenu* menu = NULL;
     for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {
@@ -1194,6 +1362,9 @@ void MainWindow::Window::setupPluginMenu()
 #else
     delete menu;
     _hasLoadedPlugins = true;
+#endif
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
 #endif
 }
 
@@ -1353,7 +1524,7 @@ void MainWindow::Window::slotShowImagesWithInvalidDate()
 
 void MainWindow::Window::showDateBarTip( const QString& msg )
 {
-    statusBar()->message( msg, 3000 );
+    statusBar()->showMessage( msg, 3000 );
 }
 
 void MainWindow::Window::slotJumpToContext()
@@ -1410,7 +1581,7 @@ void MainWindow::Window::convertBackend()
         return;
     }
 
-    KConfig* config = KGlobal::config();
+    KSharedConfigPtr config = KGlobal::config();
     if (!config->hasGroup(QString::fromLatin1("SQLDB"))) {
         int ret =
             KMessageBox::questionYesNo(this, i18n("You should set SQL database settings before the conversion. "
@@ -1515,7 +1686,7 @@ void MainWindow::Window::slotRecreateThumbnail()
 
 void MainWindow::Window::tellPeopleAboutTheVideos()
 {
-    QString id = QString::fromLatin1( "KPhotoAlbumQuickStart" );
+    const QString id = QString::fromLatin1( "KPhotoAlbumQuickStart" );
     KMessageBox::ButtonCode dummy;
     if ( !KMessageBox::shouldBeShownYesNo( id, dummy ) )
         return;
@@ -1524,10 +1695,10 @@ void MainWindow::Window::tellPeopleAboutTheVideos()
                                                     "it might be worthwhile to spent 10 minutes "
                                                     "watching a few introduction videos.</p>" ),
                                          i18n( "KPhotoAlbum quick start" ),
-                                         i18n( "Show Videos" ), i18n("Don't Show Videos"),
+                                         KGuiItem( i18n( "Show Videos" ) ), KGuiItem( i18n("Don't Show Videos") ),
                                          id );
     if ( ret == KMessageBox::Yes )
-        KRun::runURL(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ) );
+        KRun::runUrl(KUrl(QString::fromLatin1("http://www.kphotoalbum.org/videos/")), QString::fromLatin1( "text/html" ), this );
 }
 
 void MainWindow::Window::checkIfAllFeaturesAreInstalled()
@@ -1537,8 +1708,7 @@ void MainWindow::Window::checkIfAllFeaturesAreInstalled()
             i18n("<p>KPhotoAlbum does not seem to be build with support for all its features. The following is a list "
                  "indicating to you what you may miss:<ul>%1</ul></p>"
                  "<p>For details on how to solve this problem, please choose <b>Help</b>|<b>KPhotoAlbum Feature Status</b> "
-                 "from the menus.</p>" )
-            .arg( FeatureDialog::featureString() );
+                 "from the menus.</p>", FeatureDialog::featureString() );
         KMessageBox::information( this, msg, i18n("Feature Check"), QString::fromLatin1( "InitialFeatureCheck" ) );
     }
 }

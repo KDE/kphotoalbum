@@ -1,9 +1,9 @@
-//Added by qt3to4:
 #include <QContextMenuEvent>
 #include <QMoveEvent>
 #include <QCloseEvent>
 #include <QResizeEvent>
 #include <QLabel>
+#include <KAction>
 /* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -24,6 +24,7 @@
 
 #ifndef MAINVIEW_H
 #define MAINVIEW_H
+class KToggleAction;
 class Q3WidgetStack;
 class QTimer;
 class KTipDialog;
@@ -36,6 +37,7 @@ class KRadioAction;
 #include <kmainwindow.h>
 #include "Settings/SettingsData.h"
 #include <kurl.h>
+#include <kxmlguiwindow.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -55,12 +57,12 @@ class TokenEditor;
 class ImageCounter;
 class DirtyIndicator;
 
-class Window :public KMainWindow
+class Window :public KXmlGuiWindow
 {
     Q_OBJECT
 
 public:
-    Window( QWidget* parent,  const char* name = 0 );
+    Window( QWidget* parent );
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
     QStringList selected( bool keepSortOrderOfDatabase = false );
@@ -167,7 +169,9 @@ private:
 
     ThumbnailView::ThumbnailWidget* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;
+#ifdef TEMPORARILY_REMOVED
     QPointer<AnnotationDialog::Dialog> _annotationDialog;
+#endif
     Q3WidgetStack* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;
@@ -176,38 +180,38 @@ private:
     DeleteDialog* _deleteDialog;
     DirtyIndicator* _dirtyIndicator;
     QLabel* _lockedIndicator;
-    KAction* _lock;
-    KAction* _unlock;
-    KAction* _setDefaultPos;
-    KAction* _setDefaultNeg;
-    KAction* _jumpToContext;
+    QAction* _lock;
+    QAction* _unlock;
+    QAction* _setDefaultPos;
+    QAction* _setDefaultNeg;
+    QAction* _jumpToContext;
     HTMLGenerator::HTMLDialog* _htmlDialog;
-    KAction* _configOneAtATime;
-    KAction* _configAllSimultaniously;
-    KAction* _view;
-    KAction* _rotLeft;
-    KAction* _rotRight;
-    KAction* _sortByDateAndTime;
-    KAction* _viewInNewWindow;
+    QAction* _configOneAtATime;
+    QAction* _configAllSimultaniously;
+    QAction* _view;
+    QAction* _rotLeft;
+    QAction* _rotRight;
+    QAction* _sortByDateAndTime;
+    QAction* _viewInNewWindow;
     KActionMenu* _viewMenu;
-    KRadioAction* _smallListView;
-    KRadioAction* _largeListView;
-    KRadioAction* _smallIconView;
-    KRadioAction* _largeIconView;
-    KAction* _generateHtml;
-    KAction* _cut;
-    KAction* _paste;
-    KAction* _deleteSelected;
-    KAction* _limitToMarked;
-    KAction* _selectAll;
-    KAction* _runSlideShow;
-    KAction* _runRandomSlideShow;
+    KToggleAction* _smallListView;
+    KToggleAction* _largeListView;
+    KToggleAction* _smallIconView;
+    KToggleAction* _largeIconView;
+    QAction* _generateHtml;
+    QAction* _cut;
+    QAction* _paste;
+    QAction* _deleteSelected;
+    QAction* _limitToMarked;
+    QAction* _selectAll;
+    QAction* _runSlideShow;
+    QAction* _runRandomSlideShow;
     Plugins::Interface* _pluginInterface;
-    KAction* _showExifDialog;
+    QAction* _showExifDialog;
 #ifdef HASKIPI
     KIPI::PluginLoader* _pluginLoader;
 #endif
-    KAction* _recreateThumbnails;
+    QAction* _recreateThumbnails;
     TokenEditor* _tokenEditor;
     DateBar::DateBarWidget* _dateBar;
     bool _hasLoadedPlugins;

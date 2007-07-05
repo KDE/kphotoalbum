@@ -32,7 +32,7 @@
 #include "DB/ImageDB.h"
 
 Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
+    :KDialog( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
 {
     setWFlags( WDestructiveClose | getWFlags() );
 
@@ -144,7 +144,7 @@ void Exif::Grid::paintCell( QPainter * p, int row, int col )
         QFont f(p->font());
         f.setWeight( match ? QFont::Bold : QFont::Normal );
         p->setFont( f );
-        p->setPen( match ? red : black );
+        p->setPen( match ? red : Qt::black );
         p->drawText( cellRect(), Qt::AlignLeft, text);
         QRect rect = cellRect();
         rect.setX( _maxKeyWidth + 10 );

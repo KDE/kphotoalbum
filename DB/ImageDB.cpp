@@ -27,7 +27,9 @@
 #include <q3progressdialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>
 #include <kdebug.h>
@@ -159,6 +161,7 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
 
 void ImageDB::convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar)
 {
+#ifdef TEMPORARILY_REMOVED
     QStringList allImages = images();
 
     CategoryCollection* origCategories = categoryCollection();
@@ -205,11 +208,15 @@ void ImageDB::convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar)
     newBackend->addImages(list);
     if (progressBar)
         progressBar->setProgress(n);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ImageDB::slotReread( const QStringList& list, int mode)
 {
-    // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
+#ifdef TEMPORARILY_REMOVED
+// Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
     Q3ProgressDialog  dialog( i18n("Loading information from images"),
                              i18n("Cancel"), list.count(), 0, "progress dialog", true );
 
@@ -230,6 +237,9 @@ void ImageDB::slotReread( const QStringList& list, int mode)
         MainWindow::DirtyIndicator::markDirty();
     }
 
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 QString

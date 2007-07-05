@@ -23,7 +23,9 @@
 
 #include <kmediaplayer/player.h>
 #include <kmimetype.h>
+#ifdef TEMPORARILY_REMOVED
 #include <kuserprofile.h>
+#endif
 #include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>
@@ -66,7 +68,7 @@ public:
         for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
             const QDomElement elm = itemNode.toElement();
             if ( elm.tagName().toLower() == QString::fromLatin1( "action" ) ) {
-                KAction* action = builderClient()->action( elm.attribute( QString::fromLatin1( "name" ) ).toLatin1() );
+                KAction* action = builderClient()->action( elm.attribute( QString::fromLatin1( "name" ) ).latin1() );
                 action->plug( menu );
                 qDebug(">>>>>>%s<<<<<<<", elm.attribute( QString::fromLatin1( "name" ) ).toLatin1());
             }
@@ -88,6 +90,7 @@ Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
+#ifdef TEMPORARILY_REMOVED
     _info = info;
     // This code is inspired by similar code in Gwenview.
     delete _playerPart;
@@ -154,7 +157,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     zoomFull();
 
 
-#ifdef TEMPORARILY_REMOVED
+#ifdef I_CANT_MAKE_UP_MY_MIND
     // This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
     KMenu* menu = new KMenu(0);
     menu->show();
@@ -164,6 +167,9 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 #endif
 
 return true;
+#else
+kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::VideoDisplay::stateChanged( int state)
@@ -176,15 +182,20 @@ void Viewer::VideoDisplay::stateChanged( int state)
 
 QString Viewer::VideoDisplay::mimeTypeForFileName( const QString& fileName ) const
 {
+#ifdef TEMPORARILY_REMOVED
     QString res = KMimeType::findByURL(fileName)->name();
     if ( res == QString::fromLatin1("application/vnd.rn-realmedia") && !MainWindow::FeatureDialog::hasVideoSupport( res ) )
         res = QString::fromLatin1( "video/vnd.rn-realvideo" );
 
     return res;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileName, const QString& mimeType )
 {
+#ifdef TEMPORARILY_REMOVED
     const QString failed = QString::fromLatin1( "<font color=\"red\"><b>%1</b></font>" ).arg( i18n("Failed") );
     const QString OK = QString::fromLatin1( "<font color=\"green\"><b>%1</b></font>" ).arg( i18n("OK") );
     const QString untested = QString::fromLatin1( "<b>%1</b>" ).arg( i18n("Untested") );
@@ -206,6 +217,9 @@ void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileN
     int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ).arg(fileName ), i18n("Show More Help"), i18n("Close") );
     if ( ret == KMessageBox::Yes )
         KToolInvocation::invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::VideoDisplay::zoomIn()
@@ -274,18 +288,26 @@ void Viewer::VideoDisplay::play()
 
 void Viewer::VideoDisplay::stop()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
         player->stop();
     else
         invokeKaffeineAction( "player_stop" );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::VideoDisplay::pause()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
         player->pause();
     else
         invokeKaffeineAction( "player_pause" );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 /**
@@ -293,10 +315,14 @@ void Viewer::VideoDisplay::pause()
  */
 void Viewer::VideoDisplay::invokeKaffeineAction( const char* actionName )
 {
-        KAction* action = _playerPart->action( actionName );
+#ifdef TEMPORARILY_REMOVED
+    KAction* action = _playerPart->action( actionName );
         if ( action )
             action->activate();
 
+#else
+        kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::VideoDisplay::restart()

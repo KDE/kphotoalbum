@@ -27,6 +27,8 @@
 #include "SQLDB/QueryErrors.h"
 #endif
 #include "Settings/SettingsData.h"
+#include <klocale.h>
+#include <kdebug.h>
 
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), "SVN",
@@ -62,9 +64,9 @@ int main( int argc, char** argv ) {
 
     new MainWindow::SplashScreen();
 
-    
+
     try {
-        MainWindow::Window* view = new MainWindow::Window( 0, "view" );
+        MainWindow::Window* view = new MainWindow::Window( 0 );
 
         // qApp->setMainWidget( view );
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );

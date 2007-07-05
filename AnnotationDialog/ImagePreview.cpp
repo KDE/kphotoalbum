@@ -22,11 +22,12 @@
 //Added by qt3to4:
 #include <QResizeEvent>
 #include <QLabel>
+#include <kdebug.h>
 
 using namespace AnnotationDialog;
 
-ImagePreview::ImagePreview( QWidget* parent, const char* name )
-    : QLabel( parent, name )
+ImagePreview::ImagePreview( QWidget* parent )
+    : QLabel( parent )
 {
     setAlignment( Qt::AlignCenter );
     setMinimumSize( 64, 64 );
@@ -76,6 +77,7 @@ void ImagePreview::setImage( const QString& fileName )
 
 void ImagePreview::reload()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( !_info.isNull() ) {
         QImage img;
         if (_preloader.has(_info.fileName()))
@@ -97,6 +99,9 @@ void ImagePreview::reload()
         img = ImageManager::ImageLoader::rotateAndScale( img, width(), height(), _angle );
         setPixmap( img );
     }
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 int ImagePreview::angle() const
@@ -107,12 +112,16 @@ int ImagePreview::angle() const
 
 void ImagePreview::setCurrentImage(const QImage &image)
 {
-    //cache the current image as the last image before changing it
+#ifdef TEMPORARILY_REMOVED
+//cache the current image as the last image before changing it
     _lastImage.set(_currentImage);
     _currentImage.set(_info.fileName(), image);
     setPixmap(_currentImage.getImage());
     if (!_anticipated._fileName.isNull())
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, bool loadedOK)

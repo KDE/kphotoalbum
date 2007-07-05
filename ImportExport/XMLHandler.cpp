@@ -38,6 +38,7 @@
 Q3CString ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
                                                    ImageFileLocation location, const Utilities::UniqNameMap& nameMap )
 {
+#ifdef TEMPORARILY_REMOVED
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
                                                       QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
@@ -58,6 +59,9 @@ Q3CString ImportExport::XMLHandler::createIndexXML( const QStringList& images, c
         top.appendChild( elm );
     }
     return doc.toCString();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const DB::ImageInfoPtr& info )

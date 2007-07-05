@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2006 Jesper K Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -45,7 +45,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     QLabel* image = new QLabel( this, "image" );
     image->setMinimumSize( QSize( 273, 204 ) );
     image->setMaximumSize( QSize( 273, 204 ) );
-    image->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
+    image->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
     lay2->addWidget( image );
 
     QLabel* textLabel2 = new QLabel( this, "textLabel2" );
@@ -56,6 +56,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
                                "button. You may get to this demo at a later time from the <b>Help</b> menu.</p>"
                                "<p>Alternatively you may start making you own database of images, simply by pressing the "
                                "<b>Create my own database</b> button.") );
+    textLabel2->setWordWrap( true );
 
     Q3HBoxLayout* lay3 = new Q3HBoxLayout( lay1, 6 );
     lay3->addStretch( 1 );
@@ -96,6 +97,7 @@ FileDialog::FileDialog( QWidget* parent, const char* name ) :QDialog( parent, na
                                      "You are allowed to store your images in a directory tree under this directory. "
                                      "KPhotoAlbum will not modify or edit any of your images, so you can simply point KPhotoAlbum to the "
                                      "directory where you already have all your images located.</p>" ), this );
+    label->setWordWrap( true );
     lay1->addWidget( label );
 
     Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );

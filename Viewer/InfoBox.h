@@ -18,15 +18,14 @@
 
 #ifndef INFOBOX_H
 #define INFOBOX_H
-#include <q3textbrowser.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 #include "ViewerWidget.h"
+#include <QTextBrowser>
 class QToolButton;
 
 namespace Viewer
 {
-class InfoBox :public Q3TextBrowser {
+class InfoBox :public QTextBrowser {
     Q_OBJECT
 
 public:

@@ -19,7 +19,9 @@
 #ifndef IMPORT_H
 #define IMPORT_H
 
+#ifdef TEMPORARILY_REMOVED
 #include <kwizard.h>
+#endif
 #include <kurl.h>
 #include <kio/job.h>
 #include "Utilities/Util.h"
@@ -57,6 +59,7 @@ protected slots:
     void showImage();
 };
 
+#ifdef TEMPORARILY_REMOVED
 class Import :public KWizard {
     Q_OBJECT
 
@@ -124,6 +127,7 @@ private:
     bool _hasFilled;
     QString _baseUrl;
 };
+#endif
 
 }
 

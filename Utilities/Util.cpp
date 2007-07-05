@@ -52,12 +52,15 @@ extern "C" {
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 
+#ifdef TEMPORARILY_REMOVED
 #include <config.h>
+#endif
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
 
 #include <kdebug.h>
+#include <KMimeType>
 
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the
@@ -98,7 +101,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             if (megapix > 0.05) {
                 text +=
                     QString::fromLatin1(" (") + QString::number(megapix, 'f', 1) +
-                    i18n("Short for Mega Pixels", "MP") + QString::fromLatin1(")");
+                    i18nc("Short for Mega Pixels", "MP") + QString::fromLatin1(")");
             }
             text += linebreak;
         }
@@ -183,11 +186,7 @@ void Utilities::checkForBackupFile( const QString& fileName )
 
 bool Utilities::ctrlKeyDown()
 {
-#if KDE_IS_VERSION( 3, 4, 0 )
-    return KApplication::keyboardMouseState() & Qt::ControlModifier;
-#else
-    return KApplication::keyboardModifiers() & KApplication::ControlModifier;
-#endif
+    return QApplication::keyboardModifiers() & Qt::ControlModifier;
 }
 
 void Utilities::copyList( const QStringList& from, const QString& directoryTo )
@@ -232,12 +231,12 @@ QString Utilities::setupDemo()
             KMessageBox::error( 0, i18n("Unable to open '%1' for writing.").arg( configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
-        Q3TextStream( &out ) << str;
+        QTextStream( &out ) << str;
         out.close();
     }
 
     // exif-info.db
-    QString fileName = locate( "data", QString::fromLatin1( "kphotoalbum/demo/exif-info.db" ) );
+    QString fileName = KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/demo/exif-info.db" ) );
     if ( !fileName.isEmpty() )
         copy( fileName, dir + QString::fromLatin1( "/exif-info.db" ) );
 
@@ -298,7 +297,7 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
 
 QString Utilities::readInstalledFile( const QString& fileName )
 {
-    QString inFileName = locate( "data", QString::fromLatin1( "kphotoalbum/%1" ).arg( fileName ) );
+    QString inFileName = KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/%1" ).arg( fileName ) );
     if ( inFileName.isEmpty() ) {
         KMessageBox::error( 0, i18n("<p>Unable to find kphotoalbum/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</p>").arg( fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
         return QString::null;
@@ -310,8 +309,8 @@ QString Utilities::readInstalledFile( const QString& fileName )
         return QString::null;
     }
 
-    Q3TextStream stream( &file );
-    QString content = stream.read();
+    QTextStream stream( &file );
+    QString content = stream.readAll();
     file.close();
 
     return content;
@@ -350,12 +349,16 @@ void Utilities::removeThumbNail( const QString& imageFile )
 
 bool Utilities::canReadImage( const QString& fileName )
 {
-    return KImageIO::canRead(KImageIO::type(fileName)) || ImageManager::ImageDecoder::mightDecode( fileName );
+    const KMimeType::Ptr type = KMimeType::mimeType( fileName );
+
+    return (!type.isNull() && KImageIO::types(KImageIO::Reading).contains( type->name() ) ) ||
+        ImageManager::ImageDecoder::mightDecode( fileName );
 }
 
 
 QString Utilities::readFile( const QString& fileName )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( fileName.isEmpty() ) {
         KMessageBox::error( 0, i18n("<p>Unable to find file %1</p>").arg( fileName ) );
         return QString::null;
@@ -367,11 +370,14 @@ QString Utilities::readFile( const QString& fileName )
         return QString::null;
     }
 
-    Q3TextStream stream( &file );
-    QString content = stream.read();
+    QTextStream stream( &file );
+    QString content = stream.readAll();
     file.close();
 
     return content;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 struct myjpeg_error_mgr : public jpeg_error_mgr
@@ -487,8 +493,12 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
 
 bool Utilities::isJPEG( const QString& fileName )
 {
+#ifdef TEMPORARILY_REMOVED
     QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
     return format == QString::fromLocal8Bit( "JPEG" );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 namespace
@@ -505,8 +515,7 @@ namespace
     };
 }
 
-template<class T>
-Q3ValueList<T> Utilities::shuffle(const Q3ValueList<T>& list)
+QStringList Utilities::shuffle(const QStringList& list)
 {
     static bool init = false;
     if ( !init ) {
@@ -517,8 +526,8 @@ Q3ValueList<T> Utilities::shuffle(const Q3ValueList<T>& list)
 
     // Take pointers from input list to an array for shuffling
     uint N = list.size();
-    AutoArray<const T*> deck(N);
-    const T** p = deck;
+    AutoArray<const QString*> deck(N);
+    const QString** p = deck;
     for (QStringList::const_iterator i = list.begin();
          i != list.end(); ++i) {
         *p = &(*i);
@@ -533,16 +542,13 @@ Q3ValueList<T> Utilities::shuffle(const Q3ValueList<T>& list)
     }
 
     // Create new list from the array
-    Q3ValueList<T> result;
-    const T** const onePastLast = deck + N;
+    QStringList result;
+    const QString** const onePastLast = deck + N;
     for (p = deck; p != onePastLast; ++p)
         result.push_back(**p);
 
     return result;
 }
-
-template
-Q3ValueList<QString> Utilities::shuffle(const Q3ValueList<QString>& list);
 
 /**
    Create a maping from original name with path to uniq name without:
@@ -731,20 +737,14 @@ bool Utilities::isVideo( const QString& fileName )
     return videoExtensions.contains( ext );
 }
 
-QImage Utilities::scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode )
+QImage Utilities::scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode )
 {
-    if (Settings::SettingsData::smoothScale())
-        return image.smoothScale(w, h, mode);
-    else
-        return image.scale(w, h, mode);
+    return image.scaled( w, h, mode, Settings::SettingsData::smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );
 }
 
-QImage Utilities::scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode )
+QImage Utilities::scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode )
 {
-  if (Settings::SettingsData::instance()->smoothScale())
-    return image.smoothScale(s, mode);
-  else
-    return image.scale(s, mode);
+    return scaleImage( image, s.width(), s.height(), mode );
 }
 
 QStringList Utilities::removeDuplicates( const QStringList& items )

@@ -22,13 +22,14 @@
 //Added by qt3to4:
 #include <Q3VBoxLayout>
 #include <klocale.h>
-#include <qvbuttongroup.h>
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
 #include "DB/FileInfo.h"
 #include "MainWindow/Window.h"
+#ifdef TEMPORARILY_REMOVED
 #include "kprogress.h"
+#endif
 #include <qapplication.h>
 #include <qeventloop.h>
 #include "Utilities/ShowBusyCursor.h"
@@ -37,8 +38,11 @@
 using namespace MainWindow;
 
 InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Search for Images and Videos with Missing Dates" ), Cancel | Ok, Ok, parent, name )
+#ifdef TEMPORARILY_REMOVED
+    :KDialog( Plain, i18n("Search for Images and Videos with Missing Dates" ), Cancel | Ok, Ok, parent, name )
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
     QWidget* top = plainPage();
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
@@ -49,14 +53,18 @@ InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
     _missingDate = new QRadioButton( i18n( "Search for images and videos missing date and time" ), grp );
     _partialDate = new QRadioButton( i18n( "Search for images and videos with only partial dates (like 1971 vs. 11/7-1971)"), grp );
     _dateNotTime->setChecked( true );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void InvalidDateFinder::slotOk()
 {
+#ifdef TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
 
     // create the info dialog
-    KDialogBase* info = new KDialogBase(  Plain, i18n("Image Info" ), Ok, Ok, 0, "infobox", false );
+    KDialog* info = new KDialog(  Plain, i18n("Image Info" ), Ok, Ok, 0, "infobox", false );
     QWidget* top = info->plainPage();
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
     Q3TextEdit* edit = new Q3TextEdit( top );
@@ -116,7 +124,10 @@ void InvalidDateFinder::slotOk()
         delete info;
 
     Window::theMainWindow()->showThumbNails( toBeShown );
-    KDialogBase::slotOk();
+    KDialog::slotOk();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 #include "InvalidDateFinder.moc"

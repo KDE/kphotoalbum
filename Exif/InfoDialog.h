@@ -17,7 +17,7 @@
 */
 #ifndef EXIFDIALOG_H
 #define EXIFDIALOG_H
-#include <kdialogbase.h>
+#include <KDialog>
 #include <q3gridview.h>
 //Added by qt3to4:
 #include <QResizeEvent>
@@ -30,7 +30,7 @@ class Q3Table;
 namespace Exif
 {
 
-class InfoDialog : public KDialogBase, public ImageManager::ImageClient {
+class InfoDialog : public KDialog, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:

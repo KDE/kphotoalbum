@@ -33,6 +33,7 @@ namespace ThumbnailView {
  */
 class MouseInteraction {
 public:
+    virtual ~MouseInteraction() {}
     virtual void mousePressEvent( QMouseEvent* ) {};
     virtual void mouseMoveEvent( QMouseEvent* ) {};
     virtual void mouseReleaseEvent( QMouseEvent* ) {};

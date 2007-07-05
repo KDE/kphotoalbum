@@ -30,7 +30,6 @@
 #include <Q3ValueList>
 #include <QCloseEvent>
 #include <Q3PtrList>
-#include <ktimewidget.h>
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
 #include "enums.h"
@@ -127,7 +126,9 @@ private:
     bool _thumbnailTextShouldReload;
 
     // Widgets
+#ifdef TEMPORARILY_REMOVED
     KDockMainWindow* _dockWindow;
+#endif
     KLineEdit* _imageLabel;
     KDateEdit* _startDate;
     KDateEdit* _endDate;
@@ -142,7 +143,9 @@ private:
     QPushButton* _delBut;
     QPushButton* _copyPreviousBut;
     Editor* _description;
+#ifdef TEMPORARILY_REMOVED
     KTimeWidget* _time;
+#endif
     QPushButton* _addTime;
 
     KActionCollection* _actions;

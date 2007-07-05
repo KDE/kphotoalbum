@@ -43,6 +43,7 @@ public:
 class ImageDateCollection :public KShared
 {
 public:
+    virtual ~ImageDateCollection() {}
     virtual ImageCount count( const ImageDate& range ) = 0;
     virtual QDateTime lowerLimit() const = 0;
     virtual QDateTime upperLimit() const = 0;

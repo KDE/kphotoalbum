@@ -148,7 +148,7 @@ private:
     int _barWidth;
     int _barHeight;
     bool _includeFuzzyCounts;
-    Q3PopupMenu* _contextMenu;
+    QMenu* _contextMenu;
     bool _showResolutionIndicator;
 };
 

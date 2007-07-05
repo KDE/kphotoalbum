@@ -110,8 +110,8 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
     }
 
     QMap<QString,uint> groups = counter.result();
-    for( QMapIterator<QString,uint> it= groups.begin(); it != groups.end(); ++it ) {
-        map[it.key()] = it.data();
+    for( QMap<QString,uint>::iterator it= groups.begin(); it != groups.end(); ++it ) {
+        map[it.key()] = it.value();
     }
 
     return map;
@@ -198,7 +198,7 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images )
     }
 
     for( DB::ImageInfoListConstIterator imageIt = images.constBegin(); imageIt != images.constEnd(); ++imageIt ) {
-        DB::ImageInfo* info = *imageIt;
+        DB::ImageInfoPtr info = *imageIt;
         info->addCategoryInfo( QString::fromLatin1( "Media Type" ),
                                info->mediaType() == DB::Image ? QString::fromLatin1( "Image" ) : QString::fromLatin1( "Video" ) );
     }
@@ -221,7 +221,7 @@ DB::ImageInfoPtr XMLDB::Database::info( const QString& fileName ) const
         if ( fileMap.contains( fileName ) )
             return fileMap[ fileName ];
     }
-    return 0;
+    return DB::ImageInfoPtr();
 }
 
 bool XMLDB::Database::rangeInclude( DB::ImageInfoPtr info ) const
@@ -307,7 +307,8 @@ DB::CategoryCollection* XMLDB::Database::categoryCollection()
 
 KSharedPtr<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
-    return new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) );
+    return KSharedPtr<DB::ImageDateCollection>(
+        new XMLImageDateCollection( searchPrivate( Browser::BrowserWidget::instance()->currentContext(), false, false ) ) );
 }
 
 void XMLDB::Database::reorder( const QString& item, const QStringList& selection, bool after )
@@ -424,7 +425,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
     DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
 
     DB::ImageInfo* info = new DB::ImageInfo( fileName, label, description, date, angle, md5sum, size, mediaType );
-    DB::ImageInfoPtr result = info;
+    DB::ImageInfoPtr result(info);
     for ( QDomNode child = elm.firstChild(); !child.isNull(); child = child.nextSibling() ) {
         if ( child.isElement() ) {
             QDomElement childElm = child.toElement();
@@ -491,7 +492,7 @@ void XMLDB::Database::possibleLoadCompressedCategories( const QDomElement& elm, 
         QString categoryName = (*categoryIt)->name();
         QString str = elm.attribute( FileWriter::escape( categoryName ) );
         if ( !str.isEmpty() ) {
-            QStringList list = QStringList::split( QString::fromLatin1( "," ), str);
+            QStringList list = str.split(QString::fromLatin1( "," ));
             for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
                 int id = (*listIt).toInt();
                 QString name = static_cast<XMLCategory*>((*categoryIt).data())->nameForId(id);

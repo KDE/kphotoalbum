@@ -18,12 +18,13 @@
 
 #ifndef OPTIONSDIALOG_H
 #define OPTIONSDIALOG_H
-#include <kdialogbase.h>
+#include <KPageDialog>
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
 //Added by qt3to4:
 #include <Q3ValueList>
 #include <QLabel>
+#include <Q3ListBoxItem>
 class Q3ListView;
 class KColorButton;
 class QSpinBox;
@@ -52,7 +53,8 @@ namespace Settings
 class ViewerSizeConfig;
 class CategoryItem;
 
-class SettingsDialog :public KDialogBase {
+#ifdef TEMPORARILY_REMOVED
+class SettingsDialog :public KDialog {
     Q_OBJECT
 
 public:
@@ -176,6 +178,7 @@ private:
 #endif
 
 };
+#endif
 
 }
 

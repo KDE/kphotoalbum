@@ -26,7 +26,9 @@
 #include "DB/CategoryCollection.h"
 #include "ExifFolder.h"
 #include "Exif/Database.h"
+#ifdef TEMPORARILY_REMOVED
 #include <config.h> // for HASEXIV2
+#endif
 //Added by qt3to4:
 #include <Q3ValueList>
 

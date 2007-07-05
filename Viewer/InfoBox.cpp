@@ -27,16 +27,18 @@
 #include <kiconloader.h>
 #include "MainWindow/Window.h"
 #include "DB/ImageInfo.h"
+#include <QDesktopWidget>
+#include <kdebug.h>
 
 Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer, const char* name )
-    :Q3TextBrowser( viewer, name ), _viewer( viewer ), _hoveringOverLink( false )
+    :QTextBrowser( viewer, name ), _viewer( viewer ), _hoveringOverLink( false )
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
     setMidLineWidth(0);
 
     _jumpToContext = new QToolButton( this );
-    _jumpToContext->setIconSet( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), KIcon::Desktop, 16 ) );
+    _jumpToContext->setIconSet( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Desktop, 16 ) );
     _jumpToContext->setFixedSize( 16, 16 );
     connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
     connect( this, SIGNAL( highlighted(const QString&) ),
@@ -62,7 +64,7 @@ void Viewer::InfoBox::setInfo( const QString& text, const QMap<int, QPair<QStrin
 
 void Viewer::InfoBox::setSize()
 {
-    int width = contentsWidth();
+    int width = viewport()->width();
     int height = 0, h2;
 
     do {
@@ -92,10 +94,10 @@ void Viewer::InfoBox::setSize()
 
     // Force the scrollbar off. This is to ensuer that we don't get in the situation where an image might have fited,
     // if it hadn't been because a scrollbar is shown
-    setVScrollBarMode( AlwaysOff );
-    setHScrollBarMode( AlwaysOff );
-    setVScrollBarMode( Auto );
-    setHScrollBarMode( Auto );
+    setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+    setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+    setVerticalScrollBarPolicy( Qt::ScrollBarAsNeeded );
+    setHorizontalScrollBarPolicy( Qt::ScrollBarAsNeeded );
 
     int offset = 0;
     if ( verticalScrollBar()->isShown() )
@@ -110,24 +112,36 @@ void Viewer::InfoBox::contentsMousePressEvent( QMouseEvent* e )
     // that would be irritating
     if (!_hoveringOverLink)
         viewport()->setCursor( Qt::SizeAllCursor );
-    Q3TextBrowser::contentsMousePressEvent(e);
+#ifdef TEMPORARILY_REMOVED
+    QTextBrowser::contentsMousePressEvent(e);
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::InfoBox::contentsMouseReleaseEvent( QMouseEvent* e )
 {
     if (!_hoveringOverLink)
         viewport()->unsetCursor();
-    Q3TextBrowser::contentsMouseReleaseEvent(e);
+#ifdef TEMPORARILY_REMOVED
+    QTextBrowser::contentsMouseReleaseEvent(e);
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
 {
-    if ( e->state() & LeftButton ) {
+#ifdef TEMPORARILY_REMOVED
+    if ( e->buttons() & Qt::LeftButton ) {
         _viewer->infoBoxMove();
         // Do not tell QTextBrowser about the mouse movement, as this will just start a selection.
     }
     else
-        Q3TextBrowser::contentsMouseMoveEvent( e );
+        QTextBrowser::contentsMouseMoveEvent( e );
+#else
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+#endif
 }
 
 void Viewer::InfoBox::linkHovered( const QString& linkName )

@@ -38,6 +38,8 @@
 #include "SettingsData.moc"
 #include "DB/MemberMap.h"
 #include <qpixmapcache.h>
+#include <QColor>
+#include <QStringList>
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/ConfigFileHandler.h"
 #  include "SQLDB/DatabaseAddress.h"
@@ -275,11 +277,11 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
-            img = KIconLoader::global()->loadIcon( STR( "kuser" ), KIcon::Desktop, size );
+            img = KIconLoader::global()->loadIcon( STR( "kuser" ), K3Icon::Desktop, size );
         else
             img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
     }
-    res = Utilities::scaleImage(img, size, size, QImage::ScaleMin);
+    res = Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio);
 
     QPixmapCache::insert( key, res );
     return res;
@@ -310,7 +312,7 @@ QDate Settings::SettingsData::fromDate() const
     if ( date.isEmpty() )
         return QDate( QDate::currentDate().year(), 1, 1 );
     else
-        return QDate::fromString( date, ISODate );
+        return QDate::fromString( date, Qt::ISODate );
 }
 
 void  Settings::SettingsData::setToDate( const QDate& date)
@@ -325,7 +327,7 @@ QDate Settings::SettingsData::toDate() const
     if ( date.isEmpty() )
         return QDate( QDate::currentDate().year()+1, 1, 1 );
     else
-        return QDate::fromString( date, ISODate );
+        return QDate::fromString( date, Qt::ISODate );
 }
 
 QString Settings::SettingsData::albumCategory() const
@@ -347,17 +349,15 @@ void Settings::SettingsData::setAlbumCategory( const QString& category )
 
 void Settings::SettingsData::setWindowGeometry( WindowType win, const QRect& geometry )
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( "Window Geometry" );
-    config->writeEntry( windowTypeToString( win ), geometry );
+    KSharedConfigPtr config = KGlobal::config();
+    config->group("Window Geometry").writeEntry( windowTypeToString( win ), geometry );
 }
 
 QRect Settings::SettingsData::windowGeometry( WindowType win ) const
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( "Window Geometry" );
+    KSharedConfigPtr config = KGlobal::config();
     QRect rect( 0,0, 800, 600 );
-    return config->readRectEntry( windowTypeToString( win ), &rect );
+    return config->group("Window Geometry").readEntry<QRect>( windowTypeToString( win ), rect );
 }
 
 bool Settings::SettingsData::ready()
@@ -365,90 +365,78 @@ bool Settings::SettingsData::ready()
     return _instance != 0;
 }
 
-int Settings::SettingsData::value( const QString& group, const QString& option, int defaultValue ) const
+int Settings::SettingsData::value( const QString& grp, const QString& option, int defaultValue ) const
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    return config->readNumEntry( option, defaultValue );
+    KSharedConfigPtr config = KGlobal::config();
+    return config->group( grp ).readEntry<int>( option, defaultValue );
 }
 
-QString Settings::SettingsData::value( const QString& group, const QString& option, const QString& defaultValue ) const
+QString Settings::SettingsData::value( const QString& grp, const QString& option, const QString& defaultValue ) const
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    return config->readEntry( option, defaultValue );
+    KSharedConfigPtr config = KGlobal::config();
+    return config->group(grp).readEntry<QString>( option, defaultValue );
 }
 
-bool Settings::SettingsData::value( const QString& group, const QString& option, bool defaultValue ) const
+bool Settings::SettingsData::value( const QString& grp, const QString& option, bool defaultValue ) const
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    return config->readBoolEntry( option, defaultValue );
+    KSharedConfigPtr config = KGlobal::config();
+    return config->group(grp).readEntry<bool>( option, defaultValue );
 }
 
-QColor Settings::SettingsData::value( const QString& group, const QString& option, const QColor& defaultValue ) const
+QColor Settings::SettingsData::value( const QString& grp, const QString& option, const QColor& defaultValue ) const
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    return config->readColorEntry( option, &defaultValue );
+    KSharedConfigPtr config = KGlobal::config();
+    return config->group(grp).readEntry<QColor>( option, defaultValue );
 }
 
-QSize Settings::SettingsData::value( const QString& group, const QString& option, const QSize& defaultValue ) const
+QSize Settings::SettingsData::value( const QString& grp, const QString& option, const QSize& defaultValue ) const
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    return config->readSizeEntry( option, &defaultValue );
+    KSharedConfigPtr config = KGlobal::config();
+    return config->group(grp).readEntry<QSize>( option, defaultValue );
 }
 
-Set<QString> Settings::SettingsData::value(const QString& group, const QString& option, const Set<QString>& defaultValue ) const
+Set<QString> Settings::SettingsData::value(const QString& grp, const QString& option, const Set<QString>& defaultValue ) const
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    if ( !config->hasKey( option.toLatin1() ) )
+    KSharedConfigPtr config = KGlobal::config();
+    if ( !config->group(grp).hasKey( option ) )
         return defaultValue;
-    return config->readListEntry( option );
+    return config->group(grp).readEntry<QStringList>( option, QStringList() );
 }
 
-void Settings::SettingsData::setValue( const QString& group, const QString& option, int value )
+void Settings::SettingsData::setValue( const QString& grp, const QString& option, int value )
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    config->writeEntry( option, value );
+    KSharedConfigPtr config = KGlobal::config();
+    config->group(grp).writeEntry( option, value );
 }
 
-void Settings::SettingsData::setValue( const QString& group, const QString& option, const QString& value )
+void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QString& value )
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    config->writeEntry( option, value );
+    KSharedConfigPtr config = KGlobal::config();
+    config->group(grp).writeEntry( option, value );
 }
 
-void Settings::SettingsData::setValue( const QString& group, const QString& option, bool value )
+void Settings::SettingsData::setValue( const QString& grp, const QString& option, bool value )
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    config->writeEntry( option, value );
+    KSharedConfigPtr config = KGlobal::config();
+    config->group(grp).writeEntry( option, value );
 }
 
-void Settings::SettingsData::setValue( const QString& group, const QString& option, const QColor& value )
+void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QColor& value )
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    config->writeEntry( option, value );
+    KSharedConfigPtr config = KGlobal::config();
+    config->group(grp).writeEntry( option, value );
 }
 
-void Settings::SettingsData::setValue( const QString& group, const QString& option, const QSize& value )
+void Settings::SettingsData::setValue( const QString& grp, const QString& option, const QSize& value )
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    config->writeEntry( option, value );
+    KSharedConfigPtr config = KGlobal::config();
+    config->group(grp).writeEntry( option, value );
 }
 
-void Settings::SettingsData::setValue( const QString& group, const QString& option, const Set<QString>& value )
+void Settings::SettingsData::setValue( const QString& grp, const QString& option, const Set<QString>& value )
 {
-    KConfig* config = KGlobal::config();
-    config->setGroup( group );
-    config->writeEntry( option, value.toList() );
+    KSharedConfigPtr config = KGlobal::config();
+    config->group(grp).writeEntry( option, value.toList() );
 }
 
 QSize Settings::SettingsData::histogramSize() const
@@ -504,14 +492,14 @@ int Settings::SettingsData::thumbSize() const
 #ifdef SQLDB_SUPPORT
 void Settings::SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
 {
-    KConfig* config = KGlobal::config();
+    KSharedConfigPtr config = KGlobal::config();
     config->setGroup(QString::fromLatin1("SQLDB"));
     SQLDB::writeConnectionParameters(address, *config);
 }
 
 SQLDB::DatabaseAddress Settings::SettingsData::getSQLParameters() const
 {
-    KConfig* config = KGlobal::config();
+    KSharedConfigPtr config = KGlobal::config();
     config->setGroup(QString::fromLatin1("SQLDB"));
     try {
         return SQLDB::readConnectionParameters(*config);

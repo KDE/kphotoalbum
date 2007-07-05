@@ -29,15 +29,19 @@
 using namespace MainWindow;
 
 DonateDialog::DonateDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Donate Money"), Close | User1, Close, parent, name )
+#ifdef TEMPORARILY_REMOVED
+    :KDialog( Plain, i18n("Donate Money"), Close | User1, Close, parent, name )
+#endif
 {
+#ifdef TEMPORARILY_REMOVED
+#ifdef TEMPORARILY_REMOVED
     QWidget* top = plainPage();
     Q3HBoxLayout* layout = new Q3HBoxLayout( top, 10 );
 
     QLabel* image = new QLabel( top, "image" );
     image->setMinimumSize( QSize( 273, 204 ) );
     image->setMaximumSize( QSize( 273, 204 ) );
-    image->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
+    image->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
     layout->addWidget( image );
 
     QString txt = i18n("<p><center><b>Donate Money</b></center></p>"
@@ -53,12 +57,22 @@ DonateDialog::DonateDialog( QWidget* parent, const char* name )
     layout->addWidget( label );
     setButtonText( User1, i18n("Donate") );
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotDonate() ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void DonateDialog::slotDonate()
 {
+#ifdef TEMPORARILY_REMOVED
     KRun::runURL(KUrl(QString::fromLatin1("https://www.paypal.com/xclick/business=blackie%40blackie.dk&item_name=KimDaBa")),
                  QString::fromLatin1( "text/html" ) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 #include "DonateDialog.moc"

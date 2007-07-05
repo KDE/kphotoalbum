@@ -22,11 +22,15 @@
 #include <QContextMenuEvent>
 #include <QKeyEvent>
 #include <klocale.h>
+#ifdef TEMPORARILY_REMOVED
 #include <ksyntaxhighlighter.h>
+#endif
 #include <q3popupmenu.h>
 #include <qregexp.h>
 #include <kmenu.h>
+#ifdef TEMPORARILY_REMOVED
 #include <ksconfig.h>
+#endif
 #include <qcombobox.h>
 
 using namespace AnnotationDialog;
@@ -34,11 +38,15 @@ using namespace AnnotationDialog;
 Editor::Editor( QWidget* parent, const char* name )
     :Q3TextEdit( parent, name )
 {
+#ifdef TEMPORARILY_REMOVED
     _config = new KSpellConfig( this );
     _config->hide();
     _highlighter = 0;
     createHighlighter();
     setTextFormat( PlainText );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Editor::addSuggestion(const QString& text, const QStringList& lst, unsigned int)
@@ -48,6 +56,7 @@ void Editor::addSuggestion(const QString& text, const QStringList& lst, unsigned
 
 Q3PopupMenu * Editor::createPopupMenu( const QPoint & pos )
 {
+#ifdef TEMPORARILY_REMOVED
     Q3PopupMenu* menu = Q3TextEdit::createPopupMenu( pos );
     connect( menu, SIGNAL( activated( int ) ), this, SLOT( itemSelected( int ) ) );
 
@@ -63,19 +72,27 @@ Q3PopupMenu * Editor::createPopupMenu( const QPoint & pos )
     }
 
     return menu;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 QString Editor::wordAtPos( const QPoint& pos )
 {
+#ifdef TEMPORARILY_REMOVED
     int para, firstSpace, lastSpace;
     if ( !wordBoundaryAtPos( pos, &para, &firstSpace, &lastSpace ) )
         return QString::null;
 
     return text(para).mid( firstSpace, lastSpace - firstSpace );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 Q3PopupMenu* Editor::replacementMenu( const QString& word  )
 {
+#ifdef TEMPORARILY_REMOVED
     _currentWord = word;
 
     KMenu* menu = new KMenu( this );
@@ -90,6 +107,9 @@ Q3PopupMenu* Editor::replacementMenu( const QString& word  )
             menu->insertItem( *it, index );
     }
     return menu;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Editor::contentsContextMenuEvent( QContextMenuEvent *e )
@@ -147,6 +167,7 @@ bool Editor::wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* e
 
 void Editor::itemSelected( int id )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( id < 1000 )
         return;
 
@@ -156,25 +177,36 @@ void Editor::itemSelected( int id )
     QString dict = dicts[id-1000];
     _config->setDictionary( dict );
     createHighlighter();
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Editor::fetchDicts( QStringList* titles, QStringList* dicts )
 {
+#ifdef TEMPORARILY_REMOVED
     QComboBox* combo = new QComboBox( (QWidget*) 0 );
     _config->fillDicts( combo, dicts );
     for ( int i = 0; i < combo->count(); ++i ) {
         titles->append( combo->text( i ) );
     }
     delete combo;
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Editor::createHighlighter()
 {
+#ifdef TEMPORARILY_REMOVED
     delete _highlighter;
-    _highlighter = new KDictSpellingHighlighter( this, true, true, red, false, black, black, black, black, _config );
+    _highlighter = new KDictSpellingHighlighter( this, true, true, red, false, Qt::black, Qt::black, Qt::black, Qt::black, _config );
 
     connect( _highlighter, SIGNAL(newSuggestions(const QString&, const QStringList&, unsigned int)),
              this, SLOT(addSuggestion(const QString&, const QStringList&, unsigned int)) );
+#else
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+#endif
 }
 
 void Editor::keyPressEvent( QKeyEvent* event )

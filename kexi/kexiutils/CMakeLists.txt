@@ -12,8 +12,6 @@ set(kphotoalbumkexiutils_LIB_SRCS
    styleproxy.cpp 
    longlongvalidator.cpp )
 
-kde4_automoc(${kphotoalbumkexiutils_LIB_SRCS})
-
 kde4_add_library(kphotoalbumkexiutils SHARED ${kphotoalbumkexiutils_LIB_SRCS})
 
 target_link_libraries(kphotoalbumkexiutils ${KDE4_KIO_LIBS} )

@@ -12,8 +12,6 @@ set(kphotoalbum_kexidb_mysqldriver_PART_SRCS
    mysqlkeywords.cpp 
    mysqlpreparedstatement.cpp )
 
-kde4_automoc(${kphotoalbum_kexidb_mysqldriver_PART_SRCS})
-
 kde4_add_plugin(kphotoalbum_kexidb_mysqldriver ${kphotoalbum_kexidb_mysqldriver_PART_SRCS})
 
 target_link_libraries(kphotoalbum_kexidb_mysqldriver  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} mysqlclient kphotoalbumkexidb )

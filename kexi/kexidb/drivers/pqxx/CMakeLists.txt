@@ -12,8 +12,6 @@ set(kphotoalbum_kexidb_pqxxsqldriver_PART_SRCS
    pqxxconnection_p.cpp 
    pqxxpreparedstatement.cpp )
 
-kde4_automoc(${kphotoalbum_kexidb_pqxxsqldriver_PART_SRCS})
-
 kde4_add_plugin(kphotoalbum_kexidb_pqxxsqldriver ${kphotoalbum_kexidb_pqxxsqldriver_PART_SRCS})
 
 target_link_libraries(kphotoalbum_kexidb_pqxxsqldriver  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} pqxx kphotoalbumkexidb )

@@ -12,8 +12,6 @@ set(kphotoalbum_kexidb_sqlite2driver_PART_SRCS
    sqliteadmin.cpp 
    sqlitealter.cpp )
 
-kde4_automoc(${kphotoalbum_kexidb_sqlite2driver_PART_SRCS})
-
 kde4_add_plugin(kphotoalbum_kexidb_sqlite2driver ${kphotoalbum_kexidb_sqlite2driver_PART_SRCS})
 
 target_link_libraries(kphotoalbum_kexidb_sqlite2driver  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} kexisql2 kphotoalbumkexidb kphotoalbumkexidbparser )

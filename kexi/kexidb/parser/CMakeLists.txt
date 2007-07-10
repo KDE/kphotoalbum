@@ -10,8 +10,6 @@ set(kphotoalbumkexidbparser_LIB_SRCS
    parser.cpp 
    parser_p.cpp )
 
-kde4_automoc(${kphotoalbumkexidbparser_LIB_SRCS})
-
 kde4_add_library(kphotoalbumkexidbparser SHARED ${kphotoalbumkexidbparser_LIB_SRCS})
 
 target_link_libraries(kphotoalbumkexidbparser   ${KDE4_KPARTS_LIBS} ${KDE4_KDEUI_LIBS} kphotoalbumkexidb )

@@ -11,7 +11,6 @@ include_directories( ${CMAKE_SOURCE_DIR}/kexi ${CMAKE_SOURCE_DIR}/kexi/core ${CM
 
 set(keximigratetest_SRCS keximigratetest.cpp )
 
-kde4_automoc(${keximigratetest_SRCS})
 
 kde4_add_executable(keximigratetest ${keximigratetest_SRCS})
 

@@ -39,7 +39,6 @@ set(kphotoalbumkexidb_LIB_SRCS
    lookupfieldschema.cpp 
    simplecommandlineapp.cpp )
 
-kde4_automoc(${kphotoalbumkexidb_LIB_SRCS})
 
 kde4_add_library(kphotoalbumkexidb SHARED ${kphotoalbumkexidb_LIB_SRCS})
 

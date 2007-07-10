@@ -14,7 +14,7 @@ set(kphotoalbum_kexidb_sqlite2driver_PART_SRCS
 
 kde4_add_plugin(kphotoalbum_kexidb_sqlite2driver ${kphotoalbum_kexidb_sqlite2driver_PART_SRCS})
 
-target_link_libraries(kphotoalbum_kexidb_sqlite2driver  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} kexisql2 kphotoalbumkexidb kphotoalbumkexidbparser )
+target_link_libraries(kphotoalbum_kexidb_sqlite2driver  ${KDE4_KPARTS_LIBS} kexisql2 kphotoalbumkexidb kphotoalbumkexidbparser )
 
 install(TARGETS kphotoalbum_kexidb_sqlite2driver DESTINATION ${PLUGIN_INSTALL_DIR} )
 

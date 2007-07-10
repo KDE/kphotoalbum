@@ -14,7 +14,7 @@ set(kphotoalbum_kexidb_pqxxsqldriver_PART_SRCS
 
 kde4_add_plugin(kphotoalbum_kexidb_pqxxsqldriver ${kphotoalbum_kexidb_pqxxsqldriver_PART_SRCS})
 
-target_link_libraries(kphotoalbum_kexidb_pqxxsqldriver  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} pqxx kphotoalbumkexidb )
+target_link_libraries(kphotoalbum_kexidb_pqxxsqldriver  ${KDE4_KPARTS_LIBS} pqxx kphotoalbumkexidb )
 
 install(TARGETS kphotoalbum_kexidb_pqxxsqldriver DESTINATION ${PLUGIN_INSTALL_DIR} )
 

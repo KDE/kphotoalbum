@@ -12,7 +12,7 @@ set(kphotoalbumkexidbparser_LIB_SRCS
 
 kde4_add_library(kphotoalbumkexidbparser SHARED ${kphotoalbumkexidbparser_LIB_SRCS})
 
-target_link_libraries(kphotoalbumkexidbparser   ${KDE4_KPARTS_LIBS} ${KDE4_KDEUI_LIBS} kphotoalbumkexidb )
+target_link_libraries(kphotoalbumkexidbparser   ${KDE4_KPARTS_LIBS} kphotoalbumkexidb )
 
 set_target_properties(kphotoalbumkexidbparser PROPERTIES VERSION 1.0.0 SOVERSION 1 )
 install(TARGETS kphotoalbumkexidbparser DESTINATION ${LIB_INSTALL_DIR} )

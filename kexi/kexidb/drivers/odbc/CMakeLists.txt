@@ -8,7 +8,7 @@ set(kphotoalbum_kexidb_odbcdriver_PART_SRCS odbcdriver.cpp odbcconnection.cpp )
 
 kde4_add_plugin(kphotoalbum_kexidb_odbcdriver ${kphotoalbum_kexidb_odbcdriver_PART_SRCS})
 
-target_link_libraries(kphotoalbum_kexidb_odbcdriver  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS} odbc kphotoalbumkexidb )
+target_link_libraries(kphotoalbum_kexidb_odbcdriver  ${KDE4_KPARTS_LIBS} odbc kphotoalbumkexidb )
 
 install(TARGETS kphotoalbum_kexidb_odbcdriver DESTINATION ${PLUGIN_INSTALL_DIR} )
 

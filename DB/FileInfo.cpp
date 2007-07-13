@@ -92,7 +92,6 @@ QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
 
 void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
 {
-#ifdef TEMPORARILY_REMOVED
     QString tempFileName( fileName );
 #ifdef REMOVED_FOR_SOME_REASON_ALSO_IN_KDE3
     if ( Util::isCRW( fileName ) ) {
@@ -106,17 +105,17 @@ void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
 #endif
 
     KFileMetaInfo metainfo( tempFileName );
-    if ( metainfo.isEmpty() )
+    if ( !metainfo.isValid() )
         return;
 
     // Date.
-    if ( metainfo.contains( QString::fromLatin1( "CreationDate" ) ) ) {
-        QDate date = metainfo.value( QString::fromLatin1( "CreationDate" )).toDate();
+    if ( metainfo.keys().contains( QString::fromLatin1( "CreationDate" ) ) ) {
+        QDate date = metainfo.item( QString::fromLatin1( "CreationDate" )).value().toDate();
         if ( date.isValid() ) {
             _date.setDate( date );
 
-            if ( metainfo.contains( QString::fromLatin1( "CreationTime" ) ) ) {
-                QTime time = metainfo.value(QString::fromLatin1( "CreationTime" )).toTime();
+            if ( metainfo.keys().contains( QString::fromLatin1( "CreationTime" ) ) ) {
+                QTime time = metainfo.item(QString::fromLatin1( "CreationTime" )).value().toTime();
                 if ( time.isValid() )
                     _date.setTime( time );
             }
@@ -124,15 +123,12 @@ void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
     }
 
     // Angle
-    if ( metainfo.contains( QString::fromLatin1( "Orientation" ) ) )
-        _angle = orientationToAngle( metainfo.value( QString::fromLatin1( "Orientation" ) ).toInt() );
+    if ( metainfo.keys().contains( QString::fromLatin1( "Orientation" ) ) )
+        _angle = orientationToAngle( metainfo.item( QString::fromLatin1( "Orientation" ) ).value().toInt() );
 
     // Description
-    if ( metainfo.contains( QString::fromLatin1( "Comment" ) ) )
-        _description = metainfo.value( QString::fromLatin1( "Comment" ) ).toString();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    if ( metainfo.keys().contains( QString::fromLatin1( "Comment" ) ) )
+        _description = metainfo.item( QString::fromLatin1( "Comment" ) ).value().toString();
 }
 
 int DB::FileInfo::orientationToAngle( int orientation )

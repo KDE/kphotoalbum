@@ -29,7 +29,7 @@
 namespace SQLDB { class DatabaseAddress; }
 #endif
 
-class Q3ProgressBar;
+class QProgressBar;
 
 namespace DB
 {
@@ -49,7 +49,7 @@ public:
 #ifdef SQLDB_SUPPORT
     static void setupSQLDB( const SQLDB::DatabaseAddress& address );
 #endif
-    void convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar);
+    void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
     virtual bool operator==(const ImageDB& other) const = 0;
     bool operator!=(const ImageDB& other) const { return !operator==(other); }
     StringSet imagesWithMD5Changed();

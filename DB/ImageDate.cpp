@@ -26,12 +26,8 @@ using namespace DB;
 
 ImageDate::ImageDate( const QDate& date )
 {
-#ifdef TEMPORARILY_REMOVED
-    _start = date;
-    _end = date;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    _start = QDateTime( date, QTime(0,0,0) );
+    _end = QDateTime( date, QTime(0,0,0) );
 }
 
 ImageDate::ImageDate( const QDateTime& date)
@@ -252,7 +248,7 @@ QDate ImageDate::parseDate( const QString& date, bool startDate )
     int month = 0;
     int day = 0;
 
-    QRegExp regexp( formatRegexp(), false );
+    QRegExp regexp( formatRegexp(), Qt::CaseInsensitive );
 
     if ( regexp.exactMatch( date ) ) {
         QString dayStr = regexp.cap(2);
@@ -270,7 +266,7 @@ QDate ImageDate::parseDate( const QString& date, bool startDate )
                 year += 1900;
         }
         if ( monthStr.length() != 0 ) {
-            int index = monthNames().findIndex( monthStr );
+            int index = monthNames().indexOf( monthStr );
             if ( index != -1 )
                 month = (index%12)+1;
             else
@@ -338,8 +334,7 @@ bool ImageDate::includes( const QDateTime& date )
 
 QStringList DB::ImageDate::monthNames()
 {
-#ifdef TEMPORARILY_REMOVED
-    static Q3ValueList<QString> res;
+    static QStringList res;
     if ( res.isEmpty() ) {
         for ( int i = 1; i <= 12; ++i ) {
             res << QDate::shortMonthName( i );
@@ -355,8 +350,5 @@ QStringList DB::ImageDate::monthNames()
         }
     }
     return res;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 

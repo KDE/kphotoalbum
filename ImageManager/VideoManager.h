@@ -26,6 +26,7 @@ class KFileItem;
 #include <q3valuelist.h>
 #include <qobject.h>
 #include "Manager.h"
+#include <QEventLoop>
 
 namespace ImageManager
 {
@@ -57,6 +58,7 @@ private:
     RequestQueue _pending;
     ImageRequest* _currentRequest;
     bool _hasVideoSupport;
+    mutable QEventLoop _eventLoop;
 };
 
 }

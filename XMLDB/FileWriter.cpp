@@ -24,14 +24,12 @@
 #include "NumberedBackup.h"
 #include <kcmdlineargs.h>
 #include <qfile.h>
-//Added by qt3to4:
 #include <Q3CString>
 #include <Q3ValueList>
 #include "Utilities/Util.h"
 
 void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( !isAutoSave )
         NumberedBackup().makeNumberedBackup();
 
@@ -63,13 +61,10 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     if ( !out.open( QIODevice::WriteOnly ) )
         KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n( "Could not open file '%1'." ).arg( fileName ) );
     else {
-        Q3CString s = doc.toCString();
+        QByteArray s = doc.toByteArray();
         out.write( s.data(), s.size()-1 );
         out.close();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
@@ -149,21 +144,20 @@ void XMLDB::FileWriter::saveBlockList( QDomDocument doc, QDomElement top )
 
 void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( _db->_members.isEmpty() )
         return;
 
     QDomElement memberNode = doc.createElement( QString::fromLatin1( "member-groups" ) );
-    for( QMapConstIterator< QString,QMap<QString,StringSet> > memberMapIt= _db->_members.memberMap().begin();
+    for( QMap< QString,QMap<QString,StringSet> >::ConstIterator memberMapIt= _db->_members.memberMap().begin();
          memberMapIt != _db->_members.memberMap().end(); ++memberMapIt )
     {
         const QString categoryName = memberMapIt.key();
         if ( !shouldSaveCategory( categoryName ) )
             continue;
 
-        QMap<QString,StringSet> groupMap = memberMapIt.data();
-        for( QMapIterator<QString,StringSet> groupMapIt= groupMap.begin(); groupMapIt != groupMap.end(); ++groupMapIt ) {
-            StringSet members = groupMapIt.data();
+        QMap<QString,StringSet> groupMap = memberMapIt.value();
+        for( QMap<QString,StringSet>::Iterator groupMapIt= groupMap.begin(); groupMapIt != groupMap.end(); ++groupMapIt ) {
+            StringSet members = groupMapIt.value();
             if ( Settings::SettingsData::instance()->useCompressedIndexXML() &&
                  !KCmdLineArgs::parsedArgs()->isSet( "export-in-2.1-format" )) {
                 QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
@@ -191,9 +185,6 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
     }
 
     top.appendChild( memberNode );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 // This function will save an empty config element and a valid configWindowSetup element in the XML file.
@@ -312,7 +303,7 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 {
     // A few bugs has shown up, where an invalid category name has crashed KPA. I therefore checks for sauch invalid names here.
     if ( !_db->_categoryCollection.categoryForName( categoryName ) ) {
-        qWarning("Invalid category name: %s", categoryName.toLatin1());
+        qWarning("Invalid category name: %s", qPrintable(categoryName));
         return false;
     }
 

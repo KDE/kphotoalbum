@@ -82,11 +82,7 @@ bool XMLDB::XMLCategory::isSpecialCategory() const
 
 void XMLDB::XMLCategory::addOrReorderItems( const QStringList& items )
 {
-#ifdef TEMPORARILY_REMOVED
     _items = items + Utilities::listSubtract(_items, items);
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void XMLDB::XMLCategory::setItems( const QStringList& items )

@@ -156,12 +156,10 @@ QString ImageSearchInfo::toString() const
                 res += QString::fromLatin1( " / " );
 
             QString txt = it.data();
-#ifdef TEMPORARILY_REMOVED
             if ( txt == ImageDB::NONE() )
-                txt = i18n( "As in No persons, no locations etc. I do realize that translators may have problem with this, "
+                txt = i18nc( "As in No persons, no locations etc. I do realize that translators may have problem with this, "
                             "but I need some how to indicate the category, and users may create their own categories, so this is "
                             "the best I can do - Jesper.", "No %1" ).arg( it.key() );
-#endif
 
             if ( txt.contains( QString::fromLatin1("|") ) )
                 txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " %1 " ).arg( i18n("and") ) );
@@ -171,12 +169,10 @@ QString ImageSearchInfo::toString() const
 
             txt.replace( QString::fromLatin1( "|" ), QString::fromLatin1( " %1 " ).arg( i18n("or") ) );
             txt.replace( QString::fromLatin1( "!" ), QString::fromLatin1( " %1 " ).arg( i18n("not") ) );
-#ifdef TEMPORARILY_REMOVED
-            txt.replace( ImageDB::NONE(), i18n( "As in no other persons, or no other locations. "
+            txt.replace( ImageDB::NONE(), i18nc( "As in no other persons, or no other locations. "
                                                 "I do realize that translators may have problem with this, "
                                                 "but I need some how to indicate the category, and users may create their own categories, so this is "
                                                 "the best I can do - Jesper.", "No other %1" ).arg( it.key() ) );
-#endif
             txt.simplified();
             res += txt;
         }
@@ -186,13 +182,9 @@ QString ImageSearchInfo::toString() const
 
 void ImageSearchInfo::debug()
 {
-#ifdef TEMPORARILY_REMOVED
-    for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+    for( QMap<QString,QString>::Iterator it= _options.begin(); it != _options.end(); ++it ) {
         kDebug() << it.key() << ", " << it.data() << endl;
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 // PENDING(blackie) move this into the Options class instead of having it here.

@@ -518,7 +518,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         // and magically scrolls to the originally selected one
         const QString fileName = ((const QStringList&)files).first();
         files = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::ViewOrder );
-        seek = files.findIndex(fileName);
+        seek = files.indexOf(fileName);
     }
 
     if (random)

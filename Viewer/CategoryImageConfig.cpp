@@ -103,7 +103,7 @@ void CategoryImageConfig::groupChanged()
 
     list.sort();
     _member->insertStringList( list );
-    int index = list.findIndex( currentText );
+    int index = list.indexOf( currentText );
     if ( index != -1 )
         _member->setCurrentItem( index );
 

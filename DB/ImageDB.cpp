@@ -24,9 +24,8 @@
 #include <Q3ValueList>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include <q3progressdialog.h>
+#include <QProgressBar>
 #include <qapplication.h>
-#include <qeventloop.h>
 #ifdef TEMPORARILY_REMOVED
 #include <config.h>
 #endif
@@ -38,6 +37,7 @@
 #include "SQLDB/DatabaseAddress.h"
 #endif
 #include "MainWindow/DirtyIndicator.h"
+#include <QProgressDialog>
 
 using namespace DB;
 
@@ -159,9 +159,8 @@ DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
     return MediaCount( images, videos );
 }
 
-void ImageDB::convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar)
+void ImageDB::convertBackend(ImageDB* newBackend, QProgressBar* progressBar)
 {
-#ifdef TEMPORARILY_REMOVED
     QStringList allImages = images();
 
     CategoryCollection* origCategories = categoryCollection();
@@ -170,8 +169,8 @@ void ImageDB::convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar)
     Q3ValueList<CategoryPtr> categories = origCategories->categories();
 
     if (progressBar) {
-        progressBar->setTotalSteps(categories.count() + allImages.count());
-        progressBar->setProgress(0);
+        progressBar->setMaximum(categories.count() + allImages.count());
+        progressBar->setValue(0);
     }
 
     uint n = 0;
@@ -183,7 +182,7 @@ void ImageDB::convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar)
         newCategories->categoryForName( (*it)->name() )->addOrReorderItems( (*it)->items() );
 
         if (progressBar) {
-            progressBar->setProgress(n++);
+            progressBar->setValue(n++);
             qApp->processEvents();
         }
     }
@@ -201,30 +200,26 @@ void ImageDB::convertBackend(ImageDB* newBackend, Q3ProgressBar* progressBar)
             list.clear();
         }
         if (progressBar) {
-            progressBar->setProgress(n++);
+            progressBar->setValue(n++);
             qApp->processEvents();
         }
     }
     newBackend->addImages(list);
     if (progressBar)
-        progressBar->setProgress(n);
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+        progressBar->setValue(n);
 }
 
 void ImageDB::slotReread( const QStringList& list, int mode)
 {
-#ifdef TEMPORARILY_REMOVED
 // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
-    Q3ProgressDialog  dialog( i18n("Loading information from images"),
-                             i18n("Cancel"), list.count(), 0, "progress dialog", true );
+    QProgressDialog  dialog( i18n("Loading information from images"),
+                             i18n("Cancel"), 0, list.count() );
 
     uint count=0;
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
         if ( count % 10 == 0 ) {
-            dialog.setProgress( count ); // ensure to call setProgress(0)
-            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+            dialog.setValue( count ); // ensure to call setProgress(0)
+            qApp->processEvents( QEventLoop::AllEvents );
 
             if ( dialog.wasCanceled() )
                 return;
@@ -236,10 +231,6 @@ void ImageDB::slotReread( const QStringList& list, int mode)
             info(*it)->readExif(*it, mode);
         MainWindow::DirtyIndicator::markDirty();
     }
-
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 QString

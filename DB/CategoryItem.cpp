@@ -22,13 +22,9 @@
 
 DB::CategoryItem::~CategoryItem()
 {
-#ifdef TEMPORARILY_REMOVED
     for( Q3ValueList<CategoryItem*>::ConstIterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         delete *it;
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 DB::CategoryItem* DB::CategoryItem::clone() const
@@ -44,7 +40,7 @@ void DB::CategoryItem::print( int offset )
 {
     QString spaces;
     spaces.fill( ' ', offset );
-    qDebug( "%s%s", spaces.toLatin1(), _name.toLatin1() );
+    qDebug( "%s%s", qPrintable(spaces), qPrintable(_name) );
     for( Q3ValueList< CategoryItem* >::Iterator it = _subcategories.begin(); it != _subcategories.end(); ++it ) {
         (*it)->print( offset + 2 );
     }

@@ -39,9 +39,9 @@ protected slots:
     void linkHovered(const QString&);
 
 protected:
-    virtual void contentsMouseMoveEvent( QMouseEvent* );
-    virtual void contentsMousePressEvent( QMouseEvent* );
-    virtual void contentsMouseReleaseEvent( QMouseEvent* );
+    virtual void mouseMoveEvent( QMouseEvent* );
+    virtual void mousePressEvent( QMouseEvent* );
+    virtual void mouseReleaseEvent( QMouseEvent* );
 
     void showBrowser();
 

@@ -308,7 +308,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     if ( !loadedOK )
         return;
 
-    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( _nameMap[fileName] ).extension();
+    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( _nameMap[fileName] ).completeSuffix();
 
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripSlash(_subdir))

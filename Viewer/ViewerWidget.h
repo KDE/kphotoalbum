@@ -33,6 +33,7 @@
 #include <QMenu>
 #include <QKeyEvent>
 
+class QStackedWidget;
 class KActionCollection;
 class KToggleAction;
 class KToolBar;
@@ -161,14 +162,14 @@ protected slots:
 private:
     static ViewerWidget* _latest;
 
-    Q3PtrList<QAction> _forwardActions;
-    Q3PtrList<QAction> _backwardActions;
+    QList<QAction*> _forwardActions;
+    QList<QAction*> _backwardActions;
 
     QAction* _startStopSlideShow;
     QAction* _slideShowRunFaster;
     QAction* _slideShowRunSlower;
 
-    Q3WidgetStack* _stack;
+    QStackedWidget* _stack;
     Display* _display;
     ImageDisplay* _imageDisplay;
     VideoDisplay* _videoDisplay;
@@ -208,7 +209,7 @@ private:
     QTimer* _slideShowTimer;
     bool _isRunningSlideShow;
 
-    int _videoSeperatorId;
+    QAction* _videoSeperator;
     QAction* _play;
     QAction* _stop;
     QAction* _pause;

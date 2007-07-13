@@ -627,7 +627,7 @@ QPixmap Import::loadThumbnail( QString fileName )
 
     const KArchiveDirectory* thumbnailDir = static_cast<const KArchiveDirectory*>( thumbnails );
 
-    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( fileName ).extension();
+    const QString ext = Utilities::isVideo( fileName ) ? QString::fromLatin1( "jpg" ) : QFileInfo( fileName ).completeSuffix();
     fileName = QString::fromLatin1("%1.%2").arg( Utilities::stripSlash( QFileInfo( fileName ).baseName() ) ).arg(ext);
     const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
     if ( fileEntry == 0 || !fileEntry->isFile() ) {

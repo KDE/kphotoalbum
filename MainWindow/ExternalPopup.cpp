@@ -102,6 +102,7 @@ void MainWindow::ExternalPopup::slotExecuteService( int id )
 MainWindow::ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
     :Q3PopupMenu( parent, name )
 {
+    setTitle( i18n("Invoke External Program") );
     connect( this, SIGNAL( activated( int ) ), this, SLOT( slotExecuteService( int ) ) );
 }
 

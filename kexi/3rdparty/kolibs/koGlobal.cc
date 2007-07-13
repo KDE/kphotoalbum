@@ -139,9 +139,9 @@ void KoGlobal::createListOfLanguages()
     {
         // Extract the language tag from the directory name
         QString tag = *it;
-        int index = tag.findRev('/');
+        int index = tag.lastIndexOf('/');
         tag = tag.left(index);
-        index = tag.findRev('/');
+        index = tag.lastIndexOf('/');
         tag = tag.mid(index+1);
 
         if ( seenLanguages.find( tag ) == seenLanguages.end() ) {

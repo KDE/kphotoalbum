@@ -182,7 +182,7 @@ namespace
 {
 void splitPath(const QString& filename, QString& path, QString& basename)
 {
-    int i = filename.findRev("/");
+    int i = filename.lastIndexOf("/");
     if (i == -1) {
         path = ".";
         basename = filename;

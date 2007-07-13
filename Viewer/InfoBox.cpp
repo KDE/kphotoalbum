@@ -21,7 +21,6 @@
 #include <qapplication.h>
 #include <qtoolbutton.h>
 #include <qcursor.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 #include <kglobal.h>
 #include <kiconloader.h>
@@ -106,42 +105,30 @@ void Viewer::InfoBox::setSize()
 
 }
 
-void Viewer::InfoBox::contentsMousePressEvent( QMouseEvent* e )
+void Viewer::InfoBox::mousePressEvent( QMouseEvent* e )
 {
     // if we are just over a link, don't change the cursor to 'movement':
     // that would be irritating
     if (!_hoveringOverLink)
         viewport()->setCursor( Qt::SizeAllCursor );
-#ifdef TEMPORARILY_REMOVED
-    QTextBrowser::contentsMousePressEvent(e);
-#else
-    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
-#endif
+    QTextBrowser::mousePressEvent(e);
 }
 
-void Viewer::InfoBox::contentsMouseReleaseEvent( QMouseEvent* e )
+void Viewer::InfoBox::mouseReleaseEvent( QMouseEvent* e )
 {
     if (!_hoveringOverLink)
         viewport()->unsetCursor();
-#ifdef TEMPORARILY_REMOVED
-    QTextBrowser::contentsMouseReleaseEvent(e);
-#else
-    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
-#endif
+    QTextBrowser::mouseReleaseEvent(e);
 }
 
-void Viewer::InfoBox::contentsMouseMoveEvent( QMouseEvent* e)
+void Viewer::InfoBox::mouseMoveEvent( QMouseEvent* e)
 {
-#ifdef TEMPORARILY_REMOVED
     if ( e->buttons() & Qt::LeftButton ) {
         _viewer->infoBoxMove();
         // Do not tell QTextBrowser about the mouse movement, as this will just start a selection.
     }
     else
-        QTextBrowser::contentsMouseMoveEvent( e );
-#else
-    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
-#endif
+        QTextBrowser::mouseMoveEvent( e );
 }
 
 void Viewer::InfoBox::linkHovered( const QString& linkName )

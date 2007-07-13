@@ -22,7 +22,7 @@
 #include "ImageManager/ImageDecoder.h"
 #include <klocale.h>
 #include <qfileinfo.h>
-//Added by qt3to4:
+
 #include <Q3ValueList>
 #include <kmessagebox.h>
 #include <kapplication.h>
@@ -61,6 +61,7 @@ extern "C" {
 
 #include <kdebug.h>
 #include <KMimeType>
+#include <QImageReader>
 
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the
@@ -289,7 +290,7 @@ bool Utilities::copy( const QString& from, const QString& to )
 
 bool Utilities::makeHardLink( const QString& from, const QString& to )
 {
-    if (link(from.ascii(), to.ascii()) != 0)
+    if (link(from.toLocal8Bit(), to.toLocal8Bit()) != 0)
         return false;
     else
         return true;
@@ -339,7 +340,7 @@ void Utilities::removeThumbNail( const QString& imageFile )
     QString path = fi.absolutePath();
 
     QDir dir( QString::fromLatin1( "%1/ThumbNails" ).arg( path ) );
-    QStringList matches = dir.entryList( QString::fromLatin1( "*-%1" ).arg( fi.fileName() ) );
+    QStringList matches = dir.entryList( QStringList() << QString::fromLatin1( "*-%1" ).arg( fi.fileName() ) );
     for( QStringList::Iterator it = matches.begin(); it != matches.end(); ++it ) {
         QString thumbnail = QString::fromLatin1( "%1/ThumbNails/%2" ).arg(path).arg(*it);
         QDir().remove( thumbnail );
@@ -358,7 +359,6 @@ bool Utilities::canReadImage( const QString& fileName )
 
 QString Utilities::readFile( const QString& fileName )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( fileName.isEmpty() ) {
         KMessageBox::error( 0, i18n("<p>Unable to find file %1</p>").arg( fileName ) );
         return QString::null;
@@ -375,9 +375,6 @@ QString Utilities::readFile( const QString& fileName )
     file.close();
 
     return content;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 struct myjpeg_error_mgr : public jpeg_error_mgr
@@ -493,12 +490,8 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
 
 bool Utilities::isJPEG( const QString& fileName )
 {
-#ifdef TEMPORARILY_REMOVED
-    QString format= QString::fromLocal8Bit( QImageIO::imageFormat( fileName ) );
+    QString format= QString::fromLocal8Bit( QImageReader::imageFormat( fileName ) );
     return format == QString::fromLocal8Bit( "JPEG" );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 namespace
@@ -566,7 +559,7 @@ Utilities::UniqNameMap Utilities::createUniqNameMap( const QStringList& images, 
         if ( relative )
             fullName = Utilities::stripImageDirectory( *it );
         QString base = QFileInfo( fullName ).baseName();
-        QString ext = QFileInfo( fullName ).extension();
+        QString ext = QFileInfo( fullName ).completeSuffix();
         QString file = base + QString::fromLatin1( "." ) +  ext;
         if ( !destDir.isNull() )
             file = QString::fromLatin1("%1/%2").arg(destDir).arg(file);
@@ -640,7 +633,7 @@ QString Utilities::stripSlash( const QString& fileName )
 
 QString Utilities::relativeFolderName( const QString& fileName)
 {
-    int index= fileName.findRev( '/', -1);
+    int index= fileName.lastIndexOf( '/', -1);
     if (index == -1)
         return QString::null;
     else
@@ -733,7 +726,7 @@ bool Utilities::isVideo( const QString& fileName )
     }
 
     QFileInfo fi( fileName );
-    QString ext = fi.extension().toLower();
+    QString ext = fi.completeSuffix().toLower();
     return videoExtensions.contains( ext );
 }
 

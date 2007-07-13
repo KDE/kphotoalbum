@@ -81,7 +81,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
     QString input = text();
     if ( _mode == SearchMode )  {
         input = input.left( cursorPosition() );
-        itemStart = input.findRev( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
+        itemStart = input.lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
         input = input.mid( itemStart );
     }
 
@@ -140,7 +140,7 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent
     deselect();
 
     // Select the item in the listView - not perfect but acceptable for now.
-    int start = txt.findRev( QRegExp(QString::fromLatin1("[!&|]")), cursorPosition() -2 ) +1;
+    int start = txt.lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")), cursorPosition() -2 ) +1;
     QString input = txt.mid( start, cursorPosition()-start-1 );
 
     if ( !input.isEmpty() ) {
@@ -152,7 +152,7 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch( QKeyEvent
 
 void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch( bool next )
 {
-    int itemStart = text().findRev( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
+    int itemStart = text().lastIndexOf( QRegExp(QString::fromLatin1("[!&|]")) ) +1;
     QString input = text().mid( itemStart );
 
     Q3ListViewItem* item = _listView->findItem( input, 0 );

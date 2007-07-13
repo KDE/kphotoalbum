@@ -90,7 +90,7 @@ void SQLDB::SQLCategoryCollection::rename(const QString& oldName, const QString&
     categoryForName(oldName)->setName(newName);
 }
 
-Q3ValueList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
+QList<DB::CategoryPtr> SQLDB::SQLCategoryCollection::categories() const
 {
     QStringList cats = categoryNames();
     Q3ValueList<DB::CategoryPtr> result;

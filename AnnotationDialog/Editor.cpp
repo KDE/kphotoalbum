@@ -157,7 +157,7 @@ bool Editor::wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* e
 
     //Get word right clicked on
     const QRegExp wordBoundary( QString::fromLatin1("[\\s\\W]") );
-    *start = paraText.findRev( wordBoundary, charPos ) + 1;
+    *start = paraText.lastIndexOf( wordBoundary, charPos ) + 1;
     *end = paraText.find( wordBoundary, charPos );
     if( *end == -1 )
         *end = paraText.length();

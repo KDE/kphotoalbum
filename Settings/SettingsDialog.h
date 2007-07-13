@@ -53,12 +53,11 @@ namespace Settings
 class ViewerSizeConfig;
 class CategoryItem;
 
-#ifdef TEMPORARILY_REMOVED
-class SettingsDialog :public KDialog {
+class SettingsDialog :public KPageDialog {
     Q_OBJECT
 
 public:
-    SettingsDialog( QWidget* parent, const char* name = 0 );
+    SettingsDialog( QWidget* parent );
     virtual void show();
     int exec();
 
@@ -170,7 +169,7 @@ private:
     Exif::TreeView* _exifForViewer;
     Exif::TreeView* _exifForDialog;
 
-    int _backendPageIndex;
+    KPageWidgetItem* _backendPage;
     Q3ButtonGroup* _backendButtons;
 #ifdef SQLDB_SUPPORT
     // SQL backend
@@ -178,7 +177,6 @@ private:
 #endif
 
 };
-#endif
 
 }
 

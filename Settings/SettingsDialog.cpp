@@ -68,11 +68,15 @@
 #endif
 
 #include "CategoryItem.h"
+#include <kdebug.h>
+#include <QLineEdit>
 
-#ifdef TEMPORARILY_REMOVED
-Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
-    :KDialog( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
+Settings::SettingsDialog::SettingsDialog( QWidget* parent)
+     :KPageDialog( parent ), _currentCategory( QString::null ), _currentGroup( QString::null )
 {
+    setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
+    setCaption( i18n( "Settings" ) );
+
     createGeneralPage();
     createThumbNailPage();
     createOptionGroupsPage();
@@ -89,10 +93,15 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
 
 void Settings::SettingsDialog::createGeneralPage()
 {
-    QWidget* top = addPage( i18n("General" ), i18n("General" ),
-                            KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
-                                                             K3Icon::Desktop, 32 ) );
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    QWidget* top = new QWidget;
+
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("General" ) );
+    page->setHeader( i18n("General") );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
+                                                           K3Icon::Desktop, 32 ) ) );
+    addPage( page );
+
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     Q3VGroupBox* box = new Q3VGroupBox( i18n( "New Images" ), top );
     lay1->addWidget( box );
@@ -208,9 +217,12 @@ void Settings::SettingsDialog::createGeneralPage()
 
 void Settings::SettingsDialog::createThumbNailPage()
 {
-    QWidget* top = addPage( i18n("Thumbnail View" ), i18n("Thumbnail View" ),
-                            KIconLoader::global()->loadIcon( QString::fromLatin1( "view_icon" ),
-                                                             K3Icon::Desktop, 32 ) );
+    QWidget* top = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Thumbnail View" ) );
+    page->setHeader( i18n("Thumbnail View" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "view_icon" ),
+                                                           K3Icon::Desktop, 32 ) ) );
+    addPage( page );
 
     Q3GridLayout* lay = new Q3GridLayout( top );
     lay->setSpacing( 6 );
@@ -337,9 +349,12 @@ void Settings::SettingsDialog::createThumbNailPage()
 
 void Settings::SettingsDialog::createOptionGroupsPage()
 {
-    QWidget* top = addPage( i18n("Categories"), i18n("Categories"),
-                            KIconLoader::global()->loadIcon( QString::fromLatin1( "identity" ),
-                                                             K3Icon::Desktop, 32 ) );
+    QWidget* top = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Categories") );
+    page->setHeader( i18n("Categories") );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "identity" ),
+                                                           K3Icon::Desktop, 32 ) ) );
+    addPage( page );
 
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
     Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
@@ -415,7 +430,7 @@ void Settings::SettingsDialog::show()
     // General page
     _previewSize->setValue( opt->previewSize() );
     _thumbnailSize->setValue( opt->thumbSize() );
-    _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
+    _trustTimeStamps->setCurrentIndex( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
@@ -435,7 +450,7 @@ void Settings::SettingsDialog::show()
 
     _thumbnailDarkBackground->setChecked( opt->thumbnailDarkBackground() );
     _thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
-    _thumbnailAspectRatio->setCurrentItem( opt->thumbnailAspectRatio() );
+    _thumbnailAspectRatio->setCurrentIndex( opt->thumbnailAspectRatio() );
     _thumbnailSpace->setValue( opt->thumbnailSpace() );
     _displayLabels->setChecked( opt->displayLabels() );
     _displayCategories->setChecked( opt->displayCategories() );
@@ -446,9 +461,9 @@ void Settings::SettingsDialog::show()
     _slideShowInterval->setValue( opt->slideShowInterval() );
     _cacheSize->setValue( opt->viewerCacheSize() );
     _thumbnailCache->setValue( opt->thumbnailCache() );
-    _smoothScale->setCurrentItem( opt->smoothScale() );
+    _smoothScale->setCurrentIndex( opt->smoothScale() );
     _autoShowThumbnailView->setValue( opt->autoShowThumbnailView() );
-    _viewerStandardSize->setCurrentItem( opt->viewerStandardSize() );
+    _viewerStandardSize->setCurrentIndex( opt->viewerStandardSize() );
 
 #ifdef HASKIPI
     _delayLoadingPlugins->setChecked( opt->delayLoadingPlugins() );
@@ -481,6 +496,7 @@ void Settings::SettingsDialog::show()
 #endif
 
     enableDisable( false );
+
     KDialog::show();
 }
 
@@ -659,9 +675,13 @@ void Settings::SettingsDialog::enableDisable( bool b )
 
 void Settings::SettingsDialog::createGroupConfig()
 {
-    QWidget* top = addPage( i18n("Subcategories" ), i18n("Subcategories" ),
-                            KIconLoader::global()->loadIcon( QString::fromLatin1( "editcopy" ),
-                                                             K3Icon::Desktop, 32 ) );
+    QWidget* top = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Subcategories" ) );
+    page->setHeader( i18n("Subcategories" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "editcopy" ),
+                                                           K3Icon::Desktop, 32 ) ) );
+    addPage( page );
+
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     // Category
@@ -785,7 +805,7 @@ void Settings::SettingsDialog::slotAddGroup()
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->addItem( text );
         _memberMap.addGroup(_currentCategory, text);
         slotCategoryChanged( _currentCategory, false );
-        Q3ListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
+        Q3ListBoxItem* item = _groups->findItem(text, Q3ListBox::ExactMatch);
         _groups->setCurrentItem( item ); // also emits currentChanged()
         // selectMembers() is called automatically by slotGroupSelected()
     }
@@ -801,7 +821,7 @@ void Settings::SettingsDialog::slotRenameGroup()
         _memberMap.renameGroup( _currentCategory, _currentGroup, text );
         DB::ImageDB::instance()->categoryCollection()->categoryForName( _currentCategory )->renameItem( _currentGroup, text );
         slotCategoryChanged( _currentCategory, false );
-        Q3ListBoxItem* item = _groups->findItem(text, Qt::ExactMatch);
+        Q3ListBoxItem* item = _groups->findItem(text, Q3ListBox::ExactMatch);
         _groups->setCurrentItem( item );
     }
 }
@@ -889,9 +909,13 @@ void Settings::SettingsDialog::slotPageChange()
 
 void Settings::SettingsDialog::createViewerPage()
 {
-    QWidget* top = addPage( i18n("Viewer" ), i18n("Viewer" ),
-                            KIconLoader::global()->loadIcon( QString::fromLatin1( "viewmag" ),
-                                                             K3Icon::Desktop, 32 ) );
+    QWidget* top = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Viewer" ) );
+    page->setHeader( i18n("Viewer" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "viewmag" ),
+                                                           K3Icon::Desktop, 32 ) ) );
+    addPage( page );
+
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), top, "_slideShowSetup" );
@@ -986,17 +1010,19 @@ void Settings::SettingsDialog::createEXIFPage()
 
 void Settings::SettingsDialog::showBackendPage()
 {
-    showPage(_backendPageIndex);
+    setCurrentPage(_backendPage);
 }
 
 void Settings::SettingsDialog::createDatabaseBackendPage()
 {
-    // TODO: add notification: New backend will take effect only after restart
-    QWidget* top = addPage(i18n("Database backend"),
-                           i18n("Database backend"),
-                           KIconLoader::global()->loadIcon(QString::fromLatin1("kfm"),
-                                                           K3Icon::Desktop, 32));
-    _backendPageIndex = pageIndex(top);
+// TODO: add notification: New backend will take effect only after restart
+    QWidget* top = new QWidget;
+    _backendPage = new KPageWidgetItem( top, i18n("Database backend") );
+    _backendPage->setHeader( i18n("Database backend") );
+    _backendPage->setIcon( KIcon( KIconLoader::global()->loadIcon(QString::fromLatin1("kfm"),
+                                                          K3Icon::Desktop, 32)) );
+    addPage( _backendPage );
+
 
     Q3VBoxLayout* lay1 = new Q3VBoxLayout(top, 6);
 
@@ -1079,4 +1105,3 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     connect(_sqlSettings, SIGNAL(passwordChanged(const QString&)), passwordWarning, SLOT(show()));
 #endif /* SQLDB_SUPPORT */
 }
-#endif

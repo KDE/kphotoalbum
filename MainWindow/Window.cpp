@@ -334,16 +334,12 @@ bool MainWindow::Window::slotExit()
 
 void MainWindow::Window::slotOptions()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( ! _optionsDialog ) {
         _optionsDialog = new Settings::SettingsDialog( this );
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( reloadThumbnailsAndFlushCache() ) );
         connect( _optionsDialog, SIGNAL( changed() ), this, SLOT( startAutoSaveTimer() ) );
     }
     _optionsDialog->show();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 

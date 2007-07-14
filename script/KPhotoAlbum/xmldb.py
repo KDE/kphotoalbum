@@ -226,7 +226,7 @@ class MediaItemIterator(object):
 					y1 = int(s.getAttribute('_startPos.y'))
 					x2 = int(s.getAttribute('_lastPos.x'))
 					y2 = int(s.getAttribute('_lastPos.y'))
-					img.addDrawing(Drawing(shape.toLower(),
+					img.addDrawing(Drawing(shape.lower(),
 							       (x1, y1),
 							       (x2, y2)))
 		return img

@@ -19,16 +19,13 @@
 #ifndef IMPORT_H
 #define IMPORT_H
 
-#ifdef TEMPORARILY_REMOVED
-#include <kwizard.h>
-#endif
 #include <kurl.h>
 #include <kio/job.h>
 #include "Utilities/Util.h"
-//Added by qt3to4:
 #include <QPixmap>
 #include <Q3ValueList>
 #include <QCloseEvent>
+#include <KAssistantDialog>
 
 class Q3ProgressDialog;
 class KTempFile;
@@ -59,8 +56,7 @@ protected slots:
     void showImage();
 };
 
-#ifdef TEMPORARILY_REMOVED
-class Import :public KWizard {
+class Import :public KAssistantDialog {
     Q_OBJECT
 
 public:
@@ -101,8 +97,8 @@ protected slots:
     void slotHelp();
 
 private:
-    Import( const QString& file, bool* ok, QWidget* parent, const char* name = 0 );
-    Import( const KUrl& url, QWidget* parent, const char* name = 0 );
+    Import( const QString& file, bool* ok, QWidget* parent );
+    Import( const KUrl& url, QWidget* parent );
     ~Import();
 
     QString _zipFile;
@@ -127,7 +123,6 @@ private:
     bool _hasFilled;
     QString _baseUrl;
 };
-#endif
 
 }
 

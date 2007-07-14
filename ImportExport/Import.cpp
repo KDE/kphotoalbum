@@ -57,10 +57,10 @@
 #include "DB/ImageInfo.h"
 #include "MiniViewer.h"
 #include "XMLDB/Database.h"
+#include <kdebug.h>
 
 class KPushButton;
 using namespace ImportExport;
-#ifdef TEMPORARILY_REMOVED
 
 void Import::imageImport()
 {
@@ -78,11 +78,11 @@ void Import::imageImport( const KUrl& url )
 {
     bool ok;
     if ( !url.isLocalFile() ) {
-        new Import( url, 0, "import_dialog" );
+        new Import( url, 0 );
         // The dialog will start the download, and in the end show itself
     }
     else {
-        Import* dialog = new Import( url.path(), &ok, 0, "import_dialog" );
+        Import* dialog = new Import( url.path(), &ok, 0 );
         dialog->resize( 800, 600 );
         if ( ok )
             dialog->show();
@@ -91,9 +91,10 @@ void Import::imageImport( const KUrl& url )
     }
 }
 
-Import::Import( const KUrl& url, QWidget* parent, const char* name )
-    :KWizard( parent, name, false ), _zip( 0 ), _hasFilled( false )
+Import::Import( const KUrl& url, QWidget* parent )
+    :KAssistantDialog( parent ), _zip( 0 ), _hasFilled( false )
 {
+#ifdef TEMPORARILY_REMOVED
     _kimFile = url;
     _tmp = new KTempFile( QString::null, QString::fromLatin1( ".kim" ) );
     QString path = _tmp->name();
@@ -103,10 +104,14 @@ Import::Import( const KUrl& url, QWidget* parent, const char* name )
     dest.setPath( path );
     KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, true );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 void Import::downloadKimJobCompleted( KIO::Job* job )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( !job->error() ) {
         resize( 800, 600 );
         init( _tmp->name() );
@@ -116,10 +121,13 @@ void Import::downloadKimJobCompleted( KIO::Job* job )
         job->showErrorDialog( 0 );
         delete this;
     }
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
-Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* name )
-    :KWizard( parent, name, false ), _zipFile( fileName ), _tmp(0), _hasFilled( false )
+Import::Import( const QString& fileName, bool* ok, QWidget* parent )
+    :KAssistantDialog( parent ), _zipFile( fileName ), _tmp(0), _hasFilled( false )
 {
     _kimFile.setPath( fileName );
     *ok = init( fileName );
@@ -217,7 +225,11 @@ void Import::setupPages()
     createDestination();
     createCategoryPages();
     connect( this, SIGNAL( selected( const QString& ) ), this, SLOT( updateNextButtonState() ) );
+#ifdef TEMPORARILY_REMOVED
     connect( finishButton(), SIGNAL( clicked() ), this, SLOT( slotFinish() ) );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }
 
@@ -292,7 +304,6 @@ void Import::createImagesPage()
     addPage( top, i18n("Select Which Images to Import") );
 }
 
-#endif
 ImageRow::ImageRow( DB::ImageInfoPtr info, Import* import, QWidget* parent )
     : QObject( parent ), _info( info ), _import( import )
 {
@@ -330,7 +341,6 @@ void ImageRow::showImage()
     kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
 #endif
 }
-#ifdef TEMPORARILY_REMOVED
 
 void Import::createDestination()
 {
@@ -373,6 +383,7 @@ void  Import::slotEditDestination()
 
 void Import::updateNextButtonState()
 {
+#ifdef TEMPORARILY_REMOVED
     bool enabled = true;
     if ( currentPage() == _destinationPage ) {
         QString dest = _destinationEdit->text();
@@ -383,6 +394,9 @@ void Import::updateNextButtonState()
     }
 
     nextButton()->setEnabled( enabled );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 void Import::createCategoryPages()
@@ -429,6 +443,7 @@ ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QStr
 
 void Import::next()
 {
+#ifdef TEMPORARILY_REMOVED
     if ( currentPage() == _destinationPage ) {
         QString dir = _destinationEdit->text();
         if ( !QFileInfo( dir ).exists() ) {
@@ -467,6 +482,9 @@ void Import::next()
     }
 
     Q3Wizard::next();
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 bool Import::copyFilesFromZipFile()
@@ -553,7 +571,11 @@ void Import::aCopyJobCompleted( KIO::Job* job )
 
 void Import::stopCopyingImages()
 {
+#ifdef TEMPORARILY_REMOVED
     _job->kill( true );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 void Import::slotFinish()
@@ -575,7 +597,8 @@ void Import::slotFinish()
 
 void Import::updateDB()
 {
-    // Run though all images
+#ifdef TEMPORARILY_REMOVED
+// Run though all images
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
@@ -613,6 +636,9 @@ void Import::updateDB()
         }
     }
     Browser::BrowserWidget::instance()->home();
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 QPixmap Import::loadThumbnail( QString fileName )
@@ -698,7 +724,7 @@ void Import::closeEvent( QCloseEvent* e )
     // If the user presses the finish button, then we have to postpone the delete operations, as we have pending copies.
     if ( !_finishedPressed )
         deleteLater();
-    KWizard::closeEvent( e );
+    KAssistantDialog::closeEvent( e );
 }
 
 
@@ -707,6 +733,5 @@ void Import::slotHelp()
 {
     KToolInvocation::invokeHelp( QString::fromLatin1( "kphotoalbum#chp-exportDialog" ) );
 }
-#endif
 
 #include "Import.moc"

@@ -263,11 +263,7 @@ void MainWindow::Window::delayedInit()
     KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
     if ( args->isSet( "import" ) ) {
         // I need to do this in delayed init to get the import window on top of the normal window
-#ifdef TEMPORARILY_REMOVED
-        ImportExport::Import::imageImport( KCmdLineArgs::makeURL( args->getOption("import") ) );
-#else
-        kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+        ImportExport::Import::imageImport( KCmdLineArgs::makeURL( args->getOption("import").toLocal8Bit() ) );
     }
     else {
         // I need to postpone this otherwise the tip dialog will not get focus on start up
@@ -290,7 +286,6 @@ void MainWindow::Window::delayedInit()
 
 bool MainWindow::Window::slotExit()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( Utilities::runningDemo() ) {
         QString txt = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
                            "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
@@ -298,7 +293,7 @@ bool MainWindow::Window::slotExit()
                            "on the other hand, if you want to come back and try the demo again, you "
                            "might want to keep it around with the changes you made through this session.</p>" );
         int ret = KMessageBox::questionYesNoCancel( this, txt, i18n("Delete Demo Database"),
-                                                    KStandardGuiItem::yes(), KStandardGuiItem::no(),
+                                                    KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
                                                     QString::fromLatin1("deleteDemoDatabase") );
         if ( ret == KMessageBox::Cancel )
             return false;
@@ -327,9 +322,6 @@ bool MainWindow::Window::slotExit()
  doQuit:
     qApp->quit();
     return true;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::slotOptions()

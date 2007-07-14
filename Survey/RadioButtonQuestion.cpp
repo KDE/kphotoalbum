@@ -36,6 +36,7 @@ Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QStri
     if ( !text.isNull() ) {
         vlay = new Q3VBoxLayout( hlay, 6 );
         label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(text), this );
+        label->setWordWrap(true);
         vlay->addWidget( label );
         vlay->addStretch( 1 );
 
@@ -46,6 +47,7 @@ Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QStri
 
     vlay = new Q3VBoxLayout( hlay, 6 );
     label = new QLabel( QString::fromLatin1("<h3>%1</h3>").arg(question), this );
+    label->setWordWrap( true );
     vlay->addWidget( label );
 
     _answers = new Q3ButtonGroup( this );

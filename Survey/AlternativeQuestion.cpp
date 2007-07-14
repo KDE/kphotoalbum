@@ -22,26 +22,26 @@
 #include <q3frame.h>
 #include <q3buttongroup.h>
 #include <qradiobutton.h>
-//Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include <Q3ValueList>
 #include <klocale.h>
 #include <qlineedit.h>
 #include <qdom.h>
+
 Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QString& title, const QString& text,
                                                   const QString& question, const QStringList& questions, int otherCounts,
                                                   Type tp, SurveyDialog* parent )
     :Question( id, title, parent )
 {
-#ifdef TEMPORARILY_REMOVED
     Q3HBoxLayout* hlay = new Q3HBoxLayout( this, 6 );
     Q3VBoxLayout* vlay;
     QLabel* label;
 
     if ( !text.isNull() ) {
         vlay = new Q3VBoxLayout( hlay, 6 );
-        label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(text), this );
+        label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(text) , this );
+        label->setWordWrap(true);
         vlay->addWidget( label );
         vlay->addStretch( 1 );
 
@@ -52,6 +52,7 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
 
     vlay = new Q3VBoxLayout( hlay, 6 );
     label = new QLabel( QString::fromLatin1("<h3>%1</h3>").arg(question), this );
+    label->setWordWrap(true);
     vlay->addWidget( label );
 
     Q3ButtonGroup* answers = new Q3ButtonGroup( this );
@@ -59,7 +60,7 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
 
     int index = 0;
     for( QStringList::ConstIterator it = questions.begin(); it != questions.end(); ++it, ++index ) {
-        QButton* w;
+        QAbstractButton* w;
         if (tp == RadioButton )
             w = new QRadioButton( *it, this, QString::number(index).toLatin1() );
         else
@@ -79,15 +80,11 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
     }
 
     vlay->addStretch( 1 );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Survey::AlternativeQuestion::save( QDomElement& top )
 {
-#ifdef TEMPORARILY_REMOVED
-    for( Q3ValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
+    for( Q3ValueList<QAbstractButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
         bool checked = false;
         QCheckBox* cb;
         QRadioButton* rb;
@@ -111,14 +108,10 @@ void Survey::AlternativeQuestion::save( QDomElement& top )
             top.appendChild( elm );
         }
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Survey::AlternativeQuestion::load( QDomElement& top )
 {
-#ifdef TEMPORARILY_REMOVED
     Q3ValueList<QLineEdit*>::Iterator editIt = _edits.begin();
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( node.isElement() ) {
@@ -126,7 +119,7 @@ void Survey::AlternativeQuestion::load( QDomElement& top )
             QString tag = elm.tagName();
             if ( tag == QString::fromLatin1( "ButtonAnswer" ) ) {
                 QString index = elm.attribute( QString::fromLatin1( "index" ) );
-                for( Q3ValueList<QButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
+                for( Q3ValueList<QAbstractButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
                     if ( QString::fromLocal8Bit( (*buttonIt)->name() ) == index ) {
                         QCheckBox* cb;
                         QRadioButton* rb;
@@ -145,9 +138,6 @@ void Survey::AlternativeQuestion::load( QDomElement& top )
             }
         }
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QString& title, const QString& text,

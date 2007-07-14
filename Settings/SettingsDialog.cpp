@@ -144,7 +144,7 @@ void Settings::SettingsDialog::createGeneralPage()
     lay1->addWidget( _showSplashScreen );
 
     // Album Category
-    QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), top, "albumCategoryLabel" );
+    QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), top );
     _albumCategory = new QComboBox( top, "_albumCategory" );
     Q3HBoxLayout* lay7 = new Q3HBoxLayout( lay1, 6 );
     lay7->addWidget( albumCategoryLabel );

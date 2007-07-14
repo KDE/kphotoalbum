@@ -23,6 +23,7 @@
 #include <q3progressdialog.h>
 #include <qimage.h>
 #include "DB/ImageInfoList.h"
+#include <QMap>
 
 
 namespace ThumbnailView
@@ -39,9 +40,7 @@ public:
 private:
     QStringList _images;
     uint _index;
-#ifdef TEMPORARILY_REMOVED
     QMap<QString, DB::ImageInfoPtr> _infoMap;
-#endif
 };
 
 }

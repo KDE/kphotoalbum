@@ -29,13 +29,12 @@
 Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Location location, QWidget* parent, const char* name )
     :QWidget( parent, name )
 {
-#ifdef TEMPORARILY_REMOVED
     Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
     QLabel* title;
     if ( location == Front )
-        title = new QLabel( i18n( "<h1>%1 Survey</h1>" ).arg( appName ), this );
+        title = new QLabel( i18n( "<h1>%1 Survey</h1>", appName ), this );
     else
-        title = new QLabel( i18n( "<h1>%1 Survey Completed</h1>" ).arg( appName ), this );
+        title = new QLabel( i18n( "<h1>%1 Survey Completed</h1>", appName ), this );
     title->setSizePolicy( QSizePolicy( QSizePolicy::Expanding, QSizePolicy::Fixed ) );
     vlay->addWidget( title );
 
@@ -53,6 +52,7 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
     hlay->addWidget( pict );
 
     QLabel* desc = new QLabel( text, this );
+    desc->setWordWrap( true );
     hlay->addWidget( desc, 1 );
 
     pict = new QLabel( this );
@@ -65,8 +65,4 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
     frame = new Q3Frame( this );
     frame->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
     vlay->addWidget( frame );
-
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }

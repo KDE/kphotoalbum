@@ -47,7 +47,7 @@
  * \brief Handler used during range selection in the date bar (mouse button on lower part of the bar)
  */
 DateBar::MouseHandler::MouseHandler( DateBarWidget* dateBar )
-    :QObject( dateBar, "handler" ), _dateBar( dateBar )
+    :QObject( dateBar ), _dateBar( dateBar )
 {
     _autoScrollTimer = new QTimer( this );
     connect( _autoScrollTimer, SIGNAL( timeout() ), this, SLOT( autoScroll() ) );

@@ -22,7 +22,7 @@
 #include <q3valuelist.h>
 #include "Question.h"
 #include <q3widgetstack.h>
-//Added by qt3to4:
+
 #include <Q3HBoxLayout>
 #include <Q3CString>
 #include <Q3Frame>
@@ -37,6 +37,7 @@
 #include <kaboutdata.h>
 #include <q3progressbar.h>
 #include <ktoolinvocation.h>
+#include <KCmdLineArgs>
 
 class SurveyPrivate
 {
@@ -57,8 +58,8 @@ public:
     int surveyVersionCompleted;
 };
 
-Survey::SurveyDialog::SurveyDialog( QWidget* parent, const char* name )
-    : QDialog( parent, name, true )
+Survey::SurveyDialog::SurveyDialog( QWidget* parent )
+    : QDialog( parent )
 {
     d = new SurveyPrivate();
     d->stack = 0;
@@ -149,7 +150,7 @@ QWidget* Survey::SurveyDialog::createStackItem( Question* question, int count )
     frame->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
     vlay->addWidget( frame );
 
-    question->reparent( w, 0, QPoint(0,0), true );
+    question->setParent( w );
     vlay->addWidget( question );
 
     // Line
@@ -200,7 +201,7 @@ void Survey::SurveyDialog::setupFrontPage()
     if ( !d->frontPage )
         qFatal("Frontpage missing");
 
-    d->frontPage->reparent( d->stack, 0, QPoint(0,0), true );
+    d->frontPage->setParent( d->stack );
     d->stack->addWidget( d->frontPage, 0 );
 }
 
@@ -214,13 +215,12 @@ void Survey::SurveyDialog::setupBackPage( int count )
     if ( !d->backPage )
         qFatal("Backpage missing");
 
-    d->backPage->reparent( d->stack, 0, QPoint(0,0), true );
+    d->backPage->setParent( d->stack );
     d->stack->addWidget( d->backPage, count+1 );
 }
 
 void Survey::SurveyDialog::slotDone()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( lastPage() )
         d->surveyVersionCompleted = d->surveyVersionMajor;
 
@@ -230,13 +230,10 @@ void Survey::SurveyDialog::slotDone()
 
     if ( lastPage() ) {
         KToolInvocation::invokeMailer( d->emailAddress, QString::null, QString::null,
-                            QString::fromLatin1( "%1 survey" ).arg(kapp->instanceName() ), xml );
+                            QString::fromLatin1( "KPhotoAlbum survey" ), xml );
     }
 
     close();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool Survey::SurveyDialog::lastPage() const
@@ -246,8 +243,7 @@ bool Survey::SurveyDialog::lastPage() const
 
 void Survey::SurveyDialog::readConfig()
 {
-#ifdef TEMPORARILY_REMOVED
-    QFile in( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
+    QFile in( KStandardDirs::locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
     if ( in.open( QIODevice::ReadOnly ) ) {
         QDomDocument doc;
         doc.setContent(&in );
@@ -266,15 +262,11 @@ void Survey::SurveyDialog::readConfig()
     }
 
     saveConfig( configAsXML() ); // Save right away to increace invocation count
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Survey::SurveyDialog::saveConfig( const Q3CString& xml )
 {
-#ifdef TEMPORARILY_REMOVED
-    QFile out( locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
+    QFile out( KStandardDirs::locateLocal( "appdata", QString::fromLatin1("survey.xml") ) );
     if ( !out.open( QIODevice::WriteOnly ) ) {
         Q_ASSERT( false );
     }
@@ -282,9 +274,6 @@ void Survey::SurveyDialog::saveConfig( const Q3CString& xml )
         out.write( xml.data(), xml.size()-1 );
         out.close();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Survey::SurveyDialog::setReceiver( const QString& emailAddress )
@@ -308,16 +297,15 @@ void Survey::SurveyDialog::possibleExecSurvey( int minInvocations, int remindCou
         exec();
 }
 
-Q3CString Survey::SurveyDialog::configAsXML()
+QByteArray Survey::SurveyDialog::configAsXML()
 {
-#ifdef TEMPORARILY_REMOVED
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
                                                       QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
     QDomElement top = doc.createElement( QString::fromLatin1("survey") );
     top.setAttribute( QString::fromLatin1( "surveyVersionMinor" ), d->surveyVersionMinor );
     top.setAttribute( QString::fromLatin1( "surveyVersionMajor" ), d->surveyVersionMajor );
-    top.setAttribute( QString::fromLatin1( "applicationVersion" ), KGlobal::instance()->aboutData()->version() );
+    top.setAttribute( QString::fromLatin1( "applicationVersion" ), KCmdLineArgs::aboutData()->version() );
     top.setAttribute( QString::fromLatin1( "invocationCount" ), d->invocationCount );
     top.setAttribute( QString::fromLatin1( "surveyVersionCompleted" ), d->surveyVersionCompleted );
 
@@ -329,10 +317,7 @@ Q3CString Survey::SurveyDialog::configAsXML()
         top.appendChild( elm );
     }
 
-    return doc.toCString();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    return doc.toByteArray();
 }
 
 #include "SurveyDialog.moc"

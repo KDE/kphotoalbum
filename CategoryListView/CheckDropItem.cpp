@@ -57,16 +57,12 @@ bool CategoryListView::CheckDropItem::acceptDrop( const QMimeSource* mime ) cons
 
 CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeSource* e) const
 {
-#ifdef TEMPORARILY_REMOVED
     DragItemInfoSet items;
     const QByteArray data = e->encodedData( "x-kphotoalbum/x-category-drag" );
-    QDataStream stream( data, QIODevice::ReadOnly );
+    QDataStream stream( data );
     stream >> items;
 
     return items;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
@@ -107,7 +103,6 @@ bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, cons
 
 bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& parent, const DragItemInfoSet& items )
 {
-#ifdef TEMPORARILY_REMOVED
     QStringList children;
     for( DragItemInfoSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         children.append( (*itemIt).child() );
@@ -122,11 +117,9 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
         .arg( children.join( QString::fromLatin1( ", " ) ) ).arg( parent );
 
     const int answer = KMessageBox::warningContinueCancel( 0, msg, i18n("Move Items"), KStandardGuiItem::cont(),
+                                                           KStandardGuiItem::cancel(),
                                                            QString::fromLatin1( "DoYouReallyWantToMessWithMemberGroups" ) );
     return answer == KMessageBox::Continue;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )

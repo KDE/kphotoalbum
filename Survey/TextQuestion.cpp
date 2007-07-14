@@ -28,6 +28,7 @@ Survey::TextQuestion::TextQuestion( const QString& id, const QString& title, con
 {
     Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
     QLabel* label = new QLabel( question, this );
+    label->setWordWrap(true);
     vlay->addWidget( label );
 
     _edit = new Q3TextEdit( this );

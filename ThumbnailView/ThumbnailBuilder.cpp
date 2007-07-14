@@ -35,7 +35,6 @@ ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* 
 
 void ThumbnailView::ThumbnailBuilder::generateNext()
 {
-#ifdef TEMPORARILY_REMOVED
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(_images[_index]);
     ++_index;
     setProgress( _index );
@@ -44,14 +43,10 @@ void ThumbnailView::ThumbnailBuilder::generateNext()
     request->setCache();
     request->setPriority();
     ImageManager::Manager::instance()->load( request );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& fullSize, int, const QImage&, bool /*loadedOK*/ )
 {
-#ifdef TEMPORARILY_REMOVED
     Q_ASSERT( _infoMap.contains( fileName ) );
     if ( fullSize.width() != -1 )
         _infoMap[fileName]->setSize( fullSize );
@@ -61,9 +56,6 @@ void ThumbnailView::ThumbnailBuilder::pixmapLoaded( const QString& fileName, con
         delete this;
     else
         generateNext();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 #include "ThumbnailBuilder.moc"

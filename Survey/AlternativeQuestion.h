@@ -22,7 +22,7 @@
 #include "Question.h"
 #include <q3valuelist.h>
 class QLineEdit;
-class QButton;
+class QAbstractButton;
 class Q3ButtonGroup;
 
 namespace Survey {
@@ -40,7 +40,7 @@ namespace Survey {
         virtual void load( QDomElement& );
 
     private:
-        Q3ValueList<QButton*> _buttons;
+        Q3ValueList<QAbstractButton*> _buttons;
         Q3ValueList<QLineEdit*> _edits;
     };
 

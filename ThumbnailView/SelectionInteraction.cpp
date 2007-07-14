@@ -261,20 +261,16 @@ QRect ThumbnailView::SelectionInteraction::iconRect( const QPoint& coordinate, C
 
 bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* event ) const
 {
-#ifdef TEMPORARILY_REMOVED
 // If control or shift is pressed down then do not deselect.
     if  ( event->modifiers() & (Qt::ControlModifier | Qt::ShiftModifier) )
         return false;
 
     // right mouse button on a selected image should not clear
-    if ( (event->button() & RightButton) && _view->_selectedFiles.contains( _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates ) ) )
+    if ( (event->button() & Qt::RightButton) && _view->_selectedFiles.contains( _view->fileNameAtCoordinate( event->pos(), ViewportCoordinates ) ) )
         return false;
 
     // otherwise deselect
     return true;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void ThumbnailView::SelectionInteraction::clearSelection()

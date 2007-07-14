@@ -31,7 +31,7 @@ namespace Survey {
     {
         Q_OBJECT
     public:
-        SurveyDialog( QWidget* parent, const char* name = 0);
+        SurveyDialog( QWidget* parent );
         ~SurveyDialog();
         void setFrontPage( QWidget* page );
         void setBackPage( QWidget* page );
@@ -49,7 +49,7 @@ namespace Survey {
         bool lastPage() const;
         void saveConfig( const Q3CString& xml );
         void readConfig();
-        Q3CString configAsXML();
+        QByteArray configAsXML();
 
     private:
         friend class Question;

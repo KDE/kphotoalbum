@@ -24,8 +24,8 @@
 
 using namespace Survey;
 
-MySurvey::MySurvey( QWidget* parent, const char* name )
-    :Survey::SurveyDialog( parent, name )
+MySurvey::MySurvey( QWidget* parent)
+    :Survey::SurveyDialog( parent )
 {
     setSurveyVersion( 2, 1 );
     setReceiver( QString::fromLatin1( "blackie@kde.org" ) );

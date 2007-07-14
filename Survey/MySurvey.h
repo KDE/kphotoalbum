@@ -26,7 +26,7 @@ class MySurvey : public Survey::SurveyDialog {
     Q_OBJECT
 
 public:
-    MySurvey( QWidget* parent, const char* name = 0 );
+    MySurvey( QWidget* parent );
     virtual QSize sizeHint() const;
 };
 }

@@ -75,7 +75,7 @@ QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt
 QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 
 QStringList removeDuplicates( const QStringList& items );
-};
+}
 
 bool operator>( const QPoint&, const QPoint& );
 bool operator<( const QPoint&, const QPoint& );

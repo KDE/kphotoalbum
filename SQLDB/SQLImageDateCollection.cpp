@@ -5,8 +5,8 @@
 
 using namespace SQLDB;
 
-SQLImageDateCollection::SQLImageDateCollection(Connection& connection):
-    _qh(connection)
+SQLImageDateCollection::SQLImageDateCollection(QueryHelper& queryHelper):
+    _qh(queryHelper)
 {
 }
 

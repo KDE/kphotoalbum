@@ -247,7 +247,7 @@ DB::CategoryCollection* SQLDB::Database::categoryCollection()
 
 KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
 {
-    return new SQLImageDateCollection(*_connection
+    return new SQLImageDateCollection(_qh
                                       /*, search(Browser::instance()->currentContext(), false)*/);
 }
 

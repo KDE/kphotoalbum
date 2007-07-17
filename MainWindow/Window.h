@@ -38,6 +38,7 @@ class KRadioAction;
 #include "Settings/SettingsData.h"
 #include <kurl.h>
 #include <kxmlguiwindow.h>
+#include <QPointer>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -169,9 +170,7 @@ private:
 
     ThumbnailView::ThumbnailWidget* _thumbnailView;
     Settings::SettingsDialog* _optionsDialog;
-#ifdef TEMPORARILY_REMOVED
     QPointer<AnnotationDialog::Dialog> _annotationDialog;
-#endif
     Q3WidgetStack* _stack;
     QWidget* _welcome;
     QTimer* _autoSaveTimer;

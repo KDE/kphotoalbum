@@ -55,15 +55,10 @@ using CategoryListView::CheckDropItem;
 AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidget* parent )
     : QWidget( parent ), _category( category )
 {
-    Q3VBoxLayout* layout = new Q3VBoxLayout( this,  6 );
-
-    _label = new QLabel( _category->text(), this );
-    _label->setAlignment( Qt::AlignCenter );
-    layout->addWidget( _label );
+    QVBoxLayout* layout = new QVBoxLayout( this );
 
     _lineEdit = new CompletableLineEdit( this );
     _lineEdit->setName( QString::fromLatin1( "line edit for %1").arg(_category->name()).latin1() );
-    _label->setBuddy( _lineEdit );
     layout->addWidget( _lineEdit );
 
     _listView = new CategoryListView::DragableListView( _category, this );
@@ -452,7 +447,6 @@ void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, Q3ListVi
 
 void AnnotationDialog::ListSelect::populate()
 {
-    _label->setText( _category->text() );
     _listView->clear();
 
     if ( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha )

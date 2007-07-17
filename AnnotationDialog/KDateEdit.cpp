@@ -91,7 +91,6 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
 
 AnnotationDialog::KDateEdit::~KDateEdit()
 {
-    delete mDateFrame;
 }
 
 void AnnotationDialog::KDateEdit::setDate(const QDate& newDate)

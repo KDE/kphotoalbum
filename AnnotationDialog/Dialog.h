@@ -20,10 +20,8 @@
 #define IMAGECONFIG_H
 #include "ListSelect.h"
 #include "DB/ImageSearchInfo.h"
-#include <k3dockwidget.h>
 #include "Editor.h"
 #include <qdialog.h>
-//Added by qt3to4:
 #include <QResizeEvent>
 #include <QEvent>
 #include <QMoveEvent>
@@ -33,11 +31,14 @@
 #include "DB/ImageInfoList.h"
 #include "DB/Category.h"
 #include "enums.h"
+#include <KActionCollection>
 
+
+class QTimeEdit;
+class QMainWindow;
 class QSplitter;
 class QPushButton;
 class KLineEdit;
-class KDockWidget;
 class KDatePicker;
 class KPushButton;
 
@@ -60,7 +61,7 @@ class KDateEdit;
 class Dialog :public QDialog {
     Q_OBJECT
 public:
-    Dialog( QWidget* parent, const char* name = 0 );
+    Dialog( QWidget* parent );
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = 0 );
     bool thumbnailShouldReload() const;
@@ -89,6 +90,10 @@ protected slots:
     void slotCopyPrevious();
 
 protected:
+    QWidget* createDateWidget();
+    QWidget* createPreviewWidget();
+    QWidget* createListSel( const DB::CategoryPtr& category );
+
     void load();
     void writeToInfo();
     void setup();
@@ -98,7 +103,6 @@ protected:
     void showTornOfWindows();
     void hideTornOfWindows();
     virtual bool eventFilter( QObject*, QEvent* );
-    KDockWidget* createListSel( const DB::CategoryPtr& category );
     bool hasChanges();
     void showHelpDialog( UsageMode );
     virtual void resizeEvent( QResizeEvent* );
@@ -110,6 +114,9 @@ protected:
     void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
     QPair<StringSet,StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
 
+signals:
+    void deleteMe();
+
 private:
     DB::ImageInfoList _origList;
     Q3ValueList<DB::ImageInfo> _editList;
@@ -120,15 +127,15 @@ private:
     QSplitter* _splitter;
     Viewer::ViewerWidget* _viewer;
     int _accept;
+#ifdef TEMPORARILY_REMOVED
     Q3ValueList<KDockWidget*> _dockWidgets;
     Q3ValueList<KDockWidget*> _tornOfWindows;
+#endif
     bool _thumbnailShouldReload;
     bool _thumbnailTextShouldReload;
 
     // Widgets
-#ifdef TEMPORARILY_REMOVED
-    KDockMainWindow* _dockWindow;
-#endif
+    QMainWindow* _dockWindow;
     KLineEdit* _imageLabel;
     KDateEdit* _startDate;
     KDateEdit* _endDate;
@@ -143,9 +150,7 @@ private:
     QPushButton* _delBut;
     QPushButton* _copyPreviousBut;
     Editor* _description;
-#ifdef TEMPORARILY_REMOVED
-    KTimeWidget* _time;
-#endif
+    QTimeEdit* _time;
     QPushButton* _addTime;
 
     KActionCollection* _actions;

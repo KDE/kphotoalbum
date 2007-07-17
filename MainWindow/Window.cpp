@@ -130,9 +130,7 @@ MainWindow::Window* MainWindow::Window::_instance = 0;
 
 MainWindow::Window::Window( QWidget* parent )
     :KXmlGuiWindow( parent ),
-#ifdef TEMPORARILY_REMOVED
     _annotationDialog(0),
-#endif
      _deleteDialog( 0 ), _htmlDialog(0), _tokenEditor( 0 )
 {
     SplashScreen::instance()->message( i18n("Loading Database") );
@@ -371,52 +369,37 @@ void MainWindow::Window::configureImages( const DB::ImageInfoList& list, bool on
 
 void MainWindow::Window::configImages( const DB::ImageInfoList& list, bool oneAtATime )
 {
-#ifdef TEMPORARILY_REMOVED
     createAnnotationDialog();
     _annotationDialog->configure( list,  oneAtATime );
     if ( _annotationDialog->thumbnailShouldReload() )
         reloadThumbnails(true);
     else if ( _annotationDialog->thumbnailTextShouldReload() )
         _thumbnailView->reload(false, false);
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 
 void MainWindow::Window::slotSearch()
 {
-#ifdef TEMPORARILY_REMOVED
     createAnnotationDialog();
     DB::ImageSearchInfo searchInfo = _annotationDialog->search();
     if ( !searchInfo.isNull() )
         _browser->addSearch( searchInfo );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::createAnnotationDialog()
 {
-#ifdef TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
     if ( !_annotationDialog.isNull() )
         return;
 
-    _annotationDialog = new AnnotationDialog::Dialog( this,  "_annotationDialog" );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    _annotationDialog = new AnnotationDialog::Dialog( this );
+    connect( _annotationDialog, SIGNAL( deleteMe() ), this, SLOT( deleteAnnotationDialog() ) );
 }
 
 void MainWindow::Window::deleteAnnotationDialog()
 {
-#ifdef TEMPORARILY_REMOVED
     _annotationDialog->deleteLater();
     _annotationDialog = 0;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::slotSave()
@@ -835,13 +818,9 @@ void MainWindow::Window::showBrowser()
 
 void MainWindow::Window::slotOptionGroupChanged()
 {
-#ifdef TEMPORARILY_REMOVED
     delete _annotationDialog;
     _annotationDialog = 0;
     DirtyIndicator::markDirty();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::showTipOfDay()

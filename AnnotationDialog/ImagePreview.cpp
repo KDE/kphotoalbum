@@ -77,7 +77,6 @@ void ImagePreview::setImage( const QString& fileName )
 
 void ImagePreview::reload()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( !_info.isNull() ) {
         QImage img;
         if (_preloader.has(_info.fileName()))
@@ -87,7 +86,7 @@ void ImagePreview::reload()
             //see setCurrentImage for the reason (where _lastImage is changed...)
             setCurrentImage(QImage(_lastImage.getImage()));
         else {
-            setPixmap(QImage()); //erase old image
+            setPixmap(QPixmap()); //erase old image
             ImageManager::Manager::instance()->stop(this);
             ImageManager::ImageRequest* request = new ImageManager::ImageRequest( _info.fileName(), QSize( width(), height() ), _info.angle(), this );
             request->setPriority();
@@ -97,11 +96,8 @@ void ImagePreview::reload()
     else {
         QImage img( _fileName );
         img = ImageManager::ImageLoader::rotateAndScale( img, width(), height(), _angle );
-        setPixmap( img );
+        setPixmap( QPixmap::fromImage(img) );
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 int ImagePreview::angle() const
@@ -112,16 +108,12 @@ int ImagePreview::angle() const
 
 void ImagePreview::setCurrentImage(const QImage &image)
 {
-#ifdef TEMPORARILY_REMOVED
-//cache the current image as the last image before changing it
+    //cache the current image as the last image before changing it
     _lastImage.set(_currentImage);
     _currentImage.set(_info.fileName(), image);
-    setPixmap(_currentImage.getImage());
+    setPixmap( QPixmap::fromImage( _currentImage.getImage()) );
     if (!_anticipated._fileName.isNull())
         _preloader.preloadImage(_anticipated._fileName, width(), height(), _anticipated._angle);
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void ImagePreview::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int, const QImage& image, bool loadedOK)

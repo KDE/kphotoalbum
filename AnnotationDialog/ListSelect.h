@@ -87,7 +87,6 @@ protected:
     void ensureAllInstancesAreStateChanged( Q3ListViewItem* item );
 
 private:
-    QLabel* _label;
     DB::CategoryPtr _category;
     CompletableLineEdit* _lineEdit;
     CategoryListView::DragableListView* _listView;

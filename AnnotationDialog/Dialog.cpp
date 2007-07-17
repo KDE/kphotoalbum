@@ -20,7 +20,6 @@
 #include "ListSelect.h"
 #include <qpushbutton.h>
 #include <qlabel.h>
-//Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3ValueList>
 #include <Q3CString>
@@ -50,9 +49,6 @@
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "Utilities/ShowBusyCursor.h"
-#ifdef TEMPORARILY_REMOVED
-#include <ktimewidget.h>
-#endif
 #include "KDateEdit.h"
 #include "MainWindow/DeleteDialog.h"
 #include <kguiitem.h>
@@ -68,158 +64,69 @@
 #include "enums.h"
 #include "MainWindow/DirtyIndicator.h"
 #include <qtooltip.h>
+#include <kdebug.h>
+#include <QMainWindow>
+#include <QDockWidget>
+#include <QTimeEdit>
+#include <QDir>
 
-AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
-    : QDialog( parent, name ), _viewer(0)
+AnnotationDialog::Dialog::Dialog( QWidget* parent )
+    : QDialog( parent ), _viewer(0)
 {
-#ifdef TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
-    Q3VBoxLayout* layout = new Q3VBoxLayout( this, 6 );
-    _dockWindow = new KDockMainWindow( 0 );
+    QVBoxLayout* layout = new QVBoxLayout( this );
+    _dockWindow = new QMainWindow( this );
+    _dockWindow->setWindowFlags(Qt::Widget);
 
-    _dockWindow->reparent( this, false, QPoint( 0,0 ) );
+    _dockWindow->setDockNestingEnabled( true );
+
     layout->addWidget( _dockWindow );
 
     // -------------------------------------------------- Label and Date
     // If I make the dateDock a child of 'this', then things seems to break.
     // The datedock isn't shown at all
-    KDockWidget* dateDock = _dockWindow->createDockWidget( QString::fromLatin1("Label and Dates"), QPixmap(), _dockWindow,
-                                                           i18n("Label and Dates") );
-
-    _dockWidgets.append( dateDock );
-    QWidget* top = new QWidget( dateDock );
-    Q3VBoxLayout* lay2 = new Q3VBoxLayout( top, 6 );
-    dateDock->setWidget( top );
-
-    // Image Label
-    Q3HBoxLayout* lay3 = new Q3HBoxLayout( lay2, 6 );
-    QLabel* label = new QLabel( i18n("Label: " ), top, "label" );
-    lay3->addWidget( label );
-    _imageLabel = new KLineEdit( top, "label line edit" );
-    label->setBuddy( _imageLabel );
-    lay3->addWidget( _imageLabel );
+    QDockWidget* dateDock = new QDockWidget( i18n("Label and Dates"), _dockWindow );
+    dateDock->setObjectName( "Label and Dates" );
+    dateDock->setAllowedAreas( Qt::AllDockWidgetAreas );
+    dateDock->setWidget( createDateWidget() );
+    _dockWindow->addDockWidget( Qt::TopDockWidgetArea, dateDock );
 
 
-    // Date
-    Q3HBoxLayout* lay4 = new Q3HBoxLayout( lay2, 6 );
-
-    label = new QLabel( i18n("Date: "), top, "date label" );
-    lay4->addWidget( label );
-
-    _startDate = new ::AnnotationDialog::KDateEdit( true, top, "date config" );
-    lay4->addWidget( _startDate, 1 );
-    connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
-    label->setBuddy( _startDate );
-
-    label = new QLabel( QString::fromLatin1( "-" ), top );
-    lay4->addWidget( label );
-
-    _endDate = new ::AnnotationDialog::KDateEdit( false, top, "date config" );
-    lay4->addWidget( _endDate, 1 );
-
-    // Time
-    Q3HBoxLayout* lay7 = new Q3HBoxLayout( lay2, 6 );
-    label = new QLabel( i18n("Time: "), top);
-    lay7->addWidget( label );
-
-    _time= new KTimeWidget(top);
-    lay7->addWidget( _time );
-    lay7->addStretch(1);
-    _time->hide();
-
-    _addTime= new QPushButton(i18n("Add Time Info..."),top);
-    lay7->addWidget( _addTime );
-    lay7->addStretch(1);
-    _addTime->hide();
-    connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
-
-    _dockWindow->setView( dateDock );
 
     // -------------------------------------------------- Image preview
-    KDockWidget* previewDock
-        = _dockWindow->createDockWidget( QString::fromLatin1("Image Preview"),
-                                         KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/imagesIcon.png") ),
-                                         _dockWindow, i18n("Image Preview") );
-    _dockWidgets.append( previewDock );
-    QWidget* top2 = new QWidget( previewDock );
-    Q3VBoxLayout* lay5 = new Q3VBoxLayout( top2, 6 );
-    previewDock->setWidget( top2 );
+    QDockWidget* previewDock = new QDockWidget( i18n("Image Preview"), _dockWindow );
+    previewDock->setObjectName( "Image Preview" );
+    previewDock->setAllowedAreas( Qt::AllDockWidgetAreas );
+    previewDock->setWidget( createPreviewWidget() );
+    _dockWindow->addDockWidget( Qt::TopDockWidgetArea, previewDock );
 
-    _preview = new ImagePreview( top2 );
-    lay5->addWidget( _preview );
 
-    Q3HBoxLayout* lay6 = new Q3HBoxLayout( lay5 );
-    lay6->addStretch(1);
-
-    _prevBut = new QPushButton( top2 );
-    _prevBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1leftarrow" ), K3Icon::Desktop, 22 ) );
-    _prevBut->setFixedWidth( 40 );
-    lay6->addWidget( _prevBut );
-    _prevBut->setToolTip( i18n("Annotate previous image") );
-
-    _nextBut = new QPushButton( top2 );
-    _nextBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1rightarrow" ), K3Icon::Desktop, 22 ) );
-    _nextBut->setFixedWidth( 40 );
-    lay6->addWidget( _nextBut );
-    _nextBut->setToolTip( i18n("Annotate next image") );
-
-    lay6->addStretch(1);
-
-    _rotateLeft = new QPushButton( top2 );
-    lay6->addWidget( _rotateLeft );
-    _rotateLeft->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), K3Icon::Desktop, 22 ) );
-    _rotateLeft->setFixedWidth( 40 );
-    _rotateLeft->setToolTip( i18n("Rotate contra-clockwise (to the left)") );
-
-    _rotateRight = new QPushButton( top2 );
-    lay6->addWidget( _rotateRight );
-    _rotateRight->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_cw" ), K3Icon::Desktop, 22 ) );
-    _rotateRight->setFixedWidth( 40 );
-    _rotateRight->setToolTip( i18n("Rotate clockwise (to the right)") );
-
-    _copyPreviousBut = new QPushButton( top2 );
-    lay6->addWidget( _copyPreviousBut );
-    _copyPreviousBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "legalmoves" ), K3Icon::Desktop, 22 ) );
-    _copyPreviousBut->setFixedWidth( 40 );
-    connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
-    _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
-
-    lay6->addStretch( 1 );
-    _delBut = new QPushButton( top2 );
-    _delBut->setPixmap( KIconLoader::global()->loadIcon( QString::fromLatin1( "editdelete" ), K3Icon::Desktop, 22 ) );
-    lay6->addWidget( _delBut );
-    connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
-    _delBut->setToolTip( i18n("Delete image") );
-
-    lay6->addStretch(1);
-
-    previewDock->manualDock( dateDock, KDockWidget::DockRight, 80  );
 
 
     // -------------------------------------------------- The editor
-    KDockWidget* descriptionDock = _dockWindow->createDockWidget( QString::fromLatin1("Description"), QPixmap(), _dockWindow,
-                                                                  i18n("Description") );
+    QDockWidget* descriptionDock = new QDockWidget( i18n("Description"), _dockWindow );
+    descriptionDock->setObjectName( "description" );
+    descriptionDock->setAllowedAreas( Qt::AllDockWidgetAreas );
+    _dockWindow->addDockWidget( Qt::LeftDockWidgetArea, descriptionDock );
 
-    _dockWidgets.append(descriptionDock);
     _description = new Editor( descriptionDock, "_description" );
     descriptionDock->setWidget( _description );
-    descriptionDock->manualDock( dateDock, KDockWidget::DockBottom, 20 );
 
     // -------------------------------------------------- Categrories
-    KDockWidget* last = descriptionDock;
-    KDockWidget::DockPosition pos = KDockWidget::DockBottom;
-
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        KDockWidget* dockWidget = createListSel( *categoryIt );
-        dockWidget->manualDock( last, pos );
-        last = dockWidget;
-        pos = KDockWidget::DockRight;
+        if ( (*categoryIt)->isSpecialCategory() )
+            continue;
+        QDockWidget* dock = new QDockWidget( (*categoryIt)->text(), _dockWindow );
+        dock->setAllowedAreas( Qt::AllDockWidgetAreas );
+        dock->setObjectName( (*categoryIt)->name() );
+        dock->setWidget( createListSel( *categoryIt ) );
+        _dockWindow->addDockWidget( Qt::BottomDockWidgetArea, dock );
     }
 
-
     // -------------------------------------------------- The buttons.
-    Q3HBoxLayout* lay1 = new Q3HBoxLayout( layout, 6 );
+    QHBoxLayout* lay1 = new QHBoxLayout;
+    layout->addLayout( lay1 );
 
     _revertBut = new QPushButton( i18n("Revert This Item"), this );
     lay1->addWidget( _revertBut );
@@ -263,9 +170,121 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::ConfigWindow ) );
 
     setupActions();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+}
+
+QWidget* AnnotationDialog::Dialog::createDateWidget()
+{
+    QWidget* top = new QWidget;
+    QVBoxLayout* lay2 = new QVBoxLayout( top );
+
+    // Image Label
+    QHBoxLayout* lay3 = new QHBoxLayout;
+    lay2->addLayout( lay3 );
+
+    QLabel* label = new QLabel( i18n("Label: " ) );
+    lay3->addWidget( label );
+    _imageLabel = new KLineEdit( top );
+    label->setBuddy( _imageLabel );
+    lay3->addWidget( _imageLabel );
+
+
+    // Date
+    QHBoxLayout* lay4 = new QHBoxLayout;
+    lay2->addLayout( lay4 );
+
+    label = new QLabel( i18n("Date: ") );
+    lay4->addWidget( label );
+
+    _startDate = new ::AnnotationDialog::KDateEdit( true, top, "date config" );
+    lay4->addWidget( _startDate, 1 );
+    connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
+    label->setBuddy( _startDate );
+
+    label = new QLabel( QString::fromLatin1( "-" ), top );
+    lay4->addWidget( label );
+
+    _endDate = new ::AnnotationDialog::KDateEdit( false, top, "date config" );
+    lay4->addWidget( _endDate, 1 );
+
+    // Time
+    QHBoxLayout* lay7 = new QHBoxLayout;
+    lay2->addLayout( lay7 );
+
+    label = new QLabel( i18n("Time: ") );
+    lay7->addWidget( label );
+
+    _time= new QTimeEdit(top);
+    lay7->addWidget( _time );
+    lay7->addStretch(1);
+    _time->hide();
+
+    _addTime= new QPushButton(i18n("Add Time Info..."),top);
+    lay7->addWidget( _addTime );
+    lay7->addStretch(1);
+    _addTime->hide();
+    connect(_addTime,SIGNAL(clicked()), this, SLOT(slotAddTimeInfo()));
+
+    lay2->addStretch(1);
+
+    return top;
+}
+
+
+QWidget* AnnotationDialog::Dialog::createPreviewWidget()
+{
+    QWidget* top = new QWidget;
+    QVBoxLayout* layout = new QVBoxLayout( top );
+
+    _preview = new ImagePreview( top );
+    layout->addWidget( _preview, 1 );
+
+    QHBoxLayout* hlay = new QHBoxLayout;
+    layout->addLayout( hlay );
+    hlay->addStretch(1);
+
+    _prevBut = new QPushButton( top );
+    _prevBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1leftarrow" ), K3Icon::Desktop, 22 ) );
+    _prevBut->setFixedWidth( 40 );
+    hlay->addWidget( _prevBut );
+    _prevBut->setToolTip( i18n("Annotate previous image") );
+
+    _nextBut = new QPushButton( top );
+    _nextBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1rightarrow" ), K3Icon::Desktop, 22 ) );
+    _nextBut->setFixedWidth( 40 );
+    hlay->addWidget( _nextBut );
+    _nextBut->setToolTip( i18n("Annotate next image") );
+
+    hlay->addStretch(1);
+
+    _rotateLeft = new QPushButton( top );
+    hlay->addWidget( _rotateLeft );
+    _rotateLeft->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), K3Icon::Desktop, 22 ) );
+    _rotateLeft->setFixedWidth( 40 );
+    _rotateLeft->setToolTip( i18n("Rotate contra-clockwise (to the left)") );
+
+    _rotateRight = new QPushButton( top );
+    hlay->addWidget( _rotateRight );
+    _rotateRight->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_cw" ), K3Icon::Desktop, 22 ) );
+    _rotateRight->setFixedWidth( 40 );
+    _rotateRight->setToolTip( i18n("Rotate clockwise (to the right)") );
+
+    _copyPreviousBut = new QPushButton( top );
+    hlay->addWidget( _copyPreviousBut );
+    _copyPreviousBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "legalmoves" ), K3Icon::Desktop, 22 ) );
+    _copyPreviousBut->setFixedWidth( 40 );
+    connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
+    _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
+
+    hlay->addStretch( 1 );
+    _delBut = new QPushButton( top );
+    _delBut->setPixmap( KIconLoader::global()->loadIcon( QString::fromLatin1( "editdelete" ), K3Icon::Desktop, 22 ) );
+    hlay->addWidget( _delBut );
+    connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
+    _delBut->setToolTip( i18n("Delete image") );
+
+    hlay->addStretch(1);
+
+    return top;
 }
 
 
@@ -309,7 +328,6 @@ void AnnotationDialog::Dialog::slotNext()
 
 void AnnotationDialog::Dialog::slotOK()
 {
-#ifdef TEMPORARILY_REMOVED
 // I need to check for the changes first, as the case for _setup == InputSingleImageConfigMode, saves to the _origList,
     // and we can thus not check for changes anymore
     const bool anyChanges = hasChanges();
@@ -349,16 +367,14 @@ void AnnotationDialog::Dialog::slotOK()
         }
     }
     _accept = QDialog::Accepted;
-    qApp->eventLoop()->exitLoop();
 
     // I shouldn't emit changed before I've actually commited the changes, otherwise the listeners will act on the old data.
     if ( anyChanges ) {
         MainWindow::DirtyIndicator::markDirty();
         _thumbnailTextShouldReload = true;
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+
+    QDialog::accept();
 }
 
 /*
@@ -381,7 +397,6 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
 
 void AnnotationDialog::Dialog::load()
 {
-#ifdef TEMPORARILY_REMOVED
     DB::ImageInfo& info = _editList[ _current ];
     _startDate->setDate( info.date().start().date() );
 
@@ -417,15 +432,11 @@ void AnnotationDialog::Dialog::load()
         _viewer->load( Utilities::infoListToStringList(_origList), _current );
 
     if ( _setup == InputSingleImageConfigMode )
-        setCaption( i18n("KPhotoAlbum Annotations (%1/%2)").arg( _current+1 ).arg( _origList.count() ) );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+        setWindowTitle( i18n("KPhotoAlbum Annotations (%1/%2)", _current+1, _origList.count() ) );
 }
 
 void AnnotationDialog::Dialog::writeToInfo()
 {
-#ifdef TEMPORARILY_REMOVED
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         (*it)->slotReturn();
     }
@@ -448,15 +459,11 @@ void AnnotationDialog::Dialog::writeToInfo()
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 
 int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( oneAtATime )
         _setup = InputSingleImageConfigMode;
     else
@@ -498,14 +505,10 @@ int AnnotationDialog::Dialog::configure( DB::ImageInfoList list, bool oneAtATime
 
     showHelpDialog( oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode );
     return exec();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* search  )
 {
-#ifdef TEMPORARILY_REMOVED
     _setup = SearchMode;
     if ( search )
         _oldSearch = *search;
@@ -514,7 +517,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     showHelpDialog( SearchMode );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
-        _oldSearch = DB::ImageSearchInfo( DB::ImageDate( _startDate->date(), _endDate->date() ),
+        _oldSearch = DB::ImageSearchInfo( DB::ImageDate( QDateTime(_startDate->date()), QDateTime(_endDate->date()) ),
                                       _imageLabel->text(), _description->text() );
 
         for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -525,14 +528,10 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     }
     else
         return DB::ImageSearchInfo();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void AnnotationDialog::Dialog::setup()
 {
-#ifdef TEMPORARILY_REMOVED
 // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
@@ -554,7 +553,7 @@ void AnnotationDialog::Dialog::setup()
         _okBut->setGuiItem( KStandardGuiItem::ok() );
         _revertBut->setEnabled( _setup == InputSingleImageConfigMode );
         _revertBut->show();
-        setCaption( i18n("Annotations") );
+        setWindowTitle( i18n("Annotations") );
         if ( _setup == InputMultiImageConfigMode ) {
             _preview->setImage( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/multiconfig.jpg") ) );
         }
@@ -567,9 +566,6 @@ void AnnotationDialog::Dialog::setup()
 
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it )
         (*it)->setMode( _setup );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 
@@ -598,9 +594,7 @@ void AnnotationDialog::Dialog::viewerDestroyed()
 
 void AnnotationDialog::Dialog::slotOptions()
 {
-#ifdef TEMPORARILY_REMOVED
     Q3PopupMenu menu( this, "context popup menu");
-    menu.insertItem( i18n("Show/Hide Windows"),  _dockWindow->dockHideShowMenu());
     menu.insertItem( i18n("Save Current Window Setup"), 1 );
     menu.insertItem( i18n( "Reset layout" ), 2 );
     int res = menu.exec( QCursor::pos() );
@@ -608,9 +602,6 @@ void AnnotationDialog::Dialog::slotOptions()
         slotSaveWindowSetup();
     else if ( res == 2 )
         slotResetLayout();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 /**
@@ -625,9 +616,11 @@ void AnnotationDialog::Dialog::slotOptions()
  */
 int AnnotationDialog::Dialog::exec()
 {
+    setupFocus();
+    return QDialog::exec();
+
 #ifdef TEMPORARILY_REMOVED
     show();
-    setupFocus();
     showTornOfWindows();
     qApp->installEventFilter( this );
     qApp->eventLoop()->enterLoop();
@@ -637,28 +630,17 @@ int AnnotationDialog::Dialog::exec()
     hide();
     hideTornOfWindows();
     return _accept;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
 #endif
 }
 
 void AnnotationDialog::Dialog::slotSaveWindowSetup()
 {
-#ifdef TEMPORARILY_REMOVED
-    QDomDocument doc;
-    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"), QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
-    QDomElement top = doc.createElement( QString::fromLatin1( "WindowLayout" ) );
-    doc.appendChild( top );
+    const QByteArray data = _dockWindow->saveState();
 
-    _dockWindow->writeDockConfig( top );
-    Q3CString xml = doc.toCString();
-    QFile file( QString::fromLatin1( "%1/layout.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
+    QFile file( QString::fromLatin1( "%1/layout.dat" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
     file.open( QIODevice::WriteOnly );
-    file.write( xml.data(), xml.size()-1 );
+    file.write( data );
     file.close();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void AnnotationDialog::Dialog::closeEvent( QCloseEvent* e )
@@ -724,24 +706,16 @@ bool AnnotationDialog::Dialog::eventFilter( QObject* watched, QEvent* event )
 }
 
 
-KDockWidget* AnnotationDialog::Dialog::createListSel( const DB::CategoryPtr& category )
+QWidget* AnnotationDialog::Dialog::createListSel( const DB::CategoryPtr& category )
 {
-#ifdef TEMPORARILY_REMOVED
-    KDockWidget* dockWidget = _dockWindow->createDockWidget( category->text(), category->icon(), _dockWindow, category->text() );
-    _dockWidgets.append( dockWidget );
-    ListSelect* sel = new ListSelect( category, dockWidget );
+    ListSelect* sel = new ListSelect( category, _dockWindow );
     _optionList.append( sel );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( itemRemoved( DB::Category*, const QString& ) ),
              this, SLOT( slotDeleteOption( DB::Category*, const QString& ) ) );
     connect( DB::ImageDB::instance()->categoryCollection(), SIGNAL( itemRenamed( DB::Category* , const QString& , const QString&  ) ),
              this, SLOT( slotRenameOption( DB::Category* , const QString& , const QString&  ) ) );
 
-    dockWidget->setWidget( sel );
-
-    return dockWidget;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    return sel;
 }
 
 void AnnotationDialog::Dialog::slotDeleteOption( DB::Category* category, const QString& value )
@@ -770,13 +744,8 @@ void AnnotationDialog::Dialog::reject()
 
 void AnnotationDialog::Dialog::closeDialog()
 {
-#ifdef TEMPORARILY_REMOVED
     _accept = QDialog::Rejected;
-    qApp->eventLoop()->exitLoop();
     QDialog::reject();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool AnnotationDialog::Dialog::hasChanges()
@@ -841,12 +810,8 @@ bool AnnotationDialog::Dialog::thumbnailTextShouldReload() const
 
 void AnnotationDialog::Dialog::slotAddTimeInfo()
 {
-#ifdef TEMPORARILY_REMOVED
     _addTime->hide();
     _time->show();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void AnnotationDialog::Dialog::slotDeleteImage()
@@ -916,7 +881,6 @@ void AnnotationDialog::Dialog::moveEvent( QMoveEvent * )
 
 void AnnotationDialog::Dialog::setupFocus()
 {
-#ifdef TEMPORARILY_REMOVED
     static bool initialized = false;
     if ( initialized )
         return;
@@ -926,10 +890,11 @@ void AnnotationDialog::Dialog::setupFocus()
     Q3ValueList<QWidget*> orderedList;
 
     // Iterate through all widgets in our dialog.
-    for ( QObjectListIt inputIt( *list ); *inputIt; ++inputIt ) {
-        QWidget* current = static_cast<QWidget*>( *inputIt );
-        if ( !current->isVisible() || current->focusPolicy() == NoFocus || current->inherits("QPushButton") )
+    Q_FOREACH( QObject* obj, list ) {
+        QWidget* current = static_cast<QWidget*>( obj );
+        if ( /*!current->isVisible() || */current->focusPolicy() == Qt::NoFocus || current->inherits("QAbstractButton") )
             continue;
+
         int cx = current->mapToGlobal( QPoint(0,0) ).x();
         int cy = current->mapToGlobal( QPoint(0,0) ).y();
 
@@ -959,32 +924,23 @@ void AnnotationDialog::Dialog::setupFocus()
 
         prev = *orderedIt;
     }
-    delete list;
 
     // Finally set focus on the first list select
     for( Q3ValueList<QWidget*>::Iterator orderedIt = orderedList.begin(); orderedIt != orderedList.end(); ++orderedIt ) {
-        if ( QString::fromLatin1((*orderedIt)->name()).startsWith( QString::fromLatin1("line edit for") ) ) {
+        if ( (*orderedIt)->objectName().startsWith( QString::fromLatin1("line edit for") ) ) {
             (*orderedIt)->setFocus();
             break;
         }
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void AnnotationDialog::Dialog::slotResetLayout()
 {
-#ifdef TEMPORARILY_REMOVED
-    QString dest =  QString::fromLatin1( "%1/layout.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() );
-    QString src =KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
-    Utilities::copy( src,dest );
+    QString fileName =  QString::fromLatin1( "%1/layout.dat" ).arg( Settings::SettingsData::instance()->imageDirectory() );
+    QDir().remove(fileName);
 
-    deleteLater();
+    emit deleteMe();
     closeDialog();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void AnnotationDialog::Dialog::slotStartDateChanged( const DB::ImageDate& date )
@@ -997,34 +953,20 @@ void AnnotationDialog::Dialog::slotStartDateChanged( const DB::ImageDate& date )
 
 void AnnotationDialog::Dialog::loadWindowLayout()
 {
-#ifdef TEMPORARILY_REMOVED
-    QString fileName =  QString::fromLatin1( "%1/layout.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() );
+    QString fileName =  QString::fromLatin1( "%1/layout.dat" ).arg( Settings::SettingsData::instance()->imageDirectory() );
     if ( !QFileInfo(fileName).exists() )
-        fileName =KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/default-layout.xml" ) );
+        return;
 
     QFile file( fileName );
     file.open( QIODevice::ReadOnly );
-    QTextStream stream( &file );
-    stream.setCodec( QTextCodec::codecForName("UTF-8") );
-    QString content = stream.readAll();
-
-    QMap<QString,QString> map = DB::Category::standardCategories();
-    for ( QMap<QString,QString>::ConstIterator it = map.begin(); it != map.end(); ++it )
-        content.replace( it.key(), it.data() );
-
-    QDomDocument doc;
-    doc.setContent( content );
-    QDomElement elm = doc.documentElement();
-    _dockWindow->readDockConfig( elm );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    QByteArray data = file.readAll();
+    _dockWindow->restoreState(data);
 }
 
 void AnnotationDialog::Dialog::setupActions()
 {
 #ifdef TEMPORARILY_REMOVED
-    _actions = new KActionCollection( this, "viewer", KGlobal::instance() );
+    _actions = new KActionCollection( this );
 
     new KAction( i18n("Sort Alphabetically"), 0, _optionList.at(0), SLOT( slotSortAlpha() ),
                  _actions, "annotationdialog-sort-alpha" );
@@ -1061,8 +1003,8 @@ void AnnotationDialog::Dialog::setupActions()
     connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
     connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 KActionCollection* AnnotationDialog::Dialog::actions()
@@ -1078,7 +1020,6 @@ void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection( ListS
 
 QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( ListSelect* listSel, const DB::ImageInfoList& images )
 {
-#ifdef TEMPORARILY_REMOVED
     const QString category = listSel->category();
     const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->itemsInclCategories();
     StringSet itemsNotSelectedOnAllImages;
@@ -1093,9 +1034,7 @@ QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( Li
     const StringSet itemsOnAllImages = allItems - itemsNotSelectedOnAllImages;
 
     return qMakePair( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
+
 
 #include "Dialog.moc"

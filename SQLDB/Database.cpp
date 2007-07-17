@@ -44,8 +44,7 @@ namespace
 SQLDB::Database::Database(const DatabaseAddress& address):
     _address(address),
     _handler(_address),
-    _connection(_handler.connection()),
-    _qh(*_connection),
+    _qh(*_handler.connection()),
     _categoryCollection(_qh),
     _members(_qh),
     _infoCollection(_qh),

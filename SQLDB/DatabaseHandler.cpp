@@ -41,18 +41,42 @@
 using namespace SQLDB;
 using KexiDB::Field;
 
+
+namespace
+{
+    static KexiDB::ConnectionData
+    getKexiConnectionData(const SQLDB::DatabaseAddress& address)
+    {
+        KexiDB::ConnectionData cd;
+
+        cd.driverName = address.driverName();
+
+        if (address.isFileBased())
+            cd.setFileName(address.databaseName());
+        else {
+            cd.hostName = address.hostName();
+            cd.port = address.port();
+            cd.userName = address.userName();
+            cd.password = address.password();
+        }
+
+        return cd;
+    }
+}
+
+
 KexiDB::DriverManager* DatabaseHandler::_driverManager =
     new KexiDB::DriverManager();
 
 DatabaseHandler::DatabaseHandler(const DatabaseAddress& address):
     _databaseName(address.databaseName()),
-    _connectionData(address.connectionData()),
-    _driver(_driverManager->driver(_connectionData.driverName))
+    _driver(_driverManager->driver(address.driverName()))
 {
     if (!_driver)
         throw DriverLoadError(_driverManager->errorMsg());
 
-    _connection = _driver->createConnection(_connectionData);
+    KexiDB::ConnectionData cd = getKexiConnectionData(address);
+    _connection = _driver->createConnection(cd);
     if (!_connection) {
         delete _driver;
         throw ConnectionCreateError(_driver->errorMsg());

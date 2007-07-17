@@ -42,7 +42,7 @@ private:
     const DB::CategoryPtr _category;
 };
 
-};
+}
 
 #endif /* CATEGORYLISTVIEW_DRAGABLELISTVIEW_H */
 

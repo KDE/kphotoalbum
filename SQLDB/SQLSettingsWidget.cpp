@@ -185,6 +185,7 @@ bool SQLSettingsWidget::hasSettings() const
 
 DatabaseAddress SQLSettingsWidget::getSettings() const
 {
+    DatabaseAddress dbAddr;
     KexiDB::ConnectionData connectionData;
     QString databaseName;
 
@@ -192,35 +193,40 @@ DatabaseAddress SQLSettingsWidget::getSettings() const
         _driverManager->driverInfo(_driverCombo->currentText());
     if (driverInfo.name.isEmpty())
         return DatabaseAddress();
-    connectionData.driverName = _driverCombo->currentText();
-    if (driverInfo.fileBased) {
-        databaseName = _fileLine->url();
-        connectionData.setFileName(databaseName);
+
+    dbAddr.setDriverName(_driverCombo->currentText());
+    dbAddr.setFileBased(driverInfo.fileBased);
+
+    if (dbAddr.isFileBased()) {
+        dbAddr.setDatabaseName(_fileLine->url());
     }
     else {
-        connectionData.hostName = _hostLine->text();
-        connectionData.port = _portSpin->value();
-        databaseName = _dbNameLine->text();
-        connectionData.userName = _usernameLine->text();
-        connectionData.password = QString::fromLocal8Bit(_passwordLine->password());
+        dbAddr.setHost(_hostLine->text(), _portSpin->value());
+        dbAddr.setDatabaseName(_dbNameLine->text());
+        dbAddr.setUserName(_usernameLine->text());
+        dbAddr.setPassword(QString::fromLocal8Bit(_passwordLine->password()));
     }
 
-    return DatabaseAddress(connectionData, databaseName);
+    return dbAddr;
 }
 
 void SQLSettingsWidget::setSettings(const DatabaseAddress& address)
 {
-    const KexiDB::ConnectionData& connectionData = address.connectionData();
-    const QString& databaseName = address.databaseName();
-
-    selectDriver(connectionData.driverName);
+    selectDriver(address.driverName());
     showOptionsOfSelectedDriver();
-    _fileLine->setURL(connectionData.fileName());
-    _hostLine->setText(connectionData.hostName);
-    _portSpin->setValue(connectionData.port);
+    QString fileName;
+    QString databaseName;
+    if (address.isFileBased())
+        fileName = address.databaseName();
+    else
+        databaseName = address.databaseName();
+
+    _fileLine->setURL(fileName);
+    _hostLine->setText(address.hostName());
+    _portSpin->setValue(address.port());
     _dbNameLine->setText(databaseName);
-    _usernameLine->setText(connectionData.userName);
-    _passwordLine->setText(connectionData.password);
+    _usernameLine->setText(address.userName());
+    _passwordLine->setText(address.password());
 }
 
 void SQLSettingsWidget::reloadDriverList()

@@ -19,29 +19,29 @@
 
 #include "DatabaseAddress.h"
 #include "Utilities/Util.h"
-#include <kexidb/drivermanager.h>
-
 
 bool SQLDB::DatabaseAddress::operator==(const DatabaseAddress& other) const
 {
-    if (_cd.driverName.toLower() != other._cd.driverName.toLower())
+    if (isNull() || other.isNull())
+        return isNull() == other.isNull();
+
+    if (driverName().toLower() != other.driverName().toLower())
         return false;
 
-    KexiDB::Driver::Info info =
-        KexiDB::DriverManager().driverInfo(_cd.driverName);
-
-    if (info.fileBased)
-        return Utilities::areSameFile(_cd.fileName(), other._cd.fileName());
-
-    if (_db != other._db)
+    if (isFileBased() != other.isFileBased())
         return false;
 
-    if (_cd.useLocalSocketFile != other._cd.useLocalSocketFile)
+    if (isFileBased())
+        return Utilities::areSameFile(databaseName(), other.databaseName());
+
+    if (databaseName() != other.databaseName())
         return false;
 
-    if (_cd.useLocalSocketFile)
-        return _cd.localSocketFileName == other._cd.localSocketFileName;
+    if (usesLocalConnection() != other.usesLocalConnection())
+        return false;
 
-    return (_cd.hostName == other._cd.hostName &&
-            _cd.port == other._cd.port);
+    if (usesLocalConnection())
+        return true;
+
+    return (hostName() == other.hostName() && port() == other.port());
 }

@@ -20,8 +20,7 @@
 #ifndef SQLDB_DATABASE_ADDRESS_H
 #define SQLDB_DATABASE_ADDRESS_H
 
-#include <kexidb/kexidb_export.h>
-#include <kexidb/connectiondata.h>
+#include <qstring.h>
 
 namespace SQLDB
 {
@@ -30,17 +29,113 @@ namespace SQLDB
     class DatabaseAddress
     {
     public:
-        DatabaseAddress() {}
-        DatabaseAddress(const KexiDB::ConnectionData& connectionData,
-                        const QString& databaseName):
-            _cd(connectionData), _db(databaseName) {}
+        DatabaseAddress():
+            _driverName(),
+            _fileBased(false),
+            _db(),
+            _hostName(),
+            _port(0),
+            _userName(),
+            _password()
+        {
+        }
+
         bool operator==(const DatabaseAddress& other) const;
-        const KexiDB::ConnectionData& connectionData() const { return _cd; }
-        const QString& databaseName() const { return _db; }
+
+        bool isNull() const
+        {
+            return _db.isNull();
+        }
+
+        void setDriverName(const QString& driverName)
+        {
+            _driverName = driverName;
+        }
+
+        const QString& driverName() const
+        {
+            return _driverName;
+        }
+
+        void setFileBased(bool b)
+        {
+            _fileBased = b;
+        }
+
+        bool isFileBased() const
+        {
+            return _fileBased;
+        }
+
+        /** Sets name of the database.
+         *
+         * For file based address this is the file name.
+         */
+        void setDatabaseName(const QString& databaseName)
+        {
+            _db = databaseName;
+        }
+
+        const QString& databaseName() const
+        {
+            return _db;
+        }
+
+        void setToUseLocalConnection()
+        {
+            setHost(QString());
+        }
+
+        bool usesLocalConnection() const
+        {
+            return hostName().isNull();
+        }
+
+        void setHost(const QString& hostName, int port=0)
+        {
+            if (!hostName.isEmpty())
+                _hostName = hostName;
+            _port = port;
+        }
+
+        const QString& hostName() const
+        {
+            return _hostName;
+        }
+
+        int port() const
+        {
+            return _port;
+        }
+
+        void setUserName(const QString& userName)
+        {
+            _userName = userName;
+        }
+
+        const QString& userName() const
+        {
+            return _userName;
+        }
+
+        void setPassword(const QString& password)
+        {
+            _password = password;
+        }
+
+        const QString& password() const
+        {
+            return _password;
+        }
 
     private:
-        KexiDB::ConnectionData _cd;
+        QString _driverName;
+        bool _fileBased;
         QString _db;
+        QString _hostName;
+        int _port;
+        QString _userName;
+        QString _password;
     };
 }
 

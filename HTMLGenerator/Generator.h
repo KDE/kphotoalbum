@@ -75,7 +75,7 @@ private:
     QEventLoop _eventLoop;
 };
 
-};
+}
 
 
 

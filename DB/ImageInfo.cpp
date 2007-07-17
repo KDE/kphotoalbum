@@ -319,10 +319,31 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         Exiv2::IptcData& iptcMap = image->iptcData();
 
         bool changed = false;
+        std::string keyName;
 
         if ( mode & EXIFMODE_DATE ) {
             // sync date
-            kdDebug(5123) << "date not implemented yet" << endl;
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->dateSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                switch ( *it ) {
+                    case Exif::Syncable::EXIF_DATETIME:
+                    case Exif::Syncable::EXIF_DATETIME_ORIGINAL:
+                    case Exif::Syncable::EXIF_DATETIME_DIGITIZED:
+                    {
+                        keyName = _fieldName[*it].ascii();
+                        // FIXME: use start() or end()?
+                        exifMap[keyName] = _date.start().toString( QString::fromAscii("yyyy:MM:dd hh:mm:ss") ).ascii();
+                        changed = true;
+                        break;
+                    }
+                    case Exif::Syncable::FILE_MTIME:
+                    case Exif::Syncable::FILE_CTIME:
+                        // well, QFileInfo doesn't have any method for updating
+                        // those... :(
+                    default:
+                        kdDebug(5123) << "unknown date field: " << _fieldName[*it] << endl;
+                }
+            }
         }
 
         if ( mode & EXIFMODE_ORIENTATION ) {
@@ -331,13 +352,13 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
             for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
                 switch ( *it ) {
                     case Exif::Syncable::EXIF_ORIENTATION:
-                        { // new block is need because of std::string's destructor
-                        int orientation = 0;
+                    { // we need a new block for local variables
+                        int orientation;
                         switch (_angle ) {
                             // for respective values, see http://jpegclub.org/exif_orientation.html
                             // or DB::FileInfo::orientationToAngle()
                             case 0:
-                                orientation = 0;
+                                orientation = 1;
                                 break;
                             case 90:
                                 orientation = 6;
@@ -350,12 +371,13 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                 break;
                             default:
                                 kdDebug(5123) << "unknown _angle: " << _angle << endl;
+                                continue;
                         }
-                        const std::string keyName( _fieldName[*it].ascii() );
+                        keyName = _fieldName[*it].ascii();
                         exifMap[keyName] = orientation;
                         changed = true;
                         break;
-                        }
+                    }
                     default:
                         kdDebug(5123) << "unknown orientation field: " << _fieldName[*it] << endl;
                 }

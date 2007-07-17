@@ -41,6 +41,7 @@ void Exif::Syncable::fillTranslationTables( QMap<Exif::Syncable::Kind,QString>& 
     II(STOP, NONE, STOP, "-- stop --");
     II(JPEG_COMMENT, JPEG, JPEG.Comment, "JPEG Comment");
     II(EXIF_ORIENTATION, EXIF, Exif.Image.Orientation, "EXIF Image Orientation");
+    II(JPEG_ORIENTATION, JPEG, JPEGImage.Orientation, "Physical JPEG Rotation");
     II(EXIF_DESCRIPTION, EXIF, Exif.Image.ImageDescription, "EXIF Image Description");
     II(EXIF_USER_COMMENT, EXIF, Exif.Photo.UserComment, "EXIF User Comment");
 

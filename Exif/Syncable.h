@@ -32,7 +32,7 @@ enum Kind {
     // JPEG header
     JPEG_COMMENT,
     // image orientation
-    EXIF_ORIENTATION, 
+    EXIF_ORIENTATION, JPEG_ORIENTATION,
     // standard EXIF fields for description/label
     EXIF_DESCRIPTION, EXIF_USER_COMMENT,
     // stuff from Windows XP

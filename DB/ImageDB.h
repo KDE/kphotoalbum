@@ -61,6 +61,7 @@ public slots:
     virtual void slotRecalcCheckSums( QStringList selection );
     virtual MediaCount count( const ImageSearchInfo& info );
     virtual void slotReread( const QStringList& list, int mode);
+    virtual void slotWrite( const QStringList& list, int mode);
 
 protected:
     ImageDate _selectionRange;

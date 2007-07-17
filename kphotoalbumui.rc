@@ -49,6 +49,7 @@
       <Action name="rebuildMD5s"/>
       <Action name="rescan"/>
       <Action name="reReadExifInfo" />
+      <Action name="writeExifInfo" />
       <Action name="convertBackend" />
       <Separator/>
       <Action name="removeAllThumbs"/>

@@ -79,7 +79,8 @@ public:
     void setDate( const ImageDate& );
     ImageDate date() const;
     ImageDate& date();
-    void readExif(const QString& fullPath, int mode);
+    void readExif(const QString& fullPath, const int mode);
+    void writeMetadata(const QString& fullPath, const int mode);
 
     void rotate( int degrees );
     int angle() const;

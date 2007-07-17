@@ -24,11 +24,13 @@
 #include <qstringlist.h>
 #include <qimage.h>
 #include "DB/ImageInfoList.h"
+#include "DB/MD5.h"
 
 namespace DB
 {
     class ImageInfo;
     class CategoryCollection;
+    class MD5;
 }
 
 namespace Utilities
@@ -79,6 +81,7 @@ QStringList removeDuplicates( const QStringList& items );
 QString cStringWithEncoding( const char *c_str, IptcCharset charset );
 QStringList iptcHumanReadableCharsetList();
 
+DB::MD5 MD5Sum( const QString& fileName );
 };
 
 bool operator>( const QPoint&, const QPoint& );

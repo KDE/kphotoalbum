@@ -57,6 +57,7 @@ extern "C" {
 
 #include <kdebug.h>
 #include <qtextcodec.h>
+#include <kmdcodec.h>
 
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the
@@ -813,3 +814,18 @@ QString Utilities::cStringWithEncoding( const char *c_str, IptcCharset charset )
 QStringList Utilities::iptcHumanReadableCharsetList() {
     return QStringList() << i18n("UTF-8") << i18n("Local 8-bit") << i18n("ISO 8859-2") << i18n("CP 1250");
 }
+
+DB::MD5 Utilities::MD5Sum( const QString& fileName )
+{
+    QFile file( fileName );
+    if ( !file.open( IO_ReadOnly ) ) {
+        if ( KMessageBox::warningContinueCancel( 0, i18n("Could not open %1").arg( fileName ) ) == KMessageBox::No )
+            return DB::MD5();
+    }
+
+    KMD5 md5calculator( 0 /* char* */);
+    md5calculator.reset();
+    md5calculator.update( file );
+    return DB::MD5(md5calculator.hexDigest());
+}
+

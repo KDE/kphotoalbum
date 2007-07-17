@@ -35,6 +35,11 @@ extern "C" {
 #include "DB/MemberMap.h"
 #include <config.h>
 #include "Exif/Database.h"
+#include "Utilities/Util.h"
+#include "MainWindow/DirtyIndicator.h"
+#include "exiv2/image.hpp"
+
+#include <kdebug.h>
 
 using namespace DB;
 
@@ -260,7 +265,7 @@ bool ImageInfo::isLocked() const
     return _locked;
 }
 
-void ImageInfo::readExif(const QString& fullPath, int mode)
+void ImageInfo::readExif(const QString& fullPath, const int mode)
 {
     // FIXME: well, IPTC support should be here :)
 
@@ -293,6 +298,86 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
         Exif::Database::instance()->add( fullPath );
 #endif
     }
+}
+
+void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
+{
+    QMap<Exif::Syncable::Kind,QString> _fieldName, _visibleName;
+    QMap<Exif::Syncable::Kind,Exif::Syncable::Header> _header;
+    Exif::Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
+
+    try {
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open( fullPath.local8Bit().data() );
+
+        if ( !image->good() ) {
+            kdWarning(5123) << fullPath << ": Exiv2::image instance not usable" << endl;
+            return;
+        }
+
+        image->readMetadata();
+        Exiv2::ExifData& exifMap = image->exifData();
+        Exiv2::IptcData& iptcMap = image->iptcData();
+
+        bool changed = false;
+
+        if ( mode & EXIFMODE_DATE ) {
+            // sync date
+            kdDebug(5123) << "date not implemented yet" << endl;
+        }
+
+        if ( mode & EXIFMODE_ORIENTATION ) {
+            // sync orientation
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->orientationSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                switch ( *it ) {
+                    case Exif::Syncable::EXIF_ORIENTATION:
+                        { // new block is need because of std::string's destructor
+                        int orientation = 0;
+                        switch (_angle ) {
+                            // for respective values, see http://jpegclub.org/exif_orientation.html
+                            // or DB::FileInfo::orientationToAngle()
+                            case 0:
+                                orientation = 0;
+                                break;
+                            case 90:
+                                orientation = 6;
+                                break;
+                            case 180:
+                                orientation = 3;
+                                break;
+                            case 270:
+                                orientation = 8;
+                                break;
+                            default:
+                                kdDebug(5123) << "unknown _angle: " << _angle << endl;
+                        }
+                        const std::string keyName( _fieldName[*it].ascii() );
+                        exifMap[keyName] = orientation;
+                        changed = true;
+                        break;
+                        }
+                    default:
+                        kdDebug(5123) << "unknown orientation field: " << _fieldName[*it] << endl;
+                }
+            }
+
+        }
+
+        if (changed)
+            image->writeMetadata();
+    }
+    catch( Exiv2::AnyError& e ) {
+        // I wonder why kdDebug isn't compatible with std::ostream...
+        std::ostringstream out;
+        out << e;
+        kdDebug(5123) << "Exiv2 exception: " << out.str().data() << endl;
+        return;
+    }
+
+    MD5 oldsum = _md5sum;
+    setMD5Sum( Utilities::MD5Sum( fullPath ) );
+    if (_md5sum != oldsum )
+       MainWindow::DirtyIndicator::markDirty();
 }
 
 

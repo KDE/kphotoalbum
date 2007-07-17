@@ -169,6 +169,8 @@ void DB::FileInfo::parseKFileMetaInfo( const QString& fileName )
 
 int DB::FileInfo::orientationToAngle( int orientation )
 {
+    // FIXME: this needs to be revisited, some of those values actually specify
+    // both rotation and flip
     if ( orientation == 1 || orientation == 2 )
         return 0;
     else if ( orientation == 3 || orientation == 4 )

@@ -306,19 +306,17 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
     QMap<Exif::Syncable::Kind,Exif::Syncable::Header> _header;
     Exif::Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
 
+    bool changed = false;
+
     try {
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open( fullPath.local8Bit().data() );
-
         if ( !image->good() ) {
             kdWarning(5123) << fullPath << ": Exiv2::image instance not usable" << endl;
             return;
         }
-
         image->readMetadata();
         Exiv2::ExifData& exifMap = image->exifData();
         Exiv2::IptcData& iptcMap = image->iptcData();
-
-        bool changed = false;
         std::string keyName;
 
         if ( mode & EXIFMODE_DATE ) {
@@ -396,10 +394,12 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         return;
     }
 
-    MD5 oldsum = _md5sum;
-    setMD5Sum( Utilities::MD5Sum( fullPath ) );
-    if (_md5sum != oldsum )
-       MainWindow::DirtyIndicator::markDirty();
+    if (changed) {
+        MD5 oldsum = _md5sum;
+        setMD5Sum( Utilities::MD5Sum( fullPath ) );
+        if (_md5sum != oldsum )
+           MainWindow::DirtyIndicator::markDirty();
+    }
 }
 
 

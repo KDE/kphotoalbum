@@ -26,7 +26,6 @@ Boston, MA 02111-1307, USA.
 #include "SQLCategoryCollection.h"
 #include "SQLImageInfoCollection.h"
 #include "SQLMD5Map.h"
-#include "Connection.h"
 #include "QueryHelper.h"
 
 namespace SQLDB {
@@ -80,7 +79,6 @@ namespace SQLDB {
     private:
         DatabaseAddress _address;
         DatabaseHandler _handler;
-        Connection* _connection;
         QueryHelper _qh;
         SQLCategoryCollection _categoryCollection;
         SQLMemberMap _members;

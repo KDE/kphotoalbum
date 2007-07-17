@@ -21,13 +21,14 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <ImageManager/ImageClient.h>
-#include <q3progressdialog.h>
+#include <QProgressDialog>
 #include "Utilities/Util.h"
 #include "Setup.h"
+#include <QEventLoop>
 
 namespace HTMLGenerator
 {
-class Generator :public Q3ProgressDialog, private ImageManager::ImageClient
+class Generator :public QProgressDialog, private ImageManager::ImageClient
 {
     Q_OBJECT
 
@@ -71,6 +72,7 @@ private:
     Set< QPair<QString,int> > _generatedFiles;
     StringSet _copiedVideos;
     bool _hasEnteredLoop;
+    QEventLoop _eventLoop;
 };
 
 };

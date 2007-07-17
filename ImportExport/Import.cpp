@@ -58,6 +58,7 @@
 #include "MiniViewer.h"
 #include "XMLDB/Database.h"
 #include <kdebug.h>
+#include <QComboBox>
 
 class KPushButton;
 using namespace ImportExport;
@@ -597,13 +598,12 @@ void Import::slotFinish()
 
 void Import::updateDB()
 {
-#ifdef TEMPORARILY_REMOVED
 // Run though all images
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
 
-        DB::ImageInfoPtr newInfo = new DB::ImageInfo( _nameMap[info->fileName(true)] );
+        DB::ImageInfoPtr newInfo( new DB::ImageInfo( _nameMap[info->fileName(true)] ) );
         newInfo->setLabel( info->label() );
         newInfo->setDescription( info->description() );
         newInfo->setDate( info->date() );
@@ -636,9 +636,6 @@ void Import::updateDB()
         }
     }
     Browser::BrowserWidget::instance()->home();
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
 }
 
 QPixmap Import::loadThumbnail( QString fileName )

@@ -42,12 +42,12 @@
 #include "DB/ImageDB.h"
 #include <qbuffer.h>
 #include "XMLHandler.h"
+#include <QImageReader>
 
 using namespace ImportExport;
 
 void Export::imageExport( const QStringList& list )
 {
-#ifdef TEMPORARILY_REMOVED
     ExportConfig config;
     if ( config.exec() == QDialog::Rejected )
         return;
@@ -57,7 +57,7 @@ void Export::imageExport( const QStringList& list )
         maxSize = config._maxSize->value();
 
     // Ask for zip file name
-    QString zipFile = KFileDialog::getSaveFileName( QString::null, QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ), 0 );
+    QString zipFile = KFileDialog::getSaveFileName( KUrl(), QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ) );
     if ( zipFile.isNull() )
         return;
 
@@ -68,9 +68,6 @@ void Export::imageExport( const QStringList& list )
 
     if ( ok )
         showUsageDialog();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
@@ -172,7 +169,6 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
                 const QString& baseUrl, bool& ok, bool doGenerateThumbnails )
     : _ok( ok ), _maxSize( maxSize ), _location( location )
 {
-#ifdef TEMPORARILY_REMOVED
     ok = true;
     _destdir = QFileInfo( zipFile ).path();
     _zip = new KZip( zipFile );
@@ -214,22 +210,17 @@ Export::Export( const QStringList& list, const QString& zipFile, bool compress, 
         Q3CString indexml = XMLHandler().createIndexXML( list, baseUrl, _location, _nameMap );
         time_t t;
         time(&t);
-        _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.size()-1,
-                         0444, t, t, t, indexml.data() );
+        _zip->writeFile( QString::fromLatin1( "index.xml" ), QString::null, QString::null, indexml.data(), indexml.size()-1 );
 
        _steps++;
        _progressDialog->setProgress( _steps );
         _zip->close();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 
 void Export::generateThumbnails( const QStringList& list )
 {
-#ifdef TEMPORARILY_REMOVED
     _progressDialog->setLabelText( i18n("Creating thumbnails") );
     _loopEntered = false;
     _subdir = QString::fromLatin1( "Thumbnails/" );
@@ -241,16 +232,12 @@ void Export::generateThumbnails( const QStringList& list )
     }
     if ( _filesRemaining > 0 ) {
         _loopEntered = true;
-        qApp->eventLoop()->enterLoop();
+        _eventLoop.exec();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Export::copyImages( const QStringList& list )
 {
-#ifdef TEMPORARILY_REMOVED
     Q_ASSERT( _location != ManualCopy );
 
     _loopEntered = false;
@@ -286,7 +273,7 @@ void Export::copyImages( const QStringList& list )
         }
 
         // Test if the cancel button was pressed.
-        qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+        qApp->processEvents( QEventLoop::AllEvents );
 
         if ( _progressDialog->wasCanceled() ) {
             _ok = false;
@@ -295,16 +282,12 @@ void Export::copyImages( const QStringList& list )
     }
     if ( _filesRemaining > 0 ) {
         _loopEntered = true;
-        qApp->eventLoop()->enterLoop();
+        _eventLoop.exec();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( !loadedOK )
         return;
 
@@ -314,12 +297,12 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripSlash(_subdir))
                           .arg(QFileInfo( _nameMap[fileName] ).baseName()).arg( ext );
     QByteArray data;
-    QBuffer buffer( data );
+    QBuffer buffer( &data );
     buffer.open( QIODevice::WriteOnly );
-    image.save( &buffer, QFile::encodeName( KImageIO::type( zipFileName ) ) );
+    image.save( &buffer, QFile::encodeName( QImageReader::imageFormat( zipFileName ) ) );
 
     if ( _location == Inline || !_copyingFiles )
-        _zip->writeFile( zipFileName, QString::null, QString::null, data.size(), data );
+        _zip->writeFile( zipFileName, QString::null, QString::null, data, data.size() );
     else {
         QString file = _destdir + QString::fromLatin1( "/" ) + _nameMap[fileName];
         QFile out( file );
@@ -331,13 +314,13 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
         out.close();
     }
 
-    qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+    qApp->processEvents( QEventLoop::AllEvents );
 
     bool canceled = (!_ok ||  _progressDialog->wasCanceled());
 
     if ( canceled ) {
         _ok = false;
-        qApp->eventLoop()->exitLoop();
+        _eventLoop.exit();
         ImageManager::Manager::instance()->stop( this );
         return;
     }
@@ -348,10 +331,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
 
 
         if ( _filesRemaining == 0 && _loopEntered )
-        qApp->eventLoop()->exitLoop();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+            _eventLoop.exit();
 }
 
 void Export::showUsageDialog()

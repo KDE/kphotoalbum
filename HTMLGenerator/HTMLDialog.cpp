@@ -20,11 +20,6 @@
 #include "HTMLDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3ValueList>
-#include <Q3VBoxLayout>
 #include <klineedit.h>
 #include <qlabel.h>
 #include <qspinbox.h>
@@ -39,7 +34,6 @@
 #include <kio/netaccess.h>
 #include <q3textedit.h>
 #include <kdebug.h>
-#include <q3vgroupbox.h>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "MainWindow/Window.h"
@@ -47,33 +41,34 @@
 #include "DB/ImageDB.h"
 #include "Generator.h"
 #include "ImageSizeCheckBox.h"
+#include <QTextEdit>
 using namespace HTMLGenerator;
 
 
-HTMLDialog::HTMLDialog( QWidget* parent, const char* name )
-#ifdef TEMPORARILY_REMOVED
-    :KDialog( IconList, i18n("HTML Export"), Ok|Cancel|Help, Ok, parent, name )
-#endif
+HTMLDialog::HTMLDialog( QWidget* parent )
+    :KPageDialog( parent )
 {
-#ifdef TEMPORARILY_REMOVED
+    setWindowTitle( i18n("HTML Export") );
+    setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
     enableButtonOk( false );
     createContentPage();
     createLayoutPage();
     createDestinationPage();
     setHelp( QString::fromLatin1( "chp-generating-html" ) );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void HTMLDialog::createContentPage()
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* contentPage = addPage( i18n("Content" ), i18n("Content" ),
-                                    KIconLoader::global()->loadIcon( QString::fromLatin1( "edit" ),
-                                                                     K3Icon::Desktop, 32 ));
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( contentPage, 6 );
-    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
+    QWidget* contentPage = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( contentPage, i18n("Content" ) );
+    page->setHeader( i18n("Content" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "edit" ),
+                                                           K3Icon::Desktop, 32 )) );
+    addPage( page );
+
+    QVBoxLayout* lay1 = new QVBoxLayout( contentPage );
+    QGridLayout* lay2 = new QGridLayout;
+    lay1->addLayout( lay2 );
 
     QLabel* label = new QLabel( i18n("Page title:"), contentPage );
     lay2->addWidget( label, 0, 0 );
@@ -85,7 +80,7 @@ void HTMLDialog::createContentPage()
     label = new QLabel( i18n("Description:"), contentPage );
     label->setAlignment( Qt::AlignTop );
     lay2->addWidget( label, 1, 0 );
-    _description = new Q3TextEdit( contentPage );
+    _description = new QTextEdit( contentPage );
     label->setBuddy( _description );
     lay2->addWidget( _description, 1, 1 );
 
@@ -98,43 +93,52 @@ void HTMLDialog::createContentPage()
     lay1->addWidget( _inlineMovies );
 
     // What to include
-    Q3VGroupBox* whatToInclude = new Q3VGroupBox( i18n( "What to Include" ), contentPage );
+    QGroupBox* whatToInclude = new QGroupBox( i18n( "What to Include" ), contentPage );
     lay1->addWidget( whatToInclude );
-    QWidget* w = new QWidget( whatToInclude );
-    Q3GridLayout* lay3 = new Q3GridLayout( w, 1, 2, 6 );
-    lay3->setAutoAdd( true );
+    QGridLayout* lay3 = new QGridLayout( whatToInclude );
+
+    QCheckBox* cb = new QCheckBox( i18n("Description"), whatToInclude );
+    _whatToIncludeMap.insert( QString::fromLatin1("**DESCRIPTION**"), cb );
+    lay3->addWidget( cb, 0, 0 );
+
+    int row=0;
+    int col=0;
 
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( ! (*it)->isSpecialCategory() ) {
-            QCheckBox* cb = new QCheckBox( (*it)->text(), w );
+            if ( ++col % 2 == 0 )
+                ++row;
+            QCheckBox* cb = new QCheckBox( (*it)->text(), whatToInclude );
+            lay3->addWidget( cb, row, col%2 );
             _whatToIncludeMap.insert( (*it)->name(), cb );
         }
     }
-    QCheckBox* cb = new QCheckBox( i18n("Description"), w );
-    _whatToIncludeMap.insert( QString::fromLatin1("**DESCRIPTION**"), cb );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void HTMLDialog::createLayoutPage()
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* layoutPage = addPage( i18n("Layout" ), i18n("Layout" ),
-                                   KIconLoader::global()->loadIcon( QString::fromLatin1( "matrix" ),
-                                                                    K3Icon::Desktop, 32 ));
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( layoutPage, 6 );
-    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2, 2, 6 );
+    QWidget* layoutPage = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( layoutPage, i18n("Layout" ) );
+    page->setHeader( i18n("Layout" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "matrix" ),
+                                                           K3Icon::Desktop, 32 )) );
+    addPage(page);
+
+    QVBoxLayout* lay1 = new QVBoxLayout( layoutPage );
+    QGridLayout* lay2 = new QGridLayout;
+    lay1->addLayout( lay2 );
 
     // Thumbnail size
     QLabel* label = new QLabel( i18n("Thumbnail size:"), layoutPage );
     lay2->addWidget( label, 0, 0 );
 
-    Q3HBoxLayout* lay3 = new Q3HBoxLayout( 0 );
+    QHBoxLayout* lay3 = new QHBoxLayout;
     lay2->addLayout( lay3, 0, 1 );
 
-    _thumbSize = new QSpinBox( 16, 256, 1, layoutPage );
+    _thumbSize = new QSpinBox( layoutPage );
+    _thumbSize->setRange( 16, 256 );
+
     _thumbSize->setValue( 128 );
     lay3->addWidget( _thumbSize );
     lay3->addStretch(1);
@@ -144,9 +148,11 @@ void HTMLDialog::createLayoutPage()
     label = new QLabel( i18n("Number of columns:"), layoutPage );
     lay2->addWidget( label, 1, 0 );
 
-    Q3HBoxLayout* lay4 = new Q3HBoxLayout( 0 );
+    QHBoxLayout* lay4 = new QHBoxLayout;
     lay2->addLayout( lay4, 1, 1 );
-    _numOfCols = new QSpinBox( 1, 10, 1, layoutPage );
+    _numOfCols = new QSpinBox( layoutPage );
+    _numOfCols->setRange( 1, 10 );
+
     label->setBuddy( _numOfCols);
 
     _numOfCols->setValue( 5 );
@@ -156,9 +162,9 @@ void HTMLDialog::createLayoutPage()
     // Theme box
     label = new QLabel( i18n("Theme:"), layoutPage );
     lay2->addWidget( label, 2, 0 );
-    lay4 = new Q3HBoxLayout( 0 );
+    lay4 = new QHBoxLayout;
     lay2->addLayout( lay4, 2, 1 );
-    _themeBox = new QComboBox( layoutPage, "theme_combobox" );
+    _themeBox = new QComboBox( layoutPage );
     label->setBuddy( _themeBox );
     lay4->addWidget( _themeBox );
     lay4->addStretch( 1 );
@@ -168,8 +174,7 @@ void HTMLDialog::createLayoutPage()
     Q3HGroupBox* sizes = new Q3HGroupBox( i18n("Image Sizes"), layoutPage );
     lay1->addWidget( sizes );
     QWidget* content = new QWidget( sizes );
-    Q3GridLayout* lay5 = new Q3GridLayout( content, 2, 4 );
-    lay5->setAutoAdd( true );
+    QGridLayout* lay5 = new QGridLayout( content );
     ImageSizeCheckBox* size320  = new ImageSizeCheckBox( 320, 200, content );
     ImageSizeCheckBox* size640  = new ImageSizeCheckBox( 640, 480, content );
     ImageSizeCheckBox* size800  = new ImageSizeCheckBox( 800, 600, content );
@@ -177,30 +182,46 @@ void HTMLDialog::createLayoutPage()
     ImageSizeCheckBox* size1280 = new ImageSizeCheckBox( 1280, 1024, content );
     ImageSizeCheckBox* size1600 = new ImageSizeCheckBox( 1600, 1200, content );
     ImageSizeCheckBox* sizeOrig = new ImageSizeCheckBox( i18n("Full size"), content );
+
+    {
+        int row = 0;
+        int col = -1;
+        lay5->addWidget( size320, row, ++col );
+        lay5->addWidget( size640, row, ++col );
+        lay5->addWidget( size800, row, ++col );
+        lay5->addWidget( size1024, row, ++col );
+        col =-1;
+        lay5->addWidget( size1280, ++row, ++col );
+        lay5->addWidget( size1600, row, ++col );
+        lay5->addWidget( sizeOrig, row, ++col );
+    }
+
     size800->setChecked( 1 );
 
     _cbs << size800 << size1024 << size1280 << size640 << size1600 << size320 << sizeOrig;
 
     lay1->addStretch(1);
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void HTMLDialog::createDestinationPage()
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* destinationPage = addPage( i18n("Destination" ), i18n("Destination" ),
-                                        KIconLoader::global()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
-                                                                         K3Icon::Desktop, 32 ));
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( destinationPage, 6 );
-    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2 );
+    QWidget* destinationPage = new QWidget;
+
+    KPageWidgetItem* page = new KPageWidgetItem( destinationPage, i18n("Destination" ) );
+    page->setHeader( i18n("Destination" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
+                                                           K3Icon::Desktop, 32 )) );
+    addPage( page );
+
+    QVBoxLayout* lay1 = new QVBoxLayout( destinationPage );
+    QGridLayout* lay2 = new QGridLayout;
+    lay1->addLayout( lay2 );
 
     // Base Directory
     QLabel* label = new QLabel( i18n("Base directory:"), destinationPage );
     lay2->addWidget( label, 0, 0 );
 
-    Q3HBoxLayout* lay3 = new Q3HBoxLayout( (QWidget*)0, 0, 6 );
+    QHBoxLayout* lay3 = new QHBoxLayout;
     lay2->addLayout( lay3, 0, 1 );
 
     _baseDir = new KLineEdit( destinationPage );
@@ -241,14 +262,10 @@ void HTMLDialog::createDestinationPage()
     label = new QLabel( i18n("<b>Hint: Press the help button for descriptions of the fields</b>"), destinationPage );
     lay1->addWidget( label );
     lay1->addStretch( 1 );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void HTMLDialog::slotOk()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( !checkVars() )
         return;
 
@@ -265,25 +282,17 @@ void HTMLDialog::slotOk()
 
     Generator generator( setup(), this );
     generator.generate();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void HTMLDialog::selectDir()
 {
-#ifdef TEMPORARILY_REMOVED
-    KUrl dir = KFileDialog::getExistingURL( _baseDir->text(), this );
+    KUrl dir = KFileDialog::getExistingDirectoryUrl( _baseDir->text(), this );
     if ( !dir.url().isNull() )
         _baseDir->setText( dir.url() );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool HTMLDialog::checkVars()
 {
-#ifdef TEMPORARILY_REMOVED
     QString outputDir = _baseDir->text() + QString::fromLatin1( "/" ) + _outputDir->text();
 
 
@@ -349,15 +358,12 @@ bool HTMLDialog::checkVars()
             return false;
     }
     return true;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
-Q3ValueList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
+QList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
 {
-    Q3ValueList<ImageSizeCheckBox*> res;
-    for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
+    QList<ImageSizeCheckBox*> res;
+    for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = _cbs.begin(); sizeIt != _cbs.end(); ++sizeIt ) {
         if ( (*sizeIt)->isChecked() )
             res << *sizeIt;
     }
@@ -366,7 +372,6 @@ Q3ValueList<ImageSizeCheckBox*> HTMLDialog::activeResolutions() const
 
 void HTMLDialog::populateThemesCombo()
 {
-#ifdef TEMPORARILY_REMOVED
     QStringList dirs = KGlobal::dirs()->findDirs( "data", QString::fromLocal8Bit("kphotoalbum/themes/") );
     int i = 0;
     for(QStringList::Iterator it = dirs.begin(); it != dirs.end(); ++it) {
@@ -376,18 +381,12 @@ void HTMLDialog::populateThemesCombo()
             if(*it == QString::fromLatin1(".") || *it == QString::fromLatin1("..")) continue;
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
 
-            KSimpleConfig themeConfig( QString::fromLatin1( "%1kphotoalbum.theme" ).arg( themePath ), true );
-            if( !themeConfig.hasGroup( QString::fromLatin1( "theme" ) ) ) {
-                kDebug() << QString::fromLatin1("invalid theme: %1 (missing theme section)").arg( *it )
-                          << endl;
-                continue;
-            }
-            themeConfig.setGroup( QString::fromLatin1( "theme" ) );
-            QString themeName = themeConfig.readEntry( "Name" );
-            QString themeAuthor = themeConfig.readEntry( "Author" );
+            KConfigGroup config = KGlobal::config()->group( QString::fromLatin1( "theme/%1" ).arg( themePath ) );
+            QString themeName = config.readEntry( "Name" );
+            QString themeAuthor = config.readEntry( "Author" );
 
             enableButtonOk( true );
-            _themeBox->insertItem( i18n( "%1 (by %2)" ).arg( themeName ).arg( themeAuthor ), i );
+            _themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) );
             _themes.insert( i, themePath );
             i++;
         }
@@ -395,9 +394,6 @@ void HTMLDialog::populateThemesCombo()
     if(_themeBox->count() < 1) {
         KMessageBox::error( this, i18n("Could not find any themes - this is very likely an installation error" ) );
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 int HTMLDialog::exec( const QStringList& list )
@@ -416,13 +412,13 @@ Setup HTMLGenerator::HTMLDialog::setup() const
     setup.setBaseURL( _baseURL->text() );
     setup.setOutputDir( _outputDir->text() );
     setup.setThumbSize( _thumbSize->value() );
-    setup.setDescription( _description->text() );
+    setup.setDescription( _description->toPlainText() );
     setup.setNumOfCols( _numOfCols->value() );
     setup.setGenerateKimFile( _generateKimFile->isChecked() );
-    setup.setThemePath( _themes[_themeBox->currentItem()] );
+    setup.setThemePath( _themes[_themeBox->currentIndex()] );
     for( QMap<QString,QCheckBox*>::ConstIterator includeIt = _whatToIncludeMap.begin();
          includeIt != _whatToIncludeMap.end(); ++includeIt ) {
-        setup.setIncludeCategory( includeIt.key(), includeIt.data()->isChecked() );
+        setup.setIncludeCategory( includeIt.key(), includeIt.value()->isChecked() );
     }
     setup.setImageList( _list );
 

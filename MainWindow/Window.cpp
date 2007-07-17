@@ -570,7 +570,8 @@ void MainWindow::Window::setupMenuBar()
 // File menu
     KStandardAction::save( this, SLOT( slotSave() ), actionCollection() );
     KStandardAction::quit( this, SLOT( slotExit() ), actionCollection() );
-    _generateHtml = new KAction( i18n("Generate HTML..."), actionCollection() );
+    _generateHtml = actionCollection()->addAction( "exportHTML" );
+    _generateHtml->setText( i18n("Generate HTML...") );
     connect( _generateHtml, SIGNAL(triggered()), this, SLOT( slotExportToHTML() ) );
 
     QAction* action = new KAction( i18n( "Import..."), actionCollection() );
@@ -791,7 +792,7 @@ void MainWindow::Window::setupMenuBar()
 void MainWindow::Window::slotExportToHTML()
 {
     if ( ! _htmlDialog )
-        _htmlDialog = new HTMLGenerator::HTMLDialog( this, "htmlExportDialog" );
+        _htmlDialog = new HTMLGenerator::HTMLDialog( this );
     _htmlDialog->exec( selectedOnDisk() );
 }
 

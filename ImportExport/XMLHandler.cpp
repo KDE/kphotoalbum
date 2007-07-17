@@ -35,10 +35,9 @@
  * (2) To ensure that the .kim files are compatible both forth and back between versions, I'd rather keep that code
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
-Q3CString ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
+QByteArray ImportExport::XMLHandler::createIndexXML( const QStringList& images, const QString& baseUrl,
                                                    ImageFileLocation location, const Utilities::UniqNameMap& nameMap )
 {
-#ifdef TEMPORARILY_REMOVED
     QDomDocument doc;
     doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
                                                       QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
@@ -58,10 +57,7 @@ Q3CString ImportExport::XMLHandler::createIndexXML( const QStringList& images, c
         elm.setAttribute( QString::fromLatin1( "angle" ), 0 ); // We have rotated the image while copying it
         top.appendChild( elm );
     }
-    return doc.toCString();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    return doc.toByteArray();
 }
 
 QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const DB::ImageInfoPtr& info )

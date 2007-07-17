@@ -18,15 +18,13 @@
 
 #ifndef HTMLGENERATOR_HTMLDIALOG_H
 #define HTMLGENERATOR_HTMLDIALOG_H
-#include <KDialog>
+#include <KPageDialog>
+class QTextEdit;
 class KLineEdit;
 class QSpinBox;
 class QCheckBox;
-class Q3ProgressDialog;
-class Q3TextEdit;
-#include <q3valuelist.h>
-#include <qcombobox.h>
 #include "Utilities/Util.h"
+#include <QComboBox>
 
 namespace HTMLGenerator
 {
@@ -34,11 +32,11 @@ class ImageSizeCheckBox;
 class Generator;
 class Setup;
 
-class HTMLDialog :public KDialog {
+class HTMLDialog :public KPageDialog {
     Q_OBJECT
 
 public:
-    HTMLDialog( QWidget* parent, const char* name = 0 );
+    HTMLDialog( QWidget* parent );
     int exec( const QStringList& list );
 
 protected slots:
@@ -48,7 +46,7 @@ protected slots:
 protected:
     bool checkVars();
     Setup setup() const;
-    Q3ValueList<ImageSizeCheckBox*> activeResolutions() const;
+    QList<ImageSizeCheckBox*> activeResolutions() const;
     void populateThemesCombo();
     void createContentPage();
     void createLayoutPage();
@@ -61,14 +59,14 @@ private:
     KLineEdit* _destURL;
     KLineEdit* _outputDir;
     QSpinBox* _thumbSize;
-    Q3TextEdit* _description;
+    QTextEdit* _description;
     QSpinBox* _numOfCols;
     QCheckBox* _generateKimFile;
     QCheckBox* _inlineMovies;
     QMap<int,QString> _themes;
     QComboBox *_themeBox;
     QMap< QString, QCheckBox* > _whatToIncludeMap;
-    Q3ValueList<ImageSizeCheckBox*> _cbs;
+    QList<ImageSizeCheckBox*> _cbs;
     QStringList _list;
 };
 

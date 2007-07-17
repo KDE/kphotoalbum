@@ -43,18 +43,18 @@
 #include <ktempdir.h>
 #include "ImageSizeCheckBox.h"
 #include "Setup.h"
+#include "MainWindow/Window.h"
+#include <kio/copyjob.h>
 
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
-#ifdef TEMPORARILY_REMOVED
-    : Q3ProgressDialog( i18n("Generating images for HTML page "), i18n("&Cancel"), 0, parent ), _hasEnteredLoop( false )
-#endif
+    : QProgressDialog( parent ), _hasEnteredLoop( false )
 {
+    setLabelText( i18n("Generating images for HTML page ") );
     _setup = setup;
 }
 
 void HTMLGenerator::Generator::generate()
 {
-#ifdef TEMPORARILY_REMOVED
     _tempDir = KTempDir().name();
 
     // Generate .kim file
@@ -71,8 +71,8 @@ void HTMLGenerator::Generator::generate()
 
     // prepare the progress dialog
     _total = _waitCounter = calculateSteps();
-    setTotalSteps( _total );
-    setProgress( 0 );
+    setMaximum( _total );
+    setValue( 0 );
     connect( this, SIGNAL( cancelled() ), this, SLOT( slotCancelGenerate() ) );
 
     _nameMap = Utilities::createUniqNameMap( _setup.imageList(), false, QString::null );
@@ -84,7 +84,7 @@ void HTMLGenerator::Generator::generate()
         bool ok = generateIndexPage( (*sizeIt)->width(), (*sizeIt)->height() );
         if ( !ok )
             return;
-        for ( uint index = 0; index < _setup.imageList().count(); ++index ) {
+        for ( int index = 0; index < _setup.imageList().count(); ++index ) {
             QString current = _setup.imageList()[index];
             QString prev;
             QString next;
@@ -111,7 +111,7 @@ void HTMLGenerator::Generator::generate()
 
     if ( _waitCounter > 0 ) {
         _hasEnteredLoop = true;
-        qApp->eventLoop()->enterLoop();
+        _eventLoop.exec();
     }
 
     if ( wasCanceled() )
@@ -148,16 +148,12 @@ void HTMLGenerator::Generator::generate()
     KIO::CopyJob* job = KIO::move( KUrl(_tempDir), KUrl(outputDir) );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( showBrowser() ) );
 
-    qApp->eventLoop()->enterLoop();
+    _eventLoop.exec();
     return;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 {
-#ifdef TEMPORARILY_REMOVED
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
     QString content = Utilities::readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
@@ -218,12 +214,12 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 
     // -------------------------------------------------- Resolutions
     QString resolutions;
-    Q3ValueList<ImageSizeCheckBox*> actRes = _setup.activeResolutions();
+    QList<ImageSizeCheckBox*> actRes = _setup.activeResolutions();
     qSort(actRes);
 
     if ( actRes.count() > 1 ) {
         resolutions += QString::fromLatin1( "Resolutions: " );
-        for( Q3ValueList<ImageSizeCheckBox*>::ConstIterator sizeIt = actRes.begin();
+        for( QList<ImageSizeCheckBox*>::ConstIterator sizeIt = actRes.begin();
              sizeIt != actRes.end(); ++sizeIt ) {
 
             int w = (*sizeIt)->width();
@@ -255,9 +251,6 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
         return false;
 
     return true;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool HTMLGenerator::Generator::generateContentPage( int width, int height, const QString& prev, const QString& current,
@@ -415,7 +408,7 @@ QString HTMLGenerator::Generator::createImage( const QString& fileName, int size
 
 QString HTMLGenerator::Generator::createVideo( const QString& fileName )
 {
-    setProgress( _total - _waitCounter );
+    setValue( _total - _waitCounter );
     qApp->processEvents();
 
     QString baseName = QFileInfo(fileName).fileName();
@@ -444,8 +437,8 @@ bool HTMLGenerator::Generator::writeToFile( const QString& fileName, const QStri
         return false;
     }
 
-    Q3CString cstr = translateToHTML(str).utf8();
-    file.write( cstr.data(), cstr.size() - 1);
+    QByteArray data = translateToHTML(str).toUtf8();
+    file.write( data );
     file.close();
     return true;
 }
@@ -454,7 +447,7 @@ bool HTMLGenerator::Generator::writeToFile( const QString& fileName, const QStri
 QString HTMLGenerator::Generator::translateToHTML( const QString& str )
 {
     QString res;
-    for ( uint i = 0 ; i < str.length() ; ++i ) {
+    for ( int i = 0 ; i < str.length() ; ++i ) {
         if ( str[i].unicode() < 128 )
             res.append( str[i] );
         else {
@@ -482,21 +475,16 @@ bool HTMLGenerator::Generator::linkIndexFile()
 
 void HTMLGenerator::Generator::slotCancelGenerate()
 {
-#ifdef TEMPORARILY_REMOVED
     ImageManager::Manager::instance()->stop( this );
     _waitCounter = 0;
     if ( _hasEnteredLoop )
-        qApp->eventLoop()->exitLoop();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+        _eventLoop.exit();
 }
 
 void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSize& imgSize,
                                      const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool loadedOK )
 {
-#ifdef TEMPORARILY_REMOVED
-    setProgress( _total - _waitCounter );
+    setValue( _total - _waitCounter );
 
     _waitCounter--;
 
@@ -524,11 +512,8 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
 #endif
 
     if ( _waitCounter == 0 && _hasEnteredLoop) {
-        qApp->eventLoop()->exitLoop();
+        _eventLoop.exit();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 int HTMLGenerator::Generator::calculateSteps()
@@ -539,15 +524,10 @@ int HTMLGenerator::Generator::calculateSteps()
 
 void HTMLGenerator::Generator::getThemeInfo( QString* baseDir, QString* name, QString* author )
 {
-#ifdef TEMPORARILY_REMOVED
     *baseDir = _setup.themePath();
-    KSimpleConfig themeConfig( QString::fromLatin1( "%1kphotoalbum.theme" ).arg( *baseDir ), true );
-    themeConfig.setGroup( QString::fromLatin1( "theme" ) );
-    *name = themeConfig.readEntry( "Name" );
-    *author = themeConfig.readEntry( "Author" );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    KConfigGroup config = KGlobal::config()->group( QString::fromLatin1( "theme/%1" ).arg( *baseDir ) );
+    *name = config.readEntry( "Name" );
+    *author = config.readEntry( "Author" );
 }
 
 int HTMLGenerator::Generator::maxImageSize()
@@ -562,17 +542,14 @@ int HTMLGenerator::Generator::maxImageSize()
 
 void HTMLGenerator::Generator::showBrowser()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( _setup.generateKimFile() )
         ImportExport::Export::showUsageDialog();
 
     if ( ! _setup.baseURL().isEmpty() )
-        new KRun( KUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( _setup.baseURL() ).arg( _setup.outputDir()) ) );
+        new KRun( KUrl(QString::fromLatin1( "%1/%2/index.html" ).arg( _setup.baseURL() ).arg( _setup.outputDir()) ),
+                       MainWindow::Window::theMainWindow());
 
-    qApp->eventLoop()->exitLoop();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    _eventLoop.exit();
 }
 
 

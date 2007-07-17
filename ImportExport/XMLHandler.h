@@ -30,7 +30,7 @@ namespace ImportExport
 class XMLHandler
 {
 public:
-    Q3CString createIndexXML( const QStringList& images, const QString& baseUrl, ImageFileLocation location,
+    QByteArray createIndexXML( const QStringList& images, const QString& baseUrl, ImageFileLocation location,
                              const Utilities::UniqNameMap& nameMap );
 
 protected:

@@ -22,6 +22,7 @@
 #include "ImageManager/ImageClient.h"
 #include <KDialog>
 #include "Utilities/Util.h"
+#include <QEventLoop>
 class QRadioButton;
 class QSpinBox;
 class QCheckBox;
@@ -59,6 +60,7 @@ private:
     Utilities::UniqNameMap _nameMap;
     bool _copyingFiles;
     QString _destdir;
+    QEventLoop _eventLoop;
 };
 
 class ExportConfig :public KDialog {

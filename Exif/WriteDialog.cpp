@@ -67,8 +67,6 @@ int Exif::WriteDialog::exec( const QStringList& list )
     _date->setChecked( true );
     _categories->setChecked( false );
 
-    _label->setEnabled( false );
-    _description->setEnabled( false );
     _categories->setEnabled( false );
     _list = list;
 

@@ -25,6 +25,7 @@
 #endif
 #include "Exif/Syncable.h"
 #include <kfilemetainfo.h>
+#include <kdebug.h>
 
 using namespace DB;
 
@@ -69,7 +70,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 }
                 break;
             default:
-                qDebug("Unknown field: %d", *it );
+                kdDebug(5123) << "Unknown orientation field " << _fieldName[ *it ] << endl;
         }
     }
 
@@ -78,19 +79,70 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
     for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
         switch ( _header[ *it ] ) {
             case Exif::Syncable::EXIF:
-                qDebug("Can't read EXIF value %s, not implemented yet", _fieldName[ *it ].ascii() );
+            {
+                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                if ( field == exifMap.end() )
+                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
+                else {
+                    _label = Utilities::cStringWithEncoding( (*field).toString().c_str(),
+                            Settings::SettingsData::instance()->iptcCharset() );
+                }
                 break;
+            }
             case Exif::Syncable::IPTC:
-                qDebug("Can't read IPTC value %s, not implemented yet", _fieldName[ *it ].ascii() );
+            {
+                Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                if ( field == iptcMap.end() )
+                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
+                else {
+                    _label = Utilities::cStringWithEncoding( (*field).toString().c_str(),
+                            Settings::SettingsData::instance()->iptcCharset() );
+
+                }
                 break;
+            }
             case Exif::Syncable::JPEG:
-                qDebug("Can't read JPEG value %s, not implemented yet", _fieldName[ *it ].ascii() );
+                kdDebug(5123) << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
                 break;
             default:
-                qDebug("Unknown header for label: %s", _fieldName[ *it ].ascii() );
+                kdDebug(5123) << "Unknown label field " << _fieldName[ *it ] << endl;
         }
     }
 
+    // Description
+    items = Settings::SettingsData::instance()->descriptionSyncing( false );
+    for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+        switch ( _header[ *it ] ) {
+            case Exif::Syncable::EXIF:
+            {
+                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                if ( field == exifMap.end() )
+                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
+                else {
+                    _description = Utilities::cStringWithEncoding( (*field).toString().c_str(),
+                            Settings::SettingsData::instance()->iptcCharset() );
+                }
+                break;
+            }
+            case Exif::Syncable::IPTC:
+            {
+                Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                if ( field == iptcMap.end() )
+                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
+                else {
+                    _description = Utilities::cStringWithEncoding( (*field).toString().c_str(),
+                            Settings::SettingsData::instance()->iptcCharset() );
+
+                }
+                break;
+            }
+            case Exif::Syncable::JPEG:
+                kdDebug(5123) << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
+                break;
+            default:
+                kdDebug(5123) << "Unknown description field " << _fieldName[ *it ] << endl;
+        }
+    }
 
     /*
     // Date
@@ -99,12 +151,6 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeDigitized" );
         if ( !_date.isValid() )
             _date = fetchEXIV2Date( map, "Exif.Image.DateTime" );
-    }
-
-    // Description
-    if( map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != map.end() ) {
-        const Exiv2::Exifdatum& datum = map["Exif.Image.ImageDescription"];
-        _description = QString::fromLocal8Bit( datum.toString().c_str() );
     }
     */
 }

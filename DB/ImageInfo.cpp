@@ -319,21 +319,21 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         Exiv2::IptcData& iptcMap = image->iptcData();
         std::string keyName;
 
+        // FIXME: add some logicl/option for deciding whether to stop after
+        // loading some value that looks at least partially sane
+
         if ( mode & EXIFMODE_DATE ) {
-            // sync date
             QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->dateSyncing( true );
             for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
                 switch ( *it ) {
                     case Exif::Syncable::EXIF_DATETIME:
                     case Exif::Syncable::EXIF_DATETIME_ORIGINAL:
                     case Exif::Syncable::EXIF_DATETIME_DIGITIZED:
-                    {
                         keyName = _fieldName[*it].ascii();
                         // FIXME: use start() or end()?
                         exifMap[keyName] = _date.start().toString( QString::fromAscii("yyyy:MM:dd hh:mm:ss") ).ascii();
                         changed = true;
                         break;
-                    }
                     case Exif::Syncable::FILE_MTIME:
                     case Exif::Syncable::FILE_CTIME:
                         // well, QFileInfo doesn't have any method for updating
@@ -345,7 +345,6 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         }
 
         if ( mode & EXIFMODE_ORIENTATION ) {
-            // sync orientation
             QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->orientationSyncing( true );
             for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
                 switch ( *it ) {
@@ -381,6 +380,48 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                 }
             }
 
+        }
+
+        if ( mode & EXIFMODE_LABEL ) {
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->labelSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                // FIXME: encoding
+                switch ( _header[ *it ] ) {
+                    case Exif::Syncable::EXIF:
+                        keyName = _fieldName[*it].ascii();
+                        exifMap[keyName] = std::string( _label.utf8() );
+                        changed = true;
+                        break;
+                    case Exif::Syncable::IPTC:
+                        keyName = _fieldName[*it].ascii();
+                        iptcMap[keyName] = std::string( _label.utf8() );
+                        changed = true;
+                        break;
+                    default:
+                        kdDebug(5123) << "Unknown label class " << _fieldName[*it] << endl;
+                }
+            }
+        }
+
+        if ( mode & EXIFMODE_DESCRIPTION ) {
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->descriptionSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                // FIXME: encoding
+                switch ( _header[ *it ] ) {
+                    case Exif::Syncable::EXIF:
+                        keyName = _fieldName[*it].ascii();
+                        exifMap[keyName] = std::string( _description.utf8() );
+                        changed = true;
+                        break;
+                    case Exif::Syncable::IPTC:
+                        keyName = _fieldName[*it].ascii();
+                        iptcMap[keyName] = std::string( _description.utf8() );
+                        changed = true;
+                        break;
+                    default:
+                        kdDebug(5123) << "Unknown description class " << _fieldName[*it] << endl;
+                }
+            }
         }
 
         if (changed)

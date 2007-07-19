@@ -20,7 +20,6 @@
 #define IMAGELOADER_H
 #include <qthread.h>
 #include <QImage>
-class QWaitCondition;
 
 namespace ImageManager
 {

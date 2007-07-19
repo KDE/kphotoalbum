@@ -22,7 +22,6 @@
 #define DRAW_H
 class QMouseEvent;
 class QPainter;
-class QWidget;
 #include <qpoint.h>
 #include <q3valuelist.h>
 #include <qdom.h>

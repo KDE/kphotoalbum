@@ -24,7 +24,6 @@
 #include "Exif/RangeWidget.h"
 
 class QSpinBox;
-class QCheckBox;
 
 namespace Exif
 {

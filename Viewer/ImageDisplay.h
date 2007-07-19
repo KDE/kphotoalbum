@@ -35,11 +35,6 @@ namespace DB
     class ImageInfo;
 }
 
-namespace ImageManager
-{
-    class ImageRequest;
-}
-
 namespace Viewer
 {
 class Draw;

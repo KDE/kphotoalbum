@@ -22,7 +22,6 @@
 #include <qstringlist.h>
 #include "DragItemInfo.h"
 
-class Q3ListViewItem;
 
 namespace CategoryListView
 {

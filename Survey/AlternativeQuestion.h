@@ -23,7 +23,6 @@
 #include <q3valuelist.h>
 class QLineEdit;
 class QAbstractButton;
-class Q3ButtonGroup;
 
 namespace Survey {
 

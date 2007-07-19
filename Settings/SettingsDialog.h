@@ -25,8 +25,6 @@
 #include <Q3ValueList>
 #include <QLabel>
 #include <Q3ListBoxItem>
-class Q3ListView;
-class KColorButton;
 class QSpinBox;
 class KComboBox;
 class QLineEdit;

@@ -37,11 +37,9 @@ class QStackedWidget;
 class KActionCollection;
 class KToggleAction;
 class KToolBar;
-class Q3WidgetStack;
 class QLabel;
 class QMenu;
 class QAction;
-class CategoryImageConfig;
 
 namespace DB { class ImageInfo; }
 namespace MainWindow { class ExternalPopup; }

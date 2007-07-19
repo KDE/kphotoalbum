@@ -18,7 +18,6 @@
 
 #ifndef DRAWLIST_H
 #define DRAWLIST_H
-class QWidget;
 #include <q3valuelist.h>
 #include <qdom.h>
 

@@ -39,7 +39,6 @@ class QMainWindow;
 class QSplitter;
 class QPushButton;
 class KLineEdit;
-class KDatePicker;
 class KPushButton;
 
 namespace Viewer

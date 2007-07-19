@@ -21,7 +21,6 @@
 #include "DB/ImageDate.h"
 #include <qmap.h>
 #include "DB/ImageInfoList.h"
-class QStringList;
 
 namespace DB
 {

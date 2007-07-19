@@ -40,9 +40,7 @@
 #include "DB/ImageDate.h"
 
 class QTimer;
-class ImageDateRange;
 class QDateTime;
-class QPixmapCache;
 
 namespace ThumbnailView
 {

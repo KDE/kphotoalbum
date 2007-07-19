@@ -20,7 +20,6 @@
 
 #include "Question.h"
 class QSpinBox;
-class QLineEdit;
 
 namespace Survey
 {

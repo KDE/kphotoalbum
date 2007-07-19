@@ -23,7 +23,6 @@
 #include <QLabel>
 class QLabel;
 class QCheckBox;
-class QRadioButton;
 
 namespace MainWindow
 {

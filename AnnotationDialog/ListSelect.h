@@ -31,7 +31,6 @@
 
 class QRadioButton;
 class QLabel;
-class QCheckBox;
 
 namespace DB { class ImageInfo; }
 namespace CategoryListView { class DragableListView; }

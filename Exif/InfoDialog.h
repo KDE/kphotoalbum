@@ -25,7 +25,6 @@
 #include <QLabel>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClient.h"
-class Q3Table;
 
 namespace Exif
 {

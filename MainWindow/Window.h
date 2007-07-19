@@ -28,10 +28,8 @@ class KToggleAction;
 class Q3WidgetStack;
 class QTimer;
 class KTipDialog;
-class ReadInfoDialog;
 class QLabel;
 class KActionMenu;
-class KRadioAction;
 
 #include "DB/ImageInfoList.h"
 #include <kmainwindow.h>

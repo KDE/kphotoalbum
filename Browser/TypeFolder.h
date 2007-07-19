@@ -25,7 +25,6 @@
 
 namespace Browser
 {
-class BrowserItem;
 
 class TypeFolder :public Folder {
 public:

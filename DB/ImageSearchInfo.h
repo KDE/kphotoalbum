@@ -33,7 +33,6 @@ namespace DB
 {
 
 
-class OptionAndMatcher;
 class OptionSimpleMatcher;
 class ImageInfo;
 class CategoryMatcher;

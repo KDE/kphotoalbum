@@ -31,7 +31,6 @@
 namespace DB
 {
     class ImageInfo;
-    class CategoryCollection;
 }
 
 namespace Utilities

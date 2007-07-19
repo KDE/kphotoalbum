@@ -75,15 +75,15 @@ QDomElement* blockList, QDomElement* memberGroups )
                 *memberGroups = elm;
             else {
                 KMessageBox::error( MainWindow::Window::theMainWindow(),
-                                    i18n("Error in file %1: unexpected element: '%2'").arg( configFile ).arg( tag ) );
+                                    i18n("Error in file %1: unexpected element: '%2'", configFile , tag ) );
             }
         }
     }
 
     if ( options->isNull() )
-        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n("Unable to find 'Options' tag in configuration file %1.").arg( configFile ) );
+        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n("Unable to find 'Options' tag in configuration file %1.", configFile ) );
     if ( images->isNull() )
-        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n("Unable to find 'Images' tag in configuration file %1.").arg( configFile ) );
+        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n("Unable to find 'Images' tag in configuration file %1.", configFile ) );
 }
 
 void XMLDB::FileReader::createSpecialCategories()
@@ -339,7 +339,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
     }
     else {
         if ( !file.open( QIODevice::ReadOnly ) ) {
-            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Unable to open '%1' for reading").arg( configFile ), i18n("Error Running Demo") );
+            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Unable to open '%1' for reading", configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
 
@@ -348,7 +348,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
         int errCol;
 
         if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
-            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error on line %1 column %2 in file %3: %4").arg( errLine ).arg( errCol ).arg( configFile ).arg( errMsg ) );
+            KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error on line %1 column %2 in file %3: %4", errLine , errCol , configFile , errMsg ) );
             exit(-1);
         }
     }
@@ -356,13 +356,13 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
     // Now read the content of the file.
     QDomElement top = doc.documentElement();
     if ( top.isNull() ) {
-        KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error in file %1: No elements found").arg( configFile ) );
+        KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error in file %1: No elements found", configFile ) );
         exit(-1);
     }
 
     if ( top.tagName().toLower() != QString::fromLatin1( "kphotoalbum" ) &&
          top.tagName().toLower() != QString::fromLatin1( "kimdaba" ) ) { // KimDaBa compatibility
-        KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'").arg( configFile ).arg( top.tagName() ) );
+        KMessageBox::error( MainWindow::Window::theMainWindow(), i18n("Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'", configFile , top.tagName() ) );
         exit(-1);
     }
 

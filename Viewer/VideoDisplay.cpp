@@ -206,15 +206,15 @@ void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileN
                                                                                 QString::fromLatin1("<font color=\"green\"><b>%1</b></font>")
                                                                                 .arg(mimeType ) );
 
-    msg += i18n("<tr><td>Getting a KPart for the mime type</td><td>%1</td></tr>").arg( type < NoKPart ? untested : ( type == NoKPart ? failed : OK ) );
-    msg += i18n("<tr><td>Getting a library for the part</tr><td>%1</td></tr>")
-           .arg( type < NoLibrary ? untested : ( type == NoLibrary ? failed : OK ) );
-    msg += i18n("<tr><td>Instantiating Part</td><td>%1</td></tr>").arg( type < NoPartInstance ? untested : (type == NoPartInstance ? failed : OK ) );
-    msg += i18n("<tr><td>Fetching Widget from part</td><td>%1</td></tr>")
-           .arg( type < NoWidget ? untested : (type == NoWidget ? failed : OK ) );
+    msg += i18n("<tr><td>Getting a KPart for the mime type</td><td>%1</td></tr>", type < NoKPart ? untested : ( type == NoKPart ? failed : OK ) );
+    msg += i18n("<tr><td>Getting a library for the part</tr><td>%1</td></tr>"
+           , type < NoLibrary ? untested : ( type == NoLibrary ? failed : OK ) );
+    msg += i18n("<tr><td>Instantiating Part</td><td>%1</td></tr>", type < NoPartInstance ? untested : (type == NoPartInstance ? failed : OK ) );
+    msg += i18n("<tr><td>Fetching Widget from part</td><td>%1</td></tr>"
+           , type < NoWidget ? untested : (type == NoWidget ? failed : OK ) );
     msg += QString::fromLatin1( "</table>" );
 
-    int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ).arg(fileName ), i18n("Show More Help"), i18n("Close") );
+    int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ,fileName ), i18n("Show More Help"), i18n("Close") );
     if ( ret == KMessageBox::Yes )
         KToolInvocation::invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
 #else

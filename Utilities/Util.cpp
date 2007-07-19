@@ -168,8 +168,8 @@ void Utilities::checkForBackupFile( const QString& fileName )
         return;
 
     int code = KMessageBox::questionYesNo( 0, i18n("Backup file '%1' exists and is newer than '%2'. "
-                                                   "Should I use the backup file?")
-                                           .arg(backupName).arg(fileName),
+                                                   "Should I use the backup file?",
+                                           backupName,fileName),
                                            i18n("Found Backup File") );
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );
@@ -197,7 +197,7 @@ void Utilities::copyList( const QStringList& from, const QString& directoryTo )
         if ( ! QFileInfo( destFile ).exists() ) {
             const bool ok = copy( *it, destFile );
             if ( !ok ) {
-                KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'.").arg( *it ).arg( destFile ), i18n("Error Running Demo") );
+                KMessageBox::error( 0, i18n("Unable to copy '%1' to '%2'.", *it , destFile ), i18n("Error Running Demo") );
                 exit(-1);
             }
         }
@@ -211,7 +211,7 @@ QString Utilities::setupDemo()
     if ( ! fi.exists() ) {
         bool ok = QDir().mkdir( dir );
         if ( !ok ) {
-            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo.").arg( dir ), i18n("Error Running Demo") );
+            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo.", dir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
@@ -229,7 +229,7 @@ QString Utilities::setupDemo()
     if ( ! QFileInfo( configFile ).exists() ) {
         QFile out( configFile );
         if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( 0, i18n("Unable to open '%1' for writing.").arg( configFile ), i18n("Error Running Demo") );
+            KMessageBox::error( 0, i18n("Unable to open '%1' for writing.", configFile ), i18n("Error Running Demo") );
             exit(-1);
         }
         QTextStream( &out ) << str;
@@ -252,7 +252,7 @@ QString Utilities::setupDemo()
     if ( ! fi.exists() ) {
         bool ok = QDir().mkdir( dir  );
         if ( !ok ) {
-            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo.").arg( dir ), i18n("Error Running Demo") );
+            KMessageBox::error( 0, i18n("Unable to create directory '%1' needed for demo.", dir ), i18n("Error Running Demo") );
             exit(-1);
         }
     }
@@ -300,13 +300,13 @@ QString Utilities::readInstalledFile( const QString& fileName )
 {
     QString inFileName = KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/%1" ).arg( fileName ) );
     if ( inFileName.isEmpty() ) {
-        KMessageBox::error( 0, i18n("<p>Unable to find kphotoalbum/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</p>").arg( fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
+        KMessageBox::error( 0, i18n("<p>Unable to find kphotoalbum/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</p>", fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
         return QString::null;
     }
 
     QFile file( inFileName );
     if ( !file.open( QIODevice::ReadOnly ) ) {
-        KMessageBox::error( 0, i18n("Could not open file %1.").arg( inFileName ) );
+        KMessageBox::error( 0, i18n("Could not open file %1.", inFileName ) );
         return QString::null;
     }
 
@@ -360,7 +360,7 @@ bool Utilities::canReadImage( const QString& fileName )
 QString Utilities::readFile( const QString& fileName )
 {
     if ( fileName.isEmpty() ) {
-        KMessageBox::error( 0, i18n("<p>Unable to find file %1</p>").arg( fileName ) );
+        KMessageBox::error( 0, i18n("<p>Unable to find file %1</p>", fileName ) );
         return QString::null;
     }
 

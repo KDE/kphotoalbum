@@ -139,19 +139,19 @@ bool Import::init( const QString& fileName )
     _finishedPressed = false;
     _zip = new KZip( fileName );
     if ( !_zip->open( QIODevice::ReadOnly ) ) {
-        KMessageBox::error( this, i18n("Unable to open '%1' for reading.").arg( fileName ), i18n("Error Importing Data") );
+        KMessageBox::error( this, i18n("Unable to open '%1' for reading.", fileName ), i18n("Error Importing Data") );
         _zip =0;
         return false;
     }
     _dir = _zip->directory();
     if ( _dir == 0 ) {
-        KMessageBox::error( this, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." ).arg( fileName ) );
+        KMessageBox::error( this, i18n( "Error reading directory contents of file %1; it is likely that the file is broken." , fileName ) );
         return false;
     }
 
     const KArchiveEntry* indexxml = _dir->entry( QString::fromLatin1( "index.xml" ) );
     if ( indexxml == 0 || ! indexxml->isFile() ) {
-        KMessageBox::error( this, i18n( "Error reading index.xml file from %1; it is likely that the file is broken." ).arg( fileName ) );
+        KMessageBox::error( this, i18n( "Error reading index.xml file from %1; it is likely that the file is broken." , fileName ) );
         return false;
     }
 
@@ -180,15 +180,15 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
     int errCol;
 
     if ( !doc.setContent( data, false, &errMsg, &errLine, &errCol )) {
-        KMessageBox::error( this, i18n( "Error in file %1 on line %2 col %3: %4" ).arg(fileName).arg(errLine).arg(errCol).arg(errMsg) );
+        KMessageBox::error( this, i18n( "Error in file %1 on line %2 col %3: %4" ,fileName,errLine,errCol,errMsg) );
         return false;
     }
 
     QDomElement top = doc.documentElement();
     if ( top.tagName().toLower() != QString::fromLatin1( "kimdaba-export" ) &&
         top.tagName().toLower() != QString::fromLatin1( "kphotoalbum-export" ) ) {
-        KMessageBox::error( this, i18n("Unexpected top element while reading file %1. Expected KPhotoAlbum-export found %2")
-                            .arg( fileName ).arg( top.tagName() ) );
+        KMessageBox::error( this, i18n("Unexpected top element while reading file %1. Expected KPhotoAlbum-export found %2",
+                            fileName ,top.tagName() ) );
         return false;
     }
 
@@ -207,7 +207,7 @@ bool Import::readFile( const QByteArray& data, const QString& fileName )
 
     for ( QDomNode node = top.firstChild(); !node.isNull(); node = node.nextSibling() ) {
         if ( !node.isElement() || ! (node.toElement().tagName().toLower() == QString::fromLatin1( "image" ) ) ) {
-            KMessageBox::error( this, i18n("Unknown element while reading %1, expected image.").arg( fileName ) );
+            KMessageBox::error( this, i18n("Unknown element while reading %1, expected image.", fileName ) );
             return false;
         }
         QDomElement elm = node.toElement();
@@ -373,7 +373,7 @@ void  Import::slotEditDestination()
     QString file = KFileDialog::getExistingDirectory( _destinationEdit->text(), this );
     if ( !file.isNull() ) {
         if ( ! QFileInfo(file).absoluteFilePath().startsWith( QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath()) ) {
-            KMessageBox::error( this, i18n("The directory must be a subdirectory of %1").arg( Settings::SettingsData::instance()->imageDirectory() ) );
+            KMessageBox::error( this, i18n("The directory must be a subdirectory of %1", Settings::SettingsData::instance()->imageDirectory() ) );
         }
         else {
             _destinationEdit->setText( file );
@@ -448,11 +448,11 @@ void Import::next()
     if ( currentPage() == _destinationPage ) {
         QString dir = _destinationEdit->text();
         if ( !QFileInfo( dir ).exists() ) {
-            int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exists. Should it be created?").arg( dir ) );
+            int answer = KMessageBox::questionYesNo( this, i18n("Directory %1 does not exists. Should it be created?", dir ) );
             if ( answer == KMessageBox::Yes ) {
                 bool ok = KStandardDirs::makeDir( dir );
                 if ( !ok ) {
-                    KMessageBox::error( this, i18n("Error creating directory %1").arg( dir ) );
+                    KMessageBox::error( this, i18n("Error creating directory %1", dir ) );
                     return;
                 }
             }
@@ -504,7 +504,7 @@ bool Import::copyFilesFromZipFile()
 
         QFile out( newName );
         if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( this, i18n("Error when writing image %s").arg( newName ) );
+            KMessageBox::error( this, i18n("Error when writing image %1", newName ) );
             return false;
         }
         out.write( data, data.size() );
@@ -654,7 +654,7 @@ QPixmap Import::loadThumbnail( QString fileName )
     fileName = QString::fromLatin1("%1.%2").arg( Utilities::stripSlash( QFileInfo( fileName ).baseName() ) ).arg(ext);
     const KArchiveEntry* fileEntry = thumbnailDir->entry( fileName );
     if ( fileEntry == 0 || !fileEntry->isFile() ) {
-        KMessageBox::error( this, i18n("No thumbnail existed in export file for %1").arg( fileName ) );
+        KMessageBox::error( this, i18n("No thumbnail existed in export file for %1", fileName ) );
         return QPixmap();
     }
 
@@ -697,7 +697,7 @@ QByteArray Import::loadImage( const QString& fileName )
 
     const KArchiveEntry* fileEntry = imagesDir->entry( fileName );
     if ( fileEntry == 0 || !fileEntry->isFile() ) {
-        KMessageBox::error( this, i18n("No image existed in export file for %1").arg( fileName ) );
+        KMessageBox::error( this, i18n("No image existed in export file for %1", fileName ) );
         return QByteArray();
     }
 

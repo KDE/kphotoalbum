@@ -27,7 +27,7 @@ Viewer::ShowOptionAction::ShowOptionAction( const QString& category, QObject* pa
 #endif
         ), _category( category )
 {
-    setText( i18n( "Show %1" ).arg( category ) );
+    setText( i18n( "Show %1", category ) );
     connect( this, SIGNAL( toggled(bool) ), this, SLOT( slotToggled( bool ) ) );
     setChecked( DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->doShow() );
 }

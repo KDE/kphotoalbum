@@ -313,7 +313,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     // -------------------------------------------------- Take item out of category
     Q3ListViewItem* parent = item ? item->parent() : 0;
     if ( parent )
-        menu.insertItem( i18n( "Take item out of category %1" ).arg( parent->text(0) ), 9 );
+        menu.insertItem( i18n( "Take item out of category %1", parent->text(0) ), 9 );
 
     // -------------------------------------------------- sort
     QLabel* sortTitle = new QLabel( i18n("<b>Sorting</b>"), &menu );
@@ -337,9 +337,9 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     if ( which == 1 ) {
         int code = KMessageBox::warningContinueCancel( this, i18n("<p>Do you really want to delete \"%1\"?<br>"
                                                                   "Deleting the item will remove any information "
-                                                                  "about it from any image containing the item.</p>")
-                                                       .arg(item->text(0)),
-                                                       i18n("Really Delete %1?").arg(item->text(0)),
+                                                                  "about it from any image containing the item.</p>"
+                                                       ,item->text(0)),
+                                                       i18n("Really Delete %1?",item->text(0)),
                                                        KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
         if ( code == KMessageBox::Continue ) {
             _category->removeItem( item->text(0) );
@@ -354,9 +354,9 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
         if ( ok && newStr != item->text(0) ) {
             int code = KMessageBox::questionYesNo( this, i18n("<p>Do you really want to rename \"%1\" to \"%2\"?<br>"
                                                               "Doing so will rename \"%3\" "
-                                                              "on any image containing it.</p>")
-                                               .arg(item->text(0)).arg(newStr).arg(item->text(0)),
-                                               i18n("Really Rename %1?").arg(item->text(0)) );
+                                                              "on any image containing it.</p>"
+                                               ,item->text(0),newStr,item->text(0)),
+                                               i18n("Really Rename %1?",item->text(0)) );
             if ( code == KMessageBox::Yes ) {
                 QString oldStr = item->text(0);
                 _category->renameItem( oldStr, newStr );

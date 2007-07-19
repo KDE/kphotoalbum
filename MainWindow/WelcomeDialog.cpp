@@ -141,14 +141,14 @@ QString FileDialog::getFileName()
             if ( create == KMessageBox::Yes ) {
                 bool ok2 = QDir().mkdir( dir );
                 if ( !ok2 ) {
-                    KMessageBox::sorry( this, i18n("Could not create directory %1").arg(dir) );
+                    KMessageBox::sorry( this, i18n("Could not create directory %1",dir) );
                 }
                 else
                     ok = true;
             }
         }
         else if ( !QFileInfo( dir ).isDir() ) {
-            KMessageBox::sorry( this, i18n("%1 exists, but is not a directory").arg(dir) );
+            KMessageBox::sorry( this, i18n("%1 exists, but is not a directory",dir) );
         }
         else
             ok = true;

@@ -929,7 +929,7 @@ bool MainWindow::Window::load()
         }
         catch (SQLDB::Error& e){
             KMessageBox::error(this, i18n("SQL backend initialization failed, "
-                                          "because following error occurred:\n%1").arg(e.message()));
+                                          "because following error occurred:\n%1",e.message()));
         }
 #else
         KMessageBox::error(this, i18n("SQL database support is not compiled in."));
@@ -937,7 +937,7 @@ bool MainWindow::Window::load()
     }
     else if ( backEnd == QString::fromLatin1("xml") );
     else {
-        KMessageBox::error(this, i18n("Invalid database backend: %1").arg(backEnd));
+        KMessageBox::error(this, i18n("Invalid database backend: %1",backEnd));
     }
 
     if (backEnd != QString::fromLatin1("xml")) {
@@ -1589,7 +1589,7 @@ void MainWindow::Window::convertBackend()
         KMessageBox::information(this, i18n("Database conversion is ready."));
     }
     catch (SQLDB::Error& e) {
-        KMessageBox::error(this, i18n("Database conversion failed, because following error occurred:\n%1").arg(e.message()));
+        KMessageBox::error(this, i18n("Database conversion failed, because following error occurred:\n%1",e.message()));
     }
     if (dbh)
         delete dbh;

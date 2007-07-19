@@ -45,7 +45,7 @@ Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
 
 void Viewer::SpeedDisplay::display( int i )
 {
-    _label->setText( i18n("<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>").arg( QString::number( i/1000.0, 'f', 1 ) ) );
+    _label->setText( i18n("<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>", QString::number( i/1000.0, 'f', 1 ) ) );
     go();
 }
 

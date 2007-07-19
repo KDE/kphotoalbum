@@ -22,8 +22,8 @@
 #include <QKeyEvent>
 #include <kdebug.h>
 
-AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent, const char* name )
-    :QLineEdit( parent, name )
+AnnotationDialog::CompletableLineEdit::CompletableLineEdit( ListSelect* parent )
+    :QLineEdit( parent )
 {
     _listSelect = parent;
 }
@@ -40,8 +40,7 @@ void AnnotationDialog::CompletableLineEdit::setMode( UsageMode mode )
 
 void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
 {
-#ifdef TEMPORARILY_REMOVED
-    if ( ev->key() == Qt::Key_Down || ev->key() == ev->Qt::Key_Up ) {
+    if ( ev->key() == Qt::Key_Down || ev->key() == Qt::Key_Up ) {
         selectPrevNextMatch( ev->key() == Qt::Key_Down );
         return;
     }
@@ -99,9 +98,6 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent( QKeyEvent* ev )
         selectItemAndUpdateLineEdit( item, itemStart, input );
 
     _listSelect->showOnlyItemsMatching( input );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 /**

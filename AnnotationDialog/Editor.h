@@ -37,7 +37,7 @@ class Editor :public Q3TextEdit
     Q_OBJECT
 
 public:
-    Editor( QWidget* parent, const char* name = 0 );
+    Editor( QWidget* parent );
 
 protected:
     virtual Q3PopupMenu* createPopupMenu( const QPoint & pos );

@@ -35,8 +35,8 @@
 
 using namespace AnnotationDialog;
 
-Editor::Editor( QWidget* parent, const char* name )
-    :Q3TextEdit( parent, name )
+Editor::Editor( QWidget* parent )
+    :Q3TextEdit( parent )
 {
 #ifdef TEMPORARILY_REMOVED
     _config = new KSpellConfig( this );

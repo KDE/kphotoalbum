@@ -28,7 +28,7 @@ namespace AnnotationDialog
 class CompletableLineEdit :public QLineEdit {
 
 public:
-    CompletableLineEdit( ListSelect* parent,  const char* name = 0 );
+    CompletableLineEdit( ListSelect* parent );
     void setListView( Q3ListView* );
     void setMode( UsageMode mode );
 

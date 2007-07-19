@@ -34,6 +34,7 @@
 #include <KActionCollection>
 
 
+class QDockWidget;
 class QTimeEdit;
 class QMainWindow;
 class QSplitter;
@@ -89,6 +90,7 @@ protected slots:
     void slotCopyPrevious();
 
 protected:
+    QDockWidget* createDock( const QString& title, const char* name, Qt::DockWidgetArea location, QWidget* widget );
     QWidget* createDateWidget();
     QWidget* createPreviewWidget();
     QWidget* createListSel( const DB::CategoryPtr& category );
@@ -101,7 +103,6 @@ protected:
     virtual void closeEvent( QCloseEvent* );
     void showTornOfWindows();
     void hideTornOfWindows();
-    virtual bool eventFilter( QObject*, QEvent* );
     bool hasChanges();
     void showHelpDialog( UsageMode );
     virtual void resizeEvent( QResizeEvent* );
@@ -123,10 +124,7 @@ private:
     QSplitter* _splitter;
     Viewer::ViewerWidget* _viewer;
     int _accept;
-#ifdef TEMPORARILY_REMOVED
-    Q3ValueList<KDockWidget*> _dockWidgets;
-    Q3ValueList<KDockWidget*> _tornOfWindows;
-#endif
+    QList<QDockWidget*> _dockWidgets;
     bool _thumbnailShouldReload;
     bool _thumbnailTextShouldReload;
 

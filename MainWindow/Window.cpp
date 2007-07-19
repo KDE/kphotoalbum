@@ -1104,11 +1104,7 @@ void MainWindow::Window::slotConfigureKeyBindings()
 #endif
 
     createAnnotationDialog();
-#ifdef TEMPORARILY_REMOVED
     dialog->addCollection( _annotationDialog->actions(), i18n("Annotation Dialog" ) );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 
     dialog->configure();
 

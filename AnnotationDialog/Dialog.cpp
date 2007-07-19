@@ -82,46 +82,19 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
 
     layout->addWidget( _dockWindow );
 
-    // -------------------------------------------------- Label and Date
-    // If I make the dateDock a child of 'this', then things seems to break.
-    // The datedock isn't shown at all
-    QDockWidget* dateDock = new QDockWidget( i18n("Label and Dates"), _dockWindow );
-    dateDock->setObjectName( "Label and Dates" );
-    dateDock->setAllowedAreas( Qt::AllDockWidgetAreas );
-    dateDock->setWidget( createDateWidget() );
-    _dockWindow->addDockWidget( Qt::TopDockWidgetArea, dateDock );
+    // -------------------------------------------------- Dock widgets
+    createDock( i18n("Label and Dates"), "Label and Datas", Qt::TopDockWidgetArea, createDateWidget() );
+    createDock( i18n("Image Preview"), "Image Preview", Qt::TopDockWidgetArea, createPreviewWidget() );
 
-
-
-    // -------------------------------------------------- Image preview
-    QDockWidget* previewDock = new QDockWidget( i18n("Image Preview"), _dockWindow );
-    previewDock->setObjectName( "Image Preview" );
-    previewDock->setAllowedAreas( Qt::AllDockWidgetAreas );
-    previewDock->setWidget( createPreviewWidget() );
-    _dockWindow->addDockWidget( Qt::TopDockWidgetArea, previewDock );
-
-
-
-
-    // -------------------------------------------------- The editor
-    QDockWidget* descriptionDock = new QDockWidget( i18n("Description"), _dockWindow );
-    descriptionDock->setObjectName( "description" );
-    descriptionDock->setAllowedAreas( Qt::AllDockWidgetAreas );
-    _dockWindow->addDockWidget( Qt::LeftDockWidgetArea, descriptionDock );
-
-    _description = new Editor( descriptionDock, "_description" );
-    descriptionDock->setWidget( _description );
+    _description = new Editor( this );
+    createDock( i18n("Description"), "description", Qt::LeftDockWidgetArea, _description );
 
     // -------------------------------------------------- Categrories
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( (*categoryIt)->isSpecialCategory() )
             continue;
-        QDockWidget* dock = new QDockWidget( (*categoryIt)->text(), _dockWindow );
-        dock->setAllowedAreas( Qt::AllDockWidgetAreas );
-        dock->setObjectName( (*categoryIt)->name() );
-        dock->setWidget( createListSel( *categoryIt ) );
-        _dockWindow->addDockWidget( Qt::BottomDockWidgetArea, dock );
+        createDock( (*categoryIt)->text(), (*categoryIt)->name().toUtf8(), Qt::BottomDockWidgetArea, createListSel( *categoryIt ) );
     }
 
     // -------------------------------------------------- The buttons.
@@ -173,6 +146,18 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::ConfigWindow ) );
 
     setupActions();
+}
+
+QDockWidget* AnnotationDialog::Dialog::createDock( const QString& title, const char* name,
+                                                   Qt::DockWidgetArea location, QWidget* widget )
+{
+    QDockWidget* dock = new QDockWidget( title, _dockWindow );
+    dock->setObjectName( name );
+    dock->setAllowedAreas( Qt::AllDockWidgetAreas );
+    dock->setWidget( widget );
+    _dockWindow->addDockWidget( location, dock );
+    _dockWidgets.append( dock );
+    return dock;
 }
 
 QWidget* AnnotationDialog::Dialog::createDateWidget()
@@ -607,33 +592,13 @@ void AnnotationDialog::Dialog::slotOptions()
         slotResetLayout();
 }
 
-/**
- * What I was trying (I guess) was to make the dialog a modal dialog, but I
- * couldn't do that (I guess) because the dialog has tear off windows,
- * which then would be inaccessable.
- *
- * Thefore I instead install an event filter that blocks events to the rest
- * of the world.
- * (Written years after this code, darn I would have loved if I had written
- * a comment here. tsk tsk)
- */
 int AnnotationDialog::Dialog::exec()
 {
     setupFocus();
-    return QDialog::exec();
-
-#ifdef TEMPORARILY_REMOVED
-    show();
     showTornOfWindows();
-    qApp->installEventFilter( this );
-    qApp->eventLoop()->enterLoop();
-
-    // Executed when the window is gone.
-    qApp->removeEventFilter( this );
-    hide();
+    const int ret = QDialog::exec();
     hideTornOfWindows();
-    return _accept;
-#endif
+    return ret;
 }
 
 void AnnotationDialog::Dialog::slotSaveWindowSetup()
@@ -654,58 +619,14 @@ void AnnotationDialog::Dialog::closeEvent( QCloseEvent* e )
 
 void AnnotationDialog::Dialog::hideTornOfWindows()
 {
-#ifdef TEMPORARILY_REMOVED
-    _tornOfWindows.clear();
-    for( Q3ValueList<KDockWidget*>::Iterator it = _dockWidgets.begin(); it != _dockWidgets.end(); ++it ) {
-        if ( (*it)->isTopLevel() && (*it)->isShown() ) {
-            (*it)->hide();
-            _tornOfWindows.append( *it );
-        }
-    }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    Q_FOREACH( QDockWidget* dock, _dockWidgets )
+        dock->hide();
 }
 
 void AnnotationDialog::Dialog::showTornOfWindows()
 {
-#ifdef TEMPORARILY_REMOVED
-    for( Q3ValueList<KDockWidget*>::Iterator it = _tornOfWindows.begin(); it != _tornOfWindows.end(); ++it ) {
-        (*it)->show();
-    }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
-}
-
-/**
- * See comment above for exec()
- */
-bool AnnotationDialog::Dialog::eventFilter( QObject* watched, QEvent* event )
-{
-    if ( !watched->isWidgetType() )
-        return false;
-
-    QWidget* w = static_cast<QWidget*>( watched );
-
-    if ( event->type() != QEvent::MouseButtonPress &&
-         event->type() != QEvent::MouseButtonRelease &&
-         event->type() != QEvent::MouseButtonDblClick &&
-         event->type() != QEvent::MouseMove &&
-         event->type() != QEvent::KeyPress &&
-         event->type() != QEvent::KeyRelease &&
-         event->type() != QEvent::ContextMenu )
-        return false;
-
-    // Initially I used an allow list, but combo boxes pop up menu's did for example not work then.
-    if ( w->topLevelWidget()->className() == Q3CString( "MainWindow" ) || w->topLevelWidget()->className() == Q3CString( "Viewer" )) {
-        if ( isMinimized() )
-            showNormal();
-        raise();
-        return true;
-    }
-
-    return false;
+    Q_FOREACH (QDockWidget* dock, _dockWidgets )
+        dock->show();
 }
 
 
@@ -964,46 +885,62 @@ void AnnotationDialog::Dialog::loadWindowLayout()
 
 void AnnotationDialog::Dialog::setupActions()
 {
-#ifdef TEMPORARILY_REMOVED
     _actions = new KActionCollection( this );
 
-    new KAction( i18n("Sort Alphabetically"), 0, _optionList.at(0), SLOT( slotSortAlpha() ),
-                 _actions, "annotationdialog-sort-alpha" );
+    QAction* action = 0;
+    action = _actions->addAction( "annotationdialog-sort-alpha", _optionList.at(0), SLOT( slotSortAlpha() ) );
+    action->setText( i18n("Sort Alphabetically") );
+    action->setShortcut(Qt::CTRL+Qt::Key_F4);
 
-    new KAction( i18n("Sort Most Recently Used"), 0, _optionList.at(0), SLOT( slotSortDate() ),
-                 _actions, "annotationdialog-sort-MRU" );
 
-    new KAction( i18n("Toggle Sorting"), Qt::CTRL+Qt::Key_T, _optionList.at(0), SLOT( toggleSortType() ),
-                 _actions, "annotationdialog-toggle-sort" );
+    action = _actions->addAction( "annotationdialog-sort-MRU", _optionList.at(0), SLOT( slotSortDate() ) );
+    action->setText( i18n("Sort Most Recently Used") );
 
-    new KAction( i18n("Toggle Showing Selected Items Only"), Qt::CTRL+Qt::Key_S, &ShowSelectionOnlyManager::instance(), SLOT( toggle() ),
-                 _actions, "annotationdialog-toggle-showing-selected-only" );
+    action = _actions->addAction( "annotationdialog-toggle-sort",  _optionList.at(0), SLOT( toggleSortType() ) );
+    action->setText( i18n("Toggle Sorting") );
+    action->setShortcut( Qt::CTRL+Qt::Key_T );
 
-    new KAction( i18n("Annotate Next"), Qt::Key_PageDown, this, SLOT( slotNext() ),
-                 _actions, "annotationdialog-next-image" );
+    action = _actions->addAction( "annotationdialog-toggle-showing-selected-only",
+                                  &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
+    action->setText( i18n("Toggle Showing Selected Items Only") );
+    action->setShortcut( Qt::CTRL+Qt::Key_S );
 
-    new KAction( i18n("Annotate Previous"), Qt::Key_PageUp, this, SLOT( slotPrev() ),
-                 _actions, "annotationdialog-prev-image" );
 
-    new KAction( i18n("OK dialog"), Qt::CTRL+Qt::Key_Return, this, SLOT( slotOK() ),
-                 _actions, "annotationdialog-OK-dialog" );
+    action = _actions->addAction( "annotationdialog-next-image",  this, SLOT( slotNext() ) );
+    action->setText(  i18n("Annotate Next") );
+    action->setShortcut(  Qt::Key_PageDown );
 
-    new KAction( i18n("Delete"), Qt::CTRL+Qt::Key_Delete, this, SLOT( slotDeleteImage() ),
-                 _actions, "annotationdialog-delete-image" );
+    action = _actions->addAction( "annotationdialog-prev-image",  this, SLOT( slotPrev() ) );
+    action->setText(  i18n("Annotate Previous") );
+    action->setShortcut(  Qt::Key_PageUp );
 
-    new KAction( i18n("Copy tags from previous image"), Qt::CTRL+Qt::Key_Insert, this, SLOT( slotCopyPrevious() ),
-                 _actions, "annotationdialog-copy-previous");
+    action = _actions->addAction( "annotationdialog-OK-dialog",  this, SLOT( slotOK() ) );
+    action->setText(  i18n("OK dialog") );
+    action->setShortcut(  Qt::CTRL+Qt::Key_Return );
 
-    new KAction( i18n("Rotate Left"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );
-    new KAction( i18n("Rotate Right"), 0, this, SLOT( rotateRight() ), _actions, "annotationdialog-rotate-right" );
+    action = _actions->addAction( "annotationdialog-delete-image",  this, SLOT( slotDeleteImage() ) );
+    action->setText(  i18n("Delete") );
+    action->setShortcut(  Qt::CTRL+Qt::Key_Delete );
+
+    action = _actions->addAction( "annotationdialog-copy-previous",  this, SLOT( slotCopyPrevious() ) );
+    action->setText(  i18n("Copy tags from previous image") );
+    action->setShortcut(  Qt::CTRL+Qt::Key_Insert );
+
+    action = _actions->addAction( "annotationdialog-rotate-left",  this, SLOT( rotateLeft() ) );
+    action->setText(  i18n("Rotate Left") );
+
+    action = _actions->addAction( "annotationdialog-rotate-right",  this, SLOT( rotateRight() ) );
+    action->setText(  i18n("Rotate Right") );
 
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );
     connect( _rotateLeft, SIGNAL( clicked() ), this, SLOT( rotateLeft() ) );
     connect( _rotateRight, SIGNAL( clicked() ), this, SLOT( rotateRight() ) );
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
+
+    foreach (QAction* action, _actions->actions()) {
+      action->setShortcutContext(Qt::WindowShortcut);
+      addAction(action);
+  }
 }
 
 KActionCollection* AnnotationDialog::Dialog::actions()
@@ -1034,6 +971,7 @@ QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( Li
 
     return qMakePair( itemsOnAllImages, itemsOnSomeImages - itemsOnAllImages );
 }
+
 
 
 #include "Dialog.moc"

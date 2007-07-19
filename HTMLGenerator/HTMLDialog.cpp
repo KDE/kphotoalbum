@@ -55,6 +55,7 @@ HTMLDialog::HTMLDialog( QWidget* parent )
     createLayoutPage();
     createDestinationPage();
     setHelp( QString::fromLatin1( "chp-generating-html" ) );
+    connect(this,SIGNAL(okClicked()),this,SLOT(slotOk()));
 }
 
 void HTMLDialog::createContentPage()

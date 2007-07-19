@@ -385,16 +385,15 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         if ( mode & EXIFMODE_LABEL ) {
             QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->labelSyncing( true );
             for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
-                // FIXME: encoding
                 switch ( _header[ *it ] ) {
                     case Exif::Syncable::EXIF:
                         keyName = _fieldName[*it].ascii();
-                        exifMap[keyName] = std::string( _label.utf8() );
+                        exifMap[keyName] = Utilities::encodeQString( _label, Settings::SettingsData::instance()->iptcCharset() );
                         changed = true;
                         break;
                     case Exif::Syncable::IPTC:
                         keyName = _fieldName[*it].ascii();
-                        iptcMap[keyName] = std::string( _label.utf8() );
+                        iptcMap[keyName] = Utilities::encodeQString( _label, Settings::SettingsData::instance()->iptcCharset() );
                         changed = true;
                         break;
                     default:
@@ -406,16 +405,15 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         if ( mode & EXIFMODE_DESCRIPTION ) {
             QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->descriptionSyncing( true );
             for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
-                // FIXME: encoding
                 switch ( _header[ *it ] ) {
                     case Exif::Syncable::EXIF:
                         keyName = _fieldName[*it].ascii();
-                        exifMap[keyName] = std::string( _description.utf8() );
+                        exifMap[keyName] = Utilities::encodeQString( _description, Settings::SettingsData::instance()->iptcCharset() );
                         changed = true;
                         break;
                     case Exif::Syncable::IPTC:
                         keyName = _fieldName[*it].ascii();
-                        iptcMap[keyName] = std::string( _description.utf8() );
+                        iptcMap[keyName] = Utilities::encodeQString( _description, Settings::SettingsData::instance()->iptcCharset() );
                         changed = true;
                         break;
                     default:

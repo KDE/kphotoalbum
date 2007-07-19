@@ -783,7 +783,7 @@ QStringList Utilities::removeDuplicates( const QStringList& items )
 /**
  * Convert a weird C string in some ugly encoding to a cute unicode QString
  */
-QString Utilities::cStringWithEncoding( const char *c_str, IptcCharset charset )
+QString Utilities::cStringWithEncoding( const char *c_str, const IptcCharset charset )
 {
     QTextCodec* codec;
     switch ( charset ) {
@@ -808,6 +808,34 @@ QString Utilities::cStringWithEncoding( const char *c_str, IptcCharset charset )
             // fall through
         default:
             return QString::fromUtf8( c_str );
+    }
+}
+
+std::string Utilities::encodeQString( const QString& str, const IptcCharset charset ) 
+{
+    QTextCodec* codec;
+    switch (charset) {
+        case CharsetLocal8Bit:
+            return std::string( str.local8Bit() );
+
+        case CharsetIso88592:
+            codec = QTextCodec::codecForName("iso8859-2");
+            if (codec)
+                return codec->fromUnicode( str ).data();
+            else
+                return str.latin1();
+
+         case CharsetCp1250:
+            codec = QTextCodec::codecForName("cp1250");
+            if (codec)
+                return codec->fromUnicode( str ).data();
+            else
+                return str.latin1();
+
+        case CharsetUtf8:
+            // fall through
+        default:
+            return str.utf8().data();
     }
 }
 

@@ -25,6 +25,7 @@
 #include <qimage.h>
 #include "DB/ImageInfoList.h"
 #include "DB/MD5.h"
+#include <string>
 
 namespace DB
 {
@@ -78,7 +79,8 @@ QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QIma
 QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
 QStringList removeDuplicates( const QStringList& items );
 
-QString cStringWithEncoding( const char *c_str, IptcCharset charset );
+QString cStringWithEncoding( const char *c_str, const IptcCharset charset );
+std::string encodeQString( const QString& str, const IptcCharset charset );
 QStringList iptcHumanReadableCharsetList();
 
 DB::MD5 MD5Sum( const QString& fileName );

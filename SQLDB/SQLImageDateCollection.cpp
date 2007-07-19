@@ -22,14 +22,14 @@ DB::ImageCount SQLImageDateCollection::count( const DB::ImageDate& range )
         return cache[range];
 
     int exact =
-        _qh.executeQuery("SELECT count(*) FROM media "
-                         "WHERE %s<=startTime AND endTime<=%s",
+        _qh.executeQuery("SELECT COUNT(*) FROM media "
+                         "WHERE ?<=startTime AND endTime<=?",
                          QueryHelper::Bindings() <<
                          range.start() << range.end()
                          ).firstItem().toInt();
     int rng =
-        _qh.executeQuery("SELECT count(*) FROM media "
-                         "WHERE %s<=endTime AND startTime<=%s",
+        _qh.executeQuery("SELECT COUNT(*) FROM media "
+                         "WHERE ?<=endTime AND startTime<=?",
                          QueryHelper::Bindings() <<
                          range.start() << range.end()
                          ).firstItem().toInt() - exact;

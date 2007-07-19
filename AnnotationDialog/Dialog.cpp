@@ -162,6 +162,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     optionsBut->setAutoDefault( false );
 
     _optionList.setAutoDelete( true );
+
+    _dockWindowCleanState = _dockWindow->saveState();
+
     loadWindowLayout();
 
     // If I don't explicit show _dockWindow here, then no windows will show up.
@@ -936,11 +939,7 @@ void AnnotationDialog::Dialog::setupFocus()
 
 void AnnotationDialog::Dialog::slotResetLayout()
 {
-    QString fileName =  QString::fromLatin1( "%1/layout.dat" ).arg( Settings::SettingsData::instance()->imageDirectory() );
-    QDir().remove(fileName);
-
-    emit deleteMe();
-    closeDialog();
+    _dockWindow->restoreState(_dockWindowCleanState);
 }
 
 void AnnotationDialog::Dialog::slotStartDateChanged( const DB::ImageDate& date )

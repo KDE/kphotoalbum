@@ -393,13 +393,6 @@ void MainWindow::Window::createAnnotationDialog()
         return;
 
     _annotationDialog = new AnnotationDialog::Dialog( this );
-    connect( _annotationDialog, SIGNAL( deleteMe() ), this, SLOT( deleteAnnotationDialog() ) );
-}
-
-void MainWindow::Window::deleteAnnotationDialog()
-{
-    _annotationDialog->deleteLater();
-    _annotationDialog = 0;
 }
 
 void MainWindow::Window::slotSave()
@@ -818,6 +811,7 @@ void MainWindow::Window::showBrowser()
 
 void MainWindow::Window::slotOptionGroupChanged()
 {
+    // FIXME: What if annotation dialog is open? (if that's possible)
     delete _annotationDialog;
     _annotationDialog = 0;
     DirtyIndicator::markDirty();

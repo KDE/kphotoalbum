@@ -114,9 +114,6 @@ protected:
     void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
     QPair<StringSet,StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
 
-signals:
-    void deleteMe();
-
 private:
     DB::ImageInfoList _origList;
     Q3ValueList<DB::ImageInfo> _editList;
@@ -154,6 +151,12 @@ private:
     QPushButton* _addTime;
 
     KActionCollection* _actions;
+
+    /** Clean state of the dock window.
+     *
+     * Used in slotResetLayout().
+     */
+    QByteArray _dockWindowCleanState;
 };
 
 }

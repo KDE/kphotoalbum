@@ -131,7 +131,6 @@ protected slots:
     void slotJumpToContext();
     void setDateRange( const DB::ImageDate& );
     void clearDateRange();
-    void deleteAnnotationDialog();
     void startAutoSaveTimer();
     void convertBackend();
     void slotRecalcCheckSums();

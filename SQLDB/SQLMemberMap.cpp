@@ -134,12 +134,12 @@ SQLMemberMap::inverseMap(const QString& category) const
 {
     QMap<QString, QStringList> r;
 
-    const Q3ValueList<QString[2]> pairs =
+    const StringStringList pairs =
         _qh.memberGroupConfiguration(category);
 
-    for (Q3ValueList<QString[2]>::const_iterator i = pairs.begin();
+    for (StringStringList::const_iterator i = pairs.begin();
          i != pairs.end(); ++i)
-        r[(*i)[1]].append((*i)[0]);
+        r[(*i).second].append((*i).first);
 
     return r;
 }
@@ -236,10 +236,9 @@ const SQLMemberMap::MemberMapping& SQLMemberMap::memberMap() const
 void SQLMemberMap::updateMemberMapCache() const
 {
     _memberMapCache.clear();
-    Q3ValueList<QString[3]> l = _qh.memberGroupConfiguration();
-    for (Q3ValueList<QString[3]>::const_iterator i = l.begin();
-         i != l.end(); ++i)
-        _memberMapCache[(*i)[0]][(*i)[1]].insert((*i)[2]);
+    const QStringList c = _qh.categoryNames();
+    for (QStringList::const_iterator i = c.begin(); i != c.end(); ++i)
+        _memberMapCache[*i] = pairsToMap(_qh.memberGroupConfiguration(*i));
 }
 
 void SQLMemberMap::deleteItem(DB::Category* category, const QString& name)

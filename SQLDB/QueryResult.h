@@ -27,24 +27,20 @@
 #include <qmap.h>
 //Added by qt3to4:
 #include <Q3ValueList>
+#include <QList>
 
 namespace SQLDB
 {
+    typedef QList< QPair<QString, QString> > StringStringList;
+
     class QueryResult
     {
     public:
         QueryResult(KexiDB::Cursor* cursor): _cursor(cursor) {}
 
-        QStringList asStringList() const;
-        Q3ValueList<QString[2]> asString2List() const;
-        Q3ValueList<QString[3]> asString3List() const;
         Q3ValueList<int> asIntegerList() const;
-        Q3ValueList<uint> asUIntegerList() const;
-        Q3ValueList< QPair<int, int> > asInteger2List() const;
-        Q3ValueList< QPair<int, QString> > asIntegerStringPairs() const;
-        QMap<int, QString> asIntegerStringMap() const;
-        QMap<QString, uint> asStringUIntegerMap() const;
-        Q3ValueList<QVariant> asVariantList() const;
+        QStringList asStringList() const;
+        StringStringList asStringStringList() const;
         QVariant firstItem() const;
         RowData getRow(uint n=0) const;
         Cursor cursor() const { return _cursor; }

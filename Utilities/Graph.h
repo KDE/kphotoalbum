@@ -23,19 +23,19 @@
 #include "Set.h"
 
 template <class T>
-QMap< T, Set<T> > pairsToMap(const QValueList<T[2]>& pairs);
+QMap< T, Set<T> > pairsToMap(const QValueList< QPair<T, T> >& pairs);
 template <class T>
 QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map);
 
 
 template <class T>
-QMap< T, Set<T> > pairsToMap(const QValueList<T[2]>& pairs)
+QMap< T, Set<T> > pairsToMap(const QValueList< QPair<T, T> >& pairs)
 {
     QMap< T, Set<T> > map;
-    typename QValueList<T[2]>::const_iterator end = pairs.end();
-    for (typename QValueList<T[2]>::const_iterator i = pairs.begin();
-         i != end; ++i)
-        map[(*i)[0]].insert((*i)[1]);
+    typename QValueList< QPair<T, T> >::const_iterator end = pairs.constEnd();
+    for (typename QValueList< QPair<T, T> >::const_iterator i =
+             pairs.constBegin(); i != end; ++i)
+        map[(*i).first].insert((*i).second);
     return map;
 }
 

@@ -93,12 +93,11 @@ public:
     QValueList<int> tagIdList(const QString& category,
                               const QString& item) const;
 
-    QValueList<QString[3]> memberGroupConfiguration() const;
-    QValueList<QString[2]>
+    StringStringList
     memberGroupConfiguration(const QString& category) const;
 
-    QValueList< QPair<int, QString> >
-    mediaIdTagPairs(const QString& category, DB::MediaType typemask) const;
+    QMap<int, Set<QString> >
+    mediaIdTagsMap(const QString& category, DB::MediaType typemask) const;
 
     void getMediaItem(int id, DB::ImageInfo& info) const;
     void insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items);

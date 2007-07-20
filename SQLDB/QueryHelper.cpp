@@ -219,28 +219,28 @@ QString typeCondition(const QString& fieldName, DB::MediaType typemask)
 
 QStringList QueryHelper::filenames() const
 {
-    QValueList<QString[2]> dirFilePairs =
+    StringStringList dirFilePairs =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
                      "WHERE media.dirId=dir.id ORDER BY media.place"
-                     ).asString2List();
+                     ).asStringStringList();
     QStringList r;
-    for (QValueList<QString[2]>::const_iterator i = dirFilePairs.begin();
+    for (StringStringList::const_iterator i = dirFilePairs.begin();
          i != dirFilePairs.end(); ++i) {
-        r << makeFullName((*i)[0], (*i)[1]);
+        r << makeFullName((*i).first, (*i).second);
     }
     return r;
 }
 
 QString QueryHelper::mediaItemFilename(int id) const
 {
-    QValueList<QString[2]> dirFilePairs =
+    StringStringList dirFilePairs =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
                      "WHERE dir.id=media.dirId AND media.id=?",
-                     Bindings() << id).asString2List();
+                     Bindings() << id).asStringStringList();
     if (dirFilePairs.isEmpty())
         throw EntryNotFoundError();
 
-    return makeFullName(dirFilePairs[0][0], dirFilePairs[0][1]);
+    return makeFullName(dirFilePairs[0].first, dirFilePairs[0].second);
 }
 
 int QueryHelper::mediaItemId(const QString& filename) const
@@ -442,16 +442,16 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
     info.setSize(QSize(width, height));
     info.setAngle(row[10].toInt());
 
-    QValueList<QString[2]> categoryTagPairs =
+    StringStringList categoryTagPairs =
         executeQuery("SELECT category.name, tag.name "
                      "FROM media_tag, category, tag "
                      "WHERE media_tag.tagId=tag.id AND "
                      "category.id=tag.categoryId AND "
-                     "media_tag.mediaId=?", Bindings() << id).asString2List();
+                     "media_tag.mediaId=?", Bindings() << id).asStringStringList();
 
-    for (QValueList<QString[2]>::const_iterator i = categoryTagPairs.begin();
+    for (StringStringList::const_iterator i = categoryTagPairs.begin();
          i != categoryTagPairs.end(); ++i)
-        info.addCategoryInfo((*i)[0], (*i)[1]);
+        info.addCategoryInfo((*i).first, (*i).second);
 
     Viewer::DrawList drawList;
     Cursor c = executeQuery("SELECT shape, x0, y0, x1, y1 "
@@ -757,16 +757,7 @@ QValueList<int> QueryHelper::tagIdList(const QString& category,
     return visited;
 }
 
-QValueList<QString[3]> QueryHelper::memberGroupConfiguration() const
-{
-    return executeQuery("SELECT c.name, g.name, m.name "
-                        "FROM membergroup mg, tag g, tag m, category c "
-                        "WHERE mg.groupTag=g.id AND "
-                        "mg.memberTag=m.id AND "
-                        "g.categoryId=c.id").asString3List();
-}
-
-QValueList<QString[2]>
+StringStringList
 QueryHelper::memberGroupConfiguration(const QString& category) const
 {
     return executeQuery("SELECT g.name, m.name "
@@ -774,7 +765,7 @@ QueryHelper::memberGroupConfiguration(const QString& category) const
                         "WHERE mg.groupTag=g.id AND "
                         "mg.memberTag=m.id AND "
                         "g.categoryId=c.id AND c.name=?",
-                        Bindings() << category).asString2List();
+                        Bindings() << category).asStringStringList();
 }
 
 void QueryHelper::addBlockItem(const QString& filename)
@@ -908,36 +899,44 @@ bool QueryHelper::containsMD5Sum(const DB::MD5& md5sum) const
 
 QString QueryHelper::filenameForMD5Sum(const DB::MD5& md5sum) const
 {
-    QValueList<QString[2]> rows =
+    StringStringList rows =
         executeQuery("SELECT dir.path, media.filename FROM dir, media "
                      "WHERE dir.id=media.dirId AND media.md5sum=?",
                      Bindings() << md5sum.toHexString()
-                     ).asString2List();
+                     ).asStringStringList();
     if (rows.isEmpty())
         return QString::null;
     else {
-        return makeFullName(rows[0][0], rows[0][1]);
+        return makeFullName(rows[0].first, rows[0].second);
     }
 }
 
-QValueList< QPair<int, QString> >
-QueryHelper::mediaIdTagPairs(const QString& category,
+QMap<int, Set<QString> >
+QueryHelper::mediaIdTagsMap(const QString& category,
                              DB::MediaType typemask) const
 {
+    Cursor c(0);
     if (category == "Folder")
-        return executeQuery("SELECT media.id, dir.path FROM media, dir "
-                            "WHERE media.dirId=dir.id AND " +
-                            typeCondition("media.type", typemask)
-                            ).asIntegerStringPairs();
+        c = executeQuery("SELECT media.id, dir.path FROM media, dir "
+                         "WHERE media.dirId=dir.id AND " +
+                         typeCondition("media.type", typemask)
+                         ).cursor();
     else
-        return executeQuery("SELECT media.id, tag.name "
-                            "FROM media, media_tag, tag, category "
-                            "WHERE media.id=media_tag.mediaId AND "
-                            "media_tag.tagId=tag.id AND "
-                            "tag.categoryId=category.id AND " +
-                            typeCondition("media.type", typemask) +
-                            " AND category.name=?",
-                            Bindings() << category).asIntegerStringPairs();
+        c = executeQuery("SELECT media.id, tag.name "
+                         "FROM media, media_tag, tag, category "
+                         "WHERE media.id=media_tag.mediaId AND "
+                         "media_tag.tagId=tag.id AND "
+                         "tag.categoryId=category.id AND " +
+                         typeCondition("media.type", typemask) +
+                         " AND category.name=?",
+                         Bindings() << category).cursor();
+
+    QMap<int, Set<QString> > r;
+    if (!c.isNull()) {
+        for (c.selectFirstRow(); c.rowExists(); c.selectNextRow())
+            r[c.value(0).toInt()].insert(c.value(1).toString());
+    }
+    return r;
 }
 
 int QueryHelper::mediaPlaceByFilename(const QString& filename) const
@@ -1130,13 +1129,14 @@ QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
 
     query += " ORDER BY media.startTime LIMIT 1";
 
-    QValueList<QString[2]> dirFilenamePairs =
-        executeQuery(query, bindings).asString2List();
+    StringStringList dirFilenamePairs =
+        executeQuery(query, bindings).asStringStringList();
 
     if (dirFilenamePairs.isEmpty())
         return QString::null;
     else {
-        return makeFullName(dirFilenamePairs[0][0], dirFilenamePairs[0][1]);
+        return makeFullName(dirFilenamePairs[0].first,
+                            dirFilenamePairs[0].second);
     }
 }
 
@@ -1315,16 +1315,16 @@ QueryHelper::classify(const QString& category,
     QMap<QString, uint> result;
     DB::GroupCounter counter( category );
 
-    QValueList< QPair<int, QString> > idTagPairs =
-        mediaIdTagPairs(category, typemask);
+    const QMap<int, Set<QString> > wholeItemMap =
+        mediaIdTagsMap(category, typemask);
 
     QMap<int,QStringList> itemMap;
-    for (QValueList< QPair<int, QString> >::const_iterator
-             i = idTagPairs.begin(); i != idTagPairs.end(); ++i) {
-        int fileId = (*i).first;
-        QString item = (*i).second;
+
+    for (QMap<int, Set<QString> >::const_iterator
+             i = wholeItemMap.begin(); i != wholeItemMap.end(); ++i) {
+        int fileId = i.key();
         if (!scope || scope->contains(fileId))
-            itemMap[fileId].append(item);
+            itemMap[fileId] = i.data().toList();
     }
 
     // Count images that doesn't contain an item

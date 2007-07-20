@@ -179,8 +179,13 @@ void Viewer::ViewerWidget::setupContextMenu()
 
     _popup->addAction( action );
     _actions->readSettings();
-
     createVideoActions();
+
+    Q_FOREACH( QAction* action, _actions->actions() ) {
+      action->setShortcutContext(Qt::WindowShortcut);
+      addAction(action);
+
+    }
 }
 
 void Viewer::ViewerWidget::createShowContextMenu()

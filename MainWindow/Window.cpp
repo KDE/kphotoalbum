@@ -948,25 +948,24 @@ bool MainWindow::Window::load()
 
 void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( _stack->visibleWidget() == _thumbnailView ) {
         Q3PopupMenu menu( this, "context popup menu");
-        _configOneAtATime->plug( &menu );
-        _configAllSimultaniously->plug( &menu );
-        _runSlideShow->plug( &menu );
-        _runRandomSlideShow->plug( &menu );
+        menu.addAction( _configOneAtATime );
+        menu.addAction( _configAllSimultaniously );
+        menu.addAction( _runSlideShow );
+        menu.addAction(_runRandomSlideShow );
 #ifdef HASEXIV2
-        _showExifDialog->plug( &menu );
+        menu.addAction( _showExifDialog);
 #endif
 
         menu.insertSeparator();
-        _rotLeft->plug( &menu );
-        _rotRight->plug( &menu );
-        _recreateThumbnails->plug( &menu );
+        menu.addAction(_rotLeft);
+        menu.addAction(_rotRight);
+        menu.addAction(_recreateThumbnails);
         menu.insertSeparator();
 
-        _view->plug( &menu );
-        _viewInNewWindow->plug( &menu );
+        menu.addAction(_view);
+        menu.addAction(_viewInNewWindow);
 
         ExternalPopup* externalCommands = new ExternalPopup( &menu );
         DB::ImageInfoPtr info = DB::ImageInfoPtr( 0 );
@@ -976,17 +975,14 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
 
         externalCommands->populate( info, selected() );
         int id = menu.insertItem( i18n( "Invoke External Program" ), externalCommands );
-        if ( info == 0 && selected().count() == 0 )
+        if ( info.isNull() && selected().count() == 0 )
             menu.setItemEnabled( id, false );
 
         menu.exec( QCursor::pos() );
 
         delete externalCommands;
     }
-    e->consume();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    e->accept();
 }
 
 void MainWindow::Window::setDefaultScopePositive()
@@ -1001,7 +997,6 @@ void MainWindow::Window::setDefaultScopeNegative()
 
 void MainWindow::Window::lockToDefaultScope()
 {
-#ifdef TEMPORARILY_REMOVED
     int i = KMessageBox::warningContinueCancel( this,
                                                 i18n( "<p>The password protection is only a means of allowing your little sister "
                                                       "to look in your images, without getting to those embarrassing images from "
@@ -1009,36 +1004,31 @@ void MainWindow::Window::lockToDefaultScope()
                                                       "<p>In other words, anyone with access to the index.xml file can easily "
                                                       "circumvent this password.</b></p>"),
                                                 i18n("Password Protection"),
-                                                KStandardGuiItem::cont(),
+                                                KStandardGuiItem::cont(), KStandardGuiItem::cancel(),
                                                 QString::fromLatin1( "lockPassWordIsNotEncruption" ) );
     if ( i == KMessageBox::Cancel )
         return;
 
     setLocked( true, false );
-
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::unlockFromDefaultScope()
 {
-#ifdef TEMPORARILY_REMOVED
-    Q3CString passwd;
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
     while ( !OK ) {
-        int code = KPasswordDialog::getPassword( passwd, i18n("Type in Password to Unlock"));
+        KPasswordDialog dialog( this );
+        dialog.setPrompt( i18n("Type in Password to Unlock") );
+        const int code = dialog.exec();
         if ( code == QDialog::Rejected )
             return;
-        OK = (Settings::SettingsData::instance()->password() == QString(passwd));
+        const QString passwd = dialog.password();
+
+        OK = (Settings::SettingsData::instance()->password() == passwd);
 
         if ( !OK )
             KMessageBox::sorry( this, i18n("Invalid password.") );
     }
     setLocked( false, false );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::setLocked( bool locked, bool force )
@@ -1053,37 +1043,36 @@ void MainWindow::Window::setLocked( bool locked, bool force )
 
     Settings::SettingsData::instance()->setLocked( locked, force );
 
-#ifdef TEMPORARILY_REMOVED
     _lock->setEnabled( !locked );
     _unlock->setEnabled( locked );
     _setDefaultPos->setEnabled( !locked );
     _setDefaultNeg->setEnabled( !locked );
-#endif
     _browser->reload();
 }
 
 void MainWindow::Window::changePassword()
 {
-#ifdef TEMPORARILY_REMOVED
-    Q3CString passwd;
     bool OK = ( Settings::SettingsData::instance()->password().isEmpty() );
 
+    KPasswordDialog dialog;
+
     while ( !OK ) {
-        int code = KPasswordDialog::getPassword( passwd, i18n("Type in Old Password"));
+        dialog.setPrompt( i18n("Type in Old Password") );
+        const int code = dialog.exec();
         if ( code == QDialog::Rejected )
             return;
+        const QString passwd = dialog.password();
+
         OK = (Settings::SettingsData::instance()->password() == QString(passwd));
 
         if ( !OK )
             KMessageBox::sorry( this, i18n("Invalid password.") );
     }
 
-    int code = KPasswordDialog::getNewPassword( passwd, i18n("Type in New Password"));
+    dialog.setPrompt( i18n("Type in New Password") );
+    const int code = dialog.exec();
     if ( code == QDialog::Accepted )
-        Settings::SettingsData::instance()->setPassword( passwd );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+        Settings::SettingsData::instance()->setPassword( dialog.password() );
 }
 
 void MainWindow::Window::slotConfigureKeyBindings()
@@ -1119,7 +1108,6 @@ void MainWindow::Window::slotSetFileName( const QString& fileName )
 
 void MainWindow::Window::slotThumbNailSelectionChanged()
 {
-#ifdef TEMPORARILY_REMOVED
     QStringList selection = _thumbnailView->selection();
 
     _configAllSimultaniously->setEnabled(selection.count() > 1 );
@@ -1128,7 +1116,6 @@ void MainWindow::Window::slotThumbNailSelectionChanged()
     _recreateThumbnails->setEnabled( selection.count() >= 1 );
     _rotLeft->setEnabled( selection.count() >= 1 );
     _rotRight->setEnabled( selection.count() >= 1 );
-#endif
 }
 
 void MainWindow::Window::rotateSelected( int angle )
@@ -1168,7 +1155,6 @@ void MainWindow::Window::reloadThumbnailsAndFlushCache()
 
 void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( type == DB::Category::ListView )
         _smallListView->setChecked( true );
     else if ( type == DB::Category::ThumbedListView )
@@ -1177,9 +1163,6 @@ void MainWindow::Window::slotUpdateViewMenu( DB::Category::ViewType type )
         _smallIconView->setChecked( true );
     else if ( type == DB::Category::ThumbedIconView )
         _largeIconView->setChecked( true );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::slotShowNotOnDisk()
@@ -1199,13 +1182,9 @@ void MainWindow::Window::slotShowNotOnDisk()
 
 void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
 {
-#ifdef TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
     StringSet changed = DB::ImageDB::instance()->imagesWithMD5Changed();
     showThumbNails( changed.toList() );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 
@@ -1217,7 +1196,6 @@ void MainWindow::Window::donateMoney()
 
 void MainWindow::Window::updateStates( bool thumbNailView )
 {
-#ifdef TEMPORARILY_REMOVED
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     _cut->setEnabled( thumbNailView );
     _paste->setEnabled( thumbNailView );
@@ -1225,7 +1203,6 @@ void MainWindow::Window::updateStates( bool thumbNailView )
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
-#endif
 }
 
 void MainWindow::Window::slotRemoveAllThumbnails()
@@ -1252,44 +1229,30 @@ MainWindow::Window* MainWindow::Window::theMainWindow()
 
 void MainWindow::Window::slotConfigureToolbars()
 {
-#ifdef TEMPORARILY_REMOVED
-    saveMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
+    KConfigGroup group = KGlobal::config()->group( QString::fromLatin1("MainWindow") );
+    saveMainWindowSettings( group );
     KEditToolBar dlg(actionCollection());
     connect(&dlg, SIGNAL( newToolbarConfig() ),
                   SLOT( slotNewToolbarConfig() ));
     dlg.exec();
 
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::slotNewToolbarConfig()
 {
-#ifdef TEMPORARILY_REMOVED
     createGUI();
-    applyMainWindowSettings(KGlobal::config(), QString::fromLatin1("MainWindow"));
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    KConfigGroup group = KGlobal::config()->group( QString::fromLatin1("MainWindow") );
+    applyMainWindowSettings(group);
 }
 
 void MainWindow::Window::slotImport()
 {
-#ifdef TEMPORARILY_REMOVED
     ImportExport::Import::imageImport();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::slotExport()
 {
-#ifdef TEMPORARILY_REMOVED
     ImportExport::Export::imageExport( selectedOnDisk() );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MainWindow::Window::slotReenableMessages()

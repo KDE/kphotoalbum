@@ -21,7 +21,6 @@
 #include <ktrader.h>
 #include <qstringlist.h>
 #include <qlabel.h>
-//Added by qt3to4:
 #include <QPixmap>
 #include <Q3Frame>
 #include <Q3PopupMenu>
@@ -30,80 +29,76 @@
 #include <krun.h>
 #include <klocale.h>
 #include <kfileitem.h>
+#include <kdebug.h>
+#include <KMimeTypeTrader>
+#include <KIcon>
+#include "Window.h"
 
 void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStringList& imageList )
 {
-#ifdef TEMPORARILY_REMOVED
     _list = imageList;
     _currentInfo = current;
     clear();
-    _indexOfFirstSelectionForMultipleImages = -1;
 
     QStringList list = QStringList() << i18n("Current Item") << i18n("All Selected Items");
     for ( int which = 0; which < 2; ++which ) {
         if ( which == 0 && !current )
             continue;
 
-        QLabel* label = new QLabel( list[which], this );
-        label->setAlignment( Qt::AlignHCenter );
-        label->setLineWidth(2);
-        label->setFrameStyle( Q3Frame::Raised | Q3Frame::StyledPanel );
+        const bool multiple = (_list.count() > 1);
+        const bool enabled = (which == 0 && _currentInfo ) || (which == 1 && multiple);
 
-        bool multiple = (_list.count() > 1);
-        bool enabled = (which == 0 && _currentInfo ) || (which == 1 && multiple);
+        // Title
+        QAction* action = addAction( list[which] );
+        QFont fnt = font();
+        fnt.setPointSize( static_cast<int>(fnt.pointSize()*1.5));
+        fnt.setBold(true);
+        action->setFont( fnt );
+        action->setData( -1 );
+        action->setEnabled( enabled );
 
-        int id = insertItem( label );
-        setItemEnabled( id, enabled );
-
+        // Fetch set of offers
         OfferType offers;
         if ( which == 0 )
             offers = appInfos( QStringList() << current->fileName() );
-
         else
             offers = appInfos( imageList );
 
         for ( OfferType::ConstIterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt ) {
-            id = insertItem( (*offerIt).second, (*offerIt).first );
-            if ( _indexOfFirstSelectionForMultipleImages == -1 && which == 1 )
-                _indexOfFirstSelectionForMultipleImages = indexOf(id);
-
-            setItemEnabled( id, enabled );
+            QAction* action = addAction( (*offerIt).first );
+            action->setIcon( KIcon((*offerIt).second) );
+            action->setData( which );
+            action->setEnabled( enabled );
         }
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
-void MainWindow::ExternalPopup::slotExecuteService( int id )
+void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
 {
-#ifdef TEMPORARILY_REMOVED
-    QString name = text( id );
-    KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
-    Q_ASSERT( offers.count() == 1 );
+    QString name = action->text();
+    KService::List offers = KMimeTypeTrader::self()->query( *(_appToMimeTypeMap[name].begin()), "Application",
+                                                            QString::fromLatin1("Name == '%1'").arg(name));
+    Q_ASSERT( offers.count() >= 1 );
     KService::Ptr ptr = offers.first();
     KUrl::List lst;
-    if ( indexOf(id) >= _indexOfFirstSelectionForMultipleImages ) {
+    if ( action->data() == 2 ) {
         for( QStringList::Iterator it = _list.begin(); it != _list.end(); ++it ) {
             if ( _appToMimeTypeMap[name].contains( mimeType(*it) ) )
-                lst.append( KUrl::fromPathOrUrl(*it) );
+                lst.append( KUrl(*it) );
         }
     }
     else {
-        lst.append( KUrl::fromPathOrUrl(_currentInfo->fileName()));
+        lst.append( KUrl(_currentInfo->fileName()));
     }
 
-    KRun::run(*ptr, lst);
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    KRun::run(*ptr, lst, MainWindow::Window::theMainWindow() );
 }
 
-MainWindow::ExternalPopup::ExternalPopup( QWidget* parent, const char* name )
-    :Q3PopupMenu( parent, name )
+MainWindow::ExternalPopup::ExternalPopup( QWidget* parent )
+    :QMenu( parent )
 {
     setTitle( i18n("Invoke External Program") );
-    connect( this, SIGNAL( activated( int ) ), this, SLOT( slotExecuteService( int ) ) );
+    connect( this, SIGNAL( triggered( QAction* ) ), this, SLOT( slotExecuteService( QAction* ) ) );
 }
 
 QString MainWindow::ExternalPopup::mimeType( const QString& file )
@@ -122,20 +117,16 @@ StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )
 
 MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const QStringList& files )
 {
-#ifdef TEMPORARILY_REMOVED
     StringSet types = mimeTypes( files );
     OfferType res;
     for ( StringSet::ConstIterator mimeTypeIt = types.begin(); mimeTypeIt != types.end(); ++mimeTypeIt ) {
-        KTrader::OfferList offers = KTrader::self()->query( *mimeTypeIt, QString::fromLatin1("Type == 'Application'"));
-        for(KTrader::OfferList::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
-            res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->pixmap(K3Icon::Toolbar) ) );
+        KService::List offers = KMimeTypeTrader::self()->query( *mimeTypeIt, QLatin1String( "Application" ));
+        for(KService::List::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
+            res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->icon() ) );
             _appToMimeTypeMap[(*offerIt)->name()].insert( *mimeTypeIt );
         }
     }
     return res;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool operator<( const QPair<QString,QPixmap>& a, const QPair<QString,QPixmap>& b )

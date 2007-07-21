@@ -32,17 +32,17 @@ namespace DB
 
 namespace MainWindow
 {
-typedef Set< QPair<QString,QPixmap> > OfferType;
+typedef Set< QPair<QString,QString> > OfferType;
 
-class ExternalPopup :public Q3PopupMenu {
+class ExternalPopup :public QMenu {
     Q_OBJECT
 
 public:
-    ExternalPopup( QWidget* parent, const char* name = 0 );
+    ExternalPopup( QWidget* parent );
     void populate( DB::ImageInfoPtr current, const QStringList& list );
 
 protected slots:
-    void slotExecuteService( int );
+    void slotExecuteService( QAction* );
 
 protected:
     QString mimeType( const QString& file );
@@ -53,7 +53,6 @@ private:
     QStringList _list;
     DB::ImageInfoPtr _currentInfo;
     QMap<QString,StringSet> _appToMimeTypeMap;
-    int _indexOfFirstSelectionForMultipleImages;
 };
 
 }

@@ -32,11 +32,12 @@
 #include <ksconfig.h>
 #endif
 #include <qcombobox.h>
+#include <kdebug.h>
 
 using namespace AnnotationDialog;
 
 Editor::Editor( QWidget* parent )
-    :Q3TextEdit( parent )
+    :QTextEdit( parent )
 {
 #ifdef TEMPORARILY_REMOVED
     _config = new KSpellConfig( this );
@@ -44,8 +45,6 @@ Editor::Editor( QWidget* parent )
     _highlighter = 0;
     createHighlighter();
     setTextFormat( PlainText );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
 #endif
 }
 
@@ -114,6 +113,7 @@ Q3PopupMenu* Editor::replacementMenu( const QString& word  )
 
 void Editor::contentsContextMenuEvent( QContextMenuEvent *e )
 {
+#ifdef TEMPORARILY_REMOVED
     QPoint pos = viewportToContents(e->pos());
     QString word = wordAtPos( pos );
     if ( word.isEmpty() || !_replacements.contains( word ) ) {
@@ -131,20 +131,28 @@ void Editor::contentsContextMenuEvent( QContextMenuEvent *e )
         return;
 
     replaceWord( pos, replacement );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 void Editor::replaceWord( const QPoint& pos, const QString& replacement )
 {
+#ifdef TEMPORARILY_REMOVED
     int para, firstSpace, lastSpace;
     if ( !wordBoundaryAtPos( pos, &para, &firstSpace, &lastSpace ) )
         return;
 
     setSelection( para, firstSpace, para, lastSpace );
     insert( replacement );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 bool Editor::wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* end )
 {
+#ifdef TEMPORARILY_REMOVED
     int charPos;
     *para = 1;
 
@@ -163,6 +171,9 @@ bool Editor::wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* e
         *end = paraText.length();
 
     return true;
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 void Editor::itemSelected( int id )
@@ -216,7 +227,7 @@ void Editor::keyPressEvent( QKeyEvent* event )
         QWidget::keyPressEvent( event );
     }
     else
-        Q3TextEdit::keyPressEvent( event );
+        QTextEdit::keyPressEvent( event );
 }
 
 #include "Editor.moc"

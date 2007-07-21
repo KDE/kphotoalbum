@@ -92,7 +92,7 @@ public:
      */
     virtual bool validate(const QDate &newDate);
 
-    virtual void popup();
+    virtual void showPopup();
 
 signals:
     /** This signal is emitted whenever the user modifies the date. This

@@ -974,4 +974,5 @@ QPair<StringSet,StringSet> AnnotationDialog::Dialog::selectionForMultiSelect( Li
 
 
 
+
 #include "Dialog.moc"

@@ -18,11 +18,10 @@
 
 #ifndef EDITOR_H
 #define EDITOR_H
-#include <q3textedit.h>
-//Added by qt3to4:
 #include <Q3PopupMenu>
 #include <QKeyEvent>
 #include <QContextMenuEvent>
+#include <QTextEdit>
 
 class KDictSpellingHighlighter;
 class KSpellConfig;
@@ -32,7 +31,7 @@ class Q3PopupMenu;
 namespace AnnotationDialog
 {
 
-class Editor :public Q3TextEdit
+class Editor :public QTextEdit
 {
     Q_OBJECT
 

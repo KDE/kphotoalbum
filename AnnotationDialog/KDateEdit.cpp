@@ -26,13 +26,11 @@
 #include <QKeyEvent>
 
 #include <kdatepicker.h>
-#ifdef TEMPORARILY_REMOVED
-#include <knotifyclient.h>
-#endif
 #include <kglobalsettings.h>
 #include <kglobal.h>
 #include <klocale.h>
 #include <kcalendarsystem.h>
+#include <kdebug.h>
 
 #include "KDateEdit.moc"
 
@@ -44,7 +42,6 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
       mDiscardNextMousePress(false),
       mIsStartEdit( isStartEdit )
 {
-#ifdef TEMPORARILY_REMOVED
     setMaxCount(1);       // need at least one entry for popup to work
     value = defaultValue;
     QString today = QDate::currentDate().toString( QString::fromLatin1("dd. MMM yyyy") );
@@ -59,7 +56,7 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
     mDateFrame->hide();
     mDateFrame->installEventFilter(this);
 
-    mDatePicker = new KDatePicker(mDateFrame, value);
+    mDatePicker = new KDatePicker(value, mDateFrame);
 
     connect(lineEdit(),SIGNAL(returnPressed()),SLOT(lineEnterPressed()));
     connect(this,SIGNAL(textChanged(const QString &)),
@@ -84,9 +81,6 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
 
     mTextChanged = false;
     mHandleInvalid = false;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 AnnotationDialog::KDateEdit::~KDateEdit()
@@ -154,9 +148,8 @@ void AnnotationDialog::KDateEdit::setDefaultDate(const QDate& date)
     defaultValue = date;
 }
 
-void AnnotationDialog::KDateEdit::popup()
+void AnnotationDialog::KDateEdit::showPopup()
 {
-#ifdef TEMPORARILY_REMOVED
     if (mReadOnly)
         return;
 
@@ -185,6 +178,7 @@ void AnnotationDialog::KDateEdit::popup()
 
     mDateFrame->show();
 
+#ifdef TEMPORARILY_REMOVED
     // The combo box is now shown pressed. Make it show not pressed again
     // by causing its (invisible) list box to emit a 'selected' signal.
     Q3ListBox *lb = listBox();
@@ -194,40 +188,31 @@ void AnnotationDialog::KDateEdit::popup()
         QApplication::postEvent(lb, keyEvent);
     }
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 void AnnotationDialog::KDateEdit::dateSelected(QDate newDate)
 {
-#ifdef TEMPORARILY_REMOVED
     if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
-        emit dateChanged( DB::ImageDate( newDate, newDate ) );
+        emit dateChanged( DB::ImageDate( QDateTime(newDate), QDateTime(newDate) ) );
         mDateFrame->hide();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void AnnotationDialog::KDateEdit::dateEntered(QDate newDate)
 {
-#ifdef TEMPORARILY_REMOVED
     if ((mHandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
         emit dateChanged(newDate);
-        emit dateChanged( DB::ImageDate( newDate, newDate ) );
+        emit dateChanged( DB::ImageDate( QDateTime(newDate), QDateTime(newDate) ) );
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void AnnotationDialog::KDateEdit::lineEnterPressed()
 {
-#ifdef TEMPORARILY_REMOVED
     QDate date;
     QDate end;
     if (readDate(date, &end) && (mHandleInvalid || date.isValid()) && validate(date))
@@ -236,17 +221,13 @@ void AnnotationDialog::KDateEdit::lineEnterPressed()
         // word rather than the actual date.
         setDate(date);
         emit(dateChanged(date));
-        emit dateChanged( DB::ImageDate( date, end ) );
+        emit dateChanged( DB::ImageDate( QDateTime(date), QDateTime(end) ) );
     }
     else {
         // Invalid or unacceptable date - revert to previous value
-        KNotifyClient::beep();
         setDate(value);
         emit invalidDateEntered();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool AnnotationDialog::KDateEdit::inputIsValid() const

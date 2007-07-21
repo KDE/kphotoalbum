@@ -84,7 +84,6 @@
    <Menu name="help">
      <Action name="runDemo"/>
      <Action name="runSurvey"/>
-     <Action name="donate"/>
      <Action name="features"/>
    </Menu>
   </MenuBar>

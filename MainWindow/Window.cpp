@@ -19,7 +19,6 @@
 #include "Window.h"
 #include "Settings/SettingsDialog.h"
 #include <qapplication.h>
-//Added by qt3to4:
 #include <QMoveEvent>
 #include <QResizeEvent>
 #include <QContextMenuEvent>
@@ -63,9 +62,7 @@
 #include <KShortcutsDialog>
 #include <kdebug.h>
 #include "ExternalPopup.h"
-#include "DonateDialog.h"
 #include <kstandardaction.h>
-#include "DeleteThumbnailsDialog.h"
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
 #include "ImportExport/Import.h"
@@ -688,9 +685,6 @@ void MainWindow::Window::setupMenuBar()
     action = actionCollection()->addAction( "buildThumbs", this, SLOT( slotBuildThumbnails() ) );
     action->setText( i18n("Build Thumbnails") );
 
-    action = actionCollection()->addAction( "removeAllThumbs", this, SLOT( slotRemoveAllThumbnails() ) );
-    action->setText( i18n("Remove All KimDaBa 2.1 Thumbnails") );
-
     // Settings
     KStandardAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStandardAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
@@ -744,9 +738,6 @@ void MainWindow::Window::setupMenuBar()
 
     action = actionCollection()->addAction( "runSurvey", this, SLOT( runSurvey() ) );
     action->setText( i18n("Answer KPhotoAlbum Survey...") );
-
-    action = actionCollection()->addAction( "donate", this, SLOT( donateMoney() ) );
-    action->setText( i18n("Donate Money...") );
 
     action = actionCollection()->addAction( "features", this, SLOT( showFeatures() ) );
     action->setText( i18n("KPhotoAlbum Feature Status") );
@@ -1188,12 +1179,6 @@ void MainWindow::Window::slotShowImagesWithChangedMD5Sum()
 }
 
 
-void MainWindow::Window::donateMoney()
-{
-    DonateDialog donate( this, "Donate Money" );
-    donate.exec();
-}
-
 void MainWindow::Window::updateStates( bool thumbNailView )
 {
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
@@ -1203,12 +1188,6 @@ void MainWindow::Window::updateStates( bool thumbNailView )
     _selectAll->setEnabled( thumbNailView );
     _deleteSelected->setEnabled( thumbNailView );
     _limitToMarked->setEnabled( thumbNailView );
-}
-
-void MainWindow::Window::slotRemoveAllThumbnails()
-{
-    DeleteThumbnailsDialog dialog( this );
-    dialog.exec();
 }
 
 void MainWindow::Window::slotRunSlideShow()
@@ -1418,7 +1397,7 @@ void MainWindow::Window::moveEvent( QMoveEvent * )
 void MainWindow::Window::slotRemoveTokens()
 {
     if ( !_tokenEditor )
-        _tokenEditor = new TokenEditor( this, "token editor" );
+        _tokenEditor = new TokenEditor( this );
     _tokenEditor->show();
 }
 

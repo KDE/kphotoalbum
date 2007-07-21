@@ -106,8 +106,6 @@ protected slots:
     void reloadThumbnailsAndFlushCache();
     void slotUpdateViewMenu( DB::Category::ViewType );
     void slotShowNotOnDisk();
-    void donateMoney();
-    void slotRemoveAllThumbnails();
     void slotBuildThumbnails();
     void slotRunSlideShow();
     void slotRunRandomizedSlideShow();

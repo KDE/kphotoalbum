@@ -17,7 +17,6 @@
 */
 #include "TokenEditor.h"
 #include <qlayout.h>
-//Added by qt3to4:
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
@@ -32,16 +31,17 @@
 
 using namespace MainWindow;
 
-TokenEditor::TokenEditor( QWidget* parent, const char* name )
-#ifdef TEMPORARILY_REMOVED
-    :KDialog( Plain, i18n( "Remove Tokens" ), Cancel | Ok, Ok, parent, name )
-#endif
+TokenEditor::TokenEditor( QWidget* parent )
+    :KDialog( parent )
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* top = plainPage();
-    Q3VBoxLayout* vlay = new Q3VBoxLayout( top, 10 );
+    setWindowTitle( i18n( "Remove Tokens" ) );
+    setButtons( Cancel | Ok );
 
-    QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:"), top );
+    QWidget* top = new QWidget;
+    QVBoxLayout* vlay = new QVBoxLayout( top );
+    setMainWidget( top );
+
+    QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:") );
     vlay->addWidget( label );
 
     Q3GridLayout* grid = new Q3GridLayout( vlay, 6, 5, 10 );
@@ -49,23 +49,20 @@ TokenEditor::TokenEditor( QWidget* parent, const char* name )
     int index = 0;
     for ( int ch = 'A'; ch <= 'Z'; ch++, index++ ) {
         QChar token = QChar( (char) ch );
-        QCheckBox* box = new QCheckBox( token, top );
+        QCheckBox* box = new QCheckBox( token );
         grid->addWidget( box, index/5, index % 5 );
         _cbs.append( box );
     }
 
     Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 10 );
     hlay->addStretch( 1 );
-    KPushButton* selectAll = new KPushButton( i18n("Select All"), top );
-    KPushButton* selectNone = new KPushButton( i18n("Select None"), top );
+    KPushButton* selectAll = new KPushButton( i18n("Select All") );
+    KPushButton* selectNone = new KPushButton( i18n("Select None") );
     hlay->addWidget( selectAll );
     hlay->addWidget( selectNone );
 
     connect( selectAll, SIGNAL( clicked() ), this, SLOT( selectAll() ) );
     connect( selectNone, SIGNAL( clicked() ), this, SLOT( selectNone() ) );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void TokenEditor::show()
@@ -105,7 +102,7 @@ QStringList TokenEditor::tokensInUse()
     QMap<QString,uint> map =
         DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), QString::fromLatin1( "Tokens" ), DB::anyMediaType );
     for( QMap<QString,uint>::Iterator it = map.begin(); it != map.end(); ++it ) {
-        if ( it.data() > 0 )
+        if ( it.value() > 0 )
             res.append( it.key() );
     }
     return res;
@@ -113,17 +110,12 @@ QStringList TokenEditor::tokensInUse()
 
 void TokenEditor::slotOk()
 {
-#ifdef TEMPORARILY_REMOVED
     for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
             QString txt = (*it)->text().remove( QString::fromLatin1("&") );
             DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
         }
     }
-    KDialog::slotOk();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 #include "TokenEditor.moc"

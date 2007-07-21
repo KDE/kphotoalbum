@@ -32,31 +32,30 @@
 
 using namespace MainWindow;
 
-DeleteDialog::DeleteDialog( QWidget* parent, const char* name )
-#ifdef TEMPORARILY_REMOVED
-    :KDialog( Plain, i18n("Delete from database"), Cancel|User1, User1, parent, name,
-                  true, false, KGuiItem(i18n("Delete"),QString::fromLatin1("editdelete")))
-#endif
+DeleteDialog::DeleteDialog( QWidget* parent )
+    :KDialog( parent )
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* top = plainPage();
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    setWindowTitle( i18n("Delete from database") );
+    setButtons( Cancel|User1 );
+    setButtonText( User1,i18n("Delete") );
 
-    _label = new QLabel( top );
+    QWidget* top = new QWidget;
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
+    setMainWidget( top );
+
+
+    _label = new QLabel;
     lay1->addWidget( _label );
 
-    _delete_file = new QCheckBox( i18n( "Delete file from disk as well" ), top );
+    _delete_file = new QCheckBox( i18n( "Delete file from disk as well" ) );
     lay1->addWidget( _delete_file );
 
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( deleteImages() ) );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 int DeleteDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos from database<br>%1 selected</font></center></b></p>").arg( list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Delete Images/Videos from database<br>%1 selected</font></center></b></p>", list.count() ) );
 
     _delete_file->setChecked( true );
     _list = list;

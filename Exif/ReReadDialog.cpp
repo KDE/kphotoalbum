@@ -36,8 +36,6 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
     _title = new QLabel( top );
     lay1->addWidget( _title );
 
-    lay1->addWidget( new QLabel( i18n("Be sure to configure synchronization in the settings dialog."), top ) );
-
     _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
     lay1->addWidget( _exifDB );
     if ( !Exif::Database::instance()->isUsable() ) {
@@ -65,15 +63,39 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
 
 int Exif::ReReadDialog::exec( const QStringList& list )
 {
-    _title->setText( i18n("<p><b><center><font size=\"+3\">Read File Info</font><br>%1 selected</center></b></p>").arg( list.count() ) );
+    QString titleCaption = i18n("<p><b><center><font size=\"+3\">Read File Info</font><br>%1 selected</center></b></p>").arg( list.count() );
+    _title->setText( titleCaption );
 
     _exifDB->setChecked( true);
-    _label->setChecked( true );
-    _description->setChecked( true );
-    _orientation->setChecked( true );
-    _date->setChecked( true );
-    _categories->setChecked( false );
+
+    QValueList<Exif::Syncable::Kind> items;
+    bool configured;
+
+    items = Settings::SettingsData::instance()->labelSyncing( false );
+    _label->setEnabled( configured = ( items.begin() != items.end() ) );
+    _label->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
+
+    items = Settings::SettingsData::instance()->descriptionSyncing( false );
+    _description->setEnabled( configured = ( items.begin() != items.end() ) );
+    _description->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
+
+    items = Settings::SettingsData::instance()->orientationSyncing( false );
+    _orientation->setEnabled( configured = ( items.begin() != items.end() ) );
+    _orientation->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
+
+    items = Settings::SettingsData::instance()->dateSyncing( false );
+    _date->setEnabled( configured = ( items.begin() != items.end() ) );
+    _date->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
+
+    // just re-use results from date...
+    _categories->setEnabled( false ); // not implemented yet
+    _categories->setChecked( false && configured );
+
     _list = list;
+
+    if ( !configured )
+        _title->setText( titleCaption + i18n("<p>It seems that you haven't configured metadata syncing yet. "
+                    "Please do so in the Settings-&gt;Configure dialog.</p>") );
 
     return KDialogBase::exec();
 }

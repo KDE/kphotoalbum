@@ -43,7 +43,6 @@ public:
 protected:
 #ifdef HASEXIV2
     void parseEXIV2( const QString& fileName );
-    QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
 #endif
 
     void parseKFileMetaInfo( const QString& fileName );

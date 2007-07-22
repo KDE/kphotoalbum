@@ -72,6 +72,8 @@ void Exif::Syncable::fillTranslationTables( QMap<Exif::Syncable::Kind,QString>& 
     I(EXIF_DATETIME_ORIGINAL, EXIF, Exif.Photo.DateTimeOriginal);
     I(EXIF_DATETIME_DIGITIZED, EXIF, Exif.Photo.DateTimeDigitized);
 
+    II(FILE_NAME, FILE, File.Name, "File name");
+
 #undef I
 #undef II
 }

@@ -141,31 +141,34 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         }
     }
 
-    /*
     // Date
-    _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );
-    if ( !_date.isValid() ) {
-        _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeDigitized" );
-        if ( !_date.isValid() )
-            _date = fetchEXIV2Date( map, "Exif.Image.DateTime" );
-    }
-    */
-}
-
-QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
-{
-    try
-    {
-        if ( map.findKey( Exiv2::ExifKey( key ) ) != map.end() ) {
-            const Exiv2::Exifdatum& datum = map[key ];
-            return QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate );
+    items = Settings::SettingsData::instance()->dateSyncing( false );
+    for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+        switch ( _header[ *it ] ) {
+            case Exif::Syncable::EXIF:
+            {
+                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                if ( field == exifMap.end() )
+                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
+                else {
+                    _date = QDateTime::fromString( QString::fromLatin1( (*field).toString().c_str() ), Qt::ISODate );
+                }
+                break;
+            }
+            case Exif::Syncable::IPTC:
+            {
+                Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                if ( field == iptcMap.end() )
+                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
+                else {
+                    _date = QDateTime::fromString( QString::fromLatin1( (*field).toString().c_str() ), Qt::ISODate );
+                }
+                break;
+            }
+            default:
+                kdDebug(5123) << "Unknown date field " << _fieldName[ *it ] << endl;
         }
     }
-    catch (...)
-    {
-    }
-
-    return QDateTime();
 }
 #endif
 

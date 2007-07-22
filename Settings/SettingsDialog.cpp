@@ -1044,7 +1044,7 @@ void Settings::SettingsDialog::createSyncPage()
             Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
             Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
             Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
-            Exif::Syncable::STOP << Exif::Syncable::IPTC_CAPTION;
+            Exif::Syncable::FILE_NAME << Exif::Syncable::STOP << Exif::Syncable::IPTC_CAPTION;
     wValues << Exif::Syncable::IPTC_HEADLINE <<
             Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<

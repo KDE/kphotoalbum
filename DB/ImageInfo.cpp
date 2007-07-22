@@ -274,20 +274,22 @@ void ImageInfo::readExif(const QString& fullPath, const int mode)
     bool oldDelaySaving = _delaySaving;
     delaySavingChanges(true);
 
+
+    // Label
+    if ( mode & EXIFMODE_LABEL )
+        setLabel( exifInfo.label() );
+
     // Date
-    if ( mode & EXIFMODE_DATE ) {
+    if ( mode & EXIFMODE_DATE )
         setDate( exifInfo.dateTime() );
-    }
 
     // Orientation
-    if ( mode & EXIFMODE_ORIENTATION ) {
+    if ( mode & EXIFMODE_ORIENTATION )
         setAngle( exifInfo.angle() );
-    }
 
     // Description
-    if ( mode & EXIFMODE_DESCRIPTION ) {
+    if ( mode & EXIFMODE_DESCRIPTION )
         setDescription( exifInfo.description() );
-    }
 
     delaySavingChanges(false);
     _delaySaving = oldDelaySaving;

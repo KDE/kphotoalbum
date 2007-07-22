@@ -59,13 +59,14 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
     for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
         switch ( *it ) {
             case Exif::Syncable::EXIF_ORIENTATION:
-                if ( exifMap.findKey( Exiv2::ExifKey( std::string( _fieldName[ *it ].ascii() ) ) ) != exifMap.end() ) {
-                    const Exiv2::Exifdatum& datum = exifMap[ _fieldName[ *it ].ascii() ];
-
-                    int orientation =  datum.toLong();
+            {
+                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( std::string( _fieldName[ *it ].ascii() ) ) );
+                if ( field != exifMap.end() ) {
+                    int orientation =  (*field).toLong();
                     _angle = orientationToAngle( orientation );
                 }
                 break;
+            }
             default:
                 kdDebug(5123) << "Unknown orientation field " << _fieldName[ *it ] << endl;
         }
@@ -78,28 +79,30 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             case Exif::Syncable::EXIF:
             {
                 Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
-                if ( field == exifMap.end() )
-                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
-                else {
+                if ( field != exifMap.end() )
                     _label = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
-                }
                 break;
             }
             case Exif::Syncable::IPTC:
             {
                 Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
-                if ( field == iptcMap.end() )
-                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
-                else {
+                if ( field != iptcMap.end() )
                     _label = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
-
-                }
                 break;
             }
             case Exif::Syncable::JPEG:
                 kdDebug(5123) << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
+                break;
+            case Exif::Syncable::FILE:
+                switch (*it) {
+                    case Exif::Syncable::FILE_NAME:
+                        _label = QFileInfo( fileName ).baseName( true );
+                        break;
+                    default:
+                        kdDebug(5123) << "Unknown field for label syncing: " << _fieldName[ *it ] << endl;
+                }
                 break;
             default:
                 kdDebug(5123) << "Unknown label field " << _fieldName[ *it ] << endl;
@@ -113,24 +116,17 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             case Exif::Syncable::EXIF:
             {
                 Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
-                if ( field == exifMap.end() )
-                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
-                else {
+                if ( field != exifMap.end() )
                     _description = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
-                }
                 break;
             }
             case Exif::Syncable::IPTC:
             {
                 Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
-                if ( field == iptcMap.end() )
-                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
-                else {
+                if ( field != iptcMap.end() )
                     _description = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
-
-                }
                 break;
             }
             case Exif::Syncable::JPEG:
@@ -148,22 +144,30 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             case Exif::Syncable::EXIF:
             {
                 Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
-                if ( field == exifMap.end() )
-                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
-                else {
+                if ( field != exifMap.end() )
                     _date = QDateTime::fromString( QString::fromLatin1( (*field).toString().c_str() ), Qt::ISODate );
-                }
                 break;
             }
             case Exif::Syncable::IPTC:
             {
                 Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
-                if ( field == iptcMap.end() )
-                    kdDebug(5123) << _fieldName[ *it ] << " not found in " << fileName << endl;
-                else {
+                if ( field != iptcMap.end() )
                     _date = QDateTime::fromString( QString::fromLatin1( (*field).toString().c_str() ), Qt::ISODate );
-                }
                 break;
+            }
+            case Exif::Syncable::FILE:
+            {
+                QFileInfo fi( fileName );
+                switch (*it) {
+                    case Exif::Syncable::FILE_CTIME:
+                        _date = fi.created();
+                        break;
+                    case Exif::Syncable::FILE_MTIME:
+                        _date = fi.lastModified();
+                        break;
+                    default:
+                        kdDebug(5123) << "Unknown file field for date syncing: " << _fieldName[ *it ] << endl;
+                }
             }
             default:
                 kdDebug(5123) << "Unknown date field " << _fieldName[ *it ] << endl;

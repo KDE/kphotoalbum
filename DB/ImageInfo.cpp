@@ -275,7 +275,7 @@ void ImageInfo::readExif(const QString& fullPath, const int mode)
     delaySavingChanges(true);
 
     // Date
-    if ( (mode & EXIFMODE_DATE) && Settings::SettingsData::instance()->trustTimeStamps() ) {
+    if ( mode & EXIFMODE_DATE ) {
         setDate( exifInfo.dateTime() );
     }
 

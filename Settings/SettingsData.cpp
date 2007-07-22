@@ -62,7 +62,7 @@ Settings::SettingsData* Settings::SettingsData::instance()
 }
 
 Settings::SettingsData::SettingsData( const QString& imageDirectory )
-    : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
+    : _imageDirectory( imageDirectory )
 {
     QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
     _smoothScale = value( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), true );
@@ -77,36 +77,6 @@ void Settings::SettingsData::setSmoothScale( bool b )
 {
     _smoothScale = b;
     setValue( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), b );
-}
-
-bool Settings::SettingsData::trustTimeStamps()
-{
-    if ( tTimeStamps() == Always )
-        return true;
-    else if ( tTimeStamps() == Never )
-        return false;
-    else {
-        if (!_hasAskedAboutTimeStamps ) {
-            QApplication::setOverrideCursor( Qt::ArrowCursor );
-            int answer = KMessageBox::questionYesNo( 0, i18n("New images were found. Should I trust their time stamps?"),
-                                                     i18n("Trust Time Stamps?") );
-            QApplication::restoreOverrideCursor();
-            if ( answer == KMessageBox::Yes )
-                _trustTimeStamps = true;
-            else
-                _trustTimeStamps = false;
-            _hasAskedAboutTimeStamps = true;
-        }
-        return _trustTimeStamps;
-    }
-}
-void Settings::SettingsData::setTTimeStamps( TimeStampTrust t )
-{
-    setValue( STR("General"), STR("trustTimeStamps"), (int) t );
-}
-Settings::TimeStampTrust Settings::SettingsData::tTimeStamps() const
-{
-    return (TimeStampTrust) value(  STR("General"), STR("trustTimeStamps"), (int) Always );
 }
 
 void Settings::SettingsData::setThumbnailAspectRatio( Settings::ThumbnailAspectRatio aspect )

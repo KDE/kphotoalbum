@@ -101,7 +101,6 @@ protected:
 
 private:
     // General page
-    KComboBox* _trustTimeStamps;
     QSpinBox* _autosave;
     QCheckBox* _useEXIFRotate;
     QCheckBox* _useEXIFComments;

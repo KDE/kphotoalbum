@@ -97,12 +97,7 @@ void Settings::SettingsDialog::createGeneralPage()
 
     // Thrust time stamps
     QWidget* container = new QWidget( box );
-    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), container );
-    _trustTimeStamps = new KComboBox( container );
-    _trustTimeStamps->insertStringList( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
     QHBoxLayout* hlay = new QHBoxLayout( container, 0, 6 );
-    hlay->addWidget( timeStampLabel );
-    hlay->addWidget( _trustTimeStamps );
     hlay->addStretch( 1 );
 
     // Do EXIF rotate
@@ -150,17 +145,6 @@ void Settings::SettingsDialog::createGeneralPage()
 
     // Whats This
     QString txt;
-
-    txt = i18n( "<p>KPhotoAlbum will try to read the image date from EXIF information in the image. "
-                "If that fails it will try to get the date from the file's time stamp.</p>"
-                "<p>However, this information will be wrong if the image was scanned in (you want the date the image "
-                "was taken, not the date of the scan).</p>"
-                "<p>If you only scan images, in contrast to sometimes using "
-                "a digital camera, you should reply <b>no</b>. If you never scan images, you should reply <b>yes</b>, "
-                "otherwise reply <b>ask</b>. This will allow you to decide whether the images are from "
-                "the scanner or the camera, from session to session.</p>" );
-    QWhatsThis::add( timeStampLabel, txt );
-    QWhatsThis::add( _trustTimeStamps, txt );
 
     txt = i18n( "<p>JPEG images may contain information about rotation. "
                 "If you have a reason for not using this information to get a default rotation of "
@@ -413,7 +397,6 @@ void Settings::SettingsDialog::show()
     // General page
     _previewSize->setValue( opt->previewSize() );
     _thumbnailSize->setValue( opt->thumbSize() );
-    _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
     _useEXIFRotate->setChecked( opt->useEXIFRotate() );
     _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
@@ -524,7 +507,6 @@ void Settings::SettingsDialog::slotMyOK()
 
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
-    opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentItem() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );

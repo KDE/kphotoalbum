@@ -58,11 +58,6 @@ namespace Settings
 {
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     enum ViewSortType { SortLastUse, SortAlpha };
-    enum TimeStampTrust {
-        Always = 0,
-        Ask = 1,
-        Never = 2
-    };
     enum StandardViewSize {
         FullSize = 0,
         NaturalSize = 1,
@@ -176,10 +171,6 @@ public:
 
     stringProperty( General, backend, setBackend, QString::fromLatin1("xml") );
 
-    bool trustTimeStamps();
-    void setTTimeStamps( TimeStampTrust );
-    TimeStampTrust tTimeStamps() const;
-
     void setThumbnailAspectRatio( ThumbnailAspectRatio );
     ThumbnailAspectRatio thumbnailAspectRatio() const;
 
@@ -252,7 +243,6 @@ signals:
 private:
     SettingsData( const QString& imageDirectory  );
     static SettingsData* _instance;
-    bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class DB::CategoryCollection;
     QString _imageDirectory;
 

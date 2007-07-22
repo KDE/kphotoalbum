@@ -42,9 +42,6 @@ DB::FileInfo::FileInfo( const QString& fileName )
 #else
     parseKFileMetaInfo( fileName );
 #endif
-
-    if ( !_date.isValid() && Settings::SettingsData::instance()->trustTimeStamps() )
-        _date = QFileInfo( fileName ).lastModified();
 }
 
 #ifdef HASEXIV2

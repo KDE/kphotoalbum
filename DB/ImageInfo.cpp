@@ -280,12 +280,12 @@ void ImageInfo::readExif(const QString& fullPath, const int mode)
     }
 
     // Orientation
-    if ( (mode & EXIFMODE_ORIENTATION) && Settings::SettingsData::instance()->useEXIFRotate() ) {
+    if ( mode & EXIFMODE_ORIENTATION ) {
         setAngle( exifInfo.angle() );
     }
 
     // Description
-    if ( (mode & EXIFMODE_DESCRIPTION) && Settings::SettingsData::instance()->useEXIFComments() ) {
+    if ( mode & EXIFMODE_DESCRIPTION ) {
         setDescription( exifInfo.description() );
     }
 

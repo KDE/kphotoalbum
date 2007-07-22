@@ -100,11 +100,6 @@ void Settings::SettingsDialog::createGeneralPage()
     QHBoxLayout* hlay = new QHBoxLayout( container, 0, 6 );
     hlay->addStretch( 1 );
 
-    // Do EXIF rotate
-    _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), box );
-
-    _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
-
     // Search for images on startup
     _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images and videos on startup"), box );
     _dontReadRawFilesWithOtherMatchingFile = new QCheckBox( i18n("Don't read RAW files if matching JPEG/TIFF file exists"), box );
@@ -145,17 +140,6 @@ void Settings::SettingsDialog::createGeneralPage()
 
     // Whats This
     QString txt;
-
-    txt = i18n( "<p>JPEG images may contain information about rotation. "
-                "If you have a reason for not using this information to get a default rotation of "
-                "your images, uncheck this check box.</p>"
-                "<p>Note: Your digital camera may not write this information into the images at all.</p>" );
-    QWhatsThis::add( _useEXIFRotate, txt );
-
-    txt = i18n( "<p>JPEG images may contain a description. "
-               "Check this checkbox to specify if you want to use this as a "
-               "default description for your images.</p>" );
-    QWhatsThis::add( _useEXIFComments, txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
@@ -397,8 +381,6 @@ void Settings::SettingsDialog::show()
     // General page
     _previewSize->setValue( opt->previewSize() );
     _thumbnailSize->setValue( opt->thumbSize() );
-    _useEXIFRotate->setChecked( opt->useEXIFRotate() );
-    _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
     _dontReadRawFilesWithOtherMatchingFile->setChecked( opt->dontReadRawFilesWithOtherMatchingFile() );
     _compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
@@ -508,8 +490,6 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentItem() );
-    opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
-    opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
     opt->setDontReadRawFilesWithOtherMatchingFile( _dontReadRawFilesWithOtherMatchingFile->isChecked() );
     opt->setBackupCount( _backupCount->value() );

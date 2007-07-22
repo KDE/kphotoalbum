@@ -102,8 +102,6 @@ protected:
 private:
     // General page
     QSpinBox* _autosave;
-    QCheckBox* _useEXIFRotate;
-    QCheckBox* _useEXIFComments;
     QComboBox* _albumCategory;
     QCheckBox* _searchForImagesOnStartup;
     QCheckBox* _dontReadRawFilesWithOtherMatchingFile;

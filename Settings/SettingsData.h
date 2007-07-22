@@ -82,8 +82,6 @@ public:
     static bool ready();
     static void setup( const QString& imageDirectory );
     // -------------------------------------------------- General
-    boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
-    boolProperty( General, useEXIFComments, setUseEXIFComments, true );
     boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
     boolProperty( General, dontReadRawFilesWithOtherMatchingFile, setDontReadRawFilesWithOtherMatchingFile, false );
     boolProperty( General, useCompressedIndexXML, setUseCompressedIndexXML, false );

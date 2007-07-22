@@ -267,8 +267,6 @@ bool ImageInfo::isLocked() const
 
 void ImageInfo::readExif(const QString& fullPath, const int mode)
 {
-    // FIXME: well, IPTC support should be here :)
-
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath );
 
     bool oldDelaySaving = _delaySaving;
@@ -320,9 +318,6 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         Exiv2::ExifData& exifMap = image->exifData();
         Exiv2::IptcData& iptcMap = image->iptcData();
         std::string keyName;
-
-        // FIXME: add some logicl/option for deciding whether to stop after
-        // loading some value that looks at least partially sane
 
         if ( mode & EXIFMODE_DATE ) {
             QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->dateSyncing( true );

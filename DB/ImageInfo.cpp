@@ -37,7 +37,9 @@ extern "C" {
 #include "Exif/Database.h"
 #include "Utilities/Util.h"
 #include "MainWindow/DirtyIndicator.h"
-#include "exiv2/image.hpp"
+#ifdef HASEXIV2
+#   include <exiv2/image.hpp>
+#endif
 
 #include <kdebug.h>
 
@@ -302,6 +304,7 @@ void ImageInfo::readExif(const QString& fullPath, const int mode)
 
 void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
 {
+#ifdef HASEXIV2
     QMap<Exif::Syncable::Kind,QString> _fieldName, _visibleName;
     QMap<Exif::Syncable::Kind,Exif::Syncable::Header> _header;
     Exif::Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
@@ -332,9 +335,11 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         changed = true;
                         break;
                     case Exif::Syncable::FILE_MTIME:
-                    case Exif::Syncable::FILE_CTIME:
-                        // well, QFileInfo doesn't have any method for updating
+                        // Well, QFileInfo doesn't have any method for updating
                         // those... :(
+                        // Also note that we have to touch it *after* we call
+                        // writeMetadata() for obvious reasons :)
+                        // Just let it fall through for now...
                     default:
                         kdDebug(5123) << "unknown date field: " << _fieldName[*it] << endl;
                 }
@@ -436,6 +441,9 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         if (_md5sum != oldsum )
            MainWindow::DirtyIndicator::markDirty();
     }
+#else
+    kdDebug(5123) << "ImageInfo::writeMetadata(): can't do much without the Exiv2 library" << endl;
+#endif
 }
 
 

@@ -1079,7 +1079,7 @@ void Settings::SettingsDialog::createSyncPage()
         Exif::Syncable::FILE_CTIME << Exif::Syncable::STOP;
     wValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::STOP <<
         Exif::Syncable::FILE_MTIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
-        Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_CTIME;
+        Exif::Syncable::EXIF_DATETIME_DIGITIZED;
 
     _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
     _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );

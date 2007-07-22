@@ -19,16 +19,28 @@
 #define RAWIMAGEDECODER_H
 
 #include "ImageDecoder.h"
+#include <qdict.h>
 
 namespace ImageManager
 {
 
 class RAWImageDecoder : public ImageDecoder {
 public:
-	RAWImageDecoder() {}
+	RAWImageDecoder() { _initializeExtensionLists(); }
 
 	virtual bool _decode(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
 	virtual bool _mightDecode( const QString& imageFile );
+	virtual bool _skipThisFile( const QDict<void>& loadedFiles, const QString& imageFile );
+
+private:
+	bool _fileExistsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
+	bool _fileEndsWithExtensions( const QString& fileName, const QStringList& extensionList ) const;
+	bool _fileIsKnownWithExtensions( const QDict<void>& files, const QString& fileName, const QStringList& extensionList ) const;
+
+	static QStringList _rawExtensions;
+	static QStringList _standardExtensions;
+	static QStringList _ignoredExtensions;
+	static void _initializeExtensionLists();
 };
 
 }

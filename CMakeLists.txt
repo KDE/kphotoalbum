@@ -203,7 +203,7 @@ install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 
 ########### install files ###############
 
-install( FILES  kphotoalbum.desktop kphotoalbum-import.desktop DESTINATION ${XDG_APPS_DIR} )
+install( FILES  kphotoalbum.desktop kphotoalbum-import.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES  kphotoalbumrc DESTINATION ${CONFIG_INSTALL_DIR} )
 install( FILES  x-vnd.kde.kphotoalbum-import.desktop DESTINATION ${MIME_INSTALL_DIR}/application )
 install( FILES  tips DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum )

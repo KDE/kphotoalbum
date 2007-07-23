@@ -35,7 +35,7 @@ public:
 protected slots:
     void selectAll();
     void selectNone();
-    virtual void slotOk();
+    virtual void accept();
 
 protected:
     QStringList tokensInUse();

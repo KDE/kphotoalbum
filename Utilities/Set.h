@@ -19,6 +19,7 @@
 #define SET_H
 #include <QMap>
 #include <QList>
+#include <QDataStream>
 
 template <class TYPE>
 class Set :public QMap<TYPE, TYPE>
@@ -96,11 +97,10 @@ public:
 
 };
 
-#ifdef TEMPORARILY_REMOVED
 template <class TYPE>
 QDataStream& operator<<( QDataStream& stream, const Set<TYPE>& data )
 {
-    stream << data.count();
+    stream << (qint16) data.count();
     for ( typename Set<TYPE>::ConstIterator itemIt = data.begin(); itemIt != data.end(); ++itemIt ) {
         stream << *itemIt;
     }
@@ -110,7 +110,7 @@ QDataStream& operator<<( QDataStream& stream, const Set<TYPE>& data )
 template <class TYPE>
 QDataStream& operator>>( QDataStream& stream, Set<TYPE>& data )
 {
-    int count;
+    qint16 count;
     stream >> count;
     for ( int i = 0; i < count; ++i ) {
         TYPE item;
@@ -119,7 +119,6 @@ QDataStream& operator>>( QDataStream& stream, Set<TYPE>& data )
     }
     return stream;
 }
-#endif
 
 typedef Set<QString> StringSet;
 

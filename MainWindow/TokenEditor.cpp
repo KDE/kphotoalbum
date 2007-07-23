@@ -108,7 +108,7 @@ QStringList TokenEditor::tokensInUse()
     return res;
 }
 
-void TokenEditor::slotOk()
+void TokenEditor::accept()
 {
     for( Q3ValueList<QCheckBox*>::Iterator it = _cbs.begin(); it != _cbs.end(); ++it ) {
         if ( (*it)->isChecked() && (*it)->isEnabled() ) {
@@ -116,6 +116,7 @@ void TokenEditor::slotOk()
             DB::ImageDB::instance()->categoryCollection()->categoryForName( QString::fromLatin1( "Tokens" ) )->removeItem( txt );
         }
     }
+    KDialog::accept();
 }
 
 #include "TokenEditor.moc"

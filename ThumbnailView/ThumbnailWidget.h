@@ -50,11 +50,11 @@ class ThumbnailWidget : public Q3GridView, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    ThumbnailWidget( QWidget* parent, const char* name = 0 );
+    ThumbnailWidget( QWidget* parent );
     void setImageList( const QStringList& list );
 
-    virtual void paintCell ( QPainter * p, int row, int col );
-    virtual void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, bool loadedOK );
+    OVERRIDE void paintCell ( QPainter * p, int row, int col );
+    OVERRIDE void pixmapLoaded( const QString&, const QSize& size, const QSize& fullSize, int, const QImage&, bool loadedOK );
     bool thumbnailStillNeeded( const QString& fileName ) const;
     QStringList selection( bool keepSortOrderOfDatabase = false ) const;
 
@@ -89,7 +89,7 @@ protected:
     void paintCellPixmap( QPainter*, int row, int col );
     QString thumbnailText( const QString& fileName ) const;
     void paintCellText( QPainter*, int row, int col );
-    virtual void viewportPaintEvent( QPaintEvent* );
+    OVERRIDE void viewportPaintEvent( QPaintEvent* );
 
     // Cell handling methods.
     QString fileNameInCell( int row, int col ) const;
@@ -112,17 +112,17 @@ protected:
     Cell lastCell() const;
 
     // event handlers
-    virtual void keyPressEvent( QKeyEvent* );
-    virtual void keyReleaseEvent( QKeyEvent* );
-    virtual void showEvent( QShowEvent* );
-    virtual void mousePressEvent( QMouseEvent* );
-    virtual void mouseMoveEvent( QMouseEvent* );
-    virtual void mouseReleaseEvent( QMouseEvent* );
-    virtual void mouseDoubleClickEvent ( QMouseEvent* );
-    virtual void wheelEvent( QWheelEvent* );
-    virtual void resizeEvent( QResizeEvent* );
+    OVERRIDE void keyPressEvent( QKeyEvent* );
+    OVERRIDE void keyReleaseEvent( QKeyEvent* );
+    OVERRIDE void showEvent( QShowEvent* );
+    OVERRIDE void mousePressEvent( QMouseEvent* );
+    OVERRIDE void mouseMoveEvent( QMouseEvent* );
+    OVERRIDE void mouseReleaseEvent( QMouseEvent* );
+    OVERRIDE void mouseDoubleClickEvent ( QMouseEvent* );
+    OVERRIDE void wheelEvent( QWheelEvent* );
+    OVERRIDE void resizeEvent( QResizeEvent* );
     void keyboardMoveEvent( QKeyEvent* );
-    virtual void dimensionChange ( int oldNumRows, int oldNumCols );
+    OVERRIDE void dimensionChange ( int oldNumRows, int oldNumCols );
 
     // Selection
     void selectAllCellsBetween( Cell pos1, Cell pos2, bool repaint = true );
@@ -133,9 +133,10 @@ protected:
     void possibleEmitSelectionChanged();
 
     // Drag and drop
-    virtual void contentsDragMoveEvent ( QDragMoveEvent * );
-    virtual void contentsDragLeaveEvent ( QDragLeaveEvent * );
-    virtual void contentsDropEvent ( QDropEvent * );
+    OVERRIDE void contentsDragEnterEvent ( QDragEnterEvent * event );
+    OVERRIDE void contentsDragMoveEvent ( QDragMoveEvent * );
+    OVERRIDE void contentsDragLeaveEvent ( QDragLeaveEvent * );
+    OVERRIDE void contentsDropEvent ( QDropEvent * );
     void removeDropIndications();
 
     // Misc

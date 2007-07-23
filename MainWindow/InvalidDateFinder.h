@@ -30,10 +30,10 @@ class InvalidDateFinder :public KDialog {
     Q_OBJECT
 
 public:
-    InvalidDateFinder( QWidget* parent, const char* name = 0 );
+    InvalidDateFinder( QWidget* parent );
 
 protected slots:
-    virtual void slotOk();
+    virtual void accept();
 
 private:
     QRadioButton* _dateNotTime;

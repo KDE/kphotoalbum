@@ -19,71 +19,77 @@
 #include "InvalidDateFinder.h"
 #include <qlayout.h>
 #include <qradiobutton.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
 #include <klocale.h>
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
 #include "DB/FileInfo.h"
 #include "MainWindow/Window.h"
-#ifdef TEMPORARILY_REMOVED
-#include "kprogress.h"
-#endif
 #include <qapplication.h>
 #include <qeventloop.h>
 #include "Utilities/ShowBusyCursor.h"
-#include <q3textedit.h>
+#include <QButtonGroup>
+#include <QGroupBox>
+#include <QTextEdit>
+#include <KProgressDialog>
+#include <kdebug.h>
 
 using namespace MainWindow;
 
-InvalidDateFinder::InvalidDateFinder( QWidget* parent, const char* name )
-#ifdef TEMPORARILY_REMOVED
-    :KDialog( Plain, i18n("Search for Images and Videos with Missing Dates" ), Cancel | Ok, Ok, parent, name )
-#endif
+InvalidDateFinder::InvalidDateFinder( QWidget* parent )
+    :KDialog( parent )
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* top = plainPage();
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    setWindowTitle( i18n("Search for Images and Videos with Missing Dates" ) );
+    setButtons( Cancel | Ok );
 
-    Q3VButtonGroup* grp = new Q3VButtonGroup( i18n("Which Images and Videos to Display"), top, "grp" );
+    QWidget* top = new QWidget;
+    setMainWidget( top );
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
+
+    QGroupBox* grp = new QGroupBox( i18n("Which Images and Videos to Display") );
+    QVBoxLayout* grpLay = new QVBoxLayout( grp );
     lay1->addWidget( grp );
 
-    _dateNotTime = new QRadioButton( i18n( "Search for images and videos with a valid date but an invalid time stamp"), grp );
-    _missingDate = new QRadioButton( i18n( "Search for images and videos missing date and time" ), grp );
-    _partialDate = new QRadioButton( i18n( "Search for images and videos with only partial dates (like 1971 vs. 11/7-1971)"), grp );
+    _dateNotTime = new QRadioButton( i18n( "Search for images and videos with a valid date but an invalid time stamp") );
+    _missingDate = new QRadioButton( i18n( "Search for images and videos missing date and time" ) );
+    _partialDate = new QRadioButton( i18n( "Search for images and videos with only partial dates (like 1971 vs. 11/7-1971)") );
     _dateNotTime->setChecked( true );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+
+    grpLay->addWidget( _dateNotTime );
+    grpLay->addWidget( _missingDate );
+    grpLay->addWidget( _partialDate );
 }
 
-void InvalidDateFinder::slotOk()
+void InvalidDateFinder::accept()
 {
-#ifdef TEMPORARILY_REMOVED
     Utilities::ShowBusyCursor dummy;
 
     // create the info dialog
-    KDialog* info = new KDialog(  Plain, i18n("Image Info" ), Ok, Ok, 0, "infobox", false );
-    QWidget* top = info->plainPage();
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
-    Q3TextEdit* edit = new Q3TextEdit( top );
+    KDialog* info = new KDialog;
+    info->setWindowTitle( i18n("Image Info" ) );
+    info->setButtons( Ok );
+
+    QWidget* top = new QWidget;
+    info->setMainWidget( top );
+
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
+    QTextEdit* edit = new QTextEdit( top );
     lay1->addWidget( edit );
     edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
 
     // Now search for the images.
     QStringList list = DB::ImageDB::instance()->images();
     QStringList toBeShown;
-    KProgressDialog dialog( 0, "progress dialog", i18n("Reading file properties"),
-                            i18n("Reading File Properties"), true );
-    dialog.progressBar()->setTotalSteps( list.count() );
-    dialog.progressBar()->setProgress(0);
+    KProgressDialog dialog( 0, i18n("Reading file properties"),
+                            i18n("Reading File Properties") );
+    dialog.progressBar()->setMaximum( list.count() );
+    dialog.progressBar()->setValue(0);
     int progress = 0;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info(*it);
-        dialog.progressBar()->setProgress( ++progress );
-        qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+        dialog.progressBar()->setValue( ++progress );
+        qApp->processEvents( QEventLoop::AllEvents );
         if ( dialog.wasCancelled() )
             break;
 
@@ -113,7 +119,11 @@ void InvalidDateFinder::slotOk()
 
     if ( _dateNotTime->isChecked() ) {
         info->resize( 800, 600 );
+#ifdef TEMPORARILY_REMOVED
         edit->setCursorPosition( 0,0 );
+#else
+        kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
         edit->setReadOnly( true );
         QFont f = edit->font();
         f.setFamily( QString::fromLatin1( "fixed" ) );
@@ -124,10 +134,7 @@ void InvalidDateFinder::slotOk()
         delete info;
 
     Window::theMainWindow()->showThumbNails( toBeShown );
-    KDialog::slotOk();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
+    KDialog::accept();
 }
 
 #include "InvalidDateFinder.moc"

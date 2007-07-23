@@ -60,8 +60,8 @@
  */
 
 ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailWidget::_instance = 0;
-ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent, const char* name )
-    :Q3GridView( parent, name ),
+ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
+    :Q3GridView( parent ),
      _gridResizeInteraction( this ),
      _wheelResizing( false ),
      _selectionInteraction( this ),
@@ -1202,4 +1202,10 @@ void ThumbnailView::ThumbnailWidget::updateIndexCache()
     for( Q3ValueVector<QString>::ConstIterator it = _imageList.begin(); it != _imageList.end(); ++it,++index ) {
         _fileNameMap.insert( *it, index );
     }
+}
+
+void ThumbnailView::ThumbnailWidget::contentsDragEnterEvent( QDragEnterEvent * event )
+{
+    bool accept = event->provides( "text/uri-list" ) && _selectionInteraction.isDragging();
+    event->accept( accept );
 }

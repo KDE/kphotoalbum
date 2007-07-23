@@ -62,7 +62,7 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
     QString version = KGlobal::instance()->aboutData()->version();
 #else
     QString version = QString::fromLatin1( "BAH" );
-    #endif
+#endif
 
     if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
         txt = i18n( "Version %1" , version );

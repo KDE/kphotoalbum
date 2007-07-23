@@ -23,10 +23,8 @@
 #include <qcursor.h>
 #include <qapplication.h>
 #include <kurl.h>
-#ifdef TEMPORARILY_REMOVED
-#include <kurldrag.h>
-#endif
 #include <kdebug.h>
+#include <MainWindow/Window.h>
 
 ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailWidget* view )
     :_view( view ), _dragInProgress( false ), _dragSelectionInProgress( false )
@@ -163,21 +161,21 @@ bool ThumbnailView::SelectionInteraction::isMouseOverIcon( const QPoint& viewpor
 
 void ThumbnailView::SelectionInteraction::startDrag()
 {
-#ifdef TEMPORARILY_REMOVED
     _dragInProgress = true;
-    KUrl::List l;
+    QList<QUrl> l;
     QStringList selected = _view->selection();
     for( QStringList::Iterator fileIt = selected.begin(); fileIt != selected.end(); ++fileIt ) {
-        l.append( KUrl(*fileIt) );
+        l.append( QUrl(*fileIt) );
     }
-    KURLDrag* drag = new KURLDrag( l, _view, "drag" );
-    drag->dragCopy();
+    QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
+    QMimeData* data = new QMimeData;
+    data->setUrls( l );
+    drag->setMimeData( data );
+
+    drag->exec(Qt::ActionMask);
 
     _view->_mouseHandler = &(_view->_mouseTrackingHandler);
     _dragInProgress = false;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 bool ThumbnailView::SelectionInteraction::isDragging() const

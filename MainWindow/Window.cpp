@@ -110,9 +110,6 @@
 #  include <kexidb/kexidb_export.h>
 #  include <kexidb/connectiondata.h>
 #endif
-#ifdef TEMPORARILY_REMOVED
-#include <kprogress.h>
-#endif
 #include <krun.h>
 #include <kglobal.h>
 #include <kvbox.h>
@@ -161,7 +158,7 @@ MainWindow::Window::Window( QWidget* parent )
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
-    _thumbnailView = new ThumbnailView::ThumbnailWidget( _stack, "_thumbnailView" );
+    _thumbnailView = new ThumbnailView::ThumbnailWidget( _stack );
     connect( _dateBar, SIGNAL( dateSelected( const DB::ImageDate&, bool ) ), _thumbnailView, SLOT( gotoDate( const DB::ImageDate&, bool ) ) );
     connect( _dateBar, SIGNAL( toolTipInfo( const QString& ) ), this, SLOT( showDateBarTip( const QString& ) ) );
     connect( Settings::SettingsData::instance(), SIGNAL( histogramSizeChanged( const QSize& ) ), _dateBar, SLOT( setHistogramBarSize( const QSize& ) ) );
@@ -1417,7 +1414,7 @@ void MainWindow::Window::updateDateBar()
 
 void MainWindow::Window::slotShowImagesWithInvalidDate()
 {
-    InvalidDateFinder finder( this, "invaliddatefinder" );
+    InvalidDateFinder finder( this );
     if ( finder.exec() == QDialog::Accepted )
         showThumbNails();
 }

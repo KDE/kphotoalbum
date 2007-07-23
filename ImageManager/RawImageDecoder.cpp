@@ -130,7 +130,7 @@ bool RAWImageDecoder::_fileExistsWithExtensions( const QString& fileName,
 	return false;
 }
 
-bool RAWImageDecoder::_fileIsKnownWithExtensions( const QDict<void>& files,
+bool RAWImageDecoder::_fileIsKnownWithExtensions( const Q3Dict<void>& files,
 						 const QString& fileName,
 						 const QStringList& extensionList) const
 {
@@ -163,7 +163,7 @@ bool RAWImageDecoder::_mightDecode( const QString& imageFile )
 	return false;
 }
 
-bool RAWImageDecoder::_skipThisFile( const QDict<void>& loadedFiles, const QString& imageFile )
+bool RAWImageDecoder::_skipThisFile( const Q3Dict<void>& loadedFiles, const QString& imageFile )
 {
 	// We're not interested in thumbnail and other files.
 	if (_fileEndsWithExtensions(imageFile, _ignoredExtensions)) return true;

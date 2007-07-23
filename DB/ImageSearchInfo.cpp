@@ -28,9 +28,7 @@
 #include "ImageInfo.h"
 #include <kapplication.h>
 #include <kconfig.h>
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #include <kglobal.h>
 
 using namespace DB;
@@ -70,7 +68,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
         compile();
 
     bool ok = true;
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     ok = _exifSearchInfo.matches( info->fileName() );
 #endif
 
@@ -222,14 +220,14 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     _description = other._description;
     _isNull = other._isNull;
     _compiled = false;
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     _exifSearchInfo = other._exifSearchInfo;
 #endif
 }
 
 void ImageSearchInfo::compile() const
 {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     _exifSearchInfo.search();
 #endif
     deleteMatchers();
@@ -404,7 +402,7 @@ ImageDate ImageSearchInfo::date() const
     return _date;
 }
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 void ImageSearchInfo::addExifSearchInfo( const Exif::SearchInfo info )
 {
     _exifSearchInfo = info;

@@ -21,7 +21,7 @@
 #include <QPixmap>
 #include "DB/ImageSearchInfo.h"
 #include "DB/Category.h"
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif
 #include "Utilities/Set.h"
@@ -159,7 +159,7 @@ public:
     void setAlbumCategory(  const QString& category );
 
     // -------------------------------------------------- EXIF
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     stringSetProperty( EXIF, exifForViewer, setExifForViewer, Set<QString>() );
     stringSetProperty( EXIF, exifForDialog, setExifForDialog, Exif::Info::instance()->standardKeys() );
 #endif

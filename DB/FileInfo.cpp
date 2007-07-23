@@ -19,7 +19,7 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "Utilities/Util.h"
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif
 #include <kfilemetainfo.h>
@@ -35,7 +35,7 @@ FileInfo FileInfo::read( const QString& fileName )
 DB::FileInfo::FileInfo( const QString& fileName )
     : _angle(0)
 {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     parseEXIV2( fileName );
 #else
     parseKFileMetaInfo( fileName );
@@ -45,7 +45,7 @@ DB::FileInfo::FileInfo( const QString& fileName )
         _date = QFileInfo( fileName ).lastModified();
 }
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 void DB::FileInfo::parseEXIV2( const QString& fileName )
 {
     Exiv2::ExifData map = Exif::Info::instance()->exifData( fileName );

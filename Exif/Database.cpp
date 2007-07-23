@@ -33,6 +33,8 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include "DB/ImageDB.h"
+#include <QSqlError>
+#include <kdebug.h>
 
 using namespace Exif;
 
@@ -68,7 +70,7 @@ Exif::Database* Exif::Database::_instance = 0;
 
 static void showError( QSqlQuery& query )
 {
-    qWarning( "Error running query: %s\nError was: %s", query.executedQuery().toLatin1(), query.lastError().text().toLatin1());
+    qWarning( "Error running query: %s\nError was: %s", qPrintable(query.executedQuery()), qPrintable(query.lastError().text()));
 }
 
 Exif::Database::Database()
@@ -80,19 +82,18 @@ Exif::Database::Database()
 void Exif::Database::openDatabase()
 {
     _db = QSqlDatabase::addDatabase( QString::fromLatin1( "QSQLITE" ), QString::fromLatin1( "exif" ) );
-    Q_ASSERT( _db );
 
-    _db->setDatabaseName( exifDBFile() );
+    _db.setDatabaseName( exifDBFile() );
 
-    if ( !_db->open() )
-        qWarning("Couldn't open db %s", _db->lastError().text().toLatin1());
+    if ( !_db.open() )
+        qWarning("Couldn't open db %s", qPrintable(_db.lastError().text()) );
     else
         _isOpen = true;
 
     // If SQLite in Qt has Unicode feature, it will convert querys to
     // UTF-8 automatically. Otherwise we should do the conversion to
     // be able to store any Unicode character.
-    _doUTF8Conversion = !_db->driver()->hasFeature(QSqlDriver::Unicode);
+    _doUTF8Conversion = !_db.driver()->hasFeature(QSqlDriver::Unicode);
 }
 
 bool Exif::Database::isOpen() const
@@ -120,7 +121,7 @@ void Exif::Database::add( const QString& fileName )
         return;
 
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.local8Bit().data());
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.toLocal8Bit().data());
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
@@ -137,7 +138,7 @@ void Exif::Database::remove( const QString& fileName )
         return;
 
     QSqlQuery query( QString::fromLatin1( "DELETE FROM exif WHERE fileName=?" ), _db );
-    query.bindValue( 0, _doUTF8Conversion ? fileName.utf8() : fileName );
+    query.bindValue( 0, _doUTF8Conversion ? fileName.toUtf8() : fileName );
     if ( !query.exec() )
         showError( query );
 }
@@ -154,7 +155,7 @@ void Exif::Database::insert( const QString& filename, Exiv2::ExifData data )
     }
 
     QSqlQuery query( QString::fromLatin1( "INSERT into exif values (?, %1) " ).arg( formalList.join( QString::fromLatin1( ", " ) ) ), _db );
-    query.bindValue(  0, _doUTF8Conversion ? filename.utf8() : filename );
+    query.bindValue(  0, _doUTF8Conversion ? filename.toUtf8() : filename );
     int i = 1;
     for( Q3ValueList<DatabaseElement*>::Iterator tagIt = elms.begin(); tagIt != elms.end(); ++tagIt ) {
         (*tagIt)->bindValues( &query, i, data );
@@ -208,7 +209,7 @@ Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
     else {
         if ( _doUTF8Conversion )
             while ( query.next() )
-                result.insert( QString::fromUtf8( query.value(0).toCString() ) );
+                result.insert( QString::fromUtf8( query.value(0).toByteArray() ) );
         else
             while ( query.next() )
                 result.insert( query.value(0).toString() );
@@ -230,14 +231,14 @@ void Exif::Database::offerInitialize()
 
 }
 
-Q3ValueList< QPair<QString,QString> > Exif::Database::cameras() const
+QList< QPair<QString,QString> > Exif::Database::cameras() const
 {
-    Q3ValueList< QPair<QString,QString> > result;
+    QList< QPair<QString,QString> > result;
 
     if ( !isUsable() )
         return result;
 
-    QSqlQuery query( "SELECT DISTINCT Exif_Image_Make, Exif_Image_Model FROM exif", _db );
+    QSqlQuery query( QString::fromLatin1("SELECT DISTINCT Exif_Image_Make, Exif_Image_Model FROM exif"), _db );
     if ( !query.exec() )
         showError( query );
 

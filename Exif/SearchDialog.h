@@ -18,21 +18,21 @@
 #ifndef EXIFSEARCHDIALOG_H
 #define EXIFSEARCHDIALOG_H
 
-#include <KDialog>
 #include "Exif/SearchInfo.h"
 #include "Exif/SearchDialogSettings.h"
 #include "Exif/RangeWidget.h"
+#include <KPageDialog>
 
 class QSpinBox;
 
 namespace Exif
 {
 
-class SearchDialog : public KDialog {
+class SearchDialog : public KPageDialog {
     Q_OBJECT
 
 public:
-    SearchDialog( QWidget* parent, const char* name = 0 );
+    SearchDialog( QWidget* parent );
     Exif::SearchInfo info();
 
 protected:
@@ -45,7 +45,7 @@ protected:
     QWidget* makeSaturation( QWidget* parent );
     void makeExposureTime( Q3Grid* parent );
     RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, Q3Grid* parent );
-    QWidget* makeCamera( QWidget* parent );
+    QWidget* makeCamera();
     QStringList availableCameras();
 
 protected slots:

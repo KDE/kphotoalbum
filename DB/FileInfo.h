@@ -21,11 +21,9 @@
 
 #include <qstring.h>
 #include <qvariant.h>
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #include <qdatetime.h>
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif
 
@@ -41,7 +39,7 @@ public:
     QString description() {return _description; }
 
 protected:
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     void parseEXIV2( const QString& fileName );
     QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
 #endif

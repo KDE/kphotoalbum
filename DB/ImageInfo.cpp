@@ -33,9 +33,7 @@ extern "C" {
 #include "FileInfo.h"
 #include <qstringlist.h>
 #include "DB/MemberMap.h"
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #include "Exif/Database.h"
 #include <kdebug.h>
 
@@ -290,7 +288,7 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
 
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
         Exif::Database::instance()->add( fullPath );
 #endif
     }

@@ -66,15 +66,13 @@
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
 #include "ImportExport/Import.h"
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #ifdef HASKIPI
 #  include "Plugins/Interface.h"
 #  include <libkipi/pluginloader.h>
 #  include <libkipi/plugin.h>
 #endif
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/ReReadDialog.h"
 #endif
 #include "ImageManager/ImageLoader.h"
@@ -92,7 +90,7 @@
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #endif
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #  include "Exif/InfoDialog.h"
 #  include "Exif/Database.h"
@@ -264,7 +262,7 @@ void MainWindow::Window::delayedInit()
         possibleRunSuvey();
     }
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     Exif::Database* exifDB = Exif::Database::instance(); // Load the database
     if ( exifDB->isAvailable() && !exifDB->isOpen() ) {
         KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
@@ -422,7 +420,7 @@ void MainWindow::Window::slotDeleteSelected()
 
 void MainWindow::Window::slotReReadExifInfo()
 {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     QStringList files = selectedOnDisk();
     static Exif::ReReadDialog* dialog = 0;
     if ( ! dialog )
@@ -668,7 +666,7 @@ void MainWindow::Window::setupMenuBar()
     action = actionCollection()->addAction( "rescan", this, SLOT( slotRescan() ) );
     action->setText( i18n("Rescan for Images and Videos") );
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     action = actionCollection()->addAction( "reReadExifInfo", this, SLOT( slotReReadExifInfo() ) );
     action->setText( i18n("Read EXIF Info From Files...") );
 #endif
@@ -740,7 +738,7 @@ void MainWindow::Window::setupMenuBar()
     action->setText( i18n("KPhotoAlbum Feature Status") );
 
     // Context menu actions
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     _showExifDialog = actionCollection()->addAction( "showExifInfo", this, SLOT( slotShowExifInfo() ) );
     _showExifDialog->setText( i18n("Show Exif Info") );
 #endif
@@ -942,7 +940,7 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction( _configAllSimultaniously );
         menu.addAction( _runSlideShow );
         menu.addAction(_runRandomSlideShow );
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
         menu.addAction( _showExifDialog);
 #endif
 
@@ -1532,7 +1530,7 @@ void MainWindow::Window::slotRecalcCheckSums()
 
 void MainWindow::Window::slotShowExifInfo()
 {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     QStringList items = selectedOnDisk();
     if ( !items.empty() ) {
         Exif::InfoDialog* exifDialog = new Exif::InfoDialog( items[0], this );

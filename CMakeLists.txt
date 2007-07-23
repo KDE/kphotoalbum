@@ -14,6 +14,7 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
                    )
 #PENDING macro_optional_find_package(Kipi)
+
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
 
@@ -183,9 +184,9 @@ if(KIPI_FOUND)
 endif(KIPI_FOUND)
 
 set(EXIV2_SRCS)
-#PENDING if(EXIV2_FOUND)
-#PENDING 	set(EXIV2_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp)
-#PENDING endif(EXIV2_FOUND)
+if(EXIV2_FOUND)
+ 	set(EXIV2_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Browser/ExifFolder.cpp ${libexif_SRCS})
+endif(EXIV2_FOUND)
 
 ########### next target ###############
 

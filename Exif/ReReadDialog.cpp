@@ -28,11 +28,17 @@
 #include "Exif/Database.h"
 
 
-Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
-    :KDialog( Plain, i18n("Read File Info"), Cancel|User1|User2, User1, parent, name,
-                  true, false, i18n("Read File Info"), i18n("Show File List") )
+Exif::ReReadDialog::ReReadDialog( QWidget* parent )
+    :KDialog( parent )
 {
-    QWidget* top = plainPage();
+    setWindowTitle( i18n("Read File Info") );
+    setButtons( Cancel|User1|User2 );
+    setButtonText( User1, i18n("Read File Info") );
+    setButtonText( User2, i18n("Show File List") );
+
+    QWidget* top = new QWidget;
+    setMainWidget( top );
+
     Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
 
     _label = new QLabel( top );
@@ -103,7 +109,7 @@ void Exif::ReReadDialog::showFileList()
                                                     i18n( "<p><b>%1 files</b> are affected by this operation, their filenames "
                                                           "can be seen in the list below.</p>").arg(_list.count()), _list,
                                                     i18n("Files affected"),
-                                                    KStandardGuiItem::cont(),
+                                                    KStandardGuiItem::cont(), KStandardGuiItem::cancel(),
                                                     QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
     if ( i == KMessageBox::Cancel )
         return;

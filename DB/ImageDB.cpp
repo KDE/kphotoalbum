@@ -26,9 +26,7 @@
 #include "DB/CategoryCollection.h"
 #include <QProgressBar>
 #include <qapplication.h>
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>
 #include <kdebug.h>

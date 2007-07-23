@@ -18,6 +18,9 @@
 #include "DatabaseElement.h"
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
+#include <kdebug.h>
+#include <QString>
+#include <QVariant>
 
 static QString replaceDotWithUnderscore( const char* cstr )
 {
@@ -45,7 +48,7 @@ QString Exif::StringExifElement::queryString()
 
 void Exif::StringExifElement::bindValues( QSqlQuery* query, int& counter, Exiv2::ExifData& data )
 {
-    query->bindValue( counter++, data[_tag].toString().c_str() );
+    query->bindValue( counter++, QString(data[_tag].toString().c_str() ) );
 }
 
 

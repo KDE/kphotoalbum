@@ -191,7 +191,7 @@ private:
     KToggleAction* _circle;
     QAction* _delete;
     QAction* _categoryEditor;
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     QAction* _showExifViewer;
 #endif
 

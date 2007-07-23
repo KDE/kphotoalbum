@@ -23,24 +23,31 @@
 #include <qtimer.h>
 #include <qlabel.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
 #include <QResizeEvent>
 #include <QKeyEvent>
-#include <Q3VBoxLayout>
 #include "ImageManager/Manager.h"
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
+#include <kdebug.h>
 
-Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
-    :KDialog( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
+Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent )
+    :KDialog( parent )
 {
+    setWindowTitle( i18n("EXIF Information") );
+    setButtons( Close );
+#ifdef TEMPORARILY_REMOVED
     setWFlags( WDestructiveClose | getWFlags() );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 
-    QWidget* top = plainPage();
-    Q3VBoxLayout* vlay = new Q3VBoxLayout( top, 6 );
+    QWidget* top = new QWidget;
+    setMainWidget( top );
+    QVBoxLayout* vlay = new QVBoxLayout( top );
 
     // -------------------------------------------------- File name and pixmap
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
+    QHBoxLayout* hlay = new QHBoxLayout;
+    vlay->addLayout(hlay);
     QLabel* label = new QLabel( fileName, top );
     QFont fnt = font();
     fnt.setPointSize( (int) (fnt.pointSize() * 1.2) );
@@ -59,12 +66,13 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     grid->setFocus();
 
     // -------------------------------------------------- Current Search
-    hlay = new Q3HBoxLayout( vlay, 6 );
+    hlay = new QHBoxLayout;
+    vlay->addLayout(hlay);
     label = new QLabel( i18n( "Current EXIF Label Search: "), top );
     hlay->addWidget( label );
 
     _searchLabel = new QLabel( top );
-    _searchLabel->setPaletteForegroundColor( red );
+    _searchLabel->setPaletteForegroundColor( Qt::red );
     fnt = font();
     fnt.setWeight( QFont::Bold );
     _searchLabel->setFont( fnt );
@@ -90,7 +98,11 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
 {
     QMap<QString,QString> map = Exif::Info::instance()->infoForDialog( fileName );
     calculateMaxKeyWidth( map );
+#ifdef TEMPORARILY_REMOVED
     setFocusPolicy( WheelFocus );
+#else
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
     setHScrollBarMode( AlwaysOff );
 
     Set<QString> groups = exifGroups( map );
@@ -100,10 +112,10 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
             ++index;
 
         // Header for group.
-        QStringList list = QStringList::split( QString::fromLatin1( "." ), *groupIt );
-        _texts[index] = qMakePair( list[0], QString::null );
+        QStringList list = (*groupIt).split(QString::fromLatin1( "." ));
+        _texts[index] = qMakePair( list[0], QString() );
         list.pop_front();
-        _texts[index+1] = qMakePair( QString::fromLatin1( "." ) + list.join( QString::fromLatin1( "." ) ), QString::null );
+        _texts[index+1] = qMakePair( QString::fromLatin1( "." ) + list.join( QString::fromLatin1( "." ) ), QString() );
         _headers.insert( index );
         index += 2;
 
@@ -129,9 +141,9 @@ void Exif::Grid::paintCell( QPainter * p, int row, int col )
     QColor background;
     bool isHeader = _headers.contains( 2* (index / 2) );
     if ( isHeader )
-        background = lightGray;
+        background = Qt::lightGray;
     else
-        background = (index % 4 == 0 || index % 4 == 3) ? white : QColor(226, 235, 250);
+        background = (index % 4 == 0 || index % 4 == 3) ? Qt::white : QColor(226, 235, 250);
 
     p->fillRect( cellRect(), background );
 
@@ -140,11 +152,11 @@ void Exif::Grid::paintCell( QPainter * p, int row, int col )
     }
     else {
         QString text = _texts[index].first;
-        bool match = ( !_search.isEmpty() && text.contains( _search, false ) );
+        bool match = ( !_search.isEmpty() && text.contains( _search, Qt::CaseInsensitive ) );
         QFont f(p->font());
         f.setWeight( match ? QFont::Bold : QFont::Normal );
         p->setFont( f );
-        p->setPen( match ? red : Qt::black );
+        p->setPen( match ? Qt::red : Qt::black );
         p->drawText( cellRect(), Qt::AlignLeft, text);
         QRect rect = cellRect();
         rect.setX( _maxKeyWidth + 10 );
@@ -172,21 +184,21 @@ QMap<QString,QString> Exif::Grid::itemsForGroup( const QString& group, const QMa
     QMap<QString,QString> result;
     for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
         if ( groupName( it.key() ) == group )
-            result.insert( it.key(), it.data() );
+            result.insert( it.key(), it.value() );
     }
     return result;
 }
 
 QString Exif::Grid::groupName( const QString& exifName )
 {
-    QStringList list = QStringList::split( QString::fromLatin1("."), exifName );
+    QStringList list = exifName.split(QString::fromLatin1("."));
     list.pop_back();
     return list.join( QString::fromLatin1(".") );
 }
 
 QString Exif::Grid::exifNameNoGroup( const QString& fullName )
 {
-    return QStringList::split( QString::fromLatin1("."), fullName ).last();
+    return fullName.split(QString::fromLatin1(".")).last();
 }
 
 void Exif::Grid::resizeEvent( QResizeEvent* )
@@ -246,7 +258,7 @@ void Exif::Grid::keyPressEvent( QKeyEvent* e )
 void Exif::InfoDialog::pixmapLoaded( const QString& , const QSize& , const QSize& , int , const QImage& img, bool loadedOK )
 {
     if ( loadedOK )
-        _pix->setPixmap( img );
+        _pix->setPixmap( QPixmap::fromImage(img) );
 }
 
 #include "InfoDialog.moc"

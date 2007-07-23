@@ -16,9 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FeatureDialog.h"
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #include <klocale.h>
 #include <qlayout.h>
 #include <Q3ValueList>
@@ -135,7 +133,7 @@ bool MainWindow::FeatureDialog::hasSQLDBSupport()
 
 bool MainWindow::FeatureDialog::hasEXIV2Support()
 {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     return true;
 #else
     return false;
@@ -144,7 +142,7 @@ bool MainWindow::FeatureDialog::hasEXIV2Support()
 
 bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     return Exif::Database::isAvailable();
 #else
     return false;

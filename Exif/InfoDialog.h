@@ -33,7 +33,7 @@ class InfoDialog : public KDialog, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    InfoDialog( const QString& fileName, QWidget* parent, const char* name = 0 );
+    InfoDialog( const QString& fileName, QWidget* parent );
     virtual QSize sizeHint() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
 

@@ -52,10 +52,8 @@ extern "C" {
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
-#ifdef HASEXIV2
+#include <config-kpa.h>
+#ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif
 
@@ -142,7 +140,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
             text += i18n("<b>Description: </b> ") +  info->description() + linebreak;
     }
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     QString exifText;
     if ( Settings::SettingsData::instance()->showEXIF() ) {
         QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );

@@ -25,9 +25,7 @@
 #include <Q3ValueList>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 
 namespace DB
 {
@@ -69,7 +67,7 @@ public:
     void debugMatcher() const;
     Q3Dict<void> findAlreadyMatched( const QString &group ) const;
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     void addExifSearchInfo( const Exif::SearchInfo info );
 #endif
 
@@ -89,7 +87,7 @@ private:
     mutable bool _compiled;
     mutable Q3ValueList<CategoryMatcher*> _optionMatchers;
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     Exif::SearchInfo _exifSearchInfo;
 #endif
     // When adding new instance variable, please notice that this class as an explicit written copy constructor.

@@ -45,9 +45,7 @@
 #include <q3hbox.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -57,7 +55,7 @@
 #include <kapplication.h>
 #include "MainWindow/Window.h"
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #  include "Exif/TreeView.h"
 #endif
@@ -478,7 +476,7 @@ void Settings::SettingsDialog::show()
         }
     }
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     _exifForViewer->reload();
     _exifForDialog->reload();
     _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
@@ -574,7 +572,7 @@ void Settings::SettingsDialog::slotMyOK()
 #endif
 
     // EXIF
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     opt->setExifForViewer( _exifForViewer->selected() ) ;
     opt->setExifForDialog( _exifForDialog->selected() ) ;
 #endif
@@ -994,10 +992,14 @@ void Settings::SettingsDialog::createPluginPage()
 
 void Settings::SettingsDialog::createEXIFPage()
 {
-#ifdef HASEXIV2
-    QWidget* top = addPage( i18n("EXIF Information" ), i18n("EXIF Information" ),
-                            KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ),
-                                                             K3Icon::Desktop, 32 ) );
+#ifdef HAVE_EXIV2
+    QWidget* top = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("EXIF Information" ) );
+    page->setHeader( i18n("EXIF Information" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ),
+                                                           K3Icon::Desktop, 32 ) ) );
+    addPage( page );
+
     Q3HBoxLayout* lay1 = new Q3HBoxLayout( top, 6 );
 
     _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );

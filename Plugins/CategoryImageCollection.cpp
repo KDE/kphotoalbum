@@ -16,9 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 #ifdef HASKIPI
 #include "Plugins/CategoryImageCollection.h"
 #include <klocale.h>

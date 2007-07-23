@@ -26,9 +26,7 @@
 #include "DB/CategoryCollection.h"
 #include "ExifFolder.h"
 #include "Exif/Database.h"
-#ifdef TEMPORARILY_REMOVED
-#include <config.h> // for HASEXIV2
-#endif
+#include <config-kpa.h> // for HAVE_EXIV2
 #include <Q3ValueList>
 
 void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
@@ -42,7 +40,7 @@ void Browser::ContentFolderAction::action( BrowserItemFactory* factory )
 
     //-------------------------------------------------- Search,Exif, and Image Folder
     factory->createItem( new SearchFolder( _info, _browser), 0 );
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     if ( Exif::Database::isAvailable() )
         factory->createItem( new ExifFolder( _info, _browser ), 0 );
 #endif

@@ -20,6 +20,7 @@
 #include <qmap.h>
 #include <qstringlist.h>
 #include "Exif/Info.h"
+#include <kdebug.h>
 
 Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
     :Q3ListView( parent, name )
@@ -68,9 +69,7 @@ void Exif::TreeView::reload()
     QMap<QString, Q3CheckListItem*> tree;
 
     for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
-e/ImageCollection.cpp.svn-base:101:        QStringList path = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( (*it).path() ).dirPath( true ), true );
-/home/blackie/kde-src/4/graphics/kphotoalbum/Plugins/.svn/text-base/ImageCollection.cpp.svn-base:96:    QStringList res = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( imgs[0].path() ).dirPath(true), true );
-/home/blackie/kde-src/4/graphics/kphotoalbum/Exif/TreeView.cpp:71:        QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
+        QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
         Q3CheckListItem* parent = 0;
         QString path = QString::null;
         for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {

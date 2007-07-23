@@ -30,10 +30,8 @@
 #include <qeventloop.h>
 #include <kmessagebox.h>
 #include <kcodecs.h>
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
-#ifdef HASEXIV2
+#include <config-kpa.h>
+#ifdef HAVE_EXIV2
 #  include "Exif/Database.h"
 #endif
 
@@ -208,7 +206,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
                 // as it is a map, the value for the moved file will automatically be deleted.
                 DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
                 Exif::Database::instance()->remove( absoluteMatchedFileName );
                 Exif::Database::instance()->add( absoluteNewFileName );
 #endif
@@ -220,7 +218,7 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, 
     ImageInfoPtr info = ImageInfoPtr( new ImageInfo( relativeNewFileName, type ) );
     info->setMD5Sum(sum);
     DB::ImageDB::instance()->md5Map()->insert( sum, info->fileName(true) );
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     Exif::Database::instance()->add( absoluteNewFileName );
 #endif
 

@@ -67,7 +67,7 @@ if test "$enable_exiv2_support" = "yes"; then
   if test "$have_exif2" = "no"; then
     AC_MSG_ERROR([Can't find exif2 run configure with --disable-exiv2 if you do not want it, but be warned there will be no EXIF support in the app then. ]);  
   else
-    AC_DEFINE( HASEXIV2, 1, [Set to 1 if you have Exiv2 installed])
+    AC_DEFINE( HAVE_EXIV2, 1, [Set to 1 if you have Exiv2 installed])
   fi
   AM_CONDITIONAL(compile_with_exiv2, true)
 else

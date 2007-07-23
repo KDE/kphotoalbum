@@ -55,7 +55,7 @@ public:
     void add( const QString& fileName );
     void remove( const QString& fileName );
     Set<QString> filesMatchingQuery( const QString& query );
-    Q3ValueList< QPair<QString,QString> > cameras() const;
+    QList< QPair<QString,QString> > cameras() const;
 
 protected:
     static QString exifDBFile();
@@ -71,7 +71,7 @@ private:
     Database();
     void init();
     static Database* _instance;
-    QSqlDatabase* _db;
+    QSqlDatabase _db;
 };
 
 }

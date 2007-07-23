@@ -16,9 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifdef TEMPORARILY_REMOVED
-#include <config.h>
-#endif
+#include <config-kpa.h>
 
 #include <kdeversion.h>
 #include "Viewer/ViewerWidget.h"
@@ -59,7 +57,7 @@
 #include <QStackedWidget>
 #include <QDesktopWidget>
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
 #endif
 
@@ -167,7 +165,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     _categoryEditor->setText( i18n("Show Category Editor") );
     _popup->addAction(_categoryEditor);
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     _showExifViewer = _actions->addAction( "viewer-show-exif-viewer", this, SLOT( showExifViewer() ) );
     _showExifViewer->setText( i18n("Show EXIF Viewer") );
     _popup->addAction( _showExifViewer );
@@ -478,7 +476,7 @@ void Viewer::ViewerWidget::load()
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );
     _categoryEditor->setEnabled( !isVideo );
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     _showExifViewer->setEnabled( !isVideo );
 #endif
 
@@ -1083,7 +1081,7 @@ void Viewer::ViewerWidget::wheelEvent( QWheelEvent* event )
 
 void Viewer::ViewerWidget::showExifViewer()
 {
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     Exif::InfoDialog* exifDialog = new Exif::InfoDialog( currentInfo()->fileName(), this );
     exifDialog->show();
 #endif

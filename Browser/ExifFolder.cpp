@@ -51,7 +51,7 @@ Browser::FolderAction* Browser::ExifFolder::action( bool /* ctrlDown */ )
     }
 
     return new ContentFolderAction( info, _browser );
-
+}
 
 QPixmap Browser::ExifFolder::pixmap()
 {

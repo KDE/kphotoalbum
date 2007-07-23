@@ -31,13 +31,22 @@
 #include <qlabel.h>
 #include <qspinbox.h>
 #include <kvbox.h>
+#include <Q3ScrollView>
+#include <kdebug.h>
 
 using namespace Exif;
 
-Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
-    : KDialog( Tabbed, i18n("EXIF Search"), Cancel | Ok | Help, Ok, parent, name )
+Exif::SearchDialog::SearchDialog( QWidget* parent )
+    : KPageDialog( parent )
 {
-    QWidget* settings = addPage( i18n( "Settings" ) );
+    setWindowTitle( i18n("EXIF Search") );
+    setButtons( Cancel | Ok | Help );
+    setFaceType( Tabbed );
+
+    QWidget* settings = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( settings, i18n("Settings" ) );
+
+    addPage(  page );
     Q3VBoxLayout* vlay = new Q3VBoxLayout( settings, 6 );
 
     // Iso, Exposure, Aperture, FNumber
@@ -79,11 +88,12 @@ Exif::SearchDialog::SearchDialog( QWidget* parent, const char* name )
     vlay->addStretch( 1 );
 
     // ------------------------------------------------------------ Camera
-    KVBox* camera = addVBoxPage( i18n("Camera") );
-    makeCamera( camera );
+    page = new KPageWidgetItem( makeCamera(), i18n("Camera") );
+    addPage( page );
 
     // ------------------------------------------------------------ Misc
-    QWidget* misc = addPage( i18n("Miscellaneous") );
+    QWidget* misc = new QWidget;
+    addPage( new KPageWidgetItem( misc, i18n("Miscellaneous") ) );
     vlay = new Q3VBoxLayout( misc, 6 );
     vlay->addWidget( makeOrientation( misc ), 1 );
 
@@ -299,19 +309,19 @@ Exif::SearchInfo Exif::SearchDialog::info()
     return result;
 }
 
-QWidget* Exif::SearchDialog::makeCamera( QWidget* parent )
+QWidget* Exif::SearchDialog::makeCamera()
 {
-    Q3ScrollView* view = new Q3ScrollView( parent );
+    Q3ScrollView* view = new Q3ScrollView;
     // view->setFrameStyle( QFrame::NoFrame );
     view->setResizePolicy( Q3ScrollView::AutoOneFit );
     KVBox* w = new KVBox( view->viewport() );
     view->addChild( w );
 
 
-    Q3ValueList< QPair<QString, QString> > cameras = Exif::Database::instance()->cameras();
+    QList< QPair<QString, QString> > cameras = Exif::Database::instance()->cameras();
     qSort( cameras );
 
-    for( Q3ValueList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.begin(); cameraIt != cameras.end(); ++cameraIt ) {
+    for( QList< QPair<QString,QString> >::ConstIterator cameraIt = cameras.begin(); cameraIt != cameras.end(); ++cameraIt ) {
         QCheckBox* cb = new QCheckBox( QString::fromLatin1( "%1 - %2" ).arg( (*cameraIt).first.trimmed() ).arg( (*cameraIt).second.trimmed() ), w );
         _cameras.append( Setting< QPair<QString,QString> >( cb, *cameraIt ) );
     }

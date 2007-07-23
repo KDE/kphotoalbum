@@ -37,7 +37,7 @@
 #include "DB/CategoryCollection.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif
 #include <ktempdir.h>
@@ -500,7 +500,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
         KMessageBox::error( this, i18n("Unable to write image '%1'.").arg(file) );
     }
 
-#ifdef HASEXIV2
+#ifdef HAVE_EXIV2
     if ( !Utilities::isVideo( fileName ) ) {
         try {
             Exif::Info::instance()->writeInfoToFile( fileName, file );

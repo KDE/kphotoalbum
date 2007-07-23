@@ -27,8 +27,8 @@
 #include <QCloseEvent>
 #include <KAssistantDialog>
 
+class KTemporaryFile;
 class Q3ProgressDialog;
-class KTempFile;
 class QCheckBox;
 class KArchiveDirectory;
 class KZip;
@@ -104,14 +104,15 @@ private:
     QString _zipFile;
     DB::ImageInfoList _images;
     KLineEdit* _destinationEdit;
-    QWidget* _destinationPage;
-    QWidget* _dummy;
+    KPageWidgetItem* _destinationPage;
+    KPageWidgetItem* _categoryMatcherPage;
+    KPageWidgetItem* _dummy;
     ImportMatcher* _categoryMatcher;
     Q3ValueList<ImportMatcher*> _matchers;
     KZip* _zip;
     const KArchiveDirectory* _dir;
     Q3ValueList< ImageRow* > _imagesSelect;
-    KTempFile* _tmp;
+    KTemporaryFile* _tmp;
     bool _externalSource;
     KUrl _kimFile;
     Utilities::UniqNameMap _nameMap;

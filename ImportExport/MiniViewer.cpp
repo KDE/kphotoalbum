@@ -18,10 +18,7 @@
 
 #include "MiniViewer.h"
 #include <qpushbutton.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
 #include <QCloseEvent>
-#include <Q3HBoxLayout>
 #include <klocale.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -35,7 +32,6 @@ MiniViewer* MiniViewer::_instance = 0;
 
 void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( !_instance )
         _instance = new MiniViewer();
 
@@ -45,14 +41,11 @@ void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
         img = img.transformed( matrix );
     }
     if ( img.width() > 800 || img.height() > 600 )
-        img = img.scale( 800, 600, Qt::KeepAspectRatio );
+        img = img.scaled( 800, 600, Qt::KeepAspectRatio );
 
-    _instance->_pixmap->setPixmap( img );
+    _instance->_pixmap->setPixmap( QPixmap::fromImage(img) );
     _instance->QDialog::show();
     _instance->raise();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void MiniViewer::closeEvent( QCloseEvent* )
@@ -68,10 +61,11 @@ void MiniViewer::slotClose()
 
 MiniViewer::MiniViewer()
 {
-    Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
+    QVBoxLayout* vlay = new QVBoxLayout( this );
     _pixmap = new QLabel( this );
     vlay->addWidget( _pixmap );
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay );
+    QHBoxLayout* hlay = new QHBoxLayout;
+    vlay->addLayout(hlay);
     hlay->addStretch(1);
     QPushButton* but = new QPushButton( i18n("Close"), this );
     connect( but, SIGNAL( clicked() ), this, SLOT( slotClose() ) );

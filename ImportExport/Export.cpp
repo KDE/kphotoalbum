@@ -20,10 +20,7 @@
 #include <kfiledialog.h>
 #include <kzip.h>
 #include <qfileinfo.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
 #include <Q3CString>
-#include <Q3VBoxLayout>
 #include <time.h>
 #include "Utilities/Util.h"
 #include <q3progressdialog.h>
@@ -43,6 +40,8 @@
 #include <qbuffer.h>
 #include "XMLHandler.h"
 #include <QImageReader>
+#include <QVBoxLayout>
+#include <QGroupBox>
 
 using namespace ImportExport;
 
@@ -72,23 +71,29 @@ void Export::imageExport( const QStringList& list )
 
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
 ExportConfig::ExportConfig()
-#ifdef TEMPORARILY_REMOVED
-    : KDialog( KDialog::Plain, i18n("Export Configuration"), KDialog::Ok | KDialog::Cancel | KDialog::Help,
-                   KDialog::Ok, 0, "export config" )
-#endif
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* top = plainPage();
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    setWindowTitle( i18n("Export Configuration") );
+    setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
+    QWidget* top = new QWidget;
+    setMainWidget( top );
+
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     // Include images
-    Q3VButtonGroup* grp = new Q3VButtonGroup( i18n("How to Handle Images"), top );
+    QGroupBox* grp = new QGroupBox( i18n("How to Handle Images") );
     lay1->addWidget( grp );
+
+    QVBoxLayout* boxLay = new QVBoxLayout( grp );
     _include = new QRadioButton( i18n("Include in .kim file"), grp );
     _manually = new QRadioButton( i18n("Manual copy next to .kim file"), grp );
     _auto = new QRadioButton( i18n("Automatically copy next to .kim file"), grp );
     _link = new QRadioButton( i18n("Hard link next to .kim file"), grp );
     _manually->setChecked( true );
+
+    boxLay->addWidget( _include );
+    boxLay->addWidget( _manually );
+    boxLay->addWidget( _auto );
+    boxLay->addWidget( _link );
 
     // Compress
     _compress = new QCheckBox( i18n("Compress export file"), top );
@@ -100,11 +105,15 @@ ExportConfig::ExportConfig()
     lay1->addWidget( _generateThumbnails );
 
     // Enforece max size
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( lay1, 6 );
-    _enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimensions to: " ), top, "_enforeMaxSize" );
+    QHBoxLayout* hlay = new QHBoxLayout;
+    lay1->addLayout( hlay );
+
+    _enforeMaxSize = new QCheckBox( i18n( "Limit maximum image dimensions to: " ) );
     hlay->addWidget( _enforeMaxSize );
 
-    _maxSize = new QSpinBox( 100, 4000, 50, top, "_maxSize" );
+    _maxSize = new QSpinBox;
+    _maxSize->setRange( 100,4000 );
+
     hlay->addWidget( _maxSize );
     _maxSize->setValue( 800 );
 
@@ -147,9 +156,6 @@ ExportConfig::ExportConfig()
     _link->setWhatsThis( txt );
     _auto->setWhatsThis( txt );
     setHelp( QString::fromLatin1( "chp-exportDialog" ) );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 ImageFileLocation ExportConfig::imageFileLocation() const

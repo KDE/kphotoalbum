@@ -544,11 +544,11 @@ void MainWindow::Window::setupMenuBar()
     _generateHtml->setText( i18n("Generate HTML...") );
     connect( _generateHtml, SIGNAL(triggered()), this, SLOT( slotExportToHTML() ) );
 
-    QAction* action = new KAction( i18n( "Import..."), actionCollection() );
-    connect( action, SIGNAL( triggered() ), this, SLOT( slotImport() ) );
+    QAction* action = actionCollection()->addAction( "import", this, SLOT( slotImport() ) );
+    action->setText( i18n( "Import...") );
 
-    action = new KAction( i18n( "Export..."), actionCollection() );
-    connect( action, SIGNAL( triggered() ), this, SLOT( slotExport() ) );
+    action = actionCollection()->addAction( "export", this, SLOT( slotExport() ) );
+    action->setText( i18n( "Export...") );
 
 
     // Go menu

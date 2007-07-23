@@ -19,12 +19,11 @@
 #include "Import.h"
 #include <kfiledialog.h>
 #include <qlabel.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 #include <Q3ValueList>
-#include <Q3GridLayout>
+#include <QGridLayout>
 #include <QPixmap>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <QCloseEvent>
 #include <klocale.h>
 #include <qpushbutton.h>
@@ -44,9 +43,6 @@
 #include <qimage.h>
 #include "Browser/BrowserWidget.h"
 #include <kstandarddirs.h>
-#ifdef TEMPORARILY_REMOVED
-#include <ktempfile.h>
-#endif
 #include <kurl.h>
 #include <q3progressdialog.h>
 #include <kio/netaccess.h>
@@ -59,20 +55,18 @@
 #include "XMLDB/Database.h"
 #include <kdebug.h>
 #include <QComboBox>
+#include <KTemporaryFile>
+#include <QScrollArea>
 
 class KPushButton;
 using namespace ImportExport;
 
 void Import::imageImport()
 {
-#ifdef TEMPORARILY_REMOVED
-    KUrl url = KFileDialog::getOpenURL( QString::null, QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ), 0 );
+    KUrl url = KFileDialog::getOpenUrl( KUrl(), QString::fromLatin1( "*.kim|KPhotoAlbum Export Files" ) );
     if ( url.isEmpty() )
         return;
     imageImport( url );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Import::imageImport( const KUrl& url )
@@ -95,36 +89,29 @@ void Import::imageImport( const KUrl& url )
 Import::Import( const KUrl& url, QWidget* parent )
     :KAssistantDialog( parent ), _zip( 0 ), _hasFilled( false )
 {
-#ifdef TEMPORARILY_REMOVED
     _kimFile = url;
-    _tmp = new KTempFile( QString::null, QString::fromLatin1( ".kim" ) );
-    QString path = _tmp->name();
-    _tmp->setAutoDelete( true );
+    _tmp = new KTemporaryFile;
+    _tmp->setSuffix(QString::fromLatin1(".kim"));
+    QString path = _tmp->fileName();
+    _tmp->setAutoRemove( true );
 
     KUrl dest;
     dest.setPath( path );
     KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, true );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
 }
 
 void Import::downloadKimJobCompleted( KIO::Job* job )
 {
-#ifdef TEMPORARILY_REMOVED
     if ( !job->error() ) {
         resize( 800, 600 );
-        init( _tmp->name() );
+        init( _tmp->fileName() );
         show();
     }
     else {
         job->showErrorDialog( 0 );
         delete this;
     }
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
 }
 
 Import::Import( const QString& fileName, bool* ok, QWidget* parent )
@@ -226,11 +213,7 @@ void Import::setupPages()
     createDestination();
     createCategoryPages();
     connect( this, SIGNAL( selected( const QString& ) ), this, SLOT( updateNextButtonState() ) );
-#ifdef TEMPORARILY_REMOVED
-    connect( finishButton(), SIGNAL( clicked() ), this, SLOT( slotFinish() ) );
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
+    connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotFinish() ) );
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }
 
@@ -254,20 +237,23 @@ void Import::createIntroduction()
                         "database, or which tokens was only a partial match.</li></ol>");
 
     QLabel* intro = new QLabel( txt, this );
+    intro->setWordWrap(true);
     addPage( intro, i18n("Introduction") );
 }
 
 void Import::createImagesPage()
 {
-    Q3ScrollView* top = new Q3ScrollView( this );
-    top->setResizePolicy( Q3ScrollView::AutoOneFit );
+    QScrollArea* top = new QScrollArea;
+    top->setWidgetResizable(true);
 
-    QWidget* container = new QWidget( this );
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( container, 6 );
-    top->addChild( container );
+    QWidget* container = new QWidget;
+    QVBoxLayout* lay1 = new QVBoxLayout( container );
+    top->setWidget( container );
 
     // Select all and Deselect All buttons
-    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay2 = new QHBoxLayout;
+    lay1->addLayout(lay2);
+
     QPushButton* selectAll = new QPushButton( i18n("Select All"), container );
     lay2->addWidget( selectAll );
     QPushButton* selectNone = new QPushButton( i18n("Deselect All"), container );
@@ -276,8 +262,10 @@ void Import::createImagesPage()
     connect( selectAll, SIGNAL( clicked() ), this, SLOT( slotSelectAll() ) );
     connect( selectNone, SIGNAL( clicked() ), this, SLOT( slotSelectNone() ) );
 
-    Q3GridLayout* lay3 = new Q3GridLayout( lay1, _images.count(), 3, 6 );
-    lay3->setColStretch( 2, 1 );
+    QGridLayout* lay3 = new QGridLayout;
+    lay1->addLayout( lay3 );
+
+    lay3->setColumnStretch( 2, 1 );
 
     int row = 0;
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it, ++row ) {
@@ -287,17 +275,19 @@ void Import::createImagesPage()
 
         const KArchiveEntry* thumbnails = _dir->entry( QString::fromLatin1( "Thumbnails" ) );
         if ( thumbnails ) {
-            QPushButton* but = new QPushButton( container, "image" );
-            but->setPixmap( loadThumbnail( info->fileName( true ) ) );
+            QPushButton* but = new QPushButton( container );
+            const QPixmap pixmap = loadThumbnail( info->fileName( true ) );
+            but->setIcon( pixmap );
+            but->setIconSize( pixmap.size() );
             lay3->addWidget( but, row, 1 );
             connect( but, SIGNAL( clicked() ), ir, SLOT( showImage() ) );
         }
         else {
-            QLabel* label = new QLabel( info->label(), container, "filename" );
+            QLabel* label = new QLabel( info->label() );
             lay3->addWidget( label, row, 1 );
         }
 
-        QLabel* label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(info->description()), container, "description" );
+        QLabel* label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(info->description()) );
         lay3->addWidget( label, row, 2 );
         _imagesSelect.append( ir );
     }
@@ -308,13 +298,12 @@ void Import::createImagesPage()
 ImageRow::ImageRow( DB::ImageInfoPtr info, Import* import, QWidget* parent )
     : QObject( parent ), _info( info ), _import( import )
 {
-    _checkbox = new QCheckBox( QString::null, parent, "_checkbox" );
+    _checkbox = new QCheckBox( QString::null, parent );
     _checkbox->setChecked( true );
 }
 
 void ImageRow::showImage()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( _import->_externalSource ) {
         KUrl src1 =_import->_kimFile;
         KUrl src2 = _import->_baseUrl + QString::fromLatin1( "/" );
@@ -335,20 +324,18 @@ void ImageRow::showImage()
         }
     }
     else {
-        QImage img = QImage( _import->loadImage( _info->fileName(true) ) );
+        QImage img = QImage::fromData(_import->loadImage( _info->fileName(true) ) );
         MiniViewer::show( img, _info );
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
-#endif
 }
 
 void Import::createDestination()
 {
     QWidget* top = new QWidget( this );
-    _destinationPage = top;
-    Q3VBoxLayout* topLay = new Q3VBoxLayout( top, 6 );
-    Q3HBoxLayout* lay = new Q3HBoxLayout( topLay, 6 );
+    QVBoxLayout* topLay = new QVBoxLayout( top );
+    QHBoxLayout* lay = new QHBoxLayout;
+    topLay->addLayout(lay);
+
     topLay->addStretch( 1 );
 
     QLabel* label = new QLabel( i18n( "Destination of images: " ), top );
@@ -365,7 +352,7 @@ void Import::createDestination()
     _destinationEdit->setText( Settings::SettingsData::instance()->imageDirectory());
     connect( but, SIGNAL( clicked() ), this, SLOT( slotEditDestination() ) );
     connect( _destinationEdit, SIGNAL( textChanged( const QString& ) ), this, SLOT( updateNextButtonState() ) );
-    addPage( top, i18n("Destination of Images" ) );
+    _destinationPage = addPage( top, i18n("Destination of Images" ) );
 }
 
 void  Import::slotEditDestination()
@@ -384,7 +371,6 @@ void  Import::slotEditDestination()
 
 void Import::updateNextButtonState()
 {
-#ifdef TEMPORARILY_REMOVED
     bool enabled = true;
     if ( currentPage() == _destinationPage ) {
         QString dest = _destinationEdit->text();
@@ -394,10 +380,7 @@ void Import::updateNextButtonState()
             enabled = false;
     }
 
-    nextButton()->setEnabled( enabled );
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
+    setValid( currentPage(), enabled );
 }
 
 void Import::createCategoryPages()
@@ -417,34 +400,33 @@ void Import::createCategoryPages()
 
     _categoryMatcher = new ImportMatcher( QString::null, QString::null, categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
                                           false, this, "import matcher" );
-    addPage( _categoryMatcher, i18n("Match Categories") );
+    _categoryMatcherPage = addPage( _categoryMatcher, i18n("Match Categories") );
 
-    _dummy = new QWidget( this );
-    addPage( _dummy, QString::null );
+    QWidget* dummy = new QWidget;
+    _dummy = addPage( dummy, QString::null );
 }
 
 ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QString& otherCategory )
 {
-    QStringList otherItems;
+    StringSet otherItems;
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
         StringSet items = info->itemsOfCategory( otherCategory );
         for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
-            otherItems.append( *itemIt );
+            otherItems.insert( *itemIt );
     }
 
     QStringList myItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( myCategory )->itemsInclCategories();
     myItems.sort();
 
-    ImportMatcher* matcher = new ImportMatcher( otherCategory, myCategory, otherItems, myItems, true, this, "import matcher" );
+    ImportMatcher* matcher = new ImportMatcher( otherCategory, myCategory, otherItems.toList(), myItems, true, this, "import matcher" );
     addPage( matcher, myCategory );
     return matcher;
 }
 
 void Import::next()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( currentPage() == _destinationPage ) {
         QString dir = _destinationEdit->text();
         if ( !QFileInfo( dir ).exists() ) {
@@ -460,10 +442,10 @@ void Import::next()
                 return;
         }
     }
-    if ( !_hasFilled && currentPage() == _categoryMatcher ) {
+    if ( !_hasFilled && currentPage() == _categoryMatcherPage ) {
         _hasFilled = true;
         _categoryMatcher->setEnabled( false );
-        delete _dummy;
+        removePage(_dummy);
 
         ImportMatcher* matcher = 0;
         for( Q3ValueList<CategoryMatch*>::Iterator it = _categoryMatcher->_matchers.begin();
@@ -476,16 +458,9 @@ void Import::next()
                 _matchers.append( matcher );
             }
         }
-        if ( matcher )
-            setFinishEnabled( matcher, true );
-        else
-            setFinishEnabled( _categoryMatcher, true );
     }
 
-    Q3Wizard::next();
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
+    KAssistantDialog::next();
 }
 
 bool Import::copyFilesFromZipFile()
@@ -572,11 +547,7 @@ void Import::aCopyJobCompleted( KIO::Job* job )
 
 void Import::stopCopyingImages()
 {
-#ifdef TEMPORARILY_REMOVED
-    _job->kill( true );
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
-#endif // TEMPORARILY_REMOVED
+    _job->kill();
 }
 
 void Import::slotFinish()
@@ -660,7 +631,9 @@ QPixmap Import::loadThumbnail( QString fileName )
 
     const KArchiveFile* file = static_cast<const KArchiveFile*>( fileEntry );
     QByteArray data = file->data();
-    return QPixmap( data );
+    QPixmap pixmap;
+    pixmap.loadFromData( data );
+    return pixmap;
 }
 
 void Import::slotSelectAll()

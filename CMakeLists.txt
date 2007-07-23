@@ -15,6 +15,8 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                    )
 #PENDING macro_optional_find_package(Kipi)
 macro_optional_find_package(Exiv2)
+macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
+
 macro_optional_find_package(JPEG)
 
 include(ConvenienceLibs.cmake)

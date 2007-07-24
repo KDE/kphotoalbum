@@ -915,21 +915,28 @@ QMap<int, Set<QString> >
 QueryHelper::mediaIdTagsMap(const QString& category,
                              DB::MediaType typemask) const
 {
-    Cursor c(0);
-    if (category == "Folder")
-        c = executeQuery("SELECT media.id, dir.path FROM media, dir "
-                         "WHERE media.dirId=dir.id AND " +
-                         typeCondition("media.type", typemask)
-                         ).cursor();
-    else
-        c = executeQuery("SELECT media.id, tag.name "
-                         "FROM media, media_tag, tag, category "
-                         "WHERE media.id=media_tag.mediaId AND "
-                         "media_tag.tagId=tag.id AND "
-                         "tag.categoryId=category.id AND " +
-                         typeCondition("media.type", typemask) +
-                         " AND category.name=?",
-                         Bindings() << category).cursor();
+    QString q;
+    Bindings b;
+
+    if (category == "Folder") {
+        q =
+            "SELECT media.id, dir.path FROM media, dir "
+            "WHERE media.dirId=dir.id AND " +
+            typeCondition("media.type", typemask);
+    }
+    else {
+        q =
+            "SELECT media.id, tag.name "
+            "FROM media, media_tag, tag, category "
+            "WHERE media.id=media_tag.mediaId AND "
+            "media_tag.tagId=tag.id AND "
+            "tag.categoryId=category.id AND " +
+            typeCondition("media.type", typemask) +
+            " AND category.name=?";
+        b.append(category);
+    }
+
+    Cursor c = executeQuery(q, b).cursor();
 
     QMap<int, Set<QString> > r;
     if (!c.isNull()) {

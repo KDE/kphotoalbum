@@ -105,8 +105,7 @@
 #  include "SQLDB/DatabaseHandler.h"
 #  include "SQLDB/ConfigFileHandler.h"
 #  include "SQLDB/QueryErrors.h"
-#  include <kexidb/kexidb_export.h>
-#  include <kexidb/connectiondata.h>
+#  include <kprogressdialog.h>
 #endif
 #include <krun.h>
 #include <kglobal.h>
@@ -1502,9 +1501,10 @@ void MainWindow::Window::convertBackend()
         KProgressDialog dialog(this);
         dialog.setModal(true);
         dialog.setCaption(i18n("Converting database"));
-        dialog.setLabel(QString::fromLatin1("<p><b><nobr>%1</nobr></b></p><p>%2</p>")
-                        .arg(i18n("Converting database to SQL."))
-                        .arg(i18n("Please wait.")));
+        dialog.setLabelText
+            (QString::fromLatin1("<p><b><nobr>%1</nobr></b></p><p>%2</p>")
+             .arg(i18n("Converting database to SQL."))
+             .arg(i18n("Please wait.")));
         dialog.setAllowCancel(false);
         dialog.setAutoClose(true);
         dialog.setFixedSize(dialog.sizeHint());

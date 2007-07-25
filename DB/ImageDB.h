@@ -19,10 +19,12 @@
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
 
+#include <config-kpa.h>
 #include "DB/ImageSearchInfo.h"
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageDateCollection.h"
+#include "DB/MediaCount.h"
 #include <q3valuevector.h>
 
 #ifdef SQLDB_SUPPORT
@@ -38,7 +40,6 @@ class CategoryCollection;
 class Category;
 class MD5Map;
 class MemberMap;
-class MediaCount;
 
 class ImageDB  :public QObject {
     Q_OBJECT

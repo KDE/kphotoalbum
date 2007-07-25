@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config-kpa.h>
 #include "Settings/SettingsData.h"
 #include "MainWindow/Window.h"
 #include <kapplication.h>

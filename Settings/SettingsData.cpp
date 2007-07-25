@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <config-kpa.h>
 #include "SettingsData.h"
 #include <qdir.h>
 //Added by qt3to4:

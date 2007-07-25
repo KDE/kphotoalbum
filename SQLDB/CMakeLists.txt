@@ -1,46 +1,33 @@
+# For DB/*.h and such
+INCLUDE_DIRECTORIES(..)
 
-include_directories( ${KDE4_INCLUDE_DIR} ${QT_INCLUDES}  )
+# FIXME: Should we really include binary dir?
+# For config-kpa.h
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 
+SET(libSQLDB_SRCS
+  ${CMAKE_CURRENT_SOURCE_DIR}/Database.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLCategoryCollection.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLFolderCategory.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLSpecialCategory.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLCategory.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLImageInfo.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/QueryHelper.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLImageDateCollection.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/DatabaseHandler.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLMD5Map.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLImageInfoCollection.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/Cursor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/ConfigFileHandler.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLSettingsWidget.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/DatabaseAddress.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLMemberMap.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/QueryResult.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLTagCategory.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLNormalCategory.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/SQLTokensCategory.cpp
+)
 
-########### next target ###############
+QT4_AUTOMOC(${libSQLDB_SRCS})
 
-
-########### install files ###############
-
-
-
-
-#original Makefile.am contents follow:
-
-#noinst_LTLIBRARIES = \
-#    libsqldb.la
-#
-#INCLUDES = \
-#         -I$(srcdir)/../kexi \
-#	 -I$(srcdir)/.. $(all_includes)
-#
-#KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) # -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII 
-#
-#libsqldb_la_SOURCES = \
-#	Database.cpp \
-#	SQLCategoryCollection.cpp \
-#	SQLFolderCategory.cpp \
-#	SQLSpecialCategory.cpp \
-#	SQLCategory.cpp \
-#	SQLImageInfo.cpp \
-#	QueryHelper.cpp \
-#	SQLImageDateCollection.cpp \
-#	DatabaseHandler.cpp \
-#	SQLMD5Map.cpp \
-#	SQLImageInfoCollection.cpp \
-#	Cursor.cpp \
-#	ConfigFileHandler.cpp \
-#	SQLSettingsWidget.cpp \
-#	DatabaseAddress.cpp \
-#	SQLMemberMap.cpp \
-#	QueryResult.cpp \
-#	SQLTagCategory.cpp \
-#	SQLNormalCategory.cpp \
-#	SQLTokensCategory.cpp
-#
-#METASOURCES = AUTO
+ADD_LIBRARY(SQLDB ${libSQLDB_SRCS})

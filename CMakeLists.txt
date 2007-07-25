@@ -22,6 +22,8 @@ macro_optional_find_package(JPEG)
 
 include(ConvenienceLibs.cmake)
 
+set(SQLDB_SUPPORT FALSE)
+
 set(libdatebar_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/ViewHandler.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DateBar/MouseHandler.cpp)
 
 set(libSettings_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsData.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsDialog.cpp  ${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp ${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp)
@@ -176,9 +178,10 @@ add_subdirectory( Survey )
 add_subdirectory( icons )
 add_subdirectory( demo )
 add_subdirectory( themes )
+if(SQLDB_SUPPORT)
+  add_subdirectory( SQLDB )
+endif(SQLDB_SUPPORT)
 
-message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(SQLDB)")
-message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(KEXI_DIR)")
 if(KIPI_FOUND)
 	#TODO
 endif(KIPI_FOUND)
@@ -200,6 +203,9 @@ if(EXIV2_FOUND)
  	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )
 endif(EXIV2_FOUND)
 
+if(SQLDB_SUPPORT)
+  target_link_libraries(kphotoalbum SQLDB)
+endif(SQLDB_SUPPORT)
 
 install(TARGETS kphotoalbum DESTINATION ${BIN_INSTALL_DIR})
 

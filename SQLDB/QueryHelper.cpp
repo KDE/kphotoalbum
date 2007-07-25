@@ -25,7 +25,7 @@
 #include "DB/ImageSearchInfo.h"
 #include "DB/CategoryMatcher.h"
 #include "Utilities/List.h"
-#include <kexidb/transaction.h>
+#include "TransactionGuard.h"
 #include <klocale.h>
 #include <qsize.h>
 
@@ -682,7 +682,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
 void
 QueryHelper::insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items)
 {
-    KexiDB::TransactionGuard transaction(*_connection);
+    TransactionGuard transaction(*_connection);
 
     int place =
         executeQuery("SELECT MAX(place) FROM media").firstItem().toInt() + 1;
@@ -1048,7 +1048,7 @@ void QueryHelper::makeMediaPlacesContinuous()
 
 void QueryHelper::sortMediaItems(const QStringList& filenames)
 {
-    KexiDB::TransactionGuard transaction(*_connection);
+    TransactionGuard transaction(*_connection);
 
     QValueList<int> idList = mediaItemIdsForFilenames(filenames);
 

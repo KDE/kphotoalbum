@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
 
 #include "SQLFolderCategory.h"
 #include "QueryHelper.h"
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 using namespace SQLDB;
 
@@ -66,8 +65,8 @@ SQLFolderCategory::classify(const DB::ImageSearchInfo& scope,
                             DB::MediaType typemask) const
 {
     // TODO: this
-    Q3ValueList<int>* scopePointer;
-    Q3ValueList<int> includedFiles;
+    QList<int>* scopePointer;
+    QList<int> includedFiles;
     if (scope.isNull())
         scopePointer = 0;
     else {

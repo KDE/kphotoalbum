@@ -1,4 +1,5 @@
 /* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+   Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public
@@ -64,7 +65,7 @@ namespace SQLDB {
         virtual QString
         findFirstItemInRange(const DB::ImageDate& range,
                              bool includeRanges,
-                             const Q3ValueVector<QString>& images) const;
+                             const QVector<QString>& images) const;
         virtual void cutToClipboard( const QStringList& list );
         virtual QStringList pasteFromCliboard( const QString& afterFile );
         virtual bool isClipboardEmpty();

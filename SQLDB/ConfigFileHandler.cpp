@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 #include "DatabaseAddress.h"
 #include "QueryErrors.h"
 #include "Settings/SettingsData.h"
-#include <kexidb/drivermanager.h>
 #include <kconfig.h>
 #include <qfileinfo.h>
 
@@ -30,26 +29,21 @@
 #define DATABASE_FILE_EXTENSION QString::fromLatin1(".db")
 #define DATABASE_FILE_ROOT Settings::SettingsData::instance()->imageDirectory()
 
-using namespace KexiDB;
-
 SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
 {
     DatabaseAddress dbAddr;
 
     QString driver(config.readEntry(QString::fromLatin1("dbms"),
                                     DEFAULT_DRIVER));
-    DriverManager dm;
-    Driver::Info driverInfo = dm.driverInfo(driver);
-    if (driverInfo.name.isEmpty())
-        throw DriverNotFoundError(dm.errorMsg());
     dbAddr.setDriverName(driver);
-    dbAddr.setFileBased(driverInfo.fileBased);
+    dbAddr.setFileBased(driver == QLatin1String("QSQLITE") ||
+                        driver == QLatin1String("QSQLITE2"));
 
     // Could be database name for network based DBMSs or filename
     // (relative to image root or absolute) for file based DBMSs
     QString databaseName;
     if (config.hasKey(QString::fromLatin1("database")))
-        databaseName = config.readEntry(QString::fromLatin1("database"));
+        databaseName = config.readEntry(QString::fromLatin1("database"), QString());
 
     // Check if config file has empty database name or no database
     // name at all
@@ -71,14 +65,14 @@ SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
         if (config.hasKey(QString::fromLatin1("host"))) {
             int port = config.readUnsignedNumEntry(QString::fromLatin1("port"), 0);
             dbAddr.setHost
-                (config.readEntry(QString::fromLatin1("host")), port);
+                (config.readEntry(QString::fromLatin1("host"), QString()), port);
         }
         if (config.hasKey(QString::fromLatin1("username")))
             dbAddr.setUserName
-                (config.readEntry(QString::fromLatin1("username")));
+                (config.readEntry(QString::fromLatin1("username"), QString()));
         if (config.hasKey(QString::fromLatin1("password")))
             dbAddr.setPassword
-                (config.readEntry(QString::fromLatin1("password")));
+                (config.readEntry(QString::fromLatin1("password"), QString()));
     }
 
     dbAddr.setDatabaseName(databaseName);

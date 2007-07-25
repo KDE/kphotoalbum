@@ -1,6 +1,6 @@
 /*
   Copyright (C) 2005-2006 Jesper K. Pedersen <blackie@kde.org>
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ SQLDB::SQLTagCategory::SQLTagCategory(QueryHelper* queryHelper,
 
 QString SQLDB::SQLTagCategory::name() const
 {
-    if (!_name)
+    if (_name.isNull())
         _name = _qh->categoryName(_categoryId);
     return _name;
 }
@@ -146,8 +146,8 @@ QMap<QString, uint>
 SQLDB::SQLTagCategory::classify(const DB::ImageSearchInfo& scope,
                                 DB::MediaType typemask) const
 {
-    Q3ValueList<int>* scopePointer;
-    Q3ValueList<int> includedFiles;
+    QList<int>* scopePointer;
+    QList<int> includedFiles;
     if (scope.isNull())
         scopePointer = 0;
     else {

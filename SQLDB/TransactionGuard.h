@@ -21,11 +21,36 @@
 #define SQLDB_TRANSACTIONGUARD_H
 
 #include "Connection.h"
-#include "kexidb/transaction.h"
 
 namespace SQLDB
 {
-    using KexiDB::TransactionGuard;
+    class TransactionGuard
+    {
+    public:
+        explicit TransactionGuard(Connection& connection):
+            _connection(connection)
+        {
+            _connection.transaction();
+        }
+
+        ~TransactionGuard()
+        {
+            rollback();
+        }
+
+        void commit()
+        {
+            _connection.commit();
+        }
+
+        void rollback()
+        {
+            _connection.rollback();
+        }
+
+    private:
+        Connection& _connection;
+    };
 }
 
 #endif /* SQLDB_TRANSACTIONGUARD_H */

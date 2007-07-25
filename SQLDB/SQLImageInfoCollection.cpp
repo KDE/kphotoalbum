@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -54,7 +54,7 @@ SQLImageInfoCollection::getImageInfoOf(const QString& relativeFilename) const
             fileId = _qh.mediaItemId(relativeFilename);
         }
         catch (NotFoundError& e) {
-            return 0;
+            return DB::ImageInfoPtr(0);
         }
         _filenameIdMap.insert(relativeFilename, fileId);
     }
@@ -107,14 +107,16 @@ void SQLImageInfoCollection::clearCache()
 {
     // QMutexLocker locker(&_mutex);
     for (QMap<int, DB::ImageInfoPtr>::iterator i = _infoPointers.begin();
-         i != _infoPointers.end(); ++i) {
+         i != _infoPointers.end();) {
 
         // Check if only _infoPointers has reference to the pointer.
         if ((*i).count() == 1) {
             // Then it's not needed anymore, because new one could be
             // created easily by loading from the SQL database.
-            _infoPointers.remove(i);
+            i = _infoPointers.erase(i);
         }
+        else
+            ++i;
     }
 }
 

@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,8 +25,6 @@
 #include <qvariant.h>
 #include <qpair.h>
 #include <qmap.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 #include <QList>
 
 namespace SQLDB
@@ -36,9 +34,11 @@ namespace SQLDB
     class QueryResult
     {
     public:
-        QueryResult(KexiDB::Cursor* cursor): _cursor(cursor) {}
+        QueryResult(std::auto_ptr<QSqlQuery> query): _cursor(query)
+        {
+        }
 
-        Q3ValueList<int> asIntegerList() const;
+        QList<int> asIntegerList() const;
         QStringList asStringList() const;
         StringStringList asStringStringList() const;
         QVariant firstItem() const;

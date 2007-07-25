@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,8 +25,6 @@
 #include <QLabel>
 
 namespace SQLDB { class DatabaseAddress; }
-namespace KexiDB { class DriverManager; }
-namespace KexiDB { class ConnectionData; }
 class QLabel;
 class QComboBox;
 class Q3WidgetStack;
@@ -75,8 +73,6 @@ namespace SQLDB
         KLineEdit* _usernameLine;
         QLabel* _passwordLabel;
         KPasswordEdit* _passwordLine;
-
-        mutable KexiDB::DriverManager* _driverManager;
 
     protected slots:
         virtual void languageChange();

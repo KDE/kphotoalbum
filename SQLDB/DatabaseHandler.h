@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,8 +22,6 @@
 
 #include "DatabaseAddress.h"
 #include "Connection.h"
-#include <kexidb/driver.h>
-#include <kexidb/connectiondata.h>
 
 namespace SQLDB
 {
@@ -43,12 +41,7 @@ namespace SQLDB
         void insertInitialData();
 
     private:
-        static KexiDB::DriverManager* _driverManager;
-
         QString _databaseName;
-        KexiDB::ConnectionData _connectionData;
-        KexiDB::Driver* _driver;
-        KexiDB::Connection* _connection;
     };
 }
 

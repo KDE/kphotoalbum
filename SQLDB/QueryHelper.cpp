@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 
 #include "QueryHelper.h"
 #include "QueryErrors.h"
-//Added by qt3to4:
-#include <Q3ValueList>
 #include "Viewer/CircleDraw.h"
 #include "Viewer/LineDraw.h"
 #include "Viewer/RectDraw.h"
@@ -30,140 +28,133 @@
 #include "TransactionGuard.h"
 #include <klocale.h>
 #include <qsize.h>
+#include <QList>
+#include <QSqlField>
+#include <QSqlDriver>
+#include <QSqlError>
+#include <memory>
 
 using namespace SQLDB;
 using Utilities::mergeListsUniqly;
 using Utilities::listSubtract;
 
 QueryHelper::QueryHelper(Connection& connection):
-    _connection(&connection),
-    _driver(connection.driver())
+    _database(connection),
+    _driver(_database.driver())
 {
     if (!_driver)
         throw InitializationError();
 }
 
-namespace
+QString QueryHelper::variantListAsSql(const QList<QVariant>& l) const
 {
-    KexiDB::Field::Type fieldTypeFor(QVariant::Type type)
-    {
-        switch (type) {
-        case QVariant::Bool:
-            return KexiDB::Field::Boolean;
-
-        case QVariant::Int:
-        case QVariant::UInt:
-            return KexiDB::Field::Integer;
-
-        case QVariant::LongLong:
-        case QVariant::ULongLong:
-            return KexiDB::Field::BigInteger;
-
-        case QVariant::Double:
-            return KexiDB::Field::Double;
-
-        case QVariant::Date:
-            return KexiDB::Field::Date;
-
-        case QVariant::Time:
-            return KexiDB::Field::Time;
-
-        case QVariant::DateTime:
-            return KexiDB::Field::DateTime;
-
-        case QVariant::String:
-        case QVariant::CString:
-            return KexiDB::Field::Text;
-
-        default:
-            return KexiDB::Field::InvalidType;
-        }
+    QStringList repr;
+    QSqlField f;
+    for (QList<QVariant>::const_iterator i = l.begin();
+         i != l.end(); ++i) {
+        f.setType(i->type());
+        f.setValue(*i);
+        repr << _driver->formatValue(f);
     }
-}
-
-QString QueryHelper::sqlRepresentation(const QVariant& x) const
-{
-    if (x.type() == QVariant::List) {
-        QStringList repr;
-        Q3ValueList<QVariant> l = x.toList();
-        for (Q3ValueList<QVariant>::const_iterator i = l.begin();
-             i != l.end(); ++i) {
-            repr << sqlRepresentation(*i);
-        }
-        if (repr.isEmpty())
-            return "NULL";
-        else
-            return repr.join(", ");
-    }
+    if (repr.isEmpty())
+        return QLatin1String("NULL");
     else
-        // Escape and convert x to string
-        return _driver->valueToSQL(fieldTypeFor(x.type()), x);
+        return repr.join(QLatin1String(","));
 }
 
-void QueryHelper::bindValues(QString &s, const Bindings& b) const
+void QueryHelper::processListParameters(QString& query,
+                                        Bindings& bindings) const
+{
+    int mark = 0;
+    Bindings::iterator i = bindings.begin();
+    while (i != bindings.end()) {
+        mark = query.indexOf('?', mark);
+        if (mark == -1)
+            break;
+
+        if (i->type() == QVariant::List) {
+            QString sql = variantListAsSql(i->toList());
+            query.replace(mark, 1, sql);
+            i = bindings.erase(i);
+            mark += sql.length();
+        }
+        else {
+            ++i;
+            ++mark;
+        }
+    }
+}
+
+void QueryHelper::bindValues(QSqlQuery& query, const Bindings& b) const
 {
     int n = 0;
     for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
-        n = s.find('?', n);
-        if (n == -1)
-            break;
-        QString valAsSql(sqlRepresentation(*i));
-        s = s.replace(n, 1, valAsSql);
-        n += valAsSql.length();
+        query.bindValue(n, *i);
+        ++n;
     }
 }
+
+std::auto_ptr<QSqlQuery>
+QueryHelper::initializeQuery(const QString& statement,
+                             const Bindings& bindings) const
+{
+    QString queryStr(statement);
+    Bindings b(bindings);
+
+    processListParameters(queryStr, b);
+
+    std::auto_ptr<QSqlQuery> query(new QSqlQuery(queryStr, _database));
+    bindValues(*query, b);
+
+    return query;
+}
+
 
 void QueryHelper::executeStatement(const QString& statement,
                                    const Bindings& bindings)
 {
-    QString s = statement;
-    bindValues(s, bindings);
+    std::auto_ptr<QSqlQuery> s(initializeQuery(statement, bindings));
+
+    if (!s->exec())
+        throw s->lastError();
 
     //TODO: remove debug
-    qDebug("Executing statement: %s", s.local8Bit().data());
-
-    if (!_connection->executeSQL(s))
-        throw StatementError(_connection->recentSQLString(),
-                             _connection->errorMsg());
+    qDebug("Executed statement: %s", s->executedQuery().toLocal8Bit().data());
 }
 
 QueryResult QueryHelper::executeQuery(const QString& query,
                                       const Bindings& bindings) const
 {
-    QString q = query;
-    bindValues(q, bindings);
-
-    //TODO: remove debug
-    qDebug("Executing query: %s", q.local8Bit().data());
+    std::auto_ptr<QSqlQuery> q(initializeQuery(query, bindings));
 
 #ifdef DEBUG_QUERY_TIMES
     QTime t;
     t.start();
 #endif
 
-    KexiDB::Cursor* c = _connection->executeQuery(q);
-    if (!c) {
-        throw QueryError(_connection->recentSQLString(),
-                         _connection->errorMsg());
-    }
+    if (!q->exec())
+        throw q->lastError();
 
 #ifdef DEBUG_QUERY_TIMES
     int te = t.elapsed();
     if (te > 100) {
         {
-            queryTimes.push_back(QPair<QString, uint>(q, te));
+            queryTimes.push_back(QPair<QString, uint>(q->executedQuery(), te));
         }
     }
     qDebug("Time elapsed: %d ms", te);
 #endif
 
-    return QueryResult(c);
+    //TODO: remove debug
+    qDebug("Executing query: %s", q->executedQuery().toLocal8Bit().data());
+
+    return QueryResult(q);
 }
 
 qulonglong QueryHelper::insert(const QString& tableName,
-                             const QString& aiFieldName,
-                             const QStringList& fields,
-                             const Bindings& values)
+                               const QString& aiFieldName,
+                               const QStringList& fields,
+                               const Bindings& values)
 {
     Q_ASSERT(fields.count() == values.count());
 
@@ -174,8 +165,17 @@ qulonglong QueryHelper::insert(const QString& tableName,
     for (Bindings::size_type i = values.count(); i > 0; --i)
         l.append("?");
     q = q.arg(l.join(", "));
-    executeStatement(q, values);
-    return _connection->lastInsertedAutoIncValue(aiFieldName, tableName);
+
+
+    std::auto_ptr<QSqlQuery> s(initializeQuery(q, values));
+
+    if (!s->exec())
+        throw s->lastError();
+
+    //TODO: remove debug
+    qDebug("Executed statement: %s", s->executedQuery().toLocal8Bit().data());
+
+    return s->lastInsertId().toULongLong();
 }
 
 namespace
@@ -260,12 +260,12 @@ int QueryHelper::mediaItemId(const QString& filename) const
     return id.toInt();
 }
 
-Q3ValueList< QPair<int, QString> > QueryHelper::mediaItemIdFileMap() const
+QList< QPair<int, QString> > QueryHelper::mediaItemIdFileMap() const
 {
     Cursor c = executeQuery("SELECT media.id, dir.path, media.filename "
                             "FROM media, dir "
                             "WHERE media.dirId=dir.id").cursor();
-    Q3ValueList< QPair<int, QString> > r;
+    QList< QPair<int, QString> > r;
 
     if (c.isNull())
         return r;
@@ -279,7 +279,7 @@ Q3ValueList< QPair<int, QString> > QueryHelper::mediaItemIdFileMap() const
     return r;
 }
 
-Q3ValueList<int>
+QList<int>
 QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
 {
 #if 1
@@ -300,7 +300,7 @@ QueryHelper::mediaItemIdsForFilenames(const QStringList& filenames) const
                                                 ).firstItem().toInt());
         }
     }
-    Q3ValueList<int> idList;
+    QList<int> idList;
     QStringList::const_iterator pathIt = paths.begin();
     QStringList::const_iterator basenameIt = basenames.begin();
     while (pathIt != paths.end()) {
@@ -346,7 +346,7 @@ int QueryHelper::categoryId(const QString& category) const
         return r.toInt();
 }
 
-Q3ValueList<int> QueryHelper::tagIdsOfCategory(const QString& category) const
+QList<int> QueryHelper::tagIdsOfCategory(const QString& category) const
 {
     return executeQuery("SELECT tag.id FROM tag, category "
                         "WHERE tag.categoryId=category.id AND "
@@ -368,7 +368,7 @@ QStringList QueryHelper::folders() const
 }
 
 uint QueryHelper::mediaItemCount(DB::MediaType typemask,
-                                 Q3ValueList<int>* scope) const
+                                 QList<int>* scope) const
 {
     if (!scope) {
         if (typemask == DB::anyMediaType)
@@ -400,7 +400,7 @@ uint QueryHelper::mediaItemCount(DB::MediaType typemask,
     }
 }
 
-Q3ValueList<int> QueryHelper::mediaItemIds(DB::MediaType typemask) const
+QList<int> QueryHelper::mediaItemIds(DB::MediaType typemask) const
 {
     if (typemask == DB::anyMediaType)
         return executeQuery("SELECT id FROM media ORDER BY place"
@@ -460,10 +460,8 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
                             "FROM drawing WHERE mediaId=?",
                             Bindings() << id).cursor();
     for (c.selectFirstRow(); c.rowExists(); c.selectNextRow()) {
-        RowData row;
-        c.getCurrentRow(row);
         Viewer::Draw* drawing;
-        switch (row[0].toInt()) {
+        switch (c.value(0).toInt()) {
         case 0:
             drawing = new Viewer::CircleDraw();
             break;
@@ -476,16 +474,16 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
         default:
             continue;
         }
-        drawing->setCoordinates(QPoint(row[1].toInt(),
-                                       row[2].toInt()),
-                                QPoint(row[3].toInt(),
-                                       row[4].toInt()));
+        drawing->setCoordinates(QPoint(c.value(1).toInt(),
+                                       c.value(2).toInt()),
+                                QPoint(c.value(3).toInt(),
+                                       c.value(4).toInt()));
         drawList << drawing;
     }
     info.setDrawList(drawList);
 
     // TODO: remove debug
-    qDebug("Read info of file %s (id %d)", info.fileName().local8Bit().data(), id);
+    qDebug("Read info of file %s (id %d)", info.fileName().toLocal8Bit().data(), id);
 }
 
 int QueryHelper::insertTag(int categoryId, const QString& name)
@@ -659,7 +657,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
         return;
 
     // TODO: remove debug
-    qDebug("Inserting info of file %s", info.fileName().local8Bit().data());
+    qDebug("Inserting info of file %s", info.fileName().toLocal8Bit().data());
 
     QStringList fields;
     Bindings bindings;
@@ -682,14 +680,14 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
 }
 
 void
-QueryHelper::insertMediaItemsLast(const Q3ValueList<DB::ImageInfoPtr>& items)
+QueryHelper::insertMediaItemsLast(const QList<DB::ImageInfoPtr>& items)
 {
-    TransactionGuard transaction(*_connection);
+    TransactionGuard transaction(_database);
 
     int place =
         executeQuery("SELECT MAX(place) FROM media").firstItem().toInt() + 1;
 
-    for (Q3ValueList<DB::ImageInfoPtr>::const_iterator i = items.constBegin();
+    for (QList<DB::ImageInfoPtr>::const_iterator i = items.constBegin();
          i != items.constEnd(); ++i) {
         insertMediaItem(*(*i), place++);
     }
@@ -700,7 +698,7 @@ QueryHelper::insertMediaItemsLast(const Q3ValueList<DB::ImageInfoPtr>& items)
 void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
 {
     // TODO: remove debug
-    qDebug("Updating info of file %s", info.fileName().local8Bit().data());
+    qDebug("Updating info of file %s", info.fileName().toLocal8Bit().data());
 
     executeStatement("UPDATE media SET dirId=?, filename=?, md5sum=?, "
                      "type=?, label=?, description=?, "
@@ -717,7 +715,7 @@ void QueryHelper::updateMediaItem(int id, const DB::ImageInfo& info)
     insertMediaItemDrawings(id, info);
 }
 
-Q3ValueList<int> QueryHelper::directMembers(int tagId) const
+QList<int> QueryHelper::directMembers(int tagId) const
 {
     return executeQuery("SELECT memberTag FROM membergroup WHERE groupTag=?",
                         Bindings() << tagId).asIntegerList();
@@ -736,19 +734,19 @@ int QueryHelper::tagId(const QString& category, const QString& item) const
         return id.toInt();
 }
 
-Q3ValueList<int> QueryHelper::tagIdList(const QString& category,
+QList<int> QueryHelper::tagIdList(const QString& category,
                                        const QString& item) const
 {
     int rootTagId = tagId(category, item);
-    Q3ValueList<int> visited;
-    Q3ValueList<int> queue;
+    QList<int> visited;
+    QList<int> queue;
     visited << rootTagId;
     queue << rootTagId;
     while (!queue.empty()) {
-        Q3ValueList<int> adj = directMembers(queue.first());
+        QList<int> adj = directMembers(queue.first());
         queue.pop_front();
-        Q3ValueListConstIterator<int> adjEnd(adj.constEnd());
-        for (Q3ValueList<int>::const_iterator a = adj.constBegin();
+        QList<int>::const_iterator adjEnd(adj.constEnd());
+        for (QList<int>::const_iterator a = adj.constBegin();
              a != adjEnd; ++a) {
             if (!visited.contains(*a)) { // FIXME: Slow to find
                 queue << *a;
@@ -778,7 +776,7 @@ void QueryHelper::addBlockItem(const QString& filename)
     int dirId = insertDir(path);
     if (executeQuery("SELECT COUNT(*) FROM blockitem "
                      "WHERE dirId=? AND filename=?", Bindings() <<
-                     dirId << basename).firstItem().asUInt() == 0)
+                     dirId << basename).firstItem().toUInt() == 0)
         executeStatement("INSERT INTO blockitem (dirId, filename) "
                          "VALUES (?, ?)", Bindings() << dirId << basename);
 }
@@ -818,7 +816,7 @@ void QueryHelper::insertCategory(const QString& name,
     executeStatement("INSERT INTO category (name, icon, visible, "
                      "viewtype, thumbsize) VALUES (?, ?, ?, ?, ?)",
                      Bindings() << name << icon <<
-                     QVariant(visible, 0 /* dummy, to make it bool */) <<
+                     QVariant(visible) <<
                      type << thumbnailSize);
 }
 
@@ -883,7 +881,7 @@ void QueryHelper::changeCategoryIcon(int id, const QString& icon)
 void QueryHelper::changeCategoryVisible(int id, bool visible)
 {
     executeStatement("UPDATE category SET visible=? WHERE id=?",
-                     Bindings() << QVariant(visible, 0) << id);
+                     Bindings() << QVariant(visible) << id);
 }
 
 void QueryHelper::changeCategoryViewType(int id, DB::Category::ViewType type)
@@ -976,7 +974,7 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
     if (filenames.isEmpty())
         return;
 
-    Q3ValueList<int> srcIds;
+    QList<int> srcIds;
     for (QStringList::const_iterator i = filenames.constBegin();
          i != filenames.constEnd(); ++i) {
         srcIds << mediaItemId(*i);
@@ -991,13 +989,13 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
 
     // Move media items which are between srcIds just before first
     // item in srcIds list.
-    Q3ValueList<int> betweenList =
+    QList<int> betweenList =
         executeQuery("SELECT id FROM media "
                      "WHERE ? <= place AND place <= ? AND id NOT IN (?)",
                      Bindings() << srcMin << srcMax << toVariantList(srcIds)
                      ).asIntegerList();
     int n = srcMin;
-    for (Q3ValueList<int>::const_iterator i = betweenList.begin();
+    for (QList<int>::const_iterator i = betweenList.begin();
          i != betweenList.end(); ++i) {
         executeStatement("UPDATE media SET place=? WHERE id=?",
                          Bindings() << n << *i);
@@ -1006,7 +1004,7 @@ void QueryHelper::moveMediaItems(const QStringList& filenames,
 
     // Make items in srcIds continuous, so places of items are
     // N, N+1, N+2, ..., N+n.
-    for (Q3ValueList<int>::const_iterator i = srcIds.begin();
+    for (QList<int>::const_iterator i = srcIds.begin();
          i != srcIds.end(); ++i) {
         executeStatement("UPDATE media SET place=? WHERE id=?",
                          Bindings() << n << *i);
@@ -1050,12 +1048,12 @@ void QueryHelper::makeMediaPlacesContinuous()
 
 void QueryHelper::sortMediaItems(const QStringList& filenames)
 {
-    TransactionGuard transaction(*_connection);
+    TransactionGuard transaction(_database);
 
-    Q3ValueList<int> idList = mediaItemIdsForFilenames(filenames);
+    QList<int> idList = mediaItemIdsForFilenames(filenames);
 
 #if 0
-    Q3ValueList<QVariant> x = toVariantList(idList);
+    QList<QVariant> x = toVariantList(idList);
 
     executeStatement("UPDATE media, "
                      "(SELECT a.place AS place, COUNT(*) AS n "
@@ -1078,12 +1076,12 @@ void QueryHelper::sortMediaItems(const QStringList& filenames)
     idList =
         executeQuery("SELECT id FROM sorttmp "
                      "ORDER BY startTime").asIntegerList();
-    Q3ValueList<int> placeList =
+    QList<int> placeList =
         executeQuery("SELECT place FROM sorttmp "
                      "ORDER BY place").asIntegerList();
 
-    Q3ValueList<int>::const_iterator idIt = idList.begin();
-    Q3ValueList<int>::const_iterator placeIt = placeList.begin();
+    QList<int>::const_iterator idIt = idList.begin();
+    QList<int>::const_iterator placeIt = placeList.begin();
     for (; idIt != idList.end(); ++idIt, ++placeIt) {
         executeStatement("UPDATE sorttmp SET place=? WHERE id=?",
                          Bindings() << *placeIt << *idIt);
@@ -1108,7 +1106,7 @@ QString QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
 QString
 QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
                                       bool includeRanges,
-                                      const Q3ValueList<int>& idList) const
+                                      const QList<int>& idList) const
 {
     return findFirstFileInTimeRange(range, includeRanges, &idList);
 }
@@ -1116,7 +1114,7 @@ QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
 QString
 QueryHelper::findFirstFileInTimeRange(const DB::ImageDate& range,
                                       bool includeRanges,
-                                      const Q3ValueList<int>* idList) const
+                                      const QList<int>* idList) const
 {
     QString query =
         "SELECT dir.path, media.filename FROM media, dir "
@@ -1170,17 +1168,21 @@ namespace
     }
 }
 
-Q3ValueList<int>
+QList<int>
 QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search,
                               DB::MediaType typemask) const
 {
-    MatcherListList dnf = search.query();
+    MatcherListList dnf /*
+                          --------------------------------------
+                          TEMPORARILY DISABLED
+                           = search.query()
+                        */;
     // dnf is in Disjunctive Normal Form ( OR(AND(a,b),AND(c,d)) )
 
     if (dnf.isEmpty())
         return mediaItemIds(typemask);
 
-    Q3ValueList<int> r;
+    QList<int> r;
     for (MatcherListList::const_iterator i = dnf.begin();
          i != dnf.end(); ++i) {
          r = mergeListsUniqly(r, getMatchingFiles(*i, typemask));
@@ -1189,7 +1191,7 @@ QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search,
     return r;
 }
 
-Q3ValueList<int>
+QList<int>
 QueryHelper::getMatchingFiles(MatcherList matches,
                               DB::MediaType typemask) const
 {
@@ -1208,7 +1210,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
 
     // Positive part of the query
     QStringList positiveQuery;
-    QMap<QString, Q3ValueList<int> > matchedTags;
+    QMap<QString, QList<int> > matchedTags;
     QStringList matchedFolders;
     Bindings binds;
     for (MatcherList::const_iterator i = positiveList.begin();
@@ -1224,7 +1226,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
         else {
             positiveQuery <<
                 "id IN (SELECT mediaId FROM media_tag WHERE tagId IN (?))";
-            Q3ValueList<int> tagIds = tagIdList(m->_category, m->_option);
+            QList<int> tagIds = tagIdList(m->_category, m->_option);
             binds << toVariantList(tagIds);
             matchedTags[m->_category] += tagIds;
         }
@@ -1269,7 +1271,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
                 }
             }
             else {
-                Q3ValueList<int> excludedTags;
+                QList<int> excludedTags;
                 if (!matchedTags[(*i)->_category].isEmpty()) {
                     excludedTags = matchedTags[(*i)->_category];
                 } else {
@@ -1299,12 +1301,12 @@ QueryHelper::getMatchingFiles(MatcherList matches,
 
     query += " ORDER BY place";
 
-    Q3ValueList<int> positive = executeQuery(query, binds).asIntegerList();
+    QList<int> positive = executeQuery(query, binds).asIntegerList();
 
     if (excludeQuery.isEmpty())
         return positive;
 
-    Q3ValueList<int> negative =
+    QList<int> negative =
         executeQuery(select + " WHERE " + excludeQuery.join(" OR "),
                      excBinds).asIntegerList();
 
@@ -1319,7 +1321,7 @@ QueryHelper::getMatchingFiles(MatcherList matches,
 QMap<QString, uint>
 QueryHelper::classify(const QString& category,
                       DB::MediaType typemask,
-                      Q3ValueList<int>* scope) const
+                      QList<int>* scope) const
 {
     QMap<QString, uint> result;
     DB::GroupCounter counter( category );
@@ -1333,7 +1335,7 @@ QueryHelper::classify(const QString& category,
              i = wholeItemMap.begin(); i != wholeItemMap.end(); ++i) {
         int fileId = i.key();
         if (!scope || scope->contains(fileId))
-            itemMap[fileId] = i.data().toList();
+            itemMap[fileId] = i.value().toList();
     }
 
     // Count images that doesn't contain an item
@@ -1343,7 +1345,7 @@ QueryHelper::classify(const QString& category,
         result[DB::ImageDB::NONE()] = scope->count() - itemMap.count();
 
     for( QMap<int,QStringList>::Iterator mapIt = itemMap.begin(); mapIt != itemMap.end(); ++mapIt ) {
-        QStringList list = mapIt.data();
+        QStringList list = mapIt.value();
         for( QStringList::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
             //if ( !alreadyMatched[ *listIt ] ) // We do not want to match "Jesper & Jesper"
                 result[ *listIt ]++;
@@ -1351,9 +1353,10 @@ QueryHelper::classify(const QString& category,
         counter.count( list );
     }
 
-    QMap<QString,uint> groups = counter.result();
-    for( QMapIterator<QString,uint> it= groups.begin(); it != groups.end(); ++it ) {
-        result[it.key()] = it.data();
+    const QMap<QString, uint> groups = counter.result();
+    for (QMap<QString, uint>::const_iterator it = groups.begin();
+         it != groups.end(); ++it) {
+        result[it.key()] = it.value();
     }
     return result;
 }

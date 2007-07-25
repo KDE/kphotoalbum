@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -19,43 +19,62 @@
 
 #include "QueryResult.h"
 #include "QueryErrors.h"
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 using namespace SQLDB;
 
-Q3ValueList<int> QueryResult::asIntegerList() const
+#define DEFINE_CONVERT_SPECIALIZATION(T, CONVERT_METHOD) \
+template <> \
+inline static T variantTo<T>(const QVariant& qv) \
+{ return qv.CONVERT_METHOD(); }
+
+namespace
 {
-    Q3ValueList<int> r;
-    if (_cursor) {
-        for (_cursor.selectFirstRow();
-             _cursor.rowExists(); _cursor.selectNextRow())
-            r.append(_cursor.value(0).toInt());
+    template <class T>
+    inline static T variantTo(const QVariant&);
+
+    template <>
+    inline static QVariant variantTo<QVariant>(const QVariant& qv)
+    { return qv; }
+    DEFINE_CONVERT_SPECIALIZATION(QString, toString)
+    DEFINE_CONVERT_SPECIALIZATION(int, toInt)
+    DEFINE_CONVERT_SPECIALIZATION(uint, toUInt)
+
+    template <class T>
+    inline QList<T> readCursor(SQLDB::Cursor& c)
+    {
+        QList<T> r;
+        if (c)
+            for (c.selectFirstRow(); c.rowExists(); c.selectNextRow())
+                r.append(variantTo<T>(c.value(0)));
+        return r;
     }
-    return r;
+
+    template <class T1, class T2>
+    inline QList< QPair<T1, T2> > readCursor2(SQLDB::Cursor& c)
+    {
+        QList< QPair<T1, T2> > r;
+        if (c)
+            for (c.selectFirstRow(); c.rowExists(); c.selectNextRow())
+                r.append(QPair<T1, T2>(variantTo<T1>(c.value(0)),
+                                       variantTo<T2>(c.value(1))));
+        return r;
+    }
+}
+
+QList<int> QueryResult::asIntegerList() const
+{
+    return readCursor<int>(_cursor);
 }
 
 QStringList QueryResult::asStringList() const
 {
-    QStringList r;
-    if (_cursor) {
-        for (_cursor.selectFirstRow();
-             _cursor.rowExists(); _cursor.selectNextRow())
-            r.append(_cursor.value(0).toString());
-    }
-    return r;
+    return readCursor<QString>(_cursor);
 }
 
 StringStringList QueryResult::asStringStringList() const
 {
-    StringStringList r;
-    if (_cursor) {
-        for (_cursor.selectFirstRow();
-             _cursor.rowExists(); _cursor.selectNextRow())
-            r.append(QPair<QString, QString>(_cursor.value(0).toString(),
-                                             _cursor.value(1).toString()));
-    }
-    return r;
+    return readCursor2<QString, QString>(_cursor);
 }
 
 QVariant QueryResult::firstItem() const

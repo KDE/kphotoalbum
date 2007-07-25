@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -20,75 +20,83 @@
 #ifndef SQLDB_CURSOR_H
 #define SQLDB_CURSOR_H
 
-#include <kexidb/cursor.h>
+#include <QSqlQuery>
+#include <QVector>
+#include <QVariant>
+#include <memory>
 
 namespace SQLDB
 {
-    using KexiDB::RowData;
+    typedef QVector<QVariant> RowData;
 
     class Cursor
     {
     public:
-        Cursor(KexiDB::Cursor* cursor): _cursor(cursor), _copies(0) {}
+        Cursor(std::auto_ptr<QSqlQuery> query):
+            _q(query)
+        {
+            Q_ASSERT(_q.get());
+        }
 
         Cursor(const Cursor& other):
-            _cursor(other._cursor),
-            _copies(other._copies)
+            _q(new QSqlQuery(*(other._q)))
         {
-            if (!_copies) {
-                _copies = new uint(1);
-                other._copies = _copies;
-            }
-            ++*_copies;
         }
 
         Cursor& operator=(const Cursor& other)
         {
-            if (&other != this) {
-                this->~Cursor();
-                _cursor = other._cursor;
-                if (!other._copies)
-                    _copies = other._copies = new uint(1);
-                else
-                    _copies = other._copies;
-                ++*_copies;
-            }
+            _q.reset(new QSqlQuery(*(other._q)));
             return *this;
         }
 
-        ~Cursor()
+        bool isNull() const
         {
-            if (_copies) {
-                --*_copies;
-                if (*_copies == 0) {
-                    delete _copies;
-                    _copies = 0;
-                }
-            }
-            if (_cursor && !_copies)
-                _cursor->connection()->deleteCursor(_cursor);
+            return !(_q->isActive() && _q->isSelect());
         }
 
-        bool isNull() const { return !_cursor; }
-        operator bool() const { return _cursor; }
+        operator bool() const
+        {
+            return !isNull();
+        }
 
         // Do not call these if isNull()
-        void selectFirstRow() { _cursor->moveFirst(); }
-        bool selectNextRow() { return _cursor->moveNext(); }
-        bool rowExists() const { return !_cursor->eof(); }
-        void getCurrentRow(RowData& data) { _cursor->storeCurrentRow(data); }
+        void selectFirstRow()
+        {
+            _q->first();
+        }
+
+        bool selectNextRow()
+        {
+            return _q->next();
+        }
+
+        bool rowExists() const
+        {
+            return _q->isValid();
+        }
+
         RowData getCurrentRow()
         {
-            RowData data(_cursor->fieldCount());
-            _cursor->storeCurrentRow(data);
+            int fields = fieldCount();
+            RowData data(fields);
+            for (int i = 0; i < fields; ++i) {
+                data[i] = _q->value(i);
+            }
             return data;
         }
-        QVariant value(uint i) { return _cursor->value(i); }
-        uint fieldCount() const { return _cursor->fieldCount(); }
+
+        QVariant value(int i)
+        {
+            return _q->value(i);
+        }
+
+        int fieldCount() const
+        {
+            return _q->record().count();
+        }
 
     private:
-        KexiDB::Cursor* _cursor;
-        mutable uint* _copies;
+        std::auto_ptr<QSqlQuery> _q;
     };
 }
 

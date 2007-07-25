@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ namespace SQLDB
     {
     public:
         Error(const QString& message=QString::null): _message(message) {}
+        virtual ~Error() {}
         const QString& message() const { return _message; }
         virtual QString name() const { return QString::fromLatin1("Error"); }
 

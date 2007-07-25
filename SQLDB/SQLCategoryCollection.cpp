@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
             categoryId = _qh.categoryId(name);
         }
         catch (NotFoundError&) {
-            return 0;
+            return DB::CategoryPtr(0);
         }
         if (name == "Tokens") {
             p = new SQLTokensCategory(const_cast<QueryHelper*>(&_qh), categoryId);
@@ -56,10 +56,10 @@ DB::CategoryPtr SQLDB::SQLCategoryCollection::categoryForName( const QString& na
         }
     }
 
-    connect(p, SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()));
-    connect(p, SIGNAL(itemRemoved(const QString&)),
+    connect(p.data(), SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()));
+    connect(p.data(), SIGNAL(itemRemoved(const QString&)),
             this, SLOT(itemRemoved(const QString&)));
-    connect(p, SIGNAL(itemRenamed(const QString&, const QString&)),
+    connect(p.data(), SIGNAL(itemRenamed(const QString&, const QString&)),
             this, SLOT(itemRenamed(const QString&, const QString&)));
 
     return p;

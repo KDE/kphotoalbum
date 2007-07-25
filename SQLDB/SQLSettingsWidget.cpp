@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -39,14 +39,11 @@
 #include <kpushbutton.h>
 #include <kfiledialog.h>
 #include <klocale.h>
-#include <kexidb/drivermanager.h>
-#include <kexidb/connectiondata.h>
 
 using namespace SQLDB;
 
 SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFlags fl):
     QWidget(parent, name, fl),
-    _driverManager(new KexiDB::DriverManager),
     _lastErrorType(NoDrivers)
 {
     Q3BoxLayout* topLayout = new Q3VBoxLayout(this, 0, 6);
@@ -116,7 +113,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
     Q3HBoxLayout* portLayout = new Q3HBoxLayout(stackPage2Layout);
     _portSpin = new QSpinBox(stackPage);
     _portSpin->setMaxValue(65535);
-    portLayout->addWidget(_portSpin, 1, 1);
+    portLayout->addWidget(_portSpin, 1, Qt::AlignLeft);
     spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,
                              QSizePolicy::Minimum);
     portLayout->addItem(spacer);
@@ -131,11 +128,12 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
     _usernameLine = new KLineEdit(stackPage);
     stackPage2Layout->addWidget(_usernameLine, 3, 1);
 
+/* TEMPORARILY DISABLED
     _passwordLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_passwordLabel, 4, 0);
     _passwordLine = new KPasswordEdit(stackPage);
     stackPage2Layout->addWidget(_passwordLine, 4, 1);
-
+*/
     _widgetStack->addWidget(stackPage, ServerSettingsPage);
 
 
@@ -157,22 +155,26 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
             this, SLOT(showOptionsOfSelectedDriver()));
     connect(_driverCombo, SIGNAL(activated(const QString&)),
             this, SIGNAL(driverSelectionChanged(const QString&)));
+/* TEMPORARILY DISABLED
     connect(_passwordLine, SIGNAL(textChanged(const QString&)),
             this, SIGNAL(passwordChanged(const QString&)));
-}
-
-SQLSettingsWidget::~SQLSettingsWidget()
-{
-    delete _driverManager;
+*/
 }
 
 QStringList SQLSettingsWidget::SQLSettingsWidget::availableDrivers() const
 {
+    return QStringList() <<
+        QLatin1String("QMYSQL") <<
+        QLatin1String("QPSQL") <<
+        QLatin1String("QSQLITE");
+/* TEMPORARILY DISABLED
     return _driverManager->driverNames();
+*/
 }
 
 bool SQLSettingsWidget::hasSettings() const
 {
+/* TEMPORARILY DISABLED
     KexiDB::Driver::Info driverInfo =
         _driverManager->driverInfo(_driverCombo->currentText());
     if (driverInfo.name.isEmpty())
@@ -181,30 +183,30 @@ bool SQLSettingsWidget::hasSettings() const
         return !_fileLine->url().isEmpty();
     else
         return !_dbNameLabel->text().isEmpty();
+*/
+    return false;
 }
 
 DatabaseAddress SQLSettingsWidget::getSettings() const
 {
     DatabaseAddress dbAddr;
-    KexiDB::ConnectionData connectionData;
     QString databaseName;
 
-    KexiDB::Driver::Info driverInfo =
-        _driverManager->driverInfo(_driverCombo->currentText());
-    if (driverInfo.name.isEmpty())
-        return DatabaseAddress();
-
-    dbAddr.setDriverName(_driverCombo->currentText());
-    dbAddr.setFileBased(driverInfo.fileBased);
+    QString driver =_driverCombo->currentText();
+    dbAddr.setDriverName(driver);
+    dbAddr.setFileBased(driver == QLatin1String("QSQLITE") ||
+                        driver == QLatin1String("QSQLITE2"));
 
     if (dbAddr.isFileBased()) {
-        dbAddr.setDatabaseName(_fileLine->url());
+        dbAddr.setDatabaseName(_fileLine->url().path());
     }
     else {
         dbAddr.setHost(_hostLine->text(), _portSpin->value());
         dbAddr.setDatabaseName(_dbNameLine->text());
         dbAddr.setUserName(_usernameLine->text());
+/* TEMPORARILY DISABLED
         dbAddr.setPassword(QString::fromLocal8Bit(_passwordLine->password()));
+*/
     }
 
     return dbAddr;
@@ -221,12 +223,14 @@ void SQLSettingsWidget::setSettings(const DatabaseAddress& address)
     else
         databaseName = address.databaseName();
 
-    _fileLine->setURL(fileName);
+    _fileLine->setUrl(fileName);
     _hostLine->setText(address.hostName());
     _portSpin->setValue(address.port());
     _dbNameLine->setText(databaseName);
     _usernameLine->setText(address.userName());
+/* TEMPORARILY DISABLED
     _passwordLine->setText(address.password());
+*/
 }
 
 void SQLSettingsWidget::reloadDriverList()
@@ -268,7 +272,9 @@ void SQLSettingsWidget::languageChange()
     _portSpin->setSpecialValueText(i18n("Default"));
     _dbNameLabel->setText(i18n("Database name:"));
     _usernameLabel->setText(i18n("Username:"));
+/* TEMPORARILY DISABLED
     _passwordLabel->setText(i18n("Password:"));
+*/
 }
 
 void SQLSettingsWidget::showOptionsOfSelectedDriver()
@@ -279,6 +285,7 @@ void SQLSettingsWidget::showOptionsOfSelectedDriver()
         return;
     }
 
+/* TEMPORARILY DISABLED
     KexiDB::Driver::Info driverInfo =
         _driverManager->driverInfo(_driverCombo->currentText());
 
@@ -292,6 +299,7 @@ void SQLSettingsWidget::showOptionsOfSelectedDriver()
         _widgetStack->raiseWidget(FileSettingsPage);
     else
         _widgetStack->raiseWidget(ServerSettingsPage);
+*/
 }
 
 void SQLSettingsWidget::setError(ErrorType errorType)

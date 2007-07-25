@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,11 +22,9 @@
 
 #include <qstringlist.h>
 #include <qpair.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include "Connection.h"
-#include <kexidb/driver.h>
-#include <kexidb/cursor.h>
+#include <QSqlDatabase>
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
@@ -41,8 +39,8 @@ namespace DB {
 namespace SQLDB
 {
 
-typedef Q3ValueList<DB::OptionSimpleMatcher*> MatcherList;
-typedef Q3ValueList<MatcherList> MatcherListList;
+typedef QList<DB::OptionSimpleMatcher*> MatcherList;
+typedef QList<MatcherList> MatcherListList;
 
 
 /** Copy some list to QValueList of QVariants.
@@ -54,9 +52,9 @@ typedef Q3ValueList<MatcherList> MatcherListList;
  * @return list which contains elements of l in same order, but as QVariants
  */
 template <class T>
-Q3ValueList<QVariant> toVariantList(const T& l)
+QList<QVariant> toVariantList(const T& l)
 {
-    Q3ValueList<QVariant> r;
+    QList<QVariant> r;
     for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
         r << *i;
     return r;
@@ -65,7 +63,7 @@ Q3ValueList<QVariant> toVariantList(const T& l)
 class QueryHelper
 {
 public:
-    typedef Q3ValueList<QVariant> Bindings;
+    typedef QList<QVariant> Bindings;
 
     explicit QueryHelper(Connection& connection);
 
@@ -75,24 +73,24 @@ public:
                              const Bindings& bindings=Bindings()) const;
 
     uint mediaItemCount(DB::MediaType typemask=DB::anyMediaType,
-                        Q3ValueList<int>* scope=0) const;
-    Q3ValueList<int> mediaItemIds(DB::MediaType typemask) const;
+                        QList<int>* scope=0) const;
+    QList<int> mediaItemIds(DB::MediaType typemask) const;
     QStringList filenames() const;
 
     int mediaItemId(const QString& filename) const;
-    Q3ValueList< QPair<int, QString> > mediaItemIdFileMap() const;
+    QList< QPair<int, QString> > mediaItemIdFileMap() const;
     QString mediaItemFilename(int id) const;
 
     QStringList categoryNames() const;
 
     int categoryId(const QString& category) const;
 
-    Q3ValueList<int> tagIdsOfCategory(const QString& category) const;
+    QList<int> tagIdsOfCategory(const QString& category) const;
     QStringList tagNamesOfCategory(int categoryId) const;
 
     QStringList folders() const;
 
-    Q3ValueList<int> tagIdList(const QString& category,
+    QList<int> tagIdList(const QString& category,
                               const QString& item) const;
 
     StringStringList
@@ -102,7 +100,7 @@ public:
     mediaIdTagsMap(const QString& category, DB::MediaType typemask) const;
 
     void getMediaItem(int id, DB::ImageInfo& info) const;
-    void insertMediaItemsLast(const Q3ValueList<DB::ImageInfoPtr>& items);
+    void insertMediaItemsLast(const QList<DB::ImageInfoPtr>& items);
     void updateMediaItem(int id, const DB::ImageInfo& info);
     void removeMediaItem(const QString& filename);
 
@@ -133,7 +131,7 @@ public:
     void moveMediaItems(const QStringList& filenames,
                         const QString& destinationFilename, bool after);
 
-    Q3ValueList<int>
+    QList<int>
     searchMediaItems(const DB::ImageSearchInfo& search,
                      DB::MediaType typemask=DB::anyMediaType) const;
 
@@ -141,44 +139,47 @@ public:
                                      bool includeRanges) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const Q3ValueList<int>& idList) const;
+                                     const QList<int>& idList) const;
     QMap<QString, uint> classify(const QString& category,
                                  DB::MediaType typemask=DB::anyMediaType,
-                                 Q3ValueList<int>* scope=0) const;
+                                 QList<int>* scope=0) const;
 
 #ifdef DEBUG_QUERY_TIMES
-    mutable Q3ValueList<QPair<QString, uint> > queryTimes;
+    mutable QList<QPair<QString, uint> > queryTimes;
 #endif
 
 protected:
-    QString sqlRepresentation(const QVariant& x) const;
-    void bindValues(QString &s, const Bindings& b) const;
+    QString variantListAsSql(const QList<QVariant>& l) const;
+    void processListParameters(QString& query, Bindings& bindings) const;
+    void bindValues(QSqlQuery& s, const Bindings& b) const;
+    std::auto_ptr<QSqlQuery>
+    initializeQuery(const QString& statement, const Bindings& bindings) const;
     qulonglong insert(const QString& tableName, const QString& aiFieldName,
-                    const QStringList& fields, const Bindings& values);
+                      const QStringList& fields, const Bindings& values);
 
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
-    Q3ValueList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
+    QList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
     int insertTag(int categoryId, const QString& name);
     int insertDir(const QString& dirname);
     void insertMediaItem(const DB::ImageInfo& info, int place=0);
     void insertMediaTag(int mediaId, int tagId);
     void insertMediaItemTags(int mediaId, const DB::ImageInfo& info);
     void insertMediaItemDrawings(int mediaId, const DB::ImageInfo& info);
-    Q3ValueList<int> directMembers(int tagId) const;
+    QList<int> directMembers(int tagId) const;
     void addBlockItem(const QString& filename);
     int mediaPlaceByFilename(const QString& filename) const;
     void makeMediaPlacesContinuous();
-    Q3ValueList<int>
+    QList<int>
     getMatchingFiles(MatcherList matches,
                      DB::MediaType typemask=DB::anyMediaType) const;
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
-                                     const Q3ValueList<int>* idList) const;
+                                     const QList<int>* idList) const;
 
 private:
-    Connection* _connection;
-    KexiDB::Driver* _driver;
+    QSqlDatabase& _database;
+    QSqlDriver* _driver;
 
     // Copying is not allowed
     QueryHelper(const QueryHelper&);

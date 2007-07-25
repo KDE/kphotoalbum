@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -27,8 +27,7 @@
 #include "DB/MediaCount.h"
 #include "DatabaseHandler.h"
 #include "QueryErrors.h"
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 namespace
 {
@@ -88,8 +87,8 @@ uint SQLDB::Database::totalCount(DB::MediaType typemask) const
 
 DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 {
-    Q3ValueList<int> mediaIds;
-    Q3ValueList<int>* scope = 0;
+    QList<int> mediaIds;
+    QList<int>* scope = 0;
     bool all = (searchInfo.query().count() == 0);
     if (!all) {
         mediaIds = _qh.searchMediaItems(searchInfo);
@@ -102,10 +101,10 @@ DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 
 QStringList SQLDB::Database::search( const DB::ImageSearchInfo& info, bool requireOnDisk ) const
 {
-    Q3ValueList<int> matches = _qh.searchMediaItems(info);
+    QList<int> matches = _qh.searchMediaItems(info);
     QStringList result;
     QString imageRoot = Settings::SettingsData::instance()->imageDirectory();
-    for( Q3ValueList<int>::Iterator it = matches.begin(); it != matches.end(); ++it ) {
+    for(QList<int>::Iterator it = matches.begin(); it != matches.end(); ++it) {
         QString fullPath = imageRoot + _infoCollection.filenameForId(*it);
         if (requireOnDisk && !DB::ImageInfo::imageOnDisk(fullPath))
             continue;
@@ -212,7 +211,7 @@ void SQLDB::Database::save(const QString& /*fileName*/, bool isAutoSave)
 
     QStringList timeQueryList;
 
-    for (Q3ValueList< QPair<QString, uint> >::const_iterator i =
+    for (QList< QPair<QString, uint> >::const_iterator i =
              _qh.queryTimes.begin(); i != _qh.queryTimes.end(); ++i) {
         timeQueryList <<
             QString::number((*i).second).rightJustified(8) +
@@ -248,8 +247,11 @@ DB::CategoryCollection* SQLDB::Database::categoryCollection()
 
 KSharedPtr<DB::ImageDateCollection> SQLDB::Database::rangeCollection()
 {
-    return new SQLImageDateCollection(_qh
-                                      /*, search(Browser::instance()->currentContext(), false)*/);
+    return KSharedPtr<DB::ImageDateCollection>
+        (static_cast<DB::ImageDateCollection*>
+         (new SQLImageDateCollection(_qh
+                                     /*, search(Browser::instance()->currentContext(), false)*/
+                                     )));
 }
 
 void SQLDB::Database::reorder(const QString& item,
@@ -267,21 +269,15 @@ void SQLDB::Database::sortAndMergeBackIn(const QStringList& fileList)
 QString
 SQLDB::Database::findFirstItemInRange(const DB::ImageDate& range,
                                       bool includeRanges,
-                                      const Q3ValueVector<QString>& images) const
+                                      const QVector<QString>& images) const
 {
-    if (images.count() == totalCount()) {
-        return Settings::SettingsData::instance()->imageDirectory() +
-            _qh.findFirstFileInTimeRange(range, includeRanges);
+    QList<int> idList;
+    for (QVector<QString>::const_iterator i = images.begin();
+         i != images.end(); ++i) {
+        idList << _qh.mediaItemId(Utilities::stripImageDirectory(*i));
     }
-    else {
-        Q3ValueList<int> idList;
-        for (Q3ValueVector<QString>::const_iterator i = images.begin();
-             i != images.end(); ++i) {
-            idList << _qh.mediaItemId(Utilities::stripImageDirectory(*i));
-        }
-        return Settings::SettingsData::instance()->imageDirectory() +
-            _qh.findFirstFileInTimeRange(range, includeRanges, idList);
-    }
+    return Settings::SettingsData::instance()->imageDirectory() +
+        _qh.findFirstFileInTimeRange(range, includeRanges, idList);
 }
 
 

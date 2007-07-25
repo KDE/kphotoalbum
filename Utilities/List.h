@@ -1,7 +1,5 @@
-//Added by qt3to4:
-#include <QList>
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,6 +19,8 @@
 
 #ifndef UTILITIES_LIST_H
 #define UTILITIES_LIST_H
+
+#include <QList>
 
 namespace Utilities
 {
@@ -59,7 +59,7 @@ QList<T> listSubtract(const QList<T>& l1,
     QList<T> r = l1;
     for (typename QList<T>::const_iterator i = l2.begin();
          i != l2.end(); ++i) {
-        r.remove(*i);
+        r.removeAll(*i);
     }
     return r;
 }

@@ -30,6 +30,8 @@ class RectDraw :public Draw
 public:
     RectDraw() {}
     RectDraw( QDomElement elm );
+    virtual ~RectDraw() {}
+
     void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints();
     virtual Draw* clone();

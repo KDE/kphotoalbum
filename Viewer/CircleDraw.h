@@ -30,6 +30,8 @@ class CircleDraw :public Draw
 public:
     CircleDraw() {}
     CircleDraw( QDomElement elm );
+    virtual ~CircleDraw() {}
+
     void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints();
     virtual Draw* clone();

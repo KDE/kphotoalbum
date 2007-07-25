@@ -35,6 +35,8 @@ namespace Viewer
 class Draw
 {
 public:
+    virtual ~Draw() {}
+
     void startDraw( QMouseEvent* );
     virtual void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints() = 0;

@@ -31,6 +31,8 @@ class LineDraw :public Draw
 public:
     LineDraw(){}
     LineDraw( QDomElement elm );
+    virtual ~LineDraw() {}
+
     void draw( QPainter*, QMouseEvent* );
     virtual PointList anchorPoints();
     virtual Draw* clone();

@@ -116,7 +116,7 @@
 #include <KToggleAction>
 #include <KActionMenu>
 #include <KActionCollection>
-#include <Q3HBox>
+#include <KHBox>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -196,7 +196,7 @@ MainWindow::Window::Window( QWidget* parent )
     f.setBold( true );
     statusBar()->setFont( f );
 
-    Q3HBox* indicators = new Q3HBox( statusBar(), "indicator" );
+    KHBox* indicators = new KHBox( statusBar());
     _dirtyIndicator = new DirtyIndicator( indicators );
 
     _lockedIndicator = new QLabel( indicators );

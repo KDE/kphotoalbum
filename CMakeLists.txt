@@ -20,7 +20,6 @@ macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
 
 macro_optional_find_package(JPEG)
 
-include(ConvenienceLibs.cmake)
 
 set(SQLDB_SUPPORT FALSE)
 

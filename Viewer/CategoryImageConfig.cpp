@@ -80,7 +80,7 @@ CategoryImageConfig::CategoryImageConfig()
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotSet() ) );
 
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -109,7 +109,7 @@ void CategoryImageConfig::groupChanged()
 
     memberChanged();
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -139,7 +139,7 @@ void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageI
     _info = info;
     groupChanged();
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 

@@ -181,7 +181,7 @@ QString ImageSearchInfo::toString() const
 void ImageSearchInfo::debug()
 {
     for( QMap<QString,QString>::Iterator it= _options.begin(); it != _options.end(); ++it ) {
-        kDebug() << it.key() << ", " << it.data() << endl;
+        kDebug() << it.key() << ", " << it.data();
     }
 }
 

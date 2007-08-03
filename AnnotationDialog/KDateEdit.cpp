@@ -188,7 +188,7 @@ void AnnotationDialog::KDateEdit::showPopup()
         QApplication::postEvent(lb, keyEvent);
     }
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
 #endif // TEMPORARILY_REMOVED
 }
 

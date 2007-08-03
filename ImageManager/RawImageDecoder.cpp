@@ -58,7 +58,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 
   return true;
 #else
-  kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+  kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 

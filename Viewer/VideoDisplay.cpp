@@ -114,21 +114,21 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
        if (!service.data()) {
            etype = NoKPart;
-           kWarning() << "Couldn't find a KPart for " << mimeType << endl;
+           kWarning() << "Couldn't find a KPart for " << mimeType;
            continue;
        }
 
        QString library=service->library();
        if ( library.isNull() ) {
            etype = NoLibrary;
-           kWarning() << "The library returned from the service was null, indicating we could not display videos." << endl;
+           kWarning() << "The library returned from the service was null, indicating we could not display videos.";
            continue;
       }
 
        _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this );
        if (!_playerPart) {
            etype = NoPartInstance;
-           kWarning() << "Failed to instantiate KPart from library " << library << endl;
+           kWarning() << "Failed to instantiate KPart from library " << library;
            continue;
        }
 
@@ -168,7 +168,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
 return true;
 #else
-kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -189,7 +189,7 @@ QString Viewer::VideoDisplay::mimeTypeForFileName( const QString& fileName ) con
 
     return res;
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -218,7 +218,7 @@ void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileN
     if ( ret == KMessageBox::Yes )
         KToolInvocation::invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -294,7 +294,7 @@ void Viewer::VideoDisplay::stop()
     else
         invokeKaffeineAction( "player_stop" );
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -306,7 +306,7 @@ void Viewer::VideoDisplay::pause()
     else
         invokeKaffeineAction( "player_pause" );
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -321,7 +321,7 @@ void Viewer::VideoDisplay::invokeKaffeineAction( const char* actionName )
             action->activate();
 
 #else
-        kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+        kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 

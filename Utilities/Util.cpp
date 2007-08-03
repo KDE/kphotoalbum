@@ -389,7 +389,7 @@ extern "C"
 
         char buffer[JMSG_LENGTH_MAX];
         (*cinfo->err->format_message)(cinfo, buffer);
-        //kWarning() << buffer << endl;
+        //kWarning() << buffer;
         longjmp(myerr->setjmp_buffer, 1);
     }
 }

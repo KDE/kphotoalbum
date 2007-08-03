@@ -419,7 +419,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
         }
     }
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -441,7 +441,7 @@ void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, Q3ListVi
         insertItems( (*subcategoryIt), newItem );
     }
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 
@@ -506,7 +506,7 @@ void AnnotationDialog::ListSelect::populateAlphabetically()
     insertItems( item, 0 );
     _listView->setSorting( 0 );
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 

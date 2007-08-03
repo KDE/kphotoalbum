@@ -734,7 +734,7 @@ void Viewer::ViewerWidget::setAsWallpaper(int /*mode*/)
     DCOPRef kdesktop("kdesktop","KBackgroundIface");
     kdesktop.send("setWallpaper(QString,int)",currentInfo()->fileName(0),mode);
 #else
-    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo;
 #endif
 }
 

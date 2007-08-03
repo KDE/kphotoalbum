@@ -38,7 +38,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent )
 #ifdef TEMPORARILY_REMOVED
     setWFlags( WDestructiveClose | getWFlags() );
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
 #endif // TEMPORARILY_REMOVED
 
     QWidget* top = new QWidget;
@@ -101,7 +101,7 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
 #ifdef TEMPORARILY_REMOVED
     setFocusPolicy( WheelFocus );
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
 #endif // TEMPORARILY_REMOVED
     setHScrollBarMode( AlwaysOff );
 

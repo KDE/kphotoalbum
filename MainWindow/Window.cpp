@@ -1258,7 +1258,7 @@ void MainWindow::Window::setupPluginMenu()
     _hasLoadedPlugins = true;
 #endif
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
 #endif
 }
 

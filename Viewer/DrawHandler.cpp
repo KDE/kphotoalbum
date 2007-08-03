@@ -160,7 +160,7 @@ void Viewer::DrawHandler::drawAll( QPainter& painter )
 #ifdef TEMPORARILY_REMOVED
                     point = painter.transformed( point );
 #else
-                    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+                    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo;
 #endif
                     QRect rect( point.x()-4, point.y()-4, 8, 8 );
                     rect = painter.xFormDev( rect );
@@ -182,7 +182,7 @@ Viewer::Draw* Viewer::DrawHandler::findShape( const QPoint& pos)
 #ifdef TEMPORARILY_REMOVED
             point = painter->transformed( point );
 #else
-    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo << endl;
+    kDebug() << "TEMPORARILY REMOVED " << k_funcinfo;
 #endif
             QRect rect( point.x()-4, point.y()-4, 8, 8 );
             rect = painter->xFormDev( rect );

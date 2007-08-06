@@ -20,14 +20,12 @@
 #ifndef SQLSETTINGSWIDGET_H
 #define SQLSETTINGSWIDGET_H
 
-#include <qwidget.h>
-//Added by qt3to4:
-#include <QLabel>
+#include <QWidget>
 
 namespace SQLDB { class DatabaseAddress; }
 class QLabel;
 class QComboBox;
-class Q3WidgetStack;
+class QStackedWidget;
 class QSpinBox;
 class KUrlRequester;
 class KLineEdit;
@@ -40,7 +38,7 @@ namespace SQLDB
         Q_OBJECT
 
     public:
-        SQLSettingsWidget(QWidget* parent=0, const char* name=0, Qt::WFlags fl=0);
+        SQLSettingsWidget(QWidget* parent=0, Qt::WindowFlags fl=0);
         ~SQLSettingsWidget();
 
         QStringList availableDrivers() const;
@@ -60,7 +58,7 @@ namespace SQLDB
         QLabel* _errorLabel;
         QLabel* _driverLabel;
         QComboBox* _driverCombo;
-        Q3WidgetStack* _widgetStack;
+        QStackedWidget* _widgetStack;
         QLabel* _fileLabel;
         KUrlRequester* _fileLine;
         QLabel* _hostLabel;

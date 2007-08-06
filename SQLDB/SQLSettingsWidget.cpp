@@ -20,46 +20,40 @@
 #include "SQLSettingsWidget.h"
 
 #include "SQLDB/DatabaseAddress.h"
-#include <qpushbutton.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <q3widgetstack.h>
-//Added by qt3to4:
+#include <kurlrequester.h>
+#include <klineedit.h>
+#include <kpassworddialog.h>
+#include <kfiledialog.h>
+#include <klocale.h>
+#include <QLabel>
+#include <QComboBox>
+#include <QStackedWidget>
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QVBoxLayout>
-#include <kurlrequester.h>
-#include <qspinbox.h>
-#include <klineedit.h>
-#include <kpassworddialog.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <kpushbutton.h>
-#include <kfiledialog.h>
-#include <klocale.h>
+#include <QSpinBox>
 
 using namespace SQLDB;
 
-SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFlags fl):
-    QWidget(parent, name, fl),
+SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
+    QWidget(parent, fl),
     _lastErrorType(NoDrivers)
 {
-    Q3BoxLayout* topLayout = new QVBoxLayout(this);
+    QVBoxLayout* topLayout = new QVBoxLayout(this);
 
     QHBoxLayout* drvSelLayout = new QHBoxLayout;
-    topLayout->addLayout( drvSelLayout );
+    topLayout->addLayout(drvSelLayout);
     _driverLabel = new QLabel(this);
     drvSelLayout->addWidget(_driverLabel);
-    _driverCombo = new QComboBox(false, this);
+    _driverCombo = new QComboBox(this);
+    _driverCombo->setEditable(false);
     drvSelLayout->addWidget(_driverCombo);
     QSpacerItem* spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,
                                           QSizePolicy::Minimum);
     drvSelLayout->addItem(spacer);
 
 
-    _widgetStack = new Q3WidgetStack(this);
+    _widgetStack = new QStackedWidget(this);
 
 
     // Page 0, error information
@@ -73,7 +67,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
                              QSizePolicy::Expanding);
     stackPage0Layout->addItem(spacer);
 
-    _widgetStack->addWidget(stackPage, ErrorPage);
+    _widgetStack->insertWidget(ErrorPage, stackPage);
 
 
     // Page 1, file based database settings
@@ -85,7 +79,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
     stackPage1Layout->addItem(spacer);
 
     QHBoxLayout* fileLayout = new QHBoxLayout;
-    stackPage1Layout->addLayout( fileLayout );
+    stackPage1Layout->addLayout(fileLayout);
     _fileLabel = new QLabel(stackPage);
     fileLayout->addWidget(_fileLabel);
     _fileLine = new KUrlRequester(stackPage);
@@ -98,7 +92,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
                              QSizePolicy::Expanding);
     stackPage1Layout->addItem(spacer);
 
-    _widgetStack->addWidget(stackPage, FileSettingsPage);
+    _widgetStack->insertWidget(FileSettingsPage, stackPage);
 
 
     // Page 2, server based database settings
@@ -113,9 +107,9 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
     _portLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_portLabel, 1, 0);
     QHBoxLayout* portLayout = new QHBoxLayout;
-    stackPage2Layout->addLayout( portLayout );
+    stackPage2Layout->addLayout(portLayout, 1, 1);
     _portSpin = new QSpinBox(stackPage);
-    _portSpin->setMaxValue(65535);
+    _portSpin->setMaximum(65535);
     portLayout->addWidget(_portSpin, 1, Qt::AlignLeft);
     spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,
                              QSizePolicy::Minimum);
@@ -137,7 +131,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
     _passwordLine = new KPasswordEdit(stackPage);
     stackPage2Layout->addWidget(_passwordLine, 4, 1);
 */
-    _widgetStack->addWidget(stackPage, ServerSettingsPage);
+    _widgetStack->insertWidget(ServerSettingsPage, stackPage);
 
 
     topLayout->addWidget(_widgetStack);
@@ -195,7 +189,7 @@ DatabaseAddress SQLSettingsWidget::getSettings() const
     DatabaseAddress dbAddr;
     QString databaseName;
 
-    QString driver =_driverCombo->currentText();
+    QString driver = _driverCombo->currentText();
     dbAddr.setDriverName(driver);
     dbAddr.setFileBased(driver == QLatin1String("QSQLITE") ||
                         driver == QLatin1String("QSQLITE2"));
@@ -255,8 +249,8 @@ void SQLSettingsWidget::reloadDriverList()
 void SQLSettingsWidget::selectDriver(const QString& driver)
 {
     for (int i = 0; i < _driverCombo->count(); ++i) {
-        if (_driverCombo->text(i) == driver) {
-            _driverCombo->setCurrentItem(i);
+        if (_driverCombo->itemText(i) == driver) {
+            _driverCombo->setCurrentIndex(i);
             showOptionsOfSelectedDriver();
             break;
         }
@@ -265,7 +259,6 @@ void SQLSettingsWidget::selectDriver(const QString& driver)
 
 void SQLSettingsWidget::languageChange()
 {
-    setCaption(i18n("SQL Database Settings"));
     setError(_lastErrorType);
     _driverLabel->setText(i18n("Database driver:"));
     _fileLabel->setText(i18n("Database file:"));
@@ -284,7 +277,7 @@ void SQLSettingsWidget::showOptionsOfSelectedDriver()
 {
     if (_driverCombo->count() == 0) {
         setError(NoDrivers);
-        _widgetStack->raiseWidget(ErrorPage);
+        _widgetStack->setCurrentIndex(ErrorPage);
         return;
     }
 
@@ -294,14 +287,14 @@ void SQLSettingsWidget::showOptionsOfSelectedDriver()
 
     if (driverInfo.name.isEmpty()) {
         setError(InvalidDriver);
-        _widgetStack->raiseWidget(ErrorPage);
+        _widgetStack->setCurrentIndex(ErrorPage);
         return;
     }
 
     if (driverInfo.fileBased)
-        _widgetStack->raiseWidget(FileSettingsPage);
+        _widgetStack->setCurrentIndex(FileSettingsPage);
     else
-        _widgetStack->raiseWidget(ServerSettingsPage);
+        _widgetStack->setCurrentIndex(ServerSettingsPage);
 */
 }
 

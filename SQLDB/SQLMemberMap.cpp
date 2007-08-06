@@ -263,12 +263,12 @@ void SQLMemberMap::overwriteWithMemberMap(const MemberMapping& map)
         QString category = i.key();
         if (category == "Folder")
             continue;
-        CategoryGroups groups = i.data();
+        CategoryGroups groups = i.value();
 
         for (CategoryGroups::const_iterator j = groups.begin();
              j != groups.end(); ++j) {
             QString group = j.key();
-            StringSet members = j.data();
+            StringSet members = j.value();
 
             int groupId;
             try {

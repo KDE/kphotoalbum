@@ -21,15 +21,15 @@
 #include <qlabel.h>
 #include <q3frame.h>
 //Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3HBoxLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <klocale.h>
 #include <qpixmap.h>
 #include <kstandarddirs.h>
-Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Location location, QWidget* parent, const char* name )
-    :QWidget( parent, name )
+Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Location location, QWidget* parent )
+    :QWidget( parent )
 {
-    Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
+    QVBoxLayout* vlay = new QVBoxLayout( this );
     QLabel* title;
     if ( location == Front )
         title = new QLabel( i18n( "<h1>%1 Survey</h1>", appName ), this );
@@ -42,7 +42,8 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
     frame->setFrameStyle( Q3Frame::HLine | Q3Frame::Plain );
     vlay->addWidget( frame );
 
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
+    QHBoxLayout* hlay = new QHBoxLayout;
+    vlay->addLayout( hlay );
 
     QLabel* pict = new QLabel( this );
     if ( location == Front )

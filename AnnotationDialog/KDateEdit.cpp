@@ -45,7 +45,7 @@ AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const
     setMaxCount(1);       // need at least one entry for popup to work
     value = defaultValue;
     QString today = QDate::currentDate().toString( QString::fromLatin1("dd. MMM yyyy") );
-    insertItem(QString::fromLatin1( "" ) );
+    addItem(QString::fromLatin1( "" ) );
     setCurrentItem(0);
     changeItem(QString::fromLatin1( "" ), 0);
     setMinimumSize(sizeHint());
@@ -177,19 +177,6 @@ void AnnotationDialog::KDateEdit::showPopup()
     }
 
     mDateFrame->show();
-
-#ifdef TEMPORARILY_REMOVED
-    // The combo box is now shown pressed. Make it show not pressed again
-    // by causing its (invisible) list box to emit a 'selected' signal.
-    Q3ListBox *lb = listBox();
-    if (lb) {
-        lb->setCurrentItem(0);
-        QKeyEvent* keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_Enter, 0, 0);
-        QApplication::postEvent(lb, keyEvent);
-    }
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
-#endif // TEMPORARILY_REMOVED
 }
 
 void AnnotationDialog::KDateEdit::dateSelected(QDate newDate)

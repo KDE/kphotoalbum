@@ -26,7 +26,7 @@ namespace Survey {
     public:
         enum Location {Front, Back};
 
-        InfoPage( const QString& appName, const QString& text, Location, QWidget* parent, const char* name = 0 );
+        InfoPage( const QString& appName, const QString& text, Location, QWidget* parent );
 
     };
 }

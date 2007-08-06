@@ -17,8 +17,6 @@
 */
 
 #include "Editor.h"
-#include <q3textedit.h>
-//Added by qt3to4:
 #include <QContextMenuEvent>
 #include <QKeyEvent>
 #include <klocale.h>
@@ -59,14 +57,14 @@ Q3PopupMenu * Editor::createPopupMenu( const QPoint & pos )
     Q3PopupMenu* menu = Q3TextEdit::createPopupMenu( pos );
     connect( menu, SIGNAL( activated( int ) ), this, SLOT( itemSelected( int ) ) );
 
-    menu->insertSeparator();
+    menu->addSeparator();
     menu->setCheckable( true );
 
     QStringList titles, dicts;
     fetchDicts( &titles, &dicts );
     int index = 0;
     for( QStringList::Iterator it = titles.begin(); it != titles.end(); ++it, ++index ) {
-        menu->insertItem( *it, 1000 + index );
+        menu->addItem( *it, 1000 + index );
         menu->setItemChecked( 1000 + index, _config->dictionary() == dicts[index] );
     }
 
@@ -100,10 +98,10 @@ Q3PopupMenu* Editor::replacementMenu( const QString& word  )
 
     int index = 0;
     if ( list.count() == 0 )
-        menu->insertItem( i18n( "No Suggestions" ) );
+        menu->addItem( i18n( "No Suggestions" ) );
     else {
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it, ++index )
-            menu->insertItem( *it, index );
+            menu->addItem( *it, index );
     }
     return menu;
 #else

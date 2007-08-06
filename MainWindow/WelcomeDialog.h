@@ -30,7 +30,7 @@ class WelComeDialog : public QDialog
     Q_OBJECT
 
 public:
-    WelComeDialog( QWidget* parent = 0, const char* name = 0 );
+    WelComeDialog( QWidget* parent = 0 );
     QString configFileName() const;
 
 protected slots:
@@ -45,7 +45,7 @@ class FileDialog : public QDialog
 {
     Q_OBJECT
 public:
-    FileDialog( QWidget* parent, const char* name = 0 );
+    FileDialog( QWidget* parent );
     QString getFileName();
 protected slots:
     void slotBrowseForDirecory();

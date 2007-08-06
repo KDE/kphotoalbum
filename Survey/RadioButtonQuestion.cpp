@@ -22,19 +22,21 @@
 #include <qradiobutton.h>
 #include <qdom.h>
 //Added by qt3to4:
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <Q3Frame>
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QString& title, const QString& text,
                                                           const QString& question, const QStringList& questions, SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( this, 6 );
-    Q3VBoxLayout* vlay;
+    QHBoxLayout* hlay = new QHBoxLayout( this );
+    QVBoxLayout* vlay;
     QLabel* label;
 
     if ( !text.isNull() ) {
-        vlay = new Q3VBoxLayout( hlay, 6 );
+        vlay = new QVBoxLayout;
+        hlay->addLayout( vlay );
+
         label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(text), this );
         label->setWordWrap(true);
         vlay->addWidget( label );
@@ -45,7 +47,9 @@ Survey::RadioButtonQuestion::RadioButtonQuestion( const QString& id, const QStri
         hlay->addWidget( frame );
     }
 
-    vlay = new Q3VBoxLayout( hlay, 6 );
+    vlay = new QVBoxLayout;
+    hlay->addLayout( vlay );
+
     label = new QLabel( QString::fromLatin1("<h3>%1</h3>").arg(question), this );
     label->setWordWrap( true );
     vlay->addWidget( label );

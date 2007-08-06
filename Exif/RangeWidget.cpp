@@ -30,13 +30,13 @@ Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, c
 
     Q_ASSERT( list.count() > 2 );
     ValueList::ConstIterator it = list.begin();
-    _from->insertItem( QString::fromLatin1( "< %1" ).arg( (*it).text ) );
+    _from->addItem( QString::fromLatin1( "< %1" ).arg( (*it).text ) );
 
     for( ; it != list.end(); ++it ) {
-        _from->insertItem( (*it).text );
+        _from->addItem( (*it).text );
     }
 
-    _from->insertItem( QString::fromLatin1( "> %1" ).arg( list.last().text ) );
+    _from->addItem( QString::fromLatin1( "> %1" ).arg( list.last().text ) );
     slotUpdateTo( 0 );
     _to->setCurrentItem( _to->count()-1);// set range to be min->max
 
@@ -48,14 +48,14 @@ void Exif::RangeWidget::slotUpdateTo( int fromIndex )
     _to->clear();
 
     if ( fromIndex == 0 )
-        _to->insertItem( QString::fromLatin1( "< %1" ).arg( _list.first().text ) );
+        _to->addItem( QString::fromLatin1( "< %1" ).arg( _list.first().text ) );
     else
         fromIndex--;
 
     for ( uint i = fromIndex; i < _list.count(); ++i ) {
-        _to->insertItem( _list[i].text );
+        _to->addItem( _list[i].text );
     }
-    _to->insertItem( QString::fromLatin1( "> %1" ).arg( _list.last().text ) );
+    _to->addItem( QString::fromLatin1( "> %1" ).arg( _list.last().text ) );
 }
 
 Exif::SearchInfo::Range Exif::RangeWidget::range() const

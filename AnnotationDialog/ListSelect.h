@@ -26,6 +26,7 @@
 #include "Settings/SettingsData.h"
 #include <qtoolbutton.h>
 #include "DB/Category.h"
+#include "DB/CategoryItem.h"
 #include <q3listview.h>
 #include "enums.h"
 
@@ -76,7 +77,7 @@ protected slots:
 
 protected:
     virtual bool eventFilter( QObject* object, QEvent* event );
-    void insertItems( DB::CategoryItem* item, Q3ListViewItem* parent );
+    void addItems( DB::CategoryItem* item, Q3ListViewItem* parent );
     void populateAlphabetically();
     void populateMRU();
     void configureItem( CategoryListView::CheckDropItem* item );

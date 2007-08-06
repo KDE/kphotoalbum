@@ -21,8 +21,8 @@
 #include <q3vgroupbox.h>
 #include <qcheckbox.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <Q3ValueList>
 #include "Exif/Database.h"
 #include <q3grid.h>
@@ -47,10 +47,11 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     KPageWidgetItem* page = new KPageWidgetItem( settings, i18n("Settings" ) );
 
     addPage(  page );
-    Q3VBoxLayout* vlay = new Q3VBoxLayout( settings, 6 );
+    QVBoxLayout* vlay = new QVBoxLayout( settings );
 
     // Iso, Exposure, Aperture, FNumber
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
+    QHBoxLayout* hlay = new QHBoxLayout;
+    vlay->addLayout( hlay );
     Q3Grid* grid = new Q3Grid( 4, settings );
     grid->setSpacing( 6 );
     hlay->addWidget( grid );
@@ -68,9 +69,13 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
 
     // Focal length
     QLabel* label = new QLabel( i18n( "Focal Length" ), grid );
-    _fromFocalLength = new QSpinBox( 0, 10000, 10, grid );
+    _fromFocalLength = new QSpinBox;
+    _fromFocalLength->setRange( 0, 10000 );
+    _fromFocalLength->setSingleStep( 10 );
     label = new QLabel( i18n("to"), grid );
-    _toFocalLength = new QSpinBox( 0, 10000, 10, grid );
+    _toFocalLength = new QSpinBox;
+    _toFocalLength->setRange( 0, 10000 );
+    _toFocalLength->setSingleStep( 10 );
 
     _toFocalLength->setValue( 10000 );
     QString suffix = i18nc( "This is milimeter for focal length, like 35mm", "mm" );
@@ -81,7 +86,8 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     connect( _toFocalLength, SIGNAL( valueChanged( int ) ), this, SLOT( toFocalLengthChanged( int ) ) );
 
     // exposure program and Metring mode
-    hlay = new Q3HBoxLayout( vlay, 6 );
+    hlay = new QHBoxLayout;
+    vlay->addLayout( hlay );
     hlay->addWidget( makeExposureProgram( settings ) );
     hlay->addWidget( makeMeteringMode( settings ) );
 
@@ -94,10 +100,11 @@ Exif::SearchDialog::SearchDialog( QWidget* parent )
     // ------------------------------------------------------------ Misc
     QWidget* misc = new QWidget;
     addPage( new KPageWidgetItem( misc, i18n("Miscellaneous") ) );
-    vlay = new Q3VBoxLayout( misc, 6 );
+    vlay = new QVBoxLayout( misc );
     vlay->addWidget( makeOrientation( misc ), 1 );
 
-    hlay = new Q3HBoxLayout( vlay, 6 );
+    hlay = new QHBoxLayout;
+    vlay->addLayout( hlay );
     hlay->addWidget( makeContrast( misc ) );
     hlay->addWidget( makeSharpness( misc ) );
     hlay->addWidget( makeSaturation( misc ) );

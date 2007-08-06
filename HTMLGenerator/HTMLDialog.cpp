@@ -137,7 +137,7 @@ void HTMLDialog::createLayoutPage()
     QHBoxLayout* lay3 = new QHBoxLayout;
     lay2->addLayout( lay3, 0, 1 );
 
-    _thumbSize = new QSpinBox( layoutPage );
+    _thumbSize = new QSpinBox;
     _thumbSize->setRange( 16, 256 );
 
     _thumbSize->setValue( 128 );
@@ -151,7 +151,7 @@ void HTMLDialog::createLayoutPage()
 
     QHBoxLayout* lay4 = new QHBoxLayout;
     lay2->addLayout( lay4, 1, 1 );
-    _numOfCols = new QSpinBox( layoutPage );
+    _numOfCols = new QSpinBox;
     _numOfCols->setRange( 1, 10 );
 
     label->setBuddy( _numOfCols);

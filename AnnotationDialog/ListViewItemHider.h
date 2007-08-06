@@ -25,7 +25,7 @@ class ListViewHider
 {
 protected:
     ListViewHider() {}
-    ~ListViewHider(){}
+    virtual ~ListViewHider(){}
 
     void setItemsVisible( Q3ListView* );
     bool setItemsVisible( Q3ListViewItem* parentItem );

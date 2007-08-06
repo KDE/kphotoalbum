@@ -21,8 +21,7 @@
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qlayout.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <kmessagebox.h>
 #include "DB/ImageDB.h"
 #include "Exif/Database.h"
@@ -39,7 +38,7 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
     QWidget* top = new QWidget;
     setMainWidget( top );
 
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     _label = new QLabel( top );
     lay1->addWidget( _label );

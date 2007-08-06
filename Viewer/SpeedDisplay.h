@@ -21,10 +21,9 @@
 #include <qdialog.h>
 //Added by qt3to4:
 #include <QLabel>
-#include <Q3HBoxLayout>
 class QTimer;
 class QLabel;
-class Q3HBoxLayout;
+class QHBoxLayout;
 
 namespace Viewer
 {
@@ -33,7 +32,7 @@ class SpeedDisplay :public QDialog {
     Q_OBJECT
 
 public:
-    SpeedDisplay( QWidget* parent, const char* name = 0 );
+    SpeedDisplay( QWidget* parent );
     void display( int );
     void start();
     void end();
@@ -42,7 +41,7 @@ public:
 private:
     QTimer* _timer;
     QLabel* _label;
-    Q3HBoxLayout* _layout;
+    QHBoxLayout* _layout;
 };
 
 }

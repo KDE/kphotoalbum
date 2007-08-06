@@ -113,8 +113,8 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
              "of the dragged onto item. Sub categories may be used to say that e.g. Las Vegas is in USA - "
              "in that example you would drag Las Vegas onto USA. When you've set up sub categories, you may e.g "
              "see all images from USA by simply selecting that item in the Browser.</p>"
-             "<p>Was it really your intention to make \"%1\" sub categorie(s) of \"%2\"?</p>")
-        .arg( children.join( QString::fromLatin1( ", " ) ) ).arg( parent );
+             "<p>Was it really your intention to make \"%1\" sub categorie(s) of \"%2\"?</p>",
+             children.join( QString::fromLatin1( ", " ) ), parent );
 
     const int answer = KMessageBox::warningContinueCancel( 0, msg, i18n("Move Items"), KStandardGuiItem::cont(),
                                                            KStandardGuiItem::cancel(),

@@ -30,7 +30,7 @@ MainWindow::ImageCounter::ImageCounter( QWidget* parent )
 
 void MainWindow::ImageCounter::setMatchCount( uint matches )
 {
-    setText( i18np( "Showing 1 thumbnail", "Showing %n thumbnails", matches ) );
+    setText( i18np( "Showing 1 thumbnail", "Showing %1 thumbnails", matches ) );
 }
 
 void MainWindow::ImageCounter::setTotal( uint c )

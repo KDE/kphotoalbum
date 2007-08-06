@@ -22,10 +22,10 @@
 #include <qlayout.h>
 #include <qlabel.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 #include <Q3ValueList>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
 #include <kcombobox.h>
 #include <kpushbutton.h>
 #include <qspinbox.h>
@@ -108,8 +108,8 @@ void Settings::SettingsDialog::createGeneralPage()
     QWidget* container = new QWidget( box );
     QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), container );
     _trustTimeStamps = new KComboBox( container );
-    _trustTimeStamps->insertStringList( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( container, 0, 6 );
+    _trustTimeStamps->addItems( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
+    QHBoxLayout* hlay = new QHBoxLayout( container );
     hlay->addWidget( timeStampLabel );
     hlay->addWidget( _trustTimeStamps );
     hlay->addStretch( 1 );
@@ -126,14 +126,17 @@ void Settings::SettingsDialog::createGeneralPage()
     // Datebar size
     container = new QWidget( top );
     lay1->addWidget( container );
-    hlay = new Q3HBoxLayout( container, 0, 6 );
+    hlay = new QHBoxLayout( container );
     QLabel* datebarSize = new QLabel( i18n("Size of histogram columns in datebar:"), container );
     hlay->addWidget( datebarSize );
-    _barWidth = new QSpinBox( 1, 100, 1, container );
+    _barWidth = new QSpinBox;
+    _barWidth->setRange( 1, 100 );
+    _barWidth->setSingleStep( 1 );
     hlay->addWidget( _barWidth );
     QLabel* cross = new QLabel( QString::fromLatin1( " x " ), container );
     hlay->addWidget( cross );
-    _barHeight = new QSpinBox( 15, 100, 1, container );
+    _barHeight = new QSpinBox;
+    _barHeight->setRange( 15, 100 );
     hlay->addWidget( _barHeight );
     hlay->addStretch( 1 );
 
@@ -143,15 +146,17 @@ void Settings::SettingsDialog::createGeneralPage()
 
     // Album Category
     QLabel* albumCategoryLabel = new QLabel( i18n("Category for virtual albums:" ), top );
-    _albumCategory = new QComboBox( top, "_albumCategory" );
-    Q3HBoxLayout* lay7 = new Q3HBoxLayout( lay1, 6 );
+    _albumCategory = new QComboBox;
+    QHBoxLayout* lay7 = new QHBoxLayout;
+    lay1->addLayout( lay7 );
+
     lay7->addWidget( albumCategoryLabel );
     lay7->addWidget( _albumCategory );
     lay7->addStretch(1);
 
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
-        _albumCategory->insertItem( (*it)->text() );
+        _albumCategory->addItem( (*it)->text() );
     }
 
     lay1->addStretch( 1 );
@@ -222,65 +227,71 @@ void Settings::SettingsDialog::createThumbNailPage()
                                                            K3Icon::Desktop, 32 ) ) );
     addPage( page );
 
-    Q3GridLayout* lay = new Q3GridLayout( top );
+    QGridLayout* lay = new QGridLayout( top );
     lay->setSpacing( 6 );
     int row = 0;
 
     // Preview size
-    QLabel* previewSizeLabel = new QLabel( i18n("Tooltip preview image size:" ), top, "previewSizeLabel" );
-    _previewSize = new QSpinBox( 0, 2000, 10, top, "_previewSize" );
+    QLabel* previewSizeLabel = new QLabel( i18n("Tooltip preview image size:" ) );
+    _previewSize = new QSpinBox;
+    _previewSize->setRange( 0, 2000 );
+    _previewSize->setSingleStep( 10 );
     _previewSize->setSpecialValueText( i18n("No Image Preview") );
     lay->addWidget( previewSizeLabel, row, 0 );
     lay->addWidget( _previewSize, row, 1 );
 
     // Thumbnail size
     ++row;
-    QLabel* thumbnailSizeLabel = new QLabel( i18n("Thumbnail image size:" ), top, "thumbnailSizeLabel" );
-    _thumbnailSize = new QSpinBox( 0, 512, 16, top, "_thumbnailSize" );
+    QLabel* thumbnailSizeLabel = new QLabel( i18n("Thumbnail image size:" ) );
+    _thumbnailSize = new QSpinBox;
+    _thumbnailSize->setRange( 0, 512 );
+    _thumbnailSize->setSingleStep( 16 );
     lay->addWidget( thumbnailSizeLabel, row, 0 );
     lay->addWidget( _thumbnailSize, row, 1 );
 
     // Thumbnail aspect ratio
     ++row;
-    QLabel* thumbnailAspectRatioLabel = new QLabel( i18n("Thumbnail table cells aspect ratio"), top, "thumbnailAspectRatioLabel");
+    QLabel* thumbnailAspectRatioLabel = new QLabel( i18n("Thumbnail table cells aspect ratio") );
     _thumbnailAspectRatio = new KComboBox( top );
-    _thumbnailAspectRatio->insertStringList( QStringList() << i18n("1:1") << i18n("4:3")
+    _thumbnailAspectRatio->addItems( QStringList() << i18n("1:1") << i18n("4:3")
         << i18n("3:2") << i18n("16:9") << i18n("3:4") << i18n("2:3") << i18n("9:16"));
     lay->addWidget( thumbnailAspectRatioLabel, row, 0 );
     lay->addWidget( _thumbnailAspectRatio, row, 1 );
 
     // Space around cells
     ++row;
-    QLabel* thumbnailSpaceLabel = new QLabel( i18n("Space around cells"), top, "thumbnailSpaceLabel");
-    _thumbnailSpace = new QSpinBox( 0, 20, 1, top );
+    QLabel* thumbnailSpaceLabel = new QLabel( i18n("Space around cells") );
+    _thumbnailSpace = new QSpinBox;
+    _thumbnailSpace->setRange( 0, 20 );
     lay->addWidget( thumbnailSpaceLabel, row, 0 );
     lay->addWidget( _thumbnailSpace, row, 1 );
 
     // Display dark background
     ++row;
-    _thumbnailDarkBackground = new QCheckBox( i18n("Show thumbnails on dark background" ), top, "thumbnailDarkBackground");
+    _thumbnailDarkBackground = new QCheckBox( i18n("Show thumbnails on dark background" ) );
     lay->addMultiCellWidget( _thumbnailDarkBackground, row, row, 0, 1 );
 
     // Display grid lines in the thumbnail view
     ++row;
-    _thumbnailDisplayGrid = new QCheckBox( i18n("Display grid around thumbnails" ),
-                                           top, "_thumbnailDisplayGrid");
+    _thumbnailDisplayGrid = new QCheckBox( i18n("Display grid around thumbnails" ) );
     lay->addMultiCellWidget( _thumbnailDisplayGrid, row, row, 0, 1 );
 
     // Display Labels
     ++row;
-    _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ), top, "displayLabels" );
+    _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ) );
     lay->addMultiCellWidget( _displayLabels, row, row, 0, 1 );
 
     // Display Categories
     ++row;
-    _displayCategories = new QCheckBox( i18n("Display categories in thumbnail view" ), top, "displayCategories" );
+    _displayCategories = new QCheckBox( i18n("Display categories in thumbnail view" ) );
     lay->addMultiCellWidget( _displayCategories, row, row, 0, 1 );
 
     // Auto Show Thumbnail view
     ++row;
     QLabel* autoShowLabel = new QLabel( i18n("Auto display limit: "), top );
-    _autoShowThumbnailView = new QSpinBox( 0, 10000, 10, top );
+    _autoShowThumbnailView = new QSpinBox;
+    _autoShowThumbnailView->setRange( 0, 10000 );
+    _autoShowThumbnailView->setSingleStep( 10 );
     _autoShowThumbnailView->setSpecialValueText( i18n("Never") );
     lay->addWidget( autoShowLabel, row, 0 );
     lay->addWidget( _autoShowThumbnailView, row, 1 );
@@ -288,12 +299,13 @@ void Settings::SettingsDialog::createThumbNailPage()
     // Thumbnail Cache
     ++row;
     QLabel* cacheLabel = new QLabel( i18n( "Thumbnail cache:" ), top );
-    _thumbnailCache = new QSpinBox( 1, 256, 1, top );
+    _thumbnailCache = new QSpinBox;
+    _thumbnailCache->setRange( 1, 256 );
     _thumbnailCache->setSuffix( i18n("Mbytes" ) );
     lay->addWidget( cacheLabel, row, 0 );
     lay->addWidget( _thumbnailCache, row, 1 );
 
-    lay->setColStretch( 1, 1 );
+    lay->setColumnStretch( 1, 1 );
     lay->setRowStretch( ++row, 1 );
 
     // Whats This
@@ -354,15 +366,17 @@ void Settings::SettingsDialog::createOptionGroupsPage()
                                                            K3Icon::Desktop, 32 ) ) );
     addPage( page );
 
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
-    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
+    QHBoxLayout* lay2 = new QHBoxLayout;
+    lay1->addLayout( lay2 );
 
     _categories = new Q3ListBox( top );
     connect( _categories, SIGNAL( clicked( Q3ListBoxItem* ) ), this, SLOT( edit( Q3ListBoxItem* ) ) );
     lay2->addWidget( _categories );
 
 
-    Q3GridLayout* lay3 = new Q3GridLayout( lay2, 6 );
+    QGridLayout* lay3 = new QGridLayout;
+    lay2->addLayout( lay3 );
 
     _labelLabel = new QLabel( i18n( "Label:" ), top );
     lay3->addWidget( _labelLabel, 0, 0 );
@@ -389,7 +403,9 @@ void Settings::SettingsDialog::createOptionGroupsPage()
     _thumbnailSizeInCategoryLabel = new QLabel( i18n( "Thumbnail Size: " ), top );
     lay3->addWidget( _thumbnailSizeInCategoryLabel, 2, 0 );
 
-    _thumbnailSizeInCategory = new QSpinBox( 32, 512, 32, top );
+    _thumbnailSizeInCategory = new QSpinBox;
+    _thumbnailSizeInCategory->setRange( 32, 512 );
+    _thumbnailSizeInCategory->setSingleStep( 32 );
     lay3->addWidget( _thumbnailSizeInCategory, 2, 1 );
     connect( _thumbnailSizeInCategory, SIGNAL( valueChanged( int ) ), this, SLOT( thumbnailSizeChanged( int ) ) );
 
@@ -405,7 +421,9 @@ void Settings::SettingsDialog::createOptionGroupsPage()
     _preferredView->insertStringList( list );
     connect( _preferredView, SIGNAL( activated( int ) ), this, SLOT( slotPreferredViewChanged( int ) ) );
 
-    Q3HBoxLayout* lay4 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay4 = new QHBoxLayout;
+    lay1->addLayout( lay4 );
+
     KPushButton* newItem = new KPushButton( i18n("New"), top );
     connect( newItem, SIGNAL( clicked() ), this, SLOT( slotNewItem() ) );
 
@@ -680,34 +698,42 @@ void Settings::SettingsDialog::createGroupConfig()
                                                            K3Icon::Desktop, 32 ) ) );
     addPage( page );
 
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     // Category
-    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay2 = new QHBoxLayout;
+    lay1->addLayout( lay2 );
+
     QLabel* label = new QLabel( i18n( "Category:" ), top );
     lay2->addWidget( label );
     _category = new QComboBox( top );
     lay2->addWidget( _category );
     lay2->addStretch(1);
 
-    Q3HBoxLayout* lay3 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay3 = new QHBoxLayout;
+    lay1->addLayout( lay3 );
 
     // Groups
-    Q3VBoxLayout* lay4 = new Q3VBoxLayout( lay3, 6 );
+    QVBoxLayout* lay4 = new QVBoxLayout;
+    lay3->addLayout( lay4 );
+
     label = new QLabel( i18n( "Super Categories:" ), top );
     lay4->addWidget( label );
     _groups = new Q3ListBox( top );
     lay4->addWidget( _groups );
 
     // Members
-    Q3VBoxLayout* lay5 = new Q3VBoxLayout( lay3, 6 );
+    QVBoxLayout* lay5 = new QVBoxLayout;
+    lay3->addLayout( lay5 );
+
     label = new QLabel( i18n( "Items of Category:" ), top );
     lay5->addWidget( label );
     _members = new Q3ListBox( top );
     lay5->addWidget( _members );
 
     // Buttons
-    Q3HBoxLayout* lay6 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay6 = new QHBoxLayout;
+    lay1->addLayout( lay6 );
     lay6->addStretch(1);
 
     QPushButton* add = new QPushButton( i18n("Add Super Category..." ), top );
@@ -894,7 +920,7 @@ void Settings::SettingsDialog::slotPageChange()
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( Q3ValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if ( !(*it)->isSpecialCategory() )
-            _category->insertItem( (*it)->text() );
+            _category->addItem( (*it)->text() );
     }
 
     slotCategoryChanged( _category->currentText() );
@@ -914,7 +940,7 @@ void Settings::SettingsDialog::createViewerPage()
                                                            K3Icon::Desktop, 32 ) ) );
     addPage( page );
 
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     _slideShowSetup = new ViewerSizeConfig( i18n( "Running Slide Show From Thumbnail View" ), top, "_slideShowSetup" );
     lay1->addWidget( _slideShowSetup );
@@ -922,12 +948,14 @@ void Settings::SettingsDialog::createViewerPage()
     _viewImageSetup = new ViewerSizeConfig( i18n( "Viewing Images and Videos From Thumbnail View" ), top, "_viewImageSetup" );
     lay1->addWidget( _viewImageSetup );
 
-    Q3GridLayout* glay = new Q3GridLayout( lay1, 2, 2, 6 );
+    QGridLayout* glay = new QGridLayout;
+    lay1->addLayout( glay );
 
     QLabel* label = new QLabel( i18n("Slideshow interval:" ), top );
     glay->addWidget( label, 0, 0 );
 
-    _slideShowInterval = new QSpinBox( 1, INT_MAX, 1, top );
+    _slideShowInterval = new QSpinBox;
+    _slideShowInterval->setRange( 1, INT_MAX );
     glay->addWidget( _slideShowInterval, 0, 1 );
     _slideShowInterval->setSuffix( i18n( " sec" ) );
     label->setBuddy( _slideShowInterval );
@@ -935,7 +963,9 @@ void Settings::SettingsDialog::createViewerPage()
     label = new QLabel( i18n("Image cache:"), top );
     glay->addWidget( label, 1, 0 );
 
-    _cacheSize = new QSpinBox( 0, 2000, 10, top, "_cacheSize" );
+    _cacheSize = new QSpinBox;
+    _cacheSize->setRange( 0, 2000 );
+    _cacheSize->setSingleStep( 10 );
     _cacheSize->setSuffix( i18n(" Mbytes") );
     glay->addWidget( _cacheSize, 1, 1 );
     label->setBuddy( _cacheSize );
@@ -977,7 +1007,7 @@ void Settings::SettingsDialog::createPluginPage()
     QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
                             KIconLoader::global()->loadIcon( QString::fromLatin1( "share" ),
                                                              K3Icon::Desktop, 32 ) );
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), top );
     lay1->addWidget( label );
@@ -1000,7 +1030,7 @@ void Settings::SettingsDialog::createEXIFPage()
                                                            K3Icon::Desktop, 32 ) ) );
     addPage( page );
 
-    Q3HBoxLayout* lay1 = new Q3HBoxLayout( top, 6 );
+    QHBoxLayout* lay1 = new QHBoxLayout( top );
 
     _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );
     lay1->addWidget( _exifForViewer );
@@ -1026,7 +1056,7 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     addPage( _backendPage );
 
 
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout(top, 6);
+    QVBoxLayout* lay1 = new QVBoxLayout(top);
 
     _backendButtons = new Q3ButtonGroup(1, Qt::Horizontal,
                                        i18n("Database backend to use"), top);
@@ -1050,21 +1080,23 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     // Auto save
     QWidget* box = new QWidget( xmlBox );
     QLabel* label = new QLabel( i18n("Auto save every:"), box );
-    _autosave = new QSpinBox( 1, 120, 1, box );
+    _autosave = new QSpinBox;
+    _autosave->setRange( 1, 120 );
     _autosave->setSuffix( i18n( "min." ) );
 
-    Q3HBoxLayout* lay = new Q3HBoxLayout( box, 6 );
+    QHBoxLayout* lay = new QHBoxLayout( box );
     lay->addWidget( label );
     lay->addWidget( _autosave );
     lay->addStretch( 1 );
 
     // Backup
     box = new QWidget( xmlBox );
-    lay = new Q3HBoxLayout( box, 6 );
+    lay = new QHBoxLayout( box );
     QLabel* backupLabel = new QLabel( i18n( "Number of backups to keep:" ), box );
     lay->addWidget( backupLabel );
 
-    _backupCount = new QSpinBox( -1, 100, 1, box );
+    _backupCount = new QSpinBox;
+    _backupCount->setRange( -1, 100 );
     _backupCount->setSpecialValueText( i18n( "Infinite" ) );
     lay->addWidget( _backupCount );
     lay->addStretch( 1 );

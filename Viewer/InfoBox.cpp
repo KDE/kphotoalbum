@@ -29,15 +29,15 @@
 #include <QDesktopWidget>
 #include <kdebug.h>
 
-Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer, const char* name )
-    :QTextBrowser( viewer, name ), _viewer( viewer ), _hoveringOverLink( false )
+Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
+    :QTextBrowser( viewer ), _viewer( viewer ), _hoveringOverLink( false )
 {
     setFrameStyle( Box | Plain );
     setLineWidth(1);
     setMidLineWidth(0);
 
     _jumpToContext = new QToolButton( this );
-    _jumpToContext->setIconSet( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Desktop, 16 ) );
+    _jumpToContext->setIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Desktop, 16 ) );
     _jumpToContext->setFixedSize( 16, 16 );
     connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
     connect( this, SIGNAL( highlighted(const QString&) ),

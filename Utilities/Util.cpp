@@ -145,7 +145,7 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
     if ( Settings::SettingsData::instance()->showEXIF() ) {
         QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
         for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
-            exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
+            exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.value() );
         }
     }
 

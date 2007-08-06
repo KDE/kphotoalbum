@@ -21,7 +21,6 @@
 #include <qlayout.h>
 #include <qspinbox.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
 #include <klocale.h>
 #include <qlabel.h>
 
@@ -31,18 +30,22 @@ Settings::ViewerSizeConfig::ViewerSizeConfig( const QString& title, QWidget* par
     _fullScreen = new QCheckBox( i18n("Launch in full screen" ), this );
 
     QWidget* sizeBox = new QWidget( this );
-    Q3HBoxLayout* lay = new Q3HBoxLayout( sizeBox, 0, 6 );
+    QHBoxLayout* lay = new QHBoxLayout( sizeBox );
 
     QLabel* label = new QLabel( i18n("Size:"), sizeBox );
     lay->addWidget( label );
 
-    _width = new QSpinBox( 100, 5000, 50, sizeBox );
+    _width = new QSpinBox;
+    _width->setRange( 100, 5000 );
+    _width->setSingleStep( 50 );
     lay->addWidget( _width );
 
     label = new QLabel( QString::fromLatin1("x"), sizeBox );
     lay->addWidget( label );
 
-    _height = new QSpinBox( 100, 5000, 50, sizeBox );
+    _height = new QSpinBox;
+    _height->setRange( 100, 5000 );
+    _height->setSingleStep( 50 );
     lay->addWidget( _height );
 
     lay->addStretch( 1 );

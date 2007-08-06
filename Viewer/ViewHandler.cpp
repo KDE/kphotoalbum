@@ -37,7 +37,6 @@ Viewer::ViewHandler::ViewHandler( ImageDisplay* display )
 
 bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTranslatedPos, double /*scaleFactor*/ )
 {
-#ifdef TEMPORARILY_REMOVED
     _pan = false;
     _scale = false;
 
@@ -55,7 +54,7 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     if (_pan) {
          // panning
         _last = unTranslatedPos;
-        qApp->setOverrideCursor( SizeAllCursor  );
+        qApp->setOverrideCursor( Qt::SizeAllCursor  );
         _errorX = 0;
         _errorY = 0;
         return true;
@@ -66,9 +65,6 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     } else {
         return true;
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )

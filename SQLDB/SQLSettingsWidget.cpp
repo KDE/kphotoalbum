@@ -26,9 +26,9 @@
 #include <qcombobox.h>
 #include <q3widgetstack.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
 #include <kurlrequester.h>
 #include <qspinbox.h>
 #include <klineedit.h>
@@ -46,9 +46,10 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
     QWidget(parent, name, fl),
     _lastErrorType(NoDrivers)
 {
-    Q3BoxLayout* topLayout = new Q3VBoxLayout(this, 0, 6);
+    Q3BoxLayout* topLayout = new QVBoxLayout(this);
 
-    Q3HBoxLayout* drvSelLayout = new Q3HBoxLayout(topLayout);
+    QHBoxLayout* drvSelLayout = new QHBoxLayout;
+    topLayout->addLayout( drvSelLayout );
     _driverLabel = new QLabel(this);
     drvSelLayout->addWidget(_driverLabel);
     _driverCombo = new QComboBox(false, this);
@@ -63,7 +64,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
 
     // Page 0, error information
     QWidget* stackPage = new QWidget(_widgetStack);
-    Q3VBoxLayout* stackPage0Layout = new Q3VBoxLayout(stackPage, 0, 6);
+    QVBoxLayout* stackPage0Layout = new QVBoxLayout(stackPage);
 
     _errorLabel = new QLabel(stackPage);
     stackPage0Layout->addWidget(_errorLabel);
@@ -77,13 +78,14 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
 
     // Page 1, file based database settings
     stackPage = new QWidget(_widgetStack);
-    Q3VBoxLayout* stackPage1Layout = new Q3VBoxLayout(stackPage, 0, 6);
+    QVBoxLayout* stackPage1Layout = new QVBoxLayout(stackPage);
 
     spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum,
                              QSizePolicy::Expanding);
     stackPage1Layout->addItem(spacer);
 
-    Q3HBoxLayout* fileLayout = new Q3HBoxLayout(stackPage1Layout, 6);
+    QHBoxLayout* fileLayout = new QHBoxLayout;
+    stackPage1Layout->addLayout( fileLayout );
     _fileLabel = new QLabel(stackPage);
     fileLayout->addWidget(_fileLabel);
     _fileLine = new KUrlRequester(stackPage);
@@ -101,7 +103,7 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
 
     // Page 2, server based database settings
     stackPage = new QWidget(_widgetStack);
-    Q3GridLayout* stackPage2Layout = new Q3GridLayout(stackPage, 1, 1, 0, 6);
+    QGridLayout* stackPage2Layout = new QGridLayout(stackPage);
 
     _hostLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_hostLabel, 0, 0);
@@ -110,7 +112,8 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, Qt::WFla
 
     _portLabel = new QLabel(stackPage);
     stackPage2Layout->addWidget(_portLabel, 1, 0);
-    Q3HBoxLayout* portLayout = new Q3HBoxLayout(stackPage2Layout);
+    QHBoxLayout* portLayout = new QHBoxLayout;
+    stackPage2Layout->addLayout( portLayout );
     _portSpin = new QSpinBox(stackPage);
     _portSpin->setMaxValue(65535);
     portLayout->addWidget(_portSpin, 1, Qt::AlignLeft);
@@ -243,7 +246,7 @@ void SQLSettingsWidget::reloadDriverList()
         if (*i == QString::fromLatin1("SQLite2"))
             continue;
 
-        _driverCombo->insertItem(*i);
+        _driverCombo->addItem(*i);
     }
     if (_driverCombo->count() == 0)
         _driverCombo->setEnabled(false);

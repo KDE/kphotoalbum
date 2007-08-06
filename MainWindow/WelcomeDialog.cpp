@@ -19,8 +19,8 @@
 #include "WelcomeDialog.h"
 #include <qlabel.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <klocale.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
@@ -35,20 +35,21 @@
 
 using namespace MainWindow;
 
-WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
-    : QDialog( parent, name, true )
+WelComeDialog::WelComeDialog( QWidget* parent )
+    : QDialog( parent )
 
 {
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( this, 6);
-    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 10 );
+    QVBoxLayout* lay1 = new QVBoxLayout( this );
+    QHBoxLayout* lay2 = new QHBoxLayout;
+    lay1->addLayout( lay2 );
 
-    QLabel* image = new QLabel( this, "image" );
+    QLabel* image = new QLabel( this );
     image->setMinimumSize( QSize( 273, 204 ) );
     image->setMaximumSize( QSize( 273, 204 ) );
     image->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
     lay2->addWidget( image );
 
-    QLabel* textLabel2 = new QLabel( this, "textLabel2" );
+    QLabel* textLabel2 = new QLabel( this );
     lay2->addWidget( textLabel2 );
     textLabel2->setText( i18n( "<h1>Welcome to KPhotoAlbum</h1>"
                                "<p>If you are interested in trying out KPhotoAlbum with a prebuilt set of images, "
@@ -58,10 +59,11 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
                                "<b>Create my own database</b> button.") );
     textLabel2->setWordWrap( true );
 
-    Q3HBoxLayout* lay3 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay3 = new QHBoxLayout;
+    lay1->addLayout( lay3 );
     lay3->addStretch( 1 );
 
-    QPushButton* loadDemo = new QPushButton( i18n("Load Demo"), this, "loadDemo" );
+    QPushButton* loadDemo = new QPushButton( i18n("Load Demo") );
     lay3->addWidget( loadDemo );
 
     QPushButton* createSetup = new QPushButton( i18n("Create My Own Database..."), this );
@@ -90,9 +92,9 @@ QString WelComeDialog::configFileName() const
     return _configFile;
 }
 
-FileDialog::FileDialog( QWidget* parent, const char* name ) :QDialog( parent, name, true )
+FileDialog::FileDialog( QWidget* parent ) :QDialog( parent )
 {
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( this, 6 );
+    QVBoxLayout* lay1 = new QVBoxLayout( this );
     QLabel* label = new QLabel( i18n("<p>KPhotoAlbum requires that all your images and videos are stored with a common root directory. "
                                      "You are allowed to store your images in a directory tree under this directory. "
                                      "KPhotoAlbum will not modify or edit any of your images, so you can simply point KPhotoAlbum to the "
@@ -100,7 +102,8 @@ FileDialog::FileDialog( QWidget* parent, const char* name ) :QDialog( parent, na
     label->setWordWrap( true );
     lay1->addWidget( label );
 
-    Q3HBoxLayout* lay2 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay2 = new QHBoxLayout;
+    lay1->addLayout( lay2 );
     label = new QLabel( i18n("Image/Video root directory: "), this );
     lay2->addWidget( label );
 
@@ -113,7 +116,8 @@ FileDialog::FileDialog( QWidget* parent, const char* name ) :QDialog( parent, na
     lay2->addWidget( button );
     connect( button, SIGNAL( clicked() ), this, SLOT( slotBrowseForDirecory() ) );
 
-    Q3HBoxLayout* lay3 = new Q3HBoxLayout( lay1, 6 );
+    QHBoxLayout* lay3 = new QHBoxLayout;
+    lay1->addLayout( lay3 );
     lay3->addStretch( 1 );
     button = new QPushButton( i18n("&OK"), this );
     button->setDefault(true);

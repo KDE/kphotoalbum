@@ -56,6 +56,7 @@
 #include <KStandardAction>
 #include <QStackedWidget>
 #include <QDesktopWidget>
+#include <QVBoxLayout>
 
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
@@ -115,7 +116,6 @@ Viewer::ViewerWidget::ViewerWidget()
     createToolBar();
     _toolbar->hide();
     layout->addWidget( _toolbar );
-
     layout->addWidget( _stack );
 
     // This must not be added to the layout, as it is standing on top of
@@ -193,49 +193,57 @@ void Viewer::ViewerWidget::createShowContextMenu()
 
     KToggleAction* taction = 0;
 
-    taction = _actions->add<KToggleAction>( "viewer-show-infobox", this, SLOT( toggleShowInfoBox( bool ) ) );
+    taction = _actions->add<KToggleAction>( "viewer-show-infobox" );
     taction->setText( i18n("Show Info Box") );
     taction->setShortcut( Qt::CTRL+Qt::Key_I );
-    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowInfoBox( bool ) ) );
+    showPopup->addAction( taction );
 
     // PENDING(blackie) Only for image display
-    taction = _actions->add<KToggleAction>( "viewer-show-drawing", this, SLOT( toggleShowDrawings( bool ) ) );
+    taction = _actions->add<KToggleAction>( "viewer-show-drawing" );
     taction->setText( i18n("Show Drawing") );
     taction->setShortcut( Qt::CTRL+Qt::Key_D );
-    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDrawings( bool ) ) );
+    showPopup->addAction( taction );
 
-    taction = _actions->add<KToggleAction>( "viewer-show-description", this, SLOT( toggleShowDescription( bool ) ) );
+    taction = _actions->add<KToggleAction>( "viewer-show-description" );
     taction->setText( i18n("Show Description") );
     taction->setShortcut( 0 );
-    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showDescription() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDescription( bool ) ) );
+    showPopup->addAction( taction );
 
-    taction = _actions->add<KToggleAction>("viewer-show-date", this, SLOT( toggleShowDate( bool ) ) );
+    taction = _actions->add<KToggleAction>("viewer-show-date" );
     taction->setText( i18n("Show Date") );
-    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showDate() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDate( bool ) ) );
+    showPopup->addAction( taction );
 
-    taction = _actions->add<KToggleAction>("viewer-show-time", this, SLOT( toggleShowTime( bool ) ) );
+    taction = _actions->add<KToggleAction>("viewer-show-time" );
     taction->setText( i18n("Show Time") );
-    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showTime() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowTime( bool ) ) );
+    showPopup->addAction( taction );
 
-    taction = _actions->add<KToggleAction>("viewer-show-filename", this, SLOT( toggleShowFilename( bool ) ) );
+    taction = _actions->add<KToggleAction>("viewer-show-filename" );
     taction->setText( i18n("Show Filename") );
-    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showFilename() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowFilename( bool ) ) );
+    showPopup->addAction( taction );
 
-    taction = _actions->add<KToggleAction>("viewer-show-exif", this, SLOT( toggleShowEXIF( bool ) ) );
+    taction = _actions->add<KToggleAction>("viewer-show-exif" );
     taction->setText( i18n("Show EXIF") );
-    showPopup->addAction( taction );
     taction->setChecked( Settings::SettingsData::instance()->showEXIF() );
-
-    taction = _actions->add<KToggleAction>("viewer-show-imagesize", this, SLOT( toggleShowImageSize( bool ) ) );
-    taction->setText( i18n("Show Image Size") );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowEXIF( bool ) ) );
     showPopup->addAction( taction );
+
+    taction = _actions->add<KToggleAction>("viewer-show-imagesize" );
+    taction->setText( i18n("Show Image Size") );
     taction->setChecked( Settings::SettingsData::instance()->showImageSize() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowImageSize( bool ) ) );
+    showPopup->addAction( taction );
 
     _popup->addMenu( showPopup );
 
@@ -1008,6 +1016,9 @@ void Viewer::ViewerWidget::makeCategoryImage()
 
 void Viewer::ViewerWidget::updateCategoryConfig()
 {
+    if ( !CategoryImageConfig::instance()->isVisible() )
+        return;
+
     CategoryImageConfig::instance()->setCurrentImage( _imageDisplay->currentViewAsThumbnail(), currentInfo() );
 }
 

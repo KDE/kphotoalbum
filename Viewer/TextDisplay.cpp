@@ -1,4 +1,4 @@
-/* Copyright (C) 2007 Jan Kundr√°t <jkt@gentoo.org>
+/* Copyright (C) 2007 Jan Kundr·t <jkt@gentoo.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -17,9 +17,8 @@
 */
 
 #include <qlayout.h>
-//Added by qt3to4:
 #include <QLabel>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include "TextDisplay.h"
 #include "ImageDisplay.h"
 #include "DB/ImageDB.h"
@@ -31,7 +30,7 @@
 Viewer::TextDisplay::TextDisplay( QWidget* parent, const char* name )
     :Display( parent, name )
 {
-    Q3VBoxLayout *lay = new Q3VBoxLayout( this );
+    QVBoxLayout *lay = new QVBoxLayout( this );
     _text = new QLabel( this );
     lay->addWidget( _text );
     _text->setAlignment( Qt::AlignCenter );

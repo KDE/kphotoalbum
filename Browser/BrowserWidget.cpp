@@ -25,7 +25,7 @@
 #include "ImageFolder.h"
 #include <qtimer.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include <q3listview.h>
@@ -40,14 +40,14 @@
 
 Browser::BrowserWidget* Browser::BrowserWidget::_instance = 0;
 
-Browser::BrowserWidget::BrowserWidget( QWidget* parent, const char* name )
-    :QWidget( parent, name ), _current(0)
+Browser::BrowserWidget::BrowserWidget( QWidget* parent )
+    :QWidget( parent ), _current(0)
 {
     Q_ASSERT( !_instance );
     _instance = this;
 
     _stack = new Q3WidgetStack( this, "_stack" );
-    Q3HBoxLayout* layout = new Q3HBoxLayout( this );
+    QHBoxLayout* layout = new QHBoxLayout( this );
     layout->addWidget( _stack );
 
     _listView = new Q3ListView ( _stack, "_listView" );
@@ -226,7 +226,7 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
     addItem( a );
     a->action( _currentFactory );
     topLevelWidget()->raise();
-    setActiveWindow();
+    activateWindow();
 }
 
 bool Browser::BrowserWidget::allowSort()

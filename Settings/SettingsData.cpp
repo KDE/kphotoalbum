@@ -278,11 +278,11 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
-            img = KIconLoader::global()->loadIcon( STR( "kuser" ), K3Icon::Desktop, size );
+            img = KIconLoader::global()->loadIcon( STR( "kuser" ), K3Icon::Desktop, size ).toImage();
         else
-            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size );
+            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size ).toImage();
     }
-    res = Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio);
+    res = QPixmap::fromImage( Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio) );
 
     QPixmapCache::insert( key, res );
     return res;

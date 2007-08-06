@@ -21,11 +21,7 @@
 #include "DB/ImageDB.h"
 
 Viewer::ShowOptionAction::ShowOptionAction( const QString& category, QObject* parent )
-    :KToggleAction( parent
-#ifdef TEMPORARILY_REMOVED
-                    , QString::fromLatin1( "Show %1" ).arg( category ).latin1()
-#endif
-        ), _category( category )
+    :KToggleAction( parent ), _category( category )
 {
     setText( i18n( "Show %1", category ) );
     connect( this, SIGNAL( toggled(bool) ), this, SLOT( slotToggled( bool ) ) );

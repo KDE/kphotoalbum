@@ -35,11 +35,7 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent )
 {
     setWindowTitle( i18n("EXIF Information") );
     setButtons( Close );
-#ifdef TEMPORARILY_REMOVED
-    setWFlags( WDestructiveClose | getWFlags() );
-#else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
-#endif // TEMPORARILY_REMOVED
+    setWindowFlags( Qt::WDestructiveClose | windowFlags() );
 
     QWidget* top = new QWidget;
     setMainWidget( top );

@@ -23,10 +23,10 @@
 #include "Question.h"
 #include <q3widgetstack.h>
 
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 #include <Q3CString>
 #include <Q3Frame>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <klocale.h>
 #include <qpushbutton.h>
 #include <qdom.h>
@@ -83,7 +83,7 @@ void Survey::SurveyDialog::addQuestion( Question* question )
 void Survey::SurveyDialog::exec()
 {
     if ( !d->stack ) {
-        Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
+        QVBoxLayout* vlay = new QVBoxLayout( this );
 
         // Widget Stack
         d->stack = new Q3WidgetStack( this );
@@ -100,7 +100,9 @@ void Survey::SurveyDialog::exec()
 
         setupBackPage(count);
 
-        Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
+        QHBoxLayout* hlay = new QHBoxLayout;
+        vlay->addLayout( hlay );
+
         hlay->addStretch( 1 );
 
         d->prev = new QPushButton( i18n("<< Prev"), this );
@@ -132,8 +134,10 @@ QWidget* Survey::SurveyDialog::createStackItem( Question* question, int count )
     QWidget* w = new QWidget( d->stack );
 
     // Title
-    Q3VBoxLayout* vlay = new Q3VBoxLayout( w, 6 );
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 6 );
+    QVBoxLayout* vlay = new QVBoxLayout( w );
+    QHBoxLayout* hlay = new QHBoxLayout;
+    vlay->addLayout( hlay );
+
     QLabel* title = new QLabel( QString::fromLatin1("<h1>%1</h1>").arg(question->title()), w );
     hlay->addWidget( title, 1 );
 

@@ -19,9 +19,8 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qspinbox.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
+#include <QVBoxLayout>
+#include <QGridLayout>
 #include <klocale.h>
 #include "DB/ImageDB.h"
 
@@ -30,16 +29,21 @@ using namespace Survey;
 SurveyCountQuestion::SurveyCountQuestion( const QString& id, const QString& title, Survey::SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    Q3VBoxLayout* vbox = new Q3VBoxLayout( this, 6 );
-    Q3GridLayout* lay = new Q3GridLayout( vbox, 2, 2, 6 );
+    QVBoxLayout* vbox = new QVBoxLayout( this );
+    QGridLayout* lay = new QGridLayout;
+    vbox->addLayout( lay );
     QLabel* label = new QLabel( i18n("How many images are in your database:"), this );
-    _imageCount = new QSpinBox( 0, 1000000, 100, this );
+    _imageCount = new QSpinBox;
+    _imageCount->setRange( 0, 1000000 );
+    _imageCount->setSingleStep( 100 );
     lay->addWidget( label, 0, 0 );
     lay->addWidget( _imageCount, 0, 1 );
     _imageCount->setValue( DB::ImageDB::instance()->totalCount() );
 
     label = new QLabel(i18n("How many percentages of your images are scanned in: "), this );
-    _scanned = new QSpinBox( 0, 100, 10, this );
+    _scanned = new QSpinBox;
+    _scanned->setRange( 0, 100 );
+    _scanned->setSingleStep( 10 );
     _scanned->setSpecialValueText( i18n("None" ) );
     _scanned->setSuffix(QString::fromLatin1( "%" ) );
     lay->addWidget( label, 1, 0 );

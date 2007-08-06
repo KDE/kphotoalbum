@@ -21,12 +21,11 @@
 #include <qlabel.h>
 #include <q3textedit.h>
 #include <qdom.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 Survey::TextQuestion::TextQuestion( const QString& id, const QString& title, const QString& question, SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    Q3VBoxLayout* vlay = new Q3VBoxLayout( this, 6 );
+    QVBoxLayout* vlay = new QVBoxLayout( this );
     QLabel* label = new QLabel( question, this );
     label->setWordWrap(true);
     vlay->addWidget( label );

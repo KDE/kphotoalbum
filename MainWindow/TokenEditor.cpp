@@ -17,9 +17,9 @@
 */
 #include "TokenEditor.h"
 #include <qlayout.h>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <Q3ValueList>
 #include <klocale.h>
 #include <kpushbutton.h>
@@ -44,7 +44,8 @@ TokenEditor::TokenEditor( QWidget* parent )
     QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:") );
     vlay->addWidget( label );
 
-    Q3GridLayout* grid = new Q3GridLayout( vlay, 6, 5, 10 );
+    QGridLayout* grid = new QGridLayout;
+    vlay->addLayout( grid );
 
     int index = 0;
     for ( int ch = 'A'; ch <= 'Z'; ch++, index++ ) {
@@ -54,7 +55,9 @@ TokenEditor::TokenEditor( QWidget* parent )
         _cbs.append( box );
     }
 
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( vlay, 10 );
+    QHBoxLayout* hlay = new QHBoxLayout;
+    vlay->addLayout( hlay );
+
     hlay->addStretch( 1 );
     KPushButton* selectAll = new KPushButton( i18n("Select All") );
     KPushButton* selectNone = new KPushButton( i18n("Select None") );

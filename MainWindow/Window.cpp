@@ -25,7 +25,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QCloseEvent>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <Q3Frame>
 #include <Q3CString>
 #include <Q3PtrList>
@@ -137,7 +137,7 @@ MainWindow::Window::Window( QWidget* parent )
     Settings::SettingsData::instance();
 
     QWidget* top = new QWidget( this );
-    Q3VBoxLayout* lay = new Q3VBoxLayout( top, 6 );
+    QVBoxLayout* lay = new QVBoxLayout( top );
     setCentralWidget( top );
 
     _stack = new Q3WidgetStack( top, "_stack" );
@@ -151,7 +151,7 @@ MainWindow::Window::Window( QWidget* parent )
     line->setLineWidth(1);
     lay->addWidget( line );
 
-    _browser = new Browser::BrowserWidget( _stack, "browser" );
+    _browser = new Browser::BrowserWidget( _stack );
     connect( _browser, SIGNAL( showingOverview() ), this, SLOT( showBrowser() ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( pathChanged( const QString& ) ) );
     connect( _browser, SIGNAL( pathChanged( const QString& ) ), this, SLOT( updateDateBar( const QString& ) ) );
@@ -487,7 +487,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
     if ( reuse && Viewer::ViewerWidget::latest() ) {
         viewer = Viewer::ViewerWidget::latest();
         viewer->raise();
-        viewer->setActiveWindow();
+        viewer->activateWindow();
     }
     else
         viewer = new Viewer::ViewerWidget;
@@ -856,18 +856,8 @@ bool MainWindow::Window::load()
             if ( !QFileInfo( configFile ).exists() )
                 showWelcome = true;
         }
-        else {
-            // KimDaBa compatibility
-            KConfig oldConfig( QString::fromLatin1("kimdaba") );
-            if ( oldConfig.hasKey( QString::fromLatin1("configfile") ) ) {
-                configFile = oldConfig.readEntry<QString>( QString::fromLatin1("configfile"),QString() );
-                if ( !QFileInfo( configFile ).exists() )
-                    showWelcome = true;
-                KGlobal::config()->writeEntry( QString::fromLatin1("configfile"), configFile );
-            }
-            else
-                showWelcome = true;
-        }
+        else
+            showWelcome = true;
 
         if ( showWelcome ) {
             SplashScreen::instance()->hide();
@@ -943,11 +933,11 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         menu.addAction( _showExifDialog);
 #endif
 
-        menu.insertSeparator();
+        menu.addSeparator();
         menu.addAction(_rotLeft);
         menu.addAction(_rotRight);
         menu.addAction(_recreateThumbnails);
-        menu.insertSeparator();
+        menu.addSeparator();
 
         menu.addAction(_view);
         menu.addAction(_viewInNewWindow);

@@ -22,8 +22,8 @@
 #include <q3frame.h>
 #include <q3buttongroup.h>
 #include <qradiobutton.h>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <Q3ValueList>
 #include <klocale.h>
 #include <qlineedit.h>
@@ -34,12 +34,14 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
                                                   Type tp, SurveyDialog* parent )
     :Question( id, title, parent )
 {
-    Q3HBoxLayout* hlay = new Q3HBoxLayout( this, 6 );
-    Q3VBoxLayout* vlay;
+    QHBoxLayout* hlay = new QHBoxLayout( this );
+    QVBoxLayout* vlay;
     QLabel* label;
 
     if ( !text.isNull() ) {
-        vlay = new Q3VBoxLayout( hlay, 6 );
+        vlay = new QVBoxLayout;
+        hlay->addLayout( vlay );
+
         label = new QLabel( QString::fromLatin1("<p>%1</p>").arg(text) , this );
         label->setWordWrap(true);
         vlay->addWidget( label );
@@ -50,7 +52,9 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
         hlay->addWidget( frame );
     }
 
-    vlay = new Q3VBoxLayout( hlay, 6 );
+    vlay = new QVBoxLayout;
+    hlay->addLayout( vlay );
+
     label = new QLabel( QString::fromLatin1("<h3>%1</h3>").arg(question), this );
     label->setWordWrap(true);
     vlay->addWidget( label );
@@ -71,7 +75,8 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
     }
 
     for ( int i = 0; i < otherCounts; ++i ) {
-        hlay = new Q3HBoxLayout( vlay, 6 );
+        hlay = new QHBoxLayout;
+        vlay->addLayout( hlay );
         QLabel* label = new QLabel( i18n("Other: "), this );
         hlay->addWidget( label );
         QLineEdit* edit = new QLineEdit( this );

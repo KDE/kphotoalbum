@@ -43,7 +43,7 @@ class BrowserWidget :public QWidget {
     friend class ImageFolderAction;
 
 public:
-    BrowserWidget( QWidget* parent, const char* name = 0 );
+    BrowserWidget( QWidget* parent );
     ~BrowserWidget();
     void addSearch( DB::ImageSearchInfo& info );
     void addImageView( const QString& context );

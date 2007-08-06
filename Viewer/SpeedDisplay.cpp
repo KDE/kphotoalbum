@@ -22,19 +22,16 @@
 #include <qtimer.h>
 //Added by qt3to4:
 #include <Q3Frame>
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 
 #include <klocale.h>
 
-Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent, const char* name )
-    :QDialog( parent, name, false, Qt::WStyle_Customize | Qt::WStyle_NoBorder
-#ifdef TEMPORARILY_REMOVED
-              | WX11BypassWM
-#endif
-              | Qt::WStyle_StaysOnTop )
+Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
+    :QDialog( parent )
 {
+    setWindowFlags( Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WX11BypassWM | Qt::WStyle_StaysOnTop );
     _label = new QLabel( this );
-    _layout = new Q3HBoxLayout( this );
+    _layout = new QHBoxLayout( this );
     _layout->addWidget( _label );
     _timer = new QTimer( this );
     connect( _timer, SIGNAL( timeout() ), this, SLOT( hide() ) );

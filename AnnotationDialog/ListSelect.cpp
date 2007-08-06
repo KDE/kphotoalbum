@@ -22,17 +22,15 @@
 #include <qcheckbox.h>
 #include <qvalidator.h>
 #include <q3popupmenu.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
 #include <Q3ValueList>
 #include <QMouseEvent>
 #include <QEvent>
-#include <Q3VBoxLayout>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kinputdialog.h>
 #include "DB/ImageDB.h"
 #include <kio/job.h>
+#include <kio/copyjob.h>
 #include <qtoolbutton.h>
 #include <kiconloader.h>
 #include <q3buttongroup.h>
@@ -48,6 +46,7 @@
 #include "CategoryListView/DragableListView.h"
 #include "CategoryListView/CheckDropItem.h"
 #include <qradiobutton.h>
+#include <QWidgetAction>
 
 using namespace AnnotationDialog;
 using CategoryListView::CheckDropItem;
@@ -58,7 +57,6 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     QVBoxLayout* layout = new QVBoxLayout( this );
 
     _lineEdit = new CompletableLineEdit( this );
-    _lineEdit->setName( QString::fromLatin1( "line edit for %1").arg(_category->name()).latin1() );
     layout->addWidget( _lineEdit );
 
     _listView = new CategoryListView::DragableListView( _category, this );
@@ -76,7 +74,9 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     _listView->viewport()->installEventFilter( this );
 
     // Merge CheckBox
-    Q3HBoxLayout* lay2 = new Q3HBoxLayout( layout, 6 );
+    QHBoxLayout* lay2 = new QHBoxLayout;
+    layout->addLayout( lay2 );
+
     Q3ButtonGroup* group = new Q3ButtonGroup( this );
     group->hide();
     _or = new QRadioButton( i18n("or"), this );
@@ -92,18 +92,18 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     grp->setExclusive( true );
     grp->hide();
 
-    _alphaSort = new QToolButton( this, "_alphaSort" );
-    _alphaSort->setIconSet( SmallIcon( QString::fromLatin1( "text" ) ) );
-    _alphaSort->setToggleButton( true );
+    _alphaSort = new QToolButton;
+    _alphaSort->setIcon( SmallIcon( QString::fromLatin1( "text" ) ) );
+    _alphaSort->setCheckable( true );
     grp->insert( _alphaSort );
 
-    _dateSort = new QToolButton( this, "_dateSort" );
-    _dateSort->setIconSet( SmallIcon( QString::fromLatin1( "date" ) ) );
-    _dateSort->setToggleButton( true );
+    _dateSort = new QToolButton;
+    _dateSort->setIcon( SmallIcon( QString::fromLatin1( "date" ) ) );
+    _dateSort->setCheckable( true );
     grp->insert( _dateSort );
 
-    _alphaSort->setOn( Settings::ViewSortType() == Settings::SortAlpha );
-    _dateSort->setOn( Settings::ViewSortType() == Settings::SortLastUse );
+    _alphaSort->setChecked( Settings::ViewSortType() == Settings::SortAlpha );
+    _dateSort->setChecked( Settings::ViewSortType() == Settings::SortLastUse );
     connect( _dateSort, SIGNAL( clicked() ), this, SLOT( slotSortDate() ) );
     connect( _alphaSort, SIGNAL( clicked() ), this, SLOT( slotSortAlpha() ) );
 
@@ -196,8 +196,8 @@ void AnnotationDialog::ListSelect::setViewSortType( Settings::ViewSortType tp )
     _lineEdit->setText( text );
     setMode( _mode );	// generate the ***NONE*** entry if in search mode
 
-    _alphaSort->setOn( tp == Settings::SortAlpha );
-    _dateSort->setOn( tp == Settings::SortLastUse );
+    _alphaSort->setChecked( tp == Settings::SortAlpha );
+    _dateSort->setChecked( tp == Settings::SortLastUse );
 }
 
 
@@ -225,7 +225,7 @@ void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
         QRegExp regEnd( QString::fromLatin1("\\s*[&|!]\\s*$") );
         QRegExp regStart( QString::fromLatin1("^\\s*[&|!]\\s*") );
         if ( static_cast<Q3CheckListItem*>(item)->isOn() )  {
-            int matchPos = _lineEdit->text().find( txt );
+            int matchPos = _lineEdit->text().indexOf( txt );
             if ( matchPos != -1 )
                 return;
 
@@ -242,7 +242,7 @@ void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
             res += end;
         }
         else {
-            int index = _lineEdit->text().find( txt );
+            int index = _lineEdit->text().indexOf( txt );
             if ( index == -1 )
                 return;
 
@@ -267,74 +267,81 @@ void AnnotationDialog::ListSelect::itemSelected( Q3ListViewItem* item )
 
 void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const QPoint& pos )
 {
-#ifdef TEMPORARILY_REMOVED
-    Q3PopupMenu menu( this, "context popup menu" );
+    QMenu* menu = new QMenu( this );
 
     // click on any item
     QString title = i18n("No Item Selected");
     if ( item )
         title = item->text(0);
 
-    QLabel* label = new QLabel( QString::fromLatin1("<b>%1</b>").arg(title), &menu );
+    QLabel* label = new QLabel( QString::fromLatin1("<b>%1</b>").arg(title), menu );
     label->setAlignment( Qt::AlignCenter );
-    menu.insertItem( label );
-    menu.insertItem( SmallIcon(QString::fromLatin1("editdelete")), i18n("Delete"), 1 );
-    menu.insertItem( i18n("Rename..."), 2 );
+    QWidgetAction* action = new QWidgetAction(menu);
+    action->setDefaultWidget( label );
+    menu->addAction(action);
 
-    QLabel* categoryTitle = new QLabel( i18n("<b>Sub Categories</b>"), &menu );
+    QAction* deleteAction = menu->addAction( SmallIcon(QString::fromLatin1("editdelete")), i18n("Delete") );
+    QAction* renameAction = menu->addAction( i18n("Rename...") );
+
+    QLabel* categoryTitle = new QLabel( i18n("<b>Sub Categories</b>"), menu );
     categoryTitle->setAlignment( Qt::AlignCenter );
-    menu.insertItem( categoryTitle );
+    action = new QWidgetAction( menu );
+    action->setDefaultWidget( categoryTitle );
+    menu->addAction( action );
 
     // -------------------------------------------------- Add/Remove member group
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
-    QMap<int, QString> map;
-    Q3PopupMenu* members = new Q3PopupMenu( &menu );
-    members->setCheckable( true );
-    menu.insertItem( i18n( "Super Categories" ), members, 5 );
+    QMenu* members = new QMenu( i18n( "Super Categories" ) );
+    menu->addMenu( members );
+    QAction* newCategoryAction = 0;
     if ( item ) {
         QStringList grps = memberMap.groups( _category->name() );
-
-        int index = 10;
 
         for( QStringList::Iterator it = grps.begin(); it != grps.end(); ++it ) {
             if (!memberMap.canAddMemberToGroup(_category->name(), *it, item->text(0)))
                 continue;
-            members->insertItem( *it, ++index );
-            map.insert( index, *it );
-            members->setItemChecked( index, (bool) memberMap.members( _category->name(), *it, false ).contains( item->text(0) ) );
+            QAction* action = members->addAction( *it );
+            action->setCheckable(true);
+            action->setChecked( (bool) memberMap.members( _category->name(), *it, false ).contains( item->text(0) ) );
         }
 
         if ( !grps.isEmpty() )
-            members->insertSeparator();
-        members->insertItem( i18n("New Category..." ), 7 );
+            members->addSeparator();
+        newCategoryAction = members->addAction( i18n("New Category..." ) );
     }
-    menu.insertItem( i18n( "Create Subcategory..." ), 8 );
+
+    QAction* newSubcategoryAction = menu->addAction( i18n( "Create Subcategory..." ) );
 
     // -------------------------------------------------- Take item out of category
     Q3ListViewItem* parent = item ? item->parent() : 0;
+    QAction* takeAction = 0;
     if ( parent )
-        menu.insertItem( i18n( "Take item out of category %1", parent->text(0) ), 9 );
+        takeAction = menu->addAction( i18n( "Take item out of category %1", parent->text(0) ) );
 
     // -------------------------------------------------- sort
-    QLabel* sortTitle = new QLabel( i18n("<b>Sorting</b>"), &menu );
+    QLabel* sortTitle = new QLabel( i18n("<b>Sorting</b>") );
     sortTitle->setAlignment( Qt::AlignCenter );
-    menu.insertItem( sortTitle );
-    menu.insertItem( i18n("Usage"), 3 );
-    menu.insertItem( i18n("Alphabetical"), 4 );
-    menu.setItemChecked(3, Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
-    menu.setItemChecked(4, Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha);
+    action = new QWidgetAction( menu );
+    action->setDefaultWidget( sortTitle );
+    menu->addAction( action );
+
+    QAction* usageAction = menu->addAction( i18n("Usage") );
+    QAction* alphaAction = menu->addAction( i18n("Alphabetical") );
+    usageAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
+    alphaAction->setChecked( Settings::SettingsData::instance()->viewSortType() == Settings::SortAlpha);
 
     if ( !item ) {
-        menu.setItemEnabled( 1, false );
-        menu.setItemEnabled( 2, false );
-        menu.setItemEnabled( 5, false );
-        menu.setItemEnabled( 6, false );
-        menu.setItemEnabled( 8, false );
+        deleteAction->setEnabled( false );
+        renameAction->setEnabled( false );
+        members->setEnabled( false );
+        newSubcategoryAction->setEnabled( false );
     }
+// -------------------------------------------------- exec
+    QAction* which = menu->exec( pos );
+    if ( which == 0 )
+        return;
 
-    // -------------------------------------------------- exec
-    int which = menu.exec( pos );
-    if ( which == 1 ) {
+    else if ( which == deleteAction ) {
         int code = KMessageBox::warningContinueCancel( this, i18n("<p>Do you really want to delete \"%1\"?<br>"
                                                                   "Deleting the item will remove any information "
                                                                   "about it from any image containing the item.</p>"
@@ -346,7 +353,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
             rePopulate();
         }
     }
-    else if ( which == 2 ) {
+    else if ( which == renameAction ) {
         bool ok;
         QString newStr = KInputDialog::getText( i18n("Rename Item"), i18n("Enter new name:"),
                                                 item->text(0), &ok, this );
@@ -372,13 +379,13 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
             }
         }
     }
-    else if ( which == 3 ) {
+    else if ( which == usageAction ) {
         Settings::SettingsData::instance()->setViewSortType( Settings::SortLastUse );
     }
-    else if ( which == 4 ) {
+    else if ( which == alphaAction ) {
         Settings::SettingsData::instance()->setViewSortType( Settings::SortAlpha );
     }
-    else if ( which == 7 ) {
+    else if ( which == newCategoryAction ) {
         QString superCategory = KInputDialog::getText( i18n("New Super Category"), i18n("New Super Category Name:") );
         if ( superCategory.isNull() )
             return;
@@ -387,7 +394,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
         //DB::ImageDB::instance()->setMemberMap( memberMap );
         rePopulate();
     }
-    else if ( which == 8 ) {
+    else if ( which == newSubcategoryAction ) {
         QString subCategory = KInputDialog::getText( i18n("New Sub Category"), i18n("New Sub Category Name:") );
         if ( subCategory.isNull() )
             return;
@@ -403,30 +410,25 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
         if ( isInputMode() )
             checkItem( subCategory, true );
     }
-    else if ( which == 9 ) {
+    else if ( which == takeAction ) {
         memberMap.removeMemberFromGroup( _category->name(), parent->text(0), item->text(0) );
         rePopulate();
     }
     else {
-        if ( map.contains( which ) ) {
-            QString checkedItem = map[which];
-            if ( !members->isItemChecked( which ) ) // chosing the item doesn't check it, so this is the value before.
-                memberMap.addMemberToGroup( _category->name(), checkedItem, item->text(0) );
-            else
-                memberMap.removeMemberFromGroup( _category->name(), checkedItem, item->text(0) );
-            //DB::ImageDB::instance()->setMemberMap( memberMap );
-            rePopulate();
-        }
+        QString checkedItem = which->text();
+        if ( which->isChecked() ) // chosing the item doesn't check it, so this is the value before.
+            memberMap.addMemberToGroup( _category->name(), checkedItem, item->text(0) );
+        else
+            memberMap.removeMemberFromGroup( _category->name(), checkedItem, item->text(0) );
+        rePopulate();
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
+
+    delete menu;
 }
 
 
-void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, Q3ListViewItem* parent )
+void AnnotationDialog::ListSelect::addItems( DB::CategoryItem* item, Q3ListViewItem* parent )
 {
-#ifdef TEMPORARILY_REMOVED
     for( Q3ValueList<DB::CategoryItem*>::ConstIterator subcategoryIt = item->_subcategories.begin(); subcategoryIt != item->_subcategories.end(); ++subcategoryIt ) {
         CheckDropItem* newItem = 0;
 
@@ -438,11 +440,8 @@ void AnnotationDialog::ListSelect::insertItems( DB::CategoryItem* item, Q3ListVi
         newItem->setOpen( true );
         configureItem( newItem );
 
-        insertItems( (*subcategoryIt), newItem );
+        addItems( *subcategoryIt, newItem );
     }
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 void AnnotationDialog::ListSelect::populate()
@@ -500,14 +499,10 @@ void AnnotationDialog::ListSelect::showOnlyItemsMatching( const QString& text )
 
 void AnnotationDialog::ListSelect::populateAlphabetically()
 {
-#ifdef TEMPORARILY_REMOVED
     DB::CategoryItemPtr item = _category->itemsCategories();
 
-    insertItems( item, 0 );
+    addItems( item.data(), 0 );
     _listView->setSorting( 0 );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 void AnnotationDialog::ListSelect::populateMRU()

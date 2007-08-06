@@ -20,13 +20,13 @@
 #include "ListSelect.h"
 #include <qpushbutton.h>
 #include <qlabel.h>
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 #include <Q3ValueList>
 #include <Q3CString>
 #include <QPixmap>
 #include <QResizeEvent>
 #include <QEvent>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include <QMoveEvent>
 #include <QCloseEvent>
 #include "Settings/SettingsData.h"
@@ -231,13 +231,13 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
     hlay->addStretch(1);
 
     _prevBut = new QPushButton( top );
-    _prevBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1leftarrow" ), K3Icon::Desktop, 22 ) );
+    _prevBut->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1leftarrow" ), K3Icon::Desktop, 22 ) );
     _prevBut->setFixedWidth( 40 );
     hlay->addWidget( _prevBut );
     _prevBut->setToolTip( i18n("Annotate previous image") );
 
     _nextBut = new QPushButton( top );
-    _nextBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1rightarrow" ), K3Icon::Desktop, 22 ) );
+    _nextBut->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1rightarrow" ), K3Icon::Desktop, 22 ) );
     _nextBut->setFixedWidth( 40 );
     hlay->addWidget( _nextBut );
     _nextBut->setToolTip( i18n("Annotate next image") );
@@ -246,19 +246,19 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
 
     _rotateLeft = new QPushButton( top );
     hlay->addWidget( _rotateLeft );
-    _rotateLeft->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), K3Icon::Desktop, 22 ) );
+    _rotateLeft->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), K3Icon::Desktop, 22 ) );
     _rotateLeft->setFixedWidth( 40 );
     _rotateLeft->setToolTip( i18n("Rotate contra-clockwise (to the left)") );
 
     _rotateRight = new QPushButton( top );
     hlay->addWidget( _rotateRight );
-    _rotateRight->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_cw" ), K3Icon::Desktop, 22 ) );
+    _rotateRight->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_cw" ), K3Icon::Desktop, 22 ) );
     _rotateRight->setFixedWidth( 40 );
     _rotateRight->setToolTip( i18n("Rotate clockwise (to the right)") );
 
     _copyPreviousBut = new QPushButton( top );
     hlay->addWidget( _copyPreviousBut );
-    _copyPreviousBut->setIconSet( KIconLoader::global()->loadIconSet( QString::fromLatin1( "legalmoves" ), K3Icon::Desktop, 22 ) );
+    _copyPreviousBut->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "legalmoves" ), K3Icon::Desktop, 22 ) );
     _copyPreviousBut->setFixedWidth( 40 );
     connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
     _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );

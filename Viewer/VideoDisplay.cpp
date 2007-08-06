@@ -43,7 +43,7 @@
 #include <kaction.h>
 #include <ktoolinvocation.h>
 
-#ifdef TEMPORARILY_REMOVED
+#ifdef ALREADY_TEMPORARILY_REMOVED_FROM_KDE3
 // This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
 class MyGUIBuilder :public KXMLGUIBuilder
 {
@@ -103,6 +103,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         return false;
     }
 
+    See KParts::componentFactory.
     KServiceTypeProfile::OfferList services = KServiceTypeProfile::offers(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
 
     ErrorType etype = NoKPart;
@@ -166,10 +167,10 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     factory->addClient( _playerPart );
 #endif
 
-return true;
+    return true;
 #else
-kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
+    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
 }
 
 void Viewer::VideoDisplay::stateChanged( int state)
@@ -195,7 +196,6 @@ QString Viewer::VideoDisplay::mimeTypeForFileName( const QString& fileName ) con
 
 void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileName, const QString& mimeType )
 {
-#ifdef TEMPORARILY_REMOVED
     const QString failed = QString::fromLatin1( "<font color=\"red\"><b>%1</b></font>" ).arg( i18n("Failed") );
     const QString OK = QString::fromLatin1( "<font color=\"green\"><b>%1</b></font>" ).arg( i18n("OK") );
     const QString untested = QString::fromLatin1( "<b>%1</b>" ).arg( i18n("Untested") );
@@ -214,12 +214,10 @@ void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileN
            , type < NoWidget ? untested : (type == NoWidget ? failed : OK ) );
     msg += QString::fromLatin1( "</table>" );
 
-    int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ,fileName ), i18n("Show More Help"), i18n("Close") );
+    int ret = KMessageBox::questionYesNo( this, msg, i18n( "Unable to show video %1" ,fileName ), KGuiItem(i18n("Show More Help")),
+                                          KGuiItem(i18n("Close") ) );
     if ( ret == KMessageBox::Yes )
         KToolInvocation::invokeBrowser( QString::fromLatin1("http://wiki.kde.org/tiki-index.php?page=KPhotoAlbum+Video+Support"));
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 void Viewer::VideoDisplay::zoomIn()
@@ -288,26 +286,18 @@ void Viewer::VideoDisplay::play()
 
 void Viewer::VideoDisplay::stop()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
         player->stop();
     else
         invokeKaffeineAction( "player_stop" );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 void Viewer::VideoDisplay::pause()
 {
-#ifdef TEMPORARILY_REMOVED
     if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
         player->pause();
     else
         invokeKaffeineAction( "player_pause" );
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 /**

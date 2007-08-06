@@ -29,7 +29,7 @@ class InfoBox :public QTextBrowser {
     Q_OBJECT
 
 public:
-    InfoBox( ViewerWidget* parent, const char* name = 0 );
+    InfoBox( ViewerWidget* parent );
     void setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap );
     virtual void setSource( const QString& which );
     void setSize();

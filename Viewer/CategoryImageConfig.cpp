@@ -19,10 +19,9 @@
 #include "CategoryImageConfig.h"
 #include <qlabel.h>
 #include <qlayout.h>
-//Added by qt3to4:
 #include <QPixmap>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
 #include <Q3ValueList>
 #include <klocale.h>
 #include <qcombobox.h>
@@ -36,15 +35,18 @@
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
 CategoryImageConfig::CategoryImageConfig()
-#ifdef TEMPORARILY_REMOVED
-    :KDialog( Plain, i18n("Configure Category Image"), User1 | Close, User1, 0, "", false, false, i18n("Set") ),
-     _image( QImage() )
-#endif
+    : _image( QImage() )
 {
-#ifdef TEMPORARILY_REMOVED
-    QWidget* top = plainPage();
-    Q3VBoxLayout* lay1 = new Q3VBoxLayout( top, 6 );
-    Q3GridLayout* lay2 = new Q3GridLayout( lay1, 2, 2 );
+    setWindowTitle( i18n("Configure Category Image") );
+    setButtons( User1 | Close );
+    setButtonText( User1, i18n("Set") );
+
+    QWidget* top = new QWidget;
+    setMainWidget( top );
+
+    QVBoxLayout* lay1 = new QVBoxLayout( top );
+    QGridLayout* lay2 = new QGridLayout;
+    lay1->addLayout( lay2 );
 
     // Group
     QLabel* label = new QLabel( i18n("Group:" ), top );
@@ -61,7 +63,8 @@ CategoryImageConfig::CategoryImageConfig()
     connect( _member, SIGNAL( activated( int ) ), this, SLOT( memberChanged() ) );
 
     // Current Value
-    Q3GridLayout* lay3 = new Q3GridLayout( lay1, 2, 2 );
+    QGridLayout* lay3 = new QGridLayout;
+    lay1->addLayout( lay3 );
     label = new QLabel( i18n("Current image:"), top );
     lay3->addWidget( label, 0, 0 );
 
@@ -78,16 +81,11 @@ CategoryImageConfig::CategoryImageConfig()
     lay3->addWidget( _imageLabel, 1, 1 );
 
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotSet() ) );
-
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 // PENDING(blackie) convert this code to using StringSet instead.
 void CategoryImageConfig::groupChanged()
 {
-#ifdef TEMPORARILY_REMOVED
     QString currentText = _member->currentText();
     _member->clear();
     QStringList directMembers = _info->itemsOfCategory( currentGroup() ).toList();
@@ -102,15 +100,12 @@ void CategoryImageConfig::groupChanged()
     list = Utilities::removeDuplicates( list );
 
     list.sort();
-    _member->insertStringList( list );
+    _member->addItems( list );
     int index = list.indexOf( currentText );
     if ( index != -1 )
         _member->setCurrentItem( index );
 
     memberChanged();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 void CategoryImageConfig::memberChanged()
@@ -133,14 +128,10 @@ QString CategoryImageConfig::currentGroup()
 
 void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info )
 {
-#ifdef TEMPORARILY_REMOVED
     _image = image;
-    _imageLabel->setPixmap( image );
+    _imageLabel->setPixmap( QPixmap::fromImage(image) );
     _info = info;
     groupChanged();
-#else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
 }
 
 CategoryImageConfig* CategoryImageConfig::instance()
@@ -159,7 +150,7 @@ void CategoryImageConfig::show()
     int currentIndex = -1;
     for ( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( !(*categoryIt)->isSpecialCategory() ) {
-            _group->insertItem( (*categoryIt)->text() );
+            _group->addItem( (*categoryIt)->text() );
             if ( (*categoryIt)->text() == currentCategory )
                 currentIndex = index;
             ++index;

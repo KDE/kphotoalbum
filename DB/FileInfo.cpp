@@ -73,7 +73,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 kdDebug(5123) << "Unknown orientation field " << _fieldName[ *it ] << endl;
         }
         // well, it's purely hypotetical now, as we have only one possible field
-        // for storing image orientation, but who cares :)
+        // for storing image orientation, but it's good to be ready :)
         if (found)
             break;
     }
@@ -113,7 +113,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             default:
                 kdDebug(5123) << "Unknown label field " << _fieldName[ *it ] << endl;
         }
-        if ( !_label.isNull() )
+        if ( !_label.isNull() && (_label != QString::fromAscii("")) )
             // we have a match, let's move along
             break;
     }
@@ -144,7 +144,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             default:
                 kdDebug(5123) << "Unknown description field " << _fieldName[ *it ] << endl;
         }
-        if ( !_description.isNull() )
+        if ( !_description.isNull() && (_description != QString::fromAscii("")) )
             break;
     }
 

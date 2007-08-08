@@ -23,14 +23,12 @@
 
 void ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
-    for( Q3ValueList<ImageRequest*>::ConstIterator pendingIt = _pendingRequests.begin();
-         pendingIt != _pendingRequests.end(); ++pendingIt ) {
-        if ( *request == *(*pendingIt) ) {
-            delete request;
-            return;
-        }
+    if ( _uniquePending.contains( request ) ) {
+        delete request;
+        return;
     }
-
+ 
+    _uniquePending.insert( request );
     if ( request->priority() )
         _pendingRequests.prepend( request );
     else
@@ -45,6 +43,7 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
     while ( _pendingRequests.count() != 0 ) {
         ImageRequest* request = _pendingRequests.first();
         _pendingRequests.pop_front();
+        _uniquePending.remove( request );
 
         if ( !request->stillNeeded() ) {
             _activeRequests.remove( request );
@@ -76,6 +75,7 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
         ++it;
         if ( request->client() == client && ( action == StopAll || !request->priority() ) ) {
             _pendingRequests.remove( request );
+            _uniquePending.remove( request );
             delete request;
         }
     }

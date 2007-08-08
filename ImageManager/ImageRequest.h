@@ -36,7 +36,6 @@ namespace ImageManager
 class ImageRequest {
 public:
     virtual ~ImageRequest() {}
-    ImageRequest();
     ImageRequest( const QString& fileName, const QSize& size, int angle, ImageClient* client);
 
     bool isNull() const;

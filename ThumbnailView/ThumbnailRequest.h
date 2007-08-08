@@ -26,13 +26,12 @@ class ThumbnailWidget;
 class ThumbnailRequest :public ImageManager::ImageRequest
 {
 public:
-    ThumbnailRequest();
     ThumbnailRequest( const QString& fileName, const QSize& size, int angle, ThumbnailWidget* client);
     virtual bool stillNeeded() const;
 
 private:
-    ThumbnailWidget* _thumbnailView;
-    QString _fileName;
+    const ThumbnailWidget* const _thumbnailView;
+    const QString _fileName;
 };
 
 }

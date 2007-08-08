@@ -16,9 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageRequest.h"
-ImageManager::ImageRequest::ImageRequest() : _null( true ),  _cache( true ),  _client( 0 )
-{
-}
 
 ImageManager::ImageRequest::ImageRequest( const QString& fileName, const QSize& size, int angle, ImageManager::ImageClient* client )
     : _null( false ),  _fileName( fileName ),  _width( size.width() ),  _height( size.height() ),
@@ -55,11 +52,14 @@ int ImageManager::ImageRequest::height() const
 
 bool ImageManager::ImageRequest::operator<( const ImageRequest& other ) const
 {
-    if (  fileName() != other.fileName() )
-        return fileName() < other.fileName();
+    const QString fileA = fileName();
+    const QString fileB = other.fileName();
+
+    if (  fileA != fileB )
+        return fileA < fileB;
     else if ( _width != other._width )
         return _width < other._width;
-    else if ( _height < other._height )
+    else if ( _height != other._height )
         return _height < other._height;
     else
         return _angle < other._angle;

@@ -1,3 +1,8 @@
+2007-08-08  Jan Kundrat  <jkt@gentoo.org>
+
+	* Applied Henner Zeller's patch for optimizing the thumbnail displaying
+	queue complexity from O(n^2) to O(n*log n)
+
 2007-07-23  Jan Kundrat  <jkt@gentoo.org>
 
 	* Applied Robert Krawitz' patch for using readdir_r() instead of QDir

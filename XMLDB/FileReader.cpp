@@ -254,15 +254,24 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     if ( wrongOrder ) {
         KMessageBox::information( MainWindow::Window::theMainWindow(),
+#ifdef HASEXIV2
                                   i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                                        "will only work suboptimally.</p>"
                                        "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
                                        "which you can use to find the images that are missing date information.</p>"
                                        "You can then select the images that you have reason to believe have a correct date "
-                                       "in either their EXIF data or on the file, and execute <b>Maintainance->Read EXIF Info</b> "
+                                       "in either their EXIF data or on the file, and execute <b>Maintenance->Read EXIF Info</b> "
                                        "to reread the information.</p>"
                                        "<p>Finally, once all images have their dates set, you can execute "
                                        "<b>Images->Sort Selected by Date & Time</b> to sort them in the database.</p>"),
+#else
+                                  i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
+                                       "will only work suboptimally.</p>"
+                                       "<p>You also don't have EXIF support available, which means that you can't read "
+                                       "image dates from JPEG metadata. It's strongly recommended to recompile KPhotoAlbum "
+                                       "with the <code>exiv2</code> library. After you have done so, you'll be asked what "
+                                       "to do to correct all missing information.</p>"),
+#endif
                                   i18n("Images/Videos Are Not Sorted"),
                                   QString::fromLatin1( "checkWhetherImagesAreSorted" ) );
     }

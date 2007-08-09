@@ -234,6 +234,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
     dialog.setMaximum( list.count() );
 
     int count = 0;
+    QStringList cantRead;
     bool dirty = false;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count ) {
@@ -248,7 +249,11 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
                 return dirty;
             }
         }
+
         MD5 md5 = MD5Sum( *it );
+        if ( md5 == MD5() )
+            cantRead << *it;
+
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
@@ -259,16 +264,18 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
     }
     if ( wasCanceled )
         *wasCanceled = false;
+
+    if ( !cantRead.empty() )
+        KMessageBox::informationList( 0, i18n("Following files could not be read:"), cantRead );
+
     return dirty;
 }
 
 MD5 NewImageFinder::MD5Sum( const QString& fileName )
 {
     QFile file( fileName );
-    if ( !file.open( QIODevice::ReadOnly ) ) {
-        if ( KMessageBox::warningContinueCancel( 0, i18n("Could not open %1").arg( fileName ) ) == KMessageBox::No )
-            return MD5();
-    }
+    if ( !file.open( QIODevice::ReadOnly ) )
+        return MD5();
 
     KMD5 md5calculator( 0 /* char* */);
     md5calculator.reset();

@@ -846,10 +846,8 @@ QStringList Utilities::iptcHumanReadableCharsetList() {
 DB::MD5 Utilities::MD5Sum( const QString& fileName )
 {
     QFile file( fileName );
-    if ( !file.open( IO_ReadOnly ) ) {
-        if ( KMessageBox::warningContinueCancel( 0, i18n("Could not open %1").arg( fileName ) ) == KMessageBox::No )
-            return DB::MD5();
-    }
+    if ( !file.open( IO_ReadOnly ) )
+        return DB::MD5();
 
     KMD5 md5calculator( 0 /* char* */);
     md5calculator.reset();

@@ -229,6 +229,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
                                  "even when you have moved them on the disk.</p>").arg( list.count() ), i18n("&Cancel"), list.count() );
 
     int count = 0;
+    QStringList cantRead;
     bool dirty = false;
 
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count ) {
@@ -243,7 +244,11 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
                 return dirty;
             }
         }
+
         MD5 md5 = Utilities::MD5Sum( *it );
+        if (md5 == MD5() )
+            cantRead << *it;
+
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );
             dirty = true;
@@ -254,6 +259,10 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
     }
     if ( wasCanceled )
         *wasCanceled = false;
+
+    if ( !cantRead.empty() )
+        KMessageBox::informationList( 0, i18n("Following files could not be read:"), cantRead );
+
     return dirty;
 }
 

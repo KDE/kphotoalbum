@@ -98,8 +98,3 @@ a 32x32 image to 1024x768)
   Paris > StreetArt > Invaders
   and the ability to click on them to remove them from the filter
   (enlarging the selection).
-- I find that when I'm adding tokens to a set of pictures, it is frequently the
-  case that the tokens I want to apply to a picture are exactly (or close to)
-  the same tokens I set for the last picture. So a single character (maybe '/'
-  or some other non-token character) to duplicate the previous pictures tokens
-  would be a wonderful time-saver.

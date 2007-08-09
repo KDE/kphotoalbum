@@ -1,3 +1,8 @@
+2007-08-09  Jan Kundrat  <jkt@gentoo.org>
+
+	* Rename File->Export to File->Export/Copy Images to reflect what it
+	actually does and reduce confusion. Fixes bug 145628.
+
 2007-08-08  Jan Kundrat  <jkt@gentoo.org>
 
 	* Applied Henner Zeller's patch for optimizing the thumbnail displaying

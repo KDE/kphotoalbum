@@ -544,7 +544,7 @@ void MainWindow::Window::setupMenuBar()
     _generateHtml = new KAction( i18n("Generate HTML..."), 0, this, SLOT( slotExportToHTML() ), actionCollection(), "exportHTML" );
 
     new KAction( i18n( "Import..."), 0, this, SLOT( slotImport() ), actionCollection(), "import" );
-    new KAction( i18n( "Export..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
+    new KAction( i18n( "Export/Copy Images..."), 0, this, SLOT( slotExport() ), actionCollection(), "export" );
 
 
     // Go menu

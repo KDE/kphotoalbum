@@ -545,7 +545,7 @@ void MainWindow::Window::setupMenuBar()
     action->setText( i18n( "Import...") );
 
     action = actionCollection()->addAction( "export", this, SLOT( slotExport() ) );
-    action->setText( i18n( "Export...") );
+    action->setText( i18n( "Export/Copy Images...") );
 
 
     // Go menu

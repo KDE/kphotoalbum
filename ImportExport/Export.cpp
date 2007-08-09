@@ -72,7 +72,7 @@ void Export::imageExport( const QStringList& list )
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
 ExportConfig::ExportConfig()
 {
-    setWindowTitle( i18n("Export Configuration") );
+    setWindowTitle( i18n("Export Configuration / Copy Images") );
     setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
     QWidget* top = new QWidget;
     setMainWidget( top );

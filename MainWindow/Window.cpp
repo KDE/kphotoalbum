@@ -116,7 +116,7 @@
 #include <KActionMenu>
 #include <KActionCollection>
 #include <KHBox>
-#include <KURLDrag>
+#include <K3URLDrag>
 #include <qclipboard.h>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
@@ -427,7 +427,7 @@ void MainWindow::Window::slotCopySelectedURLs()
         urls.append( KURL( *it ) );
     }
 
-    QApplication::clipboard()->setData( new KURLDrag( urls ) );
+    QApplication::clipboard()->setData( new K3URLDrag( urls ) );
 }
 
 void MainWindow::Window::slotReReadExifInfo()

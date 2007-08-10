@@ -72,6 +72,7 @@ protected slots:
     void slotConfigureAllImages();
     void slotConfigureImagesOneAtATime();
     void slotSave();
+    void slotCopySelectedURLs();
     void slotDeleteSelected();
     void slotReReadExifInfo();
     void slotSearch();

@@ -7,6 +7,7 @@
       <Action name="export"/>
     </Menu>
     <Menu name="edit" >
+      <Action name="copySelectedURLs" />
       <Action name="deleteSelected" />
       <Action name="removeTokens" />
       <Separator/>

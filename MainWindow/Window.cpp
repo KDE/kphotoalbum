@@ -116,6 +116,8 @@
 #include <KActionMenu>
 #include <KActionCollection>
 #include <KHBox>
+#include <KURLDrag>
+#include <qclipboard.h>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -416,6 +418,17 @@ void MainWindow::Window::slotDeleteSelected()
     showThumbNails( newSet );
 }
 
+void MainWindow::Window::slotCopySelectedURLs()
+{
+    const QStringList& sel = selectedOnDisk();
+    KURL::List urls;
+
+    for (QStringList::const_iterator it = sel.begin(); it != sel.end(); ++it) {
+        urls.append( KURL( *it ) );
+    }
+
+    QApplication::clipboard()->setData( new KURLDrag( urls ) );
+}
 
 void MainWindow::Window::slotReReadExifInfo()
 {
@@ -564,6 +577,7 @@ void MainWindow::Window::setupMenuBar()
     _cut = KStandardAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
     _paste = KStandardAction::paste( _thumbNailViewOLD, SLOT( slotPaste() ), actionCollection() );
 #endif
+    KStdAction::copy( this, SLOT( slotCopySelectedURLs() ), actionCollection() );
     _selectAll = KStandardAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
 

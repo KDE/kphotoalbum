@@ -577,7 +577,7 @@ void MainWindow::Window::setupMenuBar()
     _cut = KStandardAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
     _paste = KStandardAction::paste( _thumbNailViewOLD, SLOT( slotPaste() ), actionCollection() );
 #endif
-    KStdAction::copy( this, SLOT( slotCopySelectedURLs() ), actionCollection() );
+    KStandardAction::copy( this, SLOT( slotCopySelectedURLs() ), actionCollection() );
     _selectAll = KStandardAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStandardAction::find( this, SLOT( slotSearch() ), actionCollection() );
 

@@ -421,10 +421,10 @@ void MainWindow::Window::slotDeleteSelected()
 void MainWindow::Window::slotCopySelectedURLs()
 {
     const QStringList& sel = selectedOnDisk();
-    KURL::List urls;
+    KUrl::List urls;
 
     for (QStringList::const_iterator it = sel.begin(); it != sel.end(); ++it) {
-        urls.append( KURL( *it ) );
+        urls.append( KUrl( *it ) );
     }
 
     QApplication::clipboard()->setData( new K3URLDrag( urls ) );

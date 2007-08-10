@@ -27,6 +27,12 @@ libsqldb_la_SOURCES = \
 	QueryResult.cpp \
 	SQLTagCategory.cpp \
 	SQLNormalCategory.cpp \
-	SQLTokensCategory.cpp
+	SQLTokensCategory.cpp \
+	Schema/DatabaseSchema.cpp \
+	Schema/KPhotoAlbumSchema.cpp \
+	Schema/CreateStatementGenerator.cpp \
+	Schema/MySQLCSG.cpp \
+	Schema/PostgreSQLCSG.cpp \
+	Schema/SQLiteCSG.cpp
 
 METASOURCES = AUTO

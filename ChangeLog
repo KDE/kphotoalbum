@@ -1,3 +1,8 @@
+2007-08-10  Jan Kundrat  <jkt@gentoo.org>
+
+	* Add Edit->Copy for copying a list of URLs to selected images to clipboard.
+	Fixes bug 145628 for a second time :).
+
 2007-08-09  Jan Kundrat  <jkt@gentoo.org>
 
 	* Rename File->Export to File->Export/Copy Images to reflect what it

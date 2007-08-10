@@ -105,6 +105,8 @@
 #include <krun.h>
 #include "DirtyIndicator.h"
 #include "Utilities/ShowBusyCursor.h"
+#include <kurldrag.h>
+#include <qclipboard.h>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -390,6 +392,18 @@ void MainWindow::Window::slotSave()
     statusBar()->message(i18n("Saving... Done"), 5000 );
 }
 
+void MainWindow::Window::slotCopySelectedURLs()
+{
+    const QStringList& sel = selectedOnDisk();
+    KURL::List urls;
+
+    for (QStringList::const_iterator it = sel.begin(); it != sel.end(); ++it) {
+        urls.append( KURL( *it ) );
+    }
+
+    QApplication::clipboard()->setData( new KURLDrag( urls ) );
+}
+
 void MainWindow::Window::slotDeleteSelected()
 {
     if ( ! _deleteDialog )
@@ -563,6 +577,7 @@ void MainWindow::Window::setupMenuBar()
     _cut = KStdAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
     _paste = KStdAction::paste( _thumbNailViewOLD, SLOT( slotPaste() ), actionCollection() );
 #endif
+    KStdAction::copy( this, SLOT( slotCopySelectedURLs() ), actionCollection() );
     _selectAll = KStdAction::selectAll( _thumbnailView, SLOT( selectAll() ), actionCollection() );
     KStdAction::find( this, SLOT( slotSearch() ), actionCollection() );
     _deleteSelected = new KAction( i18n( "Delete Selected" ), QString::fromLatin1("editdelete"), Key_Delete, this, SLOT( slotDeleteSelected() ),

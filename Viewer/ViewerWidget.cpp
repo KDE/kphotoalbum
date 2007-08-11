@@ -48,6 +48,9 @@
 #include <qeventloop.h>
 #include <qfileinfo.h>
 #include <TextDisplay.h>
+#include <kprocess.h>
+#include <kstandarddirs.h>
+#include <kcursor.h>
 
 #ifdef HASEXIV2
 #  include "Exif/InfoDialog.h"
@@ -62,7 +65,7 @@
  * The class consists of these components:
  * <ul>
  * <li>\ref ViewerWidget - This is the topmost widget used as the viewer.
- * <li>\ref Display, \ref ImageDisplay, and \ref VideoDisplay - Widgets hierarchy which takes care of the actual displaying of content.
+ * <li>\ref Display, \ref ImageDisplay, \ref VideoDisplay and \ref TextDisplay - Widgets hierarchy which takes care of the actual displaying of content.
  * <li> \ref DisplayAreaHandler, \ref DrawHandler, and \ref ViewHandler - Class Hierarchy which interprets mouse gestures.
  * <li> \ref Draw, \ref LineDraw, \ref CircleDraw, and \ref RectDraw - Class Hierarchy containing information about drawing on images.
  * <li> \ref InfoBox - Widget implementing the informatiom box
@@ -119,6 +122,19 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
     _speedDisplay = new SpeedDisplay( this );
 
     setFocusPolicy( StrongFocus );
+
+    const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
+    if ( !xdgScreenSaver.isEmpty() ) {
+        KProcess proc;
+        proc << xdgScreenSaver;
+        proc << "suspend";
+        proc << QString::number( winId() );
+        proc.start( KProcess::DontCare );
+    }
+
+    KCursor::setAutoHideCursor( this, true );
+    KCursor::setHideCursorDelay( 1500 );
+
 }
 
 
@@ -772,6 +788,17 @@ void Viewer::ViewerWidget::updateInfoBox()
 
 Viewer::ViewerWidget::~ViewerWidget()
 {
+    const QString xdgScreenSaver = KStandardDirs::findExe( QString::fromAscii("xdg-screensaver") );
+    if ( !xdgScreenSaver.isEmpty() ) {
+        KProcess proc;
+        proc << xdgScreenSaver;
+        proc << "resume";
+        proc << QString::number( winId() );
+        // if we don't wait here, xdg-screensaver realizes that the window is
+        // already gone and doesn't re-activate the screensaver
+        proc.start( KProcess::Block );
+    }
+
     if ( _latest == this )
         _latest = 0;
 }

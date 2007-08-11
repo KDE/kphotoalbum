@@ -1,3 +1,7 @@
+2007-08-11  Jan Kundrat  <jkt@gentoo.org>
+
+	* Automatically hide mouse cursor and disable screensaver when in Viewer
+
 2007-08-10  Jan Kundrat  <jkt@gentoo.org>
 
 	* Add Edit->Copy for copying a list of URLs to selected images to clipboard.

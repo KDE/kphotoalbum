@@ -45,7 +45,7 @@ namespace
 SQLDB::Database::Database(const DatabaseAddress& address):
     _address(address),
     _handler(_address),
-    _qh(*_handler.connection()),
+    _qh(_handler.connection()),
     _categoryCollection(_qh),
     _members(_qh),
     _infoCollection(_qh),
@@ -59,10 +59,6 @@ SQLDB::Database::Database(const DatabaseAddress& address):
             SIGNAL(itemRenamed(DB::Category*, const QString&, const QString&)),
             &_infoCollection,
             SLOT(renameTag(DB::Category*, const QString&, const QString&)));
-}
-
-SQLDB::Database::~Database()
-{
 }
 
 bool SQLDB::Database::operator==(const DB::ImageDB& other) const

@@ -35,7 +35,6 @@ namespace SQLDB {
 
     public:
         explicit Database(const DatabaseAddress& address);
-        ~Database();
 
         virtual bool operator==(const DB::ImageDB& other) const;
         virtual uint totalCount() const;

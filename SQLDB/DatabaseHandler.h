@@ -31,8 +31,7 @@ namespace SQLDB
         DatabaseHandler(const DatabaseAddress& address);
         ~DatabaseHandler();
 
-        Connection* connection();
-        void reconnect();
+        Connection& connection();
 
     protected:
         void connect();

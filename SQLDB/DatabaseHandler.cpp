@@ -106,20 +106,9 @@ void DatabaseHandler::connect()
         throw ConnectionOpenError(_connection->errorMsg());
 }
 
-void DatabaseHandler::reconnect()
+Connection& DatabaseHandler::connection()
 {
-    if (_connection->isConnected()) {
-        bool success = _connection->disconnect();
-        if (!success)
-            throw ConnectionCloseError(_connection->errorMsg());
-    }
-    connect();
-    openDatabase(_databaseName);
-}
-
-Connection* DatabaseHandler::connection()
-{
-    return _connection;
+    return *_connection;
 }
 
 void DatabaseHandler::openDatabase(const QString& name)

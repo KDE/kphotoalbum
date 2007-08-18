@@ -36,7 +36,7 @@ kphotoalbum_LDADD =  MainWindow/libMainWindow.la Survey/libsurvey.la ImportExpor
 		     CategoryListView/libCategoryListView.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) $(KPHOTOALBUM_KEXI_LIBS) \
                      $(LIBKPHOTOALBUM_KEXIDB) HTMLGenerator/libHTMLGenerator.la\
-	             $(KPHOTOALBUM_EXIV2_LIBS) -lkmediaplayer
+	             $(KPHOTOALBUM_EXIV2_LIBS) -lkmediaplayer -lkdcraw
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII 

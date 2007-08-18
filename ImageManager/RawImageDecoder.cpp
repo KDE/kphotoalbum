@@ -23,36 +23,58 @@
 #include <qwmatrix.h>
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
-
-/* Main entry point into raw parser */
-extern "C" {
-	int extract_thumbnail( FILE*, FILE*, int* );
-}
+#include <libkdcraw/kdcraw.h>
+#include <kdebug.h>
 
 namespace ImageManager
 {
 
 bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
-  /* width and height seem to be only hints, ignore */
-  Q_UNUSED( dim );
-  /* Open file and extract thumbnail */
-  FILE* input = fopen( QFile::encodeName(imageFile), "rb" );
-  if( !input ) return false;
-  KTempFile output;
-  output.setAutoDelete(true);
-  int orientation = 0;
-  if( extract_thumbnail( input, output.fstream(), &orientation ) ) {
-	fclose(input);
-	return false;
-  }
-  fclose(input);
-  output.close();
-  if( !img->load( output.name() ) ) return false;
+    /* width and height seem to be only hints, ignore */
+    Q_UNUSED( dim );
 
-  if( fullSize ) *fullSize = img->size();
+    if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile ) )
+        return false;
 
-  return true;
+    KDcrawIface::DcrawInfoContainer metadata;
+
+    if ( !KDcrawIface::KDcraw::rawFileIdentify( metadata, imageFile ) ||
+            ( img->width() < metadata.imageSize.width() * 0.8 ) ||
+            ( img->height() < metadata.imageSize.height() * 0.8 ) ) {
+
+        // let's try to get a better resolution
+        KDcrawIface::KDcraw decoder;
+        KDcrawIface::RawDecodingSettings rawDecodingSettings;
+
+        if ( rawDecodingSettings.sixteenBitsImage ) {
+            kdDebug() << "16 bits per color channel is not supported yet" << endl;
+            return false;
+        } else {
+            QByteArray imageData; /* 3 bytes for each pixel,  */
+            int width, height, rgbmax;
+            if ( !decoder.decodeRAWImage( imageFile, rawDecodingSettings, imageData, width, height, rgbmax ) )
+                return false;
+
+            // Now the funny part, how to turn this fugly QByteArray into an QImage. Yay!
+            if ( !img->create( width, height, 32 ) )
+                return false;
+
+            uchar* data = img->bits();
+
+            for ( uint i = 0; i < imageData.size(); i += 3, data += 4 ) {
+                data[0] = imageData[i + 2]; // blue
+                data[1] = imageData[i + 1]; // green
+                data[2] = imageData[i];     // red
+                data[3] = 0xff;             // alpha
+            }
+        }
+    }
+
+    if ( fullSize )
+        *fullSize = img->size();
+
+    return true;
 }
 
 QStringList RAWImageDecoder::_rawExtensions;

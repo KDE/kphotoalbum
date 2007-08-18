@@ -1,3 +1,7 @@
+2007-08-18  Jan Kundrat  <jkt@gentoo.org>
+
+	* Use libkdcraw intead of budled and rotten dcraw copy
+
 2007-08-11  Jan Kundrat  <jkt@gentoo.org>
 
 	* Automatically hide mouse cursor and disable screensaver when in Viewer

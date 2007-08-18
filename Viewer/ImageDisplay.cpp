@@ -29,6 +29,7 @@
 #include <math.h>
 #include "DB/ImageDB.h"
 #include "ImageDisplay.h"
+#include <qtimer.h>
 
 /**
    Area displaying the actual image in the viewer.
@@ -96,10 +97,40 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
     // This is to ensure that people do see the drawing when they draw,
     // otherwise the drawing would disappear as soon as mouse was released.
     connect( _drawHandler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
+
+    setMouseTracking( true );
+    _cursorTimer = new QTimer( this );
+    connect( _cursorTimer, SIGNAL( timeout() ), this, SLOT( hideCursor() ) );
+    showCursor();
+
+}
+
+/**
+ * Hide the cursor right now
+ */
+void Viewer::ImageDisplay::hideCursor() {
+    setCursor( Qt::blankCursor );
+}
+
+/**
+ * Show normal cursor and start a timer that will hide it later
+ */
+void Viewer::ImageDisplay::showCursor() {
+    unsetCursor();
+    _cursorTimer->start( 1500, true );
+}
+
+/**
+ * Show normal cursor and don't change it later
+ */
+void Viewer::ImageDisplay::disableCursorHiding() {
+    unsetCursor();
+    _cursorTimer->stop();
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 {
+    disableCursorHiding();
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mousePressEvent( &e, event->pos(), ratio );
@@ -110,6 +141,9 @@ void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 
 void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 {
+    if ( event->state() == Qt::NoButton )
+        showCursor();
+
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mouseMoveEvent( &e, event->pos(), ratio );
@@ -120,6 +154,7 @@ void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 
 void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
 {
+    showCursor();
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
@@ -149,6 +184,7 @@ void Viewer::ImageDisplay::drawAll()
 
 void Viewer::ImageDisplay::startDrawing()
 {
+    disableCursorHiding();
     _currentHandler = _drawHandler;
 }
 
@@ -157,6 +193,7 @@ void Viewer::ImageDisplay::stopDrawing()
     _drawHandler->stopDrawing();
     _currentHandler = _viewHandler;
     drawAll();
+    showCursor();
 }
 
 void Viewer::ImageDisplay::toggleShowDrawings( bool b )

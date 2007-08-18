@@ -18,9 +18,11 @@
 
 #ifndef VIEWER_TEXTDISPLAY_H
 #define VIEWER_TEXTDISPLAY_H
-#include <qlabel.h>
-#include "DB/ImageInfoPtr.h"
 #include "Display.h"
+#include "DB/ImageInfoPtr.h"
+
+class QWidget;
+class QLabel;
 
 namespace Viewer
 {

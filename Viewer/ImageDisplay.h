@@ -26,6 +26,8 @@
 #include "Display.h"
 #include "Settings/SettingsData.h"
 
+class QTimer;
+
 namespace DB
 {
     class ImageInfo;
@@ -76,6 +78,9 @@ public slots:
 protected slots:
     void drawAll();
     void doShowDrawings();
+    void hideCursor();
+    void showCursor();
+    void disableCursorHiding();
 
 signals:
     void possibleChange();
@@ -135,6 +140,8 @@ private:
     int _curIndex;
     bool _busy;
     ViewerWidget *_viewer;
+
+    QTimer* _cursorTimer;
 };
 
 }

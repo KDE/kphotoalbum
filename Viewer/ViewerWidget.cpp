@@ -50,7 +50,6 @@
 #include <TextDisplay.h>
 #include <kprocess.h>
 #include <kstandarddirs.h>
-#include <kcursor.h>
 
 #ifdef HASEXIV2
 #  include "Exif/InfoDialog.h"
@@ -131,12 +130,7 @@ Viewer::ViewerWidget::ViewerWidget( const char* name )
         proc << QString::number( winId() );
         proc.start( KProcess::DontCare );
     }
-
-    KCursor::setAutoHideCursor( this, true );
-    KCursor::setHideCursorDelay( 1500 );
-
 }
-
 
 void Viewer::ViewerWidget::setupContextMenu()
 {

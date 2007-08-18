@@ -24,6 +24,7 @@
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
 #include <libkdcraw/kdcraw.h>
+#include <kdebug.h>
 
 namespace ImageManager
 {
@@ -35,6 +36,40 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 
     if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile ) )
         return false;
+
+    KDcrawIface::DcrawInfoContainer metadata;
+
+    if ( !KDcrawIface::KDcraw::rawFileIdentify( metadata, imageFile ) ||
+            ( img->width() < metadata.imageSize.width() * 0.8 ) ||
+            ( img->height() < metadata.imageSize.height() * 0.8 ) ) {
+
+        // let's try to get a better resolution
+        KDcrawIface::KDcraw decoder;
+        KDcrawIface::RawDecodingSettings rawDecodingSettings;
+
+        if ( rawDecodingSettings.sixteenBitsImage ) {
+            kdDebug() << "16 bits per color channel is not supported yet" << endl;
+            return false;
+        } else {
+            QByteArray imageData; /* 3 bytes for each pixel,  */
+            int width, height, rgbmax;
+            if ( !decoder.decodeRAWImage( imageFile, rawDecodingSettings, imageData, width, height, rgbmax ) )
+                return false;
+
+            // Now the funny part, how to turn this fugly QByteArray into an QImage. Yay!
+            if ( !img->create( width, height, 32 ) )
+                return false;
+
+            uchar* data = img->bits();
+
+            for ( uint i = 0; i < imageData.size(); i += 3, data += 4 ) {
+                data[0] = imageData[i + 2]; // blue
+                data[1] = imageData[i + 1]; // green
+                data[2] = imageData[i];     // red
+                data[3] = 0xff;             // alpha
+            }
+        }
+    }
 
     if ( fullSize )
         *fullSize = img->size();

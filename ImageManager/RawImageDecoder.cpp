@@ -23,36 +23,23 @@
 #include <qwmatrix.h>
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
-
-/* Main entry point into raw parser */
-extern "C" {
-	int extract_thumbnail( FILE*, FILE*, int* );
-}
+#include <libkdcraw/kdcraw.h>
 
 namespace ImageManager
 {
 
 bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
-  /* width and height seem to be only hints, ignore */
-  Q_UNUSED( dim );
-  /* Open file and extract thumbnail */
-  FILE* input = fopen( QFile::encodeName(imageFile), "rb" );
-  if( !input ) return false;
-  KTempFile output;
-  output.setAutoDelete(true);
-  int orientation = 0;
-  if( extract_thumbnail( input, output.fstream(), &orientation ) ) {
-	fclose(input);
-	return false;
-  }
-  fclose(input);
-  output.close();
-  if( !img->load( output.name() ) ) return false;
+    /* width and height seem to be only hints, ignore */
+    Q_UNUSED( dim );
 
-  if( fullSize ) *fullSize = img->size();
+    if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile ) )
+        return false;
 
-  return true;
+    if ( fullSize )
+        *fullSize = img->size();
+
+    return true;
 }
 
 QStringList RAWImageDecoder::_rawExtensions;

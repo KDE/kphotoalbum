@@ -137,15 +137,20 @@ QImage ImageManager::ImageLoader::loadImage( ImageRequest* request, bool& ok )
     }
 
     else {
-        ok = img.load( request->fileName() );
-        if (ok)
-            request->setFullSize( img.size() );
-    }
-    if (!ok) {
-        // Still didn't work, try with our own decoders
+        // At first, we have to give our RAW decoders a try. If we allowed
+        // QImage's load() method, it'd for example load a tiny thumbnail from
+        // NEF files, which is not what we want.
         ok = ImageDecoder::decode( &img, request->fileName(),  &fullSize, dim);
         if (ok)
             request->setFullSize( img.size() );
+    }
+
+    if (!ok) {
+        // Now we can try QImage's stuff as a fallback...
+        ok = img.load( request->fileName() );
+        if (ok)
+            request->setFullSize( img.size() );
+
     }
 
     return img;

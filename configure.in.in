@@ -8,6 +8,10 @@ else
 fi
 AC_SUBST(kphotoalbum_top_srcdir)
 
+# ------------------------------------ pkgconfig(because of libkdcraw)
+AC_ARG_VAR(PKGCONFIGFOUND, [Path to pkg-config])
+AC_CHECK_PROG(PKGCONFIGFOUND, pkg-config,[yes])
+
 # -------------------------------------------------- KIPI Check
 enable_kipi_support="yes"
 AC_MSG_CHECKING([whether support for KIPI should be compiled in])
@@ -89,7 +93,7 @@ if test "$PKGCONFIGFOUND" = "yes" ; then
        AC_MSG_RESULT([yes])
    fi
 else
-   AC_MSG_ERROR([Can't find the libkdcraw library]);
+   AC_MSG_ERROR([Can't find the libkdcraw library, pkgconfig unusable]);
 fi 
 
 

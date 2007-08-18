@@ -30,7 +30,7 @@
  */
 
 Viewer::ViewHandler::ViewHandler( ImageDisplay* display )
-    :DisplayAreaHandler( display )
+    :DisplayAreaHandler( display ), _scale( false ), _pan( false )
 {
 
 }
@@ -99,10 +99,12 @@ bool Viewer::ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*un
 {
     if ( _scale && (e->pos()-_start).manhattanLength() > 1 ) {
         _display->zoom( _start, e->pos() );
+        _scale = false;
         return true;
     }
     else if ( _pan ) {
         qApp->restoreOverrideCursor();
+        _pan = false;
         return true;
     }
     else

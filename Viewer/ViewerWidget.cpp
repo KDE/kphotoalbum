@@ -59,7 +59,6 @@
 #include <QVBoxLayout>
 #include <kprocess.h>
 #include <kstandarddirs.h>
-#include <kcursor.h>
 
 #ifdef HAVE_EXIV2
 #  include "Exif/InfoDialog.h"
@@ -144,12 +143,7 @@ Viewer::ViewerWidget::ViewerWidget()
         proc << QString::number( winId() );
         proc.start();
     }
-
-    KCursor::setAutoHideCursor( this, true );
-    KCursor::setHideCursorDelay( 1500 );
-
 }
-
 
 void Viewer::ViewerWidget::setupContextMenu()
 {

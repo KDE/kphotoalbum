@@ -1,8 +1,0 @@
-.h.in-Files
-kexi/3rdparty/uuid/uuid_types.h.in
-
-.in.in-Files
-configure.in.in
-kexi/migration/configure.in.in
-kexi/kexidb/drivers/configure.in.in
-kexi/3rdparty/configure.in.in

@@ -16,10 +16,13 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
 
 #PENDING macro_optional_find_package(Kipi)
 
-#PENDING
-#macro_optional_find_package(Kdcraw)
-#ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
-#INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})
+# TODO: remove
+# Local copy of libkdcraw.
+subdirs(libkdcraw)
+
+find_package(Kdcraw REQUIRED)
+ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
+INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})
 
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
@@ -202,7 +205,8 @@ set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
 target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
-#PENDING target_link_libraries(kphotoalbum kdcraw)
+
+target_link_libraries(kphotoalbum ${KDCRAW_LIBRARIES})
 
 if(EXIV2_FOUND)
  	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )

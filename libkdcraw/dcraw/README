@@ -1,0 +1,63 @@
+DCRAW BACKPORT GUIDELINE.
+-----------------------------
+
+1/ Backport "dcraw.c" source code.
+
+The dcraw.c file must be updated periodicly to support new RAW files format.
+The current implementation can be found at this url:
+
+http://cybercom.net/~dcoffin/dcraw/dcraw.c
+
+Following lines need to be changed in dcraw.c :
+
+==> With "-i -v" options to report Make and Model indentification properlly using separate lines 
+    on the console a printf need to be added like this:
+
+int CLASS main (int argc, char **argv)
+{
+...
+      /* NOTE: Digikam Fix : separate output of "make" and "model" informations.
+      printf ("Camera: %s %s\n", make, model); */
+      printf ("Camera: %s\n", make);
+      printf ("Model: %s\n", model);
+...
+}
+
+These informations are used by KDcraw class to give some metadata with Exiv2 unsupported RAW file formats.
+
+No others part in dcraw.c source must be changed. This is not the goal to libkdcraw to re-implement RAW file decoding algorithms.
+
+Rename the old "dcraw.c" from svn to "dcraw-old.c" before to update it.
+
+
+2/ Backport "dcraw.1" man page.
+
+Just copying the new dcraw man page from Dave Coffin web site. Renaming it to "kdcraw.1". Nothing must be changed in this file.
+
+
+3/ Check new options.
+
+Look into "int CLASS main (int argc, char **argv)" method from new "dcraw.c". 
+Compare it to "dcraw-old.c", about: 
+
+-the new options provided to decoding RAW file pictures. The option list is given on the console when kdcraw is invoqued from command line without arguments. Look the indeep description of all options using man page. The DcrawSettingsWidget, RawDecodingSettings, and KDcraw class need to be updated accordinly, especially 
+KDcraw::loadFromDcraw() method.
+
+-the new informations provided by -i -v command line options. The KDcraw::rawFileIdentify() method and the DcrawInfoContainer need to be updated accordinly.
+ 
+
+4/ Regression tests.
+
+Recompile libkdcraw, Raw Converter kipi-plugin, and digiKam. All must work fine to use RAW file decoding into digiKam image editor and RAW Converter tool.
+
+
+5/ Clean up.
+
+Remove the "dcraw-old.c" file. Not need to archive it in svn.
+
+
+6/ Update the internal dcraw version number returned by KDcraw::DcrawBinary::InternalVersion() method
+   (Check the "#define VERSION ..." string from dcraw.c).
+   
+7/ On DCRaw project page (http://cybercom.net/~dcoffin/dcraw), extract the current camera list 
+   supported and update the file "CAMERALIST".

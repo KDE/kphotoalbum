@@ -13,7 +13,13 @@ ADD_DEFINITIONS(${QT_DEFINITIONS}
 INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
                    )
+
 #PENDING macro_optional_find_package(Kipi)
+
+#PENDING
+#macro_optional_find_package(Kdcraw)
+#ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
+#INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})
 
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
@@ -111,7 +117,6 @@ set(libImageManager_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageClient.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageDecoder.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RawImageDecoder.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/parse.c 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoManager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp )
 
@@ -197,6 +202,7 @@ set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
 target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
+#PENDING target_link_libraries(kphotoalbum kdcraw)
 
 if(EXIV2_FOUND)
  	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )

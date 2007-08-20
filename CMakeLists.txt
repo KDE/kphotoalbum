@@ -15,6 +15,9 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                    )
 
 find_package(JPEG REQUIRED)
+if (JPEG_FOUND)
+  INCLUDE_DIRECTORIES(${JPEG_INCLUDE_DIR})
+endif (JPEG_FOUND)
 
 macro_optional_find_package(Kipi)
 macro_bool_to_01(KIPI_FOUND HASKIPI)

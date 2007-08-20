@@ -28,7 +28,7 @@
 #include "ImageInfo.h"
 #include <kapplication.h>
 #include <kconfig.h>
-#include <config-kpa.h>
+#include <config-kpa-exiv2.h>
 #include <kglobal.h>
 
 using namespace DB;

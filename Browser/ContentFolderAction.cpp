@@ -26,7 +26,7 @@
 #include "DB/CategoryCollection.h"
 #include "ExifFolder.h"
 #include "Exif/Database.h"
-#include <config-kpa.h> // for HAVE_EXIV2
+#include <config-kpa-exiv2.h>
 #include <Q3ValueList>
 
 void Browser::ContentFolderAction::action( BrowserItemFactory* factory )

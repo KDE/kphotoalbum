@@ -19,7 +19,6 @@
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
 
-#include <config-kpa.h>
 #include "DB/ImageSearchInfo.h"
 #include "DB/ImageInfoList.h"
 #include "DB/ImageInfo.h"
@@ -27,6 +26,7 @@
 #include "DB/MediaCount.h"
 #include <q3valuevector.h>
 
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 namespace SQLDB { class DatabaseAddress; }
 #endif

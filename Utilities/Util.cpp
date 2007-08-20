@@ -52,7 +52,7 @@ extern "C" {
 #include "DB/CategoryCollection.h"
 #include "DB/ImageDB.h"
 
-#include <config-kpa.h>
+#include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif

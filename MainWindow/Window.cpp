@@ -66,12 +66,13 @@
 #include <kedittoolbar.h>
 #include "ImportExport/Export.h"
 #include "ImportExport/Import.h"
-#include <config-kpa.h>
+#include <config-kpa-kipi.h>
 #ifdef HASKIPI
 #  include "Plugins/Interface.h"
 #  include <libkipi/pluginloader.h>
 #  include <libkipi/plugin.h>
 #endif
+#include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/ReReadDialog.h"
 #endif
@@ -100,6 +101,7 @@
 #include "ImageManager/ImageRequest.h"
 #include "ImageManager/Manager.h"
 
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/Database.h"
 #  include "SQLDB/DatabaseHandler.h"

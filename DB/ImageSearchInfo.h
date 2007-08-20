@@ -25,7 +25,7 @@
 #include <Q3ValueList>
 #include "DB/ImageInfoPtr.h"
 #include "Exif/SearchInfo.h"
-#include <config-kpa.h>
+#include <config-kpa-exiv2.h>
 
 namespace DB
 {

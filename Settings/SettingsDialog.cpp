@@ -45,7 +45,7 @@
 #include <q3hbox.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
-#include <config-kpa.h>
+#include <config-kpa-kipi.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif
@@ -55,11 +55,13 @@
 #include <kapplication.h>
 #include "MainWindow/Window.h"
 
+#include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #  include "Exif/TreeView.h"
 #endif
 
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/DatabaseAddress.h"
 #  include "SQLDB/SQLSettingsWidget.h"

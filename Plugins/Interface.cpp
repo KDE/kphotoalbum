@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa.h>
+#include <config-kpa-kipi.h>
 
 #ifdef HASKIPI
 #include "Plugins/Interface.h"

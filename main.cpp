@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa.h>
 #include "Settings/SettingsData.h"
 #include "MainWindow/Window.h"
 #include <kapplication.h>
@@ -24,6 +23,7 @@
 #include <kaboutdata.h>
 #include <kimageio.h>
 #include "MainWindow/SplashScreen.h"
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 #include "SQLDB/QueryErrors.h"
 #endif

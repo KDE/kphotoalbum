@@ -16,7 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FeatureDialog.h"
-#include <config-kpa.h>
+#include <config-kpa-kipi.h>
+#include <config-kpa-exiv2.h>
 #include <klocale.h>
 #include <qlayout.h>
 #include <Q3ValueList>

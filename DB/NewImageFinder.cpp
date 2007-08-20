@@ -30,7 +30,7 @@
 #include <qeventloop.h>
 #include <kmessagebox.h>
 #include <kcodecs.h>
-#include <config-kpa.h>
+#include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Database.h"
 #endif

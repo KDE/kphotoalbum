@@ -14,7 +14,12 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
                    )
 
-#PENDING macro_optional_find_package(Kipi)
+macro_optional_find_package(Kipi)
+macro_bool_to_01(KIPI_FOUND HASKIPI)
+if(KIPI_FOUND)
+  ADD_DEFINITIONS(${KIPI_DEFINITIONS})
+  INCLUDE_DIRECTORIES(BEFORE ${KIPI_INCLUDE_DIR})
+endif(KIPI_FOUND)
 
 macro_optional_find_package(Kdcraw)
 macro_bool_to_01(KDCRAW_FOUND HAVE_KDCRAW)
@@ -205,6 +210,10 @@ kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
 target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
 
+if(KIPI_FOUND)
+  target_link_libraries(kphotoalbum ${KIPI_LIBRARIES})
+endif(KIPI_FOUND)
+
 if(KDCRAW_FOUND)
   target_link_libraries(kphotoalbum ${KDCRAW_LIBRARIES})
 endif(KDCRAW_FOUND)
@@ -229,5 +238,7 @@ install( FILES  tips DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum )
 install( FILES  kphotoalbumui.rc default-setup default-layout.xml exif-sqlite.db DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum )
 
 
-
-configure_file(config-kpa.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa.h)
+configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)
+configure_file(config-kpa-exiv2.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-exiv2.h)
+configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
+configure_file(config-kpa-sqldb.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-sqldb.h)

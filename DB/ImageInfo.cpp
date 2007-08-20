@@ -33,7 +33,7 @@ extern "C" {
 #include "FileInfo.h"
 #include <qstringlist.h>
 #include "DB/MemberMap.h"
-#include <config-kpa.h>
+#include <config-kpa-exiv2.h>
 #include "Exif/Database.h"
 #include <kdebug.h>
 

@@ -21,8 +21,8 @@
 
 #include <qstring.h>
 #include <qvariant.h>
-#include <config-kpa.h>
 #include <qdatetime.h>
+#include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif

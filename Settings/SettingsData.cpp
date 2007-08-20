@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa.h>
 #include "SettingsData.h"
 #include <qdir.h>
 //Added by qt3to4:
@@ -41,6 +40,7 @@
 #include <qpixmapcache.h>
 #include <QColor>
 #include <QStringList>
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/ConfigFileHandler.h"
 #  include "SQLDB/DatabaseAddress.h"

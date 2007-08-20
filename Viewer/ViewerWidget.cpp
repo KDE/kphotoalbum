@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <config-kpa.h>
+#include <config-kpa-exiv2.h>
 
 #include <kdeversion.h>
 #include "Viewer/ViewerWidget.h"

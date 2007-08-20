@@ -26,10 +26,10 @@
 #include "DB/CategoryCollection.h"
 #include <QProgressBar>
 #include <qapplication.h>
-#include <config-kpa.h>
 #include "NewImageFinder.h"
 #include <DB/MediaCount.h>
 #include <kdebug.h>
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 #include "SQLDB/Database.h"
 #include "SQLDB/DatabaseAddress.h"

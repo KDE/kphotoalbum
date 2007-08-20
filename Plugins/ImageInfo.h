@@ -19,6 +19,7 @@
 #ifndef MYIMAGEINFO_H
 #define MYIMAGEINFO_H
 
+#include <config-kpa-kipi.h>
 #ifdef HASKIPI
 #include <libkipi/imageinfoshared.h>
 #include <kdemacros.h>

@@ -25,6 +25,7 @@
 #include <Q3ValueList>
 #include <QLabel>
 #include <Q3ListBoxItem>
+#include <config-kpa-kipi.h>
 class QSpinBox;
 class KComboBox;
 class QLineEdit;
@@ -42,6 +43,7 @@ namespace KIPI
 namespace Exif{
     class TreeView;
 }
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 namespace SQLDB { class SQLSettingsWidget; }
 #endif

@@ -32,6 +32,7 @@
 #include <Q3PtrList>
 #include <QMenu>
 #include <QKeyEvent>
+#include <config-kpa-exiv2.h>
 
 class QStackedWidget;
 class KActionCollection;

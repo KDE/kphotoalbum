@@ -37,6 +37,7 @@ class KActionMenu;
 #include <kurl.h>
 #include <kxmlguiwindow.h>
 #include <QPointer>
+#include <config-kpa-kipi.h>
 #ifdef HASKIPI
 #  include <libkipi/pluginloader.h>
 #endif

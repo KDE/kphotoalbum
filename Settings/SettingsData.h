@@ -21,10 +21,12 @@
 #include <QPixmap>
 #include "DB/ImageSearchInfo.h"
 #include "DB/Category.h"
+#include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif
 #include "Utilities/Set.h"
+#include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 namespace SQLDB { class DatabaseAddress; }
 #endif

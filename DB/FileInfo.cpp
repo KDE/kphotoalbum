@@ -19,6 +19,7 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include "Utilities/Util.h"
+#include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Info.h"
 #endif

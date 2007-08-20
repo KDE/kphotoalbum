@@ -22,6 +22,7 @@
 #include <qmatrix.h>
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
+#include <config-kpa-kdcraw.h>
 #ifdef HAVE_KDCRAW
 #  include <libkdcraw/kdcraw.h>
 #endif

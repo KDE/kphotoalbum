@@ -16,10 +16,6 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
 
 #PENDING macro_optional_find_package(Kipi)
 
-# TODO: remove
-# Local copy of libkdcraw.
-subdirs(libkdcraw)
-
 find_package(Kdcraw REQUIRED)
 ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
 INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})

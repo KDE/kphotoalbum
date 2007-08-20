@@ -122,7 +122,7 @@ void InvalidDateFinder::accept()
 #ifdef TEMPORARILY_REMOVED
         edit->setCursorPosition( 0,0 );
 #else
-        kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
+        kDebug() << "TEMPORILY REMOVED " ;
 #endif // TEMPORARILY_REMOVED
         edit->setReadOnly( true );
         QFont f = edit->font();

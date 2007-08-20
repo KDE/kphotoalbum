@@ -70,7 +70,7 @@ Q3PopupMenu * Editor::createPopupMenu( const QPoint & pos )
 
     return menu;
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -83,7 +83,7 @@ QString Editor::wordAtPos( const QPoint& pos )
 
     return text(para).mid( firstSpace, lastSpace - firstSpace );
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -105,7 +105,7 @@ Q3PopupMenu* Editor::replacementMenu( const QString& word  )
     }
     return menu;
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -130,7 +130,7 @@ void Editor::contentsContextMenuEvent( QContextMenuEvent *e )
 
     replaceWord( pos, replacement );
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
+    kDebug() << "TEMPORILY REMOVED " ;
 #endif // TEMPORARILY_REMOVED
 }
 
@@ -144,7 +144,7 @@ void Editor::replaceWord( const QPoint& pos, const QString& replacement )
     setSelection( para, firstSpace, para, lastSpace );
     insert( replacement );
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
+    kDebug() << "TEMPORILY REMOVED " ;
 #endif // TEMPORARILY_REMOVED
 }
 
@@ -170,7 +170,7 @@ bool Editor::wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* e
 
     return true;
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
+    kDebug() << "TEMPORILY REMOVED " ;
 #endif // TEMPORARILY_REMOVED
 }
 
@@ -187,7 +187,7 @@ void Editor::itemSelected( int id )
     _config->setDictionary( dict );
     createHighlighter();
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -201,7 +201,7 @@ void Editor::fetchDicts( QStringList* titles, QStringList* dicts )
     }
     delete combo;
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -214,7 +214,7 @@ void Editor::createHighlighter()
     connect( _highlighter, SIGNAL(newSuggestions(const QString&, const QStringList&, unsigned int)),
              this, SLOT(addSuggestion(const QString&, const QStringList&, unsigned int)) );
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 

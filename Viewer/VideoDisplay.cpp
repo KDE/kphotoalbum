@@ -169,7 +169,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
     return true;
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+    kDebug() << "TEMPORILY REMOVED " << endl;
 #endif // TEMPORARILY_REMOVED
 }
 
@@ -190,7 +190,7 @@ QString Viewer::VideoDisplay::mimeTypeForFileName( const QString& fileName ) con
 
     return res;
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -311,7 +311,7 @@ void Viewer::VideoDisplay::invokeKaffeineAction( const char* actionName )
             action->activate();
 
 #else
-        kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+        kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 

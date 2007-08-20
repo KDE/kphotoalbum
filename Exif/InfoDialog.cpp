@@ -97,7 +97,7 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
 #ifdef TEMPORARILY_REMOVED
     setFocusPolicy( WheelFocus );
 #else
-    kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
+    kDebug() << "TEMPORILY REMOVED " ;
 #endif // TEMPORARILY_REMOVED
     setHScrollBarMode( AlwaysOff );
 

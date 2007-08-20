@@ -153,7 +153,7 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
     move( pos );
 
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -166,7 +166,7 @@ void ThumbnailView::ThumbnailToolTip::clear()
     }
     _loadedImages.clear();
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -189,7 +189,7 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
     }
     return true;
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 
@@ -201,7 +201,7 @@ void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, con
     if ( fileName == _currentFileName )
         showToolTips(true);
 #else
-    kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
+    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 

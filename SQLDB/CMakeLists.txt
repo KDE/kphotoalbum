@@ -1,10 +1,6 @@
 # For DB/*.h and such
 INCLUDE_DIRECTORIES(..)
 
-# FIXME: Should we really include binary dir?
-# For config-kpa.h
-INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
-
 SET(libSQLDB_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/Database.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLCategoryCollection.cpp

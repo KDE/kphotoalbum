@@ -16,9 +16,12 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
 
 #PENDING macro_optional_find_package(Kipi)
 
-find_package(Kdcraw REQUIRED)
-ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
-INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})
+macro_optional_find_package(Kdcraw)
+macro_bool_to_01(KDCRAW_FOUND HAVE_KDCRAW)
+if(KDCRAW_FOUND)
+  ADD_DEFINITIONS(${KDCRAW_DEFINITIONS})
+  INCLUDE_DIRECTORIES(BEFORE ${KDCRAW_INCLUDE_DIR})
+endif(KDCRAW_FOUND)
 
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
@@ -202,7 +205,9 @@ kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
 target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
 
-target_link_libraries(kphotoalbum ${KDCRAW_LIBRARIES})
+if(KDCRAW_FOUND)
+  target_link_libraries(kphotoalbum ${KDCRAW_LIBRARIES})
+endif(KDCRAW_FOUND)
 
 if(EXIV2_FOUND)
  	target_link_libraries(kphotoalbum ${EXIV2_LIBRARIES} )

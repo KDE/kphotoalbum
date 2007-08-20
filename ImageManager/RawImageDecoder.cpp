@@ -22,8 +22,8 @@
 #include <qmatrix.h>
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
-#ifdef TEMPORARILY_REMOVED
-#include <libkdcraw/kdcraw.h>
+#ifdef HAVE_KDCRAW
+#  include <libkdcraw/kdcraw.h>
 #endif
 #include <kdebug.h>
 
@@ -32,10 +32,10 @@ namespace ImageManager
 
 bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
-#ifdef TEMPORARILY_REMOVED
     /* width and height seem to be only hints, ignore */
     Q_UNUSED( dim );
 
+#ifdef HAVE_KDCRAW
     if ( !KDcrawIface::KDcraw::loadDcrawPreview( *img, imageFile ) )
         return false;
 
@@ -77,9 +77,12 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
         *fullSize = img->size();
 
     return true;
-#else
-  kDebug() << "TEMPORARILY REMOVED: " << k_funcinfo;
-#endif
+#else /* HAVE_KDCRAW */
+    Q_UNUSED( img );
+    Q_UNUSED( imageFile );
+    Q_UNUSED( fullSize );
+    return false;
+#endif /* HAVE_KDCRAW */
 }
 
 QStringList RAWImageDecoder::_rawExtensions;

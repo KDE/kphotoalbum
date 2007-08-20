@@ -14,6 +14,8 @@ INCLUDE_DIRECTORIES(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
                    )
 
+find_package(JPEG REQUIRED)
+
 macro_optional_find_package(Kipi)
 macro_bool_to_01(KIPI_FOUND HASKIPI)
 if(KIPI_FOUND)
@@ -30,9 +32,6 @@ endif(KDCRAW_FOUND)
 
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
-
-macro_optional_find_package(JPEG)
-
 
 set(SQLDB_SUPPORT FALSE)
 

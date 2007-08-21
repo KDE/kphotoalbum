@@ -1006,15 +1006,17 @@ void Settings::SettingsDialog::createPluginPage()
 {
 #ifdef HASKIPI
     ::MainWindow::Window::theMainWindow()->loadPlugins();
-    QWidget* top = addPage( i18n("Plugins" ), i18n("Plugins" ),
-                            KIconLoader::global()->loadIcon( QString::fromLatin1( "share" ),
-                                                             K3Icon::Desktop, 32 ) );
+    QWidget* top = new QWidget;
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Plugins" ) );
+    page->setHeader( i18n("Plugins" ) );
+    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "share" ),
+                                                           K3Icon::Desktop, 32 ) ) );
     QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), top );
     lay1->addWidget( label );
 
-    _pluginConfig = KIPI::PluginLoader::instance()->configWidget( top );
+    _pluginConfig = KIPI::PluginLoader::componentData()->configWidget( top );
     lay1->addWidget( _pluginConfig );
 
     _delayLoadingPlugins = new QCheckBox( i18n("Delay loading plug-ins till plug-in menu is opened"), top );

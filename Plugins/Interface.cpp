@@ -51,9 +51,9 @@ KIPI::ImageCollection Plugins::Interface::currentSelection()
         return KIPI::ImageCollection(0);
 }
 
-Q3ValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
+QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 {
-    Q3ValueList<KIPI::ImageCollection> result;
+    QList<KIPI::ImageCollection> result;
     DB::ImageSearchInfo context = MainWindow::Window::theMainWindow()->currentContext();
     QString category = MainWindow::Window::theMainWindow()->currentBrowseCategory();
     if ( category.isNull() )
@@ -61,7 +61,7 @@ Q3ValueList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 
     QMap<QString,uint> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
 
-    for( QMapIterator<QString,uint> it = categories.begin(); it != categories.end(); ++it ) {
+    for( QMap<QString,uint>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         CategoryImageCollection* col = new CategoryImageCollection( context, category, it.key() );
         result.append( KIPI::ImageCollection( col ) );
     }
@@ -100,7 +100,7 @@ bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
     }
 
     dir = dir.mid( root.length() );
-    DB::ImageInfoPtr info = new DB::ImageInfo( dir );
+    DB::ImageInfoPtr info( new DB::ImageInfo( dir ) );
     DB::ImageInfoList list;
     list.append( info );
     DB::ImageDB::instance()->addImages( list );

@@ -50,8 +50,8 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 {
     QMap<QString,QVariant> res;
     if ( _info ) {
-        for( QMapIterator<QString,StringSet> it = _info->_categoryInfomation.begin(); it != _info->_categoryInfomation.end(); ++it ) {
-            res.insert( it.key(), QVariant( QStringList( it.data().toList() ) ) );
+        for( QMap<QString,StringSet>::Iterator it = _info->_categoryInfomation.begin(); it != _info->_categoryInfomation.end(); ++it ) {
+            res.insert( it.key(), QVariant( QStringList( it.value().toList() ) ) );
         }
     }
 
@@ -93,8 +93,8 @@ void Plugins::ImageInfo::clearAttributes()
 void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
 {
     if ( _info ) {
-        for( QMapConstIterator<QString,QVariant> it = map.begin(); it != map.end(); ++it ) {
-            QStringList list = it.data().toStringList();
+        for( QMap<QString,QVariant>::ConstIterator it = map.begin(); it != map.end(); ++it ) {
+            QStringList list = it.value().toStringList();
             _info->addCategoryInfo( it.key(), list );
         }
     }

@@ -39,7 +39,7 @@ public:
     Interface( QObject *parent, const char *name=0);
     virtual KIPI::ImageCollection currentAlbum();
     virtual KIPI::ImageCollection currentSelection();
-    virtual Q3ValueList<KIPI::ImageCollection> allAlbums();
+    virtual QList<KIPI::ImageCollection> allAlbums();
     virtual KIPI::ImageInfo info( const KUrl& );
     virtual bool addImage( const KUrl&, QString& errmsg );
     virtual void delImage( const KUrl& );

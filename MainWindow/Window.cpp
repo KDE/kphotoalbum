@@ -1307,11 +1307,11 @@ void MainWindow::Window::plug()
     unplugActionList( QString::fromLatin1("tool_actions") );
     unplugActionList( QString::fromLatin1("batch_actions") );
 
-    Q3PtrList<KAction> importActions;
-    Q3PtrList<KAction> exportActions;
-    Q3PtrList<KAction> imageActions;
-    Q3PtrList<KAction> toolsActions;
-    Q3PtrList<KAction> batchActions;
+    QList<QAction*> importActions;
+    QList<QAction*> exportActions;
+    QList<QAction*> imageActions;
+    QList<QAction*> toolsActions;
+    QList<QAction*> batchActions;
 
     KIPI::PluginLoader::PluginList list = _pluginLoader->pluginList();
     for( KIPI::PluginLoader::PluginList::Iterator it = list.begin(); it != list.end(); ++it ) {
@@ -1321,8 +1321,8 @@ void MainWindow::Window::plug()
 
         plugin->setup( this );
 
-        KActionPtrList actions = plugin->actions();
-        for( KActionPtrList::Iterator it = actions.begin(); it != actions.end(); ++it ) {
+        QList<KAction*> actions = plugin->actions();
+        for( QList<KAction*>::Iterator it = actions.begin(); it != actions.end(); ++it ) {
             KIPI::Category category = plugin->category( *it );
             if (  category == KIPI::IMAGESPLUGIN ||  category == KIPI::COLLECTIONSPLUGIN )
                 imageActions.append( *it );
@@ -1343,7 +1343,11 @@ void MainWindow::Window::plug()
                 kDebug() << "Unknow category\n";
             }
         }
+#ifdef TEMPORARILY_REMOVED
         plugin->actionCollection()->readShortcutSettings();
+#else
+        kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+#endif // TEMPORARILY_REMOVED
     }
 
     // For this to work I need to pass false as second arg for createGUI

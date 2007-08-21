@@ -1245,16 +1245,8 @@ void MainWindow::Window::slotReenableMessages()
 
 void MainWindow::Window::setupPluginMenu()
 {
-#ifdef TEMPORARILY_REMOVED
-    QObjectList l = queryList( "QPopupMenu", "plugins" );
-    QObject *obj;
-    Q3PopupMenu* menu = NULL;
-    for ( QObjectListIt it( *l ); (obj = it.current()) != 0; ) {
-        ++it;
-        menu = static_cast<Q3PopupMenu*>( obj );
-        break;
-    }
-    delete l; // delete the list, not the objects
+    QMenu* menu = findChild<QMenu*>( "plugins" );
+    Q_ASSERT( menu );
 
 #ifdef HASKIPI
     connect( menu, SIGNAL( aboutToShow() ), this, SLOT( loadPlugins() ) );
@@ -1262,9 +1254,6 @@ void MainWindow::Window::setupPluginMenu()
 #else
     delete menu;
     _hasLoadedPlugins = true;
-#endif
-#else
-    kDebug() << "TEMPORARILY REMOVED: " ;
 #endif
 }
 

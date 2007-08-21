@@ -1011,6 +1011,8 @@ void Settings::SettingsDialog::createPluginPage()
     page->setHeader( i18n("Plugins" ) );
     page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "share" ),
                                                            K3Icon::Desktop, 32 ) ) );
+    addPage(page);
+
     QVBoxLayout* lay1 = new QVBoxLayout( top );
 
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), top );

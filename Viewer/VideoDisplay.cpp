@@ -84,7 +84,7 @@ private:
 
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
-    :Viewer::Display( parent, "VideoDisplay" ), _playerPart( 0 )
+    :Viewer::Display( parent ), _playerPart( 0 )
 {
 }
 

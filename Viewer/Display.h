@@ -31,7 +31,7 @@ class Display :public QWidget
     Q_OBJECT
 
 public:
-    Display( QWidget* parent, const char* name = 0 );
+    Display( QWidget* parent );
     virtual bool setImage( DB::ImageInfoPtr info, bool forward ) = 0;
 
     virtual bool offersDrawOnImage() const { return false; }

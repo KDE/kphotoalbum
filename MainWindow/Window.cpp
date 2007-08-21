@@ -537,7 +537,7 @@ void MainWindow::Window::closeEvent( QCloseEvent* e )
     if ( !quit )
         e->ignore();
     else
-        e->accept();
+        e->setAccepted(true);
 }
 
 
@@ -965,15 +965,15 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
             info = DB::ImageDB::instance()->info( fileName );
 
         externalCommands->populate( info, selected() );
-        int id = menu.insertItem( i18n( "Invoke External Program" ), externalCommands );
+        QAction* action = menu.addMenu( externalCommands );
         if ( info.isNull() && selected().count() == 0 )
-            menu.setItemEnabled( id, false );
+            action->setEnabled( false );
 
         menu.exec( QCursor::pos() );
 
         delete externalCommands;
     }
-    e->accept();
+    e->setAccepted(true);
 }
 
 void MainWindow::Window::setDefaultScopePositive()

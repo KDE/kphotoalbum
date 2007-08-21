@@ -86,8 +86,8 @@
    images are viewed in, which is the job of the instance variable _forward.
 */
 
-Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
-    :Display( parent, name ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
+Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
+    :Display( parent ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
 {
     _viewHandler = new ViewHandler( this );
     _drawHandler = new DrawHandler( this );

@@ -92,13 +92,13 @@ void XMLDB::XMLCategory::setItems( const QStringList& items )
 
 void XMLDB::XMLCategory::removeItem( const QString& item )
 {
-    _items.remove( item );
+    _items.removeAll( item );
     emit itemRemoved( item );
 }
 
 void XMLDB::XMLCategory::renameItem( const QString& oldValue, const QString& newValue )
 {
-    _items.remove( oldValue );
+    _items.removeAll( oldValue );
     addItem( newValue );
     emit itemRenamed( oldValue, newValue );
 }
@@ -106,7 +106,7 @@ void XMLDB::XMLCategory::renameItem( const QString& oldValue, const QString& new
 void XMLDB::XMLCategory::addItem( const QString& item )
 {
     if (_items.contains( item ) )
-        _items.remove( item );
+        _items.removeAll( item );
     _items.prepend( item );
 }
 

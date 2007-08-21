@@ -33,7 +33,7 @@ class ThumbnailToolTip :public QLabel, public ImageManager::ImageClient {
     Q_OBJECT
 
 public:
-    ThumbnailToolTip( ThumbnailWidget* view, const char* name = 0 );
+    ThumbnailToolTip( ThumbnailWidget* view );
     void showToolTips( bool force );
     virtual void setActive(bool);
     void clear();

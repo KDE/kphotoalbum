@@ -41,7 +41,7 @@
    mouse( and would therefore stand on top of the image), or it flickered.
 */
 
-ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view, const char* name )
+ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     : QLabel( view, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_TopLevel
 #ifdef TEMPORARILY_REMOVED
               | WX11BypassWM

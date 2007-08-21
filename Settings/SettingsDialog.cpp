@@ -271,22 +271,22 @@ void Settings::SettingsDialog::createThumbNailPage()
     // Display dark background
     ++row;
     _thumbnailDarkBackground = new QCheckBox( i18n("Show thumbnails on dark background" ) );
-    lay->addMultiCellWidget( _thumbnailDarkBackground, row, row, 0, 1 );
+    lay->addWidget( _thumbnailDarkBackground, row, 0, 1, 2 );
 
     // Display grid lines in the thumbnail view
     ++row;
     _thumbnailDisplayGrid = new QCheckBox( i18n("Display grid around thumbnails" ) );
-    lay->addMultiCellWidget( _thumbnailDisplayGrid, row, row, 0, 1 );
+    lay->addWidget( _thumbnailDisplayGrid, row, 0, 1, 2 );
 
     // Display Labels
     ++row;
     _displayLabels = new QCheckBox( i18n("Display labels in thumbnail view" ) );
-    lay->addMultiCellWidget( _displayLabels, row, row, 0, 1 );
+    lay->addWidget( _displayLabels, row, 0, 1, 2 );
 
     // Display Categories
     ++row;
     _displayCategories = new QCheckBox( i18n("Display categories in thumbnail view" ) );
-    lay->addMultiCellWidget( _displayCategories, row, row, 0, 1 );
+    lay->addWidget( _displayCategories, row, 0, 1, 2 );
 
     // Auto Show Thumbnail view
     ++row;
@@ -420,7 +420,7 @@ void Settings::SettingsDialog::createOptionGroupsPage()
     lay3->addWidget( _preferredView, 3, 1 );
     QStringList list;
     list << i18n("List View") << i18n("List View with Custom Thumbnails") << i18n("Icon View") << i18n("Icon View with Custom Thumbnails");
-    _preferredView->insertStringList( list );
+    _preferredView->addItems( list );
     connect( _preferredView, SIGNAL( activated( int ) ), this, SLOT( slotPreferredViewChanged( int ) ) );
 
     QHBoxLayout* lay4 = new QHBoxLayout;
@@ -464,7 +464,7 @@ void Settings::SettingsDialog::show()
     DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
     if ( !cat )
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
-    _albumCategory->setCurrentText( cat->text() );
+    _albumCategory->setEditText( cat->text() );
 
     _thumbnailDarkBackground->setChecked( opt->thumbnailDarkBackground() );
     _thumbnailDisplayGrid->setChecked( opt->thumbnailDisplayGrid() );
@@ -535,8 +535,8 @@ void Settings::SettingsDialog::slotMyOK()
 
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
-    opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );
-    opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentItem() );
+    opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentIndex() );
+    opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentIndex() );
     opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
     opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
@@ -561,12 +561,12 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setLaunchViewerFullScreen( _viewImageSetup->launchFullScreen() );
     opt->setSlideShowInterval( _slideShowInterval->value() );
     opt->setViewerCacheSize( _cacheSize->value() );
-    opt->setSmoothScale( _smoothScale->currentItem() );
+    opt->setSmoothScale( _smoothScale->currentIndex() );
     opt->setThumbnailCache( _thumbnailCache->value() );
     opt->setSlideShowSize( _slideShowSetup->size() );
     opt->setLaunchSlideShowFullScreen( _slideShowSetup->launchFullScreen() );
     opt->setAutoShowThumbnailView( _autoShowThumbnailView->value() );
-    opt->setViewerStandardSize((StandardViewSize) _viewerStandardSize->currentItem());
+    opt->setViewerStandardSize((StandardViewSize) _viewerStandardSize->currentIndex());
 
     // ----------------------------------------------------------------------
     // Categories
@@ -618,7 +618,7 @@ void Settings::SettingsDialog::edit( Q3ListBoxItem* i )
     _text->setText( item->text() );
     _icon->setIcon( item->icon() );
     _thumbnailSizeInCategory->setValue( item->thumbnailSize() );
-    _preferredView->setCurrentItem( static_cast<int>(item->viewType()) );
+    _preferredView->setCurrentIndex( static_cast<int>(item->viewType()) );
     enableDisable( true );
 }
 
@@ -976,7 +976,7 @@ void Settings::SettingsDialog::createViewerPage()
 
     QLabel* standardSizeLabel = new QLabel( i18n("Standard size in viewer:"), top );
     _viewerStandardSize = new KComboBox( top );
-    _viewerStandardSize->insertStringList( QStringList() << i18n("Full Viewer Size") << i18n("Natural Image Size") << i18n("Natural Image Size If Possible") );
+    _viewerStandardSize->addItems( QStringList() << i18n("Full Viewer Size") << i18n("Natural Image Size") << i18n("Natural Image Size If Possible") );
     glay->addWidget( standardSizeLabel, 2, 0);
     glay->addWidget( _viewerStandardSize, 2, 1 );
     standardSizeLabel->setBuddy( _viewerStandardSize );
@@ -990,7 +990,7 @@ void Settings::SettingsDialog::createViewerPage()
 
     QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), top );
     _smoothScale = new QComboBox( top );
-    _smoothScale->insertStringList( QStringList() << i18n("Fastest" ) << i18n("Best")  );
+    _smoothScale->addItems( QStringList() << i18n("Fastest" ) << i18n("Best")  );
     scalingLabel->setBuddy( _smoothScale );
 
     glay->addWidget( scalingLabel, 3, 0 );

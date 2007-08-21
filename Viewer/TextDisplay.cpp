@@ -28,8 +28,8 @@
  * Display a text instead of actual image/video data.
  */
 
-Viewer::TextDisplay::TextDisplay( QWidget* parent, const char* name )
-    :Display( parent, name )
+Viewer::TextDisplay::TextDisplay( QWidget* parent )
+    :Display( parent )
 {
     QVBoxLayout *lay = new QVBoxLayout( this );
     _text = new QLabel( this );

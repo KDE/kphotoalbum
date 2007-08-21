@@ -522,7 +522,7 @@ void DateBar::DateBarWidget::contextMenuEvent( QContextMenuEvent* event )
     }
 
     _contextMenu->exec( event->globalPos());
-    event->accept();
+    event->setAccepted(true);
 }
 
 QRect DateBar::DateBarWidget::tickMarkGeometry() const

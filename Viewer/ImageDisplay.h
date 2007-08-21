@@ -57,7 +57,7 @@ struct ViewPreloadInfo
 class ImageDisplay :public Viewer::Display, public ImageManager::ImageClient {
 Q_OBJECT
 public:
-    ImageDisplay( QWidget* parent, const char* name = 0 );
+    ImageDisplay( QWidget* parent );
     void startDrawing();
     void stopDrawing();
     bool setImage( DB::ImageInfoPtr info, bool forward );

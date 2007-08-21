@@ -66,9 +66,11 @@ Survey::AlternativeQuestion::AlternativeQuestion( const QString& id, const QStri
     for( QStringList::ConstIterator it = questions.begin(); it != questions.end(); ++it, ++index ) {
         QAbstractButton* w;
         if (tp == RadioButton )
-            w = new QRadioButton( *it, this, QString::number(index).toLatin1() );
+            w = new QRadioButton( *it );
         else
-            w = new QCheckBox( *it, this, QString::number(index).toLatin1() );
+            w = new QCheckBox( *it );
+        w->setObjectName(  QString::number(index) );
+
         vlay->addWidget( w );
         answers->insert( w );
         _buttons.append( w );
@@ -101,7 +103,7 @@ void Survey::AlternativeQuestion::save( QDomElement& top )
         if ( checked ) {
             QDomElement elm = top.ownerDocument().createElement( QString::fromLatin1("ButtonAnswer") );
             elm.setAttribute( QString::fromLatin1( "text" ), (*buttonIt)->text() );
-            elm.setAttribute( QString::fromLatin1( "index" ), QString::fromLocal8Bit( (*buttonIt)->name() ) );
+            elm.setAttribute( QString::fromLatin1( "index" ), (*buttonIt)->objectName() );
             top.appendChild( elm );
         }
     }
@@ -125,7 +127,7 @@ void Survey::AlternativeQuestion::load( QDomElement& top )
             if ( tag == QString::fromLatin1( "ButtonAnswer" ) ) {
                 QString index = elm.attribute( QString::fromLatin1( "index" ) );
                 for( Q3ValueList<QAbstractButton*>::Iterator buttonIt = _buttons.begin(); buttonIt != _buttons.end(); ++buttonIt ) {
-                    if ( QString::fromLocal8Bit( (*buttonIt)->name() ) == index ) {
+                    if ( (*buttonIt)->objectName() == index ) {
                         QCheckBox* cb;
                         QRadioButton* rb;
                         if ( (cb = dynamic_cast<QCheckBox*>(*buttonIt) ) )

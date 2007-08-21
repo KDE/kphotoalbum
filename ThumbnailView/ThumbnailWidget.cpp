@@ -235,7 +235,7 @@ void ThumbnailView::ThumbnailWidget::setImageList( const QStringList& list )
  */
 QString ThumbnailView::ThumbnailWidget::fileNameInCell( int row, int col ) const
 {
-    uint index = row * numCols() + col;
+    const int index = row * numCols() + col;
     if ( index >= _imageList.count() )
         return QString::null;
     else
@@ -396,7 +396,7 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
 {
     QPixmap pixmap( size );
     if ( loadedOK && !image.isNull() )
-        pixmap.convertFromImage( image );
+        pixmap = QPixmap::fromImage( image );
 
     else if ( !loadedOK)
         pixmap.fill( palette().active().dark());
@@ -689,7 +689,7 @@ void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent( QMouseEvent * event 
 void ThumbnailView::ThumbnailWidget::wheelEvent( QWheelEvent* event )
 {
     if ( event->modifiers() & Qt::ControlModifier ) {
-        event->accept();
+        event->setAccepted(true);
 
         _wheelResizing = true;
 
@@ -1012,11 +1012,12 @@ void ThumbnailView::ThumbnailWidget::showToolTipsOnImages( bool on )
 
 void ThumbnailView::ThumbnailWidget::contentsDragMoveEvent( QDragMoveEvent* event )
 {
-    bool accept = event->provides( "text/uri-list" ) && _selectionInteraction.isDragging();
-    event->accept( accept );
-
-    if ( !accept )
+    if ( event->provides( "text/uri-list" ) && _selectionInteraction.isDragging() )
+        event->accept();
+    else {
+        event->ignore();
         return;
+    }
 
     int row = rowAt( event->pos().y() );
     int col = columnAt( event->pos().x() );
@@ -1035,7 +1036,7 @@ void ThumbnailView::ThumbnailWidget::contentsDragMoveEvent( QDragMoveEvent* even
 
     else {
         _rightDrop = fileName;
-        uint index = _fileNameMap[fileName] +1;
+        const int index = _fileNameMap[fileName] +1;
         if ( index != _imageList.count() )
             _leftDrop = _imageList[index];
     }

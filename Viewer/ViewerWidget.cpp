@@ -538,7 +538,7 @@ void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
 {
     _popup->exec( e->globalPos() );
-    e->accept();
+    e->setAccepted(true);
 }
 
 void Viewer::ViewerWidget::showNextN(int n)

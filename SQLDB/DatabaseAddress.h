@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,13 +17,83 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLDB_DATABASE_ADDRESS_H
-#define SQLDB_DATABASE_ADDRESS_H
+#ifndef SQLDB_DATABASEADDRESS_H
+#define SQLDB_DATABASEADDRESS_H
 
 #include <qstring.h>
 
 namespace SQLDB
 {
+    /** Parameters needed to connect to database.
+     */
+    class ConnectionParameters
+    {
+    public:
+        ConnectionParameters():
+            _hostName(),
+            _port(0),
+            _userName(),
+            _password()
+        {
+        }
+
+        void setToLocal()
+        {
+            _hostName = QString();
+        }
+
+        void setHostName(const QString& hostName)
+        {
+            _hostName = hostName;
+        }
+
+        void setPort(int port)
+        {
+            _port = port;
+        }
+
+        void setUserName(const QString& userName)
+        {
+            _userName = userName;
+        }
+
+        void setPassword(const QString& password)
+        {
+            _password = password;
+        }
+
+        bool isLocal() const
+        {
+            return _hostName.isNull();
+        }
+
+        const QString& hostName() const
+        {
+            return _hostName;
+        }
+
+        int port() const
+        {
+            return _port;
+        }
+
+        const QString& userName() const
+        {
+            return _userName;
+        }
+
+        const QString& password() const
+        {
+            return _password;
+        }
+
+    private:
+        QString _hostName;
+        int _port;
+        QString _userName;
+        QString _password;
+    };
+
     /** Stores connection parameters and database name.
      */
     class DatabaseAddress
@@ -33,10 +103,7 @@ namespace SQLDB
             _driverName(),
             _fileBased(false),
             _db(),
-            _hostName(),
-            _port(0),
-            _userName(),
-            _password()
+            _connParams()
         {
         }
 
@@ -44,7 +111,7 @@ namespace SQLDB
 
         bool isNull() const
         {
-            return _db.isNull();
+            return _driverName.isNull() || _db.isNull();
         }
 
         void setDriverName(const QString& driverName)
@@ -69,7 +136,7 @@ namespace SQLDB
 
         /** Sets name of the database.
          *
-         * For file based address this is the file name.
+         * For file based address this is the file path.
          */
         void setDatabaseName(const QString& databaseName)
         {
@@ -83,60 +150,56 @@ namespace SQLDB
 
         void setToUseLocalConnection()
         {
-            setHost(QString());
+            _connParams.setToLocal();
         }
 
         bool usesLocalConnection() const
         {
-            return hostName().isNull();
+            return _connParams.isLocal();
         }
 
         void setHost(const QString& hostName, int port=0)
         {
-            if (!hostName.isEmpty())
-                _hostName = hostName;
-            _port = port;
+            _connParams.setHostName(hostName);
+            _connParams.setPort(port);
         }
 
         const QString& hostName() const
         {
-            return _hostName;
+            return _connParams.hostName();
         }
 
         int port() const
         {
-            return _port;
+            return _connParams.port();
         }
 
         void setUserName(const QString& userName)
         {
-            _userName = userName;
+            _connParams.setUserName(userName);
         }
 
         const QString& userName() const
         {
-            return _userName;
+            return _connParams.userName();
         }
 
         void setPassword(const QString& password)
         {
-            _password = password;
+            _connParams.setPassword(password);
         }
 
         const QString& password() const
         {
-            return _password;
+            return _connParams.password();
         }
 
     private:
         QString _driverName;
         bool _fileBased;
         QString _db;
-        QString _hostName;
-        int _port;
-        QString _userName;
-        QString _password;
+        ConnectionParameters _connParams;
     };
 }
 
-#endif /* SQLDB_DATABASE_ADDRESS_H */
+#endif /* SQLDB_DATABASEADDRESS_H */

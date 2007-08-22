@@ -20,80 +20,11 @@
 #ifndef SQLDB_DATABASEADDRESS_H
 #define SQLDB_DATABASEADDRESS_H
 
+#include "ConnectionParameters.h"
 #include <qstring.h>
 
 namespace SQLDB
 {
-    /** Parameters needed to connect to database.
-     */
-    class ConnectionParameters
-    {
-    public:
-        ConnectionParameters():
-            _hostName(),
-            _port(0),
-            _userName(),
-            _password()
-        {
-        }
-
-        void setToLocal()
-        {
-            _hostName = QString();
-        }
-
-        void setHostName(const QString& hostName)
-        {
-            _hostName = hostName;
-        }
-
-        void setPort(int port)
-        {
-            _port = port;
-        }
-
-        void setUserName(const QString& userName)
-        {
-            _userName = userName;
-        }
-
-        void setPassword(const QString& password)
-        {
-            _password = password;
-        }
-
-        bool isLocal() const
-        {
-            return _hostName.isNull();
-        }
-
-        const QString& hostName() const
-        {
-            return _hostName;
-        }
-
-        int port() const
-        {
-            return _port;
-        }
-
-        const QString& userName() const
-        {
-            return _userName;
-        }
-
-        const QString& password() const
-        {
-            return _password;
-        }
-
-    private:
-        QString _hostName;
-        int _port;
-        QString _userName;
-        QString _password;
-    };
-
     /** Stores connection parameters and database name.
      */
     class DatabaseAddress

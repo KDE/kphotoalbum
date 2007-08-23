@@ -21,7 +21,7 @@
 #define DATABASEHANDLER_H
 
 #include "DatabaseAddress.h"
-#include "Connection.h"
+#include "DatabaseConnection.h"
 
 namespace SQLDB
 {
@@ -31,7 +31,7 @@ namespace SQLDB
         DatabaseHandler(const DatabaseAddress& address);
         ~DatabaseHandler();
 
-        Connection& connection();
+        DatabaseConnection& databaseConnection();
 
     protected:
         void connect();

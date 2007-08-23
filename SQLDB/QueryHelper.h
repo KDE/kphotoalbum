@@ -23,7 +23,7 @@
 #include <qstringlist.h>
 #include <qpair.h>
 #include <QList>
-#include "Connection.h"
+#include "DatabaseConnection.h"
 #include <QSqlDatabase>
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
@@ -65,7 +65,7 @@ class QueryHelper
 public:
     typedef QList<QVariant> Bindings;
 
-    explicit QueryHelper(Connection& connection);
+    explicit QueryHelper(DatabaseConnection& connection);
 
     void executeStatement(const QString& statement,
                           const Bindings& bindings=Bindings());
@@ -178,7 +178,7 @@ protected:
                                      const QList<int>* idList) const;
 
 private:
-    QSqlDatabase& _database;
+    DatabaseConnection& _database;
     QSqlDriver* _driver;
 
     // Copying is not allowed

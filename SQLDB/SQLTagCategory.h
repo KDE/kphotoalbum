@@ -22,7 +22,6 @@
 #define SQLTAGCATEGORY_H
 
 #include "SQLCategory.h"
-#include "Connection.h"
 #include "QueryHelper.h"
 
 namespace SQLDB {

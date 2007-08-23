@@ -20,7 +20,6 @@
 #ifndef SQLDB_TRANSACTIONGUARD_H
 #define SQLDB_TRANSACTIONGUARD_H
 
-#include "Connection.h"
 
 namespace SQLDB
 {

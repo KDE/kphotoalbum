@@ -106,7 +106,7 @@ void DatabaseHandler::connect()
         throw ConnectionOpenError(_connection->errorMsg());
 }
 
-Connection& DatabaseHandler::connection()
+DatabaseConnection& DatabaseHandler::databaseConnection()
 {
     return *_connection;
 }

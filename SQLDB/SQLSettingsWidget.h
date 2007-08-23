@@ -39,7 +39,6 @@ namespace SQLDB
 
     public:
         SQLSettingsWidget(QWidget* parent=0, Qt::WindowFlags fl=0);
-        ~SQLSettingsWidget();
 
         QStringList availableDrivers() const;
         bool hasSettings() const;

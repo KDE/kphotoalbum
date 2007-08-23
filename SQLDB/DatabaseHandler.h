@@ -21,7 +21,7 @@
 #define DATABASEHANDLER_H
 
 #include "DatabaseAddress.h"
-#include "Connection.h"
+#include "DatabaseConnection.h"
 #include <kexidb/driver.h>
 #include <kexidb/connectiondata.h>
 
@@ -33,7 +33,7 @@ namespace SQLDB
         DatabaseHandler(const DatabaseAddress& address);
         ~DatabaseHandler();
 
-        Connection& connection();
+        DatabaseConnection& databaseConnection();
 
     protected:
         void connect();

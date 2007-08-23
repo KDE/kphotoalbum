@@ -21,7 +21,6 @@
 #define SQLMEMBERMAP_H
 
 #include "DB/MemberMap.h"
-#include "Connection.h"
 #include "QueryHelper.h"
 
 namespace SQLDB {

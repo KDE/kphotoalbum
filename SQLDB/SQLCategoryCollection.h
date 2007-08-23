@@ -20,7 +20,6 @@
 #define SQLCATEGORYCOLLECTION_H
 
 #include "DB/CategoryCollection.h"
-#include "Connection.h"
 #include "QueryHelper.h"
 
 namespace SQLDB {

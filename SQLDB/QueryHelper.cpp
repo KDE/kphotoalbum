@@ -33,7 +33,7 @@ using namespace SQLDB;
 using Utilities::mergeListsUniqly;
 using Utilities::listSubtract;
 
-QueryHelper::QueryHelper(Connection& connection):
+QueryHelper::QueryHelper(DatabaseConnection& connection):
     _connection(&connection),
     _driver(connection.driver())
 {

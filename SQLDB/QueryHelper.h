@@ -22,7 +22,7 @@
 
 #include <qstringlist.h>
 #include <qpair.h>
-#include "Connection.h"
+#include "DatabaseConnection.h"
 #include <kexidb/driver.h>
 #include <kexidb/cursor.h>
 #include "DB/Category.h"
@@ -65,7 +65,7 @@ class QueryHelper
 public:
     typedef QValueList<QVariant> Bindings;
 
-    explicit QueryHelper(Connection& connection);
+    explicit QueryHelper(DatabaseConnection& connection);
 
     void executeStatement(const QString& statement,
                           const Bindings& bindings=Bindings());
@@ -175,7 +175,7 @@ protected:
                                      const QValueList<int>* idList) const;
 
 private:
-    Connection* _connection;
+    DatabaseConnection* _connection;
     KexiDB::Driver* _driver;
 
     // Copying is not allowed

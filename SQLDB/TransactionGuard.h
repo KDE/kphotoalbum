@@ -20,13 +20,14 @@
 #ifndef SQLDB_TRANSACTIONGUARD_H
 #define SQLDB_TRANSACTIONGUARD_H
 
+#include "DatabaseConnection.h"
 
 namespace SQLDB
 {
     class TransactionGuard
     {
     public:
-        explicit TransactionGuard(Connection& connection):
+        explicit TransactionGuard(DatabaseConnection& connection):
             _connection(connection)
         {
             _connection.transaction();
@@ -48,7 +49,7 @@ namespace SQLDB
         }
 
     private:
-        Connection& _connection;
+        DatabaseConnection& _connection;
     };
 }
 

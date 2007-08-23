@@ -79,6 +79,11 @@ namespace SQLDB
             return _db;
         }
 
+        const ConnectionParameters& connectionParameters() const
+        {
+            return _connParams;
+        }
+
         void setToUseLocalConnection()
         {
             _connParams.setToLocal();

@@ -20,11 +20,11 @@
 #ifndef SQLDB_DATABASECONNECTION_H
 #define SQLDB_DATABASECONNECTION_H
 
-#include <kexidb/connection.h>
+#include <QSqlDatabase>
 
 namespace SQLDB
 {
-    typedef KexiDB::Connection DatabaseConnection;
+    typedef QSqlDatabase DatabaseConnection;
 }
 
 #endif /* SQLDB_DATABASECONNECTION_H */

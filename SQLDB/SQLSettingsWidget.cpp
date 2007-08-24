@@ -20,6 +20,7 @@
 #include "SQLSettingsWidget.h"
 #include "DatabaseAddress.h"
 #include "DriverManager.h"
+#include "QueryErrors.h"
 #include <kurlrequester.h>
 #include <klineedit.h>
 #include <kpassworddialog.h>
@@ -165,16 +166,21 @@ QStringList SQLSettingsWidget::SQLSettingsWidget::availableDrivers() const
 
 bool SQLSettingsWidget::hasSettings() const
 {
-    DriverInfo driverInfo =
-        DriverManager::instance().getDriverInfo(_driverCombo->currentText());
-    if (!driverInfo.isValid())
+    bool fileBased;
+
+    try {
+        DriverInfo driverInfo
+            (DriverManager::instance().
+             getDriverInfo(_driverCombo->currentText()));
+        fileBased = driverInfo.isFileBased();
+    }
+    catch (DriverNotFoundError&) {
         return false;
-    if (driverInfo.isFileBased())
+    }
+    if (fileBased)
         return !_fileLine->url().isEmpty();
     else
         return !_dbNameLabel->text().isEmpty();
-
-    return false;
 }
 
 DatabaseAddress SQLSettingsWidget::getSettings() const
@@ -182,13 +188,16 @@ DatabaseAddress SQLSettingsWidget::getSettings() const
     DatabaseAddress dbAddr;
     QString databaseName;
 
-    DriverInfo driverInfo =
-        DriverManager::instance().getDriverInfo(_driverCombo->currentText());
-    if (!driverInfo.isValid())
+    try {
+        DriverInfo driverInfo
+            (DriverManager::instance().
+             getDriverInfo(_driverCombo->currentText()));
+        dbAddr.setDriverName(driverInfo.name());
+        dbAddr.setFileBased(driverInfo.isFileBased());
+    }
+    catch (DriverNotFoundError&) {
         return DatabaseAddress();
-
-    dbAddr.setDriverName(driverInfo.name());
-    dbAddr.setFileBased(driverInfo.isFileBased());
+    }
 
     if (dbAddr.isFileBased()) {
         dbAddr.setDatabaseName(_fileLine->url().path());
@@ -273,16 +282,21 @@ void SQLSettingsWidget::showOptionsOfSelectedDriver()
         return;
     }
 
-    DriverInfo driverInfo =
-        DriverManager::instance().getDriverInfo(_driverCombo->currentText());
+    bool fileBased;
 
-    if (!driverInfo.isValid()) {
+    try {
+        DriverInfo driverInfo
+            (DriverManager::instance().
+             getDriverInfo(_driverCombo->currentText()));
+        fileBased = driverInfo.isFileBased();
+    }
+    catch (DriverNotFoundError&) {
         setError(InvalidDriver);
         _widgetStack->setCurrentIndex(ErrorPage);
         return;
     }
 
-    if (driverInfo.isFileBased())
+    if (fileBased)
         _widgetStack->setCurrentIndex(FileSettingsPage);
     else
         _widgetStack->setCurrentIndex(ServerSettingsPage);

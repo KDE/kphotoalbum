@@ -30,7 +30,6 @@ namespace SQLDB
     class DriverInfo
     {
     public:
-        bool isValid() const;
         const QString& name() const;
         bool isFileBased() const;
 

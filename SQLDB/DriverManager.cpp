@@ -19,6 +19,8 @@
 
 #include "DriverManager.h"
 #include "DatabaseManagers.h"
+#include "QueryErrors.h"
+#include <klocalizedstring.h>
 #include <QSqlDatabase>
 
 using namespace SQLDB;
@@ -26,11 +28,6 @@ using namespace SQLDB;
 DriverInfo::DriverInfo(const QString& name):
     _name(name)
 {
-}
-
-bool DriverInfo::isValid() const
-{
-    return !_name.isNull();
 }
 
 const QString& DriverInfo::name() const
@@ -66,10 +63,10 @@ QStringList DriverManager::driverNames() const
 DriverInfo DriverManager::getDriverInfo(const QString& driverName) const
 {
     QString driverNameUpper(driverName.toUpper());
-    if (driverNames().contains(driverNameUpper))
-        return DriverInfo(driverNameUpper);
-    else
-        return DriverInfo(QString());
+    if (!driverNames().contains(driverNameUpper))
+        throw DriverNotFoundError(i18n("Database driver not found: %1",
+                                       driverNameUpper));
+    return DriverInfo(driverNameUpper);
 }
 
 DatabaseManager::APtr
@@ -86,5 +83,7 @@ DriverManager::getDatabaseManager(const QString& driverName,
         return DatabaseManager::APtr
             (new SQLiteDatabaseManager());
     else
-        return DatabaseManager::APtr();
+        throw DriverNotFoundError(i18n("Unknown or unsupported "
+                                       "database driver: %1",
+                                       driverName));
 }

@@ -37,8 +37,7 @@ SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
     QString driver(config.readEntry(QString::fromLatin1("dbms"),
                                     DEFAULT_DRIVER));
     DriverInfo driverInfo = DriverManager::instance().getDriverInfo(driver);
-    if (!driverInfo.isValid())
-        throw DriverNotFoundError(/* TODO: error message */);
+
     dbAddr.setDriverName(driver);
     dbAddr.setFileBased(driverInfo.isFileBased());
 

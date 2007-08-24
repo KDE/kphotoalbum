@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,31 +17,19 @@
   MA 02110-1301 USA.
 */
 
-#ifndef DATABASEHANDLER_H
-#define DATABASEHANDLER_H
+#ifndef SQLDB_DATABASEINITIALIZATION_H
+#define SQLDB_DATABASEINITIALIZATION_H
 
 #include "DatabaseAddress.h"
 #include "DatabaseConnection.h"
 
 namespace SQLDB
 {
-    class DatabaseHandler
-    {
-    public:
-        DatabaseHandler(const DatabaseAddress& address);
-        ~DatabaseHandler();
-
-        DatabaseConnection& databaseConnection();
-
-    protected:
-        void connect();
-        void openDatabase(const QString& name);
-        void createAndOpenDatabase(const QString& name);
-        void insertInitialData();
-
-    private:
-        QString _databaseName;
-    };
+    /** Open an existing SQL database or create a new one using
+     * KPhotoAlbum database schema and open it.
+     */
+    DatabaseConnection
+    initializeKPhotoAlbumDatabase(const DatabaseAddress& address);
 }
 
-#endif /* DATABASEHANDLER_H */
+#endif /* SQLDB_DATABASEINITIALIZATION_H */

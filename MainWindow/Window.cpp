@@ -104,7 +104,6 @@
 #include <config-kpa-sqldb.h>
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/Database.h"
-#  include "SQLDB/DatabaseHandler.h"
 #  include "SQLDB/ConfigFileHandler.h"
 #  include "SQLDB/QueryErrors.h"
 #  include <kprogressdialog.h>
@@ -1489,7 +1488,6 @@ void MainWindow::Window::convertBackend()
             return;
     }
     config->setGroup(QString::fromLatin1("SQLDB"));
-    SQLDB::DatabaseHandler* dbh = 0;
     try {
         SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(*config);
 
@@ -1517,8 +1515,6 @@ void MainWindow::Window::convertBackend()
     catch (SQLDB::Error& e) {
         KMessageBox::error(this, i18n("Database conversion failed, because following error occurred:\n%1",e.message()));
     }
-    if (dbh)
-        delete dbh;
 #endif
 }
 

@@ -10,7 +10,6 @@ SET(libSQLDB_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLImageInfo.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/QueryHelper.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLImageDateCollection.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/DatabaseHandler.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLMD5Map.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLImageInfoCollection.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/Cursor.cpp
@@ -24,6 +23,7 @@ SET(libSQLDB_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLTokensCategory.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/DriverManager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/DatabaseManagers.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/DatabaseInitialization.cpp
 )
 
 QT4_AUTOMOC(${libSQLDB_SRCS})

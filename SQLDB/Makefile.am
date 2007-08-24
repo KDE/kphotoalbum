@@ -28,6 +28,8 @@ libsqldb_la_SOURCES = \
 	SQLTagCategory.cpp \
 	SQLNormalCategory.cpp \
 	SQLTokensCategory.cpp \
+	DriverManager.cpp \
+	DatabaseManagers.cpp \
 	Schema/DatabaseSchema.cpp \
 	Schema/KPhotoAlbumSchema.cpp \
 	Schema/CreateStatementGenerator.cpp \

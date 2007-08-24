@@ -22,23 +22,24 @@
 
 #include "DatabaseManager.h"
 #include "ConnectionParameters.h"
-#include <QString>
-#include <QStringList>
+#include <kexidb/driver.h>
+#include <kexidb/drivermanager.h>
+#include <qstring.h>
+#include <qstringlist.h>
 
 namespace SQLDB
 {
     class DriverInfo
     {
     public:
-        bool isValid() const;
         const QString& name() const;
         bool isFileBased() const;
 
     private:
         friend class DriverManager;
-        DriverInfo(const QString& name);
+        DriverInfo(const KexiDB::Driver::Info& kexiDriverInfo);
 
-        QString _name;
+        KexiDB::Driver::Info _kexiDriverInfo;
     };
 
     class DriverManager
@@ -61,6 +62,8 @@ namespace SQLDB
         DriverManager();
         DriverManager(const DriverManager&);
         void operator=(const DriverManager&);
+
+        mutable KexiDB::DriverManager _kexiDriverManager;
     };
 }
 

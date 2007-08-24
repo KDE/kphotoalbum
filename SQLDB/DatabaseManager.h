@@ -22,8 +22,8 @@
 
 #include "Schema/DatabaseSchema.h"
 #include "DatabaseConnection.h"
-#include <QString>
-#include <QStringList>
+#include <qstring.h>
+#include <qstringlist.h>
 #include <memory>
 
 namespace SQLDB

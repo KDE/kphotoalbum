@@ -18,8 +18,8 @@
 */
 
 #include "SQLSettingsWidget.h"
-
-#include "SQLDB/DatabaseAddress.h"
+#include "DatabaseAddress.h"
+#include "DriverManager.h"
 #include <kurlrequester.h>
 #include <klineedit.h>
 #include <kpassworddialog.h>
@@ -160,27 +160,20 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, Qt::WindowFlags fl):
 
 QStringList SQLSettingsWidget::SQLSettingsWidget::availableDrivers() const
 {
-    return QStringList() <<
-        QLatin1String("QMYSQL") <<
-        QLatin1String("QPSQL") <<
-        QLatin1String("QSQLITE");
-/* TEMPORARILY DISABLED
-    return _driverManager->driverNames();
-*/
+    return DriverManager::instance().driverNames();
 }
 
 bool SQLSettingsWidget::hasSettings() const
 {
-/* TEMPORARILY DISABLED
-    KexiDB::Driver::Info driverInfo =
-        _driverManager->driverInfo(_driverCombo->currentText());
-    if (driverInfo.name.isEmpty())
+    DriverInfo driverInfo =
+        DriverManager::instance().getDriverInfo(_driverCombo->currentText());
+    if (!driverInfo.isValid())
         return false;
-    if (driverInfo.fileBased)
+    if (driverInfo.isFileBased())
         return !_fileLine->url().isEmpty();
     else
         return !_dbNameLabel->text().isEmpty();
-*/
+
     return false;
 }
 
@@ -189,10 +182,13 @@ DatabaseAddress SQLSettingsWidget::getSettings() const
     DatabaseAddress dbAddr;
     QString databaseName;
 
-    QString driver = _driverCombo->currentText();
-    dbAddr.setDriverName(driver);
-    dbAddr.setFileBased(driver == QLatin1String("QSQLITE") ||
-                        driver == QLatin1String("QSQLITE2"));
+    DriverInfo driverInfo =
+        DriverManager::instance().getDriverInfo(_driverCombo->currentText());
+    if (!driverInfo.isValid())
+        return DatabaseAddress();
+
+    dbAddr.setDriverName(driverInfo.name());
+    dbAddr.setFileBased(driverInfo.isFileBased());
 
     if (dbAddr.isFileBased()) {
         dbAddr.setDatabaseName(_fileLine->url().path());
@@ -236,10 +232,6 @@ void SQLSettingsWidget::reloadDriverList()
     QStringList drivers = availableDrivers();
     for (QStringList::const_iterator i = drivers.begin();
          i != drivers.end(); ++i) {
-        // SQLite2 is not supported
-        if (*i == QString::fromLatin1("SQLite2"))
-            continue;
-
         _driverCombo->addItem(*i);
     }
     if (_driverCombo->count() == 0)
@@ -281,21 +273,19 @@ void SQLSettingsWidget::showOptionsOfSelectedDriver()
         return;
     }
 
-/* TEMPORARILY DISABLED
-    KexiDB::Driver::Info driverInfo =
-        _driverManager->driverInfo(_driverCombo->currentText());
+    DriverInfo driverInfo =
+        DriverManager::instance().getDriverInfo(_driverCombo->currentText());
 
-    if (driverInfo.name.isEmpty()) {
+    if (!driverInfo.isValid()) {
         setError(InvalidDriver);
         _widgetStack->setCurrentIndex(ErrorPage);
         return;
     }
 
-    if (driverInfo.fileBased)
+    if (driverInfo.isFileBased())
         _widgetStack->setCurrentIndex(FileSettingsPage);
     else
         _widgetStack->setCurrentIndex(ServerSettingsPage);
-*/
 }
 
 void SQLSettingsWidget::setError(ErrorType errorType)

@@ -19,6 +19,7 @@
 
 #include "ConfigFileHandler.h"
 #include "DatabaseAddress.h"
+#include "DriverManager.h"
 #include "QueryErrors.h"
 #include "Settings/SettingsData.h"
 #include <kconfig.h>
@@ -35,9 +36,11 @@ SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
 
     QString driver(config.readEntry(QString::fromLatin1("dbms"),
                                     DEFAULT_DRIVER));
+    DriverInfo driverInfo = DriverManager::instance().getDriverInfo(driver);
+    if (!driverInfo.isValid())
+        throw DriverNotFoundError(/* TODO: error message */);
     dbAddr.setDriverName(driver);
-    dbAddr.setFileBased(driver == QLatin1String("QSQLITE") ||
-                        driver == QLatin1String("QSQLITE2"));
+    dbAddr.setFileBased(driverInfo.isFileBased());
 
     // Could be database name for network based DBMSs or filename
     // (relative to image root or absolute) for file based DBMSs

@@ -50,6 +50,8 @@ public:
 #ifdef SQLDB_SUPPORT
     static void setupSQLDB( const SQLDB::DatabaseAddress& address );
 #endif
+    static void deleteInstance();
+
     void convertBackend(ImageDB* newBackend, QProgressBar* progressBar);
     virtual bool operator==(const ImageDB& other) const = 0;
     bool operator!=(const ImageDB& other) const { return !operator==(other); }

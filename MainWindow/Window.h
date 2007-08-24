@@ -63,6 +63,7 @@ class Window :public KXmlGuiWindow
 
 public:
     Window( QWidget* parent );
+    ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
     QStringList selected( bool keepSortOrderOfDatabase = false );

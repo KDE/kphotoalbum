@@ -22,6 +22,8 @@ SET(libSQLDB_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLTagCategory.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLNormalCategory.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLTokensCategory.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/DriverManager.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/DatabaseManagers.cpp
 )
 
 QT4_AUTOMOC(${libSQLDB_SRCS})

@@ -19,10 +19,11 @@
 
 #include "ConfigFileHandler.h"
 #include "DatabaseAddress.h"
+#include "DriverManager.h"
 #include "QueryErrors.h"
 #include "Settings/SettingsData.h"
-#include <kexidb/drivermanager.h>
 #include <kconfig.h>
+#include <klocale.h>
 #include <qfileinfo.h>
 
 #define DEFAULT_DRIVER QString::fromLatin1("SQLite3")
@@ -30,20 +31,16 @@
 #define DATABASE_FILE_EXTENSION QString::fromLatin1(".db")
 #define DATABASE_FILE_ROOT Settings::SettingsData::instance()->imageDirectory()
 
-using namespace KexiDB;
-
 SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
 {
     DatabaseAddress dbAddr;
 
     QString driver(config.readEntry(QString::fromLatin1("dbms"),
                                     DEFAULT_DRIVER));
-    DriverManager dm;
-    Driver::Info driverInfo = dm.driverInfo(driver);
-    if (driverInfo.name.isEmpty())
-        throw DriverNotFoundError(dm.errorMsg());
+    DriverInfo driverInfo = DriverManager::instance().getDriverInfo(driver);
+
     dbAddr.setDriverName(driver);
-    dbAddr.setFileBased(driverInfo.fileBased);
+    dbAddr.setFileBased(driverInfo.isFileBased());
 
     // Could be database name for network based DBMSs or filename
     // (relative to image root or absolute) for file based DBMSs

@@ -36,7 +36,7 @@ endif(KDCRAW_FOUND)
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
 
-set(SQLDB_SUPPORT FALSE)
+set(SQLDB_SUPPORT TRUE)
 
 
 # For config-kpa-*.h

@@ -116,7 +116,7 @@ void QueryHelper::executeStatement(const QString& statement,
     std::auto_ptr<QSqlQuery> s(initializeQuery(statement, bindings));
 
     if (!s->exec())
-        throw s->lastError();
+        throw QtSQLError(s->lastError());
 
     //TODO: remove debug
     qDebug("Executed statement: %s", s->executedQuery().toLocal8Bit().data());
@@ -133,7 +133,7 @@ QueryResult QueryHelper::executeQuery(const QString& query,
 #endif
 
     if (!q->exec())
-        throw q->lastError();
+        throw QtSQLError(q->lastError());
 
 #ifdef DEBUG_QUERY_TIMES
     int te = t.elapsed();
@@ -170,10 +170,12 @@ qulonglong QueryHelper::insert(const QString& tableName,
     std::auto_ptr<QSqlQuery> s(initializeQuery(q, values));
 
     if (!s->exec())
-        throw s->lastError();
+        throw QtSQLError(s->lastError());
 
     //TODO: remove debug
     qDebug("Executed statement: %s", s->executedQuery().toLocal8Bit().data());
+
+    Q_UNUSED(aiFieldName);
 
     return s->lastInsertId().toULongLong();
 }

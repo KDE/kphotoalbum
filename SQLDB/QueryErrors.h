@@ -20,6 +20,7 @@
 #define SQLDB_QUERYERRORS_H
 
 #include <qstring.h>
+#include <QSqlError>
 
 #define ERROR_CLASS(X,Y) \
 struct X: public Y\
@@ -48,6 +49,15 @@ namespace SQLDB
 
     private:
         QString _message;
+    };
+
+    class QtSQLError: public Error
+    {
+    public:
+        QtSQLError(const QSqlError& qtError):
+            Error(qtError.text())
+        {
+        }
     };
 
     ERROR_CLASS(NotFoundError, Error);

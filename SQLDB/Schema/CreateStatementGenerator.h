@@ -29,7 +29,6 @@ namespace SQLDB
 {
     namespace Schema
     {
-        using std::auto_ptr;
         using std::list;
         using std::string;
 
@@ -42,6 +41,8 @@ namespace SQLDB
         class CreateStatementGenerator
         {
         public:
+            typedef std::auto_ptr<CreateStatementGenerator> APtr;
+
             virtual ~CreateStatementGenerator() {}
 
             /** Generate SQL commands for creating a database.

@@ -65,7 +65,7 @@ class QueryHelper
 public:
     typedef QValueList<QVariant> Bindings;
 
-    explicit QueryHelper(DatabaseConnection& connection);
+    explicit QueryHelper(DatabaseConnection connection);
 
     void executeStatement(const QString& statement,
                           const Bindings& bindings=Bindings());
@@ -175,7 +175,7 @@ protected:
                                      const QValueList<int>* idList) const;
 
 private:
-    DatabaseConnection* _connection;
+    DatabaseConnection _connection;
     KexiDB::Driver* _driver;
 
     // Copying is not allowed

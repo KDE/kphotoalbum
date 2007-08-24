@@ -24,7 +24,7 @@
 
 namespace SQLDB
 {
-    typedef KexiDB::Connection DatabaseConnection;
+    typedef KexiDB::Connection* DatabaseConnection;
 }
 
 #endif /* SQLDB_DATABASECONNECTION_H */

@@ -33,9 +33,9 @@ using namespace SQLDB;
 using Utilities::mergeListsUniqly;
 using Utilities::listSubtract;
 
-QueryHelper::QueryHelper(DatabaseConnection& connection):
-    _connection(&connection),
-    _driver(connection.driver())
+QueryHelper::QueryHelper(DatabaseConnection connection):
+    _connection(connection),
+    _driver(_connection->driver())
 {
     if (!_driver)
         throw InitializationError();

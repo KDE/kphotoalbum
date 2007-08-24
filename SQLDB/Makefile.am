@@ -16,7 +16,6 @@ libsqldb_la_SOURCES = \
 	SQLImageInfo.cpp \
 	QueryHelper.cpp \
 	SQLImageDateCollection.cpp \
-	DatabaseHandler.cpp \
 	SQLMD5Map.cpp \
 	SQLImageInfoCollection.cpp \
 	Cursor.cpp \
@@ -30,6 +29,7 @@ libsqldb_la_SOURCES = \
 	SQLTokensCategory.cpp \
 	DriverManager.cpp \
 	DatabaseManagers.cpp \
+	DatabaseInitialization.cpp \
 	Schema/DatabaseSchema.cpp \
 	Schema/KPhotoAlbumSchema.cpp \
 	Schema/CreateStatementGenerator.cpp \

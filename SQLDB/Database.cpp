@@ -25,7 +25,7 @@
 #include "Browser/BrowserWidget.h"
 #include "SQLImageDateCollection.h"
 #include "DB/MediaCount.h"
-#include "DatabaseHandler.h"
+#include "DatabaseInitialization.h"
 #include "QueryErrors.h"
 
 namespace
@@ -43,8 +43,8 @@ namespace
 
 SQLDB::Database::Database(const DatabaseAddress& address):
     _address(address),
-    _handler(_address),
-    _qh(_handler.databaseConnection()),
+    _connection(initializeKPhotoAlbumDatabase(_address)),
+    _qh(_connection),
     _categoryCollection(_qh),
     _members(_qh),
     _infoCollection(_qh),

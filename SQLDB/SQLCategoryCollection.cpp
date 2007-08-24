@@ -109,7 +109,7 @@ void SQLDB::SQLCategoryCollection::addCategory(const QString& category,
     try {
         _qh.insertCategory(category, icon, showIt, type, thumbnailSize);
     }
-    catch (SQLError& e) {
+    catch (Error& e) {
         // Check if error occured, because category already exists
         try {
             _qh.categoryId(category);

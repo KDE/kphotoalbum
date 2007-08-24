@@ -55,6 +55,7 @@ class Window :public KMainWindow
 
 public:
     Window( QWidget* parent,  const char* name = 0 );
+    ~Window();
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
     QStringList selected( bool keepSortOrderOfDatabase = false );

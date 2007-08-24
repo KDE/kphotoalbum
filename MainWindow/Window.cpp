@@ -218,6 +218,11 @@ MainWindow::Window::Window( QWidget* parent, const char* name )
     slotThumbNailSelectionChanged();
 }
 
+MainWindow::Window::~Window()
+{
+    DB::ImageDB::deleteInstance();
+}
+
 void MainWindow::Window::delayedInit()
 {
     SplashScreen* splash = SplashScreen::instance();

@@ -74,7 +74,7 @@ SQLDB::initializeKPhotoAlbumDatabase(const DatabaseAddress& address)
 
     const QString& dbName = address.databaseName();
 
-    if (dbMgr->databaseExists(dbName)) {
+    if (!dbMgr->databaseExists(dbName)) {
         dbMgr->createDatabase(dbName, Schema::getKPhotoAlbumSchema());
         databaseCreated = true;
     }

@@ -110,7 +110,7 @@ createDatabase(const QString& databaseName,
 
     if (!_conn->createDatabase(databaseName))
         throw DatabaseCreateError(_conn->errorMsg());
-    if (!_conn->useDatabase(databaseName))
+    if (!_conn->useDatabase(databaseName, false))
         throw DatabaseOpenError(_conn->errorMsg());
 
     TransactionGuard transaction(*_conn);
@@ -128,7 +128,7 @@ DatabaseConnection
 KexiDBDatabaseManager::connectToDatabase(const QString& databaseName)
 {
     KexiDB::Connection* conn = createConnection();
-    if (!conn->useDatabase(databaseName))
+    if (!conn->useDatabase(databaseName, false))
         throw DatabaseOpenError(conn->errorMsg());
     return conn;
 }

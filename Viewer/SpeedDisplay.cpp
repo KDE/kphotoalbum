@@ -36,7 +36,10 @@ Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
     _timer = new QTimer( this );
     connect( _timer, SIGNAL( timeout() ), this, SLOT( hide() ) );
 
-    _label->setPaletteBackgroundColor( Qt::yellow );
+    QPalette pal = _label->palette();
+    pal.setColor( QPalette::Background, Qt::yellow );
+    _label->setPalette( pal );
+
     _label->setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
 }
 

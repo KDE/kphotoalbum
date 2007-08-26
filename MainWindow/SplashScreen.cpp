@@ -40,7 +40,8 @@ MainWindow::SplashScreen* MainWindow::SplashScreen::instance()
 void MainWindow::SplashScreen::done()
 {
     _instance = 0;
-    (void) close( true );
+    (void) close();
+    deleteLater();
 }
 
 void MainWindow::SplashScreen::message( const QString& message )

@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "kdeversion.h"
 #include "HTMLDialog.h"
 #include <klocale.h>
 #include <qlayout.h>
@@ -63,8 +62,7 @@ void HTMLDialog::createContentPage()
     QWidget* contentPage = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( contentPage, i18n("Content" ) );
     page->setHeader( i18n("Content" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "edit" ),
-                                                           K3Icon::Desktop, 32 )) );
+    page->setIcon( KIcon( QString::fromLatin1( "edit" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( contentPage );
@@ -122,8 +120,7 @@ void HTMLDialog::createLayoutPage()
     QWidget* layoutPage = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( layoutPage, i18n("Layout" ) );
     page->setHeader( i18n("Layout" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "matrix" ),
-                                                           K3Icon::Desktop, 32 )) );
+    page->setIcon( KIcon( QString::fromLatin1( "matrix" )) );
     addPage(page);
 
     QVBoxLayout* lay1 = new QVBoxLayout( layoutPage );
@@ -210,8 +207,7 @@ void HTMLDialog::createDestinationPage()
 
     KPageWidgetItem* page = new KPageWidgetItem( destinationPage, i18n("Destination" ) );
     page->setHeader( i18n("Destination" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "hdd_unmount" ),
-                                                           K3Icon::Desktop, 32 )) );
+    page->setIcon( KIcon( QString::fromLatin1( "hdd_unmount" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( destinationPage );
@@ -319,11 +315,7 @@ bool HTMLDialog::checkVars()
 
     // ensure base dir exists
     KIO::UDSEntry result;
-#if KDE_IS_VERSION( 3,1,90 )
     bool ok = KIO::NetAccess::stat( KUrl(baseDir), result, this );
-#else
-    bool ok = KIO::NetAccess::stat( KUrl(baseDir), result );
-#endif
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Error while reading information about %1. "
                                        "This is most likely because the directory does not exist.</p>")
@@ -340,11 +332,7 @@ bool HTMLDialog::checkVars()
 
 
     // test if destination directory exists.
-#if KDE_IS_VERSION( 3, 1, 90 )
-    bool exists = KIO::NetAccess::exists( KUrl(outputDir), false, MainWindow::Window::theMainWindow() );
-#else
-    bool exists = KIO::NetAccess::exists( KUrl(outputDir) );
-#endif
+    bool exists = KIO::NetAccess::exists( KUrl(outputDir), KIO::NetAccess::DestinationSide, MainWindow::Window::theMainWindow() );
     if ( exists ) {
         int answer = KMessageBox::warningYesNo( this,
                                                 i18n("<p>Output directory %1 already exists. "

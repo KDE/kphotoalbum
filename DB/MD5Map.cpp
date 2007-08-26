@@ -45,8 +45,8 @@ StringSet DB::MD5Map::diff( const MD5Map& other ) const
     StringSet res;
 
     for( QMap<MD5, QString>::ConstIterator it = _map.begin(); it != _map.end(); ++it ) {
-        if ( other.lookup( it.key() ) != it.data() )
-            res.insert( it.data() );
+        if ( other.lookup( it.key() ) != it.value() )
+            res.insert( it.value() );
     }
 
     return res;

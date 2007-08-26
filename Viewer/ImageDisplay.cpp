@@ -102,6 +102,7 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
 
     setMouseTracking( true );
     _cursorTimer = new QTimer( this );
+    _cursorTimer->setSingleShot(true);
     connect( _cursorTimer, SIGNAL( timeout() ), this, SLOT( hideCursor() ) );
     showCursor();
 
@@ -119,7 +120,7 @@ void Viewer::ImageDisplay::hideCursor() {
  */
 void Viewer::ImageDisplay::showCursor() {
     unsetCursor();
-    _cursorTimer->start( 1500, true );
+    _cursorTimer->start( 1500 );
 }
 
 /**
@@ -133,7 +134,7 @@ void Viewer::ImageDisplay::disableCursorHiding() {
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 {
     disableCursorHiding();
-    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
+    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mousePressEvent( &e, event->pos(), ratio );
     if ( !block )
@@ -143,10 +144,10 @@ void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 
 void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( event->state() == Qt::NoButton )
+    if ( event->buttons() == Qt::NoButton )
         showCursor();
 
-    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
+    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mouseMoveEvent( &e, event->pos(), ratio );
     if ( !block )
@@ -158,7 +159,7 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
 {
     showCursor();
     _cache.remove( _curIndex );
-    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
+    QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mouseReleaseEvent( &e, event->pos(), ratio );
     if ( !block ) {
@@ -173,7 +174,7 @@ void Viewer::ImageDisplay::drawAll()
     if ( _croppedAndScaledImg.isNull() )
         return;
 
-    _drawingPixmap = _croppedAndScaledImg;
+    _drawingPixmap = QPixmap::fromImage(_croppedAndScaledImg);
 
     if ( Settings::SettingsData::instance()->showDrawings() && _drawHandler->hasDrawings() ) {
         QPainter painter( &_drawingPixmap );
@@ -378,7 +379,7 @@ void Viewer::ImageDisplay::cropAndScale()
     updateZoomCaption();
 
     if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
-        _croppedAndScaledImg = _croppedAndScaledImg.smoothScale( width(), height(), Qt::KeepAspectRatio );
+        _croppedAndScaledImg = _croppedAndScaledImg.scaled( width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     drawAll();
 }
@@ -406,7 +407,7 @@ QImage Viewer::ImageDisplay::currentViewAsThumbnail() const
     if ( _croppedAndScaledImg.isNull() )
         return QImage();
     else
-        return _croppedAndScaledImg.smoothScale( 128, 128, Qt::KeepAspectRatio );
+        return _croppedAndScaledImg.scaled( 128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation );
 }
 
 

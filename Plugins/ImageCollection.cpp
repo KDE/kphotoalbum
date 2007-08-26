@@ -92,13 +92,13 @@ KUrl Plugins::ImageCollection::commonRoot()
     if ( imgs.count() == 0 )
         return imgRoot;
 
-    QStringList res = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( imgs[0].path() ).absolutePath(), true );
+    QStringList res = QFileInfo( imgs[0].path() ).absolutePath().split( QLatin1String( "/" ) );
 
     for( KUrl::List::ConstIterator it = imgs.begin(); it != imgs.end(); ++it ) {
         QStringList newRes;
 
-        QStringList path = QStringList::split( QString::fromLatin1( "/" ), QFileInfo( (*it).path() ).dirPath( true ), true );
-        uint i = 0;
+        QStringList path = QFileInfo( (*it).path() ).absolutePath().split( QLatin1String( "/" ) );
+        int i = 0;
         for ( ; i < qMin( path.size(), res.size() ); ++i ) {
             if ( path[i] == res[i] )
                 newRes.append( res[i] );

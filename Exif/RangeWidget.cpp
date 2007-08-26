@@ -38,7 +38,7 @@ Exif::RangeWidget::RangeWidget( const QString& text, const QString& searchTag, c
 
     _from->addItem( QString::fromLatin1( "> %1" ).arg( list.last().text ) );
     slotUpdateTo( 0 );
-    _to->setCurrentItem( _to->count()-1);// set range to be min->max
+    _to->setCurrentIndex( _to->count()-1);// set range to be min->max
 
     connect( _from, SIGNAL( activated( int ) ), this, SLOT( slotUpdateTo( int ) ) );
 }
@@ -52,7 +52,7 @@ void Exif::RangeWidget::slotUpdateTo( int fromIndex )
     else
         fromIndex--;
 
-    for ( uint i = fromIndex; i < _list.count(); ++i ) {
+    for ( int i = fromIndex; i < _list.count(); ++i ) {
         _to->addItem( _list[i].text );
     }
     _to->addItem( QString::fromLatin1( "> %1" ).arg( _list.last().text ) );
@@ -63,20 +63,20 @@ Exif::SearchInfo::Range Exif::RangeWidget::range() const
     SearchInfo::Range result( _searchTag );
     result.min = _list.first().value;
     result.max = _list.last().value;
-    if ( _from->currentItem() == 0 )
+    if ( _from->currentIndex() == 0 )
         result.isLowerMin = true;
-    else if ( _from->currentItem() == _from->count() -1 )
+    else if ( _from->currentIndex() == _from->count() -1 )
         result.isLowerMax = true;
     else
-        result.min = _list[_from->currentItem()-1].value;
+        result.min = _list[_from->currentIndex()-1].value;
 
 
-    if ( _to->currentItem() == 0 && _from->currentItem() == 0 )
+    if ( _to->currentIndex() == 0 && _from->currentIndex() == 0 )
         result.isUpperMin = true;
-    else if ( _to->currentItem() == _to->count() -1 )
+    else if ( _to->currentIndex() == _to->count() -1 )
         result.isUpperMax = true;
     else
-        result.max =  _list[_to->currentItem() + _from->currentItem()-1].value;
+        result.max =  _list[_to->currentIndex() + _from->currentIndex()-1].value;
 
     return result;
 }

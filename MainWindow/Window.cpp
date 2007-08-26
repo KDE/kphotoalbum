@@ -651,7 +651,7 @@ void MainWindow::Window::setupMenuBar()
     _jumpToContext = actionCollection()->addAction( "jumpToContext", this, SLOT( slotJumpToContext() ) );
     _jumpToContext->setText( i18n("Jump to Context") );
     _jumpToContext->setShortcut(  Qt::CTRL+Qt::Key_J );
-    _jumpToContext->setIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Small ) );
+    _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
 
     _lock = actionCollection()->addAction( "lockToDefaultScope", this, SLOT( lockToDefaultScope() ) );
     _lock->setText( i18n("Lock Images") );
@@ -870,9 +870,9 @@ bool MainWindow::Window::load()
         configFile = Utilities::setupDemo();
     else {
         bool showWelcome = false;
-        KSharedConfigPtr config = KGlobal::config();
-        if ( config->hasKey( QString::fromLatin1("configfile") ) ) {
-            configFile = config->readEntry<QString>( QString::fromLatin1("configfile"), QString() );
+        KConfigGroup config = KGlobal::config()->group(QString());
+        if ( config.hasKey( QString::fromLatin1("configfile") ) ) {
+            configFile = config.readEntry<QString>( QString::fromLatin1("configfile"), QString() );
             if ( !QFileInfo( configFile ).exists() )
                 showWelcome = true;
         }

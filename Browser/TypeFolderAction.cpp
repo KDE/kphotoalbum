@@ -33,7 +33,7 @@ Browser::TypeFolderAction::TypeFolderAction( const DB::CategoryPtr& category, co
 {
 }
 
-bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItemPtr parentCategoryItem, const QMap<QString, uint>& images,
+bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
                                                  const QMap<QString, uint>& videos, BrowserItemFactory* factory,
                                                  BrowserItem* parentBrowserItem )
 {
@@ -50,7 +50,7 @@ bool Browser::TypeFolderAction::populateBrowserWithHierachy( DB::CategoryItemPtr
 
     for( Q3ValueList<DB::CategoryItem*>::ConstIterator subCategoryIt = parentCategoryItem->_subcategories.begin();
          subCategoryIt != parentCategoryItem->_subcategories.end(); ++subCategoryIt ) {
-        anyItems = populateBrowserWithHierachy( DB::CategoryItemPtr(*subCategoryIt), images, videos, factory, item ) || anyItems;
+        anyItems = populateBrowserWithHierachy( *subCategoryIt, images, videos, factory, item ) || anyItems;
     }
 
     if ( !anyItems ) {
@@ -93,7 +93,7 @@ void Browser::TypeFolderAction::action( BrowserItemFactory* factory )
                                                 _info, _browser ), 0 );
 
     if ( factory->supportsHierarchy() )
-        populateBrowserWithHierachy( item, images, videos, factory, 0 );
+        populateBrowserWithHierachy( item.data(), images, videos, factory, 0 );
     else
         populateBrowserWithoutHierachy( images, videos, factory );
 }

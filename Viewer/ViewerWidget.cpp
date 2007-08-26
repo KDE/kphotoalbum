@@ -886,7 +886,6 @@ Viewer::ViewerWidget::~ViewerWidget()
 
 void Viewer::ViewerWidget::createToolBar()
 {
-    KIconLoader loader;
     KActionCollection* actions = new KActionCollection( this );
     _toolbar = new KToolBar( this );
     DrawHandler* handler = _imageDisplay->drawHandler();
@@ -895,25 +894,25 @@ void Viewer::ViewerWidget::createToolBar()
 
     _select = actions->add<KToggleAction>( "_select", handler, SLOT( slotSelect() ));
     _select->setText( i18n("Select") );
-    _select->setIcon( loader.loadIcon(QString::fromLatin1("selecttool"), K3Icon::Toolbar) );
+    _select->setIcon( KIcon(QString::fromLatin1("selecttool")) );
     _toolbar->addAction( _select );
     grp->addAction(_select);
 
     _line = actions->add<KToggleAction>( "_line", handler, SLOT( slotLine() ) );
     _line->setText( i18n("Line") );
-    _line->setIcon( loader.loadIcon(QString::fromLatin1("linetool"), K3Icon::Toolbar) );
+    _line->setIcon( KIcon(QString::fromLatin1("linetool")) );
     _toolbar->addAction( _line );
     grp->addAction(_line);
 
     _rect = actions->add<KToggleAction>( "_rect", handler, SLOT( slotRectangle() ) );
     _rect->setText( i18n("Rectangle") );
-    _rect->setIcon( loader.loadIcon(QString::fromLatin1("recttool"), K3Icon::Toolbar) );
+    _rect->setIcon( KIcon(QString::fromLatin1("recttool")) );
     _toolbar->addAction( _rect );
     grp->addAction(_rect);
 
     _circle = actions->add<KToggleAction>( "_circle", handler, SLOT( slotCircle() ) );
     _circle->setText( i18n("Circle") );
-    _circle->setIcon( loader.loadIcon(QString::fromLatin1("ellipsetool"), K3Icon::Toolbar) );
+    _circle->setIcon( KIcon(QString::fromLatin1("ellipsetool") ) );
     _toolbar->addAction( _circle );
     grp->addAction(_circle);
 

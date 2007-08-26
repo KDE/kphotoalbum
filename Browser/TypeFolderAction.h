@@ -40,7 +40,7 @@ public:
     virtual DB::Category::ViewType viewType() const;
 
 protected:
-    bool populateBrowserWithHierachy( DB::CategoryItemPtr parentCategoryItem, const QMap<QString, uint>& images,
+    bool populateBrowserWithHierachy( DB::CategoryItem* parentCategoryItem, const QMap<QString, uint>& images,
                                       const QMap<QString, uint>& videos, BrowserItemFactory* factory, BrowserItem* parentBrowserItem );
     void populateBrowserWithoutHierachy( const QMap<QString, uint>& images,
                                          const QMap<QString, uint>& videos, BrowserItemFactory* factory );

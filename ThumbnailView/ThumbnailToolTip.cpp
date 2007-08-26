@@ -190,6 +190,8 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
     return true;
 #else
     kDebug() << "TEMPORARILY REMOVED: " ;
+    Q_UNUSED(fileName);
+    return false;
 #endif
 }
 
@@ -202,6 +204,8 @@ void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, con
         showToolTips(true);
 #else
     kDebug() << "TEMPORARILY REMOVED: " ;
+    Q_UNUSED( fileName );
+    Q_UNUSED( image );
 #endif
 }
 

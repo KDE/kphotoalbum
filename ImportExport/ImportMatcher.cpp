@@ -46,15 +46,19 @@ ImportMatcher::ImportMatcher( const QString& otherCategory, const QString& myCat
 
     QLabel* label = new QLabel( i18n("Key in file"), grid );
     gridLay->addWidget( label, 0,0 );
-    QColor col = label->paletteBackgroundColor();
-    label->setPaletteBackgroundColor( label->paletteForegroundColor() );
-    label->setPaletteForegroundColor( col );
+
+    QPalette pal = label->palette();
+    QColor col = pal.color( QPalette::Background);
+    pal.setColor( QPalette::Background, pal.color( QPalette::Foreground ) );
+    pal.setColor( QPalette::Foreground, col );
+    label->setPalette( pal );
     label->setAlignment( Qt::AlignCenter );
 
     label = new QLabel( i18n("Key in your database"), grid );
     gridLay->addWidget( label, 0, 1 );
-    label->setPaletteBackgroundColor( label->paletteForegroundColor() );
-    label->setPaletteForegroundColor( col );
+    pal.setColor( QPalette::Background, pal.color( QPalette::Foreground ) );
+    pal.setColor( QPalette::Foreground, col );
+    label->setPalette( pal );
     label->setAlignment( Qt::AlignCenter );
 
     int row = 1;
@@ -80,7 +84,7 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& category, QStringLis
     grid->addWidget( _combobox, row, 1 );
 
     if ( items.contains( category ) ) {
-        _combobox->setCurrentText( category );
+        _combobox->setCurrentIndex( items.indexOf(category) );
     }
     else {
         QString match = QString::null;
@@ -95,15 +99,17 @@ CategoryMatch::CategoryMatch( bool allowNew, const QString& category, QStringLis
             }
         }
         if ( match != QString::null ) {
-            _combobox->setCurrentText( match );
+            _combobox->setCurrentIndex( items.indexOf(match) );
         }
         else {
             if ( allowNew )
-                _combobox->setCurrentText( category );
+                _combobox->setCurrentIndex( items.indexOf(category) );
             else
                 _checkbox->setChecked( false );
         }
-        _checkbox->setPaletteForegroundColor( Qt::red );
+        QPalette pal = _checkbox->palette();
+        pal.setColor( QPalette::Foreground, Qt::red );
+        _checkbox->setPalette( pal );
     }
 }
 

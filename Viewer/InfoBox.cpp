@@ -37,7 +37,7 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
     setMidLineWidth(0);
 
     _jumpToContext = new QToolButton( this );
-    _jumpToContext->setIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Desktop, 16 ) );
+    _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
     _jumpToContext->setFixedSize( 16, 16 );
     connect( _jumpToContext, SIGNAL( clicked() ), this, SLOT( jumpToContext() ) );
     connect( this, SIGNAL( highlighted(const QString&) ),
@@ -99,7 +99,7 @@ void Viewer::InfoBox::setSize()
     setHorizontalScrollBarPolicy( Qt::ScrollBarAsNeeded );
 
     int offset = 0;
-    if ( verticalScrollBar()->isShown() )
+    if ( !verticalScrollBar()->isHidden() )
         offset = verticalScrollBar()->width();
     _jumpToContext->move( width +3*frameWidth() - 16 - offset, frameWidth() );
 

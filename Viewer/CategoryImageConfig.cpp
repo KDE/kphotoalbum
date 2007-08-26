@@ -103,7 +103,7 @@ void CategoryImageConfig::groupChanged()
     _member->addItems( list );
     int index = list.indexOf( currentText );
     if ( index != -1 )
-        _member->setCurrentItem( index );
+        _member->setCurrentIndex( index );
 
     memberChanged();
 }
@@ -122,7 +122,7 @@ void CategoryImageConfig::slotSet()
 
 QString CategoryImageConfig::currentGroup()
 {
-    int index = _group->currentItem();
+    int index = _group->currentIndex();
     return DB::ImageDB::instance()->categoryCollection()->categoryNames()[index];
 }
 
@@ -158,7 +158,7 @@ void CategoryImageConfig::show()
     }
 
     if ( currentIndex != -1 )
-        _group->setCurrentItem( currentIndex );
+        _group->setCurrentIndex( currentIndex );
     groupChanged();
 
 

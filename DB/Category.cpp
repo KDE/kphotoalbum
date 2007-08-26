@@ -22,12 +22,12 @@
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
 #include "CategoryItem.h"
-//Added by qt3to4:
 #include <QPixmap>
+#include <KIcon>
 
 QPixmap DB::Category::icon( int size ) const
 {
-    return KIconLoader::global()->loadIcon( iconName(), K3Icon::Desktop, size );
+    return KIcon( iconName() ).pixmap(size);
 }
 
 

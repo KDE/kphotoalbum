@@ -28,11 +28,11 @@ namespace Browser
 class ImageFolder :public Folder {
 public:
     ImageFolder( const DB::ImageSearchInfo& info, BrowserWidget* parent );
-    virtual FolderAction* action( bool ctrlDown = false );
-    virtual QPixmap pixmap();
-    virtual QString text() const;
-    virtual QString imagesLabel() const;
-    virtual QString videosLabel() const;
+    OVERRIDE FolderAction* action( bool ctrlDown = false );
+    OVERRIDE QPixmap pixmap();
+    OVERRIDE QString text() const;
+    OVERRIDE QString imagesLabel() const;
+    OVERRIDE QString videosLabel() const;
 };
 
 class ImageFolderAction :public FolderAction
@@ -40,9 +40,9 @@ class ImageFolderAction :public FolderAction
 public:
     ImageFolderAction( const DB::ImageSearchInfo& info, BrowserWidget* browser );
     ImageFolderAction( const QString& context, BrowserWidget* parent );
-    virtual void action( BrowserItemFactory* );
-    virtual bool showsImages() const { return true; }
-    virtual bool contentView() const { return false; }
+    OVERRIDE void action( BrowserItemFactory* );
+    OVERRIDE bool showsImages() const { return true; }
+    OVERRIDE bool contentView() const { return false; }
 
 private:
     bool _addExtraToBrowser;

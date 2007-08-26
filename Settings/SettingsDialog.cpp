@@ -97,8 +97,7 @@ void Settings::SettingsDialog::createGeneralPage()
 
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("General" ) );
     page->setHeader( i18n("General") );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ),
-                                                           K3Icon::Desktop, 32 ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -225,8 +224,7 @@ void Settings::SettingsDialog::createThumbNailPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Thumbnail View" ) );
     page->setHeader( i18n("Thumbnail View" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "view_icon" ),
-                                                           K3Icon::Desktop, 32 ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "view_icon" ) ) );
     addPage( page );
 
     QGridLayout* lay = new QGridLayout( top );
@@ -364,8 +362,7 @@ void Settings::SettingsDialog::createOptionGroupsPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Categories") );
     page->setHeader( i18n("Categories") );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "identity" ),
-                                                           K3Icon::Desktop, 32 ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "identity" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -696,8 +693,7 @@ void Settings::SettingsDialog::createGroupConfig()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Subcategories" ) );
     page->setHeader( i18n("Subcategories" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "editcopy" ),
-                                                           K3Icon::Desktop, 32 ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "editcopy" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -938,8 +934,7 @@ void Settings::SettingsDialog::createViewerPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Viewer" ) );
     page->setHeader( i18n("Viewer" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "viewmag" ),
-                                                           K3Icon::Desktop, 32 ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "viewmag" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -1009,8 +1004,7 @@ void Settings::SettingsDialog::createPluginPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Plugins" ) );
     page->setHeader( i18n("Plugins" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "share" ),
-                                                           K3Icon::Desktop, 32 ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "share" ) ) );
     addPage(page);
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -1032,8 +1026,7 @@ void Settings::SettingsDialog::createEXIFPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("EXIF Information" ) );
     page->setHeader( i18n("EXIF Information" ) );
-    page->setIcon( KIcon( KIconLoader::global()->loadIcon( QString::fromLatin1( "contents" ),
-                                                           K3Icon::Desktop, 32 ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "contents" ) ) );
     addPage( page );
 
     QHBoxLayout* lay1 = new QHBoxLayout( top );
@@ -1057,8 +1050,7 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     QWidget* top = new QWidget;
     _backendPage = new KPageWidgetItem( top, i18n("Database backend") );
     _backendPage->setHeader( i18n("Database backend") );
-    _backendPage->setIcon( KIcon( KIconLoader::global()->loadIcon(QString::fromLatin1("kfm"),
-                                                          K3Icon::Desktop, 32)) );
+    _backendPage->setIcon( KIcon( QString::fromLatin1("kfm") ) );
     addPage( _backendPage );
 
 

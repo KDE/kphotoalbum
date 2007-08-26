@@ -233,7 +233,7 @@ QString ImageManager::ImageLoader::thumbnailPath( QString uri, int dim )
     else
         return QString::null;
 
-    KMD5 md5( uri.utf8() );
+    KMD5 md5( uri.toUtf8() );
     return QString::fromLatin1( "%1/.thumbnails/%2/%3.png" ).arg(QDir::homePath()).arg(dir).arg(QString::fromUtf8(md5.hexDigest()));
 }
 

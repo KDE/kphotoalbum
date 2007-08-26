@@ -35,7 +35,10 @@ Viewer::TextDisplay::TextDisplay( QWidget* parent )
     _text = new QLabel( this );
     lay->addWidget( _text );
     _text->setAlignment( Qt::AlignCenter );
-    _text->setPaletteForegroundColor( Qt::white );
+
+    QPalette pal = _text->palette();
+    pal.setColor( QPalette::Background, Qt::white );
+    _text->setPalette( pal );
 }
 
 bool Viewer::TextDisplay::setImage( DB::ImageInfoPtr info, bool forward )

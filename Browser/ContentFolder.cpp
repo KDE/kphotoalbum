@@ -30,6 +30,7 @@
 //Added by qt3to4:
 #include <QPixmap>
 #include "ContentFolderAction.h"
+#include <KIcon>
 
 Browser::ContentFolder::ContentFolder( const DB::CategoryPtr& category, const QString& value, DB::MediaCount count,
                                        const DB::ImageSearchInfo& info, BrowserWidget* parent )
@@ -43,7 +44,7 @@ QPixmap Browser::ContentFolder::pixmap()
 {
     if ( _category->viewType() == DB::Category::ListView || _category->viewType() == DB::Category::IconView ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( _category->name(), _value ) )
-            return KIconLoader::global()->loadIcon( QString::fromLatin1( "folder_image" ), K3Icon::Desktop, 22 );
+            return KIcon( QString::fromLatin1( "folder_image" ) ).pixmap(22);
         else {
             return _category->icon();
         }

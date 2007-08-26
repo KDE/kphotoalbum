@@ -46,6 +46,7 @@
 #include <kurl.h>
 #include <q3progressdialog.h>
 #include <kio/netaccess.h>
+#include <kio/jobuidelegate.h>
 #include "MainWindow/Window.h"
 #include <kapplication.h>
 #include <ktoolinvocation.h>
@@ -109,7 +110,7 @@ void Import::downloadKimJobCompleted( KIO::Job* job )
         show();
     }
     else {
-        job->showErrorDialog( 0 );
+        job->ui()->showErrorMessage();
         delete this;
     }
 }
@@ -512,7 +513,7 @@ void Import::copyNextFromExternal()
             src = src2;
 
         src.setFileName( fileName );
-        if ( KIO::NetAccess::exists( src, true, MainWindow::Window::theMainWindow() ) ) {
+        if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
             dest.setPath( Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName] );
             _job = KIO::file_copy( src, dest, -1, false, false, false );
@@ -526,7 +527,7 @@ void Import::copyNextFromExternal()
 void Import::aCopyJobCompleted( KIO::Job* job )
 {
     if ( job->error() ) {
-        job->showErrorDialog( 0 );
+        job->ui()->showErrorMessage();
         deleteLater();
         delete _progress;
     }

@@ -35,8 +35,7 @@ Browser::SearchFolder::SearchFolder( const DB::ImageSearchInfo& info, BrowserWid
 
 QPixmap Browser::SearchFolder::pixmap()
 {
-    KIconLoader loader;
-    return KIconLoader::global()->loadIcon( QString::fromLatin1( "find" ), K3Icon::Desktop, 22 );
+    return KIcon( QString::fromLatin1( "find" ) ).pixmap(22);
 }
 
 QString Browser::SearchFolder::text() const

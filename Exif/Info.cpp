@@ -49,7 +49,7 @@ QMap<QString, QString> Info::info( const QString& fileName, Set<QString> wantedK
             if ( wantedKeys.contains( key ) ) {
                 QString text = key;
                 if ( !returnFullExifName )
-                    text = QStringList::split( QString::fromLatin1("."), key ).last();
+                    text = key.split(QLatin1String(".")).last();
 
                 std::string str;
                 std::ostringstream stream;
@@ -394,7 +394,7 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
 
     // Modify Exif information from database.
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName );
-    data["Exif.Image.ImageDescription"] = info->description().local8Bit().data();
+    data["Exif.Image.ImageDescription"] = info->description().toLocal8Bit().data();
 
     image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );
     image->setExifData(data);

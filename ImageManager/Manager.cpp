@@ -154,7 +154,7 @@ void ImageManager::Manager::customEvent( QEvent* ev )
 // -- ImageEvent --
 
 ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
-    : QCustomEvent( 1001 ), _request( request ),  _image( image )
+    : QEvent( static_cast<QEvent::Type>(1001) ), _request( request ),  _image( image )
 {
     // We would like to use QDeepCopy, but that results in multiple
     // individual instances on the GUI thread, which is kind of real bad

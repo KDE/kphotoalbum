@@ -22,6 +22,7 @@
 #include "ImageInfo.h"
 #include <kmessagebox.h>
 #include <klocale.h>
+#include <QDebug>
 
 using namespace DB;
 
@@ -34,7 +35,7 @@ ImageInfoList ImageInfoList::sort() const
 
     ImageInfoList res;
     for( QMap<QDateTime, Q3ValueList<ImageInfoPtr> >::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
-        Q3ValueList<ImageInfoPtr> list = mapIt.data();
+        Q3ValueList<ImageInfoPtr> list = mapIt.value();
         for( Q3ValueList<ImageInfoPtr>::Iterator listIt = list.begin(); listIt != list.end(); ++listIt ) {
             res.append( *listIt );
         }
@@ -98,7 +99,7 @@ void ImageInfoList::appendList( ImageInfoList& list )
 void ImageInfoList::printItems()
 {
     for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        qDebug("%s", (*it)->fileName().toLatin1() );
+        qDebug() << (*it)->fileName();
     }
 }
 

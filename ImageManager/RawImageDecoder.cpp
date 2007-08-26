@@ -51,7 +51,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
         KDcrawIface::RawDecodingSettings rawDecodingSettings;
 
         if ( rawDecodingSettings.sixteenBitsImage ) {
-            kdDebug() << "16 bits per color channel is not supported yet" << endl;
+            kDebug() << "16 bits per color channel is not supported yet" << endl;
             return false;
         } else {
             QByteArray imageData; /* 3 bytes for each pixel,  */
@@ -65,7 +65,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
 
             uchar* data = img->bits();
 
-            for ( uint i = 0; i < imageData.size(); i += 3, data += 4 ) {
+            for ( int i = 0; i < imageData.size(); i += 3, data += 4 ) {
                 data[0] = imageData[i + 2]; // blue
                 data[1] = imageData[i + 1]; // green
                 data[2] = imageData[i];     // red
@@ -143,7 +143,7 @@ bool RAWImageDecoder::_fileExistsWithExtensions( const QString& fileName,
 						const QStringList& extensionList) const
 {
 	QString baseFileName = fileName;
-	int extStart = fileName.findRev('.') + 1;
+	int extStart = fileName.lastIndexOf('.') + 1;
 	// We're interested in xxx.yyy, not .yyy
 	if (extStart <= 1) return false;
 	baseFileName.remove(extStart, baseFileName.length() - extStart);
@@ -159,7 +159,7 @@ bool RAWImageDecoder::_fileIsKnownWithExtensions( const Q3Dict<void>& files,
 						 const QStringList& extensionList) const
 {
 	QString baseFileName = fileName;
-	int extStart = fileName.findRev('.') + 1;
+	int extStart = fileName.lastIndexOf('.') + 1;
 	if (extStart <= 1) return false;
 	baseFileName.remove(extStart, baseFileName.length() - extStart);
 	for ( QStringList::ConstIterator it = extensionList.begin();
@@ -174,7 +174,7 @@ bool RAWImageDecoder::_fileEndsWithExtensions( const QString& fileName,
 {
 	for ( QStringList::ConstIterator it = extensionList.begin();
 	      it != extensionList.end(); ++it ) {
-	    if( fileName.endsWith( *it, false ) ) return true;
+	    if( fileName.endsWith( *it, Qt::CaseInsensitive ) ) return true;
 	}
 	return false;
 }

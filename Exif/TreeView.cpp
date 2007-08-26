@@ -69,7 +69,7 @@ void Exif::TreeView::reload()
     QMap<QString, Q3CheckListItem*> tree;
 
     for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
-        QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
+        QStringList subKeys = (*keysIt).split(QLatin1String("."));
         Q3CheckListItem* parent = 0;
         QString path = QString::null;
         for( QStringList::Iterator subKeyIt = subKeys.begin(); subKeyIt != subKeys.end(); ++subKeyIt ) {

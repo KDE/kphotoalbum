@@ -19,7 +19,6 @@
 #ifndef SEARCHFOLDER_H
 #define SEARCHFOLDER_H
 #include "Folder.h"
-//Added by qt3to4:
 #include <QPixmap>
 
 namespace Browser
@@ -29,11 +28,11 @@ class SearchFolder :public Folder {
 
 public:
     SearchFolder( const DB::ImageSearchInfo& info, BrowserWidget* browser );
-    virtual FolderAction* action( bool ctrlDown = false );
-    virtual QPixmap pixmap();
-    virtual QString text() const;
-    virtual QString imagesLabel() const;
-    virtual QString videosLabel() const;
+    OVERRIDE FolderAction* action( bool ctrlDown = false );
+    OVERRIDE QPixmap pixmap();
+    OVERRIDE QString text() const;
+    OVERRIDE QString imagesLabel() const;
+    OVERRIDE QString videosLabel() const;
 };
 
 }

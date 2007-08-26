@@ -37,7 +37,7 @@ Browser::ImageFolder::ImageFolder( const DB::ImageSearchInfo& info, BrowserWidge
 
 QPixmap Browser::ImageFolder::pixmap()
 {
-    return KIconLoader::global()->loadIcon( QString::fromLatin1( "kphotoalbum" ), K3Icon::Desktop, 22 );
+    return KIcon( QString::fromLatin1( "kphotoalbum" ) ).pixmap(22);
 }
 
 QString Browser::ImageFolder::text() const

@@ -126,7 +126,7 @@ void Settings::CategoryItem::renameCategory( DB::MemberMap* memberMap )
         return;
 
     QDir dir( QString::fromLatin1("%1/CategoryImages" ).arg( Settings::SettingsData::instance()->imageDirectory() ) );
-    const QStringList files = dir.entryList( QString::fromLatin1("%1*" ).arg( _categoryOrig ) );
+    const QStringList files = dir.entryList( QStringList() << QString::fromLatin1("%1*" ).arg( _categoryOrig ) );
     for( QStringList::ConstIterator fileNameIt = files.begin(); fileNameIt != files.end(); ++fileNameIt ) {
         QString newName = _text + (*fileNameIt).mid( _categoryOrig.length() );
         dir.rename( *fileNameIt, newName );

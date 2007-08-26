@@ -68,7 +68,9 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent )
     hlay->addWidget( label );
 
     _searchLabel = new QLabel( top );
-    _searchLabel->setPaletteForegroundColor( Qt::red );
+    QPalette pal = _searchLabel->palette();
+    pal.setColor( QPalette::Foreground, Qt::red );
+    _searchLabel->setPalette(pal);
     fnt = font();
     fnt.setWeight( QFont::Bold );
     _searchLabel->setFont( fnt );

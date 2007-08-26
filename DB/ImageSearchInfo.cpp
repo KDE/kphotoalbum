@@ -107,7 +107,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // -------------------------------------------------- Text
     QString txt = info->description();
     if ( !_description.isEmpty() ) {
-        QStringList list = QStringList::split( QChar(' '), _description );
+        QStringList list = _description.split(QChar(' '));
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
             ok &= ( txt.find( *it, 0, false ) != -1 );
         }
@@ -147,13 +147,13 @@ QString ImageSearchInfo::toString() const
     QString res;
     bool first = true;
     for( QMap<QString,QString>::ConstIterator it= _options.begin(); it != _options.end(); ++it ) {
-        if ( ! it.data().isEmpty() ) {
+        if ( ! it.value().isEmpty() ) {
             if ( first )
                 first = false;
             else
                 res += QString::fromLatin1( " / " );
 
-            QString txt = it.data();
+            QString txt = it.value();
             if ( txt == ImageDB::NONE() )
                 txt = i18nc( "As in No persons, no locations etc. I do realize that translators may have problem with this, "
                             "but I need some how to indicate the category, and users may create their own categories, so this is "
@@ -181,33 +181,31 @@ QString ImageSearchInfo::toString() const
 void ImageSearchInfo::debug()
 {
     for( QMap<QString,QString>::Iterator it= _options.begin(); it != _options.end(); ++it ) {
-        kDebug() << it.key() << ", " << it.data();
+        kDebug() << it.key() << ", " << it.value();
     }
 }
 
 // PENDING(blackie) move this into the Options class instead of having it here.
 void ImageSearchInfo::saveLock() const
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
-    config->writeEntry( QString::fromLatin1("label"), _label );
-    config->writeEntry( QString::fromLatin1("description"), _description );
-    config->writeEntry( QString::fromLatin1("categories"), _options.keys() );
+    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    config.writeEntry( QString::fromLatin1("label"), _label );
+    config.writeEntry( QString::fromLatin1("description"), _description );
+    config.writeEntry( QString::fromLatin1("categories"), _options.keys() );
     for( QMap<QString,QString>::ConstIterator it= _options.begin(); it != _options.end(); ++it ) {
-        config->writeEntry( it.key(), it.data() );
+        config.writeEntry( it.key(), it.value() );
     }
 }
 
 ImageSearchInfo ImageSearchInfo::loadLock()
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->setGroup( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
+    KConfigGroup config = KGlobal::config()->group( Settings::SettingsData::instance()->groupForDatabase( QString::fromLatin1("Privacy Settings") ) );
     ImageSearchInfo info;
-    info._label = config->readEntry( "label" );
-    info._description = config->readEntry( "description" );
-    QStringList categories = config->readListEntry( "categories" );
+    info._label = config.readEntry( "label" );
+    info._description = config.readEntry( "description" );
+    QStringList categories = config.readEntry<QStringList>( QString::fromLatin1("categories"), QStringList() );
     for( QStringList::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
-        info.setOption( *it, config->readEntry<QString>( *it, QString() ) );
+        info.setOption( *it, config.readEntry<QString>( *it, QString() ) );
     }
     return info;
 }
@@ -234,13 +232,13 @@ void ImageSearchInfo::compile() const
 
     for( QMap<QString,QString>::ConstIterator it = _options.begin(); it != _options.end(); ++it ) {
         QString category = it.key();
-        QString matchText = it.data();
+        QString matchText = it.value();
 
-        QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
+        QStringList orParts = matchText.split(QString::fromLatin1("|"));
         OptionContainerMatcher* orMatcher = new OptionOrMatcher;
 
         for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
-            QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
+            QStringList andParts = (*itOr).split(QString::fromLatin1("&"));
 
             OptionContainerMatcher* andMatcher = orMatcher;
             if ( andParts.count() > 1 ) {
@@ -335,7 +333,7 @@ Q3Dict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
         return map;
     }
 
-    QStringList list = QStringList::split( QString::fromLatin1( "&" ), str );
+    QStringList list = str.split(QString::fromLatin1( "&" ));
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         QString nm = (*it).trimmed();
         if (! nm.contains( QString::fromLatin1( "!" ) ) )

@@ -38,7 +38,7 @@ namespace ImageManager
 class ImageClient;
 class ImageLoader;
 
-class ImageEvent :public QCustomEvent {
+class ImageEvent :public QEvent {
 public:
     ImageEvent( ImageRequest* request, const QImage& image );
     ImageRequest* loadInfo();

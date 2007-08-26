@@ -65,7 +65,7 @@ int XMLDB::NumberedBackup::getMaxId() const
 QStringList XMLDB::NumberedBackup::backupFiles() const
 {
     QDir dir( Settings::SettingsData::instance()->imageDirectory() );
-    return dir.entryList( QString::fromLatin1( "index.xml~*~*" ), QDir::Files );
+    return dir.entryList( QStringList() << QString::fromLatin1( "index.xml~*~*" ), QDir::Files );
 }
 
 int XMLDB::NumberedBackup::idForFile( const QString& fileName, bool& OK ) const

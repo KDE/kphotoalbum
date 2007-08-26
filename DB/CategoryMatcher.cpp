@@ -92,29 +92,29 @@ bool OptionOrMatcher::eval( ImageInfoPtr info )
 
 OptionContainerMatcher::~OptionContainerMatcher()
 {
-    for( uint i = 0; i < _elements.count(); ++i )
+    for( int i = 0; i < _elements.count(); ++i )
         delete _elements[i];
 }
 
 void OptionValueMatcher::debug(int level) const
 {
-    qDebug("%s%s: %s", spaces(level).toLatin1(), _category.toLatin1(), _option.toLatin1());
+    qDebug("%s%s: %s", qPrintable(spaces(level)), qPrintable(_category), qPrintable(_option));
 }
 
 void OptionEmptyMatcher::debug( int level ) const
 {
-    qDebug("%s%s:EMPTY", spaces(level).toLatin1(), _category.toLatin1() );
+    qDebug("%s%s:EMPTY", qPrintable(spaces(level)), qPrintable(_category) );
 }
 
 void OptionAndMatcher::debug( int level ) const
 {
-    qDebug("%sAND:", spaces(level).toLatin1() );
+    qDebug("%sAND:", qPrintable(spaces(level)) );
     OptionContainerMatcher::debug( level + 1 );
 }
 
 void OptionOrMatcher::debug( int level ) const
 {
-    qDebug("%sOR:", spaces(level).toLatin1() );
+    qDebug("%sOR:", qPrintable(spaces(level)) );
     OptionContainerMatcher::debug( level + 1 );
 }
 

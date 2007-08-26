@@ -280,7 +280,7 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
         if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
             img = KIconLoader::global()->loadIcon( STR( "kuser" ), K3Icon::Desktop, size ).toImage();
         else
-            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon( size ).toImage();
+            img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon().toImage();
     }
     res = QPixmap::fromImage( Utilities::scaleImage(img, size, size, Qt::KeepAspectRatio) );
 

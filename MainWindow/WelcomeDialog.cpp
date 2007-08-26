@@ -159,7 +159,7 @@ QString FileDialog::getFileName()
     }
 
     QString file = dir + QString::fromLatin1("/index.xml");
-    KGlobal::config()->writeEntry( QString::fromLatin1("configfile"), file );
+    KGlobal::config()->group(QString()).writeEntry( QString::fromLatin1("configfile"), file );
 
     return file;
 }

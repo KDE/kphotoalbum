@@ -231,13 +231,13 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
     hlay->addStretch(1);
 
     _prevBut = new QPushButton( top );
-    _prevBut->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1leftarrow" ), K3Icon::Desktop, 22 ) );
+    _prevBut->setIcon( KIcon( QString::fromLatin1( "arrow-left" ) ) );
     _prevBut->setFixedWidth( 40 );
     hlay->addWidget( _prevBut );
     _prevBut->setToolTip( i18n("Annotate previous image") );
 
     _nextBut = new QPushButton( top );
-    _nextBut->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "1rightarrow" ), K3Icon::Desktop, 22 ) );
+    _nextBut->setIcon( KIcon( QString::fromLatin1( "arrow-right" ) ) );
     _nextBut->setFixedWidth( 40 );
     hlay->addWidget( _nextBut );
     _nextBut->setToolTip( i18n("Annotate next image") );
@@ -246,26 +246,26 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
 
     _rotateLeft = new QPushButton( top );
     hlay->addWidget( _rotateLeft );
-    _rotateLeft->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), K3Icon::Desktop, 22 ) );
+    _rotateLeft->setIcon( KIcon( QString::fromLatin1( "rotate_ccw" ) ) );
     _rotateLeft->setFixedWidth( 40 );
     _rotateLeft->setToolTip( i18n("Rotate contra-clockwise (to the left)") );
 
     _rotateRight = new QPushButton( top );
     hlay->addWidget( _rotateRight );
-    _rotateRight->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "rotate_cw" ), K3Icon::Desktop, 22 ) );
+    _rotateRight->setIcon( KIcon( QString::fromLatin1( "rotate_cw" ) ) );
     _rotateRight->setFixedWidth( 40 );
     _rotateRight->setToolTip( i18n("Rotate clockwise (to the right)") );
 
     _copyPreviousBut = new QPushButton( top );
     hlay->addWidget( _copyPreviousBut );
-    _copyPreviousBut->setIcon( KIconLoader::global()->loadIconSet( QString::fromLatin1( "legalmoves" ), K3Icon::Desktop, 22 ) );
+    _copyPreviousBut->setIcon( KIcon( QString::fromLatin1( "legalmoves" ) ) );
     _copyPreviousBut->setFixedWidth( 40 );
     connect( _copyPreviousBut, SIGNAL( clicked() ), this, SLOT( slotCopyPrevious() ) );
     _copyPreviousBut->setToolTip( i18n("Copy tags from previously tagged image") );
 
     hlay->addStretch( 1 );
     _delBut = new QPushButton( top );
-    _delBut->setPixmap( KIconLoader::global()->loadIcon( QString::fromLatin1( "editdelete" ), K3Icon::Desktop, 22 ) );
+    _delBut->setIcon( KIcon( QString::fromLatin1( "editdelete" ) ) );
     hlay->addWidget( _delBut );
     connect( _delBut, SIGNAL( clicked() ), this, SLOT( slotDeleteImage() ) );
     _delBut->setToolTip( i18n("Delete image") );
@@ -322,7 +322,7 @@ void AnnotationDialog::Dialog::slotOK()
 
     if ( _setup == InputSingleImageConfigMode )  {
         writeToInfo();
-        for ( uint i = 0; i < _editList.count(); ++i )  {
+        for ( int i = 0; i < _editList.count(); ++i )  {
             *(_origList[i]) = _editList[i];
         }
     }
@@ -430,7 +430,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     }
 
     DB::ImageInfo& info = _editList[ _current ];
-    if ( !_time->isShown() ) {
+    if ( _time->isHidden() ) {
         if ( _endDate->date().isValid() )
             info.setDate( DB::ImageDate( QDateTime( _startDate->date(), QTime(0,0,0) ),
                                      QDateTime( _endDate->date(), QTime( 23,59,59) ) ) );
@@ -529,7 +529,7 @@ void AnnotationDialog::Dialog::setup()
     if ( _setup == SearchMode )  {
         _okBut->setGuiItem( KGuiItem(i18n("&Search"), QString::fromLatin1("find")) );
         _revertBut->hide();
-        setCaption( i18n("Search") );
+        setWindowTitle( i18n("Search") );
         loadInfo( _oldSearch );
         _preview->setImage( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/search.jpg") ) );
         _nextBut->setEnabled( false );
@@ -582,13 +582,13 @@ void AnnotationDialog::Dialog::viewerDestroyed()
 
 void AnnotationDialog::Dialog::slotOptions()
 {
-    Q3PopupMenu menu( this, "context popup menu");
-    menu.insertItem( i18n("Save Current Window Setup"), 1 );
-    menu.insertItem( i18n( "Reset layout" ), 2 );
-    int res = menu.exec( QCursor::pos() );
-    if ( res == 1 )
+    QMenu menu( this );
+    QAction* saveCurrent = menu.addAction( i18n("Save Current Window Setup") );
+    QAction* reset = menu.addAction( i18n( "Reset layout" ) );
+    QAction* res = menu.exec( QCursor::pos() );
+    if ( res == saveCurrent )
         slotSaveWindowSetup();
-    else if ( res == 2 )
+    else if ( res == reset )
         slotResetLayout();
 }
 
@@ -678,7 +678,7 @@ bool AnnotationDialog::Dialog::hasChanges()
     if ( _setup == InputSingleImageConfigMode )  {
         // PENDING(blackie) how about description and label?
         writeToInfo();
-        for ( uint i = 0; i < _editList.count(); ++i )  {
+        for ( int i = 0; i < _editList.count(); ++i )  {
             changed |= (*(_origList[i]) != _editList[i]);
         }
     }

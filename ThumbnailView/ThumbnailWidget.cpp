@@ -200,7 +200,7 @@ void ThumbnailView::ThumbnailWidget::paintCellText( QPainter* painter, int row, 
 
     QString title = thumbnailText( fileName );
     QRect rect = cellTextGeometry( row, col );
-    painter->setPen( palette().active().text() );
+    painter->setPen( palette().color( QPalette::WindowText ) );
 
     //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
     painter->drawText( rect, Qt::AlignCenter | Qt::TextWordWrap, title );
@@ -399,13 +399,13 @@ void ThumbnailView::ThumbnailWidget::pixmapLoaded( const QString& fileName, cons
         pixmap = QPixmap::fromImage( image );
 
     else if ( !loadedOK)
-        pixmap.fill( palette().active().dark());
+        pixmap.fill( palette().color( QPalette::Dark));
 
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info( fileName );
 
     if ( !loadedOK || !DB::ImageInfo::imageOnDisk( fileName ) ) {
         QPainter p( &pixmap );
-        p.setBrush( palette().active().base() );
+        p.setBrush( palette().base() );
         p.setWindow( 0, 0, 100, 100 );
         Q3PointArray pts;
         pts.setPoints( 3, 70,-1,  100,-1,  100,30 );
@@ -462,13 +462,13 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
 {
     QRect rect = cellRect();
     if (_selectedFiles.contains(fileNameInCell(row, col)))
-        p->fillRect( rect, palette().active().highlight() );
+        p->fillRect( rect, palette().highlight() );
     else
-        p->fillRect( rect, palette().active().base() );
+        p->fillRect( rect, palette().color( QPalette::Base) );
 
     if (_mouseHandler->isResizingGrid() || _wheelResizing ||
         Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
-        p->setPen( palette().active().dark() );
+        p->setPen( palette().color( QPalette::Dark) );
         // left of frame
         if ( col != 0 )
             p->drawLine( rect.left(), rect.top(), rect.left(), rect.bottom() );
@@ -482,7 +482,7 @@ void ThumbnailView::ThumbnailWidget::paintCellBackground( QPainter* p, int row, 
 
 void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
 {
-    if ( event->stateAfter() == 0 && event->state() == 0 && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
+    if ( event->modifiers() == Qt::NoModifier && ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z ) ) {
         QString token = event->text().toUpper().left(1);
         bool mustRemoveToken = false;
         bool hadHit          = false;
@@ -954,10 +954,10 @@ void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection
 void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
     if ( Settings::SettingsData::instance()->thumbnailDarkBackground() ) {
-        setPaletteBackgroundColor( Qt::black );
-        setPaletteForegroundColor( Qt::white );
+        QPalette p;
+        p.setColor( QPalette::Background, Qt::black );
+        p.setColor( QPalette::Foreground, Qt::white );
 
-        QPalette p(palette());
         QColor c = p.color(QPalette::Active, QColorGroup::Highlight);
         if ((c.red() < 0x30 && c.green() < 0x30 && c.blue() < 0x30) ||
             (c.red() > 0xd0 && c.green() > 0xd0 && c.blue() > 0xd0)) {
@@ -970,7 +970,7 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
         }
     }
     else {
-        unsetPalette();  // fallback to default.
+        setPalette(QPalette());  // fallback to default.
     }
 
     for ( int row = firstVisibleRow( PartlyVisible ); row <= lastVisibleRow( PartlyVisible ); ++row )
@@ -1182,8 +1182,8 @@ void ThumbnailView::ThumbnailWidget::updateCellSize()
 void ThumbnailView::ThumbnailWidget::viewportPaintEvent( QPaintEvent* e )
 {
     QPainter p( viewport() );
-    p.fillRect( numCols() * cellWidth(), 0, width(), height(), palette().active().base() );
-    p.fillRect( 0, numRows() * cellHeight(), width(), height(), palette().active().base() );
+    p.fillRect( numCols() * cellWidth(), 0, width(), height(), palette().color(QPalette::Base) );
+    p.fillRect( 0, numRows() * cellHeight(), width(), height(), palette().color(QPalette::Base) );
     Q3GridView::viewportPaintEvent( e );
 }
 
@@ -1207,6 +1207,8 @@ void ThumbnailView::ThumbnailWidget::updateIndexCache()
 
 void ThumbnailView::ThumbnailWidget::contentsDragEnterEvent( QDragEnterEvent * event )
 {
-    bool accept = event->provides( "text/uri-list" ) && _selectionInteraction.isDragging();
-    event->accept( accept );
+    if ( event->provides( "text/uri-list" ) && _selectionInteraction.isDragging() )
+        event->accept();
+    else
+        event->ignore();
 }

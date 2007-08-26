@@ -102,14 +102,14 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 
 
     // -------------------------------------------------- Label
-    ok &= ( _label.isEmpty() || info->label().find(_label) != -1 );
+    ok &= ( _label.isEmpty() || info->label().indexOf(_label) != -1 );
 
     // -------------------------------------------------- Text
     QString txt = info->description();
     if ( !_description.isEmpty() ) {
         QStringList list = _description.split(QChar(' '));
         for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
-            ok &= ( txt.find( *it, 0, false ) != -1 );
+            ok &= ( txt.indexOf( *it, 0, Qt::CaseInsensitive ) != -1 );
         }
     }
 

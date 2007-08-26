@@ -30,7 +30,7 @@
 #define DATABASE_FILE_EXTENSION QString::fromLatin1(".db")
 #define DATABASE_FILE_ROOT Settings::SettingsData::instance()->imageDirectory()
 
-SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
+SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfigGroup& config)
 {
     DatabaseAddress dbAddr;
 
@@ -65,7 +65,7 @@ SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
     }
     else {
         if (config.hasKey(QString::fromLatin1("host"))) {
-            int port = config.readUnsignedNumEntry(QString::fromLatin1("port"), 0);
+            int port = config.readEntry<int>(QString::fromLatin1("port"), 0);
             dbAddr.setHost
                 (config.readEntry(QString::fromLatin1("host"), QString()), port);
         }
@@ -83,7 +83,7 @@ SQLDB::DatabaseAddress SQLDB::readConnectionParameters(const KConfig& config)
 }
 
 void SQLDB::writeConnectionParameters(const DatabaseAddress& address,
-                                      KConfig& config)
+                                      KConfigGroup& config)
 {
     const QString& databaseName = address.databaseName();
     config.writeEntry(QString::fromLatin1("dbms"), address.driverName());

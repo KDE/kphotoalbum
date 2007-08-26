@@ -21,16 +21,16 @@
 #define SQLDB_CONFIGFILEHANDLER_H
 
 #include <qstring.h>
-class KConfig;
+class KConfigGroup;
 namespace KexiDB { class ConnectionData; }
 namespace SQLDB { class DatabaseAddress; }
 
 namespace SQLDB
 {
-    DatabaseAddress readConnectionParameters(const KConfig& config);
+    DatabaseAddress readConnectionParameters(const KConfigGroup& config);
 
     void writeConnectionParameters(const DatabaseAddress& address,
-                                   KConfig& config);
+                                   KConfigGroup& config);
 }
 
 #endif /* SQLDB_CONFIGFILEHANDLER_H */

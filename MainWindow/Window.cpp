@@ -907,10 +907,9 @@ bool MainWindow::Window::load()
     if ( backEnd == QString::fromLatin1("sql") ) {
 #ifdef SQLDB_SUPPORT
         // SQL back-end needs some extra configuration first
-        KSharedConfigPtr config = KGlobal::config();
-        config->setGroup(QString::fromLatin1("SQLDB"));
+        KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
         try {
-            SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(*config);
+            SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(config);
 
             // Initialize SQLDB with the paramaters
             DB::ImageDB::setupSQLDB(address);
@@ -1478,8 +1477,8 @@ void MainWindow::Window::convertBackend()
         return;
     }
 
-    KSharedConfigPtr config = KGlobal::config();
-    if (!config->hasGroup(QString::fromLatin1("SQLDB"))) {
+    KConfigGroup config = KGlobal::config()->group( QString::fromLatin1("SQLDB") );
+    if (!config.exists()) {
         int ret =
             KMessageBox::questionYesNo(this, i18n("You should set SQL database settings before the conversion. "
                                                   "Do you want to do this now?"));
@@ -1492,9 +1491,8 @@ void MainWindow::Window::convertBackend()
         if (ret != Settings::SettingsDialog::Accepted)
             return;
     }
-    config->setGroup(QString::fromLatin1("SQLDB"));
     try {
-        SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(*config);
+        SQLDB::DatabaseAddress address = SQLDB::readConnectionParameters(config);
 
         SQLDB::Database sqlBackend(address);
 

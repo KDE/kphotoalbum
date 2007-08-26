@@ -493,17 +493,15 @@ int Settings::SettingsData::thumbSize() const
 #ifdef SQLDB_SUPPORT
 void Settings::SettingsData::setSQLParameters(const SQLDB::DatabaseAddress& address)
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->setGroup(QString::fromLatin1("SQLDB"));
-    SQLDB::writeConnectionParameters(address, *config);
+    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
+    SQLDB::writeConnectionParameters(address, config);
 }
 
 SQLDB::DatabaseAddress Settings::SettingsData::getSQLParameters() const
 {
-    KSharedConfigPtr config = KGlobal::config();
-    config->setGroup(QString::fromLatin1("SQLDB"));
+    KConfigGroup config = KGlobal::config()->group(QString::fromLatin1("SQLDB"));
     try {
-        return SQLDB::readConnectionParameters(*config);
+        return SQLDB::readConnectionParameters(config);
     }
     catch (SQLDB::DriverNotFoundError&) {}
     return SQLDB::DatabaseAddress();

@@ -347,8 +347,9 @@ void AnnotationDialog::Dialog::slotOK()
                 info->setLabel( _imageLabel->text() );
             }
 
-            if ( !_description->text().isEmpty() ) {
-                info->setDescription( _description->text() );
+
+            if ( !_description->toPlainText().isEmpty() ) {
+                info->setDescription( _description->toPlainText() );
             }
 
             info->delaySavingChanges(false);
@@ -443,7 +444,7 @@ void AnnotationDialog::Dialog::writeToInfo()
 
 
     info.setLabel( _imageLabel->text() );
-    info.setDescription( _description->text() );
+    info.setDescription( _description->toPlainText() );
     for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
         info.setCategoryInfo( (*it)->category(), (*it)->itemsOn() );
     }
@@ -506,7 +507,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
         _oldSearch = DB::ImageSearchInfo( DB::ImageDate( QDateTime(_startDate->date()), QDateTime(_endDate->date()) ),
-                                      _imageLabel->text(), _description->text() );
+                                      _imageLabel->text(), _description->toPlainText() );
 
         for( Q3PtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
             _oldSearch.setOption( (*it)->category(), (*it)->text() );
@@ -694,7 +695,7 @@ bool AnnotationDialog::Dialog::hasChanges()
         }
 
         changed |= ( !_imageLabel->text().isEmpty() );
-        changed |= ( !_description->text().isEmpty() );
+        changed |= ( !_description->toPlainText().isEmpty() );
     }
     return changed;
 }
@@ -810,7 +811,7 @@ void AnnotationDialog::Dialog::setupFocus()
         return;
     initialized = true;
 
-    QObjectList list = queryList( "QWidget" );
+    QList<QWidget*> list = findChildren<QWidget*>();
     Q3ValueList<QWidget*> orderedList;
 
     // Iterate through all widgets in our dialog.

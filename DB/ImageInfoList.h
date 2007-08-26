@@ -23,7 +23,7 @@
 namespace DB
 {
 
-class ImageInfoList :public Q3ValueList<ImageInfoPtr>
+class ImageInfoList :public QList<ImageInfoPtr>
 {
 public:
     ~ImageInfoList();
@@ -39,8 +39,8 @@ private:
     bool checkIfMergeListIsContiniously( ImageInfoList& mergeList );
 };
 
-typedef Q3ValueList<ImageInfoPtr>::Iterator ImageInfoListIterator;
-typedef Q3ValueList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
+typedef QList<ImageInfoPtr>::Iterator ImageInfoListIterator;
+typedef QList<ImageInfoPtr>::ConstIterator ImageInfoListConstIterator;
 
 }
 

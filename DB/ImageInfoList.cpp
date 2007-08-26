@@ -143,7 +143,7 @@ void ImageInfoList::remove( ImageInfoPtr info )
 {
     for( ImageInfoListIterator it = begin(); it != end(); ++it ) {
         if ( (*(*it)) == *info ) {
-            Q3ValueList<ImageInfoPtr>::remove(it);
+            QList<ImageInfoPtr>::erase(it);
             return;
         }
     }

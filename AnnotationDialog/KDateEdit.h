@@ -34,7 +34,7 @@ class KDateEdit : public QComboBox
 {
     Q_OBJECT
 public:
-    KDateEdit( bool isStartEdit, QWidget *parent=0, const char *name=0);
+    KDateEdit( bool isStartEdit, QWidget *parent=0 );
     virtual ~KDateEdit();
 
     /** @return True if the date in the text edit is valid,

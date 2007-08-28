@@ -71,6 +71,8 @@ Q3PopupMenu * Editor::createPopupMenu( const QPoint & pos )
     return menu;
 #else
     kDebug() << "TEMPORARILY REMOVED: " ;
+    Q_UNUSED(pos);
+    return 0;
 #endif
 }
 
@@ -84,6 +86,8 @@ QString Editor::wordAtPos( const QPoint& pos )
     return text(para).mid( firstSpace, lastSpace - firstSpace );
 #else
     kDebug() << "TEMPORARILY REMOVED: " ;
+    Q_UNUSED(pos);
+    return QString();
 #endif
 }
 
@@ -106,6 +110,8 @@ Q3PopupMenu* Editor::replacementMenu( const QString& word  )
     return menu;
 #else
     kDebug() << "TEMPORARILY REMOVED: " ;
+    Q_UNUSED(word);
+    return 0;
 #endif
 }
 
@@ -131,6 +137,7 @@ void Editor::contentsContextMenuEvent( QContextMenuEvent *e )
     replaceWord( pos, replacement );
 #else
     kDebug() << "TEMPORILY REMOVED " ;
+    Q_UNUSED(e);
 #endif // TEMPORARILY_REMOVED
 }
 
@@ -145,6 +152,8 @@ void Editor::replaceWord( const QPoint& pos, const QString& replacement )
     insert( replacement );
 #else
     kDebug() << "TEMPORILY REMOVED " ;
+    Q_UNUSED(pos);
+    Q_UNUSED(replacement);
 #endif // TEMPORARILY_REMOVED
 }
 
@@ -171,6 +180,11 @@ bool Editor::wordBoundaryAtPos( const QPoint& pos, int* para, int* start, int* e
     return true;
 #else
     kDebug() << "TEMPORILY REMOVED " ;
+    Q_UNUSED(pos);
+    Q_UNUSED(para);
+    Q_UNUSED(start);
+    Q_UNUSED(end);
+    return true;
 #endif // TEMPORARILY_REMOVED
 }
 
@@ -188,6 +202,7 @@ void Editor::itemSelected( int id )
     createHighlighter();
 #else
     kDebug() << "TEMPORARILY REMOVED: " ;
+    Q_UNUSED(id);
 #endif
 }
 
@@ -202,6 +217,8 @@ void Editor::fetchDicts( QStringList* titles, QStringList* dicts )
     delete combo;
 #else
     kDebug() << "TEMPORARILY REMOVED: " ;
+    Q_UNUSED(titles);
+    Q_UNUSED(dicts);
 #endif
 }
 

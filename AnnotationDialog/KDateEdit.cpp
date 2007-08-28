@@ -35,19 +35,20 @@
 #include "KDateEdit.moc"
 
 
-AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent, const char *name)
-    : QComboBox(true, parent, name),
+AnnotationDialog::KDateEdit::KDateEdit( bool isStartEdit, QWidget *parent )
+    : QComboBox( parent ),
       defaultValue( QDate::currentDate() ),
       mReadOnly(false),
       mDiscardNextMousePress(false),
       mIsStartEdit( isStartEdit )
 {
+    setEditable(true);
     setMaxCount(1);       // need at least one entry for popup to work
     value = defaultValue;
     QString today = QDate::currentDate().toString( QString::fromLatin1("dd. MMM yyyy") );
     addItem(QString::fromLatin1( "" ) );
-    setCurrentItem(0);
-    changeItem(QString::fromLatin1( "" ), 0);
+    setCurrentIndex(0);
+    setItemText( 0, QString::fromLatin1( "" ));
     setMinimumSize(sizeHint());
 
     mDateFrame = new Q3VBox(0,0,Qt::WType_Popup);
@@ -99,7 +100,7 @@ void AnnotationDialog::KDateEdit::setDate(const QDate& newDate)
     // the date
     bool b = signalsBlocked();
     blockSignals(true);
-    changeItem(dateString, 0);
+    setItemText(0, dateString);
     blockSignals(b);
 
     value = newDate;
@@ -308,7 +309,7 @@ bool AnnotationDialog::KDateEdit::eventFilter(QObject *obj, QEvent *e)
             QMouseEvent *me = (QMouseEvent*)e;
             if (!mDateFrame->rect().contains(me->pos())) {
                 QPoint globalPos = mDateFrame->mapToGlobal(me->pos());
-                if (QApplication::widgetAt(globalPos, true) == this) {
+                if (QApplication::widgetAt(globalPos) == this) {
                     // The date picker is being closed by a click on the
                     // KDateEdit widget. Avoid popping it up again immediately.
                     mDiscardNextMousePress = true;

@@ -1174,6 +1174,7 @@ QList<int>
 QueryHelper::searchMediaItems(const DB::ImageSearchInfo& search,
                               DB::MediaType typemask) const
 {
+    Q_UNUSED(search);
     MatcherListList dnf /*
                           --------------------------------------
                           TEMPORARILY DISABLED

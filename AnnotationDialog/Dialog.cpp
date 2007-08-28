@@ -183,7 +183,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     label = new QLabel( i18n("Date: ") );
     lay4->addWidget( label );
 
-    _startDate = new ::AnnotationDialog::KDateEdit( true, top, "date config" );
+    _startDate = new ::AnnotationDialog::KDateEdit( true, top );
     lay4->addWidget( _startDate, 1 );
     connect( _startDate, SIGNAL( dateChanged( const DB::ImageDate& ) ), this, SLOT( slotStartDateChanged( const DB::ImageDate& ) ) );
     label->setBuddy( _startDate );
@@ -191,7 +191,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget()
     label = new QLabel( QString::fromLatin1( "-" ), top );
     lay4->addWidget( label );
 
-    _endDate = new ::AnnotationDialog::KDateEdit( false, top, "date config" );
+    _endDate = new ::AnnotationDialog::KDateEdit( false, top );
     lay4->addWidget( _endDate, 1 );
 
     // Time

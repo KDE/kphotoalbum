@@ -18,8 +18,9 @@
 */
 
 #include "SQLSettingsWidget.h"
-
-#include "SQLDB/DatabaseAddress.h"
+#include "DatabaseAddress.h"
+#include "DriverManager.h"
+#include "QueryErrors.h"
 #include <qpushbutton.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
@@ -35,14 +36,11 @@
 #include <kpushbutton.h>
 #include <kfiledialog.h>
 #include <klocale.h>
-#include <kexidb/drivermanager.h>
-#include <kexidb/connectiondata.h>
 
 using namespace SQLDB;
 
 SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags fl):
     QWidget(parent, name, fl),
-    _driverManager(new KexiDB::DriverManager),
     _lastErrorType(NoDrivers)
 {
     QBoxLayout* topLayout = new QVBoxLayout(this, 0, 6);
@@ -157,23 +155,25 @@ SQLSettingsWidget::SQLSettingsWidget(QWidget* parent, const char* name, WFlags f
             this, SIGNAL(passwordChanged(const QString&)));
 }
 
-SQLSettingsWidget::~SQLSettingsWidget()
-{
-    delete _driverManager;
-}
-
 QStringList SQLSettingsWidget::SQLSettingsWidget::availableDrivers() const
 {
-    return _driverManager->driverNames();
+    return DriverManager::instance().driverNames();
 }
 
 bool SQLSettingsWidget::hasSettings() const
 {
-    KexiDB::Driver::Info driverInfo =
-        _driverManager->driverInfo(_driverCombo->currentText());
-    if (driverInfo.name.isEmpty())
+    bool fileBased;
+
+    try {
+        DriverInfo driverInfo
+            (DriverManager::instance().
+             getDriverInfo(_driverCombo->currentText()));
+        fileBased = driverInfo.isFileBased();
+    }
+    catch (DriverNotFoundError&) {
         return false;
-    if (driverInfo.fileBased)
+    }
+    if (fileBased)
         return !_fileLine->url().isEmpty();
     else
         return !_dbNameLabel->text().isEmpty();
@@ -182,16 +182,17 @@ bool SQLSettingsWidget::hasSettings() const
 DatabaseAddress SQLSettingsWidget::getSettings() const
 {
     DatabaseAddress dbAddr;
-    KexiDB::ConnectionData connectionData;
-    QString databaseName;
 
-    KexiDB::Driver::Info driverInfo =
-        _driverManager->driverInfo(_driverCombo->currentText());
-    if (driverInfo.name.isEmpty())
+    try {
+        DriverInfo driverInfo
+            (DriverManager::instance().
+             getDriverInfo(_driverCombo->currentText()));
+        dbAddr.setDriverName(driverInfo.name());
+        dbAddr.setFileBased(driverInfo.isFileBased());
+    }
+    catch (DriverNotFoundError&) {
         return DatabaseAddress();
-
-    dbAddr.setDriverName(_driverCombo->currentText());
-    dbAddr.setFileBased(driverInfo.fileBased);
+    }
 
     if (dbAddr.isFileBased()) {
         dbAddr.setDatabaseName(_fileLine->url());
@@ -231,10 +232,6 @@ void SQLSettingsWidget::reloadDriverList()
     QStringList drivers = availableDrivers();
     for (QStringList::const_iterator i = drivers.begin();
          i != drivers.end(); ++i) {
-        // SQLite2 is not supported
-        if (*i == QString::fromLatin1("SQLite2"))
-            continue;
-
         _driverCombo->insertItem(*i);
     }
     if (_driverCombo->count() == 0)
@@ -275,16 +272,21 @@ void SQLSettingsWidget::showOptionsOfSelectedDriver()
         return;
     }
 
-    KexiDB::Driver::Info driverInfo =
-        _driverManager->driverInfo(_driverCombo->currentText());
+    bool fileBased;
 
-    if (driverInfo.name.isEmpty()) {
+    try {
+        DriverInfo driverInfo
+            (DriverManager::instance().
+             getDriverInfo(_driverCombo->currentText()));
+        fileBased = driverInfo.isFileBased();
+    }
+    catch (DriverNotFoundError&) {
         setError(InvalidDriver);
         _widgetStack->raiseWidget(ErrorPage);
         return;
     }
 
-    if (driverInfo.fileBased)
+    if (fileBased)
         _widgetStack->raiseWidget(FileSettingsPage);
     else
         _widgetStack->raiseWidget(ServerSettingsPage);

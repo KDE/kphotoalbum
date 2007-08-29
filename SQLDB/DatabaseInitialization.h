@@ -17,14 +17,19 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLDB_TRANSACTIONGUARD_H
-#define SQLDB_TRANSACTIONGUARD_H
+#ifndef SQLDB_DATABASEINITIALIZATION_H
+#define SQLDB_DATABASEINITIALIZATION_H
 
-#include "kexidb/transaction.h"
+#include "DatabaseAddress.h"
+#include "DatabaseConnection.h"
 
 namespace SQLDB
 {
-    using KexiDB::TransactionGuard;
+    /** Open an existing SQL database or create a new one using
+     * KPhotoAlbum database schema and open it.
+     */
+    DatabaseConnection
+    initializeKPhotoAlbumDatabase(const DatabaseAddress& address);
 }
 
-#endif /* SQLDB_TRANSACTIONGUARD_H */
+#endif /* SQLDB_DATABASEINITIALIZATION_H */

@@ -23,8 +23,6 @@
 #include <qwidget.h>
 
 namespace SQLDB { class DatabaseAddress; }
-namespace KexiDB { class DriverManager; }
-namespace KexiDB { class ConnectionData; }
 class QLabel;
 class QComboBox;
 class QWidgetStack;
@@ -41,7 +39,6 @@ namespace SQLDB
 
     public:
         SQLSettingsWidget(QWidget* parent=0, const char* name=0, WFlags fl=0);
-        ~SQLSettingsWidget();
 
         QStringList availableDrivers() const;
         bool hasSettings() const;
@@ -73,8 +70,6 @@ namespace SQLDB
         KLineEdit* _usernameLine;
         QLabel* _passwordLabel;
         KPasswordEdit* _passwordLine;
-
-        mutable KexiDB::DriverManager* _driverManager;
 
     protected slots:
         virtual void languageChange();

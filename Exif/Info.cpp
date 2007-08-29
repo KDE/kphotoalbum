@@ -24,6 +24,7 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
 #include <qfileinfo.h>
+#include <qfile.h>
 #include "Utilities/Util.h"
 
 using namespace Exif;
@@ -486,7 +487,8 @@ Info::Info()
 void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destName )
 {
     // Load Exif from source image
-    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(srcName.local8Bit().data());
+    Exiv2::Image::AutoPtr image =
+        Exiv2::ImageFactory::open( QFile::encodeName(srcName).data() );
     image->readMetadata();
     Exiv2::ExifData data = image->exifData();
     Exiv2::IptcData iData = image->iptcData();
@@ -495,7 +497,7 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName );
     data["Exif.Image.ImageDescription"] = info->description().local8Bit().data();
 
-    image = Exiv2::ImageFactory::open( destName.local8Bit().data() );
+    image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );
     image->setExifData(data);
     image->setIptcData(iData);
     image->writeMetadata();
@@ -523,7 +525,8 @@ QString Exif::Info::exifInfoFile( const QString& fileName )
 Exiv2::ExifData Exif::Info::exifData( const QString& fileName )
 {
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.local8Bit().data());
+        Exiv2::Image::AutoPtr image =
+            Exiv2::ImageFactory::open( QFile::encodeName(fileName).data() );
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
 
@@ -537,7 +540,8 @@ Exiv2::ExifData Exif::Info::exifData( const QString& fileName )
 Exiv2::IptcData Exif::Info::iptcData( const QString& fileName )
 {
     try {
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.local8Bit().data());
+        Exiv2::Image::AutoPtr image =
+            Exiv2::ImageFactory::open(QFile::encodeName(fileName).data());
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
 

@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,19 +17,14 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLDB_CONNECTION_H
-#define SQLDB_CONNECTION_H
-
-/** \file
- * Wrapper for KexiDB::Connection.
- * Makes back-end less dependent of Kexi.
- */
+#ifndef SQLDB_DATABASECONNECTION_H
+#define SQLDB_DATABASECONNECTION_H
 
 #include <kexidb/connection.h>
 
 namespace SQLDB
 {
-    using KexiDB::Connection;
+    typedef KexiDB::Connection* DatabaseConnection;
 }
 
-#endif /* SQLDB_CONNECTION_H */
+#endif /* SQLDB_DATABASECONNECTION_H */

@@ -65,6 +65,12 @@ void ImageDB::setupSQLDB( const SQLDB::DatabaseAddress& address )
 }
 #endif /* SQLDB_SUPPORT */
 
+void ImageDB::deleteInstance()
+{
+    delete _instance;
+    _instance = 0;
+}
+
 void ImageDB::connectSlots()
 {
     connect( Settings::SettingsData::instance(), SIGNAL( locked( bool, bool ) ), _instance, SLOT( lockDB( bool, bool ) ) );

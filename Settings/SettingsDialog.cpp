@@ -86,7 +86,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
     createEXIFPage();
     createDatabaseBackendPage();
 
-    connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
+    connect( this, SIGNAL( currentPageChanged(KPageWidgetItem*, KPageWidgetItem*) ), this, SLOT( slotPageChange() ) );
     connect( this, SIGNAL( applyClicked() ), this, SLOT( slotMyOK() ) );
     connect( this, SIGNAL( okClicked() ), this, SLOT( slotMyOK() ) );
 }

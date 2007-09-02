@@ -86,12 +86,17 @@ CategoryImageConfig::CategoryImageConfig()
 // PENDING(blackie) convert this code to using StringSet instead.
 void CategoryImageConfig::groupChanged()
 {
+    QString categoryName = currentGroup();
+    if (categoryName.isNull())
+        return;
+
     QString currentText = _member->currentText();
     _member->clear();
-    QStringList directMembers = _info->itemsOfCategory( currentGroup() ).toList();
+    QStringList directMembers = _info->itemsOfCategory(categoryName).toList();
 
     QStringList list = directMembers;
-    QMap<QString,QStringList> map = DB::ImageDB::instance()->memberMap().inverseMap( currentGroup() );
+    QMap<QString,QStringList> map =
+        DB::ImageDB::instance()->memberMap().inverseMap(categoryName);
     for( QStringList::ConstIterator directMembersIt = directMembers.begin();
          directMembersIt != directMembers.end(); ++directMembersIt ) {
         list += map[*directMembersIt];
@@ -110,20 +115,31 @@ void CategoryImageConfig::groupChanged()
 
 void CategoryImageConfig::memberChanged()
 {
-    QPixmap pix = Settings::SettingsData::instance()->categoryImage( currentGroup(), _member->currentText(), 128 );
+    QString categoryName = currentGroup();
+    if (categoryName.isNull())
+        return;
+    QPixmap pix =
+        Settings::SettingsData::instance()->
+        categoryImage(categoryName, _member->currentText(), 128);
     _current->setPixmap( pix );
 }
 
 void CategoryImageConfig::slotSet()
 {
-    Settings::SettingsData::instance()->setCategoryImage( currentGroup(), _member->currentText(), _image );
+    QString categoryName = currentGroup();
+    if (categoryName.isNull())
+        return;
+    Settings::SettingsData::instance()->
+        setCategoryImage(categoryName, _member->currentText(), _image);
     memberChanged();
 }
 
 QString CategoryImageConfig::currentGroup()
 {
     int index = _group->currentIndex();
-    return DB::ImageDB::instance()->categoryCollection()->categoryNames()[index];
+    if (index == -1)
+        return QString();
+    return _categoryNames[index];
 }
 
 void CategoryImageConfig::setCurrentImage( const QImage& image, const DB::ImageInfoPtr& info )
@@ -145,12 +161,14 @@ void CategoryImageConfig::show()
 {
     QString currentCategory = _group->currentText();
     _group->clear();
+    _categoryNames.clear();
     Q3ValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int index = 0;
     int currentIndex = -1;
     for ( Q3ValueList<DB::CategoryPtr>::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         if ( !(*categoryIt)->isSpecialCategory() ) {
             _group->addItem( (*categoryIt)->text() );
+            _categoryNames.push_back((*categoryIt)->name());
             if ( (*categoryIt)->text() == currentCategory )
                 currentIndex = index;
             ++index;

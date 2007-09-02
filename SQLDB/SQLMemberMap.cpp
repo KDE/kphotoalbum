@@ -129,17 +129,17 @@ SQLMemberMap::groupMap(const QString& category) const
     return closure(pairsToMap(_qh.memberGroupConfiguration(category)));
 }
 
-QMap<QString, QStringList>
+QMap<QString, StringSet>
 SQLMemberMap::inverseMap(const QString& category) const
 {
-    QMap<QString, QStringList> r;
+    QMap<QString, StringSet> r;
 
     const StringStringList pairs =
         _qh.memberGroupConfiguration(category);
 
     for (StringStringList::const_iterator i = pairs.begin();
          i != pairs.end(); ++i)
-        r[(*i).second].append((*i).first);
+        r[(*i).second].insert((*i).first);
 
     return r;
 }

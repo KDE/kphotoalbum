@@ -83,7 +83,6 @@ CategoryImageConfig::CategoryImageConfig()
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotSet() ) );
 }
 
-// PENDING(blackie) convert this code to using StringSet instead.
 void CategoryImageConfig::groupChanged()
 {
     QString categoryName = currentGroup();
@@ -92,17 +91,17 @@ void CategoryImageConfig::groupChanged()
 
     QString currentText = _member->currentText();
     _member->clear();
-    QStringList directMembers = _info->itemsOfCategory(categoryName).toList();
+    StringSet directMembers = _info->itemsOfCategory(categoryName);
 
-    QStringList list = directMembers;
-    QMap<QString,QStringList> map =
+    StringSet set = directMembers;
+    QMap<QString,StringSet> map =
         DB::ImageDB::instance()->memberMap().inverseMap(categoryName);
-    for( QStringList::ConstIterator directMembersIt = directMembers.begin();
+    for( StringSet::ConstIterator directMembersIt = directMembers.begin();
          directMembersIt != directMembers.end(); ++directMembersIt ) {
-        list += map[*directMembersIt];
+        set += map[*directMembersIt];
     }
 
-    list = Utilities::removeDuplicates( list );
+    QStringList list = set.toList();
 
     list.sort();
     _member->addItems( list );

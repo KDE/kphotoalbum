@@ -290,16 +290,16 @@ void MemberMap::renameCategory( const QString& oldName, const QString& newName )
     _closureMembers.remove(oldName);
 }
 
-QMap<QString,QStringList> DB::MemberMap::inverseMap( const QString& category ) const
+QMap<QString,StringSet> DB::MemberMap::inverseMap( const QString& category ) const
 {
-    QMap<QString,QStringList> res;
+    QMap<QString,StringSet> res;
     const QMap<QString,StringSet>& map =  _members[category];
 
     for( QMap<QString,StringSet>::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
         QString group = mapIt.key();
         StringSet members = mapIt.value();
         for( StringSet::Iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
-            res[*memberIt].append( group );
+            res[*memberIt].insert( group );
         }
     }
     return res;

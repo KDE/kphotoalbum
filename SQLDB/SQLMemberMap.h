@@ -52,7 +52,7 @@ namespace SQLDB {
         bool isGroup(const QString& category,
                      const QString& memberGroup) const;
         QMap<QString, StringSet> groupMap(const QString& category) const;
-        QMap<QString, QStringList> inverseMap(const QString& category) const;
+        QMap<QString, StringSet> inverseMap(const QString& category) const;
         void renameGroup(const QString& category,
                          const QString& oldName, const QString& newName);
         void renameCategory(const QString& oldName, const QString& newName);

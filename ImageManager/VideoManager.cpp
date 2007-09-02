@@ -56,13 +56,13 @@ void ImageManager::VideoManager::load( ImageRequest* request )
     KIO::PreviewJob* job=KIO::filePreview(list, request->width() );
     job->setIgnoreMaximumSize( true );
 
-    connect(job, SIGNAL(gotPreview(const KFileItem*, const QPixmap&)),
-            this, SLOT(slotGotPreview(const KFileItem*, const QPixmap&)) );
-    connect(job, SIGNAL(failed(const KFileItem*)),
+    connect(job, SIGNAL(gotPreview(const KFileItem&, const QPixmap&)),
+            this, SLOT(slotGotPreview(const KFileItem&, const QPixmap&)) );
+    connect(job, SIGNAL(failed(const KFileItem&)),
             this, SLOT(previewFailed()) );
 }
 
-void ImageManager::VideoManager::slotGotPreview(const KFileItem*, const QPixmap& pixmap )
+void ImageManager::VideoManager::slotGotPreview(const KFileItem&, const QPixmap& pixmap )
 {
     if ( _pending.isRequestStillValid(_currentRequest) ) {
         _currentRequest->setLoadedOK( true );
@@ -107,8 +107,8 @@ bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
     KIO::PreviewJob* job=KIO::filePreview(list, 64 );
     job->setIgnoreMaximumSize( true );
 
-    connect(job, SIGNAL(gotPreview(const KFileItem*, const QPixmap&)),
-            this, SLOT(testGotPreview(const KFileItem*, const QPixmap&)) );
+    connect(job, SIGNAL(gotPreview(const KFileItem&, const QPixmap&)),
+            this, SLOT(testGotPreview(const KFileItem&, const QPixmap&)) );
     connect(job, SIGNAL(failed(const KFileItem*)),
             this, SLOT(testPreviewFailed()) );
 
@@ -116,7 +116,7 @@ bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
     return _hasVideoSupport;
 }
 
-void ImageManager::VideoManager::testGotPreview(const KFileItem*, const QPixmap& pixmap )
+void ImageManager::VideoManager::testGotPreview(const KFileItem&, const QPixmap& pixmap )
 {
     _hasVideoSupport = !pixmap.isNull();
     _eventLoop.exit();

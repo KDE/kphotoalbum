@@ -47,10 +47,10 @@ protected:
     void requestLoadNext();
 
 protected slots:
-    void slotGotPreview(const KFileItem*, const QPixmap& pixmap );
+    void slotGotPreview(const KFileItem&, const QPixmap& pixmap );
     void previewFailed();
 
-    void testGotPreview(const KFileItem*, const QPixmap& pixmap );
+    void testGotPreview(const KFileItem&, const QPixmap& pixmap );
     void testPreviewFailed();
 
 private:

@@ -242,7 +242,7 @@ install( FILES  kphotoalbum.desktop kphotoalbum-import.desktop DESTINATION ${XDG
 install( FILES  kphotoalbumrc DESTINATION ${CONFIG_INSTALL_DIR} )
 install( FILES  x-vnd.kde.kphotoalbum-import.desktop DESTINATION ${MIME_INSTALL_DIR}/application )
 install( FILES  tips DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum )
-install( FILES  kphotoalbumui.rc default-setup default-layout.xml exif-sqlite.db DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum )
+install( FILES  kphotoalbumui.rc default-setup default-layout.xml DESTINATION ${DATA_INSTALL_DIR}/kphotoalbum )
 
 
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)

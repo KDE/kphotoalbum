@@ -260,13 +260,6 @@ void Exif::Database::init()
         return;
 
     bool dbExists = QFile::exists( exifDBFile() );
-    /*if ( !dbExists ) {
-        bool copied = Utilities::copy( KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/exif-sqlite.db" ) ), exifDBFile() );
-        if ( !copied ) {
-            qWarning( "Cannot initialize new EXIF database file: %s", exifDBFile().local8Bit().data() );
-            return;
-        }
-    }*/
 
     openDatabase();
 

@@ -662,7 +662,7 @@ void Settings::SettingsDialog::slotNewItem()
 
 void Settings::SettingsDialog::slotDeleteCurrent()
 {
-    int answer = KMessageBox::questionYesNo( this, i18n("<p>Really delete category '%1'?</p>").arg( _current->text()) );
+    int answer = KMessageBox::questionYesNo( this, i18n("<p>Really delete category '%1'?</p>", _current->text()) );
     if ( answer == KMessageBox::No )
         return;
 
@@ -851,7 +851,7 @@ void Settings::SettingsDialog::slotRenameGroup()
 void Settings::SettingsDialog::slotDelGroup()
 {
     Q_ASSERT( !_currentGroup.isNull() );
-    int res = KMessageBox::warningContinueCancel( this, i18n( "Really delete group %1?" ).arg( _currentGroup ),i18n("Delete Group"),KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
+    int res = KMessageBox::warningContinueCancel( this, i18n( "Really delete group %1?" ,_currentGroup ),i18n("Delete Group"),KGuiItem(i18n("&Delete"),QString::fromLatin1("editdelete")) );
     if ( res == KMessageBox::Cancel )
         return;
 

@@ -109,7 +109,7 @@ bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
 
     connect(job, SIGNAL(gotPreview(const KFileItem&, const QPixmap&)),
             this, SLOT(testGotPreview(const KFileItem&, const QPixmap&)) );
-    connect(job, SIGNAL(failed(const KFileItem*)),
+    connect(job, SIGNAL(failed(const KFileItem&)),
             this, SLOT(testPreviewFailed()) );
 
     _eventLoop.exec();

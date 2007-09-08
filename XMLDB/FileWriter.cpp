@@ -59,7 +59,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     QFile out( fileName );
 
     if ( !out.open( QIODevice::WriteOnly ) )
-        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n( "Could not open file '%1'." ).arg( fileName ) );
+        KMessageBox::sorry( MainWindow::Window::theMainWindow(), i18n( "Could not open file '%1'." , fileName ) );
     else {
         QByteArray s = doc.toByteArray();
         out.write( s.data(), s.size()-1 );

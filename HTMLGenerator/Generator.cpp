@@ -138,7 +138,7 @@ void HTMLGenerator::Generator::generate()
         QString to = _tempDir+QString::fromLatin1("/") + *it;
         ok = Utilities::copy( from, to );
         if ( !ok ) {
-            KMessageBox::error( this, i18n("Error copying %1 to %2").arg( from ).arg( to ) );
+            KMessageBox::error( this, i18n("Error copying %1 to %2", from , to ) );
             return;
         }
     }
@@ -433,7 +433,7 @@ bool HTMLGenerator::Generator::writeToFile( const QString& fileName, const QStri
 {
     QFile file(fileName);
     if ( !file.open(QIODevice::WriteOnly) ) {
-        KMessageBox::error( this, i18n("Could not create file '%1'.").arg(fileName),
+        KMessageBox::error( this, i18n("Could not create file '%1'.",fileName),
                             i18n("Could Not Create File") );
         return false;
     }
@@ -466,8 +466,8 @@ bool HTMLGenerator::Generator::linkIndexFile()
     QString destFile = _tempDir + QString::fromLatin1("/index.html");
     bool ok = Utilities::copy( QFileInfo(destFile).path() + fromFile, destFile );
     if ( !ok ) {
-        KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>")
-                            .arg( fromFile ).arg( destFile ) );
+        KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>"
+                            , fromFile , destFile ) );
 
         return false;
     }
@@ -498,7 +498,7 @@ void HTMLGenerator::Generator::pixmapLoaded( const QString& fileName, const QSiz
         // error box is showing, resulting in a bunch of error messages, and memory running out due to all the hanging
         // pixmapLoaded methods.
         slotCancelGenerate();
-        KMessageBox::error( this, i18n("Unable to write image '%1'.").arg(file) );
+        KMessageBox::error( this, i18n("Unable to write image '%1'.",file) );
     }
 
 #ifdef HAVE_EXIV2

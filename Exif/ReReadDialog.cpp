@@ -69,7 +69,7 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent )
 
 int Exif::ReReadDialog::exec( const QStringList& list )
 {
-    _label->setText( i18n("<p><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></p>").arg( list.count() ) );
+    _label->setText( i18n("<p><b><center><font size=\"+3\">Read File Info<br>%1 selected</font></center></b></p>", list.count() ) );
 
     _exifDB->setChecked( true);
     _date->setChecked( false );
@@ -106,7 +106,7 @@ void Exif::ReReadDialog::showFileList()
 {
     int i = KMessageBox::warningContinueCancelList( this,
                                                     i18n( "<p><b>%1 files</b> are affected by this operation, their filenames "
-                                                          "can be seen in the list below.</p>").arg(_list.count()), _list,
+                                                          "can be seen in the list below.</p>",_list.count()), _list,
                                                     i18n("Files affected"),
                                                     KStandardGuiItem::cont(), KStandardGuiItem::cancel(),
                                                     QString::fromLatin1( "readEXIFinfoIsDangerous" ) );

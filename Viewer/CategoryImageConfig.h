@@ -51,6 +51,7 @@ private:
     static CategoryImageConfig* _instance;
     CategoryImageConfig();
     QComboBox* _group;
+    QStringList _categoryNames;
     QComboBox* _member;
     QLabel* _current;
     QImage _image;

@@ -75,11 +75,6 @@ uint SQLDB::Database::totalCount() const
     return _qh.mediaItemCount();
 }
 
-uint SQLDB::Database::totalCount(DB::MediaType typemask) const
-{
-    return _qh.mediaItemCount(typemask);
-}
-
 DB::MediaCount SQLDB::Database::count(const DB::ImageSearchInfo& searchInfo)
 {
     QValueList<int> mediaIds;

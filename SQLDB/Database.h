@@ -37,7 +37,6 @@ namespace SQLDB {
 
         virtual bool operator==(const DB::ImageDB& other) const;
         virtual uint totalCount() const;
-        uint totalCount(DB::MediaType typemask) const;
         DB::MediaCount count(const DB::ImageSearchInfo& searchInfo);
         virtual QStringList search( const DB::ImageSearchInfo&, bool requireOnDisk = false ) const;
 

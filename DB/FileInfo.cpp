@@ -26,6 +26,7 @@
 #include "Exif/Syncable.h"
 #include <kfilemetainfo.h>
 #include <kdebug.h>
+#include "DB/ImageDB.h"
 
 using namespace DB;
 
@@ -77,6 +78,9 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         if (found)
             break;
     }
+
+
+    // FIXME: proper character encoding
 
     // Label
     items = Settings::SettingsData::instance()->labelSyncing( false );
@@ -186,6 +190,19 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         if ( _date.isValid() )
             break;
     }
+
+    // Categories
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::const_iterator category = categories.begin();
+            category != categories.end(); ++category )
+        if ( !(*category)->isSpecialCategory() ) {
+            items = Settings::SettingsData::instance()->categorySyncingFields( false, (*category)->name() );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin();
+                    ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                // FIXME: real stuff here
+            }
+        }
+
 }
 #endif
 

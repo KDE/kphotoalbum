@@ -274,7 +274,6 @@ void ImageInfo::readExif(const QString& fullPath, const int mode)
     bool oldDelaySaving = _delaySaving;
     delaySavingChanges(true);
 
-
     // Label
     if ( mode & EXIFMODE_LABEL )
         setLabel( exifInfo.label() );
@@ -314,7 +313,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
     try {
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open( fullPath.local8Bit().data() );
         if ( !image->good() ) {
-            kdWarning(5123) << fullPath << ": Exiv2::image instance not usable" << endl;
+            kdWarning(5123) << fullPath << ": Exiv2::Image instance not usable" << endl;
             return;
         }
         image->readMetadata();
@@ -422,6 +421,20 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         kdDebug(5123) << "Unknown description class " << _fieldName[*it] << endl;
                 }
             }
+        }
+
+        if ( mode & EXIFMODE_CATEGORIES ) {
+            QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+                for( QValueList<DB::CategoryPtr>::const_iterator category = categories.begin();
+                        category != categories.end(); ++category )
+                    if ( !(*category)->isSpecialCategory() ) {
+                        QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->categorySyncingFields( true, (*category)->name() );
+                        for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin();
+                                ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                            // FIXME: real stuff
+                            // FIXME: handle supercategories & multiple values
+                        }
+                    }
         }
 
         if (changed)

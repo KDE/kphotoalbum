@@ -41,7 +41,7 @@ public:
     virtual bool isEmpty() const;
     virtual bool isGroup( const QString& category, const QString& memberGroup ) const;
     virtual QMap<QString,StringSet> groupMap( const QString& category ) const;
-    virtual QMap<QString,QStringList> inverseMap( const QString& category ) const;
+    virtual QMap<QString,StringSet> inverseMap( const QString& category ) const;
     virtual void renameGroup( const QString& category, const QString& oldName, const QString& newName );
     virtual void renameCategory( const QString& oldName, const QString& newName );
 

@@ -140,8 +140,6 @@ protected:
 
     void saveChangesIfNotDelayed() { if (!_delaySaving) saveChanges(); }
 
-    bool loadJPEG(QImage* image, const QString& fileName ) const;
-    bool isJPEG( const QString& fileName ) const;
     void setAbsoluteFileName();
     void setIsNull(bool b) { _null = b; }
     bool isDirty() const { return _dirty; }

@@ -97,10 +97,13 @@ bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTrans
 
 bool Viewer::ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
-    if ( _scale && (e->pos()-_start).manhattanLength() > 1 ) {
-        _display->zoom( _start, e->pos() );
+    if ( _scale ) {
         _scale = false;
-        return true;
+        if ( (e->pos()-_start).manhattanLength() > 1 ) {
+            _display->zoom( _start, e->pos() );
+            return true;
+        } else
+            return false;
     }
     else if ( _pan ) {
         qApp->restoreOverrideCursor();

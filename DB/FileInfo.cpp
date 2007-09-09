@@ -183,6 +183,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                     default:
                         kdDebug(5123) << "Unknown file field for date syncing: " << _fieldName[ *it ] << endl;
                 }
+                break;
             }
             default:
                 kdDebug(5123) << "Unknown date field " << _fieldName[ *it ] << endl;

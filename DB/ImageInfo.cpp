@@ -334,6 +334,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         changed = true;
                         break;
                     case Exif::Syncable::FILE_MTIME:
+                        // A big FIXME:
                         // Well, QFileInfo doesn't have any method for updating
                         // those... :(
                         // Also note that we have to touch it *after* we call

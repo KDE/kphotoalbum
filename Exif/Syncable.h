@@ -51,18 +51,13 @@ enum Kind {
 };
 
 enum SuperGroupHandling {
-    // selected field will be written multiple times, each of them will contain
-    // only one level of hierarchy
-    ForEach,
-    // selected field will be written multiple times, each level will contain
-    // slash-separated information about all its ancestors
-    CumulateSlash,
-    // see CumulateSlash, but separated by commas
-    CumulateComma,
-    // one record for any information, comma separated
-    OneSlash,
-    // one record for any information, slash separated
-    OneComma
+    // Treat all levels separately. Europe/Prague is transformed to two tags,
+    // "Europe" and "Prague"
+    Independent,
+    // Include only the most-specific one -> "Prague"
+    MostSpecific,
+    // Create new string value by joining by slash -> "Europe/Prague"
+    MergeBySlash
 };
 
 enum MultiValueHandling {

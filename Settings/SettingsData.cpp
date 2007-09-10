@@ -475,7 +475,7 @@ void Settings::SettingsData::setCategorySyncingSuperGroups( const QString& categ
 Exif::Syncable::SuperGroupHandling Settings::SettingsData::categorySyncingSuperGroups( const QString& category ) const
 {
     return static_cast<Exif::Syncable::SuperGroupHandling>( 
-            value( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>(Exif::Syncable::ForEach) ) );
+            value( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>(Exif::Syncable::Independent) ) );
 }
 
 void Settings::SettingsData::setCategorySyncingMultiValue(const QString& category, const Exif::Syncable::MultiValueHandling how )
@@ -487,6 +487,14 @@ Exif::Syncable::MultiValueHandling Settings::SettingsData::categorySyncingMultiV
 {
     return static_cast<Exif::Syncable::MultiValueHandling>( 
             value( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>(Exif::Syncable::Repeat) ) );
+}
+
+void Settings::SettingsData::setCategorySyncingAddName( const QString& category, bool include ) {
+    setValue( STR("MetadataSyncing"), STR("categorySyncingAddName_%1").arg( category ), include );
+}
+
+bool Settings::SettingsData::categorySyncingAddName( const QString& category ) {
+    return value( STR("MetadataSyncing"), STR("categorySyncingAddName_%1").arg( category ), false );
 }
 
 void Settings::SettingsData::_setSyncing( const bool writing, const QString& identifier, const QValueList<Exif::Syncable::Kind>& fields )

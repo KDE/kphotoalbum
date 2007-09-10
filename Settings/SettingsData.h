@@ -181,6 +181,8 @@ public:
     Exif::Syncable::SuperGroupHandling categorySyncingSuperGroups( const QString& category ) const;
     void setCategorySyncingMultiValue( const QString& category, const Exif::Syncable::MultiValueHandling how );
     Exif::Syncable::MultiValueHandling categorySyncingMultiValue( const QString& category ) const;
+    void setCategorySyncingAddName( const QString& category, bool include );
+    bool categorySyncingAddName( const QString& category );
 
     void setLabelSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields );
     QValueList<Exif::Syncable::Kind> labelSyncing( const bool writing ) const;

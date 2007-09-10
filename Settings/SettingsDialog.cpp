@@ -456,6 +456,7 @@ void Settings::SettingsDialog::show()
             _catFieldsWrite[ (*it)->name() ]->updatePreferred( Settings::SettingsData::instance()->categorySyncingFields( true, (*it)->name() ) );
             _catSuper[ (*it)->name() ]->setCurrentItem( opt->categorySyncingSuperGroups( (*it)->name() ) );
             _catMulti[ (*it)->name() ]->setCurrentItem( opt->categorySyncingMultiValue( (*it)->name() ) );
+            _catAddName[ (*it)->name() ]->setChecked( opt->categorySyncingAddName( (*it)->name() ) );
         }
 
     QString backend = Settings::SettingsData::instance()->backend();
@@ -569,6 +570,9 @@ void Settings::SettingsDialog::slotMyOK()
     }
     for (QDictIterator<KComboBox> it( _catMulti ); it.current(); ++it ) {
         opt->setCategorySyncingMultiValue( it.currentKey(), static_cast<Exif::Syncable::MultiValueHandling>( it.current()->currentItem() ) );
+    }
+    for (QDictIterator<QCheckBox> it( _catAddName ); it.current(); ++it ) {
+        opt->setCategorySyncingAddName( it.currentKey(), it.current()->isChecked() );
     }
 
     // SQLDB
@@ -1142,14 +1146,16 @@ void Settings::SettingsDialog::slotCategoryAdded( const QString& name )
     lbl->setAlignment( AlignRight | AlignVCenter );
     _catSuper.replace( name, new KComboBox( box ) );
     _catSuper[ name ]->insertStringList( QStringList() <<
-            i18n("New tag for each level, one level per tag") <<
-            i18n("Multiple fields, slash separated values") << i18n("Multiple fields, comma separated values") <<
-            i18n("One field, slash separated") << i18n("One field, comma separated") );
+            i18n("Treat all levels separately") << i18n("Include only the deepest level") <<
+            i18n("Join all levels by slash") );
     lbl = new QLabel( i18n("Multiple values"), box );
     lbl->setAlignment( AlignRight | AlignVCenter );
     _catMulti.replace( name, new KComboBox( box ) );
     _catMulti[ name ]->insertStringList( QStringList() <<
-            i18n("Repeat field") << i18n("Comma separated values") << i18n("Slash separated values") );
+            i18n("Repeat field") << i18n("Comma separated values") << i18n("Semicolon separated values") );
+    // create a dummy spacer
+    new QWidget( box );
+    _catAddName.replace( name, new QCheckBox( i18n("Include category name in tag value" ), box ) );
     _syncTabs->addTab( box, name );
 }
 
@@ -1161,6 +1167,7 @@ void Settings::SettingsDialog::slotCategoryRemoved( const QString& name )
             _catFieldsWrite.remove( name );
             _catMulti.remove( name );
             _catSuper.remove( name );
+            _catAddName.remove( name );
             QWidget* tab = _syncTabs->page( i );
             _syncTabs->removePage( tab );
             delete tab;

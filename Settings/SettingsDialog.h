@@ -175,6 +175,7 @@ private:
         *_orientationRead, *_orientationWrite, *_dateRead, *_dateWrite;
     QDict<Exif::SyncWidget> _catFieldsRead, _catFieldsWrite;
     QDict<KComboBox> _catSuper, _catMulti;
+    QDict<QCheckBox> _catAddName;
 
     int _backendPageIndex;
     QButtonGroup* _backendButtons;

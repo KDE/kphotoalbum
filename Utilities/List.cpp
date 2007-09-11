@@ -18,7 +18,12 @@
 */
 
 #include "List.h"
+#include "Set.h"
 #include <QString>
+#include <QTime>
+#include <stdlib.h> // rand
+#include <algorithm> // std::swap
+
 
 // These are very simple and unoptimal implementations.
 // (Mainly because searching linked list is O(n).)
@@ -48,6 +53,78 @@ QList<T> Utilities::listSubtract(const QList<T>& l1,
         r.removeAll(*i);
     }
     return r;
+}
+
+namespace
+{
+    template <class T>
+    class AutoArray
+    {
+    public:
+        AutoArray(uint size): _ptr(new T[size]) {}
+        operator T*() const { return _ptr; }
+        ~AutoArray() { delete[] _ptr; }
+    private:
+        T* _ptr;
+    };
+}
+
+QStringList Utilities::shuffle(const QStringList& list)
+{
+    static bool init = false;
+    if ( !init ) {
+        QTime midnight( 0, 0, 0 );
+        srand( midnight.secsTo(QTime::currentTime()) );
+        init = true;
+    }
+
+    // Take pointers from input list to an array for shuffling
+    uint N = list.size();
+    AutoArray<const QString*> deck(N);
+    const QString** p = deck;
+    for (QStringList::const_iterator i = list.begin();
+         i != list.end(); ++i) {
+        *p = &(*i);
+        ++p;
+    }
+
+    // Shuffle the array of pointers
+    for (uint i = 0; i < N; i++) {
+        uint r = i + static_cast<uint>(static_cast<double>(N - i) * rand() /
+                                       static_cast<double>(RAND_MAX));
+        std::swap(deck[r], deck[i]);
+    }
+
+    // Create new list from the array
+    QStringList result;
+    const QString** const onePastLast = deck + N;
+    for (p = deck; p != onePastLast; ++p)
+        result.push_back(**p);
+
+    return result;
+}
+
+QStringList Utilities::diff( const QStringList& list1, const QStringList& list2 )
+{
+    QStringList result;
+    for( QStringList::ConstIterator it = list1.constBegin(); it != list1.constEnd(); ++it ) {
+        if ( !list2.contains( *it ) )
+            result.append( *it );
+    }
+    return result;
+}
+
+QStringList Utilities::removeDuplicates( const QStringList& items )
+{
+    Set<QString> seen;
+    QStringList res;
+    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        if ( !seen.contains( *itemIt ) ) {
+            res.append( *itemIt );
+            seen.insert( *itemIt );
+        }
+    }
+    return res;
 }
 
 

@@ -50,6 +50,7 @@
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
+#include "Utilities/List.h"
 #include <kapplication.h>
 #include <ktip.h>
 #include <k3process.h>

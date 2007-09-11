@@ -35,7 +35,6 @@
 #include <kio/netaccess.h>
 #include "MainWindow/Window.h"
 #include "X11/X.h"
-#include <algorithm>
 
 extern "C" {
 #define XMD_H // prevent INT32 clash from jpeglib
@@ -492,55 +491,6 @@ bool Utilities::isJPEG( const QString& fileName )
     return format == QString::fromLocal8Bit( "JPEG" );
 }
 
-namespace
-{
-    template <class T>
-    class AutoArray
-    {
-    public:
-        AutoArray(uint size): _ptr(new T[size]) {}
-        operator T*() const { return _ptr; }
-        ~AutoArray() { delete[] _ptr; }
-    private:
-        T* _ptr;
-    };
-}
-
-QStringList Utilities::shuffle(const QStringList& list)
-{
-    static bool init = false;
-    if ( !init ) {
-        QTime midnight( 0, 0, 0 );
-        srand( midnight.secsTo(QTime::currentTime()) );
-        init = true;
-    }
-
-    // Take pointers from input list to an array for shuffling
-    uint N = list.size();
-    AutoArray<const QString*> deck(N);
-    const QString** p = deck;
-    for (QStringList::const_iterator i = list.begin();
-         i != list.end(); ++i) {
-        *p = &(*i);
-        ++p;
-    }
-
-    // Shuffle the array of pointers
-    for (uint i = 0; i < N; i++) {
-        uint r = i + static_cast<uint>(static_cast<double>(N - i) * rand() /
-                                       static_cast<double>(RAND_MAX));
-        std::swap(deck[r], deck[i]);
-    }
-
-    // Create new list from the array
-    QStringList result;
-    const QString** const onePastLast = deck + N;
-    for (p = deck; p != onePastLast; ++p)
-        result.push_back(**p);
-
-    return result;
-}
-
 /**
    Create a maping from original name with path to uniq name without:
    cd1/def.jpg      -> def.jpg
@@ -670,16 +620,6 @@ QString Utilities::stripImageDirectory( const QString& fileName )
         return fileName;
 }
 
-QStringList Utilities::diff( const QStringList& list1, const QStringList& list2 )
-{
-    QStringList result;
-    for( QStringList::ConstIterator it = list1.constBegin(); it != list1.constEnd(); ++it ) {
-        if ( !list2.contains( *it ) )
-            result.append( *it );
-    }
-    return result;
-}
-
 QString Utilities::absoluteImageFileName( const QString& relativeName )
 {
     return stripSlash( Settings::SettingsData::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
@@ -737,17 +677,3 @@ QImage Utilities::scaleImage(const QImage &image, const QSize& s, Qt::AspectRati
 {
     return scaleImage( image, s.width(), s.height(), mode );
 }
-
-QStringList Utilities::removeDuplicates( const QStringList& items )
-{
-    Set<QString> seen;
-    QStringList res;
-    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-        if ( !seen.contains( *itemIt ) ) {
-            res.append( *itemIt );
-            seen.insert( *itemIt );
-        }
-    }
-    return res;
-}
-

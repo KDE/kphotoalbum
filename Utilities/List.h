@@ -21,6 +21,7 @@
 #define UTILITIES_LIST_H
 
 #include <QList>
+#include <QStringList>
 
 namespace Utilities
 {
@@ -31,6 +32,10 @@ namespace Utilities
     template <class T>
     QList<T> listSubtract(const QList<T>& l1,
                           const QList<T>& l2);
+
+    QStringList shuffle(const QStringList& list);
+    QStringList diff( const QStringList& list1, const QStringList& list2 );
+    QStringList removeDuplicates( const QStringList& items );
 }
 
 #endif /* UTILITIES_LIST_H */

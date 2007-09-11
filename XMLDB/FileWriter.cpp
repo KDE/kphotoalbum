@@ -26,7 +26,7 @@
 #include <qfile.h>
 #include <Q3CString>
 #include <Q3ValueList>
-#include "Utilities/Util.h"
+#include "Utilities/List.h"
 
 void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 {

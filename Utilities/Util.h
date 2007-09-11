@@ -55,8 +55,6 @@ bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1
 bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const QString& fileName );
 
-QStringList shuffle(const QStringList& list);
-
 typedef QMap<QString, QString> UniqNameMap;
 UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
 
@@ -68,12 +66,9 @@ QString absoluteImageFileName( const QString& relativeName );
 QString relativeFolderName( const QString& fileName);
 QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );
-QStringList diff( const QStringList& list1, const QStringList& list2 );
 
 QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
-
-QStringList removeDuplicates( const QStringList& items );
 }
 
 bool operator>( const QPoint&, const QPoint& );

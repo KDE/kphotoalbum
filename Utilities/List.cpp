@@ -18,52 +18,39 @@
 */
 
 #include "List.h"
-#include "Set.h"
 #include <QString>
 #include <QTime>
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap
 
-
-// These are very simple and unoptimal implementations.
-// (Mainly because searching linked list is O(n).)
-// Could be optimized later, but no need for that yet.
-
 template <class T>
-QList<T> Utilities::mergeListsUniqly(const QList<T>& l1,
-                                     const QList<T>& l2)
+QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
 {
-    QList<T> r;
-    const QList<T>* l[2] = {&l1, &l2};
-    for (int n = 0; n < 2; ++n)
-        for (typename QList<T>::const_iterator i = l[n]->begin();
-             i != l[n]->end(); ++i)
-            if (!r.contains(*i))
-                r.append(*i);
+    QList<T> r = l1;
+    Q_FOREACH(const T& x, l2)
+        if (!r.contains(x))
+            r.append(x);
     return r;
 }
 
 template <class T>
-QList<T> Utilities::listSubtract(const QList<T>& l1,
-                                 const QList<T>& l2)
+QList<T> Utilities::listSubtract(const QList<T>& l1, const QList<T>& l2)
 {
     QList<T> r = l1;
-    for (typename QList<T>::const_iterator i = l2.begin();
-         i != l2.end(); ++i) {
-        r.removeAll(*i);
-    }
+    Q_FOREACH(const T& x, l2)
+        r.removeAll(x);
     return r;
 }
 
 namespace
 {
     template <class T>
-    class AutoArray
+    class AutoDeletedArray
     {
     public:
-        AutoArray(uint size): _ptr(new T[size]) {}
+        AutoDeletedArray(uint size): _ptr(new T[size]) {}
         operator T*() const { return _ptr; }
-        ~AutoArray() { delete[] _ptr; }
+        ~AutoDeletedArray() { delete[] _ptr; }
     private:
         T* _ptr;
     };
@@ -81,7 +68,7 @@ QList<T> Utilities::shuffleList(const QList<T>& list)
 
     // Take pointers from input list to an array for shuffling
     uint N = list.size();
-    AutoArray<const T*> deck(N);
+    AutoDeletedArray<const T*> deck(N);
     const T** p = deck;
     for (typename QList<T>::const_iterator i = list.begin();
          i != list.end(); ++i) {

@@ -39,20 +39,16 @@ QList<T> Utilities::Set<T>::toList() const
 template <class T>
 Utilities::Set<T>::Set<T>& Utilities::Set<T>::operator+=(const Set<T>& other)
 {
-    for (typename Set<T>::const_iterator i = other.begin();
-        i != other.end(); ++i)
-        insert(*i);
-
+    Q_FOREACH(const T& x, other)
+        insert(x);
     return *this;
 }
 
 template <class T>
 Utilities::Set<T>::Set<T>& Utilities::Set<T>::operator-=(const Set<T>& other)
 {
-    for (typename Set<T>::const_iterator i = other.begin();
-         i != other.end(); ++i)
-        erase(*i);
-
+    Q_FOREACH(const T& x, other)
+        erase(x);
     return *this;
 }
 
@@ -60,9 +56,8 @@ template <class T>
 QDataStream& operator<<(QDataStream& stream, const Utilities::Set<T>& data)
 {
     stream << static_cast<qint16>(data.size());
-    for (typename Utilities::Set<T>::const_iterator i = data.begin();
-         i != data.end(); ++i)
-        stream << *i;
+    Q_FOREACH(const T& x, data)
+        stream << x;
     return stream;
 }
 

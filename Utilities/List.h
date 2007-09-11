@@ -35,9 +35,6 @@ namespace Utilities
 
     template <class T>
     QList<T> shuffleList(const QList<T>& list);
-
-    template <class T>
-    QList<T> removeDuplicates(const QList<T>& list);
 }
 
 #endif /* UTILITIES_LIST_H */

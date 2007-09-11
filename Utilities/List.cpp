@@ -105,12 +105,6 @@ QList<T> Utilities::shuffleList(const QList<T>& list)
     return result;
 }
 
-template <class T>
-QList<T> Utilities::removeDuplicates(const QList<T>& list)
-{
-    return Set<T>(list).toList();
-}
-
 
 #define INSTANTIATE_MERGELISTSUNIQLY(T) \
 template \
@@ -124,12 +118,8 @@ QList<T> Utilities::listSubtract(const QList<T>& l1, const QList<T>& l2)
 template \
 QList<T> Utilities::shuffleList(const QList<T>& list)
 
-#define INSTANTIATE_REMOVEDUPLICATES(T) \
-template \
-QList<T> Utilities::removeDuplicates(const QList<T>& list)
-
 INSTANTIATE_MERGELISTSUNIQLY(int);
+INSTANTIATE_MERGELISTSUNIQLY(QString);
 INSTANTIATE_LISTSUBTRACT(int);
 INSTANTIATE_LISTSUBTRACT(QString);
 INSTANTIATE_SHUFFLELIST(QString);
-INSTANTIATE_REMOVEDUPLICATES(QString);

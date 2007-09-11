@@ -95,9 +95,9 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
         opt.setAttribute( QString::fromLatin1( "thumbnailsize" ), category->thumbnailSize() );
 
         if ( shouldSaveCategory( name ) ) {
-            QStringList list = category->items();
-            list += _db->_members.groups(name);
-            list = Utilities::removeDuplicates( list );
+            QStringList list =
+                Utilities::mergeListsUniqly(category->items(),
+                                            _db->_members.groups(name));
 
             for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
                 QDomElement val = doc.createElement( QString::fromLatin1("value") );

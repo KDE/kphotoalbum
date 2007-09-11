@@ -22,6 +22,8 @@
 #include "Exif/Info.h"
 #include <kdebug.h>
 
+using Utilities::StringSet;
+
 Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
     :Q3ListView( parent, name )
 {
@@ -43,9 +45,9 @@ void Exif::TreeView::toggleChildren( Q3ListViewItem* parent )
     }
 }
 
-Set<QString> Exif::TreeView::selected()
+StringSet Exif::TreeView::selected()
 {
-    Set<QString> result;
+    StringSet result;
     for ( Q3ListViewItemIterator it( this ); *it; ++it ) {
         if ( static_cast<Q3CheckListItem*>( *it )->isOn() )
             result.insert( (*it)->text( 1 ) );
@@ -53,7 +55,7 @@ Set<QString> Exif::TreeView::selected()
     return result;
 }
 
-void Exif::TreeView::setSelected( const Set<QString>& selected )
+void Exif::TreeView::setSelected( const StringSet& selected )
 {
     for ( Q3ListViewItemIterator it( this ); *it; ++it ) {
         bool on = selected.contains( (*it)->text(1) );
@@ -64,11 +66,11 @@ void Exif::TreeView::setSelected( const Set<QString>& selected )
 void Exif::TreeView::reload()
 {
     clear();
-    Set<QString> keys = Exif::Info::instance()->availableKeys();
+    StringSet keys = Exif::Info::instance()->availableKeys();
 
     QMap<QString, Q3CheckListItem*> tree;
 
-    for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
+    for( StringSet::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = (*keysIt).split(QLatin1String("."));
         Q3CheckListItem* parent = 0;
         QString path = QString::null;

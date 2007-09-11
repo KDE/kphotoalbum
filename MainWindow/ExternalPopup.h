@@ -32,7 +32,10 @@ namespace DB
 
 namespace MainWindow
 {
-typedef Set< QPair<QString,QString> > OfferType;
+
+using Utilities::StringSet;
+
+typedef Utilities::Set< QPair<QString,QString> > OfferType;
 
 class ExternalPopup :public QMenu {
     Q_OBJECT

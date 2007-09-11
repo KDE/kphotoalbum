@@ -44,7 +44,7 @@ private:
 QDataStream& operator<<( QDataStream& stream, const DragItemInfo& );
 QDataStream& operator>>( QDataStream& stream, DragItemInfo& );
 
-typedef Set<DragItemInfo> DragItemInfoSet;
+typedef Utilities::Set<DragItemInfo> DragItemInfoSet;
 }
 
 #endif /* CATEGORYLISTVIEW_DRAGITEMINFO_H */

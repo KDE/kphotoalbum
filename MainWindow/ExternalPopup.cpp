@@ -106,7 +106,7 @@ QString MainWindow::ExternalPopup::mimeType( const QString& file )
     return KFileItem( KFileItem::Unknown, KFileItem::Unknown, KUrl(file) ).mimetype();
 }
 
-StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )
+Utilities::StringSet MainWindow::ExternalPopup::mimeTypes( const QStringList& files )
 {
     StringSet res;
     for( QStringList::ConstIterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {

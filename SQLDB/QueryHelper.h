@@ -39,6 +39,8 @@ namespace DB {
 namespace SQLDB
 {
 
+using Utilities::StringSet;
+
 typedef QList<DB::OptionSimpleMatcher*> MatcherList;
 typedef QList<MatcherList> MatcherListList;
 
@@ -96,7 +98,7 @@ public:
     StringStringList
     memberGroupConfiguration(const QString& category) const;
 
-    QMap<int, Set<QString> >
+    QMap<int, StringSet >
     mediaIdTagsMap(const QString& category, DB::MediaType typemask) const;
 
     void getMediaItem(int id, DB::ImageInfo& info) const;

@@ -356,7 +356,7 @@ int ThumbnailView::ThumbnailWidget::textHeight( bool reCalc ) const
     if ( Settings::SettingsData::instance()->displayCategories()) {
         if ( reCalc ) {
             if ( _selectedFiles.count() > 0 ) {
-                for( Set<QString>::ConstIterator itImg = _selectedFiles.begin(); itImg != _selectedFiles.end(); ++itImg ) {
+                for( StringSet::ConstIterator itImg = _selectedFiles.begin(); itImg != _selectedFiles.end(); ++itImg ) {
                     maxCatsInText = qMax( noOfCategoriesForImage( *itImg ), maxCatsInText );
                 }
             } else {
@@ -487,7 +487,7 @@ void ThumbnailView::ThumbnailWidget::keyPressEvent( QKeyEvent* event )
         bool mustRemoveToken = false;
         bool hadHit          = false;
 
-        for( Set<QString>::const_iterator it = _selectedFiles.constBegin(); it != _selectedFiles.constEnd(); ++it ) {
+        for( StringSet::const_iterator it = _selectedFiles.constBegin(); it != _selectedFiles.constEnd(); ++it ) {
             if ( ! hadHit ) {
                 mustRemoveToken = DB::ImageDB::instance()->info( *it )->hasCategoryInfo( QString::fromLatin1("Tokens"), token );
                 hadHit = true;
@@ -631,17 +631,17 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
  */
 void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell& end )
 {
-    Set<QString> oldSelection = _selectedFiles;
+    StringSet oldSelection = _selectedFiles;
     _selectedFiles.clear();
 
     selectAllCellsBetween( start, end, false );
 
-    for( Set<QString>::const_iterator it = oldSelection.constBegin(); it != oldSelection.constEnd(); ++it ) {
+    for( StringSet::const_iterator it = oldSelection.constBegin(); it != oldSelection.constEnd(); ++it ) {
         if ( !_selectedFiles.contains( *it ) )
             updateCell( *it );
     }
 
-    for( Set<QString>::const_iterator it = _selectedFiles.constBegin(); it != _selectedFiles.constEnd(); ++it ) {
+    for( StringSet::const_iterator it = _selectedFiles.constBegin(); it != _selectedFiles.constEnd(); ++it ) {
         if ( !oldSelection.contains( *it ) )
             updateCell( *it );
     }
@@ -851,9 +851,9 @@ void ThumbnailView::ThumbnailWidget::resizeEvent( QResizeEvent* e )
 
 void ThumbnailView::ThumbnailWidget::clearSelection()
 {
-    Set<QString> oldSelection = _selectedFiles;
+    StringSet oldSelection = _selectedFiles;
     _selectedFiles.clear();
-    for( Set<QString>::const_iterator fileIt = oldSelection.constBegin(); fileIt != oldSelection.constEnd(); ++fileIt ) {
+    for( StringSet::const_iterator fileIt = oldSelection.constBegin(); fileIt != oldSelection.constEnd(); ++fileIt ) {
         updateCell( *fileIt );
     }
 }
@@ -914,7 +914,7 @@ QStringList ThumbnailView::ThumbnailWidget::selection( bool keepSortOrderOfDatab
 
 void ThumbnailView::ThumbnailWidget::possibleEmitSelectionChanged()
 {
-    static Set<QString> oldSelection;
+    static StringSet oldSelection;
     if ( oldSelection != _selectedFiles ) {
         oldSelection = _selectedFiles;
         emit selectionChanged();
@@ -1113,7 +1113,7 @@ void ThumbnailView::ThumbnailWidget::slotRepaint()
     if ( (int) _pendingRepaint.count() > numCols() * numRowsPerPage() / 2 )
         repaintScreen();
     else {
-        for( Set<QString>::const_iterator it = _pendingRepaint.constBegin(); it != _pendingRepaint.constEnd(); ++it ) {
+        for( StringSet::const_iterator it = _pendingRepaint.constBegin(); it != _pendingRepaint.constEnd(); ++it ) {
             Cell cell = positionForFileName( *it );
             Q3GridView::repaintCell( cell.row(), cell.col() );
         }

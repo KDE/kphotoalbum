@@ -22,6 +22,8 @@
 #include "Utilities/Util.h"
 #include "DB/ImageDB.h"
 
+using Utilities::StringSet;
+
 /**
  * \class ImportExport::XMLHandler
  * \brief Helper class for

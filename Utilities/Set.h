@@ -59,9 +59,6 @@ namespace Utilities
     typedef Set<QString> StringSet;
 }
 
-using Utilities::Set;
-using Utilities::StringSet;
-
 template <class TYPE>
 QDataStream& operator<<(QDataStream& stream, const Utilities::Set<TYPE>& data);
 

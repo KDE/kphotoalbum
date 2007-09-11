@@ -396,7 +396,7 @@ QSize Settings::SettingsData::value( const QString& grp, const QString& option, 
     return config->group(grp).readEntry<QSize>( option, defaultValue );
 }
 
-Set<QString> Settings::SettingsData::value(const QString& grp, const QString& option, const Set<QString>& defaultValue ) const
+StringSet Settings::SettingsData::value(const QString& grp, const QString& option, const StringSet& defaultValue ) const
 {
     KSharedConfigPtr config = KGlobal::config();
     if ( !config->group(grp).hasKey( option ) )
@@ -434,7 +434,7 @@ void Settings::SettingsData::setValue( const QString& grp, const QString& option
     config->group(grp).writeEntry( option, value );
 }
 
-void Settings::SettingsData::setValue( const QString& grp, const QString& option, const Set<QString>& value )
+void Settings::SettingsData::setValue( const QString& grp, const QString& option, const StringSet& value )
 {
     KSharedConfigPtr config = KGlobal::config();
     config->group(grp).writeEntry( option, value.toList() );

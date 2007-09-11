@@ -28,6 +28,8 @@
 #include <Q3ValueList>
 #include "Utilities/List.h"
 
+using Utilities::StringSet;
+
 void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 {
     if ( !isAutoSave )

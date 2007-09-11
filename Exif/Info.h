@@ -24,15 +24,17 @@
 
 namespace Exif {
 
+using Utilities::StringSet;
+
 class Info {
 public:
     Info();
     static Info* instance();
-    QMap<QString, QString> info( const QString& fileName, Set<QString> wantedKeys, bool returnFullExifName );
+    QMap<QString, QString> info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName );
     QMap<QString, QString> infoForViewer( const QString& fileName );
     QMap<QString, QString> infoForDialog( const QString& fileName );
-    Set<QString> availableKeys();
-    Set<QString> standardKeys();
+    StringSet availableKeys();
+    StringSet standardKeys();
     void writeInfoToFile( const QString& srcName, const QString& destName );
     Exiv2::ExifData exifData( const QString& fileName );
 
@@ -41,7 +43,7 @@ protected:
 
 private:
     static Info* _instance;
-    Set<QString> _keys;
+    StringSet _keys;
 };
 
 }

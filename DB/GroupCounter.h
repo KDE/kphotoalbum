@@ -23,6 +23,7 @@
 
 namespace DB
 {
+using Utilities::StringSet;
 
 class GroupCounter
 {

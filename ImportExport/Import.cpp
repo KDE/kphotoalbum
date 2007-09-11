@@ -59,6 +59,8 @@
 #include <KTemporaryFile>
 #include <QScrollArea>
 
+using Utilities::StringSet;
+
 class KPushButton;
 using namespace ImportExport;
 

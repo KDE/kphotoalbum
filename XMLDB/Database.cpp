@@ -36,6 +36,8 @@
 //Added by qt3to4:
 #include <Q3ValueList>
 
+using Utilities::StringSet;
+
 bool XMLDB::Database::_anyImageWithEmptySize = false;
 XMLDB::Database::Database( const QString& configFile ):
     _fileName(configFile)

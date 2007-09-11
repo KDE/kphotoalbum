@@ -32,6 +32,8 @@
 #include "DB/MemberMap.h"
 #include "Utilities/Util.h"
 
+using Utilities::StringSet;
+
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
 CategoryImageConfig::CategoryImageConfig()

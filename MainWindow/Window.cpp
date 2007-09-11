@@ -416,7 +416,7 @@ void MainWindow::Window::slotDeleteSelected()
     DirtyIndicator::markDirty();
 
     QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
-    Set<QString> allImages( DB::ImageDB::instance()->images() );
+    StringSet allImages( DB::ImageDB::instance()->images() );
     QStringList newSet;
     for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
         if ( allImages.contains( *it ) )

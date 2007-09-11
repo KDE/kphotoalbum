@@ -74,7 +74,7 @@ Utilities::Set<T>::Set<T>& Utilities::Set<T>::operator+=(const Set<T>& other)
 }
 
 template <class T>
-Set<T> Utilities::Set<T>::operator+(const Set<T>& other) const
+Utilities::Set<T> Utilities::Set<T>::operator+(const Set<T>& other) const
 {
     Set<T> res(*this);
     return res += other;
@@ -102,7 +102,7 @@ template <class T>
 QDataStream& operator<<(QDataStream& stream, const Utilities::Set<T>& data)
 {
     stream << static_cast<qint16>(data.count());
-    for (typename Set<T>::const_iterator i = data.begin();
+    for (typename Utilities::Set<T>::const_iterator i = data.begin();
          i != data.end(); ++i)
         stream << *i;
     return stream;

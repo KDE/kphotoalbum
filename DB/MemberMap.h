@@ -25,6 +25,8 @@
 
 namespace DB
 {
+using Utilities::StringSet;
+
 class Category;
 
 class MemberMap :public QObject {

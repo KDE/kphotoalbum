@@ -26,6 +26,8 @@
 
 namespace ImageManager
 {
+using Utilities::Set;
+
 class ImageRequest;
 class ImageClient;
 

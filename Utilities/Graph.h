@@ -25,15 +25,15 @@
 #include <QLinkedList>
 
 template <class T>
-QMap< T, Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs);
+QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs);
 template <class T>
-QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map);
+QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map);
 
 
 template <class T>
-QMap< T, Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
+QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
 {
-    QMap< T, Set<T> > map;
+    QMap< T, Utilities::Set<T> > map;
     typename QList< QPair<T, T> >::const_iterator end = pairs.constEnd();
     for (typename QList< QPair<T, T> >::const_iterator i =
              pairs.constBegin(); i != end; ++i)
@@ -42,9 +42,9 @@ QMap< T, Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
 }
 
 template <class T>
-QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map)
+QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map)
 {
-    QMap< T, Set<T> > closure;
+    QMap< T, Utilities::Set<T> > closure;
     QMap<T, bool> calculated;
     const QList<T> keys = map.keys();
     typename QList<T>::const_iterator keysEnd = keys.end();
@@ -53,7 +53,7 @@ QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map)
         QLinkedList<T> queue;
         //closure[*i].insert(*i);
         queue.append(*i);
-        Set<T> closure_i = closure[*i];
+        Utilities::Set<T> closure_i = closure[*i];
         while (!queue.empty()) {
             T x = queue.first();
             queue.pop_front();
@@ -63,10 +63,10 @@ QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map)
                 continue;
             }
 
-            Set<T> adj = map[x];
-            typename Set<T>::const_iterator adjEnd = adj.constEnd();
-            for (typename Set<T>::const_iterator a = adj.constBegin();
-                 a != adjEnd; ++a) {
+            Utilities::Set<T> adj = map[x];
+            typename Utilities::Set<T>::const_iterator adjEnd = adj.constEnd();
+            for (typename Utilities::Set<T>::const_iterator
+                     a = adj.constBegin(); a != adjEnd; ++a) {
                 if (!closure_i.contains(*a)) {
                     queue.append(*a);
                     closure_i.insert(*a);

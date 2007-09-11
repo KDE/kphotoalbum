@@ -25,6 +25,8 @@
 #include <QPixmap>
 #include <KIcon>
 
+using Utilities::StringSet;
+
 QPixmap DB::Category::icon( int size ) const
 {
     return KIcon( iconName() ).pixmap(size);

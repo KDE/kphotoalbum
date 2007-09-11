@@ -70,6 +70,8 @@
 #include <QTimeEdit>
 #include <QDir>
 
+using Utilities::StringSet;
+
 AnnotationDialog::Dialog::Dialog( QWidget* parent )
     : QDialog( parent ), _viewer(0)
 {

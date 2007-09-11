@@ -17,6 +17,7 @@
 */
 
 #include "InfoPage.h"
+#include "Utilities/Util.h"
 #include <qlayout.h>
 #include <qlabel.h>
 #include <q3frame.h>
@@ -47,9 +48,9 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
 
     QLabel* pict = new QLabel( this );
     if ( location == Front )
-        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark-flipped.png")) );
+        pict->setPixmap(Utilities::locateDataFile(QString::fromLatin1("pics/questionmark-flipped.png")));
     else
-        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
+        pict->setPixmap(Utilities::locateDataFile(QString::fromLatin1("pics/exclamationmark.png")));
     hlay->addWidget( pict );
 
     QLabel* desc = new QLabel( text, this );
@@ -58,9 +59,9 @@ Survey::InfoPage::InfoPage( const QString& appName, const QString& text, Locatio
 
     pict = new QLabel( this );
     if ( location == Front )
-        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/questionmark.png")) );
+        pict->setPixmap(Utilities::locateDataFile(QString::fromLatin1("pics/questionmark.png")));
     else
-        pict->setPixmap( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/exclamationmark.png")) );
+        pict->setPixmap(Utilities::locateDataFile(QString::fromLatin1("pics/exclamationmark.png")));
     hlay->addWidget( pict );
 
     frame = new Q3Frame( this );

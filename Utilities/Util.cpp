@@ -234,7 +234,7 @@ QString Utilities::setupDemo()
     }
 
     // exif-info.db
-    QString fileName = KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/demo/exif-info.db" ) );
+    QString fileName = locateDataFile(QString::fromLatin1("demo/exif-info.db"));
     if ( !fileName.isEmpty() )
         copy( fileName, dir + QString::fromLatin1( "/exif-info.db" ) );
 

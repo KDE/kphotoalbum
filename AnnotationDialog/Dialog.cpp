@@ -532,7 +532,7 @@ void AnnotationDialog::Dialog::setup()
         _revertBut->hide();
         setWindowTitle( i18n("Search") );
         loadInfo( _oldSearch );
-        _preview->setImage( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/search.jpg") ) );
+        _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/search.jpg")));
         _nextBut->setEnabled( false );
         _prevBut->setEnabled( false );
         _rotateLeft->setEnabled( false );
@@ -544,7 +544,7 @@ void AnnotationDialog::Dialog::setup()
         _revertBut->show();
         setWindowTitle( i18n("Annotations") );
         if ( _setup == InputMultiImageConfigMode ) {
-            _preview->setImage( KStandardDirs::locate("data", QString::fromLatin1("kphotoalbum/pics/multiconfig.jpg") ) );
+            _preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/multiconfig.jpg")));
         }
         _rotateLeft->setEnabled( true );
         _rotateRight->setEnabled( true );

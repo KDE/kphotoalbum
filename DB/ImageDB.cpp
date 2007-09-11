@@ -137,7 +137,7 @@ StringSet DB::ImageDB::imagesWithMD5Changed()
 
     StringSet changes =  md5Map()->diff( map );
     StringSet res;
-    for ( StringSet::ConstIterator it = changes.begin(); it != changes.end(); ++it )
+    for ( StringSet::const_iterator it = changes.begin(); it != changes.end(); ++it )
         res.insert( Settings::SettingsData::instance()->imageDirectory() + *it );
     return res;
 

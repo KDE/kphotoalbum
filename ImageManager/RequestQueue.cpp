@@ -43,10 +43,10 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
     while ( _pendingRequests.count() != 0 ) {
         ImageRequest* request = _pendingRequests.first();
         _pendingRequests.pop_front();
-        _uniquePending.remove( request );
+        _uniquePending.erase( request );
 
         if ( !request->stillNeeded() ) {
-            _activeRequests.remove( request );
+            _activeRequests.erase( request );
             delete request;
         }
         else
@@ -59,11 +59,11 @@ ImageManager::ImageRequest* ImageManager::RequestQueue::popNext()
 void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction action )
 {
     // remove from active map
-    for( Set<ImageRequest*>::Iterator it = _activeRequests.begin(); it != _activeRequests.end(); ) {
+    for( Set<ImageRequest*>::const_iterator it = _activeRequests.begin(); it != _activeRequests.end(); ) {
         ImageRequest* request = *it;
         ++it; // We need to increase it before removing the element.
         if ( client == request->client() && ( action == StopAll || !request->priority() ) ) {
-            _activeRequests.remove( request );
+            _activeRequests.erase( request );
             // active requests are not deleted - they might already have been
             // popNext()ed and are being processed. They will be deleted
             // in Manger::customEvent().
@@ -75,7 +75,7 @@ void ImageManager::RequestQueue::cancelRequests( ImageClient* client, StopAction
         ++it;
         if ( request->client() == client && ( action == StopAll || !request->priority() ) ) {
             _pendingRequests.remove( request );
-            _uniquePending.remove( request );
+            _uniquePending.erase( request );
             delete request;
         }
     }
@@ -88,12 +88,12 @@ bool ImageManager::RequestQueue::isRequestStillValid( ImageRequest* request )
 
 void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
 {
-    _activeRequests.remove( request );
+    _activeRequests.erase( request );
 }
 
 void ImageManager::RequestQueue::print()
 {
-    qDebug("%d %d", _activeRequests.count(), _pendingRequests.count() );
+    qDebug("%d %d", _activeRequests.size(), _pendingRequests.count() );
 }
 
 ImageManager::RequestQueue::RequestQueue()

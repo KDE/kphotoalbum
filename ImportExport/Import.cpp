@@ -416,7 +416,7 @@ ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QStr
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
         StringSet items = info->itemsOfCategory( otherCategory );
-        for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
+        for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
             otherItems.insert( *itemIt );
     }
 

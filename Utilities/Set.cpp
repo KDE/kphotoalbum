@@ -21,18 +21,6 @@
 #include "Set.h"
 
 template <class T>
-Utilities::Set<T>::Set(const QList<T>& list)
-{
-    insert(list);
-}
-
-template <class T>
-void Utilities::Set<T>::insert(T key)
-{
-    QMap<T, T>::insert(key, key);
-}
-
-template <class T>
 void Utilities::Set<T>::insert(const QList<T>& list)
 {
     Q_FOREACH(const T& val, list)
@@ -42,25 +30,10 @@ void Utilities::Set<T>::insert(const QList<T>& list)
 template <class T>
 QList<T> Utilities::Set<T>::toList() const
 {
-    return QMap<T, T>::keys();
-}
-
-template <class T>
-bool Utilities::Set<T>::operator==(const Set<T>& other) const
-{
-    if (this->count() != other.count())
-        return false;
-
-    for (typename Set<T>::const_iterator i = this->begin();
-         i != this->end(); ++i) {
-        if (!other.contains(*i))
-            return false;
-    }
-
-    // The other set contains every element from this one and the
-    // number of elements is the same. We can conclude the sets
-    // are the same.
-    return true;
+    QList<T> l;
+    Q_FOREACH(const T& x, *this)
+        l.push_back(x);
+    return l;
 }
 
 template <class T>
@@ -74,34 +47,19 @@ Utilities::Set<T>::Set<T>& Utilities::Set<T>::operator+=(const Set<T>& other)
 }
 
 template <class T>
-Utilities::Set<T> Utilities::Set<T>::operator+(const Set<T>& other) const
-{
-    Set<T> res(*this);
-    return res += other;
-}
-
-template <class T>
 Utilities::Set<T>::Set<T>& Utilities::Set<T>::operator-=(const Set<T>& other)
 {
     for (typename Set<T>::const_iterator i = other.begin();
          i != other.end(); ++i)
-        this->remove(*i);
+        erase(*i);
 
     return *this;
 }
 
 template <class T>
-Utilities::Set<T>::Set<T> Utilities::Set<T>::operator-(const Set<T>& other) const
-{
-    Set<T> res(*this);
-    return res -= other;
-}
-
-
-template <class T>
 QDataStream& operator<<(QDataStream& stream, const Utilities::Set<T>& data)
 {
-    stream << static_cast<qint16>(data.count());
+    stream << static_cast<qint16>(data.size());
     for (typename Utilities::Set<T>::const_iterator i = data.begin();
          i != data.end(); ++i)
         stream << *i;

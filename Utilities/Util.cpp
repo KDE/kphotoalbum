@@ -111,10 +111,10 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         const QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
             const StringSet items = info->itemsOfCategory( categoryName );
-            if (items.count() != 0 ) {
+            if (!items.empty()) {
                 text += QString::fromLatin1( "<b>%1: </b> " ).arg( (*categoryIt)->text() );
                 bool first = true;
-                for( StringSet::ConstIterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
+                for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                     QString item = *it2;
                     if ( first )
                         first = false;
@@ -623,7 +623,7 @@ bool operator<( const QPoint& p1, const QPoint& p2)
 bool Utilities::isVideo( const QString& fileName )
 {
     static StringSet videoExtensions;
-    if ( videoExtensions.isEmpty() ) {
+    if ( videoExtensions.empty() ) {
         videoExtensions.insert( QString::fromLatin1( "3gp" ) );
         videoExtensions.insert( QString::fromLatin1( "avi" ) );
         videoExtensions.insert( QString::fromLatin1( "mp4" ) );

@@ -75,7 +75,7 @@ void CategoryListView::CheckDropItem::dropped( QDropEvent* e )
     DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
     memberMap.addGroup( _listView->category()->name(), newParent );
 
-    for( DragItemInfoSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+    for( DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         const QString oldParent = (*itemIt).parent();
         const QString child = (*itemIt).child();
 
@@ -94,7 +94,7 @@ bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, cons
 {
     const DB::CategoryItemPtr categoryInfo = _listView->category()->itemsCategories();
 
-    for( DragItemInfoSet::ConstIterator childIt = children.begin(); childIt != children.end(); ++childIt ) {
+    for( DragItemInfoSet::const_iterator childIt = children.begin(); childIt != children.end(); ++childIt ) {
         if ( newParent == (*childIt).child() || categoryInfo->isDescendentOf( newParent, (*childIt).child() ) )
             return true;
     }
@@ -104,7 +104,7 @@ bool CategoryListView::CheckDropItem::isSelfDrop( const QString& newParent, cons
 bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& parent, const DragItemInfoSet& items )
 {
     QStringList children;
-    for( DragItemInfoSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+    for( DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
         children.append( (*itemIt).child() );
     }
 

@@ -107,7 +107,7 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
 
     StringSet groups = exifGroups( map );
     int index = 0;
-    for( StringSet::Iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+    for( StringSet::const_iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
         if ( index %2 ) // We need to start next header in coloumn 0
             ++index;
 

@@ -132,7 +132,7 @@ StringSet ImageInfo::itemsOfCategory( const QString& key ) const
 void ImageInfo::renameItem( const QString& key, const QString& oldValue, const QString& newValue )
 {
     StringSet& set = _categoryInfomation[key];
-    StringSet::Iterator it = set.find( oldValue );
+    StringSet::const_iterator it = set.find( oldValue );
     if ( it != set.end() ) {
         _dirty = true;
         set.erase( it );
@@ -323,7 +323,7 @@ void ImageInfo::setMatched( const QString& category, const QString& value ) cons
 bool ImageInfo::allMatched( const QString& category )
 {
     const StringSet items = itemsOfCategory( category );
-    for( StringSet::ConstIterator it = items.begin(); it != items.end(); ++it ) {
+    for( StringSet::const_iterator it = items.begin(); it != items.end(); ++it ) {
         if ( !_matched[category].contains( *it ) )
             return false;
     }
@@ -445,7 +445,7 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
 
 void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& values )
 {
-    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
+    for ( StringSet::const_iterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
         if (! _categoryInfomation[category].contains( *valueIt ) ) {
             _dirty = true;
             _categoryInfomation[category].insert( *valueIt );
@@ -456,10 +456,10 @@ void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& v
 
 void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet& values )
 {
-    for ( StringSet::ConstIterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
+    for ( StringSet::const_iterator valueIt = values.begin(); valueIt != values.end(); ++valueIt ) {
         if ( _categoryInfomation[category].contains( *valueIt ) ) {
             _dirty = true;
-            _categoryInfomation[category].remove(*valueIt);
+            _categoryInfomation[category].erase(*valueIt);
         }
     }
     saveChangesIfNotDelayed();
@@ -478,7 +478,7 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& 
 {
     if ( _categoryInfomation[category].contains( value ) ) {
         _dirty = true;
-        _categoryInfomation[category].remove( value );
+        _categoryInfomation[category].erase( value );
     }
     saveChangesIfNotDelayed();
 }

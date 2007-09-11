@@ -34,9 +34,9 @@ template <class T>
 QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
 {
     QMap< T, Utilities::Set<T> > map;
-    typename QList< QPair<T, T> >::const_iterator end = pairs.constEnd();
-    for (typename QList< QPair<T, T> >::const_iterator i =
-             pairs.constBegin(); i != end; ++i)
+    typename QList< QPair<T, T> >::const_iterator end = pairs.end();
+    for (typename QList< QPair<T, T> >::const_iterator i = pairs.begin();
+         i != end; ++i)
         map[(*i).first].insert((*i).second);
     return map;
 }
@@ -64,9 +64,9 @@ QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map)
             }
 
             Utilities::Set<T> adj = map[x];
-            typename Utilities::Set<T>::const_iterator adjEnd = adj.constEnd();
-            for (typename Utilities::Set<T>::const_iterator
-                     a = adj.constBegin(); a != adjEnd; ++a) {
+            typename Utilities::Set<T>::const_iterator adjEnd = adj.end();
+            for (typename Utilities::Set<T>::const_iterator a = adj.begin();
+                 a != adjEnd; ++a) {
                 if (!closure_i.contains(*a)) {
                     queue.append(*a);
                     closure_i.insert(*a);

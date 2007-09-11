@@ -64,7 +64,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
         else
             offers = appInfos( imageList );
 
-        for ( OfferType::ConstIterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt ) {
+        for ( OfferType::const_iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt ) {
             QAction* action = addAction( (*offerIt).first );
             action->setIcon( KIcon((*offerIt).second) );
             action->setData( which );
@@ -119,7 +119,7 @@ MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const QStringList& fil
 {
     StringSet types = mimeTypes( files );
     OfferType res;
-    for ( StringSet::ConstIterator mimeTypeIt = types.begin(); mimeTypeIt != types.end(); ++mimeTypeIt ) {
+    for ( StringSet::const_iterator mimeTypeIt = types.begin(); mimeTypeIt != types.end(); ++mimeTypeIt ) {
         KService::List offers = KMimeTypeTrader::self()->query( *mimeTypeIt, QLatin1String( "Application" ));
         for(KService::List::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
             res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->icon() ) );

@@ -90,7 +90,7 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
     if ( (event->modifiers() & Qt::ControlModifier) &&
          !(event->modifiers() & Qt::ShiftModifier) ) { // toggle selection of file
         if ( _view->_selectedFiles.contains( file ) && (event->button() & Qt::LeftButton) )
-            _view->_selectedFiles.remove( file);
+            _view->_selectedFiles.erase( file );
         else
             _view->_selectedFiles.insert( file );
         _view->updateCell( file );
@@ -100,12 +100,12 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
              deselectSelection( event ) && _view->_selectedFiles.contains( file ) ) {
             // Unselect everything but the file
             StringSet oldSelection = _view->_selectedFiles;
-            oldSelection.remove( file );
+            oldSelection.erase( file );
             _view->_selectedFiles.clear();
             _view->_selectedFiles.insert( file );
             _originalSelectionBeforeDragStart.clear();
             _originalSelectionBeforeDragStart.insert( file );
-            for( StringSet::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+            for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
                 _view->updateCell( *it );
             }
         }
@@ -138,12 +138,12 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
     _view->_selectedFiles = _originalSelectionBeforeDragStart;
     _view->selectAllCellsBetween( pos1, pos2, false );
 
-    for( StringSet::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+    for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_view->_selectedFiles.contains( *it ) )
             _view->updateCell( *it );
     }
 
-    for( StringSet::Iterator it = _view->_selectedFiles.begin(); it != _view->_selectedFiles.end(); ++it ) {
+    for( StringSet::const_iterator it = _view->_selectedFiles.begin(); it != _view->_selectedFiles.end(); ++it ) {
         if ( !oldSelection.contains( *it ) )
             _view->updateCell( *it );
     }
@@ -277,7 +277,7 @@ void ThumbnailView::SelectionInteraction::clearSelection()
     StringSet oldSelection = _view->_selectedFiles;
     _view->_selectedFiles.clear();
     _originalSelectionBeforeDragStart.clear();
-    for( StringSet::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+    for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         _view->updateCell( *it );
     }
 }

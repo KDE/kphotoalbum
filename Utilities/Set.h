@@ -21,39 +21,51 @@
 #ifndef SET_H
 #define SET_H
 
-#include <QMap>
 #include <QList>
 #include <QDataStream>
+#include <set>
 
 namespace Utilities
 {
     template <class T>
-    class Set: public QMap<T, T>
+    class Set: public std::set<T>
     {
+        typedef std::set<T> Base;
+
     public:
         Set() {}
-        Set(const QList<T>& list);
+        Set(const QList<T>& list)
+        {
+            insert(list);
+        }
 
-        void insert(T key);
+        void insert(const T& x)
+        {
+            Base::insert(x);
+        }
 
         void insert(const QList<T>& list);
 
         QList<T> toList() const;
 
-        bool operator==(const Set<T>& other) const;
-
-        bool operator!=(const Set<T>& other) const
+        bool contains(const T& x) const
         {
-            return !(*this == other);
+            return count(x) > 0;
         }
 
         Set<T>& operator+=(const Set<T>& other);
 
-        Set<T> operator+(const Set<T>& other) const;
+        Set<T> operator+(const Set<T>& other) const
+        {
+            return (Set<T>(*this) += other);
+        }
 
         Set<T>& operator-=(const Set<T>& other);
 
-        Set<T> operator-(const Set<T>& other) const;
+        Set<T> operator-(const Set<T>& other) const
+        {
+            return (Set<T>(*this) -= other);
+        }
     };
 
     typedef Set<QString> StringSet;

@@ -52,14 +52,11 @@ void removeThumbNail( const QString& imageFile );
 QString locateDataFile(const QString& fileName);
 QString readFile( const QString& fileName );
 bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
-bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const QString& fileName );
 
 typedef QMap<QString, QString> UniqNameMap;
 UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
 
-QString normalizedFileName( const QString& fileName );
-QString dereferenceSymLinks( const QString& fileName );
 bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripSlash( const QString& fileName );
 QString absoluteImageFileName( const QString& relativeName );

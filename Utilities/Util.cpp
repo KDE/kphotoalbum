@@ -379,6 +379,11 @@ extern "C"
     }
 }
 
+namespace Utilities
+{
+    bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim );
+}
+
 bool Utilities::loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
     FILE* inputFile=fopen( QFile::encodeName(imageFile), "rb");
@@ -526,12 +531,14 @@ Utilities::UniqNameMap Utilities::createUniqNameMap( const QStringList& images, 
     return map;
 }
 
-QString Utilities::normalizedFileName( const QString& fileName )
+namespace Utilities
+{
+QString normalizedFileName( const QString& fileName )
 {
     return QFileInfo(fileName).absoluteFilePath();
 }
 
-QString Utilities::dereferenceSymLinks( const QString& fileName )
+QString dereferenceSymLinks( const QString& fileName )
 {
     QFileInfo fi(fileName);
     int rounds = 256;
@@ -540,6 +547,7 @@ QString Utilities::dereferenceSymLinks( const QString& fileName )
     if (rounds == 0)
         return QString::null;
     return fi.filePath();
+}
 }
 
 bool Utilities::areSameFile( const QString fileName1, const QString fileName2 )

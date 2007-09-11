@@ -1,4 +1,6 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/*
+  Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,113 +17,55 @@
    the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #ifndef SET_H
 #define SET_H
+
 #include <QMap>
 #include <QList>
 #include <QDataStream>
 
-template <class TYPE>
-class Set :public QMap<TYPE, TYPE>
+namespace Utilities
 {
-public:
-    Set() {}
-    Set( const QList<TYPE>& list )
+    template <class T>
+    class Set: public QMap<T, T>
     {
-        insert( list );
-    }
+    public:
+        Set() {}
+        Set(const QList<T>& list);
 
-    void insert( TYPE key )
-    {
-        QMap<TYPE,TYPE>::insert( key, key );
-    }
+        void insert(T key);
 
-    void insert( const QList<TYPE>& list )
-    {
-        Q_FOREACH( const TYPE& val, list )
-            insert( val );
-    }
+        void insert(const QList<T>& list);
 
-    QList<TYPE> toList() const
-    {
-        return QMap<TYPE,TYPE>::keys();
-    }
+        QList<T> toList() const;
 
-    bool operator==( const Set<TYPE>& other ) const
-    {
-        if ( this->count() != other.count() )
-            return false;
+        bool operator==(const Set<T>& other) const;
 
-        for( typename Set<TYPE>::ConstIterator it = this->begin(); it != this->end(); ++it ) {
-            if ( ! other.contains( *it ) )
-                return false;
+        bool operator!=(const Set<T>& other) const
+        {
+            return !(*this == other);
         }
 
-        // The other set contains every element from this one and the
-        // number of elements is the same. We can conclude the sets
-        // are the same.
-        return true;
-    }
+        Set<T>& operator+=(const Set<T>& other);
 
-    const Set<TYPE> operator+=( const Set<TYPE>& other )
-    {
-        for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
-            insert( *it );
+        Set<T> operator+(const Set<T>& other) const;
 
-        return *this;
-    }
+        Set<T>& operator-=(const Set<T>& other);
 
-    const Set<TYPE> operator+( const Set<TYPE>& other ) const
-    {
-        Set<TYPE> res( *this );
-        return res+=( other );
-    }
+        Set<T> operator-(const Set<T>& other) const;
+    };
 
-    bool operator!=( const Set<TYPE>& other ) const
-    {
-        return !(operator==(other));
-    }
-
-    const Set<TYPE> operator-=( const Set<TYPE>& other )
-    {
-        for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
-            this->remove( *it );
-        return *this;
-    }
-
-    const Set<TYPE> operator-( const Set<TYPE>& other ) const
-    {
-        Set<TYPE> res(*this);
-        return res.operator-=( other );
-    }
-
-};
-
-template <class TYPE>
-QDataStream& operator<<( QDataStream& stream, const Set<TYPE>& data )
-{
-    stream << (qint16) data.count();
-    for ( typename Set<TYPE>::ConstIterator itemIt = data.begin(); itemIt != data.end(); ++itemIt ) {
-        stream << *itemIt;
-    }
-    return stream;
+    typedef Set<QString> StringSet;
 }
 
+using Utilities::Set;
+using Utilities::StringSet;
+
 template <class TYPE>
-QDataStream& operator>>( QDataStream& stream, Set<TYPE>& data )
-{
-    qint16 count;
-    stream >> count;
-    for ( int i = 0; i < count; ++i ) {
-        TYPE item;
-        stream >> item;
-        data.insert( item );
-    }
-    return stream;
-}
+QDataStream& operator<<(QDataStream& stream, const Utilities::Set<TYPE>& data);
 
-typedef Set<QString> StringSet;
-
+template <class TYPE>
+QDataStream& operator>>(QDataStream& stream, Utilities::Set<TYPE>& data);
 
 #endif /* SET_H */
-

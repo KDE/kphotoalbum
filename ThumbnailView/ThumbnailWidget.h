@@ -133,7 +133,7 @@ protected:
     // Misc
     void updateGridSize();
     bool isMovementKey( int key );
-    void selectItems( const Cell& start, const Cell& end );
+    void selectItems( const Cell& start, const Cell& end, bool doClear = true );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
     QStringList reverseList( const QStringList& ) const;
     QValueVector<QString> reverseVector( const QValueVector<QString>& ) const;

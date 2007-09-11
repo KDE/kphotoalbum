@@ -521,8 +521,6 @@ void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
 
 void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 {
-    static QString startPossition;
-
     if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) ) {
         clearSelection();
     }
@@ -534,6 +532,13 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 
     // Update current position if it is outside view and we do not have any modifiers
     // that is if we just scroll arround.
+    //
+    // Use case is following: There is a selected item which is not
+    // visible because user has scrolled by other means than the
+    // keyboard (scrollbar or mouse wheel). In that case if the user
+    // presses keyboard movement key, the selection is forgotten and
+    // instead a currently visible cell is selected. So no scrolling
+    // of the view will be done.
     if ( !( event->state()& ShiftButton ) && !( event->state() &  ControlButton ) ) {
         if ( currentPos.row() < firstVisibleRow( PartlyVisible ) )
             currentPos = Cell( firstVisibleRow( FullyVisible ), currentPos.col() );
@@ -593,18 +598,19 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     if ( newPos < Cell(0,0) )
         newPos = Cell(0,0);
 
+    // Without modifiers, clear the old selection
+    if ( !(event->state() & ShiftButton) && !(event->state() & ControlButton) )
+        _selectedFiles.clear();
+
     // Update focus cell, and set selection
-    if ( (event->state() & ShiftButton) && !startPossition.isEmpty() )
-        selectItems( positionForFileName( startPossition ), newPos );
+    if ( (event->state() & ShiftButton) )
+        selectItems( currentPos, newPos, false );
 
     if ( ! (event->state() & ControlButton ) ) {
         selectCell( newPos );
         updateCell( currentPos.row(), currentPos.col() );
     }
     _currentItem = fileNameInCell( newPos );
-
-    if ( !( event->state() & ShiftButton ) || startPossition.isEmpty() )
-        startPossition = _currentItem;
 
     // Scroll if necesary
     if ( newPos.row() > lastVisibleRow( ThumbnailWidget::FullyVisible ) )
@@ -618,10 +624,11 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 /**
  * Update selection to include files from start to end
  */
-void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell& end )
+void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell& end, bool doClear )
 {
     Set<QString> oldSelection = _selectedFiles;
-    _selectedFiles.clear();
+    if (doClear)
+        _selectedFiles.clear();
 
     selectAllCellsBetween( start, end, false );
 

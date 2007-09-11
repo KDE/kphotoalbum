@@ -214,7 +214,7 @@ QString Utilities::setupDemo()
     }
 
     // index.xml
-    QString str = readInstalledFile( QString::fromLatin1( "demo/index.xml" ) );
+    QString str = readFile(locateDataFile(QString::fromLatin1("demo/index.xml")));
     if ( str.isNull() )
         exit(-1);
 
@@ -293,27 +293,6 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
         return true;
 }
 
-QString Utilities::readInstalledFile( const QString& fileName )
-{
-    QString inFileName = KStandardDirs::locate( "data", QString::fromLatin1( "kphotoalbum/%1" ).arg( fileName ) );
-    if ( inFileName.isEmpty() ) {
-        KMessageBox::error( 0, i18n("<p>Unable to find kphotoalbum/%1. This is likely an installation error. Did you remember to do a 'make install'? Did you set KDEDIRS, in case you did not install it in the default location?</p>", fileName ) ); // Proof reader comment: What if it was a binary installation? (eg. apt-get)
-        return QString::null;
-    }
-
-    QFile file( inFileName );
-    if ( !file.open( QIODevice::ReadOnly ) ) {
-        KMessageBox::error( 0, i18n("Could not open file %1.", inFileName ) );
-        return QString::null;
-    }
-
-    QTextStream stream( &file );
-    QString content = stream.readAll();
-    file.close();
-
-    return content;
-}
-
 QString Utilities::getThumbnailDir( const QString& imageFile ) {
     return QFileInfo( imageFile ).path() + QString::fromLatin1("/ThumbNails");
 }
@@ -353,6 +332,13 @@ bool Utilities::canReadImage( const QString& fileName )
         ImageManager::ImageDecoder::mightDecode( fileName );
 }
 
+
+QString Utilities::locateDataFile(const QString& fileName)
+{
+    return
+        KStandardDirs::
+        locate("data", QString::fromLatin1("kphotoalbum/") + fileName);
+}
 
 QString Utilities::readFile( const QString& fileName )
 {

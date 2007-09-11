@@ -36,12 +36,12 @@ QMap<QString, QStringList> Info::info( const QString& fileName, Set<QString> wan
     QMap<QString, QStringList> result;
 
     try {
-        Exiv2::ExifData data = exifData( fileName );
+        Metadata data = metadata( fileName );
 
-        if ( !data.empty()) {
-            Exiv2::ExifData::const_iterator end = data.end();
+        if ( !data.exif.empty()) {
+            Exiv2::ExifData::const_iterator end = data.exif.end();
 
-            for (Exiv2::ExifData::const_iterator i = data.begin(); i != end; ++i) {
+            for (Exiv2::ExifData::const_iterator i = data.exif.begin(); i != end; ++i) {
                 QString key = QString::fromLocal8Bit(i->key().c_str());
                 _keys.insert( key );
 
@@ -59,12 +59,10 @@ QMap<QString, QStringList> Info::info( const QString& fileName, Set<QString> wan
             }
         }
         
-        Exiv2::IptcData iData = iptcData( fileName );
+        if ( !data.iptc.empty()) {
+            Exiv2::IptcData::const_iterator end = data.iptc.end();
 
-        if ( !iData.empty()) {
-            Exiv2::IptcData::const_iterator end = iData.end();
-
-            for (Exiv2::IptcData::const_iterator i = iData.begin(); i != end; ++i) {
+            for (Exiv2::IptcData::const_iterator i = data.iptc.begin(); i != end; ++i) {
                 QString key = QString::fromLatin1(i->key().c_str());
                 _keys.insert( key );
 
@@ -492,14 +490,16 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
     image->readMetadata();
     Exiv2::ExifData data = image->exifData();
     Exiv2::IptcData iData = image->iptcData();
+    std::string comment = image->comment();
 
     // Modify Exif information from database.
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName );
     data["Exif.Image.ImageDescription"] = info->description().local8Bit().data();
 
     image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );
-    image->setExifData(data);
-    image->setIptcData(iData);
+    image->setExifData( data );
+    image->setIptcData( iData );
+    image->setComment( comment );
     image->writeMetadata();
 }
 
@@ -522,33 +522,19 @@ QString Exif::Info::exifInfoFile( const QString& fileName )
     return fileName;
 }
 
-Exiv2::ExifData Exif::Info::exifData( const QString& fileName )
+Exif::Metadata Exif::Info::metadata( const QString& fileName )
 {
     try {
-        Exiv2::Image::AutoPtr image =
-            Exiv2::ImageFactory::open( QFile::encodeName(fileName).data() );
-        Q_ASSERT(image.get() != 0);
-        image->readMetadata();
-
-        return image->exifData();
-    }
-    catch ( ... ) {
-    }
-    return Exiv2::ExifData();
-}
-
-Exiv2::IptcData Exif::Info::iptcData( const QString& fileName )
-{
-    try {
+        Exif::Metadata result;
         Exiv2::Image::AutoPtr image =
             Exiv2::ImageFactory::open(QFile::encodeName(fileName).data());
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
-
-        return image->iptcData();
+        result.exif = image->exifData();
+        result.iptc = image->iptcData();
+        result.comment = image->comment();
     }
     catch ( ... ) {
     }
-    return Exiv2::IptcData();
+    return Exif::Metadata();
 }
-

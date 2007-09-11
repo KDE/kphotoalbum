@@ -51,9 +51,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
     QMap<Exif::Syncable::Kind,QString> _fieldName, _visibleName;
     QMap<Exif::Syncable::Kind,Exif::Syncable::Header> _header;
     Exif::Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
-
-    Exiv2::ExifData exifMap = Exif::Info::instance()->exifData( fileName );
-    Exiv2::IptcData iptcMap = Exif::Info::instance()->iptcData( fileName );
+    Exif::Metadata metadata = Exif::Info::instance()->metadata( fileName );
 
     // Orientation
     QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->orientationSyncing( false );
@@ -62,8 +60,8 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         switch ( *it ) {
             case Exif::Syncable::EXIF_ORIENTATION:
             {
-                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( std::string( _fieldName[ *it ].ascii() ) ) );
-                if ( field != exifMap.end() ) {
+                Exiv2::ExifData::const_iterator field = metadata.exif.findKey( Exiv2::ExifKey( std::string( _fieldName[ *it ].ascii() ) ) );
+                if ( field != metadata.exif.end() ) {
                     int orientation =  (*field).toLong();
                     _angle = orientationToAngle( orientation );
                     found = true;
@@ -88,16 +86,16 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         switch ( _header[ *it ] ) {
             case Exif::Syncable::EXIF:
             {
-                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
-                if ( field != exifMap.end() )
+                Exiv2::ExifData::const_iterator field = metadata.exif.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                if ( field != metadata.exif.end() )
                     _label = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
                 break;
             }
             case Exif::Syncable::IPTC:
             {
-                Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
-                if ( field != iptcMap.end() )
+                Exiv2::IptcData::const_iterator field = metadata.iptc.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                if ( field != metadata.iptc.end() )
                     _label = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
                 break;
@@ -128,16 +126,16 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         switch ( _header[ *it ] ) {
             case Exif::Syncable::EXIF:
             {
-                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
-                if ( field != exifMap.end() )
+                Exiv2::ExifData::const_iterator field = metadata.exif.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                if ( field != metadata.exif.end() )
                     _description = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
                 break;
             }
             case Exif::Syncable::IPTC:
             {
-                Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
-                if ( field != iptcMap.end() )
+                Exiv2::IptcData::const_iterator field = metadata.iptc.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                if ( field != metadata.iptc.end() )
                     _description = Utilities::cStringWithEncoding( (*field).toString().c_str(),
                             Settings::SettingsData::instance()->iptcCharset() );
                 break;
@@ -158,15 +156,15 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         switch ( _header[ *it ] ) {
             case Exif::Syncable::EXIF:
             {
-                Exiv2::ExifData::const_iterator field = exifMap.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
-                if ( field != exifMap.end() )
+                Exiv2::ExifData::const_iterator field = metadata.exif.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                if ( field != metadata.exif.end() )
                     _date = QDateTime::fromString( QString::fromLatin1( (*field).toString().c_str() ), Qt::ISODate );
                 break;
             }
             case Exif::Syncable::IPTC:
             {
-                Exiv2::IptcData::const_iterator field = iptcMap.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
-                if ( field != iptcMap.end() )
+                Exiv2::IptcData::const_iterator field = metadata.iptc.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                if ( field != metadata.iptc.end() )
                     _date = QDateTime::fromString( QString::fromLatin1( (*field).toString().c_str() ), Qt::ISODate );
                 break;
             }

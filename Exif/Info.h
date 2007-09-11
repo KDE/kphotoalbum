@@ -26,6 +26,13 @@
 
 namespace Exif {
 
+
+struct Metadata {
+    Exiv2::ExifData exif;
+    Exiv2::IptcData iptc;
+    std::string comment;
+};
+
 class Info {
 public:
     Info();
@@ -36,8 +43,7 @@ public:
     Set<QString> availableKeys();
     Set<QString> standardKeys();
     void writeInfoToFile( const QString& srcName, const QString& destName );
-    Exiv2::ExifData exifData( const QString& fileName );
-    Exiv2::IptcData iptcData( const QString& fileName );
+    Metadata metadata( const QString& fileName );
 
 protected:
     QString exifInfoFile( const QString& fileName );

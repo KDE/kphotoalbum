@@ -25,9 +25,13 @@
 #include <QPair>
 #include <QList>
 
-template <class T>
-QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs);
-template <class T>
-QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map);
+namespace Utilities
+{
+    template <class T>
+    QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs);
+
+    template <class T>
+    QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map);
+}
 
 #endif /* UTILITIES_GRAPH_H */

@@ -21,7 +21,8 @@
 #include <QLinkedList>
 
 template <class T>
-QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
+QMap< T, Utilities::Set<T> >
+Utilities::pairsToMap(const QList< QPair<T, T> >& pairs)
 {
     QMap< T, Utilities::Set<T> > map;
     typename QList< QPair<T, T> >::const_iterator end = pairs.end();
@@ -32,7 +33,8 @@ QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
 }
 
 template <class T>
-QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map)
+QMap< T, Utilities::Set<T> >
+Utilities::closure(const QMap<T, Utilities::Set<T> >& map)
 {
     QMap< T, Utilities::Set<T> > closure;
     QMap<T, bool> calculated;
@@ -71,11 +73,13 @@ QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map)
 
 #define INSTANTIATE_PAIRSTOMAP(T) \
 template \
-QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
+QMap< T, Utilities::Set<T> > \
+Utilities::pairsToMap(const QList< QPair<T, T> >& pairs)
 
 #define INSTANTIATE_CLOSURE(T) \
 template \
-QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map)
+QMap< T, Utilities::Set<T> > \
+Utilities::closure(const QMap<T, Utilities::Set<T> >& map)
 
 INSTANTIATE_PAIRSTOMAP(QString);
 INSTANTIATE_CLOSURE(QString);

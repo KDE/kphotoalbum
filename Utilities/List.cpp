@@ -69,7 +69,8 @@ namespace
     };
 }
 
-QStringList Utilities::shuffle(const QStringList& list)
+template <class T>
+QList<T> Utilities::shuffleList(const QList<T>& list)
 {
     static bool init = false;
     if ( !init ) {
@@ -80,9 +81,9 @@ QStringList Utilities::shuffle(const QStringList& list)
 
     // Take pointers from input list to an array for shuffling
     uint N = list.size();
-    AutoArray<const QString*> deck(N);
-    const QString** p = deck;
-    for (QStringList::const_iterator i = list.begin();
+    AutoArray<const T*> deck(N);
+    const T** p = deck;
+    for (typename QList<T>::const_iterator i = list.begin();
          i != list.end(); ++i) {
         *p = &(*i);
         ++p;
@@ -96,35 +97,18 @@ QStringList Utilities::shuffle(const QStringList& list)
     }
 
     // Create new list from the array
-    QStringList result;
-    const QString** const onePastLast = deck + N;
+    QList<T> result;
+    const T** const onePastLast = deck + N;
     for (p = deck; p != onePastLast; ++p)
         result.push_back(**p);
 
     return result;
 }
 
-QStringList Utilities::diff( const QStringList& list1, const QStringList& list2 )
+template <class T>
+QList<T> Utilities::removeDuplicates(const QList<T>& list)
 {
-    QStringList result;
-    for( QStringList::ConstIterator it = list1.constBegin(); it != list1.constEnd(); ++it ) {
-        if ( !list2.contains( *it ) )
-            result.append( *it );
-    }
-    return result;
-}
-
-QStringList Utilities::removeDuplicates( const QStringList& items )
-{
-    Set<QString> seen;
-    QStringList res;
-    for( QStringList::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-        if ( !seen.contains( *itemIt ) ) {
-            res.append( *itemIt );
-            seen.insert( *itemIt );
-        }
-    }
-    return res;
+    return Set<T>(list).toList();
 }
 
 
@@ -136,6 +120,16 @@ QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
 template \
 QList<T> Utilities::listSubtract(const QList<T>& l1, const QList<T>& l2)
 
+#define INSTANTIATE_SHUFFLELIST(T) \
+template \
+QList<T> Utilities::shuffleList(const QList<T>& list)
+
+#define INSTANTIATE_REMOVEDUPLICATES(T) \
+template \
+QList<T> Utilities::removeDuplicates(const QList<T>& list)
+
 INSTANTIATE_MERGELISTSUNIQLY(int);
 INSTANTIATE_LISTSUBTRACT(int);
 INSTANTIATE_LISTSUBTRACT(QString);
+INSTANTIATE_SHUFFLELIST(QString);
+INSTANTIATE_REMOVEDUPLICATES(QString);

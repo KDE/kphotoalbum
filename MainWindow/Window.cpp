@@ -501,7 +501,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
     }
 
     if (random)
-        files = Utilities::shuffle( files );
+        files = Utilities::shuffleList(files);
 
     Viewer::ViewerWidget* viewer;
     if ( reuse && Viewer::ViewerWidget::latest() ) {

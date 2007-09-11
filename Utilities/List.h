@@ -33,9 +33,11 @@ namespace Utilities
     QList<T> listSubtract(const QList<T>& l1,
                           const QList<T>& l2);
 
-    QStringList shuffle(const QStringList& list);
-    QStringList diff( const QStringList& list1, const QStringList& list2 );
-    QStringList removeDuplicates( const QStringList& items );
+    template <class T>
+    QList<T> shuffleList(const QList<T>& list);
+
+    template <class T>
+    QList<T> removeDuplicates(const QList<T>& list);
 }
 
 #endif /* UTILITIES_LIST_H */

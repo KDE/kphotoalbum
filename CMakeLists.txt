@@ -111,6 +111,7 @@ set(libUtilities_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ShowBusyCursor.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/List.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Set.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Graph.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp)
 
 set(libMainWindow_SRCS

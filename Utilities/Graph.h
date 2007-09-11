@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,61 +21,13 @@
 #define UTILITIES_GRAPH_H
 
 #include "Set.h"
+#include <QMap>
+#include <QPair>
 #include <QList>
-#include <QLinkedList>
 
 template <class T>
 QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs);
 template <class T>
 QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map);
-
-
-template <class T>
-QMap< T, Utilities::Set<T> > pairsToMap(const QList< QPair<T, T> >& pairs)
-{
-    QMap< T, Utilities::Set<T> > map;
-    typename QList< QPair<T, T> >::const_iterator end = pairs.end();
-    for (typename QList< QPair<T, T> >::const_iterator i = pairs.begin();
-         i != end; ++i)
-        map[(*i).first].insert((*i).second);
-    return map;
-}
-
-template <class T>
-QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map)
-{
-    QMap< T, Utilities::Set<T> > closure;
-    QMap<T, bool> calculated;
-    const QList<T> keys = map.keys();
-    typename QList<T>::const_iterator keysEnd = keys.end();
-    for (typename QList<T>::const_iterator i = keys.begin();
-         i != keysEnd; ++i) {
-        QLinkedList<T> queue;
-        //closure[*i].insert(*i);
-        queue.append(*i);
-        Utilities::Set<T> closure_i = closure[*i];
-        while (!queue.empty()) {
-            T x = queue.first();
-            queue.pop_front();
-
-            if (calculated[x]) { // optimization
-                closure_i += closure[x];
-                continue;
-            }
-
-            Utilities::Set<T> adj = map[x];
-            typename Utilities::Set<T>::const_iterator adjEnd = adj.end();
-            for (typename Utilities::Set<T>::const_iterator a = adj.begin();
-                 a != adjEnd; ++a) {
-                if (!closure_i.contains(*a)) {
-                    queue.append(*a);
-                    closure_i.insert(*a);
-                }
-            }
-        }
-        calculated[*i] = true;
-    }
-    return closure;
-}
 
 #endif /* UTILITIES_GRAPH_H */

@@ -24,45 +24,13 @@
 
 namespace Utilities
 {
-template <class T>
-QList<T> mergeListsUniqly(const QList<T>& l1,
+    template <class T>
+    QList<T> mergeListsUniqly(const QList<T>& l1,
+                              const QList<T>& l2);
+
+    template <class T>
+    QList<T> listSubtract(const QList<T>& l1,
                           const QList<T>& l2);
-
-template <class T>
-QList<T> listSubtract(const QList<T>& l1,
-                      const QList<T>& l2);
-
-
-
-// These are very simple and unoptimal implementations.
-// (Mainly because searching linked list is O(n).)
-// Could be optimized later, but no need for that yet.
-
-template <class T>
-QList<T> mergeListsUniqly(const QList<T>& l1,
-                          const QList<T>& l2)
-{
-    QList<T> r;
-    const QList<T>* l[2] = {&l1, &l2};
-    for (int n = 0; n < 2; ++n)
-        for (typename QList<T>::const_iterator i = l[n]->begin();
-             i != l[n]->end(); ++i)
-            if (!r.contains(*i))
-                r.append(*i);
-    return r;
-}
-
-template <class T>
-QList<T> listSubtract(const QList<T>& l1,
-                      const QList<T>& l2)
-{
-    QList<T> r = l1;
-    for (typename QList<T>::const_iterator i = l2.begin();
-         i != l2.end(); ++i) {
-        r.removeAll(*i);
-    }
-    return r;
-}
 }
 
 #endif /* UTILITIES_LIST_H */

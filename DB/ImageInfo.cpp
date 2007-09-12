@@ -447,14 +447,26 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                 case Exif::Syncable::Independent:
                                     // we have to resolve the subcategories here
                                     QMap<QString,StringSet> superGroups = DB::ImageDB::instance()->memberMap().inverseMap( (*category)->name() );
-                                    // FIXME: resolve it here...
-                                    for (QMap<QString,StringSet>::const_iterator mi = superGroups.begin(); mi != superGroups.end(); ++mi) {
-                                        kdDebug() << mi.key() << ": " << endl;
-                                        for (StringSet::const_iterator si = mi.data().begin(); si != mi.data().end(); ++si) {
-                                            kdDebug() << " '" << *si << "' " << endl;
+                                    for (StringSet::const_iterator tagIt = _categoryInfomation[(*category)->name()].begin();
+                                            tagIt != _categoryInfomation[(*category)->name()].end(); ++tagIt ) {
+                                        // resolve supergroups
+                                        QStringList queue = *tagIt;
+                                        QStringList resolved;
+                                        while (!queue.empty()) {
+                                            QString item = queue.last();
+                                            queue.pop_back();
+                                            QMap<QString,StringSet>::const_iterator biggerGroup = superGroups.find( item );
+                                            if ( biggerGroup != superGroups.end() )
+                                                queue.push_front( (*(*biggerGroup).begin()) );
+                                            resolved.push_front( item );
                                         }
-                                    }
 
+                                        if (Settings::SettingsData::instance()->categorySyncingSuperGroups( (*category)->name() ) ==
+                                                Exif::Syncable::MergeBySlash )
+                                            tags.push_back( resolved.join( QString::fromAscii("/") ) );
+                                        else
+                                            tags += resolved;
+                                    }
                                     break;
                             }
 
@@ -462,7 +474,6 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                 break;
                             else {
                                 QString value;
-                                kdDebug() << "*** category " << (*category)->name() << ": " << tags << endl;
 
                                 if ( Settings::SettingsData::instance()->categorySyncingAddName( (*category)->name() ) )
                                     value = (*category)->name() + QString::fromAscii(":");
@@ -482,13 +493,11 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                 keyName = _fieldName[*it].ascii();
                                                 exifMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
                                                 changed = true;
-                                                kdDebug() <<  _fieldName[*it] << " set to " << value << endl;
                                                 break;
                                             case Exif::Syncable::IPTC:
                                                 keyName = _fieldName[*it].ascii();
                                                 iptcMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
                                                 changed = true;
-                                                kdDebug() <<  _fieldName[*it] << " set to " << value << endl;
                                                 break;
                                             default:
                                                 kdDebug(5123) << "Unknown category class " << _fieldName[*it] << endl;
@@ -509,9 +518,14 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                         keyName = _fieldName[*it].ascii();
                                                         Exiv2::Value::AutoPtr v = Exiv2::Value::create( Exiv2::string );
                                                         v->read( Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() ) );
+                                                        // erase all occurences of this tag
+                                                        if ( tagIt == tags.begin() ) {
+                                                            Exiv2::ExifData::iterator tag;
+                                                            while ( ( tag = exifMap.findKey( Exiv2::ExifKey( keyName ) ) ) != exifMap.end() )
+                                                                exifMap.erase( tag );
+                                                        }
                                                         exifMap.add( Exiv2::ExifKey( keyName ), v.get() );
                                                         changed = true;
-                                                        kdDebug() <<  _fieldName[*it] << ": added " << value << endl;
                                                     }
                                                     break;
                                                 case Exif::Syncable::IPTC:
@@ -519,11 +533,14 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                         keyName = _fieldName[*it].ascii();
                                                         Exiv2::Value::AutoPtr v = Exiv2::Value::create( Exiv2::string );
                                                         v->read( Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() ) );
-                                                        if ( iptcMap.add( Exiv2::IptcKey( keyName ), v.get() ) ) {
-                                                            kdDebug() << "IPTC field " << _fieldName[*it] << " is not repeatable" << endl;
+                                                        if ( tagIt == tags.begin() ) {
+                                                            Exiv2::IptcData::iterator tag;
+                                                            while ( ( tag = iptcMap.findKey( Exiv2::IptcKey( keyName ) ) ) != iptcMap.end() )
+                                                                iptcMap.erase( tag );
                                                         }
+                                                        if ( iptcMap.add( Exiv2::IptcKey( keyName ), v.get() ) )
+                                                            kdDebug() << "IPTC field " << _fieldName[*it] << " is not repeatable" << endl;
                                                         changed = true;
-                                                        kdDebug() <<  _fieldName[*it] << ": added " << value << endl;
                                                     }
                                                     break;
                                                 default:

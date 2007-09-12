@@ -398,6 +398,13 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         iptcMap[keyName] = Utilities::encodeQString( _label, Settings::SettingsData::instance()->iptcCharset() );
                         changed = true;
                         break;
+                    case Exif::Syncable::JPEG:
+                        if ( *it == Exif::Syncable::JPEG_COMMENT ) {
+                            image->setComment( Utilities::encodeQString( _label, Settings::SettingsData::instance()->iptcCharset() ) );
+                            changed = true;
+                        } else
+                            kdDebug() << "Unkown JPEG field " <<  _fieldName[*it] << endl;
+                        break;
                     default:
                         kdDebug() << "Unknown label class " << _fieldName[*it] << endl;
                 }
@@ -417,6 +424,13 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         keyName = _fieldName[*it].ascii();
                         iptcMap[keyName] = Utilities::encodeQString( _description, Settings::SettingsData::instance()->iptcCharset() );
                         changed = true;
+                        break;
+                    case Exif::Syncable::JPEG:
+                        if ( *it == Exif::Syncable::JPEG_COMMENT ) {
+                            image->setComment( Utilities::encodeQString( _description, Settings::SettingsData::instance()->iptcCharset() ) );
+                            changed = true;
+                        } else
+                            kdDebug() << "Unkown JPEG field " <<  _fieldName[*it] << endl;
                         break;
                     default:
                         kdDebug() << "Unknown description class " << _fieldName[*it] << endl;

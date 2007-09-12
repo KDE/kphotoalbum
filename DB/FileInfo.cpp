@@ -101,7 +101,10 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 break;
             }
             case Exif::Syncable::JPEG:
-                kdDebug() << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
+                if ( *it == Exif::Syncable::JPEG_COMMENT )
+                    _label = Utilities::cStringWithEncoding( metadata.comment.c_str(), Settings::SettingsData::instance()->iptcCharset() );
+                else
+                    kdDebug() << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
                 break;
             case Exif::Syncable::FILE:
                 switch (*it) {
@@ -141,7 +144,10 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 break;
             }
             case Exif::Syncable::JPEG:
-                kdDebug() << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
+                if ( *it == Exif::Syncable::JPEG_COMMENT )
+                    _description = Utilities::cStringWithEncoding( metadata.comment.c_str(), Settings::SettingsData::instance()->iptcCharset() );
+                else
+                    kdDebug() << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
                 break;
             default:
                 kdDebug() << "Unknown description field " << _fieldName[ *it ] << endl;

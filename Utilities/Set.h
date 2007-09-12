@@ -18,8 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef SET_H
-#define SET_H
+#ifndef UTILITIES_SET_H
+#define UTILITIES_SET_H
 
 #include <QList>
 #include <QDataStream>
@@ -77,4 +77,4 @@ QDataStream& operator<<(QDataStream& stream, const Utilities::Set<TYPE>& data);
 template <class TYPE>
 QDataStream& operator>>(QDataStream& stream, Utilities::Set<TYPE>& data);
 
-#endif /* SET_H */
+#endif /* UTILITIES_SET_H */

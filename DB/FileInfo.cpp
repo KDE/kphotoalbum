@@ -69,7 +69,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 break;
             }
             default:
-                kdDebug(5123) << "Unknown orientation field " << _fieldName[ *it ] << endl;
+                kdDebug() << "Unknown orientation field " << _fieldName[ *it ] << endl;
         }
         // well, it's purely hypotetical now, as we have only one possible field
         // for storing image orientation, but it's good to be ready :)
@@ -101,7 +101,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 break;
             }
             case Exif::Syncable::JPEG:
-                kdDebug(5123) << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
+                kdDebug() << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
                 break;
             case Exif::Syncable::FILE:
                 switch (*it) {
@@ -109,11 +109,11 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                         _label = QFileInfo( fileName ).baseName( true );
                         break;
                     default:
-                        kdDebug(5123) << "Unknown field for label syncing: " << _fieldName[ *it ] << endl;
+                        kdDebug() << "Unknown field for label syncing: " << _fieldName[ *it ] << endl;
                 }
                 break;
             default:
-                kdDebug(5123) << "Unknown label field " << _fieldName[ *it ] << endl;
+                kdDebug() << "Unknown label field " << _fieldName[ *it ] << endl;
         }
         if ( !_label.isNull() && (_label != QString::fromAscii("")) )
             // we have a match, let's move along
@@ -141,10 +141,10 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 break;
             }
             case Exif::Syncable::JPEG:
-                kdDebug(5123) << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
+                kdDebug() << "Can't read JPEG value " << _fieldName[ *it ] << " (not implemented yet)" << endl;
                 break;
             default:
-                kdDebug(5123) << "Unknown description field " << _fieldName[ *it ] << endl;
+                kdDebug() << "Unknown description field " << _fieldName[ *it ] << endl;
         }
         if ( !_description.isNull() && (_description != QString::fromAscii("")) )
             break;
@@ -179,12 +179,12 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                         _date = fi.lastModified();
                         break;
                     default:
-                        kdDebug(5123) << "Unknown file field for date syncing: " << _fieldName[ *it ] << endl;
+                        kdDebug() << "Unknown file field for date syncing: " << _fieldName[ *it ] << endl;
                 }
                 break;
             }
             default:
-                kdDebug(5123) << "Unknown date field " << _fieldName[ *it ] << endl;
+                kdDebug() << "Unknown date field " << _fieldName[ *it ] << endl;
         }
         if ( _date.isValid() )
             break;

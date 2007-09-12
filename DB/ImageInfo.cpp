@@ -313,7 +313,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
     try {
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open( fullPath.local8Bit().data() );
         if ( !image->good() ) {
-            kdWarning(5123) << fullPath << ": Exiv2::Image instance not usable" << endl;
+            kdWarning() << fullPath << ": Exiv2::Image instance not usable" << endl;
             return;
         }
         image->readMetadata();
@@ -341,7 +341,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         // writeMetadata() for obvious reasons :)
                         // Just let it fall through for now...
                     default:
-                        kdDebug(5123) << "unknown date field: " << _fieldName[*it] << endl;
+                        kdDebug() << "unknown date field: " << _fieldName[*it] << endl;
                 }
             }
         }
@@ -369,7 +369,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                 orientation = 8;
                                 break;
                             default:
-                                kdDebug(5123) << "unknown _angle: " << _angle << endl;
+                                kdDebug() << "unknown _angle: " << _angle << endl;
                                 continue;
                         }
                         keyName = _fieldName[*it].ascii();
@@ -378,7 +378,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         break;
                     }
                     default:
-                        kdDebug(5123) << "unknown orientation field: " << _fieldName[*it] << endl;
+                        kdDebug() << "unknown orientation field: " << _fieldName[*it] << endl;
                 }
             }
 
@@ -399,7 +399,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         changed = true;
                         break;
                     default:
-                        kdDebug(5123) << "Unknown label class " << _fieldName[*it] << endl;
+                        kdDebug() << "Unknown label class " << _fieldName[*it] << endl;
                 }
             }
         }
@@ -419,7 +419,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                         changed = true;
                         break;
                     default:
-                        kdDebug(5123) << "Unknown description class " << _fieldName[*it] << endl;
+                        kdDebug() << "Unknown description class " << _fieldName[*it] << endl;
                 }
             }
         }
@@ -511,7 +511,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                 }
                                                 break;
                                             default:
-                                                kdDebug(5123) << "Unknown category class " << _fieldName[*it] << endl;
+                                                kdDebug() << "Unknown category class " << _fieldName[*it] << endl;
                                         }
                                         break;
 
@@ -554,7 +554,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                     }
                                                     break;
                                                 default:
-                                                    kdDebug(5123) << "Unknown category class " << _fieldName[*it] << endl;
+                                                    kdDebug() << "Unknown category class " << _fieldName[*it] << endl;
                                             }
                                         }
                                         break;
@@ -572,7 +572,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         // I wonder why kdDebug isn't compatible with std::ostream...
         std::ostringstream out;
         out << e;
-        kdDebug(5123) << "Exiv2 exception: " << out.str().data() << endl;
+        kdDebug() << "Exiv2 exception: " << out.str().data() << endl;
         return;
     }
 
@@ -583,7 +583,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
            MainWindow::DirtyIndicator::markDirty();
     }
 #else
-    kdDebug(5123) << "ImageInfo::writeMetadata(): can't do much without the Exiv2 library" << endl;
+    kdDebug() << "ImageInfo::writeMetadata(): can't do much without the Exiv2 library" << endl;
 #endif
 }
 

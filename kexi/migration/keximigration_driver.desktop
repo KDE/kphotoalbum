@@ -11,6 +11,7 @@ Comment[de]=Kexi Datenmigrationtreiber
 Comment[el]=Οδηγός μεταφοράς δεδομένων του Kexi
 Comment[es]=Dispositivo de Kexi para la migración de datos
 Comment[et]=Kexi andmete migreerimise draiver
+Comment[fr]=Pilote de Migration de Données pour Kexi
 Comment[gl]=Extensión de Migrazón de Dados para Kexi
 Comment[hr]=Kexi upravljački program za migraciju podataka
 Comment[is]=Kexi gagnaflutningsrekill
@@ -20,10 +21,12 @@ Comment[nds]=Datenutlagerndriever för Kexi
 Comment[nl]=Kexi Datamigratie Stuurprogramma
 Comment[pt]=Controlador de Migração de Dados do Kexi
 Comment[pt_BR]=Driver para migração de dados do Kexi
+Comment[sr]=Драјвер за Kexi за миграцију података
+Comment[sr@Latn]=Drajver za Kexi za migraciju podataka
 Comment[sv]=Kexi dataövergångsdrivrutin
 Comment[tr]=Kexi Veri Aktarma Sürücüsü
 Comment[uk]=Драйвер міграції даних для Kexi
-Comment[vi]=Bổ sung nâng cấp dữ liệu Kexi
+Comment[vi]=Phần bổ sung nâng cấp dữ liệu Kexi
 Comment[xx]=xxKexi Data Migration Driverxx
 
 [PropertyDef::X-Kexi-FileMigrationDriverMime]

@@ -19,6 +19,7 @@
 #include "Database.h"
 #include "XMLCategory.h"
 #include "DB/MD5Map.h"
+#include "Utilities/Util.h"
 #include <kmessagebox.h>
 #include "MainWindow/Window.h"
 #include <klocale.h>
@@ -322,7 +323,7 @@ QDomElement XMLDB::FileReader::readConfigFile( const QString& configFile )
     QFile file( configFile );
     if ( !file.exists() ) {
         // Load a default setup
-        QFile file( locate( "data", QString::fromLatin1( "kphotoalbum/default-setup" ) ) );
+        QFile file(Utilities::locateDataFile(QString::fromLatin1("default-setup")));
         if ( !file.open( IO_ReadOnly ) ) {
             KMessageBox::information( 0, i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                                                "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "

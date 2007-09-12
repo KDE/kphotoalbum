@@ -40,6 +40,7 @@
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
+#include "Utilities/List.h"
 #include <kapplication.h>
 #include <ktip.h>
 #include <kprocess.h>
@@ -418,7 +419,7 @@ void MainWindow::Window::slotDeleteSelected()
     DirtyIndicator::markDirty();
 
     QStringList images = _thumbnailView->imageList( ThumbnailView::ThumbnailWidget::SortedOrder );
-    Set<QString> allImages( DB::ImageDB::instance()->images() );
+    StringSet allImages( DB::ImageDB::instance()->images() );
     QStringList newSet;
     for( QStringList::Iterator it = images.begin(); it != images.end(); ++it ) {
         if ( allImages.contains( *it ) )
@@ -492,7 +493,7 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
     }
 
     if (random)
-        files = Utilities::shuffle( files );
+        files = Utilities::shuffleList(files);
 
     Viewer::ViewerWidget* viewer;
     if ( reuse && Viewer::ViewerWidget::latest() ) {

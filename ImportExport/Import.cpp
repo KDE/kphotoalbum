@@ -48,6 +48,8 @@
 #include "MiniViewer.h"
 #include "XMLDB/Database.h"
 
+using Utilities::StringSet;
+
 class KPushButton;
 using namespace ImportExport;
 
@@ -394,7 +396,7 @@ ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QStr
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         DB::ImageInfoPtr info = *it;
         StringSet items = info->itemsOfCategory( otherCategory );
-        for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
+        for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
             otherItems.append( *itemIt );
     }
 

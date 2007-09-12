@@ -34,6 +34,8 @@
 #include "FileWriter.h"
 #include "MainWindow/DirtyIndicator.h"
 
+using Utilities::StringSet;
+
 bool XMLDB::Database::_anyImageWithEmptySize = false;
 XMLDB::Database::Database( const QString& configFile ):
     _fileName(configFile)
@@ -96,7 +98,7 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
             // to count.
             StringSet items = (*it)->itemsOfCategory(group);
             counter.count( items );
-            for( StringSet::ConstIterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
+            for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                 if ( !alreadyMatched[*it2] ) // We do not want to match "Jesper & Jesper"
                     map[*it2]++;
             }

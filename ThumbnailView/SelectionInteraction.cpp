@@ -87,7 +87,7 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
     if ( (event->state() & ControlButton) &&
          !(event->state() & ShiftButton) ) { // toggle selection of file
         if ( _view->_selectedFiles.contains( file ) && (event->button() & LeftButton) )
-            _view->_selectedFiles.remove( file);
+            _view->_selectedFiles.erase( file );
         else
             _view->_selectedFiles.insert( file );
         _view->updateCell( file );
@@ -96,13 +96,13 @@ void ThumbnailView::SelectionInteraction::mouseReleaseEvent( QMouseEvent* event 
         if ( !_dragSelectionInProgress &&
              deselectSelection( event ) && _view->_selectedFiles.contains( file ) ) {
             // Unselect everything but the file
-            Set<QString> oldSelection = _view->_selectedFiles;
-            oldSelection.remove( file );
+            StringSet oldSelection = _view->_selectedFiles;
+            oldSelection.erase( file );
             _view->_selectedFiles.clear();
             _view->_selectedFiles.insert( file );
             _originalSelectionBeforeDragStart.clear();
             _originalSelectionBeforeDragStart.insert( file );
-            for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+            for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
                 _view->updateCell( *it );
             }
         }
@@ -131,16 +131,16 @@ void ThumbnailView::SelectionInteraction::handleDragSelection()
     else if ( viewportPos.y() > _view->height() )
         _view->scrollBy( 0, (viewportPos.y() - _view->height())/3 );
 
-    Set<QString> oldSelection = _view->_selectedFiles;
+    StringSet oldSelection = _view->_selectedFiles;
     _view->_selectedFiles = _originalSelectionBeforeDragStart;
     _view->selectAllCellsBetween( pos1, pos2, false );
 
-    for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+    for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_view->_selectedFiles.contains( *it ) )
             _view->updateCell( *it );
     }
 
-    for( Set<QString>::Iterator it = _view->_selectedFiles.begin(); it != _view->_selectedFiles.end(); ++it ) {
+    for( StringSet::const_iterator it = _view->_selectedFiles.begin(); it != _view->_selectedFiles.end(); ++it ) {
         if ( !oldSelection.contains( *it ) )
             _view->updateCell( *it );
     }
@@ -267,10 +267,10 @@ bool ThumbnailView::SelectionInteraction::deselectSelection( const QMouseEvent* 
 void ThumbnailView::SelectionInteraction::clearSelection()
 {
     // Unselect every thing
-    Set<QString> oldSelection = _view->_selectedFiles;
+    StringSet oldSelection = _view->_selectedFiles;
     _view->_selectedFiles.clear();
     _originalSelectionBeforeDragStart.clear();
-    for( Set<QString>::Iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
+    for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         _view->updateCell( *it );
     }
 }

@@ -25,6 +25,8 @@
 
 namespace ThumbnailView
 {
+using Utilities::StringSet;
+
 class ThumbnailWidget;
 
 class SelectionInteraction : public QObject, public MouseInteraction {
@@ -64,7 +66,7 @@ private:
      */
     bool _mousePressWasOnIcon;
 
-    Set<QString> _originalSelectionBeforeDragStart;
+    StringSet _originalSelectionBeforeDragStart;
     ThumbnailWidget* _view;
     QTimer* _dragTimer;
     bool _dragInProgress;

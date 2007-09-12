@@ -1,4 +1,6 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/*
+  Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,113 +17,64 @@
    the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+
 #ifndef SET_H
 #define SET_H
-#include <qmap.h>
+
 #include <qvaluelist.h>
+#include <qdatastream.h>
+#include <set>
 
-template <class TYPE>
-class Set :public QMap<TYPE, TYPE>
+namespace Utilities
 {
-public:
-    Set() {}
-    Set( const QValueList<TYPE>& list )
+    template <class T>
+    class Set: public std::set<T>
     {
-        insert( list );
-    }
+        typedef std::set<T> Base;
 
-    void insert( TYPE key )
-    {
-        QMap<TYPE,TYPE>::insert( key, key );
-    }
-
-    void insert( const QValueList<TYPE>& list )
-    {
-        for( QValueListConstIterator<TYPE> it = list.begin(); it != list.end(); ++it ) {
-            insert( *it );
-        }
-    }
-
-    QValueList<TYPE> toList() const
-    {
-        return QMap<TYPE,TYPE>::keys();
-    }
-
-    bool operator==( const Set<TYPE>& other ) const
-    {
-        if ( this->count() != other.count() )
-            return false;
-
-        for( typename Set<TYPE>::ConstIterator it = this->begin(); it != this->end(); ++it ) {
-            if ( ! other.contains( *it ) )
-                return false;
+    public:
+        Set() {}
+        Set(const QValueList<T>& list)
+        {
+            insert(list);
         }
 
-        // The other set contains every element from this one and the
-        // number of elements is the same. We can conclude the sets
-        // are the same.
-        return true;
-    }
+        void insert(const T& x)
+        {
+            Base::insert(x);
+        }
 
-    const Set<TYPE> operator+=( const Set<TYPE>& other )
-    {
-        for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
-            insert( *it );
+        void insert(const QValueList<T>& list);
 
-        return *this;
-    }
+        QValueList<T> toList() const;
 
-    const Set<TYPE> operator+( const Set<TYPE>& other ) const
-    {
-        Set<TYPE> res( *this );
-        return res+=( other );
-    }
+        bool contains(const T& x) const
+        {
+            return count(x) > 0;
+        }
 
-    bool operator!=( const Set<TYPE>& other ) const
-    {
-        return !(operator==(other));
-    }
+        Set<T>& operator+=(const Set<T>& other);
 
-    const Set<TYPE> operator-=( const Set<TYPE>& other )
-    {
-        for( typename Set<TYPE>::ConstIterator it = other.begin(); it != other.end(); ++it )
-            this->remove( *it );
-        return *this;
-    }
+        Set<T> operator+(const Set<T>& other) const
+        {
+            return (Set<T>(*this) += other);
+        }
 
-    const Set<TYPE> operator-( const Set<TYPE>& other ) const
-    {
-        Set<TYPE> res(*this);
-        return res.operator-=( other );
-    }
+        Set<T>& operator-=(const Set<T>& other);
 
-};
+        Set<T> operator-(const Set<T>& other) const
+        {
+            return (Set<T>(*this) -= other);
+        }
+    };
 
-template <class TYPE>
-QDataStream& operator<<( QDataStream& stream, const Set<TYPE>& data )
-{
-    stream << data.count();
-    for ( typename Set<TYPE>::ConstIterator itemIt = data.begin(); itemIt != data.end(); ++itemIt ) {
-        stream << *itemIt;
-    }
-    return stream;
+    typedef Set<QString> StringSet;
 }
 
 template <class TYPE>
-QDataStream& operator>>( QDataStream& stream, Set<TYPE>& data )
-{
-    int count;
-    stream >> count;
-    for ( int i = 0; i < count; ++i ) {
-        TYPE item;
-        stream >> item;
-        data.insert( item );
-    }
-    return stream;
-}
+QDataStream& operator<<(QDataStream& stream, const Utilities::Set<TYPE>& data);
 
-typedef Set<QString> StringSet;
-
+template <class TYPE>
+QDataStream& operator>>(QDataStream& stream, Utilities::Set<TYPE>& data);
 
 #endif /* SET_H */
-

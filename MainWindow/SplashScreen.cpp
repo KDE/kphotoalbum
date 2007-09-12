@@ -17,6 +17,7 @@
 */
 
 #include "SplashScreen.h"
+#include "Utilities/Util.h"
 #include <kstandarddirs.h>
 #include <kglobal.h>
 #include <kaboutdata.h>
@@ -26,7 +27,7 @@
 MainWindow::SplashScreen* MainWindow::SplashScreen::_instance = 0;
 
 MainWindow::SplashScreen::SplashScreen()
-    :KSplashScreen( locate("data", QString::fromLatin1("kphotoalbum/pics/splash-large.png") ) )
+    :KSplashScreen(Utilities::locateDataFile(QString::fromLatin1("pics/splash-large.png")))
 {
     _instance = this;
 }

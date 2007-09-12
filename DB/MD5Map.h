@@ -25,6 +25,7 @@
 
 namespace DB
 {
+using Utilities::StringSet;
 
 /**
    This class may be overriden by a which wants to store md5 information

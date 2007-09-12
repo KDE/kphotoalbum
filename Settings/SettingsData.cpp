@@ -398,7 +398,7 @@ QSize Settings::SettingsData::value( const QString& group, const QString& option
     return config->readSizeEntry( option, &defaultValue );
 }
 
-Set<QString> Settings::SettingsData::value(const QString& group, const QString& option, const Set<QString>& defaultValue ) const
+StringSet Settings::SettingsData::value(const QString& group, const QString& option, const StringSet& defaultValue ) const
 {
     KConfig* config = kapp->config();
     config->setGroup( group );
@@ -442,7 +442,7 @@ void Settings::SettingsData::setValue( const QString& group, const QString& opti
     config->writeEntry( option, value );
 }
 
-void Settings::SettingsData::setValue( const QString& group, const QString& option, const Set<QString>& value )
+void Settings::SettingsData::setValue( const QString& group, const QString& option, const StringSet& value )
 {
     KConfig* config = kapp->config();
     config->setGroup( group );

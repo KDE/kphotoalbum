@@ -26,6 +26,8 @@
 #include "ImageManager/ImageRequest.h"
 #include "DB/ImageDB.h"
 
+using Utilities::StringSet;
+
 Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
 {
@@ -88,9 +90,9 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
     setFocusPolicy( WheelFocus );
     setHScrollBarMode( AlwaysOff );
 
-    Set<QString> groups = exifGroups( map );
+    StringSet groups = exifGroups( map );
     int index = 0;
-    for( Set<QString>::Iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+    for( StringSet::const_iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
         if ( index %2 ) // We need to start next header in coloumn 0
             ++index;
 
@@ -153,9 +155,9 @@ QSize Exif::InfoDialog::sizeHint() const
     return QSize( 800, 400 );
 }
 
-Set<QString> Exif::Grid::exifGroups( const QMap<QString,QString>& exifInfo )
+StringSet Exif::Grid::exifGroups( const QMap<QString,QString>& exifInfo )
 {
-    Set<QString> result;
+    StringSet result;
     for( QMap<QString,QString>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
         result.insert( groupName( it.key() ) );
     }

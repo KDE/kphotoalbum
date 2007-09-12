@@ -25,6 +25,7 @@ class QTable;
 
 namespace Exif
 {
+using Utilities::StringSet;
 
 class InfoDialog : public KDialogBase, public ImageManager::ImageClient {
     Q_OBJECT
@@ -57,7 +58,7 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     virtual void keyPressEvent( QKeyEvent* );
 
-    Set<QString> exifGroups( const QMap<QString, QString>& exifInfo );
+    StringSet exifGroups( const QMap<QString, QString>& exifInfo );
     QMap<QString,QString> itemsForGroup( const QString& group, const QMap<QString, QString>& exifInfo );
     QString groupName( const QString& exifName );
     QString exifNameNoGroup( const QString& fullName );
@@ -68,7 +69,7 @@ protected slots:
 
 private:
     QMap<int, QPair<QString,QString> > _texts;
-    Set<int> _headers;
+    Utilities::Set<int> _headers;
     int _maxKeyWidth;
     QString _search;
 };

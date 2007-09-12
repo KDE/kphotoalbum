@@ -25,8 +25,9 @@
 
 namespace Exif {
 
-class SearchInfo  {
+using Utilities::StringSet;
 
+class SearchInfo  {
 public:
     class Range
     {
@@ -57,7 +58,7 @@ private:
     IntKeyList _intKeys;
     QValueList<Range> _rangeKeys;
     QValueList< QPair<QString,QString> > _cameras;
-    mutable Set<QString> _matches;
+    mutable StringSet _matches;
     mutable bool _emptyQuery;
 };
 

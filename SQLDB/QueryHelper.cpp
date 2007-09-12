@@ -911,7 +911,7 @@ QString QueryHelper::filenameForMD5Sum(const DB::MD5& md5sum) const
     }
 }
 
-QMap<int, Set<QString> >
+QMap<int, StringSet >
 QueryHelper::mediaIdTagsMap(const QString& category,
                              DB::MediaType typemask) const
 {
@@ -938,7 +938,7 @@ QueryHelper::mediaIdTagsMap(const QString& category,
 
     Cursor c = executeQuery(q, b).cursor();
 
-    QMap<int, Set<QString> > r;
+    QMap<int, StringSet > r;
     if (!c.isNull()) {
         for (c.selectFirstRow(); c.rowExists(); c.selectNextRow())
             r[c.value(0).toInt()].insert(c.value(1).toString());
@@ -1322,12 +1322,12 @@ QueryHelper::classify(const QString& category,
     QMap<QString, uint> result;
     DB::GroupCounter counter( category );
 
-    const QMap<int, Set<QString> > wholeItemMap =
+    const QMap<int, StringSet > wholeItemMap =
         mediaIdTagsMap(category, typemask);
 
     QMap<int,QStringList> itemMap;
 
-    for (QMap<int, Set<QString> >::const_iterator
+    for (QMap<int, StringSet >::const_iterator
              i = wholeItemMap.begin(); i != wholeItemMap.end(); ++i) {
         int fileId = i.key();
         if (!scope || scope->contains(fileId))

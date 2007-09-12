@@ -24,7 +24,9 @@
 #include "NumberedBackup.h"
 #include <kcmdlineargs.h>
 #include <qfile.h>
-#include "Utilities/Util.h"
+#include "Utilities/List.h"
+
+using Utilities::StringSet;
 
 void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
 {
@@ -93,9 +95,9 @@ void XMLDB::FileWriter::saveCategories( QDomDocument doc, QDomElement top )
         opt.setAttribute( QString::fromLatin1( "thumbnailsize" ), category->thumbnailSize() );
 
         if ( shouldSaveCategory( name ) ) {
-            QStringList list = category->items();
-            list += _db->_members.groups(name);
-            list = Utilities::removeDuplicates( list );
+            QStringList list =
+                Utilities::mergeListsUniqly(category->items(),
+                                            _db->_members.groups(name));
 
             for( QStringList::Iterator it2 = list.begin(); it2 != list.end(); ++it2 ) {
                 QDomElement val = doc.createElement( QString::fromLatin1("value") );
@@ -162,7 +164,7 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
                 elm.setAttribute( QString::fromLatin1( "category" ), categoryName );
                 elm.setAttribute( QString::fromLatin1( "group-name" ), groupMapIt.key() );
                 QStringList idList;
-                for( StringSet::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                for( StringSet::const_iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
                     DB::CategoryPtr catPtr = _db->_categoryCollection.categoryForName( memberMapIt.key() );
                     XMLCategory* category = static_cast<XMLCategory*>( catPtr.data() );
                     idList.append( QString::number( category->idForName( *membersIt ) ) );
@@ -171,7 +173,7 @@ void XMLDB::FileWriter::saveMemberGroups( QDomDocument doc, QDomElement top )
                 memberNode.appendChild( elm );
             }
             else {
-                for( StringSet::Iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
+                for( StringSet::const_iterator membersIt = members.begin(); membersIt != members.end(); ++membersIt ) {
                     QDomElement elm = doc.createElement( QString::fromLatin1( "member" ) );
                     memberNode.appendChild( elm );
                     elm.setAttribute( QString::fromLatin1( "category" ), memberMapIt.key() );
@@ -261,7 +263,7 @@ void XMLDB::FileWriter::writeCategories( QDomDocument doc, QDomElement top, cons
 
         StringSet items = info->itemsOfCategory(*categoryIt);
         bool any = false;
-        for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+        for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
             QDomElement val = doc.createElement( QString::fromLatin1("value") );
             val.setAttribute( QString::fromLatin1("value"), *itemIt );
             opt.appendChild( val );
@@ -286,9 +288,9 @@ void XMLDB::FileWriter::writeCategoriesCompressed( QDomElement& elm, const DB::I
             continue;
 
         StringSet items = info->itemsOfCategory(categoryName);
-        if ( !items.isEmpty() ) {
+        if ( !items.empty() ) {
             QStringList idList;
-            for( StringSet::ConstIterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+            for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
                 int id = static_cast<XMLCategory*>((*categoryIt).data())->idForName( *itemIt );
                 idList.append( QString::number( id ) );
             }

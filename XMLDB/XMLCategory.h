@@ -19,6 +19,7 @@
 #define XMLCATEGORY_H
 #include "DB/Category.h"
 #include <qstringlist.h>
+#include <qmap.h>
 
 namespace XMLDB {
     class XMLCategory :public DB::Category

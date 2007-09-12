@@ -175,7 +175,7 @@ private:
     /*
      * This set contains the files currently selected.
      */
-    Set<QString> _selectedFiles;
+    StringSet _selectedFiles;
 
     /**
      * This is the item currently having keyboard focus
@@ -210,7 +210,7 @@ private:
 
     QTimer* _repaintTimer;
 
-    Set<QString> _pendingRepaint;
+    StringSet _pendingRepaint;
 
     SortDirection _sortDirection;
 };

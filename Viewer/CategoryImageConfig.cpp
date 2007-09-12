@@ -28,6 +28,8 @@
 #include "DB/MemberMap.h"
 #include "Utilities/Util.h"
 
+using Utilities::StringSet;
+
 CategoryImageConfig* CategoryImageConfig::_instance = 0;
 
 CategoryImageConfig::CategoryImageConfig()
@@ -86,7 +88,7 @@ void CategoryImageConfig::groupChanged()
     StringSet set = directMembers;
     QMap<QString,StringSet> map =
         DB::ImageDB::instance()->memberMap().inverseMap(categoryName);
-    for( StringSet::ConstIterator directMembersIt = directMembers.begin();
+    for( StringSet::const_iterator directMembersIt = directMembers.begin();
          directMembersIt != directMembers.end(); ++directMembersIt ) {
         set += map[*directMembersIt];
     }

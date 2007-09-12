@@ -490,14 +490,25 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
 
                                         switch ( _header[ *it ] ) {
                                             case Exif::Syncable::EXIF:
-                                                keyName = _fieldName[*it].ascii();
-                                                exifMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
-                                                changed = true;
+                                                {
+                                                    keyName = _fieldName[*it].ascii();
+                                                    // erase all occurences of this tag
+                                                    Exiv2::ExifData::iterator tag;
+                                                    while ( ( tag = exifMap.findKey( Exiv2::ExifKey( keyName ) ) ) != exifMap.end() )
+                                                        exifMap.erase( tag );
+                                                    exifMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
+                                                    changed = true;
+                                                }
                                                 break;
                                             case Exif::Syncable::IPTC:
-                                                keyName = _fieldName[*it].ascii();
-                                                iptcMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
-                                                changed = true;
+                                                {
+                                                    keyName = _fieldName[*it].ascii();
+                                                    Exiv2::IptcData::iterator tag;
+                                                    while ( ( tag = iptcMap.findKey( Exiv2::IptcKey( keyName ) ) ) != iptcMap.end() )
+                                                        iptcMap.erase( tag );
+                                                    iptcMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
+                                                    changed = true;
+                                                }
                                                 break;
                                             default:
                                                 kdDebug(5123) << "Unknown category class " << _fieldName[*it] << endl;
@@ -518,7 +529,6 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                         keyName = _fieldName[*it].ascii();
                                                         Exiv2::Value::AutoPtr v = Exiv2::Value::create( Exiv2::string );
                                                         v->read( Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() ) );
-                                                        // erase all occurences of this tag
                                                         if ( tagIt == tags.begin() ) {
                                                             Exiv2::ExifData::iterator tag;
                                                             while ( ( tag = exifMap.findKey( Exiv2::ExifKey( keyName ) ) ) != exifMap.end() )

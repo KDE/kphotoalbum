@@ -533,6 +533,7 @@ Exif::Metadata Exif::Info::metadata( const QString& fileName )
         result.exif = image->exifData();
         result.iptc = image->iptcData();
         result.comment = image->comment();
+        return result;
     }
     catch ( ... ) {
     }

@@ -192,12 +192,12 @@ QString Exif::Database::exifDBFile()
     return ::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
-Set<QString> Exif::Database::filesMatchingQuery( const QString& queryStr )
+StringSet Exif::Database::filesMatchingQuery( const QString& queryStr )
 {
     if ( !isUsable() )
-        return Set<QString>();
+        return StringSet();
 
-    Set<QString> result;
+    StringSet result;
     QSqlQuery query( queryStr, _db );
 
     if ( !query.exec() )

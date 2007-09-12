@@ -22,14 +22,15 @@
 #include "Utilities/Set.h"
 
 namespace Exif{
+using Utilities::StringSet;
 
 class TreeView : public QListView {
     Q_OBJECT
 
 public:
     TreeView( const QString& title, QWidget* parent, const char* name = 0 );
-    Set<QString> selected();
-    void setSelected( const Set<QString>& selected );
+    StringSet selected();
+    void setSelected( const StringSet& selected );
     void reload();
 
 protected slots:

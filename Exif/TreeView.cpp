@@ -22,6 +22,8 @@
 #include "Exif/Info.h"
 #include <klocale.h>
 
+using Utilities::StringSet;
+
 Exif::TreeView::TreeView( const QString& title, QWidget* parent, const char* name )
     :QListView( parent, name )
 {
@@ -43,9 +45,9 @@ void Exif::TreeView::toggleChildren( QListViewItem* parent )
     }
 }
 
-Set<QString> Exif::TreeView::selected()
+StringSet Exif::TreeView::selected()
 {
-    Set<QString> result;
+    StringSet result;
     for ( QListViewItemIterator it( this ); *it; ++it ) {
         if ( static_cast<QCheckListItem*>( *it )->isOn() )
             result.insert( (*it)->text( 1 ) );
@@ -53,7 +55,7 @@ Set<QString> Exif::TreeView::selected()
     return result;
 }
 
-void Exif::TreeView::setSelected( const Set<QString>& selected )
+void Exif::TreeView::setSelected( const StringSet& selected )
 {
     for ( QListViewItemIterator it( this ); *it; ++it ) {
         bool on = selected.contains( (*it)->text(1) );
@@ -64,13 +66,13 @@ void Exif::TreeView::setSelected( const Set<QString>& selected )
 void Exif::TreeView::reload()
 {
     clear();
-    Set<QString> keys = Exif::Info::instance()->availableKeys();
+    StringSet keys = Exif::Info::instance()->availableKeys();
 
     QMap<QString, QCheckListItem*> tree;
 
     QCheckListItem* root = new QCheckListItem( this, i18n( "Metadata" ), QCheckListItem::CheckBox );
 
-    for( Set<QString>::Iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
+    for( StringSet::const_iterator keysIt = keys.begin(); keysIt != keys.end(); ++keysIt ) {
         QStringList subKeys = QStringList::split( QString::fromLatin1("."), *keysIt);
         QCheckListItem* parent = root;
         QString path = QString::null;

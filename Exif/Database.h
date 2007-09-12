@@ -36,6 +36,8 @@ typedef QValueList<Rational> RationalList;
 namespace Exif
 {
 
+using Utilities::StringSet;
+
 // ================================================================================
 // IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
 // ================================================================================
@@ -52,7 +54,7 @@ public:
     bool isUsable() const;
     void add( const QString& fileName );
     void remove( const QString& fileName );
-    Set<QString> filesMatchingQuery( const QString& query );
+    StringSet filesMatchingQuery( const QString& query );
     QValueList< QPair<QString,QString> > cameras() const;
 
 protected:

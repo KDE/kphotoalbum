@@ -124,7 +124,8 @@ bool SQLMemberMap::isGroup(const QString& category,
 QMap<QString, StringSet>
 SQLMemberMap::groupMap(const QString& category) const
 {
-    return closure(pairsToMap(_qh.memberGroupConfiguration(category)));
+    return closure(Utilities::pairsToMap
+                   (_qh.memberGroupConfiguration(category)));
 }
 
 QMap<QString, StringSet>
@@ -236,7 +237,8 @@ void SQLMemberMap::updateMemberMapCache() const
     _memberMapCache.clear();
     const QStringList c = _qh.categoryNames();
     for (QStringList::const_iterator i = c.begin(); i != c.end(); ++i)
-        _memberMapCache[*i] = pairsToMap(_qh.memberGroupConfiguration(*i));
+        _memberMapCache[*i] =
+            Utilities::pairsToMap(_qh.memberGroupConfiguration(*i));
 }
 
 void SQLMemberMap::deleteItem(DB::Category* category, const QString& name)

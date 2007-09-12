@@ -81,7 +81,7 @@ bool XMLDB::XMLCategory::isSpecialCategory() const
 
 void XMLDB::XMLCategory::addOrReorderItems( const QStringList& items )
 {
-    _items = items + Utilities::listSubtract(_items, items);
+    _items = Utilities::mergeListsUniqly(items, _items);
 }
 
 void XMLDB::XMLCategory::setItems( const QStringList& items )

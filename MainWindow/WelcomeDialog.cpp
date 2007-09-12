@@ -41,7 +41,7 @@ WelComeDialog::WelComeDialog( QWidget* parent, const char* name )
     QLabel* image = new QLabel( this, "image" );
     image->setMinimumSize( QSize( 273, 204 ) );
     image->setMaximumSize( QSize( 273, 204 ) );
-    image->setPixmap( locate("data", QString::fromLatin1("kphotoalbum/pics/splash.png") ) );
+    image->setPixmap(Utilities::locateDataFile(QString::fromLatin1("pics/splash.png")));
     lay2->addWidget( image );
 
     QLabel* textLabel2 = new QLabel( this, "textLabel2" );

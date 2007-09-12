@@ -22,6 +22,10 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
+#include "Utilities/Set.h"
+
+using Utilities::StringSet;
+
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KURL& url )
     : KIPI::ImageInfoShared( interface, url )
 {
@@ -61,7 +65,7 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
         QString categoryName = (*categoryIt)->name();
         if ( (*categoryIt)->doShow() ) {
             StringSet items = _info->itemsOfCategory( categoryName );
-            for( StringSet::Iterator it = items.begin(); it != items.end(); ++it ) {
+            for( StringSet::const_iterator it = items.begin(); it != items.end(); ++it ) {
                 tags.append( *it );
             }
         }

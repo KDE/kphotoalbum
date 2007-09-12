@@ -67,7 +67,7 @@ GroupCounter::GroupCounter( const QString& category )
         StringSet members = groupToMemberIt.data();
         QString group = groupToMemberIt.key();
 
-        for( StringSet::Iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
+        for( StringSet::const_iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
             QStringList* item = _memberToGroup[*memberIt];
             if ( !item ) {
                 item = new QStringList;
@@ -97,7 +97,7 @@ void GroupCounter::count( const StringSet& categories )
     static QDict<void> countedGroupDict( 97 /* a large, but not extreme prime */ );
 
     countedGroupDict.clear();
-    for( StringSet::ConstIterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
+    for( StringSet::const_iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
         QStringList* groups = _memberToGroup[*categoryIt];
         if ( groups ) {
             for( QStringList::Iterator groupsIt = (*groups).begin(); groupsIt != (*groups).end(); ++groupsIt ) {

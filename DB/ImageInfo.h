@@ -46,6 +46,8 @@ namespace Plugins
 
 namespace DB
 {
+using Utilities::StringSet;
+
 class MemberMap;
 
 enum MediaType { Image = 0x01, Video = 0x02 };
@@ -171,7 +173,7 @@ private:
     bool _delaySaving;
 
     // Used during searching to make it possible to search for Jesper & None
-    mutable QMap<QString, Set<QString> > _matched;
+    mutable QMap<QString, StringSet > _matched;
 };
 
 }

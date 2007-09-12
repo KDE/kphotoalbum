@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,59 +21,17 @@
 #define UTILITIES_GRAPH_H
 
 #include "Set.h"
+#include <qmap.h>
+#include <qpair.h>
+#include <qvaluelist.h>
 
-template <class T>
-QMap< T, Set<T> > pairsToMap(const QValueList< QPair<T, T> >& pairs);
-template <class T>
-QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map);
-
-
-template <class T>
-QMap< T, Set<T> > pairsToMap(const QValueList< QPair<T, T> >& pairs)
+namespace Utilities
 {
-    QMap< T, Set<T> > map;
-    typename QValueList< QPair<T, T> >::const_iterator end = pairs.constEnd();
-    for (typename QValueList< QPair<T, T> >::const_iterator i =
-             pairs.constBegin(); i != end; ++i)
-        map[(*i).first].insert((*i).second);
-    return map;
-}
+    template <class T>
+    QMap< T, Utilities::Set<T> > pairsToMap(const QValueList< QPair<T, T> >& pairs);
 
-template <class T>
-QMap< T, Set<T> > closure(const QMap<T, Set<T> >& map)
-{
-    QMap< T, Set<T> > closure;
-    QMap<T, bool> calculated;
-    const QValueList<T> keys = map.keys();
-    typename QValueList<T>::const_iterator keysEnd = keys.end();
-    for (typename QValueList<T>::const_iterator i = keys.begin();
-         i != keysEnd; ++i) {
-        QValueList<T> queue;
-        //closure[*i].insert(*i);
-        queue.append(*i);
-        Set<T> closure_i = closure[*i];
-        while (!queue.empty()) {
-            T x = queue.first();
-            queue.pop_front();
-
-            if (calculated[x]) { // optimization
-                closure_i += closure[x];
-                continue;
-            }
-
-            Set<T> adj = map[x];
-            typename Set<T>::const_iterator adjEnd = adj.constEnd();
-            for (typename Set<T>::const_iterator a = adj.constBegin();
-                 a != adjEnd; ++a) {
-                if (!closure_i.contains(*a)) {
-                    queue.append(*a);
-                    closure_i.insert(*a);
-                }
-            }
-        }
-        calculated[*i] = true;
-    }
-    return closure;
+    template <class T>
+    QMap< T, Utilities::Set<T> > closure(const QMap<T, Utilities::Set<T> >& map);
 }
 
 #endif /* UTILITIES_GRAPH_H */

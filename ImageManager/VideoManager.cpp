@@ -18,6 +18,7 @@
 #include "VideoManager.h"
 #include <kurl.h>
 #include "ImageRequest.h"
+#include "Utilities/Util.h"
 #include <kio/previewjob.h>
 #include <Settings/SettingsData.h>
 #include <qimage.h>
@@ -101,7 +102,7 @@ void ImageManager::VideoManager::stop( ImageClient* client, StopAction action )
 bool ImageManager::VideoManager::hasVideoThumbnailSupport() const
 {
     KURL::List list;
-    list.append( locate( "data", QString::fromLatin1( "kphotoalbum/demo/movie.avi" ) ) );
+    list.append(Utilities::locateDataFile(QString::fromLatin1("demo/movie.avi")));
     KIO::PreviewJob* job=KIO::filePreview(list, 64 );
     job->setIgnoreMaximumSize( true );
 

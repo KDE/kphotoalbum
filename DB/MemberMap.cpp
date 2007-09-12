@@ -107,7 +107,7 @@ QStringList MemberMap::calculateClosure( QMap<QString,StringSet>& resultSoFar, c
     resultSoFar[group] = StringSet(); // Prevent against cykles.
     StringSet members = _members[category][group];
     StringSet result = members;
-    for( StringSet::Iterator it = members.begin(); it != members.end(); ++it ) {
+    for( StringSet::const_iterator it = members.begin(); it != members.end(); ++it ) {
         if ( resultSoFar.contains( *it ) ) {
             result += resultSoFar[*it];
         }
@@ -160,7 +160,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
     for( QMapIterator<QString,StringSet> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& list = it.data();
         if ( list.contains( oldName ) ) {
-            list.remove( oldName );
+            list.erase( oldName );
             list.insert( newName );
         }
     }
@@ -179,7 +179,7 @@ void MemberMap::deleteItem( DB::Category* category, const QString& name)
     QMap<QString, StringSet>& groupMap = _members[category->name()];
     for( QMapIterator<QString,StringSet> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.data();
-        items.remove( name );
+        items.erase( name );
     }
     _members[category->name()].remove(name);
 }
@@ -196,7 +196,7 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
     for( QMapIterator<QString,StringSet> it= groupMap.begin(); it != groupMap.end(); ++it ) {
         StringSet& items = it.data();
         if (items.contains( oldName ) ) {
-            items.remove( oldName );
+            items.erase( oldName );
             items.insert( newName );
         }
     }
@@ -266,7 +266,7 @@ void MemberMap::removeMemberFromGroup( const QString& category, const QString& g
 {
     Q_ASSERT( _members.contains(category) );
     if ( _members[category].contains( group ) )
-        _members[category][group].remove( item );
+        _members[category][group].erase( item );
     _dirty = true;
     if ( !_loading )
         MainWindow::DirtyIndicator::markDirty();
@@ -297,7 +297,7 @@ QMap<QString,StringSet> DB::MemberMap::inverseMap( const QString& category ) con
     for( QMap<QString,StringSet>::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt ) {
         QString group = mapIt.key();
         StringSet members = mapIt.data();
-        for( StringSet::Iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
+        for( StringSet::const_iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt ) {
             res[*memberIt].insert( group );
         }
     }

@@ -31,7 +31,7 @@ using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QStringList> Info::info( const QString& fileName, Set<QString> wantedKeys, bool returnFullExifName, Utilities::IptcCharset charset )
+QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, Utilities::IptcCharset charset )
 {
     QMap<QString, QStringList> result;
 
@@ -96,7 +96,7 @@ Info* Info::instance()
     return _instance;
 }
 
-Set<QString> Info::availableKeys()
+StringSet Info::availableKeys()
 {
     return _keys;
 }
@@ -112,9 +112,9 @@ QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, Utiliti
     return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset);
 }
 
-Set<QString> Info::standardKeys()
+StringSet Info::standardKeys()
 {
-    Set<QString> res;
+    StringSet res;
 
     // Standard EXIF
     res.insert( QString::fromLatin1( "Exif.Image.NewSubfileType" ) );

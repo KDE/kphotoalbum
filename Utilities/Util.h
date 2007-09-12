@@ -50,34 +50,26 @@ void deleteDemo();
 QString setupDemo();
 bool canReadImage( const QString& fileName );
 bool isVideo( const QString& fileName );
-QString readInstalledFile( const QString& fileName );
 QString getThumbnailDir( const QString& imageFile );
 QString getThumbnailFile( const QString& imageFile, int width, int height, int angle );
 void removeThumbNail( const QString& imageFile );
+QString locateDataFile(const QString& fileName);
 QString readFile( const QString& fileName );
 bool loadJPEG(QImage *img, const QString& imageFile, QSize* fullSize, int dim=-1);
-bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim=-1);
 bool isJPEG( const QString& fileName );
-
-template<class T>
-QValueList<T> shuffle(const QValueList<T>& list);
 
 typedef QMap<QString, QString> UniqNameMap;
 UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const QString& destdir );
 
-QString normalizedFileName( const QString& fileName );
-QString dereferenceSymLinks( const QString& fileName );
 bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripSlash( const QString& fileName );
 QString absoluteImageFileName( const QString& relativeName );
 QString relativeFolderName( const QString& fileName);
 QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );
-QStringList diff( const QStringList& list1, const QStringList& list2 );
 
 QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QImage::ScaleFree );
 QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
-QStringList removeDuplicates( const QStringList& items );
 
 QString cStringWithEncoding( const char *c_str, const IptcCharset charset );
 std::string encodeQString( const QString& str, const IptcCharset charset );

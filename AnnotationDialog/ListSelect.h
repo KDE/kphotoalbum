@@ -36,6 +36,8 @@ namespace CategoryListView { class CheckDropItem; }
 
 namespace AnnotationDialog
 {
+using Utilities::StringSet;
+
 class CompletableLineEdit;
 
 class ListSelect :public QWidget {

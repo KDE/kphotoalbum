@@ -23,6 +23,8 @@
 #include "DB/MemberMap.h"
 #include "CategoryItem.h"
 
+using Utilities::StringSet;
+
 QPixmap DB::Category::icon( int size ) const
 {
     return KGlobal::iconLoader()->loadIcon( iconName(), KIcon::Desktop, size );

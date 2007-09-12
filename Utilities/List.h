@@ -20,47 +20,36 @@
 #ifndef UTILITIES_LIST_H
 #define UTILITIES_LIST_H
 
+#include <qvaluelist.h>
+#include <qstringlist.h>
+
 namespace Utilities
 {
+    /** Merge two lists to one list without duplicating items.
+     *
+     * Returned list will have items of l1 in original order followed
+     * by those items of l2 that are not in l1.
+     */
     template <class T>
     QValueList<T> mergeListsUniqly(const QValueList<T>& l1,
                                    const QValueList<T>& l2);
 
+    /** Subtract a list from another list.
+     *
+     * Returned list will have those items of l1 that are not in l2,
+     * in the original order of l1.
+     */
     template <class T>
     QValueList<T> listSubtract(const QValueList<T>& l1,
                                const QValueList<T>& l2);
 
-
-
-    // These are very simple and unoptimal implementations.
-    // (Mainly because searching linked list is O(n).)
-    // Could be optimized later, but no need for that yet.
-
+    /** Shuffle a list.
+     *
+     * Returned list will have same items as the given list, but in
+     * random order.
+     */
     template <class T>
-    QValueList<T> mergeListsUniqly(const QValueList<T>& l1,
-                                   const QValueList<T>& l2)
-    {
-        QValueList<T> r;
-        const QValueList<T>* l[2] = {&l1, &l2};
-        for (int n = 0; n < 2; ++n)
-            for (typename QValueList<T>::const_iterator i = l[n]->begin();
-                 i != l[n]->end(); ++i)
-                if (!r.contains(*i))
-                    r.append(*i);
-        return r;
-    }
-
-    template <class T>
-    QValueList<T> listSubtract(const QValueList<T>& l1,
-                               const QValueList<T>& l2)
-    {
-        QValueList<T> r = l1;
-        for (typename QValueList<T>::const_iterator i = l2.begin();
-             i != l2.end(); ++i) {
-            r.remove(*i);
-        }
-        return r;
-    }
+    QValueList<T> shuffleList(const QValueList<T>& list);
 }
 
 #endif /* UTILITIES_LIST_H */

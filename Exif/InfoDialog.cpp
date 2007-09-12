@@ -27,6 +27,8 @@
 #include "DB/ImageDB.h"
 #include "Settings/SettingsData.h"
 
+using Utilities::StringSet;
+
 Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const char* name )
     :KDialogBase( Plain, i18n("EXIF Information"), Close, Close, parent, name, false )
 {
@@ -107,9 +109,9 @@ void Exif::Grid::slotCharsetChange( int charset )
     QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( _fileName, static_cast<Utilities::IptcCharset>(charset) );
     calculateMaxKeyWidth( map );
 
-    Set<QString> groups = exifGroups( map );
+    StringSet groups = exifGroups( map );
     int index = 0;
-    for( Set<QString>::Iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
+    for( StringSet::const_iterator groupIt = groups.begin(); groupIt != groups.end(); ++groupIt ) {
         if ( index %2 ) // We need to start next header in coloumn 0
             ++index;
 
@@ -176,9 +178,9 @@ QSize Exif::InfoDialog::sizeHint() const
     return QSize( 800, 400 );
 }
 
-Set<QString> Exif::Grid::exifGroups( const QMap<QString,QStringList>& exifInfo )
+StringSet Exif::Grid::exifGroups( const QMap<QString,QStringList>& exifInfo )
 {
-    Set<QString> result;
+    StringSet result;
     for( QMap<QString,QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
         result.insert( groupName( it.key() ) );
     }

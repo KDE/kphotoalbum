@@ -28,6 +28,8 @@
 
 namespace HTMLGenerator
 {
+using Utilities::StringSet;
+
 class Generator :public QProgressDialog, private ImageManager::ImageClient
 {
     Q_OBJECT
@@ -69,7 +71,7 @@ private:
     int _total;
     QString _tempDir;
     Utilities::UniqNameMap _nameMap;
-    Set< QPair<QString,int> > _generatedFiles;
+    Utilities::Set< QPair<QString,int> > _generatedFiles;
     StringSet _copiedVideos;
     bool _hasEnteredLoop;
 };

@@ -598,10 +598,6 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     if ( newPos < Cell(0,0) )
         newPos = Cell(0,0);
 
-    // Without modifiers, clear the old selection
-    if ( !(event->state() & ShiftButton) && !(event->state() & ControlButton) )
-        _selectedFiles.clear();
-
     // Update focus cell, and set selection
     if ( (event->state() & ShiftButton) )
         selectItems( currentPos, newPos, false );

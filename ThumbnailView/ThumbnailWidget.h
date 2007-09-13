@@ -133,7 +133,8 @@ protected:
     // Misc
     void updateGridSize();
     bool isMovementKey( int key );
-    void selectItems( const Cell& start, const Cell& end, bool doClear = true );
+    void selectItems( const Cell& start, const Cell& end );
+    void repaintAfterChangedSelection( const StringSet& oldSelection );
     void ensureCellsSorted( Cell& pos1, Cell& pos2 );
     QStringList reverseList( const QStringList& ) const;
     QValueVector<QString> reverseVector( const QValueVector<QString>& ) const;
@@ -213,6 +214,10 @@ private:
     StringSet _pendingRepaint;
 
     SortDirection _sortDirection;
+
+    // For Shift + movement key selection handling
+    Cell _cellOnFirstShiftMovementKey;
+    StringSet _selectionOnFirstShiftMovementKey;
 };
 
 }

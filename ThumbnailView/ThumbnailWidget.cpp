@@ -55,7 +55,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent, const char* na
      _selectionInteraction( this ),
      _mouseTrackingHandler( this ),
      _mouseHandler( &_mouseTrackingHandler ),
-     _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
+     _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst ),
+     _cellOnFirstShiftMovementKey(Cell::invalidCell())
 {
     _instance = this;
     setFocusPolicy( WheelFocus );
@@ -515,8 +516,11 @@ void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
         _wheelResizing = false;
         repaintScreen();
     }
-    else
+    else {
+        if ( event->key() == Qt::Key_Shift )
+            _cellOnFirstShiftMovementKey = Cell::invalidCell();
         QGridView::keyReleaseEvent(event);
+    }
 }
 
 void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
@@ -598,13 +602,19 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     if ( newPos < Cell(0,0) )
         newPos = Cell(0,0);
 
-    // Without modifiers, clear the old selection
-    if ( !(event->state() & ShiftButton) && !(event->state() & ControlButton) )
-        _selectedFiles.clear();
+    if ( event->state() & ShiftButton ) {
+        if ( _cellOnFirstShiftMovementKey == Cell::invalidCell() ) {
+            _cellOnFirstShiftMovementKey = currentPos;
+            _selectionOnFirstShiftMovementKey = _selectedFiles;
+        }
 
-    // Update focus cell, and set selection
-    if ( (event->state() & ShiftButton) )
-        selectItems( currentPos, newPos, false );
+        StringSet oldSelection = _selectedFiles;
+
+        _selectedFiles = _selectionOnFirstShiftMovementKey;
+        selectAllCellsBetween( _cellOnFirstShiftMovementKey, newPos, false );
+
+        repaintAfterChangedSelection( oldSelection );
+    }
 
     if ( ! (event->state() & ControlButton ) ) {
         selectCell( newPos );
@@ -624,14 +634,22 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 /**
  * Update selection to include files from start to end
  */
-void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell& end, bool doClear )
+void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell& end )
 {
     StringSet oldSelection = _selectedFiles;
-    if (doClear)
-        _selectedFiles.clear();
+
+    _selectedFiles.clear();
 
     selectAllCellsBetween( start, end, false );
 
+    repaintAfterChangedSelection(oldSelection);
+}
+
+/**
+ * Repaint cells that are in different state than in given selection.
+ */
+void ThumbnailView::ThumbnailWidget::repaintAfterChangedSelection( const StringSet& oldSelection )
+{
     for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_selectedFiles.contains( *it ) )
             updateCell( *it );
@@ -641,8 +659,8 @@ void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell&
         if ( !oldSelection.contains( *it ) )
             updateCell( *it );
     }
-
 }
+
 /**
  * Return the number of complete rows per page
  */

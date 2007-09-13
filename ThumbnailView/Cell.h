@@ -44,6 +44,12 @@ public:
         return _row == other._row && _col == other._col;
     }
 
+    static const Cell& invalidCell()
+    {
+        static Cell x(-1, -1);
+        return x;
+    }
+
 private:
     int _row;
     int _col;

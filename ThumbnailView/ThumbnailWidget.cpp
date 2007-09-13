@@ -67,7 +67,8 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget( QWidget* parent )
      _selectionInteraction( this ),
      _mouseTrackingHandler( this ),
      _mouseHandler( &_mouseTrackingHandler ),
-     _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst )
+     _sortDirection( Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst ),
+     _cellOnFirstShiftMovementKey(Cell::invalidCell())
 {
     _instance = this;
     setFocusPolicy( Qt::WheelFocus );
@@ -526,14 +527,15 @@ void ThumbnailView::ThumbnailWidget::keyReleaseEvent( QKeyEvent* event )
         _wheelResizing = false;
         repaintScreen();
     }
-    else
+    else {
+        if ( event->key() == Qt::Key_Shift )
+            _cellOnFirstShiftMovementKey = Cell::invalidCell();
         Q3GridView::keyReleaseEvent(event);
+    }
 }
 
 void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 {
-    static QString startPossition;
-
     if ( !( event->modifiers()& Qt::ShiftModifier ) && !( event->modifiers() &  Qt::ControlModifier ) ) {
         clearSelection();
     }
@@ -545,6 +547,13 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 
     // Update current position if it is outside view and we do not have any modifiers
     // that is if we just scroll arround.
+    //
+    // Use case is following: There is a selected item which is not
+    // visible because user has scrolled by other means than the
+    // keyboard (scrollbar or mouse wheel). In that case if the user
+    // presses keyboard movement key, the selection is forgotten and
+    // instead a currently visible cell is selected. So no scrolling
+    // of the view will be done.
     if ( !( event->modifiers()& Qt::ShiftModifier ) && !( event->modifiers() &  Qt::ControlModifier ) ) {
         if ( currentPos.row() < firstVisibleRow( PartlyVisible ) )
             currentPos = Cell( firstVisibleRow( FullyVisible ), currentPos.col() );
@@ -604,18 +613,25 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
     if ( newPos < Cell(0,0) )
         newPos = Cell(0,0);
 
-    // Update focus cell, and set selection
-    if ( (event->modifiers() & Qt::ShiftModifier) && !startPossition.isEmpty() )
-        selectItems( positionForFileName( startPossition ), newPos );
+    if ( event->modifiers() & Qt::ShiftModifier ) {
+        if ( _cellOnFirstShiftMovementKey == Cell::invalidCell() ) {
+            _cellOnFirstShiftMovementKey = currentPos;
+            _selectionOnFirstShiftMovementKey = _selectedFiles;
+        }
+
+        StringSet oldSelection = _selectedFiles;
+
+        _selectedFiles = _selectionOnFirstShiftMovementKey;
+        selectAllCellsBetween( _cellOnFirstShiftMovementKey, newPos, false );
+
+        repaintAfterChangedSelection( oldSelection );
+    }
 
     if ( ! (event->modifiers() & Qt::ControlModifier ) ) {
         selectCell( newPos );
         updateCell( currentPos.row(), currentPos.col() );
     }
     _currentItem = fileNameInCell( newPos );
-
-    if ( !( event->modifiers() & Qt::ShiftModifier ) || startPossition.isEmpty() )
-        startPossition = _currentItem;
 
     // Scroll if necesary
     if ( newPos.row() > lastVisibleRow( ThumbnailWidget::FullyVisible ) )
@@ -632,10 +648,19 @@ void ThumbnailView::ThumbnailWidget::keyboardMoveEvent( QKeyEvent* event )
 void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell& end )
 {
     StringSet oldSelection = _selectedFiles;
+
     _selectedFiles.clear();
 
     selectAllCellsBetween( start, end, false );
 
+    repaintAfterChangedSelection(oldSelection);
+}
+
+/**
+ * Repaint cells that are in different state than in given selection.
+ */
+void ThumbnailView::ThumbnailWidget::repaintAfterChangedSelection( const StringSet& oldSelection )
+{
     for( StringSet::const_iterator it = oldSelection.begin(); it != oldSelection.end(); ++it ) {
         if ( !_selectedFiles.contains( *it ) )
             updateCell( *it );
@@ -645,8 +670,8 @@ void ThumbnailView::ThumbnailWidget::selectItems( const Cell& start, const Cell&
         if ( !oldSelection.contains( *it ) )
             updateCell( *it );
     }
-
 }
+
 /**
  * Return the number of complete rows per page
  */

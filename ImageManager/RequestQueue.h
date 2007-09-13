@@ -77,6 +77,11 @@ private:
             return *_ptr == *other._ptr;
         }
 
+        operator const ImageRequest&() const
+        {
+            return *_ptr;
+        }
+
     private:
         ImageRequest * _ptr;
     };

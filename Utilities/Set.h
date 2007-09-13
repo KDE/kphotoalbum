@@ -23,17 +23,23 @@
 
 #include <QList>
 #include <QDataStream>
-#include <set>
+#include <QSet>
 
 namespace Utilities
 {
     template <class T>
-    class Set: public std::set<T>
+    class Set: public QSet<T>
     {
-        typedef std::set<T> Base;
+        typedef QSet<T> Base;
 
     public:
         Set() {}
+
+        Set(const QSet<T>& other):
+            QSet<T>(other)
+        {
+        }
+
         Set(const QList<T>& list)
         {
             insert(list);
@@ -44,23 +50,36 @@ namespace Utilities
             Base::insert(x);
         }
 
+        void erase(const T& x)
+        {
+            Base::remove(x);
+        }
+
+        typename Base::iterator erase(typename Base::iterator x)
+        {
+            return Base::erase(x);
+        }
+
         void insert(const QList<T>& list);
 
         QList<T> toList() const;
 
-        bool contains(const T& x) const
+        Set<T>& operator+=(const Set<T>& other)
         {
-            return count(x) > 0;
+            Base::operator+=(other);
+            return *this;
         }
-
-        Set<T>& operator+=(const Set<T>& other);
 
         Set<T> operator+(const Set<T>& other) const
         {
             return (Set<T>(*this) += other);
         }
 
-        Set<T>& operator-=(const Set<T>& other);
+        Set<T>& operator-=(const Set<T>& other)
+        {
+            Base::operator-=(other);
+            return *this;
+        }
 
         Set<T> operator-(const Set<T>& other) const
         {

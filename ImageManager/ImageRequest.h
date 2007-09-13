@@ -22,6 +22,7 @@
 #include <q3deepcopy.h>
 #include <qsize.h>
 #include <qmutex.h>
+#include <QHash>
 
 // WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 //
@@ -79,6 +80,11 @@ private:
     bool _loadedOK;
     bool _dontUpScale;
 };
+
+inline uint qHash(const ImageRequest& ir)
+{
+    return ::qHash(ir.fileName()) ^ ::qHash(ir.width()) ^ ::qHash(ir.angle());
+}
 
 }
 

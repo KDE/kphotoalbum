@@ -40,6 +40,15 @@ private:
     QString _child;
 };
 
+inline bool operator==(const DragItemInfo& v1, const DragItemInfo& v2)
+{
+    return (v1.parent() == v2.parent()) && (v1.child() == v2.child());
+}
+
+inline uint qHash(const DragItemInfo& key)
+{
+    return qHash(QPair<QString, QString>(key.parent(), key.child()));
+}
 
 QDataStream& operator<<( QDataStream& stream, const DragItemInfo& );
 QDataStream& operator>>( QDataStream& stream, DragItemInfo& );

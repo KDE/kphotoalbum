@@ -132,7 +132,7 @@ StringSet ImageInfo::itemsOfCategory( const QString& key ) const
 void ImageInfo::renameItem( const QString& key, const QString& oldValue, const QString& newValue )
 {
     StringSet& set = _categoryInfomation[key];
-    StringSet::const_iterator it = set.find( oldValue );
+    StringSet::iterator it = set.find( oldValue );
     if ( it != set.end() ) {
         _dirty = true;
         set.erase( it );

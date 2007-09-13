@@ -25,7 +25,7 @@
 #include "Settings/SettingsData.h"
 
 class Q3ListViewItem;
-class Q3WidgetStack;
+class QStackedWidget;
 
 namespace DB
 {
@@ -100,7 +100,7 @@ private:
     BrowserItemFactory* _listViewFactory;
     BrowserIconViewItemFactory* _iconViewFactory;
     BrowserItemFactory* _currentFactory;
-    Q3WidgetStack* _stack;
+    QStackedWidget* _stack;
     Q3IconView* _iconView;
     Q3ListView* _listView;
 };

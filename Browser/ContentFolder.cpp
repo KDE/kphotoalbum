@@ -110,7 +110,7 @@ int Browser::ContentFolder::compare( Folder* other, int col, bool asc ) const
 
 QString Browser::ContentFolder::imagesLabel() const
 {
-    return i18np("1 Image", "%n Images", _count.images());
+    return i18np("1 Image", "%1 Images", _count.images());
 }
 
 QString Browser::ContentFolder::videosLabel() const

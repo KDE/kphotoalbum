@@ -16,9 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 #include "GridResizeInteraction.h"
+#include <KSharedConfigPtr>
+#include <KGlobal>
 #include "ThumbnailWidget.h"
 #include "Settings/SettingsData.h"
-//Added by qt3to4:
 #include <QMouseEvent>
 
 ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailWidget* view )
@@ -48,6 +49,7 @@ void ThumbnailView::GridResizeInteraction::mouseReleaseEvent( QMouseEvent* )
 {
     _resizing = false;
     _view->repaintScreen();
+    KGlobal::config()->sync();
 }
 
 bool ThumbnailView::GridResizeInteraction::isResizingGrid()

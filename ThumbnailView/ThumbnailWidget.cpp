@@ -978,9 +978,9 @@ void ThumbnailView::ThumbnailWidget::reload(bool flushCache, bool clearSelection
 
 void ThumbnailView::ThumbnailWidget::repaintScreen()
 {
+    QPalette p;
     if ( Settings::SettingsData::instance()->thumbnailDarkBackground() ) {
-        QPalette p;
-        p.setColor( QPalette::Background, Qt::black );
+        p.setColor( QPalette::Base, Qt::black );
         p.setColor( QPalette::Foreground, Qt::white );
 
         QColor c = p.color(QPalette::Active, QColorGroup::Highlight);
@@ -991,12 +991,9 @@ void ThumbnailView::ThumbnailWidget::repaintScreen()
             p.setColor(QPalette::Active, QColorGroup::Highlight, highlightColor);
             p.setColor(QPalette::Inactive, QColorGroup::Highlight, highlightColor);
             p.setColor(QPalette::Disabled, QColorGroup::Highlight, highlightColor);
-            setPalette(p);
         }
     }
-    else {
-        setPalette(QPalette());  // fallback to default.
-    }
+    setPalette(p);  // fallback to default.
 
     for ( int row = firstVisibleRow( PartlyVisible ); row <= lastVisibleRow( PartlyVisible ); ++row )
         for ( int col = 0; col < numCols(); ++col )

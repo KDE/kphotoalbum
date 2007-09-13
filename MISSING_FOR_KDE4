@@ -1,0 +1,5 @@
+- (Viewer) drawing on images from the viewer does not work.
+- (ThumbnailView) Tool tip window in the thumbnail viewer does not work.
+- (MainWindow) Version number is not displayed in the splash screen
+- (ImageManager) Loading raw images does not work
+- (AnnotationDialog) The editor does not do spell checking.

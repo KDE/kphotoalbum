@@ -32,9 +32,6 @@ class SearchBar :public KToolBar {
 public:
     SearchBar( KMainWindow* parent );
 
-protected slots:
-    void reset();
-
 protected:
     virtual bool eventFilter( QObject* watched, QEvent* e );
 

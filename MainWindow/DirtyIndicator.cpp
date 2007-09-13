@@ -28,7 +28,7 @@ bool MainWindow::DirtyIndicator::_saveDirty = false;
 MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
     :QLabel( parent )
 {
-    _dirtyPix = QPixmap( SmallIcon( QString::fromLatin1( "3floppy_unmount" ) ) );
+    _dirtyPix = QPixmap( SmallIcon( QString::fromLatin1( "media-floppy" ) ) );
     setFixedWidth( _dirtyPix.width() );
     _instance = this;
 

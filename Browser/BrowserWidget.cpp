@@ -24,14 +24,13 @@
 #include "ContentFolder.h"
 #include "ImageFolder.h"
 #include <qtimer.h>
-//Added by qt3to4:
 #include <QHBoxLayout>
 #include "DB/ImageDB.h"
 #include "Utilities/Util.h"
 #include <q3listview.h>
 #include "Utilities/ShowBusyCursor.h"
 #include "BrowserItemFactory.h"
-#include <q3widgetstack.h>
+#include <QStackedWidget>
 #include <qlayout.h>
 #include "DB/CategoryCollection.h"
 #include "AnnotationDialog/ListViewItemHider.h"
@@ -46,8 +45,9 @@ Browser::BrowserWidget::BrowserWidget( QWidget* parent )
     Q_ASSERT( !_instance );
     _instance = this;
 
-    _stack = new Q3WidgetStack( this, "_stack" );
+    _stack = new QStackedWidget;
     QHBoxLayout* layout = new QHBoxLayout( this );
+    layout->setContentsMargins(0,0,0,0);
     layout->addWidget( _stack );
 
     _listView = new Q3ListView ( _stack, "_listView" );
@@ -285,18 +285,18 @@ void Browser::BrowserWidget::setupFactory()
 
     if ( type == DB::Category::ListView || type == DB::Category::ThumbedListView ) {
         _currentFactory = _listViewFactory;
-        _stack->raiseWidget( _listView );
+        _stack->setCurrentWidget( _listView );
     }
     else {
         _currentFactory = _iconViewFactory;
-        _stack->raiseWidget( _iconView );
+        _stack->setCurrentWidget( _iconView );
     }
     setFocus();
 }
 
 void Browser::BrowserWidget::setFocus()
 {
-    _stack->visibleWidget()->setFocus();
+    _stack->currentWidget()->setFocus();
 }
 
 QString Browser::BrowserWidget::currentCategory() const

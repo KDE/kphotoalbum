@@ -41,13 +41,13 @@ namespace
             DB::Category::ViewType viewtype;
             int thumbnailSize;
         } entry[] = {
-            { "Tokens", "cookie",
+            { "Tokens", "bookmark",
               true, DB::Category::IconView, 32 },
             { "Keywords", "password",
               true, DB::Category::IconView, 32 },
             { "Places", "network",
               true, DB::Category::ListView, 32 },
-            { "People", "personal",
+            { "People", "user",
               true, DB::Category::ThumbedListView, 96 },
             { 0, 0, false, DB::Category::ListView, 0 }
         };

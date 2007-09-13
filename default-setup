@@ -3,7 +3,7 @@
  <Categories>
   <Category viewtype="0" viewsize="0" icon="password" name="Keywords" show="1" />
   <Category viewtype="0" viewsize="0" icon="network" name="Places" show="1" />
-  <Category viewtype="0" viewsize="0" icon="personal" name="People" show="1" />
+  <Category viewtype="0" viewsize="0" icon="user" name="People" show="1" />
  </Categories>
  <images/>
 </KPhotoAlbum>

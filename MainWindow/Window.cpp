@@ -625,7 +625,7 @@ void MainWindow::Window::setupMenuBar()
 
     _runSlideShow = actionCollection()->addAction( "runSlideShow", this, SLOT( slotRunSlideShow() ) );
     _runSlideShow->setText( i18n("Run Slide Show") );
-    _runSlideShow->setIcon(  QIcon( QString::fromLatin1("video") ) );
+    _runSlideShow->setIcon( KIcon( QString::fromLatin1("datashow") ) );
     _runSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
 
     _runRandomSlideShow = actionCollection()->addAction( "runRandomizedSlideShow", this, SLOT( slotRunRandomizedSlideShow() ) );
@@ -711,7 +711,7 @@ void MainWindow::Window::setupMenuBar()
     _viewMenu = actionCollection()->add<KActionMenu>( "configureView" );
     _viewMenu->setText( i18n("Configure View") );
 
-    _viewMenu->setIcon( KIcon( QString::fromLatin1( "view_choose" ) ) );
+    _viewMenu->setIcon( KIcon( QString::fromLatin1( "fileview-detailed" ) ) );
     _viewMenu->setDelayed( false );
     connect( _browser, SIGNAL( showsContentView( bool ) ), _viewMenu, SLOT( setEnabled( bool ) ) );
 

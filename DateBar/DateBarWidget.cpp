@@ -80,17 +80,17 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent, const char* name )
     connect( _leftArrow, SIGNAL( clicked() ), this, SLOT( scrollLeft() ) );
 
     _zoomIn = new QToolButton( this );
-    _zoomIn->setIcon( KIcon( QString::fromLatin1( "viewmag+" ) ) );
+    _zoomIn->setIcon( KIcon( QString::fromLatin1( "zoom-in" ) ) );
     connect( _zoomIn, SIGNAL( clicked() ), this, SLOT( zoomIn() ) );
     connect( this, SIGNAL(canZoomIn(bool)), _zoomIn, SLOT( setEnabled( bool ) ) );
 
     _zoomOut = new QToolButton( this );
-    _zoomOut->setIcon(  KIcon( QString::fromLatin1( "viewmag-" ) ) );
+    _zoomOut->setIcon(  KIcon( QString::fromLatin1( "zoom-out" ) ) );
     connect( _zoomOut, SIGNAL( clicked() ), this, SLOT( zoomOut() ) );
     connect( this, SIGNAL(canZoomOut(bool)), _zoomOut, SLOT( setEnabled( bool ) ) );
 
     _cancelSelection = new QToolButton( this );
-    _cancelSelection->setIcon( KIcon( QString::fromLatin1( "cancel" ) ) );
+    _cancelSelection->setIcon( KIcon( QString::fromLatin1( "dialog-close" ) ) );
     connect( _cancelSelection, SIGNAL( clicked() ), this, SLOT( clearSelection() ) );
     _cancelSelection->setEnabled( false );
     _cancelSelection->setToolTip( i18n("Widen selection to include all images and videos again") );

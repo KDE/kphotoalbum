@@ -26,6 +26,8 @@
 #ifdef HAVE_KDCRAW
 #  include <libkdcraw/kdcraw.h>
 #endif
+// meh, the following line pollutes global namespace...
+#include <libkdcraw/rawfiles.h>
 #include <kdebug.h>
 
 namespace ImageManager
@@ -94,22 +96,10 @@ void RAWImageDecoder::_initializeExtensionLists()
 {
   static bool extensionListsInitialized = 0;
   if (! extensionListsInitialized) {
-    /* Known RAW file extensions. TODO: Complete */
-    _rawExtensions << QString::fromLatin1("crw")
-		   << QString::fromLatin1("cr2")
-		   << QString::fromLatin1("nef")
-		   << QString::fromLatin1("bay")
-		   << QString::fromLatin1("mos")
-		   << QString::fromLatin1("mrw")
-		   << QString::fromLatin1("orf")
-		   << QString::fromLatin1("cs1")
-		   << QString::fromLatin1("dc2")
-		   << QString::fromLatin1("kdc")
-		   << QString::fromLatin1("raf")
-		   << QString::fromLatin1("rdc")
-		   << QString::fromLatin1("x3f")
-		   << QString::fromLatin1("erf")
-		   << QString::fromLatin1("pef");
+      _rawExtensions = QStringList::split( ' ', QString::fromAscii(raw_file_extentions) );
+      for (QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it)
+          (*it).remove( QString::fromAscii("*.") );
+
     _standardExtensions << QString::fromLatin1("jpg")
 			<< QString::fromLatin1("JPG")
 			<< QString::fromLatin1("jpeg")

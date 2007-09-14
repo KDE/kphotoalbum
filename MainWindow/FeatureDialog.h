@@ -37,6 +37,7 @@ protected:
     static bool hasSQLDBSupport();
     static bool hasEXIV2Support();
     static bool hasEXIV2DBSupport();
+    static bool hasRAWSupport();
 };
 
 class HelpBrowser :public QTextBrowser

@@ -75,6 +75,10 @@ FeatureDialog::FeatureDialog( QWidget* parent, const char* name )
                   "<p>KPhotoAlbum uses the <a href=\"http://freshmeat.net/projects/exiv2/\">EXIV2 library</a> "
                   "to read EXIF information from images</p>" );
 
+    text += i18n( "<h1><a name=\"kdcraw\">RAW file support</a></h1>"
+                  "<p>In addition to regular JPEG files, KPhotoAlbum supports working with various RAW data formats through the "
+                  "<a href=\"http://www.kipi-plugins.org/\">libkdcraw</a> library.</p>");
+
 
     text += i18n( "<h1><a name=\"database\">SQL Database Support</a></h1>"
                   "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
@@ -148,10 +152,18 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
 #endif
 }
 
+bool MainWindow::FeatureDialog::hasRAWSupport() {
+#ifdef HASKDCRAW
+    return true;
+#else
+    return false;
+#endif
+}
+
 bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
-    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport();
+    return hasKIPISupport() && hasSQLDBSupport() && hasEXIV2Support() && hasEXIV2DBSupport() && hasRAWSupport();
 }
 
 struct Data
@@ -169,6 +181,7 @@ QString MainWindow::FeatureDialog::featureString()
     QValueList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
     features << Data( i18n("EXIF info supported"), QString::fromLatin1("#exiv2"), hasEXIV2Support() );
+    features << Data( i18n("RAW file decoding"), QString::fromLatin1("#kdcraw"), hasRAWSupport() );
     features << Data( i18n("SQL Database Support"), QString::fromLatin1("#database"), hasSQLDBSupport() );
     features << Data( i18n( "Sqlite Database Support (used for EXIF searches)" ), QString::fromLatin1("#database"),
                       hasEXIV2Support() && hasEXIV2DBSupport() );

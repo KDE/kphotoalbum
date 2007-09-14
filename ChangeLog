@@ -1,3 +1,7 @@
+2007-09-14  Jan Kundrat  <jkt@gentoo.org>
+
+	* Make libkdcraw support optional
+
 2007-09-13  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use list of RAW file extensions from libkdcraw instead of hardcoded values

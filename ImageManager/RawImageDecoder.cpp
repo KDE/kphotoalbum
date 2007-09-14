@@ -23,16 +23,18 @@
 #include <qwmatrix.h>
 #include <qstringlist.h>
 #include "Settings/SettingsData.h"
-#include <libkdcraw/kdcraw.h>
-// meh, the following line pollutes global namespace...
-#include <libkdcraw/rawfiles.h>
-#include <kdebug.h>
+#ifdef HASKDCRAW
+#  include <libkdcraw/kdcraw.h>
+#  include <libkdcraw/rawfiles.h>
+#  include <kdebug.h>
+#endif
 
 namespace ImageManager
 {
 
 bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* fullSize, int dim)
 {
+#if HASKDCRAW
     /* width and height seem to be only hints, ignore */
     Q_UNUSED( dim );
 
@@ -77,6 +79,9 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
         *fullSize = img->size();
 
     return true;
+#else
+    return false;
+#endif
 }
 
 QStringList RAWImageDecoder::_rawExtensions;
@@ -87,7 +92,11 @@ void RAWImageDecoder::_initializeExtensionLists()
 {
   static bool extensionListsInitialized = 0;
   if (! extensionListsInitialized) {
+#ifdef HASKDCRAW
       _rawExtensions = QStringList::split( ' ', QString::fromAscii(raw_file_extentions) );
+#else
+      _rawExtensions = QStringList();
+#endif
       for (QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it)
           (*it).remove( QString::fromAscii("*.") );
 

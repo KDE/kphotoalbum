@@ -25,9 +25,8 @@
 #include <config-kpa-kdcraw.h>
 #ifdef HAVE_KDCRAW
 #  include <libkdcraw/kdcraw.h>
+#  include <libkdcraw/rawfiles.h>
 #endif
-// meh, the following line pollutes global namespace...
-#include <libkdcraw/rawfiles.h>
 #include <kdebug.h>
 
 namespace ImageManager
@@ -96,7 +95,9 @@ void RAWImageDecoder::_initializeExtensionLists()
 {
   static bool extensionListsInitialized = 0;
   if (! extensionListsInitialized) {
+#ifdef HAVE_KDCRAW
       _rawExtensions = QStringList::split( ' ', QString::fromAscii(raw_file_extentions) );
+#endif /* HAVE_KDCRAW */
       for (QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it)
           (*it).remove( QString::fromAscii("*.") );
 

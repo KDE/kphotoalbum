@@ -177,12 +177,12 @@ void ImageManager::ImageLoader::writeThumbnail( ImageRequest* request, QImage im
 
         QFileInfo fi( request->fileName() );
         QImage scaledImg = Utilities::scaleImage(img, *it, *it, QImage::ScaleMin );
-        scaledImg.setText( "Software","en",QString::fromLatin1( "KPhotoAlbum" ) );
-        scaledImg.setText( "Thumb::URI", "en", requestURL( request ) );
-        scaledImg.setText( "Thumb::MTime", "en", QString::number( fi.lastModified().toTime_t() ) );
-        scaledImg.setText( "Thumb::Size", "en", QString::number( fi.size() ) );
-        scaledImg.setText( "Thumb::Image::Width", "en", QString::number( request->fullSize().width() ) );
-        scaledImg.setText( "Thumb::Image::Height", "en", QString::number( request->fullSize().height() ) );
+        scaledImg.setText( "Software","",QString::fromLatin1( "KPhotoAlbum" ) );
+        scaledImg.setText( "Thumb::URI", "", requestURL( request ) );
+        scaledImg.setText( "Thumb::MTime", "", QString::number( fi.lastModified().toTime_t() ) );
+        scaledImg.setText( "Thumb::Size", "", QString::number( fi.size() ) );
+        scaledImg.setText( "Thumb::Image::Width", "", QString::number( request->fullSize().width() ) );
+        scaledImg.setText( "Thumb::Image::Height", "", QString::number( request->fullSize().height() ) );
         scaledImg.save( path, "PNG" );
     }
 }

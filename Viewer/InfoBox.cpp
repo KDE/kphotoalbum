@@ -108,7 +108,6 @@ void Viewer::InfoBox::setSize()
 
 void Viewer::InfoBox::mousePressEvent( QMouseEvent* e )
 {
-    qDebug("Hi");
     // if we are just over a link, don't change the cursor to 'movement':
     // that would be irritating
     if (!_hoveringOverLink)

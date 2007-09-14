@@ -63,12 +63,13 @@ void Viewer::InfoBox::setInfo( const QString& text, const QMap<int, QPair<QStrin
 
 void Viewer::InfoBox::setSize()
 {
-    int width = viewport()->width();
+    int width = 100;
     int height = 0, h2;
 
     do {
+        document()->setTextWidth(width);
         width +=10;
-        height = heightForWidth( width );
+        height = static_cast<int>( document()->size().height() );
     } while ( height > width && width < _viewer->width()/3 );
     height = qMin( height, _viewer->height()/3 );
 
@@ -107,6 +108,7 @@ void Viewer::InfoBox::setSize()
 
 void Viewer::InfoBox::mousePressEvent( QMouseEvent* e )
 {
+    qDebug("Hi");
     // if we are just over a link, don't change the cursor to 'movement':
     // that would be irritating
     if (!_hoveringOverLink)

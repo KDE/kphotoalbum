@@ -60,7 +60,7 @@ void Viewer::InfoBox::setInfo( const QString& text, const QMap<int, QPair<QStrin
 
 void Viewer::InfoBox::setSize()
 {
-    int width = contentsWidth();
+    int width = 100;
     int height = 0, h2;
 
     do {

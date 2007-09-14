@@ -500,6 +500,14 @@ void MainWindow::Window::launchViewer( QStringList files, bool reuse, bool slide
         seek = files.indexOf(fileName);
     }
 
+    if ( !files.count() )
+        files = DB::ImageDB::instance()->currentScope( false );
+
+    if ( !files.count() ) {
+        KMessageBox::sorry( this, i18n("There are no images to be shown.") );
+        return;
+    }
+
     if (random)
         files = Utilities::shuffleList(files);
 

@@ -80,21 +80,43 @@ fi
 
 
 # -------------------------------------------------- kdcraw Check
-if test "$PKGCONFIGFOUND" = "yes" ; then
-   have_libkdcraw=no
+enable_kdcraw_support="yes"
+AC_MSG_CHECKING([whether support for RAW file decoding via libkdcraw should be compiled in])
+AC_ARG_ENABLE(kdcraw,
+[AC_HELP_STRING([--enable-kdcraw],
+                [Whether to link against the libkdcraw library for RAW file decoding])],
+[case "${enableval}" in
+        yes)
+                AC_MSG_RESULT([yes])
+                ;;
+        no)
+                AC_MSG_RESULT([no])
+                enable_kdcraw_support="no"
+                ;;
+        *)
+                AC_MSG_ERROR([bad value ${enableval} for --enable-kdcraw])
+                ;;
+esac
+], [AC_MSG_RESULT([yes])])
 
-   KDE_PKG_CHECK_MODULES(LIBKDCRAW, libkdcraw >= 0.1.1,
+if test "$enable_kdcraw_support" = "yes"; then
+  if test "$PKGCONFIGFOUND" = "no" ; then
+    AC_MSG_ERROR([Can't find the libkdcraw library, pkgconfig unusable,
+                  please re-run with --disable-kdcraw]);
+  fi
+
+  KDE_PKG_CHECK_MODULES(LIBKDCRAW, libkdcraw >= 0.1.1,
                          have_libkdcraw=yes, have_libkdcraw=no)
 
-   if test "x$have_libkdcraw" = "xno"; then
-       AC_MSG_RESULT([no])
-       AC_MSG_ERROR([Can't find the libkdcraw library]);
-   else
-       AC_MSG_RESULT([yes])
-   fi
+  if test "$have_libkdcraw" = "no"; then
+    AC_MSG_ERROR([Can't find the libkdcraw library, please disable it by --disable-kdcraw. You won't be able to read RAW files if you do so.]);  
+  else
+    AC_DEFINE( HASKDCRAW, 1, [Set to 1 if you have libkdcraw installed])
+  fi
+  AM_CONDITIONAL(compile_with_kdcraw, true)
 else
-   AC_MSG_ERROR([Can't find the libkdcraw library, pkgconfig unusable]);
-fi 
+  AM_CONDITIONAL(compile_with_kdcraw, false)
+fi
 
 
 # -------------------------------------------------- KexiDB Check

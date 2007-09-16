@@ -71,7 +71,9 @@ bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTrans
 {
     if ( _scale ) {
         QPainter* p = _display->painter();
-        p->setPen( QPen(Qt::black, 3, Qt::DashDotLine) );
+        QPen pen(Qt::black, 3, Qt::DashDotLine);
+        pen.setCosmetic(true);
+        p->setPen( pen );
         p->drawRect( QRect(_start, e->pos()) );
         delete p;
         return true;

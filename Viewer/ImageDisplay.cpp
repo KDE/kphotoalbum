@@ -141,8 +141,10 @@ void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 
 void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( event->state() == Qt::NoButton )
+    if ( event->state() == Qt::NoButton ) {
         showCursor();
+        return;
+    }
 
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );

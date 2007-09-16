@@ -69,7 +69,7 @@ public:
     KActionCollection* actions();
 
 public slots:
-    virtual bool close(bool alsoDelete );
+    virtual bool close(bool alsoDelete = false );
     void updateInfoBox();
 
 protected:

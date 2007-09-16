@@ -132,6 +132,7 @@ Viewer::ViewerWidget::ViewerWidget()
     _slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
     connect( _slideShowTimer, SIGNAL( timeout() ), this, SLOT( slotSlideShowNextFromTimer() ) );
     _speedDisplay = new SpeedDisplay( this );
+    _speedDisplay->hide();
 
     setFocusPolicy( Qt::StrongFocus );
 

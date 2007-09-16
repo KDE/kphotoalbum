@@ -29,14 +29,17 @@
 Viewer::SpeedDisplay::SpeedDisplay( QWidget* parent )
     :QDialog( parent )
 {
-    setWindowFlags( Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WX11BypassWM | Qt::WStyle_StaysOnTop );
+    setWindowFlags( Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint );
+
     _label = new QLabel( this );
     _layout = new QHBoxLayout( this );
+    _layout->setContentsMargins(0,0,0,0);
     _layout->addWidget( _label );
     _timer = new QTimer( this );
     connect( _timer, SIGNAL( timeout() ), this, SLOT( hide() ) );
 
     QPalette pal = _label->palette();
+    _label->setAutoFillBackground( true );
     pal.setColor( QPalette::Background, Qt::yellow );
     _label->setPalette( pal );
 

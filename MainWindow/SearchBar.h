@@ -35,6 +35,9 @@ public:
 protected:
     virtual bool eventFilter( QObject* watched, QEvent* e );
 
+public slots:
+    void reset();
+
 signals:
     void textChanged( const QString& );
     void returnPressed();

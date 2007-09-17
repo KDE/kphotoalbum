@@ -279,6 +279,7 @@ void MainWindow::Window::delayedInit()
 
     tellPeopleAboutTheVideos();
     checkIfAllFeaturesAreInstalled();
+
 }
 
 
@@ -691,7 +692,7 @@ void MainWindow::Window::setupMenuBar()
     action = actionCollection()->addAction( "rebuildMD5s", this, SLOT( slotRecalcCheckSums() ) );
     action->setText( i18n("Recalculate Checksum") );
 
-    action = actionCollection()->addAction( "rescan", this, SLOT( slotRescan() ) );
+    action = actionCollection()->addAction( "rescan", DB::ImageDB::instance(), SLOT( slotRescan() ) );
     action->setText( i18n("Rescan for Images and Videos") );
 
 #ifdef HAVE_EXIV2
@@ -751,10 +752,11 @@ void MainWindow::Window::setupMenuBar()
     // The help menu
     KStandardAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
 
-    KToggleAction* taction = actionCollection()->add<KToggleAction>( "showToolTipOnImages",
-                                                                     _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
+    KToggleAction* taction = actionCollection()->add<KToggleAction>( "showToolTipOnImages" );
     taction->setText( i18n("Show Tooltips in Thumbnails Window") );
     taction->setShortcut( Qt::CTRL+Qt::Key_T );
+    connect( taction, SIGNAL(toggled(bool)), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
+
 
     action = actionCollection()->addAction( "runDemo", this, SLOT( runDemo() ) );
     action->setText( i18n("Run KPhotoAlbum Demo") );

@@ -18,6 +18,7 @@
 
 #ifndef THUMBNAILTOOLTIP_H
 #define THUMBNAILTOOLTIP_H
+#include <QTemporaryFile>
 #include <qtimer.h>
 #include <qlabel.h>
 //Added by qt3to4:
@@ -25,6 +26,7 @@
 #include "ImageManager/ImageClient.h"
 namespace DB { class ImageInfo; }
 
+class QTemporaryFile;
 namespace ThumbnailView
 {
 class ThumbnailWidget;
@@ -36,7 +38,6 @@ public:
     ThumbnailToolTip( ThumbnailWidget* view );
     void showToolTips( bool force );
     virtual void setActive(bool);
-    void clear();
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
 
 protected:
@@ -47,9 +48,9 @@ protected:
 private:
     ThumbnailWidget* _view;
     QString _currentFileName;
-    QStringList _loadedImages;
     bool _widthInverse;
     bool _heightInverse;
+    QTemporaryFile* _tmpFile;
 };
 
 }

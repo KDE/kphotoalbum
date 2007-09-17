@@ -63,4 +63,9 @@ bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
     return false;
 }
 
+void MainWindow::SearchBar::reset()
+{
+    _edit->clear();
+}
+
 #include "SearchBar.moc"

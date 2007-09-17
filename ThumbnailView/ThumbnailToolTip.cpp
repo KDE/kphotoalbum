@@ -17,9 +17,9 @@
 */
 
 #include "ThumbnailToolTip.h"
+#include <QTemporaryFile>
 #include <QDesktopWidget>
 #include <qcursor.h>
-//Added by qt3to4:
 #include <QEvent>
 #include <QLabel>
 #include <Q3Frame>
@@ -34,6 +34,8 @@
 #include "DB/ImageDB.h"
 #include <kdebug.h>
 
+QTemporaryFile* _tmpFileForThumbnailView = 0;
+
 /**
    \class ThumbnailToolTip
    This class takes care of showing tooltips for the individual items in the thumbnail view.
@@ -44,17 +46,11 @@
 
 ThumbnailView::ThumbnailToolTip::ThumbnailToolTip( ThumbnailWidget* view )
     : QLabel( view, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_TopLevel
-#ifdef TEMPORARILY_REMOVED
-              | WX11BypassWM
-#endif
+              | Qt::WX11BypassWM
               | Qt::WStyle_Tool ), _view( view ),
-      _widthInverse( false ), _heightInverse( false ), _tmpFile(0)
+      _widthInverse( false ), _heightInverse( false )
 {
-
-
-#ifdef TEMPORARILY_REMOVED
-    setAlignment( AlignAuto | Qt::AlignTop );
-#endif
+    setAlignment( Qt::AlignLeft | Qt::AlignTop );
     setFrameStyle( Q3Frame::Box | Q3Frame::Plain );
     setLineWidth(1);
     setMargin(1);
@@ -83,7 +79,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
             int size = Settings::SettingsData::instance()->previewSize();
             if ( size != 0 ) {
                 setText( QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
-                         .arg(_tmpFile->fileName()).
+                         .arg(_tmpFileForThumbnailView->fileName()).
                          arg(Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
             else {
@@ -158,8 +154,6 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
 
 bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 {
-    qDebug() << fileName;
-
     int size = Settings::SettingsData::instance()->previewSize();
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
     if ( size != 0 ) {
@@ -177,12 +171,11 @@ bool ThumbnailView::ThumbnailToolTip::loadImage( const QString& fileName )
 void ThumbnailView::ThumbnailToolTip::pixmapLoaded( const QString& fileName, const QSize& /*size*/,
                                     const QSize& /*fullSize*/, int /*angle*/, const QImage& image, bool /*loadedOK*/ )
 {
-    delete _tmpFile;
-    _tmpFile = new QTemporaryFile(this);
-    _tmpFile->open();
+    delete _tmpFileForThumbnailView;
+    _tmpFileForThumbnailView = new QTemporaryFile(this);
+    _tmpFileForThumbnailView->open();
 
-    qDebug() << _tmpFile->fileName();
-    image.save(_tmpFile, "PNG" );
+    image.save(_tmpFileForThumbnailView, "PNG" );
     if ( fileName == _currentFileName )
         showToolTips(true);
 }

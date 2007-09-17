@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <QTemporaryFile>
 #include "Settings/SettingsData.h"
 #include "MainWindow/Window.h"
 #include <kapplication.h>
@@ -30,6 +31,8 @@
 #include "Settings/SettingsData.h"
 #include <klocale.h>
 #include <kdebug.h>
+
+extern QTemporaryFile* _tmpFileForThumbnailView;
 
 int main( int argc, char** argv ) {
     KAboutData aboutData( "kphotoalbum", 0, ki18n("KPhotoAlbum"), "SVN",
@@ -73,6 +76,9 @@ int main( int argc, char** argv ) {
         view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
         int code = app.exec();
+
+        // To avoid filling /tmp up with temporary files from the thumbnail tooltips, we need to destruct this one.
+        delete _tmpFileForThumbnailView;
         return code;
     }
 #ifdef SQLDB_SUPPORT

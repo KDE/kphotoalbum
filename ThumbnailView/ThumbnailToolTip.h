@@ -18,7 +18,6 @@
 
 #ifndef THUMBNAILTOOLTIP_H
 #define THUMBNAILTOOLTIP_H
-#include <QTemporaryFile>
 #include <qtimer.h>
 #include <qlabel.h>
 //Added by qt3to4:
@@ -50,7 +49,6 @@ private:
     QString _currentFileName;
     bool _widthInverse;
     bool _heightInverse;
-    QTemporaryFile* _tmpFile;
 };
 
 }

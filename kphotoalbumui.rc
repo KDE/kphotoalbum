@@ -94,7 +94,6 @@
     <Action name="go_back"/>
     <Action name="go_forward"/>
     <Action name="runSlideShow"/>
-    <Action name="configureView"/>
   </ToolBar>
 
 

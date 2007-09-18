@@ -18,27 +18,28 @@
 
 #ifndef VIEWHANDLER_H
 #define VIEWHANDLER_H
-#include "Viewer/DisplayAreaHandler.h"
 #include <qpoint.h>
 //Added by qt3to4:
 #include <QMouseEvent>
+class ImageDisplay;
 class QRubberBand;
 
 namespace Viewer
 {
 
-class ViewHandler :public DisplayAreaHandler {
+class ViewHandler :public QObject {
 
 public:
     ViewHandler( ImageDisplay* display );
-    virtual bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
-    virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    bool mousePressEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    bool mouseReleaseEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
+    bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
 private:
     bool _scale, _pan;
     QPoint _start, _untranslatedStart, _last;
     double _errorX, _errorY;
     QRubberBand* _rubberBand;
+    ImageDisplay* _display;
 };
 
 }

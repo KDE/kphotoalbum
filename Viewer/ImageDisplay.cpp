@@ -26,7 +26,6 @@
 #include <klocale.h>
 #include "Settings/SettingsData.h"
 #include "Viewer/ViewHandler.h"
-#include "Viewer/DrawHandler.h"
 #include "ImageManager/Manager.h"
 #include <qcursor.h>
 #include <qapplication.h>
@@ -75,11 +74,7 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
     :Display( parent ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
 {
     _viewHandler = new ViewHandler( this );
-    _drawHandler = new DrawHandler( this );
-    _currentHandler = _viewHandler;
     _cache.setAutoDelete( true );
-
-    connect( _drawHandler, SIGNAL( redraw() ), this, SLOT( drawAll() ) );
 
     setMouseTracking( true );
     _cursorTimer = new QTimer( this );
@@ -117,7 +112,7 @@ void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
     disableCursorHiding();
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
-    bool block = _currentHandler->mousePressEvent( &e, event->pos(), ratio );
+    bool block = _viewHandler->mousePressEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mousePressEvent( event );
     update();
@@ -132,7 +127,7 @@ void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
-    bool block = _currentHandler->mouseMoveEvent( &e, event->pos(), ratio );
+    bool block = _viewHandler->mouseMoveEvent( &e, event->pos(), ratio );
     if ( !block )
         QWidget::mouseMoveEvent( event );
     update();
@@ -144,7 +139,7 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->buttons(), event->modifiers() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
-    bool block = _currentHandler->mouseReleaseEvent( &e, event->pos(), ratio );
+    bool block = _viewHandler->mouseReleaseEvent( &e, event->pos(), ratio );
     if ( !block ) {
         QWidget::mouseReleaseEvent( event );
     }
@@ -193,11 +188,6 @@ void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
             potentialyLoadFullSize(); // Only do if we scale much bigger.
     }
     updatePreload();
-}
-
-Viewer::DrawHandler* Viewer::ImageDisplay::drawHandler()
-{
-    return _drawHandler;
 }
 
 void Viewer::ImageDisplay::paintEvent( QPaintEvent* )

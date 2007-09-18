@@ -127,7 +127,6 @@ public:
     intProperty( Viewer, viewerCacheSize, setViewerCacheSize, 25 );
 
     boolProperty( Viewer, showInfoBox, setShowInfoBox, true );
-    boolProperty( Viewer, showDrawings, setShowDrawings, true );
     boolProperty( Viewer, showDescription, setShowDescription, true );
     boolProperty( Viewer, showDate, setShowDate, true );
     boolProperty( Viewer, showImageSize, setShowImageSize, true );

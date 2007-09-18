@@ -16,12 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "ImageDisplay.h"
 #include <QRubberBand>
 #include "Viewer/ViewHandler.h"
 #include <qpainter.h>
 #include <qapplication.h>
 #include <qcursor.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 #include <kdebug.h>
 
@@ -31,7 +31,7 @@
  */
 
 Viewer::ViewHandler::ViewHandler( ImageDisplay* display )
-    :DisplayAreaHandler( display ), _scale( false ), _pan( false ), _rubberBand( new QRubberBand( QRubberBand::Rectangle, display ) )
+    :QObject( display ), _scale( false ), _pan( false ), _rubberBand( new QRubberBand( QRubberBand::Rectangle, display ) ), _display(display)
 {
 
 }

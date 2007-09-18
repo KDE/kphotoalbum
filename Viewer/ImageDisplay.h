@@ -40,7 +40,6 @@ namespace DB
 namespace Viewer
 {
 class Draw;
-class DrawHandler;
 class DisplayAreaHandler;
 class ViewHandler;
 class ViewerWidget;
@@ -59,7 +58,6 @@ Q_OBJECT
 public:
     ImageDisplay( QWidget* parent );
     bool setImage( DB::ImageInfoPtr info, bool forward );
-    DrawHandler* drawHandler();
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
     void setImageList( const QStringList& list );
@@ -98,7 +96,6 @@ protected:
     /** display zoom factor in title of display window */
     void updateZoomCaption();
 
-    friend class DrawHandler;
     friend class ViewHandler;
     void zoom( QPoint p1, QPoint p2 );
     void normalize( QPoint& p1, QPoint& p2 );
@@ -116,8 +113,6 @@ private:
     QImage _croppedAndScaledImg;
 
     ViewHandler* _viewHandler;
-    DrawHandler* _drawHandler;
-    DisplayAreaHandler* _currentHandler;
 
     // zoom points in the coordinate system of the image.
     QPoint _zStart;

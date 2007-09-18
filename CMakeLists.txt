@@ -86,7 +86,6 @@ set(libViewer_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/LineDraw.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/DrawList.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewerWidget.cpp 
-	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/DrawHandler.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ImageDisplay.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewHandler.cpp 
 	${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SpeedDisplay.cpp 

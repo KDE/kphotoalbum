@@ -31,7 +31,6 @@
 #include "Utilities/Util.h"
 #include "ShowOptionAction.h"
 #include <qtimer.h>
-#include "DrawHandler.h"
 #include <kwindowsystem.h>
 #include "SpeedDisplay.h"
 #include "MainWindow/Window.h"
@@ -46,6 +45,7 @@
 #include "VideoDisplay.h"
 #include "MainWindow/DirtyIndicator.h"
 #include "ViewerWidget.h"
+#include "ImageDisplay.h"
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <qfileinfo.h>

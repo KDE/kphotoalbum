@@ -1012,7 +1012,7 @@ void Settings::SettingsDialog::createPluginPage()
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), top );
     lay1->addWidget( label );
 
-    _pluginConfig = KIPI::PluginLoader::componentData()->configWidget( top );
+    _pluginConfig = KIPI::PluginLoader::instance()->configWidget( top );
     lay1->addWidget( _pluginConfig );
 
     _delayLoadingPlugins = new QCheckBox( i18n("Delay loading plug-ins till plug-in menu is opened"), top );

@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include <QRubberBand>
 #include "Viewer/ViewHandler.h"
 #include <qpainter.h>
 #include <qapplication.h>
@@ -30,7 +31,7 @@
  */
 
 Viewer::ViewHandler::ViewHandler( ImageDisplay* display )
-    :DisplayAreaHandler( display ), _scale( false ), _pan( false )
+    :DisplayAreaHandler( display ), _scale( false ), _pan( false ), _rubberBand( new QRubberBand( QRubberBand::Rectangle, display ) )
 {
 
 }
@@ -61,6 +62,7 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
     } else if (_scale) {
         // scaling
         _start = e->pos();
+        _untranslatedStart = unTranslatedPos;
         return true;
     } else {
         return true;
@@ -70,12 +72,8 @@ bool Viewer::ViewHandler::mousePressEvent( QMouseEvent*e,  const QPoint& unTrans
 bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTranslatedPos, double scaleFactor )
 {
     if ( _scale ) {
-        QPainter* p = _display->painter();
-        QPen pen(Qt::black, 3, Qt::DashDotLine);
-        pen.setCosmetic(true);
-        p->setPen( pen );
-        p->drawRect( QRect(_start, e->pos()) );
-        delete p;
+        _rubberBand->setGeometry( QRect( _untranslatedStart, unTranslatedPos ) );
+        _rubberBand->show();
         return true;
     }
     else if ( _pan ) {
@@ -100,6 +98,7 @@ bool Viewer::ViewHandler::mouseMoveEvent( QMouseEvent* e,  const QPoint& unTrans
 bool Viewer::ViewHandler::mouseReleaseEvent( QMouseEvent* e,  const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
     if ( _scale ) {
+        _rubberBand->hide();
         _scale = false;
         if ( (e->pos()-_start).manhattanLength() > 1 ) {
             _display->zoom( _start, e->pos() );

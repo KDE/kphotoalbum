@@ -25,7 +25,6 @@
 #include <QList>
 #include <QResizeEvent>
 #include <QWheelEvent>
-#include <ktoolbar.h>
 #include <kiconloader.h>
 #include <kaction.h>
 #include <klocale.h>
@@ -96,12 +95,14 @@ Viewer::ViewerWidget::ViewerWidget()
 
     _latest = this;
 
+    // PENDING(blackie) Is this layout needed anymore?
     QVBoxLayout* layout = new QVBoxLayout( this );
     layout->setContentsMargins( 0,0,0,0 );
 
+    // PENDING(blackie) Is this stack needed anymore=
     _stack = new QStackedWidget;
 
-    _display = _imageDisplay = new ImageDisplay( _stack ); // Must be created before the toolbar.
+    _display = _imageDisplay = new ImageDisplay( _stack );
     _stack->addWidget( _imageDisplay );
 
     _textDisplay = new TextDisplay( _stack );
@@ -115,9 +116,6 @@ Viewer::ViewerWidget::ViewerWidget()
     connect( _imageDisplay, SIGNAL( imageReady() ), this, SLOT( updateInfoBox() ) );
     connect( _imageDisplay, SIGNAL( setCaptionInfo(const QString&) ),
              this, SLOT( setCaptionWithDetail(const QString&) ) );
-    createToolBar();
-    _toolbar->hide();
-    layout->addWidget( _toolbar );
     layout->addWidget( _stack );
 
     // This must not be added to the layout, as it is standing on top of
@@ -162,10 +160,6 @@ void Viewer::ViewerWidget::setupContextMenu()
     createWallPaperMenu();
     createInvokeExternalMenu();
 
-    _drawOnImages = _actions->addAction( "viewer-draw-on-image", this, SLOT( startDraw() ) );
-    _drawOnImages->setText( i18n("Draw on Image") );
-    _popup->addAction(_drawOnImages);
-
     QAction* action = _actions->addAction( "viewer-edit-image-properties", this, SLOT( editImage() ) );
     action->setText( i18n("Annotate...") );
     action->setShortcut( Qt::CTRL+Qt::Key_1 );
@@ -209,14 +203,6 @@ void Viewer::ViewerWidget::createShowContextMenu()
     taction->setShortcut( Qt::CTRL+Qt::Key_I );
     taction->setChecked( Settings::SettingsData::instance()->showInfoBox() );
     connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowInfoBox( bool ) ) );
-    showPopup->addAction( taction );
-
-    // PENDING(blackie) Only for image display
-    taction = _actions->add<KToggleAction>( "viewer-show-drawing" );
-    taction->setText( i18n("Show Drawing") );
-    taction->setShortcut( Qt::CTRL+Qt::Key_D );
-    taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
-    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowDrawings( bool ) ) );
     showPopup->addAction( taction );
 
     taction = _actions->add<KToggleAction>( "viewer-show-description" );
@@ -491,7 +477,6 @@ void Viewer::ViewerWidget::load()
 
     _stack->setCurrentWidget( _display );
 
-    _drawOnImages->setEnabled( !isVideo );
     _rotateMenu->setEnabled( !isVideo );
     _wallpaperMenu->setEnabled( !isVideo );
     _categoryEditor->setEnabled( !isVideo );
@@ -505,8 +490,6 @@ void Viewer::ViewerWidget::load()
     _pause->setVisible( _popup );
     _restart->setVisible( _popup );
 
-    if ( _display->offersDrawOnImage() )
-        _display->drawHandler()->setDrawList( currentInfo()->drawList() );
     bool ok = _display->setImage( currentInfo(), _forward );
     if ( !ok ) {
         close( false );
@@ -547,7 +530,6 @@ void Viewer::ViewerWidget::showNextN(int n)
     if ( _display == _videoDisplay )
         _videoDisplay->stop();
 
-    save();
     if ( _current +1 < (int) _list.count() )  {
         _current += n;
 	if (_current >= (int) _list.count())
@@ -582,7 +564,6 @@ void Viewer::ViewerWidget::showPrevN(int n)
     if ( _display == _videoDisplay )
         _videoDisplay->stop();
 
-    save();
     if ( _current > 0  )  {
         _current -= n;
 	if (_current < 0)
@@ -690,27 +671,6 @@ void Viewer::ViewerWidget::showLast()
     showNextN(_list.count());
 }
 
-void Viewer::ViewerWidget::save()
-{
-    if ( _display->offersDrawOnImage() )
-        currentInfo()->setDrawList( _display->drawHandler()->drawList() );
-}
-
-void Viewer::ViewerWidget::startDraw()
-{
-    Q_ASSERT( _display->offersDrawOnImage() );
-    _display->startDrawing();
-    _display->drawHandler()->slotSelect();
-    _toolbar->show();
-}
-
-void Viewer::ViewerWidget::stopDraw()
-{
-    Q_ASSERT( _display->offersDrawOnImage() );
-    _display->stopDrawing();
-    _toolbar->hide();
-}
-
 void Viewer::ViewerWidget::slotSetWallpaperC()
 {
     setAsWallpaper(1);
@@ -759,7 +719,6 @@ void Viewer::ViewerWidget::setAsWallpaper(int /*mode*/)
 
 bool Viewer::ViewerWidget::close( bool alsoDelete)
 {
-    save();
     _slideShowTimer->stop();
     _isRunningSlideShow = false;
     return QWidget::close();
@@ -885,44 +844,6 @@ Viewer::ViewerWidget::~ViewerWidget()
         _latest = 0;
 }
 
-void Viewer::ViewerWidget::createToolBar()
-{
-    KActionCollection* actions = new KActionCollection( this );
-    _toolbar = new KToolBar( this );
-    DrawHandler* handler = _imageDisplay->drawHandler();
-
-    QActionGroup* grp = new QActionGroup( this );
-
-    _select = actions->add<KToggleAction>( "_select", handler, SLOT( slotSelect() ));
-    _select->setText( i18n("Select") );
-    _select->setIcon( KIcon(QString::fromLatin1("selecttool")) );
-    _toolbar->addAction( _select );
-    grp->addAction(_select);
-
-    _line = actions->add<KToggleAction>( "_line", handler, SLOT( slotLine() ) );
-    _line->setText( i18n("Line") );
-    _line->setIcon( KIcon(QString::fromLatin1("linetool")) );
-    _toolbar->addAction( _line );
-    grp->addAction(_line);
-
-    _rect = actions->add<KToggleAction>( "_rect", handler, SLOT( slotRectangle() ) );
-    _rect->setText( i18n("Rectangle") );
-    _rect->setIcon( KIcon(QString::fromLatin1("recttool")) );
-    _toolbar->addAction( _rect );
-    grp->addAction(_rect);
-
-    _circle = actions->add<KToggleAction>( "_circle", handler, SLOT( slotCircle() ) );
-    _circle->setText( i18n("Circle") );
-    _circle->setIcon( KIcon(QString::fromLatin1("ellipsetool") ) );
-    _toolbar->addAction( _circle );
-    grp->addAction(_circle);
-
-    _delete = KStandardAction::cut( handler, SLOT( cut() ), actions );
-    _toolbar->addAction( _delete );
-
-    KAction* close = KStandardAction::close( this,  SLOT( stopDraw() ),  actions );
-    _toolbar->addAction( close );
-}
 
 void Viewer::ViewerWidget::toggleFullScreen()
 {
@@ -966,7 +887,6 @@ void Viewer::ViewerWidget::slotSlideShowNextFromTimer()
 void Viewer::ViewerWidget::slotSlideShowNext()
 {
     _forward = true;
-    save();
     if ( _current +1 < (int) _list.count() )
         _current++;
     else
@@ -1139,12 +1059,6 @@ void Viewer::ViewerWidget::zoomFull()
 void Viewer::ViewerWidget::zoomPixelForPixel()
 {
     _display->zoomPixelForPixel();
-}
-
-void Viewer::ViewerWidget::toggleShowDrawings( bool b )
-{
-    if ( _display == _imageDisplay )
-        _imageDisplay->toggleShowDrawings( b );
 }
 
 void Viewer::ViewerWidget::createVideoActions()

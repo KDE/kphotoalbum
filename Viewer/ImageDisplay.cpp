@@ -61,26 +61,11 @@
      as it is on disk.
    - Then _loadedImage is cropped and scaled to _croppedAndScaledImg. This
      image is the size of the display. Resizing the window thus needs to
-     start from this step.
-   - Then _croppedAndScaledImg is converted to _drawingPixmap. Completed
-     drawings are drawn into _loadedPixmap
-   - When the user draws a new shape, then for each mouse movement
-     _loadedPixmap is copied to _viewPixmap, in which the drawing are made.
-   - Finally in paintEvent _viewPixmap is bitBlt'ed to the screen.
+     redo step.
+   - Finally in paintEvent _croppedAndScaledImg is drawn to the screen.
 
-   The scaling process and the drawing process is both implemented by
-   overriding mouse events. To make the code more readable, the strategy
-   pattern is used to separate the two, and when the widget sees a
-   mousePress, mouseMove or mouseRelease event then it delegates this to
-   either _viewHandler or _drawHandler.
-
-   The code in the handlers should not care about actual zooming, therefore
-   mouse coordinates are translated before they are given to the handlers
-   in mouseMoveEvent etc.
-
-   These handlers draw on _viewPixmap, but to do so, the painters need to
-   be set up with transformation, as the pixmap is no longer the size of
-   the original image, but rather the size of the display.
+   The aboce might very likely be simplified. Back in the old days it needed to be that
+   complex to allow drawing on images.
 
    To propagate the cache, we need to know which direction the
    images are viewed in, which is the job of the instance variable _forward.
@@ -95,10 +80,6 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent)
     _cache.setAutoDelete( true );
 
     connect( _drawHandler, SIGNAL( redraw() ), this, SLOT( drawAll() ) );
-
-    // This is to ensure that people do see the drawing when they draw,
-    // otherwise the drawing would disappear as soon as mouse was released.
-    connect( _drawHandler, SIGNAL( active() ), this, SLOT( doShowDrawings() ) );
 
     setMouseTracking( true );
     _cursorTimer = new QTimer( this );
@@ -168,43 +149,7 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
         QWidget::mouseReleaseEvent( event );
     }
     emit possibleChange();
-    drawAll();
-}
-
-void Viewer::ImageDisplay::drawAll()
-{
-    if ( _croppedAndScaledImg.isNull() )
-        return;
-
-    _drawingPixmap = QPixmap::fromImage(_croppedAndScaledImg);
-
-    if ( Settings::SettingsData::instance()->showDrawings() && _drawHandler->hasDrawings() ) {
-        QPainter painter( &_drawingPixmap );
-        xformPainter( &painter );
-        _drawHandler->drawAll( painter );
-    }
-    _viewPixmap = _drawingPixmap;
-    repaint();
-}
-
-void Viewer::ImageDisplay::startDrawing()
-{
-    disableCursorHiding();
-    _currentHandler = _drawHandler;
-}
-
-void Viewer::ImageDisplay::stopDrawing()
-{
-    _drawHandler->stopDrawing();
-    _currentHandler = _viewHandler;
-    drawAll();
-    showCursor();
-}
-
-void Viewer::ImageDisplay::toggleShowDrawings( bool b )
-{
-    Settings::SettingsData::instance()->setShowDrawings( b );
-    drawAll();
+    update();
 }
 
 bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
@@ -255,22 +200,14 @@ Viewer::DrawHandler* Viewer::ImageDisplay::drawHandler()
     return _drawHandler;
 }
 
-QPainter* Viewer::ImageDisplay::painter()
-{
-    _viewPixmap = _drawingPixmap;
-    QPainter* p = new QPainter( &_viewPixmap );
-    xformPainter( p );
-    return p;
-}
-
 void Viewer::ImageDisplay::paintEvent( QPaintEvent* )
 {
-    int x = ( width() - _viewPixmap.width() ) / 2;
-    int y = ( height() - _viewPixmap.height() ) / 2;
+    int x = ( width() - _croppedAndScaledImg.width() ) / 2;
+    int y = ( height() - _croppedAndScaledImg.height() ) / 2;
 
     QPainter painter( this );
     painter.fillRect( 0,0, width(), height(), Qt::black );
-    painter.drawPixmap( x,y, _viewPixmap );
+    painter.drawImage( x,y, _croppedAndScaledImg );
 }
 
 QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio )
@@ -383,7 +320,7 @@ void Viewer::ImageDisplay::cropAndScale()
     if ( !_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
         _croppedAndScaledImg = _croppedAndScaledImg.scaled( width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    drawAll();
+    update();
 }
 
 void Viewer::ImageDisplay::updateZoomCaption() {
@@ -397,11 +334,6 @@ void Viewer::ImageDisplay::updateZoomCaption() {
     emit setCaptionInfo((ratio > 1.05)
                         ? i18n("[ zoom x%1 ]").arg(ratio, 0, 'f', 1)
                         : QString());
-}
-
-void Viewer::ImageDisplay::doShowDrawings()
-{
-    Settings::SettingsData::instance()->setShowDrawings( true );
 }
 
 QImage Viewer::ImageDisplay::currentViewAsThumbnail() const

@@ -58,8 +58,6 @@ class ImageDisplay :public Viewer::Display, public ImageManager::ImageClient {
 Q_OBJECT
 public:
     ImageDisplay( QWidget* parent );
-    void startDrawing();
-    void stopDrawing();
     bool setImage( DB::ImageInfoPtr info, bool forward );
     DrawHandler* drawHandler();
     QImage currentViewAsThumbnail() const;
@@ -68,15 +66,12 @@ public:
     virtual bool offersDrawOnImage() const { return true; }
 
 public slots:
-    void toggleShowDrawings( bool );
     void zoomIn();
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
 
 protected slots:
-    void drawAll();
-    void doShowDrawings();
     void hideCursor();
     void showCursor();
     void disableCursorHiding();
@@ -105,7 +100,6 @@ protected:
 
     friend class DrawHandler;
     friend class ViewHandler;
-    QPainter* painter();
     void zoom( QPoint p1, QPoint p2 );
     void normalize( QPoint& p1, QPoint& p2 );
     void pan( const QPoint& );
@@ -120,8 +114,6 @@ protected:
 private:
     QImage _loadedImage;
     QImage _croppedAndScaledImg;
-    QPixmap _drawingPixmap;
-    QPixmap _viewPixmap;
 
     ViewHandler* _viewHandler;
     DrawHandler* _drawHandler;

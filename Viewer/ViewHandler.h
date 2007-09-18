@@ -22,6 +22,7 @@
 #include <qpoint.h>
 //Added by qt3to4:
 #include <QMouseEvent>
+class QRubberBand;
 
 namespace Viewer
 {
@@ -35,8 +36,9 @@ public:
     virtual bool mouseMoveEvent ( QMouseEvent* e, const QPoint& unTranslatedPos, double scaleFactor );
 private:
     bool _scale, _pan;
-    QPoint _start, _last;
+    QPoint _start, _untranslatedStart, _last;
     double _errorX, _errorY;
+    QRubberBand* _rubberBand;
 };
 
 }

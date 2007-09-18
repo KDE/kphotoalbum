@@ -79,7 +79,6 @@ protected:
     virtual void wheelEvent( QWheelEvent* event );
 
     void moveInfoBox();
-    void createToolBar();
     void setAsWallpaper(int mode);
 
     void load();
@@ -122,9 +121,6 @@ protected slots:
     void toggleShowFilename( bool );
     void toggleShowEXIF( bool );
     void toggleShowImageSize( bool );
-    void save();
-    void startDraw();
-    void stopDraw();
     void toggleShowOption( const QString& category, bool b ) ;
     void toggleFullScreen();
     void slotStartStopSlideShow();
@@ -149,7 +145,6 @@ protected slots:
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
-    void toggleShowDrawings( bool );
     void play();
     void stop();
     void pause();
@@ -184,12 +179,6 @@ private:
     int _width, _height;
     QPixmap _pixmap;
 
-    KToolBar* _toolbar;
-    QAction* _drawOnImages;
-    KToggleAction* _select;
-    KToggleAction* _line;
-    KToggleAction* _rect;
-    KToggleAction* _circle;
     QAction* _delete;
     QAction* _categoryEditor;
 #ifdef HAVE_EXIV2

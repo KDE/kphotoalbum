@@ -63,7 +63,8 @@ bool Viewer::DrawHandler::mousePressEvent( QMouseEvent* event, const QPoint& /*u
 
 bool Viewer::DrawHandler::mouseMoveEvent( QMouseEvent* event, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
 {
-   if ( _activeTool && _tool != Select && _tool != None) {
+#ifdef TEMPORARILY_REMOVED
+    if ( _activeTool && _tool != Select && _tool != None) {
         QPainter* painter = _display->painter();
         setupPainter( painter );
         _activeTool->draw( painter, event );
@@ -72,6 +73,7 @@ bool Viewer::DrawHandler::mouseMoveEvent( QMouseEvent* event, const QPoint& /*un
     }
     else
         return false;
+#endif
 }
 
 bool Viewer::DrawHandler::mouseReleaseEvent( QMouseEvent*, const QPoint& /*unTranslatedPos*/, double /*scaleFactor*/ )
@@ -139,6 +141,7 @@ Viewer::Draw* Viewer::DrawHandler::createTool()
 
 void Viewer::DrawHandler::drawAll( QPainter& painter )
 {
+#ifdef TEMPORARILY_REMOVED
     if ( Settings::SettingsData::instance()->showDrawings() || _tool != None ) {
         for( Q3ValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
             painter.save();
@@ -170,10 +173,12 @@ void Viewer::DrawHandler::drawAll( QPainter& painter )
             }
         }
     }
+#endif
 }
 
 Viewer::Draw* Viewer::DrawHandler::findShape( const QPoint& pos)
 {
+#ifdef TEMPORARILY_REMOVED
     QPainter* painter = _display->painter();
     for( Q3ValueList<Draw*>::Iterator it = _drawings.begin(); it != _drawings.end(); ++it ) {
         PointList list = (*it)->anchorPoints();
@@ -194,6 +199,7 @@ Viewer::Draw* Viewer::DrawHandler::findShape( const QPoint& pos)
     }
     delete painter;
     return 0;
+#endif
 }
 
 void Viewer::DrawHandler::cut()

@@ -24,7 +24,6 @@
 #include <qmap.h>
 #include <qdom.h>
 #include "ImageDate.h"
-#include "Viewer/DrawList.h"
 #include <qimage.h>
 #include "DB/CategoryCollection.h"
 #include "Utilities/Set.h"
@@ -102,10 +101,6 @@ public:
     bool operator==( const ImageInfo& other );
     virtual ImageInfo& operator=( const ImageInfo& other );
 
-    Viewer::DrawList drawList() const;
-    void setDrawList( const Viewer::DrawList& );
-    void addDrawing( const QDomElement& );
-
     static bool imageOnDisk( const QString& fileName );
 
     const MD5& MD5Sum() const { return _md5sum; }
@@ -154,7 +149,6 @@ private:
     ImageDate _date;
     QMap<QString, StringSet> _categoryInfomation;
     int _angle;
-    Viewer::DrawList _drawList;
     enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
     mutable OnDisk _imageOnDisk;
     MD5 _md5sum;

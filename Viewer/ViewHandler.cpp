@@ -17,8 +17,8 @@
 */
 
 #include "ImageDisplay.h"
-#include <QRubberBand>
 #include "Viewer/ViewHandler.h"
+#include <QRubberBand>
 #include <qpainter.h>
 #include <qapplication.h>
 #include <qcursor.h>
@@ -30,7 +30,7 @@
  * \brief Mouse handler used during zooming and panning actions
  */
 
-Viewer::ViewHandler::ViewHandler( ImageDisplay* display )
+Viewer::ViewHandler::ViewHandler( Viewer::ImageDisplay* display )
     :QObject( display ), _scale( false ), _pan( false ), _rubberBand( new QRubberBand( QRubberBand::Rectangle, display ) ), _display(display)
 {
 

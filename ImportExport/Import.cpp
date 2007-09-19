@@ -582,7 +582,6 @@ void Import::updateDB()
         newInfo->setDescription( info->description() );
         newInfo->setDate( info->date() );
         newInfo->rotate( info->angle() );
-        newInfo->setDrawList( info->drawList() );
         newInfo->setMD5Sum( info->MD5Sum() );
         DB::ImageInfoList list;
         list.append(newInfo);

@@ -19,9 +19,6 @@
 
 #include "QueryHelper.h"
 #include "QueryErrors.h"
-#include "Viewer/CircleDraw.h"
-#include "Viewer/LineDraw.h"
-#include "Viewer/RectDraw.h"
 #include "DB/ImageSearchInfo.h"
 #include "DB/CategoryMatcher.h"
 #include "Utilities/List.h"
@@ -457,6 +454,7 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
          i != categoryTagPairs.end(); ++i)
         info.addCategoryInfo((*i).first, (*i).second);
 
+#ifdef DRAWING_TEMPORARILY_REMOVED
     Viewer::DrawList drawList;
     Cursor c = executeQuery("SELECT shape, x0, y0, x1, y1 "
                             "FROM drawing WHERE mediaId=?",
@@ -483,6 +481,7 @@ void QueryHelper::getMediaItem(int id, DB::ImageInfo& info) const
         drawList << drawing;
     }
     info.setDrawList(drawList);
+#endif
 
     // TODO: remove debug
     qDebug("Read info of file %s (id %d)", info.fileName().toLocal8Bit().data(), id);
@@ -573,6 +572,7 @@ void QueryHelper::insertMediaItemTags(int mediaId, const DB::ImageInfo& info)
 void QueryHelper::insertMediaItemDrawings(int mediaId,
                                           const DB::ImageInfo& info)
 {
+#ifdef DRAWING_TEMPORARILY_REMOVED
     Viewer::DrawList drawings = info.drawList();
     for (Viewer::DrawList::const_iterator i = drawings.begin();
         i != drawings.end(); ++i) {
@@ -598,6 +598,7 @@ void QueryHelper::insertMediaItemDrawings(int mediaId,
                          Bindings() << mediaId << shape <<
                          p0.x() << p0.y() << p1.x() << p1.y());
     }
+#endif
 }
 
 int QueryHelper::insertDir(const QString& dirname)

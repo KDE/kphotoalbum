@@ -24,8 +24,6 @@
 
 namespace Viewer
 {
-class DrawHandler;
-
 class Display :public QWidget
 {
     Q_OBJECT
@@ -33,11 +31,6 @@ class Display :public QWidget
 public:
     Display( QWidget* parent );
     virtual bool setImage( DB::ImageInfoPtr info, bool forward ) = 0;
-
-    virtual bool offersDrawOnImage() const { return false; }
-    virtual DrawHandler* drawHandler() { return 0; }
-    virtual void startDrawing() {}
-    virtual void stopDrawing() {}
 
 public slots:
     virtual void zoomIn() = 0;

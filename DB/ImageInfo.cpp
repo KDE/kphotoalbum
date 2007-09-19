@@ -229,20 +229,6 @@ bool ImageInfo::operator==( const ImageInfo& other )
     return !changed;
 }
 
-Viewer::DrawList ImageInfo::drawList() const
-{
-    return _drawList;
-}
-
-void ImageInfo::setDrawList( const Viewer::DrawList& list )
-{
-    // Can't check if really changed, because DrawList doesn't have operator==
-    if (!_drawList.empty() || !list.empty())
-        _dirty = true;
-    _drawList = list;
-    saveChangesIfNotDelayed();
-}
-
 void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
 {
     _dirty = true;
@@ -385,7 +371,6 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     _date = other._date;
     _categoryInfomation = other._categoryInfomation;
     _angle = other._angle;
-    _drawList = other._drawList;
     _imageOnDisk = other._imageOnDisk;
     _md5sum = other._md5sum;
     _null = other._null;
@@ -395,13 +380,6 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     delaySavingChanges(false);
 
     return *this;
-}
-
-void ImageInfo::addDrawing( const QDomElement& elm )
-{
-    _dirty = true;
-    _drawList.load( elm );
-    saveChangesIfNotDelayed();
 }
 
 MediaType DB::ImageInfo::mediaType() const

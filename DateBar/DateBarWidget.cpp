@@ -581,7 +581,6 @@ QRect DateBar::DateBarWidget::dateAreaGeometry() const
 
 void DateBar::DateBarWidget::drawArrow( QPainter& p, const QPoint& start, const QPoint& end )
 {
-    // PENDING(blackie) refactor with LineDraw::draw
     p.save();
     p.drawLine( start, end );
 

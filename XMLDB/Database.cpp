@@ -436,7 +436,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const QString& fileName, cons
                 readOptions( result, childElm );
             }
             else if ( childElm.tagName() == QString::fromLatin1( "drawings" ) ) {
-                result->addDrawing( childElm );
+                // Ignore - KPhotoAlbum 3.0 and older version had drawings, that is not supported anymore
             }
             else {
                 KMessageBox::error( 0, i18n("<p>Unknown tag %1, while reading configuration file.</p>"

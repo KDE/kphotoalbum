@@ -245,7 +245,6 @@ QDomElement XMLDB::FileWriter::save( QDomDocument doc, const DB::ImageInfoPtr& i
     else
         writeCategories( doc, elm, info );
 
-    info->drawList().save( doc, elm );
     return elm;
 }
 

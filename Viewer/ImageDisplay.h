@@ -39,7 +39,6 @@ namespace DB
 
 namespace Viewer
 {
-class Draw;
 class DisplayAreaHandler;
 class ViewHandler;
 class ViewerWidget;
@@ -61,7 +60,6 @@ public:
     QImage currentViewAsThumbnail() const;
     virtual void pixmapLoaded( const QString& fileName, const QSize& size, const QSize& fullSize, int angle, const QImage&, bool loadedOK );
     void setImageList( const QStringList& list );
-    virtual bool offersDrawOnImage() const { return true; }
 
 public slots:
     void zoomIn();

@@ -73,8 +73,7 @@
  * <ul>
  * <li>\ref ViewerWidget - This is the topmost widget used as the viewer.
  * <li>\ref Display, \ref ImageDisplay, \ref VideoDisplay and \ref TextDisplay - Widgets hierarchy which takes care of the actual displaying of content.
- * <li> \ref DisplayAreaHandler, \ref DrawHandler, and \ref ViewHandler - Class Hierarchy which interprets mouse gestures.
- * <li> \ref Draw, \ref LineDraw, \ref CircleDraw, and \ref RectDraw - Class Hierarchy containing information about drawing on images.
+ * <li> \ref ViewHandler - Handler which interprets mouse gestures.
  * <li> \ref InfoBox - Widget implementing the informatiom box
  * <li> \ref SpeedDisplay - Widget implementing the toplevel display used when adjusting slideshow speed.
  * </ul>

@@ -87,7 +87,6 @@ QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const DB::ImageInf
     elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
 
     writeCategories( doc, elm, info );
-    info->drawList().save( doc, elm );
 
     return elm;
 }

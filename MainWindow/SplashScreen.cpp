@@ -17,6 +17,7 @@
 */
 
 #include "SplashScreen.h"
+#include <KComponentData>
 #include "Utilities/Util.h"
 #include <kstandarddirs.h>
 #include <kglobal.h>
@@ -60,11 +61,7 @@ void MainWindow::SplashScreen::drawContents( QPainter * painter )
 
     // Version String
     QString txt;
-#ifdef TEMPORARILY_REMOVED
-    QString version = KGlobal::instance()->aboutData()->version();
-#else
-    QString version = QString::fromLatin1( "BAH" );
-#endif
+    QString version = KGlobal::mainComponent().aboutData()->version();
 
     if ( QRegExp( QString::fromLatin1("[0-9.-]+") ).exactMatch( version ) )
         txt = i18n( "Version %1" , version );

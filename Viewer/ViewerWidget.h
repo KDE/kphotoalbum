@@ -115,6 +115,7 @@ protected slots:
     void rotate180();
     void rotate270();
     void toggleShowInfoBox( bool );
+    void toggleShowLabel( bool );
     void toggleShowDescription( bool );
     void toggleShowDate( bool );
     void toggleShowTime( bool );

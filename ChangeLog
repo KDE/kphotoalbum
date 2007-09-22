@@ -1,3 +1,7 @@
+2007-09-23  Jan Kundrat  <jkt@gentoo.org>
+
+	* Show image label in the infobox and thumbnail tooltip
+
 2007-09-13  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use list of RAW file extensions from libkdcraw instead of hardcoded values

@@ -71,6 +71,7 @@ protected slots:
     void hideCursor();
     void showCursor();
     void disableCursorHiding();
+    void enableCursorHiding();
 
 signals:
     void possibleChange();
@@ -126,6 +127,7 @@ private:
     ViewerWidget *_viewer;
 
     QTimer* _cursorTimer;
+    bool _cursorHiding;
 };
 
 }

@@ -204,6 +204,13 @@ void Viewer::ViewerWidget::createShowContextMenu()
     connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowInfoBox( bool ) ) );
     showPopup->addAction( taction );
 
+    taction = _actions->add<KToggleAction>( "viewer-show-label" );
+    taction->setText( i18n("Show Label") );
+    taction->setShortcut( 0 );
+    taction->setChecked( Settings::SettingsData::instance()->showLabel() );
+    connect( taction, SIGNAL( toggled(bool) ), this, SLOT( toggleShowLabel( bool ) ) );
+    showPopup->addAction( taction );
+
     taction = _actions->add<KToggleAction>( "viewer-show-description" );
     taction->setText( i18n("Show Description") );
     taction->setShortcut( 0 );
@@ -614,6 +621,12 @@ void Viewer::ViewerWidget::toggleShowInfoBox( bool b )
 {
     Settings::SettingsData::instance()->setShowInfoBox( b );
     _infoBox->setVisible(b);
+    updateInfoBox();
+}
+
+void Viewer::ViewerWidget::toggleShowLabel( bool b )
+{
+    Settings::SettingsData::instance()->setShowLabel( b );
     updateInfoBox();
 }
 

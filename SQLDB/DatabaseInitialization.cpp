@@ -59,8 +59,34 @@ namespace
     static SQLDB::Schema::Identifier
     getDatabaseIdentifier(SQLDB::DatabaseConnection& conn)
     {
-        // TODO: getDatabaseIdentifier(..)
-        SQLDB::Schema::Identifier id("", 0, 0);
+        SQLDB::Schema::string name;
+        int versionMajor(0);
+        int versionMinor(0);
+        int year(0);
+        int month(0);
+        int day(0);
+
+        SQLDB::QueryHelper qh(conn);
+        try {
+            QString x =
+                "SELECT value FROM database_metadata "
+                "WHERE property=";
+            name =
+                qh.executeQuery(x + "'name'").firstItem().
+                toString().toLatin1().constData();
+            versionMajor =
+                qh.executeQuery(x + "'version major'").firstItem().toInt();
+            versionMinor =
+                qh.executeQuery(x + "'version minor'").firstItem().toInt();
+            year = qh.executeQuery(x + "'date year'").firstItem().toInt();
+            month = qh.executeQuery(x + "'date month'").firstItem().toInt();
+            day = qh.executeQuery(x + "'date day'").firstItem().toInt();
+        }
+        catch (...) {
+        }
+        SQLDB::Schema::Identifier id(name, versionMajor, versionMinor);
+        if (year != 0 && month != 0 && day != 0)
+            id.setDate(year, month, day);
         return id;
     }
 }
@@ -89,11 +115,9 @@ SQLDB::initializeKPhotoAlbumDatabase(const DatabaseAddress& address)
     }
     else {
         // Test schema version
-        /*
         if (!Schema::getKPhotoAlbumSchema().identifier().
             isCompatibleWith(getDatabaseIdentifier(dbConn)))
             throw DatabaseSchemaError(i18n("Database schema is incompatible."));
-        */
     }
 
     return dbConn;

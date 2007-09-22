@@ -126,6 +126,7 @@ public:
 
     boolProperty( Viewer, showInfoBox, setShowInfoBox, true );
     boolProperty( Viewer, showDrawings, setShowDrawings, true );
+    boolProperty( Viewer, showLabel, setShowLabel, true );
     boolProperty( Viewer, showDescription, setShowDescription, true );
     boolProperty( Viewer, showDate, setShowDate, true );
     boolProperty( Viewer, showImageSize, setShowImageSize, true );

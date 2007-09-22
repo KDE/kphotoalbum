@@ -185,6 +185,11 @@ void Viewer::ViewerWidget::createShowContextMenu()
     taction->plug( showPopup );
     taction->setChecked( Settings::SettingsData::instance()->showDrawings() );
 
+    taction = new KToggleAction( i18n("Show Label"), 0, _actions, "viewer-show-label" );
+    connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowLabel( bool ) ) );
+    taction->plug( showPopup );
+    taction->setChecked( Settings::SettingsData::instance()->showLabel() );
+
     taction = new KToggleAction( i18n("Show Description"), 0, _actions, "viewer-show-description" );
     connect( taction, SIGNAL( toggled( bool ) ), this, SLOT( toggleShowDescription( bool ) ) );
     taction->plug( showPopup );
@@ -553,6 +558,12 @@ void Viewer::ViewerWidget::toggleShowInfoBox( bool b )
 {
     Settings::SettingsData::instance()->setShowInfoBox( b );
     _infoBox->setShown(b);
+    updateInfoBox();
+}
+
+void Viewer::ViewerWidget::toggleShowLabel( bool b )
+{
+    Settings::SettingsData::instance()->setShowLabel( b );
     updateInfoBox();
 }
 

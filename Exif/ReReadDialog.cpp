@@ -88,8 +88,7 @@ int Exif::ReReadDialog::exec( const QStringList& list )
     _date->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
 
     // just re-use results from date...
-    _categories->setEnabled( false ); // not implemented yet
-    _categories->setChecked( false && configured );
+    _categories->setChecked( configured );
 
     _list = list;
 

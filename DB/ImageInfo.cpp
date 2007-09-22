@@ -290,6 +290,20 @@ void ImageInfo::readExif(const QString& fullPath, const int mode)
     if ( mode & EXIFMODE_DESCRIPTION )
         setDescription( exifInfo.description() );
 
+    // Categories
+    if ( mode & EXIFMODE_CATEGORIES ) {
+        /*
+        FIXME: this code segfaults while the uncommented works. Why?
+        for ( QMap<QString, QStringList>::const_iterator it = exifInfo.categories().begin(); it != exifInfo.categories().end(); ++it ) {
+            setCategoryInfo( it.key(), it.data() );
+        }
+        */
+        QMap<QString, QStringList> categories = exifInfo.categories();
+        QStringList categoryNames = categories.keys();
+        for (QStringList::const_iterator it = categoryNames.begin(); it != categoryNames.end(); ++it )
+            setCategoryInfo( *it, categories[ *it ] );
+    }
+
     delaySavingChanges(false);
     _delaySaving = oldDelaySaving;
 
@@ -510,6 +524,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                     Exiv2::ExifData::iterator tag;
                                                     while ( ( tag = exifMap.findKey( Exiv2::ExifKey( keyName ) ) ) != exifMap.end() )
                                                         exifMap.erase( tag );
+                                                    // FIXME: XP tags are expected in UCS-2...
                                                     exifMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
                                                     changed = true;
                                                 }
@@ -542,6 +557,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
                                                     {
                                                         keyName = _fieldName[*it].ascii();
                                                         Exiv2::Value::AutoPtr v = Exiv2::Value::create( Exiv2::string );
+                                                        // FIXME: XP tags are expected in UCS-2...
                                                         v->read( Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() ) );
                                                         if ( tagIt == tags.begin() ) {
                                                             Exiv2::ExifData::iterator tag;

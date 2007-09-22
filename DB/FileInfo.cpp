@@ -198,13 +198,113 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
 
     // Categories
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for( QValueList<DB::CategoryPtr>::const_iterator category = categories.begin();
+    for( QValueList<DB::CategoryPtr>::iterator category = categories.begin();
             category != categories.end(); ++category )
         if ( !(*category)->isSpecialCategory() ) {
             items = Settings::SettingsData::instance()->categorySyncingFields( false, (*category)->name() );
             for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin();
                     ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
-                // FIXME: real stuff here
+
+                QStringList stringData; // raw string data read from file
+                switch ( _header[ *it ] ) {
+                    case Exif::Syncable::EXIF:
+                        {
+                            Exiv2::ExifData::const_iterator field = metadata.exif.findKey( Exiv2::ExifKey( _fieldName[ *it ].ascii() ) );
+                            while ( field != metadata.exif.end() ) {
+                                stringData << Utilities::cStringWithEncoding( (*field).toString().c_str(),
+                                        Settings::SettingsData::instance()->iptcCharset() );
+                                ++field;
+                                // FIXME: This if ugly. Either convert to
+                                // STL algorithms or bug exiv2 for providing no
+                                // find() function that takes affset to begin
+                                // search at...
+                                // The sole purpose of this is to simulate the
+                                // standard find() function for finding next key
+                                // with this value.
+                                while ( ( field != metadata.exif.end() ) && ( (*field).key() != (*field).toString().c_str() ) )
+                                    ++field;
+                            }
+                            break;
+                        }
+                    case Exif::Syncable::IPTC:
+                        {
+                            Exiv2::IptcData::const_iterator field = metadata.iptc.findKey( Exiv2::IptcKey( _fieldName[ *it ].ascii() ) );
+                            while ( field != metadata.iptc.end() ) {
+                                stringData << Utilities::cStringWithEncoding( (*field).toString().c_str(),
+                                        Settings::SettingsData::instance()->iptcCharset() );
+                                ++field;
+                                // FIXME: This if ugly. Either convert to
+                                // STL algorithms or bug exiv2 for providing no
+                                // find() function that takes affset to begin
+                                // search at...
+                                // The sole purpose of this is to simulate the
+                                // standard find() function for finding next key
+                                // with this value.
+                                while ( ( field != metadata.iptc.end() ) && ( (*field).key() != (*field).toString().c_str() ) )
+                                    ++field;
+                            }
+                            break;
+                        }
+                    default:
+                        kdDebug() << "Reading category information from " << _fieldName[ *it ] << " is not supported" << endl; 
+                }
+
+                /* translate collapsed items ("Europe,Prague") into a list ("Europe", "Prague") */
+                QString separator;
+                switch ( Settings::SettingsData::instance()->categorySyncingMultiValue( (*category)->name() ) ) {
+                        case Exif::Syncable::SeparateComma:
+                            {
+                                separator = QString::fromAscii(",");
+                                QStringList res;
+                                for (QStringList::const_iterator it = stringData.begin(); it != stringData.end(); ++it)
+                                    res += QStringList::split( separator, *it );
+                                stringData = res;
+                                break;
+                            }
+                        case Exif::Syncable::SeparateSemicolon:
+                            {
+                                separator = QString::fromAscii(";");
+                                QStringList res;
+                                for (QStringList::const_iterator it = stringData.begin(); it != stringData.end(); ++it)
+                                    res += QStringList::split( separator, *it );
+                                stringData = res;
+                                break;
+                            }
+                        case Exif::Syncable::Repeat:
+                            // don't convert
+                            break;
+                }
+
+                /* strip whitespace */
+                for (QStringList::iterator it = stringData.begin(); it != stringData.end(); ++it)
+                    *it = (*it).stripWhiteSpace();
+
+                /* strip leading category identification */
+                if ( Settings::SettingsData::instance()->categorySyncingAddName( (*category)->name() ) ) {
+                    const QString prefix = (*category)->name() + QString::fromAscii(":");
+                    QStringList res;
+                    for (QStringList::const_iterator it = stringData.begin(); it != stringData.end(); ++it) {
+                        if ( (*it).startsWith( prefix ) )
+                            res << (*it).mid( prefix.length() );
+                        else
+                            res << *it;
+                    }
+                    stringData = res;
+
+                    /* strip whitespace again */
+                    for (QStringList::iterator it = stringData.begin(); it != stringData.end(); ++it)
+                        *it = (*it).stripWhiteSpace();
+
+                }
+
+                /* now build the category list */
+                // FIXME: this should be smart enough *not* to set
+                // Europe when input is "Europe/Prague"
+                for (QStringList::const_iterator tag = stringData.begin(); tag != stringData.end(); ++tag ) {
+                    if ( (*category)->items().findIndex( *tag ) == -1 )
+                        (*category)->addItem( *tag );
+                    _categories[ (*category)->name() ].append( *tag );
+                }
             }
         }
 

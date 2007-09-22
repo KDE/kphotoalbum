@@ -234,6 +234,9 @@ namespace SQLDB
         {
         public:
             /** Initialize new identifier with given name and version.
+             *
+             * \param name name of the identifier, may only have lower
+             * case ASCII characters and '_' characters.
              */
             Identifier(const string& name, int versioMajor, int versionMinor);
 
@@ -249,6 +252,13 @@ namespace SQLDB
              * compatible.
              */
             bool isCompatibleWith(const Identifier& other) const;
+
+            const string& name() const;
+            int versionMajor() const;
+            int versionMinor() const;
+            int dateYear() const;
+            int dateMonth() const;
+            int dateDay() const;
 
         private:
             string _name;

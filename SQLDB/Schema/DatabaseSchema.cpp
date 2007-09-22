@@ -249,6 +249,9 @@ Identifier::Identifier(const string& name, int versionMajor, int versionMinor):
     _month(0),
     _day(0)
 {
+    for (string::const_iterator i = _name.begin(); i != _name.end(); ++i)
+        if ((*i < 'a' || *i > 'z') && *i != '_')
+            throw std::logic_error("Invalid character in name");
 }
 
 Identifier& Identifier::setDate(int year, int month, int day)
@@ -264,6 +267,36 @@ Identifier& Identifier::setDate(int year, int month, int day)
 bool Identifier::isCompatibleWith(const Identifier& other) const
 {
     return (_name == other._name) && (_versionMajor == other._versionMajor);
+}
+
+const string& Identifier::name() const
+{
+    return _name;
+}
+
+int Identifier::versionMajor() const
+{
+    return _versionMajor;
+}
+
+int Identifier::versionMinor() const
+{
+    return _versionMinor;
+}
+
+int Identifier::dateYear() const
+{
+    return _year;
+}
+
+int Identifier::dateMonth() const
+{
+    return _month;
+}
+
+int Identifier::dateDay() const
+{
+    return _day;
 }
 
 // =======================================================================

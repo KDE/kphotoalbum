@@ -83,7 +83,8 @@
 */
 
 Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
-    :Display( parent, name ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false )
+    :Display( parent, name ), _reloadImageInProgress( false ), _forward(true), _curIndex(0),_busy( false ),
+    _cursorHiding(true)
 {
     setBackgroundMode( NoBackground );
 
@@ -106,31 +107,42 @@ Viewer::ImageDisplay::ImageDisplay( QWidget* parent, const char* name )
 }
 
 /**
- * Hide the cursor right now
+ * If mouse cursor hiding is enabled, hide the cursor right now
  */
 void Viewer::ImageDisplay::hideCursor() {
-    setCursor( Qt::blankCursor );
+    if (_cursorHiding)
+        setCursor( Qt::blankCursor );
 }
 
 /**
- * Show normal cursor and start a timer that will hide it later
+ * If mouse cursor hiding is enabled, show normal cursor and start a timer that will hide it later
  */
 void Viewer::ImageDisplay::showCursor() {
-    unsetCursor();
-    _cursorTimer->start( 1500, true );
+    if (_cursorHiding) {
+        unsetCursor();
+        _cursorTimer->start( 1500, true );
+    }
 }
 
 /**
- * Show normal cursor and don't change it later
+ * Prevent hideCursor() and showCursor() from altering cursor state
  */
 void Viewer::ImageDisplay::disableCursorHiding() {
-    unsetCursor();
-    _cursorTimer->stop();
+    _cursorHiding = false;
+}
+
+/**
+ * Enable automatic mouse cursor hiding
+ */
+void Viewer::ImageDisplay::enableCursorHiding() {
+    _cursorHiding = true;
 }
 
 void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 {
+    // disable cursor hiding till button release
     disableCursorHiding();
+
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
     bool block = _currentHandler->mousePressEvent( &e, event->pos(), ratio );
@@ -141,8 +153,8 @@ void Viewer::ImageDisplay::mousePressEvent( QMouseEvent* event )
 
 void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 {
-    if ( event->state() == Qt::NoButton )
-        showCursor();
+    // just reset the timer
+    showCursor();
 
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );
@@ -154,7 +166,10 @@ void Viewer::ImageDisplay::mouseMoveEvent( QMouseEvent* event )
 
 void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
 {
+    // enable cursor hiding and reset timer
+    enableCursorHiding();
     showCursor();
+
     _cache.remove( _curIndex );
     QMouseEvent e( event->type(), mapPos( event->pos() ), event->button(), event->state() );
     double ratio = sizeRatio( QSize(_zEnd.x()-_zStart.x(), _zEnd.y()-_zStart.y()), size() );

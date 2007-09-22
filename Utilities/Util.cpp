@@ -132,6 +132,11 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         }
     }
 
+    if ( Settings::SettingsData::instance()->showLabel() && !info->label().isEmpty())  {
+        if ( !text.isEmpty() )
+            text += i18n("<b>Label: </b> ") +  info->label() + linebreak;
+    }
+
     if ( Settings::SettingsData::instance()->showDescription() && !info->description().isEmpty())  {
         if ( !text.isEmpty() )
             text += i18n("<b>Description: </b> ") +  info->description() + linebreak;

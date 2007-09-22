@@ -1,3 +1,13 @@
+==========
+IPTC stuff
+==========
+- category import
+- re-think the whole idea (qt4's scripting?)
+- encoding
+- ignore dumb values (like "KONICA MIONOLTA     " etc)
+- merge with the kde3 branch
+- port to kde4 :]
+
 =================
 TODO UTTERLY SOON
 =================

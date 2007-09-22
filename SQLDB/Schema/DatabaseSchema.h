@@ -230,9 +230,48 @@ namespace SQLDB
 
         // ===============================================================
 
+        class Identifier
+        {
+        public:
+            /** Initialize new identifier with given name and version.
+             */
+            Identifier(const string& name, int versioMajor, int versionMinor);
+
+            /** Set the last modification date of this identifier.
+             *
+             * Returns reference to this identifier.
+             */
+            Identifier& setDate(int year, int month, int day);
+
+            /** Return true, iff this is compatible with the other.
+             *
+             * Objects with the same name and major version are
+             * compatible.
+             */
+            bool isCompatibleWith(const Identifier& other) const;
+
+        private:
+            string _name;
+            int _versionMajor;
+            int _versionMinor;
+            int _year;
+            int _month;
+            int _day;
+        };
+
+        // ===============================================================
+
         class DatabaseSchema
         {
         public:
+            /** Initialize new database schema with given identifier.
+             *
+             * Increase the minor version of the identifier every time
+             * you make a schema change that doesn't require any
+             * change to the query statements of the application(s).
+             */
+            DatabaseSchema(const Identifier& identifier);
+
             /** Create a new table into this schema.
              *
              * Returns pointer to created TableSchema object. Use it
@@ -253,9 +292,14 @@ namespace SQLDB
              */
             const TableList& tables() const;
 
+            /** Get identifier of this schema.
+             */
+            const Identifier& identifier() const;
+
         private:
             bool hasTable(const string& name) const;
 
+            Identifier _id;
             TableList _tables;
             map<string, TableSchema*> _tableMap;
         };

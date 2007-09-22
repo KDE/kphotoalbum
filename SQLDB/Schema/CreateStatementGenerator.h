@@ -61,6 +61,10 @@ namespace SQLDB
             makeIndices(const TableSchema& t,
                         list<string>& destList) const = 0;
 
+            virtual void
+            makeMetadataInserts(const Identifier& id,
+                                list<string>& destList) const = 0;
+
         private:
             list<string> _statementList;
         };
@@ -92,6 +96,10 @@ namespace SQLDB
 
             virtual void
             makeIndices(const TableSchema& t, list<string>& destList) const;
+
+            virtual void
+            makeMetadataInserts(const Identifier& id,
+                                list<string>& destList) const;
 
             virtual void
             makeField(const Field& f, string& destStr) const;

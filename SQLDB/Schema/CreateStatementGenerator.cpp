@@ -32,6 +32,7 @@ generateCreateStatements(const DatabaseSchema& schema)
         makeTable(**t, _statementList);
         makeIndices(**t, _statementList);
     }
+    makeMetadataInserts(schema.identifier(), _statementList);
     return _statementList;
 }
 
@@ -220,6 +221,12 @@ void BaseCSG::makeIndices(const TableSchema& t, list<string>& destList) const
         destStr += ")";
         destList.push_back(destStr);
     }
+}
+
+void BaseCSG::makeMetadataInserts(const Identifier& id,
+                                  list<string>& destList) const
+{
+    // TODO: makeMetadataInserts(..)
 }
 
 void BaseCSG::makeStringTuple(const StringTuple& st, string& destStr) const

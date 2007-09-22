@@ -18,6 +18,7 @@
 */
 
 #include "DatabaseSchema.h"
+#include <stdexcept>
 
 using namespace SQLDB::Schema;
 
@@ -240,6 +241,38 @@ bool TableSchema::hasFields(const StringTuple& fields) const
 
 // =======================================================================
 
+Identifier::Identifier(const string& name, int versionMajor, int versionMinor):
+    _name(name),
+    _versionMajor(versionMajor),
+    _versionMinor(versionMinor),
+    _year(0),
+    _month(0),
+    _day(0)
+{
+}
+
+Identifier& Identifier::setDate(int year, int month, int day)
+{
+    if (month < 1 || month > 12 || day < 1 || day > 31)
+        throw std::logic_error("Invalid date");
+    _year = year;
+    _month = month;
+    _day = day;
+    return *this;
+}
+
+bool Identifier::isCompatibleWith(const Identifier& other) const
+{
+    return (_name == other._name) && (_versionMajor == other._versionMajor);
+}
+
+// =======================================================================
+
+DatabaseSchema::DatabaseSchema(const Identifier& identifier):
+    _id(identifier)
+{
+}
+
 TableSchema* DatabaseSchema::createTable(const string& name)
 {
     if (!name.empty() && !hasTable(name)) {
@@ -260,4 +293,9 @@ const TableList& DatabaseSchema::tables() const
 bool DatabaseSchema::hasTable(const string& name) const
 {
     return _tableMap.find(name) != _tableMap.end();
+}
+
+const Identifier& DatabaseSchema::identifier() const
+{
+    return _id;
 }

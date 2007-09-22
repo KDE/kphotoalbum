@@ -236,7 +236,7 @@ namespace SQLDB
             /** Initialize new identifier with given name and version.
              *
              * \param name name of the identifier, may only have lower
-             * case ASCII characters and '_' characters.
+             * case ASCII letters and '_' characters.
              */
             Identifier(const string& name, int versioMajor, int versionMinor);
 

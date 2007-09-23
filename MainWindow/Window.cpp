@@ -230,7 +230,7 @@ void MainWindow::Window::delayedInit()
     setupPluginMenu();
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStartup() ) {
-        splash->message( i18n("Searching for New Images and Videos") );
+        splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
     }

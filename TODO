@@ -1,7 +1,6 @@
 ==========
 IPTC stuff
 ==========
-- category import
 - re-think the whole idea (qt4's scripting?)
 - encoding
 - ignore dumb values (like "KONICA MIONOLTA     " etc)

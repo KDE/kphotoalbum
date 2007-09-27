@@ -14,10 +14,6 @@ if compile_with_exiv2
   KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la -lexiv2
 endif
 
-if compile_with_kdcraw
-  KPHOTOALBUM_KDCRAW_LIBS = -lkdcraw
-endif
-
 #if compile_with_kexidb
 #  KPHOTOALBUM_KEXI_LIBS=-lkexidb -lkexiutils -lkexidbparser
 #endif
@@ -38,7 +34,7 @@ kphotoalbum_LDADD =  MainWindow/libMainWindow.la Survey/libsurvey.la ImportExpor
 		     CategoryListView/libCategoryListView.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) $(KPHOTOALBUM_KEXI_LIBS) \
                      $(LIBKPHOTOALBUM_KEXIDB) HTMLGenerator/libHTMLGenerator.la Utilities/libUtilities.la \
-	             $(KPHOTOALBUM_EXIV2_LIBS) -lkmediaplayer $(KPHOTOALBUM_KDCRAW_LIBS)
+	             $(KPHOTOALBUM_EXIV2_LIBS) -lkmediaplayer $(LIBKDCRAW_LIBS)
 
 METASOURCES = AUTO
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII 

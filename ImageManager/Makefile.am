@@ -1,6 +1,6 @@
 noinst_LTLIBRARIES = libImageManager.la
 
-INCLUDES = -I$(srcdir)/.. $(all_includes)
+INCLUDES = -I$(srcdir)/.. $(all_includes) $(LIBKDCRAW_CFLAGS)
 
 libImageManager_la_SOURCES = ImageLoader.cpp Manager.cpp ImageRequest.cpp ImageClient.cpp \
 			     ImageDecoder.cpp RawImageDecoder.cpp VideoManager.cpp RequestQueue.cpp

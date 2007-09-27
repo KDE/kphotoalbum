@@ -1,3 +1,8 @@
+2007-09-27  Jan Kundrat  <jkt@gentoo.org>
+
+	* New metadata synchronization approach
+	* IPTC support
+
 2007-09-23  Jan Kundrat  <jkt@gentoo.org>
 
 	* Show image label in the infobox and thumbnail tooltip

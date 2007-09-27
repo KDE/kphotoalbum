@@ -66,6 +66,7 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 
         for ( OfferType::const_iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt ) {
             QAction* action = addAction( (*offerIt).first );
+            action->setObjectName( (*offerIt).first ); // Notice this is needed to find the application later!
             action->setIcon( KIcon((*offerIt).second) );
             action->setData( which );
             action->setEnabled( enabled );
@@ -75,8 +76,9 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 
 void MainWindow::ExternalPopup::slotExecuteService( QAction* action )
 {
-    QString name = action->text();
-    KService::List offers = KMimeTypeTrader::self()->query( *(_appToMimeTypeMap[name].begin()), "Application",
+    QString name = action->objectName();
+    const StringSet apps =_appToMimeTypeMap[name];
+    KService::List offers = KMimeTypeTrader::self()->query( *(apps.begin()), "Application",
                                                             QString::fromLatin1("Name == '%1'").arg(name));
     Q_ASSERT( offers.count() >= 1 );
     KService::Ptr ptr = offers.first();

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2007 Jan Kundrát <jkt@gentoo.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -15,41 +15,37 @@
    the Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
+#ifndef EXIFSYNCWIDGET_H
+#define EXIFSYNCWIDGET_H
 
-#ifndef REREADDIALOG_H
-#define REREADDIALOG_H
-#include <kdialogbase.h>
-class QLabel;
-class QCheckBox;
-class QRadioButton;
+#include <qlistview.h>
+#include <qhbox.h>
+#include <qpushbutton.h>
+#include "Exif/Syncable.h"
 
-namespace Exif
-{
+namespace Exif{
 
-class ReReadDialog :public KDialogBase {
+class SyncWidget : public QHBox {
     Q_OBJECT
 
 public:
-    ReReadDialog( QWidget* parent, const char* name = 0 );
-    int exec( const QStringList& );
+    SyncWidget( const QString& title, QWidget* parent, const QValueList<Syncable::Kind>& items, const char* name = 0 );
+    QValueList<Syncable::Kind> items() const;
+    void updatePreferred( const QValueList<Syncable::Kind>& items );
 
 protected slots:
-    void readInfo();
-    void showFileList();
-    bool warnAboutChanges();
+    void slotMoveSelectedDown();
+    void slotMoveSelectedUp();
+    void slotHandleDisabling();
 
 private:
-    QStringList _list;
-    QLabel* _title;
-    QCheckBox* _exifDB;
-    QCheckBox* _date;
-    QCheckBox* _orientation;
-    QCheckBox* _label;
-    QCheckBox* _description;
-    QCheckBox* _categories;
+    QValueList<Syncable::Kind> _items;
+    QListView* _list;
+    QPushButton* _upBut;
+    QPushButton* _downBut;
 };
 
 }
 
-#endif /* REREADDIALOG_H */
+#endif /* EXIFSYNCWIDGET_H */
 

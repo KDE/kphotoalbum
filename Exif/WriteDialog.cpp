@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2006 Jan Kundrát <jkt@gentoo.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Exif/ReReadDialog.h"
+#include "Exif/WriteDialog.h"
 #include <klocale.h>
 #include <qlabel.h>
 #include <qcheckbox.h>
@@ -26,21 +26,15 @@
 #include "Exif/Database.h"
 
 
-Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
-    :KDialogBase( Plain, i18n("Read File Info"), Cancel|User1|User2, User1, parent, name,
-                  true, false, i18n("Read File Info"), i18n("Show File List") )
+Exif::WriteDialog::WriteDialog( QWidget* parent, const char* name )
+    :KDialogBase( Plain, i18n("Write File Metadata"), Cancel|User1|User2, User1, parent, name,
+                  true, false, i18n("Write"), i18n("Show File List") )
 {
     QWidget* top = plainPage();
     QVBoxLayout* lay1 = new QVBoxLayout( top, 6 );
 
     _title = new QLabel( top );
     lay1->addWidget( _title );
-
-    _exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
-    lay1->addWidget( _exifDB );
-    if ( !Exif::Database::instance()->isUsable() ) {
-        _exifDB->hide();
-    }
 
     _label = new QCheckBox( i18n( "Update label" ), top );
     lay1->addWidget( _label );
@@ -54,36 +48,34 @@ Exif::ReReadDialog::ReReadDialog( QWidget* parent, const char* name )
     _date = new QCheckBox( i18n( "Update date and time" ), top );
     lay1->addWidget( _date );
 
-    _categories = new QCheckBox( i18n( "Import tags" ), top );
+    _categories = new QCheckBox( i18n( "Export tags" ), top );
     lay1->addWidget( _categories );
 
-    connect( this, SIGNAL( user1Clicked() ), this, SLOT( readInfo() ) );
+    connect( this, SIGNAL( user1Clicked() ), this, SLOT( write() ) );
     connect( this, SIGNAL( user2Clicked() ), this, SLOT( showFileList() ) );
 }
 
-int Exif::ReReadDialog::exec( const QStringList& list )
+int Exif::WriteDialog::exec( const QStringList& list )
 {
-    QString titleCaption = i18n("<p><b><center><font size=\"+3\">Read File Info</font><br>%1 selected</center></b></p>").arg( list.count() );
+    QString titleCaption = i18n("<p><b><center><font size=\"+3\">Write File Info</font><br>%1 selected</center></b></p>").arg( list.count() );
     _title->setText( titleCaption );
-
-    _exifDB->setChecked( true);
 
     QValueList<Exif::Syncable::Kind> items;
     bool configured;
 
-    items = Settings::SettingsData::instance()->labelSyncing( false );
+    items = Settings::SettingsData::instance()->labelSyncing( true );
     _label->setEnabled( configured = ( items.begin() != items.end() ) );
     _label->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
 
-    items = Settings::SettingsData::instance()->descriptionSyncing( false );
+    items = Settings::SettingsData::instance()->descriptionSyncing( true );
     _description->setEnabled( configured = ( items.begin() != items.end() ) );
     _description->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
 
-    items = Settings::SettingsData::instance()->orientationSyncing( false );
+    items = Settings::SettingsData::instance()->orientationSyncing( true );
     _orientation->setEnabled( configured = ( items.begin() != items.end() ) );
     _orientation->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
 
-    items = Settings::SettingsData::instance()->dateSyncing( false );
+    items = Settings::SettingsData::instance()->dateSyncing( true );
     _date->setEnabled( configured = ( items.begin() != items.end() ) );
     _date->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
 
@@ -99,12 +91,9 @@ int Exif::ReReadDialog::exec( const QStringList& list )
     return KDialogBase::exec();
 }
 
-void Exif::ReReadDialog::readInfo()
+void Exif::WriteDialog::write()
 {
     int mode = 0;
-
-    if ( _exifDB->isChecked() )
-        mode |= EXIFMODE_DATABASE_UPDATE;
 
     if ( _date->isChecked() )
             mode |= EXIFMODE_DATE;
@@ -121,32 +110,31 @@ void Exif::ReReadDialog::readInfo()
         return;
 
     accept();
-    DB::ImageDB::instance()->slotReread(_list, mode);
+    DB::ImageDB::instance()->slotWrite(_list, mode);
 }
 
-void Exif::ReReadDialog::showFileList()
+void Exif::WriteDialog::showFileList()
 {
     int i = KMessageBox::warningContinueCancelList( this,
                                                     i18n( "<p><b>%1 files</b> are affected by this operation, their filenames "
                                                           "can be seen in the list below.</p>").arg(_list.count()), _list,
                                                     i18n("Files affected"),
                                                     KStdGuiItem::cont(),
-                                                    QString::fromLatin1( "readEXIFinfoIsDangerous" ) );
+                                                    QString::fromLatin1( "writeEXIFinfoIsDangerous" ) );
     if ( i == KMessageBox::Cancel )
         return;
 }
 
 /*
- * Warn user that this might overwrite data she had entered. Return true if she
- * wants to proceed anyway.
+ * Warn user that this might nuke her data. Return true if she wants to proceed
+ * anyway.
  */
-bool Exif::ReReadDialog::warnAboutChanges()
+bool Exif::WriteDialog::warnAboutChanges()
 {
-    int ret = KMessageBox::warningYesNo( this, i18n("<p>Be aware that setting the data from EXIF may "
-                                                    "<b>overwrite</b> data you have previously entered "
-                                                    "manually using the image configuration dialog.</p>" ),
+    int ret = KMessageBox::warningYesNo( this, i18n("<p>Be aware that this action might be <b>dangerous</b> "
+                                                    "as it overwrites your image files. Use at your own risk.</p>"),
                                          i18n( "Override image dates" ) );
     return ret == KMessageBox::Yes;
 }
 
-#include "ReReadDialog.moc"
+#include "WriteDialog.moc"

@@ -26,6 +26,7 @@
 namespace DB
 {
 
+
 class NewImageFinder
 {
 public:
@@ -36,7 +37,6 @@ protected:
     void searchForNewFiles( const QDict<void>& loadedFiles, QString directory );
     void loadExtraFiles();
     ImageInfoPtr loadExtraFile( const QString& name, DB::MediaType type );
-    MD5 MD5Sum( const QString& fileName );
 
 private:
     typedef QValueList< QPair< QString, DB::MediaType > > LoadList;

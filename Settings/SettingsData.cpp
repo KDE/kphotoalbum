@@ -62,7 +62,7 @@ Settings::SettingsData* Settings::SettingsData::instance()
 }
 
 Settings::SettingsData::SettingsData( const QString& imageDirectory )
-    : _hasAskedAboutTimeStamps( false ), _imageDirectory( imageDirectory )
+    : _imageDirectory( imageDirectory )
 {
     QPixmapCache::setCacheLimit( thumbnailCache() * 1024 );
     _smoothScale = value( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), true );
@@ -79,40 +79,11 @@ void Settings::SettingsData::setSmoothScale( bool b )
     setValue( QString::fromLatin1( "Viewer" ), QString::fromLatin1( "smoothScale" ), b );
 }
 
-bool Settings::SettingsData::trustTimeStamps()
-{
-    if ( tTimeStamps() == Always )
-        return true;
-    else if ( tTimeStamps() == Never )
-        return false;
-    else {
-        if (!_hasAskedAboutTimeStamps ) {
-            QApplication::setOverrideCursor( Qt::ArrowCursor );
-            int answer = KMessageBox::questionYesNo( 0, i18n("New images were found. Should I trust their time stamps?"),
-                                                     i18n("Trust Time Stamps?") );
-            QApplication::restoreOverrideCursor();
-            if ( answer == KMessageBox::Yes )
-                _trustTimeStamps = true;
-            else
-                _trustTimeStamps = false;
-            _hasAskedAboutTimeStamps = true;
-        }
-        return _trustTimeStamps;
-    }
-}
-void Settings::SettingsData::setTTimeStamps( TimeStampTrust t )
-{
-    setValue( STR("General"), STR("trustTimeStamps"), (int) t );
-}
-Settings::TimeStampTrust Settings::SettingsData::tTimeStamps() const
-{
-    return (TimeStampTrust) value(  STR("General"), STR("trustTimeStamps"), (int) Always );
-}
-
 void Settings::SettingsData::setThumbnailAspectRatio( Settings::ThumbnailAspectRatio aspect )
 {
     setValue( STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) aspect);
 }
+
 Settings::ThumbnailAspectRatio Settings::SettingsData::thumbnailAspectRatio() const
 {
     return (ThumbnailAspectRatio) value(  STR("Thumbnails"), STR("thumbnailAspectRatio"), (int) Aspect_4_3);
@@ -476,7 +447,117 @@ QString Settings::SettingsData::groupForDatabase( const QString& setting ) const
     return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
 
+void Settings::SettingsData::setIptcCharset( Utilities::IptcCharset charset )
+{
+    setValue( STR("EXIF"), STR("iptcCharset"), static_cast<int>( charset ));
+}
 
+Utilities::IptcCharset Settings::SettingsData::iptcCharset() const
+{
+    return static_cast<Utilities::IptcCharset>( value(  STR("EXIF"), STR("iptcCharset"), static_cast<int>(Utilities::CharsetUtf8)) );
+}
+
+void Settings::SettingsData::setCategorySyncingFields( const bool writing, const QString& category, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( writing, QString::fromAscii( "category_%1").arg( category ), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::categorySyncingFields( const bool writing, const QString& category ) const
+{
+    return _syncing( writing, QString::fromAscii("category_%1").arg( category ) );
+}
+
+void Settings::SettingsData::setCategorySyncingSuperGroups( const QString& category, const Exif::Syncable::SuperGroupHandling how )
+{
+    setValue( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>( how ) );
+}
+
+Exif::Syncable::SuperGroupHandling Settings::SettingsData::categorySyncingSuperGroups( const QString& category ) const
+{
+    return static_cast<Exif::Syncable::SuperGroupHandling>( 
+            value( STR("MetadataSyncing"), STR("categorySyncingSuperGroups_%1").arg( category ), static_cast<int>(Exif::Syncable::Independent) ) );
+}
+
+void Settings::SettingsData::setCategorySyncingMultiValue(const QString& category, const Exif::Syncable::MultiValueHandling how )
+{
+    setValue( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>( how ) );
+}
+
+Exif::Syncable::MultiValueHandling Settings::SettingsData::categorySyncingMultiValue( const QString& category ) const
+{
+    return static_cast<Exif::Syncable::MultiValueHandling>( 
+            value( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>(Exif::Syncable::Repeat) ) );
+}
+
+void Settings::SettingsData::setCategorySyncingAddName( const QString& category, bool include ) {
+    setValue( STR("MetadataSyncing"), STR("categorySyncingAddName_%1").arg( category ), include );
+}
+
+bool Settings::SettingsData::categorySyncingAddName( const QString& category ) {
+    return value( STR("MetadataSyncing"), STR("categorySyncingAddName_%1").arg( category ), false );
+}
+
+void Settings::SettingsData::_setSyncing( const bool writing, const QString& identifier, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    QString mode = writing ? QString::fromAscii("_W") : QString::fromAscii("_R");
+    QStringList list;
+    for (QValueList<Exif::Syncable::Kind>::const_iterator it = fields.begin(); it != fields.end(); ++it) {
+        list << QString::number( static_cast<int>( *it ) );
+    }
+    setValue( STR("MetadataSyncing"), STR("syncFields_%1").arg( identifier ) + mode, list.join( QString::fromAscii(";") ) );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::_syncing( const bool writing, const QString& identifier ) const
+{
+    QString mode = writing ? QString::fromAscii("_W") : QString::fromAscii("_R");
+    QValueList<Exif::Syncable::Kind> list;
+    QStringList split = QStringList::split( QString::fromAscii(";"),
+            value( STR("MetadataSyncing"), STR("syncFields_%1").arg( identifier ) + mode, QString::null ) );
+    for (QStringList::const_iterator it = split.begin(); it != split.end(); ++it) {
+        list << static_cast<Exif::Syncable::Kind>( (*it).toInt() );
+    }
+    return list;
+}
+
+void Settings::SettingsData::setLabelSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( writing, QString::fromAscii("label"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::labelSyncing( const bool writing ) const
+{
+    return _syncing( writing, QString::fromAscii("label") );
+}
+
+void Settings::SettingsData::setDescriptionSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( writing, QString::fromAscii("description"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::descriptionSyncing( const bool writing ) const
+{
+    return _syncing( writing, QString::fromAscii("description") );
+}
+
+void Settings::SettingsData::setOrientationSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( writing, QString::fromAscii("orientation"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::orientationSyncing( const bool writing ) const
+{
+    return _syncing( writing, QString::fromAscii("orientation") );
+}
+
+void Settings::SettingsData::setDateSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields )
+{
+    _setSyncing( writing, QString::fromAscii("date"), fields );
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::dateSyncing( const bool writing ) const
+{
+    return _syncing( writing, QString::fromAscii("date") );
+}
 
 void Settings::SettingsData::setThumbnailCache( int value )
 {

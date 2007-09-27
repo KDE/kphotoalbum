@@ -1,3 +1,14 @@
+==========
+IPTC stuff
+==========
+- re-think the whole idea (qt4's scripting?)
+- encoding
+- ignore dumb values (like "KONICA MIONOLTA     " etc)
+- merge with the kde3 branch
+- port to kde4 :]
+- add support for writing to another file (and extend the File->Export/Copy
+  images dialog to match this feature)
+
 =================
 TODO UTTERLY SOON
 =================

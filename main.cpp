@@ -57,6 +57,7 @@ int main( int argc, char** argv ) {
     aboutData.addCredit( "Robert L Krawitz", "Numerous patches plus profiling KPhotoAlbum again and again.", "rlk@alum.mit.edu" );
     aboutData.addCredit( "Christoph Moseler", "Numerous patches for lots of bugs plus patches for a few new features", "forums@moseler.net" );
     aboutData.addCredit( "Clytie Siddall", "Tremendous help with the english text in the application.", "clytie@riverland.net.au" );
+    aboutData.addCredit( "Jan Kundrát", "IPTC metadata synchronization, bug fixes.", "jkt@gentoo.org" );
 
     KCmdLineArgs::init( argc, argv, &aboutData );
 	KCmdLineArgs::addCmdLineOptions( options );

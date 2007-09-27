@@ -23,17 +23,21 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qimage.h>
-#include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
+#include "DB/MD5.h"
+#include <string>
 
 namespace DB
 {
     class ImageInfo;
     class CategoryCollection;
+    class MD5;
 }
 
 namespace Utilities
 {
+
+enum IptcCharset { CharsetUtf8 = 0, CharsetLocal8Bit = 1, CharsetIso88592 = 2, CharsetCp1250 = 3 };
 
 QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
 void checkForBackupFile( const QString& fileName );
@@ -66,6 +70,12 @@ QString stripImageDirectory( const QString& fileName );
 
 QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QImage::ScaleFree );
 QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
+
+QString cStringWithEncoding( const char *c_str, const IptcCharset charset );
+std::string encodeQString( const QString& str, const IptcCharset charset );
+QStringList iptcHumanReadableCharsetList();
+
+DB::MD5 MD5Sum( const QString& fileName );
 };
 
 bool operator>( const QPoint&, const QPoint& );

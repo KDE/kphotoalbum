@@ -23,6 +23,7 @@
 #include <ImageManager/ImageClient.h>
 #include <qprogressdialog.h>
 #include "Utilities/Util.h"
+#include "Utilities/Set.h"
 #include "Setup.h"
 
 namespace HTMLGenerator

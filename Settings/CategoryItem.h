@@ -24,8 +24,9 @@ namespace DB { class MemberMap; }
 
 namespace Settings
 {
-class CategoryItem :public QListBoxText
+class CategoryItem :public QObject, public QListBoxText
 {
+    Q_OBJECT
 public:
     CategoryItem( const QString& category, const QString& text, const QString& icon,
                   DB::Category::ViewType type, int thumbnailSize, QListBox* parent );
@@ -41,6 +42,11 @@ public:
     void setIcon( const QString& icon );
     void setThumbnailSize( int size );
     void setViewType( DB::Category::ViewType type );
+
+signals:
+    void categoryRenamed( const QString& oldName, const QString& newName );
+    void categoryAdded( const QString& newName );
+    void categoryRemoved( const QString& newName );
 
 protected:
     void renameCategory(DB::MemberMap* memberMap);

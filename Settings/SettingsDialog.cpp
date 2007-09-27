@@ -36,8 +36,12 @@
 #include <qwhatsthis.h>
 #include <kglobal.h>
 #include <kiconloader.h>
-#include <qvgroupbox.h>
+#include <qhgroupbox.h>
 #include <qhbox.h>
+#include <qvbox.h>
+#include <qgrid.h>
+#include <qvbuttongroup.h>
+#include <qtabwidget.h>
 #include "ViewerSizeConfig.h"
 #include <limits.h>
 #include <config.h>
@@ -61,6 +65,7 @@
 #endif
 
 #include "CategoryItem.h"
+#include "Exif/SyncWidget.h"
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -72,6 +77,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     createViewerPage();
     createPluginPage();
     createEXIFPage();
+    createSyncPage();
     createDatabaseBackendPage();
 
     connect( this, SIGNAL( aboutToShowPage( QWidget* ) ), this, SLOT( slotPageChange() ) );
@@ -91,18 +97,8 @@ void Settings::SettingsDialog::createGeneralPage()
 
     // Thrust time stamps
     QWidget* container = new QWidget( box );
-    QLabel* timeStampLabel = new QLabel( i18n("Trust image dates:"), container );
-    _trustTimeStamps = new KComboBox( container );
-    _trustTimeStamps->insertStringList( QStringList() << i18n("Always") << i18n("Ask") << i18n("Never") );
     QHBoxLayout* hlay = new QHBoxLayout( container, 0, 6 );
-    hlay->addWidget( timeStampLabel );
-    hlay->addWidget( _trustTimeStamps );
     hlay->addStretch( 1 );
-
-    // Do EXIF rotate
-    _useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), box );
-
-    _useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
 
     // Search for images on startup
     _searchForImagesOnStartup = new QCheckBox( i18n("Search for new images and videos on startup"), box );
@@ -144,28 +140,6 @@ void Settings::SettingsDialog::createGeneralPage()
 
     // Whats This
     QString txt;
-
-    txt = i18n( "<p>KPhotoAlbum will try to read the image date from EXIF information in the image. "
-                "If that fails it will try to get the date from the file's time stamp.</p>"
-                "<p>However, this information will be wrong if the image was scanned in (you want the date the image "
-                "was taken, not the date of the scan).</p>"
-                "<p>If you only scan images, in contrast to sometimes using "
-                "a digital camera, you should reply <b>no</b>. If you never scan images, you should reply <b>yes</b>, "
-                "otherwise reply <b>ask</b>. This will allow you to decide whether the images are from "
-                "the scanner or the camera, from session to session.</p>" );
-    QWhatsThis::add( timeStampLabel, txt );
-    QWhatsThis::add( _trustTimeStamps, txt );
-
-    txt = i18n( "<p>JPEG images may contain information about rotation. "
-                "If you have a reason for not using this information to get a default rotation of "
-                "your images, uncheck this check box.</p>"
-                "<p>Note: Your digital camera may not write this information into the images at all.</p>" );
-    QWhatsThis::add( _useEXIFRotate, txt );
-
-    txt = i18n( "<p>JPEG images may contain a description. "
-               "Check this checkbox to specify if you want to use this as a "
-               "default description for your images.</p>" );
-    QWhatsThis::add( _useEXIFComments, txt );
 
     txt = i18n( "<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
                 "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "
@@ -407,9 +381,6 @@ void Settings::SettingsDialog::show()
     // General page
     _previewSize->setValue( opt->previewSize() );
     _thumbnailSize->setValue( opt->thumbSize() );
-    _trustTimeStamps->setCurrentItem( opt->tTimeStamps() );
-    _useEXIFRotate->setChecked( opt->useEXIFRotate() );
-    _useEXIFComments->setChecked( opt->useEXIFComments() );
     _searchForImagesOnStartup->setChecked( opt->searchForImagesOnStartup() );
     _dontReadRawFilesWithOtherMatchingFile->setChecked( opt->dontReadRawFilesWithOtherMatchingFile() );
     _compressedIndexXML->setChecked( opt->useCompressedIndexXML() );
@@ -451,7 +422,10 @@ void Settings::SettingsDialog::show()
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it ) {
         if( !(*it)->isSpecialCategory() ) {
-            new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
+            CategoryItem* item = new CategoryItem( (*it)->name(), (*it)->text(),(*it)->iconName(),(*it)->viewType(), (*it)->thumbnailSize(), _categories );
+            connect( item, SIGNAL( categoryRenamed( const QString&, const QString& ) ), this, SLOT( slotCategoryRenamed( const QString&, const QString& ) ) );
+            connect( item, SIGNAL( categoryAdded( const QString& ) ), this, SLOT( slotCategoryAdded( const QString& ) ) );
+            connect( item, SIGNAL( categoryRemoved( const QString& ) ), this, SLOT( slotCategoryRemoved( const QString& ) ) );
         }
     }
 
@@ -460,7 +434,30 @@ void Settings::SettingsDialog::show()
     _exifForDialog->reload();
     _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
     _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
+    _iptcCharset->setCurrentItem( opt->iptcCharset() );
 #endif
+
+    // Synchronization page
+    _orientationRead->updatePreferred( Settings::SettingsData::instance()->orientationSyncing( false ) );
+    _orientationWrite->updatePreferred( Settings::SettingsData::instance()->orientationSyncing( true ) );
+    _labelRead->updatePreferred( Settings::SettingsData::instance()->labelSyncing( false ) );
+    _labelWrite->updatePreferred( Settings::SettingsData::instance()->labelSyncing( true ) );
+    _descriptionRead->updatePreferred( Settings::SettingsData::instance()->descriptionSyncing( false ) );
+    _descriptionWrite->updatePreferred( Settings::SettingsData::instance()->descriptionSyncing( true ) );
+    _dateRead->updatePreferred( Settings::SettingsData::instance()->dateSyncing( false ) );
+    _dateWrite->updatePreferred( Settings::SettingsData::instance()->dateSyncing( true ) );
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it )
+        if( !(*it)->isSpecialCategory() ) {
+            if ( !_catFieldsRead[ (*it)->name() ] ) {
+                qDebug("No record for category \"%s\"", (*it)->name().ascii() );
+                continue;
+            }
+            _catFieldsRead[ (*it)->name() ]->updatePreferred( Settings::SettingsData::instance()->categorySyncingFields( false, (*it)->name() ) );
+            _catFieldsWrite[ (*it)->name() ]->updatePreferred( Settings::SettingsData::instance()->categorySyncingFields( true, (*it)->name() ) );
+            _catSuper[ (*it)->name() ]->setCurrentItem( opt->categorySyncingSuperGroups( (*it)->name() ) );
+            _catMulti[ (*it)->name() ]->setCurrentItem( opt->categorySyncingMultiValue( (*it)->name() ) );
+            _catAddName[ (*it)->name() ]->setChecked( opt->categorySyncingAddName( (*it)->name() ) );
+        }
 
     QString backend = Settings::SettingsData::instance()->backend();
     if (backend == QString::fromLatin1("xml"))
@@ -493,10 +490,7 @@ void Settings::SettingsDialog::slotMyOK()
 
     opt->setPreviewSize( _previewSize->value() );
     opt->setThumbSize( _thumbnailSize->value() );
-    opt->setTTimeStamps( (TimeStampTrust) _trustTimeStamps->currentItem() );
     opt->setThumbnailAspectRatio( (ThumbnailAspectRatio) _thumbnailAspectRatio->currentItem() );
-    opt->setUseEXIFRotate( _useEXIFRotate->isChecked() );
-    opt->setUseEXIFComments( _useEXIFComments->isChecked() );
     opt->setSearchForImagesOnStartup( _searchForImagesOnStartup->isChecked() );
     opt->setDontReadRawFilesWithOtherMatchingFile( _dontReadRawFilesWithOtherMatchingFile->isChecked() );
     opt->setBackupCount( _backupCount->value() );
@@ -553,7 +547,33 @@ void Settings::SettingsDialog::slotMyOK()
 #ifdef HASEXIV2
     opt->setExifForViewer( _exifForViewer->selected() ) ;
     opt->setExifForDialog( _exifForDialog->selected() ) ;
+    opt->setIptcCharset( static_cast<Utilities::IptcCharset>(_iptcCharset->currentItem()) );
 #endif
+
+    // Synchronization
+    opt->setOrientationSyncing( false, _orientationRead->items() );
+    opt->setOrientationSyncing( true, _orientationWrite->items() );
+    opt->setLabelSyncing( false, _labelRead->items() );
+    opt->setLabelSyncing( true, _labelWrite->items() );
+    opt->setDescriptionSyncing( false, _descriptionRead->items() );
+    opt->setDescriptionSyncing( true, _descriptionWrite->items() );
+    opt->setDateSyncing( false, _dateRead->items() );
+    opt->setDateSyncing( true, _dateWrite->items() );
+    for (QDictIterator<Exif::SyncWidget> it( _catFieldsRead ); it.current(); ++it ) {
+        opt->setCategorySyncingFields( false, it.currentKey(), it.current()->items() );
+    }
+    for (QDictIterator<Exif::SyncWidget> it( _catFieldsWrite ); it.current(); ++it ) {
+        opt->setCategorySyncingFields( true, it.currentKey(), it.current()->items() );
+    }
+    for (QDictIterator<KComboBox> it( _catSuper ); it.current(); ++it ) {
+        opt->setCategorySyncingSuperGroups( it.currentKey(), static_cast<Exif::Syncable::SuperGroupHandling>( it.current()->currentItem() ) );
+    }
+    for (QDictIterator<KComboBox> it( _catMulti ); it.current(); ++it ) {
+        opt->setCategorySyncingMultiValue( it.currentKey(), static_cast<Exif::Syncable::MultiValueHandling>( it.current()->currentItem() ) );
+    }
+    for (QDictIterator<QCheckBox> it( _catAddName ); it.current(); ++it ) {
+        opt->setCategorySyncingAddName( it.currentKey(), it.current()->isChecked() );
+    }
 
     // SQLDB
 #ifdef SQLDB_SUPPORT
@@ -612,8 +632,17 @@ void Settings::SettingsDialog::slotIconChanged( QString icon )
 
 void Settings::SettingsDialog::slotNewItem()
 {
-    _current = new CategoryItem( QString::null, QString::null, QString::null, DB::Category::ListView, 64, _categories );
-    _text->setText( QString::fromLatin1( "" ) );
+    bool ok;
+    QString name = KInputDialog::getText( i18n("New category"), i18n("Name"), QString::null, &ok );
+    if ( !ok )
+        return;
+
+    _current = new CategoryItem( QString::null, name, QString::null, DB::Category::ListView, 64, _categories );
+    connect( _current, SIGNAL( categoryRenamed( const QString&, const QString& ) ), this, SLOT( slotCategoryRenamed( const QString&, const QString& ) ) );
+    connect( _current, SIGNAL( categoryAdded( const QString& ) ), this, SLOT( slotCategoryAdded( const QString& ) ) );
+    connect( _current, SIGNAL( categoryRemoved( const QString& ) ), this, SLOT( slotCategoryRemoved( const QString& ) ) );
+
+    _text->setText( name );
     _icon->setIcon( QString::null );
     _thumbnailSizeInCategory->setValue( 64 );
     enableDisable( true );
@@ -627,6 +656,7 @@ void Settings::SettingsDialog::slotDeleteCurrent()
     if ( answer == KMessageBox::No )
         return;
 
+    //slotCategoryRemoved( _current->text() );
     _deleted.append( _current );
     _categories->takeItem( _current );
     _current = 0;
@@ -963,17 +993,192 @@ void Settings::SettingsDialog::createPluginPage()
 void Settings::SettingsDialog::createEXIFPage()
 {
 #ifdef HASEXIV2
-    QWidget* top = addPage( i18n("EXIF Information" ), i18n("EXIF Information" ),
+    QWidget* top = addPage( i18n("EXIF View" ), i18n("EXIF/IPTC Information" ),
                             KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "contents" ),
                                                              KIcon::Desktop, 32 ) );
-    QHBoxLayout* lay1 = new QHBoxLayout( top, 6 );
+    QVBoxLayout* vlay = new QVBoxLayout( top );
+    QHBoxLayout* hlay1 = new QHBoxLayout( vlay );
+    QHBoxLayout* hlay2 = new QHBoxLayout( vlay );
+    hlay1->setSpacing( 6 );
+    vlay->setSpacing( 6 );
+    hlay2->setSpacing( 6 );
 
-    _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );
-    lay1->addWidget( _exifForViewer );
+    _exifForViewer = new Exif::TreeView( i18n( "EXIF/IPTC info to show in the Viewer" ), top );
+    hlay1->addWidget( _exifForViewer );
 
-    _exifForDialog = new Exif::TreeView( i18n("EXIF info to show in the EXIF dialog"), top );
-    lay1->addWidget( _exifForDialog );
+    _exifForDialog = new Exif::TreeView( i18n("EXIF/IPTC info to show in the EXIF dialog"), top );
+    hlay1->addWidget( _exifForDialog );
+
+    QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for IPTC data:"), top, "iptcCharsetLabel" );
+    _iptcCharset = new KComboBox( top );
+    _iptcCharset->insertStringList( QStringList() << i18n("UTF-8") << i18n("Local 8-bit") << i18n("ISO 8859-2") << i18n("CP 1250") );
+    QWhatsThis::add( _iptcCharset, i18n("<p>Which character set to use for reading/writing of IPTC data</p>") );
+
+    hlay2->addStretch( 1 );
+    hlay2->addWidget( _iptcCharsetLabel );
+    hlay2->addWidget( _iptcCharset );
+
 #endif
+}
+
+void Settings::SettingsDialog::createSyncPage()
+{
+    _syncPage = addPage( i18n("Synchronization" ), i18n("Metadata Synchronization" ),
+                        KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
+                                                         KIcon::Desktop, 32 ) );
+
+    QVBoxLayout* _lay = new QVBoxLayout( _syncPage );
+    _syncTabs = new QTabWidget( _syncPage );
+    _syncTabs->setMargin( 6 );
+    QHBox* hbox;
+    QValueList< Exif::Syncable::Kind > rValues, wValues;
+
+    hbox = new QHBox( _syncPage );
+    hbox->setSpacing( 6 );
+    rValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
+    wValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
+    _orientationRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _orientationWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _syncTabs->addTab( hbox, i18n("Image orientation") );
+
+    hbox = new QHBox( _syncPage );
+    hbox->setSpacing( 6 );
+    rValues.clear(); wValues.clear();
+    rValues << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
+            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
+            Exif::Syncable::FILE_NAME << Exif::Syncable::STOP << Exif::Syncable::IPTC_CAPTION;
+    wValues << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
+            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
+            Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT <<
+            Exif::Syncable::IPTC_CAPTION;
+    _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _syncTabs->addTab( hbox, i18n("Label") );
+
+    hbox = new QHBox( _syncPage );
+    hbox->setSpacing( 6 );
+    rValues.clear(); wValues.clear();
+    rValues << Exif::Syncable::IPTC_CAPTION <<
+            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
+            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPCOMMENT <<
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
+            Exif::Syncable::STOP << Exif::Syncable::IPTC_HEADLINE;
+    wValues << Exif::Syncable::IPTC_CAPTION <<
+            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
+            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
+            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT <<
+            Exif::Syncable::IPTC_HEADLINE;
+    _descriptionRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _descriptionWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _syncTabs->addTab( hbox, i18n("Description") );
+
+    hbox = new QHBox( _syncPage );
+    hbox->setSpacing( 6 );
+    rValues.clear(); wValues.clear();
+    rValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
+        Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_MTIME <<
+        Exif::Syncable::FILE_CTIME << Exif::Syncable::STOP;
+    wValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::STOP <<
+        /*Exif::Syncable::FILE_MTIME <<*/ Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
+        Exif::Syncable::EXIF_DATETIME_DIGITIZED;
+
+    _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
+    _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _syncTabs->addTab( hbox, i18n("Date") );
+
+    QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for( QValueList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it )
+        if ( !(*it)->isSpecialCategory() )
+            slotCategoryAdded( (*it)->name() );
+
+    _lay->addWidget( _syncTabs );
+}
+
+void Settings::SettingsDialog::slotCategoryAdded( const QString& name )
+{
+    // we need at least one radnom category for that vocabulary thingy...
+    DB::CategoryPtr someCategory = *( DB::ImageDB::instance()->categoryCollection()->categories().begin() );
+    for (int i = 0; _syncTabs->label( i ) != QString::null; ++i )
+        if ( _syncTabs->label( i ).remove( '&' ) == name ) {
+            qDebug("Attempted to add category \"%s\" that already exists, skipping...", name.ascii());
+            return;
+        }
+
+    QValueList< Exif::Syncable::Kind > rValues, wValues;
+    QGrid* box = new QGrid( 2, Horizontal, _syncPage );
+    box->setSpacing( 6 );
+    rValues.clear(); wValues.clear();
+    if ( ( name == QString::fromLatin1("Keywords") ) ||
+            ( someCategory->standardCategories()[ QString::fromLatin1("Keywords") ] == name ) ) {
+        rValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
+            Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+        wValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
+            Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
+    } else if ( ( name == QString::fromLatin1("Places") ) ||
+            ( someCategory->standardCategories()[ QString::fromLatin1("Places") ] == name ) ) {
+        rValues << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
+            Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+            Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+            Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+        wValues << Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::STOP <<
+            Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+            Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+            Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_SUPP_CAT;
+    } else {
+        rValues << Exif::Syncable::STOP << Exif::Syncable::EXIF_DESCRIPTION <<
+            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
+            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPKEYWORDS <<
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::IPTC_CAPTION << Exif::Syncable::IPTC_OBJECT_NAME <<
+            Exif::Syncable::IPTC_SUBJECT << Exif::Syncable::IPTC_SUPP_CAT <<
+            Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::IPTC_LOCATION_CODE <<
+            Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::IPTC_CITY <<
+            Exif::Syncable::IPTC_SUB_LOCATION << Exif::Syncable::IPTC_PROVINCE_STATE <<
+            Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_COUNTRY_NAME;
+        wValues = rValues;
+    }
+    _catFieldsRead.replace( name, new Exif::SyncWidget( i18n("Fields to get value from"), box, rValues ) );
+    _catFieldsWrite.replace( name, new Exif::SyncWidget( i18n("Fields to write value to"), box, wValues ) );
+    QLabel* lbl = new QLabel( i18n("Supercategories"), box );
+    lbl->setAlignment( AlignRight | AlignVCenter );
+    _catSuper.replace( name, new KComboBox( box ) );
+    _catSuper[ name ]->insertStringList( QStringList() <<
+            i18n("Treat all levels separately") << i18n("Include only the deepest level") <<
+            i18n("Join all levels by slash") );
+    lbl = new QLabel( i18n("Multiple values"), box );
+    lbl->setAlignment( AlignRight | AlignVCenter );
+    _catMulti.replace( name, new KComboBox( box ) );
+    _catMulti[ name ]->insertStringList( QStringList() <<
+            i18n("Repeat field") << i18n("Comma separated values") << i18n("Semicolon separated values") );
+    // create a dummy spacer
+    new QWidget( box );
+    _catAddName.replace( name, new QCheckBox( i18n("Include category name in tag value" ), box ) );
+    _syncTabs->addTab( box, name );
+}
+
+void Settings::SettingsDialog::slotCategoryRemoved( const QString& name )
+{
+    for (int i = 0; _syncTabs->page( i ); ++i )
+        if ( _syncTabs->label( i ).remove( '&' ) == name ) {
+            _catFieldsRead.remove( name );
+            _catFieldsWrite.remove( name );
+            _catMulti.remove( name );
+            _catSuper.remove( name );
+            _catAddName.remove( name );
+            QWidget* tab = _syncTabs->page( i );
+            _syncTabs->removePage( tab );
+            delete tab;
+            return;
+        }
+}
+
+void Settings::SettingsDialog::slotCategoryRenamed( const QString& oldName, const QString& newName )
+{
+    slotCategoryRemoved( oldName );
+    slotCategoryAdded( newName );
 }
 
 void Settings::SettingsDialog::showBackendPage()

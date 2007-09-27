@@ -36,12 +36,13 @@ public:
     static FileInfo read( const QString& fileName );
     QDateTime dateTime() { return _date; }
     int angle() { return _angle; };
-    QString description() {return _description; }
+    QString description() { return _description; }
+    QString label() { return _label; }
+    QMap<QString,QStringList> categories() { return _categories; }
 
 protected:
 #ifdef HASEXIV2
     void parseEXIV2( const QString& fileName );
-    QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
 #endif
 
     void parseKFileMetaInfo( const QString& fileName );
@@ -52,6 +53,8 @@ private:
     QDateTime _date;
     int _angle;
     QString _description;
+    QString _label;
+    QMap<QString,QStringList> _categories;
 };
 
 }

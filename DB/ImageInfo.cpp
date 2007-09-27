@@ -35,6 +35,13 @@ extern "C" {
 #include "DB/MemberMap.h"
 #include <config.h>
 #include "Exif/Database.h"
+#include "Utilities/Util.h"
+#include "MainWindow/DirtyIndicator.h"
+#ifdef HASEXIV2
+#   include <exiv2/image.hpp>
+#endif
+
+#include <kdebug.h>
 
 using namespace DB;
 
@@ -260,26 +267,41 @@ bool ImageInfo::isLocked() const
     return _locked;
 }
 
-void ImageInfo::readExif(const QString& fullPath, int mode)
+void ImageInfo::readExif(const QString& fullPath, const int mode)
 {
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath );
 
     bool oldDelaySaving = _delaySaving;
     delaySavingChanges(true);
 
+    // Label
+    if ( mode & EXIFMODE_LABEL )
+        setLabel( exifInfo.label() );
+
     // Date
-    if ( (mode & EXIFMODE_DATE) && ( (mode & EXIFMODE_FORCE) || Settings::SettingsData::instance()->trustTimeStamps() ) ) {
+    if ( mode & EXIFMODE_DATE )
         setDate( exifInfo.dateTime() );
-    }
 
     // Orientation
-    if ( (mode & EXIFMODE_ORIENTATION) && Settings::SettingsData::instance()->useEXIFRotate() ) {
+    if ( mode & EXIFMODE_ORIENTATION )
         setAngle( exifInfo.angle() );
-    }
 
     // Description
-    if ( (mode & EXIFMODE_DESCRIPTION) && Settings::SettingsData::instance()->useEXIFComments() ) {
+    if ( mode & EXIFMODE_DESCRIPTION )
         setDescription( exifInfo.description() );
+
+    // Categories
+    if ( mode & EXIFMODE_CATEGORIES ) {
+        /*
+        FIXME: this code segfaults while the uncommented works. Why?
+        for ( QMap<QString, QStringList>::const_iterator it = exifInfo.categories().begin(); it != exifInfo.categories().end(); ++it ) {
+            setCategoryInfo( it.key(), it.data() );
+        }
+        */
+        QMap<QString, QStringList> categories = exifInfo.categories();
+        QStringList categoryNames = categories.keys();
+        for (QStringList::const_iterator it = categoryNames.begin(); it != categoryNames.end(); ++it )
+            setCategoryInfo( *it, categories[ *it ] );
     }
 
     delaySavingChanges(false);
@@ -291,6 +313,308 @@ void ImageInfo::readExif(const QString& fullPath, int mode)
         Exif::Database::instance()->add( fullPath );
 #endif
     }
+}
+
+void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
+{
+#ifdef HASEXIV2
+    QMap<Exif::Syncable::Kind,QString> _fieldName, _visibleName;
+    QMap<Exif::Syncable::Kind,Exif::Syncable::Header> _header;
+    Exif::Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
+
+    bool changed = false;
+
+    try {
+        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open( fullPath.local8Bit().data() );
+        if ( !image->good() ) {
+            kdWarning() << fullPath << ": Exiv2::Image instance not usable" << endl;
+            return;
+        }
+        image->readMetadata();
+        Exiv2::ExifData& exifMap = image->exifData();
+        Exiv2::IptcData& iptcMap = image->iptcData();
+        std::string keyName;
+
+        if ( mode & EXIFMODE_DATE ) {
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->dateSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                switch ( *it ) {
+                    case Exif::Syncable::EXIF_DATETIME:
+                    case Exif::Syncable::EXIF_DATETIME_ORIGINAL:
+                    case Exif::Syncable::EXIF_DATETIME_DIGITIZED:
+                        keyName = _fieldName[*it].ascii();
+                        // FIXME: use start() or end()?
+                        exifMap[keyName] = _date.start().toString( QString::fromAscii("yyyy:MM:dd hh:mm:ss") ).ascii();
+                        changed = true;
+                        break;
+                    case Exif::Syncable::FILE_MTIME:
+                        // A big FIXME:
+                        // Well, QFileInfo doesn't have any method for updating
+                        // those... :(
+                        // Also note that we have to touch it *after* we call
+                        // writeMetadata() for obvious reasons :)
+                        // Just let it fall through for now...
+                    default:
+                        kdDebug() << "unknown date field: " << _fieldName[*it] << endl;
+                }
+            }
+        }
+
+        if ( mode & EXIFMODE_ORIENTATION ) {
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->orientationSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                switch ( *it ) {
+                    case Exif::Syncable::EXIF_ORIENTATION:
+                    { // we need a new block for local variables
+                        int orientation;
+                        switch (_angle ) {
+                            // for respective values, see http://jpegclub.org/exif_orientation.html
+                            // or DB::FileInfo::orientationToAngle()
+                            case 0:
+                                orientation = 1;
+                                break;
+                            case 90:
+                                orientation = 6;
+                                break;
+                            case 180:
+                                orientation = 3;
+                                break;
+                            case 270:
+                                orientation = 8;
+                                break;
+                            default:
+                                kdDebug() << "unknown _angle: " << _angle << endl;
+                                continue;
+                        }
+                        keyName = _fieldName[*it].ascii();
+                        exifMap[keyName] = orientation;
+                        changed = true;
+                        break;
+                    }
+                    default:
+                        kdDebug() << "unknown orientation field: " << _fieldName[*it] << endl;
+                }
+            }
+
+        }
+
+        if ( mode & EXIFMODE_LABEL ) {
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->labelSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                switch ( _header[ *it ] ) {
+                    case Exif::Syncable::EXIF:
+                        keyName = _fieldName[*it].ascii();
+                        exifMap[keyName] = Utilities::encodeQString( _label, Settings::SettingsData::instance()->iptcCharset() );
+                        changed = true;
+                        break;
+                    case Exif::Syncable::IPTC:
+                        keyName = _fieldName[*it].ascii();
+                        iptcMap[keyName] = Utilities::encodeQString( _label, Settings::SettingsData::instance()->iptcCharset() );
+                        changed = true;
+                        break;
+                    case Exif::Syncable::JPEG:
+                        if ( *it == Exif::Syncable::JPEG_COMMENT ) {
+                            image->setComment( Utilities::encodeQString( _label, Settings::SettingsData::instance()->iptcCharset() ) );
+                            changed = true;
+                        } else
+                            kdDebug() << "Unkown JPEG field " <<  _fieldName[*it] << endl;
+                        break;
+                    default:
+                        kdDebug() << "Unknown label class " << _fieldName[*it] << endl;
+                }
+            }
+        }
+
+        if ( mode & EXIFMODE_DESCRIPTION ) {
+            QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->descriptionSyncing( true );
+            for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                switch ( _header[ *it ] ) {
+                    case Exif::Syncable::EXIF:
+                        keyName = _fieldName[*it].ascii();
+                        exifMap[keyName] = Utilities::encodeQString( _description, Settings::SettingsData::instance()->iptcCharset() );
+                        changed = true;
+                        break;
+                    case Exif::Syncable::IPTC:
+                        keyName = _fieldName[*it].ascii();
+                        iptcMap[keyName] = Utilities::encodeQString( _description, Settings::SettingsData::instance()->iptcCharset() );
+                        changed = true;
+                        break;
+                    case Exif::Syncable::JPEG:
+                        if ( *it == Exif::Syncable::JPEG_COMMENT ) {
+                            image->setComment( Utilities::encodeQString( _description, Settings::SettingsData::instance()->iptcCharset() ) );
+                            changed = true;
+                        } else
+                            kdDebug() << "Unkown JPEG field " <<  _fieldName[*it] << endl;
+                        break;
+                    default:
+                        kdDebug() << "Unknown description class " << _fieldName[*it] << endl;
+                }
+            }
+        }
+
+        if ( mode & EXIFMODE_CATEGORIES ) {
+            QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+                for( QValueList<DB::CategoryPtr>::const_iterator category = categories.begin();
+                        category != categories.end(); ++category )
+                    if ( !(*category)->isSpecialCategory() ) {
+                        QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->categorySyncingFields( true, (*category)->name() );
+
+                        for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin();
+                                ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
+                            // get a list of tags (based on supercategory settings)
+                            QStringList tags;
+
+                            switch (Settings::SettingsData::instance()->categorySyncingSuperGroups( (*category)->name() ) ) {
+
+                                case Exif::Syncable::MostSpecific:
+                                    // only the deepest tag
+                                    tags = _categoryInfomation[ (*category)->name() ].toList();
+                                    break;
+
+                                case Exif::Syncable::MergeBySlash:
+                                case Exif::Syncable::Independent:
+                                    // we have to resolve the subcategories here
+                                    QMap<QString,StringSet> superGroups = DB::ImageDB::instance()->memberMap().inverseMap( (*category)->name() );
+                                    for (StringSet::const_iterator tagIt = _categoryInfomation[(*category)->name()].begin();
+                                            tagIt != _categoryInfomation[(*category)->name()].end(); ++tagIt ) {
+                                        // resolve supergroups
+                                        QStringList queue = *tagIt;
+                                        QStringList resolved;
+                                        while (!queue.empty()) {
+                                            QString item = queue.last();
+                                            queue.pop_back();
+                                            QMap<QString,StringSet>::const_iterator biggerGroup = superGroups.find( item );
+                                            if ( biggerGroup != superGroups.end() )
+                                                queue.push_front( (*(*biggerGroup).begin()) );
+                                            resolved.push_front( item );
+                                        }
+
+                                        if (Settings::SettingsData::instance()->categorySyncingSuperGroups( (*category)->name() ) ==
+                                                Exif::Syncable::MergeBySlash )
+                                            tags.push_back( resolved.join( QString::fromAscii("/") ) );
+                                        else
+                                            tags += resolved;
+                                    }
+                                    break;
+                            }
+
+                            if ( tags.empty() )
+                                break;
+                            else {
+                                QString value;
+
+                                if ( Settings::SettingsData::instance()->categorySyncingAddName( (*category)->name() ) )
+                                    value = (*category)->name() + QString::fromAscii(":");
+
+                                switch (Settings::SettingsData::instance()->categorySyncingMultiValue( (*category)->name() ) ) {
+
+                                    case Exif::Syncable::SeparateComma:
+                                    case Exif::Syncable::SeparateSemicolon:
+                                        if (Settings::SettingsData::instance()->categorySyncingMultiValue( (*category)->name() ) == 
+                                                Exif::Syncable::SeparateComma )
+                                                value += tags.join( QString::fromAscii(", ") );
+                                        else
+                                                value += tags.join( QString::fromAscii("; ") );
+
+                                        switch ( _header[ *it ] ) {
+                                            case Exif::Syncable::EXIF:
+                                                {
+                                                    keyName = _fieldName[*it].ascii();
+                                                    // erase all occurences of this tag
+                                                    Exiv2::ExifData::iterator tag;
+                                                    while ( ( tag = exifMap.findKey( Exiv2::ExifKey( keyName ) ) ) != exifMap.end() )
+                                                        exifMap.erase( tag );
+                                                    // FIXME: XP tags are expected in UCS-2...
+                                                    exifMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
+                                                    changed = true;
+                                                }
+                                                break;
+                                            case Exif::Syncable::IPTC:
+                                                {
+                                                    keyName = _fieldName[*it].ascii();
+                                                    Exiv2::IptcData::iterator tag;
+                                                    while ( ( tag = iptcMap.findKey( Exiv2::IptcKey( keyName ) ) ) != iptcMap.end() )
+                                                        iptcMap.erase( tag );
+                                                    iptcMap[keyName] = Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() );
+                                                    changed = true;
+                                                }
+                                                break;
+                                            default:
+                                                kdDebug() << "Unknown category class " << _fieldName[*it] << endl;
+                                        }
+                                        break;
+
+                                    case Exif::Syncable::Repeat:
+                                        // include that tag multiple times
+                                        for (QStringList::const_iterator tagIt = tags.begin(); tagIt != tags.end(); ++tagIt) {
+                                            if ( Settings::SettingsData::instance()->categorySyncingAddName( (*category)->name() ) )
+                                                value = (*category)->name() + QString::fromAscii(":") + *tagIt;
+                                            else
+                                                value = *tagIt;
+
+                                            switch ( _header[ *it ] ) {
+                                                case Exif::Syncable::EXIF:
+                                                    {
+                                                        keyName = _fieldName[*it].ascii();
+                                                        Exiv2::Value::AutoPtr v = Exiv2::Value::create( Exiv2::string );
+                                                        // FIXME: XP tags are expected in UCS-2...
+                                                        v->read( Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() ) );
+                                                        if ( tagIt == tags.begin() ) {
+                                                            Exiv2::ExifData::iterator tag;
+                                                            while ( ( tag = exifMap.findKey( Exiv2::ExifKey( keyName ) ) ) != exifMap.end() )
+                                                                exifMap.erase( tag );
+                                                        }
+                                                        exifMap.add( Exiv2::ExifKey( keyName ), v.get() );
+                                                        changed = true;
+                                                    }
+                                                    break;
+                                                case Exif::Syncable::IPTC:
+                                                    {
+                                                        keyName = _fieldName[*it].ascii();
+                                                        Exiv2::Value::AutoPtr v = Exiv2::Value::create( Exiv2::string );
+                                                        v->read( Utilities::encodeQString( value, Settings::SettingsData::instance()->iptcCharset() ) );
+                                                        if ( tagIt == tags.begin() ) {
+                                                            Exiv2::IptcData::iterator tag;
+                                                            while ( ( tag = iptcMap.findKey( Exiv2::IptcKey( keyName ) ) ) != iptcMap.end() )
+                                                                iptcMap.erase( tag );
+                                                        }
+                                                        if ( iptcMap.add( Exiv2::IptcKey( keyName ), v.get() ) )
+                                                            kdDebug() << "IPTC field " << _fieldName[*it] << " is not repeatable" << endl;
+                                                        changed = true;
+                                                    }
+                                                    break;
+                                                default:
+                                                    kdDebug() << "Unknown category class " << _fieldName[*it] << endl;
+                                            }
+                                        }
+                                        break;
+                                }
+                                changed = true;
+                            }
+                        }
+                    }
+        }
+
+        if (changed)
+            image->writeMetadata();
+    }
+    catch( Exiv2::AnyError& e ) {
+        // I wonder why kdDebug isn't compatible with std::ostream...
+        std::ostringstream out;
+        out << e;
+        kdDebug() << "Exiv2 exception: " << out.str().data() << endl;
+        return;
+    }
+
+    if (changed) {
+        MD5 oldsum = _md5sum;
+        setMD5Sum( Utilities::MD5Sum( fullPath ) );
+        if (_md5sum != oldsum )
+           MainWindow::DirtyIndicator::markDirty();
+    }
+#else
+    kdDebug() << "ImageInfo::writeMetadata(): can't do much without the Exiv2 library" << endl;
+#endif
 }
 
 

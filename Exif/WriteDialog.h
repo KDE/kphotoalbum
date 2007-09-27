@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2006 Jan Kundrát <jkt@gentoo.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef REREADDIALOG_H
-#define REREADDIALOG_H
+#ifndef WRITEDIALOG_H
+#define WRITEDIALOG_H
 #include <kdialogbase.h>
 class QLabel;
 class QCheckBox;
@@ -26,22 +26,21 @@ class QRadioButton;
 namespace Exif
 {
 
-class ReReadDialog :public KDialogBase {
+class WriteDialog :public KDialogBase {
     Q_OBJECT
 
 public:
-    ReReadDialog( QWidget* parent, const char* name = 0 );
+    WriteDialog( QWidget* parent, const char* name = 0 );
     int exec( const QStringList& );
 
 protected slots:
-    void readInfo();
+    void write();
     void showFileList();
     bool warnAboutChanges();
 
 private:
     QStringList _list;
     QLabel* _title;
-    QCheckBox* _exifDB;
     QCheckBox* _date;
     QCheckBox* _orientation;
     QCheckBox* _label;
@@ -51,5 +50,5 @@ private:
 
 }
 
-#endif /* REREADDIALOG_H */
+#endif /* WRITEDIALOG_H */
 

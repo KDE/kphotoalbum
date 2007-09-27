@@ -67,6 +67,7 @@
 #endif
 #ifdef HASEXIV2
 #  include "Exif/ReReadDialog.h"
+#  include "Exif/WriteDialog.h"
 #endif
 #include "ImageManager/ImageLoader.h"
 #include "SplashScreen.h"
@@ -441,6 +442,16 @@ void MainWindow::Window::slotReReadExifInfo()
 #endif
 }
 
+void MainWindow::Window::slotWriteExifInfo()
+{
+#ifdef HASEXIV2
+    QStringList files = selectedOnDisk();
+    static Exif::WriteDialog* dialog = 0;
+    if ( ! dialog )
+        dialog = new Exif::WriteDialog( this );
+    dialog->exec( files );
+#endif
+}
 
 QStringList MainWindow::Window::selected( bool keepSortOrderOfDatabase )
 {
@@ -637,7 +648,8 @@ void MainWindow::Window::setupMenuBar()
     new KAction( i18n("Recalculate Checksum"), 0, this, SLOT( slotRecalcCheckSums() ), actionCollection(), "rebuildMD5s" );
     new KAction( i18n("Rescan for Images and Videos"), 0, DB::ImageDB::instance(), SLOT( slotRescan() ), actionCollection(), "rescan" );
 #ifdef HASEXIV2
-    new KAction( i18n("Read EXIF Info From Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
+    new KAction( i18n("Re-Read Metadata from Files..."), 0, this, SLOT( slotReReadExifInfo() ), actionCollection(), "reReadExifInfo" );
+    new KAction( i18n("Write Metadata to Files..."), 0, this, SLOT( slotWriteExifInfo() ), actionCollection(), "writeExifInfo" );
 #endif
 
 #ifdef SQLDB_SUPPORT

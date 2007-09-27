@@ -24,7 +24,9 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #endif
+#include "Exif/Syncable.h"
 #include "Utilities/Set.h"
+#include "Utilities/Util.h"
 #ifdef SQLDB_SUPPORT
 namespace SQLDB { class DatabaseAddress; }
 #endif
@@ -58,11 +60,6 @@ namespace Settings
 
     enum Position { Bottom = 0, Top, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight };
     enum ViewSortType { SortLastUse, SortAlpha };
-    enum TimeStampTrust {
-        Always = 0,
-        Ask = 1,
-        Never = 2
-    };
     enum StandardViewSize {
         FullSize = 0,
         NaturalSize = 1,
@@ -87,8 +84,6 @@ public:
     static bool ready();
     static void setup( const QString& imageDirectory );
     // -------------------------------------------------- General
-    boolProperty( General, useEXIFRotate, setUseEXIFRotate, true );
-    boolProperty( General, useEXIFComments, setUseEXIFComments, true );
     boolProperty( General, searchForImagesOnStartup, setSearchForImagesOnStartup, true );
     boolProperty( General, dontReadRawFilesWithOtherMatchingFile, setDontReadRawFilesWithOtherMatchingFile, false );
     boolProperty( General, useCompressedIndexXML, setUseCompressedIndexXML, false );
@@ -177,12 +172,29 @@ public:
 
     stringProperty( General, backend, setBackend, QString::fromLatin1("xml") );
 
-    bool trustTimeStamps();
-    void setTTimeStamps( TimeStampTrust );
-    TimeStampTrust tTimeStamps() const;
-
-    void setThumbnailAspectRatio(ThumbnailAspectRatio);
+    void setThumbnailAspectRatio( ThumbnailAspectRatio );
     ThumbnailAspectRatio thumbnailAspectRatio() const;
+
+    void setIptcCharset( Utilities::IptcCharset );
+    Utilities::IptcCharset iptcCharset() const;
+
+    void setCategorySyncingFields( const bool writing, const QString& category, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> categorySyncingFields( const bool writing, const QString& category ) const;
+    void setCategorySyncingSuperGroups( const QString& category, const Exif::Syncable::SuperGroupHandling how );
+    Exif::Syncable::SuperGroupHandling categorySyncingSuperGroups( const QString& category ) const;
+    void setCategorySyncingMultiValue( const QString& category, const Exif::Syncable::MultiValueHandling how );
+    Exif::Syncable::MultiValueHandling categorySyncingMultiValue( const QString& category ) const;
+    void setCategorySyncingAddName( const QString& category, bool include );
+    bool categorySyncingAddName( const QString& category );
+
+    void setLabelSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> labelSyncing( const bool writing ) const;
+    void setDescriptionSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> descriptionSyncing( const bool writing ) const;
+    void setOrientationSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> orientationSyncing( const bool writing ) const;
+    void setDateSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> dateSyncing( const bool writing ) const;
 
     QString imageDirectory() const;
 
@@ -234,9 +246,12 @@ signals:
 private:
     SettingsData( const QString& imageDirectory  );
     static SettingsData* _instance;
-    bool _trustTimeStamps, _hasAskedAboutTimeStamps;
     friend class DB::CategoryCollection;
     QString _imageDirectory;
+
+    // helpers for metadata synchronization
+    void _setSyncing( bool writing, const QString& identifier, const QValueList<Exif::Syncable::Kind>& fields );
+    QValueList<Exif::Syncable::Kind> _syncing( bool writing, const QString& identifier ) const;
 };
 } // end of namespace
 

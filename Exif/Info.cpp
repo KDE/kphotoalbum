@@ -16,8 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Exif/Info.h"
-#include "exiv2/image.hpp"
-#include "exiv2/exif.hpp"
+#include <exiv2/image.hpp>
+#include <exiv2/exif.hpp>
 #include "Utilities/Set.h"
 #include "Settings/SettingsData.h"
 #include "Info.h"
@@ -25,39 +25,63 @@
 #include "DB/ImageDB.h"
 #include <qfileinfo.h>
 #include <qfile.h>
+#include "Utilities/Util.h"
 
 using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QString> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName )
+QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, Utilities::IptcCharset charset )
 {
-    QMap<QString, QString> result;
+    QMap<QString, QStringList> result;
 
     try {
-        Exiv2::ExifData data = exifData( fileName );
-        if (data.empty()) {
-            return result;
-        }
+        Metadata data = metadata( fileName );
 
-        Exiv2::ExifData::const_iterator end = data.end();
+        if ( !data.exif.empty()) {
+            Exiv2::ExifData::const_iterator end = data.exif.end();
 
-        for (Exiv2::ExifData::const_iterator i = data.begin(); i != end; ++i) {
-            QString key = QString::fromLocal8Bit(i->key().c_str());
-            _keys.insert( key );
+            for (Exiv2::ExifData::const_iterator i = data.exif.begin(); i != end; ++i) {
+                QString key = QString::fromLocal8Bit(i->key().c_str());
+                _keys.insert( key );
 
-            if ( wantedKeys.contains( key ) ) {
-                QString text = key;
-                if ( !returnFullExifName )
-                    text = QStringList::split( QString::fromLatin1("."), key ).last();
+                if ( wantedKeys.contains( key ) ) {
+                    QString text = key;
+                    if ( !returnFullExifName )
+                        text = QStringList::split( QString::fromLatin1("."), key ).last();
 
-                std::string str;
-                std::ostringstream stream;
-                stream << *i;
-                str = stream.str();
-                result.insert( text, QString::fromLocal8Bit(str.c_str()) );
+                    std::string str;
+                    std::ostringstream stream;
+                    stream << *i;
+                    str = stream.str();
+                    result.insert( text, QString::fromLocal8Bit(str.c_str()) );
+                }
             }
         }
+        
+        if ( !data.iptc.empty()) {
+            Exiv2::IptcData::const_iterator end = data.iptc.end();
+
+            for (Exiv2::IptcData::const_iterator i = data.iptc.begin(); i != end; ++i) {
+                QString key = QString::fromLatin1(i->key().c_str());
+                _keys.insert( key );
+
+                if ( wantedKeys.contains( key ) ) {
+                    QString text = key;
+                    if ( !returnFullExifName )
+                        text = QStringList::split( QString::fromLatin1("."), key ).last();
+
+                    std::ostringstream stream;
+                    stream << *i;
+                    QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                    if ( result.contains( text ) )
+                        result[ text ] += str;
+                    else
+                        result.insert( text, str );
+                }
+            }
+        }
+
     }
     catch ( ... ) {
     }
@@ -77,14 +101,15 @@ StringSet Info::availableKeys()
     return _keys;
 }
 
-QMap<QString, QString> Info::infoForViewer( const QString& fileName )
+QMap<QString, QStringList> Info::infoForViewer( const QString& fileName, bool returnFullExifName )
 {
-    return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(), false );
+    return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(),
+    		 returnFullExifName, ::Settings::SettingsData::instance()->iptcCharset() );
 }
 
-QMap<QString, QString> Info::infoForDialog( const QString& fileName )
+QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, Utilities::IptcCharset charset )
 {
-    return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true);
+    return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset);
 }
 
 StringSet Info::standardKeys()
@@ -376,6 +401,79 @@ StringSet Info::standardKeys()
     res.insert( QString::fromLatin1( "Exif.CanonPi.AFPointsUsed" ) );
     res.insert( QString::fromLatin1( "Exif.CanonPi.AFPointsUsed20D" ) );
 
+    // IPTC
+    res.insert( QString::fromLatin1( "Iptc.Envelope.ModelVersion" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.Destination" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.FileFormat" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.FileVersion" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.ServiceId" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.EnvelopeNumber" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.ProductId" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.EnvelopePriority" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.DateSent" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.TimeSent" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.CharacterSet" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.UNO" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.ARMId" ) );
+    res.insert( QString::fromLatin1( "Iptc.Envelope.ARMVersion" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.RecordVersion" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ObjectType" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ObjectAttribute" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ObjectName" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.EditStatus" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.EditorialUpdate" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Urgency" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Subject" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Category" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.SuppCategory" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.FixtureId" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Keywords" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.LocationCode" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.LocationName" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ReleaseDate" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ReleaseTime" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ExpirationDate" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ExpirationTime" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.SpecialInstructions" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ActionAdvised" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ReferenceService" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ReferenceDate" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ReferenceNumber" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.DateCreated" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.TimeCreated" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.DigitizationDate" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.DigitizationTime" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Program" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ProgramVersion" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ObjectCycle" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Byline" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.BylineTitle" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.City" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.SubLocation" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ProvinceState" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.CountryCode" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.CountryName" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.TransmissionReference" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Headline" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Credit" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Source" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Copyright" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Contact" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Caption" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Writer" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.RasterizedCaption" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ImageType" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.ImageOrientation" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Language" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.AudioType" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.AudioRate" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.AudioResolution" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.AudioDuration" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.AudioOutcue" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.PreviewFormat" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.PreviewVersion" ) );
+    res.insert( QString::fromLatin1( "Iptc.Application2.Preview" ) );
+
     return res;
 }
 
@@ -391,13 +489,17 @@ void Exif::Info::writeInfoToFile( const QString& srcName, const QString& destNam
         Exiv2::ImageFactory::open( QFile::encodeName(srcName).data() );
     image->readMetadata();
     Exiv2::ExifData data = image->exifData();
+    Exiv2::IptcData iData = image->iptcData();
+    std::string comment = image->comment();
 
     // Modify Exif information from database.
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info( srcName );
     data["Exif.Image.ImageDescription"] = info->description().local8Bit().data();
 
     image = Exiv2::ImageFactory::open( QFile::encodeName(destName).data() );
-    image->setExifData(data);
+    image->setExifData( data );
+    image->setIptcData( iData );
+    image->setComment( comment );
     image->writeMetadata();
 }
 
@@ -420,18 +522,20 @@ QString Exif::Info::exifInfoFile( const QString& fileName )
     return fileName;
 }
 
-Exiv2::ExifData Exif::Info::exifData( const QString& fileName )
+Exif::Metadata Exif::Info::metadata( const QString& fileName )
 {
     try {
+        Exif::Metadata result;
         Exiv2::Image::AutoPtr image =
-            Exiv2::ImageFactory::open( QFile::encodeName(fileName).data() );
+            Exiv2::ImageFactory::open(QFile::encodeName(fileName).data());
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
-
-        return image->exifData();
+        result.exif = image->exifData();
+        result.iptc = image->iptcData();
+        result.comment = image->comment();
+        return result;
     }
     catch ( ... ) {
     }
-    return Exiv2::ExifData();
+    return Exif::Metadata();
 }
-

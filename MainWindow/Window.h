@@ -76,6 +76,7 @@ protected slots:
     void slotCopySelectedURLs();
     void slotDeleteSelected();
     void slotReReadExifInfo();
+    void slotWriteExifInfo();
     void slotSearch();
     void slotView( bool reuse = true, bool slideShow = false, bool random = false );
     void slotViewNewWindow();

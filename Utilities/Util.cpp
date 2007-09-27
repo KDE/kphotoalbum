@@ -55,6 +55,8 @@ extern "C" {
 #endif
 
 #include <kdebug.h>
+#include <qtextcodec.h>
+#include <kmdcodec.h>
 
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the
@@ -143,9 +145,29 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 #ifdef HASEXIV2
     QString exifText;
     if ( Settings::SettingsData::instance()->showEXIF() ) {
-        QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
-        for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
-            exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.data() );
+        QMap<QString,QStringList> exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), true );
+        // at first, put there only EXIF data
+        for( QMap<QString,QStringList>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+            if ( exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
+                for ( QStringList::const_iterator valuesIt = exifIt.data().begin(); valuesIt != exifIt.data().end(); ++valuesIt )
+                    exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( 
+                            QStringList::split( QString::fromLatin1("."), exifIt.key() ).last()
+                        ).arg( *valuesIt );
+        }
+
+        QString iptcText;
+        for( QMap<QString,QStringList>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+            if ( !exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
+                for ( QStringList::const_iterator valuesIt = exifIt.data().begin(); valuesIt != exifIt.data().end(); ++valuesIt )
+                    iptcText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( 
+                            QStringList::split( QString::fromLatin1("."), exifIt.key() ).last()
+                        ).arg( *valuesIt );
+        }
+        if ( !iptcText.isEmpty() ) {
+            if ( exifText.isEmpty() )
+                exifText = iptcText;
+            else
+                exifText += QString::fromLatin1( "<hr>" ) + iptcText;
         }
     }
 
@@ -678,3 +700,79 @@ QImage Utilities::scaleImage(const QImage &image, const QSize& s, QImage::ScaleM
   else
     return image.scale(s, mode);
 }
+
+/**
+ * Convert a weird C string in some ugly encoding to a cute unicode QString
+ */
+QString Utilities::cStringWithEncoding( const char *c_str, const IptcCharset charset )
+{
+    QTextCodec* codec;
+    switch ( charset ) {
+        case CharsetLocal8Bit:
+            return QString::fromLocal8Bit( c_str );
+
+        case CharsetIso88592:
+            codec = QTextCodec::codecForName("iso8859-2");
+            if (codec)
+                return codec->toUnicode( c_str );
+            else
+                return QString::fromLatin1( c_str );
+
+        case CharsetCp1250:
+            codec = QTextCodec::codecForName("cp1250");
+            if (codec)
+                return codec->toUnicode( c_str );
+            else
+                return QString::fromLatin1( c_str );
+
+        case CharsetUtf8:
+            // fall through
+        default:
+            return QString::fromUtf8( c_str );
+    }
+}
+
+std::string Utilities::encodeQString( const QString& str, const IptcCharset charset ) 
+{
+    QTextCodec* codec;
+    switch (charset) {
+        case CharsetLocal8Bit:
+            return std::string( str.local8Bit() );
+
+        case CharsetIso88592:
+            codec = QTextCodec::codecForName("iso8859-2");
+            if (codec)
+                return codec->fromUnicode( str ).data();
+            else
+                return str.latin1();
+
+         case CharsetCp1250:
+            codec = QTextCodec::codecForName("cp1250");
+            if (codec)
+                return codec->fromUnicode( str ).data();
+            else
+                return str.latin1();
+
+        case CharsetUtf8:
+            // fall through
+        default:
+            return str.utf8().data();
+    }
+}
+
+QStringList Utilities::iptcHumanReadableCharsetList() {
+    return QStringList() << i18n("UTF-8") << i18n("Local 8-bit") << i18n("ISO 8859-2") << i18n("CP 1250");
+}
+
+DB::MD5 Utilities::MD5Sum( const QString& fileName )
+{
+    QFile file( fileName );
+    if ( !file.open( IO_ReadOnly ) )
+        return DB::MD5();
+
+    KMD5 md5calculator( 0 /* char* */);
+    md5calculator.reset();
+    md5calculator.update( file );
+    return DB::MD5(md5calculator.hexDigest());
+}
+

@@ -236,6 +236,26 @@ void ImageDB::slotReread( const QStringList& list, int mode)
 
 }
 
+void ImageDB::slotWrite( const QStringList& list, int mode)
+{
+    QProgressDialog  dialog( i18n("Writing information to images"),
+                             i18n("Cancel"), list.count(), 0, "progress dialog", true );
+    uint count=0;
+    for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
+        if ( count % 10 == 0 ) {
+            dialog.setProgress( count ); // ensure to call setProgress(0)
+            qApp->eventLoop()->processEvents( QEventLoop::AllEvents );
+
+            if ( dialog.wasCanceled() )
+                return;
+        }
+
+        QFileInfo fi( *it );
+        if (fi.exists())
+            info(*it)->writeMetadata(*it, mode);
+    }
+}
+
 QString
 ImageDB::findFirstItemInRange(const ImageDate& range,
                               bool includeRanges,

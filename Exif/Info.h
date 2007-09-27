@@ -21,22 +21,30 @@
 #include <qstringlist.h>
 #include "Utilities/Set.h"
 #include <exiv2/exif.hpp>
+#include <exiv2/iptc.hpp>
+#include "Utilities/Util.h"
 
 namespace Exif {
 
 using Utilities::StringSet;
 
+struct Metadata {
+    Exiv2::ExifData exif;
+    Exiv2::IptcData iptc;
+    std::string comment;
+};
+
 class Info {
 public:
     Info();
     static Info* instance();
-    QMap<QString, QString> info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName );
-    QMap<QString, QString> infoForViewer( const QString& fileName );
-    QMap<QString, QString> infoForDialog( const QString& fileName );
+    QMap<QString, QStringList> info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, Utilities::IptcCharset charset );
+    QMap<QString, QStringList> infoForViewer( const QString& fileName, bool returnFullExifName = false );
+    QMap<QString, QStringList> infoForDialog( const QString& fileName, Utilities::IptcCharset charset );
     StringSet availableKeys();
     StringSet standardKeys();
     void writeInfoToFile( const QString& srcName, const QString& destName );
-    Exiv2::ExifData exifData( const QString& fileName );
+    Metadata metadata( const QString& fileName );
 
 protected:
     QString exifInfoFile( const QString& fileName );

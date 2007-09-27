@@ -21,6 +21,8 @@
 #include <qgridview.h>
 #include "Utilities/Set.h"
 #include "ImageManager/ImageClient.h"
+#include <kcombobox.h>
+#include "Utilities/Util.h"
 class QTable;
 
 namespace Exif
@@ -41,6 +43,7 @@ protected slots:
 private:
     QLabel* _searchLabel;
     QLabel* _pix;
+    KComboBox* _iptcCharset;
 };
 
 class Grid :public QGridView
@@ -48,7 +51,7 @@ class Grid :public QGridView
     Q_OBJECT
 
 public:
-    Grid( const QString& fileName, QWidget* parent, const char* name = 0 );
+    Grid( const QString& fileName, QWidget* parent, const char* name = 0, Utilities::IptcCharset charset = Utilities::CharsetUtf8 );
 
 signals:
     QString searchStringChanged( const QString& text );
@@ -58,20 +61,22 @@ protected:
     virtual void resizeEvent( QResizeEvent* );
     virtual void keyPressEvent( QKeyEvent* );
 
-    StringSet exifGroups( const QMap<QString, QString>& exifInfo );
-    QMap<QString,QString> itemsForGroup( const QString& group, const QMap<QString, QString>& exifInfo );
+    StringSet exifGroups( const QMap<QString, QStringList>& exifInfo );
+    QMap<QString,QStringList> itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo );
     QString groupName( const QString& exifName );
     QString exifNameNoGroup( const QString& fullName );
-    void calculateMaxKeyWidth( const QMap<QString, QString>& exifInfo );
+    void calculateMaxKeyWidth( const QMap<QString, QStringList>& exifInfo );
 
 protected slots:
     void updateGrid();
+    void slotCharsetChange( int charset );
 
 private:
-    QMap<int, QPair<QString,QString> > _texts;
+    QMap<int, QPair<QString,QStringList> > _texts;
     Utilities::Set<int> _headers;
     int _maxKeyWidth;
     QString _search;
+    QString _fileName;
 };
 
 }

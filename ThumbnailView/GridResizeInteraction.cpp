@@ -16,11 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "GridResizeInteraction.h"
-#include <KSharedConfigPtr>
+#include <kconfiggroup.h>
 #include <KGlobal>
 #include "ThumbnailWidget.h"
 #include "Settings/SettingsData.h"
 #include <QMouseEvent>
+#include <KSharedConfig>
 
 ThumbnailView::GridResizeInteraction::GridResizeInteraction( ThumbnailWidget* view )
     : _view( view )

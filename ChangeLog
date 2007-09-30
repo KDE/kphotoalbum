@@ -1,3 +1,8 @@
+2007-10-01  Jan Kundrat  <jkt@gentoo.org>
+
+	* Adjust the extension of images generated for HTML export. Based on a patch
+	submitted by Miika Turkia <mturkia@nixu.fi>.
+
 2007-09-23  Jan Kundrat  <jkt@gentoo.org>
 
 	* Show image label in the infobox and thumbnail tooltip

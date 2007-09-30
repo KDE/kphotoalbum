@@ -379,7 +379,11 @@ QString HTMLGenerator::Generator::nameImage( const QString& fileName, int size )
     QString name = _nameMap[fileName];
     QString base = QFileInfo( name ).baseName(true);
     if ( size == maxImageSize() && !Utilities::isVideo( fileName ) )
-        return name;
+        if ( name.endsWith( QString::fromAscii(".jpg"), false ) ||
+                name.endsWith( QString::fromAscii(".jpeg"), false ) )
+            return name;
+        else
+            return base + QString::fromAscii(".jpg");
     else
         return QString::fromLatin1( "%1-%2.jpg" ).arg( base ).arg( size );
 }

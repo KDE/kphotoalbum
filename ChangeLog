@@ -1,3 +1,8 @@
+2007-10-01  Jan Kundrat  <jkt@gentoo.org>
+
+	* Adjust the extension of images generated for HTML export. Based on a patch
+	submitted by Miika Turkia <mturkia@nixu.fi>.
+
 2007-09-27  Jan Kundrat  <jkt@gentoo.org>
 
 	* New metadata synchronization approach

@@ -77,7 +77,7 @@ void ImageManager::VideoManager::slotGotPreview(const KFileItem&, const QPixmap&
 void ImageManager::VideoManager::previewFailed()
 {
     if ( _pending.isRequestStillValid(_currentRequest) ) {
-        QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), K3Icon::Desktop,
+        QPixmap pix = KIconLoader::global()->loadIcon( QString::fromLatin1("video"), KIconLoader::Desktop,
                                                        Settings::SettingsData::instance()->thumbSize() );
         _currentRequest->setLoadedOK( false );
         _currentRequest->client()->pixmapLoaded( _currentRequest->fileName(), pix.size(), pix.size(), 0, pix.toImage(), true );

@@ -278,7 +278,7 @@ QPixmap Settings::SettingsData::categoryImage( const QString& category, QString 
     bool ok = img.load( fileName, "JPEG" );
     if ( ! ok ) {
         if ( DB::ImageDB::instance()->memberMap().isGroup( category, member ) )
-            img = KIconLoader::global()->loadIcon( STR( "kuser" ), K3Icon::Desktop, size ).toImage();
+            img = KIconLoader::global()->loadIcon( STR( "kuser" ), KIconLoader::Desktop, size ).toImage();
         else
             img = DB::ImageDB::instance()->categoryCollection()->categoryForName( category )->icon().toImage();
     }

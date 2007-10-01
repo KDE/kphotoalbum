@@ -21,11 +21,17 @@
 #include "DB/ImageDB.h"
 #include <klocale.h>
 #include "DB/ImageInfo.h"
+#include <stdexcept>
 
 ThumbnailView::ThumbnailBuilder::ThumbnailBuilder( QWidget* parent, const char* name )
     :Q3ProgressDialog( parent, name )
 {
     _images = DB::ImageDB::instance()->images();
+    if ( _images.count() == 0 )
+        // we have to use exceptions because this won't get deleted if we just
+        // skipped generateNext()
+        throw std::out_of_range("ThumbnailView::ThumbnailBuilder with no images in the database");
+
     setTotalSteps( _images.count() );
     setProgress( 0 );
     setLabelText( i18n("Generating thumbnails") );

@@ -120,6 +120,7 @@
 #include <KHBox>
 #include <K3URLDrag>
 #include <qclipboard.h>
+#include <stdexcept>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -1561,7 +1562,13 @@ void MainWindow::Window::showImage( const QString& fileName )
 
 void MainWindow::Window::slotBuildThumbnails()
 {
-    new ThumbnailView::ThumbnailBuilder( this ); // It will delete itself
+    try {
+        new ThumbnailView::ThumbnailBuilder( this ); // It will delete itself
+    }
+    catch (std::out_of_range&) {
+        // This is thrown if there are no images to show, see ThumbnailBuilder's
+        // documentation.We can safely ignore it here.
+    }
 }
 
 void MainWindow::Window::slotOrderIncr()

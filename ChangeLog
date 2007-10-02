@@ -1,3 +1,7 @@
+2007-10-03  Jan Kundrat  <jkt@gentoo.org>
+
+	* Give Viewer's requests for images higher priority than thumbnails have
+
 2007-10-01  Jan Kundrat  <jkt@gentoo.org>
 
 	* Adjust the extension of images generated for HTML export. Based on a patch

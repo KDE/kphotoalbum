@@ -637,6 +637,7 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info )
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), s, info->angle(), this );
     request->setUpScale( viewSize == Settings::FullSize );
+    request->setPriority();
     ImageManager::Manager::instance()->load( request );
 }
 

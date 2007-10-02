@@ -602,7 +602,7 @@ void ImageInfo::writeMetadata( const QString& fullPath, const int mode )
         // I wonder why kdDebug isn't compatible with std::ostream...
         std::ostringstream out;
         out << e;
-        kdDebug() << "Exiv2 exception: " << out.str().data() << endl;
+        kdDebug() << "Exiv2 exception when writing file " << fullPath << ": " << out.str().data() << endl;
         return;
     }
 

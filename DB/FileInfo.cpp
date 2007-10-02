@@ -52,10 +52,10 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
     QMap<Exif::Syncable::Kind,Exif::Syncable::Header> _header;
     Exif::Syncable::fillTranslationTables( _fieldName, _visibleName, _header);
     Exif::Metadata metadata = Exif::Info::instance()->metadata( fileName );
+    QValueList<Exif::Syncable::Kind> items;
 
-    try {
-        // Orientation
-        QValueList<Exif::Syncable::Kind> items = Settings::SettingsData::instance()->orientationSyncing( false );
+    try { // Orientation
+        items = Settings::SettingsData::instance()->orientationSyncing( false );
         for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
             bool found = false;
             switch ( *it ) {
@@ -77,10 +77,16 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             if (found)
                 break;
         }
+    }
+    catch( Exiv2::AnyError& e ) {
+        std::ostringstream out;
+        out << e;
+        kdDebug() << "Exiv2 exception when parsing file " << fileName << " for orientation: " << out.str().data() << endl;
+    }
 
-        // FIXME: proper character encoding
+    // FIXME: proper character encoding
 
-        // Label
+    try { // Label
         items = Settings::SettingsData::instance()->labelSyncing( false );
         for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
             switch ( _header[ *it ] ) {
@@ -122,8 +128,14 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 // we have a match, let's move along
                 break;
         }
+    }
+    catch( Exiv2::AnyError& e ) {
+        std::ostringstream out;
+        out << e;
+        kdDebug() << "Exiv2 exception when parsing file " << fileName << " for label: " << out.str().data() << endl;
+    }
 
-        // Description
+    try { // Description
         items = Settings::SettingsData::instance()->descriptionSyncing( false );
         for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
             switch ( _header[ *it ] ) {
@@ -155,8 +167,14 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             if ( !_description.isNull() && (_description != QString::fromAscii("")) )
                 break;
         }
+    }
+    catch( Exiv2::AnyError& e ) {
+        std::ostringstream out;
+        out << e;
+        kdDebug() << "Exiv2 exception when parsing file " << fileName << " for description: " << out.str().data() << endl;
+    }
 
-        // Date
+    try { // Date
         items = Settings::SettingsData::instance()->dateSyncing( false );
         for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {
             switch ( _header[ *it ] ) {
@@ -195,8 +213,14 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
             if ( _date.isValid() )
                 break;
         }
+    }
+    catch( Exiv2::AnyError& e ) {
+        std::ostringstream out;
+        out << e;
+        kdDebug() << "Exiv2 exception when parsing file " << fileName << " for date: " << out.str().data() << endl;
+    }
 
-        // Categories
+    try { // Categories
         QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
         for( QValueList<DB::CategoryPtr>::iterator category = categories.begin();
                 category != categories.end(); ++category )
@@ -312,8 +336,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
     catch( Exiv2::AnyError& e ) {
         std::ostringstream out;
         out << e;
-        kdDebug() << "Exiv2 exception when parsing file " << fileName << ": " << out.str().data() << endl;
-        return;
+        kdDebug() << "Exiv2 exception when parsing file " << fileName << " for categories: " << out.str().data() << endl;
     }
 }
 #endif

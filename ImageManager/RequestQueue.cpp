@@ -21,6 +21,8 @@
 //Added by qt3to4:
 #include <Q3ValueList>
 
+#include <kdebug.h>
+
 void ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
     if ( _uniquePending.contains( request ) ) {
@@ -93,14 +95,23 @@ void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
 
 void ImageManager::RequestQueue::print()
 {
-    qDebug("%d %d", _activeRequests.size(), _pendingRequests.count() );
+    kdDebug() << "**************************************" << endl;
+    kdDebug() << "Active: " << _activeRequests.size() << ", pending: " << _pendingRequests.count() << endl;
+    kdDebug() << "Active:" << endl;
+    for (Set<ImageRequest*>::const_iterator it = _activeRequests.begin(); it != _activeRequests.end(); ++it ) {
+        kdDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height() << endl;
+    }
+    kdDebug() << "pending:" << endl;
+    for (QValueList<ImageRequest*>::const_iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ++it ) {
+        kdDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height() << endl;
+    }
 }
 
 ImageManager::RequestQueue::RequestQueue()
 {
 #if 0
     QTimer* timer = new QTimer( this );
-    timer->start( 200 );
+    timer->start( 500 );
     connect( timer, SIGNAL( timeout() ), this, SLOT( print() ));
 #endif
 }

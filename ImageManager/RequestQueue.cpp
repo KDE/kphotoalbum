@@ -29,13 +29,10 @@ void ImageManager::RequestQueue::addRequest( ImageRequest* request )
     }
  
     _uniquePending.insert( request );
-    if ( request->priority() ) {
+    if ( request->priority() )
         _pendingRequests.prepend( request );
-        kdDebug() << "!!! " << request->fileName() << " " << request->width() << "x" << request->height() << endl;
-    } else {
+    else
         _pendingRequests.append( request );
-        kdDebug() << "   " << request->fileName() << " " << request->width() << "x" << request->height() << endl;
-    }
 
     if ( request->client() )
         _activeRequests.insert( request );

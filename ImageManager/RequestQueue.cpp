@@ -102,7 +102,7 @@ void ImageManager::RequestQueue::print()
         kdDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height() << endl;
     }
     kdDebug() << "pending:" << endl;
-    for (QValueList<ImageRequest*>::const_iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ++it ) {
+    for (Q3ValueList<ImageRequest*>::const_iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ++it ) {
         kdDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height() << endl;
     }
 }

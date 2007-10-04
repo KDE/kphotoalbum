@@ -518,7 +518,7 @@ void Import::copyNextFromExternal()
         if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
             dest.setPath( Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName] );
-            _job = KIO::file_copy( src, dest, -1, false, false, false );
+            _job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
             connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
             break;
         }

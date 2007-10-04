@@ -100,7 +100,7 @@ Import::Import( const KUrl& url, QWidget* parent )
 
     KUrl dest;
     dest.setPath( path );
-    KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, true );
+    KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, KIO::Overwrite );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
 }
 

@@ -100,7 +100,7 @@ Import::Import( const KUrl& url, QWidget* parent )
 
     KUrl dest;
     dest.setPath( path );
-    KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, true );
+    KIO::FileCopyJob* job = KIO::file_copy( url, dest, -1, KIO::Overwrite );
     connect( job, SIGNAL( result( KIO::Job* ) ), this, SLOT( downloadKimJobCompleted( KIO::Job* ) ) );
 }
 
@@ -518,7 +518,7 @@ void Import::copyNextFromExternal()
         if ( KIO::NetAccess::exists( src, KIO::NetAccess::SourceSide, MainWindow::Window::theMainWindow() ) ) {
             KUrl dest;
             dest.setPath( Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName] );
-            _job = KIO::file_copy( src, dest, -1, false, false, false );
+            _job = KIO::file_copy( src, dest, -1, KIO::HideProgressInfo );
             connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
             break;
         }

@@ -20,7 +20,6 @@
 #define MYIMAGECOLLECTION_H
 
 #include <config-kpa-kipi.h>
-#ifdef HASKIPI
 #include <libkipi/imagecollectionshared.h>
 #include "DB/ImageInfoList.h"
 #include <kdemacros.h>
@@ -51,8 +50,6 @@ private:
 };
 
 }
-
-#endif // KIPI
 
 #endif /* MYIMAGECOLLECTION_H */
 

@@ -20,7 +20,6 @@
 #define MYIMAGEINFO_H
 
 #include <config-kpa-kipi.h>
-#ifdef HASKIPI
 #include <libkipi/imageinfoshared.h>
 #include <kdemacros.h>
 #include "DB/ImageInfoPtr.h"
@@ -61,8 +60,6 @@ private:
 };
 
 }
-
-#endif // NOKIP
 
 #endif /* MYIMAGEINFO_H */
 

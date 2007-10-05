@@ -20,7 +20,6 @@
 #define KPHOTOALBUM_PLUGININTERFACE_H
 
 #include <config-kpa-kipi.h>
-#ifdef HASKIPI
 #include <libkipi/interface.h>
 #include <q3valuelist.h>
 #include <libkipi/imagecollection.h>
@@ -56,7 +55,6 @@ signals:
 
 }
 
-#endif
 
 #endif /* PLUGININTERFACE_H */
 

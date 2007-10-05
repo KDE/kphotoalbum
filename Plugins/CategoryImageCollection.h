@@ -20,7 +20,6 @@
 #define CATEGORYIMAGECOLLECTION_H
 
 #include <config-kpa-kipi.h>
-#ifdef HASKIPI
 #include "Plugins/ImageCollection.h"
 #include "DB/ImageSearchInfo.h"
 #include <kdemacros.h>
@@ -40,8 +39,6 @@ private:
 };
 
 }
-
-#endif // KIPI
 
 
 #endif /* CATEGORYIMAGECOLLECTION_H */

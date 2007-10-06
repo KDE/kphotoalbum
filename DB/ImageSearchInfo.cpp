@@ -30,7 +30,7 @@
 #include <kconfig.h>
 #include <config-kpa-exiv2.h>
 #include <kglobal.h>
-
+#include <kconfiggroup.h>
 using namespace DB;
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,

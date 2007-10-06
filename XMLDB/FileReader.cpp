@@ -26,6 +26,8 @@
 #include <qfile.h>
 #include <kstandarddirs.h>
 #include <qregexp.h>
+#include <QTextStream>
+#include <QTextCodec>
 #ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
 #endif

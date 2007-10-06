@@ -24,7 +24,7 @@
 #include "Settings/SettingsData.h"
 #include <kconfig.h>
 #include <qfileinfo.h>
-
+#include <kconfiggroup.h>
 #define DEFAULT_DRIVER QString::fromLatin1("SQLite3")
 #define DEFAULT_DATABASE QString::fromLatin1("kphotoalbum")
 #define DATABASE_FILE_EXTENSION QString::fromLatin1(".db")

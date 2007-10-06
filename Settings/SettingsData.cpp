@@ -37,10 +37,12 @@
 #include <kconfig.h>
 #include "SettingsData.moc"
 #include "DB/MemberMap.h"
+#include <kconfiggroup.h>
 #include <qpixmapcache.h>
 #include <QColor>
 #include <QStringList>
 #include <config-kpa-sqldb.h>
+
 #ifdef SQLDB_SUPPORT
 #  include "SQLDB/ConfigFileHandler.h"
 #  include "SQLDB/DatabaseAddress.h"

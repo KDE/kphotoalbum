@@ -47,6 +47,7 @@
 #include "DB/ImageInfo.h"
 #include "MiniViewer.h"
 #include "XMLDB/Database.h"
+#include <kmessagebox.h>
 
 using Utilities::StringSet;
 
@@ -493,6 +494,9 @@ void Import::copyNextFromExternal()
     QString fileName = info->fileName( true );
     KURL src1 = _kimFile;
     KURL src2 = _baseUrl + QString::fromLatin1( "/" );
+    bool succeeded = false;
+    QStringList tried;
+
     for ( int i = 0; i < 2; ++i ) {
         KURL src = src1;
         if ( i == 1 )
@@ -504,7 +508,21 @@ void Import::copyNextFromExternal()
             dest.setPath( Settings::SettingsData::instance()->imageDirectory() + _nameMap[fileName] );
             _job = KIO::file_copy( src, dest, -1, false, false, false );
             connect( _job, SIGNAL( result( KIO::Job* ) ), this, SLOT( aCopyJobCompleted( KIO::Job* ) ) );
+            succeeded = true;
             break;
+        } else
+            tried << src.prettyURL();
+    }
+
+    if (!succeeded) {
+        if ( KMessageBox::warningContinueCancelList( _progress,
+                    i18n("Can't copy file from any of the following locations:"), tried)
+                == KMessageBox::Continue ) {
+            _progress->setProgress( ++_totalCopied );
+            copyNextFromExternal();
+        } else {
+            deleteLater();
+            delete _progress;
         }
     }
 }

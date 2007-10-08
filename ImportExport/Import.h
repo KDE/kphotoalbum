@@ -90,8 +90,12 @@ protected slots:
     void slotSelectNone();
     void downloadKimJobCompleted( KIO::Job* );
     void aCopyJobCompleted( KIO::Job* );
+    void aCopyFailed( QStringList files );
     void stopCopyingImages();
     void slotHelp();
+
+signals:
+    void failedToCopy( QStringList files );
 
 private:
     Import( const QString& file, bool* ok, QWidget* parent, const char* name = 0 );
@@ -119,6 +123,7 @@ private:
     KIO::FileCopyJob* _job;
     bool _hasFilled;
     QString _baseUrl;
+    bool _reportUnreadableFiles;
 };
 
 }

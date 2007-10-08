@@ -80,7 +80,7 @@ void Import::imageImport( const KURL& url )
 }
 
 Import::Import( const KURL& url, QWidget* parent, const char* name )
-    :KWizard( parent, name, false ), _zip( 0 ), _hasFilled( false )
+    :KWizard( parent, name, false ), _zip( 0 ), _hasFilled( false ), _reportUnreadableFiles( true )
 {
     _kimFile = url;
     _tmp = new KTempFile( QString::null, QString::fromLatin1( ".kim" ) );
@@ -111,6 +111,7 @@ Import::Import( const QString& fileName, bool* ok, QWidget* parent, const char* 
 {
     _kimFile.setPath( fileName );
     *ok = init( fileName );
+    connect( this, SIGNAL( failedToCopy( QStringList ) ), this, SLOT( aCopyFailed( QStringList ) ) );
 }
 
 bool Import::init( const QString& fileName )
@@ -480,7 +481,7 @@ void Import::copyFromExternal()
 {
     _pendingCopies = selectedImages();
     _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), _pendingCopies.count(), 0, "_progress", true );
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 2 * _pendingCopies.count(), 0, "_progress", true );
     _progress->setProgress( 0 );
     _progress->show();
     connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
@@ -514,28 +515,37 @@ void Import::copyNextFromExternal()
             tried << src.prettyURL();
     }
 
-    if (!succeeded) {
-        if ( KMessageBox::warningContinueCancelList( _progress,
-                    i18n("Can't copy file from any of the following locations:"), tried)
-                == KMessageBox::Continue ) {
-            if ( _pendingCopies.count() == 0 ) {
-                deleteLater();
-                delete _progress;
-            } else {
-                _progress->setProgress( ++_totalCopied );
-                copyNextFromExternal();
-            }
-        } else {
+    if (!succeeded)
+        emit failedToCopy( tried );
+}
+
+void Import::aCopyFailed( QStringList files )
+{
+    int result = _reportUnreadableFiles ?
+        KMessageBox::warningYesNoCancelList( _progress,
+            i18n("Can't copy file from any of the following locations:"),
+            files, QString::null, KStdGuiItem::cont(), KGuiItem( i18n("Continue without Asking") )) : KMessageBox::Yes;
+
+    switch (result) {
+        case KMessageBox::Cancel:
+            // This might be late -- if we managed to copy some files, we will
+            // just throw away any changes to the DB, but some new image files
+            // might be in the image directory...
             deleteLater();
             delete _progress;
-        }
+            break;
+
+        case KMessageBox::No:
+            _reportUnreadableFiles = false;
+            // fall through
+        default:
+            aCopyJobCompleted( 0 );
     }
 }
 
-
 void Import::aCopyJobCompleted( KIO::Job* job )
 {
-    if ( job->error() ) {
+    if ( job && job->error() ) {
         job->showErrorDialog( 0 );
         deleteLater();
         delete _progress;
@@ -579,6 +589,9 @@ void Import::slotFinish()
 
 void Import::updateDB()
 {
+    disconnect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
+    _progress->setLabelText( i18n("Updating Database") );
+
     // Run though all images
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
@@ -615,6 +628,10 @@ void Import::updateDB()
 
             }
         }
+
+        _progress->setProgress( ++_totalCopied );
+        if ( _progress->wasCancelled() )
+            break;
     }
     Browser::BrowserWidget::instance()->home();
 }

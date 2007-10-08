@@ -1,7 +1,7 @@
 2007-10-08  Jan Kundrat  <jkt@gentoo.org>
 
-	* Handle errors when copying files when importing gracefully
-
+	* Better error handling in KIM Import
+	* Better interactivity in KIM Import
 
 2007-10-03  Jan Kundrat  <jkt@gentoo.org>
 

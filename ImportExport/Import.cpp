@@ -518,8 +518,13 @@ void Import::copyNextFromExternal()
         if ( KMessageBox::warningContinueCancelList( _progress,
                     i18n("Can't copy file from any of the following locations:"), tried)
                 == KMessageBox::Continue ) {
-            _progress->setProgress( ++_totalCopied );
-            copyNextFromExternal();
+            if ( _pendingCopies.count() == 0 ) {
+                deleteLater();
+                delete _progress;
+            } else {
+                _progress->setProgress( ++_totalCopied );
+                copyNextFromExternal();
+            }
         } else {
             deleteLater();
             delete _progress;

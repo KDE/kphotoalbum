@@ -510,13 +510,99 @@ void Settings::SettingsData::_setSyncing( const bool writing, const QString& ide
 QValueList<Exif::Syncable::Kind> Settings::SettingsData::_syncing( const bool writing, const QString& identifier ) const
 {
     QString mode = writing ? QString::fromAscii("_W") : QString::fromAscii("_R");
-    QValueList<Exif::Syncable::Kind> list;
+    QValueList<Exif::Syncable::Kind> list, allowedItems;
     QStringList split = QStringList::split( QString::fromAscii(";"),
             value( STR("MetadataSyncing"), STR("syncFields_%1").arg( identifier ) + mode, QString::null ) );
+    allowedItems = defaultFields( writing, identifier );
+
     for (QStringList::const_iterator it = split.begin(); it != split.end(); ++it) {
-        list << static_cast<Exif::Syncable::Kind>( (*it).toInt() );
+        Exif::Syncable::Kind item = static_cast<Exif::Syncable::Kind>( (*it).toInt() );
+        if ( allowedItems.contains( item ) )
+            list << item;
     }
+
+    if (list.isEmpty())
+        list = allowedItems;
+
     return list;
+}
+
+QValueList<Exif::Syncable::Kind> Settings::SettingsData::defaultFields( const bool writing, const QString& name ) const
+{
+    QValueList<Exif::Syncable::Kind> r, w;
+
+    if (name == QString::fromAscii("orientation")) {
+        r << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
+        w = r;
+    } else if ( name == QString::fromAscii("label")) {
+        r << Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
+            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME <<
+            Exif::Syncable::FILE_NAME << Exif::Syncable::STOP << Exif::Syncable::IPTC_CAPTION;
+        w << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
+            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
+            Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT <<
+            Exif::Syncable::IPTC_CAPTION;
+    } else if ( name == QString::fromAscii("description")) {
+        r << Exif::Syncable::IPTC_CAPTION <<
+            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
+            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPCOMMENT <<
+            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME <<
+            Exif::Syncable::STOP << Exif::Syncable::IPTC_HEADLINE;
+        w << Exif::Syncable::IPTC_CAPTION <<
+            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
+            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
+            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT <<
+            Exif::Syncable::IPTC_HEADLINE;
+    } else if ( name == QString::fromAscii("date")) {
+        r << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
+            Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_MTIME <<
+            Exif::Syncable::FILE_CTIME << Exif::Syncable::STOP;
+        w << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::STOP <<
+            /*Exif::Syncable::FILE_MTIME <<*/ Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
+            Exif::Syncable::EXIF_DATETIME_DIGITIZED;
+    } else if ( name.startsWith( QString::fromAscii("category_") ) ) {
+        QString category = name.mid( QString::fromAscii("category_").length() );
+
+        // we need at least one random category for that vocabulary thingy...
+        DB::CategoryPtr someCategory = *( DB::ImageDB::instance()->categoryCollection()->categories().begin() );
+
+        if ( ( category == QString::fromLatin1("Keywords") ) ||
+                ( someCategory->standardCategories()[ QString::fromLatin1("Keywords") ] == category ) ) {
+            r << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
+                Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+            w << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
+                Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
+        } else if ( ( category == QString::fromLatin1("Places") ) ||
+                ( someCategory->standardCategories()[ QString::fromLatin1("Places") ] == category ) ) {
+            r << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
+                Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+                Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+            w << Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::STOP <<
+                Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
+                Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
+                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_SUPP_CAT;
+        } else {
+            r << Exif::Syncable::STOP << Exif::Syncable::EXIF_DESCRIPTION <<
+                Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
+                Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPKEYWORDS <<
+                Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_HEADLINE <<
+                Exif::Syncable::IPTC_CAPTION << Exif::Syncable::IPTC_OBJECT_NAME <<
+                Exif::Syncable::IPTC_SUBJECT << Exif::Syncable::IPTC_SUPP_CAT <<
+                Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::IPTC_LOCATION_CODE <<
+                Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::IPTC_CITY <<
+                Exif::Syncable::IPTC_SUB_LOCATION << Exif::Syncable::IPTC_PROVINCE_STATE <<
+                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_COUNTRY_NAME;
+            w = r;
+        }
+
+    } else {
+        qDebug("Internal error: unknown syncing field %s", name.ascii());
+    }
+
+    return writing ? w : r;
 }
 
 void Settings::SettingsData::setLabelSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields )

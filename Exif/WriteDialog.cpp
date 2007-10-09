@@ -60,33 +60,13 @@ int Exif::WriteDialog::exec( const QStringList& list )
     QString titleCaption = i18n("<p><b><center><font size=\"+3\">Write File Info</font><br>%1 selected</center></b></p>").arg( list.count() );
     _title->setText( titleCaption );
 
-    QValueList<Exif::Syncable::Kind> items;
-    bool configured;
-
-    items = Settings::SettingsData::instance()->labelSyncing( true );
-    _label->setEnabled( configured = ( items.begin() != items.end() ) );
-    _label->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
-
-    items = Settings::SettingsData::instance()->descriptionSyncing( true );
-    _description->setEnabled( configured = ( items.begin() != items.end() ) );
-    _description->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
-
-    items = Settings::SettingsData::instance()->orientationSyncing( true );
-    _orientation->setEnabled( configured = ( items.begin() != items.end() ) );
-    _orientation->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
-
-    items = Settings::SettingsData::instance()->dateSyncing( true );
-    _date->setEnabled( configured = ( items.begin() != items.end() ) );
-    _date->setChecked( configured && ( *(items.begin()) != Exif::Syncable::STOP ) );
-
-    // just re-use results from date...
-    _categories->setChecked( configured );
+    _label->setChecked( true );
+    _description->setChecked( true );
+    _orientation->setChecked( true );
+    _date->setChecked( true );
+    _categories->setChecked( true );
 
     _list = list;
-
-    if ( !configured )
-        _title->setText( titleCaption + i18n("<p>It seems that you haven't configured metadata syncing yet. "
-                    "Please do so in the Settings-&gt;Configure dialog.</p>") );
 
     return KDialogBase::exec();
 }

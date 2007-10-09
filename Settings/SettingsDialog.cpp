@@ -1027,66 +1027,44 @@ void Settings::SettingsDialog::createSyncPage()
                         KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
                                                          KIcon::Desktop, 32 ) );
 
+    const Settings::SettingsData* opt = Settings::SettingsData::instance();
+
     QVBoxLayout* _lay = new QVBoxLayout( _syncPage );
     _syncTabs = new QTabWidget( _syncPage );
     _syncTabs->setMargin( 6 );
     QHBox* hbox;
-    QValueList< Exif::Syncable::Kind > rValues, wValues;
 
     hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
-    rValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
-    wValues << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
-    _orientationRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    _orientationWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _orientationRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox,
+            opt->defaultFields( false, QString::fromAscii("orientation")) );
+    _orientationWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox,
+            opt->defaultFields( true, QString::fromAscii("orientation")) );
     _syncTabs->addTab( hbox, i18n("Image orientation") );
 
     hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
-    rValues.clear(); wValues.clear();
-    rValues << Exif::Syncable::IPTC_HEADLINE <<
-            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
-            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
-            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
-            Exif::Syncable::FILE_NAME << Exif::Syncable::STOP << Exif::Syncable::IPTC_CAPTION;
-    wValues << Exif::Syncable::IPTC_HEADLINE <<
-            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
-            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
-            Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT <<
-            Exif::Syncable::IPTC_CAPTION;
-    _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _labelRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox,
+            opt->defaultFields( false, QString::fromAscii("label")) );
+    _labelWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox,
+            opt->defaultFields( true, QString::fromAscii("label")) );
     _syncTabs->addTab( hbox, i18n("Label") );
 
     hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
-    rValues.clear(); wValues.clear();
-    rValues << Exif::Syncable::IPTC_CAPTION <<
-            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
-            Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPCOMMENT <<
-            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME << 
-            Exif::Syncable::STOP << Exif::Syncable::IPTC_HEADLINE;
-    wValues << Exif::Syncable::IPTC_CAPTION <<
-            Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
-            Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
-            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT <<
-            Exif::Syncable::IPTC_HEADLINE;
-    _descriptionRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    _descriptionWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _descriptionRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox,
+            opt->defaultFields( false, QString::fromAscii("description")) );
+    _descriptionWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox,
+            opt->defaultFields( true, QString::fromAscii("description")) );
     _syncTabs->addTab( hbox, i18n("Description") );
 
     hbox = new QHBox( _syncPage );
     hbox->setSpacing( 6 );
-    rValues.clear(); wValues.clear();
-    rValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
-        Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_MTIME <<
-        Exif::Syncable::FILE_CTIME << Exif::Syncable::STOP;
-    wValues << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::STOP <<
-        /*Exif::Syncable::FILE_MTIME <<*/ Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
-        Exif::Syncable::EXIF_DATETIME_DIGITIZED;
 
-    _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox, rValues );
-    _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox, wValues );
+    _dateRead = new Exif::SyncWidget( i18n("Fields to get value from"), hbox,
+            opt->defaultFields( false, QString::fromAscii("date")) );
+    _dateWrite = new Exif::SyncWidget( i18n("Fields to write value to"), hbox,
+            opt->defaultFields( true, QString::fromAscii("date")) );
     _syncTabs->addTab( hbox, i18n("Date") );
 
     QValueList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -1099,49 +1077,21 @@ void Settings::SettingsDialog::createSyncPage()
 
 void Settings::SettingsDialog::slotCategoryAdded( const QString& name )
 {
-    // we need at least one radnom category for that vocabulary thingy...
-    DB::CategoryPtr someCategory = *( DB::ImageDB::instance()->categoryCollection()->categories().begin() );
     for (int i = 0; _syncTabs->label( i ) != QString::null; ++i )
         if ( _syncTabs->label( i ).remove( '&' ) == name ) {
             qDebug("Attempted to add category \"%s\" that already exists, skipping...", name.ascii());
             return;
         }
 
-    QValueList< Exif::Syncable::Kind > rValues, wValues;
     QGrid* box = new QGrid( 2, Horizontal, _syncPage );
     box->setSpacing( 6 );
-    rValues.clear(); wValues.clear();
-    if ( ( name == QString::fromLatin1("Keywords") ) ||
-            ( someCategory->standardCategories()[ QString::fromLatin1("Keywords") ] == name ) ) {
-        rValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
-            Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
-        wValues << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
-            Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
-    } else if ( ( name == QString::fromLatin1("Places") ) ||
-            ( someCategory->standardCategories()[ QString::fromLatin1("Places") ] == name ) ) {
-        rValues << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
-            Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
-            Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
-            Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
-        wValues << Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::STOP <<
-            Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
-            Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
-            Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_SUPP_CAT;
-    } else {
-        rValues << Exif::Syncable::STOP << Exif::Syncable::EXIF_DESCRIPTION <<
-            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
-            Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPKEYWORDS <<
-            Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_HEADLINE <<
-            Exif::Syncable::IPTC_CAPTION << Exif::Syncable::IPTC_OBJECT_NAME <<
-            Exif::Syncable::IPTC_SUBJECT << Exif::Syncable::IPTC_SUPP_CAT <<
-            Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::IPTC_LOCATION_CODE <<
-            Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::IPTC_CITY <<
-            Exif::Syncable::IPTC_SUB_LOCATION << Exif::Syncable::IPTC_PROVINCE_STATE <<
-            Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_COUNTRY_NAME;
-        wValues = rValues;
-    }
-    _catFieldsRead.replace( name, new Exif::SyncWidget( i18n("Fields to get value from"), box, rValues ) );
-    _catFieldsWrite.replace( name, new Exif::SyncWidget( i18n("Fields to write value to"), box, wValues ) );
+
+    const Settings::SettingsData* opt = Settings::SettingsData::instance();
+
+    _catFieldsRead.replace( name, new Exif::SyncWidget( i18n("Fields to get value from"), box,
+                opt->defaultFields( false, QString::fromAscii("category_%1").arg( name ) )) );
+    _catFieldsWrite.replace( name, new Exif::SyncWidget( i18n("Fields to write value to"), box,
+                opt->defaultFields( true, QString::fromAscii("category_%1").arg( name ) )) );
     QLabel* lbl = new QLabel( i18n("Supercategories"), box );
     lbl->setAlignment( AlignRight | AlignVCenter );
     _catSuper.replace( name, new KComboBox( box ) );

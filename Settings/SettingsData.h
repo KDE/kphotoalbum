@@ -195,6 +195,7 @@ public:
     QValueList<Exif::Syncable::Kind> orientationSyncing( const bool writing ) const;
     void setDateSyncing( const bool writing, const QValueList<Exif::Syncable::Kind>& fields );
     QValueList<Exif::Syncable::Kind> dateSyncing( const bool writing ) const;
+    QValueList<Exif::Syncable::Kind> defaultFields( bool writing, const QString& identifier ) const;
 
     QString imageDirectory() const;
 

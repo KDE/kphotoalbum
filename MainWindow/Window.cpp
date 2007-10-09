@@ -379,7 +379,7 @@ void MainWindow::Window::createAnnotationDialog()
     if ( !_annotationDialog.isNull() )
         return;
 
-    _annotationDialog = new AnnotationDialog::Dialog( this,  "_annotationDialog" );
+    _annotationDialog = new AnnotationDialog::Dialog( 0,  "_annotationDialog" );
 }
 
 void MainWindow::Window::deleteAnnotationDialog()

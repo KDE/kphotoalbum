@@ -393,19 +393,16 @@ void Import::createCategoryPages()
 
 ImportMatcher* Import::createCategoryPage( const QString& myCategory, const QString& otherCategory )
 {
-    QStringList otherItems;
+    StringSet otherItems;
     DB::ImageInfoList images = selectedImages();
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
-        DB::ImageInfoPtr info = *it;
-        StringSet items = info->itemsOfCategory( otherCategory );
-        for( StringSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt )
-            otherItems.append( *itemIt );
+        otherItems += (*it)->itemsOfCategory( otherCategory );
     }
 
     QStringList myItems = DB::ImageDB::instance()->categoryCollection()->categoryForName( myCategory )->itemsInclCategories();
     myItems.sort();
 
-    ImportMatcher* matcher = new ImportMatcher( otherCategory, myCategory, otherItems, myItems, true, this, "import matcher" );
+    ImportMatcher* matcher = new ImportMatcher( otherCategory, myCategory, otherItems.toList(), myItems, true, this, "import matcher" );
     addPage( matcher, myCategory );
     return matcher;
 }

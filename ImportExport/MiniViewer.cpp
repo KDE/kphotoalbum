@@ -29,10 +29,10 @@ using namespace ImportExport;
 
 MiniViewer* MiniViewer::_instance = 0;
 
-void MiniViewer::show( QImage img, DB::ImageInfoPtr info )
+void MiniViewer::show( QImage img, DB::ImageInfoPtr info, QWidget* parent )
 {
     if ( !_instance )
-        _instance = new MiniViewer();
+        _instance = new MiniViewer( parent );
 
     if ( info->angle() != 0 ) {
         QWMatrix matrix;
@@ -58,7 +58,7 @@ void MiniViewer::slotClose()
     deleteLater();
 }
 
-MiniViewer::MiniViewer()
+MiniViewer::MiniViewer( QWidget* parent ): QDialog( parent )
 {
     QVBoxLayout* vlay = new QVBoxLayout( this, 6 );
     _pixmap = new QLabel( this );

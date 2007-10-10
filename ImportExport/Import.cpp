@@ -303,7 +303,7 @@ void ImageRow::showImage()
 
             if( KIO::NetAccess::download( src, tmpFile, MainWindow::Window::theMainWindow() ) ) {
                 QImage img( tmpFile );
-                MiniViewer::show( img, _info );
+                MiniViewer::show( img, _info, static_cast<QWidget*>( parent() ) );
                 KIO::NetAccess::removeTempFile( tmpFile );
                 break;
             }
@@ -311,7 +311,7 @@ void ImageRow::showImage()
     }
     else {
         QImage img = QImage( _import->loadImage( _info->fileName(true) ) );
-        MiniViewer::show( img, _info );
+        MiniViewer::show( img, _info, static_cast<QWidget*>( parent() ) );
     }
 }
 

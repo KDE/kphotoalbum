@@ -455,6 +455,12 @@ void Import::next()
 bool Import::copyFilesFromZipFile()
 {
     DB::ImageInfoList images = selectedImages();
+
+    _totalCopied = 0;
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 2 * images.count(), 0, "_progress", true );
+    _progress->setProgress( 0 );
+    _progress->show();
+
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
         QString fileName = (*it)->fileName( true );
         QByteArray data = loadImage( fileName );
@@ -469,10 +475,20 @@ bool Import::copyFilesFromZipFile()
         QFile out( newName );
         if ( !out.open( IO_WriteOnly ) ) {
             KMessageBox::error( this, i18n("Error when writing image %s").arg( newName ) );
+            delete _progress;
+            _progress = 0;
             return false;
         }
         out.writeBlock( data, data.size() );
         out.close();
+
+        qApp->processEvents();
+        _progress->setProgress( ++_totalCopied );
+        if ( _progress->wasCanceled() ) {
+            delete _progress;
+            _progress = 0;
+            return false;
+        }
     }
     return true;
 }
@@ -533,6 +549,7 @@ void Import::aCopyFailed( QStringList files )
             // might be in the image directory...
             deleteLater();
             delete _progress;
+            _progress = 0;
             break;
 
         case KMessageBox::No:

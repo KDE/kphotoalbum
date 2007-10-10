@@ -620,7 +620,7 @@ void Import::updateDB()
         newInfo->setDate( info->date() );
         newInfo->rotate( info->angle() );
         newInfo->setDrawList( info->drawList() );
-        newInfo->setMD5Sum( info->MD5Sum() );
+        newInfo->setMD5Sum( Utilities::MD5Sum( newInfo->fileName(false) ) );
         DB::ImageInfoList list;
         list.append(newInfo);
         DB::ImageDB::instance()->addImages( list );

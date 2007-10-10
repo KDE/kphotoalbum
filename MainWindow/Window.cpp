@@ -1356,6 +1356,7 @@ void MainWindow::Window::slotRemoveTokens()
     if ( !_tokenEditor )
         _tokenEditor = new TokenEditor( this, "token editor" );
     _tokenEditor->show();
+    connect( _tokenEditor, SIGNAL( finished() ), _browser, SLOT( home() ) );
 }
 
 void MainWindow::Window::updateDateBar( const QString& path )

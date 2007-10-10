@@ -394,7 +394,7 @@ void MainWindow::Window::createAnnotationDialog()
     if ( !_annotationDialog.isNull() )
         return;
 
-    _annotationDialog = new AnnotationDialog::Dialog( this );
+    _annotationDialog = new AnnotationDialog::Dialog( 0 );
 }
 
 void MainWindow::Window::slotSave()

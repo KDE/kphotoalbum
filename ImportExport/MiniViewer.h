@@ -41,14 +41,14 @@ class MiniViewer :public QDialog
     Q_OBJECT
 
 public:
-    static void show( QImage img, DB::ImageInfoPtr info );
+    static void show( QImage img, DB::ImageInfoPtr info, QWidget* parent = 0 );
     virtual void closeEvent( QCloseEvent* event );
 
 protected slots:
     void slotClose();
 
 private:
-    MiniViewer();
+    MiniViewer( QWidget* parent = 0 );
     static MiniViewer* _instance;
     QLabel* _pixmap;
 };

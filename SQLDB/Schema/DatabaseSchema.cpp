@@ -18,6 +18,7 @@
 */
 
 #include "DatabaseSchema.h"
+#include <stdexcept>
 
 using namespace SQLDB::Schema;
 
@@ -240,6 +241,71 @@ bool TableSchema::hasFields(const StringTuple& fields) const
 
 // =======================================================================
 
+Identifier::Identifier(const string& name, int versionMajor, int versionMinor):
+    _name(name),
+    _versionMajor(versionMajor),
+    _versionMinor(versionMinor),
+    _year(0),
+    _month(0),
+    _day(0)
+{
+    for (string::const_iterator i = _name.begin(); i != _name.end(); ++i)
+        if ((*i < 'a' || *i > 'z') && *i != '_')
+            throw std::logic_error("Invalid character in name");
+}
+
+Identifier& Identifier::setDate(int year, int month, int day)
+{
+    if (month < 1 || month > 12 || day < 1 || day > 31)
+        throw std::logic_error("Invalid date");
+    _year = year;
+    _month = month;
+    _day = day;
+    return *this;
+}
+
+bool Identifier::isCompatibleWith(const Identifier& other) const
+{
+    return (_name == other._name) && (_versionMajor == other._versionMajor);
+}
+
+const string& Identifier::name() const
+{
+    return _name;
+}
+
+int Identifier::versionMajor() const
+{
+    return _versionMajor;
+}
+
+int Identifier::versionMinor() const
+{
+    return _versionMinor;
+}
+
+int Identifier::dateYear() const
+{
+    return _year;
+}
+
+int Identifier::dateMonth() const
+{
+    return _month;
+}
+
+int Identifier::dateDay() const
+{
+    return _day;
+}
+
+// =======================================================================
+
+DatabaseSchema::DatabaseSchema(const Identifier& identifier):
+    _id(identifier)
+{
+}
+
 TableSchema* DatabaseSchema::createTable(const string& name)
 {
     if (!name.empty() && !hasTable(name)) {
@@ -260,4 +326,9 @@ const TableList& DatabaseSchema::tables() const
 bool DatabaseSchema::hasTable(const string& name) const
 {
     return _tableMap.find(name) != _tableMap.end();
+}
+
+const Identifier& DatabaseSchema::identifier() const
+{
+    return _id;
 }

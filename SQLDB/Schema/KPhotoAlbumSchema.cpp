@@ -25,7 +25,14 @@ namespace Schema {
     {
         static DatabaseSchema* schema(0);
         if (!schema) {
-            schema = new DatabaseSchema();
+            //
+            // Remember to update minor version and date every time
+            // you make a change! Also major should be increased and
+            // minor set to 0 when making incompatible change.
+            //
+            schema =
+                new DatabaseSchema
+                (Identifier("kphotoalbum", 2, 1).setDate(2006, 11, 1));
 
             TableSchema* t;
             Field* f;

@@ -32,6 +32,7 @@ generateCreateStatements(const DatabaseSchema& schema)
         makeTable(**t, _statementList);
         makeIndices(**t, _statementList);
     }
+    makeMetadataInserts(schema.identifier(), _statementList);
     return _statementList;
 }
 
@@ -220,6 +221,47 @@ void BaseCSG::makeIndices(const TableSchema& t, list<string>& destList) const
         destStr += ")";
         destList.push_back(destStr);
     }
+}
+
+void BaseCSG::makeMetadataInserts(const Identifier& id,
+                                  list<string>& destList) const
+{
+    TableSchema t("database_metadata");
+    t.createField("property", FieldType(Varchar, 20));
+    t.setPrimaryKey("property");
+    t.createField("value", FieldType(Varchar, 255));
+    makeTable(t, destList);
+
+    string prefix = "INSERT INTO database_metadata(property, value) VALUES ";
+    string destStr;
+
+    destStr = prefix + "('name', '" + id.name() + "')";
+    destList.push_back(destStr);
+
+    destStr = prefix + "('version major', '";
+    makeNumber(id.versionMajor(), destStr);
+    destStr += "')";
+    destList.push_back(destStr);
+
+    destStr = prefix + "('version minor', '";
+    makeNumber(id.versionMinor(), destStr);
+    destStr += "')";
+    destList.push_back(destStr);
+
+    destStr = prefix + "('date year', '";
+    makeNumber(id.dateYear(), destStr);
+    destStr += "')";
+    destList.push_back(destStr);
+
+    destStr = prefix + "('date month', '";
+    makeNumber(id.dateMonth(), destStr);
+    destStr += "')";
+    destList.push_back(destStr);
+
+    destStr = prefix + "('date day', '";
+    makeNumber(id.dateDay(), destStr);
+    destStr += "')";
+    destList.push_back(destStr);
 }
 
 void BaseCSG::makeStringTuple(const StringTuple& st, string& destStr) const

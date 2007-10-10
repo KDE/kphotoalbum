@@ -21,13 +21,8 @@
 #include "DriverManager.h"
 #include "Schema/KPhotoAlbumSchema.h"
 #include "QueryHelper.h"
-
-// Update this when making incompatible schema change
-#define SCHEMA_VERSION_MAJOR 2
-
-// Update these every time the database schema changes
-#define SCHEMA_VERSION_MINOR 1
-#define SCHEMA_DATE "2006-11-01"
+#include "QueryErrors.h"
+#include <klocale.h>
 
 namespace
 {
@@ -60,6 +55,40 @@ namespace
                               entry[i].visible,
                               entry[i].viewtype, entry[i].thumbnailSize);
     }
+
+    static SQLDB::Schema::Identifier
+    getDatabaseIdentifier(SQLDB::DatabaseConnection& conn)
+    {
+        SQLDB::Schema::string name;
+        int versionMajor(0);
+        int versionMinor(0);
+        int year(0);
+        int month(0);
+        int day(0);
+
+        SQLDB::QueryHelper qh(conn);
+        try {
+            QString x =
+                "SELECT value FROM database_metadata "
+                "WHERE property=";
+            name =
+                qh.executeQuery(x + "'name'").firstItem().
+                toString().latin1();
+            versionMajor =
+                qh.executeQuery(x + "'version major'").firstItem().toInt();
+            versionMinor =
+                qh.executeQuery(x + "'version minor'").firstItem().toInt();
+            year = qh.executeQuery(x + "'date year'").firstItem().toInt();
+            month = qh.executeQuery(x + "'date month'").firstItem().toInt();
+            day = qh.executeQuery(x + "'date day'").firstItem().toInt();
+        }
+        catch (...) {
+        }
+        SQLDB::Schema::Identifier id(name, versionMajor, versionMinor);
+        if (year != 0 && month != 0 && day != 0)
+            id.setDate(year, month, day);
+        return id;
+    }
 }
 
 SQLDB::DatabaseConnection
@@ -82,25 +111,13 @@ SQLDB::initializeKPhotoAlbumDatabase(const DatabaseAddress& address)
     DatabaseConnection dbConn(dbMgr->connectToDatabase(dbName));
 
     if (databaseCreated) {
-        // Add schema version properties
-        /*
-        properties.setValue("schema version major", SCHEMA_VERSION_MAJOR);
-        properties.setValue("schema version minor", SCHEMA_VERSION_MINOR);
-        properties.setValue("schema date", SCHEMA_DATE);
-        */
-
         insertInitialData(dbConn);
     }
     else {
         // Test schema version
-        /*
-        QVariant version =
-            _connection->databaseProperties().value("schema version major");
-        if (version.isNull())
+        if (!Schema::getKPhotoAlbumSchema().identifier().
+            isCompatibleWith(getDatabaseIdentifier(dbConn)))
             throw DatabaseSchemaError(i18n("Database schema is incompatible."));
-        if (version.toUInt() != SCHEMA_VERSION_MAJOR)
-            throw DatabaseSchemaError(i18n("Database version is incompatible."));
-        */
     }
 
     return dbConn;

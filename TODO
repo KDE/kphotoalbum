@@ -4,7 +4,6 @@ IPTC stuff
 - re-think the whole idea (qt4's scripting?)
 - encoding
 - ignore dumb values (like "KONICA MIONOLTA     " etc)
-- port to kde4 :]
 - add support for writing to another file (and extend the File->Export/Copy
   images dialog to match this feature)
 
@@ -32,16 +31,6 @@ BUGS To be handled soonish
 - renaming a category should not result in the listselect being placed
 different in the image property page.
 - Config window layout should be saved when a new tab has been created.
-- When exporting to HTML or otherwise, use a filename suffix that
-  matches what's actually being exported.  For example, exporting a
-  file named foo.png generates a file named foo.png, even though the
-  exported file is actually a JPEG.
-
-=======================
-BUGS of less importance
-=======================
-- When going back in the thumbnail view, the view is positioned at the top,
-  rather than at its last current position.
 
 ================================================================
 Features I like, and wish I would have time to look at some day.
@@ -60,8 +49,6 @@ Features I like, and wish I would have time to look at some day.
   If it doesn´t work, the default KDE icon, just like today.
   The problem here is speed. Currently it is not possible to load these images
   using the image manager, so say 300 images would take approx 1 minute to load.
--  When no selection is active, pgup/pgdn in the viewer work as if all
-pictures were selected.
 - Use clickable breadcrumbs as commonly used on the web, where each
   level in the hierarchy is a clickable link, allowing the user to
   easily go back multiple levels with one click.  On the web they often
@@ -82,8 +69,6 @@ limit to that date.
 
 - items in the browsers should be case insensitive
 - make it possible in the browser to select multiple images to form an "or query"
-- make it possible to specify sort order for the thumbnail (newest image
-first or last)
 - when specifying options for several images at a time, present items that
   are on all images.
 

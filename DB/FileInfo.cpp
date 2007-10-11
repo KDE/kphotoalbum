@@ -135,6 +135,10 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         kdDebug() << "Exiv2 exception when parsing file " << fileName << " for label: " << out.str().data() << endl;
     }
 
+    if ( _label.isNull() || (_label == QString::fromAscii("")) )
+        _label = QFileInfo( fileName ).baseName( true );
+
+
     try { // Description
         items = Settings::SettingsData::instance()->descriptionSyncing( false );
         for (QValueList<Exif::Syncable::Kind>::const_iterator it = items.begin(); ( it != items.end() ) && ( *it != Exif::Syncable::STOP ); ++it ) {

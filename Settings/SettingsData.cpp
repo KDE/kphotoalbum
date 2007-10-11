@@ -535,7 +535,8 @@ QValueList<Exif::Syncable::Kind> Settings::SettingsData::defaultFields( const bo
         r << Exif::Syncable::EXIF_ORIENTATION << Exif::Syncable::STOP;
         w = r;
     } else if ( name == QString::fromAscii("label")) {
-        r << Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
+        r << Exif::Syncable::IPTC_HEADLINE <<
+            Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
             Exif::Syncable::JPEG_COMMENT << Exif::Syncable::EXIF_XPTITLE <<
             Exif::Syncable::EXIF_XPSUBJECT << Exif::Syncable::IPTC_OBJECT_NAME <<
             Exif::Syncable::FILE_NAME << Exif::Syncable::STOP << Exif::Syncable::IPTC_CAPTION;

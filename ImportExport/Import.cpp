@@ -25,6 +25,7 @@
 #include <QPixmap>
 #include <QVBoxLayout>
 #include <QCloseEvent>
+#include <QProgressDialog>
 #include <klocale.h>
 #include <qpushbutton.h>
 #include <qdom.h>
@@ -470,8 +471,8 @@ bool Import::copyFilesFromZipFile()
     DB::ImageInfoList images = selectedImages();
 
     _totalCopied = 0;
-    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 2 * images.count(), 0, "_progress", true );
-    _progress->setProgress( 0 );
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * images.count(), this );
+    _progress->setValue( 0 );
     _progress->show();
 
     for( DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it ) {
@@ -496,7 +497,7 @@ bool Import::copyFilesFromZipFile()
         out.close();
 
         qApp->processEvents();
-        _progress->setProgress( ++_totalCopied );
+        _progress->setValue( ++_totalCopied );
         if ( _progress->wasCanceled() ) {
             delete _progress;
             _progress = 0;
@@ -510,8 +511,8 @@ void Import::copyFromExternal()
 {
     _pendingCopies = selectedImages();
     _totalCopied = 0;
-    _progress = new Q3ProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 2 * _pendingCopies.count(), 0, "_progress", true );
-    _progress->setProgress( 0 );
+    _progress = new QProgressDialog( i18n("Copying Images"), i18n("&Cancel"), 0,2 * _pendingCopies.count(), this );
+    _progress->setValue( 0 );
     _progress->show();
     connect( _progress, SIGNAL( canceled() ), this, SLOT( stopCopyingImages() ) );
     copyNextFromExternal();
@@ -541,7 +542,7 @@ void Import::copyNextFromExternal()
             succeeded = true;
             break;
         } else
-            tried << src.prettyURL();
+            tried << src.prettyUrl();
     }
 
     if (!succeeded)
@@ -553,7 +554,7 @@ void Import::aCopyFailed( QStringList files )
     int result = _reportUnreadableFiles ?
         KMessageBox::warningYesNoCancelList( _progress,
             i18n("Can't copy file from any of the following locations:"),
-            files, QString::null, KStdGuiItem::cont(), KGuiItem( i18n("Continue without Asking") )) : KMessageBox::Yes;
+            files, QString::null, KStandardGuiItem::cont(), KGuiItem( i18n("Continue without Asking") )) : KMessageBox::Yes;
 
     switch (result) {
         case KMessageBox::Cancel:
@@ -590,7 +591,7 @@ void Import::aCopyJobCompleted( KIO::Job* job )
         delete _progress;
     }
     else {
-        _progress->setProgress( ++_totalCopied );
+        _progress->setValue( ++_totalCopied );
         copyNextFromExternal();
     }
 }
@@ -632,7 +633,8 @@ void Import::updateDB()
         newInfo->setDescription( info->description() );
         newInfo->setDate( info->date() );
         newInfo->rotate( info->angle() );
-        newInfo->setMD5Sum( Utilities::MD5Sum( newInfo->fileName(false) ) );
+        //TODO fixme
+        //newInfo->setMD5Sum( Utilities::MD5Sum( newInfo->fileName(false) ) );
         DB::ImageInfoList list;
         list.append(newInfo);
         DB::ImageDB::instance()->addImages( list );
@@ -658,8 +660,8 @@ void Import::updateDB()
             }
         }
 
-        _progress->setProgress( ++_totalCopied );
-        if ( _progress->wasCancelled() )
+        _progress->setValue( ++_totalCopied );
+        if ( _progress->wasCanceled() )
             break;
     }
     Browser::BrowserWidget::instance()->home();

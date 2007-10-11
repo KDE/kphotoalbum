@@ -28,11 +28,11 @@
 #include <KAssistantDialog>
 
 class KTemporaryFile;
-class Q3ProgressDialog;
 class QCheckBox;
 class KArchiveDirectory;
 class KZip;
 class KLineEdit;
+class QProgressDialog;
 
 namespace DB
 {
@@ -123,7 +123,7 @@ private:
     bool _finishedPressed;
     int _totalCopied;
     DB::ImageInfoList _pendingCopies;
-    Q3ProgressDialog* _progress;
+    QProgressDialog* _progress;
     KIO::FileCopyJob* _job;
     bool _hasFilled;
     QString _baseUrl;

@@ -589,6 +589,8 @@ void MainWindow::Window::setupMenuBar()
 
     a = KStandardAction::home( _browser, SLOT( home() ), actionCollection() );
 
+    a = KStandardAction::redisplay( _browser, SLOT( go() ), actionCollection() );
+
     // The Edit menu
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     _cut = KStandardAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );
@@ -1407,7 +1409,7 @@ void MainWindow::Window::slotRemoveTokens()
     if ( !_tokenEditor )
         _tokenEditor = new TokenEditor( this );
     _tokenEditor->show();
-    connect( _tokenEditor, SIGNAL( finished() ), _browser, SLOT( home() ) );
+    connect( _tokenEditor, SIGNAL( finished() ), _browser, SLOT( go() ) );
 }
 
 void MainWindow::Window::updateDateBar( const QString& path )

@@ -586,6 +586,8 @@ void MainWindow::Window::setupMenuBar()
 
     a = KStdAction::home( _browser, SLOT( home() ), actionCollection() );
 
+    a = KStdAction::redisplay( _browser, SLOT( go() ), actionCollection() );
+
     // The Edit menu
 #ifdef CODE_FOR_OLD_CUT_AND_PASTE_IN_THUMBNAIL_VIEW
     _cut = KStdAction::cut( _thumbNailViewOLD, SLOT( slotCut() ), actionCollection() );

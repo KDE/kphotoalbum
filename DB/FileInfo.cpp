@@ -124,7 +124,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 default:
                     kdDebug() << "Unknown label field " << _fieldName[ *it ] << endl;
             }
-            if ( !_label.isNull() && (_label != QString::fromAscii("")) )
+            if ( !_label.isEmpty() )
                 // we have a match, let's move along
                 break;
         }
@@ -135,7 +135,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         kdDebug() << "Exiv2 exception when parsing file " << fileName << " for label: " << out.str().data() << endl;
     }
 
-    if ( _label.isNull() || (_label == QString::fromAscii("")) )
+    if ( _label.isEmpty() )
         _label = QFileInfo( fileName ).baseName( true );
 
 
@@ -168,7 +168,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 default:
                     kdDebug() << "Unknown description field " << _fieldName[ *it ] << endl;
             }
-            if ( !_description.isNull() && (_description != QString::fromAscii("")) )
+            if ( !_description.isEmpty() )
                 break;
         }
     }

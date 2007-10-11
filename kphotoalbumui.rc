@@ -17,7 +17,7 @@
       <Action name="oneProp"/>
       <Action name="allProp"/>
     </Menu>
-    <Menu name="View" >
+    <Menu name="view" >
       <text>&amp;View</text>
       <Action name="viewImages" />
       <Action name="viewImagesNewWindow" />

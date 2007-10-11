@@ -66,7 +66,13 @@ esac
 ], [AC_MSG_RESULT([yes])])
 
 if test "$enable_exiv2_support" = "yes"; then
-  KDE_CHECK_HEADER(exiv2/exif.hpp,  have_exif2=yes, have_exif2=no)
+  if test "$PKGCONFIGFOUND" = "no" ; then
+    AC_MSG_ERROR([Can't find the libexiv2 library, pkgconfig unusable,
+                  please re-run with --disable-exiv2]);
+  fi
+
+  KDE_PKG_CHECK_MODULES(EXIV2, exiv2 >= 0.15,
+                         have_exif2=yes, have_exif2=no)
 
   if test "$have_exif2" = "no"; then
     AC_MSG_ERROR([Can't find exif2 run configure with --disable-exiv2 if you do not want it, but be warned there will be no EXIF support in the app then. ]);  

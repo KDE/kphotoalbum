@@ -1,10 +1,6 @@
 noinst_LTLIBRARIES = libMainWindow.la
 
-if compile_sqldb
-INCLUDES = -I$(srcdir)/../kexi -I$(srcdir)/.. $(all_includes)
-else
 INCLUDES = -I$(srcdir)/.. $(all_includes)
-endif
 
 libMainWindow_la_SOURCES = DeleteDialog.cpp DeleteThumbnailsDialog.cpp DonateDialog.cpp FeatureDialog.cpp \
                            InvalidDateFinder.cpp TokenEditor.cpp WelcomeDialog.cpp \
@@ -12,5 +8,10 @@ libMainWindow_la_SOURCES = DeleteDialog.cpp DeleteThumbnailsDialog.cpp DonateDia
 
 
 KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) -DQT_NO_CAST_ASCII -DQT_CAST_NO_ASCII
+
+if compile_sqldb
+  # Kexi header doesn't compile with these macros
+  KDE_CXXFLAGS += -UQT_NO_CAST_ASCII -UQT_CAST_NO_ASCII
+endif
 
 METASOURCES = AUTO

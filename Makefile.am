@@ -1,8 +1,6 @@
 if compile_sqldb
   LIBKPHOTOALBUM_SQLDB=SQLDB/libsqldb.la
   SQLDB=SQLDB
-  LIBKPHOTOALBUM_KEXIDB=kexi/kexidb/libkphotoalbumkexidb.la kexi/kexiutils/libkphotoalbumkexiutils.la kexi/kexidb/parser/libkphotoalbumkexidbparser.la
-  KEXI_DIR=kexi
 endif
 
 if compile_with_kipi
@@ -16,12 +14,12 @@ else
   KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la
 endif
 
-#if compile_with_kexidb
-#  KPHOTOALBUM_KEXI_LIBS=-lkexidb -lkexiutils -lkexidbparser
-#endif
+if compile_with_kexidb
+  KPHOTOALBUM_KEXI_LIBS=-lkexidb -lkexiutils -lkexidbparser
+endif
 
 SUBDIRS = images icons demo themes Survey XMLDB DateBar $(SQLDB) $(EXIF_DIR) ThumbnailView Plugins Viewer Browser ImportExport \
-          AnnotationDialog MainWindow Settings Utilities ImageManager DB $(KEXI_DIR) HTMLGenerator CategoryListView
+          AnnotationDialog MainWindow Settings Utilities ImageManager DB HTMLGenerator CategoryListView
 
 INCLUDES =  -I$(srcdir)/Survey $(all_includes)
 
@@ -35,7 +33,7 @@ kphotoalbum_LDADD =  MainWindow/libMainWindow.la Survey/libsurvey.la ImportExpor
 		     ImageManager/libImageManager.la DB/libDB.la \
 		     CategoryListView/libCategoryListView.la \
                      $(LIBKPHOTOALBUM_SQLDB) $(LIB_KIO) -ljpeg $(KPHOTOALBUM_KIPI_LIBS) $(KPHOTOALBUM_KEXI_LIBS) \
-                     $(LIBKPHOTOALBUM_KEXIDB) HTMLGenerator/libHTMLGenerator.la Utilities/libUtilities.la \
+                     HTMLGenerator/libHTMLGenerator.la Utilities/libUtilities.la \
 	             $(KPHOTOALBUM_EXIV2_LIBS) -lkmediaplayer $(LIBKDCRAW_LIBS)
 
 METASOURCES = AUTO

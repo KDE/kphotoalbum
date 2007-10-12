@@ -16,13 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-extern "C" {
-#define XMD_H // prevent INT32 clash from jpeglib
-#include <stdlib.h>
-#include <stdio.h>
-#include <jpeglib.h>
-}
-
 #include "ImageInfo.h"
 #include <qfileinfo.h>
 #include <qdom.h>

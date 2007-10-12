@@ -34,9 +34,9 @@
 #include "MainWindow/Window.h"
 #include "X11/X.h"
 
+#include "Utilities/JpeglibWithFix.h"
+
 extern "C" {
-#define XMD_H // prevent INT32 clash from jpeglib
-#include <jpeglib.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -313,7 +313,7 @@ void Export::pixmapLoaded( const QString& fileName, const QSize& /*size*/, const
         QString file = _destdir + QString::fromLatin1( "/" ) + _nameMap[fileName];
         QFile out( file );
         if ( !out.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( 0, i18n("Error writing file %1").arg( file ) );
+            KMessageBox::error( 0, i18n("Error writing file %1", file ) );
             _ok = false;
         }
         out.write( data, data.size() );

@@ -37,7 +37,12 @@ namespace DB
 namespace Utilities
 {
 
-enum IptcCharset { CharsetUtf8 = 0, CharsetLocal8Bit = 1, CharsetIso88592 = 2, CharsetCp1250 = 3 };
+enum IptcCharset {
+    CharsetLocal = 0, /**< Use locale-defined encoding */
+    CharsetUtf8, /**< UTF-8 */
+    CharsetIso88592, /**< ISO-8859-2 aka ISO-Latin2 */
+    CharsetCp1250 /**< CP-1250 (Microsoft Central Europe */
+};
 
 QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
 void checkForBackupFile( const QString& fileName );

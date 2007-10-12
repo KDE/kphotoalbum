@@ -1,3 +1,7 @@
+2007-10-13  Jan Kundrat  <jkt@gentoo.org>
+
+	* Use locale-dependent encoding as default for EXIF/IPTC metadata
+
 2007-10-11  Jan Kundrat  <jkt@gentoo.org>
 
 	* Require exiv2-0.15 or higher (support for WinXP metadata was added in 0.14)

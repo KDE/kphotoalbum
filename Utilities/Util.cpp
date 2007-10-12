@@ -708,7 +708,7 @@ QString Utilities::cStringWithEncoding( const char *c_str, const IptcCharset cha
 {
     QTextCodec* codec;
     switch ( charset ) {
-        case CharsetLocal8Bit:
+        case CharsetLocal:
             return QString::fromLocal8Bit( c_str );
 
         case CharsetIso88592:
@@ -736,7 +736,7 @@ std::string Utilities::encodeQString( const QString& str, const IptcCharset char
 {
     QTextCodec* codec;
     switch (charset) {
-        case CharsetLocal8Bit:
+        case CharsetLocal:
             return std::string( str.local8Bit() );
 
         case CharsetIso88592:

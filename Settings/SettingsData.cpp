@@ -454,7 +454,7 @@ void Settings::SettingsData::setIptcCharset( Utilities::IptcCharset charset )
 
 Utilities::IptcCharset Settings::SettingsData::iptcCharset() const
 {
-    return static_cast<Utilities::IptcCharset>( value(  STR("EXIF"), STR("iptcCharset"), static_cast<int>(Utilities::CharsetUtf8)) );
+    return static_cast<Utilities::IptcCharset>( value(  STR("EXIF"), STR("iptcCharset"), static_cast<int>(Utilities::CharsetLocal)) );
 }
 
 void Settings::SettingsData::setCategorySyncingFields( const bool writing, const QString& category, const QValueList<Exif::Syncable::Kind>& fields )

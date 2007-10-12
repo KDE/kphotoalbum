@@ -1009,10 +1009,10 @@ void Settings::SettingsDialog::createEXIFPage()
     _exifForDialog = new Exif::TreeView( i18n("EXIF/IPTC info to show in the EXIF dialog"), top );
     hlay1->addWidget( _exifForDialog );
 
-    QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for IPTC data:"), top, "iptcCharsetLabel" );
+    QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for image metadata:"), top, "iptcCharsetLabel" );
     _iptcCharset = new KComboBox( top );
-    _iptcCharset->insertStringList( QStringList() << i18n("UTF-8") << i18n("Local 8-bit") << i18n("ISO 8859-2") << i18n("CP 1250") );
-    QWhatsThis::add( _iptcCharset, i18n("<p>Which character set to use for reading/writing of IPTC data</p>") );
+    _iptcCharset->insertStringList( QStringList() << i18n("Local encoding") << i18n("UTF-8") << i18n("ISO 8859-2") << i18n("CP 1250") );
+    QWhatsThis::add( _iptcCharset, i18n("<p>Which character set to use for reading/writing of EXIF and IPTC data</p>") );
 
     hlay2->addStretch( 1 );
     hlay2->addWidget( _iptcCharsetLabel );

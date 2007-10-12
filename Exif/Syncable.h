@@ -18,7 +18,7 @@
 #ifndef EXIFSYNCABLE_H
 #define EXIFSYNCABLE_H
 
-#include <qmap.h>
+template <class Key, class T> class QMap;
 
 namespace Exif {
 
@@ -27,7 +27,7 @@ namespace Syncable {
 enum Header { NONE, FILE, JPEG, EXIF, IPTC };
 
 enum Kind { 
-    // delimiter for the "don't proccess more records" position
+    // delimiter for the "don't process more records" position
     STOP,
     // JPEG header
     JPEG_COMMENT,

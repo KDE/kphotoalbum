@@ -30,6 +30,8 @@
 namespace DB
 {
 
+bool hasRealInformation( QString string );
+
 class FileInfo
 {
 public:

@@ -1,6 +1,7 @@
 2007-10-13  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use locale-dependent encoding as default for EXIF/IPTC metadata
+	* Try to ignore weird strings in IPTC import
 
 2007-10-11  Jan Kundrat  <jkt@gentoo.org>
 

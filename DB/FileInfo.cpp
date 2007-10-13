@@ -45,6 +45,26 @@ DB::FileInfo::FileInfo( const QString& fileName )
 #endif
 }
 
+
+/**
+ * Check whether the string passed as argument contains "real usable data".
+ *
+ * Examples of "unreal or unusable data" are strings exclusively consisting of
+ * spaces only, empty strings,...
+ * */
+bool DB::hasRealInformation( QString string )
+{
+    static StringSet blacklist;
+    blacklist.insert( QString::fromAscii("MINOLTA DIGITAL CAMERA") );
+
+    string = string.stripWhiteSpace();
+
+    if ( string.isEmpty() || blacklist.count( string ) )
+        return false;
+    else
+        return true;
+}
+
 #ifdef HASEXIV2
 void DB::FileInfo::parseEXIV2( const QString& fileName )
 {
@@ -124,7 +144,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 default:
                     kdDebug() << "Unknown label field " << _fieldName[ *it ] << endl;
             }
-            if ( !_label.isEmpty() )
+            if ( hasRealInformation( _label ) )
                 // we have a match, let's move along
                 break;
         }
@@ -135,7 +155,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
         kdDebug() << "Exiv2 exception when parsing file " << fileName << " for label: " << out.str().data() << endl;
     }
 
-    if ( _label.isEmpty() )
+    if ( !hasRealInformation( _label ) )
         _label = QFileInfo( fileName ).baseName( true );
 
 
@@ -168,7 +188,7 @@ void DB::FileInfo::parseEXIV2( const QString& fileName )
                 default:
                     kdDebug() << "Unknown description field " << _fieldName[ *it ] << endl;
             }
-            if ( !_description.isEmpty() )
+            if ( hasRealInformation( _description ) )
                 break;
         }
     }

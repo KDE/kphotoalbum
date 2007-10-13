@@ -3,7 +3,6 @@ IPTC stuff
 ==========
 - re-think the whole idea (qt4's scripting?)
 - encoding
-- ignore dumb values (like "KONICA MIONOLTA     " etc)
 - add support for writing to another file (and extend the File->Export/Copy
   images dialog to match this feature)
 

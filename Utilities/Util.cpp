@@ -758,7 +758,7 @@ QStringList Utilities::humanReadableCharsetList()
 {
     if ( _charsetMapping.count() == 1 )
         for (int mib = 3; mib < 3000; ++mib) {
-            // Why 3..3000? See http://www.iana.org/assignments/character-sets
+            // Why 3..2999? See http://www.iana.org/assignments/character-sets
             QTextCodec* codec = QTextCodec::codecForMib( mib );
             if ( codec && (codec->mibEnum() == mib) )
                 _charsetMapping.append( QString::fromLocal8Bit( codec->name() ) );

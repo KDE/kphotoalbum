@@ -24,7 +24,7 @@
 #include <kicontheme.h>
 #include "Exif/SyncWidget.h"
 
-/*
+/**
  * SyncWidget is a ListView-like container with two buttons for moving selected
  * item up and down in a hierarchy. It isn't important what items are selected,
  * but the order in which they appear.

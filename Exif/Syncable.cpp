@@ -24,7 +24,10 @@
 #include <kicontheme.h>
 #include "Exif/Syncable.h"
 
-
+/**
+ * Helper function that fills the translation tables passed as references with
+ * stuff like Exif/IPTC tag names, kind of field, displayable name,...
+ * */
 void Exif::Syncable::fillTranslationTables( QMap<Exif::Syncable::Kind,QString>& _fieldName,
         QMap<Exif::Syncable::Kind,QString>& _visibleName, QMap<Exif::Syncable::Kind,Header>& _header)
 {

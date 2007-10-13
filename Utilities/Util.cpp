@@ -320,11 +320,13 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
         return true;
 }
 
-QString Utilities::getThumbnailDir( const QString& imageFile ) {
+QString Utilities::getThumbnailDir( const QString& imageFile )
+{
     return QFileInfo( imageFile ).dirPath() + QString::fromLatin1("/ThumbNails");
 }
 
-QString Utilities::getThumbnailFile( const QString& imageFile, int width, int height, int angle ) {
+QString Utilities::getThumbnailFile( const QString& imageFile, int width, int height, int angle )
+{
     QFileInfo info( imageFile );
     while (angle < 0)
         angle += 360;

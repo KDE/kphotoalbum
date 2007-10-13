@@ -489,11 +489,13 @@ Exif::Syncable::MultiValueHandling Settings::SettingsData::categorySyncingMultiV
             value( STR("MetadataSyncing"), STR("categorySyncingMultiValue_%1").arg( category ), static_cast<int>(Exif::Syncable::Repeat) ) );
 }
 
-void Settings::SettingsData::setCategorySyncingAddName( const QString& category, bool include ) {
+void Settings::SettingsData::setCategorySyncingAddName( const QString& category, bool include )
+{
     setValue( STR("MetadataSyncing"), STR("categorySyncingAddName_%1").arg( category ), include );
 }
 
-bool Settings::SettingsData::categorySyncingAddName( const QString& category ) {
+bool Settings::SettingsData::categorySyncingAddName( const QString& category )
+{
     return value( STR("MetadataSyncing"), STR("categorySyncingAddName_%1").arg( category ), false );
 }
 

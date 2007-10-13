@@ -55,7 +55,9 @@ DB::FileInfo::FileInfo( const QString& fileName )
 bool DB::hasRealInformation( QString string )
 {
     static StringSet blacklist;
-    blacklist.insert( QString::fromAscii("MINOLTA DIGITAL CAMERA") );
+    if ( !blacklist.size() ) {
+        blacklist.insert( QString::fromAscii("MINOLTA DIGITAL CAMERA") );
+    }
 
     string = string.stripWhiteSpace();
 

@@ -2,6 +2,7 @@
 
 	* Use locale-dependent encoding as default for EXIF/IPTC metadata
 	* Try to ignore weird strings in IPTC import
+	* Support all encoding that Qt3 supports
 
 2007-10-11  Jan Kundrat  <jkt@gentoo.org>
 

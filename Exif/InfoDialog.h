@@ -51,7 +51,7 @@ class Grid :public QGridView
     Q_OBJECT
 
 public:
-    Grid( const QString& fileName, QWidget* parent, const char* name = 0, Utilities::IptcCharset charset = Utilities::CharsetUtf8 );
+    Grid( const QString& fileName, QWidget* parent, const char* name = 0, const QString charset = QString::null );
 
 signals:
     QString searchStringChanged( const QString& text );

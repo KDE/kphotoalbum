@@ -175,8 +175,7 @@ public:
     void setThumbnailAspectRatio( ThumbnailAspectRatio );
     ThumbnailAspectRatio thumbnailAspectRatio() const;
 
-    void setIptcCharset( Utilities::IptcCharset );
-    Utilities::IptcCharset iptcCharset() const;
+    intProperty( EXIF, iptcCharset, setIptcCharset, 0 );
 
     void setCategorySyncingFields( const bool writing, const QString& category, const QValueList<Exif::Syncable::Kind>& fields );
     QValueList<Exif::Syncable::Kind> categorySyncingFields( const bool writing, const QString& category ) const;

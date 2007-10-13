@@ -547,7 +547,7 @@ void Settings::SettingsDialog::slotMyOK()
 #ifdef HASEXIV2
     opt->setExifForViewer( _exifForViewer->selected() ) ;
     opt->setExifForDialog( _exifForDialog->selected() ) ;
-    opt->setIptcCharset( static_cast<Utilities::IptcCharset>(_iptcCharset->currentItem()) );
+    opt->setIptcCharset( _iptcCharset->currentItem() );
 #endif
 
     // Synchronization
@@ -1011,7 +1011,7 @@ void Settings::SettingsDialog::createEXIFPage()
 
     QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for image metadata:"), top, "iptcCharsetLabel" );
     _iptcCharset = new KComboBox( top );
-    _iptcCharset->insertStringList( QStringList() << i18n("Local encoding") << i18n("UTF-8") << i18n("ISO 8859-2") << i18n("CP 1250") );
+    _iptcCharset->insertStringList( Utilities::humanReadableCharsetList() );
     QWhatsThis::add( _iptcCharset, i18n("<p>Which character set to use for reading/writing of EXIF and IPTC data</p>") );
 
     hlay2->addStretch( 1 );

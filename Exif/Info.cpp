@@ -31,7 +31,7 @@ using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, Utilities::IptcCharset charset )
+QMap<QString, QStringList> Info::info( const QString& fileName, const StringSet& wantedKeys, bool returnFullExifName, const QString& charset )
 {
     QMap<QString, QStringList> result;
 
@@ -104,10 +104,10 @@ StringSet Info::availableKeys()
 QMap<QString, QStringList> Info::infoForViewer( const QString& fileName, bool returnFullExifName )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(),
-    		 returnFullExifName, ::Settings::SettingsData::instance()->iptcCharset() );
+    		 returnFullExifName, ::Utilities::humanReadableCharsetList()[ ::Settings::SettingsData::instance()->iptcCharset() ] );
 }
 
-QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, Utilities::IptcCharset charset )
+QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, const QString& charset )
 {
     return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset);
 }

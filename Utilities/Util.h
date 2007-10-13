@@ -37,13 +37,6 @@ namespace DB
 namespace Utilities
 {
 
-enum IptcCharset {
-    CharsetLocal = 0, /**< Use locale-defined encoding */
-    CharsetUtf8, /**< UTF-8 */
-    CharsetIso88592, /**< ISO-8859-2 aka ISO-Latin2 */
-    CharsetCp1250 /**< CP-1250 (Microsoft Central Europe */
-};
-
 QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
 void checkForBackupFile( const QString& fileName );
 bool ctrlKeyDown();
@@ -76,9 +69,11 @@ QString stripImageDirectory( const QString& fileName );
 QImage scaleImage(const QImage &image, int w, int h, QImage::ScaleMode mode=QImage::ScaleFree );
 QImage scaleImage(const QImage &image, const QSize& s, QImage::ScaleMode mode=QImage::ScaleFree );
 
-QString cStringWithEncoding( const char *c_str, const IptcCharset charset );
-std::string encodeQString( const QString& str, const IptcCharset charset );
-QStringList iptcHumanReadableCharsetList();
+QString cStringWithEncoding( const char *c_str, const QString& charset );
+QString cStringWithEncoding( const char *c_str,int charset );
+std::string encodeQString( const QString& str, const QString& charset );
+std::string encodeQString( const QString& str, int charset );
+QStringList humanReadableCharsetList();
 
 DB::MD5 MD5Sum( const QString& fileName );
 };

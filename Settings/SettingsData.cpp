@@ -447,16 +447,6 @@ QString Settings::SettingsData::groupForDatabase( const QString& setting ) const
     return STR("%1 - %2").arg( setting ).arg( imageDirectory() );
 }
 
-void Settings::SettingsData::setIptcCharset( Utilities::IptcCharset charset )
-{
-    setValue( STR("EXIF"), STR("iptcCharset"), static_cast<int>( charset ));
-}
-
-Utilities::IptcCharset Settings::SettingsData::iptcCharset() const
-{
-    return static_cast<Utilities::IptcCharset>( value(  STR("EXIF"), STR("iptcCharset"), static_cast<int>(Utilities::CharsetLocal)) );
-}
-
 void Settings::SettingsData::setCategorySyncingFields( const bool writing, const QString& category, const QValueList<Exif::Syncable::Kind>& fields )
 {
     _setSyncing( writing, QString::fromAscii( "category_%1").arg( category ), fields );

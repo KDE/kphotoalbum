@@ -58,6 +58,12 @@ extern "C" {
 #include <qtextcodec.h>
 #include <kmdcodec.h>
 
+namespace {
+    QString _localEncoding = i18n("Local encoding");
+    /* cache for humanReadableCharsetList() */
+    QStringList _charsetMapping( _localEncoding );
+}
+
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the
  * image. The blob is used in the viewer and in the tool tip box from the
@@ -706,64 +712,58 @@ QImage Utilities::scaleImage(const QImage &image, const QSize& s, QImage::ScaleM
 /**
  * Convert a weird C string in some ugly encoding to a cute unicode QString
  */
-QString Utilities::cStringWithEncoding( const char *c_str, const IptcCharset charset )
+QString Utilities::cStringWithEncoding( const char *c_str, const QString& charset )
 {
-    QTextCodec* codec;
-    switch ( charset ) {
-        case CharsetLocal:
-            return QString::fromLocal8Bit( c_str );
-
-        case CharsetIso88592:
-            codec = QTextCodec::codecForName("iso8859-2");
-            if (codec)
-                return codec->toUnicode( c_str );
-            else
-                return QString::fromLatin1( c_str );
-
-        case CharsetCp1250:
-            codec = QTextCodec::codecForName("cp1250");
-            if (codec)
-                return codec->toUnicode( c_str );
-            else
-                return QString::fromLatin1( c_str );
-
-        case CharsetUtf8:
-            // fall through
-        default:
-            return QString::fromUtf8( c_str );
-    }
+    if ( charset == _localEncoding )
+        return QString::fromLocal8Bit( c_str );
+    QTextCodec* codec = QTextCodec::codecForName( charset.ascii() );
+    if (!codec)
+        return QString::fromLocal8Bit( c_str );
+    return codec->toUnicode( c_str );
 }
 
-std::string Utilities::encodeQString( const QString& str, const IptcCharset charset ) 
+QString Utilities::cStringWithEncoding( const char *c_str, int charset ) 
 {
-    QTextCodec* codec;
-    switch (charset) {
-        case CharsetLocal:
-            return std::string( str.local8Bit() );
-
-        case CharsetIso88592:
-            codec = QTextCodec::codecForName("iso8859-2");
-            if (codec)
-                return codec->fromUnicode( str ).data();
-            else
-                return str.latin1();
-
-         case CharsetCp1250:
-            codec = QTextCodec::codecForName("cp1250");
-            if (codec)
-                return codec->fromUnicode( str ).data();
-            else
-                return str.latin1();
-
-        case CharsetUtf8:
-            // fall through
-        default:
-            return str.utf8().data();
-    }
+    if ( charset < 0 )
+        charset = 0;
+    else if ( charset >= static_cast<int>( Utilities::humanReadableCharsetList().size() ) )
+        charset = 0;
+    return Utilities::cStringWithEncoding( c_str, Utilities::humanReadableCharsetList()[ charset ] );
 }
 
-QStringList Utilities::iptcHumanReadableCharsetList() {
-    return QStringList() << i18n("UTF-8") << i18n("Local 8-bit") << i18n("ISO 8859-2") << i18n("CP 1250");
+std::string Utilities::encodeQString( const QString& str, const QString& charset ) 
+{
+    if ( charset == _localEncoding )
+        return std::string( str.local8Bit() );
+
+    QTextCodec* codec = QTextCodec::codecForName( charset.ascii() );
+    if (!codec)
+        return std::string( str.local8Bit() );
+    return codec->fromUnicode( str ).data();
+}
+
+std::string Utilities::encodeQString( const QString& str, int charset )
+{
+    if ( charset < 0 )
+        charset = 0;
+    else if ( charset >= static_cast<int>( Utilities::humanReadableCharsetList().size() ) )
+        charset = 0;
+    return Utilities::encodeQString( str, Utilities::humanReadableCharsetList()[ charset ] );
+}
+
+/**
+ * Return a list of all encodings that Qt3 supports
+ */
+QStringList Utilities::humanReadableCharsetList()
+{
+    if ( _charsetMapping.count() == 1 )
+        for (int mib = 3; mib < 3000; ++mib) {
+            // Why 3..3000? See http://www.iana.org/assignments/character-sets
+            QTextCodec* codec = QTextCodec::codecForMib( mib );
+            if ( codec && (codec->mibEnum() == mib) )
+                _charsetMapping.append( QString::fromLocal8Bit( codec->name() ) );
+        }
+    return _charsetMapping;
 }
 
 DB::MD5 Utilities::MD5Sum( const QString& fileName )

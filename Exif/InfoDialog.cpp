@@ -52,7 +52,12 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     ImageManager::Manager::instance()->load( new ImageManager::ImageRequest( fileName, QSize( 128, 128 ), DB::ImageDB::instance()->info(fileName)->angle(), this ) );
 
     // -------------------------------------------------- Exif Grid
-    Exif::Grid* grid = new Exif::Grid( fileName, top, 0, ::Settings::SettingsData::instance()->iptcCharset() );
+    int _charsetOffset = ::Settings::SettingsData::instance()->iptcCharset();
+    if ( _charsetOffset < 0 )
+        _charsetOffset = 0;
+    else if ( _charsetOffset >= static_cast<int>( ::Utilities::humanReadableCharsetList().size() ) )
+        _charsetOffset = 0;
+    Exif::Grid* grid = new Exif::Grid( fileName, top, 0,  ::Utilities::humanReadableCharsetList()[ _charsetOffset ] );
     vlay->addWidget( grid );
     grid->setFocus();
 
@@ -70,9 +75,9 @@ Exif::InfoDialog::InfoDialog( const QString& fileName, QWidget* parent, const ch
     hlay->addWidget( _searchLabel );
     hlay->addStretch( 1 );
 
-    QLabel* _iptcLabel = new QLabel( i18n("IPTC character set:"), top );
+    QLabel* _iptcLabel = new QLabel( i18n("EXIF/IPTC character set:"), top );
     _iptcCharset = new KComboBox( top );
-    _iptcCharset->insertStringList( Utilities::iptcHumanReadableCharsetList() );
+    _iptcCharset->insertStringList( Utilities::humanReadableCharsetList() );
     _iptcCharset->setCurrentItem( static_cast<int>(::Settings::SettingsData::instance()->iptcCharset() ) );
     hlay->addWidget( _iptcLabel );
     hlay->addWidget( _iptcCharset );
@@ -91,14 +96,15 @@ void Exif::InfoDialog::updateSearchString( const QString& txt )
 }
 
 
-Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name, Utilities::IptcCharset charset )
+Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name, const QString charset )
     :QGridView( parent, name ),
     _fileName( fileName )
 {
     setFocusPolicy( WheelFocus );
     setHScrollBarMode( AlwaysOff );
 
-    slotCharsetChange( charset );
+    int offset = Utilities::humanReadableCharsetList().findIndex( charset );
+    slotCharsetChange( (offset == -1) ? 0 : offset );
 }
 
 void Exif::Grid::slotCharsetChange( int charset )
@@ -106,7 +112,7 @@ void Exif::Grid::slotCharsetChange( int charset )
     _texts.clear();
     _headers.clear();
 
-    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( _fileName, static_cast<Utilities::IptcCharset>(charset) );
+    QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( _fileName, Utilities::humanReadableCharsetList()[ charset ] );
     calculateMaxKeyWidth( map );
 
     StringSet groups = exifGroups( map );

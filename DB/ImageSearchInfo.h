@@ -45,8 +45,8 @@ public:
 
     ImageDate date() const;
 
-    QString option( const QString& name ) const;
-    void setOption( const QString& name, const QString& value );
+    QStringList option( const QString& name ) const;
+    void setOption( const QString& name, const QStringList& value );
     void renameCategory( const QString& oldName, const QString& newName );
 
     QString label() const;
@@ -62,7 +62,7 @@ public:
     void saveLock() const;
     static ImageSearchInfo loadLock();
 
-    void debug();
+    void debug() const;
     void debugMatcher() const;
     QDict<void> findAlreadyMatched( const QString &group ) const;
 
@@ -79,7 +79,7 @@ protected:
 
 private:
     ImageDate _date;
-    QMap<QString, QString> _options;
+    QMap<QString, QStringList> _options;
     QString _label;
     QString _description;
     bool _isNull;

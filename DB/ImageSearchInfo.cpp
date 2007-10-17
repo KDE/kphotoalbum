@@ -114,12 +114,12 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 }
 
 
-QString ImageSearchInfo::option( const QString& name ) const
+QStringList ImageSearchInfo::option( const QString& name ) const
 {
     return _options[name];
 }
 
-void ImageSearchInfo::setOption( const QString& name, const QString& value )
+void ImageSearchInfo::setOption( const QString& name, const QStringList& value )
 {
     _options[name] = value;
     _isNull = false;
@@ -128,11 +128,12 @@ void ImageSearchInfo::setOption( const QString& name, const QString& value )
 
 void ImageSearchInfo::addAnd( const QString& category, const QString& value )
 {
-    QString val = option( category );
-    if ( !val.isEmpty() )
-        val += QString::fromLatin1( " & " ) + value;
-    else
-        val = value;
+    QStringList val = option( category );
+    if ( val.count() ) {
+        val.append( QString::fromLatin1( " & " ) );
+        val.append( value );
+    } else
+        val = QStringList( value );
 
     setOption( category, val );
     _isNull = false;
@@ -143,41 +144,50 @@ QString ImageSearchInfo::toString() const
 {
     QString res;
     bool first = true;
-    for( QMapConstIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
-        if ( ! it.data().isEmpty() ) {
+    for( QMapConstIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
+        if ( it.data().count() ) {
             if ( first )
                 first = false;
             else
                 res += QString::fromLatin1( " / " );
 
-            QString txt = it.data();
-            if ( txt == ImageDB::NONE() )
-                txt = i18n( "As in No persons, no locations etc. I do realize that translators may have problem with this, "
+            QStringList txt = it.data();
+            if ( txt == QStringList( ImageDB::NONE() ) )
+                txt = QStringList( i18n( "As in No persons, no locations etc. I do realize that translators may have problem with this, "
                             "but I need some how to indicate the category, and users may create their own categories, so this is "
-                            "the best I can do - Jesper.", "No %1" ).arg( it.key() );
+                            "the best I can do - Jesper.", "No %1" ).arg( it.key() ));
 
-            if ( txt.contains( QString::fromLatin1("|") ) )
-                txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " %1 " ).arg( i18n("and") ) );
+            bool orFound = txt.findIndex( QString::fromAscii("|") ) != -1;
 
-            else
-                txt.replace( QString::fromLatin1( "&" ), QString::fromLatin1( " / " ) );
+            for (QStringList::iterator txtIt = txt.begin(); txtIt != txt.end(); ++txtIt ) {
+                *txtIt = (*txtIt).simplifyWhiteSpace();
+                if ( *txtIt == QString::fromAscii( "&" ) )
+                    if (orFound)
+                        *txtIt = QString::fromLatin1( " %1 " ).arg( i18n("and") );
+                    else
+                        *txtIt = QString::fromLatin1( " / " );
+                else if ( *txtIt == QString::fromAscii( "|" ) )
+                    *txtIt = QString::fromLatin1( " %1 " ).arg( i18n("or") );
+                else if ( (*txtIt).startsWith( QString::fromAscii("!") ) ) {
+                    *txtIt = QString::fromLatin1( " %1 " ).arg( i18n("not") ) + *txtIt;
+                } else {
+                    (*txtIt).replace( ImageDB::NONE(),
+                            i18n( "As in no other persons, or no other locations. "
+                                  "I do realize that translators may have problem with this, "
+                                  "but I need some how to indicate the category, and users may create their own categories, so this is "
+                                  "the best I can do - Jesper.", "No other %1" ).arg( it.key()) );
+                }
+            }
 
-            txt.replace( QString::fromLatin1( "|" ), QString::fromLatin1( " %1 " ).arg( i18n("or") ) );
-            txt.replace( QString::fromLatin1( "!" ), QString::fromLatin1( " %1 " ).arg( i18n("not") ) );
-            txt.replace( ImageDB::NONE(), i18n( "As in no other persons, or no other locations. "
-                                                "I do realize that translators may have problem with this, "
-                                                "but I need some how to indicate the category, and users may create their own categories, so this is "
-                                                "the best I can do - Jesper.", "No other %1" ).arg( it.key() ) );
-            txt.simplifyWhiteSpace();
-            res += txt;
+            res += txt.join( QString::fromAscii(" ") ).simplifyWhiteSpace();
         }
     }
     return res;
 }
 
-void ImageSearchInfo::debug()
+void ImageSearchInfo::debug() const
 {
-    for( QMapIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+    for( QMapConstIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
         kdDebug() << it.key() << ", " << it.data() << endl;
     }
 }
@@ -190,7 +200,7 @@ void ImageSearchInfo::saveLock() const
     config->writeEntry( QString::fromLatin1("label"), _label );
     config->writeEntry( QString::fromLatin1("description"), _description );
     config->writeEntry( QString::fromLatin1("categories"), _options.keys() );
-    for( QMapConstIterator<QString,QString> it= _options.begin(); it != _options.end(); ++it ) {
+    for( QMapConstIterator<QString,QStringList> it= _options.begin(); it != _options.end(); ++it ) {
         config->writeEntry( it.key(), it.data() );
     }
 }
@@ -204,7 +214,7 @@ ImageSearchInfo ImageSearchInfo::loadLock()
     info._description = config->readEntry( "description" );
     QStringList categories = config->readListEntry( "categories" );
     for( QStringList::ConstIterator it = categories.begin(); it != categories.end(); ++it ) {
-        info.setOption( *it, config->readEntry( *it ) );
+        info.setOption( *it, config->readListEntry( *it ) );
     }
     return info;
 }
@@ -229,15 +239,26 @@ void ImageSearchInfo::compile() const
 #endif
     deleteMatchers();
 
-    for( QMapConstIterator<QString,QString> it = _options.begin(); it != _options.end(); ++it ) {
+    for( QMapConstIterator<QString,QStringList> it = _options.begin(); it != _options.end(); ++it ) {
         QString category = it.key();
-        QString matchText = it.data();
+        QStringList matchItems = it.data();
 
-        QStringList orParts = QStringList::split( QString::fromLatin1("|"), matchText );
+        QValueList<QStringList> orParts; /* = QStringList::split( QString::fromLatin1("|"), matchText )*/
+        for (QStringList::const_iterator itDivider = matchItems.begin(); itDivider != matchItems.end(); ++itDivider ) {
+            // while *it != "|", keep adding items to the latest offset
+            if ( ! orParts.count() ) {
+                orParts.append( QStringList() );
+                orParts[0].push_back( *itDivider );
+            } else if ( (*itDivider).stripWhiteSpace() == QString::fromLatin1("|") ) {
+                orParts.append( QStringList() );
+            } else {
+                orParts[ orParts.count() - 1 ].push_back( *itDivider );
+            }
+        }
         OptionContainerMatcher* orMatcher = new OptionOrMatcher;
 
-        for( QStringList::Iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
-            QStringList andParts = QStringList::split( QString::fromLatin1("&"), *itOr );
+        for( QValueList<QStringList>::const_iterator itOr = orParts.begin(); itOr != orParts.end(); ++itOr ) {
+            QStringList andParts = *itOr; /*= QStringList::split( QString::fromLatin1("&"), *itOr );*/
 
             OptionContainerMatcher* andMatcher = orMatcher;
             if ( andParts.count() > 1 ) {
@@ -247,6 +268,9 @@ void ImageSearchInfo::compile() const
 
 
             for( QStringList::Iterator itAnd = andParts.begin(); itAnd != andParts.end(); ++itAnd ) {
+                if ( (*itAnd).stripWhiteSpace() == QString::fromAscii("&") )
+                    continue;
+
                 QString str = *itAnd;
                 bool negate = false;
                 static QRegExp regexp( QString::fromLatin1("^\\s*!\\s*(.*)$") );
@@ -327,12 +351,11 @@ QValueList< QValueList<OptionSimpleMatcher*> > ImageSearchInfo::query() const
 QDict<void> ImageSearchInfo::findAlreadyMatched( const QString &group ) const
 {
     QDict<void> map;
-    QString str = option( group );
-    if ( str.contains( QString::fromLatin1( "|" ) ) ) {
+    QStringList list = option( group );
+    if ( list.find( QString::fromLatin1( "|" ) ) != list.end() ) {
         return map;
     }
 
-    QStringList list = QStringList::split( QString::fromLatin1( "&" ), str );
     for( QStringList::Iterator it = list.begin(); it != list.end(); ++it ) {
         QString nm = (*it).stripWhiteSpace();
         if (! nm.contains( QString::fromLatin1( "!" ) ) )

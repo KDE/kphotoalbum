@@ -564,16 +564,17 @@ QValueList<Exif::Syncable::Kind> Settings::SettingsData::defaultFields( const bo
 
         if ( ( category == QString::fromLatin1("Keywords") ) ||
                 ( someCategory->standardCategories()[ QString::fromLatin1("Keywords") ] == category ) ) {
-            r << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::EXIF_XPKEYWORDS <<
-                Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+            r << Exif::Syncable::STOP << Exif::Syncable::IPTC_KEYWORDS <<
+                Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
             w << Exif::Syncable::IPTC_KEYWORDS << Exif::Syncable::STOP << 
                 Exif::Syncable::EXIF_XPKEYWORDS << Exif::Syncable::IPTC_SUPP_CAT;
         } else if ( ( category == QString::fromLatin1("Places") ) ||
                 ( someCategory->standardCategories()[ QString::fromLatin1("Places") ] == category ) ) {
-            r << Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
+            r << Exif::Syncable::STOP <<
+                Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_LOCATION_NAME <<
                 Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
                 Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
-                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::STOP << Exif::Syncable::IPTC_SUPP_CAT;
+                Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_SUPP_CAT;
             w << Exif::Syncable::IPTC_LOCATION_NAME << Exif::Syncable::STOP <<
                 Exif::Syncable::IPTC_LOCATION_CODE << Exif::Syncable::IPTC_CITY << Exif::Syncable::IPTC_SUB_LOCATION <<
                 Exif::Syncable::IPTC_PROVINCE_STATE << Exif::Syncable::IPTC_COUNTRY_NAME <<
@@ -591,9 +592,6 @@ QValueList<Exif::Syncable::Kind> Settings::SettingsData::defaultFields( const bo
                 Exif::Syncable::IPTC_COUNTRY_CODE << Exif::Syncable::IPTC_COUNTRY_NAME;
             w = r;
         }
-
-    } else {
-        qDebug("Internal error: unknown syncing field %s", name.ascii());
     }
 
     return writing ? w : r;

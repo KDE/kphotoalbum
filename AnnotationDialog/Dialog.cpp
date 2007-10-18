@@ -487,22 +487,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
                                       _imageLabel->text(), _description->text() );
 
         for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-            QStringList orEd = QStringList::split( QString::fromAscii("|"), (*it)->text() );
-            QStringList res;
-            if ( orEd.count() ) {
-                for (QStringList::const_iterator orIt = orEd.begin(); orIt != orEd.end(); ++orIt) {
-                    QStringList andEd = QStringList::split( QString::fromAscii("&"), *orIt );
-                    if ( andEd.count() ) {
-                        for (QStringList::const_iterator andIt = andEd.begin(); andIt != andEd.end(); ++andIt) {
-                            res.append( *andIt);
-                            res.append( QString::fromAscii("&") );
-                        }
-                        res.pop_back();
-                    }
-                }
-                res.pop_back();
-            }
-            _oldSearch.setOption( (*it)->category(), res );
+            _oldSearch.setOption( (*it)->category(), (*it)->text() );
         }
 
         return _oldSearch;
@@ -561,7 +546,7 @@ void AnnotationDialog::Dialog::loadInfo( const DB::ImageSearchInfo& info )
     _endDate->setDate( info.date().end().date() );
 
     for( QPtrListIterator<ListSelect> it( _optionList ); *it; ++it ) {
-        (*it)->setText( info.option( (*it)->category()).join( QString::null ) );
+        (*it)->setText( info.option( (*it)->category() ) );
     }
 
     _imageLabel->setText( info.label() );

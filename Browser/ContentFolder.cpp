@@ -53,7 +53,7 @@ QPixmap Browser::ContentFolder::pixmap()
 QString Browser::ContentFolder::text() const
 {
     if ( _value == DB::ImageDB::NONE() ) {
-        if ( _info.option(_category->name()) == QStringList( DB::ImageDB::NONE() ) )
+        if ( _info.option(_category->name()) == DB::ImageDB::NONE() )
             return i18n( "None" );
         else
             return i18n( "No other" );

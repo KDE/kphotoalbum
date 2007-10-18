@@ -82,15 +82,11 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
     QDict<void> alreadyMatched = info.findAlreadyMatched( group );
 
     DB::ImageSearchInfo noMatchInfo = info;
-    QStringList currentMatchTxt = noMatchInfo.option( group );
-    if ( !currentMatchTxt.count() )
-        noMatchInfo.setOption( group, QStringList( DB::ImageDB::NONE() ) );
-    else {
-        QStringList list ( currentMatchTxt );
-        list.append( QString::fromAscii("&") );
-        list.append( DB::ImageDB::NONE() );
-        noMatchInfo.setOption( group, list );
-    }
+    QString currentMatchTxt = noMatchInfo.option( group );
+    if ( currentMatchTxt.isEmpty() )
+        noMatchInfo.setOption( group, DB::ImageDB::NONE() );
+    else
+        noMatchInfo.setOption( group, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
 
     // Iterate through the whole database of images.
     for( DB::ImageInfoListConstIterator it = _images.constBegin(); it != _images.constEnd(); ++it ) {

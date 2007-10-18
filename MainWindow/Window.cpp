@@ -266,6 +266,17 @@ void MainWindow::Window::delayedInit()
 
     tellPeopleAboutTheVideos();
     checkIfAllFeaturesAreInstalled();
+
+#ifdef HASEXIV2
+    KConfig* config = kapp->config();
+    if ( ! config->hasGroup( QString::fromAscii("MetadataSyncing") ) )
+        KMessageBox::information( 0, i18n("<p>This version of KPhotoAlbum includes "
+                    "support for importing embedded metadata (like EXIF and IPTC) "
+                    "from image files to the database and also for storing them "
+                    "back. Please make sure you configure this feature in "
+                    "<code>Settings -> Configure KPhotoAlbum -> Metadata</code>.</p>") );
+#endif
+
 }
 
 

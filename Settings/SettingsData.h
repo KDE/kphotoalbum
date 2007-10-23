@@ -88,7 +88,7 @@ public:
     boolProperty( General, dontReadRawFilesWithOtherMatchingFile, setDontReadRawFilesWithOtherMatchingFile, false );
     boolProperty( General, useCompressedIndexXML, setUseCompressedIndexXML, false );
     intProperty( General, autoSave, setAutoSave, 5 );
-    intProperty( General, backupCount, setBackupCount, 0 );
+    intProperty( General, backupCount, setBackupCount, 5 );
     boolProperty( General, compressBackup, setCompressBackup, true );
     boolProperty( General, showSplashScreen, setShowSplashScreen, true );
 

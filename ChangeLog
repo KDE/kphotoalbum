@@ -1,3 +1,7 @@
+2007-10-25  Jan Kundrat  <jkt@gentoo.org>
+
+	* Maintain five older versions of index.xml by default
+
 2007-10-18  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use only file name for image label in default settings

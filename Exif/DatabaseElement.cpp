@@ -19,7 +19,6 @@
 #include <qsqlquery.h>
 #include <exiv2/exif.hpp>
 #include <kdebug.h>
-#include <QString>
 #include <QVariant>
 
 static QString replaceDotWithUnderscore( const char* cstr )

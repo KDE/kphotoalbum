@@ -22,7 +22,6 @@
 
 #include "DatabaseManager.h"
 #include "ConnectionParameters.h"
-#include <QString>
 #include <QStringList>
 
 namespace SQLDB

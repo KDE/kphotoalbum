@@ -22,7 +22,6 @@
 
 #include "Schema/DatabaseSchema.h"
 #include "DatabaseConnection.h"
-#include <QString>
 #include <QStringList>
 #include <memory>
 

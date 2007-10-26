@@ -18,7 +18,6 @@
 */
 
 #include "List.h"
-#include <QString>
 #include <QTime>
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap

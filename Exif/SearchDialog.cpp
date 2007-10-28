@@ -219,8 +219,8 @@ QWidget* Exif::SearchDialog::makeOrientation( QWidget* parent )
 {
     QVGroupBox* box = new QVGroupBox( i18n( "Orientation" ), parent );
     _orientation.append( Setting<int>( new QCheckBox( i18n( "Not rotated" ), box ), 0) );
-    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated left" ), box ), 6 ) );
-    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated right" ), box ), 8 ) );
+    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated counterclockwise" ), box ), 6 ) );
+    _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated clockwise" ), box ), 8 ) );
     _orientation.append( Setting<int>( new QCheckBox( i18n( "Rotated 180 degrees" ), box ), 3 ) );
     return box;
 }

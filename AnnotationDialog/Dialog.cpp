@@ -158,13 +158,13 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent, const char* name )
     lay6->addWidget( _rotateLeft );
     _rotateLeft->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_ccw" ), KIcon::Desktop, 22 ) );
     _rotateLeft->setFixedWidth( 40 );
-    QToolTip::add( _rotateLeft, i18n("Rotate contra-clockwise (to the left)") );
+    QToolTip::add( _rotateLeft, i18n("Rotate counterclockwise") );
 
     _rotateRight = new QPushButton( top2 );
     lay6->addWidget( _rotateRight );
     _rotateRight->setIconSet( KGlobal::iconLoader()->loadIconSet( QString::fromLatin1( "rotate_cw" ), KIcon::Desktop, 22 ) );
     _rotateRight->setFixedWidth( 40 );
-    QToolTip::add( _rotateRight, i18n("Rotate clockwise (to the right)") );
+    QToolTip::add( _rotateRight, i18n("Rotate clockwise") );
 
     _copyPreviousBut = new QPushButton( top2 );
     lay6->addWidget( _copyPreviousBut );
@@ -970,8 +970,8 @@ void AnnotationDialog::Dialog::setupActions()
     new KAction( i18n("Copy tags from previous image"), CTRL+Key_Insert, this, SLOT( slotCopyPrevious() ),
                  _actions, "annotationdialog-copy-previous");
 
-    new KAction( i18n("Rotate Left"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );
-    new KAction( i18n("Rotate Right"), 0, this, SLOT( rotateRight() ), _actions, "annotationdialog-rotate-right" );
+    new KAction( i18n("Rotate counterclockwise"), 0, this, SLOT( rotateLeft() ), _actions, "annotationdialog-rotate-left" );
+    new KAction( i18n("Rotate clockwise"), 0, this, SLOT( rotateRight() ), _actions, "annotationdialog-rotate-right" );
 
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );

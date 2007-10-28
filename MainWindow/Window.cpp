@@ -615,8 +615,8 @@ void MainWindow::Window::setupMenuBar()
                                      actionCollection(), "oneProp" );
     _configAllSimultaniously = new KAction( i18n( "Annotate Multiple Items at a Time" ), CTRL+Key_2, this, SLOT( slotConfigureAllImages() ),
                                             actionCollection(), "allProp" );
-    _rotLeft = new KAction( i18n( "Rotate Left" ), 0, this, SLOT( slotRotateSelectedLeft() ), actionCollection(), "rotateLeft" );
-    _rotRight = new KAction( i18n( "Rotate Right" ), 0, this, SLOT( slotRotateSelectedRight() ), actionCollection(), "rotateRight" );
+    _rotLeft = new KAction( i18n( "Rotate counterclockwise" ), 0, this, SLOT( slotRotateSelectedLeft() ), actionCollection(), "rotateLeft" );
+    _rotRight = new KAction( i18n( "Rotate clockwise" ), 0, this, SLOT( slotRotateSelectedRight() ), actionCollection(), "rotateRight" );
 
     // The Images menu
     _view = new KAction( i18n("View"), CTRL+Key_I, this, SLOT( slotView() ),

@@ -274,13 +274,13 @@ void Viewer::ViewerWidget::createRotateMenu()
 {
     _rotateMenu = new QPopupMenu( _popup );
 
-    KAction* action = new KAction( i18n("Rotate 90 Degrees"), Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
+    KAction* action = new KAction( i18n("Rotate Left"), Key_9, this, SLOT( rotate90() ), _actions, "viewer-rotate90" );
     action->plug( _rotateMenu );
 
-    action = new KAction( i18n("Rotate 180 Degrees"), Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
+    action = new KAction( i18n("Flip Over"), Key_8, this, SLOT( rotate180() ), _actions, "viewer-rotate180" );
     action->plug( _rotateMenu );
 
-    action = new KAction( i18n("Rotate 270 Degrees"), Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
+    action = new KAction( i18n("Rotate Right"), Key_7, this, SLOT( rotate270() ), _actions, "viewer-rotare270" );
     action->plug( _rotateMenu );
 
     _popup->insertItem( QIconSet(), i18n("Rotate"), _rotateMenu );

@@ -246,8 +246,10 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
         }
 
         MD5 md5 = Utilities::MD5Sum( *it );
-        if (md5 == MD5() )
+        if (md5.isNull()) {
             cantRead << *it;
+            continue;
+        }
 
         if  ( info->MD5Sum() != md5 ) {
             info->setMD5Sum( md5 );

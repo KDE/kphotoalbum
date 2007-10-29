@@ -308,17 +308,17 @@ void Viewer::ViewerWidget::createRotateMenu()
     _rotateMenu->setTitle( i18n("Rotate") );
 
     QAction* action = _actions->addAction( "viewer-rotate90", this, SLOT( rotate90() ) );
-    action->setText( i18n("Rotate 90 Degrees") );
+    action->setText( i18n("Rotate counterclockwise") );
     action->setShortcut( Qt::Key_9 );
     _rotateMenu->addAction( action );
 
     action = _actions->addAction( "viewer-rotate180", this, SLOT( rotate180() ) );
-    action->setText( i18n("Rotate 180 Degrees") );
+    action->setText( i18n("Flip Over") );
     action->setShortcut( Qt::Key_8 );
     _rotateMenu->addAction( action );
 
     action = _actions->addAction( "viewer-rotare270", this, SLOT( rotate270() ) );
-    action->setText( i18n("Rotate 270 Degrees") );
+    action->setText( i18n("Rotate clockwise") );
     action->setShortcut( Qt::Key_7 );
     _rotateMenu->addAction( action );
 

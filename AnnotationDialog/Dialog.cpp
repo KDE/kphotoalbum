@@ -250,13 +250,13 @@ QWidget* AnnotationDialog::Dialog::createPreviewWidget()
     hlay->addWidget( _rotateLeft );
     _rotateLeft->setIcon( KIcon( QString::fromLatin1( "rotate_ccw" ) ) );
     _rotateLeft->setFixedWidth( 40 );
-    _rotateLeft->setToolTip( i18n("Rotate contra-clockwise (to the left)") );
+    _rotateLeft->setToolTip( i18n("Rotate counterclockwise") );
 
     _rotateRight = new QPushButton( top );
     hlay->addWidget( _rotateRight );
     _rotateRight->setIcon( KIcon( QString::fromLatin1( "rotate_cw" ) ) );
     _rotateRight->setFixedWidth( 40 );
-    _rotateRight->setToolTip( i18n("Rotate clockwise (to the right)") );
+    _rotateRight->setToolTip( i18n("Rotate clockwise") );
 
     _copyPreviousBut = new QPushButton( top );
     hlay->addWidget( _copyPreviousBut );
@@ -930,10 +930,10 @@ void AnnotationDialog::Dialog::setupActions()
     action->setShortcut(  Qt::CTRL+Qt::Key_Insert );
 
     action = _actions->addAction( "annotationdialog-rotate-left",  this, SLOT( rotateLeft() ) );
-    action->setText(  i18n("Rotate Left") );
+    action->setText(  i18n("Rotate counterclockwise") );
 
     action = _actions->addAction( "annotationdialog-rotate-right",  this, SLOT( rotateRight() ) );
-    action->setText(  i18n("Rotate Right") );
+    action->setText(  i18n("Rotate clockwise") );
 
     connect( _nextBut, SIGNAL( clicked() ), this, SLOT( slotNext() ) );
     connect( _prevBut, SIGNAL( clicked() ), this, SLOT( slotPrev() ) );

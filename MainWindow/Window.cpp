@@ -619,12 +619,12 @@ void MainWindow::Window::setupMenuBar()
     _configAllSimultaniously->setShortcut(  Qt::CTRL+Qt::Key_2 );
 
     _rotLeft = actionCollection()->addAction( "rotateLeft", this, SLOT( slotRotateSelectedLeft() ) );
-    _rotLeft->setText( i18n( "Rotate Left" ) );
+    _rotLeft->setText( i18n( "Rotate counterclockwise" ) );
     _rotLeft->setShortcut(  0 );
 
 
     _rotRight = actionCollection()->addAction( "rotateRight", this, SLOT( slotRotateSelectedRight() ) );
-    _rotRight->setText( i18n( "Rotate Right" ) );
+    _rotRight->setText( i18n( "Rotate clockwise" ) );
 
 
     // The Images menu

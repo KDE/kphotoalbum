@@ -1023,7 +1023,7 @@ void Settings::SettingsDialog::createEXIFPage()
 
 void Settings::SettingsDialog::createSyncPage()
 {
-    _syncPage = addPage( i18n("Synchronization" ), i18n("Metadata Synchronization" ),
+    _syncPage = addPage( i18n("Metadata"), i18n("Metadata Synchronization"),
                         KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
                                                          KIcon::Desktop, 32 ) );
 

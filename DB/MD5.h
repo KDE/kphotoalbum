@@ -28,6 +28,7 @@ namespace DB
     {
     public:
         MD5():
+            _isNull(true),
             _v0(0),
             _v1(0),
             _v2(0),
@@ -36,6 +37,7 @@ namespace DB
         }
 
         explicit MD5(const QString& md5str):
+            _isNull(md5str.isEmpty()),
             _v0(md5str.mid(0, 8).toULong(0, 16)),
             _v1(md5str.mid(8, 8).toULong(0, 16)),
             _v2(md5str.mid(16, 8).toULong(0, 16)),
@@ -45,33 +47,44 @@ namespace DB
 
         bool isNull() const
         {
-            return (_v0 == 0 &&
-                    _v1 == 0 &&
-                    _v2 == 0 &&
-                    _v3 == 0);
+            return _isNull;
         }
 
         MD5& operator=(const QString& md5str)
         {
-            _v0 = md5str.mid(0, 8).toULong(0, 16);
-            _v1 = md5str.mid(8, 8).toULong(0, 16);
-            _v2 = md5str.mid(16, 8).toULong(0, 16);
-            _v3 = md5str.mid(24, 8).toULong(0, 16);
+            if (md5str.isEmpty()) {
+                _isNull = true;
+            }
+            else {
+                _isNull = false;
+                _v0 = md5str.mid(0, 8).toULong(0, 16);
+                _v1 = md5str.mid(8, 8).toULong(0, 16);
+                _v2 = md5str.mid(16, 8).toULong(0, 16);
+                _v3 = md5str.mid(24, 8).toULong(0, 16);
+            }
             return *this;
         }
 
+        /** Get hex string representation of this.
+         * If this->isNull(), returns null string.
+         */
         QString toHexString() const
         {
             QString res;
-            res += QString::number(_v0, 16).rightJustified(8, '0');
-            res += QString::number(_v1, 16).rightJustified(8, '0');
-            res += QString::number(_v2, 16).rightJustified(8, '0');
-            res += QString::number(_v3, 16).rightJustified(8, '0');
+            if (!isNull()) {
+                res += QString::number(_v0, 16).rightJustified(8, '0');
+                res += QString::number(_v1, 16).rightJustified(8, '0');
+                res += QString::number(_v2, 16).rightJustified(8, '0');
+                res += QString::number(_v3, 16).rightJustified(8, '0');
+            }
             return res;
         }
 
         bool operator==(const MD5& other) const
         {
+            if (isNull() || other.isNull())
+                return isNull() == other.isNull();
+
             return (_v0 == other._v0 &&
                     _v1 == other._v1 &&
                     _v2 == other._v2 &&
@@ -85,6 +98,9 @@ namespace DB
 
         bool operator<(const MD5& other) const
         {
+            if (isNull() || other.isNull())
+                return isNull() && !other.isNull();
+
             return (_v0 < other._v0 ||
                     (_v0 == other._v0 &&
                      (_v1 < other._v1 ||
@@ -95,6 +111,7 @@ namespace DB
         }
 
     private:
+        bool _isNull;
         ulong _v0;
         ulong _v1;
         ulong _v2;

@@ -100,7 +100,7 @@ protected:
     void cropAndScale();
     void updatePreload();
     int indexOf( const QString& fileName );
-    void requestImage( const DB::ImageInfoPtr& info );
+    void requestImage( const DB::ImageInfoPtr& info, bool priority = false );
 
     /** display zoom factor in title of display window */
     void updateZoomCaption();

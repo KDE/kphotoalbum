@@ -1,5 +1,12 @@
 ====================== KPhotoAlbum 3.1.0 released  ======================	
 
+2007-11-06  Jan Kundrat  <jkt@gentoo.org>
+
+	* Robert Krawitz: Fixed regression introduced in 720309 where Viewer adds
+	requests with too high priority. Images to be preloaded were in fact
+	scheduled for decoding before the first image.
+	This should be converted to proper priority queue later...
+
 2007-10-25  Jan Kundrat  <jkt@gentoo.org>
 
 	* Maintain five older versions of index.xml by default

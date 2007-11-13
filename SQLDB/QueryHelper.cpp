@@ -35,6 +35,9 @@ using namespace SQLDB;
 using Utilities::mergeListsUniqly;
 using Utilities::listSubtract;
 
+// To print debug message for each executed SQL query
+#define DEBUG_QUERYS
+
 QueryHelper::QueryHelper(DatabaseConnection& connection):
     _database(connection),
     _driver(_database.driver())
@@ -103,6 +106,24 @@ QueryHelper::initializeQuery(const QString& statement,
     std::auto_ptr<QSqlQuery> query(new QSqlQuery(queryStr, _database));
     bindValues(*query, b);
 
+#ifdef DEBUG_QUERYS
+    int lastPos = 0;
+    for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
+        lastPos = queryStr.indexOf('?', lastPos);
+        if (lastPos == -1)
+            break;
+        QString x = i->toString();
+        if (i->type() == QVariant::String ||
+            i->type() == QVariant::DateTime ||
+            i->type() == QVariant::Date ||
+            i->type() == QVariant::Time)
+            x = '\'' + x.replace('\'', "''") + '\'';
+        queryStr.replace(lastPos, 1, x);
+        lastPos += x.length();
+    }
+    qDebug("Initialized SQL: %s", queryStr.toLocal8Bit().constData());
+#endif
+
     return query;
 }
 
@@ -114,9 +135,6 @@ void QueryHelper::executeStatement(const QString& statement,
 
     if (!s->exec())
         throw QtSQLError(s->lastError());
-
-    //TODO: remove debug
-    qDebug("Executed statement: %s", s->executedQuery().toLocal8Bit().data());
 }
 
 QueryResult QueryHelper::executeQuery(const QString& query,
@@ -142,9 +160,6 @@ QueryResult QueryHelper::executeQuery(const QString& query,
     qDebug("Time elapsed: %d ms", te);
 #endif
 
-    //TODO: remove debug
-    qDebug("Executing query: %s", q->executedQuery().toLocal8Bit().data());
-
     return QueryResult(q);
 }
 
@@ -168,9 +183,6 @@ qulonglong QueryHelper::insert(const QString& tableName,
 
     if (!s->exec())
         throw QtSQLError(s->lastError());
-
-    //TODO: remove debug
-    qDebug("Executed statement: %s", s->executedQuery().toLocal8Bit().data());
 
     Q_UNUSED(aiFieldName);
 

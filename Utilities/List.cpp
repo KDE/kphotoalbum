@@ -19,8 +19,11 @@
 
 #include "List.h"
 #include <QTime>
+#include <Q3ValueList>
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap
+namespace DB { class OptionSimpleMatcher; }
+
 
 template <class T>
 QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
@@ -91,6 +94,15 @@ QList<T> Utilities::shuffleList(const QList<T>& list)
     return result;
 }
 
+template <class T>
+QList<QVariant> Utilities::toVariantList(const T& l)
+{
+    QList<QVariant> r;
+    for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
+        r << *i;
+    return r;
+}
+
 
 #define INSTANTIATE_MERGELISTSUNIQLY(T) \
 template \
@@ -104,7 +116,15 @@ QList<T> Utilities::listSubtract(const QList<T>& l1, const QList<T>& l2)
 template \
 QList<T> Utilities::shuffleList(const QList<T>& list)
 
+#define INSTANTIATE_TOVARIANTLIST(T) \
+template \
+QList<QVariant> Utilities::toVariantList(const T& l)
+
 INSTANTIATE_MERGELISTSUNIQLY(int);
 INSTANTIATE_MERGELISTSUNIQLY(QString);
 INSTANTIATE_LISTSUBTRACT(int);
 INSTANTIATE_SHUFFLELIST(QString);
+INSTANTIATE_TOVARIANTLIST(QList<int>);
+INSTANTIATE_TOVARIANTLIST(Q3ValueList<int>);
+INSTANTIATE_TOVARIANTLIST(QStringList);
+INSTANTIATE_TOVARIANTLIST(QList<DB::OptionSimpleMatcher*>);

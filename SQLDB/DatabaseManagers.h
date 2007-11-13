@@ -24,6 +24,7 @@
 #include "ConnectionParameters.h"
 #include <kexidb/driver.h>
 #include <kexidb/connection.h>
+#include <memory>
 
 namespace SQLDB
 {
@@ -31,10 +32,7 @@ namespace SQLDB
     {
     public:
         KexiDBDatabaseManager(const ConnectionParameters& connParams,
-	                      const QString& driverName,
-                              KexiDB::Driver* driver);
-
-	~KexiDBDatabaseManager();
+                              KexiDB::Driver& driver);
 
         virtual QStringList databases() const;
 
@@ -46,16 +44,14 @@ namespace SQLDB
         virtual DatabaseConnection
         connectToDatabase(const QString& databaseName);
 
+    protected:
+        ConnectionParameters _connParams;
+        KexiDB::Driver& _driver;
+        DatabaseConnection _conn;
+
     private:
         KexiDBDatabaseManager(const KexiDBDatabaseManager&);
         void operator=(const KexiDBDatabaseManager&);
-
-        KexiDB::Connection* createConnection();
-
-        ConnectionParameters _connParams;
-	QString _driverName;
-        KexiDB::Driver* _driver;
-        KexiDB::Connection* _conn;
     };
 }
 

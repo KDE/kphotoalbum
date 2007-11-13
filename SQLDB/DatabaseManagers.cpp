@@ -24,71 +24,49 @@
 #include "Schema/PostgreSQLCSG.h"
 #include "Schema/SQLiteCSG.h"
 #include <kexidb/connectiondata.h>
+#include <kservice.h>
+#include <qfile.h>
 
 using namespace SQLDB;
 
 namespace
 {
-    static KexiDB::ConnectionData
-    getKexiConnectionData(const SQLDB::ConnectionParameters& connParams)
+    static SQLDB::Schema::CreateStatementGenerator::APtr
+    getCSGByDriver(const KexiDB::Driver& driver)
     {
-        KexiDB::ConnectionData cd;
-
-        if (connParams.isLocal())
-            cd.hostName = QString();
-        else {
-            cd.hostName = connParams.hostName();
-            cd.port = connParams.port();
-        }
-        cd.userName = connParams.userName();
-        cd.password = connParams.password();
-
-        return cd;
+        using namespace SQLDB::Schema;
+        QString driverName = QString::fromLatin1(driver.name()).upper();
+        if (driverName == "SQLITE3")
+            return CreateStatementGenerator::APtr(new SQLiteCSG());
+        else if (driverName == "MYSQL")
+            return CreateStatementGenerator::APtr(new MySQLCSG());
+        else if (driverName == "POSTGRESQL")
+            return CreateStatementGenerator::APtr(new PostgreSQLCSG());
+        else
+            throw DriverNotFoundError("Driver not supported");
     }
 }
-
 
 KexiDBDatabaseManager::
 KexiDBDatabaseManager(const ConnectionParameters& connParams,
-                      const QString& driverName,
-                      KexiDB::Driver* driver):
+                      KexiDB::Driver& driver):
     _connParams(connParams),
-    _driverName(driverName),
     _driver(driver),
-    _conn(createConnection())
+    _conn(new KexiConnection(_driver, _connParams))
 {
-}
-
-KexiDBDatabaseManager::~KexiDBDatabaseManager()
-{
-    delete _conn;
-}
-
-KexiDB::Connection* KexiDBDatabaseManager::createConnection()
-{
-    KexiDB::ConnectionData cd(getKexiConnectionData(_connParams));
-    KexiDB::Connection* conn = _driver->createConnection(cd);
-
-    if (!conn)
-        throw ConnectionCreateError(_driver->errorMsg());
-
-    if (!conn->connect()) {
-        QString errorMsg(conn->errorMsg());
-        delete conn;
-        throw ConnectionOpenError(errorMsg);
-    }
-
-    return conn;
 }
 
 QStringList KexiDBDatabaseManager::databases() const
 {
-    return _conn->databaseNames();
+    return _conn->kexi().databaseNames();
 }
 
 bool KexiDBDatabaseManager::databaseExists(const QString& databaseName) const
 {
-    return _conn->databaseExists(databaseName);
+    if (_driver.isFileDriver())
+        return QFile::exists(databaseName);
+    else
+        return _conn->kexi().databaseExists(databaseName);
 }
 
 void KexiDBDatabaseManager::
@@ -97,29 +75,23 @@ createDatabase(const QString& databaseName,
 {
     using namespace Schema;
 
-    CreateStatementGenerator::APtr csg;
-    QString driverName = _driverName.upper();
-    if (driverName == "SQLITE3")
-        csg.reset(new SQLiteCSG());
-    else if (driverName == "MYSQL")
-        csg.reset(new MySQLCSG());
-    else if (driverName == "POSTGRESQL")
-        csg.reset(new PostgreSQLCSG());
-    else
-        throw DriverNotFoundError("Driver not supported");
+    CreateStatementGenerator::APtr csg(getCSGByDriver(_driver));
 
-    if (!_conn->createDatabase(databaseName))
-        throw DatabaseCreateError(_conn->errorMsg());
-    if (!_conn->useDatabase(databaseName, false))
-        throw DatabaseOpenError(_conn->errorMsg());
+    if (_driver.isFileDriver())
+        _conn = new KexiConnection(_driver, _connParams, databaseName);
 
-    TransactionGuard transaction(*_conn);
+    if (!_conn->kexi().createDatabase(databaseName))
+        throw DatabaseCreateError(_conn->kexi().errorMsg());
+    if (!_conn->kexi().useDatabase(databaseName, false))
+        throw DatabaseOpenError(_conn->kexi().errorMsg());
+
+    TransactionGuard transaction(_conn->kexi());
 
     const list<string>& x = csg->generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
-        if (!_conn->executeSQL(QString::fromUtf8(i->c_str(), i->length())))
-            throw StatementError(_conn->recentSQLString(),
-                                 _conn->errorMsg());
+        if (!_conn->kexi().executeSQL(QString::fromUtf8(i->c_str(), i->length())))
+            throw StatementError(_conn->kexi().recentSQLString(),
+                                 _conn->kexi().errorMsg());
 
     transaction.commit();
 }
@@ -127,8 +99,9 @@ createDatabase(const QString& databaseName,
 DatabaseConnection
 KexiDBDatabaseManager::connectToDatabase(const QString& databaseName)
 {
-    KexiDB::Connection* conn = createConnection();
-    if (!conn->useDatabase(databaseName, false))
-        throw DatabaseOpenError(conn->errorMsg());
+    DatabaseConnection conn
+        (new KexiConnection(_driver, _connParams, databaseName));
+    if (!conn->kexi().useDatabase(databaseName, false))
+        throw DatabaseOpenError(conn->kexi().errorMsg());
     return conn;
 }

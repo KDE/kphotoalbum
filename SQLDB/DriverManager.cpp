@@ -76,7 +76,7 @@ DriverManager::getDatabaseManager(const QString& driverName,
 
     if (driver)
         return DatabaseManager::APtr
-            (new KexiDBDatabaseManager(connParams, driverName, driver));
+            (new KexiDBDatabaseManager(connParams, *driver));
     else
         throw DriverNotFoundError(_kexiDriverManager.errorMsg());
 }

@@ -35,7 +35,7 @@ using Utilities::listSubtract;
 
 QueryHelper::QueryHelper(DatabaseConnection connection):
     _connection(connection),
-    _driver(_connection->driver())
+    _driver(_connection->kexi().driver())
 {
     if (!_driver)
         throw InitializationError();
@@ -120,9 +120,9 @@ void QueryHelper::executeStatement(const QString& statement,
     //TODO: remove debug
     qDebug("Executing statement: %s", s.local8Bit().data());
 
-    if (!_connection->executeSQL(s))
-        throw StatementError(_connection->recentSQLString(),
-                             _connection->errorMsg());
+    if (!_connection->kexi().executeSQL(s))
+        throw StatementError(_connection->kexi().recentSQLString(),
+                             _connection->kexi().errorMsg());
 }
 
 QueryResult QueryHelper::executeQuery(const QString& query,
@@ -139,10 +139,10 @@ QueryResult QueryHelper::executeQuery(const QString& query,
     t.start();
 #endif
 
-    KexiDB::Cursor* c = _connection->executeQuery(q);
+    KexiDB::Cursor* c = _connection->kexi().executeQuery(q);
     if (!c) {
-        throw QueryError(_connection->recentSQLString(),
-                         _connection->errorMsg());
+        throw QueryError(_connection->kexi().recentSQLString(),
+                         _connection->kexi().errorMsg());
     }
 
 #ifdef DEBUG_QUERY_TIMES
@@ -173,7 +173,7 @@ Q_ULLONG QueryHelper::insert(const QString& tableName,
         l.append("?");
     q = q.arg(l.join(", "));
     executeStatement(q, values);
-    return _connection->lastInsertedAutoIncValue(aiFieldName, tableName);
+    return _connection->kexi().lastInsertedAutoIncValue(aiFieldName, tableName);
 }
 
 namespace
@@ -682,7 +682,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
 void
 QueryHelper::insertMediaItemsLast(const QValueList<DB::ImageInfoPtr>& items)
 {
-    TransactionGuard transaction(*_connection);
+    TransactionGuard transaction(_connection->kexi());
 
     int place =
         executeQuery("SELECT MAX(place) FROM media").firstItem().toInt() + 1;
@@ -1048,7 +1048,7 @@ void QueryHelper::makeMediaPlacesContinuous()
 
 void QueryHelper::sortMediaItems(const QStringList& filenames)
 {
-    TransactionGuard transaction(*_connection);
+    TransactionGuard transaction(_connection->kexi());
 
     QValueList<int> idList = mediaItemIdsForFilenames(filenames);
 

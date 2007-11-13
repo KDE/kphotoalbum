@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -20,11 +20,68 @@
 #ifndef SQLDB_DATABASECONNECTION_H
 #define SQLDB_DATABASECONNECTION_H
 
+#include "DatabaseConnection.h"
+#include "QueryResult.h"
+#include "Utilities/List.h"
+#include <QStringList>
+#include <QList>
 #include <QSqlDatabase>
 
 namespace SQLDB
 {
-    typedef QSqlDatabase DatabaseConnection;
+    using Utilities::toVariantList;
+
+    class DatabaseConnection
+    {
+    public:
+        typedef QList<QVariant> Bindings;
+
+        explicit DatabaseConnection(const QSqlDatabase& database);
+
+        QueryResult executeQuery(const QString& query,
+                                 const Bindings& bindings=Bindings()) const;
+
+        void executeStatement(const QString& statement,
+                              const Bindings& bindings=Bindings());
+
+        qulonglong executeInsert(const QString& tableName,
+                                 const QString& aiFieldName,
+                                 const QStringList& fields,
+                                 const Bindings& values);
+
+        void beginTransaction()
+        {
+            _database.transaction();
+        }
+
+        void rollbackTransaction()
+        {
+            _database.rollback();
+        }
+
+        void commitTransaction()
+        {
+            _database.commit();
+        }
+
+#ifdef DEBUG_QUERY_TIMES
+        mutable QList< QPair<QString, uint> > queryTimes;
+#endif
+
+    protected:
+        QString variantListAsSql(const QList<QVariant>& l) const;
+
+        void processListParameters(QString& query, Bindings& bindings) const;
+
+        void bindValues(QSqlQuery& s, const Bindings& b) const;
+
+        std::auto_ptr<QSqlQuery>
+        initializeQuery(const QString& statement, const Bindings& bindings) const;
+
+    private:
+        QSqlDatabase _database;
+        QSqlDriver* _driver;
+    };
 }
 
 #endif /* SQLDB_DATABASECONNECTION_H */

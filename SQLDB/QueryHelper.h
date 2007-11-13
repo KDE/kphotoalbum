@@ -20,17 +20,13 @@
 #ifndef QUERYHELPER_H
 #define QUERYHELPER_H
 
-#include "Utilities/List.h"
 #include <qstringlist.h>
 #include <qpair.h>
 #include <QList>
 #include "DatabaseConnection.h"
-#include <QSqlDatabase>
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
-#include "QueryResult.h"
-#include "Cursor.h"
 namespace DB {
     class ImageDate;
     class ImageSearchInfo;
@@ -46,19 +42,15 @@ typedef QList<DB::OptionSimpleMatcher*> MatcherList;
 typedef QList<MatcherList> MatcherListList;
 
 
-using Utilities::toVariantList;
-
-class QueryHelper
+class QueryHelper: public DatabaseConnection
 {
 public:
     typedef QList<QVariant> Bindings;
 
-    explicit QueryHelper(DatabaseConnection& connection);
-
-    void executeStatement(const QString& statement,
-                          const Bindings& bindings=Bindings());
-    QueryResult executeQuery(const QString& query,
-                             const Bindings& bindings=Bindings()) const;
+    explicit QueryHelper(const DatabaseConnection& connection):
+        DatabaseConnection(connection)
+    {
+    }
 
     uint mediaItemCount(DB::MediaType typemask=DB::anyMediaType,
                         QList<int>* scope=0) const;
@@ -132,19 +124,7 @@ public:
                                  DB::MediaType typemask=DB::anyMediaType,
                                  QList<int>* scope=0) const;
 
-#ifdef DEBUG_QUERY_TIMES
-    mutable QList<QPair<QString, uint> > queryTimes;
-#endif
-
 protected:
-    QString variantListAsSql(const QList<QVariant>& l) const;
-    void processListParameters(QString& query, Bindings& bindings) const;
-    void bindValues(QSqlQuery& s, const Bindings& b) const;
-    std::auto_ptr<QSqlQuery>
-    initializeQuery(const QString& statement, const Bindings& bindings) const;
-    qulonglong insert(const QString& tableName, const QString& aiFieldName,
-                      const QStringList& fields, const Bindings& values);
-
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
     QList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
@@ -164,14 +144,6 @@ protected:
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
                                      const QList<int>* idList) const;
-
-private:
-    DatabaseConnection& _database;
-    QSqlDriver* _driver;
-
-    // Copying is not allowed
-    QueryHelper(const QueryHelper&);
-    QueryHelper& operator=(const QueryHelper&);
 };
 
 }

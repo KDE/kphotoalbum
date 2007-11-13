@@ -35,160 +35,6 @@ using namespace SQLDB;
 using Utilities::mergeListsUniqly;
 using Utilities::listSubtract;
 
-// To print debug message for each executed SQL query
-#define DEBUG_QUERYS
-
-QueryHelper::QueryHelper(DatabaseConnection& connection):
-    _database(connection),
-    _driver(_database.driver())
-{
-    if (!_driver)
-        throw InitializationError();
-}
-
-QString QueryHelper::variantListAsSql(const QList<QVariant>& l) const
-{
-    QStringList repr;
-    QSqlField f;
-    for (QList<QVariant>::const_iterator i = l.begin();
-         i != l.end(); ++i) {
-        f.setType(i->type());
-        f.setValue(*i);
-        repr << _driver->formatValue(f);
-    }
-    if (repr.isEmpty())
-        return QLatin1String("NULL");
-    else
-        return repr.join(QLatin1String(","));
-}
-
-void QueryHelper::processListParameters(QString& query,
-                                        Bindings& bindings) const
-{
-    int mark = 0;
-    Bindings::iterator i = bindings.begin();
-    while (i != bindings.end()) {
-        mark = query.indexOf('?', mark);
-        if (mark == -1)
-            break;
-
-        if (i->type() == QVariant::List) {
-            QString sql = variantListAsSql(i->toList());
-            query.replace(mark, 1, sql);
-            i = bindings.erase(i);
-            mark += sql.length();
-        }
-        else {
-            ++i;
-            ++mark;
-        }
-    }
-}
-
-void QueryHelper::bindValues(QSqlQuery& query, const Bindings& b) const
-{
-    int n = 0;
-    for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
-        query.bindValue(n, *i);
-        ++n;
-    }
-}
-
-std::auto_ptr<QSqlQuery>
-QueryHelper::initializeQuery(const QString& statement,
-                             const Bindings& bindings) const
-{
-    QString queryStr(statement);
-    Bindings b(bindings);
-
-    processListParameters(queryStr, b);
-
-    std::auto_ptr<QSqlQuery> query(new QSqlQuery(queryStr, _database));
-    bindValues(*query, b);
-
-#ifdef DEBUG_QUERYS
-    int lastPos = 0;
-    for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
-        lastPos = queryStr.indexOf('?', lastPos);
-        if (lastPos == -1)
-            break;
-        QString x = i->toString();
-        if (i->type() == QVariant::String ||
-            i->type() == QVariant::DateTime ||
-            i->type() == QVariant::Date ||
-            i->type() == QVariant::Time)
-            x = '\'' + x.replace('\'', "''") + '\'';
-        queryStr.replace(lastPos, 1, x);
-        lastPos += x.length();
-    }
-    qDebug("Initialized SQL: %s", queryStr.toLocal8Bit().constData());
-#endif
-
-    return query;
-}
-
-
-void QueryHelper::executeStatement(const QString& statement,
-                                   const Bindings& bindings)
-{
-    std::auto_ptr<QSqlQuery> s(initializeQuery(statement, bindings));
-
-    if (!s->exec())
-        throw QtSQLError(s->lastError());
-}
-
-QueryResult QueryHelper::executeQuery(const QString& query,
-                                      const Bindings& bindings) const
-{
-    std::auto_ptr<QSqlQuery> q(initializeQuery(query, bindings));
-
-#ifdef DEBUG_QUERY_TIMES
-    QTime t;
-    t.start();
-#endif
-
-    if (!q->exec())
-        throw QtSQLError(q->lastError());
-
-#ifdef DEBUG_QUERY_TIMES
-    int te = t.elapsed();
-    if (te > 100) {
-        {
-            queryTimes.push_back(QPair<QString, uint>(q->executedQuery(), te));
-        }
-    }
-    qDebug("Time elapsed: %d ms", te);
-#endif
-
-    return QueryResult(q);
-}
-
-qulonglong QueryHelper::insert(const QString& tableName,
-                               const QString& aiFieldName,
-                               const QStringList& fields,
-                               const Bindings& values)
-{
-    Q_ASSERT(fields.count() == values.count());
-
-    QString q = "INSERT INTO %1(%2) VALUES (%3)";
-    q = q.arg(tableName);
-    q = q.arg(fields.join(", "));
-    QStringList l;
-    for (Bindings::size_type i = values.count(); i > 0; --i)
-        l.append("?");
-    q = q.arg(l.join(", "));
-
-
-    std::auto_ptr<QSqlQuery> s(initializeQuery(q, values));
-
-    if (!s->exec())
-        throw QtSQLError(s->lastError());
-
-    Q_UNUSED(aiFieldName);
-
-    return s->lastInsertId().toULongLong();
-}
-
 namespace
 {
 void splitPath(const QString& filename, QString& path, QString& basename)
@@ -507,8 +353,8 @@ int QueryHelper::insertTag(int categoryId, const QString& name)
     if (!i.isNull())
         return i.toInt();
 
-    return insert("tag", "id", QStringList() << "categoryId" << "name",
-                  Bindings() << categoryId << name);
+    return executeInsert("tag", "id", QStringList() << "categoryId" << "name",
+                         Bindings() << categoryId << name);
 }
 
 void QueryHelper::insertTagFirst(int categoryId, const QString& name)
@@ -621,8 +467,8 @@ int QueryHelper::insertDir(const QString& dirname)
     if (!i.isNull())
         return i.toInt();
 
-    return insert("dir", "id", QStringList() << "path",
-                  Bindings() << dirname);
+    return executeInsert("dir", "id", QStringList() << "path",
+                         Bindings() << dirname);
 }
 
 /** Get data from ImageInfo to Bindings list.
@@ -688,7 +534,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
         "width" << "height" << "angle";
     bindings += infoValues;
 
-    qulonglong mediaId = insert("media", "id", fields, bindings);
+    qulonglong mediaId = executeInsert("media", "id", fields, bindings);
 
     insertMediaItemTags(mediaId, info);
     insertMediaItemDrawings(mediaId, info);
@@ -697,7 +543,7 @@ void QueryHelper::insertMediaItem(const DB::ImageInfo& info, int place)
 void
 QueryHelper::insertMediaItemsLast(const QList<DB::ImageInfoPtr>& items)
 {
-    TransactionGuard transaction(_database);
+    TransactionGuard transaction(*this);
 
     int place =
         executeQuery("SELECT MAX(place) FROM media").firstItem().toInt() + 1;
@@ -1063,7 +909,7 @@ void QueryHelper::makeMediaPlacesContinuous()
 
 void QueryHelper::sortMediaItems(const QStringList& filenames)
 {
-    TransactionGuard transaction(_database);
+    TransactionGuard transaction(*this);
 
     QList<int> idList = mediaItemIdsForFilenames(filenames);
 

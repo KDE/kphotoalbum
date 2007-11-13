@@ -30,7 +30,7 @@ namespace SQLDB
         explicit TransactionGuard(DatabaseConnection& connection):
             _connection(connection)
         {
-            _connection.transaction();
+            _connection.beginTransaction();
         }
 
         ~TransactionGuard()
@@ -40,12 +40,12 @@ namespace SQLDB
 
         void commit()
         {
-            _connection.commit();
+            _connection.commitTransaction();
         }
 
         void rollback()
         {
-            _connection.rollback();
+            _connection.rollbackTransaction();
         }
 
     private:

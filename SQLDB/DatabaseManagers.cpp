@@ -104,11 +104,9 @@ createDatabase(const QString& databaseName,
 
     TransactionGuard transaction(newDb);
 
-    QSqlQuery nq(newDb);
     const list<string>& x = _csg->generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
-        if (!nq.exec(QString::fromUtf8(i->c_str(), i->length())))
-            throw QtSQLError(nq.lastError());
+        newDb.executeStatement(QString::fromUtf8(i->c_str(), i->length()));
 
     transaction.commit();
 }
@@ -122,7 +120,7 @@ BaseDatabaseManager::connectToDatabase(const QString& databaseName)
     if (!db.open())
         throw QtSQLError(db.lastError());
 
-    return db;
+    return DatabaseConnection(db);
 }
 
 
@@ -175,11 +173,9 @@ SQLiteDatabaseManager::createDatabase(const QString& databaseName,
 
     TransactionGuard transaction(newDb);
 
-    QSqlQuery nq(newDb);
     const list<string>& x = csg.generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
-        if (!nq.exec(QString::fromUtf8(i->c_str(), i->length())))
-            throw QtSQLError(nq.lastError());
+        newDb.executeStatement(QString::fromUtf8(i->c_str(), i->length()));
 
     transaction.commit();
 }
@@ -194,5 +190,5 @@ SQLiteDatabaseManager::connectToDatabase(const QString& databaseName)
     if (!db.open())
         throw QtSQLError(db.lastError());
 
-    return db;
+    return DatabaseConnection(db);
 }

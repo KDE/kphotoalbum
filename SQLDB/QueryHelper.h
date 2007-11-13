@@ -20,6 +20,7 @@
 #ifndef QUERYHELPER_H
 #define QUERYHELPER_H
 
+#include "Utilities/List.h"
 #include <qstringlist.h>
 #include <qpair.h>
 #include "DatabaseConnection.h"
@@ -44,23 +45,7 @@ using Utilities::StringSet;
 typedef QValueList<DB::OptionSimpleMatcher*> MatcherList;
 typedef QValueList<MatcherList> MatcherListList;
 
-
-/** Copy some list to QValueList of QVariants.
- *
- * Class T should support iterating interface (e.g. const_iterator,
- * begin(), end()) and should be convertable to QVariant.
- *
- * @param l the list to copy from
- * @return list which contains elements of l in same order, but as QVariants
- */
-template <class T>
-QValueList<QVariant> toVariantList(const T& l)
-{
-    QValueList<QVariant> r;
-    for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
-        r << *i;
-    return r;
-}
+using Utilities::toVariantList;
 
 class QueryHelper
 {

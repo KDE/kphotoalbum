@@ -96,6 +96,15 @@ QValueList<T> Utilities::shuffleList(const QValueList<T>& list)
     return result;
 }
 
+template <class T>
+QValueList<QVariant> Utilities::toVariantList(const T& l)
+{
+    QValueList<QVariant> r;
+    for (typename T::const_iterator i = l.begin(); i != l.end(); ++i)
+        r << *i;
+    return r;
+}
+
 
 #define INSTANTIATE_MERGELISTSUNIQLY(T) \
 template \
@@ -111,7 +120,13 @@ QValueList<T> Utilities::listSubtract(const QValueList<T>& l1, \
 template \
 QValueList<T> Utilities::shuffleList(const QValueList<T>& list)
 
+#define INSTANTIATE_TOVARIANTLIST(T) \
+template \
+QValueList<QVariant> Utilities::toVariantList(const T& l)
+
 INSTANTIATE_MERGELISTSUNIQLY(int);
 INSTANTIATE_MERGELISTSUNIQLY(QString);
 INSTANTIATE_LISTSUBTRACT(int);
 INSTANTIATE_SHUFFLELIST(QString);
+INSTANTIATE_TOVARIANTLIST(QValueList<int>);
+INSTANTIATE_TOVARIANTLIST(QStringList);

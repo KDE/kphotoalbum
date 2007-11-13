@@ -22,6 +22,7 @@
 
 #include <qvaluelist.h>
 #include <qstringlist.h>
+#include <qvariant.h>
 
 namespace Utilities
 {
@@ -50,6 +51,18 @@ namespace Utilities
      */
     template <class T>
     QValueList<T> shuffleList(const QValueList<T>& list);
+
+
+    /** Copy some list to QValueList of QVariants.
+     *
+     * Class T should support iterating interface (e.g. const_iterator,
+     * begin(), end()) and should be convertable to QVariant.
+     *
+     * @param l the list to copy from
+     * @return list which contains elements of l in same order, but as QVariants
+     */
+    template <class T>
+    QValueList<QVariant> toVariantList(const T& l);
 }
 
 #endif /* UTILITIES_LIST_H */

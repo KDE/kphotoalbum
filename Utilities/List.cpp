@@ -22,7 +22,6 @@
 #include <Q3ValueList>
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap
-namespace DB { class OptionSimpleMatcher; }
 
 
 template <class T>
@@ -127,4 +126,3 @@ INSTANTIATE_SHUFFLELIST(QString);
 INSTANTIATE_TOVARIANTLIST(QList<int>);
 INSTANTIATE_TOVARIANTLIST(Q3ValueList<int>);
 INSTANTIATE_TOVARIANTLIST(QStringList);
-INSTANTIATE_TOVARIANTLIST(QList<DB::OptionSimpleMatcher*>);

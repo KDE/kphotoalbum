@@ -70,7 +70,8 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 void MainWindow::ExternalPopup::slotExecuteService( int id )
 {
     QString name = text( id );
-    KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
+    QString query = QString::fromLatin1("Type == 'Application' and ( Name == '%1' or Name == '%2' )").arg( name ).arg( name.remove('&') );
+    KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), query );
     Q_ASSERT( offers.count() == 1 );
     KService::Ptr ptr = offers.first();
     KURL::List lst;

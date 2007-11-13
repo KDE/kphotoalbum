@@ -69,9 +69,8 @@ void MainWindow::ExternalPopup::populate( DB::ImageInfoPtr current, const QStrin
 
 void MainWindow::ExternalPopup::slotExecuteService( int id )
 {
-    QString name = text( id );
-    QString query = QString::fromLatin1("Type == 'Application' and ( Name == '%1' or Name == '%2' )").arg( name ).arg( name.remove('&') );
-    KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), query );
+    QString name = text( id ).remove('&');
+    KTrader::OfferList offers = KTrader::self()->query( *(_appToMimeTypeMap[name].begin()), QString::fromLatin1("Type == 'Application' and Name == '%1'").arg(name));
     Q_ASSERT( offers.count() == 1 );
     KService::Ptr ptr = offers.first();
     KURL::List lst;
@@ -116,7 +115,7 @@ MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const QStringList& fil
         KTrader::OfferList offers = KTrader::self()->query( *mimeTypeIt, QString::fromLatin1("Type == 'Application'"));
         for(KTrader::OfferList::Iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
             res.insert( qMakePair( (*offerIt)->name(), (*offerIt)->pixmap(KIcon::Toolbar) ) );
-            _appToMimeTypeMap[(*offerIt)->name()].insert( *mimeTypeIt );
+            _appToMimeTypeMap[(*offerIt)->name().remove('&')].insert( *mimeTypeIt );
         }
     }
     return res;

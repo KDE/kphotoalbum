@@ -20,7 +20,6 @@
 #ifndef SQLDB_DATABASECONNECTION_H
 #define SQLDB_DATABASECONNECTION_H
 
-#include "DatabaseConnection.h"
 #include "QueryResult.h"
 #include "Utilities/List.h"
 #include <QStringList>

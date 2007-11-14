@@ -85,7 +85,8 @@ createDatabase(const QString& databaseName,
     if (!_conn->kexi().useDatabase(databaseName, false))
         throw DatabaseOpenError(_conn->kexi().errorMsg());
 
-    TransactionGuard transaction(_conn->kexi());
+    DatabaseConnection dbConn(_conn);
+    TransactionGuard transaction(dbConn);
 
     const list<string>& x = csg->generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
@@ -99,9 +100,8 @@ createDatabase(const QString& databaseName,
 DatabaseConnection
 KexiDBDatabaseManager::connectToDatabase(const QString& databaseName)
 {
-    DatabaseConnection conn
-        (new KexiConnection(_driver, _connParams, databaseName));
+    ConnectionSPtr conn(new KexiConnection(_driver, _connParams, databaseName));
     if (!conn->kexi().useDatabase(databaseName, false))
         throw DatabaseOpenError(conn->kexi().errorMsg());
-    return conn;
+    return DatabaseConnection(conn);
 }

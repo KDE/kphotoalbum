@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,9 +21,15 @@
 #define SQLDB_DATABASECONNECTION_H
 
 #include "ConnectionParameters.h"
+#include "QueryResult.h"
+#include "Utilities/List.h"
 #include <kexidb/connection.h>
 #include <kexidb/driver.h>
 #include <ksharedptr.h>
+#include <qstringlist.h>
+#ifdef DEBUG_QUERY_TIMES
+# include <qpair.h>
+#endif
 
 namespace SQLDB
 {
@@ -49,7 +55,57 @@ namespace SQLDB
         KexiDB::Connection* _conn;
     };
 
-    typedef KSharedPtr<KexiConnection> DatabaseConnection;
+    typedef KSharedPtr<KexiConnection> ConnectionSPtr;
+
+
+    using Utilities::toVariantList;
+
+    class DatabaseConnection
+    {
+    public:
+        typedef QValueList<QVariant> Bindings;
+
+        explicit DatabaseConnection(const ConnectionSPtr& database);
+
+        QueryResult executeQuery(const QString& query,
+                                 const Bindings& bindings=Bindings()) const;
+
+        void executeStatement(const QString& statement,
+                              const Bindings& bindings=Bindings());
+
+        Q_ULLONG executeInsert(const QString& tableName,
+                               const QString& aiFieldName,
+                               const QStringList& fields,
+                               const Bindings& values);
+
+        void beginTransaction()
+        {
+            KexiDB::Transaction t(_database->kexi().beginTransaction());
+            _database->kexi().setDefaultTransaction(t);
+        }
+
+        void rollbackTransaction()
+        {
+            _database->kexi().rollbackTransaction();
+        }
+
+        void commitTransaction()
+        {
+            _database->kexi().commitTransaction();
+        }
+
+#ifdef DEBUG_QUERY_TIMES
+        mutable QValueList< QPair<QString, uint> > queryTimes;
+#endif
+
+    protected:
+        QString sqlRepresentation(const QVariant& x) const;
+        void bindValues(QString &s, const Bindings& b) const;
+
+    private:
+        ConnectionSPtr _database;
+        KexiDB::Driver* _driver;
+    };
 }
 
 #endif /* SQLDB_DATABASECONNECTION_H */

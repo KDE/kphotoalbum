@@ -47,7 +47,7 @@ namespace SQLDB
     protected:
         ConnectionParameters _connParams;
         KexiDB::Driver& _driver;
-        DatabaseConnection _conn;
+        ConnectionSPtr _conn;
 
     private:
         KexiDBDatabaseManager(const KexiDBDatabaseManager&);

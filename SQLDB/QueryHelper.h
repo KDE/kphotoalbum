@@ -20,17 +20,12 @@
 #ifndef QUERYHELPER_H
 #define QUERYHELPER_H
 
-#include "Utilities/List.h"
-#include <qstringlist.h>
-#include <qpair.h>
 #include "DatabaseConnection.h"
-#include <kexidb/driver.h>
-#include <kexidb/cursor.h>
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
-#include "QueryResult.h"
-#include "Cursor.h"
+#include <qstringlist.h>
+#include <qpair.h>
 namespace DB {
     class ImageDate;
     class ImageSearchInfo;
@@ -45,19 +40,15 @@ using Utilities::StringSet;
 typedef QValueList<DB::OptionSimpleMatcher*> MatcherList;
 typedef QValueList<MatcherList> MatcherListList;
 
-using Utilities::toVariantList;
-
-class QueryHelper
+class QueryHelper: public DatabaseConnection
 {
 public:
     typedef QValueList<QVariant> Bindings;
 
-    explicit QueryHelper(DatabaseConnection connection);
-
-    void executeStatement(const QString& statement,
-                          const Bindings& bindings=Bindings());
-    QueryResult executeQuery(const QString& query,
-                             const Bindings& bindings=Bindings()) const;
+    explicit QueryHelper(const DatabaseConnection& connection):
+        DatabaseConnection(connection)
+    {
+    }
 
     uint mediaItemCount(DB::MediaType typemask=DB::anyMediaType,
                         QValueList<int>* scope=0) const;
@@ -131,16 +122,7 @@ public:
                                  DB::MediaType typemask=DB::anyMediaType,
                                  QValueList<int>* scope=0) const;
 
-#ifdef DEBUG_QUERY_TIMES
-    mutable QValueList<QPair<QString, uint> > queryTimes;
-#endif
-
 protected:
-    QString sqlRepresentation(const QVariant& x) const;
-    void bindValues(QString &s, const Bindings& b) const;
-    Q_ULLONG insert(const QString& tableName, const QString& aiFieldName,
-                    const QStringList& fields, const Bindings& values);
-
     Bindings imageInfoToBindings(const DB::ImageInfo& info);
 
     QValueList<int> mediaItemIdsForFilenames(const QStringList& filenames) const;
@@ -160,14 +142,6 @@ protected:
     QString findFirstFileInTimeRange(const DB::ImageDate& range,
                                      bool includeRanges,
                                      const QValueList<int>* idList) const;
-
-private:
-    DatabaseConnection _connection;
-    KexiDB::Driver* _driver;
-
-    // Copying is not allowed
-    QueryHelper(const QueryHelper&);
-    QueryHelper& operator=(const QueryHelper&);
 };
 
 }

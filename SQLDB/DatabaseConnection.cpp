@@ -68,3 +68,154 @@ KexiConnection::KexiConnection(KexiDB::Driver& driver,
     // it when program is shutting down.
     _conn = conn.release();
 }
+
+
+// To print debug message for each executed SQL query
+#define DEBUG_QUERYS
+
+
+namespace
+{
+    KexiDB::Field::Type fieldTypeFor(QVariant::Type type)
+    {
+        switch (type) {
+        case QVariant::Bool:
+            return KexiDB::Field::Boolean;
+
+        case QVariant::Int:
+        case QVariant::UInt:
+            return KexiDB::Field::Integer;
+
+        case QVariant::LongLong:
+        case QVariant::ULongLong:
+            return KexiDB::Field::BigInteger;
+
+        case QVariant::Double:
+            return KexiDB::Field::Double;
+
+        case QVariant::Date:
+            return KexiDB::Field::Date;
+
+        case QVariant::Time:
+            return KexiDB::Field::Time;
+
+        case QVariant::DateTime:
+            return KexiDB::Field::DateTime;
+
+        case QVariant::String:
+        case QVariant::CString:
+            return KexiDB::Field::Text;
+
+        default:
+            return KexiDB::Field::InvalidType;
+        }
+    }
+}
+
+
+DatabaseConnection::DatabaseConnection(const ConnectionSPtr& database):
+    _database(database),
+    _driver(_database->kexi().driver())
+{
+    if (!_driver)
+        throw InitializationError();
+}
+
+QString DatabaseConnection::sqlRepresentation(const QVariant& x) const
+{
+    if (x.type() == QVariant::List) {
+        QStringList repr;
+        QValueList<QVariant> l = x.toList();
+        for (QValueList<QVariant>::const_iterator i = l.begin();
+             i != l.end(); ++i) {
+            repr << sqlRepresentation(*i);
+        }
+        if (repr.isEmpty())
+            return "NULL";
+        else
+            return repr.join(", ");
+    }
+    else
+        // Escape and convert x to string
+        return _driver->valueToSQL(fieldTypeFor(x.type()), x);
+}
+
+void DatabaseConnection::bindValues(QString &s, const Bindings& b) const
+{
+    int n = 0;
+    for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
+        n = s.find('?', n);
+        if (n == -1)
+            break;
+        QString valAsSql(sqlRepresentation(*i));
+        s = s.replace(n, 1, valAsSql);
+        n += valAsSql.length();
+    }
+}
+
+QueryResult DatabaseConnection::executeQuery(const QString& query,
+                                             const Bindings& bindings) const
+{
+    QString q = query;
+    bindValues(q, bindings);
+
+#ifdef DEBUG_QUERYS
+    qDebug("Executing query: %s", q.local8Bit().data());
+#endif
+
+#ifdef DEBUG_QUERY_TIMES
+    QTime t;
+    t.start();
+#endif
+
+    KexiDB::Cursor* c = _database->kexi().executeQuery(q);
+    if (!c) {
+        throw QueryError(_database->kexi().recentSQLString(),
+                         _database->kexi().errorMsg());
+    }
+
+#ifdef DEBUG_QUERY_TIMES
+    int te = t.elapsed();
+    if (te > 100) {
+        {
+            queryTimes.push_back(QPair<QString, uint>(q, te));
+        }
+    }
+    qDebug("Time elapsed: %d ms", te);
+#endif
+
+    return QueryResult(c);
+}
+
+void DatabaseConnection::executeStatement(const QString& statement,
+                                          const Bindings& bindings)
+{
+    QString s = statement;
+    bindValues(s, bindings);
+
+#ifdef DEBUG_QUERYS
+    qDebug("Executing statement: %s", s.local8Bit().data());
+#endif
+
+    if (!_database->kexi().executeSQL(s))
+        throw StatementError(_database->kexi().recentSQLString(),
+                             _database->kexi().errorMsg());
+}
+
+Q_ULLONG DatabaseConnection::executeInsert(const QString& tableName,
+                                           const QString& aiFieldName,
+                                           const QStringList& fields,
+                                           const Bindings& values)
+{
+    Q_ASSERT(fields.count() == values.count());
+
+    QString q = "INSERT INTO %1(%2) VALUES (%3)";
+    q = q.arg(tableName);
+    q = q.arg(fields.join(", "));
+    QStringList l;
+    for (Bindings::size_type i = values.count(); i > 0; --i)
+        l.append("?");
+    q = q.arg(l.join(", "));
+    executeStatement(q, values);
+    return _database->kexi().lastInsertedAutoIncValue(aiFieldName, tableName);
+}

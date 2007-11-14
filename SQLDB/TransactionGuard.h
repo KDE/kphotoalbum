@@ -24,7 +24,33 @@
 
 namespace SQLDB
 {
-    using KexiDB::TransactionGuard;
+    class TransactionGuard
+    {
+    public:
+        explicit TransactionGuard(DatabaseConnection& connection):
+            _connection(connection)
+        {
+            _connection.beginTransaction();
+        }
+
+        ~TransactionGuard()
+        {
+            rollback();
+        }
+
+        void commit()
+        {
+            _connection.commitTransaction();
+        }
+
+        void rollback()
+        {
+            _connection.rollbackTransaction();
+        }
+
+    private:
+        DatabaseConnection& _connection;
+    };
 }
 
 #endif /* SQLDB_TRANSACTIONGUARD_H */

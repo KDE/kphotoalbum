@@ -66,21 +66,20 @@ namespace
         int month(0);
         int day(0);
 
-        SQLDB::QueryHelper qh(conn);
         try {
             QString x =
                 "SELECT value FROM database_metadata "
                 "WHERE property=";
             name =
-                qh.executeQuery(x + "'name'").firstItem().
+                conn.executeQuery(x + "'name'").firstItem().
                 toString().latin1();
             versionMajor =
-                qh.executeQuery(x + "'version major'").firstItem().toInt();
+                conn.executeQuery(x + "'version major'").firstItem().toInt();
             versionMinor =
-                qh.executeQuery(x + "'version minor'").firstItem().toInt();
-            year = qh.executeQuery(x + "'date year'").firstItem().toInt();
-            month = qh.executeQuery(x + "'date month'").firstItem().toInt();
-            day = qh.executeQuery(x + "'date day'").firstItem().toInt();
+                conn.executeQuery(x + "'version minor'").firstItem().toInt();
+            year = conn.executeQuery(x + "'date year'").firstItem().toInt();
+            month = conn.executeQuery(x + "'date month'").firstItem().toInt();
+            day = conn.executeQuery(x + "'date day'").firstItem().toInt();
         }
         catch (...) {
         }

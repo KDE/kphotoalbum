@@ -17,9 +17,10 @@
   MA 02110-1301 USA.
 */
 
-#ifndef SQLDB_DATABASECONNECTION_H
-#define SQLDB_DATABASECONNECTION_H
+#ifndef SQLDB_QSQLCONNECTION_H
+#define SQLDB_QSQLCONNECTION_H
 
+#include "Connection.h"
 #include "QueryResult.h"
 #include "Utilities/List.h"
 #include <QStringList>
@@ -28,44 +29,39 @@
 
 namespace SQLDB
 {
-    using Utilities::toVariantList;
-
-    class DatabaseConnection
+    class QSqlConnection: public Connection
     {
     public:
-        typedef QList<QVariant> Bindings;
+        explicit QSqlConnection(const QSqlDatabase& database);
 
-        explicit DatabaseConnection(const QSqlDatabase& database);
+        virtual QueryResult
+        executeQuery(const QString& query,
+                     const Bindings& bindings=Bindings()) const;
 
-        QueryResult executeQuery(const QString& query,
-                                 const Bindings& bindings=Bindings()) const;
+        virtual void
+        executeStatement(const QString& statement,
+                         const Bindings& bindings=Bindings());
 
-        void executeStatement(const QString& statement,
-                              const Bindings& bindings=Bindings());
+        virtual RowId
+        executeInsert(const QString& tableName,
+                      const QString& aiFieldName,
+                      const QStringList& fields,
+                      const Bindings& values);
 
-        qulonglong executeInsert(const QString& tableName,
-                                 const QString& aiFieldName,
-                                 const QStringList& fields,
-                                 const Bindings& values);
-
-        void beginTransaction()
+        virtual void beginTransaction()
         {
             _database.transaction();
         }
 
-        void rollbackTransaction()
+        virtual void rollbackTransaction()
         {
             _database.rollback();
         }
 
-        void commitTransaction()
+        virtual void commitTransaction()
         {
             _database.commit();
         }
-
-#ifdef DEBUG_QUERY_TIMES
-        mutable QList< QPair<QString, uint> > queryTimes;
-#endif
 
     protected:
         QString variantListAsSql(const QList<QVariant>& l) const;
@@ -83,4 +79,4 @@ namespace SQLDB
     };
 }
 
-#endif /* SQLDB_DATABASECONNECTION_H */
+#endif /* SQLDB_QSQLCONNECTION_H */

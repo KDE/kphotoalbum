@@ -20,13 +20,12 @@
 #ifndef QUERYHELPER_H
 #define QUERYHELPER_H
 
-#include <qstringlist.h>
-#include <qpair.h>
-#include <QList>
-#include "DatabaseConnection.h"
+#include "QSqlConnection.h"
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
+#include <qstringlist.h>
+#include <qpair.h>
 namespace DB {
     class ImageDate;
     class ImageSearchInfo;
@@ -41,14 +40,15 @@ using Utilities::StringSet;
 typedef QList<DB::OptionSimpleMatcher*> MatcherList;
 typedef QList<MatcherList> MatcherListList;
 
-
-class QueryHelper: public DatabaseConnection
+class QueryHelper: public QSqlConnection
 {
 public:
     typedef QList<QVariant> Bindings;
 
-    explicit QueryHelper(const DatabaseConnection& connection):
-        DatabaseConnection(connection)
+    // TODO: Reorganize whole QueryHelper to separate helper functions.
+    // This is just a trick to avoid changing QueryHelper.cpp at this point.
+    explicit QueryHelper(const Connection& connection):
+        QSqlConnection(*static_cast<const QSqlConnection*>(&connection))
     {
     }
 

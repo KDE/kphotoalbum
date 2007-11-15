@@ -21,14 +21,14 @@
 #define SQLDB_DATABASEINITIALIZATION_H
 
 #include "DatabaseAddress.h"
-#include "DatabaseConnection.h"
+#include "Connection.h"
 
 namespace SQLDB
 {
     /** Open an existing SQL database or create a new one using
      * KPhotoAlbum database schema and open it.
      */
-    DatabaseConnection
+    ConnectionSPtr
     initializeKPhotoAlbumDatabase(const DatabaseAddress& address);
 }
 

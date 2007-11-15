@@ -40,7 +40,7 @@ namespace SQLDB
         virtual void createDatabase(const QString& databaseName,
                                     const Schema::DatabaseSchema& schema);
 
-        virtual DatabaseConnection
+        virtual ConnectionSPtr
         connectToDatabase(const QString& databaseName);
 
     private:
@@ -76,7 +76,7 @@ namespace SQLDB
         virtual void createDatabase(const QString& databaseName,
                                     const Schema::DatabaseSchema& schema);
 
-        virtual DatabaseConnection
+        virtual ConnectionSPtr
         connectToDatabase(const QString& databaseName);
     };
 }

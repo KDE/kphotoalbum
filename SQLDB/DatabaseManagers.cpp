@@ -20,6 +20,7 @@
 #include "DatabaseManagers.h"
 #include "TransactionGuard.h"
 #include "QueryErrors.h"
+#include "QSqlConnection.h"
 #include "Schema/MySQLCSG.h"
 #include "Schema/PostgreSQLCSG.h"
 #include "Schema/SQLiteCSG.h"
@@ -100,18 +101,18 @@ createDatabase(const QString& databaseName,
     if (!q.exec(QLatin1String("CREATE DATABASE ") + databaseName))
         throw QtSQLError(q.lastError());
 
-    DatabaseConnection newDb = connectToDatabase(databaseName);
+    ConnectionSPtr newDb = connectToDatabase(databaseName);
 
-    TransactionGuard transaction(newDb);
+    TransactionGuard transaction(*newDb);
 
     const list<string>& x = _csg->generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
-        newDb.executeStatement(QString::fromUtf8(i->c_str(), i->length()));
+        newDb->executeStatement(QString::fromUtf8(i->c_str(), i->length()));
 
     transaction.commit();
 }
 
-DatabaseConnection
+ConnectionSPtr
 BaseDatabaseManager::connectToDatabase(const QString& databaseName)
 {
     QString newConnName(newDatabaseName("conn"));
@@ -120,7 +121,7 @@ BaseDatabaseManager::connectToDatabase(const QString& databaseName)
     if (!db.open())
         throw QtSQLError(db.lastError());
 
-    return DatabaseConnection(db);
+    return ConnectionSPtr(new QSqlConnection(db));
 }
 
 
@@ -169,18 +170,18 @@ SQLiteDatabaseManager::createDatabase(const QString& databaseName,
 
     SQLiteCSG csg;
 
-    DatabaseConnection newDb = connectToDatabase(databaseName);
+    ConnectionSPtr newDb = connectToDatabase(databaseName);
 
-    TransactionGuard transaction(newDb);
+    TransactionGuard transaction(*newDb);
 
     const list<string>& x = csg.generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
-        newDb.executeStatement(QString::fromUtf8(i->c_str(), i->length()));
+        newDb->executeStatement(QString::fromUtf8(i->c_str(), i->length()));
 
     transaction.commit();
 }
 
-DatabaseConnection
+ConnectionSPtr
 SQLiteDatabaseManager::connectToDatabase(const QString& databaseName)
 {
     QString newConnName(newDatabaseName("conn"));
@@ -190,5 +191,5 @@ SQLiteDatabaseManager::connectToDatabase(const QString& databaseName)
     if (!db.open())
         throw QtSQLError(db.lastError());
 
-    return DatabaseConnection(db);
+    return ConnectionSPtr(new QSqlConnection(db));
 }

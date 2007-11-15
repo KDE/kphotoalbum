@@ -17,7 +17,7 @@
   MA 02110-1301 USA.
 */
 
-#include "DatabaseConnection.h"
+#include "QSqlConnection.h"
 #include "QueryErrors.h"
 #include <QList>
 #include <QSqlField>
@@ -30,7 +30,7 @@ using namespace SQLDB;
 // To print debug message for each executed SQL query
 #define DEBUG_QUERYS
 
-DatabaseConnection::DatabaseConnection(const QSqlDatabase& database):
+QSqlConnection::QSqlConnection(const QSqlDatabase& database):
     _database(database),
     _driver(_database.driver())
 {
@@ -38,7 +38,7 @@ DatabaseConnection::DatabaseConnection(const QSqlDatabase& database):
         throw InitializationError();
 }
 
-QString DatabaseConnection::variantListAsSql(const QList<QVariant>& l) const
+QString QSqlConnection::variantListAsSql(const QList<QVariant>& l) const
 {
     QStringList repr;
     QSqlField f;
@@ -54,7 +54,7 @@ QString DatabaseConnection::variantListAsSql(const QList<QVariant>& l) const
         return repr.join(QLatin1String(","));
 }
 
-void DatabaseConnection::processListParameters(QString& query,
+void QSqlConnection::processListParameters(QString& query,
                                                Bindings& bindings) const
 {
     int mark = 0;
@@ -77,7 +77,7 @@ void DatabaseConnection::processListParameters(QString& query,
     }
 }
 
-void DatabaseConnection::bindValues(QSqlQuery& query, const Bindings& b) const
+void QSqlConnection::bindValues(QSqlQuery& query, const Bindings& b) const
 {
     int n = 0;
     for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
@@ -87,7 +87,7 @@ void DatabaseConnection::bindValues(QSqlQuery& query, const Bindings& b) const
 }
 
 std::auto_ptr<QSqlQuery>
-DatabaseConnection::initializeQuery(const QString& statement,
+QSqlConnection::initializeQuery(const QString& statement,
                                     const Bindings& bindings) const
 {
     QString queryStr(statement);
@@ -119,7 +119,7 @@ DatabaseConnection::initializeQuery(const QString& statement,
     return query;
 }
 
-QueryResult DatabaseConnection::executeQuery(const QString& query,
+QueryResult QSqlConnection::executeQuery(const QString& query,
                                              const Bindings& bindings) const
 {
     std::auto_ptr<QSqlQuery> q(initializeQuery(query, bindings));
@@ -145,7 +145,7 @@ QueryResult DatabaseConnection::executeQuery(const QString& query,
     return QueryResult(q);
 }
 
-void DatabaseConnection::executeStatement(const QString& statement,
+void QSqlConnection::executeStatement(const QString& statement,
                                           const Bindings& bindings)
 {
     std::auto_ptr<QSqlQuery> s(initializeQuery(statement, bindings));
@@ -154,10 +154,11 @@ void DatabaseConnection::executeStatement(const QString& statement,
         throw QtSQLError(s->lastError());
 }
 
-qulonglong DatabaseConnection::executeInsert(const QString& tableName,
-                                             const QString& aiFieldName,
-                                             const QStringList& fields,
-                                             const Bindings& values)
+QSqlConnection::RowId
+QSqlConnection::executeInsert(const QString& tableName,
+                              const QString& aiFieldName,
+                              const QStringList& fields,
+                              const Bindings& values)
 {
     Q_ASSERT(fields.count() == values.count());
 

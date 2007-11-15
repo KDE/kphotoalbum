@@ -26,7 +26,7 @@
 
 namespace
 {
-    static void insertInitialData(SQLDB::DatabaseConnection& conn)
+    static void insertInitialData(SQLDB::Connection& conn)
     {
         struct
         {
@@ -57,7 +57,7 @@ namespace
     }
 
     static SQLDB::Schema::Identifier
-    getDatabaseIdentifier(SQLDB::DatabaseConnection& conn)
+    getDatabaseIdentifier(SQLDB::Connection& conn)
     {
         SQLDB::Schema::string name;
         int versionMajor(0);
@@ -90,7 +90,7 @@ namespace
     }
 }
 
-SQLDB::DatabaseConnection
+SQLDB::ConnectionSPtr
 SQLDB::initializeKPhotoAlbumDatabase(const DatabaseAddress& address)
 {
     DatabaseManager::APtr dbMgr
@@ -107,15 +107,15 @@ SQLDB::initializeKPhotoAlbumDatabase(const DatabaseAddress& address)
         databaseCreated = true;
     }
 
-    DatabaseConnection dbConn(dbMgr->connectToDatabase(dbName));
+    ConnectionSPtr dbConn(dbMgr->connectToDatabase(dbName));
 
     if (databaseCreated) {
-        insertInitialData(dbConn);
+        insertInitialData(*dbConn);
     }
     else {
         // Test schema version
         if (!Schema::getKPhotoAlbumSchema().identifier().
-            isCompatibleWith(getDatabaseIdentifier(dbConn)))
+            isCompatibleWith(getDatabaseIdentifier(*dbConn)))
             throw DatabaseSchemaError(i18n("Database schema is incompatible."));
     }
 

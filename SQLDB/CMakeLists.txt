@@ -3,7 +3,7 @@ INCLUDE_DIRECTORIES(..)
 
 SET(libSQLDB_SRCS
   ${CMAKE_CURRENT_SOURCE_DIR}/Database.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/DatabaseConnection.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/QSqlConnection.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLCategoryCollection.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLFolderCategory.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/SQLSpecialCategory.cpp

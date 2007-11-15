@@ -27,13 +27,9 @@
 
 namespace SQLDB
 {
-    using Utilities::toVariantList;
-
     class KexiConnection: public Connection
     {
     public:
-        typedef QValueList<QVariant> Bindings;
-
         KexiConnection(KexiDB::Driver& driver,
                        const ConnectionParameters& connParams,
                        const QString& fileName=QString::null);

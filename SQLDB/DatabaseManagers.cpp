@@ -23,9 +23,8 @@
 #include "Schema/MySQLCSG.h"
 #include "Schema/PostgreSQLCSG.h"
 #include "Schema/SQLiteCSG.h"
-#include <kexidb/connectiondata.h>
-#include <kservice.h>
 #include <qfile.h>
+#include <memory>
 
 using namespace SQLDB;
 
@@ -85,8 +84,7 @@ createDatabase(const QString& databaseName,
     if (!_conn->kexi().useDatabase(databaseName, false))
         throw DatabaseOpenError(_conn->kexi().errorMsg());
 
-    DatabaseConnection dbConn(_conn);
-    TransactionGuard transaction(dbConn);
+    TransactionGuard transaction(*_conn);
 
     const list<string>& x = csg->generateCreateStatements(schema);
     for (list<string>::const_iterator i = x.begin(); i != x.end(); ++i)
@@ -97,11 +95,12 @@ createDatabase(const QString& databaseName,
     transaction.commit();
 }
 
-DatabaseConnection
+ConnectionSPtr
 KexiDBDatabaseManager::connectToDatabase(const QString& databaseName)
 {
-    ConnectionSPtr conn(new KexiConnection(_driver, _connParams, databaseName));
+    std::auto_ptr<KexiConnection> conn
+        (new KexiConnection(_driver, _connParams, databaseName));
     if (!conn->kexi().useDatabase(databaseName, false))
         throw DatabaseOpenError(conn->kexi().errorMsg());
-    return DatabaseConnection(conn);
+    return ConnectionSPtr(conn.release());
 }

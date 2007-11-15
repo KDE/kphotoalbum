@@ -21,7 +21,7 @@
 #define SQLDB_DATABASEMANAGER_H
 
 #include "Schema/DatabaseSchema.h"
-#include "DatabaseConnection.h"
+#include "Connection.h"
 #include <qstring.h>
 #include <qstringlist.h>
 #include <memory>
@@ -45,7 +45,7 @@ namespace SQLDB
         virtual void createDatabase(const QString& databaseName,
                                     const Schema::DatabaseSchema& schema) = 0;
 
-        virtual DatabaseConnection
+        virtual ConnectionSPtr
         connectToDatabase(const QString& databaseName) = 0;
     };
 }

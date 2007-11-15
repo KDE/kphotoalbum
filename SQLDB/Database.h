@@ -21,7 +21,7 @@ Boston, MA 02111-1307, USA.
 
 #include "DB/ImageDB.h"
 #include "DatabaseAddress.h"
-#include "DatabaseConnection.h"
+#include "Connection.h"
 #include "SQLMemberMap.h"
 #include "SQLCategoryCollection.h"
 #include "SQLImageInfoCollection.h"
@@ -76,7 +76,7 @@ namespace SQLDB {
 
     private:
         DatabaseAddress _address;
-        DatabaseConnection _connection;
+        ConnectionSPtr _connection;
         QueryHelper _qh;
         SQLCategoryCollection _categoryCollection;
         SQLMemberMap _members;

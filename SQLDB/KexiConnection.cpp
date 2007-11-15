@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2007 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2007 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
   MA 02110-1301 USA.
 */
 
-#include "DatabaseConnection.h"
+#include "KexiConnection.h"
 #include "QueryErrors.h"
 #include <memory>
 
@@ -63,6 +63,10 @@ KexiConnection::KexiConnection(KexiDB::Driver& driver,
 
     if (!conn->connect())
         throw ConnectionOpenError(conn->errorMsg());
+
+    _driver = conn->driver();
+    if (!_driver)
+        throw InitializationError();
 
     // Don't use auto_ptr for connection, because KexiDB will delete
     // it when program is shutting down.
@@ -113,15 +117,7 @@ namespace
 }
 
 
-DatabaseConnection::DatabaseConnection(const ConnectionSPtr& database):
-    _database(database),
-    _driver(_database->kexi().driver())
-{
-    if (!_driver)
-        throw InitializationError();
-}
-
-QString DatabaseConnection::sqlRepresentation(const QVariant& x) const
+QString KexiConnection::sqlRepresentation(const QVariant& x) const
 {
     if (x.type() == QVariant::List) {
         QStringList repr;
@@ -140,7 +136,7 @@ QString DatabaseConnection::sqlRepresentation(const QVariant& x) const
         return _driver->valueToSQL(fieldTypeFor(x.type()), x);
 }
 
-void DatabaseConnection::bindValues(QString &s, const Bindings& b) const
+void KexiConnection::bindValues(QString &s, const Bindings& b) const
 {
     int n = 0;
     for (Bindings::const_iterator i = b.begin(); i != b.end(); ++i) {
@@ -153,8 +149,8 @@ void DatabaseConnection::bindValues(QString &s, const Bindings& b) const
     }
 }
 
-QueryResult DatabaseConnection::executeQuery(const QString& query,
-                                             const Bindings& bindings) const
+QueryResult KexiConnection::executeQuery(const QString& query,
+                                         const Bindings& bindings) const
 {
     QString q = query;
     bindValues(q, bindings);
@@ -168,10 +164,10 @@ QueryResult DatabaseConnection::executeQuery(const QString& query,
     t.start();
 #endif
 
-    KexiDB::Cursor* c = _database->kexi().executeQuery(q);
+    KexiDB::Cursor* c = _conn->executeQuery(q);
     if (!c) {
-        throw QueryError(_database->kexi().recentSQLString(),
-                         _database->kexi().errorMsg());
+        throw QueryError(_conn->recentSQLString(),
+                         _conn->errorMsg());
     }
 
 #ifdef DEBUG_QUERY_TIMES
@@ -187,8 +183,8 @@ QueryResult DatabaseConnection::executeQuery(const QString& query,
     return QueryResult(c);
 }
 
-void DatabaseConnection::executeStatement(const QString& statement,
-                                          const Bindings& bindings)
+void KexiConnection::executeStatement(const QString& statement,
+                                      const Bindings& bindings)
 {
     QString s = statement;
     bindValues(s, bindings);
@@ -197,15 +193,16 @@ void DatabaseConnection::executeStatement(const QString& statement,
     qDebug("Executing statement: %s", s.local8Bit().data());
 #endif
 
-    if (!_database->kexi().executeSQL(s))
-        throw StatementError(_database->kexi().recentSQLString(),
-                             _database->kexi().errorMsg());
+    if (!_conn->executeSQL(s))
+        throw StatementError(_conn->recentSQLString(),
+                             _conn->errorMsg());
 }
 
-Q_ULLONG DatabaseConnection::executeInsert(const QString& tableName,
-                                           const QString& aiFieldName,
-                                           const QStringList& fields,
-                                           const Bindings& values)
+KexiConnection::RowId
+KexiConnection::executeInsert(const QString& tableName,
+                              const QString& aiFieldName,
+                              const QStringList& fields,
+                              const Bindings& values)
 {
     Q_ASSERT(fields.count() == values.count());
 
@@ -217,5 +214,5 @@ Q_ULLONG DatabaseConnection::executeInsert(const QString& tableName,
         l.append("?");
     q = q.arg(l.join(", "));
     executeStatement(q, values);
-    return _database->kexi().lastInsertedAutoIncValue(aiFieldName, tableName);
+    return _conn->lastInsertedAutoIncValue(aiFieldName, tableName);
 }

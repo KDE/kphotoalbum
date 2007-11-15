@@ -20,7 +20,7 @@
 #ifndef QUERYHELPER_H
 #define QUERYHELPER_H
 
-#include "DatabaseConnection.h"
+#include "KexiConnection.h"
 #include "DB/Category.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
@@ -40,13 +40,15 @@ using Utilities::StringSet;
 typedef QValueList<DB::OptionSimpleMatcher*> MatcherList;
 typedef QValueList<MatcherList> MatcherListList;
 
-class QueryHelper: public DatabaseConnection
+class QueryHelper: public KexiConnection
 {
 public:
     typedef QValueList<QVariant> Bindings;
 
-    explicit QueryHelper(const DatabaseConnection& connection):
-        DatabaseConnection(connection)
+    // TODO: Reorganize whole QueryHelper to separate helper functions.
+    // This is just a trick to avoid changing QueryHelper.cpp at this point.
+    explicit QueryHelper(const Connection& connection):
+        KexiConnection(*static_cast<const KexiConnection*>(&connection))
     {
     }
 

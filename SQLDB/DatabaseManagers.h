@@ -22,9 +22,7 @@
 
 #include "DatabaseManager.h"
 #include "ConnectionParameters.h"
-#include <kexidb/driver.h>
-#include <kexidb/connection.h>
-#include <memory>
+#include "KexiConnection.h"
 
 namespace SQLDB
 {
@@ -41,13 +39,13 @@ namespace SQLDB
         virtual void createDatabase(const QString& databaseName,
                                     const Schema::DatabaseSchema& schema);
 
-        virtual DatabaseConnection
+        virtual ConnectionSPtr
         connectToDatabase(const QString& databaseName);
 
     protected:
         ConnectionParameters _connParams;
         KexiDB::Driver& _driver;
-        ConnectionSPtr _conn;
+        mutable KexiConnectionSPtr _conn;
 
     private:
         KexiDBDatabaseManager(const KexiDBDatabaseManager&);

@@ -44,7 +44,7 @@ namespace
 SQLDB::Database::Database(const DatabaseAddress& address):
     _address(address),
     _connection(initializeKPhotoAlbumDatabase(_address)),
-    _qh(_connection),
+    _qh(*_connection),
     _categoryCollection(_qh),
     _members(_qh),
     _infoCollection(_qh),

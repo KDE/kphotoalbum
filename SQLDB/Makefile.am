@@ -8,7 +8,7 @@ KDE_CXXFLAGS = $(USE_EXCEPTIONS) $(USE_THREADS) # -DQT_NO_CAST_ASCII -DQT_CAST_N
 
 libsqldb_la_SOURCES = \
 	Database.cpp \
-	DatabaseConnection.cpp \
+	KexiConnection.cpp \
 	SQLCategoryCollection.cpp \
 	SQLFolderCategory.cpp \
 	SQLSpecialCategory.cpp \

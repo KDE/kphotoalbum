@@ -1352,7 +1352,7 @@ void MainWindow::Window::plug()
 #ifdef TEMPORARILY_REMOVED
         plugin->actionCollection()->readShortcutSettings();
 #else
-        kDebug() << "TEMPORILY REMOVED " << k_funcinfo << endl;
+        kDebug() << "TEMPORILY REMOVED " << k_funcinfo;
 #endif // TEMPORARILY_REMOVED
     }
 

@@ -169,7 +169,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
     return true;
 #else
-    kDebug() << "TEMPORILY REMOVED " << endl;
+    kDebug() << "TEMPORILY REMOVED ";
     Q_UNUSED(info);
     return false;
 #endif // TEMPORARILY_REMOVED

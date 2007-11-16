@@ -52,7 +52,7 @@ bool RAWImageDecoder::_decode( QImage *img, const QString& imageFile, QSize* ful
         KDcrawIface::RawDecodingSettings rawDecodingSettings;
 
         if ( rawDecodingSettings.sixteenBitsImage ) {
-            kDebug() << "16 bits per color channel is not supported yet" << endl;
+            kDebug() << "16 bits per color channel is not supported yet";
             return false;
         } else {
             QByteArray imageData; /* 3 bytes for each pixel,  */

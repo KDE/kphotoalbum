@@ -1,3 +1,8 @@
+2007-11-25  Jan Kundrat  <jkt@gentoo.org>
+
+	* Use QWidget::showFullScreen() and showNormal() instead of hacky way of
+	KWin::setState( winId(), NET::FullScreen ) (bug #151031)
+
 2007-10-08  Jan Kundrat  <jkt@gentoo.org>
 
 	* Better error handling in KIM Import

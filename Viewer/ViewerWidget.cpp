@@ -950,13 +950,13 @@ void Viewer::ViewerWidget::setShowFullScreen( bool on )
         // 'jumps' because fullscreen > fullwindow) and should be
         // reconsidered. Henner.)
         resize( qApp->desktop()->screenGeometry().size() );
-        KWindowSystem::setState( winId(), NET::FullScreen );
+        showFullScreen();
         moveInfoBox();
     }
     else {
         // We need to size the image when going out of full screen, in case we started directly in full screen
         //
-        KWindowSystem::clearState( winId(), NET::FullScreen );
+        showNormal();
         resize( Settings::SettingsData::instance()->viewerSize() );
     }
     _showingFullScreen = on;

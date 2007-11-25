@@ -244,7 +244,7 @@ void Settings::SettingsDialog::createThumbNailPage()
     // Thumbnail Cache
     ++row;
     QLabel* cacheLabel = new QLabel( i18n( "Thumbnail cache:" ), top );
-    _thumbnailCache = new QSpinBox( 1, 256, 1, top );
+    _thumbnailCache = new QSpinBox( 1, 4096, 1, top );
     _thumbnailCache->setSuffix( i18n("Mbytes" ) );
     lay->addWidget( cacheLabel, row, 0 );
     lay->addWidget( _thumbnailCache, row, 1 );
@@ -935,7 +935,7 @@ void Settings::SettingsDialog::createViewerPage()
     label = new QLabel( i18n("Image cache:"), top );
     glay->addWidget( label, 1, 0 );
 
-    _cacheSize = new QSpinBox( 0, 2000, 10, top, "_cacheSize" );
+    _cacheSize = new QSpinBox( 0, 4096, 10, top, "_cacheSize" );
     _cacheSize->setSuffix( i18n(" Mbytes") );
     glay->addWidget( _cacheSize, 1, 1 );
     label->setBuddy( _cacheSize );

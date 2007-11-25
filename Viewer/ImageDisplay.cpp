@@ -182,7 +182,7 @@ bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
         emit imageReady();
     }
     else {
-        requestImage( info );
+        requestImage( info, true );
         busy();
     }
     _forward = forward;
@@ -551,7 +551,7 @@ double Viewer::ImageDisplay::sizeRatio( const QSize& baseSize, const QSize& newS
     return res;
 }
 
-void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info )
+void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info, bool priority )
 {
     Settings::StandardViewSize viewSize = Settings::SettingsData::instance()->viewerStandardSize();
     QSize s = size();
@@ -560,7 +560,8 @@ void Viewer::ImageDisplay::requestImage( const DB::ImageInfoPtr& info )
 
     ImageManager::ImageRequest* request = new ImageManager::ImageRequest( info->fileName(), s, info->angle(), this );
     request->setUpScale( viewSize == Settings::FullSize );
-    request->setPriority();
+    if ( priority )
+        request->setPriority();
     ImageManager::Manager::instance()->load( request );
 }
 

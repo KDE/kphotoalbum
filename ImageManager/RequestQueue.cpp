@@ -25,7 +25,7 @@
 
 void ImageManager::RequestQueue::addRequest( ImageRequest* request )
 {
-    if ( _uniquePending.contains( request ) ) {
+    if ( _uniquePending.contains( request ) && ! request->priority() ) {
         delete request;
         return;
     }

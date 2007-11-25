@@ -3,6 +3,10 @@
 	* Use QWidget::showFullScreen() and showNormal() instead of hacky way of
 	KWin::setState( winId(), NET::FullScreen ) (bug #151031)
 
+	* Raise images/thumbnail cache limit to 4GB. Too bad KDE/Qt offers no
+	portable way to get information about total available memory of a system.
+	(Bug 151584)
+
 2007-10-08  Jan Kundrat  <jkt@gentoo.org>
 
 	* Better error handling in KIM Import

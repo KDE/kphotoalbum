@@ -1088,6 +1088,21 @@ void MainWindow::Window::rotateSelected( int angle )
     }
 }
 
+void MainWindow::Window::slotPluginThatResetsOrientationActivated()
+{
+    QStringList list = selected();
+    if ( list.count() == 0 )  {
+        QMessageBox::warning( this,  i18n("No Selection"),  i18n("Weird, no item is selected... who knows how the plugin action ended...") );
+    } else {
+        for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
+            DB::ImageDB::instance()->info( *it )->setAngle( 0 );
+        }
+        _dirtyIndicator->markDirty();
+        reloadThumbnailsAndFlushCache();
+        QMessageBox::information( this, i18n("Orientation changed"), i18n("Rotation information for %1 images has been reset in the database.").arg( list.count() ) );
+    }
+}
+
 void MainWindow::Window::slotRotateSelectedLeft()
 {
     rotateSelected( -90 );
@@ -1295,6 +1310,29 @@ void MainWindow::Window::plug()
         KActionPtrList actions = plugin->actions();
         for( KActionPtrList::Iterator it = actions.begin(); it != actions.end(); ++it ) {
             KIPI::Category category = plugin->category( *it );
+
+            /**
+             * The following attempt is highly unportable result of three hours
+             * of RTTI fighting. Enjoy :)
+             * 
+             * We can't use
+             * dynamic_cast<KIPIJPEGLossLessPlugin::Plugin_JPEGLossless> because
+             * the header file doesn't have to be available. If we try to use a
+             * lazy 'namespace ... {class ...}' stuff, we get:
+             *
+             * error: cannot dynamic_cast `plugin' (of type `class
+             * KIPI::Plugin*') to type `struct
+             * KIPIJPEGLossLessPlugin::Plugin_JPEGLossless*' (target is not
+             * pointer or reference to complete type).
+             *
+             * So let's just live with this and hope compiler doesn't mangle class
+             * name too much...
+             **/
+            if ( ( QCString( typeid( *plugin ).name() ).find( "Plugin_JPEGLossless" ) != -1 ) && 
+                    ( qstrcmp( (*it)->name(), "rotate_exif" ) == 0 ) ) {
+                connect( *it, SIGNAL( activated() ), this, SLOT( slotPluginThatResetsOrientationActivated() ) );
+            }
+
             if (  category == KIPI::IMAGESPLUGIN ||  category == KIPI::COLLECTIONSPLUGIN )
                 imageActions.append( *it );
 

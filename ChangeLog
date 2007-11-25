@@ -7,6 +7,13 @@
 	portable way to get information about total available memory of a system.
 	(Bug 151584)
 
+	* Added ugly and unportable patch that at least sometimes can check if the
+	KIPI plugin we've just invoked is
+	"KIPIJPEGLossLessPlugin::Plugin_JPEGLossless" and its action is
+	"rotate_exif". If it is, we should set image orientation in our DB to
+	"normal". Unfortunately KIPI Plugin maintainers haven't responded to my
+	queries about providing saner interface. (Bug 146927)
+
 ====================== KPhotoAlbum 3.1.0 released  ======================	
 
 2007-11-06  Jan Kundrat  <jkt@gentoo.org>

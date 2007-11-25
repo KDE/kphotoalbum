@@ -138,6 +138,7 @@ protected slots:
     void slotRotateSelectedLeft();
     void slotRotateSelectedRight();
     void rotateSelected( int angle );
+    void slotPluginThatResetsOrientationActivated();
 
 protected:
     void configureImages( bool oneAtATime );

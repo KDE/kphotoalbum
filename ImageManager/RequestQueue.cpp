@@ -95,15 +95,15 @@ void ImageManager::RequestQueue::removeRequest( ImageRequest* request )
 
 void ImageManager::RequestQueue::print()
 {
-    kdDebug() << "**************************************" << endl;
-    kdDebug() << "Active: " << _activeRequests.size() << ", pending: " << _pendingRequests.count() << endl;
-    kdDebug() << "Active:" << endl;
+    kDebug() << "**************************************";
+    kDebug() << "Active: " << _activeRequests.size() << ", pending: " << _pendingRequests.count();
+    kDebug() << "Active:";
     for (Set<ImageRequest*>::const_iterator it = _activeRequests.begin(); it != _activeRequests.end(); ++it ) {
-        kdDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height() << endl;
+        kDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height();
     }
-    kdDebug() << "pending:" << endl;
+    kDebug() << "pending:";
     for (Q3ValueList<ImageRequest*>::const_iterator it = _pendingRequests.begin(); it != _pendingRequests.end(); ++it ) {
-        kdDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height() << endl;
+        kDebug() << (*it)->fileName() << " " <<  (*it)->width() << "x" <<  (*it)->height();
     }
 }
 

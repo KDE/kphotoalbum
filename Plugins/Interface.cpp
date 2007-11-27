@@ -84,9 +84,9 @@ int Plugins::Interface::features() const
     return
         KIPI::ImagesHasComments |
         KIPI::ImagesHasTime |
-        KIPI::SupportsDateRanges |
-        KIPI::AcceptNewImages |
-        KIPI::ImageTitlesWritable;
+        KIPI::HostSupportsDateRanges |
+        KIPI::HostAcceptNewImages |
+        KIPI::ImagesHasTitlesWritable;
 }
 
 bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
@@ -95,7 +95,7 @@ bool Plugins::Interface::addImage( const KUrl& url, QString& errmsg )
     QString root = Settings::SettingsData::instance()->imageDirectory();
     if ( !dir.startsWith( root ) ) {
         errmsg = i18n("<p>Image needs to be placed in a sub directory of your photo album, "
-                      "which is rooted at %1. Image path was %2</p>").arg( root ).arg( dir );
+                      "which is rooted at %1. Image path was %2</p>",root , dir );
         return false;
     }
 

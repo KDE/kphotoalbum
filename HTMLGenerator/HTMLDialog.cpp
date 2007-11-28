@@ -62,7 +62,7 @@ void HTMLDialog::createContentPage()
     QWidget* contentPage = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( contentPage, i18n("Content" ) );
     page->setHeader( i18n("Content" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "edit" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "object-edit" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( contentPage );

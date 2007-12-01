@@ -10,8 +10,6 @@ endif
 if compile_with_exiv2
   EXIF_DIR = Exif
   KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la -lexiv2
-else
-  KPHOTOALBUM_EXIV2_LIBS = Exif/libexif.la
 endif
 
 if compile_with_kexidb

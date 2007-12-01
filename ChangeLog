@@ -1,3 +1,7 @@
+2007-12-01  Jan Kundrat  <jkt@gentoo.org>
+
+	* Fix building without libexiv2 installed
+
 2007-11-25  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use QWidget::showFullScreen() and showNormal() instead of hacky way of

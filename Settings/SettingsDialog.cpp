@@ -57,6 +57,7 @@
 #ifdef HASEXIV2
 #  include "Exif/Info.h"
 #  include "Exif/TreeView.h"
+#  include "Exif/SyncWidget.h"
 #endif
 
 #ifdef SQLDB_SUPPORT
@@ -65,7 +66,6 @@
 #endif
 
 #include "CategoryItem.h"
-#include "Exif/SyncWidget.h"
 
 Settings::SettingsDialog::SettingsDialog( QWidget* parent, const char* name )
     :KDialogBase( IconList, i18n( "Settings" ), Apply | Ok | Cancel, Ok, parent, name, false ), _currentCategory( QString::null ), _currentGroup( QString::null )
@@ -435,7 +435,6 @@ void Settings::SettingsDialog::show()
     _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
     _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
     _iptcCharset->setCurrentItem( opt->iptcCharset() );
-#endif
 
     // Synchronization page
     _orientationRead->updatePreferred( Settings::SettingsData::instance()->orientationSyncing( false ) );
@@ -458,6 +457,7 @@ void Settings::SettingsDialog::show()
             _catMulti[ (*it)->name() ]->setCurrentItem( opt->categorySyncingMultiValue( (*it)->name() ) );
             _catAddName[ (*it)->name() ]->setChecked( opt->categorySyncingAddName( (*it)->name() ) );
         }
+#endif
 
     QString backend = Settings::SettingsData::instance()->backend();
     if (backend == QString::fromLatin1("xml"))
@@ -548,7 +548,6 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setExifForViewer( _exifForViewer->selected() ) ;
     opt->setExifForDialog( _exifForDialog->selected() ) ;
     opt->setIptcCharset( _iptcCharset->currentItem() );
-#endif
 
     // Synchronization
     opt->setOrientationSyncing( false, _orientationRead->items() );
@@ -559,6 +558,7 @@ void Settings::SettingsDialog::slotMyOK()
     opt->setDescriptionSyncing( true, _descriptionWrite->items() );
     opt->setDateSyncing( false, _dateRead->items() );
     opt->setDateSyncing( true, _dateWrite->items() );
+
     for (QDictIterator<Exif::SyncWidget> it( _catFieldsRead ); it.current(); ++it ) {
         opt->setCategorySyncingFields( false, it.currentKey(), it.current()->items() );
     }
@@ -574,6 +574,7 @@ void Settings::SettingsDialog::slotMyOK()
     for (QDictIterator<QCheckBox> it( _catAddName ); it.current(); ++it ) {
         opt->setCategorySyncingAddName( it.currentKey(), it.current()->isChecked() );
     }
+#endif
 
     // SQLDB
 #ifdef SQLDB_SUPPORT
@@ -1023,6 +1024,7 @@ void Settings::SettingsDialog::createEXIFPage()
 
 void Settings::SettingsDialog::createSyncPage()
 {
+#ifdef HASEXIV2
     _syncPage = addPage( i18n("Metadata"), i18n("Metadata Synchronization"),
                         KGlobal::iconLoader()->loadIcon( QString::fromLatin1( "saveas" ),
                                                          KIcon::Desktop, 32 ) );
@@ -1073,6 +1075,7 @@ void Settings::SettingsDialog::createSyncPage()
             slotCategoryAdded( (*it)->name() );
 
     _lay->addWidget( _syncTabs );
+#endif
 }
 
 void Settings::SettingsDialog::slotCategoryAdded( const QString& name )
@@ -1086,6 +1089,8 @@ void Settings::SettingsDialog::slotCategoryAdded( const QString& name )
     QGrid* box = new QGrid( 2, Horizontal, _syncPage );
     box->setSpacing( 6 );
 
+
+#ifdef HASEXIV2
     const Settings::SettingsData* opt = Settings::SettingsData::instance();
 
     _catFieldsRead.replace( name, new Exif::SyncWidget( i18n("Fields to get value from"), box,
@@ -1107,10 +1112,12 @@ void Settings::SettingsDialog::slotCategoryAdded( const QString& name )
     new QWidget( box );
     _catAddName.replace( name, new QCheckBox( i18n("Include category name in tag value" ), box ) );
     _syncTabs->addTab( box, name );
+#endif
 }
 
 void Settings::SettingsDialog::slotCategoryRemoved( const QString& name )
 {
+#ifdef HASEXIV2
     for (int i = 0; _syncTabs->page( i ); ++i )
         if ( _syncTabs->label( i ).remove( '&' ) == name ) {
             _catFieldsRead.remove( name );
@@ -1123,6 +1130,9 @@ void Settings::SettingsDialog::slotCategoryRemoved( const QString& name )
             delete tab;
             return;
         }
+#else
+    Q_UNUSED( name );
+#endif
 }
 
 void Settings::SettingsDialog::slotCategoryRenamed( const QString& oldName, const QString& newName )

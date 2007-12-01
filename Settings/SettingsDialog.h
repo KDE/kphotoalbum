@@ -21,7 +21,11 @@
 #include <kdialogbase.h>
 #include "Settings/SettingsData.h"
 #include "DB/MemberMap.h"
-#include "Exif/SyncWidget.h"
+
+#ifdef HASEXIV2
+#  include "Exif/SyncWidget.h"
+#endif
+
 class QListView;
 class KColorButton;
 class QSpinBox;
@@ -171,11 +175,13 @@ private:
     // Synchronization
     QTabWidget* _syncTabs;
     QWidget* _syncPage;
+#ifdef HASEXIV2
     Exif::SyncWidget *_labelRead, *_labelWrite, *_descriptionRead, *_descriptionWrite,
         *_orientationRead, *_orientationWrite, *_dateRead, *_dateWrite;
     QDict<Exif::SyncWidget> _catFieldsRead, _catFieldsWrite;
     QDict<KComboBox> _catSuper, _catMulti;
     QDict<QCheckBox> _catAddName;
+#endif
 
     int _backendPageIndex;
     QButtonGroup* _backendButtons;

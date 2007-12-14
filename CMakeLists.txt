@@ -37,8 +37,9 @@ endif(KDCRAW_FOUND)
 macro_optional_find_package(Exiv2)
 macro_bool_to_01(EXIV2_FOUND HAVE_EXIV2)
 
-set(SQLDB_SUPPORT TRUE)
-
+if(QT_QTSQL_FOUND)
+  set(SQLDB_SUPPORT TRUE)
+endif(QT_QTSQL_FOUND)
 
 # For config-kpa-*.h
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})

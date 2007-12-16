@@ -224,7 +224,7 @@ void Settings::SettingsDialog::createThumbNailPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Thumbnail View" ) );
     page->setHeader( i18n("Thumbnail View" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "view_icon" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "view-icon" ) ) );
     addPage( page );
 
     QGridLayout* lay = new QGridLayout( top );
@@ -1050,7 +1050,7 @@ void Settings::SettingsDialog::createDatabaseBackendPage()
     QWidget* top = new QWidget;
     _backendPage = new KPageWidgetItem( top, i18n("Database backend") );
     _backendPage->setHeader( i18n("Database backend") );
-    _backendPage->setIcon( KIcon( QString::fromLatin1("kfm") ) );
+    _backendPage->setIcon( KIcon( QString::fromLatin1("system-file-manager") ) );
     addPage( _backendPage );
 
 

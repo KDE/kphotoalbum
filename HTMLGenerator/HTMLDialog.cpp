@@ -62,7 +62,7 @@ void HTMLDialog::createContentPage()
     QWidget* contentPage = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( contentPage, i18n("Content" ) );
     page->setHeader( i18n("Content" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "object-edit" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "document-properties" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( contentPage );
@@ -207,7 +207,7 @@ void HTMLDialog::createDestinationPage()
 
     KPageWidgetItem* page = new KPageWidgetItem( destinationPage, i18n("Destination" ) );
     page->setHeader( i18n("Destination" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "hdd_unmount" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "drive-harddisk" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( destinationPage );

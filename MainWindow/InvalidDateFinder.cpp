@@ -28,7 +28,6 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include "Utilities/ShowBusyCursor.h"
-#include <QButtonGroup>
 #include <QGroupBox>
 #include <QTextEdit>
 #include <KProgressDialog>

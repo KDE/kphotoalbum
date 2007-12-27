@@ -22,8 +22,6 @@
 #include <qstringlist.h>
 #include <qlabel.h>
 #include <QPixmap>
-#include <Q3Frame>
-#include <Q3PopupMenu>
 #include <kservice.h>
 #include <kurl.h>
 #include <krun.h>

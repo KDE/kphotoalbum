@@ -21,7 +21,6 @@
 #define UTILITIES_LIST_H
 
 #include <QList>
-#include <QStringList>
 #include <QVariant>
 
 namespace Utilities

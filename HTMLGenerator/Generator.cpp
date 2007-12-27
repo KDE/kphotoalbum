@@ -22,7 +22,6 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 //Added by qt3to4:
-#include <Q3CString>
 #include <Q3ValueList>
 #include "ImageManager/Manager.h"
 #include <kfiledialog.h>

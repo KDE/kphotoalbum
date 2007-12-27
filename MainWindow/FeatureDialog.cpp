@@ -27,7 +27,6 @@
 #include <kmediaplayer/player.h>
 #include <kparts/componentfactory.h>
 #include <ktoolinvocation.h>
-#include <KServiceTypeProfile>
 
 using namespace MainWindow;
 

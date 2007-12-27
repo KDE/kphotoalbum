@@ -27,8 +27,6 @@
 #include <QCloseEvent>
 #include <QVBoxLayout>
 #include <Q3Frame>
-#include <Q3CString>
-#include <Q3PtrList>
 #include "ThumbnailView/ThumbnailWidget.h"
 #include "ThumbnailView/ThumbnailBuilder.h"
 #include "AnnotationDialog/Dialog.h"
@@ -116,7 +114,6 @@
 #include "Utilities/ShowBusyCursor.h"
 #include <KToggleAction>
 #include <KActionMenu>
-#include <KActionCollection>
 #include <KHBox>
 #include <K3URLDrag>
 #include <qclipboard.h>

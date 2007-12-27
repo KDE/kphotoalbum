@@ -22,7 +22,7 @@
 #include <Q3ValueList>
 #include <stdlib.h> // rand
 #include <algorithm> // std::swap
-
+#include <QStringList>
 
 template <class T>
 QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)

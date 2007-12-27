@@ -23,7 +23,6 @@
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qimage.h>
-#include <Q3ValueList>
 #include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
 #include <stdio.h>

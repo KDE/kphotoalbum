@@ -36,13 +36,13 @@ namespace
             DB::Category::ViewType viewtype;
             int thumbnailSize;
         } entry[] = {
-            { "Tokens", "bookmark",
+            { "Tokens", "preferences-other",
               true, DB::Category::IconView, 32 },
-            { "Keywords", "password",
+            { "Keywords", "dialog-password",
               true, DB::Category::IconView, 32 },
-            { "Places", "network",
+            { "Places", "network-workgroup",
               true, DB::Category::ListView, 32 },
-            { "People", "user",
+            { "People", "system-users",
               true, DB::Category::ThumbedListView, 96 },
             { 0, 0, false, DB::Category::ListView, 0 }
         };

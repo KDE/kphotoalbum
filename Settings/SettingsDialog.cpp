@@ -224,7 +224,7 @@ void Settings::SettingsDialog::createThumbNailPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Thumbnail View" ) );
     page->setHeader( i18n("Thumbnail View" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "view-icon" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "view-list-icons" ) ) );
     addPage( page );
 
     QGridLayout* lay = new QGridLayout( top );
@@ -362,7 +362,7 @@ void Settings::SettingsDialog::createOptionGroupsPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Categories") );
     page->setHeader( i18n("Categories") );
-    page->setIcon( KIcon( QString::fromLatin1( "identity" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "user-identity" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -693,7 +693,7 @@ void Settings::SettingsDialog::createGroupConfig()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Subcategories" ) );
     page->setHeader( i18n("Subcategories" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "editcopy" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "edit-copy" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -934,7 +934,7 @@ void Settings::SettingsDialog::createViewerPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Viewer" ) );
     page->setHeader( i18n("Viewer" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "viewmag" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "document-preview" ) ) );
     addPage( page );
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -1004,7 +1004,7 @@ void Settings::SettingsDialog::createPluginPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("Plugins" ) );
     page->setHeader( i18n("Plugins" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "share" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "preferences-plugin" ) ) );
     addPage(page);
 
     QVBoxLayout* lay1 = new QVBoxLayout( top );
@@ -1026,7 +1026,7 @@ void Settings::SettingsDialog::createEXIFPage()
     QWidget* top = new QWidget;
     KPageWidgetItem* page = new KPageWidgetItem( top, i18n("EXIF Information" ) );
     page->setHeader( i18n("EXIF Information" ) );
-    page->setIcon( KIcon( QString::fromLatin1( "contents" ) ) );
+    page->setIcon( KIcon( QString::fromLatin1( "document-properties" ) ) );
     addPage( page );
 
     QHBoxLayout* lay1 = new QHBoxLayout( top );

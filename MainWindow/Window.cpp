@@ -599,7 +599,7 @@ void MainWindow::Window::setupMenuBar()
 
     _deleteSelected = actionCollection()->addAction("deleteSelected");
     _deleteSelected->setText( i18n( "Delete Selected" ) );
-    _deleteSelected->setIcon( KIcon( QString::fromLatin1("editdelete") ) );
+    _deleteSelected->setIcon( KIcon( QString::fromLatin1("edit-delete") ) );
     _deleteSelected->setShortcut( Qt::Key_Delete );
     connect( _deleteSelected, SIGNAL( triggered() ), this, SLOT( slotDeleteSelected() ) );
 
@@ -634,7 +634,7 @@ void MainWindow::Window::setupMenuBar()
 
     _runSlideShow = actionCollection()->addAction( "runSlideShow", this, SLOT( slotRunSlideShow() ) );
     _runSlideShow->setText( i18n("Run Slide Show") );
-    _runSlideShow->setIcon( KIcon( QString::fromLatin1("datashow") ) );
+    _runSlideShow->setIcon( KIcon( QString::fromLatin1("view-presentation") ) );
     _runSlideShow->setShortcut( Qt::CTRL+Qt::Key_R );
 
     _runRandomSlideShow = actionCollection()->addAction( "runRandomizedSlideShow", this, SLOT( slotRunRandomizedSlideShow() ) );
@@ -661,7 +661,7 @@ void MainWindow::Window::setupMenuBar()
     _jumpToContext = actionCollection()->addAction( "jumpToContext", this, SLOT( slotJumpToContext() ) );
     _jumpToContext->setText( i18n("Jump to Context") );
     _jumpToContext->setShortcut(  Qt::CTRL+Qt::Key_J );
-    _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) );
+    _jumpToContext->setIcon( KIcon( QString::fromLatin1( "kphotoalbum" ) ) ); // icon suggestion: go-jump (don't know the exact meaning though, so I didn't replace it right away
 
     _lock = actionCollection()->addAction( "lockToDefaultScope", this, SLOT( lockToDefaultScope() ) );
     _lock->setText( i18n("Lock Images") );
@@ -720,7 +720,7 @@ void MainWindow::Window::setupMenuBar()
     _viewMenu = actionCollection()->add<KActionMenu>( "configureView" );
     _viewMenu->setText( i18n("Configure View") );
 
-    _viewMenu->setIcon( KIcon( QString::fromLatin1( "fileview-detailed" ) ) );
+    _viewMenu->setIcon( KIcon( QString::fromLatin1( "view-list-details" ) ) );
     _viewMenu->setDelayed( false );
     connect( _browser, SIGNAL( showsContentView( bool ) ), _viewMenu, SLOT( setEnabled( bool ) ) );
 
@@ -1038,7 +1038,7 @@ void MainWindow::Window::unlockFromDefaultScope()
 
 void MainWindow::Window::setLocked( bool locked, bool force )
 {
-    static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "key" ) ) );
+    static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "object-locked" ) ) );
     _lockedIndicator->setFixedWidth( lockedPix->width() );
 
     if ( locked )

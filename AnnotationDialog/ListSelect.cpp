@@ -93,12 +93,12 @@ AnnotationDialog::ListSelect::ListSelect( const DB::CategoryPtr& category, QWidg
     grp->hide();
 
     _alphaSort = new QToolButton;
-    _alphaSort->setIcon( SmallIcon( QString::fromLatin1( "text" ) ) );
+    _alphaSort->setIcon( SmallIcon( QString::fromLatin1( "draw-text" ) ) );
     _alphaSort->setCheckable( true );
     grp->insert( _alphaSort );
 
     _dateSort = new QToolButton;
-    _dateSort->setIcon( SmallIcon( QString::fromLatin1( "date" ) ) );
+    _dateSort->setIcon( SmallIcon( QString::fromLatin1( "x-office-calendar" ) ) );
     _dateSort->setCheckable( true );
     grp->insert( _dateSort );
 
@@ -280,7 +280,7 @@ void AnnotationDialog::ListSelect::showContextMenu( Q3ListViewItem* item, const 
     action->setDefaultWidget( label );
     menu->addAction(action);
 
-    QAction* deleteAction = menu->addAction( SmallIcon(QString::fromLatin1("editdelete")), i18n("Delete") );
+    QAction* deleteAction = menu->addAction( SmallIcon(QString::fromLatin1("edit-delete")), i18n("Delete") );
     QAction* renameAction = menu->addAction( i18n("Rename...") );
 
     QLabel* categoryTitle = new QLabel( i18n("<b>Sub Categories</b>"), menu );

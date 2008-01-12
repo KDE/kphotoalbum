@@ -22,8 +22,10 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "DB/Category.h"
+#include "MainWindow/DirtyIndicator.h"
 //Added by qt3to4:
 #include <Q3ValueList>
+
 Plugins::ImageInfo::ImageInfo( KIPI::Interface* interface, const KUrl& url )
     : KIPI::ImageInfoShared( interface, url )
 {
@@ -75,19 +77,24 @@ QMap<QString,QVariant> Plugins::ImageInfo::attributes()
 
 void Plugins::ImageInfo::setTitle( const QString& name )
 {
-    if ( _info )
+    if ( _info ) {
         _info->setLabel( name );
+        MainWindow::DirtyIndicator::markDirty();
+    }
 }
 
 void Plugins::ImageInfo::setDescription( const QString& description )
 {
-    if ( _info )
+    if ( _info ) {
         _info->setDescription( description );
+        MainWindow::DirtyIndicator::markDirty();
+    }
 }
 
 void Plugins::ImageInfo::clearAttributes()
 {
     _info->_categoryInfomation.clear();
+    MainWindow::DirtyIndicator::markDirty();
 }
 
 void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
@@ -97,6 +104,7 @@ void Plugins::ImageInfo::addAttributes( const QMap<QString,QVariant>& map )
             QStringList list = it.value().toStringList();
             _info->addCategoryInfo( it.key(), list );
         }
+        MainWindow::DirtyIndicator::markDirty();
     }
 }
 
@@ -110,8 +118,10 @@ int Plugins::ImageInfo::angle()
 
 void Plugins::ImageInfo::setAngle( int angle )
 {
-    if ( _info )
+    if ( _info ) {
         _info->setAngle( angle );
+        MainWindow::DirtyIndicator::markDirty();
+    }
 }
 
 QDateTime Plugins::ImageInfo::time( KIPI::TimeSpec what )
@@ -140,10 +150,12 @@ void Plugins::ImageInfo::setTime( const QDateTime& time, KIPI::TimeSpec spec )
         return;
     if ( spec == KIPI::FromInfo ) {
         _info->setDate( DB::ImageDate( time, time ) );
+        MainWindow::DirtyIndicator::markDirty();
     }
     else {
         DB::ImageDate date = _info->date();
         _info->setDate( DB::ImageDate( date.start(), time ) );
+        MainWindow::DirtyIndicator::markDirty();
     }
 }
 
@@ -153,6 +165,7 @@ void Plugins::ImageInfo::cloneData( ImageInfoShared* other )
     if ( _info ) {
         Plugins::ImageInfo* inf = static_cast<Plugins::ImageInfo*>( other );
         _info->setDate( inf->_info->date() );
+        MainWindow::DirtyIndicator::markDirty();
     }
 }
 

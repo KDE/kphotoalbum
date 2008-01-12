@@ -1368,6 +1368,7 @@ void MainWindow::Window::slotImagesChanged( const KUrl::List& urls )
     for( KUrl::List::ConstIterator it = urls.begin(); it != urls.end(); ++it ) {
         ImageManager::ImageLoader::removeThumbnail( (*it).path() );
     }
+    _dirtyIndicator->markDirty();
     reloadThumbnails(true);
 }
 

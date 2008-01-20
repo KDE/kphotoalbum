@@ -316,7 +316,7 @@ QRect ThumbnailView::ThumbnailWidget::iconGeometry( int row, int col ) const
     int height = dimensions.height() - 2 * space;
 
     QPixmap* pix = QPixmapCache::find( fileName );
-    if ( !pix )
+    if ( !pix || (pix->width() == 0 && pix->height() == 0) )
         return QRect( space, space, width, height );
 
     int xoff = space + (width - pix->width()) / 2;

@@ -98,11 +98,7 @@ Exif::Grid::Grid( const QString& fileName, QWidget* parent, const char* name )
 {
     QMap<QString,QString> map = Exif::Info::instance()->infoForDialog( fileName );
     calculateMaxKeyWidth( map );
-#ifdef TEMPORARILY_REMOVED
-    setFocusPolicy( WheelFocus );
-#else
-    kDebug() << "TEMPORILY REMOVED " ;
-#endif // TEMPORARILY_REMOVED
+    setFocusPolicy( Qt::WheelFocus );
     setHScrollBarMode( AlwaysOff );
 
     StringSet groups = exifGroups( map );

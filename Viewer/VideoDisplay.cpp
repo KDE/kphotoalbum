@@ -17,19 +17,19 @@
 */
 
 #include "VideoDisplay.h"
-#include <kmimetype.h>
+#include <KServiceTypeTrader>
+#include <QHBoxLayout>
+#include <KMimeType>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
 
 #include <kmediaplayer/player.h>
-#include <kmimetype.h>
 #ifdef TEMPORARILY_REMOVED
 #include <kuserprofile.h>
 #endif
 #include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>
-//Added by qt3to4:
 #include <QResizeEvent>
 #include <MainWindow/FeatureDialog.h>
 #include <klocale.h>
@@ -42,56 +42,30 @@
 #include <kmenu.h>
 #include <kaction.h>
 #include <ktoolinvocation.h>
-
-#ifdef ALREADY_TEMPORARILY_REMOVED_FROM_KDE3
-// This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
-class MyGUIBuilder :public KXMLGUIBuilder
-{
-public:
-    MyGUIBuilder( KMenu* menu ) : KXMLGUIBuilder( menu ), _menu(menu)
-    {
-    }
-
-    virtual QWidget* createContainer (QWidget */*parent*/, int /*index*/, const QDomElement &element, int &/*id*/)
-    {
-        if ( element.tagName().toLower() == QString::fromLatin1( "menubar" ) ) {
-            for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
-                if ( itemNode.toElement().tagName().toLower() == QString::fromLatin1("menu") )
-                    insertMenu( itemNode.toElement(), _menu );
-            }
-        }
-        return 0;
-    }
-
-    void insertMenu( const QDomElement& element, KMenu* menu )
-    {
-        for ( QDomNode itemNode = element.firstChild(); !itemNode.isNull(); itemNode = itemNode.nextSibling() ) {
-            const QDomElement elm = itemNode.toElement();
-            if ( elm.tagName().toLower() == QString::fromLatin1( "action" ) ) {
-                KAction* action = builderClient()->action( elm.attribute( QString::fromLatin1( "name" ) ).latin1() );
-                action->plug( menu );
-                qDebug(">>>>>>%s<<<<<<<", elm.attribute( QString::fromLatin1( "name" ) ).toLatin1());
-            }
-            else
-                qDebug(">>>>>>>>>>>>>>>>>%s<<<<<<<<<<<<<", itemNode.toElement().tagName().toLatin1());
-        }
-    }
-
-private:
-    KMenu* _menu;
-};
-#endif
-
+#include <Phonon/SeekSlider>
+#include <Phonon/MediaObject>
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
     :Viewer::Display( parent ), _playerPart( 0 )
 {
+    _player = new Phonon::VideoPlayer(Phonon::VideoCategory, this);
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->addWidget( _player, 1 );
+
+    Phonon::SeekSlider* slider = new Phonon::SeekSlider(this);
+    layout->addWidget( slider );
+    slider->setMediaObject( _player->mediaObject() );
+    _player->mediaObject()->setTickInterval(100);
+
+    connect( _player, SIGNAL( finished() ), this, SIGNAL( stopped() ) );
 }
 
 bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 {
-#ifdef TEMPORARILY_REMOVED
     _info = info;
+    _player->play( info->fileName() );
+
+#ifdef TEMPORARILY_REMOVED
     // This code is inspired by similar code in Gwenview.
     delete _playerPart;
     _playerPart = 0;
@@ -103,7 +77,8 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
         return false;
     }
 
-    See KParts::componentFactory.
+
+//     _playerPart =  KMimeTypeTrader::createInstanceFromQuery<KParts::ReadOnlyPart>( mimeType, this, this );
     KServiceTypeProfile::OfferList services = KServiceTypeProfile::offers(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
 
     ErrorType etype = NoKPart;
@@ -127,6 +102,7 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
       }
 
        _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this );
+
        if (!_playerPart) {
            etype = NoPartInstance;
            kWarning() << "Failed to instantiate KPart from library " << library;
@@ -146,7 +122,14 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
        showError(etype, info->fileName(), mimeType );
        return false;
     }
-    _playerPart->openURL(info->fileName());
+    if ( _playerPart ) {
+        _playerPart->openUrl(info->fileName());
+        _playerPart->widget()->show();
+        QHBoxLayout*layout = new QHBoxLayout( this );
+        layout->addWidget( _playerPart->widget() );
+    }
+    else
+        showError( NoKPart, info->fileName(), mimeType );
 
     // If the part implements the KMediaPlayer::Player interface, start
     // playing (needed for Kaboodle)
@@ -157,22 +140,9 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
 
     zoomFull();
 
-
-#ifdef I_CANT_MAKE_UP_MY_MIND
-    // This code is for fetching the menus from the plug-in. I don't thing I want this, but I can't make up my mind
-    KMenu* menu = new KMenu(0);
-    menu->show();
-    MyGUIBuilder* mBuilder=new MyGUIBuilder(menu);
-	KXMLGUIFactory* factory=new KXMLGUIFactory(mBuilder, this);
-    factory->addClient( _playerPart );
 #endif
 
     return true;
-#else
-    kDebug() << "TEMPORILY REMOVED ";
-    Q_UNUSED(info);
-    return false;
-#endif // TEMPORARILY_REMOVED
 }
 
 void Viewer::VideoDisplay::stateChanged( int state)
@@ -185,17 +155,11 @@ void Viewer::VideoDisplay::stateChanged( int state)
 
 QString Viewer::VideoDisplay::mimeTypeForFileName( const QString& fileName ) const
 {
-#ifdef TEMPORARILY_REMOVED
-    QString res = KMimeType::findByURL(fileName)->name();
+    QString res = KMimeType::findByUrl(fileName)->name();
     if ( res == QString::fromLatin1("application/vnd.rn-realmedia") && !MainWindow::FeatureDialog::hasVideoSupport( res ) )
         res = QString::fromLatin1( "video/vnd.rn-realvideo" );
 
     return res;
-#else
-    kDebug() << "TEMPORARILY REMOVED: " ;
-    Q_UNUSED( fileName );
-    return QString();
-#endif
 }
 
 void Viewer::VideoDisplay::showError( const ErrorType type, const QString& fileName, const QString& mimeType )
@@ -326,6 +290,11 @@ void Viewer::VideoDisplay::restart()
         player->seek(0);
     else
         invokeKaffeineAction( "player_play");
+}
+
+Viewer::VideoDisplay::~VideoDisplay()
+{
+    _player->stop();
 }
 
 #include "VideoDisplay.moc"

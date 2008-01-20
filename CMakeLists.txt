@@ -219,7 +219,7 @@ set(kphotoalbum_SRCS main.cpp ${libdatebar_SRCS} ${libSettings_SRCS} ${libsurvey
 
 kde4_add_executable(kphotoalbum ${kphotoalbum_SRCS})
 
-target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer )
+target_link_libraries(kphotoalbum  ${KDE4_KDE3SUPPORT_LIBS} ${KDE4_KIO_LIBS} ${JPEG_LIBRARY} kmediaplayer ${KDE4_PHONON_LIBS})
 
 if(KIPI_FOUND)
   target_link_libraries(kphotoalbum ${KIPI_LIBRARIES})

@@ -21,8 +21,8 @@
 
 #include "Display.h"
 #include <kparts/componentfactory.h>
-//Added by qt3to4:
 #include <QResizeEvent>
+#include <Phonon/VideoPlayer>
 class QHBoxLayout;
 
 namespace Viewer
@@ -34,6 +34,7 @@ class VideoDisplay :public Viewer::Display
 
 public:
     VideoDisplay( QWidget* parent );
+    ~VideoDisplay();
     virtual bool setImage( DB::ImageInfoPtr info, bool forward );
 
 signals:
@@ -62,6 +63,7 @@ protected:
 
 private:
     KParts::ReadOnlyPart* _playerPart;
+    Phonon::VideoPlayer * _player;
 };
 
 }

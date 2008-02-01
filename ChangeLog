@@ -1,3 +1,8 @@
+2008-02-01  Jan Kundrat  <jkt@gentoo.org>
+
+	* Expand sensitive area of a thumbnail image to the whole cell (including
+	  category listing)
+
 2007-11-25  Jan Kundrat  <jkt@gentoo.org>
 
 	* Use QWidget::showFullScreen() and showNormal() instead of hacky way of

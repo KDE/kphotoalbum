@@ -256,12 +256,8 @@ QString ThumbnailView::ThumbnailWidget::fileNameAtCoordinate( const QPoint& coor
     int row = rowAt( contentsPos.y() );
 
     QRect cellRect = const_cast<ThumbnailWidget*>(this)->cellGeometry( row, col );
-    QRect iconRect = iconGeometry( row, col );
 
-    // map iconRect from local coordinates within the cell to contents coordinates
-    iconRect.translate( cellRect.x(), cellRect.y() );
-
-    if ( iconRect.contains( contentsPos ) )
+    if ( cellRect.contains( contentsPos ) )
         return fileNameInCell( row, col );
     else
         return QString::null;

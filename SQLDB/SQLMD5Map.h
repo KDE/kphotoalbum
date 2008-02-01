@@ -31,8 +31,8 @@ namespace SQLDB
         explicit SQLMD5Map(QueryHelper& queryHelper);
 
         void insert(const DB::MD5& md5sum, const QString& fileName);
-        QString lookup(const DB::MD5& md5sum);
-        bool contains(const DB::MD5& md5sum);
+        virtual QString lookup(const DB::MD5& md5sum) const;
+        virtual bool contains(const DB::MD5& md5sum) const;
         void clear();
 
     protected:

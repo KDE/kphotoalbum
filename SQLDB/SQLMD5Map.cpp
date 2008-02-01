@@ -31,12 +31,12 @@ void SQLMD5Map::insert(const DB::MD5&, const QString&)
 {
 }
 
-QString SQLMD5Map::lookup(const DB::MD5& md5sum)
+QString SQLMD5Map::lookup(const DB::MD5& md5sum) const
 {
     return _qh.filenameForMD5Sum(md5sum);
 }
 
-bool SQLMD5Map::contains(const DB::MD5& md5sum)
+bool SQLMD5Map::contains(const DB::MD5& md5sum) const
 {
     return _qh.containsMD5Sum(md5sum);
 }

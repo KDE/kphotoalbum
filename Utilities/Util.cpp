@@ -238,12 +238,6 @@ QString Utilities::setupDemo()
         out.close();
     }
 
-    // exif-info.db
-    QString fileName = locateDataFile(QString::fromLatin1("demo/exif-info.db"));
-    if ( !fileName.isEmpty() )
-        copy( fileName, dir + QString::fromLatin1( "/exif-info.db" ) );
-
-
     // Images
     copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.jpg" ) ), dir );
     copyList( KStandardDirs().findAllResources( "data", QString::fromLatin1("kphotoalbum/demo/*.avi" ) ), dir );

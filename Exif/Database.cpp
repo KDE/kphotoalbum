@@ -96,6 +96,15 @@ void Exif::Database::openDatabase()
     _doUTF8Conversion = !_db.driver()->hasFeature(QSqlDriver::Unicode);
 }
 
+Exif::Database::~Database()
+{
+    // We have to close the database before destroying the QSqlDatabase object,
+    // otherwise Qt screams and kittens might die (see QSqlDatabase's
+    // documentation)
+    if ( _db.isOpen() )
+        _db.close();
+}
+
 bool Exif::Database::isOpen() const
 {
     return _isOpen;
@@ -174,6 +183,12 @@ Exif::Database* Exif::Database::instance()
     }
 
     return _instance;
+}
+
+void Exif::Database::deleteInstance()
+{
+    delete _instance;
+    _instance = 0;
 }
 
 bool Exif::Database::isAvailable()

@@ -235,6 +235,7 @@ MainWindow::Window::Window( QWidget* parent )
 MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
+    Exif::Database::deleteInstance();
 }
 
 void MainWindow::Window::delayedInit()

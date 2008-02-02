@@ -50,6 +50,7 @@ class Database {
 
 public:
     static Database* instance();
+    static void deleteInstance();
     static bool isAvailable();
 
     bool isOpen() const;
@@ -71,6 +72,7 @@ private:
     bool _isOpen;
     bool _doUTF8Conversion;
     Database();
+    ~Database();
     void init();
     static Database* _instance;
     QSqlDatabase _db;

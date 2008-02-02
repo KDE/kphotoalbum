@@ -119,10 +119,10 @@ void Exif::Database::populateDatabase()
         attributes.append( (*tagIt)->createString() );
     }
 
-    QSqlQuery query( QString::fromLatin1( "create table exif (filename string PRIMARY KEY, %1 )")
+    QSqlQuery query( QString::fromLatin1( "create table if not exists exif (filename string PRIMARY KEY, %1 )")
                      .arg( attributes.join( QString::fromLatin1(", ") ) ), _db );
     if ( !query.exec())
-        ; // This always prints out a false error, so lets not worry about it now - //showError( query );
+        showError( query );
 }
 
 void Exif::Database::add( const QString& fileName )

@@ -325,10 +325,9 @@ void Utilities::removeThumbNail( const QString& imageFile )
 
 bool Utilities::canReadImage( const QString& fileName )
 {
-    const KMimeType::Ptr type = KMimeType::mimeType( fileName );
-
-    return (!type.isNull() && KImageIO::types(KImageIO::Reading).contains( type->name() ) ) ||
+    return ! KImageIO::typeForMime( KMimeType::findByPath( fileName, 0, true )->name() ).isEmpty() ||
         ImageManager::ImageDecoder::mightDecode( fileName );
+    // KMimeType::findByPath() never returns null pointer
 }
 
 

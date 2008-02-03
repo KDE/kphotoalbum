@@ -85,6 +85,7 @@ void ThumbnailView::ThumbnailToolTip::showToolTips( bool force )
             else {
                 setText( QString::fromLatin1("<p>%1</p>").arg( Utilities::createInfoText( DB::ImageDB::instance()->info( fileName ), 0 ) ) );
             }
+            setWordWrap( true );
         }
 
         _currentFileName = fileName;

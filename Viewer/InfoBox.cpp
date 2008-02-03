@@ -44,9 +44,9 @@ Viewer::InfoBox::InfoBox( Viewer::ViewerWidget* viewer )
              SLOT( linkHovered(const QString&) ));
 }
 
-void Viewer::InfoBox::setSource( const QString& which )
+void Viewer::InfoBox::setSource( const QUrl& which )
 {
-    int index = which.toInt();
+    int index = which.path().toInt();
     QPair<QString,QString> p = _linkMap[index];
     QString category = p.first;
     QString value = p.second;

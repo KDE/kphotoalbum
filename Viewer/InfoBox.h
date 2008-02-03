@@ -31,7 +31,7 @@ class InfoBox :public QTextBrowser {
 public:
     InfoBox( ViewerWidget* parent );
     void setInfo( const QString& text, const QMap<int, QPair<QString,QString> >& linkMap );
-    virtual void setSource( const QString& which );
+    virtual void setSource( const QUrl& which );
     void setSize();
 
 protected slots:

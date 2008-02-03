@@ -617,6 +617,15 @@ QString Utilities::absoluteImageFileName( const QString& relativeName )
 {
     return stripSlash( Settings::SettingsData::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
 }
+
+QString Utilities::imageFileNameToAbsolute( const QString& fileName )
+{
+    if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
+        return fileName;
+    else
+        return absoluteImageFileName( fileName );
+}
+
 bool operator>( const QPoint& p1, const QPoint& p2)
 {
     return p1.y() > p2.y() || (p1.y() == p2.y() && p1.x() > p2.x() );

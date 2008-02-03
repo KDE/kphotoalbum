@@ -60,6 +60,7 @@ UniqNameMap createUniqNameMap( const QStringList& images, bool relative, const Q
 bool areSameFile( const QString fileName1, const QString fileName2 );
 QString stripSlash( const QString& fileName );
 QString absoluteImageFileName( const QString& relativeName );
+QString imageFileNameToAbsolute( const QString& fileName );
 QString relativeFolderName( const QString& fileName);
 QStringList infoListToStringList( const DB::ImageInfoList& list );
 QString stripImageDirectory( const QString& fileName );

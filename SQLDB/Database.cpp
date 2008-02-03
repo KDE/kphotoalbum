@@ -28,6 +28,9 @@
 #include "DatabaseInitialization.h"
 #include "QueryErrors.h"
 #include <QList>
+#ifdef HAVE_EXIV2
+#   include "Exif/Database.h"
+#endif
 
 namespace
 {
@@ -172,6 +175,9 @@ void SQLDB::Database::deleteList( const QStringList& list )
     if (!list.isEmpty()) {
         for (QStringList::const_iterator i = list.begin();
              i != list.end(); ++i) {
+#ifdef HAVE_EXIV2
+            Exif::Database::instance()->remove( Utilities::imageFileNameToAbsolute(*i) );
+#endif
             _qh.removeMediaItem(Utilities::stripImageDirectory(*i));
         }
         emit totalChanged(totalCount());

@@ -35,6 +35,9 @@
 #include "MainWindow/DirtyIndicator.h"
 //Added by qt3to4:
 #include <Q3ValueList>
+#ifdef HAVE_EXIV2
+#   include "Exif/Database.h"
+#endif
 
 using Utilities::StringSet;
 
@@ -140,6 +143,9 @@ void XMLDB::Database::deleteList( const QStringList& list )
 {
     for( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
         DB::ImageInfoPtr inf= info(*it);
+#ifdef HAVE_EXIV2
+        Exif::Database::instance()->remove( inf->fileName(false) );
+#endif
         _images.remove( inf );
     }
     emit totalChanged( _images.count() );

@@ -59,6 +59,7 @@ extern "C" {
 #include <kdebug.h>
 #include <KMimeType>
 #include <QImageReader>
+#include <kcodecs.h>
 
 /**
  * Given an ImageInfoPtr this function will create an HTML blob about the
@@ -669,3 +670,16 @@ QImage Utilities::scaleImage(const QImage &image, const QSize& s, Qt::AspectRati
 {
     return scaleImage( image, s.width(), s.height(), mode );
 }
+
+DB::MD5 Utilities::MD5Sum( const QString& fileName )
+{
+    QFile file( fileName );
+    if ( !file.open( QIODevice::ReadOnly ) )
+        return DB::MD5();
+
+    KMD5 md5calculator( 0 /* char* */);
+    md5calculator.reset();
+    md5calculator.update( file );
+    return DB::MD5(md5calculator.hexDigest());
+}
+

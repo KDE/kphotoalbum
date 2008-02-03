@@ -633,8 +633,7 @@ void Import::updateDB()
         newInfo->setDescription( info->description() );
         newInfo->setDate( info->date() );
         newInfo->rotate( info->angle() );
-        //TODO fixme
-        //newInfo->setMD5Sum( Utilities::MD5Sum( newInfo->fileName(false) ) );
+        newInfo->setMD5Sum( Utilities::MD5Sum( newInfo->fileName(false) ) );
         DB::ImageInfoList list;
         list.append(newInfo);
         DB::ImageDB::instance()->addImages( list );

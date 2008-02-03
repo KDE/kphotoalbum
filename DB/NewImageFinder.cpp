@@ -29,11 +29,11 @@
 #include <qapplication.h>
 #include <qeventloop.h>
 #include <kmessagebox.h>
-#include <kcodecs.h>
 #include <config-kpa-exiv2.h>
 #ifdef HAVE_EXIV2
 #  include "Exif/Database.h"
 #endif
+#include "Utilities/Util.h"
 
 using namespace DB;
 
@@ -178,7 +178,7 @@ void NewImageFinder::loadExtraFiles()
 ImageInfoPtr NewImageFinder::loadExtraFile( const QString& relativeNewFileName, DB::MediaType type )
 {
     QString absoluteNewFileName = Utilities::absoluteImageFileName( relativeNewFileName );
-    MD5 sum = MD5Sum( absoluteNewFileName );
+    MD5 sum = Utilities::MD5Sum( absoluteNewFileName );
     if ( DB::ImageDB::instance()->md5Map()->contains( sum ) ) {
         QString relativeMatchedFileName = DB::ImageDB::instance()->md5Map()->lookup(sum);
         QString absoluteMatchedFileName = Utilities::absoluteImageFileName( relativeMatchedFileName );
@@ -248,7 +248,7 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
             }
         }
 
-        MD5 md5 = MD5Sum( *it );
+        MD5 md5 = Utilities::MD5Sum( *it );
         if (md5.isNull()) {
             cantRead << *it;
             continue;
@@ -270,16 +270,3 @@ bool  NewImageFinder::calculateMD5sums( const QStringList& list, DB::MD5Map* md5
 
     return dirty;
 }
-
-MD5 NewImageFinder::MD5Sum( const QString& fileName )
-{
-    QFile file( fileName );
-    if ( !file.open( QIODevice::ReadOnly ) )
-        return MD5();
-
-    KMD5 md5calculator( 0 /* char* */);
-    md5calculator.reset();
-    md5calculator.update( file );
-    return MD5(md5calculator.hexDigest());
-}
-

@@ -26,6 +26,7 @@
 #include "Settings/SettingsData.h"
 #include "DB/ImageInfoList.h"
 #include <stdio.h>
+#include "DB/MD5.h"
 
 namespace DB
 {
@@ -65,6 +66,8 @@ QString stripImageDirectory( const QString& fileName );
 
 QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
+
+DB::MD5 MD5Sum( const QString& fileName );
 }
 
 bool operator>( const QPoint&, const QPoint& );

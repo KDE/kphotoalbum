@@ -128,14 +128,14 @@ void NewImageFinder::searchForNewFiles( const Q3Dict<void>& loadedFiles, QString
         if ( (*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") ||
              (*it) == QString::fromLatin1("ThumbNails") ||
              (*it) == QString::fromLatin1("CategoryImages") ||
-	     loadedFiles.find( file ) ||
-	     dec._skipThisFile(loadedFiles, file) )
+	         loadedFiles.find( file ) ||
+	         dec._skipThisFile(loadedFiles, file) )
             continue;
 
         QFileInfo fi( file );
 
-	if ( !fi.isReadable() )
-	    continue;
+	    if ( !fi.isReadable() )
+	        continue;
 
         if ( fi.isFile() ) {
             QString baseName = file.mid( imageDir.length()+1 );
@@ -145,9 +145,7 @@ void NewImageFinder::searchForNewFiles( const Q3Dict<void>& loadedFiles, QString
                 else if ( Utilities::isVideo( file ) )
                     _pendingLoad.append( qMakePair( baseName, DB::Video ) );
             }
-        }
-
-        else if ( fi.isDir() )  {
+        } else if ( fi.isDir() )  {
             searchForNewFiles( loadedFiles, file );
         }
     }

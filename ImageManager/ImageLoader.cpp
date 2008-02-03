@@ -62,6 +62,7 @@ void ImageManager::ImageLoader::run()
         ImageRequest* request = Manager::instance()->next();
         Q_ASSERT( request );
         bool ok;
+
         QImage img = tryLoadThumbnail( request, ok );
         if ( ! ok ) {
             img = loadImage( request, ok );

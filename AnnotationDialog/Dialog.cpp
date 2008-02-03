@@ -890,10 +890,10 @@ void AnnotationDialog::Dialog::setupActions()
 {
     _actions = new KActionCollection( this );
 
-    QAction* action = 0;
+    KAction* action = 0;
     action = _actions->addAction( "annotationdialog-sort-alpha", _optionList.at(0), SLOT( slotSortAlpha() ) );
     action->setText( i18n("Sort Alphabetically") );
-    action->setShortcut(Qt::CTRL+Qt::Key_F4);
+    action->setShortcut(Qt::CTRL+Qt::Key_F4, KAction::DefaultShortcut);
 
 
     action = _actions->addAction( "annotationdialog-sort-MRU", _optionList.at(0), SLOT( slotSortDate() ) );
@@ -901,33 +901,33 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = _actions->addAction( "annotationdialog-toggle-sort",  _optionList.at(0), SLOT( toggleSortType() ) );
     action->setText( i18n("Toggle Sorting") );
-    action->setShortcut( Qt::CTRL+Qt::Key_T );
+    action->setShortcut( Qt::CTRL+Qt::Key_T, KAction::DefaultShortcut );
 
     action = _actions->addAction( "annotationdialog-toggle-showing-selected-only",
                                   &ShowSelectionOnlyManager::instance(), SLOT( toggle() ) );
     action->setText( i18n("Toggle Showing Selected Items Only") );
-    action->setShortcut( Qt::CTRL+Qt::Key_S );
+    action->setShortcut( Qt::CTRL+Qt::Key_S, KAction::DefaultShortcut );
 
 
     action = _actions->addAction( "annotationdialog-next-image",  this, SLOT( slotNext() ) );
     action->setText(  i18n("Annotate Next") );
-    action->setShortcut(  Qt::Key_PageDown );
+    action->setShortcut(  Qt::Key_PageDown, KAction::DefaultShortcut );
 
     action = _actions->addAction( "annotationdialog-prev-image",  this, SLOT( slotPrev() ) );
     action->setText(  i18n("Annotate Previous") );
-    action->setShortcut(  Qt::Key_PageUp );
+    action->setShortcut(  Qt::Key_PageUp, KAction::DefaultShortcut );
 
     action = _actions->addAction( "annotationdialog-OK-dialog",  this, SLOT( slotOK() ) );
     action->setText(  i18n("OK dialog") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Return );
+    action->setShortcut(  Qt::CTRL+Qt::Key_Return, KAction::DefaultShortcut );
 
     action = _actions->addAction( "annotationdialog-delete-image",  this, SLOT( slotDeleteImage() ) );
     action->setText(  i18n("Delete") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Delete );
+    action->setShortcut(  Qt::CTRL+Qt::Key_Delete, KAction::DefaultShortcut );
 
     action = _actions->addAction( "annotationdialog-copy-previous",  this, SLOT( slotCopyPrevious() ) );
     action->setText(  i18n("Copy tags from previous image") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Insert );
+    action->setShortcut(  Qt::CTRL+Qt::Key_Insert, KAction::DefaultShortcut );
 
     action = _actions->addAction( "annotationdialog-rotate-left",  this, SLOT( rotateLeft() ) );
     action->setText(  i18n("Rotate counterclockwise") );

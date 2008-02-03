@@ -17,6 +17,8 @@
 */
 
 #include "VideoDisplay.h"
+#include <KActionCollection>
+#include <qglobal.h>
 #include <KServiceTypeTrader>
 #include <QHBoxLayout>
 #include <KMimeType>
@@ -24,9 +26,6 @@
 #include <DB/ImageInfo.h>
 
 #include <kmediaplayer/player.h>
-#ifdef TEMPORARILY_REMOVED
-#include <kuserprofile.h>
-#endif
 #include <kdebug.h>
 #include <qlayout.h>
 #include <qtimer.h>
@@ -46,7 +45,7 @@
 #include <Phonon/MediaObject>
 
 Viewer::VideoDisplay::VideoDisplay( QWidget* parent )
-    :Viewer::Display( parent ), _playerPart( 0 )
+    :Viewer::Display( parent )
 {
     _player = new Phonon::VideoPlayer(Phonon::VideoCategory, this);
     QVBoxLayout* layout = new QVBoxLayout(this);
@@ -65,82 +64,6 @@ bool Viewer::VideoDisplay::setImage( DB::ImageInfoPtr info, bool /*forward*/ )
     _info = info;
     _player->play( info->fileName() );
 
-#ifdef TEMPORARILY_REMOVED
-    // This code is inspired by similar code in Gwenview.
-    delete _playerPart;
-    _playerPart = 0;
-
-    // Figure out the mime type associated to the file file name
-    QString mimeType= mimeTypeForFileName(info->fileName());
-    if ( mimeType.isEmpty() ) {
-        showError( NoMimeType, info->fileName(), mimeType );
-        return false;
-    }
-
-
-//     _playerPart =  KMimeTypeTrader::createInstanceFromQuery<KParts::ReadOnlyPart>( mimeType, this, this );
-    KServiceTypeProfile::OfferList services = KServiceTypeProfile::offers(mimeType, QString::fromLatin1("KParts/ReadOnlyPart"));
-
-    ErrorType etype = NoKPart;
-
-    for( KServiceTypeProfile::OfferList::Iterator it = services.begin(); it != services.end(); ++it ) {
-
-       // Ask for a part for this mime type
-       KService::Ptr service = (*it).service();
-
-       if (!service.data()) {
-           etype = NoKPart;
-           kWarning() << "Couldn't find a KPart for " << mimeType;
-           continue;
-       }
-
-       QString library=service->library();
-       if ( library.isNull() ) {
-           etype = NoLibrary;
-           kWarning() << "The library returned from the service was null, indicating we could not display videos.";
-           continue;
-      }
-
-       _playerPart = KParts::ComponentFactory::createPartInstanceFromService<KParts::ReadOnlyPart>(service, this );
-
-       if (!_playerPart) {
-           etype = NoPartInstance;
-           kWarning() << "Failed to instantiate KPart from library " << library;
-           continue;
-       }
-
-       QWidget* widget = _playerPart->widget();
-       if ( !widget ) {
-           etype = NoWidget;
-           continue;
-       }
-       etype = NoError;
-       widget->show();
-       break;
-    }
-    if (etype != NoError) {
-       showError(etype, info->fileName(), mimeType );
-       return false;
-    }
-    if ( _playerPart ) {
-        _playerPart->openUrl(info->fileName());
-        _playerPart->widget()->show();
-        QHBoxLayout*layout = new QHBoxLayout( this );
-        layout->addWidget( _playerPart->widget() );
-    }
-    else
-        showError( NoKPart, info->fileName(), mimeType );
-
-    // If the part implements the KMediaPlayer::Player interface, start
-    // playing (needed for Kaboodle)
-    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
-        player->play();
-
-    connect( _playerPart, SIGNAL( stateChanged( int ) ), this, SLOT( stateChanged( int ) ) );
-
-    zoomFull();
-
-#endif
 
     return true;
 }
@@ -200,12 +123,18 @@ void Viewer::VideoDisplay::zoomOut()
 
 void Viewer::VideoDisplay::zoomFull()
 {
+// PENDING(kdab) Review
+#ifdef KDAB_TEMPORARILY_REMOVED
     QWidget* widget = _playerPart->widget();
     if ( !widget )
         return;
 
     widget->resize( size() );
     widget->move(0,0);
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Sorry, not implemented: Viewer::VideoDisplay::zoomFull");
+    return ;
+#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 void Viewer::VideoDisplay::zoomPixelForPixel()
@@ -216,6 +145,8 @@ void Viewer::VideoDisplay::zoomPixelForPixel()
 
 void Viewer::VideoDisplay::resize( const float factor )
 {
+// PENDING(kdab) Review
+#ifdef KDAB_TEMPORARILY_REMOVED
     QWidget* widget = _playerPart->widget();
     if ( !widget )
         return;
@@ -223,12 +154,17 @@ void Viewer::VideoDisplay::resize( const float factor )
     const QSize size( static_cast<int>( factor * widget->width() ) , static_cast<int>( factor * widget->width() ) );
     widget->resize( size );
     widget->move( (width() - size.width())/2, (height() - size.height())/2 );
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Sorry, not implemented: Viewer::VideoDisplay::resize");
+    return ;
+#endif // KDAB_TEMPORARILY_REMOVED
 }
 
 void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
 {
     Display::resizeEvent( event );
 
+#ifdef KDAB_TEMPORARILY_REMOVED
     if ( !_playerPart )
         return;
 
@@ -241,60 +177,63 @@ void Viewer::VideoDisplay::resizeEvent( QResizeEvent* event )
     else
         widget->resize( qMin( widget->width(), width() ), qMin( widget->height(), height() ) );
     widget->move( (width() - widget->width())/2, (height() - widget->height())/2 );
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in Viewer::VideoDisplay::resizeEvent");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 
 void Viewer::VideoDisplay::play()
 {
+#ifdef KDAB_TEMPORARILY_REMOVED
     if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
         player->play();
     else
         invokeKaffeineAction( "player_play" );
-}
-
-void Viewer::VideoDisplay::stop()
-{
-    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
-        player->stop();
-    else
-        invokeKaffeineAction( "player_stop" );
-}
-
-void Viewer::VideoDisplay::pause()
-{
-    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
-        player->pause();
-    else
-        invokeKaffeineAction( "player_pause" );
-}
-
-/**
- * Kafein does not implement the KMediaPlayer::Player interface, so I have to invoke the actions by their name.
- */
-void Viewer::VideoDisplay::invokeKaffeineAction( const char* actionName )
-{
-#ifdef TEMPORARILY_REMOVED
-    KAction* action = _playerPart->action( actionName );
-        if ( action )
-            action->activate();
-
-#else
-        kDebug() << "TEMPORARILY REMOVED: " ;
-        Q_UNUSED( actionName );
-#endif
-}
-
-void Viewer::VideoDisplay::restart()
-{
-    if ( KMediaPlayer::Player* player=dynamic_cast<KMediaPlayer::Player *>(_playerPart) )
-        player->seek(0);
-    else
-        invokeKaffeineAction( "player_play");
+#else // KDAB_TEMPORARILY_REMOVED
+    qWarning("Code commented out in Viewer::VideoDisplay::play");
+#endif //KDAB_TEMPORARILY_REMOVED
 }
 
 Viewer::VideoDisplay::~VideoDisplay()
 {
     _player->stop();
+}
+
+void Viewer::VideoDisplay::stop()
+{
+    _player->stop();
+}
+
+void Viewer::VideoDisplay::playPause()
+{
+    if ( _player->isPaused() )
+        _player->play();
+    else
+        _player->pause();
+}
+
+void Viewer::VideoDisplay::restart()
+{
+    _player->seek(0);
+    _player->play();
+}
+
+void Viewer::VideoDisplay::seek()
+{
+    QAction* action = static_cast<QAction*>(sender());
+    int value = action->data().value<int>();
+    _player->seek( value );
+}
+
+bool Viewer::VideoDisplay::isPaused() const
+{
+    return _player->isPaused();
+}
+
+bool Viewer::VideoDisplay::isPlaying() const
+{
+    return _player->isPlaying();
 }
 
 #include "VideoDisplay.moc"

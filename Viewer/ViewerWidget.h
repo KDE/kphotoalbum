@@ -40,7 +40,7 @@ class KToggleAction;
 class KToolBar;
 class QLabel;
 class QMenu;
-class QAction;
+class KAction;
 
 namespace DB { class ImageInfo; }
 namespace MainWindow { class ExternalPopup; }
@@ -90,7 +90,7 @@ protected:
     void createSkipMenu();
     void createZoomMenu();
     void createSlideShowMenu();
-    void createVideoActions();
+    void createVideoMenu();
     void changeSlideShowInterval( int delta );
 
     DB::ImageInfoPtr currentInfo() const;
@@ -146,10 +146,6 @@ protected slots:
     void zoomOut();
     void zoomFull();
     void zoomPixelForPixel();
-    void play();
-    void stop();
-    void pause();
-    void restart();
 
     /** Set the current window title (filename) and add the given detail */
     void setCaptionWithDetail( const QString& detail );
@@ -157,12 +153,12 @@ protected slots:
 private:
     static ViewerWidget* _latest;
 
-    QList<QAction*> _forwardActions;
-    QList<QAction*> _backwardActions;
+    QList<KAction*> _forwardActions;
+    QList<KAction*> _backwardActions;
 
-    QAction* _startStopSlideShow;
-    QAction* _slideShowRunFaster;
-    QAction* _slideShowRunSlower;
+    KAction* _startStopSlideShow;
+    KAction* _slideShowRunFaster;
+    KAction* _slideShowRunSlower;
 
     QStackedWidget* _stack;
     Display* _display;
@@ -180,10 +176,10 @@ private:
     int _width, _height;
     QPixmap _pixmap;
 
-    QAction* _delete;
-    QAction* _categoryEditor;
+    KAction* _delete;
+    KAction* _categoryEditor;
 #ifdef HAVE_EXIV2
-    QAction* _showExifViewer;
+    KAction* _showExifViewer;
 #endif
 
     InfoBox* _infoBox;
@@ -198,11 +194,9 @@ private:
     QTimer* _slideShowTimer;
     bool _isRunningSlideShow;
 
-    QAction* _videoSeperator;
-    QAction* _play;
-    QAction* _stop;
-    QAction* _pause;
-    QAction* _restart;
+    QList<QAction*> _videoActions;
+    KAction* _stop;
+    KAction* _playPause;
 };
 
 }

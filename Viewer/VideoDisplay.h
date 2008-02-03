@@ -23,6 +23,7 @@
 #include <kparts/componentfactory.h>
 #include <QResizeEvent>
 #include <Phonon/VideoPlayer>
+class QMenu;
 class QHBoxLayout;
 
 namespace Viewer
@@ -36,6 +37,8 @@ public:
     VideoDisplay( QWidget* parent );
     ~VideoDisplay();
     virtual bool setImage( DB::ImageInfoPtr info, bool forward );
+    bool isPaused() const;
+    bool isPlaying() const;
 
 signals:
     void stopped();
@@ -47,8 +50,9 @@ public slots:
     void zoomPixelForPixel();
     void play();
     void stop();
-    void pause();
+    void playPause();
     void restart();
+    void seek();
 
 protected slots:
     void stateChanged( int );
@@ -59,10 +63,8 @@ protected:
     void showError( ErrorType, const QString& fileName, const QString& mimeType );
     void resize( float factor );
     virtual void resizeEvent( QResizeEvent* );
-    void invokeKaffeineAction( const char* name );
 
 private:
-    KParts::ReadOnlyPart* _playerPart;
     Phonon::VideoPlayer * _player;
 };
 

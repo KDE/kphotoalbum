@@ -1,3 +1,8 @@
+2008-02-06  Jan Kundrat  <jkt@gentoo.org>
+
+	* Added Iptc.Application2.ObjectName to the list of available fields for
+	storing Label/Description
+
 2008-02-01  Jan Kundrat  <jkt@gentoo.org>
 
 	* Expand sensitive area of a thumbnail image to the whole cell (including

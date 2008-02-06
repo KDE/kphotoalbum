@@ -537,7 +537,7 @@ QValueList<Exif::Syncable::Kind> Settings::SettingsData::defaultFields( const bo
             Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
             Exif::Syncable::EXIF_XPTITLE << Exif::Syncable::EXIF_XPSUBJECT <<
-            Exif::Syncable::IPTC_CAPTION;
+            Exif::Syncable::IPTC_OBJECT_NAME << Exif::Syncable::IPTC_CAPTION;
     } else if ( name == QString::fromAscii("description")) {
         r << Exif::Syncable::IPTC_CAPTION <<
             Exif::Syncable::EXIF_USER_COMMENT << Exif::Syncable::EXIF_DESCRIPTION <<
@@ -548,7 +548,7 @@ QValueList<Exif::Syncable::Kind> Settings::SettingsData::defaultFields( const bo
             Exif::Syncable::STOP << Exif::Syncable::EXIF_USER_COMMENT <<
             Exif::Syncable::EXIF_DESCRIPTION << Exif::Syncable::JPEG_COMMENT <<
             Exif::Syncable::EXIF_XPCOMMENT << Exif::Syncable::EXIF_XPSUBJECT <<
-            Exif::Syncable::IPTC_HEADLINE;
+            Exif::Syncable::IPTC_OBJECT_NAME << Exif::Syncable::IPTC_HEADLINE;
     } else if ( name == QString::fromAscii("date")) {
         r << Exif::Syncable::EXIF_DATETIME << Exif::Syncable::EXIF_DATETIME_ORIGINAL <<
             Exif::Syncable::EXIF_DATETIME_DIGITIZED << Exif::Syncable::FILE_MTIME <<

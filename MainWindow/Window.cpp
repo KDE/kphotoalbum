@@ -351,7 +351,7 @@ void MainWindow::Window::configureImages( bool oneAtATime )
 {
     QStringList list = selected();
     if ( list.count() == 0 )  {
-        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
+        KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     }
     else {
         DB::ImageInfoList images;
@@ -1132,7 +1132,7 @@ void MainWindow::Window::rotateSelected( int angle )
 {
     QStringList list = selected();
     if ( list.count() == 0 )  {
-        QMessageBox::warning( this,  i18n("No Selection"),  i18n("No item is selected.") );
+        KMessageBox::sorry( this, i18n("No item is selected."), i18n("No Selection") );
     } else {
         for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it ) {
             DB::ImageDB::instance()->info( *it )->rotate( angle );

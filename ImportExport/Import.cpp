@@ -218,7 +218,7 @@ void Import::setupPages()
     createImagesPage();
     createDestination();
     createCategoryPages();
-    connect( this, SIGNAL( selected( const QString& ) ), this, SLOT( updateNextButtonState() ) );
+    connect( this, SIGNAL( currentPageChanged( KPageWidgetItem*, KPageWidgetItem* ) ), this, SLOT( updateNextButtonState() ) );
     connect( this, SIGNAL( user1Clicked() ), this, SLOT( slotFinish() ) );
     connect( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }

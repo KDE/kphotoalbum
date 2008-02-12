@@ -622,6 +622,8 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
 {
     if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
         return fileName;
+    else if ( fileName.startsWith( QString::fromAscii("file://") ) )
+        return imageFileNameToAbsolute( fileName.mid( 7 ) ); // 7 == length("file://")
     else
         return absoluteImageFileName( fileName );
 }

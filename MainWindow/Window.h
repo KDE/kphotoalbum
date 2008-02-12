@@ -122,6 +122,7 @@ protected slots:
     void slotSelectionChanged();
     void plug();
     void slotRemoveTokens();
+    void slotShowListOfFiles();
     void updateDateBar( const QString& );
     void updateDateBar();
     void slotShowImagesWithInvalidDate();

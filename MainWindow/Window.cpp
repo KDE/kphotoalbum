@@ -118,6 +118,7 @@
 #include <K3URLDrag>
 #include <qclipboard.h>
 #include <stdexcept>
+#include <KInputDialog>
 
 MainWindow::Window* MainWindow::Window::_instance = 0;
 
@@ -606,6 +607,9 @@ void MainWindow::Window::setupMenuBar()
 
     action = actionCollection()->addAction("removeTokens", this, SLOT( slotRemoveTokens() ));
     action->setText( i18n("Remove Tokens") );
+
+    a = actionCollection()->addAction("showListOfFiles", this, SLOT( slotShowListOfFiles() ));
+    a->setText( i18n("Open List of Files...")) ;
 
 
     _configOneAtATime = actionCollection()->addAction( "oneProp", this, SLOT( slotConfigureImagesOneAtATime() ) );
@@ -1409,6 +1413,25 @@ void MainWindow::Window::slotRemoveTokens()
         _tokenEditor = new TokenEditor( this );
     _tokenEditor->show();
     connect( _tokenEditor, SIGNAL( finished() ), _browser, SLOT( go() ) );
+}
+
+void MainWindow::Window::slotShowListOfFiles()
+{
+    QStringList list = QStringList::split( QChar('\n'), KInputDialog::getMultiLineText( i18n("Open List of Files"), i18n("Enter file names") ) );
+    if ( list.isEmpty() )
+        return;
+
+    QStringList out;
+    for ( QStringList::const_iterator it = list.begin(); it != list.end(); ++it ) {
+        QString fileName = Utilities::imageFileNameToAbsolute( *it );
+        if ( !DB::ImageDB::instance()->info( fileName).isNull() )
+            out.append( fileName );
+    }
+
+    if ( out.isEmpty() )
+        KMessageBox::sorry( this, i18n("No images matching your input were found."), i18n("No Matches") );
+    else
+        showThumbNails( out );
 }
 
 void MainWindow::Window::updateDateBar( const QString& path )

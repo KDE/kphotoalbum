@@ -10,6 +10,7 @@
       <Action name="copySelectedURLs" />
       <Action name="deleteSelected" />
       <Action name="removeTokens" />
+      <Action name="showListOfFiles" />
       <Separator/>
       <Action name="rotateLeft" />
       <Action name="rotateRight" />

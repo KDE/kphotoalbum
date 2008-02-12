@@ -1,3 +1,9 @@
+2008-02-13  Jan Kundrat  <jkt@gentoo.org>
+
+	* Add Edit->Open List of Files menu that shows list of thumbnails that
+	matches user-entered stuff.
+
+
 2008-02-01  Jan Kundrat  <jkt@gentoo.org>
 
 	* Expand sensitive area of a thumbnail image to the whole cell (including

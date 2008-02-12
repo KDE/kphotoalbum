@@ -570,15 +570,15 @@ void MainWindow::Window::setupMenuBar()
     _generateHtml->setText( i18n("Generate HTML...") );
     connect( _generateHtml, SIGNAL(triggered()), this, SLOT( slotExportToHTML() ) );
 
-    KAction* action = actionCollection()->addAction( "import", this, SLOT( slotImport() ) );
-    action->setText( i18n( "Import...") );
+    KAction* a = actionCollection()->addAction( "import", this, SLOT( slotImport() ) );
+    a->setText( i18n( "Import...") );
 
-    action = actionCollection()->addAction( "export", this, SLOT( slotExport() ) );
-    action->setText( i18n( "Export/Copy Images...") );
+    a = actionCollection()->addAction( "export", this, SLOT( slotExport() ) );
+    a->setText( i18n( "Export/Copy Images...") );
 
 
     // Go menu
-    KAction* a = KStandardAction::back( _browser, SLOT( back() ), actionCollection() );
+    a = KStandardAction::back( _browser, SLOT( back() ), actionCollection() );
     connect( _browser, SIGNAL( canGoBack( bool ) ), a, SLOT( setEnabled( bool ) ) );
     a->setEnabled( false );
 
@@ -605,8 +605,8 @@ void MainWindow::Window::setupMenuBar()
     _deleteSelected->setShortcut( Qt::Key_Delete, KAction::DefaultShortcut );
     connect( _deleteSelected, SIGNAL( triggered() ), this, SLOT( slotDeleteSelected() ) );
 
-    action = actionCollection()->addAction("removeTokens", this, SLOT( slotRemoveTokens() ));
-    action->setText( i18n("Remove Tokens") );
+    a = actionCollection()->addAction("removeTokens", this, SLOT( slotRemoveTokens() ));
+    a->setText( i18n("Remove Tokens") );
 
     a = actionCollection()->addAction("showListOfFiles", this, SLOT( slotShowListOfFiles() ));
     a->setText( i18n("Open List of Files...")) ;
@@ -645,17 +645,17 @@ void MainWindow::Window::setupMenuBar()
     _runRandomSlideShow = actionCollection()->addAction( "runRandomizedSlideShow", this, SLOT( slotRunRandomizedSlideShow() ) );
     _runRandomSlideShow->setText( i18n( "Run Randomized Slide Show" ) );
 
-    KToggleAction* incr = actionCollection()->add<KToggleAction>( "orderIncr", this, SLOT( slotOrderIncr() ) );
-    incr->setText( i18n("Show &Oldest First") ) ;
-
-    KToggleAction* decr = actionCollection()->add<KToggleAction>( "orderDecr", this, SLOT( slotOrderDecr() ) );
-    decr->setText( i18n("Show &Newest First") );
-
     QActionGroup* grp = new QActionGroup( this );
-    incr->setActionGroup(grp);
-    decr->setActionGroup(grp);
-    incr->setChecked( !Settings::SettingsData::instance()->showNewestThumbnailFirst() );
-    decr->setChecked( Settings::SettingsData::instance()->showNewestThumbnailFirst() );
+
+    a = actionCollection()->add<KToggleAction>( "orderIncr", this, SLOT( slotOrderIncr() ) );
+    a->setText( i18n("Show &Oldest First") ) ;
+    a->setActionGroup(grp);
+    a->setChecked( !Settings::SettingsData::instance()->showNewestThumbnailFirst() );
+
+    a = actionCollection()->add<KToggleAction>( "orderDecr", this, SLOT( slotOrderDecr() ) );
+    a->setText( i18n("Show &Newest First") );
+    a->setActionGroup(grp);
+    a->setChecked( Settings::SettingsData::instance()->showNewestThumbnailFirst() );
 
     _sortByDateAndTime = actionCollection()->addAction( "sortImages", this, SLOT( slotSortByDateAndTime() ) );
     _sortByDateAndTime->setText( i18n("Sort Selected by Date && Time") );
@@ -674,9 +674,9 @@ void MainWindow::Window::setupMenuBar()
     _unlock = actionCollection()->addAction( "unlockFromDefaultScope", this, SLOT( unlockFromDefaultScope() ) );
     _unlock->setText( i18n("Unlock") );
 
-    action = actionCollection()->addAction( "changeScopePasswd", this, SLOT( changePassword() ) );
-    action->setText( i18n("Change Password...") );
-    action->setShortcut(  0, KAction::DefaultShortcut );
+    a = actionCollection()->addAction( "changeScopePasswd", this, SLOT( changePassword() ) );
+    a->setText( i18n("Change Password...") );
+    a->setShortcut( 0, KAction::DefaultShortcut );
 
     _setDefaultPos = actionCollection()->addAction( "setDefaultScopePositive", this, SLOT( setDefaultScopePositive() ) );
     _setDefaultPos->setText( i18n("Lock Away All Other Items") );
@@ -685,42 +685,42 @@ void MainWindow::Window::setupMenuBar()
     _setDefaultNeg->setText( i18n("Lock Away Current Set of Items") );
 
     // Maintenance
-    action = actionCollection()->addAction( "findUnavailableImages", this, SLOT( slotShowNotOnDisk() ) );
-    action->setText( i18n("Display Images and Videos Not on Disk") );
+    a = actionCollection()->addAction( "findUnavailableImages", this, SLOT( slotShowNotOnDisk() ) );
+    a->setText( i18n("Display Images and Videos Not on Disk") );
 
-    action = actionCollection()->addAction( "findImagesWithInvalidDate", this, SLOT( slotShowImagesWithInvalidDate() ) );
-    action->setText( i18n("Display Images and Videos with Incomplete Dates...") );
+    a = actionCollection()->addAction( "findImagesWithInvalidDate", this, SLOT( slotShowImagesWithInvalidDate() ) );
+    a->setText( i18n("Display Images and Videos with Incomplete Dates...") );
 
-    action = actionCollection()->addAction( "findImagesWithChangedMD5Sum", this, SLOT( slotShowImagesWithChangedMD5Sum() ) );
-    action->setText( i18n("Display Images and Videos with Changed MD5 Sum") );
+    a = actionCollection()->addAction( "findImagesWithChangedMD5Sum", this, SLOT( slotShowImagesWithChangedMD5Sum() ) );
+    a->setText( i18n("Display Images and Videos with Changed MD5 Sum") );
 
-    action = actionCollection()->addAction( "rebuildMD5s", this, SLOT( slotRecalcCheckSums() ) );
-    action->setText( i18n("Recalculate Checksum") );
+    a = actionCollection()->addAction( "rebuildMD5s", this, SLOT( slotRecalcCheckSums() ) );
+    a->setText( i18n("Recalculate Checksum") );
 
-    action = actionCollection()->addAction( "rescan", DB::ImageDB::instance(), SLOT( slotRescan() ) );
-    action->setText( i18n("Rescan for Images and Videos") );
+    a = actionCollection()->addAction( "rescan", DB::ImageDB::instance(), SLOT( slotRescan() ) );
+    a->setText( i18n("Rescan for Images and Videos") );
 
 #ifdef HAVE_EXIV2
-    action = actionCollection()->addAction( "reReadExifInfo", this, SLOT( slotReReadExifInfo() ) );
-    action->setText( i18n("Read EXIF Info From Files...") );
+    a = actionCollection()->addAction( "reReadExifInfo", this, SLOT( slotReReadExifInfo() ) );
+    a->setText( i18n("Read EXIF Info From Files...") );
 #endif
 
 #ifdef SQLDB_SUPPORT
-    action = actionCollection()->addAction( "convertBackend", this, SLOT( convertBackend() ) );
-    action->setText( i18n("Convert Backend...(Experimental!)" ) );
+    a = actionCollection()->addAction( "convertBackend", this, SLOT( convertBackend() ) );
+    a->setText( i18n("Convert Backend...(Experimental!)" ) );
 #endif
 
 
-    action = actionCollection()->addAction( "buildThumbs", this, SLOT( slotBuildThumbnails() ) );
-    action->setText( i18n("Build Thumbnails") );
+    a = actionCollection()->addAction( "buildThumbs", this, SLOT( slotBuildThumbnails() ) );
+    a->setText( i18n("Build Thumbnails") );
 
     // Settings
     KStandardAction::preferences( this, SLOT( slotOptions() ), actionCollection() );
     KStandardAction::keyBindings( this, SLOT( slotConfigureKeyBindings() ), actionCollection() );
     KStandardAction::configureToolbars( this, SLOT( slotConfigureToolbars() ), actionCollection() );
 
-    action = actionCollection()->addAction( "readdAllMessages", this, SLOT( slotReenableMessages() ) );
-    action->setText( i18n("Enable All Messages") );
+    a = actionCollection()->addAction( "readdAllMessages", this, SLOT( slotReenableMessages() ) );
+    a->setText( i18n("Enable All Messages") );
 
     _viewMenu = actionCollection()->add<KActionMenu>( "configureView" );
     _viewMenu->setText( i18n("Configure View") );
@@ -757,20 +757,20 @@ void MainWindow::Window::setupMenuBar()
     // The help menu
     KStandardAction::tipOfDay( this, SLOT(showTipOfDay()), actionCollection() );
 
-    KToggleAction* taction = actionCollection()->add<KToggleAction>( "showToolTipOnImages" );
-    taction->setText( i18n("Show Tooltips in Thumbnails Window") );
-    taction->setShortcut( Qt::CTRL+Qt::Key_T, KAction::DefaultShortcut );
-    connect( taction, SIGNAL(toggled(bool)), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
+    a = actionCollection()->add<KToggleAction>( "showToolTipOnImages" );
+    a->setText( i18n("Show Tooltips in Thumbnails Window") );
+    a->setShortcut( Qt::CTRL+Qt::Key_T, KAction::DefaultShortcut );
+    connect( a, SIGNAL(toggled(bool)), _thumbnailView, SLOT( showToolTipsOnImages( bool ) ) );
 
 
-    action = actionCollection()->addAction( "runDemo", this, SLOT( runDemo() ) );
-    action->setText( i18n("Run KPhotoAlbum Demo") );
+    a = actionCollection()->addAction( "runDemo", this, SLOT( runDemo() ) );
+    a->setText( i18n("Run KPhotoAlbum Demo") );
 
-    action = actionCollection()->addAction( "runSurvey", this, SLOT( runSurvey() ) );
-    action->setText( i18n("Answer KPhotoAlbum Survey...") );
+    a = actionCollection()->addAction( "runSurvey", this, SLOT( runSurvey() ) );
+    a->setText( i18n("Answer KPhotoAlbum Survey...") );
 
-    action = actionCollection()->addAction( "features", this, SLOT( showFeatures() ) );
-    action->setText( i18n("KPhotoAlbum Feature Status") );
+    a = actionCollection()->addAction( "features", this, SLOT( showFeatures() ) );
+    a->setText( i18n("KPhotoAlbum Feature Status") );
 
     // Context menu actions
 #ifdef HAVE_EXIV2

@@ -71,7 +71,9 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
 
 KIPI::ImageInfo Plugins::Interface::info( const KUrl& url )
 {
-    return KIPI::ImageInfo( new Plugins::ImageInfo( this, url ) );
+    // TODO #############################
+    // Plugins/Interface.cpp:74: error: cannot allocate an object of abstract type 'Plugins::ImageInfo'
+    return KIPI::ImageInfo( 0 /*new Plugins::ImageInfo( this, url )*/ );
 }
 
 void Plugins::Interface::refreshImages( const KUrl::List& urls )

@@ -1,8 +1,11 @@
+2008-02-20  Jan Kundrat  <jkt@gentoo.org>
+
+	* Get list of supported Exif tags directly from the Exiv2 library.
+
 2008-02-13  Jan Kundrat  <jkt@gentoo.org>
 
 	* Add Edit->Open List of Files menu that shows list of thumbnails that
 	matches user-entered stuff.
-
 
 2008-02-01  Jan Kundrat  <jkt@gentoo.org>
 

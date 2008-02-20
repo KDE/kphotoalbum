@@ -25,6 +25,7 @@
 #include "DB/ImageDB.h"
 #include <qfileinfo.h>
 #include <QFile>
+#include <kdebug.h>
 
 using namespace Exif;
 
@@ -89,292 +90,47 @@ QMap<QString, QString> Info::infoForDialog( const QString& fileName )
 
 StringSet Info::standardKeys()
 {
-    StringSet res;
+    static StringSet res;
 
-    // Standard EXIF
-    res.insert( QString::fromLatin1( "Exif.Image.NewSubfileType" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.ImageWidth" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.ImageLength" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.BitsPerSample" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.Compression" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.PhotometricInterpretation" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.FillOrder" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.DocumentName" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.ImageDescription" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.Make" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.Model" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.StripOffsets" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.Orientation" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.SamplesPerPixel" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.RowsPerStrip" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.StripByteCounts" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.XResolution" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.YResolution" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.PlanarConfiguration" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.ResolutionUnit" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.TransferFunction" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.Software" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.DateTime" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.Artist" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.WhitePoint" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.PrimaryChromaticities" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.SubIFDs" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.TransferRange" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.JPEGProc" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.JPEGInterchangeFormat" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.JPEGInterchangeFormatLength" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.YCbCrCoefficients" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.YCbCrSubSampling" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.YCbCrPositioning" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.ReferenceBlackWhite" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.XMLPacket" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.CFARepeatPatternDim" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.CFAPattern" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.BatteryLevel" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.IPTCNAA" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.Copyright" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.ImageResources" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.ExifTag" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.InterColorProfile" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.GPSTag" ) );
-    res.insert( QString::fromLatin1( "Exif.Image.TIFFEPStandardID" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ExposureTime" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FNumber" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ExposureProgram" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SpectralSensitivity" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ISOSpeedRatings" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.OECF" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ExifVersion" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.DateTimeOriginal" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.DateTimeDigitized" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ComponentsConfiguration" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.CompressedBitsPerPixel" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ShutterSpeedValue" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ApertureValue" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.BrightnessValue" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ExposureBiasValue" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.MaxApertureValue" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SubjectDistance" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.MeteringMode" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.LightSource" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.Flash" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FocalLength" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SubjectArea" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.MakerNote" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.UserComment" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SubSecTime" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SubSecTimeOriginal" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SubSecTimeDigitized" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FlashpixVersion" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ColorSpace" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.PixelXDimension" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.PixelYDimension" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.RelatedSoundFile" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.InteroperabilityTag" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FlashEnergy" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SpatialFrequencyResponse" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FocalPlaneXResolution" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FocalPlaneYResolution" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FocalPlaneResolutionUnit" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SubjectLocation" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ExposureIndex" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SensingMethod" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FileSource" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SceneType" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.CFAPattern" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.CustomRendered" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ExposureMode" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.WhiteBalance" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.DigitalZoomRatio" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.FocalLengthIn35mmFilm" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SceneCaptureType" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.GainControl" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.Contrast" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.Saturation" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.Sharpness" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.DeviceSettingDescription" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.SubjectDistanceRange" ) );
-    res.insert( QString::fromLatin1( "Exif.Photo.ImageUniqueID" ) );
-    res.insert( QString::fromLatin1( "Exif.Iop.InteroperabilityIndex" ) );
-    res.insert( QString::fromLatin1( "Exif.Iop.InteroperabilityVersion" ) );
-    res.insert( QString::fromLatin1( "Exif.Iop.RelatedImageFileFormat" ) );
-    res.insert( QString::fromLatin1( "Exif.Iop.RelatedImageWidth" ) );
-    res.insert( QString::fromLatin1( "Exif.Iop.RelatedImageLength" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSVersionID" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSLatitudeRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSLatitude" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSLongitudeRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSLongitude" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSAltitudeRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSAltitude" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSTimeStamp" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSSatellites" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSStatus" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSMeasureMode" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDOP" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSSpeedRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSSpeed" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSTrackRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSTrack" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSImgDirectionRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSImgDirection" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSMapDatum" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestLatitudeRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestLatitude" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestLongitudeRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestLongitude" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestBearingRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestBearing" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestDistanceRef" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDestDistance" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSProcessingMethod" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSAreaInformation" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDateStamp" ) );
-    res.insert( QString::fromLatin1( "Exif.GPSInfo.GPSDifferential" ) );
+    if ( !res.empty() )
+        return res;
 
-    // Panasonic Makernote
-    res.insert( QString::fromLatin1( "Exif.Panasonic.Quality" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.FirmwareVersion" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.WhiteBalance" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x0004" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.FocusMode" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.SpotMode" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.ImageStabilizer" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.Macro" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.ShootingMode" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.Audio" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.DataDump" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x0022" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.WhiteBalanceBias" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.FlashBias" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.SerialNumber" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x0026" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x0027" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.ColorEffect" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x0029" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.BurstMode" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.SequenceNumber" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.Contrast" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.NoiseReduction" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.SelfTimer" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x002f" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.Rotation" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x0031" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.ColorMode" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.TravelDay" ) );
-    res.insert( QString::fromLatin1( "Exif.Minolta.PrintIM" ) );
-    res.insert( QString::fromLatin1( "Exif.Panasonic.0x4449" ) );
+    QList<const Exiv2::TagInfo*> tags;
+    tags <<
+        Exiv2::ExifTags::ifdTagList() <<
+        Exiv2::ExifTags::exifTagList() <<
+        Exiv2::ExifTags::iopTagList() <<
+        Exiv2::ExifTags::gpsTagList();
+    for (QList<const Exiv2::TagInfo*>::iterator it = tags.begin(); it != tags.end(); ++it ) {
+        while ( (*it)->tag_ != 0xffff ) {
+            res.insert( Exiv2::ExifKey( (*it)->tag_, Exiv2::ExifTags::ifdItem( (*it)->ifdId_ ) ).key().c_str() );
+            ++(*it);
+        }
+    }
 
-    // Canon Makernote
-    res.insert( QString::fromLatin1( "Exif.Canon.0x0000" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.CameraSettings" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.0x0002" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.0x0003" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.ShotInfo" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.Panorama" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.ImageType" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.FirmwareVersion" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.ImageNumber" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.OwnerName" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.SerialNumber" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.0x000d" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.CustomFunctions" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.PictureInfo" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.WhiteBalanceTable" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.0x00b5" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.0x00c0" ) );
-    res.insert( QString::fromLatin1( "Exif.Canon.0x00c1" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.Macro" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.Selftimer" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.Quality" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.FlashMode" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.DriveMode" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0006" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.FocusMode" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0008" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0009" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.ImageSize" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.EasyMode" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.DigitalZoom" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.Contrast" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.Saturation" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.Sharpness" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.ISOSpeed" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.MeteringMode" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.FocusType" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.AFPoint" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.ExposureProgram" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0015" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0016" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.Lens" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0018" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0019" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x001a" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x001b" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.FlashActivity" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.FlashDetails" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x001e" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x001f" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.FocusContinuous" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.AESetting" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.ImageStabilization" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.DisplayAperture" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.ZoomSourceWidth" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.ZoomTargetWidth" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0026" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0027" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.PhotoEffect" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.0x0029" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCs.ColorTone" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0001" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.ISOSpeed" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0003" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.TargetAperture" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.TargetShutterSpeed" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0006" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.WhiteBalance" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0008" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.Sequence" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x000a" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x000b" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x000c" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x000d" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.AFPointUsed" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.FlashBias" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0010" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0011" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0012" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.SubjectDistance" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0014" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.ApertureValue" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.ShutterSpeedValue" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0017" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0018" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x0019" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonSi.0x001a" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPa.PanoramaFrame" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPa.PanoramaDirection" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.NoiseReduction" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.ShutterAeLock" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.MirrorLockup" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.ExposureLevelIncrements" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.AFAssist" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.FlashSyncSpeedAv" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.AEBSequence" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.ShutterCurtainSync" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.LensAFStopButton" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.FillFlashAutoReduction" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.MenuButtonReturn" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.SetButtonFunction" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.SensorCleaning" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.SuperimposedDisplay" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonCf.ShutterReleaseNoCFCard" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPi.ImageWidth" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPi.ImageHeight" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPi.ImageWidthAsShot" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPi.ImageHeightAsShot" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPi.AFPointsUsed" ) );
-    res.insert( QString::fromLatin1( "Exif.CanonPi.AFPointsUsed20D" ) );
+    // Now the ugly part -- exiv2 doesn't have any way to get a list of
+    // MakerNote tags in a reasonable form, so we have to parse it from strings
+    
+    std::ostringstream s;
+    for ( Exiv2::IfdId kind = Exiv2::canonIfdId; kind < Exiv2::lastIfdId;
+            kind = static_cast<Exiv2::IfdId>( kind + 1 ) ) {
+        Exiv2::ExifTags::makerTaglist( s, kind );
+    }
+
+    QStringList lines = QString( s.str().c_str() ).split( '\n' );
+    for ( QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it ) {
+        if ( it->isEmpty() )
+            continue;
+        QStringList fields = it->split( '\t' );
+        if ( fields.size() != 7 ) {
+            kDebug() << "Unparsable output from exiv2 library: " << *it;
+            continue;
+        }
+        QString id = fields[4];
+        if ( id.endsWith( ',' ) )
+            id.chop(1);
+        res.insert( id );
+    }
 
     return res;
 }

@@ -66,6 +66,7 @@ void Exif::TreeView::setSelected( const StringSet& selected )
 void Exif::TreeView::reload()
 {
     clear();
+    setRootIsDecorated( true );
     StringSet keys = Exif::Info::instance()->availableKeys();
 
     QMap<QString, Q3CheckListItem*> tree;

@@ -36,14 +36,9 @@ QMap<QString, QString> Info::info( const QString& fileName, StringSet wantedKeys
     QMap<QString, QString> result;
 
     try {
-        Exiv2::ExifData data = exifData( fileName );
-        if (data.empty()) {
-            return result;
-        }
+        Metadata data = metadata( fileName );
 
-        Exiv2::ExifData::const_iterator end = data.end();
-
-        for (Exiv2::ExifData::const_iterator i = data.begin(); i != end; ++i) {
+        for (Exiv2::ExifData::const_iterator i = data.exif.begin(); i != data.exif.end(); ++i) {
             QString key = QString::fromLocal8Bit(i->key().c_str());
             _keys.insert( key );
 
@@ -57,6 +52,28 @@ QMap<QString, QString> Info::info( const QString& fileName, StringSet wantedKeys
                 stream << *i;
                 str = stream.str();
                 result.insert( text, QString::fromLocal8Bit(str.c_str()) );
+            }
+        }
+
+        for (Exiv2::IptcData::const_iterator i = data.iptc.begin(); i != data.iptc.end(); ++i) {
+            QString key = QString::fromLatin1(i->key().c_str());
+            _keys.insert( key );
+
+            if ( wantedKeys.contains( key ) ) {
+                QString text = key;
+                if ( !returnFullExifName )
+                    text = QStringList::split( QString::fromLatin1("."), key ).last();
+
+                std::ostringstream stream;
+                stream << *i;
+                /*
+                FIXME: charset conversion...
+                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                if ( result.contains( text ) )
+                    result[ text ] += str;
+                else
+                    result.insert( text, str );*/
+                result.insert( text, QString::fromLocal8Bit(stream.str().c_str()) );
             }
         }
     }
@@ -117,21 +134,29 @@ StringSet Info::standardKeys()
         Exiv2::ExifTags::makerTaglist( s, kind );
     }
 
+    // IPTC tags use yet another format...
+    Exiv2::IptcDataSets::dataSetList( s );
+
     QStringList lines = QString( s.str().c_str() ).split( '\n' );
     for ( QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it ) {
         if ( it->isEmpty() )
             continue;
         QStringList fields = it->split( '\t' );
-        if ( fields.size() != 7 ) {
-            kDebug() << "Unparsable output from exiv2 library: " << *it;
-            continue;
+        if ( fields.size() == 7 ) {
+            QString id = fields[4];
+            if ( id.endsWith( ',' ) )
+                id.chop(1);
+            res.insert( id );
+        } else {
+            fields = it->split( ", " );
+            if ( fields.size () >= 11 ) {
+                res.insert( fields[8] );
+            } else {
+                kDebug() << "Unparsable output from exiv2 library: " << *it;
+                continue;
+            }
         }
-        QString id = fields[4];
-        if ( id.endsWith( ',' ) )
-            id.chop(1);
-        res.insert( id );
     }
-
     return res;
 }
 
@@ -176,18 +201,21 @@ QString Exif::Info::exifInfoFile( const QString& fileName )
     return fileName;
 }
 
-Exiv2::ExifData Exif::Info::exifData( const QString& fileName )
+Exif::Metadata Exif::Info::metadata( const QString& fileName )
 {
     try {
+        Exif::Metadata result;
         Exiv2::Image::AutoPtr image =
             Exiv2::ImageFactory::open( QFile::encodeName(fileName).data() );
         Q_ASSERT(image.get() != 0);
         image->readMetadata();
-
-        return image->exifData();
+        result.exif = image->exifData();
+        result.iptc = image->iptcData();
+        result.comment = image->comment();
+        return result;
     }
     catch ( ... ) {
     }
-    return Exiv2::ExifData();
+    return Exif::Metadata();
 }
 

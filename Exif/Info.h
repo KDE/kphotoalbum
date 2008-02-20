@@ -21,10 +21,18 @@
 #include <qstringlist.h>
 #include "Utilities/Set.h"
 #include <exiv2/exif.hpp>
+#include <exiv2/iptc.hpp>
 
 namespace Exif {
 
 using Utilities::StringSet;
+
+
+struct Metadata {
+    Exiv2::ExifData exif;
+    Exiv2::IptcData iptc;
+    std::string comment;
+};
 
 class Info {
 public:
@@ -36,7 +44,7 @@ public:
     StringSet availableKeys();
     StringSet standardKeys();
     void writeInfoToFile( const QString& srcName, const QString& destName );
-    Exiv2::ExifData exifData( const QString& fileName );
+    Metadata metadata( const QString& fileName );
 
 protected:
     QString exifInfoFile( const QString& fileName );

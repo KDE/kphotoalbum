@@ -49,7 +49,7 @@ DB::FileInfo::FileInfo( const QString& fileName )
 #ifdef HAVE_EXIV2
 void DB::FileInfo::parseEXIV2( const QString& fileName )
 {
-    Exiv2::ExifData map = Exif::Info::instance()->exifData( fileName );
+    Exiv2::ExifData map = Exif::Info::instance()->metadata( fileName ).exif;
 
     // Date
     _date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );

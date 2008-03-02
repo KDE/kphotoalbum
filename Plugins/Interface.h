@@ -24,6 +24,8 @@
 #include <q3valuelist.h>
 #include <libkipi/imagecollection.h>
 #include <libkipi/imageinfo.h>
+#include <libkipi/imagecollectionselector.h>
+#include <libkipi/uploadwidget.h>
 #include <kurl.h>
 #include <kdemacros.h>
 
@@ -44,6 +46,8 @@ public:
     virtual void delImage( const KUrl& );
     virtual void refreshImages( const KUrl::List& urls );
     virtual int features() const;
+    virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent);
+    virtual KIPI::UploadWidget* uploadWidget(QWidget *parent);
 
 public slots:
     void slotSelectionChanged( bool );

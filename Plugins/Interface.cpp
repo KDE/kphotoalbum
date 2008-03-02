@@ -133,5 +133,15 @@ void Plugins::Interface::pathChanged( const QString& path )
     }
 }
 
+KIPI::ImageCollectionSelector* Plugins::Interface::imageCollectionSelector(QWidget *parent)
+{
+  //TODO
+}
+
+KIPI::UploadWidget* Plugins::Interface::uploadWidget(QWidget *parent)
+{
+   //TODO
+}
+
 #include "Interface.moc"
 #endif // KIPI

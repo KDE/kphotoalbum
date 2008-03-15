@@ -32,9 +32,9 @@ using namespace Exif;
 
 Info* Info::_instance = 0;
 
-QMap<QString, QString> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName )
+QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset )
 {
-    QMap<QString, QString> result;
+    QMap<QString, QStringList> result;
 
     try {
         Metadata data = metadata( fileName );
@@ -48,11 +48,13 @@ QMap<QString, QString> Info::info( const QString& fileName, StringSet wantedKeys
                 if ( !returnFullExifName )
                     text = key.split(QLatin1String(".")).last();
 
-                std::string str;
                 std::ostringstream stream;
                 stream << *i;
-                str = stream.str();
-                result.insert( text, QString::fromLocal8Bit(str.c_str()) );
+                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                if ( result.contains( text ) )
+                    result[ text ] += str;
+                else
+                    result.insert( text, QStringList( str ) );
             }
         }
 
@@ -67,12 +69,8 @@ QMap<QString, QString> Info::info( const QString& fileName, StringSet wantedKeys
 
                 std::ostringstream stream;
                 stream << *i;
-                // FIXME: charset conversion...
-                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), Settings::SettingsData::instance()->iptcCharset() ) );
-                if ( result.contains( text ) )
-                    result[ text ] += str;
-                else
-                    result.insert( text, str );
+                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                result[ text ] += str;
             }
         }
     }
@@ -94,14 +92,14 @@ StringSet Info::availableKeys()
     return _keys;
 }
 
-QMap<QString, QString> Info::infoForViewer( const QString& fileName )
+QMap<QString, QStringList> Info::infoForViewer( const QString& fileName, const QString& charset )
 {
-    return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(), false );
+    return info( fileName, ::Settings::SettingsData::instance()->exifForViewer(), false, charset );
 }
 
-QMap<QString, QString> Info::infoForDialog( const QString& fileName )
+QMap<QString, QStringList> Info::infoForDialog( const QString& fileName, const QString& charset )
 {
-    return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true);
+    return info( fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset );
 }
 
 StringSet Info::standardKeys()

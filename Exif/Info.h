@@ -38,9 +38,9 @@ class Info {
 public:
     Info();
     static Info* instance();
-    QMap<QString, QString> info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName );
-    QMap<QString, QString> infoForViewer( const QString& fileName );
-    QMap<QString, QString> infoForDialog( const QString& fileName );
+    QMap<QString, QStringList> info( const QString& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset );
+    QMap<QString, QStringList> infoForViewer( const QString& fileName, const QString& charset );
+    QMap<QString, QStringList> infoForDialog( const QString& fileName, const QString& charset );
     StringSet availableKeys();
     StringSet standardKeys();
     void writeInfoToFile( const QString& srcName, const QString& destName );

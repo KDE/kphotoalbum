@@ -148,10 +148,31 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
 #ifdef HAVE_EXIV2
     QString exifText;
     if ( Settings::SettingsData::instance()->showEXIF() ) {
-        QMap<QString,QString> exifMap = Exif::Info::instance()->infoForViewer( info->fileName() );
-        for( QMap<QString,QString>::Iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
-            exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg( exifIt.key() ).arg( exifIt.value() );
+        QMap<QString,QStringList> exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), Settings::SettingsData::instance()->iptcCharset() );
+        for( QMap<QString,QStringList>::const_iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+            if ( exifIt.key().startsWith( QString::fromAscii( "Exif." ) ) )
+                for ( QStringList::const_iterator valuesIt = exifIt.data().begin(); valuesIt != exifIt.data().end(); ++valuesIt )
+                    exifText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg(
+                            QStringList::split( QString::fromLatin1("."), exifIt.key() ).last()
+                            ).arg( *valuesIt );
         }
+
+        QString iptcText;
+        for( QMap<QString,QStringList>::const_iterator exifIt = exifMap.begin(); exifIt != exifMap.end(); ++exifIt ) {
+            if ( !exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
+                for ( QStringList::const_iterator valuesIt = exifIt.data().begin(); valuesIt != exifIt.data().end(); ++valuesIt )
+                    iptcText += QString::fromLatin1( "<b>%1: </b> %2<br>" ).arg(
+                            QStringList::split( QString::fromLatin1("."), exifIt.key() ).last()
+                        ).arg( *valuesIt );
+        }
+
+        if ( !iptcText.isEmpty() ) {
+            if ( exifText.isEmpty() )
+                exifText = iptcText;
+            else
+                exifText += QString::fromLatin1( "<hr>" ) + iptcText;
+        }
+
     }
 
     if ( !text.isEmpty() && !exifText.isEmpty() )

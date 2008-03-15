@@ -1,3 +1,7 @@
+2008-03-15  Jan Kundrat  <jkt@gentoo.org>
+
+	* Support different charsets when displaying EXIF/IPTC metadata
+
 2008-02-20  Jan Kundrat  <jkt@gentoo.org>
 
 	* Get list of supported Exif tags directly from the Exiv2 library.

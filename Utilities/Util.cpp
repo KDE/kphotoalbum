@@ -682,6 +682,14 @@ QImage Utilities::scaleImage(const QImage &image, const QSize& s, Qt::AspectRati
     return scaleImage( image, s.width(), s.height(), mode );
 }
 
+QString Utilities::cStringWithEncoding( const char *c_str, const QString& charset )
+{
+    QTextCodec* codec = QTextCodec::codecForName( charset.ascii() );
+    if (!codec)
+        codec = QTextCodec::codecForLocale();
+    return codec->toUnicode( c_str );
+}
+
 DB::MD5 Utilities::MD5Sum( const QString& fileName )
 {
     QFile file( fileName );

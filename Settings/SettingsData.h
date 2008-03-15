@@ -166,6 +166,7 @@ public:
 #ifdef HAVE_EXIV2
     stringSetProperty( EXIF, exifForViewer, setExifForViewer, StringSet() );
     stringSetProperty( EXIF, exifForDialog, setExifForDialog, Exif::Info::instance()->standardKeys() );
+    stringProperty( EXIF, iptcCharset, setIptcCharset, QString::null );
 #endif
 
     // -------------------------------------------------- SQLDB

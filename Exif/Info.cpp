@@ -26,6 +26,7 @@
 #include <qfileinfo.h>
 #include <QFile>
 #include <kdebug.h>
+#include "Utilities/Util.h"
 
 using namespace Exif;
 
@@ -66,14 +67,12 @@ QMap<QString, QString> Info::info( const QString& fileName, StringSet wantedKeys
 
                 std::ostringstream stream;
                 stream << *i;
-                /*
-                FIXME: charset conversion...
-                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                // FIXME: charset conversion...
+                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), Settings::SettingsData::instance()->iptcCharset() ) );
                 if ( result.contains( text ) )
                     result[ text ] += str;
                 else
-                    result.insert( text, str );*/
-                result.insert( text, QString::fromLocal8Bit(stream.str().c_str()) );
+                    result.insert( text, str );
             }
         }
     }

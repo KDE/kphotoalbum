@@ -498,6 +498,7 @@ void Settings::SettingsDialog::show()
     _exifForDialog->reload();
     _exifForViewer->setSelected( Settings::SettingsData::instance()->exifForViewer() );
     _exifForDialog->setSelected( Settings::SettingsData::instance()->exifForDialog() );
+    _iptcCharset->setCurrentItem( qMax( 0, QTextCodec::availableCodecs().indexOf( opt->iptcCharset().toAscii() ) ) );
 #endif
 
     QString backend = Settings::SettingsData::instance()->backend();
@@ -592,6 +593,7 @@ void Settings::SettingsDialog::slotMyOK()
 #ifdef HAVE_EXIV2
     opt->setExifForViewer( _exifForViewer->selected() ) ;
     opt->setExifForDialog( _exifForDialog->selected() ) ;
+    opt->setIptcCharset( _iptcCharset->currentText() );
 #endif
 
     // SQLDB
@@ -1024,18 +1026,34 @@ void Settings::SettingsDialog::createEXIFPage()
 {
 #ifdef HAVE_EXIV2
     QWidget* top = new QWidget;
-    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("EXIF Information" ) );
+    KPageWidgetItem* page = new KPageWidgetItem( top, i18n("EXIF/IPTC Information" ) );
     page->setHeader( i18n("EXIF Information" ) );
     page->setIcon( KIcon( QString::fromLatin1( "document-properties" ) ) );
     addPage( page );
 
-    QHBoxLayout* lay1 = new QHBoxLayout( top );
+    QVBoxLayout* vlay = new QVBoxLayout( top );
+    QHBoxLayout* hlay1 = new QHBoxLayout();
+    QHBoxLayout* hlay2 = new QHBoxLayout();
+    vlay->addLayout( hlay1 );
+    vlay->addLayout( hlay2 );
 
-    _exifForViewer = new Exif::TreeView( i18n( "EXIF info to show in the Viewer" ), top );
-    lay1->addWidget( _exifForViewer );
+    _exifForViewer = new Exif::TreeView( i18n( "EXIF/IPTC info to show in the Viewer" ), top );
+    hlay1->addWidget( _exifForViewer );
 
-    _exifForDialog = new Exif::TreeView( i18n("EXIF info to show in the EXIF dialog"), top );
-    lay1->addWidget( _exifForDialog );
+    _exifForDialog = new Exif::TreeView( i18n("EXIF/IPTC info to show in the EXIF dialog"), top );
+    hlay1->addWidget( _exifForDialog );
+
+    QLabel* _iptcCharsetLabel = new QLabel( i18n("Character set for image metadata:"), top, "iptcCharsetLabel" );
+    _iptcCharset = new QComboBox( top );
+    QStringList _charsets;
+    QList<QByteArray> _charsetsBA = QTextCodec::availableCodecs();
+    for (QList<QByteArray>::const_iterator it = _charsetsBA.begin(); it != _charsetsBA.end(); ++it )
+        _charsets << *it;
+    _iptcCharset->insertStringList( _charsets );
+
+    hlay2->addStretch( 1 );
+    hlay2->addWidget( _iptcCharsetLabel );
+    hlay2->addWidget( _iptcCharset );
 #endif
 }
 

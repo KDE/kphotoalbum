@@ -68,6 +68,8 @@ QString stripImageDirectory( const QString& fileName );
 QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 
+QString cStringWithEncoding( const char *c_str, const QString& charset );
+
 DB::MD5 MD5Sum( const QString& fileName );
 }
 

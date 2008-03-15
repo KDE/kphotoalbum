@@ -96,7 +96,7 @@ void RAWImageDecoder::_initializeExtensionLists()
   static bool extensionListsInitialized = 0;
   if (! extensionListsInitialized) {
 #ifdef HAVE_KDCRAW
-      _rawExtensions = QStringList::split( ' ', QString::fromAscii(raw_file_extentions) );
+      _rawExtensions = QString::fromAscii( raw_file_extentions ).split( ' ' );
 #endif /* HAVE_KDCRAW */
       for (QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it)
           (*it).remove( QString::fromAscii("*.") );

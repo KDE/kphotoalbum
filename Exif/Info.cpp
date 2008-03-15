@@ -51,10 +51,7 @@ QMap<QString, QStringList> Info::info( const QString& fileName, StringSet wanted
                 std::ostringstream stream;
                 stream << *i;
                 QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
-                if ( result.contains( text ) )
-                    result[ text ] += str;
-                else
-                    result.insert( text, QStringList( str ) );
+                result[ text ] += str;
             }
         }
 
